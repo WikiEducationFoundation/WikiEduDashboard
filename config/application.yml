@@ -1,0 +1,5 @@
+# Add configuration values here
+# 
+# Values required for WikiEduDashboard include:
+#   wikipedia_username: <your Wikipedia username>
+#   wikipedia_password: <your Wikipedia password>
