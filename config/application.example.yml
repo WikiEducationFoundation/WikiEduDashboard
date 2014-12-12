@@ -1,4 +1,6 @@
 # Add configuration values here
+#
+# Fulfill value requirements and save as application.yml
 # 
 # Values required for WikiEduDashboard include:
 #   wikipedia_username: <your Wikipedia username>
