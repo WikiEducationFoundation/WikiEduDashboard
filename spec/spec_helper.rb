@@ -91,4 +91,5 @@ VCR.configure do |c|
   c.hook_into :webmock # or :fakeweb
   c.default_cassette_options = { :record => :new_episodes }
   c.configure_rspec_metadata!
+  c.ignore_hosts 'tools.wmflabs.org'  # Allows RSPEC to test the availability of the Wikimedia Tools
 end

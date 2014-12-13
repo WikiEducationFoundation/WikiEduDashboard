@@ -27,6 +27,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rubocop'
   gem 'sqlite3'
+  gem 'zeus'
 end
 
 group :production do
