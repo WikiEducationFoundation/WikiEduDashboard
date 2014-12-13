@@ -7,6 +7,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'mediawiki-gateway'
 gem 'crack'
 gem 'figaro'
+gem 'whenever'
 
 group :development do
   gem 'better_errors'
