@@ -1,8 +1,17 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe Wiki do
 
   describe "API requests" do
+    it "should return course info for a certain course" do
+      VCR.use_cassette "wiki/course_data" do
+        response = Wiki.get_course_info 366
+        expect(response["name"]).to eq("Brock University/NUSC 1P10 Professional and Therapeutic Communications (Fall 2014)")
+        expect(response["start"]).to eq("2014-08-01")
+        expect(response["end"]).to eq("2014-12-31")
+      end
+    end
+
     it "should return student enrollment data for a certain course" do
       VCR.use_cassette "wiki/student_data" do
         response = Wiki.get_student_list 366
