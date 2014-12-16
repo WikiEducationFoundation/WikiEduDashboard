@@ -1,0 +1,2 @@
+$ ->
+  console.log 'Javascript initialized'

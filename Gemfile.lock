@@ -66,7 +66,11 @@ GEM
     debug_inspector (0.0.2)
     debugger-linecache (1.2.0)
     diff-lcs (1.2.5)
+    em-websocket (0.5.1)
+      eventmachine (>= 0.12.9)
+      http_parser.rb (~> 0.6.0)
     erubis (2.7.0)
+    eventmachine (1.0.3)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.5.0)
@@ -89,6 +93,10 @@ GEM
       guard (~> 2.2)
       guard-compat (~> 1.1)
     guard-compat (1.1.0)
+    guard-livereload (2.4.0)
+      em-websocket (~> 0.5)
+      guard (~> 2.8)
+      multi_json (~> 1.8)
     guard-rails (0.7.0)
       guard (~> 2.0)
     guard-rspec (4.4.1)
@@ -96,13 +104,11 @@ GEM
       rspec (>= 2.99.0, < 4.0)
     hike (1.2.3)
     hitimes (1.2.2)
+    http_parser.rb (0.6.0)
     i18n (0.6.11)
     jbuilder (2.2.5)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
-    jquery-rails (3.1.2)
-      railties (>= 3.0, < 5.0)
-      thor (>= 0.14, < 2.0)
     json (1.8.1)
     listen (2.8.3)
       celluloid (>= 0.15.2)
@@ -235,10 +241,10 @@ DEPENDENCIES
   faker
   figaro
   guard-bundler
+  guard-livereload
   guard-rails
   guard-rspec
   jbuilder (~> 2.0)
-  jquery-rails
   mediawiki-gateway
   pg
   quiet_assets

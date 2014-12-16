@@ -2,3 +2,4 @@ application.yml
 fixtures
 tmp
 node_modules
+vendor

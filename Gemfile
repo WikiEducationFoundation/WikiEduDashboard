@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 ruby '2.1.5'
 gem 'rails', '4.1.8'
-gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
 
 gem 'mediawiki-gateway'
@@ -16,6 +15,7 @@ group :development do
   gem 'guard-rails'
   gem 'guard-rspec'
   gem 'quiet_assets'
+  gem 'guard-livereload', :require=>false
   gem 'rb-fchange', :require=>false
   gem 'rb-fsevent', :require=>false
   gem 'rb-inotify', :require=>false

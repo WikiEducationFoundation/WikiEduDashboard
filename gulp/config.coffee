@@ -10,6 +10,9 @@ Config = ->
   # Source path
   @sourcePath = "app/assets"
 
+  # View path
+  @viewPath = "app/views"
+
   # Compile path
   @outputPath = "public/assets"
 
@@ -20,7 +23,7 @@ Config = ->
   @testPath = "test"
 
   # Directory where vendor files live
-  @vendorPath = "#{@sourcePath}/vendor"
+  @vendorPath = "vendor"
 
   # Name of JavaScript directory
   @jsDirectory = "javascripts"
