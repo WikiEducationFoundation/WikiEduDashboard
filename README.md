@@ -24,8 +24,6 @@ Project Setup
 
       $ bower install
 
-***
-
 Develop
 ------
 1. **Start Zeus**
