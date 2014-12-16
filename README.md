@@ -9,7 +9,6 @@ Requirements
  * **Node**
  * **NPM**
  * **Bower**
-***
 
 Project Setup
 ----------------
