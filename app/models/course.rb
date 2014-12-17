@@ -21,7 +21,10 @@ class Course < ActiveRecord::Base
     if data.blank?
       data = Wiki.get_course_info self.id
     end
-    self.title = data["name"]
+    course_info = data["name"].split(/(.*)\/(.*)\s\(([^\)]+)/)
+    self.school = course_info[1]
+    self.title = course_info[2]
+    self.term = course_info[3]
     self.start = data["start"].to_date
     self.end = data["end"].to_date
     if !data["students"].blank? && data["students"]["username"].kind_of?(Array)
