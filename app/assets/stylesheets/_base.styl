@@ -1,0 +1,75 @@
+/* /////////////////////////////////////////////////////
+
+BASE STYLES
+Only single elements. No classes or ids.
+
+///////////////////////////////////////////////////// */
+
+
+*
+  box-sizing border-box
+
+html
+  -webkit-text-size-adjust 100%
+  -webkit-font-smoothing antialiased
+  height 100%
+
+body
+  font-family body-font
+  width 100%
+  height 100%
+  color body-font-color
+
+main
+  center(max_width=800px)
+  margin 40px auto
+
+h1, h2, h3, h4, h5
+  margin 0
+
+h2
+  @extend .form-content
+
+h3
+  @extend .large-heading
+
+h4
+  @extend .medium-heading
+
+h5
+  @extend .small-heading
+
+p
+  @extend .body-content
+  margin 5px auto
+  color body-font-color
+
+  &:first-child
+    margin-top 0
+  &:last-child
+    margin-bottom 0
+  &.large
+    @extend .body-content--large
+
+li
+  @extend .body-content
+  margin-left 20px
+  margin-bottom 0.5em
+
+  &:first-child
+    margin-top 0
+  &.large
+    @extend .body-content--large
+
+ul
+  list-style disc
+
+a
+  color #636c8e
+  text-decoration none
+
+em
+  font-style italic
+
+select
+  font-family 'Droid Serif', serif

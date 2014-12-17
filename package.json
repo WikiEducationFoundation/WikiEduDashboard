@@ -36,7 +36,7 @@
     "gulp-watch": "^3.0.0",
     "gulp-webserver": "^0.8.2",
     "handleify": "^0.1.2",
-    "jeet": "^5.2.10",
+    "jeet": "^6.1.2",
     "lodash": "^2.4.1",
     "main-bower-files": "^2.0.0",
     "merge-stream": "^0.1.6",

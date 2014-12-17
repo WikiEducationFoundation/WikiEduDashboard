@@ -1,22 +1,26 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
- * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any styles
- * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
- * file per style scope.
- *
- *= require_tree .
- *= require_self
- */
+/* /////////////////////////////////////////////////////
 
+WikiEduDashboard styles
+Author: nate@wintr.us
 
-@import "_reset";
+///////////////////////////////////////////////////// */
 
-body {
-  background: white;
-}
+// Fonts
+body-font = 'Droid Serif', serif
+body-font-color = rgba(79,79,79,1.0)
+
+// Margin & Padding
+global-margin = 20px
+global-padding-mobile = 50px
+global-padding = 70px
+
+// Breakpoints
+tablet = 400px
+desktop = 800px
+wide-desktop = 1200px
+
+@import "../../../node_modules/jeet/stylus/jeet"
+@import "_reset"
+@import "_fonts"
+@import "_global"
+@import "_base"
