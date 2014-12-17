@@ -21,6 +21,7 @@ class Course < ActiveRecord::Base
     if data.blank?
       data = Wiki.get_course_info self.id
     end
+    # Assumes 'School/Class (Term)' format
     course_info = data["name"].split(/(.*)\/(.*)\s\(([^\)]+)/)
     self.school = course_info[1]
     self.title = course_info[2]
