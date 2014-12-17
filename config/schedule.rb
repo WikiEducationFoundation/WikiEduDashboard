@@ -18,3 +18,7 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
+
+ever 2.hours do
+  rake "course:update_courses"
+end
