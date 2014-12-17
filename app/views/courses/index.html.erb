@@ -1,0 +1,8 @@
+<h2>Current Courses</h2>
+<br>
+
+<ul>
+<% @courses.each do |c| %>
+  <li><%= link_to c.title, course_path(c) %></li>
+<% end %>
+</ul>

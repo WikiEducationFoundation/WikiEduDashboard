@@ -1,3 +1,7 @@
 Rails.application.routes.draw do
-  root to: 'visitors#index'
+
+  resources :courses
+
+  root to: 'courses#index'
+  
 end

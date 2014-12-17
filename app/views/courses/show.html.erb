@@ -1,0 +1,10 @@
+<h2><%= @course.title %></h2>
+<br>
+<p><%= link_to 'Back to index', root_url %>
+<br><br>
+
+<ul>
+<% @students.each do |s| %>
+  <li><%= s.wiki_id %></li>
+<% end %>
+</ul>

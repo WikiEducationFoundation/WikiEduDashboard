@@ -39,7 +39,7 @@ class Course < ActiveRecord::Base
       courses.push(*info)
     end
     courses.each do |c|
-      course = Course.find_or_initialize_by(id: c[:id])
+      course = Course.find_or_create_by(id: c["id"])
       course.update c
     end
   end
