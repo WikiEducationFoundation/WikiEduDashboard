@@ -8,8 +8,8 @@ class Course < ActiveRecord::Base
     end
     unless all_participants.blank?
       all_participants.each do |p|
-        user = User.find_or_initialize_by(wiki_id: p)
-        unless user.courses.any? {|course| course.title == self.title }
+        user = User.find_or_create_by(wiki_id: p)
+        unless user.courses.any? {|course| course.id == self.id }
           user.courses << self
         end
         user.save
