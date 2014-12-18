@@ -1,4 +1,29 @@
 class Revision < ActiveRecord::Base
   belongs_to :user
   belongs_to :article
+
+  def update(data={})
+    if data.blank?
+      # Implement method for single-revision lookup
+    end
+
+    self.date = data["rev_timestamp"].to_date
+    self.characters = data["byte_change"]
+    self.user = User.find_by(wiki_id: data["rev_user_text"])
+    self.article = Article.find_by(id: data["page_id"])
+    self.save
+  end
+
+  # Class methods
+  def self.update_all_revisions
+    revisions = Utils.chunk_requests(User.all, 100) { |block|
+      Replica.get_revisions_this_term_by_users block
+    }
+    revisions.each do |r|
+      article = Article.find_or_create_by(id: r["page_id"])
+      article.update r
+      revision = Revision.find_or_create_by(id: r["rev_id"])
+      revision.update r
+    end
+  end
 end

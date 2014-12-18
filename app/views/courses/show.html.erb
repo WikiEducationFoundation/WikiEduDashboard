@@ -1,12 +1,13 @@
 <h4><%= @course.title %></h4>
 <h5><%= @course.school %></h5>
 <h5><%= @course.term %></h5>
-<h5>Total participants: <%= @students.count %></h5>
-<br>
-<p><%= link_to 'Back to index', root_url %>
-<br><br>
+<h5><%= @course.revisions.sum(:characters) %> characters</h5>
+<h5>Total participants: <%= @students.count %></h5><br>
+
+<p><%= link_to 'Back to index', root_url %><br><br>
+
 <ul>
 <% @students.each do |s| %>
-  <li><%= s.wiki_id %></li>
+  <li><%= link_to s.wiki_id, s.contribution_url, :target => "_blank" %></li>
 <% end %>
 </ul>

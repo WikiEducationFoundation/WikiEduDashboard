@@ -27,8 +27,8 @@ describe Wiki do
     end
   end
 
-  describe "API response parsing" do
 
+  describe "API response parsing" do
     it "should return the number of students in a course" do
       VCR.use_cassette "wiki/student_data" do
         response = Wiki.get_student_count_in_course 366
@@ -51,8 +51,8 @@ describe Wiki do
         expect(response["comment"]).to include("versions of the same interwiki link")
       end
     end
-
   end
+
 
   describe "Public methods" do
 

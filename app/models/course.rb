@@ -2,8 +2,8 @@ class Course < ActiveRecord::Base
   has_and_belongs_to_many :users
   has_many :revisions, through: :users
   has_many :articles, through: :revisions
-  has_many :assignments
-  has_many :assigned_articles, through: :assignments, :class_name => "Article"
+  # has_many :assignments
+  # has_many :assigned_articles, -> { uniq }, through: :assignments, :class_name => "Article"
 
   # Instance methods
   def update_participants(all_participants=[])
@@ -40,12 +40,7 @@ class Course < ActiveRecord::Base
 
   # Class methods
   def self.update_all_courses
-    course_id_blocks = ::CourseList.all.each_slice(50).to_a
-    courses = []
-    course_id_blocks.each do |cib|
-      info = Wiki.get_course_info cib
-      courses.push(*info)
-    end
+    courses = Utils.chunk_requests(CourseList.all) {|block| Wiki.get_course_info block}
     courses.each do |c|
       course = Course.find_or_create_by(id: c["id"])
       course.update c

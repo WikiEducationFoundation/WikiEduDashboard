@@ -8,7 +8,7 @@ namespace :course do
   end
 
   task :update_participants => :environment do
-    Course.update_participants
+    # Course.update_participants # Implement method for updating participants of all courses (maybe?)
   end
 
 end

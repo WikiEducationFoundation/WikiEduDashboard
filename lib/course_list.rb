@@ -1,5 +1,13 @@
 class CourseList
 
+  def self.start
+    "20140801"
+  end
+
+  def self.end
+    "20141231"
+  end
+
   def self.all
     [ 366,
       406,
