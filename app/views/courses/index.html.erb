@@ -1,7 +1,27 @@
-<h4>Current Courses &mdash; Fall 2014</h4><br>
+<header>
+  <h3>WikiEdu Dashboard</h3>
+  <p>Some subtext here</p>
+  <div class="stat-display">
+    <div class="stat-display__stat"><h4><%= number_to_human @courses.count %></h4> WikiEdu Courses</div>
+    <div class="stat-display__stat"><h4><%= number_to_human @users.count %></h4> Student Editors</div>
+    <div class="stat-display__stat"><h4><%= number_to_human @revisions.sum(:characters) %></h4> Characters Added</div>
+    <div class="stat-display__stat"><h4><%= number_to_human @articles.sum(:views) %></h4> Article Views</div>
+  </div>
+</header>
 
-<ul>
-<% @courses.each do |c| %>
-  <li><%= link_to c.title, course_path(c) %></li>
-<% end %>
-</ul>
+<section>
+  <h4>All Current Courses &mdash; Fall 2014</h4><br>
+
+  <ul class="list">
+    <li class="row course-list__row">
+      <div class="course-list__row__title">Current Courses</div>
+      <div class="course-list__row__characters">Characters Added</div>
+      <div class="course-list__row__views">Views</div>
+      <div class="course-list__row__students">Students</div>
+      <div class="course-list__row__link"></div>
+    </li>
+  <% @courses.each do |c| %>
+    <%= render :partial => 'row', :locals => {:course => c} %>
+  <% end %>
+  </ul>
+</section>

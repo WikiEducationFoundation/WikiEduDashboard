@@ -1,13 +1,24 @@
-<h4><%= @course.title %></h4>
-<h5><%= @course.school %></h5>
-<h5><%= @course.term %></h5>
-<h5><%= @course.revisions.sum(:characters) %> characters</h5>
-<h5>Total participants: <%= @students.count %></h5><br>
+<header>
+  <h3><%= @course.title %></h3>
+  <p><%= @course.start %> &mdash; <%= @course.end %></p>
+  <div class="stat-display">
+    <div class="stat-display__stat"><h4><%= number_to_human @course.articles.count %></h4> Articles Edited</div>
+    <div class="stat-display__stat"><h4><%= number_to_human @course.users.count %></h4> Student Editors</div>
+    <div class="stat-display__stat"><h4><%= number_to_human @course.revisions.sum(:characters) %></h4> Characters Added</div>
+    <div class="stat-display__stat"><h4><%= number_to_human @course.articles.sum(:views) %></h4> Article Views</div>
+  </div>
+</header>
 
-<p><%= link_to 'Back to index', root_url %><br><br>
-
-<ul>
-<% @students.each do |s| %>
-  <li><%= link_to s.wiki_id, s.contribution_url, :target => "_blank" %></li>
-<% end %>
-</ul>
+<section>
+  <ul class="list">
+    <li class="row user-list__row">
+      <div class="user-list__row__name">Name</div>
+      <div class="user-list__row__training">Completed training</div>
+      <div class="user-list__row__revisions">Characters added</div>
+      <div class="user-list__row__link"></div>
+    </li>
+  <% @students.each do |s| %>
+    <%= render :partial => 'users/row', :locals => {:user => s} %>
+  <% end %>
+  </ul>
+</section>

@@ -12,11 +12,16 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <header>
-      <a class="main-logo" href="http://wikiedu.org" target="_blank" title="wikiedu.org">WIKIEDU.ORG</a>
-    </header>
+    <aside>
+      <header>
+        <a class="main-logo" href="http://wikiedu.org" target="_blank" title="wikiedu.org">WIKIEDU.ORG</a>
+      </header>
+      <nav>
+        <div class="nav__item"><%= link_to 'Global Dashboard', root_url %></div>
+      </nav>
+    </aside>
     <main role="main">
-       <%= yield %>
+      <%= yield %>
     </main>
   </body>
 </html>
