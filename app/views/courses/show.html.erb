@@ -4,8 +4,8 @@
   <div class="stat-display">
     <div class="stat-display__stat"><h4><%= number_to_human @course.articles.count %></h4> Articles Edited</div>
     <div class="stat-display__stat"><h4><%= number_to_human @course.users.count %></h4> Student Editors</div>
-    <div class="stat-display__stat"><h4><%= number_to_human @course.revisions.sum(:characters) %></h4> Characters Added</div>
-    <div class="stat-display__stat"><h4><%= number_to_human @course.articles.sum(:views) %></h4> Article Views</div>
+    <div class="stat-display__stat"><h4><%= number_to_human @course.character_sum %></h4> Characters Added</div>
+    <div class="stat-display__stat"><h4><%= number_to_human @course.view_sum %></h4> Article Views</div>
   </div>
 </header>
 

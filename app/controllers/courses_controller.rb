@@ -1,6 +1,6 @@
 class CoursesController < ApplicationController
   def index
-    @courses = Course.all.limit(5)
+    @courses = Course.all
     @users = User.all
     @revisions = Revision.all
     @articles = Article.all

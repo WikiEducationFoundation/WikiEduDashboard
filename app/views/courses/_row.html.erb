@@ -1,7 +1,7 @@
 <li class="row course-list__row">
   <div class="course-list__row__title"><h5><%= course.title %></div>
-  <div class="course-list__row__characters"><%= course.revisions.sum(:characters) %></div>
-  <div class="course-list__row__views"><%= course.articles.sum(:views) %></div>
+  <div class="course-list__row__characters"><%= course.character_sum %></div>
+  <div class="course-list__row__views"><%= course.view_sum %></div>
   <div class="course-list__row__students"><%= course.users.count %></div>
   <div class="course-list__row__link"><%= link_to 'View Course', course_path(course) %></div>
 </li>

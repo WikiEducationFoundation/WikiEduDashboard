@@ -11,13 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141218225348) do
+ActiveRecord::Schema.define(version: 20141219154954) do
 
   create_table "articles", force: true do |t|
     t.string   "title"
     t.integer  "views"
     t.datetime "updated_at"
     t.datetime "created_at"
+    t.integer  "character_sum"
   end
 
   create_table "assignments", force: true do |t|
@@ -33,6 +34,8 @@ ActiveRecord::Schema.define(version: 20141218225348) do
     t.date     "end"
     t.string   "school"
     t.string   "term"
+    t.integer  "character_sum"
+    t.integer  "view_sum"
   end
 
   create_table "courses_users", id: false, force: true do |t|
@@ -55,6 +58,8 @@ ActiveRecord::Schema.define(version: 20141218225348) do
     t.string   "wiki_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "character_sum"
+    t.integer  "view_sum"
   end
 
 end

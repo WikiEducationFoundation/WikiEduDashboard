@@ -6,6 +6,14 @@ class Course < ActiveRecord::Base
   # has_many :assigned_articles, -> { uniq }, through: :assignments, :class_name => "Article"
 
   # Instance methods
+  def character_sum
+    read_attribute(:character_sum) || revisions.sum(:characters)
+  end
+
+  def view_sum
+    read_attribute(:view_sum) || articles.sum(:views)
+  end
+
   def update_participants(all_participants=[])
     if all_participants.blank?
       all_participants = Wiki.get_students_in_course self.id
@@ -38,12 +46,24 @@ class Course < ActiveRecord::Base
     self.save
   end
 
+  def update_cache
+    self.character_sum = self.revisions.sum(:characters)
+    self.view_sum = self.articles.sum(:views)
+    self.save
+  end
+
   # Class methods
   def self.update_all_courses
     courses = Utils.chunk_requests(CourseList.all) {|block| Wiki.get_course_info block}
     courses.each do |c|
       course = Course.find_or_create_by(id: c["id"])
       course.update c
+    end
+  end
+
+  def self.update_all_caches
+    Course.all.each do |c|
+      c.update_cache
     end
   end
 end

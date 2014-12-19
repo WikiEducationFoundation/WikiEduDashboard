@@ -1,6 +1,6 @@
 <li class="row user-list__row">
   <div class="user-list__row__name"><h5><%= user.wiki_id %></div>
   <div class="user-list__row__training">No</div>
-  <div class="user-list__row__revisions"><%= user.revisions.sum(:characters) %></div>
+  <div class="user-list__row__revisions"><%= user.character_sum %></div>
   <div class="user-list__row__link"><%= link_to 'View Edits', user.contribution_url, :target => "_blank" %></div>
 </li>
