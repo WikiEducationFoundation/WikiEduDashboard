@@ -3,5 +3,5 @@
   <div class="course-list__row__characters"><%= course.character_sum %></div>
   <div class="course-list__row__views"><%= course.view_sum %></div>
   <div class="course-list__row__students"><%= course.user_count %></div>
-  <div class="course-list__row__link"><%= link_to 'View Course', course_path(course) %></div>
+  <div class="course-list__row__link"><%= link_to 'View Course', course_path(course.slug) %></div>
 </li>

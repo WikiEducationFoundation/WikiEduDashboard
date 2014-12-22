@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141222163956) do
+ActiveRecord::Schema.define(version: 20141222171316) do
 
   create_table "articles", force: true do |t|
     t.string   "title"
@@ -40,7 +40,10 @@ ActiveRecord::Schema.define(version: 20141222163956) do
     t.integer  "user_count"
     t.integer  "article_count"
     t.integer  "revision_count"
+    t.string   "slug"
   end
+
+  add_index "courses", ["slug"], name: "index_courses_on_slug"
 
   create_table "courses_users", id: false, force: true do |t|
     t.integer "course_id", null: false

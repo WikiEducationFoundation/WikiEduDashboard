@@ -7,7 +7,15 @@ class CoursesController < ApplicationController
   end
 
   def show
-    @course = Course.find(params[:id])
+    @course = Course.find_by_slug(params[:id])
     @students = @course.users
   end
+
+  # def show
+  #   @course = Course.find_by_slug(params[:id])
+  #   respond_to do |format|
+  #     format.html show.html.erb
+  #     format.json { render json: @course }
+  #   end
+  # end
 end

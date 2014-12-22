@@ -9,6 +9,10 @@ class Course < ActiveRecord::Base
   # Instance methods #
   ####################
 
+  def to_param
+    self.slug
+  end
+
   def update_participants(all_participants=[])
     if all_participants.blank?
       all_participants = Wiki.get_students_in_course self.id
@@ -33,6 +37,7 @@ class Course < ActiveRecord::Base
     self.school = course_info[1]
     self.title = course_info[2]
     self.term = course_info[3]
+    self.slug = self.title.downcase.gsub(" ", "-")
     self.start = data["start"].to_date
     self.end = data["end"].to_date
     if !data["students"].blank? && data["students"]["username"].kind_of?(Array)
