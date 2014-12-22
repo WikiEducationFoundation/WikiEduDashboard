@@ -2,8 +2,8 @@
   <h3><%= @course.title %></h3>
   <p><%= @course.start %> &mdash; <%= @course.end %></p>
   <div class="stat-display">
-    <div class="stat-display__stat"><h4><%= number_to_human @course.articles.count %></h4> Articles Edited</div>
-    <div class="stat-display__stat"><h4><%= number_to_human @course.users.count %></h4> Student Editors</div>
+    <div class="stat-display__stat"><h4><%= number_to_human @course.article_count %></h4> Articles Edited</div>
+    <div class="stat-display__stat"><h4><%= number_to_human @course.user_count %></h4> Student Editors</div>
     <div class="stat-display__stat"><h4><%= number_to_human @course.character_sum %></h4> Characters Added</div>
     <div class="stat-display__stat"><h4><%= number_to_human @course.view_sum %></h4> Article Views</div>
   </div>

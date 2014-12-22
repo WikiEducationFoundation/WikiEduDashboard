@@ -1,13 +1,11 @@
 class Article < ActiveRecord::Base
   has_many :revisions
 
-    # Instance methods
+  ####################
+  # Instance methods #
+  ####################
   def update_views
 
-  end
-
-  def character_sum
-    read_attribute(:character_sum) || self.revisions.sum(:characters)
   end
 
   def update(data={})
@@ -19,12 +17,23 @@ class Article < ActiveRecord::Base
     self.save
   end
 
+  # Cache methods
+  def character_sum
+    read_attribute(:character_sum) || self.revisions.sum(:characters)
+  end
+
+  def revision_count
+    revisions.size
+  end
+
   def update_cache
     self.character_sum = self.revisions.sum(:characters)
     self.save
   end
 
-  # Class methods
+  #################
+  # Class methods #
+  #################
   def self.update_all_articles
     articles = Utils.chunk_requests(User.all) { |block|
       Replica.get_articles_edited_this_term_by_users block

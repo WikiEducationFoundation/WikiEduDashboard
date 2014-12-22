@@ -5,14 +5,9 @@ class Course < ActiveRecord::Base
   # has_many :assignments
   # has_many :assigned_articles, -> { uniq }, through: :assignments, :class_name => "Article"
 
-  # Instance methods
-  def character_sum
-    read_attribute(:character_sum) || revisions.sum(:characters)
-  end
-
-  def view_sum
-    read_attribute(:view_sum) || articles.sum(:views)
-  end
+  ####################
+  # Instance methods #
+  ####################
 
   def update_participants(all_participants=[])
     if all_participants.blank?
@@ -46,13 +41,37 @@ class Course < ActiveRecord::Base
     self.save
   end
 
+  # Cache methods
+  def character_sum
+    read_attribute(:character_sum) || revisions.sum(:characters)
+  end
+
+  def view_sum
+    read_attribute(:view_sum) || articles.sum(:views)
+  end
+
+  def user_count
+    read_attribute(:user_count) || users.size
+  end
+
+  def revision_count
+    revisions.size
+  end
+
+  def article_count
+    articles.size
+  end
+
   def update_cache
-    self.character_sum = self.revisions.sum(:characters)
-    self.view_sum = self.articles.sum(:views)
+    self.character_sum = revisions.sum(:characters)
+    self.view_sum = articles.sum(:views)
+    self.user_count = users.size
     self.save
   end
 
-  # Class methods
+  #################
+  # Class methods #
+  #################
   def self.update_all_courses
     courses = Utils.chunk_requests(CourseList.all) {|block| Wiki.get_course_info block}
     courses.each do |c|

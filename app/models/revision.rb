@@ -1,7 +1,10 @@
 class Revision < ActiveRecord::Base
-  belongs_to :user
-  belongs_to :article
+  belongs_to :user, counter_cache: true
+  belongs_to :article, counter_cache: true
 
+  ####################
+  # Instance methods #
+  ####################
   def update(data={})
     if data.blank?
       # Implement method for single-revision lookup
@@ -14,7 +17,9 @@ class Revision < ActiveRecord::Base
     self.save
   end
 
-  # Class methods
+  #################
+  # Class methods #
+  #################
   def self.update_all_revisions
     revisions = Utils.chunk_requests(User.all, 100) { |block|
       Replica.get_revisions_this_term_by_users block

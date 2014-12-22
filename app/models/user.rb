@@ -4,11 +4,14 @@ class User < ActiveRecord::Base
   has_many :revisions
   has_many :articles, -> { uniq }, through: :revisions
 
-  # Instance methods
+  ####################
+  # Instance methods #
+  ####################
   def contribution_url
     "https://en.wikipedia.org/wiki/Special:Contributions/#{self.wiki_id}"
   end
 
+  # Cache methods
   def character_sum
     read_attribute(:character_sum) || revisions.sum(:characters)
   end
@@ -17,14 +20,29 @@ class User < ActiveRecord::Base
     read_attribute(:view_sum) || articles.sum(:views)
   end
 
+  def course_count
+    read_attribute(:course_count) || courses.size
+  end
+
+  def revision_count
+    revisions.size
+  end
+
+  def article_count
+    article.size
+  end
+
   def update_cache
     self.character_sum = revisions.sum(:characters)
     self.view_sum = articles.sum(:views)
+    self.course_count = courses.size
     self.save
   end
 
 
-  # Class methods
+  #################
+  # Class methods #
+  #################
   def self.update_all_caches
     User.all.each do |u|
       u.update_cache

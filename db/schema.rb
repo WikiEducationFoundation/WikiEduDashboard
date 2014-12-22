@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141219154954) do
+ActiveRecord::Schema.define(version: 20141222163956) do
 
   create_table "articles", force: true do |t|
     t.string   "title"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20141219154954) do
     t.datetime "updated_at"
     t.datetime "created_at"
     t.integer  "character_sum"
+    t.integer  "revision_count"
   end
 
   create_table "assignments", force: true do |t|
@@ -36,6 +37,9 @@ ActiveRecord::Schema.define(version: 20141219154954) do
     t.string   "term"
     t.integer  "character_sum"
     t.integer  "view_sum"
+    t.integer  "user_count"
+    t.integer  "article_count"
+    t.integer  "revision_count"
   end
 
   create_table "courses_users", id: false, force: true do |t|
@@ -60,6 +64,9 @@ ActiveRecord::Schema.define(version: 20141219154954) do
     t.datetime "updated_at"
     t.integer  "character_sum"
     t.integer  "view_sum"
+    t.integer  "course_count"
+    t.integer  "article_count"
+    t.integer  "revision_count"
   end
 
 end
