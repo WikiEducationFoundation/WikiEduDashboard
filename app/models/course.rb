@@ -8,7 +8,6 @@ class Course < ActiveRecord::Base
   ####################
   # Instance methods #
   ####################
-
   def to_param
     self.slug
   end

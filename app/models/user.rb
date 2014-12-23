@@ -43,6 +43,17 @@ class User < ActiveRecord::Base
   #################
   # Class methods #
   #################
+  def self.update_trained_users
+    trained_users = Utils.chunk_requests(User.all) { |block|
+      Replica.get_users_completed_training block
+    }
+    trained_users.each do |u|
+      user = User.find_or_create_by(wiki_id: u["rev_user_text"])
+      user.trained = true
+      user.save
+    end
+  end
+
   def self.update_all_caches
     User.all.each do |u|
       u.update_cache

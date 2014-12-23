@@ -18,8 +18,13 @@ class Article < ActiveRecord::Base
       # Implement method for single-article lookup
     end
 
+    puts "Updating #{title}"
+
     self.title = data["page_title"].gsub("_", " ")
-    self.views = Grok.get_all_views_for_article(data["page_title"], self.updated_at)
+    if(views_updated_at.nil? || views_updated_at < Date.today)
+      self.views = Grok.get_all_views_for_article(data["page_title"], Date.today)
+      self.views_updated_at = Date.today
+    end
     self.save
   end
 
