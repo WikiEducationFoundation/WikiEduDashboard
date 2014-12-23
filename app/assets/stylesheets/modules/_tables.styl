@@ -1,8 +1,14 @@
 .list
   list-style none
   list-style-type none
+  .list__header
+    border-bottom 1px solid suit
+    font-size 14px
+    padding 0
 .row
-  border-bottom 1px solid zircon
+  align-items center
+  border-bottom 1px solid mercury
+  justify-content flex-start
   margin-left 0
   overflow hidden
   padding 15px 0
@@ -12,6 +18,8 @@
     align-items center
     display flex
     min-height 60px
+    p
+      flex 1
   &.view-all
     border-bottom none
     div

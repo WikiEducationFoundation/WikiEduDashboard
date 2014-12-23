@@ -1,6 +1,7 @@
 <li class="row course-list__row">
-  <div class="course-list__row__title"><h5><%= course.title %></h5></div>
-  <div class="course-list__row__characters"><h5><%= number_to_human course.character_sum %></h5></div>
-  <div class="course-list__row__views"><h5><%= number_to_human course.view_sum %></h5></div>
-  <div class="course-list__row__students"><h5><%= number_to_human course.user_count %></h5></div>
+  <div class="course-list__row__title"><p><%= course.title %></p></div>
+  <div class="course-list__row__characters"><h4><%= number_to_human course.character_sum %></h4></div>
+  <div class="course-list__row__views"><h4><%= number_to_human course.view_sum %></h4></div>
+  <div class="course-list__row__students"><h4><%= number_to_human course.user_count %></h4></div>
+  <div class="course-list__row__link"><%= link_to 'View Course', course_path(course), :class => "button" %></div>
 </li>

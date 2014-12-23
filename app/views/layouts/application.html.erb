@@ -12,17 +12,19 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <aside>
-      <header>
-        <a class="main-logo" href="http://wikiedu.org" target="_blank" title="wikiedu.org">WIKIEDU.ORG</a>
-      </header>
-      <nav>
-        <div class="nav__item <%= content_for?(:navigation) ? '' : 'active' %>"><h5><%= link_to 'Global Dashboard', root_url %></h5></div>
-        <%= content_for?(:navigation) ? yield(:navigation) : '' %>
-      </nav>
-    </aside>
-    <main role="main">
-      <%= yield %>
-    </main>
+    <div class="container">
+      <aside>
+        <header>
+          <a class="main-logo" href="http://wikiedu.org" target="_blank" title="wikiedu.org">WIKIEDU.ORG</a>
+        </header>
+        <nav>
+          <div class="nav__item <%= content_for?(:navigation) ? '' : 'active' %>"><p class="subtitle"><%= link_to 'Global Dashboard', root_url %></p></div>
+          <%= content_for?(:navigation) ? yield(:navigation) : '' %>
+        </nav>
+      </aside>
+      <main role="main">
+        <%= yield %>
+      </main>
+    </div>
   </body>
 </html>

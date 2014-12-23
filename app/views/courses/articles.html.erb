@@ -9,7 +9,7 @@
     <div class="stat-display__stat"><h4><%= number_to_human @course.article_count %></h4><small>Articles Edited</small></div>
     <div class="stat-display__stat"><h4><%= number_to_human @course.view_sum %></h4><small>Article Views</small></div>
   </div>
-  <div class="row article-list__row table-header">
+  <div class="row article-list__row list__header">
     <div class="article-list__row__name">Title</div>
     <div class="article-list__row__characters">Characters added</div>
     <div class="article-list__row__views">Views since <%= CourseList.start.to_date.strftime("%m/%d/%y") %></div>

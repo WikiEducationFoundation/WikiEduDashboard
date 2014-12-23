@@ -1,23 +1,23 @@
 <header>
-  <h3>WikiEdu Dashboard</h3>
-  <p>Program Statistics</p>
+  <h1>WikiEdu Dashboard</h1>
+  <p class="subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at nisl quis nisl fermentum condimentum eu ut felis ed at nisl quis dolor sit amet.</p>
   <div class="stat-display">
-    <div class="stat-display__stat"><h4><%= number_to_human @courses.count %></h4><small>WikiEdu Courses</small></div>
-    <div class="stat-display__stat"><h4><%= number_to_human @users.count %></h4><small>Student Editors</small></div>
-    <div class="stat-display__stat"><h4><%= number_to_human @revisions.sum(:characters) %></h4><small>Characters Added</small></div>
-    <div class="stat-display__stat"><h4><%= number_to_human @articles.sum(:views) %></h4><small>Article Views</small></div>
+    <div class="stat-display__stat"><h1><%= number_to_human @courses.count %></h1><small>WikiEdu Courses</small></div>
+    <div class="stat-display__stat"><h1><%= number_to_human @users.count %></h1><small>Student Editors</small></div>
+    <div class="stat-display__stat"><h1><%= number_to_human @revisions.sum(:characters) %></h1><small>Characters Added</small></div>
+    <div class="stat-display__stat"><h1><%= number_to_human @articles.sum(:views) %></h1><small>Article Views</small></div>
   </div>
 </header>
 
 <section>
-  <h4>All Current Courses &mdash; Fall 2014</h4><br>
+  <h5>All Current Courses &mdash; Fall 2014</h5>
 
   <ul class="list">
-    <li class="row course-list__row">
-      <div class="course-list__row__title">Current Courses</div>
-      <div class="course-list__row__characters">Characters Added</div>
-      <div class="course-list__row__views">Views</div>
-      <div class="course-list__row__students">Students</div>
+    <li class="row course-list__row list__header">
+      <div class="course-list__row__title"><p>Current Courses</p></div>
+      <div class="course-list__row__characters"><p>Characters Added</p></div>
+      <div class="course-list__row__views"><p>Views</p></div>
+      <div class="course-list__row__students"><p>Students</p></div>
       <div class="course-list__row__link"></div>
     </li>
   <% @courses.each do |c| %>
