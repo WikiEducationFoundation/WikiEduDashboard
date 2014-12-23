@@ -5,7 +5,7 @@ describe Grok do
   describe "API requests" do
     it "should get page view data for a given article" do
       VCR.use_cassette "grok/pageview_data" do
-        response = Grok.get_page_view_data_for_article "History of Biology"
+        response = Grok.get_month_views_for_article "History of Biology"
         expect(response).to be
       end
     end

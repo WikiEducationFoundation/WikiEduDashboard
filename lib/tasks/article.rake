@@ -7,8 +7,4 @@ namespace :article do
     Article.update_all_articles
   end
 
-  task :update_article_views => :environment do
-    # Implement method for updating all article views
-  end
-
 end

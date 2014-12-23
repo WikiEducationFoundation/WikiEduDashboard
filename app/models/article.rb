@@ -4,6 +4,11 @@ class Article < ActiveRecord::Base
   ####################
   # Instance methods #
   ####################
+  def url
+    escaped_title = title.gsub(" ", "_")
+    "https://en.wikipedia.org/wiki/#{escaped_title}"
+  end
+
   def update_views
 
   end
@@ -13,7 +18,8 @@ class Article < ActiveRecord::Base
       # Implement method for single-article lookup
     end
 
-    self.title = data["page_title"]
+    self.title = data["page_title"].gsub("_", " ")
+    self.views = Grok.get_all_views_for_article(data["page_title"], self.updated_at)
     self.save
   end
 
