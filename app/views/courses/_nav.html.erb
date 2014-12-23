@@ -3,13 +3,13 @@
     <p class="subtitle"><%= link_to 'Course Dashboard', course_path(course) %></p>
     <ul class="nav__item__subnav">
       <li class="<%= page == 0 ? 'active' : '' %>">
-        <h6><%= link_to 'Course Overview', course_path(course) %></h6>
+        <p><%= link_to 'Course Overview', course_path(course) %></p>
       </li>
       <li class="<%= page == 1 ? 'active' : '' %>">
-        <h6><%= link_to 'Student Editors', :action => "students" %></h6>
+        <p><%= link_to 'Student Editors', :action => "students" %></p>
       </li>
       <li class="<%= page == 2 ? 'active' : '' %>">
-        <h6><%= link_to 'Articles Edited', :action => "articles" %></h6>
+        <p><%= link_to 'Articles Edited', :action => "articles" %></p>
       </li>
     </ul>
   </div>

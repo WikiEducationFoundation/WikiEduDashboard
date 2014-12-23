@@ -26,12 +26,15 @@
       align-items center
       justify-content center
       min-height 80px
-.table-header
+.table__header
   border-bottom 0
   padding 0
   width 100%
   div
     align-items flex-end
+    p
+      color white
+      text-align left
 .course-list__row
   .course-list__row__title
     col(2/6)
@@ -72,16 +75,22 @@
 
 .stat-display
   overflow hidden
-  padding 20px 0
+  padding 20px 0 0
   .stat-display__stat
     text-align center
     span(1/9, offset=1/9)
 
 .subpage
   .title
-    span(3/5)
+    span(1/2)
     text-align left
   .stat-display
-    span(2/5)
+    span(1/2)
+    padding 0
     .stat-display__stat
+      col(1/4)
+    &.half
+      span(1/4)
       float right
+      .stat-display__stat
+        col(1/2)

@@ -2,14 +2,21 @@
 
 <header class="subpage">
   <div class="title">
-    <h3><%= @course.title %></h3>
-    <p class="subtitle"><%= @course.start %> &mdash; <%= @course.end %></p>
+    <h2><%= @course.title %></h2>
+    <h6><%= @course.start %> &mdash; <%= @course.end %></h6>
+    <div>
+      <div class="leader"><h6>Instructor</h6><p>Jane Doe</p></div>
+      <div class="leader"><h6>Ambassador</h6><p>John Doe</p></div>
+    </div>
+    <div>
+
+    </div>
   </div>
   <div class="stat-display">
-    <div class="stat-display__stat"><h4><%= number_to_human @course.article_count %></h4><small>Articles Edited</small></div>
-    <div class="stat-display__stat"><h4><%= number_to_human @course.user_count %></h4><small>Student Editors</small></div>
-    <div class="stat-display__stat"><h4><%= number_to_human @course.character_sum %></h4><small>Characters Added</small></div>
-    <div class="stat-display__stat"><h4><%= number_to_human @course.view_sum %></h4><small>Article Views</small></div>
+    <div class="stat-display__stat"><h3><%= number_to_human @course.article_count %></h3><small>Articles Edited</small></div>
+    <div class="stat-display__stat"><h3><%= number_to_human @course.user_count %></h3><small>Student Editors</small></div>
+    <div class="stat-display__stat"><h3><%= number_to_human @course.character_sum %></h3><small>Characters Added</small></div>
+    <div class="stat-display__stat"><h3><%= number_to_human @course.view_sum %></h3><small>Article Views</small></div>
   </div>
   <div class="instructors"></div>
   <div class="description">
@@ -18,7 +25,7 @@
 </header>
 
 <section>
-  <h3>Student Editors</h3>
+  <h3 class="section-header">Student Editors</h3>
   <ul class="list">
     <li class="row user-list__row list__header">
       <div class="user-list__row__name">Name</div>
@@ -36,12 +43,12 @@
 </section>
 
 <section>
-  <h3>Articles Edited</h3>
+  <h3 class="section-header">Articles Edited</h3>
   <ul class="list">
     <li class="row user-list__row list__header">
       <div class="user-list__row__name">Title</div>
       <div class="user-list__row__training">Characters added</div>
-      <div class="user-list__row__revisions">Views since <%= CourseList.start.to_date.strftime("%m/%d/%y") %></div>
+      <div class="user-list__row__revisions">Views this month</div>
       <div class="user-list__row__link"></div>
     </li>
   <% @articles.each do |a| %>
