@@ -1,15 +1,24 @@
-<header>
-  <h3><%= @course.title %></h3>
-  <p><%= @course.start %> &mdash; <%= @course.end %></p>
+<%= render :partial => 'nav', :locals => {:page => 0} %>
+
+<header class="subpage">
+  <div class="title">
+    <h3><%= @course.title %></h3>
+    <p class="subtitle"><%= @course.start %> &mdash; <%= @course.end %></p>
+  </div>
   <div class="stat-display">
-    <div class="stat-display__stat"><h4><%= number_to_human @course.article_count %></h4> Articles Edited</div>
-    <div class="stat-display__stat"><h4><%= number_to_human @course.user_count %></h4> Student Editors</div>
-    <div class="stat-display__stat"><h4><%= number_to_human @course.character_sum %></h4> Characters Added</div>
-    <div class="stat-display__stat"><h4><%= number_to_human @course.view_sum %></h4> Article Views</div>
+    <div class="stat-display__stat"><h4><%= number_to_human @course.article_count %></h4><small>Articles Edited</small></div>
+    <div class="stat-display__stat"><h4><%= number_to_human @course.user_count %></h4><small>Student Editors</small></div>
+    <div class="stat-display__stat"><h4><%= number_to_human @course.character_sum %></h4><small>Characters Added</small></div>
+    <div class="stat-display__stat"><h4><%= number_to_human @course.view_sum %></h4><small>Article Views</small></div>
+  </div>
+  <div class="instructors"></div>
+  <div class="description">
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at nisl quis nisl fermentum condimentum eu ut felis. Aenean commodo dictum ligula eu bibendum. Suspendisse pharetra dignissim quam dapibus sagittis.</p>
   </div>
 </header>
 
 <section>
+  <h3>Student Editors</h3>
   <ul class="list">
     <li class="row user-list__row">
       <div class="user-list__row__name">Name</div>
@@ -20,5 +29,26 @@
   <% @students.each do |s| %>
     <%= render :partial => 'users/row', :locals => {:user => s} %>
   <% end %>
+    <li class="row view-all">
+      <div><%= link_to "View All", {:action => "students"}, {:class => "button large"} %></div>
+    </li>
+  </ul>
+</section>
+
+<section>
+  <h3>Articles Edited</h3>
+  <ul class="list">
+    <li class="row user-list__row">
+      <div class="user-list__row__name">Title</div>
+      <div class="user-list__row__training">Characters added</div>
+      <div class="user-list__row__revisions">Views since <%= CourseList.start.to_date.strftime("%m/%d/%y") %></div>
+      <div class="user-list__row__link"></div>
+    </li>
+  <% @articles.each do |a| %>
+    <%= render :partial => 'articles/row', :locals => {:article => a} %>
+  <% end %>
+    <li class="row view-all">
+      <div><%= link_to "View All", {:action => "articles"}, {:class => "button large"} %></div>
+    </li>
   </ul>
 </section>

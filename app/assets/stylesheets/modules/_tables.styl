@@ -1,22 +1,29 @@
-nav
-  .nav__item
-    background-color lightgray
-    border-bottom 1px solid dimgray
-    cursor pointer
-    padding 20px 0
-
-
 .list
   list-style none
   list-style-type none
 .row
-  border-bottom 1px solid dimgray
+  border-bottom 1px solid zircon
   margin-left 0
   overflow hidden
-  padding 10px 0
-  text-align center
-  div:first-child
-    text-align left
+  padding 15px 0
+  div:last-child
+    justify-content flex-end
+  div
+    align-items center
+    display flex
+    min-height 60px
+  &.view-all
+    border-bottom none
+    div
+      align-items center
+      justify-content center
+      min-height 80px
+.table-header
+  border-bottom 0
+  padding 0
+  width 100%
+  div
+    align-items flex-end
 .course-list__row
   .course-list__row__title
     col(2/6)
@@ -31,11 +38,27 @@ nav
 .user-list__row
   .user-list__row__name
     col(2/5)
+    .avatar
+      background-color zircon
+      border-radius 30px
+      display inline-block
+      height 60px
+      margin-right 15px
+      width 60px
   .user-list__row__training
     col(1/5)
   .user-list__row__revisions
     col(1/5)
   .user-list__row__link
+    col(1/5)
+.article-list__row
+  .article-list__row__name
+    col(2/5)
+  .article-list__row__characters
+    col(1/5)
+  .article-list__row__views
+    col(1/5)
+  .article-list__row__link
     col(1/5)
 
 
@@ -45,3 +68,12 @@ nav
   .stat-display__stat
     text-align center
     span(1/9, offset=1/9)
+
+.subpage
+  .title
+    span(3/5)
+    text-align left
+  .stat-display
+    span(2/5)
+    .stat-display__stat
+      float right

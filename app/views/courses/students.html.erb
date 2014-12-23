@@ -1,0 +1,26 @@
+<%= render :partial => 'nav', :locals => {:page => 1} %>
+
+<header class="subpage">
+  <div class="title">
+    <h3>Student Editors</h3>
+    <p class="subtitle"><%= @course.title %></p>
+  </div>
+  <div class="stat-display">
+    <div class="stat-display__stat"><h4><%= number_to_human @course.user_count %></h4><small>Student Editors</small></div>
+    <div class="stat-display__stat"><h4><%= number_to_human @course.character_sum %></h4><small>Characters Added</small></div>
+  </div>
+  <div class="row user-list__row table-header">
+    <div class="user-list__row__name">Name</div>
+    <div class="user-list__row__training">Completed training</div>
+    <div class="user-list__row__revisions">Characters added</div>
+    <div class="user-list__row__link"></div>
+  </div>
+</header>
+
+<section>
+  <ul class="list">
+  <% @students.each do |s| %>
+    <%= render :partial => 'users/row', :locals => {:user => s} %>
+  <% end %>
+  </ul>
+</section>

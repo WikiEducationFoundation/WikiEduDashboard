@@ -18,7 +18,7 @@ body
   font-family body-font
   width 100%
   height 100%
-  color body-font-color
+  color manatee
 
 h1, h2, h3, h4, h5
   margin 0
@@ -35,10 +35,14 @@ h4
 h5
   @extend .small-heading
 
+small
+  color bayoux
+  text-align center
+
 p
   @extend .body-content
   margin 5px auto
-  color body-font-color
+  color bayoux
 
   &:first-child
     margin-top 0
@@ -50,7 +54,6 @@ p
 li
   @extend .body-content
   margin-left 20px
-  margin-bottom 0.5em
 
   &:first-child
     margin-top 0
@@ -61,8 +64,14 @@ ul
   list-style disc
 
 a
-  color #636c8e
+  color suit
   text-decoration none
+  &:hover
+    color manatee
+    border-bottom 1px solid
+  &:active
+    color bayoux
+    border-bottom 1px solid
 
 em
   font-style italic

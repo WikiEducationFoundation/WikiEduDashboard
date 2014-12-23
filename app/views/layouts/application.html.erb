@@ -5,8 +5,8 @@
     <title><%= content_for?(:title) ? yield(:title) : "WikiEdu Dashboard" %></title>
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Myapp" %>">
 
-    <%= stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Droid+Serif', media: 'all' %>
-    <%= stylesheet_link_tag '/assets/stylesheets/main.css', media: 'all' %>
+<!--     <%= stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Droid+Serif', media: 'all' %>
+ -->    <%= stylesheet_link_tag '/assets/stylesheets/main.css', media: 'all' %>
     <%= javascript_include_tag '/assets/javascripts/vendor.js' %>
     <%= javascript_include_tag '/assets/javascripts/main.js' %>
     <%= csrf_meta_tags %>
@@ -17,7 +17,8 @@
         <a class="main-logo" href="http://wikiedu.org" target="_blank" title="wikiedu.org">WIKIEDU.ORG</a>
       </header>
       <nav>
-        <div class="nav__item"><%= link_to 'Global Dashboard', root_url %></div>
+        <div class="nav__item <%= content_for?(:navigation) ? '' : 'active' %>"><h5><%= link_to 'Global Dashboard', root_url %></h5></div>
+        <%= content_for?(:navigation) ? yield(:navigation) : '' %>
       </nav>
     </aside>
     <main role="main">
