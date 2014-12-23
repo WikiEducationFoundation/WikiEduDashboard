@@ -3,7 +3,7 @@
     <h5>Course Dashboard</h5>
     <ul class="nav__item__subnav">
       <li class="<%= page == 0 ? 'active' : '' %>">
-        <h6><%= link_to 'Course Overview', course_path(course.slug) %></h6>
+        <h6><%= link_to 'Course Overview', course_path(course) %></h6>
       </li>
       <li class="<%= page == 1 ? 'active' : '' %>">
         <h6><%= link_to 'Student Editors', :action => "students" %></h6>
