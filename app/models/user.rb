@@ -13,7 +13,8 @@ class User < ActiveRecord::Base
 
   # Cache methods
   def character_sum
-    read_attribute(:character_sum) || revisions.sum(:characters)
+    # Do not consider revisions with negative byte changes
+    read_attribute(:character_sum) || revisions.where('characters > 0').sum(:characters)
   end
 
   def view_sum
@@ -33,7 +34,8 @@ class User < ActiveRecord::Base
   end
 
   def update_cache
-    self.character_sum = revisions.sum(:characters)
+    # Do not consider revisions with negative byte changes
+    self.character_sum = revisions.where('characters > 0').sum(:characters)
     self.view_sum = articles.sum(:views)
     self.course_count = courses.size
     self.save

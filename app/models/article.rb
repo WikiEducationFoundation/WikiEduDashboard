@@ -30,7 +30,8 @@ class Article < ActiveRecord::Base
 
   # Cache methods
   def character_sum
-    read_attribute(:character_sum) || self.revisions.sum(:characters)
+    # Do not consider revisions with negative byte changes
+    read_attribute(:character_sum) || revisions.where('characters > 0').sum(:characters)
   end
 
   def revision_count
@@ -38,7 +39,8 @@ class Article < ActiveRecord::Base
   end
 
   def update_cache
-    self.character_sum = self.revisions.sum(:characters)
+    # Do not consider revisions with negative byte changes
+    self.character_sum = revisions.where('characters > 0').sum(:characters)
     self.save
   end
 
