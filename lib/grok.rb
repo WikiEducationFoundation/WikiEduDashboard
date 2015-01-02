@@ -28,7 +28,7 @@ class Grok
   end
 
   def self.get_day_views_for_article(title, date)
-    data = Grok.get_page_view_data_for_article(title, date.strftime("%Y%m"))
+    data = Grok.api_get(title, date.strftime("%Y%m"))
     data = JSON.parse data
     data["daily_views"][date.strftime("%Y-%m-%d")]
   end

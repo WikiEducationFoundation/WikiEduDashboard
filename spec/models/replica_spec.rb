@@ -59,10 +59,10 @@ describe Replica do
     end
   end
 
-  describe "API response parsing" do
-    it "should return the number of characters from a certain revision" do
-      pending("Awaiting implementation")
-    end
-  end
+  # describe "API response parsing" do
+  #   it "should return the number of characters from a certain revision" do
+  #     pending("Awaiting implementation")
+  #   end
+  # end
 
 end

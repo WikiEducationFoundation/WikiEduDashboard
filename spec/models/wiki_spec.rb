@@ -3,6 +3,13 @@ require 'rails_helper'
 describe Wiki do
 
   describe "API requests" do
+    it "should return the content of a page" do
+      VCR.use_cassette "wiki/course_list" do
+        response = Wiki.get_page_content('User:RagesossBot/course_ids')
+        expect(response).to_not be_empty
+      end
+    end
+
     it "should return course info for a certain course" do
       VCR.use_cassette "wiki/course_data" do
         response = Wiki.get_course_info 366
@@ -29,6 +36,13 @@ describe Wiki do
 
 
   describe "API response parsing" do
+    it "should return the list of courses" do
+      VCR.use_cassette "wiki/course_list" do
+        response = Wiki.get_course_list
+        expect(response.count).to eq(97)
+      end
+    end
+
     it "should return the number of students in a course" do
       VCR.use_cassette "wiki/student_data" do
         response = Wiki.get_student_count_in_course 366

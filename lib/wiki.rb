@@ -4,6 +4,11 @@ require 'crack'
 class Wiki
 
   # Parsing methods
+  def self.get_course_list
+    response = get_page_content('User:RagesossBot/course_ids')
+    response.split(/\n/)
+  end
+
   def self.get_student_count_in_course(course_id)
     response = get_student_list(course_id)
     unless response["students"].blank?
@@ -38,6 +43,19 @@ class Wiki
 
 
   # Request methods
+  def self.get_page_content(page_title, options={})
+    @mw = Wiki.gateway
+    options['format'] = 'xml'
+    options[:maxlag] = 10
+    options['rawcontinue'] = true
+    begin
+      response = @mw.get(page_title, options)
+    rescue MediaWiki::APIError => e
+      puts "Caught MediaWiki::APIError: #{e}"
+    end
+    response
+  end
+
   def self.get_course_info(course_id)
     if course_id.is_a?(Array)
       course_id = course_id.join('|')
@@ -66,15 +84,20 @@ class Wiki
       'rvstart' => start.to_time.utc.iso8601,
       'rvprop' => 'timestamp|user|comment',
       'rvuser' => user,
-      'rawcontinue' => true # This reflects a problem in the media_wiki gem 
+      'rawcontinue' => true # This reflects a problem in the media_wiki gem
     })
   end
 
 
   private
-  def self.api_get(options={})
+  def self.gateway
     @mw = MediaWiki::Gateway.new('http://en.wikipedia.org/w/api.php')
     @mw.login(Figaro.env.wikipedia_username!, Figaro.env.wikipedia_password!)
+    @mw
+  end
+
+  def self.api_get(options={})
+    @mw = Wiki.gateway
     options['format'] = 'xml'
     options[:maxlag] = 10
     begin
