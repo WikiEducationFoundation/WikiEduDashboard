@@ -66,7 +66,7 @@ class User < ActiveRecord::Base
   end
 
   def self.character_def
-    "The gross sum of characters added and removed by each user during the course term"
+    "The total amount of content a user has added to Wikipedia articles, calculated by adding up the size increases for every edit the user made that added net content. This offers a rough indication of how much they contributed to Wikipedia. This number may be misleadingly large if the user added the same content multiple time after someone else removed it, or if the user accidentally removed existing content and then restored it."
   end
 end
 
