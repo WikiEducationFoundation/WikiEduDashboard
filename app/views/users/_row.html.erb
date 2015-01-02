@@ -4,10 +4,10 @@
     <p class="name"><%= user.wiki_id %></p>
   </div>
   <div class="user-list__row__training">
-    <p class="training"><%= user.trained ? 'Yes' : 'No' %></p>
+    <p class="training" title="<%= User.training_def %>"><%= user.trained ? 'Yes' : 'No' %></p>
   </div>
   <div class="user-list__row__characters">
-    <p class="characters"><%= user.character_sum %></p>
+    <p class="characters" title="<%= User.character_def %>"><%= user.character_sum %></p>
   </div>
   <div class="user-list__row__link">
     <%= link_to 'View Edits', user.contribution_url, :target => "_blank", :class => "button" %>

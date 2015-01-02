@@ -28,8 +28,8 @@
   <h3 class="section-header">Student Editors</h3>
   <div class="row user-list__row list__header">
     <div class="user-list__row__name sort" data-sort="name">Name</div>
-    <div class="user-list__row__training sort" data-sort="training">Completed training</div>
-    <div class="user-list__row__characters sort" data-sort="characters">Characters added</div>
+    <div class="user-list__row__training sort" data-sort="training" title="<%= User.training_def %>">Completed training</div>
+    <div class="user-list__row__characters sort" data-sort="characters" title="<%= User.character_def %>">Characters added</div>
     <div class="user-list__row__link"></div>
   </div>
   <ul class="list">
@@ -46,8 +46,8 @@
   <h3 class="section-header">Articles Edited</h3>
   <div class="row article-list__row list__header">
     <div class="article-list__row__title sort" data-sort="title">Title</div>
-    <div class="article-list__row__characters sort" data-sort="characters">Characters added</div>
-    <div class="article-list__row__views sort" data-sort="views">Views this month</div>
+    <div class="article-list__row__characters sort" data-sort="characters" title="<%= Article.character_def %>">Characters added</div>
+    <div class="article-list__row__views sort" data-sort="views" title="<%= Article.view_def %>">Views this month</div>
     <div class="article-list__row__link"></div>
   </div>
   <ul class="list">

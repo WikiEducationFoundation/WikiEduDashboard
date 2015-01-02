@@ -3,10 +3,10 @@
     <p class="title"><%= article.title %></p>
   </div>
   <div class="article-list__row__characters">
-    <p class="characters"><%= article.character_sum %></p>
+    <p class="characters" title="<%= Article.character_def %>"><%= article.character_sum %></p>
   </div>
   <div class="article-list__row__views">
-    <p class="views"><%= article.views.nil? ? 0 : article.views %></p>
+    <p class="views" title="<%= Article.view_def %>"><%= article.views.nil? ? 0 : article.views %></p>
   </div>
   <div class="article-list__row__link">
     <%= link_to 'View Article', article.url, :target => "_blank", :class => "button" %>

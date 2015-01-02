@@ -59,6 +59,15 @@ class User < ActiveRecord::Base
       u.update_cache
     end
   end
+
+  # Variable descriptons
+  def self.training_def
+    "Users who have completed training have made an edit to the 'Training Feedback' page"
+  end
+
+  def self.character_def
+    "The gross sum of characters added and removed by each user during the course term"
+  end
 end
 
 # Roles:
