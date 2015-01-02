@@ -89,4 +89,13 @@ class Course < ActiveRecord::Base
       c.update_cache
     end
   end
+
+  # Variable descriptons
+  def self.character_def
+    "The gross sum of characters added and removed by the course's students during the course term"
+  end
+
+  def self.view_def
+    "The sum of all views to articles edited by students in this course during the course term"
+  end
 end

@@ -3,10 +3,10 @@
     <p class="title"><%= course.title %></p>
   </div>
   <div class="course-list__row__characters">
-    <h4 class="characters"><%= number_to_human course.character_sum %></h4>
+    <h4 class="characters" title="<%= Course.character_def %>"><%= number_to_human course.character_sum %></h4>
   </div>
   <div class="course-list__row__views">
-    <h4 class="views"><%= number_to_human course.view_sum %></h4>
+    <h4 class="views" title="<%= Course.view_def %>"><%= number_to_human course.view_sum %></h4>
   </div>
   <div class="course-list__row__students">
     <h4 class="students training"><%= number_to_human course.user_count %></h4><small class="training"><%= trained = course.users.select { |user| user.trained }; p trained.count %> completed training</small>
