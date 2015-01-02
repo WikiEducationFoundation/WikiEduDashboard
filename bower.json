@@ -2,6 +2,7 @@
   "name": "WikiEduDashboard",
   "version": "1.0.0",
   "dependencies": {
-    "jquery": "~2.1.1"
+    "jquery": "~2.1.1",
+    "list.js": "~1.1.1"
   }
 }

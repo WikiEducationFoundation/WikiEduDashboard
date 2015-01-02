@@ -1,6 +1,14 @@
 <li class="row article-list__row">
-  <div class="article-list__row__name"><p><%= article.title %></p></div>
-  <div class="article-list__row__characters"><p><%= article.character_sum %></p></div>
-  <div class="article-list__row__views"><p><%= article.views.nil? ? 0 : article.views %></p></div>
-  <div class="article-list__row__link"><%= link_to 'View Article', article.url, :target => "_blank", :class => "button" %></div>
+  <div class="article-list__row__title">
+    <p class="title"><%= article.title %></p>
+  </div>
+  <div class="article-list__row__characters">
+    <p class="characters"><%= article.character_sum %></p>
+  </div>
+  <div class="article-list__row__views">
+    <p class="views"><%= article.views.nil? ? 0 : article.views %></p>
+  </div>
+  <div class="article-list__row__link">
+    <%= link_to 'View Article', article.url, :target => "_blank", :class => "button" %>
+  </div>
 </li>

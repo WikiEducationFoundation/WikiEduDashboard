@@ -1,2 +1,2 @@
 $ ->
-  console.log 'Javascript initialized'
+  require("./course.coffee")

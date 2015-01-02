@@ -1,10 +1,15 @@
+.sort
+  cursor pointer
+  &.asc, &.desc
+    text-decoration underline
+.list__header
+  border-bottom 1px solid suit !important
+  padding 0 !important
+  p
+    letter-spacing 0.5px
 .list
   list-style none
   list-style-type none
-  .list__header
-    border-bottom 1px solid suit
-    font-size 14px
-    padding 0
 .row
   align-items center
   border-bottom 1px solid mercury
@@ -58,12 +63,12 @@
       width 60px
   .user-list__row__training
     col(1/5)
-  .user-list__row__revisions
+  .user-list__row__characters
     col(1/5)
   .user-list__row__link
     col(1/5)
 .article-list__row
-  .article-list__row__name
+  .article-list__row__title
     col(2/5)
   .article-list__row__characters
     col(1/5)

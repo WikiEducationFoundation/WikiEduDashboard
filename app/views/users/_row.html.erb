@@ -1,6 +1,15 @@
 <li class="row user-list__row">
-  <div class="user-list__row__name"><div class="avatar"></div><p><%= user.wiki_id %></p></div>
-  <div class="user-list__row__training"><p><%= user.trained ? 'Yes' : 'No' %></p></div>
-  <div class="user-list__row__revisions"><p><%= user.character_sum %></p></div>
-  <div class="user-list__row__link"><%= link_to 'View Edits', user.contribution_url, :target => "_blank", :class => "button" %></div>
+  <div class="user-list__row__name">
+<!--     <div class="avatar"></div> -->
+    <p class="name"><%= user.wiki_id %></p>
+  </div>
+  <div class="user-list__row__training">
+    <p class="training"><%= user.trained ? 'Yes' : 'No' %></p>
+  </div>
+  <div class="user-list__row__characters">
+    <p class="characters"><%= user.character_sum %></p>
+  </div>
+  <div class="user-list__row__link">
+    <%= link_to 'View Edits', user.contribution_url, :target => "_blank", :class => "button" %>
+  </div>
 </li>

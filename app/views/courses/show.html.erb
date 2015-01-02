@@ -24,38 +24,38 @@
   </div>
 </header>
 
-<section>
+<section id="users">
   <h3 class="section-header">Student Editors</h3>
+  <div class="row user-list__row list__header">
+    <div class="user-list__row__name sort" data-sort="name">Name</div>
+    <div class="user-list__row__training sort" data-sort="training">Completed training</div>
+    <div class="user-list__row__characters sort" data-sort="characters">Characters added</div>
+    <div class="user-list__row__link"></div>
+  </div>
   <ul class="list">
-    <li class="row user-list__row list__header">
-      <div class="user-list__row__name">Name</div>
-      <div class="user-list__row__training">Completed training</div>
-      <div class="user-list__row__revisions">Characters added</div>
-      <div class="user-list__row__link"></div>
-    </li>
   <% @students.each do |s| %>
     <%= render :partial => 'users/row', :locals => {:user => s} %>
   <% end %>
-    <li class="row view-all">
-      <div><%= link_to "View All", {:action => "students"}, {:class => "button large"} %></div>
-    </li>
   </ul>
+  <div class="row view-all">
+    <div><%= link_to "View All", {:action => "students"}, {:class => "button large"} %></div>
+  </div>
 </section>
 
-<section>
+<section id="articles">
   <h3 class="section-header">Articles Edited</h3>
+  <div class="row article-list__row list__header">
+    <div class="article-list__row__title sort" data-sort="title">Title</div>
+    <div class="article-list__row__characters sort" data-sort="characters">Characters added</div>
+    <div class="article-list__row__views sort" data-sort="views">Views this month</div>
+    <div class="article-list__row__link"></div>
+  </div>
   <ul class="list">
-    <li class="row user-list__row list__header">
-      <div class="user-list__row__name">Title</div>
-      <div class="user-list__row__training">Characters added</div>
-      <div class="user-list__row__revisions">Views this month</div>
-      <div class="user-list__row__link"></div>
-    </li>
   <% @articles.each do |a| %>
     <%= render :partial => 'articles/row', :locals => {:article => a} %>
   <% end %>
-    <li class="row view-all">
-      <div><%= link_to "View All", {:action => "articles"}, {:class => "button large"} %></div>
-    </li>
   </ul>
+  <div class="row view-all">
+    <div><%= link_to "View All", {:action => "articles"}, {:class => "button large"} %></div>
+  </div>
 </section>
