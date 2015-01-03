@@ -5,7 +5,7 @@ class Wiki
 
   # Parsing methods
   def self.get_course_list
-    response = get_page_content('Education_program/Dashboard/course_ids')
+    response = get_page_content('Wikipedia:Education_program/Dashboard/course_ids')
     response.split(/\n/)
   end
 
