@@ -1,13 +1,5 @@
-desc "Run rake task on server"
-
-task :sake do
-  on roles(:app), in: :sequence, wait: 5 do
-    within release_path do
-      as :deploy do
-        with rails_env: :production do
-          execute :rake, ENV['task'], "RAILS_ENV=production"
-        end
-      end
-    end
+desc "Invoke rake task"
+  task :invoke do
+    run "cd #{deploy_to}/current"
+    run "bundle exec rake #{ENV['task']} RAILS_ENV=#{rails_env}"
   end
-end
