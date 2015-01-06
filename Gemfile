@@ -19,6 +19,10 @@ group :development do
   gem 'rb-fchange', :require=>false
   gem 'rb-fsevent', :require=>false
   gem 'rb-inotify', :require=>false
+  gem 'capistrano-rvm'
+  gem 'capistrano-rails'
+  gem 'capistrano-bundler'
+  gem 'capistrano-passenger'
 end
 
 group :development, :test do
@@ -31,8 +35,9 @@ group :development, :test do
   gem 'zeus'
 end
 
-group :production do
+group :production, :staging do
   gem 'pg'
+  gem 'mysql'
   gem 'rails_12factor'
 end
 

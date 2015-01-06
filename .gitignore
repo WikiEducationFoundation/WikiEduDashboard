@@ -1,4 +1,5 @@
 /config/application.yml
+/config/database.yml
 /fixtures
 /node_modules
 /vendor
