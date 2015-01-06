@@ -142,6 +142,7 @@ GEM
     mini_portile (0.6.1)
     minitest (5.4.3)
     multi_json (1.10.1)
+    mysql2 (0.3.17)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.1)
@@ -275,6 +276,7 @@ DEPENDENCIES
   guard-rspec
   jbuilder (~> 2.0)
   mediawiki-gateway
+  mysql2
   pg
   quiet_assets
   rails (= 4.1.8)
