@@ -8,7 +8,9 @@ role :app, %w{root@dashboard-testing.wikiedu.org}
 role :web, %w{root@dashboard-testing.wikiedu.org}
 role :db,  %w{root@dashboard-testing.wikiedu.org}
 
-set :deploy_to, '/var/www/dashboard-test/public'
+set :deploy_to, '/var/www/dashboard-testing'
+
+set :rails_env, "production"
 
 # Extended Server Syntax
 # ======================
