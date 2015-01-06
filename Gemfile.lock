@@ -49,7 +49,6 @@ GEM
       columnize (~> 0.8)
       debugger-linecache (~> 1.2)
       slop (~> 3.6)
-    cape (1.8.0)
     capistrano (3.3.5)
       capistrano-stats (~> 1.1.0)
       i18n
@@ -261,7 +260,6 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   byebug
-  cape
   capistrano-bundler
   capistrano-passenger
   capistrano-rails
