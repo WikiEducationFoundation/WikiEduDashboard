@@ -1,8 +1,6 @@
 namespace :course do
 
-  desc 'Update the participants for current courses'
-
-  # Update courses and course users
+  desc 'Update courses and course users'
   task :update_courses => :environment do
     Rails.logger.info "Updating all courses"
     Course.update_all_courses

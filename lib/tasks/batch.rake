@@ -1,15 +1,13 @@
 namespace :batch do
 
-  desc 'Pull data from sources and store appropriately'
-
-  # Hourly
+  desc 'Hourly data updates'
   task :update_hourly => :environment do
     Rake::Task["user:update_users"].invoke
     Rake::Task["revision:update_revisions"].invoke
     Rake::Task["cache:update_caches"].invoke
   end
 
-  # Daily
+  desc 'Daily data updates'
   task :update_daily => :environment do
     Rake::Task["course:update_courses"].invoke
     Rake::Task["user:update_users"].invoke
@@ -18,7 +16,7 @@ namespace :batch do
     Rake::Task["cache:update_caches"].invoke
   end
 
-  # Initialize values from scratch
+  desc 'Initialize the database from scratch'
   task :initialize => :environment do
     Rake::Task["course:update_courses"].invoke
     Rake::Task["user:update_users"].invoke

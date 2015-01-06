@@ -39,6 +39,7 @@ group :production do
   gem 'pg'
   gem 'mysql2'
   gem 'rails_12factor'
+  gem 'cape'
 end
 
 group :test do

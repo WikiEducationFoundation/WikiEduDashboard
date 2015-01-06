@@ -1,3 +1,5 @@
+require 'cape'
+
 # config valid only for current version of Capistrano
 lock '3.3.5'
 
@@ -6,6 +8,11 @@ set :repo_url, 'git@github.com:WikiEducationFoundation/WikiEduDashboard.git'
 set :branch, 'master'
 
 set :ssh_options, { :forward_agent => true }
+
+Cape do
+  # Create Capistrano recipes for all Rake tasks.
+  mirror_rake_tasks
+end
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
