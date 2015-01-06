@@ -2,6 +2,7 @@ namespace :cache do
 
   desc 'Update cached values on all models'
 
+  # Update caches for all models
   task :update_caches => :environment do
     Rails.logger.info "Updating all cached values"
     Article.update_all_caches

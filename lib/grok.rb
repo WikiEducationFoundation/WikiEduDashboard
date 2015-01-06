@@ -1,5 +1,6 @@
 class Grok
 
+  # Not used by application
   def self.get_all_views_for_article(title, start=nil)
     total = 0
     if start.nil?
@@ -32,6 +33,26 @@ class Grok
     data = JSON.parse data
     data["daily_views"][date.strftime("%Y-%m-%d")]
   end
+
+
+
+
+  def self.get_views_since_date_for_article(title, date)
+    iDate = date
+    views = Hash.new
+    while Date.today >= iDate do
+      data = Grok.api_get(title, iDate.strftime("%Y%m"))
+      data = JSON.parse data
+      data["daily_views"].each do |day, view_count|
+        if(day.to_date >= date)
+          views[day] = view_count
+        end
+      end
+      iDate += 1.month
+    end
+    return views
+  end
+
 
 
   private

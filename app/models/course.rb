@@ -31,6 +31,7 @@ class Course < ActiveRecord::Base
     if data.blank?
       data = Wiki.get_course_info self.id
     end
+
     # Assumes 'School/Class (Term)' format
     course_info = data["name"].split(/(.*)\/(.*)\s\(([^\)]+)/)
     self.slug = data["name"].parameterize
@@ -60,11 +61,11 @@ class Course < ActiveRecord::Base
   end
 
   def revision_count
-    revisions.size
+    read_attribute(:revision_count) || revisions.size
   end
 
   def article_count
-    articles.size
+    read_attribute(:article_count) || articles.size
   end
 
   def update_cache
@@ -72,6 +73,8 @@ class Course < ActiveRecord::Base
     self.character_sum = revisions.where('characters > 0').sum(:characters)
     self.view_sum = articles.sum(:views)
     self.user_count = users.size
+    self.revision_count = revisions.size
+    self.article_count = articles.size
     self.save
   end
 
@@ -79,7 +82,7 @@ class Course < ActiveRecord::Base
   # Class methods #
   #################
   def self.update_all_courses
-    courses = Utils.chunk_requests(CourseList.all) {|block| Wiki.get_course_info block}
+    courses = Utils.chunk_requests(Wiki.get_course_list) {|block| Wiki.get_course_info block}
     courses.each do |c|
       course = Course.find_or_create_by(id: c["id"])
       course.update c

@@ -20,8 +20,9 @@ Project Setup
 
       $ npm install
 
-3. **Install Bower modules**
+3. **Install Bower and Bower modules**
 
+      $ npm install bower -g
       $ bower install
 
 Develop

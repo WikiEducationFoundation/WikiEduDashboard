@@ -1,18 +1,29 @@
 namespace :batch do
 
-  desc 'Pull all new data from sources and store appropriately'
+  desc 'Pull data from sources and store appropriately'
 
-  task :update_all => :environment do
-    # Update courses and course users
-    Rake::Task["course:update_courses"].invoke
-
-    # Update user trained status
+  # Hourly
+  task :update_hourly => :environment do
     Rake::Task["user:update_users"].invoke
-
-    # Update revisions and articles
     Rake::Task["revision:update_revisions"].invoke
+    Rake::Task["cache:update_caches"].invoke
+  end
 
-    # Update caches for all models
+  # Daily
+  task :update_daily => :environment do
+    Rake::Task["course:update_courses"].invoke
+    Rake::Task["user:update_users"].invoke
+    Rake::Task["revision:update_revisions"].invoke
+    Rake::Task["article:update_views"].invoke
+    Rake::Task["cache:update_caches"].invoke
+  end
+
+  # Initialize values from scratch
+  task :initialize => :environment do
+    Rake::Task["course:update_courses"].invoke
+    Rake::Task["user:update_users"].invoke
+    Rake::Task["revision:update_revisions"].invoke
+    Rake::Task["article:update_views_all_time"].invoke
     Rake::Task["cache:update_caches"].invoke
   end
 

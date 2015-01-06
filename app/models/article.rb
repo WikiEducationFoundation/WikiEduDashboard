@@ -9,21 +9,42 @@ class Article < ActiveRecord::Base
     "https://en.wikipedia.org/wiki/#{escaped_title}"
   end
 
-  def update_views
-
-  end
-
   def update(data={})
     if data.blank?
       # Implement method for single-article lookup
     end
 
     puts "Updating #{title}"
-
     self.title = data["page_title"].gsub("_", " ")
-    if(views_updated_at.nil? || views_updated_at < Date.today)
-      self.views = Grok.get_all_views_for_article(data["page_title"], Date.today)
-      self.views_updated_at = Date.today
+    self.views = self.revisions.order('date ASC').first.views
+    self.save
+  end
+
+  def update_views(all_time)
+    since = all_time ? CourseList.start.to_date : Date.today
+
+    if all_time
+      self.revisions.each do |r|
+        r.views = 0
+        r.save
+      end
+    end
+
+    # Update views on all revisions and the article
+    puts "Getting views for #{self.title} since #{since.strftime('%Y-%m-%d')}"
+    new_views = Grok.get_views_since_date_for_article(self.title, since)
+    new_views.each do |date, view_count|
+      updated = all_time ? Time.now.utc + 1.day : since
+      puts "#{date} - #{updated.strftime('%Y-%m-%d')} - #{view_count}"
+      self.revisions.where("date <= ?", date).where("updated_at < ?", updated.strftime('%Y-%m-%d')).find_each do |r|
+        r.views = r.views.nil? ? view_count : r.views + view_count
+        r.save
+      end
+    end
+    if(self.revisions.count > 0)
+      self.views = self.revisions.order('date ASC').first.views
+    else
+      self.views = 0
     end
     self.save
   end
@@ -47,6 +68,8 @@ class Article < ActiveRecord::Base
   #################
   # Class methods #
   #################
+
+  # This is no longer used by the application
   def self.update_all_articles
     articles = Utils.chunk_requests(User.all) { |block|
       Replica.get_articles_edited_this_term_by_users block
@@ -54,6 +77,12 @@ class Article < ActiveRecord::Base
     articles.each do |a|
       article = Article.find_or_create_by(id: a["page_id"])
       article.update a
+    end
+  end
+
+  def self.update_all_views(all_time=false)
+    Article.all.each do |a|
+      a.update_views(all_time)
     end
   end
 
