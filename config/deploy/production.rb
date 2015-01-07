@@ -5,14 +5,13 @@
 # property set.  Don't declare `role :all`, it's a meta role.
 
 set :branch, 'production'
+set :rails_env, 'production'
 
 role :app, %w{root@dashboard.wikiedu.org}
 role :web, %w{root@dashboard.wikiedu.org}
 role :db,  %w{root@dashboard.wikiedu.org}
 
 set :deploy_to, '/var/www/dashboard'
-
-set :rails_env, "production"
 
 # Extended Server Syntax
 # ======================
