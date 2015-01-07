@@ -16,6 +16,6 @@
     <p class="students hidden"><%= course.user_count %></p>
   </div>
   <div class="course-list__row__link">
-    <%= link_to 'View Course', course_path(:id => course.slug), :class => "button" %>
+    <%= link_to 'View Course', course_slug_path(course.slug), :class => "button" %>
   </div>
 </li>

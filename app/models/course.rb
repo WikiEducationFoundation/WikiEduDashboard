@@ -34,7 +34,7 @@ class Course < ActiveRecord::Base
 
     # Assumes 'School/Class (Term)' format
     course_info = data["name"].split(/(.*)\/(.*)\s\(([^\)]+)/)
-    self.slug = data["name"].parameterize
+    self.slug = data["name"].gsub(" ", "_")
     self.school = course_info[1]
     self.title = course_info[2]
     self.term = course_info[3]
