@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
     # Do not consider revisions with negative byte changes
     self.character_sum = revisions.where('characters > 0').sum(:characters)
     self.view_sum = articles.sum(:views)
-    self.revision_count = revisions.size
+    self.revisions_count = revisions.size
     self.article_count = articles.size
     self.course_count = courses.size
     self.save
