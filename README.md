@@ -23,6 +23,7 @@ Project Setup
 3. **Install Bower and Bower modules**
 
       $ npm install bower -g
+      
       $ bower install
 
 Initialization
