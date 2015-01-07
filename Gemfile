@@ -35,7 +35,7 @@ group :development, :test do
   gem 'zeus'
 end
 
-group :production do
+group :staging, :production do
   gem 'pg'
   gem 'mysql2'
   gem 'rails_12factor'
