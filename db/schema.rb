@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150107004155) do
+ActiveRecord::Schema.define(version: 20150105215614) do
 
   create_table "articles", force: true do |t|
     t.string   "title"
@@ -71,7 +71,7 @@ ActiveRecord::Schema.define(version: 20150107004155) do
     t.integer  "view_sum"
     t.integer  "course_count"
     t.integer  "article_count"
-    t.integer  "revision_count"
+    t.integer  "revisions_count"
     t.boolean  "trained"
   end
 

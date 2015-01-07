@@ -69,7 +69,7 @@ class Article < ActiveRecord::Base
   end
 
   def revision_count
-    revisions.size
+    read_attribute(:revisions_count) || revisions.size
   end
 
   def update_cache

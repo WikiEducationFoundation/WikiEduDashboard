@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
   end
 
   def revision_count
-    read_attribute(:revision_count) || revisions.size
+    read_attribute(:revisions_count) || revisions.size
   end
 
   def article_count
