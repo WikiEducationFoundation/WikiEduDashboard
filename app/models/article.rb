@@ -25,26 +25,35 @@ class Article < ActiveRecord::Base
   end
 
   def update_views(all_time)
-    since = all_time ? CourseList.start.to_date : Date.today
-
-    if all_time
-      self.revisions.each do |r|
-        r.views = 0
-        r.save
-      end
+    if(self.views_updated_at.nil?)
+      self.views_updated_at = CourseList.start.to_date
     end
 
-    # Update views on all revisions and the article
-    puts "Getting views for #{self.title} since #{since.strftime('%Y-%m-%d')}"
-    new_views = Grok.get_views_since_date_for_article(self.title, since)
-    new_views.each do |date, view_count|
-      updated = all_time ? Time.now.utc + 1.day : since
-      puts "#{date} - #{updated.strftime('%Y-%m-%d')} - #{view_count}"
-      self.revisions.where("date <= ?", date).where("updated_at < ?", updated.strftime('%Y-%m-%d')).find_each do |r|
-        r.views = r.views.nil? ? view_count : r.views + view_count
-        r.save
+    if(self.views_updated_at < Date.today)
+      since = all_time ? CourseList.start.to_date : self.views_updated_at + 1.day
+
+      if all_time
+        self.revisions.each do |r|
+          r.views = 0
+          r.save
+        end
       end
+
+      # Update views on all revisions and the article
+      puts "Getting views for #{self.title} since #{since.strftime('%Y-%m-%d')}"
+      new_views = Grok.get_views_since_date_for_article(self.title, since)
+      last = since
+      new_views.each do |date, view_count|
+        puts "#{date} - #{view_count}"
+        self.revisions.where("date <= ?", date).find_each do |r|
+          r.views = r.views.nil? ? view_count : r.views + view_count
+          r.save
+        end
+        last = date.to_date > last ? date.to_date : last
+      end
+      self.views_updated_at = last
     end
+
     if(self.revisions.count > 0)
       self.views = self.revisions.order('date ASC').first.views
     else
