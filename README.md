@@ -5,7 +5,7 @@ Dashboard application facilitating Wikiedu-powered courses
 
 Requirements
 ---------------
- * **Ruby**
+ * **Ruby (RVM recommended)**
  * **Node**
  * **NPM**
  * **Bower**
@@ -24,6 +24,20 @@ Project Setup
 
       $ npm install bower -g
       $ bower install
+
+Initialization
+--------------
+1. **Start Guard**
+
+      $ guard
+
+2. **Migrate the database**
+
+      $ rake db:migrate
+
+3. **Pull data from sources** (this could take a very long time)
+
+      $ rake batch:initialize
 
 Develop
 ------

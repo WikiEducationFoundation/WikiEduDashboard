@@ -9,7 +9,7 @@ namespace :batch do
 
   desc 'Daily data updates'
   task :update_daily => :environment do
-    Rake::Task["course:update_courses"].invoke
+    #Rake::Task["course:update_courses"].invoke
     Rake::Task["user:update_users"].invoke
     Rake::Task["revision:update_revisions"].invoke
     Rake::Task["article:update_views"].invoke

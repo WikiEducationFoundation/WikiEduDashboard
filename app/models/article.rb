@@ -16,7 +16,11 @@ class Article < ActiveRecord::Base
 
     puts "Updating #{title}"
     self.title = data["page_title"].gsub("_", " ")
-    self.views = self.revisions.order('date ASC').first.views
+    if(self.revisions.count > 0)
+      self.views = self.revisions.order('date ASC').first.views
+    else
+      self.views = 0
+    end
     self.save
   end
 
