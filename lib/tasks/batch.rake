@@ -2,6 +2,7 @@ namespace :batch do
 
   desc 'Hourly data updates'
   task :update_hourly => :environment do
+    puts "Running hourly update tasks"
     Rake::Task["user:update_users"].invoke
     Rake::Task["revision:update_revisions"].invoke
     Rake::Task["cache:update_caches"].invoke
@@ -9,7 +10,8 @@ namespace :batch do
 
   desc 'Daily data updates'
   task :update_daily => :environment do
-    #Rake::Task["course:update_courses"].invoke
+    puts "Running daily update tasks"
+    Rake::Task["course:update_courses"].invoke
     Rake::Task["user:update_users"].invoke
     Rake::Task["revision:update_revisions"].invoke
     Rake::Task["article:update_views"].invoke

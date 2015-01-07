@@ -19,6 +19,12 @@
 
 # Learn more: http://github.com/javan/whenever
 
-ever 2.hours do
-  rake "course:update_courses"
+set :output, 'log/cron.log'
+
+every 1.hours do
+  rake "batch:update_hourly"
+end
+
+every 1.day, :at => '4:30 am' do
+  rake "batch:update_daily"
 end
