@@ -21,8 +21,8 @@
 
 set :output, 'log/cron.log'
 
-every 1.hours do
-  rake "batch:update_hourly"
+every 5.minutes do
+  rake "batch:update_constantly"
 end
 
 every 1.day, :at => '4:30 am' do
