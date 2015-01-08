@@ -1,6 +1,6 @@
 class Course < ActiveRecord::Base
   has_and_belongs_to_many :users
-  has_many :revisions, -> { uniq }, through: :users
+  has_many :revisions, -> (course) { where("date >= ?", course.start) }, through: :users
   has_many :articles, -> { uniq }, through: :revisions
   # has_many :assignments
   # has_many :assigned_articles, -> { uniq }, through: :assignments, :class_name => "Article"
