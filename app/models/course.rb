@@ -49,11 +49,11 @@ class Course < ActiveRecord::Base
   # Cache methods
   def character_sum
     # Do not consider revisions with negative byte changes
-    read_attribute(:character_sum) || revisions.where('characters > 0').sum(:characters)
+    read_attribute(:character_sum) || revisions.where('characters > 0').map {|r| r.characters}.inject(:+) || 0
   end
 
   def view_sum
-    read_attribute(:view_sum) || articles.sum(:views)
+    read_attribute(:view_sum) || articles.map {|a| a.views}.inject(:+) || 0
   end
 
   def user_count
@@ -70,8 +70,8 @@ class Course < ActiveRecord::Base
 
   def update_cache
     # Do not consider revisions with negative byte changes
-    self.character_sum = revisions.where('characters > 0').sum(:characters)
-    self.view_sum = articles.sum(:views)
+    self.character_sum = revisions.where('characters > 0').map {|r| r.characters}.inject(:+) || 0
+    self.view_sum = articles.map {|a| a.views}.inject(:+) || 0
     self.user_count = users.size
     self.revision_count = revisions.size
     self.article_count = articles.size

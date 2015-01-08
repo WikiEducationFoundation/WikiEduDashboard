@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   end
 
   def view_sum
-    read_attribute(:view_sum) || articles.sum(:views)
+    read_attribute(:view_sum) || articles.map {|a| a.views}.inject(:+) || 0
   end
 
   def course_count
@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
   def update_cache
     # Do not consider revisions with negative byte changes
     self.character_sum = revisions.where('characters > 0').sum(:characters)
-    self.view_sum = articles.sum(:views)
+    self.view_sum = articles.map {|a| a.views}.inject(:+) || 0
     self.revisions_count = revisions.size
     self.article_count = articles.size
     self.course_count = courses.size
