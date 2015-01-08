@@ -38,5 +38,8 @@ module WikiEduDashboard
 
     # Disables native processing of Sass and Coffeescript
     config.assets.enabled = false
+
+    # Add timestamps to log messages
+    config.log_tags = [ lambda {|r| DateTime.now } ]
   end
 end
