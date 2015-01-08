@@ -48,7 +48,7 @@ Rails.application.configure do
   # config.log_tags = [ :subdomain, :uuid ]
 
   # Use a different logger for distributed setups.
-  config.logger = ActiveSupport::Logger.new('wiki_edu_dashboard.log')
+  config.logger = ActiveSupport::Logger.new('staging.log')
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
 
   # Use a different cache store in production.
