@@ -2,7 +2,7 @@
 # Config Variables
 #--------------------------------------------------------
 
-Config = -> 
+Config = ->
 
   # Development mode
   @development = false
@@ -14,7 +14,7 @@ Config = ->
   @viewPath = "app/views"
 
   # Compile path
-  @outputPath = "public/assets"
+  @outputPath = "public"
 
   # Public directory
   @publicPath = "public"
