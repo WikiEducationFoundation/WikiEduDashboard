@@ -12,7 +12,7 @@
   <div class="row article-list__row table__header article-list__sort">
     <div class="article-list__row__title sort" data-sort="title"><p>Title</p></div>
     <div class="article-list__row__characters sort" data-sort="characters" title="<%= Article.character_def %>"><p>Characters added</p></div>
-    <div class="article-list__row__views sort" data-sort="views" title="<%= Article.view_def %>"><p>Views this month</p></div>
+    <div class="article-list__row__views sort" data-sort="views" title="<%= Article.view_def %>"><p>Views since <%= @course.start.strftime('%m/%d/%y') %></p></div>
     <div class="article-list__row__link sort"></div>
   </div>
 </header>

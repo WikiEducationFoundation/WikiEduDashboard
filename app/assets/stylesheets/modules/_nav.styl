@@ -7,6 +7,8 @@
   margin 0 auto
   overflow hidden
   text-indent -9999px
+  &:hover
+    border-bottom 0
 
 nav
   .nav__item
@@ -28,6 +30,10 @@ nav
           a
             color bayoux
             font-weight bold
+            &:before
+              content '\25B8'
+              margin-left -13px
+              margin-right 5px
     > .subtitle a
       color bayoux
     p

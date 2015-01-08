@@ -1,15 +1,23 @@
 .button
-  background-color suit
+  background-color white
+  border 1px solid bayoux
   border-radius 4px
   font-size 11px
-  color white
-  padding 10px
-  &:hover
-    background-color manatee
-    color white
+  color bayoux
+  padding 5px 10px
   &:active
-    background-color bayoux
+    background-color manatee
+    border 1px solid manatee
     color white
   &.large
     padding 10px 50px
     font-size 14px
+
+.button:hover//, .row:hover .button
+  background-color bayoux
+  border-bottom 1px solid manatee
+  font-weight bold
+  color white
+  &:after
+    content '\003e'
+    margin-left 5px

@@ -1,11 +1,16 @@
 .sort
   cursor pointer
-  &.asc, &.desc
-    text-decoration underline
+  &.asc p:before
+    content '\25BE'
+    margin-right 5px
+  &.desc p:before
+    content '\25B4'
+    margin-right 5px
 .list__header
   border-bottom 1px solid suit !important
   padding 0 !important
   p
+    color manatee
     letter-spacing 0.5px
 .list
   list-style none
@@ -25,12 +30,16 @@
     min-height 60px
     p
       flex 1
+  h4
+    color dove
   &.view-all
     border-bottom none
     div
       align-items center
       justify-content center
       min-height 80px
+  // &:hover
+  //   background suit
 .table__header
   border-bottom 0
   padding 0
