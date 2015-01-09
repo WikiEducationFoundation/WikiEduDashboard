@@ -2,8 +2,8 @@ class CoursesController < ApplicationController
   def index
     @courses = Course.all
     @users = User.all
-    @revisions = Revision.all
-    @articles = Article.all
+    @courses_users = CoursesUsers.all
+    @articles_courses = ArticlesCourses.all
   end
 
   def show

@@ -1,5 +1,7 @@
 class Article < ActiveRecord::Base
   has_many :revisions
+  has_many :articles_courses, class_name: ArticlesCourses
+  has_many :courses, -> { uniq }, through: :articles_courses
 
   ####################
   # Instance methods #
@@ -64,8 +66,10 @@ class Article < ActiveRecord::Base
 
   # Cache methods
   def character_sum
-    # Do not consider revisions with negative byte changes
-    read_attribute(:character_sum) || revisions.where('characters > 0').sum(:characters)
+    if(!read_attribute(:character_sum))
+      update_cache()
+    end
+    read_attribute(:character_sum)
   end
 
   def revision_count

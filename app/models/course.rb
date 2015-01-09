@@ -1,7 +1,11 @@
 class Course < ActiveRecord::Base
-  has_and_belongs_to_many :users
+  has_many :courses_users, class_name: CoursesUsers
+  has_many :users, -> { uniq }, through: :courses_users
   has_many :revisions, -> (course) { where("date >= ?", course.start) }, through: :users
-  has_many :articles, -> { uniq }, through: :revisions
+
+  has_many :articles_courses, class_name: ArticlesCourses
+  has_many :articles, -> { uniq }, through: :articles_courses
+
   # has_many :assignments
   # has_many :assigned_articles, -> { uniq }, through: :assignments, :class_name => "Article"
 
@@ -19,7 +23,7 @@ class Course < ActiveRecord::Base
     unless all_participants.blank?
       all_participants.each do |p|
         user = User.find_or_create_by(wiki_id: p)
-        unless user.courses.any? {|course| course.id == self.id }
+        unless users.include? user
           user.courses << self
         end
         user.save
@@ -48,12 +52,17 @@ class Course < ActiveRecord::Base
 
   # Cache methods
   def character_sum
-    # Do not consider revisions with negative byte changes
-    read_attribute(:character_sum) || revisions.where('characters > 0').map {|r| r.characters}.inject(:+) || 0
+    if(!read_attribute(:character_sum))
+      update_cache()
+    end
+    read_attribute(:character_sum)
   end
 
   def view_sum
-    read_attribute(:view_sum) || articles.map {|a| a.views}.inject(:+) || 0
+    if(!read_attribute(:view_sum))
+      update_cache()
+    end
+    read_attribute(:view_sum)
   end
 
   def user_count
@@ -70,8 +79,8 @@ class Course < ActiveRecord::Base
 
   def update_cache
     # Do not consider revisions with negative byte changes
-    self.character_sum = revisions.where('characters > 0').map {|r| r.characters}.inject(:+) || 0
-    self.view_sum = articles.map {|a| a.views}.inject(:+) || 0
+    self.character_sum = courses_users.sum(:character_sum)
+    self.view_sum = articles_courses.sum(:view_count)
     self.user_count = users.size
     self.revision_count = revisions.size
     self.article_count = articles.size

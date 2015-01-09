@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
-  has_and_belongs_to_many :courses
-  # has_many :assignments
+  has_many :courses_users, class_name: CoursesUsers
+  has_many :courses, -> { uniq }, through: :courses_users
   has_many :revisions
   has_many :articles, -> { uniq }, through: :revisions
 
@@ -12,11 +12,6 @@ class User < ActiveRecord::Base
   end
 
   # Cache methods
-  def character_sum
-    # Do not consider revisions with negative byte changes
-    read_attribute(:character_sum) || revisions.where('characters > 0').sum(:characters)
-  end
-
   def view_sum
     read_attribute(:view_sum) || articles.map {|a| a.views}.inject(:+) || 0
   end
@@ -25,8 +20,12 @@ class User < ActiveRecord::Base
     read_attribute(:course_count) || courses.size
   end
 
-  def revision_count
-    read_attribute(:revisions_count) || revisions.size
+  def revision_count(after_date=nil)
+    if(after_date.nil?)
+      read_attribute(:revisions_count) || revisions.size
+    else
+      revisions.after_date(after_date).size
+    end
   end
 
   def article_count

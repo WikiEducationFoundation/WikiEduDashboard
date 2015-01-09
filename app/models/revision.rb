@@ -15,6 +15,11 @@ class Revision < ActiveRecord::Base
     self.user = User.find_by(wiki_id: data["rev_user_text"])
     self.article = Article.find_by(id: data["page_id"])
     self.save
+    self.user.courses.each do |c|
+      if((!c.articles.include? self.article) && (c.start <= self.date))
+        c.articles << self.article
+      end
+    end
   end
 
   #################
@@ -25,10 +30,12 @@ class Revision < ActiveRecord::Base
       Replica.get_revisions_this_term_by_users block
     }
     revisions.each do |r|
-      article = Article.find_or_create_by(id: r["page_id"])
-      article.update r
-      revision = Revision.find_or_create_by(id: r["rev_id"])
-      revision.update r
+      if(r["byte_change"].to_i > 0)
+        article = Article.find_or_create_by(id: r["page_id"])
+        article.update r
+        revision = Revision.find_or_create_by(id: r["rev_id"])
+        revision.update r
+      end
     end
   end
 end

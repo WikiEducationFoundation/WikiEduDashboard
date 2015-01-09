@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150105215614) do
+ActiveRecord::Schema.define(version: 20150109004724) do
 
   create_table "articles", force: true do |t|
     t.string   "title"
@@ -21,6 +21,15 @@ ActiveRecord::Schema.define(version: 20150105215614) do
     t.integer  "character_sum"
     t.integer  "revisions_count"
     t.date     "views_updated_at"
+  end
+
+  create_table "articles_courses", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "article_id"
+    t.integer  "course_id"
+    t.integer  "view_count"
+    t.integer  "character_sum"
   end
 
   create_table "assignments", force: true do |t|
@@ -46,9 +55,12 @@ ActiveRecord::Schema.define(version: 20150105215614) do
 
   add_index "courses", ["slug"], name: "index_courses_on_slug"
 
-  create_table "courses_users", id: false, force: true do |t|
-    t.integer "course_id", null: false
-    t.integer "user_id",   null: false
+  create_table "courses_users", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "course_id"
+    t.integer  "user_id"
+    t.integer  "character_sum"
   end
 
   create_table "revisions", force: true do |t|
