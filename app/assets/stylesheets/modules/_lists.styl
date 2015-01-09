@@ -7,11 +7,13 @@
     content '\25B4'
     margin-right 5px
 .list__header
-  border-bottom 1px solid suit !important
+  border-bottom 1px solid manatee !important
   padding 0 !important
   p
     color manatee
     letter-spacing 0.5px
+  &:hover
+    background none !important
 .list
   list-style none
   list-style-type none
@@ -21,7 +23,8 @@
   justify-content flex-start
   margin-left 0
   overflow hidden
-  padding 15px 0
+  padding 15px
+  transition background 0.15s
   div:last-child
     justify-content flex-end
   div
@@ -38,8 +41,8 @@
       align-items center
       justify-content center
       min-height 80px
-  // &:hover
-  //   background suit
+  &:hover
+    background athens
 .table__header
   border-bottom 0
   padding 0

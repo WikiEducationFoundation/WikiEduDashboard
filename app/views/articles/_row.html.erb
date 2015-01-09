@@ -9,7 +9,7 @@
   </div>
   <div class="article-list__row__views">
     <p class="views" title="<%= Article.view_def %>">
-      <%= article.articles_courses.where(course_id: @course.id).first.view_count || article.views %>
+      <%= article.articles_courses.where(course_id: @course.id).first.view_count || article.views || 0 %>
     </p>
   </div>
   <div class="article-list__row__link">
