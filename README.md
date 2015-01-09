@@ -23,8 +23,12 @@ Project Setup
 3. **Install Bower and Bower modules**
 
       $ npm install bower -g
-      
+
       $ bower install
+
+4. **Add config files**
+
+      Save `application.example.yml` and `database.example.yml` as `application.yml` and `database.yml`, respectively. Fill in your Wikipedia account login details in `application.yml` (for API access). The default settings in `database.yml` will suffice for a development environment.
 
 Initialization
 --------------
