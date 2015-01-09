@@ -5,6 +5,9 @@
     <h2><%= @course.title %></h2>
     <h6><%= @course.start %> &mdash; <%= @course.end %></h6>
     <div>
+      <div class="course-link">
+        <a href="https://en.wikipedia.org/wiki/Education_Program:<%= @course.slug %>" target="_blank">View course on Wikipedia</a>
+      </div>
 <!--       <div class="leader"><h6>Instructor</h6><p>Jane Doe</p></div>
       <div class="leader"><h6>Ambassador</h6><p>John Doe</p></div> -->
     </div>
@@ -48,7 +51,7 @@
   <div class="row article-list__row list__header">
     <div class="article-list__row__title sort" data-sort="title"><p>Title</p></div>
     <div class="article-list__row__characters sort" data-sort="characters" title="<%= Article.character_def %>"><p>Characters added</p></div>
-    <div class="article-list__row__views sort" data-sort="views" title="<%= Article.view_def %>"><p>Views since <%= @course.start.strftime('%m/%d/%y') %></p></div>
+    <div class="article-list__row__views sort" data-sort="views" title="<%= Article.view_def %>"><p>Views since first revision</p></div>
     <div class="article-list__row__link"></div>
   </div>
   <ul class="list">
