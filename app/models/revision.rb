@@ -30,6 +30,7 @@ class Revision < ActiveRecord::Base
       Replica.get_revisions_this_term_by_users block
     }
     revisions.each do |r|
+      puts "Got article #{r["page_title"]}"
       if(r["byte_change"].to_i > 0)
         article = Article.find_or_create_by(id: r["page_id"])
         article.update r
