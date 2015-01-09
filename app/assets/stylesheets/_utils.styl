@@ -3,3 +3,25 @@ round-placeholder(radius)
   border-radius (radius)px
   height (radius * 2)px
   width (radius * 2)px
+
+// Equal-height children
+equal-height(vcenter=false)
+  display flex
+  align-items stretch
+  align-content stretch
+
+  > div
+    align-content space-between
+    display flex
+    flex-flow wrap
+    justify-content center
+    height auto
+    margin-bottom 0
+    if vcenter
+      align-items center
+      flex-direction row
+    else
+      align-items flex-end
+      flex-direction column
+    *
+      -ms-flex 0 1 auto
