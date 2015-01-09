@@ -16,14 +16,13 @@ class Article < ActiveRecord::Base
       # Implement method for single-article lookup
     end
 
-    puts "Updating #{title}"
     self.title = data["page_title"].gsub("_", " ")
     if(self.views.nil?)
       self.update_views()
     end
 
     if(self.revisions.count > 0)
-      self.views = self.revisions.order('date ASC').first.views
+      self.views = self.revisions.order('date ASC').first.views || 0
     else
       self.views = 0
     end
