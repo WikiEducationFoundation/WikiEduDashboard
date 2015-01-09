@@ -18,6 +18,10 @@ class Article < ActiveRecord::Base
 
     puts "Updating #{title}"
     self.title = data["page_title"].gsub("_", " ")
+    if(self.views.nil?)
+      self.update_views()
+    end
+
     if(self.revisions.count > 0)
       self.views = self.revisions.order('date ASC').first.views
     else
@@ -26,7 +30,7 @@ class Article < ActiveRecord::Base
     self.save
   end
 
-  def update_views(all_time)
+  def update_views(all_time=false)
     if(self.views_updated_at.nil?)
       self.views_updated_at = CourseList.start.to_date
     end
