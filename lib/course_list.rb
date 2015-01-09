@@ -7,7 +7,7 @@ class CourseList
 
   # Find a way to replace this
   def self.end
-    "20140531"
+    "20150531"
   end
 
 end
