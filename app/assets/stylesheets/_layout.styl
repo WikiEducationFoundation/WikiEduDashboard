@@ -19,7 +19,7 @@ main
     color white
     padding 40px 20px
 
-header.subpage
+header.course-page
   padding 40px 20px 10px
 
 header
@@ -31,39 +31,26 @@ header
 section
   padding 0 20px
 
-.leader
-  span(1/2)
-  padding 20px 0
-  p
-    color white
+.details
+  padding-top 20px
+  overflow hidden
+  text-align left
+  width 100%
+  .details__detail
+    span(1/4)
+    padding 20px 0
+    p
+      color white
+      font-size 15px
+      font-weight
+      a:hover
+        color white
 
 .hidden
   display none
 
-.subpage
+.course-page
   .title
     span(1/2)
+    padding-right 20px
     text-align left
-  .stat-display
-    span(1/2)
-    padding 0
-    equal-height(true)
-    .stat-display__stat
-      background bayoux
-      border 1px solid manatee
-      border-width 0 1px
-      padding 5px 5px 10px
-      span(1/4)
-      &:first-child
-        border-top-left-radius 5px
-        border-bottom-left-radius 5px
-        border-left 0
-      &:last-child
-        border-top-right-radius 5px
-        border-bottom-right-radius 5px
-        border-right 0
-    &.half
-      span(1/4)
-      float right
-      .stat-display__stat
-        span(1/2)

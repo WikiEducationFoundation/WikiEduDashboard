@@ -1,0 +1,31 @@
+.stat-display
+  overflow hidden
+  padding 20px 0 0
+  .stat-display__stat
+    text-align center
+    span(1/9, offset=1/9)
+
+.course-page
+  .stat-display
+    span(1/2)
+    padding 0
+    equal-height(true)
+    .stat-display__stat
+      background bayoux
+      border 1px solid manatee
+      border-width 0 1px
+      padding 5px 5px 10px
+      span(1/4)
+      &:first-child
+        border-top-left-radius 5px
+        border-bottom-left-radius 5px
+        border-left 0
+      &:last-child
+        border-top-right-radius 5px
+        border-bottom-right-radius 5px
+        border-right 0
+    &.half
+      span(1/4)
+      float right
+      .stat-display__stat
+        span(1/2)
