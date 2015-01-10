@@ -30,17 +30,17 @@ Project Setup
 - Install Node: [Node.js Installer](http://nodejs.org/)
 
 - Install Gems:
--- $ bundle install
+    - $ bundle install
 
 - Install NPM modules:
--- $ npm install
+    - $ npm install
 
 - Install Bower and Bower modules:
--- $ [sudo] npm install bower -g
--- $ bower install
+    - $ [sudo] npm install bower -g
+    - $ bower install
 
 - Add config files:
--- Save `application.example.yml` and `database.example.yml` as `application.yml` and `database.yml`, respectively. Fill in your Wikipedia account login details in `application.yml` (for API access). The default settings in `database.yml` will suffice for a development environment.
+    - Save `application.example.yml` and `database.example.yml` as `application.yml` and `database.yml`, respectively. Fill in your Wikipedia account login details in `application.yml` (for API access). The default settings in `database.yml` will suffice for a development environment.
 
 Initialize
 --------------
