@@ -21,25 +21,28 @@ Requirements
 
 Project Setup
 ----------------
-1. **Install Gems**
 
-      $ bundle install
+- Fork this repo, so that you can set it up for a new server.
+- Clone the new WikiEduDashboard repo and enter that directory.
+- Install Ruby 2.1.5 (RVM is recommended)
+    - From the WikiEduWizard directory, run the curl script from [rvm.io](https://rvm.io/)
+    - Run the install command suggested by the script, something like `rvm install ruby-2.1.5`
+- Install Node: [Node.js Installer](http://nodejs.org/)
 
-2. **Install NPM modules**
+- Install Gems:
+-- $ bundle install
 
-      $ npm install
+- Install NPM modules:
+-- $ npm install
 
-3. **Install Bower and Bower modules**
+- Install Bower and Bower modules:
+-- $ [sudo] npm install bower -g
+-- $ bower install
 
-      $ [sudo] npm install bower -g
+- Add config files:
+-- Save `application.example.yml` and `database.example.yml` as `application.yml` and `database.yml`, respectively. Fill in your Wikipedia account login details in `application.yml` (for API access). The default settings in `database.yml` will suffice for a development environment.
 
-      $ bower install
-
-4. **Add config files**
-
-      Save `application.example.yml` and `database.example.yml` as `application.yml` and `database.yml`, respectively. Fill in your Wikipedia account login details in `application.yml` (for API access). The default settings in `database.yml` will suffice for a development environment.
-
-Initialization
+Initialize
 --------------
 1. **Start Guard**
 
@@ -68,3 +71,12 @@ Develop
       $ gulp
 
 4. The frontend is now visible at http://localhost:3000/
+
+Deploy
+------
+
+For deployment, the Dashboard uses [Capistrano](https://en.wikipedia.org/wiki/Capistrano_%28software%29).
+
+After pushing updates to repo (on Github), run the following command(s)
+- Staging: `cap staging deploy` (This will deploy from the "master" branch)
+- Production: `cap production deploy` (This will deploy from "production" branch)
