@@ -17,10 +17,6 @@ class Article < ActiveRecord::Base
     end
 
     self.title = data["page_title"].gsub("_", " ")
-    if(self.views.nil?)
-      self.update_views()
-    end
-
     if(self.revisions.count > 0)
       self.views = self.revisions.order('date ASC').first.views || 0
     else
@@ -45,16 +41,17 @@ class Article < ActiveRecord::Base
       end
 
       # Update views on all revisions and the article
-      puts "Getting views for #{self.title} since #{since.strftime('%Y-%m-%d')}"
       new_views = Grok.get_views_since_date_for_article(self.title, since)
       last = since
       new_views.each do |date, view_count|
-        puts "#{date} - #{view_count}"
         self.revisions.where("date <= ?", date).find_each do |r|
           r.views = r.views.nil? ? view_count : r.views + view_count
           r.save
         end
         last = date.to_date > last ? date.to_date : last
+      end
+      if(self.revisions.order('date ASC').first.views - self.views > 0)
+        puts "Added #{self.revisions.order('date ASC').first.views - self.views} new views for #{self.title}"
       end
       self.views_updated_at = last
     end
