@@ -78,7 +78,7 @@ class Article < ActiveRecord::Base
 
   def update_cache
     # Do not consider revisions with negative byte changes
-    self.character_sum = revisions.where('characters > 0').sum(:characters)
+    self.character_sum = revisions.where('characters >= 0').sum(:characters)
     self.save
   end
 

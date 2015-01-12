@@ -11,15 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150109004724) do
+ActiveRecord::Schema.define(version: 20150112193526) do
 
   create_table "articles", force: true do |t|
     t.string   "title"
-    t.integer  "views"
+    t.integer  "views",            default: 0
     t.datetime "updated_at"
     t.datetime "created_at"
-    t.integer  "character_sum"
-    t.integer  "revisions_count"
+    t.integer  "character_sum",    default: 0
+    t.integer  "revisions_count",  default: 0
     t.date     "views_updated_at"
   end
 
@@ -28,8 +28,8 @@ ActiveRecord::Schema.define(version: 20150109004724) do
     t.datetime "updated_at"
     t.integer  "article_id"
     t.integer  "course_id"
-    t.integer  "view_count"
-    t.integer  "character_sum"
+    t.integer  "view_count",    default: 0
+    t.integer  "character_sum", default: 0
   end
 
   create_table "assignments", force: true do |t|
@@ -45,11 +45,11 @@ ActiveRecord::Schema.define(version: 20150109004724) do
     t.date     "end"
     t.string   "school"
     t.string   "term"
-    t.integer  "character_sum"
-    t.integer  "view_sum"
-    t.integer  "user_count"
-    t.integer  "article_count"
-    t.integer  "revision_count"
+    t.integer  "character_sum",  default: 0
+    t.integer  "view_sum",       default: 0
+    t.integer  "user_count",     default: 0
+    t.integer  "article_count",  default: 0
+    t.integer  "revision_count", default: 0
     t.string   "slug"
   end
 
@@ -60,17 +60,17 @@ ActiveRecord::Schema.define(version: 20150109004724) do
     t.datetime "updated_at"
     t.integer  "course_id"
     t.integer  "user_id"
-    t.integer  "character_sum"
+    t.integer  "character_sum", default: 0
   end
 
   create_table "revisions", force: true do |t|
     t.date     "date"
-    t.integer  "characters"
+    t.integer  "characters", default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
     t.integer  "article_id"
-    t.integer  "views"
+    t.integer  "views",      default: 0
   end
 
   create_table "users", force: true do |t|
@@ -79,12 +79,12 @@ ActiveRecord::Schema.define(version: 20150109004724) do
     t.string   "wiki_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "character_sum"
-    t.integer  "view_sum"
-    t.integer  "course_count"
-    t.integer  "article_count"
-    t.integer  "revisions_count"
-    t.boolean  "trained"
+    t.integer  "character_sum",   default: 0
+    t.integer  "view_sum",        default: 0
+    t.integer  "course_count",    default: 0
+    t.integer  "article_count",   default: 0
+    t.integer  "revisions_count", default: 0
+    t.boolean  "trained",         default: false
   end
 
 end
