@@ -6,6 +6,7 @@ namespace :batch do
     Rake::Task['course:update_courses'].invoke
     Rake::Task['user:update_users'].invoke
     Rake::Task['revision:update_revisions'].invoke
+    Rake::Task['article:update_new_article_views'].invoke
     Rake::Task['cache:update_caches'].invoke
   end
 

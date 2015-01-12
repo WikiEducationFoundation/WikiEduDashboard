@@ -18,4 +18,10 @@ namespace :article do
     Article.update_all_views(true)
   end
 
+  desc 'Update views for newly added articles'
+  task :update_new_article_views => :environment do
+    Rails.logger.info "Updating views for newly added articles"
+    Article.update_new_views
+  end
+
 end

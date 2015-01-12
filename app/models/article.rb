@@ -103,6 +103,13 @@ class Article < ActiveRecord::Base
     end
   end
 
+  def self.update_new_views
+    Article.where("views_updated_at IS NULL").each do |a|
+      Rails.logger.info "Pulling views for newly added Article: #{a.title}"
+      a.update_views
+    end
+  end
+
   def self.update_all_caches
     Article.all.each do |a|
       a.update_cache
