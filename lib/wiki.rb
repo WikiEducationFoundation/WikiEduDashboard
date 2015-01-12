@@ -51,7 +51,7 @@ class Wiki
     begin
       response = @mw.get(page_title, options)
     rescue MediaWiki::APIError => e
-      puts "Caught MediaWiki::APIError: #{e}"
+      puts "Caught #{e}"
     end
     response
   end
@@ -103,11 +103,24 @@ class Wiki
     begin
       response = @mw.send_request(options)
     rescue MediaWiki::APIError => e
-      puts "Caught MediaWiki::APIError: #{e}"
-      api_get options
+      puts "Caught #{e}"
+      if(e.to_s.include?("Invalid course id"))
+        api_get Wiki.handle_invalid_course_id(options, e)
+      end
+    else
+      parsed = Crack::XML.parse response.to_s
+      parsed["api"]
     end
-    parsed = Crack::XML.parse response.to_s
-    parsed["api"]
+  end
+
+  def self.handle_invalid_course_id(options, e)
+    id = e.to_s[(e.to_s.length - 4)..(e.to_s.length - 2)]
+    if(options["courseids"].include?(id+'|'))
+      options["courseids"].slice! id+'|'
+    else
+      options["courseids"].slice! '|'+id
+    end
+    options
   end
 
 end
