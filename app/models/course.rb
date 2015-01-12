@@ -20,15 +20,24 @@ class Course < ActiveRecord::Base
     if all_participants.blank?
       all_participants = Wiki.get_students_in_course self.id
     end
-    unless all_participants.blank?
+    if all_participants.is_a?(Array)
       all_participants.each do |p|
-        user = User.find_or_create_by(wiki_id: p)
-        unless users.include? user
-          user.courses << self
-        end
-        user.save
+        add_user(p)
       end
+    elsif all_participants.is_a?(String)
+      add_user(all_participants)
+    else
+      Rails.logger.warn("Received data of unknown type for participants")
     end
+  end
+
+  # Utility for adding participants
+  def add_user(wiki_id)
+    user = User.find_or_create_by(wiki_id: wiki_id)
+    unless users.include? user
+      user.courses << self
+    end
+    user.save
   end
 
   def update(data={})
@@ -44,7 +53,7 @@ class Course < ActiveRecord::Base
     self.term = course_info[3]
     self.start = data["start"].to_date
     self.end = data["end"].to_date
-    if !data["students"].blank? && data["students"]["username"].kind_of?(Array)
+    if !data["students"].blank?
       self.update_participants data["students"]["username"]
     end
     self.save
