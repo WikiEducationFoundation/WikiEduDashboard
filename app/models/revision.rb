@@ -32,12 +32,10 @@ class Revision < ActiveRecord::Base
       Replica.get_revisions_this_term_by_users block
     }
     revisions.each do |r|
-      if(r["byte_change"].to_i > 0)
-        article = Article.find_or_create_by(id: r["page_id"])
-        article.update r
-        revision = Revision.find_or_create_by(id: r["rev_id"])
-        revision.update r
-      end
+      article = Article.find_or_create_by(id: r["page_id"])
+      article.update r
+      revision = Revision.find_or_create_by(id: r["rev_id"])
+      revision.update r
     end
   end
 end

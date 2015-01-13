@@ -39,7 +39,7 @@ describe Wiki do
     it "should return the list of courses" do
       VCR.use_cassette "wiki/course_list" do
         response = Wiki.get_course_list
-        expect(response.count).to eq(97)
+        expect(response.count).to eq(38)
       end
     end
 

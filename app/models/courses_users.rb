@@ -13,7 +13,7 @@ class CoursesUsers < ActiveRecord::Base
   end
 
   def update_cache
-    self.character_sum = user.revisions.where('characters > 0').where("date >= ?", course.start).sum(:characters) || 0
+    self.character_sum = user.revisions.where('characters >= 0').where("date >= ?", course.start).sum(:characters) || 0
     self.save
   end
 

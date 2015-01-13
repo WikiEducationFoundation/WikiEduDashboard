@@ -25,7 +25,7 @@ class Article < ActiveRecord::Base
     self.save
   end
 
-  def update_views(all_time=false)
+  def update_views(all_time=false, views=nil)
     if(self.views_updated_at.nil?)
       self.views_updated_at = CourseList.start.to_date
     end
@@ -41,7 +41,7 @@ class Article < ActiveRecord::Base
       end
 
       # Update views on all revisions and the article
-      new_views = Grok.get_views_since_date_for_article(self.title, since)
+      new_views = views.nil? ? Grok.get_views_since_date_for_article(self.title, since) : views
       last = since
       new_views.each do |date, view_count|
         self.revisions.where("date <= ?", date).find_each do |r|
@@ -78,7 +78,7 @@ class Article < ActiveRecord::Base
 
   def update_cache
     # Do not consider revisions with negative byte changes
-    self.character_sum = revisions.where('characters > 0').sum(:characters)
+    self.character_sum = revisions.where('characters >= 0').sum(:characters)
     self.save
   end
 
@@ -98,8 +98,31 @@ class Article < ActiveRecord::Base
   end
 
   def self.update_all_views(all_time=false)
+    require "./lib/course_list"
+    require "./lib/grok"
+    views = {}
+    Article.find_in_batches(batch_size: 50).with_index do |group, batch|
+      threads = group.each_with_index.map do |a, i|
+        Thread.new(i) do |i|
+          views_updated_at = a.views_updated_at || CourseList.start.to_date
+          if(views_updated_at < Date.today)
+            since = all_time ? CourseList.start.to_date : views_updated_at + 1.day
+            views[a.id] = Grok.get_views_since_date_for_article(a.title, since)
+          end
+        end
+      end
+      threads.each { |t| t.join }
+    end
+
     Article.all.each do |a|
-      a.update_views(all_time)
+      a.update_views(all_time, views[a.id])
+    end
+  end
+
+  def self.update_new_views
+    Article.where("views_updated_at IS NULL").each do |a|
+      Rails.logger.info "Pulling views for newly added Article: #{a.title}"
+      a.update_views
     end
   end
 

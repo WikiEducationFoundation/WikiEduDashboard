@@ -31,31 +31,35 @@ describe Replica do
     # end
 
     it "should return data for articles edited this term" do
-      all_users = [
-        { 'wiki_id' => 'ELE427' },
-        { 'wiki_id' => 'Kcmpayne' },
-        { 'wiki_id' => 'Mrbauer1234' },
-        { 'wiki_id' => 'Azul97' }
-      ]
-      all_users.each_with_index do |u, i|
-        all_users[i] = OpenStruct.new u
+      VCR.use_cassette "replica/articles" do
+        all_users = [
+          { 'wiki_id' => 'ELE427' },
+          { 'wiki_id' => 'Kcmpayne' },
+          { 'wiki_id' => 'Mrbauer1234' },
+          { 'wiki_id' => 'Azul97' }
+        ]
+        all_users.each_with_index do |u, i|
+          all_users[i] = OpenStruct.new u
+        end
+        response = Replica.get_articles_edited_this_term_by_users(all_users)
+        expect(response.count).to eq(4)
       end
-      response = Replica.get_articles_edited_this_term_by_users(all_users)
-      expect(response.count).to eq(4)
     end
 
     it "should return revisions from this term" do
-      all_users = [
-        { 'wiki_id' => 'ELE427' },
-        { 'wiki_id' => 'Kcmpayne' },
-        { 'wiki_id' => 'Mrbauer1234' },
-        { 'wiki_id' => 'Azul97' }
-      ]
-      all_users.each_with_index do |u, i|
-        all_users[i] = OpenStruct.new u
+      VCR.use_cassette "replica/revisions" do
+        all_users = [
+          { 'wiki_id' => 'ELE427' },
+          { 'wiki_id' => 'Kcmpayne' },
+          { 'wiki_id' => 'Mrbauer1234' },
+          { 'wiki_id' => 'Azul97' }
+        ]
+        all_users.each_with_index do |u, i|
+          all_users[i] = OpenStruct.new u
+        end
+        response = Replica.get_revisions_this_term_by_users(all_users)
+        expect(response.count).to eq(42)
       end
-      response = Replica.get_revisions_this_term_by_users(all_users)
-      expect(response.count).to eq(76)
     end
   end
 
