@@ -22,7 +22,7 @@ describe Grok do
     it "should return page views for a given article after a certain date" do
       VCR.use_cassette "grok/pageview_data" do
         views = Grok.get_views_since_date_for_article "History of biology", "2014-09-18".to_date
-        expect(views.count).to equal(122)
+        expect(views.count).to equal(105)
       end
     end
 
