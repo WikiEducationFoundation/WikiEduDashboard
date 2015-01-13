@@ -5,7 +5,7 @@ class Wiki
 
   # Parsing methods
   def self.get_course_list
-    response = get_page_content('Wikipedia:Education_program/Dashboard/course_ids')
+    response = get_page_content(Figaro.env.course_id_list)
     response.split(/\n/)
   end
 
@@ -104,6 +104,7 @@ class Wiki
       response = @mw.send_request(options)
     rescue MediaWiki::APIError => e
       puts "Caught #{e}"
+      Rails.logger.warn "Caught #{e}"
       if(e.to_s.include?("Invalid course id"))
         api_get Wiki.handle_invalid_course_id(options, e)
       end
