@@ -7,6 +7,7 @@ gem 'mediawiki-gateway'
 gem 'crack'
 gem 'figaro'
 gem 'whenever'
+gem 'mysql2'
 
 group :development do
   gem 'better_errors'
@@ -37,7 +38,6 @@ end
 
 group :staging, :production do
   gem 'pg'
-  gem 'mysql2'
   gem 'rails_12factor'
 end
 
