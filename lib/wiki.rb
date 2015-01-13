@@ -114,7 +114,7 @@ class Wiki
   end
 
   def self.handle_invalid_course_id(options, e)
-    id = e.to_s[(e.to_s.length - 4)..(e.to_s.length - 2)]
+    id = e.to_s[/(?<=MediaWiki::APIError: API error: code 'invalid-course', info 'Invalid course id: ).*?(?=')/]
     if(options["courseids"].include?(id+'|'))
       options["courseids"].slice! id+'|'
     else
