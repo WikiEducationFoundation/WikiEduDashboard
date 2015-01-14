@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150113193045) do
+ActiveRecord::Schema.define(version: 20150114191115) do
 
   create_table "articles", force: true do |t|
     t.string   "title"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20150113193045) do
     t.integer  "character_sum",    default: 0
     t.integer  "revisions_count",  default: 0
     t.date     "views_updated_at"
+    t.integer  "namespace"
   end
 
   create_table "articles_courses", force: true do |t|

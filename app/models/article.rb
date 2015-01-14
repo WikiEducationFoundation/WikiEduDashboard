@@ -17,6 +17,7 @@ class Article < ActiveRecord::Base
     end
 
     self.title = data["page_title"].gsub("_", " ")
+    self.namespace = data["page_namespace"]
     if(self.revisions.count > 0)
       self.views = self.revisions.order('date ASC').first.views || 0
     else
@@ -89,7 +90,8 @@ class Article < ActiveRecord::Base
   def self.update_all_views(all_time=false)
     require "./lib/course_list"
     require "./lib/grok"
-    Article.find_in_batches(batch_size: 50).with_index do |group, batch|
+    articles = Article.where(namespace: 0).find_in_batches(batch_size: 50)
+    articles.with_index do |group, batch|
       views = {}
       threads = group.each_with_index.map do |a, i|
         start = (a.courses.order(:start).first || CourseList).start.to_date
@@ -111,7 +113,8 @@ class Article < ActiveRecord::Base
   def self.update_new_views
     require "./lib/course_list"
     require "./lib/grok"
-    Article.where("views_updated_at IS NULL").find_in_batches(batch_size: 60).with_index do |group, batch|
+    articles = Article.where("views_updated_at IS NULL").where(namespace: 0).find_in_batches(batch_size: 60)
+    articles.with_index do |group, batch|
       views = {}
       threads = group.each_with_index.map do |a, i|
         since = (a.courses.order(:start).first || CourseList).start.to_date
