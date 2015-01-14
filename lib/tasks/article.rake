@@ -1,11 +1,5 @@
 namespace :article do
 
-  desc 'Update all articles'
-  task :update_articles => :environment do
-    Rails.logger.info "Updating all articles"
-    Article.update_all_articles
-  end
-
   desc 'Update article views incrementally'
   task :update_views => :environment do
     Rails.logger.info "Updating article views"

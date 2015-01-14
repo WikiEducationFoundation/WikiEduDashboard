@@ -12,13 +12,6 @@ class Replica
 
 
   # Request methods
-  def self.get_articles_edited_this_term_by_users(users)
-    user_list = self.compile_user_string(users)
-    query = user_list + "&start=#{CourseList.start}&end=#{CourseList.end}"
-    self.api_get("articles.php", query)
-  end
-
-
   def self.get_revisions_this_term_by_users(users)
     user_list = self.compile_user_string(users)
     query = user_list + "&start=#{CourseList.start}&end=#{CourseList.end}"

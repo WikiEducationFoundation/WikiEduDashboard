@@ -86,17 +86,6 @@ class Article < ActiveRecord::Base
   # Class methods #
   #################
 
-  # This is no longer used by the application
-  def self.update_all_articles
-    articles = Utils.chunk_requests(User.all) { |block|
-      Replica.get_articles_edited_this_term_by_users block
-    }
-    articles.each do |a|
-      article = Article.find_or_create_by(id: a["page_id"])
-      article.update a
-    end
-  end
-
   def self.update_all_views(all_time=false)
     require "./lib/course_list"
     require "./lib/grok"

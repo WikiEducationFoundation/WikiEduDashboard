@@ -8,34 +8,6 @@ describe Replica do
     #   expect(response).to eq("You have successfully reached to the WikiEduDashboard tool hosted by the Wikimedia Tool Labs.")
     # end
 
-    # it "should return data for all revisions made by a certain user" do
-    #   pending("Awaiting implementation")
-    # end
-
-    # it "should return data for all revisions made by a collection of users" do
-    #   pending("Awaiting implementation")
-    # end
-
-    # it "should return data for an article with a given id" do
-    #   pending("Awaiting implementation")
-    # end
-
-    it "should return data for articles edited this term" do
-      VCR.use_cassette "replica/articles" do
-        all_users = [
-          { 'wiki_id' => 'ELE427' },
-          { 'wiki_id' => 'Kcmpayne' },
-          { 'wiki_id' => 'Mrbauer1234' },
-          { 'wiki_id' => 'Azul97' }
-        ]
-        all_users.each_with_index do |u, i|
-          all_users[i] = OpenStruct.new u
-        end
-        response = Replica.get_articles_edited_this_term_by_users(all_users)
-        expect(response.count).to eq(4)
-      end
-    end
-
     it "should return revisions from this term" do
       VCR.use_cassette "replica/revisions" do
         all_users = [
