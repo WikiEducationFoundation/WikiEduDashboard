@@ -9,8 +9,6 @@ class Replica
 
 
   # Parsing methods
-  def self.get_bytes_for_revision(revision_id)
-  end
 
 
   # Request methods
@@ -20,13 +18,6 @@ class Replica
     self.api_get("articles.php", query)
   end
 
-  def self.get_articles_edited_by_user(user_id)
-    response = self.api_get("articles.php", "user_ids=#{user_id}")
-  end
-
-  def self.get_articles_edited_by_class(class_id)
-
-  end
 
   def self.get_revisions_this_term_by_users(users)
     user_list = self.compile_user_string(users)
@@ -34,8 +25,6 @@ class Replica
     Replica.api_get("revisions.php", query)
   end
 
-  def self.get_revisions_by_user(user_id)
-  end
 
   def self.get_users_completed_training(users)
     user_list = self.compile_user_string(users)
@@ -53,6 +42,7 @@ class Replica
     end
   end
 
+
   def self.compile_user_string(users)
     user_list = ""
     users.each_with_index do |u, i|
@@ -64,5 +54,6 @@ class Replica
     end
     user_list
   end
+
 
 end

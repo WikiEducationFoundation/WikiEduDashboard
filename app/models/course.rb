@@ -18,9 +18,8 @@ class Course < ActiveRecord::Base
 
   def update_participants(all_participants=[])
     if all_participants.blank?
-      all_participants = Wiki.get_students_in_course self.id
-    end
-    if all_participants.is_a?(Array)
+      Rails.logger.info("Course #{self.title} has no participants")
+    elsif all_participants.is_a?(Array)
       all_participants.each do |p|
         add_user(p)
       end
@@ -103,10 +102,11 @@ class Course < ActiveRecord::Base
   def self.update_all_courses(initial=false)
     listed_ids = Wiki.get_course_list
     course_ids = listed_ids | Course.all.pluck(:id).map(&:to_s)
+    minimum = course_ids.map(&:to_i).min
     maximum = course_ids.map(&:to_i).max
     max_plus = maximum + 2
     if(initial)
-      course_ids = course_ids | (0..max_plus).to_a.map(&:to_s)
+      course_ids = (0..max_plus).to_a.map(&:to_s)
     else
       course_ids = course_ids | (maximum..max_plus).to_a.map(&:to_s)
     end

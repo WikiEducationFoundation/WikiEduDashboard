@@ -20,16 +20,6 @@ describe Replica do
     #   pending("Awaiting implementation")
     # end
 
-    # it "should return data for articles edited by a user" do
-    #   response = Replica.get_articles_edited_by_user('Ragesoss')
-    #   expect(response).to_not be_empty
-    # end
-
-    # it "should return data for articles edited by a class" do
-    #   response = Replica.get_articles_edited_by_class(366)
-    #   expect(response).to_not be_empty
-    # end
-
     it "should return data for articles edited this term" do
       VCR.use_cassette "replica/articles" do
         all_users = [
