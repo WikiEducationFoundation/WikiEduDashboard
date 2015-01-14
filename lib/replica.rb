@@ -29,10 +29,10 @@ class Replica
   def self.api_get(endpoint, query='')
     url = "http://tools.wmflabs.org/wikiedudashboard/#{endpoint}?#{query}"
     response = Net::HTTP::get(URI.parse(url))
-    unless response.length > 100000
-      parsed = Crack::JSON.parse response.to_s
-      parsed["data"]
-    end
+    # unless response.length > 100000
+    parsed = Crack::JSON.parse response.to_s
+    parsed["data"]
+    # end
   end
 
 
