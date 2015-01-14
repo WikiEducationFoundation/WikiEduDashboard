@@ -6,8 +6,10 @@ namespace :course do
     Course.update_all_courses
   end
 
-  task :update_participants => :environment do
-    # Course.update_participants # Implement method for updating participants of all courses (maybe?)
+  desc 'Pull data for all courses and course users'
+  task :update_courses_all_time => :environment do
+    Rails.logger.info "Pulling data for all courses on Wikipedia"
+    Course.update_all_courses(true)
   end
 
 end

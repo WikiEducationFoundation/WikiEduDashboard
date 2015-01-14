@@ -44,7 +44,7 @@ class Grok
       data = Grok.api_get(title, iDate.strftime("%Y%m"))
       data = JSON.parse data
       data["daily_views"].each do |day, view_count|
-        if(day.to_date >= date)
+        if(view_count > 0 && day.to_date >= date)
           views[day] = view_count
         end
       end

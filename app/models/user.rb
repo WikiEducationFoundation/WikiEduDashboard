@@ -51,6 +51,7 @@ class User < ActiveRecord::Base
       Replica.get_users_completed_training block
     }
     trained_users.each do |u|
+      # Should this be find_by only?
       user = User.find_or_create_by(wiki_id: u["rev_user_text"])
       user.trained = true
       user.save

@@ -1,9 +1,6 @@
 class CoursesController < ApplicationController
   def index
-    @courses = Course.all
-    @users = User.all
-    @courses_users = CoursesUsers.all
-    @articles_courses = ArticlesCourses.all
+    @courses = Course.all.where(listed: true).order(:title)
   end
 
   def show

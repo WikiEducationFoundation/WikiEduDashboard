@@ -7,15 +7,15 @@
       <small>WikiEdu Courses</small>
       </div>
     <div class="stat-display__stat" title="The total number of students enrolled during the current term">
-      <h1><%= number_to_human @users.count %></h1>
+      <h1><%= number_to_human @courses.sum(:user_count) %></h1>
       <small>Student Editors</small>
     </div>
     <div class="stat-display__stat" title="The gross sum of characters added and removed by students during the current term">
-      <h1><%= number_to_human @courses_users.sum(:character_sum) %></h1>
+      <h1><%= number_to_human @courses.sum(:character_sum) %></h1>
       <small>Characters Added</small>
     </div>
     <div class="stat-display__stat" title="The sum of views to all articles edited by students during the current term">
-      <h1><%= number_to_human @articles_courses.sum(:view_count) %></h1>
+      <h1><%= number_to_human @courses.sum(:view_sum) %></h1>
       <small>Article Views</small>
     </div>
   </div>

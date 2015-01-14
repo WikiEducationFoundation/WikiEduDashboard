@@ -92,7 +92,18 @@ class Wiki
   private
   def self.gateway
     @mw = MediaWiki::Gateway.new('http://en.wikipedia.org/w/api.php')
-    @mw.login(Figaro.env.wikipedia_username!, Figaro.env.wikipedia_password!)
+    begin
+      @mw.login(Figaro.env.wikipedia_username!, Figaro.env.wikipedia_password!)
+    rescue RestClient::RequestTimeout => e
+      puts "Caught #{e}"
+      Rails.logger.warn "Caught #{e}"
+      Wiki.gateway
+    rescue MediaWiki::APIError => e
+      puts "Caught #{e}"
+      Rails.logger.warn "Caught #{e}"
+      Wiki.gateway
+    end
+    
     @mw
   end
 
@@ -106,7 +117,7 @@ class Wiki
       puts "Caught #{e}"
       Rails.logger.warn "Caught #{e}"
       if(e.to_s.include?("Invalid course id"))
-        api_get Wiki.handle_invalid_course_id(options, e)
+        Wiki.api_get Wiki.handle_invalid_course_id(options, e)
       end
     else
       parsed = Crack::XML.parse response.to_s
@@ -116,7 +127,9 @@ class Wiki
 
   def self.handle_invalid_course_id(options, e)
     id = e.to_s[/(?<=MediaWiki::APIError: API error: code 'invalid-course', info 'Invalid course id: ).*?(?=')/]
-    if(options["courseids"].include?(id+'|'))
+    if(options["courseids"].include?('|'+id+'|'))
+      options["courseids"] = options["courseids"].gsub('|'+id+'|', '|')
+    elsif(options["courseids"].include?(id+'|'))
       options["courseids"].slice! id+'|'
     else
       options["courseids"].slice! '|'+id

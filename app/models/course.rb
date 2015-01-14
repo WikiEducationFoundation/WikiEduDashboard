@@ -53,6 +53,7 @@ class Course < ActiveRecord::Base
     self.term = course_info[3]
     self.start = data["start"].to_date
     self.end = data["end"].to_date
+    self.listed = data["listed"]
     if !data["students"].blank?
       self.update_participants data["students"]["username"]
     end
@@ -99,9 +100,20 @@ class Course < ActiveRecord::Base
   #################
   # Class methods #
   #################
-  def self.update_all_courses
-    courses = Utils.chunk_requests(Wiki.get_course_list) {|block| Wiki.get_course_info block}
+  def self.update_all_courses(initial=false)
+    listed_ids = Wiki.get_course_list
+    course_ids = listed_ids | Course.all.pluck(:id).map(&:to_s)
+    maximum = course_ids.map(&:to_i).max
+    max_plus = maximum + 2
+    if(initial)
+      course_ids = course_ids | (0..max_plus).to_a.map(&:to_s)
+    else
+      course_ids = course_ids | (maximum..max_plus).to_a.map(&:to_s)
+    end
+
+    courses = Utils.chunk_requests(course_ids) {|c| Wiki.get_course_info c}
     courses.each do |c|
+      c["listed"] = listed_ids.include?(c["id"])
       course = Course.find_or_create_by(id: c["id"])
       course.update c
     end
