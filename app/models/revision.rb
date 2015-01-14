@@ -17,7 +17,7 @@ class Revision < ActiveRecord::Base
     self.save
 
     # Set up articles_courses join tables
-    if(data["page_namespace"] == 0)
+    if(data["page_namespace"].to_i == 0)
       self.user.courses.each do |c|
         if((!c.articles.include? self.article) && (c.start <= self.date))
           c.articles << self.article
@@ -41,5 +41,3 @@ class Revision < ActiveRecord::Base
     end
   end
 end
-
-

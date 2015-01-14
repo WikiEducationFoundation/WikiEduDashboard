@@ -23,7 +23,7 @@ class Course < ActiveRecord::Base
       all_participants.each do |p|
         add_user(p)
       end
-    elsif all_participants.is_a?(String)
+    elsif all_participants.is_a?(Hash)
       add_user(all_participants)
     else
       Rails.logger.warn("Received data of unknown type for participants")
@@ -31,12 +31,16 @@ class Course < ActiveRecord::Base
   end
 
   # Utility for adding participants
-  def add_user(wiki_id)
-    user = User.find_or_create_by(wiki_id: wiki_id)
-    unless users.include? user
-      user.courses << self
+  def add_user(user)
+    new_user = User.find_or_create_by(id: user["id"])
+    new_user.wiki_id = user["username"]
+    if(user["article"])
+      puts "Found a user with an assignment"
     end
-    user.save
+    unless users.include? new_user
+      new_user.courses << self
+    end
+    new_user.save
   end
 
   def update(data={})
@@ -46,6 +50,7 @@ class Course < ActiveRecord::Base
 
     # Assumes 'School/Class (Term)' format
     course_info = data["name"].split(/(.*)\/(.*)\s\(([^\)]+)/)
+    #self.instructor = data["instructors"]["instructor"]
     self.slug = data["name"].gsub(" ", "_")
     self.school = course_info[1]
     self.title = course_info[2]
@@ -54,7 +59,7 @@ class Course < ActiveRecord::Base
     self.end = data["end"].to_date
     self.listed = data["listed"]
     if !data["students"].blank?
-      self.update_participants data["students"]["username"]
+      self.update_participants data["students"]["student"]
     end
     self.save
   end
