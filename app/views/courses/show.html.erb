@@ -10,6 +10,7 @@
     <div class="user-list__row__characters sort desc" data-default-order="desc" data-sort="characters" title="<%= User.character_def %>"><p>Characters added</p></div>
     <div class="user-list__row__link"></div>
   </div>
+  <% if @students.count > 0 %>
   <ul class="list">
   <% @students.each do |s| %>
     <%= render :partial => 'users/row', :locals => {:user => s} %>
@@ -18,6 +19,11 @@
   <div class="row view-all">
     <div><%= link_to "View All", {:action => "students"}, {:class => "button large dark"} %></div>
   </div>
+  <% else %>
+  <div class="row view-all">
+    <div><%= @course.title %> does not have any enrolled students</div>
+  </div>
+  <% end %>
 </section>
 
 <section id="articles">
@@ -28,12 +34,18 @@
     <div class="article-list__row__views sort" data-default-order="desc" data-sort="views" title="<%= Article.view_def %>"><p>Views since first revision</p></div>
     <div class="article-list__row__link"></div>
   </div>
+  <% if @articles.count > 0 %>
   <ul class="list">
-  <% @articles.each do |a| %>
-    <%= render :partial => 'articles/row', :locals => {:article => a} %>
-  <% end %>
+    <% @articles.each do |a| %>
+      <%= render :partial => 'articles/row', :locals => {:article => a} %>
+    <% end %>
   </ul>
   <div class="row view-all">
     <div><%= link_to "View All", {:action => "articles"}, {:class => "button large dark"} %></div>
   </div>
+  <% else %>
+  <div class="row view-all">
+    <div><%= @course.title %> has not edited any articles</div>
+  </div>
+  <% end %>
 </section>
