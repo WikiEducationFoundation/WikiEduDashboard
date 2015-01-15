@@ -2,7 +2,7 @@ namespace :batch do
 
   desc 'Constant data updates'
   task :update_constantly => :environment do
-    Rails.logger.info "Running hourly update tasks"
+    Rails.logger.info "Running constant update tasks"
     Rake::Task['course:update_courses'].invoke
     Rake::Task['user:update_users'].invoke
     Rake::Task['revision:update_revisions'].invoke
