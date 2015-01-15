@@ -26,20 +26,19 @@ class Wiki
   def self.parse_course_info(course)
     parsed = { "course" => {}, "participants" => {} }
     course_info = course["name"].split(/(.*)\/(.*)\s\(([^\)]+)/)
+    parsed.tap { |p|
+      p["course"]["id"] = course["id"]
+      p["course"]["slug"] = course["name"].gsub(" ", "_")
+      p["course"]["school"] = course_info[1]
+      p["course"]["title"] = course_info[2]
+      p["course"]["term"] = course_info[3]
+      p["course"]["start"] = course["start"].to_date
+      p["course"]["end"] = course["end"].to_date
 
-    parsed["course"]["id"] = course["id"]
-    parsed["course"]["slug"] = course["name"].gsub(" ", "_")
-    parsed["course"]["school"] = course_info[1]
-    parsed["course"]["title"] = course_info[2]
-    parsed["course"]["term"] = course_info[3]
-    parsed["course"]["start"] = course["start"].to_date
-    parsed["course"]["end"] = course["end"].to_date
-
-    ["student", "instructor", "online_volunteer", "campus_volunteer"].each do |r|
-      parsed["participants"][r] = course[r + 's'].blank? ? [] : course[r + 's'][r]
-    end
-
-    parsed
+      ["student", "instructor", "online_volunteer", "campus_volunteer"].each do |r|
+        p["participants"][r] = course[r + 's'].blank? ? [] : course[r + 's'][r]
+      end
+    }
   end
 
 

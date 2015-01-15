@@ -4,12 +4,12 @@
     <p class="name"><%= user.wiki_id %></p>
   </div>
   <div class="user-list__row__training">
-    <p class="training" title="<%= User.training_def %>">
+    <p class="training" title="<%= t("user.training") %>">
       <%= user.trained ? 'Yes' : 'No' %>
     </p>
   </div>
   <div class="user-list__row__characters">
-    <p class="characters" title="<%= User.character_def %>">
+    <p class="characters" title="<%= t("user.character") %>">
       <%= user.courses_users.where(course_id: @course.id).first.character_sum || user.character_sum %><% if Rails.env.development? %> | <%= user.revisions.joins(:article).where(articles: {namespace: 2}).sum(:characters) %><% end %>
     </p>
   </div>

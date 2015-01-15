@@ -65,18 +65,4 @@ class User < ActiveRecord::Base
       u.update_cache
     end
   end
-
-  # Variable descriptons
-  def self.training_def
-    "Student editors who have completed the 'training for students' should have made an edit to the feedback page when they finished. If any student editors went through the training but did not complete the feedback step, they can return to the end of the training here: https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete"
-  end
-
-  def self.character_def
-    "The total amount of content a user has added to Wikipedia articles, calculated by adding up the size increases for every edit the user made that added net content. This offers a rough indication of how much they contributed to Wikipedia. This number may be misleadingly large if the user added the same content multiple time after someone else removed it, or if the user accidentally removed existing content and then restored it."
-  end
 end
-
-# Roles:
-#   Instructors
-#   Advisors
-#   Student

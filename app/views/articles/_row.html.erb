@@ -3,12 +3,12 @@
     <p class="title"><%= article.title %></p>
   </div>
   <div class="article-list__row__characters">
-    <p class="characters" title="<%= Article.character_def %>">
+    <p class="characters" title="<%= t("article.character") %>">
       <%= article.articles_courses.where(course_id: @course.id).first.character_sum || article.character_sum %>
     </p>
   </div>
   <div class="article-list__row__views">
-    <p class="views" title="<%= Article.view_def %>">
+    <p class="views" title="<%= t("article.view") %>">
       <%= article.articles_courses.where(course_id: @course.id).first.view_count || article.views || 0 %>
     </p>
   </div>
