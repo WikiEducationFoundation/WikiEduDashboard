@@ -6,9 +6,13 @@
       <h1><%= number_to_human @courses.count %></h1>
       <small>WikiEdu Courses</small>
       </div>
-    <div class="stat-display__stat" title="The total number of students enrolled during the current term">
+    <div class="stat-display__stat popover-trigger" title="The total number of students enrolled during the current term">
       <h1><%= number_to_human @courses.sum(:user_count) %></h1>
       <small>Student Editors</small>
+      <div class="popover">
+        <h4><%= User.student.where(trained: false).count %></h4>
+        <p>have not completed training</p>
+      </div>
     </div>
     <div class="stat-display__stat" title="The gross sum of characters added and removed by students during the current term">
       <h1><%= number_to_human @courses.sum(:character_sum) %></h1>
