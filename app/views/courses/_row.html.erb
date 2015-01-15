@@ -12,7 +12,7 @@
   </div>
   <div class="course-list__row__students">
     <h4 class="training"><%= number_to_human course.user_count %></h4>
-    <small class="training"><%= trained = course.users.select { |user| user.trained }; p trained.count %> completed training</small>
+    <small class="training"><%= trained = course.users.student.select { |user| user.trained }; p trained.count %> completed training</small>
     <p class="students hidden"><%= course.user_count %></p>
   </div>
   <div class="course-list__row__link">

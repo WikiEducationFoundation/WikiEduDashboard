@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   has_many :revisions
   has_many :articles, -> { uniq }, through: :revisions
 
+  enum role: [ :student, :instructor, :online_volunteer, :campus_volunteer ]
+
   ####################
   # Instance methods #
   ####################
@@ -35,8 +37,6 @@ class User < ActiveRecord::Base
   def update_cache
     # Do not consider revisions with negative byte changes
     self.character_sum = Revision.joins(:article).where(articles: {namespace: 0}).where(user_id: self.id).where('characters >= 0').sum(:characters) || 0
-    #self.character_sum = revisions.joins(:article).where(article: {namespace: 0}).where('characters >= 0').sum(:characters)
-    #self.us_character_sum = Article.where('namespace = 4').joins(:revisions).where(revisions: {user_id: self.id}).sum(:character_sum)
     self.view_sum = articles.map {|a| a.views || 0}.inject(:+) || 0
     self.revisions_count = revisions.size
     self.article_count = articles.size

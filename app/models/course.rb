@@ -1,5 +1,6 @@
 class Course < ActiveRecord::Base
   has_many :courses_users, class_name: CoursesUsers
+
   has_many :users, -> { uniq }, through: :courses_users
   has_many :revisions, -> (course) { where("date >= ?", course.start) }, through: :users
 
@@ -16,24 +17,25 @@ class Course < ActiveRecord::Base
     self.slug
   end
 
-  def update_participants(all_participants=[])
+  def update_participants(all_participants=[], role)
     if all_participants.blank?
       Rails.logger.info("Course #{self.title} has no participants")
     elsif all_participants.is_a?(Array)
       all_participants.each do |p|
-        add_user(p)
+        add_user(p, role)
       end
     elsif all_participants.is_a?(Hash)
-      add_user(all_participants)
+      add_user(all_participants, role)
     else
       Rails.logger.warn("Received data of unknown type for participants")
     end
   end
 
   # Utility for adding participants
-  def add_user(user)
+  def add_user(user, role)
     new_user = User.find_or_create_by(id: user["id"])
     new_user.wiki_id = user["username"]
+    new_user.role = role
     if(user["article"])
       puts "Found a user with an assignment"
     end
@@ -58,8 +60,10 @@ class Course < ActiveRecord::Base
     self.start = data["start"].to_date
     self.end = data["end"].to_date
     self.listed = data["listed"]
-    if !data["students"].blank?
-      self.update_participants data["students"]["student"]
+    ["student", "instructor", "online_volunteer", "campus_volunteer"].each_with_index do |r, i|
+      if !data[r + 's'].blank?
+        self.update_participants(data[r + 's'][r], i)
+      end
     end
     self.save
   end
@@ -80,7 +84,7 @@ class Course < ActiveRecord::Base
   end
 
   def user_count
-    read_attribute(:user_count) || users.size
+    read_attribute(:user_count) || users.student.size
   end
 
   def revision_count
@@ -95,7 +99,7 @@ class Course < ActiveRecord::Base
     # Do not consider revisions with negative byte changes
     self.character_sum = courses_users.sum(:character_sum)
     self.view_sum = articles_courses.sum(:view_count)
-    self.user_count = users.size
+    self.user_count = users.student.size
     self.revision_count = revisions.size
     self.article_count = articles.size
     self.save

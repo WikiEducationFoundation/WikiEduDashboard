@@ -23,6 +23,7 @@ class Revision < ActiveRecord::Base
           c.articles << self.article
         end
       end
+    else
     end
   end
 
@@ -30,7 +31,7 @@ class Revision < ActiveRecord::Base
   # Class methods #
   #################
   def self.update_all_revisions
-    revisions = Utils.chunk_requests(User.all, 100) { |block|
+    revisions = Utils.chunk_requests(User.student, 40) { |block|
       Replica.get_revisions_this_term_by_users block
     }
     revisions.each do |r|

@@ -18,6 +18,8 @@
     <% end %>
   </div>
   <div class="details">
+    <div class="details__detail"><h6>Instructor(s)</h6><p><%= user_links(@course.users.instructor) %></p></div>
+    <div class="details__detail"><h6>Volunteer(s)</h6><p><%= user_links(@course.users.online_volunteer + @course.users.campus_volunteer) %></p></div>
     <div class="details__detail"><h6>Course Duration</h6><p><%= @course.start %> &mdash; <%= @course.end %></p></div>
     <div class="details__detail">
       <h6>View on Wikipedia</h6>
