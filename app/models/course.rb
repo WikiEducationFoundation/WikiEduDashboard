@@ -50,21 +50,12 @@ class Course < ActiveRecord::Base
       data = Wiki.get_course_info self.id
     end
 
-    # Assumes 'School/Class (Term)' format
-    course_info = data["name"].split(/(.*)\/(.*)\s\(([^\)]+)/)
-    #self.instructor = data["instructors"]["instructor"]
-    self.slug = data["name"].gsub(" ", "_")
-    self.school = course_info[1]
-    self.title = course_info[2]
-    self.term = course_info[3]
-    self.start = data["start"].to_date
-    self.end = data["end"].to_date
-    self.listed = data["listed"]
-    ["student", "instructor", "online_volunteer", "campus_volunteer"].each_with_index do |r, i|
-      if !data[r + 's'].blank?
-        self.update_participants(data[r + 's'][r], i)
-      end
+    self.attributes = data["course"]
+
+    data["participants"].each_with_index do |(r, p), i|
+      self.update_participants(data["participants"][r], i)
     end
+
     self.save
   end
 
@@ -122,8 +113,8 @@ class Course < ActiveRecord::Base
 
     courses = Utils.chunk_requests(course_ids) {|c| Wiki.get_course_info c}
     courses.each do |c|
-      c["listed"] = listed_ids.include?(c["id"])
-      course = Course.find_or_create_by(id: c["id"])
+      c["course"]["listed"] = listed_ids.include?(c["course"]["id"])
+      course = Course.find_or_create_by(id: c["course"]["id"])
       course.update c
     end
   end
