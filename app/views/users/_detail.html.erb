@@ -1,0 +1,27 @@
+<div class="drawer">
+  <div class="row revision-list__row list__header revision-list__sort">
+    <div class="row__wrapper">
+      <div class="revision-list__row__title">
+        <h6>User Contributions</h6>
+      </div>
+      <div class="revision-list__row__date">
+        <p class="date">Date</p>
+      </div>
+      <div class="revision-list__row__namespace">
+        <p class="namespace">Namespace</p>
+      </div>
+      <div class="revision-list__row__characters">
+        <p class="characters">Chars Added</p>
+      </div>
+      <div class="revision-list__row__views">
+        <p class="views">Views</p>
+      </div>
+      <div class="revision-list__row__link"></div>
+    </div>
+  </div>
+  <ul class="list">
+  <% @course.revisions.where(user_id: user.id).order(date: :desc).limit(5).each do |r| %>
+    <%= render :partial => 'revisions/row', :locals => {:revision => r} %>
+  <% end %>
+  </ul>
+</div>

@@ -1,21 +1,23 @@
 <li class="row course-list__row">
-  <div class="course-list__row__title">
-    <p class="title"><%= course.title %></p>
-  </div>
-  <div class="course-list__row__characters">
-    <h4 title="<%= t("course.character") %>"><%= number_to_human course.character_sum %></h4>
-    <p class="characters hidden"><%= course.character_sum %></p>
-  </div>
-  <div class="course-list__row__views">
-    <h4 title="<%= t("course.view") %>"><%= number_to_human course.view_sum %></h4>
-    <p class="views hidden"><%= course.view_sum %></p>
-  </div>
-  <div class="course-list__row__students">
-    <h4 class="training"><%= number_to_human course.user_count %></h4>
-    <small class="training"><%= trained = course.users.student.select { |user| user.trained }; p trained.count %> completed training</small>
-    <p class="students hidden"><%= course.user_count %></p>
-  </div>
-  <div class="course-list__row__link">
-    <%= link_to 'View Course', course_slug_path(course.slug), :class => "button" %>
+  <div class="row__wrapper">
+    <div class="course-list__row__title">
+      <p class="title"><%= course.title %></p>
+    </div>
+    <div class="course-list__row__characters">
+      <h4 title="<%= t("course.character") %>"><%= number_to_human course.character_sum %></h4>
+      <p class="characters hidden"><%= course.character_sum %></p>
+    </div>
+    <div class="course-list__row__views">
+      <h4 title="<%= t("course.view") %>"><%= number_to_human course.view_sum %></h4>
+      <p class="views hidden"><%= course.view_sum %></p>
+    </div>
+    <div class="course-list__row__students">
+      <h4 class="training"><%= number_to_human course.user_count %></h4>
+      <small class="training"><%= trained = course.users.student.select { |user| user.trained }; p trained.count %> completed training</small>
+      <p class="students hidden"><%= course.user_count %></p>
+    </div>
+    <div class="course-list__row__link">
+      <%= link_to 'View Course', course_slug_path(course.slug), :class => "button" %>
+    </div>
   </div>
 </li>

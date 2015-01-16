@@ -10,7 +10,11 @@ class Article < ActiveRecord::Base
   ####################
   def url
     escaped_title = title.gsub(" ", "_")
-    "https://en.wikipedia.org/wiki/#{escaped_title}"
+    if(namespace == 0)
+      "https://en.wikipedia.org/wiki/#{escaped_title}"
+    else
+      "https://en.wikipedia.org/wiki/User:#{escaped_title}"
+    end
   end
 
 

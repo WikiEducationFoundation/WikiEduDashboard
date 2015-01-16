@@ -4,12 +4,7 @@
 
 <section id="articles">
   <h3 class="section-header">Articles Edited</h3>
-  <div class="row article-list__row list__header article-list__sort">
-    <div class="article-list__row__title sort asc" data-sort="title"><p>Title</p></div>
-    <div class="article-list__row__characters sort" data-default-order="desc" data-sort="characters" title="<%= t("article.character") %>"><p>Characters added</p></div>
-    <div class="article-list__row__views sort" data-default-order="desc" data-sort="views" title="<%= t("article.view") %>"><p>Views since first revision</p></div>
-    <div class="article-list__row__link"></div>
-  </div>
+  <%= render :partial => 'articles/list_header' %>
   <ul class="list">
   <% @articles.each do |a| %>
     <%= render :partial => 'articles/row', :locals => {:article => a} %>

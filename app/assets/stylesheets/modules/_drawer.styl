@@ -1,0 +1,42 @@
+.drawer
+  background athens
+  height 0
+  min-height 0 !important
+  overflow hidden
+  transition height .2s
+  width 100%
+
+  .list__header
+    background-color smoke !important
+    border-bottom none !important
+    h6
+      color manatee
+    &:hover
+      background-color smoke !important
+
+  .row
+    background-color alabaster
+    .row__wrapper
+      padding 5px 20px !important
+    &:last-child
+      border-bottom none
+
+.drawer_trigger
+  cursor pointer
+  transform rotate(0deg)
+  transition transform .2s
+  .icon:before
+    font-size 12px
+    font-weight bold
+.open
+  border-bottom 0
+  .drawer_trigger
+    transform rotate(-180deg)
+
+.revision-list__row__link
+  cursor pointer
+  .icon:before
+    font-size 6px
+    font-weight bold
+    line-height 4
+    margin-left 5px

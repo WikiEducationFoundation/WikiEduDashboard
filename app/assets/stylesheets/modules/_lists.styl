@@ -8,12 +8,14 @@
     margin-right 5px
 .list__header
   border-bottom 1px solid manatee !important
-  padding 0 !important
-  p
-    color manatee
-    letter-spacing 0.5px
+  .row__wrapper
+    padding-top 0 !important
+    padding-bottom 0 !important
+    p
+      color manatee
+      letter-spacing 0.5px
   &:hover
-    background none !important
+    background initial !important
 .list
   list-style none
   list-style-type none
@@ -23,11 +25,10 @@
   justify-content flex-start
   margin-left 0
   overflow hidden
-  padding 15px
   transition background 0.15s
-  div:last-child
-    justify-content flex-end
-  div
+  div:not(.drawer):last-child
+    justify-content center
+  div:not(.drawer)
     align-items center
     display flex
     min-height 60px
@@ -35,6 +36,11 @@
       flex 1
   h4
     color dove
+  .row__wrapper
+    padding 15px
+    width 100%
+  &:hover
+    background athens
   &.view-all
     border-bottom none
     div
@@ -43,8 +49,13 @@
       min-height 80px
     &:hover
       background none !important
-  &:hover
-    background athens
+  &.open > .row__wrapper
+    background-color manatee
+    &:hover
+      background manatee !important
+    p
+      color white
+
 .table__header
   border-bottom 0
   padding 0
@@ -69,17 +80,23 @@
 
 .user-list__row
   .user-list__row__name
-    col(2/5)
+    col(3/10)
     .avatar
       round-placeholder(30)
       display inline-block
       margin-right 15px
   .user-list__row__training
-    col(1/5)
-  .user-list__row__characters
-    col(1/5)
+    col(2/10)
+  .user-list__row__characters-ms
+    col(1/10)
+  .user-list__row__characters-us
+    col(1/10)
+  .user-list__row__edits
+    col(1/10)
   .user-list__row__link
-    col(1/5)
+    col(1/10)
+  .user-list__row__spacer
+    col(1/10)
 
 .article-list__row
   .article-list__row__title
@@ -90,3 +107,18 @@
     col(1/5)
   .article-list__row__link
     col(1/5)
+
+.revision-list__row
+  padding 10px 0 !important
+  .revision-list__row__title
+    col(3/10)
+  .revision-list__row__date
+    col(2/10)
+  .revision-list__row__namespace
+    col(1/10)
+  .revision-list__row__characters
+    col(2/10)
+  .revision-list__row__views
+    col(1/10)
+  .revision-list__row__link
+    col(1/10)

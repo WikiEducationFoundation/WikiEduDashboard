@@ -2,7 +2,13 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= content_for?(:title) ? yield(:title) : "WikiEdu Dashboard" %></title>
+    <% if(Rails.env == "development") %>
+      <title><%= content_for?(:title) ? yield(:title) : "D WikiEdu Dashboard" %></title>
+    <% elsif(Rails.env == "staging") %>
+      <title><%= content_for?(:title) ? yield(:title) : "S WikiEdu Dashboard" %></title>
+    <% else %>
+      <title><%= content_for?(:title) ? yield(:title) : "WikiEdu Dashboard" %></title>
+    <% end %>
     <%= favicon_link_tag 'favicon.ico' %>
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Myapp" %>">
 
