@@ -10,6 +10,7 @@ class Course < ActiveRecord::Base
   # has_many :assignments
   # has_many :assigned_articles, -> { uniq }, through: :assignments, :class_name => "Article"
 
+
   ####################
   # Instance methods #
   ####################
@@ -17,55 +18,30 @@ class Course < ActiveRecord::Base
     self.slug
   end
 
-  def update_participants(all_participants=[], role)
-    if all_participants.blank?
-      Rails.logger.info("Course #{self.title} has no participants")
-    elsif all_participants.is_a?(Array)
-      all_participants.each do |p|
-        add_user(p, role)
-      end
-    elsif all_participants.is_a?(Hash)
-      add_user(all_participants, role)
-    else
-      Rails.logger.warn("Received data of unknown type for participants")
-    end
-  end
-
-  # Utility for adding participants
-  def add_user(user, role)
-    new_user = User.find_or_create_by(id: user["id"])
-    new_user.wiki_id = user["username"]
-    new_user.role = role
-    if(user["article"])
-      puts "Found a user with an assignment"
-    end
-    unless users.include? new_user
-      new_user.courses << self
-    end
-    new_user.save
-  end
 
   def update(data={})
     if data.blank?
       data = Wiki.get_course_info self.id
     end
-
     self.attributes = data["course"]
-
     data["participants"].each_with_index do |(r, p), i|
-      self.update_participants(data["participants"][r], i)
+      User.add_users(data["participants"][r], i, self)
     end
-
     self.save
   end
 
-  # Cache methods
+
+
+  #################
+  # Cache methods #
+  #################
   def character_sum
     if(!read_attribute(:character_sum))
       update_cache()
     end
     read_attribute(:character_sum)
   end
+
 
   def view_sum
     if(!read_attribute(:view_sum))
@@ -74,17 +50,21 @@ class Course < ActiveRecord::Base
     read_attribute(:view_sum)
   end
 
+
   def user_count
     read_attribute(:user_count) || users.student.size
   end
+
 
   def revision_count
     read_attribute(:revision_count) || revisions.size
   end
 
+
   def article_count
     read_attribute(:article_count) || articles.size
   end
+
 
   def update_cache
     # Do not consider revisions with negative byte changes
@@ -95,6 +75,8 @@ class Course < ActiveRecord::Base
     self.article_count = articles.size
     self.save
   end
+
+
 
   #################
   # Class methods #
@@ -119,9 +101,12 @@ class Course < ActiveRecord::Base
     end
   end
 
+
   def self.update_all_caches
     Course.all.each do |c|
       c.update_cache
     end
   end
+
+
 end

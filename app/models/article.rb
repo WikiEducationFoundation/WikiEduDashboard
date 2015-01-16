@@ -3,6 +3,8 @@ class Article < ActiveRecord::Base
   has_many :articles_courses, class_name: ArticlesCourses
   has_many :courses, -> { uniq }, through: :articles_courses
 
+
+
   ####################
   # Instance methods #
   ####################
@@ -11,20 +13,19 @@ class Article < ActiveRecord::Base
     "https://en.wikipedia.org/wiki/#{escaped_title}"
   end
 
-  def update(data={})
-    if data.blank?
-      # Implement method for single-article lookup
-    end
 
-    self.title = data["page_title"].gsub("_", " ")
-    self.namespace = data["page_namespace"]
+  def update(data={})
+    self.attributes = data
+
     if(self.revisions.count > 0)
       self.views = self.revisions.order('date ASC').first.views || 0
     else
       self.views = 0
     end
+
     self.save
   end
+
 
   def update_views(all_time=false, views=nil)
     if(self.views_updated_at.nil?)
@@ -65,7 +66,11 @@ class Article < ActiveRecord::Base
     self.save
   end
 
-  # Cache methods
+
+
+  #################
+  # Cache methods #
+  #################
   def character_sum
     if(!read_attribute(:character_sum))
       update_cache()
@@ -73,9 +78,11 @@ class Article < ActiveRecord::Base
     read_attribute(:character_sum)
   end
 
+
   def revision_count
     read_attribute(:revisions_count) || revisions.size
   end
+
 
   def update_cache
     # Do not consider revisions with negative byte changes
@@ -83,10 +90,11 @@ class Article < ActiveRecord::Base
     self.save
   end
 
+
+
   #################
   # Class methods #
   #################
-
   def self.update_all_views(all_time=false)
     require "./lib/course_list"
     require "./lib/grok"
@@ -110,6 +118,7 @@ class Article < ActiveRecord::Base
     end
   end
 
+
   def self.update_new_views
     require "./lib/course_list"
     require "./lib/grok"
@@ -131,9 +140,12 @@ class Article < ActiveRecord::Base
     end
   end
 
+
   def self.update_all_caches
     Article.all.each do |a|
       a.update_cache
     end
   end
+
+
 end

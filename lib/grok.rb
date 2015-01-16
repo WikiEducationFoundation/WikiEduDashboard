@@ -18,8 +18,11 @@ class Grok
   end
 
 
-  private
 
+  ###################
+  # Private methods #
+  ###################
+  private
   def self.api_get(title, month)
     title = URI.escape(title)
     url = "http://stats.grok.se/json/en/#{month}/#{title}"

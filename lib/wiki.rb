@@ -3,30 +3,30 @@ require 'crack'
 
 class Wiki
 
-  # Parsing methods
+
+  ###################
+  # Parsing methods #
+  ###################
   def self.get_course_list
     response = get_page_content(Figaro.env.course_id_list)
     response.split(/\n/)
   end
 
+
   def self.get_course_info(course_id)
     raw = Wiki.get_course_info_raw(course_id)
-
     if raw.is_a?(Array)
-      res = []
-      raw.each do |course|
-        res.push Wiki.parse_course_info(course)
-      end
-      res
+      raw.map { |course| Wiki.parse_course_info(course) }
     else
       Wiki.parse_course_info(raw)
     end
   end
 
+
   def self.parse_course_info(course)
     parsed = { "course" => {}, "participants" => {} }
     course_info = course["name"].split(/(.*)\/(.*)\s\(([^\)]+)/)
-    parsed.tap { |p|
+    parsed.tap do |p|
       p["course"]["id"] = course["id"]
       p["course"]["slug"] = course["name"].gsub(" ", "_")
       p["course"]["school"] = course_info[1]
@@ -38,11 +38,14 @@ class Wiki
       ["student", "instructor", "online_volunteer", "campus_volunteer"].each do |r|
         p["participants"][r] = course[r + 's'].blank? ? [] : course[r + 's'][r]
       end
-    }
+    end
   end
 
 
-  # Request methods
+
+  ###################
+  # Request methods #
+  ###################
   def self.get_page_content(page_title, options={})
     @mw = Wiki.gateway
     options['format'] = 'xml'
@@ -69,6 +72,10 @@ class Wiki
   end
 
 
+
+  ###################
+  # Private methods #
+  ###################
   private
   def self.gateway
     @mw = MediaWiki::Gateway.new('http://en.wikipedia.org/w/api.php')

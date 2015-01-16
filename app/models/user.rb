@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
 
   enum role: [ :student, :instructor, :online_volunteer, :campus_volunteer ]
 
+
   ####################
   # Instance methods #
   ####################
@@ -13,14 +14,20 @@ class User < ActiveRecord::Base
     "https://en.wikipedia.org/wiki/Special:Contributions/#{self.wiki_id}"
   end
 
-  # Cache methods
+
+
+  #################
+  # Cache methods #
+  #################
   def view_sum
     read_attribute(:view_sum) || articles.map {|a| a.views}.inject(:+) || 0
   end
 
+
   def course_count
     read_attribute(:course_count) || courses.size
   end
+
 
   def revision_count(after_date=nil)
     if(after_date.nil?)
@@ -30,9 +37,11 @@ class User < ActiveRecord::Base
     end
   end
 
+
   def article_count
     read_attribute(:article_count) || article.size
   end
+
 
   def update_cache
     # Do not consider revisions with negative byte changes
@@ -45,9 +54,39 @@ class User < ActiveRecord::Base
   end
 
 
+
   #################
   # Class methods #
   #################
+  def self.add_users(users=[], role, course)
+    if users.blank?
+      Rails.logger.info("Course #{course.title} has no participants")
+    elsif users.is_a?(Array)
+      users.each do |p|
+        add_user(p, role, course)
+      end
+    elsif users.is_a?(Hash)
+      add_user(users, role, course)
+    else
+      Rails.logger.warn("Received data of unknown type for participants")
+    end
+  end
+
+
+  def self.add_user(user, role, course)
+    new_user = User.find_or_create_by(id: user["id"])
+    new_user.wiki_id = user["username"]
+    new_user.role = role
+    if(user["article"])
+      puts "Found a user with an assignment"
+    end
+    unless course.users.include? new_user
+      new_user.courses << course
+    end
+    new_user.save
+  end
+
+
   def self.update_trained_users
     trained_users = Utils.chunk_requests(User.all) { |block|
       Replica.get_users_completed_training block
@@ -60,9 +99,12 @@ class User < ActiveRecord::Base
     end
   end
 
+
   def self.update_all_caches
     User.all.each do |u|
       u.update_cache
     end
   end
+
+
 end
