@@ -3,11 +3,11 @@ module CourseHelper
     link_to((text || user.wiki_id), user.contribution_url, { :target => "_blank", :class => css_class })
   end
 
-  def user_links(users)
+  def user_links(users, css_class=nil)
     value = ""
     users.each_with_index do |u, i|
       value += i > 0 ? '<br>'.html_safe : ''
-      value += contribution_link(u)
+      value += contribution_link(u, nil, css_class)
     end
     value.html_safe
   end

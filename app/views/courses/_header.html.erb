@@ -27,12 +27,21 @@
       <% end %>
     </div>
     <div class="details">
-      <div class="details__detail"><h6>Instructor(s)</h6><p><%= user_links(@course.users.instructor) %></p></div>
-      <div class="details__detail"><h6>Volunteer(s)</h6><p><%= user_links(@course.users.online_volunteer + @course.users.campus_volunteer) %></p></div>
-      <div class="details__detail"><h6>Course Duration</h6><p><%= @course.start %> &mdash; <%= @course.end %></p></div>
+      <div class="details__detail">
+        <h6>Instructor<%= @course.users.instructor.count > 1 ? "s" : "" %></h6>
+        <p><%= user_links(@course.users.instructor, "inline") %></p>
+      </div>
+      <div class="details__detail">
+        <h6>Ambassador<%= (@course.users.online_volunteer + @course.users.campus_volunteer).count > 1 ? "s" : "" %></h6>
+        <p><%= user_links(@course.users.online_volunteer + @course.users.campus_volunteer, "inline") %></p>
+      </div>
+      <div class="details__detail">
+        <h6>Course Duration</h6>
+        <p><%= @course.start %> &mdash; <%= @course.end %></p>
+      </div>
       <div class="details__detail">
         <h6>View on Wikipedia</h6>
-        <p><a href="https://en.wikipedia.org/wiki/Education_Program:<%= @course.slug %>"><%= @course.title %></a></p>
+        <p><a class="inline" href="https://en.wikipedia.org/wiki/Education_Program:<%= @course.slug %>"><%= @course.title %></a></p>
       </div>
     </div>
   </div>
