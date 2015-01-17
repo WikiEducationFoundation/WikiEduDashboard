@@ -2,20 +2,18 @@
 
 <%= render :partial => 'header', :locals => {:page => 1} %>
 
-<div class="container">
-  <section id="users">
-    <h3 class="section-header">Student Editors</h3>
-    <%= render :partial => 'users/list_header' %>
-    <ul class="list">
-    <% if @students.count > 0 %>
-      <% @students.each do |s| %>
-        <%= render :partial => 'users/row', :locals => {:user => s} %>
-      <% end %>
-    <% else %>
-      <li class="row view-all">
-        <div><%= @course.title %> does not have any enrolled students</div>
-      </li>
+<section id="users">
+  <h3 class="section-header">Student Editors</h3>
+  <%= render :partial => 'users/list_header' %>
+  <ul class="list">
+  <% if @students.count > 0 %>
+    <% @students.each do |s| %>
+      <%= render :partial => 'users/row', :locals => {:user => s} %>
     <% end %>
-    </ul>
-  </section>
-</div>
+  <% else %>
+    <li class="row view-all">
+      <div><%= @course.title %> does not have any enrolled students</div>
+    </li>
+  <% end %>
+  </ul>
+</section>

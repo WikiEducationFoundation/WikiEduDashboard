@@ -19,8 +19,8 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <aside>
-      <div class="container">
+    <div class="container">
+      <aside>
         <div class="logo">
           <a class="logo__link" href="http://wikiedu.org" target="_blank" title="wikiedu.org"><%= image_tag "/images/wiki-logo.png" %></a>
         </div>
@@ -31,10 +31,10 @@
         <div class="login">
           <a href="#" class="inline">Login</a>
         </div>
-      </div>
-    </aside>
-    <main role="main">
-      <%= yield %>
-    </main>
+      </aside>
+      <main role="main">
+        <%= yield %>
+      </main>
+    </div>
   </body>
 </html>
