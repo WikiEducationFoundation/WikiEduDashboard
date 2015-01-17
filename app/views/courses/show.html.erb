@@ -2,40 +2,46 @@
 
 <%= render :partial => 'header', :locals => {:page => 0} %>
 
-<section id="users">
-  <h3 class="section-header">Student Editors</h3>
-  <%= render :partial => 'users/list_header' %>
-  <% if @students.count > 0 %>
-  <ul class="list">
-  <% @students.each do |s| %>
-    <%= render :partial => 'users/row', :locals => {:user => s} %>
-  <% end %>
-  </ul>
-  <div class="row view-all">
-    <div><%= link_to "View All", {:action => "students"}, {:class => "button large dark"} %></div>
-  </div>
-  <% else %>
-  <div class="row view-all">
-    <div><%= @course.title %> does not have any enrolled students</div>
-  </div>
-  <% end %>
-</section>
-
-<section id="articles">
-  <h3 class="section-header">Articles Edited</h3>
-  <%= render :partial => 'articles/list_header' %>
-  <% if @articles.count > 0 %>
-  <ul class="list">
-    <% @articles.each do |a| %>
-      <%= render :partial => 'articles/row', :locals => {:article => a} %>
+<div class="container">
+  <section id="users">
+    <h3 class="section-header">Student Editors</h3>
+    <%= render :partial => 'users/list_header' %>
+    <ul class="list">
+    <% if @students.count > 0 %>
+      <% @students.each do |s| %>
+        <%= render :partial => 'users/row', :locals => {:user => s} %>
+      <% end %>
+    <% else %>
+      <li class="row view-all">
+        <div><%= @course.title %> does not have any enrolled students</div>
+      </li>
     <% end %>
-  </ul>
-  <div class="row view-all">
-    <div><%= link_to "View All", {:action => "articles"}, {:class => "button large dark"} %></div>
-  </div>
-  <% else %>
-  <div class="row view-all">
-    <div><%= @course.title %> has not edited any articles</div>
-  </div>
-  <% end %>
-</section>
+    </ul>
+    <% if @students.count > 0 %>
+    <div class="row view-all">
+      <div><%= link_to "View All", {:action => "students"}, {:class => "button large dark"} %></div>
+    </div>
+    <% end %>
+  </section>
+
+  <section id="articles">
+    <h3 class="section-header">Articles Edited</h3>
+    <%= render :partial => 'articles/list_header' %>
+    <ul class="list">
+    <% if @articles.count > 0 %>
+      <% @articles.each do |a| %>
+        <%= render :partial => 'articles/row', :locals => {:article => a} %>
+      <% end %>
+    <% else %>
+      <li class="row view-all">
+        <div><%= @course.title %> has not edited any articles</div>
+      </li>
+    <% end %>
+    </ul>
+    <% if @articles.count > 0 %>
+    <div class="row view-all">
+      <div><%= link_to "View All", {:action => "articles"}, {:class => "button large dark"} %></div>
+    </div>
+    <% end %>
+  </section>
+</div>

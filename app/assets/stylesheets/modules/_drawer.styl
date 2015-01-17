@@ -25,6 +25,11 @@
   cursor pointer
   transform rotate(0deg)
   transition transform .2s
+  &.disabled
+    cursor initial
+    pointer-events none
+    .icon:before
+      color zircon
   .icon:before
     font-size 12px
     font-weight bold

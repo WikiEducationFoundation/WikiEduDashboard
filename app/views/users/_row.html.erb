@@ -26,8 +26,7 @@
       </p>
     </div>
     <div class="user-list__row__link">
-      <!-- <%= contribution_link(user, 'View Edits', 'button') %> -->
-      <div class="drawer_trigger"><p class="icon icon-downward-arrow"></p></div>
+      <div class="drawer_trigger <%= user.revisions.count < 1 ? "disabled" : "" %>"><p class="icon icon-downward-arrow"></p></div>
     </div>
   </div>
   <%= render :partial => 'users/detail', :locals => {:user => user} %>

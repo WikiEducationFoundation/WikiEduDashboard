@@ -1,42 +1,46 @@
 <header>
-  <h1>WikiEdu Dashboard</h1>
-  <!-- <p class="subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at nisl quis nisl fermentum condimentum eu ut felis ed at nisl quis dolor sit amet.</p> -->
-  <div class="stat-display">
-    <div class="stat-display__stat" title="The total number of courses during the current term">
-      <h1><%= number_to_human @courses.count %></h1>
-      <small>WikiEdu Courses</small>
+  <div class="container">
+    <h1>WikiEdu Dashboard</h1>
+    <!-- <p class="subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at nisl quis nisl fermentum condimentum eu ut felis ed at nisl quis dolor sit amet.</p> -->
+    <div class="stat-display">
+      <div class="stat-display__stat" title="The total number of courses during the current term">
+        <h1><%= number_to_human @courses.count %></h1>
+        <small>WikiEdu Courses</small>
+        </div>
+      <div class="stat-display__stat popover-trigger" title="The total number of students enrolled during the current term">
+        <h1><%= number_to_human @courses.sum(:user_count) %></h1>
+        <small>Student Editors</small>
+        <div class="popover">
+          <h4><%= User.student.where(trained: false).count %></h4>
+          <p>have not completed training</p>
+        </div>
       </div>
-    <div class="stat-display__stat popover-trigger" title="The total number of students enrolled during the current term">
-      <h1><%= number_to_human @courses.sum(:user_count) %></h1>
-      <small>Student Editors</small>
-      <div class="popover">
-        <h4><%= User.student.where(trained: false).count %></h4>
-        <p>have not completed training</p>
+      <div class="stat-display__stat" title="The gross sum of characters added and removed by students during the current term">
+        <h1><%= number_to_human @courses.sum(:character_sum) %></h1>
+        <small>Characters Added</small>
       </div>
-    </div>
-    <div class="stat-display__stat" title="The gross sum of characters added and removed by students during the current term">
-      <h1><%= number_to_human @courses.sum(:character_sum) %></h1>
-      <small>Characters Added</small>
-    </div>
-    <div class="stat-display__stat" title="The sum of views to all articles edited by students during the current term">
-      <h1><%= number_to_human @courses.sum(:view_sum) %></h1>
-      <small>Article Views</small>
+      <div class="stat-display__stat" title="The sum of views to all articles edited by students during the current term">
+        <h1><%= number_to_human @courses.sum(:view_sum) %></h1>
+        <small>Article Views</small>
+      </div>
     </div>
   </div>
 </header>
 
 <section id="courses">
-  <h3 class="section-header">All Current Courses | Spring 2015</h3>
-  <div class="row course-list__row list__header">
-    <div class="course-list__row__title sort asc" data-sort="title"><p>Current Courses</p></div>
-    <div class="course-list__row__characters sort" data-default-order="desc" data-sort="characters" title="<%= t("course.character") %>"><p>Chars Added</p></div>
-    <div class="course-list__row__views sort" data-default-order="desc" data-sort="views" title="<%= t("course.view") %>"><p>Views</p></div>
-    <div class="course-list__row__students sort" data-default-order="desc" data-sort="students"><p>Student Editors</p></div>
-    <div class="course-list__row__link"></div>
+  <div class="container">
+    <h3 class="section-header">All Current Courses | Spring 2015</h3>
+    <div class="row course-list__row list__header">
+      <div class="course-list__row__title sort asc" data-sort="title"><p>Current Courses</p></div>
+      <div class="course-list__row__characters sort" data-default-order="desc" data-sort="characters" title="<%= t("course.character") %>"><p>Chars Added</p></div>
+      <div class="course-list__row__views sort" data-default-order="desc" data-sort="views" title="<%= t("course.view") %>"><p>Views</p></div>
+      <div class="course-list__row__students sort" data-default-order="desc" data-sort="students"><p>Student Editors</p></div>
+      <div class="course-list__row__link"></div>
+    </div>
+    <ul class="list">
+    <% @courses.each do |c| %>
+      <%= render :partial => 'row', :locals => {:course => c} %>
+    <% end %>
+    </ul>
   </div>
-  <ul class="list">
-  <% @courses.each do |c| %>
-    <%= render :partial => 'row', :locals => {:course => c} %>
-  <% end %>
-  </ul>
 </section>
