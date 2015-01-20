@@ -59,9 +59,9 @@ class User < ActiveRecord::Base
   # Class methods #
   #################
   def self.add_users(users=[], role, course)
-    if users.blank?
-      Rails.logger.info("Course #{course.title} has no participants")
-    elsif users.is_a?(Array)
+    # if users.blank?
+    #   Rails.logger.info("Course #{course.title} has no participants")
+    if users.is_a?(Array)
       users.each do |p|
         add_user(p, role, course)
       end
