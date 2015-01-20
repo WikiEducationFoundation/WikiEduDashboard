@@ -4,7 +4,7 @@
       <p class="title"><%= link_to ((revision.article.namespace == 0 ? "" : "User:") + revision.article.title), revision.article.url, :target => "_blank", :class => "inline" %></p>
     </div>
     <div class="revision-list__row__date">
-      <p class="date"><%= revision.date %></p>
+      <p class="date"><%= revision.date.strftime("%Y-%m-%d %k:%M") %></p>
     </div>
 <!--     <div class="revision-list__row__namespace">
       <p class="namespace"><%= revision.article.namespace == 0 ? "Main" : "User" %></p>

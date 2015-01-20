@@ -8,6 +8,9 @@ $ ->
   # Article sorting
   articleList = new List('articles', {valueNames: ['title','characters','views']})
 
+  # Revision sorting
+  revisionList = new List('revisions', {valueNames: ['title', 'date', 'characters', 'views']})
+
   # User detail display
   $('.drawer_trigger').click (e) ->
     drawer = $(e.target).parents('.row').children('.drawer')

@@ -1,0 +1,19 @@
+<%= render :partial => 'nav', :locals => {:page => 0, :course => @course} %>
+
+<%= render :partial => 'header', :locals => {:page => 0} %>
+
+<section id="revisions">
+  <h3 class="section-header">Recent Activity</h3>
+  <%= render :partial => 'revisions/list_header' %>
+  <ul class="list">
+  <% if @revisions.count > 0 %>
+    <% @revisions.each do |r| %>
+      <%= render :partial => 'revisions/row', :locals => {:revision => r} %>
+    <% end %>
+  <% else %>
+    <li class="row view-all">
+      <div><%= @course.title %> has no recent activity</div>
+    </li>
+  <% end %>
+  </ul>
+</section>

@@ -9,6 +9,11 @@ class CoursesController < ApplicationController
     @articles = @course.articles.order(:title).limit(4)
   end
 
+  def recent
+    @course = Course.find_by_slug(params[:id])
+    @revisions = @course.revisions.order(date: :desc).limit(20)
+  end
+
   def students
     @course = Course.find_by_slug(params[:id])
     @students = @course.users.student.order(:wiki_id)

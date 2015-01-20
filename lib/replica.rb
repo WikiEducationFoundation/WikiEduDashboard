@@ -25,7 +25,7 @@ class Replica
     parsed = { "revision" => {}, "article" => {}, "extra" => {} }
     parsed.tap do |p|
       p["revision"]["id"] = revision["rev_id"]
-      p["revision"]["date"] = revision["rev_timestamp"].to_date
+      p["revision"]["date"] = revision["rev_timestamp"].to_datetime
       p["revision"]["characters"] = revision["byte_change"]
 
       p["article"]["id"] = revision["page_id"]

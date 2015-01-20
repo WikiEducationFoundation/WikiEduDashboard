@@ -1,9 +1,9 @@
 <% content_for :navigation do %>
   <div class="nav__item active">
     <ul class="nav__item__subnav">
-      <li class="<%= page == 0 ? 'active' : '' %>">
-        <p><%= link_to 'Course Overview', course_slug_path(course.slug) %></p>
-      </li>
+<!--       <li class="<%= page == 0 ? 'active' : '' %>">
+        <p><%= link_to 'Recent Activity', course_slug_path(course.slug) %></p>
+      </li> -->
       <li class="<%= page == 1 ? 'active' : '' %>">
         <p><%= link_to 'Student Editors', :action => "students" %></p>
       </li>
