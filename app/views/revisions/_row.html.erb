@@ -1,14 +1,14 @@
 <li class="row revision-list__row">
   <div class="row__wrapper">
     <div class="revision-list__row__title">
-      <p class="title"><%= link_to revision.article.title, revision.article.url, :target => "_blank", :class => "inline" %></p>
+      <p class="title"><%= link_to ((revision.article.namespace == 0 ? "" : "User:") + revision.article.title), revision.article.url, :target => "_blank", :class => "inline" %></p>
     </div>
     <div class="revision-list__row__date">
       <p class="date"><%= revision.date %></p>
     </div>
-    <div class="revision-list__row__namespace">
+<!--     <div class="revision-list__row__namespace">
       <p class="namespace"><%= revision.article.namespace == 0 ? "Main" : "User" %></p>
-    </div>
+    </div> -->
     <div class="revision-list__row__characters">
       <p class="characters"><%= revision.characters %></p>
     </div>
