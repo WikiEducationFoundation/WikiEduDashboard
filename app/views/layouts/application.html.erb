@@ -28,9 +28,9 @@
           <div class="nav__item <%= content_for?(:navigation) ? '' : 'active' %>"><p class="subtitle"><%= link_to 'Global Dashboard', root_url %></p></div>
           <%= content_for?(:navigation) ? yield(:navigation) : '' %>
         </nav>
-        <div class="login">
+<!--         <div class="login">
           <a href="#" class="inline">Login</a>
-        </div>
+        </div> -->
       </aside>
       <main role="main">
         <%= yield %>

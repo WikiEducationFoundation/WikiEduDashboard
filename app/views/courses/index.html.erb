@@ -2,11 +2,11 @@
   <h1>WikiEdu Dashboard</h1>
   <!-- <p class="subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at nisl quis nisl fermentum condimentum eu ut felis ed at nisl quis dolor sit amet.</p> -->
   <div class="stat-display">
-    <div class="stat-display__stat" title="The total number of courses during the current term">
+    <div class="stat-display__stat">
       <h1><%= number_to_human @courses.count %></h1>
       <small>WikiEdu Courses</small>
       </div>
-    <div class="stat-display__stat popover-trigger" title="The total number of students enrolled during the current term">
+    <div class="stat-display__stat popover-trigger">
       <h1><%= number_to_human @courses.sum(:user_count) %></h1>
       <small>Student Editors</small>
       <div class="popover">
@@ -14,11 +14,11 @@
         <p>have not completed training</p>
       </div>
     </div>
-    <div class="stat-display__stat" title="The gross sum of characters added and removed by students during the current term">
+    <div class="stat-display__stat">
       <h1><%= number_to_human @courses.sum(:character_sum) %></h1>
       <small>Characters Added</small>
     </div>
-    <div class="stat-display__stat" title="The sum of views to all articles edited by students during the current term">
+    <div class="stat-display__stat">
       <h1><%= number_to_human @courses.sum(:view_sum) %></h1>
       <small>Article Views</small>
     </div>
