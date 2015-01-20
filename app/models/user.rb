@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   has_many :revisions
   has_many :articles, -> { uniq }, through: :revisions
 
-  enum role: [ :student, :instructor, :online_volunteer, :campus_volunteer ]
+  enum role: [ :student, :instructor, :online_volunteer, :campus_volunteer, :wiki_ed_staff ]
 
 
   ####################
@@ -76,7 +76,7 @@ class User < ActiveRecord::Base
   def self.add_user(user, role, course)
     new_user = User.find_or_create_by(id: user["id"])
     new_user.wiki_id = user["username"]
-    new_user.role = role
+    new_user.role = (user["username"].include? "(Wiki Ed)") ? 4 : role
     if(user["article"])
       Rails.logger.info "Found user #{user["username"]} with an assignment \"#{user["article"]}\""
     end
