@@ -78,7 +78,7 @@ class User < ActiveRecord::Base
     new_user.wiki_id = user["username"]
     new_user.role = role
     if(user["article"])
-      puts "Found a user with an assignment"
+      Rails.logger.info "Found user #{user["username"]} with an assignment \"#{user["article"]}\""
     end
     unless course.users.include? new_user
       new_user.courses << course
