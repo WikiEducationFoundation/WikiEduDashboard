@@ -91,12 +91,8 @@ class User < ActiveRecord::Base
     trained_users = Utils.chunk_requests(User.all) { |block|
       Replica.get_users_completed_training block
     }
-    trained_users.each do |u|
-      # Should this be find_by only?
-      user = User.find_or_create_by(wiki_id: u["rev_user_text"])
-      user.trained = true
-      user.save
-    end
+    wiki_ids = trained_users.map{|u| u["rev_user_text"]}
+    User.where(wiki_id: wiki_ids).update_all(trained: true)
   end
 
 

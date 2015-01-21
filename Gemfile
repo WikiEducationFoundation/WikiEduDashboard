@@ -8,6 +8,7 @@ gem 'crack'
 gem 'figaro'
 gem 'whenever'
 gem 'mysql2'
+gem 'activerecord-import'
 
 group :development do
   gem 'better_errors'
