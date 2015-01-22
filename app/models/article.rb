@@ -18,7 +18,7 @@ class Article < ActiveRecord::Base
   end
 
 
-  def update(data={})
+  def update(data={}, save=true)
     self.attributes = data
 
     if(self.revisions.count > 0)
@@ -27,7 +27,9 @@ class Article < ActiveRecord::Base
       self.views = 0
     end
 
-    self.save
+    if save
+      self.save
+    end
   end
 
 
