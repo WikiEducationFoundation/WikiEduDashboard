@@ -7,20 +7,11 @@ class Revision < ActiveRecord::Base
   ####################
   # Instance methods #
   ####################
-  def update(data={})
-    self.attributes = data["revision"]
-    self.user = User.find_by(wiki_id: data["extra"]["user_wiki_id"])
-    self.article = Article.find_by(id: data["article"]["id"])
-    self.save
+  def update(data={}, save=true)
+    self.attributes = data
 
-    # Set up articles_courses join tables
-    if(data["article"]["namespace"].to_i == 0)
-      self.user.courses.each do |c|
-        if((!c.articles.include? self.article) && (c.start <= self.date))
-          c.articles << self.article
-        end
-      end
-    else
+    if save
+      self.save
     end
   end
 
@@ -30,15 +21,53 @@ class Revision < ActiveRecord::Base
   # Class methods #
   #################
   def self.update_all_revisions
-    revisions = Utils.chunk_requests(User.student, 40) { |block|
+    data = Utils.chunk_requests(User.student, 40) { |block|
       Replica.get_revisions_this_term_by_users block
     }
-    revisions.each do |r|
-      article = Article.find_or_create_by(id: r["article"]["id"])
-      article.update r["article"]
-      revision = Revision.find_or_create_by(id: r["revision"]["id"])
-      revision.update r
+    if(Revision.count == 0)
+      self.import_revisions(data)
+    else
+      data.each do |a_id, a|
+        article = Article.find_or_create_by(id: a["article"]["id"])
+        article.update a["article"]
+        a["revisions"].each do |r|
+          revision = Revision.find_or_create_by(id: r["id"])
+          revision.update r
+        end
+      end
     end
+
+    ActiveRecord::Base.transaction do
+      Revision.joins(:article).where(articles: {namespace: "0"}).each do |r|
+        r.user.courses.each do |c|
+          if((!c.articles.include? r.article) && (c.start <= r.date))
+            c.articles << r.article
+          end
+        end
+      end
+    end
+  end
+
+  def self.import_revisions(data)
+    articles = []
+    revisions = []
+
+    data.each do |a_id, a|
+      article = Article.new(id: a["article"]["id"])
+      article.update(a["article"], false)
+      articles.push article
+
+      a["revisions"].each do |r|
+        revision = Revision.new(id: r["id"])
+        revision.update(r, false)
+        revisions.push revision
+      end
+    end
+    Revision.import revisions
+    Article.import articles
+
+
+
   end
 
 

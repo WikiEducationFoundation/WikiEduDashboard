@@ -13,26 +13,37 @@ class Replica
   ###################
   def self.get_revisions_this_term_by_users(users)
     raw = Replica.get_revisions_this_term_by_users_raw(users)
+    data = {}
     if raw.is_a?(Array)
-      raw.map { |revision| Replica.parse_revision(revision) }
+      raw.each do |revision|
+        parsed = Replica.parse_revision(revision)
+        if !data.include?(parsed["article"]["id"])
+          data[parsed["article"]["id"]] = {}
+          data[parsed["article"]["id"]]["article"] = parsed["article"]
+          data[parsed["article"]["id"]]["revisions"] = []
+        end
+        data[parsed["article"]["id"]]["revisions"].push parsed["revision"]
+      end
     else
       Replica.parse_revision(raw)
     end
+    data
   end
 
 
   def self.parse_revision(revision)
-    parsed = { "revision" => {}, "article" => {}, "extra" => {} }
+    parsed = { "revisions" => [] }
+    parsed = { "revision" => {}, "article" => {} }
     parsed.tap do |p|
-      p["revision"]["id"] = revision["rev_id"]
-      p["revision"]["date"] = revision["rev_timestamp"].to_datetime
-      p["revision"]["characters"] = revision["byte_change"]
-
       p["article"]["id"] = revision["page_id"]
       p["article"]["title"] = revision["page_title"].gsub("_", " ")
       p["article"]["namespace"] = revision["page_namespace"]
 
-      p["extra"]["user_wiki_id"] = revision["rev_user_text"]
+      p["revision"]["id"] = revision["rev_id"]
+      p["revision"]["date"] = revision["rev_timestamp"].to_datetime
+      p["revision"]["characters"] = revision["byte_change"]
+      p["revision"]["article_id"] = revision["page_id"]
+      p["revision"]["user_id"] = revision["rev_user"]
     end
   end
 
