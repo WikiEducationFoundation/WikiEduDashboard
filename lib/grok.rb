@@ -6,11 +6,19 @@ class Grok
     views = Hash.new
     while Date.today >= iDate do
       data = Grok.api_get(title, iDate.strftime("%Y%m"))
-      data = JSON.parse data
-      data["daily_views"].each do |day, view_count|
-        if(view_count > 0 && day.to_date >= date)
-          views[day] = view_count
+      begin
+        data = JSON.parse data
+      rescue JSON::ParserError => e
+        puts "Whoops #{e}"
+      end
+      if data.include?("daily_views")
+        data["daily_views"].each do |day, view_count|
+          if(view_count > 0 && day.to_date >= date)
+            views[day] = view_count
+          end
         end
+      else
+        puts "Whoops #{iDate}"
       end
       iDate += 1.month
     end

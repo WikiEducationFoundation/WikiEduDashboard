@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
 
   def revision_count(after_date=nil)
     if(after_date.nil?)
-      read_attribute(:revisions_count) || revisions.size
+      read_attribute(:revision_count) || revisions.size
     else
       revisions.after_date(after_date).size
     end
@@ -47,7 +47,7 @@ class User < ActiveRecord::Base
     # Do not consider revisions with negative byte changes
     self.character_sum = Revision.joins(:article).where(articles: {namespace: 0}).where(user_id: self.id).where('characters >= 0').sum(:characters) || 0
     self.view_sum = articles.map {|a| a.views || 0}.inject(:+) || 0
-    self.revisions_count = revisions.size
+    self.revision_count = revisions.size
     self.article_count = articles.size
     self.course_count = courses.size
     self.save
@@ -58,32 +58,33 @@ class User < ActiveRecord::Base
   #################
   # Class methods #
   #################
-  def self.add_users(users=[], role, course)
-    # if users.blank?
-    #   Rails.logger.info("Course #{course.title} has no participants")
-    if users.is_a?(Array)
-      users.each do |p|
-        add_user(p, role, course)
+  def self.add_users(data, role, course, save=true)
+    if data.is_a?(Array)
+      data.map do |p|
+        add_user(p, role, course, save)
       end
-    elsif users.is_a?(Hash)
-      add_user(users, role, course)
+    elsif data.is_a?(Hash)
+      [add_user(data, role, course, save)]
     else
       Rails.logger.warn("Received data of unknown type for participants")
     end
   end
 
 
-  def self.add_user(user, role, course)
-    new_user = User.find_or_create_by(id: user["id"])
+  def self.add_user(user, role, course, save=true)
+    new_user = save ? User.find_or_create_by(id: user["id"]) : User.new(id: user["id"])
     new_user.wiki_id = user["username"]
     new_user.role = (user["username"].include? "(Wiki Ed)") ? 4 : role
     if(user["article"])
       Rails.logger.info "Found user #{user["username"]} with an assignment \"#{user["article"]}\""
     end
-    unless course.users.include? new_user
-      new_user.courses << course
+    if save
+      unless course.users.include? new_user
+        new_user.courses << course
+      end
+      new_user.save
     end
-    new_user.save
+    new_user
   end
 
 
@@ -97,8 +98,10 @@ class User < ActiveRecord::Base
 
 
   def self.update_all_caches
-    User.all.each do |u|
-      u.update_cache
+    User.transaction do
+      User.all.each do |u|
+        u.update_cache
+      end
     end
   end
 

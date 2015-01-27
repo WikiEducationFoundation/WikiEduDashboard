@@ -21,6 +21,10 @@ $ ->
     drawer.toggleHeight()
     $(e.target).parents('.row').toggleClass('open')
 
+  $('select.cohorts').change (e) ->
+    cohort = $('select.cohorts option:selected').val()
+    window.location = "/courses?cohort=" + encodeURIComponent(cohort)
+
 $.fn.extend
   toggleHeight: ->
     return @each ->

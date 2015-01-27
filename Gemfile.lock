@@ -4,6 +4,13 @@ GIT
   specs:
     vcr (2.9.3)
 
+GIT
+  remote: https://github.com/onemedical/activerecord-import.git
+  revision: ce63b1f504200ae901b97193782f8f80fd263355
+  specs:
+    activerecord-import (0.7.0)
+      activerecord (>= 3.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -27,8 +34,6 @@ GEM
       activemodel (= 4.1.8)
       activesupport (= 4.1.8)
       arel (~> 5.0.0)
-    activerecord-import (0.7.0)
-      activerecord (>= 3.0)
     activesupport (4.1.8)
       i18n (~> 0.6, >= 0.6.9)
       json (~> 1.7, >= 1.7.7)
@@ -259,7 +264,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activerecord-import
+  activerecord-import!
   better_errors
   binding_of_caller
   byebug

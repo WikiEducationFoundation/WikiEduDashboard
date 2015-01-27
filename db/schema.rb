@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150120223204) do
+ActiveRecord::Schema.define(version: 20150126205618) do
 
   create_table "articles", force: true do |t|
     t.string   "title"
@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 20150120223204) do
     t.datetime "updated_at"
     t.datetime "created_at"
     t.integer  "character_sum",    default: 0
-    t.integer  "revisions_count",  default: 0
+    t.integer  "revision_count",   default: 0
     t.date     "views_updated_at"
     t.integer  "namespace"
   end
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 20150120223204) do
     t.integer  "revision_count", default: 0
     t.string   "slug"
     t.boolean  "listed"
+    t.string   "cohort"
   end
 
   add_index "courses", ["slug"], name: "index_courses_on_slug", using: :btree
@@ -62,7 +63,9 @@ ActiveRecord::Schema.define(version: 20150120223204) do
     t.datetime "updated_at"
     t.integer  "course_id"
     t.integer  "user_id"
-    t.integer  "character_sum", default: 0
+    t.integer  "character_sum_ms", default: 0
+    t.integer  "character_sum_us", default: 0
+    t.integer  "revision_count",   default: 0
   end
 
   create_table "revisions", force: true do |t|
@@ -81,13 +84,13 @@ ActiveRecord::Schema.define(version: 20150120223204) do
     t.string   "wiki_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "character_sum",   default: 0
-    t.integer  "view_sum",        default: 0
-    t.integer  "course_count",    default: 0
-    t.integer  "article_count",   default: 0
-    t.integer  "revisions_count", default: 0
-    t.boolean  "trained",         default: false
-    t.integer  "role",            default: 0
+    t.integer  "character_sum",  default: 0
+    t.integer  "view_sum",       default: 0
+    t.integer  "course_count",   default: 0
+    t.integer  "article_count",  default: 0
+    t.integer  "revision_count", default: 0
+    t.boolean  "trained",        default: false
+    t.integer  "role",           default: 0
   end
 
 end

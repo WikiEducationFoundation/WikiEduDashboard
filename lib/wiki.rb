@@ -8,17 +8,26 @@ class Wiki
   # Parsing methods #
   ###################
   def self.get_course_list
-    response = get_page_content(Figaro.env.course_id_list)
-    response.split(/\n/)
+    response = {}
+    Figaro.env.cohorts.split(",").each do |cohort|
+      response[cohort] = get_page_content(ENV["cohort_" + cohort]).split(/\n/)
+    end
+    #response = get_page_content(Figaro.env.course_id_list)
+    response
+    # get_page_content(ENV["cohort_spring_2015"]).split(/\n/)
   end
 
 
   def self.get_course_info(course_id)
     raw = Wiki.get_course_info_raw(course_id)
+    if !raw
+      return []
+    end
+
     if raw.is_a?(Array)
       raw.map { |course| Wiki.parse_course_info(course) }
     else
-      Wiki.parse_course_info(raw)
+      [Wiki.parse_course_info(raw)]
     end
   end
 
@@ -64,11 +73,12 @@ class Wiki
     if course_id.is_a?(Array)
       course_id = course_id.join('|')
     end
-    Wiki.api_get({
+    info = Wiki.api_get({
       'action' => 'liststudents',
       'courseids' => course_id,
       'group' => ''
-    })["course"]
+    })
+    info.nil? ? nil : info["course"]
   end
 
 
@@ -101,10 +111,13 @@ class Wiki
     begin
       response = @mw.send_request(options)
     rescue MediaWiki::APIError => e
-      puts "Caught #{e}"
       Rails.logger.warn "Caught #{e}"
       if(e.to_s.include?("Invalid course id"))
-        Wiki.api_get Wiki.handle_invalid_course_id(options, e)
+        if(options["courseids"].split('|').count > 1)
+          Wiki.api_get Wiki.handle_invalid_course_id(options, e)
+        else
+          {"course" => false}
+        end
       end
     else
       parsed = Crack::XML.parse response.to_s

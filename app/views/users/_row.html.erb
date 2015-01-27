@@ -11,22 +11,22 @@
     </div>
     <div class="user-list__row__characters-ms">
       <p class="characters-ms" title="<%= t("user.character") %>">
-        <%= user.revisions.joins(:article).where(articles: {namespace: 0}).sum(:characters) %>
+        <%= @course.courses_users.find_by(user_id: user.id).character_sum_ms %>
       </p>
     </div>
     <div class="user-list__row__characters-us">
       <p class="characters-us" title="<%= t("user.character") %>">
-        <%= user.revisions.joins(:article).where(articles: {namespace: 2}).sum(:characters) %>
+        <%= @course.courses_users.find_by(user_id: user.id).character_sum_us %>
       </p>
     </div>
     <div class="user-list__row__spacer"></div>
     <div class="user-list__row__edits">
       <p class="edits">
-        <%= user.revisions.count %>
+        <%= @course.courses_users.find_by(user_id: user.id).revision_count %>
       </p>
     </div>
     <div class="user-list__row__link">
-      <div class="drawer_trigger <%= user.revisions.count < 1 ? "disabled" : "" %>"><p class="icon icon-downward-arrow"></p></div>
+      <div class="drawer_trigger <%= @course.courses_users.find_by(user_id: user.id).revision_count < 1 ? "disabled" : "" %>"><p class="icon icon-downward-arrow"></p></div>
     </div>
   </div>
   <%= render :partial => 'users/detail', :locals => {:user => user} %>

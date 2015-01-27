@@ -5,8 +5,9 @@ Rails.application.routes.draw do
     get "courses/*id/articles" => "courses#articles", :as => :path_save
     get "courses/*id" => "courses#students"
   end
+
   resources :courses
 
-  root to: 'courses#index'
+  root to: 'courses#index', :defaults => { :cohort => Figaro.env.cohorts.split(",").last }
 
 end

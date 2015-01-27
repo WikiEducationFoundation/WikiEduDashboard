@@ -1,6 +1,6 @@
 class Revision < ActiveRecord::Base
-  belongs_to :user, counter_cache: true
-  belongs_to :article, counter_cache: true
+  belongs_to :user
+  belongs_to :article
 
 
 
@@ -21,21 +21,27 @@ class Revision < ActiveRecord::Base
   # Class methods #
   #################
   def self.update_all_revisions
-    data = Utils.chunk_requests(User.student, 40) { |block|
-      Replica.get_revisions_this_term_by_users block
-    }
-    if(Revision.count == 0)
-      self.import_revisions(data)
-    else
-      data.each do |a_id, a|
-        article = Article.find_or_create_by(id: a["article"]["id"])
-        article.update a["article"]
-        a["revisions"].each do |r|
-          revision = Revision.find_or_create_by(id: r["id"])
-          revision.update r
-        end
-      end
+    data = Figaro.env.cohorts.split(",").reduce([]) do |result, cohort|
+      users = User.student.includes(:courses).where(:courses => {:cohort => cohort})
+      revisions = Utils.chunk_requests(users, 40) { |block|
+        cohort_start = ENV["cohort_" + cohort + "_start"]
+        cohort_end = ENV["cohort_" + cohort + "_end"]
+        Replica.get_revisions_this_term_by_users block, cohort_start, cohort_end
+      }
+      result += revisions
     end
+    # if(Revision.count == 0)
+    self.import_revisions(data)
+    # else
+    #   data.each do |a_id, a|
+    #     article = Article.find_or_create_by(id: a["article"]["id"])
+    #     article.update a["article"]
+    #     a["revisions"].each do |r|
+    #       revision = Revision.find_or_create_by(id: r["id"])
+    #       revision.update r
+    #     end
+    #   end
+    # end
 
     ActiveRecord::Base.transaction do
       Revision.joins(:article).where(articles: {namespace: "0"}).each do |r|
@@ -55,6 +61,7 @@ class Revision < ActiveRecord::Base
     data.each do |a_id, a|
       article = Article.new(id: a["article"]["id"])
       article.update(a["article"], false)
+      #article["revision_count"] = a["revisions"].count
       articles.push article
 
       a["revisions"].each do |r|
@@ -63,10 +70,9 @@ class Revision < ActiveRecord::Base
         revisions.push revision
       end
     end
-    Revision.import revisions
+
     Article.import articles
-
-
+    Revision.import revisions
 
   end
 

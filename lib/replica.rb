@@ -11,8 +11,8 @@ class Replica
   ###################
   # Parsing methods #
   ###################
-  def self.get_revisions_this_term_by_users(users)
-    raw = Replica.get_revisions_this_term_by_users_raw(users)
+  def self.get_revisions_this_term_by_users(users, rev_start, rev_end)
+    raw = Replica.get_revisions_this_term_by_users_raw(users, rev_start, rev_end)
     data = {}
     if raw.is_a?(Array)
       raw.each do |revision|
@@ -51,9 +51,9 @@ class Replica
   ###################
   # Request methods #
   ###################
-  def self.get_revisions_this_term_by_users_raw(users)
+  def self.get_revisions_this_term_by_users_raw(users, rev_start, rev_end)
     user_list = self.compile_user_string(users)
-    query = user_list + "&start=#{CourseList.start}&end=#{CourseList.end}"
+    query = user_list + "&start=#{rev_start}&end=#{rev_end}"
     Replica.api_get("revisions.php", query)
   end
 

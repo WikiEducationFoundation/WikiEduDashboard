@@ -42,21 +42,20 @@ class Article < ActiveRecord::Base
       since = all_time ? ((self.courses.order(:start).first || CourseList).start.to_date) : self.views_updated_at + 1.day
 
       if all_time
-        self.revisions.each do |r|
-          r.views = 0
-          r.save
-        end
+        self.revisions.update_all(views: 0)
       end
 
       # Update views on all revisions and the article
       new_views = views.nil? ? Grok.get_views_since_date_for_article(self.title, since) : views
       last = since
-      new_views.each do |date, view_count|
-        self.revisions.where("date <= ?", date).find_each do |r|
-          r.views = r.views.nil? ? view_count : r.views + view_count
-          r.save
+      ActiveRecord::Base.transaction do
+        new_views.each do |date, view_count|
+          self.revisions.where("date <= ?", date).find_each do |r|
+            r.views = r.views.nil? ? view_count : r.views + view_count
+            r.save
+          end
+          last = date.to_date > last ? date.to_date : last
         end
-        last = date.to_date > last ? date.to_date : last
       end
       if(self.revisions.order('date ASC').first.views - self.views > 0)
         puts "Added #{self.revisions.order('date ASC').first.views - self.views} new views for #{self.title}"
@@ -86,13 +85,14 @@ class Article < ActiveRecord::Base
 
 
   def revision_count
-    read_attribute(:revisions_count) || revisions.size
+    read_attribute(:revision_count) || revisions.size
   end
 
 
   def update_cache
     # Do not consider revisions with negative byte changes
     self.character_sum = revisions.where('characters >= 0').sum(:characters)
+    self.revision_count = revisions.size
     self.save
   end
 
@@ -148,8 +148,10 @@ class Article < ActiveRecord::Base
 
 
   def self.update_all_caches
-    Article.all.each do |a|
-      a.update_cache
+    Article.transaction do
+      Article.all.each do |a|
+        a.update_cache
+      end
     end
   end
 
