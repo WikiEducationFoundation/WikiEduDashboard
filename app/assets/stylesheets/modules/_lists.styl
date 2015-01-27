@@ -8,6 +8,7 @@
     margin-right 5px
 .list__header
   border-bottom 1px solid manatee !important
+  font-family "Roboto"
   .row__wrapper
     padding-top 0 !important
     padding-bottom 0 !important
@@ -39,8 +40,15 @@
   .row__wrapper
     padding 15px
     width 100%
+  .fake-link
+    font-size 14px
+    font-family "Roboto"
+    text-align right
   &:hover
     background athens
+    .fake-link:after
+      content '\003e'
+      margin-left 5px
   &.view-all
     border-bottom none
     div
