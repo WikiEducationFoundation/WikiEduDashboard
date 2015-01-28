@@ -5,7 +5,7 @@
       <h6><%= @course.school %> | <%= @course.term %></h6>
     </div>
     <div class="stat-display">
-      <div class="stat-display__stat"><h3><%= number_to_human @course.article_count %></h3><small>Articles<br>Created</small></div>
+      <div class="stat-display__stat"><h3><%= number_to_human @course.revisions.joins(:article).where(articles: {namespace: 0}).where(new_article: true).count %></h3><small>Articles<br>Created</small></div>
       <div class="stat-display__stat"><h3><%= number_to_human @course.article_count %></h3><small>Articles<br>Edited</small></div>
       <div class="stat-display__stat"><h3><%= number_to_human @course.revisions.count %></h3><small>Total<br>Edits</small></div>
       <div class="stat-display__stat popover-trigger">

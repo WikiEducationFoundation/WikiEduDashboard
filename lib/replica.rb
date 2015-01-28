@@ -44,6 +44,7 @@ class Replica
       p["revision"]["characters"] = revision["byte_change"]
       p["revision"]["article_id"] = revision["page_id"]
       p["revision"]["user_id"] = revision["rev_user"]
+      p["revision"]["new_article"] = revision["new_article"]
     end
   end
 

@@ -147,7 +147,11 @@ class Course < ActiveRecord::Base
     ActiveRecord::Base.transaction do
       participants.each do |course_id, group|
         user_ids = group.map{|g,gusers| gusers.empty? ? nil : gusers}.compact.flatten.map{|user| user["id"]}
-        Course.find_by(id: course_id).users << User.find(user_ids)
+        course = Course.find_by(id: course_id)
+        user_ids = user_ids - course.users.map {|u| u.id.to_s}
+        unless user_ids.empty?
+          course.users << User.find(user_ids)
+        end
       end
     end
   end

@@ -12,9 +12,10 @@ class Wiki
     Figaro.env.cohorts.split(",").each do |cohort|
       response[cohort] = get_page_content(ENV["cohort_" + cohort]).split(/\n/)
     end
-    #response = get_page_content(Figaro.env.course_id_list)
     response
-    # get_page_content(ENV["cohort_spring_2015"]).split(/\n/)
+
+    # response["spring_2015"] = get_page_content(ENV["cohort_spring_2015"]).split(/\n/)
+    # response
   end
 
 

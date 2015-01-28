@@ -34,33 +34,26 @@ class Article < ActiveRecord::Base
 
 
   def update_views(all_time=false, views=nil)
-    if(self.views_updated_at.nil?)
-      self.views_updated_at = (self.courses.order(:start).first || CourseList).start.to_date
-    end
-
     if(self.views_updated_at < Date.today)
       since = all_time ? ((self.courses.order(:start).first || CourseList).start.to_date) : self.views_updated_at + 1.day
-
-      if all_time
-        self.revisions.update_all(views: 0)
-      end
 
       # Update views on all revisions and the article
       new_views = views.nil? ? Grok.get_views_since_date_for_article(self.title, since) : views
       last = since
       ActiveRecord::Base.transaction do
-        new_views.each do |date, view_count|
-          self.revisions.where("date <= ?", date).find_each do |r|
-            r.views = r.views.nil? ? view_count : r.views + view_count
-            r.save
+        self.revisions.each do |r|
+          r.views = all_time ? 0 : r.views
+          r.views += new_views.reduce(0) do |sum, (d, v)|
+            sum += d.to_date >= r.date ? v : 0
           end
-          last = date.to_date > last ? date.to_date : last
+          r.save
         end
+        last = new_views.empty? ? nil : new_views.sort_by { |(d)| d }.last.first.to_date
       end
       if(self.revisions.order('date ASC').first.views - self.views > 0)
         puts "Added #{self.revisions.order('date ASC').first.views - self.views} new views for #{self.title}"
       end
-      self.views_updated_at = last
+      self.views_updated_at = last.nil? ? self.views_updated_at : last
     end
 
     if(self.revisions.count > 0)
@@ -104,23 +97,31 @@ class Article < ActiveRecord::Base
   def self.update_all_views(all_time=false)
     require "./lib/course_list"
     require "./lib/grok"
-    articles = Article.where(namespace: 0).find_in_batches(batch_size: 50)
+    views = {}
+    vua = {}
+    count = 0
+    articles = Article.where(namespace: 0).find_in_batches(batch_size: 60)
     articles.with_index do |group, batch|
-      views = {}
+      count += 1
       threads = group.each_with_index.map do |a, i|
         start = (a.courses.order(:start).first || CourseList).start.to_date
-        Thread.new(i) do |i|
-          views_updated_at = a.views_updated_at || start
-          if(views_updated_at < Date.today)
-            since = all_time ? start : views_updated_at + 1.day
+        Thread.new(i) do |j|
+          vua[a.id] = a.views_updated_at || start
+          if(vua[a.id] < Date.today)
+            since = all_time ? start : vua[a.id] + 1.day
             views[a.id] = Grok.get_views_since_date_for_article(a.title, since)
           end
         end
       end
       threads.each { |t| t.join }
+      # if((batch > 0 && batch % 5 == 0) || count >= Article.count)
       group.each do |a|
+        a.views_updated_at = vua[a.id]
         a.update_views(all_time, views[a.id])
       end
+      views = {}
+      vua = {}
+      # end
     end
   end
 
@@ -133,7 +134,7 @@ class Article < ActiveRecord::Base
       views = {}
       threads = group.each_with_index.map do |a, i|
         since = (a.courses.order(:start).first || CourseList).start.to_date
-        Thread.new(i) do |i|
+        Thread.new(i) do |j|
           if(since < Date.today)
             views[a.id] = Grok.get_views_since_date_for_article(a.title, since.to_date)
           end
