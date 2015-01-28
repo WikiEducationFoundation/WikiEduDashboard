@@ -23,10 +23,14 @@ class CoursesController < ApplicationController
   def students
     @course = Course.where(listed: true).find_by_slug(params[:id])
     @students = @course.users.student.order(:wiki_id)
+    @volunteers = @course.users.online_volunteer + @course.users.campus_volunteer
+    @courses_users = @course.courses_users
   end
 
   def articles
     @course = Course.where(listed: true).find_by_slug(params[:id])
     @articles = @course.articles.order(:title)
+    @volunteers = @course.users.online_volunteer + @course.users.campus_volunteer
+    @courses_users = @course.courses_users
   end
 end

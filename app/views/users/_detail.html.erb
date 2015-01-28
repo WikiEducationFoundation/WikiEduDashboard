@@ -21,13 +21,12 @@
   </div>
   <ul class="list">
   <% @user_revs = @course.revisions.where(user_id: user.id).order(date: :desc) %>
-  <% @user_revs.limit(3).each do |r| %>
-    <%= render :partial => 'revisions/row', :locals => {:revision => r} %>
-  <% end %>
+  <% @revisions = @user_revs.limit(3) %>
+  <%= render :partial => 'revisions/list', locals: {revisions: @revisions} %>
   </ul>
   <% if @user_revs.count > 3 %>
   <div class="row view-all">
-    <div><p><%= link_to "View More Contributions", {:action => "students"}, {:class => "inline"} %></p></div>
+    <div><p><%= link_to "View More Contributions", user_revisions_path(user_id: user.id, course_id: @course.id), {:class => "inline"} %></p></div>
   </div>
   <% end %>
 </div>
