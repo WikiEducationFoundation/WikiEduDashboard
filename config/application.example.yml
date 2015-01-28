@@ -1,8 +1,14 @@
 # Add configuration values here
 #
 # Fulfill value requirements and save as application.yml
-# 
+#
 # Values required for WikiEduDashboard include:
 #   wikipedia_username: <your Wikipedia username>
 #   wikipedia_password: <your Wikipedia password>
-#   course_id_list: "Wikipedia:Education_program/Dashboard/course_ids"
+#   cohorts: "<cohort_1>,<cohort_2>"
+#   cohort_<cohort_1>: "Wikipedia:Education_program/Dashboard/Fall_2014_course_ids"
+#   cohort_<cohort_1>_start: "20140801"
+#   cohort_<cohort_1>_end: "20141231"
+#   cohort_<cohort_2>: "Wikipedia:Education_program/Dashboard/course_ids"
+#   cohort_<cohort_2>_start: "20141201"
+#   cohort_<cohort_2>_end: "20150531"
