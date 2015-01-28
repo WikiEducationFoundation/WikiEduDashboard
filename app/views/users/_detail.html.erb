@@ -5,13 +5,13 @@
         <h6>User Contributions</h6>
       </div>
       <div class="revision-list__row__date">
-        <p class="date">Date</p>
+        <p class="date">Date/time</p>
       </div>
 <!--       <div class="revision-list__row__namespace">
         <p class="namespace">Namespace</p>
       </div> -->
       <div class="revision-list__row__characters">
-        <p class="characters">Chars Added</p>
+        <p class="characters">Chars. added</p>
       </div>
       <div class="revision-list__row__views">
         <p class="views">Views</p>
@@ -20,8 +20,14 @@
     </div>
   </div>
   <ul class="list">
-  <% @course.revisions.where(user_id: user.id).order(date: :desc).limit(5).each do |r| %>
+  <% @user_revs = @course.revisions.where(user_id: user.id).order(date: :desc) %>
+  <% @user_revs.limit(3).each do |r| %>
     <%= render :partial => 'revisions/row', :locals => {:revision => r} %>
   <% end %>
   </ul>
+  <% if @user_revs.count > 3 %>
+  <div class="row view-all">
+    <div><p><%= link_to "View More Contributions", {:action => "students"}, {:class => "inline"} %></p></div>
+  </div>
+  <% end %>
 </div>

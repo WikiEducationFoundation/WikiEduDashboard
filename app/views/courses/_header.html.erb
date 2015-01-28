@@ -24,10 +24,10 @@
         <h6>Instructor<%= @course.users.instructor.count > 1 ? "s" : "" %></h6>
         <p><%= user_links(@course.users.instructor, "inline") %></p>
       </div>
-      <% if (@course.users.online_volunteer + @course.users.campus_volunteer).count > 0 %>
+      <% if !@volunteers.nil? && @volunteers.count > 0 %>
       <div class="details__detail">
-        <h6>Volunteer<%= (@course.users.online_volunteer + @course.users.campus_volunteer).count > 1 ? "s" : "" %></h6>
-        <p><%= user_links(@course.users.online_volunteer + @course.users.campus_volunteer, "inline") %></p>
+        <h6>Volunteer<%= @volunteers.count > 1 ? "s" : "" %></h6>
+        <p><%= user_links(@volunteers, "inline") %></p>
       </div>
       <% end %>
       <% if @course.users.wiki_ed_staff.count > 0 %>

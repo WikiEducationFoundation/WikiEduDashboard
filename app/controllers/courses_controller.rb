@@ -10,6 +10,7 @@ class CoursesController < ApplicationController
   def show
     @course = Course.where(listed: true).find_by_slug(params[:id])
     @students = @course.users.student.order(character_sum: :desc).limit(4)
+    @volunteers = @course.users.online_volunteer + @course.users.campus_volunteer
     @courses_users = @course.courses_users
     @articles = @course.articles.order(:title).limit(4)
   end
