@@ -76,9 +76,6 @@ class User < ActiveRecord::Base
     new_user = save ? User.find_or_create_by(id: user["id"]) : User.new(id: user["id"])
     new_user.wiki_id = user["username"]
     new_user.role = (user["username"].include? "(Wiki Ed)") ? 4 : role
-    if(user["article"])
-      Rails.logger.info "Found user #{user["username"]} with an assignment \"#{user["article"]}\""
-    end
     if save
       unless course.users.include? new_user
         new_user.courses << course

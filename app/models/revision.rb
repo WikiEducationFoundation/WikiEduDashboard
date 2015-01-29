@@ -23,8 +23,12 @@ class Revision < ActiveRecord::Base
   def self.update_all_revisions
     data = Figaro.env.cohorts.split(",").reduce([]) do |result, cohort|
       users = User.student.includes(:courses).where(:courses => {:cohort => cohort})
+      start = ENV["cohort_" + cohort + "_start"]
+      unless Revision.all.count == 0
+        start = Revision.all.order("date DESC").first.date.strftime("%Y%m%d")
+      end
       revisions = Utils.chunk_requests(users, 40) { |block|
-        cohort_start = ENV["cohort_" + cohort + "_start"]
+        cohort_start = start
         cohort_end = ENV["cohort_" + cohort + "_end"]
         Replica.get_revisions_this_term_by_users block, cohort_start, cohort_end
       }
@@ -50,7 +54,6 @@ class Revision < ActiveRecord::Base
     data.each do |a_id, a|
       article = Article.new(id: a["article"]["id"])
       article.update(a["article"], false)
-      #article["revision_count"] = a["revisions"].count
       articles.push article
 
       a["revisions"].each do |r|

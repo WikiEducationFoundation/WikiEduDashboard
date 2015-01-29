@@ -96,14 +96,33 @@ class Article < ActiveRecord::Base
   # Class methods #
   #################
   def self.update_all_views(all_time=false)
+    articles = Article.where(namespace: 0).find_in_batches(batch_size: 50)
+    self.update_views(articles, all_time)
+  end
+
+
+  def self.update_new_views
+    articles = Article.where("views_updated_at IS NULL").where(namespace: 0).find_in_batches(batch_size: 50)
+    self.update_views(articles, true)
+  end
+
+
+  def self.update_all_caches
+    Article.transaction do
+      Article.all.each do |a|
+        a.update_cache
+      end
+    end
+  end
+
+
+  private
+  def self.update_views(articles, all_time=false)
     require "./lib/course_list"
     require "./lib/grok"
     views = {}
     vua = {}
-    count = 0
-    articles = Article.where(namespace: 0).find_in_batches(batch_size: 60)
     articles.with_index do |group, batch|
-      count += 1
       threads = group.each_with_index.map do |a, i|
         start = (a.courses.order(:start).first || CourseList).start.to_date
         Thread.new(i) do |j|
@@ -115,45 +134,12 @@ class Article < ActiveRecord::Base
         end
       end
       threads.each { |t| t.join }
-      # if((batch > 0 && batch % 5 == 0) || count >= Article.count)
       group.each do |a|
         a.views_updated_at = vua[a.id]
         a.update_views(all_time, views[a.id])
       end
       views = {}
       vua = {}
-      # end
-    end
-  end
-
-
-  def self.update_new_views
-    require "./lib/course_list"
-    require "./lib/grok"
-    articles = Article.where("views_updated_at IS NULL").where(namespace: 0).find_in_batches(batch_size: 60)
-    articles.with_index do |group, batch|
-      views = {}
-      threads = group.each_with_index.map do |a, i|
-        since = (a.courses.order(:start).first || CourseList).start.to_date
-        Thread.new(i) do |j|
-          if(since < Date.today)
-            views[a.id] = Grok.get_views_since_date_for_article(a.title, since.to_date)
-          end
-        end
-      end
-      threads.each { |t| t.join }
-      group.each do |a|
-        a.update_views(true, views[a.id])
-      end
-    end
-  end
-
-
-  def self.update_all_caches
-    Article.transaction do
-      Article.all.each do |a|
-        a.update_cache
-      end
     end
   end
 
