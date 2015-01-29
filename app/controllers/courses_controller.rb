@@ -4,7 +4,10 @@ class CoursesController < ApplicationController
     if params[:cohort].present?
       @cohort = params[:cohort]
       @courses = @courses.cohort(@cohort)
+    else
+      @cohort = "spring_2015"
     end
+    @untrained = @courses.reduce(0) {|sum, c| sum = sum + c.users.student.where(trained: false).count }
   end
 
   def show

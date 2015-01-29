@@ -10,7 +10,7 @@
       <h1><%= number_to_human @courses.sum(:user_count) %></h1>
       <small>Student Editors</small>
       <div class="popover">
-        <h4><%= User.student.where(trained: false).count %></h4>
+        <h4><%= @untrained %></h4>
         <p>have not completed training</p>
       </div>
     </div>
@@ -26,11 +26,11 @@
 </header>
 
 <section id="courses">
-  <h3 class="section-header">All Current Courses | Spring 2015</h3>
-<!--   <select class="cohorts">
+  <h3 class="section-header">All Current Courses | <%= @cohort.gsub('_', ' ').capitalize %></h3>
+  <select class="cohorts">
     <option value="fall_2014" <%= @cohort == "fall_2014" ? "selected" : "" %>>Fall 2014</option>
     <option value="spring_2015" <%= @cohort == "spring_2015" ? "selected" : "" %>>Spring 2015</option>
-  </select> -->
+  </select>
   <div class="row course-list__row list__header">
     <div class="row__wrapper">
       <div class="course-list__row__title sort asc" data-sort="title"><p>Current Courses</p></div>
