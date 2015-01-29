@@ -12,6 +12,6 @@ Rails.application.routes.draw do
 
   resources :courses
 
-  root to: 'courses#index', :defaults => { :cohort => Figaro.env.cohorts.split(",").last }
+  root to: 'courses#index', :defaults => { :cohort => Figaro.env.cohorts.nil? ? "spring_2015" : Figaro.env.cohorts.split(",").last }
 
 end
