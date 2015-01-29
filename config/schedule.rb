@@ -21,7 +21,7 @@
 
 set :output, 'log/cron.log'
 
-every 30.minutes do
+every 5.minutes do
   rake "batch:update_constantly"
 end
 
