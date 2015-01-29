@@ -143,5 +143,13 @@ class Article < ActiveRecord::Base
     end
   end
 
+  def self.update_ratings(articles)
+    ratings = []
+    Article.find_in_batches(batch_size: 20).with_index do |group, batch|
+      ratings = ratings + Wiki.get_article_rating(group.map {|a| a.title})
+    end
+    # Do something with the ratings
+  end
+
 
 end

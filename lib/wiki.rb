@@ -52,6 +52,70 @@ class Wiki
   end
 
 
+  def self.get_article_rating(article_title)
+    if article_title.is_a?(Array)
+      article_title = article_title.sort_by{|w| w.downcase}
+    end
+    titles = article_title
+
+    if titles.is_a?(Array)
+      titles = article_title.map { |at| "Talk:" + at }
+    else
+      titles = "Talk:" + article_title
+    end
+
+    raw = Wiki.get_article_rating_raw(titles)
+    if !raw
+      return []
+    end
+
+    if raw.is_a?(Array)
+      raw.each_with_index.map { |article, i| { article_title[i] => Wiki.parse_article_rating(article["revisions"]["rev"]) } }
+    else
+      [{ article_title => Wiki.parse_article_rating(raw["revisions"]["rev"]) }]
+    end
+  end
+
+
+  # Adapted from https://en.wikipedia.org/wiki/User:Pyrospirit/metadata.js
+  # alt https://en.wikipedia.org/wiki/MediaWiki:Gadget-metadata.js
+  def self.parse_article_rating(article)
+    if (article.match(/\|\s*(class|currentstatus)\s*=\s*fa\b/i))
+      'fa'
+    elsif (article.match(/\|\s*(class|currentstatus)\s*=\s*fl\b/i))
+      'fl'
+    elsif (article.match(/\|\s*class\s*=\s*a\b/i))
+      if (article.match(/\|\s*class\s*=\s*ga\b|\|\s*currentstatus\s*=\s*(ffa\/)?ga\b/i))
+        'a/ga' # A-class articles that are also GA's
+      else
+        'a'
+      end
+    elsif (article.match(/\|\s*class\s*=\s*ga\b|\|\s*currentstatus\s*=\s*(ffa\/)?ga\b|\{\{\s*ga\s*\|/i) && !article.match(/\|\s*currentstatus\s*=\s*dga\b/i))
+      'ga'
+    elsif (article.match(/\|\s*class\s*=\s*b\b/i))
+      'b'
+    elsif (article.match(/\|\s*class\s*=\s*bplus\b/i))
+      'bplus' # used by WP Math
+    elsif (article.match(/\|\s*class\s*=\s*c\b/i))
+      'c'
+    elsif (article.match(/\|\s*class\s*=\s*start/i))
+      'start'
+    elsif (article.match(/\|\s*class\s*=\s*stub/i))
+      'stub'
+    elsif (article.match(/\|\s*class\s*=\s*list/i))
+      'list'
+    elsif (article.match(/\|\s*class\s*=\s*sl/i))
+      'sl' # used by WP Plants
+    elsif (article.match(/\|\s*class\s*=\s*(dab|disambig)/i))
+      'dab'
+    elsif (article.match(/\|\s*class\s*=\s*cur(rent)?/i))
+      'cur'
+    elsif (article.match(/\|\s*class\s*=\s*future/i))
+      'future'
+    end
+  end
+
+
 
   ###################
   # Request methods #
@@ -82,6 +146,22 @@ class Wiki
     info.nil? ? nil : info["course"]
   end
 
+
+  def self.get_article_rating_raw(article_title)
+    if article_title.is_a?(Array)
+      article_title = article_title.join('|')
+    end
+    info = Wiki.api_get({
+      'action' => 'query',
+      'prop' => 'revisions',
+      'rvprop' => 'content',
+      'rawcontinue' => 'true',
+      'redirects' => 'true',
+      'titles' => article_title
+    })
+    info = info["query"]["pages"]["page"]
+    info.nil? ? nil : info
+  end
 
 
   ###################
