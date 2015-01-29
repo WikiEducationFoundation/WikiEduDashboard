@@ -9,7 +9,7 @@ class Grok
       begin
         data = JSON.parse data
       rescue JSON::ParserError => e
-        puts "Whoops #{e}"
+        puts "Caught #{e}"
       end
       if data.include?("daily_views")
         data["daily_views"].each do |day, view_count|
@@ -17,8 +17,6 @@ class Grok
             views[day] = view_count
           end
         end
-      else
-        puts "Whoops #{iDate}"
       end
       iDate += 1.month
     end

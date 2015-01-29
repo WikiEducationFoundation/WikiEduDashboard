@@ -2,7 +2,7 @@
   <div class="row__wrapper">
     <div class="user-list__row__name">
       <div class="avatar"></div>
-      <p class="name"><%= contribution_link(user, nil, 'inline') %><br><small><%= user.trained ? '' : 'Training Incomplete' %></small></p>
+      <p class="name"><%= contribution_link(user, nil, 'inline') %><br><small class="red"><%= user.trained ? '' : 'Training Incomplete' %></small></p>
     </div>
     <div class="user-list__row__characters-ms">
       <p class="characters-ms" title="<%= t("user.character") %>">
@@ -15,12 +15,15 @@
       </p>
     </div>
     <div class="user-list__row__edits">
-      <p class="edits">
-        <%= @course.courses_users.find_by(user_id: user.id).revision_count %>
-      </p>
+      <% @assignment_title = @courses_users.find_by(user_id: user.id).assigned_article_title %>
+      <% if @assignment_title.nil? %>
+        <p class='edits red'>No Assigned Article</p>
+      <% else %>
+        <p class='edits'><%= @assignment_title %></p>
+      <% end %>
     </div>
     <div class="user-list__row__link">
-      <div class="drawer_trigger <%= @course.courses_users.find_by(user_id: user.id).revision_count < 1 ? "disabled" : "" %>"><p class="icon icon-downward-arrow"></p></div>
+      <div class="drawer_trigger <%= @courses_users.find_by(user_id: user.id).revision_count < 1 ? "disabled" : "" %>"><p class="icon icon-downward-arrow"></p></div>
     </div>
   </div>
   <%= render :partial => 'users/detail', :locals => {:user => user} %>

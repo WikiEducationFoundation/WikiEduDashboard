@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   has_many :courses, -> { uniq }, through: :courses_users
   has_many :revisions
   has_many :articles, -> { uniq }, through: :revisions
+  has_many :assignments
 
   enum role: [ :student, :instructor, :online_volunteer, :campus_volunteer, :wiki_ed_staff ]
 

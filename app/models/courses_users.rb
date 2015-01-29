@@ -26,10 +26,19 @@ class CoursesUsers < ActiveRecord::Base
     read_attribute(:revision_count)
   end
 
+  def assigned_article_title
+    if(!read_attribute(:assigned_article_title))
+      update_cache()
+    end
+    read_attribute(:assigned_article_title)
+  end
+
   def update_cache
     self.character_sum_ms = Revision.joins(:article).where(articles: {namespace: 0}).where(user_id: user.id).where('characters >= 0').where("date >= ?", course.start).sum(:characters) || 0
     self.character_sum_us = Revision.joins(:article).where(articles: {namespace: 2}).where(user_id: user.id).where('characters >= 0').where("date >= ?", course.start).sum(:characters) || 0
     self.revision_count = Revision.joins(:article).where(user_id: user.id).where("date >= ?", course.start).count || 0
+    assignments = user.assignments.where(course_id: course.id)
+    self.assigned_article_title = assignments.empty? ? nil : assignments.first.article_title
     self.save
   end
 

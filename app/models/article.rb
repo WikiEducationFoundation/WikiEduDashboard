@@ -2,6 +2,7 @@ class Article < ActiveRecord::Base
   has_many :revisions
   has_many :articles_courses, class_name: ArticlesCourses
   has_many :courses, -> { uniq }, through: :articles_courses
+  has_many :assignments
 
 
 

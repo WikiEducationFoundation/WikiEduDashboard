@@ -30,18 +30,7 @@ class Revision < ActiveRecord::Base
       }
       result += revisions
     end
-    # if(Revision.count == 0)
     self.import_revisions(data)
-    # else
-    #   data.each do |a_id, a|
-    #     article = Article.find_or_create_by(id: a["article"]["id"])
-    #     article.update a["article"]
-    #     a["revisions"].each do |r|
-    #       revision = Revision.find_or_create_by(id: r["id"])
-    #       revision.update r
-    #     end
-    #   end
-    # end
 
     ActiveRecord::Base.transaction do
       Revision.joins(:article).where(articles: {namespace: "0"}).each do |r|
@@ -73,6 +62,14 @@ class Revision < ActiveRecord::Base
 
     Article.import articles
     Revision.import revisions
+
+    ActiveRecord::Base.transaction do
+      Assignment.where(article_id: nil).each do |a|
+        article = Article.find_by(title: a.article_title)
+        a.article_id = article.nil? ? nil : article.id
+        a.save
+      end
+    end
 
   end
 

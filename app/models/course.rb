@@ -7,8 +7,7 @@ class Course < ActiveRecord::Base
   has_many :articles_courses, class_name: ArticlesCourses
   has_many :articles, -> { uniq }, through: :articles_courses
 
-  # has_many :assignments
-  # has_many :assigned_articles, -> { uniq }, through: :assignments, :class_name => "Article"
+  has_many :assignments
 
   scope :cohort, -> (cohort) { where cohort: cohort }
 
@@ -144,16 +143,38 @@ class Course < ActiveRecord::Base
     end
     User.import users
 
+    assignments = []
     ActiveRecord::Base.transaction do
       participants.each do |course_id, group|
-        user_ids = group.map{|g,gusers| gusers.empty? ? nil : gusers}.compact.flatten.map{|user| user["id"]}
+        group_flattened = group.map{|g,gusers| gusers.empty? ? nil : gusers}.compact.flatten
+        user_ids = group_flattened.map{|user| user["id"]}
         course = Course.find_by(id: course_id)
         user_ids = user_ids - course.users.map {|u| u.id.to_s}
         unless user_ids.empty?
           course.users << User.find(user_ids)
         end
+
+        group_flattened.each do |user|
+          if user.has_key? "article"
+            unless user["article"].is_a?(Array)
+              user["article"] = [user["article"]]
+            end
+            user["article"].each do |article|
+              assignment = {
+                "user_id" => user["id"],
+                "course_id" => course_id,
+                "article_title" => article["title"],
+                "article_id" => nil
+              }
+              article = Article.find_by(title: article["title"])
+              assignment["article_id"] = article.nil? ? nil : article.id
+              assignments.push Assignment.new(assignment)
+            end
+          end
+        end
       end
     end
+    Assignment.import assignments
   end
 
   def self.update_all_caches
