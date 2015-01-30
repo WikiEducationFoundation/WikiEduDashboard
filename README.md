@@ -80,3 +80,8 @@ For deployment, the Dashboard uses [Capistrano](https://en.wikipedia.org/wiki/Ca
 After pushing updates to repo (on Github), run the following command(s)
 - Staging: `cap staging deploy` (This will deploy from the "master" branch)
 - Production: `cap production deploy` (This will deploy from "production" branch)
+
+Set up a new production server
+---------------
+
+For detailed instructions on setting up a production server — specifically on a wmflabs virtual server, but the process will be similar for other infrastructure as well — see [WMFLABS_DEPLOYMENT](WMFLABS_DEPLOYMENT.md).
