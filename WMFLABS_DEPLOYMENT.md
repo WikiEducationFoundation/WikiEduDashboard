@@ -22,38 +22,43 @@ ON THE SERVER
   - $ `sudo mysql -p`
   - Enter the password you just set.
   - mysql> `CREATE DATABSE dashboard`
-  -   `DEFAULT CHARACTER SET utf8`
-  -   `DEFAULT COLLATE utf8_general_ci;`
+  - ->`DEFAULT CHARACTER SET utf8`
+  - ->`DEFAULT COLLATE utf8_general_ci;`
   - mysql> `exit;`
 
 - Assign ownership to yourself for the web directory /var/www 
   - $ `sudo chown <username> /var/www`
 
 - Install RVM (Ruby Version Manager) and configure Ruby 2.1.5
-  - $ gpg --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3
-  - $ curl -sSL https://get.rvm.io | sudo bash -s stable
-  - $ sudo usermod -a -G rvm <username>
+  - $ `gpg --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3`
+  - $ `curl -sSL https://get.rvm.io | sudo bash -s stable`
+  - $ `sudo usermod -a -G rvm <username>`
   - logout and back in again so that these settings take effect
-  - $ rvm install 2.1.5
+  - $ `rvm install 2.1.5`
     - This will probably report that ruby-2.1.5 is already installed, but we do this just in case.
-  - $ rvm --default use 2.1.5
+  - $ `rvm --default use 2.1.5`
 
 - Install Phusion Passenger module for Apache
-  - $ gem install passenger
-  - $ rvmsudo passenger-install-apache2-module
+  - $ `gem install passenger`
+  - $ `rvmsudo passenger-install-apache2-module`
     - look out for errors or missing dependencies and follow all directions which likely include adding some code to the apache configuration, as follows...
-  - $ sudo nano /etc/apache2/apache2.conf
+  - $ `sudo nano /etc/apache2/apache2.conf`
   - Add to the end the text instructed by the passenger installer, something like:
+
+```
 LoadModule passenger_module /home/ragesoss/.rvm/gems/ruby-2.1.5/gems/passenger-4.0.58/buildout/apache2/mod_passenger.so
    <IfModule mod_passenger.c>
      PassengerRoot /home/ragesoss/.rvm/gems/ruby-2.1.5/gems/passenger-4.0.58
      PassengerDefaultRuby /home/ragesoss/.rvm/gems/ruby-2.1.5/wrappers/ruby
    </IfModule>
+```
 
 - Create a VirtualHost for the app
   - $ `sudo nano /etc/apache2/sites-available/dashboard.conf`
   - Add something like this:
-```<VirtualHost *:80>
+
+```
+<VirtualHost *:80>
   ServerAdmin sage@ragesoss.com
   DocumentRoot /var/www/dashboard/current/public
   RackEnv production
@@ -63,7 +68,8 @@ LoadModule passenger_module /home/ragesoss/.rvm/gems/ruby-2.1.5/gems/passenger-4
   </Directory>
   ErrorLog /var/log/apache2/dashboard/error.log
   CustomLog /var/log/apache2/dashboard/access.log common
-</VirtualHost>```
+</VirtualHost>
+```
   - $ `sudo mkdir /var/log/apache2/dashboard`
   - $ `sudo service apache2 restart`
 
@@ -113,7 +119,7 @@ ON THE SERVER
   - $ `cd /var/www/dashboard/current`
   - $ `rake secret`
   - Copy the secret key output and paste it into the secrets.yml file
-    - $ nano /var/www/dashboard/shared/config/secrets.yml
+    - $ `nano /var/www/dashboard/shared/config/secrets.yml`
     - Paste the key in as the value of "secret_key_base:"
 
 - Enable the site
