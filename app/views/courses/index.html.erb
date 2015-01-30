@@ -28,8 +28,9 @@
 <section id="courses">
   <h3 class="section-header">All Current Courses | <%= @cohort.gsub('_', ' ').capitalize %></h3>
   <select class="cohorts">
-    <option value="fall_2014" <%= @cohort == "fall_2014" ? "selected" : "" %>>Fall 2014</option>
-    <option value="spring_2015" <%= @cohort == "spring_2015" ? "selected" : "" %>>Spring 2015</option>
+    <% Figaro.env.cohorts.split(",").each do |c| %>
+    <option value="<%= c %>" <%= @cohort == c ? "selected" : "" %>><%= c.gsub('_', ' ').capitalize %></option>
+    <% end %>
   </select>
   <div class="row course-list__row list__header">
     <div class="row__wrapper">
