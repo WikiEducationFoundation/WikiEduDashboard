@@ -35,7 +35,8 @@ class Wiki
 
   def self.parse_course_info(course)
     parsed = { "course" => {}, "participants" => {} }
-    course_info = course["name"].split(/(.*)\/(.*)\s\(([^\)]+)/)
+    append = course["name"][-1,1] != ")" ? " ()" : ""
+    course_info = (course["name"] + append).split(/(.*)\/(.*)\s\(([^\)]+)?\)/)
     parsed.tap do |p|
       p["course"]["id"] = course["id"]
       p["course"]["slug"] = course["name"].gsub(" ", "_")
