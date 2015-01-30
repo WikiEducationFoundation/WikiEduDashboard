@@ -27,11 +27,24 @@
 
 <section id="courses">
   <h3 class="section-header">All Current Courses | <%= @cohort.gsub('_', ' ').capitalize %></h3>
-  <select class="cohorts">
-    <% Figaro.env.cohorts.split(",").each do |c| %>
-    <option value="<%= c %>" <%= @cohort == c ? "selected" : "" %>><%= c.gsub('_', ' ').capitalize %></option>
-    <% end %>
-  </select>
+  <div class="sort-select inset">
+    <select class="sorts" rel="courses">
+      <option rel="asc" value="title">Title</option>
+      <option rel="desc" value="characters">Characters</option>
+      <option rel="desc" value="views">Views</option>
+      <option rel="desc" value="students">Students</option>
+    </select>
+  </div>
+  <div class="cohort-select">
+    <select class="cohorts">
+      <option selected disabled>View other cohorts</option>
+      <% Figaro.env.cohorts.split(",").each do |c| %>
+      <% unless @cohort == c %>
+      <option value="<%= c %>"><%= c.gsub('_', ' ').capitalize %></option>
+      <% end %>
+      <% end %>
+    </select>
+  </div>
   <div class="row course-list__row list__header">
     <div class="row__wrapper">
       <div class="course-list__row__title sort asc" data-sort="title"><p>Current Courses</p></div>

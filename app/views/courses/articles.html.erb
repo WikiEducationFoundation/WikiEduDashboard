@@ -4,6 +4,13 @@
 
 <section id="articles">
   <h3 class="section-header">Articles Edited</h3>
+  <div class="sort-select">
+    <select class="sorts" rel="articles">
+      <option rel="asc" value="title">Title</option>
+      <option rel="desc" value="characters">Characters added</option>
+      <option rel="desc" value="views">Views</option>
+    </select>
+  </div>
   <%= render :partial => 'articles/list_header' %>
   <ul class="list">
   <% if @articles_courses.count > 0 %>

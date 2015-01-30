@@ -27,7 +27,7 @@
       <% end %>
     </div>
     <div class="user-list__row__link">
-      <div class="drawer_trigger__icon <%= cu.revision_count < 1 ? "disabled" : "" %>"><p class="icon icon-downward-arrow"></p></div>
+      <div class="drawer_trigger__icon <%= cu.revision_count < 1 ? "disabled" : "" %>"><p class="icon icon-arrow"></p></div>
     </div>
   </div>
   <%= render :partial => 'users/detail', :locals => {:user => cu.user} %>

@@ -2,17 +2,17 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >
 <svg xmlns="http://www.w3.org/2000/svg">
 <defs>
-  <font id="icons" horiz-adv-x="50">
+  <font id="icons" horiz-adv-x="30">
     <font-face font-family="icons"
-      units-per-em="23" ascent="23"
+      units-per-em="22.5" ascent="22.5"
       descent="0" />
     <missing-glyph horiz-adv-x="0" />
     <glyph glyph-name="arrow"
       unicode="&#xE001;"
-      horiz-adv-x="43.699999999999996" d="" />
-    <glyph glyph-name="downward-arrow"
+      horiz-adv-x="33.75" d=" M16.7625 10.35L24.525000000000002 16.2L26.662499999999998 13.274999999999999L16.7625 5.849999999999998L7.2 13.275L9.3375 16.2L16.7625 10.35z" />
+    <glyph glyph-name="sort"
       unicode="&#xE002;"
-      horiz-adv-x="50" d=" M25 0.6000000000000014C24.8 0.6000000000000014 24.6 0.7000000000000028 24.5 0.8000000000000007L0.6 21.5C0.3 21.8 0.3 22.3 0.5 22.6C0.8 22.9 1.3 23 1.6 22.7L25 2.3000000000000007L48.4 22.7C48.699999999999996 23 49.199999999999996 22.9 49.5 22.6S49.7 21.8 49.4 21.5L25.5 0.8000000000000007C25.4 0.6000000000000014 25.2 0.6000000000000014 25 0.6000000000000014z" />
+      horiz-adv-x="30" d=" M12.7 19H28.7V15H12.7z M12.7 13H24.7V9H12.7z M12.7 7H18.7V3H12.7z M8.5 4.899999999999999L4.7 2L1 4.899999999999999L1.8 6L3.8 4.5L3.8 19L5.8 19L5.8 4.600000000000001L7.7 6z" />
   </font>
 </defs>
 </svg>
