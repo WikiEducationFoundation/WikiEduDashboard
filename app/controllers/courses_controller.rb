@@ -1,13 +1,12 @@
 class CoursesController < ApplicationController
   def index
-    @courses = Course.all.where(listed: true).order(:title)
     if params[:cohort].present?
       @cohort = params[:cohort]
-      @courses = @courses.cohort(@cohort)
     else
       @cohort = "spring_2015"
     end
-    @untrained = @courses.reduce(0) {|sum, c| sum = sum + c.users.student.where(trained: false).count }
+    @courses = Course.cohort(@cohort).where(listed: true).order(:title)
+    @untrained = @courses.sum(:untrained_count)
   end
 
   def show
@@ -25,16 +24,13 @@ class CoursesController < ApplicationController
 
   def students
     @course = Course.where(listed: true).find_by_slug(params[:id])
-    @students = @course.users.student.order(:wiki_id)
+    @courses_users = @course.courses_users.includes(user: {assignments: :article}).where(users: {role: 0}).order("users.wiki_id")
     @volunteers = @course.users.online_volunteer + @course.users.campus_volunteer
-    @courses_users = @course.courses_users
   end
 
   def articles
     @course = Course.where(listed: true).find_by_slug(params[:id])
     @articles_courses = @course.articles_courses.includes(:article).order("articles.title")
-    @articles = @course.articles.order(:title)
     @volunteers = @course.users.online_volunteer + @course.users.campus_volunteer
-    @courses_users = @course.courses_users
   end
 end

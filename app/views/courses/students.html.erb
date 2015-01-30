@@ -6,9 +6,9 @@
   <h3 class="section-header">Student Editors</h3>
   <%= render :partial => 'users/list_header' %>
   <ul class="list">
-  <% if @students.count > 0 %>
-    <% @students.each do |s| %>
-      <%= render :partial => 'users/row', :locals => {:user => s} %>
+  <% if @courses_users.count > 0 %>
+    <% @courses_users.each do |cu| %>
+      <%= render :partial => 'users/row', :locals => {:cu => cu} %>
     <% end %>
   <% else %>
     <li class="row view-all">

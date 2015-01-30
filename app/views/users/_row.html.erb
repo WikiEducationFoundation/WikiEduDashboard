@@ -1,21 +1,21 @@
 <li class="row user-list__row">
-  <div class="row__wrapper drawer_trigger <%= @courses_users.find_by(user_id: user.id).revision_count < 1 ? "disabled" : "" %>">
+  <div class="row__wrapper drawer_trigger <%= cu.revision_count < 1 ? "disabled" : "" %>">
     <div class="user-list__row__name">
       <div class="avatar"></div>
-      <p class="name"><%= contribution_link(user, nil, 'inline') %><br><small class="red"><%= user.trained ? '' : 'Training Incomplete' %></small></p>
+      <p class="name"><%= contribution_link(cu.user, nil, 'inline') %><br><small class="red"><%= cu.user.trained ? '' : 'Training Incomplete' %></small></p>
     </div>
     <div class="user-list__row__characters-ms">
       <p class="characters-ms" title="<%= t("user.character") %>">
-        <%= @course.courses_users.find_by(user_id: user.id).character_sum_ms %>
+        <%= cu.character_sum_ms %>
       </p>
     </div>
     <div class="user-list__row__characters-us">
       <p class="characters-us" title="<%= t("user.character") %>">
-        <%= @course.courses_users.find_by(user_id: user.id).character_sum_us %>
+        <%= cu.character_sum_us %>
       </p>
     </div>
     <div class="user-list__row__edits">
-      <% @assignment = user.assignments.where(course_id: @course.id).first %>
+      <% @assignment = cu.user.assignments.first %>
       <% if @assignment.nil? %>
         <p class='edits red'>No Assigned Article</p>
       <% else %>
@@ -27,8 +27,8 @@
       <% end %>
     </div>
     <div class="user-list__row__link">
-      <div class="drawer_trigger__icon <%= @courses_users.find_by(user_id: user.id).revision_count < 1 ? "disabled" : "" %>"><p class="icon icon-downward-arrow"></p></div>
+      <div class="drawer_trigger__icon <%= cu.revision_count < 1 ? "disabled" : "" %>"><p class="icon icon-downward-arrow"></p></div>
     </div>
   </div>
-  <%= render :partial => 'users/detail', :locals => {:user => user} %>
+  <%= render :partial => 'users/detail', :locals => {:user => cu.user} %>
 </li>

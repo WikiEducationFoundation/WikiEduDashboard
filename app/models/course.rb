@@ -59,6 +59,14 @@ class Course < ActiveRecord::Base
   end
 
 
+  def untrained_count
+    if(!read_attribute(:untrained_count))
+      update_cache()
+    end
+    read_attribute(:untrained_count)
+  end
+
+
   def revision_count
     read_attribute(:revision_count) || revisions.size
   end
@@ -74,6 +82,7 @@ class Course < ActiveRecord::Base
     self.character_sum = courses_users.sum(:character_sum_ms)
     self.view_sum = articles_courses.sum(:view_count)
     self.user_count = users.student.size
+    self.untrained_count = users.student.where(trained: false).size
     self.revision_count = revisions.size
     self.article_count = articles.size
     self.save
@@ -98,7 +107,7 @@ class Course < ActiveRecord::Base
     end
 
     data = Utils.chunk_requests(course_ids) {|c| Wiki.get_course_info c}
-    # if(Course.count == 0)
+    # if(Course.size == 0)
     self.import_courses(raw_ids, data)
     # else
     #   data.each do |c|

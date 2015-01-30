@@ -13,14 +13,13 @@
         <p class="views hidden"><%= course.view_sum %></p>
       </div>
       <div class="course-list__row__students">
-        <h4 class="training"><%= number_to_human course.user_count %></h4>
-        <small class="training"><%= trained = course.users.student.select { |user| user.trained }; p trained.count %> completed training</small>
+        <h4 class="training"><%= course.user_count %></h4>
+        <small class="training"><%= course.user_count - course.untrained_count %> completed training</small>
         <p class="students hidden"><%= course.user_count %></p>
       </div>
       <div class="course-list__row__link">
         <p class="fake-link">View Course</p>
-<!--         <%= link_to 'View Course', course_slug_path(course.slug), :class => "button" %>
- -->      </div>
+      </div>
     </div>
   <% end %>
 </li>
