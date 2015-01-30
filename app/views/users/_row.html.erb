@@ -15,11 +15,15 @@
       </p>
     </div>
     <div class="user-list__row__edits">
-      <% @assignment_title = @courses_users.find_by(user_id: user.id).assigned_article_title %>
-      <% if @assignment_title.nil? %>
+      <% @assignment = user.assignments.where(course_id: @course.id).first %>
+      <% if @assignment.nil? %>
         <p class='edits red'>No Assigned Article</p>
       <% else %>
-        <p class='edits'><%= @assignment_title %></p>
+        <% if @assignment.article.nil? %>
+        <p class='edits'><i><%= @assignment.article_title %></i></p>
+        <% else %>
+        <p class='edits'><%= link_to @assignment.article.title, @assignment.article.url, :target => "_blank", :class => "inline" %></p>
+        <% end %>
       <% end %>
     </div>
     <div class="user-list__row__link">
