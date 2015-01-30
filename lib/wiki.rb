@@ -192,13 +192,14 @@ class Wiki
     begin
       response = @mw.send_request(options)
     rescue MediaWiki::APIError => e
-      Rails.logger.warn "Caught #{e}"
       if(e.to_s.include?("Invalid course id"))
         if(options["courseids"].split('|').count > 1)
           Wiki.api_get Wiki.handle_invalid_course_id(options, e)
         else
           {"course" => false}
         end
+      else
+        Rails.logger.warn "Caught #{e}"
       end
     else
       parsed = Crack::XML.parse response.to_s
@@ -209,6 +210,10 @@ class Wiki
 
   def self.handle_invalid_course_id(options, e)
     id = e.to_s[/(?<=MediaWiki::APIError: API error: code 'invalid-course', info 'Invalid course id: ).*?(?=')/]
+    array = options["courseids"].split('|')
+    unless(array.index(id) >= array.count - 2)
+      Rails.logger.warn "Listed course_id #{id} is invalid"
+    end
     if(options["courseids"].include?('|'+id+'|'))
       options["courseids"] = options["courseids"].gsub('|'+id+'|', '|')
     elsif(options["courseids"].include?(id+'|'))
