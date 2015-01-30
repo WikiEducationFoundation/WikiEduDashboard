@@ -21,7 +21,9 @@ ON THE SERVER
 - Create a database for the app
   - $ `sudo mysql -p`
   - Enter the password you just set.
-  - mysql> `create database dashboard;`
+  - mysql> `CREATE DATABSE dashboard`
+  -   `DEFAULT CHARACTER SET utf8`
+  -   `DEFAULT COLLATE utf8_general_ci;`
   - mysql> `exit;`
 
 - Assign ownership to yourself for the web directory /var/www 
