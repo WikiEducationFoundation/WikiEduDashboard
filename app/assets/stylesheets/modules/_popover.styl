@@ -7,7 +7,6 @@
   .popover
     background-color white
     border 1px solid manatee
-    border-radius 5px
     left -15%
     opacity 0
     padding 10px 15px
@@ -17,6 +16,13 @@
     transition opacity .2s linear, top .2s linear
     width 130%
     z-index 4
+    &.dark
+      background-color manatee
+      border none
+      &:before
+        border-bottom 6px solid manatee
+      p
+        color white
     &:before
       border-bottom 6px solid white
       border-right 6px solid transparent

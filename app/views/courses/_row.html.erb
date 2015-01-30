@@ -5,11 +5,11 @@
         <p class="title"><%= course.title %></p>
       </div>
       <div class="course-list__row__characters">
-        <h4 title="<%= t("course.character") %>"><%= number_to_human course.character_sum %></h4>
+        <h4><%= number_to_human course.character_sum %></h4>
         <p class="characters hidden"><%= course.character_sum %></p>
       </div>
       <div class="course-list__row__views">
-        <h4 title="<%= t("course.view") %>"><%= number_to_human course.view_sum %></h4>
+        <h4><%= number_to_human course.view_sum %></h4>
         <p class="views hidden"><%= course.view_sum %></p>
       </div>
       <div class="course-list__row__students">

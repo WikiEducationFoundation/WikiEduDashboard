@@ -4,12 +4,12 @@
       <p class="title"><%= link_to ac.article.title, ac.article.url, :target => "_blank", :class => "inline" %> <%= ac.new_article ? "(new)" : "" %></p>
     </div>
     <div class="article-list__row__characters">
-      <p class="characters" title="<%= t("article.character") %>">
+      <p class="characters">
         <%= ac.character_sum || ac.article.character_sum %>
       </p>
     </div>
     <div class="article-list__row__views">
-      <p class="views" title="<%= t("article.view") %>">
+      <p class="views">
         <%= ac.view_count || ac.article.views || 0 %>
       </p>
     </div>

@@ -5,12 +5,12 @@
       <p class="name"><%= contribution_link(cu.user, nil, 'inline') %><br><small class="red"><%= cu.user.trained ? '' : 'Training Incomplete' %></small></p>
     </div>
     <div class="user-list__row__characters-ms">
-      <p class="characters-ms" title="<%= t("user.character") %>">
+      <p class="characters-ms">
         <%= cu.character_sum_ms %>
       </p>
     </div>
     <div class="user-list__row__characters-us">
-      <p class="characters-us" title="<%= t("user.character") %>">
+      <p class="characters-us">
         <%= cu.character_sum_us %>
       </p>
     </div>
