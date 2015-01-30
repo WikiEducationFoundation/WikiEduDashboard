@@ -1,20 +1,20 @@
 <li class="row article-list__row">
   <div class="row__wrapper">
     <div class="article-list__row__title">
-      <p class="title"><%= link_to article.title, article.url, :target => "_blank", :class => "inline" %></p>
+      <p class="title"><%= link_to ac.article.title, ac.article.url, :target => "_blank", :class => "inline" %> <%= ac.new_article ? "(new)" : "" %></p>
     </div>
     <div class="article-list__row__characters">
       <p class="characters" title="<%= t("article.character") %>">
-        <%= article.articles_courses.where(course_id: @course.id).first.character_sum || article.character_sum %>
+        <%= ac.character_sum || ac.article.character_sum %>
       </p>
     </div>
     <div class="article-list__row__views">
       <p class="views" title="<%= t("article.view") %>">
-        <%= article.articles_courses.where(course_id: @course.id).first.view_count || article.views || 0 %>
+        <%= ac.view_count || ac.article.views || 0 %>
       </p>
     </div>
     <div class="article-list__row__link">
-      <%= link_to 'View Article', article.url, :target => "_blank", :class => "button" %>
+      <%= link_to 'View Article', ac.article.url, :target => "_blank", :class => "button" %>
     </div>
   </div>
 </li>

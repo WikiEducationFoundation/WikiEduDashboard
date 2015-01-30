@@ -32,6 +32,7 @@ class CoursesController < ApplicationController
 
   def articles
     @course = Course.where(listed: true).find_by_slug(params[:id])
+    @articles_courses = @course.articles_courses.includes(:article).order("articles.title")
     @articles = @course.articles.order(:title)
     @volunteers = @course.users.online_volunteer + @course.users.campus_volunteer
     @courses_users = @course.courses_users

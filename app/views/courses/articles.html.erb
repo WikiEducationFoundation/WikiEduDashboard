@@ -6,9 +6,9 @@
   <h3 class="section-header">Articles Edited</h3>
   <%= render :partial => 'articles/list_header' %>
   <ul class="list">
-  <% if @articles.count > 0 %>
-    <% @articles.each do |a| %>
-      <%= render :partial => 'articles/row', :locals => {:article => a} %>
+  <% if @articles_courses.count > 0 %>
+    <% @articles_courses.each do |ac| %>
+      <%= render :partial => 'articles/row', :locals => {:ac => ac} %>
     <% end %>
   <% else %>
     <li class="row view-all">

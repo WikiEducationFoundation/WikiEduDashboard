@@ -19,14 +19,19 @@ class ArticlesCourses < ActiveRecord::Base
     read_attribute(:character_sum)
   end
 
+  def new_article
+    read_attribute(:new_article)
+  end
+
   def update_cache
-    revisions = article.revisions.where("date >= ?", course.start)
+    revisions = course.revisions.where(article_id: article.id)
     if revisions.empty?
       self.view_count = 0
       self.character_sum = 0
     else
       self.view_count = revisions.order('date ASC').first.views || 0
       self.character_sum = revisions.where('characters >= 0').sum(:characters) || 0
+      self.new_article = revisions.where(new_article: true).count > 0
     end
     self.save
   end
