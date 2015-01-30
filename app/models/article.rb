@@ -96,13 +96,13 @@ class Article < ActiveRecord::Base
   # Class methods #
   #################
   def self.update_all_views(all_time=false)
-    articles = Article.where(namespace: 0).find_in_batches(batch_size: 50)
+    articles = Article.where(namespace: 0).find_in_batches(batch_size: 30)
     self.update_views(articles, all_time)
   end
 
 
   def self.update_new_views
-    articles = Article.where("views_updated_at IS NULL").where(namespace: 0).find_in_batches(batch_size: 50)
+    articles = Article.where("views_updated_at IS NULL").where(namespace: 0).find_in_batches(batch_size: 30)
     self.update_views(articles, true)
   end
 
