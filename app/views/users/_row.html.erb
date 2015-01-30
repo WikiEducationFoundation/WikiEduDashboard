@@ -1,5 +1,5 @@
 <li class="row user-list__row">
-  <div class="row__wrapper">
+  <div class="row__wrapper drawer_trigger <%= @courses_users.find_by(user_id: user.id).revision_count < 1 ? "disabled" : "" %>">
     <div class="user-list__row__name">
       <div class="avatar"></div>
       <p class="name"><%= contribution_link(user, nil, 'inline') %><br><small class="red"><%= user.trained ? '' : 'Training Incomplete' %></small></p>
@@ -27,7 +27,7 @@
       <% end %>
     </div>
     <div class="user-list__row__link">
-      <div class="drawer_trigger <%= @courses_users.find_by(user_id: user.id).revision_count < 1 ? "disabled" : "" %>"><p class="icon icon-downward-arrow"></p></div>
+      <div class="drawer_trigger__icon <%= @courses_users.find_by(user_id: user.id).revision_count < 1 ? "disabled" : "" %>"><p class="icon icon-downward-arrow"></p></div>
     </div>
   </div>
   <%= render :partial => 'users/detail', :locals => {:user => user} %>

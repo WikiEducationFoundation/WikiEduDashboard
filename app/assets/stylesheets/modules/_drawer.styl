@@ -27,19 +27,19 @@
 
 .drawer_trigger
   cursor pointer
-  transform rotate(0deg)
-  transition transform .2s
   &.disabled
     cursor initial
-    pointer-events none
     .icon:before
       color zircon
   .icon:before
     font-size 12px
     font-weight bold
+  .drawer_trigger__icon
+    transform rotate(0deg)
+    transition transform .2s
 .open
   border-bottom 0
-  .drawer_trigger
+  .drawer_trigger__icon
     transform rotate(-180deg)
 
 .revision-list__row__link

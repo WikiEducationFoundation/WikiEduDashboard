@@ -1,8 +1,9 @@
 $ ->
 
   # Initial showing of the drawer
-  $('.drawer_trigger').click (e) ->
+  $('.drawer_trigger:not(.disabled)').click (e) ->
     drawer = $(e.target).parents('.row').children('.drawer')
+    return if $(e.target).is('a')
 
     $('.drawer').not(drawer).css('height', '0px')
     $('.row.open').not($(e.target).parents('.row')).removeClass('open')
