@@ -11,16 +11,6 @@ $ ->
   # Revision sorting
   revisionList = new List('revisions', {valueNames: ['title', 'date', 'characters', 'views']})
 
-  # User detail display
-  $('.drawer_trigger').click (e) ->
-    drawer = $(e.target).parents('.row').children('.drawer')
-
-    $('.drawer').not(drawer).css('height', '0px')
-    $('.row.open').not($(e.target).parents('.row')).removeClass('open')
-
-    drawer.toggleHeight()
-    $(e.target).parents('.row').toggleClass('open')
-
   $('select.cohorts').change (e) ->
     cohort = $('select.cohorts option:selected').val()
     window.location = "/courses?cohort=" + encodeURIComponent(cohort)
