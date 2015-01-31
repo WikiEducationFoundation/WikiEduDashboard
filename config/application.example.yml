@@ -1,14 +1,24 @@
-# Add configuration values here
+# Add configuration values here.
 #
 # Fulfill value requirements and save as application.yml
 #
 # Values required for WikiEduDashboard include:
-#   wikipedia_username: <your Wikipedia username>
-#   wikipedia_password: <your Wikipedia password>
-#   cohorts: "<cohort_1>,<cohort_2>"
-#   cohort_<cohort_1>: "Wikipedia:Education_program/Dashboard/Fall_2014_course_ids"
-#   cohort_<cohort_1>_start: "20140801"
-#   cohort_<cohort_1>_end: "20141231"
-#   cohort_<cohort_2>: "Wikipedia:Education_program/Dashboard/course_ids"
-#   cohort_<cohort_2>_start: "20141201"
-#   cohort_<cohort_2>_end: "20150531"
+
+# A Wikipedia username and password. This is used for making API calls.
+# You can (and probably should) make an account just to use for this purpose.
+  wikipedia_username: <Wikipedia username>
+  wikipedia_password: <Wikipedia password>
+
+# One or more cohorts of classes, with each cohort defined by a wiki page of course ids, one per line.
+# The last cohort in the comma-separated list is the default cohort for the homepage.
+# Cohort names become uppercase, and underscores become spaces.
+# Data is pulled between the 'start' and 'end' dates of each cohort.
+  cohorts: "fall_2014,spring_2015"
+ 
+  cohort_fall_2014: "Wikipedia:Education_program/Dashboard/Fall_2014_course_ids"
+  cohort_fall_2014_start: "20140801"
+  cohort_fall_2015_end: "20141231"
+ 
+  cohort_spring_2015: "Wikipedia:Education_program/Dashboard/course_ids"
+  cohort_spring_2015_start: "20141201"
+  cohort_spring_2015_end: "20150531"
