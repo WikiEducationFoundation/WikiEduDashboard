@@ -21,20 +21,15 @@ class Revision < ActiveRecord::Base
   # Class methods #
   #################
   def self.update_all_revisions
-    data = Figaro.env.cohorts.split(",").reduce([]) do |result, cohort|
-      users = User.student.includes(:courses).where(:courses => {:cohort => cohort})
-      start = ENV["cohort_" + cohort + "_start"]
-      unless Revision.all.count == 0
-        start = Revision.all.order("date DESC").first.date.strftime("%Y%m%d")
+    revisions = Course.all.reduce([]) do |results, c|
+      start = c.revisions.count == 0 ? c.start : c.revisions.order("date DESC").first.date
+      start = start.strftime("%Y%m%d")
+      results += Utils.chunk_requests(c.users.student, 40) do |block|
+        Replica.get_revisions_this_term_by_users block, start, c.end
       end
-      revisions = Utils.chunk_requests(users, 40) { |block|
-        cohort_start = start
-        cohort_end = ENV["cohort_" + cohort + "_end"]
-        Replica.get_revisions_this_term_by_users block, cohort_start, cohort_end
-      }
-      result += revisions
     end
-    self.import_revisions(data)
+
+    self.import_revisions(revisions)
 
     ActiveRecord::Base.transaction do
       Revision.joins(:article).where(articles: {namespace: "0"}).each do |r|

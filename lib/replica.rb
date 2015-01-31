@@ -24,7 +24,7 @@ class Replica
         end
         data[parsed["article"]["id"]]["revisions"].push parsed["revision"]
       end
-    else
+    elsif !raw.nil?
       Replica.parse_revision(raw)
     end
     data
@@ -73,9 +73,12 @@ class Replica
     url = "http://tools.wmflabs.org/wikiedudashboard/#{endpoint}?#{query}"
     response = Net::HTTP::get(URI.parse(url))
     # unless response.length > 100000
-    parsed = Crack::JSON.parse response.to_s
-    parsed["data"]
-    # end
+    if response.length > 0
+      parsed = JSON.parse response.to_s
+      parsed["data"]
+    else
+      nil
+    end
   end
 
 
