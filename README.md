@@ -30,14 +30,14 @@ Project Setup
 - Install Node: [Node.js Installer](http://nodejs.org/)
 
 - Install Gems:
-    - $ bundle install
+    - $ `bundle install`
 
 - Install NPM modules:
-    - $ npm install
+    - $ `npm install`
 
 - Install Bower and Bower modules:
-    - $ [sudo] npm install bower -g
-    - $ bower install
+    - $ `sudo npm install bower -g`
+    - $ `bower install`
 
 - Add config files:
     - Save `application.example.yml` and `database.example.yml` as `application.yml` and `database.yml`, respectively. Fill in your Wikipedia account login details in `application.yml` (for API access). The default settings in `database.yml` will suffice for a development environment.
@@ -46,29 +46,29 @@ Initialize
 --------------
 1. **Start Guard**
 
-      $ guard
+      $ `guard`
 
 2. **Migrate the database**
 
-      $ rake db:migrate
+      $ `rake db:migrate`
 
 3. **Pull data from sources** (this could take a very long time)
 
-      $ rake batch:initialize
+      $ `rake batch:initialize`
 
 Develop
 ------
 1. **Start Zeus**
 
-      $ zeus start
+      $ `zeus start`
 
 2. **Start Guard**
 
-      $ guard
+      $ `guard`
 
 3. **Start Gulp to watch JS and CSS**
 
-      $ gulp
+      $ `gulp`
 
 4. The frontend is now visible at http://localhost:3000/
 
@@ -80,6 +80,9 @@ For deployment, the Dashboard uses [Capistrano](https://en.wikipedia.org/wiki/Ca
 After pushing updates to repo (on Github), run the following command(s)
 - Staging: `cap staging deploy` (This will deploy from the "master" branch)
 - Production: `cap production deploy` (This will deploy from "production" branch)
+
+To run rake tasks on a server via Capistrano, use "sake":
+- $ `cap production sake task="batch:update_constantly"`
 
 Set up a new production server
 ---------------
