@@ -5,11 +5,11 @@ The WikiEdu Dashboard is a web application that provides data about Wikipedia ed
 
 What it does
 ---------------
-The Dashboard pulls information from the EducationProgram extension's Wikipedia API to identify which users are part of courses. It then gathers information about edits those users have have and articles they have edited, and creates a dashboard for each course intended to let instructors and others quickly see key information about the work of student editors. It also creates a global dashboard to see information about many courses at once.
+The Dashboard pulls information from the EducationProgram extension's Wikipedia API to identify which users are part of courses. It then gathers information about edits those users have made and articles they have edited, and creates a dashboard for each course intended to let instructors and others quickly see key information about the work of student editors. It also creates a global dashboard to see information about many courses at once.
 
  * The system shows information for based on list course IDs defined by a page on Wikipedia.
  * The system queries the liststudents api on English Wikipedia to get basic details about each course: who the students are, when the course starts and ends, and so on.
- * The system uses a set of endpoints on Wikimedia Labs (see [WikiEduDashboardTools](https://github.com/WikiEducationFoundation/WikiEduDashboardTools) to perform queries on a replica Wikipedia database, for information about articles and revisions related to the courses.
+ * The system uses a set of endpoints on Wikimedia Labs (see [WikiEduDashboardTools](https://github.com/WikiEducationFoundation/WikiEduDashboardTools)) to perform queries on a replica Wikipedia database, for information about articles and revisions related to the courses.
  * The system pulls page views (from [stats.grok.se](http://stats.grok.se)) for relevant articles on a daily basis.
 
 Requirements
@@ -25,7 +25,7 @@ Project Setup
 - Fork this repo, so that you can set it up for a new server.
 - Clone the new WikiEduDashboard repo and enter that directory.
 - Install Ruby 2.1.5 (RVM is recommended)
-    - From the WikiEduWizard directory, run the curl script from [rvm.io](https://rvm.io/)
+    - From the WikiEduDashboard directory, run the curl script from [rvm.io](https://rvm.io/)
     - Run the install command suggested by the script, something like `rvm install ruby-2.1.5`
 - Install Node: [Node.js Installer](http://nodejs.org/)
 
