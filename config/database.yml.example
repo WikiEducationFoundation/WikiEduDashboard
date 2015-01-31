@@ -1,9 +1,6 @@
-# SQLite version 3.x
-#   gem install sqlite3
-#
-#   Ensure the SQLite 3 gem is defined in your Gemfile
-#   gem 'sqlite3'
-#
+# Only mysql — and probably mariadb — are supported.
+# Create a database with utf8 encoding and ut8_unicode_ci collation for development or production.
+
 default: &default
   adapter: sqlite3
   pool: 5
@@ -20,6 +17,19 @@ test:
   <<: *default
   database: db/test.sqlite3
 
+vps: &vps
+  adapter: mysql2
+  encoding: utf8
+  username: root
+  password:
+  host: 127.0.0.1
+  port: 3306
+
+staging:
+  <<: *vps
+  database: dashboard_testing
+
 production:
-  <<: *default
-  database: db/production.sqlite3
+  <<: *vps
+  database: dashboard
+
