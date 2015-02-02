@@ -9,7 +9,7 @@
       <div class="stat-display__stat"><h3><%= number_to_human @course.article_count %></h3><small>Articles<br>Edited</small></div>
       <div class="stat-display__stat"><h3><%= number_to_human @course.revisions.count %></h3><small>Total<br>Edits</small></div>
       <div class="stat-display__stat popover-trigger">
-        <h3><%= number_to_human @course.user_count %></h3>
+        <h3><%= @course.user_count %></h3>
         <small>Student<br>Editors</small>
         <div class="popover">
           <h4><%= @course.users.student.where(trained: false).count %></h4>

@@ -7,7 +7,7 @@
       <small>WikiEdu Courses</small>
       </div>
     <div class="stat-display__stat popover-trigger">
-      <h1><%= number_to_human @courses.sum(:user_count) %></h1>
+      <h1><%= @courses.sum(:user_count) %></h1>
       <small>Student Editors</small>
       <div class="popover">
         <h4><%= @untrained %></h4>
