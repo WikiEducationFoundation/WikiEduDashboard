@@ -1,7 +1,7 @@
 <li class="row user-list__row">
   <div class="row__wrapper drawer_trigger <%= cu.revision_count < 1 ? "disabled" : "" %>">
     <div class="user-list__row__name">
-      <div class="avatar"></div>
+      <div class="avatar"><%= image_tag "/images/user.svg" %></div>
       <p class="name"><%= contribution_link(cu.user, nil, 'inline') %><br><small class="red"><%= cu.user.trained ? '' : 'Training Incomplete' %></small></p>
     </div>
     <div class="user-list__row__characters-ms">
