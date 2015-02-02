@@ -14,7 +14,7 @@
     padding-bottom 0 !important
     p
       color manatee
-      letter-spacing 0.5px
+      // letter-spacing 0.5px
   &:hover
     background initial !important
 .list
@@ -31,7 +31,7 @@
   div:not(.drawer)
     align-items center
     display flex
-    min-height 60px
+    min-height 40px
     p
       flex 1
   h4
@@ -84,6 +84,8 @@
     col(1/6)
   .course-list__row__link
     col(1/6)
+  div:not(.drawer)
+    min-height 40px
 
 .user-list__row
   .user-list__row__name
@@ -92,7 +94,7 @@
       line-height 1
       margin-top 13px
     .avatar
-      round-placeholder(30)
+      round-placeholder(20)
       display inline-block
       margin-right 15px
     small

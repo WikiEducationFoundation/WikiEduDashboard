@@ -21,15 +21,17 @@ class Revision < ActiveRecord::Base
   # Class methods #
   #################
   def self.update_all_revisions
-    revisions = Course.all.reduce([]) do |results, c|
+    results = []
+    Course.all.each do |c|
       start = c.revisions.count == 0 ? c.start : c.revisions.order("date DESC").first.date
       start = start.strftime("%Y%m%d")
-      results += Utils.chunk_requests(c.users.student, 40) do |block|
-        Replica.get_revisions_this_term_by_users block, start, c.end
+      revisions = Utils.chunk_requests(c.users.student, 40) do |block|
+        Replica.get_revisions_this_term_by_users block, start, c.end.strftime("%Y%m%d")
       end
+      results += revisions
     end
 
-    self.import_revisions(revisions)
+    self.import_revisions(results)
 
     ActiveRecord::Base.transaction do
       Revision.joins(:article).where(articles: {namespace: "0"}).each do |r|
@@ -47,6 +49,9 @@ class Revision < ActiveRecord::Base
     revisions = []
 
     data.each do |a_id, a|
+      if a.nil? || a["article"].nil?
+        byebug
+      end
       article = Article.new(id: a["article"]["id"])
       article.update(a["article"], false)
       articles.push article
