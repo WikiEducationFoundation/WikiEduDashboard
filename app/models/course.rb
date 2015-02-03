@@ -145,14 +145,13 @@ class Course < ActiveRecord::Base
         group_flattened = group.map{|g,gusers| gusers.empty? ? nil : gusers}.compact.flatten
         user_ids = group_flattened.map{|user| user["id"]}
         course = Course.find_by(id: course_id)
-        user_ids = user_ids - course.users.map {|u| u.id.to_s}
         unless user_ids.empty?
           unless course.users.empty?
             unenrolled = course.users.student.map {|u| u.id.to_s} - user_ids
             # remove all courses_users entries for this course
             course.users.delete(course.users.student.find(unenrolled))
           end
-          course.users << User.find(user_ids)
+          course.users << User.find(user_ids - course.users.map {|u| u.id.to_s})
         end
 
         group_flattened.each do |user|
