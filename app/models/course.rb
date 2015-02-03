@@ -107,20 +107,7 @@ class Course < ActiveRecord::Base
     end
 
     data = Utils.chunk_requests(course_ids) {|c| Wiki.get_course_info c}
-    # if(Course.size == 0)
     self.import_courses(raw_ids, data)
-    # else
-    #   data.each do |c|
-    #     if listed_ids.include?(c["course"]["id"])
-    #       c["course"]["listed"] = true
-    #       c["course"]["cohort"] = raw_ids.reduce(nil) do |out, (cohort, cohort_courses)|
-    #         out = cohort_courses.include?(c["course"]["id"]) ? cohort : out
-    #       end
-    #     end
-    #     course = Course.find_or_create_by(id: c["course"]["id"])
-    #     course.update c
-    #   end
-    # end
   end
 
   def self.import_courses(raw_ids, data)
@@ -160,6 +147,11 @@ class Course < ActiveRecord::Base
         course = Course.find_by(id: course_id)
         user_ids = user_ids - course.users.map {|u| u.id.to_s}
         unless user_ids.empty?
+          unless course.users.empty?
+            unenrolled = course.users.student.map {|u| u.id} - user_ids
+            # remove all courses_users entries for this course
+            course.users.delete(course.users.student.find(unenrolled))
+          end
           course.users << User.find(user_ids)
         end
 
