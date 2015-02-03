@@ -11,15 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150131011329) do
+ActiveRecord::Schema.define(version: 20150203172530) do
 
   create_table "articles", force: true do |t|
     t.string   "title"
-    t.integer  "views",            default: 0
+    t.integer  "views",            limit: 8, default: 0
     t.datetime "updated_at"
     t.datetime "created_at"
-    t.integer  "character_sum",    default: 0
-    t.integer  "revision_count",   default: 0
+    t.integer  "character_sum",              default: 0
+    t.integer  "revision_count",             default: 0
     t.date     "views_updated_at"
     t.integer  "namespace"
   end
@@ -29,9 +29,9 @@ ActiveRecord::Schema.define(version: 20150131011329) do
     t.datetime "updated_at"
     t.integer  "article_id"
     t.integer  "course_id"
-    t.integer  "view_count",    default: 0
-    t.integer  "character_sum", default: 0
-    t.boolean  "new_article",   default: false
+    t.integer  "view_count",    limit: 8, default: 0
+    t.integer  "character_sum",           default: 0
+    t.boolean  "new_article",             default: false
   end
 
   create_table "assignments", force: true do |t|
@@ -53,15 +53,15 @@ ActiveRecord::Schema.define(version: 20150131011329) do
     t.date     "end"
     t.string   "school"
     t.string   "term"
-    t.integer  "character_sum",   default: 0
-    t.integer  "view_sum",        default: 0
-    t.integer  "user_count",      default: 0
-    t.integer  "article_count",   default: 0
-    t.integer  "revision_count",  default: 0
+    t.integer  "character_sum",             default: 0
+    t.integer  "view_sum",        limit: 8, default: 0
+    t.integer  "user_count",                default: 0
+    t.integer  "article_count",             default: 0
+    t.integer  "revision_count",            default: 0
     t.string   "slug"
     t.boolean  "listed"
     t.string   "cohort"
-    t.integer  "untrained_count", default: 0
+    t.integer  "untrained_count",           default: 0
   end
 
   add_index "courses", ["slug"], name: "index_courses_on_slug", using: :btree
@@ -78,27 +78,27 @@ ActiveRecord::Schema.define(version: 20150131011329) do
   end
 
   create_table "revisions", force: true do |t|
-    t.integer  "characters",  default: 0
+    t.integer  "characters",            default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
     t.integer  "article_id"
-    t.integer  "views",       default: 0
+    t.integer  "views",       limit: 8, default: 0
     t.datetime "date"
-    t.boolean  "new_article", default: false
+    t.boolean  "new_article",           default: false
   end
 
   create_table "users", force: true do |t|
     t.string   "wiki_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "character_sum",  default: 0
-    t.integer  "view_sum",       default: 0
-    t.integer  "course_count",   default: 0
-    t.integer  "article_count",  default: 0
-    t.integer  "revision_count", default: 0
-    t.boolean  "trained",        default: false
-    t.integer  "role",           default: 0
+    t.integer  "character_sum",            default: 0
+    t.integer  "view_sum",       limit: 8, default: 0
+    t.integer  "course_count",             default: 0
+    t.integer  "article_count",            default: 0
+    t.integer  "revision_count",           default: 0
+    t.boolean  "trained",                  default: false
+    t.integer  "role",                     default: 0
   end
 
 end
