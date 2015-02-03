@@ -3,14 +3,16 @@
 <%= render :partial => 'header', :locals => {:page => 1} %>
 
 <section id="users">
-  <h3 class="section-header">Student Editors</h3>
-  <div class="sort-select">
-    <select class="sorts" rel="users">
-      <option rel="asc" value="name">Name</option>
-      <option rel="desc" value="characters-ms">Mainspace chars added</option>
-      <option rel="desc" value="characters-us">Userspace chars added</option>
-      <option rel="desc" value="edits">Assigned articles</option>
-    </select>
+  <div class="section-header">
+    <h3>Student Editors</h3>
+    <div class="sort-select">
+      <select class="sorts" rel="users">
+        <option rel="asc" value="name">Name</option>
+        <option rel="desc" value="characters-ms">Mainspace chars added</option>
+        <option rel="desc" value="characters-us">Userspace chars added</option>
+        <option rel="desc" value="edits">Assigned articles</option>
+      </select>
+    </div>
   </div>
   <%= render :partial => 'users/list_header' %>
   <ul class="list">

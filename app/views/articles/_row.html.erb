@@ -1,7 +1,8 @@
 <li class="row article-list__row">
+  <%= link_to ac.article.url, :target => "_blank" do %>
   <div class="row__wrapper">
     <div class="article-list__row__title">
-      <p class="title"><%= link_to ac.article.title, ac.article.url, :target => "_blank", :class => "inline" %> <%= ac.new_article ? "(new)" : "" %></p>
+      <p class="title"><%= ac.article.title + (ac.new_article ? "(new)" : "") %></p>
     </div>
     <div class="article-list__row__characters">
       <p class="characters">
@@ -14,7 +15,8 @@
       </p>
     </div>
     <div class="article-list__row__link">
-      <%= link_to 'View Article', ac.article.url, :target => "_blank", :class => "button" %>
+      <p class="fake-link">View Article</p>
     </div>
   </div>
+  <% end %>
 </li>

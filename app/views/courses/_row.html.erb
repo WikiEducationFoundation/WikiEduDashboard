@@ -5,15 +5,15 @@
         <p class="title"><%= course.title %></p>
       </div>
       <div class="course-list__row__characters">
-        <h4><%= number_to_human course.character_sum %></h4>
+        <p><%= number_to_human course.character_sum %></p>
         <p class="characters hidden"><%= course.character_sum %></p>
       </div>
       <div class="course-list__row__views">
-        <h4><%= number_to_human course.view_sum %></h4>
+        <p><%= number_to_human course.view_sum %></p>
         <p class="views hidden"><%= course.view_sum %></p>
       </div>
       <div class="course-list__row__students">
-        <h4 class="training"><%= course.user_count %></h4>
+        <p class="training"><%= course.user_count %></p>
         <small class="training"><%= course.user_count - course.untrained_count %> completed training</small>
         <p class="students hidden"><%= course.user_count %></p>
       </div>

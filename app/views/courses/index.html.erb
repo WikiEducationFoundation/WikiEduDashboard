@@ -26,24 +26,26 @@
 </header>
 
 <section id="courses">
-  <h3 class="section-header">All Current Courses | <%= @cohort.gsub('_', ' ').capitalize %></h3>
-  <div class="sort-select inset">
-    <select class="sorts" rel="courses">
-      <option rel="asc" value="title">Title</option>
-      <option rel="desc" value="characters">Characters</option>
-      <option rel="desc" value="views">Views</option>
-      <option rel="desc" value="students">Students</option>
-    </select>
-  </div>
-  <div class="cohort-select">
-    <select class="cohorts">
-      <option selected disabled>View other cohorts</option>
-      <% Figaro.env.cohorts.split(",").each do |c| %>
-      <% unless @cohort == c %>
-      <option value="<%= c %>"><%= c.gsub('_', ' ').capitalize %></option>
-      <% end %>
-      <% end %>
-    </select>
+  <div class="section-header">
+    <h3>All Current Courses | <%= @cohort.gsub('_', ' ').capitalize %></h3>
+    <div class="sort-select inset">
+      <select class="sorts" rel="courses">
+        <option rel="asc" value="title">Title</option>
+        <option rel="desc" value="characters">Characters</option>
+        <option rel="desc" value="views">Views</option>
+        <option rel="desc" value="students">Students</option>
+      </select>
+    </div>
+    <div class="cohort-select">
+      <select class="cohorts">
+        <option selected disabled>View other cohorts</option>
+        <% Figaro.env.cohorts.split(",").each do |c| %>
+        <% unless @cohort == c %>
+        <option value="<%= c %>"><%= c.gsub('_', ' ').capitalize %></option>
+        <% end %>
+        <% end %>
+      </select>
+    </div>
   </div>
   <div class="row course-list__row list__header">
     <div class="row__wrapper">

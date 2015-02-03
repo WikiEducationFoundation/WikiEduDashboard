@@ -49,9 +49,6 @@ class Revision < ActiveRecord::Base
     revisions = []
 
     data.each do |a_id, a|
-      if a.nil? || a["article"].nil?
-        byebug
-      end
       article = Article.new(id: a["article"]["id"])
       article.update(a["article"], false)
       articles.push article

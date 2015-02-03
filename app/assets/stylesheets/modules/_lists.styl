@@ -1,15 +1,20 @@
 .sort
   cursor pointer
+  &.asc p:before, &.desc p:before
+    content '\E001'
+    display inline-block
+    font-family "icons"
+    font-size 10px
+    margin-right 5px
+    transition transform 0.2s
   &.asc p:before
-    content '\25B4'
-    margin-right 5px
+    transform rotate(180deg)
   &.desc p:before
-    content '\25BE'
-    margin-right 5px
+    transform rotate(0deg)
 .list__header
-  border-bottom 1px solid manatee !important
   font-family "Roboto"
   .row__wrapper
+    border-bottom 1px solid manatee !important
     padding-top 0 !important
     padding-bottom 0 !important
     p
@@ -22,9 +27,9 @@
   list-style-type none
 .row
   align-items center
-  border-bottom 1px solid mercury
   justify-content flex-start
   margin-left 0
+  padding 0 20px
   transition background 0.15s
   div:not(.drawer):last-child
     justify-content center
@@ -37,31 +42,46 @@
   h4
     color dove
   .row__wrapper
+    border-bottom 1px solid mercury
     padding 15px
     width 100%
   .fake-link
     font-size 14px
     font-family "Roboto"
     text-align right
+  &:last-child .row__wrapper
+    border-bottom none
   &:hover
     background athens
     .fake-link:after
-      content '\003e'
-      margin-left 5px
+      content '\E001'
+      display inline-block
+      font-family "icons"
+      font-size 10px
+      font-weight bold
+      margin-left 8px
+      transform rotate(270deg)
   &.view-all
     border-bottom none
+    a
+      font-family "Roboto"
     div
       align-items center
       justify-content center
-      min-height 80px
+      min-height 48px
     &:hover
       background none !important
-  &.open > .row__wrapper
-    background-color manatee
+  &.open
     &:hover
-      background manatee !important
-    p
-      color white
+      background none
+    > .row__wrapper
+      background-color manatee
+      &:hover
+        background manatee !important
+      p
+        color white
+      small
+        color white
 
 .table__header
   border-bottom 0
@@ -123,6 +143,10 @@
     col(1/5)
 
 .revision-list__row
+  &.list__header
+    p, h6
+      font-size 14px
+    max-height 40px
   .revision-list__row__title
     col(6/20)
   .revision-list__row__date

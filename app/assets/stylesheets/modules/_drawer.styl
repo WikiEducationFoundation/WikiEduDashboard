@@ -1,5 +1,6 @@
 .drawer
   background athens
+  transition border 0.15s
   height 0
   min-height 0 !important
   overflow hidden
@@ -13,11 +14,15 @@
       color manatee
     &:hover
       background-color smoke !important
+    .row__wrapper
+      border-bottom none !important
 
   .row
     background-color alabaster
+    border-bottom 1px solid mercury
     padding 10px 0
     .row__wrapper
+      border-bottom none
       padding 5px 20px !important
     &:last-child
       border-bottom none
@@ -34,13 +39,15 @@
   .icon:before
     font-size 12px
     font-weight bold
-  .drawer_trigger__icon
+    margin-top 5px
     transform rotate(0deg)
     transition transform .2s
 .open
   border-bottom 0
-  .drawer_trigger__icon
+  .drawer_trigger__icon .icon:before
     transform rotate(-180deg)
+  .drawer
+    border-bottom 1px solid bayoux
 
 .revision-list__row__link
   cursor pointer
