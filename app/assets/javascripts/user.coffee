@@ -13,9 +13,17 @@ $ ->
         drawer.find('ul.list').append(data.html)
         drawer.toggleHeight()
         $(e.target).parents('.row').toggleClass('open')
+        setTimeout ->
+          console.log $(e.target).parents('.row').offset().top - 80
+          $('html').velocity "scroll", { offset: $(e.target).parents('.row').offset().top - 80, duration: 400, easing: "easeInOutQuad" }
+        , 200
     else
       drawer.toggleHeight()
       $(e.target).parents('.row').toggleClass('open')
+      setTimeout ->
+        console.log $(e.target).parents('.row').offset().top - 80
+        $('html').velocity "scroll", { offset: $(e.target).parents('.row').offset().top - 80, duration: 400, easing: "easeInOutQuad" }
+      , 200
 
 
   # Clicking the "show more contributions" link
