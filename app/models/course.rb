@@ -147,11 +147,14 @@ class Course < ActiveRecord::Base
         course = Course.find_by(id: course_id)
         unless user_ids.empty?
           unless course.users.empty?
-            unenrolled = course.users.student.map {|u| u.id.to_s} - user_ids
-            # remove all courses_users entries for this course
-            course.users.delete(course.users.student.find(unenrolled))
+            unenrolled = course.users.map {|u| u.id.to_s} - user_ids
+            # remove join tables for users no longer in this course
+            course.users.delete(course.users.find(unenrolled))
           end
-          course.users << User.find(user_ids - course.users.map {|u| u.id.to_s})
+          enrolled = user_ids - course.users.map {|u| u.id.to_s}
+          if enrolled.count > 0
+            course.users << User.find(enrolled)
+          end
         end
 
         group_flattened.each do |user|
