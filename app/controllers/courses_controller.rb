@@ -7,6 +7,7 @@ class CoursesController < ApplicationController
     end
     @courses = Course.cohort(@cohort).where(listed: true).order(:title)
     @untrained = @courses.sum(:untrained_count)
+    @trained = @courses.sum(:user_count) - @courses.sum(:untrained_count)
   end
 
   def show
