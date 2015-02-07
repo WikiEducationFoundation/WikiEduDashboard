@@ -8,22 +8,25 @@
       </div>
     <div class="stat-display__stat popover-trigger">
       <%= t("course.students_count", count: content_tag(:h1, @courses.sum(:user_count))).html_safe %>
+      <small><%= t("course.students") %></small>
       <div class="popover">
         <%= t("user.training_complete", count: content_tag(:h4, @trained)).html_safe %>
       </div>
     </div>
     <div class="stat-display__stat">
-      <%= t("metrics.char_count", count: content_tag(:h1, number_to_human(@courses.sum(:character_sum)))).html_safe %>
+      <%= t("metrics.char_added_count", count: content_tag(:h1, number_to_human(@courses.sum(:character_sum)))).html_safe %>
+      <small><%= t("course.char_added") %></small>
     </div>
     <div class="stat-display__stat">
       <%= t("metrics.view_count", count: content_tag(:h1, number_to_human(@courses.sum(:view_sum)))).html_safe %>
+      <small><%= t("course.view_count_description") %></small>
     </div>
   </div>
 </header>
 
 <section id="courses">
   <div class="section-header">
-    <h3><%= [t("course.current"), @cohort.gsub('_', ' ').capitalize].join(" | ") %></h3>
+    <h3><%= [t("course.courses"), @cohort.gsub('_', ' ').capitalize].join(" | ") %></h3>
     <div class="sort-select inset">
       <select class="sorts" rel="courses">
         <option rel="asc" value="title"><%= t("course.title") %></option>
@@ -45,7 +48,7 @@
   </div>
   <div class="row course-list__row list__header">
     <div class="row__wrapper">
-      <div class="course-list__row__title sort asc" data-sort="title"><p><%= t("course.current") %></p></div>
+      <div class="course-list__row__title sort asc" data-sort="title"><p><%= t("course.courses") %></p></div>
       <div class="course-list__row__characters sort popover-trigger" data-default-order="desc" data-sort="characters">
         <p><%= t("metrics.char") %></p>
         <div class="popover dark">
