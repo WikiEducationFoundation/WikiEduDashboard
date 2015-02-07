@@ -10,7 +10,8 @@
       <%= t("course.students_count", count: content_tag(:h1, @courses.sum(:user_count))).html_safe %>
       <small><%= t("course.students") %></small>
       <div class="popover">
-        <%= t("user.training_complete", count: content_tag(:h4, @trained)).html_safe %>
+        <%= t("user.training_complete_count", count: content_tag(:h4, @trained)).html_safe %>
+        <p><%= t("user.training_complete", count: @trained) %></p>
       </div>
     </div>
     <div class="stat-display__stat">
