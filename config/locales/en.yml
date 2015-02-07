@@ -32,41 +32,14 @@ en:
           trillion: T
           quadrillion: Q
 
-  application:
-    dashboard: "WikiEdu Dashboard"
-
-  article:
-    character_doc: "The gross sum of characters added to and removed from each article by the course's students during the course term."
-    title: "Title"
-    view: "View article"
-    view_doc: "The sum of all views to each article during the course term."
-
-  cohort:
-    view_other: "View other cohorts"
-
   course:
-    character_doc: "The gross sum of characters added and removed by the course's students during the course term"
-    current: "Current courses"
-    current_count: "%{count} WikiEdu Courses"
-    students: "Students"
-    students_count: "%{count} Student Editors"
-    title: "Title"
-    view_doc: "The sum of all views to articles edited by students in this course during the course term"
-
-  metrics:
-    char: "Characters changed"
-    char_count: "%{count} characters changed"
-    view: "Views"
-    view_count: "%{count} article views"
-
-  namespace:
-    main: "Mainspace"
-    user: "Userspace"
+    character: "The gross sum of characters added and removed by the course's students during the course term"
+    view: "The sum of all views to articles edited by students in this course during the course term"
 
   user:
-    assigned: "Assigned article"
-    character_doc: "The total amount of content a user has added to Wikipedia articles, calculated by adding up the size increases for every edit the user made that added net content. This offers a rough indication of how much they contributed to Wikipedia. This number may be misleadingly large if the user added the same content multiple time after someone else removed it, or if the user accidentally removed existing content and then restored it."
-    editors: "Student editors"
-    name: "Name"
-    training_complete: "%{count} have completed training"
-    training_doc: "Student editors who have completed the 'training for students' should have made an edit to the feedback page when they finished. If any student editors went through the training but did not complete the feedback step, they can return to the end of the training here: https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete."
+    training: "Student editors who have completed the 'training for students' should have made an edit to the feedback page when they finished. If any student editors went through the training but did not complete the feedback step, they can return to the end of the training here: https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete."
+    character: "The total amount of content a user has added to Wikipedia articles, calculated by adding up the size increases for every edit the user made that added net content. This offers a rough indication of how much they contributed to Wikipedia. This number may be misleadingly large if the user added the same content multiple time after someone else removed it, or if the user accidentally removed existing content and then restored it."
+
+  article:
+    character: "The gross sum of characters added to and removed from each article by the course's students during the course term"
+    view: "The sum of all views to each article during the course term"
