@@ -75,6 +75,7 @@ en:
     activity_none: "%{title} has no recent activity"
     articles_created_count: "%{count} articles created"
     articles_edited_count: "%{count} articles edited"
+    char: Chars Added
     char_changed: Characters Changed
     char_added: Characters Added
     char_added_count: "%{count}"
