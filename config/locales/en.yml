@@ -83,7 +83,8 @@ en:
     char_changed: Characters Changed
     char_changed_count: "%{count}"
     edit_count: "%{count}"
-    edit_count_description: Total<br>Edits
+    edit_count_description_line_1: Total
+    edit_count_description_line_2: Edits
     view: Views
     view_count: "%{count}"
     view_count_description: Article Views
