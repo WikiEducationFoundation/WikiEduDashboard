@@ -73,12 +73,14 @@ en:
   metrics:
     activity: Recent Activity
     activity_none: "%{title} has no recent activity"
-    articles_created_count: "%{count} articles created"
-    articles_edited_count: "%{count} articles edited"
+    articles_created: Articles Created
+    articles_created_count: "%{count}"
+    articles_edited: Articles Edited
+    articles_edited_count: "%{count}"
     char: Chars Added
-    char_changed: Characters Changed
     char_added: Characters Added
     char_added_count: "%{count}"
+    char_changed: Characters Changed
     char_changed_count: "%{count}"
     edit_count: "%{count}"
     edit_count_description: Total Edits
@@ -87,8 +89,8 @@ en:
     view_count_description: Article Views
 
   namespace:
-    main_char_added: Mainspace Characters Added
-    user_char_added: Userspace Characters Added
+    main_char_added: Mainspace Chars Added
+    user_char_added: Userspace Chars Added
 
   user:
     assigned: Assigned Article
@@ -102,7 +104,11 @@ en:
       and then restored it.
     editors: Student Editors
     name: Name
-    training_complete: "%{count} have completed training"
+    training_complete_count: "%{count}"
+    training_complete:
+      zero: "have completed training"
+      one: "has completed training"
+      other: "have completed training"
     training_doc: >
       Student editors who have completed the 'training for students' should
       have made an edit to the feedback page when they finished. If any
