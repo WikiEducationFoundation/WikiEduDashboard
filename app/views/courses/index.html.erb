@@ -15,11 +15,11 @@
     </div>
     <div class="stat-display__stat">
       <%= t("metrics.char_added_count", count: content_tag(:h1, number_to_human(@courses.sum(:character_sum)))).html_safe %>
-      <small><%= t("course.char_added") %></small>
+      <small><%= t("metrics.char_added") %></small>
     </div>
     <div class="stat-display__stat">
       <%= t("metrics.view_count", count: content_tag(:h1, number_to_human(@courses.sum(:view_sum)))).html_safe %>
-      <small><%= t("course.view_count_description") %></small>
+      <small><%= t("metrics.view_count_description") %></small>
     </div>
   </div>
 </header>
@@ -30,7 +30,7 @@
     <div class="sort-select inset">
       <select class="sorts" rel="courses">
         <option rel="asc" value="title"><%= t("course.title") %></option>
-        <option rel="desc" value="characters"><%= t("metrics.char") %></option>
+        <option rel="desc" value="characters"><%= t("metrics.char_added") %></option>
         <option rel="desc" value="views"><%= t("metrics.view") %></option>
         <option rel="desc" value="students"><%= t("course.students") %></option>
       </select>
