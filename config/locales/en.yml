@@ -32,14 +32,75 @@ en:
           trillion: T
           quadrillion: Q
 
-  course:
-    character: "The gross sum of characters added and removed by the course's students during the course term"
-    view: "The sum of all views to articles edited by students in this course during the course term"
-
-  user:
-    training: "Student editors who have completed the 'training for students' should have made an edit to the feedback page when they finished. If any student editors went through the training but did not complete the feedback step, they can return to the end of the training here: https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete."
-    character: "The total amount of content a user has added to Wikipedia articles, calculated by adding up the size increases for every edit the user made that added net content. This offers a rough indication of how much they contributed to Wikipedia. This number may be misleadingly large if the user added the same content multiple time after someone else removed it, or if the user accidentally removed existing content and then restored it."
+  application:
+    dashboard: WikiEdu Dashboard
 
   article:
-    character: "The gross sum of characters added to and removed from each article by the course's students during the course term"
-    view: "The sum of all views to each article during the course term"
+    character_doc: The gross sum of characters added to and removed from each article by the course's students during the course term.
+    edited: Articles edited
+    edited_none: "%{title} has not edited any articles"
+    title: Title
+    view: View article
+    view_all: View All
+    view_doc: The sum of all views to each article during the course term.
+
+  cohort:
+    view_other: View other cohorts
+
+  course:
+    character_doc: The gross sum of characters added and removed by the course's students during the course term
+    current: Current courses
+    current_count: "%{count} WikiEdu Courses"
+    duration: Course duration
+    instructor:
+      one: Instructor
+      other: Instructors
+    students: Student Editors
+    students_count: "%{count} Student Editors"
+    students_none: "%{title} does not have any enrolled students"
+    title: Title
+    view: View Course
+    view_wiki: View on Wikipedia
+    view_doc: The sum of all views to articles edited by students in this course during the course term
+    volunteer:
+      one: Volunteer
+      other: Volunteers
+    wiki_staff: Wiki Ed Staff
+
+  metrics:
+    activity: Recent activity
+    activity_none: "%{title} has no recent activity"
+    articles_created_count: "%{count} articles created"
+    articles_edited_count: "%{count} articles edited"
+    char: Characters changed
+    char_added: Characters added
+    char_added_count: "%{count} characters added"
+    char_count: "%{count} characters changed"
+    edit_count: "%{count} total edits"
+    view: Views
+    view_count: "%{count} article views"
+
+  namespace:
+    main_char_added: Mainspace characters added
+    user_char_added: Userspace characters added
+
+  user:
+    assigned: Assigned article
+    character_doc: >
+      The total amount of content a user has added to Wikipedia articles,
+      calculated by adding up the size increases for every edit the user
+      made that added net content. This offers a rough indication of how
+      much they contributed to Wikipedia. This number may be misleadingly
+      large if the user added the same content multiple time after someone
+      else removed it, or if the user accidentally removed existing content
+      and then restored it.
+    editors: Student editors
+    name: Name
+    training_complete: "%{count} have completed training"
+    training_doc: >
+      Student editors who have completed the 'training for students' should
+      have made an edit to the feedback page when they finished. If any
+      student editors went through the training but did not complete the
+      feedback step, they can return to the end of the training here:
+      https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete.
+    view_all: View All

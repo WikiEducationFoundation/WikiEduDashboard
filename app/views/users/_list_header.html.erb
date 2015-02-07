@@ -1,19 +1,19 @@
 <div class="row user-list__row list__header user-list__sort">
   <div class="row__wrapper">
-    <div class="user-list__row__name sort asc" data-sort="name"><p>Name</p></div>
+    <div class="user-list__row__name sort asc" data-sort="name"><p><%= t("user.name") %></p></div>
     <div class="user-list__row__characters-ms sort popover-trigger" data-default-order="desc" data-sort="characters-ms">
-      <p class="characters-ms">Mainspace<br>chars added</p>
+      <p class="characters-ms"><%= t("namespace.main_char_added") %></p>
       <div class="popover dark">
-        <p><%= t("user.character") %></p>
+        <p><%= t("user.character_doc") %></p>
       </div>
     </div>
     <div class="user-list__row__characters-us sort popover-trigger" data-default-order="desc" data-sort="characters-us">
-      <p class="characters-us">Userspace<br>chars added</p>
+      <p class="characters-us"><%= t("namespace.user_char_added") %></p>
       <div class="popover dark">
-        <p><%= t("user.character") %></p>
+        <p><%= t("user.character_doc") %></p>
       </div>
     </div>
-    <div class="user-list__row__edits sort" data-default-order="desc" data-sort="edits"><p class="edits">Assigned Article</p></div>
+    <div class="user-list__row__edits sort" data-default-order="desc" data-sort="edits"><p class="edits"><%= t("user.assigned") %></p></div>
     <div class="user-list__row__link"></div>
   </div>
 </div>
