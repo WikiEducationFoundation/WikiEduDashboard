@@ -38,11 +38,11 @@ en:
   article:
     character_doc: The sum of characters added to articles by the course's students during the course term
     edited: Articles Edited
-    edited_none: "%{title} has not edited any articles"
+    edited_none: "%{title} has not edited any articles."
     title: Title
     view: View Article
     view_all: View All
-    view_doc: The sum of all views to each article during the course term.
+    view_doc: The sum of all views to each article during the course term
 
   cohort:
     view_other: View other cohorts
@@ -50,7 +50,9 @@ en:
   course:
     character_doc: The sum of characters added to articles by the course's students during the course term
     current: Current Courses
-    current_count: "%{count} WikiEdu Courses"
+    courses: Courses
+    current_count: "%{count}"
+    course_description: WikiEdu Courses
     duration: Course Duration
     instructor:
       one: Instructor

@@ -4,6 +4,7 @@
   <div class="stat-display">
     <div class="stat-display__stat">
       <%= t("course.current_count", count: content_tag(:h1, @courses.count)).html_safe %>
+      <small><%= t("course.course_description") %></small>
       </div>
     <div class="stat-display__stat popover-trigger">
       <%= t("course.students_count", count: content_tag(:h1, @courses.sum(:user_count))).html_safe %>
