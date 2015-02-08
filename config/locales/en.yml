@@ -58,6 +58,7 @@ en:
       one: Instructor
       other: Instructors
     students: Student Editors
+    students_short: Students
     students_count: "%{count}"
     students_description: Student Editors
     students_none: "%{title} does not have any enrolled students"
@@ -78,6 +79,7 @@ en:
     articles_edited: Articles Edited
     articles_edited_count: "%{count}"
     char: Chars Added
+    characters: Characters
     char_added: Characters Added
     char_added_count: "%{count}"
     char_changed: Characters Changed
@@ -90,8 +92,8 @@ en:
     view_count_description: Article Views
 
   namespace:
-    main_char_added: Mainspace Chars Added
-    user_char_added: Userspace Chars Added
+    main: Mainspace
+    user: Userspace
 
   user:
     assigned: Assigned Article
