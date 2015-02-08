@@ -43,6 +43,7 @@ en:
     view: View Article
     view_all: View All
     view_doc: The sum of all views to each article during the course term
+    views_added: "Added %{count} new views for %{title}"
 
   cohort:
     view_other: View other cohorts

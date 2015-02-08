@@ -8,6 +8,7 @@ qqq:
     view: Command to view an article.
     view_all: Command to view all articles.
     view_doc: Documentation for the view count.
+    views_added: Maintenance script message stating how many view counts have been added to an article.
 
   cohort:
     view_other: Command to view another cohort.
