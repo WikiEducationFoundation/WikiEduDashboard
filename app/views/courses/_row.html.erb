@@ -14,7 +14,7 @@
       </div>
       <div class="course-list__row__students">
         <p class="training"><%= course.user_count %></p>
-        <small class="training"><%= course.user_count - course.untrained_count %> <%= t("user.training_complete", count: course.user_count - course.untrained_count) %></small>
+        <small class="training"><%= t("user.training_complete_count", count: course.user_count - course.untrained_count) %></small>
         <p class="students hidden"><%= course.user_count %></p>
       </div>
       <div class="course-list__row__link">

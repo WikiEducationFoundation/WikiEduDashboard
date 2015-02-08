@@ -7,19 +7,19 @@
       <small><%= t("course.course_description") %></small>
       </div>
     <div class="stat-display__stat popover-trigger">
-      <%= @courses.sum(:user_count) %>
+      <h1><%= @courses.sum(:user_count) %></h1>
       <small><%= t("course.students") %></small>
       <div class="popover">
-        <%= @trained %>
+        <h4><%= @trained %></h4>
         <p><%= t("user.training_complete", count: @trained) %></p>
       </div>
     </div>
     <div class="stat-display__stat">
-      <%= number_to_human @courses.sum(:character_sum) %>
+      <h1><%= number_to_human @courses.sum(:character_sum) %></h1>
       <small><%= t("metrics.char_added") %></small>
     </div>
     <div class="stat-display__stat">
-      <%= number_to_human @courses.sum(:view_sum) %>
+      <h1><%= number_to_human @courses.sum(:view_sum) %></h1>
       <small><%= t("metrics.view_count_description") %></small>
     </div>
   </div>

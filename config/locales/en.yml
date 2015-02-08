@@ -110,6 +110,7 @@ en:
     training_complete:
       one: "has completed training"
       other: "have completed training"
+    training_complete_count: "%{count} completed training"
     training_doc: >
       Student editors who have completed the 'training for students' should
       have made an edit to the feedback page when they finished. If any
