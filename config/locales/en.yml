@@ -84,6 +84,7 @@ en:
     char_added_count: "%{count}"
     char_changed: Characters Changed
     char_changed_count: "%{count}"
+    date_time: Date/Time
     edit_count: "%{count}"
     edit_count_description_line_1: Total
     edit_count_description_line_2: Edits
@@ -93,10 +94,14 @@ en:
 
   namespace:
     main: Mainspace
+    main_char_added: Mainspace characters added
     user: Userspace
+    user_char_added: Userspace characters added
+    user_ns: User
 
   user:
     assigned: Assigned Article
+    assigned_none: No Assigned Article
     character_doc: >
       The total amount of content a user has added to Wikipedia articles,
       calculated by adding up the size increases for every edit the user
@@ -105,6 +110,8 @@ en:
       large if the user added the same content multiple time after someone
       else removed it, or if the user accidentally removed existing content
       and then restored it.
+    contributions: User Contributions
+    contributions_more: View More Contributions
     editors: Student Editors
     name: Name
     training_complete_count: "%{count}"
@@ -118,4 +125,5 @@ en:
       student editors went through the training but did not complete the
       feedback step, they can return to the end of the training here:
       https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete.
+    training_incomplete: Training Incomplete
     view_all: View All

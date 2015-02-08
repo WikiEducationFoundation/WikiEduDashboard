@@ -30,26 +30,34 @@ qqq:
 
   metrics:
     activity: Label for activity feed.
-    activity: Label for no activity.
+    activity_none: Label for no activity.
     articles_created_count: Number of new articles created.
     articles_edited_count: Number of articles edited.
     char: Label for number of characters added and removed.
     char_added: Laber for number of characters added.
     char_added_count: Number of characters added.
     char_count: Number of characters changed.
+    date_time: Label for a revision or activity timestamp.
     edit_count: Number of article edits made.
     view: Label for view count.
     view_count: Number of views.
 
   namespace:
+    main: Long label for the Main namespace.
     main_char_added: Label for number of characters added to the Main namespace.
+    user: Long label for the User namespace.
     user_char_added: Label for number of characters added to the User namespace.
+    user_ns: Wiki title for the User namespace.
 
   user:
     assigned: Label for article assigned to a user.
+    assigned_none: Label for when no article is assigned to a user.
     character_doc: Documentation for the count of user's characters added.
+    contributions: Label for a list of articles improved by a user.
+    contributions_more: Command to view more contributions by a user.
     editors: Label for list of editors.
     name: Label for username.
     training_complete: Number of students who have finished the training.
     training_doc: Documentation for finishing training.
+    training_incomplete: Label stating that training is not complete.
     view_all: Command to view all users.
