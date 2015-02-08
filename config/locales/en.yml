@@ -49,7 +49,7 @@ en:
     view_other: View other cohorts
 
   course:
-    character_doc: The sum of characters added to articles by the course's students during the course term
+    character_doc: The sum of characters added to mainspace articles by the course's students during the course term
     current: Current Courses
     courses: Courses
     course_description: WikiEdu Courses
@@ -64,7 +64,7 @@ en:
     title: Title
     view: View Course
     view_wiki: View on Wikipedia
-    view_doc: The sum of all views to articles edited by students in this course during the course term
+    view_doc: The sum of all views to articles edited by students since the students made their first edit to each article
     volunteer:
       one: Volunteer
       other: Volunteers
