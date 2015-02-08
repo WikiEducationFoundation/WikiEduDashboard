@@ -11,7 +11,8 @@
       </div>
       <div class="stat-display__stat">
         <h3><%= number_to_human @course.article_count %></h3>
-        <small><%= t("metrics.articles_edited") %></small></div>
+        <small><%= t("metrics.articles_edited") %></small>
+      </div>
       <div class="stat-display__stat">
         <h3><%= number_to_human @course.revisions.count %></h3>
         <small><%= t("metrics.edit_count_description_line_1") %><br><%= t("metrics.edit_count_description_line_2") %></small>

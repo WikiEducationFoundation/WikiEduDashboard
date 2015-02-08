@@ -87,9 +87,9 @@ en:
 
   namespace:
     main: Mainspace
-    main_char_added: Mainspace characters added
+    main_char_added: Mainspace Chars Added
     user: Userspace
-    user_char_added: Userspace characters added
+    user_char_added: Userspace Chars Added
     user_ns: User
 
   user:
