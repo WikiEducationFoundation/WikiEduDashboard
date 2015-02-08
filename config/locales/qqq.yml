@@ -1,5 +1,8 @@
 # FIXME: Could translatewiki.net parse inline yaml comments from en?
 qqq:
+  application:
+    dashboard: Application name.
+
   article:
     character_doc: Documentation for an article's character total add and remove count.
     edited: Label for a list of articles edited.
@@ -15,11 +18,14 @@ qqq:
 
   course:
     character_doc: Documentation for the total course characters added and removed.
+    course_description: Label for the number of courses.
+    courses: Label for the list of courses.
     current: Label for the currently active courses.
     duration: Label for the course's duration.
     instructor: Label for the course's instructor.
     students: Label for the list of students in a course.
     students_none: Label indicating the course has no students.
+    students_short: Short label for a list of students.
     title: Label for a course title.
     view: Command to view a course.
     view_wiki: Command to view a course on the wiki.
@@ -30,10 +36,17 @@ qqq:
   metrics:
     activity: Label for activity feed.
     activity_none: Label for no activity.
+    articles_created: Label for the number of articles created.
+    articles_edited: Label for the number of articles edited.
     char: Label for number of characters added and removed.
-    char_added: Laber for number of characters added.
+    characters: Label for the number of characters metric.
+    char_added: Laber for the number of characters added.
+    char_changed: Laber for the number of characters changed.
     date_time: Label for a revision or activity timestamp.
-    view: Label for view count.
+    edit_count_description_line_1: Label for the number of edits made.
+    edit_count_description_line_2: Lego-like continuation.
+    view: Label for the number of article views.
+    view_count_description: Long label for the number of article views.
 
   namespace:
     main: Long label for the Main namespace.
@@ -51,6 +64,7 @@ qqq:
     editors: Label for list of editors.
     name: Label for username.
     training_complete: Number of students who have finished the training.
+    training_complete_count: Number of students who have finished the training, with the count.
     training_doc: Documentation for finishing training.
     training_incomplete: Label stating that training is not complete.
     view_all: Command to view all users.
