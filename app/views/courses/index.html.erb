@@ -3,23 +3,23 @@
   <!-- <p class="subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at nisl quis nisl fermentum condimentum eu ut felis ed at nisl quis dolor sit amet.</p> -->
   <div class="stat-display">
     <div class="stat-display__stat">
-      <%= t("course.current_count", count: content_tag(:h1, @courses.count)).html_safe %>
+      <h1><%= @courses.count %></h1>
       <small><%= t("course.course_description") %></small>
       </div>
     <div class="stat-display__stat popover-trigger">
-      <%= t("course.students_count", count: content_tag(:h1, @courses.sum(:user_count))).html_safe %>
+      <h1><%= @courses.sum(:user_count) %></h1>
       <small><%= t("course.students") %></small>
       <div class="popover">
-        <%= t("user.training_complete_count", count: content_tag(:h4, @trained)).html_safe %>
+        <h4><%= @trained %></h4>
         <p><%= t("user.training_complete", count: @trained) %></p>
       </div>
     </div>
     <div class="stat-display__stat">
-      <%= t("metrics.char_added_count", count: content_tag(:h1, number_to_human(@courses.sum(:character_sum)))).html_safe %>
+      <h1><%= number_to_human @courses.sum(:character_sum) %></h1>
       <small><%= t("metrics.char_added") %></small>
     </div>
     <div class="stat-display__stat">
-      <%= t("metrics.view_count", count: content_tag(:h1, number_to_human(@courses.sum(:view_sum)))).html_safe %>
+      <h1><%= number_to_human @courses.sum(:view_sum) %></h1>
       <small><%= t("metrics.view_count_description") %></small>
     </div>
   </div>

@@ -43,15 +43,15 @@ en:
     view: View Article
     view_all: View All
     view_doc: The sum of all views to each article during the course term
+    views_added: "Added %{count} new views for %{title}"
 
   cohort:
     view_other: View other cohorts
 
   course:
-    character_doc: The sum of characters added to articles by the course's students during the course term
+    character_doc: The sum of characters added to mainspace articles by the course's students during the course term
     current: Current Courses
     courses: Courses
-    current_count: "%{count}"
     course_description: WikiEdu Courses
     duration: Course Duration
     instructor:
@@ -59,13 +59,12 @@ en:
       other: Instructors
     students: Student Editors
     students_short: Students
-    students_count: "%{count}"
     students_description: Student Editors
     students_none: "%{title} does not have any enrolled students"
     title: Title
     view: View Course
     view_wiki: View on Wikipedia
-    view_doc: The sum of all views to articles edited by students in this course during the course term
+    view_doc: The sum of all views to articles edited by students since the students made their first edit to each article
     volunteer:
       one: Volunteer
       other: Volunteers
@@ -75,47 +74,46 @@ en:
     activity: Recent Activity
     activity_none: "%{title} has no recent activity"
     articles_created: Articles Created
-    articles_created_count: "%{count}"
     articles_edited: Articles Edited
-    articles_edited_count: "%{count}"
     char: Chars Added
     characters: Characters
     char_added: Characters Added
-    char_added_count: "%{count}"
     char_changed: Characters Changed
-    char_changed_count: "%{count}"
-    edit_count: "%{count}"
+    date_time: Date/Time
     edit_count_description_line_1: Total
     edit_count_description_line_2: Edits
     view: Views
-    view_count: "%{count}"
     view_count_description: Article Views
 
   namespace:
     main: Mainspace
+    main_char_added: Mainspace Chars Added
     user: Userspace
+    user_char_added: Userspace Chars Added
+    user_ns: User
 
   user:
     assigned: Assigned Article
+    assigned_none: No Assigned Article
     character_doc: >
-      The total amount of content a user has added to Wikipedia articles,
-      calculated by adding up the size increases for every edit the user
-      made that added net content. This offers a rough indication of how
-      much they contributed to Wikipedia. This number may be misleadingly
-      large if the user added the same content multiple time after someone
-      else removed it, or if the user accidentally removed existing content
-      and then restored it.
+      The total amount of content a user has added to this namespace,
+      calculated by adding up the added characters for all edits that
+      increased page size. This number doesn't necessarily reflect the
+      amount of new content the user added. Restoring removed content
+      will also increase this total.
+    contributions: User Contributions
+    contributions_more: View More Contributions
     editors: Student Editors
     name: Name
-    training_complete_count: "%{count}"
     training_complete:
-      zero: "have completed training"
       one: "has completed training"
       other: "have completed training"
+    training_complete_count: "%{count} completed training"
     training_doc: >
       Student editors who have completed the 'training for students' should
       have made an edit to the feedback page when they finished. If any
       student editors went through the training but did not complete the
       feedback step, they can return to the end of the training here:
       https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete.
+    training_incomplete: Training Incomplete
     view_all: View All
