@@ -5,22 +5,33 @@
       <h6><%= @course.school %> | <%= @course.term %></h6>
     </div>
     <div class="stat-display">
-      <div class="stat-display__stat"><%= number_to_human @course.revisions.joins(:article).where(articles: {namespace: 0}).where(new_article: true).count %>
-      <small><%= t("metrics.articles_created") %></small></div>
-      <div class="stat-display__stat"><%= number_to_human @course.article_count %>
-      <small><%= t("metrics.articles_edited") %></small></div>
-      <div class="stat-display__stat"><%= number_to_human @course.revisions.count %>
-      <small><%= t("metrics.edit_count_description_line_1") %><br><%= t("metrics.edit_count_description_line_2") %></small></div>
+      <div class="stat-display__stat">
+        <h3><%= number_to_human @course.revisions.joins(:article).where(articles: {namespace: 0}).where(new_article: true).count %></h3>
+        <small><%= t("metrics.articles_created") %></small>
+      </div>
+      <div class="stat-display__stat">
+        <h3><%= number_to_human @course.article_count %></h3>
+        <small><%= t("metrics.articles_edited") %></small></div>
+      <div class="stat-display__stat">
+        <h3><%= number_to_human @course.revisions.count %></h3>
+        <small><%= t("metrics.edit_count_description_line_1") %><br><%= t("metrics.edit_count_description_line_2") %></small>
+      </div>
       <div class="stat-display__stat popover-trigger">
-        <%= @course.user_count %>
+        <h3><%= @course.user_count %></h3>
         <small><%= t("course.students") %></small>
         <div class="popover">
-          <%= @course.users.student.where(trained: true).count %>
+          <h4><%= @course.users.student.where(trained: true).count %></h4>
           <p><%= t("user.training_complete", count: @course.users.student.where(trained: true).count) %></p>
         </div>
       </div>
-      <div class="stat-display__stat"><%= number_to_human @course.character_sum %><small><%= t("metrics.char_added") %></small></div>
-      <div class="stat-display__stat"><%= number_to_human @course.view_sum %><small><%= t("metrics.view_count_description") %></small></div>
+      <div class="stat-display__stat">
+        <h3><%= number_to_human @course.character_sum %></h3>
+        <small><%= t("metrics.char_added") %></small>
+      </div>
+      <div class="stat-display__stat">
+        <h3><%= number_to_human @course.view_sum %></h3>
+        <small><%= t("metrics.view_count_description") %></small>
+      </div>
     </div>
     <div class="details">
       <div class="details__detail">
