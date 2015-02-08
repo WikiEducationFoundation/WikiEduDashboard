@@ -10,6 +10,12 @@ class ApplicationController < ActionController::Base
     course_path(:id => slug).gsub("%2F", "/")
   end
 
+  helper_method :rtl?
+  def rtl?
+    # FIXME: This doesn't work for compound language tags such as he-IL.
+    I18n.locale.in? [:he, :ar, :yi, :ur, :fa, :ps, :sd, :ug, :ku, :dv]
+  end
+
   def set_locale
     I18n.locale = params[:locale] || I18n.default_locale
   end
