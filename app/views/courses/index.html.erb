@@ -1,44 +1,44 @@
 <header>
-  <h1>WikiEdu Dashboard</h1>
+  <h1><%= t("application.dashboard") %></h1>
   <!-- <p class="subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at nisl quis nisl fermentum condimentum eu ut felis ed at nisl quis dolor sit amet.</p> -->
   <div class="stat-display">
     <div class="stat-display__stat">
-      <h1><%= @courses.count %></h1>
-      <small>WikiEdu Courses</small>
+      <%= t("course.current_count", count: content_tag(:h1, @courses.count)).html_safe %>
+      <small><%= t("course.course_description") %></small>
       </div>
     <div class="stat-display__stat popover-trigger">
-      <h1><%= @courses.sum(:user_count) %></h1>
-      <small>Student Editors</small>
+      <%= t("course.students_count", count: content_tag(:h1, @courses.sum(:user_count))).html_safe %>
+      <small><%= t("course.students") %></small>
       <div class="popover">
-        <h4><%= @trained %></h4>
-        <p>have completed training</p>
+        <%= t("user.training_complete_count", count: content_tag(:h4, @trained)).html_safe %>
+        <p><%= t("user.training_complete", count: @trained) %></p>
       </div>
     </div>
     <div class="stat-display__stat">
-      <h1><%= number_to_human @courses.sum(:character_sum) %></h1>
-      <small>Characters Added</small>
+      <%= t("metrics.char_added_count", count: content_tag(:h1, number_to_human(@courses.sum(:character_sum)))).html_safe %>
+      <small><%= t("metrics.char_added") %></small>
     </div>
     <div class="stat-display__stat">
-      <h1><%= number_to_human @courses.sum(:view_sum) %></h1>
-      <small>Article Views</small>
+      <%= t("metrics.view_count", count: content_tag(:h1, number_to_human(@courses.sum(:view_sum)))).html_safe %>
+      <small><%= t("metrics.view_count_description") %></small>
     </div>
   </div>
 </header>
 
 <section id="courses">
   <div class="section-header">
-    <h3>All Current Courses | <%= @cohort.gsub('_', ' ').capitalize %></h3>
+    <h3><%= [t("course.courses"), @cohort.gsub('_', ' ').capitalize].join(" | ") %></h3>
     <div class="sort-select inset">
       <select class="sorts" rel="courses">
-        <option rel="asc" value="title">Title</option>
-        <option rel="desc" value="characters">Characters</option>
-        <option rel="desc" value="views">Views</option>
-        <option rel="desc" value="students">Students</option>
+        <option rel="asc" value="title"><%= t("course.title") %></option>
+        <option rel="desc" value="characters"><%= t("metrics.characters") %></option>
+        <option rel="desc" value="views"><%= t("metrics.view") %></option>
+        <option rel="desc" value="students"><%= t("course.students_short") %></option>
       </select>
     </div>
     <div class="cohort-select">
       <select class="cohorts">
-        <option selected disabled>View other cohorts</option>
+        <option selected disabled><%= t("cohort.view_other") %></option>
         <% Figaro.env.cohorts.split(",").each do |c| %>
         <% unless @cohort == c %>
         <option value="<%= c %>"><%= c.gsub('_', ' ').capitalize %></option>
@@ -49,20 +49,20 @@
   </div>
   <div class="row course-list__row list__header">
     <div class="row__wrapper">
-      <div class="course-list__row__title sort asc" data-sort="title"><p>Current Courses</p></div>
+      <div class="course-list__row__title sort asc" data-sort="title"><p><%= t("course.courses") %></p></div>
       <div class="course-list__row__characters sort popover-trigger" data-default-order="desc" data-sort="characters">
-        <p>Chars Added</p>
+        <p><%= t("metrics.char") %></p>
         <div class="popover dark">
-          <p><%= t("course.character") %></p>
+          <p><%= t("course.character_doc") %></p>
         </div>
       </div>
       <div class="course-list__row__views sort popover-trigger" data-default-order="desc" data-sort="views">
-        <p>Views</p>
+        <p><%= t("metrics.view") %></p>
         <div class="popover dark">
-          <p><%= t("course.view") %></p>
+          <p><%= t("course.view_doc") %></p>
         </div>
       </div>
-      <div class="course-list__row__students sort" data-default-order="desc" data-sort="students"><p>Student Editors</p></div>
+      <div class="course-list__row__students sort" data-default-order="desc" data-sort="students"><p><%= t("user.editors") %></p></div>
       <div class="course-list__row__link"></div>
     </div>
   </div>

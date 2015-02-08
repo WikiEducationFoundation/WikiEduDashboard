@@ -1,0 +1,55 @@
+# FIXME: Could translatewiki.net parse inline yaml comments from en?
+qqq:
+  article:
+    character_doc: Documentation for an article's character total add and remove count.
+    edited: Label for a list of articles edited.
+    edited_none: Label stating that no articles have been edited.
+    title: Label for an article title.
+    view: Command to view an article.
+    view_all: Command to view all articles.
+    view_doc: Documentation for the view count.
+
+  cohort:
+    view_other: Command to view another cohort.
+
+  course:
+    character_doc: Documentation for the total course characters added and removed.
+    current: Label for the currently active courses.
+    current_count: Number of courses.
+    duration: Label for the course's duration.
+    instructor: Label for the course's instructor.
+    students: Label for the list of students in a course.
+    students_count: Number of students in a course.
+    students_none: Label indicating the course has no students.
+    title: Label for a course title.
+    view: Command to view a course.
+    view_wiki: Command to view a course on the wiki.
+    view_doc: Documentation for the total number of article views.
+    volunteer: Label for the course's volunteers.
+    wiki_staff: Label for wiki program staff assigned to a course.
+
+  metrics:
+    activity: Label for activity feed.
+    activity: Label for no activity.
+    articles_created_count: Number of new articles created.
+    articles_edited_count: Number of articles edited.
+    char: Label for number of characters added and removed.
+    char_added: Laber for number of characters added.
+    char_added_count: Number of characters added.
+    char_count: Number of characters changed.
+    edit_count: Number of article edits made.
+    view: Label for view count.
+    view_count: Number of views.
+
+  namespace:
+    main_char_added: Label for number of characters added to the Main namespace.
+    user_char_added: Label for number of characters added to the User namespace.
+
+  user:
+    assigned: Label for article assigned to a user.
+    character_doc: Documentation for the count of user's characters added.
+    editors: Label for list of editors.
+    name: Label for username.
+    training_complete: Number of students who have finished the training.
+    training_doc: Documentation for finishing training.
+    view_all: Command to view all users.
