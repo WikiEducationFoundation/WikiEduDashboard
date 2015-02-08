@@ -100,7 +100,7 @@ en:
       calculated by adding up the added characters for all edits that
       increased page size. This number doesn't necessarily reflect the
       amount of new content the user added. Restoring removed content
-      will alos increase this total.
+      will also increase this total.
     contributions: User Contributions
     contributions_more: View More Contributions
     editors: Student Editors
