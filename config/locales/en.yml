@@ -96,13 +96,11 @@ en:
     assigned: Assigned Article
     assigned_none: No Assigned Article
     character_doc: >
-      The total amount of content a user has added to Wikipedia articles,
-      calculated by adding up the size increases for every edit the user
-      made that added net content. This offers a rough indication of how
-      much they contributed to Wikipedia. This number may be misleadingly
-      large if the user added the same content multiple time after someone
-      else removed it, or if the user accidentally removed existing content
-      and then restored it.
+      The total amount of content a user has added to this namespace,
+      calculated by adding up the added characters for all edits that
+      increased page size. This number doesn't necessarily reflect the
+      amount of new content the user added. Restoring removed content
+      will alos increase this total.
     contributions: User Contributions
     contributions_more: View More Contributions
     editors: Student Editors
