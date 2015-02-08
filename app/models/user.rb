@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   # Instance methods #
   ####################
   def contribution_url
+    # TODO: fix enwiki-centrism
     "https://en.wikipedia.org/wiki/Special:Contributions/#{self.wiki_id}"
   end
 
