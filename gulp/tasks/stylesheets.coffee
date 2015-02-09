@@ -5,6 +5,7 @@
 gulp    = require 'gulp'
 plugins = require('gulp-load-plugins')()
 config  = require "../config.coffee"
+flipper = require "gulp-css-flipper"
 
 #--------------------------------------------------------
 # Compile Stylesheets
@@ -27,3 +28,8 @@ gulp.task "stylesheets", ->
     .pipe plugins.stylus()
     .pipe plugins.autoprefixer()
     .pipe gulp.dest "#{config.outputPath}/#{config.cssDirectory}"
+
+  # Flip for RTL
+  gulp.src "#{config.outputPath}/#{config.cssDirectory}/*.css"
+    .pipe flipper()
+    .pipe gulp.dest "#{config.outputPath}/#{config.cssDirectory}/rtl"

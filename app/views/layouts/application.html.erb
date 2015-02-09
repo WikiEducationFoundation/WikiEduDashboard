@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html <%= rtl? ? "dir=rtl" : "" %>>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <% if(Rails.env == "development") %>
@@ -12,9 +12,10 @@
     <%= favicon_link_tag 'favicon.ico' %>
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Myapp" %>">
 
+    <%= stylesheet_link_tag '//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css', media: 'all' %>
     <%= stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Droid+Serif', media: 'all' %>
     <%= stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Roboto', media: 'all' %>
-    <%= stylesheet_link_tag '/stylesheets/main.css', media: 'all' %>
+    <%= stylesheet_link_tag '/stylesheets/' + (rtl? ? 'rtl/' : '') + 'main.css', media: 'all' %>
     <%= javascript_include_tag '/javascripts/vendor.js' %>
     <%= javascript_include_tag '/javascripts/main.js' %>
     <%= csrf_meta_tags %>
