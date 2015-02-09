@@ -52,7 +52,7 @@ class Article < ActiveRecord::Base
         last = new_views.empty? ? nil : new_views.sort_by { |(d)| d }.last.first.to_date
       end
       if(self.revisions.order('date ASC').first.views - self.views > 0)
-        puts t("article.views_added", count: self.revisions.order('date ASC').first.views - self.views, title: self.title)
+        puts I18n.t("article.views_added", count: self.revisions.order('date ASC').first.views - self.views, title: self.title)
       end
       self.views_updated_at = last.nil? ? self.views_updated_at : last
     end
