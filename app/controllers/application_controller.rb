@@ -23,7 +23,8 @@ class ApplicationController < ActionController::Base
   def default_url_options(options = {})
     if I18n.locale != I18n.default_locale
       { locale: I18n.locale }.merge options
+    else
+      options
     end
-    options
   end
 end
