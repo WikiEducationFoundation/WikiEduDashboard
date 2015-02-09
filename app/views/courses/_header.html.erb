@@ -5,43 +5,58 @@
       <h6><%= @course.school %> | <%= @course.term %></h6>
     </div>
     <div class="stat-display">
-      <div class="stat-display__stat"><h3><%= number_to_human @course.revisions.joins(:article).where(articles: {namespace: 0}).where(new_article: true).count %></h3><small>Articles<br>Created</small></div>
-      <div class="stat-display__stat"><h3><%= number_to_human @course.article_count %></h3><small>Articles<br>Edited</small></div>
-      <div class="stat-display__stat"><h3><%= number_to_human @course.revisions.count %></h3><small>Total<br>Edits</small></div>
+      <div class="stat-display__stat">
+        <h3><%= number_to_human @course.revisions.joins(:article).where(articles: {namespace: 0}).where(new_article: true).count %></h3>
+        <small><%= t("metrics.articles_created") %></small>
+      </div>
+      <div class="stat-display__stat">
+        <h3><%= number_to_human @course.article_count %></h3>
+        <small><%= t("metrics.articles_edited") %></small>
+      </div>
+      <div class="stat-display__stat">
+        <h3><%= number_to_human @course.revisions.count %></h3>
+        <small><%= t("metrics.edit_count_description_line_1") %><br><%= t("metrics.edit_count_description_line_2") %></small>
+      </div>
       <div class="stat-display__stat popover-trigger">
         <h3><%= @course.user_count %></h3>
-        <small>Student<br>Editors</small>
+        <small><%= t("course.students") %></small>
         <div class="popover">
           <h4><%= @course.users.student.where(trained: true).count %></h4>
-          <p>have completed training</p>
+          <p><%= t("user.training_complete", count: @course.users.student.where(trained: true).count) %></p>
         </div>
       </div>
-      <div class="stat-display__stat"><h3><%= number_to_human @course.character_sum %></h3><small>Characters<br>Added</small></div>
-      <div class="stat-display__stat"><h3><%= number_to_human @course.view_sum %></h3><small>Article<br>Views</small></div>
+      <div class="stat-display__stat">
+        <h3><%= number_to_human @course.character_sum %></h3>
+        <small><%= t("metrics.char_added") %></small>
+      </div>
+      <div class="stat-display__stat">
+        <h3><%= number_to_human @course.view_sum %></h3>
+        <small><%= t("metrics.view_count_description") %></small>
+      </div>
     </div>
     <div class="details">
       <div class="details__detail">
-        <h6>Instructor<%= @course.users.instructor.count > 1 ? "s" : "" %></h6>
+        <h6><%= t("course.instructor", count: @course.users.instructor.count) %></h6>
         <p><%= user_links(@course.users.instructor, "inline") %></p>
       </div>
       <% if !@volunteers.nil? && @volunteers.count > 0 %>
       <div class="details__detail">
-        <h6>Volunteer<%= @volunteers.count > 1 ? "s" : "" %></h6>
+        <h6><%= t("course.volunteer", count: @volunteers.count) %></h6>
         <p><%= user_links(@volunteers, "inline") %></p>
       </div>
       <% end %>
       <% if @course.users.wiki_ed_staff.count > 0 %>
       <div class="details__detail">
-        <h6>Wiki Edu Staff</h6>
+        <h6><%= t("course.wiki_staff") %></h6>
         <p><%= user_links(@course.users.wiki_ed_staff, "inline") %></p>
       </div>
       <% end %>
       <div class="details__detail">
-        <h6>Course Duration</h6>
-        <p><%= @course.start %> &mdash; <%= @course.end %></p>
+        <h6><%= t("course.duration") %></h6>
+        <p><%= @course.start %> &ndash; <%= @course.end %></p>
       </div>
       <div class="details__detail">
-        <h6>View on Wikipedia</h6>
+        <h6><%= t("course.view_wiki") %></h6>
         <p><a class="inline" href="https://en.wikipedia.org/wiki/Education_Program:<%= @course.slug %>"><%= @course.title %></a></p>
       </div>
     </div>

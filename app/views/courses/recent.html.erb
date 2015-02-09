@@ -3,7 +3,7 @@
 <%= render :partial => 'header', :locals => {:page => 0} %>
 
 <section id="revisions">
-  <h3 class="section-header">Recent Activity</h3>
+  <h3 class="section-header"><%= t("metrics.activity") %></h3>
   <%= render :partial => 'revisions/list_header' %>
   <ul class="list">
   <% if @revisions.count > 0 %>
@@ -12,7 +12,7 @@
     <% end %>
   <% else %>
     <li class="row view-all">
-      <div><%= @course.title %> has no recent activity</div>
+      <div><%= t("metrics.activity_none", title: @course.title) %></div>
     </li>
   <% end %>
   </ul>

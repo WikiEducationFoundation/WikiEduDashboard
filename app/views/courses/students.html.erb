@@ -4,13 +4,13 @@
 
 <section id="users">
   <div class="section-header">
-    <h3>Student Editors</h3>
+    <h3><%= t("course.students") %></h3>
     <div class="sort-select">
       <select class="sorts" rel="users">
-        <option rel="asc" value="name">Name</option>
-        <option rel="desc" value="characters-ms">Mainspace chars added</option>
-        <option rel="desc" value="characters-us">Userspace chars added</option>
-        <option rel="desc" value="edits">Assigned articles</option>
+        <option rel="asc" value="name"><%= t("user.name") %></option>
+        <option rel="desc" value="characters-ms"><%= t("namespace.main_char_added") %></option>
+        <option rel="desc" value="characters-us"><%= t("namespace.user_char_added") %></option>
+        <option rel="desc" value="edits"><%= t("user.assigned") %></option>
       </select>
     </div>
   </div>
@@ -22,7 +22,7 @@
     <% end %>
   <% else %>
     <li class="row view-all">
-      <div><%= @course.title %> does not have any enrolled students</div>
+      <div><%= t("course.students_none", title: @course.title) %></div>
     </li>
   <% end %>
   </ul>

@@ -12,19 +12,19 @@
     <% end %>
   <% else %>
     <li class="row view-all">
-      <div><%= @course.title %> does not have any enrolled students</div>
+      <div><%= t("course.students_none", title: @course.title) %></div>
     </li>
   <% end %>
   </ul>
   <% if @students.count > 0 %>
   <div class="row view-all">
-    <div><%= link_to "View All", {:action => "students"}, {:class => "button large dark"} %></div>
+    <div><%= link_to t("user.view_all"), {:action => "students"}, {:class => "button large dark"} %></div>
   </div>
   <% end %>
 </section>
 
 <section id="articles">
-  <h3 class="section-header">Articles Edited</h3>
+  <h3 class="section-header"><%= t("article.edited") %></h3>
   <%= render :partial => 'articles/list_header' %>
   <ul class="list">
   <% if @articles.count > 0 %>
@@ -33,13 +33,13 @@
     <% end %>
   <% else %>
     <li class="row view-all">
-      <div><%= @course.title %> has not edited any articles</div>
+      <div><%= t("article.edited_none", title: @course.title) %></div>
     </li>
   <% end %>
   </ul>
   <% if @articles.count > 0 %>
   <div class="row view-all">
-    <div><%= link_to "View All", {:action => "articles"}, {:class => "button large dark"} %></div>
+    <div><%= link_to t("article.view_all"), {:action => "articles"}, {:class => "button large dark"} %></div>
   </div>
   <% end %>
 </section>

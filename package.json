@@ -14,6 +14,7 @@
     "gulp-combine-media-queries": "^0.1.0",
     "gulp-concat": "^2.2.0",
     "gulp-consolidate": "^0.1.2",
+    "gulp-css-flipper": "^1.0.2",
     "gulp-csslint": "^0.1.4",
     "gulp-exec": "^2.0.1",
     "gulp-htmlhint": "0.0.9",
