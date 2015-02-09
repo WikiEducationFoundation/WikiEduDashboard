@@ -12,8 +12,8 @@ class ApplicationController < ActionController::Base
 
   helper_method :rtl?
   def rtl?
-    # FIXME: This doesn't work for compound language tags such as he-IL.
-    I18n.locale.in? [:he, :ar, :yi, :ur, :fa, :ps, :sd, :ug, :ku, :dv]
+    tag = I18n::Locale::Tag::Rfc4646.tag(I18n.locale)
+    tag.language.in? ["ar", "dv", "fa", "he", "ku", "ps", "sd", "ug", "ur", "yi"]
   end
 
   def set_locale
