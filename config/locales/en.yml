@@ -125,3 +125,14 @@ en:
       If it was recently registered, it may take a little while for the
       system to add it.
 
+  error_422:
+    header: "422 — unprocessable entity.  :-("
+    explanation: >
+      Something went wrong. Please contact the maintainers of this dashboard
+      to let them know about the problem.
+    
+  error_500:
+    header: "500 — internal server error.  :-("
+    explanation: >
+      Something went wrong. Please contact the maintainers of this dashboard
+      to let them know about the problem.
