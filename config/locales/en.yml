@@ -121,7 +121,7 @@ en:
     header: "Page not found. :-("
     explanation: >
       This page doesn't exist. If you were trying to reach the dashboard
-      for a course, that course may not be registered for this dashboard,
-      or if it was recently registered, it may take a little for the system
-      to add it.
+      for a course, that course may not be registered for this dashboard.
+      If it was recently registered, it may take a little while for the
+      system to add it.
 
