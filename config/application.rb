@@ -38,5 +38,8 @@ module WikiEduDashboard
 
     # Disables native processing of Sass and Coffeescript
     config.assets.enabled = false
+
+    # Use custom error pages (like 404) instead of Rails defaults
+    config.exceptions_app = self.routes
   end
 end
