@@ -68,3 +68,15 @@ qqq:
     training_doc: Documentation for finishing training.
     training_incomplete: Label stating that training is not complete.
     view_all: Command to view all users.
+
+  error_404:
+    header: Message indicating that a page doesn't exist.
+    explanation: Message explaining why a user may have reached a page that doesn't exist.
+
+  error_422:
+    header: Message indicating a 422 unprocessable entity error.
+    explanation: Explanation of what to do after encountering this error.
+
+  error_500:
+    header: Message indicating a 500 internal server error.
+    explanation: Explanation of what to do after encountering this error.
