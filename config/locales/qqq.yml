@@ -43,8 +43,7 @@ qqq:
     char_added: Laber for the number of characters added.
     char_changed: Laber for the number of characters changed.
     date_time: Label for a revision or activity timestamp.
-    edit_count_description_line_1: Label for the number of edits made.
-    edit_count_description_line_2: Lego-like continuation.
+    edit_count_description: Label for the number of edits made.
     view: Label for the number of article views.
     view_count_description: Long label for the number of article views.
 

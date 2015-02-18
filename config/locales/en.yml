@@ -79,8 +79,7 @@ en:
     char_added: Characters Added
     char_changed: Characters Changed
     date_time: Date/Time
-    edit_count_description_line_1: Total
-    edit_count_description_line_2: Edits
+    edit_count_description: Total Edits
     view: Views
     view_count_description: Article Views
 
