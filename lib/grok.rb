@@ -1,6 +1,12 @@
+# This class fetches pageview data by sending GET requests to stats.grok.se
+
 class Grok
 
-
+  # Given an article title and a date, return the number of page views for every
+  # day from that date until today.
+  #
+  # [title]  title of a Wikipedia page (including namespace, if applicable)
+  # [date]   a specific date
   def self.get_views_since_date_for_article(title, date)
     iDate = date
     views = Hash.new

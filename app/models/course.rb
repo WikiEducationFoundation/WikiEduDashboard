@@ -99,6 +99,8 @@ class Course < ActiveRecord::Base
     course_ids = listed_ids | Course.all.pluck(:id).map(&:to_s)
     minimum = course_ids.map(&:to_i).min
     maximum = course_ids.map(&:to_i).max
+    # See also Wiki.handle_invalid_course_id, which has related logic for
+    # handling course ids beyond the maximum found in the cohort lists.
     max_plus = maximum + 2
     if(initial)
       course_ids = (0..max_plus).to_a.map(&:to_s)
@@ -106,6 +108,7 @@ class Course < ActiveRecord::Base
       course_ids = course_ids | (maximum..max_plus).to_a.map(&:to_s)
     end
 
+    # Break up course_ids into smaller groups that Wikipedia's API can handle.
     data = Utils.chunk_requests(course_ids) {|c| Wiki.get_course_info c}
     self.import_courses(raw_ids, data)
   end

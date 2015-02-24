@@ -1,12 +1,16 @@
 require 'media_wiki'
 require 'crack'
 
+# This class is for getting data directly from the Wikipedia API.
 class Wiki
 
 
   ###################
   # Parsing methods #
   ###################
+
+  # Based on the cohorts and wiki pages defined in application.yml, get the list
+  # of courses for each cohort.
   def self.get_course_list
     response = {}
     Figaro.env.cohorts.split(",").each do |cohort|
@@ -14,8 +18,6 @@ class Wiki
     end
     response
 
-    # response["spring_2015"] = get_page_content(ENV["cohort_spring_2015"]).split(/\n/)
-    # response
   end
 
 
@@ -77,7 +79,9 @@ class Wiki
     end
   end
 
-
+  # Try to find the Wikipedia 1.0 rating of an article by parsing its talk page
+  # contents.
+  #
   # Adapted from https://en.wikipedia.org/wiki/User:Pyrospirit/metadata.js
   # alt https://en.wikipedia.org/wiki/MediaWiki:Gadget-metadata.js
   def self.parse_article_rating(article)
@@ -134,7 +138,8 @@ class Wiki
     response
   end
 
-
+  # Query the liststudents API to get info about a course. For example:
+  # http://en.wikipedia.org/w/api.php?action=liststudents&courseids=30&group=
   def self.get_course_info_raw(course_id)
     if course_id.is_a?(Array)
       course_id = course_id.join('|')
@@ -147,7 +152,10 @@ class Wiki
     info.nil? ? nil : info["course"]
   end
 
-
+  # Get raw page content for one or more pages titles, which can be parsed to
+  # find the article ratings. (The corresponding Talk page are the one with the
+  # relevant info.) Example query:
+  # http://en.wikipedia.org/w/api.php?action=query&prop=revisions&rvprop=content&rawcontinue=true&redirects=true&titles=Talk:Selfie
   def self.get_article_rating_raw(article_title)
     if article_title.is_a?(Array)
       article_title = article_title.join('|')
@@ -212,6 +220,8 @@ class Wiki
   def self.handle_invalid_course_id(options, e)
     id = e.to_s[/(?<=MediaWiki::APIError: API error: code 'invalid-course', info 'Invalid course id: ).*?(?=')/]
     array = options["courseids"].split('|')
+    # See Course.update_all_courses, which checks for 2 courses_ids beyond
+    # the highest one found in the cohort lists from application.yml.
     unless(array.index(id) >= array.count - 2)
       Rails.logger.warn "Listed course_id #{id} is invalid"
     end
