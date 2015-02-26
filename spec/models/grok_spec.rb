@@ -27,7 +27,7 @@ describe Grok do
             view_sum += count
           end
         end
-        expect(view_sum).to eq(9027)
+        expect(view_sum).to eq(9035)
 
         # Check for the expected views on a single day.
         expect(views["2014-09-30"]).to eq(267)

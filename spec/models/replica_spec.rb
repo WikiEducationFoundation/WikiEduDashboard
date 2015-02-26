@@ -3,24 +3,30 @@ require 'rails_helper'
 describe Replica do
 
   describe "API requests" do
-    # it "should connect to replica tools" do
-    #   response = Replica.connect_to_tool
-    #   expect(response).to eq("You have successfully reached to the WikiEduDashboard tool hosted by the Wikimedia Tool Labs.")
-    # end
+     it "should connect to replica tools" do
+       response = Replica.connect_to_tool
+       expect(response).to eq("You have successfully reached to the WikiEduDashboard tool hosted by the Wikimedia Tool Labs.")
+     end
 
     it "should return revisions from this term" do
       VCR.use_cassette "replica/revisions" do
         all_users = [
           { 'wiki_id' => 'ELE427' },
-          { 'wiki_id' => 'Kcmpayne' },
-          { 'wiki_id' => 'Mrbauer1234' },
-          { 'wiki_id' => 'Azul97' }
+          { 'wiki_id' => 'Ragesoss' },
+          { 'wiki_id' => 'Mrbauer1234' }
         ]
+        rev_start = 20140101003430
+        rev_end = 20141231003430
+
         all_users.each_with_index do |u, i|
           all_users[i] = OpenStruct.new u
         end
-        response = Replica.get_revisions_this_term_by_users(all_users)
-        expect(response.count).to eq(42)
+        response = Replica.get_revisions_this_term_by_users(all_users, rev_start, rev_end)
+
+        # This count represents the number of articles and userpages
+        # edited by the users, not the number of revisions. Revisions are child
+        # elements of the page ids.
+        expect(response.count).to eq(139)
       end
     end
   end
