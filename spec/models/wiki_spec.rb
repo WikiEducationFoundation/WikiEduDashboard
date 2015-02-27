@@ -24,7 +24,7 @@ describe Wiki do
         expect(response[0]["course"]["end"]).to eq("2014-06-25".to_date)
 
         # Several courses, including some that don't exist
-        course_ids = [ '351', '366', '398', '2155897', '411', '415', '99999', 'word' ]
+        course_ids = [ '9999', '351', '366', '398', '2155897', '411', '415', '9999' ]
         response = Wiki.get_course_info course_ids
         expect(response).to be
 
