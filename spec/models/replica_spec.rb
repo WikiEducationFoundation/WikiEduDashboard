@@ -27,6 +27,18 @@ describe Replica do
         # edited by the users, not the number of revisions. Revisions are child
         # elements of the page ids.
         expect(response.count).to eq(139)
+
+        # Make sure we handle the case of zero revisions.
+        rev_start = 20150105
+        rev_end = 20150106
+        response = Replica.get_revisions_this_term_by_users(all_users, rev_start, rev_end)
+        expect(response.count).to eq(0)
+
+        # Make sure we handle the case of one revision.
+        rev_start = 20150105
+        rev_end = 20150108
+        response = Replica.get_revisions_this_term_by_users(all_users, rev_start, rev_end)
+        expect(response.count).to eq(1)
       end
     end
   end

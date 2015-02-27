@@ -13,13 +13,24 @@ describe Wiki do
 
     it "should return course info for a certain course" do
       VCR.use_cassette "wiki/course_data" do
-        response = Wiki.get_course_info 351
+
+        # A single course
+        response = Wiki.get_course_info '351'
         expect(response[0]["course"]["title"]).to eq("HSCI 3013: History of Science to the Age of Newton")
         expect(response[0]["course"]["term"]).to eq("Summer 2014")
         expect(response[0]["course"]["slug"]).to eq("University_of_Oklahoma/HSCI_3013:_History_of_Science_to_the_Age_of_Newton_(Summer_2014)")
         expect(response[0]["course"]["school"]).to eq("University of Oklahoma")
         expect(response[0]["course"]["start"]).to eq("2014-05-12".to_date)
         expect(response[0]["course"]["end"]).to eq("2014-06-25".to_date)
+
+        # Several courses, including one that doesn't exist
+        course_ids = [ '351', '366', '398', '2155897' ]
+        response = Wiki.get_course_info course_ids
+        expect(response).to be
+
+        # A single course that doesn't exist
+        response = Wiki.get_course_info '2155897'
+        expect(response).to eq([])
       end
     end
   end

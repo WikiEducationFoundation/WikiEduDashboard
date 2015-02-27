@@ -1,3 +1,6 @@
+require 'simplecov'
+SimpleCov.start 'rails'
+
 require 'vcr'
 require 'rspec/core' unless defined? RSpec.configure
 
