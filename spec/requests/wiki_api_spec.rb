@@ -5,7 +5,7 @@ RSpec.describe "Wiki API" do
 
   before(:each) do
     @mw = MediaWiki::Gateway.new('http://en.wikipedia.org/w/api.php')
-    @mw.login('ntdb', 'wintr_password')
+    @mw.login(Figaro.env.wikipedia_username, Figaro.env.wikipedia_password)
   end
 
   # it "should return students in a course" do
