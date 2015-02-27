@@ -7,7 +7,9 @@ describe Replica do
        response = Replica.connect_to_tool
        expect(response).to eq("You have successfully reached to the WikiEduDashboard tool hosted by the Wikimedia Tool Labs.")
      end
+  end 
 
+  describe "API revisions" do
     it "should return revisions from this term" do
       VCR.use_cassette "replica/revisions" do
         all_users = [
@@ -42,6 +44,26 @@ describe Replica do
       end
     end
   end
+
+  describe "API training completion" do
+    it "should return a list of users who completed training" do
+      VCR.use_cassette "replica/training" do
+        all_users = [
+          { 'wiki_id' => 'ELE427' }, # has not completed
+          { 'wiki_id' => 'Ragesoss' }, # has completed
+          { 'wiki_id' => 'Mrbauer1234' }, # has not completed
+          { 'wiki_id' => 'Ragesock' }, # has completed
+          { 'wiki_id' => 'Sage (Wiki Ed)' } # has completed
+        ]
+        all_users.each_with_index do |u, i|
+          all_users[i] = OpenStruct.new u
+        end
+        response = Replica.get_users_completed_training(all_users)
+        expect(response.count).to eq(3)
+      end
+    end
+  end
+
 
   # describe "API response parsing" do
   #   it "should return the number of characters from a certain revision" do
