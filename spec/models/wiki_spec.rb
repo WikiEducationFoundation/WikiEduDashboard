@@ -45,6 +45,25 @@ describe Wiki do
     end
   end
 
+  describe "API article ratings" do
+    it "should return the ratings of articles" do
+      VCR.use_cassette "wiki/article_ratings" do
+        # A single article
+        response = Wiki.get_article_rating("History of biology")
+        expect(response[0]["History of biology"]).to eq("fa")
+
+        # Several articles that exist
+        articles = ["History of biology", "Selfie", "Ecology", "Fast inverse square root"]
+        response = Wiki.get_article_rating(articles)
+        expect(response.count).to eq(4)
+
+#        # Several articles, with one that doesn't exist.
+#        articles = ["History of biology", "Selfie", "Ecology", "THIS IS NOT A REAL ARTICLE TITLE"]
+#        response = Wiki.get_article_rating(articles)
+#        expect(response.count).to eq(3)
+      end
+    end
+  end
 
   describe "Public methods" do
 

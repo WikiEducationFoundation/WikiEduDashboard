@@ -7,9 +7,7 @@ describe Replica do
        response = Replica.connect_to_tool
        expect(response).to eq("You have successfully reached to the WikiEduDashboard tool hosted by the Wikimedia Tool Labs.")
      end
-  end 
 
-  describe "API revisions" do
     it "should return revisions from this term" do
       VCR.use_cassette "replica/revisions" do
         all_users = [
@@ -43,9 +41,7 @@ describe Replica do
         expect(response.count).to eq(1)
       end
     end
-  end
 
-  describe "API training completion" do
     it "should return a list of users who completed training" do
       VCR.use_cassette "replica/training" do
         all_users = [
@@ -62,6 +58,7 @@ describe Replica do
         expect(response.count).to eq(3)
       end
     end
+
   end
 
 
