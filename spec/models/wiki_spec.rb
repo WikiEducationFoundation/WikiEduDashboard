@@ -53,6 +53,7 @@ describe Wiki do
         expect(response[0]["History of biology"]).to eq("fa")
 
         # Articles that exist, including ones with niche ratings
+        # Some of these ratings may change over time.
         articles = [
           "History of biology", # fa
           "Selfie", # c
@@ -64,6 +65,7 @@ describe Wiki do
           "Drug Trafficking Safe Harbor Elimination Act", # start
           "Energy policy of the United States", # b
           "List of camouflage methods", # fl
+          "THIS IS NOT A REAL ARTICLE TITLE", # does not exist
           "1804 Snow hurricane", # a/ga ?
           "Barton S. Alexander", # a
           "Actuarial science", # bplus
@@ -71,16 +73,14 @@ describe Wiki do
           "Antarctica (disambiguation)", # dab
           "2015 Pacific typhoon season", # cur, as of 2015-02-27
           "Cycling at the 2016 Summer Olympics – Men's Omnium", # future, as of 2015-02-27
-#          "Selfie (disambiguation)" # no talk page
+          "Selfie (disambiguation)" # no talk page
         ]
 
         response = Wiki.get_article_rating(articles)
-        expect(response.count).to eq(17)
+        expect(response).to include({"History of biology"=>"fa"})
+        expect(response).to include({"THIS IS NOT A REAL ARTICLE TITLE"=>nil})
+        expect(response.count).to eq(19)
 
-#        # Several articles, with one that doesn't exist.
-#        articles = ["History of biology", "Selfie", "Ecology", "THIS IS NOT A REAL ARTICLE TITLE"]
-#        response = Wiki.get_article_rating(articles)
-#        expect(response.count).to eq(3)
       end
     end
 
@@ -88,11 +88,12 @@ describe Wiki do
       VCR.use_cassette "wiki/article_ratings_raw" do
         articles = [
           "Talk:Selfie (disambiguation)", # probably doesn't exist; the corresponding article does
+          "Talk:The American Monomyth", # exists
           "Talk:THIS PAGE WILL NEVER EXIST, RIGHT?", # definitely doesn't exist
-          "Talk:History of biology" # exists
+          "Talk:List of Canadian plants by family S" # exists
         ]
         response = Wiki.get_article_rating_raw(articles)
-        expect(response.count).to eq(3)
+        expect(response.count).to eq(4)
       end
     end
 

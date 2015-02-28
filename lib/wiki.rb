@@ -72,13 +72,16 @@ class Wiki
       return []
     end
 
-    # FIXME: Handle the case where some of the articles doen't exist. In this case, 
-    # the raw data is something like this:
-    #   {"missing"=>"", "ns"=>"1", "title"=>"Talk:Selfie (disambiguation)"}
+    # Pages that are missing get returned before pages that exist, so we cannot
+    # count on our array being in the same order as article_title.
     if raw.is_a?(Array)
-      raw.each_with_index.map { |article, i| { article_title[i] => Wiki.parse_article_rating(article["revisions"]["rev"]) } }
+      raw.each_with_index.map do |article, i|
+        # Remove "Talk:" from the "title" value to get the title.
+        { article["title"][5..-1] => Wiki.parse_article_rating(article) }
+      end
+
     else
-      [{ article_title => Wiki.parse_article_rating(raw["revisions"]["rev"]) }]
+      [{ article_title => Wiki.parse_article_rating(raw) }]
     end
   end
 
@@ -87,10 +90,17 @@ class Wiki
   #
   # Adapted from https://en.wikipedia.org/wiki/User:Pyrospirit/metadata.js
   # alt https://en.wikipedia.org/wiki/MediaWiki:Gadget-metadata.js
-  # TODO: Simplify this parser by removing folding the nonstandard ratings
+  # We simplify this parser by removing folding the nonstandard ratings
   # into the corresponding standard ones. We don't want to deal with edge cases
   # like bplus and a/ga.
-  def self.parse_article_rating(article)
+  def self.parse_article_rating(raw_article)
+    # Handle the case of nonexistent talk pages.
+    if raw_article["missing"]
+      article = ''
+    else
+      article = raw_article["revisions"]["rev"]
+    end
+
     if (article.match(/\|\s*(class|currentstatus)\s*=\s*fa\b/i))
       'fa'
     elsif (article.match(/\|\s*(class|currentstatus)\s*=\s*fl\b/i))
