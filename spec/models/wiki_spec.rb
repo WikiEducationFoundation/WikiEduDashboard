@@ -53,9 +53,21 @@ describe Wiki do
         expect(response[0]["History of biology"]).to eq("fa")
 
         # Several articles that exist
-        articles = ["History of biology", "Selfie", "Ecology", "Fast inverse square root"]
+        articles = [
+          "History of biology", # fa
+          "Selfie", # c
+          "Ecology", # ga
+          "Fast inverse square root", # ga
+          "Nansenflua", # unassessed
+          "List of Oregon ballot measures", # list
+          "The American Monomyth", # stub
+          "Drug Trafficking Safe Harbor Elimination Act", # start
+          "Energy policy of the United States", # b
+#          "Selfie (disambiguation)" # no talk page
+        ]
+
         response = Wiki.get_article_rating(articles)
-        expect(response.count).to eq(4)
+        expect(response.count).to eq(9)
 
 #        # Several articles, with one that doesn't exist.
 #        articles = ["History of biology", "Selfie", "Ecology", "THIS IS NOT A REAL ARTICLE TITLE"]
@@ -63,6 +75,19 @@ describe Wiki do
 #        expect(response.count).to eq(3)
       end
     end
+
+    it "should return the raw page contents" do
+      VCR.use_cassette "wiki/article_ratings_raw" do
+        articles = [
+          "Talk:Selfie (disambiguation)", # probably doesn't exist; the corresponding article does
+          "Talk:THIS PAGE WILL NEVER EXIST, RIGHT?", # definitely doesn't exist
+          "Talk:History of biology" # exists
+        ]
+        response = Wiki.get_article_rating_raw(articles)
+        expect(response.count).to eq(3)
+      end
+    end
+
   end
 
   describe "Public methods" do

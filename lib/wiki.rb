@@ -72,6 +72,9 @@ class Wiki
       return []
     end
 
+    # FIXME: Handle the case where some of the articles doen't exist. In this case, 
+    # the raw data is something like this:
+    #   {"missing"=>"", "ns"=>"1", "title"=>"Talk:Selfie (disambiguation)"}
     if raw.is_a?(Array)
       raw.each_with_index.map { |article, i| { article_title[i] => Wiki.parse_article_rating(article["revisions"]["rev"]) } }
     else
