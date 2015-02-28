@@ -12,5 +12,4 @@ describe Assignment do
     end
   end
 
-
 end
