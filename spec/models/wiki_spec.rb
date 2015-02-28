@@ -52,7 +52,7 @@ describe Wiki do
         response = Wiki.get_article_rating("History of biology")
         expect(response[0]["History of biology"]).to eq("fa")
 
-        # Several articles that exist
+        # Articles that exist, including ones with niche ratings
         articles = [
           "History of biology", # fa
           "Selfie", # c
@@ -63,11 +63,19 @@ describe Wiki do
           "The American Monomyth", # stub
           "Drug Trafficking Safe Harbor Elimination Act", # start
           "Energy policy of the United States", # b
+          "List of camouflage methods", # fl
+          "1804 Snow hurricane", # a/ga ?
+          "Barton S. Alexander", # a
+          "Actuarial science", # bplus
+          "List of Canadian plants by family S", # sl
+          "Antarctica (disambiguation)", # dab
+          "2015 Pacific typhoon season", # cur, as of 2015-02-27
+          "Cycling at the 2016 Summer Olympics – Men's Omnium", # future, as of 2015-02-27
 #          "Selfie (disambiguation)" # no talk page
         ]
 
         response = Wiki.get_article_rating(articles)
-        expect(response.count).to eq(9)
+        expect(response.count).to eq(17)
 
 #        # Several articles, with one that doesn't exist.
 #        articles = ["History of biology", "Selfie", "Ecology", "THIS IS NOT A REAL ARTICLE TITLE"]

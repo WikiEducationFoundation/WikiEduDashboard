@@ -87,23 +87,22 @@ class Wiki
   #
   # Adapted from https://en.wikipedia.org/wiki/User:Pyrospirit/metadata.js
   # alt https://en.wikipedia.org/wiki/MediaWiki:Gadget-metadata.js
+  # TODO: Simplify this parser by removing folding the nonstandard ratings
+  # into the corresponding standard ones. We don't want to deal with edge cases
+  # like bplus and a/ga.
   def self.parse_article_rating(article)
     if (article.match(/\|\s*(class|currentstatus)\s*=\s*fa\b/i))
       'fa'
     elsif (article.match(/\|\s*(class|currentstatus)\s*=\s*fl\b/i))
       'fl'
     elsif (article.match(/\|\s*class\s*=\s*a\b/i))
-      if (article.match(/\|\s*class\s*=\s*ga\b|\|\s*currentstatus\s*=\s*(ffa\/)?ga\b/i))
-        'a/ga' # A-class articles that are also GA's
-      else
-        'a'
-      end
+      'a' # Treat all forms of A, including A/GA, as simple A.
     elsif (article.match(/\|\s*class\s*=\s*ga\b|\|\s*currentstatus\s*=\s*(ffa\/)?ga\b|\{\{\s*ga\s*\|/i) && !article.match(/\|\s*currentstatus\s*=\s*dga\b/i))
       'ga'
     elsif (article.match(/\|\s*class\s*=\s*b\b/i))
       'b'
     elsif (article.match(/\|\s*class\s*=\s*bplus\b/i))
-      'bplus' # used by WP Math
+      'b' # Treat B-plus as regular B.
     elsif (article.match(/\|\s*class\s*=\s*c\b/i))
       'c'
     elsif (article.match(/\|\s*class\s*=\s*start/i))
@@ -113,13 +112,8 @@ class Wiki
     elsif (article.match(/\|\s*class\s*=\s*list/i))
       'list'
     elsif (article.match(/\|\s*class\s*=\s*sl/i))
-      'sl' # used by WP Plants
-    elsif (article.match(/\|\s*class\s*=\s*(dab|disambig)/i))
-      'dab'
-    elsif (article.match(/\|\s*class\s*=\s*cur(rent)?/i))
-      'cur'
-    elsif (article.match(/\|\s*class\s*=\s*future/i))
-      'future'
+      'list' # Treat sl as regular list.
+    # For other niche ratings like "cur" and "future", count them as unrated.
     end
   end
 
