@@ -27,9 +27,40 @@ describe Replica do
         # edited by the users, not the number of revisions. Revisions are child
         # elements of the page ids.
         expect(response.count).to eq(139)
+
+        # Make sure we handle the case of zero revisions.
+        rev_start = 20150105
+        rev_end = 20150106
+        response = Replica.get_revisions_this_term_by_users(all_users, rev_start, rev_end)
+        expect(response.count).to eq(0)
+
+        # Make sure we handle the case of one revision.
+        rev_start = 20150105
+        rev_end = 20150108
+        response = Replica.get_revisions_this_term_by_users(all_users, rev_start, rev_end)
+        expect(response.count).to eq(1)
       end
     end
+
+    it "should return a list of users who completed training" do
+      VCR.use_cassette "replica/training" do
+        all_users = [
+          { 'wiki_id' => 'ELE427' }, # has not completed
+          { 'wiki_id' => 'Ragesoss' }, # has completed
+          { 'wiki_id' => 'Mrbauer1234' }, # has not completed
+          { 'wiki_id' => 'Ragesock' }, # has completed
+          { 'wiki_id' => 'Sage (Wiki Ed)' } # has completed
+        ]
+        all_users.each_with_index do |u, i|
+          all_users[i] = OpenStruct.new u
+        end
+        response = Replica.get_users_completed_training(all_users)
+        expect(response.count).to eq(3)
+      end
+    end
+
   end
+
 
   # describe "API response parsing" do
   #   it "should return the number of characters from a certain revision" do

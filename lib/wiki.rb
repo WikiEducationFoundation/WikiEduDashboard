@@ -72,10 +72,16 @@ class Wiki
       return []
     end
 
+    # Pages that are missing get returned before pages that exist, so we cannot
+    # count on our array being in the same order as article_title.
     if raw.is_a?(Array)
-      raw.each_with_index.map { |article, i| { article_title[i] => Wiki.parse_article_rating(article["revisions"]["rev"]) } }
+      raw.each_with_index.map do |article, i|
+        # Remove "Talk:" from the "title" value to get the title.
+        { article["title"][5..-1] => Wiki.parse_article_rating(article) }
+      end
+
     else
-      [{ article_title => Wiki.parse_article_rating(raw["revisions"]["rev"]) }]
+      [{ article_title => Wiki.parse_article_rating(raw) }]
     end
   end
 
@@ -84,23 +90,29 @@ class Wiki
   #
   # Adapted from https://en.wikipedia.org/wiki/User:Pyrospirit/metadata.js
   # alt https://en.wikipedia.org/wiki/MediaWiki:Gadget-metadata.js
-  def self.parse_article_rating(article)
+  # We simplify this parser by removing folding the nonstandard ratings
+  # into the corresponding standard ones. We don't want to deal with edge cases
+  # like bplus and a/ga.
+  def self.parse_article_rating(raw_article)
+    # Handle the case of nonexistent talk pages.
+    if raw_article["missing"]
+      article = ''
+    else
+      article = raw_article["revisions"]["rev"]
+    end
+
     if (article.match(/\|\s*(class|currentstatus)\s*=\s*fa\b/i))
       'fa'
     elsif (article.match(/\|\s*(class|currentstatus)\s*=\s*fl\b/i))
       'fl'
     elsif (article.match(/\|\s*class\s*=\s*a\b/i))
-      if (article.match(/\|\s*class\s*=\s*ga\b|\|\s*currentstatus\s*=\s*(ffa\/)?ga\b/i))
-        'a/ga' # A-class articles that are also GA's
-      else
-        'a'
-      end
+      'a' # Treat all forms of A, including A/GA, as simple A.
     elsif (article.match(/\|\s*class\s*=\s*ga\b|\|\s*currentstatus\s*=\s*(ffa\/)?ga\b|\{\{\s*ga\s*\|/i) && !article.match(/\|\s*currentstatus\s*=\s*dga\b/i))
       'ga'
     elsif (article.match(/\|\s*class\s*=\s*b\b/i))
       'b'
     elsif (article.match(/\|\s*class\s*=\s*bplus\b/i))
-      'bplus' # used by WP Math
+      'b' # Treat B-plus as regular B.
     elsif (article.match(/\|\s*class\s*=\s*c\b/i))
       'c'
     elsif (article.match(/\|\s*class\s*=\s*start/i))
@@ -110,13 +122,8 @@ class Wiki
     elsif (article.match(/\|\s*class\s*=\s*list/i))
       'list'
     elsif (article.match(/\|\s*class\s*=\s*sl/i))
-      'sl' # used by WP Plants
-    elsif (article.match(/\|\s*class\s*=\s*(dab|disambig)/i))
-      'dab'
-    elsif (article.match(/\|\s*class\s*=\s*cur(rent)?/i))
-      'cur'
-    elsif (article.match(/\|\s*class\s*=\s*future/i))
-      'future'
+      'list' # Treat sl as regular list.
+    # For other niche ratings like "cur" and "future", count them as unrated.
     end
   end
 
