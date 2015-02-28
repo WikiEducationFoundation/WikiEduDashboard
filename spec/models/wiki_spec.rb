@@ -52,7 +52,11 @@ describe Wiki do
         response = Wiki.get_article_rating("History of biology")
         expect(response[0]["History of biology"]).to eq("fa")
 
-        # Articles that exist, including ones with niche ratings
+        # A single non-existant article
+        response = Wiki.get_article_rating("THIS IS NOT A REAL ARTICLE TITLE")
+        expect(response[0]["THIS IS NOT A REAL ARTICLE TITLE"]).to eq(nil)
+
+        # A mix of existing and non-existant, including ones with niche ratings.
         # Some of these ratings may change over time.
         articles = [
           "History of biology", # fa
