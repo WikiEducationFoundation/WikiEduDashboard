@@ -23,13 +23,13 @@ describe Grok do
         # Check for the expected total views over a date range.
         view_sum = 0
         views.each do |day, count|
-          if day.to_date >= "2014-12-23".to_date
+          if day.to_date <= "2014-12-23".to_date
             view_sum += count
           end
         end
         # The exact values seem to vary a bit, possibly because of updates to
         # the data on stats.grok.se. This should be in the ballpark, though.
-        expect(view_sum).to eq(9177)
+        expect(view_sum).to eq(22961)
 
         # Check for the expected views on a single day.
         expect(views["2014-09-30"]).to eq(267)
