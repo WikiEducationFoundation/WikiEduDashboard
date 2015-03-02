@@ -15,13 +15,20 @@ describe Course, :type => :model do
 
   it 'should ?' do
     course = build(:course)
-    puts course.to_param
+    to_param = course.to_param
   end
 
   it 'should update the participants in a course' do
     VCR.use_cassette 'course/update' do
       course = build(:course)
       course.update
+      Course.update_all_caches
+      character_sum = course.character_sum
+      view_sum = course.view_sum
+      user_count = course.user_count
+      revision_count = course.revision_count
+      untrained_count = course.untrained_count
+      article_count = course.article_count
     end
   end
 
