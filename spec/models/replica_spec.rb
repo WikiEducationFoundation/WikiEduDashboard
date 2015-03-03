@@ -1,22 +1,21 @@
 require 'rails_helper'
 
 describe Replica do
+  describe 'API requests' do
+    it 'should connect to replica tools' do
+      response = Replica.connect_to_tool
+      expect(response).to eq('You have successfully reached to the WikiEduDashboard tool hosted by the Wikimedia Tool Labs.')
+    end
 
-  describe "API requests" do
-     it "should connect to replica tools" do
-       response = Replica.connect_to_tool
-       expect(response).to eq("You have successfully reached to the WikiEduDashboard tool hosted by the Wikimedia Tool Labs.")
-     end
-
-    it "should return revisions from this term" do
-      VCR.use_cassette "replica/revisions" do
+    it 'should return revisions from this term' do
+      VCR.use_cassette 'replica/revisions' do
         all_users = [
           { 'wiki_id' => 'ELE427' },
           { 'wiki_id' => 'Ragesoss' },
           { 'wiki_id' => 'Mrbauer1234' }
         ]
-        rev_start = 20140101003430
-        rev_end = 20141231003430
+        rev_start = 2014_01_01_003430
+        rev_end = 2014_12_31_003430
 
         all_users.each_with_index do |u, i|
           all_users[i] = OpenStruct.new u
@@ -29,21 +28,21 @@ describe Replica do
         expect(response.count).to eq(139)
 
         # Make sure we handle the case of zero revisions.
-        rev_start = 20150105
-        rev_end = 20150106
+        rev_start = 2015_01_05
+        rev_end = 2015_01_06
         response = Replica.get_revisions_this_term_by_users(all_users, rev_start, rev_end)
         expect(response.count).to eq(0)
 
         # Make sure we handle the case of one revision.
-        rev_start = 20150105
-        rev_end = 20150108
+        rev_start = 2015_01_05
+        rev_end = 2015_01_08
         response = Replica.get_revisions_this_term_by_users(all_users, rev_start, rev_end)
         expect(response.count).to eq(1)
       end
     end
 
-    it "should return a list of users who completed training" do
-      VCR.use_cassette "replica/training" do
+    it 'should return a list of users who completed training' do
+      VCR.use_cassette 'replica/training' do
         all_users = [
           { 'wiki_id' => 'ELE427' }, # has not completed
           { 'wiki_id' => 'Ragesoss' }, # has completed
@@ -58,14 +57,11 @@ describe Replica do
         expect(response.count).to eq(3)
       end
     end
-
   end
-
 
   # describe "API response parsing" do
   #   it "should return the number of characters from a certain revision" do
   #     pending("Awaiting implementation")
   #   end
   # end
-
 end

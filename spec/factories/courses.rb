@@ -1,6 +1,5 @@
 FactoryGirl.define do
   factory :course do
-    title "MyString"
+    id 481
   end
-
 end

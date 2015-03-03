@@ -23,6 +23,7 @@ class Course < ActiveRecord::Base
   def update(data={}, save=true)
     if data.blank?
       data = Wiki.get_course_info self.id
+      data = data[0]
     end
     self.attributes = data["course"]
     if save
