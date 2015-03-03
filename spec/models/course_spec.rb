@@ -7,6 +7,7 @@ describe Course, :type => :model do
     VCR.use_cassette 'course/data' do
       course = build(:course)
       raw_id = { hash: course.id }
+      puts raw_id
       data = Wiki.get_course_info raw_id
       Course.import_courses(raw_id, data)
       Course.update_all_courses
