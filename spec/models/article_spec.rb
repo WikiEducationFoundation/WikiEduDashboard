@@ -11,7 +11,7 @@ describe Article do
   end
 
   describe '.url' do
-    it 'get the url for an article' do
+    it 'should get the url for an article' do
       article = build(:article, title: 'Selfie')
       expect(article.url).to eq('https://en.wikipedia.org/wiki/Selfie')
       
