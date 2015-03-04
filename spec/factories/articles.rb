@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :article do
-    title "MyString"
-views 1
+    title "History of biology"
+    views 15
+    namespace 0
   end
-
 end
