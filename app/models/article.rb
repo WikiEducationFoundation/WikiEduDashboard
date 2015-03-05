@@ -11,11 +11,20 @@ class Article < ActiveRecord::Base
   ####################
   def url
     escaped_title = title.gsub(" ", "_")
-    if(namespace == 0)
-      "https://en.wikipedia.org/wiki/#{escaped_title}"
-    else
-      "https://en.wikipedia.org/wiki/User:#{escaped_title}"
-    end
+    ns = {
+      0 => '', # Mainspace for Wikipedia articles
+      1 => 'Talk:',
+      2 => 'User:',
+      3 => 'User_talk:',
+      4 => 'Wikipedia:',
+      5 => 'Wikipedia_talk:',
+      10 => 'Template:',
+      11 => 'Template_talk:',
+      118 => 'Draft:',
+      119 => 'Draft_talk:'
+    }
+
+    return 'https://en.wikipedia.org/wiki/' + ns[namespace] + escaped_title
   end
 
 
