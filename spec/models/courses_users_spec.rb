@@ -40,7 +40,7 @@ describe CoursesUsers, :type => :model do
         article_title: 'Selfie',
       ).save
 
-      # Make a course-user and save it
+      # Make a course-user and save it.
       course_user = build(:courses_user,
         id: 1,
         course_id: 1,
@@ -48,6 +48,13 @@ describe CoursesUsers, :type => :model do
         assigned_article_title: 'Selfie'
       )
       course_user.save
+      
+      # Make an article-course.
+      build(:articles_course,
+        id: 1,
+        article_id: 1,
+        course_id: 1
+      )
       
       User.update_all_caches
       Course.update_all_caches
