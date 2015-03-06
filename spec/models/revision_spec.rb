@@ -40,7 +40,7 @@ describe Revision do
         ).save
 
         # Try it again with data to pull.
-        #FIXME: This update 
+        #FIXME: This one will fail.
         #Revision.update_all_revisions
       end
     end
