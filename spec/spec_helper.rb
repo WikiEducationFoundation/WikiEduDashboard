@@ -98,3 +98,11 @@ VCR.configure do |c|
   c.ignore_hosts 'tools.wmflabs.org'  # Allows RSPEC to test the availability of the Wikimedia Tools
   #c.allow_http_connections_when_no_cassette = true
 end
+
+RSpec::Matchers.define :be_boolean do
+  match do |actual|
+    expect(actual).to satisfy { |x| x == true || x == false }
+  end
+end
+
+

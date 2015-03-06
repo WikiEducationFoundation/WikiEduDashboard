@@ -54,7 +54,7 @@ describe CoursesUsers, :type => :model do
         id: 1,
         article_id: 1,
         course_id: 1
-      )
+      ).save
       
       User.update_all_caches
       Course.update_all_caches
@@ -62,15 +62,15 @@ describe CoursesUsers, :type => :model do
       # Use .update_all_caches to bring everything together.
       CoursesUsers.update_all_caches
       
-      # Check to see if the expected data got caches.
+      # Check to see if the expected data got cached.
       # FIXME: Put things together in a way that correctly updates
       # these things to reflect the revision to the assigned article.
-      revision_count = course_user.revision_count
+      expect(course_user.revision_count).to be_kind_of(Integer)
       # expect(course_user.revision_count).to eq(1)
       
-      assigned = course_user.assigned_article_title
-      mainspace = course_user.character_sum_ms
-      userspace = course_user.character_sum_us
+      expect(course_user.assigned_article_title).to eq('Selfie')
+      expect(course_user.character_sum_ms).to be_kind_of(Integer)
+      expect(course_user.character_sum_us).to be_kind_of(Integer)
       
     end
   end
