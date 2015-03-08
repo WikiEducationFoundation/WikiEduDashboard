@@ -8,7 +8,11 @@ class Grok
   # [title]  title of a Wikipedia page (including namespace, if applicable)
   # [date]   a specific date
   # [language] the language version of Wikipedia
-  def self.get_views_since_date_for_article(title, date, language = Figaro.env.wiki_language)
+  def self.get_views_since_date_for_article(title, date, language = nil)
+    if language == nil
+      language = Figaro.env.wiki_language
+    end
+    
     iDate = date
     views = Hash.new
     while Date.today >= iDate do
