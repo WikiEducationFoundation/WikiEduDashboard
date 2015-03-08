@@ -95,16 +95,17 @@ class Replica
   # appropriate to that endpoint, return the parsed json response.
   #
   # Example training.php query with 3 users:
-  #    http://tools.wmflabs.org/wikiedudashboard/training.php?user_ids[0]=%27Example_User%27&user_ids[1]=%27Ragesoss%27&user_ids[2]=%27Sage%20(Wiki%20Ed)%27
+  #    http://tools.wmflabs.org/wikiedudashboard/training.php?lang=en&user_ids[0]=%27Example_User%27&user_ids[1]=%27Ragesoss%27&user_ids[2]=%27Sage%20(Wiki%20Ed)%27
   # Example training.php parsed response with 2 users who completed training:
   #    [{"rev_user_text"=>"Ragesoss"}, {"rev_user_text"=>"Sage (Wiki Ed)"}]
   #
   # Example revisions.php query:
-  #    http://tools.wmflabs.org/wikiedudashboard/revisions.php?user_ids[0]=%27Example_User%27&user_ids[1]=%27Ragesoss%27&user_ids[2]=%27Sage%20(Wiki%20Ed)%27&start=20150105&end=20150108
+  #    http://tools.wmflabs.org/wikiedudashboard/revisions.php?lang=en&user_ids[0]=%27Example_User%27&user_ids[1]=%27Ragesoss%27&user_ids[2]=%27Sage%20(Wiki%20Ed)%27&start=20150105&end=20150108
   # Example revisions.php parsed response:
   #    [{"page_id"=>"418355", "page_title"=>"Babbling", "page_namespace"=>"0", "rev_id"=>"641327984", "rev_timestamp"=>"20150107003430", "rev_user_text"=>"Ragesoss", "rev_user"=>"319203", "new_article"=>"false", "byte_change"=>"121"}, {"page_id"=>"44962463", "page_title"=>"Swarfe/ENGL-122-2014", "page_namespace"=>"2", "rev_id"=>"641297356", "rev_timestamp"=>"20150106205401", "rev_user_text"=>"Sage (Wiki Ed)", "rev_user"=>"21515199", "new_article"=>"false", "byte_change"=>"7"}, {"page_id"=>"44962463", "page_title"=>"Swarfe/ENGL-122-2014", "page_namespace"=>"2", "rev_id"=>"641297494", "rev_timestamp"=>"20150106205453", "rev_user_text"=>"Sage (Wiki Ed)", "rev_user"=>"21515199", "new_article"=>"false", "byte_change"=>"14"}, {"page_id"=>"44962463", "page_title"=>"Swarfe/ENGL-122-2014", "page_namespace"=>"2", "rev_id"=>"641297913", "rev_timestamp"=>"20150106205746", "rev_user_text"=>"Sage (Wiki Ed)", "rev_user"=>"21515199", "new_article"=>"false", "byte_change"=>"38"}, {"page_id"=>"44962463", "page_title"=>"Swarfe/ENGL-122-2014", "page_namespace"=>"2", "rev_id"=>"641298113", "rev_timestamp"=>"20150106205902", "rev_user_text"=>"Sage (Wiki Ed)", "rev_user"=>"21515199", "new_article"=>"false", "byte_change"=>"-50"}]
   def self.api_get(endpoint, query='')
-    url = "http://tools.wmflabs.org/wikiedudashboard/#{endpoint}?#{query}"
+    language = Figaro.env.wiki_language
+    url = "http://tools.wmflabs.org/wikiedudashboard/#{endpoint}?lang=#{language}&#{query}"
     response = Net::HTTP::get(URI.parse(url))
     # unless response.length > 100000
     if response.length > 0

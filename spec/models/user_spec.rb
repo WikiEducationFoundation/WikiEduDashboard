@@ -8,7 +8,7 @@ describe User do
       ragesoss = build(:trained)
       
       expect(ragesock.wiki_id).to eq("Ragesock")
-      expect(ragesoss.contribution_url).to eq("https://en.wikipedia.org/wiki/Special:Contributions/Ragesoss")
+      expect(ragesoss.contribution_url).to eq("https://#{Figaro.env.wiki_language}.wikipedia.org/wiki/Special:Contributions/Ragesoss")
     end
   end
 

@@ -9,6 +9,9 @@
   wikipedia_username: <Wikipedia username>
   wikipedia_password: <Wikipedia password>
 
+# The language version of Wikipedia: <wiki_language>.wikipedia.org
+  wiki_language: en
+
 # One or more cohorts of classes, with each cohort defined by a wiki page of course ids, one per line.
 # The last cohort in the comma-separated list is the default cohort for the homepage.
 # Cohort names become uppercase, and underscores become spaces.

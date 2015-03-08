@@ -7,11 +7,12 @@ class Grok
   #
   # [title]  title of a Wikipedia page (including namespace, if applicable)
   # [date]   a specific date
-  def self.get_views_since_date_for_article(title, date)
+  # [language] the language version of Wikipedia
+  def self.get_views_since_date_for_article(title, date, language = Figaro.env.wiki_language)
     iDate = date
     views = Hash.new
     while Date.today >= iDate do
-      data = Grok.api_get(title, iDate.strftime("%Y%m"))
+      data = Grok.api_get(title, iDate.strftime("%Y%m"), language)
       begin
         data = JSON.parse data
       rescue JSON::ParserError => e
@@ -35,9 +36,9 @@ class Grok
   # Private methods #
   ###################
   private
-  def self.api_get(title, month)
+  def self.api_get(title, month, language)
     title = URI.escape(title)
-    url = "http://stats.grok.se/json/en/#{month}/#{title}"
+    url = "http://stats.grok.se/json/#{language}/#{month}/#{title}"
     Net::HTTP::get(URI.parse(url))
   end
 

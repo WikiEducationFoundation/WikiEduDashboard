@@ -10,11 +10,18 @@ describe CourseHelper, :type => :helper do
   end
 
   describe '.user_links' do
-    it "should return contrib links for multiples users" do
+    it 'should return contrib links for multiples users' do
       build(:user).save
       build(:trained).save
       links = user_links(User.all)
       expect(links).to include('<a href=')
+    end
+  end
+
+  describe '.base_url' do
+    it 'should return the base url for course pages' do
+      response = base_url
+      expect(response).to include('wikipedia.org/wiki/')
     end
   end
 

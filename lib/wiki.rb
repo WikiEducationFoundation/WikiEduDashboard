@@ -128,7 +128,6 @@ class Wiki
   end
 
 
-
   ###################
   # Request methods #
   ###################
@@ -185,7 +184,8 @@ class Wiki
   ###################
   private
   def self.gateway
-    @mw = MediaWiki::Gateway.new('http://en.wikipedia.org/w/api.php')
+    language = Figaro.env.wiki_language
+    @mw = MediaWiki::Gateway.new("http://#{language}.wikipedia.org/w/api.php")
     begin
       @mw.login(Figaro.env.wikipedia_username!, Figaro.env.wikipedia_password!)
     rescue RestClient::RequestTimeout => e

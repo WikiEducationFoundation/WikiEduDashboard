@@ -57,7 +57,7 @@
       </div>
       <div class="details__detail">
         <h6><%= t("course.view_wiki") %></h6>
-        <p><a class="inline" href="https://en.wikipedia.org/wiki/Education_Program:<%= @course.slug %>"><%= @course.title %></a></p>
+        <p><a class="inline" href="<%= base_url %><%= @course.slug %>"><%= @course.title %></a></p>
       </div>
     </div>
   </div>

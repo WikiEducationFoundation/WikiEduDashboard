@@ -12,13 +12,13 @@ describe Article do
         views_updated_at: '2014-12-31'.to_date
       )
 
-      expect(article.url).to eq('https://en.wikipedia.org/wiki/Selfie')
+      expect(article.url).to eq("https://#{Figaro.env.wiki_language}.wikipedia.org/wiki/Selfie")
 
       sandbox = build(:article, namespace: 2, title: 'Ragesoss/sandbox')
-      expect(sandbox.url).to eq('https://en.wikipedia.org/wiki/User:Ragesoss/sandbox')
+      expect(sandbox.url).to eq("https://#{Figaro.env.wiki_language}.wikipedia.org/wiki/User:Ragesoss/sandbox")
 
       draft = build(:article, namespace: 118, title: 'My Awesome Draft!!!')
-      expect(draft.url).to eq('https://en.wikipedia.org/wiki/Draft:My_Awesome_Draft!!!')
+      expect(draft.url).to eq("https://#{Figaro.env.wiki_language}.wikipedia.org/wiki/Draft:My_Awesome_Draft!!!")
     end
   end
 
@@ -55,7 +55,7 @@ describe Article do
         # Add an article
         article = build(:article,
           id: 1,
-          title: 'Selfie',
+          title: 'Wikipedia', # This title is likely to exist in most languages.
           namespace: 0,
           views_updated_at: '2014-12-31'.to_date
         )
@@ -101,7 +101,7 @@ describe Article do
         # Add an article
         build(:article,
           id: 1,
-          title: 'Selfie',
+          title: 'Wikipedia',
           namespace: 0,
           views_updated_at: '2014-12-31'.to_date
         ).save
@@ -136,7 +136,7 @@ describe Article do
         # Add an article.
         build(:article,
           id: 1,
-          title: 'Selfie',
+          title: 'Wikipedia',
           namespace: 0,
         ).save
 
@@ -184,7 +184,7 @@ describe Article do
     it 'should get latest ratings for articles' do
       VCR.use_cassette 'article/update_ratings' do
         # Try it with no articles.
-        Article.update_ratings('foo')
+        Article.update_ratings('articles')
 
         # Add an article.
         build(:article,
@@ -194,7 +194,7 @@ describe Article do
         ).save
 
         # Update again with this article.
-        Article.update_ratings('foo')
+        Article.update_ratings('articles')
         
       end
     end

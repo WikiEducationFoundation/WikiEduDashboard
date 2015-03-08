@@ -11,6 +11,7 @@ class Article < ActiveRecord::Base
   ####################
   def url
     escaped_title = title.gsub(" ", "_")
+    language = Figaro.env.wiki_language
     ns = {
       0 => '', # Mainspace for Wikipedia articles
       1 => 'Talk:',
@@ -23,8 +24,9 @@ class Article < ActiveRecord::Base
       118 => 'Draft:',
       119 => 'Draft_talk:'
     }
-
-    return 'https://en.wikipedia.org/wiki/' + ns[namespace] + escaped_title
+    prefix = ns[namespace]
+    
+    return "https://#{language}.wikipedia.org/wiki/#{prefix}#{escaped_title}"
   end
 
 
@@ -61,7 +63,7 @@ class Article < ActiveRecord::Base
         last = new_views.empty? ? nil : new_views.sort_by { |(d)| d }.last.first.to_date
       end
       if(self.revisions.order('date ASC').first.views - self.views > 0)
-        puts I18n.t("article.views_added", count: self.revisions.order('date ASC').first.views - self.views, title: self.title)
+        puts I18n.t('article.views_added', count: self.revisions.order('date ASC').first.views - self.views, title: self.title)
       end
       self.views_updated_at = last.nil? ? self.views_updated_at : last
     end
@@ -111,7 +113,7 @@ class Article < ActiveRecord::Base
 
 
   def self.update_new_views
-    articles = Article.where("views_updated_at IS NULL").where(namespace: 0).find_in_batches(batch_size: 30)
+    articles = Article.where('views_updated_at IS NULL').where(namespace: 0).find_in_batches(batch_size: 30)
     self.update_views(articles, true)
   end
 
@@ -127,7 +129,7 @@ class Article < ActiveRecord::Base
 
   private
   def self.update_views(articles, all_time=false)
-    require "./lib/grok"
+    require './lib/grok'
     views = {}
     vua = {}
     articles.with_index do |group, batch|

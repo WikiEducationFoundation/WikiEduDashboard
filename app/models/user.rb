@@ -12,8 +12,8 @@ class User < ActiveRecord::Base
   # Instance methods #
   ####################
   def contribution_url
-    # TODO: fix enwiki-centrism
-    "https://en.wikipedia.org/wiki/Special:Contributions/#{self.wiki_id}"
+    language = Figaro.env.wiki_language
+    "https://#{language}.wikipedia.org/wiki/Special:Contributions/#{self.wiki_id}"
   end
 
 
@@ -72,7 +72,9 @@ class User < ActiveRecord::Base
     end
   end
 
-
+  # FIXME: https://github.com/WikiEducationFoundation/WikiEduDashboard/issues/9
+  # Should role be an attribute of CoursesUsers, not Users? A user may have
+  # different roles for different courses.
   def self.add_user(user, role, course, save=true)
     new_user = save ? User.find_or_create_by(id: user["id"]) : User.new(id: user["id"])
     new_user.wiki_id = user["username"]
