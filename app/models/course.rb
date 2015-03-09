@@ -19,6 +19,11 @@ class Course < ActiveRecord::Base
     self.slug
   end
 
+  def url
+    language = Figaro.env.wiki_language
+    escaped_slug = self.slug.gsub(" ", "_")
+    "https://#{language}.wikipedia.org/wiki/Education_Program:#{escaped_slug}"
+  end
 
   def update(data={}, save=true)
     if data.blank?
