@@ -18,11 +18,4 @@ describe CourseHelper, :type => :helper do
     end
   end
 
-  describe '.base_url' do
-    it 'should return the base url for course pages' do
-      response = base_url
-      expect(response).to include('wikipedia.org/wiki/')
-    end
-  end
-
 end

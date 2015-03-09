@@ -12,7 +12,4 @@ module CourseHelper
     value.html_safe
   end
   
-  def base_url
-    "https://#{Figaro.env.wiki_language}.wikipedia.org/wiki/Education_Program:"
-  end
 end
