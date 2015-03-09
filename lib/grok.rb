@@ -9,7 +9,7 @@ class Grok
   # [date]   a specific date
   # [language] the language version of Wikipedia
   def self.get_views_since_date_for_article(title, date, language = nil)
-    if language == nil
+    if language.nil?
       language = Figaro.env.wiki_language
     end
     
