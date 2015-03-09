@@ -1,0 +1,8 @@
+Metrics/MethodLength:
+  Max: 20               # Max number of lines in a method
+Metrics/AbcSize:
+  Max: 40               # Measures method complexity. Would like to lower this.
+Style/SpaceAroundEqualsInParameterDefault:
+  Enabled: false
+Style/ColonMethodCall:
+  Enabled: false

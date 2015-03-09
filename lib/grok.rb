@@ -1,44 +1,37 @@
-# This class fetches pageview data by sending GET requests to stats.grok.se
-
+#= Fetches pageview data by sending GET requests to stats.grok.se
 class Grok
-
   # Given an article title and a date, return the number of page views for every
   # day from that date until today.
   #
   # [title]  title of a Wikipedia page (including namespace, if applicable)
   # [date]   a specific date
   def self.get_views_since_date_for_article(title, date)
-    iDate = date
-    views = Hash.new
-    while Date.today >= iDate do
-      data = Grok.api_get(title, iDate.strftime("%Y%m"))
-      begin
-        data = JSON.parse data
-      rescue JSON::ParserError => e
-        puts "Caught #{e}"
-      end
-      if data.include?("daily_views")
-        data["daily_views"].each do |day, view_count|
-          if(view_count > 0 && day.to_date >= date)
-            views[day] = view_count
-          end
+    i_date = date
+    views = {}
+    while Date.today >= i_date
+      data = api_get(title, i_date.strftime('%Y%m'))
+      data = Utils.parse_json(data)
+      if data.include?('daily_views')
+        data['daily_views'].each do |day, view_count|
+          views[day] = view_count if view_count > 0 && day.to_date >= date
         end
       end
-      iDate += 1.month
+      i_date += 1.month
     end
-    return views
+    views
   end
-
-
 
   ###################
   # Private methods #
   ###################
-  private
-  def self.api_get(title, month)
-    title = URI.escape(title)
-    url = "http://stats.grok.se/json/en/#{month}/#{title}"
-    Net::HTTP::get(URI.parse(url))
-  end
 
+  class << self
+    private
+
+    def api_get(title, month)
+      title = URI.escape(title)
+      url = "http://stats.grok.se/json/en/#{month}/#{title}"
+      Net::HTTP::get(URI.parse(url))
+    end
+  end
 end

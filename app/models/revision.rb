@@ -26,7 +26,7 @@ class Revision < ActiveRecord::Base
       start = c.revisions.count == 0 ? c.start : c.revisions.order("date DESC").first.date
       start = start.strftime("%Y%m%d")
       revisions = Utils.chunk_requests(c.users.student, 40) do |block|
-        Replica.get_revisions_this_term_by_users block, start, c.end.strftime("%Y%m%d")
+        Replica.get_revisions block, start, c.end.strftime("%Y%m%d")
       end
       results += revisions
     end

@@ -20,7 +20,7 @@ describe Replica do
         all_users.each_with_index do |u, i|
           all_users[i] = OpenStruct.new u
         end
-        response = Replica.get_revisions_this_term_by_users(all_users, rev_start, rev_end)
+        response = Replica.get_revisions(all_users, rev_start, rev_end)
 
         # This count represents the number of articles and userpages
         # edited by the users, not the number of revisions. Revisions are child
@@ -30,13 +30,13 @@ describe Replica do
         # Make sure we handle the case of zero revisions.
         rev_start = 2015_01_05
         rev_end = 2015_01_06
-        response = Replica.get_revisions_this_term_by_users(all_users, rev_start, rev_end)
+        response = Replica.get_revisions(all_users, rev_start, rev_end)
         expect(response.count).to eq(0)
 
         # Make sure we handle the case of one revision.
         rev_start = 2015_01_05
         rev_end = 2015_01_08
-        response = Replica.get_revisions_this_term_by_users(all_users, rev_start, rev_end)
+        response = Replica.get_revisions(all_users, rev_start, rev_end)
         expect(response.count).to eq(1)
       end
     end
