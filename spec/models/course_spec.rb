@@ -31,6 +31,16 @@ describe Course, type: :model do
     end
   end
 
+  describe '#url' do
+    it 'should return the url of a course page' do
+      course = build(:course,
+        slug: "UW Bothell/Conservation Biology (Winter 2015)"
+      )
+      url = course.url
+      expect(url).to eq("https://en.wikipedia.org/wiki/Education_Program:UW_Bothell/Conservation_Biology_(Winter_2015)")
+    end
+  end
+
   it 'should return the students in the course' do
   end
 end

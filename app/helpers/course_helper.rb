@@ -13,4 +13,5 @@ module CourseHelper
     end
     value.html_safe
   end
+  
 end

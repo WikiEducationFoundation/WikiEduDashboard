@@ -5,7 +5,7 @@ describe Grok do
     it 'should get page view data for a given article' do
       VCR.use_cassette 'grok/pageview_data' do
         title = 'History of Biology'
-        response = Grok.views_for_article(title, '2014-08-01'.to_date)
+        response = Grok.views_for_article(title, '2014-08-01'.to_date, 'en')
         expect(response).to be
       end
     end
@@ -15,7 +15,7 @@ describe Grok do
     it 'should return page views for a given article in a certain date range' do
       VCR.use_cassette 'grok/pageview_data' do
         title = 'History of biology'
-        views = Grok.views_for_article(title, '2014-09-18'.to_date)
+        views = Grok.views_for_article(title, '2014-09-18'.to_date, 'en')
 
         # Check for the expected total views over a date range.
         view_sum = 0

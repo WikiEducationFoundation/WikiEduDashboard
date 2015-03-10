@@ -5,11 +5,12 @@ class Grok
   #
   # [title]  title of a Wikipedia page (including namespace, if applicable)
   # [date]   a specific date
-  def self.views_for_article(title, date)
+  def self.views_for_article(title, date, language=nil)
+    language = Figaro.env.wiki_language if language.nil?
     i_date = date
     views = {}
     while Date.today >= i_date
-      data = api_get(title, i_date.strftime('%Y%m'))
+      data = api_get(title, i_date.strftime('%Y%m'), language)
       data = Utils.parse_json(data)
       if data.include?('daily_views')
         data['daily_views'].each do |day, view_count|
@@ -24,13 +25,12 @@ class Grok
   ###################
   # Private methods #
   ###################
-
   class << self
     private
 
-    def api_get(title, month)
+    def api_get(title, month, language)
       title = URI.escape(title)
-      url = "http://stats.grok.se/json/en/#{month}/#{title}"
+      url = "http://stats.grok.se/json/#{language}/#{month}/#{title}"
       Net::HTTP::get(URI.parse(url))
     end
   end

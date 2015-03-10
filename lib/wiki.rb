@@ -170,7 +170,8 @@ class Wiki
     private
 
     def gateway
-      @mw = MediaWiki::Gateway.new('http://en.wikipedia.org/w/api.php')
+      language = Figaro.env.wiki_language
+      @mw = MediaWiki::Gateway.new("http://#{language}.wikipedia.org/w/api.php")
       begin
         username = Figaro.env.wikipedia_username!
         password = Figaro.env.wikipedia_password!

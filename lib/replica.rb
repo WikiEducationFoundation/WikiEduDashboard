@@ -132,7 +132,8 @@ class Replica
     #   "byte_change"=>"-50"
     #  }]
     def api_get(endpoint, query='')
-      url = "http://tools.wmflabs.org/wikiedudashboard/#{endpoint}?#{query}"
+      language = Figaro.env.wiki_language
+      url = "http://tools.wmflabs.org/wikiedudashboard/#{endpoint}?lang=#{language}&#{query}"
       response = Net::HTTP::get(URI.parse(url))
 
       return unless response.length > 0
