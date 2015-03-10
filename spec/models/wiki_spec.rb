@@ -38,7 +38,7 @@ describe Wiki do
   describe 'API response parsing' do
     it 'should return the list of courses' do
       VCR.use_cassette 'wiki/course_list' do
-        response = Wiki.get_course_list
+        response = Wiki.course_list
         expect(response.count).to be >= 1
       end
     end
