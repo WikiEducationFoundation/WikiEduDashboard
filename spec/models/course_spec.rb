@@ -34,10 +34,12 @@ describe Course, type: :model do
   describe '#url' do
     it 'should return the url of a course page' do
       course = build(:course,
-        slug: "UW Bothell/Conservation Biology (Winter 2015)"
+                     slug: 'UW Bothell/Conservation Biology (Winter 2015)'
       )
       url = course.url
-      expect(url).to eq("https://en.wikipedia.org/wiki/Education_Program:UW_Bothell/Conservation_Biology_(Winter_2015)")
+      # rubocop:disable Metrics/LineLength
+      expect(url).to eq('https://en.wikipedia.org/wiki/Education_Program:UW_Bothell/Conservation_Biology_(Winter_2015)')
+      # rubocop:enable Metrics/LineLength
     end
   end
 

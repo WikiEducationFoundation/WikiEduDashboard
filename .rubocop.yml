@@ -2,6 +2,7 @@ AllCops:
   Exclude:
     - 'Gemfile'
     - 'Guardfile'
+    - 'Rakefile'
     - 'db/**/*'
     - 'node_modules/**/*'
     - 'config/**/*'

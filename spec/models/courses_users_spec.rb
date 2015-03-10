@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe CoursesUsers, type: :model do
-
   describe '.update_all_caches' do
     it 'should update data for course-user relationships' do
       # Add a user, a course, an article, and a revision.

@@ -4,9 +4,12 @@ describe Replica do
   describe 'API requests' do
     it 'should connect to replica tools' do
       response = Replica.connect_to_tool
+      # rubocop:disable Metrics/LineLength
       expect(response).to eq('You have successfully reached to the WikiEduDashboard tool hosted by the Wikimedia Tool Labs.')
+      # rubocop:enable Metrics/LineLength
     end
 
+    # rubocop:disable Style/NumericLiterals
     it 'should return revisions from this term' do
       VCR.use_cassette 'replica/revisions' do
         all_users = [
@@ -40,6 +43,7 @@ describe Replica do
         expect(response.count).to eq(1)
       end
     end
+    # rubocop:enable Style/NumericLiterals
 
     it 'should return a list of users who completed training' do
       VCR.use_cassette 'replica/training' do

@@ -7,7 +7,9 @@ describe User do
       ragesock = build(:user)
       ragesoss = build(:trained)
       expect(ragesock.wiki_id).to eq('Ragesock')
+      # rubocop:disable Metrics/LineLength
       expect(ragesoss.contribution_url).to eq("https://#{Figaro.env.wiki_language}.wikipedia.org/wiki/Special:Contributions/Ragesoss")
+      # rubocop:enable Metrics/LineLength
     end
   end
 

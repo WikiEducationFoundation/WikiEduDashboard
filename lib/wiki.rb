@@ -83,6 +83,7 @@ class Wiki
   # We simplify this parser by removing folding the nonstandard ratings
   # into the corresponding standard ones. We don't want to deal with edge cases
   # like bplus and a/ga.
+  # rubocop:disable Metrics/LineLength
   def self.parse_article_rating(raw_article)
     # Handle the case of nonexistent talk pages.
     if raw_article['missing']
@@ -116,6 +117,7 @@ class Wiki
     end
     # For other niche ratings like "cur" and "future", count them as unrated.
   end
+  # rubocop:enable Metrics/LineLength
 
   ###################
   # Request methods #
@@ -211,7 +213,9 @@ class Wiki
     end
 
     def handle_invalid_course_id(options, e)
+      # rubocop:disable Metrics/LineLength
       id = e.to_s[/(?<=MediaWiki::APIError: API error: code 'invalid-course', info 'Invalid course id: ).*?(?=')/]
+      # rubocop:enable Metrics/LineLength
       array = options['courseids'].split('|')
       # See Course.update_all_courses, which checks for 2 courses_ids beyond
       # the highest one found in the cohort lists from application.yml.

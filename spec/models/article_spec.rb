@@ -11,6 +11,7 @@ describe Article do
                       views_updated_at: '2014-12-31'.to_date
       )
 
+      # rubocop:disable Metrics/LineLength
       expect(article.url).to eq("https://#{Figaro.env.wiki_language}.wikipedia.org/wiki/Selfie")
 
       sandbox = build(:article, namespace: 2, title: 'Ragesoss/sandbox')
@@ -18,6 +19,7 @@ describe Article do
 
       draft = build(:article, namespace: 118, title: 'My Awesome Draft!!!')
       expect(draft.url).to eq("https://#{Figaro.env.wiki_language}.wikipedia.org/wiki/Draft:My_Awesome_Draft!!!")
+      # rubocop:enable Metrics/LineLength
     end
   end
 

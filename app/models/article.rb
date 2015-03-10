@@ -9,7 +9,7 @@ class Article < ActiveRecord::Base
   # Instance methods #
   ####################
   def url
-    escaped_title = title.gsub(" ", "_")
+    escaped_title = title.gsub(' ', '_')
     language = Figaro.env.wiki_language
     ns = {
       0 => '', # Mainspace for Wikipedia articles
@@ -24,8 +24,8 @@ class Article < ActiveRecord::Base
       119 => 'Draft_talk:'
     }
     prefix = ns[namespace]
-    
-    return "https://#{language}.wikipedia.org/wiki/#{prefix}#{escaped_title}"
+
+    "https://#{language}.wikipedia.org/wiki/#{prefix}#{escaped_title}"
   end
 
   def update(data={}, save=true)
@@ -37,7 +37,6 @@ class Article < ActiveRecord::Base
     end
     self.save if save
   end
-
 
   def update_views(all_time=false, views=nil)
     if views_updated_at < Date.today
@@ -59,8 +58,9 @@ class Article < ActiveRecord::Base
         end
         last = nv.sort_by { |(d)| d }.last.first.to_date unless nv.empty?
       end
-      if(self.revisions.order('date ASC').first.views - self.views > 0)
-        puts I18n.t('article.views_added', count: self.revisions.order('date ASC').first.views - self.views, title: self.title)
+      if (revisions.order('date ASC').first.views - self.views) > 0
+        view_count = revisions.order('date ASC').first.views - self.views
+        puts I18n.t('article.views_added', count: view_count, title: title)
       end
 
       self.views_updated_at = last.nil? ? views_updated_at : last

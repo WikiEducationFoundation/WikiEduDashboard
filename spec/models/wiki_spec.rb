@@ -13,6 +13,7 @@ describe Wiki do
     it 'should return course info for a certain course' do
       VCR.use_cassette 'wiki/course_data' do
         # A single course
+        # rubocop:disable Metrics/LineLength
         response = Wiki.get_course_info '351'
         expect(response[0]['course']['title']).to eq('HSCI 3013: History of Science to the Age of Newton')
         expect(response[0]['course']['term']).to eq('Summer 2014')
@@ -20,6 +21,7 @@ describe Wiki do
         expect(response[0]['course']['school']).to eq('University of Oklahoma')
         expect(response[0]['course']['start']).to eq('2014-05-12'.to_date)
         expect(response[0]['course']['end']).to eq('2014-06-25'.to_date)
+        # rubocop:enable Metrics/LineLength
 
         # Several courses, including some that don't exist
         course_ids = %w( 9999 351 366 398 2155897 411 415 9999 )
@@ -55,6 +57,7 @@ describe Wiki do
 
         # A mix of existing and non-existant, including ones with niche ratings.
         # Some of these ratings may change over time.
+        # rubocop:disable Metrics/LineLength
         articles = [
           'History of biology', # fa
           'Selfie', # c
@@ -76,6 +79,7 @@ describe Wiki do
           "Cycling at the 2016 Summer Olympics – Men's Omnium", # future, as of 2015-02-27
           'Selfie (disambiguation)' # no talk page
         ]
+        # rubocop:enable Metrics/LineLength
 
         response = Wiki.get_article_rating(articles)
         expect(response).to include('History of biology' => 'fa')
@@ -86,12 +90,14 @@ describe Wiki do
 
     it 'should return the raw page contents' do
       VCR.use_cassette 'wiki/article_ratings_raw' do
+        # rubocop:disable Metrics/LineLength
         articles = [
           'Talk:Selfie (disambiguation)', # probably doesn't exist; the corresponding article does
           'Talk:The American Monomyth', # exists
           'Talk:THIS PAGE WILL NEVER EXIST, RIGHT?', # definitely doesn't exist
           'Talk:List of Canadian plants by family S' # exists
         ]
+        # rubocop:enable Metrics/LineLength
         response = Wiki.get_article_rating_raw(articles)
         expect(response.count).to eq(4)
       end
