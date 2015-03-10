@@ -12,6 +12,10 @@ The Dashboard pulls information from the EducationProgram extension's Wikipedia 
  * The system uses a set of endpoints on Wikimedia Labs (see [WikiEduDashboardTools](https://github.com/WikiEducationFoundation/WikiEduDashboardTools)) to perform queries on a replica Wikipedia database, for information about articles and revisions related to the courses.
  * The system pulls page views (from [stats.grok.se](http://stats.grok.se)) for relevant articles on a daily basis.
 
+Contributing
+---------------
+This project adheres as strictly as possible to the community [Ruby Style Guide](https://github.com/bbatsov/ruby-style-guide). [Rubocop](https://github.com/bbatsov/rubocop) is used for this purpose and its associated editor integrations are highly recommended for contributors.
+
 Requirements
 ---------------
  * **Ruby (RVM recommended)**
