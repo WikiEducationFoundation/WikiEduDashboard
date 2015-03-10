@@ -1,8 +1,7 @@
+#= Revision model
 class Revision < ActiveRecord::Base
   belongs_to :user
   belongs_to :article
-
-
 
   ####################
   # Instance methods #
@@ -10,12 +9,8 @@ class Revision < ActiveRecord::Base
   def update(data={}, save=true)
     self.attributes = data
 
-    if save
-      self.save
-    end
+    self.save if save
   end
-
-
 
   #################
   # Class methods #
@@ -23,20 +18,21 @@ class Revision < ActiveRecord::Base
   def self.update_all_revisions
     results = []
     Course.all.each do |c|
-      start = c.revisions.count == 0 ? c.start : c.revisions.order("date DESC").first.date
-      start = start.strftime("%Y%m%d")
+      first_revision = c.revisions.order('date DESC').first.date
+      start = c.revisions.count == 0 ? c.start : first_revision
+      start = start.strftime('%Y%m%d')
       revisions = Utils.chunk_requests(c.users.student, 40) do |block|
-        Replica.get_revisions block, start, c.end.strftime("%Y%m%d")
+        Replica.get_revisions block, start, c.end.strftime('%Y%m%d')
       end
       results += revisions
     end
 
-    self.import_revisions(results)
+    import_revisions(results)
 
     ActiveRecord::Base.transaction do
-      Revision.joins(:article).where(articles: {namespace: "0"}).each do |r|
+      Revision.joins(:article).where(articles: { namespace: '0' }).each do |r|
         r.user.courses.each do |c|
-          if((!c.articles.include? r.article) && (c.start <= r.date))
+          if (!c.articles.include? r.article) && (c.start <= r.date)
             c.articles << r.article
           end
         end
@@ -45,16 +41,15 @@ class Revision < ActiveRecord::Base
   end
 
   def self.import_revisions(data)
-    articles = []
-    revisions = []
+    articles, revisions = []
 
-    data.each do |a_id, a|
-      article = Article.new(id: a["article"]["id"])
-      article.update(a["article"], false)
+    data.each do |_a_id, a|
+      article = Article.new(id: a['article']['id'])
+      article.update(a['article'], false)
       articles.push article
 
-      a["revisions"].each do |r|
-        revision = Revision.new(id: r["id"])
+      a['revisions'].each do |r|
+        revision = Revision.new(id: r['id'])
         revision.update(r, false)
         revisions.push revision
       end
@@ -70,8 +65,5 @@ class Revision < ActiveRecord::Base
         a.save
       end
     end
-
   end
-
-
 end

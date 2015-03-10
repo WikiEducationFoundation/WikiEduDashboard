@@ -1,3 +1,4 @@
+#= Course model
 class Course < ActiveRecord::Base
   has_many :courses_users, class_name: CoursesUsers
 
@@ -11,72 +12,55 @@ class Course < ActiveRecord::Base
 
   scope :cohort, -> (cohort) { where cohort: cohort }
 
-
   ####################
   # Instance methods #
   ####################
   def to_param
-    self.slug
+    slug
   end
-
 
   def update(data={}, save=true)
     if data.blank?
-      data = Wiki.get_course_info self.id
+      data = Wiki.get_course_info id
       data = data[0]
     end
-    self.attributes = data["course"]
-    if save
-      data["participants"].each_with_index do |(r, p), i|
-        User.add_users(data["participants"][r], i, self)
-      end
-      self.save
+
+    return unless save
+    data['participants'].each_with_index do |(r, _p), i|
+      User.add_users(data['participants'][r], i, self)
     end
+    save
   end
-
-
 
   #################
   # Cache methods #
   #################
   def character_sum
-    if(!read_attribute(:character_sum))
-      update_cache()
-    end
+    update_cache unless read_attribute(:character_sum)
     read_attribute(:character_sum)
   end
 
-
   def view_sum
-    if(!read_attribute(:view_sum))
-      update_cache()
-    end
+    update_cache unless read_attribute(:view_sum)
     read_attribute(:view_sum)
   end
-
 
   def user_count
     read_attribute(:user_count) || users.student.size
   end
 
-
   def untrained_count
-    if(!read_attribute(:untrained_count))
-      update_cache()
-    end
+    update_cache unless read_attribute(:untrained_count)
     read_attribute(:untrained_count)
   end
-
 
   def revision_count
     read_attribute(:revision_count) || revisions.size
   end
 
-
   def article_count
     read_attribute(:article_count) || articles.size
   end
-
 
   def update_cache
     # Do not consider revisions with negative byte changes
@@ -86,10 +70,8 @@ class Course < ActiveRecord::Base
     self.untrained_count = users.student.where(trained: false).size
     self.revision_count = revisions.size
     self.article_count = articles.size
-    self.save
+    save
   end
-
-
 
   #################
   # Class methods #
@@ -98,20 +80,20 @@ class Course < ActiveRecord::Base
     raw_ids = Wiki.course_list
     listed_ids = raw_ids.values.flatten
     course_ids = listed_ids | Course.all.pluck(:id).map(&:to_s)
-    minimum = course_ids.map(&:to_i).min
+    _minimum = course_ids.map(&:to_i).min
     maximum = course_ids.map(&:to_i).max
     # See also Wiki.handle_invalid_course_id, which has related logic for
     # handling course ids beyond the maximum found in the cohort lists.
     max_plus = maximum + 2
-    if(initial)
+    if initial
       course_ids = (0..max_plus).to_a.map(&:to_s)
     else
-      course_ids = course_ids | (maximum..max_plus).to_a.map(&:to_s)
+      course_ids ||= (maximum..max_plus).to_a.map(&:to_s)
     end
 
     # Break up course_ids into smaller groups that Wikipedia's API can handle.
-    data = Utils.chunk_requests(course_ids) {|c| Wiki.get_course_info c}
-    self.import_courses(raw_ids, data)
+    data = Utils.chunk_requests(course_ids) { |c| Wiki.get_course_info c }
+    import_courses(raw_ids, data)
   end
 
   def self.import_courses(raw_ids, data)
@@ -119,64 +101,72 @@ class Course < ActiveRecord::Base
     participants = {}
     listed_ids = raw_ids.values.flatten
     data.each do |c|
-      if listed_ids.include?(c["course"]["id"])
-        c["course"]["listed"] = true
-        c["course"]["cohort"] = raw_ids.reduce(nil) do |out, (cohort, cohort_courses)|
-          out = cohort_courses.include?(c["course"]["id"]) ? cohort : out
+      if listed_ids.include?(c['course']['id'])
+        c['course']['listed'] = true
+        c['course']['cohort'] = raw_ids.reduce(nil) do |out, (ch, ch_courses)|
+          ch_courses.include?(c['course']['id']) ? ch : out
         end
       else
-        c["course"]["listed"] = false
-        c["course"]["cohort"] = nil
+        c['course']['listed'] = false
+        c['course']['cohort'] = nil
       end
-      course = Course.new(id: c["course"]["id"])
+      course = Course.new(id: c['course']['id'])
       course.update(c, false)
       courses.push course
-      participants[c["course"]["id"]] = c["participants"]
+      participants[c['course']['id']] = c['participants']
     end
-    Course.import courses, :on_duplicate_key_update => [:start, :end, :listed, :cohort]
+    options = { on_duplicate_key_update: [:start, :end, :listed, :cohort] }
+    Course.import courses, options
 
+    import_users participants
+
+    import_assignments participants
+  end
+
+  def self.import_users(participants)
     users = []
-    participants.each do |course_id, groups|
-      groups.each_with_index do |(r, p), i|
+    participants.each do |_course_id, groups|
+      groups.each_with_index do |(r, _p), i|
         users = User.add_users(groups[r], i, nil, false) | users
       end
     end
     User.import users
+  end
 
+  def self.import_assignments(participants)
     assignments = []
     ActiveRecord::Base.transaction do
       participants.each do |course_id, group|
-        group_flattened = group.map{|g,gusers| gusers.empty? ? nil : gusers}.compact.flatten
-        user_ids = group_flattened.map{|user| user["id"]}
+        # Update enrollment (add/remove students)
+        group_flat = group.map { |_g, gusers| gusers.empty? ? nil : gusers }
+        group_flat = group_flat.compact.flatten
+        user_ids = group_flat.map { |user| user['id'] }
         course = Course.find_by(id: course_id)
         unless user_ids.empty?
           unless course.users.empty?
-            unenrolled = course.users.map {|u| u.id.to_s} - user_ids
+            unenrolled = course.users.map { |u| u.id.to_s } - user_ids
             # remove join tables for users no longer in this course
             course.users.delete(course.users.find(unenrolled))
           end
-          enrolled = user_ids - course.users.map {|u| u.id.to_s}
-          if enrolled.count > 0
-            course.users << User.find(enrolled)
-          end
+          enrolled = user_ids - course.users.map { |u| u.id.to_s }
+          course.users << User.find(enrolled) if enrolled.count > 0
         end
 
-        group_flattened.each do |user|
-          if user.has_key? "article"
-            unless user["article"].is_a?(Array)
-              user["article"] = [user["article"]]
-            end
-            user["article"].each do |article|
-              assignment = {
-                "user_id" => user["id"],
-                "course_id" => course_id,
-                "article_title" => article["title"],
-                "article_id" => nil
-              }
-              article = Article.find_by(title: article["title"])
-              assignment["article_id"] = article.nil? ? nil : article.id
-              assignments.push Assignment.new(assignment)
-            end
+        # Add assigned articles
+        group_flat.each do |user|
+          next unless user.key? 'article'
+          is_array = user['article'].is_a?(Array)
+          user['article'] = [user['article']] unless is_array
+          user['article'].each do |article|
+            assignment = {
+              'user_id' => user['id'],
+              'course_id' => course_id,
+              'article_title' => article['title'],
+              'article_id' => nil
+            }
+            article = Article.find_by(title: article['title'])
+            assignment['article_id'] = article.nil? ? nil : article.id
+            assignments.push Assignment.new(assignment)
           end
         end
       end
@@ -186,11 +176,7 @@ class Course < ActiveRecord::Base
 
   def self.update_all_caches
     Course.transaction do
-      Course.all.each do |c|
-        c.update_cache
-      end
+      Course.all.each(&:update_cache)
     end
   end
-
-
 end

@@ -1,3 +1,4 @@
+#= Article + Course join model
 class ArticlesCourses < ActiveRecord::Base
   belongs_to :article
   belongs_to :course
@@ -6,16 +7,12 @@ class ArticlesCourses < ActiveRecord::Base
   # Instance methods #
   ####################
   def view_count
-    if(!read_attribute(:view_count))
-      update_cache()
-    end
+    update_cache unless read_attribute(:view_count)
     read_attribute(:view_count)
   end
 
   def character_sum
-    if(!read_attribute(:character_sum))
-      update_cache()
-    end
+    update_cache unless read_attribute(:character_sum)
     read_attribute(:character_sum)
   end
 
@@ -29,19 +26,18 @@ class ArticlesCourses < ActiveRecord::Base
       self.view_count = 0
       self.character_sum = 0
     else
+      characters = revisions.where('characters >= 0').sum(:characters) || 0
       self.view_count = revisions.order('date ASC').first.views || 0
-      self.character_sum = revisions.where('characters >= 0').sum(:characters) || 0
+      self.character_sum = characters
       self.new_article = revisions.where(new_article: true).count > 0
     end
-    self.save
+    save
   end
 
   #################
   # Class methods #
   #################
   def self.update_all_caches
-    ArticlesCourses.all.each do |ac|
-      ac.update_cache
-    end
+    ArticlesCourses.all.each(&:update_cache)
   end
 end

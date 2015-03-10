@@ -5,7 +5,7 @@ class Grok
   #
   # [title]  title of a Wikipedia page (including namespace, if applicable)
   # [date]   a specific date
-  def self.get_views_since_date_for_article(title, date)
+  def self.views_for_article(title, date)
     i_date = date
     views = {}
     while Date.today >= i_date

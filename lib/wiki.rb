@@ -19,7 +19,7 @@ class Wiki
 
   def self.get_course_info(course_id)
     raw = get_course_info_raw(course_id)
-    [] unless raw
+    return [] unless raw
 
     if raw.is_a?(Array)
       raw.map { |course| parse_course_info(course) }
@@ -61,7 +61,7 @@ class Wiki
     end
 
     raw = get_article_rating_raw(titles)
-    [] unless raw
+    return [] unless raw
 
     # Pages that are missing get returned before pages that exist, so we cannot
     # count on our array being in the same order as article_title.
@@ -70,7 +70,6 @@ class Wiki
         # Remove "Talk:" from the "title" value to get the title.
         { article['title'][5..-1] => parse_article_rating(article) }
       end
-
     else
       [{ article_title => parse_article_rating(raw) }]
     end
