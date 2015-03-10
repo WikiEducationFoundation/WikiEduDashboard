@@ -1,3 +1,4 @@
+#= Controller for error functionality
 class ErrorsController < ApplicationController
   def file_not_found
   end

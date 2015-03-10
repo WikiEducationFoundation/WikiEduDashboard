@@ -1,3 +1,4 @@
+#= Root-level controller for the application
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -7,13 +8,13 @@ class ApplicationController < ActionController::Base
 
   helper_method :course_slug_path
   def course_slug_path(slug)
-    course_path(:id => slug).gsub("%2F", "/")
+    course_path(id: slug).gsub('%2F', '/')
   end
 
   helper_method :rtl?
   def rtl?
     tag = I18n::Locale::Tag::Rfc4646.tag(I18n.locale)
-    tag.language.in? ["ar", "dv", "fa", "he", "ku", "ps", "sd", "ug", "ur", "yi"]
+    tag.language.in? %w(ar dv fa he ku ps sd ug ur yi)
   end
 
   def set_locale
