@@ -15,12 +15,12 @@ describe Wiki do
         # A single course
         # rubocop:disable Metrics/LineLength
         response = Wiki.get_course_info '351'
-        expect(response[0]['course']['title']).to eq('NUSC 1P10 Professional and Therapeutic Communications')
-        expect(response[0]['course']['term']).to eq('Fall 2014')
-        expect(response[0]['course']['slug']).to eq('Brock_University/NUSC_1P10_Professional_and_Therapeutic_Communications_(Fall_2014)')
-        expect(response[0]['course']['school']).to eq('Brock University')
-        expect(response[0]['course']['start']).to eq('2014-08-01'.to_date)
-        expect(response[0]['course']['end']).to eq('2014-12-31'.to_date)
+        expect(response[0]['course']['title']).to eq('HSCI 3013: History of Science to the Age of Newton')
+        expect(response[0]['course']['term']).to eq('Summer 2014')
+        expect(response[0]['course']['slug']).to eq('University_of_Oklahoma/HSCI_3013:_History_of_Science_to_the_Age_of_Newton_(Summer_2014)')
+        expect(response[0]['course']['school']).to eq('University of Oklahoma')
+        expect(response[0]['course']['start']).to eq('2014-05-12'.to_date)
+        expect(response[0]['course']['end']).to eq('2014-06-25'.to_date)
         # rubocop:enable Metrics/LineLength
 
         # Several courses, including some that don't exist
