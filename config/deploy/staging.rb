@@ -7,9 +7,9 @@
 set :branch, 'master'
 set :rails_env, 'staging'
 
-role :app, %w{root@dashboard-testing.wikiedu.org}
-role :web, %w{root@dashboard-testing.wikiedu.org}
-role :db,  %w{root@dashboard-testing.wikiedu.org}
+role :app, %w(root@dashboard-testing.wikiedu.org)
+role :web, %w(root@dashboard-testing.wikiedu.org)
+role :db,  %w(root@dashboard-testing.wikiedu.org)
 
 set :deploy_to, '/var/www/dashboard-testing'
 
@@ -19,8 +19,10 @@ set :deploy_to, '/var/www/dashboard-testing'
 # server list. The second argument is a, or duck-types, Hash and is
 # used to set extended properties on the server.
 
-# server 'example.com', user: 'deploy', roles: %w{web app}, my_property: :my_value
-
+# server 'example.com',
+# user: 'deploy',
+# roles: %w{web app},
+# my_property: :my_value
 
 # Custom SSH Options
 # ==================

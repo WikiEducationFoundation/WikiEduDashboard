@@ -1,8 +1,7 @@
 require 'rails_helper'
 require 'media_wiki'
 
-describe Course, :type => :model do
-
+describe Course, type: :model do
   it 'should get data for a course' do
     VCR.use_cassette 'course/data' do
       course = build(:course)

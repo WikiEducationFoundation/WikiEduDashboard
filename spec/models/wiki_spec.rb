@@ -4,7 +4,8 @@ describe Wiki do
   describe 'API requests' do
     it 'should return the content of a page' do
       VCR.use_cassette 'wiki/course_list' do
-        response = Wiki.get_page_content('Wikipedia:Education program/Dashboard/test_ids')
+        title = 'Wikipedia:Education program/Dashboard/test_ids'
+        response = Wiki.get_page_content(title)
         expect(response).to eq("439\n456\n351")
       end
     end

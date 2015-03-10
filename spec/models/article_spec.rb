@@ -1,15 +1,14 @@
 require 'rails_helper'
 
 describe Article do
-
   describe '#url' do
     it 'should get the url for an article' do
       # Add an article
       article = build(:article,
-        id: 1,
-        title: 'Selfie',
-        namespace: 0,
-        views_updated_at: '2014-12-31'.to_date
+                      id: 1,
+                      title: 'Selfie',
+                      namespace: 0,
+                      views_updated_at: '2014-12-31'.to_date
       )
 
       expect(article.url).to eq('https://en.wikipedia.org/wiki/Selfie')
@@ -27,10 +26,10 @@ describe Article do
       VCR.use_cassette 'article/update' do
         # Add an article
         article = build(:article,
-          id: 1,
-          title: 'Selfie',
-          namespace: 0,
-          views_updated_at: '2014-12-31'.to_date
+                        id: 1,
+                        title: 'Selfie',
+                        namespace: 0,
+                        views_updated_at: '2014-12-31'.to_date
         )
 
         # Run update with no revisions
@@ -39,12 +38,11 @@ describe Article do
 
         # Add a revision and update again.
         build(:revision,
-          article_id: 1,
-          views: 10
+              article_id: 1,
+              views: 10
         ).save
         article.update
         expect(article.views).to eq(10)
-
       end
     end
   end
@@ -54,35 +52,35 @@ describe Article do
       VCR.use_cassette 'article/update_views' do
         # Add an article
         article = build(:article,
-          id: 1,
-          title: 'Selfie',
-          namespace: 0,
-          views_updated_at: '2014-12-31'.to_date
+                        id: 1,
+                        title: 'Selfie',
+                        namespace: 0,
+                        views_updated_at: '2014-12-31'.to_date
         )
 
         # Add a revision so that update_views has something to run on.
         build(:revision,
-          article_id: 1,
+              article_id: 1
         ).save
         article.update_views
         expect(article.views).to be > 0
       end
-    end  
+    end
   end
 
   describe 'cache methods' do
     it 'should update article cache data' do
       # Add an article
       article = build(:article,
-        id: 1,
-        title: 'Selfie',
-        namespace: 0,
-        views_updated_at: '2014-12-31'.to_date
+                      id: 1,
+                      title: 'Selfie',
+                      namespace: 0,
+                      views_updated_at: '2014-12-31'.to_date
       )
 
       # Add a revision so that update_views has something to run on.
       build(:revision,
-        article_id: 1,
+            article_id: 1
       ).save
 
       article.update_cache
@@ -94,30 +92,29 @@ describe Article do
   describe '.update_all_views' do
     it 'should get view data for all articles' do
       VCR.use_cassette 'article/update_all_views' do
-
         # Try it with no articles.
         Article.update_all_views
 
         # Add an article
         build(:article,
-          id: 1,
-          title: 'Selfie',
-          namespace: 0,
-          views_updated_at: '2014-12-31'.to_date
+              id: 1,
+              title: 'Selfie',
+              namespace: 0,
+              views_updated_at: '2014-12-31'.to_date
         ).save
 
         # Course, article-course, and revision are also needed.
         build(:course,
-          id: 1,
-          start: '2014-01-01'.to_date
+              id: 1,
+              start: '2014-01-01'.to_date
         ).save
         build(:articles_course,
-          id: 1,
-          course_id: 1,
-          article_id: 1
+              id: 1,
+              course_id: 1,
+              article_id: 1
         ).save
         build(:revision,
-          article_id: 1,
+              article_id: 1
         ).save
 
         # Update again with this article.
@@ -129,29 +126,28 @@ describe Article do
   describe '.update_new_views' do
     it 'should get view data for new articles' do
       VCR.use_cassette 'article/update_new_views' do
-
         # Try it with no articles.
         Article.update_new_views
 
         # Add an article.
         build(:article,
-          id: 1,
-          title: 'Selfie',
-          namespace: 0,
+              id: 1,
+              title: 'Selfie',
+              namespace: 0
         ).save
 
         # Course, article-course, and revision are also needed.
         build(:course,
-          id: 1,
-          start: '2014-01-01'.to_date
+              id: 1,
+              start: '2014-01-01'.to_date
         ).save
         build(:articles_course,
-          id: 1,
-          course_id: 1,
-          article_id: 1
+              id: 1,
+              course_id: 1,
+              article_id: 1
         ).save
         build(:revision,
-          article_id: 1,
+              article_id: 1
         ).save
 
         # Update again with this article.
@@ -167,16 +163,15 @@ describe Article do
 
       # Add an article.
       build(:article,
-        id: 1,
-        title: 'Selfie',
-        namespace: 0,
+            id: 1,
+            title: 'Selfie',
+            namespace: 0
       ).save
 
       # Update again with this article.
       Article.update_all_caches
     end
   end
-
 
   # TODO: This method is incomplete. Ratings are not saved, and the 'articles'
   # parameter is not used.
@@ -188,17 +183,14 @@ describe Article do
 
         # Add an article.
         build(:article,
-          id: 1,
-          title: 'Selfie',
-          namespace: 0,
+              id: 1,
+              title: 'Selfie',
+              namespace: 0
         ).save
 
         # Update again with this article.
         Article.update_ratings('foo')
-        
       end
     end
   end
-
-
 end

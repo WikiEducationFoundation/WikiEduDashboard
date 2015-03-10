@@ -3,6 +3,4 @@ FactoryGirl.define do
     title 'History of biology'
     namespace 0
   end
-  
-  
 end

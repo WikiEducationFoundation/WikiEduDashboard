@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   has_many :articles, -> { uniq }, through: :revisions
   has_many :assignments
 
-  enum role: [ :student, :instructor, :online_volunteer, :campus_volunteer, :wiki_ed_staff ]
+  enum role: [:student, :instructor, :online_volunteer, :campus_volunteer, :wiki_ed_staff ]
 
   ####################
   # Instance methods #

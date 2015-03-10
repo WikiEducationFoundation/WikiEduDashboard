@@ -1,3 +1,12 @@
+AllCops:
+  Exclude:
+    - 'Gemfile'
+    - 'Guardfile'
+    - 'db/**/*'
+    - 'node_modules/**/*'
+    - 'config/**/*'
+    - 'bin/**/*'
+
 Metrics/MethodLength:
   Max: 20               # Max number of lines in a method
 Metrics/AbcSize:

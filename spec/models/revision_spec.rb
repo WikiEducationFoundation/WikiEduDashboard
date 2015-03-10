@@ -1,17 +1,16 @@
 require 'rails_helper'
 
 describe Revision do
-
   describe '#update' do
     it 'should update a revision with new data' do
       revision = build(:revision,
-        id: 1,
-        article_id: 1,
+                       id: 1,
+                       article_id: 1
       )
-      revision.update({
+      revision.update(
         user_id: 1,
         views: 9000
-      })
+      )
       expect(revision.views).to eq(9000)
       expect(revision.user_id).to eq(1)
     end
@@ -25,25 +24,24 @@ describe Revision do
 
         # Now add a course with a user.
         build(:course,
-          id: 1,
-          start: '2014-01-01'.to_date,
-          end: '2015-01-01'.to_date,
+              id: 1,
+              start: '2014-01-01'.to_date,
+              end: '2015-01-01'.to_date
         ).save
         build(:user,
-          id: 1,
-          wiki_id: 'Ragesoss',
+              id: 1,
+              wiki_id: 'Ragesoss'
         ).save
         build(:courses_user,
-          id: 1,
-          user_id: 1,
-          course_id: 1,
+              id: 1,
+              user_id: 1,
+              course_id: 1
         ).save
 
         # Try it again with data to pull.
-        #FIXME: This one will fail.
-        #Revision.update_all_revisions
+        # FIXME: This one will fail.
+        # Revision.update_all_revisions
       end
     end
   end
-  
 end
