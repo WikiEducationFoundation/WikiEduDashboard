@@ -7,23 +7,23 @@ class CoursesUsers < ActiveRecord::Base
   # Instance methods #
   ####################
   def character_sum_ms
-    update_cache unless read_attribute(:character_sum_ms)
-    read_attribute(:character_sum_ms)
+    update_cache unless self[:character_sum_ms]
+    self[:character_sum_ms]
   end
 
   def character_sum_us
-    update_cache unless read_attribute(:character_sum_us)
-    read_attribute(:character_sum_us)
+    update_cache unless self[:character_sum_us]
+    self[:character_sum_us]
   end
 
   def revision_count
-    update_cache unless read_attribute(:revision_count)
-    read_attribute(:revision_count)
+    update_cache unless self[:revision_count]
+    self[:revision_count]
   end
 
   def assigned_article_title
-    update_cache unless read_attribute(:assigned_article_title)
-    read_attribute(:assigned_article_title)
+    update_cache unless self[:assigned_article_title]
+    self[:assigned_article_title]
   end
 
   def update_cache

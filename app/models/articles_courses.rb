@@ -7,17 +7,17 @@ class ArticlesCourses < ActiveRecord::Base
   # Instance methods #
   ####################
   def view_count
-    update_cache unless read_attribute(:view_count)
-    read_attribute(:view_count)
+    update_cache unless self[:view_count]
+    self[:view_count]
   end
 
   def character_sum
-    update_cache unless read_attribute(:character_sum)
-    read_attribute(:character_sum)
+    update_cache unless self[:character_sum]
+    self[:character_sum]
   end
 
   def new_article
-    read_attribute(:new_article)
+    self[:new_article]
   end
 
   def update_cache

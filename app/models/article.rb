@@ -74,12 +74,12 @@ class Article < ActiveRecord::Base
   # Cache methods #
   #################
   def character_sum
-    update_cache unless read_attribute(:character_sum)
-    read_attribute(:character_sum)
+    update_cache unless self[:character_sum]
+    self[:character_sum]
   end
 
   def revision_count
-    read_attribute(:revision_count) || revisions.size
+    self[:revision_count] || revisions.size
   end
 
   def update_cache
