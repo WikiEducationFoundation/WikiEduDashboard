@@ -72,14 +72,14 @@ describe Replica do
         ]
         # rubocop:disable Style/NumericLiterals
         rev_start = 2015_02_12_003430
-        rev_end = 2015_12_31_003430
+        rev_end = 2015_03_10_003430
         # rubocop:enable Style/NumericLiterals
 
         all_users.each_with_index do |u, i|
           all_users[i] = OpenStruct.new u
         end
         response = Replica.get_revisions(all_users, rev_start, rev_end)
-        expect(response.count).to eq(20)  # cassette accurate as of 3/11/15
+        expect(response.count).to eq(20)
       end
     end
   end
