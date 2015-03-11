@@ -17,21 +17,17 @@ class Replica
   def self.get_revisions(users, rev_start, rev_end)
     raw = Replica.get_revisions_raw(users, rev_start, rev_end)
     data = {}
-    if raw.is_a?(Array)
-      raw.each do |revision|
-        parsed = Replica.parse_revision(revision)
-        article_id = parsed['article']['id']
-        unless data.include?(article_id)
-          data[article_id] = {}
-          data[article_id]['article'] = parsed['article']
-          data[article_id]['revisions'] = []
-        end
-        data[article_id]['revisions'].push parsed['revision']
+    raw.each do |revision|
+      parsed = Replica.parse_revision(revision)
+      article_id = parsed['article']['id']
+      unless data.include?(article_id)
+        data[article_id] = {}
+        data[article_id]['article'] = parsed['article']
+        data[article_id]['revisions'] = []
       end
-      data
-    elsif !raw.nil?
-      Replica.parse_revision(raw)
+      data[article_id]['revisions'].push parsed['revision']
     end
+    data
   end
 
   # Given a single raw json revision, parse it into a more useful format.
@@ -133,7 +129,9 @@ class Replica
     #  }]
     def api_get(endpoint, query='')
       language = Figaro.env.wiki_language
+      # rubocop:disable Metrics/LineLength
       url = "http://tools.wmflabs.org/wikiedudashboard/#{endpoint}?lang=#{language}&#{query}"
+      # rubocop:enable Metrics/LineLength
       response = Net::HTTP::get(URI.parse(url))
 
       return unless response.length > 0

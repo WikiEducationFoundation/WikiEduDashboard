@@ -61,11 +61,26 @@ describe Replica do
         expect(response.count).to eq(3)
       end
     end
-  end
 
-  # describe "API response parsing" do
-  #   it "should return the number of characters from a certain revision" do
-  #     pending("Awaiting implementation")
-  #   end
-  # end
+    it 'should function identically on non-English wikis' do
+      VCR.use_cassette 'replica/es_revisions' do
+        allow(Figaro.env).to receive(:wiki_language).and_return('es')
+        all_users = [
+          { 'wiki_id' => 'AndresAlvarezGalina95' },
+          { 'wiki_id' => 'Patyelena25' },
+          { 'wiki_id' => 'Lizmich91' }
+        ]
+        # rubocop:disable Style/NumericLiterals
+        rev_start = 2015_02_12_003430
+        rev_end = 2015_12_31_003430
+        # rubocop:enable Style/NumericLiterals
+
+        all_users.each_with_index do |u, i|
+          all_users[i] = OpenStruct.new u
+        end
+        response = Replica.get_revisions(all_users, rev_start, rev_end)
+        expect(response.count).to eq(20)  # cassette accurate as of 3/11/15
+      end
+    end
+  end
 end
