@@ -64,7 +64,7 @@ describe ArticlesCourses, type: :model do
       # Run the cache update again with an existing revision.
       ArticlesCourses.update_all_caches
 
-      # Fetch the created CoursesUsers entry
+      # Fetch the created ArticlesCourses entry
       article_course = ArticlesCourses.all.first
 
       expect(article_course.view_count).to eq(1234)

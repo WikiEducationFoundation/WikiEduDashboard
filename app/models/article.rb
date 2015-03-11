@@ -66,11 +66,7 @@ class Article < ActiveRecord::Base
       self.views_updated_at = last.nil? ? views_updated_at : last
     end
 
-    if revisions.count > 0
-      self.views = revisions.order('date ASC').first.views
-    else
-      self.views = 0
-    end
+    self.views = revisions.order('date ASC').first.views
     save
   end
 

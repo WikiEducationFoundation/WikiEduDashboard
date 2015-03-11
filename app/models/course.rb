@@ -87,7 +87,7 @@ class Course < ActiveRecord::Base
   # Class methods #
   #################
   def self.update_all_courses(initial=false, raw_ids={})
-    raw_ids ||= Wiki.course_list
+    raw_ids = Wiki.course_list if raw_ids.empty?
     listed_ids = raw_ids.values.flatten
     course_ids = listed_ids | Course.all.pluck(:id).map(&:to_s)
     _minimum = course_ids.map(&:to_i).min
