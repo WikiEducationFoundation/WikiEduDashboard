@@ -98,7 +98,7 @@ class Course < ActiveRecord::Base
     if initial
       course_ids = (0..max_plus).to_a.map(&:to_s)
     else
-      course_ids ||= (maximum..max_plus).to_a.map(&:to_s)
+      course_ids |= (maximum..max_plus).to_a.map(&:to_s)
     end
 
     # Break up course_ids into smaller groups that Wikipedia's API can handle.
