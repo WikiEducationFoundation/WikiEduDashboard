@@ -6,12 +6,11 @@ describe ArticlesCourses, type: :model do
   describe '.update_all_caches' do
     it 'should update data for article-course relationships' do
       # Make an article-course.
-      article_course = build(:articles_course,
-                             id: 1,
-                             article_id: 1,
-                             course_id: 1
-      )
-      article_course.save
+      build(:articles_course,
+            id: 1,
+            article_id: 1,
+            course_id: 1
+      ).save
 
       # Add a user, a course, and an article.
       build(:user,
@@ -65,13 +64,12 @@ describe ArticlesCourses, type: :model do
       # Run the cache update again with an existing revision.
       ArticlesCourses.update_all_caches
 
-      # FIXME: Make the view count, new article status and character sum
-      # update so that the view_count, new_article, and character_sum values
-      # reflect the revision above.
+      # Fetch the created CoursesUsers entry
+      article_course = ArticlesCourses.all.first
 
-      expect(article_course.view_count).to be_kind_of(Integer)
-      expect(article_course.new_article).to be_boolean
-      expect(article_course.character_sum).to be_kind_of(Integer)
+      expect(article_course.view_count).to eq(1234)
+      expect(article_course.new_article).to be true
+      expect(article_course.character_sum).to eq(9000)
     end
   end
 end
