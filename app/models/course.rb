@@ -18,6 +18,7 @@ class Course < ActiveRecord::Base
   # Instance methods #
   ####################
   def to_param
+    # This method is used by ActiveRecord
     slug
   end
 
@@ -38,7 +39,7 @@ class Course < ActiveRecord::Base
     data['participants'].each_with_index do |(r, _p), i|
       User.add_users(data['participants'][r], i, self)
     end
-    save
+    self.save
   end
 
   #################
@@ -85,8 +86,8 @@ class Course < ActiveRecord::Base
   #################
   # Class methods #
   #################
-  def self.update_all_courses(initial=false)
-    raw_ids = Wiki.course_list
+  def self.update_all_courses(initial=false, raw_ids={})
+    raw_ids ||= Wiki.course_list
     listed_ids = raw_ids.values.flatten
     course_ids = listed_ids | Course.all.pluck(:id).map(&:to_s)
     _minimum = course_ids.map(&:to_i).min
