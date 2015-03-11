@@ -130,7 +130,7 @@ class Wiki
     begin
       response = @mw.get(page_title, options)
     rescue MediaWiki::APIError => e
-      puts "Caught #{e}"
+      Rails.logger.warn "Caught #{e}"
     end
     response
   end
@@ -179,11 +179,9 @@ class Wiki
         password = Figaro.env.wikipedia_password!
         @mw.login(username, password)
       rescue RestClient::RequestTimeout => e
-        puts "Caught #{e}"
         Rails.logger.warn "Caught #{e}"
         gateway
       rescue MediaWiki::APIError => e
-        puts "Caught #{e}"
         Rails.logger.warn "Caught #{e}"
         gateway
       end

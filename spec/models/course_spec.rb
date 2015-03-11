@@ -85,10 +85,10 @@ describe Course, type: :model do
 
     # Make a course-user and save it.
     build(:courses_user,
-                        id: 1,
-                        course_id: 1,
-                        user_id: 1,
-                        assigned_article_title: 'Selfie'
+          id: 1,
+          course_id: 1,
+          user_id: 1,
+          assigned_article_title: 'Selfie'
     ).save
 
     # Make an article-course.

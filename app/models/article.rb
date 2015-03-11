@@ -60,7 +60,8 @@ class Article < ActiveRecord::Base
       end
       if (revisions.order('date ASC').first.views - self.views) > 0
         view_count = revisions.order('date ASC').first.views - self.views
-        puts I18n.t('article.views_added', count: view_count, title: title)
+        Rails.logger.info I18n
+          .t('article.views_added', count: view_count, title: title)
       end
 
       self.views_updated_at = last.nil? ? views_updated_at : last
@@ -74,12 +75,12 @@ class Article < ActiveRecord::Base
   # Cache methods #
   #################
   def character_sum
-    update_cache unless read_attribute(:character_sum)
-    read_attribute(:character_sum)
+    update_cache unless self[:character_sum]
+    self[:character_sum]
   end
 
   def revision_count
-    read_attribute(:revision_count) || revisions.size
+    self[:revision_count] || revisions.size
   end
 
   def update_cache
