@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe User do
-
   describe 'user creation' do
     it 'should create User objects' do
       ragesock = build(:user)
@@ -19,7 +18,7 @@ describe User do
       build(:user).save
       ragesoss = User.all.first
       expect(ragesoss.trained).to eq(false)
-      
+
       # Update trained users to see that user has really been trained
       User.update_trained_users
       ragesoss = User.all.first

@@ -23,23 +23,23 @@ class User < ActiveRecord::Base
   # Cache methods #
   #################
   def view_sum
-    read_attribute(:view_sum) || articles.map(&:views).inject(:+) || 0
+    self[:view_sum] || articles.map(&:views).inject(:+) || 0
   end
 
   def course_count
-    read_attribute(:course_count) || courses.size
+    self[:course_count] || courses.size
   end
 
   def revision_count(after_date=nil)
     if after_date.nil?
-      read_attribute(:revision_count) || revisions.size
+      self[:revision_count] || revisions.size
     else
       revisions.after_date(after_date).size
     end
   end
 
   def article_count
-    read_attribute(:article_count) || article.size
+    self[:article_count] || article.size
   end
 
   def update_cache
@@ -99,5 +99,4 @@ class User < ActiveRecord::Base
       User.all.each(&:update_cache)
     end
   end
-
 end

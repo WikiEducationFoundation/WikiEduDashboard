@@ -46,30 +46,30 @@ class Course < ActiveRecord::Base
   # Cache methods #
   #################
   def character_sum
-    update_cache unless read_attribute(:character_sum)
-    read_attribute(:character_sum)
+    update_cache unless self[:character_sum]
+    self[:character_sum]
   end
 
   def view_sum
-    update_cache unless read_attribute(:view_sum)
-    read_attribute(:view_sum)
+    update_cache unless self[:view_sum]
+    self[:view_sum]
   end
 
   def user_count
-    read_attribute(:user_count) || users.student.size
+    self[:user_count] || users.student.size
   end
 
   def untrained_count
-    update_cache unless read_attribute(:untrained_count)
-    read_attribute(:untrained_count)
+    update_cache unless self[:untrained_count]
+    self[:untrained_count]
   end
 
   def revision_count
-    read_attribute(:revision_count) || revisions.size
+    self[:revision_count] || revisions.size
   end
 
   def article_count
-    read_attribute(:article_count) || articles.size
+    self[:article_count] || articles.size
   end
 
   def update_cache
