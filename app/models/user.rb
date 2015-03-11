@@ -99,5 +99,4 @@ class User < ActiveRecord::Base
       User.all.each(&:update_cache)
     end
   end
-
 end

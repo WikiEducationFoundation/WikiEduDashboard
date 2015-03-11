@@ -20,5 +20,4 @@ FactoryGirl.define do
     article_id nil
     article_title 'Faecal calprotectin'
   end
-
 end
