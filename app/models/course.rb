@@ -28,6 +28,12 @@ class Course < ActiveRecord::Base
     "https://#{language}.wikipedia.org/wiki/Education_Program:#{escaped_slug}"
   end
 
+  def delist
+    self.listed = false
+    self.cohort = nil
+    save
+  end
+
   def update(data={}, save=true)
     if data.blank?
       data = Wiki.get_course_info id
@@ -110,6 +116,13 @@ class Course < ActiveRecord::Base
     courses = []
     participants = {}
     listed_ids = raw_ids.values.flatten
+
+    # Delist courses that have been deleted
+    Course.where(listed: true).each do |c|
+      c.delist unless listed_ids.include?(c.id)
+    end
+
+    # Update courses from new data
     data.each do |c|
       if listed_ids.include?(c['course']['id'])
         c['course']['listed'] = true

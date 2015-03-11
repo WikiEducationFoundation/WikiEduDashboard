@@ -29,7 +29,7 @@ describe Course, type: :model do
     end
   end
 
-  it 'should unlist courses that are not listed remotely' do
+  it 'should unlist courses that have been delisted' do
     VCR.use_cassette 'wiki/course_list' do
       build(:course,
             id: 589,
@@ -37,11 +37,29 @@ describe Course, type: :model do
             end: '2015-07-01'.to_date,
             title: 'Underwater basket-weaving',
             listed: true,
-            cohort: 'Spring 3015'
+            cohort: 'Spring 2000'
       ).save
 
       Course.update_all_courses
       course = Course.find(589)
+      expect(course.listed).to be false
+      expect(course.cohort).to be nil
+    end
+  end
+
+  it 'should unlist courses that have been deleted from Wikipedia' do
+    VCR.use_cassette 'wiki/course_list' do
+      build(:course,
+            id: 9999,
+            start: '2015-01-01'.to_date,
+            end: '2015-07-01'.to_date,
+            title: 'Underwater basket-weaving',
+            listed: true,
+            cohort: 'Spring 2000'
+      ).save
+
+      Course.update_all_courses
+      course = Course.find(9999)
       expect(course.listed).to be false
       expect(course.cohort).to be nil
     end
