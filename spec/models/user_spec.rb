@@ -15,12 +15,15 @@ describe User do
 
   describe 'training update' do
     it 'should update which users have completed training' do
-      ragesoss = build(:user)
+      # Create a new user, who by default is assumed not to have been trained.
+      build(:user).save
+      ragesoss = User.all.first
       expect(ragesoss.trained).to eq(false)
+      
+      # Update trained users to see that user has really been trained
       User.update_trained_users
-      # FIXME: test should properly run update_trained_users and then report
-      # that Ragesoss has in fact completed the training.
-      # expect(ragesoss.trained).to eq(true)
+      ragesoss = User.all.first
+      expect(ragesoss.trained).to eq(true)
     end
   end
 end
