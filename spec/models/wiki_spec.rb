@@ -60,7 +60,7 @@ describe Wiki do
         # rubocop:disable Metrics/LineLength
         articles = [
           'History of biology', # fa
-          'Selfie', # c
+          'A Clash of Kings', # c
           'Ecology', # ga
           'Fast inverse square root', # ga
           'Nansenflua', # unassessed

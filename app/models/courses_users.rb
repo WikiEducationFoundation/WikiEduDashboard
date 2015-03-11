@@ -44,8 +44,9 @@ class CoursesUsers < ActiveRecord::Base
       .where('date >= ?', course.start)
       .count || 0
     assignments = user.assignments.where(course_id: course.id)
-    first_title = assignments.first.article_title
-    self.assigned_article_title = assignments.empty? ? nil : first_title
+    # rubocop:disable Metrics/LineLength
+    self.assigned_article_title = assignments.empty? ? nil : assignments.first.article_title
+    # rubocop:enable Metrics/LineLength
     save
   end
 

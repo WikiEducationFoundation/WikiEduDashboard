@@ -39,13 +39,12 @@ describe CoursesUsers, type: :model do
       ).save
 
       # Make a course-user and save it.
-      course_user = build(:courses_user,
+      build(:courses_user,
                           id: 1,
                           course_id: 1,
                           user_id: 1,
                           assigned_article_title: 'Selfie'
-      )
-      course_user.save
+      ).save
 
       # Make an article-course.
       build(:articles_course,
@@ -54,21 +53,17 @@ describe CoursesUsers, type: :model do
             course_id: 1
       ).save
 
-      User.update_all_caches
-      Course.update_all_caches
-      ArticlesCourses.update_all_caches
-      # Use .update_all_caches to bring everything together.
+      # Update caches for all CoursesUsers
       CoursesUsers.update_all_caches
 
-      # Check to see if the expected data got cached.
-      # FIXME: Put things together in a way that correctly updates
-      # these things to reflect the revision to the assigned article.
-      expect(course_user.revision_count).to be_kind_of(Integer)
-      # expect(course_user.revision_count).to eq(1)
+      # Fetch the created CoursesUsers entry
+      course_user = CoursesUsers.all.first
 
+      # Check to see if the expected data got cached
+      expect(course_user.revision_count).to eq(1)
       expect(course_user.assigned_article_title).to eq('Selfie')
-      expect(course_user.character_sum_ms).to be_kind_of(Integer)
-      expect(course_user.character_sum_us).to be_kind_of(Integer)
+      expect(course_user.character_sum_ms).to eq(9000)
+      expect(course_user.character_sum_us).to eq(0)
     end
   end
 end
