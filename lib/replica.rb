@@ -129,9 +129,8 @@ class Replica
     #  }]
     def api_get(endpoint, query='')
       language = Figaro.env.wiki_language
-      # rubocop:disable Metrics/LineLength
-      url = "http://tools.wmflabs.org/wikiedudashboard/#{endpoint}?lang=#{language}&#{query}"
-      # rubocop:enable Metrics/LineLength
+      base_url = 'http://tools.wmflabs.org/wikiedudashboard/'
+      url = "#{base_url}#{endpoint}?lang=#{language}&#{query}"
       response = Net::HTTP::get(URI.parse(url))
 
       return unless response.length > 0

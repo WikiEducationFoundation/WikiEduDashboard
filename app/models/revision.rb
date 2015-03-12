@@ -18,9 +18,8 @@ class Revision < ActiveRecord::Base
   def self.update_all_revisions
     results = []
     Course.all.each do |c|
-      rev_count = c.revisions.count
       start = c.start
-      start = c.revisions.order('date DESC').first.date unless rev_count == 0
+      start = c.revisions.order('date DESC').first.date if c.revisions.count > 0
       start = start.strftime('%Y%m%d')
       revisions = Utils.chunk_requests(c.users.student, 40) do |block|
         Replica.get_revisions block, start, c.end.strftime('%Y%m%d')
