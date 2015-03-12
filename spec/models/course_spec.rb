@@ -15,6 +15,13 @@ describe Course, type: :model do
     end
   end
 
+  it 'should seek data for all possible courses' do
+    VCR.use_cassette 'wiki/initial' do
+      Course.update_all_courses(true, hash: '1')
+      expect(Course.all.count).to eq(1)
+    end
+  end
+
   it 'should perform ad-hoc course updates' do
     VCR.use_cassette 'wiki/course_data' do
       build(:course, id: '351').save
@@ -63,6 +70,49 @@ describe Course, type: :model do
       expect(course.listed).to be false
       expect(course.cohort).to be nil
     end
+  end
+
+  it 'should remove users who have been unenrolled from a course' do
+    build(:course,
+          id: 1,
+          start: '2015-01-01'.to_date,
+          end: '2015-07-01'.to_date,
+          title: 'Underwater basket-weaving'
+    ).save
+
+    build(:user,
+          id: 1,
+          wiki_id: 'Ragesoss'
+    ).save
+    build(:user,
+          id: 2,
+          wiki_id: 'ntdb'
+    ).save
+
+    build(:courses_user,
+          id: 1,
+          course_id: 1,
+          user_id: 1
+    ).save
+    build(:courses_user,
+          id: 2,
+          course_id: 1,
+          user_id: 2
+    ).save
+
+    course = Course.all.first
+    expect(course.users.count).to eq(2)
+    expect(CoursesUsers.all.count).to eq(2)
+
+    data = { '1' => {
+      'student' => [{ 'id' => '1', 'username' => 'Ragesoss' }]
+    } }
+    Course.import_assignments data
+
+    course = Course.all.first
+    expect(course.users.count).to eq(1)
+    expect(CoursesUsers.all.count).to eq(1)
+
   end
 
   it 'should cache revision data for students' do
