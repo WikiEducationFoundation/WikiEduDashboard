@@ -15,7 +15,7 @@
       </p>
     </div>
     <div class="user-list__row__edits">
-      <% @assignment = cu.user.assignments.first %>
+      <% @assignment = cu.user.assignments.where(course_id: @course.id).order('assignments.created_at DESC').first %>
       <% if @assignment.nil? %>
         <p class='edits red'><%= t("user.assigned_none") %></p>
       <% else %>
