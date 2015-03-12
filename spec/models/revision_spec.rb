@@ -29,7 +29,7 @@ describe Revision do
           Course.update_all_courses(false, hash: '351')
         end
         Revision.update_all_revisions
-        expect(Revision.all.count).to eq(433)
+        expect(Revision.all.count).to eq(1919)
       end
     end
   end
