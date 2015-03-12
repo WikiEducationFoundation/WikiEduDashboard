@@ -14,7 +14,11 @@ The Dashboard pulls information from the EducationProgram extension's Wikipedia 
 
 Contributing
 ---------------
+#### Code Style
 This project adheres as strictly as possible to the community [Ruby Style Guide](https://github.com/bbatsov/ruby-style-guide). [Rubocop](https://github.com/bbatsov/rubocop) is used for this purpose and its associated editor integrations are highly recommended for contributors.
+
+#### Tests
+Write unit tests before building new features whenever possible. Existing tests reside in the `/spec` folder. This project uses [RSpec](https://github.com/rspec/rspec) in conjuction with [SimpleCov](https://github.com/colszowka/simplecov) for unit testing. 
 
 Requirements
 ---------------
