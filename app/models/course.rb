@@ -28,6 +28,12 @@ class Course < ActiveRecord::Base
     "https://#{language}.wikipedia.org/wiki/Education_Program:#{escaped_slug}"
   end
 
+  def delist
+    self.listed = false
+    self.cohort = nil
+    save
+  end
+
   def update(data={}, save=true)
     if data.blank?
       data = Wiki.get_course_info id
@@ -98,7 +104,7 @@ class Course < ActiveRecord::Base
     if initial
       course_ids = (0..max_plus).to_a.map(&:to_s)
     else
-      course_ids ||= (maximum..max_plus).to_a.map(&:to_s)
+      course_ids |= (maximum..max_plus).to_a.map(&:to_s)
     end
 
     # Break up course_ids into smaller groups that Wikipedia's API can handle.
@@ -110,6 +116,13 @@ class Course < ActiveRecord::Base
     courses = []
     participants = {}
     listed_ids = raw_ids.values.flatten
+
+    # Delist courses that have been deleted
+    Course.where(listed: true).each do |c|
+      c.delist unless listed_ids.include?(c.id)
+    end
+
+    # Update courses from new data
     data.each do |c|
       if listed_ids.include?(c['course']['id'])
         c['course']['listed'] = true

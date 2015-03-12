@@ -4,9 +4,7 @@ require 'media_wiki'
 describe Course, type: :model do
   it 'should update data for all courses on demand' do
     VCR.use_cassette 'wiki/course_data' do
-      course_id = '351'
-      raw_ids = { hash: course_id }
-      Course.update_all_courses(false, raw_ids)
+      Course.update_all_courses(false, hash: '351')
       Course.update_all_caches
 
       course = Course.all.first
@@ -28,6 +26,42 @@ describe Course, type: :model do
       expect(course.term).to eq('Summer 2014')
       expect(course.school).to eq('University of Oklahoma')
       expect(course.user_count).to eq(12)
+    end
+  end
+
+  it 'should unlist courses that have been delisted' do
+    VCR.use_cassette 'wiki/course_list' do
+      build(:course,
+            id: 589,
+            start: '2015-01-01'.to_date,
+            end: '2015-07-01'.to_date,
+            title: 'Underwater basket-weaving',
+            listed: true,
+            cohort: 'Spring 2000'
+      ).save
+
+      Course.update_all_courses
+      course = Course.find(589)
+      expect(course.listed).to be false
+      expect(course.cohort).to be nil
+    end
+  end
+
+  it 'should unlist courses that have been deleted from Wikipedia' do
+    VCR.use_cassette 'wiki/course_list' do
+      build(:course,
+            id: 9999,
+            start: '2015-01-01'.to_date,
+            end: '2015-07-01'.to_date,
+            title: 'Underwater basket-weaving',
+            listed: true,
+            cohort: 'Spring 2000'
+      ).save
+
+      Course.update_all_courses
+      course = Course.find(9999)
+      expect(course.listed).to be false
+      expect(course.cohort).to be nil
     end
   end
 
