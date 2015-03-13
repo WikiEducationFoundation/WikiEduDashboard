@@ -217,7 +217,7 @@ class Wiki
       array = options['courseids'].split('|')
       # See Course.update_all_courses, which checks for 2 courses_ids beyond
       # the highest one found in the cohort lists from application.yml.
-      unless array.index(id).nil? or array.index(id) >= array.count - 2
+      unless array.index(id).nil? || array.index(id) >= array.count - 2
         Rails.logger.warn 'Listed course_id #{id} is invalid'
       end
       if options['courseids'].include?('|' + id + '|')
