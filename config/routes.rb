@@ -13,7 +13,8 @@ Rails.application.routes.draw do
   controller :courses do
     get "courses/*id/students" => "courses#students", :as => :students
     get "courses/*id/articles" => "courses#articles", :as => :path_save
-    get "courses/*id" => "courses#students"
+    # Course titles on Wikipedia may include dots, so this constraint is needed.
+    get "courses/*id" => "courses#students", :constraints => { :id => /.*/ } 
   end
 
   resources :courses

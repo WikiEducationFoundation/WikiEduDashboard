@@ -2,7 +2,10 @@ namespace :batch do
   desc 'Constant data updates'
   task update_constantly: :environment do
     pid_file = '/tmp/batch_update_constantly.pid'
-    fail 'batch_update_constantly is already running!' if File.exist? pid_file
+    if File.exist? pid_file
+      Rails.logger.warn I18n.t('tasks.conseq', task: 'batch_update_constantly')
+      Kernel.exit
+    end
     File.open(pid_file, 'w') { |f| f.puts Process.pid }
     begin
       Rails.logger.info 'Running constant update tasks'
@@ -19,7 +22,10 @@ namespace :batch do
   desc 'Daily data updates'
   task update_daily: :environment do
     pid_file = '/tmp/batch_update_daily.pid'
-    fail 'batch_update_daily is already running!' if File.exist? pid_file
+    if File.exist? pid_file
+      Rails.logger.warn I18n.t('tasks.conseq', task: 'batch_update_daily')
+      Kernel.exit
+    end
     File.open(pid_file, 'w') { |f| f.puts Process.pid }
     begin
       Rails.logger.info 'Running daily update tasks'
@@ -33,7 +39,10 @@ namespace :batch do
   desc 'Initialize the database from scratch'
   task initialize: :environment do
     pid_file = '/tmp/batch_initialize.pid'
-    fail 'batch_initialize is already running!' if File.exist? pid_file
+    if File.exist? pid_file
+      Rails.logger.warn I18n.t('tasks.conseq', task: 'batch_initialize')
+      Kernel.exit
+    end
     File.open(pid_file, 'w') { |f| f.puts Process.pid }
     begin
       Rails.logger.info 'Running initialization tasks'

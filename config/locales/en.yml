@@ -90,6 +90,9 @@ en:
     user_char_added: Userspace Chars Added
     user_ns: User
 
+  tasks:
+    conseq: "Task %{task} is already running!"
+
   user:
     assigned: Assigned Article
     assigned_none: No Assigned Article
@@ -129,7 +132,7 @@ en:
     explanation: >
       Something went wrong. Please contact the maintainers of this dashboard
       to let them know about the problem.
-    
+
   error_500:
     header: "500 — internal server error.  :-("
     explanation: >

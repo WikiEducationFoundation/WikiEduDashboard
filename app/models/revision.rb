@@ -2,6 +2,7 @@
 class Revision < ActiveRecord::Base
   belongs_to :user
   belongs_to :article
+  scope :after_date, -> (date) { where('date > ?', date) }
 
   ####################
   # Instance methods #
