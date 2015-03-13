@@ -1,5 +1,5 @@
 <li class="row course-list__row">
-  <%= link_to course_slug_path(course.slug) do %>
+  <%= link_to course_slug_path(course.slug), 'id' => course.id do %>
     <div class="row__wrapper">
       <div class="course-list__row__title">
         <p class="title"><%= course.title %></p>
