@@ -112,7 +112,6 @@ describe Course, type: :model do
     course = Course.all.first
     expect(course.users.count).to eq(1)
     expect(CoursesUsers.all.count).to eq(1)
-
   end
 
   it 'should cache revision data for students' do
