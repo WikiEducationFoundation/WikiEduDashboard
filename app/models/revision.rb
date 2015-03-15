@@ -33,7 +33,7 @@ class Revision < ActiveRecord::Base
     ActiveRecord::Base.transaction do
       Revision.joins(:article).where(articles: { namespace: '0' }).each do |r|
         r.user.courses.each do |c|
-          if (!c.articles.include? r.article) && (c.start <= r.date)
+          unless (c.articles.include? r.article) || (c.start > r.date)
             c.articles << r.article
           end
         end
