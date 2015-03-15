@@ -150,4 +150,11 @@ describe 'the home page', type: :feature do
       end
     end
   end
+  
+  describe 'non-default locales' do
+    it 'should switch languages' do
+      visit "/courses?locale=qqq"
+      expect(page.find('header')).to have_content 'Application name'
+    end
+  end
 end
