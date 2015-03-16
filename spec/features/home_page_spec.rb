@@ -141,7 +141,7 @@ describe 'the home page', type: :feature do
         expect(course_row_anchor[:id].to_i).to be <= cohort_course_count
       end
     end
-    
+
     # This will fail unless there are at least two cohorts in application.yml.
     it 'should load courses from a different cohort' do
       visit "/courses?cohort=#{cohort_two}"
