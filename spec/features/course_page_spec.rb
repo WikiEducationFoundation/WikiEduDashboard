@@ -38,7 +38,7 @@ describe 'the home page', type: :feature do
              id: i.to_s,
              title: "Article #{i}",
              namespace: 0
-      )
+     )
     end
     (1..revision_count).each do |i|
       # Make half of thee articles new ones.
@@ -48,11 +48,12 @@ describe 'the home page', type: :feature do
              id: i.to_s,
              user_id: ((i % user_count) + 1).to_s,
              article_id: ((i % article_count) + 1).to_s,
-             date: '2015-03-01'.to_date + i.hours,
+             date: '2015-03-01'.to_date,
              characters: 9000 + i,
              new_article: newness
       )
     end
+    ArticlesCourses.update_from_revisions
     Course.update_all_caches
   end
 
