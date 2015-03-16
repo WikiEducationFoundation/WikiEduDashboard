@@ -3,7 +3,6 @@ require 'rails_helper'
 cohort_course_count = 10
 
 cohort = Figaro.env.cohorts.split(',').last
-cohort_title = cohort.gsub('_', ' ').capitalize
 
 cohort_two = Figaro.env.cohorts.split(',').first
 cohort_two_title = cohort_two.gsub('_', ' ').capitalize
@@ -150,10 +149,10 @@ describe 'the home page', type: :feature do
       end
     end
   end
-  
+
   describe 'non-default locales' do
     it 'should switch languages' do
-      visit "/courses?locale=qqq"
+      visit '/courses?locale=qqq'
       expect(page.find('header')).to have_content 'Application name'
     end
   end

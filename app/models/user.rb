@@ -1,3 +1,4 @@
+#= User model
 class User < ActiveRecord::Base
   has_many :courses_users, class_name: CoursesUsers
   has_many :courses, -> { uniq }, through: :courses_users

@@ -40,7 +40,7 @@ class ArticlesCourses < ActiveRecord::Base
   def self.update_all_caches
     ArticlesCourses.all.each(&:update_cache)
   end
-  
+
   def self.update_from_revisions
     ActiveRecord::Base.transaction do
       Revision.joins(:article).where(articles: { namespace: '0' }).each do |r|
@@ -52,5 +52,4 @@ class ArticlesCourses < ActiveRecord::Base
       end
     end
   end
-  
 end
