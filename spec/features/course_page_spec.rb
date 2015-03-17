@@ -40,6 +40,8 @@ describe 'the home page', type: :feature do
              namespace: 0
      )
     end
+    
+    # Add some revisions within the course dates
     (1..revision_count).each do |i|
       # Make half of thee articles new ones.
       newness = (i <= article_count) ? i % 2 : 0
@@ -53,6 +55,24 @@ describe 'the home page', type: :feature do
              new_article: newness
       )
     end
+
+    # Add revisions before the course starts and after it ends.
+    create(:revision,
+           id: (revision_count + 1).to_s,
+           user_id: 1,
+           article_id: 1,
+           date: '2014-12-31'.to_date,
+           characters: 9000,
+    )
+    create(:revision,
+           id: (revision_count + 2).to_s,
+           user_id: 1,
+           article_id: 1,
+           date: '2016-01-01'.to_date,
+           characters: 9000,
+    )
+      
+    
     ArticlesCourses.update_from_revisions
     Course.update_all_caches
   end
