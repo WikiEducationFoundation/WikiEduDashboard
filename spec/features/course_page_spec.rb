@@ -38,7 +38,7 @@ describe 'the home page', type: :feature do
              id: i.to_s,
              title: "Article #{i}",
              namespace: 0
-     )
+      )
     end
     
     # Add some revisions within the course dates
@@ -51,29 +51,40 @@ describe 'the home page', type: :feature do
              user_id: ((i % user_count) + 1).to_s,
              article_id: ((i % article_count) + 1).to_s,
              date: '2015-03-01'.to_date,
-             characters: 9000 + i,
+             characters: 2,
              new_article: newness
       )
     end
 
-    # Add revisions before the course starts and after it ends.
+    # Add articles / revisions before the course starts and after it ends.
+    create(:article,
+           id: (article_count + 1).to_s,
+           title: "Before",
+             namespace: 0
+    )
+    create(:article,
+           id: (article_count + 2).to_s,
+           title: "After",
+             namespace: 0
+    )
     create(:revision,
            id: (revision_count + 1).to_s,
            user_id: 1,
-           article_id: 1,
+           article_id: (article_count + 1).to_s,
            date: '2014-12-31'.to_date,
            characters: 9000,
     )
     create(:revision,
            id: (revision_count + 2).to_s,
            user_id: 1,
-           article_id: 1,
+           article_id: (article_count + 2).to_s,
            date: '2016-01-01'.to_date,
            characters: 9000,
     )
       
     
     ArticlesCourses.update_from_revisions
+    CoursesUsers.update_all_caches
     Course.update_all_caches
   end
 
@@ -104,6 +115,9 @@ describe 'the home page', type: :feature do
       expect(page.find('#articles-created')).to have_content new_articles
       expect(page.find('#total-edits')).to have_content revision_count
       expect(page.find('#articles-edited')).to have_content article_count
+      expect(page.find('#student-editors')).to have_content user_count
+      expect(page.find('#trained-count')).to have_content (user_count / 2)
+      expect(page.find('#characters-added')).to have_content (revision_count * 2)
     end
   end
 
