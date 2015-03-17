@@ -1,8 +1,12 @@
 require 'rails_helper'
 
 cohort_course_count = 10
+
 cohort = Figaro.env.cohorts.split(',').last
+cohort_title = cohort.gsub('_', ' ').capitalize
+
 cohort_two = Figaro.env.cohorts.split(',').first
+cohort_two_title = cohort_two.gsub('_', ' ').capitalize
 
 describe 'the home page', type: :feature do
   before do
@@ -86,9 +90,10 @@ describe 'the home page', type: :feature do
       expect(page).to have_selector('.course-list__row__title.sort.asc')
     end
 
+    # This will fail unless there are at least two cohorts in application.yml.
     it 'should allow loading of different cohorts', js: true do
       find('select.cohorts').find(:xpath, 'option[2]').select_option
-      expect(page).to have_content('Fall 2014')
+      expect(page).to have_content(cohort_two_title)
     end
   end
 
@@ -130,12 +135,14 @@ describe 'the home page', type: :feature do
   end
 
   describe 'cohort pages' do
-    it 'should load courses from a different cohort' do
+    # This will fail unless there are at least two cohorts in application.yml.
+    it 'should load courses from the right cohort' do
       all('.course-list__row > a').each do |course_row_anchor|
         expect(course_row_anchor[:id].to_i).to be <= cohort_course_count
       end
     end
 
+    # This will fail unless there are at least two cohorts in application.yml.
     it 'should load courses from a different cohort' do
       visit "/courses?cohort=#{cohort_two}"
       all('.course-list__row > a').each do |course_row_anchor|
