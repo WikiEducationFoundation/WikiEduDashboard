@@ -169,23 +169,28 @@ class Course < ActiveRecord::Base
         user_ids = group_flat.map { |user| user['id'] }
         course = Course.find_by(id: course_id)
         unless user_ids.empty?
+          # Set up structures for operating on
+          existing_flat = course.courses_users.map do |cu|
+            { 'id' => cu.user_id, 'role' => cu.role }
+          end
+          new_flat = group_flat.map do |u|
+            { 'id' => u['id'], 'role' => u['role'] }
+          end
           # Unenroll users who have been removed
           unless course.users.empty?
-            unenrolled = course.users.map { |u| u.id.to_s } - user_ids
+            unenrolled = (existing_flat - new_flat).map { |u| u['id'] }
             course.users.delete(course.users.find(unenrolled))
           end
           # Enroll new users
-          enrolled = user_ids - course.users.map { |u| u.id.to_s }
+          enrolled = (new_flat - existing_flat).map { |u| u['id'] }
           if enrolled.count > 0
             role_index = %w(student instructor online_volunteer
                             campus_volunteer wiki_ed_staff)
-            roles = Array.new
             group_flat.each do |u|
-              if enrolled.include? u['id']
-                role = role_index.index(u['role'])
-                role = 4 if u['username'].include? '(Wiki Ed)'
-                CoursesUsers.new(user_id: u['id'], course: course, role: role).save
-              end
+              next() unless enrolled.include? u['id']
+              role = role_index.index(u['role'])
+              role = 4 if u['username'].include? '(Wiki Ed)'
+              CoursesUsers.new(user_id: u['id'], course: course, role: role).save
             end
           end
         end

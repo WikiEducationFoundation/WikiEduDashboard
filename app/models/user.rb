@@ -11,11 +11,6 @@ class User < ActiveRecord::Base
                wiki_ed_staff)
     joins(:courses_users).where(courses_users: { role: index.index(role) })
   }
-  scope :student, -> { role(0) }
-  scope :instructor, -> { role(1) }
-  scope :online_volunteer, -> { role(2) }
-  scope :campus_volunteer, -> { role(3) }
-  scope :wiki_ed_staff, -> { role(4) }
 
   ####################
   # Instance methods #
@@ -84,7 +79,9 @@ class User < ActiveRecord::Base
     new_user = save ? User.find_or_create_by(id: user['id']) : empty_user
     new_user.wiki_id = user['username']
     if save
-      has_user = course.users.role(role).include? new_user
+      role_index = %w(student instructor online_volunteer
+                            campus_volunteer wiki_ed_staff)
+      has_user = course.users.role(role_index[role]).include? new_user
       unless has_user
         role = (user['username'].include? '(Wiki Ed)') ? 4 : role
         CoursesUsers.new(user: new_user, course: course, role: role).save

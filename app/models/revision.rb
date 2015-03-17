@@ -20,7 +20,9 @@ class Revision < ActiveRecord::Base
     results = []
     Course.all.each do |c|
       start = c.start
-      start = c.revisions.order('date DESC').first.date if c.revisions.count > 0
+      has_new_user = Course.find(500).users.role('student')
+                            .where(revision_count: 0).count
+      start = c.revisions.order('date DESC').first.date unless has_new_user
       start = start.strftime('%Y%m%d')
       revisions = Utils.chunk_requests(c.users.role('student'), 40) do |block|
         Replica.get_revisions block, start, c.end.strftime('%Y%m%d')
