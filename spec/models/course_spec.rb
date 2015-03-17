@@ -37,7 +37,7 @@ describe Course, type: :model do
   end
 
   it 'should unlist courses that have been delisted' do
-    VCR.use_cassette 'wiki/course_list' do
+    VCR.use_cassette 'wiki/course_list_delisted' do
       create(:course,
              id: 589,
              start: '2015-01-01'.to_date,
@@ -55,7 +55,7 @@ describe Course, type: :model do
   end
 
   it 'should unlist courses that have been deleted from Wikipedia' do
-    VCR.use_cassette 'wiki/course_list' do
+    VCR.use_cassette 'wiki/course_list_deleted' do
       create(:course,
              id: 9999,
              start: '2015-01-01'.to_date,
