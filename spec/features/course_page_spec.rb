@@ -5,6 +5,8 @@ user_count = 10
 article_count = 19
 revision_count = 214
 slug = 'This_university/This_course_(term_2015)'
+course_start = '2015-01-01'
+course_end = '2015-12-31'
 
 describe 'the home page', type: :feature do
   before do
@@ -12,8 +14,8 @@ describe 'the home page', type: :feature do
            id: 1,
            title: 'This course',
            slug: slug,
-           start: '2015-01-01'.to_date,
-           end: '2015-12-31'.to_date,
+           start: course_start.to_date,
+           end: course_end.to_date,
            school: 'This university',
            term: 'term 2015',
            listed: 1,
@@ -123,13 +125,33 @@ describe 'the home page', type: :feature do
       expect(page.find('#articles-edited')).to have_content article_count
       expect(page.find('#student-editors')).to have_content user_count
       expect(page.find('#trained-count')).to have_content (user_count / 2)
-      expect(page.find('#characters-added')).to have_content (revision_count * 2)
+      characters = revision_count * 2
+      expect(page.find('#characters-added')).to have_content characters
       expect(page.find('#view-count')).to have_content (article_count * 10)
     end
 
     it 'should link to articles view' do
       articles_link = "/courses/#{slug}/articles"
       expect(page.has_link?('', :href => articles_link)).to be true
+    end
+
+    it 'should show the course dates' do
+      expect(page.find('#course-dates')).to have_content course_start
+      expect(page.find('#course-dates')).to have_content course_end
+    end
+  end
+
+  describe 'control bar' do
+    it 'should allow sorting via dropdown', js: true do
+      find('select.sorts').find(:xpath, 'option[1]').select_option
+      expect(page).to have_selector('.user-list__row__name.sort.asc')
+      find('select.sorts').find(:xpath, 'option[2]').select_option
+      expect(page).to have_selector('.user-list__row__characters-ms.sort.desc')
+      find('select.sorts').find(:xpath, 'option[3]').select_option
+      expect(page).to have_selector('.user-list__row__characters-us.sort.desc')
+      find('select.sorts').find(:xpath, 'option[4]').select_option
+      # FIXME: The article column has 'edits' in the class name.
+      # expect(page).to have_selector('.user-list__row__edits.sort.desc')
     end
   end
 end

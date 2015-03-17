@@ -35,27 +35,27 @@
       </div>
     </div>
     <div class="details">
-      <div class="details__detail">
+      <div class="details__detail" id="instructors">
         <h6><%= t("course.instructor", count: @course.users.role('instructor').count) %></h6>
         <p><%= user_links(@course.users.role('instructor'), "inline") %></p>
       </div>
       <% if !@volunteers.nil? && @volunteers.count > 0 %>
-      <div class="details__detail">
+      <div class="details__detail" id="volunteers">
         <h6><%= t("course.volunteer", count: @volunteers.count) %></h6>
         <p><%= user_links(@volunteers, "inline") %></p>
       </div>
       <% end %>
       <% if @course.users.role('wiki_ed_staff').count > 0 %>
-      <div class="details__detail">
+      <div class="details__detail" id="support-staff">
         <h6><%= t("course.wiki_staff") %></h6>
         <p><%= user_links(@course.users.role('wiki_ed_staff'), "inline") %></p>
       </div>
       <% end %>
-      <div class="details__detail">
+      <div class="details__detail" id="course-dates">
         <h6><%= t("course.duration") %></h6>
         <p><%= @course.start %> &ndash; <%= @course.end %></p>
       </div>
-      <div class="details__detail">
+      <div class="details__detail" id="course-page-link">
         <h6><%= t("course.view_wiki") %></h6>
         <p><a class="inline" href="<%= @course.url %>"><%= @course.title %></a></p>
       </div>
