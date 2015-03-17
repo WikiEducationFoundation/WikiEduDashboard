@@ -29,16 +29,7 @@ class Revision < ActiveRecord::Base
     end
 
     import_revisions(results)
-
-    ActiveRecord::Base.transaction do
-      Revision.joins(:article).where(articles: { namespace: '0' }).each do |r|
-        r.user.courses.each do |c|
-          if (!c.articles.include? r.article) && (c.start <= r.date)
-            c.articles << r.article
-          end
-        end
-      end
-    end
+    ArticlesCourses.update_from_revisions
   end
 
   def self.import_revisions(data)

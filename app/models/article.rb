@@ -44,8 +44,7 @@ class Article < ActiveRecord::Base
       since = courses.order(:start).first.start.to_date if all_time
 
       # Update views on all revisions and the article
-      nv = Grok.views_for_article(title, since)
-      nv = views unless views.nil?
+      nv = views || Grok.views_for_article(title, since)
 
       last = since
       ActiveRecord::Base.transaction do

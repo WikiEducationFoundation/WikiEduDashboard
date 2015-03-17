@@ -30,6 +30,7 @@ describe Revision do
         end
         Revision.update_all_revisions
         expect(Revision.all.count).to eq(1919)
+        expect(ArticlesCourses.all.count).to eq(224)
       end
     end
   end

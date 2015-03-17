@@ -34,16 +34,19 @@ class CoursesUsers < ActiveRecord::Base
       .where(user_id: user.id)
       .where('characters >= 0')
       .where('date >= ?', course.start)
+      .where('date <= ?', course.end)
       .sum(:characters) || 0
     self.character_sum_us = Revision.joins(:article)
       .where(articles: { namespace: 2 })
       .where(user_id: user.id)
       .where('characters >= 0')
       .where('date >= ?', course.start)
+      .where('date <= ?', course.end)
       .sum(:characters) || 0
     self.revision_count = Revision.joins(:article)
       .where(user_id: user.id)
       .where('date >= ?', course.start)
+      .where('date <= ?', course.end)
       .count || 0
     assignments = user.assignments.where(course_id: course.id)
     # rubocop:disable Metrics/LineLength

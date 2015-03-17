@@ -40,4 +40,16 @@ class ArticlesCourses < ActiveRecord::Base
   def self.update_all_caches
     ArticlesCourses.all.each(&:update_cache)
   end
+
+  def self.update_from_revisions
+    ActiveRecord::Base.transaction do
+      Revision.joins(:article).where(articles: { namespace: '0' }).each do |r|
+        r.user.courses.each do |c|
+          unless (c.articles.include? r.article) || (c.start > r.date) || (c.end <= r.date)
+            c.articles << r.article
+          end
+        end
+      end
+    end
+  end
 end
