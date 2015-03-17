@@ -38,6 +38,7 @@ describe 'the home page', type: :feature do
              id: i.to_s,
              title: "Article #{i}",
              namespace: 0
+
       )
     end
     
@@ -81,8 +82,7 @@ describe 'the home page', type: :feature do
            date: '2016-01-01'.to_date,
            characters: 9000,
     )
-      
-    
+
     ArticlesCourses.update_from_revisions
     CoursesUsers.update_all_caches
     Course.update_all_caches
@@ -120,7 +120,4 @@ describe 'the home page', type: :feature do
       expect(page.find('#characters-added')).to have_content (revision_count * 2)
     end
   end
-
-  
-  
 end
