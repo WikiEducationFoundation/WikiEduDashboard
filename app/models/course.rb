@@ -3,6 +3,7 @@ class Course < ActiveRecord::Base
   has_many :courses_users, class_name: CoursesUsers
 
   has_many :users, -> { uniq }, through: :courses_users
+  has_many :students, -> { where(role: 0).uniq }, through: :courses_users
   # rubocop:disable Metrics/LineLength
   has_many :revisions, -> (course) { where('date >= ?', course.start) }, through: :users
   # rubocop:enable Metrics/LineLength
@@ -62,7 +63,7 @@ class Course < ActiveRecord::Base
   end
 
   def user_count
-    self[:user_count] || users.student.size
+    self[:user_count] || users.role('student').size
   end
 
   def untrained_count
@@ -80,10 +81,10 @@ class Course < ActiveRecord::Base
 
   def update_cache
     # Do not consider revisions with negative byte changes
-    self.character_sum = courses_users.sum(:character_sum_ms)
+    self.character_sum = courses_users.where(role: 0).sum(:character_sum_ms)
     self.view_sum = articles_courses.sum(:view_count)
-    self.user_count = users.student.size
-    self.untrained_count = users.student.where(trained: false).size
+    self.user_count = users.role('student').size
+    self.untrained_count = users.role('student').where(trained: false).size
     self.revision_count = revisions.size
     self.article_count = articles.size
     save
@@ -142,7 +143,6 @@ class Course < ActiveRecord::Base
     Course.import courses, options
 
     import_users participants
-
     import_assignments participants
   end
 
@@ -161,18 +161,33 @@ class Course < ActiveRecord::Base
     ActiveRecord::Base.transaction do
       participants.each do |course_id, group|
         # Update enrollment (add/remove students)
-        group_flat = group.map { |_g, gusers| gusers.empty? ? nil : gusers }
-        group_flat = group_flat.compact.flatten
+        group_flat = group.map do |role, users|
+          users = [users] unless users.instance_of? Array
+          users.empty? ? nil : users.each { |u| u.merge! 'role' => role }
+        end
+        group_flat = group_flat.compact.flatten.sort_by { |user| user['id'] }
         user_ids = group_flat.map { |user| user['id'] }
         course = Course.find_by(id: course_id)
         unless user_ids.empty?
+          # Unenroll users who have been removed
           unless course.users.empty?
             unenrolled = course.users.map { |u| u.id.to_s } - user_ids
-            # remove join tables for users no longer in this course
             course.users.delete(course.users.find(unenrolled))
           end
+          # Enroll new users
           enrolled = user_ids - course.users.map { |u| u.id.to_s }
-          course.users << User.find(enrolled) if enrolled.count > 0
+          if enrolled.count > 0
+            role_index = %w(student instructor online_volunteer
+                            campus_volunteer wiki_ed_staff)
+            roles = Array.new
+            group_flat.each do |u|
+              if enrolled.include? u['id']
+                role = role_index.index(u['role'])
+                role = 4 if u['username'].include? '(Wiki Ed)'
+                CoursesUsers.new(user_id: u['id'], course: course, role: role).save
+              end
+            end
+          end
         end
 
         # Add assigned articles
