@@ -1,8 +1,8 @@
 <% content_for :navigation do %>
-  <div class="nav__item bordered <%= page == 1 ? 'active' : '' %>">
+  <div class="nav__item bordered <%= page == 1 ? 'active' : '' %>" id="students-link">
     <p><%= link_to t("course.students"), :action => "students" %></p>
   </div>
-  <div class="nav__item <%= page == 2 ? 'active' : '' %>">
+  <div class="nav__item <%= page == 2 ? 'active' : '' %>" id="articles-link">
     <p><%= link_to t("article.edited"), :action => "articles" %></p>
   </div>
 <% end %>

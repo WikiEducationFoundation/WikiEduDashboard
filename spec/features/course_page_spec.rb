@@ -41,10 +41,10 @@ describe 'the home page', type: :feature do
 
       )
     end
-    
+
     # Add some revisions within the course dates
     (1..revision_count).each do |i|
-      # Make half of thee articles new ones.
+      # Make half of the articles new ones.
       newness = (i <= article_count) ? i % 2 : 0
 
       create(:revision,
@@ -53,6 +53,7 @@ describe 'the home page', type: :feature do
              article_id: ((i % article_count) + 1).to_s,
              date: '2015-03-01'.to_date,
              characters: 2,
+             views: 10,
              new_article: newness
       )
     end
@@ -74,6 +75,8 @@ describe 'the home page', type: :feature do
            article_id: (article_count + 1).to_s,
            date: '2014-12-31'.to_date,
            characters: 9000,
+           views: 9999,
+           new_article: 1
     )
     create(:revision,
            id: (revision_count + 2).to_s,
@@ -81,9 +84,12 @@ describe 'the home page', type: :feature do
            article_id: (article_count + 2).to_s,
            date: '2016-01-01'.to_date,
            characters: 9000,
+           views: 9999,
+           new_article: 1
     )
 
     ArticlesCourses.update_from_revisions
+    ArticlesCourses.update_all_caches
     CoursesUsers.update_all_caches
     Course.update_all_caches
   end
@@ -118,6 +124,12 @@ describe 'the home page', type: :feature do
       expect(page.find('#student-editors')).to have_content user_count
       expect(page.find('#trained-count')).to have_content (user_count / 2)
       expect(page.find('#characters-added')).to have_content (revision_count * 2)
+      expect(page.find('#view-count')).to have_content (article_count * 10)
+    end
+
+    it 'should link to articles view' do
+      articles_link = "/courses/#{slug}/articles"
+      expect(page.has_link?('', :href => articles_link)).to be true
     end
   end
 end
