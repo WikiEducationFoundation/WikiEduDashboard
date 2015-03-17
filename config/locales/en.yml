@@ -92,6 +92,7 @@ en:
 
   tasks:
     conseq: "Task %{task} is already running!"
+    paused: "Task %{task} cannot run because scheduled updates have been paused. Run 'rake batch:resume' to resume updates."
 
   user:
     assigned: Assigned Article

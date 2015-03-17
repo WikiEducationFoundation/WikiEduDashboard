@@ -2,8 +2,13 @@ namespace :batch do
   desc 'Constant data updates'
   task update_constantly: :environment do
     pid_file = '/tmp/batch_update_constantly.pid'
+    pause_file = '/tmp/batch_pause.pid'
     if File.exist? pid_file
       Rails.logger.warn I18n.t('tasks.conseq', task: 'batch_update_constantly')
+      Kernel.exit
+    end
+    if File.exist? pause_file
+      Rails.logger.warn I18n.t('tasks.paused', task: 'batch_update_constantly')
       Kernel.exit
     end
     File.open(pid_file, 'w') { |f| f.puts Process.pid }
@@ -22,8 +27,13 @@ namespace :batch do
   desc 'Daily data updates'
   task update_daily: :environment do
     pid_file = '/tmp/batch_update_daily.pid'
+    pause_file = '/tmp/batch_pause.pid'
     if File.exist? pid_file
       Rails.logger.warn I18n.t('tasks.conseq', task: 'batch_update_daily')
+      Kernel.exit
+    end
+    if File.exist? pause_file
+      Rails.logger.warn I18n.t('tasks.paused', task: 'batch_update_daily')
       Kernel.exit
     end
     File.open(pid_file, 'w') { |f| f.puts Process.pid }
@@ -54,5 +64,17 @@ namespace :batch do
     ensure
       File.delete pid_file
     end
+  end
+
+  desc 'Pause updates'
+  task pause: :environment do
+    pid_file = '/tmp/batch_pause.pid'
+    File.open(pid_file, 'w') { |f| f.puts Process.pid }
+  end
+
+  desc 'Resume updates'
+  task resume: :environment do
+    pid_file = '/tmp/batch_pause.pid'
+    File.delete pid_file
   end
 end
