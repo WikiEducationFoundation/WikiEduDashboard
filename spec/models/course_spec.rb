@@ -47,7 +47,7 @@ describe Course, type: :model do
              cohort: 'Spring 2000'
       )
 
-      Course.update_all_courses(false, hash: '351', hash: '589')
+      Course.update_all_courses
       course = Course.find(589)
       expect(course.listed).to be false
       expect(course.cohort).to be nil
