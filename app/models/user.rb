@@ -6,9 +6,11 @@ class User < ActiveRecord::Base
   has_many :articles, -> { uniq }, through: :revisions
   has_many :assignments
 
-  # rubocop:disable Metrics/LineLength
-  enum role: [:student, :instructor, :online_volunteer, :campus_volunteer, :wiki_ed_staff]
-  # rubocop:enable Metrics/LineLength
+  scope :role, lambda { |role|
+    index = %w(student instructor online_volunteer campus_volunteer
+               wiki_ed_staff)
+    joins(:courses_users).where(courses_users: { role: index.index(role) })
+  }
 
   ####################
   # Instance methods #
@@ -72,17 +74,19 @@ class User < ActiveRecord::Base
     end
   end
 
-  # FIXME: https://github.com/WikiEducationFoundation/WikiEduDashboard/issues/9
-  # Should role be an attribute of CoursesUsers, not Users? A user may have
-  # different roles for different courses.
   def self.add_user(user, role, course, save=true)
     empty_user = User.new(id: user['id'])
     new_user = save ? User.find_or_create_by(id: user['id']) : empty_user
     new_user.wiki_id = user['username']
-    new_user.role = (user['username'].include? '(Wiki Ed)') ? 4 : role
     if save
-      new_user.courses << course unless course.users.include? new_user
-      new_user.save
+      role_index = %w(student instructor online_volunteer
+                            campus_volunteer wiki_ed_staff)
+      has_user = course.users.role(role_index[role]).include? new_user
+      unless has_user
+        role = (user['username'].include? '(Wiki Ed)') ? 4 : role
+        CoursesUsers.new(user: new_user, course: course, role: role).save
+        new_user.save
+      end
     end
     new_user
   end

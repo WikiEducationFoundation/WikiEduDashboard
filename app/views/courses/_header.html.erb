@@ -21,8 +21,8 @@
         <h3><%= @course.user_count %></h3>
         <small><%= t("course.students") %></small>
         <div class="popover" id="trained-count">
-          <h4><%= @course.users.student.where(trained: true).count %></h4>
-          <p><%= t("user.training_complete", count: @course.users.student.where(trained: true).count) %></p>
+          <h4><%= @course.users.role('student').where(trained: true).count %></h4>
+          <p><%= t("user.training_complete", count: @course.users.role('student').where(trained: true).count) %></p>
         </div>
       </div>
       <div class="stat-display__stat" id="characters-added">
@@ -36,8 +36,8 @@
     </div>
     <div class="details">
       <div class="details__detail">
-        <h6><%= t("course.instructor", count: @course.users.instructor.count) %></h6>
-        <p><%= user_links(@course.users.instructor, "inline") %></p>
+        <h6><%= t("course.instructor", count: @course.users.role('instructor').count) %></h6>
+        <p><%= user_links(@course.users.role('instructor'), "inline") %></p>
       </div>
       <% if !@volunteers.nil? && @volunteers.count > 0 %>
       <div class="details__detail">
@@ -45,10 +45,10 @@
         <p><%= user_links(@volunteers, "inline") %></p>
       </div>
       <% end %>
-      <% if @course.users.wiki_ed_staff.count > 0 %>
+      <% if @course.users.role('wiki_ed_staff').count > 0 %>
       <div class="details__detail">
         <h6><%= t("course.wiki_staff") %></h6>
-        <p><%= user_links(@course.users.wiki_ed_staff, "inline") %></p>
+        <p><%= user_links(@course.users.role('wiki_ed_staff'), "inline") %></p>
       </div>
       <% end %>
       <div class="details__detail">

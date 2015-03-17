@@ -14,8 +14,8 @@ class CoursesController < ApplicationController
   def show
     @course = Course.where(listed: true).find_by_slug(params[:id])
     users = @course.users
-    @students = users.student.order(character_sum: :desc).limit(4)
-    @volunteers = users.online_volunteer + users.campus_volunteer
+    @students = users.role('student').order(character_sum: :desc).limit(4)
+    @volunteers = users.role('online_volunteer') + users.role('campus_volunteer')
     @courses_users = @course.courses_users
     @articles = @course.articles.order(:title).limit(4)
   end
@@ -30,8 +30,8 @@ class CoursesController < ApplicationController
     users = @course.users
     @courses_users = @course.courses_users
                      .includes(user: { assignments: :article })
-                     .where(users: { role: 0 }).order('users.wiki_id')
-    @volunteers = users.online_volunteer + users.campus_volunteer
+                     .where(role: 0).order('users.wiki_id')
+    @volunteers = users.role('online_volunteer') + users.role('campus_volunteer')
   end
 
   def articles
@@ -39,6 +39,6 @@ class CoursesController < ApplicationController
     users = @course.users
     @articles_courses = @course.articles_courses
                         .includes(:article).order('articles.title')
-    @volunteers = users.online_volunteer + users.campus_volunteer
+    @volunteers = users.role('online_volunteer') + users.role('campus_volunteer')
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150203172530) do
+ActiveRecord::Schema.define(version: 20150313235401) do
 
   create_table "articles", force: true do |t|
     t.string   "title"
@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(version: 20150203172530) do
     t.integer  "character_sum_us",       default: 0
     t.integer  "revision_count",         default: 0
     t.string   "assigned_article_title"
+    t.integer  "role",                   default: 0
   end
 
   create_table "revisions", force: true do |t|
@@ -98,7 +99,6 @@ ActiveRecord::Schema.define(version: 20150203172530) do
     t.integer  "article_count",            default: 0
     t.integer  "revision_count",           default: 0
     t.boolean  "trained",                  default: false
-    t.integer  "role",                     default: 0
   end
 
 end

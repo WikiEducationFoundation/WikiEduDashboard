@@ -59,7 +59,7 @@ describe 'the home page', type: :feature do
     end
 
     it 'should display number of students accurately' do
-      student_count = User.student.count
+      student_count = User.role('student').count
       stat_text = "#{student_count} Student Editors"
       expect(page.find('.stat-display')).to have_content stat_text
     end
