@@ -4,7 +4,7 @@ class Course < ActiveRecord::Base
 
   has_many :users, -> { uniq }, through: :courses_users
   # rubocop:disable Metrics/LineLength
-  has_many :revisions, -> (course) { where('date >= ?', course.start) }, through: :users
+  has_many :revisions, -> (course) { where('date >= ?', course.start).where('date <= ?', course.end) }, through: :users
   # rubocop:enable Metrics/LineLength
 
   has_many :articles_courses, class_name: ArticlesCourses
