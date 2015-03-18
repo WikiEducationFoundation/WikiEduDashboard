@@ -108,52 +108,63 @@
 
 .course-list__row
   .desktop-only
+    display none !important
     +above(desktop)
       display flex !important
   .tablet-only
     display flex !important
+    +above(desktop)
+      display none !important
   .row__wrapper
     flex-wrap wrap
+    cf()
+    +above(desktop)
+      flex-wrap nowrap
   .course-list__row__title
     col(1)
-    flex 1 0 97%
     +above(desktop)
       col(2/6)
-      flex 1 0 33%
     .title
       font-size 20px
       +above(desktop)
         font-size 16px
-  .course-list__row__characters, .course-list__row__views
-    margin-right 8px
-    p.characters, p.views
-      padding-right 8px
-      border-right 1px solid manatee
   .course-list__row__characters, .course-list__row__views,
   .course-list__row__students
+    margin-right 8px
+    p
+      padding-right 8px
+      border-right 1px solid manatee
+      +above(desktop)
+        border-right none
     float left
     +above(desktop)
       col(1/6)
-      flex 1 0 14%
-    p.characters, p.views, p.training
+    span
+      display inline !important
+      +above(desktop)
+        display none !important
+  .course-list__row__students
+    p
+      border-right none
+      padding-right 0
+  .course-list__row__link
+    display none !important
+    +above(desktop)
+      col(1/6)
+      display flex !important
+      position static
+  div:not(.drawer)
+    min-height 40px
+
+.row:not(.list__header)
+  .course-list__row__characters, .course-list__row__views,
+  .course-list__row__students
+    p
       font-size 14px
       +above(desktop)
         border none
         font-size 16px
         padding 0
-    span
-      display inline
-      +above(desktop)
-        display none
-  .course-list__row__link
-    position absolute
-    right 0
-    +above(desktop)
-      col(1/6)
-      flex 1 0 13%
-      position static
-  div:not(.drawer)
-    min-height 40px
 
 .user-list__row
   .user-list__row__name

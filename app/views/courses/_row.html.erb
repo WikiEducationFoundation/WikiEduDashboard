@@ -5,15 +5,15 @@
         <p class="title"><%= course.title %></p>
       </div>
       <div class="course-list__row__characters">
-        <p><span class="tablet-only"><%= t("metrics.char") %></span> <%= number_to_human course.character_sum %></p>
+        <p><span><%= t("metrics.char") %>: </span><%= number_to_human course.character_sum %></p>
         <p class="characters hidden"><%= course.character_sum %></p>
       </div>
       <div class="course-list__row__views">
-        <p><span class="tablet-only"><%= t("metrics.view") %></span> <%= number_to_human course.view_sum %></p>
+        <p><span><%= t("metrics.view") %>: </span><%= number_to_human course.view_sum %></p>
         <p class="views hidden"><%= course.view_sum %></p>
       </div>
       <div class="course-list__row__students">
-        <p class="training"><span class="tablet-only"><%= t("users.editors") %></span> <%= course.user_count %></p>
+        <p class="training"><span><%= t("users.editors") %>: </span><%= course.user_count %></p>
         <small class="training desktop-only"><%= t("user.training_complete_count", count: course.user_count - course.untrained_count) %></small>
         <p class="students hidden"><%= course.user_count %></p>
       </div>
