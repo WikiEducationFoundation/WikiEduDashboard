@@ -1,13 +1,17 @@
+.cohort-select, .sort-select
+  border 3px solid smoke
+  float left
+  height 41px
+  margin 10px 10px 10px 0
+  overflow hidden
+  +above(desktop)
+    position absolute
+    right 20px
+    top 20px
+
 .cohort-select
   background url('../images/arrow.svg') no-repeat 97% white
-  border 3px solid smoke
-  height 41px
-  overflow hidden
-  position absolute
-  right 20px
-  top 20px
   width 181px
-
   select.cohorts
     background transparent
     border 0
@@ -24,12 +28,6 @@
 
 .sort-select
   background url('../images/sort.svg') no-repeat 42% white
-  border 3px solid smoke
-  height 41px
-  overflow hidden
-  position absolute
-  right 20px
-  top 20px
   width 64px
   &.inset
     right 211px

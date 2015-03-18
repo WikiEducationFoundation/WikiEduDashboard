@@ -25,3 +25,41 @@ equal-height(vcenter=false)
       flex-direction column
     *
       -ms-flex 0 1 auto
+
+
+/* Responsive Mixins
+// see: http://jakearchibald.github.com/sass-ie
+--------------------------------------------- */
+
+// To create min-width media queries
+above(width)
+  if fix-mqs
+    if fix-mqs >= width
+      {block}
+  else
+    @media screen and (min-width: width)
+      {block}
+
+// To create max-width media queries
+below(width)
+  if fix-mqs
+    if fix-mqs <= width
+      {block}
+  else
+    @media screen and (max-width: width)
+      {block}
+
+.mobile-only
+  display: block
+  +above(tablet)
+    display none !important
+
+.tablet-only
+  display block
+  +above(desktop)
+    display none !important
+
+.desktop-only
+  display: none !important
+  +above(desktop)
+    display block !important

@@ -38,6 +38,7 @@ en:
   article:
     character_doc: The sum of characters added to articles by the course's students during the course term
     edited: Articles Edited
+    edited_mobile: Articles
     edited_none: "%{title} has not edited any articles."
     title: Title
     view: View Article
@@ -58,6 +59,7 @@ en:
       one: Instructor
       other: Instructors
     students: Student Editors
+    students_mobile: Students
     students_none: "%{title} does not have any enrolled students"
     students_short: Students
     title: Title

@@ -27,7 +27,10 @@
           <a class="logo__link" href="http://wikiedu.org" target="_blank" title="wikiedu.org"><%= image_tag "/images/wiki-logo.png" %></a>
         </div>
         <nav>
-          <div class="nav__item <%= content_for?(:navigation) ? '' : 'active' %>"><p class="subtitle"><%= link_to 'Global Dashboard', root_url %></p></div>
+          <div class="nav__item <%= content_for?(:navigation) ? '' : 'active' %>">
+            <p class="subtitle desktop-only"><%= link_to 'Global Dashboard', root_url %></p>
+            <p class="subtitle tablet-only"><%= link_to 'Home', root_url %></p>
+          </div>
           <%= content_for?(:navigation) ? yield(:navigation) : '' %>
         </nav>
 <!--         <div class="login">
