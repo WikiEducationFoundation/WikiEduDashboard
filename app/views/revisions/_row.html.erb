@@ -3,15 +3,21 @@
     <div class="revision-list__row__title">
       <p class="title"><%= link_to ((revision.article.namespace == 0 ? "" : t("namespace.user_ns") + ":") + revision.article.title), revision.article.url, :target => "_blank", :class => "inline" %></p>
     </div>
-    <div class="revision-list__row__date">
+    <div class="revision-list__row__date desktop-only-flex">
       <%# TODO: localize the date, or explicitly use ISO 8601 %>
       <p class="date"><%= revision.date.strftime("%Y-%m-%d %k:%M") %></p>
     </div>
     <div class="revision-list__row__characters">
-      <p class="characters"><%= revision.characters %></p>
+      <p class="characters">
+        <span class="tablet-only-flex"><%= t("metrics.char") %>: </span>
+        <%= revision.characters %>
+      </p>
     </div>
     <div class="revision-list__row__views">
-      <p class="views"><%= revision.views %></p>
+      <p class="views">
+        <span class="tablet-only-flex"><%= t("metrics.view") %>: </span>
+        <%= revision.views %>
+      </p>
     </div>
     <div class="revision-list__row__link">
       <!-- <div>Dif. <span class="icon icon-downward-arrow"></span></div> -->

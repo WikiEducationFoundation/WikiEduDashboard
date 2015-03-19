@@ -82,6 +82,7 @@
       transform rotate(270deg)
   &.view-all
     border-bottom none
+    justify-content center !important
     a
       font-family "Roboto"
     div
@@ -117,25 +118,13 @@
     col(1)
     +above(desktop)
       col(2/6)
-    .title
-      font-size 20px
-      +above(desktop)
-        font-size 16px
   .course-list__row__characters, .course-list__row__views,
   .course-list__row__students
-    margin-right 8px
-    p
-      padding-right 8px
-      border-right 1px solid manatee
-      +above(desktop)
-        border-right none
     float left
     +above(desktop)
       col(1/6)
     span
-      display inline !important
-      +above(desktop)
-        display none !important
+      display inline
   .course-list__row__students
     p
       border-right none
@@ -149,13 +138,31 @@
 
 .row:not(.list__header)
   .course-list__row__characters, .course-list__row__views,
-  .course-list__row__students
+  .course-list__row__students, .user-list__row__characters__mobile,
+  .user-list__row__training, .article-list__row__characters,
+  .article-list__row__views, .revision-list__row__characters,
+  .revision-list__row__views
     p
       font-size 14px
       +above(desktop)
         border none
         font-size 16px
         padding 0
+
+  .course-list__row__characters, .course-list__row__views,
+  .article-list__row__characters, .user-list__row__training,
+  .revision-list__row__characters
+    margin-right 8px
+    p
+      padding-right 8px
+      border-right 1px solid manatee
+      +above(desktop)
+        border-right none
+
+  p.title
+    font-size 20px
+    +above(desktop)
+      font-size 16px
 
 .user-list__row
   .user-list__row__name
@@ -177,17 +184,9 @@
       +above(desktop)
         display inline-block
   .user-list__row__training
-    p
-      font-size 14px
-    margin-right 8px
     +above(desktop)
       display none !important
-    p
-      border-right 1px solid manatee
-      padding-right 8px
   .user-list__row__characters__mobile
-    p
-      font-size 14px
     +above(desktop)
       display none !important
   .user-list__row__characters-ms
@@ -225,11 +224,15 @@
 
 .article-list__row
   .article-list__row__title
-    col(2/5)
-  .article-list__row__characters
-    col(1/5)
-  .article-list__row__views
-    col(1/5)
+    col(1)
+    +above(desktop)
+      col(2/5)
+  .article-list__row__characters, .article-list__row__views
+    font-size 14px
+    +above(desktop)
+      col(1/5)
+    span
+      display inline
   .article-list__row__link
     col(1/5)
 
@@ -239,14 +242,21 @@
       font-size 14px
     max-height 40px
   .revision-list__row__title
-    col(6/20)
+    col(1)
+    +above(desktop)
+      col(6/20)
   .revision-list__row__date
     col(5/20)
   .revision-list__row__namespace
     col(3/20)
   .revision-list__row__characters
-    col(4/20)
+    +above(desktop)
+      col(4/20)
   .revision-list__row__views
-    col(2/20)
+    +above(desktop)
+      col(2/20)
+  .revision-list__row__characters, .revision-list__row__views
+    span
+      display inline
   .revision-list__row__link
     col(3/20)

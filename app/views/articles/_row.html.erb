@@ -6,15 +6,17 @@
     </div>
     <div class="article-list__row__characters">
       <p class="characters">
+        <span class="tablet-only-flex"><%= t("metrics.char") %>: </span>
         <%= ac.character_sum || ac.article.character_sum %>
       </p>
     </div>
     <div class="article-list__row__views">
       <p class="views">
+        <span class="tablet-only-flex"><%= t("metrics.view") %>: </span>
         <%= ac.view_count || ac.article.views || 0 %>
       </p>
     </div>
-    <div class="article-list__row__link">
+    <div class="article-list__row__link desktop-only-flex">
       <p class="fake-link"><%= t("article.view") %></p>
     </div>
   </div>
