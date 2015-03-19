@@ -63,3 +63,13 @@ below(width)
   display: none !important
   +above(desktop)
     display block !important
+
+.tablet-only-flex
+  display flex
+  +above(desktop)
+    display none !important
+
+.desktop-only-flex
+  display: none !important
+  +above(desktop)
+    display flex !important

@@ -112,6 +112,7 @@ en:
     training_complete:
       one: "has completed training"
       other: "have completed training"
+      short: "Complete"
     training_complete_count: "%{count} completed training"
     training_doc: >
       Student editors who have completed the 'training for students' should
@@ -119,7 +120,9 @@ en:
       student editors went through the training but did not complete the
       feedback step, they can return to the end of the training here:
       https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete.
-    training_incomplete: Training Incomplete
+    training_incomplete:
+      one: Training Incomplete
+      short: Incomplete
     view_all: View All
 
   error_404:

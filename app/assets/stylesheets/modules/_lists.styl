@@ -16,7 +16,10 @@
   &.desc p:before
     transform rotate(0deg)
 .list__header
+  border-bottom 1px solid manatee
   font-family "Roboto"
+  +above(desktop)
+    border-bottom none
   .row__wrapper
     border-bottom 1px solid manatee !important
     padding-top 0 !important
@@ -33,7 +36,7 @@
   align-items center
   justify-content flex-start
   margin-left 0
-  padding 0 10px
+  padding 0
   transition background 0.15s
   +above(desktop)
     padding 0 20px
@@ -51,10 +54,13 @@
     color dove
   .row__wrapper
     border-bottom 1px solid mercury
-    padding 15px 0
+    cf()
+    flex-wrap wrap
+    padding 15px
+    position relative
     width 100%
     +above(desktop)
-      padding 15px
+      flex-wrap nowrap
   .fake-link
     font-size 14px
     font-family "Roboto"
@@ -107,19 +113,6 @@
       text-align left
 
 .course-list__row
-  .desktop-only
-    display none !important
-    +above(desktop)
-      display flex !important
-  .tablet-only
-    display flex !important
-    +above(desktop)
-      display none !important
-  .row__wrapper
-    flex-wrap wrap
-    cf()
-    +above(desktop)
-      flex-wrap nowrap
   .course-list__row__title
     col(1)
     +above(desktop)
@@ -148,10 +141,8 @@
       border-right none
       padding-right 0
   .course-list__row__link
-    display none !important
     +above(desktop)
       col(1/6)
-      display flex !important
       position static
   div:not(.drawer)
     min-height 40px
@@ -168,26 +159,67 @@
 
 .user-list__row
   .user-list__row__name
-    col(6/20)
+    col(1)
+    +above(desktop)
+      col(6/20)
     p.name
       line-height 1
       margin-top 13px
     .avatar
+      display none
       round-placeholder(20)
-      display inline-block
       margin-right 15px
+      +above(desktop)
+        display inline-block
     small
+      display none
       font-size 8px
+      +above(desktop)
+        display inline-block
+  .user-list__row__training
+    p
+      font-size 14px
+    margin-right 8px
+    +above(desktop)
+      display none !important
+    p
+      border-right 1px solid manatee
+      padding-right 8px
+  .user-list__row__characters__mobile
+    p
+      font-size 14px
+    +above(desktop)
+      display none !important
   .user-list__row__characters-ms
     col(3/20)
+    display none !important
+    +above(desktop)
+      display flex !important
   .user-list__row__characters-us
     col(3/20)
+    display none !important
+    +above(desktop)
+      display flex !important
   .user-list__row__edits
-    col(6/20)
+    display none !important
+    +above(desktop)
+      col(6/20)
+      display flex !important
   .user-list__row__link
-    col(2/20)
+    margin-top -20px
+    position absolute
+    right 30px
+    top 50%
     .icon:before
-      font-size 20px
+      font-size 30px
+      font-weight 100
+    +above(desktop)
+      col(2/20)
+      position static
+      margin-top 0
+      .icon:before
+        font-size 20px
+        font-weight normal
   .user-list__row__spacer
     col(0/20)
 
