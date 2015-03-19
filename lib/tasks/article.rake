@@ -16,4 +16,10 @@ namespace :article do
     Rails.logger.info 'Updating views for newly added articles'
     Article.update_new_views
   end
+
+  desc 'Update ratings for all articles'
+  task update_ratings: :environment do
+    Rails.logger.info 'Updating article ratings'
+    Article.update_all_ratings
+  end
 end
