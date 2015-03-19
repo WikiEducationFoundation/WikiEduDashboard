@@ -44,7 +44,7 @@
     justify-content flex-start
     +above(desktop)
       justify-content center
-  div:not(.drawer)
+  div:not(.drawer):not(.avatar)
     align-items center
     display flex
     min-height 40px
@@ -147,12 +147,6 @@
     p.name
       line-height 1
       margin-top 13px
-    .avatar
-      display none
-      round-placeholder(20)
-      margin-right 15px
-      +above(desktop)
-        display inline-block
     small
       display none
       font-size 8px
@@ -198,10 +192,12 @@
     col(0/20)
 
 .article-list__row
+  .article-list__row__rating
+    col(1/10)
   .article-list__row__title
     col(1)
     +above(desktop)
-      col(2/5)
+      col(3/10)
   .article-list__row__characters, .article-list__row__views
     font-size 14px
     +above(desktop)
@@ -235,6 +231,41 @@
       display inline
   .revision-list__row__link
     col(3/20)
+
+
+.avatar, .rating
+  display none
+  margin-right 15px
+  +above(desktop)
+    display inline-block
+
+.avatar
+  round-placeholder(20)
+
+.rating
+  round-placeholder(24)
+  background-color transparent
+  border 2px solid manatee
+  text-align center
+  p
+    color bayoux
+    font-size 14px
+  &.fa, &.fl
+    border 2px solid #6699FF
+  &.a
+    border 2px solid #66FFFF
+  &.ga
+    border 2px solid #66FF66
+  &.b
+    border 2px solid #B2FF66
+  &.c
+    border 2px solid #FFFF66
+  &.start
+    border 2px solid #FFAA66
+  &.stub
+    border 2px solid #FF6666
+  &.list
+    border 2px solid #AA88FF
 
 
 .row:not(.list__header)
