@@ -83,6 +83,9 @@
   &.view-all
     border-bottom none
     justify-content center !important
+    padding 0 20px
+    +above(desktop)
+      padding 0
     a
       font-family "Roboto"
     div
@@ -135,34 +138,6 @@
       position static
   div:not(.drawer)
     min-height 40px
-
-.row:not(.list__header)
-  .course-list__row__characters, .course-list__row__views,
-  .course-list__row__students, .user-list__row__characters__mobile,
-  .user-list__row__training, .article-list__row__characters,
-  .article-list__row__views, .revision-list__row__characters,
-  .revision-list__row__views
-    p
-      font-size 14px
-      +above(desktop)
-        border none
-        font-size 16px
-        padding 0
-
-  .course-list__row__characters, .course-list__row__views,
-  .article-list__row__characters, .user-list__row__training,
-  .revision-list__row__characters
-    margin-right 8px
-    p
-      padding-right 8px
-      border-right 1px solid manatee
-      +above(desktop)
-        border-right none
-
-  p.title
-    font-size 20px
-    +above(desktop)
-      font-size 16px
 
 .user-list__row
   .user-list__row__name
@@ -260,3 +235,51 @@
       display inline
   .revision-list__row__link
     col(3/20)
+
+
+.row:not(.list__header)
+  .course-list__row__characters, .course-list__row__views,
+  .course-list__row__students, .user-list__row__characters__mobile,
+  .user-list__row__training, .article-list__row__characters,
+  .article-list__row__views, .revision-list__row__characters,
+  .revision-list__row__views
+    p
+      font-size 14px
+      +above(desktop)
+        border none
+        font-size 16px
+        padding 0
+
+  .course-list__row__characters, .course-list__row__views,
+  .article-list__row__characters, .user-list__row__training,
+  .revision-list__row__characters
+    +below(desktop)
+      margin-right 8px
+    p
+      padding-right 8px
+      border-right 1px solid manatee
+      +above(desktop)
+        border-right none
+
+  p.title
+    font-size 20px
+    +above(desktop)
+      font-size 16px
+
+  .row__fake__link
+    margin-top -20px
+    position absolute
+    right 15px
+    top 50%
+    transform rotate(270deg)
+    +above(desktop)
+      span(0)
+      right 0
+    .icon:before
+      font-size 29px
+      font-weight 100
+
+  &.course-list__row, &.revision-list__row,
+  &.article-list__row
+    .row__wrapper > div:nth-last-child(2)
+      margin-right 0
