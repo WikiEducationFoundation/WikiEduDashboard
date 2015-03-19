@@ -18,8 +18,14 @@ namespace :article do
   end
 
   desc 'Update ratings for all articles'
-  task update_ratings: :environment do
+  task update_all_ratings: :environment do
     Rails.logger.info 'Updating article ratings'
     Article.update_all_ratings
+  end
+
+  desc 'Update ratings for all articles'
+  task update_new_ratings: :environment do
+    Rails.logger.info 'Updating article ratings'
+    Article.update_new_ratings
   end
 end

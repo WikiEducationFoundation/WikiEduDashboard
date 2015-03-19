@@ -147,12 +147,6 @@
     p.name
       line-height 1
       margin-top 13px
-    .avatar
-      display none
-      round-placeholder(20)
-      margin-right 15px
-      +above(desktop)
-        display inline-block
     small
       display none
       font-size 8px
@@ -235,6 +229,23 @@
       display inline
   .revision-list__row__link
     col(3/20)
+
+
+.avatar, .rating
+  display none
+  margin-right 15px
+  +above(desktop)
+    display inline-block
+
+.avatar
+  round-placeholder(20)
+
+.rating
+  round-placeholder(24)
+  background-color manatee
+  text-align center
+  p
+    color white
 
 
 .row:not(.list__header)

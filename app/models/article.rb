@@ -132,11 +132,32 @@ class Article < ActiveRecord::Base
     end
   end
 
+  def self.update_all_ratings
+    articles = Article.where(namespace: 0).find_in_batches(batch_size: 30)
+    update_ratings(articles)
+  end
+
+  def self.update_new_ratings
+    articles = Article.where('rating_updated_at IS NULL').where(namespace: 0)
+               .find_in_batches(batch_size: 30)
+    update_ratings(articles)
+  end
+
   def self.update_ratings(articles)
-    ratings = []
-    Article.find_in_batches(batch_size: 20).with_index do |group, _batch|
-      ratings += Wiki.get_article_rating(group.map(&:title))
+    # require './lib/wiki'
+    # ratings = []
+    # articles.with_index do |group, _batch|
+    #   ratings += Wiki.get
+    # end
+
+    articles.with_index do |group, _batch|
+      ratings = Wiki.get_article_rating(group.map(&:title)).inject(&:merge)
+      group.each do |a|
+        puts "#{a.title} - #{ratings[a.title]}"
+        a.rating = ratings[a.title]
+        a.rating_updated_at = Time.now
+        a.save
+      end
     end
-    # Do something with the ratings
   end
 end

@@ -2,6 +2,7 @@
   <%= link_to ac.article.url, :target => "_blank" do %>
   <div class="row__wrapper">
     <div class="article-list__row__title">
+      <div class="rating"><p><%= ac.article.rating || '?' %></p></div>
       <p class="title"><%= ac.article.title + (ac.new_article ? " (new)" : "") %></p>
     </div>
     <div class="article-list__row__characters">

@@ -18,6 +18,7 @@ namespace :batch do
       Rake::Task['user:update_users'].invoke
       Rake::Task['revision:update_revisions'].invoke
       Rake::Task['article:update_new_article_views'].invoke
+      Rake::Task['article:update_new_ratings'].invoke
       Rake::Task['cache:update_caches'].invoke
     ensure
       File.delete pid_file
@@ -40,6 +41,7 @@ namespace :batch do
     begin
       Rails.logger.info 'Running daily update tasks'
       Rake::Task['article:update_views'].invoke
+      Rake::Task['article:update_all_ratings'].invoke
       Rake::Task['cache:update_caches'].invoke
     ensure
       File.delete pid_file

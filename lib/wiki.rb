@@ -92,6 +92,11 @@ class Wiki
       article = raw_article['revisions']['rev']
     end
 
+    # Handle empty talk page
+    if article.is_a? Hash
+      return nil
+    end
+
     if article.match(/\|\s*(class|currentstatus)\s*=\s*fa\b/i)
       'fa'
     elsif article.match(/\|\s*(class|currentstatus)\s*=\s*fl\b/i)
