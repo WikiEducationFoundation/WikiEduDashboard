@@ -7,7 +7,7 @@ ON WIKITECH
   - ubuntu 14.04 trusty
   - Security groups: default, web
 
-- Create a web proxy for this new instance. This will determine the url of your dashboard (something like educationdashboard.wmflabs.org
+- Create a web proxy for this new instance. This will determine the url of your dashboard (something like educationdashboard.wmflabs.org)
 
 ON THE SERVER
 -------------
@@ -77,7 +77,7 @@ LoadModule passenger_module /home/ragesoss/.rvm/gems/ruby-2.1.5/gems/passenger-4
 ON GITHUB
 -------------
 
-- Fork the github repo ragesoss/WikiEduDashboard
+- Fork this github repo.
 
 
 ON YOUR MACHINE

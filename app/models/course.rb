@@ -96,7 +96,7 @@ class Course < ActiveRecord::Base
   def self.update_all_courses(initial=false, raw_ids={})
     raw_ids = Wiki.course_list if raw_ids.empty?
     listed_ids = raw_ids.values.flatten
-    course_ids = listed_ids | Course.all.pluck(:id).map(&:to_s)
+    course_ids = listed_ids | Course.where(listed: true).pluck(:id).map(&:to_s)
     _minimum = course_ids.map(&:to_i).min
     maximum = course_ids.map(&:to_i).max
     # See also Wiki.handle_invalid_course_id, which has related logic for
@@ -169,9 +169,11 @@ class Course < ActiveRecord::Base
         user_ids = group_flat.map { |user| user['id'] }
         course = Course.find_by(id: course_id)
         unless user_ids.empty?
+          role_index = %w(student instructor online_volunteer
+                          campus_volunteer wiki_ed_staff)
           # Set up structures for operating on
           existing_flat = course.courses_users.map do |cu|
-            { 'id' => cu.user_id, 'role' => cu.role }
+            { 'id' => cu.user_id.to_s, 'role' => role_index[cu.role] }
           end
           new_flat = group_flat.map do |u|
             { 'id' => u['id'], 'role' => u['role'] }
@@ -184,8 +186,6 @@ class Course < ActiveRecord::Base
           # Enroll new users
           enrolled = (new_flat - existing_flat).map { |u| u['id'] }
           if enrolled.count > 0
-            role_index = %w(student instructor online_volunteer
-                            campus_volunteer wiki_ed_staff)
             group_flat.each do |u|
               next() unless enrolled.include? u['id']
               role = role_index.index(u['role'])
