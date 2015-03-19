@@ -192,10 +192,12 @@
     col(0/20)
 
 .article-list__row
+  .article-list__row__rating
+    col(1/10)
   .article-list__row__title
     col(1)
     +above(desktop)
-      col(2/5)
+      col(3/10)
   .article-list__row__characters, .article-list__row__views
     font-size 14px
     +above(desktop)
@@ -242,10 +244,28 @@
 
 .rating
   round-placeholder(24)
-  background-color manatee
+  background-color transparent
+  border 2px solid manatee
   text-align center
   p
-    color white
+    color bayoux
+    font-size 14px
+  &.fa, &.fl
+    border 2px solid #6699FF
+  &.a
+    border 2px solid #66FFFF
+  &.ga
+    border 2px solid #66FF66
+  &.b
+    border 2px solid #B2FF66
+  &.c
+    border 2px solid #FFFF66
+  &.start
+    border 2px solid #FFAA66
+  &.stub
+    border 2px solid #FF6666
+  &.list
+    border 2px solid #AA88FF
 
 
 .row:not(.list__header)

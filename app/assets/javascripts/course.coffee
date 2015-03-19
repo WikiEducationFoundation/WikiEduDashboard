@@ -6,7 +6,7 @@ $ ->
   userList = new List('users', {valueNames: ['name','training','characters-ms', 'characters-us', 'edits']})
 
   # Article sorting
-  articleList = new List('articles', {valueNames: ['title','characters','views']})
+  articleList = new List('articles', {valueNames: ['rating_num', 'title','characters','views']})
 
   # Revision sorting
   revisionList = new List('revisions', {valueNames: ['title', 'date', 'characters', 'views']})

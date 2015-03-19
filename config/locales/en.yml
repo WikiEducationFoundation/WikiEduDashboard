@@ -40,6 +40,7 @@ en:
     edited: Articles Edited
     edited_mobile: Articles
     edited_none: "%{title} has not edited any articles."
+    rating: Rating
     title: Title
     view: View Article
     view_all: View All
