@@ -38,6 +38,7 @@ en:
   article:
     character_doc: The sum of characters added to articles by the course's students during the course term
     edited: Articles Edited
+    edited_mobile: Articles
     edited_none: "%{title} has not edited any articles."
     title: Title
     view: View Article
@@ -58,6 +59,7 @@ en:
       one: Instructor
       other: Instructors
     students: Student Editors
+    students_mobile: Students
     students_none: "%{title} does not have any enrolled students"
     students_short: Students
     title: Title
@@ -110,6 +112,7 @@ en:
     training_complete:
       one: "has completed training"
       other: "have completed training"
+      short: "Complete"
     training_complete_count: "%{count} completed training"
     training_doc: >
       Student editors who have completed the 'training for students' should
@@ -117,7 +120,9 @@ en:
       student editors went through the training but did not complete the
       feedback step, they can return to the end of the training here:
       https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete.
-    training_incomplete: Training Incomplete
+    training_incomplete:
+      one: Training Incomplete
+      short: Incomplete
     view_all: View All
 
   error_404:

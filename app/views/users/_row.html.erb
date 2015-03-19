@@ -2,7 +2,18 @@
   <div class="row__wrapper drawer_trigger <%= cu.revision_count < 1 ? "disabled" : "" %>">
     <div class="user-list__row__name">
       <div class="avatar"><%= image_tag "/images/user.svg" %></div>
-      <p class="name"><%= contribution_link(cu.user, nil, 'inline') %><br><small class="red"><%= cu.user.trained ? '' : t("user.training_incomplete") %></small></p>
+      <p class="name"><%= contribution_link(cu.user, nil, 'inline') %><br><small class="red"><%= cu.user.trained ? '' : t("user.training_incomplete.one") %></small></p>
+    </div>
+    <div class="user-list__row__training">
+      <p class="training <%= !cu.user.trained ? 'red' : '' %>"><%= cu.user.trained ? t("user.training_complete.short") : t("user.training_incomplete.short") %></p>
+    </div>
+    <div class="user-list__row__characters__mobile">
+      <p class="characters-ms">
+        <span>MS: </span>
+        <span><%= cu.character_sum_ms %>, </span>
+        <span>US: </span>
+        <span><%= cu.character_sum_us %></span>
+      </p>
     </div>
     <div class="user-list__row__characters-ms">
       <p class="characters-ms">

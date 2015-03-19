@@ -1,5 +1,6 @@
 body > .container
-  padding-bottom 80px
+  +above(desktop)
+    padding-bottom 80px
 
 .container
   center(1100px)
@@ -32,12 +33,17 @@ section
   padding-top 20px
   overflow hidden
   text-align left
-  width 100%
+  span(1)
   .details__detail
-    span(1/5)
+    span(1/2)
     padding 20px 0
+    text-align left
+    +above(desktop)
+      span(1/5)
+      text-align left
     &:last-child
       span(2/5)
+      text-align left
     h6
       font-family "Roboto"
       font-size 15px

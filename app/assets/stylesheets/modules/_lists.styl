@@ -16,7 +16,10 @@
   &.desc p:before
     transform rotate(0deg)
 .list__header
+  border-bottom 1px solid manatee
   font-family "Roboto"
+  +above(desktop)
+    border-bottom none
   .row__wrapper
     border-bottom 1px solid manatee !important
     padding-top 0 !important
@@ -33,10 +36,14 @@
   align-items center
   justify-content flex-start
   margin-left 0
-  padding 0 20px
+  padding 0
   transition background 0.15s
+  +above(desktop)
+    padding 0 20px
   div:not(.drawer):last-child
-    justify-content center
+    justify-content flex-start
+    +above(desktop)
+      justify-content center
   div:not(.drawer)
     align-items center
     display flex
@@ -47,8 +54,13 @@
     color dove
   .row__wrapper
     border-bottom 1px solid mercury
+    cf()
+    flex-wrap wrap
     padding 15px
+    position relative
     width 100%
+    +above(desktop)
+      flex-wrap nowrap
   .fake-link
     font-size 14px
     font-family "Roboto"
@@ -70,6 +82,10 @@
       transform rotate(270deg)
   &.view-all
     border-bottom none
+    justify-content center !important
+    padding 0 20px
+    +above(desktop)
+      padding 0
     a
       font-family "Roboto"
     div
@@ -102,50 +118,96 @@
 
 .course-list__row
   .course-list__row__title
-    col(2/6)
-  .course-list__row__characters
-    col(1/6)
-  .course-list__row__views
-    col(1/6)
+    col(1)
+    +above(desktop)
+      col(2/6)
+  .course-list__row__characters, .course-list__row__views,
   .course-list__row__students
-    col(1/6)
+    float left
+    +above(desktop)
+      col(1/6)
+    span
+      display inline
+  .course-list__row__students
+    p
+      border-right none
+      padding-right 0
   .course-list__row__link
-    col(1/6)
+    +above(desktop)
+      col(1/6)
+      position static
   div:not(.drawer)
     min-height 40px
 
 .user-list__row
   .user-list__row__name
-    col(6/20)
+    col(1)
+    +above(desktop)
+      col(6/20)
     p.name
       line-height 1
       margin-top 13px
     .avatar
+      display none
       round-placeholder(20)
-      display inline-block
       margin-right 15px
+      +above(desktop)
+        display inline-block
     small
+      display none
       font-size 8px
+      +above(desktop)
+        display inline-block
+  .user-list__row__training
+    +above(desktop)
+      display none !important
+  .user-list__row__characters__mobile
+    +above(desktop)
+      display none !important
   .user-list__row__characters-ms
     col(3/20)
+    display none !important
+    +above(desktop)
+      display flex !important
   .user-list__row__characters-us
     col(3/20)
+    display none !important
+    +above(desktop)
+      display flex !important
   .user-list__row__edits
-    col(6/20)
+    display none !important
+    +above(desktop)
+      col(6/20)
+      display flex !important
   .user-list__row__link
-    col(2/20)
+    margin-top -20px
+    position absolute
+    right 30px
+    top 50%
     .icon:before
-      font-size 20px
+      font-size 30px
+      font-weight 100
+    +above(desktop)
+      col(2/20)
+      position static
+      margin-top 0
+      .icon:before
+        font-size 20px
+        font-weight normal
   .user-list__row__spacer
     col(0/20)
 
 .article-list__row
   .article-list__row__title
-    col(2/5)
-  .article-list__row__characters
-    col(1/5)
-  .article-list__row__views
-    col(1/5)
+    col(1)
+    +above(desktop)
+      col(2/5)
+  .article-list__row__characters, .article-list__row__views
+    font-size 14px
+    +above(desktop)
+      col(1/5)
+    span
+      display inline
   .article-list__row__link
     col(1/5)
 
@@ -155,14 +217,69 @@
       font-size 14px
     max-height 40px
   .revision-list__row__title
-    col(6/20)
+    col(1)
+    +above(desktop)
+      col(6/20)
   .revision-list__row__date
     col(5/20)
   .revision-list__row__namespace
     col(3/20)
   .revision-list__row__characters
-    col(4/20)
+    +above(desktop)
+      col(4/20)
   .revision-list__row__views
-    col(2/20)
+    +above(desktop)
+      col(2/20)
+  .revision-list__row__characters, .revision-list__row__views
+    span
+      display inline
   .revision-list__row__link
     col(3/20)
+
+
+.row:not(.list__header)
+  .course-list__row__characters, .course-list__row__views,
+  .course-list__row__students, .user-list__row__characters__mobile,
+  .user-list__row__training, .article-list__row__characters,
+  .article-list__row__views, .revision-list__row__characters,
+  .revision-list__row__views
+    p
+      font-size 14px
+      +above(desktop)
+        border none
+        font-size 16px
+        padding 0
+
+  .course-list__row__characters, .course-list__row__views,
+  .article-list__row__characters, .user-list__row__training,
+  .revision-list__row__characters
+    +below(desktop)
+      margin-right 8px
+    p
+      padding-right 8px
+      border-right 1px solid manatee
+      +above(desktop)
+        border-right none
+
+  p.title
+    font-size 20px
+    +above(desktop)
+      font-size 16px
+
+  .row__fake__link
+    margin-top -20px
+    position absolute
+    right 15px
+    top 50%
+    transform rotate(270deg)
+    +above(desktop)
+      span(0)
+      right 0
+    .icon:before
+      font-size 29px
+      font-weight 100
+
+  &.course-list__row, &.revision-list__row,
+  &.article-list__row
+    .row__wrapper > div:nth-last-child(2)
+      margin-right 0

@@ -14,7 +14,6 @@ $ ->
         drawer.toggleHeight()
         $(e.target).parents('.row').toggleClass('open')
         setTimeout ->
-          console.log $(e.target).parents('.row').offset().top - 80
           $('html').velocity "scroll", { offset: $(e.target).parents('.row').offset().top - 80, duration: 400, easing: "easeInOutQuad" }
         , 200
     else
