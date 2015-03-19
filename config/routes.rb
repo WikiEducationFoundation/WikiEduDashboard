@@ -10,10 +10,10 @@ Rails.application.routes.draw do
   end
 
   controller :courses do
-    get 'courses/*id/students' => 'courses#students', :as => :students, constraint: { id: /.*/ }
-    get 'courses/*id/articles' => 'courses#articles', :as => :path_save, constraint: { id: /.*/ }
+    get 'courses/*id/students' => 'courses#students', :as => :students, constraints: { id: /.*/ }
+    get 'courses/*id/articles' => 'courses#articles', :as => :path_save, constraints: { id: /.*/ }
     # Course titles on Wikipedia may include dots, so this constraint is needed.
-    get 'courses/*id' => 'courses#students', constraint: { id: /.*/ }
+    get 'courses/*id' => 'courses#students', constraints: { id: /.*/ }
     get 'courses' => 'courses#index'
   end
 
