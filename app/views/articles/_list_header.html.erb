@@ -1,6 +1,11 @@
 <div class="row article-list__row list__header article-list__sort">
   <div class="desktop-only-flex row__wrapper">
-    <div class="article-list__row__rating sort" data-sort="rating_num"><p><%= t("article.rating") %></p></div>
+    <div class="article-list__row__rating sort popover-trigger" data-sort="rating_num">
+      <p><%= t("article.rating") %></p>
+      <div class="popover dark">
+        <p><%= t("article.rating_doc") %></p>
+      </div>
+    </div>
     <div class="article-list__row__title sort asc" data-sort="title"><p><%= t("article.title") %></p></div>
     <div class="article-list__row__characters sort popover-trigger" data-default-order="desc" data-sort="characters">
       <p><%= t("metrics.char_added") %></p>
