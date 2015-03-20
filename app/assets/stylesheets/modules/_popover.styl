@@ -7,7 +7,6 @@
   .popover
     background-color white
     border 1px solid manatee
-    left -15%
     opacity 0
     padding 10px 15px
     pointer-events none
@@ -15,7 +14,6 @@
     top 125%
     transform translateZ(0)
     transition opacity .2s linear, top .2s linear
-    width 130%
     z-index 4
     &.dark
       background-color manatee
@@ -31,7 +29,6 @@
       top -6px
       content ''
       display block
-      left 50%
       margin-left -6px
       position absolute
     h4
@@ -40,3 +37,15 @@
       color manatee
       font-size 11px
       line-height 1.4
+
+.stat-display .popover
+  left -15%
+  width 130%
+  &:before
+    left 50%
+
+.row .popover
+  left 0
+  width 150px
+  &:before
+    left 24px
