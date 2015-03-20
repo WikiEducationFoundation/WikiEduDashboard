@@ -1,28 +1,30 @@
 <li class="row revision-list__row">
-  <div class="row__wrapper">
-    <div class="revision-list__row__title">
-      <p class="title"><%= link_to ((revision.article.namespace == 0 ? "" : t("namespace.user_ns") + ":") + revision.article.title), revision.article.url, :target => "_blank", :class => "inline" %></p>
+  <%= link_to revision.article.url, :target => "_blank" do %>
+    <div class="row__wrapper">
+      <div class="revision-list__row__title">
+        <p class="title"><%= ((revision.article.namespace == 0 ? "" : t("namespace.user_ns") + ":") + revision.article.title) %></p>
+      </div>
+      <div class="revision-list__row__date desktop-only-flex">
+        <%# TODO: localize the date, or explicitly use ISO 8601 %>
+        <p class="date"><%= revision.date.strftime("%Y-%m-%d %k:%M") %></p>
+      </div>
+      <div class="revision-list__row__characters">
+        <p class="characters">
+          <span class="tablet-only-flex"><%= t("metrics.char") %>: </span>
+          <%= revision.characters %>
+        </p>
+      </div>
+      <div class="revision-list__row__views">
+        <p class="views">
+          <span class="tablet-only-flex"><%= t("metrics.view") %>: </span>
+          <%= revision.views %>
+        </p>
+      </div>
+      <div class="revision-list__row__link">
+        <!-- <div>Dif. <span class="icon icon-downward-arrow"></span></div> -->
+      </div>
+      <div class="row__fake__link tablet-only"><p class="icon icon-arrow"></p></div>
     </div>
-    <div class="revision-list__row__date desktop-only-flex">
-      <%# TODO: localize the date, or explicitly use ISO 8601 %>
-      <p class="date"><%= revision.date.strftime("%Y-%m-%d %k:%M") %></p>
-    </div>
-    <div class="revision-list__row__characters">
-      <p class="characters">
-        <span class="tablet-only-flex"><%= t("metrics.char") %>: </span>
-        <%= revision.characters %>
-      </p>
-    </div>
-    <div class="revision-list__row__views">
-      <p class="views">
-        <span class="tablet-only-flex"><%= t("metrics.view") %>: </span>
-        <%= revision.views %>
-      </p>
-    </div>
-    <div class="revision-list__row__link">
-      <!-- <div>Dif. <span class="icon icon-downward-arrow"></span></div> -->
-    </div>
-    <div class="row__fake__link tablet-only"><p class="icon icon-arrow"></p></div>
-  </div>
+  <% end %>
 </li>
 <!-- render diff here? -->
