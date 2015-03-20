@@ -1,6 +1,6 @@
 .sort
   cursor pointer
-  &.asc p:before, &.desc p:before
+  &.asc > p:before, &.desc > p:before
     display inline-block
     content '\f107'
     font-family "FontAwesome"
@@ -175,6 +175,9 @@
     +above(desktop)
       col(6/20)
       display flex !important
+    span.article_rating
+      font-size 11px
+      vertical-align super
   .user-list__row__link
     margin-top -20px
     position absolute

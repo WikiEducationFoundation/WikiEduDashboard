@@ -175,23 +175,25 @@ describe Article do
     end
   end
 
-  # TODO: This method is incomplete. Ratings are not saved, and the 'articles'
-  # parameter is not used.
   describe '.update_ratings' do
     it 'should get latest ratings for articles' do
       VCR.use_cassette 'article/update_ratings' do
-        # Try it with no articles.
-        Article.update_ratings('articles')
-
         # Add an article.
-        build(:article,
-              id: 1,
-              title: 'Selfie',
-              namespace: 0
-        ).save
+        create(:article,
+               id: 1,
+               title: 'Selfie',
+               namespace: 0
+        )
+        Article.update_all_ratings
+        expect(Article.all.first.rating).to eq('b')
 
-        # Update again with this article.
-        Article.update_ratings('articles')
+        create(:article,
+               id: 2,
+               title: 'A Clash of Kings',
+               namespace: 0
+        )
+        Article.update_new_ratings
+        expect(Article.all.last.rating).to eq('c')
       end
     end
   end

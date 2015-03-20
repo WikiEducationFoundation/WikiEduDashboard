@@ -87,10 +87,10 @@ class Wiki
   def self.parse_article_rating(raw_article)
     # Handle the case of nonexistent talk pages.
     if raw_article['missing']
-      article = ''
-    else
-      article = raw_article['revisions']['rev']
+      return nil
     end
+
+    article = raw_article['revisions']['rev']
 
     # Handle empty talk page
     if article.is_a? Hash
