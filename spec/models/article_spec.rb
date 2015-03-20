@@ -192,7 +192,7 @@ describe Article do
                title: 'A Clash of Kings',
                namespace: 0
         )
-        Article.update_all_ratings
+        Article.update_new_ratings
         expect(Article.all.last.rating).to eq('c')
       end
     end
