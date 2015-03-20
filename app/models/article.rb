@@ -152,8 +152,10 @@ class Article < ActiveRecord::Base
 
     articles.with_index do |group, _batch|
       ratings = Wiki.get_article_rating(group.map(&:title)).inject(&:merge)
+      if ratings.keys.length == 1
+        ratings = { ratings.keys[0][0] => ratings.values[0] }
+      end
       group.each do |a|
-        puts "#{a.title} - #{ratings[a.title]}"
         a.rating = ratings[a.title]
         a.rating_updated_at = Time.now
         a.save

@@ -180,23 +180,20 @@ describe Article do
       VCR.use_cassette 'article/update_ratings' do
         # Add an article.
         create(:article,
-              id: 1,
-              title: 'Selfie',
-              namespace: 0
+               id: 1,
+               title: 'Selfie',
+               namespace: 0
         )
-
-        # FIXME: When there is only one article in the database, the expected
-        # rating does not get returned.
         Article.update_all_ratings
+        expect(Article.all.first.rating).to eq('b')
 
         create(:article,
-              id: 2,
-              title: 'A Clash of Kings',
-              namespace: 0
+               id: 2,
+               title: 'A Clash of Kings',
+               namespace: 0
         )
-        Update with this article.
-
         Article.update_all_ratings
+        expect(Article.all.last.rating).to eq('c')
       end
     end
   end
