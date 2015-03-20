@@ -77,14 +77,15 @@ describe Wiki do
           'Antarctica (disambiguation)', # dab
           '2015 Pacific typhoon season', # cur, as of 2015-02-27
           "Cycling at the 2016 Summer Olympics – Men's Omnium", # future, as of 2015-02-27
-          'Selfie (disambiguation)' # no talk page
+          'Selfie (disambiguation)', # no talk page
+          'Sex trafficking' # blank talk page
         ]
         # rubocop:enable Metrics/LineLength
 
         response = Wiki.get_article_rating(articles)
         expect(response).to include('History of biology' => 'fa')
         expect(response).to include('THIS IS NOT A REAL ARTICLE TITLE' => nil)
-        expect(response.count).to eq(19)
+        expect(response.count).to eq(20)
       end
     end
 

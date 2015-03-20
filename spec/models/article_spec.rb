@@ -175,23 +175,28 @@ describe Article do
     end
   end
 
-  # TODO: This method is incomplete. Ratings are not saved, and the 'articles'
-  # parameter is not used.
   describe '.update_ratings' do
     it 'should get latest ratings for articles' do
       VCR.use_cassette 'article/update_ratings' do
-        # Try it with no articles.
-        Article.update_ratings('articles')
-
         # Add an article.
-        build(:article,
+        create(:article,
               id: 1,
               title: 'Selfie',
               namespace: 0
-        ).save
+        )
 
-        # Update again with this article.
-        Article.update_ratings('articles')
+        # FIXME: When there is only one article in the database, the expected
+        # rating does not get returned.
+        Article.update_all_ratings
+
+        create(:article,
+              id: 2,
+              title: 'A Clash of Kings',
+              namespace: 0
+        )
+        Update with this article.
+
+        Article.update_all_ratings
       end
     end
   end
