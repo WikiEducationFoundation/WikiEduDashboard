@@ -33,7 +33,7 @@ en:
           quadrillion: Q
 
   application:
-    dashboard: WikiEdu Dashboard
+    dashboard: Wiki Ed Dashboard
 
   article:
     character_doc: The sum of characters added to articles by the course's students during the course term
@@ -63,7 +63,7 @@ en:
 
   course:
     character_doc: The sum of characters added to mainspace articles by the course's students during the course term
-    course_description: WikiEdu Courses
+    course_description: Wiki Ed Courses
     courses: Courses
     current: Current Courses
     duration: Course Duration
