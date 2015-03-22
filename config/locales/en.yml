@@ -51,7 +51,8 @@ en:
       c: C-class — an intermediate article with room for improvement
       start: Start-class — a preliminary article with plenty of room for improvement
       stub: Stub-class — a short beginning of an article that needs more content
-      list: List-class — a list rather than a conventional article 
+      list: List-class — a list rather than a conventional article
+      ?: Unrated — an article that hasn't yet been rated on Wikipedia's quality scale
     title: Title
     view: View Article
     view_all: View All
