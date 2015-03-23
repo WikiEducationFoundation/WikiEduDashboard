@@ -54,25 +54,25 @@ describe 'the home page', type: :feature do
   describe 'header' do
     it 'should display number of courses accurately' do
       course_count = Course.cohort(cohort).count
-      stat_text = "#{course_count} WikiEdu Courses"
+      stat_text = "#{course_count} #{I18n.t('course.course_description')}"
       expect(page.find('.stat-display')).to have_content stat_text
     end
 
     it 'should display number of students accurately' do
       student_count = User.role('student').count
-      stat_text = "#{student_count} Student Editors"
+      stat_text = "#{student_count} #{I18n.t('course.students')}"
       expect(page.find('.stat-display')).to have_content stat_text
     end
 
     it 'should display number of characters added accurately' do
       character_count = Course.all.sum(:character_sum)
-      stat_text = "#{character_count} Characters Added"
+      stat_text = "#{character_count} #{I18n.t('metrics.char_added')}"
       expect(page.find('.stat-display')).to have_content stat_text
     end
 
     it 'should display number of views accurately' do
       character_count = Course.all.sum(:view_sum)
-      stat_text = "#{character_count} Article Views"
+      stat_text = "#{character_count} #{I18n.t('metrics.view_count_description')}"
       expect(page.find('.stat-display')).to have_content stat_text
     end
   end
