@@ -71,8 +71,8 @@ describe 'the home page', type: :feature do
     end
 
     it 'should display number of views accurately' do
-      character_count = Course.all.sum(:view_sum)
-      stat_text = "#{character_count} #{I18n.t('metrics.view_count_description')}"
+      view_count = Course.all.sum(:view_sum)
+      stat_text = "#{view_count} #{I18n.t('metrics.view_count_description')}"
       expect(page.find('.stat-display')).to have_content stat_text
     end
   end

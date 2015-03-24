@@ -83,20 +83,16 @@ class Wiki
   # We simplify this parser by removing folding the nonstandard ratings
   # into the corresponding standard ones. We don't want to deal with edge cases
   # like bplus and a/ga.
-  # rubocop:disable Metrics/LineLength
   def self.parse_article_rating(raw_article)
     # Handle the case of nonexistent talk pages.
-    if raw_article['missing']
-      return nil
-    end
+    return nil if raw_article['missing']
 
     article = raw_article['revisions']['rev']
 
     # Handle empty talk page
-    if article.is_a? Hash
-      return nil
-    end
+    return nil if article.is_a? Hash
 
+    # rubocop:disable Metrics/LineLength
     if article.match(/\|\s*(class|currentstatus)\s*=\s*fa\b/i)
       'fa'
     elsif article.match(/\|\s*(class|currentstatus)\s*=\s*fl\b/i)
@@ -121,8 +117,8 @@ class Wiki
       'list' # Treat sl as regular list.
     end
     # For other niche ratings like "cur" and "future", count them as unrated.
+    # rubocop:enable Metrics/LineLength
   end
-  # rubocop:enable Metrics/LineLength
 
   ###################
   # Request methods #

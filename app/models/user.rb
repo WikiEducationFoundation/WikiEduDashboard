@@ -7,8 +7,8 @@ class User < ActiveRecord::Base
   has_many :assignments
 
   scope :role, lambda { |role|
-    index = %w(student instructor online_volunteer campus_volunteer
-               wiki_ed_staff)
+    index = %w(student instructor online_volunteer
+               campus_volunteer wiki_ed_staff)
     joins(:courses_users).where(courses_users: { role: index.index(role) })
   }
 
@@ -80,7 +80,7 @@ class User < ActiveRecord::Base
     new_user.wiki_id = user['username']
     if save
       role_index = %w(student instructor online_volunteer
-                            campus_volunteer wiki_ed_staff)
+                      campus_volunteer wiki_ed_staff)
       has_user = course.users.role(role_index[role]).include? new_user
       unless has_user
         role = (user['username'].include? '(Wiki Ed)') ? 4 : role
