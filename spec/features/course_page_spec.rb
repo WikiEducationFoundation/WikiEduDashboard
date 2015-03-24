@@ -35,12 +35,13 @@ describe 'the home page', type: :feature do
       )
     end
 
+    ratings = ['fl', 'fa', 'a', 'ga', 'b', 'c', 'start', 'stub', 'list', nil]
     (1..article_count).each do |i|
       create(:article,
              id: i.to_s,
              title: "Article #{i}",
-             namespace: 0
-
+             namespace: 0,
+             rating: ratings[(i + 5) % 10]
       )
     end
 
@@ -152,6 +153,27 @@ describe 'the home page', type: :feature do
       find('select.sorts').find(:xpath, 'option[4]').select_option
       # FIXME: The article column has 'edits' in the class name.
       # expect(page).to have_selector('.user-list__row__edits.sort.desc')
+    end
+  end
+
+  describe 'articles edited view' do
+    it 'should display a list of articles' do
+      visit "/courses/#{slug}/articles"
+      rows = page.all('.article-list__row__title').count
+      # one extra .article-list__row__title element for the column header
+      expect(rows).to eq(article_count + 1)
+    end
+
+    it 'should sort article by class', js: true  do
+      visit "/courses/#{slug}/articles"
+      # first click on the Class sorting should sort high to low
+      find(:css, '.article-list__row__rating.sort').click
+      first_rating = page.find(:css, 'ul.list').first('.article-list__row__rating')
+      expect(first_rating).to have_content 'Featured article'
+      # second click should sort from low to high
+      find(:css, '.article-list__row__rating.sort').click
+      new_first_rating = page.find(:css, 'ul.list').first('.article-list__row__rating')
+      expect(new_first_rating).to have_content 'Unrated'
     end
   end
 end
