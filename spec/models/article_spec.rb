@@ -184,16 +184,21 @@ describe Article do
                title: 'Selfie',
                namespace: 0
         )
-        Article.update_all_ratings
-        expect(Article.all.first.rating).to eq('b')
+
+        possible_ratings = %w(fl fa a ga b c start stub list)
+
+        # .update_ratings has a different flow for one rating vs. several,
+        # so first we run an update with just one article.
+        Article.update_new_ratings
+        expect(possible_ratings).to include Article.all.first.rating
 
         create(:article,
                id: 2,
                title: 'A Clash of Kings',
                namespace: 0
         )
-        Article.update_new_ratings
-        expect(Article.all.last.rating).to eq('c')
+        Article.update_all_ratings
+        expect(possible_ratings).to include Article.all.last.rating
       end
     end
   end
