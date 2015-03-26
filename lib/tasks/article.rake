@@ -28,4 +28,10 @@ namespace :article do
     Rails.logger.info 'Updating article ratings'
     Article.update_new_ratings
   end
+
+  desc 'Update deleted status for all articles'
+  task update_articles_deleted: :environment do
+    Rails.logger.info 'Updating article deleted status'
+    Article.update_articles_deleted
+  end
 end

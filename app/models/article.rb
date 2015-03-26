@@ -5,6 +5,8 @@ class Article < ActiveRecord::Base
   has_many :courses, -> { uniq }, through: :articles_courses
   has_many :assignments
 
+  scope :live, -> { where(deleted: false) }
+
   ####################
   # Instance methods #
   ####################
@@ -161,5 +163,16 @@ class Article < ActiveRecord::Base
         a.save
       end
     end
+  end
+
+  def self.update_articles_deleted
+    # TODO: Narrow this down even more. Current courses, maybe?
+    articles = Article.where(namespace: 0, deleted: false)
+    existing_titles = Utils.chunk_requests(articles) do |block|
+      Replica.get_existing_articles block
+    end
+    existing_titles.map! { |t| t.gsub('_', ' ') }
+    deleted_titles = articles.pluck(:title) - existing_titles
+    articles.where(title: deleted_titles).update_all(deleted: true)
   end
 end

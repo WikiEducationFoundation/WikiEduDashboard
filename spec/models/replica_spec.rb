@@ -62,6 +62,19 @@ describe Replica do
       end
     end
 
+    it 'should return a list of existing articles' do
+      VCR.use_cassette 'replica/articles' do
+        article_titles = [
+          { 'title' => 'Autism' }, # exists
+          { 'title' => 'Allegiance' }, # exists
+          { 'title' => 'Paul_Cézanne' }, # exists (with special characters)
+          { 'title' => 'Mmilldev/sandbox' } # does not exist
+        ]
+        response = Replica.get_existing_articles(article_titles)
+        expect(response.size).to eq(3)
+      end
+    end
+
     it 'should function identically on non-English wikis' do
       VCR.use_cassette 'replica/es_revisions' do
         allow(Figaro.env).to receive(:wiki_language).and_return('es')

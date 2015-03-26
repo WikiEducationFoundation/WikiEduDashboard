@@ -36,6 +36,7 @@ class Revision < ActiveRecord::Base
   def self.import_revisions(data)
     articles, revisions = [], []
 
+    # Add/update articles
     data.each do |_a_id, a|
       article = Article.new(id: a['article']['id'])
       article.update(a['article'], false)

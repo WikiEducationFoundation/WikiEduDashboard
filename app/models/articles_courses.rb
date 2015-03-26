@@ -3,6 +3,8 @@ class ArticlesCourses < ActiveRecord::Base
   belongs_to :article
   belongs_to :course
 
+  scope :live, -> { joins(:article).where(articles: { deleted: false }).uniq }
+
   ####################
   # Instance methods #
   ####################

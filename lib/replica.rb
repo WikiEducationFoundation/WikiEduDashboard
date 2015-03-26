@@ -89,6 +89,13 @@ class Replica
     api_get('training.php', user_list)
   end
 
+  # Given a list of articles, see which ones have not been deleted.
+  def self.get_existing_articles(articles)
+    article_list = compile_article_string(articles)
+    existing_titles = api_get('articles.php', article_list)
+    existing_titles.map { |a| a['page_title'] }
+  end
+
   ###################
   # Private methods #
   ###################
@@ -149,6 +156,19 @@ class Replica
         user_list += "user_ids[#{i}]='#{wiki_id}'"
       end
       user_list
+    end
+
+    # Compile an article list to send to the replica endpoint, which might look
+    # something like this:
+    # "article_ids[0]='Artist'&article_ids[1]='Microsoft_Research'"
+    def compile_article_string(articles)
+      article_list = ''
+      articles.each_with_index do |a, i|
+        article_list += '&' if i > 0
+        title = CGI.escape(a['title'].gsub(' ', '_'))
+        article_list += "article_titles[#{i}]='#{title}'"
+      end
+      article_list
     end
   end
 end

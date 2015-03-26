@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150319215845) do
+ActiveRecord::Schema.define(version: 20150324224657) do
 
   create_table "articles", force: true do |t|
     t.string   "title"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20150319215845) do
     t.integer  "namespace"
     t.string   "rating"
     t.datetime "rating_updated_at"
+    t.boolean  "deleted",                     default: false
   end
 
   create_table "articles_courses", force: true do |t|

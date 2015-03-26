@@ -30,14 +30,14 @@ class CoursesUsers < ActiveRecord::Base
 
   def update_cache
     self.character_sum_ms = Revision.joins(:article)
-      .where(articles: { namespace: 0 })
+      .where(articles: { namespace: 0, deleted: false })
       .where(user_id: user.id)
       .where('characters >= 0')
       .where('date >= ?', course.start)
       .where('date <= ?', course.end)
       .sum(:characters) || 0
     self.character_sum_us = Revision.joins(:article)
-      .where(articles: { namespace: 2 })
+      .where(articles: { namespace: 2, deleted: false })
       .where(user_id: user.id)
       .where('characters >= 0')
       .where('date >= ?', course.start)
@@ -45,6 +45,7 @@ class CoursesUsers < ActiveRecord::Base
       .sum(:characters) || 0
     self.revision_count = Revision.joins(:article)
       .where(user_id: user.id)
+      .where(articles: { deleted: false })
       .where('date >= ?', course.start)
       .where('date <= ?', course.end)
       .count || 0
