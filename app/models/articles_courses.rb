@@ -4,6 +4,7 @@ class ArticlesCourses < ActiveRecord::Base
   belongs_to :course
 
   scope :live, -> { joins(:article).where(articles: { deleted: false }).uniq }
+  scope :current, -> { joins(:course).merge(Course.current).uniq }
 
   ####################
   # Instance methods #
@@ -39,15 +40,23 @@ class ArticlesCourses < ActiveRecord::Base
   #################
   # Class methods #
   #################
-  def self.update_all_caches
-    ArticlesCourses.all.each(&:update_cache)
+  def self.update_all_caches(articles_courses=nil)
+    if articles_courses.is_a? ArticlesCourses
+      articles_courses = [articles_courses]
+    end
+    ArticlesCourses.transaction do
+      (articles_courses || ArticlesCourses.current).each(&:update_cache)
+    end
   end
 
-  def self.update_from_revisions
+  def self.update_from_revisions(revisions=nil)
+    revisions = Revision.all if revisions.blank?
     ActiveRecord::Base.transaction do
-      Revision.joins(:article).where(articles: { namespace: '0' }).each do |r|
+      revisions.joins(:article)
+        .where(articles: { namespace: '0' }).each do |r|
         r.user.courses.each do |c|
-          unless (c.articles.include? r.article) || (c.start > r.date) || (c.end <= r.date)
+          unless (c.articles.include? r.article) ||
+                 (c.start > r.date) || (c.end <= r.date)
             c.articles << r.article
           end
         end

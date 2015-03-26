@@ -13,4 +13,9 @@ module CourseHelper
     end
     value.html_safe
   end
+
+  def current?(course)
+    month = 2_592_000 # number of seconds in 30 days
+    course.start < Time.now && course.end > Time.now - month
+  end
 end

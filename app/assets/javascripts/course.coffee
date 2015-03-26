@@ -23,6 +23,14 @@ $ ->
       when "revisions" then revisionList
     list.sort($(this).val(), { order: $(this).children('option:selected').attr('rel') })
 
+  $('a.manual_update').click (e) ->
+    e.preventDefault()
+    console.log 'Updating course...'
+    $(e.target).parent().text('Updating course data. This page will reload when new data is available.')
+    $.get($(e.target).attr('href'), (data) ->
+      location.reload()
+    )
+
 $.fn.extend
   toggleHeight: ->
     return @each ->

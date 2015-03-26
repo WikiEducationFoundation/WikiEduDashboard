@@ -178,12 +178,19 @@ describe Article do
   describe '.update_ratings' do
     it 'should get latest ratings for articles' do
       VCR.use_cassette 'article/update_ratings' do
+        course = create(:course,
+                        id: 1,
+                        title: 'Basket Weaving',
+                        start: '2015-01-01'.to_date,
+                        end: '2015-05-01'.to_date
+                      )
         # Add an article.
-        create(:article,
+        article1 = create(:article,
                id: 1,
                title: 'Selfie',
                namespace: 0
         )
+        course.articles << article1
 
         possible_ratings = %w(fl fa a ga b c start stub list)
 
@@ -192,11 +199,13 @@ describe Article do
         Article.update_new_ratings
         expect(possible_ratings).to include Article.all.first.rating
 
-        create(:article,
+        article2 = create(:article,
                id: 2,
                title: 'A Clash of Kings',
                namespace: 0
         )
+        course.articles << article2
+
         Article.update_all_ratings
         expect(possible_ratings).to include Article.all.last.rating
       end

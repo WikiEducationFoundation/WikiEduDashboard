@@ -6,6 +6,8 @@ class Article < ActiveRecord::Base
   has_many :assignments
 
   scope :live, -> { where(deleted: false) }
+  scope :current, -> { joins(:courses).merge(Course.current).uniq }
+  scope :namespace, -> ns { where(namespace: ns) }
 
   ####################
   # Instance methods #
@@ -95,19 +97,24 @@ class Article < ActiveRecord::Base
   # Class methods #
   #################
   def self.update_all_views(all_time=false)
-    articles = Article.where(namespace: 0).find_in_batches(batch_size: 30)
+    articles = Article.current
+               .where(articles: { namespace: 0 })
+               .find_in_batches(batch_size: 30)
     update_views(articles, all_time)
   end
 
   def self.update_new_views
-    articles = Article.where('views_updated_at IS NULL').where(namespace: 0)
+    articles = Article.current
+               .where(articles: { namespace: 0 })
+               .where('views_updated_at IS NULL')
                .find_in_batches(batch_size: 30)
     update_views(articles, true)
   end
 
-  def self.update_all_caches
+  def self.update_all_caches(articles=nil)
+    articles = [articles] if articles.is_a? Article
     Article.transaction do
-      Article.all.each(&:update_cache)
+      (articles || Article.current).each(&:update_cache)
     end
   end
 
@@ -135,33 +142,32 @@ class Article < ActiveRecord::Base
   end
 
   def self.update_all_ratings
-    articles = Article.where(namespace: 0).find_in_batches(batch_size: 30)
+    articles = Article.current
+               .namespace(0).find_in_batches(batch_size: 30)
     update_ratings(articles)
   end
 
   def self.update_new_ratings
-    articles = Article.where('rating_updated_at IS NULL').where(namespace: 0)
+    articles = Article.current
+               .where('rating_updated_at IS NULL').namespace(0)
                .find_in_batches(batch_size: 30)
     update_ratings(articles)
   end
 
   def self.update_ratings(articles)
-    # require './lib/wiki'
-    # ratings = []
-    # articles.with_index do |group, _batch|
-    #   ratings += Wiki.get
-    # end
-
     articles.with_index do |group, _batch|
       ratings = Wiki.get_article_rating(group.map(&:title)).inject(&:merge)
       if ratings.keys.length == 1
         ratings = { ratings.keys[0][0] => ratings.values[0] }
       end
-      group.each do |a|
-        a.rating = ratings[a.title]
-        a.rating_updated_at = Time.now
-        a.save
+      threads = group.each_with_index.map do |a, i|
+        Thread.new(i) do
+          a.rating = ratings[a.title]
+          a.rating_updated_at = Time.now
+        end
       end
+      threads.each(&:join)
+      group.each(&:save)
     end
   end
 

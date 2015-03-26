@@ -5,6 +5,8 @@ class CoursesUsers < ActiveRecord::Base
 
   validates :course_id, uniqueness: { scope: [:user_id, :role] }
 
+  scope :current, -> { joins(:course).merge(Course.current).uniq }
+
   ####################
   # Instance methods #
   ####################
@@ -59,7 +61,12 @@ class CoursesUsers < ActiveRecord::Base
   #################
   # Class methods #
   #################
-  def self.update_all_caches
-    CoursesUsers.all.each(&:update_cache)
+  def self.update_all_caches(courses_users=nil)
+    if courses_users.is_a? CoursesUsers
+      courses_users = [courses_users]
+    end
+    CoursesUsers.transaction do
+      (courses_users || CoursesUsers.current).each(&:update_cache)
+    end
   end
 end

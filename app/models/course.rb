@@ -13,6 +13,10 @@ class Course < ActiveRecord::Base
   has_many :assignments
 
   scope :cohort, -> (cohort) { where cohort: cohort }
+  scope :current, lambda {
+    month = 2_592_000 # number of seconds in 30 days
+    where('start < ?', Time.now).where('end > ?', Time.now - month)
+  }
 
   ####################
   # Instance methods #
@@ -87,6 +91,20 @@ class Course < ActiveRecord::Base
     self.revision_count = revisions.size
     self.article_count = articles.live.size
     save
+  end
+
+  def manual_update
+    update
+    User.update_trained_users users
+    Revision.update_all_revisions self
+    Article.update_views articles.namespace(0).find_in_batches(batch_size: 30)
+    Article.update_ratings articles.namespace(0).find_in_batches(batch_size: 30)
+    Article.update_all_caches articles
+    User.update_all_caches users
+    ArticlesCourses.update_all_caches articles_courses
+    CoursesUsers.update_all_caches courses_users
+    update_cache
+    puts "FINISHED UPDATING MANUALLY #{id}"
   end
 
   #################
@@ -218,7 +236,7 @@ class Course < ActiveRecord::Base
 
   def self.update_all_caches
     Course.transaction do
-      Course.all.each(&:update_cache)
+      Course.current.each(&:update_cache)
     end
   end
 end

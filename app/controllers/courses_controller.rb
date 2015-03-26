@@ -41,4 +41,11 @@ class CoursesController < ApplicationController
                         .includes(:article).order('articles.title')
     @volunteers = users.role('online_volunteer') + users.role('campus_volunteer')
   end
+
+  def manual_update
+    @course = Course.where(listed: true).find_by_slug(params[:id])
+    @course.manual_update
+    redirect_to :back
+  end
+  helper_method :manual_update
 end
