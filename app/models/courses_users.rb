@@ -5,6 +5,8 @@ class CoursesUsers < ActiveRecord::Base
 
   validates :course_id, uniqueness: { scope: [:user_id, :role] }
 
+  scope :current, -> { joins(:course).merge(Course.current).uniq }
+
   ####################
   # Instance methods #
   ####################
@@ -30,14 +32,14 @@ class CoursesUsers < ActiveRecord::Base
 
   def update_cache
     self.character_sum_ms = Revision.joins(:article)
-      .where(articles: { namespace: 0 })
+      .where(articles: { namespace: 0, deleted: false })
       .where(user_id: user.id)
       .where('characters >= 0')
       .where('date >= ?', course.start)
       .where('date <= ?', course.end)
       .sum(:characters) || 0
     self.character_sum_us = Revision.joins(:article)
-      .where(articles: { namespace: 2 })
+      .where(articles: { namespace: 2, deleted: false })
       .where(user_id: user.id)
       .where('characters >= 0')
       .where('date >= ?', course.start)
@@ -45,6 +47,7 @@ class CoursesUsers < ActiveRecord::Base
       .sum(:characters) || 0
     self.revision_count = Revision.joins(:article)
       .where(user_id: user.id)
+      .where(articles: { deleted: false })
       .where('date >= ?', course.start)
       .where('date <= ?', course.end)
       .count || 0
@@ -58,7 +61,12 @@ class CoursesUsers < ActiveRecord::Base
   #################
   # Class methods #
   #################
-  def self.update_all_caches
-    CoursesUsers.all.each(&:update_cache)
+  def self.update_all_caches(courses_users=nil)
+    if courses_users.is_a? CoursesUsers
+      courses_users = [courses_users]
+    end
+    CoursesUsers.transaction do
+      (courses_users || CoursesUsers.current).each(&:update_cache)
+    end
   end
 end

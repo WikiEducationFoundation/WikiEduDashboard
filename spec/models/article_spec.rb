@@ -178,12 +178,19 @@ describe Article do
   describe '.update_ratings' do
     it 'should get latest ratings for articles' do
       VCR.use_cassette 'article/update_ratings' do
+        course = create(:course,
+                        id: 1,
+                        title: 'Basket Weaving',
+                        start: '2015-01-01'.to_date,
+                        end: '2015-05-01'.to_date
+                      )
         # Add an article.
-        create(:article,
+        article1 = create(:article,
                id: 1,
                title: 'Selfie',
                namespace: 0
         )
+        course.articles << article1
 
         possible_ratings = %w(fl fa a ga b c start stub list)
 
@@ -192,14 +199,61 @@ describe Article do
         Article.update_new_ratings
         expect(possible_ratings).to include Article.all.first.rating
 
-        create(:article,
+        article2 = create(:article,
                id: 2,
                title: 'A Clash of Kings',
                namespace: 0
         )
+        course.articles << article2
+
         Article.update_all_ratings
         expect(possible_ratings).to include Article.all.last.rating
       end
+    end
+  end
+
+  describe 'deleted articles' do
+    it 'should be marked as "deleted"' do
+      course = create(:course,
+                      end: '2016-12-31'.to_date
+      )
+      course.users << create(:user)
+      create(:article,
+             id: 1,
+             title: 'Noarticle',
+             namespace: 0
+      )
+
+      Article.update_articles_deleted
+      expect(Article.find(1).deleted).to be true
+    end
+
+    it 'should not contribute to cached course values' do
+      course = create(:course, end: '2016-12-31'.to_date)
+      course.users << create(:user)
+      CoursesUsers.update_all(role: 0)
+      (1..2).each do |i|
+        article = create(:article,
+                         id: i,
+                         title: "Basket Weaving #{i}",
+                         namespace: 0,
+                         deleted: i > 1)
+        create(:revision,
+               id: i,
+               article_id: i,
+               characters: 1000,
+               views: 1000,
+               user_id: 1,
+               date: '2015-03-01'.to_date)
+        course.articles << article
+      end
+      course.courses_users.each(&:update_cache)
+      course.articles_courses.each(&:update_cache)
+      course.update_cache
+
+      expect(course.article_count).to eq(1)
+      expect(course.view_sum).to eq(1000)
+      expect(course.character_sum).to eq(1000)
     end
   end
 end

@@ -126,7 +126,7 @@ class Wiki
   def self.get_page_content(page_title, options={})
     @mw = gateway
     options['format'] = 'xml'
-    options[:maxlag] = 10
+    options[:maxlag] = 5
     options['rawcontinue'] = true
     begin
       response = @mw.get(page_title, options)
@@ -174,17 +174,24 @@ class Wiki
 
     def gateway
       language = Figaro.env.wiki_language
-      @mw = MediaWiki::Gateway.new("http://#{language}.wikipedia.org/w/api.php")
+      url = "http://#{language}.wikipedia.org/w/api.php"
+      domain = Rails.application.secrets.domain_name
+      ua = "WikiEduDashboard/1.1 (#{domain}; nate@wintr.us)"
+      @mw = MediaWiki::Gateway.new(url, user_agent: ua)
       begin
         username = Figaro.env.wikipedia_username!
         password = Figaro.env.wikipedia_password!
+        # puts "#{Time.now.getutc} WIKIAPI: Logging in #{username} with #{password}"
         @mw.login(username, password)
+        # puts "#{Time.now.getutc} WIKIAPI: Logged in #{username}"
       rescue RestClient::RequestTimeout => e
         Rails.logger.warn "Caught #{e}"
         gateway
       rescue MediaWiki::APIError => e
         Rails.logger.warn "Caught #{e}"
         gateway
+      rescue StandardError => e
+        Rails.logger.warn "Whoops Caught #{e}"
       end
       @mw
     end

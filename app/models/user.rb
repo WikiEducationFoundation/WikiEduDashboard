@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   has_many :articles, -> { uniq }, through: :revisions
   has_many :assignments
 
+  scope :current, -> { joins(:courses).merge(Course.current).uniq }
   scope :role, lambda { |role|
     index = %w(student instructor online_volunteer
                campus_volunteer wiki_ed_staff)
@@ -91,17 +92,18 @@ class User < ActiveRecord::Base
     new_user
   end
 
-  def self.update_trained_users
-    trained_users = Utils.chunk_requests(User.all) do |block|
+  def self.update_trained_users(users=nil)
+    trained_users = Utils.chunk_requests(users || User.all) do |block|
       Replica.get_users_completed_training block
     end
     wiki_ids = trained_users.map { |u| u['rev_user_text'] }
-    User.where(wiki_id: wiki_ids).update_all(trained: true)
+    (users || User.all).where(wiki_id: wiki_ids).update_all(trained: true)
   end
 
-  def self.update_all_caches
+  def self.update_all_caches(users=nil)
+    users = [users] if users.is_a? User
     User.transaction do
-      User.all.each(&:update_cache)
+      (users || User.current).each(&:update_cache)
     end
   end
 end

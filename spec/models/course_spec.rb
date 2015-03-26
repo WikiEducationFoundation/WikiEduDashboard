@@ -5,9 +5,9 @@ describe Course, type: :model do
   it 'should update data for all courses on demand' do
     VCR.use_cassette 'wiki/course_data' do
       Course.update_all_courses(false, hash: '351')
-      Course.update_all_caches
 
       course = Course.all.first
+      course.update_cache
 
       expect(course.term).to eq('Summer 2014')
       expect(course.school).to eq('University of Oklahoma')
@@ -19,6 +19,28 @@ describe Course, type: :model do
     VCR.use_cassette 'wiki/initial' do
       Course.update_all_courses(true, hash: '1')
       expect(Course.all.count).to eq(1)
+    end
+  end
+
+  it 'should update data for single courses' do
+    VCR.use_cassette 'wiki/manual_course_data' do
+      course = create(:course, id: 519)
+
+      course.manual_update
+
+      # Check course information
+      expect(course.term).to eq('January 2015')
+
+      # Check articles
+      expect(course.articles.count).to eq(3)
+      expect(Article.all.where(namespace: 0).count).to eq(course.articles.count)
+
+      # Check users
+      expect(course.user_count).to eq(6)
+      expect(User.all.role('student').count).to eq(course.user_count)
+
+      # Check views
+      expect(course.view_sum).to be >= 46_200
     end
   end
 

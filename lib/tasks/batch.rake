@@ -42,6 +42,7 @@ namespace :batch do
       Rails.logger.info 'Running daily update tasks'
       Rake::Task['article:update_views'].invoke
       Rake::Task['article:update_all_ratings'].invoke
+      Rake::Task['article:update_articles_deleted'].invoke
       Rake::Task['cache:update_caches'].invoke
     ensure
       File.delete pid_file

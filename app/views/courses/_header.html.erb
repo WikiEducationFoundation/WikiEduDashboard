@@ -62,3 +62,8 @@
     </div>
   </div>
 </header>
+<% unless current?(@course) %>
+<div class="alert">
+  <p>This course has ended and the data here may be out of date. <%= link_to 'Click here', {:action => 'manual_update'}, class: 'manual_update' %> to pull new data.</p>
+</div>
+<% end %>

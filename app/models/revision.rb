@@ -16,9 +16,11 @@ class Revision < ActiveRecord::Base
   #################
   # Class methods #
   #################
-  def self.update_all_revisions
+  def self.update_all_revisions(courses=nil)
     results = []
-    Course.all.each do |c|
+    courses = [courses] if courses.is_a? Course
+    courses ||= Course.all
+    courses.each do |c|
       start = c.start
       has_new_user = c.users.role('student').where(revision_count: 0).count
       start = c.revisions.order('date DESC').first.date unless has_new_user
@@ -30,12 +32,20 @@ class Revision < ActiveRecord::Base
     end
 
     import_revisions(results)
-    ArticlesCourses.update_from_revisions
+
+    result_ids = results.map do |_a_id, a|
+      a['revisions'].map { |r| r['id'] }
+    end
+    result_ids = result_ids.flatten
+    result_revs = Revision.where(id: result_ids)
+
+    ArticlesCourses.update_from_revisions result_revs
   end
 
   def self.import_revisions(data)
     articles, revisions = [], []
 
+    # Add/update articles
     data.each do |_a_id, a|
       article = Article.new(id: a['article']['id'])
       article.update(a['article'], false)
