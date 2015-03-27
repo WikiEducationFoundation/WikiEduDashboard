@@ -9,6 +9,9 @@ gem 'figaro'
 gem 'whenever'
 gem 'mysql2'
 
+gem 'omniauth'
+gem 'omniauth-mediawiki'
+
 # This fork has a fix for enums not working
 # https://github.com/zdennis/activerecord-import/issues/139
 gem 'activerecord-import', :git => 'https://github.com/onemedical/activerecord-import.git'

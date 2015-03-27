@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   get 'errors/internal_server_error'
 
+  get '/auth/:provider/callback', to: 'sessions#create'
+
   controller :users do
     get 'users/revisions' => 'users#revisions', :as => :user_revisions
   end

@@ -33,9 +33,9 @@
           </div>
           <%= content_for?(:navigation) ? yield(:navigation) : '' %>
         </nav>
-<!--         <div class="login">
-          <a href="#" class="inline">Login</a>
-        </div> -->
+        <div class="login">
+          <a href="/auth/mediawiki" class="inline">Login</a>
+        </div>
       </aside>
       <main role="main">
         <%= yield %>

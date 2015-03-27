@@ -23,6 +23,14 @@ class User < ActiveRecord::Base
     # rubocop:enable Metrics/LineLength
   end
 
+  ################
+  # Auth methods #
+  ################
+  def find_or_create_from_auth_hash(auth_hash)
+    puts 'find_or_create_from_auth_hash'
+    puts auth_hash
+  end
+
   #################
   # Cache methods #
   #################
