@@ -13,13 +13,15 @@ namespace :batch do
     end
     File.open(pid_file, 'w') { |f| f.puts Process.pid }
     begin
-      Rails.logger.info 'Running constant update tasks'
+      start = Time.now
+      Rails.logger.info 'Constant update tasks are beginning'
       Rake::Task['course:update_courses'].invoke
       Rake::Task['user:update_users'].invoke
       Rake::Task['revision:update_revisions'].invoke
       Rake::Task['article:update_new_article_views'].invoke
       Rake::Task['article:update_new_ratings'].invoke
       Rake::Task['cache:update_caches'].invoke
+      Rails.logger.info "Constant update finished in #{Time.now - start} s"
     ensure
       File.delete pid_file
     end
@@ -39,11 +41,13 @@ namespace :batch do
     end
     File.open(pid_file, 'w') { |f| f.puts Process.pid }
     begin
-      Rails.logger.info 'Running daily update tasks'
+      start = Time.now
+      Rails.logger.info 'Daily update tasks are beginning'
       Rake::Task['article:update_views'].invoke
       Rake::Task['article:update_all_ratings'].invoke
       Rake::Task['article:update_articles_deleted'].invoke
       Rake::Task['cache:update_caches'].invoke
+      Rails.logger.info "Daily update finished in #{Time.now - start} s"
     ensure
       File.delete pid_file
     end
@@ -64,6 +68,7 @@ namespace :batch do
       Rake::Task['revision:update_revisions'].invoke
       Rake::Task['article:update_views_all_time'].invoke
       Rake::Task['cache:update_caches'].invoke
+      Rails.logger.info 'Initialization tasks have finished'
     ensure
       File.delete pid_file
     end
