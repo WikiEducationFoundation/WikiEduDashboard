@@ -135,14 +135,17 @@ class Replica
     #   "byte_change"=>"-50"
     #  }]
     def api_get(endpoint, query='')
+      tries ||= 3
       language = Figaro.env.wiki_language
       base_url = 'http://tools.wmflabs.org/wikiedudashboard/'
       url = "#{base_url}#{endpoint}?lang=#{language}&#{query}"
       response = Net::HTTP::get(URI.parse(url))
-
       return unless response.length > 0
       parsed = JSON.parse response.to_s
       parsed['data']
+    rescue Errno::ETIMEDOUT
+      Rails.logger.error I18n.t('timeout', api: 'replica', tries: (tries -= 1))
+      retry unless tries.zero?
     end
 
     # Compile a user list to send to the replica endpoint, which might look
