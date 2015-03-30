@@ -104,7 +104,7 @@ class Course < ActiveRecord::Base
     ArticlesCourses.update_all_caches articles_courses
     CoursesUsers.update_all_caches courses_users
     update_cache
-    puts "FINISHED UPDATING MANUALLY #{id}"
+    Rails.logger.info "FINISHED UPDATING MANUALLY #{id}"
   end
 
   #################

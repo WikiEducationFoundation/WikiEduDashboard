@@ -13,12 +13,16 @@ describe 'the home page', type: :feature do
       create(:course,
              id: i.to_s,
              slug: "course_#{i}",
-             cohort: cohort
+             cohort: cohort,
+             start: '2014-01-01'.to_date,
+             end: Date.today + 2.days
       )
       create(:course,
              id: (i + cohort_course_count).to_s,
              slug: "course_#{i}",
-             cohort: cohort_two
+             cohort: cohort_two,
+             start: '2014-01-01'.to_date,
+             end: Date.today + 2.days
       )
       create(:user, id: i.to_s)
       create(:courses_user,
