@@ -1,13 +1,14 @@
-.stat-display
-  padding 20px 0 0
-  .stat-display__stat
-    text-align center
-    span(1/2)
-    &:first-child, &:nth-child(2)
-      margin-bottom 25px
-    +above(desktop)
-      span(1/9, offset=1/9)
-      margin-bottom 0 !important
+.main-page
+  .stat-display
+    padding 20px 0 0
+    .stat-display__stat
+      text-align center
+      span(1/2)
+      &:first-child, &:nth-child(2)
+        margin-bottom 25px
+      +above(desktop)
+        span(1/9, offset=1/9)
+        margin-bottom 0 !important
 
 .course-page
   .title
@@ -25,37 +26,22 @@
     flex-wrap wrap
     +above(desktop)
       span(1/2)
+    &:before, &:after
+      display block
     .stat-display__stat
-      span(1/3)
       margin 0
       background bayoux
       border 1px solid manatee
-      border-width 1px 1px 1px
       padding 5px 5px 10px
-      flex 1 0 33%
-      +above(desktop)
-        span(1/6)
-        flex 1 0 16.6%
-        border-bottom 0
+      flex 1 0 33.333%
       &:first-child
         border-top-left-radius 5px
-        border-left 0
-        +above(desktop)
-          border-bottom-left-radius 5px
       &:last-child
         border-bottom-right-radius 5px
-        border-right 0
-        +above(desktop)
-          border-top-right-radius 5px
-      +below(desktop)
-        &:nth-child(3)
-          border-right 0
-          border-top-right-radius 5px
-          margin-right 1px
-        &:nth-child(4)
-          border-left 0
-          border-bottom-left-radius 5px
-          margin-left 1px
+      &:nth-child(3)
+        border-top-right-radius 5px
+      &:nth-child(4)
+        border-bottom-left-radius 5px
       small
         font-family "Roboto"
         padding 0 3px 0
