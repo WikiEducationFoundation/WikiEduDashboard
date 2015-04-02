@@ -68,8 +68,14 @@ class User < ActiveRecord::Base
   # Class methods #
   #################
   def self.from_omniauth(auth)
-    user_info = { wiki_id: auth.info.name, global_id: auth.uid }
-    where(user_info).first_or_create
+    user = User.find_by(wiki_id: auth.info.name)
+    if user.nil?
+      id = Replica.get_user_id(auth.info.name)
+      user = User.create(id: id, wiki_id: auth.info.name, global_id: auth.uid)
+    elsif user.global_id.nil?
+      user.update(global_id: auth.uid)
+    end
+    user
   end
 
   def self.add_users(data, role, course, save=true)
@@ -101,21 +107,13 @@ class User < ActiveRecord::Base
     new_user
   end
 
-  def self.update_trained_users(users=nil)
-    trained_users = Utils.chunk_requests(users || User.all) do |block|
-      Replica.get_users_completed_training block
-    end
-    wiki_ids = trained_users.map { |u| u['rev_user_text'] }
-    (users || User.all).where(wiki_id: wiki_ids).update_all(trained: true)
-  end
-
   def self.update_users(users=nil)
-    users = Utils.chunk_requests(users || User.all) do |block|
+    u_users = Utils.chunk_requests(users || User.all) do |block|
       Replica.get_user_info block
     end
 
     User.transaction do
-      users.each do |u|
+      u_users.each do |u|
         begin
           User.find(u['id']).update(u.except('id'))
         rescue ActiveRecord::RecordNotFound

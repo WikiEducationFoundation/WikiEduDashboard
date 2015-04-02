@@ -98,6 +98,10 @@ class Replica
     api_get('users.php', user_list)
   end
 
+  def self.get_user_id(username)
+    api_get('user_id.php', "user_name='#{username}'")['user_id']
+  end
+
   # Given a list of articles, see which ones have not been deleted.
   def self.get_existing_articles(articles)
     article_list = compile_article_string(articles)
@@ -163,6 +167,15 @@ class Replica
         user_list += '&' if i > 0
         wiki_id = CGI.escape(u.wiki_id)
         user_list += "user_ids[#{i}]='#{wiki_id}'"
+      end
+      user_list
+    end
+
+    def compile_user_id_string(users)
+      user_list = ''
+      users.each_with_index do |u, i|
+        user_list += '&' if i > 0
+        user_list += "user_ids[#{i}]='#{u.id}'"
       end
       user_list
     end

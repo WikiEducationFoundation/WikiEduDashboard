@@ -95,7 +95,7 @@ class Course < ActiveRecord::Base
 
   def manual_update
     update
-    User.update_trained_users users
+    User.update_users users
     Revision.update_all_revisions self
     Article.update_views articles.namespace(0).find_in_batches(batch_size: 30)
     Article.update_ratings articles.namespace(0).find_in_batches(batch_size: 30)

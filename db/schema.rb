@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150402001806) do
+ActiveRecord::Schema.define(version: 20150402225521) do
 
   create_table "articles", force: true do |t|
     t.string   "title"
@@ -102,7 +102,7 @@ ActiveRecord::Schema.define(version: 20150402001806) do
     t.integer  "article_count",                 default: 0
     t.integer  "revision_count",                default: 0
     t.boolean  "trained",                       default: false
-    t.string   "global_id"
+    t.integer  "global_id"
     t.datetime "remember_created_at"
     t.string   "remember_token"
   end
