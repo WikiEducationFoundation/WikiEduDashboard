@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150324224657) do
+ActiveRecord::Schema.define(version: 20150402001806) do
 
   create_table "articles", force: true do |t|
     t.string   "title"
@@ -96,12 +96,15 @@ ActiveRecord::Schema.define(version: 20150324224657) do
     t.string   "wiki_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "character_sum",            default: 0
-    t.integer  "view_sum",       limit: 8, default: 0
-    t.integer  "course_count",             default: 0
-    t.integer  "article_count",            default: 0
-    t.integer  "revision_count",           default: 0
-    t.boolean  "trained",                  default: false
+    t.integer  "character_sum",                 default: 0
+    t.integer  "view_sum",            limit: 8, default: 0
+    t.integer  "course_count",                  default: 0
+    t.integer  "article_count",                 default: 0
+    t.integer  "revision_count",                default: 0
+    t.boolean  "trained",                       default: false
+    t.string   "global_id"
+    t.datetime "remember_created_at"
+    t.string   "remember_token"
   end
 
 end

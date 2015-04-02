@@ -1,5 +1,9 @@
 #= User model
 class User < ActiveRecord::Base
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :rememberable, :omniauthable, omniauth_providers: [:mediawiki]
+
   has_many :courses_users, class_name: CoursesUsers
   has_many :courses, -> { uniq }, through: :courses_users
   has_many :revisions
@@ -21,14 +25,6 @@ class User < ActiveRecord::Base
     # rubocop:disable Metrics/LineLength
     "https://#{language}.wikipedia.org/wiki/Special:Contributions/#{wiki_id}"
     # rubocop:enable Metrics/LineLength
-  end
-
-  ################
-  # Auth methods #
-  ################
-  def find_or_create_from_auth_hash(auth_hash)
-    puts 'find_or_create_from_auth_hash'
-    puts auth_hash
   end
 
   #################
@@ -71,6 +67,11 @@ class User < ActiveRecord::Base
   #################
   # Class methods #
   #################
+  def self.from_omniauth(auth)
+    user_info = { wiki_id: auth.info.name, global_id: authuser.global_id }
+    where(user_info).first_or_create
+  end
+
   def self.add_users(data, role, course, save=true)
     if data.is_a?(Array)
       data.map do |p|

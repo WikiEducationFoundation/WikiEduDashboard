@@ -34,7 +34,11 @@
           <%= content_for?(:navigation) ? yield(:navigation) : '' %>
         </nav>
         <div class="login">
-          <a href="/auth/mediawiki" class="inline">Login</a>
+          <% if user_signed_in? %>
+            <p>You are logged in as <b><%= current_user.wiki_id %></b>. <%= link_to "Logout", :destroy_user_session %></p>
+          <% else %>
+            <%= link_to "Login", user_omniauth_authorize_path(:mediawiki) %>
+          <% end %>
         </div>
       </aside>
       <main role="main">

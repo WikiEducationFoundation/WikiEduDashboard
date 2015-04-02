@@ -5,7 +5,11 @@ Rails.application.routes.draw do
 
   get 'errors/internal_server_error'
 
-  get '/auth/:provider/callback', to: 'sessions#create'
+  devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
+  devise_scope :user do
+    get 'sign_in', :to => 'devise/sessions#new', :as => :new_user_session
+    get 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
+  end
 
   controller :users do
     get 'users/revisions' => 'users#revisions', :as => :user_revisions

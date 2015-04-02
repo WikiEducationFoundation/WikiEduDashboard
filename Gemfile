@@ -9,7 +9,7 @@ gem 'figaro'
 gem 'whenever'
 gem 'mysql2'
 
-gem 'omniauth'
+gem 'devise'
 gem 'omniauth-mediawiki'
 
 # This fork has a fix for enums not working
