@@ -89,6 +89,15 @@ class Replica
     api_get('training.php', user_list)
   end
 
+  # Given a list of users, fetch their global_id and trained status. Completion
+  # of training is defined by the training.php endpoint as having made an edit
+  # to a specific page on Wikipedia:
+  # [[Wikipedia:Training/For students/Training feedback]]
+  def self.get_user_info(users)
+    user_list = compile_user_id_string(users)
+    api_get('users.php', user_list)
+  end
+
   # Given a list of articles, see which ones have not been deleted.
   def self.get_existing_articles(articles)
     article_list = compile_article_string(articles)

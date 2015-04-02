@@ -68,7 +68,7 @@ class User < ActiveRecord::Base
   # Class methods #
   #################
   def self.from_omniauth(auth)
-    user_info = { wiki_id: auth.info.name, global_id: authuser.global_id }
+    user_info = { wiki_id: auth.info.name, global_id: auth.uid }
     where(user_info).first_or_create
   end
 
@@ -107,6 +107,22 @@ class User < ActiveRecord::Base
     end
     wiki_ids = trained_users.map { |u| u['rev_user_text'] }
     (users || User.all).where(wiki_id: wiki_ids).update_all(trained: true)
+  end
+
+  def self.update_users(users=nil)
+    users = Utils.chunk_requests(users || User.all) do |block|
+      Replica.get_user_info block
+    end
+
+    User.transaction do
+      users.each do |u|
+        begin
+          User.find(u['id']).update(u.except('id'))
+        rescue ActiveRecord::RecordNotFound
+          Rails.logger.warn e
+        end
+      end
+    end
   end
 
   def self.update_all_caches(users=nil)
