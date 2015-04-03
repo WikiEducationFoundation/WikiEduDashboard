@@ -84,6 +84,25 @@ describe User do
     end
   end
 
+  describe 'OAuth model association' do
+    it 'should create new user based on OAuth data' do
+      VCR.use_cassette 'user/user_id' do
+        info = OpenStruct.new(name: 'Ragesock')
+        hash = OpenStruct.new(uid: '14093230', info: info)
+        auth = User.from_omniauth(hash)
+        expect(auth.id).to eq(4_543_197)
+      end
+    end
+
+    it 'should associate existing model with OAuth data' do
+      existing = create(:user)
+      info = OpenStruct.new(name: 'Ragesock')
+      hash = OpenStruct.new(uid: '14093230', info: info)
+      auth = User.from_omniauth(hash)
+      expect(auth.id).to eq(existing.id)
+    end
+  end
+
   describe 'training update' do
     it 'should update which users have completed training' do
       # Create a new user, who by default is assumed not to have been trained.

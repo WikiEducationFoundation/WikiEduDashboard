@@ -45,20 +45,21 @@ describe Replica do
     end
     # rubocop:enable Style/NumericLiterals
 
-    it 'should return a list of users who completed training' do
+    it 'should return training status' do
       VCR.use_cassette 'replica/training' do
         all_users = [
-          { 'wiki_id' => 'ELE427' }, # has not completed
-          { 'wiki_id' => 'Ragesoss' }, # has completed
-          { 'wiki_id' => 'Mrbauer1234' }, # has not completed
-          { 'wiki_id' => 'Ragesock' }, # has completed
-          { 'wiki_id' => 'Sage (Wiki Ed)' } # has completed
+          { 'id' => '22905965' }, # has not completed
+          { 'id' => '319203' }, # has completed
+          { 'id' => '23011474' }, # has not completed
+          { 'id' => '4543197' }, # has completed
+          { 'id' => '21515199' } # has completed
         ]
         all_users.each_with_index do |u, i|
           all_users[i] = OpenStruct.new u
         end
-        response = Replica.get_users_completed_training(all_users)
-        expect(response.count).to eq(3)
+        response = Replica.get_user_info(all_users)
+        trained = response.reduce(0) { |a, e| a + e['trained'].to_i }
+        expect(trained).to eq(3)
       end
     end
 
