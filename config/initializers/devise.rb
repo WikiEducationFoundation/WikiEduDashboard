@@ -237,7 +237,7 @@ Devise.setup do |config|
                   Figaro.env.wikipedia_token,
                   Figaro.env.wikipedia_secret,
                   client_options: {
-                    site: 'https://en.wikipedia.org'
+                    site: "https://#{Figaro.env.wiki_language}.wikipedia.org"
                   }
 
   # ==> Warden configuration

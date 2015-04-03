@@ -16,15 +16,17 @@ class WikiEdits
   end
 
   def self.tokens(current_user)
+    language = Figaro.env.wiki_language
     @consumer = OAuth::Consumer.new Figaro.env.wikipedia_token,
                                     Figaro.env.wikipedia_secret,
                                     client_options: {
-                                      site: 'https://en.wikipedia.org'
+                                      site: "https://#{language}.wikipedia.org"
                                     }
     @access_token = OAuth::AccessToken.new @consumer,
                                            current_user.wiki_token,
                                            current_user.wiki_secret
-    get_token = @access_token.get('https://en.wikipedia.org/w/api.php?action=query&meta=tokens&format=json')
+    get_token = @access_token.get("https://#{language}.wikipedia.org/w/api.
+      php?action=query&meta=tokens&format=json")
     token_response = JSON.parse(get_token.body)
 
     OpenStruct.new(
@@ -34,6 +36,8 @@ class WikiEdits
   end
 
   def self.api_get(data, tokens)
-    tokens.access_token.post('https://en.wikipedia.org/w/api.php', data)
+    language = Figaro.env.wiki_language
+    tokens.access_token.post("https://#{language}.wikipedia.org/w/api.php",
+                             data)
   end
 end
