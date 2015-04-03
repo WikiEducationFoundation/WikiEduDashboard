@@ -31,6 +31,17 @@ $ ->
       location.reload()
     )
 
+  $('a.notify_untrained').click (e) ->
+    e.preventDefault()
+    parent = $(e.target).parent()
+    if confirm "This will post a reminder on the talk pages for all students who have not completed training. Are you sure?"
+      console.log 'Notifying untrained users...'
+      parent.text('Posting a reminder to the talk page of all untrained students. Please wait...')
+      $.get($(e.target).attr('href'), (data) =>
+        alert("Untrained users have been notified!")
+        parent.text('Untrained students have been reminded to complete the training!')
+      )
+
 $.fn.extend
   toggleHeight: ->
     return @each ->

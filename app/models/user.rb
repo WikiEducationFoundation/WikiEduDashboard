@@ -71,9 +71,19 @@ class User < ActiveRecord::Base
     user = User.find_by(wiki_id: auth.info.name)
     if user.nil?
       id = Replica.get_user_id(auth.info.name)
-      user = User.create(id: id, wiki_id: auth.info.name, global_id: auth.uid)
-    elsif user.global_id.nil?
-      user.update(global_id: auth.uid)
+      user = User.create(
+        id: id,
+        wiki_id: auth.info.name,
+        global_id: auth.uid,
+        wiki_token: auth.credentials.token,
+        wiki_secret: auth.credentials.secret
+      )
+    else
+      user.update(
+        global_id: auth.uid,
+        wiki_token: auth.credentials.token,
+        wiki_secret: auth.credentials.secret
+      )
     end
     user
   end
