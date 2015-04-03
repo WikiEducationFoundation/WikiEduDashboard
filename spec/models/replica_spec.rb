@@ -63,6 +63,30 @@ describe Replica do
       end
     end
 
+    it 'should return global ids' do
+      VCR.use_cassette 'replica/training' do
+        all_users = [
+          { 'id' => '319203' },
+          { 'id' => '4543197' }
+        ]
+        all_users.each_with_index do |u, i|
+          all_users[i] = OpenStruct.new u
+        end
+        response = Replica.get_user_info(all_users)
+        expect(response[0]['global_id']).to eq('827')
+        expect(response[1]['global_id']).to eq('14093230')
+      end
+    end
+
+    it 'should update usernames after name changes' do
+      VCR.use_cassette 'replica/training' do
+        create(:user, wiki_id: 'old_username')
+        expect(User.all.first.wiki_id).to eq('old_username')
+        response = Replica.get_user_info User.all
+        expect(response[0]['wiki_id']).to eq('Ragesock')
+      end
+    end
+
     it 'should return a list of existing articles' do
       VCR.use_cassette 'replica/articles' do
         article_titles = [
