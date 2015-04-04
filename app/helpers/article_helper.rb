@@ -2,24 +2,26 @@
 module ArticleHelper
   def rating_priority(rating)
     case rating
-    when 'fa', 'fl'
+    when 'fa'
       0
-    when 'a'
+    when 'fl'
       1
-    when 'ga'
+    when 'a'
       2
-    when 'b'
+    when 'ga'
       3
-    when 'c'
+    when 'b'
       4
-    when 'start'
+    when 'c'
       5
-    when 'stub'
+    when 'start'
       6
-    when 'list'
+    when 'stub'
       7
-    when nil
+    when 'list'
       8
+    when nil
+      9
     end
   end
 end

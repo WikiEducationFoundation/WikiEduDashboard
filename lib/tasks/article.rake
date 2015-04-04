@@ -13,19 +13,19 @@ namespace :article do
 
   desc 'Update views for newly added articles'
   task update_new_article_views: :environment do
-    Rails.logger.info 'Updating views for newly added articles'
+    Rails.logger.debug 'Updating views for newly added articles'
     Article.update_new_views
   end
 
   desc 'Update ratings for all articles'
   task update_all_ratings: :environment do
-    Rails.logger.info 'Updating article ratings'
+    Rails.logger.info 'Updating ratings for all articles'
     Article.update_all_ratings
   end
 
-  desc 'Update ratings for all articles'
+  desc 'Update ratings for new articles'
   task update_new_ratings: :environment do
-    Rails.logger.info 'Updating article ratings'
+    Rails.logger.debug 'Updating ratings for new articles'
     Article.update_new_ratings
   end
 

@@ -29,9 +29,13 @@ class Grok
     private
 
     def api_get(title, month, language)
+      tries ||= 3
       title = URI.escape(title)
       url = "http://stats.grok.se/json/#{language}/#{month}/#{title}"
       Net::HTTP::get(URI.parse(url))
+    rescue Errno::ETIMEDOUT
+      Rails.logger.error I18n.t('timeout', api: 'grok.se', tries: (tries -= 1))
+      retry unless tries.zero?
     end
   end
 end
