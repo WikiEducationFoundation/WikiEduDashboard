@@ -1,5 +1,6 @@
 $ ->
   # Course sorting
+  userCourseList = new List('user_courses', {valueNames: ['utitle','ucharacters','uviews','ustudents']})
   courseList = new List('courses', {valueNames: ['title','characters','views','students']})
 
   # User sorting
