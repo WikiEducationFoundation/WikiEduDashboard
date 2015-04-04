@@ -11,6 +11,7 @@ class Grok
     views = {}
     while Date.today >= i_date
       data = api_get(title, i_date.strftime('%Y%m'), language)
+      return views unless data
       data = Utils.parse_json(data)
       if data.include?('daily_views')
         data['daily_views'].each do |day, view_count|
