@@ -31,15 +31,13 @@ $ ->
       location.reload()
     )
 
-  $('a.notify_untrained').click (e) ->
+  $('.notify_untrained').click (e) ->
     e.preventDefault()
-    parent = $(e.target).parent()
-    if confirm "This will post a reminder on the talk pages for all students who have not completed training. Are you sure?"
-      console.log 'Notifying untrained users...'
-      parent.text('Posting a reminder to the talk page of all untrained students. Please wait...')
+    if confirm "This will post a reminder on the talk pages for all students who have not completed training. Are you sure you want to do this?"
+      $(e.target).addClass('loading')
       $.get($(e.target).attr('href'), (data) =>
-        alert("Untrained users have been notified!")
-        parent.text('Untrained students have been reminded to complete the training!')
+        $(e.target).removeClass('loading')
+        alert("Untrained users have been reminded to complete the training.")
       )
 
 $.fn.extend

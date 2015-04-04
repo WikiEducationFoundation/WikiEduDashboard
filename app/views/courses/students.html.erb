@@ -6,9 +6,7 @@
   <div class="section-header">
     <h3><%= t("course.students") %></h3>
     <% if @course.users.role('instructor').include? current_user %>
-    <div class="message">
-      <%= link_to "Notify untrained students", {:action => 'notify_untrained', :course => @course.id }, class: 'notify_untrained' %>
-    </div>
+      <%= link_to({:action => 'notify_untrained', :course => @course.id }, class: 'notify_untrained') do %><% end %>
     <% end %>
     <div class="sort-select">
       <select class="sorts" rel="users">

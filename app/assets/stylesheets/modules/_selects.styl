@@ -1,5 +1,16 @@
-.cohort-select, .sort-select
+.notify_untrained
+  background url('../images/message.svg') no-repeat 50% white
+  width 64px
+  &.loading
+    background url('../images/loader.gif') no-repeat 50% white
+  +above(desktop)
+    right 94px !important
+  &:hover
+    border 3px solid smoke
+
+.cohort-select, .sort-select, .notify_untrained
   border 3px solid smoke
+  cursor pointer
   float left
   height 41px
   margin 10px 10px 10px 0
@@ -9,6 +20,8 @@
     position absolute
     right 20px
     top 20px
+  select
+    cursor pointer
 
 .cohort-select
   background url('../images/arrow.svg') no-repeat 97% white

@@ -25,8 +25,7 @@ class WikiEdits
     @access_token = OAuth::AccessToken.new @consumer,
                                            current_user.wiki_token,
                                            current_user.wiki_secret
-    get_token = @access_token.get("https://#{language}.wikipedia.org/w/api.
-      php?action=query&meta=tokens&format=json")
+    get_token = @access_token.get("https://#{language}.wikipedia.org/w/api.php?action=query&meta=tokens&format=json")
     token_response = JSON.parse(get_token.body)
 
     OpenStruct.new(
