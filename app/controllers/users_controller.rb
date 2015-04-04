@@ -10,4 +10,9 @@ class UsersController < ApplicationController
     r_list =  r_list.html_safe.gsub(/\n/, '').gsub(/\t/, '').gsub(/\r/, '')
     render json: { html: r_list, error: '' }
   end
+
+  def signout
+    current_user.update_attributes(wiki_token: nil, wiki_secret: nil)
+    redirect_to true_destroy_user_session_path
+  end
 end
