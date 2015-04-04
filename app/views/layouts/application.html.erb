@@ -35,9 +35,9 @@
         </nav>
         <div class="login">
           <% if user_signed_in? %>
-            <p>You are logged in as <b><%= current_user.wiki_id %></b>. <%= link_to "Logout", :destroy_user_session %></p>
+            <p>You are logged in as <b><%= current_user.wiki_id %></b>.&nbsp;&nbsp;&nbsp;<%= link_to "Logout", :destroy_user_session %></p>
           <% else %>
-            <%= link_to "Login", user_omniauth_authorize_path(:mediawiki) %>
+            <p><%= link_to "Login", user_omniauth_authorize_path(:mediawiki) %></p>
           <% end %>
         </div>
       </aside>
