@@ -17,6 +17,7 @@ class Replica
   def self.get_revisions(users, rev_start, rev_end)
     raw = Replica.get_revisions_raw(users, rev_start, rev_end)
     data = {}
+    return data unless raw.is_a?(Enumerable)
     raw.each do |revision|
       parsed = Replica.parse_revision(revision)
       article_id = parsed['article']['id']

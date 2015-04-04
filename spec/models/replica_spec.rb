@@ -9,6 +9,36 @@ describe Replica do
       # rubocop:enable Metrics/LineLength
     end
 
+    it 'should handle timeout errors' do
+      stub_request(:any, %r{http://tools.wmflabs.org/.*})
+        .to_raise(Errno::ETIMEDOUT)
+      all_users = [
+        { 'wiki_id' => 'ELE427' },
+        { 'wiki_id' => 'Ragesoss' },
+        { 'wiki_id' => 'Mrbauer1234' }
+      ]
+      rev_start = 2014_01_01_003430
+      rev_end = 2014_12_31_003430
+
+      all_users.each_with_index do |u, i|
+        all_users[i] = OpenStruct.new u
+      end
+      response = Replica.get_revisions(all_users, rev_start, rev_end)
+    end
+
+    it 'should handle connection refused errors' do
+      stub_request(:any, %r{http://tools.wmflabs.org/.*})
+        .to_raise(Errno::ECONNREFUSED)
+      all_users = [
+        { 'id' => '319203' },
+        { 'id' => '4543197' }
+      ]
+      all_users.each_with_index do |u, i|
+        all_users[i] = OpenStruct.new u
+      end
+      response = Replica.get_user_info(all_users)
+    end
+
     # rubocop:disable Style/NumericLiterals
     it 'should return revisions from this term' do
       VCR.use_cassette 'replica/revisions' do
@@ -60,6 +90,13 @@ describe Replica do
         response = Replica.get_user_info(all_users)
         trained = response.reduce(0) { |a, e| a + e['trained'].to_i }
         expect(trained).to eq(3)
+      end
+    end
+
+    it 'should get an id from a username' do
+      VCR.use_cassette 'replica/get_user_id' do
+        response = Replica.get_user_id('Ragesoss')
+        expect(response).to eq('319203')
       end
     end
 
