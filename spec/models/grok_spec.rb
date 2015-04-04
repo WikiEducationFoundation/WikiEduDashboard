@@ -11,7 +11,7 @@ describe Grok do
     end
 
     it 'should handle timeout errors' do
-      stub_request(:any, %r{.*})
+      stub_request(:any, %r{.*}).to_raise(Errno::ETIMEDOUT)
       response = Grok.views_for_article('Foo', '2014-08-01'.to_date, 'en')
     end
   end
