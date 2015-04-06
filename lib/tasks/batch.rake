@@ -22,7 +22,7 @@ namespace :batch do
     File.open(pid_file, 'w') { |f| f.puts Process.pid }
     begin
       start = Time.now
-      Rails.logger.info 'Constant update tasks are beginning'
+      Rails.logger.info 'Constant update tasks are beginning.'
       Rake::Task['course:update_courses'].invoke
       Rake::Task['user:update_users'].invoke
       Rake::Task['revision:update_revisions'].invoke
@@ -64,7 +64,7 @@ namespace :batch do
     File.open(pid_file, 'w') { |f| f.puts Process.pid }
     begin
       start = Time.now
-      Rails.logger.info 'Daily update tasks are beginning'
+      Rails.logger.info 'Daily update tasks are beginning.'
       Rake::Task['article:update_views'].invoke
       Rake::Task['article:update_all_ratings'].invoke
       Rake::Task['article:update_articles_deleted'].invoke
