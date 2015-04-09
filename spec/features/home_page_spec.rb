@@ -8,6 +8,7 @@ cohort_two = Figaro.env.cohorts.split(',').first
 cohort_two_title = cohort_two.gsub('_', ' ').capitalize
 
 describe 'the home page', type: :feature do
+
   before do
     (1..cohort_course_count).each do |i|
       create(:course,

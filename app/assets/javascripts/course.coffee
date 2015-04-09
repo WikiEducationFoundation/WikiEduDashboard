@@ -1,5 +1,6 @@
 $ ->
   # Course sorting
+  userCourseList = new List('user_courses', {valueNames: ['utitle','ucharacters','uviews','ustudents']})
   courseList = new List('courses', {valueNames: ['title','characters','views','students']})
 
   # User sorting
@@ -30,6 +31,15 @@ $ ->
     $.get($(e.target).attr('href'), (data) ->
       location.reload()
     )
+
+  $('.notify_untrained').click (e) ->
+    e.preventDefault()
+    if confirm "This will post a reminder on the talk pages for all students who have not completed training. Are you sure you want to do this?"
+      $(e.target).addClass('loading')
+      $.get($(e.target).attr('href'), (data) =>
+        $(e.target).removeClass('loading')
+        alert("Untrained users have been reminded to complete the training.")
+      )
 
 $.fn.extend
   toggleHeight: ->

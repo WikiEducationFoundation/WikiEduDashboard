@@ -1,5 +1,9 @@
 #= User model
 class User < ActiveRecord::Base
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :rememberable, :omniauthable, omniauth_providers: [:mediawiki]
+
   has_many :courses_users, class_name: CoursesUsers
   has_many :courses, -> { uniq }, through: :courses_users
   has_many :revisions
@@ -63,6 +67,27 @@ class User < ActiveRecord::Base
   #################
   # Class methods #
   #################
+  def self.from_omniauth(auth)
+    user = User.find_by(wiki_id: auth.info.name)
+    if user.nil?
+      id = Replica.get_user_id(auth.info.name)
+      user = User.create(
+        id: id,
+        wiki_id: auth.info.name,
+        global_id: auth.uid,
+        wiki_token: auth.credentials.token,
+        wiki_secret: auth.credentials.secret
+      )
+    else
+      user.update(
+        global_id: auth.uid,
+        wiki_token: auth.credentials.token,
+        wiki_secret: auth.credentials.secret
+      )
+    end
+    user
+  end
+
   def self.add_users(data, role, course, save=true)
     if data.is_a?(Array)
       data.map do |p|
@@ -92,12 +117,20 @@ class User < ActiveRecord::Base
     new_user
   end
 
-  def self.update_trained_users(users=nil)
-    trained_users = Utils.chunk_requests(users || User.all) do |block|
-      Replica.get_users_completed_training block
+  def self.update_users(users=nil)
+    u_users = Utils.chunk_requests(users || User.all) do |block|
+      Replica.get_user_info block
     end
-    wiki_ids = trained_users.map { |u| u['rev_user_text'] }
-    (users || User.all).where(wiki_id: wiki_ids).update_all(trained: true)
+
+    User.transaction do
+      u_users.each do |u|
+        begin
+          User.find(u['id']).update(u.except('id'))
+        rescue ActiveRecord::RecordNotFound
+          Rails.logger.warn e
+        end
+      end
+    end
   end
 
   def self.update_all_caches(users=nil)

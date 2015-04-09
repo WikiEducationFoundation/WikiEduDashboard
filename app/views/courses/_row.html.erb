@@ -2,20 +2,20 @@
   <%= link_to course_slug_path(course.slug), 'id' => course.id do %>
     <div class="row__wrapper">
       <div class="course-list__row__title">
-        <p class="title"><%= course.title %></p>
+        <p class="<%= user ? 'u' : '' %>title"><%= course.title %></p>
       </div>
       <div class="course-list__row__characters">
         <p><span class="tablet-only-flex"><%= t("metrics.char") %>: </span><%= number_to_human course.character_sum %></p>
-        <p class="characters hidden"><%= course.character_sum %></p>
+        <p class="<%= user ? 'u' : '' %>characters hidden"><%= course.character_sum %></p>
       </div>
       <div class="course-list__row__views">
         <p><span class="tablet-only-flex"><%= t("metrics.view") %>: </span><%= number_to_human course.view_sum %></p>
-        <p class="views hidden"><%= course.view_sum %></p>
+        <p class="<%= user ? 'u' : '' %>views hidden"><%= course.view_sum %></p>
       </div>
       <div class="course-list__row__students">
         <p class="training"><span class="tablet-only-flex"><%= t("users.editors") %>: </span><%= course.user_count %></p>
         <small class="training desktop-only-flex"><%= t("user.training_complete_count", count: course.user_count - course.untrained_count) %></small>
-        <p class="students hidden"><%= course.user_count %></p>
+        <p class="<%= user ? 'u' : '' %>students hidden"><%= course.user_count %></p>
       </div>
       <div class="course-list__row__link desktop-only-flex">
         <p class="fake-link"><%= t("course.view") %></p>

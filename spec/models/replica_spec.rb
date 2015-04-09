@@ -9,6 +9,36 @@ describe Replica do
       # rubocop:enable Metrics/LineLength
     end
 
+    it 'should handle timeout errors' do
+      stub_request(:any, %r{http://tools.wmflabs.org/.*})
+        .to_raise(Errno::ETIMEDOUT)
+      all_users = [
+        { 'wiki_id' => 'ELE427' },
+        { 'wiki_id' => 'Ragesoss' },
+        { 'wiki_id' => 'Mrbauer1234' }
+      ]
+      rev_start = 2014_01_01_003430
+      rev_end = 2014_12_31_003430
+
+      all_users.each_with_index do |u, i|
+        all_users[i] = OpenStruct.new u
+      end
+      response = Replica.get_revisions(all_users, rev_start, rev_end)
+    end
+
+    it 'should handle connection refused errors' do
+      stub_request(:any, %r{http://tools.wmflabs.org/.*})
+        .to_raise(Errno::ECONNREFUSED)
+      all_users = [
+        { 'id' => '319203' },
+        { 'id' => '4543197' }
+      ]
+      all_users.each_with_index do |u, i|
+        all_users[i] = OpenStruct.new u
+      end
+      response = Replica.get_user_info(all_users)
+    end
+
     # rubocop:disable Style/NumericLiterals
     it 'should return revisions from this term' do
       VCR.use_cassette 'replica/revisions' do
@@ -45,20 +75,52 @@ describe Replica do
     end
     # rubocop:enable Style/NumericLiterals
 
-    it 'should return a list of users who completed training' do
+    it 'should return training status' do
       VCR.use_cassette 'replica/training' do
         all_users = [
-          { 'wiki_id' => 'ELE427' }, # has not completed
-          { 'wiki_id' => 'Ragesoss' }, # has completed
-          { 'wiki_id' => 'Mrbauer1234' }, # has not completed
-          { 'wiki_id' => 'Ragesock' }, # has completed
-          { 'wiki_id' => 'Sage (Wiki Ed)' } # has completed
+          { 'id' => '22905965' }, # has not completed
+          { 'id' => '319203' }, # has completed
+          { 'id' => '23011474' }, # has not completed
+          { 'id' => '4543197' }, # has completed
+          { 'id' => '21515199' } # has completed
         ]
         all_users.each_with_index do |u, i|
           all_users[i] = OpenStruct.new u
         end
-        response = Replica.get_users_completed_training(all_users)
-        expect(response.count).to eq(3)
+        response = Replica.get_user_info(all_users)
+        trained = response.reduce(0) { |a, e| a + e['trained'].to_i }
+        expect(trained).to eq(3)
+      end
+    end
+
+    it 'should get an id from a username' do
+      VCR.use_cassette 'replica/get_user_id' do
+        response = Replica.get_user_id('Ragesoss')
+        expect(response).to eq('319203')
+      end
+    end
+
+    it 'should return global ids' do
+      VCR.use_cassette 'replica/training' do
+        all_users = [
+          { 'id' => '319203' },
+          { 'id' => '4543197' }
+        ]
+        all_users.each_with_index do |u, i|
+          all_users[i] = OpenStruct.new u
+        end
+        response = Replica.get_user_info(all_users)
+        expect(response[0]['global_id']).to eq('827')
+        expect(response[1]['global_id']).to eq('14093230')
+      end
+    end
+
+    it 'should update usernames after name changes' do
+      VCR.use_cassette 'replica/training' do
+        create(:user, wiki_id: 'old_username')
+        expect(User.all.first.wiki_id).to eq('old_username')
+        response = Replica.get_user_info User.all
+        expect(response[0]['wiki_id']).to eq('Ragesock')
       end
     end
 

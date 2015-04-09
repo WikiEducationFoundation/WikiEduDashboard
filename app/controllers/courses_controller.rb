@@ -1,3 +1,5 @@
+require 'oauth'
+
 #= Controller for course functionality
 class CoursesController < ApplicationController
   def index
@@ -45,7 +47,15 @@ class CoursesController < ApplicationController
   def manual_update
     @course = Course.where(listed: true).find_by_slug(params[:id])
     @course.manual_update
-    redirect_to :back
+    redirect_to :back # Refresh if JS blows up
   end
   helper_method :manual_update
+
+  def notify_untrained
+    @course = Course.find(params[:course])
+    return unless user_signed_in? and @course.users.role('instructor').include? current_user
+    WikiEdits.notify_untrained(params[:course], current_user)
+    redirect_to :back # Refresh if JS blows up
+  end
+  helper_method :notify_untrained
 end

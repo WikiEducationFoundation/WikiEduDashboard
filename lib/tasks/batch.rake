@@ -1,3 +1,6 @@
+require 'action_view'
+include ActionView::Helpers::DateHelper
+
 namespace :batch do
   desc 'Constant data updates'
   task update_constantly: :environment do
@@ -19,14 +22,15 @@ namespace :batch do
     File.open(pid_file, 'w') { |f| f.puts Process.pid }
     begin
       start = Time.now
-      Rails.logger.info 'Constant update tasks are beginning'
+      Rails.logger.info 'Constant update tasks are beginning.'
       Rake::Task['course:update_courses'].invoke
       Rake::Task['user:update_users'].invoke
       Rake::Task['revision:update_revisions'].invoke
       Rake::Task['article:update_new_article_views'].invoke
       Rake::Task['article:update_new_ratings'].invoke
       Rake::Task['cache:update_caches'].invoke
-      Rails.logger.info "Constant update finished in #{Time.now - start} s"
+      total_time = distance_of_time_in_words(start, Time.now)
+      Rails.logger.info "Constant update finished in #{total_time}."
     ensure
       File.delete pid_file
     end
@@ -60,12 +64,13 @@ namespace :batch do
     File.open(pid_file, 'w') { |f| f.puts Process.pid }
     begin
       start = Time.now
-      Rails.logger.info 'Daily update tasks are beginning'
+      Rails.logger.info 'Daily update tasks are beginning.'
       Rake::Task['article:update_views'].invoke
       Rake::Task['article:update_all_ratings'].invoke
       Rake::Task['article:update_articles_deleted'].invoke
       Rake::Task['cache:update_caches'].invoke
-      Rails.logger.info "Daily update finished in #{Time.now - start} s"
+      total_time = distance_of_time_in_words(start, Time.now)
+      Rails.logger.info "Daily update finished in #{total_time}."
     ensure
       File.delete pid_file
       File.delete pause_file

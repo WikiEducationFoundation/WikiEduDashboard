@@ -230,7 +230,7 @@ describe Article do
 
     it 'should not contribute to cached course values' do
       course = create(:course, end: '2016-12-31'.to_date)
-      course.users << create(:user)
+      course.users << create(:user, id: 1)
       CoursesUsers.update_all(role: 0)
       (1..2).each do |i|
         article = create(:article,

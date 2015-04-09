@@ -25,6 +25,38 @@
   </div>
 </header>
 
+<% if user_signed_in? %>
+  <section id="user_courses">
+    <div class="section-header">
+      <h3><%= t("course.yourcourses") %></h3>
+    </div>
+    <div class="row course-list__row list__header">
+      <div class="row__wrapper desktop-only-flex">
+        <div class="course-list__row__title sort asc" data-sort="utitle"><p><%= t("course.courses") %></p></div>
+        <div class="course-list__row__characters sort popover-trigger" data-default-order="desc" data-sort="ucharacters">
+          <p><%= t("metrics.char") %></p>
+          <div class="popover dark">
+            <p><%= t("course.character_doc") %></p>
+          </div>
+        </div>
+        <div class="course-list__row__views sort popover-trigger" data-default-order="desc" data-sort="uviews">
+          <p><%= t("metrics.view") %></p>
+          <div class="popover dark">
+            <p><%= t("course.view_doc") %></p>
+          </div>
+        </div>
+        <div class="course-list__row__students sort" data-default-order="desc" data-sort="ustudents"><p><%= t("user.editors") %></p></div>
+        <div class="course-list__row__link"></div>
+      </div>
+    </div>
+    <ul class="list">
+    <% current_user.courses.each do |c| %>
+      <%= render :partial => 'row', :locals => {:course => c, :user => true} %>
+    <% end %>
+    </ul>
+  </section>
+<% end %>
+
 <section id="courses">
   <div class="section-header">
     <h3><%= [t("course.courses"), @cohort.gsub('_', ' ').capitalize].join(" | ") %></h3>
@@ -68,7 +100,7 @@
   </div>
   <ul class="list">
   <% @courses.each do |c| %>
-    <%= render :partial => 'row', :locals => {:course => c} %>
+    <%= render :partial => 'row', :locals => {:course => c, :user => false} %>
   <% end %>
   </ul>
 </section>

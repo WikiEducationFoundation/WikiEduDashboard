@@ -66,6 +66,7 @@ en:
     character_doc: The sum of characters added to mainspace articles by the course's students during the course term
     course_description: Wiki Ed Courses
     courses: Courses
+    yourcourses: Your Courses
     current: Current Courses
     duration: Course Duration
     instructor:

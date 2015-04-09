@@ -84,15 +84,41 @@ describe User do
     end
   end
 
+  describe 'OAuth model association' do
+    it 'should create new user based on OAuth data' do
+      VCR.use_cassette 'user/user_id' do
+        info = OpenStruct.new(name: 'Ragesock')
+        credentials = OpenStruct.new(token: 'foo', secret: 'bar')
+        hash = OpenStruct.new(uid: '14093230',
+                              info: info,
+                              credentials: credentials
+        )
+        auth = User.from_omniauth(hash)
+        expect(auth.id).to eq(4_543_197)
+      end
+    end
+
+    it 'should associate existing model with OAuth data' do
+      existing = create(:user)
+      info = OpenStruct.new(name: 'Ragesock')
+      credentials = OpenStruct.new(token: 'foo', secret: 'bar')
+      hash = OpenStruct.new(uid: '14093230',
+                            info: info,
+                            credentials: credentials
+      )
+      auth = User.from_omniauth(hash)
+      expect(auth.id).to eq(existing.id)
+    end
+  end
+
   describe 'training update' do
     it 'should update which users have completed training' do
       # Create a new user, who by default is assumed not to have been trained.
-      build(:user).save
-      ragesoss = User.all.first
+      ragesoss = create(:trained)
       expect(ragesoss.trained).to eq(false)
 
       # Update trained users to see that user has really been trained
-      User.update_trained_users
+      User.update_users
       ragesoss = User.all.first
       expect(ragesoss.trained).to eq(true)
     end

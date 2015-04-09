@@ -1,11 +1,11 @@
 FactoryGirl.define do
   factory :user do
-    id 1
+    id '4543197'
     wiki_id 'Ragesock'
   end
 
   factory :trained, class: User do
-    id 2
+    id '319203'
     wiki_id 'Ragesoss'
   end
 end

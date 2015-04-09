@@ -28,4 +28,9 @@ class ApplicationController < ActionController::Base
       options
     end
   end
+
+  helper_method :new_session_path
+  def new_session_path(scope)
+    new_user_session_path
+  end
 end

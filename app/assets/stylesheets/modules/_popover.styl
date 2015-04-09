@@ -7,6 +7,7 @@
   .popover
     background-color white
     border 1px solid manatee
+    display none
     opacity 0
     padding 10px 15px
     pointer-events none
@@ -15,6 +16,8 @@
     transform translateZ(0)
     transition opacity .2s linear, top .2s linear
     z-index 4
+    +above(desktop)
+      display block
     &.dark
       background-color manatee
       border none

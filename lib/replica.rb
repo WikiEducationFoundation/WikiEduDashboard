@@ -17,6 +17,7 @@ class Replica
   def self.get_revisions(users, rev_start, rev_end)
     raw = Replica.get_revisions_raw(users, rev_start, rev_end)
     data = {}
+    return data unless raw.is_a?(Enumerable)
     raw.each do |revision|
       parsed = Replica.parse_revision(revision)
       article_id = parsed['article']['id']
@@ -80,13 +81,17 @@ class Replica
     api_get('revisions.php', query)
   end
 
-  # Given a list of users, see which ones completed the training. Completion of
-  # training is defined by the training.php endpoint as having made an edit to a
-  # specific page on Wikipedia:
+  # Given a list of users, fetch their global_id and trained status. Completion
+  # of training is defined by the users.php endpoint as having made an edit
+  # to a specific page on Wikipedia:
   # [[Wikipedia:Training/For students/Training feedback]]
-  def self.get_users_completed_training(users)
-    user_list = compile_user_string(users)
-    api_get('training.php', user_list)
+  def self.get_user_info(users)
+    user_list = compile_user_id_string(users)
+    api_get('users.php', user_list)
+  end
+
+  def self.get_user_id(username)
+    api_get('user_id.php', "user_name='#{username}'")['user_id']
   end
 
   # Given a list of articles, see which ones have not been deleted.
@@ -103,13 +108,14 @@ class Replica
   class << self
     private
 
-    # Given an endpoint (either 'training.php' or 'revisions.php') and a
+    # Given an endpoint (either 'users.php' or 'revisions.php') and a
     # query appropriate to that endpoint, return the parsed json response.
     #
-    # Example training.php query with 3 users:
-    #    http://tools.wmflabs.org/wikiedudashboard/training.php?user_ids[0]=%27Example_User%27&user_ids[1]=%27Ragesoss%27&user_ids[2]=%27Sage%20(Wiki%20Ed)%27
-    # Example training.php parsed response with 2 users who completed training:
-    #    [{"rev_user_text"=>"Ragesoss"}, {"rev_user_text"=>"Sage (Wiki Ed)"}]
+    # Example users.php query with 2 users:
+    #    http://tools.wmflabs.org/wikiedudashboard/users.php?user_ids[0]=012345&user_ids[1]=678910
+    # Example users.php parsed response with 2 users:
+    #    [{"id"=>"012345", "wiki_id"=>"Example_user", "global_id"=>"8675309", trained: 1},
+    #     {"id"=>"678910", "wiki_id"=>"Another_user", "global_id"=>"9035768", trained: 0}]
     #
     # Example revisions.php query:
     #    http://tools.wmflabs.org/wikiedudashboard/revisions.php?user_ids[0]=%27Example_User%27&user_ids[1]=%27Ragesoss%27&user_ids[2]=%27Sage%20(Wiki%20Ed)%27&start=20150105&end=20150108
@@ -165,6 +171,15 @@ class Replica
         user_list += '&' if i > 0
         wiki_id = CGI.escape(u.wiki_id)
         user_list += "user_ids[#{i}]='#{wiki_id}'"
+      end
+      user_list
+    end
+
+    def compile_user_id_string(users)
+      user_list = ''
+      users.each_with_index do |u, i|
+        user_list += '&' if i > 0
+        user_list += "user_ids[#{i}]='#{u.id}'"
       end
       user_list
     end
