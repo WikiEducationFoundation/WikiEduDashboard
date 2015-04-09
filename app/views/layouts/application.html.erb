@@ -2,14 +2,17 @@
 <html <%= rtl? ? "dir=rtl" : "" %>>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <% if(Rails.env == "development") %>
-      <title><%= content_for?(:title) ? yield(:title) : "D Wiki Ed Dashboard" %></title>
-    <% elsif(Rails.env == "staging") %>
-      <title><%= content_for?(:title) ? yield(:title) : "S Wiki Ed Dashboard" %></title>
+
+    <% before = content_for?(:before_title) ? yield(:before_title) : '' %>
+    <% after = content_for?(:after_title) ? yield(:after_title) : '' %>
+    <title><%=  "#{before}Wiki Ed Dashboard#{after}" %></title>
+
+    <% if(Rails.env == 'development') %>
+      <%= favicon_link_tag 'favicon_dev.png' %>
     <% else %>
-      <title><%= content_for?(:title) ? yield(:title) : "Wiki Ed Dashboard" %></title>
+      <%= favicon_link_tag 'favicon.ico' %>
     <% end %>
-    <%= favicon_link_tag 'favicon.ico' %>
+
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Myapp" %>">
 
     <%= stylesheet_link_tag '//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css', media: 'all' %>

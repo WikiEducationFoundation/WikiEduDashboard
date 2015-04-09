@@ -1,3 +1,5 @@
+<% content_for :before_title do "#{@course.title} Students - " end %>
+
 <%= render :partial => 'nav', :locals => {:page => 1, :course => @course} %>
 
 <%= render :partial => 'header', :locals => {:page => 1} %>
