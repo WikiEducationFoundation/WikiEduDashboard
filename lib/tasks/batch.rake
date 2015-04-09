@@ -32,7 +32,7 @@ namespace :batch do
       total_time = distance_of_time_in_words(start, Time.now)
       Rails.logger.info "Constant update finished in #{total_time}."
     ensure
-      File.delete pid_file
+      File.delete pid_file if File.exist? pid_file
     end
   end
 
@@ -53,12 +53,13 @@ namespace :batch do
 
     # Wait until update_constantly finishes
     if(File.exist? constant_file)
+      # Prevent update_constantly from starting again
       File.open(pause_file, 'w') { |f| f.puts Process.pid }
       while(File.exist? constant_file)
-        Rails.logger.info 'Delaying update_daily task for five minutes...'
-        sleep(5.minutes)
+        Rails.logger.info 'Delaying update_daily task for ten minutes...'
+        sleep(10.minutes)
       end
-      File.delete pause_file
+      File.delete pause_file if File.exist? pause_file
     end
 
     File.open(pid_file, 'w') { |f| f.puts Process.pid }
@@ -72,8 +73,8 @@ namespace :batch do
       total_time = distance_of_time_in_words(start, Time.now)
       Rails.logger.info "Daily update finished in #{total_time}."
     ensure
-      File.delete pid_file
-      File.delete pause_file
+      File.delete pid_file if File.exist? pid_file
+      File.delete pause_file if File.exist? pause_file
     end
   end
 
@@ -94,7 +95,7 @@ namespace :batch do
       Rake::Task['cache:update_caches'].invoke
       Rails.logger.info 'Initialization tasks have finished'
     ensure
-      File.delete pid_file
+      File.delete pid_file if File.exist? pid_file
     end
   end
 
@@ -107,6 +108,6 @@ namespace :batch do
   desc 'Resume updates'
   task resume: :environment do
     pid_file = 'tmp/batch_pause.pid'
-    File.delete pid_file
+    File.delete pid_file if File.exist? pid_file
   end
 end
