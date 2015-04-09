@@ -43,23 +43,25 @@ class Revision < ActiveRecord::Base
   end
 
   def self.import_revisions(data)
-    articles, revisions = [], []
-
     # Add/update articles
-    data.each do |_a_id, a|
-      article = Article.new(id: a['article']['id'])
-      article.update(a['article'], false)
-      articles.push article
+    data.each_slice(30_000) do |sub_data|
+      articles, revisions = [], []
 
-      a['revisions'].each do |r|
-        revision = Revision.new(id: r['id'])
-        revision.update(r, false)
-        revisions.push revision
+      sub_data.each do |_a_id, a|
+        article = Article.new(id: a['article']['id'])
+        article.update(a['article'], false)
+        articles.push article
+
+        a['revisions'].each do |r|
+          revision = Revision.new(id: r['id'])
+          revision.update(r, false)
+          revisions.push revision
+        end
       end
-    end
 
-    Article.import articles
-    Revision.import revisions
+      Article.import articles
+      Revision.import revisions
+    end
 
     ActiveRecord::Base.transaction do
       Assignment.where(article_id: nil).each do |a|
