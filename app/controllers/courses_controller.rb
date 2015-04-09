@@ -15,6 +15,8 @@ class CoursesController < ApplicationController
 
   def show
     @course = Course.where(listed: true).find_by_slug(params[:id])
+    raise ActionController::RoutingError.new('Not Found') if @course.nil?
+
     users = @course.users
     @students = users.role('student').order(character_sum: :desc).limit(4)
     @volunteers = users.role('online_volunteer') + users.role('campus_volunteer')
@@ -29,6 +31,8 @@ class CoursesController < ApplicationController
 
   def students
     @course = Course.where(listed: true).find_by_slug(params[:id])
+    raise ActionController::RoutingError.new('Not Found') if @course.nil?
+
     users = @course.users
     @courses_users = @course.courses_users
                      .includes(user: { assignments: :article })
@@ -38,6 +42,8 @@ class CoursesController < ApplicationController
 
   def articles
     @course = Course.where(listed: true).find_by_slug(params[:id])
+    raise ActionController::RoutingError.new('Not Found') if @course.nil?
+
     users = @course.users
     @articles_courses = @course.articles_courses.live
                         .includes(:article).order('articles.title')
