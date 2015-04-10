@@ -4,6 +4,8 @@ include ActionView::Helpers::DateHelper
 namespace :batch do
   desc 'Constant data updates'
   task update_constantly: :environment do
+    Rails.logger = Logger.new(STDOUT)
+    Rails.logger.formatter = ActiveSupport::Logger::SimpleFormatter.new
     daily_file = 'tmp/batch_update_daily.pid'
     pid_file = 'tmp/batch_update_constantly.pid'
     pause_file = 'tmp/batch_pause.pid'
@@ -38,6 +40,8 @@ namespace :batch do
 
   desc 'Daily data updates'
   task update_daily: :environment do
+    Rails.logger = Logger.new(STDOUT)
+    Rails.logger.formatter = ActiveSupport::Logger::SimpleFormatter.new
     pid_file = 'tmp/batch_update_daily.pid'
     constant_file = 'tmp/batch_update_constantly.pid'
     pause_file = 'tmp/batch_pause.pid'

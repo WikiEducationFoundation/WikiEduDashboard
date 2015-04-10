@@ -11,7 +11,7 @@ class ActiveSupport::Logger::SimpleFormatter
     end
 
     formatted_time = time.strftime("%Y-%m-%d %H:%M:%S.") << time.usec.to_s[0..2].rjust(3)
-    color = SEVERITY_TO_COLOR_MAP[severity]
+    # color = SEVERITY_TO_COLOR_MAP[severity]
 
     # This version omits colors
     "[#{formatted_time} #{formatted_severity}] #{msg.strip}\n"
