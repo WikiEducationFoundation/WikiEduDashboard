@@ -5,7 +5,7 @@
       <p class="name"><%= contribution_link(cu.user, nil, 'inline') %><br><small class="red"><%= cu.user.trained ? '' : t("user.training_incomplete.one") %></small></p>
     </div>
     <div class="user-list__row__training">
-      <p class="training <%= !cu.user.trained ? 'red' : '' %>"><%= cu.user.trained ? t("user.training_complete.short") : t("user.training_incomplete.short") %></p>
+      <p class="training <%= !cu.user.trained ? 'red' : '' %>"><%= cu.user.trained ? t("user.training_complete_short") : t("user.training_incomplete_short") %></p>
     </div>
     <div class="user-list__row__characters__mobile">
       <p class="characters-ms">
