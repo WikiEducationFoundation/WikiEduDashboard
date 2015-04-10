@@ -184,14 +184,15 @@
     right 30px
     top 50%
     .icon:before
-      font-size 30px
+      content '\f078'
+      font-family 'FontAwesome'
+      font-size 16px
       font-weight 100
     +above(desktop)
       col(2/20)
       position static
       margin-top 0
       .icon:before
-        font-size 20px
         font-weight normal
   .user-list__row__spacer
     col(0/20)
@@ -314,7 +315,9 @@
       span(0)
       right 0
     .icon:before
-      font-size 29px
+      content '\f078'
+      font-family "FontAwesome"
+      font-size 16px
       font-weight 100
 
   &.course-list__row, &.revision-list__row,
