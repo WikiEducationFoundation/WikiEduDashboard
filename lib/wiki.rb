@@ -17,15 +17,12 @@ class Wiki
     response
   end
 
-  def self.get_course_info(course_id)
-    raw = get_course_info_raw(course_id)
+  def self.get_course_info(course_ids)
+    raw = get_course_info_raw(course_ids)
     return [] unless raw
 
-    if raw.is_a?(Array)
-      raw.map { |course| parse_course_info(course) }
-    else
-      [parse_course_info(raw)]
-    end
+    raw = [raw] unless raw.is_a?(Array)
+    raw.map { |course| parse_course_info(course) }
   end
 
   def self.parse_course_info(course)
