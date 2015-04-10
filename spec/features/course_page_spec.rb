@@ -4,7 +4,8 @@ cohort = Figaro.env.cohorts.split(',').last
 user_count = 10
 article_count = 19
 revision_count = 214
-slug = 'This_university/This_course_(term_2015)'
+# Dots in course titles will cause errors if routes.rb is misconfigured.
+slug = 'This_university.foo/This.course_(term_2015)'
 course_start = '2015-01-01'
 course_end = '2015-12-31'
 
