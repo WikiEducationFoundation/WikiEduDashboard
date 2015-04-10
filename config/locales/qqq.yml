@@ -62,10 +62,12 @@ qqq:
     contributions_more: Command to view more contributions by a user.
     editors: Label for list of editors.
     name: Label for username.
-    training_complete: Number of students who have finished the training.
+    training_complete: Label for students who have finished the training.
+    training_complete_short: Shorter label (for mobile) stating that training is complete.
     training_complete_count: Number of students who have finished the training, with the count.
     training_doc: Documentation for finishing training.
     training_incomplete: Label stating that training is not complete.
+    training_incomplete_short: Shorter label (for mobile) stating that training is not complete.
     view_all: Command to view all users.
 
   error_404:
