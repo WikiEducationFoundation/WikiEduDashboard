@@ -27,6 +27,7 @@ namespace :batch do
       Rails.logger.warn I18n.t('tasks.paused', task: 'batch_update_constantly')
       Kernel.exit
     end
+
     File.open(pid_file, 'w') { |f| f.puts Process.pid }
     begin
       start = Time.now
