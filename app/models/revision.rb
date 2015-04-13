@@ -44,7 +44,7 @@ class Revision < ActiveRecord::Base
 
   def self.import_revisions(data)
     # Add/update articles
-    data.each_slice(30_000) do |sub_data|
+    data.each_slice(8000) do |sub_data|
       articles, revisions = [], []
 
       sub_data.each do |_a_id, a|
