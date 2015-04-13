@@ -2,12 +2,16 @@ require 'action_view'
 include ActionView::Helpers::DateHelper
 
 namespace :batch do
-  desc 'Constant data updates'
-  task update_constantly: :environment do
-    Rails.logger = Logger.new(STDOUT)
-    Rails.logger.level = Logger::INFO;
-    Rails.logger.formatter = ActiveSupport::Logger::SimpleFormatter.new
+  desc 'Setup CRON logger to STDOUT'
+  task setup_logger: :environment do
+    logger = Logger.new(STDOUT)
+    logger.level = Logger::INFO;
+    logger.formatter = ActiveSupport::Logger::SimpleFormatter.new
+    Rails.logger = logger
+  end
 
+  desc 'Constant data updates'
+  task update_constantly: :setup_logger do
     daily_file = 'tmp/batch_update_daily.pid'
     pid_file = 'tmp/batch_update_constantly.pid'
     pause_file = 'tmp/batch_pause.pid'
@@ -41,11 +45,7 @@ namespace :batch do
   end
 
   desc 'Daily data updates'
-  task update_daily: :environment do
-    Rails.logger = Logger.new(STDOUT)
-    Rails.logger.level = Logger::INFO;
-    Rails.logger.formatter = ActiveSupport::Logger::SimpleFormatter.new
-
+  task update_daily: :setup_logger do
     pid_file = 'tmp/batch_update_daily.pid'
     constant_file = 'tmp/batch_update_constantly.pid'
     pause_file = 'tmp/batch_pause.pid'
