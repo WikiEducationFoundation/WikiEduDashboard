@@ -2,29 +2,26 @@ require 'rails_helper'
 
 cohort_course_count = 10
 
-cohort = Cohort.all.empty? ? 'spring_2015' : Cohort.last.slug
-
-cohort_two = Cohort.all.empty? ? 'fall_2014' : Cohort.first.slug
-cohort_two_title = cohort_two.gsub('_', ' ').capitalize
-
 describe 'the home page', type: :feature do
-
   before do
+    cohort = create(:cohort)
+    cohort_two = create(:cohort_two)
+
     (1..cohort_course_count).each do |i|
-      create(:course,
+      course1 = create(:course,
              id: i.to_s,
              slug: "course_#{i}",
-             cohort: cohort,
              start: '2014-01-01'.to_date,
              end: Date.today + 2.days
       )
-      create(:course,
+      course1.cohorts << cohort
+      course2 = create(:course,
              id: (i + cohort_course_count).to_s,
              slug: "course_#{i}",
-             cohort: cohort_two,
              start: '2014-01-01'.to_date,
              end: Date.today + 2.days
       )
+      course2.cohorts << cohort_two
       create(:user, id: i.to_s)
       create(:courses_user,
              id: i.to_s,
@@ -58,7 +55,7 @@ describe 'the home page', type: :feature do
 
   describe 'header' do
     it 'should display number of courses accurately' do
-      course_count = Course.cohort(cohort).count
+      course_count = Cohort.first.courses.count
       stat_text = "#{course_count} #{I18n.t('course.course_description')}"
       expect(page.find('.stat-display')).to have_content stat_text
     end
@@ -97,7 +94,7 @@ describe 'the home page', type: :feature do
     # This will fail unless there are at least two cohorts in application.yml.
     it 'should allow loading of different cohorts', js: true do
       find('select.cohorts').find(:xpath, 'option[2]').select_option
-      expect(page).to have_content(cohort_two_title)
+      expect(page).to have_content(Cohort.last.title)
     end
   end
 
@@ -132,7 +129,7 @@ describe 'the home page', type: :feature do
 
   describe 'course rows' do
     it 'should allow navigation to a course page', js: true do
-      first_course = Course.cohort(cohort).first
+      first_course = Cohort.first.courses.first
       click_link(first_course.id)
       expect(current_path).to eq(course_path(first_course))
     end
@@ -148,7 +145,7 @@ describe 'the home page', type: :feature do
 
     # This will fail unless there are at least two cohorts in application.yml.
     it 'should load courses from a different cohort' do
-      visit "/courses?cohort=#{cohort_two}"
+      visit "/courses?cohort=#{Cohort.last.slug}"
       all('.course-list__row > a').each do |course_row_anchor|
         expect(course_row_anchor[:id].to_i).to be > cohort_course_count
       end

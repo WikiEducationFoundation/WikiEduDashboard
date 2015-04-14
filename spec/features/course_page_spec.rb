@@ -1,6 +1,5 @@
 require 'rails_helper'
 
-cohort = Cohort.all.empty? ? 'spring_2015' : Cohort.last.slug
 user_count = 10
 article_count = 19
 revision_count = 214
@@ -11,17 +10,18 @@ course_end = '2015-12-31'
 
 describe 'the home page', type: :feature do
   before do
-    create(:course,
-           id: 1,
-           title: 'This course',
-           slug: slug,
-           start: course_start.to_date,
-           end: course_end.to_date,
-           school: 'This university',
-           term: 'term 2015',
-           listed: 1,
-           cohort: cohort
+    course = create(:course,
+                    id: 1,
+                    title: 'This course',
+                    slug: slug,
+                    start: course_start.to_date,
+                    end: course_end.to_date,
+                    school: 'This university',
+                    term: 'term 2015',
+                    listed: 1
     )
+    cohort = create(:cohort)
+    course.cohorts << cohort
 
     (1..user_count).each do |i|
       create(:user,

@@ -154,14 +154,17 @@ class Course < ActiveRecord::Base
     # Update cohort membership
     Course.transaction do
       raw_ids.each do |ch, ch_courses|
+        ch_courses = [ch_courses] unless ch_courses.is_a?(Array)
         cohort = Cohort.find_or_create_by(slug: ch)
         ch_new = ch_courses - cohort.courses.map { |co| co.id.to_s }
         ch_old = cohort.courses.map { |co| co.id.to_s } - ch_courses
         ch_new.each do |co|
-          Course.find(co).cohorts << cohort
+          course = Course.find_by_id(co)
+          course.cohorts << cohort if course
         end
         ch_old.each do |co|
-          Course.find(co).cohorts.delete(cohort)
+          course = Course.find_by_id(co)
+          course.cohorts.delete(cohort) if course
         end
       end
     end

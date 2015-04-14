@@ -65,14 +65,12 @@ describe Course, type: :model do
              start: '2015-01-01'.to_date,
              end: '2015-07-01'.to_date,
              title: 'Underwater basket-weaving',
-             listed: true,
-             cohort: 'Spring 2000'
+             listed: true
       )
 
       Course.update_all_courses(false, { hash: '351', hash: '590' })
       course = Course.find(589)
       expect(course.listed).to be false
-      expect(course.cohort).to be nil
     end
   end
 
@@ -83,14 +81,12 @@ describe Course, type: :model do
              start: '2015-01-01'.to_date,
              end: '2015-07-01'.to_date,
              title: 'Underwater basket-weaving',
-             listed: true,
-             cohort: 'Spring 2000'
+             listed: true
       )
 
       Course.update_all_courses(false, hash: '351', hash: '9999')
       course = Course.find(9999)
       expect(course.listed).to be false
-      expect(course.cohort).to be nil
     end
   end
 

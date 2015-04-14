@@ -37,8 +37,9 @@ Rails.application.routes.draw do
   resources :courses
 
   cohorts = Cohort.all.order(:created_at)
+  db_init = ActiveRecord::Base.connection.table_exists? 'cohorts'
   root to: 'courses#index', defaults: {
-    cohort: cohorts.empty? ? 'spring_2015' : cohorts.last.slug
+    cohort: !db_init || cohorts.empty? ? 'spring_2015' : cohorts.last.slug
   }
 
   match '/404', to: 'errors#file_not_found', via: :all
