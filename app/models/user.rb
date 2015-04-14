@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   has_many :articles, -> { uniq }, through: :revisions
   has_many :assignments
 
+  scope :admin, -> { where(permissions: 1) }
   scope :current, -> { joins(:courses).merge(Course.current).uniq }
   scope :role, lambda { |role|
     index = %w(student instructor online_volunteer
@@ -25,6 +26,14 @@ class User < ActiveRecord::Base
     # rubocop:disable Metrics/LineLength
     "https://#{language}.wikipedia.org/wiki/Special:Contributions/#{wiki_id}"
     # rubocop:enable Metrics/LineLength
+  end
+
+  def is_admin
+    permissions == 1
+  end
+
+  def is_instructor(course)
+    course.users.role('instructor').include? self
   end
 
   #################

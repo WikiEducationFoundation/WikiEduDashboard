@@ -5,10 +5,12 @@ describe User do
     it 'should create User objects' do
       ragesock = build(:user)
       ragesoss = build(:trained)
+      ragesauce = build(:admin)
       expect(ragesock.wiki_id).to eq('Ragesock')
       # rubocop:disable Metrics/LineLength
       expect(ragesoss.contribution_url).to eq("https://#{Figaro.env.wiki_language}.wikipedia.org/wiki/Special:Contributions/Ragesoss")
       # rubocop:enable Metrics/LineLength
+      expect(ragesauce.is_admin).to be true
     end
 
     it 'should cache User activity' do

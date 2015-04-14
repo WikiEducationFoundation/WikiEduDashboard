@@ -60,7 +60,7 @@ class CoursesController < ApplicationController
 
   def notify_untrained
     @course = Course.find(params[:course])
-    return unless user_signed_in? and @course.users.role('instructor').include? current_user
+    return unless user_signed_in? && current_user.is_instructor(@course)
     WikiEdits.notify_untrained(params[:course], current_user)
     redirect_to :back # Refresh if JS blows up
   end
