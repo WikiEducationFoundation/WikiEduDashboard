@@ -73,10 +73,10 @@
     <div class="cohort-select">
       <select class="cohorts">
         <option selected disabled><%= t("cohort.view_other") %></option>
-        <% Figaro.env.cohorts.split(",").each do |c| %>
-        <% unless @cohort == c %>
-        <option value="<%= c %>"><%= c.gsub('_', ' ').capitalize %></option>
-        <% end %>
+        <% Cohort.all.each do |c| %>
+          <% unless @cohort == c.slug %>
+            <option value="<%= c.slug %>"><%= c.title %></option>
+          <% end %>
         <% end %>
       </select>
     </div>

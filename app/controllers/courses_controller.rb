@@ -8,7 +8,8 @@ class CoursesController < ApplicationController
     else
       @cohort = 'spring_2015'
     end
-    @courses = Course.cohort(@cohort).where(listed: true).order(:title)
+    @courses = Cohort.find_by(slug: @cohort).courses
+               .where(listed: true).order(:title)
     @untrained = @courses.sum(:untrained_count)
     @trained = @courses.sum(:user_count) - @courses.sum(:untrained_count)
   end

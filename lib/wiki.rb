@@ -11,8 +11,8 @@ class Wiki
   # of courses for each cohort.
   def self.course_list
     response = {}
-    Figaro.env.cohorts.split(',').each do |cohort|
-      response[cohort] = get_page_content(ENV['cohort_' + cohort]).split(/\n/)
+    Cohort.all.each do |cohort|
+      response[cohort.slug] = get_page_content(cohort.url).split(/\n/)
     end
     response
   end

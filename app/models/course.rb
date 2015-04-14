@@ -7,12 +7,14 @@ class Course < ActiveRecord::Base
   has_many :revisions, -> (course) { where('date >= ?', course.start).where('date <= ?', course.end) }, through: :users
   # rubocop:enable Metrics/LineLength
 
+  has_many :cohorts_courses, class_name: CohortsCourses
+  has_many :cohorts, through: :cohorts_courses
+
   has_many :articles_courses, class_name: ArticlesCourses
   has_many :articles, -> { uniq }, through: :articles_courses
 
   has_many :assignments
 
-  scope :cohort, -> (cohort) { where cohort: cohort }
   scope :current, lambda {
     month = 2_592_000 # number of seconds in 30 days
     where('start < ?', Time.now).where('end > ?', Time.now - month)
@@ -34,7 +36,6 @@ class Course < ActiveRecord::Base
 
   def delist
     self.listed = false
-    self.cohort = nil
     save
   end
 
@@ -141,22 +142,29 @@ class Course < ActiveRecord::Base
 
     # Update courses from new data
     data.each do |c|
-      if listed_ids.include?(c['course']['id'])
-        c['course']['listed'] = true
-        c['course']['cohort'] = raw_ids.reduce(nil) do |out, (ch, ch_courses)|
-          ch_courses.include?(c['course']['id']) ? ch : out
-        end
-      else
-        c['course']['listed'] = false
-        c['course']['cohort'] = nil
-      end
+      c['course']['listed'] = listed_ids.include?(c['course']['id'])
       course = Course.new(id: c['course']['id'])
       course.update(c, false)
       courses.push course
       participants[c['course']['id']] = c['participants']
     end
-    options = { on_duplicate_key_update: [:start, :end, :listed, :cohort] }
+    options = { on_duplicate_key_update: [:start, :end, :listed] }
     Course.import courses, options
+
+    # Update cohort membership
+    Course.transaction do
+      raw_ids.each do |ch, ch_courses|
+        cohort = Cohort.find_or_create_by(slug: ch)
+        ch_new = ch_courses - cohort.courses.map { |co| co.id.to_s }
+        ch_old = cohort.courses.map { |co| co.id.to_s } - ch_courses
+        ch_new.each do |co|
+          Course.find(co).cohorts << cohort
+        end
+        ch_old.each do |co|
+          Course.find(co).cohorts.delete(cohort)
+        end
+      end
+    end
 
     import_users participants
     import_assignments participants

@@ -2,9 +2,9 @@ require 'rails_helper'
 
 cohort_course_count = 10
 
-cohort = Figaro.env.cohorts.split(',').last
+cohort = Cohort.all.empty? ? 'spring_2015' : Cohort.last.slug
 
-cohort_two = Figaro.env.cohorts.split(',').first
+cohort_two = Cohort.all.empty? ? 'fall_2014' : Cohort.first.slug
 cohort_two_title = cohort_two.gsub('_', ' ').capitalize
 
 describe 'the home page', type: :feature do

@@ -36,9 +36,9 @@ Rails.application.routes.draw do
 
   resources :courses
 
-  cohorts = Figaro.env.cohorts
+  cohorts = Cohort.all.order(:created_at)
   root to: 'courses#index', defaults: {
-    cohort: cohorts.nil? ? 'spring_2015' : cohorts.split(',').last
+    cohort: cohorts.empty? ? 'spring_2015' : cohorts.last.slug
   }
 
   match '/404', to: 'errors#file_not_found', via: :all

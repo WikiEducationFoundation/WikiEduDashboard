@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-cohort = Figaro.env.cohorts.split(',').last
+cohort = Cohort.all.empty? ? 'spring_2015' : Cohort.last.slug
 user_count = 10
 article_count = 19
 revision_count = 214
