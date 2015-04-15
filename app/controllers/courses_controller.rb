@@ -2,12 +2,53 @@ require 'oauth'
 
 #= Controller for course functionality
 class CoursesController < ApplicationController
+  def course_params
+    title = params[:course][:title].gsub(' ', '_')
+    school = params[:course][:school].gsub(' ', '_')
+    term = params[:course][:term].gsub(' ', '_')
+    params[:course][:slug] = "#{school}/#{title}_(#{term})"
+    params.require(:course).permit(
+      :title,
+      :school,
+      :term,
+      :slug,
+      :subject,
+      :expected_students,
+      :start,
+      :end
+    )
+  end
+
+  def create
+    puts Course.exists?(slug: course_params[:slug])
+    if Course.exists?(slug: course_params[:slug])
+      flash[:notice] = t("course.error.exists")
+      redirect_to :back
+    else
+      @course = Course.create(course_params)
+      CoursesUsers.create(user: current_user, course: @course, role: 1)
+      redirect_to timeline_path(id: @course.slug)
+    end
+  end
+
+  def timeline
+    @course = Course.find_by_slug(params[:id])
+  end
+
   def index
     if params[:cohort].present?
       @cohort = params[:cohort]
     else
       @cohort = 'spring_2015'
     end
+
+    if user_signed_in?
+      @user_courses = current_user.courses
+      @user_courses.map do |c|
+        c if current_user.instructor?(c) || c.listed
+      end
+    end
+
     @courses = Cohort.find_by(slug: @cohort).courses
                .where(listed: true).order(:title)
     @untrained = @courses.sum(:untrained_count)
@@ -15,8 +56,11 @@ class CoursesController < ApplicationController
   end
 
   def show
-    @course = Course.where(listed: true).find_by_slug(params[:id])
-    raise ActionController::RoutingError.new('Not Found') if @course.nil?
+    @course = Course.find_by_slug(params[:id])
+    is_instructor = (user_signed_in? && current_user.instructor?(@course))
+    unless @course.listed || is_instructor
+      fail ActionController::RoutingError 'Not Found' unless @course.nil?
+    end
 
     users = @course.users
     @students = users.role('student').order(character_sum: :desc).limit(4)
@@ -31,10 +75,14 @@ class CoursesController < ApplicationController
   end
 
   def students
-    @course = Course.where(listed: true).find_by_slug(params[:id])
-    raise ActionController::RoutingError.new('Not Found') if @course.nil?
+    @course = Course.find_by_slug(params[:id])
+    is_instructor = (user_signed_in? && current_user.instructor?(@course))
+    unless @course.listed || is_instructor
+      fail ActionController::RoutingError 'Not Found' unless @course.nil?
+    end
 
     users = @course.users
+    return if users.empty?
     @courses_users = @course.courses_users
                      .includes(user: { assignments: :article })
                      .where(role: 0).order('users.wiki_id')
@@ -42,8 +90,11 @@ class CoursesController < ApplicationController
   end
 
   def articles
-    @course = Course.where(listed: true).find_by_slug(params[:id])
-    raise ActionController::RoutingError.new('Not Found') if @course.nil?
+    @course = Course.find_by_slug(params[:id])
+    is_instructor = (user_signed_in? && current_user.instructor?(@course))
+    unless @course.listed || is_instructor
+      fail ActionController::RoutingError 'Not Found' unless @course.nil?
+    end
 
     users = @course.users
     @articles_courses = @course.articles_courses.live
@@ -60,7 +111,7 @@ class CoursesController < ApplicationController
 
   def notify_untrained
     @course = Course.find(params[:course])
-    return unless user_signed_in? && current_user.is_instructor(@course)
+    return unless user_signed_in? && current_user.instructor?(@course)
     WikiEdits.notify_untrained(params[:course], current_user)
     redirect_to :back # Refresh if JS blows up
   end

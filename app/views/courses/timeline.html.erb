@@ -1,0 +1,9 @@
+<% content_for :before_title do "#{@course.title} Timeline - " end %>
+
+<%= render :partial => 'nav', :locals => {:page => 1, :course => @course} %>
+
+<%= render :partial => 'header', :locals => {:page => 1} %>
+
+<section id="users">
+  <p>timeline here</p>
+</section>

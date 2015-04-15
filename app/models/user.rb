@@ -28,11 +28,11 @@ class User < ActiveRecord::Base
     # rubocop:enable Metrics/LineLength
   end
 
-  def is_admin
+  def admin?
     permissions == 1
   end
 
-  def is_instructor(course)
+  def instructor?(course)
     course.users.role('instructor').include? self
   end
 

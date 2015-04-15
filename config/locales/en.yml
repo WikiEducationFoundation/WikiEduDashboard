@@ -67,6 +67,7 @@ en:
     course_description: Wiki Ed Courses
     courses: Courses
     yourcourses: Your Courses
+    nocourses: You are not participating in any courses
     current: Current Courses
     duration: Course Duration
     instructor:
@@ -76,6 +77,8 @@ en:
     students_mobile: Students
     students_none: "%{title} does not have any enrolled students"
     students_short: Students
+    timeline: Timeline
+    timeline_mobile: Timeline
     title: Title
     view: View Course
     view_wiki: View on Wikipedia
@@ -84,6 +87,8 @@ en:
       one: Volunteer
       other: Volunteers
     wiki_staff: Wiki Ed Staff
+    error:
+      exists: That course already exists! Please try again with a different title, school, or term.
 
   metrics:
     activity: Recent Activity

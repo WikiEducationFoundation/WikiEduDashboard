@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   end
 
   controller :courses do
+    resources :courses
+
     get 'courses/*id/manual_update' => 'courses#manual_update',
         :as => :manual_update, constraints: { id: /.*/ }
     get 'courses/*id/notify_untrained' => 'courses#notify_untrained',
@@ -29,12 +31,13 @@ Rails.application.routes.draw do
         :as => :students, constraints: { id: /.*/ }
     get 'courses/*id/articles' => 'courses#articles',
         :as => :path_save, constraints: { id: /.*/ }
+    get 'courses/*id/timeline' => 'courses#timeline',
+        :as => :timeline, constraints: { id: /.*/ }
     get 'courses/*id' => 'courses#students', constraints: { id: /.*/ }
+
     get 'courses' => 'courses#index'
     get 'talk' => 'courses#talk'
   end
-
-  resources :courses
 
   cohorts = Cohort.all.order(:created_at)
   db_init = ActiveRecord::Base.connection.table_exists? 'cohorts'

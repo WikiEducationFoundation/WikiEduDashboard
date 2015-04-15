@@ -7,7 +7,7 @@
     <% after = content_for?(:after_title) ? yield(:after_title) : '' %>
     <title><%=  "#{before}Wiki Ed Dashboard#{after}" %></title>
 
-    <% if(Rails.env == 'development') %>
+    <% if(Rails.env == 'development' || Rails.env == 'developmentcp') %>
       <%= favicon_link_tag 'favicon_dev.png' %>
     <% else %>
       <%= favicon_link_tag 'favicon.ico' %>

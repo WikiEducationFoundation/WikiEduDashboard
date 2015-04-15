@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150414214610) do
+ActiveRecord::Schema.define(version: 20150415171050) do
 
   create_table "articles", force: true do |t|
     t.string   "title"
@@ -77,12 +77,12 @@ ActiveRecord::Schema.define(version: 20150414214610) do
     t.integer  "article_count",               default: 0
     t.integer  "revision_count",              default: 0
     t.string   "slug"
-    t.boolean  "listed"
+    t.boolean  "listed",                      default: false
     t.integer  "untrained_count",             default: 0
     t.string   "meeting_days"
     t.string   "signup_token"
-    t.boolean  "published"
-    t.boolean  "approved"
+    t.boolean  "published",                   default: false
+    t.boolean  "approved",                    default: false
     t.string   "assignment_source"
     t.string   "subject"
     t.integer  "expected_students"

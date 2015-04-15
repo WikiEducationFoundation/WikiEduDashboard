@@ -1,0 +1,51 @@
+<% content_for :after_title do " - Create New Course" end %>
+
+<header class="main-page">
+  <h1><%= t("application.dashboard") %></h1>
+</header>
+
+<section id="courses">
+  <div class="section-header">
+    <% if flash[:notice] %>
+      <div class="alert"><p><%= flash[:notice] %></p></div>
+    <% end %>
+    <h3>Create New Course</h3>
+    <%= form_for :course, url: courses_path do |f| %>
+      <fieldset>
+        <%= f.label :title %>
+        <%= f.text_field :title %>
+      </fieldset>
+
+      <fieldset>
+        <%= f.label :school %>
+        <%= f.text_field :school %>
+      </fieldset>
+
+      <fieldset>
+        <%= f.label :term %>
+        <%= f.text_field :term %>
+      </fieldset>
+
+      <fieldset>
+        <%= f.label :subject %>
+        <%= f.text_field :subject %>
+      </fieldset>
+
+      <fieldset>
+        <%= f.label :expected_students %>
+        <%= f.text_field :expected_students %>
+      </fieldset>
+
+      <fieldset>
+        <%= f.label :start %>
+        <%= f.date_field :start %>
+        <%= f.label :end %>
+        <%= f.date_field :end %>
+      </fieldset>
+
+      <fieldset>
+        <%= f.submit %>
+      </fieldset>
+    <% end %>
+  </div>
+</section>

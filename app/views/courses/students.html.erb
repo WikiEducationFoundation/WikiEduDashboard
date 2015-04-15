@@ -7,7 +7,7 @@
 <section id="users">
   <div class="section-header">
     <h3><%= t("course.students") %></h3>
-    <% if user_signed_in? and (current_user.is_instructor(@course) or current_user.is_admin) %>
+    <% if user_signed_in? and (current_user.instructor?(@course) or current_user.admin?) %>
       <%= link_to({:action => 'notify_untrained', :course => @course.id }, class: 'notify_untrained') do %><% end %>
     <% end %>
     <div class="sort-select">

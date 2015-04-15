@@ -10,7 +10,7 @@ describe User do
       # rubocop:disable Metrics/LineLength
       expect(ragesoss.contribution_url).to eq("https://#{Figaro.env.wiki_language}.wikipedia.org/wiki/Special:Contributions/Ragesoss")
       # rubocop:enable Metrics/LineLength
-      expect(ragesauce.is_admin).to be true
+      expect(ragesauce.admin?).to be true
     end
 
     it 'should cache User activity' do

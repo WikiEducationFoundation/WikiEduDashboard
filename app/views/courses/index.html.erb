@@ -27,10 +27,13 @@
   </div>
 </header>
 
-<% if user_signed_in? and !current_user.courses.where(listed: true).empty? %>
+<% if user_signed_in? %>
   <section id="user_courses">
     <div class="section-header">
       <h3><%= t("course.yourcourses") %></h3>
+      <div>
+        <%= link_to "Create New Course", new_course_path %>
+      </div>
     </div>
     <div class="row course-list__row list__header">
       <div class="row__wrapper desktop-only-flex">
@@ -52,8 +55,14 @@
       </div>
     </div>
     <ul class="list">
-    <% current_user.courses.where(listed: true).each do |c| %>
-      <%= render :partial => 'row', :locals => {:course => c, :user => true} %>
+    <% if @user_courses.empty? %>
+      <li class="row view-all">
+        <div><%= t("course.nocourses") %></div>
+      </li>
+    <% else %>
+      <% @user_courses.each do |c| %>
+        <%= render :partial => 'row', :locals => {:course => c, :user => true} %>
+      <% end %>
     <% end %>
     </ul>
   </section>
