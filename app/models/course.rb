@@ -15,6 +15,10 @@ class Course < ActiveRecord::Base
 
   has_many :assignments
 
+  has_many :weeks
+  has_many :blocks, through: :weeks
+  has_many :gradeables, as: :gradeable_item
+
   scope :current, lambda {
     month = 2_592_000 # number of seconds in 30 days
     where('start < ?', Time.now).where('end > ?', Time.now - month)

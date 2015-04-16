@@ -4,6 +4,16 @@
 
 <%= render :partial => 'header', :locals => {:page => 3} %>
 
-<section id="users">
-  <p>timeline here</p>
+<section id="timeline">
+  <ul class="list">
+  <% if @course.weeks.count > 0 %>
+    <% @course.weeks.each do |week| %>
+      <%= render :partial => 'weeks/row', :locals => {:week => week} %>
+    <% end %>
+  <% else %>
+    <li class="row view-all">
+      <div><%= t("course.weeks_none", title: @course.title) %></div>
+    </li>
+  <% end %>
+  </ul>
 </section>

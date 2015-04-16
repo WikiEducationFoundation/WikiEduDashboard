@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150415171050) do
+ActiveRecord::Schema.define(version: 20150416231915) do
 
   create_table "articles", force: true do |t|
     t.string   "title"
@@ -47,6 +47,16 @@ ActiveRecord::Schema.define(version: 20150415171050) do
   end
 
   add_index "assignments", ["course_id", "user_id", "article_title"], name: "by_course_user_and_article", unique: true, using: :btree
+
+  create_table "blocks", force: true do |t|
+    t.integer  "kind"
+    t.string   "content"
+    t.integer  "weekday"
+    t.integer  "week_id"
+    t.integer  "gradeable_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "cohorts", force: true do |t|
     t.string   "title"
@@ -102,6 +112,14 @@ ActiveRecord::Schema.define(version: 20150415171050) do
     t.integer  "role",                   default: 0
   end
 
+  create_table "gradeables", force: true do |t|
+    t.string   "title"
+    t.integer  "points"
+    t.integer  "course_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "revisions", force: true do |t|
     t.integer  "characters",            default: 0
     t.datetime "created_at"
@@ -129,6 +147,14 @@ ActiveRecord::Schema.define(version: 20150415171050) do
     t.string   "wiki_token"
     t.string   "wiki_secret"
     t.integer  "permissions",                   default: 0
+  end
+
+  create_table "weeks", force: true do |t|
+    t.string   "title"
+    t.date     "start"
+    t.integer  "course_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
