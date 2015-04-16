@@ -2,10 +2,12 @@
 class Course < ActiveRecord::Base
   has_many :courses_users, class_name: CoursesUsers
   has_many :users, -> { uniq }, through: :courses_users
-  has_many :students, -> { where(role: 0).uniq }, through: :courses_users
-  # rubocop:disable Metrics/LineLength
-  has_many :revisions, -> (course) { where('date >= ?', course.start).where('date <= ?', course.end) }, through: :users
-  # rubocop:enable Metrics/LineLength
+  has_many :students, -> { where('courses_users.role = 0') },
+           through: :courses_users, source: :user
+
+  has_many :revisions, -> (course) {
+    where('date >= ?', course.start).where('date <= ?', course.end)
+  }, through: :students
 
   has_many :cohorts_courses, class_name: CohortsCourses
   has_many :cohorts, through: :cohorts_courses
