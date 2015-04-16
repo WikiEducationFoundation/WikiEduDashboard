@@ -20,15 +20,21 @@ class CoursesController < ApplicationController
   end
 
   def create
-    puts Course.exists?(slug: course_params[:slug])
     if Course.exists?(slug: course_params[:slug])
-      flash[:notice] = t("course.error.exists")
+      flash[:notice] = t('course.error.exists')
       redirect_to :back
     else
       @course = Course.create(course_params)
       CoursesUsers.create(user: current_user, course: @course, role: 1)
       redirect_to timeline_path(id: @course.slug)
     end
+  end
+
+  def destroy
+    @course = Course.find_by_slug(params[:id])
+    return unless user_signed_in? && current_user.instructor?(@course)
+    @course.destroy
+    redirect_to '/'
   end
 
   def timeline
@@ -56,6 +62,7 @@ class CoursesController < ApplicationController
   end
 
   def show
+    puts params
     @course = Course.find_by_slug(params[:id])
     is_instructor = (user_signed_in? && current_user.instructor?(@course))
     unless @course.listed || is_instructor

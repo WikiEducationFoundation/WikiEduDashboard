@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   end
 
   controller :courses do
-    resources :courses
+    get 'courses/new' => 'courses#new' # repeat of resources
 
     get 'courses/*id/manual_update' => 'courses#manual_update',
         :as => :manual_update, constraints: { id: /.*/ }
@@ -34,6 +34,8 @@ Rails.application.routes.draw do
     get 'courses/*id/timeline' => 'courses#timeline',
         :as => :timeline, constraints: { id: /.*/ }
     get 'courses/*id' => 'courses#students', constraints: { id: /.*/ }
+
+    resources :courses, constraints: { id: /.*/ }
 
     get 'courses' => 'courses#index'
     get 'talk' => 'courses#talk'
