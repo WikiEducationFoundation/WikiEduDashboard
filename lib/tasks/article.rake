@@ -34,4 +34,11 @@ namespace :article do
     Rails.logger.info 'Updating article deleted status'
     Article.update_articles_deleted
   end
+
+  # This task is intended for ad-hoc use, should be removed ASAP
+  desc 'Remove botched ArticlesCourses'
+  task reset_articles_courses: "batch:setup_logger" do
+    Rails.logger.info 'Removing messed up ArticlesCourses'
+    ArticlesCourses.remove_bad_articles_courses
+  end
 end
