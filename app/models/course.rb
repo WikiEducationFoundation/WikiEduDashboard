@@ -1,7 +1,8 @@
 #= Course model
 class Course < ActiveRecord::Base
   has_many :courses_users, class_name: CoursesUsers
-  has_many :users, -> { uniq }, through: :courses_users
+  has_many :users, -> { uniq }, through: :courses_users,
+                                after_remove: :cleanup_articles
   has_many :students, -> { where('courses_users.role = 0') },
            through: :courses_users, source: :user
 
@@ -108,6 +109,34 @@ class Course < ActiveRecord::Base
     CoursesUsers.update_all_caches courses_users
     update_cache
   end
+
+  ####################
+  # Callback methods #
+  ####################
+  def cleanup_articles(user)
+    # find which course articles this user contributed to
+    user_articles = user.revisions
+                    .where('date >= ? AND date <= ?', start, self.end)
+                    .pluck(:article_id)
+    course_articles = articles.pluck(:id)
+    possible_deletions = course_articles & user_articles
+
+    # have these articles been edited by other students in this course?
+    to_delete = []
+    possible_deletions.each do |pd|
+      other_editors = Article.find(pd).editors - [user.id]
+      course_editors = students & other_editors
+      to_delete.push pd if other_editors.empty? || course_editors.empty?
+    end
+
+    # remove orphaned articles from the course
+    articles.delete(Article.find(to_delete))
+
+    # update course cache to account for removed articles
+    update_cache unless to_delete.empty?
+  end
+
+  # course.cleanup_articles(User.find(19723888)) 419
 
   #################
   # Class methods #

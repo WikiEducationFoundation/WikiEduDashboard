@@ -55,8 +55,10 @@ class ArticlesCourses < ActiveRecord::Base
       revisions.joins(:article)
         .where(articles: { namespace: '0' }).each do |r|
         r.user.courses.each do |c|
-          unless (c.articles.include? r.article) ||
-                 (c.start > r.date) || (c.end <= r.date)
+          association_exists = !c.articles.include?(r.article)
+          within_dates = r.date >= c.start && r.date <= c.end
+          is_student = c.users.students.include?(r.user)
+          if association_exists && within_dates && is_student
             c.articles << r.article
           end
         end
