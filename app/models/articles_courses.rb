@@ -57,7 +57,7 @@ class ArticlesCourses < ActiveRecord::Base
         r.user.courses.each do |c|
           association_exists = !c.articles.include?(r.article)
           within_dates = r.date >= c.start && r.date <= c.end
-          is_student = c.users.students.include?(r.user)
+          is_student = c.students.include?(r.user)
           if association_exists && within_dates && is_student
             c.articles << r.article
           end
