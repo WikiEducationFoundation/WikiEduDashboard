@@ -6,7 +6,7 @@ class Cohort < ActiveRecord::Base
   #Create new cohorts from application.yml entries
   def self.initialize_cohorts
     ENV['cohorts'].split(',').each do |cohort|
-      unless Cohort.exists?(title: cohort)
+      unless Cohort.exists?(slug: cohort)
         Cohort.new(
           'title' => cohort.gsub('_', ' ').capitalize,
           'slug' => cohort,
