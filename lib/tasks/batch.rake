@@ -4,8 +4,9 @@ include ActionView::Helpers::DateHelper
 namespace :batch do
   desc 'Setup CRON logger to STDOUT'
   task setup_logger: :environment do
-    logger = Logger.new(STDOUT)
-    logger.level = Logger::INFO;
+    $stdout.sync = true
+    logger = Logger.new $stdout
+    logger.level = Figaro.env.cron_log_debug ? Logger::DEBUG : Logger::INFO;
     logger.formatter = ActiveSupport::Logger::SimpleFormatter.new
     Rails.logger = logger
   end
@@ -28,8 +29,8 @@ namespace :batch do
       Kernel.exit
     end
 
-    File.open(pid_file, 'w') { |f| f.puts Process.pid }
     begin
+      File.open(pid_file, 'w') { |f| f.puts Process.pid }
       start = Time.now
       Rails.logger.info 'Constant update tasks are beginning.'
       Rake::Task['course:update_courses'].invoke
@@ -63,16 +64,19 @@ namespace :batch do
     # Wait until update_constantly finishes
     if(File.exist? constant_file)
       # Prevent update_constantly from starting again
-      File.open(pause_file, 'w') { |f| f.puts Process.pid }
-      while(File.exist? constant_file)
-        Rails.logger.info 'Delaying update_daily task for ten minutes...'
-        sleep(10.minutes)
+      begin
+        File.open(pause_file, 'w') { |f| f.puts Process.pid }
+        while(File.exist? constant_file)
+          Rails.logger.info 'Delaying update_daily task for ten minutes...'
+          sleep(10.minutes)
+        end
+      ensure
+        File.delete pause_file if File.exist? pause_file
       end
-      File.delete pause_file if File.exist? pause_file
     end
 
-    File.open(pid_file, 'w') { |f| f.puts Process.pid }
     begin
+      File.open(pid_file, 'w') { |f| f.puts Process.pid }
       start = Time.now
       Rails.logger.info 'Daily update tasks are beginning.'
       Rake::Task['article:update_views'].invoke
@@ -83,7 +87,6 @@ namespace :batch do
       Rails.logger.info "Daily update finished in #{total_time}."
     ensure
       File.delete pid_file if File.exist? pid_file
-      File.delete pause_file if File.exist? pause_file
     end
   end
 
@@ -94,9 +97,10 @@ namespace :batch do
       Rails.logger.warn I18n.t('tasks.conseq', task: 'batch_initialize')
       Kernel.exit
     end
-    File.open(pid_file, 'w') { |f| f.puts Process.pid }
     begin
+      File.open(pid_file, 'w') { |f| f.puts Process.pid }
       Rails.logger.info 'Running initialization tasks'
+      Rake::Task['cohort:add_cohorts'].invoke
       Rake::Task['course:update_courses'].invoke
       Rake::Task['user:update_users'].invoke
       Rake::Task['revision:update_revisions'].invoke

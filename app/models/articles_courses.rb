@@ -55,12 +55,43 @@ class ArticlesCourses < ActiveRecord::Base
       revisions.joins(:article)
         .where(articles: { namespace: '0' }).each do |r|
         r.user.courses.each do |c|
-          unless (c.articles.include? r.article) ||
-                 (c.start > r.date) || (c.end <= r.date)
+          association_exists = !c.articles.include?(r.article)
+          within_dates = r.date >= c.start && r.date <= c.end
+          is_student = c.students.include?(r.user)
+          if association_exists && within_dates && is_student
             c.articles << r.article
           end
         end
       end
+    end
+  end
+
+  def self.remove_bad_articles_courses
+    non_student_cus = CoursesUsers.where(role: [1, 2, 3, 4])
+    non_student_cus.each do |nscu|
+      user_articles = nscu.user.revisions
+                      .where('date >= ?', nscu.course.start)
+                      .where('date <= ?', nscu.course.end)
+                      .pluck(:article_id)
+      puts "skipping" if user_articles.empty?
+      next if user_articles.empty?
+
+      course_articles = nscu.course.articles.pluck(:id)
+      possible_deletions = course_articles & user_articles
+
+      to_delete = []
+      possible_deletions.each do |pd|
+        other_editors = Article.find(pd).editors - [nscu.user.id]
+        course_editors = nscu.course.students & other_editors
+        to_delete.push pd if other_editors.empty? || course_editors.empty?
+      end
+
+      # remove orphaned articles from the course
+      puts "deleting #{to_delete.size} ACs"
+      nscu.course.articles.delete(Article.find(to_delete))
+
+      # update course cache to account for removed articles
+      nscu.course.update_cache unless to_delete.empty?
     end
   end
 end
