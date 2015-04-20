@@ -6,7 +6,7 @@ namespace :batch do
   task setup_logger: :environment do
     $stdout.sync = true
     logger = Logger.new $stdout
-    logger.level = Logger::INFO;
+    logger.level = Figaro.env.cron_log_debug ? Logger::DEBUG : Logger::INFO;
     logger.formatter = ActiveSupport::Logger::SimpleFormatter.new
     Rails.logger = logger
   end
