@@ -10,7 +10,7 @@
       <div class="alert"><p><%= flash[:notice] %></p></div>
     <% end %>
     <h3>Add New Week for <%= @course.title %></h3>
-    <%= form_for :week, url: weeks_path do |f| %>
+    <%= form_for :week, url: course_weeks_path do |f| %>
       <fieldset>
         <%= f.label :title %>
         <%= f.text_field :title %>
