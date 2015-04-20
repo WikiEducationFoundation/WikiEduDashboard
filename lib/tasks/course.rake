@@ -7,7 +7,7 @@ namespace :course do
 
   desc 'Pull data for all courses and course users'
   task update_courses_all_time: "batch:setup_logger" do
-    Rails.logger.info 'Pulling data for all courses on Wikipedia'
+    Rails.logger.debug 'Pulling data for all courses on Wikipedia'
     Course.update_all_courses(true)
   end
 end

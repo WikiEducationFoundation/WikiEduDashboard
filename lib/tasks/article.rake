@@ -1,13 +1,13 @@
 namespace :article do
   desc 'Update article views incrementally'
   task update_views: "batch:setup_logger" do
-    Rails.logger.info 'Updating article views'
+    Rails.logger.debug 'Updating article views'
     Article.update_all_views
   end
 
   desc 'Calculate article views starting from the beginning of the course'
   task update_views_all_time: "batch:setup_logger" do
-    Rails.logger.info 'Updating article views for all time'
+    Rails.logger.debug 'Updating article views for all time'
     Article.update_all_views(true)
   end
 
@@ -19,7 +19,7 @@ namespace :article do
 
   desc 'Update ratings for all articles'
   task update_all_ratings: "batch:setup_logger" do
-    Rails.logger.info 'Updating ratings for all articles'
+    Rails.logger.debug 'Updating ratings for all articles'
     Article.update_all_ratings
   end
 
@@ -31,14 +31,14 @@ namespace :article do
 
   desc 'Update deleted status for all articles'
   task update_articles_deleted: "batch:setup_logger" do
-    Rails.logger.info 'Updating article deleted status'
+    Rails.logger.debug 'Updating article deleted status'
     Article.update_articles_deleted
   end
 
   # This task is intended for ad-hoc use, should be removed ASAP
   desc 'Remove botched ArticlesCourses'
   task reset_articles_courses: "batch:setup_logger" do
-    Rails.logger.info 'Removing messed up ArticlesCourses'
+    Rails.logger.debug 'Removing messed up ArticlesCourses'
     ArticlesCourses.remove_bad_articles_courses
   end
 end
