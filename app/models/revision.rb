@@ -19,7 +19,7 @@ class Revision < ActiveRecord::Base
   def self.update_all_revisions(courses=nil)
     results = []
     courses = [courses] if courses.is_a? Course
-    courses ||= Course.all
+    courses ||= Course.current
     courses.each do |c|
       start = c.start
       has_new_user = c.users.role('student').where(revision_count: 0).count
