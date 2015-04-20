@@ -12,7 +12,8 @@ class Wiki
   def self.course_list
     response = {}
     Cohort.all.each do |cohort|
-      response[cohort.slug] = get_page_content(cohort.url).split(/\n/)
+      content = get_page_content(cohort.url)
+      response[cohort.slug] = content.split(/\n/) unless content.nil?
     end
     response
   end
