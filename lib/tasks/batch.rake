@@ -4,7 +4,8 @@ include ActionView::Helpers::DateHelper
 namespace :batch do
   desc 'Setup CRON logger to STDOUT'
   task setup_logger: :environment do
-    logger = Logger.new(STDOUT)
+    $stdout.sync = true
+    logger = Logger.new $stdout
     logger.level = Logger::INFO;
     logger.formatter = ActiveSupport::Logger::SimpleFormatter.new
     Rails.logger = logger
