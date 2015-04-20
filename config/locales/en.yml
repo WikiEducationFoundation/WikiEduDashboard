@@ -80,6 +80,7 @@ en:
     timeline: Timeline
     timeline_mobile: Timeline
     weeks_none: "%{title} does not have a timeline"
+    new_week: "Add a new week to the timeline for %{title}"
     title: Title
     view: View Course
     view_wiki: View on Wikipedia

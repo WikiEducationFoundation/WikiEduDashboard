@@ -1,16 +1,17 @@
-<li class="row week-list__row">
-  <div class="row__wrapper">
-    <h3><%= week.title %></h3>
-    <ul class="list">
-    <% if week.blocks.count > 0 %>
-      <% week.blocks.each do |block| %>
-        <%= render :partial => 'blocks/row', :locals => {:block => block} %>
-      <% end %>
-    <% else %>
-      <li class="row view-all">
-        <div><%= t("course.blocks_none") %></div>
-      </li>
+<li class="week row">
+  <ul class="list">
+  <li class="row view-all">
+    <p>Week <%= "#{i} - #{week.title}" %></p>
+    <p><%= link_to "Add Block", new_course_week_block_path(course_id: @course.slug, week_id: week.id) %></p>
+  </li>
+  <% if week.blocks.count > 0 %>
+    <% week.blocks.each_with_index do |block| %>
+      <%= render :partial => 'blocks/row', :locals => {:block => block} %>
     <% end %>
-    </ul>
-  </div>
+  <% else %>
+    <li class="row view-all">
+      <div><%= t("course.blocks_none") %></div>
+    </li>
+  <% end %>
+  </ul>
 </li>

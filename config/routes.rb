@@ -33,13 +33,19 @@ Rails.application.routes.draw do
         :as => :path_save, constraints: { id: /.*/ }
     get 'courses/*id/timeline' => 'courses#timeline',
         :as => :timeline, constraints: { id: /.*/ }
-    get 'courses/*id' => 'courses#students', constraints: { id: /.*/ }
-
-    resources :courses, constraints: { id: /.*/ }
-
-    get 'courses' => 'courses#index'
-    get 'talk' => 'courses#talk'
   end
+
+  resources :courses, constraints: { id: /.*/ } do
+    resources :weeks, only: [:index, :new, :create] do
+      resources :blocks, only: [:index, :new, :create]
+    end
+  end
+  resources :weeks, only: [:show, :edit, :update, :destroy]
+  resources :blocks, only: [:show, :edit, :update, :destroy]
+
+  get 'courses/*id' => 'courses#students', constraints: { id: /.*/ }
+  get 'courses' => 'courses#index'
+  get 'talk' => 'courses#talk'
 
   cohorts = Cohort.all.order(:created_at)
   db_init = ActiveRecord::Base.connection.table_exists? 'cohorts'
