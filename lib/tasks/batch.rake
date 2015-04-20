@@ -100,6 +100,7 @@ namespace :batch do
     begin
       File.open(pid_file, 'w') { |f| f.puts Process.pid }
       Rails.logger.info 'Running initialization tasks'
+      Rake::Task['cohort:add_cohorts'].invoke
       Rake::Task['course:update_courses'].invoke
       Rake::Task['user:update_users'].invoke
       Rake::Task['revision:update_revisions'].invoke
