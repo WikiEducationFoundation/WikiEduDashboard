@@ -16,16 +16,17 @@ class Revision < ActiveRecord::Base
   #################
   # Class methods #
   #################
-  def self.update_all_revisions(courses=nil)
+  def self.update_all_revisions(courses=nil, all_time=false)
     results = []
     courses = [courses] if courses.is_a? Course
-    courses ||= Course.current
+    courses ||= all_time ? Course.all : Course.current
     courses.each do |c|
       start = c.start
-      has_new_user = c.users.role('student').where(revision_count: 0).count
-      start = c.revisions.order('date DESC').first.date unless has_new_user
+      new_users = c.users.role('student').where(revision_count: 0)
+      start = c.revisions.order('date DESC').first.date if new_users.empty?
       start = start.strftime('%Y%m%d')
-      revisions = Utils.chunk_requests(c.users.role('student'), 40) do |block|
+      search_users = new_users.empty? ? c.users.role('student') : new_users
+      revisions = Utils.chunk_requests(search_users, 40) do |block|
         Replica.get_revisions block, start, c.end.strftime('%Y%m%d')
       end
       results += revisions
