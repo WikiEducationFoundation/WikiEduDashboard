@@ -22,15 +22,22 @@ class Revision < ActiveRecord::Base
     courses ||= all_time ? Course.all : Course.current
     courses.each do |c|
       next if c.students.empty? || c.revisions.empty?
-      start = c.start
+
       new_users = c.users.role('student').where(revision_count: 0)
-      start = c.revisions.order('date DESC').first.date if new_users.empty?
-      start = start.strftime('%Y%m%d')
-      search_users = new_users.empty? ? c.users.role('student') : new_users
-      revisions = Utils.chunk_requests(search_users, 40) do |block|
-        Replica.get_revisions block, start, c.end.strftime('%Y%m%d')
+      unless new_users.empty?
+        start = c.start.strftime('%Y%m%d')
+        results += Utils.chunk_requests(new_users, 40) do |block|
+          Replica.get_revisions block, start, c.end.strftime('%Y%m%d')
+        end
       end
-      results += revisions
+
+      old_users = c.students - new_users
+      unless old_users.empty?
+        start = c.revisions.order('date DESC').first.date.strftime('%Y%m%d')
+        results += Utils.chunk_requests(old_users, 40) do |block|
+          Replica.get_revisions block, start, c.end.strftime('%Y%m%d')
+        end
+      end
     end
 
     import_revisions(results)
