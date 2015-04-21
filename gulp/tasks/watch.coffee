@@ -19,7 +19,7 @@ gulp.task "watch", ->
   plugins.watch "#{config.sourcePath}/#{config.imagesDirectory}/**/*", ->
     gulp.start "copy-images"
 
-  plugins.watch "#{config.sourcePath}/#{config.jsDirectory}/**/*.{coffee,js}", ->
+  plugins.watch "#{config.sourcePath}/#{config.jsDirectory}/**/*.{coffee,js,cjsx}", ->
     gulp.start "javascripts"
 
   plugins.watch "bower.json", ->
