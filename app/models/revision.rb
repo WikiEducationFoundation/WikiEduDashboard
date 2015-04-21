@@ -21,6 +21,7 @@ class Revision < ActiveRecord::Base
     courses = [courses] if courses.is_a? Course
     courses ||= all_time ? Course.all : Course.current
     courses.each do |c|
+      next if c.students.empty? || c.revisions.empty?
       start = c.start
       new_users = c.users.role('student').where(revision_count: 0)
       start = c.revisions.order('date DESC').first.date if new_users.empty?
