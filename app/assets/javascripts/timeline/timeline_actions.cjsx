@@ -1,5 +1,5 @@
-McFly = require 'mcfly'
-Flux = new McFly()
+McFly       = require 'mcfly'
+Flux        = new McFly()
 TimelineAPI = require './timeline_api'
 
 TimelineActions = Flux.createActions

@@ -1,7 +1,7 @@
-React = require 'react'
-TimelineStore = require './timeline_store'
+React           = require 'react'
+TimelineStore   = require './timeline_store'
 TimelineActions = require './timeline_actions'
-Week = require './week'
+Week            = require './week'
 
 getState = (slug) ->
   weeks: TimelineStore.getTimeline(slug)

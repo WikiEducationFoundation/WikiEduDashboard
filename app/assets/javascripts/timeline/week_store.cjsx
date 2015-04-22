@@ -1,21 +1,13 @@
-McFly = require 'mcfly'
-Flux = new McFly()
+McFly       = require 'mcfly'
+Flux        = new McFly()
+TimelineAPI = require 'timeline_api'
 
-#######################
-###      STORE      ###
-#######################
 _blocks = {};
 
 fetchBlocks = (slug, week_id) ->
-  $.ajax
-    type: 'GET',
-    url: '/courses/' + slug + '/weeks/' + week_id + '/blocks.json'
-    success: (data) =>
-      console.log 'Got blocks!'
-      _blocks[week_id] = data
-      WeekStore.emitChange()
-    failure: (e) ->
-      console.log 'Couldn\'t get blocks.'
+  TimelineAPI.getBlocks(slug, week_id).then (data) ->
+    _blocks[week_id] = data
+    WeekStore.emitChange()
 
 WeekStore = Flux.createStore
   getBlocks: (slug, week_id) =>

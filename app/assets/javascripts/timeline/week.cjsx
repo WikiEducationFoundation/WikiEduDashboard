@@ -1,7 +1,7 @@
-React = require 'react'
-WeekStore = require './week_store'
+React           = require 'react'
+WeekStore       = require './week_store'
 TimelineActions = require './timeline_actions'
-Block = require './block'
+Block           = require './block'
 
 getState = (course_slug, id) ->
   blocks: WeekStore.getBlocks(course_slug, id)
