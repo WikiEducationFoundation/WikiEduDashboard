@@ -2,6 +2,11 @@
 class WeeksController < ApplicationController
   respond_to :html, :json
 
+  def new
+    @course = Course.find_by_slug(params[:course_id])
+    respond_with(@course)
+  end
+
   def index
     @course = Course.find_by_slug(params[:course_id])
     respond_to do |format|
@@ -17,11 +22,17 @@ class WeeksController < ApplicationController
     @course = Course.find_by_slug(params[:course_id])
     @week = Week.create(week_params)
     @course.weeks << @week
-    redirect_to timeline_path(id: @course.slug)
+    respond_to do |format|
+      format.json { render json: @course.weeks }
+      format.html { redirect_to timeline_path(id: @course.slug) }
+    end
   end
 
-  def new
-    @course = Course.find_by_slug(params[:course_id])
-    respond_with(@course)
+  def destroy
+    @course = Week.find(params[:id]).course
+    Week.destroy(params[:id])
+    respond_to do |format|
+      format.json { render json: @course.weeks }
+    end
   end
 end

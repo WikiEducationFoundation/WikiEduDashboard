@@ -6,26 +6,6 @@ Flux = new McFly()
 #######################
 _weeks = [];
 
-addWeek = (course_id) ->#, week) ->
-  $.ajax
-    type: 'POST',
-    url: '/courses/' + course_id + '/weeks'
-    data: week
-    success: ->
-      console.log 'Week added!'
-    failure: (e) ->
-      console.log 'Week not added! ' + e
-
-addBlock = (course_id) ->#, week_id, block) ->
-  $.ajax
-    type: 'POST',
-    url: '/courses/' + course_id + '/weeks/' + week_id + '/blocks'
-    data: block
-    success: ->
-      console.log 'Block added!'
-    failure: (e) ->
-      console.log 'Block not added! ' + e
-
 fetchWeeks = (slug) ->
   $.ajax
     type: 'GET',
@@ -45,10 +25,12 @@ TimelineStore = Flux.createStore
 , (payload) ->
   switch(payload.actionType)
     when 'ADD_WEEK'
-      addWeek(payload.text)
+      _weeks = payload.data
+      TimelineStore.emitChange()
       break
-    when 'ADD_BLOCK'
-      addBlock(payload.text)
+    when 'DELETE_WEEK'
+      _weeks = payload.data
+      TimelineStore.emitChange()
       break
   TimelineStore.emitChange()
   return true

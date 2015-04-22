@@ -1,49 +1,43 @@
 React = require 'react'
-Store = require './store'
-Actions = require './actions'
+TimelineStore = require './timeline_store'
+TimelineActions = require './timeline_actions'
+Week = require './week'
 
 getState = (slug) ->
-  weeks: Store.getTimeline(slug)
+  weeks: TimelineStore.getTimeline(slug)
 
 Timeline = React.createClass(
-  mixins: [Store.mixin]
+  mixins: [TimelineStore.mixin]
   contextTypes:
     router: React.PropTypes.func.isRequired
   getInitialState: ->
-    params = this.context.router.getCurrentParams()
-    slug = params.course_school + '/' + params.course_title
-    getState(slug)
+    getState(this.getSlug())
   storeDidChange: ->
-    console.log 'getting state'
-    params = this.context.router.getCurrentParams()
-    slug = params.course_school + '/' + params.course_title
-    this.setState(getState(slug))
+    this.setState(getState(this.getSlug()))
   addWeek: ->
-    console.log 'ADD A WEEK'
+    TimelineActions.addWeek(this.getSlug(), { title: 'Newest Week' })
+  deleteWeek: (week_id) ->
+    TimelineActions.deleteWeek(week_id)
+  getSlug: ->
+    params = this.context.router.getCurrentParams()
+    params.course_school + '/' + params.course_title
   render: ->
-    weeks = this.state.weeks.map (week, i) ->
-      <Week {...week} index={i} />
+    weeks = this.state.weeks.map (week, i) =>
+      <Week {...week}
+        courseSlug={this.getSlug()}
+        index={i}
+        key={week.id}
+        deleteWeek={this.deleteWeek.bind(this, week.id)}
+      />
 
     <ul className="list">
       {weeks}
       <li className="row view-all">
-        <div onClick={this.addWeek}><p>Add New Week</p></div>
+        <div>
+          <a onClick={this.addWeek}>Add New Week</a>
+        </div>
       </li>
     </ul>
 )
 
 module.exports = Timeline
-
-Week = React.createClass(
-  addBlock: ->
-    console.log 'ADD A BLOCK TO ' + this.props.title
-  render: ->
-    <li className="week row">
-      <ul className="list">
-        <li className="row view-all">
-          <p>Week {this.props.index} - {this.props.title}</p>
-          <div onClick={this.addBlock}><p>Add New Block</p></div>
-        </li>
-      </ul>
-    </li>
-)

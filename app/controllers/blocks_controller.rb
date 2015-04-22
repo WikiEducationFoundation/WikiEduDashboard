@@ -25,12 +25,30 @@ class BlocksController < ApplicationController
     @week = Week.find(params[:week_id])
     @week.blocks << @block
 
-    redirect_to timeline_path(id: @course.slug)
+    respond_to do |format|
+      format.json { render json: @week.blocks }
+      format.html { redirect_to timeline_path(id: @course.slug) }
+    end
   end
 
   def new
     @course = Course.find_by_slug(params[:course_id])
     @week = Week.find(params[:week_id])
     respond_with(course: @course, week: @week)
+  end
+
+  def index
+    @week = Week.find(params[:week_id])
+    respond_to do |format|
+      format.json { render json: @week.blocks }
+    end
+  end
+
+  def destroy
+    @week = Block.find(params[:id]).week
+    Block.destroy(params[:id])
+    respond_to do |format|
+      format.json { render json: @week.blocks }
+    end
   end
 end
