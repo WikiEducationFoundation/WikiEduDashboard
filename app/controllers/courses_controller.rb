@@ -2,6 +2,8 @@ require 'oauth'
 
 #= Controller for course functionality
 class CoursesController < ApplicationController
+  respond_to :html, :json
+
   def course_params
     title = params[:course][:title].gsub(' ', '_')
     school = params[:course][:school].gsub(' ', '_')
@@ -74,6 +76,10 @@ class CoursesController < ApplicationController
     @volunteers = users.role('online_volunteer') + users.role('campus_volunteer')
     @courses_users = @course.courses_users
     @articles = @course.articles.order(:title).limit(4)
+
+    respond_to do |format|
+      format.json { render json: @course }
+    end
   end
 
   def recent

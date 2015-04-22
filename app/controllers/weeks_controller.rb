@@ -2,6 +2,13 @@
 class WeeksController < ApplicationController
   respond_to :html, :json
 
+  def index
+    @course = Course.find_by_slug(params[:course_id])
+    respond_to do |format|
+      format.json { render json: @course.weeks }
+    end
+  end
+
   def week_params
     params.require(:week).permit(:title)
   end

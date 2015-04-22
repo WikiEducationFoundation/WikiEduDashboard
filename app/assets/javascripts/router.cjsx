@@ -1,8 +1,11 @@
 React = require 'react'
 Router = require 'react-router'
+# Course = require("./course/course.cjsx")
 Timeline = require("./timeline/timeline.cjsx")
 
-routes = <Router.Route name='main_page' path='*' handler={Timeline}></Router.Route>
+routes = (
+  <Router.Route name='timeline' path='/courses/:course_school/:course_title/timeline' handler={Timeline} />
+)
 
-Router.run routes, Router.HashLocation, (Handler) ->
-  React.render(React.createFactory(Handler)(), document.getElementById('timeline'))
+Router.run routes, Router.HistoryLocation, (Handler) ->
+  React.render(<Handler/>, document.getElementById('timeline'))
