@@ -46,14 +46,16 @@ Timeline = React.createClass(
 
     <ul className="list">
       <li className="row view-all">
-        <label for='editable'>Editable</label>
-        <Checkbox
-          name={'editable'}
-          value={this.state.editable}
-          onSave={this.setEditable}
-          value_key={'editable'}
-          editable={true}
-        />
+        <p>
+          <span>Editable: </span>
+          <Checkbox
+            name={'editable'}
+            value={this.state.editable}
+            onSave={this.setEditable}
+            value_key={'editable'}
+            editable={true}
+          />
+        </p>
       </li>
       {weeks}
       {addWeek}

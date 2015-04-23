@@ -2,6 +2,7 @@ React           = require 'react'
 TextInput       = require './text_input'
 TextAreaInput   = require './text_area_input'
 Checkbox        = require './checkbox'
+Select          = require './select'
 TimelineActions = require '../actions/timeline_actions'
 
 Block = React.createClass(
@@ -19,7 +20,15 @@ Block = React.createClass(
 
     <li className="block">
       {deleteBlock}
-      <p>{this.props.kind}</p>
+      <p>
+        <Select
+          onSave={this.updateBlock}
+          value={this.props.kind}
+          value_key={'kind'}
+          editable={this.props.editable}
+          options={['Assignment', 'Milestone', 'Class', 'Custom']}
+        />
+      </p>
       <p>
         <TextInput
           onSave={this.updateBlock}
