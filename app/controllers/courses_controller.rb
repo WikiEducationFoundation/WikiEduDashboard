@@ -64,7 +64,6 @@ class CoursesController < ApplicationController
   end
 
   def show
-    puts params
     @course = Course.find_by_slug(params[:id])
     is_instructor = (user_signed_in? && current_user.instructor?(@course))
     unless @course.listed || is_instructor
@@ -79,6 +78,7 @@ class CoursesController < ApplicationController
 
     respond_to do |format|
       format.json { render json: @course }
+      format.html { render :students }
     end
   end
 

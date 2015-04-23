@@ -29,8 +29,10 @@ class WeeksController < ApplicationController
   end
 
   def destroy
-    @course = Week.find(params[:id]).course
-    Week.destroy(params[:id])
+    @week = Week.find(params[:id])
+    @course = @week.course
+    Block.destroy @week.blocks.map(&:id)
+    @week.destroy
     respond_to do |format|
       format.json { render json: @course.weeks }
     end

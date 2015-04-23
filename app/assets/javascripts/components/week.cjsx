@@ -1,6 +1,6 @@
 React           = require 'react'
-WeekStore       = require './week_store'
-TimelineActions = require './timeline_actions'
+WeekStore       = require '../stores/week_store'
+TimelineActions = require '../actions/timeline_actions'
 Block           = require './block'
 
 getState = (course_slug, id) ->
@@ -21,14 +21,17 @@ Week = React.createClass(
     TimelineActions.deleteBlock this.props.id, block_id
   render: ->
     blocks = this.state.blocks.map (block, i) =>
-      <Block {...block} key={block.id} deleteBlock={this.deleteBlock.bind(this, block.id)} />
+      <Block {...block}
+        key={block.id}
+        editable={true}
+        deleteBlock={this.deleteBlock.bind(this, block.id)}
+      />
 
     <li className="week row">
       <ul className="list">
         <li className="row view-all">
           <p>Week {this.props.index} - {this.props.title}</p>
-          <a onClick={this.props.deleteWeek}>Delete</a>
-          <a onClick={this.addBlock}>Add New Block</a>
+          <a onClick={this.props.deleteWeek}>Delete week</a>
         </li>
         {blocks}
         <li className="row view-all">

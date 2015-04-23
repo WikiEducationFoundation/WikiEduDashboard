@@ -60,6 +60,19 @@ TimelineAPI =
         failure: (e) ->
           console.log 'Block not added! ' + e
 
+  updateBlock: (week_id, block) ->
+    new Promise (res, rej) ->
+      $.ajax
+        type: 'PUT',
+        url: '/blocks/' + block.id
+        data:
+          block: block
+        success: (data) ->
+          console.log 'Block updated!'
+          res { week_id: week_id, blocks: data }
+        failure: (e) ->
+          console.log 'Block not updated! ' + e
+
   deleteBlock: (week_id, block_id) ->
     new Promise (res, rej) ->
       $.ajax

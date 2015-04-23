@@ -1,8 +1,8 @@
 McFly       = require 'mcfly'
 Flux        = new McFly()
-TimelineAPI = require 'timeline_api'
+TimelineAPI = require '../utils/timeline_api'
 
-_weeks = [];
+_weeks = []
 
 fetchWeeks = (slug) ->
   TimelineAPI.getWeeks(slug).then (data) ->

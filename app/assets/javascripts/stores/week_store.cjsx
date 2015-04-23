@@ -1,6 +1,6 @@
 McFly       = require 'mcfly'
 Flux        = new McFly()
-TimelineAPI = require 'timeline_api'
+TimelineAPI = require '../utils/timeline_api'
 
 _blocks = {};
 
@@ -20,11 +20,12 @@ WeekStore = Flux.createStore
   switch(payload.actionType)
     when 'ADD_BLOCK'
       _blocks[data.week_id] = data.blocks
-      WeekStore.emitChange()
+      break
+    when 'UPDATE_BLOCK'
+      _blocks[data.week_id] = data.blocks
       break
     when 'DELETE_BLOCK'
       _blocks[data.week_id] = data.blocks
-      WeekStore.emitChange()
       break
   WeekStore.emitChange()
   return true
