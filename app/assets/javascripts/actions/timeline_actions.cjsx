@@ -6,6 +6,9 @@ TimelineActions = Flux.createActions
   addWeek: (course_id, week) ->
     TimelineAPI.addWeek(course_id, week).then (data) ->
       return { actionType: 'ADD_WEEK', data: data }
+  updateWeek: (course_id, week) ->
+    TimelineAPI.updateWeek(course_id, week).then (data) ->
+      return { actionType: 'UPDATE_WEEK', data: data }
   deleteWeek: (week_id) ->
     TimelineAPI.deleteWeek(week_id).then (data) ->
       return { actionType: 'DELETE_WEEK', data: data }

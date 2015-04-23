@@ -28,7 +28,9 @@ class BlocksController < ApplicationController
     else
       if params[:block].key?(:id)
         @block = Block.find(params[:block][:id])
-        Gradeable.find(@block.gradeable_id).destroy
+        unless @block.gradeable_id.nil?
+          Gradeable.find(@block.gradeable_id).destroy
+        end
       end
       params[:block][:gradeable_id] = nil
     end

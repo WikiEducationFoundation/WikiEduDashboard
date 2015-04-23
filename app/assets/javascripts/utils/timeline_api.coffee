@@ -24,6 +24,19 @@ TimelineAPI =
         failure: (e) ->
           console.log 'Week not added! ' + e
 
+  updateWeek: (course_id, week) ->
+    new Promise (res, rej) ->
+      $.ajax
+        type: 'PUT',
+        url: '/weeks/' + week.id
+        data:
+          week: week
+        success: (data) ->
+          console.log 'Week updated!'
+          res data
+        failure: (e) ->
+          console.log 'Week not updated! ' + e
+
   deleteWeek: (week_id) ->
     new Promise (res, rej) ->
       $.ajax

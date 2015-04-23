@@ -2,6 +2,7 @@ React = require 'react'
 InputMixin = require '../mixins/input_mixin'
 
 TextInput = React.createClass(
+  displayName: 'TextInput'
   mixins: [InputMixin],
   render: ->
     if this.props.editable || false

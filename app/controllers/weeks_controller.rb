@@ -15,7 +15,7 @@ class WeeksController < ApplicationController
   end
 
   def week_params
-    params.require(:week).permit(:title)
+    params.require(:week).permit(:id, :title)
   end
 
   def create
@@ -25,6 +25,14 @@ class WeeksController < ApplicationController
     respond_to do |format|
       format.json { render json: @course.weeks }
       format.html { redirect_to timeline_path(id: @course.slug) }
+    end
+  end
+
+  def update
+    @week = Week.find(params[:id])
+    @week.update week_params
+    respond_to do |format|
+      format.json { render json: @week.course.weeks }
     end
   end
 

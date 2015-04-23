@@ -2,11 +2,13 @@ React           = require 'react'
 WeekStore       = require '../stores/week_store'
 TimelineActions = require '../actions/timeline_actions'
 Block           = require './block'
+TextInput       = require './text_input'
 
 getState = (course_slug, id) ->
   blocks: WeekStore.getBlocks(course_slug, id)
 
 Week = React.createClass(
+  displayName: 'Week'
   mixins: [WeekStore.mixin]
   getInitialState: ->
     getState(this.props.courseSlug, this.props.id)
@@ -19,26 +21,38 @@ Week = React.createClass(
       weekday: 2
   deleteBlock: (block_id) ->
     TimelineActions.deleteBlock this.props.id, block_id
+  updateWeek: (value_key, value) ->
+    to_pass = {}
+    to_pass['id'] = this.props.id
+    to_pass['title'] = value
+    TimelineActions.updateWeek this.props.courseSlug, to_pass
   render: ->
     blocks = this.state.blocks.map (block, i) =>
       <Block {...block}
         key={block.id}
-        editable={true}
+        editable={this.props.editable}
         deleteBlock={this.deleteBlock.bind(this, block.id)}
       />
+    if this.props.editable
+      addBlock = <li className="row view-all">
+                    <div>
+                      <a onClick={this.addBlock}>Add New Block</a>
+                    </div>
+                  </li>
+      deleteWeek = <a onClick={this.props.deleteWeek}>Delete week</a>
 
-    <li className="week row">
+    <li className="week">
+      <p>Week {this.props.index}</p>
+      <TextInput
+        onSave={this.updateWeek}
+        value={this.props.title}
+        value_key={'title'}
+        editable={this.props.editable}
+      />
+      {deleteWeek}
       <ul className="list">
-        <li className="row view-all">
-          <p>Week {this.props.index} - {this.props.title}</p>
-          <a onClick={this.props.deleteWeek}>Delete week</a>
-        </li>
         {blocks}
-        <li className="row view-all">
-          <div>
-            <a onClick={this.addBlock}>Add New Block</a>
-          </div>
-        </li>
+        {addBlock}
       </ul>
     </li>
 )

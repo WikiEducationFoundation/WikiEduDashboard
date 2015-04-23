@@ -2,6 +2,7 @@ React = require 'react'
 InputMixin = require '../mixins/input_mixin'
 
 Checkbox = React.createClass(
+  displayName: 'Checkbox'
   mixins: [InputMixin],
   onCheckboxChange: (e) ->
     if e.target.checked != this.props.value

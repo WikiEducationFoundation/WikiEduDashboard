@@ -18,11 +18,12 @@ TimelineStore = Flux.createStore
   switch(payload.actionType)
     when 'ADD_WEEK'
       _weeks = payload.data
-      TimelineStore.emitChange()
+      break
+    when 'UPDATE_WEEK'
+      _weeks = payload.data
       break
     when 'DELETE_WEEK'
       _weeks = payload.data
-      TimelineStore.emitChange()
       break
   TimelineStore.emitChange()
   return true

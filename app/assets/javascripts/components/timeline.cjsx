@@ -2,16 +2,20 @@ React           = require 'react'
 TimelineStore   = require '../stores/timeline_store'
 TimelineActions = require '../actions/timeline_actions'
 Week            = require './week'
+Checkbox        = require './checkbox'
 
 getState = (slug) ->
   weeks: TimelineStore.getTimeline(slug)
 
 Timeline = React.createClass(
+  displayName: 'Timeline'
   mixins: [TimelineStore.mixin]
   contextTypes:
     router: React.PropTypes.func.isRequired
   getInitialState: ->
-    getState(this.getSlug())
+    new_state = getState(this.getSlug())
+    new_state.editable = if this.state then this.state.editable else false
+    new_state
   storeDidChange: ->
     this.setState(getState(this.getSlug()))
   addWeek: ->
@@ -21,22 +25,38 @@ Timeline = React.createClass(
   getSlug: ->
     params = this.context.router.getCurrentParams()
     params.course_school + '/' + params.course_title
+  setEditable: (value_key, value) ->
+    this.setState
+      editable: value
   render: ->
     weeks = this.state.weeks.map (week, i) =>
       <Week {...week}
         courseSlug={this.getSlug()}
         index={i}
         key={week.id}
+        editable={this.state.editable}
         deleteWeek={this.deleteWeek.bind(this, week.id)}
       />
+    if this.state.editable
+      addWeek = <li className="row view-all">
+                  <div>
+                    <a onClick={this.addWeek}>Add New Week</a>
+                  </div>
+                </li>
 
     <ul className="list">
-      {weeks}
       <li className="row view-all">
-        <div>
-          <a onClick={this.addWeek}>Add New Week</a>
-        </div>
+        <label for='editable'>Editable</label>
+        <Checkbox
+          name={'editable'}
+          value={this.state.editable}
+          onSave={this.setEditable}
+          value_key={'editable'}
+          editable={true}
+        />
       </li>
+      {weeks}
+      {addWeek}
     </ul>
 )
 

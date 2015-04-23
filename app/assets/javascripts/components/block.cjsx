@@ -1,10 +1,11 @@
-React = require 'react'
-TextInput = require './text_input'
-TextAreaInput = require './text_area_input'
-Checkbox = require './checkbox'
+React           = require 'react'
+TextInput       = require './text_input'
+TextAreaInput   = require './text_area_input'
+Checkbox        = require './checkbox'
 TimelineActions = require '../actions/timeline_actions'
 
 Block = React.createClass(
+  displayName: 'Block'
   getInitialState: ->
     this.props
   updateBlock: (value_key, value) ->
@@ -13,8 +14,11 @@ Block = React.createClass(
     delete to_pass.deleteBlock
     TimelineActions.updateBlock this.props.week_id, to_pass
   render: ->
-    <div class="block">
-      <a onClick={this.props.deleteBlock}>Delete</a>
+    if this.props.editable
+      deleteBlock = <a onClick={this.props.deleteBlock}>Delete</a>
+
+    <li className="block">
+      {deleteBlock}
       <p>{this.props.kind}</p>
       <TextInput
         onSave={this.updateBlock}
@@ -34,7 +38,7 @@ Block = React.createClass(
         value_key={'is_gradeable'}
         editable={this.props.editable}
       />
-    </div>
+    </li>
 )
 
 module.exports = Block
