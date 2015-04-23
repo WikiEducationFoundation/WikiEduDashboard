@@ -9,14 +9,12 @@ Checkbox = React.createClass(
       this.setState value: e.target.checked, =>
         this.save()
   render: ->
-    if this.props.editable || false
-      <input
-        type="checkbox"
-        checked={this.state.value}
-        onChange={this.onCheckboxChange}
-      />
-    else
-      <p>{this.state.value}</p>
+    <input
+      type="checkbox"
+      checked={this.state.value}
+      onChange={this.onCheckboxChange}
+      disabled={!this.props.editable}
+    />
 )
 
 module.exports = Checkbox

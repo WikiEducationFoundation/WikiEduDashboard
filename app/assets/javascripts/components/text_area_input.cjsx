@@ -13,7 +13,7 @@ TextAreaInput = React.createClass(
         autoFocus={this.props.focus || false}
       />
     else
-      <p>{this.state.value}</p>
+      <span>{this.state.value}</span>
 )
 
 module.exports = TextAreaInput

@@ -43,12 +43,12 @@ Week = React.createClass(
 
     <li className="week">
       <p>Week {this.props.index}</p>
-      <TextInput
+      <p><TextInput
         onSave={this.updateWeek}
         value={this.props.title}
         value_key={'title'}
         editable={this.props.editable}
-      />
+      /></p>
       {deleteWeek}
       <ul className="list">
         {blocks}

@@ -20,24 +20,30 @@ Block = React.createClass(
     <li className="block">
       {deleteBlock}
       <p>{this.props.kind}</p>
-      <TextInput
-        onSave={this.updateBlock}
-        value={this.props.title}
-        value_key={'title'}
-        editable={this.props.editable}
-      />
-      <TextAreaInput
-        onSave={this.updateBlock}
-        value={this.props.content}
-        value_key={'content'}
-        editable={this.props.editable}
-      />
-      <Checkbox
-        value={this.props.gradeable_id != null}
-        onSave={this.updateBlock}
-        value_key={'is_gradeable'}
-        editable={this.props.editable}
-      />
+      <p>
+        <TextInput
+          onSave={this.updateBlock}
+          value={this.props.title}
+          value_key={'title'}
+          editable={this.props.editable}
+        />
+      </p>
+      <p>
+        <TextAreaInput
+          onSave={this.updateBlock}
+          value={this.props.content}
+          value_key={'content'}
+          editable={this.props.editable}
+        />
+      </p>
+      <p><span>Graded: </span>
+        <Checkbox
+          value={this.props.gradeable_id != null}
+          onSave={this.updateBlock}
+          value_key={'is_gradeable'}
+          editable={this.props.editable}
+        />
+      </p>
     </li>
 )
 
