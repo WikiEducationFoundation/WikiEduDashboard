@@ -115,6 +115,8 @@ GEM
       railties (>= 3.0.0)
     faker (1.4.3)
       i18n (~> 0.5)
+    faraday (0.9.1)
+      multipart-post (>= 1.2, < 3)
     ffi (1.9.6)
     figaro (1.0.0)
       thor (~> 0.14)
@@ -163,6 +165,7 @@ GEM
     mini_portile (0.6.1)
     minitest (5.4.3)
     multi_json (1.10.1)
+    multipart-post (2.0.0)
     mysql2 (0.3.17)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
@@ -250,6 +253,8 @@ GEM
       ruby-progressbar (~> 1.4)
     ruby-progressbar (1.7.0)
     safe_yaml (1.0.4)
+    sentry-raven (0.13.1)
+      faraday (>= 0.7.6)
     simplecov (0.9.2)
       docile (~> 1.1.0)
       multi_json (~> 1.0)
@@ -325,6 +330,7 @@ DEPENDENCIES
   rb-inotify
   rspec-rails
   rubocop
+  sentry-raven
   simplecov
   sqlite3
   vcr!
