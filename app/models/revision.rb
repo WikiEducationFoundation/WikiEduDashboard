@@ -21,7 +21,7 @@ class Revision < ActiveRecord::Base
     courses = [courses] if courses.is_a? Course
     courses ||= all_time ? Course.all : Course.current
     courses.each do |c|
-      next if c.students.empty? || c.revisions.empty?
+      next if c.students.empty? && c.revisions.empty?
 
       new_users = c.users.role('student').where(revision_count: 0)
       unless new_users.empty?
