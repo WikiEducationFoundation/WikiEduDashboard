@@ -9,6 +9,7 @@ namespace :batch do
     logger.level = Figaro.env.cron_log_debug ? Logger::DEBUG : Logger::INFO;
     logger.formatter = ActiveSupport::Logger::SimpleFormatter.new
     Rails.logger = logger
+
   end
 
   desc 'Constant data updates'
@@ -41,6 +42,7 @@ namespace :batch do
       Rake::Task['cache:update_caches'].invoke
       total_time = distance_of_time_in_words(start, Time.now)
       Rails.logger.info "Constant update finished in #{total_time}."
+      Raven.capture_message 'Constant update finished.', { level: 'info', update_time: total_time }
     ensure
       File.delete pid_file if File.exist? pid_file
     end
@@ -85,6 +87,7 @@ namespace :batch do
       Rake::Task['cache:update_caches'].invoke
       total_time = distance_of_time_in_words(start, Time.now)
       Rails.logger.info "Daily update finished in #{total_time}."
+      Raven.capture_message 'Daily update finished.', { level: 'info', update_time: total_time }
     ensure
       File.delete pid_file if File.exist? pid_file
     end
