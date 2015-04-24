@@ -63,9 +63,9 @@ class Article < ActiveRecord::Base
         last = nv.sort_by { |(d)| d }.last.first.to_date unless nv.empty?
       end
       if (revisions.order('date ASC').first.views - self.views) > 0
-        view_count = revisions.order('date ASC').first.views - self.views
-        Rails.logger.debug I18n
-          .t('article.views_added', count: view_count, title: title)
+        # view_count = revisions.order('date ASC').first.views - self.views
+        # Rails.logger.debug I18n
+        #   .t('article.views_added', count: view_count, title: title)
       end
 
       self.views_updated_at = last.nil? ? views_updated_at : last

@@ -25,10 +25,14 @@ class ArticlesCourses < ActiveRecord::Base
 
   def update_cache
     revisions = course.revisions.where(article_id: article.id)
+
     if revisions.empty?
       self.view_count = 0
       self.character_sum = 0
     else
+      # Return if the cache for this ArticlesCourses record is current
+      return if revisions.where('revisions.updated_at > ?', updated_at).blank?
+
       characters = revisions.where('characters >= 0').sum(:characters) || 0
       self.view_count = revisions.order('date ASC').first.views || 0
       self.character_sum = characters
@@ -73,7 +77,7 @@ class ArticlesCourses < ActiveRecord::Base
                       .where('date >= ?', nscu.course.start)
                       .where('date <= ?', nscu.course.end)
                       .pluck(:article_id)
-      puts "skipping" if user_articles.empty?
+
       next if user_articles.empty?
 
       course_articles = nscu.course.articles.pluck(:id)
@@ -87,8 +91,8 @@ class ArticlesCourses < ActiveRecord::Base
       end
 
       # remove orphaned articles from the course
-      puts "deleting #{to_delete.size} ACs"
       nscu.course.articles.delete(Article.find(to_delete))
+      puts "Deleted #{to_delete.size} ArticlesCourses from #{nscu.course.title}"
 
       # update course cache to account for removed articles
       nscu.course.update_cache unless to_delete.empty?

@@ -31,25 +31,20 @@ class CoursesUsers < ActiveRecord::Base
   end
 
   def update_cache
-    self.character_sum_ms = Revision.joins(:article)
+    revisions = Revision.joins(:article)
+                .where(user_id: user.id)
+                .where('date >= ?', course.start)
+                .where('date <= ?', course.end)
+    self.character_sum_ms = revisions
       .where(articles: { namespace: 0, deleted: false })
-      .where(user_id: user.id)
       .where('characters >= 0')
-      .where('date >= ?', course.start)
-      .where('date <= ?', course.end)
       .sum(:characters) || 0
-    self.character_sum_us = Revision.joins(:article)
+    self.character_sum_us = revisions
       .where(articles: { namespace: 2, deleted: false })
-      .where(user_id: user.id)
       .where('characters >= 0')
-      .where('date >= ?', course.start)
-      .where('date <= ?', course.end)
       .sum(:characters) || 0
-    self.revision_count = Revision.joins(:article)
-      .where(user_id: user.id)
+    self.revision_count = revisions
       .where(articles: { deleted: false })
-      .where('date >= ?', course.start)
-      .where('date <= ?', course.end)
       .count || 0
     assignments = user.assignments.where(course_id: course.id)
     # rubocop:disable Metrics/LineLength
