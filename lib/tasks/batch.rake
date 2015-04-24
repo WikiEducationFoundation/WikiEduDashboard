@@ -42,7 +42,7 @@ namespace :batch do
       Rake::Task['cache:update_caches'].invoke
       total_time = distance_of_time_in_words(start, Time.now)
       Rails.logger.info "Constant update finished in #{total_time}."
-      Raven.capture_message 'Constant update finished.', { level: 'info', update_time: total_time }
+      Raven.capture_message 'Constant update finished.',  level: 'info', tags: {update_time: total_time}
     ensure
       File.delete pid_file if File.exist? pid_file
     end
