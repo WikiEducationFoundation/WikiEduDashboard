@@ -28,7 +28,7 @@ describe Revision do
         VCR.use_cassette 'wiki/course_data' do
           Course.update_all_courses(false, hash: '351')
         end
-        Revision.update_all_revisions
+        Revision.update_all_revisions nil, true
         expect(Revision.all.count).to eq(1919)
         expect(ArticlesCourses.all.count).to eq(224)
       end

@@ -12,6 +12,8 @@ gem 'mysql2'
 gem 'devise'
 gem 'omniauth-mediawiki'
 
+gem 'sentry-raven'
+
 # This fork has a fix for enums not working
 # https://github.com/zdennis/activerecord-import/issues/139
 gem 'activerecord-import', :git => 'https://github.com/onemedical/activerecord-import.git'

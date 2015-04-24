@@ -16,19 +16,28 @@ class Revision < ActiveRecord::Base
   #################
   # Class methods #
   #################
-  def self.update_all_revisions(courses=nil)
+  def self.update_all_revisions(courses=nil, all_time=false)
     results = []
     courses = [courses] if courses.is_a? Course
-    courses ||= Course.all
+    courses ||= all_time ? Course.all : Course.current
     courses.each do |c|
-      start = c.start
-      has_new_user = c.users.role('student').where(revision_count: 0).count
-      start = c.revisions.order('date DESC').first.date unless has_new_user
-      start = start.strftime('%Y%m%d')
-      revisions = Utils.chunk_requests(c.users.role('student'), 40) do |block|
-        Replica.get_revisions block, start, c.end.strftime('%Y%m%d')
+      next if c.students.empty? && c.revisions.empty?
+
+      new_users = c.users.role('student').where(revision_count: 0)
+      unless new_users.empty?
+        start = c.start.strftime('%Y%m%d')
+        results += Utils.chunk_requests(new_users, 40) do |block|
+          Replica.get_revisions block, start, c.end.strftime('%Y%m%d')
+        end
       end
-      results += revisions
+
+      old_users = c.students - new_users
+      unless old_users.empty?
+        start = c.revisions.order('date DESC').first.date.strftime('%Y%m%d')
+        results += Utils.chunk_requests(old_users, 40) do |block|
+          Replica.get_revisions block, start, c.end.strftime('%Y%m%d')
+        end
+      end
     end
 
     import_revisions(results)
