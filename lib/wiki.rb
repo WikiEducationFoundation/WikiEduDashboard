@@ -216,9 +216,11 @@ class Wiki
           end
         else
           Rails.logger.warn 'Caught #{e}'
+          Raven.capture_exception e
         end
-      rescue MediaWiki::Exception => e
+      rescue StandardError => e
         Rails.logger.warn "Caught #{e} with options #{options}"
+        Raven.capture_exception e
       else
         parsed = Crack::XML.parse response.to_s
         parsed['api']

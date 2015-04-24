@@ -153,6 +153,7 @@ class Replica
       Rails.logger.warn I18n.t('timeout', api: 'replica', tries: (tries -= 1))
       retry unless tries.zero?
       Rails.logger.error "replica.rb query failed after 3 tries: #{e}"
+      Raven.capture_exception e
     rescue Errno::ECONNREFUSED => e
       Rails.logger.warn "replica.rb: caught #{e}"
       unless (tries -= 1).zero?
@@ -160,6 +161,10 @@ class Replica
         retry
       end
       Rails.logger.error "replica.rb query failed after 3 tries: #{e}"
+      Raven.capture_exception e
+    rescue StandardError => e
+      Rails.logger.warn "Caught #{e} with options #{options}"
+      Raven.capture_exception e
     end
 
     # Compile a user list to send to the replica endpoint, which might look

@@ -37,6 +37,9 @@ class Grok
     rescue Errno::ETIMEDOUT
       Rails.logger.error I18n.t('timeout', api: 'grok.se', tries: (tries -= 1))
       retry unless tries.zero?
+    rescue StandardError => e
+      Rails.logger.error "Grok.se socket error: #{e}"
+      Raven.capture_exception e
     end
   end
 end
