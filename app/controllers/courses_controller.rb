@@ -8,8 +8,11 @@ class CoursesController < ApplicationController
     else
       @cohort = 'spring_2015'
     end
-    @courses = Cohort.find_by(slug: @cohort).courses
-               .where(listed: true).order(:title)
+
+    @cohort = Cohort.find_by(slug: @cohort)
+    raise ActionController::RoutingError.new('Not Found') if @cohort.nil?
+
+    @courses = @cohort.courses.where(listed: true).order(:title)
     @untrained = @courses.sum(:untrained_count)
     @trained = @courses.sum(:user_count) - @courses.sum(:untrained_count)
   end

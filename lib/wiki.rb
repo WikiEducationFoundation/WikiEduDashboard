@@ -160,8 +160,15 @@ class Wiki
       'redirects' => 'true',
       'titles' => article_title
     )
-    info = info['query']['pages']['page']
-    info.nil? ? nil : info
+    begin
+      query = info['query']
+      pages = query['pages']
+      page = pages['page']
+      # info = info['query']['pages']['page']
+      page.nil? ? nil : page
+    rescue NoMethodError => e
+      Rails.logger.warn "Caught #{e} on #{article_title}"
+    end
   end
 
   ###################
@@ -210,6 +217,8 @@ class Wiki
         else
           Rails.logger.warn 'Caught #{e}'
         end
+      rescue MediaWiki::Exception => e
+        Rails.logger.warn "Caught #{e} with options #{options}"
       else
         parsed = Crack::XML.parse response.to_s
         parsed['api']
