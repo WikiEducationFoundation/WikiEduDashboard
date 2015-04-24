@@ -5,6 +5,7 @@
 <%= render :partial => 'header', :locals => {:page => 3} %>
 
 <section id="timeline">
+  <!-- This is where React takes over -- See /app/javascripts for relevant code -->
   <ul class="list">
   <% if @course.weeks.count > 0 %>
     <% @course.weeks.each_with_index do |week, i| %>
