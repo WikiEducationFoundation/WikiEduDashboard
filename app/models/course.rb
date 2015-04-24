@@ -147,9 +147,7 @@ class Course < ActiveRecord::Base
     course_ids = listed_ids | Course.where(listed: true).pluck(:id).map(&:to_s)
     _minimum = course_ids.map(&:to_i).min
     maximum = course_ids.map(&:to_i).max
-    # See also Wiki.handle_invalid_course_id, which has related logic for
-    # handling course ids beyond the maximum found in the cohort lists.
-    max_plus = maximum + 2
+    max_plus = maximum
     if initial
       course_ids = (0..max_plus).to_a.map(&:to_s)
     else
