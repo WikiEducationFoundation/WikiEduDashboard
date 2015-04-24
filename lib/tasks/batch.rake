@@ -87,7 +87,7 @@ namespace :batch do
       Rake::Task['cache:update_caches'].invoke
       total_time = distance_of_time_in_words(start, Time.now)
       Rails.logger.info "Daily update finished in #{total_time}."
-      Raven.capture_message 'Daily update finished.', { level: 'info', update_time: total_time }
+      Raven.capture_message 'Daily update finished.', level: 'info', tags: {update_time: total_time}
     ensure
       File.delete pid_file if File.exist? pid_file
     end
@@ -119,11 +119,13 @@ namespace :batch do
   task pause: :environment do
     pid_file = 'tmp/batch_pause.pid'
     File.open(pid_file, 'w') { |f| f.puts Process.pid }
+    Raven.capture_message 'Updates paused.', level: 'warn'
   end
 
   desc 'Resume updates'
   task resume: :environment do
     pid_file = 'tmp/batch_pause.pid'
     File.delete pid_file if File.exist? pid_file
+    Raven.capture_message 'Updates resumed.', level: 'warn'
   end
 end
