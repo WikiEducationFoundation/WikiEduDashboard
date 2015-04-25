@@ -17,8 +17,11 @@ describe Course, type: :model do
 
   it 'should seek data for all possible courses' do
     VCR.use_cassette 'wiki/initial' do
-      Course.update_all_courses(true, hash: '1')
-      expect(Course.all.count).to eq(1)
+      expect(Course.all.count).to eq(0)
+      # This should check for course_ids up to 5.
+      Course.update_all_courses(true, hash: 5)
+      # On English Wikipedia, courses 1 and 3 do not exist.
+      expect(Course.all.count).to eq(3)
     end
   end
 
