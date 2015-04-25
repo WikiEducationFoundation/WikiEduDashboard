@@ -30,9 +30,6 @@ class ArticlesCourses < ActiveRecord::Base
       self.view_count = 0
       self.character_sum = 0
     else
-      # Return if the cache for this ArticlesCourses record is current
-      return if revisions.where('revisions.updated_at > ?', updated_at).blank?
-
       characters = revisions.where('characters >= 0').sum(:characters) || 0
       self.view_count = revisions.order('date ASC').first.views || 0
       self.character_sum = characters
