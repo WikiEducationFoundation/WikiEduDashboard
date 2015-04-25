@@ -13,6 +13,7 @@ gem 'devise'
 gem 'omniauth-mediawiki'
 
 gem 'sentry-raven'
+gem 'piwik_analytics', :git => 'https://github.com/halfdan/piwik-ruby-tracking.git'
 
 # This fork has a fix for enums not working
 # https://github.com/zdennis/activerecord-import/issues/139
