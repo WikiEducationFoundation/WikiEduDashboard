@@ -70,6 +70,13 @@ class ArticlesCourses < ActiveRecord::Base
   def self.remove_bad_articles_courses
     non_student_cus = CoursesUsers.where(role: [1, 2, 3, 4])
     non_student_cus.each do |nscu|
+      # Check if the non-student user is also a student in the same course.
+      next unless CourseUsers.where(
+        role: 0,
+        course_id: nscu.course_id,
+        user_id: nscu.user.id
+      ).empty?
+
       user_articles = nscu.user.revisions
                       .where('date >= ?', nscu.course.start)
                       .where('date <= ?', nscu.course.end)
