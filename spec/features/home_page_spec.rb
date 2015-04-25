@@ -91,9 +91,9 @@ describe 'the home page', type: :feature do
       expect(page).to have_selector('.course-list__row__title.sort.asc')
     end
 
-    # This will fail unless there are at least two cohorts in application.yml.
     it 'should allow loading of different cohorts', js: true do
-      find('select.cohorts').find(:xpath, 'option[2]').select_option
+      expect(page).to have_content(Cohort.first.title)
+      find('select.cohorts').find(:xpath, 'option[3]').select_option
       expect(page).to have_content(Cohort.last.title)
     end
   end
