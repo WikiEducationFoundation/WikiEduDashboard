@@ -29,8 +29,10 @@ describe Revision do
           Course.update_all_courses(false, hash: '351')
         end
         Revision.update_all_revisions nil, true
-        expect(Revision.all.count).to eq(1919)
-        expect(ArticlesCourses.all.count).to eq(224)
+        # When the non-students are included, Revisions count is 1919.
+        expect(Revision.all.count).to eq(433)
+        # When the non-students are included, ArticlesCourses count is 224.
+        expect(ArticlesCourses.all.count).to eq(10)
       end
     end
   end
