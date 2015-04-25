@@ -34,15 +34,25 @@ namespace :batch do
       File.open(pid_file, 'w') { |f| f.puts Process.pid }
       start = Time.now
       Rails.logger.info 'Constant update tasks are beginning.'
+
       Rake::Task['course:update_courses'].invoke
       Rake::Task['user:update_users'].invoke
       Rake::Task['revision:update_revisions'].invoke
       Rake::Task['article:update_new_article_views'].invoke
       Rake::Task['article:update_new_ratings'].invoke
       Rake::Task['cache:update_caches'].invoke
+
       total_time = distance_of_time_in_words(start, Time.now)
       Rails.logger.info "Constant update finished in #{total_time}."
-      Raven.capture_message 'Constant update finished.',  level: 'info', tags: {update_time: total_time}
+      Raven.capture_message 'Constant update finished.',
+        level: 'info',
+        tags: {
+          update_time: total_time,
+        },
+        extra: {
+          exact_update_time: (Time.now - start)
+        }
+
     ensure
       File.delete pid_file if File.exist? pid_file
     end
@@ -80,14 +90,24 @@ namespace :batch do
     begin
       File.open(pid_file, 'w') { |f| f.puts Process.pid }
       start = Time.now
+
       Rails.logger.info 'Daily update tasks are beginning.'
       Rake::Task['article:update_views'].invoke
       Rake::Task['article:update_all_ratings'].invoke
       Rake::Task['article:update_articles_deleted'].invoke
       Rake::Task['cache:update_caches'].invoke
+
       total_time = distance_of_time_in_words(start, Time.now)
       Rails.logger.info "Daily update finished in #{total_time}."
-      Raven.capture_message 'Daily update finished.', level: 'info', tags: {update_time: total_time}
+      Raven.capture_message 'Daily update finished.',
+        level: 'info',
+        tags: {
+          update_time: total_time,
+        },
+        extra: {
+          exact_update_time: (Time.now - start)
+        }
+
     ensure
       File.delete pid_file if File.exist? pid_file
     end
