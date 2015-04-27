@@ -145,13 +145,11 @@ class Course < ActiveRecord::Base
     raw_ids = Wiki.course_list if raw_ids.empty?
     listed_ids = raw_ids.values.flatten
     course_ids = listed_ids | Course.where(listed: true).pluck(:id).map(&:to_s)
-    _minimum = course_ids.map(&:to_i).min
-    maximum = course_ids.map(&:to_i).max
-    max_plus = maximum
+    
     if initial
-      course_ids = (0..max_plus).to_a.map(&:to_s)
-    else
-      course_ids |= (maximum..max_plus).to_a.map(&:to_s)
+      _minimum = course_ids.map(&:to_i).min
+      maximum = course_ids.map(&:to_i).max
+      course_ids = (0..maximum).to_a.map(&:to_s)
     end
 
     # Break up course_ids into smaller groups that Wikipedia's API can handle.
