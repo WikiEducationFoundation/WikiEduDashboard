@@ -82,6 +82,9 @@ class Wiki
   # into the corresponding standard ones. We don't want to deal with edge cases
   # like bplus and a/ga.
   def self.parse_article_rating(raw_article)
+    # Handle MediaWiki API errors
+    return nil if raw_article.nil?
+
     # Handle the case of nonexistent talk pages.
     return nil if raw_article['missing']
 
@@ -167,7 +170,8 @@ class Wiki
       # info = info['query']['pages']['page']
       page.nil? ? nil : page
     rescue NoMethodError => e
-      Rails.logger.warn "Caught #{e} on #{article_title}"
+      Rails.logger.warn "Could not get rating for #{article_title}"
+      return nil
     end
   end
 
@@ -216,11 +220,13 @@ class Wiki
           end
         else
           Rails.logger.warn 'Caught #{e}'
-          Raven.capture_exception e
+          Raven.capture_exception e, level: 'warning'
+          return nil # because Raven captures return 'true' if successful
         end
       rescue StandardError => e
         Rails.logger.warn "Caught #{e} with options #{options}"
-        Raven.capture_exception e
+        Raven.capture_exception e, level: 'warning'
+        return nil # because Raven captures return 'true' if successful
       else
         parsed = Crack::XML.parse response.to_s
         parsed['api']

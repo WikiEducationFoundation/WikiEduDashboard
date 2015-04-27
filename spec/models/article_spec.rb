@@ -212,6 +212,24 @@ describe Article do
     end
   end
 
+  describe '.update_ratings' do
+    it 'should handle MediaWiki API errors' do
+      stub_request(:any, %r{.*wikipedia\.org/w/api\.php.*query.*})
+        .to_raise(StandardError)
+
+      create(:article,
+             id: 1,
+             title: 'Selfie',
+             namespace: 0,
+             rating: 'fa'
+      )
+
+      article = Article.all.find_in_batches(batch_size: 30)
+      Article.update_ratings(article)
+      expect(Article.first.rating).to eq('fa')
+    end
+  end
+
   describe 'deleted articles' do
     it 'should be marked as "deleted"' do
       course = create(:course,
