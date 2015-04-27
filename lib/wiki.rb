@@ -163,14 +163,12 @@ class Wiki
       'redirects' => 'true',
       'titles' => article_title
     )
+
     begin
-      query = info['query']
-      pages = query['pages']
-      page = pages['page']
-      # info = info['query']['pages']['page']
+      page = info['query']['pages']['page']
       page.nil? ? nil : page
     rescue NoMethodError => e
-      Rails.logger.warn "Could not get rating for #{article_title}"
+      Rails.logger.warn "Could not get rating(s) for #{article_title}"
       return nil
     end
   end
