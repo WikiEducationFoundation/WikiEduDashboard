@@ -1,19 +1,11 @@
 React           = require 'react'
-WeekStore       = require '../stores/week_store'
+TimelineStore       = require '../stores/timeline_store'
 TimelineActions = require '../actions/timeline_actions'
 Block           = require './block'
 TextInput       = require './text_input'
 
-getState = (course_slug, id) ->
-  blocks: WeekStore.getBlocks(course_slug, id)
-
 Week = React.createClass(
   displayName: 'Week'
-  mixins: [WeekStore.mixin]
-  getInitialState: ->
-    getState(this.props.courseSlug, this.props.id)
-  storeDidChange: ->
-    this.setState(getState(this.props.courseSlug, this.props.id))
   addBlock: ->
     TimelineActions.addBlock this.props.courseSlug, this.props.id,
       kind: 1
@@ -27,7 +19,7 @@ Week = React.createClass(
     to_pass['title'] = value
     TimelineActions.updateWeek this.props.courseSlug, to_pass
   render: ->
-    blocks = this.state.blocks.map (block, i) =>
+    blocks = this.props.blocks.map (block, i) =>
       <Block {...block}
         key={block.id}
         editable={this.props.editable}

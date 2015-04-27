@@ -10,7 +10,7 @@ class WeeksController < ApplicationController
   def index
     @course = Course.find_by_slug(params[:course_id])
     respond_to do |format|
-      format.json { render json: @course.weeks }
+      format.json { render json: @course.weeks.as_json(include: :blocks) }
     end
   end
 
@@ -23,7 +23,7 @@ class WeeksController < ApplicationController
     @week = Week.create(week_params)
     @course.weeks << @week
     respond_to do |format|
-      format.json { render json: @course.weeks }
+      format.json { render json: @course.weeks.as_json(include: :blocks) }
       format.html { redirect_to timeline_path(id: @course.slug) }
     end
   end
@@ -32,7 +32,7 @@ class WeeksController < ApplicationController
     @week = Week.find(params[:id])
     @week.update week_params
     respond_to do |format|
-      format.json { render json: @week.course.weeks }
+      format.json { render json: @week.course.weeks.as_json(include: :blocks) }
     end
   end
 
@@ -42,7 +42,7 @@ class WeeksController < ApplicationController
     Block.destroy @week.blocks.map(&:id)
     @week.destroy
     respond_to do |format|
-      format.json { render json: @course.weeks }
+      format.json { render json: @course.weeks.as_json(include: :blocks) }
     end
   end
 end
