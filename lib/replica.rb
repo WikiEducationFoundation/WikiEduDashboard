@@ -144,7 +144,8 @@ class Replica
       tries ||= 3
       language = Figaro.env.wiki_language
       base_url = 'http://tools.wmflabs.org/wikiedudashboard/'
-      url = "#{base_url}#{endpoint}?lang=#{language}&#{query}"
+      raw_url = "#{base_url}#{endpoint}?lang=#{language}&#{query}"
+      url = URI.encode(raw_url)
       response = Net::HTTP::get(URI.parse(url))
       return unless response.length > 0
       parsed = JSON.parse response.to_s

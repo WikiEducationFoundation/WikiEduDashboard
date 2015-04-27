@@ -95,8 +95,8 @@ describe Replica do
 
     it 'should get an id from a username' do
       VCR.use_cassette 'replica/get_user_id' do
-        response = Replica.get_user_id('Ragesoss')
-        expect(response).to eq('319203')
+        response = Replica.get_user_id('LiAnna (Wiki Ed)')
+        expect(response).to eq('21102089')
       end
     end
 
