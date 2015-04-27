@@ -158,7 +158,7 @@ class Article < ActiveRecord::Base
   def self.update_ratings(articles)
     articles.with_index do |group, _batch|
       ratings = Wiki.get_article_rating(group.map(&:title)).inject(&:merge)
-      next if ratings.nil?
+      next if ratings.blank?
       if ratings.keys.length == 1
         ratings = { ratings.keys[0][0] => ratings.values[0] }
       end
