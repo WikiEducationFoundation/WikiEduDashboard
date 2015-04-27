@@ -15,6 +15,12 @@ describe Course, type: :model do
     end
   end
 
+  it 'should handle MediaWiki API errors' do
+    stub_request(:any, %r{.*wikipedia\.org/w/api\.php?action=liststudents.*})
+      .to_raise(MediaWiki::APIError.new('foo', 'bar'))
+    Course.update_all_courses(false, { first: '798', second: '800' })
+  end
+
   it 'should seek data for all possible courses' do
     VCR.use_cassette 'wiki/initial' do
       expect(Course.all.count).to eq(0)

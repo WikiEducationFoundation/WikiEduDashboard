@@ -221,10 +221,12 @@ class Wiki
         else
           Rails.logger.warn 'Caught #{e}'
           Raven.capture_exception e
+          return nil # because Raven captures return 'true' if successful
         end
       rescue StandardError => e
         Rails.logger.warn "Caught #{e} with options #{options}"
         Raven.capture_exception e
+        return nil # because Raven captures return 'true' if successful
       else
         parsed = Crack::XML.parse response.to_s
         parsed['api']
