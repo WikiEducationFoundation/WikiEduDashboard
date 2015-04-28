@@ -63,6 +63,8 @@ en:
     view_other: View other cohorts
 
   course:
+    activity: Activity
+    articles: Articles
     character_doc: The sum of characters added to mainspace articles by the course's students during the course term
     course_description: Wiki Ed Courses
     courses: Courses
@@ -73,14 +75,13 @@ en:
     instructor:
       one: Instructor
       other: Instructors
-    students: Student Editors
-    students_mobile: Students
+    students: Students
     students_none: "%{title} does not have any enrolled students"
     students_short: Students
     timeline: Timeline
-    timeline_mobile: Timeline
     weeks_none: "%{title} does not have a timeline"
     new_week: "Add a new week to the timeline for %{title}"
+    overview: "Overview"
     title: Title
     view: View Course
     view_wiki: View on Wikipedia

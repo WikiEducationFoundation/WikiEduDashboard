@@ -2,12 +2,14 @@ McFly       = require 'mcfly'
 Flux        = new McFly()
 TimelineAPI = require '../utils/timeline_api'
 
+_initialized = false
 _weeks = []
 _lookup = {}
 
 # Pull timeline data from backend
 fetchWeeks = (slug) ->
   TimelineAPI.getWeeks(slug).then (data) ->
+    _initialized = true
     setWeeks data
 
 # Utility for updating _weeks and _lookup together
@@ -18,7 +20,6 @@ setWeeks = (data) ->
     continue if week.blocks == undefined
     for block, j in week.blocks
       _lookup['b_' + block.id] = j
-  console.log _weeks[_weeks.length - 1]
   TimelineStore.emitChange()
 
 # Utility for preparing data for the server
@@ -39,7 +40,7 @@ saveTimeline = (course_id) ->
 
 TimelineStore = Flux.createStore
   getTimeline: (slug) ->
-    fetchWeeks(slug) if $.isEmptyObject(_weeks)
+    fetchWeeks(slug) unless _initialized
     return _weeks
   getBlocks: (slug, week_id) ->
     return _lookup[week_id].blocks

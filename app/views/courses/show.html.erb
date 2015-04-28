@@ -4,6 +4,11 @@
 
 <%= render :partial => 'header', :locals => {:page => 0} %>
 
+<section id="details">
+  <h3 class="section-header"><%= @course.title %></h3>
+  <div class="section-header"><%= simple_format @course.description %></div>
+</section>
+
 <section id="users">
   <h3 class="section-header">Student Editors</h3>
   <%= render :partial => 'users/list_header' %>

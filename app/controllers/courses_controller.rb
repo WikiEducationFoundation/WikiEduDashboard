@@ -12,6 +12,7 @@ class CoursesController < ApplicationController
     params[:course][:slug] = "#{school}/#{title}_(#{term})"
     params.require(:course).permit(
       :title,
+      :description,
       :school,
       :term,
       :slug,
@@ -79,7 +80,7 @@ class CoursesController < ApplicationController
 
     respond_to do |format|
       format.json { render json: @course }
-      format.html { render :students }
+      format.html { render :show }
     end
   end
 

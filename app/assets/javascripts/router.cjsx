@@ -4,8 +4,13 @@ Router = require 'react-router'
 Timeline = require("./components/timeline.cjsx")
 
 routes = (
-  <Router.Route name='timeline' path='/courses/:course_school/:course_title/timeline' handler={Timeline} />
+  <Router.Route path='/'>
+    <Router.Route name='timeline' path='/courses/:course_school/:course_title/timeline' handler={Timeline} />
+    <Router.Redirect from='*' to='*' />
+  </Router.Route>
 )
 
-Router.run routes, Router.HistoryLocation, (Handler) ->
-  React.render(<Handler/>, document.getElementById('timeline'))
+if document.getElementById('timeline')
+  react_root = document.getElementById('timeline')
+  Router.run routes, Router.HistoryLocation, (Handler) ->
+    React.render(<Handler/>, react_root)
