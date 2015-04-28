@@ -45,17 +45,17 @@ class BlocksController < ApplicationController
     )
   end
 
-  def create
-    @course = Course.find_by_slug(params[:course_id])
-    @block = Block.create(block_params)
-    @week = Week.find(params[:week_id])
-    @week.blocks << @block
+  # def create
+  #   @course = Course.find_by_slug(params[:course_id])
+  #   @block = Block.create(block_params)
+  #   @week = Week.find(params[:week_id])
+  #   @week.blocks << @block
 
-    respond_to do |format|
-      format.json { render json: @week.blocks }
-      format.html { redirect_to timeline_path(id: @course.slug) }
-    end
-  end
+  #   respond_to do |format|
+  #     format.json { render json: @week.blocks }
+  #     format.html { redirect_to timeline_path(id: @course.slug) }
+  #   end
+  # end
 
   def new
     @course = Course.find_by_slug(params[:course_id])
@@ -63,26 +63,26 @@ class BlocksController < ApplicationController
     respond_with(course: @course, week: @week)
   end
 
-  def index
-    @week = Week.find(params[:week_id])
-    respond_to do |format|
-      format.json { render json: @week.blocks }
-    end
-  end
+  # def index
+  #   @week = Week.find(params[:week_id])
+  #   respond_to do |format|
+  #     format.json { render json: @week.blocks }
+  #   end
+  # end
 
-  def update
-    @block = Block.find(params[:id])
-    @block.update block_params
-    respond_to do |format|
-      format.json { render json: @block.week.blocks }
-    end
-  end
+  # def update
+  #   @block = Block.find(params[:id])
+  #   @block.update block_params
+  #   respond_to do |format|
+  #     format.json { render json: @block.week.blocks }
+  #   end
+  # end
 
-  def destroy
-    @week = Block.find(params[:id]).week
-    Block.destroy(params[:id])
-    respond_to do |format|
-      format.json { render json: @week.blocks }
-    end
-  end
+  # def destroy
+  #   @week = Block.find(params[:id]).week
+  #   Block.destroy(params[:id])
+  #   respond_to do |format|
+  #     format.json { render json: @week.blocks }
+  #   end
+  # end
 end

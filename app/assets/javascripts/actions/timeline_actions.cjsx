@@ -3,24 +3,38 @@ Flux        = new McFly()
 TimelineAPI = require '../utils/timeline_api'
 
 TimelineActions = Flux.createActions
-  addWeek: (course_id, week) ->
-    TimelineAPI.addWeek(course_id, week).then (data) ->
-      return { actionType: 'ADD_WEEK', data: data }
-  updateWeek: (course_id, week) ->
-    TimelineAPI.updateWeek(course_id, week).then (data) ->
-      return { actionType: 'UPDATE_WEEK', data: data }
+  addWeek: ->
+    { actionType: 'ADD_WEEK' }
+  updateWeek: (week) ->
+    { actionType: 'UPDATE_WEEK', data: {
+      week: week
+    }}
   deleteWeek: (week_id) ->
-    TimelineAPI.deleteWeek(week_id).then (data) ->
-      return { actionType: 'DELETE_WEEK', data: data }
+    { actionType: 'DELETE_WEEK', data: {
+      week_id: week_id
+    }}
 
-  addBlock: (course_id, week_id, block) ->
-    TimelineAPI.addBlock(course_id, week_id, block).then (data) ->
-      return { actionType: 'ADD_BLOCK', data: data }
+  addBlock: (week_id) ->
+    { actionType: 'ADD_BLOCK', data: {
+      week_id: week_id
+    }}
   updateBlock: (week_id, block) ->
-    TimelineAPI.updateBlock(week_id, block).then (data) ->
-      return { actionType: 'UPDATE_BLOCK', data: data }
+    { actionType: 'UPDATE_BLOCK', data: {
+      week_id: week_id,
+      block: block
+    }}
   deleteBlock: (week_id, block_id) ->
-    TimelineAPI.deleteBlock(week_id, block_id).then (data) ->
-      return { actionType: 'DELETE_BLOCK', data: data }
+    { actionType: 'DELETE_BLOCK', data: {
+      week_id: week_id,
+      block_id: block_id
+    }}
+
+  saveTimeline: (course_id) ->
+    { actionType: 'SAVE_TIMELINE', data: {
+      course_id: course_id
+    }}
+  fetchTimeline: (course_id) ->
+    TimelineAPI.getWeeks(course_id).then (data) ->
+      return { actionType: 'FETCH_TIMELINE', data: data }
 
 module.exports = TimelineActions

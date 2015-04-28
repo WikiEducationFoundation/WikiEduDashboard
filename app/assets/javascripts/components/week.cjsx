@@ -1,5 +1,4 @@
 React           = require 'react'
-TimelineStore       = require '../stores/timeline_store'
 TimelineActions = require '../actions/timeline_actions'
 Block           = require './block'
 TextInput       = require './text_input'
@@ -7,24 +6,24 @@ TextInput       = require './text_input'
 Week = React.createClass(
   displayName: 'Week'
   addBlock: ->
-    TimelineActions.addBlock this.props.courseSlug, this.props.id,
-      kind: 1
-      content: 'This is a block'
-      weekday: 2
+    TimelineActions.addBlock this.props.id
   deleteBlock: (block_id) ->
     TimelineActions.deleteBlock this.props.id, block_id
   updateWeek: (value_key, value) ->
     to_pass = {}
     to_pass['id'] = this.props.id
     to_pass['title'] = value
-    TimelineActions.updateWeek this.props.courseSlug, to_pass
+    to_pass['blocks'] = this.props.blocks
+    to_pass['is_new'] = this.props.is_new
+    TimelineActions.updateWeek to_pass
   render: ->
     blocks = this.props.blocks.map (block, i) =>
-      <Block {...block}
-        key={block.id}
-        editable={this.props.editable}
-        deleteBlock={this.deleteBlock.bind(this, block.id)}
-      />
+      unless block.deleted
+        <Block {...block}
+          key={block.id}
+          editable={this.props.editable}
+          deleteBlock={this.deleteBlock.bind(this, block.id)}
+        />
     if this.props.editable
       addBlock = <li className="row view-all">
                     <div>

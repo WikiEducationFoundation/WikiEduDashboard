@@ -1,10 +1,23 @@
 TimelineAPI =
   ### Weeks ####
+  saveTimeline: (course_id, weeks) ->
+    new Promise (res, rej) ->
+      $.ajax
+        type: 'POST',
+        url: '/courses/' + course_id + '/weeks/mass_update',
+        contentType: 'application/json',
+        data: JSON.stringify { weeks: weeks }
+        success: (data) ->
+          console.log 'Saved timeline!'
+          res data
+        failure: (e) ->
+          console.log 'Couldn\'t save timeline! ' + e
+
   getWeeks: (course_id) ->
     new Promise (res, rej) ->
       $.ajax
         type: 'GET',
-        url: '/courses/' + course_id + '/weeks.json'
+        url: '/courses/' + course_id + '/weeks.json',
         success: (data) ->
           console.log 'Got weeks!'
           res data

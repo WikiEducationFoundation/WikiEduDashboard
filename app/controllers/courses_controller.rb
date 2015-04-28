@@ -5,6 +5,7 @@ class CoursesController < ApplicationController
   respond_to :html, :json
 
   def course_params
+    puts params
     title = params[:course][:title].gsub(' ', '_')
     school = params[:course][:school].gsub(' ', '_')
     term = params[:course][:term].gsub(' ', '_')

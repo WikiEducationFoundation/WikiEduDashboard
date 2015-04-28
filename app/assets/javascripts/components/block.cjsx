@@ -12,9 +12,10 @@ Block = React.createClass(
   updateBlock: (value_key, value) ->
     to_pass = this.state
     to_pass[value_key] = value
-    delete to_pass.deleteBlock
+    delete to_pass.deleteBlock  # this is mutating state!!! :(
     TimelineActions.updateBlock this.props.week_id, to_pass
   render: ->
+    is_graded = if this.props.is_gradeable == undefined then this.props.gradeable_id != null else this.props.is_gradeable
     if this.props.editable
       deleteBlock = <a onClick={this.props.deleteBlock}>Delete</a>
 
@@ -47,7 +48,7 @@ Block = React.createClass(
       </p>
       <p><span>Graded: </span>
         <Checkbox
-          value={this.props.gradeable_id != null}
+          value={is_graded}
           onSave={this.updateBlock}
           value_key={'is_gradeable'}
           editable={this.props.editable}

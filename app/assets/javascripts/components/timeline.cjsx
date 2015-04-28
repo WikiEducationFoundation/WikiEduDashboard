@@ -19,7 +19,7 @@ Timeline = React.createClass(
   storeDidChange: ->
     this.setState(getState(this.getSlug()))
   addWeek: ->
-    TimelineActions.addWeek(this.getSlug(), { title: 'Newest Week' })
+    TimelineActions.addWeek()
   deleteWeek: (week_id) ->
     TimelineActions.deleteWeek(week_id)
   getSlug: ->
@@ -28,18 +28,22 @@ Timeline = React.createClass(
   toggleEditable: ->
     this.setState
       editable: !this.state.editable
+  cancelChanges: ->
+    TimelineActions.fetchTimeline this.getSlug()
+    this.toggleEditable()
   saveChanges: ->
     console.log 'save changes!!'
+    TimelineActions.saveTimeline this.getSlug()
     this.toggleEditable()
   render: ->
     weeks = this.state.weeks.map (week, i) =>
-      <Week {...week}
-        courseSlug={this.getSlug()}
-        index={i}
-        key={week.id}
-        editable={this.state.editable}
-        deleteWeek={this.deleteWeek.bind(this, week.id)}
-      />
+      unless week.deleted
+        <Week {...week}
+          index={i}
+          key={week.id}
+          editable={this.state.editable}
+          deleteWeek={this.deleteWeek.bind(this, week.id)}
+        />
     if this.state.editable
       addWeek = <li className="row view-all">
                   <div>
@@ -49,7 +53,7 @@ Timeline = React.createClass(
       controls = <p>
                     <button
                       value={'cancel'}
-                      onClick={this.toggleEditable}
+                      onClick={this.cancelChanges}
                     >Cancel</button>
                     <button
                       value={'save'}
