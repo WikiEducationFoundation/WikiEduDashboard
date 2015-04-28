@@ -3,10 +3,10 @@ rvm:
   - 2.1.5
 
 env:
-  - DB: travis
+  - DB: test
 
 before_script:
-  - mysql -e '''CREATE DATABASE travis
+  - mysql -e '''CREATE DATABASE test
                 DEFAULT CHARACTER SET utf8
                 DEFAULT COLLATE utf8_general_ci;'''
   - cp config/database.travis.yml config/database.yml
