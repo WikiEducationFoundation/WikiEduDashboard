@@ -51,6 +51,7 @@ group :staging, :production do
 end
 
 group :test do
+  gem 'rake'
   gem 'capybara'
   gem 'capybara-webkit'
   gem 'database_cleaner'

@@ -1,7 +1,6 @@
 language: ruby
 rvm:
   - 2.1.5
-  - 2.1.6
 
 before_script:
   - mysql -e '''CREATE DATABASE dashboardtesting
@@ -11,6 +10,4 @@ before_script:
 branches:
   except:
     - course_pages
-
-script: rake spec
 

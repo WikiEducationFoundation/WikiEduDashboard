@@ -335,6 +335,7 @@ DEPENDENCIES
   piwik_analytics!
   quiet_assets
   rails (= 4.1.8)
+  rake
   rb-fchange
   rb-fsevent
   rb-inotify
