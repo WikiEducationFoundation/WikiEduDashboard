@@ -10,7 +10,7 @@ before_script:
                 DEFAULT CHARACTER SET utf8
                 DEFAULT COLLATE utf8_general_ci;'''
   - cp config/database.travis.yml config/database.yml
-  - rake db:migrate RAILS_ENV=test
+  - bundle exec rake db:migrate RAILS_ENV=test
 
 branches:
   except:
