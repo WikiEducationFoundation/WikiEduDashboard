@@ -1,7 +1,7 @@
 React           = require 'react'
-TimelineActions = require '../actions/timeline_actions'
+TimelineActions = require '../../actions/timeline_actions'
 Block           = require './block'
-TextInput       = require './text_input'
+TextInput       = require '../common/text_input'
 
 Week = React.createClass(
   displayName: 'Week'

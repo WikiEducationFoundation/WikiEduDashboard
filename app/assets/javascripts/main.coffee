@@ -1,4 +1,4 @@
 $ ->
-  require("./course.coffee")
-  require("./user.coffee")
-  require("./router.cjsx")
+  require("./utils/course.coffee")
+  require("./utils/user.coffee")
+  require("./utils/router.cjsx")

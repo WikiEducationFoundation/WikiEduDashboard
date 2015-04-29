@@ -1,5 +1,5 @@
 React = require 'react'
-InputMixin = require '../mixins/input_mixin'
+InputMixin = require '../../mixins/input_mixin'
 
 Select = React.createClass(
   displayName: 'Select'

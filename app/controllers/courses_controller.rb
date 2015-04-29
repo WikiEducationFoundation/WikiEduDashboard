@@ -5,7 +5,6 @@ class CoursesController < ApplicationController
   respond_to :html, :json
 
   def course_params
-    puts params
     title = params[:course][:title].gsub(' ', '_')
     school = params[:course][:school].gsub(' ', '_')
     term = params[:course][:term].gsub(' ', '_')
@@ -66,6 +65,23 @@ class CoursesController < ApplicationController
   end
 
   def show
+    respond_to do |format|
+      format.json { render json: @course }
+      format.html { redirect_to :overview }
+    end
+  end
+
+  def update
+    @course = Course.find_by_slug(params[:id])
+    params = {}
+    params['course'] = course_params
+    @course.update params
+    respond_to do |format|
+      format.json { render json: @course }
+    end
+  end
+
+  def overview
     @course = Course.find_by_slug(params[:id])
     is_instructor = (user_signed_in? && current_user.instructor?(@course))
     unless @course.listed || is_instructor
@@ -80,7 +96,7 @@ class CoursesController < ApplicationController
 
     respond_to do |format|
       format.json { render json: @course }
-      format.html { render :show }
+      format.html { render }
     end
   end
 

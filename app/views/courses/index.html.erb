@@ -1,117 +1,121 @@
 <% content_for :after_title do " - #{@cohort.gsub('_', ' ').capitalize}" end %>
 
 <header class="main-page">
-  <h1><%= t("application.dashboard") %></h1>
-  <!-- <p class="subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at nisl quis nisl fermentum condimentum eu ut felis ed at nisl quis dolor sit amet.</p> -->
-  <div class="stat-display">
-    <div class="stat-display__stat">
-      <h1><%= @courses.count %></h1>
-      <small><%= t("course.course_description") %></small>
+  <div class="container">
+    <h1><%= t("application.dashboard") %></h1>
+    <!-- <p class="subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at nisl quis nisl fermentum condimentum eu ut felis ed at nisl quis dolor sit amet.</p> -->
+    <div class="stat-display">
+      <div class="stat-display__stat">
+        <h1><%= @courses.count %></h1>
+        <small><%= t("course.course_description") %></small>
+        </div>
+      <div class="stat-display__stat popover-trigger">
+        <h1><%= @courses.sum(:user_count) %></h1>
+        <small><%= t("course.students") %></small>
+        <div class="popover">
+          <h4><%= @trained %></h4>
+          <p><%= t("user.training_complete", count: @trained) %></p>
+        </div>
       </div>
-    <div class="stat-display__stat popover-trigger">
-      <h1><%= @courses.sum(:user_count) %></h1>
-      <small><%= t("course.students") %></small>
-      <div class="popover">
-        <h4><%= @trained %></h4>
-        <p><%= t("user.training_complete", count: @trained) %></p>
+      <div class="stat-display__stat">
+        <h1><%= number_to_human @courses.sum(:character_sum) %></h1>
+        <small><%= t("metrics.char_added") %></small>
       </div>
-    </div>
-    <div class="stat-display__stat">
-      <h1><%= number_to_human @courses.sum(:character_sum) %></h1>
-      <small><%= t("metrics.char_added") %></small>
-    </div>
-    <div class="stat-display__stat">
-      <h1><%= number_to_human @courses.sum(:view_sum) %></h1>
-      <small><%= t("metrics.view_count_description") %></small>
+      <div class="stat-display__stat">
+        <h1><%= number_to_human @courses.sum(:view_sum) %></h1>
+        <small><%= t("metrics.view_count_description") %></small>
+      </div>
     </div>
   </div>
 </header>
 
-<% if user_signed_in? %>
-  <section id="user_courses">
+<div class="container">
+  <% if user_signed_in? %>
+    <section id="user_courses">
+      <div class="section-header">
+        <h3><%= t("course.yourcourses") %></h3>
+        <div>
+          <%= link_to "Create New Course", new_course_path %>
+        </div>
+      </div>
+      <div class="row course-list__row list__header">
+        <div class="row__wrapper desktop-only-flex">
+          <div class="course-list__row__title sort asc" data-sort="utitle"><p><%= t("course.courses") %></p></div>
+          <div class="course-list__row__characters sort popover-trigger" data-default-order="desc" data-sort="ucharacters">
+            <p><%= t("metrics.char") %></p>
+            <div class="popover dark">
+              <p><%= t("course.character_doc") %></p>
+            </div>
+          </div>
+          <div class="course-list__row__views sort popover-trigger" data-default-order="desc" data-sort="uviews">
+            <p><%= t("metrics.view") %></p>
+            <div class="popover dark">
+              <p><%= t("course.view_doc") %></p>
+            </div>
+          </div>
+          <div class="course-list__row__students sort" data-default-order="desc" data-sort="ustudents"><p><%= t("user.editors") %></p></div>
+          <div class="course-list__row__link"></div>
+        </div>
+      </div>
+      <ul class="list">
+      <% if @user_courses.empty? %>
+        <li class="row view-all">
+          <div><%= t("course.nocourses") %></div>
+        </li>
+      <% else %>
+        <% @user_courses.each do |c| %>
+          <%= render :partial => 'row', :locals => {:course => c, :user => true} %>
+        <% end %>
+      <% end %>
+      </ul>
+    </section>
+  <% end %>
+
+  <section id="courses">
     <div class="section-header">
-      <h3><%= t("course.yourcourses") %></h3>
-      <div>
-        <%= link_to "Create New Course", new_course_path %>
+      <h3><%= [t("course.courses"), @cohort.gsub('_', ' ').capitalize].join(" | ") %></h3>
+      <div class="sort-select inset">
+        <select class="sorts" rel="courses">
+          <option rel="asc" value="title"><%= t("course.title") %></option>
+          <option rel="desc" value="characters"><%= t("metrics.characters") %></option>
+          <option rel="desc" value="views"><%= t("metrics.view") %></option>
+          <option rel="desc" value="students"><%= t("course.students_short") %></option>
+        </select>
+      </div>
+      <div class="cohort-select">
+        <select class="cohorts">
+          <option selected disabled><%= t("cohort.view_other") %></option>
+          <% Cohort.all.each do |c| %>
+            <% unless @cohort == c.slug %>
+              <option value="<%= c.slug %>"><%= c.title %></option>
+            <% end %>
+          <% end %>
+        </select>
       </div>
     </div>
     <div class="row course-list__row list__header">
       <div class="row__wrapper desktop-only-flex">
-        <div class="course-list__row__title sort asc" data-sort="utitle"><p><%= t("course.courses") %></p></div>
-        <div class="course-list__row__characters sort popover-trigger" data-default-order="desc" data-sort="ucharacters">
+        <div class="course-list__row__title sort asc" data-sort="title"><p><%= t("course.courses") %></p></div>
+        <div class="course-list__row__characters sort popover-trigger" data-default-order="desc" data-sort="characters">
           <p><%= t("metrics.char") %></p>
           <div class="popover dark">
             <p><%= t("course.character_doc") %></p>
           </div>
         </div>
-        <div class="course-list__row__views sort popover-trigger" data-default-order="desc" data-sort="uviews">
+        <div class="course-list__row__views sort popover-trigger" data-default-order="desc" data-sort="views">
           <p><%= t("metrics.view") %></p>
           <div class="popover dark">
             <p><%= t("course.view_doc") %></p>
           </div>
         </div>
-        <div class="course-list__row__students sort" data-default-order="desc" data-sort="ustudents"><p><%= t("user.editors") %></p></div>
+        <div class="course-list__row__students sort" data-default-order="desc" data-sort="students"><p><%= t("user.editors") %></p></div>
         <div class="course-list__row__link"></div>
       </div>
     </div>
     <ul class="list">
-    <% if @user_courses.empty? %>
-      <li class="row view-all">
-        <div><%= t("course.nocourses") %></div>
-      </li>
-    <% else %>
-      <% @user_courses.each do |c| %>
-        <%= render :partial => 'row', :locals => {:course => c, :user => true} %>
-      <% end %>
+    <% @courses.each do |c| %>
+      <%= render :partial => 'row', :locals => {:course => c, :user => false} %>
     <% end %>
     </ul>
   </section>
-<% end %>
-
-<section id="courses">
-  <div class="section-header">
-    <h3><%= [t("course.courses"), @cohort.gsub('_', ' ').capitalize].join(" | ") %></h3>
-    <div class="sort-select inset">
-      <select class="sorts" rel="courses">
-        <option rel="asc" value="title"><%= t("course.title") %></option>
-        <option rel="desc" value="characters"><%= t("metrics.characters") %></option>
-        <option rel="desc" value="views"><%= t("metrics.view") %></option>
-        <option rel="desc" value="students"><%= t("course.students_short") %></option>
-      </select>
-    </div>
-    <div class="cohort-select">
-      <select class="cohorts">
-        <option selected disabled><%= t("cohort.view_other") %></option>
-        <% Cohort.all.each do |c| %>
-          <% unless @cohort == c.slug %>
-            <option value="<%= c.slug %>"><%= c.title %></option>
-          <% end %>
-        <% end %>
-      </select>
-    </div>
-  </div>
-  <div class="row course-list__row list__header">
-    <div class="row__wrapper desktop-only-flex">
-      <div class="course-list__row__title sort asc" data-sort="title"><p><%= t("course.courses") %></p></div>
-      <div class="course-list__row__characters sort popover-trigger" data-default-order="desc" data-sort="characters">
-        <p><%= t("metrics.char") %></p>
-        <div class="popover dark">
-          <p><%= t("course.character_doc") %></p>
-        </div>
-      </div>
-      <div class="course-list__row__views sort popover-trigger" data-default-order="desc" data-sort="views">
-        <p><%= t("metrics.view") %></p>
-        <div class="popover dark">
-          <p><%= t("course.view_doc") %></p>
-        </div>
-      </div>
-      <div class="course-list__row__students sort" data-default-order="desc" data-sort="students"><p><%= t("user.editors") %></p></div>
-      <div class="course-list__row__link"></div>
-    </div>
-  </div>
-  <ul class="list">
-  <% @courses.each do |c| %>
-    <%= render :partial => 'row', :locals => {:course => c, :user => false} %>
-  <% end %>
-  </ul>
-</section>
+</div>

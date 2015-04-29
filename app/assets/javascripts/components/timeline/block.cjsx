@@ -1,9 +1,9 @@
 React           = require 'react'
-TextInput       = require './text_input'
-TextAreaInput   = require './text_area_input'
-Checkbox        = require './checkbox'
-Select          = require './select'
-TimelineActions = require '../actions/timeline_actions'
+TextInput       = require '../common/text_input'
+TextAreaInput   = require '../common/text_area_input'
+Checkbox        = require '../common/checkbox'
+Select          = require '../common/select'
+TimelineActions = require '../../actions/timeline_actions'
 
 Block = React.createClass(
   displayName: 'Block'

@@ -33,6 +33,8 @@ Rails.application.routes.draw do
         :as => :path_save, constraints: { id: /.*/ }
     get 'courses/*id/timeline' => 'courses#timeline',
         :as => :timeline, constraints: { id: /.*/ }
+    get 'courses/*id/overview' => 'courses#overview',
+        :as => :overview, constraints: { id: /.*/ }
   end
 
   resources :courses, constraints: { id: /.*/ } do

@@ -29,11 +29,11 @@ TimelineActions = Flux.createActions
       block_id: block_id
     }}
 
-  saveTimeline: (course_id) ->
+  save: (course_id) ->
     { actionType: 'SAVE_TIMELINE', data: {
       course_id: course_id
     }}
-  fetchTimeline: (course_id) ->
+  get: (course_id) ->
     TimelineAPI.getWeeks(course_id).then (data) ->
       return { actionType: 'FETCH_TIMELINE', data: data }
 

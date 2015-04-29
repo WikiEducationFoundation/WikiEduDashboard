@@ -43,6 +43,7 @@
     "main-bower-files": "^2.0.0",
     "merge-stream": "^0.1.6",
     "mocha": "^1.21.0",
+    "reactify": "^1.1.0",
     "require-dir": "^0.1.0",
     "run-sequence": "~0.3.6",
     "rupture": "^0.1.0",

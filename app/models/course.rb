@@ -51,11 +51,14 @@ class Course < ActiveRecord::Base
       data = Wiki.get_course_info id
       data = data[0]
     end
+    puts "GUH #{data['course']}"
     self.attributes = data['course']
 
     return unless save
-    data['participants'].each_with_index do |(r, _p), i|
-      User.add_users(data['participants'][r], i, self)
+    if data['participants']
+      data['participants'].each_with_index do |(r, _p), i|
+        User.add_users(data['participants'][r], i, self)
+      end
     end
     self.save
   end

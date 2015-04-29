@@ -6,16 +6,16 @@ class ApplicationController < ActionController::Base
 
   before_action :set_locale
 
-  helper_method :course_slug_path
   def course_slug_path(slug)
     course_path(id: slug).gsub('%2F', '/')
   end
+  helper_method :course_slug_path
 
-  helper_method :rtl?
   def rtl?
     tag = I18n::Locale::Tag::Rfc4646.tag(I18n.locale)
     tag.language.in? %w(ar dv fa he ku ps sd ug ur yi)
   end
+  helper_method :rtl?
 
   def set_locale
     I18n.locale = params[:locale] || I18n.default_locale
@@ -29,8 +29,8 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  helper_method :new_session_path
   def new_session_path(scope)
     new_user_session_path
   end
+  helper_method :new_session_path
 end
