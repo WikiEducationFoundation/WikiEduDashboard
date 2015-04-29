@@ -3,3 +3,4 @@ test: &test
   encoding: utf8
   username: root
   password:
+  database: test
