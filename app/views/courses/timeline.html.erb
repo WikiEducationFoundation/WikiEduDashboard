@@ -1,23 +1,23 @@
 <% content_for :before_title do "#{@course.title} Timeline - " end %>
 
-<%= render :partial => 'nav', :locals => {:page => 3, :course => @course} %>
-
 <%= render :partial => 'header', :locals => {:page => 3} %>
 
-<section id="timeline">
-  <!-- This is where React takes over -- See /app/javascripts for relevant code -->
-  <ul class="list">
-  <% if @course.weeks.count > 0 %>
-    <% @course.weeks.each_with_index do |week, i| %>
-      <%= render :partial => 'weeks/row', :locals => {:week => week, :i => (i + 1)} %>
+<div class="container">
+  <section id="timeline">
+    <!-- This is where React takes over -- See /app/javascripts for relevant code -->
+    <ul class="list">
+    <% if @course.weeks.count > 0 %>
+      <% @course.weeks.each_with_index do |week, i| %>
+        <%= render :partial => 'weeks/row', :locals => {:week => week, :i => (i + 1)} %>
+      <% end %>
+    <% else %>
+      <li class="row view-all">
+        <div><%= t("course.weeks_none", title: @course.title) %></div>
+      </li>
     <% end %>
-  <% else %>
-    <li class="row view-all">
-      <div><%= t("course.weeks_none", title: @course.title) %></div>
-    </li>
-  <% end %>
-    <li class="row view-all">
-      <div><%= link_to t("course.new_week", title: @course.title), new_course_week_path(course_id: @course.slug) %></div>
-    </li>
-  </ul>
-</section>
+      <li class="row view-all">
+        <div><%= link_to t("course.new_week", title: @course.title), new_course_week_path(course_id: @course.slug) %></div>
+      </li>
+    </ul>
+  </section>
+</div>

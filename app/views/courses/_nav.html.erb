@@ -1,14 +1,13 @@
-<% content_for :navigation do %>
-  <div class="nav__item bordered <%= page == 0 ? 'active' : '' %>" id="overview-link">
-    <p class="desktop-only"><%= link_to t("course.overview"), :action => "show" %></p>
-  </div>
-  <div class="nav__item <%= page == 3 ? 'active' : '' %>" id="timeline-link">
-    <p class="desktop-only"><%= link_to t("course.timeline"), :action => "timeline" %></p>
-  </div>
-  <div class="nav__item <%= page == 1 ? 'active' : '' %>" id="students-link">
-    <p class="desktop-only"><%= link_to t("course.students"), :action => "students" %></p>
-  </div>
-  <div class="nav__item <%= page == 2 ? 'active' : '' %>" id="articles-link">
-    <p class="desktop-only"><%= link_to t("course.articles"), :action => "articles" %></p>
-  </div>
-<% end %>
+<div class="nav__item <%= page == 0 ? 'active' : '' %>" id="overview-link">
+  <p><%= link_to t("course.overview"), :action => "show" %></p>
+</div>
+<div class="nav__item <%= page == 3 ? 'active' : '' %>" id="timeline-link">
+  <p><%= link_to t("course.timeline"), :action => "timeline" %></p>
+</div>
+<div class="nav__item <%= page == 1 ? 'active' : '' %>" id="students-link">
+  <p><%= link_to t("course.students"), :action => "students" %></p>
+</div>
+<div class="nav__item <%= page == 2 ? 'active' : '' %>" id="articles-link">
+  <p><%= link_to t("course.articles"), :action => "articles" %></p>
+</div>
+

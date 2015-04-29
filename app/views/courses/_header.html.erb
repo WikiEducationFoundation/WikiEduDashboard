@@ -34,41 +34,18 @@
         <small><%= t("metrics.view_count_description") %></small>
       </div>
     </div>
-    <div class="details">
-      <div class="details__detail" id="instructors">
-        <h6><%= t("course.instructor", count: @course.users.role('instructor').count) %></h6>
-        <p><%= user_links(@course.users.role('instructor'), "inline") %></p>
-      </div>
-      <% if !@volunteers.nil? && @volunteers.count > 0 %>
-      <div class="details__detail" id="volunteers">
-        <h6><%= t("course.volunteer", count: @volunteers.count) %></h6>
-        <p><%= user_links(@volunteers, "inline") %></p>
-      </div>
-      <% end %>
-      <% if @course.users.role('wiki_ed_staff').count > 0 %>
-      <div class="details__detail" id="support-staff">
-        <h6><%= t("course.wiki_staff") %></h6>
-        <p><%= user_links(@course.users.role('wiki_ed_staff'), "inline") %></p>
-      </div>
-      <% end %>
-      <div class="details__detail" id="course-dates">
-        <h6><%= t("course.duration") %></h6>
-        <p><%= @course.start %> &ndash; <%= @course.end %></p>
-      </div>
-      <div class="details__detail" id="course-page-link">
-        <h6><%= t("course.view_wiki") %></h6>
-        <p><a class="inline" href="<%= @course.url %>"><%= @course.title %></a></p>
-      </div>
-    </div>
   </div>
 </header>
-<% unless current?(@course) %>
-<div class="alert">
-  <p>This course has ended and the data here may be out of date. <%= link_to 'Click here', {:action => 'manual_update'}, class: 'manual_update' %> to pull new data.</p>
+<div class="container">
+  <nav><%= render :partial => 'nav', :locals => {:page => page} %></nav>
+  <% unless current?(@course) %>
+  <div class="alert">
+    <p>This course has ended and the data here may be out of date. <%= link_to 'Click here', {:action => 'manual_update'}, class: 'manual_update' %> to pull new data.</p>
+  </div>
+  <% end %>
+  <% unless @course.listed || @course.approved || @course.published %>
+  <div class="alert">
+    <p>You will be able to delete this course as long as it remains unapproved and unpublished. <%= link_to 'Click here', course_slug_path(@course.slug), method: :delete, data: { confirm: 'Are you sure you want to delete this course?' } %> to delete the course now.</p>
+  </div>
+  <% end %>
 </div>
-<% end %>
-<% unless @course.listed || @course.approved || @course.published %>
-<div class="alert">
-  <p>You will be able to delete this course as long as it remains unapproved and unpublished. <%= link_to 'Click here', course_slug_path(@course.slug), method: :delete, data: { confirm: 'Are you sure you want to delete this course?' } %> to delete the course now.</p>
-</div>
-<% end %>

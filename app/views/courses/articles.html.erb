@@ -1,31 +1,31 @@
 <% content_for :before_title do "#{@course.title} Articles - " end %>
 
-<%= render :partial => 'nav', :locals => {:page => 2, :course => @course} %>
-
 <%= render :partial => 'header', :locals => {:page => 2} %>
 
-<section id="articles">
-  <div class="section-header">
-    <h3><%= t("article.edited") %></h3>
-    <div class="sort-select">
-      <select class="sorts" rel="articles">
-        <option rel="asc" value="title"><%= t("article.title") %></option>
-        <option rel="asc" value="rating_num"><%= t("article.rating") %></option>
-        <option rel="desc" value="characters"><%= t("metrics.char_added") %></option>
-        <option rel="desc" value="views"><%= t("metrics.view") %></option>
-      </select>
+<div class="container">
+  <section id="articles">
+    <div class="section-header">
+      <h3><%= t("article.edited") %></h3>
+      <div class="sort-select">
+        <select class="sorts" rel="articles">
+          <option rel="asc" value="title"><%= t("article.title") %></option>
+          <option rel="asc" value="rating_num"><%= t("article.rating") %></option>
+          <option rel="desc" value="characters"><%= t("metrics.char_added") %></option>
+          <option rel="desc" value="views"><%= t("metrics.view") %></option>
+        </select>
+      </div>
     </div>
-  </div>
-  <%= render :partial => 'articles/list_header' %>
-  <ul class="list">
-  <% if @articles_courses.count > 0 %>
-    <% @articles_courses.each do |ac| %>
-      <%= render :partial => 'articles/row', :locals => {:ac => ac} %>
+    <%= render :partial => 'articles/list_header' %>
+    <ul class="list">
+    <% if @articles_courses.count > 0 %>
+      <% @articles_courses.each do |ac| %>
+        <%= render :partial => 'articles/row', :locals => {:ac => ac} %>
+      <% end %>
+    <% else %>
+      <li class="row view-all">
+        <div><%= t("article.edited_none", title: @course.title) %></div>
+      </li>
     <% end %>
-  <% else %>
-    <li class="row view-all">
-      <div><%= t("article.edited_none", title: @course.title) %></div>
-    </li>
-  <% end %>
-  </ul>
-</section>
+    </ul>
+  </section>
+</div>

@@ -24,24 +24,20 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <div class="container">
+    <div>
       <aside>
-        <div class="logo">
-          <a class="logo__link" href="http://wikiedu.org" target="_blank" title="wikiedu.org"><%= image_tag "/images/wiki-logo.png" %></a>
-        </div>
-        <nav>
-          <div class="nav__item <%= content_for?(:navigation) ? '' : 'active' %>">
-            <p class="subtitle desktop-only"><%= link_to 'Global Dashboard', root_url %></p>
-            <p class="subtitle tablet-only"><%= link_to 'Home', root_url %></p>
+        <div class="container">
+          <div class="logo">
+            <a class="logo__link" href="http://wikiedu.org" target="_blank" title="wikiedu.org"><%= image_tag "/images/wiki-logo.png" %></a>
           </div>
-          <%= content_for?(:navigation) ? yield(:navigation) : '' %>
-        </nav>
-        <div class="login">
-          <% if user_signed_in? %>
-            <p>You are logged in as <b><%= current_user.wiki_id %></b>.&nbsp;&nbsp;&nbsp;<%= link_to "Logout", :destroy_user_session %></p>
-          <% else %>
-            <p><%= link_to "Login", user_omniauth_authorize_path(:mediawiki) %></p>
-          <% end %>
+          <a href="/">Home</a>
+          <div class="login">
+            <% if user_signed_in? %>
+              <p>Logged in as <b><%= current_user.wiki_id %></b>.&nbsp;&nbsp;&nbsp;<%= link_to "Logout", :destroy_user_session %></p>
+            <% else %>
+              <p><%= link_to "Login", user_omniauth_authorize_path(:mediawiki) %></p>
+            <% end %>
+          </div>
         </div>
       </aside>
       <main role="main" id="main">

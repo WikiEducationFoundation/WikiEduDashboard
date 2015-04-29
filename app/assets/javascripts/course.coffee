@@ -1,16 +1,26 @@
 $ ->
   # Course sorting
-  userCourseList = new List('user_courses', {valueNames: ['utitle','ucharacters','uviews','ustudents']})
-  courseList = new List('courses', {valueNames: ['title','characters','views','students']})
+  userCourseList = new List('user_courses', {
+    valueNames: ['utitle','ucharacters','uviews','ustudents']
+  })
+  courseList = new List('courses', {
+    valueNames: ['title','characters','views','students']
+  })
 
   # User sorting
-  userList = new List('users', {valueNames: ['name','training','characters-ms', 'characters-us', 'edits']})
+  userList = new List('users', {
+    valueNames: ['name','training','characters-ms', 'characters-us', 'edits']
+  })
 
   # Article sorting
-  articleList = new List('articles', {valueNames: ['rating_num', 'title','characters','views']})
+  articleList = new List('articles', {
+    valueNames: ['rating_num', 'title','characters','views']
+  })
 
   # Revision sorting
-  revisionList = new List('revisions', {valueNames: ['title', 'date', 'characters', 'views']})
+  revisionList = new List('revisions', {
+    valueNames: ['title', 'date', 'characters', 'views']
+  })
 
   $('select.cohorts').change (e) ->
     cohort = $('select.cohorts option:selected').val()
@@ -22,23 +32,29 @@ $ ->
       when "users" then userList
       when "articles" then articleList
       when "revisions" then revisionList
-    list.sort($(this).val(), { order: $(this).children('option:selected').attr('rel') })
+    list.sort($(this).val(), {
+      order: $(this).children('option:selected').attr('rel')
+    })
 
   $('a.manual_update').click (e) ->
     e.preventDefault()
     console.log 'Updating course...'
-    $(e.target).parent().text('Updating course data. This page will reload when new data is available.')
+    $(e.target).parent().text("""
+      Updating course data. This page will reload when new data is available.
+    """)
     $.get($(e.target).attr('href'), (data) ->
       location.reload()
     )
 
   $('.notify_untrained').click (e) ->
     e.preventDefault()
-    if confirm "This will post a reminder on the talk pages for all students who have not completed training. Are you sure you want to do this?"
+    if confirm 'This will post a reminder on the talk pages for all
+      students who have not completed training. Are you sure you want
+      to do this?'
       $(e.target).addClass('loading')
-      $.get($(e.target).attr('href'), (data) =>
+      $.get($(e.target).attr('href'), (data) ->
         $(e.target).removeClass('loading')
-        alert("Untrained users have been reminded to complete the training.")
+        alert "Untrained users have been reminded to complete the training."
       )
 
 $.fn.extend
