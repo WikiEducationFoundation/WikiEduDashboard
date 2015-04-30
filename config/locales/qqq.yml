@@ -70,6 +70,12 @@ qqq:
     training_incomplete_short: Shorter label (for mobile) stating that training is not complete.
     view_all: Command to view all users.
 
+  wiki_edits:
+    notify_untrained:
+      header: Section header for a talk page message indicating that the user has not completed training.
+      message: A new talk page message indicating that the user has not completed training.
+      summary: Edit summary for a talk page message indicating that the user has not completed training.
+
   error_404:
     header: Message indicating that a page doesn't exist.
     explanation: Message explaining why a user may have reached a page that doesn't exist.
