@@ -2,7 +2,7 @@
 class Cohort < ActiveRecord::Base
   has_many :cohorts_courses, class_name: CohortsCourses
   has_many :courses, through: :cohorts_courses
-  
+
   #Create new cohorts from application.yml entries
   def self.initialize_cohorts
     ENV['cohorts'].split(',').each do |cohort|
@@ -15,5 +15,5 @@ class Cohort < ActiveRecord::Base
       end
     end
   end
-  
+
 end

@@ -4,6 +4,27 @@ require 'oauth'
 class CoursesController < ApplicationController
   respond_to :html, :json
 
+  ###############
+  # Root method #
+  ###############
+  def index
+    @cohort = params[:cohort].present? ? params[:cohort] : 'spring_2015'
+
+    if user_signed_in?
+      @user_courses = current_user.courses.map do |c|
+        c if current_user.instructor?(c) || c.listed
+      end
+    end
+
+    @courses = Cohort.find_by(slug: @cohort).courses
+               .where(listed: true).order(:title)
+    @untrained = @courses.sum(:untrained_count)
+    @trained = @courses.sum(:user_count) - @courses.sum(:untrained_count)
+  end
+
+  ################
+  # CRUD methods #
+  ################
   def course_params
     title = params[:course][:title].gsub(' ', '_')
     school = params[:course][:school].gsub(' ', '_')
@@ -22,27 +43,6 @@ class CoursesController < ApplicationController
     )
   end
 
-  def index
-    if params[:cohort].present?
-      @cohort = params[:cohort]
-    else
-      @cohort = 'spring_2015'
-    end
-
-    if user_signed_in?
-      @user_courses = current_user.courses
-      @user_courses.map do |c|
-        c if current_user.instructor?(c) || c.listed
-      end
-    end
-
-    @courses = Cohort.find_by(slug: @cohort).courses
-               .where(listed: true).order(:title)
-    @untrained = @courses.sum(:untrained_count)
-    @trained = @courses.sum(:user_count) - @courses.sum(:untrained_count)
-  end
-
-  # CRUD
   def create
     if Course.exists?(slug: course_params[:slug])
       flash[:notice] = t('course.error.exists')
@@ -54,9 +54,13 @@ class CoursesController < ApplicationController
     end
   end
 
-  def update
+  def validate
     @course = Course.find_by_slug(params[:id])
     return unless user_signed_in? && current_user.instructor?(@course)
+  end
+
+  def update
+    validate
     params = {}
     params['course'] = course_params
     @course.update params
@@ -66,30 +70,30 @@ class CoursesController < ApplicationController
   end
 
   def destroy
-    @course = Course.find_by_slug(params[:id])
-    return unless user_signed_in? && current_user.instructor?(@course)
+    validate
     @course.destroy
-    redirect_to '/'
+    redirect_to :root
   end
 
-  # View support
+  ########################
+  # View support methods #
+  ########################
   def volunteers
     return nil if @course.nil?
     users = @course.users
     users.role('online_volunteer') + users.role('campus_volunteer')
   end
 
-  def standard_entry
+  def standard_setup
     @course = Course.find_by_slug(params[:id])
     @volunteers = volunteers
     is_instructor = (user_signed_in? && current_user.instructor?(@course))
     return if @course.listed || is_instructor || @course.nil?
-    fail ActionController::RoutingError.new('Not Found'), "Not permitted"
+    fail ActionController::RoutingError.new('Not Found'), 'Not permitted'
   end
 
   def show
-    standard_entry
-
+    standard_setup
     respond_to do |format|
       format.json { render json: @course }
       format.html { redirect_to :overview }
@@ -97,10 +101,9 @@ class CoursesController < ApplicationController
   end
 
   def overview
-    standard_entry
+    standard_setup
     @courses_users = @course.courses_users
     @articles = @course.articles.order(:title).limit(4)
-
     respond_to do |format|
       format.json { render json: @course }
       format.html { render }
@@ -108,11 +111,11 @@ class CoursesController < ApplicationController
   end
 
   def timeline
-    standard_entry
+    standard_setup
   end
 
   def students
-    standard_entry
+    standard_setup
     return if @course.users.empty?
     @courses_users = @course.courses_users
                      .includes(user: { assignments: :article })
@@ -120,12 +123,14 @@ class CoursesController < ApplicationController
   end
 
   def articles
-    standard_entry
+    standard_setup
     @articles_courses = @course.articles_courses.live
                         .includes(:article).order('articles.title')
   end
 
-  # Helper methods
+  ##################
+  # Helper methods #
+  ##################
   def manual_update
     @course = Course.where(listed: true).find_by_slug(params[:id])
     @course.manual_update
