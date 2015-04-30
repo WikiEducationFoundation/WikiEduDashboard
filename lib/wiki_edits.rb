@@ -18,6 +18,7 @@ class WikiEdits
 
     Raven.capture_message 'WikiEdits.notify_untrained',
       level: 'info',
+      culprit: 'WikiEdits.notify_untrained',
       extra: {
         sender: current_user.wiki_id,
         course_name: @course.slug,
