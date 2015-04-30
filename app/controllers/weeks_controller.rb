@@ -2,15 +2,6 @@
 class WeeksController < ApplicationController
   respond_to :html, :json
 
-  def week_params
-    params.require(:week).permit(:id, :title)
-  end
-
-  def new
-    @course = Course.find_by_slug(params[:course_id])
-    respond_with(@course)
-  end
-
   def index
     @course = Course.find_by_slug(params[:course_id])
     respond_to do |format|
@@ -37,30 +28,32 @@ class WeeksController < ApplicationController
     ])
   end
 
+  def create_gradeable(block)
+    return unless block.key?(:id)
+    points = block['points'] || 10
+    item_id = block['id']
+    gradeable = Gradeable.create(
+      gradeable_item_id: item_id,
+      gradeable_item_type: 'block',
+      points: points
+    )
+    block['gradeable_id'] = gradeable.id
+  end
+
+  def destroy_gradeable(block)
+    return unless block.key?(:id)
+    block = Block.find(block['id'])
+    Gradeable.find(block.gradeable_id).destroy unless block.gradeable_id.nil?
+    block['gradeable_id'] = nil
+  end
+
   def gradeable_block(block)
     return unless block.key?(:is_gradeable)
     gradeable = block['is_gradeable']
     if gradeable && (!block.key?(:gradeable_id) || block['gradeable_id'].nil?)
-      @points = block['points'] || 10
-      if block.key?(:id)
-        item_id = block['id']
-        @gradeable = Gradeable.create(
-          gradeable_item_id: item_id,
-          gradeable_item_type: 'block',
-          points: @points
-        )
-      else
-        @gradeable = Gradeable.create(points: @points)
-      end
-      block['gradeable_id'] = @gradeable.id
+      create_gradeable block
     elsif !gradeable && block.key?(:gradeable_id)
-      if block.key?(:id)
-        @block = Block.find(block['id'])
-        unless @block.gradeable_id.nil?
-          Gradeable.find(@block.gradeable_id).destroy
-        end
-      end
-      block['gradeable_id'] = nil
+      destroy_gradeable block
     end
   end
 

@@ -22,28 +22,6 @@ class CoursesController < ApplicationController
     )
   end
 
-  def create
-    if Course.exists?(slug: course_params[:slug])
-      flash[:notice] = t('course.error.exists')
-      redirect_to :back
-    else
-      @course = Course.create(course_params)
-      CoursesUsers.create(user: current_user, course: @course, role: 1)
-      redirect_to timeline_path(id: @course.slug)
-    end
-  end
-
-  def destroy
-    @course = Course.find_by_slug(params[:id])
-    return unless user_signed_in? && current_user.instructor?(@course)
-    @course.destroy
-    redirect_to '/'
-  end
-
-  def timeline
-    @course = Course.find_by_slug(params[:id])
-  end
-
   def index
     if params[:cohort].present?
       @cohort = params[:cohort]
@@ -64,15 +42,21 @@ class CoursesController < ApplicationController
     @trained = @courses.sum(:user_count) - @courses.sum(:untrained_count)
   end
 
-  def show
-    respond_to do |format|
-      format.json { render json: @course }
-      format.html { redirect_to :overview }
+  # CRUD
+  def create
+    if Course.exists?(slug: course_params[:slug])
+      flash[:notice] = t('course.error.exists')
+      redirect_to :back
+    else
+      @course = Course.create(course_params)
+      CoursesUsers.create(user: current_user, course: @course, role: 1)
+      redirect_to timeline_path(id: @course.slug)
     end
   end
 
   def update
     @course = Course.find_by_slug(params[:id])
+    return unless user_signed_in? && current_user.instructor?(@course)
     params = {}
     params['course'] = course_params
     @course.update params
@@ -81,16 +65,39 @@ class CoursesController < ApplicationController
     end
   end
 
-  def overview
+  def destroy
     @course = Course.find_by_slug(params[:id])
-    is_instructor = (user_signed_in? && current_user.instructor?(@course))
-    unless @course.listed || is_instructor
-      fail ActionController::RoutingError 'Not Found' unless @course.nil?
-    end
+    return unless user_signed_in? && current_user.instructor?(@course)
+    @course.destroy
+    redirect_to '/'
+  end
 
+  # View support
+  def volunteers
+    return nil if @course.nil?
     users = @course.users
-    @students = users.role('student').order(character_sum: :desc).limit(4)
-    @volunteers = users.role('online_volunteer') + users.role('campus_volunteer')
+    users.role('online_volunteer') + users.role('campus_volunteer')
+  end
+
+  def standard_entry
+    @course = Course.find_by_slug(params[:id])
+    @volunteers = volunteers
+    is_instructor = (user_signed_in? && current_user.instructor?(@course))
+    return if @course.listed || is_instructor || @course.nil?
+    fail ActionController::RoutingError.new('Not Found'), "Not permitted"
+  end
+
+  def show
+    standard_entry
+
+    respond_to do |format|
+      format.json { render json: @course }
+      format.html { redirect_to :overview }
+    end
+  end
+
+  def overview
+    standard_entry
     @courses_users = @course.courses_users
     @articles = @course.articles.order(:title).limit(4)
 
@@ -100,39 +107,25 @@ class CoursesController < ApplicationController
     end
   end
 
-  def recent
-    @course = Course.where(listed: true).find_by_slug(params[:id])
-    @revisions = @course.revisions.order(date: :desc).limit(20)
+  def timeline
+    standard_entry
   end
 
   def students
-    @course = Course.find_by_slug(params[:id])
-    is_instructor = (user_signed_in? && current_user.instructor?(@course))
-    unless @course.listed || is_instructor
-      fail ActionController::RoutingError 'Not Found' unless @course.nil?
-    end
-
-    users = @course.users
-    return if users.empty?
+    standard_entry
+    return if @course.users.empty?
     @courses_users = @course.courses_users
                      .includes(user: { assignments: :article })
                      .where(role: 0).order('users.wiki_id')
-    @volunteers = users.role('online_volunteer') + users.role('campus_volunteer')
   end
 
   def articles
-    @course = Course.find_by_slug(params[:id])
-    is_instructor = (user_signed_in? && current_user.instructor?(@course))
-    unless @course.listed || is_instructor
-      fail ActionController::RoutingError 'Not Found' unless @course.nil?
-    end
-
-    users = @course.users
+    standard_entry
     @articles_courses = @course.articles_courses.live
                         .includes(:article).order('articles.title')
-    @volunteers = users.role('online_volunteer') + users.role('campus_volunteer')
   end
 
+  # Helper methods
   def manual_update
     @course = Course.where(listed: true).find_by_slug(params[:id])
     @course.manual_update

@@ -38,9 +38,7 @@ Rails.application.routes.draw do
   end
 
   resources :courses, constraints: { id: /.*/ } do
-    resources :weeks, only: [:index, :new, :create], constraints: { id: /.*/ } do
-      resources :blocks, only: [:index, :new, :create], constraints: { id: /.*/ }
-    end
+    resources :weeks, only: [:index, :new, :create], constraints: { id: /.*/ }
   end
   resources :weeks, only: [:show, :edit, :update, :destroy]
   resources :blocks, only: [:show, :edit, :update, :destroy]
