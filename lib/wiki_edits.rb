@@ -13,6 +13,15 @@ class WikiEdits
                           token: tokens.csrf_token
                         }, tokens)
     end
+
+    Raven.capture_message 'WikiEdits.notify_untrained',
+      level: 'info',
+      extra: {
+        sender: current_user.wiki_id,
+        course_name: @course.slug,
+        untrained_count: @course.users.role('student')
+                         .where(trained: false).count
+      }
   end
 
   def self.tokens(current_user)
