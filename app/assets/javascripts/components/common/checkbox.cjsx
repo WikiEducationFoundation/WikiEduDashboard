@@ -5,13 +5,12 @@ Checkbox = React.createClass(
   displayName: 'Checkbox'
   mixins: [InputMixin],
   onCheckboxChange: (e) ->
-    if e.target.checked != this.props.value
-      this.setState value: e.target.checked, =>
-        this.save()
+    e.target.value = e.target.checked
+    this.onChange e
   render: ->
     <input
       type="checkbox"
-      checked={this.state.value}
+      checked={this.props.value}
       onChange={this.onCheckboxChange}
       disabled={!this.props.editable}
     />

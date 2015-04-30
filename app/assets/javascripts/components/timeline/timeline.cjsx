@@ -1,27 +1,32 @@
 React           = require 'react'
-TimelineStore   = require '../../stores/timeline_store'
-TimelineActions = require '../../actions/timeline_actions'
 Week            = require './week'
-EditableInterface = require '../common/editable_interface.jsx'
+WeekStore       = require '../../stores/week_store'
+WeekActions     = require '../../actions/week_actions'
+BlockStore      = require '../../stores/block_store'
+Editable        = require '../highlevels/editable.jsx'
 
-getState = (slug) ->
-  weeks: TimelineStore.getTimeline(slug)
+getState = ->
+  weeks: WeekStore.getWeeks()
 
 Timeline = React.createClass(
   displayName: 'Timeline'
   addWeek: ->
-    TimelineActions.addWeek()
+    WeekActions.addWeek()
   deleteWeek: (week_id) ->
-    TimelineActions.deleteWeek(week_id)
+    WeekActions.deleteWeek(week_id)
   render: ->
-    weeks = this.props.weeks.map (week, i) =>
+    week_components = []
+    this.props.weeks.forEach (week, i) =>
       unless week.deleted
-        <Week {...week}
-          index={i}
-          key={week.id}
-          editable={this.props.editable}
-          deleteWeek={this.deleteWeek.bind(this, week.id)}
-        />
+        week_components.push (
+          <Week {...week}
+            index={i}
+            key={week.id}
+            editable={this.props.editable}
+            blocks={BlockStore.getBlocksInWeek(week.id)}
+            deleteWeek={this.deleteWeek.bind(this, week.id)}
+          />
+        )
     if this.props.editable
       addWeek = <li className="row view-all">
                   <div>
@@ -31,9 +36,9 @@ Timeline = React.createClass(
 
     <ul className="list">
       <li className="row view-all">{this.props.controls}</li>
-      {weeks}
+      {week_components}
       {addWeek}
     </ul>
 )
 
-module.exports = EditableInterface(Timeline, TimelineStore, getState, TimelineActions)
+module.exports = Editable(Timeline, WeekStore, WeekActions, getState)

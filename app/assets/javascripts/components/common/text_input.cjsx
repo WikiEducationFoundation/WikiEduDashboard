@@ -7,13 +7,13 @@ TextInput = React.createClass(
   render: ->
     if this.props.editable
       <input
-        value={this.state.value}
+        value={this.props.value}
         onBlur={this.save}
         onChange={this.onChange}
         autoFocus={this.props.focus}
       />
     else
-      <span>{this.state.value}</span>
+      <span>{this.props.value}</span>
 )
 
 module.exports = TextInput

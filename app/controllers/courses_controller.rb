@@ -112,6 +112,16 @@ class CoursesController < ApplicationController
 
   def timeline
     standard_setup
+    respond_to do |format|
+      format.json do
+        render json: @course.as_json(
+          include: { weeks: {
+            include: { blocks: { include: :gradeable } }
+          } }
+        )
+      end
+      format.html { render }
+    end
   end
 
   def students

@@ -1,21 +1,23 @@
 React           = require 'react'
-TimelineActions = require '../../actions/timeline_actions'
 Block           = require './block'
+BlockStore      = require '../../stores/block_store'
+BlockActions    = require '../../actions/block_actions'
+WeekActions     = require '../../actions/week_actions'
 TextInput       = require '../common/text_input'
 
 Week = React.createClass(
   displayName: 'Week'
   addBlock: ->
-    TimelineActions.addBlock this.props.id
+    BlockActions.addBlock this.props.id
   deleteBlock: (block_id) ->
-    TimelineActions.deleteBlock this.props.id, block_id
+    BlockActions.deleteBlock block_id
   updateWeek: (value_key, value) ->
     to_pass = {}
     to_pass['id'] = this.props.id
     to_pass['title'] = value
     to_pass['blocks'] = this.props.blocks
     to_pass['is_new'] = this.props.is_new
-    TimelineActions.updateWeek to_pass
+    WeekActions.updateWeek to_pass
   render: ->
     blocks = this.props.blocks.map (block, i) =>
       unless block.deleted

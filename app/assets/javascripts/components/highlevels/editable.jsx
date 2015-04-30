@@ -1,37 +1,31 @@
 // Written in JSX as an exercise, may convert to CJSX later
+// Used by any component that requires "Edit", "Save", and "Cancel" buttons
 
 React = require('react');
 
-function editableInterface(Component, Store, GetState, Actions) {
-  var EditableInterface = React.createClass({
-    contextTypes: {
-      router: React.PropTypes.func.isRequired
-    },
+function editable(Component, Store, Actions, GetState) {
+  var Editable = React.createClass({
     mixins: [Store.mixin],
-    getCourseID: function() {
-      var params = this.context.router.getCurrentParams();
-      return params.course_school + '/' + params.course_title;
-    },
     toggleEditable: function() {
       this.setState({
         editable: !this.state.editable
       });
     },
     saveChanges: function() {
-      Actions.save(this.getCourseID());
+      Actions.save();
       this.toggleEditable();
     },
     cancelChanges: function() {
-      Actions.get(this.getCourseID());
+      Store.restore();
       this.toggleEditable();
     },
     getInitialState: function() {
-      var new_state = GetState(this.getCourseID());
+      var new_state = GetState();
       new_state.editable = this.state ? this.state.editable : false;
       return new_state;
     },
     storeDidChange: function() {
-      this.setState(GetState(this.getCourseID()));
+      this.setState(GetState());
     },
     render: function() {
       var controls;
@@ -62,7 +56,7 @@ function editableInterface(Component, Store, GetState, Actions) {
     }
   });
 
-  return EditableInterface;
+  return Editable;
 }
 
-module.exports = editableInterface;
+module.exports = editable;

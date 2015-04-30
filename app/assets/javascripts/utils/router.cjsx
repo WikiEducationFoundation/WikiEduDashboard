@@ -1,12 +1,12 @@
 React = require 'react'
 Router = require 'react-router'
 # Course = require("./course/course.cjsx")
-Timeline = require("../components/timeline/timeline.cjsx")
+TimelineHandler = require("../components/timeline/timeline_handler.cjsx")
 Overview = require("../components/overview/overview.cjsx")
 
 routes = (
   <Router.Route path='/'>
-    <Router.Route name='timeline' path='/courses/:course_school/:course_title/timeline' handler={Timeline} />
+    <Router.Route name='timeline' path='/courses/:course_school/:course_title/timeline' handler={TimelineHandler} />
     <Router.Route name='overview' path='/courses/:course_school/:course_title/overview' handler={Overview} />
   </Router.Route>
 )

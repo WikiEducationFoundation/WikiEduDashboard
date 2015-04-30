@@ -6,6 +6,7 @@ class WeeksController < ApplicationController
     @course = Course.find_by_slug(params[:course_id])
     respond_to do |format|
       format.json { render json: @course.weeks.as_json(include: :blocks) }
+      # format.json { render json: @course.weeks.as_json(include: { blocks: { include: :gradeable }}) }
     end
   end
 

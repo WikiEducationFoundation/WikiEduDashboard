@@ -12,7 +12,7 @@ OverviewActions = Flux.createActions
       course_id: course_id
     }}
   get: (course_id) ->
-    OverviewAPI.getDetails(course_id).then (details) ->
+    OverviewAPI.getDetails(course_id).then (data) ->
       return { actionType: 'GET_DETAILS', data: {
         details: data
       }}

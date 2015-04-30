@@ -3,17 +3,15 @@ TextInput       = require '../common/text_input'
 TextAreaInput   = require '../common/text_area_input'
 Checkbox        = require '../common/checkbox'
 Select          = require '../common/select'
-TimelineActions = require '../../actions/timeline_actions'
+BlockActions    = require '../../actions/block_actions'
 
 Block = React.createClass(
   displayName: 'Block'
-  getInitialState: ->
-    this.props
   updateBlock: (value_key, value) ->
     to_pass = this.state
     to_pass[value_key] = value
-    delete to_pass.deleteBlock  # this is mutating state!!! :(
-    TimelineActions.updateBlock this.props.week_id, to_pass
+    delete to_pass.deleteBlock  # this is mutating state?
+    BlockActions.updateBlock to_pass
   render: ->
     is_graded = if this.props.is_gradeable == undefined then this.props.gradeable_id != null else this.props.is_gradeable
     if this.props.editable
