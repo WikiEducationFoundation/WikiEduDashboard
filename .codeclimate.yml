@@ -1,0 +1,19 @@
+# Remove any languages you don't want analyzed.
+languages:
+   Ruby: true
+   JavaScript: true
+   Python: true
+   PHP: true
+
+# For all languages, we support a standard set of Glob patterns.
+# exclude_paths:
+# - app/helpers/users_helper.php # Exclude a specific file
+# - app/controllers/* # Exclude all contents of a folder (including all subfolders)
+# - app/controllers/*.py # Exclude specific files type within a folder/subfolders
+# - lib/**/*.rb # Recursively ignore all files ending in .rb
+
+exclude_paths:
+- public/*
+- db/migrate/*
+- fixtures/*
+- vendor/*
