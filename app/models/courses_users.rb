@@ -57,9 +57,6 @@ class CoursesUsers < ActiveRecord::Base
   # Class methods #
   #################
   def self.update_all_caches(courses_users=nil)
-    courses_users = [courses_users] if courses_users.is_a? CoursesUsers
-    CoursesUsers.transaction do
-      (courses_users || CoursesUsers.current).each(&:update_cache)
-    end
+    Utils.run_on_all(CoursesUsers, :update_cache, courses_users)
   end
 end

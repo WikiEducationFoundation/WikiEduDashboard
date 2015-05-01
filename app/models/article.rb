@@ -113,10 +113,7 @@ class Article < ActiveRecord::Base
   end
 
   def self.update_all_caches(articles=nil)
-    articles = [articles] if articles.is_a? Article
-    Article.transaction do
-      (articles || Article.current).each(&:update_cache)
-    end
+    Utils.run_on_all(Article, :update_cache, articles)
   end
 
   def self.update_views(articles, all_time=false)

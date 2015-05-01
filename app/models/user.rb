@@ -143,9 +143,6 @@ class User < ActiveRecord::Base
   end
 
   def self.update_all_caches(users=nil)
-    users = [users] if users.is_a? User
-    User.transaction do
-      (users || User.current).each(&:update_cache)
-    end
+    Utils.run_on_all(User, :update_cache, users)
   end
 end

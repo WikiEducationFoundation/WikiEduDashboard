@@ -42,12 +42,7 @@ class ArticlesCourses < ActiveRecord::Base
   # Class methods #
   #################
   def self.update_all_caches(articles_courses=nil)
-    if articles_courses.is_a? ArticlesCourses
-      articles_courses = [articles_courses]
-    end
-    ArticlesCourses.transaction do
-      (articles_courses || ArticlesCourses.current).each(&:update_cache)
-    end
+    Utils.run_on_all(ArticlesCourses, :update_cache, articles_courses)
   end
 
   def self.update_from_revisions(revisions=nil)
