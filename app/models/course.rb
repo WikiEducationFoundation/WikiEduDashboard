@@ -51,7 +51,6 @@ class Course < ActiveRecord::Base
       data = Wiki.get_course_info id
       data = data[0]
     end
-    puts "GUH #{data['course']}"
     self.attributes = data['course']
 
     return unless save
