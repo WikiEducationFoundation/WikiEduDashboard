@@ -95,6 +95,8 @@ GEM
     celluloid (0.16.0)
       timers (~> 4.0.0)
     chronic (0.10.2)
+    codeclimate-test-reporter (0.4.7)
+      simplecov (>= 0.7.1, < 1.0.0)
     coderay (1.1.0)
     colorize (0.7.5)
     columnize (0.9.0)
@@ -317,6 +319,7 @@ DEPENDENCIES
   capistrano-rvm
   capybara
   capybara-webkit
+  codeclimate-test-reporter
   crack
   database_cleaner
   devise

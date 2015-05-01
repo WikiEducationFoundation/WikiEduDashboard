@@ -58,4 +58,5 @@ group :test do
   gem 'webmock'
   gem 'vcr', github: 'vcr/vcr'
   gem 'simplecov', :require => false
+  gem "codeclimate-test-reporter", require: nil
 end
