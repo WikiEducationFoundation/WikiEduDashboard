@@ -31,10 +31,11 @@ Rails.application.routes.draw do
         :as => :path_save, constraints: { id: /.*/ }
     get 'courses/*id' => 'courses#students', constraints: { id: /.*/ }
     get 'courses' => 'courses#index'
-    get 'talk' => 'courses#talk'
   end
 
-  resources :courses
+  resources :courses, constraints: { id: /.*/ }
+  get 'courses/*id' => 'courses#show',
+        :as => :show, constraints: { id: /.*/ }
 
   cohorts = Cohort.all.order(:created_at)
   db_init = ActiveRecord::Base.connection.table_exists? 'cohorts'

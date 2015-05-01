@@ -56,8 +56,8 @@ class CoursesController < ApplicationController
 
   def manual_update
     @course = Course.where(listed: true).find_by_slug(params[:id])
-    @course.manual_update
-    redirect_to course_path(@course) # Refresh if JS blows up
+    @course.manual_update if user_signed_in?
+    redirect_to show_path(@course)
   end
   helper_method :manual_update
 
@@ -65,7 +65,7 @@ class CoursesController < ApplicationController
     @course = Course.find(params[:course])
     return unless user_signed_in? && current_user.is_instructor(@course)
     WikiEdits.notify_untrained(params[:course], current_user)
-    redirect_to course_path(@course) # Refresh if JS blows up
+    redirect_to show_path(@course)
   end
   helper_method :notify_untrained
 end
