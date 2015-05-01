@@ -12,11 +12,7 @@ setBlocks = (data, persisted=false) ->
   for week in data
     for block in week.blocks
       _blocks[block.id] = block
-      _persisted[block.id] = block if persisted
-  BlockStore.emitChange()
-
-restore = ->
-  _blocks = _persisted
+      _persisted[block.id] = $.extend({}, block) if persisted
   BlockStore.emitChange()
 
 setBlock = (data) ->
@@ -30,14 +26,17 @@ addBlock = (week_id) ->
     kind: 0,
     title: "",
     content: "",
-    is_gradeable: false,
     gradeable_id: null,
     weekday: 0,
-    week_id: data.week_id
+    week_id: week_id
   }
 
 removeBlock = (block_id) ->
-  delete _blocks[block_id]
+  block = _blocks[block_id]
+  if block.is_new
+    delete _blocks[block_id]
+  else
+    block['deleted'] = true
   BlockStore.emitChange()
 
 
@@ -45,11 +44,19 @@ removeBlock = (block_id) ->
 BlockStore = Flux.createStore
   getBlock: (block_id) ->
     return _blocks[block_id]
+  getBlocks: ->
+    block_list = []
+    for block_id in Object.keys(_blocks)
+      block_list.push _blocks[block_id]
+    return block_list
   getBlocksInWeek: (week_id) ->
     weekBlocks = []
     for block_id in Object.keys(_blocks)
       weekBlocks.push _blocks[block_id] if _blocks[block_id].week_id == week_id
     return weekBlocks
+  restore: ->
+    _blocks = $.extend({}, _persisted)
+    BlockStore.emitChange()
 , (payload) ->
   data = payload.data
   switch(payload.actionType)

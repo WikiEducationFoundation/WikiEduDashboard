@@ -4,11 +4,12 @@ InputMixin = require '../../mixins/input_mixin'
 TextInput = React.createClass(
   displayName: 'TextInput'
   mixins: [InputMixin],
+  getInitialState: ->
+    value: this.props.value
   render: ->
     if this.props.editable
       <input
-        value={this.props.value}
-        onBlur={this.save}
+        value={this.state.value}
         onChange={this.onChange}
         autoFocus={this.props.focus}
       />

@@ -1,12 +1,18 @@
 React           = require 'react'
 Week            = require './week'
-WeekStore       = require '../../stores/week_store'
+Editable        = require '../highlevels/editable'
+
 WeekActions     = require '../../actions/week_actions'
+ServerActions   = require '../../actions/server_actions'
+
+WeekStore       = require '../../stores/week_store'
 BlockStore      = require '../../stores/block_store'
-Editable        = require '../highlevels/editable.jsx'
+GradeableStore  = require '../../stores/gradeable_store'
 
 getState = ->
   weeks: WeekStore.getWeeks()
+  blocks: BlockStore.getBlocks()
+  gradeables: GradeableStore.getGradeables()
 
 Timeline = React.createClass(
   displayName: 'Timeline'
@@ -19,7 +25,8 @@ Timeline = React.createClass(
     this.props.weeks.forEach (week, i) =>
       unless week.deleted
         week_components.push (
-          <Week {...week}
+          <Week
+            week={week}
             index={i}
             key={week.id}
             editable={this.props.editable}
@@ -41,4 +48,4 @@ Timeline = React.createClass(
     </ul>
 )
 
-module.exports = Editable(Timeline, WeekStore, WeekActions, getState)
+module.exports = Editable(Timeline, [WeekStore, BlockStore, GradeableStore], ServerActions.saveTimeline, getState)

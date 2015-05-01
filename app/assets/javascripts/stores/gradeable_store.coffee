@@ -11,13 +11,9 @@ _persisted = {}
 setGradeables = (data, persisted=false) ->
   for week in data
     for block in week.blocks
-      if block.gradeable_id != null
+      if block.gradeable != undefined
         _gradeables[block.gradeable.id] = block.gradeable
-        _persisted[block.gradeable.id] = block.gradeable if persisted
-  GradeableStore.emitChange()
-
-restore = ->
-  _gradeables = _persisted
+        _persisted[block.gradeable.id] = $.extend({}, block.gradeable) if persisted
   GradeableStore.emitChange()
 
 setGradeable = (data) ->
@@ -34,7 +30,11 @@ addGradeable = (block_id) ->
   }
 
 removeGradeable = (gradeable_id) ->
-  delete _gradeables[gradeable_id]
+  gradeable = _gradeables[gradeable_id]
+  if gradeable.is_new
+    delete _gradeables[gradeable_id]
+  else
+    gradeable['deleted'] = true
   GradeableStore.emitChange()
 
 
@@ -42,10 +42,18 @@ removeGradeable = (gradeable_id) ->
 GradeableStore = Flux.createStore
   getGradeable: (gradeable_id) ->
     return _gradeables[gradeable_id]
+  getGradeables: ->
+    gradeable_list = []
+    for gradeable_id in Object.keys(_gradeables)
+      gradeable_list.push _gradeables[gradeable_id]
+    return gradeable_list
   getGradeableByBlock: (block_id) ->
-    for gradeable in _gradeables
-      if gradeable.block_id == block_id
-        return gradeable
+    for gradeable_id in Object.keys(_gradeables)
+      if _gradeables[gradeable_id].gradeable_item_id == block_id
+        return _gradeables[gradeable_id]
+  restore: ->
+    _gradeables = $.extend({}, _persisted)
+    GradeableStore.emitChange()
 , (payload) ->
   data = payload.data
   switch(payload.actionType)

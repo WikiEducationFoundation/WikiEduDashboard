@@ -12,11 +12,7 @@ _persisted = {}
 setCourse = (data, persisted=false) ->
   delete data['weeks']
   _course = data
-  _persisted = data if persisted
-  CourseStore.emitChange()
-
-restore = ->
-  _course = _persisted
+  _persisted = $.extend({}, data) if persisted
   CourseStore.emitChange()
 
 updateCourseValue = (key, value) ->
@@ -28,6 +24,9 @@ updateCourseValue = (key, value) ->
 CourseStore = Flux.createStore
   getCourse: ->
     return _course
+  restore: ->
+    _course = $.extend({}, _persisted)
+    CourseStore.emitChange()
 , (payload) ->
   data = payload.data
   switch(payload.actionType)

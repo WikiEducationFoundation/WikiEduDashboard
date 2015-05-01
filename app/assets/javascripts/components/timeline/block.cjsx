@@ -1,28 +1,36 @@
-React           = require 'react'
-TextInput       = require '../common/text_input'
-TextAreaInput   = require '../common/text_area_input'
-Checkbox        = require '../common/checkbox'
-Select          = require '../common/select'
-BlockActions    = require '../../actions/block_actions'
+React             = require 'react'
+TextInput         = require '../common/text_input'
+TextAreaInput     = require '../common/text_area_input'
+Checkbox          = require '../common/checkbox'
+Select            = require '../common/select'
+BlockActions      = require '../../actions/block_actions'
+GradeableActions  = require '../../actions/gradeable_actions'
 
 Block = React.createClass(
   displayName: 'Block'
   updateBlock: (value_key, value) ->
-    to_pass = this.state
+    to_pass = $.extend({}, this.props.block)
     to_pass[value_key] = value
-    delete to_pass.deleteBlock  # this is mutating state?
+    delete to_pass.deleteBlock
     BlockActions.updateBlock to_pass
+  deleteBlock: ->
+    BlockActions.deleteBlock this.props.block.id
+  updateGradeable: (value_key, value) ->
+    if value == 'true'
+      GradeableActions.addGradeable this.props.block.id
+    else
+      GradeableActions.deleteGradeable this.props.gradeable.id
   render: ->
-    is_graded = if this.props.is_gradeable == undefined then this.props.gradeable_id != null else this.props.is_gradeable
+    gradeable = this.props.gradeable != undefined && !this.props.gradeable.deleted
     if this.props.editable
-      deleteBlock = <a onClick={this.props.deleteBlock}>Delete</a>
+      deleteBlock = <a onClick={this.deleteBlock}>Delete</a>
 
     <li className="block">
       {deleteBlock}
       <p>
         <Select
-          onSave={this.updateBlock}
-          value={this.props.kind}
+          onChange={this.updateBlock}
+          value={this.props.block.kind}
           value_key={'kind'}
           editable={this.props.editable}
           options={['Assignment', 'Milestone', 'Class', 'Custom']}
@@ -30,25 +38,25 @@ Block = React.createClass(
       </p>
       <p>
         <TextInput
-          onSave={this.updateBlock}
-          value={this.props.title}
+          onChange={this.updateBlock}
+          value={this.props.block.title}
           value_key={'title'}
           editable={this.props.editable}
         />
       </p>
       <p>
         <TextAreaInput
-          onSave={this.updateBlock}
-          value={this.props.content}
+          onChange={this.updateBlock}
+          value={this.props.block.content}
           value_key={'content'}
           editable={this.props.editable}
         />
       </p>
       <p><span>Graded: </span>
         <Checkbox
-          value={is_graded}
-          onSave={this.updateBlock}
-          value_key={'is_gradeable'}
+          value={gradeable}
+          onChange={this.updateGradeable}
+          value_key={'gradeable'}
           editable={this.props.editable}
         />
       </p>

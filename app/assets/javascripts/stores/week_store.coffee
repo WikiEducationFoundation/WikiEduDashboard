@@ -8,14 +8,10 @@ _persisted = {}
 
 
 # Utilities
-setWeeks = (data, persisted) ->
+setWeeks = (data, persisted=false) ->
   for week, i in data
     _weeks[week.id] = week
-    _persisted[week.id] = week if persisted
-  WeekStore.emitChange()
-
-restore = ->
-  _weeks = _persisted
+    _persisted[week.id] = $.extend({}, week) if persisted
   WeekStore.emitChange()
 
 setWeek = (data) ->
@@ -31,22 +27,29 @@ addWeek = ->
   }
 
 removeWeek = (week_id) ->
-  delete _weeks[week_id]
+  week = _weeks[week_id]
+  if week.is_new
+    delete _weeks[week_id]
+  else
+    week['deleted'] = true
   WeekStore.emitChange()
 
 
 # Store
 WeekStore = Flux.createStore
-  getWeeks: (course_id) ->
+  getWeeks: ->
     week_list = []
     for week_id in Object.keys(_weeks)
       week_list.push _weeks[week_id]
     return week_list
+  restore: ->
+    _weeks = $.extend({}, _persisted)
+    WeekStore.emitChange()
 , (payload) ->
   data = payload.data
   switch(payload.actionType)
     when 'RECEIVE_COURSE'
-      setWeeks data.course.weeks
+      setWeeks data.course.weeks, true
       break
     when 'ADD_WEEK'
       addWeek()

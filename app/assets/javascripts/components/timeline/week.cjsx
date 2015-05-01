@@ -1,29 +1,29 @@
 React           = require 'react'
 Block           = require './block'
-BlockStore      = require '../../stores/block_store'
 BlockActions    = require '../../actions/block_actions'
 WeekActions     = require '../../actions/week_actions'
+BlockStore      = require '../../stores/block_store'
+GradeableStore  = require '../../stores/gradeable_store'
 TextInput       = require '../common/text_input'
 
 Week = React.createClass(
   displayName: 'Week'
   addBlock: ->
-    BlockActions.addBlock this.props.id
+    BlockActions.addBlock this.props.week.id
   deleteBlock: (block_id) ->
     BlockActions.deleteBlock block_id
   updateWeek: (value_key, value) ->
-    to_pass = {}
-    to_pass['id'] = this.props.id
+    to_pass = $.extend({}, this.props.week)
     to_pass['title'] = value
-    to_pass['blocks'] = this.props.blocks
-    to_pass['is_new'] = this.props.is_new
     WeekActions.updateWeek to_pass
   render: ->
     blocks = this.props.blocks.map (block, i) =>
       unless block.deleted
-        <Block {...block}
+        <Block
+          block={block}
           key={block.id}
           editable={this.props.editable}
+          gradeable={GradeableStore.getGradeableByBlock(block.id)}
           deleteBlock={this.deleteBlock.bind(this, block.id)}
         />
     if this.props.editable
@@ -37,8 +37,8 @@ Week = React.createClass(
     <li className="week">
       <p>Week {this.props.index}</p>
       <p><TextInput
-        onSave={this.updateWeek}
-        value={this.props.title}
+        onChange={this.updateWeek}
+        value={this.props.week.title}
         value_key={'title'}
         editable={this.props.editable}
       /></p>

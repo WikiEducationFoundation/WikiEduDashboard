@@ -15,7 +15,7 @@ Handler = (Component) ->
       ServerActions.fetchCourse this.getCourseID()
       return {}
     render: ->
-      <Component />
+      <Component course_id={this.getCourseID()} />
   )
 
 module.exports = Handler
