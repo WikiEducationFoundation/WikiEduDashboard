@@ -102,7 +102,6 @@ class User < ActiveRecord::Base
     user
   end
 
-
   def self.add_users(data, role, course, save=true)
     if data.is_a?(Array)
       data.map do |p|
