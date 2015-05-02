@@ -70,4 +70,40 @@ describe ArticlesCourses, type: :model do
       expect(article_course.character_sum).to eq(9000)
     end
   end
+
+  describe '.remove_bad_articles_courses' do
+    it 'should remove ArticlesCourses that do not belong' do
+      create(:course,
+             id: 1,
+             start: '2015-01-01'.to_date,
+             end: '2015-07-01'.to_date,
+             title: 'Underwater basket-weaving'
+      )
+      create(:user,
+             id: 1
+      )
+      # A user who is not a student, so they should not have ArticlesCourses
+      create(:courses_user,
+             course_id: 1,
+             user_id: 1,
+             role: 2
+      )
+      create(:article,
+             id: 1
+      )
+      create(:revision,
+             user_id: 1,
+             article_id: 1,
+             date: '2015-03-01'.to_date
+      )
+      # An ArticlesCourse that should be removed
+      create(:articles_course,
+             course_id: 1,
+             article_id: 1
+      )
+      
+      ArticlesCourses.remove_bad_articles_courses
+      expect(ArticlesCourses.all.count).to eq(0)
+    end
+  end
 end

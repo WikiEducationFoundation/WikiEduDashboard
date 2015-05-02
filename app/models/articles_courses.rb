@@ -66,7 +66,7 @@ class ArticlesCourses < ActiveRecord::Base
     non_student_cus = CoursesUsers.where(role: [1, 2, 3, 4])
     non_student_cus.each do |nscu|
       # Check if the non-student user is also a student in the same course.
-      next unless CourseUsers.where(
+      next unless CoursesUsers.where(
         role: 0,
         course_id: nscu.course_id,
         user_id: nscu.user.id
@@ -91,8 +91,9 @@ class ArticlesCourses < ActiveRecord::Base
 
       # remove orphaned articles from the course
       nscu.course.articles.delete(Article.find(to_delete))
-      puts "Deleted #{to_delete.size} ArticlesCourses from #{nscu.course.title}"
-
+      Rails.logger.info(
+        "Deleted #{to_delete.size} ArticlesCourses from #{nscu.course.title}"
+      )
       # update course cache to account for removed articles
       nscu.course.update_cache unless to_delete.empty?
     end
