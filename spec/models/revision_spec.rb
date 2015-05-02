@@ -28,10 +28,18 @@ describe Revision do
         VCR.use_cassette 'wiki/course_data' do
           Course.update_all_courses(false, hash: '351')
         end
+
         Revision.update_all_revisions nil, true
         # When the non-students are included, Revisions count is 1919.
         expect(Revision.all.count).to eq(433)
         # When the non-students are included, ArticlesCourses count is 224.
+        expect(ArticlesCourses.all.count).to eq(10)
+        
+        # Update the revision counts, then try update_all_revisions again
+        # to test how it handles old users.
+        User.update_all_caches(Course.find(351).users)
+        Revision.update_all_revisions nil, true
+        expect(Revision.all.count).to eq(433)
         expect(ArticlesCourses.all.count).to eq(10)
       end
     end
