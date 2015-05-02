@@ -140,7 +140,7 @@ class User < ActiveRecord::Base
       u_users.each do |u|
         begin
           User.find(u['id']).update(u.except('id'))
-        rescue ActiveRecord::RecordNotFound
+        rescue ActiveRecord::RecordNotFound => e
           Rails.logger.warn e
         end
       end

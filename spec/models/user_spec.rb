@@ -125,4 +125,11 @@ describe User do
       expect(ragesoss.trained).to eq(true)
     end
   end
+
+  describe '.update_users' do
+    it 'should handle exceptions for missing users' do
+      user = [build(:user)]
+      User.update_users(user)
+    end
+  end
 end
