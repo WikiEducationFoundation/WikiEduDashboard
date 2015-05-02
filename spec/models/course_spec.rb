@@ -131,10 +131,26 @@ describe Course, type: :model do
           user_id: 2
     ).save
 
+    # Add an article edited by user 2.
+    create(:article,
+           id: 1
+    )
+    create(:revision,
+           user_id: 2,
+           date: '2015-02-01'.to_date, 
+           article_id: 1
+    )
+    create(:articles_course,
+           article_id: 1,
+           course_id: 1
+    )
+
     course = Course.all.first
     expect(course.users.count).to eq(2)
     expect(CoursesUsers.all.count).to eq(2)
+    expect(course.articles.count).to eq(1)
 
+    # Do an import with just user 1, triggering removal of user 2.
     data = { '1' => {
       'student' => [{ 'id' => '1', 'username' => 'Ragesoss' }]
     } }
@@ -143,6 +159,7 @@ describe Course, type: :model do
     course = Course.all.first
     expect(course.users.count).to eq(1)
     expect(CoursesUsers.all.count).to eq(1)
+    expect(course.articles.count).to eq(0)
   end
 
   it 'should cache revision data for students' do
