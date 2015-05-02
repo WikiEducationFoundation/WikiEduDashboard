@@ -44,33 +44,27 @@ class Article < ActiveRecord::Base
   end
 
   def update_views(all_time=false, views=nil)
-    if views_updated_at < Date.today
-      since = views_updated_at + 1.day
-      since = courses.order(:start).first.start.to_date if all_time
+    return unless views_updated_at < Date.today
 
-      # Update views on all revisions and the article
-      nv = views || Grok.views_for_article(title, since)
+    since = views_updated_at + 1.day
+    since = courses.order(:start).first.start.to_date if all_time
 
-      last = since
-      ActiveRecord::Base.transaction do
-        revisions.each do |r|
-          r.views = all_time ? 0 : r.views
-          r.views += nv.reduce(0) do |sum, (d, v)|
-            sum + (d.to_date >= r.date ? v : 0)
-          end
-          r.save
+    # Update views on all revisions and the article
+    nv = views || Grok.views_for_article(title, since)
+
+    last = since
+    ActiveRecord::Base.transaction do
+      revisions.each do |r|
+        r.views = all_time ? 0 : r.views
+        r.views += nv.reduce(0) do |sum, (d, v)|
+          sum + (d.to_date >= r.date ? v : 0)
         end
-        last = nv.sort_by { |(d)| d }.last.first.to_date unless nv.empty?
+        r.save
       end
-      if (revisions.order('date ASC').first.views - self.views) > 0
-        # view_count = revisions.order('date ASC').first.views - self.views
-        # Rails.logger.debug I18n
-        #   .t('article.views_added', count: view_count, title: title)
-      end
-
-      self.views_updated_at = last.nil? ? views_updated_at : last
+      last = nv.sort_by { |(d)| d }.last.first.to_date unless nv.empty?
     end
 
+    self.views_updated_at = last.nil? ? views_updated_at : last
     self.views = revisions.order('date ASC').first.views
     save
   end
