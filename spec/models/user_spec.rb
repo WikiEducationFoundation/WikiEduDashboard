@@ -126,6 +126,13 @@ describe User do
     end
   end
 
+  describe '.add_users' do
+    it 'should handle exceptions for unexpected data' do
+      bad_data = "what is this i don't even"
+      User.add_users(bad_data, 0, 1)
+    end
+  end
+
   describe '.update_users' do
     it 'should handle exceptions for missing users' do
       user = [build(:user)]
