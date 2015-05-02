@@ -79,14 +79,7 @@ class User < ActiveRecord::Base
   def self.from_omniauth(auth)
     user = User.find_by(wiki_id: auth.info.name)
     if user.nil?
-      id = Replica.get_user_id(auth.info.name)
-      user = User.create(
-        id: id,
-        wiki_id: auth.info.name,
-        global_id: auth.uid,
-        wiki_token: auth.credentials.token,
-        wiki_secret: auth.credentials.secret
-      )
+      user = new_from_omniauth(auth)
     else
       user.update(
         global_id: auth.uid,
@@ -96,6 +89,19 @@ class User < ActiveRecord::Base
     end
     user
   end
+
+  def self.new_from_omniauth(auth)
+    id = Replica.get_user_id(auth.info.name)
+    user = User.create(
+      id: id,
+      wiki_id: auth.info.name,
+      global_id: auth.uid,
+      wiki_token: auth.credentials.token,
+      wiki_secret: auth.credentials.secret
+    )
+    user
+  end
+
 
   def self.add_users(data, role, course, save=true)
     if data.is_a?(Array)
