@@ -14,6 +14,11 @@ describe Grok do
       stub_request(:any, %r{.*}).to_raise(Errno::ETIMEDOUT)
       response = Grok.views_for_article('Foo', '2014-08-01'.to_date, 'en')
     end
+
+    it 'should handle unknown errors' do
+      stub_request(:any, %r{.*}).to_raise(StandardError)
+      response = Grok.views_for_article('Foo', '2014-08-01'.to_date, 'en')
+    end
   end
 
   describe 'API response parsing' do
