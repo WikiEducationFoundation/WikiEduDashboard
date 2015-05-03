@@ -150,30 +150,10 @@ class Replica
       return unless response.length > 0
       parsed = JSON.parse response.to_s
       parsed['data']
-    rescue Errno::ETIMEDOUT => e
-      Rails.logger.warn I18n.t('timeout', api: 'replica', tries: (tries -= 1))
-      retry unless tries.zero?
-      Rails.logger.error "replica.rb query failed after 3 tries: #{e}"
-      Raven.capture_exception e, level: 'warning'
-      return nil
-    rescue Errno::ECONNREFUSED => e
-      Rails.logger.warn "replica.rb: caught #{e}"
-      unless (tries -= 1).zero?
-        sleep 5
-        retry
-      end
-      Rails.logger.error "replica.rb query failed after 3 tries: #{e}"
-      Raven.capture_exception e, level: 'warning'
-      return nil
     rescue StandardError => e
       tries -= 1
-      Rails.logger.warn "Caught #{e} with options #{query}"
       retry unless tries.zero?
-      Rails.logger.error "replica.rb query failed after 3 tries: #{e}"
-      Raven.capture_exception e,
-                              level: 'warning',
-                              extras: { query: query }
-      return nil
+      report_exception e, endpoint, query
     end
 
     # Compile a user list to send to the replica endpoint, which might look
@@ -209,6 +189,17 @@ class Replica
         article_list += "article_titles[#{i}]='#{title}'"
       end
       article_list
+    end
+
+    def report_exception(error, endpoint, query, level='error')
+      Rails.logger.error "replica.rb #{endpoint} query failed after 3 tries: #{error}"
+      # These are typical network errors that we expect to encounter.
+      typical_errors = [Errno::ETIMEDOUT, Errno::ECONNREFUSED]
+      level = 'warning' if typical_errors.include?(error.class)
+      Raven.capture_exception error,
+                              level: level,
+                              extras: { query: query, endpoint: endpoint }
+      return nil
     end
   end
 end
