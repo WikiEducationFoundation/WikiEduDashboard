@@ -33,6 +33,33 @@ describe Wiki do
         expect(response).to eq([])
       end
     end
+
+    it 'should handle unknown gateway login errors' do
+      stub_request(:any, %r{.*wikipedia\.org/w/api\.php.*})
+        .to_raise(StandardError)
+      Wiki.send(:gateway)
+    end
+
+    it 'should handle MediaWiki API errors' do    
+      VCR.use_cassette 'wiki/mediawiki_errors' do
+        @mw = Wiki.send(:gateway)
+      end
+    
+      stub_request(:any, %r{.*wikipedia\.org/w/api\.php.*})
+        .to_raise(MediaWiki::APIError.new('foo', 'bar'))
+
+      options = { 'action' => 'liststudents',
+                  'courseids' => '351',
+                  'group' => ''
+                }
+      response = Wiki.send(:api_get, options, @mw)
+      expect(response).to be_nil
+      
+      stub_request(:any, %r{.*wikipedia\.org/w/api\.php.*})
+        .to_raise(StandardError)
+      response = Wiki.send(:api_get, options, @mw)
+      expect(response).to be_nil
+    end
   end
 
   describe 'API response parsing' do
