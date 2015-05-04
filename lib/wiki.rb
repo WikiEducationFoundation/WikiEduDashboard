@@ -46,30 +46,20 @@ class Wiki
     end
   end
 
-  def self.get_article_rating(article_title)
-    if article_title.is_a?(Array)
-      article_title = article_title.sort_by(&:downcase)
-    end
-    titles = article_title
+  def self.get_article_rating(titles)
+    titles = [titles] unless titles.is_a?(Array)
+    titles = titles.sort_by(&:downcase)
 
-    if titles.is_a?(Array)
-      titles = article_title.map { |at| 'Talk:' + at }
-    else
-      titles = 'Talk:' + article_title
-    end
-
-    raw = get_article_rating_raw(titles)
+    talk_titles = titles.map { |at| 'Talk:' + at }
+    raw = get_article_rating_raw(talk_titles)
     return [] unless raw
 
+    raw = [raw] unless raw.is_a?(Array)
     # Pages that are missing get returned before pages that exist, so we cannot
     # count on our array being in the same order as article_title.
-    if raw.is_a?(Array)
-      raw.each_with_index.map do |article|
-        # Remove "Talk:" from the "title" value to get the title.
-        { article['title'][5..-1] => parse_article_rating(article) }
-      end
-    else
-      [{ article_title => parse_article_rating(raw) }]
+    raw.each_with_index.map do |article|
+      # Remove "Talk:" from the "title" value to get the title.
+      { article['title'][5..-1] => parse_article_rating(article) }
     end
   end
 
