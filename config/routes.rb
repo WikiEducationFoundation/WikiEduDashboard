@@ -39,6 +39,7 @@ Rails.application.routes.draw do
 
   resources :courses, constraints: { id: /.*/ } do
     resources :weeks, only: [:index, :new, :create], constraints: { id: /.*/ }
+    # get 'courses' => 'courses#index'
   end
   resources :weeks, only: [:show, :edit, :update, :destroy]
   resources :blocks, only: [:show, :edit, :update, :destroy]
@@ -48,6 +49,8 @@ Rails.application.routes.draw do
 
   get 'courses' => 'courses#index'
   get 'talk' => 'courses#talk'
+  get 'courses/*id' => 'courses#show',
+      :as => :show, constraints: { id: /.*/ }
 
   cohorts = Cohort.all.order(:created_at)
   db_init = ActiveRecord::Base.connection.table_exists? 'cohorts'

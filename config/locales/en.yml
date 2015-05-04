@@ -148,6 +148,12 @@ en:
     training_incomplete_short: Incomplete
     view_all: View All
 
+  wiki_edits:
+    notify_untrained:
+      header: You have not completed the student training.
+      message: Please complete the [[WP:STUDENT|student training]]. If you have already gone through it, be sure to click the button at the end to record that you finished it. --~~~~
+      summary: student training incomplete
+
   error_404:
     header: "Page not found. :-("
     explanation: >

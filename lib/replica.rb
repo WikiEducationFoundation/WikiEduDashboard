@@ -98,7 +98,7 @@ class Replica
   def self.get_existing_articles(articles)
     article_list = compile_article_string(articles)
     existing_titles = api_get('articles.php', article_list)
-    existing_titles.map { |a| a['page_title'] }
+    existing_titles.map { |a| a['page_title'] } unless existing_titles.nil?
   end
 
   ###################
@@ -144,22 +144,16 @@ class Replica
       tries ||= 3
       language = Figaro.env.wiki_language
       base_url = 'http://tools.wmflabs.org/wikiedudashboard/'
-      url = "#{base_url}#{endpoint}?lang=#{language}&#{query}"
+      raw_url = "#{base_url}#{endpoint}?lang=#{language}&#{query}"
+      url = URI.encode(raw_url)
       response = Net::HTTP::get(URI.parse(url))
       return unless response.length > 0
       parsed = JSON.parse response.to_s
       parsed['data']
-    rescue Errno::ETIMEDOUT => e
-      Rails.logger.warn I18n.t('timeout', api: 'replica', tries: (tries -= 1))
+    rescue StandardError => e
+      tries -= 1
       retry unless tries.zero?
-      Rails.logger.error "replica.rb query failed after 3 tries: #{e}"
-    rescue Errno::ECONNREFUSED => e
-      Rails.logger.warn "replica.rb: caught #{e}"
-      unless (tries -= 1).zero?
-        sleep 5
-        retry
-      end
-      Rails.logger.error "replica.rb query failed after 3 tries: #{e}"
+      report_exception e, endpoint, query
     end
 
     # Compile a user list to send to the replica endpoint, which might look
@@ -195,6 +189,17 @@ class Replica
         article_list += "article_titles[#{i}]='#{title}'"
       end
       article_list
+    end
+
+    def report_exception(error, endpoint, query, level='error')
+      Rails.logger.error "replica.rb #{endpoint} query failed after 3 tries: #{error}"
+      # These are typical network errors that we expect to encounter.
+      typical_errors = [Errno::ETIMEDOUT, Errno::ECONNREFUSED]
+      level = 'warning' if typical_errors.include?(error.class)
+      Raven.capture_exception error,
+                              level: level,
+                              extras: { query: query, endpoint: endpoint }
+      return nil
     end
   end
 end

@@ -1,4 +1,5 @@
 require 'rails_helper'
+require "#{Rails.root}/lib/replica"
 
 describe Replica do
   describe 'API requests' do
@@ -95,8 +96,12 @@ describe Replica do
 
     it 'should get an id from a username' do
       VCR.use_cassette 'replica/get_user_id' do
-        response = Replica.get_user_id('Ragesoss')
-        expect(response).to eq('319203')
+        # make sure usernames with spaces get handled correctly
+        response = Replica.get_user_id('LiAnna (Wiki Ed)')
+        expect(response).to eq('21102089')
+        # make sure unicode works
+        response = Replica.get_user_id('ערן')
+        expect(response).to eq('7201119')
       end
     end
 

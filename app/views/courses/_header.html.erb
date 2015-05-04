@@ -38,9 +38,9 @@
 </header>
 <div class="container">
   <nav><%= render :partial => 'nav', :locals => {:page => page} %></nav>
-  <% unless current?(@course) %>
+  <% if !current?(@course) && user_signed_in? %>
   <div class="alert">
-    <p>This course has ended and the data here may be out of date. <%= link_to 'Click here', {:action => 'manual_update'}, class: 'manual_update' %> to pull new data.</p>
+    <p>This course has ended and the data here may be out of date. <%= link_to 'Click here', {:action => 'manual_update'}, class: 'manual_update', rel: 'nofollow' %> to pull new data.</p>
   </div>
   <% end %>
   <% unless @course.listed || @course.approved || @course.published %>

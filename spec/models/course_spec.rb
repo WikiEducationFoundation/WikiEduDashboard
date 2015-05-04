@@ -1,10 +1,11 @@
 require 'rails_helper'
 require 'media_wiki'
+require "#{Rails.root}/lib/importers/course_importer"
 
 describe Course, type: :model do
   it 'should update data for all courses on demand' do
     VCR.use_cassette 'wiki/course_data' do
-      Course.update_all_courses(false, hash: '351')
+      CourseImporter.update_all_courses(false, hash: '351')
 
       course = Course.all.first
       course.update_cache
@@ -15,10 +16,22 @@ describe Course, type: :model do
     end
   end
 
+  it 'should handle MediaWiki API errors' do
+    stub_request(:any, %r{.*wikipedia\.org/w/api\.php?action=liststudents.*})
+      .to_raise(MediaWiki::APIError.new('foo', 'bar'))
+    CourseImporter.update_all_courses(false, { first: '798', second: '800' })
+
+    course = create(:course, id: 519)
+    course.manual_update
+  end
+
   it 'should seek data for all possible courses' do
     VCR.use_cassette 'wiki/initial' do
-      Course.update_all_courses(true, hash: '1')
-      expect(Course.all.count).to eq(1)
+      expect(Course.all.count).to eq(0)
+      # This should check for course_ids up to 5.
+      CourseImporter.update_all_courses(true, hash: 5)
+      # On English Wikipedia, courses 1 and 3 do not exist.
+      expect(Course.all.count).to eq(3)
     end
   end
 
@@ -69,7 +82,7 @@ describe Course, type: :model do
              listed: true
       )
 
-      Course.update_all_courses(false, { hash: '351', hash: '590' })
+      CourseImporter.update_all_courses(false, { hash: '351', hash: '590' })
       course = Course.find(589)
       expect(course.listed).to be false
     end
@@ -85,7 +98,7 @@ describe Course, type: :model do
              listed: true
       )
 
-      Course.update_all_courses(false, hash: '351', hash: '9999')
+      CourseImporter.update_all_courses(false, hash: '351', hash: '9999')
       course = Course.find(9999)
       expect(course.listed).to be false
     end
@@ -105,7 +118,7 @@ describe Course, type: :model do
     ).save
     build(:user,
           id: 2,
-          wiki_id: 'ntdb'
+          wiki_id: 'Ntdb'
     ).save
 
     build(:courses_user,
@@ -119,18 +132,35 @@ describe Course, type: :model do
           user_id: 2
     ).save
 
+    # Add an article edited by user 2.
+    create(:article,
+           id: 1
+    )
+    create(:revision,
+           user_id: 2,
+           date: '2015-02-01'.to_date, 
+           article_id: 1
+    )
+    create(:articles_course,
+           article_id: 1,
+           course_id: 1
+    )
+
     course = Course.all.first
     expect(course.users.count).to eq(2)
     expect(CoursesUsers.all.count).to eq(2)
+    expect(course.articles.count).to eq(1)
 
+    # Do an import with just user 1, triggering removal of user 2.
     data = { '1' => {
       'student' => [{ 'id' => '1', 'username' => 'Ragesoss' }]
     } }
-    Course.import_assignments data
+    CourseImporter.import_assignments data
 
     course = Course.all.first
     expect(course.users.count).to eq(1)
     expect(CoursesUsers.all.count).to eq(1)
+    expect(course.articles.count).to eq(0)
   end
 
   it 'should cache revision data for students' do

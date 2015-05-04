@@ -1,3 +1,5 @@
+require "codeclimate-test-reporter"
+CodeClimate::TestReporter.start
 require 'simplecov'
 SimpleCov.start 'rails'
 
@@ -104,6 +106,7 @@ VCR.configure do |c|
   # Allows RSPEC to test the availability of the Wikimedia Tools
   c.ignore_hosts 'tools.wmflabs.org', '127.0.0.1'
   # c.allow_http_connections_when_no_cassette = true
+  c.ignore_hosts 'codeclimate.com'
 end
 
 RSpec::Matchers.define :be_boolean do

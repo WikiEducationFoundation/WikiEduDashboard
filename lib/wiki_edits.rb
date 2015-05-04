@@ -7,12 +7,24 @@ class WikiEdits
       WikiEdits.api_get({
                           action: 'edit',
                           title: "User_talk:#{student.wiki_id}",
-                          appendtext: 'You have not completed training',
-                          summary: 'Training incomplete',
+                          section: 'new',
+                          sectiontitle: I18n.t('wiki_edits.notify_untrained.header'),
+                          text: I18n.t('wiki_edits.notify_untrained.message'),
+                          summary: I18n.t('wiki_edits.notify_untrained.summary'),
                           format: 'json',
                           token: tokens.csrf_token
                         }, tokens)
     end
+
+    Raven.capture_message 'WikiEdits.notify_untrained',
+      level: 'info',
+      culprit: 'WikiEdits.notify_untrained',
+      extra: {
+        sender: current_user.wiki_id,
+        course_name: @course.slug,
+        untrained_count: @course.users.role('student')
+                         .where(trained: false).count
+      }
   end
 
   def self.tokens(current_user)

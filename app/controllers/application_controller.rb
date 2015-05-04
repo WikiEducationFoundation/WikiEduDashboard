@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   before_action :set_locale
 
   def course_slug_path(slug)
-    course_path(id: slug).gsub('%2F', '/')
+    show_path(id: slug)
   end
   helper_method :course_slug_path
 

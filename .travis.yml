@@ -1,0 +1,21 @@
+language: ruby
+rvm:
+  - 2.1.5
+
+env:
+  - DB: test
+
+before_install:
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+
+before_script:
+  - mysql -e '''CREATE DATABASE test
+                DEFAULT CHARACTER SET utf8
+                DEFAULT COLLATE utf8_general_ci;'''
+  - cp config/database.travis.yml config/database.yml
+  - bundle exec rake db:migrate RAILS_ENV=test
+
+branches:
+  except:
+    - course_pages

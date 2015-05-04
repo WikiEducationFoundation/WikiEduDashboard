@@ -1,3 +1,5 @@
+require "#{Rails.root}/lib/utils"
+
 #= Article + Course join model
 class ArticlesCourses < ActiveRecord::Base
   belongs_to :article
@@ -25,6 +27,7 @@ class ArticlesCourses < ActiveRecord::Base
 
   def update_cache
     revisions = course.revisions.where(article_id: article.id)
+
     if revisions.empty?
       self.view_count = 0
       self.character_sum = 0
@@ -41,12 +44,7 @@ class ArticlesCourses < ActiveRecord::Base
   # Class methods #
   #################
   def self.update_all_caches(articles_courses=nil)
-    if articles_courses.is_a? ArticlesCourses
-      articles_courses = [articles_courses]
-    end
-    ArticlesCourses.transaction do
-      (articles_courses || ArticlesCourses.current).each(&:update_cache)
-    end
+    Utils.run_on_all(ArticlesCourses, :update_cache, articles_courses)
   end
 
   def self.update_from_revisions(revisions=nil)
@@ -63,35 +61,6 @@ class ArticlesCourses < ActiveRecord::Base
           end
         end
       end
-    end
-  end
-
-  def self.remove_bad_articles_courses
-    non_student_cus = CoursesUsers.where(role: [1, 2, 3, 4])
-    non_student_cus.each do |nscu|
-      user_articles = nscu.user.revisions
-                      .where('date >= ?', nscu.course.start)
-                      .where('date <= ?', nscu.course.end)
-                      .pluck(:article_id)
-      puts "skipping" if user_articles.empty?
-      next if user_articles.empty?
-
-      course_articles = nscu.course.articles.pluck(:id)
-      possible_deletions = course_articles & user_articles
-
-      to_delete = []
-      possible_deletions.each do |pd|
-        other_editors = Article.find(pd).editors - [nscu.user.id]
-        course_editors = nscu.course.students & other_editors
-        to_delete.push pd if other_editors.empty? || course_editors.empty?
-      end
-
-      # remove orphaned articles from the course
-      puts "deleting #{to_delete.size} ACs"
-      nscu.course.articles.delete(Article.find(to_delete))
-
-      # update course cache to account for removed articles
-      nscu.course.update_cache unless to_delete.empty?
     end
   end
 end

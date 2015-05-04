@@ -5,6 +5,15 @@ GIT
     vcr (2.9.3)
 
 GIT
+  remote: https://github.com/halfdan/piwik-ruby-tracking.git
+  revision: 00942cf25e43d6cc02af33ca802959074e1022f4
+  specs:
+    piwik_analytics (1.0.3)
+      actionpack
+      activesupport
+      rails (>= 3.0.0)
+
+GIT
   remote: https://github.com/onemedical/activerecord-import.git
   revision: ce63b1f504200ae901b97193782f8f80fd263355
   specs:
@@ -86,6 +95,8 @@ GEM
     celluloid (0.16.0)
       timers (~> 4.0.0)
     chronic (0.10.2)
+    codeclimate-test-reporter (0.4.7)
+      simplecov (>= 0.7.1, < 1.0.0)
     coderay (1.1.0)
     colorize (0.7.5)
     columnize (0.9.0)
@@ -308,6 +319,7 @@ DEPENDENCIES
   capistrano-rvm
   capybara
   capybara-webkit
+  codeclimate-test-reporter
   crack
   database_cleaner
   devise
@@ -323,8 +335,10 @@ DEPENDENCIES
   mysql2
   omniauth-mediawiki
   pg
+  piwik_analytics!
   quiet_assets
   rails (= 4.1.8)
+  rake
   rb-fchange
   rb-fsevent
   rb-inotify

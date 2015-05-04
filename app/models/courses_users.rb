@@ -1,3 +1,5 @@
+require "#{Rails.root}/lib/utils"
+
 #= Course + User join model
 class CoursesUsers < ActiveRecord::Base
   belongs_to :course
@@ -31,25 +33,20 @@ class CoursesUsers < ActiveRecord::Base
   end
 
   def update_cache
-    self.character_sum_ms = Revision.joins(:article)
+    revisions = Revision.joins(:article)
+                .where(user_id: user.id)
+                .where('date >= ?', course.start)
+                .where('date <= ?', course.end)
+    self.character_sum_ms = revisions
       .where(articles: { namespace: 0, deleted: false })
-      .where(user_id: user.id)
       .where('characters >= 0')
-      .where('date >= ?', course.start)
-      .where('date <= ?', course.end)
       .sum(:characters) || 0
-    self.character_sum_us = Revision.joins(:article)
+    self.character_sum_us = revisions
       .where(articles: { namespace: 2, deleted: false })
-      .where(user_id: user.id)
       .where('characters >= 0')
-      .where('date >= ?', course.start)
-      .where('date <= ?', course.end)
       .sum(:characters) || 0
-    self.revision_count = Revision.joins(:article)
-      .where(user_id: user.id)
+    self.revision_count = revisions
       .where(articles: { deleted: false })
-      .where('date >= ?', course.start)
-      .where('date <= ?', course.end)
       .count || 0
     assignments = user.assignments.where(course_id: course.id)
     # rubocop:disable Metrics/LineLength
@@ -62,9 +59,6 @@ class CoursesUsers < ActiveRecord::Base
   # Class methods #
   #################
   def self.update_all_caches(courses_users=nil)
-    courses_users = [courses_users] if courses_users.is_a? CoursesUsers
-    CoursesUsers.transaction do
-      (courses_users || CoursesUsers.current).each(&:update_cache)
-    end
+    Utils.run_on_all(CoursesUsers, :update_cache, courses_users)
   end
 end

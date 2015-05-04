@@ -1,4 +1,5 @@
 require 'oauth'
+require "#{Rails.root}/lib/wiki_edits"
 
 #= Controller for course functionality
 class CoursesController < ApplicationController
@@ -16,8 +17,10 @@ class CoursesController < ApplicationController
       end
     end
 
-    @courses = Cohort.find_by(slug: @cohort).courses
-               .where(listed: true).order(:title)
+    @cohort = Cohort.find_by(slug: @cohort)
+    raise ActionController::RoutingError.new('Not Found') if @cohort.nil?
+
+    @courses = @cohort.courses.where(listed: true).order(:title)
     @untrained = @courses.sum(:untrained_count)
     @trained = @courses.sum(:user_count) - @courses.sum(:untrained_count)
   end
@@ -143,8 +146,8 @@ class CoursesController < ApplicationController
   ##################
   def manual_update
     @course = Course.where(listed: true).find_by_slug(params[:id])
-    @course.manual_update
-    redirect_to :back # Refresh if JS blows up
+    @course.manual_update if user_signed_in?
+    redirect_to show_path(@course)
   end
   helper_method :manual_update
 
@@ -152,7 +155,7 @@ class CoursesController < ApplicationController
     @course = Course.find(params[:course])
     return unless user_signed_in? && current_user.instructor?(@course)
     WikiEdits.notify_untrained(params[:course], current_user)
-    redirect_to :back # Refresh if JS blows up
+    redirect_to show_path(@course)
   end
   helper_method :notify_untrained
 end

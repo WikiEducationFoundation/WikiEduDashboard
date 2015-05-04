@@ -13,6 +13,7 @@ gem 'devise'
 gem 'omniauth-mediawiki'
 
 gem 'sentry-raven'
+gem 'piwik_analytics', :git => 'https://github.com/halfdan/piwik-ruby-tracking.git'
 
 # This fork has a fix for enums not working
 # https://github.com/zdennis/activerecord-import/issues/139
@@ -50,10 +51,12 @@ group :staging, :production do
 end
 
 group :test do
+  gem 'rake'
   gem 'capybara'
   gem 'capybara-webkit'
   gem 'database_cleaner'
   gem 'webmock'
   gem 'vcr', github: 'vcr/vcr'
   gem 'simplecov', :require => false
+  gem "codeclimate-test-reporter", require: nil
 end

@@ -1,4 +1,5 @@
 require 'rails_helper'
+require "#{Rails.root}/lib/importers/user_importer"
 
 describe User do
   describe 'user creation' do
@@ -95,7 +96,7 @@ describe User do
                               info: info,
                               credentials: credentials
         )
-        auth = User.from_omniauth(hash)
+        auth = UserImporter.from_omniauth(hash)
         expect(auth.id).to eq(4_543_197)
       end
     end
@@ -108,7 +109,7 @@ describe User do
                             info: info,
                             credentials: credentials
       )
-      auth = User.from_omniauth(hash)
+      auth = UserImporter.from_omniauth(hash)
       expect(auth.id).to eq(existing.id)
     end
   end
@@ -120,9 +121,23 @@ describe User do
       expect(ragesoss.trained).to eq(false)
 
       # Update trained users to see that user has really been trained
-      User.update_users
+      UserImporter.update_users
       ragesoss = User.all.first
       expect(ragesoss.trained).to eq(true)
+    end
+  end
+
+  describe '.add_users' do
+    it 'should handle exceptions for unexpected data' do
+      bad_data = "what is this i don't even"
+      UserImporter.add_users(bad_data, 0, 1)
+    end
+  end
+
+  describe '.update_users' do
+    it 'should handle exceptions for missing users' do
+      user = [build(:user)]
+      UserImporter.update_users(user)
     end
   end
 end

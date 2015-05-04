@@ -9,6 +9,7 @@ namespace :batch do
     logger.level = Figaro.env.cron_log_debug ? Logger::DEBUG : Logger::INFO;
     logger.formatter = ActiveSupport::Logger::SimpleFormatter.new
     Rails.logger = logger
+
   end
 
   desc 'Constant data updates'
@@ -33,14 +34,25 @@ namespace :batch do
       File.open(pid_file, 'w') { |f| f.puts Process.pid }
       start = Time.now
       Rails.logger.info 'Constant update tasks are beginning.'
+
       Rake::Task['course:update_courses'].invoke
       Rake::Task['user:update_users'].invoke
       Rake::Task['revision:update_revisions'].invoke
       Rake::Task['article:update_new_article_views'].invoke
       Rake::Task['article:update_new_ratings'].invoke
       Rake::Task['cache:update_caches'].invoke
+
       total_time = distance_of_time_in_words(start, Time.now)
       Rails.logger.info "Constant update finished in #{total_time}."
+      Raven.capture_message 'Constant update finished.',
+        level: 'info',
+        tags: {
+          update_time: total_time,
+        },
+        extra: {
+          exact_update_time: (Time.now - start)
+        }
+
     ensure
       File.delete pid_file if File.exist? pid_file
     end
@@ -78,13 +90,24 @@ namespace :batch do
     begin
       File.open(pid_file, 'w') { |f| f.puts Process.pid }
       start = Time.now
+
       Rails.logger.info 'Daily update tasks are beginning.'
       Rake::Task['article:update_views'].invoke
       Rake::Task['article:update_all_ratings'].invoke
       Rake::Task['article:update_articles_deleted'].invoke
       Rake::Task['cache:update_caches'].invoke
+
       total_time = distance_of_time_in_words(start, Time.now)
       Rails.logger.info "Daily update finished in #{total_time}."
+      Raven.capture_message 'Daily update finished.',
+        level: 'info',
+        tags: {
+          update_time: total_time,
+        },
+        extra: {
+          exact_update_time: (Time.now - start)
+        }
+
     ensure
       File.delete pid_file if File.exist? pid_file
     end
@@ -116,11 +139,13 @@ namespace :batch do
   task pause: :environment do
     pid_file = 'tmp/batch_pause.pid'
     File.open(pid_file, 'w') { |f| f.puts Process.pid }
+    Raven.capture_message 'Updates paused.', level: 'warn'
   end
 
   desc 'Resume updates'
   task resume: :environment do
     pid_file = 'tmp/batch_pause.pid'
     File.delete pid_file if File.exist? pid_file
+    Raven.capture_message 'Updates resumed.', level: 'warn'
   end
 end

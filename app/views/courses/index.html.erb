@@ -1,4 +1,4 @@
-<% content_for :after_title do " - #{@cohort.gsub('_', ' ').capitalize}" end %>
+<% content_for :after_title do " - #{@cohort.title}" end %>
 
 <header class="main-page">
   <div class="container">
@@ -73,7 +73,7 @@
 
   <section id="courses">
     <div class="section-header">
-      <h3><%= [t("course.courses"), @cohort.gsub('_', ' ').capitalize].join(" | ") %></h3>
+      <h3><%= [t("course.courses"), @cohort.title].join(" | ") %></h3>
       <div class="sort-select inset">
         <select class="sorts" rel="courses">
           <option rel="asc" value="title"><%= t("course.title") %></option>

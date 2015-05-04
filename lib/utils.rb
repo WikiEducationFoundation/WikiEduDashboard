@@ -20,4 +20,11 @@ class Utils
     end
     data
   end
+
+  def self.run_on_all(model, method, array)
+    array = [array] if array.is_a? model
+    model.transaction do
+      (array || model.current).each(&method)
+    end
+  end
 end
