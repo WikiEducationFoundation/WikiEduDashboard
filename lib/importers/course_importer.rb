@@ -51,7 +51,8 @@ class CourseImporter
     # Update courses from new data
     data.each do |c|
       c['course']['listed'] = listed_ids.include?(c['course']['id'])
-      course = Course.new(id: c['course']['id']).update(c, false)
+      course = Course.new(id: c['course']['id'])
+      course.update(c, false)
       courses.push course
       participants[c['course']['id']] = c['participants']
     end
