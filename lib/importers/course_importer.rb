@@ -25,7 +25,7 @@ class CourseImporter
     end
 
     # Break up course_ids into smaller groups that Wikipedia's API can handle.
-    data = Utils.chunk_requests(course_ids) { |c| self.get_course_info c }
+    data = Utils.chunk_requests(course_ids) { |c| get_course_info c }
     import_courses(raw_ids, data)
   end
 
