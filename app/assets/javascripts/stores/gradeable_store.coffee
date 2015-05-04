@@ -16,6 +16,10 @@ setGradeables = (data, persisted=false) ->
         _persisted[block.gradeable.id] = $.extend({}, block.gradeable) if persisted
   GradeableStore.emitChange()
 
+updatePersisted = ->
+  for gradeable_id in Object.keys(_gradeables)
+    _persisted[gradeable_id] = $.extend({}, _gradeables[gradeable_id])
+
 setGradeable = (data) ->
   _gradeables[data.id] = data
   GradeableStore.emitChange()
@@ -59,6 +63,9 @@ GradeableStore = Flux.createStore
   switch(payload.actionType)
     when 'RECEIVE_COURSE'
       setGradeables data.course.weeks, true
+      break
+    when 'SAVED_TIMELINE'
+      updatePersisted()
       break
     when 'ADD_GRADEABLE'
       addGradeable data.block_id

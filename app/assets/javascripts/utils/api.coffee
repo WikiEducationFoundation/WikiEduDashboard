@@ -1,5 +1,3 @@
-CourseActions = require '../actions/course_actions'
-
 API =
   fetchCourse: (course_id) ->
     new Promise (res, rej) ->
@@ -8,9 +6,10 @@ API =
         url: '/courses/' + course_id + '/timeline.json',
         success: (data) ->
           console.log 'Received course data'
-          CourseActions.receiveCourse data
+          res data
         failure: (e) ->
           console.log 'Error: ' + e
+          rej e
 
   saveTimeline: (course_id, data) ->
     new Promise (res, rej) ->
@@ -41,6 +40,7 @@ API =
           res data
         failure: (e) ->
           console.log 'Couldn\'t save timeline! ' + e
+          rej e
 
   saveCourse: (course_id, data) ->
     new Promise (res, rej) ->
@@ -50,10 +50,10 @@ API =
         contentType: 'application/json',
         data: JSON.stringify { course: data }
         success: (data) ->
-          console.log 'Saved timeline!'
+          console.log 'Saved course!'
           res data
         failure: (e) ->
-          console.log 'Couldn\'t save timeline! ' + e
-
+          console.log 'Couldn\'t save course! ' + e
+          rej e
 
 module.exports = API

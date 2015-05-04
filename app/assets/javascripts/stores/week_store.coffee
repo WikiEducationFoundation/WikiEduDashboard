@@ -14,6 +14,10 @@ setWeeks = (data, persisted=false) ->
     _persisted[week.id] = $.extend({}, week) if persisted
   WeekStore.emitChange()
 
+updatePersisted = ->
+  for week_id in Object.keys(_weeks)
+    _persisted[week_id] = $.extend({}, _weeks[week_id])
+
 setWeek = (data) ->
   _weeks[data.id] = data
   WeekStore.emitChange()
@@ -50,6 +54,9 @@ WeekStore = Flux.createStore
   switch(payload.actionType)
     when 'RECEIVE_COURSE'
       setWeeks data.course.weeks, true
+      break
+    when 'SAVED_TIMELINE'
+      updatePersisted()
       break
     when 'ADD_WEEK'
       addWeek()

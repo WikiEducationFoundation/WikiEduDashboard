@@ -4,13 +4,15 @@ API         = require '../utils/api'
 
 ServerActions = Flux.createActions
   fetchCourse: (course_id) ->
-    API.fetchCourse course_id
-    { actionType: 'FETCHING_COURSE' }
+    API.fetchCourse(course_id).then (data) ->
+      { actionType: 'RECEIVE_COURSE', data: {
+        course: data
+      }}
   saveCourse: (course_id, data) ->
-    API.saveCourse course_id, data
-    { actionType: 'SAVING_COURSE' }
+    API.saveCourse(course_id, data).then (data) ->
+      { actionType: 'SAVED_COURSE' }
   saveTimeline: (course_id, data) ->
-    API.saveTimeline course_id, data
-    { actionType: 'SAVING_TIMELINE' }
+    API.saveTimeline(course_id, data).then (data) ->
+      { actionType: 'SAVED_TIMELINE' }
 
 module.exports = ServerActions

@@ -15,6 +15,10 @@ setBlocks = (data, persisted=false) ->
       _persisted[block.id] = $.extend({}, block) if persisted
   BlockStore.emitChange()
 
+updatePersisted = ->
+  for block_id  in Object.keys(_blocks)
+    _persisted[block_id] = $.extend({}, _blocks[block_id])
+
 setBlock = (data) ->
   _blocks[data.id] = data
   BlockStore.emitChange()
@@ -62,6 +66,9 @@ BlockStore = Flux.createStore
   switch(payload.actionType)
     when 'RECEIVE_COURSE'
       setBlocks data.course.weeks, true
+      break
+    when 'SAVED_TIMELINE'
+      updatePersisted()
       break
     when 'ADD_BLOCK'
       addBlock data.week_id
