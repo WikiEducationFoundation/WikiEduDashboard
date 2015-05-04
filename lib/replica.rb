@@ -98,7 +98,7 @@ class Replica
   def self.get_existing_articles(articles)
     article_list = compile_article_string(articles)
     existing_titles = api_get('articles.php', article_list)
-    existing_titles.map { |a| a['page_title'] }
+    existing_titles.map { |a| a['page_title'] } unless existing_titles.nil?
   end
 
   ###################

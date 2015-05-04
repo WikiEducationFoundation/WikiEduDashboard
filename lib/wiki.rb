@@ -116,6 +116,7 @@ class Wiki
   ###################
   def self.get_page_content(page_title, options={})
     @mw = gateway
+    return if @mw.nil?
     options['format'] = 'xml'
     options[:maxlag] = 5
     options['rawcontinue'] = true
