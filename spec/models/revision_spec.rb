@@ -1,4 +1,6 @@
 require 'rails_helper'
+require "#{Rails.root}/lib/importers/course_importer"
+require "#{Rails.root}/lib/importers/revision_importer"
 
 describe Revision do
   describe '#update' do
@@ -21,14 +23,14 @@ describe Revision do
     it 'should fetch revisions for existing courses' do
       VCR.use_cassette 'revisions/update_all_revisions' do
         # Try it with no courses.
-        Revision.update_all_revisions
+        RevisionImporter.update_all_revisions
         expect(Revision.all.count).to eq(0)
 
         # Now add a course with users
         VCR.use_cassette 'wiki/course_data' do
-          Course.update_all_courses(false, hash: '351')
+          CourseImporter.update_all_courses(false, hash: '351')
         end
-        Revision.update_all_revisions nil, true
+        RevisionImporter.update_all_revisions nil, true
         # When the non-students are included, Revisions count is 1919.
         expect(Revision.all.count).to eq(433)
         # When the non-students are included, ArticlesCourses count is 224.

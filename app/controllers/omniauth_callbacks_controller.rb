@@ -1,8 +1,10 @@
+require "#{Rails.root}/lib/importers/user_importer"
+
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   include Devise::Controllers::Rememberable
 
   def mediawiki
-    @user = User.from_omniauth(request.env['omniauth.auth'])
+    @user = UserImporter.from_omniauth(request.env['omniauth.auth'])
 
     if @user.persisted?
       remember_me @user

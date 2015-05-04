@@ -1,3 +1,5 @@
+require "#{Rails.root}/lib/utils"
+
 #= Article + Course join model
 class ArticlesCourses < ActiveRecord::Base
   belongs_to :article
@@ -59,42 +61,6 @@ class ArticlesCourses < ActiveRecord::Base
           end
         end
       end
-    end
-  end
-
-  def self.remove_bad_articles_courses
-    non_student_cus = CoursesUsers.where(role: [1, 2, 3, 4])
-    non_student_cus.each do |nscu|
-      # Check if the non-student user is also a student in the same course.
-      next unless CourseUsers.where(
-        role: 0,
-        course_id: nscu.course_id,
-        user_id: nscu.user.id
-      ).empty?
-
-      user_articles = nscu.user.revisions
-                      .where('date >= ?', nscu.course.start)
-                      .where('date <= ?', nscu.course.end)
-                      .pluck(:article_id)
-
-      next if user_articles.empty?
-
-      course_articles = nscu.course.articles.pluck(:id)
-      possible_deletions = course_articles & user_articles
-
-      to_delete = []
-      possible_deletions.each do |pd|
-        other_editors = Article.find(pd).editors - [nscu.user.id]
-        course_editors = nscu.course.students & other_editors
-        to_delete.push pd if other_editors.empty? || course_editors.empty?
-      end
-
-      # remove orphaned articles from the course
-      nscu.course.articles.delete(Article.find(to_delete))
-      puts "Deleted #{to_delete.size} ArticlesCourses from #{nscu.course.title}"
-
-      # update course cache to account for removed articles
-      nscu.course.update_cache unless to_delete.empty?
     end
   end
 end

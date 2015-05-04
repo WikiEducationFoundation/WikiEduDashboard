@@ -1,3 +1,5 @@
+require "#{Rails.root}/lib/utils"
+
 #= Course + User join model
 class CoursesUsers < ActiveRecord::Base
   belongs_to :course

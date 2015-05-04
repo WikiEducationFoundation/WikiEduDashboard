@@ -1,4 +1,5 @@
 require 'rails_helper'
+require "#{Rails.root}/lib/importers/article_importer"
 
 describe Article do
   describe '#url' do
@@ -95,7 +96,7 @@ describe Article do
     it 'should get view data for all articles' do
       VCR.use_cassette 'article/update_all_views' do
         # Try it with no articles.
-        Article.update_all_views
+        ArticleImporter.update_all_views
 
         # Add an article
         build(:article,
@@ -120,7 +121,7 @@ describe Article do
         ).save
 
         # Update again with this article.
-        Article.update_all_views
+        ArticleImporter.update_all_views
       end
     end
   end
@@ -129,7 +130,7 @@ describe Article do
     it 'should get view data for new articles' do
       VCR.use_cassette 'article/update_new_views' do
         # Try it with no articles.
-        Article.update_new_views
+        ArticleImporter.update_new_views
 
         # Add an article.
         build(:article,
@@ -153,7 +154,7 @@ describe Article do
         ).save
 
         # Update again with this article.
-        Article.update_new_views
+        ArticleImporter.update_new_views
       end
     end
   end
@@ -196,7 +197,7 @@ describe Article do
 
         # .update_ratings has a different flow for one rating vs. several,
         # so first we run an update with just one article.
-        Article.update_new_ratings
+        ArticleImporter.update_new_ratings
         expect(possible_ratings).to include Article.all.first.rating
 
         article2 = create(:article,
@@ -206,7 +207,7 @@ describe Article do
         )
         course.articles << article2
 
-        Article.update_all_ratings
+        ArticleImporter.update_all_ratings
         expect(possible_ratings).to include Article.all.last.rating
       end
     end
@@ -225,7 +226,7 @@ describe Article do
       )
 
       article = Article.all.find_in_batches(batch_size: 30)
-      Article.update_ratings(article)
+      ArticleImporter.update_ratings(article)
       expect(Article.first.rating).to eq('fa')
     end
   end
@@ -242,7 +243,7 @@ describe Article do
              namespace: 0
       )
 
-      Article.update_articles_deleted
+      ArticleImporter.update_articles_deleted
       expect(Article.find(1).deleted).to be true
     end
 
