@@ -44,7 +44,7 @@ describe Wiki do
       VCR.use_cassette 'wiki/mediawiki_errors' do
         @mw = Wiki.send(:gateway)
       end
-    
+
       stub_request(:any, %r{.*wikipedia\.org/w/api\.php.*})
         .to_raise(MediaWiki::APIError.new('foo', 'bar'))
 
@@ -54,7 +54,7 @@ describe Wiki do
                 }
       response = Wiki.send(:api_get, options, @mw)
       expect(response).to be_nil
-      
+
       stub_request(:any, %r{.*wikipedia\.org/w/api\.php.*})
         .to_raise(StandardError)
       response = Wiki.send(:api_get, options, @mw)

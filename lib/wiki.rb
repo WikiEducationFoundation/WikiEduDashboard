@@ -129,12 +129,9 @@ class Wiki
     options['format'] = 'xml'
     options[:maxlag] = 5
     options['rawcontinue'] = true
-    begin
-      response = @mw.get(page_title, options)
-    rescue MediaWiki::APIError => e
-      Rails.logger.warn "Caught #{e}"
-    end
-    response
+    @mw.get(page_title, options)
+  rescue MediaWiki::APIError => e
+    handle_api_error e, options
   end
 
   # Query the liststudents API to get info about a course. For example:
