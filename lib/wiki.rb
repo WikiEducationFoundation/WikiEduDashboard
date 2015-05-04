@@ -20,7 +20,7 @@ class Wiki
 
   def self.get_course_info(course_ids)
     raw = get_course_info_raw(course_ids)
-    return [] unless raw
+    return [nil] if raw.nil?
 
     raw = [raw] unless raw.is_a?(Array)
     raw.map { |course| parse_course_info(course) }

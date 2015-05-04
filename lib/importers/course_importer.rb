@@ -37,6 +37,12 @@ class CourseImporter
     participants = {}
     listed_ids = raw_ids.values.flatten
 
+    # Encountered an API error; cancel course import for today
+    if data.include? nil
+      Rails.logger.warn 'Network error. Course import cancelled.'
+      return
+    end
+
     # Delist courses that have been deleted
     Course.where(listed: true).each do |c|
       c.delist unless listed_ids.include?(c.id)
@@ -45,13 +51,11 @@ class CourseImporter
     # Update courses from new data
     data.each do |c|
       c['course']['listed'] = listed_ids.include?(c['course']['id'])
-      course = Course.new(id: c['course']['id'])
-      course.update(c, false)
+      course = Course.new(id: c['course']['id']).update(c, false)
       courses.push course
       participants[c['course']['id']] = c['participants']
     end
-    options = { on_duplicate_key_update: [:start, :end, :listed] }
-    Course.import courses, options
+    Course.import courses, on_duplicate_key_update: [:start, :end, :listed]
 
     # Update cohort membership
     update_cohorts raw_ids
@@ -99,7 +103,6 @@ class CourseImporter
         end
         group_flat = group_flat.compact.flatten.sort_by { |user| user['id'] }
         group_flat = update_enrollment course_id, group_flat
-        byebug if group_flat.nil?
         assignments += update_assignments course_id, group_flat
       end
     end
