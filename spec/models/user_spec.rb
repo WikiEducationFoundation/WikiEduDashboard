@@ -126,4 +126,18 @@ describe User do
       expect(ragesoss.trained).to eq(true)
     end
   end
+
+  describe '.add_users' do
+    it 'should handle exceptions for unexpected data' do
+      bad_data = "what is this i don't even"
+      UserImporter.add_users(bad_data, 0, 1)
+    end
+  end
+
+  describe '.update_users' do
+    it 'should handle exceptions for missing users' do
+      user = [build(:user)]
+      UserImporter.update_users(user)
+    end
+  end
 end

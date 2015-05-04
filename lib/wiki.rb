@@ -129,12 +129,9 @@ class Wiki
     options['format'] = 'xml'
     options[:maxlag] = 5
     options['rawcontinue'] = true
-    begin
-      response = @mw.get(page_title, options)
-    rescue MediaWiki::APIError => e
-      Rails.logger.warn "Caught #{e}"
-    end
-    response
+    @mw.get(page_title, options)
+  rescue MediaWiki::APIError => e
+    handle_api_error e, options
   end
 
   # Query the liststudents API to get info about a course. For example:
@@ -185,49 +182,59 @@ class Wiki
       domain = Rails.application.secrets.domain_name
       ua = "WikiEduDashboard/1.1 (#{domain}; nate@wintr.us)"
       @mw = MediaWiki::Gateway.new(url, user_agent: ua)
-      begin
-        username = Figaro.env.wikipedia_username!
-        password = Figaro.env.wikipedia_password!
-        # puts "#{Time.now.getutc} WIKIAPI: Logging in #{username} with #{password}"
-        @mw.login(username, password)
-        # puts "#{Time.now.getutc} WIKIAPI: Logged in #{username}"
-      rescue RestClient::RequestTimeout => e
-        Rails.logger.warn "Caught #{e}"
-        gateway
-      rescue MediaWiki::APIError => e
-        Rails.logger.warn "Caught #{e}"
-        gateway
-      rescue StandardError => e
-        Rails.logger.warn "Whoops Caught #{e}"
-      end
-      @mw
+
+      username = Figaro.env.wikipedia_username!
+      password = Figaro.env.wikipedia_password!
+      @mw.login(username, password)
+
+      return @mw
+    rescue StandardError => e
+      handle_gateway_error e
     end
 
-    def api_get(options={})
-      @mw = gateway
+    def handle_gateway_error(e)
+      expected_errors = [RestClient::RequestTimeout, MediaWiki::APIError]
+      if expected_errors.include? e.class
+        Rails.logger.warn "Caught #{e}"
+        Raven.capture_exception e, level: 'warning'
+        gateway
+      else
+        Rails.logger.error "Whoops, caught #{e}"
+        Raven.capture_exception e
+        nil
+      end
+    end
+
+    def api_get(options={},gate=nil)
+      @mw = gate
+      @mw ||= gateway
+
       options['format'] = 'xml'
       options[:maxlag] = 10
-      begin
-        response = @mw.send_request(options)
-      rescue MediaWiki::APIError => e
-        if e.to_s.include?('Invalid course id')
-          if options['courseids'].split('|').count > 1
-            api_get handle_invalid_course_id(options, e)
-          else
-            { 'course' => false }
-          end
+
+      response = @mw.send_request(options)
+      parsed = Crack::XML.parse response.to_s
+      return parsed['api']
+
+    rescue MediaWiki::APIError => e
+      handle_api_error e, options
+    rescue StandardError => e
+      Rails.logger.warn "Caught #{e} with options #{options}"
+      Raven.capture_exception e, level: 'warning'
+      return nil # because Raven captures return 'true' if successful
+    end
+
+    def handle_api_error(e, options)
+      if e.to_s.include?('Invalid course id')
+        if options['courseids'].split('|').count > 1
+          api_get handle_invalid_course_id(options, e)
         else
-          Rails.logger.warn 'Caught #{e}'
-          Raven.capture_exception e, level: 'warning'
-          return nil # because Raven captures return 'true' if successful
+          { 'course' => false }
         end
-      rescue StandardError => e
-        Rails.logger.warn "Caught #{e} with options #{options}"
+      else
+        Rails.logger.warn 'Caught #{e}'
         Raven.capture_exception e, level: 'warning'
         return nil # because Raven captures return 'true' if successful
-      else
-        parsed = Crack::XML.parse response.to_s
-        parsed['api']
       end
     end
 

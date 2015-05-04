@@ -1,4 +1,5 @@
 require 'rails_helper'
+require "#{Rails.root}/lib/replica"
 
 describe Replica do
   describe 'API requests' do

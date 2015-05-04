@@ -177,4 +177,11 @@ describe 'the home page', type: :feature do
       expect(new_first_rating).to have_content 'Unrated'
     end
   end
+
+  describe 'manual update' do
+    it 'should redirect to the course page', js: true do
+      visit "/courses/#{slug}/manual_update"
+      expect(current_path).to eq("/courses/#{slug}")
+    end
+  end
 end
