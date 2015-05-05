@@ -41,11 +41,13 @@ Timeline = React.createClass(
                   </div>
                 </li>
 
-    <ul className="list">
-      <li className="row view-all">{this.props.controls}</li>
-      {week_components}
-      {addWeek}
-    </ul>
+    <div>
+      {this.props.controls}
+      <ul className="list">
+        {week_components}
+        {addWeek}
+      </ul>
+    </div>
 )
 
 module.exports = Editable(Timeline, [WeekStore, BlockStore, GradeableStore], ServerActions.saveTimeline, getState)

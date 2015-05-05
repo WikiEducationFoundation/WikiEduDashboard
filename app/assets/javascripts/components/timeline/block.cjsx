@@ -23,7 +23,7 @@ Block = React.createClass(
   render: ->
     gradeable = this.props.gradeable != undefined && !this.props.gradeable.deleted
     if this.props.editable
-      deleteBlock = <a onClick={this.deleteBlock}>Delete</a>
+      deleteBlock = <a className='button' onClick={this.deleteBlock}>Delete</a>
 
     <li className="block">
       {deleteBlock}
@@ -35,8 +35,7 @@ Block = React.createClass(
           editable={this.props.editable}
           options={['Assignment', 'Milestone', 'Class', 'Custom']}
         />
-      </p>
-      <p>
+        &nbsp;&nbsp;&nbsp;&nbsp;
         <TextInput
           onChange={this.updateBlock}
           value={this.props.block.title}

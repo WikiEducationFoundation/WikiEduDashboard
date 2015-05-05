@@ -1,0 +1,39 @@
+.controls
+  padding 10px 0
+  text-align right
+
+.button
+  background-color zircon
+  border 1px solid dove
+  border-radius 4px
+  color dove
+  cursor pointer
+  display inline-block
+  font-family "Roboto"
+  font-size 11px
+  margin-left 10px
+  padding 5px 10px
+  transition background .15s
+  &:active
+    background-color bayoux
+    color white
+  &.large
+    padding 10px 30px
+    font-size 14px
+  &.dark
+    background-color bayoux
+    color white
+
+.button.arrow:hover
+  background-color bayoux
+  border-bottom 1px solid manatee
+  color white
+  font-weight bold
+  &:after
+    content '\003e'
+    margin-left 5px
+
+input, textarea, select
+  border 1px solid dove
+  outline none
+  padding 5px

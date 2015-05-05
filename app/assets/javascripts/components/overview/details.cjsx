@@ -22,7 +22,7 @@ Details = React.createClass(
     to_pass[value_key] = value
     CourseActions.updateCourse to_pass
   render: ->
-    <div>
+    <div className='module'>
       <p>{this.props.controls}</p>
       <p><span>{this.props.course.school}</span></p>
       <p><span>{this.props.course.term}</span></p>

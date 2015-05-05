@@ -2,50 +2,53 @@
   <div class="container">
     <div class="title">
       <h2><%= @course.title %></h2>
-      <h6><%= @course.school %> | <%= @course.term %></h6>
     </div>
     <div class="stat-display">
       <div class="stat-display__stat" id="articles-created">
-        <h3><%= number_to_human @course.revisions.joins(:article).where(articles: {namespace: 0}).where(new_article: true).count %></h3>
+        <h2><%= number_to_human @course.revisions.joins(:article).where(articles: {namespace: 0}).where(new_article: true).count %></h2>
         <small><%= t("metrics.articles_created") %></small>
       </div>
       <div class="stat-display__stat" id="articles-edited">
-        <h3><%= number_to_human @course.article_count %></h3>
+        <h2><%= number_to_human @course.article_count %></h2>
         <small><%= t("metrics.articles_edited") %></small>
       </div>
       <div class="stat-display__stat" id="total-edits">
-        <h3><%= number_to_human @course.revisions.count %></h3>
+        <h2><%= number_to_human @course.revisions.count %></h2>
         <small><%= t("metrics.edit_count_description") %></small>
       </div>
       <div class="stat-display__stat popover-trigger" id="student-editors">
-        <h3><%= @course.user_count %></h3>
-        <small><%= t("course.students") %></small>
+        <h2><%= @course.user_count %></h2>
+        <small><%= t("metrics.student_editors") %></small>
         <div class="popover" id="trained-count">
           <h4><%= @course.users.role('student').where(trained: true).count %></h4>
           <p><%= t("user.training_complete", count: @course.users.role('student').where(trained: true).count) %></p>
         </div>
       </div>
       <div class="stat-display__stat" id="characters-added">
-        <h3><%= number_to_human @course.character_sum %></h3>
+        <h2><%= number_to_human @course.character_sum %></h2>
         <small><%= t("metrics.char_added") %></small>
       </div>
       <div class="stat-display__stat" id="view-count">
-        <h3><%= number_to_human @course.view_sum %></h3>
+        <h2><%= number_to_human @course.view_sum %></h2>
         <small><%= t("metrics.view_count_description") %></small>
       </div>
     </div>
   </div>
 </header>
-<div class="container">
-  <nav><%= render :partial => 'nav', :locals => {:page => page} %></nav>
+<div class="course_navigation">
+  <nav class="container"><%= render :partial => 'nav', :locals => {:page => page} %></nav>
   <% if !current?(@course) && user_signed_in? %>
   <div class="alert">
-    <p>This course has ended and the data here may be out of date. <%= link_to 'Click here', {:action => 'manual_update'}, class: 'manual_update', rel: 'nofollow' %> to pull new data.</p>
+    <div class="container">
+      <p>This course has ended and the data here may be out of date. <%= link_to 'Click here', {:action => 'manual_update'}, class: 'manual_update', rel: 'nofollow' %> to pull new data.</p>
+    </div>
   </div>
   <% end %>
   <% unless @course.listed || @course.approved || @course.published %>
   <div class="alert">
-    <p>You will be able to delete this course as long as it remains unapproved and unpublished. <%= link_to 'Click here', course_slug_path(@course.slug), method: :delete, data: { confirm: 'Are you sure you want to delete this course?' } %> to delete the course now.</p>
+    <div class="container">
+      <p>You will be able to delete this course as long as it remains unapproved and unpublished. <%= link_to 'Click here', course_slug_path(@course.slug), method: :delete, data: { confirm: 'Are you sure you want to delete this course?' } %> to delete the course now.</p>
+    </div>
   </div>
   <% end %>
 </div>

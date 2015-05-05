@@ -22,25 +22,28 @@ editable = (Component, Stores, Save, GetState) ->
     render: ->
       if this.state.editable
         controls = (
-          <p>
-            <button
+          <div className="controls">
+            <div
+              className='button large'
               value={'cancel'}
               onClick={this.cancelChanges}
-            >Cancel</button>
-            <button
+            >Cancel</div>
+            <div
+              className='button dark large'
               value={'save'}
               onClick={this.saveChanges}
-            >Save</button>
-         </p>
+            >Save</div>
+         </div>
         )
       else
         controls = (
-          <p>
-            <button
+          <div className="controls">
+            <div
+              className='button dark large'
               value={'edit'}
               onClick={this.toggleEditable}
-            >Edit</button>
-          </p>
+            >Edit</div>
+          </div>
         )
       return <Component {...this.props} {...this.state} controls={controls} />;
   )

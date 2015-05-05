@@ -100,10 +100,11 @@ en:
     articles_edited: Articles Edited
     char: Chars Added
     characters: Characters
-    char_added: Characters Added
+    char_added: Chars Added
     char_changed: Characters Changed
     date_time: Date/Time
     edit_count_description: Total Edits
+    student_editors: Student Editors
     view: Views
     view_count_description: Article Views
 

@@ -17,7 +17,7 @@
 
     <%= stylesheet_link_tag '//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css', media: 'all' %>
     <%= stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Droid+Serif', media: 'all' %>
-    <%= stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Roboto', media: 'all' %>
+    <%= stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Roboto:300,400,500', media: 'all' %>
     <%= stylesheet_link_tag '/stylesheets/' + (rtl? ? 'rtl/' : '') + 'main.css', media: 'all' %>
     <%= javascript_include_tag '/javascripts/vendor.js' %>
     <%= javascript_include_tag '/javascripts/main.js' %>
@@ -30,7 +30,9 @@
           <div class="logo">
             <a class="logo__link" href="http://wikiedu.org" target="_blank" title="wikiedu.org"><%= image_tag "/images/wiki-logo.png" %></a>
           </div>
-          <a href="/">Home</a>
+          <div class="home">
+            <p><a href="/">Global Dashboard</a></p>
+          </div>
           <div class="login">
             <% if user_signed_in? %>
               <p>Logged in as <b><%= current_user.wiki_id %></b>.&nbsp;&nbsp;&nbsp;<%= link_to "Logout", :destroy_user_session %></p>
