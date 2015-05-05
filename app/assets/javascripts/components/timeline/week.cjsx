@@ -1,4 +1,5 @@
 React           = require 'react'
+DND             = require 'react-dnd'
 Block           = require './block'
 BlockActions    = require '../../actions/block_actions'
 WeekActions     = require '../../actions/week_actions'
@@ -12,21 +13,6 @@ Week = React.createClass(
     BlockActions.addBlock this.props.week.id
   deleteBlock: (block_id) ->
     BlockActions.deleteBlock block_id
-  moveBlock: (block_id, after_block_id) ->
-    block = $.grep(this.props.blocks, (b) -> b.id == block_id)[0]
-    after_block = $.grep(this.props.blocks, (b) -> b.id == after_block_id)[0]
-
-    console.log block.order
-    console.log after_block.order
-    old_order = block.order
-    block.order = after_block.order
-    after_block.order = old_order
-    console.log block.order
-    console.log after_block.order
-    console.log '-----'
-
-    BlockActions.updateBlock block, true
-    BlockActions.updateBlock after_block
   updateWeek: (value_key, value) ->
     to_pass = $.extend({}, this.props.week)
     to_pass['title'] = value
@@ -40,7 +26,7 @@ Week = React.createClass(
           editable={this.props.editable}
           gradeable={GradeableStore.getGradeableByBlock(block.id)}
           deleteBlock={this.deleteBlock.bind(this, block.id)}
-          moveBlock={this.moveBlock}
+          moveBlock={this.props.moveBlock}
         />
     blocks.sort (a, b) ->
       a.props.block.order - b.props.block.order

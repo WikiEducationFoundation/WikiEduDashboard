@@ -11,9 +11,7 @@ _persisted = {}
 # Utilities
 setBlocks = (data, persisted=false) ->
   for week in data
-    i = 0
-    for block in week.blocks
-      block.order = i++
+    for block, i in week.blocks
       _blocks[block.id] = block
       _persisted[block.id] = $.extend({}, block) if persisted
   BlockStore.emitChange()
@@ -27,6 +25,8 @@ setBlock = (data, quiet) ->
   BlockStore.emitChange() unless quiet
 
 addBlock = (week_id) ->
+  week_blocks = BlockStore.getBlocksInWeek week_id
+  week_blocks = $.grep week_blocks, (block) -> !block.deleted
   setBlock {
     id: Date.now(),
     is_new: true,
@@ -35,7 +35,8 @@ addBlock = (week_id) ->
     content: "",
     gradeable_id: null,
     weekday: 0,
-    week_id: week_id
+    week_id: week_id,
+    order: week_blocks.length
   }
 
 removeBlock = (block_id) ->

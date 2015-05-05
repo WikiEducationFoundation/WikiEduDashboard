@@ -43,6 +43,8 @@ removeWeek = (week_id) ->
 
 # Store
 WeekStore = Flux.createStore
+  getWeek: (week_id) ->
+    _weeks[week_id]
   getWeeks: ->
     week_list = []
     for week_id in Object.keys(_weeks)

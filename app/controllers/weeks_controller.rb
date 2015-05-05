@@ -23,6 +23,7 @@ class WeeksController < ApplicationController
         :weekday,
         :week_id,
         :deleted,
+        :order,
         :gradeable_id,
         { gradeable: [
           :id,

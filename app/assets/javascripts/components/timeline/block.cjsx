@@ -14,7 +14,7 @@ Block = React.createClass(
   displayName: 'Block'
   mixins: [DND.DragDropMixin]
   statics:
-    configureDragDrop: (register) ->
+    configureDragDrop: (register, context) ->
       register(ItemTypes.BLOCK,
         dragSource:
           beginDrag: (component) ->
