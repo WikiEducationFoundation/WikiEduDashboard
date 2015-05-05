@@ -6,9 +6,10 @@ BlockActions = Flux.createActions
     { actionType: 'ADD_BLOCK', data: {
       week_id: week_id
     }}
-  updateBlock: (block) ->
+  updateBlock: (block, quiet=false) ->
     { actionType: 'UPDATE_BLOCK', data: {
-      block: block
+      block: block,
+      quiet: quiet
     }}
   deleteBlock: (block_id) ->
     { actionType: 'DELETE_BLOCK', data: {

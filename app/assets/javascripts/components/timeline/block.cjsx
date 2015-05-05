@@ -1,4 +1,5 @@
 React             = require 'react'
+DND               = require 'react-dnd'
 TextInput         = require '../common/text_input'
 TextAreaInput     = require '../common/text_area_input'
 Checkbox          = require '../common/checkbox'
@@ -6,8 +7,23 @@ Select            = require '../common/select'
 BlockActions      = require '../../actions/block_actions'
 GradeableActions  = require '../../actions/gradeable_actions'
 
+ItemTypes =
+  BLOCK: 'block'
+
 Block = React.createClass(
   displayName: 'Block'
+  mixins: [DND.DragDropMixin]
+  statics:
+    configureDragDrop: (register) ->
+      register(ItemTypes.BLOCK,
+        dragSource:
+          beginDrag: (component) ->
+            item:
+              block: component.props.block
+        dropTarget:
+          over: (component, item) ->
+            component.props.moveBlock(item.block.id, component.props.block.id)
+      )
   updateBlock: (value_key, value) ->
     to_pass = $.extend({}, this.props.block)
     to_pass[value_key] = value
@@ -22,10 +38,15 @@ Block = React.createClass(
       GradeableActions.deleteGradeable this.props.gradeable.id
   render: ->
     gradeable = this.props.gradeable != undefined && !this.props.gradeable.deleted
+    className = 'block'
     if this.props.editable
       deleteBlock = <a className='button' onClick={this.deleteBlock}>Delete</a>
+      dragSource = this.dragSourceFor(ItemTypes.BLOCK)
+      dropTarget = this.dropTargetFor(ItemTypes.BLOCK)
+      className += ' editable'
+      className += ' dragging' if this.getDragState(ItemTypes.BLOCK).isDragging
 
-    <li className="block">
+    <li className={className} {...dragSource} {...dropTarget}>
       {deleteBlock}
       <p>
         <Select

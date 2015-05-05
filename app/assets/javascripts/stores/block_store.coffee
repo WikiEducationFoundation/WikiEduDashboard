@@ -11,7 +11,9 @@ _persisted = {}
 # Utilities
 setBlocks = (data, persisted=false) ->
   for week in data
+    i = 0
     for block in week.blocks
+      block.order = i++
       _blocks[block.id] = block
       _persisted[block.id] = $.extend({}, block) if persisted
   BlockStore.emitChange()
@@ -20,9 +22,9 @@ updatePersisted = ->
   for block_id  in Object.keys(_blocks)
     _persisted[block_id] = $.extend({}, _blocks[block_id])
 
-setBlock = (data) ->
+setBlock = (data, quiet) ->
   _blocks[data.id] = data
-  BlockStore.emitChange()
+  BlockStore.emitChange() unless quiet
 
 addBlock = (week_id) ->
   setBlock {
@@ -77,7 +79,7 @@ BlockStore = Flux.createStore
       addBlock data.week_id
       break
     when 'UPDATE_BLOCK'
-      setBlock data.block
+      setBlock data.block, data.quiet
       break
     when 'DELETE_BLOCK'
       removeBlock data.block_id
