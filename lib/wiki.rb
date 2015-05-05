@@ -57,7 +57,7 @@ class Wiki
 
     raw = [raw] unless raw.is_a?(Array)
     # Pages that are missing get returned before pages that exist, so we cannot
-    # count on our array being in the same order as article_title.
+    # count on our array being in the same order as titles.
     raw.each_with_index.map do |article|
       # Remove "Talk:" from the "title" value to get the title.
       { article['title'][5..-1] => parse_article_rating(article) }

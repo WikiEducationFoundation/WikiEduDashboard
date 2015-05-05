@@ -101,7 +101,7 @@ describe Wiki do
           'THIS IS NOT A REAL ARTICLE TITLE', # does not exist
           '1804 Snow hurricane', # a/ga ?
           'Barton S. Alexander', # a
-          'Actuarial science', # bplus
+          'Compounds of fluorine', # bplus
           'List of Canadian plants by family S', # sl
           'Antarctica (disambiguation)', # dab
           '2015 Pacific typhoon season', # cur, as of 2015-02-27
