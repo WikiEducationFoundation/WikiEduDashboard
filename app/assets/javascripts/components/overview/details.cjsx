@@ -11,6 +11,7 @@ getState = (course_id) ->
   course:
     id: course_tmp.id
     school: course_tmp.school
+    term: course_tmp.term
     start: course_tmp.start
     end: course_tmp.end
 
@@ -23,7 +24,8 @@ Details = React.createClass(
   render: ->
     <div>
       <p>{this.props.controls}</p>
-      <p>{this.props.course.school}</p>
+      <p><span>{this.props.course.school}</span></p>
+      <p><span>{this.props.course.term}</span></p>
       <p>
         <TextInput
           onChange={this.updateDetails}
