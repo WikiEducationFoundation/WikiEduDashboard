@@ -29,11 +29,19 @@ class CoursesController < ApplicationController
   # CRUD methods #
   ################
   def course_params
-    title = params[:course][:title].gsub(' ', '_')
-    school = params[:course][:school].gsub(' ', '_')
-    term = params[:course][:term].gsub(' ', '_')
-    params[:course][:slug] = "#{school}/#{title}_(#{term})"
+    slugify = params[:course].key? :title
+    slugify &= params[:course].key? :school
+    slugify &= params[:course].key? :term
+
+    if slugify
+      title = params[:course][:title].gsub(' ', '_')
+      school = params[:course][:school].gsub(' ', '_')
+      term = params[:course][:term].gsub(' ', '_')
+      params[:course][:slug] = "#{school}/#{title}_(#{term})"
+    end
+
     params.require(:course).permit(
+      :id,
       :title,
       :description,
       :school,

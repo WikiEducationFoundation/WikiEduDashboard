@@ -1,5 +1,6 @@
-McFly       = require 'mcfly'
-Flux        = new McFly()
+McFly           = require 'mcfly'
+Flux            = new McFly()
+GradeableStore  = require './gradeable_store'
 
 
 # Data
@@ -65,10 +66,12 @@ BlockStore = Flux.createStore
   data = payload.data
   switch(payload.actionType)
     when 'RECEIVE_COURSE'
+      Flux.dispatcher.waitFor([GradeableStore.dispatcherID])
       setBlocks data.course.weeks, true
       break
     when 'SAVED_TIMELINE'
-      updatePersisted()
+      _blocks = {}
+      setBlocks data.course.weeks, true
       break
     when 'ADD_BLOCK'
       addBlock data.week_id

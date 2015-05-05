@@ -17,7 +17,7 @@ Block = React.createClass(
     BlockActions.deleteBlock this.props.block.id
   updateGradeable: (value_key, value) ->
     if value == 'true'
-      GradeableActions.addGradeable this.props.block.id
+      GradeableActions.addGradeable this.props.block
     else
       GradeableActions.deleteGradeable this.props.gradeable.id
   render: ->

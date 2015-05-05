@@ -78,8 +78,8 @@ en:
     students: Students
     students_none: "%{title} does not have any enrolled students"
     students_short: Students
-    timeline: Timeline
-    weeks_none: "%{title} does not have a timeline"
+    timeline: Assignment Details
+    weeks_none: "%{title} has no assignments"
     new_week: "Add a new week to the timeline for %{title}"
     overview: "Overview"
     title: Title

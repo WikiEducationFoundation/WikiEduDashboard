@@ -13,22 +13,29 @@ API =
 
   saveTimeline: (course_id, data) ->
     new Promise (res, rej) ->
-      cleanup = (obj) ->
-        delete obj.id if obj.is_new
-        delete obj.is_new
+      cleanup = (array) ->
+        for obj in array
+          if obj.is_new
+            delete obj.id
+            delete obj.is_new
 
       weeks = data.weeks
       blocks = data.blocks
       gradeables = data.gradeables
+
       for week in weeks
         week.blocks = []
         for block in blocks
           week.blocks.push block if block.week_id == week.id
           for gradeable in gradeables
-            block.gradeable = gradeable if gradeable.gradeable_item_id == block.id
-            cleanup gradeable
-          cleanup block
-        cleanup week
+            if gradeable.gradeable_item_id == block.id
+              block.gradeable = gradeable
+              delete gradeable.gradeable_item_id if block.is_new
+
+      cleanup weeks
+      cleanup blocks
+      cleanup gradeables
+
       $.ajax
         type: 'POST',
         url: '/courses/' + course_id + '/weeks/mass_update',
@@ -48,7 +55,7 @@ API =
         type: 'PUT',
         url: '/courses/' + course_id,
         contentType: 'application/json',
-        data: JSON.stringify { course: data }
+        data: JSON.stringify { course: data.course }
         success: (data) ->
           console.log 'Saved course!'
           res data

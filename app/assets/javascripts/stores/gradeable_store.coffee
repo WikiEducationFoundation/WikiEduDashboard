@@ -24,14 +24,17 @@ setGradeable = (data) ->
   _gradeables[data.id] = data
   GradeableStore.emitChange()
 
-addGradeable = (block_id) ->
-  setGradeable {
-    id: Date.now(),
-    is_new: true,
-    title: "",
-    gradeable_item_id: block_id,
-    gradeable_item_type: 'block'
-  }
+addGradeable = (block) ->
+  if block.gradeable
+    block.gradeable['deleted'] = false
+  else
+    setGradeable {
+      id: Date.now(),
+      is_new: true,
+      title: "",
+      gradeable_item_id: block.id,
+      gradeable_item_type: 'block'
+    }
 
 removeGradeable = (gradeable_id) ->
   gradeable = _gradeables[gradeable_id]
@@ -65,10 +68,11 @@ GradeableStore = Flux.createStore
       setGradeables data.course.weeks, true
       break
     when 'SAVED_TIMELINE'
-      updatePersisted()
+      _gradeables = {}
+      setGradeables data.course.weeks, true
       break
     when 'ADD_GRADEABLE'
-      addGradeable data.block_id
+      addGradeable data.block
       break
     when 'UPDATE_GRADEABLE'
       setGradeable data.gradeable

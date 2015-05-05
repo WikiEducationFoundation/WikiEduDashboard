@@ -24,7 +24,6 @@ class WeeksController < ApplicationController
         :week_id,
         :deleted,
         :gradeable_id,
-        :is_gradeable,
         { gradeable: [
           :id,
           :gradeable_item_id,
@@ -98,7 +97,8 @@ class WeeksController < ApplicationController
         gradeable['gradeable_item_type'] = 'block'
         gradeable['points'] = gradeable['points'] || 10
         @gradeable = update_util Gradeable, gradeable
-        @block.update(gradeable_id: @gradeable.id)
+        gradeable_id = Gradeable.exists?(@gradeable) ? @gradeable.id : nil
+        @block.update(gradeable_id: gradeable_id)
       end
     end
     respond_to do |format|

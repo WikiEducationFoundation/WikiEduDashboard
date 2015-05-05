@@ -2,9 +2,9 @@ McFly       = require 'mcfly'
 Flux        = new McFly()
 
 GradeableActions = Flux.createActions
-  addGradeable: (block_id) ->
+  addGradeable: (block) ->
     { actionType: 'ADD_GRADEABLE', data: {
-      block_id: block_id
+      block: block
     }}
   updateGradeable: (gradeable) ->
     { actionType: 'UPDATE_GRADEABLE', data: {
