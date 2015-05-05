@@ -54,7 +54,7 @@ class Course < ActiveRecord::Base
   def update(data={}, save=true)
     if data.blank?
       data = CourseImporter.get_course_info id
-      return if data.blank?
+      return if data.blank? || data[0].nil?
       data = data[0]
     end
     self.attributes = data['course']
