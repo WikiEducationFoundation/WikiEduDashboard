@@ -12,6 +12,7 @@ class Cohort < ActiveRecord::Base
         'slug' => cohort,
         'url' => ENV['cohort_' + cohort]
       ).save
+      Rails.logger.info "Created cohort #{cohort}."
     end
   end
 end
