@@ -45,5 +45,27 @@ describe Revision do
         expect(ArticlesCourses.all.count).to eq(10)
       end
     end
+
+    it 'should not fail with returning students' do
+      VCR.use_cassette 'revisions/returning_students' do
+        # Create a user who has a revision from long ago
+        create(:trained) # This is user 319203, with edits since 2015. 
+        create(:revision,
+               user_id: 319203,
+               date: '2003-03-01'.to_date)
+        # Create a recent course and add the user to it.
+        create(:course,
+               id: 1,
+               start: '2015-01-01'.to_date,
+               end: '2030-01-01'.to_date)
+        create(:courses_user,
+               course_id: 1,
+               user_id: 319203,
+               role: 0)
+        User.update_all_caches(Course.find(1).users)
+        RevisionImporter.update_all_revisions nil, true
+        expect(Revision.all.count > 1).to be true        
+      end
+    end
   end
 end

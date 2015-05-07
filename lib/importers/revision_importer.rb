@@ -19,7 +19,7 @@ class RevisionImporter
       new_users = c.users.role('student').where(revision_count: 0)
 
       old_users = c.students - new_users
-      
+
       unless new_users.empty?
         results += Utils.chunk_requests(new_users, 40) do |block|
           Replica.get_revisions block, start, c.end.strftime('%Y%m%d')
