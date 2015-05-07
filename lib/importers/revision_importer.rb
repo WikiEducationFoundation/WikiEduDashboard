@@ -15,20 +15,21 @@ class RevisionImporter
     courses ||= all_time ? Course.all : Course.current
     courses.each do |c|
       next if c.students.empty?
-
+      start = c.start.strftime('%Y%m%d')
       new_users = c.users.role('student').where(revision_count: 0)
 
       old_users = c.students - new_users
-      unless old_users.empty?
-        start = c.revisions.order('date DESC').first.date.strftime('%Y%m%d')
-        results += Utils.chunk_requests(old_users, 40) do |block|
+      
+      unless new_users.empty?
+        results += Utils.chunk_requests(new_users, 40) do |block|
           Replica.get_revisions block, start, c.end.strftime('%Y%m%d')
         end
       end
 
-      unless new_users.empty?
-        start = c.start.strftime('%Y%m%d')
-        results += Utils.chunk_requests(new_users, 40) do |block|
+      unless old_users.empty?
+        first_rev = c.revisions.order('date DESC').first
+        start = first_rev.date.strftime('%Y%m%d') unless first_rev.empty?
+        results += Utils.chunk_requests(old_users, 40) do |block|
           Replica.get_revisions block, start, c.end.strftime('%Y%m%d')
         end
       end
