@@ -1,4 +1,3 @@
-require 'media_wiki'
 require 'mediawiki_api'
 require 'crack'
 require 'json'
@@ -179,56 +178,6 @@ class Wiki
       url = "https://#{language}.wikipedia.org/w/api.php"
       @wikipedia = MediawikiApi::Client.new url
       @wikipedia
-    end
-
-    # This api gateway, based on the 'mediawiki-gateway' gem, is being
-    # deprecated in favor of the Wikimedia-maintained 'mediawiki_api' gem.
-    def gateway
-      language = Figaro.env.wiki_language
-      url = "http://#{language}.wikipedia.org/w/api.php"
-      domain = Rails.application.secrets.domain_name
-      ua = "WikiEduDashboard/1.1 (#{domain}; nate@wintr.us)"
-      @mw = MediaWiki::Gateway.new(url, user_agent: ua)
-
-      username = Figaro.env.wikipedia_username!
-      password = Figaro.env.wikipedia_password!
-      @mw.login(username, password)
-
-      return @mw
-    rescue StandardError => e
-      handle_gateway_error e
-    end
-
-    def handle_gateway_error(e)
-      expected_errors = [RestClient::RequestTimeout, MediaWiki::APIError]
-      if expected_errors.include? e.class
-        Rails.logger.warn "Caught #{e}"
-        Raven.capture_exception e, level: 'warning'
-        gateway
-      else
-        Rails.logger.error "Whoops, caught #{e}"
-        Raven.capture_exception e
-        nil
-      end
-    end
-
-    def api_get(options={},gate=nil)
-      @mw = gate
-      @mw ||= gateway
-
-      options['format'] = 'xml'
-      options[:maxlag] = 10
-
-      response = @mw.send_request(options)
-      parsed = Crack::XML.parse response.to_s
-      return parsed['api']
-
-    rescue MediaWiki::APIError => e
-      handle_api_error e, options
-    rescue StandardError => e
-      Rails.logger.warn "Caught #{e} with options #{options}"
-      Raven.capture_exception e, level: 'warning'
-      return nil # because Raven captures return 'true' if successful
     end
 
     def handle_api_error(e, options=nil)

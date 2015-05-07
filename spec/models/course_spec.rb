@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'media_wiki'
 require "#{Rails.root}/lib/importers/course_importer"
 
 describe Course, type: :model do
