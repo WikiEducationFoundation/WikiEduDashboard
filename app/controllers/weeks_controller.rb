@@ -38,35 +38,6 @@ class WeeksController < ApplicationController
     ])
   end
 
-  # def create_gradeable(block)
-  #   return unless block.key?(:id)
-  #   points = block['points'] || 10
-  #   item_id = block['id']
-  #   gradeable = Gradeable.create(
-  #     gradeable_item_id: item_id,
-  #     gradeable_item_type: 'block',
-  #     points: points
-  #   )
-  #   block['gradeable_id'] = gradeable.id
-  # end
-
-  # def destroy_gradeable(block)
-  #   return unless block.key?(:id)
-  #   block = Block.find(block['id'])
-  #   Gradeable.find(block.gradeable_id).destroy unless block.gradeable_id.nil?
-  #   block['gradeable_id'] = nil
-  # end
-
-  # def gradeable_block(block)
-  #   return unless block.key?(:is_gradeable)
-  #   gradeable = block['is_gradeable']
-  #   if gradeable && (!block.key?(:gradeable_id) || block['gradeable_id'].nil?)
-  #     create_gradeable block
-  #   elsif !gradeable && block.key?(:gradeable_id)
-  #     destroy_gradeable block
-  #   end
-  # end
-
   def update_util(model, object)
     if object['id'].nil?
       model.create object
@@ -77,7 +48,7 @@ class WeeksController < ApplicationController
     end
   end
 
-  def mass_update
+  def update_timeline
     @course = Course.find_by_slug(params[:course_id])
     timeline_params['weeks'].each do |week|
       blocks = week['blocks']
@@ -102,6 +73,31 @@ class WeeksController < ApplicationController
         gradeable_id = Gradeable.exists?(@gradeable) ? @gradeable.id : nil
         @block.update(gradeable_id: gradeable_id)
       end
+    end
+    respond_to do |format|
+      format.json do
+        render json: @course.as_json(
+          include: { weeks: {
+            include: { blocks: { include: :gradeable } }
+          } }
+        )
+      end
+    end
+  end
+
+  def gradeable_params
+    params.permit(gradeables: [
+      :id,
+      :title,
+      :points
+    ])
+  end
+
+  def update_gradeables
+    @course = Course.find_by_slug(params[:course_id])
+    gradeable_params['gradeables'].each do |gradeable|
+      @gradeable = Gradeable.find(gradeable['id'])
+      @gradeable.update(title: gradeable['title'], points: gradeable['points'])
     end
     respond_to do |format|
       format.json do

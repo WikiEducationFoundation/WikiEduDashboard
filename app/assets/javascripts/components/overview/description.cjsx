@@ -21,16 +21,21 @@ Description = React.createClass(
     CourseActions.updateCourse to_pass
   render: ->
     <div className='module'>
-      <p>{this.props.controls}</p>
-      <p><span>{this.props.course.title}</span></p>
-      <p>
-        <TextAreaInput
-          onChange={this.updateDescription}
-          value={this.props.course.description}
-          value_key={'description'}
-          editable={this.props.editable}
-        />
-      </p>
+      <div className="section-header">
+        <h3>{this.props.course.title}</h3>
+        {this.props.controls}
+      </div>
+      <div className='module__data'>
+        <p>
+          <TextAreaInput
+            onChange={this.updateDescription}
+            value={this.props.course.description}
+            placeholder='Course description goes here'
+            value_key={'description'}
+            editable={this.props.editable}
+          />
+        </p>
+      </div>
     </div>
 )
 

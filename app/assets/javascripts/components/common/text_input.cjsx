@@ -11,7 +11,9 @@ TextInput = React.createClass(
     value = this.props.value
     if this.props.type == 'date'
       v_date = new Date(value)
-      value = v_date.getMonth() + '/' + v_date.getDate() + '/' + v_date.getFullYear()
+      month = v_date.getMonth() + 1
+      date = v_date.getDate() + 1
+      value = month + '/' + date + '/' + v_date.getFullYear()
     if this.props.editable
       <input
         value={this.state.value}

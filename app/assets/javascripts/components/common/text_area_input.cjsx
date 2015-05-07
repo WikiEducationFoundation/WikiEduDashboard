@@ -14,12 +14,13 @@ TextAreaInput = React.createClass(
           value={this.state.value}
           onChange={this.onChange}
           autoFocus={this.props.focus}
+          placeholder={this.props.placeholder}
         />
       </div>
     else if this.props.value
       <span dangerouslySetInnerHTML={{__html: this.props.value.replace(/(?:\r\n|\r|\n)/g, '<br>')}}></span>
     else
-      <span></span>
+      <span>{this.props.placeholder}</span>
 )
 
 module.exports = TextAreaInput

@@ -43,8 +43,11 @@ Rails.application.routes.draw do
   end
   resources :weeks, only: [:show, :edit, :update, :destroy]
   resources :blocks, only: [:show, :edit, :update, :destroy]
+  resources :gradeables, collection: { update_multiple: :put }
 
-  post 'courses/:course_id/weeks/mass_update' => 'weeks#mass_update',
+  post 'courses/:course_id/weeks/timeline' => 'weeks#update_timeline',
+       constraints: { course_id: /.*/ }
+  post 'courses/:course_id/weeks/gradeables' => 'weeks#update_gradeables',
        constraints: { course_id: /.*/ }
 
   get 'courses' => 'courses#index'

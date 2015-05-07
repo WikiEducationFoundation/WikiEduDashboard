@@ -1,13 +1,15 @@
 React = require 'react'
 
 # Enables DRY and simple conditional components
+# Renders items when 'show' prop is undefined
 
 Conditional = (Component) ->
   React.createClass(
     render: ->
-      show = this.props.show == undefined || this.props.show
-      return <Component {...this.props} /> if show
-      return false
+      if this.props.show == undefined || this.props.show
+        <Component {...this.props} />
+      else
+        false
   )
 
 module.exports = Conditional

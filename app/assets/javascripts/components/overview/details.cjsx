@@ -23,25 +23,32 @@ Details = React.createClass(
     CourseActions.updateCourse to_pass
   render: ->
     <div className='module'>
-      <p>{this.props.controls}</p>
-      <p><span>{this.props.course.school}</span></p>
-      <p><span>{this.props.course.term}</span></p>
-      <p>
-        <TextInput
-          onChange={this.updateDetails}
-          value={this.props.course.start}
-          value_key={'start'}
-          editable={this.props.editable}
-        />
-      </p>
-      <p>
-        <TextInput
-          onChange={this.updateDetails}
-          value={this.props.course.end}
-          value_key={'end'}
-          editable={this.props.editable}
-        />
-      </p>
+      <div className="section-header">
+        <h3>Course Details</h3>
+        {this.props.controls}
+      </div>
+      <div className='module__data'>
+        <p><span>School: {this.props.course.school}</span></p>
+        <p><span>Term: {this.props.course.term}</span></p>
+        <p><span>Start: </span>
+          <TextInput
+            onChange={this.updateDetails}
+            value={this.props.course.start}
+            value_key='start'
+            editable={this.props.editable}
+            type='date'
+          />
+        </p>
+        <p><span>End: </span>
+          <TextInput
+            onChange={this.updateDetails}
+            value={this.props.course.end}
+            value_key='end'
+            editable={this.props.editable}
+            type='date'
+          />
+        </p>
+      </div>
     </div>
 )
 

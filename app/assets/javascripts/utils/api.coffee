@@ -38,7 +38,7 @@ API =
 
       $.ajax
         type: 'POST',
-        url: '/courses/' + course_id + '/weeks/mass_update',
+        url: '/courses/' + course_id + '/weeks/timeline',
         contentType: 'application/json',
         data: JSON.stringify
           weeks: weeks
@@ -47,6 +47,21 @@ API =
           res data
         failure: (e) ->
           console.log 'Couldn\'t save timeline! ' + e
+          rej e
+
+  saveGradeables: (course_id, data) ->
+    new Promise (res, rej) ->
+      $.ajax
+        type: 'POST',
+        url: '/courses/' + course_id + '/weeks/gradeables',
+        contentType: 'application/json',
+        data: JSON.stringify
+          gradeables: data.gradeables
+        success: (data) ->
+          console.log 'Saved gradeables!'
+          res data
+        failure: (e) ->
+          console.log 'Couldn\'t save gradeables! ' + e
           rej e
 
   saveCourse: (course_id, data) ->
