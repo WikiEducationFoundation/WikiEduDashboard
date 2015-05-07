@@ -13,13 +13,19 @@
 .course-page
   .title
     span(1)
-    padding 22px 0
+    padding 18px 0
     text-align left
     +above(desktop)
       span(1/2)
       text-align left
     h2
       font-family "Roboto"
+      font-size 21px
+      font-weight 300
+      letter-spacing 0.026em
+      text-align center
+      +above(desktop)
+        text-align left
   .stat-display
     cf()
     span(1)
@@ -34,22 +40,32 @@
       margin 0
       background bayoux
       border 1px solid manatee
-      border-width 0 1px
+      border-width 0
+      flex 1 0 33.333333333%
       font-family "Roboto"
       font-weight 100
+      height 80px
       padding 5px 5px 10px
-      flex 1 0 16.6666665%
-      &:first-child
-        border-width 0 1px 0 2px
-      &:last-child
-        border-width 0 2px 0 1px
+      +above(desktop)
+        border-width 0 1px
+        flex 1 0 16.6666665%
+        &:first-child
+          border-width 0 1px 0 2px
+        &:last-child
+          border-width 0 2px 0 1px
       small
-        font-size 12px
+        font-size 11px
         font-weight 500
-        line-height 1.3
-        padding 0 5px 0
+        letter-spacing 0.025em
+        line-height 14px
+        padding 0 7px 0
         text-transform uppercase
       h3
+        font-family "Roboto"
+        font-size 24px
+        letter-spacing 0.03em
+        line-height normal
+        padding 4px 0
         width 100%
     &.half
       span(3/10)

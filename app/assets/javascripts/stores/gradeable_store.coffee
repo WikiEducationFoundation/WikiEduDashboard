@@ -27,6 +27,7 @@ setGradeable = (data) ->
 addGradeable = (block) ->
   if block.gradeable
     block.gradeable['deleted'] = false
+    GradeableStore.emitChange()
   else
     setGradeable {
       id: Date.now(),

@@ -1,4 +1,4 @@
-React           = require 'react'
+React           = require 'react/addons'
 DND             = require 'react-dnd'
 Block           = require './block'
 BlockActions    = require '../../actions/block_actions'
@@ -6,6 +6,8 @@ WeekActions     = require '../../actions/week_actions'
 BlockStore      = require '../../stores/block_store'
 GradeableStore  = require '../../stores/gradeable_store'
 TextInput       = require '../common/text_input'
+
+ReactCSSTG      = React.addons.CSSTransitionGroup
 
 Week = React.createClass(
   displayName: 'Week'
@@ -30,13 +32,16 @@ Week = React.createClass(
         />
     blocks.sort (a, b) ->
       a.props.block.order - b.props.block.order
+
     if this.props.editable
       addBlock = <li className="row view-all">
                     <div>
                       <a onClick={this.addBlock}>Add New Block</a>
                     </div>
                   </li>
-      deleteWeek = <a onClick={this.props.deleteWeek}>Delete week</a>
+      deleteWeek = <span className="button danger" onClick={this.props.deleteWeek}>Delete Week</span>
+    # style =
+    #   paddingBottom: this.props.blocks.length * (220 + 10)
 
     <li className="week">
       <p>
@@ -47,8 +52,8 @@ Week = React.createClass(
           value_key={'title'}
           editable={this.props.editable}
         />
+        {deleteWeek}
       </p>
-      {deleteWeek}
       <ul className="list">
         {blocks}
         {addBlock}

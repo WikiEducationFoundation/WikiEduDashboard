@@ -1,4 +1,4 @@
-React             = require 'react'
+React             = require 'react/addons'
 DND               = require 'react-dnd'
 TextInput         = require '../common/text_input'
 TextAreaInput     = require '../common/text_area_input'
@@ -39,16 +39,37 @@ Block = React.createClass(
   render: ->
     gradeable = this.props.gradeable != undefined && !this.props.gradeable.deleted
     className = 'block'
+    if gradeable && !this.props.editable
+      dueDateRead = <p>
+        <span>Due: </span>
+        <TextInput
+          onChange={this.updateBlock}
+          value={this.props.block.due_date}
+          value_key={'due_date'}
+          editable={this.props.editable}
+          type='date'
+        />
+      </p>
     if this.props.editable
-      deleteBlock = <a className='button' onClick={this.deleteBlock}>Delete</a>
+      deleteBlock = <span className='button danger' onClick={this.deleteBlock}>Delete Block</span>
       dragSource = this.dragSourceFor(ItemTypes.BLOCK)
       dropTarget = this.dropTargetFor(ItemTypes.BLOCK)
       className += ' editable'
       className += ' dragging' if this.getDragState(ItemTypes.BLOCK).isDragging
+      graded = <p>
+        <span>Graded: </span>
+        <Checkbox
+          value={gradeable}
+          onChange={this.updateGradeable}
+          value_key={'gradeable'}
+          editable={this.props.editable}
+        />
+      </p>
+    style =
+      top: 100 + this.props.block.order * (220 + 10)
 
-    <li className={className} {...dragSource} {...dropTarget}>
-      {deleteBlock}
-      <p>
+    <li className={className} {...dragSource} {...dropTarget} style={style}>
+      <h4>
         <Select
           onChange={this.updateBlock}
           value={this.props.block.kind}
@@ -56,27 +77,30 @@ Block = React.createClass(
           editable={this.props.editable}
           options={['Assignment', 'Milestone', 'Class', 'Custom']}
         />
-        &nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&mdash;&nbsp;&nbsp;
         <TextInput
           onChange={this.updateBlock}
           value={this.props.block.title}
           value_key={'title'}
           editable={this.props.editable}
         />
-      </p>
-      <p>
+        <TextInput
+          onChange={this.updateBlock}
+          value={this.props.block.due_date}
+          value_key={'due_date'}
+          editable={this.props.editable}
+          type='date'
+          show={gradeable && this.props.editable}
+        />
+        {deleteBlock}
+      </h4>
+      {graded}
+      {dueDateRead}
+      <p className="content">
         <TextAreaInput
           onChange={this.updateBlock}
           value={this.props.block.content}
           value_key={'content'}
-          editable={this.props.editable}
-        />
-      </p>
-      <p><span>Graded: </span>
-        <Checkbox
-          value={gradeable}
-          onChange={this.updateGradeable}
-          value_key={'gradeable'}
           editable={this.props.editable}
         />
       </p>

@@ -4,8 +4,11 @@ body > .container
 
 .container
   center(1100px)
+  padding 0 10px
   position relative
   cf()
+  +above(1140px)
+    padding 0
 
 main
   background-color white
@@ -15,7 +18,11 @@ main
     background-color bayoux
     color white
     font-weight 300
-    padding 80px 0 0
+    padding 120px 0 40px
+    &.course-page
+      padding 80px 0 20px
+      +above(desktop)
+        padding 80px 0 0
 
 header
   border-bottom 1px solid zircon
@@ -25,6 +32,14 @@ header
   width 100%
   .title
     padding 0 20px
+
+.section-header
+  overflow hidden
+  padding 20px 0
+  position relative
+  h3
+    color dove
+    font-size 21px
 
 section
   position relative
@@ -73,3 +88,8 @@ section
 
 .course_main
   background-color smoke
+
+hr
+  border 1px solid dove
+  border-width 1px 0 0
+  height 1px

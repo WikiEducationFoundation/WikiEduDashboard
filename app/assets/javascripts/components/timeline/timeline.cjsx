@@ -38,7 +38,7 @@ Timeline = React.createClass(
         week_components.push (
           <Week
             week={week}
-            index={i}
+            index={i + 1}
             key={week.id}
             editable={this.props.editable}
             blocks={BlockStore.getBlocksInWeek(week.id)}
@@ -54,7 +54,10 @@ Timeline = React.createClass(
                 </li>
 
     <div>
-      {this.props.controls}
+      <div className="section-header">
+        <h3>Timeline</h3>
+        {this.props.controls}
+      </div>
       <ul className="list">
         {week_components}
         {addWeek}

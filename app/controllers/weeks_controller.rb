@@ -25,6 +25,7 @@ class WeeksController < ApplicationController
         :deleted,
         :order,
         :gradeable_id,
+        :due_date,
         { gradeable: [
           :id,
           :gradeable_item_id,

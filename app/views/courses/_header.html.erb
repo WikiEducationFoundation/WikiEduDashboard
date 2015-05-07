@@ -5,19 +5,19 @@
     </div>
     <div class="stat-display">
       <div class="stat-display__stat" id="articles-created">
-        <h2><%= number_to_human @course.revisions.joins(:article).where(articles: {namespace: 0}).where(new_article: true).count %></h2>
+        <h3><%= number_to_human @course.revisions.joins(:article).where(articles: {namespace: 0}).where(new_article: true).count %></h3>
         <small><%= t("metrics.articles_created") %></small>
       </div>
       <div class="stat-display__stat" id="articles-edited">
-        <h2><%= number_to_human @course.article_count %></h2>
+        <h3><%= number_to_human @course.article_count %></h3>
         <small><%= t("metrics.articles_edited") %></small>
       </div>
       <div class="stat-display__stat" id="total-edits">
-        <h2><%= number_to_human @course.revisions.count %></h2>
+        <h3><%= number_to_human @course.revisions.count %></h3>
         <small><%= t("metrics.edit_count_description") %></small>
       </div>
       <div class="stat-display__stat popover-trigger" id="student-editors">
-        <h2><%= @course.user_count %></h2>
+        <h3><%= @course.user_count %></h3>
         <small><%= t("metrics.student_editors") %></small>
         <div class="popover" id="trained-count">
           <h4><%= @course.users.role('student').where(trained: true).count %></h4>
@@ -25,11 +25,11 @@
         </div>
       </div>
       <div class="stat-display__stat" id="characters-added">
-        <h2><%= number_to_human @course.character_sum %></h2>
+        <h3><%= number_to_human @course.character_sum %></h3>
         <small><%= t("metrics.char_added") %></small>
       </div>
       <div class="stat-display__stat" id="view-count">
-        <h2><%= number_to_human @course.view_sum %></h2>
+        <h3><%= number_to_human @course.view_sum %></h3>
         <small><%= t("metrics.view_count_description") %></small>
       </div>
     </div>

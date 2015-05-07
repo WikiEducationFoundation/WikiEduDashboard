@@ -1,27 +1,33 @@
 .controls
-  padding 10px 0
+  padding 20px 0
+  position absolute
+  right 0
+  top 0
   text-align right
 
 .button
-  background-color zircon
-  border 1px solid dove
+  background-color mercury
+  border 1px solid zircon
   border-radius 4px
   color dove
   cursor pointer
   display inline-block
   font-family "Roboto"
-  font-size 11px
+  font-size 14px
   margin-left 10px
-  padding 5px 10px
-  transition background .15s
-  &:active
-    background-color bayoux
-    color white
+  padding 8px 15px 9px
+  transition background .15s ease-out
+  &:hover
+    background-color white
   &.large
-    padding 10px 30px
-    font-size 14px
+    padding 12px 27px
   &.dark
     background-color bayoux
+    color white
+    &:hover
+      background-color manatee
+  &.danger:hover
+    background-color burnt
     color white
 
 .button.arrow:hover
@@ -34,6 +40,15 @@
     margin-left 5px
 
 input, textarea, select
+  background-color white
   border 1px solid dove
+  border-radius 0
+  font-size 15px
   outline none
-  padding 5px
+  padding 10px
+  -webkit-appearance none
+  &:active, &:focus
+    font-size 15px !important
+
+input[type=text], input[type=date], select
+  height 40px

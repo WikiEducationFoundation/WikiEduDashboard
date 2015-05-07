@@ -8,11 +8,14 @@ TextAreaInput = React.createClass(
     value: this.props.value
   render: ->
     if this.props.editable
-      <textarea
-        value={this.state.value}
-        onChange={this.onChange}
-        autoFocus={this.props.focus}
-      />
+      <div>
+        <hr />
+        <textarea
+          value={this.state.value}
+          onChange={this.onChange}
+          autoFocus={this.props.focus}
+        />
+      </div>
     else if this.props.value
       <span dangerouslySetInnerHTML={{__html: this.props.value.replace(/(?:\r\n|\r|\n)/g, '<br>')}}></span>
     else
