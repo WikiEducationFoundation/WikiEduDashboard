@@ -69,6 +69,16 @@ class Wiki
     end
   end
 
+  def self.parse_article_rating(raw_article)
+    # Handle MediaWiki API errors
+    return nil if raw_article.nil?
+    # Handle the case of nonexistent talk pages.
+    return nil if raw_article['missing']
+
+    article = raw_article['revisions'][0]['*']
+    find_article_class article
+  end
+
   # Try to find the Wikipedia 1.0 rating of an article by parsing its talk page
   # contents.
   #
@@ -77,19 +87,10 @@ class Wiki
   # We simplify this parser by removing folding the nonstandard ratings
   # into the corresponding standard ones. We don't want to deal with edge cases
   # like bplus and a/ga.
-  def self.parse_article_rating(raw_article)
-    # Handle MediaWiki API errors
-    return nil if raw_article.nil?
-
-    # Handle the case of nonexistent talk pages.
-    return nil if raw_article['missing']
-
-    article = raw_article['revisions'][0]['*']
-
+  def self.find_article_class(article)
     # Handle empty talk page
     return nil if article.is_a? Hash
-
-    # rubocop:disable Metrics/LineLength
+        # rubocop:disable Metrics/LineLength
     if article.match(/\|\s*(class|currentstatus)\s*=\s*fa\b/i)
       'fa'
     elsif article.match(/\|\s*(class|currentstatus)\s*=\s*fl\b/i)
