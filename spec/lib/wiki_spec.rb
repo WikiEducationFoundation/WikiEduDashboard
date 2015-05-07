@@ -136,7 +136,7 @@ describe Wiki do
           'Talk:List of Canadian plants by family S' # exists
         ]
         # rubocop:enable Metrics/LineLength
-        response = Wiki.get_article_rating_raw(articles)
+        response = Wiki.get_raw_page_content(articles)
         expect(response.count).to eq(4)
       end
     end

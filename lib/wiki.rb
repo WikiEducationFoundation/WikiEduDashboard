@@ -59,13 +59,12 @@ class Wiki
     titles = titles.sort_by(&:downcase)
 
     talk_titles = titles.map { |at| 'Talk:' + at }
-    raw = get_article_rating_raw(talk_titles)
+    raw = get_raw_page_content(talk_titles)
     return [] unless raw
 
-    raw = [raw] unless raw.is_a?(Array)
     # Pages that are missing get returned before pages that exist, so we cannot
     # count on our array being in the same order as titles.
-    raw.each_with_index.map do |article|
+    raw.map do |article_id, article|
       # Remove "Talk:" from the "title" value to get the title.
       { article['title'][5..-1] => parse_article_rating(article) }
     end
@@ -86,7 +85,7 @@ class Wiki
     # Handle the case of nonexistent talk pages.
     return nil if raw_article['missing']
 
-    article = raw_article['revisions']['rev']
+    article = raw_article['revisions'][0]['*']
 
     # Handle empty talk page
     return nil if article.is_a? Hash
@@ -155,24 +154,18 @@ class Wiki
   # find the article ratings. (The corresponding Talk page are the one with the
   # relevant info.) Example query:
   # http://en.wikipedia.org/w/api.php?action=query&prop=revisions&rvprop=content&rawcontinue=true&redirects=true&titles=Talk:Selfie
-  def self.get_article_rating_raw(article_title)
-    article_title = article_title.join('|') if article_title.is_a?(Array)
-    info = api_get(
-      'action' => 'query',
-      'prop' => 'revisions',
-      'rvprop' => 'content',
-      'rawcontinue' => 'true',
-      'redirects' => 'true',
-      'titles' => article_title
-    )
-
-    begin
-      page = info['query']['pages']['page']
-      page.nil? ? nil : page
-    rescue NoMethodError => e
-      Rails.logger.warn "Could not get rating(s) for #{article_title}"
-      return nil
-    end
+  def self.get_raw_page_content(article_titles)
+    info = wikipedia.query titles: article_titles,
+                           prop: 'revisions',
+                           rvprop: 'content'
+    page = info.data['pages']
+    page.nil? ? nil : page
+  rescue NoMethodError => e
+    Rails.logger.warn "Could not get rating(s) for #{article_title}"
+    Raven.capture_exception e
+    return nil
+  rescue MediawikiApi::ApiError => e
+    handle_api_error e
   end
 
   ###################
