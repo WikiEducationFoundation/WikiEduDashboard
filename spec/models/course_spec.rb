@@ -17,8 +17,11 @@ describe Course, type: :model do
   end
 
   it 'should handle MediaWiki API errors' do
-    stub_request(:any, %r{.*wikipedia\.org/w/api\.php?action=liststudents.*})
-      .to_raise(MediaWiki::APIError.new('foo', 'bar'))
+    error = MediawikiApi::ApiError.new nil
+    allow(error).to receive(:data).and_return({})
+    allow(error).to receive(:info).and_return('bar')
+    stub_request(:any, %r{.*wikipedia\.org/w/api\.php.*})
+      .to_raise(error)
     CourseImporter.update_all_courses(false, { first: '798', second: '800' })
 
     course = create(:course, id: 519)

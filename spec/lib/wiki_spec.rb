@@ -11,8 +11,8 @@ describe Wiki do
       end
     end
 
-    it 'should return course info for a certain course' do
-      VCR.use_cassette 'wiki/course_data' do
+    it 'should return course info for an existing course' do
+      VCR.use_cassette 'wiki/single_course' do
         # A single course
         # rubocop:disable Metrics/LineLength
         response = Wiki.get_course_info '351'
@@ -23,15 +23,23 @@ describe Wiki do
         expect(response[0]['course']['start']).to eq('2014-05-12'.to_date)
         expect(response[0]['course']['end']).to eq('2014-06-25'.to_date)
         # rubocop:enable Metrics/LineLength
+      end
+    end
 
+    it 'should handle a nonexistent course' do
+      VCR.use_cassette 'wiki/no_course' do
+        # A single course that doesn't exist
+        response = Wiki.get_course_info '2155897'
+        expect(response).to eq([])
+      end
+    end
+    
+    it 'should return course info for multiple courses' do
+      VCR.use_cassette 'wiki/missing_courses' do
         # Several courses, including some that don't exist
         course_ids = %w( 9999 351 366 398 2155897 411 415 9999 )
         response = Wiki.get_course_info course_ids
         expect(response).to be
-
-        # A single course that doesn't exist
-        response = Wiki.get_course_info '2155897'
-        expect(response).to eq([])
       end
     end
 

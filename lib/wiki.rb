@@ -1,5 +1,7 @@
 require 'media_wiki'
+require 'mediawiki_api'
 require 'crack'
+require 'json'
 
 #= This class is for getting data directly from the Wikipedia API.
 class Wiki
@@ -20,11 +22,16 @@ class Wiki
 
   def self.get_course_info(course_ids)
     raw = get_course_info_raw(course_ids)
-    return [nil] if raw.nil?
-    return [] unless raw
+    return [nil] if raw.nil? # This indicates a failure to get the course data.
+    return [] unless raw # This indicates that the course(s) don't exist.
 
-    raw = [raw] unless raw.is_a?(Array)
-    raw.map { |course| parse_course_info(course) }
+    info = []
+    (0...raw.count).each do |course|
+      raw_course_info = raw[course.to_s]
+      course_info = parse_course_info(raw_course_info)
+      info.append(course_info)
+    end
+    info
   end
 
   def self.parse_course_info(course)
@@ -42,7 +49,7 @@ class Wiki
 
       roles = %w(student instructor online_volunteer campus_volunteer)
       roles.each do |r|
-        p['participants'][r] = course[r + 's'].blank? ? [] : course[r + 's'][r]
+        p['participants'][r] = course[r + 's']
       end
     end
   end
@@ -115,27 +122,33 @@ class Wiki
   ###################
   # Request methods #
   ###################
-  def self.get_page_content(page_title, options={})
-    @mw = gateway
-    return if @mw.nil?
-    options['format'] = 'xml'
-    options[:maxlag] = 5
-    options['rawcontinue'] = true
-    @mw.get(page_title, options)
-  rescue MediaWiki::APIError => e
-    handle_api_error e, options
+  def self.get_page_content(page_title)
+    response = wikipedia.get_wikitext page_title
+    response.status == 200 ? response.body : nil
   end
 
   # Query the liststudents API to get info about a course. For example:
   # http://en.wikipedia.org/w/api.php?action=liststudents&courseids=30&group=
-  def self.get_course_info_raw(course_id)
-    course_id = course_id.join('|') if course_id.is_a?(Array)
-    info = api_get(
-      'action' => 'liststudents',
-      'courseids' => course_id,
-      'group' => ''
-    )
-    info.nil? ? nil : info['course']
+  def self.get_course_info_raw(course_ids)
+    course_ids = [course_ids] unless course_ids.is_a?(Array)
+    courseids_param = course_ids.join('|')
+    response = wikipedia.action 'liststudents',
+                                {
+                                  token_type: false,
+                                  courseids: courseids_param,
+                                  group: ''
+                                }
+    info = response.data
+    info.nil? ? nil : info
+  rescue MediawikiApi::ApiError => e
+    # The message for invalid course ids looks like this:
+    # "Invalid course id: 953"
+    if e.info[0..16] == 'Invalid course id'
+      invalid = e.info[19..-1] # This is the invalid id.
+      handle_invalid_course_id course_ids, invalid
+    else
+      handle_api_error e
+    end
   end
 
   # Get raw page content for one or more pages titles, which can be parsed to
@@ -168,6 +181,15 @@ class Wiki
   class << self
     private
 
+    def wikipedia
+      language = Figaro.env.wiki_language
+      url = "https://#{language}.wikipedia.org/w/api.php"
+      @wikipedia = MediawikiApi::Client.new url
+      @wikipedia
+    end
+
+    # This api gateway, based on the 'mediawiki-gateway' gem, is being
+    # deprecated in favor of the Wikimedia-maintained 'mediawiki_api' gem.
     def gateway
       language = Figaro.env.wiki_language
       url = "http://#{language}.wikipedia.org/w/api.php"
@@ -216,36 +238,19 @@ class Wiki
       return nil # because Raven captures return 'true' if successful
     end
 
-    def handle_api_error(e, options)
-      if e.to_s.include?('Invalid course id')
-        if options['courseids'].split('|').count > 1
-          api_get handle_invalid_course_id(options, e)
-        else
-          { 'course' => false }
-        end
-      else
-        Rails.logger.warn 'Caught #{e}'
-        Raven.capture_exception e, level: 'warning'
-        return nil # because Raven captures return 'true' if successful
-      end
+    def handle_api_error(e, options=nil)
+      Rails.logger.warn 'Caught #{e}'
+      Raven.capture_exception e, level: 'warning'
+      return nil # because Raven captures return 'true' if successful
     end
 
-    def handle_invalid_course_id(options, e)
-      # rubocop:disable Metrics/LineLength
-      id = e.to_s[/(?<=MediaWiki::APIError: API error: code 'invalid-course', info 'Invalid course id: ).*?(?=')/]
-      # rubocop:enable Metrics/LineLength
-      array = options['courseids'].split('|')
-      unless array.index(id).nil? || array.index(id) >= array.count
-        Rails.logger.warn "Listed course_id #{id} is invalid"
-      end
-      if options['courseids'].include?('|' + id + '|')
-        options['courseids'] = options['courseids'].gsub('|' + id + '|', '|')
-      elsif options['courseids'].include?(id + '|')
-        options['courseids'].slice! id + '|'
+    def handle_invalid_course_id(course_ids, invalid)
+      course_ids.delete(invalid)
+      if course_ids.blank?
+        return false # This indicates that the course doesn't exist
       else
-        options['courseids'].slice! '|' + id
+        get_course_info_raw course_ids
       end
-      options
     end
   end
 end
