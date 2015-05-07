@@ -84,7 +84,7 @@ class Wiki
   #
   # Adapted from https://en.wikipedia.org/wiki/User:Pyrospirit/metadata.js
   # alt https://en.wikipedia.org/wiki/MediaWiki:Gadget-metadata.js
-  # We simplify this parser by removing folding the nonstandard ratings
+  # We simplify this parser by folding the nonstandard ratings
   # into the corresponding standard ones. We don't want to deal with edge cases
   # like bplus and a/ga.
   def self.find_article_class(article)
