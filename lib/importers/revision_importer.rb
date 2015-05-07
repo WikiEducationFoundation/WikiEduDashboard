@@ -28,7 +28,7 @@ class RevisionImporter
 
       unless old_users.empty?
         first_rev = c.revisions.order('date DESC').first
-        start = first_rev.date.strftime('%Y%m%d') unless first_rev.empty?
+        start = first_rev.date.strftime('%Y%m%d') unless first_rev.blank?
         results += Utils.chunk_requests(old_users, 40) do |block|
           Replica.get_revisions block, start, c.end.strftime('%Y%m%d')
         end
