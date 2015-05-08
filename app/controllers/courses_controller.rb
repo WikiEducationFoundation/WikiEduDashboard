@@ -8,11 +8,8 @@ class CoursesController < ApplicationController
       @cohort = Cohort.find_by(slug: params[:cohort])
     elsif !Figaro.env.default_cohort.nil?
       @cohort = Cohort.find_by(slug: Figaro.env.default_cohort)
-    elsif Cohort.all.size > 0
-      @cohort = Cohort.all.order(:created_at).last
-    else
-      @cohort = nil
     end
+    @cohort ||= nil
 
     raise ActionController::RoutingError.new('Not Found') if @cohort.nil?
 
