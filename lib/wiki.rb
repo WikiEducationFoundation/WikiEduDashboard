@@ -1,5 +1,4 @@
 require 'mediawiki_api'
-require 'crack'
 require 'json'
 
 #= This class is for getting data directly from the Wikipedia API.
@@ -160,10 +159,6 @@ class Wiki
                            rvprop: 'content'
     page = info.data['pages']
     page.nil? ? nil : page
-  rescue NoMethodError => e
-    Rails.logger.warn "Could not get rating(s) for #{article_title}"
-    Raven.capture_exception e
-    return nil
   rescue MediawikiApi::ApiError => e
     handle_api_error e
   end
