@@ -64,11 +64,12 @@ API =
           console.log 'Couldn\'t save gradeables! ' + e
           rej e
 
-  saveCourse: (course_id, data) ->
+  saveCourse: (data, course_id=null) ->
+    append = if course_id? then '/' + course_id else ''
     new Promise (res, rej) ->
       $.ajax
-        type: 'PUT',
-        url: '/courses/' + course_id,
+        type: 'POST',
+        url: '/courses' + append,
         contentType: 'application/json',
         data: JSON.stringify { course: data.course }
         success: (data) ->

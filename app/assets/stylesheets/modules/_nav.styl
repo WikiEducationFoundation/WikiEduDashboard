@@ -43,7 +43,6 @@ aside
 nav
   padding 22px 0
   .nav__item
-    cursor pointer
     float left
     overflow hidden
     padding 23px 20px 24px 0
@@ -54,8 +53,9 @@ nav
     .subtitle a
       color manatee
     &.active a,
-    &:hover a
+    a:hover
       border-bottom 2px solid bayoux
+      cursor pointer
       padding-bottom 3px
     &.active a
       color bayoux

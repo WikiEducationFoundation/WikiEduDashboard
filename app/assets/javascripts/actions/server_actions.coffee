@@ -8,9 +8,10 @@ ServerActions = Flux.createActions
       { actionType: 'RECEIVE_COURSE', data: {
         course: data
       }}
-  saveCourse: (course_id, data) ->
-    API.saveCourse(course_id, data).then (data) ->
-      { actionType: 'SAVED_COURSE', data: {
+  saveCourse: (data, course_id=null) ->
+    API.saveCourse(data, course_id).then (data) ->
+      actionType = if course_id == null then 'CREATED_COURSE' else 'SAVED_COURSE'
+      { actionType: actionType, data: {
         course: data
       }}
   saveTimeline: (course_id, data) ->

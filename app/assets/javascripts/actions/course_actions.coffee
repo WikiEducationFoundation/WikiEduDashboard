@@ -10,5 +10,7 @@ CourseActions = Flux.createActions
     { actionType: 'SAVE_COURSE', data: {
       course_id: course_id
     }}
+  addCourse: ->
+    { actionType: 'ADD_COURSE' }
 
 module.exports = CourseActions

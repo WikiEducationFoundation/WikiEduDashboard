@@ -102,6 +102,7 @@ Block = React.createClass(
           value={this.props.block.content}
           value_key={'content'}
           editable={this.props.editable}
+          hr=true
         />
       </p>
     </li>

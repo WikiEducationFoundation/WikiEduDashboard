@@ -9,7 +9,6 @@ _persisted = {}
 
 # Utilities
 setGradeables = (data, persisted=false) ->
-  debugger unless data?
   for week in data
     for block in week.blocks
       if block.gradeable != undefined

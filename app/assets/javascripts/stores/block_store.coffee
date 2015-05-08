@@ -34,7 +34,6 @@ addBlock = (week_id) ->
     title: "",
     content: "",
     gradeable_id: null,
-    weekday: 0,
     week_id: week_id,
     order: week_blocks.length
   }

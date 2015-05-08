@@ -20,6 +20,7 @@ TextInput = React.createClass(
         onChange={this.onChange}
         autoFocus={this.props.focus}
         type={this.props.type || 'text'}
+        placeholder={this.props.placeholder}
       />
     else
       <span>{value}</span>

@@ -61,6 +61,11 @@ Rails.application.routes.draw do
     cohort: !db_init || cohorts.empty? ? 'spring_2015' : cohorts.last.slug
   }
 
+  # Route aliases for React frontend
+  get '/course_creator(/*any)' => 'courses#index', defaults: {
+    cohort: !db_init || cohorts.empty? ? 'spring_2015' : cohorts.last.slug
+  }
+
   match '/404', to: 'errors#file_not_found', via: :all
   match '/422', to: 'errors#unprocessable', via: :all
   match '/500', to: 'errors#internal_server_error', via: :all

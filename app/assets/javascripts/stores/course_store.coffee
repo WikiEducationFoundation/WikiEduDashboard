@@ -19,6 +19,18 @@ updateCourseValue = (key, value) ->
   _course[key] = value
   CourseStore.emitChange()
 
+addCourse = ->
+  setCourse {
+    title: "",
+    description: ""
+    school: ""
+    term: ""
+    subject: ""
+    expected_students: 0
+    start: ""
+    end: ""
+  }
+
 
 # Store
 CourseStore = Flux.createStore
@@ -30,7 +42,7 @@ CourseStore = Flux.createStore
 , (payload) ->
   data = payload.data
   switch(payload.actionType)
-    when 'RECEIVE_COURSE'
+    when 'RECEIVE_COURSE', 'CREATED_COURSE'
       setCourse data.course, true
       break
     when 'SAVED_COURSE'
@@ -38,6 +50,9 @@ CourseStore = Flux.createStore
       break
     when 'UPDATE_COURSE'
       setCourse data.course
+      break
+    when 'ADD_COURSE'
+      addCourse()
       break
   return true
 
