@@ -75,6 +75,9 @@ GradeableStore = Flux.createStore
     when 'ADD_GRADEABLE'
       addGradeable data.block
       break
+    when 'ADD_GRADEABLE_TO_COURSE'
+      console.log 'This isn\'t implemented yet!'
+      break
     when 'UPDATE_GRADEABLE'
       setGradeable data.gradeable
       break

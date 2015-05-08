@@ -9,21 +9,25 @@ Gradeable = React.createClass(
     to_pass[value_key] = value
     GradeableActions.updateGradeable to_pass
   render: ->
-    gtitle = this.props.gradeable.title
-    title = if gtitle.length then gtitle else this.props.title
-    <li className="gradeable">
-      <TextInput
-        onChange={this.updateGradeable}
-        value={title}
-        value_key={'title'}
-        editable={this.props.editable && gtitle.length}
-      />
-      <TextInput
-        onChange={this.updateGradeable}
-        value={this.props.gradeable.points}
-        value_key={'points'}
-        editable={this.props.editable}
-      />
+    block = @props.block
+    title = if block? then block.title else @props.gradeable.title
+    <li className="gradeable block">
+      <h4>
+        <TextInput
+          onChange={this.updateGradeable}
+          value={title}
+          value_key={'title'}
+          editable={this.props.editable && @props.gradeable.title.length}
+        />
+      </h4>
+      <p><span>Points: </span>
+        <TextInput
+          onChange={this.updateGradeable}
+          value={this.props.gradeable.points}
+          value_key={'points'}
+          editable={this.props.editable}
+        />
+      </p>
     </li>
 )
 

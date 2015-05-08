@@ -66,9 +66,10 @@ API =
 
   saveCourse: (data, course_id=null) ->
     append = if course_id? then '/' + course_id else ''
+    type = if course_id? then 'PUT' else 'POST'
     new Promise (res, rej) ->
       $.ajax
-        type: 'POST',
+        type: type,
         url: '/courses' + append,
         contentType: 'application/json',
         data: JSON.stringify { course: data.course }

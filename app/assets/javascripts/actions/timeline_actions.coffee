@@ -1,6 +1,5 @@
 McFly       = require 'mcfly'
 Flux        = new McFly()
-TimelineAPI = require '../utils/timeline_api'
 
 TimelineActions = Flux.createActions
   addWeek: ->

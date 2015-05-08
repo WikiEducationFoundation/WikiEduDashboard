@@ -8,7 +8,7 @@ editable = (Component, Stores, Save, GetState) ->
     toggleEditable: ->
       this.setState editable: !this.state.editable
     saveChanges: ->
-      Save this.props.course_id, $.extend(true, {}, this.state)
+      Save $.extend(true, {}, this.state), this.props.course_id
       this.toggleEditable()
     cancelChanges: ->
       store.restore() for store in Stores

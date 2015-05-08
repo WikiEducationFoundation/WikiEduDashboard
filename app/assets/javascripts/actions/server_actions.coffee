@@ -14,12 +14,12 @@ ServerActions = Flux.createActions
       { actionType: actionType, data: {
         course: data
       }}
-  saveTimeline: (course_id, data) ->
+  saveTimeline: (data, course_id) ->
     API.saveTimeline(course_id, data).then (data) ->
       { actionType: 'SAVED_TIMELINE', data: {
         course: data
       }}
-  saveGradeables: (course_id, data) ->
+  saveGradeables: (data, course_id) ->
     API.saveGradeables(course_id, data).then (data) ->
       { actionType: 'SAVED_TIMELINE', data: {
         course: data

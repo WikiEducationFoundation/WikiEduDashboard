@@ -49,7 +49,7 @@ Timeline = React.createClass(
     if this.props.editable
       addWeek = <li className="row view-all">
                   <div>
-                    <a onClick={this.addWeek}>Add New Week</a>
+                    <div className='button large dark' onClick={this.addWeek}>Add New Week</div>
                   </div>
                 </li>
 

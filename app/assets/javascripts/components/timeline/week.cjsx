@@ -36,12 +36,10 @@ Week = React.createClass(
     if this.props.editable
       addBlock = <li className="row view-all">
                     <div>
-                      <a onClick={this.addBlock}>Add New Block</a>
+                      <div className='button large' onClick={this.addBlock}>Add New Block</div>
                     </div>
                   </li>
       deleteWeek = <span className="button danger" onClick={this.props.deleteWeek}>Delete Week</span>
-    # style =
-    #   paddingBottom: this.props.blocks.length * (220 + 10)
 
     <li className="week">
       <p>

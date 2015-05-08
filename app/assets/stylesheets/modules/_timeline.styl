@@ -3,7 +3,7 @@
     padding 10px
     a
       cursor pointer
-    li
+    > li
       margin 0
     .week
       display block
@@ -16,37 +16,37 @@
         color dove
         padding-bottom 5px
         margin-bottom 20px
-      .block
-        background-color white
-        border 1px solid zircon
-        // height 220px
-        left 0px
-        margin 20px 0
-        padding 40px
-        // position absolute
-        width 100%
-        transition all 0.25s ease-out
-        &.editable
-          cursor move
-          &:hover
-            box-shadow 0px 0px 15px 0px rgba(0,0,0,0.2)
-        &.dragging
-          opacity 0
-          // transform scale(1.05)
-        &.block-leave-active
-          opacity 0
-          transform scale(0.5)
-        p
-          color dove
-          &.content
-            margin-top 10px
-            font-size 15px
-        h4
-          color dove
-          font-size 18px
-          letter-spacing 0.031em
-        textarea
-          width 100%
+  .block
+    background-color white
+    border 1px solid zircon
+    // height 220px
+    left 0px
+    margin 20px 0
+    padding 40px
+    // position absolute
+    width 100%
+    transition all 0.25s ease-out
+    &.editable
+      cursor move
+      &:hover
+        box-shadow 0px 0px 15px 0px rgba(0,0,0,0.2)
+    &.dragging
+      opacity 0
+      // transform scale(1.05)
+    &.block-leave-active
+      opacity 0
+      transform scale(0.5)
+    p
+      color dove
+      &.content
+        margin-top 10px
+        font-size 15px
+    h4
+      color dove
+      font-size 18px
+      letter-spacing 0.031em
+    textarea
+      width 100%
 
 input[type="radio"]
   -webkit-appearance radio

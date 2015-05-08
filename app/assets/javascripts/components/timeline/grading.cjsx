@@ -19,35 +19,34 @@ getState = ->
 Grading = React.createClass(
   displayName: 'Grading'
   addGradeable: ->
-    GradeableActions.addGradeableToCourse
+    GradeableActions.addGradeableToCourse()
   deleteGradeable: (gradeable_id) ->
     GradeableActions.deleteGradeable gradeable_id
   render: ->
     gradeables = []
-    this.props.gradeables.forEach (gradeable, i) =>
+    @props.gradeables.forEach (gradeable, i) =>
       unless gradeable.deleted
         block = BlockStore.getBlock(gradeable.gradeable_item_id)
-        block_title = if block? then block.title else gradeable.title
         gradeables.push (
           <Gradeable
             gradeable={gradeable}
-            title={block_title}
+            block={block}
             key={gradeable.id}
-            editable={this.props.editable}
-            deleteGradeable={this.deleteGradeable.bind(this, gradeable.id)}
+            editable={@props.editable}
+            deleteGradeable={@deleteGradeable.bind(this, gradeable.id)}
           />
         )
-    if this.props.editable
+    if @props.editable
       addGradeable = <li className="row view-all">
         <div>
-          <a onClick={this.addGradeable}>Add New Grading Item</a>
+          <div className='button large dark' onClick={@addGradeable}>Add New Grading Item</div>
         </div>
       </li>
 
     <div>
       <div className="section-header">
         <h3>Grading</h3>
-        {this.props.controls}
+        {@props.controls}
       </div>
       <ul className="list">
         {gradeables}
