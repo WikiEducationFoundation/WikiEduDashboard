@@ -6,7 +6,9 @@ class CoursesController < ApplicationController
   def index
     if params.key?(:cohort)
       @cohort = Cohort.find_by(slug: params[:cohort])
-    elsif ActiveRecord::Base.connection.table_exists? 'cohorts'
+    elsif !Figaro.env.default_cohort.nil?
+      @cohort = Cohort.find_by(slug: Figaro.env.default_cohort)
+    elsif Cohort.all.size > 0
       @cohort = Cohort.all.order(:created_at).last
     else
       @cohort = nil
