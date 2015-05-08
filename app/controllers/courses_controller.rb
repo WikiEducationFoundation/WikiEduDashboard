@@ -4,13 +4,14 @@ require "#{Rails.root}/lib/wiki_edits"
 #= Controller for course functionality
 class CoursesController < ApplicationController
   def index
-    if params[:cohort].present?
-      @cohort = params[:cohort]
+    if params.key?(:cohort)
+      @cohort = Cohort.find_by(slug: params[:cohort])
+    elsif ActiveRecord::Base.connection.table_exists? 'cohorts'
+      @cohort = Cohort.all.order(:created_at).last
     else
-      @cohort = 'spring_2015'
+      @cohort = nil
     end
 
-    @cohort = Cohort.find_by(slug: @cohort)
     raise ActionController::RoutingError.new('Not Found') if @cohort.nil?
 
     @courses = @cohort.courses.where(listed: true).order(:title)

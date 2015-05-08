@@ -37,11 +37,7 @@ Rails.application.routes.draw do
   get 'courses/*id' => 'courses#show',
         :as => :show, constraints: { id: /.*/ }
 
-  cohorts = Cohort.all.order(:created_at)
-  db_init = ActiveRecord::Base.connection.table_exists? 'cohorts'
-  root to: 'courses#index', defaults: {
-    cohort: !db_init || cohorts.empty? ? 'spring_2015' : cohorts.last.slug
-  }
+  root to: 'courses#index'
 
   match '/404', to: 'errors#file_not_found', via: :all
   match '/422', to: 'errors#unprocessable', via: :all
