@@ -3,7 +3,7 @@ ruby '2.1.5'
 gem 'rails', '4.1.8'
 gem 'jbuilder', '~> 2.0'
 
-gem 'mediawiki-gateway'
+gem 'mediawiki_api'
 gem 'crack'
 gem 'figaro'
 gem 'whenever'

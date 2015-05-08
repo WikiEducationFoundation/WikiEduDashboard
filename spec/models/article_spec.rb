@@ -215,8 +215,11 @@ describe Article do
 
   describe '.update_ratings' do
     it 'should handle MediaWiki API errors' do
+      error = MediawikiApi::ApiError.new nil
+      allow(error).to receive(:data).and_return({})
+      allow(error).to receive(:info).and_return('bar')
       stub_request(:any, %r{.*wikipedia\.org/w/api\.php.*query.*})
-        .to_raise(StandardError)
+        .to_raise(error)
 
       create(:article,
              id: 1,
