@@ -1,30 +1,32 @@
 <li class="row revision-list__row">
-  <%= link_to revision.article.url, :target => "_blank" do %>
-    <div class="row__wrapper">
-      <div class="revision-list__row__title">
+  <div class="row__wrapper">
+    <div class="revision-list__row__title">
+      <%= link_to revision.article.url, :target => "_blank" do %>
         <p class="title"><%= ((revision.article.namespace == 0 ? "" : t("namespace.user_ns") + ":") + revision.article.title) %></p>
-      </div>
-      <div class="revision-list__row__date desktop-only-flex">
-        <%# TODO: localize the date, or explicitly use ISO 8601 %>
-        <p class="date"><%= revision.date.strftime("%Y-%m-%d %k:%M") %></p>
-      </div>
-      <div class="revision-list__row__characters">
-        <p class="characters">
-          <span class="tablet-only-flex"><%= t("metrics.char") %>: </span>
-          <%= revision.characters %>
-        </p>
-      </div>
-      <div class="revision-list__row__views">
-        <p class="views">
-          <span class="tablet-only-flex"><%= t("metrics.view") %>: </span>
-          <%= revision.views %>
-        </p>
-      </div>
-      <div class="revision-list__row__link">
-        <!-- <div>Dif. <span class="icon icon-downward-arrow"></span></div> -->
-      </div>
-      <div class="row__fake__link tablet-only"><p class="icon icon-arrow"></p></div>
+      <% end %>
     </div>
-  <% end %>
+    <div class="revision-list__row__date desktop-only-flex">
+      <%# TODO: localize the date, or explicitly use ISO 8601 %>
+      <p class="date"><%= revision.date.strftime("%Y-%m-%d %k:%M") %></p>
+    </div>
+    <div class="revision-list__row__characters">
+      <p class="characters">
+        <span class="tablet-only-flex"><%= t("metrics.char") %>: <%= revision.characters %></span>
+        <span><%= revision.characters %></span>
+      </p>
+    </div>
+    <div class="revision-list__row__views">
+      <p class="views">
+        <span class="tablet-only-flex"><%= t("metrics.view") %>: <%= revision.views %></span>
+        <span><%= revision.views %></span>
+      </p>
+    </div>
+    <div class="revision-list__row__link desktop-only-flex">
+      <%= link_to revision.url, :target => "_blank" do %>
+        <p>Dif. <span class="icon icon-downward-arrow"></span></p>
+      <% end %>
+    </div>
+    <div class="row__fake__link tablet-only"><p class="icon icon-arrow"></p></div>
+  </div>
 </li>
 <!-- render diff here? -->

@@ -30,7 +30,7 @@
         <p class='red'><%= t("user.assigned_none") %></p>
       <% else %>
         <% unless @assignment.reviewers.empty? %>
-        <p class='reviewer'><i><%= @assignment.reviewers.first.wiki_id %></i></p>
+        <p class='reviewer'><%= contribution_link(@assignment.reviewers.first, nil, 'inline') %></p>
         <% else %>
         <p class='reviewer hidden'>zzz</p>
         <p class='red'><%= t("user.reviewer_none") %></p>
