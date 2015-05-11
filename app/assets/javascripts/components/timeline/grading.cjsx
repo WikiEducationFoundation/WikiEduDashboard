@@ -42,6 +42,10 @@ Grading = React.createClass(
           <div className='button large dark' onClick={@addGradeable}>Add New Grading Item</div>
         </div>
       </li>
+    unless gradeables.length
+      no_gradeables = <li className="row view-all">
+                        <div><p>This course has no gradeable assignments</p></div>
+                      </li>
 
     <div>
       <div className="section-header">
@@ -50,6 +54,7 @@ Grading = React.createClass(
       </div>
       <ul className="list">
         {gradeables}
+        {no_gradeables}
         {addGradeable}
       </ul>
     </div>

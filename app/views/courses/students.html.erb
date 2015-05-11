@@ -12,9 +12,10 @@
       <div class="sort-select">
         <select class="sorts" rel="users">
           <option rel="asc" value="name"><%= t("user.name") %></option>
+          <option rel="asc" value="assignee"><%= t("user.assigned") %></option>
+          <option rel="asc" value="reviewer"><%= t("user.reviewer") %></option>
           <option rel="desc" value="characters-ms"><%= t("namespace.main_char_added") %></option>
           <option rel="desc" value="characters-us"><%= t("namespace.user_char_added") %></option>
-          <option rel="desc" value="edits"><%= t("user.assigned") %></option>
         </select>
       </div>
     </div>

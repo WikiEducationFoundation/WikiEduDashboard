@@ -56,20 +56,20 @@ describe Replica do
         end
         response = Replica.get_revisions(all_users, rev_start, rev_end)
 
-        # This count represents the number of articles and userpages
+        # This count represents the number of pages in a subset of namespaces
         # edited by the users, not the number of revisions. Revisions are child
         # elements of the page ids.
-        expect(response.count).to eq(139)
+        expect(response.count).to eq(223)
 
         # Make sure we handle the case of zero revisions.
-        rev_start = 2015_01_05
-        rev_end = 2015_01_06
+        rev_start = 2015_05_05
+        rev_end = 2015_05_06
         response = Replica.get_revisions(all_users, rev_start, rev_end)
         expect(response.count).to eq(0)
 
         # Make sure we handle the case of one revision.
-        rev_start = 2015_01_05
-        rev_end = 2015_01_08
+        rev_start = 2015_05_08
+        rev_end = 2015_05_09
         response = Replica.get_revisions(all_users, rev_start, rev_end)
         expect(response.count).to eq(1)
       end
@@ -132,13 +132,15 @@ describe Replica do
     it 'should return a list of existing articles' do
       VCR.use_cassette 'replica/articles' do
         article_titles = [
-          { 'title' => 'Autism' }, # exists
-          { 'title' => 'Allegiance' }, # exists
-          { 'title' => 'Paul_Cézanne' }, # exists (with special characters)
-          { 'title' => 'Mmilldev/sandbox' } # does not exist
+          { 'title' => 'Autism' }, # exists in namespace 0, 1
+          { 'title' => 'Allegiance' }, # exists in namespace 0, 1
+          #  Test with special characters) 
+          { 'title' => 'Paul Cézanne' }, # exists in namespace 0, 1, 10, 11
+          { 'title' => 'Mmilldev/sandbox' }, # exists in namespace 2
+          { 'title' => 'THIS ARTICLE_DOES NOT_EXIST' }
         ]
         response = Replica.get_existing_articles_by_title(article_titles)
-        expect(response.size).to eq(3)
+        expect(response.size).to eq(9)
       end
     end
 
@@ -159,7 +161,7 @@ describe Replica do
           all_users[i] = OpenStruct.new u
         end
         response = Replica.get_revisions(all_users, rev_start, rev_end)
-        expect(response.count).to eq(20)
+        expect(response.count).to eq(25)
       end
     end
   end

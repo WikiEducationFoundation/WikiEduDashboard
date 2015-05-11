@@ -16,12 +16,11 @@
   &.desc p:before
     transform rotate(0deg)
 .list__header
-  border-bottom 1px solid manatee
+  background-color transparent !important
+  border none !important
   font-family "Roboto"
-  +above(desktop)
-    border-bottom none
   .row__wrapper
-    border-bottom 1px solid manatee !important
+    border none !important
     padding-top 0 !important
     padding-bottom 0 !important
     p
@@ -34,8 +33,10 @@
   list-style-type none
 .row
   align-items center
+  background-color white
+  border 1px solid mischka
   justify-content flex-start
-  margin-left 0
+  margin 10px 0
   padding 0
   transition background 0.15s
   div:not(.drawer):last-child
@@ -79,7 +80,8 @@
       margin-left 8px
       transform rotate(270deg)
   &.view-all
-    border-bottom none
+    background none
+    border none
     justify-content center !important
     padding-left 20px
     padding-right 20px
@@ -143,7 +145,7 @@
   .user-list__row__name
     col(1)
     +above(desktop)
-      col(6/20)
+      col(5/20)
     p.name
       line-height 1
       margin-top 13px
@@ -159,19 +161,20 @@
     +above(desktop)
       display none !important
   .user-list__row__characters-ms
-    col(3/20)
+    col(5/40)
     display none !important
     +above(desktop)
       display flex !important
   .user-list__row__characters-us
-    col(3/20)
+    col(5/40)
     display none !important
     +above(desktop)
       display flex !important
-  .user-list__row__edits
+  .user-list__row__assignee,
+  .user-list__row__reviewer
     display none !important
     +above(desktop)
-      col(6/20)
+      col(5/20)
       display flex !important
     span.article_rating
       font-size 11px
@@ -201,15 +204,15 @@
   .article-list__row__title
     col(1)
     +above(desktop)
-      col(3/10)
+      col(6/20)
   .article-list__row__characters, .article-list__row__views
     font-size 14px
     +above(desktop)
-      col(1/5)
+      col(6/40)
     span
       display inline
   .article-list__row__link
-    col(1/5)
+    col(6/40)
 
 .revision-list__row
   &.list__header
@@ -219,17 +222,17 @@
   .revision-list__row__title
     col(1)
     +above(desktop)
-      col(6/20)
+      col(9/40)
   .revision-list__row__date
-    col(5/20)
+    col(9/40)
   .revision-list__row__namespace
     col(3/20)
   .revision-list__row__characters
     +above(desktop)
-      col(4/20)
+      col(9/40)
   .revision-list__row__views
     +above(desktop)
-      col(2/20)
+      col(7/40)
   .revision-list__row__characters, .revision-list__row__views
     span
       display inline

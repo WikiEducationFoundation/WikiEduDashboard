@@ -9,12 +9,12 @@ $ ->
 
   # User sorting
   userList = new List('users', {
-    valueNames: ['name','training','characters-ms', 'characters-us', 'edits']
+    valueNames: ['name','training','characters-ms', 'characters-us', 'assignee', 'reviewer']
   })
 
   # Article sorting
   articleList = new List('articles', {
-    valueNames: ['rating_num', 'title','characters','views']
+    valueNames: ['rating_num', 'title', 'assigned_to', 'characters', 'views']
   })
 
   # Revision sorting

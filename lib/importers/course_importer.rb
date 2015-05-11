@@ -35,7 +35,7 @@ class CourseImporter
   def self.import_courses(raw_ids, data)
     courses = []
     participants = {}
-    listed_ids = raw_ids.values.flatten
+    listed_ids = raw_ids.values.flatten.map(&:to_i)
 
     # Encountered an API error; cancel course import for today
     if data.include? nil
@@ -96,6 +96,7 @@ class CourseImporter
 
   def self.import_assignments(participants)
     assignments = []
+    raw_assignments = []
     ActiveRecord::Base.transaction do
       participants.each do |course_id, group|
         group_flat = group.map do |role, users|
@@ -104,10 +105,25 @@ class CourseImporter
         end
         group_flat = group_flat.compact.flatten.sort_by { |user| user['id'] }
         group_flat = update_enrollment course_id, group_flat
-        assignments += update_assignments course_id, group_flat
+        all_assignments = update_assignments course_id, group_flat
+        assignments += all_assignments[:assignments]
+        raw_assignments += all_assignments[:raw_assignments]
       end
     end
     Assignment.import assignments
+
+    # Update reviewers
+    raw_assignments.each do |raw_assignment|
+      raw_title = raw_assignment['title']
+      assignment_id = Assignment.find_by(article_title: raw_title).id
+      raw_assignment.each do |_key, reviewer|
+        next unless reviewer.is_a?(Hash) && reviewer.key?('username')
+        AssignmentsUsers.new(
+          user_id: reviewer['id'],
+          assignment_id: assignment_id
+        ).save
+      end
+    end
   end
 
   def self.update_enrollment(course_id, group_flat)
@@ -146,6 +162,7 @@ class CourseImporter
   def self.update_assignments(course_id, group_flat)
     # Add assigned articles
     assignments = []
+    raw_assignments = []
     group_flat.each do |user|
       # Each assigned article has a numerical (string) index, starting from 0.
       next unless user.key? '0'
@@ -154,7 +171,9 @@ class CourseImporter
       assignment_count = user.keys.count - 3
 
       (0...assignment_count).each do |a|
-        assignment_title = user[a.to_s]['title']
+        raw_assignment = user[a.to_s]
+        raw_assignments.push raw_assignment
+        assignment_title = raw_assignment['title']
         assignment = {
           'user_id' => user['id'],
           'course_id' => course_id,
@@ -163,9 +182,10 @@ class CourseImporter
         }
         article = Article.find_by(title: assignment_title)
         assignment['article_id'] = article.nil? ? nil : article.id
-        assignments.push Assignment.new(assignment)
+        new_assignment = Assignment.new(assignment)
+        assignments.push new_assignment
       end
     end
-    assignments
+    return { assignments: assignments, raw_assignments: raw_assignments }
   end
 end

@@ -151,7 +151,7 @@ describe Course, type: :model do
     )
     create(:revision,
            user_id: 2,
-           date: '2015-02-01'.to_date, 
+           date: '2015-02-01'.to_date,
            article_id: 1
     )
     create(:articles_course,

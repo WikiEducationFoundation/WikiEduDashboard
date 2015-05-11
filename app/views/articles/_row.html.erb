@@ -12,6 +12,15 @@
       <div class="rating <%= ac.article.rating %> tablet-only-flex"><p><%= ac.article.rating || '?' %></p></div>
       <p class="title"><%= ac.article.title + (ac.new_article ? " (new)" : "") %></p>
     </div>
+    <div class="article-list__row__title">
+      <% @assignment = Assignment.find_by(course_id: ac.course_id, article_id: ac.article_id) %>
+      <% unless @assignment.nil? %>
+        <p class="assigned_to"><%= @assignment.user.wiki_id %></p>
+      <% else %>
+        <p class="assigned_to hidden">ZZZ</p>
+        <p class="red"><%= t("article.no_assignee") %></p>
+      <% end %>
+    </div>
     <div class="article-list__row__characters">
       <p class="characters">
         <span class="tablet-only-flex"><%= t("metrics.char") %>: </span>

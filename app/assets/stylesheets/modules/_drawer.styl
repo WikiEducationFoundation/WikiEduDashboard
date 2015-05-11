@@ -1,5 +1,5 @@
 .drawer
-  background athens
+  background-color white !important
   transition border 0.15s
   height 0
   min-height 0 !important
@@ -8,27 +8,29 @@
   width 100%
 
   .list__header
-    background-color smoke !important
-    border-bottom none !important
+    p
+      font-size 14px !important
+      font-weight 500 !important
     h6
       color manatee
-    &:hover
-      background-color smoke !important
-    .row__wrapper
-      border-bottom none !important
+
+  .list .row
+    margin 0
 
   .row
-    background-color alabaster
-    border-bottom 1px solid mercury
+    border 1px solid mischka
+    border-width 0 0 1px 0
     padding 10px 0
+    &:first-child
+      border-width 1px 0
     .row__wrapper
       border-bottom none
       padding 5px 20px !important
-    &:last-child
-      border-bottom none
 
   .view-all
     border-top 1px solid mercury
+    height 70px
+    margin 0
 
 .drawer_trigger
   cursor pointer
@@ -46,8 +48,6 @@
   border-bottom 0
   .drawer_trigger__icon .icon:before
     transform rotate(-180deg)
-  .drawer
-    border-bottom 1px solid bayoux
 
 .revision-list__row__link
   cursor pointer

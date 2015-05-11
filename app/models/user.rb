@@ -12,6 +12,9 @@ class User < ActiveRecord::Base
   has_many :articles, -> { uniq }, through: :revisions
   has_many :assignments
 
+  has_many :assignments_users, class_name: AssignmentsUsers
+  has_many :reviewing_assignments, -> { uniq }, through: :assignments_users
+
   scope :admin, -> { where(permissions: 1) }
   scope :current, -> { joins(:courses).merge(Course.current).uniq }
   scope :role, lambda { |role|

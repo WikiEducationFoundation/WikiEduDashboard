@@ -36,10 +36,12 @@ en:
     dashboard: Wiki Ed Dashboard
 
   article:
+    assigned_to: Assigned To
     character_doc: The sum of characters added to articles by the course's students during the course term
     edited: Articles Edited
     edited_mobile: Articles
     edited_none: "%{title} has not edited any articles."
+    no_assignee: No user assigned
     rating: Class
     rating_doc: The rating an article has been assigned by WikiProjects on Wikipedia. These ratings may corresponds to much older versions, so they are just a rough indicator of article maturity.
     rating_docs:
@@ -110,9 +112,9 @@ en:
 
   namespace:
     main: Mainspace
-    main_char_added: Mainspace Chars Added
+    main_char_added: Mainspace chars added
     user: Userspace
-    user_char_added: Userspace Chars Added
+    user_char_added: Userspace chars added
     user_ns: User
 
   tasks:
@@ -122,7 +124,9 @@ en:
 
   user:
     assigned: Assigned Article
+    reviewers: Reviewer
     assigned_none: No Assigned Article
+    reviewer_none: No Reviewer
     character_doc: >
       The total amount of content a user has added to this namespace,
       calculated by adding up the added characters for all edits that
