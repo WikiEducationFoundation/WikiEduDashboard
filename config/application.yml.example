@@ -34,3 +34,6 @@
 
 # The slug for the default cohort
   default_cohort: "student_groups"
+
+# Set to true to use log level 'debug' for update logs. The default is 'info'.
+  cron_log_debug = false
