@@ -15,7 +15,7 @@
 # the consumer gets approved by Wikimedia Foundation staff.
   wikipedia_token: <consumer token>
   wikipedia_secret: <secret token>
-  
+
 # The language version of Wikipedia: <wiki_language>.wikipedia.org
   wiki_language: en
 
@@ -23,8 +23,7 @@
   sentry_dsn: 'http://somelongkey:anotherlongkey@sentry.myserver.com/1'
 
 # One or more cohorts of classes, with each cohort defined by a wiki page of
-# course ids, one per line. The last cohort in the comma-separated list is the
-# default cohort for the homepage. For development, list at least 2 cohorts,
+# course ids, one per line. For development, list at least 2 cohorts,
 # which are needed for integration tests.
 #
 # Cohort names become uppercase, and underscores become spaces.
@@ -32,3 +31,6 @@
 
   cohort_fall_2014: "Wikipedia:Education_program/Dashboard/Fall_2014_course_ids"
   cohort_spring_2015: "Wikipedia:Education_program/Dashboard/course_ids"
+
+# The slug for the default cohort
+  default_cohort: "student_groups"

@@ -93,7 +93,7 @@ describe 'the home page', type: :feature do
 
     it 'should allow loading of different cohorts', js: true do
       expect(page).to have_content(Cohort.first.title)
-      find('select.cohorts').find(:xpath, 'option[3]').select_option
+      find('select.cohorts').find(:xpath, 'option[2]').select_option
       expect(page).to have_content(Cohort.last.title)
     end
   end

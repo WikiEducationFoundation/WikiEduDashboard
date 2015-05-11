@@ -137,7 +137,7 @@ describe Replica do
           { 'title' => 'Paul_Cézanne' }, # exists (with special characters)
           { 'title' => 'Mmilldev/sandbox' } # does not exist
         ]
-        response = Replica.get_existing_articles(article_titles)
+        response = Replica.get_existing_articles_by_title(article_titles)
         expect(response.size).to eq(3)
       end
     end

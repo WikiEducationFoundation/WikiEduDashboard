@@ -117,14 +117,46 @@ class ArticleImporter
     end
   end
 
-  def self.update_articles_deleted
+  # Queries deleted state and namespace for all articles
+  def self.update_article_status(articles=nil)
     # TODO: Narrow this down even more. Current courses, maybe?
-    articles = Article.where(namespace: 0, deleted: false)
-    existing_titles = Utils.chunk_requests(articles) do |block|
-      Replica.get_existing_articles block
+    local_articles = articles || Article.all
+    synced_articles = Utils.chunk_requests(local_articles) do |block|
+      Replica.get_existing_articles_by_id block
     end
-    existing_titles.map! { |t| t.gsub('_', ' ') }
-    deleted_titles = articles.pluck(:title) - existing_titles
-    articles.where(title: deleted_titles).update_all(deleted: true)
+    synced_ids = synced_articles.map { |a| a['page_id'] }
+    deleted_ids = local_articles.pluck(:id) - synced_ids
+
+    # Check to make sure articles haven't been moved
+    maybe_deleted_articles = Article.where(id: deleted_ids)
+
+    # These pages have titles that match Articles in our DB with deleted ids
+    same_title_pages = Utils.chunk_requests(maybe_deleted_articles) do |block|
+      Replica.get_existing_articles_by_title block
+    end
+
+    # Update articles whose IDs have changed (keyed on title and namespace)
+    same_title_pages.each do |stp|
+      article = Article.find_by(
+        title: stp['page_title'],
+        namespace: stp['page_namespace']
+      )
+      if !article.nil? && deleted_ids.include?(article.id)
+        article.update(id: stp['page_id'])
+      end
+    end
+
+    # Delete articles as appropriate
+    local_articles.where(id: deleted_ids).update_all(deleted: true)
+
+    # Update titles and namespaces based on ids (we trust ids!)
+    synced_articles.map! do |sa|
+      Article.new(
+        id: sa['page_id'],
+        title: sa['page_title'],
+        namespace: sa['page_namespace']
+      )
+    end
+    Article.import synced_articles, on_duplicate_key_update: [:title, :namespace]
   end
 end

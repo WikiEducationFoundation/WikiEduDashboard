@@ -9,15 +9,19 @@ class CoursesController < ApplicationController
   # Root method #
   ###############
   def index
-    @cohort = params[:cohort].present? ? params[:cohort] : 'spring_2015'
-
     if user_signed_in?
       @user_courses = current_user.courses.map do |c|
         c if current_user.instructor?(c) || c.listed
       end
     end
 
-    @cohort = Cohort.find_by(slug: @cohort)
+    if params.key?(:cohort)
+      @cohort = Cohort.find_by(slug: params[:cohort])
+    elsif !Figaro.env.default_cohort.nil?
+      @cohort = Cohort.find_by(slug: Figaro.env.default_cohort)
+    end
+    @cohort ||= nil
+
     raise ActionController::RoutingError.new('Not Found') if @cohort.nil?
 
     @courses = @cohort.courses.where(listed: true).order(:title)

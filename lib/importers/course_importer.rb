@@ -147,17 +147,21 @@ class CourseImporter
     # Add assigned articles
     assignments = []
     group_flat.each do |user|
-      next unless user.key? 'article'
-      is_array = user['article'].is_a?(Array)
-      user['article'] = [user['article']] unless is_array
-      user['article'].each do |article|
+      # Each assigned article has a numerical (string) index, starting from 0.
+      next unless user.key? '0'
+
+      # Each user has username, id, & role. Extra keys are assigned articles.
+      assignment_count = user.keys.count - 3
+
+      (0...assignment_count).each do |a|
+        assignment_title = user[a.to_s]['title']
         assignment = {
           'user_id' => user['id'],
           'course_id' => course_id,
-          'article_title' => article['title'],
+          'article_title' => assignment_title,
           'article_id' => nil
         }
-        article = Article.find_by(title: article['title'])
+        article = Article.find_by(title: assignment_title)
         assignment['article_id'] = article.nil? ? nil : article.id
         assignments.push Assignment.new(assignment)
       end

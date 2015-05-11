@@ -32,9 +32,9 @@ namespace :article do
   end
 
   desc 'Update deleted status for all articles'
-  task update_articles_deleted: "batch:setup_logger" do
-    Rails.logger.debug 'Updating article deleted status'
-    ArticleImporter.update_articles_deleted
+  task update_article_status: "batch:setup_logger" do
+    Rails.logger.debug 'Updating article namespace and deleted status'
+    ArticleImporter.update_article_status
   end
 
   # This task is intended for ad-hoc use, should be removed ASAP

@@ -95,10 +95,17 @@ class Replica
   end
 
   # Given a list of articles, see which ones have not been deleted.
-  def self.get_existing_articles(articles)
-    article_list = compile_article_string(articles)
-    existing_titles = api_get('articles.php', article_list)
-    existing_titles.map { |a| a['page_title'] } unless existing_titles.nil?
+  def self.get_existing_articles_by_id(articles)
+    article_list = compile_article_id_string(articles)
+    existing_articles = api_get('articles.php', article_list)
+    existing_articles unless existing_articles.nil?
+  end
+
+  # Given a list of articles, see which ones have not been deleted.
+  def self.get_existing_articles_by_title(articles)
+    article_list = compile_article_title_string(articles)
+    existing_articles = api_get('articles.php', article_list)
+    existing_articles unless existing_articles.nil?
   end
 
   ###################
@@ -181,12 +188,25 @@ class Replica
     # Compile an article list to send to the replica endpoint, which might look
     # something like this:
     # "article_ids[0]='Artist'&article_ids[1]='Microsoft_Research'"
-    def compile_article_string(articles)
+    def compile_article_title_string(articles)
       article_list = ''
       articles.each_with_index do |a, i|
         article_list += '&' if i > 0
         title = CGI.escape(a['title'].gsub(' ', '_'))
         article_list += "article_titles[#{i}]='#{title}'"
+      end
+      article_list
+    end
+
+    # Compile an article list to send to the replica endpoint, which might look
+    # something like this:
+    # "article_ids[0]='100'&article_ids[1]='300'"
+    def compile_article_id_string(articles)
+      article_list = ''
+      articles.each_with_index do |a, i|
+        article_list += '&' if i > 0
+        article_id = a['id']
+        article_list += "article_ids[#{i}]='#{article_id}'"
       end
       article_list
     end

@@ -11,8 +11,8 @@ describe Wiki do
       end
     end
 
-    it 'should return course info for a certain course' do
-      VCR.use_cassette 'wiki/course_data' do
+    it 'should return course info for an existing course' do
+      VCR.use_cassette 'wiki/single_course' do
         # A single course
         # rubocop:disable Metrics/LineLength
         response = Wiki.get_course_info '351'
@@ -23,43 +23,24 @@ describe Wiki do
         expect(response[0]['course']['start']).to eq('2014-05-12'.to_date)
         expect(response[0]['course']['end']).to eq('2014-06-25'.to_date)
         # rubocop:enable Metrics/LineLength
+      end
+    end
 
-        # Several courses, including some that don't exist
-        course_ids = %w( 9999 351 366 398 2155897 411 415 9999 )
-        response = Wiki.get_course_info course_ids
-        expect(response).to be
-
+    it 'should handle a nonexistent course' do
+      VCR.use_cassette 'wiki/no_course' do
         # A single course that doesn't exist
         response = Wiki.get_course_info '2155897'
         expect(response).to eq([])
       end
     end
-
-    it 'should handle unknown gateway login errors' do
-      stub_request(:any, %r{.*wikipedia\.org/w/api\.php.*})
-        .to_raise(StandardError)
-      Wiki.send(:gateway)
-    end
-
-    it 'should handle MediaWiki API errors' do
-      VCR.use_cassette 'wiki/mediawiki_errors' do
-        @mw = Wiki.send(:gateway)
+    
+    it 'should return course info for multiple courses' do
+      VCR.use_cassette 'wiki/missing_courses' do
+        # Several courses, including some that don't exist
+        course_ids = %w( 9999 351 366 398 2155897 411 415 9999 )
+        response = Wiki.get_course_info course_ids
+        expect(response).to be
       end
-
-      stub_request(:any, %r{.*wikipedia\.org/w/api\.php.*})
-        .to_raise(MediaWiki::APIError.new('foo', 'bar'))
-
-      options = { 'action' => 'liststudents',
-                  'courseids' => '351',
-                  'group' => ''
-                }
-      response = Wiki.send(:api_get, options, @mw)
-      expect(response).to be_nil
-
-      stub_request(:any, %r{.*wikipedia\.org/w/api\.php.*})
-        .to_raise(StandardError)
-      response = Wiki.send(:api_get, options, @mw)
-      expect(response).to be_nil
     end
   end
 
@@ -101,7 +82,7 @@ describe Wiki do
           'THIS IS NOT A REAL ARTICLE TITLE', # does not exist
           '1804 Snow hurricane', # a/ga ?
           'Barton S. Alexander', # a
-          'Actuarial science', # bplus
+          'Compounds of fluorine', # bplus
           'List of Canadian plants by family S', # sl
           'Antarctica (disambiguation)', # dab
           '2015 Pacific typhoon season', # cur, as of 2015-02-27
@@ -128,7 +109,7 @@ describe Wiki do
           'Talk:List of Canadian plants by family S' # exists
         ]
         # rubocop:enable Metrics/LineLength
-        response = Wiki.get_article_rating_raw(articles)
+        response = Wiki.get_raw_page_content(articles)
         expect(response.count).to eq(4)
       end
     end
