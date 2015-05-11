@@ -35,7 +35,7 @@ class CourseImporter
   def self.import_courses(raw_ids, data)
     courses = []
     participants = {}
-    listed_ids = raw_ids.values.flatten
+    listed_ids = raw_ids.values.flatten.map(&:to_i)
 
     # Encountered an API error; cancel course import for today
     if data.include? nil
