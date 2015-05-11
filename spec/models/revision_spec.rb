@@ -33,7 +33,7 @@ describe Revision do
 
         RevisionImporter.update_all_revisions nil, true
         # When the non-students are included, Revisions count is 1919.
-        expect(Revision.all.count).to eq(433)
+        expect(Revision.all.count).to eq(519)
         # When the non-students are included, ArticlesCourses count is 224.
         expect(ArticlesCourses.all.count).to eq(10)
 
@@ -41,7 +41,7 @@ describe Revision do
         # to test how it handles old users.
         User.update_all_caches(Course.find(351).users)
         RevisionImporter.update_all_revisions nil, true
-        expect(Revision.all.count).to eq(433)
+        expect(Revision.all.count).to eq(519)
         expect(ArticlesCourses.all.count).to eq(10)
       end
     end
