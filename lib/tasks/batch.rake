@@ -94,7 +94,7 @@ namespace :batch do
       Rails.logger.info 'Daily update tasks are beginning.'
       Rake::Task['article:update_views'].invoke
       Rake::Task['article:update_all_ratings'].invoke
-      Rake::Task['article:update_articles_deleted'].invoke
+      Rake::Task['article:update_article_status'].invoke
       Rake::Task['cache:update_caches'].invoke
 
       total_time = distance_of_time_in_words(start, Time.now)

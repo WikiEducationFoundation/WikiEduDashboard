@@ -246,7 +246,7 @@ describe Article do
              namespace: 0
       )
 
-      ArticleImporter.update_articles_deleted
+      ArticleImporter.update_article_status
       expect(Article.find(1).deleted).to be true
     end
 
@@ -276,6 +276,29 @@ describe Article do
       expect(course.article_count).to eq(1)
       expect(course.view_sum).to eq(1000)
       expect(course.character_sum).to eq(1000)
+    end
+  end
+
+  describe 'changed articles' do
+    it 'should have their ids updated' do
+      create(:article,
+             id: 100,
+             title: 'Audi',
+             namespace: 0)
+
+      ArticleImporter.update_article_status
+      puts Article.all.first.title
+      expect(Article.find_by(title: 'Audi').id).to eq(848)
+    end
+
+    it 'should have their namespace updated' do
+      create(:article,
+             id: 848,
+             title: 'Audi',
+             namespace: 2)
+
+      ArticleImporter.update_article_status
+      expect(Article.find_by(title: 'Audi').namespace).to eq(0)
     end
   end
 end
