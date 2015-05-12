@@ -16,12 +16,12 @@ class CourseImporter
   def self.update_all_courses(initial=false, raw_ids={})
     raw_ids = Wiki.course_list if raw_ids.empty?
     listed_ids = raw_ids.values.flatten
-    course_ids = listed_ids | Course.where(listed: true).pluck(:id).map(&:to_s)
+    course_ids = listed_ids | Course.where(listed: true).pluck(:id)
 
     if initial
-      _minimum = course_ids.map(&:to_i).min
-      maximum = course_ids.map(&:to_i).max
-      course_ids = (0..maximum).to_a.map(&:to_s)
+      _minimum = course_ids.min
+      maximum = course_ids.max
+      course_ids = (1..maximum).to_a
     end
 
     # Break up course_ids into smaller groups that Wikipedia's API can handle.
@@ -33,19 +33,21 @@ class CourseImporter
   # Helpers #
   ###########
   def self.import_courses(raw_ids, data)
-    courses = []
-    participants = {}
-    listed_ids = raw_ids.values.flatten.map(&:to_i)
-
     # Encountered an API error; cancel course import for today
     if data.include? nil
       Rails.logger.warn 'Network error. Course import cancelled.'
       return
     end
 
+    courses = []
+    participants = {}
+    listed_ids = raw_ids.values.flatten
+    valid_ids = data.map { |c| c['course']['id'] }
+    deleted_ids = listed_ids - valid_ids
+
     # Delist courses that have been deleted
-    Course.where(listed: true).each do |c|
-      c.delist unless listed_ids.include?(c.id)
+    deleted_ids.each do |id|
+      Course.find(id).delist
     end
 
     # Update courses from new data

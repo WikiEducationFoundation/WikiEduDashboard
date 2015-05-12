@@ -28,7 +28,7 @@ describe Revision do
 
         # Now add a course with users
         VCR.use_cassette 'wiki/course_data' do
-          CourseImporter.update_all_courses(false, hash: '351')
+          CourseImporter.update_all_courses(false, hash: 351)
         end
 
         RevisionImporter.update_all_revisions nil, true

@@ -13,7 +13,14 @@ class Wiki
     response = {}
     Cohort.all.each do |cohort|
       content = get_page_content(cohort.url)
-      response[cohort.slug] = content.split(/\n/) unless content.nil?
+      unless content.nil?
+        lines = content.split(/\n/)
+        # Only integers can be valid ids. 
+        integers = /(?<![-.])\b[0-9]+\b(?!\.[0-9])/ 
+        raw_ids = lines.select { |id| integers.match(id) }
+        raw_ids = raw_ids.map(&:to_i)
+        response[cohort.slug] = raw_ids
+      end
     end
     response
   end
