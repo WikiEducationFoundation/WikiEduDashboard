@@ -96,15 +96,13 @@ Block = React.createClass(
       </h4>
       {graded}
       {dueDateRead}
-      <p className="content">
-        <TextAreaInput
-          onChange={this.updateBlock}
-          value={this.props.block.content}
-          value_key={'content'}
-          editable={this.props.editable}
-          hr=true
-        />
-      </p>
+      <TextAreaInput
+        onChange={this.updateBlock}
+        value={this.props.block.content}
+        value_key={'content'}
+        editable={this.props.editable}
+        hr=true
+      />
     </li>
 )
 

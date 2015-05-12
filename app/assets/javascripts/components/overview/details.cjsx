@@ -14,6 +14,12 @@ getState = (course_id) ->
     term: course_tmp.term
     start: course_tmp.start
     end: course_tmp.end
+    instructors: if course_tmp.instructors == undefined then '' else $.map(course_tmp.instructors, (inst, i) ->
+      inst.wiki_id + (if i == course_tmp.instructors.length - 1 then '' else ', ')
+    )
+    volunteers: if course_tmp.volunteers == undefined then '' else $.map(course_tmp.volunteers, (vol, i) ->
+      vol.wiki_id + (if i == course_tmp.volunteers.length - 1 then '' else ', ')
+    )
 
 Details = React.createClass(
   displayName: 'Details'
@@ -28,6 +34,8 @@ Details = React.createClass(
         {this.props.controls}
       </div>
       <div className='module__data'>
+        <p><span>Instructors: {this.props.course.instructors}</span></p>
+        <p><span>Volunteers: {this.props.course.volunteers}</span></p>
         <p><span>School: {this.props.course.school}</span></p>
         <p><span>Term: {this.props.course.term}</span></p>
         <p><span>Start: </span>

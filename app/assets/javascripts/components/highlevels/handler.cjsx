@@ -11,11 +11,17 @@ Handler = (Component) ->
     getCourseID: ->
       params = this.context.router.getCurrentParams()
       return params.course_school + '/' + params.course_title
+    getPermit: ->
+      role = $('header.course-page').data('role')
+      role == 1 || role == 4
     getInitialState: ->
       ServerActions.fetchCourse this.getCourseID()
       return {}
     render: ->
-      <Component course_id={this.getCourseID()} />
+      <Component
+        course_id={this.getCourseID()}
+        permit={this.getPermit()}
+      />
   )
 
 module.exports = Handler

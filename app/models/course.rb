@@ -10,6 +10,10 @@ class Course < ActiveRecord::Base
                                 after_remove: :cleanup_articles
   has_many :students, -> { where('courses_users.role = 0') },
            through: :courses_users, source: :user
+  has_many :instructors, -> { where('courses_users.role = 1') },
+           through: :courses_users, source: :user
+  has_many :volunteers, -> { where('courses_users.role > 1') },
+           through: :courses_users, source: :user
 
   has_many :revisions, -> (course) {
     where('date >= ?', course.start).where('date <= ?', course.end)

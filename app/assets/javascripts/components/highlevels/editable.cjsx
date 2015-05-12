@@ -20,7 +20,7 @@ editable = (Component, Stores, Save, GetState) ->
     storeDidChange: ->
       this.setState GetState()
     render: ->
-      if this.state.editable
+      if this.props.permit && this.state.editable
         controls = (
           <div className="controls">
             <div
@@ -35,7 +35,7 @@ editable = (Component, Stores, Save, GetState) ->
             >Save</div>
          </div>
         )
-      else
+      else if this.props.permit && (this.props.editable == undefined || this.props.editable)
         controls = (
           <div className="controls">
             <div

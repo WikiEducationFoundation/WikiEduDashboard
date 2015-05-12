@@ -130,9 +130,13 @@ class CoursesController < ApplicationController
     respond_to do |format|
       format.json do
         render json: @course.as_json(
-          include: { weeks: {
-            include: { blocks: { include: :gradeable } }
-          } }
+          include: {
+            weeks: {
+              include: { blocks: { include: :gradeable } }
+            },
+            instructors: {},
+            volunteers: {}
+          }
         )
       end
       format.html { render }
@@ -151,12 +155,13 @@ class CoursesController < ApplicationController
     standard_setup
     @articles_courses = @course.articles_courses.live
                         .includes(:article).order('articles.title')
+    @articles_courses
   end
 
   def activity
     standard_setup
     @revisions = @course.revisions
-                 .includes(:article).order(date: :desc)
+                 .includes(:article).includes(:user).order(date: :desc)
   end
 
   ##################

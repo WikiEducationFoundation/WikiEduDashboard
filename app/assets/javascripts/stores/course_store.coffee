@@ -36,6 +36,11 @@ addCourse = ->
 CourseStore = Flux.createStore
   getCourse: ->
     return _course
+  getCurrentWeek: ->
+    course_start = new Date(_course.start)
+    now = new Date()
+    time_diff = now.getTime() - course_start.getTime()
+    Math.ceil(time_diff / (1000 * 3600 * 24 * 7)) - 1
   restore: ->
     _course = $.extend({}, _persisted)
     CourseStore.emitChange()

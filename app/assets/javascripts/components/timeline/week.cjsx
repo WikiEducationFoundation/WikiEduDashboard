@@ -40,18 +40,20 @@ Week = React.createClass(
                     </div>
                   </li>
       deleteWeek = <span className="button danger" onClick={this.props.deleteWeek}>Delete Week</span>
+    if this.props.showTitle == undefined || this.props.showTitle
+      title = <p>
+                <span>Week {this.props.index}&nbsp;&nbsp;&mdash;&nbsp;&nbsp;</span>
+                <TextInput
+                  onChange={this.updateWeek}
+                  value={this.props.week.title}
+                  value_key={'title'}
+                  editable={this.props.editable}
+                />
+                {deleteWeek}
+              </p>
 
     <li className="week">
-      <p>
-        <span>Week {this.props.index}&nbsp;&nbsp;&mdash;&nbsp;&nbsp;</span>
-        <TextInput
-          onChange={this.updateWeek}
-          value={this.props.week.title}
-          value_key={'title'}
-          editable={this.props.editable}
-        />
-        {deleteWeek}
-      </p>
+      {title}
       <ul className="list">
         {blocks}
         {addBlock}

@@ -1,4 +1,4 @@
-<header class="course-page">
+<header class="course-page" data-role="<%= user_signed_in? ? current_user.role(@course) : 'visitor' %>">
   <div class="container">
     <div class="title">
       <h2><%= @course.title %></h2>

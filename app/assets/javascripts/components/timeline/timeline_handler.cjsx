@@ -7,8 +7,8 @@ TimelineHandler = React.createClass(
   displayName: 'TimelineHandler'
   render: ->
     <div>
-      <Timeline course_id={this.props.course_id} />
-      <Grading course_id={this.props.course_id} />
+      <Timeline {...this.props} />
+      <Grading {...this.props} />
     </div>
 )
 

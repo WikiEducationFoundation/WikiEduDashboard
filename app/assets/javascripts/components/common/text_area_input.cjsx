@@ -19,16 +19,19 @@ TextAreaInput = React.createClass(
           />
         </div>
       else
-        <textarea
-          value={this.state.value}
-          onChange={this.onChange}
-          autoFocus={this.props.focus}
-          placeholder={this.props.placeholder}
-        />
+        <p className="content">
+          <textarea
+            value={this.state.value}
+            onChange={this.onChange}
+            autoFocus={this.props.focus}
+            placeholder={this.props.placeholder}
+          />
+        </p>
     else if this.props.value
-      <span dangerouslySetInnerHTML={{__html: this.props.value.replace(/(?:\r\n|\r|\n)/g, '<br>')}}></span>
+      inner_html = this.props.value.replace(/(?:\r\n|\r|\n)/g, '<br>')
+      <p className="content" dangerouslySetInnerHTML={{__html: inner_html}}></p>
     else
-      <span>{this.props.placeholder}</span>
+      <p className="content"></p>
 )
 
 module.exports = TextAreaInput

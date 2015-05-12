@@ -41,6 +41,17 @@ class User < ActiveRecord::Base
     course.users.role('instructor').include? self
   end
 
+  def role(course)
+    course_user = course.courses_users.where(user_id: id).first
+    if admin?
+      1                   # give admin instructor permissions
+    elsif !course_user.nil?
+      course_user.role    # course role
+    else
+      -1                  # visitor
+    end
+  end
+
   #################
   # Cache methods #
   #################
