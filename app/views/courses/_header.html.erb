@@ -37,18 +37,23 @@
 </header>
 <div class="course_navigation">
   <nav class="container"><%= render :partial => 'nav', :locals => {:page => page} %></nav>
-  <% if !current?(@course) && user_signed_in? && @course.start < Time.now %>
-  <div class="alert">
+</div>
+
+<% if !current?(@course) && user_signed_in? && @course.start < Time.now %>
+<div class="container">
+  <div class="alert module">
     <div class="container">
       <p>This course has ended and the data here may be out of date. <%= link_to 'Click here', {:action => 'manual_update'}, class: 'manual_update', rel: 'nofollow' %> to pull new data.</p>
     </div>
   </div>
-  <% end %>
-  <% unless @course.listed || @course.approved || @course.published %>
-  <div class="alert">
+</div>
+<% end %>
+<% unless @course.listed || @course.approved || @course.published %>
+<div class="container">
+  <div class="alert module">
     <div class="container">
       <p>You will be able to delete this course as long as it remains unapproved and unpublished. <%= link_to 'Click here', course_slug_path(@course.slug), method: :delete, data: { confirm: 'Are you sure you want to delete this course?' } %> to delete the course now.</p>
     </div>
   </div>
-  <% end %>
 </div>
+<% end %>
