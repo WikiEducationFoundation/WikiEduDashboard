@@ -149,7 +149,7 @@ class Wiki
     # The message for invalid course ids looks like this:
     # "Invalid course id: 953"
     if e.info[0..16] == 'Invalid course id'
-      invalid = e.info[19..-1] # This is the invalid id.
+      invalid = e.info[19..-1].to_i # This is the invalid id.
       handle_invalid_course_id course_ids, invalid
     else
       handle_api_error e
