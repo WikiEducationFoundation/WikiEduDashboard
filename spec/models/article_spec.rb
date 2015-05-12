@@ -287,7 +287,6 @@ describe Article do
              namespace: 0)
 
       ArticleImporter.update_article_status
-      puts Article.all.first.title
       expect(Article.find_by(title: 'Audi').id).to eq(848)
     end
 

@@ -1,6 +1,5 @@
 require "#{Rails.root}/lib/utils"
 require "#{Rails.root}/lib/importers/article_importer"
-require "#{Rails.root}/app/helpers/article_helper.rb"
 
 #= Article model
 class Article < ActiveRecord::Base
