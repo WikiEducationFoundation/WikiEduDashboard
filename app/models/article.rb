@@ -16,11 +16,6 @@ class Article < ActiveRecord::Base
   ####################
   # Instance methods #
   ####################
-  def url
-    language = Figaro.env.wiki_language
-    ApplicationController.helpers.url(title, namespace, language)
-  end
-
   def update(data={}, save=true)
     self.attributes = data
     if revisions.count > 0

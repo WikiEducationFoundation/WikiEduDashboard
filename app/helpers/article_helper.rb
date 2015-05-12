@@ -13,15 +13,16 @@ module ArticleHelper
     119 => 'Draft_talk:'
   }
 
-  def url(title, namespace, language)
-     escaped_title = title.gsub(' ', '_')
-     prefix = NS[namespace]
+  def article_url(article)
+    language = Figaro.env.wiki_language
+    prefix = NS[article.namespace]
+    escaped_title = article.title.gsub(' ', '_')
     "https://#{language}.wikipedia.org/wiki/#{prefix}#{escaped_title}"
   end
 
-  def title_with_namespace(title, namespace)
-    prefix = NS[namespace]
-    "#{prefix}#{title}"
+  def full_title(article)
+    prefix = NS[article.namespace]
+    "#{prefix}#{article.title}"
   end
 
   def rating_priority(rating)

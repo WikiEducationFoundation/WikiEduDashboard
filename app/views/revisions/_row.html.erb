@@ -1,8 +1,8 @@
 <li class="row revision-list__row">
-  <%= link_to revision.article.url, :target => "_blank" do %>
+  <%= link_to article_url(revision.article), :target => "_blank" do %>
     <div class="row__wrapper">
       <div class="revision-list__row__title">
-        <p class="title"><%= title_with_namespace(revision.article.title, revision.article.namespace) %></p>
+        <p class="title"><%= full_title(revision.article) %></p>
       </div>
       <div class="revision-list__row__date desktop-only-flex">
         <%# TODO: localize the date, or explicitly use ISO 8601 %>
