@@ -2,7 +2,7 @@
   <%= link_to revision.article.url, :target => "_blank" do %>
     <div class="row__wrapper">
       <div class="revision-list__row__title">
-        <p class="title"><%= ((revision.article.namespace == 0 ? "" : t("namespace.user_ns") + ":") + revision.article.title) %></p>
+        <p class="title"><%= title_with_namespace(revision.article.title, revision.article.namespace) %></p>
       </div>
       <div class="revision-list__row__date desktop-only-flex">
         <%# TODO: localize the date, or explicitly use ISO 8601 %>
