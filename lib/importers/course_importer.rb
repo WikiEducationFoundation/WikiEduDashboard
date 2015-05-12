@@ -47,7 +47,7 @@ class CourseImporter
 
     # Delist courses that have been deleted
     deleted_ids.each do |id|
-      Course.find(id).delist
+      Course.find(id).delist if Course.exists?(id)
     end
 
     # Update courses from new data
