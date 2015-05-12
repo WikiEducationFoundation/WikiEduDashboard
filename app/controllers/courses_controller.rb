@@ -153,6 +153,12 @@ class CoursesController < ApplicationController
                         .includes(:article).order('articles.title')
   end
 
+  def activity
+    standard_setup
+    @revisions = @course.revisions
+                 .includes(:article).order(date: :desc)
+  end
+
   ##################
   # Helper methods #
   ##################

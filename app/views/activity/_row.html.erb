@@ -1,0 +1,36 @@
+<li class="row article-list__row">
+  <%= link_to revision.url, :target => "_blank" do %>
+  <div class="row__wrapper">
+    <div class="article-list__row__rating desktop-only-flex popover-trigger">
+      <p class="rating_num hidden"><%= rating_priority(revision.article.rating) %></p>
+      <div class="rating <%= revision.article.rating %>"><p><%= revision.article.rating || '?' %></p></div>
+      <div class="popover dark">
+        <p><%= t("article.rating_docs.#{revision.article.rating || '?'}") %></p>
+      </div>
+    </div>
+    <div class="article-list__row__title">
+      <div class="rating <%= revision.article.rating %> tablet-only-flex"><p><%= revision.article.rating || '?' %></p></div>
+      <p class="title"><%= revision.article.title %></p>
+    </div>
+    <div class="article-list__row__title">
+      <p class="edited_by"><%= revision.user.wiki_id %></p>
+    </div>
+    <div class="article-list__row__characters">
+      <p class="characters">
+        <span class="tablet-only-flex"><%= t("metrics.char") %>: </span>
+        <%= revision.characters || revision.article.character_sum %>
+      </p>
+    </div>
+    <div class="article-list__row__views">
+      <p class="date_time">
+        <span class="tablet-only-flex"><%= t("metrics.date_time") %>: </span>
+        <%= revision.date.strftime("%Y-%m-%d %k:%M") %>
+      </p>
+    </div>
+    <div class="article-list__row__link desktop-only-flex">
+      <p class="fake-link">Dif.</p>
+    </div>
+    <div class="row__fake__link tablet-only"><p class="icon icon-arrow"></p></div>
+  </div>
+  <% end %>
+</li>

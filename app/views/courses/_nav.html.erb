@@ -4,6 +4,9 @@
 <div class="nav__item <%= page == 3 ? 'active' : '' %>" id="timeline-link">
   <p><%= link_to t("course.timeline"), :action => "timeline" %></p>
 </div>
+<div class="nav__item <%= page == 4 ? 'active' : '' %>" id="activity-link">
+  <p><%= link_to t("course.activity"), :action => "activity" %></p>
+</div>
 <div class="nav__item <%= page == 1 ? 'active' : '' %>" id="students-link">
   <p><%= link_to t("course.students"), :action => "students" %></p>
 </div>

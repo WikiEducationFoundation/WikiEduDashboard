@@ -7,6 +7,11 @@ $ ->
     valueNames: ['title','characters','views','students']
   })
 
+  # Activity sorting
+  activityList = new List('activity', {
+    valueNames: ['rating_num', 'title', 'edited_by', 'characters', 'date_time']
+  })
+
   # User sorting
   userList = new List('users', {
     valueNames: ['name','training','characters-ms', 'characters-us', 'assignee', 'reviewer']
@@ -27,8 +32,10 @@ $ ->
     window.location = "/courses?cohort=" + encodeURIComponent(cohort)
 
   $('select.sorts').change (e) ->
+    console.log $(this).attr('rel')
     list = switch($(this).attr('rel'))
       when "courses" then courseList
+      when "activity" then activityList
       when "users" then userList
       when "articles" then articleList
       when "revisions" then revisionList
