@@ -2570,7 +2570,7 @@ var Promise = require('es6-promise').Promise;
 
 
 function reThrow(reject, error) {
-  setTimeout(function(){
+  setTimeout(function(){ 
       if (error && error.stack) {
           console.error(error.stack);
       }
@@ -2611,7 +2611,7 @@ function reThrow(reject, error) {
           try {
             Dispatcher.dispatch(payload);
           } catch (error) {
-            reThrow(reject, error);
+            reThrow(reject, error); 
           }
 
           resolve();
@@ -7744,10 +7744,10 @@ function deprecatedMethod(routerMethodName, fn) {
  *     mixins: [ Router.State ],
  *     render() {
  *       var className = this.props.className;
- *
+ *   
  *       if (this.isActive('about'))
  *         className += ' is-active';
- *
+ *   
  *       return React.DOM.a({ className: className }, this.props.children);
  *     }
  *   });
@@ -8306,7 +8306,7 @@ var RouteHandler = require("./RouteHandler");
  *       <Route name="about" handler={About}/>
  *     </Route>
  *   ];
- *
+ *   
  *   Router.run(routes, function (Handler) {
  *     React.render(<Handler/>, document.body);
  *   });
@@ -9522,9 +9522,9 @@ var createRouter = require("./createRouter");
  *   Router.run(routes, function (Handler) {
  *     React.render(<Handler/>, document.body);
  *   });
- *
+ * 
  * Using HTML5 history and a custom "cursor" prop:
- *
+ * 
  *   Router.run(routes, Router.HistoryLocation, function (Handler) {
  *     React.render(<Handler cursor={cursor}/>, document.body);
  *   });

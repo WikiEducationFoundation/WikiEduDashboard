@@ -42,6 +42,7 @@ class User < ActiveRecord::Base
   end
 
   def role(course)
+    return 1 if course.nil? # This is a new course, grant permissions
     course_user = course.courses_users.where(user_id: id).first
     if admin?
       1                   # give admin instructor permissions
