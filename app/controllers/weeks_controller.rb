@@ -76,7 +76,7 @@ class WeeksController < ApplicationController
     end
     @week = update_util Week, week
 
-    next if week['deleted'] || blocks.blank?
+    return if week['deleted'] || blocks.blank?
     blocks.each do |block|
       update_block block
     end
@@ -88,7 +88,7 @@ class WeeksController < ApplicationController
     block['week_id'] = @week.id
     @block = update_util Block, block
 
-    next if block['deleted'] || gradeable.nil?
+    return if block['deleted'] || gradeable.nil?
     gradeable['gradeable_item_id'] = @block.id
     gradeable['gradeable_item_type'] = 'block'
     gradeable['points'] = gradeable['points'] || 10

@@ -87,6 +87,12 @@ class CoursesController < ApplicationController
 
   def destroy
     validate
+    @course.courses_users.destroy_all
+    @course.articles_courses.destroy_all
+    @course.assignments.destroy_all
+    @course.cohorts_courses.destroy_all
+    @course.weeks.destroy_all
+    @course.gradeables.destroy_all
     @course.destroy
     redirect_to :root
   end
