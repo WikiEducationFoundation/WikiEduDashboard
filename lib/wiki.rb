@@ -69,59 +69,20 @@ class Wiki
 
     # Pages that are missing get returned before pages that exist, so we cannot
     # count on our array being in the same order as titles.
-    raw.map do |article_id, article|
+    raw.map do |article_id, talkpage|
       # Remove "Talk:" from the "title" value to get the title.
-      { article['title'][5..-1] => parse_article_rating(article) }
+      { talkpage['title'][5..-1] => parse_article_rating(talkpage) }
     end
   end
 
-  def self.parse_article_rating(raw_article)
+  def self.parse_article_rating(raw_talk)
     # Handle MediaWiki API errors
-    return nil if raw_article.nil?
+    return nil if raw_talk.nil?
     # Handle the case of nonexistent talk pages.
-    return nil if raw_article['missing']
+    return nil if raw_talk['missing']
 
-    article = raw_article['revisions'][0]['*']
-    find_article_class article
-  end
-
-  # Try to find the Wikipedia 1.0 rating of an article by parsing its talk page
-  # contents.
-  #
-  # Adapted from https://en.wikipedia.org/wiki/User:Pyrospirit/metadata.js
-  # alt https://en.wikipedia.org/wiki/MediaWiki:Gadget-metadata.js
-  # We simplify this parser by folding the nonstandard ratings
-  # into the corresponding standard ones. We don't want to deal with edge cases
-  # like bplus and a/ga.
-  def self.find_article_class(article)
-    # Handle empty talk page
-    return nil if article.is_a? Hash
-        # rubocop:disable Metrics/LineLength
-    if article.match(/\|\s*(class|currentstatus)\s*=\s*fa\b/i)
-      'fa'
-    elsif article.match(/\|\s*(class|currentstatus)\s*=\s*fl\b/i)
-      'fl'
-    elsif article.match(/\|\s*class\s*=\s*a\b/i)
-      'a' # Treat all forms of A, including A/GA, as simple A.
-    elsif article.match(/\|\s*class\s*=\s*ga\b|\|\s*currentstatus\s*=\s*(ffa\/)?ga\b|\{\{\s*ga\s*\|/i) && !article.match(/\|\s*currentstatus\s*=\s*dga\b/i)
-      'ga'
-    elsif article.match(/\|\s*class\s*=\s*b\b/i)
-      'b'
-    elsif article.match(/\|\s*class\s*=\s*bplus\b/i)
-      'b' # Treat B-plus as regular B.
-    elsif article.match(/\|\s*class\s*=\s*c\b/i)
-      'c'
-    elsif article.match(/\|\s*class\s*=\s*start/i)
-      'start'
-    elsif article.match(/\|\s*class\s*=\s*stub/i)
-      'stub'
-    elsif article.match(/\|\s*class\s*=\s*list/i)
-      'list'
-    elsif article.match(/\|\s*class\s*=\s*sl/i)
-      'list' # Treat sl as regular list.
-    end
-    # For other niche ratings like "cur" and "future", count them as unrated.
-    # rubocop:enable Metrics/LineLength
+    wikitext = raw_talk['revisions'][0]['*']
+    ApplicationController.helpers.find_article_class wikitext
   end
 
   ###################
