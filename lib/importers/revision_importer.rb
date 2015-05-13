@@ -8,7 +8,7 @@ class RevisionImporter
 
   ##############
   # API Access #
-  ##############
+  ##############  
   def self.update_all_revisions(courses=nil, all_time=false)
     results = []
     courses = [courses] if courses.is_a? Course
@@ -16,22 +16,19 @@ class RevisionImporter
     courses.each do |c|
       next if c.students.empty?
       start = c.start.strftime('%Y%m%d')
+      end_date = c.end.strftime('%Y%m%d')
       new_users = c.users.role('student').where(revision_count: 0)
 
       old_users = c.students - new_users
 
       unless new_users.empty?
-        results += Utils.chunk_requests(new_users, 40) do |block|
-          Replica.get_revisions block, start, c.end.strftime('%Y%m%d')
-        end
+        results += get_revisions(new_users, start, end_date)
       end
 
       unless old_users.empty?
         first_rev = c.revisions.order('date DESC').first
         start = first_rev.date.strftime('%Y%m%d') unless first_rev.blank?
-        results += Utils.chunk_requests(old_users, 40) do |block|
-          Replica.get_revisions block, start, c.end.strftime('%Y%m%d')
-        end
+        results += get_revisions(old_users, start, end_date)
       end
     end
 
@@ -46,6 +43,11 @@ class RevisionImporter
     ArticlesCourses.update_from_revisions result_revs
   end
 
+  def self.get_revisions(users, start, end_date)
+    Utils.chunk_requests(users, 40) do |block|
+      Replica.get_revisions block, start, end_date
+    end
+  end
   ###########
   # Helpers #
   ###########
