@@ -17,7 +17,7 @@
         <p class='assignee'><i><%= @assignment.article_title %></i></p>
         <% else %>
         <p class='assignee'>
-          <%= link_to @assignment.article.title, @assignment.article.url, :target => "_blank", :class => "inline" %>
+          <%= link_to @assignment.article.title, article_url(@assignment.article), :target => "_blank", :class => "inline" %>
           <span class='article_rating'><%= @assignment.article.rating %></span>
         </p>
         <% end %>

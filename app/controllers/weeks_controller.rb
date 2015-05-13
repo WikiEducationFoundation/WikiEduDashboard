@@ -11,6 +11,9 @@ class WeeksController < ApplicationController
     end
   end
 
+  ########################
+  # Week + Block Methods #
+  ########################
   def timeline_params
     params.permit(weeks: [
       :id,
@@ -52,28 +55,7 @@ class WeeksController < ApplicationController
   def update_timeline
     @course = Course.find_by_slug(params[:course_id])
     timeline_params['weeks'].each do |week|
-      blocks = week['blocks']
-      week.delete 'blocks'
-      if !week.key?(:course_id) || week['course_id'].nil?
-        week['course_id'] = @course.id
-      end
-      @week = update_util Week, week
-
-      next if week['deleted'] || blocks.blank?
-      blocks.each do |block|
-        gradeable = block['gradeable']
-        block.delete 'gradeable'
-        block['week_id'] = @week.id
-        @block = update_util Block, block
-
-        next if block['deleted'] || gradeable.nil?
-        gradeable['gradeable_item_id'] = @block.id
-        gradeable['gradeable_item_type'] = 'block'
-        gradeable['points'] = gradeable['points'] || 10
-        @gradeable = update_util Gradeable, gradeable
-        gradeable_id = Gradeable.exists?(@gradeable) ? @gradeable.id : nil
-        @block.update(gradeable_id: gradeable_id)
-      end
+      update_week week
     end
     respond_to do |format|
       format.json do
@@ -86,6 +68,38 @@ class WeeksController < ApplicationController
     end
   end
 
+  def update_week(week)
+    blocks = week['blocks']
+    week.delete 'blocks'
+    if !week.key?(:course_id) || week['course_id'].nil?
+      week['course_id'] = @course.id
+    end
+    @week = update_util Week, week
+
+    next if week['deleted'] || blocks.blank?
+    blocks.each do |block|
+      update_block block
+    end
+  end
+
+  def update_block(block)
+    gradeable = block['gradeable']
+    block.delete 'gradeable'
+    block['week_id'] = @week.id
+    @block = update_util Block, block
+
+    next if block['deleted'] || gradeable.nil?
+    gradeable['gradeable_item_id'] = @block.id
+    gradeable['gradeable_item_type'] = 'block'
+    gradeable['points'] = gradeable['points'] || 10
+    @gradeable = update_util Gradeable, gradeable
+    gradeable_id = Gradeable.exists?(@gradeable) ? @gradeable.id : nil
+    @block.update(gradeable_id: gradeable_id)
+  end
+
+  #####################
+  # Gradeable methods #
+  #####################
   def gradeable_params
     params.permit(gradeables: [
       :id,

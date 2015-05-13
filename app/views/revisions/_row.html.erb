@@ -1,8 +1,8 @@
 <li class="row revision-list__row">
   <div class="row__wrapper">
     <div class="revision-list__row__title">
-      <%= link_to revision.article.url, :target => "_blank" do %>
-        <p class="title"><%= ((revision.article.namespace == 0 ? "" : t("namespace.user_ns") + ":") + revision.article.title) %></p>
+      <%= link_to article_url(revision.article), :target => "_blank" do %>
+        <p class="title"><%= full_title(revision.article) %></p>
       <% end %>
     </div>
     <div class="revision-list__row__date desktop-only-flex">

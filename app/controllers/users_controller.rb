@@ -1,5 +1,6 @@
 #= Controller for user functionality
 class UsersController < ApplicationController
+  # Support the user revision dropdown
   def revisions
     @revisions = Course.find(params[:course_id]).revisions
                  .where(user_id: params[:user_id]).order(date: :desc)
