@@ -86,7 +86,7 @@
         <select class="cohorts">
           <option selected disabled><%= t("cohort.view_other") %></option>
           <% Cohort.all.each do |c| %>
-            <% unless @cohort == c.slug %>
+            <% unless @cohort.slug == c.slug %>
               <option value="<%= c.slug %>"><%= c.title %></option>
             <% end %>
           <% end %>

@@ -19,7 +19,7 @@
       <div class="stat-display__stat popover-trigger" id="student-editors">
         <h3><%= @course.user_count %></h3>
         <small><%= t("metrics.student_editors") %></small>
-        <div class="popover" id="trained-count">
+        <div class="popover dark" id="trained-count">
           <h4><%= @course.users.role('student').where(trained: true).count %></h4>
           <p><%= t("user.training_complete", count: @course.users.role('student').where(trained: true).count) %></p>
         </div>
