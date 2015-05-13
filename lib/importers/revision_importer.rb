@@ -60,11 +60,16 @@ class RevisionImporter
   # Helpers #
   ###########
   def self.import_revisions(data)
-    # Add/update articles
+    # Use revision data fetched from Replica to add new Revisions as well as
+    # new Articles where appropriate.
     # Limit it to 8000 per slice to avoid running out of memory.
     data.each_slice(8000) do |sub_data|
       import_revisions_slice(sub_data)
     end
+
+    # Some Assignments are for article titles that don't exist initially.
+    # Some newly added Articles may correspond to those Assignments, in which
+    # case the article_ids should be added.
     update_assignment_article_ids
   end
 
@@ -87,11 +92,12 @@ class RevisionImporter
     Revision.import revisions
   end
 
-  # Update article ids for Assignments that lack them.
+  # Update article ids for Assignments that lack them, if an Article with the
+  # same title exists.
   def self.update_assignment_article_ids
     ActiveRecord::Base.transaction do
       Assignment.where(article_id: nil).each do |ass|
-        article = Article.find_by(title: ass.article_title)
+        article = Article.where(namespace: 0).find_by(title: ass.article_title)
         ass.article_id = article.nil? ? nil : article.id
         ass.save
       end
