@@ -29,14 +29,8 @@ class UserImporter
   end
 
   def self.add_users(data, role, course, save=true)
-    if data.is_a?(Array)
-      data.map do |p|
-        add_user(p, role, course, save)
-      end
-    elsif data.is_a?(Hash)
-      [add_user(data, role, course, save)]
-    else
-      Rails.logger.warn('Received data of unknown type for participants')
+    data.map do |p|
+      add_user(p, role, course, save)
     end
   end
 

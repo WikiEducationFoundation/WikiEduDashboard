@@ -2,28 +2,6 @@ require 'rails_helper'
 require "#{Rails.root}/lib/importers/article_importer"
 
 describe Article do
-  describe '#url' do
-    it 'should get the url for an article' do
-      # Add an article
-      article = build(:article,
-                      id: 1,
-                      title: 'Selfie',
-                      namespace: 0,
-                      views_updated_at: '2014-12-31'.to_date
-      )
-
-      # rubocop:disable Metrics/LineLength
-      expect(article.url).to eq("https://#{Figaro.env.wiki_language}.wikipedia.org/wiki/Selfie")
-
-      sandbox = build(:article, namespace: 2, title: 'Ragesoss/sandbox')
-      expect(sandbox.url).to eq("https://#{Figaro.env.wiki_language}.wikipedia.org/wiki/User:Ragesoss/sandbox")
-
-      draft = build(:article, namespace: 118, title: 'My Awesome Draft!!!')
-      expect(draft.url).to eq("https://#{Figaro.env.wiki_language}.wikipedia.org/wiki/Draft:My_Awesome_Draft!!!")
-      # rubocop:enable Metrics/LineLength
-    end
-  end
-
   describe '#update' do
     it 'should do a null update for an article' do
       VCR.use_cassette 'article/update' do
@@ -287,7 +265,6 @@ describe Article do
              namespace: 0)
 
       ArticleImporter.update_article_status
-      puts Article.all.first.title
       expect(Article.find_by(title: 'Audi').id).to eq(848)
     end
 

@@ -4,7 +4,7 @@ require "#{Rails.root}/lib/importers/course_importer"
 describe Course, type: :model do
   it 'should update data for all courses on demand' do
     VCR.use_cassette 'wiki/course_data' do
-      CourseImporter.update_all_courses(false, cohort: '351')
+      CourseImporter.update_all_courses(false, cohort: [351])
 
       course = Course.all.first
       course.update_cache
@@ -21,7 +21,7 @@ describe Course, type: :model do
     allow(error).to receive(:info).and_return('bar')
     stub_request(:any, %r{.*wikipedia\.org/w/api\.php.*})
       .to_raise(error)
-    CourseImporter.update_all_courses(false, cohort: [ '798', '800'])
+    CourseImporter.update_all_courses(false, cohort: [ 798, 800])
 
     course = create(:course, id: 519)
     course.manual_update
@@ -31,7 +31,7 @@ describe Course, type: :model do
     VCR.use_cassette 'wiki/initial' do
       expect(Course.all.count).to eq(0)
       # This should check for course_ids up to 5.
-      CourseImporter.update_all_courses(true, cohort: 5)
+      CourseImporter.update_all_courses(true, cohort: [5])
       # On English Wikipedia, courses 1 and 3 do not exist.
       expect(Course.all.count).to eq(3)
     end
@@ -62,7 +62,7 @@ describe Course, type: :model do
 
   it 'should update assignments when updating courses' do
     VCR.use_cassette 'wiki/update_many_courses' do
-      CourseImporter.update_all_courses(false, cohort: [ '351', '500', '577'])
+      CourseImporter.update_all_courses(false, cohort: [ 351, 500, 577])
 
       expect(Assignment.all.count).to eq(80)
       # Check that users with multiple assignments are handled properly.
@@ -95,7 +95,7 @@ describe Course, type: :model do
              listed: true
       )
 
-      CourseImporter.update_all_courses(false, { cohort: ['351', '590'] })
+      CourseImporter.update_all_courses(false, { cohort: [351, 590] })
       course = Course.find(589)
       expect(course.listed).to be false
     end
@@ -111,7 +111,7 @@ describe Course, type: :model do
              listed: true
       )
 
-      CourseImporter.update_all_courses(false, cohort: ['351', '9999'])
+      CourseImporter.update_all_courses(false, cohort: [351, 9999])
       course = Course.find(9999)
       expect(course.listed).to be false
     end

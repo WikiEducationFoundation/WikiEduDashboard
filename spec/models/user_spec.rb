@@ -128,9 +128,15 @@ describe User do
   end
 
   describe '.add_users' do
-    it 'should handle exceptions for unexpected data' do
-      bad_data = "what is this i don't even"
-      UserImporter.add_users(bad_data, 0, 1)
+    it 'should add users based on course data' do
+      VCR.use_cassette 'wiki/add_users' do
+        course = create(:course,
+               id: 351)
+        data = CourseImporter.get_course_info 351
+        student_data = data[0]['participants']['student']
+        UserImporter.add_users(student_data, 0, course)
+        expect(course.students.all.count).to eq(12)
+      end
     end
   end
 

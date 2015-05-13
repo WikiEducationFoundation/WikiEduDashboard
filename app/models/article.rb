@@ -16,26 +16,6 @@ class Article < ActiveRecord::Base
   ####################
   # Instance methods #
   ####################
-  def url
-    escaped_title = title.gsub(' ', '_')
-    language = Figaro.env.wiki_language
-    ns = {
-      0 => '', # Mainspace for Wikipedia articles
-      1 => 'Talk:',
-      2 => 'User:',
-      3 => 'User_talk:',
-      4 => 'Wikipedia:',
-      5 => 'Wikipedia_talk:',
-      10 => 'Template:',
-      11 => 'Template_talk:',
-      118 => 'Draft:',
-      119 => 'Draft_talk:'
-    }
-    prefix = ns[namespace]
-
-    "https://#{language}.wikipedia.org/wiki/#{prefix}#{escaped_title}"
-  end
-
   def update(data={}, save=true)
     self.attributes = data
     if revisions.count > 0

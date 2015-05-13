@@ -16,12 +16,12 @@ class CourseImporter
   def self.update_all_courses(initial=false, raw_ids={})
     raw_ids = Wiki.course_list if raw_ids.empty?
     listed_ids = raw_ids.values.flatten
-    course_ids = listed_ids | Course.where(listed: true).pluck(:id).map(&:to_s)
+    course_ids = listed_ids | Course.where(listed: true).pluck(:id)
 
     if initial
-      _minimum = course_ids.map(&:to_i).min
-      maximum = course_ids.map(&:to_i).max
-      course_ids = (0..maximum).to_a.map(&:to_s)
+      _minimum = course_ids.min
+      maximum = course_ids.max
+      course_ids = (1..maximum).to_a
     end
 
     # Break up course_ids into smaller groups that Wikipedia's API can handle.
@@ -33,19 +33,21 @@ class CourseImporter
   # Helpers #
   ###########
   def self.import_courses(raw_ids, data)
-    courses = []
-    participants = {}
-    listed_ids = raw_ids.values.flatten.map(&:to_i)
-
     # Encountered an API error; cancel course import for today
     if data.include? nil
       Rails.logger.warn 'Network error. Course import cancelled.'
       return
     end
 
+    courses = []
+    participants = {}
+    listed_ids = raw_ids.values.flatten
+    valid_ids = data.map { |c| c['course']['id'] }
+    deleted_ids = listed_ids - valid_ids
+
     # Delist courses that have been deleted
-    Course.where(listed: true).each do |c|
-      c.delist unless listed_ids.include?(c.id)
+    deleted_ids.each do |id|
+      Course.find(id).delist if Course.exists?(id)
     end
 
     # Update courses from new data
@@ -65,13 +67,15 @@ class CourseImporter
     import_assignments participants
   end
 
+  # Take a hash of cohorts and corresponding course_ids, and update the cohorts.
+  # raw_ids is the output of Wiki.course_list, and looks like this:
+  # { "cohort_slug" => [31, 554, 1234], "cohort_slug_2" => [31, 999, 2345] }
   def self.update_cohorts(raw_ids)
     Course.transaction do
       raw_ids.each do |ch, ch_courses|
-        ch_courses = [ch_courses] unless ch_courses.is_a?(Array)
         cohort = Cohort.find_or_create_by(slug: ch)
-        ch_new = ch_courses - cohort.courses.map { |co| co.id.to_s }
-        ch_old = cohort.courses.map { |co| co.id.to_s } - ch_courses
+        ch_new = ch_courses - cohort.courses.map { |co| co.id }
+        ch_old = cohort.courses.map { |co| co.id } - ch_courses
         ch_new.each do |co|
           course = Course.find_by_id(co)
           course.cohorts << cohort if course
