@@ -93,7 +93,7 @@ class RevisionImporter
   end
 
   # Update article ids for Assignments that lack them, if an Article with the
-  # same title exists.
+  # same title exists in mainspace.
   def self.update_assignment_article_ids
     ActiveRecord::Base.transaction do
       Assignment.where(article_id: nil).each do |ass|
