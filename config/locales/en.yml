@@ -163,6 +163,13 @@ en:
       message: Please complete the [[WP:STUDENT|student training]]. If you have already gone through it, be sure to click the button at the end to record that you finished it. --~~~~
       summary: student training incomplete
 
+  error_401:
+    header: "Unauthorized. >:-("
+    explanation: >
+      You are not authorized to execute this request. If you believe you have
+      reached this notice in error, please contact the maintainers of this
+      dashboard to let them know about the problem.
+
   error_404:
     header: "Page not found. :-("
     explanation: >

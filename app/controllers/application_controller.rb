@@ -3,8 +3,22 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
+  rescue_from ActionController::InvalidAuthenticityToken do
+    respond_to do |format|
+      format.json do
+        render plain: t('error_401.explanation'),
+               status: :unauthorized
+      end
+    end
+  end
 
   before_action :set_locale
+
+  def require_permissions
+    course = Course.find_by_slug(params[:id])
+    exception = ActionController::InvalidAuthenticityToken.new('Unauthorized')
+    raise exception unless user_signed_in? && current_user.can_edit?(course)
+  end
 
   def course_slug_path(slug)
     show_path(id: slug)

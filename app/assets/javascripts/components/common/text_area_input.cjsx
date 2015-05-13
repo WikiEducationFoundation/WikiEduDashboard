@@ -29,7 +29,7 @@ TextAreaInput = React.createClass(
         </p>
     else if this.props.value
       inner_html = this.props.value.replace(/(?:\r\n|\r|\n)/g, '<br>')
-      <p className="content" dangerouslySetInnerHTML={{__html: inner_html}}></p>
+      <p className="content"><span dangerouslySetInnerHTML={{__html: inner_html}}></span></p>
     else
       <p className="content"></p>
 )

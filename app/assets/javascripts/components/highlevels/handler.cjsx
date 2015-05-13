@@ -12,8 +12,7 @@ Handler = (Component) ->
       params = this.context.router.getCurrentParams()
       return params.course_school + '/' + params.course_title
     getPermit: ->
-      role = $('header.course-page').data('role')
-      role == 1 || role == 4
+      role = $('header.course-page').data('can_edit')
     getInitialState: ->
       ServerActions.fetchCourse this.getCourseID()
       return {}

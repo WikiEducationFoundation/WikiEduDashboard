@@ -4,6 +4,7 @@ require "#{Rails.root}/lib/wiki_edits"
 #= Controller for course functionality
 class CoursesController < ApplicationController
   respond_to :html, :json
+  before_action :require_permissions, only: [:create, :update, :destroy]
 
   ###############
   # Root method #

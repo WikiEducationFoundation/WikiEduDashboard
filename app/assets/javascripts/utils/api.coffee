@@ -36,12 +36,13 @@ API =
       cleanup blocks
       cleanup gradeables
 
+      req_data = weeks: weeks
+
       $.ajax
         type: 'POST',
         url: '/courses/' + course_id + '/weeks/timeline',
         contentType: 'application/json',
-        data: JSON.stringify
-          weeks: weeks
+        data: JSON.stringify(req_data)
         success: (data) ->
           console.log 'Saved timeline!'
           res data
@@ -67,12 +68,13 @@ API =
   saveCourse: (data, course_id=null) ->
     append = if course_id? then '/' + course_id else ''
     type = if course_id? then 'PUT' else 'POST'
+    req_data = course: data.course
     new Promise (res, rej) ->
       $.ajax
         type: type,
         url: '/courses' + append,
         contentType: 'application/json',
-        data: JSON.stringify { course: data.course }
+        data: JSON.stringify(req_data)
         success: (data) ->
           console.log 'Saved course!'
           res data

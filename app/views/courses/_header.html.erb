@@ -1,4 +1,4 @@
-<header class="course-page" data-role="<%= user_signed_in? ? current_user.role(@course) : 'visitor' %>">
+<header class="course-page" data-can_edit="<%= user_signed_in? && current_user.can_edit?(@course) %>">
   <div class="container">
     <div class="title">
       <h2><%= @course.title %></h2>
@@ -48,7 +48,7 @@
   </div>
 </div>
 <% end %>
-<% unless @course.listed || @course.approved || @course.published %>
+<% if !(@course.listed || @course.approved || @course.published) && current_user.can_edit?(@course) %>
 <div class="container">
   <div class="alert module">
     <div class="container">

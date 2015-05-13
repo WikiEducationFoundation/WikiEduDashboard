@@ -52,6 +52,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def can_edit?(course)
+    [1, 4].include? role(course)
+  end
+
   #################
   # Cache methods #
   #################
