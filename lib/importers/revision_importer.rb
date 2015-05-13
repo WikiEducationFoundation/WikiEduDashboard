@@ -61,30 +61,39 @@ class RevisionImporter
   ###########
   def self.import_revisions(data)
     # Add/update articles
+    # Limit it to 8000 per slice to avoid running out of memory.
     data.each_slice(8000) do |sub_data|
-      articles, revisions = [], []
+      import_revisions_slice(sub_data)
+    end
+    update_assignment_article_ids
+  end
 
-      sub_data.each do |_a_id, a|
-        article = Article.new(id: a['article']['id'])
-        article.update(a['article'], false)
-        articles.push article
+  def self.import_revisions_slice(sub_data)
+    articles, revisions = [], []
 
-        a['revisions'].each do |r|
-          revision = Revision.new(id: r['id'])
-          revision.update(r, false)
-          revisions.push revision
-        end
+    sub_data.each do |_a_id, a|
+      article = Article.new(id: a['article']['id'])
+      article.update(a['article'], false)
+      articles.push article
+
+      a['revisions'].each do |r|
+        revision = Revision.new(id: r['id'])
+        revision.update(r, false)
+        revisions.push revision
       end
-
-      Article.import articles
-      Revision.import revisions
     end
 
+    Article.import articles
+    Revision.import revisions
+  end
+
+  # Update article ids for Assignments that lack them.
+  def self.update_assignment_article_ids
     ActiveRecord::Base.transaction do
-      Assignment.where(article_id: nil).each do |a|
-        article = Article.find_by(title: a.article_title)
-        a.article_id = article.nil? ? nil : article.id
-        a.save
+      Assignment.where(article_id: nil).each do |ass|
+        article = Article.find_by(title: ass.article_title)
+        ass.article_id = article.nil? ? nil : article.id
+        ass.save
       end
     end
   end
