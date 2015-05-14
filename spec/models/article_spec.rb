@@ -138,7 +138,7 @@ describe Article do
   end
 
   describe '.update_all_caches' do
-    it 'should caches for articles' do
+    it 'should update caches for articles' do
       # Try it with no articles.
       Article.update_all_caches
 
@@ -154,80 +154,7 @@ describe Article do
     end
   end
 
-  describe '.update_ratings' do
-    it 'should get latest ratings for articles' do
-      VCR.use_cassette 'article/update_ratings' do
-        course = create(:course,
-                        id: 1,
-                        title: 'Basket Weaving',
-                        start: '2015-01-01'.to_date,
-                        end: '2015-05-01'.to_date
-                      )
-        # Add an article.
-        article1 = create(:article,
-               id: 1,
-               title: 'Selfie',
-               namespace: 0
-        )
-        course.articles << article1
-
-        possible_ratings = %w(fl fa a ga b c start stub list)
-
-        # .update_ratings has a different flow for one rating vs. several,
-        # so first we run an update with just one article.
-        ArticleImporter.update_new_ratings
-        expect(possible_ratings).to include Article.all.first.rating
-
-        article2 = create(:article,
-               id: 2,
-               title: 'A Clash of Kings',
-               namespace: 0
-        )
-        course.articles << article2
-
-        ArticleImporter.update_all_ratings
-        expect(possible_ratings).to include Article.all.last.rating
-      end
-    end
-  end
-
-  describe '.update_ratings' do
-    it 'should handle MediaWiki API errors' do
-      error = MediawikiApi::ApiError.new nil
-      allow(error).to receive(:data).and_return({})
-      allow(error).to receive(:info).and_return('bar')
-      stub_request(:any, %r{.*wikipedia\.org/w/api\.php.*query.*})
-        .to_raise(error)
-
-      create(:article,
-             id: 1,
-             title: 'Selfie',
-             namespace: 0,
-             rating: 'fa'
-      )
-
-      article = Article.all.find_in_batches(batch_size: 30)
-      ArticleImporter.update_ratings(article)
-      expect(Article.first.rating).to eq('fa')
-    end
-  end
-
   describe 'deleted articles' do
-    it 'should be marked as "deleted"' do
-      course = create(:course,
-                      end: '2016-12-31'.to_date
-      )
-      course.users << create(:user)
-      create(:article,
-             id: 1,
-             title: 'Noarticle',
-             namespace: 0
-      )
-
-      ArticleImporter.update_article_status
-      expect(Article.find(1).deleted).to be true
-    end
-
     it 'should not contribute to cached course values' do
       course = create(:course, end: '2016-12-31'.to_date)
       course.users << create(:user, id: 1)
@@ -254,53 +181,6 @@ describe Article do
       expect(course.article_count).to eq(1)
       expect(course.view_sum).to eq(1000)
       expect(course.character_sum).to eq(1000)
-    end
-  end
-
-  describe 'changed articles' do
-    it 'should have their ids updated' do
-      create(:article,
-             id: 100,
-             title: 'Audi',
-             namespace: 0)
-
-      ArticleImporter.update_article_status
-      expect(Article.find_by(title: 'Audi').id).to eq(848)
-    end
-
-    it 'should have their namespace updated' do
-      create(:article,
-             id: 848,
-             title: 'Audi',
-             namespace: 2)
-
-      ArticleImporter.update_article_status
-      expect(Article.find_by(title: 'Audi').namespace).to eq(0)
-    end
-
-    it 'should handle cases where there are two ids for one page' do    
-      create(:article,
-             id: 2262715,
-             title: 'Kostanay',
-             namespace: 0)
-      create(:article,
-             id: 46349871,
-             title: 'Kostanay',
-             namespace: 0)
-      ArticleImporter.update_article_status
-      expect(Article.where(title: 'Kostanay', namespace: 0).count).to eq(1)
-    end
-
-    it 'should update the article_id for revisions when article_id changes' do
-      create(:article,
-             id: 2262715,
-             title: 'Kostanay',
-             namespace: 0)
-      create(:revision,
-             id: 648515801,
-             article_id: 2262715)
-      ArticleImporter.update_article_status
-      expect(Article.find_by(title: 'Kostanay').revisions.count).to eq(1)
     end
   end
 end
