@@ -47,9 +47,11 @@ Rails.application.routes.draw do
   resources :blocks, only: [:show, :edit, :update, :destroy]
   resources :gradeables, collection: { update_multiple: :put }
 
-  post 'courses/:course_id/weeks/timeline' => 'weeks#update_timeline',
+  post 'courses/:course_id/timeline' => 'timeline#update_timeline',
        constraints: { course_id: /.*/ }
-  post 'courses/:course_id/weeks/gradeables' => 'weeks#update_gradeables',
+  post 'courses/:course_id/timeline/wizard' => 'timeline#submit_wizard',
+       constraints: { course_id: /.*/ }
+  post 'courses/:course_id/gradeables' => 'timeline#update_gradeables',
        constraints: { course_id: /.*/ }
 
   get 'courses' => 'courses#index'

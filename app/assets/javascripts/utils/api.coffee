@@ -40,7 +40,7 @@ API =
 
       $.ajax
         type: 'POST',
-        url: '/courses/' + course_id + '/weeks/timeline',
+        url: '/courses/' + course_id + '/timeline',
         contentType: 'application/json',
         data: JSON.stringify(req_data)
         success: (data) ->
@@ -54,7 +54,7 @@ API =
     new Promise (res, rej) ->
       $.ajax
         type: 'POST',
-        url: '/courses/' + course_id + '/weeks/gradeables',
+        url: '/courses/' + course_id + '/gradeables',
         contentType: 'application/json',
         data: JSON.stringify
           gradeables: data.gradeables
@@ -80,6 +80,21 @@ API =
           res data
         failure: (e) ->
           console.log 'Couldn\'t save course! ' + e
+          rej e
+
+  submitWizard: (course_id, data) ->
+    new Promise (res, rej) ->
+      $.ajax
+        type: 'POST',
+        url: '/courses/' + course_id + '/timeline/wizard',
+        contentType: 'application/json',
+        data: JSON.stringify
+          output: data
+        success: (data) ->
+          console.log 'Submitted the wizard answers!'
+          res data
+        failure: (e) ->
+          console.log 'Couldn\'t submit wizard answers! ' + e
           rej e
 
 module.exports = API

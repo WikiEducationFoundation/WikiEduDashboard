@@ -42,21 +42,22 @@ getState = ->
 
 Wizard = React.createClass(
   displayName: 'Wizard'
-  mixins: [Router.State]
+  mixins: [Router.State, WizardStore.mixin]
   getInitialState: ->
     getState()
+  storeDidChange: ->
+    if @state.active_index == @state.panels.length
+      ServerActions.submitWizard WizardStore.getOutput(), @props.course_id
+      @closeWizard()
   advanceWizard: (current_panel, answer_index) ->
     answer_panel = @state.panels[@state.active_index]
     answer_key = answer_panel['key']
     answer_value = answer_panel['options'][answer_index]['output']
     WizardActions.addAnswer answer_key, answer_value
-    if @state.active_index == @state.panels.length - 1
-      ServerActions.submitWizard WizardStore.getAnswers(), @props.course_id
-      @closeWizard()
-    else
-      @setState active_index: @state.active_index + 1
+    @setState active_index: @state.active_index + 1
   closeWizard: ->
-    @transitionTo 'timeline'
+    WizardActions.closeWizard()
+    @props.transitionTo 'timeline'
   timelinePath: ->
     routes = @context.router.getCurrentPath().split('/')
     routes.pop()

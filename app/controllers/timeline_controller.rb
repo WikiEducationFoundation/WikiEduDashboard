@@ -1,8 +1,8 @@
-#= Controller for week functionality
-class WeeksController < ApplicationController
+#= Controller for timeline functionality
+class TimelineController < ApplicationController
   respond_to :html, :json
   before_action :require_permissions,
-                only: [:update_timeline, :update_gradeables]
+                only: [:update_timeline, :update_gradeables, :submit_wizard]
 
   def index
     @course = Course.find_by_slug(params[:course_id])
@@ -95,6 +95,29 @@ class WeeksController < ApplicationController
     @gradeable = update_util Gradeable, gradeable
     gradeable_id = Gradeable.exists?(@gradeable) ? @gradeable.id : nil
     @block.update(gradeable_id: gradeable_id)
+  end
+
+  ##################
+  # Wizard methods #
+  ##################
+  def wizard_params
+    params.permit(output: [])
+  end
+
+  def submit_wizard
+    @course = Course.find_by_slug(params[:course_id])
+    wizard_params['output'].each do |content|
+      # Look up content by key and add it to timeline
+    end
+    respond_to do |format|
+      format.json do
+        render json: @course.as_json(
+          include: { weeks: {
+            include: { blocks: { include: :gradeable } }
+          } }
+        )
+      end
+    end
   end
 
   #####################

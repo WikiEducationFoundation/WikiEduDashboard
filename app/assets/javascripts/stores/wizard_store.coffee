@@ -3,21 +3,25 @@ Flux            = new McFly()
 
 # Data
 _answers = {}
+_output = []
 
 # Utilities
 setValue = (key, value) ->
   _answers[key] = value
+  _output.push value
+  WizardStore.emitChange()
+
+restore = ->
+  _answers ={}
+  _output = []
   WizardStore.emitChange()
 
 # Store
 WizardStore = Flux.createStore
   getValue: (key) ->
     _answers[key]
-  getAnswers: ->
-    _answers
-  restore: ->
-    _answers ={}
-    WizardStore.emitChange()
+  getOutput: ->
+    _output
 , (payload) ->
   data = payload.data
   switch(payload.actionType)
@@ -25,7 +29,7 @@ WizardStore = Flux.createStore
       setValue data.key, data.value
       break
     when 'WIZARD_CLOSED'
-      @restore()
+      restore()
       break
     when 'WIZARD_SUBMITTED'
       console.log _answers

@@ -24,6 +24,7 @@ Handler = (Component) ->
       <Component
         course_id={@getCourseID()}
         permit={@getPermit()}
+        transitionTo={@transitionTo}
       />
   )
 

@@ -13,12 +13,13 @@ Panel = React.createClass(
       <Option {...option} key={i + Date.now()} />
     classes = 'wizard__panel'
     classes += ' active' if @props.active
+    button_text = if @props.last then 'Submit' else 'Next'
     <div className={classes}>
       <h1>{@props.title}</h1>
       <p>{@props.description}</p>
       {options}
       <CourseLink to='timeline' className='button large'>Cancel</CourseLink>
-      <div className="button dark large" onClick={@advance}>Next</div>
+      <div className="button dark large" onClick={@advance}>{button_text}</div>
     </div>
 )
 
