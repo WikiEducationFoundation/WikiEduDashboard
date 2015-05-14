@@ -277,5 +277,30 @@ describe Article do
       ArticleImporter.update_article_status
       expect(Article.find_by(title: 'Audi').namespace).to eq(0)
     end
+
+    it 'should handle cases where there are two ids for one page' do    
+      create(:article,
+             id: 2262715,
+             title: 'Kostanay',
+             namespace: 0)
+      create(:article,
+             id: 46349871,
+             title: 'Kostanay',
+             namespace: 0)
+      ArticleImporter.update_article_status
+      expect(Article.where(title: 'Kostanay', namespace: 0).count).to eq(1)
+    end
+
+    it 'should update the article_id for revisions when article_id changes' do
+      create(:article,
+             id: 2262715,
+             title: 'Kostanay',
+             namespace: 0)
+      create(:revision,
+             id: 648515801,
+             article_id: 2262715)
+      ArticleImporter.update_article_status
+      expect(Article.find_by(title: 'Kostanay').revisions.count).to eq(1)
+    end
   end
 end
