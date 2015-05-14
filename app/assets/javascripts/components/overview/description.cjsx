@@ -16,23 +16,23 @@ getState = (course_id) ->
 Description = React.createClass(
   displayName: 'Description'
   updateDescription: (value_key, value) ->
-    to_pass = this.props.course
+    to_pass = @props.course
     to_pass[value_key] = value
     CourseActions.updateCourse to_pass
   render: ->
     <div className='module'>
       <div className="section-header">
-        <h3>{this.props.course.title}</h3>
-        {this.props.controls}
+        <h3>{@props.course.title}</h3>
+        {@props.controls()}
       </div>
       <div className='module__data'>
         <p>
           <TextAreaInput
-            onChange={this.updateDescription}
-            value={this.props.course.description}
+            onChange={@updateDescription}
+            value={@props.course.description}
             placeholder='Course description goes here'
             value_key={'description'}
-            editable={this.props.editable}
+            editable={@props.editable}
           />
         </p>
       </div>

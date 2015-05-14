@@ -1,4 +1,8 @@
 React           = require 'react'
+Router          = require 'react-router'
+Link            = Router.Link
+LinkMixin       = require '../../mixins/link_mixin'
+
 Week            = require './week'
 Editable        = require '../highlevels/editable'
 
@@ -17,6 +21,7 @@ getState = ->
 
 Timeline = React.createClass(
   displayName: 'Timeline'
+  mixins: [LinkMixin]
   addWeek: ->
     WeekActions.addWeek()
   deleteWeek: (week_id) ->
@@ -24,7 +29,6 @@ Timeline = React.createClass(
   moveBlock: (block_id, after_block_id) ->
     block = BlockStore.getBlock block_id
     after_block = BlockStore.getBlock after_block_id
-
     if block.week_id == after_block.week_id   # dragging within a week
       old_order = block.order
       block.order = after_block.order
@@ -33,23 +37,23 @@ Timeline = React.createClass(
       BlockActions.updateBlock after_block
   render: ->
     week_components = []
-    this.props.weeks.forEach (week, i) =>
+    @props.weeks.forEach (week, i) =>
       unless week.deleted
         week_components.push (
           <Week
             week={week}
             index={i + 1}
             key={week.id}
-            editable={this.props.editable}
+            editable={@props.editable}
             blocks={BlockStore.getBlocksInWeek(week.id)}
-            moveBlock={this.moveBlock}
-            deleteWeek={this.deleteWeek.bind(this, week.id)}
+            moveBlock={@moveBlock}
+            deleteWeek={@deleteWeek.bind(this, week.id)}
           />
         )
-    if this.props.editable
+    if @props.editable
       add_week = <li className="row view-all">
                   <div>
-                    <div className='button large dark' onClick={this.addWeek}>Add New Week</div>
+                    <div className='button large dark' onClick={@addWeek}>Add New Week</div>
                   </div>
                 </li>
     unless week_components.length
@@ -60,7 +64,7 @@ Timeline = React.createClass(
     <div>
       <div className="section-header">
         <h3>Timeline</h3>
-        {this.props.controls}
+        {@props.controls(@link('wizard', 'Open Wizard', 'button large dark'))}
       </div>
       <ul className="list">
         {week_components}

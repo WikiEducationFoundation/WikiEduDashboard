@@ -19,33 +19,32 @@ editable = (Component, Stores, Save, GetState) ->
       return new_state
     storeDidChange: ->
       this.setState GetState()
-    render: ->
+    controls: (extra_controls) ->
       if this.props.permit && this.state.editable
-        controls = (
-          <div className="controls">
-            <div
-              className='button large'
-              value={'cancel'}
-              onClick={this.cancelChanges}
-            >Cancel</div>
-            <div
-              className='button dark large'
-              value={'save'}
-              onClick={this.saveChanges}
-            >Save</div>
-         </div>
-        )
+        <div className="controls">
+          <div
+            className='button large'
+            value={'cancel'}
+            onClick={this.cancelChanges}
+          >Cancel</div>
+          <div
+            className='button dark large'
+            value={'save'}
+            onClick={this.saveChanges}
+          >Save</div>
+          {extra_controls}
+       </div>
       else if this.props.permit && (this.props.editable == undefined || this.props.editable)
-        controls = (
-          <div className="controls">
-            <div
-              className='button dark large'
-              value={'edit'}
-              onClick={this.toggleEditable}
-            >Edit</div>
-          </div>
-        )
-      return <Component {...this.props} {...this.state} controls={controls} />;
+        <div className="controls">
+          <div
+            className='button dark large'
+            value={'edit'}
+            onClick={this.toggleEditable}
+          >Edit</div>
+          {extra_controls}
+        </div>
+    render: ->
+      return <Component {...this.props} {...this.state} controls={@controls} />;
   )
 
 module.exports = editable

@@ -2,6 +2,9 @@ React         = require 'react'
 Router        = require 'react-router'
 Link          = Router.Link
 
+ModalMixin    = require '../../mixins/modal_mixin'
+LinkMixin     = require '../../mixins/link_mixin'
+
 CourseStore   = require '../../stores/course_store'
 CourseActions = require '../../actions/course_actions'
 ServerActions = require '../../actions/server_actions'
@@ -14,11 +17,13 @@ getState = ->
 
 CourseCreator = React.createClass(
   displayName: 'CourseCreator'
-  mixins: [CourseStore.mixin]
+  mixins: [CourseStore.mixin, ModalMixin, LinkMixin]
   storeDidChange: ->
     @setState getState()
     if @state.course.slug?
-      window.location = '/courses/' + @state.course.slug
+      window.location = '/courses/' + @state.course.slug + '/timeline/wizard'
+  componentWillMount: ->
+    CourseActions.addCourse()
   saveCourse: ->
     ServerActions.saveCourse $.extend(true, {}, @state)
   updateCourse: (value_key, value) ->
@@ -27,14 +32,9 @@ CourseCreator = React.createClass(
     CourseActions.updateCourse to_pass
   getInitialState: ->
     getState()
-  componentWillMount: ->
-    $('body').addClass('modal-open')
-    CourseActions.addCourse()
-  componentWillUnmount: ->
-    $('body').removeClass('modal-open')
   render: ->
     <div className="wizard">
-      <div className="wizard__panel">
+      <div className="wizard__panel active">
         <div className="section-header">
           <h3>Create a New Course</h3>
           <div className="controls">

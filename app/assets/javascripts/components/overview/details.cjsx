@@ -31,7 +31,7 @@ Details = React.createClass(
     <div className='module'>
       <div className="section-header">
         <h3>Course Details</h3>
-        {this.props.controls}
+        {this.props.controls()}
       </div>
       <div className='module__data'>
         <p><span>Instructors: {this.props.course.instructors}</span></p>

@@ -27,7 +27,7 @@
 #         />
 #       </p>
 #     <div>
-#       <p>{this.props.controls}</p>
+#       <p>{this.props.controls()}</p>
 #       {blocks}
 #     </div>
 # )

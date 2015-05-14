@@ -9,17 +9,17 @@ Handler = (Component) ->
     contextTypes:
       router: React.PropTypes.func.isRequired
     getCourseID: ->
-      params = this.context.router.getCurrentParams()
+      params = @context.router.getCurrentParams()
       return params.course_school + '/' + params.course_title
     getPermit: ->
       role = $('header.course-page').data('can_edit')
     getInitialState: ->
-      ServerActions.fetchCourse this.getCourseID()
+      ServerActions.fetchCourse @getCourseID()
       return {}
     render: ->
       <Component
-        course_id={this.getCourseID()}
-        permit={this.getPermit()}
+        course_id={@getCourseID()}
+        permit={@getPermit()}
       />
   )
 
