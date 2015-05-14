@@ -5,7 +5,7 @@ GradeableActions  = require '../../actions/gradeable_actions'
 Gradeable = React.createClass(
   displayName: 'Gradeable'
   updateGradeable: (value_key, value) ->
-    to_pass = $.extend({}, this.props.gradeable)
+    to_pass = $.extend({}, @props.gradeable)
     to_pass[value_key] = value
     GradeableActions.updateGradeable to_pass
   render: ->
@@ -14,18 +14,18 @@ Gradeable = React.createClass(
     <li className="gradeable block">
       <h4>
         <TextInput
-          onChange={this.updateGradeable}
+          onChange={@updateGradeable}
           value={title}
           value_key={'title'}
-          editable={this.props.editable && @props.gradeable.title.length}
+          editable={@props.editable && @props.gradeable.title.length}
         />
       </h4>
       <p><span>Points: </span>
         <TextInput
-          onChange={this.updateGradeable}
-          value={this.props.gradeable.points}
+          onChange={@updateGradeable}
+          value={@props.gradeable.points}
           value_key={'points'}
-          editable={this.props.editable}
+          editable={@props.editable}
         />
       </p>
     </li>

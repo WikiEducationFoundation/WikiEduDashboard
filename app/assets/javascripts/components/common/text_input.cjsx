@@ -6,21 +6,21 @@ TextInput = React.createClass(
   displayName: 'TextInput'
   mixins: [InputMixin],
   getInitialState: ->
-    value: this.props.value
+    value: @props.value
   render: ->
-    value = this.props.value
-    if this.props.type == 'date'
+    value = @props.value
+    if @props.type == 'date'
       v_date = new Date(value)
       month = v_date.getMonth() + 1
       date = v_date.getDate() + 1
       value = month + '/' + date + '/' + v_date.getFullYear()
-    if this.props.editable
+    if @props.editable
       <input
-        value={this.state.value}
-        onChange={this.onChange}
-        autoFocus={this.props.focus}
-        type={this.props.type || 'text'}
-        placeholder={this.props.placeholder}
+        value={@state.value}
+        onChange={@onChange}
+        autoFocus={@props.focus}
+        type={@props.type || 'text'}
+        placeholder={@props.placeholder}
       />
     else
       <span>{value}</span>

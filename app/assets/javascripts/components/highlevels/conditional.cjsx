@@ -6,8 +6,8 @@ React = require 'react'
 Conditional = (Component) ->
   React.createClass(
     render: ->
-      if this.props.show == undefined || this.props.show
-        <Component {...this.props} />
+      if @props.show == undefined || @props.show
+        <Component {...@props} />
       else
         false
   )

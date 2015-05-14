@@ -25,82 +25,82 @@ Block = React.createClass(
             component.props.moveBlock(item.block.id, component.props.block.id)
       )
   updateBlock: (value_key, value) ->
-    to_pass = $.extend({}, this.props.block)
+    to_pass = $.extend({}, @props.block)
     to_pass[value_key] = value
     delete to_pass.deleteBlock
     BlockActions.updateBlock to_pass
   deleteBlock: ->
-    BlockActions.deleteBlock this.props.block.id
+    BlockActions.deleteBlock @props.block.id
   updateGradeable: (value_key, value) ->
     if value == 'true'
-      GradeableActions.addGradeable this.props.block
+      GradeableActions.addGradeable @props.block
     else
-      GradeableActions.deleteGradeable this.props.gradeable.id
+      GradeableActions.deleteGradeable @props.gradeable.id
   render: ->
-    gradeable = this.props.gradeable != undefined && !this.props.gradeable.deleted
+    gradeable = @props.gradeable != undefined && !@props.gradeable.deleted
     className = 'block'
-    if gradeable && !this.props.editable
+    if gradeable && !@props.editable
       dueDateRead = <p>
         <span>Due: </span>
         <TextInput
-          onChange={this.updateBlock}
-          value={this.props.block.due_date}
+          onChange={@updateBlock}
+          value={@props.block.due_date}
           value_key={'due_date'}
-          editable={this.props.editable}
+          editable={@props.editable}
           type='date'
         />
       </p>
-    if this.props.editable
-      deleteBlock = <span className='button danger' onClick={this.deleteBlock}>Delete Block</span>
-      dragSource = this.dragSourceFor(ItemTypes.BLOCK)
-      dropTarget = this.dropTargetFor(ItemTypes.BLOCK)
+    if @props.editable
+      deleteBlock = <span className='button danger' onClick={@deleteBlock}>Delete Block</span>
+      dragSource = @dragSourceFor(ItemTypes.BLOCK)
+      dropTarget = @dropTargetFor(ItemTypes.BLOCK)
       className += ' editable'
-      className += ' dragging' if this.getDragState(ItemTypes.BLOCK).isDragging
+      className += ' dragging' if @getDragState(ItemTypes.BLOCK).isDragging
       graded = <p>
         <span>Graded: </span>
         <Checkbox
           value={gradeable}
-          onChange={this.updateGradeable}
+          onChange={@updateGradeable}
           value_key={'gradeable'}
-          editable={this.props.editable}
+          editable={@props.editable}
         />
       </p>
     style =
-      top: 100 + this.props.block.order * (220 + 10)
+      top: 100 + @props.block.order * (220 + 10)
 
     <li className={className} {...dragSource} {...dropTarget} style={style}>
       <h4>
         <Select
-          onChange={this.updateBlock}
-          value={this.props.block.kind}
+          onChange={@updateBlock}
+          value={@props.block.kind}
           value_key={'kind'}
-          editable={this.props.editable}
+          editable={@props.editable}
           options={['Assignment', 'Milestone', 'Class', 'Custom']}
         />
         &nbsp;&nbsp;&mdash;&nbsp;&nbsp;
         <TextInput
-          onChange={this.updateBlock}
-          value={this.props.block.title}
+          onChange={@updateBlock}
+          value={@props.block.title}
           value_key={'title'}
-          editable={this.props.editable}
+          editable={@props.editable}
         />
         <TextInput
-          onChange={this.updateBlock}
-          value={this.props.block.due_date}
+          onChange={@updateBlock}
+          value={@props.block.due_date}
           value_key={'due_date'}
-          editable={this.props.editable}
+          editable={@props.editable}
           type='date'
-          show={gradeable && this.props.editable}
+          show={gradeable && @props.editable}
         />
         {deleteBlock}
       </h4>
       {graded}
       {dueDateRead}
       <TextAreaInput
-        onChange={this.updateBlock}
-        value={this.props.block.content}
+        onChange={@updateBlock}
+        value={@props.block.content}
         value_key={'content'}
-        editable={this.props.editable}
+        editable={@props.editable}
         hr=true
       />
     </li>

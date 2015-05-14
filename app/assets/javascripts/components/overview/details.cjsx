@@ -24,35 +24,35 @@ getState = (course_id) ->
 Details = React.createClass(
   displayName: 'Details'
   updateDetails: (value_key, value) ->
-    to_pass = this.props.course
+    to_pass = @props.course
     to_pass[value_key] = value
     CourseActions.updateCourse to_pass
   render: ->
     <div className='module'>
       <div className="section-header">
         <h3>Course Details</h3>
-        {this.props.controls()}
+        {@props.controls()}
       </div>
       <div className='module__data'>
-        <p><span>Instructors: {this.props.course.instructors}</span></p>
-        <p><span>Volunteers: {this.props.course.volunteers}</span></p>
-        <p><span>School: {this.props.course.school}</span></p>
-        <p><span>Term: {this.props.course.term}</span></p>
+        <p><span>Instructors: {@props.course.instructors}</span></p>
+        <p><span>Volunteers: {@props.course.volunteers}</span></p>
+        <p><span>School: {@props.course.school}</span></p>
+        <p><span>Term: {@props.course.term}</span></p>
         <p><span>Start: </span>
           <TextInput
-            onChange={this.updateDetails}
-            value={this.props.course.start}
+            onChange={@updateDetails}
+            value={@props.course.start}
             value_key='start'
-            editable={this.props.editable}
+            editable={@props.editable}
             type='date'
           />
         </p>
         <p><span>End: </span>
           <TextInput
-            onChange={this.updateDetails}
-            value={this.props.course.end}
+            onChange={@updateDetails}
+            value={@props.course.end}
             value_key='end'
-            editable={this.props.editable}
+            editable={@props.editable}
             type='date'
           />
         </p>

@@ -9,9 +9,9 @@ Overview = React.createClass(
   displayName: 'Overview'
   render: ->
     <div>
-      <Description {...this.props} />
-      <Details {...this.props} />
-      <ThisWeek {...this.props} />
+      <Description {...@props} />
+      <Details {...@props} />
+      <ThisWeek {...@props} />
     </div>
 )
 

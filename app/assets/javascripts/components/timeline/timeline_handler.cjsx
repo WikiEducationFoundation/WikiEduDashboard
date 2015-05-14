@@ -13,8 +13,8 @@ TimelineHandler = React.createClass(
   render: ->
     <div>
       <RouteHandler />
-      <Timeline {...this.props} />
-      <Grading {...this.props} />
+      <Timeline {...@props} />
+      <Grading {...@props} />
     </div>
 )
 

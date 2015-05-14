@@ -7,8 +7,8 @@ Option = React.createClass(
   displayName: 'Option'
   render: ->
     <div className="wizard__option">
-      <p><b>{this.props.title}</b></p>
-      <p><i>{this.props.description}</i></p>
+      <p><b>{@props.title}</b></p>
+      <p><i>{@props.description}</i></p>
     </div>
 )
 

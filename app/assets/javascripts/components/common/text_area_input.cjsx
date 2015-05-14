@@ -5,30 +5,30 @@ TextAreaInput = React.createClass(
   displayName: 'TextAreaInput'
   mixins: [InputMixin],
   getInitialState: ->
-    value: this.props.value
+    value: @props.value
   render: ->
-    if this.props.editable
-      if this.props.hr
+    if @props.editable
+      if @props.hr
         <div>
           <hr />
           <textarea
-            value={this.state.value}
-            onChange={this.onChange}
-            autoFocus={this.props.focus}
-            placeholder={this.props.placeholder}
+            value={@state.value}
+            onChange={@onChange}
+            autoFocus={@props.focus}
+            placeholder={@props.placeholder}
           />
         </div>
       else
         <p className="content">
           <textarea
-            value={this.state.value}
-            onChange={this.onChange}
-            autoFocus={this.props.focus}
-            placeholder={this.props.placeholder}
+            value={@state.value}
+            onChange={@onChange}
+            autoFocus={@props.focus}
+            placeholder={@props.placeholder}
           />
         </p>
-    else if this.props.value
-      inner_html = this.props.value.replace(/(?:\r\n|\r|\n)/g, '<br>')
+    else if @props.value
+      inner_html = @props.value.replace(/(?:\r\n|\r|\n)/g, '<br>')
       <p className="content"><span dangerouslySetInnerHTML={{__html: inner_html}}></span></p>
     else
       <p className="content"></p>

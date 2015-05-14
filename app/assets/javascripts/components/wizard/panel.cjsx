@@ -9,13 +9,13 @@ Panel = React.createClass(
     answer_key = 0
     @props.advance(@props.key, answer_key)
   render: ->
-    options = this.props.options.map (option, i) ->
+    options = @props.options.map (option, i) ->
       <Option {...option} key={i + Date.now()} />
     classes = 'wizard__panel'
     classes += ' active' if @props.active
     <div className={classes}>
-      <h1>{this.props.title}</h1>
-      <p>{this.props.description}</p>
+      <h1>{@props.title}</h1>
+      <p>{@props.description}</p>
       {options}
       <CourseLink to='timeline' className='button large'>Cancel</CourseLink>
       <div className="button dark large" onClick={@advance}>Next</div>

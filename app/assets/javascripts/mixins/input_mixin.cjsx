@@ -4,10 +4,10 @@
 
 InputMixin =
   onChange: (e) ->
-    if e.target.value != this.state.value
-      this.setState value: e.target.value, ->
-        this.props.onChange this.props.value_key, this.state.value
+    if e.target.value != @state.value
+      @setState value: e.target.value, ->
+        @props.onChange @props.value_key, @state.value
   componentWillReceiveProps: (props) ->
-    this.setState value: props.value
+    @setState value: props.value
 
 module.exports = InputMixin

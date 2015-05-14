@@ -12,42 +12,42 @@ ReactCSSTG      = React.addons.CSSTransitionGroup
 Week = React.createClass(
   displayName: 'Week'
   addBlock: ->
-    BlockActions.addBlock this.props.week.id
+    BlockActions.addBlock @props.week.id
   deleteBlock: (block_id) ->
     BlockActions.deleteBlock block_id
   updateWeek: (value_key, value) ->
-    to_pass = $.extend({}, this.props.week)
+    to_pass = $.extend({}, @props.week)
     to_pass['title'] = value
     WeekActions.updateWeek to_pass
   render: ->
-    blocks = this.props.blocks.map (block, i) =>
+    blocks = @props.blocks.map (block, i) =>
       unless block.deleted
         <Block
           block={block}
           key={block.id}
-          editable={this.props.editable}
+          editable={@props.editable}
           gradeable={GradeableStore.getGradeableByBlock(block.id)}
-          deleteBlock={this.deleteBlock.bind(this, block.id)}
-          moveBlock={this.props.moveBlock}
+          deleteBlock={@deleteBlock.bind(this, block.id)}
+          moveBlock={@props.moveBlock}
         />
     blocks.sort (a, b) ->
       a.props.block.order - b.props.block.order
 
-    if this.props.editable
+    if @props.editable
       addBlock = <li className="row view-all">
                     <div>
-                      <div className='button large' onClick={this.addBlock}>Add New Block</div>
+                      <div className='button large' onClick={@addBlock}>Add New Block</div>
                     </div>
                   </li>
-      deleteWeek = <span className="button danger" onClick={this.props.deleteWeek}>Delete Week</span>
-    if this.props.showTitle == undefined || this.props.showTitle
+      deleteWeek = <span className="button danger" onClick={@props.deleteWeek}>Delete Week</span>
+    if @props.showTitle == undefined || @props.showTitle
       title = <p>
-                <span>Week {this.props.index}&nbsp;&nbsp;&mdash;&nbsp;&nbsp;</span>
+                <span>Week {@props.index}&nbsp;&nbsp;&mdash;&nbsp;&nbsp;</span>
                 <TextInput
-                  onChange={this.updateWeek}
-                  value={this.props.week.title}
+                  onChange={@updateWeek}
+                  value={@props.week.title}
                   value_key={'title'}
-                  editable={this.props.editable}
+                  editable={@props.editable}
                 />
                 {deleteWeek}
               </p>

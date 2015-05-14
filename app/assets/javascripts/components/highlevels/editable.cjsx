@@ -6,45 +6,45 @@ editable = (Component, Stores, Save, GetState) ->
   React.createClass(
     mixins: Stores.map (store) -> store.mixin
     toggleEditable: ->
-      this.setState editable: !this.state.editable
+      @setState editable: !@state.editable
     saveChanges: ->
-      Save $.extend(true, {}, this.state), this.props.course_id
-      this.toggleEditable()
+      Save $.extend(true, {}, @state), @props.course_id
+      @toggleEditable()
     cancelChanges: ->
       store.restore() for store in Stores
-      this.toggleEditable()
+      @toggleEditable()
     getInitialState: ->
       new_state = GetState()
-      new_state.editable = if this.state then this.state.editable else false
+      new_state.editable = if @state then @state.editable else false
       return new_state
     storeDidChange: ->
-      this.setState GetState()
+      @setState GetState()
     controls: (extra_controls) ->
-      if this.props.permit && this.state.editable
+      if @props.permit && @state.editable
         <div className="controls">
           <div
             className='button large'
             value={'cancel'}
-            onClick={this.cancelChanges}
+            onClick={@cancelChanges}
           >Cancel</div>
           <div
             className='button dark large'
             value={'save'}
-            onClick={this.saveChanges}
+            onClick={@saveChanges}
           >Save</div>
           {extra_controls}
        </div>
-      else if this.props.permit && (this.props.editable == undefined || this.props.editable)
+      else if @props.permit && (@props.editable == undefined || @props.editable)
         <div className="controls">
           <div
             className='button dark large'
             value={'edit'}
-            onClick={this.toggleEditable}
+            onClick={@toggleEditable}
           >Edit</div>
           {extra_controls}
         </div>
     render: ->
-      return <Component {...this.props} {...this.state} controls={@controls} />;
+      return <Component {...@props} {...@state} controls={@controls} />;
   )
 
 module.exports = editable

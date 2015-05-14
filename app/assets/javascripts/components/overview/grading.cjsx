@@ -15,19 +15,19 @@
 #     block['points'] = points
 #     TimelineActions.updateBlock block_id, block
 #   render: ->
-#     console.log this.props
-#     blocks = this.props.blocks.map (block, i) =>
+#     console.log @props
+#     blocks = @props.blocks.map (block, i) =>
 #       <p>
 #         <span>{block.title}</span>
 #         <TextInput
-#           onSave={this.updateBlock}
+#           onSave={@updateBlock}
 #           value={block.points}
 #           value_key={block}
-#           editable={this.props.editable}
+#           editable={@props.editable}
 #         />
 #       </p>
 #     <div>
-#       <p>{this.props.controls()}</p>
+#       <p>{@props.controls()}</p>
 #       {blocks}
 #     </div>
 # )

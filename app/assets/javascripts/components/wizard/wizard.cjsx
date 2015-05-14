@@ -58,18 +58,19 @@ Wizard = React.createClass(
   closeWizard: ->
     @transitionTo 'timeline'
   timelinePath: ->
-    routes = this.context.router.getCurrentPath().split('/')
+    routes = @context.router.getCurrentPath().split('/')
     routes.pop()
     routes.join('/')
   isPanelActive: (index) ->
     @state.active_index == index
   render: ->
-    panels = this.state.panels.map (panel, i) =>
+    panels = @state.panels.map (panel, i) =>
       <Panel {...panel}
         advance={@advanceWizard}
         parentPath={@timelinePath()}
         key={panel.key}
         active={@isPanelActive(i)}
+        last={i == @state.panels.length - 1}
       />
     <Modal>{panels}</Modal>
 )
