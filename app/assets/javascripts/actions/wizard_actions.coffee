@@ -9,7 +9,5 @@ WizardActions = Flux.createActions
     }}
   closeWizard: ->
     { actionType: 'WIZARD_CLOSED' }
-  submitWizard: ->
-    { actionType: 'WIZARD_SUBMITTED' }
 
 module.exports = WizardActions

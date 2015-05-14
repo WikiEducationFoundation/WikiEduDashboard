@@ -1,10 +1,10 @@
 React           = require 'react'
 Router          = require 'react-router'
 Link            = Router.Link
-LinkMixin       = require '../../mixins/link_mixin'
 
 Week            = require './week'
 Editable        = require '../highlevels/editable'
+CourseLink      = require '../common/course_link'
 
 WeekActions     = require '../../actions/week_actions'
 BlockActions    = require '../../actions/block_actions'
@@ -21,7 +21,6 @@ getState = ->
 
 Timeline = React.createClass(
   displayName: 'Timeline'
-  mixins: [LinkMixin]
   addWeek: ->
     WeekActions.addWeek()
   deleteWeek: (week_id) ->
@@ -60,11 +59,13 @@ Timeline = React.createClass(
       no_weeks = <li className="row view-all">
                    <div><p>This course does not have a timeline yet</p></div>
                  </li>
+    wizard_link = <CourseLink to='wizard' className='button large dark'>Open Wizard</CourseLink>
 
     <div>
       <div className="section-header">
         <h3>Timeline</h3>
-        {@props.controls(@link('wizard', 'Open Wizard', 'button large dark'))}
+        <CourseLink to='wizard', text='Open Wizard', className='button large dark' />
+        {@props.controls(wizard_link)}
       </div>
       <ul className="list">
         {week_components}

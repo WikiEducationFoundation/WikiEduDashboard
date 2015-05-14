@@ -2,13 +2,11 @@ React         = require 'react'
 Router        = require 'react-router'
 Link          = Router.Link
 
-ModalMixin    = require '../../mixins/modal_mixin'
-LinkMixin     = require '../../mixins/link_mixin'
-
 CourseStore   = require '../../stores/course_store'
 CourseActions = require '../../actions/course_actions'
 ServerActions = require '../../actions/server_actions'
 
+Modal         = require '../common/modal'
 TextInput     = require '../common/text_input'
 TextAreaInput = require '../common/text_area_input'
 
@@ -17,10 +15,10 @@ getState = ->
 
 CourseCreator = React.createClass(
   displayName: 'CourseCreator'
-  mixins: [CourseStore.mixin, ModalMixin, LinkMixin]
+  mixins: [CourseStore.mixin]
   storeDidChange: ->
     @setState getState()
-    if @state.course.slug?
+    if @state.course.slug?    # Primitive check for a server-created course
       window.location = '/courses/' + @state.course.slug + '/timeline/wizard'
   componentWillMount: ->
     CourseActions.addCourse()
@@ -33,7 +31,7 @@ CourseCreator = React.createClass(
   getInitialState: ->
     getState()
   render: ->
-    <div className="wizard">
+    <Modal>
       <div className="wizard__panel active">
         <div className="section-header">
           <h3>Create a New Course</h3>
@@ -120,7 +118,7 @@ CourseCreator = React.createClass(
         </div>
         <div className="button dark large" onClick={@saveCourse}>Create my Course!</div>
       </div>
-    </div>
+    </Modal>
 )
 
 module.exports = CourseCreator

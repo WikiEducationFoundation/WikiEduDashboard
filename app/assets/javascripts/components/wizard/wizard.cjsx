@@ -2,11 +2,11 @@ React         = require 'react'
 Router        = require 'react-router'
 Panel         = require './panel'
 
-ModalMixin    = require '../../mixins/modal_mixin'
-LinkMixin     = require '../../mixins/link_mixin'
+Modal         = require '../common/modal'
 WizardActions = require '../../actions/wizard_actions'
-
+ServerActions = require '../../actions/server_actions'
 WizardStore   = require '../../stores/wizard_store'
+HandlerInterface  = require '../highlevels/handler'
 
 getState = ->
   panels: [{
@@ -42,7 +42,7 @@ getState = ->
 
 Wizard = React.createClass(
   displayName: 'Wizard'
-  mixins: [Router.State, ModalMixin, LinkMixin]
+  mixins: [Router.State]
   getInitialState: ->
     getState()
   advanceWizard: (current_panel, answer_index) ->
@@ -51,7 +51,7 @@ Wizard = React.createClass(
     answer_value = answer_panel['options'][answer_index]['output']
     WizardActions.addAnswer answer_key, answer_value
     if @state.active_index == @state.panels.length - 1
-      WizardActions.submitWizard()
+      ServerActions.submitWizard WizardStore.getAnswers(), @props.course_id
       @closeWizard()
     else
       @setState active_index: @state.active_index + 1
@@ -71,7 +71,7 @@ Wizard = React.createClass(
         key={panel.key}
         active={@isPanelActive(i)}
       />
-    <div className="wizard">{panels}</div>
+    <Modal>{panels}</Modal>
 )
 
-module.exports = Wizard
+module.exports = HandlerInterface(Wizard)

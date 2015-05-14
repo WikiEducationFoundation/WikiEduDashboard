@@ -1,3 +1,7 @@
+# This needs to be implemented as a mixin for state reasons.
+# If there's a good way for high-order components to set state on
+# children like this then let's use it.
+
 InputMixin =
   onChange: (e) ->
     if e.target.value != this.state.value

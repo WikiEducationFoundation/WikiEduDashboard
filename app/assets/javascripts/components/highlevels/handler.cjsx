@@ -8,6 +8,10 @@ Handler = (Component) ->
   React.createClass(
     contextTypes:
       router: React.PropTypes.func.isRequired
+    routeParams: ->
+      @context.router.getCurrentParams()
+    transitionTo: (to, params=null) ->
+      @context.router.transitionTo(to, params || @routeParams())
     getCourseID: ->
       params = @context.router.getCurrentParams()
       return params.course_school + '/' + params.course_title

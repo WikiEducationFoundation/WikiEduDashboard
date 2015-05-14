@@ -1,11 +1,10 @@
-React     = require 'react/addons'
-LinkMixin = require '../../mixins/link_mixin'
+React       = require 'react/addons'
+CourseLink  = require '../common/course_link'
 
-Option    = require './option'
+Option      = require './option'
 
 Panel = React.createClass(
   displayName: 'Panel'
-  mixins: [LinkMixin]
   advance: ->
     answer_key = 0
     @props.advance(@props.key, answer_key)
@@ -18,7 +17,7 @@ Panel = React.createClass(
       <h1>{this.props.title}</h1>
       <p>{this.props.description}</p>
       {options}
-      {@link('timeline', 'Cancel', 'button large')}
+      <CourseLink to='timeline' className='button large'>Cancel</CourseLink>
       <div className="button dark large" onClick={@advance}>Next</div>
     </div>
 )
