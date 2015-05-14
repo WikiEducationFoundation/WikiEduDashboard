@@ -159,7 +159,10 @@ class Replica
       parsed['data']
     rescue StandardError => e
       tries -= 1
-      retry unless tries.zero?
+      unless tries.zero?
+        sleep 2
+        retry
+      end
       report_exception e, endpoint, query
     end
 
@@ -214,7 +217,9 @@ class Replica
     def report_exception(error, endpoint, query, level='error')
       Rails.logger.error "replica.rb #{endpoint} query failed after 3 tries: #{error}"
       # These are typical network errors that we expect to encounter.
-      typical_errors = [Errno::ETIMEDOUT, Errno::ECONNREFUSED]
+      typical_errors = [Errno::ETIMEDOUT,
+                        Errno::ECONNREFUSED,
+                        JSON::ParserError]
       level = 'warning' if typical_errors.include?(error.class)
       Raven.capture_exception error,
                               level: level,
