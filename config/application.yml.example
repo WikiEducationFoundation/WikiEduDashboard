@@ -41,3 +41,6 @@
 
 # Set to true to use log level 'debug' for update logs. The default is 'info'.
   cron_log_debug: false
+  
+# Uncomment no_views to disable view stats updates.
+# no_views: "true"

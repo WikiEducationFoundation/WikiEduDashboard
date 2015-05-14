@@ -38,7 +38,7 @@ namespace :batch do
       Rake::Task['course:update_courses'].invoke
       Rake::Task['user:update_users'].invoke
       Rake::Task['revision:update_revisions'].invoke
-      Rake::Task['article:update_new_article_views'].invoke
+      Rake::Task['article:update_new_article_views'].invoke unless Figaro.env.no_views
       Rake::Task['article:update_new_ratings'].invoke
       Rake::Task['cache:update_caches'].invoke
 
@@ -92,7 +92,7 @@ namespace :batch do
       start = Time.now
 
       Rails.logger.info 'Daily update tasks are beginning.'
-      Rake::Task['article:update_views'].invoke
+      Rake::Task['article:update_views'].invoke unless Figaro.env.no_views
       Rake::Task['article:update_all_ratings'].invoke
       Rake::Task['article:update_article_status'].invoke
       Rake::Task['cache:update_caches'].invoke
@@ -127,7 +127,7 @@ namespace :batch do
       Rake::Task['course:update_courses'].invoke
       Rake::Task['user:update_users'].invoke
       Rake::Task['revision:update_revisions'].invoke
-      Rake::Task['article:update_views_all_time'].invoke
+      Rake::Task['article:update_views_all_time'].invoke unless Figaro.env.no_views
       Rake::Task['cache:update_caches'].invoke
       Rails.logger.info 'Initialization tasks have finished'
     ensure
