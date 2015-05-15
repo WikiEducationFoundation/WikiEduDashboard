@@ -1,4 +1,5 @@
 React = require 'react'
+Conditional = require '../highlevels/conditional'
 InputMixin = require '../../mixins/input_mixin'
 
 Select = React.createClass(
@@ -21,4 +22,4 @@ Select = React.createClass(
       <span>{@props.options[@props.value]}</span>
 )
 
-module.exports = Select
+module.exports = Conditional(Select)

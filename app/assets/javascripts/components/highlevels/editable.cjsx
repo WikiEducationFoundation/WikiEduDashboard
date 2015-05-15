@@ -2,7 +2,7 @@
 
 React = require 'react'
 
-editable = (Component, Stores, Save, GetState) ->
+Editable = (Component, Stores, Save, GetState) ->
   React.createClass(
     mixins: Stores.map (store) -> store.mixin
     toggleEditable: ->
@@ -47,4 +47,4 @@ editable = (Component, Stores, Save, GetState) ->
       return <Component {...@props} {...@state} controls={@controls} />;
   )
 
-module.exports = editable
+module.exports = Editable

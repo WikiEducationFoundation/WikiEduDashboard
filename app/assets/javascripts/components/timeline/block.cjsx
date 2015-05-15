@@ -67,6 +67,7 @@ Block = React.createClass(
       </p>
     style =
       top: 100 + @props.block.order * (220 + 10)
+    spacer = '  —  ' if (@props.block.kind < 3 || @props.editable)
 
     <li className={className} {...dragSource} {...dropTarget} style={style}>
       <h4>
@@ -76,8 +77,9 @@ Block = React.createClass(
           value_key={'kind'}
           editable={@props.editable}
           options={['Assignment', 'Milestone', 'Class', 'Custom']}
+          show={@props.block.kind < 3 || @props.editable}
         />
-        &nbsp;&nbsp;&mdash;&nbsp;&nbsp;
+        {spacer}
         <TextInput
           onChange={@updateBlock}
           value={@props.block.title}

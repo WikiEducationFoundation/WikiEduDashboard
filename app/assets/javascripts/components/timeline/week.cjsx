@@ -41,8 +41,9 @@ Week = React.createClass(
                   </li>
       deleteWeek = <span className="button danger" onClick={@props.deleteWeek}>Delete Week</span>
     if @props.showTitle == undefined || @props.showTitle
+      spacer = '  —  ' if (@props.week.title? || @props.editable)
       title = <p>
-                <span>Week {@props.index}&nbsp;&nbsp;&mdash;&nbsp;&nbsp;</span>
+                <span>Week {@props.index}{spacer}</span>
                 <TextInput
                   onChange={@updateWeek}
                   value={@props.week.title}
