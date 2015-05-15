@@ -119,7 +119,7 @@ class CourseImporter
     user_ids = group_flat.map { |user| user['id'] }
     course = Course.find_by(id: course_id)
 
-    return if user_ids.empty?
+    return [] if user_ids.empty?
     role_index = %w(student instructor online_volunteer
                     campus_volunteer wiki_ed_staff)
     # Set up structures for operating on
