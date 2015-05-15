@@ -108,6 +108,13 @@ class Replica
     existing_articles unless existing_articles.nil?
   end
 
+  # Given a list of revisions, see which ones have not been deleted
+  def self.get_existing_revisions_by_id(revisions)
+    revision_list = compile_revision_id_string(revisions)
+    existing_revisions = api_get('revisions.php', revision_list)
+    existing_revisions unless existing_revisions.nil?
+  end
+
   ###################
   # Private methods #
   ###################
@@ -212,6 +219,15 @@ class Replica
         article_list += "article_ids[#{i}]='#{article_id}'"
       end
       article_list
+    end
+
+    def compile_revision_id_string(revisions)
+      revision_list = ''
+      revisions.each_with_index do |r, i|
+        revision_list += '&' if i > 0
+        revision_list += "revision_ids[#{i}]='#{r['id']}'"
+      end
+      revision_list
     end
 
     def report_exception(error, endpoint, query, level='error')

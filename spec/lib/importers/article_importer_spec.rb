@@ -45,6 +45,8 @@ describe ArticleImporter do
         # .update_ratings has a different flow for one rating vs. several,
         # so first we run an update with just one article.
         ArticleImporter.update_new_ratings
+
+        pp Article.all.first
         expect(possible_ratings).to include Article.all.first.rating
 
         article2 = create(:article,
@@ -96,17 +98,23 @@ describe ArticleImporter do
       expect(Article.find_by(title: 'Audi').namespace).to eq(0)
     end
 
-    it 'should handle cases where there are two ids for one page' do    
-      create(:article,
+    it 'should handle cases where there are two ids for one page' do
+      first = create(:article,
              id: 2262715,
              title: 'Kostanay',
              namespace: 0)
-      create(:article,
+      second = create(:article,
              id: 46349871,
              title: 'Kostanay',
              namespace: 0)
-      ArticleImporter.update_article_status
-      expect(Article.where(title: 'Kostanay', namespace: 0).count).to eq(1)
+      ArticleImporter.resolve_duplicate_articles([first])
+      undeleted = Article.where(
+        title: 'Kostanay',
+        namespace: 0,
+        deleted: false
+      )
+      expect(undeleted.count).to eq(1)
+      expect(undeleted.first.id).to eq(second.id)
     end
 
     it 'should update the article_id for revisions when article_id changes' do
@@ -118,7 +126,10 @@ describe ArticleImporter do
              id: 648515801,
              article_id: 2262715)
       ArticleImporter.update_article_status
-      expect(Article.find_by(title: 'Kostanay').revisions.count).to eq(1)
+
+      new_article = Article.find_by(title: 'Kostanay')
+      expect(new_article.id).to eq(46349871)
+      expect(new_article.revisions.count).to eq(1)
     end
   end
 end
