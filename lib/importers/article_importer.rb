@@ -142,8 +142,13 @@ class ArticleImporter
         namespace: stp['page_namespace'],
         deleted: false
       )
+
       if !article.nil? && deleted_ids.include?(article.id)
-        article.update(id: stp['page_id'])
+        # This catches false positives when the query for page_title matches
+        # a case variant.
+        if article.title == stp['page_title']
+          article.update(id: stp['page_id'])
+        end
       end
     end
 
@@ -165,7 +170,8 @@ class ArticleImporter
     Article.import synced_articles, on_duplicate_key_update: update_keys
   end
 
-  def self.resolve_duplicate_articles(articles)
+  def self.resolve_duplicate_articles(articles=nil)
+    articles ||= Article.where(deleted: false)
     titles = articles.map(&:title)
     grouped = Article.where(title: titles).group(%w(title namespace)).count
     deleted_ids = []
@@ -173,6 +179,7 @@ class ArticleImporter
       next unless article[1] > 1
       article_title = article[0][0]
       article_namespace = article[0][1]
+      Rails.logger.debug "Resolving duplicates for '#{article_title}, ns #{article_namespace}'"
       deleted_ids += delete_duplicates article_title, article_namespace
     end
 
