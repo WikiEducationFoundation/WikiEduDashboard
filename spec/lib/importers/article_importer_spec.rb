@@ -116,6 +116,22 @@ describe ArticleImporter do
       expect(undeleted.first.id).to eq(second.id)
     end
 
+    it 'should handle case-variant titles' do
+      article1 = create(:article,
+                        id: 3914927,
+                        title: 'Cyber-ethnography',
+                        deleted: true,
+                        namespace: 1)
+      article2 = create(:article,
+                        id: 46394760,
+                        title: 'Cyber-Ethnography',
+                        deleted: false,
+                        namespace: 1)
+      ArticleImporter.update_article_status
+      expect(article1.id).to eq(3914927)
+      expect(article2.id).to eq(46394760)
+    end
+
     it 'should update the article_id for revisions when article_id changes' do
       create(:article,
              id: 2262715,
