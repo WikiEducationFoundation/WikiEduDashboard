@@ -22,7 +22,8 @@ module ArticleHelper
 
   def full_title(article)
     prefix = NS[article.namespace]
-    "#{prefix}#{article.title}"
+    title = article.title.gsub('_', ' ')
+    "#{prefix}#{title}"
   end
 
   def rating_priority(rating)
