@@ -46,7 +46,6 @@ describe ArticleImporter do
         # so first we run an update with just one article.
         ArticleImporter.update_new_ratings
 
-        pp Article.all.first
         expect(possible_ratings).to include Article.all.first.rating
 
         article2 = create(:article,
