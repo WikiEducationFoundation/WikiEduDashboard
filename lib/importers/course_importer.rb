@@ -127,7 +127,8 @@ class CourseImporter
       { 'id' => cu.user_id, 'role' => role_index[cu.role] }
     end
     new_flat = group_flat.map do |u|
-      { 'id' => u['id'], 'role' => u['role'] }
+      role = u['username'].include?('(Wiki Ed)') ? role_index[4] : u['role']
+      { 'id' => u['id'], 'role' => role }
     end
     # Unenroll users who have been removed
     unless course.users.empty?
