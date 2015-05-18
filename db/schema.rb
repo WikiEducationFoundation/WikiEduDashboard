@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150511183315) do
+ActiveRecord::Schema.define(version: 20150515215852) do
 
   create_table "articles", force: true do |t|
     t.string   "title"
@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 20150511183315) do
 
   create_table "blocks", force: true do |t|
     t.integer  "kind"
-    t.string   "content"
+    t.text     "content"
     t.integer  "week_id"
     t.integer  "gradeable_id"
     t.datetime "created_at"
@@ -105,7 +105,7 @@ ActiveRecord::Schema.define(version: 20150511183315) do
     t.string   "assignment_source"
     t.string   "subject"
     t.integer  "expected_students"
-    t.string   "description"
+    t.text     "description"
   end
 
   add_index "courses", ["slug"], name: "index_courses_on_slug", using: :btree
@@ -140,6 +140,7 @@ ActiveRecord::Schema.define(version: 20150511183315) do
     t.integer  "views",       limit: 8, default: 0
     t.datetime "date"
     t.boolean  "new_article",           default: false
+    t.boolean  "deleted",               default: false
   end
 
   create_table "users", force: true do |t|

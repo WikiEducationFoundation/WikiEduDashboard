@@ -1,4 +1,5 @@
 require "#{Rails.root}/lib/replica"
+require "#{Rails.root}/lib/importers/article_importer"
 
 #= Imports and updates revisions from Wikipedia into the dashboard database
 class RevisionImporter
@@ -8,7 +9,7 @@ class RevisionImporter
 
   ##############
   # API Access #
-  ##############  
+  ##############
   def self.update_all_revisions(courses=nil, all_time=false)
     results = []
     courses = [courses] if courses.is_a? Course
@@ -89,6 +90,7 @@ class RevisionImporter
     end
 
     Article.import articles
+    ArticleImporter.resolve_duplicate_articles(articles)
     Revision.import revisions
   end
 

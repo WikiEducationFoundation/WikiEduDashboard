@@ -108,6 +108,13 @@ class Replica
     existing_articles unless existing_articles.nil?
   end
 
+  # Given a list of revisions, see which ones have not been deleted
+  def self.get_existing_revisions_by_id(revisions)
+    revision_list = compile_revision_id_string(revisions)
+    existing_revisions = api_get('revisions.php', revision_list)
+    existing_revisions unless existing_revisions.nil?
+  end
+
   ###################
   # Private methods #
   ###################
@@ -159,7 +166,10 @@ class Replica
       parsed['data']
     rescue StandardError => e
       tries -= 1
-      retry unless tries.zero?
+      unless tries.zero?
+        sleep 2
+        retry
+      end
       report_exception e, endpoint, query
     end
 
@@ -211,10 +221,21 @@ class Replica
       article_list
     end
 
+    def compile_revision_id_string(revisions)
+      revision_list = ''
+      revisions.each_with_index do |r, i|
+        revision_list += '&' if i > 0
+        revision_list += "revision_ids[#{i}]='#{r['id']}'"
+      end
+      revision_list
+    end
+
     def report_exception(error, endpoint, query, level='error')
       Rails.logger.error "replica.rb #{endpoint} query failed after 3 tries: #{error}"
       # These are typical network errors that we expect to encounter.
-      typical_errors = [Errno::ETIMEDOUT, Errno::ECONNREFUSED]
+      typical_errors = [Errno::ETIMEDOUT,
+                        Errno::ECONNREFUSED,
+                        JSON::ParserError]
       level = 'warning' if typical_errors.include?(error.class)
       Raven.capture_exception error,
                               level: level,

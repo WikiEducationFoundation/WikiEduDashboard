@@ -37,10 +37,19 @@ namespace :article do
     ArticleImporter.update_article_status
   end
 
-  # This task is intended for ad-hoc use, should be removed ASAP
+
+
+  # These tasks are intended for ad-hoc use to resolve problems
+  # introduced by old, bad logic
   desc 'Remove botched ArticlesCourses'
   task reset_articles_courses: "batch:setup_logger" do
     Rails.logger.debug 'Removing messed up ArticlesCourses'
     ArticleImporter.remove_bad_articles_courses
+  end
+
+  desc 'Rebuild ArticlesCourses based on all Revisions'
+  task rebuild_articles_courses: "batch:setup_logger" do
+    Rails.logger.debug 'Rebuilding ArticlesCourses from all Revisions'
+    ArticlesCourses.update_from_revisions
   end
 end

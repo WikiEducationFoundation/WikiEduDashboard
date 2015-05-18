@@ -30,7 +30,7 @@ class ArticleImporter
 
   def self.update_new_ratings
     articles = Article.current
-               .where('rating_updated_at IS NULL').namespace(0)
+               .where(rating_updated_at: nil).namespace(0)
                .find_in_batches(batch_size: 30)
     update_ratings(articles)
   end
@@ -139,24 +139,83 @@ class ArticleImporter
     same_title_pages.each do |stp|
       article = Article.find_by(
         title: stp['page_title'],
-        namespace: stp['page_namespace']
+        namespace: stp['page_namespace'],
+        deleted: false
       )
+
       if !article.nil? && deleted_ids.include?(article.id)
-        article.update(id: stp['page_id'])
+        # This catches false positives when the query for page_title matches
+        # a case variant.
+        if article.title == stp['page_title']
+          article.update(id: stp['page_id'])
+        end
       end
     end
 
     # Delete articles as appropriate
     local_articles.where(id: deleted_ids).update_all(deleted: true)
+    limbo_revisions = Revision.where(article_id: deleted_ids)
+    move_or_delete_revisions limbo_revisions
 
     # Update titles and namespaces based on ids (we trust ids!)
     synced_articles.map! do |sa|
       Article.new(
         id: sa['page_id'],
         title: sa['page_title'],
-        namespace: sa['page_namespace']
+        namespace: sa['page_namespace'],
+        deleted: false  # Accounts for the case of undeleted articles
       )
     end
-    Article.import synced_articles, on_duplicate_key_update: [:title, :namespace]
+    update_keys = [:title, :namespace, :deleted]
+    Article.import synced_articles, on_duplicate_key_update: update_keys
+  end
+
+  def self.resolve_duplicate_articles(articles=nil)
+    articles ||= Article.where(deleted: false)
+    titles = articles.map(&:title)
+    grouped = Article.where(title: titles).group(%w(title namespace)).count
+    deleted_ids = []
+    grouped.each do |article|
+      next unless article[1] > 1
+      article_title = article[0][0]
+      article_namespace = article[0][1]
+      Rails.logger.debug "Resolving duplicates for '#{article_title}, ns #{article_namespace}'"
+      deleted_ids += delete_duplicates article_title, article_namespace
+    end
+
+    # At this stage check to see if the deleted articles' revisions still exist
+    # if so, move them to their new article ID
+    limbo_revisions = Revision.where(article_id: deleted_ids)
+    move_or_delete_revisions limbo_revisions
+  end
+
+  def self.move_or_delete_revisions(revisions=nil)
+    revisions ||= Revision.all
+    return if revisions.empty?
+
+    synced_revisions = Utils.chunk_requests(revisions) do |block|
+      Replica.get_existing_revisions_by_id block
+    end
+    synced_ids = synced_revisions.map { |r| r['rev_id'].to_i }
+
+    deleted_ids = revisions.pluck(:id) - synced_ids
+    Revision.where(id: deleted_ids).update_all(deleted: true)
+
+    moved_ids = synced_ids - deleted_ids
+    moved_revisions = synced_revisions.reduce([]) do |moved, rev|
+      moved.push rev if moved_ids.include? rev['rev_id'].to_i
+    end
+    moved_revisions.each do |moved|
+      Revision.find(moved['rev_id']).update(article_id: moved['rev_page'])
+    end
+  end
+
+  # Delete all articles with the given title
+  # and namespace except for the most recently created
+  def self.delete_duplicates(title, ns)
+    articles = Article.where(title: title, namespace: ns).order(:created_at)
+    deleted = articles.where.not(id: articles.last.id)
+    deleted.update_all(deleted: true)
+    deleted.map(&:id)
   end
 end
