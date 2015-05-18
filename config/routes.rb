@@ -49,9 +49,12 @@ Rails.application.routes.draw do
 
   post 'courses/:course_id/timeline' => 'timeline#update_timeline',
        constraints: { course_id: /.*/ }
-  post 'courses/:course_id/timeline/wizard' => 'timeline#submit_wizard',
-       constraints: { course_id: /.*/ }
   post 'courses/:course_id/gradeables' => 'timeline#update_gradeables',
+       constraints: { course_id: /.*/ }
+
+  get 'wizards' => 'wizard#get_wizard_index'
+  get 'wizards/:wizard_id' => 'wizard#get_wizard'
+  post 'courses/:course_id/wizard' => 'wizard#submit_wizard',
        constraints: { course_id: /.*/ }
 
   get 'courses' => 'courses#index'

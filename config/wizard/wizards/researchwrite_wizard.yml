@@ -1,0 +1,27 @@
+-
+  key: essentials
+  title: Wikipedia Essentials
+  description: Learn how to use Wikipedia!
+  type: 1  # Single choice
+  options:
+    -
+      title: Include Wiki Essentials
+      description: Would you like to include Wiki Essentials?
+      output: essentials
+    -
+      title: Don't include Wiki Essentials
+      description: Would you like to exclude Wiki Essentials?
+-
+  key: supplementary
+  title: Supplementary Assignments
+  description: Practice your Wikipedia skills!
+  type: 0  # Multiple choice
+  options:
+    -
+      title: Publish an Article
+      description: Have your students publish a new article to Wikipedia
+      output: supplementary_publish
+    -
+      title: Edit an Article
+      description: Have your students edit an existing article on Wikipedia
+      output: supplementary_edit

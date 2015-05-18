@@ -36,7 +36,6 @@ Grading = React.createClass(
             deleteGradeable={@deleteGradeable.bind(this, gradeable.id)}
           />
         )
-    console.log @props.controls()
     if @props.editable
       addGradeable = <li className="row view-all">
         <div>

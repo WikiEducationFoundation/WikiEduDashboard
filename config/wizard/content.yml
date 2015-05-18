@@ -12,7 +12,7 @@
 # - Higher weights will be more likely to stand on their own
 # - Weights may be any positive number but 1-10 is recommended
 
-content_key1:
+essentials:
   - # Week one
     weight: 3
     blocks:
@@ -32,11 +32,42 @@ content_key1:
         content: Today's lecture will cover revising other editors' work
         kind: 2
 
-content_key3:
+supplementary_publish:
   - # Week one
     weight: 1
     blocks:
       -
-        title: Translate an article
-        content: Translate a Wikipedia article into Spanish
+        title: Choose a subject for your new article
+        content: Choose a subject to research from which you can publish a new article
+        kind: 0
+  - # Week two
+    weight: 5
+    blocks:
+      -
+        title: Write your article
+        content: Write the article for your chosen subject matter
+        kind: 0
+  - # Week three
+    weight: 2
+    blocks:
+      -
+        title: Publish your article
+        content: Publish the article that you wrote last week and make any needed edits
+        kind: 0
+
+supplementary_edit:
+  - # Week one
+    weight: 1
+    blocks:
+      -
+        title: Choose an article to research
+        content: Choose an article to research for the purposes of editing
+        kind: 0
+        kind: 0
+  - # Week two
+    weight: 3
+    blocks:
+      -
+        title: Edit your chosen article
+        content: Publish an edit to the article you researched last week
         kind: 0

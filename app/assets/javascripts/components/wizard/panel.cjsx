@@ -5,12 +5,19 @@ Option      = require './option'
 
 Panel = React.createClass(
   displayName: 'Panel'
-  advance: ->
-    answer_key = 0
-    @props.advance(@props.key, answer_key)
+  advance: (answer_key) ->
+    @props.advance(@props.key, @state.selected)
+  selectOption: (answer_key) ->
+    @setState selected: answer_key
+  getInitialState: ->
+    selected: null
   render: ->
-    options = @props.options.map (option, i) ->
-      <Option {...option} key={i + Date.now()} />
+    options = @props.options.map (option, i) =>
+      <Option {...option}
+        key={i}
+        selected={@state.selected == (option.key || i)}
+        selectOption={@selectOption.bind(this, option.key || i)}
+      />
     classes = 'wizard__panel'
     classes += ' active' if @props.active
     button_text = if @props.last then 'Submit' else 'Next'

@@ -1,4 +1,7 @@
 API =
+  ###########
+  # Getters #
+  ###########
   fetchCourse: (course_id) ->
     new Promise (res, rej) ->
       $.ajax
@@ -11,6 +14,33 @@ API =
           console.log 'Error: ' + e
           rej e
 
+  fetchWizardIndex: ->
+    new Promise (res, rej) ->
+      $.ajax
+        type: 'GET',
+        url: '/wizards.json',
+        success: (data) ->
+          console.log 'Received wizard index'
+          res data
+        failure: (e) ->
+          console.log 'Error: ' + e
+          rej e
+
+  fetchWizardConfig: (wizard_id) ->
+    new Promise (res, rej) ->
+      $.ajax
+        type: 'GET',
+        url: '/wizards/' + wizard_id + '.json',
+        success: (data) ->
+          console.log 'Received wizard configuration'
+          res data
+        failure: (e) ->
+          console.log 'Error: ' + e
+          rej e
+
+  ###########
+  # Setters #
+  ###########
   saveTimeline: (course_id, data) ->
     new Promise (res, rej) ->
       cleanup = (array) ->
@@ -86,7 +116,7 @@ API =
     new Promise (res, rej) ->
       $.ajax
         type: 'POST',
-        url: '/courses/' + course_id + '/timeline/wizard',
+        url: '/courses/' + course_id + '/wizard',
         contentType: 'application/json',
         data: JSON.stringify
           output: data

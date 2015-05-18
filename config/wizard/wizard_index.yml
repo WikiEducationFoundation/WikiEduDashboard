@@ -1,0 +1,14 @@
+# This file defines the published, accessible
+# assignment wizards that are available in the application
+
+# Each key must correspond with the name
+# of a config file in the 'assignments' folder
+
+-
+  key: researchwrite
+  title: Research and Write
+  description: Have your students research and write an article in the subject matter of your choice.
+-
+  key: translation
+  title: Translation
+  description: Have your students translate an article into the language of your choice.
