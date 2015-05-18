@@ -40,81 +40,70 @@ CourseCreator = React.createClass(
           </div>
         </div>
         <div className='wizard__form'>
-          <p><span>Course title:</span><br/>
+          <div className='column'>
             <TextInput
+              id='course_title'
               onChange={@updateCourse}
               value={@state.course.title}
               value_key='title'
               editable=true
-              placeholder='Course title'
+              label='Course title'
             />
-          </p>
-          <p><span>Course description:</span><br/>
             <TextAreaInput
               onChange={@updateCourse}
               value={@state.course.description}
               value_key='description'
               editable=true
-              placeholder='Course description'
+              label='Course description'
             />
-          </p>
-          <p><span>Course school:</span><br/>
             <TextInput
               onChange={@updateCourse}
               value={@state.course.school}
               value_key='school'
               editable=true
-              placeholder='Course school'
+              label='Course school'
             />
-          </p>
-          <p><span>Course term:</span><br/>
+          </div>
+          <div className='column'>
             <TextInput
               onChange={@updateCourse}
               value={@state.course.term}
               value_key='term'
               editable=true
-              placeholder='Course term'
+              label='Course term'
             />
-          </p>
-          <p><span>Course subject:</span><br/>
             <TextInput
               onChange={@updateCourse}
               value={@state.course.subject}
               value_key='subject'
               editable=true
-              placeholder='Course subject'
+              label='Course subject'
             />
-          </p>
-          <p>
-            <span>Expected number of students:</span><br/>
             <TextInput
               onChange={@updateCourse}
               value={@state.course.expected_students}
               value_key='expected_students'
               editable=true
               type='number'
+              label='Expected number of students'
             />
-          </p>
-          <p>
-            <span>Start date:</span><br/>
             <TextInput
               onChange={@updateCourse}
               value={@state.course.start}
               value_key='start'
               editable=true
               type='date'
+              label='Start date'
             />
-          </p>
-          <p>
-            <span>End date:</span><br/>
             <TextInput
               onChange={@updateCourse}
               value={@state.course.end}
               value_key='end'
               editable=true
               type='date'
+              label='End date'
             />
-          </p>
+          </div>
         </div>
         <div className="button dark large" onClick={@saveCourse}>Create my Course!</div>
       </div>

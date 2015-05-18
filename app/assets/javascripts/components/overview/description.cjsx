@@ -26,15 +26,13 @@ Description = React.createClass(
         {@props.controls()}
       </div>
       <div className='module__data'>
-        <p>
-          <TextAreaInput
-            onChange={@updateDescription}
-            value={@props.course.description}
-            placeholder='Course description goes here'
-            value_key={'description'}
-            editable={@props.editable}
-          />
-        </p>
+        <TextAreaInput
+          onChange={@updateDescription}
+          value={@props.course.description}
+          placeholder='Course description goes here'
+          value_key={'description'}
+          editable={@props.editable}
+        />
       </div>
     </div>
 )

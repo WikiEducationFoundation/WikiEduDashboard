@@ -6,7 +6,7 @@ Modal = React.createClass(
   componentWillUnmount: ->
     $('body').removeClass('modal-open')
   render: ->
-    <div className='wizard'>
+    <div className='wizard active'>
       {@props.children}
     </div>
 )

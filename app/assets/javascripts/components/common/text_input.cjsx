@@ -8,6 +8,9 @@ TextInput = React.createClass(
   getInitialState: ->
     value: @props.value
   render: ->
+    spacer = @props.spacer || ': '
+    if @props.label
+      label = @props.label + spacer
     value = @props.value
     if @props.type == 'date'
       v_date = new Date(value)
@@ -15,13 +18,21 @@ TextInput = React.createClass(
       date = v_date.getDate() + 1
       value = month + '/' + date + '/' + v_date.getFullYear()
     if @props.editable
-      <input
-        value={@state.value}
-        onChange={@onChange}
-        autoFocus={@props.focus}
-        type={@props.type || 'text'}
-        placeholder={@props.placeholder}
-      />
+      <label>{label}
+        <input
+          id={@props.id}
+          value={@state.value}
+          onChange={@onChange}
+          autoFocus={@props.focus}
+          type={@props.type || 'text'}
+          placeholder={@props.label}
+        />
+      </label>
+    else if @props.label
+      <p>
+        <span>{label}</span>
+        <span>{value}</span>
+      </p>
     else
       <span>{value}</span>
 )

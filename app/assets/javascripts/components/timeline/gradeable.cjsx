@@ -20,14 +20,13 @@ Gradeable = React.createClass(
           editable={@props.editable && @props.gradeable.title.length}
         />
       </h4>
-      <p><span>Points: </span>
-        <TextInput
-          onChange={@updateGradeable}
-          value={@props.gradeable.points}
-          value_key={'points'}
-          editable={@props.editable}
-        />
-      </p>
+      <TextInput
+        onChange={@updateGradeable}
+        value={@props.gradeable.points}
+        value_key={'points'}
+        editable={@props.editable}
+        label='Points'
+      />
     </li>
 )
 

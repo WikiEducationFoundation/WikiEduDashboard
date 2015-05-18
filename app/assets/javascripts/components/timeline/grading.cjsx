@@ -36,6 +36,7 @@ Grading = React.createClass(
             deleteGradeable={@deleteGradeable.bind(this, gradeable.id)}
           />
         )
+    console.log @props.controls()
     if @props.editable
       addGradeable = <li className="row view-all">
         <div>
@@ -50,7 +51,7 @@ Grading = React.createClass(
     <div>
       <div className="section-header">
         <h3>Grading</h3>
-        {@props.controls}
+        {@props.controls()}
       </div>
       <ul className="list">
         {gradeables}

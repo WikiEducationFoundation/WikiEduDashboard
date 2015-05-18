@@ -30,7 +30,7 @@ Details = React.createClass(
   render: ->
     <div className='module'>
       <div className="section-header">
-        <h3>Course Details</h3>
+        <h3>Details</h3>
         {@props.controls()}
       </div>
       <div className='module__data'>
@@ -38,24 +38,26 @@ Details = React.createClass(
         <p><span>Volunteers: {@props.course.volunteers}</span></p>
         <p><span>School: {@props.course.school}</span></p>
         <p><span>Term: {@props.course.term}</span></p>
-        <p><span>Start: </span>
+        <fieldgroup>
           <TextInput
             onChange={@updateDetails}
             value={@props.course.start}
             value_key='start'
             editable={@props.editable}
             type='date'
+            label='Start'
           />
-        </p>
-        <p><span>End: </span>
+        </fieldgroup>
+        <fieldgroup>
           <TextInput
             onChange={@updateDetails}
             value={@props.course.end}
             value_key='end'
             editable={@props.editable}
             type='date'
+            label='End'
           />
-        </p>
+        </fieldgroup>
       </div>
     </div>
 )

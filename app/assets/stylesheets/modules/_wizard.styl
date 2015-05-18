@@ -1,12 +1,16 @@
 .wizard
-  background-color rgba(1, 1, 1, 0.5)
+  background-color rgba(athens, 0.9)
   bottom 0
   left 0
+  opacity 0
   padding-top 80px
   position fixed
   right 0
   top 0
+  transition opacity 0.2s ease-in-out
   z-index 1
+  &.active
+    opacity 1
   .wizard__panel
     background-color white
     bottom 0
@@ -32,12 +36,15 @@
       .controls
         padding 0
     .wizard__form
-      columns 2
       height 80%
+      .column
+        col(1/2)
       p
         column-break-inside avoid
         -webkit-column-break-inside avoid
         text-align left
+      input, textarea
+        width 100%
     .wizard__option
       border 1px solid mischka
       margin-bottom 20px

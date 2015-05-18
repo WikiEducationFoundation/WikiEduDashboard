@@ -8,10 +8,14 @@ Handler       = require '../highlevels/handler'
 Overview = React.createClass(
   displayName: 'Overview'
   render: ->
-    <div>
-      <Description {...@props} />
-      <Details {...@props} />
-      <ThisWeek {...@props} />
+    <div className='overview'>
+      <div className='primary'>
+        <Description {...@props} />
+        <ThisWeek {...@props} />
+      </div>
+      <div className='sidebar'>
+        <Details {...@props} />
+      </div>
     </div>
 )
 

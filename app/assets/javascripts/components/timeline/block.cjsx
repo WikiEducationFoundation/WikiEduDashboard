@@ -40,16 +40,14 @@ Block = React.createClass(
     gradeable = @props.gradeable != undefined && !@props.gradeable.deleted
     className = 'block'
     if gradeable && !@props.editable
-      dueDateRead = <p>
-        <span>Due: </span>
-        <TextInput
-          onChange={@updateBlock}
-          value={@props.block.due_date}
-          value_key={'due_date'}
-          editable={@props.editable}
-          type='date'
-        />
-      </p>
+      dueDateRead = <TextInput
+                      onChange={@updateBlock}
+                      value={@props.block.due_date}
+                      value_key={'due_date'}
+                      editable={@props.editable}
+                      type='date'
+                      label='Due'
+                    />
     if @props.editable
       deleteBlock = <span className='button danger' onClick={@deleteBlock}>Delete Block</span>
       dragSource = @dragSourceFor(ItemTypes.BLOCK)
@@ -93,6 +91,7 @@ Block = React.createClass(
           editable={@props.editable}
           type='date'
           show={gradeable && @props.editable}
+          spacer={spacer}
         />
         {deleteBlock}
       </h4>

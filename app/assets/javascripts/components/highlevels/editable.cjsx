@@ -20,15 +20,18 @@ Editable = (Component, Stores, Save, GetState) ->
     storeDidChange: ->
       @setState GetState()
     controls: (extra_controls) ->
+      button_size_class = if @props.large_button then ' large' else ''
+      button_class = 'button' + button_size_class
+      button_dark_class = 'button dark' + button_size_class
       if @props.permit && @state.editable
         <div className="controls">
           <div
-            className='button large'
+            className={button_class}
             value={'cancel'}
             onClick={@cancelChanges}
           >Cancel</div>
           <div
-            className='button dark large'
+            className={button_dark_class}
             value={'save'}
             onClick={@saveChanges}
           >Save</div>
@@ -37,7 +40,7 @@ Editable = (Component, Stores, Save, GetState) ->
       else if @props.permit && (@props.editable == undefined || @props.editable)
         <div className="controls">
           <div
-            className='button dark large'
+            className={button_dark_class}
             value={'edit'}
             onClick={@toggleEditable}
           >Edit</div>
