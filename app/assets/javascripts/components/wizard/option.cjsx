@@ -8,10 +8,13 @@ Option = React.createClass(
   selectOption: ->
     @props.selectOption()
   render: ->
-    className = 'wizard__option' + (if @props.selected then ' selected' else '')
+    className = 'wizard__option section-header' + (if @props.selected then ' selected' else '')
+    if @props.multiple
+      checkbox = <div className='wizard__option__checkbox'></div>
     <div className={className} onClick={@selectOption}>
-      <p><b>{@props.title}</b></p>
-      <p><i>{@props.description}</i></p>
+      {checkbox}
+      <h3>{@props.title}</h3>
+      <p>{@props.description}</p>
     </div>
 )
 

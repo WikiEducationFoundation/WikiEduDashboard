@@ -10,7 +10,7 @@ TextInput = React.createClass(
   render: ->
     spacer = @props.spacer || ': '
     if @props.label
-      label = @props.label + spacer
+      label = @props.label + (if @props.value? or @props.editable then spacer else '')
     value = @props.value
     if @props.type == 'date'
       v_date = new Date(value)

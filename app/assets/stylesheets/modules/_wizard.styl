@@ -32,7 +32,7 @@
       top 50%
     &.active
       display block
-    h3
+    > h3
       font-weight 300
     p
       color dove
@@ -51,16 +51,41 @@
       input, textarea
         margin-bottom 10px
         width 100%
+    .wizard__panel__options
+      padding 20px 0
     .wizard__option
+      col(1/2)
       border 1px solid mischka
+      box-shadow 0px 0px 0px 4px transparent inset
       cursor pointer
       margin-bottom 20px
       padding 20px
+      position relative
+      text-align left
       transition all 0.2s ease-in-out
       &:hover
         background smoke
       &.selected
-        border-left-width 5px
+        border-color transparent
+        box-shadow 0px 0px 0px 4px bayoux inset
+        .wizard__option__checkbox
+          border-color transparent
+          box-shadow 0px 0px 0px 0px white inset
+      .wizard__option__checkbox
+        background-color bayoux
+        border 1px solid mischka
+        border-width 0 0 1px 1px
+        box-shadow 0px 0px 0px 15px white inset
+        height 30px
+        position absolute
+        right 0
+        top 0
+        transition all 0.2s ease-in-out
+        width 30px
+      h3
+        font-size 18px
+      p
+        margin 0
     .wizard__controls
       font-size 12px
       left 20px

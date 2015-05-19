@@ -28,6 +28,7 @@ Panel = React.createClass(
         key={i}
         selected={(option.key || i) in @state.selected}
         selectOption={@selectOption.bind(this, option.key || i)}
+        multiple={@props.type == 0}
       />
     classes = 'wizard__panel'
     classes += ' active' if @props.active
@@ -42,7 +43,7 @@ Panel = React.createClass(
       <h3>{@props.title}</h3>
       <p>{@props.description}</p>
       <p>{inst}</p>
-      {options}
+      <div className='wizard__panel__options'>{options}</div>
       <div className='wizard__panel__controls'>
         <div className='left'>
           <p>{step}</p>
