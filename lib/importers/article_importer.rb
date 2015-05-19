@@ -127,30 +127,9 @@ class ArticleImporter
     synced_ids = synced_articles.map { |a| a['page_id'] }
     deleted_ids = local_articles.pluck(:id) - synced_ids
 
-    # Check to make sure articles haven't been moved
-    maybe_deleted_articles = Article.where(id: deleted_ids)
-
-    # These pages have titles that match Articles in our DB with deleted ids
-    same_title_pages = Utils.chunk_requests(maybe_deleted_articles) do |block|
-      Replica.get_existing_articles_by_title block
-    end
-
-    # Update articles whose IDs have changed (keyed on title and namespace)
-    same_title_pages.each do |stp|
-      article = Article.find_by(
-        title: stp['page_title'],
-        namespace: stp['page_namespace'],
-        deleted: false
-      )
-
-      if !article.nil? && deleted_ids.include?(article.id)
-        # This catches false positives when the query for page_title matches
-        # a case variant.
-        if article.title == stp['page_title']
-          article.update(id: stp['page_id'])
-        end
-      end
-    end
+    # Check for pages that have changed ids.
+    # This happens in situations such as history merges.
+    update_article_ids deleted_ids
 
     # Delete articles as appropriate
     local_articles.where(id: deleted_ids).update_all(deleted: true)
@@ -168,6 +147,32 @@ class ArticleImporter
     end
     update_keys = [:title, :namespace, :deleted]
     Article.import synced_articles, on_duplicate_key_update: update_keys
+  end
+
+  # Check whether any deleted pages still exist with a different article_id.
+  # If so, update the Article to use the new id.
+  def self.update_article_ids(deleted_ids)
+    maybe_deleted_articles = Article.where(id: deleted_ids)
+    # These pages have titles that match Articles in our DB with deleted ids
+    same_title_pages = Utils.chunk_requests(maybe_deleted_articles) do |block|
+      Replica.get_existing_articles_by_title block
+    end
+
+    # Update articles whose IDs have changed (keyed on title and namespace)
+    same_title_pages.each do |stp|
+      article = Article.find_by(
+        title: stp['page_title'],
+        namespace: stp['page_namespace'],
+        deleted: false
+      )
+      next if article.nil?
+      next unless deleted_ids.include?(article.id)
+      # This catches false positives when the query for page_title matches
+      # a case variant.
+      next unless article.title == stp['page_title']
+
+      article.update(id: stp['page_id'])
+    end
   end
 
   def self.resolve_duplicate_articles(articles=nil)
