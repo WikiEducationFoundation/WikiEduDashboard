@@ -1,6 +1,7 @@
 React         = require 'react'
 Router        = require 'react-router'
 Panel         = require './panel'
+CourseLink    = require '../common/course_link'
 
 Modal         = require '../common/modal'
 WizardActions = require '../../actions/wizard_actions'
@@ -20,6 +21,8 @@ Wizard = React.createClass(
     state = getState()
     state.active_index = 0
     state
+  componentWillUnmount: ->
+    WizardActions.resetWizard()
   storeDidChange: ->
     @setState getState, =>
       @setState(active_index: @state.active_index + 1) if @state.config.length > 0
@@ -38,9 +41,15 @@ Wizard = React.createClass(
     else
       answer_value = answer_panel['options'][answer_index]['output']
     WizardActions.addAnswer answer_key, answer_value
+  rewindWizard: ->
+    @setState(active_index: @state.active_index - 1)
   closeWizard: ->
-    WizardActions.closeWizard()
+    WizardActions.resetWizard()
     @props.transitionTo 'timeline'
+  resetWizard: (e) ->
+    e.preventDefault()
+    @setState(active_index: 0)
+    WizardActions.resetWizard()
   timelinePath: ->
     routes = @context.router.getCurrentPath().split('/')
     routes.pop()
@@ -48,6 +57,14 @@ Wizard = React.createClass(
   isPanelActive: (index) ->
     @state.active_index == index
   render: ->
+    controls = (
+      <div className='wizard__controls'>
+        <p>
+          <CourseLink to='timeline'>Back to dashboard</CourseLink>
+          <a href='' onClick={@resetWizard}>Start over</a>
+        </p>
+      </div>
+    )
     panels = [
       <Panel
         title="Select your assignment type"
@@ -58,19 +75,28 @@ Wizard = React.createClass(
         key={Date.now()}
         active={@isPanelActive(0)}
         last=false
+        wizard_controls={controls}
+        step={0}
       />
     ]
     @state.config.forEach (panel, i) =>
       panels.push(
         <Panel {...panel}
           advance={@advanceWizard}
+          rewind={@rewindWizard}
+          reset={@resetWizard}
           parentPath={@timelinePath()}
           key={panel.key}
           active={@isPanelActive(i + 1)}
           last={i == @state.config.length - 1}
+          wizard_controls={controls}
+          step={(i+1)}
+          steps={@state.config.length}
         />
       )
-    <Modal>{panels}</Modal>
+    <Modal>
+      {panels}
+    </Modal>
 )
 
 module.exports = HandlerInterface(Wizard)

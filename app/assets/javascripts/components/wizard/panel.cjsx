@@ -7,6 +7,8 @@ Panel = React.createClass(
   displayName: 'Panel'
   advance: (answer_key) ->
     @props.advance(@props.key, @state.selected)
+  rewind: ->
+    @props.rewind()
   selectOption: (answer_key) ->
     selected = []
     if @props.type == 1 || @props.type == undefined
@@ -31,13 +33,25 @@ Panel = React.createClass(
     classes += ' active' if @props.active
     button_text = if @props.last then 'Submit' else 'Next'
     inst = if @props.type == 0 then 'Select one or more' else 'Select one'
+    step = if @props.step == 0 then '' else 'Step ' + @props.step + ' of ' + @props.steps
+    if @props.steps? && @props.steps > 1
+      rewind = <div className="button" onClick={@rewind}>Previous</div>
+
     <div className={classes}>
-      <h1>{@props.title}</h1>
+      {@props.wizard_controls}
+      <h3>{@props.title}</h3>
       <p>{@props.description}</p>
       <p>{inst}</p>
       {options}
-      <CourseLink to='timeline' className='button large'>Cancel</CourseLink>
-      <div className="button dark large" onClick={@advance}>{button_text}</div>
+      <div className='wizard__panel__controls'>
+        <div className='left'>
+          <p>{step}</p>
+        </div>
+        <div className='right'>
+          {rewind}
+          <div className="button dark" onClick={@advance}>{button_text}</div>
+        </div>
+      </div>
     </div>
 )
 

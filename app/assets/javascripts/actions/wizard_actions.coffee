@@ -7,7 +7,7 @@ WizardActions = Flux.createActions
       key: key,
       value: value
     }}
-  closeWizard: ->
-    { actionType: 'WIZARD_CLOSED' }
+  resetWizard: ->
+    { actionType: 'WIZARD_RESET' }
 
 module.exports = WizardActions

@@ -24,8 +24,10 @@ setValue = (key, value) ->
   WizardStore.emitChange()
 
 restore = ->
+  _config = []
   _answers ={}
   _output = []
+  _logic = {}
   WizardStore.emitChange()
 
 # Store
@@ -50,7 +52,7 @@ WizardStore = Flux.createStore
     when 'NEW_ANSWER'
       setValue data.key, data.value
       break
-    when 'WIZARD_CLOSED'
+    when 'WIZARD_RESET'
       restore()
       break
     when 'WIZARD_SUBMITTED'
