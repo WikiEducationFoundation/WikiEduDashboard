@@ -38,7 +38,7 @@ Details = React.createClass(
         <p><span>Volunteers: {@props.course.volunteers}</span></p>
         <p><span>School: {@props.course.school}</span></p>
         <p><span>Term: {@props.course.term}</span></p>
-        <fieldgroup>
+        <fieldset>
           <TextInput
             onChange={@updateDetails}
             value={@props.course.start}
@@ -47,8 +47,8 @@ Details = React.createClass(
             type='date'
             label='Start'
           />
-        </fieldgroup>
-        <fieldgroup>
+        </fieldset>
+        <fieldset>
           <TextInput
             onChange={@updateDetails}
             value={@props.course.end}
@@ -57,7 +57,7 @@ Details = React.createClass(
             type='date'
             label='End'
           />
-        </fieldgroup>
+        </fieldset>
       </div>
     </div>
 )
