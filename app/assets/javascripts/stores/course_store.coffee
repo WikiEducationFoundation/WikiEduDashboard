@@ -12,7 +12,7 @@ _persisted = {}
 setCourse = (data, persisted=false, quiet=false) ->
   delete data['weeks']
   $.extend(true, _course, data)
-  _persisted = $.extend({}, _course) if persisted
+  _persisted = $.extend(true, {}, _course) if persisted
   CourseStore.emitChange() unless quiet
 
 updateCourseValue = (key, value) ->
@@ -42,7 +42,7 @@ CourseStore = Flux.createStore
     time_diff = now.getTime() - course_start.getTime()
     Math.ceil(time_diff / (1000 * 3600 * 24 * 7)) - 1
   restore: ->
-    _course = $.extend({}, _persisted)
+    _course = $.extend(true, {}, _persisted)
     CourseStore.emitChange()
 , (payload) ->
   data = payload.data

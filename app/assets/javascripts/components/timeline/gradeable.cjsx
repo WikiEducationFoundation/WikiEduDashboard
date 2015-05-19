@@ -5,7 +5,7 @@ GradeableActions  = require '../../actions/gradeable_actions'
 Gradeable = React.createClass(
   displayName: 'Gradeable'
   updateGradeable: (value_key, value) ->
-    to_pass = $.extend({}, @props.gradeable)
+    to_pass = $.extend(true, {}, @props.gradeable)
     to_pass[value_key] = value
     GradeableActions.updateGradeable to_pass
   render: ->

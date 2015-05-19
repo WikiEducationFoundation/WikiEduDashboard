@@ -13,12 +13,12 @@ setGradeables = (data, persisted=false) ->
     for block in week.blocks
       if block.gradeable != undefined
         _gradeables[block.gradeable.id] = block.gradeable
-        _persisted[block.gradeable.id] = $.extend({}, block.gradeable) if persisted
+        _persisted[block.gradeable.id] = $.extend(true, {}, block.gradeable) if persisted
   GradeableStore.emitChange()
 
 updatePersisted = ->
   for gradeable_id in Object.keys(_gradeables)
-    _persisted[gradeable_id] = $.extend({}, _gradeables[gradeable_id])
+    _persisted[gradeable_id] = $.extend(true, {}, _gradeables[gradeable_id])
 
 setGradeable = (data) ->
   _gradeables[data.id] = data
@@ -60,7 +60,7 @@ GradeableStore = Flux.createStore
       if _gradeables[gradeable_id].gradeable_item_id == block_id
         return _gradeables[gradeable_id]
   restore: ->
-    _gradeables = $.extend({}, _persisted)
+    _gradeables = $.extend(true, {}, _persisted)
     GradeableStore.emitChange()
 , (payload) ->
   data = payload.data
@@ -68,7 +68,7 @@ GradeableStore = Flux.createStore
     when 'RECEIVE_COURSE'
       setGradeables data.course.weeks, true
       break
-    when 'SAVED_TIMELINE'
+    when 'SAVED_TIMELINE', 'WIZARD_SUBMITTED'
       _gradeables = {}
       setGradeables data.course.weeks, true
       break

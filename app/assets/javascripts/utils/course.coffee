@@ -32,7 +32,6 @@ $ ->
     window.location = "/courses?cohort=" + encodeURIComponent(cohort)
 
   $('select.sorts').change (e) ->
-    console.log $(this).attr('rel')
     list = switch($(this).attr('rel'))
       when "courses" then courseList
       when "activity" then activityList
@@ -45,7 +44,6 @@ $ ->
 
   $('a.manual_update').click (e) ->
     e.preventDefault()
-    console.log 'Updating course...'
     $(e.target).parent().text("""
       Updating course data. This page will reload when new data is available.
     """)

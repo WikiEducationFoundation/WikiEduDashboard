@@ -28,6 +28,7 @@ restore = ->
   _answers ={}
   _output = []
   _logic = {}
+  _reset = true
   WizardStore.emitChange()
 
 # Store
@@ -36,10 +37,13 @@ WizardStore = Flux.createStore
     _index
   getConfig: ->
     _config
+  getAnswers: ->
+    _answers
   getValue: (key) ->
     _answers[key]
   getOutput: ->
     _output
+
 , (payload) ->
   data = payload.data
   switch(payload.actionType)
@@ -56,7 +60,7 @@ WizardStore = Flux.createStore
       restore()
       break
     when 'WIZARD_SUBMITTED'
-      console.log _answers
+      restore()
       break
   return true
 

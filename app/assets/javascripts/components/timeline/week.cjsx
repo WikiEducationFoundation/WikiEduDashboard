@@ -16,7 +16,7 @@ Week = React.createClass(
   deleteBlock: (block_id) ->
     BlockActions.deleteBlock block_id
   updateWeek: (value_key, value) ->
-    to_pass = $.extend({}, @props.week)
+    to_pass = $.extend(true, {}, @props.week)
     to_pass['title'] = value
     WeekActions.updateWeek to_pass
   render: ->

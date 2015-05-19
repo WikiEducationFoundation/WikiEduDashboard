@@ -25,7 +25,7 @@ CourseCreator = React.createClass(
   saveCourse: ->
     ServerActions.saveCourse $.extend(true, {}, @state)
   updateCourse: (value_key, value) ->
-    to_pass = $.extend({}, @state.course)
+    to_pass = $.extend(true, {}, @state.course)
     to_pass[value_key] = value
     CourseActions.updateCourse to_pass
   getInitialState: ->

@@ -1,6 +1,8 @@
 React         = require 'react'
 Router        = require 'react-router'
 Panel         = require './panel'
+IndexPanel    = require './index_panel'
+SummaryPanel  = require './summary_panel'
 CourseLink    = require '../common/course_link'
 
 Modal         = require '../common/modal'
@@ -26,11 +28,6 @@ Wizard = React.createClass(
   storeDidChange: ->
     @setState getState, =>
       @setState(active_index: @state.active_index + 1) if @state.config.length > 0
-    if @state.active_index == @state.config.length + 1 && @state.config.length > 0
-      ServerActions.submitWizard WizardStore.getOutput(), @props.course_id
-      @closeWizard()
-  getConfig: (current_panel, answer_index) ->
-    ServerActions.fetchWizardConfig(answer_index)
   advanceWizard: (current_panel, answer_index) ->
     answer_panel = @state.config[@state.active_index - 1]
     answer_key = answer_panel['key']
@@ -43,9 +40,6 @@ Wizard = React.createClass(
     WizardActions.addAnswer answer_key, answer_value
   rewindWizard: ->
     @setState(active_index: @state.active_index - 1)
-  closeWizard: ->
-    WizardActions.resetWizard()
-    @props.transitionTo 'timeline'
   resetWizard: (e) ->
     e.preventDefault()
     @setState(active_index: 0)
@@ -57,45 +51,35 @@ Wizard = React.createClass(
   isPanelActive: (index) ->
     @state.active_index == index
   render: ->
-    controls = (
-      <div className='wizard__controls'>
-        <p>
-          <CourseLink to='timeline'>Back to dashboard</CourseLink>
-          <a href='' onClick={@resetWizard}>Start over</a>
-        </p>
-      </div>
-    )
-    panels = [
-      <Panel
-        title="Select your assignment type"
-        description="What kind of assignment would you like to add to your course?"
-        options={@state.index}
-        advance={@getConfig}
+    panels = @state.config.map (panel, i) =>
+      <Panel {...panel}
+        advance={@advanceWizard}
+        rewind={@rewindWizard}
         parentPath={@timelinePath()}
-        key={Date.now()}
-        active={@isPanelActive(0)}
-        last=false
-        wizard_controls={controls}
-        step={0}
+        key={panel.key}
+        active={@isPanelActive(i + 1)}
+        reset={@resetWizard}
+        step={(i+1)}
+        steps={@state.config.length + 1}
       />
-    ]
-    @state.config.forEach (panel, i) =>
-      panels.push(
-        <Panel {...panel}
-          advance={@advanceWizard}
-          rewind={@rewindWizard}
-          reset={@resetWizard}
-          parentPath={@timelinePath()}
-          key={panel.key}
-          active={@isPanelActive(i + 1)}
-          last={i == @state.config.length - 1}
-          wizard_controls={controls}
-          step={(i+1)}
-          steps={@state.config.length}
-        />
-      )
     <Modal>
+      <IndexPanel
+        index={@state.index}
+        parentPath={@timelinePath()}
+        active={@isPanelActive(0)}
+        reset={@resetWizard}
+      />
       {panels}
+      <SummaryPanel
+        parentPath={@timelinePath()}
+        rewind={@rewindWizard}
+        active={@isPanelActive(@state.config.length + 1)}
+        reset={@resetWizard}
+        steps={@state.config.length + 1}
+        answers={WizardStore.getAnswers()}
+        course_id={@props.course_id}
+        transitionTo={@props.transitionTo}
+      />
     </Modal>
 )
 

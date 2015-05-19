@@ -5,11 +5,8 @@
     content '\f107'
     font-family "FontAwesome"
     font-size 13px
-    // content '\E001'
-    // font-family "icons"
-    // font-size 10px
     margin-right 5px
-    transition transform 0.2s
+    transition transform .2s
 
   &.asc p:before
     transform rotate(180deg)
@@ -17,10 +14,10 @@
     transform rotate(0deg)
 .list__header
   background-color transparent !important
-  border none !important
+  border 0 !important
   font-family "Roboto"
   .row__wrapper
-    border none !important
+    border 0 !important
     padding-top 0 !important
     padding-bottom 0 !important
     p
@@ -39,7 +36,7 @@
   justify-content flex-start
   margin 0
   padding 0
-  transition background 0.15s
+  transition background .15s
   &:first-child
     border-width 1px
   p, small
@@ -87,7 +84,7 @@
       transform rotate(270deg)
   &.view-all
     background none
-    border none
+    border 0
     justify-content center !important
     margin-top 20px
     padding-left 20px
@@ -232,8 +229,6 @@
       col(9/40)
   .revision-list__row__date
     col(9/40)
-  // .revision-list__row__namespace
-  //   col(6/40)
   .revision-list__row__characters
     +above(desktop)
       col(9/40)
@@ -290,7 +285,7 @@
     p
       font-size 14px
       +above(desktop)
-        border none
+        border 0
         font-size 16px
         padding 0
 

@@ -13,12 +13,12 @@ _persisted = {}
 setWeeks = (data, persisted=false) ->
   for week, i in data
     _weeks[week.id] = week
-    _persisted[week.id] = $.extend({}, week) if persisted
+    _persisted[week.id] = $.extend(true, {}, week) if persisted
   WeekStore.emitChange()
 
 updatePersisted = ->
   for week_id in Object.keys(_weeks)
-    _persisted[week_id] = $.extend({}, _weeks[week_id])
+    _persisted[week_id] = $.extend(true, {}, _weeks[week_id])
 
 setWeek = (data) ->
   _weeks[data.id] = data
@@ -51,7 +51,7 @@ WeekStore = Flux.createStore
       week_list.push _weeks[week_id]
     return week_list
   restore: ->
-    _weeks = $.extend({}, _persisted)
+    _weeks = $.extend(true, {}, _persisted)
     WeekStore.emitChange()
 , (payload) ->
   data = payload.data
@@ -60,7 +60,7 @@ WeekStore = Flux.createStore
       Flux.dispatcher.waitFor([BlockStore.dispatcherID, GradeableStore.dispatcherID])
       setWeeks data.course.weeks, true
       break
-    when 'SAVED_TIMELINE'
+    when 'SAVED_TIMELINE', 'WIZARD_SUBMITTED'
       _weeks = {}
       setWeeks data.course.weeks, true
       break

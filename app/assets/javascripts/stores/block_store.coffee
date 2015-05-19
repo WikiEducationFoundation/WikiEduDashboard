@@ -13,12 +13,12 @@ setBlocks = (data, persisted=false) ->
   for week in data
     for block, i in week.blocks
       _blocks[block.id] = block
-      _persisted[block.id] = $.extend({}, block) if persisted
+      _persisted[block.id] = $.extend(true, {}, block) if persisted
   BlockStore.emitChange()
 
 updatePersisted = ->
   for block_id  in Object.keys(_blocks)
-    _persisted[block_id] = $.extend({}, _blocks[block_id])
+    _persisted[block_id] = $.extend(true, {}, _blocks[block_id])
 
 setBlock = (data, quiet) ->
   _blocks[data.id] = data
@@ -62,7 +62,7 @@ BlockStore = Flux.createStore
       weekBlocks.push _blocks[block_id] if _blocks[block_id].week_id == week_id
     return weekBlocks
   restore: ->
-    _blocks = $.extend({}, _persisted)
+    _blocks = $.extend(true, {}, _persisted)
     BlockStore.emitChange()
 , (payload) ->
   data = payload.data
@@ -71,7 +71,7 @@ BlockStore = Flux.createStore
       Flux.dispatcher.waitFor([GradeableStore.dispatcherID])
       setBlocks data.course.weeks, true
       break
-    when 'SAVED_TIMELINE'
+    when 'SAVED_TIMELINE', 'WIZARD_SUBMITTED'
       _blocks = {}
       setBlocks data.course.weeks, true
       break

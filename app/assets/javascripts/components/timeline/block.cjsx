@@ -25,7 +25,7 @@ Block = React.createClass(
             component.props.moveBlock(item.block.id, component.props.block.id)
       )
   updateBlock: (value_key, value) ->
-    to_pass = $.extend({}, @props.block)
+    to_pass = $.extend(true, {}, @props.block)
     to_pass[value_key] = value
     delete to_pass.deleteBlock
     BlockActions.updateBlock to_pass

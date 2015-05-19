@@ -37,7 +37,7 @@ ServerActions = Flux.createActions
       }}
   submitWizard: (data, course_id) ->
     API.submitWizard(course_id, data).then (data) ->
-      { actionType: 'SAVED_TIMELINE', data: {
+      { actionType: 'WIZARD_SUBMITTED', data: {
         course: data
       }}
 
