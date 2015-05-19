@@ -2,6 +2,10 @@ React           = require 'react'
 Router          = require 'react-router'
 Link            = Router.Link
 
+RDnD            = require 'react-dnd'
+HTML5Backend    = require 'react-dnd/modules/backends/HTML5'
+DDContext       = RDnD.DragDropContext
+
 Week            = require './week'
 Editable        = require '../highlevels/editable'
 CourseLink      = require '../common/course_link'
@@ -79,4 +83,4 @@ Timeline = React.createClass(
     </div>
 )
 
-module.exports = Editable(Timeline, [WeekStore, BlockStore, GradeableStore], ServerActions.saveTimeline, getState)
+module.exports = DDContext(HTML5Backend)(Editable(Timeline, [WeekStore, BlockStore, GradeableStore], ServerActions.saveTimeline, getState))

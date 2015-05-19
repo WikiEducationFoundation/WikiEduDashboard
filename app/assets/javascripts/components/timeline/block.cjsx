@@ -1,29 +1,15 @@
 React             = require 'react/addons'
-DND               = require 'react-dnd'
+
 TextInput         = require '../common/text_input'
 TextAreaInput     = require '../common/text_area_input'
 Checkbox          = require '../common/checkbox'
 Select            = require '../common/select'
 BlockActions      = require '../../actions/block_actions'
 GradeableActions  = require '../../actions/gradeable_actions'
-
-ItemTypes =
-  BLOCK: 'block'
+Reorderable       = require '../highlevels/reorderable'
 
 Block = React.createClass(
   displayName: 'Block'
-  mixins: [DND.DragDropMixin]
-  statics:
-    configureDragDrop: (register, context) ->
-      register(ItemTypes.BLOCK,
-        dragSource:
-          beginDrag: (component) ->
-            item:
-              block: component.props.block
-        dropTarget:
-          over: (component, item) ->
-            component.props.moveBlock(item.block.id, component.props.block.id)
-      )
   updateBlock: (value_key, value) ->
     to_pass = $.extend(true, {}, @props.block)
     to_pass[value_key] = value
@@ -52,10 +38,8 @@ Block = React.createClass(
       )
     if @props.editable
       deleteBlock = <span className='button danger' onClick={@deleteBlock}>Delete Block</span>
-      dragSource = @dragSourceFor(ItemTypes.BLOCK)
-      dropTarget = @dropTargetFor(ItemTypes.BLOCK)
       className += ' editable'
-      className += ' dragging' if @getDragState(ItemTypes.BLOCK).isDragging
+      className += ' dragging' if @props.isDragging
       graded = (
         <p>
           <span>Graded: </span>
@@ -71,7 +55,7 @@ Block = React.createClass(
       top: 100 + @props.block.order * (220 + 10)
     spacer = '  —  ' if (@props.block.kind < 3 || @props.editable)
 
-    <li className={className} {...dragSource} {...dropTarget} style={style}>
+    <li className={className} style={style}>
       <h4>
         <Select
           onChange={@updateBlock}
@@ -111,4 +95,4 @@ Block = React.createClass(
     </li>
 )
 
-module.exports = Block
+module.exports = Reorderable(Block, 'block', 'moveBlock')

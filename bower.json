@@ -5,6 +5,7 @@
     "jquery": "~2.1.1",
     "list.js": "wintr/list.js#76c5632d86e11711b965878d58e1f4c90f6bcb18",
     "velocity": "~1.2.1",
-    "jquery-ujs": "~1.0.3"
+    "jquery-ujs": "~1.0.3",
+    "lodash": "~3.9.0"
   }
 }
