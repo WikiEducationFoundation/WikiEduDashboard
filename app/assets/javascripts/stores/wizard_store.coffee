@@ -4,7 +4,9 @@ Flux            = new McFly()
 _index = []     # Index of the different available wizards
 _config = []    # Config for selected wizard (array of panels)
 _answers = {}   # Answers from user input
+
 _output = []    # Array of content keys to be added to timeline
+_logic = {}
 
 # Utilities
 setIndex = (index) ->
@@ -46,7 +48,6 @@ WizardStore = Flux.createStore
       setConfig data.wizard_config
       break
     when 'NEW_ANSWER'
-      console.log data.key
       setValue data.key, data.value
       break
     when 'WIZARD_CLOSED'

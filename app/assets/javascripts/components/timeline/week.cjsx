@@ -36,7 +36,7 @@ Week = React.createClass(
     if @props.editable
       addBlock = <li className="row view-all">
                     <div>
-                      <div className='button large' onClick={@addBlock}>Add New Block</div>
+                      <div className='button' onClick={@addBlock}>Add New Block</div>
                     </div>
                   </li>
       deleteWeek = <span className="button danger" onClick={@props.deleteWeek}>Delete Week</span>

@@ -52,14 +52,14 @@ Timeline = React.createClass(
     if @props.editable
       add_week = <li className="row view-all">
                   <div>
-                    <div className='button large dark' onClick={@addWeek}>Add New Week</div>
+                    <div className='button dark' onClick={@addWeek}>Add New Week</div>
                   </div>
                 </li>
     unless week_components.length
       no_weeks = <li className="row view-all">
                    <div><p>This course does not have a timeline yet</p></div>
                  </li>
-    wizard_link = <CourseLink to='wizard' className='button large dark'>Open Wizard</CourseLink>
+    wizard_link = <CourseLink to='wizard' className='button dark'>Open Wizard</CourseLink>
 
     <div>
       <div className="section-header">

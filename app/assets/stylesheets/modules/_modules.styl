@@ -1,8 +1,32 @@
 .module
   background-color white
   border 1px solid zircon
-  margin 10px 0
+  margin 20px 0
   padding 20px
+  position relative
+  &:first-child
+    +above(desktop)
+      margin-top 20px
+      margin-bottom 0
+  .section-header
+    min-height 40px
+    padding 0
+    .controls
+      padding 0
+  .module__data
+    padding 0
+    textarea
+      width 100%
+  h3
+    color bayoux
+  p
+    color dove
 
   .week
     margin-bottom 0 !important
+
+.alert
+  padding 20px
+  text-align center
+  p
+    color burnt
