@@ -34,23 +34,27 @@ Week = React.createClass(
       a.props.block.order - b.props.block.order
 
     if @props.editable
-      addBlock = <li className="row view-all">
-                    <div>
-                      <div className='button' onClick={@addBlock}>Add New Block</div>
-                    </div>
-                  </li>
+      addBlock = (
+        <li className="row view-all">
+          <div>
+            <div className='button' onClick={@addBlock}>Add New Block</div>
+          </div>
+        </li>
+      )
       deleteWeek = <span className="button danger" onClick={@props.deleteWeek}>Delete Week</span>
     if @props.showTitle == undefined || @props.showTitle
       spacer = '  —  ' if (@props.week.title? || @props.editable)
       week_label = 'Week ' + @props.index
-      title = <TextInput
-                onChange={@updateWeek}
-                value={@props.week.title}
-                value_key={'title'}
-                editable={@props.editable}
-                label={week_label}
-                spacer={spacer}
-              />
+      title = (
+        <TextInput
+          onChange={@updateWeek}
+          value={@props.week.title}
+          value_key={'title'}
+          editable={@props.editable}
+          label={week_label}
+          spacer={spacer}
+        />
+      )
 
     <li className="week">
       {title}

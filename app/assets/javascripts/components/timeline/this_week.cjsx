@@ -33,9 +33,11 @@ ThisWeek = React.createClass(
       )
       title = ('Week ' + (@state.current + 1) + ': ' + week.title) if week.title?
     else
-      no_weeks = <li className="row view-all">
-                   <div><p>There is nothing on the schedule for this week</p></div>
-                 </li>
+      no_weeks = (
+        <li className="row view-all">
+          <div><p>There is nothing on the schedule for this week</p></div>
+        </li>
+      )
 
     <div className="module">
       <div className="section-header">

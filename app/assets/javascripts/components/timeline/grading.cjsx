@@ -37,15 +37,19 @@ Grading = React.createClass(
           />
         )
     if @props.editable
-      addGradeable = <li className="row view-all">
-        <div>
-          <div className='button large dark' onClick={@addGradeable}>Add New Grading Item</div>
-        </div>
-      </li>
+      addGradeable = (
+        <li className="row view-all">
+          <div>
+            <div className='button large dark' onClick={@addGradeable}>Add New Grading Item</div>
+          </div>
+        </li>
+      )
     unless gradeables.length
-      no_gradeables = <li className="row view-all">
-                        <div><p>This course has no gradeable assignments</p></div>
-                      </li>
+      no_gradeables = (
+        <li className="row view-all">
+          <div><p>This course has no gradeable assignments</p></div>
+        </li>
+      )
 
     <div>
       <div className="section-header">
