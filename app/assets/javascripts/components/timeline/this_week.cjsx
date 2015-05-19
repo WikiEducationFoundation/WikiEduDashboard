@@ -18,20 +18,21 @@ ThisWeek = React.createClass(
     @setState getState()
   render: ->
     week = @state.weeks[@state.current]
-    week_component = (
-      <Week
-        week={week}
-        index={@state.current + 1}
-        key={week.id}
-        editable=false
-        blocks={BlockStore.getBlocksInWeek(week.id)}
-        moveBlock={null}
-        deleteWeek={null}
-        showTitle=false
-      />
-    ) if week?
-    title = ('Week ' + (@state.current + 1) + ': ' + week.title) if week?
-    unless week?
+    if week?
+      week_component = (
+        <Week
+          week={week}
+          index={@state.current + 1}
+          key={week.id}
+          editable=false
+          blocks={BlockStore.getBlocksInWeek(week.id)}
+          moveBlock={null}
+          deleteWeek={null}
+          showTitle=false
+        />
+      )
+      title = ('Week ' + (@state.current + 1) + ': ' + week.title) if week.title?
+    else
       no_weeks = <li className="row view-all">
                    <div><p>There is nothing on the schedule for this week</p></div>
                  </li>

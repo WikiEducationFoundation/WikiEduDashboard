@@ -31,7 +31,12 @@ Wizard = React.createClass(
   advanceWizard: (current_panel, answer_index) ->
     answer_panel = @state.config[@state.active_index - 1]
     answer_key = answer_panel['key']
-    answer_value = answer_panel['options'][answer_index]['output']
+    if answer_index.constructor == Array
+      answer_value = []
+      answer_index.forEach (ai) ->
+        answer_value.push answer_panel['options'][ai]['output']
+    else
+      answer_value = answer_panel['options'][answer_index]['output']
     WizardActions.addAnswer answer_key, answer_value
   closeWizard: ->
     WizardActions.closeWizard()
@@ -43,7 +48,6 @@ Wizard = React.createClass(
   isPanelActive: (index) ->
     @state.active_index == index
   render: ->
-    console.log @state.active_index
     panels = [
       <Panel
         title="Select your assignment type"

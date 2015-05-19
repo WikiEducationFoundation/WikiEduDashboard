@@ -8,14 +8,23 @@ Panel = React.createClass(
   advance: (answer_key) ->
     @props.advance(@props.key, @state.selected)
   selectOption: (answer_key) ->
-    @setState selected: answer_key
+    selected = []
+    if @props.type == 1 || @props.type == undefined
+      selected = [answer_key]
+    else
+      selected = $.extend([], @state.selected)
+      if answer_key in @state.selected
+        selected.splice(selected.indexOf(answer_key), 1)
+      else
+        selected.push(answer_key)
+    @setState selected: selected
   getInitialState: ->
-    selected: null
+    selected: []
   render: ->
     options = @props.options.map (option, i) =>
       <Option {...option}
         key={i}
-        selected={@state.selected == (option.key || i)}
+        selected={(option.key || i) in @state.selected}
         selectOption={@selectOption.bind(this, option.key || i)}
       />
     classes = 'wizard__panel'

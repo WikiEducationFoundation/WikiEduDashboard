@@ -11,7 +11,7 @@ class WizardController < ApplicationController
     content_path = "#{Rails.root}/config/wizard/wizard_index.yml"
     all_content = YAML.load(File.read(File.expand_path(content_path, __FILE__)))
     respond_to do |format|
-      format.json { render json: all_content.to_json() }
+      format.json { render json: all_content.to_json }
     end
   end
 
@@ -20,7 +20,7 @@ class WizardController < ApplicationController
     content_path = "#{Rails.root}/config/wizard/wizards/#{wizard_id}_wizard.yml"
     all_content = YAML.load(File.read(File.expand_path(content_path, __FILE__)))
     respond_to do |format|
-      format.json { render json: all_content.to_json() }
+      format.json { render json: all_content.to_json }
     end
   end
 

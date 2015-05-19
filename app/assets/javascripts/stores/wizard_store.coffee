@@ -17,7 +17,8 @@ setConfig = (config) ->
 
 setValue = (key, value) ->
   _answers[key] = value
-  _output.push value
+  value.forEach (v) =>
+    _output.push v
   WizardStore.emitChange()
 
 restore = ->
@@ -45,6 +46,7 @@ WizardStore = Flux.createStore
       setConfig data.wizard_config
       break
     when 'NEW_ANSWER'
+      console.log data.key
       setValue data.key, data.value
       break
     when 'WIZARD_CLOSED'
