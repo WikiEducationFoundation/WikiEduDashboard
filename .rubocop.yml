@@ -16,3 +16,5 @@ Style/SpaceAroundEqualsInParameterDefault:
   Enabled: false
 Style/ColonMethodCall:
   Enabled: false
+Style/NumericLiterals:
+  Enabled: false

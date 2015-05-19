@@ -33,7 +33,7 @@ describe Wiki do
         expect(response).to eq([])
       end
     end
-    
+
     it 'should return course info for multiple courses' do
       VCR.use_cassette 'wiki/missing_courses' do
         # Several courses, including some that don't exist

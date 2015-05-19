@@ -131,7 +131,7 @@ describe User do
     it 'should add users based on course data' do
       VCR.use_cassette 'wiki/add_users' do
         course = create(:course,
-               id: 351)
+                        id: 351)
         data = CourseImporter.get_course_info 351
         student_data = data[0]['participants']['student']
         UserImporter.add_users(student_data, 0, course)

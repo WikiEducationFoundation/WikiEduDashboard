@@ -30,14 +30,13 @@ describe ArticleImporter do
                         id: 1,
                         title: 'Basket Weaving',
                         start: '2015-01-01'.to_date,
-                        end: '2015-05-01'.to_date
+                        end: '2030-05-01'.to_date
                       )
         # Add an article.
         article1 = create(:article,
-               id: 1,
-               title: 'Selfie',
-               namespace: 0
-        )
+                          id: 1,
+                          title: 'Selfie',
+                          namespace: 0)
         course.articles << article1
 
         possible_ratings = %w(fl fa a ga b c start stub list)
@@ -46,17 +45,17 @@ describe ArticleImporter do
         # so first we run an update with just one article.
         ArticleImporter.update_new_ratings
 
-        expect(possible_ratings).to include Article.all.first.rating
+        expect(possible_ratings).to include Article.find(1).rating
 
         article2 = create(:article,
-               id: 2,
-               title: 'A Clash of Kings',
-               namespace: 0
-        )
+                          id: 2,
+                          title: 'A Clash of Kings',
+                          namespace: 0
+                         )
         course.articles << article2
 
         ArticleImporter.update_all_ratings
-        expect(possible_ratings).to include Article.all.last.rating
+        expect(possible_ratings).to include Article.find(2).rating
       end
     end
   end
@@ -99,19 +98,18 @@ describe ArticleImporter do
 
     it 'should handle cases where there are two ids for one page' do
       first = create(:article,
-             id: 2262715,
-             title: 'Kostanay',
-             namespace: 0)
+                     id: 2262715,
+                     title: 'Kostanay',
+                     namespace: 0)
       second = create(:article,
-             id: 46349871,
-             title: 'Kostanay',
-             namespace: 0)
+                      id: 46349871,
+                      title: 'Kostanay',
+                      namespace: 0)
       ArticleImporter.resolve_duplicate_articles([first])
       undeleted = Article.where(
         title: 'Kostanay',
         namespace: 0,
-        deleted: false
-      )
+        deleted: false)
       expect(undeleted.count).to eq(1)
       expect(undeleted.first.id).to eq(second.id)
     end

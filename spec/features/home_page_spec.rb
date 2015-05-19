@@ -9,37 +9,32 @@ describe 'the home page', type: :feature do
 
     (1..cohort_course_count).each do |i|
       course1 = create(:course,
-             id: i.to_s,
-             slug: "course_#{i}",
-             start: '2014-01-01'.to_date,
-             end: Date.today + 2.days
-      )
+                       id: i.to_s,
+                       slug: "course_#{i}",
+                       start: '2014-01-01'.to_date,
+                       end: Date.today + 2.days)
       course1.cohorts << cohort
       course2 = create(:course,
-             id: (i + cohort_course_count).to_s,
-             slug: "course_#{i}",
-             start: '2014-01-01'.to_date,
-             end: Date.today + 2.days
-      )
+                       id: (i + cohort_course_count).to_s,
+                       slug: "course_#{i}",
+                       start: '2014-01-01'.to_date,
+                       end: Date.today + 2.days)
       course2.cohorts << cohort_two
       create(:user, id: i.to_s)
       create(:courses_user,
              id: i.to_s,
              course_id: i.to_s,
-             user_id: i.to_s
-      )
+             user_id: i.to_s)
       create(:article,
              id: i.to_s,
              title: 'Selfie',
-             namespace: 0
-      )
+             namespace: 0)
       create(:revision,
              id: i.to_s,
              user_id: i.to_s,
              article_id: i.to_s,
              date: '2015-03-01'.to_date,
-             characters: 9000
-      )
+             characters: 9000)
     end
     Course.update_all_caches
   end

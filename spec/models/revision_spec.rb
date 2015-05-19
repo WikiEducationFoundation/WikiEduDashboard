@@ -49,7 +49,7 @@ describe Revision do
     it 'should not fail with returning students' do
       VCR.use_cassette 'revisions/returning_students' do
         # Create a user who has a revision from long ago
-        create(:trained) # This is user 319203, with edits since 2015. 
+        create(:trained) # This is user 319203, with edits since 2015.
         create(:revision,
                user_id: 319203,
                date: '2003-03-01'.to_date)
@@ -64,11 +64,11 @@ describe Revision do
                role: 0)
         User.update_all_caches(Course.find(1).users)
         RevisionImporter.update_all_revisions nil, true
-        expect(Revision.all.count > 1).to be true        
+        expect(Revision.all.count > 1).to be true
       end
     end
   end
-  
+
   describe 'RevisionImporter.update_assignment_article_ids' do
     it 'should add article ids to assignments after importing revisions' do
       VCR.use_cassette 'revisions/update_all_revisions' do
@@ -83,7 +83,7 @@ describe Revision do
         expect(Assignment.where.not(article_id: nil).count).to eq(10)
       end
     end
-  
+
     it 'should only update article_ids for mainspace titles' do
       create(:assignment,
              id: 1,

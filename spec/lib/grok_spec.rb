@@ -12,13 +12,15 @@ describe Grok do
     end
 
     it 'should handle timeout errors' do
-      stub_request(:any, %r{.*}).to_raise(Errno::ETIMEDOUT)
+      stub_request(:any, /.*/).to_raise(Errno::ETIMEDOUT)
       response = Grok.views_for_article('Foo', '2014-08-01'.to_date, 'en')
+      expect(response).to be_empty
     end
 
     it 'should handle unknown errors' do
-      stub_request(:any, %r{.*}).to_raise(StandardError)
+      stub_request(:any, /.*/).to_raise(StandardError)
       response = Grok.views_for_article('Foo', '2014-08-01'.to_date, 'en')
+      expect(response).to be_empty
     end
   end
 

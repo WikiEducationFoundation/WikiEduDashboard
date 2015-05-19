@@ -21,7 +21,7 @@ describe Course, type: :model do
     allow(error).to receive(:info).and_return('bar')
     stub_request(:any, %r{.*wikipedia\.org/w/api\.php.*})
       .to_raise(error)
-    CourseImporter.update_all_courses(false, cohort: [ 798, 800])
+    CourseImporter.update_all_courses(false, cohort: [798, 800])
 
     course = create(:course, id: 519)
     course.manual_update
@@ -53,7 +53,8 @@ describe Course, type: :model do
       # Check users
       expect(course.user_count).to eq(6)
       expect(User.all.role('student').count).to eq(course.user_count)
-      expect(course.users.role('instructor').first.is_instructor(course)).to be true
+      expect(course.users.role('instructor').first.is_instructor(course))
+        .to be true
 
       # Check views
       expect(course.view_sum).to be >= 46_200
@@ -62,7 +63,7 @@ describe Course, type: :model do
 
   it 'should update assignments when updating courses' do
     VCR.use_cassette 'wiki/update_many_courses' do
-      CourseImporter.update_all_courses(false, cohort: [ 351, 500, 577])
+      CourseImporter.update_all_courses(false, cohort: [351, 500, 577])
 
       expect(Assignment.all.count).to eq(81)
       # Check that users with multiple assignments are handled properly.
@@ -95,7 +96,7 @@ describe Course, type: :model do
              listed: true
       )
 
-      CourseImporter.update_all_courses(false, { cohort: [351, 590] })
+      CourseImporter.update_all_courses(false, cohort: [351, 590])
       course = Course.find(589)
       expect(course.listed).to be false
     end
@@ -151,7 +152,7 @@ describe Course, type: :model do
     )
     create(:revision,
            user_id: 2,
-           date: '2015-02-01'.to_date, 
+           date: '2015-02-01'.to_date,
            article_id: 1
     )
     create(:articles_course,

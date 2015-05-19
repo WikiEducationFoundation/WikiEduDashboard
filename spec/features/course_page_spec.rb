@@ -169,11 +169,13 @@ describe 'the home page', type: :feature do
       visit "/courses/#{slug}/articles"
       # first click on the Class sorting should sort high to low
       find(:css, '.article-list__row__rating.sort').click
-      first_rating = page.find(:css, 'ul.list').first('.article-list__row__rating')
+      first_rating = page.find(:css, 'ul.list')
+                     .first('.article-list__row__rating')
       expect(first_rating).to have_content 'Featured article'
       # second click should sort from low to high
       find(:css, '.article-list__row__rating.sort').click
-      new_first_rating = page.find(:css, 'ul.list').first('.article-list__row__rating')
+      new_first_rating = page.find(:css, 'ul.list')
+                         .first('.article-list__row__rating')
       expect(new_first_rating).to have_content 'Unrated'
     end
   end
