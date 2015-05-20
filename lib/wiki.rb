@@ -13,14 +13,13 @@ class Wiki
     response = {}
     Cohort.all.each do |cohort|
       content = get_page_content(cohort.url)
-      unless content.nil?
-        lines = content.split(/\n/)
-        # Only integers can be valid ids. 
-        integers = /(?<![-.])\b[0-9]+\b(?!\.[0-9])/ 
-        raw_ids = lines.select { |id| integers.match(id) }
-        raw_ids = raw_ids.map(&:to_i)
-        response[cohort.slug] = raw_ids
-      end
+      next if content.nil?
+      lines = content.split(/\n/)
+      # Only integers can be valid ids.
+      integers = /^[1-9][0-9]*$/
+      raw_ids = lines.select { |id| integers.match(id) }
+      raw_ids = raw_ids.map(&:to_i)
+      response[cohort.slug] = raw_ids
     end
     response
   end
@@ -69,7 +68,7 @@ class Wiki
 
     # Pages that are missing get returned before pages that exist, so we cannot
     # count on our array being in the same order as titles.
-    raw.map do |article_id, talkpage|
+    raw.map do |_article_id, talkpage|
       # Remove "Talk:" from the "title" value to get the title.
       { talkpage['title'][5..-1] => parse_article_rating(talkpage) }
     end
@@ -144,10 +143,10 @@ class Wiki
       @wikipedia
     end
 
-    def handle_api_error(e, options=nil)
+    def handle_api_error(e)
       Rails.logger.warn 'Caught #{e}'
       Raven.capture_exception e, level: 'warning'
-      return nil # because Raven captures return 'true' if successful
+      nil # because Raven captures return 'true' if successful
     end
 
     def handle_invalid_course_id(course_ids, invalid)
