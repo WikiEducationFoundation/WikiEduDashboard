@@ -31,7 +31,10 @@ Panel = React.createClass(
       />
     classes = 'wizard__panel'
     classes += ' active' if @props.active
-    inst = if @props.type == 0 then 'Select one or more' else 'Select one'
+    inst = switch @props.type
+      when 0 then 'Select one or more'
+      when 1 then 'Select one'
+      else ''
     step = if @props.step == 0 then '' else 'Step ' + @props.step + ' of ' + @props.steps
     if @props.steps? && @props.steps > 1
       rewind = <div className="button" onClick={@rewind}>Previous</div>
@@ -53,7 +56,7 @@ Panel = React.createClass(
         </div>
         <div className='right'>
           {rewind}
-          <div className="button dark" onClick={@advance}>Next</div>
+          <div className="button dark" onClick={@advance}>{if @props.last then 'Submit' else 'Next'}</div>
         </div>
       </div>
     </div>

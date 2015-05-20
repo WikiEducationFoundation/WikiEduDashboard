@@ -34,12 +34,12 @@ Wizard = React.createClass(
     if answer_index.constructor == Array
       answer_value = []
       answer_index.forEach (ai) ->
-        answer_value.push answer_panel['options'][ai]['output']
+        answer_value.push answer_panel['options'][ai]
     else
-      answer_value = answer_panel['options'][answer_index]['output']
+      answer_value = answer_panel['options'][answer_index]
     WizardActions.addAnswer answer_key, answer_value
-  rewindWizard: ->
-    @setState(active_index: @state.active_index - 1)
+  rewindWizard: (to_index=null) ->
+    @setState(active_index: (to_index || @state.active_index - 1))
   resetWizard: (e) ->
     e.preventDefault()
     @setState(active_index: 0)

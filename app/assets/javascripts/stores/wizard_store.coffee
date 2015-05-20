@@ -4,8 +4,8 @@ Flux            = new McFly()
 _index = []     # Index of the different available wizards
 _config = []    # Config for selected wizard (array of panels)
 _answers = {}   # Answers from user input
+_details = {}
 
-_output = []    # Array of content keys to be added to timeline
 _logic = {}
 
 # Utilities
@@ -19,14 +19,11 @@ setConfig = (config) ->
 
 setValue = (key, value) ->
   _answers[key] = value
-  value.forEach (v) =>
-    _output.push v
   WizardStore.emitChange()
 
 restore = ->
   _config = []
   _answers ={}
-  _output = []
   _logic = {}
   _reset = true
   WizardStore.emitChange()
@@ -42,7 +39,11 @@ WizardStore = Flux.createStore
   getValue: (key) ->
     _answers[key]
   getOutput: ->
-    _output
+    output = []
+    Object.keys(_answers).map (answer_key) =>
+      _answers[answer_key].map (a) =>
+        output.push a['output']
+    output
 
 , (payload) ->
   data = payload.data
