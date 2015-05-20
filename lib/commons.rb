@@ -17,8 +17,7 @@ class Commons
       response = commons.query upload_query
       # TODO: handle network errors
       uploads += response.data['usercontribs']
-      body = JSON.parse(response.to_json)['response']['body']
-      continue = JSON.parse(body)['continue'] # nil if there is no continue
+      continue = response['continue'] # nil if there is no continue
       upload_query['uccontinue'] = continue['uccontinue'] if continue
     end
 
@@ -38,8 +37,7 @@ class Commons
       results.each do |r|
         usages << r unless r['globalusage'].empty?
       end
-      body = JSON.parse(response.to_json)['response']['body']
-      continue = JSON.parse(body)['continue'] # nil if there is no continue
+      continue = response['continue'] # nil if there is no continue
       usage_query['gucontinue'] = continue['gucontinue'] if continue
     end
 
