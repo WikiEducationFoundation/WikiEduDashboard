@@ -205,10 +205,10 @@ class ArticleImporter
     deleted_ids = []
     grouped.each do |article|
       next unless article[1] > 1
-      article_title = article[0][0]
-      article_namespace = article[0][1]
-      Rails.logger.debug "Resolving duplicates for '#{article_title}, ns #{article_namespace}'"
-      deleted_ids += delete_duplicates article_title, article_namespace
+      title = article[0][0]
+      namespace = article[0][1]
+      Rails.logger.debug "Resolving duplicates for '#{title}, ns #{namespace}'"
+      deleted_ids += delete_duplicates title, namespace
     end
 
     # At this stage check to see if the deleted articles' revisions still exist

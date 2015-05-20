@@ -109,8 +109,10 @@ class Course < ActiveRecord::Base
     update
     UserImporter.update_users users
     RevisionImporter.update_all_revisions self
-    ArticleImporter.update_views articles.namespace(0).find_in_batches(batch_size: 30)
-    ArticleImporter.update_ratings articles.namespace(0).find_in_batches(batch_size: 30)
+    ArticleImporter.update_views articles.namespace(0)
+      .find_in_batches(batch_size: 30)
+    ArticleImporter.update_ratings articles.namespace(0)
+      .find_in_batches(batch_size: 30)
     Article.update_all_caches articles
     User.update_all_caches users
     ArticlesCourses.update_all_caches articles_courses

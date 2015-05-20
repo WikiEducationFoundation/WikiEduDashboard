@@ -14,8 +14,7 @@ describe ArticleImporter do
              id: 1,
              title: 'Selfie',
              namespace: 0,
-             rating: 'fa'
-      )
+             rating: 'fa')
 
       article = Article.all.find_in_batches(batch_size: 30)
       ArticleImporter.update_ratings(article)
@@ -30,8 +29,7 @@ describe ArticleImporter do
                         id: 1,
                         title: 'Basket Weaving',
                         start: '2015-01-01'.to_date,
-                        end: '2030-05-01'.to_date
-                      )
+                        end: '2030-05-01'.to_date)
         # Add an article.
         article1 = create(:article,
                           id: 1,
@@ -50,8 +48,7 @@ describe ArticleImporter do
         article2 = create(:article,
                           id: 2,
                           title: 'A Clash of Kings',
-                          namespace: 0
-                         )
+                          namespace: 0)
         course.articles << article2
         ArticleImporter.update_all_ratings
         expect(possible_ratings).to include Article.find(2).rating
@@ -62,14 +59,12 @@ describe ArticleImporter do
   describe '.update_article_status' do
     it 'should marked deleted articles as "deleted"' do
       course = create(:course,
-                      end: '2016-12-31'.to_date
-      )
+                      end: '2016-12-31'.to_date)
       course.users << create(:user)
       create(:article,
              id: 1,
              title: 'Noarticle',
-             namespace: 0
-      )
+             namespace: 0)
 
       ArticleImporter.update_article_status
       expect(Article.find(1).deleted).to be true

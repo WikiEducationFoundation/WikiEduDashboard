@@ -39,9 +39,11 @@ class RevisionImporter
 
     old_users = c.students - new_users
 
+    # rubocop:disable Style/IfUnlessModifier
     unless new_users.empty?
       results += get_revisions(new_users, start, end_date)
     end
+    # rubocop:enable Style/IfUnlessModifier
 
     unless old_users.empty?
       first_rev = c.revisions.order('date DESC').first

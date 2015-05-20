@@ -74,8 +74,8 @@ class CourseImporter
     Course.transaction do
       raw_ids.each do |ch, ch_courses|
         cohort = Cohort.find_or_create_by(slug: ch)
-        ch_new = ch_courses - cohort.courses.map { |co| co.id }
-        ch_old = cohort.courses.map { |co| co.id } - ch_courses
+        ch_new = ch_courses - cohort.courses.map(&:id)
+        ch_old = cohort.courses.map(&:id) - ch_courses
         ch_new.each do |co|
           course = Course.find_by_id(co)
           course.cohorts << cohort if course

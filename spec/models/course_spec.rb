@@ -93,8 +93,7 @@ describe Course, type: :model do
              start: '2015-01-01'.to_date,
              end: '2015-07-01'.to_date,
              title: 'Underwater basket-weaving',
-             listed: true
-      )
+             listed: true)
 
       CourseImporter.update_all_courses(false, cohort: [351, 590])
       course = Course.find(589)
@@ -109,8 +108,7 @@ describe Course, type: :model do
              start: '2015-01-01'.to_date,
              end: '2015-07-01'.to_date,
              title: 'Underwater basket-weaving',
-             listed: true
-      )
+             listed: true)
 
       CourseImporter.update_all_courses(false, cohort: [351, 9999])
       course = Course.find(9999)
@@ -123,42 +121,34 @@ describe Course, type: :model do
           id: 1,
           start: '2015-01-01'.to_date,
           end: '2015-07-01'.to_date,
-          title: 'Underwater basket-weaving'
-    ).save
+          title: 'Underwater basket-weaving').save
 
     build(:user,
           id: 1,
-          wiki_id: 'Ragesoss'
-    ).save
+          wiki_id: 'Ragesoss').save
     build(:user,
           id: 2,
-          wiki_id: 'Ntdb'
-    ).save
+          wiki_id: 'Ntdb').save
 
     build(:courses_user,
           id: 1,
           course_id: 1,
-          user_id: 1
-    ).save
+          user_id: 1).save
     build(:courses_user,
           id: 2,
           course_id: 1,
-          user_id: 2
-    ).save
+          user_id: 2).save
 
     # Add an article edited by user 2.
     create(:article,
-           id: 1
-    )
+           id: 1)
     create(:revision,
            user_id: 2,
            date: '2015-02-01'.to_date,
-           article_id: 1
-    )
+           article_id: 1)
     create(:articles_course,
            article_id: 1,
-           course_id: 1
-    )
+           course_id: 1)
 
     course = Course.all.first
     expect(course.users.count).to eq(2)
@@ -180,21 +170,18 @@ describe Course, type: :model do
   it 'should cache revision data for students' do
     build(:user,
           id: 1,
-          wiki_id: 'Ragesoss'
-    ).save
+          wiki_id: 'Ragesoss').save
 
     build(:course,
           id: 1,
           start: '2015-01-01'.to_date,
           end: '2015-07-01'.to_date,
-          title: 'Underwater basket-weaving'
-    ).save
+          title: 'Underwater basket-weaving').save
 
     build(:article,
           id: 1,
           title: 'Selfie',
-          namespace: 0
-    ).save
+          namespace: 0).save
 
     build(:revision,
           id: 1,
@@ -202,31 +189,27 @@ describe Course, type: :model do
           article_id: 1,
           date: '2015-03-01'.to_date,
           characters: 9000,
-          views: 1234
-    ).save
+          views: 1234).save
 
     # Assign the article to the user.
     build(:assignment,
           course_id: 1,
           user_id: 1,
           article_id: 1,
-          article_title: 'Selfie'
-    ).save
+          article_title: 'Selfie').save
 
     # Make a course-user and save it.
     build(:courses_user,
           id: 1,
           course_id: 1,
           user_id: 1,
-          assigned_article_title: 'Selfie'
-    ).save
+          assigned_article_title: 'Selfie').save
 
     # Make an article-course.
     build(:articles_course,
           id: 1,
           article_id: 1,
-          course_id: 1
-    ).save
+          course_id: 1).save
 
     # Update caches
     ArticlesCourses.update_all_caches
@@ -245,16 +228,14 @@ describe Course, type: :model do
   it 'should return a valid course slug for ActiveRecord' do
     course = build(:course,
                    title: 'History Class',
-                   slug: 'History_Class'
-    )
+                   slug: 'History_Class')
     expect(course.to_param).to eq('History_Class')
   end
 
   describe '#url' do
     it 'should return the url of a course page' do
       course = build(:course,
-                     slug: 'UW Bothell/Conservation Biology (Winter 2015)'
-      )
+                     slug: 'UW Bothell/Conservation Biology (Winter 2015)')
       url = course.url
       # rubocop:disable Metrics/LineLength
       expect(url).to eq("https://#{Figaro.env.wiki_language}.wikipedia.org/wiki/Education_Program:UW_Bothell/Conservation_Biology_(Winter_2015)")

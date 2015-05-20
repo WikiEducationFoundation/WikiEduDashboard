@@ -8,12 +8,10 @@ describe Revision do
       revision = build(:revision,
                        id: 1,
                        article_id: 1,
-                       views: 1000
-      )
+                       views: 1000)
       revision.update(
         user_id: 1,
-        views: 9000
-      )
+        views: 9000)
       expect(revision.views).to eq(9000)
       expect(revision.user_id).to eq(1)
     end
