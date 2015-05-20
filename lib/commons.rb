@@ -4,57 +4,12 @@ require 'json'
 #= This class is for getting data directly from the Wikimedia Commons API.
 class Commons
   ###################
-  # Parsing methods #
-  ###################
-  def self.import_uploads(uploads)
-    ActiveRecord::Base.transaction do
-      uploads.each do |file|
-        uploaded_at = file['timestamp']
-        file_name = file['title']
-        username = file['user']
-        user_id = User.find_by(wiki_id: username).id
-        id = file['pageid']
-        upload = CommonsUpload.new(id: id,
-                                   uploaded_at: uploaded_at,
-                                   file_name: file_name,
-                                   user_id: user_id)
-        upload.save unless CommonsUpload.exists?(id)
-      end
-    end
-  end
-
-  def self.import_usages(usages)
-    file_ids = usages.map { |usage| usage['pageid'] }
-    # Create a hash matching file_ids to usage counts, starting at zero.
-    usage_counts = Hash[file_ids.uniq.map { |id| [id, 0] }]
-
-    usages.each do |usage|
-      id = usage['pageid']
-      usage_count = usage['globalusage'].count
-      usage_counts[id] += usage_count
-    end
-
-    ActiveRecord::Base.transaction do
-      usage_counts.each do |id, count|
-        file = CommonsUpload.find(id)
-        file.usage_count = count
-        file.save
-      end
-    end
-  end
-  ###################
   # Request methods #
   ###################
-  def self.import_all_uploads(users=nil)
-    users ||= User.all
-    Utils.chunk_requests(users) do |user_batch|
-      uploads = get_uploads(user_batch)
-      import_uploads(uploads)
-    end
-  end
 
+  # Get user contribution data that corresponds to new file uploads.
   def self.get_uploads(users)
-    usernames = users.map { |user| user.wiki_id }
+    usernames = users.map(&:wiki_id)
     uploads = []
     upload_query = { list: 'usercontribs',
                      ucuser: usernames,
@@ -77,14 +32,7 @@ class Commons
     uploads
   end
 
-  def self.update_usage_count(commons_uploads=nil)
-    commons_uploads ||= CommonsUpload.all
-    Utils.chunk_requests(commons_uploads) do |file_batch|
-      usages = get_usages(file_batch)
-      import_usages(usages)
-    end
-  end
-
+  # Get data about how files are being used across Wikimedia sites.
   def self.get_usages(commons_uploads)
     file_ids = commons_uploads.map(&:id)
     usages = []
