@@ -18,3 +18,5 @@ Style/ColonMethodCall:
   Enabled: false
 Style/NumericLiterals:
   Enabled: false
+Style/AsciiComments:
+  Enabled: false

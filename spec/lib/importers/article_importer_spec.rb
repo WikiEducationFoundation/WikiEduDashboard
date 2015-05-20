@@ -53,7 +53,6 @@ describe ArticleImporter do
                           namespace: 0
                          )
         course.articles << article2
-
         ArticleImporter.update_all_ratings
         expect(possible_ratings).to include Article.find(2).rating
       end
@@ -112,6 +111,23 @@ describe ArticleImporter do
         deleted: false)
       expect(undeleted.count).to eq(1)
       expect(undeleted.first.id).to eq(second.id)
+    end
+
+    it 'should handle cases of space vs. underscore' do
+      # This page was first moved from a sandbox to "Yōji Sakate", then
+      # moved again to "Yōji Sakate (playwright)". It ended up in our database
+      # like this.
+      create(:article,
+             id: 46745170,
+             # Currently this is a redirect to the other title.
+             title: 'Yōji Sakate',
+             namespace: 0)
+      create(:article,
+             id: 46364485,
+             # Current title is "Yōji Sakate (playwright)".
+             title: 'Yōji_Sakate',
+             namespace: 0)
+      ArticleImporter.update_article_status
     end
 
     it 'should handle case-variant titles' do

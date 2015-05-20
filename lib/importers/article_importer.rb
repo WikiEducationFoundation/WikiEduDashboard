@@ -133,15 +133,6 @@ class ArticleImporter
     synced_ids = synced_articles.map { |a| a['page_id'] }
     deleted_ids = local_articles.pluck(:id) - synced_ids
 
-    # Check for pages that have changed ids.
-    # This happens in situations such as history merges.
-    update_article_ids deleted_ids
-
-    # Delete articles as appropriate
-    local_articles.where(id: deleted_ids).update_all(deleted: true)
-    limbo_revisions = Revision.where(article_id: deleted_ids)
-    move_or_delete_revisions limbo_revisions
-
     # Update titles and namespaces based on ids (we trust ids!)
     synced_articles.map! do |sa|
       Article.new(
@@ -153,6 +144,15 @@ class ArticleImporter
     end
     update_keys = [:title, :namespace, :deleted]
     Article.import synced_articles, on_duplicate_key_update: update_keys
+
+    # Check for pages that have changed ids.
+    # This happens in situations such as history merges.
+    update_article_ids deleted_ids
+
+    # Delete articles as appropriate
+    local_articles.where(id: deleted_ids).update_all(deleted: true)
+    limbo_revisions = Revision.where(article_id: deleted_ids)
+    move_or_delete_revisions limbo_revisions
   end
 
   # Check whether any deleted pages still exist with a different article_id.

@@ -15,8 +15,8 @@ class Wiki
       content = get_page_content(cohort.url)
       unless content.nil?
         lines = content.split(/\n/)
-        # Only integers can be valid ids. 
-        integers = /(?<![-.])\b[0-9]+\b(?!\.[0-9])/ 
+        # Only integers can be valid ids.
+        integers = /(?<![-.])\b[0-9]+\b(?!\.[0-9])/
         raw_ids = lines.select { |id| integers.match(id) }
         raw_ids = raw_ids.map(&:to_i)
         response[cohort.slug] = raw_ids
@@ -71,7 +71,8 @@ class Wiki
     # count on our array being in the same order as titles.
     raw.map do |article_id, talkpage|
       # Remove "Talk:" from the "title" value to get the title.
-      { talkpage['title'][5..-1] => parse_article_rating(talkpage) }
+      { talkpage['title'][5..-1].gsub(' ', '_') =>
+        parse_article_rating(talkpage) }
     end
   end
 
