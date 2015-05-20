@@ -9,15 +9,8 @@ class Commons
 
   # Get user contribution data that corresponds to new file uploads.
   def self.get_uploads(users)
-    usernames = users.map(&:wiki_id)
+    upload_query = build_upload_query users
     uploads = []
-    upload_query = { list: 'usercontribs',
-                     ucuser: usernames,
-                     ucnamespace: 6, # File: namespace
-                     ucshow: 'new', # New pages ~= new uploads
-                     uclimit: 500, # 500 is max for non-bots
-                     continue: ''
-                   }
 
     continue = true
     until continue.nil?
@@ -34,14 +27,8 @@ class Commons
 
   # Get data about how files are being used across Wikimedia sites.
   def self.get_usages(commons_uploads)
-    file_ids = commons_uploads.map(&:id)
+    usage_query = build_usage_query commons_uploads
     usages = []
-    usage_query = { prop: 'globalusage',
-                    pageids: file_ids,
-                    gulimit: 500, # 500 is max for non-bots
-                    gufilterlocal: 'true', # Don't return local Commons usage
-                    continue: ''
-                  }
 
     continue = true
     until continue.nil?
@@ -57,6 +44,32 @@ class Commons
     end
 
     usages
+  end
+
+  ##################
+  # Helper methods #
+  ##################
+  def self.build_upload_query(users)
+    usernames = users.map(&:wiki_id)
+    upload_query = { list: 'usercontribs',
+                     ucuser: usernames,
+                     ucnamespace: 6, # File: namespace
+                     ucshow: 'new', # New pages ~= new uploads
+                     uclimit: 500, # 500 is max for non-bots
+                     continue: ''
+                   }
+    upload_query
+  end
+
+  def self.build_usage_query(commons_uploads)
+    file_ids = commons_uploads.map(&:id)
+    usage_query = { prop: 'globalusage',
+                    pageids: file_ids,
+                    gulimit: 500, # 500 is max for non-bots
+                    gufilterlocal: 'true', # Don't return local Commons usage
+                    continue: ''
+                  }
+    usage_query
   end
   ###################
   # Private methods #
