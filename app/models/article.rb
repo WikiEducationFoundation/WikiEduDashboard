@@ -13,6 +13,12 @@ class Article < ActiveRecord::Base
   scope :current, -> { joins(:courses).merge(Course.current).uniq }
   scope :namespace, -> ns { where(namespace: ns) }
 
+  # Always save titles with underscores instead of spaces, since that's the way
+  # they are in the MediaWiki database.
+  validates :title, presence: true
+  before_validation do
+    self.title = title.gsub(' ', '_')
+  end
   ####################
   # Instance methods #
   ####################
