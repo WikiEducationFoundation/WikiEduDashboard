@@ -137,6 +137,26 @@ class ArticleImporter
     synced_ids = synced_articles.map { |a| a['page_id'] }
     deleted_ids = local_articles.pluck(:id) - synced_ids
 
+    # First we find any pages that just moved, and update title and namespace.
+    update_title_and_namespace synced_articles
+
+    # Now we check for pages that have changed ids.
+    # This happens in situations such as history merges.
+    # If articles move in between title/namespace updates and id updates,
+    # then it's possible to have an article id collision.
+    Rails.logger.debug 'Updating article ids: STARTED'
+    update_article_ids deleted_ids
+    Rails.logger.debug 'Updating article ids: FINISHED'
+
+    # Delete articles as appropriate
+    local_articles.where(id: deleted_ids).update_all(deleted: true)
+    limbo_revisions = Revision.where(article_id: deleted_ids)
+    Rails.logger.debug 'Handling limbo revisions: STARTED'
+    move_or_delete_revisions limbo_revisions
+    Rails.logger.debug 'Handling limbo revisions: FINISHED'
+  end
+
+  def self.update_title_and_namespace(synced_articles)
     # Update titles and namespaces based on ids (we trust ids!)
     synced_articles.map! do |sa|
       Article.new(
@@ -150,19 +170,6 @@ class ArticleImporter
     Rails.logger.debug 'Importing synced articles: STARTED'
     Article.import synced_articles, on_duplicate_key_update: update_keys
     Rails.logger.debug 'Importing synced articles: FINISHED'
-
-    # Check for pages that have changed ids.
-    # This happens in situations such as history merges.
-    Rails.logger.debug 'Updating article ids: STARTED'
-    update_article_ids deleted_ids
-    Rails.logger.debug 'Updating article ids: FINISHED'
-
-    # Delete articles as appropriate
-    local_articles.where(id: deleted_ids).update_all(deleted: true)
-    limbo_revisions = Revision.where(article_id: deleted_ids)
-    Rails.logger.debug 'Handling limbo revisions: STARTED'
-    move_or_delete_revisions limbo_revisions
-    Rails.logger.debug 'Handling limbo revisions: FINISHED'
   end
 
   # Check whether any deleted pages still exist with a different article_id.
