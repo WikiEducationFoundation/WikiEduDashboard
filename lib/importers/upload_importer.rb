@@ -5,19 +5,17 @@ class UploadImporter
   ################
   # Entry points #
   ################
-  def self.import_all_uploads(users=nil)
-    users ||= User.all
+  def self.import_all_uploads(users)
     Utils.chunk_requests(users) do |user_batch|
-      uploads = Commons.get_uploads(user_batch)
-      import_uploads(uploads)
+      uploads = Commons.get_uploads user_batch
+      import_uploads uploads
     end
   end
 
-  def self.update_usage_count(commons_uploads=nil)
-    commons_uploads ||= CommonsUpload.all
+  def self.update_usage_count(commons_uploads)
     Utils.chunk_requests(commons_uploads) do |file_batch|
-      usages = Commons.get_usages(file_batch)
-      import_usages(usages)
+      usages = Commons.get_usages file_batch
+      import_usages usages
     end
   end
 
