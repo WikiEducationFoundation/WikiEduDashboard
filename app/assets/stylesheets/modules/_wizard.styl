@@ -51,7 +51,6 @@
     .wizard__panel__options
       padding 20px 0
     .wizard__option
-      col(1/2)
       border 1px solid mischka
       box-shadow 0 0 0 4px transparent inset
       cursor pointer
@@ -60,6 +59,8 @@
       position relative
       text-align left
       transition all .2s ease-in-out
+      +above(desktop)
+        col(1/2)
       &:hover
         background smoke
       &.selected
@@ -95,11 +96,11 @@
       position absolute
       width calc(100% - 40px)
       .left
-        col(1/2)
+        col(1/3)
         padding 9px 0
         text-align left
         p
           font-size 14px
       .right
-        col(1/2)
+        col(2/3)
         text-align right
