@@ -46,6 +46,15 @@ removeBlock = (block_id) ->
     block['deleted'] = true
   BlockStore.emitChange()
 
+insertBlock = (block, week_id, order) ->
+  week_blocks = BlockStore.getBlocksInWeek week_id
+  for week_block in week_blocks
+    return unless week_block.order >= order
+    week_block.order += 1
+    setBlock week_block, true
+  block.order = order
+  block.week_id = week_id
+  setBlock block
 
 # Store
 BlockStore = Flux.createStore
@@ -83,6 +92,9 @@ BlockStore = Flux.createStore
       break
     when 'DELETE_BLOCK'
       removeBlock data.block_id
+      break
+    when 'INSERT_BLOCK'
+      insertBlock data.block, data.week_id, data.order
       break
   return true
 

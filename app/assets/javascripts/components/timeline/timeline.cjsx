@@ -30,6 +30,7 @@ Timeline = React.createClass(
   deleteWeek: (week_id) ->
     WeekActions.deleteWeek(week_id)
   moveBlock: (block_id, after_block_id) ->
+    return if block_id == after_block_id
     block = BlockStore.getBlock block_id
     after_block = BlockStore.getBlock after_block_id
     if block.week_id == after_block.week_id   # dragging within a week
@@ -38,6 +39,9 @@ Timeline = React.createClass(
       after_block.order = old_order
       BlockActions.updateBlock block, true
       BlockActions.updateBlock after_block
+    else
+      block.week_id = after_block.week_id
+      BlockActions.insertBlock block, after_block.week_id, after_block.order
   render: ->
     week_components = []
     @props.weeks.forEach (week, i) =>

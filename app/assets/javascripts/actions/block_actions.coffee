@@ -15,5 +15,11 @@ BlockActions = Flux.createActions
     { actionType: 'DELETE_BLOCK', data: {
       block_id: block_id
     }}
+  insertBlock: (block, week_id, order) ->
+    { actionType: 'INSERT_BLOCK', data: {
+      block: block,
+      week_id: week_id,
+      order: order
+    }}
 
 module.exports = BlockActions

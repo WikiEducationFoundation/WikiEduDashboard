@@ -9,6 +9,8 @@ module.exports = (Component, Type, MoveFunction) ->
   dragSource =
     beginDrag: (props) ->
       props[Type]
+    isDragging: (props, monitor) ->
+      props[Type].id == monitor.getItem().id
   sourceConnect = (connect, monitor) ->
     connectDragSource: connect.dragSource()
     isDragging: monitor.isDragging()
