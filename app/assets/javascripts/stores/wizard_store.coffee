@@ -4,6 +4,7 @@ Flux            = new McFly()
 ServerActions   = require '../actions/server_actions'
 
 _active_index = 0
+_wizard_key = null
 _panels = [{
   title: "Assignment Type"
   description: "Select the kind of assignment you want to add to your timeline."
@@ -37,15 +38,15 @@ setPanels = (panels) ->
 
 updateActivePanels = ->
   if _panels.length > 0
-    _panels.forEach (panel) -> panel['active'] = false
-    _panels[_active_index]['active'] = true
+    _panels.forEach (panel) -> panel.active = false
+    _panels[_active_index].active = true
 
 selectOption = (panel_index, option_index, value=true) ->
   panel = _panels[panel_index]
   option = panel.options[option_index]
   unless panel.type == 0  # multiple choice
-    panel.options.forEach (option) -> option['selected'] = false
-  option['selected'] = value
+    panel.options.forEach (option) -> option.selected = false
+  option.selected = value
   verifyPanelSelections(panel)
   WizardStore.emitChange()
 
@@ -56,7 +57,9 @@ moveWizard = (backwards=false, to_index=null) ->
   if !backwards && verifyPanelSelections(active_panel)
     if _active_index == 0
       selected_wizard = _.find(_panels[_active_index].options, (o) -> o.selected)
-      ServerActions.fetchWizardPanels(selected_wizard['key'])
+      if selected_wizard.key != _wizard_key
+        _wizard_key = selected_wizard.key
+        ServerActions.fetchWizardPanels(selected_wizard.key)
     increment = 1
 
   if to_index?
@@ -78,16 +81,17 @@ verifyPanelSelections = (panel) ->
   , 0
   verified = selection_count >= panel.minimum
   if verified
-    panel['error'] = null
+    panel.error = null
   else
     error_message = 'Please select at least ' + panel.minimum + ' option(s)'
-    panel['error'] = error_message
+    panel.error = error_message
   return verified
 
 restore = ->
   _active_index = 0
+  _wizard_key = null
   setPanels([])
-  _panels[0].options.forEach (option) -> option['selected'] = false
+  _panels[0].options.forEach (option) -> option.selected = false
   _logic = {}
   WizardStore.emitChange()
 
