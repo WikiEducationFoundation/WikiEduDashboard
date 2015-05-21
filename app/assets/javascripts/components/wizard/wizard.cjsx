@@ -1,7 +1,6 @@
 React         = require 'react'
 Router        = require 'react-router'
 Panel         = require './panel'
-IndexPanel    = require './index_panel'
 SummaryPanel  = require './summary_panel'
 CourseLink    = require '../common/course_link'
 
@@ -30,16 +29,23 @@ Wizard = React.createClass(
     routes.join('/')
   render: ->
     panels = @state.panels.map (panel, i) =>
-      if i == 0
-        <IndexPanel panel={panel}
-          parentPath={@timelinePath()}
-        />
-      else
+      if i > 0  # Don't define this for the index panel
+        step = i + ' of ' + (@state.panels.length - 1)
+      if i < @state.panels.length - 1
         <Panel panel={panel}
           parentPath={@timelinePath()}
           key={panel.key}
           index={i}
-          step={i + ' of ' + (@state.panels.length - 1)}
+          step={step}
+        />
+      else
+        <SummaryPanel panel={panel}
+          parentPath={@timelinePath()}
+          key={panel.key}
+          index={i}
+          step={step}
+          courseId={@props.course_id}
+          transitionTo={@props.transitionTo}
         />
     <Modal>
       {panels}

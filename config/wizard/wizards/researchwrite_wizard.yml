@@ -17,7 +17,7 @@
   title: Supplementary Assignments
   description: Practice your Wikipedia skills!
   type: 0  # Multiple choice
-  minimum: 1
+  minimum: 0
   options:
     -
       title: Publish an Article

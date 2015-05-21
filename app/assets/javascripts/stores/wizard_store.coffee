@@ -3,24 +3,29 @@ Flux            = new McFly()
 
 ServerActions   = require '../actions/server_actions'
 
-_index = []     # Index of the different available wizards
-_panels = []    # Panels in the loaded wizard
 _active_index = 0
 _panels = [{
+  title: "Assignment Type"
+  description: "Select the kind of assignment you want to add to your timeline."
   active: true
   options: []
-  kind: 1
+  type: 1
   minimum: 1
-},{ active: false, options: [] }]
-
-_index_panel = {}
-_summary_panel = {}
+  key: 'index'
+},{
+  title: "Summary"
+  description: "Please review your selections below. Click to edit a selection. When finished, click 'Submit' to finish the wizard and build your timeline."
+  active: false
+  options: []
+  type: -1
+  minimum: 0
+  key: 'summary'
+}]
 
 _logic = {}
 
 # Utilities
 setIndex = (index) ->
-  _index = index
   _panels[0].options = index
   WizardStore.emitChange()
 
@@ -38,19 +43,27 @@ updateActivePanels = ->
 selectOption = (panel_index, option_index, value=true) ->
   panel = _panels[panel_index]
   option = panel.options[option_index]
-  unless panel.kind == 0  # multiple choice
+  unless panel.type == 0  # multiple choice
     panel.options.forEach (option) -> option['selected'] = false
   option['selected'] = value
+  verifyPanelSelections(panel)
   WizardStore.emitChange()
 
-moveWizard = (backwards=false) ->
-  if _active_index == 0 && !backwards
-    selected_index = _.find(_index, (i) -> i['selected'])
-    ServerActions.fetchWizardPanels(selected_index['key'])
+moveWizard = (backwards=false, to_index=null) ->
+  active_panel = _panels[_active_index]
+  increment = if backwards then -1 else 0
 
-  # check for a selected answer here, set error if under minimum
+  if !backwards && verifyPanelSelections(active_panel)
+    if _active_index == 0
+      selected_wizard = _.find(_panels[_active_index].options, (o) -> o.selected)
+      ServerActions.fetchWizardPanels(selected_wizard['key'])
+    increment = 1
 
-  _active_index += if backwards then -1 else 1
+  if to_index?
+    _active_index = to_index
+  else
+    _active_index += increment
+
   if _active_index == -1
     _active_index = 0
   else if _active_index == _panels.length
@@ -58,6 +71,18 @@ moveWizard = (backwards=false) ->
 
   updateActivePanels()
   WizardStore.emitChange()
+
+verifyPanelSelections = (panel) ->
+  selection_count = panel.options.reduce (selected, option) ->
+    selected += if option.selected then 1 else 0
+  , 0
+  verified = selection_count >= panel.minimum
+  if verified
+    panel['error'] = null
+  else
+    error_message = 'Please select at least ' + panel.minimum + ' option(s)'
+    panel['error'] = error_message
+  return verified
 
 restore = ->
   _active_index = 0
@@ -68,18 +93,23 @@ restore = ->
 
 # Store
 WizardStore = Flux.createStore
-  getIndex: ->
-    _index
   getPanels: ->
     _panels
-  getActiveIndex: ->
-    _active_index
+  getAnswers: ->
+    answers = []
+    _panels.forEach (panel, i) ->
+      return if i == _panels.length - 1
+      answer = { title: panel.title, selections: [] }
+      panel.options.map (option) ->
+        answer.selections.push option.title if option.selected
+      answer.selections = ['No selections'] if answer.selections.length == 0
+      answers.push answer
+    answers
   getOutput: ->
-    # Rewrite this function to build an output array based on the _panels array
     output = []
-    Object.keys(_answers).map (answer_key) =>
-      _answers[answer_key].map (a) =>
-        output.push a['output']
+    _panels.forEach (panel) ->
+      panel.options.forEach (option) ->
+        output.push option.output if option.selected
     output
 
 , (payload) ->
@@ -98,7 +128,7 @@ WizardStore = Flux.createStore
       moveWizard()
       break
     when 'WIZARD_REWIND'
-      moveWizard(true)
+      moveWizard true, data.to_index
       break
     when 'WIZARD_RESET', 'WIZARD_SUBMITTED'
       restore()

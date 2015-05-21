@@ -8,8 +8,10 @@ WizardActions = Flux.createActions
       option_index: option_index,
       selected: selected
     }}
-  rewindWizard: ->
-    { actionType: 'WIZARD_REWIND' }
+  rewindWizard: (to_index=null) ->
+    { actionType: 'WIZARD_REWIND', data: {
+      to_index: to_index
+    }}
   advanceWizard: ->
     { actionType: 'WIZARD_ADVANCE' }
   resetWizard: ->

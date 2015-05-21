@@ -15,17 +15,22 @@ Panel = React.createClass(
     e.preventDefault()
     WizardActions.resetWizard()
   render: ->
-    inst = if @props.panel.type == 0 then 'Select one or more' else 'Select one'
-    rewind = <div className="button dark" onClick={@rewind}>{'Previous'}</div>
+    inst = switch @props.panel.type
+      when 0 then 'Select one or more'
+      when 1 then 'Select one'
+      else ''
+    if @props.index > 0
+      rewind =  <div className="button dark" onClick={@rewind}>{'Previous'}</div>
     options = @props.raw_options || @props.panel.options.map (option, i) =>
       <Option option={option}
         panel_index={@props.index}
-        key={i}
+        key={@props.index + '' + i}
         index={i}
         multiple={@props.type == 0}
       />
     classes = 'wizard__panel'
     classes += ' active' if @props.panel.active
+    advance = @props.advance || @advance
 
     <div className={classes}>
       <div className='wizard__controls'>
@@ -43,9 +48,9 @@ Panel = React.createClass(
           <p>{@props.step}</p>
         </div>
         <div className='right'>
-          {@props.panel.error}
+          <div><p className='red'>{@props.panel.error}</p></div>
           {rewind}
-          <div className="button dark" onClick={@advance}>{@props.button_text || 'Next'}</div>
+          <div className="button dark" onClick={advance}>{@props.button_text || 'Next'}</div>
         </div>
       </div>
     </div>
