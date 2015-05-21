@@ -6,7 +6,31 @@ class RevisionImporter
   ################
   # Entry points #
   ################
+  def self.repair_orphan_revisions
+    article_ids = Article.all.pluck(:id)
+    orphan_revisions = Revision.where
+                       .not(article_id: article_ids)
+                       .order('date ASC')
 
+    Rails.logger.info "Found #{orphan_revisions.count} orphan revisions"
+    return if orphan_revisions.blank?
+
+    start = orphan_revisions.first.date - 1.day
+    start = start.strftime('%Y%m%d')
+    end_date = orphan_revisions.last.date + 1.day
+    end_date = end_date.strftime('%Y%m%d')
+
+    user_ids = orphan_revisions.pluck(:user_id).uniq
+    users = User.where(id: user_ids)
+
+    revision_data = get_revisions(users, start, end_date)
+    import_revisions(revision_data)
+
+    revs = get_revisions_from_import_data(revision_data)
+    Rails.logger.info "Imported articles for #{revs.count} revisions"
+
+    ArticlesCourses.update_from_revisions revs unless revs.blank?
+  end
   ##############
   # API Access #
   ##############
@@ -20,12 +44,7 @@ class RevisionImporter
 
     import_revisions(results)
 
-    result_ids = results.map do |_a_id, a|
-      a['revisions'].map { |r| r['id'] }
-    end
-    result_ids = result_ids.flatten
-    result_revs = Revision.where(id: result_ids)
-
+    result_revs = get_revisions_from_import_data(results)
     ArticlesCourses.update_from_revisions result_revs
   end
 
@@ -74,6 +93,14 @@ class RevisionImporter
     # Some newly added Articles may correspond to those Assignments, in which
     # case the article_ids should be added.
     update_assignment_article_ids
+  end
+
+  def self.get_revisions_from_import_data(data)
+    rev_ids = data.map do |_a_id, a|
+      a['revisions'].map { |r| r['id'] }
+    end
+    rev_ids = rev_ids.flatten
+    Revision.where(id: rev_ids)
   end
 
   def self.import_revisions_slice(sub_data)

@@ -50,4 +50,10 @@ namespace :article do
     Rails.logger.debug 'Rebuilding ArticlesCourses from all Revisions'
     ArticlesCourses.update_from_revisions
   end
+
+  desc 'Find articles for orphaned revisions'
+  task repair_orphan_revisions: 'batch:setup_logger' do
+    Rails.logger.debug 'Repairing orphaned revisions'
+    RevisionImporter.repair_orphan_revisions
+  end
 end
