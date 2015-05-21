@@ -68,7 +68,7 @@
           background-color bayoux
           border-color transparent
       &.half
-        padding-bottom 60px
+        padding-bottom 40px
         +above(desktop)
           col(1/2)
       .wizard__option__border
@@ -90,11 +90,17 @@
         transition all .2s ease-in-out
         width 30px
       .wizard__option__description
+        border-top 1px solid transparent
+        box-sizing content-box
         height 0
+        margin-top 15px
         overflow hidden
+        transition all 0.2s ease-in-out
         width 100%
         &.open
+          border-color mischka
           height auto
+          padding 15px 0
       .wizard__option__more
         background athens
         border-top 1px solid mischka

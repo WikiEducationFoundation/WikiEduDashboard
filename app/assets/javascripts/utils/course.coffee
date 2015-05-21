@@ -62,6 +62,9 @@ $ ->
         alert "Untrained users have been reminded to complete the training."
       )
 
+  $('#react_root').on 'click', '.wizard__option__more', (e) ->
+    $(this).prev().find('.wizard__option__description').toggleHeight()
+
 $.fn.extend
   toggleHeight: ->
     return @each ->

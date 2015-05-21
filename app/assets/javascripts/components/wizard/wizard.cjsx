@@ -30,7 +30,7 @@ Wizard = React.createClass(
   render: ->
     panels = @state.panels.map (panel, i) =>
       panel_count = @state.panels.length
-      step = 'Step ' + (i + 1) + ' of ' + (if panel_count > 2 then panel_count else '?')
+      step = 'Step ' + (i + 1) + ' of ' + (if i > 0 then panel_count else '?')
       if i < panel_count - 1
         <Panel panel={panel}
           parentPath={@timelinePath()}
