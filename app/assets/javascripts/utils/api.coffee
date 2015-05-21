@@ -26,7 +26,7 @@ API =
           console.log 'Error: ' + e
           rej e
 
-  fetchWizardConfig: (wizard_id) ->
+  fetchWizardPanels: (wizard_id) ->
     new Promise (res, rej) ->
       $.ajax
         type: 'GET',

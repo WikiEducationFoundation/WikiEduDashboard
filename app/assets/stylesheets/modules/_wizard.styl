@@ -1,5 +1,5 @@
 .wizard
-  background-color rgba(smoke, .9)
+  background-color rgba(smoke, .95)
   bottom 0
   left 0
   opacity 0
@@ -26,7 +26,7 @@
     top 50%
     +above(desktop)
       left 50%
-      margin-left -400px
+      margin-left -430px
       max-width 860px
       top 50%
     &.active
@@ -52,23 +52,34 @@
       padding 20px 0
     .wizard__option
       border 1px solid mischka
-      box-shadow 0 0 0 4px transparent inset
       cursor pointer
       margin-bottom 20px
       padding 20px
       position relative
       text-align left
       transition all .2s ease-in-out
-      +above(desktop)
-        col(1/2)
       &:hover
         background smoke
       &.selected
-        border-color transparent
-        box-shadow 0 0 0 4px bayoux inset
+        .wizard__option__border
+          border-color transparent
+          box-shadow 0 0 0 4px bayoux inset
         .wizard__option__checkbox
           background-color bayoux
           border-color transparent
+      &.half
+        padding-bottom 60px
+        +above(desktop)
+          col(1/2)
+      .wizard__option__border
+        box-shadow 0 0 0 4px transparent inset
+        height 100%
+        left 0
+        pointer-events none
+        position absolute
+        top 0
+        transition all .2s ease-in-out
+        width 100%
       .wizard__option__checkbox
         border 1px solid mischka
         border-width 0 0 1px 1px
@@ -78,6 +89,17 @@
         top 0
         transition all .2s ease-in-out
         width 30px
+      .wizard__option__more
+        background athens
+        border-top 1px solid mischka
+        bottom 0
+        left 0
+        padding 5px 0 9px
+        position absolute
+        right 0
+        transition all .2s ease-in-out
+        &:hover
+          background mischka
       h3
         font-size 18px
       p
@@ -86,8 +108,12 @@
       font-size 12px
       left 20px
       position absolute
-      top -35px
+      top -30px
+      transition all 0.2s
+      +above(desktop)
+        left 0
       a
+        color dove
         margin-right 20px
     .wizard__panel__controls
       border-top 1px solid mischka
@@ -104,3 +130,7 @@
       .right
         col(2/3)
         text-align right
+        div
+          display inline-block
+        p.red
+          color burnt

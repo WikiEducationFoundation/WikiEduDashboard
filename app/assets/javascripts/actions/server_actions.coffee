@@ -13,10 +13,10 @@ ServerActions = Flux.createActions
       { actionType: 'RECEIVE_WIZARD_INDEX', data: {
         wizard_index: data
       }}
-  fetchWizardConfig: (wizard_id) ->
-    API.fetchWizardConfig(wizard_id).then (data) ->
-      { actionType: 'RECEIVE_WIZARD_CONFIG', data: {
-        wizard_config: data
+  fetchWizardPanels: (wizard_id) ->
+    API.fetchWizardPanels(wizard_id).then (data) ->
+      { actionType: 'RECEIVE_WIZARD_PANELS', data: {
+        wizard_panels: data
       }}
 
   saveCourse: (data, course_id=null) ->

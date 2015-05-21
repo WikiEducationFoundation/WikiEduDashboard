@@ -3,6 +3,7 @@
   title: Wikipedia Essentials
   description: Learn how to use Wikipedia!
   type: 1  # Single choice
+  minimum: 1
   options:
     -
       title: Include Wiki Essentials
@@ -16,6 +17,7 @@
   title: Supplementary Assignments
   description: Practice your Wikipedia skills!
   type: 0  # Multiple choice
+  minimum: 1
   options:
     -
       title: Publish an Article
