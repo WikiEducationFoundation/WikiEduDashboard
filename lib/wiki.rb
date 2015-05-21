@@ -41,7 +41,7 @@ class Wiki
   def self.parse_course_info(course)
     parsed = { 'course' => {}, 'participants' => {} }
     append = course['name'][-1, 1] != ')' ? ' ()' : ''
-    course_info = (course['name'] + append).split(/(.*)\/(.*)\s\(([^\)]+)?\)/)
+    course_info = (course['name'] + append).split(%r{(.*)/(.*)\s\(([^\)]+)?\)})
     parsed.tap do |p|
       p['course']['id'] = course['id']
       p['course']['slug'] = course['name'].gsub(' ', '_')
@@ -99,11 +99,9 @@ class Wiki
     course_ids = [course_ids] unless course_ids.is_a?(Array)
     courseids_param = course_ids.join('|')
     response = wikipedia.action 'liststudents',
-                                {
-                                  token_type: false,
-                                  courseids: courseids_param,
-                                  group: ''
-                                }
+                                token_type: false,
+                                courseids: courseids_param,
+                                group: ''
     info = response.data
     info.nil? ? nil : info
   rescue MediawikiApi::ApiError => e

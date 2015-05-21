@@ -129,12 +129,10 @@ class ArticleImporter
     # TODO: Narrow this down even more. Current courses, maybe?
     local_articles = articles || Article.all
 
-    Rails.logger.debug 'Getting existing articles by id: STARTED'
-    synced_articles = Utils.chunk_requests(local_articles) do |block|
+    synced_articles = Utils.chunk_requests(local_articles, 100) do |block|
       Replica.get_existing_articles_by_id block
     end
-    Rails.logger.debug 'Getting existing articles by id: FINISHED'
-    synced_ids = synced_articles.map { |a| a['page_id'] }
+    synced_ids = synced_articles.map { |a| a['page_id'].to_i }
     deleted_ids = local_articles.pluck(:id) - synced_ids
 
     # First we find any pages that just moved, and update title and namespace.
@@ -144,16 +142,12 @@ class ArticleImporter
     # This happens in situations such as history merges.
     # If articles move in between title/namespace updates and id updates,
     # then it's possible to have an article id collision.
-    Rails.logger.debug 'Updating article ids: STARTED'
     update_article_ids deleted_ids
-    Rails.logger.debug 'Updating article ids: FINISHED'
 
     # Delete articles as appropriate
     local_articles.where(id: deleted_ids).update_all(deleted: true)
     limbo_revisions = Revision.where(article_id: deleted_ids)
-    Rails.logger.debug 'Handling limbo revisions: STARTED'
     move_or_delete_revisions limbo_revisions
-    Rails.logger.debug 'Handling limbo revisions: FINISHED'
   end
 
   def self.update_title_and_namespace(synced_articles)
@@ -167,17 +161,16 @@ class ArticleImporter
       )
     end
     update_keys = [:title, :namespace, :deleted]
-    Rails.logger.debug 'Importing synced articles: STARTED'
     Article.import synced_articles, on_duplicate_key_update: update_keys
-    Rails.logger.debug 'Importing synced articles: FINISHED'
   end
 
   # Check whether any deleted pages still exist with a different article_id.
   # If so, update the Article to use the new id.
   def self.update_article_ids(deleted_ids)
-    maybe_deleted_articles = Article.where(id: deleted_ids)
+    maybe_deleted = Article.where(id: deleted_ids)
+
     # These pages have titles that match Articles in our DB with deleted ids
-    same_title_pages = Utils.chunk_requests(maybe_deleted_articles) do |block|
+    same_title_pages = Utils.chunk_requests(maybe_deleted, 100) do |block|
       Replica.get_existing_articles_by_title block
     end
 
@@ -205,10 +198,10 @@ class ArticleImporter
     deleted_ids = []
     grouped.each do |article|
       next unless article[1] > 1
-      article_title = article[0][0]
-      article_namespace = article[0][1]
-      Rails.logger.debug "Resolving duplicates for '#{article_title}, ns #{article_namespace}'"
-      deleted_ids += delete_duplicates article_title, article_namespace
+      title = article[0][0]
+      namespace = article[0][1]
+      Rails.logger.debug "Resolving duplicates for '#{title}, ns #{namespace}'"
+      deleted_ids += delete_duplicates title, namespace
     end
 
     # At this stage check to see if the deleted articles' revisions still exist
@@ -221,7 +214,7 @@ class ArticleImporter
     revisions ||= Revision.all
     return if revisions.empty?
 
-    synced_revisions = Utils.chunk_requests(revisions) do |block|
+    synced_revisions = Utils.chunk_requests(revisions, 100) do |block|
       Replica.get_existing_revisions_by_id block
     end
     synced_ids = synced_revisions.map { |r| r['rev_id'].to_i }
