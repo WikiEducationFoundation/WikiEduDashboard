@@ -7,17 +7,21 @@ class RevisionImporter
   # Entry points #
   ################
   def self.repair_orphan_revisions
+    article_ids = Article.all.pluck(:id)
     orphan_revisions = Revision.where
-                       .not(article_id: Article.all.pluck(:id))
+                       .not(article_id: article_ids)
                        .order('date ASC')
 
     Rails.logger.info "Found #{orphan_revisions.count} orphan revisions"
     return if orphan_revisions.blank?
 
-    start = (orphan_revisions.first.date - 1.day).strftime('%Y%m%d')
-    end_date = (orphan_revisions.last.date + 1.day).strftime('%Y%m%d')
+    start = orphan_revisions.first.date - 1.day
+    start = start.strftime('%Y%m%d')
+    end_date = orphan_revisions.last.date + 1.day
+    end_date = end_date.strftime('%Y%m%d')
 
-    users = User.where(id: orphan_revisions.pluck(:user_id).uniq)
+    user_ids = orphan_revisions.pluck(:user_id).uniq
+    users = User.where(id: user_ids)
 
     revision_data = get_revisions(users, start, end_date)
     import_revisions(revision_data)
