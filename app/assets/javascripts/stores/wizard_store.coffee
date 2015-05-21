@@ -33,7 +33,7 @@ setIndex = (index) ->
 setPanels = (panels) ->
   to_remove = _panels.length - 2
   _panels.splice.apply(_panels, [1, to_remove].concat(panels))
-  updateActivePanels()
+  moveWizard()
   WizardStore.emitChange()
 
 updateActivePanels = ->
@@ -46,8 +46,14 @@ selectOption = (panel_index, option_index, value=true) ->
   option = panel.options[option_index]
   unless panel.type == 0  # multiple choice
     panel.options.forEach (option) -> option.selected = false
-  option.selected = value
+  option.selected = !(option.selected || false)
   verifyPanelSelections(panel)
+  WizardStore.emitChange()
+
+expandOption = (panel_index, option_index) ->
+  panel = _panels[panel_index]
+  option = panel.options[option_index]
+  option.expanded = !(option.expanded || false)
   WizardStore.emitChange()
 
 moveWizard = (backwards=false, to_index=null) ->
@@ -55,12 +61,13 @@ moveWizard = (backwards=false, to_index=null) ->
   increment = if backwards then -1 else 0
 
   if !backwards && verifyPanelSelections(active_panel)
+    increment = 1
     if _active_index == 0
       selected_wizard = _.find(_panels[_active_index].options, (o) -> o.selected)
       if selected_wizard.key != _wizard_key
         _wizard_key = selected_wizard.key
         ServerActions.fetchWizardPanels(selected_wizard.key)
-    increment = 1
+        increment = 0
 
   if to_index?
     _active_index = to_index
@@ -126,7 +133,10 @@ WizardStore = Flux.createStore
       setPanels data.wizard_panels
       break
     when 'SELECT_OPTION'
-      selectOption data.panel_index, data.option_index, data.selected
+      selectOption data.panel_index, data.option_index
+      break
+    when 'EXPAND_OPTION'
+      expandOption data.panel_index, data.option_index
       break
     when 'WIZARD_ADVANCE'
       moveWizard()

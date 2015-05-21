@@ -7,8 +7,10 @@
 -
   key: researchwrite
   title: Research and Write
-  description: Have your students research and write an article in the subject matter of your choice.
+  blurb: Have your students research and write an article in the subject matter of your choice.
+  description: This is an in-depth assignment that will take a significant amount of time to complete.
 -
   key: translation
   title: Translation
-  description: Have your students translate an article into the language of your choice.
+  blurb: Have your students research and write an article in the subject matter of your choice.
+  description: This assignment will reinforce previously-established skills in your students.

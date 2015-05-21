@@ -29,9 +29,9 @@ Wizard = React.createClass(
     routes.join('/')
   render: ->
     panels = @state.panels.map (panel, i) =>
-      if i > 0  # Don't define this for the index panel
-        step = i + ' of ' + (@state.panels.length - 1)
-      if i < @state.panels.length - 1
+      panel_count = @state.panels.length
+      step = 'Step ' + (i + 1) + ' of ' + (if panel_count > 2 then panel_count else '?')
+      if i < panel_count - 1
         <Panel panel={panel}
           parentPath={@timelinePath()}
           key={panel.key}

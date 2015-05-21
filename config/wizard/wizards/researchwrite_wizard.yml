@@ -7,11 +7,13 @@
   options:
     -
       title: Include Wiki Essentials
-      description: Would you like to include Wiki Essentials?
+      blurb: Would you like to include Wiki Essentials?
+      description: This is more content about this option
       output: essentials
     -
       title: Don't include Wiki Essentials
-      description: Would you like to exclude Wiki Essentials?
+      blurb: Would you like to exclude Wiki Essentials?
+      description: This is more content about this option
 -
   key: supplementary
   title: Supplementary Assignments
@@ -21,9 +23,11 @@
   options:
     -
       title: Publish an Article
-      description: Have your students publish a new article to Wikipedia
+      blurb: Have your students publish a new article to Wikipedia
+      description: This is more content about this option
       output: supplementary_publish
     -
       title: Edit an Article
-      description: Have your students edit an existing article on Wikipedia
+      blurb: Have your students edit an existing article on Wikipedia
+      description: This is more content about this option
       output: supplementary_edit

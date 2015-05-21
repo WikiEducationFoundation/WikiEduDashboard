@@ -2,11 +2,15 @@ McFly       = require 'mcfly'
 Flux        = new McFly()
 
 WizardActions = Flux.createActions
-  selectOption: (panel_index, option_index, selected) ->
+  toggleOptionSelected: (panel_index, option_index, selected) ->
     { actionType: 'SELECT_OPTION', data: {
       panel_index: panel_index,
-      option_index: option_index,
-      selected: selected
+      option_index: option_index
+    }}
+  toggleOptionExpanded: (panel_index, option_index) ->
+    { actionType: 'EXPAND_OPTION', data: {
+      panel_index: panel_index,
+      option_index: option_index
     }}
   rewindWizard: (to_index=null) ->
     { actionType: 'WIZARD_REWIND', data: {
