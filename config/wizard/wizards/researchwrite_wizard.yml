@@ -14,6 +14,14 @@
       title: Don't include Wiki Essentials
       blurb: Would you like to exclude Wiki Essentials?
       description: This is more content about this option
+    -
+      title: Don't include Wiki Essentials
+      blurb: Would you like to exclude Wiki Essentials?
+      description: This is more content about this option
+    -
+      title: Don't include Wiki Essentials
+      blurb: Would you like to exclude Wiki Essentials?
+      description: This is more content about this option
 -
   key: supplementary
   title: Supplementary Assignments

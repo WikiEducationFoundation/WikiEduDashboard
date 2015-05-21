@@ -16,9 +16,10 @@ SummaryPanel = React.createClass(
     raw_options = WizardStore.getAnswers().map (answer, i) =>
       details = answer.selections.map (selection, j) ->
         <p key={'detail' + i + '' + j}>{selection}</p>
-      <div key={'answer' + i} className='wizard__option' onClick={@rewind.bind(this, i)}>
+      <div key={'answer' + i} className='wizard__option summary' onClick={@rewind.bind(this, i)}>
         <h3>{answer.title}</h3>
         {details}
+        <p className='edit'>Edit</p>
       </div>
 
     <Panel {...@props}

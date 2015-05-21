@@ -19,8 +19,10 @@ Panel = React.createClass(
       when 0 then 'Select one or more'
       when 1 then 'Select one'
       else ''
+
     if @props.index > 0
-      rewind =  <div className="button dark" onClick={@rewind}>{'Previous'}</div>
+      rewind =  <div className="button" onClick={@rewind}>{'Previous'}</div>
+
     options = @props.raw_options || @props.panel.options.map (option, i) =>
       <Option option={option}
         panel_index={@props.index}
@@ -28,6 +30,7 @@ Panel = React.createClass(
         index={i}
         multiple={@props.type == 0}
       />
+
     classes = 'wizard__panel'
     classes += ' active' if @props.panel.active
     advance = @props.advance || @advance
