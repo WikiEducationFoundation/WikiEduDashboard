@@ -14,14 +14,22 @@
       title: Don't include Wiki Essentials
       blurb: Would you like to exclude Wiki Essentials?
       description: This is more content about this option
+-
+  key: drafts
+  title: Drafts
+  description: Should your students write drafts before publishing?
+  type: 1
+  minimum: 1
+  options:
     -
-      title: Don't include Wiki Essentials
-      blurb: Would you like to exclude Wiki Essentials?
-      description: This is more content about this option
+      title: Write drafts
+      blurb: Have your students write drafts of their articles
+      description: Additional assignments will be generated instructing your students to write drafts of their work in user space
+      logic: drafts
     -
-      title: Don't include Wiki Essentials
-      blurb: Would you like to exclude Wiki Essentials?
-      description: This is more content about this option
+      title: Do not write drafts
+      blurb: Your students will write their articles directly into main space
+      description: No additional assignments will be generated
 -
   key: supplementary
   title: Supplementary Assignments

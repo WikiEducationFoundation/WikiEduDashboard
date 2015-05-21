@@ -28,7 +28,10 @@ class WizardController < ApplicationController
   # Wizard methods #
   ##################
   def wizard_params
-    params.permit(output: [])
+    params.permit(wizard_output: {
+                    output: [],
+                    logic: []
+                  })
   end
 
   def submit_wizard
@@ -37,7 +40,9 @@ class WizardController < ApplicationController
     # Get the content to be added as a result of the wizard answers
     content_path = "#{Rails.root}/config/wizard/content.yml"
     all_content = YAML.load(File.read(File.expand_path(content_path, __FILE__)))
-    content_groups = wizard_params['output'].map do |content_key|
+    output = wizard_params['wizard_output']['output'] || []
+    logic = wizard_params['wizard_output']['logic'] || []
+    content_groups = output.map do |content_key|
       all_content[content_key]
     end
 
@@ -74,9 +79,16 @@ class WizardController < ApplicationController
     timeline.each do |week|
       new_week = Week.create(course_id: @course.id)
       week[:blocks].each_with_index do |block, i|
+        # Skip blocks with unmet dependencies
+        no_deps = !block.key?('dependencies')
+        next unless no_deps || block['dependencies'].reduce(true) do |met, dep|
+          puts "#{logic} vs #{dep}"
+          met && logic.include?(dep)
+        end
+
         block['week_id'] = new_week.id
         block['order'] = i
-        Block.create(block)
+        Block.create(block.except('dependencies'))
       end
     end
 

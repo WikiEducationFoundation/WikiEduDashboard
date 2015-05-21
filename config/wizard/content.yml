@@ -21,7 +21,13 @@ essentials:
         content: Today's lecture will cover basic editing skills
         kind: 2
       -
-        title: First Edit
+        title: First edit draft
+        content: Copy a Wikipedia article into your user space and draft an edit
+        kind: 0
+        dependencies:
+          - draft
+      -
+        title: First edit
         content: Edit a Wikipedia article using your new skills
         kind: 0
   - # Week two
@@ -43,6 +49,12 @@ supplementary_publish:
   - # Week two
     weight: 5
     blocks:
+      -
+        title: Draft your article
+        content: Write a new article in your user space
+        kind: 0
+        dependencies:
+          - draft
       -
         title: Write your article
         content: Write the article for your chosen subject matter
@@ -67,6 +79,12 @@ supplementary_edit:
   - # Week two
     weight: 3
     blocks:
+      -
+        title: Edit draft
+        content: Copy your researched article Wikipedia article into your user space and draft an edit
+        kind: 0
+        dependencies:
+          - drafts
       -
         title: Edit your chosen article
         content: Publish an edit to the article you researched last week

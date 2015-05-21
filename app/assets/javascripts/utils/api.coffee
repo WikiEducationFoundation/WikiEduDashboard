@@ -119,7 +119,7 @@ API =
         url: '/courses/' + course_id + '/wizard',
         contentType: 'application/json',
         data: JSON.stringify
-          output: data
+          wizard_output: data
         success: (data) ->
           console.log 'Submitted the wizard answers!'
           res data

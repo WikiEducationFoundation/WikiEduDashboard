@@ -23,8 +23,6 @@ _panels = [{
   key: 'summary'
 }]
 
-_logic = {}
-
 # Utilities
 setIndex = (index) ->
   _panels[0].options = index
@@ -99,7 +97,6 @@ restore = ->
   _wizard_key = null
   setPanels([])
   _panels[0].options.forEach (option) -> option.selected = false
-  _logic = {}
   WizardStore.emitChange()
 
 # Store
@@ -118,10 +115,13 @@ WizardStore = Flux.createStore
     answers
   getOutput: ->
     output = []
+    logic = []
     _panels.forEach (panel) ->
       panel.options.forEach (option) ->
-        output.push option.output if option.selected
-    output
+        return unless option.selected
+        output.push option.output
+        logic.push option.logic
+    { output: output, logic: logic }
 
 , (payload) ->
   data = payload.data
