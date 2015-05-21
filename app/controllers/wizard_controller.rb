@@ -82,7 +82,6 @@ class WizardController < ApplicationController
         # Skip blocks with unmet dependencies
         no_deps = !block.key?('dependencies')
         next unless no_deps || block['dependencies'].reduce(true) do |met, dep|
-          puts "#{logic} vs #{dep}"
           met && logic.include?(dep)
         end
 
@@ -102,5 +101,4 @@ class WizardController < ApplicationController
       end
     end
   end
-
 end
