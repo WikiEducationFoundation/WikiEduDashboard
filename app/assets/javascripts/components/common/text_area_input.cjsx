@@ -13,21 +13,21 @@ TextAreaInput = React.createClass(
       if @props.hr
         <label><hr />{label}
           <textarea
-            rows='8'
+            rows={@props.rows || '8'}
             value={@state.value}
             onChange={@onChange}
             autoFocus={@props.focus}
-            placeholder={@props.label}
+            placeholder={@props.label || @props.placeholder}
           />
         </label>
       else
         <label>{label}
           <textarea
-            rows='8'
+            rows={@props.rows || '8'}
             value={@state.value}
             onChange={@onChange}
             autoFocus={@props.focus}
-            placeholder={@props.label}
+            placeholder={@props.label || @props.placeholder}
           />
         </label>
     else if @props.value

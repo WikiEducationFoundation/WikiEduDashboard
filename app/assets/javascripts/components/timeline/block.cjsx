@@ -53,7 +53,8 @@ Block = React.createClass(
       )
     style =
       top: 100 + @props.block.order * (220 + 10)
-    spacer = '  —  ' if (@props.block.kind < 3 || @props.editable)
+    if (@props.block.kind < 3 && !@props.editable)
+      spacer = <span>  —  </span>
 
     <li className={className} style={style}>
       <h4>
@@ -71,6 +72,7 @@ Block = React.createClass(
           value={@props.block.title}
           value_key={'title'}
           editable={@props.editable}
+          placeholder='Block title'
         />
         <TextInput
           onChange={@updateBlock}
@@ -88,9 +90,11 @@ Block = React.createClass(
       <TextAreaInput
         onChange={@updateBlock}
         value={@props.block.content}
-        value_key={'content'}
+        value_key='content'
         editable={@props.editable}
+        rows='2'
         hr=true
+        placeholder='Block description'
       />
     </li>
 )
