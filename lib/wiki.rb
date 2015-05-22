@@ -16,7 +16,7 @@ class Wiki
       next if content.nil?
       lines = content.split(/\n/)
       # Only integers can be valid ids.
-      integers = /(?<![-.])\b[0-9]+\b(?!\.[0-9])/
+      integers = /^[1-9][0-9]*$/
       raw_ids = lines.select { |id| integers.match(id) }
       raw_ids = raw_ids.map(&:to_i)
       response[cohort.slug] = raw_ids
