@@ -7,7 +7,15 @@ describe WikiEdits do
   end
 
   describe '.tokens' do
-    pending 'should fetch edit tokens for an OAuthed user'
+    it 'should get edit tokens using OAuth credentials' do
+      user = create(:user,
+                    wiki_token: 'foo',
+                    wiki_secret: 'bar')
+
+      fake_tokens = "{\"query\":{\"tokens\":{\"csrftoken\":\"myfaketoken+\\\\\"}}}"
+      stub_request(:get, /.*/).to_return(:status => 200, :body => fake_tokens, :headers => {})
+      response = WikiEdits.tokens(user)
+    end
   end
 
   describe '.api_get' do
