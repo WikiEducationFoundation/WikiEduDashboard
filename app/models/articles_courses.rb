@@ -48,7 +48,7 @@ class ArticlesCourses < ActiveRecord::Base
   end
 
   def self.update_from_revisions(revisions=nil)
-    revisions = Revision.all if revisions.blank?
+    revisions ||= Revision.all
     ActiveRecord::Base.transaction do
       revisions.joins(:article)
         .where(articles: { namespace: '0' }).each do |r|

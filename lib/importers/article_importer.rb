@@ -1,129 +1,14 @@
-require "#{Rails.root}/lib/grok"
 require "#{Rails.root}/lib/replica"
-require "#{Rails.root}/lib/wiki"
 
 #= Imports and updates articles from Wikipedia into the dashboard database
 class ArticleImporter
   ################
   # Entry points #
   ################
-  def self.update_all_views(all_time=false)
-    articles = Article.current
-               .where(articles: { namespace: 0 })
-               .find_in_batches(batch_size: 30)
-    update_views(articles, all_time)
-  end
-
-  def self.update_new_views
-    articles = Article.current
-               .where(articles: { namespace: 0 })
-               .where('views_updated_at IS NULL')
-               .find_in_batches(batch_size: 30)
-    update_views(articles, true)
-  end
-
-  def self.update_all_ratings
-    articles = Article.current.live
-               .namespace(0)
-               .find_in_batches(batch_size: 30)
-    update_ratings(articles)
-  end
-
-  def self.update_new_ratings
-    articles = Article.current
-               .where(rating_updated_at: nil).namespace(0)
-               .find_in_batches(batch_size: 30)
-    update_ratings(articles)
-  end
-
-  def self.views_for_article(title, since)
-    Grok.views_for_article title, since
-  end
-
-  def self.remove_bad_articles_courses
-    non_student_cus = CoursesUsers.where(role: [1, 2, 3, 4])
-    non_student_cus.each do |nscu|
-      remove_bad_articles_courses_for_course_user nscu
-    end
-  end
-
-  def self.remove_bad_articles_courses_for_course_user(course_user)
-    course = course_user.course
-    user_id = course_user.user_id
-    # Check if the non-student user is also a student in the same course.
-    return unless CoursesUsers.where(
-      role: 0,
-      course_id: course.id,
-      user_id: user_id
-    ).empty?
-
-    user_articles = course_user.user.revisions
-                    .where('date >= ?', course.start)
-                    .where('date <= ?', course.end)
-                    .pluck(:article_id)
-
-    return if user_articles.empty?
-
-    course_articles = course.articles.pluck(:id)
-    possible_deletions = course_articles & user_articles
-
-    to_delete = []
-    possible_deletions.each do |pd|
-      other_editors = Article.find(pd).editors - [user_id]
-      course_editors = course.students & other_editors
-      to_delete.push pd if other_editors.empty? || course_editors.empty?
-    end
-
-    # remove orphaned articles from the course
-    course.articles.delete(Article.find(to_delete))
-    Rails.logger.info(
-      "Deleted #{to_delete.size} ArticlesCourses from #{course.title}"
-    )
-    # update course cache to account for removed articles
-    course.update_cache unless to_delete.empty?
-  end
 
   ##############
   # API Access #
   ##############
-  def self.update_views(articles, all_time=false)
-    require './lib/grok'
-    views, vua = {}, {}
-    articles.with_index do |group, _batch|
-      threads = group.each_with_index.map do |a, i|
-        start = a.courses.order(:start).first.start.to_date
-        Thread.new(i) do
-          vua[a.id] = a.views_updated_at || start
-          if vua[a.id] < Date.today
-            since = all_time ? start : vua[a.id] + 1.day
-            views[a.id] = self.views_for_article(a.title, since)
-          end
-        end
-      end
-      threads.each(&:join)
-      group.each do |a|
-        a.views_updated_at = vua[a.id]
-        a.update_views(all_time, views[a.id])
-      end
-      views, vua = {}, {}
-    end
-  end
-
-  def self.update_ratings(articles)
-    articles.with_index do |group, _batch|
-      ratings = Wiki.get_article_rating(group.map(&:title)).inject(&:merge)
-      next if ratings.blank?
-      threads = group.each_with_index.map do |a, i|
-        Thread.new(i) do
-          a.rating = ratings[a.title]
-          a.rating_updated_at = Time.now
-        end
-      end
-      threads.each(&:join)
-      group.each(&:save)
-    end
-  end
-
   # Queries deleted state and namespace for all articles
   def self.update_article_status(articles=nil)
     # TODO: Narrow this down even more. Current courses, maybe?

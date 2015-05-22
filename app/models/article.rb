@@ -1,4 +1,5 @@
 require "#{Rails.root}/lib/utils"
+require "#{Rails.root}/lib/importers/view_importer"
 require "#{Rails.root}/lib/importers/article_importer"
 
 #= Article model
@@ -30,32 +31,6 @@ class Article < ActiveRecord::Base
       self.views = 0
     end
     self.save if save
-  end
-
-  def update_views(all_time=false, views=nil)
-    return unless views_updated_at < Date.today
-
-    since = views_updated_at + 1.day
-    since = courses.order(:start).first.start.to_date if all_time
-
-    # Update views on all revisions and the article
-    nv = views || ArticleImporter.views_for_article(title, since)
-
-    last = since
-    ActiveRecord::Base.transaction do
-      revisions.each do |r|
-        r.views = all_time ? 0 : r.views
-        r.views += nv.reduce(0) do |sum, (d, v)|
-          sum + (d.to_date >= r.date ? v : 0)
-        end
-        r.save
-      end
-      last = nv.sort_by { |(d)| d }.last.first.to_date unless nv.empty?
-    end
-
-    self.views_updated_at = last.nil? ? views_updated_at : last
-    self.views = revisions.order('date ASC').first.views
-    save
   end
 
   #################

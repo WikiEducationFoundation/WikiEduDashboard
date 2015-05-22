@@ -1,5 +1,6 @@
 require 'rails_helper'
 require "#{Rails.root}/lib/importers/article_importer"
+require "#{Rails.root}/lib/cleaners"
 
 describe ArticlesCourses, type: :model do
   describe '.update_all_caches' do
@@ -90,7 +91,7 @@ describe ArticlesCourses, type: :model do
              course_id: 1,
              article_id: 1)
 
-      ArticleImporter.remove_bad_articles_courses
+      Cleaners.remove_bad_articles_courses
       expect(ArticlesCourses.all.count).to eq(0)
     end
   end

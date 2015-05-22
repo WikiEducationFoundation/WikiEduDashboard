@@ -1,5 +1,6 @@
 require 'rails_helper'
 require "#{Rails.root}/lib/importers/revision_importer"
+require "#{Rails.root}/lib/cleaners"
 
 describe RevisionImporter do
   describe '.repair_orphan_revisions' do
@@ -33,7 +34,7 @@ describe RevisionImporter do
 
       # Now ArticlesCourses.update_all_caches will break until the revisions
       # are de-orphaned (issue #93). So let's try to de-orphan them.
-      RevisionImporter.repair_orphan_revisions
+      Cleaners.repair_orphan_revisions
       ArticlesCourses.update_from_revisions
       ArticlesCourses.update_all_caches
     end

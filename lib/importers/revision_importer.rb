@@ -1,36 +1,13 @@
 require "#{Rails.root}/lib/replica"
 require "#{Rails.root}/lib/importers/article_importer"
+require "#{Rails.root}/lib/importers/assignment_importer"
 
 #= Imports and updates revisions from Wikipedia into the dashboard database
 class RevisionImporter
   ################
   # Entry points #
   ################
-  def self.repair_orphan_revisions
-    article_ids = Article.all.pluck(:id)
-    orphan_revisions = Revision.where
-                       .not(article_id: article_ids)
-                       .order('date ASC')
 
-    Rails.logger.info "Found #{orphan_revisions.count} orphan revisions"
-    return if orphan_revisions.blank?
-
-    start = orphan_revisions.first.date - 1.day
-    start = start.strftime('%Y%m%d')
-    end_date = orphan_revisions.last.date + 1.day
-    end_date = end_date.strftime('%Y%m%d')
-
-    user_ids = orphan_revisions.pluck(:user_id).uniq
-    users = User.where(id: user_ids)
-
-    revision_data = get_revisions(users, start, end_date)
-    import_revisions(revision_data)
-
-    revs = get_revisions_from_import_data(revision_data)
-    Rails.logger.info "Imported articles for #{revs.count} revisions"
-
-    ArticlesCourses.update_from_revisions revs unless revs.blank?
-  end
   ##############
   # API Access #
   ##############
@@ -78,6 +55,7 @@ class RevisionImporter
       Replica.get_revisions block, start, end_date
     end
   end
+
   ###########
   # Helpers #
   ###########
@@ -92,7 +70,7 @@ class RevisionImporter
     # Some Assignments are for article titles that don't exist initially.
     # Some newly added Articles may correspond to those Assignments, in which
     # case the article_ids should be added.
-    update_assignment_article_ids
+    AssignmentImporter.update_assignment_article_ids
   end
 
   def self.get_revisions_from_import_data(data)
@@ -121,17 +99,5 @@ class RevisionImporter
     Article.import articles
     ArticleImporter.resolve_duplicate_articles(articles)
     Revision.import revisions
-  end
-
-  # Update article ids for Assignments that lack them, if an Article with the
-  # same title exists in mainspace.
-  def self.update_assignment_article_ids
-    ActiveRecord::Base.transaction do
-      Assignment.where(article_id: nil).each do |ass|
-        article = Article.where(namespace: 0).find_by(title: ass.article_title)
-        ass.article_id = article.nil? ? nil : article.id
-        ass.save
-      end
-    end
   end
 end

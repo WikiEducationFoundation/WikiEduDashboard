@@ -1,5 +1,6 @@
 require 'rails_helper'
 require "#{Rails.root}/lib/importers/article_importer"
+require "#{Rails.root}/lib/importers/rating_importer"
 
 describe ArticleImporter do
   describe '.update_ratings' do
@@ -17,7 +18,7 @@ describe ArticleImporter do
              rating: 'fa')
 
       article = Article.all.find_in_batches(batch_size: 30)
-      ArticleImporter.update_ratings(article)
+      RatingImporter.update_ratings(article)
       expect(Article.first.rating).to eq('fa')
     end
   end
@@ -41,7 +42,7 @@ describe ArticleImporter do
 
         # .update_ratings has a different flow for one rating vs. several,
         # so first we run an update with just one article.
-        ArticleImporter.update_new_ratings
+        RatingImporter.update_new_ratings
 
         expect(possible_ratings).to include Article.find(1).rating
 
@@ -50,7 +51,7 @@ describe ArticleImporter do
                           title: 'A Clash of Kings',
                           namespace: 0)
         course.articles << article2
-        ArticleImporter.update_all_ratings
+        RatingImporter.update_all_ratings
         expect(possible_ratings).to include Article.find(2).rating
       end
     end

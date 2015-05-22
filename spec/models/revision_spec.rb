@@ -100,7 +100,7 @@ describe Revision do
              title: 'Bar',
              namespace: 2)
       expect(Assignment.where.not(article_id: nil).count).to eq(0)
-      RevisionImporter.update_assignment_article_ids
+      AssignmentImporter.update_assignment_article_ids
       expect(Assignment.where.not(article_id: nil).count).to eq(1)
     end
   end

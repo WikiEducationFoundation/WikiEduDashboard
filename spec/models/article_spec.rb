@@ -1,5 +1,6 @@
 require 'rails_helper'
 require "#{Rails.root}/lib/importers/article_importer"
+require "#{Rails.root}/lib/importers/view_importer"
 
 describe Article do
   describe '#update' do
@@ -39,7 +40,7 @@ describe Article do
         # Add a revision so that update_views has something to run on.
         build(:revision,
               article_id: 1).save
-        article.update_views
+        ViewImporter.update_views_for_article article
         expect(article.views).to be > 0
       end
     end
@@ -68,7 +69,7 @@ describe Article do
     it 'should get view data for all articles' do
       VCR.use_cassette 'article/update_all_views' do
         # Try it with no articles.
-        ArticleImporter.update_all_views
+        ViewImporter.update_all_views
 
         # Add an article
         build(:article,
@@ -89,7 +90,7 @@ describe Article do
               article_id: 1).save
 
         # Update again with this article.
-        ArticleImporter.update_all_views
+        ViewImporter.update_all_views
       end
     end
   end
@@ -98,7 +99,7 @@ describe Article do
     it 'should get view data for new articles' do
       VCR.use_cassette 'article/update_new_views' do
         # Try it with no articles.
-        ArticleImporter.update_new_views
+        ViewImporter.update_new_views
 
         # Add an article.
         build(:article,
@@ -118,7 +119,7 @@ describe Article do
               article_id: 1).save
 
         # Update again with this article.
-        ArticleImporter.update_new_views
+        ViewImporter.update_new_views
       end
     end
   end
