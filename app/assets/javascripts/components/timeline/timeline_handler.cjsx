@@ -1,7 +1,8 @@
-React             = require 'react'
+React             = require 'react/addons'
 Router            = require 'react-router'
 Link              = Router.Link
 RouteHandler      = Router.RouteHandler
+TransitionGroup   = require '../../utils/TransitionGroup'
 
 Timeline          = require './timeline'
 Grading           = require './grading'
@@ -12,7 +13,14 @@ TimelineHandler = React.createClass(
   displayName: 'TimelineHandler'
   render: ->
     <div>
-      <RouteHandler />
+      <TransitionGroup
+        transitionName="wizard"
+        component='div'
+        enterTimeout={500}
+        leaveTimeout={500}
+      >
+        <RouteHandler key={Date.now()} />
+      </TransitionGroup>
       <Timeline {...@props} />
       <Grading {...@props} />
     </div>

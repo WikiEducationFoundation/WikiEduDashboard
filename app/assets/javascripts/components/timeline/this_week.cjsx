@@ -1,6 +1,10 @@
 React           = require 'react'
 Week            = require './week'
 
+RDnD            = require 'react-dnd'
+HTML5Backend    = require 'react-dnd/modules/backends/HTML5'
+DDContext       = RDnD.DragDropContext
+
 CourseStore     = require '../../stores/course_store'
 WeekStore       = require '../../stores/week_store'
 BlockStore      = require '../../stores/block_store'
@@ -50,4 +54,4 @@ ThisWeek = React.createClass(
     </div>
 )
 
-module.exports = ThisWeek
+module.exports = DDContext(HTML5Backend)(ThisWeek)

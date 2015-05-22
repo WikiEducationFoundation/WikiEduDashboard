@@ -1,17 +1,24 @@
+.wizard-enter
+  opacity 0.01
+  transition opacity .2s ease-in-out
+  &.wizard-enter-active
+    opacity 1
+.wizard-leave
+  opacity 1
+  transition opacity .2s ease-in-out
+  &.wizard-leave-active
+    opacity 0.01
+
 .wizard
   background-color rgba(smoke, .95)
   bottom 0
   left 0
-  opacity 0
   padding-top 80px
   position fixed
   right 0
   text-align center
   top 0
-  transition opacity .2s ease-in-out
   z-index 1
-  &.active
-    opacity 1
   &:before
     content ''
     display inline-block
@@ -42,10 +49,13 @@
         padding 0
     .wizard__form
       height 80%
+      margin-top 20px
       .column
         col(1/2)
       p
         text-align left
+      textarea
+        height 189px
       input, textarea
         margin-bottom 10px
         width 100%
@@ -156,3 +166,5 @@
           display inline-block
         p.red
           color burnt
+  .section-header
+    margin-bottom 10px

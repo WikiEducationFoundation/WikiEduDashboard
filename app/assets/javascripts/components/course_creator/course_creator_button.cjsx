@@ -1,8 +1,8 @@
-React         = require 'react/addons'
-Router        = require 'react-router'
-Link          = Router.Link
-RouteHandler  = Router.RouteHandler
-RCSSTGroup    = React.addons.CSSTransitionGroup
+React           = require 'react'
+Router          = require 'react-router'
+Link            = Router.Link
+RouteHandler    = Router.RouteHandler
+TransitionGroup = require '../../utils/TransitionGroup'
 
 CourseCreatorButton = React.createClass(
   displayName: 'CourseCreatorButton'
@@ -12,7 +12,14 @@ CourseCreatorButton = React.createClass(
         to="course_creator"
         className="button large dark"
       >Create New Course</Link>
-      <RouteHandler />
+      <TransitionGroup
+        transitionName="wizard"
+        component='div'
+        enterTimeout={500}
+        leaveTimeout={500}
+      >
+        <RouteHandler key={Date.now()} />
+      </TransitionGroup>
     </div>
 )
 

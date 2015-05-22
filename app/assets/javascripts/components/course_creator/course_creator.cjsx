@@ -33,12 +33,8 @@ CourseCreator = React.createClass(
   render: ->
     <Modal>
       <div className="wizard__panel active">
-        <div className="section-header">
-          <h3>Create a New Course</h3>
-          <div className="controls">
-            <Link className="button dark" to="/">Close</Link>
-          </div>
-        </div>
+        <h3>Create a New Course</h3>
+        <p>Lorem ipsum Ut Duis sint nisi consectetur esse voluptate tempor sit cillum eiusmod et ad fugiat veniam officia irure nisi dolor ad minim sed mollit in officia dolore sint esse sed veniam eiusmod aute esse labore reprehenderit sint.</p>
         <div className='wizard__form'>
           <div className='column'>
             <TextInput
@@ -49,13 +45,6 @@ CourseCreator = React.createClass(
               editable=true
               label='Course title'
             />
-            <TextAreaInput
-              onChange={@updateCourse}
-              value={@state.course.description}
-              value_key='description'
-              editable=true
-              label='Course description'
-            />
             <TextInput
               onChange={@updateCourse}
               value={@state.course.school}
@@ -63,8 +52,6 @@ CourseCreator = React.createClass(
               editable=true
               label='Course school'
             />
-          </div>
-          <div className='column'>
             <TextInput
               onChange={@updateCourse}
               value={@state.course.term}
@@ -87,6 +74,15 @@ CourseCreator = React.createClass(
               type='number'
               label='Expected number of students'
             />
+          </div>
+          <div className='column'>
+            <TextAreaInput
+              onChange={@updateCourse}
+              value={@state.course.description}
+              value_key='description'
+              editable=true
+              label='Course description'
+            />
             <TextInput
               onChange={@updateCourse}
               value={@state.course.start}
@@ -105,7 +101,13 @@ CourseCreator = React.createClass(
             />
           </div>
         </div>
-        <div className="button dark large" onClick={@saveCourse}>Create my Course!</div>
+        <div className='wizard__panel__controls'>
+          <div className='left'></div>
+          <div className='right'>
+            <Link className="button" to="/">Cancel</Link>
+            <div className="button dark" onClick={@saveCourse}>Create my Course!</div>
+          </div>
+        </div>
       </div>
     </Modal>
 )
