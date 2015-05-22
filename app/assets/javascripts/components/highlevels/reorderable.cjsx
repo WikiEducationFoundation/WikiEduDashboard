@@ -25,9 +25,12 @@ module.exports = (Component, Type, MoveFunction) ->
   Reorderable = React.createClass(
     displayName: 'Reorderable'
     render: ->
-      _.flow(@props.connectDragSource, @props.connectDropTarget)(
+      if @props.editable
+        _.flow(@props.connectDragSource, @props.connectDropTarget)(
+          <Component {...@props} />
+        )
+      else
         <Component {...@props} />
-      )
   )
 
   _.flow(
