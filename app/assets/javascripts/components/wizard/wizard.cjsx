@@ -9,6 +9,7 @@ WizardActions = require '../../actions/wizard_actions'
 ServerActions = require '../../actions/server_actions'
 WizardStore   = require '../../stores/wizard_store'
 HandlerInterface  = require '../highlevels/handler'
+TransitionGroup   = require '../../utils/TransitionGroup'
 
 getState = ->
   panels: WizardStore.getPanels()
@@ -48,7 +49,14 @@ Wizard = React.createClass(
           transitionTo={@props.transitionTo}
         />
     <Modal>
-      {panels}
+      <TransitionGroup
+        transitionName="wizard__panel"
+        component='div'
+        enterTimeout={500}
+        leaveTimeout={500}
+      >
+        {panels}
+      </TransitionGroup>
     </Modal>
 )
 

@@ -1,3 +1,5 @@
+panel_speed = .4s
+
 .wizard-enter
   opacity 0.01
   transition opacity .2s ease-in-out
@@ -9,6 +11,10 @@
   &.wizard-leave-active
     opacity 0.01
 
+.wizard__panel-enter
+  left 150% !important
+  transition left panel_speed ease-in-out
+
 .wizard
   background-color rgba(smoke, .95)
   bottom 0
@@ -19,26 +25,27 @@
   text-align center
   top 0
   z-index 1
-  &:before
-    content ''
-    display inline-block
-    height 100%
-    vertical-align middle
-    margin-right -0.25em
   .wizard__panel
     background-color white
     box-shadow 0 0 15px 0 rgba(0, 0, 0, .2)
-    display none
+    left -150%
     max-height 100%
     max-width 860px
     min-height 600px
-    // overflow-y scroll
+    opacity 0
     padding 20px 20px 81px
-    position relative
+    position absolute
+    top 50%
+    transform translateX(-50%) translateY(-50%)
+    transition left panel_speed ease-in-out, opacity .01s ease panel_speed
     vertical-align middle
     width 100%
     &.active
-      display inline-block
+      left 50%
+      opacity 1
+      transition left panel_speed ease-in-out, opacity .01s
+    &.active ~ .wizard__panel
+      left 150%
     > h3
       font-weight 300
     p

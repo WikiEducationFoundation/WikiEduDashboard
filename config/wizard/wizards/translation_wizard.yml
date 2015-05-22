@@ -1,0 +1,16 @@
+-
+  key: essentials
+  title: Wikipedia Essentials
+  description: Learn how to use Wikipedia!
+  type: 1  # Single choice
+  minimum: 1
+  options:
+    -
+      title: Include Wiki Essentials
+      blurb: Would you like to include Wiki Essentials?
+      description: This is more content about this option
+      output: essentials
+    -
+      title: Don't include Wiki Essentials
+      blurb: Would you like to exclude Wiki Essentials?
+      description: This is more content about this option
