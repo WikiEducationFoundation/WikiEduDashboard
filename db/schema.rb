@@ -48,17 +48,6 @@ ActiveRecord::Schema.define(version: 20150519192813) do
 
   add_index "assignments", ["course_id", "user_id", "article_title"], name: "by_course_user_and_article", unique: true, using: :btree
 
-  create_table "blocks", force: true do |t|
-    t.integer  "kind"
-    t.string   "content"
-    t.integer  "weekday"
-    t.integer  "week_id"
-    t.integer  "gradeable_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "title"
-  end
-
   create_table "cohorts", force: true do |t|
     t.string   "title"
     t.string   "slug"
@@ -91,22 +80,14 @@ ActiveRecord::Schema.define(version: 20150519192813) do
     t.date     "end"
     t.string   "school"
     t.string   "term"
-    t.integer  "character_sum",               default: 0
-    t.integer  "view_sum",          limit: 8, default: 0
-    t.integer  "user_count",                  default: 0
-    t.integer  "article_count",               default: 0
-    t.integer  "revision_count",              default: 0
+    t.integer  "character_sum",             default: 0
+    t.integer  "view_sum",        limit: 8, default: 0
+    t.integer  "user_count",                default: 0
+    t.integer  "article_count",             default: 0
+    t.integer  "revision_count",            default: 0
     t.string   "slug"
-    t.boolean  "listed",                      default: false
-    t.integer  "untrained_count",             default: 0
-    t.string   "meeting_days"
-    t.string   "signup_token"
-    t.boolean  "published",                   default: false
-    t.boolean  "approved",                    default: false
-    t.string   "assignment_source"
-    t.string   "subject"
-    t.integer  "expected_students"
-    t.string   "description"
+    t.boolean  "listed"
+    t.integer  "untrained_count",           default: 0
   end
 
   add_index "courses", ["slug"], name: "index_courses_on_slug", using: :btree
@@ -121,15 +102,6 @@ ActiveRecord::Schema.define(version: 20150519192813) do
     t.integer  "revision_count",         default: 0
     t.string   "assigned_article_title"
     t.integer  "role",                   default: 0
-  end
-
-  create_table "gradeables", force: true do |t|
-    t.string   "title"
-    t.integer  "points"
-    t.integer  "gradeable_item_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "gradeable_item_type"
   end
 
   create_table "revisions", force: true do |t|
@@ -160,14 +132,6 @@ ActiveRecord::Schema.define(version: 20150519192813) do
     t.string   "wiki_token"
     t.string   "wiki_secret"
     t.integer  "permissions",                   default: 0
-  end
-
-  create_table "weeks", force: true do |t|
-    t.string   "title"
-    t.date     "start"
-    t.integer  "course_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
 end
