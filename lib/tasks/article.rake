@@ -1,5 +1,6 @@
 require "#{Rails.root}/lib/importers/article_importer"
 require "#{Rails.root}/lib/importers/view_importer"
+require "#{Rails.root}/lib/importers/rating_importer"
 require "#{Rails.root}/lib/cleaners"
 
 namespace :article do
@@ -24,13 +25,13 @@ namespace :article do
   desc 'Update ratings for all articles'
   task update_all_ratings: 'batch:setup_logger' do
     Rails.logger.debug 'Updating ratings for all articles'
-    ArticleImporter.update_all_ratings
+    RatingImporter.update_all_ratings
   end
 
   desc 'Update ratings for new articles'
   task update_new_ratings: 'batch:setup_logger' do
     Rails.logger.debug 'Updating ratings for new articles'
-    ArticleImporter.update_new_ratings
+    RatingImporter.update_new_ratings
   end
 
   desc 'Update deleted status for all articles'
