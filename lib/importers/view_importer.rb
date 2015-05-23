@@ -65,7 +65,9 @@ class ViewImporter
     last = since
     last = views.sort_by { |(d)| d }.last.first.to_date unless views.empty?
     article.views_updated_at = last.nil? ? article.views_updated_at : last
-    article.views = article.revisions.order('date ASC').first.views
+    if article.revisions.count > 0
+      article.views = article.revisions.order('date ASC').first.views
+    end
     article.save
   end
 
