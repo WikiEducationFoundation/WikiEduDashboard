@@ -18,22 +18,6 @@ class CoursesController < ApplicationController
     @trained = @courses.sum(:user_count) - @courses.sum(:untrained_count)
   end
 
-  def show
-    @course = Course.where(listed: true).find_by_slug(params[:id])
-    raise ActionController::RoutingError.new('Not Found') if @course.nil?
-
-    users = @course.users
-    @students = users.role('student').order(character_sum: :desc).limit(4)
-    @volunteers = users.role('online_volunteer') + users.role('campus_volunteer')
-    @courses_users = @course.courses_users
-    @articles = @course.articles.order(:title).limit(4)
-  end
-
-  def recent
-    @course = Course.where(listed: true).find_by_slug(params[:id])
-    @revisions = @course.revisions.order(date: :desc).limit(20)
-  end
-
   def students
     @course = Course.where(listed: true).find_by_slug(params[:id])
     raise ActionController::RoutingError.new('Not Found') if @course.nil?
