@@ -54,6 +54,7 @@
     "react-router": "^0.13.2",
     "gulp-browserify": "^0.5.1",
     "mcfly": "0.0.10",
-    "react-dnd": "^1.0.0"
+    "react-dnd": "^1.0.0",
+    "marked": "^0.3.3"
   }
 }

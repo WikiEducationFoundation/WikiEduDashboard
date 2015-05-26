@@ -1,5 +1,6 @@
-React = require 'react'
-InputMixin = require '../../mixins/input_mixin'
+React       = require 'react'
+Marked      = require 'marked'
+InputMixin  = require '../../mixins/input_mixin'
 
 TextAreaInput = React.createClass(
   displayName: 'TextAreaInput'
@@ -31,8 +32,7 @@ TextAreaInput = React.createClass(
           />
         </label>
     else if @props.value
-      inner_html = @props.value.replace(/(?:\r\n|\r|\n)/g, '<br>')
-      <p className="content"><span dangerouslySetInnerHTML={{__html: inner_html}}></span></p>
+      <div dangerouslySetInnerHTML={{__html: Marked(@props.value)}}></div>
     else
       <p className="content"></p>
 )

@@ -1,4 +1,5 @@
 React         = require 'react/addons'
+Marked        = require 'marked'
 WizardActions = require '../../actions/wizard_actions'
 WizardStore   = require '../../stores/wizard_store'
 
@@ -38,7 +39,7 @@ Panel = React.createClass(
         </p>
       </div>
       <h3>{@props.panel.title}</h3>
-      <p>{@props.panel.description}</p>
+      <div dangerouslySetInnerHTML={{__html: Marked(@props.panel.description)}}></div>
       <div className='wizard__panel__options'>{options}</div>
       <div className='wizard__panel__controls'>
         <div className='left'>
