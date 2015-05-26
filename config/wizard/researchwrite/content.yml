@@ -2,9 +2,9 @@
 # blocks nearer the bottom when placed into a course's timeline
 
 # Block kind
-# 0. Assignment
-# 1. Milestone
-# 2. Class
+# 0. In class
+# 1. Assignment
+# 2. Milestone
 # 3. Custom
 
 # Week weight
@@ -17,75 +17,110 @@ essentials:
     weight: 3
     blocks:
       -
-        title: Editing Wikipedia
-        content: Today's lecture will cover basic editing skills
-        kind: 2
-      -
-        title: First edit draft
-        content: Copy a Wikipedia article into your user space and draft an edit
-        kind: 0
-        dependencies:
-          - draft
-      -
-        title: First edit
-        content: Edit a Wikipedia article using your new skills
-        kind: 0
-  - # Week two
-    weight: 1
-    blocks:
-      -
-        title: Advanced Wikipedia editing
-        content: Today's lecture will cover revising other editors' work
-        kind: 2
-
-supplementary_publish:
-  - # Week one
-    weight: 1
-    blocks:
-      -
-        title: Choose a subject for your new article
-        content: Choose a subject to research from which you can publish a new article
-        kind: 0
-  - # Week two
-    weight: 5
-    blocks:
-      -
-        title: Draft your article
-        content: Write a new article in your user space
-        kind: 0
-        dependencies:
-          - draft
-      -
-        title: Write your article
-        content: Write the article for your chosen subject matter
-        kind: 0
-  - # Week three
-    weight: 2
-    blocks:
-      -
-        title: Publish your article
-        content: Publish the article that you wrote last week and make any needed edits
-        kind: 0
-
-supplementary_edit:
-  - # Week one
-    weight: 1
-    blocks:
-      -
-        title: Choose an article to research
-        content: Choose an article to research for the purposes of editing
-        kind: 0
+        title: Wikipedia essentials
+        content: |
+          * Overview of the course
+          * Introduction to how Wikipedia will be used in the course
+          * Understanding Wikipedia as a community, we'll discuss its expectations and etiquette.
+        # resources: Handout: LINK_TO_Editing_Wikipedia
         kind: 0
   - # Week two
     weight: 3
     blocks:
       -
-        title: Edit draft
-        content: Copy your researched article Wikipedia article into your user space and draft an edit
+        title: Editing basics
+        content: |
+          * Basics of editing
+          * Anatomy of Wikipedia articles, what makes a good article, how to distinguish between good and bad articles
+          * Collaborating and engaging with the Wiki editing community
+          * Tips on finding the best articles to work on for class assignments
+          # resources: Handouts: LINK_TO_Using_Talk_Pages and LINK_TO_Evaluating_Wikipedia
         kind: 0
-        dependencies:
-          - drafts
+
       -
-        title: Edit your chosen article
-        content: Publish an edit to the article you researched last week
+        title: Assignments: Practicing the basics
+        content: |
+          * Create an account and then complete the online training for students. During this training, you will make edits in a sandbox and learn the basic rules of Wikipedia.
+          * Create a User page.
+          * To practice editing and communicating on Wikipedia, introduce yourself on the user talk page of one of your classmates, who should also be enrolled in the table at the bottom of the page.
+          * Explore topics related to your topic area to get a feel for how Wikipedia is organized. What areas seem to be missing? As you explore, make a mental note of articles that seem like good candidates for improvement.
+        # resources: ONLINE TRAINING FOR STUDENTS
+        kind: 1
+
+      -
+        title: Milestones
+        content: |
+          All students have Wikipedia user accounts and are listed on the course page.
+        kind: 2
+
+  - # Week three
+    weight: 3
+    blocks:
+      -
+        title: Exploring the topic area
+        content: Be prepared to discuss some of your observations about Wikipedia articles your topic area that are missing or could use improvement.
+        # resources: CHOOSING AN ARTICLE
         kind: 0
+      -
+        title: Assignment: Evaluate an article
+        content: |
+          Review pages 4-7 of the Evaluating Wikipedia brochure. This will give you a good, brief overview of what to look for in other articles, and what other people will look for in your own.
+
+          Evaluate an existing Wikipedia article related to the class, and leave suggestions for improving it on the article's talk page.
+
+          A few questions to consider (don't feel limited to these):
+            * Is each fact referenced with an appropriate, reliable reference?
+            * Is everything in the article relevant to the article topic? Is there anything that distracted you?
+            * Is the article neutral? Are there any claims, or frames, that appear heavily biased toward a particular position?
+            * Where does the information come from? Are these neutral sources? If biased, is that bias noted?
+            * Are there viewpoints that are overrepresented, or underrepresented?
+            * Check a few citations. Do the links work? Is there any close paraphrasing or plagiarism in the article?
+            * Is any information out of date? Is anything missing that could be added?
+        kind: 1
+        dependencies:
+          - evaluate
+      -
+        title: Assignment: Copyedit an article
+        content: Choose one article, identify ways in which you can improve and correct its language and grammar, and make the appropriate changes. (You do not need to alter the article's content.)
+        kind: 1
+        dependencies:
+          - copyedit
+  - # Week four
+    weight: 2
+    blocks:
+      -
+        title: Using sources
+        content: Be prepared to explain close paraphrasing, plagiarism, and copyright violations on Wikipedia.
+        # resources: CITING_SOURCES and AVOIDING_PLAGIARISM
+        kind: 0
+      -
+        title: Assignment: Add to an article
+        content: Add 1–2 sentences of new information, backed up with a citation to an appropriate source, to a Wikipedia article related to the class.
+        kind: 1
+        dependencies:
+          - add_to_article
+      -
+        title: Assignment: Illustrate an article
+        content: |
+          Identify an article that would benefit from illustration, create or find an appropriate photo, illustration, or audio/video, and add it to the article.
+
+          All media uploaded to Wikipedia must fall under a "free license," which means they can be used or shared by anyone. Examples of media you can use are photos that you take yourself, images and text in the public domain, and works created by someone else who has given permission for their work to be used by others. For more information about which types of media can be uploaded to Wikipedia, see Commons:Help desk.
+
+          To add a media file to an article, you must first upload it to Wikimedia Commons. For instructions on how to upload files to Commons, refer to Illustrating Wikipedia. This brochure will also provide you with detailed information about which files are acceptable to upload to Wikipedia and the value of contributing media to Wikipedia articles.
+        kind: 1
+        dependencies:
+          - illustrate
+
+      -
+        title: Assignment: List article choices
+        content: Research and list 3–5 articles on your Wikipedia user page that you will consider working on as your main project. Look at the talk page for existing topics for a sense of who else is working on it and what they're doing. Describe your choices to your instructor for feedback.
+        kind: 1
+        dependencies:
+          - explore_to_find_articles
+
+      -
+        title: Assignment: Choose your article
+        content: Your instructor has created a list of potential topics for your main project. Choose the one you will work on.
+        kind: 1
+        dependencies:
+          - choose_article_from_list
