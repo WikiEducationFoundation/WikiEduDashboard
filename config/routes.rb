@@ -54,7 +54,7 @@ Rails.application.routes.draw do
 
   get 'wizards' => 'wizard#get_wizard_index'
   get 'wizards/:wizard_id' => 'wizard#get_wizard'
-  post 'courses/:course_id/wizard' => 'wizard#submit_wizard',
+  post 'courses/:course_id/wizard/:wizard_id' => 'wizard#submit_wizard',
        constraints: { course_id: /.*/ }
 
   get 'courses' => 'courses#index'

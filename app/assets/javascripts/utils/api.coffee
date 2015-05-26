@@ -112,11 +112,11 @@ API =
           console.log 'Couldn\'t save course! ' + e
           rej e
 
-  submitWizard: (course_id, data) ->
+  submitWizard: (course_id, wizard_id, data) ->
     new Promise (res, rej) ->
       $.ajax
         type: 'POST',
-        url: '/courses/' + course_id + '/wizard',
+        url: '/courses/' + course_id + '/wizard/' + wizard_id,
         contentType: 'application/json',
         data: JSON.stringify
           wizard_output: data

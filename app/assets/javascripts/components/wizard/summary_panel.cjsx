@@ -8,7 +8,7 @@ Panel         = require './panel'
 SummaryPanel = React.createClass(
   displayName: 'SummaryPanel'
   submit: ->
-    ServerActions.submitWizard WizardStore.getOutput(), @props.courseId
+    ServerActions.submitWizard WizardStore.getOutput(), @props.courseId, @props.wizardId
     @props.transitionTo 'timeline'
   rewind: (to_index) ->
     WizardActions.rewindWizard(to_index)

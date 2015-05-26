@@ -17,7 +17,7 @@ class WizardController < ApplicationController
 
   def get_wizard
     wizard_id = params[:wizard_id]
-    content_path = "#{Rails.root}/config/wizard/wizards/#{wizard_id}_wizard.yml"
+    content_path = "#{Rails.root}/config/wizard/#{wizard_id}/wizard.yml"
     all_content = YAML.load(File.read(File.expand_path(content_path, __FILE__)))
     respond_to do |format|
       format.json { render json: all_content.to_json }
@@ -38,7 +38,9 @@ class WizardController < ApplicationController
     @course = Course.find_by_slug(params[:course_id])
 
     # Get the content to be added as a result of the wizard answers
-    content_path = "#{Rails.root}/config/wizard/content.yml"
+    wizard_id = params[:wizard_id]
+    content_path =
+      "#{Rails.root}/config/wizard/#{wizard_id}/content.yml"
     all_content = YAML.load(File.read(File.expand_path(content_path, __FILE__)))
     output = wizard_params['wizard_output']['output'] || []
     logic = wizard_params['wizard_output']['logic'] || []

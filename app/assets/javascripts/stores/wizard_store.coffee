@@ -103,6 +103,8 @@ restore = ->
 WizardStore = Flux.createStore
   getPanels: ->
     _panels
+  getWizardKey: ->
+    _wizard_key
   getAnswers: ->
     answers = []
     _panels.forEach (panel, i) ->

@@ -13,6 +13,7 @@ TransitionGroup   = require '../../utils/TransitionGroup'
 
 getState = ->
   panels: WizardStore.getPanels()
+  wizard_id: WizardStore.getWizardKey()
 
 Wizard = React.createClass(
   displayName: 'Wizard'
@@ -46,6 +47,7 @@ Wizard = React.createClass(
           index={i}
           step={step}
           courseId={@props.course_id}
+          wizardId={@state.wizard_id}
           transitionTo={@props.transitionTo}
         />
     <Modal>

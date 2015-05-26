@@ -1,0 +1,39 @@
+# This file is chronological: blocks nearer the top will always appear before
+# blocks nearer the bottom when placed into a course's timeline
+
+# Block kind
+# 0. Assignment
+# 1. Milestone
+# 2. Class
+# 3. Custom
+
+# Week weight
+# - The app will attempt to evenly distribute weights across the course timeline
+# - Higher weights will be more likely to stand on their own
+# - Weights may be any positive number but 1-10 is recommended
+
+essentials:
+  - # Week one
+    weight: 3
+    blocks:
+      -
+        title: Editing Wikipedia
+        content: Today's lecture will cover basic editing skills that will enable you to complete your translation assignment.
+        kind: 2
+      -
+        title: First edit draft
+        content: Copy a Wikipedia article into your user space and draft an edit
+        kind: 0
+        dependencies:
+          - draft
+      -
+        title: First edit
+        content: Edit a Wikipedia article using your new skills
+        kind: 0
+  - # Week two
+    weight: 1
+    blocks:
+      -
+        title: Advanced Wikipedia editing
+        content: Today's lecture will cover revising other editors' work
+        kind: 2
