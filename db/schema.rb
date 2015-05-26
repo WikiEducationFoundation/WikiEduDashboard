@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 20150526204631) do
 
   create_table "blocks", force: true do |t|
     t.integer  "kind"
-    t.string   "content",      limit: 5000, default: ""
+    t.string   "content",      limit: 5000
     t.integer  "week_id"
     t.integer  "gradeable_id"
     t.datetime "created_at"
@@ -114,7 +114,7 @@ ActiveRecord::Schema.define(version: 20150526204631) do
     t.string   "assignment_source"
     t.string   "subject"
     t.integer  "expected_students"
-    t.text     "description"
+    t.string   "description"
   end
 
   add_index "courses", ["slug"], name: "index_courses_on_slug", using: :btree
