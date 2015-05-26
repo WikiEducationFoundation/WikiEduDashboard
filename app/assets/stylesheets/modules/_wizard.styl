@@ -74,7 +74,6 @@ panel_speed = .4s
       border 1px solid mischka
       cursor pointer
       margin-bottom 20px
-      padding 20px
       position relative
       text-align left
       transition all .2s ease-in-out
@@ -90,6 +89,8 @@ panel_speed = .4s
       &.half
         +above(desktop)
           col(1/2, cycle: 2)
+      > div
+        padding 20px
       .edit
         margin-top -10px
         position absolute
