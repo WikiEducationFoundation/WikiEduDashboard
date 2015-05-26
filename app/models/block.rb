@@ -5,7 +5,7 @@ class Block < ActiveRecord::Base
   before_destroy :cleanup
 
   def pretty_kind
-    index = %w(Assignment Milestone Class Custom)
+    index = %w(Class Assignment Milestone Custom)
     index[kind]
   end
 

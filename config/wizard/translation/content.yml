@@ -2,9 +2,9 @@
 # blocks nearer the bottom when placed into a course's timeline
 
 # Block kind
-# 0. Assignment
-# 1. Milestone
-# 2. Class
+# 0. In class
+# 1. Assignment
+# 2. Milestone
 # 3. Custom
 
 # Week weight
