@@ -23,7 +23,7 @@ Panel = React.createClass(
         panel_index={@props.index}
         key={@props.index + '' + i}
         index={i}
-        multiple={@props.type == 0}
+        multiple={@props.panel.type == 0}
       />
 
     classes = 'wizard__panel'
