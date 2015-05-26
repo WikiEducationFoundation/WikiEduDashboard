@@ -1,4 +1,5 @@
 panel_speed = .4s
+wizard-width = 860px
 
 .wizard-enter
   opacity 0.01
@@ -19,6 +20,8 @@ panel_speed = .4s
   background-color rgba(smoke, .95)
   bottom 0
   left 0
+  max-height 100%
+  overflow-y scroll
   padding-top 80px
   position fixed
   right 0
@@ -29,17 +32,17 @@ panel_speed = .4s
     background-color white
     box-shadow 0 0 15px 0 rgba(0, 0, 0, .2)
     left -150%
+    margin-bottom 20px
     max-height 100%
-    max-width 860px
+    max-width wizard-width
     min-height 600px
     opacity 0
     padding 20px 20px 81px
     position absolute
     text-align left
-    top 50%
-    transform translateX(-50%) translateY(-50%)
+    top 160px
+    transform translateX(-50%)
     transition left panel_speed ease-in-out, opacity .01s ease panel_speed
-    vertical-align middle
     width 100%
     &.active
       left 50%
@@ -91,6 +94,12 @@ panel_speed = .4s
           col(1/2, cycle: 2)
       > div
         padding 20px
+      &.summary
+        border-top-width 0
+        margin-bottom 0
+        padding 20px
+        &:first-child
+          border-top-width 1px
       .edit
         margin-top -10px
         position absolute
@@ -153,7 +162,7 @@ panel_speed = .4s
       position absolute
       top -30px
       transition all 0.2s
-      +above(desktop)
+      +above(880px)
         left 0
       a
         color dove
