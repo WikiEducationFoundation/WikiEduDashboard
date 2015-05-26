@@ -17,22 +17,19 @@ describe User do
     it 'should cache User activity' do
       build(:user,
             id: 1,
-            wiki_id: 'Ragesoss'
-      ).save
+            wiki_id: 'Ragesoss').save
 
       build(:course,
             id: 1,
             start: '2015-01-01'.to_date,
             end: '2015-07-01'.to_date,
-            title: 'Underwater basket-weaving'
-      ).save
+            title: 'Underwater basket-weaving').save
 
       build(:article,
             id: 1,
             title: 'Selfie',
             namespace: 0,
-            views: 1234
-      ).save
+            views: 1234).save
 
       build(:revision,
             id: 1,
@@ -40,8 +37,7 @@ describe User do
             article_id: 1,
             date: '2015-01-01'.to_date,
             characters: 9000,
-            views: 1234
-      ).save
+            views: 1234).save
 
       build(:revision,
             id: 2,
@@ -49,31 +45,27 @@ describe User do
             article_id: 1,
             date: '2015-03-01'.to_date,
             characters: 3000,
-            views: 567
-      ).save
+            views: 567).save
 
       # Assign the article to the user.
       build(:assignment,
             course_id: 1,
             user_id: 1,
             article_id: 1,
-            article_title: 'Selfie'
-      ).save
+            article_title: 'Selfie').save
 
       # Make a course-user and save it.
       build(:courses_user,
             id: 1,
             course_id: 1,
             user_id: 1,
-            assigned_article_title: 'Selfie'
-      ).save
+            assigned_article_title: 'Selfie').save
 
       # Make an article-course.
       build(:articles_course,
             id: 1,
             article_id: 1,
-            course_id: 1
-      ).save
+            course_id: 1).save
 
       Article.update_all_caches
       User.update_all_caches
@@ -94,8 +86,7 @@ describe User do
         credentials = OpenStruct.new(token: 'foo', secret: 'bar')
         hash = OpenStruct.new(uid: '14093230',
                               info: info,
-                              credentials: credentials
-        )
+                              credentials: credentials)
         auth = UserImporter.from_omniauth(hash)
         expect(auth.id).to eq(4_543_197)
       end
@@ -107,8 +98,7 @@ describe User do
       credentials = OpenStruct.new(token: 'foo', secret: 'bar')
       hash = OpenStruct.new(uid: '14093230',
                             info: info,
-                            credentials: credentials
-      )
+                            credentials: credentials)
       auth = UserImporter.from_omniauth(hash)
       expect(auth.id).to eq(existing.id)
     end
@@ -131,7 +121,7 @@ describe User do
     it 'should add users based on course data' do
       VCR.use_cassette 'wiki/add_users' do
         course = create(:course,
-               id: 351)
+                        id: 351)
         data = CourseImporter.get_course_info 351
         student_data = data[0]['participants']['student']
         UserImporter.add_users(student_data, 0, course)

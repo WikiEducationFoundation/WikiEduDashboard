@@ -128,8 +128,8 @@ class Replica
     # Example users.php query with 2 users:
     #    http://tools.wmflabs.org/wikiedudashboard/users.php?user_ids[0]=012345&user_ids[1]=678910
     # Example users.php parsed response with 2 users:
-    #    [{"id"=>"012345", "wiki_id"=>"Example_user", "global_id"=>"8675309", trained: 1},
-    #     {"id"=>"678910", "wiki_id"=>"Another_user", "global_id"=>"9035768", trained: 0}]
+    # [{"id"=>"123", "wiki_id"=>"User_A", "global_id"=>"8675309", trained: 1},
+    #  {"id"=>"6789", "wiki_id"=>"User_B", "global_id"=>"9035768", trained: 0}]
     #
     # Example revisions.php query:
     #    http://tools.wmflabs.org/wikiedudashboard/revisions.php?user_ids[0]=%27Example_User%27&user_ids[1]=%27Ragesoss%27&user_ids[2]=%27Sage%20(Wiki%20Ed)%27&start=20150105&end=20150108

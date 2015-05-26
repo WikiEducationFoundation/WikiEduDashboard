@@ -16,3 +16,11 @@ Style/SpaceAroundEqualsInParameterDefault:
   Enabled: false
 Style/ColonMethodCall:
   Enabled: false
+Style/NumericLiterals:
+  # We should use underscores when the number is meaningful. But when it's
+  # an arbitrary number like a user id, underscores are just clutter.
+  Enabled: false
+Style/AsciiComments:
+  Enabled: false # We need non-ascii characters to document Wikipedia stuff.
+Performance/ParallelAssignment:
+  Enabled: false # We general use this only to initialize empty variables.

@@ -1,5 +1,6 @@
 require "#{Rails.root}/lib/wiki"
 require "#{Rails.root}/lib/importers/user_importer"
+require "#{Rails.root}/lib/importers/cohort_importer"
 
 #= Imports and updates courses from Wikipedia into the dashboard database
 class CourseImporter
@@ -61,31 +62,10 @@ class CourseImporter
     Course.import courses, on_duplicate_key_update: [:start, :end, :listed]
 
     # Update cohort membership
-    update_cohorts raw_ids
+    CohortImporter.update_cohorts raw_ids
 
     import_users participants
     import_assignments participants
-  end
-
-  # Take a hash of cohorts and corresponding course_ids, and update the cohorts.
-  # raw_ids is the output of Wiki.course_list, and looks like this:
-  # { "cohort_slug" => [31, 554, 1234], "cohort_slug_2" => [31, 999, 2345] }
-  def self.update_cohorts(raw_ids)
-    Course.transaction do
-      raw_ids.each do |ch, ch_courses|
-        cohort = Cohort.find_or_create_by(slug: ch)
-        ch_new = ch_courses - cohort.courses.map { |co| co.id }
-        ch_old = cohort.courses.map { |co| co.id } - ch_courses
-        ch_new.each do |co|
-          course = Course.find_by_id(co)
-          course.cohorts << cohort if course
-        end
-        ch_old.each do |co|
-          course = Course.find_by_id(co)
-          course.cohorts.delete(cohort) if course
-        end
-      end
-    end
   end
 
   def self.import_users(participants)
@@ -134,10 +114,11 @@ class CourseImporter
     # Update enrollment (add/remove students)
     user_ids = group_flat.map { |user| user['id'] }
     course = Course.find_by(id: course_id)
-
     return [] if user_ids.empty?
+
     role_index = %w(student instructor online_volunteer
                     campus_volunteer wiki_ed_staff)
+
     # Set up structures for operating on
     existing_flat = course.courses_users.map do |cu|
       { 'id' => cu.user_id, 'role' => role_index[cu.role] }
@@ -146,22 +127,28 @@ class CourseImporter
       role = u['username'].include?('(Wiki Ed)') ? role_index[4] : u['role']
       { 'id' => u['id'], 'role' => role }
     end
+
     # Unenroll users who have been removed
     unless course.users.empty?
       unenrolled = (existing_flat - new_flat).map { |u| u['id'] }
       course.users.delete(course.users.find(unenrolled))
     end
+
     # Enroll new users
     enrolled = (new_flat - existing_flat).map { |u| u['id'] }
-
     return group_flat unless enrolled.count > 0
-    group_flat.each do |u|
+    enroll_users(group_flat, enrolled, course)
+  end
+
+  def self.enroll_users(users, enrolled, course)
+    role_index = %w(student instructor online_volunteer
+                    campus_volunteer wiki_ed_staff)
+    users.each do |u|
       next() unless enrolled.include? u['id']
       role = role_index.index(u['role'])
       role = 4 if u['username'].include? '(Wiki Ed)'
       CoursesUsers.new(user_id: u['id'], course: course, role: role).save
     end
-    group_flat
   end
 
   def self.update_assignments(course_id, group_flat)

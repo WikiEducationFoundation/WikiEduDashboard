@@ -18,8 +18,7 @@ describe 'the home page', type: :feature do
                     end: course_end.to_date,
                     school: 'This university',
                     term: 'term 2015',
-                    listed: 1
-    )
+                    listed: 1)
     cohort = create(:cohort)
     course.cohorts << cohort
 
@@ -27,13 +26,11 @@ describe 'the home page', type: :feature do
       create(:user,
              id: i.to_s,
              wiki_id: "Student #{i}",
-             trained: i % 2
-      )
+             trained: i % 2)
       create(:courses_user,
              id: i.to_s,
              course_id: 1,
-             user_id: i.to_s
-      )
+             user_id: i.to_s)
     end
 
     ratings = ['fl', 'fa', 'a', 'ga', 'b', 'c', 'start', 'stub', 'list', nil]
@@ -42,8 +39,7 @@ describe 'the home page', type: :feature do
              id: i.to_s,
              title: "Article #{i}",
              namespace: 0,
-             rating: ratings[(i + 5) % 10]
-      )
+             rating: ratings[(i + 5) % 10])
     end
 
     # Add some revisions within the course dates
@@ -58,21 +54,18 @@ describe 'the home page', type: :feature do
              date: '2015-03-01'.to_date,
              characters: 2,
              views: 10,
-             new_article: newness
-      )
+             new_article: newness)
     end
 
     # Add articles / revisions before the course starts and after it ends.
     create(:article,
            id: (article_count + 1).to_s,
            title: 'Before',
-           namespace: 0
-    )
+           namespace: 0)
     create(:article,
            id: (article_count + 2).to_s,
            title: 'After',
-           namespace: 0
-    )
+           namespace: 0)
     create(:revision,
            id: (revision_count + 1).to_s,
            user_id: 1,
@@ -80,8 +73,7 @@ describe 'the home page', type: :feature do
            date: '2014-12-31'.to_date,
            characters: 9000,
            views: 9999,
-           new_article: 1
-    )
+           new_article: 1)
     create(:revision,
            id: (revision_count + 2).to_s,
            user_id: 1,
@@ -89,8 +81,7 @@ describe 'the home page', type: :feature do
            date: '2016-01-01'.to_date,
            characters: 9000,
            views: 9999,
-           new_article: 1
-    )
+           new_article: 1)
 
     ArticlesCourses.update_from_revisions
     ArticlesCourses.update_all_caches
@@ -169,11 +160,13 @@ describe 'the home page', type: :feature do
       visit "/courses/#{slug}/articles"
       # first click on the Class sorting should sort high to low
       find(:css, '.article-list__row__rating.sort').click
-      first_rating = page.find(:css, 'ul.list').first('.article-list__row__rating')
+      first_rating = page.find(:css, 'ul.list')
+                     .first('.article-list__row__rating')
       expect(first_rating).to have_content 'Featured article'
       # second click should sort from low to high
       find(:css, '.article-list__row__rating.sort').click
-      new_first_rating = page.find(:css, 'ul.list').first('.article-list__row__rating')
+      new_first_rating = page.find(:css, 'ul.list')
+                         .first('.article-list__row__rating')
       expect(new_first_rating).to have_content 'Unrated'
     end
   end

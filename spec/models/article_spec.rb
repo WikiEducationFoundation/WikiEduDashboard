@@ -1,5 +1,6 @@
 require 'rails_helper'
 require "#{Rails.root}/lib/importers/article_importer"
+require "#{Rails.root}/lib/importers/view_importer"
 
 describe Article do
   describe '#update' do
@@ -10,8 +11,7 @@ describe Article do
                         id: 1,
                         title: 'Selfie',
                         namespace: 0,
-                        views_updated_at: '2014-12-31'.to_date
-        )
+                        views_updated_at: '2014-12-31'.to_date)
 
         # Run update with no revisions
         article.update
@@ -20,8 +20,7 @@ describe Article do
         # Add a revision and update again.
         build(:revision,
               article_id: 1,
-              views: 10
-        ).save
+              views: 10).save
         article.update
         expect(article.views).to eq(10)
       end
@@ -36,14 +35,12 @@ describe Article do
                         id: 1,
                         title: 'Wikipedia',
                         namespace: 0,
-                        views_updated_at: '2014-12-31'.to_date
-        )
+                        views_updated_at: '2014-12-31'.to_date)
 
         # Add a revision so that update_views has something to run on.
         build(:revision,
-              article_id: 1
-        ).save
-        article.update_views
+              article_id: 1).save
+        ViewImporter.update_views_for_article article
         expect(article.views).to be > 0
       end
     end
@@ -56,13 +53,11 @@ describe Article do
                       id: 1,
                       title: 'Selfie',
                       namespace: 0,
-                      views_updated_at: '2014-12-31'.to_date
-      )
+                      views_updated_at: '2014-12-31'.to_date)
 
       # Add a revision so that update_views has something to run on.
       build(:revision,
-            article_id: 1
-      ).save
+            article_id: 1).save
 
       article.update_cache
       expect(article.revision_count).to be_kind_of(Integer)
@@ -74,32 +69,28 @@ describe Article do
     it 'should get view data for all articles' do
       VCR.use_cassette 'article/update_all_views' do
         # Try it with no articles.
-        ArticleImporter.update_all_views
+        ViewImporter.update_all_views
 
         # Add an article
         build(:article,
               id: 1,
               title: 'Wikipedia',
               namespace: 0,
-              views_updated_at: '2014-12-31'.to_date
-        ).save
+              views_updated_at: '2014-12-31'.to_date).save
 
         # Course, article-course, and revision are also needed.
         build(:course,
               id: 1,
-              start: '2014-01-01'.to_date
-        ).save
+              start: '2014-01-01'.to_date).save
         build(:articles_course,
               id: 1,
               course_id: 1,
-              article_id: 1
-        ).save
+              article_id: 1).save
         build(:revision,
-              article_id: 1
-        ).save
+              article_id: 1).save
 
         # Update again with this article.
-        ArticleImporter.update_all_views
+        ViewImporter.update_all_views
       end
     end
   end
@@ -108,31 +99,27 @@ describe Article do
     it 'should get view data for new articles' do
       VCR.use_cassette 'article/update_new_views' do
         # Try it with no articles.
-        ArticleImporter.update_new_views
+        ViewImporter.update_new_views
 
         # Add an article.
         build(:article,
               id: 1,
               title: 'Wikipedia',
-              namespace: 0
-        ).save
+              namespace: 0).save
 
         # Course, article-course, and revision are also needed.
         build(:course,
               id: 1,
-              start: '2014-01-01'.to_date
-        ).save
+              start: '2014-01-01'.to_date).save
         build(:articles_course,
               id: 1,
               course_id: 1,
-              article_id: 1
-        ).save
+              article_id: 1).save
         build(:revision,
-              article_id: 1
-        ).save
+              article_id: 1).save
 
         # Update again with this article.
-        ArticleImporter.update_new_views
+        ViewImporter.update_new_views
       end
     end
   end
@@ -146,8 +133,7 @@ describe Article do
       build(:article,
             id: 1,
             title: 'Selfie',
-            namespace: 0
-      ).save
+            namespace: 0).save
 
       # Update again with this article.
       Article.update_all_caches

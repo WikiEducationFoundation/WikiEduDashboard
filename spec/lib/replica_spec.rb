@@ -25,6 +25,7 @@ describe Replica do
         all_users[i] = OpenStruct.new u
       end
       response = Replica.get_revisions(all_users, rev_start, rev_end)
+      expect(response).to be_empty
     end
 
     it 'should handle connection refused errors' do
@@ -38,6 +39,7 @@ describe Replica do
         all_users[i] = OpenStruct.new u
       end
       response = Replica.get_user_info(all_users)
+      expect(response).to be_nil
     end
 
     # rubocop:disable Style/NumericLiterals
@@ -134,7 +136,7 @@ describe Replica do
         article_titles = [
           { 'title' => 'Autism' }, # exists in namespace 0, 1
           { 'title' => 'Allegiance' }, # exists in namespace 0, 1
-          #  Test with special characters) 
+          #  Test with special characters)
           { 'title' => 'Paul Cézanne' }, # exists in namespace 0, 1, 10, 11
           { 'title' => 'Mmilldev/sandbox' }, # exists in namespace 2
           { 'title' => 'THIS ARTICLE_DOES NOT_EXIST' }

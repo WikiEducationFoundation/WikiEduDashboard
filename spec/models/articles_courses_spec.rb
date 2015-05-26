@@ -1,64 +1,58 @@
 require 'rails_helper'
 require "#{Rails.root}/lib/importers/article_importer"
+require "#{Rails.root}/lib/cleaners"
 
 describe ArticlesCourses, type: :model do
   describe '.update_all_caches' do
     it 'should update data for article-course relationships' do
       # Make an article-course.
       article_course = create(:articles_course,
-            id: 1,
-            article_id: 1,
-            course_id: 1
-      )
+                              id: 1,
+                              article_id: 1,
+                              course_id: 1)
 
       # Add a user, a course, and an article.
       create(:user,
-            id: 1,
-            wiki_id: 'Ragesoss'
-      )
+             id: 1,
+             wiki_id: 'Ragesoss')
 
       create(:course,
-            id: 1,
-            start: '2015-01-01'.to_date,
-            end: '2015-07-01'.to_date,
-            title: 'Underwater basket-weaving'
-      )
+             id: 1,
+             start: '2015-01-01'.to_date,
+             end: '2015-07-01'.to_date,
+             title: 'Underwater basket-weaving')
 
       create(:article,
-            id: 1,
-            title: 'Selfie',
-            namespace: 0
-      )
+             id: 1,
+             title: 'Selfie',
+             namespace: 0)
 
       # Run a cache update without any revisions.
       ArticlesCourses.update_all_caches(article_course)
 
       # Add a revision.
       create(:revision,
-            id: 1,
-            user_id: 1,
-            article_id: 1,
-            date: '2015-03-01'.to_date,
-            characters: 9000,
-            new_article: 1,
-            views: 1234
-      )
+             id: 1,
+             user_id: 1,
+             article_id: 1,
+             date: '2015-03-01'.to_date,
+             characters: 9000,
+             new_article: 1,
+             views: 1234)
 
       # Assign the article to the user.
       create(:assignment,
-            course_id: 1,
-            user_id: 1,
-            article_id: 1,
-            article_title: 'Selfie'
-      )
+             course_id: 1,
+             user_id: 1,
+             article_id: 1,
+             article_title: 'Selfie')
 
       # Make a course-user and save it.
       create(:courses_user,
-            id: 1,
-            course_id: 1,
-            user_id: 1,
-            assigned_article_title: 'Selfie'
-      )
+             id: 1,
+             course_id: 1,
+             user_id: 1,
+             assigned_article_title: 'Selfie')
 
       # Run the cache update again with an existing revision.
       ArticlesCourses.update_all_caches
@@ -78,32 +72,26 @@ describe ArticlesCourses, type: :model do
              id: 1,
              start: '2015-01-01'.to_date,
              end: '2015-07-01'.to_date,
-             title: 'Underwater basket-weaving'
-      )
+             title: 'Underwater basket-weaving')
       create(:user,
-             id: 1
-      )
+             id: 1)
       # A user who is not a student, so they should not have ArticlesCourses
       create(:courses_user,
              course_id: 1,
              user_id: 1,
-             role: 2
-      )
+             role: 2)
       create(:article,
-             id: 1
-      )
+             id: 1)
       create(:revision,
              user_id: 1,
              article_id: 1,
-             date: '2015-03-01'.to_date
-      )
+             date: '2015-03-01'.to_date)
       # An ArticlesCourse that should be removed
       create(:articles_course,
              course_id: 1,
-             article_id: 1
-      )
+             article_id: 1)
 
-      ArticleImporter.remove_bad_articles_courses
+      Cleaners.remove_bad_articles_courses
       expect(ArticlesCourses.all.count).to eq(0)
     end
   end

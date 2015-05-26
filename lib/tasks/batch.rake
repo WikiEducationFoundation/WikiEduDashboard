@@ -6,10 +6,9 @@ namespace :batch do
   task setup_logger: :environment do
     $stdout.sync = true
     logger = Logger.new $stdout
-    logger.level = Figaro.env.cron_log_debug ? Logger::DEBUG : Logger::INFO;
+    logger.level = Figaro.env.cron_log_debug ? Logger::DEBUG : Logger::INFO
     logger.formatter = ActiveSupport::Logger::SimpleFormatter.new
     Rails.logger = logger
-
   end
 
   desc 'Constant data updates'
@@ -22,7 +21,8 @@ namespace :batch do
       Kernel.exit
     end
     if File.exist? daily_file   # Do not run while update_daily is running
-      Rails.logger.warn I18n.t('tasks.constant', task: 'batch_update_constantly')
+      Rails.logger
+        .warn I18n.t('tasks.constant', task: 'batch_update_constantly')
       Kernel.exit
     end
     if File.exist? pause_file   # Do not run while updates are paused
@@ -38,21 +38,17 @@ namespace :batch do
       Rake::Task['course:update_courses'].invoke
       Rake::Task['user:update_users'].invoke
       Rake::Task['revision:update_revisions'].invoke
-      Rake::Task['article:update_new_article_views'].invoke unless Figaro.env.no_views
+      Rake::Task['article:update_new_article_views']
+        .invoke unless Figaro.env.no_views
       Rake::Task['article:update_new_ratings'].invoke
       Rake::Task['cache:update_caches'].invoke
 
       total_time = distance_of_time_in_words(start, Time.now)
       Rails.logger.info "Constant update finished in #{total_time}."
       Raven.capture_message 'Constant update finished.',
-        level: 'info',
-        tags: {
-          update_time: total_time,
-        },
-        extra: {
-          exact_update_time: (Time.now - start)
-        }
-
+                            level: 'info',
+                            tags: { update_time: total_time },
+                            extra: { exact_update_time: (Time.now - start) }
     ensure
       File.delete pid_file if File.exist? pid_file
     end
@@ -74,11 +70,11 @@ namespace :batch do
     end
 
     # Wait until update_constantly finishes
-    if(File.exist? constant_file)
+    if File.exist? constant_file
       # Prevent update_constantly from starting again
       begin
         File.open(pause_file, 'w') { |f| f.puts Process.pid }
-        while(File.exist? constant_file)
+        while File.exist? constant_file
           Rails.logger.info 'Delaying update_daily task for ten minutes...'
           sleep(10.minutes)
         end
@@ -100,14 +96,9 @@ namespace :batch do
       total_time = distance_of_time_in_words(start, Time.now)
       Rails.logger.info "Daily update finished in #{total_time}."
       Raven.capture_message 'Daily update finished.',
-        level: 'info',
-        tags: {
-          update_time: total_time,
-        },
-        extra: {
-          exact_update_time: (Time.now - start)
-        }
-
+                            level: 'info',
+                            tags: { update_time: total_time },
+                            extra: { exact_update_time: (Time.now - start) }
     ensure
       File.delete pid_file if File.exist? pid_file
     end
@@ -127,7 +118,8 @@ namespace :batch do
       Rake::Task['course:update_courses'].invoke
       Rake::Task['user:update_users'].invoke
       Rake::Task['revision:update_revisions'].invoke
-      Rake::Task['article:update_views_all_time'].invoke unless Figaro.env.no_views
+      Rake::Task['article:update_views_all_time']
+        .invoke unless Figaro.env.no_views
       Rake::Task['cache:update_caches'].invoke
       Rails.logger.info 'Initialization tasks have finished'
     ensure

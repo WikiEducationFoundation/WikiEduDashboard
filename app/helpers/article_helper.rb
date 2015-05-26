@@ -22,7 +22,8 @@ module ArticleHelper
 
   def full_title(article)
     prefix = NS[article.namespace]
-    "#{prefix}#{article.title}"
+    title = article.title.gsub('_', ' ')
+    "#{prefix}#{title}"
   end
 
   def rating_priority(rating)
@@ -61,7 +62,7 @@ module ArticleHelper
   def find_article_class(wikitext)
     # Handle empty talk page
     return nil if wikitext.is_a? Hash
-        # rubocop:disable Metrics/LineLength
+    # rubocop:disable Metrics/LineLength
     if wikitext.match(/\|\s*(class|currentstatus)\s*=\s*fa\b/i)
       'fa'
     elsif wikitext.match(/\|\s*(class|currentstatus)\s*=\s*fl\b/i)

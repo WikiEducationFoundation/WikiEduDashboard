@@ -1,5 +1,6 @@
 require "#{Rails.root}/lib/replica"
 require "#{Rails.root}/lib/importers/article_importer"
+require "#{Rails.root}/lib/importers/assignment_importer"
 
 #= Imports and updates revisions from Wikipedia into the dashboard database
 class RevisionImporter
@@ -20,12 +21,7 @@ class RevisionImporter
 
     import_revisions(results)
 
-    result_ids = results.map do |_a_id, a|
-      a['revisions'].map { |r| r['id'] }
-    end
-    result_ids = result_ids.flatten
-    result_revs = Revision.where(id: result_ids)
-
+    result_revs = get_revisions_from_import_data(results)
     ArticlesCourses.update_from_revisions result_revs
   end
 
@@ -39,9 +35,11 @@ class RevisionImporter
 
     old_users = c.students - new_users
 
+    # rubocop:disable Style/IfUnlessModifier
     unless new_users.empty?
       results += get_revisions(new_users, start, end_date)
     end
+    # rubocop:enable Style/IfUnlessModifier
 
     unless old_users.empty?
       first_rev = c.revisions.order('date DESC').first
@@ -57,6 +55,7 @@ class RevisionImporter
       Replica.get_revisions block, start, end_date
     end
   end
+
   ###########
   # Helpers #
   ###########
@@ -71,7 +70,15 @@ class RevisionImporter
     # Some Assignments are for article titles that don't exist initially.
     # Some newly added Articles may correspond to those Assignments, in which
     # case the article_ids should be added.
-    update_assignment_article_ids
+    AssignmentImporter.update_assignment_article_ids
+  end
+
+  def self.get_revisions_from_import_data(data)
+    rev_ids = data.map do |_a_id, a|
+      a['revisions'].map { |r| r['id'] }
+    end
+    rev_ids = rev_ids.flatten
+    Revision.where(id: rev_ids)
   end
 
   def self.import_revisions_slice(sub_data)
@@ -92,17 +99,5 @@ class RevisionImporter
     Article.import articles
     ArticleImporter.resolve_duplicate_articles(articles)
     Revision.import revisions
-  end
-
-  # Update article ids for Assignments that lack them, if an Article with the
-  # same title exists in mainspace.
-  def self.update_assignment_article_ids
-    ActiveRecord::Base.transaction do
-      Assignment.where(article_id: nil).each do |ass|
-        article = Article.where(namespace: 0).find_by(title: ass.article_title)
-        ass.article_id = article.nil? ? nil : article.id
-        ass.save
-      end
-    end
   end
 end

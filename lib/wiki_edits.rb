@@ -1,30 +1,28 @@
+#= Class for making edits to Wikipedia via OAuth, using a user's credentials
 class WikiEdits
   def self.notify_untrained(course_id, current_user)
     @course = Course.find(course_id)
     tokens = WikiEdits.tokens(current_user)
 
     @course.users.role('student').where(trained: false).each do |student|
-      WikiEdits.api_get({
-                          action: 'edit',
-                          title: "User_talk:#{student.wiki_id}",
-                          section: 'new',
-                          sectiontitle: I18n.t('wiki_edits.notify_untrained.header'),
-                          text: I18n.t('wiki_edits.notify_untrained.message'),
-                          summary: I18n.t('wiki_edits.notify_untrained.summary'),
-                          format: 'json',
-                          token: tokens.csrf_token
-                        }, tokens)
+      params = { action: 'edit',
+                 title: "User_talk:#{student.wiki_id}",
+                 section: 'new',
+                 sectiontitle: I18n.t('wiki_edits.notify_untrained.header'),
+                 text: I18n.t('wiki_edits.notify_untrained.message'),
+                 summary: I18n.t('wiki_edits.notify_untrained.summary'),
+                 format: 'json',
+                 token: tokens.csrf_token }
+      WikiEdits.api_get params, tokens
     end
 
+    untrained_count = @course.users.role('student').where(trained: false).count
     Raven.capture_message 'WikiEdits.notify_untrained',
-      level: 'info',
-      culprit: 'WikiEdits.notify_untrained',
-      extra: {
-        sender: current_user.wiki_id,
-        course_name: @course.slug,
-        untrained_count: @course.users.role('student')
-                         .where(trained: false).count
-      }
+                          level: 'info',
+                          culprit: 'WikiEdits.notify_untrained',
+                          extra: { sender: current_user.wiki_id,
+                                   course_name: @course.slug,
+                                   untrained_count: untrained_count }
   end
 
   def self.tokens(current_user)
@@ -37,7 +35,9 @@ class WikiEdits
     @access_token = OAuth::AccessToken.new @consumer,
                                            current_user.wiki_token,
                                            current_user.wiki_secret
+    # rubocop:disable Metrics/LineLength
     get_token = @access_token.get("https://#{language}.wikipedia.org/w/api.php?action=query&meta=tokens&format=json")
+    # rubocop:enable Metrics/LineLength
     token_response = JSON.parse(get_token.body)
 
     OpenStruct.new(

@@ -1,5 +1,6 @@
 require 'rails_helper'
 require "#{Rails.root}/lib/importers/article_importer"
+require "#{Rails.root}/lib/importers/rating_importer"
 
 describe ArticleImporter do
   describe '.update_ratings' do
@@ -14,11 +15,10 @@ describe ArticleImporter do
              id: 1,
              title: 'Selfie',
              namespace: 0,
-             rating: 'fa'
-      )
+             rating: 'fa')
 
       article = Article.all.find_in_batches(batch_size: 30)
-      ArticleImporter.update_ratings(article)
+      RatingImporter.update_ratings(article)
       expect(Article.first.rating).to eq('fa')
     end
   end
@@ -30,33 +30,29 @@ describe ArticleImporter do
                         id: 1,
                         title: 'Basket Weaving',
                         start: '2015-01-01'.to_date,
-                        end: '2015-05-01'.to_date
-                      )
+                        end: '2030-05-01'.to_date)
         # Add an article.
         article1 = create(:article,
-               id: 1,
-               title: 'Selfie',
-               namespace: 0
-        )
+                          id: 1,
+                          title: 'Selfie',
+                          namespace: 0)
         course.articles << article1
 
         possible_ratings = %w(fl fa a ga b c start stub list)
 
         # .update_ratings has a different flow for one rating vs. several,
         # so first we run an update with just one article.
-        ArticleImporter.update_new_ratings
+        RatingImporter.update_new_ratings
 
-        expect(possible_ratings).to include Article.all.first.rating
+        expect(possible_ratings).to include Article.find(1).rating
 
         article2 = create(:article,
-               id: 2,
-               title: 'A Clash of Kings',
-               namespace: 0
-        )
+                          id: 2,
+                          title: 'A Clash of Kings',
+                          namespace: 0)
         course.articles << article2
-
-        ArticleImporter.update_all_ratings
-        expect(possible_ratings).to include Article.all.last.rating
+        RatingImporter.update_all_ratings
+        expect(possible_ratings).to include Article.find(2).rating
       end
     end
   end
@@ -64,14 +60,12 @@ describe ArticleImporter do
   describe '.update_article_status' do
     it 'should marked deleted articles as "deleted"' do
       course = create(:course,
-                      end: '2016-12-31'.to_date
-      )
+                      end: '2016-12-31'.to_date)
       course.users << create(:user)
       create(:article,
              id: 1,
              title: 'Noarticle',
-             namespace: 0
-      )
+             namespace: 0)
 
       ArticleImporter.update_article_status
       expect(Article.find(1).deleted).to be true
@@ -99,21 +93,37 @@ describe ArticleImporter do
 
     it 'should handle cases where there are two ids for one page' do
       first = create(:article,
-             id: 2262715,
-             title: 'Kostanay',
-             namespace: 0)
+                     id: 2262715,
+                     title: 'Kostanay',
+                     namespace: 0)
       second = create(:article,
-             id: 46349871,
-             title: 'Kostanay',
-             namespace: 0)
+                      id: 46349871,
+                      title: 'Kostanay',
+                      namespace: 0)
       ArticleImporter.resolve_duplicate_articles([first])
       undeleted = Article.where(
         title: 'Kostanay',
         namespace: 0,
-        deleted: false
-      )
+        deleted: false)
       expect(undeleted.count).to eq(1)
       expect(undeleted.first.id).to eq(second.id)
+    end
+
+    it 'should handle cases of space vs. underscore' do
+      # This page was first moved from a sandbox to "Yōji Sakate", then
+      # moved again to "Yōji Sakate (playwright)". It ended up in our database
+      # like this.
+      create(:article,
+             id: 46745170,
+             # Currently this is a redirect to the other title.
+             title: 'Yōji Sakate',
+             namespace: 0)
+      create(:article,
+             id: 46364485,
+             # Current title is "Yōji Sakate (playwright)".
+             title: 'Yōji_Sakate',
+             namespace: 0)
+      ArticleImporter.update_article_status
     end
 
     it 'should handle case-variant titles' do

@@ -1,6 +1,4 @@
 require "#{Rails.root}/lib/importers/course_importer"
-require "#{Rails.root}/lib/importers/article_importer"
-require "#{Rails.root}/lib/importers/revision_importer"
 require "#{Rails.root}/lib/importers/user_importer"
 
 #= Course model
@@ -116,11 +114,15 @@ class Course < ActiveRecord::Base
   end
 
   def manual_update
+    Dir["#{Rails.root}/lib/importers/*.rb"].each { |file| require file }
+
     update
     UserImporter.update_users users
     RevisionImporter.update_all_revisions self
-    ArticleImporter.update_views articles.namespace(0).find_in_batches(batch_size: 30)
-    ArticleImporter.update_ratings articles.namespace(0).find_in_batches(batch_size: 30)
+    ViewImporter.update_views articles.namespace(0)
+      .find_in_batches(batch_size: 30)
+    RatingImporter.update_ratings articles.namespace(0)
+      .find_in_batches(batch_size: 30)
     Article.update_all_caches articles
     User.update_all_caches users
     ArticlesCourses.update_all_caches articles_courses

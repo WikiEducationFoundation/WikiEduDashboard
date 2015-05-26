@@ -33,7 +33,7 @@ describe Wiki do
         expect(response).to eq([])
       end
     end
-    
+
     it 'should return course info for multiple courses' do
       VCR.use_cassette 'wiki/missing_courses' do
         # Several courses, including some that don't exist
@@ -58,43 +58,43 @@ describe Wiki do
     it 'should return the ratings of articles' do
       VCR.use_cassette 'wiki/article_ratings' do
         # A single article
-        response = Wiki.get_article_rating('History of biology')
-        expect(response[0]['History of biology']).to eq('fa')
+        response = Wiki.get_article_rating('History_of_biology')
+        expect(response[0]['History_of_biology']).to eq('fa')
 
         # A single non-existant article
-        response = Wiki.get_article_rating('THIS IS NOT A REAL ARTICLE TITLE')
-        expect(response[0]['THIS IS NOT A REAL ARTICLE TITLE']).to eq(nil)
+        response = Wiki.get_article_rating('THIS_IS_NOT_A_REAL_ARTICLE_TITLE')
+        expect(response[0]['THIS_IS_NOT_A_REAL_ARTICLE_TITLE']).to eq(nil)
 
         # A mix of existing and non-existant, including ones with niche ratings.
         # Some of these ratings may change over time.
         # rubocop:disable Metrics/LineLength
         articles = [
-          'History of biology', # fa
-          'A Clash of Kings', # c
+          'History_of_biology', # fa
+          'A_Clash_of_Kings', # c
           'Ecology', # ga
-          'Fast inverse square root', # ga
+          'Fast_inverse_square_root', # ga
           'Nansenflua', # unassessed
-          'List of Oregon ballot measures', # list
-          'The American Monomyth', # stub
-          'Drug Trafficking Safe Harbor Elimination Act', # start
-          'Energy policy of the United States', # b
-          'List of camouflage methods', # fl
-          'THIS IS NOT A REAL ARTICLE TITLE', # does not exist
-          '1804 Snow hurricane', # a/ga ?
-          'Barton S. Alexander', # a
-          'Compounds of fluorine', # bplus
-          'List of Canadian plants by family S', # sl
-          'Antarctica (disambiguation)', # dab
-          '2015 Pacific typhoon season', # cur, as of 2015-02-27
-          "Cycling at the 2016 Summer Olympics – Men's Omnium", # future, as of 2015-02-27
-          'Selfie (disambiguation)', # no talk page
-          'Sex trafficking' # blank talk page
+          'List_of_Oregon_ballot_measures', # list
+          'The_American_Monomyth', # stub
+          'Drug_Trafficking_Safe_Harbor_Elimination_Act', # start
+          'Energy_policy_of_the_United_States', # b
+          'List_of_camouflage_methods', # fl
+          'THIS_IS_NOT_A_REAL_ARTICLE_TITLE', # does not exist
+          '1804_Snow_hurricane', # a/ga ?
+          'Barton_S._Alexander', # a
+          'Compounds_of_fluorine', # bplus
+          'List_of_Canadian_plants_by_family_S', # sl
+          'Antarctica_(disambiguation)', # dab
+          '2015_Pacific_typhoon_season', # cur, as of 2015-02-27
+          "Cycling_at_the_2016_Summer_Olympics_–_Men's_Omnium", # future, as of 2015-02-27
+          'Selfie_(disambiguation)', # no talk page
+          'Sex_trafficking' # blank talk page
         ]
         # rubocop:enable Metrics/LineLength
 
         response = Wiki.get_article_rating(articles)
-        expect(response).to include('History of biology' => 'fa')
-        expect(response).to include('THIS IS NOT A REAL ARTICLE TITLE' => nil)
+        expect(response).to include('History_of_biology' => 'fa')
+        expect(response).to include('THIS_IS_NOT_A_REAL_ARTICLE_TITLE' => nil)
         expect(response.count).to eq(20)
       end
     end
@@ -103,10 +103,10 @@ describe Wiki do
       VCR.use_cassette 'wiki/article_ratings_raw' do
         # rubocop:disable Metrics/LineLength
         articles = [
-          'Talk:Selfie (disambiguation)', # probably doesn't exist; the corresponding article does
-          'Talk:The American Monomyth', # exists
-          'Talk:THIS PAGE WILL NEVER EXIST, RIGHT?', # definitely doesn't exist
-          'Talk:List of Canadian plants by family S' # exists
+          'Talk:Selfie_(disambiguation)', # probably doesn't exist; the corresponding article does
+          'Talk:The_American_Monomyth', # exists
+          'Talk:THIS_PAGE_WILL_NEVER_EXIST,_RIGHT?', # definitely doesn't exist
+          'Talk:List_of_Canadian_plants_by_family_S' # exists
         ]
         # rubocop:enable Metrics/LineLength
         response = Wiki.get_raw_page_content(articles)
