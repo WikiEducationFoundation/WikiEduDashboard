@@ -35,7 +35,8 @@ essentials:
           * Anatomy of Wikipedia articles, what makes a good article, how to distinguish between good and bad articles
           * Collaborating and engaging with the Wiki editing community
           * Tips on finding the best articles to work on for class assignments
-          # resources: Handouts: LINK_TO_Using_Talk_Pages and LINK_TO_Evaluating_Wikipedia
+          ---
+          Handouts: [Using Talk Pages](), [Evaluating Wikipedia]()
       -
         title: Practicing the basics
         kind: 1
