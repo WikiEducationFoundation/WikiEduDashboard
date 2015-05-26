@@ -15,11 +15,6 @@ Panel = React.createClass(
     e.preventDefault()
     WizardActions.resetWizard()
   render: ->
-    inst = switch @props.panel.type
-      when 0 then 'Select one or more'
-      when 1 then 'Select one'
-      else ''
-
     if @props.index > 0
       rewind =  <div className="button" onClick={@rewind}>{'Previous'}</div>
 
@@ -44,7 +39,6 @@ Panel = React.createClass(
       </div>
       <h3>{@props.panel.title}</h3>
       <p>{@props.panel.description}</p>
-      <p>{inst}</p>
       <div className='wizard__panel__options'>{options}</div>
       <div className='wizard__panel__controls'>
         <div className='left'>
