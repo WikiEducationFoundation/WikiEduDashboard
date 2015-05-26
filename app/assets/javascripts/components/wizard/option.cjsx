@@ -11,22 +11,29 @@ Option = React.createClass(
     className = 'wizard__option half section-header'
     className += ' selected' if @props.option.selected
     checkbox = <div className='wizard__option__checkbox'></div> if @props.multiple
-    expand_text = 'Read More'
-    expand_className = 'wizard__option__description'
-    if @props.option.expanded
-      expand_text = 'Read Less'
-      expand_className += ' open'
+    if @props.option.description
+      expand_text = 'Read More'
+      expand_className = 'wizard__option__description'
+      if @props.option.expanded
+        expand_text = 'Read Less'
+        expand_className += ' open'
+      expand = (
+        <div className={expand_className}>
+          <p>{@props.option.description}</p>
+        </div>
+      )
+      expand_link = (
+        <div className='wizard__option__more' onClick={@expand}><p>{expand_text}</p></div>
+      )
 
     <div className={className}>
       <div onClick={@select}>
         {checkbox}
         <h3>{@props.option.title}</h3>
         <p>{@props.option.blurb}</p>
-        <div className={expand_className}>
-          <p>{@props.option.description}</p>
-        </div>
+        {expand}
       </div>
-      <div className='wizard__option__more' onClick={@expand}><p>{expand_text}</p></div>
+      {expand_link}
       <div className='wizard__option__border'></div>
     </div>
 )

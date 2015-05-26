@@ -87,11 +87,8 @@ panel_speed = .4s
           background-color bayoux
           border-color transparent
       &.half
-        padding 0 0 38px
         +above(desktop)
           col(1/2, cycle: 2)
-      > div:first-child
-        padding 20px 20px 0
       .edit
         margin-top -10px
         position absolute
@@ -121,12 +118,13 @@ panel_speed = .4s
         height 0
         margin-top 15px
         overflow hidden
+        padding-bottom 18px
         transition all 0.2s ease-in-out
         width 100%
         &.open
           border-color mischka
           height auto
-          padding 15px 0
+          padding 15px 0 33px
       .wizard__option__more
         background athens
         border-top 1px solid mischka
@@ -135,14 +133,17 @@ panel_speed = .4s
         padding 5px 0 9px
         position absolute
         right 0
-        text-align center
         transition all .2s ease-in-out
+        p
+          text-align center
         &:hover
           background mischka
       h3
         font-size 18px
+        text-align left
       p
         margin 0
+        text-align left
         white-space pre-line
     .wizard__controls
       font-size 12px

@@ -10,7 +10,6 @@
     -
       title: Include Wiki Essentials
       blurb: Would you like to include Wiki Essentials?
-      description: This is more content about this option
       output: essentials
     -
       title: Don't include Wiki Essentials
