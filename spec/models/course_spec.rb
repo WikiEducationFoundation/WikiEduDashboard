@@ -53,7 +53,7 @@ describe Course, type: :model do
       # Check users
       expect(course.user_count).to eq(6)
       expect(User.all.role('student').count).to eq(course.user_count)
-      expect(course.users.role('instructor').first.is_instructor(course))
+      expect(course.users.role('instructor').first.instructor?(course))
         .to be true
 
       # Check views
