@@ -8,7 +8,9 @@
   key: researchwrite
   title: Research and Write
   blurb: Have your students research and write an article in the subject matter of your choice.
-  description: This is an in-depth assignment that will take a significant amount of time to complete.
+  description: |
+    This is an in-depth assignment that will take a significant amount of time to complete.
+    Several assignments will be added to the timeline over the course of three weeks.
 -
   key: translation
   title: Translation

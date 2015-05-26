@@ -1,7 +1,9 @@
 -
   key: essentials
   title: Wikipedia Essentials
-  description: Learn how to use Wikipedia!
+  description: |
+    Learn how to use Wikipedia!
+    Your students will learn how to use Wikipedia through a series of assignments.
   type: 1  # Single choice
   minimum: 1
   options:
