@@ -92,7 +92,7 @@ Block = React.createClass(
         value={@props.block.content}
         value_key='content'
         editable={@props.editable}
-        rows='2'
+        rows='4'
         hr=true
         placeholder='Block description'
       />

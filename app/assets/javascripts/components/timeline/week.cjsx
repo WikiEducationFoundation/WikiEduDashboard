@@ -59,10 +59,10 @@ Week = React.createClass(
       )
 
     <li className="week">
-      <h3>
+      <div>
         {deleteWeek}
         {title}
-      </h3>
+      </div>
       <ul className="list">
         {blocks}
         {addBlock}
