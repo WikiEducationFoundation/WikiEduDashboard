@@ -19,14 +19,25 @@ Panel = React.createClass(
     if @props.index > 0
       rewind =  <div className="button" onClick={@rewind}>{'Previous'}</div>
 
-    options = @props.raw_options || @props.panel.options.map (option, i) =>
-      <Option option={option}
-        panel_index={@props.index}
-        key={@props.index + '' + i}
-        index={i}
-        multiple={@props.panel.type == 0}
-      />
+    options_1 = []
+    options_2 = []
+    @props.panel.options.forEach (option, i) =>
+      option = (
+        <Option option={option}
+          panel_index={@props.index}
+          key={@props.index + '' + i}
+          index={i}
+          multiple={@props.panel.type == 0}
+        />
+      )
+      if i % 2 == 0 then options_1.push(option) else options_2.push(option)
 
+    options = @props.raw_options || (
+      <div>
+        <div className="left">{options_1}</div>
+        <div className="right">{options_2}</div>
+      </div>
+    )
     classes = 'wizard__panel'
     classes += ' active' if @props.panel.active
     advance = @props.advance || @advance

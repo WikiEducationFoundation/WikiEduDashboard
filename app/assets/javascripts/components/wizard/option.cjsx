@@ -8,7 +8,7 @@ Option = React.createClass(
   expand: ->
     WizardActions.toggleOptionExpanded @props.panel_index, @props.index
   render: ->
-    className = 'wizard__option half section-header'
+    className = 'wizard__option section-header'
     className += ' selected' if @props.option.selected
     checkbox = <div className='wizard__option__checkbox'></div> if @props.multiple
     if @props.option.description
