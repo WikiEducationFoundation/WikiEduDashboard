@@ -10,8 +10,8 @@ _persisted = {}
 
 # Utilities
 setCourse = (data, persisted=false, quiet=false) ->
-  delete data['weeks']
   $.extend(true, _course, data)
+  delete _course['weeks']
   _persisted = $.extend(true, {}, _course) if persisted
   CourseStore.emitChange() unless quiet
 

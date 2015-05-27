@@ -55,6 +55,29 @@ Block = React.createClass(
       top: 100 + @props.block.order * (220 + 10)
     if (@props.block.kind < 3 && !@props.editable)
       spacer = <span>  —  </span>
+    if @props.block.title || @props.editable
+      title = (
+        <span>
+          {spacer}
+          <TextInput
+            onChange={@updateBlock}
+            value={@props.block.title}
+            value_key={'title'}
+            editable={@props.editable}
+            placeholder='Block title'
+            spacer=' '
+          />
+          <TextInput
+            onChange={@updateBlock}
+            value={@props.block.due_date}
+            value_key={'due_date'}
+            editable={@props.editable}
+            type='date'
+            show={gradeable && @props.editable}
+            spacer={spacer}
+          />
+        </span>
+      )
 
     <li className={className} style={style}>
       <h4>
@@ -66,23 +89,7 @@ Block = React.createClass(
           options={['Class', 'Assignment', 'Milestone', 'Custom']}
           show={@props.block.kind < 3 || @props.editable}
         />
-        {spacer}
-        <TextInput
-          onChange={@updateBlock}
-          value={@props.block.title}
-          value_key={'title'}
-          editable={@props.editable}
-          placeholder='Block title'
-        />
-        <TextInput
-          onChange={@updateBlock}
-          value={@props.block.due_date}
-          value_key={'due_date'}
-          editable={@props.editable}
-          type='date'
-          show={gradeable && @props.editable}
-          spacer={spacer}
-        />
+        {title}
         {deleteBlock}
       </h4>
       {graded}
