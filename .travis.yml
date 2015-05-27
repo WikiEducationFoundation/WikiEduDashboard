@@ -4,8 +4,11 @@ rvm:
 
 env:
   - DB: test
+  - QMAKE: /usr/lib/x86_64-linux-gnu/qt5/bin/qmake
 
 before_install:
+  # qt5 installation copied from https://github.com/thoughtbot/capybara-webkit/blob/master/.travis.yml
+  - sh -c 'if [ -n "$QMAKE" ]; then sudo apt-add-repository -y ppa:ubuntu-sdk-team/ppa && sudo apt-get update && sudo apt-get install libqt5webkit5-dev qtdeclarative5-dev; fi'
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
 
