@@ -19,7 +19,7 @@ guard :bundler do
   files.each { |file| watch(helper.real_path(file)) }
 end
 
-guard 'rails', environment: 'developmentcp' do
+guard 'rails', environment: 'development' do
   watch('Gemfile.lock')
   watch(%r{^(config|lib)/.*})
 end

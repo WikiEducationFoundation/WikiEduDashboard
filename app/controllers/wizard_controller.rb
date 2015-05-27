@@ -48,17 +48,30 @@ class WizardController < ApplicationController
       all_content[content_key]
     end
 
+    # Build a timeline array
+    # Quirk: Will stuff blocks into last week if averages don't line up nicely
+    timeline = build_timeline(content_groups, @course)
+
+    # Create and save week/block objects based on the object generated above
+    save_timeline(timeline, logic)
+
+    respond_to do |format|
+      format.json do
+        render json: @course.to_json
+      end
+    end
+  end
+
+  def build_timeline(content_groups, course)
     # Add up the total weight of the content to be added
     total_weight = content_groups.reduce(0) do |tw, cg|
       tw + (cg.map { |w| w['weight'] }).inject(0, :+)
     end
 
     # Find average weight per week to aim for
-    total_weeks = ((@course.end - @course.start) / 7).floor
+    total_weeks = ((course.end - course.start) / 7).floor
     average_weight = total_weight / total_weeks
 
-    # Build a timeline array
-    # Quirk: Will stuff blocks into last week if averages don't line up nicely
     timeline = []
     content_groups.each do |cg|       # An array of week collections
       cg.each do |week|               # An array of weeks
@@ -76,8 +89,10 @@ class WizardController < ApplicationController
         end
       end
     end
+    timeline
+  end
 
-    # Create and save week/block objects based on the object generated above
+  def save_timeline(timeline, logic)
     new_week = nil
     week_finished = false
     timeline.each do |week|
@@ -107,16 +122,6 @@ class WizardController < ApplicationController
         Block.create(block.except('if', 'unless'))
       end
       week_finished = true
-    end
-
-    respond_to do |format|
-      format.json do
-        render json: @course.as_json(
-          include: { weeks: {
-            include: { blocks: { include: :gradeable } }
-          } }
-        )
-      end
     end
   end
 end
