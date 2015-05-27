@@ -59,11 +59,7 @@ class TimelineController < ApplicationController
     end
     respond_to do |format|
       format.json do
-        render json: @course.as_json(
-          include: { weeks: {
-            include: { blocks: { include: :gradeable } }
-          } }
-        )
+        render json: @course.to_json
       end
     end
   end
@@ -116,11 +112,7 @@ class TimelineController < ApplicationController
     end
     respond_to do |format|
       format.json do
-        render json: @course.as_json(
-          include: { weeks: {
-            include: { blocks: { include: :gradeable } }
-          } }
-        )
+        render json: @course.to_json
       end
     end
   end
