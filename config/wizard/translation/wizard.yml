@@ -1,16 +1,60 @@
 -
-  key: essentials
-  title: Wikipedia Essentials
-  description: Learn how to use Wikipedia!
+  key: translation_essentials
+  title: Translation essentials
+  description: |
+    To get started, you'll want to introduce your students to the basic rules of writing Wikipedia articles and working with the Wikipedia community.
+
+    The online *Student Training for Translation Assignments* is a very brief introduction to the basics of editing Wikipedia.
+
+    **Will completion of the training be part of your students’ grade?**
   type: 1  # Single choice
   minimum: 1
   options:
     -
-      title: Include Wiki Essentials
-      blurb: Would you like to include Wiki Essentials?
-      description: This is more content about this option
-      output: essentials
+      title: Yes, training will be graded.
+      output: translation_essentials
+      logic: graded_training
     -
-      title: Don't include Wiki Essentials
-      blurb: Would you like to exclude Wiki Essentials?
-      description: This is more content about this option
+      title: No, training will not be graded.
+      output: translation_essentials
+      logic: ungraded_training
+
+-
+  key: choosing_articles
+  title: Choosing articles
+  description: |
+    Students should find articles that have gone through Wikipedia's peer review process and have been deemed Good or Featured Articles in the language they are studying. For this assignment, students will copy these articles from the target language into a sandbox, and begin translating it into their L1.
+
+    Generally, articles that are ripe for translation are those that:
+    * are relevant to the culture, history, or other aspect of their target language (L2).
+    * are quality articles in their target language’s Wikipedia, but not on their L1 Wikipedia.
+
+    **How will your class select articles?**
+  type: 1 # single choice
+  minimum: 1
+  options:
+    -
+      title: Instructor prepares a list
+      blurb: You (the instructor) prepare a list of appropriate articles from the target-language Wikipedia ahead of time for the students to choose from. If possible, you may want to work with an experienced Wikipedian to create the list. Each student chooses an article from your list to work on.
+      description: Although this requires more preparation, it may help students to start translating their articles sooner, which is useful for shorter Wikipedia assignments.
+      output:
+        - translation_choose_articles_from_list
+        - translation_core
+    -
+      title: Students find articles
+      blurb: Each student explores the target-language Wikipedia and lists two topics on their Wikipedia user page that they are interested in for their main project. You (the instructor) should approve article choices before students proceed to translating.
+      description: Having students find their own articles provides them with a sense of motivation and ownership over the assignment and exercises their critical thinking skills as they identify content gaps, but it may also lead to choices that are further afield from course material. This options is useful for classes that spend more time on the Wikipedia assignment.
+      output:
+        - translation_explore_to_find_articles
+        - translation_core
+-
+  key: media_literacy
+  title: "Optional: add a more challenging media literacy component"
+  description: |
+    For advanced students, you can add a challenging media literacy component to your course. This requires students to fact-check information on the target-language Wikipedia using the target language. They also find sources in their base language to support those claims on their base-language Wikipedia.
+  type: 0 # multiple choice
+  minimum: 0
+  options:
+    -
+      title: Add fact-checking assignment
+      logic: fact_checking

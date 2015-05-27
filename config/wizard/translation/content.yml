@@ -12,28 +12,131 @@
 # - Higher weights will be more likely to stand on their own
 # - Weights may be any positive number but 1-10 is recommended
 
-essentials:
+translation_essentials:
   - # Week one
     weight: 3
     blocks:
       -
-        title: Editing Wikipedia
-        content: Today's lecture will cover basic editing skills that will enable you to complete your translation assignment.
-        kind: 2
+        title: Wikipedia essentials
+        kind: 0 # In class
+        content: |
+          * Overview of the courseh
+          * Introduction to how Wikipedia will be used in the course
+          * Understanding Wikipedia as a community, we'll discuss its expectations and etiquette.
+          * The differences between English Wikipedia and other Wikipedias
+
+          ---
+          Handouts: [Editing Wikipedia](http://wikiedu.org/editingwikipedia) and [Using Talk Pages](https://commons.wikimedia.org/wiki/File:Using_talk_pages.pdf)
       -
-        title: First edit draft
-        content: Copy a Wikipedia article into your user space and draft an edit
-        kind: 0
-        dependencies:
-          - draft
-      -
-        title: First edit
-        content: Edit a Wikipedia article using your new skills
-        kind: 0
+        title: Practicing the basics
+        kind: 1
+        content: |
+          * Create an account and a user page on Wikipedia
+          * Enroll in this course.
+          * Complete the *Online Training for Language Students*.
+          * To practice editing and communicating on Wikipedia, introduce yourself to another student on their user talk page.
+
+          ---
+          Resources: [Online Training for Language Students](https://en.wikipedia.org/wiki/Wikipedia:Training/For_language_students)
+
+translation_explore_to_find_articles:
   - # Week two
+    weight: 3
+    blocks:
+      -
+        title: Choose an article
+        kind: 0
+        content: |
+          * Choose two articles (a first choice, and a backup) to translate into English. Post the article links on your talk page, and submit them to the instructor for review.
+          * Once your instructor has approved one or both of your choices, finalize your choice of which article to translate.
+      -
+        title: Begin translating
+        kind: 1
+        content: |
+          * Copy your article from the target-language Wikipedia into your sandbox.
+          * Begin to translate your work.
+
+translation_choose_articles_from_list:
+  - # Week two
+    weight: 3
+    blocks:
+      -
+        title: Choose an article
+        kind: 0
+        content: |
+          * Select an article from a list prepared by the instructor. Add it as your assigned article on the course page.
+      -
+        title: Begin translating
+        kind: 1
+        content: |
+          * Copy your article from the target-language Wikipedia into your sandbox.
+          * Begin to translate your work.
+
+translation_core:
+  - # Week three
+    weight: 6
+    blocks:
+      - # Week three in-class WITHOUT fact-checking assignment
+        unless: fact_checking
+        title: Translation
+        kind: 0
+        content: |
+          * Be ready to discuss your progess translating your article.
+      - # Week three assignment WITHOUT fact-checking assignment
+        unless: fact_checking
+        title: Translation
+        kind: 1
+        content: |
+          * Continue to translate your work.
+      - # Week three in-class WITH fact-checking assignment
+        if: fact_checking
+        title: Translation
+        kind: 0
+        content: |
+          * Be ready to discuss your progess translating your article.
+          * Carefully note the original citations for facts in your source article.
+            * If an original source doesn't seem reliable, feel free to omit it from your translation.
+
+          ---
+          Handouts: [Citing Sources](https://commons.wikimedia.org/wiki/File:Citing_your_sources.pdf) and [Avoid Plagiarism](https://commons.wikimedia.org/wiki/File:Avoiding_plagiarism.pdf)
+      - # Week three assignment WITH fact-checking assignment
+        if: fact_checking
+        title: Translation
+        kind: 1
+        content: |
+          * Continue to translate your work.
+          * Introduce citations from English-language texts that support the facts stated in your translated article. Adjust your translation if necessary.
+          * For each sentence you translate, make a note of the sources used in the original article. Are they good sources? Do they really say what the Wikipedia article describes?
+  - # Week four
+    weight: 6
+    blocks:
+      -
+        title: Publish your work
+        kind: 0
+        content: |
+          * Discussion of fact-checking translated work, finding English-language sources.
+      -
+        title: Publish your work
+        kind: 1
+        content: |
+          * Move sandbox articles into main space.
+            * If you are expanding an ***existing*** article, it's time to add your revised translation (including English sources, when available). Copy your edit into the article. If you are making many small edits, save after each edit before you make the next one. Do **NOT** paste over the entire existing article, or large sections of the existing article. Be sure to check the article's talk page and respond to suggestions from Wikipedians. Don't panic if your edits are removed or changed! Discuss it civilly on the article's talk page, and make a note of it for your report or presentation about your editing experience.
+            * If you are creating a ***new*** article, *do **NOT** copy and paste* your text, or there will be no record of your work history. Follow instruction on the "Moving out of your sandbox" handout.
+          * In your first edit to the article namespace, include a link of the source article (i.e., the article you translated) in the "edit summary" before hitting "save."
+          * Copy the code {{Translated page}} to the bottom of the Wikipedia article.
+
+          ---
+          Handout: [Moving out of your sandbox](https://commons.wikimedia.org/wiki/File:Moving_out_of_your_sandbox.pdf)
+  - # Week five
     weight: 1
     blocks:
       -
-        title: Advanced Wikipedia editing
-        content: Today's lecture will cover revising other editors' work
+        title: Revise and review
+        kind: 0
+        content: |
+          * Individual presentations about your translation process, how you selected your articles, and your observations about how this differs from a traditional translation assignment.
+      -
+        title: Done!
         kind: 2
+        content: |
+          * Students have finished all their work on Wikipedia that will be considered for grading.
