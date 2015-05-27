@@ -14,7 +14,7 @@
 
 essentials:
   - # Week one
-    weight: 3
+    weight: 2
     blocks:
       -
         title: Wikipedia essentials
@@ -57,7 +57,7 @@ essentials:
         content: |
           All students have Wikipedia user accounts and are listed on the course page.
   - # Week three
-    weight: 3
+    weight: 6
     blocks:
       -
         title: Exploring the topic area
@@ -89,20 +89,20 @@ essentials:
         content: |
           * Choose one article, identify ways in which you can improve and correct its language and grammar, and make the appropriate changes. (You do not need to alter the article's content.)
   - # Week four
-    weight: 2
+    weight: 6
     blocks:
       -
         title: Using sources
+        kind: 0
         content: |
           * Be prepared to explain close paraphrasing, plagiarism, and copyright violations on Wikipedia.
 
           ---
           Handouts: [Citing Sources](https://commons.wikimedia.org/wiki/File:Citing_your_sources.pdf) and [Avoid Plagiarism](https://commons.wikimedia.org/wiki/File:Avoiding_plagiarism.pdf)
-        kind: 0
       -
         if: add_to_article
-        kind: 1
         title: Add to an article
+        kind: 1
         content: |
           * Add 1–2 sentences of new information, backed up with a citation to an appropriate source, to a Wikipedia article related to the class.
       -
@@ -125,8 +125,9 @@ essentials:
         kind: 1
         content: |
           * Your instructor has created a list of potential topics for your main project. Choose the one you will work on.
+          * Compile a bibliography of relevant, reliable sources and post it to the talk page of the article you are working on. Begin reading the sources. Make sure to check in on the talk page (or watchlist) to see if anyone has advice on your bibliography.
   - # Week five
-    weight: 2
+    weight: 6
     blocks:
       -
         title: Discuss the article topics
@@ -139,13 +140,9 @@ essentials:
         kind: 1
         content: |
           * Select an article to work on, removing the rest from your user page. Add your topic on the course page.
-      -
-        title:
-        kind: 1
-        content: |
           * Compile a bibliography of relevant, reliable sources and post it to the talk page of the article you are working on. Begin reading the sources. Make sure to check in on the talk page (or watchlist) to see if anyone has advice on your bibliography.
   - # Week six
-    weight: 4
+    weight: 10
     blocks:
       -
         title: Wikipedia culture and etiquette
@@ -175,11 +172,11 @@ essentials:
         content: |
           * All students have started editing articles or drafts on Wikipedia.
   - # Week seven
-    weight: 4
+    weight: 10
     blocks:
       -
         title: Moving articles to mainspace
-        kind: 0
+        kind: 0 # In-class
         content: |
           * We'll discuss moving your article out of your sandboxes and into Wikipedia's main space.
           * A general reminder: Don't panic if your contribution disappears, and don't try to force it back in.
@@ -190,11 +187,12 @@ essentials:
           Handout: [Moving out of your Sandbox](https://commons.wikimedia.org/wiki/File:Moving_out_of_your_sandbox.pdf)
       -
         title: Moving articles to mainspace
-        kind: 1
+        kind: 1 # Assignment
         content: |
           * Move your sandbox articles into main space.
             * If you are expanding an existing article, copy your edit into the article. If you are making many small edits, save after each edit before you make the next one. Do NOT paste over the entire existing article, or large sections of the existing article.
             * If you are creating a new article, do NOT copy and paste your text, or there will be no record of your work history. Follow the instructions in the "Moving out of your sandbox" handout.
+          * Begin expanding your article into a comprehensive treatment of the topic.
       -
         if: DYK
         title:
@@ -204,13 +202,8 @@ essentials:
 
           ---
           Handout: ["Did You Know" submissions](https://commons.wikimedia.org/wiki/File:%22Did_You_Know%22_submissions.pdf)
-      -
-        title:
-        kind: 1
-        content: |
-          * Begin expanding your article into a comprehensive treatment of the topic.
   - # Week eight
-    weight: 2
+    weight: 4
     blocks:
       -
         title: Building articles
@@ -227,7 +220,7 @@ essentials:
         content: |
           * Select two classmates’ articles that you will peer review and copyedit. On the table at the bottom of this course page, add your username next to the articles you will peer review. (You don’t need to start reviewing yet.)
   - # Week nine
-    weight: 5
+    weight: 6
     blocks:
       -
         title: Complete first draft
@@ -235,7 +228,7 @@ essentials:
         content: |
           * Expand your article into an initial draft of a comprehensive treatment of the topic.
   - # Week ten
-    weight: 3
+    weight: 4
     blocks:
       -
         title: Group suggestions
@@ -249,12 +242,12 @@ essentials:
           * Peer review two of your classmates’ articles. Leave suggestions on the article talk pages.
           * Copy-edit the two reviewed articles.
       -
-        title: Articles have been reviewed
+        title:
         kind: 2
         content: |
           * Every student has finished reviewing their assigned articles, making sure that every article has been reviewed.
   - # Week eleven
-    weight: 2
+    weight: 4
     blocks:
       -
         title: Media literacy discussion
@@ -267,7 +260,7 @@ essentials:
         content: |
           * Make edits to your article based on peers’ feedback. If you disagree with a suggestion, use talk pages to politely discuss and come to a consensus on your edit.
   - # Week twelve
-    weight: 1
+    weight: 4
     blocks:
       -
         title: Discuss further article improvements
@@ -325,7 +318,7 @@ essentials:
     weight: 10
     blocks:
       -
-        title: Due date
+        title:
         kind: 2
         content: |
           * Students have finished all their work on Wikipedia that will be considered for grading.

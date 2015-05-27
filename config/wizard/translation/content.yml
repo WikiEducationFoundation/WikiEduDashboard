@@ -136,7 +136,7 @@ translation_core:
         content: |
           * Individual presentations about your translation process, how you selected your articles, and your observations about how this differs from a traditional translation assignment.
       -
-        title: Done!
-        kind: 2
+        title:
+        kind: 2 # Milestone
         content: |
           * Students have finished all their work on Wikipedia that will be considered for grading.
