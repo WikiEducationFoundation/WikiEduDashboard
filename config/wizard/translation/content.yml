@@ -12,7 +12,7 @@
 # - Higher weights will be more likely to stand on their own
 # - Weights may be any positive number but 1-10 is recommended
 
-essentials:
+translation_essentials:
   - # Week one
     weight: 3
     blocks:

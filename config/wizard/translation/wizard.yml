@@ -1,5 +1,5 @@
 -
-  key: essentials
+  key: translation_essentials
   title: Translation essentials
   description: |
     To get started, you'll want to introduce your students to the basic rules of writing Wikipedia articles and working with the Wikipedia community.
@@ -12,11 +12,11 @@
   options:
     -
       title: Yes, training will be graded.
-      output: essentials
+      output: translation_essentials
       logic: graded_training
     -
       title: No, training will not be graded.
-      output: essentials
+      output: translation_essentials
       logic: ungraded_training
 
 -
