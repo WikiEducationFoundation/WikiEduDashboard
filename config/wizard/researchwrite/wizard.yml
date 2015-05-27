@@ -15,7 +15,7 @@
 
     <br>
 
-    #### Will completion of the student training be part of your students' grades?
+    **Will completion of the student training be part of your students' grades?**
   type: 1  # single choice
   minimum: 1
   options:
@@ -104,7 +104,7 @@
 
     As the instructor, you should apply your own expertise to examining Wikipedia’s coverage of your field. You understand the broader intellectual context where individual topics fit in, you can recognize where Wikipedia falls short, you know—or know how to find—the relevant literature, and you know what topics your students should be able to handle. Your guidance on article choice and sourcing is critical for both your students’ success and the improvement of Wikipedia.
 
-    There are two recommended options for selecting articles:
+    **How will your class select articles?**
   type: 1 # single choice
   minimum: 1
   options:
@@ -124,7 +124,9 @@
   description: |
     Students often wait until the last minute to do their research, or choose sources unsuitable for Wikipedia. That's why we recommend asking students to put together a bibliography of materials they want to use in editing the article, which can then be assessed by you and other Wikipedians.
 
-    Then, students should propose outlines for their articles. This can be a traditional outline, in which students identify which sections their articles will have and which aspects of the topic will be covered in each section. Alternatively, students can develop each outline in the form of a Wikipedia lead section — the untitled section at the beginning of an article that defines the topic and provide a concise summary of its content. Would you like your students to create traditional outlines, or compose outlines in the form of a Wikipedia-style lead section?
+    Then, students should propose outlines for their articles. This can be a traditional outline, in which students identify which sections their articles will have and which aspects of the topic will be covered in each section. Alternatively, students can develop each outline in the form of a Wikipedia lead section — the untitled section at the beginning of an article that defines the topic and provide a concise summary of its content.
+
+    **Would you like your students to create traditional outlines, or compose outlines in the form of a Wikipedia-style lead section?**
   type: 1 # single choice
   minimum: 1
   options:
@@ -158,7 +160,7 @@
 
     Topics that involve human psychology — in particular, clinical psychology or abnormal psychology — often overlap with medical topics on Wikipedia. In those cases, the same rules about acceptable sources apply.
 
-    #### Will your students work in these areas?
+    **Will your students work in these areas?**
   type: 1 # single choice
   minimum: 1
   options:
@@ -183,7 +185,7 @@
     #### Pros and cons of editing live
     Editing live is exciting for the students because they can see their changes to the articles immediately and experience the collaborative editing process throughout the assignment. However, because new editors often unintentionally break Wikipedia rules, sometimes students’ additions are questioned or removed.
 
-    #### Choose one.
+    **Choose one.**
   type: 1 # single choice
   minimum: 1
   options:
@@ -203,7 +205,7 @@
 
     Peer reviews are another chance for students to practice critical thinking. Useful reviews focus on specific issues that can be improved. Since students are usually hesitant to criticize their classmates—and other Wikipedia editors may get annoyed with a stream of praise from students that glosses over an article's shortcomings—it's important to gives examples of the kinds of constructively critical feedback that are the most helpful.
 
-    #### How many peer reviews will you ask each student to contribute during the course?
+    **How many peer reviews will you ask each student to contribute during the course?**
   type: 1 # single choice
   minimum: 1
   options:
@@ -231,7 +233,9 @@
 
     You’ll probably have discussed many of the core principles of Wikipedia—and related issues you want to focus on—but now that they’ve experienced first-hand how Wikipedia works, this is a good time to return to topics like neutrality, media fluency, and the impacts and limits of Wikipedia. Consider bringing in a guest speaker, having a panel discussion, or simply having an open discussion in class about what the students have done so far and why (or whether) it matters.
 
-    In addition to the Wikipedia article writing itself, you may want to use a supplementary assignment. These assignments can reinforce and deepen your course's learning outcomes, and also help you to understand and evaluate the students' work and learning outcomes. Here are some of the effective supplementary assignments that instructors often use. Select any that you wish to use for your course.
+    In addition to the Wikipedia article writing itself, you may want to use a supplementary assignment. These assignments can reinforce and deepen your course's learning outcomes, and also help you to understand and evaluate the students' work and learning outcomes. Here are some of the effective supplementary assignments that instructors often use.
+
+    **Select any that you wish to use for your course.**
   type: 0 # multiple choice
   minimum: 0
   options:
