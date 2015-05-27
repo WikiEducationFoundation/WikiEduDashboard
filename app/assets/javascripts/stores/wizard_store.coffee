@@ -121,8 +121,12 @@ WizardStore = Flux.createStore
     _panels.forEach (panel) ->
       panel.options.forEach (option) ->
         return unless option.selected
-        output.push option.output
-        logic.push option.logic
+        if option.output?
+          if $.isArray(option.output)
+            output = output.concat option.output
+          else
+            output.push option.output
+        logic.push option.logic if option.logic?
     { output: output, logic: logic }
 
 , (payload) ->

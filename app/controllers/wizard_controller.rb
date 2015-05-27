@@ -78,19 +78,35 @@ class WizardController < ApplicationController
     end
 
     # Create and save week/block objects based on the object generated above
+    new_week = nil
+    week_finished = false
     timeline.each do |week|
-      new_week = Week.create(course_id: @course.id)
       week[:blocks].each_with_index do |block, i|
-        # Skip blocks with unmet dependencies
-        no_deps = !block.key?('dependencies')
-        next unless no_deps || block['dependencies'].reduce(true) do |met, dep|
+        # Skip blocks with unmet 'if' dependencies
+        if_met = !block.key?('if')
+        block_if = block['if'].is_a?(Array) ? block['if'] : [block['if']]
+        if_met ||= block_if.reduce(true) do |met, dep|
           met && logic.include?(dep)
         end
+        next unless if_met
 
+        # Skip blocks with unmet 'unless' dependencies
+        unless_met = !block.key?('unless')
+        block_unless = block['unless'].is_a?(Array) ? block['unless'] : [block['unless']]
+        unless_met ||= block_unless.reduce(true) do |met, dep|
+          met && !logic.include?(dep)
+        end
+        next unless unless_met
+
+        if new_week.nil? || (!new_week.blocks.blank? && week_finished)
+          new_week = Week.create(course_id: @course.id)
+          week_finished = false
+        end
         block['week_id'] = new_week.id
         block['order'] = i
-        Block.create(block.except('dependencies'))
+        Block.create(block.except('if', 'unless'))
       end
+      week_finished = true
     end
 
     respond_to do |format|
