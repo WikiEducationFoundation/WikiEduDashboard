@@ -4,7 +4,11 @@ rvm:
 
 env:
   - DB: test
-  - QMAKE: /usr/lib/x86_64-linux-gnu/qt5/bin/qmake
+
+matrix:
+  include:
+    - rvm: 2.1.5
+      env: QMAKE=/usr/lib/x86_64-linux-gnu/qt5/bin/qmake
 
 before_install:
   # qt5 installation copied from https://github.com/thoughtbot/capybara-webkit/blob/master/.travis.yml
