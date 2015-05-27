@@ -2,6 +2,11 @@ React       = require 'react'
 Marked      = require 'marked'
 InputMixin  = require '../../mixins/input_mixin'
 
+# Set up a custom markdown renderer so links open in a new window
+Renderer    = new Marked.Renderer()
+Renderer.link = (href, title, text) ->
+  '<a href="' + href + '" title="' + title + '" target="_blank">' + text + '</a>'
+
 TextAreaInput = React.createClass(
   displayName: 'TextAreaInput'
   mixins: [InputMixin],
@@ -32,7 +37,8 @@ TextAreaInput = React.createClass(
           />
         </label>
     else if @props.value
-      <div dangerouslySetInnerHTML={{__html: Marked(@props.value)}}></div>
+      raw_html = Marked(@props.value, { renderer: Renderer })
+      <div dangerouslySetInnerHTML={{__html: raw_html}}></div>
     else
       <p className="content"></p>
 )
