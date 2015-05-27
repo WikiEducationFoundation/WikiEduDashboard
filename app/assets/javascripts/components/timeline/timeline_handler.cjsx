@@ -22,7 +22,7 @@ TimelineHandler = React.createClass(
         <RouteHandler key={Date.now()} />
       </TransitionGroup>
       <Timeline {...@props} />
-      <Grading {...@props} />
+      # <Grading {...@props} />
     </div>
 )
 

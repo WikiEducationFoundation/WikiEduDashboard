@@ -23,6 +23,7 @@ Grading = React.createClass(
   deleteGradeable: (gradeable_id) ->
     GradeableActions.deleteGradeable gradeable_id
   render: ->
+    return <div></div>
     gradeables = []
     @props.gradeables.forEach (gradeable, i) =>
       unless gradeable.deleted
