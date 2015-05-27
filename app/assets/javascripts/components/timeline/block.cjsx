@@ -74,7 +74,7 @@ Block = React.createClass(
             editable={@props.editable}
             type='date'
             show={gradeable && @props.editable}
-            spacer={spacer}
+            spacer=' '
           />
         </span>
       )

@@ -12,12 +12,14 @@ Select = React.createClass(
       <option value={i} key={i}>{option}</option>
 
     if @props.editable
-      <select
-        value={@state.value}
-        onChange={@onChange}
-      >
-        {options}
-      </select>
+      <div className='input_wrapper'>
+        <select
+          value={@state.value}
+          onChange={@onChange}
+        >
+          {options}
+        </select>
+      </div>
     else
       <span>{@props.options[@props.value]}</span>
 )
