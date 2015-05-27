@@ -8,7 +8,7 @@ slug = 'This_university.foo/This.course_(term_2015)'
 course_start = '2015-01-01'
 course_end = '2015-12-31'
 
-describe 'the home page', type: :feature do
+describe 'the course page', type: :feature do
   before do
     course = create(:course,
                     id: 1,
@@ -18,7 +18,8 @@ describe 'the home page', type: :feature do
                     end: course_end.to_date,
                     school: 'This university',
                     term: 'term 2015',
-                    listed: 1)
+                    listed: 1,
+                    description: 'This is a great course')
     cohort = create(:cohort)
     course.cohorts << cohort
 
@@ -95,20 +96,13 @@ describe 'the home page', type: :feature do
       page.driver.allow_url 'maxcdn.bootstrapcdn.com'
       # page.driver.block_unknown_urls  # suppress warnings
     end
-    visit "/courses/#{slug}"
+    visit "/courses/#{slug}/overview"
   end
 
   describe 'header' do
     it 'should display the course title' do
       title_text = 'This course'
       expect(page.find('.title')).to have_content title_text
-    end
-
-    it 'should display school and term' do
-      school = 'This university'
-      expect(page.find('.title')).to have_content school
-      term = 'term 2015'
-      expect(page.find('.title')).to have_content term
     end
 
     it 'should display course-wide statistics' do
@@ -122,36 +116,84 @@ describe 'the home page', type: :feature do
       expect(page.find('#characters-added')).to have_content characters
       expect(page.find('#view-count')).to have_content article_count * 10
     end
+  end
 
-    it 'should link to articles view' do
-      articles_link = "/courses/#{slug}/articles"
-      expect(page.has_link?('', href: articles_link)).to be true
+  describe 'overview', js: true do
+    it 'should display title' do
+      title = 'This course'
+      expect(page.find('.primary')).to have_content title
+    end
+
+    it 'should display description' do
+      description = 'This is a great course'
+      expect(page.find('.primary')).to have_content description
+    end
+
+    it 'should display school' do
+      school = 'This university'
+      expect(page.find('.sidebar')).to have_content school
+    end
+
+    it 'should display term' do
+      term = 'term 2015'
+      expect(page.find('.sidebar')).to have_content term
     end
 
     it 'should show the course dates' do
-      expect(page.find('#course-dates')).to have_content course_start
-      expect(page.find('#course-dates')).to have_content course_end
+      startf = course_start.to_date.strftime('%m/%d/%Y')
+      endf = course_end.to_date.strftime('%m/%d/%Y')
+      expect(page.find('.sidebar')).to have_content startf
+      expect(page.find('.sidebar')).to have_content endf
+    end
+  end
+
+  describe 'navigation bar' do
+    it 'should link to overview' do
+      link = "/courses/#{slug}/overview"
+      expect(page.has_link?('', href: link)).to be true
+    end
+
+    it 'should link to timeline' do
+      link = "/courses/#{slug}/timeline"
+      expect(page.has_link?('', href: link)).to be true
+    end
+
+    it 'should link to activity' do
+      link = "/courses/#{slug}/activity"
+      expect(page.has_link?('', href: link)).to be true
+    end
+
+    it 'should link to students' do
+      link = "/courses/#{slug}/students"
+      expect(page.has_link?('', href: link)).to be true
+    end
+
+    it 'should link to articles' do
+      link = "/courses/#{slug}/articles"
+      expect(page.has_link?('', href: link)).to be true
     end
   end
 
   describe 'control bar' do
     it 'should allow sorting via dropdown', js: true do
+      visit "/courses/#{slug}/students"
       find('select.sorts').find(:xpath, 'option[1]').select_option
       expect(page).to have_selector('.user-list__row__name.sort.asc')
       find('select.sorts').find(:xpath, 'option[2]').select_option
-      expect(page).to have_selector('.user-list__row__characters-ms.sort.desc')
+      expect(page).to have_selector('.user-list__row__assignee.sort.asc')
       find('select.sorts').find(:xpath, 'option[3]').select_option
-      expect(page).to have_selector('.user-list__row__characters-us.sort.desc')
+      expect(page).to have_selector('.user-list__row__reviewer.sort.asc')
       find('select.sorts').find(:xpath, 'option[4]').select_option
-      # FIXME: The article column has 'edits' in the class name.
-      # expect(page).to have_selector('.user-list__row__edits.sort.desc')
+      expect(page).to have_selector('.user-list__row__characters-ms.sort.desc')
+      find('select.sorts').find(:xpath, 'option[5]').select_option
+      expect(page).to have_selector('.user-list__row__characters-us.sort.desc')
     end
   end
 
   describe 'articles edited view' do
     it 'should display a list of articles' do
       visit "/courses/#{slug}/articles"
-      rows = page.all('.article-list__row__title').count
+      rows = page.all('.article-list__row__rating').count
       # one extra .article-list__row__title element for the column header
       expect(rows).to eq(article_count + 1)
     end
@@ -172,9 +214,9 @@ describe 'the home page', type: :feature do
   end
 
   describe 'manual update' do
-    it 'should redirect to the course page', js: true do
+    it 'should redirect to the course overview', js: true do
       visit "/courses/#{slug}/manual_update"
-      expect(current_path).to eq("/courses/#{slug}")
+      expect(current_path).to eq("/courses/#{slug}/overview")
     end
   end
 end

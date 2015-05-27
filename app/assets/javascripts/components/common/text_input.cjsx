@@ -13,10 +13,8 @@ TextInput = React.createClass(
       label = @props.label
     value = @props.value
     if @props.type == 'date'
-      v_date = new Date(value)
-      month = v_date.getMonth() + 1
-      date = v_date.getDate() + 1
-      value = month + '/' + date + '/' + v_date.getFullYear()
+      v_date = moment(value)
+      value = v_date.format('L')
     if @props.editable
       <label>
         <span>{label}</span>
