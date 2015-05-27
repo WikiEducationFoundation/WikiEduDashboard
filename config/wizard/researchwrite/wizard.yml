@@ -112,7 +112,7 @@
       title: Instructor prepares a list
       blurb: You (the instructor) prepare a list of appropriate 'non-existent', 'stub' or 'start' articles ahead of time for the students to choose from.
       description: If possible, you may want to work with an experienced Wikipedian to create the list. Each student chooses an article from the list to work on. Although this requires more preparation, it may help students to start researching and writing their articles sooner.
-      logic: choose_article_from_list
+      logic: choose_articles_from_list
     -
       title: Students find articles
       blurb: Each student explores Wikipedia and lists 3–5 topics on their Wikipedia user page that they are interested in for their main project. You (the instructor) should approve article choices before students proceed to writing.

@@ -39,7 +39,7 @@ translation_essentials:
           ---
           Resources: [Online Training for Language Students](https://en.wikipedia.org/wiki/Wikipedia:Training/For_language_students)
 
-explore_to_find_articles:
+translation_explore_to_find_articles:
   - # Week two
     weight: 3
     blocks:
@@ -56,7 +56,7 @@ explore_to_find_articles:
           * Copy your article from the target-language Wikipedia into your sandbox.
           * Begin to translate your work.
 
-choose_articles_from_list:
+translation_choose_articles_from_list:
   - # Week two
     weight: 3
     blocks:

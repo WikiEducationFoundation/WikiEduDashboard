@@ -68,6 +68,7 @@ essentials:
           ---
           Handouts: [Choosing an article](https://commons.wikimedia.org/wiki/File:Choosing_an_article.pdf)
       -
+        if: evaluate
         title: Evaluate an article
         kind: 1
         content: |
@@ -81,13 +82,12 @@ essentials:
             * Are there viewpoints that are overrepresented, or underrepresented?
             * Check a few citations. Do the links work? Is there any close paraphrasing or plagiarism in the article?
             * Is any information out of date? Is anything missing that could be added?
-        if: evaluate
       -
+        if: copyedit
         title: Copyedit an article
         kind: 1
         content: |
           * Choose one article, identify ways in which you can improve and correct its language and grammar, and make the appropriate changes. (You do not need to alter the article's content.)
-        if: copyedit
   - # Week four
     weight: 2
     blocks:
@@ -100,31 +100,31 @@ essentials:
           Handouts: [Citing Sources](https://commons.wikimedia.org/wiki/File:Citing_your_sources.pdf) and [Avoid Plagiarism](https://commons.wikimedia.org/wiki/File:Avoiding_plagiarism.pdf)
         kind: 0
       -
+        if: add_to_article
+        kind: 1
         title: Add to an article
         content: |
           * Add 1–2 sentences of new information, backed up with a citation to an appropriate source, to a Wikipedia article related to the class.
-        kind: 1
-        if: add_to_article
       -
+        if: illustrate
         title: Illustrate an article
         kind: 1
         content: |
           * Identify an article that would benefit from illustration, create or find an appropriate photo, illustration, or audio/video, and add it to the article.
             * All media uploaded to Wikipedia must fall under a "free license," which means they can be used or shared by anyone. Examples of media you can use are photos that you take yourself, images and text in the public domain, and works created by someone else who has given permission for their work to be used by others. For more information about which types of media can be uploaded to Wikipedia, see [Commons:Help desk](https://commons.wikimedia.org/wiki/Commons:Help_desk).
             * To add a media file to an article, you must first upload it to Wikimedia Commons. For instructions on how to upload files to Commons, refer to [Illustrating Wikipedia](http://wikiedu.org/illustratingwikipedia). This brochure will also provide you with detailed information about which files are acceptable to upload to Wikipedia and the value of contributing media to Wikipedia articles.
-        if: illustrate
       -
+        if: explore_to_find_articles
         title: Choosing your article
         kind: 1
         content: |
           * Research and list 3–5 articles on your Wikipedia user page that you will consider working on as your main project. Look at the talk page for existing topics for a sense of who else is working on it and what they're doing. Describe your choices to your instructor for feedback.
-        if: explore_to_find_articles
       -
+        if: choose_article_from_list
         title: Choosing your article
         kind: 1
         content: |
           * Your instructor has created a list of potential topics for your main project. Choose the one you will work on.
-        if: choose_article_from_list
   - # Week five
     weight: 2
     blocks:
@@ -134,11 +134,11 @@ essentials:
         content: |
           * Discuss the topics students will be working on, and determine strategies for researching and writing about them.
       -
+        if: explore_to_find_articles
         title: Finalize your topic and start researching
         kind: 1
         content: |
           * Select an article to work on, removing the rest from your user page. Add your topic on the course page.
-        if: explore_to_find_articles
       -
         title:
         kind: 1
@@ -154,21 +154,21 @@ essentials:
           * Talk about Wikipedia culture and etiquette, and (optionally) revisit the concept of sandboxes and how to use them.
           * Q&A session with instructor about interacting on Wikipedia and getting started with writing.
       -
+        if: traditional_outline
         title: Drafting starter articles
         kind: 1
         content: |
           * If you are starting a new article, write a 3–4 paragraph summary version of your article—with citations—in your Wikipedia sandbox. If you are improving an existing article, create a detailed outline reflecting your proposed changes, and post this for community feedback, along with a brief description of your plans, on the article’s talk page. Make sure to check back on the talk page often and engage with any responses.
           * Begin working with classmates and other editors to polish your short starter article and fix any major issues.
           * Continue research in preparation for expanding your article.
-        if: traditional_outline
       -
+        if: outline_as_lead_section
         title: Drafting starter articles
         kind: 1
         content: |
           * If you are starting a new article, write an outline of the topic in the form of a standard Wikipedia lead section of 3–4 paragraphs in your sandbox. Wikipedia articles use "summary style", in which the lead section provides a balanced summary of the entire body of the article, with the first sentence serving to define the topic and place it in context. The lead section should summarize, very briefly, each of the main aspects of the topic that will be covered in detail in the rest of the article. If you are improving an existing article, draft a new lead section reflecting your proposed changes, and post this along with a brief description of your plans on the article’s talk page. Make sure to check that page often to gather any feedback the community might provide.
           * Begin working with classmates and other editors to polish your lead section and fix any major issues.
           * Continue research in preparation for writing the body of the article.
-        if: outline_as_lead_section
       -
         title: Students have started editing
         kind: 2
@@ -196,6 +196,7 @@ essentials:
             * If you are expanding an existing article, copy your edit into the article. If you are making many small edits, save after each edit before you make the next one. Do NOT paste over the entire existing article, or large sections of the existing article.
             * If you are creating a new article, do NOT copy and paste your text, or there will be no record of your work history. Follow the instructions in the "Moving out of your sandbox" handout.
       -
+        if: DYK
         title:
         kind: 1
         content: |
@@ -203,7 +204,6 @@ essentials:
 
           ---
           Handout: ["Did You Know" submissions](https://commons.wikimedia.org/wiki/File:%22Did_You_Know%22_submissions.pdf)
-        if: DYK
       -
         title:
         kind: 1
@@ -281,20 +281,20 @@ essentials:
           * Return to your classmates' articles you previously reviewed, and provide more suggestions for further improvement. If there is a disagreement, suggest a compromise.
           * Do additional research and writing to make further improvements to your article, based on your classmates' suggestions and any additional areas for improvement you can identify.
       -
+        if: presentation
         title: Prepare for in-class presentation
         kind: 1
         content: |
           * Prepare for an in-class presentation about your Wikipedia editing experience.
-        if: presentation
   - # Week thirteen
     weight: 10
     blocks:
       -
+        if: presentation
         title: In-class presentation
         kind: 0
         content: |
           * Students give in-class presentations about their experiences editing Wikipedia.
-        if: presentation
       -
         title: Finishing touches
         kind: 1
@@ -304,23 +304,23 @@ essentials:
           ---
           Handout: [Polishing your article](https://commons.wikimedia.org/wiki/File:Polishing_your_articles.pdf)
       -
+        if: reflective_essay
         title: Reflective essay
         kind: 1
         content: |
           * Write a reflective essay (2–5 pages) on your Wikipedia contributions.
-        if: reflective_essay
       -
+        if: portfolio
         title: Wikipedia portfolio
         kind: 1
         content: |
           * Put together a Wikipedia portfolio.
-        if: portfolio
       -
+        if: original_analytical_paper
         title: Original analytical paper
         kind: 1
         content: |
           * Write a paper going beyond your Wikipedia article to advance your own ideas, arguments, and original research about your topic.
-        if: original_analytical_paper
   - # Week fourteen
     weight: 10
     blocks:

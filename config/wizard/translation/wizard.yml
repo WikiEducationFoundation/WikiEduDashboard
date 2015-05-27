@@ -38,14 +38,14 @@
       blurb: You (the instructor) prepare a list of appropriate articles from the target-language Wikipedia ahead of time for the students to choose from. If possible, you may want to work with an experienced Wikipedian to create the list. Each student chooses an article from your list to work on.
       description: Although this requires more preparation, it may help students to start translating their articles sooner, which is useful for shorter Wikipedia assignments.
       output:
-        - choose_article_from_list
+        - translation_choose_articles_from_list
         - translation_core
     -
       title: Students find articles
       blurb: Each student explores the target-language Wikipedia and lists two topics on their Wikipedia user page that they are interested in for their main project. You (the instructor) should approve article choices before students proceed to translating.
       description: Having students find their own articles provides them with a sense of motivation and ownership over the assignment and exercises their critical thinking skills as they identify content gaps, but it may also lead to choices that are further afield from course material. This options is useful for classes that spend more time on the Wikipedia assignment.
       output:
-        - explore_to_find_articles
+        - translation_explore_to_find_articles
         - translation_core
 -
   key: media_literacy
