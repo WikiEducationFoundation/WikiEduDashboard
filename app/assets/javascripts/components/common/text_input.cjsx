@@ -20,7 +20,7 @@ TextInput = React.createClass(
     if @props.editable
       <label>
         <span>{label}</span>
-        {@props.spacer if @props.value? or @props.editable}
+        {spacer if @props.value? or @props.editable}
         <input
           id={@props.id}
           value={@state.value}
@@ -33,7 +33,7 @@ TextInput = React.createClass(
     else if @props.label
       <p>
         <span>{label}</span>
-        {spacer}
+        {spacer if @props.value? or @props.editable}
         <span>{value}</span>
       </p>
     else
