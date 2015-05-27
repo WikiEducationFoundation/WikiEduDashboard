@@ -23,6 +23,7 @@ essentials:
           * Overview of the course
           * Introduction to how Wikipedia will be used in the course
           * Understanding Wikipedia as a community, we'll discuss its expectations and etiquette.
+
           ---
           Handout: [Editing Wikipedia](http://wikiedu.org/editingwikipedia)
   - # Week two
@@ -36,6 +37,7 @@ essentials:
           * Anatomy of Wikipedia articles, what makes a good article, how to distinguish between good and bad articles
           * Collaborating and engaging with the Wiki editing community
           * Tips on finding the best articles to work on for class assignments
+
           ---
           Handouts: [Using Talk Pages](https://commons.wikimedia.org/wiki/File:Using_talk_pages.pdf), [Evaluating Wikipedia](http://wikiedu.org/evaluatingwikipedia)
       -
@@ -46,6 +48,7 @@ essentials:
           * Create a User page.
           * To practice editing and communicating on Wikipedia, introduce yourself on the user talk page of one of your classmates, who should also be enrolled in the table at the bottom of the page.
           * Explore topics related to your topic area to get a feel for how Wikipedia is organized. What areas seem to be missing? As you explore, make a mental note of articles that seem like good candidates for improvement.
+
           ---
           Resources: [Online Training for Students](https://en.wikipedia.org/wiki/Wikipedia:Training/For_students)
       -
@@ -61,6 +64,7 @@ essentials:
         kind: 0
         content: |
           * Be prepared to discuss some of your observations about Wikipedia articles your topic area that are missing or could use improvement.
+
           ---
           Handouts: [Choosing an article](https://commons.wikimedia.org/wiki/File:Choosing_an_article.pdf)
       -
@@ -68,9 +72,7 @@ essentials:
         kind: 1
         content: |
           * Review pages 4-7 of the Evaluating Wikipedia brochure. This will give you a good, brief overview of what to look for in other articles, and what other people will look for in your own.
-
           * Evaluate an existing Wikipedia article related to the class, and leave suggestions for improving it on the article's talk page.
-
           * A few questions to consider (don't feel limited to these):
             * Is each fact referenced with an appropriate, reliable reference?
             * Is everything in the article relevant to the article topic? Is there anything that distracted you?
@@ -95,12 +97,14 @@ essentials:
         title: Using sources
         content: |
           * Be prepared to explain close paraphrasing, plagiarism, and copyright violations on Wikipedia.
+
           ---
           Handouts: [Citing Sources](https://commons.wikimedia.org/wiki/File:Citing_your_sources.pdf) and [Avoid Plagiarism](https://commons.wikimedia.org/wiki/File:Avoiding_plagiarism.pdf)
         kind: 0
       -
         title: Add to an article
-        content: Add 1–2 sentences of new information, backed up with a citation to an appropriate source, to a Wikipedia article related to the class.
+        content: |
+          * Add 1–2 sentences of new information, backed up with a citation to an appropriate source, to a Wikipedia article related to the class.
         kind: 1
         dependencies:
           - add_to_article
@@ -116,14 +120,15 @@ essentials:
       -
         title: Choosing your article
         kind: 1
-        content: Research and list 3–5 articles on your Wikipedia user page that you will consider working on as your main project. Look at the talk page for existing topics for a sense of who else is working on it and what they're doing. Describe your choices to your instructor for feedback.
-
+        content: |
+          * Research and list 3–5 articles on your Wikipedia user page that you will consider working on as your main project. Look at the talk page for existing topics for a sense of who else is working on it and what they're doing. Describe your choices to your instructor for feedback.
         dependencies:
           - explore_to_find_articles
       -
         title: Choosing your article
         kind: 1
-        content: Your instructor has created a list of potential topics for your main project. Choose the one you will work on.
+        content: |
+          * Your instructor has created a list of potential topics for your main project. Choose the one you will work on.
         dependencies:
           - choose_article_from_list
   - # Week five
@@ -132,19 +137,20 @@ essentials:
       -
         title: Discuss the article topics
         kind: 0
-        content: Discuss the topics students will be working on, and determine strategies for researching and writing about them.
-
+        content: |
+          * Discuss the topics students will be working on, and determine strategies for researching and writing about them.
       -
         title: Finalize your topic and start researching
         kind: 1
-        content: Select an article to work on, removing the rest from your user page. Add your topic on the course page.
-
+        content: |
+          * Select an article to work on, removing the rest from your user page. Add your topic on the course page.
         dependencies:
           - explore_to_find_articles
       -
         title:
         kind: 1
-        content: Compile a bibliography of relevant, reliable sources and post it to the talk page of the article you are working on. Begin reading the sources. Make sure to check in on the talk page (or watchlist) to see if anyone has advice on your bibliography.
+        content: |
+          * Compile a bibliography of relevant, reliable sources and post it to the talk page of the article you are working on. Begin reading the sources. Make sure to check in on the talk page (or watchlist) to see if anyone has advice on your bibliography.
   - # Week six
     weight: 4
     blocks:
@@ -154,7 +160,6 @@ essentials:
         content: |
           * Talk about Wikipedia culture and etiquette, and (optionally) revisit the concept of sandboxes and how to use them.
           * Q&A session with instructor about interacting on Wikipedia and getting started with writing.
-
       -
         title: Drafting starter articles
         kind: 1
@@ -163,7 +168,7 @@ essentials:
           * Begin working with classmates and other editors to polish your short starter article and fix any major issues.
           * Continue research in preparation for expanding your article.
         dependencies:
-          - conventional_outline
+          - traditional_outline
       -
         title: Drafting starter articles
         kind: 1
@@ -189,6 +194,7 @@ essentials:
           * A general reminder: Don't panic if your contribution disappears, and don't try to force it back in.
             * Check to see if there is an explanation of the edit on the article's talk page. If not, (politely) ask why it was removed.
             * Contact your instructor or Wikipedia Content Expert and let them know.
+
           ---
           Handout: [Moving out of your Sandbox](https://commons.wikimedia.org/wiki/File:Moving_out_of_your_sandbox.pdf)
       -
@@ -203,6 +209,7 @@ essentials:
         kind: 1
         content: |
           * Optional: For new articles or qualifying expansions of stubs, compose a one-sentence “hook,” nominate it for “Did you know,” (see the DYK instructions handout) and monitor the nomination for any issues identified by other editors. Wiki Education Foundation staff can provide support for this process.
+
           ---
           Handout: ["Did You Know" submissions](https://commons.wikimedia.org/wiki/File:%22Did_You_Know%22_submissions.pdf)
         dependencies:
@@ -221,6 +228,7 @@ essentials:
         content: |
           * Demo uploading images and adding images to articles.
           * Share experiences and discuss problems.
+
           ---
           Resources: [Illustrating Wikipedia](http://wikiedu.org/illustratingwikipedia) and [Evaluating Wikipedia](http://wikiedu.org/evaluatingwikipedia)
       - # TODO = add support for 1-5 peer reviews
@@ -274,7 +282,8 @@ essentials:
       -
         title: Discuss further article improvements
         kind: 0
-        content: Continue discussing how the articles can be further improved. Come up with improvement goals for each article for next week.
+        content: |
+          * Continue discussing how the articles can be further improved. Come up with improvement goals for each article for next week.
       -
         title: Continue improving articles
         kind: 1
@@ -303,27 +312,30 @@ essentials:
         kind: 1
         content: |
           * Add final touches to your Wikipedia article.
+
           ---
           Handout: [Polishing your article](https://commons.wikimedia.org/wiki/File:Polishing_your_articles.pdf)
       -
         title: Reflective essay
         kind: 1
-        content: Write a reflective essay (2–5 pages) on your Wikipedia contributions.
+        content: |
+          * Write a reflective essay (2–5 pages) on your Wikipedia contributions.
         dependencies:
           - reflective_essay
       -
         title: Wikipedia portfolio
         kind: 1
-        content: Put together a Wikipedia portfolio.
+        content: |
+          * Put together a Wikipedia portfolio.
         dependencies:
           - portfolio
       -
-        title: Original argument paper
+        title: Original analytical paper
         kind: 1
         content: |
           * Write a paper going beyond your Wikipedia article to advance your own ideas, arguments, and original research about your topic.
         dependencies:
-          - original_research_paper
+          - original_analytical_paper
   - # Week fourteen
     weight: 10
     blocks:

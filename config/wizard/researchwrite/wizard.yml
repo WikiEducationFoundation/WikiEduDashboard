@@ -4,25 +4,27 @@
   description: |
     To get started, you'll want to introduce your students to the basic rules of writing Wikipedia articles and working with the Wikipedia community.
 
-    As their first Wikipedia assignment milestone, you can ask the students to create user accounts and then complete the online training for students. This training introduces the Wikipedia community and how it works, demonstrates the basics of editing and walks students through their first edits, gives advice for selecting articles and drafting revisions, and explains further sources of support as they continue along. It takes about an hour and ends with a certification step, which you can use to verify that students completed the training.
+    As their first Wikipedia assignment milestone, you can ask the students to create user accounts and then complete the *online training for students*. This training introduces the Wikipedia community and how it works, demonstrates the basics of editing and walks students through their first edits, gives advice for selecting articles and drafting revisions, and explains further sources of support as they continue along. It takes about an hour and ends with a certification step, which you can use to verify that students completed the training.
 
     Students who complete this training are better prepared to focus on learning outcomes, and spend less time distracted by cleaning up after errors.
 
-    Assignment milestones:
+    ### Assignment milestones
     * Create a user account and enroll on the course page.
-    * Complete the online training for students. During this training, you will make edits in a sandbox and learn the basic rules of Wikipedia.
+    * Complete the *online training for students*. During this training, you will make edits in a sandbox and learn the basic rules of Wikipedia.
     * To practice editing and communicating on Wikipedia, introduce yourself to any Wikipedians helping your class (such as a Wikipedia Ambassador), and leave a message for a classmate on their user talk page.
 
-    Will completion of the student training be part of your students' grades?
+    <br>
+
+    #### Will completion of the student training be part of your students' grades?
   type: 1  # single choice
   minimum: 1
   options:
     -
-      title: Yes, completion of training will be graded.
+      title: Yes, training will be graded.
       output: essentials
       logic: graded_training
     -
-      title: No, completion of training will not be graded.
+      title: No, training will not be graded.
       output: essentials
       logic: ungraded_training
 
@@ -31,8 +33,11 @@
   title: Getting started with editing
   description: |
     It is important for students to start editing Wikipedia early on. That way, they become familiar with Wikipedia's markup ("wikisyntax", "wikimarkup", or "wikicode") and the mechanics of editing and communicating on the site. We recommend assigning a few basic Wikipedia tasks early on.
-    Which introductory assignments would you like to use to acclimate your students to Wikipedia? You can select none, one, or more. Whichever you select will be added to the assignment timeline.
-    For most courses, the '"Critique an article" and "Add to an article" exercises provide a nice foundation for the main writing project.
+
+    #### Which introductory assignments would you like to use?
+    You can select none, one, or more. Whichever you select will be added to the assignment timeline.
+
+    For most courses, the *Critique an article* and *Add to an article* exercises provide a nice foundation for the main writing project. These have been selected by default.
   type: 0 # multiple choice
   minimum: 0
   options:
@@ -41,11 +46,13 @@
       blurb: Critically evaluate an existing Wikipedia article related to the class, and leave suggestions for improving it on the article’s talk page.
       # description:
       logic: critique
+      selected: true # selected by default
     -
       title: Add to an article
       blurb: Using course readings or other relevant secondary sources, add 1–2 sentences of new information to a Wikipedia article related to the class. Be sure to integrate it well into the existing article, and include a citation to the source.
       # description:
       logic: add_to_article
+      selected: true # selected by default
     -
       title: Copyedit an article
       blurb: Browse Wikipedia until you find an article that you would like to improve, and make some edits to improve the language or formatting.
@@ -65,15 +72,22 @@
 
     Some articles may initially look easy to improve, but quality references to expand them may be difficult to find. Finding topics with the right balance between poor Wikipedia coverage and available literature from which to expand that coverage can be tricky. Here are some guidelines to keep in mind when selecting articles for improvement.
 
-    Good choice
+    <br>
 
-    Choose a well-established topic for which a lot of literature is available in its field, but which isn't covered extensively on Wikipedia.
+    ---
+    <br>
 
-    Gravitate toward "stub" and "start" class articles. These articles often have only 1–2 paragraphs of information and are in need of expansion. Relevant WikiProject pages can provide a list of stubs that need improvement.
+    #### Good choice
 
-    Before creating a new article, search related topics on Wikipedia to make sure your topic isn't already covered elsewhere. Often, an article may exist under another name, or the topic may be covered as a subsection of a broader article.
+    * Choose a well-established topic for which a lot of literature is available in its field, but which isn't covered extensively on Wikipedia.
 
-    Not such a good choice
+    * Gravitate toward "stub" and "start" class articles. These articles often have only 1–2 paragraphs of information and are in need of expansion. Relevant WikiProject pages can provide a list of stubs that need improvement.
+
+    * Before creating a new article, search related topics on Wikipedia to make sure your topic isn't already covered elsewhere. Often, an article may exist under another name, or the topic may be covered as a subsection of a broader article.
+
+    <br>
+
+    #### Not such a good choice
 
     Articles that are "not such a good choice" for newcomers usually involve a lack of appropriate research material, highly controversial topics that may already be well developed, broad subjects, or topics for which it is difficult to demonstrate notability.
 
@@ -82,6 +96,11 @@
     * Don't work on an article that is already of high quality on Wikipedia, unless you discuss a specific plan for improving it with other editors beforehand.
     * Avoid working on something with scarce literature. Wikipedia articles cite secondary literature sources, so it's important to have enough sources for verification and to provide a neutral point of view.
     * Don't start articles with titles that imply an argument or essay-like approach (e.g., The Effects That The Recent Sub-Prime Mortgage Crisis has had on the US and Global Economics). These type of titles, and most likely the content too, may not be appropriate for an encyclopedia.
+
+    <br>
+
+    ---
+    <br>
 
     As the instructor, you should apply your own expertise to examining Wikipedia’s coverage of your field. You understand the broader intellectual context where individual topics fit in, you can recognize where Wikipedia falls short, you know—or know how to find—the relevant literature, and you know what topics your students should be able to handle. Your guidance on article choice and sourcing is critical for both your students’ success and the improvement of Wikipedia.
 
@@ -99,3 +118,172 @@
       blurb: Each student explores Wikipedia and lists 3–5 topics on their Wikipedia user page that they are interested in for their main project. You (the instructor) should approve article choices before students proceed to writing.
       description: Having students find their own articles provides them with a sense of motivation and ownership over the assignment and exercises their critical thinking skills as they identify content gaps, but it may also lead to choices that are further afield from course material.
       logic: explore_to_find_articles
+-
+  key: research_and_planning
+  title: Research and planning
+  description: |
+    Students often wait until the last minute to do their research, or choose sources unsuitable for Wikipedia. That's why we recommend asking students to put together a bibliography of materials they want to use in editing the article, which can then be assessed by you and other Wikipedians.
+
+    Then, students should propose outlines for their articles. This can be a traditional outline, in which students identify which sections their articles will have and which aspects of the topic will be covered in each section. Alternatively, students can develop each outline in the form of a Wikipedia lead section — the untitled section at the beginning of an article that defines the topic and provide a concise summary of its content. Would you like your students to create traditional outlines, or compose outlines in the form of a Wikipedia-style lead section?
+  type: 1 # single choice
+  minimum: 1
+  options:
+    -
+      title: Traditional outline
+      blurb: For each article, the students create an outline that reflects the improvements they plan to make, and then post it to the article's talk page. This is a relatively easy way to get started.
+      description:
+      logic: traditional_outline
+    -
+      title: Wikipedia lead section
+      blurb: For each article, the students create a well-balanced summary of its future state in the form of a Wikipedia lead section.
+      description: |
+        The ideal lead section exemplifies Wikipedia's summary style of writing: it begins with a single sentence that defines the topic and places it in context, and then — in one to four paragraphs, depending on the article's size — it offers a concise summary of topic. A good lead section should reflect the main topics and balance of coverage over the whole article.
+
+        Outlining an article this way is a more challenging assignment — and will require more work to evaluate and provide feedback for. However, it can be more effective for teaching the process of research, writing, and revision. Students will return to this lead section as they go, to guide their writing and to revise it to reflect their improved understanding of the topic as their research progresses. They will tackle Wikipedia's encyclopedic style early on, and their outline efforts will be an integral part of their final work.
+      logic: outline_as_lead_section
+
+-
+  key: tricky_topic_areas
+  title: Medicine and other tricky topics
+  description: |
+    Writing about some topics on Wikipedia can be especially tricky — in particular, topics related to medicine, human health, and psychology. Is there any chance some of your students will work in these topic areas?
+
+    If you expect any of your students to work on medicine-related articles — including psychology — you'll need to familiarize yourself, and those students, with the special sourcing rules for these subject areas. These rules also apply if your students will be adding information on, say, the sociological implications of disease or other ways of looking at medical articles.Even if your course is not directly related to medicine, these rules may be important if your students are choosing their own topics.
+
+    #### Special considerations for medical and psychology topics
+
+    Though it is not a medical resource, many people nonetheless turn to Wikipedia for medical information. Poor medical information on Wikipedia can have terrible consequences. For this reason, the standards for sourcing on medical topics differ from other topic areas. In particular, the use of primary sources is strongly discouraged.
+
+    By Wikipedia's conventions for medical content, inappropriate primary sources include original medical research such as clinical studies, case reports, or animal studies, even if published in respected journals. In general, medical and health-related content should be based on review articles from reputable journals and other professional medical literature. Popular press is not considered a reliable source for medical topics.
+
+    Topics that involve human psychology — in particular, clinical psychology or abnormal psychology — often overlap with medical topics on Wikipedia. In those cases, the same rules about acceptable sources apply.
+
+    #### Will your students work in these areas?
+  type: 1 # single choice
+  minimum: 1
+  options:
+    -
+      title: Yes. We will work on medicine or psychology articles.
+      logic: yes_medical_topics
+    -
+      title: Maybe. Students might choose a medicine or psychology topic.
+      logic: maybe_medical_topics
+    -
+      title: No. No one will work on medicine or psychology topics.
+      logic: no_medical_topics
+-
+  key: draft_and_mainspace
+  title: Drafts and mainspace
+  description: |
+    Once students have gotten a grip on their topics and the sources they will use to write about them, it’s time to start writing on Wikipedia. You can ask them to jump right in and edit live, or start them off in their own sandbox pages. There are pros and cons of each approach.
+
+    #### Pros and cons of sandboxes
+    Sandboxes — pages associated with an individual editor that are not considered part of Wikipedia proper — make students feel safe. They can edit without the pressure of the whole world reading their drafts or other Wikipedians altering their writing. However, sandbox editing limits many of the unique aspects of Wikipedia as a teaching tool, such as collaborative writing and incremental drafting. Spending more than a week or two in sandboxes is strongly discouraged.
+
+    #### Pros and cons of editing live
+    Editing live is exciting for the students because they can see their changes to the articles immediately and experience the collaborative editing process throughout the assignment. However, because new editors often unintentionally break Wikipedia rules, sometimes students’ additions are questioned or removed.
+
+    #### Choose one.
+  type: 1 # single choice
+  minimum: 1
+  options:
+    -
+      title: Work live from the start
+      logic: work_live
+    -
+      title: Draft early work in sandboxes
+      logic: use_sandboxes
+-
+  key: peer_feedback
+  title: Peer feedback
+  description: |
+    Collaboration is a critical element of contributing to Wikipedia.
+
+    For some students, this will happen spontaneously; their choice of topics will attract interested Wikipedians who will pitch in with ideas, copyedits, or even substantial contributions to the students’ articles. In many cases, however, there will be little spontaneous editing of students’ articles before the end of the term. Fortunately, you have a classroom full of peer reviewers. You can make the most of this by assigning students to review each others’ articles soon after full-length drafts are posted. This gives students plenty of time to act on the advice of their peers.
+
+    Peer reviews are another chance for students to practice critical thinking. Useful reviews focus on specific issues that can be improved. Since students are usually hesitant to criticize their classmates—and other Wikipedia editors may get annoyed with a stream of praise from students that glosses over an article's shortcomings—it's important to gives examples of the kinds of constructively critical feedback that are the most helpful.
+
+    #### How many peer reviews will you ask each student to contribute during the course?
+  type: 1 # single choice
+  minimum: 1
+  options:
+    -
+      title: 1
+      logic: 1_peer_reviewers
+    -
+      title: 2
+      logic: 2_peer_reviewers
+      selected: true # this is the default
+    -
+      title: 3
+      logic: 3_peer_reviewers
+    -
+      title: 4
+      logic: 4_peer_reviewers
+    -
+      title: 5
+      logic: 5_peer_reviewers
+-
+  key: supplementary_assignments
+  title: Supplementary assignments
+  description: |
+    By the time students have made improvements based on classmates' comments—and ideally suggestions from you as well—they should have produced nearly complete articles. Now is the chance to encourage them to wade a little deeper into Wikipedia and its norms and criteria to create great content.
+
+    You’ll probably have discussed many of the core principles of Wikipedia—and related issues you want to focus on—but now that they’ve experienced first-hand how Wikipedia works, this is a good time to return to topics like neutrality, media fluency, and the impacts and limits of Wikipedia. Consider bringing in a guest speaker, having a panel discussion, or simply having an open discussion in class about what the students have done so far and why (or whether) it matters.
+
+    In addition to the Wikipedia article writing itself, you may want to use a supplementary assignment. These assignments can reinforce and deepen your course's learning outcomes, and also help you to understand and evaluate the students' work and learning outcomes. Here are some of the effective supplementary assignments that instructors often use. Select any that you wish to use for your course.
+  type: 0 # multiple choice
+  minimum: 0
+  options:
+    -
+      title: Class blog or class discussion
+      blurb: Students keep a running blog about their experiences. Giving them prompts every week or two, such as “To what extent are the editors on Wikipedia a self-selecting group and why?” will help them think about the larger issues surrounding this online encyclopedia community. It will also give you material both on the wiki and off the wiki to grade. If you have time in class, these discussions can be particularly constructive in person.
+      description:
+      logic: blog_or_discussion_assignment
+    -
+      title: In-class presentation
+      blurb: Each student or group prepares a short presentation for the class, explaining what they worked on, what went well and what didn't, and what they learned. These presentations can make excellent fodder for class discussions to reinforce your course's learning goals.
+      description:
+      logic: presentation
+    -
+      title: Reflective essay
+      blurb: Ask students to write a short reflective essay on their experiences using Wikipedia. This works well for both short and long Wikipedia projects. An interesting iteration of this is to have students write a short version of the essay before they begin editing Wikipedia, outlining their expectations, and then have them reflect on whether or not they met those expectations during the assignment.
+      description:
+      logic: reflective_essay
+    -
+      title: Wikipedia portfolio
+      blurb: Students organize their Wikipedia work into a portfolio, including a narrative of the contributions they made — and how they were received, and possibly changed, by other Wikipedians — and links to their key edits. Composing this portfolio will help students think more deeply about their Wikipedia experiences, and also provides a lens through which to understand — and grade — their work.
+      description:
+      logic: portfolio
+    -
+      title: Original analytical paper
+      blurb: In courses that emphasize traditional research skills and the development of original ideas through a term paper, Wikipedia's policy of "no original research" may be too restrictive. Many instructors pair Wikipedia writing with a complementary analytical paper; students’ Wikipedia articles serve as a literature review, and the students go on to develop their own ideas and arguments in the offline analytical paper.
+      description:
+      logic: original_analytical_paper
+-
+  key: dyk_and_ga
+  title: Wikipedia quality review processes
+  description: |
+    <br>
+    #### The *Did You Know* process
+
+    Did You Know (DYK) is a section on Wikipedia’s main page highlighting new content that has been added to Wikipedia in the last seven days. DYK can be a great opportunity to get students excited about their work. A typical DYK article will be viewed hundreds or thousands of times during its 6 hours in the spotlight.
+
+    The general criteria for DYK eligibility are that an article is larger than 1,500 characters of original, well-sourced content (about four paragraphs) and that it has been created or expanded (by a factor of 5x or more) within the last seven days. Students who meet this criteria may want to nominate their contributions for DYK.
+
+    The short window of eligibility, and the strict rules of the nomination process, can make it challenging to incorporate DYK into a classroom project. The DYK process should not be a required part of your assignment, as the DYK nomination process can be difficult for newcomers to navigate. However, it makes a great stretch goal when used selectively.
+
+    #### The *Good Article* process
+
+    Well-developed articles that have passed a Good Article (GA) review are a substantial achievement in their own right, and can also qualify for DYK. This peer review process involves checking a polished article against Wikipedia's GA criteria: articles must be well-written, verifiable and well-sourced with no original research, broad in coverage, neutral, stable, and appropriately illustrated (when possible). Practically speaking, a potential Good Article should look and sound like other well-developed Wikipedia articles, and it should provide a solid, well-balanced treatment of its subject.
+
+    The Good Article nominations process generally takes some time — between several days and several weeks, depending on the interest of reviewers and the size of the review backlog in the subject area — and should only be undertaken for articles that are already very well-developed. Typically, reviewers will identify further specific areas for improvement, and the article will be promoted to Good Article status if all the reviewers' concerns are addressed. Because of the uncertain timeline and the frequent need to make substantial changes to articles, Good Article nominations usually only make sense for articles that reach a mature state several weeks before the end of term, and those written by student editors who are already experienced, strong writers and who are willing to come back to address reviewer feedback (even after the term ends).
+  type: 0 # multiple choice
+  minimum: 0
+  options:
+    -
+      title: Include DYK as an ungraded option
+      blurb: The Wiki Ed team can help you and your students during the term to identify work that may be a good candidate for DYK and answer questions you may have about the nomination process.
+    -
+      title: Include Good Article nominations as an ungraded option
+      blurb: The Wiki Ed team can provide advice and support to high-achieving students who are interested in the Good Article process.
