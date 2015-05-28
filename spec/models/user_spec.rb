@@ -109,7 +109,7 @@ describe User do
       create(:courses_user,
              course_id: 1,
              user_id: 1,
-             role: 1) # student
+             role: 1) # instructor
       # role = user.role(course)
       # FIXME: User#role does not account for users with multiple roles.
       # We can probably disable the option of multiple roles when we disconnect
@@ -123,6 +123,39 @@ describe User do
       user = create(:user)
       role = user.role(course)
       expect(role).to eq(-1)
+    end
+  end
+
+  describe '#can_edit?' do
+    it 'should return true for users with non-student roles' do
+      course = create(:course,
+                      id: 1)
+      user = create(:user,
+                    id: 1)
+      create(:courses_user,
+             course_id: 1,
+             user_id: 1,
+             role: 1) # instructor
+      permission = user.can_edit?(course)
+      expect(permission).to be true
+    end
+
+    it  'should return false for students and visitors' do
+      course = create(:course,
+                      id: 1)
+      user = create(:user,
+                    id: 1)
+      # User is not associated with course.
+      permission = user.can_edit?(course)
+      expect(permission).to be false
+
+      # Now user is a student.
+      create(:courses_user,
+             course_id: 1,
+             user_id: 1,
+             role: 0) # instructor
+      permission = user.can_edit?(course)
+      expect(permission).to be false
     end
   end
 end
