@@ -11,10 +11,13 @@ before_install:
   - sh -e /etc/init.d/xvfb start
 
   # We need qt5 to make capybara-webkit work with React.
-  # Adapted from https://gist.github.com/jreese/6207161
+  # Copied from https://gist.github.com/jreese/6207161
   - sudo add-apt-repository --yes ppa:ubuntu-sdk-team/ppa
   - sudo apt-get update -qq
   - sudo apt-get install -qq libqt5webkit5-dev qtdeclarative5-dev
+  - qmake -qt=qt5 -v
+  - qmake -qt=qt5
+  - make
 
 before_script:
   # Set up our database.
