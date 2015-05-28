@@ -1,5 +1,4 @@
 require 'rails_helper'
-require "#{Rails.root}/lib/importers/user_importer"
 
 describe User do
   describe 'user creation' do
@@ -79,61 +78,51 @@ describe User do
     end
   end
 
-  describe 'OAuth model association' do
-    it 'should create new user based on OAuth data' do
-      VCR.use_cassette 'user/user_id' do
-        info = OpenStruct.new(name: 'Ragesock')
-        credentials = OpenStruct.new(token: 'foo', secret: 'bar')
-        hash = OpenStruct.new(uid: '14093230',
-                              info: info,
-                              credentials: credentials)
-        auth = UserImporter.from_omniauth(hash)
-        expect(auth.id).to eq(4_543_197)
-      end
+  describe '#role' do
+    it 'should grant instructor permission for a user creating a new course' do
+      course = nil
+      user = create(:user)
+      role = user.role(course)
+      expect(role).to eq(1)
     end
 
-    it 'should associate existing model with OAuth data' do
-      existing = create(:user)
-      info = OpenStruct.new(name: 'Ragesock')
-      credentials = OpenStruct.new(token: 'foo', secret: 'bar')
-      hash = OpenStruct.new(uid: '14093230',
-                            info: info,
-                            credentials: credentials)
-      auth = UserImporter.from_omniauth(hash)
-      expect(auth.id).to eq(existing.id)
+    it 'should treat an admin like the instructor' do
+      course = create(:course)
+      admin = create(:admin)
+      role = admin.role(course)
+      expect(role).to eq(1)
     end
-  end
 
-  describe 'training update' do
-    it 'should update which users have completed training' do
-      # Create a new user, who by default is assumed not to have been trained.
-      ragesoss = create(:trained)
-      expect(ragesoss.trained).to eq(false)
+    it 'should return the assigned role for a non-admin' do
+      course = create(:course,
+                      id: 1)
+      user = create(:user,
+                    id: 1)
+      create(:courses_user,
+             course_id: 1,
+             user_id: 1,
+             role: 0) # student
+      role = user.role(course)
+      expect(role).to eq(0)
 
-      # Update trained users to see that user has really been trained
-      UserImporter.update_users
-      ragesoss = User.all.first
-      expect(ragesoss.trained).to eq(true)
+      # Now let's make this user also an instructor.
+      create(:courses_user,
+             course_id: 1,
+             user_id: 1,
+             role: 1) # student
+      # role = user.role(course)
+      # FIXME: User#role does not account for users with multiple roles.
+      # We can probably disable the option of multiple roles when we disconnect
+      # the MediaWiki EP extension. For the sake of permissions, though, #role
+      # probably ought to return the most permissive role for a user.
+      # expect(role).to eq(1)
     end
-  end
 
-  describe '.add_users' do
-    it 'should add users based on course data' do
-      VCR.use_cassette 'wiki/add_users' do
-        course = create(:course,
-                        id: 351)
-        data = CourseImporter.get_course_info 351
-        student_data = data[0]['participants']['student']
-        UserImporter.add_users(student_data, 0, course)
-        expect(course.students.all.count).to eq(12)
-      end
-    end
-  end
-
-  describe '.update_users' do
-    it 'should handle exceptions for missing users' do
-      user = [build(:user)]
-      UserImporter.update_users(user)
+    it 'should return -1 for a user who is not part of the course' do
+      course = create(:course)
+      user = create(:user)
+      role = user.role(course)
+      expect(role).to eq(-1)
     end
   end
 end
