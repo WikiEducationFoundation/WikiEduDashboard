@@ -13,7 +13,7 @@ before_install:
   # copied from https://gist.github.com/jreese/6207161
   - sudo add-apt-repository --yes ppa:ubuntu-sdk-team/ppa
   - sudo apt-get update -qq
-  - sudo apt-get install -qq qt5-qmake qtbase5-dev qtdeclarative5-dev libqt5webkit5-dev libsqlite3-dev
+  - sudo apt-get install -qq libqt5webkit5-dev qtdeclarative5-dev
 
 before_script:
   - mysql -e '''CREATE DATABASE test
@@ -21,5 +21,3 @@ before_script:
                 DEFAULT COLLATE utf8_general_ci;'''
   - cp config/database.travis.yml config/database.yml
   - bundle exec rake db:migrate RAILS_ENV=test
-  - qmake -qt=qt5 -v
-  - qmake -qt=qt5
