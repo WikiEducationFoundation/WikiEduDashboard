@@ -73,10 +73,10 @@ class ArticleImporter
       # a case variant.
       next unless article.title == stp['page_title']
 
-      article.update(id: stp['page_id'])
-      ArticlesCourses.where(article_id: article.id).update(
+      ArticlesCourses.where(article_id: article.id).update_all(
         article_id: stp['page_id']
       )
+      article.update(id: stp['page_id'])
     end
   end
 
