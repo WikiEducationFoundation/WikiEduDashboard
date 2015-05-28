@@ -14,13 +14,13 @@ namespace :analytics do
       used_uploads = CommonsUpload.where(id: upload_ids).where('usage_count > 0')
       used_count = used_uploads.count
       usage_count = used_uploads.sum(:usage_count)
-      pp "#{cohort.slug}:"
-      pp "    #{student_ids.count} students"
-      pp "    #{revision_ids.count} revisions"
-      pp "    #{article_ids.count} articles edited"
-      pp "    #{upload_ids.count} files uploaded"
-      pp "    #{used_count} files in use"
-      pp "    #{usage_count} global usages"
+      Rails.logger.info "#{cohort.slug}:"
+      Rails.logger.info "    #{student_ids.count} students"
+      Rails.logger.info "    #{revision_ids.count} revisions"
+      Rails.logger.info "    #{article_ids.count} articles edited"
+      Rails.logger.info "    #{upload_ids.count} files uploaded"
+      Rails.logger.info "    #{used_count} files in use"
+      Rails.logger.info "    #{usage_count} global usages"
     end
   end
 end
