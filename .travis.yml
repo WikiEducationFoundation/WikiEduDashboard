@@ -9,13 +9,17 @@ before_install:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
 
+  # We need qt5 to make capybara-webkit work with React.
+  # copied from https://gist.github.com/jreese/6207161
+  - sudo add-apt-repository --yes ppa:ubuntu-sdk-team/ppa
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq qt5-qmake qtbase5-dev qtdeclarative5-dev libqt5webkit5-dev libsqlite3-dev
+
 before_script:
   - mysql -e '''CREATE DATABASE test
                 DEFAULT CHARACTER SET utf8
                 DEFAULT COLLATE utf8_general_ci;'''
   - cp config/database.travis.yml config/database.yml
   - bundle exec rake db:migrate RAILS_ENV=test
-
-branches:
-  except:
-    - course_pages
+  - qmake -qt=qt5 -v
+  - qmake -qt=qt5
