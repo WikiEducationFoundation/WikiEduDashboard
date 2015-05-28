@@ -81,9 +81,9 @@
       transform rotate(270deg)
   &.view-all
     background none
-    border 0
+    border 1px solid manatee
+    border-width 0 0 1px 0
     justify-content center !important
-    margin-top 20px
     padding-left 20px
     padding-right 20px
     +above(desktop)
@@ -171,6 +171,8 @@
     display none !important
     +above(desktop)
       display flex !important
+  .user-list__row__edits
+    display none !important
   .user-list__row__assignee,
   .user-list__row__reviewer
     display none !important
@@ -229,9 +231,13 @@
   .revision-list__row__characters
     +above(desktop)
       col(9/40)
+    span
+      display inline-block
   .revision-list__row__views
     +above(desktop)
       col(5/40)
+    span
+      display inline-block
   .revision-list__row__link
     col(8/40)
 
