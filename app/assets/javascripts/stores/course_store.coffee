@@ -27,8 +27,8 @@ addCourse = ->
     term: ""
     subject: ""
     expected_students: 0
-    start: ""
-    end: ""
+    start: moment().format('YYYY-MM-DD')
+    end: moment().add(4, 'months').format('YYYY-MM-DD')
   }
 
 
