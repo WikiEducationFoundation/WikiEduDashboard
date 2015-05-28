@@ -59,7 +59,7 @@ class TimelineController < ApplicationController
     end
     respond_to do |format|
       format.json do
-        render json: @course.to_json
+        render json: @course.to_custom_json
       end
     end
   end
@@ -112,7 +112,7 @@ class TimelineController < ApplicationController
     end
     respond_to do |format|
       format.json do
-        render json: @course.to_json
+        render json: @course.to_custom_json
       end
     end
   end

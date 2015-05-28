@@ -57,7 +57,7 @@ class WizardController < ApplicationController
 
     respond_to do |format|
       format.json do
-        render json: @course.to_json
+        render json: @course.to_custom_json
       end
     end
   end

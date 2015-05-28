@@ -44,7 +44,7 @@ class Course < ActiveRecord::Base
     slug
   end
 
-  def to_json
+  def to_custom_json
     as_json(
       include: { weeks: {
         include: { blocks: { include: :gradeable } }
