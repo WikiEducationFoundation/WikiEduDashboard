@@ -17,10 +17,15 @@ getState = ->
 CourseCreator = React.createClass(
   displayName: 'CourseCreator'
   mixins: [CourseStore.mixin]
+  contextTypes:
+    router: React.PropTypes.func.isRequired
   storeDidChange: ->
     @setState getState()
     if @state.course.slug?    # Primitive check for a server-created course
-      window.location = '/courses/' + @state.course.slug + '/timeline/wizard'
+      @context.router.transitionTo('wizard',
+        course_title: @state.course.title,
+        course_school: @state.course.school
+      )
   componentWillMount: ->
     CourseActions.addCourse()
   validateCourse: ->

@@ -20,6 +20,7 @@ updateCourseValue = (key, value) ->
   _course[key] = value
   CourseStore.emitChange()
 
+# TODO: Pull this off into a separate class that can be reused
 setValid = (key, value) ->
   if value
     delete _invalid[key]
