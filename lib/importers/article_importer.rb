@@ -31,6 +31,7 @@ class ArticleImporter
 
     # Delete articles as appropriate
     local_articles.where(id: deleted_ids).update_all(deleted: true)
+    ArticlesCourses.where(article_id: deleted_ids).destroy_all
     limbo_revisions = Revision.where(article_id: deleted_ids)
     move_or_delete_revisions limbo_revisions
   end
@@ -73,6 +74,9 @@ class ArticleImporter
       next unless article.title == stp['page_title']
 
       article.update(id: stp['page_id'])
+      ArticlesCourses.where(article_id: article.id).update(
+        article_id: stp['page_id']
+      )
     end
   end
 
