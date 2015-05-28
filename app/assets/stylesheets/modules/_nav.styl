@@ -45,8 +45,10 @@ nav
   .nav__item
     float left
     overflow hidden
-    padding 23px 20px 24px 0
+    padding 0 20px 24px 0
     text-transform uppercase
+    +above(desktop)
+      padding 23px 20px 24px 0
     p
       color manatee
       font-size 15px
@@ -68,3 +70,7 @@ nav
 
 .course_navigation
   background-color white
+  nav
+    padding 20px 0 0 20px
+    +above(desktop)
+      padding 0
