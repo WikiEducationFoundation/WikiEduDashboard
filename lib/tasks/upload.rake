@@ -9,7 +9,7 @@ namespace :upload do
 
   desc 'Update global usage for all uploads'
   task update_usage_count: 'batch:setup_logger' do
-    Rails.logger.debug 'Updating Commons uploads'
-    UploadImporter.import_all_uploads(CommonsUpload.all)
+    Rails.logger.debug 'Updating Commons uploads usage counts'
+    UploadImporter.update_usage_count(CommonsUpload.all)
   end
 end
