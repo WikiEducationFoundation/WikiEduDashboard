@@ -107,7 +107,9 @@ class WizardController < ApplicationController
 
         # Skip blocks with unmet 'unless' dependencies
         unless_met = !block.key?('unless')
-        block_unless = block['unless'].is_a?(Array) ? block['unless'] : [block['unless']]
+        block_unless = block['unless']
+        block_unless = [block_unless] unless block_unless.is_a?(Array)
+
         unless_met ||= block_unless.reduce(true) do |met, dep|
           met && !logic.include?(dep)
         end

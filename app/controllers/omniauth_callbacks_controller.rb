@@ -1,5 +1,6 @@
 require "#{Rails.root}/lib/importers/user_importer"
 
+#= Controller for OmniAuth authentication callbacks
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   include Devise::Controllers::Rememberable
 

@@ -8,10 +8,18 @@ AllCops:
     - 'config/**/*'
     - 'bin/**/*'
 
+# Disable complexity cops, since we use CodeClimate for that.
 Metrics/MethodLength:
-  Max: 20               # Max number of lines in a method
+  Enabled: false
 Metrics/AbcSize:
-  Max: 40               # Measures method complexity. Would like to lower this.
+  Enabled: false
+Metrics/ClassLength:
+  Enabled: false
+Metrics/CyclomaticComplexity:
+  Enabled: false
+Metrics/PerceivedComplexity:
+  Enabled: false
+
 Style/SpaceAroundEqualsInParameterDefault:
   Enabled: false
 Style/ColonMethodCall:
@@ -24,3 +32,5 @@ Style/AsciiComments:
   Enabled: false # We need non-ascii characters to document Wikipedia stuff.
 Performance/ParallelAssignment:
   Enabled: false # We general use this only to initialize empty variables.
+Style/RedundantReturn:
+  Enabled: false # Sometimes a redundant return enhances clarity.

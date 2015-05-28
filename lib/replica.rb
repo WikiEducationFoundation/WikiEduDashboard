@@ -1,8 +1,10 @@
 require 'crack'
 
 #= Fetches wiki revision data from an endpoint that provides SQL query
-#= results from a replica wiki database on wmflabs: http://tools.wmflabs.org/wikiedudashboard
-#= For what's going on at the other end, see https://github.com/WikiEducationFoundation/WikiEduDashboardTools
+#= results from a replica wiki database on wmflabs:
+#=   http://tools.wmflabs.org/wikiedudashboard
+#= For what's going on at the other end, see:
+#=   https://github.com/WikiEducationFoundation/WikiEduDashboardTools
 class Replica
   def self.connect_to_tool
     api_get('')
@@ -126,13 +128,13 @@ class Replica
     # query appropriate to that endpoint, return the parsed json response.
     #
     # Example users.php query with 2 users:
-    #    http://tools.wmflabs.org/wikiedudashboard/users.php?user_ids[0]=012345&user_ids[1]=678910
+    #   http://tools.wmflabs.org/wikiedudashboard/users.php?user_ids[0]=012345&user_ids[1]=678910
     # Example users.php parsed response with 2 users:
     # [{"id"=>"123", "wiki_id"=>"User_A", "global_id"=>"8675309", trained: 1},
     #  {"id"=>"6789", "wiki_id"=>"User_B", "global_id"=>"9035768", trained: 0}]
     #
     # Example revisions.php query:
-    #    http://tools.wmflabs.org/wikiedudashboard/revisions.php?user_ids[0]=%27Example_User%27&user_ids[1]=%27Ragesoss%27&user_ids[2]=%27Sage%20(Wiki%20Ed)%27&start=20150105&end=20150108
+    #   http://tools.wmflabs.org/wikiedudashboard/revisions.php?user_ids[0]=%27Example_User%27&user_ids[1]=%27Ragesoss%27&user_ids[2]=%27Sage%20(Wiki%20Ed)%27&start=20150105&end=20150108
     #
     # Example revisions.php parsed response:
     # [{"page_id"=>"44962463",
@@ -231,7 +233,8 @@ class Replica
     end
 
     def report_exception(error, endpoint, query, level='error')
-      Rails.logger.error "replica.rb #{endpoint} query failed after 3 tries: #{error}"
+      Rails.logger
+        .error "replica.rb #{endpoint} query failed after 3 tries: #{error}"
       # These are typical network errors that we expect to encounter.
       typical_errors = [Errno::ETIMEDOUT,
                         Errno::ECONNREFUSED,

@@ -140,7 +140,7 @@ describe User do
       expect(permission).to be true
     end
 
-    it  'should return false for students and visitors' do
+    it 'should return false for students and visitors' do
       course = create(:course,
                       id: 1)
       user = create(:user,

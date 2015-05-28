@@ -69,8 +69,10 @@ module ArticleHelper
       'fl'
     elsif wikitext.match(/\|\s*class\s*=\s*a\b/i)
       'a' # Treat all forms of A, including A/GA, as simple A.
+    # rubocop:disable Style/RegexpLiteral
     elsif wikitext.match(/\|\s*class\s*=\s*ga\b|\|\s*currentstatus\s*=\s*(ffa\/)?ga\b|\{\{\s*ga\s*\|/i) && !wikitext.match(/\|\s*currentstatus\s*=\s*dga\b/i)
       'ga'
+    # rubocop:enable Style/RegexpLiteral
     elsif wikitext.match(/\|\s*class\s*=\s*b\b/i)
       'b'
     elsif wikitext.match(/\|\s*class\s*=\s*bplus\b/i)
