@@ -12,9 +12,13 @@ describe WikiEdits do
                     wiki_token: 'foo',
                     wiki_secret: 'bar')
 
+      # rubocop:disable Metrics/LineLength
       fake_tokens = "{\"query\":{\"tokens\":{\"csrftoken\":\"myfaketoken+\\\\\"}}}"
-      stub_request(:get, /.*/).to_return(:status => 200, :body => fake_tokens, :headers => {})
+      # rubocop:enable Metrics/LineLength
+      stub_request(:get, /.*/)
+        .to_return(status: 200, body: fake_tokens, headers: {})
       response = WikiEdits.tokens(user)
+      expect(response).to be
     end
   end
 
