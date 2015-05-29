@@ -14,7 +14,7 @@ TextInput = React.createClass(
     value = @props.value
     if @props.type == 'date'
       v_date = moment(value)
-      value = v_date.format('L')
+      value = v_date.format('YYYY-MM-DD')
     if @props.editable
       labelClass = ''
       inputClass = ''
