@@ -11,11 +11,11 @@ CourseCreatorButton = require '../components/course_creator/course_creator_butto
 
 routes = (
   <Route name='root' path='/' handler={App}>
-    <Route name='course' path='courses'>
-      <Route name='timeline' path=':course_school/:course_title/timeline' handler={TimelineHandler} >
+    <Route name='course' path='courses/:course_school/:course_title'>
+      <Route name='timeline' path='timeline' handler={TimelineHandler} >
         <Route name='wizard' path='wizard' handler={Wizard} />
       </Route>
-      <Route name='overview' path=':course_school/:course_title/overview' handler={OverviewHandler} />
+      <DefaultRoute handler={OverviewHandler} />
     </Route>
     <Route handler={CourseCreatorButton}>
       <Route name='course_creator' path='course_creator' handler={CourseCreator} />

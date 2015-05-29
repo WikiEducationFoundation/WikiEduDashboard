@@ -117,7 +117,7 @@ class CoursesController < ApplicationController
     standard_setup
     respond_to do |format|
       format.json { render json: @course }
-      format.html { redirect_to :overview }
+      format.html { render :overview }
     end
   end
 

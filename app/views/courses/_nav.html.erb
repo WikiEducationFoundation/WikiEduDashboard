@@ -1,5 +1,5 @@
 <div class="nav__item <%= page == 0 ? 'active' : '' %>" id="overview-link">
-  <p><%= link_to t("course.overview"), :action => "overview" %></p>
+  <p><%= link_to t("course.overview"), course_slug_path(@course.slug) %></p>
 </div>
 <div class="nav__item <%= page == 3 ? 'active' : '' %>" id="timeline-link">
   <p><%= link_to t("course.timeline"), :action => "timeline" %></p>

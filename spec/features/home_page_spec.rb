@@ -127,7 +127,7 @@ describe 'the home page', type: :feature do
       first_course = Cohort.first.courses.first
       click_link(first_course.id)
       # FIXME: This test fails intermittently, typically with course 6 vs 1.
-      # expect(current_path).to eq(course_path(first_course))
+      expect(current_path).to eq(course_path(first_course))
     end
   end
 
