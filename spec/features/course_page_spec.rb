@@ -96,7 +96,7 @@ describe 'the course page', type: :feature do
       page.driver.allow_url 'maxcdn.bootstrapcdn.com'
       # page.driver.block_unknown_urls  # suppress warnings
     end
-    visit "/courses/#{slug}/overview"
+    visit "/courses/#{slug}"
   end
 
   describe 'header' do
@@ -149,7 +149,7 @@ describe 'the course page', type: :feature do
 
   describe 'navigation bar' do
     it 'should link to overview' do
-      link = "/courses/#{slug}/overview"
+      link = "/courses/#{slug}"
       expect(page.has_link?('', href: link)).to be true
     end
 
@@ -216,7 +216,7 @@ describe 'the course page', type: :feature do
   describe 'manual update' do
     it 'should redirect to the course overview', js: true do
       visit "/courses/#{slug}/manual_update"
-      expect(current_path).to eq("/courses/#{slug}/overview")
+      expect(current_path).to eq("/courses/#{slug}")
     end
   end
 end
