@@ -19,7 +19,7 @@ class CoursesController < ApplicationController
     if params.key?(:cohort)
       @cohort = Cohort.includes(:students).find_by(slug: params[:cohort])
     elsif !Figaro.env.default_cohort.nil?
-      @cohort = Cohort.find_by(slug: Figaro.env.default_cohort)
+      @cohort = Cohort.includes(:students).find_by(slug: Figaro.env.default_cohort)
     end
     @cohort ||= nil
 
