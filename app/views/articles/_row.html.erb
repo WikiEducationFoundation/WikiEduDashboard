@@ -22,15 +22,15 @@
       <% end %>
     </div>
     <div class="article-list__row__characters">
-      <p class="characters">
+      <p>
         <span class="tablet-only-flex"><%= t("metrics.char") %>: </span>
-        <%= ac.character_sum || ac.article.character_sum %>
+        <span class="characters"><%= ac.character_sum || ac.article.character_sum %></span>
       </p>
     </div>
     <div class="article-list__row__views">
-      <p class="views">
+      <p>
         <span class="tablet-only-flex"><%= t("metrics.view") %>: </span>
-        <%= ac.view_count || ac.article.views || 0 %>
+        <span class="views"><%= ac.view_count || ac.article.views || 0 %></span>
       </p>
     </div>
     <div class="article-list__row__link desktop-only-flex">

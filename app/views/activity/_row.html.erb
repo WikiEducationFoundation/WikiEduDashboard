@@ -9,22 +9,24 @@
       </div>
     </div>
     <div class="article-list__row__title">
-      <div class="rating <%= revision.article.rating %> tablet-only-flex"><p><%= revision.article.rating || '?' %></p></div>
+      <div class="rating <%= revision.article.rating %> tablet-only-flex">
+        <p><%= revision.article.rating || '?' %></p>
+      </div>
       <p class="title"><%= full_title(revision.article) %></p>
     </div>
     <div class="article-list__row__title">
       <p class="edited_by"><%= revision.user.wiki_id %></p>
     </div>
     <div class="article-list__row__characters">
-      <p class="characters">
+      <p>
         <span class="tablet-only-flex"><%= t("metrics.char") %>: </span>
-        <%= revision.characters || revision.article.character_sum %>
+        <span class="characters"><%= revision.characters || revision.article.character_sum %></span>
       </p>
     </div>
     <div class="article-list__row__views">
-      <p class="date_time">
+      <p>
         <span class="tablet-only-flex"><%= t("metrics.date_time") %>: </span>
-        <%= revision.date.strftime("%Y-%m-%d %k:%M") %>
+        <span class="date_time"><%= revision.date.strftime("%Y-%m-%d %k:%M") %></span>
       </p>
     </div>
     <div class="article-list__row__link desktop-only-flex">

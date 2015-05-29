@@ -10,15 +10,15 @@
       <p class="date"><%= revision.date.strftime("%Y-%m-%d %k:%M") %></p>
     </div>
     <div class="revision-list__row__characters">
-      <p class="characters">
+      <p>
         <span class="tablet-only-flex"><%= t("metrics.char") %>: </span>
-        <%= revision.characters %>
+        <span class="characters"><%= revision.characters %></span>
       </p>
     </div>
     <div class="revision-list__row__views">
-      <p class="views">
+      <p>
         <span class="tablet-only-flex"><%= t("metrics.view") %>: </span>
-        <%= revision.views %>
+        <span class="views"><%= revision.views %></span>
       </p>
     </div>
     <div class="revision-list__row__link desktop-only-flex">
