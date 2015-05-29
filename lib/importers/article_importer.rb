@@ -76,7 +76,14 @@ class ArticleImporter
       ArticlesCourses.where(article_id: article.id).update_all(
         article_id: stp['page_id']
       )
-      article.update(id: stp['page_id'])
+
+      if Article.exists?(stp['page_id'])
+        # Catches case where update_constantly has
+        # already added this article under a new ID
+        article.update(deleted: true)
+      else
+        article.update(id: stp['page_id'])
+      end
     end
   end
 
