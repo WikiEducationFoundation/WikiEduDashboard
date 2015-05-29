@@ -17,7 +17,7 @@ class CoursesController < ApplicationController
     end
 
     if params.key?(:cohort)
-      @cohort = Cohort.find_by(slug: params[:cohort])
+      @cohort = Cohort.includes(:students).find_by(slug: params[:cohort])
     elsif !Figaro.env.default_cohort.nil?
       @cohort = Cohort.find_by(slug: Figaro.env.default_cohort)
     end
@@ -26,8 +26,7 @@ class CoursesController < ApplicationController
     raise ActionController::RoutingError.new('Not Found') if @cohort.nil?
 
     @courses = @cohort.courses.where(listed: true).order(:title)
-    @untrained = @courses.sum(:untrained_count)
-    @trained = @courses.sum(:user_count) - @courses.sum(:untrained_count)
+    @trained = @cohort.students.where(trained: true).count
   end
 
   ################

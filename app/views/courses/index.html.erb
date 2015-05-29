@@ -10,7 +10,7 @@
         <small><%= t("course.course_description") %></small>
         </div>
       <div class="stat-display__stat popover-trigger">
-        <h1><%= @courses.sum(:user_count) %></h1>
+        <h1><%= @cohort.students.count %></h1>
         <small><%= t("course.students") %></small>
         <div class="popover">
           <h4><%= @trained %></h4>

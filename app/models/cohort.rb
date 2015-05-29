@@ -2,6 +2,9 @@
 class Cohort < ActiveRecord::Base
   has_many :cohorts_courses, class_name: CohortsCourses
   has_many :courses, through: :cohorts_courses
+  has_many :courses_users, through: :courses
+  has_many :students, -> { where('courses_users.role = 0').uniq },
+           through: :courses_users, source: :user
 
   # Create new cohorts from application.yml entries
   def self.initialize_cohorts
