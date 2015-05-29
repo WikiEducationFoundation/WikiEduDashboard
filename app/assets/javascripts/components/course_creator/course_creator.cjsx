@@ -22,10 +22,13 @@ CourseCreator = React.createClass(
   storeDidChange: ->
     @setState getState()
     if @state.course.slug?    # Primitive check for a server-created course
-      @context.router.transitionTo('wizard',
-        course_title: @state.course.title,
-        course_school: @state.course.school
-      )
+      # This has to be a window.location set due to our limited ReactJS scope
+      window.location = '/courses/' + @state.course.slug + '/timeline/wizard'
+
+      # @context.router.transitionTo('wizard',
+      #   course_title: (@state.course.title + '_(' + @state.course.term + ')'),
+      #   course_school: @state.course.school
+      # )
   componentWillMount: ->
     CourseActions.addCourse()
   validateCourse: ->
