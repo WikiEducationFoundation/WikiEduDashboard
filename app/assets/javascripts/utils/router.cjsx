@@ -15,6 +15,9 @@ routes = (
       <Route name='timeline' path='timeline' handler={TimelineHandler} >
         <Route name='wizard' path='wizard' handler={Wizard} />
       </Route>
+      <Route name='activity' path='activity'></Route>
+      <Route name='students' path='students'></Route>
+      <Route name='articles' path='articles'></Route>
       <DefaultRoute handler={OverviewHandler} />
     </Route>
     <Route handler={CourseCreatorButton}>
