@@ -10,7 +10,7 @@ CourseCreatorButton = React.createClass(
     <div>
       <Link
         to="course_creator"
-        className="button large dark"
+        className="button dark"
       >Create New Course</Link>
       <TransitionGroup
         transitionName="wizard"
