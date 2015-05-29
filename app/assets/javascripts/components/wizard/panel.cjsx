@@ -45,8 +45,8 @@ Panel = React.createClass(
     <div className={classes}>
       <div className='wizard__controls'>
         <p>
-          <CourseLink to='timeline'>Back to dashboard</CourseLink>
-          <a href='' onClick={@reset}>Start over</a>
+          <CourseLink to='timeline' className='icon icon-left_arrow'>Back to dashboard</CourseLink>
+          <a href='' onClick={@reset} className='icon icon-restart'>Start over</a>
         </p>
       </div>
       <h3>{@props.panel.title}</h3>

@@ -145,8 +145,19 @@ wizard-width = 860px
         position absolute
         right 0
         transition all .2s ease-in-out
+        &.open p:after
+          transform rotate(-180deg)
         p
+          color manatee
           text-align center
+          &:after
+            content "\E001"
+            display inline-block
+            font-family "icons"
+            line-height 0
+            margin-left 5px
+            transition transform .2s
+            vertical-align middle
         &:hover
           background mischka
       h3
@@ -160,13 +171,17 @@ wizard-width = 860px
       font-size 12px
       left 20px
       position absolute
-      top -30px
+      top -35px
       transition all 0.2s
       +above(880px)
         left 0
       a
         color dove
-        margin-right 20px
+        margin-left 20px
+        margin-right 10px
+        &.icon:before
+          margin-right 8px
+          vertical-align middle
     .wizard__panel__controls
       background-color white
       border-top 1px solid mischka

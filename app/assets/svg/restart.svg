@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.2 (12043) - http://www.bohemiancoding.com/sketch -->
+    <title>Shape</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Modules" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Wizard-Modules" sketch:type="MSArtboardGroup" transform="translate(-344.000000, -239.000000)" fill="#858DAA">
+            <path d="M352,239 C347.6,239 344,242.6 344,247 C344,251.4 347.6,255 352,255 C355.7,255 358.8,252.4 360,249 L358,249 C356.8,251.3 354.6,253 352,253 C348.7,253 346,250.3 346,247 C346,243.7 348.7,241 352,241 C353.7,241 355.1,241.7 356,243 L353,246 L360,246 L360,239 L358,241 C356.2,240 354.2,239 352,239 Z" id="Shape" sketch:type="MSShapeGroup"></path>
+        </g>
+    </g>
+</svg>
