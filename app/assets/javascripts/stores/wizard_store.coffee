@@ -102,7 +102,7 @@ restore = ->
 # Store
 WizardStore = Flux.createStore
   getPanels: ->
-    _panels
+    $.extend([], _panels, true)
   getWizardKey: ->
     _wizard_key
   getAnswers: ->
