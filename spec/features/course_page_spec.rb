@@ -140,8 +140,8 @@ describe 'the course page', type: :feature do
     end
 
     it 'should show the course dates' do
-      startf = course_start.to_date.strftime('%m/%d/%Y')
-      endf = course_end.to_date.strftime('%m/%d/%Y')
+      startf = course_start.to_date.strftime('%Y-%m-%d')
+      endf = course_end.to_date.strftime('%Y-%m-%d')
       expect(page.find('.sidebar')).to have_content startf
       expect(page.find('.sidebar')).to have_content endf
     end
