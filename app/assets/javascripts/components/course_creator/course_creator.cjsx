@@ -12,22 +12,44 @@ TextAreaInput = require '../common/text_area_input'
 
 getState = ->
   course: CourseStore.getCourse()
+  validation: CourseStore.getValidation()
 
 CourseCreator = React.createClass(
   displayName: 'CourseCreator'
   mixins: [CourseStore.mixin]
+  contextTypes:
+    router: React.PropTypes.func.isRequired
   storeDidChange: ->
     @setState getState()
     if @state.course.slug?    # Primitive check for a server-created course
-      window.location = '/courses/' + @state.course.slug + '/timeline/wizard'
+      @context.router.transitionTo('wizard',
+        course_title: @state.course.title,
+        course_school: @state.course.school
+      )
   componentWillMount: ->
     CourseActions.addCourse()
+  validateCourse: ->
+    course_valid = true
+    for key, value of @state.course
+      course_valid = @validateKey(key, value) && course_valid
+    course_valid
+  validateKey: (key, value) ->
+    switch key
+      when 'title', 'school', 'term', 'start', 'end'
+        valid = value.length > 0
+        CourseActions.setValid key, valid
+        valid
+      else
+        return true
+
   saveCourse: ->
-    ServerActions.saveCourse $.extend(true, {}, @state)
+    if @validateCourse()
+      ServerActions.saveCourse $.extend(true, {}, { course: @state.course })
   updateCourse: (value_key, value) ->
     to_pass = $.extend(true, {}, @state.course)
     to_pass[value_key] = value
     CourseActions.updateCourse to_pass
+    @validateKey(value_key, value)
   getInitialState: ->
     getState()
   render: ->
@@ -42,6 +64,7 @@ CourseCreator = React.createClass(
               onChange={@updateCourse}
               value={@state.course.title}
               value_key='title'
+              invalid={@state.validation['title']}
               editable=true
               label='Course title'
             />
@@ -49,6 +72,7 @@ CourseCreator = React.createClass(
               onChange={@updateCourse}
               value={@state.course.school}
               value_key='school'
+              invalid={@state.validation['school']}
               editable=true
               label='Course school'
             />
@@ -56,6 +80,7 @@ CourseCreator = React.createClass(
               onChange={@updateCourse}
               value={@state.course.term}
               value_key='term'
+              invalid={@state.validation['term']}
               editable=true
               label='Course term'
             />
@@ -63,6 +88,7 @@ CourseCreator = React.createClass(
               onChange={@updateCourse}
               value={@state.course.subject}
               value_key='subject'
+              invalid={@state.validation['subject']}
               editable=true
               label='Course subject'
             />
@@ -70,6 +96,7 @@ CourseCreator = React.createClass(
               onChange={@updateCourse}
               value={@state.course.expected_students}
               value_key='expected_students'
+              invalid={@state.validation['expected_students']}
               editable=true
               type='number'
               label='Expected number of students'
@@ -80,6 +107,7 @@ CourseCreator = React.createClass(
               onChange={@updateCourse}
               value={@state.course.description}
               value_key='description'
+              invalid={@state.validation['description']}
               editable=true
               label='Course description'
             />
@@ -87,6 +115,7 @@ CourseCreator = React.createClass(
               onChange={@updateCourse}
               value={@state.course.start}
               value_key='start'
+              invalid={@state.validation['start']}
               editable=true
               type='date'
               label='Start date'
@@ -95,6 +124,7 @@ CourseCreator = React.createClass(
               onChange={@updateCourse}
               value={@state.course.end}
               value_key='end'
+              invalid={@state.validation['end']}
               editable=true
               type='date'
               label='End date'

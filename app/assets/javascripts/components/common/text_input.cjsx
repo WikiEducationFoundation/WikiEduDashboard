@@ -16,10 +16,16 @@ TextInput = React.createClass(
       v_date = moment(value)
       value = v_date.format('L')
     if @props.editable
+      labelClass = ''
+      inputClass = ''
+      if @props.invalid
+        labelClass = 'red'
+        inputClass = 'invalid'
       <label>
-        <span>{label}</span>
+        <span className={labelClass}>{label}</span>
         {spacer if @props.value? or @props.editable}
         <input
+          className={inputClass}
           id={@props.id}
           value={@state.value}
           onChange={@onChange}

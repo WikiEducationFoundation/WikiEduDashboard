@@ -6,6 +6,7 @@ API         = require '../utils/api.coffee'
 # Data
 _course = {}
 _persisted = {}
+_invalid = {}
 
 
 # Utilities
@@ -17,6 +18,14 @@ setCourse = (data, persisted=false, quiet=false) ->
 
 updateCourseValue = (key, value) ->
   _course[key] = value
+  CourseStore.emitChange()
+
+# TODO: Pull this off into a separate class that can be reused
+setValid = (key, value) ->
+  if value
+    delete _invalid[key]
+  else
+    _invalid[key] = true
   CourseStore.emitChange()
 
 addCourse = ->
@@ -36,6 +45,8 @@ addCourse = ->
 CourseStore = Flux.createStore
   getCourse: ->
     return _course
+  getValidation: ->
+    return _invalid
   getCurrentWeek: ->
     course_start = new Date(_course.start)
     now = new Date()
@@ -59,6 +70,8 @@ CourseStore = Flux.createStore
     when 'ADD_COURSE'
       addCourse()
       break
+    when 'SET_INVALID_KEY'
+      setValid data.key, data.valid
   return true
 
 module.exports = CourseStore
