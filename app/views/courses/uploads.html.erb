@@ -1,0 +1,23 @@
+<% content_for :before_title do "#{@course.title} - Files uploaded - " end %>
+
+<%= render :partial => 'header', :locals => {:page => 5} %>
+
+<div class="course_main">
+  <section id="uploads" class="container">
+    <div class="section-header">
+      <h3><%= t("files.uploaded") %></h3>
+    </div>
+    <%= render :partial => 'uploads/list_header' %>
+    <ul class="list">
+    <% if @uploads.count > 0 %>
+      <% @uploads.each do |file| %>
+        <%= render :partial => 'uploads/row', :locals => {:file => file} %>
+      <% end %>
+    <% else %>
+      <li class="row view-all">
+        <div><%= t("files.uploaded_none", title: @course.title) %></div>
+      </li>
+    <% end %>
+    </ul>
+  </section>
+</div>
