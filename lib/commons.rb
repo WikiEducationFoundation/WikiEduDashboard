@@ -14,7 +14,7 @@ class Commons
 
     continue = true
     until continue.nil?
-      response = commons.query upload_query
+      response = api_get(upload_query)
       # TODO: handle network errors
       uploads += response.data['usercontribs']
       continue = response['continue'] # nil if there is no continue
@@ -31,7 +31,7 @@ class Commons
 
     continue = true
     until continue.nil?
-      response = commons.query usage_query
+      response = api_get(usage_query)
       # TODO: handle network errors
       results =  response.data['pages'].values
       results.each do |r|
@@ -79,6 +79,16 @@ class Commons
       url = 'https://commons.wikimedia.org/w/api.php'
       @commons = MediawikiApi::Client.new url
       @commons
+    end
+
+    def api_get(query)
+      tries ||= 3
+      commons.query query
+    rescue StandardError => e
+      tries -= 1
+      typical_errors = [Faraday::TimeoutError]
+      retry if typical_errors.include?(e.class) && tries >= 0
+      raise e
     end
   end
 end
