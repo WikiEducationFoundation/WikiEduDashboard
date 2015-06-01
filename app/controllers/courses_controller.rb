@@ -166,7 +166,7 @@ class CoursesController < ApplicationController
 
   def activity
     standard_setup
-    @revisions = @course.revisions
+    @revisions = @course.revisions.live
                  .includes(:article).includes(:user).order(date: :desc)
   end
 
