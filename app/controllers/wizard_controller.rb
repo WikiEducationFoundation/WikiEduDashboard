@@ -7,7 +7,7 @@ class WizardController < ApplicationController
   ##############
   # ADW config #
   ##############
-  def get_wizard_index
+  def wizard_index
     content_path = "#{Rails.root}/config/wizard/wizard_index.yml"
     all_content = YAML.load(File.read(File.expand_path(content_path, __FILE__)))
     respond_to do |format|
@@ -15,7 +15,7 @@ class WizardController < ApplicationController
     end
   end
 
-  def get_wizard
+  def wizard
     wizard_id = params[:wizard_id]
     content_path = "#{Rails.root}/config/wizard/#{wizard_id}/wizard.yml"
     all_content = YAML.load(File.read(File.expand_path(content_path, __FILE__)))
