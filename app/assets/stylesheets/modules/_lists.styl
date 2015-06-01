@@ -256,30 +256,37 @@
   img
     width 40px
 
-.rating
-  round-placeholder(24)
-  background-color transparent
-  border 2px solid manatee
-  text-align center
+rating(color)
+  border 3px solid color
   p
-    color bayoux
-    font-size 14px
+    color color
+
+.rating
+  round-placeholder(23)
+  background-color transparent
+  border 3px solid #D2D2D2
+  text-align center
+  text-transform uppercase
+  p
+    color #D2D2D2
+    font-size 15px
+    font-weight 600
   &.fa, &.fl
-    border 2px solid #6699FF
+    rating(#E36944)
   &.a
-    border 2px solid #66FFFF
+    rating(#656E92)
   &.ga
-    border 2px solid #66FF66
+    rating(#F9C623)
   &.b
-    border 2px solid #B2FF66
+    rating(#858DAA)
   &.c
-    border 2px solid #FFFF66
+    rating(#858DAA)
   &.start
-    border 2px solid #FFAA66
+    rating(#858DAA)
   &.stub
-    border 2px solid #FF6666
+    rating(#D2D2D2)
   &.list
-    border 2px solid #AA88FF
+    rating(#656E92)
 
 
 .row:not(.list__header)

@@ -91,4 +91,13 @@ module ArticleHelper
     # For other niche ratings like "cur" and "future", count them as unrated.
     # rubocop:enable Metrics/LineLength
   end
+
+  def rating_display(rating)
+    return nil if rating.nil?
+    if %w(fa ga fl).include? rating
+      return rating
+    else
+      return rating[0]
+    end
+  end
 end
