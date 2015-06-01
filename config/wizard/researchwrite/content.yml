@@ -214,11 +214,24 @@ essentials:
 
           ---
           Resources: [Illustrating Wikipedia](http://wikiedu.org/illustratingwikipedia) and [Evaluating Wikipedia](http://wikiedu.org/evaluatingwikipedia)
-      - # TODO = add support for 1-5 peer reviews
+      - # 1 peer review
+        if: 1_peer_reviewers
+        title: Choose articles to peer review
+        kind: 1
+        content: |
+          * Select a classmates’ article that you will peer review and copyedit. On the table at the bottom of this course page, add your username next to the article you will peer review. (You don’t need to start reviewing yet.)
+      - # 2 peer reviews
+        if: 2_peer_reviewers
         title: Choose articles to peer review
         kind: 1
         content: |
           * Select two classmates’ articles that you will peer review and copyedit. On the table at the bottom of this course page, add your username next to the articles you will peer review. (You don’t need to start reviewing yet.)
+      - # 3 peer reviews
+        if: 3_peer_reviewers
+        title: Choose articles to peer review
+        kind: 1
+        content: |
+          * Select three classmates’ articles that you will peer review and copyedit. On the table at the bottom of this course page, add your username next to the articles you will peer review. (You don’t need to start reviewing yet.)
   - # Week nine
     weight: 6
     blocks:
@@ -235,7 +248,22 @@ essentials:
         kind: 0
         content: |
           * As a group, offer suggestions for improving one or two other students' articles, based on your ideas of what makes a solid encyclopedia article.
-      -
+      - # 1 peer review
+        if: 1_peer_reviewers
+        title: Peer review and copyedit
+        kind: 1
+        content: |
+          * Peer review two of your classmates’ articles. Leave suggestions on the article talk pages.
+          * Copy-edit the two reviewed articles.
+      - # 2 peer reviews
+        if: 2_peer_reviewers
+        title: Peer review and copyedit
+        kind: 1
+        content: |
+          * Peer review two of your classmates’ articles. Leave suggestions on the article talk pages.
+          * Copy-edit the two reviewed articles.
+      - # 3 peer reviews
+        if: 3_peer_reviewers
         title: Peer review and copyedit
         kind: 1
         content: |
