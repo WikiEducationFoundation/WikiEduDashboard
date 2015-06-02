@@ -31,7 +31,10 @@ class Commons
     continue = true
     until continue.nil?
       response = api_get(usage_query)
-      results =  response.data['pages'].values
+      results = response.data['pages']
+      # Account for the different format returned when only a single, missing
+      # page is queried, which looks like: [{"pageid"=>0, "missing"=>""}]
+      results = results.values unless results.is_a?(Array)
       results.each do |r|
         usages << r unless r['globalusage'].blank?
       end
