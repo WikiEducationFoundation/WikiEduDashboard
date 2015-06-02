@@ -15,7 +15,6 @@ class Commons
     continue = true
     until continue.nil?
       response = api_get(upload_query)
-      # TODO: handle network errors
       uploads += response.data['usercontribs']
       continue = response['continue'] # nil if there is no continue
       upload_query['uccontinue'] = continue['uccontinue'] if continue
@@ -32,10 +31,9 @@ class Commons
     continue = true
     until continue.nil?
       response = api_get(usage_query)
-      # TODO: handle network errors
       results =  response.data['pages'].values
       results.each do |r|
-        usages << r unless r['globalusage'].empty?
+        usages << r unless r['globalusage'].blank?
       end
       continue = response['continue'] # nil if there is no continue
       usage_query['gucontinue'] = continue['gucontinue'] if continue
