@@ -62,6 +62,37 @@ $ ->
         alert "Untrained users have been reminded to complete the training."
       )
 
+  $('.button.assign').click (e) ->
+    course_id = $(this).data('course_id')
+    user_id = $(this).data('user_id')
+    article_title = prompt("Enter the article title to assign.")
+    $.ajax
+      type: 'POST'
+      url: '/courses/' + course_id + '/students/assign'
+      contentType: 'application/json'
+      data: JSON.stringify(
+        assignment:
+          user_id: user_id,
+          article_title: article_title
+      )
+      success: (data) ->
+        window.location.reload()
+
+  $('.button.review').click (e) ->
+    course_id = $(this).data('course_id')
+    assignment_id = $(this).data('assignment_id')
+    reviewer_wiki_id = prompt("Enter the Wiki id of the user to add as a reviewer.")
+    $.ajax
+      type: 'POST'
+      url: '/courses/' + course_id + '/students/review'
+      contentType: 'application/json'
+      data: JSON.stringify(
+        assignment_id: assignment_id,
+        reviewer_wiki_id: reviewer_wiki_id
+      )
+      success: (data) ->
+        window.location.reload()
+
   $('#react_root').on 'click', '.wizard__option__more', (e) ->
     $(this).prev().find('.wizard__option__description').toggleHeight()
 

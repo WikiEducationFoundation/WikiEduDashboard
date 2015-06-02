@@ -41,6 +41,10 @@ class User < ActiveRecord::Base
     course.users.role('instructor').include? self
   end
 
+  def student?(course)
+    course.users.role('student').include? self
+  end
+
   def role(course)
     return 1 if course.nil? # This is a new course, grant permissions
     course_user = course.courses_users.where(user_id: id).first
