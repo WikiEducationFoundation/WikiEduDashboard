@@ -62,6 +62,10 @@ class Course < ActiveRecord::Base
                   include: {
                     user: { only: [:wiki_id] }
                   }
+                },
+                revisions: {
+                  only: [:id, :characters, :views, :date],
+                  include: { article: { only: [:title] } }
                 }
               }
             }

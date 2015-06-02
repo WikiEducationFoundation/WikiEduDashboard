@@ -6,6 +6,8 @@ Flux            = new McFly()
 _students = {}
 _persisted = {}
 
+_openDrawer = null
+
 # Sort state
 _sortKey = 'wiki_id'
 _sortAsc = true
@@ -61,6 +63,10 @@ sortByKey = (key) ->
     _sortKey = key
   StudentStore.emitChange()
 
+openDrawer = (student_id) ->
+  _openDrawer = if _openDrawer == student_id then null else student_id
+  StudentStore.emitChange()
+
 # Store
 StudentStore = Flux.createStore
   getStudents: ->
@@ -76,11 +82,15 @@ StudentStore = Flux.createStore
   restore: ->
     _students = $.extend(true, {}, _persisted)
     StudentStore.emitChange()
+  isDrawerOpen: (student_id) ->
+    _openDrawer == student_id
 , (payload) ->
   data = payload.data
   switch(payload.actionType)
     when 'RECEIVE_COURSE'
       setStudents data.course.courses_users, true
+    when 'OPEN_DRAWER'
+      openDrawer data.student_id
     when 'SORT_STUDENTS'
       sortByKey data.key
   return true

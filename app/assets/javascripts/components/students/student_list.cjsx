@@ -6,6 +6,7 @@ Student           = require './student'
 StudentDrawer     = require './student_drawer'
 StudentStore      = require '../../stores/student_store'
 ServerActions     = require '../../actions/server_actions'
+StudentActions    = require '../../actions/student_actions'
 
 getState = ->
   students: StudentStore.getStudents()
@@ -13,19 +14,22 @@ getState = ->
 StudentList = React.createClass(
   displayName: 'StudentList'
   openDrawer: (student_id) ->
-    console.log student_id
+    StudentActions.openDrawer(student_id)
   render: ->
     sorting = StudentStore.getSorting()
     sortClass = if sorting.asc then 'asc' else 'desc'
-    students = []
-    for student in @props.students
-      students.push <Student
-                      onClick={@openDrawer.bind(@, student.id)}
-                      student={student}
-                      key={student.id} />
-      students.push <StudentDrawer
-                      student_id={student.id}
-                      key={student.id + '_drawer'} />
+    students = @props.students.map (student) =>
+      <Student
+        onClick={@openDrawer.bind(@, student.id)}
+        open={StudentStore.isDrawerOpen(student.id)}
+        student={student}
+        key={student.id} />
+    drawers = @props.students.map (student) ->
+      <StudentDrawer
+        open={StudentStore.isDrawerOpen(student.id)}
+        revisions={student.revisions}
+        key={student.id + '_drawer'} />
+    elements = _.flatten(_.zip(students, drawers))
 
     <table>
       <thead>
@@ -41,10 +45,10 @@ StudentList = React.createClass(
           >Reviewer</th>
           <th onClick={@props.sort.bind(null, 'character_sum_ms')}
             className={if sorting.key == 'character_sum_ms' then sortClass else ''}
-          >Mainspace chars added</th>
+          >Mainspace<br />chars added</th>
           <th onClick={@props.sort.bind(null, 'character_sum_us')}
             className={if sorting.key == 'character_sum_us' then sortClass else ''}
-          >Userspace chars added</th>
+          >Userspace<br />chars added</th>
           <th></th>
         </tr>
       </thead>
@@ -54,7 +58,7 @@ StudentList = React.createClass(
         enterTimeout={500}
         leaveTimeout={500}
       >
-        {students}
+        {elements}
       </TransitionGroup>
     </table>
 )

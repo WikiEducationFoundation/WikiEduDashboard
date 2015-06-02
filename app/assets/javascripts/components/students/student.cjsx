@@ -4,8 +4,14 @@ StudentActions    = require '../../actions/student_actions'
 Student = React.createClass(
   displayName: 'Student'
   render: ->
-    <tr onClick={@props.onClick}>
-      <td>{@props.student.wiki_id}</td>
+    className = if @props.open then 'open' else ''
+    <tr onClick={@props.onClick} className={className}>
+      <td>
+        <div className="avatar">
+          <img alt="User" src="/images/user.svg" />
+        </div>
+        <p>{@props.student.wiki_id}</p>
+      </td>
       <td>{@props.student.assignment_title}</td>
       <td>{@props.student.reviewer_name}</td>
       <td>{@props.student.character_sum_ms}</td>
