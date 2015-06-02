@@ -1,0 +1,56 @@
+table
+  font-size 15px
+  text-align left
+  width 100%
+  thead th
+    cursor pointer
+    padding-bottom 0
+    &.asc:after, &.desc:after
+      display inline-block
+      content '\E600'
+      font-family "icomoon"
+      font-size 12px
+      margin-left 3px
+      transition transform .2s
+
+    &.asc:after
+      transform rotate(180deg)
+    &.desc:after
+      transform rotate(0deg)
+  tbody
+    tr
+      background-color white
+      border 1px solid mischka
+      border-width 0 1px 1px
+      cursor pointer
+      transition background .15s
+      &:first-child
+        border-width 1px
+      &:hover
+        background athens
+        .fake-link:after
+          display inline-block
+          content '\f107'
+          font-family "FontAwesome"
+          font-size 13px
+          font-weight bold
+          margin-left 8px
+          transform rotate(270deg)
+      &.drawer
+        height 0
+      p, small, h4
+        color dove
+        &.red
+          color burnt
+  td, th
+    box-sizing content-box
+    color dove
+    font-size 14px
+    font-weight normal
+    height 40px
+    padding 15px 0
+    vertical-align middle
+    &:first-child
+      padding-left 15px
+    &:last-child
+      padding-right 15px

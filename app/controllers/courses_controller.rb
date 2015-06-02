@@ -116,7 +116,7 @@ class CoursesController < ApplicationController
   def show
     standard_setup
     respond_to do |format|
-      format.json { render json: @course }
+      format.json { render json: @course.to_custom_json }
       format.html { render :overview }
     end
   end
@@ -135,15 +135,7 @@ class CoursesController < ApplicationController
     standard_setup
     respond_to do |format|
       format.json do
-        render json: @course.as_json(
-          include: {
-            weeks: {
-              include: { blocks: { include: :gradeable } }
-            },
-            instructors: {},
-            volunteers: {}
-          }
-        )
+        render json: @course.to_custom_json
       end
       format.html { render }
     end

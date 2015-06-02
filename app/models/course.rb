@@ -46,9 +46,28 @@ class Course < ActiveRecord::Base
 
   def to_custom_json
     as_json(
-      include: { weeks: {
-        include: { blocks: { include: :gradeable } }
-      } }
+      include: {
+        weeks: {
+          include: { blocks: { include: :gradeable } }
+        },
+        courses_users: {
+          only: [:character_sum_ms, :character_sum_us, :role],
+          include: {
+            user: {
+              only: [:id, :wiki_id],
+              include: {
+                assignments: { only: [:article_title] },
+                assignments_users: {
+                  only: [],
+                  include: {
+                    user: { only: [:wiki_id] }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     )
   end
 

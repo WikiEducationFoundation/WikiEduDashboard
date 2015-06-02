@@ -8,6 +8,11 @@ ServerActions = Flux.createActions
       { actionType: 'RECEIVE_COURSE', data: {
         course: data
       }}
+  fetchStudents: (course_id) ->
+    API.fetchStudents(course_id).then (data) ->
+      { actionType: 'RECEIVE_STUDENTS', data: {
+        students: data
+      }}
   fetchWizardIndex: ->
     API.fetchWizardIndex().then (data) ->
       { actionType: 'RECEIVE_WIZARD_INDEX', data: {

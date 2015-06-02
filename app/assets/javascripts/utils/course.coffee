@@ -12,10 +12,10 @@ $ ->
     valueNames: ['rating_num', 'title', 'edited_by', 'characters', 'date_time']
   })
 
-  # User sorting
-  userList = new List('users', {
-    valueNames: ['name','training','characters-ms', 'characters-us', 'assignee', 'reviewer']
-  })
+  # # User sorting
+  # userList = new List('users', {
+  #   valueNames: ['name','training','characters-ms', 'characters-us', 'assignee', 'reviewer']
+  # })
 
   # Article sorting
   articleList = new List('articles', {
@@ -31,16 +31,16 @@ $ ->
     cohort = $('select.cohorts option:selected').val()
     window.location = "/courses?cohort=" + encodeURIComponent(cohort)
 
-  $('select.sorts').change (e) ->
-    list = switch($(this).attr('rel'))
-      when "courses" then courseList
-      when "activity" then activityList
-      when "users" then userList
-      when "articles" then articleList
-      when "revisions" then revisionList
-    list.sort($(this).val(), {
-      order: $(this).children('option:selected').attr('rel')
-    })
+  # $('select.sorts').change (e) ->
+  #   list = switch($(this).attr('rel'))
+  #     when "courses" then courseList
+  #     when "activity" then activityList
+  #     when "users" then userList
+  #     when "articles" then articleList
+  #     when "revisions" then revisionList
+  #   list.sort($(this).val(), {
+  #     order: $(this).children('option:selected').attr('rel')
+  #   })
 
   $('a.manual_update').click (e) ->
     e.preventDefault()
