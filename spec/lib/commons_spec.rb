@@ -49,11 +49,11 @@ describe Commons do
     it 'should get usage data for an unused file' do
       VCR.use_cassette 'commons/get_usage_none' do
         # rubocop:disable Metrics/LineLength
-        user = create(:commons_upload,
-                      id: 39997956,
-                      file_name: 'File:Designing Internet Research class at University of Washington, 2015-04-28 21.jpg')
+        upload = create(:commons_upload,
+                        id: 39997956,
+                        file_name: 'File:Designing Internet Research class at University of Washington, 2015-04-28 21.jpg')
         # rubocop:enable Metrics/LineLength
-        response = Commons.get_usages [user]
+        response = Commons.get_usages [upload]
         expect(response).to eq([])
       end
     end
@@ -61,12 +61,28 @@ describe Commons do
     it 'should get usage data for a file used only once' do
       VCR.use_cassette 'commons/get_uploads_one' do
         # rubocop:disable Metrics/LineLength
-        user = create(:commons_upload,
-                      id: 39636530,
-                      file_name: 'File:Paper prototype of website user interface, 2015-04-16.jpg')
+        upload = create(:commons_upload,
+                        id: 39636530,
+                        file_name: 'File:Paper prototype of website user interface, 2015-04-16.jpg')
         # rubocop:enable Metrics/LineLength
-        response = Commons.get_usages [user]
+        response = Commons.get_usages [upload]
         expect(response.count).to eq(1)
+      end
+    end
+
+    it 'should not fail when missing files are queried' do
+      VCR.use_cassette 'commons/missing_files' do
+        # rubocop:disable Metrics/LineLength
+        upload = create(:commons_upload,
+                        id: 39636530,
+                        file_name: 'File:Paper prototype of website user interface, 2015-04-16.jpg')
+        # rubocop:enable Metrics/LineLength
+        missing = create(:commons_upload,
+                        id: 0)
+        response = Commons.get_usages [missing]
+        expect(response).to eq([])
+        response = Commons.get_usages [missing, upload]
+        expect(response).not_to be_empty
       end
     end
   end

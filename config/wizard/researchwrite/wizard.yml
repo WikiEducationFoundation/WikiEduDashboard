@@ -210,6 +210,9 @@
   minimum: 1
   options:
     -
+      title: 0
+      logic: 0_peer_reviewers
+    -
       title: 1
       logic: 1_peer_reviewers
     -
@@ -219,12 +222,6 @@
     -
       title: 3
       logic: 3_peer_reviewers
-    -
-      title: 4
-      logic: 4_peer_reviewers
-    -
-      title: 5
-      logic: 5_peer_reviewers
 -
   key: supplementary_assignments
   title: Supplementary assignments

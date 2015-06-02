@@ -14,8 +14,7 @@ class Commons
 
     continue = true
     until continue.nil?
-      response = commons.query upload_query
-      # TODO: handle network errors
+      response = api_get(upload_query)
       uploads += response.data['usercontribs']
       continue = response['continue'] # nil if there is no continue
       upload_query['uccontinue'] = continue['uccontinue'] if continue
@@ -31,11 +30,13 @@ class Commons
 
     continue = true
     until continue.nil?
-      response = commons.query usage_query
-      # TODO: handle network errors
-      results =  response.data['pages'].values
+      response = api_get(usage_query)
+      results = response.data['pages']
+      # Account for the different format returned when only a single, missing
+      # page is queried, which looks like: [{"pageid"=>0, "missing"=>""}]
+      results = results.values unless results.is_a?(Array)
       results.each do |r|
-        usages << r unless r['globalusage'].empty?
+        usages << r unless r['globalusage'].blank?
       end
       continue = response['continue'] # nil if there is no continue
       usage_query['gucontinue'] = continue['gucontinue'] if continue
@@ -79,6 +80,16 @@ class Commons
       url = 'https://commons.wikimedia.org/w/api.php'
       @commons = MediawikiApi::Client.new url
       @commons
+    end
+
+    def api_get(query)
+      tries ||= 3
+      commons.query query
+    rescue StandardError => e
+      tries -= 1
+      typical_errors = [Faraday::TimeoutError]
+      retry if typical_errors.include?(e.class) && tries >= 0
+      raise e
     end
   end
 end

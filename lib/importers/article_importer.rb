@@ -123,8 +123,22 @@ class ArticleImporter
       moved.push rev if moved_ids.include? rev['rev_id'].to_i
     end
     moved_revisions.each do |moved|
-      Revision.find(moved['rev_id']).update(article_id: moved['rev_page'])
+      article_id = moved['rev_page']
+      Revision.find(moved['rev_id']).update(article_id: article_id)
+      import_article(article_id) unless Article.exists?(article_id)
     end
+  end
+
+  def self.import_article(id)
+    article_id = [{ 'id' => id }]
+    article_data = Replica.get_existing_articles_by_id article_id
+    return if article_data.empty?
+    article_ Article.new(
+      id: article_data[0]['page_id'],
+      title: article_data[0]['page_title'],
+      namespace: article_data[0]['page_namespace']
+    )
+    Article.import article
   end
 
   # Delete all articles with the given title

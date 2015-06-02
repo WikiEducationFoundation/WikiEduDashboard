@@ -112,7 +112,7 @@ essentials:
         content: |
           * Identify an article that would benefit from illustration, create or find an appropriate photo, illustration, or audio/video, and add it to the article.
             * All media uploaded to Wikipedia must fall under a "free license," which means they can be used or shared by anyone. Examples of media you can use are photos that you take yourself, images and text in the public domain, and works created by someone else who has given permission for their work to be used by others. For more information about which types of media can be uploaded to Wikipedia, see [Commons:Help desk](https://commons.wikimedia.org/wiki/Commons:Help_desk).
-            * To add a media file to an article, you must first upload it to Wikimedia Commons. For instructions on how to upload files to Commons, refer to [Illustrating Wikipedia](http://wikiedu.org/illustratingwikipedia). This brochure will also provide you with detailed information about which files are acceptable to upload to Wikipedia and the value of contributing media to Wikipedia articles.
+            * To add a media file to an article, you must first upload it to Wikimedia Commons. For instructions on how to upload files to Commons, refer to [***Illustrating Wikipedia***](http://wikiedu.org/illustratingwikipedia). This brochure will also provide you with detailed information about which files are acceptable to upload to Wikipedia and the value of contributing media to Wikipedia articles.
       -
         if: explore_to_find_articles
         title: Choosing your article
@@ -214,11 +214,24 @@ essentials:
 
           ---
           Resources: [Illustrating Wikipedia](http://wikiedu.org/illustratingwikipedia) and [Evaluating Wikipedia](http://wikiedu.org/evaluatingwikipedia)
-      - # TODO = add support for 1-5 peer reviews
+      - # 1 peer review
+        if: 1_peer_reviewers
+        title: Choose articles to peer review
+        kind: 1
+        content: |
+          * Select a classmates’ article that you will peer review and copyedit. On the table at the bottom of this course page, add your username next to the article you will peer review. (You don’t need to start reviewing yet.)
+      - # 2 peer reviews
+        if: 2_peer_reviewers
         title: Choose articles to peer review
         kind: 1
         content: |
           * Select two classmates’ articles that you will peer review and copyedit. On the table at the bottom of this course page, add your username next to the articles you will peer review. (You don’t need to start reviewing yet.)
+      - # 3 peer reviews
+        if: 3_peer_reviewers
+        title: Choose articles to peer review
+        kind: 1
+        content: |
+          * Select three classmates’ articles that you will peer review and copyedit. On the table at the bottom of this course page, add your username next to the articles you will peer review. (You don’t need to start reviewing yet.)
   - # Week nine
     weight: 6
     blocks:
@@ -235,7 +248,22 @@ essentials:
         kind: 0
         content: |
           * As a group, offer suggestions for improving one or two other students' articles, based on your ideas of what makes a solid encyclopedia article.
-      -
+      - # 1 peer review
+        if: 1_peer_reviewers
+        title: Peer review and copyedit
+        kind: 1
+        content: |
+          * Peer review two of your classmates’ articles. Leave suggestions on the article talk pages.
+          * Copy-edit the two reviewed articles.
+      - # 2 peer reviews
+        if: 2_peer_reviewers
+        title: Peer review and copyedit
+        kind: 1
+        content: |
+          * Peer review two of your classmates’ articles. Leave suggestions on the article talk pages.
+          * Copy-edit the two reviewed articles.
+      - # 3 peer reviews
+        if: 3_peer_reviewers
         title: Peer review and copyedit
         kind: 1
         content: |

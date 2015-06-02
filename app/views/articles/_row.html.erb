@@ -3,13 +3,13 @@
   <div class="row__wrapper">
     <div class="article-list__row__rating desktop-only-flex popover-trigger">
       <p class="rating_num hidden"><%= rating_priority(ac.article.rating) %></p>
-      <div class="rating <%= ac.article.rating %>"><p><%= ac.article.rating || '?' %></p></div>
+      <div class="rating <%= ac.article.rating %>"><p><%= rating_display(ac.article.rating) || '-' %></p></div>
       <div class="popover dark">
         <p><%= t("article.rating_docs.#{ac.article.rating || '?'}") %></p>
       </div>
     </div>
     <div class="article-list__row__title">
-      <div class="rating <%= ac.article.rating %> tablet-only-flex"><p><%= ac.article.rating || '?' %></p></div>
+      <div class="rating <%= ac.article.rating %> tablet-only-flex"><p><%= rating_display(ac.article.rating) || '-' %></p></div>
       <p class="title"><%= full_title(ac.article) + (ac.new_article ? " (new)" : "") %></p>
     </div>
     <div class="article-list__row__title">
