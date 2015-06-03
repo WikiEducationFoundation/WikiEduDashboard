@@ -157,4 +157,12 @@ describe ArticleImporter do
       expect(new_article.revisions.count).to eq(1)
     end
   end
+
+  describe '.import_article' do
+    it 'should create an Article from a Wikipedia page_id' do
+      ArticleImporter.import_article 46349871
+      article = Article.find(46349871)
+      expect(article.title).to eq('Kostanay')
+    end
+  end
 end
