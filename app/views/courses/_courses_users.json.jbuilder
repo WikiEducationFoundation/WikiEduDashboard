@@ -12,7 +12,7 @@ json.courses_users course.courses_users do |cu|
     json.revisions cu.user.revisions.order(date: :desc).limit(10) do |rev|
       json.(rev, :id, :characters, :views, :date, :url)
       json.article do
-        json.(rev.article, :title)
+        json.title full_title(rev.article)
         json.url article_url(rev.article)
       end
     end

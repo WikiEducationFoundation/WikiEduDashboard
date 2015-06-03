@@ -14,7 +14,7 @@ StudentDrawer = React.createClass(
             <small className='tablet-only-ib'>{details}</small>
           </p>
         </td>
-        <td className='desktop-only-tc'>{moment(rev.date).format('YYYY-MM-DD hh:mm')}</td>
+        <td className='desktop-only-tc'>{moment(rev.date).format('YYYY-MM-DD hh:mm')} UTC</td>
         <td className='desktop-only-tc'>{rev.characters}</td>
         <td className='desktop-only-tc'>{rev.views}</td>
         <td className='desktop-only-tc'>
