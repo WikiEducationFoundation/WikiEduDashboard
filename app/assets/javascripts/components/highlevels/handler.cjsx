@@ -22,15 +22,19 @@ Handler = (Component) ->
     getCourseID: ->
       params = @context.router.getCurrentParams()
       return params.course_school + '/' + params.course_title
-    getPermit: ->
-      role = $('header.course-page').data('can_edit')
+    getCurrentUser: ->
+      if $('header.course-page').attr('data-current_user')
+        current_user = $('header.course-page').data('current_user')
+        $('header.course-page').removeAttr('data-current_user')
+        current_user
+      else null
     getInitialState: ->
       ServerActions.fetchCourse @getCourseID()
       return {}
     render: ->
       <Component
         course_id={@getCourseID()}
-        permit={@getPermit()}
+        current_user={@getCurrentUser()}
         transitionTo={@transitionTo}
       />
   )

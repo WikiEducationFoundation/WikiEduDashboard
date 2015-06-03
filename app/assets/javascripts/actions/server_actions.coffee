@@ -11,7 +11,7 @@ ServerActions = Flux.createActions
   fetchStudents: (course_id) ->
     API.fetchStudents(course_id).then (data) ->
       { actionType: 'RECEIVE_STUDENTS', data: {
-        students: data
+        courses_users: data
       }}
   fetchWizardIndex: ->
     API.fetchWizardIndex().then (data) ->
@@ -43,6 +43,17 @@ ServerActions = Flux.createActions
   submitWizard: (data, course_id, wizard_id) ->
     API.submitWizard(course_id, wizard_id, data).then (data) ->
       { actionType: 'WIZARD_SUBMITTED', data: {
+        course: data
+      }}
+
+  assignArticle: (course_id, student_id, article_title) ->
+    API.assignArticle(course_id, student_id, article_title).then (data) ->
+      { actionType: 'RECEIVE_STUDENTS', data: {
+        course: data
+      }}
+  addReviewer: (course_id, assignment_id, reviewer_wiki_id) ->
+    API.addReviewer(course_id, assignment_id, reviewer_wiki_id).then (data) ->
+      { actionType: 'RECEIVE_STUDENTS', data: {
         course: data
       }}
 

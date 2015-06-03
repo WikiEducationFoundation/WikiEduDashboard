@@ -56,11 +56,15 @@ class Course < ActiveRecord::Base
             user: {
               only: [:id, :wiki_id, :trained],
               include: {
-                assignments: { only: [:article_title] },
-                assignments_users: {
-                  only: [],
+                assignments: {
+                  only: [:id, :article_title],
                   include: {
-                    user: { only: [:wiki_id] }
+                    assignments_users: {
+                      only: [],
+                      include: {
+                        user: { only: [:wiki_id] }
+                      }
+                    }
                   }
                 },
                 revisions: {

@@ -25,8 +25,10 @@ setStudents = (data, persisted=false) ->
     student.assignment_title = if student.assignments.length > 0
       student.assignments[0].article_title
     else null
-    student.reviewer_name = if student.assignments_users.length > 0
-      student.assignments_users[0].user.wiki_id
+    student.reviewer_name = if student.assignments.length > 0
+      if student.assignments[0].assignments_users.length > 0
+        student.assignments[0].assignments_users[0].user.wiki_id
+      else null
     else null
     _students[student.id] = student
     _persisted[student.id] = $.extend(true, {}, student) if persisted
@@ -87,7 +89,7 @@ StudentStore = Flux.createStore
 , (payload) ->
   data = payload.data
   switch(payload.actionType)
-    when 'RECEIVE_COURSE'
+    when 'RECEIVE_COURSE', 'RECEIVE_STUDENTS'
       setStudents data.course.courses_users, true
     when 'OPEN_DRAWER'
       openDrawer data.student_id

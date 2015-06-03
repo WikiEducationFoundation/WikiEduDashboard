@@ -22,9 +22,9 @@ StudentDrawer = React.createClass(
     style =
       height: if @props.open then (40 + 71 * @props.revisions.length) else 0
       transition: 'height .2s'
-
     className = 'drawer'
     className += if !@props.open then ' closed' else ''
+
     <tr className={className}>
       <td colSpan="6">
         <div style={style}>

@@ -24,7 +24,8 @@ StudentList = React.createClass(
         onClick={open_drawer}
         open={StudentStore.isDrawerOpen(student.id)}
         student={student}
-        key={student.id} />
+        key={student.id}
+        {...@props} />
     drawers = @props.students.map (student) ->
       # Show 10 most recent revisions only
       sorted_revisions = _.sortBy(student.revisions, 'date')
