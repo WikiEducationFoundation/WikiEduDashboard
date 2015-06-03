@@ -34,17 +34,17 @@ Student = React.createClass(
         reviewer = <a onClick={@stop} href={raw_r.contribution_url} target="_blank" className="inline">{raw_r.wiki_id}</a>
       else if @props.student.assignment_title && @props.current_user?
         if @props.current_user.role == 0
-          reviewer = <span className='button dark' onClick={@review}>Review this</span>
+          reviewer = <span className='button border' onClick={@review}>Review this</span>
         else if @props.current_user.role > 0
-          reviewer = <span className='button dark' onClick={@review}>Add a reviewer</span>
+          reviewer = <span className='button border' onClick={@review}>Add a reviewer</span>
     else
       if @props.current_user.id == @props.student.id
         assignment = (
-          <span className='button dark' onClick={@assign}>Assign myself an article</span>
+          <span className='button border' onClick={@assign}>Assign myself an article</span>
         )
       else if @props.current_user.role > 0
         assignment = (
-          <span className='button dark' onClick={@assign}>Assign an article</span>
+          <span className='button border' onClick={@assign}>Assign an article</span>
         )
 
     <tr onClick={@props.onClick} className={className}>
