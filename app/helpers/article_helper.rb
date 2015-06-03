@@ -14,6 +14,7 @@ module ArticleHelper
   }
 
   def article_url(article)
+    return nil if article.nil?
     language = Figaro.env.wiki_language
     prefix = NS[article.namespace]
     escaped_title = article.title.gsub(' ', '_')

@@ -54,12 +54,6 @@ class WizardController < ApplicationController
 
     # Create and save week/block objects based on the object generated above
     save_timeline(timeline, logic)
-
-    respond_to do |format|
-      format.json do
-        render json: @course.to_custom_json
-      end
-    end
   end
 
   def build_timeline(content_groups, course)

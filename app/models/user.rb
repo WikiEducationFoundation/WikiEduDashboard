@@ -26,6 +26,14 @@ class User < ActiveRecord::Base
   ####################
   # Instance methods #
   ####################
+  def roles(course)
+    {
+      id: id,
+      role: role(course),
+      admin: admin?
+    }
+  end
+
   def contribution_url
     language = Figaro.env.wiki_language
     # rubocop:disable Metrics/LineLength
@@ -39,6 +47,10 @@ class User < ActiveRecord::Base
 
   def instructor?(course)
     course.users.role('instructor').include? self
+  end
+
+  def student?(course)
+    course.users.role('student').include? self
   end
 
   def role(course)

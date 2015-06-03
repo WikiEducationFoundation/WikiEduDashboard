@@ -1,0 +1,108 @@
+table
+  font-size 15px
+  text-align left
+  width 100%
+  thead th
+    cursor pointer
+    padding-bottom 0
+    &:after
+      display inline-block
+      content ''
+      font-size 12px
+      margin-left 3px
+      transition transform .2s
+      width 18px
+    &.asc:after, &.desc:after
+      content '\E600'
+      font-family "icomoon"
+    &.asc:after
+      transform rotate(180deg)
+    &.desc:after
+      transform rotate(0deg)
+  tbody
+    tr
+      background-color white
+      border 1px solid mischka
+      border-width 0 1px 1px
+      cursor pointer
+      transition background .15s
+      &:first-child
+        border-width 1px
+      &:hover
+        background athens
+      p, small, h4
+        color dove
+        &.red
+          color burnt
+      .icon
+        display inline-block
+        transition transform .2s
+  td, th
+    box-sizing content-box
+    color dove
+    font-size 14px
+    font-weight normal
+    height 40px
+    padding 15px 0
+    vertical-align middle
+    &:first-child
+      padding-left 15px
+    &:last-child
+      padding-right 15px
+
+
+table.students tbody tr
+  &.open
+    background manatee
+    &:hover
+      background manatee !important
+    td, p, small, span
+      color white
+      .button
+        border-color white
+        color white
+        &:hover
+          background-color white
+          color bayoux
+    .icon
+      transform rotate(-180deg)
+  &.no_revisions
+    cursor default
+    &:hover
+      background white
+    .icon
+      color zircon
+  &.drawer
+    border-bottom 2px solid mischka
+    > td
+      height auto
+      padding 0
+      div
+        transition height .2s
+        overflow hidden
+        th
+          padding-top 0
+        tr
+          border-width 0 0 1px
+        thead
+          tr:hover
+            background white
+            th
+              cursor default
+    &.closed
+      border-bottom 0
+  td, th
+    p.name
+      line-height 1
+      margin-top 2px
+      +above(desktop)
+        margin-top 10px
+      small
+        display inline-block
+        font-size 14px
+        margin-top 8px
+        +above(desktop)
+          font-size 8px
+          margin 0
+    .button
+      margin-left 0

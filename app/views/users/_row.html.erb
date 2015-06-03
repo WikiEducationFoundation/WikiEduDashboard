@@ -11,7 +11,13 @@
       <% @assignment = cu.user.assignments.where(course_id: @course.id).order('assignments.created_at DESC').first %>
       <% if @assignment.nil? %>
         <p class='assignee hidden'>ZZZ</p>
-        <p class='red'><%= t("user.assigned_none") %></p>
+        <% if user_signed_in? && (current_user.instructor?(@course) || current_user.admin?) %>
+          <p><span class='button dark assign' data-user_id='<%= cu.user_id %>' data-course_id='<%= cu.course.slug %>'>Assign an article</span></p>
+        <% elsif user_signed_in? && current_user.id == cu.user.id %>
+          <p><span class='button dark assign' data-user_id='<%= cu.user_id %>' data-course_id='<%= cu.course.slug %>'>Assign myself an article</span></p>
+        <% else %>
+          <p class='red'><%= t("user.assigned_none") %></p>
+        <% end %>
       <% else %>
         <% if @assignment.article.nil? %>
         <p class='assignee'><i><%= @assignment.article_title %></i></p>
@@ -33,7 +39,13 @@
         <p class='reviewer'><%= contribution_link(@assignment.reviewers.first, nil, 'inline') %></p>
         <% else %>
         <p class='reviewer hidden'>zzz</p>
-        <p class='red'><%= t("user.reviewer_none") %></p>
+        <% if user_signed_in? && (current_user.instructor?(@course) || current_user.admin?) %>
+          <p><span class='button dark review' data-assignment_id='<%= @assignment.id %>' data-course_id='<%= cu.course.slug %>'>Add reviewer</span></p>
+        <% elsif user_signed_in? && current_user.student?(@course) %>
+          <p><span class='button dark review' data-assignment_id='<%= @assignment.id %>' data-course_id='<%= cu.course.slug %>'>Review this</span></p>
+        <% else %>
+          <p class='red'><%= t("user.reviewer_none") %></p>
+        <% end %>
         <% end %>
       <% end %>
     </div>
