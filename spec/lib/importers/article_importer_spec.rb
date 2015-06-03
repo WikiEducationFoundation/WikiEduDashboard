@@ -81,6 +81,20 @@ describe ArticleImporter do
       expect(Article.find_by(title: 'Audi').id).to eq(848)
     end
 
+    it 'should delete articles when id changed but new one already exists' do
+      create(:article,
+             id: 100,
+             title: 'Audi',
+             namespace: 0)
+      create(:article,
+             id: 848,
+             title: 'Audi',
+             namespace: 0)
+      ArticleImporter.update_article_status
+      expect(Article.find(100).deleted).to eq(true)
+    end
+
+
     it 'should update the namespace are moved articles' do
       create(:article,
              id: 848,
