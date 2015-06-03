@@ -43,39 +43,6 @@ class UsersController < ApplicationController
       article_id: @article.nil? ? nil : @article.id,
       article_title: title.gsub('_', ' ')
     )
-    respond_to do |format|
-      format.json do
-        render json: @course.as_json(
-          include: {
-            courses_users: {
-              only: [:character_sum_ms, :character_sum_us, :role],
-              include: {
-                user: {
-                  only: [:id, :wiki_id, :trained],
-                  include: {
-                    assignments: {
-                      only: [:id, :article_title],
-                      include: {
-                        assignments_users: {
-                          only: [],
-                          include: {
-                            user: { only: [:wiki_id] }
-                          }
-                        }
-                      }
-                    },
-                    revisions: {
-                      only: [:id, :characters, :views, :date],
-                      include: { article: { only: [:title] } }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        )
-      end
-    end
   end
 
   def unassign
@@ -122,39 +89,6 @@ class UsersController < ApplicationController
       assignment_id: review_params[:assignment_id],
       user_id: @reviewer.id
     )
-    respond_to do |format|
-      format.json do
-        render json: @course.as_json(
-          include: {
-            courses_users: {
-              only: [:character_sum_ms, :character_sum_us, :role],
-              include: {
-                user: {
-                  only: [:id, :wiki_id, :trained],
-                  include: {
-                    assignments: {
-                      only: [:id, :article_title],
-                      include: {
-                        assignments_users: {
-                          only: [],
-                          include: {
-                            user: { only: [:wiki_id] }
-                          }
-                        }
-                      }
-                    },
-                    revisions: {
-                      only: [:id, :characters, :views, :date],
-                      include: { article: { only: [:title] } }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        )
-      end
-    end
   end
 
   def unreview

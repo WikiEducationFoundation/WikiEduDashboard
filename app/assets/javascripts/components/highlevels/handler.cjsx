@@ -25,7 +25,7 @@ Handler = (Component) ->
     getCurrentUser: ->
       if $('header.course-page').attr('data-current_user')
         current_user = $('header.course-page').data('current_user')
-        $('header.course-page').removeAttr('data-current_user')
+        # $('header.course-page').removeAttr('data-current_user')
         current_user
       else null
     getInitialState: ->

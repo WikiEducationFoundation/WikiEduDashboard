@@ -27,13 +27,9 @@ StudentList = React.createClass(
         key={student.id}
         {...@props} />
     drawers = @props.students.map (student) ->
-      # Show 10 most recent revisions only
-      sorted_revisions = _.sortBy(student.revisions, 'date')
-      revisions = _.take(_(sorted_revisions).reverse().value(), 10)
-
       <StudentDrawer
         open={StudentStore.isDrawerOpen(student.id)}
-        revisions={revisions}
+        revisions={student.revisions}
         key={student.id + '_drawer'} />
     elements = _.flatten(_.zip(students, drawers))
 

@@ -28,6 +28,7 @@ Student = React.createClass(
         assignment = <span className='button dark' onClick={@assign}>Assign myself an article</span>
       else if @props.current_user.role > 0
         assignment = <span className='button dark' onClick={@assign}>Assign an article</span>
+
     reviewer = @props.student.reviewer_name
     if !reviewer?
       if @props.student.assignment_title && @props.current_user?

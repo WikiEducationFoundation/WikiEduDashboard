@@ -44,41 +44,6 @@ class Course < ActiveRecord::Base
     slug
   end
 
-  def to_custom_json
-    as_json(
-      include: {
-        weeks: {
-          include: { blocks: { include: :gradeable } }
-        },
-        courses_users: {
-          only: [:character_sum_ms, :character_sum_us, :role],
-          include: {
-            user: {
-              only: [:id, :wiki_id, :trained],
-              include: {
-                assignments: {
-                  only: [:id, :article_title],
-                  include: {
-                    assignments_users: {
-                      only: [],
-                      include: {
-                        user: { only: [:wiki_id] }
-                      }
-                    }
-                  }
-                },
-                revisions: {
-                  only: [:id, :characters, :views, :date],
-                  include: { article: { only: [:title] } }
-                }
-              }
-            }
-          }
-        }
-      }
-    )
-  end
-
   def url
     language = Figaro.env.wiki_language
     escaped_slug = slug.gsub(' ', '_')

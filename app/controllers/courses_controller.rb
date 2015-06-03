@@ -116,8 +116,8 @@ class CoursesController < ApplicationController
   def show
     standard_setup
     respond_to do |format|
-      format.json { render json: @course.to_custom_json }
       format.html { render :overview }
+      format.json
     end
   end
 
@@ -134,9 +134,6 @@ class CoursesController < ApplicationController
   def timeline
     standard_setup
     respond_to do |format|
-      format.json do
-        render json: @course.to_custom_json
-      end
       format.html { render }
     end
   end

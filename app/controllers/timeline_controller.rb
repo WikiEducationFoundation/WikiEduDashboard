@@ -6,9 +6,6 @@ class TimelineController < ApplicationController
 
   def index
     @course = Course.find_by_slug(params[:course_id])
-    respond_to do |format|
-      format.json { render json: @course.weeks.as_json(include: :blocks) }
-    end
   end
 
   ########################
@@ -57,11 +54,6 @@ class TimelineController < ApplicationController
     timeline_params['weeks'].each do |week|
       update_week week
     end
-    respond_to do |format|
-      format.json do
-        render json: @course.to_custom_json
-      end
-    end
   end
 
   def update_week(week)
@@ -109,11 +101,6 @@ class TimelineController < ApplicationController
     gradeable_params['gradeables'].each do |gradeable|
       @gradeable = Gradeable.find(gradeable['id'])
       @gradeable.update(title: gradeable['title'], points: gradeable['points'])
-    end
-    respond_to do |format|
-      format.json do
-        render json: @course.to_custom_json
-      end
     end
   end
 end

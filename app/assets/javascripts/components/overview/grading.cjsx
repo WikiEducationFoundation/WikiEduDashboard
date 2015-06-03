@@ -15,7 +15,6 @@
 #     block['points'] = points
 #     TimelineActions.updateBlock block_id, block
 #   render: ->
-#     console.log @props
 #     blocks = @props.blocks.map (block, i) =>
 #       <p>
 #         <span>{block.title}</span>

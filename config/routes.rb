@@ -64,7 +64,7 @@ Rails.application.routes.draw do
        constraints: { course_id: /.*/ }
 
   # Timeline
-  resources :courses, constraints: { id: /.*/ } do
+  resources :courses, constraints: { id: /(.*?\))/ } do
     resources :weeks, only: [:index, :new, :create], constraints: { id: /.*/ }
     # get 'courses' => 'courses#index'
   end
