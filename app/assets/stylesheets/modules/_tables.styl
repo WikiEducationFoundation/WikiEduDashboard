@@ -56,7 +56,7 @@ table.students tbody tr
     background manatee
     &:hover
       background manatee !important
-    td, p, small.red
+    td, p, small, span
       color white
     .icon
       transform rotate(-180deg)
@@ -88,9 +88,13 @@ table.students tbody tr
   td, th
     p.name
       line-height 1
-      margin-top 10px
+      margin-top 2px
+      +above(desktop)
+        margin-top 10px
       small
-        display none
-        font-size 8px
+        display inline-block
+        font-size 14px
+        margin-top 8px
         +above(desktop)
-          display inline-block
+          font-size 8px
+          margin 0

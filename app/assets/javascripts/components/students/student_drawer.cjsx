@@ -5,12 +5,19 @@ StudentDrawer = React.createClass(
   displayName: 'StudentDrawer'
   render: ->
     revisions = @props.revisions.map (rev) ->
+      details = 'Chars Added: ' + rev.characters + ', Views: ' + rev.views
       <tr key={rev.id}>
-        <td>{rev.article.title}</td>
-        <td>{moment(rev.date).format('YYYY-MM-DD hh:mm')}</td>
-        <td>{rev.characters}</td>
-        <td>{rev.views}</td>
-        <td></td>
+        <td>
+          <p className="name">
+            <span>{rev.article.title}</span>
+            <br />
+            <small className='tablet-only-ib'>{details}</small>
+          </p>
+        </td>
+        <td className='desktop-only-tc'>{moment(rev.date).format('YYYY-MM-DD hh:mm')}</td>
+        <td className='desktop-only-tc'>{rev.characters}</td>
+        <td className='desktop-only-tc'>{rev.views}</td>
+        <td className='desktop-only-tc'></td>
       </tr>
     style =
       height: if @props.open then (40 + 71 * @props.revisions.length) else 0
@@ -25,10 +32,10 @@ StudentDrawer = React.createClass(
             <thead>
               <tr>
                 <th>User Contributions</th>
-                <th>Date / Time</th>
-                <th>Chars Added</th>
-                <th>Views</th>
-                <th></th>
+                <th className='desktop-only-tc'>Date / Time</th>
+                <th className='desktop-only-tc'>Chars Added</th>
+                <th className='desktop-only-tc'>Views</th>
+                <th className='desktop-only-tc'></th>
               </tr>
             </thead>
             <tbody>{revisions}</tbody>

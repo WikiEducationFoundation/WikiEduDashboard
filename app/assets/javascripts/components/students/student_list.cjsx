@@ -43,16 +43,16 @@ StudentList = React.createClass(
             className={if sorting.key == 'wiki_id' then sortClass else ''}
           >Name</th>
           <th onClick={@props.sort.bind(null, 'assignment_title')}
-            className={if sorting.key == 'assignment_title' then sortClass else ''}
+            className={(if sorting.key == 'assignment_title' then sortClass else '') + ' desktop-only-tc'}
           >Assigned Article</th>
           <th onClick={@props.sort.bind(null, 'reviewer_name')}
-            className={if sorting.key == 'reviewer_name' then sortClass else ''}
+            className={(if sorting.key == 'reviewer_name' then sortClass else '') + ' desktop-only-tc'}
           >Reviewer</th>
           <th onClick={@props.sort.bind(null, 'character_sum_ms')}
-            className={if sorting.key == 'character_sum_ms' then sortClass else ''}
+            className={(if sorting.key == 'character_sum_ms' then sortClass else '') + ' desktop-only-tc'}
           >Mainspace<br />chars added</th>
           <th onClick={@props.sort.bind(null, 'character_sum_us')}
-            className={if sorting.key == 'character_sum_us' then sortClass else ''}
+            className={(if sorting.key == 'character_sum_us' then sortClass else '') + ' desktop-only-tc'}
           >Userspace<br />chars added</th>
           <th></th>
         </tr>

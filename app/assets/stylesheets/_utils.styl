@@ -49,27 +49,36 @@ below(width)
     @media screen and (max-width: width)
       {block}
 
-.mobile-only
-  display: block
-  +above(tablet)
+show-under(breakpoint, display)
+  display display !important
+  +above(breakpoint)
     display none !important
+
+show-over(breakpoint, display)
+  display none !important
+  +above(breakpoint)
+    display display !important
+
+.mobile-only
+  show-over(tablet, block)
 
 .tablet-only
-  display block
-  +above(desktop)
-    display none !important
+  show-under(desktop, block)
 
 .desktop-only
-  display: none !important
-  +above(desktop)
-    display block !important
+  show-over(desktop, block)
 
 .tablet-only-flex
-  display flex
-  +above(desktop)
-    display none !important
+  show-under(desktop, flex)
+
+.tablet-only-tc
+  show-under(desktop, table-cell)
+
+.tablet-only-ib
+  show-under(desktop, inline-block)
 
 .desktop-only-flex
-  display: none !important
-  +above(desktop)
-    display flex !important
+  show-over(desktop, flex)
+
+.desktop-only-tc
+  show-over(desktop, table-cell)
