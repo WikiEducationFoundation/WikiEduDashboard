@@ -24,9 +24,7 @@ Handler = (Component) ->
       return params.course_school + '/' + params.course_title
     getCurrentUser: ->
       if $('header.course-page').attr('data-current_user')
-        current_user = $('header.course-page').data('current_user')
-        # $('header.course-page').removeAttr('data-current_user')
-        current_user
+        $('header.course-page').data('current_user')
       else null
     getInitialState: ->
       ServerActions.fetchCourse @getCourseID()
