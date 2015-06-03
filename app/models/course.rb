@@ -54,7 +54,7 @@ class Course < ActiveRecord::Base
           only: [:character_sum_ms, :character_sum_us, :role],
           include: {
             user: {
-              only: [:id, :wiki_id],
+              only: [:id, :wiki_id, :trained],
               include: {
                 assignments: { only: [:article_title] },
                 assignments_users: {

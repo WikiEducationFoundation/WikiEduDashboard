@@ -19,8 +19,9 @@ StudentList = React.createClass(
     sorting = StudentStore.getSorting()
     sortClass = if sorting.asc then 'asc' else 'desc'
     students = @props.students.map (student) =>
+      open_drawer = if student.revisions.length > 0 then @openDrawer.bind(@, student.id) else null
       <Student
-        onClick={@openDrawer.bind(@, student.id)}
+        onClick={open_drawer}
         open={StudentStore.isDrawerOpen(student.id)}
         student={student}
         key={student.id} />
