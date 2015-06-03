@@ -45,6 +45,26 @@ class Commons
     usages
   end
 
+  def self.get_urls(commons_uploads)
+    url_query = build_url_query commons_uploads
+    file_urls = []
+
+    continue = true
+    until continue.nil?
+      response = api_get(url_query)
+      results = response.data['pages']
+      # Account for the different format returned when only a single, missing
+      # page is queried, which looks like: [{"pageid"=>0, "missing"=>""}]
+      results = results.values unless results.is_a?(Array)
+      results.each do |r|
+        file_urls << r unless r['imageinfo'].blank?
+      end
+      continue = response['continue'] # nil if there is no continue
+      url_query['iicontinue'] = continue['iicontinue'] if continue
+    end
+
+    file_urls
+  end
   ##################
   # Helper methods #
   ##################
@@ -69,6 +89,18 @@ class Commons
                     continue: ''
                   }
     usage_query
+  end
+
+  def self.build_url_query(commons_uploads)
+    file_ids = commons_uploads.map(&:id)
+    url_query = { prop: 'imageinfo',
+                  iiprop: 'url',
+                  iiurlheight: 480,
+                  pageids: file_ids,
+                  iilimit: 50, # 50 is max when iiurlheight is used.
+                  continue: ''
+                }
+    url_query
   end
   ###################
   # Private methods #

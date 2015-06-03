@@ -19,6 +19,12 @@ class UploadImporter
     end
   end
 
+  def self.import_urls_in_batches(commons_uploads)
+    Utils.chunk_requests(commons_uploads) do |file_batch|
+      file_urls = Commons.get_urls file_batch
+      import_urls file_urls
+    end
+  end
   ###################
   # Parsing methods #
   ###################
@@ -54,6 +60,19 @@ class UploadImporter
       usage_counts.each do |id, count|
         file = CommonsUpload.find(id)
         file.usage_count = count
+        file.save
+      end
+    end
+  end
+
+  def self.import_urls(file_urls)
+    ActiveRecord::Base.transaction do
+      file_urls.each do |file_url|
+        id = file_url['pageid']
+        file = CommonsUpload.find(id)
+        file.thumburl = file_url['imageinfo'][0]['thumburl']
+        file.thumbwidth = file_url['imageinfo'][0]['thumbwidth']
+        file.thumbheight = file_url['imageinfo'][0]['thumbheight']
         file.save
       end
     end
