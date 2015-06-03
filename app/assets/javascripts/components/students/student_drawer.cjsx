@@ -9,7 +9,7 @@ StudentDrawer = React.createClass(
       <tr key={rev.id}>
         <td>
           <p className="name">
-            <span>{rev.article.title}</span>
+            <a href={rev.article.url} target="_blank" className="inline">{rev.article.title}</a>
             <br />
             <small className='tablet-only-ib'>{details}</small>
           </p>
@@ -17,7 +17,9 @@ StudentDrawer = React.createClass(
         <td className='desktop-only-tc'>{moment(rev.date).format('YYYY-MM-DD hh:mm')}</td>
         <td className='desktop-only-tc'>{rev.characters}</td>
         <td className='desktop-only-tc'>{rev.views}</td>
-        <td className='desktop-only-tc'></td>
+        <td className='desktop-only-tc'>
+          <a href={rev.url} target="_blank" className="inline">Dif.</a>
+        </td>
       </tr>
     style =
       height: if @props.open then (40 + 71 * @props.revisions.length) else 0

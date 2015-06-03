@@ -13,6 +13,8 @@ Student = React.createClass(
     assignment_id = @props.student.assignments[0].id
     reviewer_wiki_id = prompt("Enter the Wiki id of the user to add as a reviewer.")
     ServerActions.addReviewer(@props.course_id, assignment_id, reviewer_wiki_id)
+  stop: (e) ->
+    e.stopPropagation()
   render: ->
     className = 'student'
     className += if @props.open then ' open' else ''
@@ -22,20 +24,28 @@ Student = React.createClass(
       separator = <span className='tablet-only-ib'>&nbsp;|&nbsp;</span>
     chars = 'MS: ' + @props.student.character_sum_us + ', US: ' + @props.student.character_sum_us
 
-    assignment = @props.student.assignment_title
-    if !assignment?
-      if @props.current_user.id == @props.student.id
-        assignment = <span className='button dark' onClick={@assign}>Assign myself an article</span>
-      else if @props.current_user.role > 0
-        assignment = <span className='button dark' onClick={@assign}>Assign an article</span>
-
-    reviewer = @props.student.reviewer_name
-    if !reviewer?
-      if @props.student.assignment_title && @props.current_user?
+    if @props.student.assignments.length > 0
+      raw_a = @props.student.assignments[0]
+      assignment = (
+        <a onClick={@stop} href={raw_a.article_url} target="_blank" className="inline">{raw_a.article_title}</a>
+      )
+      if raw_a.reviewers.length > 0
+        raw_r = raw_a.reviewers[0]
+        reviewer = <a onClick={@stop} href={raw_r.contribution_url} target="_blank" className="inline">{raw_r.wiki_id}</a>
+      else if @props.student.assignment_title && @props.current_user?
         if @props.current_user.role == 0
           reviewer = <span className='button dark' onClick={@review}>Review this</span>
         else if @props.current_user.role > 0
           reviewer = <span className='button dark' onClick={@review}>Add a reviewer</span>
+    else
+      if @props.current_user.id == @props.student.id
+        assignment = (
+          <span className='button dark' onClick={@assign}>Assign myself an article</span>
+        )
+      else if @props.current_user.role > 0
+        assignment = (
+          <span className='button dark' onClick={@assign}>Assign an article</span>
+        )
 
     <tr onClick={@props.onClick} className={className}>
       <td>
@@ -43,7 +53,7 @@ Student = React.createClass(
           <img alt="User" src="/images/user.svg" />
         </div>
         <p className="name">
-          <span>{@props.student.wiki_id}</span>
+          <span><a onClick={@stop} href={@props.student.contribution_url} target="_blank" className="inline">{@props.student.wiki_id}</a></span>
           <br />
           <small>
             <span className='red'>{trained}</span>
