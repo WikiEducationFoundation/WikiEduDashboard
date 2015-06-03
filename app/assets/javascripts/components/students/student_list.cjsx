@@ -26,13 +26,17 @@ StudentList = React.createClass(
         student={student}
         key={student.id} />
     drawers = @props.students.map (student) ->
+      # Show 10 most recent revisions only
+      sorted_revisions = _.sortBy(student.revisions, 'date')
+      revisions = _.take(_(sorted_revisions).reverse().value(), 10)
+
       <StudentDrawer
         open={StudentStore.isDrawerOpen(student.id)}
-        revisions={student.revisions}
+        revisions={revisions}
         key={student.id + '_drawer'} />
     elements = _.flatten(_.zip(students, drawers))
 
-    <table>
+    <table className='students'>
       <thead>
         <tr>
           <th onClick={@props.sort.bind(null, 'wiki_id')}
