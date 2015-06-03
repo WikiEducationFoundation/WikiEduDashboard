@@ -8,7 +8,7 @@ describe UploadImporter do
              wiki_id: 'Ragesoss')
       VCR.use_cassette 'commons/import_all_uploads' do
         UploadImporter.import_all_uploads(User.all)
-        expect(CommonsUpload.all.count).to eq(3194)
+        expect(CommonsUpload.all.count).to be > 3000
       end
     end
   end
@@ -22,7 +22,8 @@ describe UploadImporter do
       end
       VCR.use_cassette 'commons/update_usage_count' do
         UploadImporter.update_usage_count(CommonsUpload.all)
-        expect(CommonsUpload.first.usage_count).to eq(1)
+        library_photo = CommonsUpload.find(4699576)
+        expect(library_photo.usage_count).to be > 1
       end
     end
   end
