@@ -39,8 +39,8 @@
 # data for it?
   update_length: "30"
 
-# Set to true to use log level 'debug' for update logs. The default is 'info'.
-  cron_log_debug: false
+# Uncomment cron_log_debug to use log level 'debug' for update logs. The default is 'info'.
+#  cron_log_debug: "true"
   
 # Uncomment no_views to disable view stats updates.
 # no_views: "true"

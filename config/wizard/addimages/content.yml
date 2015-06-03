@@ -1,0 +1,48 @@
+# This file is chronological: blocks nearer the top will always appear before
+# blocks nearer the bottom when placed into a course's timeline
+
+# Block kind
+# 0. In class
+# 1. Assignment
+# 2. Milestone
+# 3. Custom
+
+# Week weight
+# - The app will attempt to evenly distribute weights across the course timeline
+# - Higher weights will be more likely to stand on their own
+# - Weights may be any positive number but 1-10 is recommended
+
+illustrate:
+  - # generic preparation material
+    weight: 1
+    blocks:
+      -
+        title: Wikipedia essentials
+        kind: 0
+        content: |
+          * Overview of the course
+          * Introduction to how Wikipedia will be used in the course
+          * Understanding Wikipedia as a community, we'll discuss its expectations and etiquette.
+
+          ---
+          Handouts: [Editing Wikipedia](http://wikiedu.org/editingwikipedia), [***Illustrating Wikipedia***](http://wikiedu.org/illustratingwikipedia)
+
+      -
+        title: Create your account and learn the basics
+        kind: 1
+        content: |
+          * Create an account and then complete the online training for students. During this training, you will make edits in a sandbox and learn the basic rules of Wikipedia.
+
+          ---
+          Resources: [Online Training for Students](https://en.wikipedia.org/wiki/Wikipedia:Training/For_students)
+
+  - # ILLUSTRATE
+    weight: 1
+    blocks:
+      -
+        title: Illustrate an article
+        kind: 1
+        content: |
+          * Identify an article that would benefit from illustration, create or find an appropriate photo, illustration, or audio/video, and add it to the article.
+            * All media uploaded to Wikipedia must fall under a "free license," which means they can be used or shared by anyone. Examples of media you can use are photos that you take yourself, images and text in the public domain, and works created by someone else who has given permission for their work to be used by others. For more information about which types of media can be uploaded to Wikipedia, see [Commons:Help desk](https://commons.wikimedia.org/wiki/Commons:Help_desk).
+            * To add a media file to an article, you must first upload it to Wikimedia Commons. For instructions on how to upload files to Commons, refer to [***Illustrating Wikipedia***](http://wikiedu.org/illustratingwikipedia). This brochure will also provide you with detailed information about which files are acceptable to upload to Wikipedia and the value of contributing media to Wikipedia articles.

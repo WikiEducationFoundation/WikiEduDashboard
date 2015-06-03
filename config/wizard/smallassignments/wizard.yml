@@ -1,0 +1,34 @@
+-
+  key: assignment_options
+  title: Small Wikipedia exercises
+  description: |
+    Choose one or more of these exercises to add to your course timeline. You'll be able to re-order them however you wish, and you can also add additional custom assignments after you complete this wizard.
+  type: 0  # multiple choice
+  minimum: 2
+  options:
+    -
+      title: Wikipedia essentials
+      blurb: Discuss the basics of Wikipedia in class, and have students create accounts and complete an online training.
+      output: essentials
+      selected: true
+    -
+      title: Critique an article
+      blurb: Critically evaluate an existing Wikipedia article related to the class, and leave suggestions for improving it on the article’s talk page.
+      # description:
+      output: critique
+    -
+      title: Add to an article
+      blurb: Using course readings or other relevant secondary sources, add 1–2 sentences of new information to a Wikipedia article related to the class. Be sure to integrate it well into the existing article, and include a citation to the source.
+      # description:
+      output: add_to_article
+    -
+      title: Copyedit an article
+      blurb: Browse Wikipedia until you find an article that you would like to improve, and make some edits to improve the language or formatting.
+      description: |
+        In copyediting Wikipedia articles, students have a chance to engage other editors in conversation about their writing and improve the clarity of the language of the material. Students learn to write in different voices for different audiences. In learning about the specific voice on Wikipedia, they learn about the “authoritative” voice and how its tone can convince, even if the content is questionable.
+      output: copyedit
+    -
+      title: Illustrate an article
+      blurb: Find an opportunity to improve an article by uploading and adding a photo you took.
+      # description:
+      output: illustrate

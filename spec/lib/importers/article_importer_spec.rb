@@ -81,6 +81,20 @@ describe ArticleImporter do
       expect(Article.find_by(title: 'Audi').id).to eq(848)
     end
 
+    it 'should delete articles when id changed but new one already exists' do
+      create(:article,
+             id: 100,
+             title: 'Audi',
+             namespace: 0)
+      create(:article,
+             id: 848,
+             title: 'Audi',
+             namespace: 0)
+      ArticleImporter.update_article_status
+      expect(Article.find(100).deleted).to eq(true)
+    end
+
+
     it 'should update the namespace are moved articles' do
       create(:article,
              id: 848,
@@ -155,6 +169,14 @@ describe ArticleImporter do
       new_article = Article.find_by(title: 'Kostanay')
       expect(new_article.id).to eq(46349871)
       expect(new_article.revisions.count).to eq(1)
+    end
+  end
+
+  describe '.import_article' do
+    it 'should create an Article from a Wikipedia page_id' do
+      ArticleImporter.import_article 46349871
+      article = Article.find(46349871)
+      expect(article.title).to eq('Kostanay')
     end
   end
 end

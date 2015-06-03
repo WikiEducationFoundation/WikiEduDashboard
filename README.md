@@ -44,7 +44,9 @@ Project Setup
 - Install Node: [Node.js Installer](http://nodejs.org/)
 
 - Install Gems:
+    - $ `gem install bundler`
     - $ `bundle install`
+    - If some gems fail to install, you may need to install some dependencies, such as: `libmysqlclient-dev libpq-dev libqtwebkit-dev`
 
 - Install NPM modules:
     - $ `npm install`
@@ -56,6 +58,11 @@ Project Setup
 - Add config files:
     - Save `application.example.yml` and `database.example.yml` as `application.yml` and `database.yml`, respectively, in the `config` directory. Fill in your Wikipedia account login details in `application.yml` (for API access). The default settings in `database.yml` will suffice for a development environment.
 
+- Create mysql development and test database:
+    - Install mysql-server and start a mysql command line
+    - mysql> `CREATE DATABASE dashboard DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;`
+    - mysql> `CREATE DATABASE dashboard_testing DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;`
+
 #### Integrations
 
 For error logging, we use [Sentry](https://github.com/getsentry/sentry). You'll need access to a Sentry server to use this functionality; add the Sentry DSN to `config/application.yml`.
@@ -65,15 +72,15 @@ For analytics (ie, tracking traffic), we use [Piwik](https://github.com/piwik/pi
 Initialize
 --------------
 1. **Start Guard**
-
       $ `guard`
 
 2. **Migrate the database**
-
       $ `rake db:migrate`
 
-3. **Pull data from sources** (this could take a very long time)
+3. **Create cohorts**
+      $ `rake cohort:add_cohorts`
 
+4. **Pull data from sources** (optional; this could take a very long time)
       $ `rake batch:initialize`
 
 Develop

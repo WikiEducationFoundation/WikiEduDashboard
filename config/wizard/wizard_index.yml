@@ -49,3 +49,18 @@
   # ##### Not appropriate for
   # * Students without proficiency in both languages
   # * Students translating from their native language to the language they're studying
+-
+  key: smallassignments
+  title: Pick and choose small projects
+  blurb: |
+    Build your own Wikipedia project out of small Wikipedia exercises and assignments, such as copyediting existing articles, adding a small amount of new content to an article, critiquing an article, and adding images to an article.
+  description: |
+    Even if a larger 'research and write an article' project doesn't fit with your course, you may still be able to achieve many of your learning objectives with one or more short Wikipedia exercises. You can also use these exercises as a starting point for creating your own custom assignment.
+
+-
+  key: addimages
+  title: Add images & multimedia
+  blurb: |
+    Students find topics on Wikipedia that need better illustrations and use their media skills — including photography, graphic design, and videography — to create new media files and add them to Wikipedia.
+  description: |
+    If your students are adept at media, this can be a great way of contributing to Wikipedia in a non-textual way. In the past, students have photographed local monuments to illustrate articles, designed infographics to illustrate concepts, or created videos that demonstrated audio-visually what articles describe in words. Researching and restoring public domain archival images is also a possibility.
