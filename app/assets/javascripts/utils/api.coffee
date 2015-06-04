@@ -6,7 +6,7 @@ API =
     new Promise (res, rej) ->
       $.ajax
         type: 'GET',
-        url: '/courses/' + course_id + '.json',
+        url: '/courses/' + course_id + '/raw.json',
         success: (data) ->
           console.log 'Received course data'
           res data

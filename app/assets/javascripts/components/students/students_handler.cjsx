@@ -15,7 +15,7 @@ StudentsHandler = React.createClass(
       <div className='section-header'>
         <h3>Students</h3>
         <div className='sort-select'>
-          <select className='sorts' onChange={@sortSelect}>
+          <select className='sorts' name='sorts' onChange={@sortSelect}>
             <option value='wiki_id'>Name</option>
             <option value='assignment_title'>Assigned Article</option>
             <option value='reviewer_name'>Reviewer</option>

@@ -25,6 +25,7 @@ This project adheres as strictly as possible to the community [Ruby Style Guide]
 Tests reside in the `/spec` folder. Both unit and integration tests are driven by [RSpec](https://github.com/rspec/rspec).
 * Write unit tests before building new features whenever possible. This project uses [RSpec](https://github.com/rspec/rspec) in conjuction with [SimpleCov](https://github.com/colszowka/simplecov) for unit testing. 
 * Write integration tests for new interfaces. This project uses [Capybara](https://github.com/jnicklas/capybara) and [Capybara-webkit](https://github.com/thoughtbot/capybara-webkit) for integration testing.
+    * Integration tests require [qt5](https://www.qt.io/). On OSX we recommend installing via Homebrew: `brew install qt5`.
 
 Requirements
 ---------------
@@ -68,6 +69,10 @@ Project Setup
 For error logging, we use [Sentry](https://github.com/getsentry/sentry). You'll need access to a Sentry server to use this functionality; add the Sentry DSN to `config/application.yml`.
 
 For analytics (ie, tracking traffic), we use [Piwik](https://github.com/piwik/piwik). You need access to a Piwik server to use this funcationality; add the url and project id to `config/piwik.yml`.
+
+#### OAuth
+
+In order to use and develop the authenticated features of the application (course creation, the assignment design wizard, user management, etc) you will need to [create a MediaWiki OAuth consumer](https://www.mediawiki.org/wiki/Special:OAuthConsumerRegistration/propose). Set your callback URL to `http://localhost:3000/users/auth/mediawiki/callback` and ensure that you propose the consumer with the MediaWiki account that you will use to log in to the dashboard. The only permissions currently required are `Basic rights`, `Edit existing pages`, and `Make changes to pages`.	
 
 Initialize
 --------------

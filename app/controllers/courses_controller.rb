@@ -113,6 +113,10 @@ class CoursesController < ApplicationController
     fail ActionController::RoutingError.new('Not Found'), 'Not permitted'
   end
 
+  def raw
+    standard_setup
+  end
+
   def show
     standard_setup
     respond_to do |format|
