@@ -71,7 +71,7 @@ For analytics (ie, tracking traffic), we use [Piwik](https://github.com/piwik/pi
 
 #### OAuth
 
-In order to use and develop the authenticated features of the application (course creation, the assignment design wizard, user management, etc) you will need to [create a MediaWiki OAuth consumer](https://www.mediawiki.org/wiki/Special:OAuthConsumerRegistration/propose). Set your callback URL to http://localhost:3000/users/auth/mediawiki/callback and ensure that you propose the consumer with the MediaWiki account that you will use to log in to the dashboard. The only permissions currently required are `Basic rights`, `Edit existing pages`, and `Make changes to pages`.	
+In order to use and develop the authenticated features of the application (course creation, the assignment design wizard, user management, etc) you will need to [create a MediaWiki OAuth consumer](https://www.mediawiki.org/wiki/Special:OAuthConsumerRegistration/propose). Set your callback URL to `http://localhost:3000/users/auth/mediawiki/callback` and ensure that you propose the consumer with the MediaWiki account that you will use to log in to the dashboard. The only permissions currently required are `Basic rights`, `Edit existing pages`, and `Make changes to pages`.	
 
 Initialize
 --------------
