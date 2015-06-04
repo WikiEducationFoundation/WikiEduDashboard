@@ -7,12 +7,14 @@ Student = React.createClass(
   assign: (e) ->
     e.stopPropagation()
     article_title = prompt("Enter the article title to assign.")
-    ServerActions.assignArticle(@props.course_id, @props.student.id, article_title)
+    if(article_title)
+      ServerActions.assignArticle(@props.course_id, @props.student.id, article_title)
   review: (e) ->
     e.stopPropagation()
     assignment_id = @props.student.assignments[0].id
     reviewer_wiki_id = prompt("Enter the Wiki id of the user to add as a reviewer.")
-    ServerActions.addReviewer(@props.course_id, assignment_id, reviewer_wiki_id)
+    if(reviewer_wiki_id)
+      ServerActions.addReviewer(@props.course_id, assignment_id, reviewer_wiki_id)
   stop: (e) ->
     e.stopPropagation()
   render: ->
