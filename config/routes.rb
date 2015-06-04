@@ -23,6 +23,8 @@ Rails.application.routes.draw do
 
   # Courses
   controller :courses do
+    get 'courses/*id/raw' => 'courses#raw',
+        :as => :raw, constraints: { id: /.*/ }
     get 'courses/new' => 'courses#new',
         constraints: { id: /.*/ } # repeat of resources
 
@@ -64,7 +66,7 @@ Rails.application.routes.draw do
        constraints: { course_id: /.*/ }
 
   # Timeline
-  resources :courses, constraints: { id: /(.*?\))/ } do
+  resources :courses, constraints: { id: /.*/ } do
     resources :weeks, only: [:index, :new, :create], constraints: { id: /.*/ }
     # get 'courses' => 'courses#index'
   end

@@ -31,16 +31,17 @@ $ ->
     cohort = $('select.cohorts option:selected').val()
     window.location = "/courses?cohort=" + encodeURIComponent(cohort)
 
-  # $('select.sorts').change (e) ->
-  #   list = switch($(this).attr('rel'))
-  #     when "courses" then courseList
-  #     when "activity" then activityList
-  #     when "users" then userList
-  #     when "articles" then articleList
-  #     when "revisions" then revisionList
-  #   list.sort($(this).val(), {
-  #     order: $(this).children('option:selected').attr('rel')
-  #   })
+  $('select.sorts').change (e) ->
+    list = switch($(this).attr('rel'))
+      when "courses" then courseList
+      when "activity" then activityList
+      when "users" then userList
+      when "articles" then articleList
+      when "revisions" then revisionList
+    if list?
+      list.sort($(this).val(), {
+        order: $(this).children('option:selected').attr('rel')
+      })
 
   $('a.manual_update').click (e) ->
     e.preventDefault()
