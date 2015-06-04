@@ -17,5 +17,9 @@ CourseActions = Flux.createActions
     }}
   addCourse: ->
     { actionType: 'ADD_COURSE' }
+  setCourse: (course) ->
+    { actionType: 'RECEIVE_COURSE', data: {
+      course: course
+    }}
 
 module.exports = CourseActions

@@ -1,4 +1,4 @@
-<header class="course-page" data-can_edit="<%= user_signed_in? && current_user.can_edit?(@course) %>">
+<header class="course-page" data-current_user="<%= user_signed_in? ? current_user.roles(@course).to_json : { admin: false } %>">
   <div class="container">
     <div class="title">
       <a href="<%= @course.url %>" target="_blank"><h2><%= @course.title %></h2></a>

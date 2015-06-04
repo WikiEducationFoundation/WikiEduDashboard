@@ -116,8 +116,8 @@ class CoursesController < ApplicationController
   def show
     standard_setup
     respond_to do |format|
-      format.json { render json: @course }
       format.html { render :overview }
+      format.json
     end
   end
 
@@ -134,17 +134,6 @@ class CoursesController < ApplicationController
   def timeline
     standard_setup
     respond_to do |format|
-      format.json do
-        render json: @course.as_json(
-          include: {
-            weeks: {
-              include: { blocks: { include: :gradeable } }
-            },
-            instructors: {},
-            volunteers: {}
-          }
-        )
-      end
       format.html { render }
     end
   end

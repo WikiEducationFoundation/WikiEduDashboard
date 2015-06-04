@@ -133,12 +133,12 @@ class ArticleImporter
     article_id = [{ 'id' => id }]
     article_data = Replica.get_existing_articles_by_id article_id
     return if article_data.empty?
-    article_ Article.new(
+    article = Article.new(
       id: article_data[0]['page_id'],
       title: article_data[0]['page_title'],
       namespace: article_data[0]['page_namespace']
     )
-    Article.import article
+    Article.import [article]
   end
 
   # Delete all articles with the given title

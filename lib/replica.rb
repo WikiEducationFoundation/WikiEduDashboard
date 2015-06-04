@@ -56,7 +56,7 @@ class Replica
     parsed = { 'revision' => {}, 'article' => {} }
     parsed.tap do |p|
       p['article']['id'] = revision['page_id']
-      p['article']['title'] = revision['page_title'].gsub('_', ' ')
+      p['article']['title'] = revision['page_title']
       p['article']['namespace'] = revision['page_namespace']
 
       p['revision']['id'] = revision['rev_id']

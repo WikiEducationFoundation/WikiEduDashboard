@@ -23,7 +23,8 @@ Editable = (Component, Stores, Save, GetState) ->
       button_size_class = if @props.large_button then ' large' else ''
       button_class = 'button' + button_size_class
       button_dark_class = 'button dark' + button_size_class
-      if @props.permit && @state.editable
+      permissions = @props.current_user.admin || @props.current_user.role > 0
+      if permissions && @state.editable
         <div className="controls">
           <div
             className={button_class}
@@ -37,7 +38,7 @@ Editable = (Component, Stores, Save, GetState) ->
           >Save</div>
           {extra_controls}
        </div>
-      else if @props.permit && (@props.editable == undefined || @props.editable)
+      else if permissions && (@props.editable == undefined || @props.editable)
         <div className="controls">
           <div
             className={button_dark_class}
