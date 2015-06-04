@@ -25,6 +25,7 @@ This project adheres as strictly as possible to the community [Ruby Style Guide]
 Tests reside in the `/spec` folder. Both unit and integration tests are driven by [RSpec](https://github.com/rspec/rspec).
 * Write unit tests before building new features whenever possible. This project uses [RSpec](https://github.com/rspec/rspec) in conjuction with [SimpleCov](https://github.com/colszowka/simplecov) for unit testing. 
 * Write integration tests for new interfaces. This project uses [Capybara](https://github.com/jnicklas/capybara) and [Capybara-webkit](https://github.com/thoughtbot/capybara-webkit) for integration testing.
+    * Integration tests require [qt5](https://www.qt.io/). On OSX we recommend installing via Homebrew: `brew install qt5`.
 
 Requirements
 ---------------
