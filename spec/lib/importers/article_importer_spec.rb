@@ -94,7 +94,6 @@ describe ArticleImporter do
       expect(Article.find(100).deleted).to eq(true)
     end
 
-
     it 'should update the namespace are moved articles' do
       create(:article,
              id: 848,
