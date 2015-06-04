@@ -177,16 +177,17 @@ describe 'the course page', type: :feature do
   describe 'control bar' do
     it 'should allow sorting via dropdown', js: true do
       visit "/courses/#{slug}/students"
-      find('select.sorts').find(:xpath, 'option[1]').select_option
-      expect(page).to have_selector('.user-list__row__name.sort.asc')
-      find('select.sorts').find(:xpath, 'option[2]').select_option
-      expect(page).to have_selector('.user-list__row__assignee.sort.asc')
-      find('select.sorts').find(:xpath, 'option[3]').select_option
-      expect(page).to have_selector('.user-list__row__reviewer.sort.asc')
-      find('select.sorts').find(:xpath, 'option[4]').select_option
-      expect(page).to have_selector('.user-list__row__characters-ms.sort.desc')
-      find('select.sorts').find(:xpath, 'option[5]').select_option
-      expect(page).to have_selector('.user-list__row__characters-us.sort.desc')
+      selector = 'table.students > thead > tr > th'
+      select 'Name', from: 'sorts'
+      expect(page.all(selector)[0][:class]).to have_content 'asc'
+      select 'Assigned Article', from: 'sorts'
+      expect(page.all(selector)[1][:class]).to have_content 'asc'
+      select 'Reviewer', from: 'sorts'
+      expect(page.all(selector)[2][:class]).to have_content 'asc'
+      select 'MS Chars Added', from: 'sorts'
+      expect(page.all(selector)[3][:class]).to have_content 'desc'
+      select 'US Chars Added', from: 'sorts'
+      expect(page.all(selector)[4][:class]).to have_content 'desc'
     end
   end
 
