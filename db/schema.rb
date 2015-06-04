@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150603000544) do
+ActiveRecord::Schema.define(version: 20150604052638) do
 
   create_table "articles", force: true do |t|
     t.string   "title"
@@ -89,7 +89,7 @@ ActiveRecord::Schema.define(version: 20150603000544) do
     t.integer  "usage_count"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "thumburl"
+    t.string   "thumburl",    limit: 2000
     t.string   "thumbwidth"
     t.string   "thumbheight"
   end

@@ -20,7 +20,8 @@ class UploadImporter
   end
 
   def self.import_urls_in_batches(commons_uploads)
-    Utils.chunk_requests(commons_uploads) do |file_batch|
+    # Larger values (50) per batch choke the MediaWiki API on this query.
+    Utils.chunk_requests(commons_uploads, 20) do |file_batch|
       file_urls = Commons.get_urls file_batch
       import_urls file_urls
     end

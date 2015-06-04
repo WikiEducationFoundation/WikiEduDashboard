@@ -117,11 +117,33 @@ class Commons
     def api_get(query)
       tries ||= 3
       commons.query query
+    rescue MediawikiApi::ApiError => e
+      handle_api_error e, query
     rescue StandardError => e
       tries -= 1
       typical_errors = [Faraday::TimeoutError]
       retry if typical_errors.include?(e.class) && tries >= 0
       raise e
+    end
+
+    def handle_api_error(e, query)
+      # This general means the file is not an image, so it has no thumbnail.
+      if e.code == 'iiurlparamnormal'
+        # We need to extract the filename from an info value that looks like:
+        # "Could not normalise image parameters for Jewish_Encyclopedia_Volume_6.pdf"
+        info = e.info
+        info['Could not normalise image parameters for '] = ''
+        bad_file_name = ('File:' + info).gsub('_',' ')
+        file = CommonsUpload.find_by(file_name: bad_file_name)
+        # TODO: implement CommonsUpload#not_an_image to mark files that won't have a thumburl
+        # TODO: exclude such files from the url batch
+        # file.not_an_image
+        pp bad_file_name
+        query[:pageids] -= [file.id]
+        api_get(query)
+      else
+        raise e
+      end
     end
   end
 end

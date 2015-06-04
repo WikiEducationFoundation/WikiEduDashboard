@@ -2,6 +2,9 @@
   <%= link_to file.url, :target => "_blank" do %>
   <div class="row__wrapper">
     <div class="article-list__row__title">
+      <p class="thumbnail"><%= image_tag file.thumburl, height: 60 %></p>
+    </div>
+    <div class="article-list__row__title">
       <p class="file_name"><%= file.file_name %></p>
     </div>
     <div class="article-list__row__title">
