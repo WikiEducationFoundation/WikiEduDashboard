@@ -81,6 +81,7 @@ moveWizard = (backwards=false, to_index=null) ->
   WizardStore.emitChange()
 
 verifyPanelSelections = (panel) ->
+  return true if panel.options == undefined || panel.options.length == 0
   selection_count = panel.options.reduce (selected, option) ->
     selected += if option.selected then 1 else 0
   , 0
@@ -110,23 +111,29 @@ WizardStore = Flux.createStore
     _panels.forEach (panel, i) ->
       return if i == _panels.length - 1
       answer = { title: panel.title, selections: [] }
-      panel.options.map (option) ->
-        answer.selections.push option.title if option.selected
-      answer.selections = ['No selections'] if answer.selections.length == 0
+      if panel.options != undefined && panel.options.length > 0
+        panel.options.map (option) ->
+          answer.selections.push option.title if option.selected
+        answer.selections = ['No selections'] if answer.selections.length == 0
       answers.push answer
     answers
   getOutput: ->
     output = []
     logic = []
     _panels.forEach (panel) ->
-      panel.options.forEach (option) ->
-        return unless option.selected
-        if option.output?
-          if $.isArray(option.output)
-            output = output.concat option.output
-          else
-            output.push option.output
-        logic.push option.logic if option.logic?
+      if $.isArray(panel.output)
+        output = output.concat panel.output
+      else
+        output.push panel.output
+      if panel.options != undefined && panel.options.length > 0
+        panel.options.forEach (option) ->
+          return unless option.selected
+          if option.output?
+            if $.isArray(option.output)
+              output = output.concat option.output
+            else
+              output.push option.output
+          logic.push option.logic if option.logic?
     { output: output, logic: logic }
 
 , (payload) ->

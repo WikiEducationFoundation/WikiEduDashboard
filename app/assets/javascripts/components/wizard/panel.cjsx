@@ -21,16 +21,17 @@ Panel = React.createClass(
 
     options_1 = []
     options_2 = []
-    @props.panel.options.forEach (option, i) =>
-      option = (
-        <Option option={option}
-          panel_index={@props.index}
-          key={@props.index + '' + i}
-          index={i}
-          multiple={@props.panel.type == 0}
-        />
-      )
-      if i % 2 == 0 then options_1.push(option) else options_2.push(option)
+    if @props.panel.options != undefined
+      @props.panel.options.forEach (option, i) =>
+        option = (
+          <Option option={option}
+            panel_index={@props.index}
+            key={@props.index + '' + i}
+            index={i}
+            multiple={@props.panel.type == 0}
+          />
+        )
+        if i % 2 == 0 then options_1.push(option) else options_2.push(option)
 
     options = @props.raw_options || (
       <div>
