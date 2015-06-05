@@ -126,6 +126,10 @@ en:
     constant: "Task %{task} can not run while task update_daily is running."
     paused: "Task %{task} cannot run because scheduled updates have been paused. Run 'rake batch:resume' to resume updates."
 
+  uploads:
+    usages: Usages
+
+
   user:
     assigned: Assigned Article
     reviewers: Reviewer

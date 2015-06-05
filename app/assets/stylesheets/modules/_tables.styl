@@ -49,6 +49,9 @@ table
       padding-left 15px
     &:last-child
       padding-right 15px
+    &.wide-mobile
+      padding-left 15px
+      padding-right 15px
 
 
 table.students tbody tr
@@ -106,3 +109,8 @@ table.students tbody tr
           margin 0
     .button
       margin-left 0
+
+table.uploads
+  img
+    +above(desktop)
+      height 60px

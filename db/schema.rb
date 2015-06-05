@@ -16,8 +16,8 @@ ActiveRecord::Schema.define(version: 20150604052638) do
   create_table "articles", force: true do |t|
     t.string   "title"
     t.integer  "views",             limit: 8, default: 0
-    t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "created_at"
     t.integer  "character_sum",               default: 0
     t.integer  "revision_count",              default: 0
     t.date     "views_updated_at"
@@ -40,10 +40,10 @@ ActiveRecord::Schema.define(version: 20150604052638) do
   create_table "assignments", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "article_title"
     t.integer  "user_id"
     t.integer  "course_id"
     t.integer  "article_id"
-    t.string   "article_title"
   end
 
   add_index "assignments", ["course_id", "user_id", "article_title"], name: "by_course_user_and_article", unique: true, using: :btree
