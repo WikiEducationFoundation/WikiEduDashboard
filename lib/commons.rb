@@ -128,7 +128,7 @@ class Commons
         # TODO: implement CommonsUpload#not_an_image to mark files that won't have a thumburl
         # TODO: exclude such files from the url batch
         # file.not_an_image
-        pp bad_file_name
+        Rails.logger.debug "Caught iiurlparamnormal error: #{bad_file_name}"
         query[:pageids] -= [file.id]
         api_get(query)
       else
