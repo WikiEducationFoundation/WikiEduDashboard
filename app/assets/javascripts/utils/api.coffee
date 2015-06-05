@@ -97,6 +97,7 @@ API =
 
   saveCourse: (data, course_id=null) ->
     append = if course_id? then '/' + course_id else ''
+    append += '.json'
     type = if course_id? then 'PUT' else 'POST'
     req_data = course: data.course
     new Promise (res, rej) ->
