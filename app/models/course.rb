@@ -23,6 +23,8 @@ class Course < ActiveRecord::Base
   has_many :articles_courses, class_name: ArticlesCourses
   has_many :articles, -> { uniq }, through: :articles_courses
 
+  has_many :uploads, through: :students
+
   has_many :assignments
 
   has_many :weeks

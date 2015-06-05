@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   has_many :revisions
   has_many :articles, -> { uniq }, through: :revisions
   has_many :assignments
+  has_many :uploads, class_name: CommonsUpload
 
   has_many :assignments_users, class_name: AssignmentsUsers
   has_many :reviewing_assignments, -> { uniq }, through: :assignments_users

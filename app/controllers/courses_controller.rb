@@ -163,6 +163,11 @@ class CoursesController < ApplicationController
                  .includes(:article).includes(:user).order(date: :desc)
   end
 
+  def uploads
+    standard_setup
+    @uploads = @course.uploads
+    @uploads
+  end
   ##################
   # Helper methods #
   ##################
