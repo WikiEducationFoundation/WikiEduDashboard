@@ -8,7 +8,6 @@ _open_key = null
 
 # Utilities
 setOpenKey = (key) ->
-  console.log 'opening ' + key
   if key == _open_key
     _open_key = null
   else
@@ -27,5 +26,7 @@ UIStore = Flux.createStore
       setOpenKey(data.key)
       break
   return true
+
+UIStore.setMaxListeners(0)
 
 module.exports = UIStore

@@ -1,13 +1,19 @@
-React     = require 'react/addons'
-Router    = require 'react-router'
-Link      = Router.Link
-Expandable = require '../highlevels/expandable'
+React         = require 'react/addons'
+Router        = require 'react-router'
+Link          = Router.Link
+Expandable    = require '../highlevels/expandable'
+ServerActions = require '../../actions/server_actions'
 
 
 AssignButton = React.createClass(
   displayname: 'AssignButton'
   getKey: ->
     'assign_' + @props.student.id
+  assign: (e) ->
+    e.stopPropagation()
+    article_title = @refs.ass_input.getDOMNode().value
+    if(article_title)
+      ServerActions.assignArticle(@props.course_id, @props.student.id, article_title)
   render: ->
     if @props.student.assignments.length > 0
       raw_a = @props.student.assignments[0]
@@ -28,7 +34,7 @@ AssignButton = React.createClass(
         <span className='button border' onClick={@props.open}>{button_text}</span>
       )
     assignments = @props.student.assignments.map (ass) ->
-      <tr><td>{ass.article_title}</td></tr>
+      <tr key={ass.id}><td>{ass.article_title}</td></tr>
     pop_class = 'pop' + (if @props.is_open then ' open' else '')
     <div className='pop__container' onClick={@props.stop}>
       {button}
@@ -36,8 +42,8 @@ AssignButton = React.createClass(
         <table>
           <tr>
             <td>
-              <input type="text" />
-              <span className='button border' onClick={@props.open}>Assign</span>
+              <input type="text" ref='ass_input' />
+              <span className='button border' onClick={@assign}>Assign</span>
             </td>
           </tr>
           {assignments}
