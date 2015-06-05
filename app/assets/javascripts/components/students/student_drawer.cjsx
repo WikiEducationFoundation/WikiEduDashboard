@@ -1,8 +1,11 @@
 React             = require 'react/addons'
 StudentActions    = require '../../actions/student_actions'
+Expandable        = require '../highlevels/expandable'
 
 StudentDrawer = React.createClass(
   displayName: 'StudentDrawer'
+  getKey: ->
+    'drawer_' + @props.student_id
   render: ->
     revisions = @props.revisions.map (rev) ->
       details = 'Chars Added: ' + rev.characters + ', Views: ' + rev.views
@@ -22,10 +25,10 @@ StudentDrawer = React.createClass(
         </td>
       </tr>
     style =
-      height: if @props.open then (40 + 71 * @props.revisions.length) else 0
+      height: if @props.is_open then (40 + 71 * @props.revisions.length) else 0
       transition: 'height .2s'
     className = 'drawer'
-    className += if !@props.open then ' closed' else ''
+    className += if !@props.is_open then ' closed' else ''
 
     <tr className={className}>
       <td colSpan="6">
@@ -47,4 +50,4 @@ StudentDrawer = React.createClass(
     </tr>
 )
 
-module.exports = StudentDrawer
+module.exports = Expandable(StudentDrawer)

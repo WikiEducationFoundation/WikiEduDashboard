@@ -5,6 +5,7 @@ TransitionGroup   = require '../../utils/TransitionGroup'
 Student           = require './student'
 StudentDrawer     = require './student_drawer'
 StudentStore      = require '../../stores/student_store'
+UIActions         = require '../../actions/ui_actions'
 ServerActions     = require '../../actions/server_actions'
 StudentActions    = require '../../actions/student_actions'
 
@@ -14,7 +15,8 @@ getState = ->
 StudentList = React.createClass(
   displayName: 'StudentList'
   openDrawer: (student_id) ->
-    StudentActions.openDrawer(student_id)
+    key = student_id + '_drawer'
+    @refs[key].open()
   render: ->
     sorting = StudentStore.getSorting()
     sortClass = if sorting.asc then 'asc' else 'desc'
@@ -22,15 +24,15 @@ StudentList = React.createClass(
       open_drawer = if student.revisions.length > 0 then @openDrawer.bind(@, student.id) else null
       <Student
         onClick={open_drawer}
-        open={StudentStore.isDrawerOpen(student.id)}
         student={student}
         key={student.id}
         {...@props} />
     drawers = @props.students.map (student) ->
       <StudentDrawer
-        open={StudentStore.isDrawerOpen(student.id)}
         revisions={student.revisions}
-        key={student.id + '_drawer'} />
+        student_id={student.id}
+        key={student.id + '_drawer'}
+        ref={student.id + '_drawer'} />
     elements = _.flatten(_.zip(students, drawers))
 
     <table className='students'>

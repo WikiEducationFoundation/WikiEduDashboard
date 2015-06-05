@@ -2,13 +2,22 @@ React             = require 'react/addons'
 StudentActions    = require '../../actions/student_actions'
 ServerActions     = require '../../actions/server_actions'
 
+AssignButton      = require './assign_button'
+ReviewButton      = require './review_button'
+
+UIStore           = require '../../stores/ui_store'
+
 Student = React.createClass(
   displayName: 'Student'
-  assign: (e) ->
-    e.stopPropagation()
-    article_title = prompt("Enter the article title to assign.")
-    if(article_title)
-      ServerActions.assignArticle(@props.course_id, @props.student.id, article_title)
+  mixins: [UIStore.mixin]
+  storeDidChange: ->
+    @setState is_open: UIStore.getOpenKey() == (@props.student.id + '_drawer')
+  getInitialState: ->
+    is_open: false
+  assign: ->
+    # article_title = prompt("Enter the article title to assign.")
+    # if(article_title)
+    #   ServerActions.assignArticle(@props.course_id, @props.student.id, article_title)
   review: (e) ->
     e.stopPropagation()
     assignment_id = @props.student.assignments[0].id
@@ -19,35 +28,12 @@ Student = React.createClass(
     e.stopPropagation()
   render: ->
     className = 'student'
-    className += if @props.open then ' open' else ''
+    className += if @props.is_open then ' open' else ''
     className += if @props.student.revisions.length == 0 then ' no_revisions' else ''
     trained = if @props.student.trained then '' else 'Training Incomplete'
     unless @props.student.trained
       separator = <span className='tablet-only-ib'>&nbsp;|&nbsp;</span>
     chars = 'MS: ' + @props.student.character_sum_us + ', US: ' + @props.student.character_sum_us
-
-    if @props.student.assignments.length > 0
-      raw_a = @props.student.assignments[0]
-      assignment = (
-        <a onClick={@stop} href={raw_a.article_url} target="_blank" className="inline">{raw_a.article_title}</a>
-      )
-      if raw_a.reviewers.length > 0
-        raw_r = raw_a.reviewers[0]
-        reviewer = <a onClick={@stop} href={raw_r.contribution_url} target="_blank" className="inline">{raw_r.wiki_id}</a>
-      else if @props.student.assignment_title && @props.current_user?
-        if @props.current_user.role == 0
-          reviewer = <span className='button border' onClick={@review}>Review this</span>
-        else if @props.current_user.role > 0
-          reviewer = <span className='button border' onClick={@review}>Add a reviewer</span>
-    else
-      if @props.current_user.id == @props.student.id
-        assignment = (
-          <span className='button border' onClick={@assign}>Assign myself an article</span>
-        )
-      else if @props.current_user.role > 0
-        assignment = (
-          <span className='button border' onClick={@assign}>Assign an article</span>
-        )
 
     <tr onClick={@props.onClick} className={className}>
       <td>
@@ -64,8 +50,8 @@ Student = React.createClass(
           </small>
         </p>
       </td>
-      <td className='desktop-only-tc'>{assignment}</td>
-      <td className='desktop-only-tc'>{reviewer}</td>
+      <td className='desktop-only-tc'><AssignButton {...@props} /></td>
+      <td className='desktop-only-tc'><ReviewButton {...@props} /></td>
       <td className='desktop-only-tc'>{@props.student.character_sum_ms}</td>
       <td className='desktop-only-tc'>{@props.student.character_sum_us}</td>
       <td><p className="icon icon-arrow"></p></td>

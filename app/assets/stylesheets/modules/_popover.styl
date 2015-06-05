@@ -1,3 +1,4 @@
+// Information popover
 .popover-trigger
   position relative
   &:hover
@@ -54,3 +55,24 @@
   width 150px
   &:before
     left 24px
+
+// Interactive popover
+.pop__container
+  display inline-block
+  position relative
+  .pop
+    background white
+    border 1px solid mischka
+    border-radius 4px
+    box-shadow 0 0 15px 0 rgba(0, 0, 0, .2)
+    display none
+    padding 20px
+    pointer-events none
+    position absolute
+    z-index 10
+    &.open
+      display block
+      left 50%
+      pointer-events all
+      top calc(100% + 14px)
+      transform translateX(-50%)
