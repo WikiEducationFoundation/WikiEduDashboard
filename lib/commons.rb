@@ -26,48 +26,38 @@ class Commons
   # Get data about how files are being used across Wikimedia sites.
   def self.get_usages(commons_uploads)
     usage_query = build_usage_query commons_uploads
-    usages = []
-
-    continue = true
-    until continue.nil?
-      response = api_get(usage_query)
-      results = response.data['pages']
-      # Account for the different format returned when only a single, missing
-      # page is queried, which looks like: [{"pageid"=>0, "missing"=>""}]
-      results = results.values unless results.is_a?(Array)
-      results.each do |r|
-        usages << r unless r['globalusage'].blank?
-      end
-      continue = response['continue'] # nil if there is no continue
-      usage_query['gucontinue'] = continue['gucontinue'] if continue
-    end
-
+    usages = get_image_data(usage_query, 'globalusage', 'gucontinue')
     usages
   end
 
   def self.get_urls(commons_uploads)
     url_query = build_url_query commons_uploads
-    file_urls = []
-
-    continue = true
-    until continue.nil?
-      response = api_get(url_query)
-      results = response.data['pages']
-      # Account for the different format returned when only a single, missing
-      # page is queried, which looks like: [{"pageid"=>0, "missing"=>""}]
-      results = results.values unless results.is_a?(Array)
-      results.each do |r|
-        file_urls << r unless r['imageinfo'].blank?
-      end
-      continue = response['continue'] # nil if there is no continue
-      url_query['iicontinue'] = continue['iicontinue'] if continue
-    end
-
+    file_urls = get_image_data(url_query, 'imageinfo', 'iicontinue')
     file_urls
   end
   ##################
   # Helper methods #
   ##################
+  def self.get_image_data(query, prop, continue_param)
+    image_data = []
+
+    continue = true
+    until continue.nil?
+      response = api_get(query)
+      results = response.data['pages']
+      # Account for the different format returned when only a single, missing
+      # page is queried, which looks like: [{"pageid"=>0, "missing"=>""}]
+      results = results.values unless results.is_a?(Array)
+      results.each do |r|
+        image_data << r unless r[prop].blank?
+      end
+      continue = response['continue'] # nil if there is no continue
+      query[continue_param] = continue[continue_param] if continue
+    end
+
+    image_data
+  end
+
   def self.build_upload_query(users)
     usernames = users.map(&:wiki_id)
     upload_query = { list: 'usercontribs',
