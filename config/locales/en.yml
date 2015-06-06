@@ -127,6 +127,7 @@ en:
     paused: "Task %{task} cannot run because scheduled updates have been paused. Run 'rake batch:resume' to resume updates."
 
   uploads:
+    none: No files have been uploaded
     usages: Usages
 
 

@@ -50,8 +50,8 @@
               </tr>
             <% end %>
           <% else %>
-            <tr colspan="6">
-              <td><%= t("files.uploaded_none", title: @course.title) %></td>
+            <tr>
+              <td colspan="6" class="text-center"><%= t("uploads.none", title: @course.title) %></td>
             </tr>
           <% end %>
         </tbody>
