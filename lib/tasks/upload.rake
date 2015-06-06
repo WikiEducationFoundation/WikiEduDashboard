@@ -12,4 +12,11 @@ namespace :upload do
     Rails.logger.debug 'Updating Commons uploads usage counts'
     UploadImporter.update_usage_count(CommonsUpload.all)
   end
+
+  desc 'Get thumbnail urls for all uploads that lack them'
+  task get_thumbnail_urls: 'batch:setup_logger' do
+    Rails.logger.debug 'Getting thumbnail urls for Commons uploads'
+    thumbless_uploads = CommonsUpload.where(thumburl: nil)
+    UploadImporter.import_urls_in_batches(thumbless_uploads)
+  end
 end

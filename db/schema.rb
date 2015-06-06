@@ -83,6 +83,9 @@ ActiveRecord::Schema.define(version: 20150605225515) do
     t.integer  "usage_count"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "thumburl",    limit: 2000
+    t.string   "thumbwidth"
+    t.string   "thumbheight"
   end
 
   create_table "courses", force: true do |t|

@@ -43,6 +43,8 @@ Rails.application.routes.draw do
         :as => :students, constraints: { id: /.*/ }
     get 'courses/*id/articles' => 'courses#articles',
         :as => :articles, constraints: { id: /.*/ }
+    get 'courses/*id/uploads' => 'courses#uploads',
+        :as => :uploads, constraints: { id: /.*/ }
   end
 
   # Enrollment

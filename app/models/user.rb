@@ -10,8 +10,8 @@ class User < ActiveRecord::Base
   has_many :courses, -> { uniq }, through: :courses_users
   has_many :revisions
   has_many :articles, -> { uniq }, through: :revisions
-
   has_many :assignments
+  has_many :uploads, class_name: CommonsUpload
 
   scope :admin, -> { where(permissions: 1) }
   scope :current, -> { joins(:courses).merge(Course.current).uniq }

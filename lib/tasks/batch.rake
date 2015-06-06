@@ -94,6 +94,7 @@ namespace :batch do
 
       Rake::Task['upload:import_all_uploads'].invoke
       Rake::Task['upload:update_usage_count'].invoke
+      Rake::Task['upload:get_thumbnail_urls'].invoke
 
       Rake::Task['cache:update_caches'].invoke
 
