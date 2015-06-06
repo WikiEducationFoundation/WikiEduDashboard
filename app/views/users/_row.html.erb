@@ -30,24 +30,6 @@
       <% end %>
     </div>
     <div class="user-list__row__reviewer">
-      <% @assignment = cu.user.assignments.where(course_id: @course.id).order('assignments.created_at DESC').first %>
-      <% if @assignment.nil? %>
-        <p class='reviewer hidden'>ZZZ</p>
-        <p class='red'><%= t("user.assigned_none") %></p>
-      <% else %>
-        <% unless @assignment.reviewers.empty? %>
-        <p class='reviewer'><%= contribution_link(@assignment.reviewers.first, nil, 'inline') %></p>
-        <% else %>
-        <p class='reviewer hidden'>zzz</p>
-        <% if user_signed_in? && (current_user.instructor?(@course) || current_user.admin?) %>
-          <p><span class='button dark review' data-assignment_id='<%= @assignment.id %>' data-course_id='<%= cu.course.slug %>'>Add reviewer</span></p>
-        <% elsif user_signed_in? && current_user.student?(@course) %>
-          <p><span class='button dark review' data-assignment_id='<%= @assignment.id %>' data-course_id='<%= cu.course.slug %>'>Review this</span></p>
-        <% else %>
-          <p class='red'><%= t("user.reviewer_none") %></p>
-        <% end %>
-        <% end %>
-      <% end %>
     </div>
     <div class="user-list__row__characters__mobile">
       <p class="characters-ms">

@@ -23,9 +23,9 @@ setStudents = (data, persisted=false) ->
     student.assignment_title = if student.assignments.length > 0
       student.assignments[0].article_title
     else null
-    student.reviewer_name = if student.assignments.length > 0 && student.assignments[0].reviewers.length > 0
-      student.assignments[0].reviewers[0].wiki_id
-    else null
+    # student.reviewer_name = if student.assignments.length > 0 && student.assignments[0].reviewers.length > 0
+    #   student.assignments[0].reviewers[0].wiki_id
+    # else null
     _students[student.id] = student
     _persisted[student.id] = $.extend(true, {}, student) if persisted
   StudentStore.emitChange()
