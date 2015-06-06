@@ -65,7 +65,6 @@ class CoursesController < ApplicationController
     else
       @course = Course.create(course_params)
       CoursesUsers.create(user: current_user, course: @course, role: 1)
-      redirect_to timeline_path(id: @course.slug)
     end
   end
 
