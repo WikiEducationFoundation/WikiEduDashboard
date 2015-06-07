@@ -27,4 +27,19 @@ describe UploadImporter do
       end
     end
   end
+
+  describe '.import_urls_in_batches' do
+    it 'should find and record files uploaded to Commons' do
+      create(:user,
+             wiki_id: 'Ragesoss')
+      VCR.use_cassette 'commons/import_all_uploads' do
+        UploadImporter.import_all_uploads(User.all)
+      end
+      VCR.use_cassette 'commons/import_urls_in_batches' do
+        UploadImporter.import_urls_in_batches([CommonsUpload.find(4699576)])
+        library_photo = CommonsUpload.find(4699576)
+        expect(library_photo.thumburl[0...24]).to eq('https://upload.wikimedia')
+      end
+    end
+  end
 end
