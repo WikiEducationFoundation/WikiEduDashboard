@@ -44,6 +44,7 @@ class Commons
     continue = true
     until continue.nil?
       response = api_get(query)
+      return image_data if response.blank?
       results = response.data['pages']
       # Account for the different format returned when only a single, missing
       # page is queried, which looks like: [{"pageid"=>0, "missing"=>""}]
@@ -130,7 +131,7 @@ class Commons
         # file.not_an_image
         Rails.logger.debug "Caught iiurlparamnormal error: #{bad_file_name}"
         query[:pageids] -= [file.id]
-        api_get(query)
+        api_get(query) unless query[:pageids].empty?
       else
         raise e
       end
