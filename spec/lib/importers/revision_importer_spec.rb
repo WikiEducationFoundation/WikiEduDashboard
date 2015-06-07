@@ -63,8 +63,9 @@ describe RevisionImporter do
         RevisionImporter.update_all_revisions nil, true
         # Only assignments that had revisions by course participants should have
         # an article_id.
-        expect(Assignment.all.count).to eq(11)
-        expect(Assignment.where.not(article_id: nil).count).to eq(10)
+        expect(Assignment.all.count).to eq(27)
+        expect(Assignment.where(role: 0).count).to eq(11)
+        expect(Assignment.where.not(article_id: nil).count).to eq(26)
       end
     end
 
