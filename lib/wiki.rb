@@ -137,7 +137,7 @@ class Wiki
 
     def wikipedia
       language = Figaro.env.wiki_language
-      url = "http://#{language}.wikipedia.org/w/api.php"
+      url = "https://#{language}.wikipedia.org/w/api.php"
       @wikipedia = MediawikiApi::Client.new url
       @wikipedia
     end
