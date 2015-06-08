@@ -1,5 +1,6 @@
 require 'oauth'
 require "#{Rails.root}/lib/wiki_edits"
+require "#{Rails.root}/lib/wiki_output"
 
 #= Controller for course functionality
 class CoursesController < ApplicationController
@@ -64,6 +65,7 @@ class CoursesController < ApplicationController
       redirect_to :back
     else
       @course = Course.create(course_params)
+      WikiEdits.save_course(@course, current_user)
       CoursesUsers.create(user: current_user, course: @course, role: 1)
     end
   end
@@ -78,9 +80,11 @@ class CoursesController < ApplicationController
     params = {}
     params['course'] = course_params
     @course.update params
+    WikiEdits.save_course(@course, current_user)
     respond_to do |format|
       format.json { render json: @course }
     end
+
   end
 
   def destroy
@@ -120,7 +124,6 @@ class CoursesController < ApplicationController
     standard_setup
     respond_to do |format|
       format.html { render :overview }
-      format.json
     end
   end
 

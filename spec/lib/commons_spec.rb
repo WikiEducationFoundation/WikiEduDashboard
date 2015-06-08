@@ -78,11 +78,52 @@ describe Commons do
                         file_name: 'File:Paper prototype of website user interface, 2015-04-16.jpg')
         # rubocop:enable Metrics/LineLength
         missing = create(:commons_upload,
-                        id: 0)
+                         id: 0)
         response = Commons.get_usages [missing]
         expect(response).to eq([])
         response = Commons.get_usages [missing, upload]
         expect(response).not_to be_empty
+      end
+    end
+  end
+
+  describe '.get_urls' do
+    it 'should get thumbnail url data for files' do
+      VCR.use_cassette 'commons/get_urls' do
+        create(:commons_upload,
+               id: 39636530,
+               file_name: 'File:Paper prototype of website user interface, 2015-04-16.jpg')
+        response = Commons.get_urls(CommonsUpload.all)
+        id = response[0]['pageid']
+        expect(id).to eq(39636530)
+        info = response[0]['imageinfo'][0]
+        expect(info['thumburl']).to be_a(String)
+        # Now add a second file and try again
+        create(:commons_upload,
+               id: 39997956,
+               file_name: 'File:Designing Internet Research class at University of Washington, 2015-04-28 21.jpg')
+        response = Commons.get_urls(CommonsUpload.all)
+        id0 = response[0]['pageid']
+        expect(id0).to eq(39636530)
+        id1 = response[1]['pageid']
+        expect(id1).to eq(39997956)
+      end
+    end
+
+    it 'should not fail for files that throw api errors' do
+      VCR.use_cassette 'commons/get_urls_with_errors' do
+        create(:commons_upload,
+               id: 28591020,
+               file_name: 'File:Jewish Encyclopedia Volume 6.pdf')
+        response = Commons.get_urls(CommonsUpload.all)
+        expect(response).to be_empty
+        # now add a legitimate file
+        create(:commons_upload,
+               id: 39997956,
+               file_name: 'File:Designing Internet Research class at University of Washington, 2015-04-28 21.jpg')
+        response = Commons.get_urls(CommonsUpload.all)
+        id = response[0]['pageid']
+        expect(id).to eq(39997956)
       end
     end
   end

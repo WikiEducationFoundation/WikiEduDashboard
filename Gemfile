@@ -19,6 +19,9 @@ gem 'piwik_analytics', :git => 'https://github.com/halfdan/piwik-ruby-tracking.g
 # https://github.com/zdennis/activerecord-import/issues/139
 gem 'activerecord-import', :git => 'https://github.com/onemedical/activerecord-import.git'
 
+# UNIVERSAL TEXT CONVERTER - FOR MARDOWN TO MEDIAWIKI TEXT
+gem 'pandoc-ruby', '~> 1.0.0'
+
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_21]

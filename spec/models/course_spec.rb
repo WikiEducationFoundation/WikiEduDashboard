@@ -65,7 +65,7 @@ describe Course, type: :model do
     VCR.use_cassette 'wiki/update_many_courses' do
       CourseImporter.update_all_courses(false, cohort: [351, 500, 577])
 
-      expect(Assignment.all.count).to eq(81)
+      expect(Assignment.where(role: 0).count).to eq(81)
       # Check that users with multiple assignments are handled properly.
       user = User.where(wiki_id: 'AndrewHamsha').first
       expect(user.assignments.count).to eq(2)
