@@ -17,10 +17,10 @@ class WikiOutput
   end
 
   def self.translate_course(course, current_user)
-    block_types = ['in class',
-                   'assignment',
-                   'assignment milestones',
-                   'assignment'] # TODO: get the custom value
+    block_types = ['in class|In class: ',
+                   'assignment|Assignment: ',
+                   'assignment milestones|',
+                   'assignment|'] # TODO: get the custom value
     count = 0
 
     # Course description and details
@@ -35,15 +35,14 @@ class WikiOutput
       output += "{{start of course week}}\r"
       week.blocks.each do |block|
         block_type = block_types[block.kind] || ''
-        output += "{{#{block_type}|#{block.title}}}\r"
+        output += "{{#{block_type}#{block.title}}}\r"
         output += markdown_to_mediawiki("#{block.content}")
-        output += "\r"
       end
       output += "{{end of course week}}\r"
     end
 
-    wiki_output = replace_code_with_nowiki(output)
-    wiki_output
+    output = replace_code_with_nowiki(output)
+    output
   end
 
   def self.course_details_and_description(course, instructor)
