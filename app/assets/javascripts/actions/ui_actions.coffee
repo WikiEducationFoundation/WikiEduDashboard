@@ -6,5 +6,9 @@ UIActions = Flux.createActions
     { actionType: 'OPEN_KEY', data: {
       key: key
     }}
+  sort: (kind, key) ->
+    { actionType: 'SORT_' + kind.toUpperCase(), data: {
+      key: key
+    }}
 
 module.exports = UIActions

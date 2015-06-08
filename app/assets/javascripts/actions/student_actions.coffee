@@ -5,8 +5,6 @@ StudentActions = Flux.createActions
   assign: ->
     { actionType: 'ASSIGN_ARTICLE' }
   sort: (key) ->
-    { actionType: 'SORT_STUDENTS', data: {
-      key: key
-    }}
+    console.log 'do not use this'
 
 module.exports = StudentActions

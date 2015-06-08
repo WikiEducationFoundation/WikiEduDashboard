@@ -2,14 +2,12 @@ React             = require 'react/addons'
 Router            = require 'react-router'
 HandlerInterface  = require '../highlevels/handler'
 StudentList       = require './student_list'
-StudentActions    = require '../../actions/student_actions'
+UIActions         = require '../../actions/ui_actions'
 
 StudentsHandler = React.createClass(
   displayName: 'StudentsHandler'
-  sort: (key) ->
-    StudentActions.sort(key)
   sortSelect: (e) ->
-    @sort e.target.value
+    UIActions.sort 'students', e.target.value
   render: ->
     <div id='users'>
       <div className='section-header'>
@@ -24,7 +22,7 @@ StudentsHandler = React.createClass(
           </select>
         </div>
       </div>
-      <StudentList {...@props} sort={@sort} />
+      <StudentList {...@props} />
     </div>
 )
 

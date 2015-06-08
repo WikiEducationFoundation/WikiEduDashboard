@@ -28,7 +28,7 @@ ReviewButton = React.createClass(
             {action}
           </p>
         )
-      else if @props.student.assignment_title && @props.current_user?
+      else if @props.current_user?
         if @props.current_user.role == 0
           button = <span className='button border' onClick={@props.open}>Review this</span>
         else if @props.current_user.role > 0
