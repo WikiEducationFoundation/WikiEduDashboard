@@ -229,6 +229,8 @@ Devise.setup do |config|
   # The default HTTP method used to sign out a resource. Default is :delete.
   config.sign_out_via = :delete
 
+  ## POSSIBLE SOLUTION FOR SSL ISSUE ##
+  # OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE if Rails.env.development?
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
@@ -237,7 +239,10 @@ Devise.setup do |config|
                   Figaro.env.wikipedia_token,
                   Figaro.env.wikipedia_secret,
                   client_options: {
-                    site: "https://#{Figaro.env.wiki_language}.wikipedia.org"
+                    site: "https://#{Figaro.env.wiki_language}.wikipedia.org",
+                    ssl: {
+                      ca_path: "/System/Library/OpenSSL/certs/"
+                    }
                   }
 
   # ==> Warden configuration

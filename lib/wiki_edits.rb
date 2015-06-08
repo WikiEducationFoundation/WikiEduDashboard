@@ -1,3 +1,5 @@
+require "#{Rails.root}/lib/wiki_output"
+
 #= Class for making edits to Wikipedia via OAuth, using a user's credentials
 class WikiEdits
   def self.notify_untrained(course_id, current_user)
@@ -23,6 +25,20 @@ class WikiEdits
                           extra: { sender: current_user.wiki_id,
                                    course_name: @course.slug,
                                    untrained_count: untrained_count }
+  end
+
+  def self.save_course(course, current_user)
+    @course = course
+    wikitext = WikiOutput.translate_course(@course)
+    tokens = WikiEdits.tokens(current_user)
+    return unless current_user.wiki_id? && @course.slug?
+    update_slug = "User:#{current_user.wiki_id}/#{@course.slug}" 
+    params = { action: 'edit',
+               title: update_slug,
+               text: wikitext,
+               format: 'json',
+               token: tokens.csrf_token }
+    WikiEdits.api_get params, tokens
   end
 
   def self.tokens(current_user)

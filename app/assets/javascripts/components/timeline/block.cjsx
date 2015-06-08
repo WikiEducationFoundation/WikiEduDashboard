@@ -23,6 +23,7 @@ Block = React.createClass(
     else
       GradeableActions.deleteGradeable @props.gradeable.id
   render: ->
+    console.log @props
     gradeable = @props.gradeable != undefined && !@props.gradeable.deleted
     className = 'block'
     if gradeable && !@props.editable
