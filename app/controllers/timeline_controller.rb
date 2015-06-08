@@ -1,3 +1,4 @@
+require "#{Rails.root}/lib/wiki_edits"
 require "#{Rails.root}/lib/wiki_output"
 
 #= Controller for timeline functionality
@@ -8,7 +9,7 @@ class TimelineController < ApplicationController
 
   def index
     @course = Course.find_by_slug(params[:course_id])
-    
+
   end
 
   ########################
