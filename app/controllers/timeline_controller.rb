@@ -1,8 +1,5 @@
 require "#{Rails.root}/lib/wiki_edits"
-<<<<<<< HEAD
-=======
 require "#{Rails.root}/lib/wiki_output"
->>>>>>> 541bc92eb0f6a4bef0bee15e525f5c64185a1553
 
 #= Controller for timeline functionality
 class TimelineController < ApplicationController
