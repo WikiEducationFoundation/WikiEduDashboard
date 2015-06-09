@@ -2,40 +2,78 @@ require 'pandoc-ruby'
 
 #= Class for generating wikitext from course information
 class WikiOutput
+  ################
+  # Entry points #
+  ################
+  def self.translate_course(course, current_user)
+    # Course description and details
+    # TODO: use the instructor(s) instead of current user
+    output = course_details_and_description(course, current_user)
+
+    # TODO: table of students and articles
+
+    # Timeline
+    output += "{{start of course timeline}}\r"
+    week_count = 0
+    course.weeks.each do |week|
+      week_count += 1
+      week_number = week_count
+      output += course_week(week, week_number)
+    end
+
+    # TODO: grading
+
+    output = replace_code_with_nowiki(output)
+    output
+  end
+
+  #####################
+  # Output components #
+  #####################
+  def self.course_details_and_description(course, instructor)
+    # TODO: Make these posts appear in Wikipedia namespace instead of userspace
+    course_details = "{{course details
+     | course_name = #{course.title}
+     | instructor_username = #{instructor.wiki_id}
+     | instructor_realname = #{instructor.wiki_id}
+     | subject = #{course.subject}
+     | start_date = #{course.start}
+     | end_date = #{course.end}
+     | institution =  #{course.school}
+     | expected_students = #{course.user_count}
+     | assignment_page = User:#{instructor.wiki_id}/#{course.slug}
+     | wikiedu.org = yes
+    }}"
+    description = markdown_to_mediawiki("#{course.description}")
+    course_details + "\r" + description
+  end
+
+  def self.course_week(week, week_number)
+    block_types = ['in class|In class - ',
+                   'assignment|Assignment - ',
+                   'assignment milestones|',
+                   'assignment|'] # TODO: get the custom value
+
+    week_output = "=== Week #{week_number}: #{week.title || ''} ===\r"
+    week_output += "{{start of course week}}\r"
+    week.blocks.each do |block|
+      block_type = block_types[block.kind]
+      week_output += "{{#{block_type}#{block.title}}}\r"
+      week_output += markdown_to_mediawiki("#{block.content}")
+    end
+    week_output += "{{end of course week}}\r"
+    week_output
+  end
+
+  ########################
+  # Reformatting methods #
+  ########################
   def self.markdown_to_mediawiki(item)
     return PandocRuby.convert(item, from: :markdown, to: :mediawiki)
   end
 
-  def self.translate_course(course)
-    block_types = ['In Class', 'Assignment', 'Milestone', 'Custom']
-    count = 0
-    output = ''
-    if course.description? && course.description != ''
-      output += "#{course.description}\n\n"
-    end
-    course.weeks.each do |week|
-      week_number = count + 1
-      if week.title? && week.title != ''
-        output += markdown_to_mediawiki(
-          "# Week #{week_number} #{week.title || ''} #")
-      end
-      week.blocks.each do |block|
-        output += "{{start of course week}}\n\n"
-        block_type_title = block_types[block.kind] || ''
-        block_title = ''
-        output += markdown_to_mediawiki("## #{block_type_title} ##")
-        if block.title? && block.title != ''
-          block_title = "#{block.title}"
-          output += markdown_to_mediawiki("### #{block_title} ###")
-        end
-        output += markdown_to_mediawiki("#{block.content}")
-      end
-      output += "{{end of course week}}\n\n"
-      count += 1
-    end
-
-    wiki_output = replace_code_with_nowiki(output)
-    wiki_output
+  def self.html_to_mediawiki(item)
+    return PandocRuby.convert(item, from: :html, to: :mediawiki)
   end
 
   # Replace instances of <code></code> with <nowiki></nowiki>
@@ -47,5 +85,14 @@ class WikiOutput
       text = text.gsub!('</code>', '</nowiki>')
     end
     text
+  end
+
+  #####################
+  # Debugging methods #
+  #####################
+  def self.save_as_file(location, content)
+    File.open(location, 'w+') do |f|
+      f.write(content)
+    end
   end
 end
