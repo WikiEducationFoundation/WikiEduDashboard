@@ -123,10 +123,14 @@ class ArticleImporter
       moved.push rev if moved_ids.include? rev['rev_id'].to_i
     end
     moved_revisions.each do |moved|
-      article_id = moved['rev_page']
-      Revision.find(moved['rev_id']).update(article_id: article_id)
-      import_article(article_id) unless Article.exists?(article_id)
+      handle_moved_revision moved
     end
+  end
+
+  def self.handle_moved_revision(moved)
+    article_id = moved['rev_page']
+    Revision.find(moved['rev_id']).update(article_id: article_id)
+    import_article(article_id) unless Article.exists?(article_id)
   end
 
   def self.import_article(id)
