@@ -5,9 +5,8 @@ class WikiOutput
   ################
   # Entry points #
   ################
-  def self.translate_course(course, current_user)
+  def self.translate_course(course, _current_user)
     # Course description and details
-    # TODO: use the instructor(s) instead of current user
     output = course_details_and_description(course)
 
     # TODO: table of students and articles
@@ -36,8 +35,8 @@ class WikiOutput
     course_prefix = Figaro.env.course_prefix
     course_details = "{{course details
      | course_name = #{course.title}
-     | instructor_username = #{instructor.wiki_id}
-     | instructor_realname = #{instructor.wiki_id}
+     | instructor_username = #{instructor.wiki_id unless instructor.nil?}
+     | instructor_realname = #{instructor.wiki_id unless instructor.nil?}
      | subject = #{course.subject}
      | start_date = #{course.start}
      | end_date = #{course.end}
