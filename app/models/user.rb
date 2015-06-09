@@ -10,7 +10,10 @@ class User < ActiveRecord::Base
   has_many :courses, -> { uniq }, through: :courses_users
   has_many :revisions
   has_many :articles, -> { uniq }, through: :revisions
-  has_many :assignments
+  has_many :assignments, -> { where(role: 0) }, source: :assignment
+  has_many :reviewings, -> { where(role: 1) },
+           source: :assignment,
+           class_name: Assignment
   has_many :uploads, class_name: CommonsUpload
 
   scope :admin, -> { where(permissions: 1) }
