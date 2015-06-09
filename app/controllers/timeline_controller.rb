@@ -8,7 +8,7 @@ class TimelineController < ApplicationController
 
   def index
     @course = Course.find_by_slug(params[:course_id])
-    
+
   end
 
   ########################
@@ -54,11 +54,10 @@ class TimelineController < ApplicationController
 
   def update_timeline
     @course = Course.find_by_slug(params[:course_id])
-    WikiEdits.save_course(@course, current_user)
+    # WikiEdits.save_course(@course, current_user)
     timeline_params['weeks'].each do |week|
       update_week week
     end
-
   end
 
   def update_week(week)
@@ -71,6 +70,7 @@ class TimelineController < ApplicationController
 
     return if week['deleted'] || blocks.blank?
     blocks.each do |block|
+      puts "#{block['title']} ---- order: #{block['order']}"
       update_block block
     end
   end

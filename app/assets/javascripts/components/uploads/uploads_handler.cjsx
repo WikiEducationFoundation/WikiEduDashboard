@@ -4,11 +4,15 @@ HandlerInterface  = require '../highlevels/handler'
 UploadList        = require './upload_list'
 AssignmentList    = require '../assignments/assignment_list'
 UIActions         = require '../../actions/ui_actions'
+ServerActions     = require '../../actions/server_actions'
+
 
 UploadsHandler = React.createClass(
   displayName: 'UploadsHandler'
   sortSelect: (e) ->
     UIActions.sort 'uploads', e.target.value
+  componentWillMount: ->
+    ServerActions.fetchUploads @props.course_id
   render: ->
     <div id='uploads'>
       <div className='section-header'>
@@ -25,4 +29,4 @@ UploadsHandler = React.createClass(
     </div>
 )
 
-module.exports = HandlerInterface(UploadsHandler)
+module.exports = UploadsHandler

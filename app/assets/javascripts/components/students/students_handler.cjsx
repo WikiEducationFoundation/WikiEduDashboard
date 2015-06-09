@@ -3,9 +3,13 @@ Router            = require 'react-router'
 HandlerInterface  = require '../highlevels/handler'
 StudentList       = require './student_list'
 UIActions         = require '../../actions/ui_actions'
+ServerActions     = require '../../actions/server_actions'
+
 
 StudentsHandler = React.createClass(
   displayName: 'StudentsHandler'
+  componentWillMount: ->
+    ServerActions.fetchStudents @props.course_id
   sortSelect: (e) ->
     UIActions.sort 'students', e.target.value
   render: ->
@@ -26,4 +30,4 @@ StudentsHandler = React.createClass(
     </div>
 )
 
-module.exports = HandlerInterface(StudentsHandler)
+module.exports = StudentsHandler

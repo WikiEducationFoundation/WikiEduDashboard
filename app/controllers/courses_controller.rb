@@ -139,10 +139,6 @@ class CoursesController < ApplicationController
 
   def timeline
     standard_setup
-    respond_to do |format|
-      format.html { render }
-      format.json { render }
-    end
   end
 
   def students

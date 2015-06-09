@@ -1,4 +1,6 @@
-<% content_for :before_title do "#{@course.title} - Activity - " end %>
+<div id="react_root" data-current_user="<%= user_signed_in? ? current_user.roles(@course).to_json : { admin: false } %>"></div>
+
+<!-- <% content_for :before_title do "#{@course.title} - Activity - " end %>
 
 <%= render :partial => 'header', :locals => {:page => 4} %>
 
@@ -29,4 +31,4 @@
     <% end %>
     </ul>
   </section>
-</div>
+</div> -->

@@ -65,7 +65,7 @@ GradeableStore = Flux.createStore
 , (payload) ->
   data = payload.data
   switch(payload.actionType)
-    when 'RECEIVE_COURSE'
+    when 'RECEIVE_TIMELINE'
       setGradeables data.course.weeks, true
       break
     when 'SAVED_TIMELINE', 'WIZARD_SUBMITTED'

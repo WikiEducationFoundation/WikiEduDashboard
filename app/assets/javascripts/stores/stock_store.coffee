@@ -21,7 +21,7 @@ StockStore = (helper, model_key, addModel) ->
   , (payload) ->
     data = payload.data
     switch(payload.actionType)
-      when 'RECEIVE_COURSE', 'RECEIVE_' + model_key.toUpperCase()
+      when 'RECEIVE_' + model_key.toUpperCase()
         helper.setModels data.course[model_key], true
       when 'SORT_' + model_key.toUpperCase()
         helper.sortByKey data.key

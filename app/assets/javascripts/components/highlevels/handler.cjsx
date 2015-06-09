@@ -1,4 +1,5 @@
-React = require 'react'
+React         = require 'react'
+CourseStore   = require '../../stores/course_store'
 ServerActions = require '../../actions/server_actions'
 CourseActions = require '../../actions/course_actions'
 
@@ -23,8 +24,8 @@ Handler = (Component) ->
       params = @context.router.getCurrentParams()
       return params.course_school + '/' + params.course_title
     getCurrentUser: ->
-      if $('header.course-page').attr('data-current_user')
-        $('header.course-page').data('current_user')
+      if $('#react_root').attr('data-current_user')
+        $('#react_root').data('current_user')
       else null
     getInitialState: ->
       ServerActions.fetchCourse @getCourseID()

@@ -76,7 +76,7 @@ BlockStore = Flux.createStore
 , (payload) ->
   data = payload.data
   switch(payload.actionType)
-    when 'RECEIVE_COURSE'
+    when 'RECEIVE_TIMELINE'
       Flux.dispatcher.waitFor([GradeableStore.dispatcherID])
       setBlocks data.course.weeks, true
       break

@@ -4,11 +4,14 @@ Details       = require './details'
 Grading       = require './grading'
 ThisWeek      = require '../timeline/this_week'
 Handler       = require '../highlevels/handler'
+ServerActions     = require '../../actions/server_actions'
 
 Overview = React.createClass(
   displayName: 'Overview'
+  componentDidMount: ->
+    ServerActions.fetchTimeline @props.course_id
   render: ->
-    <div className='overview'>
+    <section className='overview container'>
       <div className='primary'>
         <Description {...@props} />
         <ThisWeek {...@props} />
@@ -16,7 +19,7 @@ Overview = React.createClass(
       <div className='sidebar'>
         <Details {...@props} />
       </div>
-    </div>
+    </section>
 )
 
-module.exports = Handler(Overview)
+module.exports = Overview

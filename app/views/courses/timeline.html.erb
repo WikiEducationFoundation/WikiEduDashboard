@@ -1,9 +1,1 @@
-<% content_for :before_title do "#{@course.title} - Assignment Details - " end %>
-
-<%= render :partial => 'header', :locals => {:page => 3} %>
-
-<div class="course_main">
-  <section id="react_root" class="timeline container">
-    <!-- This is where React takes over -- See /app/javascripts for relevant code -->
-  </section>
-</div>
+<div id="react_root" data-current_user="<%= user_signed_in? ? current_user.roles(@course).to_json : { admin: false } %>"></div>

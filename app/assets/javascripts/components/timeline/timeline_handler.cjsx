@@ -8,9 +8,13 @@ Timeline          = require './timeline'
 Grading           = require './grading'
 Wizard            = require '../wizard/wizard'
 HandlerInterface  = require '../highlevels/handler'
+ServerActions     = require '../../actions/server_actions'
+
 
 TimelineHandler = React.createClass(
   displayName: 'TimelineHandler'
+  componentWillMount: ->
+    ServerActions.fetchTimeline @props.course_id
   render: ->
     <div>
       <TransitionGroup
@@ -19,11 +23,11 @@ TimelineHandler = React.createClass(
         enterTimeout={500}
         leaveTimeout={500}
       >
-        <RouteHandler key={Date.now()} />
+        <RouteHandler key={Date.now()} {...@props} />
       </TransitionGroup>
       <Timeline {...@props} />
       <Grading {...@props} />
     </div>
 )
 
-module.exports = HandlerInterface(TimelineHandler)
+module.exports = TimelineHandler

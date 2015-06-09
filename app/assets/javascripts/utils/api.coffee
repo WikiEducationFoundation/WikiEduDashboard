@@ -1,18 +1,21 @@
+fetch = (course_id, endpoint) ->
+  new Promise (res, rej) ->
+    $.ajax
+      type: 'GET',
+      url: '/courses/' + course_id + '/' + endpoint + '.json',
+      success: (data) ->
+        console.log 'Received ' + endpoint
+        res data
+      failure: (e) ->
+        console.log 'Error: ' + e
+        rej e
+
 API =
   ###########
   # Getters #
   ###########
   fetchCourse: (course_id) ->
-    new Promise (res, rej) ->
-      $.ajax
-        type: 'GET',
-        url: '/courses/' + course_id + '/raw.json',
-        success: (data) ->
-          console.log 'Received course data'
-          res data
-        failure: (e) ->
-          console.log 'Error: ' + e
-          rej e
+    fetch(course_id, 'raw')
 
   fetchWizardIndex: ->
     new Promise (res, rej) ->
@@ -37,6 +40,22 @@ API =
         failure: (e) ->
           console.log 'Error: ' + e
           rej e
+
+  fetchTimeline: (course_id) ->
+    fetch(course_id, 'timeline')
+
+  fetchStudents: (course_id) ->
+    fetch(course_id, 'students')
+
+  fetchRevisions: (course_id) ->
+    fetch(course_id, 'activity')
+
+  fetchArticles: (course_id) ->
+    fetch(course_id, 'articles')
+
+  fetchUploads: (course_id) ->
+    fetch(course_id, 'uploads')
+
 
   ###########
   # Setters #

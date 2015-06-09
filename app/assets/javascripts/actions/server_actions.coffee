@@ -6,11 +6,21 @@ ServerActions = Flux.createActions
   fetchCourse: (course_id) ->
     API.fetchCourse(course_id).then (data) ->
       { actionType: 'RECEIVE_COURSE', data: data }
+  fetchTimeline: (course_id) ->
+    API.fetchTimeline(course_id).then (data) ->
+      { actionType: 'RECEIVE_TIMELINE', data: data }
   fetchStudents: (course_id) ->
     API.fetchStudents(course_id).then (data) ->
-      { actionType: 'RECEIVE_STUDENTS', data: {
-        courses_users: data
-      }}
+      { actionType: 'RECEIVE_STUDENTS', data: data }
+  fetchRevisions: (course_id) ->
+    API.fetchRevisions(course_id).then (data) ->
+      { actionType: 'RECEIVE_REVISIONS', data: data }
+  fetchArticles: (course_id) ->
+    API.fetchArticles(course_id).then (data) ->
+      { actionType: 'RECEIVE_ARTICLES', data: data }
+  fetchUploads: (course_id) ->
+    API.fetchUploads(course_id).then (data) ->
+      { actionType: 'RECEIVE_UPLOADS', data: data }
   fetchWizardIndex: ->
     API.fetchWizardIndex().then (data) ->
       { actionType: 'RECEIVE_WIZARD_INDEX', data: {

@@ -4,9 +4,12 @@ HandlerInterface  = require '../highlevels/handler'
 ArticleList       = require './article_list'
 UIActions         = require '../../actions/ui_actions'
 AssignmentList    = require '../assignments/assignment_list'
+ServerActions     = require '../../actions/server_actions'
 
 ArticlesHandler = React.createClass(
   displayName: 'ArticlesHandler'
+  componentWillMount: ->
+    ServerActions.fetchArticles @props.course_id
   sortSelect: (e) ->
     UIActions.sort 'articles', e.target.value
   render: ->
@@ -26,4 +29,4 @@ ArticlesHandler = React.createClass(
     </div>
 )
 
-module.exports = HandlerInterface(ArticlesHandler)
+module.exports = ArticlesHandler

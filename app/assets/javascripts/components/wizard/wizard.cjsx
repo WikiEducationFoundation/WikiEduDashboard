@@ -19,8 +19,9 @@ Wizard = React.createClass(
   displayName: 'Wizard'
   mixins: [Router.State, WizardStore.mixin]
   getInitialState: ->
-    ServerActions.fetchWizardIndex()
     getState()
+  componentWillMount: ->
+    ServerActions.fetchWizardIndex()
   componentWillUnmount: ->
     WizardActions.resetWizard()
   storeDidChange: ->
@@ -62,4 +63,4 @@ Wizard = React.createClass(
     </Modal>
 )
 
-module.exports = HandlerInterface(Wizard)
+module.exports = Wizard
