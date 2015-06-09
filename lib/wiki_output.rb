@@ -53,10 +53,14 @@ class WikiOutput
                    'assignment|Assignment - ',
                    'assignment milestones|',
                    'assignment|'] # TODO: get the custom value
-
-    week_output = "=== Week #{week_number}: #{week.title || ''} ===\r"
+    if week.title? && week.title != ""
+      week_output = "=== Week #{week_number}: #{week.title} ===\r"
+    else
+      week_output = "=== Week #{week_number} ===\r"
+    end
     week_output += "{{start of course week}}\r"
-    week.blocks.each do |block|
+    ordered_blocks = week.blocks.order(:order)
+    ordered_blocks.each do |block|
       block_type = block_types[block.kind]
       week_output += "{{#{block_type}#{block.title}}}\r"
       week_output += markdown_to_mediawiki("#{block.content}")
