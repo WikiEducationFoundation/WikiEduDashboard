@@ -38,10 +38,10 @@ StudentList = React.createClass(
         'label': 'Name'
         'desktop_only': false
       'assignment_title':
-        'label': 'Assigned Article'
+        'label': 'Assigned To'
         'desktop_only': true,
       'reviewer_name':
-        'label': 'Reviewer'
+        'label': 'Reviewing'
         'desktop_only': true
       'character_sum_ms':
         'label': 'Mainspace<br />chars added'

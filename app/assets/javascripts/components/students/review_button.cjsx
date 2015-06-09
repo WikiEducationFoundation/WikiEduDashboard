@@ -9,35 +9,32 @@ ReviewButton = React.createClass(
   displayname: 'ReviewButton'
   getKey: ->
     'review_' + @props.student.id
-  review: (e) ->
+  assign: (e) ->
     e.stopPropagation()
-    assignment_id = @props.student.assignments[0].id
-    reviewer_wiki_id = @refs.rev_input.getDOMNode().value
-    if(reviewer_wiki_id)
-      ServerActions.addReviewer(@props.course_id, assignment_id, reviewer_wiki_id)
+    article_title = @refs.ass_input.getDOMNode().value
+    if(article_title)
+      ServerActions.assignArticle(@props.course_id, @props.student.id, article_title, 1)
   render: ->
-    if @props.student.assignments.length > 0
-      raw_a = @props.student.assignments[0]
-      if raw_a.reviewers.length > 0
-        raw_r = raw_a.reviewers[0]
-        if @props.current_user.role > 0
-          action = <span className='button border' onClick={@props.open}>+</span>
-        button = (
-          <p>
-            <a onClick={@stop} href={raw_r.contribution_url} target="_blank" className="inline">{raw_r.wiki_id}</a>
-            {action}
-          </p>
-        )
-      else if @props.current_user?
-        if @props.current_user.role == 0
-          button = <span className='button border' onClick={@props.open}>Review this</span>
-        else if @props.current_user.role > 0
-          button = <span className='button border' onClick={@props.open}>Add a reviewer</span>
-
-    reviewers = @props.student.assignments.map (ass) ->
-      if ass.reviewers.length == 0 then return null
-      reviewer_ids = _.pluck(ass.reviewers, 'wiki_id').join(', ')
-      <tr key={ass.id + '_reviewers'}><td>{reviewer_ids}</td></tr>
+    if @props.student.reviewings.length > 0
+      raw_a = @props.student.reviewings[0]
+      if @props.current_user.role > 0
+        action = <span className='button border' onClick={@props.open}>+</span>
+      button = (
+        <p>
+          <a onClick={@props.stop} href={raw_a.article_url} target="_blank" className="inline">{raw_a.article_title}</a>
+          {action}
+        </p>
+      )
+    else if @props.current_user
+      if @props.current_user.id == @props.student.id
+        button_text = 'Review an article'
+      else if @props.current_user.role > 0
+        button_text = 'Assign a reviewing'
+      button = (
+        <span className='button border' onClick={@props.open}>{button_text}</span>
+      )
+    assignments = @props.student.reviewings.map (ass) ->
+      <tr key={ass.id}><td>{ass.article_title}</td></tr>
     pop_class = 'pop' + (if @props.is_open then ' open' else '')
     <div className='pop__container' onClick={@props.stop}>
       {button}
@@ -45,11 +42,11 @@ ReviewButton = React.createClass(
         <table>
           <tr>
             <td>
-              <input type="text" ref={'rev_input'} />
-              <span className='button border' onClick={@review}>Add</span>
+              <input type="text" ref='ass_input' />
+              <span className='button border' onClick={@assign}>Assign</span>
             </td>
           </tr>
-          {reviewers}
+          {assignments}
         </table>
       </div>
     </div>

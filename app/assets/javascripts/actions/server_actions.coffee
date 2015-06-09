@@ -46,11 +46,8 @@ ServerActions = Flux.createActions
     API.submitWizard(course_id, wizard_id, data).then (data) ->
       { actionType: 'WIZARD_SUBMITTED', data: data }
 
-  assignArticle: (course_id, student_id, article_title) ->
-    API.assignArticle(course_id, student_id, article_title).then (data) ->
-      { actionType: 'RECEIVE_STUDENTS', data: data }
-  addReviewer: (course_id, assignment_id, reviewer_wiki_id) ->
-    API.addReviewer(course_id, assignment_id, reviewer_wiki_id).then (data) ->
+  assignArticle: (course_id, student_id, article_title, role) ->
+    API.assignArticle(course_id, student_id, article_title, role).then (data) ->
       { actionType: 'RECEIVE_STUDENTS', data: data }
 
 module.exports = ServerActions

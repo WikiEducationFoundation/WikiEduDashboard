@@ -13,7 +13,7 @@ AssignButton = React.createClass(
     e.stopPropagation()
     article_title = @refs.ass_input.getDOMNode().value
     if(article_title)
-      ServerActions.assignArticle(@props.course_id, @props.student.id, article_title)
+      ServerActions.assignArticle(@props.course_id, @props.student.id, article_title, 0)
   render: ->
     if @props.student.assignments.length > 0
       raw_a = @props.student.assignments[0]

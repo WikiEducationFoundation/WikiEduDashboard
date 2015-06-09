@@ -147,7 +147,7 @@ API =
           console.log 'Couldn\'t submit wizard answers! ' + e
           rej e
 
-  assignArticle: (course_id, student_id, article_title) ->
+  assignArticle: (course_id, student_id, article_title, role) ->
     new Promise (res, rej) ->
       $.ajax
         type: 'POST'
@@ -156,28 +156,13 @@ API =
         data: JSON.stringify
           assignment:
             user_id: student_id,
-            article_title: article_title
+            article_title: article_title,
+            role: role
         success: (data) ->
           console.log 'Assigned article!'
           res data
         failure: (e) ->
           console.log 'Couldn\'t assign article! ' + e
-          rej e
-
-  addReviewer: (course_id, assignment_id, reviewer_wiki_id) ->
-    new Promise (res, rej) ->
-      $.ajax
-        type: 'POST'
-        url: '/courses/' + course_id + '/students/review'
-        contentType: 'application/json'
-        data: JSON.stringify
-          assignment_id: assignment_id,
-          reviewer_wiki_id: reviewer_wiki_id
-        success: (data) ->
-          console.log 'Added reviewer!'
-          res data
-        failure: (e) ->
-          console.log 'Couldn\'t add reviewer! ' + e
           rej e
 
 module.exports = API

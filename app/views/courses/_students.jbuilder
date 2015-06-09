@@ -5,6 +5,10 @@ json.students course.courses_users.where(role: 0) do |cu|
     json.(ass, :id, :article_title)
     json.article_url article_url(ass.article)
   end
+  json.reviewings cu.user.reviewings do |rev|
+    json.(rev, :id, :article_title)
+    json.article_url article_url(rev.article)
+  end
   json.revisions cu.user.revisions.order(date: :desc).limit(10) do |rev|
     json.(rev, :id, :characters, :views, :date, :url)
     json.article do

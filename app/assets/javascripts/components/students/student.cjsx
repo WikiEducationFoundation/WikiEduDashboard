@@ -40,8 +40,8 @@ Student = React.createClass(
           </small>
         </p>
       </td>
-      <td className='desktop-only-tc'>{ if @props.student.assignments.length > 0 then @props.student.assignments[0].article_title else 'None' }</td>
-      <td className='desktop-only-tc'></td>
+-      <td className='desktop-only-tc'><AssignButton {...@props} /></td>
+-      <td className='desktop-only-tc'><ReviewButton {...@props} /></td>
       <td className='desktop-only-tc'>{@props.student.character_sum_ms}</td>
       <td className='desktop-only-tc'>{@props.student.character_sum_us}</td>
       <td><p className="icon icon-arrow"></p></td>

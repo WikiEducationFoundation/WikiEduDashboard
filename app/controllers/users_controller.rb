@@ -23,7 +23,7 @@ class UsersController < ApplicationController
   # Assignment management #
   #########################
   def assign_params
-    params.require(:assignment).permit(:user_id, :article_title)
+    params.require(:assignment).permit(:user_id, :article_title, :role)
   end
 
   def fetch_assign_records
@@ -41,7 +41,8 @@ class UsersController < ApplicationController
       user_id: assign_params['user_id'],
       course_id: @course.id,
       article_id: @article.nil? ? nil : @article.id,
-      article_title: title.gsub('_', ' ')
+      article_title: title.gsub('_', ' '),
+      role: assign_params['role']
     )
   end
 
@@ -61,50 +62,50 @@ class UsersController < ApplicationController
     end
   end
 
-  #######################
-  # Reviewer management #
-  #######################
-  def review_params
-    params.permit(:assignment_id, :reviewer_id, :reviewer_wiki_id)
-  end
+  # #######################
+  # # Reviewer management #
+  # #######################
+  # def review_params
+  #   params.permit(:assignment_id, :reviewer_id, :reviewer_wiki_id)
+  # end
 
-  def fetch_review_records
-    @course = Course.find_by_slug(params[:course_id])
-    if review_params.key? :reviewer_id
-      @reviewer = @course.users.find(review_params[:reviewer_id])
-    elsif review_params.key? :reviewer_wiki_id
-      @reviewer = @course.users.find_by(
-        wiki_id: review_params[:reviewer_wiki_id]
-      )
-    else
-      return
-    end
-  end
+  # def fetch_review_records
+  #   @course = Course.find_by_slug(params[:course_id])
+  #   if review_params.key? :reviewer_id
+  #     @reviewer = @course.users.find(review_params[:reviewer_id])
+  #   elsif review_params.key? :reviewer_wiki_id
+  #     @reviewer = @course.users.find_by(
+  #       wiki_id: review_params[:reviewer_wiki_id]
+  #     )
+  #   else
+  #     return
+  #   end
+  # end
 
-  def review
-    fetch_review_records
-    return if @reviewer.nil?
+  # def review
+  #   fetch_review_records
+  #   return if @reviewer.nil?
 
-    AssignmentsUsers.create(
-      assignment_id: review_params[:assignment_id],
-      user_id: @reviewer.id
-    )
-  end
+  #   AssignmentsUsers.create(
+  #     assignment_id: review_params[:assignment_id],
+  #     user_id: @reviewer.id
+  #   )
+  # end
 
-  def unreview
-    fetch_review_records
-    return if @reviewer.nil?
+  # def unreview
+  #   fetch_review_records
+  #   return if @reviewer.nil?
 
-    AssignmentsUsers.find_by(
-      assignment_id: review_params[:assignment_id],
-      user_id: @reviewer.id
-    ).destroy
-    respond_to do |format|
-      format.json do
-        render json: 'Success!'
-      end
-    end
-  end
+  #   AssignmentsUsers.find_by(
+  #     assignment_id: review_params[:assignment_id],
+  #     user_id: @reviewer.id
+  #   ).destroy
+  #   respond_to do |format|
+  #     format.json do
+  #       render json: 'Success!'
+  #     end
+  #   end
+  # end
 
   #########################
   # Enrollment management #

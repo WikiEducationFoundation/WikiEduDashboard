@@ -25,7 +25,7 @@ UploadList = React.createClass(
       'uploaded_by':
         'label': 'Uploaded By'
         'desktop_only': true
-      'usages':
+      'usage_count':
         'label': 'Usages'
         'desktop_only': true
       'date':
