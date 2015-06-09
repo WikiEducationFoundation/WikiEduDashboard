@@ -6,19 +6,12 @@ class WikiOutput
     return PandocRuby.convert(item, from: :markdown, to: :mediawiki)
   end
 
-  def self.save_as_file(location, content)
-    File.open(location, 'w+') do |f|
-      f.write(content)
-    end
-  end
-
   def self.translate_course(course)
     block_types = ['In Class', 'Assignment', 'Milestone', 'Custom']
     count = 0
     output = ''
     if course.description? && course.description != ''
-      output += "#{course.description}"
-      output += "\r"
+      output += "#{course.description}\n\n"
     end
     course.weeks.each do |week|
       week_number = count + 1
@@ -27,6 +20,7 @@ class WikiOutput
           "# Week #{week_number} #{week.title || ''} #")
       end
       week.blocks.each do |block|
+        output += "{{start of course week}}\n\n"
         block_type_title = block_types[block.kind] || ''
         block_title = ''
         output += markdown_to_mediawiki("## #{block_type_title} ##")
@@ -35,10 +29,8 @@ class WikiOutput
           output += markdown_to_mediawiki("### #{block_title} ###")
         end
         output += markdown_to_mediawiki("#{block.content}")
-        output += "\r"
       end
-      output += '{{end of course week}}'
-      output += '\r'
+      output += "{{end of course week}}\n\n"
       count += 1
     end
 
@@ -50,7 +42,10 @@ class WikiOutput
   # This lets us use backticks to format blocks of mediawiki code that we don't
   # want to be parsed in the on-wiki version of a course page.
   def self.replace_code_with_nowiki(text)
-    text.gsub!('<code>', '<nowiki>')
-    text.gsub!('</code>', '</nowiki>')
+    if text.include? "<code>"
+      text = text.gsub!('<code>', '<nowiki>')
+      text = text.gsub!('</code>', '</nowiki>')
+    end
+    text
   end
 end

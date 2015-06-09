@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :block do
-    type 1
+    kind 1
     content 'MyString'
-    weekday 1
+    order 0
   end
 end
