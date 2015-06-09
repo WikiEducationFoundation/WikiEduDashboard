@@ -17,6 +17,8 @@ before_install:
   - sudo apt-get install -qq libqt5webkit5-dev qtdeclarative5-dev
   - export QMAKE=/usr/lib/x86_64-linux-gnu/qt5/bin/qmake
 
+  # pandoc for markdown->mediawiki
+  - sudo apt-get install pandoc
 before_script:
   # Set up our database.
   - mysql -e '''CREATE DATABASE test
