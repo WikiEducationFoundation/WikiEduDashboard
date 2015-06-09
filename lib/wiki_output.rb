@@ -7,6 +7,7 @@ class WikiOutput
   ################
   def self.translate_course(course, current_user)
     # Course description and details
+    # TODO: use the instructor(s) instead of current user
     output = course_details_and_description(course, current_user)
 
     # TODO: table of students and articles
@@ -30,6 +31,7 @@ class WikiOutput
   # Output components #
   #####################
   def self.course_details_and_description(course, instructor)
+    # TODO: Make these posts appear in Wikipedia namespace instead of userspace
     course_details = "{{course details
      | course_name = #{course.title}
      | instructor_username = #{instructor.wiki_id}
@@ -40,6 +42,7 @@ class WikiOutput
      | institution =  #{course.school}
      | expected_students = #{course.user_count}
      | assignment_page = User:#{instructor.wiki_id}/#{course.slug}
+     | wikiedu.org = yes
     }}"
     description = markdown_to_mediawiki("#{course.description}")
     course_details + "\r" + description
@@ -54,7 +57,7 @@ class WikiOutput
     week_output = "=== Week #{week_number}: #{week.title || ''} ===\r"
     week_output += "{{start of course week}}\r"
     week.blocks.each do |block|
-      block_type = block_types[block.kind] || ''
+      block_type = block_types[block.kind]
       week_output += "{{#{block_type}#{block.title}}}\r"
       week_output += markdown_to_mediawiki("#{block.content}")
     end
