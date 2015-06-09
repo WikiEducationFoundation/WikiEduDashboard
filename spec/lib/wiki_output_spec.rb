@@ -36,7 +36,7 @@ describe WikiOutput do
                       content: 'block 1 content')
       block2 = create(:block,
                       id: 5,
-                      title: 'Block 2 title',
+                      title: nil,
                       kind: 1,
                       content: 'block 2 content')
       week1.blocks = [block1]

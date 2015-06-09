@@ -53,7 +53,7 @@ class WikiOutput
                    'assignment|Assignment - ',
                    'assignment milestones|',
                    'assignment|'] # TODO: get the custom value
-    if week.title? && week.title != ""
+    if week.title? && week.title != ''
       week_output = "=== Week #{week_number}: #{week.title} ===\r"
     else
       week_output = "=== Week #{week_number} ===\r"
@@ -76,17 +76,13 @@ class WikiOutput
     return PandocRuby.convert(item, from: :markdown, to: :mediawiki)
   end
 
-  def self.html_to_mediawiki(item)
-    return PandocRuby.convert(item, from: :html, to: :mediawiki)
-  end
-
   # Replace instances of <code></code> with <nowiki></nowiki>
   # This lets us use backticks to format blocks of mediawiki code that we don't
   # want to be parsed in the on-wiki version of a course page.
   def self.replace_code_with_nowiki(text)
-    if text.include? "<code>"
-      text = text.gsub!('<code>', '<nowiki>')
-      text = text.gsub!('</code>', '</nowiki>')
+    if text.include? '<code>'
+      text = text.gsub('<code>', '<nowiki>')
+      text = text.gsub('</code>', '</nowiki>')
     end
     text
   end
