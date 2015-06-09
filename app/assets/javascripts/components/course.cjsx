@@ -84,7 +84,7 @@ Course = React.createClass(
       <div className="course_navigation">
         <nav className='container'>
           <div className="nav__item" id="overview-link">
-            <p><Link params={route_params} to="course">Overview</Link></p>
+            <p><Link params={route_params} to="overview">Overview</Link></p>
           </div>
           <div className="nav__item" id="timeline-link">
             <p><Link params={route_params} to="timeline">Timeline</Link></p>

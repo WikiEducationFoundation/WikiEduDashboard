@@ -19,6 +19,7 @@ UploadsHandler      = require '../components/uploads/uploads_handler'
 routes = (
   <Route name='root' path='/' handler={App}>
     <Route name='course' path='courses/:course_school/:course_title' handler={Course}>
+      <Route name='overview' path='overview' handler={OverviewHandler}></Route>
       <Route name='timeline' path='timeline' handler={TimelineHandler} >
         <Route name='wizard' path='wizard' handler={Wizard} />
       </Route>
