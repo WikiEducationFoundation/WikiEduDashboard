@@ -36,7 +36,8 @@ class WikiEdits
     end
     tokens = WikiEdits.tokens(current_user)
     return unless current_user.wiki_id? && @course.slug?
-    wiki_title = "User:#{current_user.wiki_id}/#{@course.slug}" 
+    course_prefix = Figaro.env.course_prefix
+    wiki_title = "#{course_prefix}/#{@course.slug}"
     params = { action: 'edit',
                title: wiki_title,
                text: wiki_text,

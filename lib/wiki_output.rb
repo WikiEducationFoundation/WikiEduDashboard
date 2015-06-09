@@ -8,7 +8,7 @@ class WikiOutput
   def self.translate_course(course, current_user)
     # Course description and details
     # TODO: use the instructor(s) instead of current user
-    output = course_details_and_description(course, current_user)
+    output = course_details_and_description(course)
 
     # TODO: table of students and articles
 
@@ -30,8 +30,10 @@ class WikiOutput
   #####################
   # Output components #
   #####################
-  def self.course_details_and_description(course, instructor)
-    # TODO: Make these posts appear in Wikipedia namespace instead of userspace
+  def self.course_details_and_description(course)
+    # TODO: add support for multiple instructors
+    instructor = course.instructors.first
+    course_prefix = Figaro.env.course_prefix
     course_details = "{{course details
      | course_name = #{course.title}
      | instructor_username = #{instructor.wiki_id}
@@ -41,7 +43,7 @@ class WikiOutput
      | end_date = #{course.end}
      | institution =  #{course.school}
      | expected_students = #{course.user_count}
-     | assignment_page = User:#{instructor.wiki_id}/#{course.slug}
+     | assignment_page = #{course_prefix}/#{course.slug}
      | wikiedu.org = yes
     }}"
     description = markdown_to_mediawiki("#{course.description}")

@@ -19,6 +19,11 @@
 # The language version of Wikipedia: <wiki_language>.wikipedia.org
   wiki_language: en
 
+# The prefix for all course pages that get posted on behalf of users.
+# This should probably be in the Project (Wikipedia) namespace, and should be
+# a prefix that will only be used for this purpose.
+  course_prefix: 'Wikipedia:Wiki_Ed'
+
 # To set up error logging via Sentry, add a Sentry project url here:
   sentry_dsn: 'http://somelongkey:anotherlongkey@sentry.myserver.com/1'
 
@@ -41,6 +46,6 @@
 
 # Uncomment cron_log_debug to use log level 'debug' for update logs. The default is 'info'.
 #  cron_log_debug: "true"
-  
+
 # Uncomment no_views to disable view stats updates.
 # no_views: "true"
