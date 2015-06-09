@@ -3,9 +3,9 @@ class Analytics
   # For a set of course ids, generate a human-readable summary of what the users
   # in those courses contributed.
   def self.report_statistics(course_ids)
-    student_ids = CoursesUsers
-                  .where(course_id: course_ids, role: 0)
-                  .pluck(:user_id).uniq
+    courses_users = CoursesUsers.where(course_id: course_ids, role: 0)
+    student_ids = courses_users.pluck(:user_id).uniq
+    characters_added = courses_users.sum(:character_sum_ms)
     revisions = Revision.where(user_id: student_ids)
     revision_ids = revisions.pluck(:id)
     page_ids = revisions.pluck(:article_id).uniq
@@ -21,6 +21,7 @@ class Analytics
     usage_count = used_uploads.sum(:usage_count)
     report = %(
 #{student_ids.count} students
+#{characters_added} characters added
 #{revision_ids.count} revisions
 #{article_ids.count} articles edited
 #{new_article_ids.count} articles created
