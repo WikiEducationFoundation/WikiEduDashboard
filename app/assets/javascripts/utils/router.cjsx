@@ -2,14 +2,18 @@ React               = require 'react'
 Router              = require 'react-router'
 Route               = Router.Route
 DefaultRoute        = Router.DefaultRoute
+
 App                 = require '../components/app'
 Wizard              = require '../components/wizard/wizard'
-TimelineHandler     = require '../components/timeline/timeline_handler'
-StudentsHandler     = require '../components/students/students_handler'
-ArticlesHandler     = require '../components/articles/articles_handler'
-OverviewHandler     = require '../components/overview/overview_handler'
 CourseCreator       = require '../components/course_creator/course_creator'
 CourseCreatorButton = require '../components/course_creator/course_creator_button'
+
+OverviewHandler     = require '../components/overview/overview_handler'
+TimelineHandler     = require '../components/timeline/timeline_handler'
+RevisionsHandler    = require '../components/revisions/revisions_handler'
+StudentsHandler     = require '../components/students/students_handler'
+ArticlesHandler     = require '../components/articles/articles_handler'
+UploadsHandler      = require '../components/uploads/uploads_handler'
 
 routes = (
   <Route name='root' path='/' handler={App}>
@@ -17,9 +21,10 @@ routes = (
       <Route name='timeline' path='timeline' handler={TimelineHandler} >
         <Route name='wizard' path='wizard' handler={Wizard} />
       </Route>
-      <Route name='activity' path='activity'></Route>
+      <Route name='activity' path='activity' handler={RevisionsHandler}></Route>
       <Route name='students' path='students' handler={StudentsHandler}></Route>
       <Route name='articles' path='articles' handler={ArticlesHandler}></Route>
+      <Route name='uploads' path='uploads' handler={UploadsHandler}></Route>
       <DefaultRoute handler={OverviewHandler} />
     </Route>
     <Route handler={CourseCreatorButton}>

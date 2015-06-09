@@ -9,7 +9,7 @@ Article = React.createClass(
     ratingMobileClass = ratingClass + ' tablet-only'
 
     <tr className={className}>
-      <td className='popover-trigger'>
+      <td className='popover-trigger desktop-only-tc'>
         <p className="rating_num hidden">{@props.article.rating_num}</p>
         <div className={ratingClass}><p>{@props.article.pretty_rating || '-'}</p></div>
         <div className="popover dark">
@@ -22,8 +22,8 @@ Article = React.createClass(
           <a onClick={@stop} href={@props.article.url} target="_blank" className="inline">{@props.article.title} {(if @props.article.new then ' (new)' else '')}</a>
         </p>
       </td>
-      <td>{@props.article.character_sum}</td>
-      <td>{@props.article.view_count}</td>
+      <td className='desktop-only-tc'>{@props.article.character_sum}</td>
+      <td className='desktop-only-tc'>{@props.article.view_count}</td>
       <td></td>
     </tr>
 )

@@ -3,5 +3,6 @@ json.course do
   json.partial! 'courses/uploads', course: @course
   json.partial! 'courses/students', course: @course
   json.partial! 'courses/articles', course: @course
+  json.partial! 'courses/revisions', course: @course
   json.partial! 'courses/weeks', course: @course
 end

@@ -1,7 +1,7 @@
 # General purpose store covering typical use cases for several of our models
 
-McFly           = require 'mcfly'
-Flux            = new McFly()
+McFly = require 'mcfly'
+Flux  = new McFly()
 
 StockStore = (helper, model_key, addModel) ->
   Flux.createStore

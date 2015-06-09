@@ -171,6 +171,7 @@ class CoursesController < ApplicationController
     @uploads = @course.uploads
     @uploads
   end
+
   ##################
   # Helper methods #
   ##################
