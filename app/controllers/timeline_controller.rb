@@ -1,4 +1,4 @@
-require "#{Rails.root}/lib/wiki_output"
+require "#{Rails.root}/lib/wiki_edits"
 
 #= Controller for timeline functionality
 class TimelineController < ApplicationController
@@ -54,10 +54,10 @@ class TimelineController < ApplicationController
 
   def update_timeline
     @course = Course.find_by_slug(params[:course_id])
-    # WikiEdits.save_course(@course, current_user)
     timeline_params['weeks'].each do |week|
       update_week week
     end
+    WikiEdits.update_course(@course, current_user)
   end
 
   def update_week(week)
@@ -70,7 +70,6 @@ class TimelineController < ApplicationController
 
     return if week['deleted'] || blocks.blank?
     blocks.each do |block|
-      puts "#{block['title']} ---- order: #{block['order']}"
       update_block block
     end
   end

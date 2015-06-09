@@ -27,15 +27,20 @@ class WikiEdits
                                    untrained_count: untrained_count }
   end
 
-  def self.save_course(course, current_user)
+  def self.update_course(course, current_user, delete = false)
     @course = course
-    wikitext = WikiOutput.translate_course(@course)
+    if delete == true
+      wiki_text = ''
+    else
+      wiki_text = WikiOutput.translate_course(@course, current_user)
+    end
     tokens = WikiEdits.tokens(current_user)
     return unless current_user.wiki_id? && @course.slug?
-    update_slug = "User:#{current_user.wiki_id}/#{@course.slug}" 
+    course_prefix = Figaro.env.course_prefix
+    wiki_title = "#{course_prefix}/#{@course.slug}"
     params = { action: 'edit',
-               title: update_slug,
-               text: wikitext,
+               title: wiki_title,
+               text: wiki_text,
                format: 'json',
                token: tokens.csrf_token }
     WikiEdits.api_get params, tokens
