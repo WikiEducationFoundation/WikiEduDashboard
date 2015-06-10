@@ -9,7 +9,8 @@ class WikiOutput
     # Course description and details
     output = course_details_and_description(course)
 
-    # TODO: table of students and articles
+    # Table of students, assigned articles, and reviews
+    output += students_table
 
     # Timeline
     output += "{{start of course timeline}}\r"
@@ -71,24 +72,24 @@ class WikiOutput
   end
 
   def self.students_table(course)
-    table_output = "{{students table}}\r"
     students = course.students
+    return '' if students.blank?
+    table_output = "{{students table}}\r"
     students.each do |student|
       username = student.wiki_id
-      assigned, reviewing = ''
       assignments = student.assignments.where(course_id: course.id)
       assigned_titles = assignments.assigned.pluck(:article_title)
-      assigned = '[[' + assigned_titles.join(']], [[') + ']]' unless assigned_titles.blank?
+      assigned = titles_to_wikilinks assigned_titles
       reviewing_titles = assignments.reviewing.pluck(:article_title)
-      reviewing = '[[' + reviewing_titles.join(']], [[') + ']]' unless reviewing_titles.blank?
+      reviewing = titles_to_wikilinks reviewing_titles
       table_output += "{{student table row|#{username}|#{assigned}|#{reviewing}}}\r"
     end
     table_output += "{{end of students table}}\r"
     table_output
   end
-  ########################
-  # Reformatting methods #
-  ########################
+  ################################
+  # wikitext formatting methods #
+  ################################
   def self.markdown_to_mediawiki(item)
     return PandocRuby.convert(item, from: :markdown, to: :mediawiki)
   end
@@ -102,6 +103,12 @@ class WikiOutput
       text = text.gsub('</code>', '</nowiki>')
     end
     text
+  end
+
+  def self.titles_to_wikilinks(titles)
+    return '' if titles.blank?
+    wikitext = '[[' + titles.join(']], [[') + ']]'
+    wikitext
   end
 
   #####################
