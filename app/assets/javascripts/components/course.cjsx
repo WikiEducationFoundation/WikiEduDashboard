@@ -41,6 +41,13 @@ Course = React.createClass(
         </div>
       )
 
+    if @state.course.id > 10000
+      timeline = (
+        <div className="nav__item" id="timeline-link">
+          <p><Link params={route_params} to="timeline">Timeline</Link></p>
+        </div>
+      )
+
     <div>
       <header className='course-page'>
         <div className="container">
@@ -85,9 +92,6 @@ Course = React.createClass(
         <nav className='container'>
           <div className="nav__item" id="overview-link">
             <p><Link params={route_params} to="overview">Overview</Link></p>
-          </div>
-          <div className="nav__item" id="timeline-link">
-            <p><Link params={route_params} to="timeline">Timeline</Link></p>
           </div>
           <div className="nav__item" id="activity-link">
             <p><Link params={route_params} to="activity">Activity</Link></p>
