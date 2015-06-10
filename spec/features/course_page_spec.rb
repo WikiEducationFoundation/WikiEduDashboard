@@ -10,6 +10,7 @@ course_end = '2015-12-31'
 
 describe 'the course page', type: :feature do
   before do
+    # Capybara.current_driver = :selenium
     course = create(:course,
                     id: 1,
                     title: 'This course',
@@ -99,7 +100,7 @@ describe 'the course page', type: :feature do
     visit "/courses/#{slug}"
   end
 
-  describe 'header' do
+  describe 'header', js: true do
     it 'should display the course title' do
       title_text = 'This course'
       expect(page.find('.title')).to have_content title_text
@@ -111,6 +112,7 @@ describe 'the course page', type: :feature do
       expect(page.find('#total-edits')).to have_content revision_count
       expect(page.find('#articles-edited')).to have_content article_count
       expect(page.find('#student-editors')).to have_content user_count
+      find('#student-editors').click
       expect(page.find('#trained-count')).to have_content user_count / 2
       characters = revision_count * 2
       expect(page.find('#characters-added')).to have_content characters
@@ -147,7 +149,7 @@ describe 'the course page', type: :feature do
     end
   end
 
-  describe 'navigation bar' do
+  describe 'navigation bar', js: true do
     it 'should link to overview' do
       link = "/courses/#{slug}"
       expect(page.has_link?('', href: link)).to be true
@@ -222,4 +224,8 @@ describe 'the course page', type: :feature do
   #     expect(current_path).to eq("/courses/#{slug}")
   #   end
   # end
+
+  after(:all) do
+    Capybara.use_default_driver
+  end
 end
