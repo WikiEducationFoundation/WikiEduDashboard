@@ -19,24 +19,6 @@ table
       transform rotate(180deg)
     &.desc:after
       transform rotate(0deg)
-  tbody
-    tr
-      background-color white
-      border 1px solid mischka
-      border-width 0 1px 1px
-      cursor pointer
-      transition background .15s
-      &:first-child
-        border-width 1px
-      &:hover
-        background athens
-      p, small, h4
-        color dove
-        &.red
-          color burnt
-      .icon
-        display inline-block
-        transition transform .2s
   td, th
     box-sizing content-box
     color dove
@@ -53,6 +35,23 @@ table
       padding-left 15px
       padding-right 15px
 
+table.list > tbody > tr
+  background-color white
+  border 1px solid mischka
+  border-width 0 1px 1px
+  cursor pointer
+  transition background .15s
+  &:first-child
+    border-width 1px
+  p, small, h4
+    color dove
+    &.red
+      color burnt
+  .icon
+    display inline-block
+    transition transform .2s
+  &:hover
+    background athens
 
 table.students tbody tr
   &.open
@@ -86,6 +85,7 @@ table.students tbody tr
         th
           padding-top 0
         tr
+          border 1px solid mischka
           border-width 0 0 1px
         thead
           tr:hover

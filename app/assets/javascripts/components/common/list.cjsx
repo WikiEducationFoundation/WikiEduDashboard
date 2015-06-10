@@ -19,8 +19,9 @@ List = React.createClass(
           key={key}
           dangerouslySetInnerHTML={{__html: key_obj['label']}}></th>
       )
+      className = @props.table_key + ' list'
 
-    <table className={@props.table_key}>
+    <table className={className}>
       <thead>
         <tr>
           {headers}

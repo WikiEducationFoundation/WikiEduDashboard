@@ -8,19 +8,22 @@ ServerActions = require '../../actions/server_actions'
 AssignButton = React.createClass(
   displayname: 'AssignButton'
   getKey: ->
-    'assign_' + @props.student.id
-  assign: (e) ->
-    e.stopPropagation()
+    tag = if @props.role == 0 then 'assign_' else 'review_'
+    tag + @props.student.id
+  assign: ->
     article_title = @refs.ass_input.getDOMNode().value
     if(article_title)
-      ServerActions.assignArticle(@props.course_id, @props.student.id, article_title, 0)
+      ServerActions.assignArticle(@props.course_id, @props.student.id, article_title, @props.role)
+  unassign: (assignment_id) ->
+    ServerActions.unassignArticle(@props.course_id, assignment_id)
   render: ->
-    if @props.student.assignments.length > 0
-      raw_a = @props.student.assignments[0]
+    models = if @props.role == 0 then @props.student.assignments else @props.student.reviewings
+    if models.length > 0
+      raw_a = models[0]
       if @props.current_user.role > 0
         action = <span className='button border plus' onClick={@props.open}>+</span>
-      if @props.student.assignments.length > 1
-        title_text = @props.student.assignments.length + ' articles'
+      if models.length > 1
+        title_text = models.length + ' articles'
       else
         title_text = raw_a.article_title
       button = (
@@ -31,26 +34,38 @@ AssignButton = React.createClass(
       )
     else if @props.current_user
       if @props.current_user.id == @props.student.id
-        button_text = 'Assign myself an article'
+        assign_text = 'Assign myself an article'
+        review_text = 'Review an article'
       else if @props.current_user.role > 0
-        button_text = 'Assign an article'
+        assign_text = 'Assign an article'
+        review_text = 'Assign a review'
+      final_text = if @props.role == 0 then assign_text else review_text
       button = (
-        <span className='button border' onClick={@props.open}>{button_text}</span>
+        <span className='button border' onClick={@props.open}>{final_text}</span>
       )
-    assignments = @props.student.assignments.map (ass) ->
-      <tr key={ass.id}><td>{ass.article_title}</td></tr>
+    assignments = models.map (ass) =>
+      <tr key={ass.id}>
+        <td>
+          <span>{ass.article_title}</span>
+          <span className='button border plus' onClick={@unassign.bind(@, ass.id)}>-</span>
+        </td>
+      </tr>
+    if models.length == 0
+      assignments = <tr><td>No articles assigned</td></tr>
     pop_class = 'pop' + (if @props.is_open then ' open' else '')
     <div className='pop__container' onClick={@props.stop}>
       {button}
       <div className={pop_class}>
         <table>
-          <tr>
-            <td>
-              <input type="text" ref='ass_input' />
-              <span className='button border' onClick={@assign}>Assign</span>
-            </td>
-          </tr>
-          {assignments}
+          <tbody>
+            <tr>
+              <td>
+                <input type="text" ref='ass_input' />
+                <span className='button border' onClick={@assign}>Assign</span>
+              </td>
+            </tr>
+            {assignments}
+          </tbody>
         </table>
       </div>
     </div>

@@ -49,5 +49,8 @@ ServerActions = Flux.createActions
   assignArticle: (course_id, student_id, article_title, role) ->
     API.assignArticle(course_id, student_id, article_title, role).then (data) ->
       { actionType: 'RECEIVE_STUDENTS', data: data }
+  unassignArticle: (course_id, assign_id) ->
+    API.unassignArticle(course_id, assign_id).then (data) ->
+      { actionType: 'RECEIVE_STUDENTS', data: data }
 
 module.exports = ServerActions
