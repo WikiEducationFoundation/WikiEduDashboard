@@ -28,6 +28,7 @@ class WikiEdits
   end
 
   def self.update_course(course, current_user, delete = false)
+    return if Figaro.env.disable_wiki_output == 'true'
     @course = course
     if delete == true
       wiki_text = ''
