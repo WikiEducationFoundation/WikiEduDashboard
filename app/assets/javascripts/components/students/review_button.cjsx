@@ -18,10 +18,14 @@ ReviewButton = React.createClass(
     if @props.student.reviewings.length > 0
       raw_a = @props.student.reviewings[0]
       if @props.current_user.role > 0
-        action = <span className='button border' onClick={@props.open}>+</span>
+        action = <span className='button border plus' onClick={@props.open}>+</span>
+      if @props.student.assignments.length > 1
+        title_text = @props.student.assignments.length + ' articles'
+      else
+        title_text = raw_a.article_title
       button = (
         <p>
-          <a onClick={@props.stop} href={raw_a.article_url} target="_blank" className="inline">{raw_a.article_title}</a>
+          <a onClick={@props.stop} href={raw_a.article_url} target="_blank" className="inline">{title_text}</a>
           {action}
         </p>
       )
@@ -29,7 +33,7 @@ ReviewButton = React.createClass(
       if @props.current_user.id == @props.student.id
         button_text = 'Review an article'
       else if @props.current_user.role > 0
-        button_text = 'Assign a reviewing'
+        button_text = 'Assign a review'
       button = (
         <span className='button border' onClick={@props.open}>{button_text}</span>
       )
