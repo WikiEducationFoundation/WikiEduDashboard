@@ -78,9 +78,9 @@ class WikiOutput
       assigned, reviewing = ''
       assignments = student.assignments.where(course_id: course.id)
       assigned_titles = assignments.assigned.pluck(:article_title)
-      assigned = '[[' + assigned.join(']], [[') + ']]' unless assigned_titles.blank?
+      assigned = '[[' + assigned_titles.join(']], [[') + ']]' unless assigned_titles.blank?
       reviewing_titles = assignments.reviewing.pluck(:article_title)
-      reviewing = '[[' + reviewing.join(']], [[') + ']]' unless reviewing_titles.blank?
+      reviewing = '[[' + reviewing_titles.join(']], [[') + ']]' unless reviewing_titles.blank?
       table_output += "{{student table row|#{username}|#{assigned}|#{reviewing}}}\r"
     end
     table_output += "{{end of students table}}\r"
