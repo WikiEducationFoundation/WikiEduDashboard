@@ -68,7 +68,7 @@ describe Course, type: :model do
       expect(Assignment.where(role: 0).count).to eq(81)
       # Check that users with multiple assignments are handled properly.
       user = User.where(wiki_id: 'AndrewHamsha').first
-      expect(user.assignments.count).to eq(2)
+      expect(user.assignments.assigned.count).to eq(2)
     end
   end
 
