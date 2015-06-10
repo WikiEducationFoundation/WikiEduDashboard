@@ -74,7 +74,7 @@ class WikiOutput
   def self.students_table(course)
     students = course.students
     return '' if students.blank?
-    table_output = "{{students table}}\r"
+    table = "{{students table}}\r"
     students.each do |student|
       username = student.wiki_id
       assignments = student.assignments.where(course_id: course.id)
@@ -82,11 +82,12 @@ class WikiOutput
       assigned = titles_to_wikilinks assigned_titles
       reviewing_titles = assignments.reviewing.pluck(:article_title)
       reviewing = titles_to_wikilinks reviewing_titles
-      table_output += "{{student table row|#{username}|#{assigned}|#{reviewing}}}\r"
+      table += "{{student table row|#{username}|#{assigned}|#{reviewing}}}\r"
     end
-    table_output += "{{end of students table}}\r"
-    table_output
+    table += "{{end of students table}}\r"
+    table
   end
+
   ################################
   # wikitext formatting methods #
   ################################
