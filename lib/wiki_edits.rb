@@ -27,24 +27,21 @@ class WikiEdits
                                    untrained_count: untrained_count }
   end
 
-  def self.notify_students(course_id, current_user, students, notification_type)
+  def self.notify_students(course_id, current_user, recipient_users, _params)
     @course = Course.find(course_id)
     tokens = WikiEdits.tokens(current_user)
-    begin
-      I18n.t!("wiki_edits.notify_#{notification_type}.header", :raise => true) 
-    rescue I18n::MissingTranslationData
-      return
-    end
-    section_title = I18n.t("wiki_edits.notify_#{notification_type}.header") + " | #{@course.title}"
-    students.each do |student|
+
+    recipient_users.each do |recipient|
       params = { action: 'edit',
-                 title: "User_talk:#{student.wiki_id}",
+                 title: "User_talk:#{recipient.wiki_id}",
                  section: 'new',
-                 sectiontitle: section_title,
-                 text: I18n.t("wiki_edits.notify_#{notification_type}.message"),
-                 summary: I18n.t("wiki_edits.notify_#{notification_type}.summary"),
+                 sectiontitle: _params[:sectiontitle],
+                 text: _params[:text],
+                 summary: _params[:summary],
                  format: 'json',
                  token: tokens.csrf_token }
+   
+      
       WikiEdits.api_get params, tokens
     end
     Raven.capture_message 'WikiEdits.notify_students',
@@ -52,7 +49,7 @@ class WikiEdits
                           culprit: 'WikiEdits.notify_students',
                           extra: { sender: current_user.wiki_id,
                                    course_name: @course.slug,
-                                   notification_type: notification_type }
+                                   params: _params }
   end
 
   def self.update_course(course, current_user, delete = false)
