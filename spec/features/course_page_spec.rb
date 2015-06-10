@@ -10,9 +10,8 @@ course_end = '2015-12-31'
 
 describe 'the course page', type: :feature do
   before do
-    # Capybara.current_driver = :selenium
     course = create(:course,
-                    id: 1,
+                    id: 10001,
                     title: 'This course',
                     slug: slug,
                     start: course_start.to_date,
@@ -31,7 +30,7 @@ describe 'the course page', type: :feature do
              trained: i % 2)
       create(:courses_user,
              id: i.to_s,
-             course_id: 1,
+             course_id: 10001,
              user_id: i.to_s)
     end
 
@@ -151,7 +150,7 @@ describe 'the course page', type: :feature do
 
   describe 'navigation bar', js: true do
     it 'should link to overview' do
-      link = "/courses/#{slug}"
+      link = "/courses/#{slug}/overview"
       expect(page.has_link?('', href: link)).to be true
     end
 
@@ -195,7 +194,7 @@ describe 'the course page', type: :feature do
   #   end
   # end
 
-  describe 'articles edited view' do
+  describe 'articles edited view', js: true do
     it 'should display a list of articles' do
       visit "/courses/#{slug}/articles"
       rows = page.all('.article-list__row__rating').count
@@ -203,7 +202,7 @@ describe 'the course page', type: :feature do
       expect(rows).to eq(article_count + 1)
     end
 
-    it 'should sort article by class', js: true  do
+    it 'should sort article by class' do
       visit "/courses/#{slug}/articles"
       # first click on the Class sorting should sort high to low
       find(:css, '.article-list__row__rating.sort').click
@@ -224,8 +223,4 @@ describe 'the course page', type: :feature do
   #     expect(current_path).to eq("/courses/#{slug}")
   #   end
   # end
-
-  after(:all) do
-    Capybara.use_default_driver
-  end
 end
