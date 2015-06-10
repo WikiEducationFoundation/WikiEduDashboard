@@ -1,11 +1,11 @@
 json.students course.courses_users.where(role: 0) do |cu|
   json.(cu, :character_sum_ms, :character_sum_us)
   json.(cu.user, :id, :wiki_id, :trained, :contribution_url)
-  json.assignments cu.user.assignments do |ass|
+  json.assignments cu.user.assignments.assigned do |ass|
     json.(ass, :id, :article_title)
     json.article_url article_url(ass.article)
   end
-  json.reviewings cu.user.reviewings do |rev|
+  json.reviewings cu.user.assignments.reviewing do |rev|
     json.(rev, :id, :article_title)
     json.article_url article_url(rev.article)
   end

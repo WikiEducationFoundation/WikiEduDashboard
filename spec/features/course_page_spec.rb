@@ -197,23 +197,21 @@ describe 'the course page', type: :feature do
   describe 'articles edited view', js: true do
     it 'should display a list of articles' do
       visit "/courses/#{slug}/articles"
-      rows = page.all('.article-list__row__rating').count
+      rows = page.all('tr.article').count
       # one extra .article-list__row__title element for the column header
-      expect(rows).to eq(article_count + 1)
+      expect(rows).to eq(article_count)
     end
 
     it 'should sort article by class' do
       visit "/courses/#{slug}/articles"
       # first click on the Class sorting should sort high to low
-      find(:css, '.article-list__row__rating.sort').click
-      first_rating = page.find(:css, 'ul.list')
-                     .first('.article-list__row__rating')
-      expect(first_rating).to have_content 'Featured article'
+      find('th', text: 'Class').click
+      first_rating = page.find(:css, 'table.articles').first('td .rating p')
+      expect(first_rating).to have_content 'FA'
       # second click should sort from low to high
-      find(:css, '.article-list__row__rating.sort').click
-      new_first_rating = page.find(:css, 'ul.list')
-                         .first('.article-list__row__rating')
-      expect(new_first_rating).to have_content 'Unrated'
+      find('th', text: 'Class').click
+      new_first_rating = page.find(:css, 'table.articles').first('td .rating p')
+      expect(new_first_rating).to have_content '-'
     end
   end
 
