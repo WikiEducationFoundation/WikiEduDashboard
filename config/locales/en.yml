@@ -167,6 +167,10 @@ en:
       header: You have not completed the student training.
       message: Please complete the [[WP:STUDENT|student training]]. If you have already gone through it, be sure to click the button at the end to record that you finished it. --~~~~
       summary: student training incomplete
+    notify_test:
+      header: Test Header.
+      message: Test Message.
+      summary: Test Summary.
 
   error_401:
     header: "Unauthorized. >:-("

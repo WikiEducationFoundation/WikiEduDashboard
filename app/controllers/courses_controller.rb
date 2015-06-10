@@ -180,10 +180,18 @@ class CoursesController < ApplicationController
   helper_method :manual_update
 
   def notify_untrained
-    @course = Course.find(params[:course])
-    return unless user_signed_in? && current_user.instructor?(@course)
+    standard_setup
     WikiEdits.notify_untrained(params[:course], current_user)
     redirect_to show_path(@course)
   end
   helper_method :notify_untrained
+
+  def notify_students
+    standard_setup
+    notification_type = params[:notification_type] || 'test'
+    students = @course.users.role('student')
+    WikiEdits.notify_students(@course.id, current_user, students, notification_type)
+    redirect_to show_path(@course)
+  end
+  helper_method :notify_students
 end
