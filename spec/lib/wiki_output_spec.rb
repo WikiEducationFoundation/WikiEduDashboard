@@ -28,7 +28,7 @@ describe WikiOutput do
   describe '.translate_course' do
     it 'should return a wikitext version of the course' do
       week1 = create(:week, id: 2, title: 'This is the beginning')
-      week2 = create(:week, id: 3, title: 'This is the end')
+      week2 = create(:week, id: 3)
       block1 = create(:block,
                       id: 4,
                       title: 'Block 1 title',
@@ -68,7 +68,6 @@ describe WikiOutput do
       response = WikiOutput.translate_course(course, user)
       expect(response).to include('The course description')
       expect(response).to include('This is the beginning')
-      expect(response).to include('This is the end')
       expect(response).to include('Block 1 title')
       expect(response).to include('block 2 content')
       expect(response).to include('[[My article]]')
