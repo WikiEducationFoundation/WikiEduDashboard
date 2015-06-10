@@ -60,13 +60,7 @@ Rails.application.routes.draw do
   # Assignments
   post 'courses/:course_id/students/assign' => 'users#assign',
        constraints: { course_id: /.*/ }
-  post 'courses/:course_id/students/unassign' => 'users#unassign',
-       constraints: { course_id: /.*/ }
-
-  # Assignment reviewers
-  post 'courses/:course_id/students/review' => 'users#review',
-       constraints: { course_id: /.*/ }
-  post 'courses/:course_id/students/unreview' => 'users#unreview',
+  delete 'courses/:course_id/assignments/:assignment_id' => 'users#unassign',
        constraints: { course_id: /.*/ }
 
   # Timeline
