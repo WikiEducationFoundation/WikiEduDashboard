@@ -70,6 +70,22 @@ class WikiOutput
     week_output
   end
 
+  def self.students_table(course)
+    table_output = "{{students table}}\r"
+    students = course.students
+    students.each do |student|
+      username = student.wiki_id
+      assigned, reviewing = ''
+      assignments = student.assignments.where(course_id: course.id)
+      assigned_titles = assignments.assigned.pluck(:article_title)
+      assigned = '[[' + assigned.join(']], [[') + ']]' unless assigned_titles.blank?
+      reviewing_titles = assignments.reviewing.pluck(:article_title)
+      reviewing = '[[' + reviewing.join(']], [[') + ']]' unless reviewing_titles.blank?
+      table_output += "{{student table row|#{username}|#{assigned}|#{reviewing}}}\r"
+    end
+    table_output += "{{end of students table}}\r"
+    table_output
+  end
   ########################
   # Reformatting methods #
   ########################
