@@ -207,7 +207,7 @@ describe 'the course page', type: :feature do
       # first click on the Class sorting should sort high to low
       find('th', text: 'Class').click
       first_rating = page.find(:css, 'table.articles').first('td .rating p')
-      expect(first_rating).to have_content 'fa'
+      expect(first_rating).to have_content 'FA'
       # second click should sort from low to high
       find('th', text: 'Class').click
       new_first_rating = page.find(:css, 'table.articles').first('td .rating p')
