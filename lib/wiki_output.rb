@@ -10,7 +10,7 @@ class WikiOutput
     output = course_details_and_description(course)
 
     # Table of students, assigned articles, and reviews
-    output += students_table
+    output += students_table(course)
 
     # Timeline
     output += "{{start of course timeline}}\r"
