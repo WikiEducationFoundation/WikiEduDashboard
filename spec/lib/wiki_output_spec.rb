@@ -41,18 +41,38 @@ describe WikiOutput do
                       content: 'block 2 content')
       week1.blocks = [block1]
       week2.blocks = [block2]
-      user = build(:user)
+      user = create(:user,
+                    id: 1,
+                    wiki_id: 'Ragesock')
       course = create(:course,
                       id: 1,
                       title: '# Title #',
                       description: 'The course description',
                       weeks: [week1, week2])
+      create(:courses_user,
+             user_id: 1,
+             course_id: 1,
+             role: 0)
+      create(:assignment,
+             id: 1,
+             user_id: 1,
+             course_id: 1,
+             role: 0,
+             article_title: 'My article')
+      create(:assignment,
+             id: 2,
+             user_id: 1,
+             course_id: 1,
+             role: 1,
+             article_title: 'Your article')
       response = WikiOutput.translate_course(course, user)
       expect(response).to include('The course description')
       expect(response).to include('This is the beginning')
       expect(response).to include('This is the end')
       expect(response).to include('Block 1 title')
       expect(response).to include('block 2 content')
+      expect(response).to include('[[My article]]')
+      expect(response).to include('[[Your article]]')
     end
   end
 end
