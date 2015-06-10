@@ -3,7 +3,6 @@ StudentActions    = require '../../actions/student_actions'
 ServerActions     = require '../../actions/server_actions'
 
 AssignButton      = require './assign_button'
-ReviewButton      = require './review_button'
 
 UIStore           = require '../../stores/ui_store'
 
@@ -40,8 +39,8 @@ Student = React.createClass(
           </small>
         </p>
       </td>
--      <td className='desktop-only-tc'><AssignButton {...@props} /></td>
--      <td className='desktop-only-tc'><ReviewButton {...@props} /></td>
+-      <td className='desktop-only-tc'><AssignButton {...@props} role=0 /></td>
+-      <td className='desktop-only-tc'><AssignButton {...@props} role=1 /></td>
       <td className='desktop-only-tc'>{@props.student.character_sum_ms}</td>
       <td className='desktop-only-tc'>{@props.student.character_sum_us}</td>
       <td><p className="icon icon-arrow"></p></td>

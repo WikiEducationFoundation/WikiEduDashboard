@@ -165,4 +165,16 @@ API =
           console.log 'Couldn\'t assign article! ' + e
           rej e
 
+  unassignArticle: (course_id, assign_id) ->
+    new Promise (res, rej) ->
+      $.ajax
+        type: 'DELETE'
+        url: '/courses/' + course_id + '/assignments/' + assign_id
+        success: (data) ->
+          console.log 'Unassigned article!'
+          res data
+        failure: (e) ->
+          console.log 'Couldn\'t unassign article! ' + e
+          rej e
+
 module.exports = API

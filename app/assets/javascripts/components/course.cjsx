@@ -41,7 +41,6 @@ Course = React.createClass(
         </div>
       )
 
-    console.log @state.course.id
     if @state.course.id >= 10000
       timeline = (
         <div className="nav__item" id="timeline-link">

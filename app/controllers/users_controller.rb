@@ -46,20 +46,13 @@ class UsersController < ApplicationController
     )
   end
 
+  def unassign_params
+    params.permit(:assignment_id)
+  end
+
   def unassign
-    fetch_assign_records
-    title = @article.nil? ? assign_params['article_title'] : @article.title
-    Assignment.find_by(
-      user_id: assign_params['user_id'],
-      course_id: @course.id,
-      article_id: @article.nil? ? nil : @article.id,
-      article_title: title
-    ).destroy
-    respond_to do |format|
-      format.json do
-        render json: 'Success!'
-      end
-    end
+    @course = Course.find_by_slug(params[:course_id])
+    Assignment.find(unassign_params['assignment_id']).destroy
   end
 
   # #######################
