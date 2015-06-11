@@ -263,15 +263,18 @@ rating(color)
 
 .rating
   round-placeholder(23)
+  rating(#D2D2D2)
   background-color transparent
   border 3px solid #D2D2D2
   text-align center
   text-transform uppercase
   p
-    color #D2D2D2
     font-size 15px
     font-weight 600
     line-height 40px
+
+  &.null
+    rating(#D2D2D2)
   &.fa, &.fl
     rating(#E36944)
   &.a

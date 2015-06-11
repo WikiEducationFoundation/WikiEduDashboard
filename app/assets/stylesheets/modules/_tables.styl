@@ -27,8 +27,11 @@ table
     height 40px
     padding 15px 0
     vertical-align middle
-    &:first-child
+    &:first-child, &.rating-cell
       padding-left 15px
+      float left
+      +above(tablet)
+        float none
     &:last-child
       padding-right 15px
     &.wide-mobile
@@ -43,10 +46,12 @@ table.list > tbody > tr
   transition background .15s
   &:first-child
     border-width 1px
+    
   p, small, h4
     color dove
     &.red
       color burnt
+      
   .icon
     display inline-block
     transition transform .2s
