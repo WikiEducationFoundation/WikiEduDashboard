@@ -2,6 +2,12 @@ McFly       = require 'mcfly'
 Flux        = new McFly()
 
 StudentActions = Flux.createActions
+  addStudent: ->
+    { actionType: 'ADD_STUDENT' }
+  updateStudent: (student) ->
+    { actionType: 'UPDATE_STUDENT', data: {
+      student: student
+    }}
   assign: ->
     { actionType: 'ASSIGN_ARTICLE' }
   sort: (key) ->

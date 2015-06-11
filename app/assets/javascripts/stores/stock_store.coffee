@@ -36,9 +36,10 @@ StockStore = (helper, model_key, new_model, triggers) ->
       when 'SORT_' + plural_model_key.toUpperCase()
         helper.sortByKey data.key
       when 'ADD_' + model_key.toUpperCase()
-        default_model =
-          id: Date.now(), # could THEORETICALLY collide but highly unlikely
-          is_new: true, # remove ids from objects with is_new when persisting
+        default_model = new_model || {
+          id: Date.now() # could THEORETICALLY collide but highly unlikely
+          is_new: true # remove ids from objects with is_new when persisting
+        }
         helper.setModel _.assign default_model, data
       when 'UPDATE_' + model_key.toUpperCase()
         helper.setModel data[model_key]

@@ -132,14 +132,15 @@ class UsersController < ApplicationController
   # Enrollment management #
   #########################
   def enroll_params
-    params.permit(:user_id, :user_wiki_id, :role, :old_role)
+    params.require(:student).permit(:wiki_id, :role)
   end
 
   def fetch_enroll_records
+    @course = Course.find_by_slug(params[:course_id])
     if enroll_params.key? :user_id
       @user = User.find(enroll_params[:user_id])
-    elsif enroll_params.key? :user_wiki_id
-      @user = User.find_by(wiki_id: enroll_params[:user_wiki_id])
+    elsif enroll_params.key? :wiki_id
+      @user = User.find_by(wiki_id: enroll_params[:wiki_id])
     else
       return
     end
@@ -151,9 +152,8 @@ class UsersController < ApplicationController
 
     CoursesUsers.create(
       user: @user,
-      course_id: params[:course_id],
-      role: enroll_params[:role],
-      old_role: enroll_params[:old_role]
+      course_id: @course.id,
+      role: enroll_params[:role]
     )
   end
 

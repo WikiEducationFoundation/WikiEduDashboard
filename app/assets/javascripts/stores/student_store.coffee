@@ -13,4 +13,19 @@ new_student = {
   wiki_id: ""
 }
 
-module.exports = new StockStore(_sortKey, _sortAsc, _descKeys, 'student', new_student).store
+module.exports = new StockStore(_sortKey, _sortAsc, _descKeys, 'student', new_student, ['ENROLLED_STUDENT']).store
+
+# module.exports = new StockStore({
+#   sortKey: 'wiki_id'
+#   sortAsc: true
+#   descKeys:
+#     character_sum_ms: true
+#     character_sum_us: true
+#   modelKey: 'student'
+#   defaultModel: {
+#     wiki_id: ""
+#   }
+#   triggers: [
+#     'ENROLLED_STUDENT'
+#   ]
+# }).store

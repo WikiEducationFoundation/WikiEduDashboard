@@ -176,34 +176,20 @@ API =
           console.log 'Couldn\'t submit wizard answers! ' + e
           rej e
 
-  assignArticle: (course_id, student_id, article_title, role) ->
+  enrollStudent: (data, course_id) ->
     new Promise (res, rej) ->
+      console.log data
       $.ajax
         type: 'POST'
-        url: '/courses/' + course_id + '/students/assign'
-        contentType: 'application/json'
+        url: '/courses/' + course_id + '/students/enroll',
+        contentType: 'application/json',
         data: JSON.stringify
-          assignment:
-            user_id: student_id,
-            article_title: article_title,
-            role: role
+          student: data
         success: (data) ->
-          console.log 'Assigned article!'
+          console.log 'Enrolled student!'
           res data
         failure: (e) ->
-          console.log 'Couldn\'t assign article! ' + e
-          rej e
-
-  unassignArticle: (course_id, assign_id) ->
-    new Promise (res, rej) ->
-      $.ajax
-        type: 'DELETE'
-        url: '/courses/' + course_id + '/assignments/' + assign_id
-        success: (data) ->
-          console.log 'Unassigned article!'
-          res data
-        failure: (e) ->
-          console.log 'Couldn\'t unassign article! ' + e
+          console.log 'Couldn\'t enroll student! ' + e
           rej e
 
 module.exports = API

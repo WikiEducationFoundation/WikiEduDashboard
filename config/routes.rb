@@ -52,13 +52,13 @@ Rails.application.routes.draw do
   end
 
   # Enrollment
+  post 'courses/:course_id/students' => 'users#save',
+       constraints: { course_id: /.*/ }
   post 'courses/:course_id/students/enroll' => 'users#enroll',
        constraints: { course_id: /.*/ }
   post 'courses/:course_id/students/:user_id/unenroll' => 'users#unenroll',
        constraints: { course_id: /.*/ }
   post 'courses/:course_id/students/:user_id/setrole' => 'users#setrole',
-       constraints: { course_id: /.*/ }
-  post 'courses/:course_id/students' => 'users#save',
        constraints: { course_id: /.*/ }
 
   # Timeline
