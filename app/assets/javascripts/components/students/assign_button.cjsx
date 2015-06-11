@@ -2,6 +2,7 @@ React         = require 'react/addons'
 Router        = require 'react-router'
 Link          = Router.Link
 Expandable    = require '../highlevels/expandable'
+Popover       = require '../common/popover'
 ServerActions = require '../../actions/server_actions'
 AssignmentActions = require '../../actions/assignment_actions'
 
@@ -56,7 +57,6 @@ AssignButton = React.createClass(
       </tr>
     if @props.assignments.length == 0
       assignments = <tr><td>No articles assigned</td></tr>
-    pop_class = 'pop' + (if @props.is_open then ' open' else '')
 
     if @props.permitted
       edit_row = (
@@ -72,14 +72,11 @@ AssignButton = React.createClass(
     <div className='pop__container' onClick={@stop}>
       {show_button}
       {edit_button}
-      <div className={pop_class}>
-        <table>
-          <tbody>
-            {edit_row}
-            {assignments}
-          </tbody>
-        </table>
-      </div>
+      <Popover
+        is_open={@props.is_open}
+        edit_row={edit_row}
+        rows={assignments}
+      />
     </div>
 )
 
