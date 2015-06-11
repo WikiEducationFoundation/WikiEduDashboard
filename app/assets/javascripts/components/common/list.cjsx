@@ -12,9 +12,12 @@ List = React.createClass(
       key_obj = @props.keys[key]
       header_class = if sorting.key == key then sortClass else ''
       header_class += if key_obj['desktop_only'] then ' desktop-only-tc' else ''
+      unless (@props.sortable? && !@props.sortable)
+        header_class += ' sortable'
+        header_onclick = UIActions.sort.bind(null, @props.table_key, key)
       headers.push (
         <th
-          onClick={UIActions.sort.bind(null, @props.table_key, key)}
+          onClick={header_onclick}
           className={header_class}
           key={key}
           dangerouslySetInnerHTML={{__html: key_obj['label']}}></th>

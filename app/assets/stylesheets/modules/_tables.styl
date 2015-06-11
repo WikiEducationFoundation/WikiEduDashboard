@@ -3,8 +3,9 @@ table
   text-align left
   width 100%
   thead th
-    cursor pointer
     padding-bottom 0
+    &.sortable
+      cursor pointer
     &:after
       display inline-block
       content ''
@@ -109,7 +110,7 @@ table.students tbody tr, table.articles tbody tr
           margin 0
     .button
       margin-left 0
-  
+
     td, th
       p.name
         line-height 1

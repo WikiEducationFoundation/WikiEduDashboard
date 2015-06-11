@@ -14,19 +14,28 @@ ArticlesHandler = React.createClass(
   sortSelect: (e) ->
     UIActions.sort 'articles', e.target.value
   render: ->
-    <div id='articles'>
-      <div className='section-header'>
-        <h3>Articles Edited</h3>
-        <div className='sort-select'>
-          <select className='sorts' name='sorts' onChange={@sortSelect}>
-            <option value='rating_num'>Class</option>
-            <option value='title'>Title</option>
-            <option value='character_sum'>Chars Added</option>
-            <option value='view_count'>Views</option>
-          </select>
+    <div>
+      <div id='assignments'>
+        <div className='section-header'>
+          <h3>Assigned Articles</h3>
         </div>
+        <AssignmentList {...@props} />
       </div>
-      <ArticleList {...@props} />
+
+      <div id='articles'>
+        <div className='section-header'>
+          <h3>Articles Edited</h3>
+          <div className='sort-select'>
+            <select className='sorts' name='sorts' onChange={@sortSelect}>
+              <option value='rating_num'>Class</option>
+              <option value='title'>Title</option>
+              <option value='character_sum'>Chars Added</option>
+              <option value='view_count'>Views</option>
+            </select>
+          </div>
+        </div>
+        <ArticleList {...@props} />
+      </div>
     </div>
 )
 
