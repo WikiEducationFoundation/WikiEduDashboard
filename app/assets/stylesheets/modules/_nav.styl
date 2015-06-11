@@ -41,18 +41,35 @@ aside
   float right
 
 nav
-  padding 22px 0
   .nav__item
-    float left
     overflow hidden
-    padding 0 20px 24px 0
+    padding 0
+    width 30%
+    height 40px
+    display inline-block
     text-transform uppercase
+      
     +above(desktop)
-      padding 23px 20px 24px 0
+      float left
+      display block
+      width auto
+      height 80px
+      margin 0 20px
+      text-align center 
+      &:first-child
+        margin-left 0
+      
     p
       color manatee
-      font-size 15px
+      font-size 14px
       letter-spacing .019em
+      line-height 38px
+      vertical-align middle
+      padding 0
+      +above(desktop)
+        line-height 78px
+        font-size 15px
+
     .subtitle a
       color manatee
     a.active,
@@ -66,12 +83,10 @@ nav
       border-left 1px solid manatee
       padding-left 10px
       margin-left 10px
-    p
-      padding 5px
 
 .course_navigation
   background-color white
-  nav
-    padding 20px 0 0 20px
-    +above(desktop)
-      padding 0
+  height auto
+  padding 15px 0
+  +above(desktop)
+    padding 0

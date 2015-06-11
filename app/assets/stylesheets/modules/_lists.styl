@@ -316,11 +316,29 @@ rating(color)
       border-right 1px solid manatee
       +above(desktop)
         border-right none
+  
+
 
   p.title
     font-size 20px
     +above(desktop)
       font-size 16px
+    +below(tablet)
+      padding-right 50px
+  
+  p.utitle
+    +below(tablet)
+      white-space nowrap
+      font-size 15px
+      margin-right 30px
+  
+  p.title, p.utitle
+    +below(tablet)
+      white-space nowrap
+      -ms-text-overflow ellipsis 
+      text-overflow ellipsis 
+      overflow hidden
+      display inline-block
 
   .row__fake__link
     margin-top -20px
