@@ -20,6 +20,9 @@ table
       transform rotate(180deg)
     &.desc:after
       transform rotate(0deg)
+    &:first-child
+      padding-left 1px
+
   td, th
     box-sizing content-box
     color dove
@@ -38,11 +41,6 @@ table
     &.wide-mobile
       padding-left 15px
       padding-right 15px
-      
-  p.title
-    font-size 20px
-    +above(desktop)
-      font-size 16px
 
 table.list > tbody > tr
   background-color white
