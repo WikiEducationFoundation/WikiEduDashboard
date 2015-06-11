@@ -27,6 +27,31 @@ class WikiEdits
                                    untrained_count: untrained_count }
   end
 
+  def self.notify_students(course_id, current_user, recipient_users, _params)
+    @course = Course.find(course_id)
+    tokens = WikiEdits.tokens(current_user)
+
+    recipient_users.each do |recipient|
+      params = { action: 'edit',
+                 title: "User_talk:#{recipient.wiki_id}",
+                 section: 'new',
+                 sectiontitle: _params[:sectiontitle],
+                 text: _params[:text],
+                 summary: _params[:summary],
+                 format: 'json',
+                 token: tokens.csrf_token }
+   
+      
+      WikiEdits.api_get params, tokens
+    end
+    Raven.capture_message 'WikiEdits.notify_students',
+                          level: 'info',
+                          culprit: 'WikiEdits.notify_students',
+                          extra: { sender: current_user.wiki_id,
+                                   course_name: @course.slug,
+                                   params: _params }
+  end
+
   def self.update_course(course, current_user, delete = false)
     return if Figaro.env.disable_wiki_output == 'true'
     @course = course

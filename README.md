@@ -104,6 +104,14 @@ Develop
 
 4. The frontend is now visible at http://localhost:3000/
 
+Maintain
+------
+
+The Dashboard includes several rake tasks intended to keep the database synced with Wikipedia:
+- Initialize: `rake batch:initialize` (Only to be run manually, initializes the database)
+- Constant update: `rake batch:update_constantly` (Runs every 15 minutes by default)
+- Daily update: `rake batch:update_daily` (Runs once a day by default)
+
 Deploy
 ------
 

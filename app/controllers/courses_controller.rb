@@ -184,10 +184,34 @@ class CoursesController < ApplicationController
   helper_method :manual_update
 
   def notify_untrained
-    @course = Course.find(params[:course])
-    return unless user_signed_in? && current_user.instructor?(@course)
+    standard_setup
     WikiEdits.notify_untrained(params[:course], current_user)
     redirect_to show_path(@course)
   end
   helper_method :notify_untrained
+
+  # Will send custom message to course user's talk pages on Wikipedia
+  # Responds to route '/notify_students'
+  # :roles is optional and will send to specific roles using comma-seperated string 'student,instructor', etc.
+  # if :roles is omitted, will send , message to all course users
+  # Send the variables via query params, eg. '/courses/*id/notify_students?sectiontitle=TITLE&text=TEXT&summary=SUMMARY&roles=student,instructor'
+  # :sectiontitle, :text, :summary, :roles
+  # TODO WRITE TEST
+  def notify_students
+    standard_setup
+    recipients = []
+    if params[:roles]
+      recipient_roles = params[:roles].split(',')
+      recipient_roles.each do |role|
+        recipients = recipients + @course.users.role(role)
+      end
+    else
+      recipients = @course.users
+    end
+    if recipients.count > 0
+      WikiEdits.notify_students(@course.id, current_user, recipients, params)
+    end
+    redirect_to show_path(@course)
+  end
+  helper_method :notify_course_users
 end
