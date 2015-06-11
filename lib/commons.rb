@@ -112,7 +112,8 @@ class Commons
       handle_api_error e, query
     rescue StandardError => e
       tries -= 1
-      typical_errors = [Faraday::TimeoutError]
+      typical_errors = [Faraday::TimeoutError,
+                        Faraday::ConnectionFailed]
       retry if typical_errors.include?(e.class) && tries >= 0
       raise e
     end
