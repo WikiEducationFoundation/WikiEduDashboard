@@ -4,12 +4,13 @@ Editable          = require '../highlevels/editable'
 List              = require '../common/list'
 Student           = require './student'
 StudentDrawer     = require './student_drawer'
+AddStudentButton  = require './add_student_button'
+
 StudentStore      = require '../../stores/student_store'
 AssignmentStore   = require '../../stores/assignment_store'
 UIActions         = require '../../actions/ui_actions'
 ServerActions     = require '../../actions/server_actions'
 StudentActions    = require '../../actions/student_actions'
-CourseLink        = require '../common/course_link'
 
 getState = ->
   students: StudentStore.getModels()
@@ -43,7 +44,7 @@ StudentList = React.createClass(
         ref={student.id + '_drawer'} />
     elements = _.flatten(_.zip(students, drawers))
 
-    add_student = <CourseLink to='add_student' className='button dark'>Add Student</CourseLink>
+    add_student = <AddStudentButton {...@props} />
 
     keys =
       'wiki_id':
