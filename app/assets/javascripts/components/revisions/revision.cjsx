@@ -17,7 +17,7 @@ Revision = React.createClass(
       </td>
       <td className='rating-cell'>
         <div className={ratingMobileClass}><p>{@props.revision.pretty_rating || '-'}</p></div>
-        <a onClick={@stop} href={@props.revision.article_url} target='_blank' className='inline'>{@props.revision.title}</a>
+        <a onClick={@stop} href={@props.revision.article_url} target='_blank' className='inline'><p className='title'>{@props.revision.title}</p></a>
       </td>
       <td className='desktop-only-tc'>{@props.revision.revisor}</td>
       <td className='desktop-only-tc'>{@props.revision.characters}</td>
