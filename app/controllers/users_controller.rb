@@ -21,8 +21,8 @@ class UsersController < ApplicationController
 
   def user_params
     params.permit(
-      students: [:id, :wiki_id],
-      assignments: [:id, :user_id, :article_title, :role, :course_id]
+      students: [:id, :wiki_id, :deleted],
+      assignments: [:id, :user_id, :article_title, :role, :course_id, :deleted]
     )
   end
 

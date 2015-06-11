@@ -19,6 +19,8 @@ StudentList = React.createClass(
   openDrawer: (model_id) ->
     key = model_id + '_drawer'
     @refs[key].open()
+  save: ->
+    ServerActions.saveStudents $.extend(true, {}, getState()), @props.course_id
   render: ->
     students = @props.students.map (student) =>
       open_drawer = if student.revisions.length > 0 then @openDrawer.bind(@, student.id) else null
@@ -30,6 +32,7 @@ StudentList = React.createClass(
         key={student.id}
         assigned={AssignmentStore.getFiltered assign_options}
         reviewing={AssignmentStore.getFiltered review_options}
+        save={@save}
         {...@props} />
     drawers = @props.students.map (student) ->
       <StudentDrawer
@@ -46,7 +49,7 @@ StudentList = React.createClass(
       'assignment_title':
         'label': 'Assigned To'
         'desktop_only': true,
-      'reviewer_name':
+      'reviewing_title':
         'label': 'Reviewing'
         'desktop_only': true
       'character_sum_ms':
@@ -56,7 +59,7 @@ StudentList = React.createClass(
         'label': 'Userspace<br />chars added'
         'desktop_only': true
 
-    <div>
+    <div className='list__wrapper'>
       {@props.controls()}
       <List
         elements={elements}

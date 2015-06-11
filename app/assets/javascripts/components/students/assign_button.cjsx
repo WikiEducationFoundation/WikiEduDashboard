@@ -7,6 +7,12 @@ AssignmentActions = require '../../actions/assignment_actions'
 
 AssignButton = React.createClass(
   displayname: 'AssignButton'
+  getInitialState: ->
+    send: false
+  componentWillReceiveProps: (nProps) ->
+    if @state.send
+      @props.save()
+      @setState send: false
   stop: (e) ->
     e.stopPropagation()
   getKey: ->
@@ -14,11 +20,15 @@ AssignButton = React.createClass(
     tag + @props.student.id
   assign: ->
     article_title = @refs.ass_input.getDOMNode().value
+    return unless confirm("Are you sure you want to assign " + article_title + " to " + @props.student.wiki_id + "?")
     if(article_title)
       AssignmentActions.addAssignment @props.course_id, @props.student.id, article_title, @props.role
-      # ServerActions.assignArticle(@props.course_id, @props.student.id, article_title, @props.role)
+      @setState send: (!@props.editable && @props.current_user.id == @props.student.id)
+      @refs.ass_input.getDOMNode().value = ''
   unassign: (assignment_id) ->
-    AssignmentActions.deleteAssignment(assignment_id)
+    return unless confirm("Are you sure you want to delete this assignment?")
+    AssignmentActions.deleteAssignment assignment_id
+    @setState send: (!@props.editable && @props.current_user.id == @props.student.id)
   render: ->
     if @props.assignments.length > 1 || (@props.assignments.length > 0 && @props.permitted)
       raw_a = @props.assignments[0]
@@ -37,11 +47,12 @@ AssignButton = React.createClass(
     assignments = @props.assignments.map (ass) =>
       if @props.permitted
         remove_button = <span className='button border plus' onClick={@unassign.bind(@, ass.id)}>-</span>
+      if ass.article_url?
+        link = <a href={ass.article_url} target='_blank' className='inline'>{ass.article_title}</a>
+      else
+        link = <span>{ass.article_title}</span>
       <tr key={ass.id}>
-        <td>
-          <a href={ass.article_url} target='_blank' className='inline'>{ass.article_title}</a>
-          {remove_button}
-        </td>
+        <td>{link}{remove_button}</td>
       </tr>
     if @props.assignments.length == 0
       assignments = <tr><td>No articles assigned</td></tr>

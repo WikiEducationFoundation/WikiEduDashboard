@@ -12,7 +12,7 @@ StockStore = (helper, model_key, new_model, triggers) ->
         model = helper.models[model_id]
         add = true
         for criteria in Object.keys(options)
-          add = add && model[criteria] == options[criteria]
+          add = add && model[criteria] == options[criteria] && !model['deleted']
         filtered_models.push model if add
       return filtered_models
     getModels: ->
@@ -26,7 +26,7 @@ StockStore = (helper, model_key, new_model, triggers) ->
       key: helper.sortKey
       asc: helper.sortAsc
     restore: ->
-      helper.models = $.extend(true, {}, _persisted)
+      helper.models = $.extend(true, {}, helper.persisted)
       @emitChange()
   , (payload) ->
     data = payload.data
@@ -59,6 +59,7 @@ class Store
 
   # Utilities
   setModels: (data, persisted=false) ->
+    @models = {}
     return unless data?
     for model, i in data
       @models[model.id] = model

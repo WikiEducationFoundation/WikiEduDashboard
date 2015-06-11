@@ -142,6 +142,9 @@ API =
           delete obj.id
           delete obj.is_new
 
+    for student in data.students
+      delete student.revisions
+
     cleanup data.students
     cleanup data.assignments
 

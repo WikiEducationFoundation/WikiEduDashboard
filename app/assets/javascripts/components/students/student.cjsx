@@ -40,10 +40,18 @@ Student = React.createClass(
         </p>
       </td>
 -     <td className='desktop-only-tc'>
-        <AssignCell {...@props} role=0 editable={@props.editable} assignments={@props.assigned} />
+        <AssignCell {...@props}
+          role=0
+          editable={@props.editable}
+          assignments={@props.assigned}
+        />
       </td>
 -     <td className='desktop-only-tc'>
-        <AssignCell {...@props} role=1 editable={@props.editable} assignments={@props.reviewing} />
+        <AssignCell {...@props}
+          role=1
+          editable={@props.editable}
+          assignments={@props.reviewing}
+        />
       </td>
       <td className='desktop-only-tc'>{@props.student.character_sum_ms}</td>
       <td className='desktop-only-tc'>{@props.student.character_sum_us}</td>
