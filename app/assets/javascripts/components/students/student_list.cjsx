@@ -5,12 +5,14 @@ List              = require '../common/list'
 Student           = require './student'
 StudentDrawer     = require './student_drawer'
 StudentStore      = require '../../stores/student_store'
+AssignmentStore   = require '../../stores/assignment_store'
 UIActions         = require '../../actions/ui_actions'
 ServerActions     = require '../../actions/server_actions'
 StudentActions    = require '../../actions/student_actions'
 
 getState = ->
   students: StudentStore.getModels()
+  assignments: AssignmentStore.getModels()
 
 StudentList = React.createClass(
   displayName: 'StudentList'
@@ -20,10 +22,14 @@ StudentList = React.createClass(
   render: ->
     students = @props.students.map (student) =>
       open_drawer = if student.revisions.length > 0 then @openDrawer.bind(@, student.id) else null
+      assign_options = { user_id: student.id, role: 0 }
+      review_options = { user_id: student.id, role: 1 }
       <Student
         onClick={open_drawer}
         student={student}
         key={student.id}
+        assigned={AssignmentStore.getFiltered assign_options}
+        reviewing={AssignmentStore.getFiltered review_options}
         {...@props} />
     drawers = @props.students.map (student) ->
       <StudentDrawer
@@ -50,12 +56,16 @@ StudentList = React.createClass(
         'label': 'Userspace<br />chars added'
         'desktop_only': true
 
-    <List
-      elements={elements}
-      keys={keys}
-      table_key='students'
-      store={StudentStore}
-    />
+    <div>
+      {@props.controls()}
+      <List
+        elements={elements}
+        keys={keys}
+        table_key='students'
+        store={StudentStore}
+        editable={@props.editable}
+      />
+    </div>
 )
 
-module.exports = Editable(StudentList, [StudentStore], ServerActions.saveStudents, getState)
+module.exports = Editable(StudentList, [StudentStore, AssignmentStore], ServerActions.saveStudents, getState)

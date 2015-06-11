@@ -10,6 +10,7 @@ ArticlesHandler = React.createClass(
   displayName: 'ArticlesHandler'
   componentWillMount: ->
     ServerActions.fetchArticles @props.course_id
+    ServerActions.fetchAssignments @props.course_id
   sortSelect: (e) ->
     UIActions.sort 'articles', e.target.value
   render: ->

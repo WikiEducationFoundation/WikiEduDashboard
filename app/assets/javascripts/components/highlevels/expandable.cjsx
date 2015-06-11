@@ -13,8 +13,6 @@ Expandable = (Component) ->
     open: (e) ->
       e.stopPropagation() if e?
       UIActions.open @refs.component.getKey()
-    stop: (e) ->
-      e.stopPropagation()
     render: ->
       <Component {...@state} {...@props} open={@open} stop={@stop} ref={'component'} />
   )

@@ -75,7 +75,17 @@
       pointer-events all
       top calc(100% + 14px)
       transform translateX(-50%)
-    tr:first-child
+    &:before
+      border-bottom 6px solid white
+      border-right 6px solid transparent
+      border-left 6px solid transparent
+      content ''
+      display block
+      left 50%
+      margin-left -3px
+      position absolute
+      top -6px
+    tr.edit
       border-bottom 1px solid bayoux
     td
       height auto

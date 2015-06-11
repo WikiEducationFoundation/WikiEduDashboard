@@ -157,6 +157,10 @@ class CoursesController < ApplicationController
     @articles_courses
   end
 
+  def assignments
+    standard_setup
+  end
+
   def activity
     standard_setup
     @revisions = @course.revisions.live

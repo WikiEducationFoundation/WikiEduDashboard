@@ -19,41 +19,69 @@ class UsersController < ApplicationController
     redirect_to true_destroy_user_session_path
   end
 
-  #########################
-  # Assignment management #
-  #########################
-  def assign_params
-    params.require(:assignment).permit(:user_id, :article_title, :role)
-  end
-
-  def fetch_assign_records
-    @course = Course.find_by_slug(params[:course_id])
-    @article = Article.find_by(
-      title: assign_params['article_title'].gsub(' ', '_'),
-      namespace: 0
+  def user_params
+    params.permit(
+      students: [:id, :wiki_id],
+      assignments: [:id, :user_id, :article_title, :role, :course_id]
     )
   end
 
-  def assign
-    fetch_assign_records
-    title = @article.nil? ? assign_params['article_title'] : @article.title
-    Assignment.create(
-      user_id: assign_params['user_id'],
-      course_id: @course.id,
-      article_id: @article.nil? ? nil : @article.id,
-      article_title: title.gsub('_', ' '),
-      role: assign_params['role']
-    )
+  def update_util(model, object)
+    if object['id'].nil?
+      model.create object
+    elsif object['deleted']
+      model.destroy object['id']
+    else
+      model.update object['id'], object
+    end
   end
 
-  def unassign_params
-    params.permit(:assignment_id)
-  end
-
-  def unassign
+  def save
     @course = Course.find_by_slug(params[:course_id])
-    Assignment.find(unassign_params['assignment_id']).destroy
+    user_params['students'].each do |student|
+      update_util User, student
+    end
+    user_params['assignments'].each do |assignment|
+      assignment['course_id'] = @course.id
+      update_util Assignment, assignment
+    end
   end
+
+  # #########################
+  # # Assignment management #
+  # #########################
+  # def assign_params
+  #   params.require(:assignment).permit(:user_id, :article_title, :role)
+  # end
+
+  # def fetch_assign_records
+  #   @course = Course.find_by_slug(params[:course_id])
+  #   @article = Article.find_by(
+  #     title: assign_params['article_title'].gsub(' ', '_'),
+  #     namespace: 0
+  #   )
+  # end
+
+  # def assign
+  #   fetch_assign_records
+  #   title = @article.nil? ? assign_params['article_title'] : @article.title
+  #   Assignment.create(
+  #     user_id: assign_params['user_id'],
+  #     course_id: @course.id,
+  #     article_id: @article.nil? ? nil : @article.id,
+  #     article_title: title.gsub('_', ' '),
+  #     role: assign_params['role']
+  #   )
+  # end
+
+  # def unassign_params
+  #   params.permit(:assignment_id)
+  # end
+
+  # def unassign
+  #   @course = Course.find_by_slug(params[:course_id])
+  #   Assignment.find(unassign_params['assignment_id']).destroy
+  # end
 
   # #######################
   # # Reviewer management #

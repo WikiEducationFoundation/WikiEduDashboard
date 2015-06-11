@@ -10,6 +10,7 @@ StudentsHandler = React.createClass(
   displayName: 'StudentsHandler'
   componentWillMount: ->
     ServerActions.fetchStudents @props.course_id
+    ServerActions.fetchAssignments @props.course_id
   sortSelect: (e) ->
     UIActions.sort 'students', e.target.value
   render: ->
