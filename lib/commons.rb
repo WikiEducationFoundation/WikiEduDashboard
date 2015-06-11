@@ -122,19 +122,20 @@ class Commons
       # This general means the file is not an image, so it has no thumbnail.
       if e.code == 'iiurlparamnormal'
         # We need to extract the filename from an info value that looks like:
-        # "Could not normalise image parameters for Jewish_Encyclopedia_Volume_6.pdf"
+        # "Could not normalise image parameters
+        # for Jewish_Encyclopedia_Volume_6.pdf"
         info = e.info
         info['Could not normalise image parameters for '] = ''
-        bad_file_name = ('File:' + info).gsub('_',' ')
+        bad_file_name = ('File:' + info).gsub('_', ' ')
         file = CommonsUpload.find_by(file_name: bad_file_name)
-        # TODO: implement CommonsUpload#not_an_image to mark files that won't have a thumburl
+        # TODO: implement CommonsUpload#not_an_image
+        #       to mark files that won't have a thumburl
         # TODO: exclude such files from the url batch
-        # file.not_an_image
         Rails.logger.debug "Caught iiurlparamnormal error: #{bad_file_name}"
         query[:pageids] -= [file.id]
         api_get(query) unless query[:pageids].empty?
       else
-        raise e
+        fail e
       end
     end
   end
