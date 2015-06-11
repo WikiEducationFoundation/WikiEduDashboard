@@ -24,6 +24,16 @@ List = React.createClass(
       )
       className = @props.table_key + ' list'
 
+    elements = @props.elements
+    if elements.length == 0
+      elements = (
+        <tr>
+          <td colSpan={headers.length + 1} className='text-center'>
+            <span>This course has no {@props.table_key}</span>
+          </td>
+        </tr>
+      )
+
     <table className={className}>
       <thead>
         <tr>
@@ -37,7 +47,7 @@ List = React.createClass(
         enterTimeout={500}
         leaveTimeout={500}
       >
-        {@props.elements}
+        {elements}
       </TransitionGroup>
     </table>
 )
