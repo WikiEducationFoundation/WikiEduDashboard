@@ -7,4 +7,4 @@ _descKeys =
   date: true
   characters: true
 
-module.exports = new StockStore(_sortKey, _sortAsc, _descKeys, 'revisions', null).store
+module.exports = new StockStore(_sortKey, _sortAsc, _descKeys, 'revision', null).store

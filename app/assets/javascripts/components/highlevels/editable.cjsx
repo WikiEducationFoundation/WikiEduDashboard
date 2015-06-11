@@ -1,6 +1,7 @@
 # Used by any component that requires "Edit", "Save", and "Cancel" buttons
 
 React = require 'react'
+UIActions = require '../../actions/ui_actions'
 
 Editable = (Component, Stores, Save, GetState) ->
   React.createClass(
@@ -8,9 +9,11 @@ Editable = (Component, Stores, Save, GetState) ->
     toggleEditable: ->
       @setState editable: !@state.editable
     saveChanges: ->
+      UIActions.open null
       Save $.extend(true, {}, @state), @props.course_id
       @toggleEditable()
     cancelChanges: ->
+      UIActions.open null
       store.restore() for store in Stores
       @toggleEditable()
     getInitialState: ->

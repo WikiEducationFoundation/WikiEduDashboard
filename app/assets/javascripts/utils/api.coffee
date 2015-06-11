@@ -53,6 +53,9 @@ API =
   fetchArticles: (course_id) ->
     fetch(course_id, 'articles')
 
+  fetchAssignments: (course_id) ->
+    fetch(course_id, 'assignments')
+
   fetchUploads: (course_id) ->
     fetch(course_id, 'uploads')
 
@@ -130,6 +133,32 @@ API =
           res data
         failure: (e) ->
           console.log 'Couldn\'t save course! ' + e
+          rej e
+
+  saveStudents: (data, course_id) ->
+    cleanup = (array) ->
+      for obj in array
+        if obj.is_new
+          delete obj.id
+          delete obj.is_new
+
+    for student in data.students
+      delete student.revisions
+
+    cleanup data.students
+    cleanup data.assignments
+
+    new Promise (res, rej) ->
+      $.ajax
+        type: 'POST',
+        url: '/courses/' + course_id + '/students',
+        contentType: 'application/json',
+        data: JSON.stringify data
+        success: (data) ->
+          console.log 'Saved students!'
+          res data
+        failure: (e) ->
+          console.log 'Couldn\'t save students! ' + e
           rej e
 
   submitWizard: (course_id, wizard_id, data) ->

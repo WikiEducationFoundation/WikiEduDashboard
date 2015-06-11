@@ -45,6 +45,7 @@ Details = React.createClass(
             value_key='start'
             editable={@props.editable}
             type='date'
+            autoExpand=true
             label='Start'
           />
         </fieldset>

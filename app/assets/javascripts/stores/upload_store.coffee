@@ -8,4 +8,4 @@ _descKeys =
   date: true
   uploader: true
 
-module.exports = new StockStore(_sortKey, _sortAsc, _descKeys, 'uploads', null).store
+module.exports = new StockStore(_sortKey, _sortAsc, _descKeys, 'upload', null).store

@@ -3,8 +3,18 @@
 McFly = require 'mcfly'
 Flux  = new McFly()
 
-StockStore = (helper, model_key, addModel) ->
+StockStore = (helper, model_key, new_model, triggers) ->
+  plural_model_key = model_key + 's'
   Flux.createStore
+    getFiltered: (options) ->
+      filtered_models = []
+      for model_id in Object.keys(helper.models)
+        model = helper.models[model_id]
+        add = true
+        for criteria in Object.keys(options)
+          add = add && model[criteria] == options[criteria] && !model['deleted']
+        filtered_models.push model if add
+      return filtered_models
     getModels: ->
       model_list = []
       for model_id in Object.keys(helper.models)
@@ -16,28 +26,40 @@ StockStore = (helper, model_key, addModel) ->
       key: helper.sortKey
       asc: helper.sortAsc
     restore: ->
-      helper.models = $.extend(true, {}, _persisted)
+      helper.models = $.extend(true, {}, helper.persisted)
       @emitChange()
   , (payload) ->
     data = payload.data
     switch(payload.actionType)
-      when 'RECEIVE_' + model_key.toUpperCase()
-        helper.setModels data.course[model_key], true
-      when 'SORT_' + model_key.toUpperCase()
+      when 'RECEIVE_' + plural_model_key.toUpperCase()
+        helper.setModels data.course[plural_model_key], true
+      when 'SORT_' + plural_model_key.toUpperCase()
         helper.sortByKey data.key
+      when 'ADD_' + model_key.toUpperCase()
+        default_model =
+          id: Date.now(), # could THEORETICALLY collide but highly unlikely
+          is_new: true, # remove ids from objects with is_new when persisting
+        helper.setModel _.assign default_model, data
+      when 'UPDATE_' + model_key.toUpperCase()
+        helper.setModel data[model_key]
+      when 'DELETE_' + model_key.toUpperCase()
+        helper.removeModel data.model_id
+    if triggers? && payload.actionType in triggers
+      helper.setModels data.course[plural_model_key], true
     return true
 
 class Store
-  constructor: (SortKey, SortAsc, DescKeys, ModelKey, AddModel) ->
+  constructor: (SortKey, SortAsc, DescKeys, ModelKey, AddModel, Triggers=null) ->
     @models = {}
     @persisted = {}
     @sortKey = SortKey
     @sortAsc = SortAsc
     @descKeys = DescKeys
-    @store = StockStore(@, ModelKey, AddModel)
+    @store = StockStore(@, ModelKey, AddModel, Triggers)
 
   # Utilities
   setModels: (data, persisted=false) ->
+    @models = {}
     return unless data?
     for model, i in data
       @models[model.id] = model

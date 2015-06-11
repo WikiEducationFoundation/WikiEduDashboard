@@ -5,25 +5,34 @@ List              = require '../common/list'
 Student           = require './student'
 StudentDrawer     = require './student_drawer'
 StudentStore      = require '../../stores/student_store'
+AssignmentStore   = require '../../stores/assignment_store'
 UIActions         = require '../../actions/ui_actions'
 ServerActions     = require '../../actions/server_actions'
 StudentActions    = require '../../actions/student_actions'
 
 getState = ->
   students: StudentStore.getModels()
+  assignments: AssignmentStore.getModels()
 
 StudentList = React.createClass(
   displayName: 'StudentList'
   openDrawer: (model_id) ->
     key = model_id + '_drawer'
     @refs[key].open()
+  save: ->
+    ServerActions.saveStudents $.extend(true, {}, getState()), @props.course_id
   render: ->
     students = @props.students.map (student) =>
       open_drawer = if student.revisions.length > 0 then @openDrawer.bind(@, student.id) else null
+      assign_options = { user_id: student.id, role: 0 }
+      review_options = { user_id: student.id, role: 1 }
       <Student
         onClick={open_drawer}
         student={student}
         key={student.id}
+        assigned={AssignmentStore.getFiltered assign_options}
+        reviewing={AssignmentStore.getFiltered review_options}
+        save={@save}
         {...@props} />
     drawers = @props.students.map (student) ->
       <StudentDrawer
@@ -40,7 +49,7 @@ StudentList = React.createClass(
       'assignment_title':
         'label': 'Assigned To'
         'desktop_only': true,
-      'reviewer_name':
+      'reviewing_title':
         'label': 'Reviewing'
         'desktop_only': true
       'character_sum_ms':
@@ -50,12 +59,16 @@ StudentList = React.createClass(
         'label': 'Userspace<br />chars added'
         'desktop_only': true
 
-    <List
-      elements={elements}
-      keys={keys}
-      table_key='students'
-      store={StudentStore}
-    />
+    <div className='list__wrapper'>
+      {@props.controls()}
+      <List
+        elements={elements}
+        keys={keys}
+        table_key='students'
+        store={StudentStore}
+        editable={@props.editable}
+      />
+    </div>
 )
 
-module.exports = Editable(StudentList, [StudentStore], ServerActions.saveStudents, getState)
+module.exports = Editable(StudentList, [StudentStore, AssignmentStore], ServerActions.saveStudents, getState)

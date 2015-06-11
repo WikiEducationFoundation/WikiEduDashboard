@@ -4,7 +4,6 @@ HTML5DND        = require 'react-dnd/modules/backends/HTML5'
 Block           = require './block'
 BlockActions    = require '../../actions/block_actions'
 WeekActions     = require '../../actions/week_actions'
-BlockStore      = require '../../stores/block_store'
 GradeableStore  = require '../../stores/gradeable_store'
 TextInput       = require '../common/text_input'
 

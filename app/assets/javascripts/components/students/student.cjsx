@@ -2,7 +2,7 @@ React             = require 'react/addons'
 StudentActions    = require '../../actions/student_actions'
 ServerActions     = require '../../actions/server_actions'
 
-AssignButton      = require './assign_button'
+AssignCell      = require './assign_cell'
 
 UIStore           = require '../../stores/ui_store'
 
@@ -10,14 +10,14 @@ Student = React.createClass(
   displayName: 'Student'
   mixins: [UIStore.mixin]
   storeDidChange: ->
-    @setState is_open: UIStore.getOpenKey() == (@props.student.id + '_drawer')
+    @setState is_open: UIStore.getOpenKey() == ('drawer_' + @props.student.id)
   getInitialState: ->
     is_open: false
   stop: (e) ->
     e.stopPropagation()
   render: ->
     className = 'student'
-    className += if @props.is_open then ' open' else ''
+    className += if @state.is_open then ' open' else ''
     className += if @props.student.revisions.length == 0 then ' no_revisions' else ''
     trained = if @props.student.trained then '' else 'Training Incomplete'
     unless @props.student.trained
@@ -39,8 +39,20 @@ Student = React.createClass(
           </small>
         </p>
       </td>
--      <td className='desktop-only-tc'><AssignButton {...@props} role=0 /></td>
--      <td className='desktop-only-tc'><AssignButton {...@props} role=1 /></td>
+-     <td className='desktop-only-tc'>
+        <AssignCell {...@props}
+          role=0
+          editable={@props.editable}
+          assignments={@props.assigned}
+        />
+      </td>
+-     <td className='desktop-only-tc'>
+        <AssignCell {...@props}
+          role=1
+          editable={@props.editable}
+          assignments={@props.reviewing}
+        />
+      </td>
       <td className='desktop-only-tc'>{@props.student.character_sum_ms}</td>
       <td className='desktop-only-tc'>{@props.student.character_sum_us}</td>
       <td><p className="icon icon-arrow"></p></td>

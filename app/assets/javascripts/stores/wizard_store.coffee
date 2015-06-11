@@ -77,8 +77,21 @@ moveWizard = (backwards=false, to_index=null) ->
   else if _active_index == _panels.length
     _active_index = _panels.length - 1
 
-  updateActivePanels()
-  WizardStore.emitChange()
+  #####
+  # THIS IS CHECK TO SEE IF WE NEED TO SCROLL PANEL TO TOP BEFORE TRANSITION
+  # THERE IS PERHAPS A BETTER PLACE THEN THIS FILE TO PUT THIS EVENT/TRANSITION
+  #####
+  timeoutTime = if verifyPanelSelections(active_panel) then 150 else 0
+  if timeoutTime > 0
+    if $('.wizard').scrollTop() > 0
+      $('.wizard').animate(
+        scrollTop: 0
+      ,timeoutTime)
+      
+  setTimeout(->
+    updateActivePanels()
+    WizardStore.emitChange()
+  ,timeoutTime)
 
 verifyPanelSelections = (panel) ->
   return true if panel.options == undefined || panel.options.length == 0

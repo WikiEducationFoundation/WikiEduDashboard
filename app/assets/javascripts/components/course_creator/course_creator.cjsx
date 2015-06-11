@@ -113,6 +113,7 @@ CourseCreator = React.createClass(
               invalid={@state.validation['description']}
               editable=true
               label='Course description'
+              autoExpand=true
             />
             <TextInput
               onChange={@updateCourse}

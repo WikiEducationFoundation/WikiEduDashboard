@@ -5,6 +5,9 @@ class CoursesUsers < ActiveRecord::Base
   belongs_to :course
   belongs_to :user
 
+  has_many :assignments, -> (ac) { where(course_id: ac.course_id) },
+           through: :user
+
   validates :course_id, uniqueness: { scope: [:user_id, :role] }
 
   scope :current, -> { joins(:course).merge(Course.current).uniq }
