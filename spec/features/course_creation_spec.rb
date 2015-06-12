@@ -93,6 +93,17 @@ describe 'New course creation and editing', type: :feature do
       first('.button.dark').click
       sleep 1
       expect(page).to have_content 'The first week'
+
+      # Click edit, delete some stuff, and save it.
+      first('.button.dark').click
+      sleep 1
+      page.all('.button.danger')[1].click
+      sleep 1
+      page.all('.button.danger')[0].click
+      sleep 1
+      first('.button.dark').click
+      sleep 1
+      expect(page).not_to have_content 'The first week'
     end
   end
 
