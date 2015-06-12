@@ -1,11 +1,11 @@
 require 'rails_helper'
-require "#{Rails.root}/lib/wiki_output"
+require "#{Rails.root}/lib/wiki_course_output"
 
-describe WikiOutput do
+describe WikiCourseOutput do
   describe '.markdown_to_mediawiki' do
     it 'should return a wikitext formatted version of the markdown input' do
-      title = WikiOutput.markdown_to_mediawiki('# Title #')
-      text = WikiOutput.markdown_to_mediawiki('This is some plain text')
+      title = WikiCourseOutput.markdown_to_mediawiki('# Title #')
+      text = WikiCourseOutput.markdown_to_mediawiki('This is some plain text')
       response =  title + text
       expect(response).to eq("= Title =\n\nThis is some plain text\n\n")
     end
@@ -14,13 +14,13 @@ describe WikiOutput do
   describe '.replace_code_with_nowiki' do
     it 'should convert code formatting syntax from html to wikitext' do
       code_snippet = '<code></code>'
-      response = WikiOutput.replace_code_with_nowiki(code_snippet)
+      response = WikiCourseOutput.replace_code_with_nowiki(code_snippet)
       expect(response).to eq('<nowiki></nowiki>')
     end
 
     it 'should not return nil if there are no code snippet' do
       code_snippet = 'no code snippet here'
-      response = WikiOutput.replace_code_with_nowiki(code_snippet)
+      response = WikiCourseOutput.replace_code_with_nowiki(code_snippet)
       expect(response).to eq('no code snippet here')
     end
   end
@@ -65,7 +65,7 @@ describe WikiOutput do
              course_id: 1,
              role: 1,
              article_title: 'Your article')
-      response = WikiOutput.translate_course(course, user)
+      response = WikiCourseOutput.translate_course(course)
       expect(response).to include('The course description')
       expect(response).to include('This is the beginning')
       expect(response).to include('Block 1 title')

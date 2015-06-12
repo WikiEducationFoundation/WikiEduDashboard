@@ -1,6 +1,5 @@
 require 'oauth'
 require "#{Rails.root}/lib/wiki_edits"
-require "#{Rails.root}/lib/wiki_output"
 
 #= Controller for course functionality
 class CoursesController < ApplicationController

@@ -1,11 +1,11 @@
 require 'pandoc-ruby'
 
-#= Class for generating wikitext from course information
-class WikiOutput
+#= Class for generating wikitext from course information.
+class WikiCourseOutput
   ################
   # Entry points #
   ################
-  def self.translate_course(course, _current_user)
+  def self.translate_course(course)
     # Course description and details
     output = course_details_and_description(course)
 

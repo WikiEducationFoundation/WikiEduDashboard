@@ -1,5 +1,3 @@
-require "#{Rails.root}/lib/wiki_output"
-
 #= Class for making edits to Wikipedia via OAuth, using a user's credentials
 class WikiEdits
   def self.notify_untrained(course_id, current_user)
@@ -40,8 +38,7 @@ class WikiEdits
                  summary: _params[:summary],
                  format: 'json',
                  token: tokens.csrf_token }
-   
-      
+
       WikiEdits.api_get params, tokens
     end
     Raven.capture_message 'WikiEdits.notify_students',
@@ -53,15 +50,19 @@ class WikiEdits
   end
 
   def self.update_course(course, current_user, delete = false)
+    require './lib/wiki_course_output'
+
     return if Figaro.env.disable_wiki_output == 'true'
     @course = course
+    return unless current_user.wiki_id? && @course.slug?
+
     if delete == true
       wiki_text = ''
     else
-      wiki_text = WikiOutput.translate_course(@course, current_user)
+      wiki_text = WikiCourseOutput.translate_course(@course)
     end
+
     tokens = WikiEdits.tokens(current_user)
-    return unless current_user.wiki_id? && @course.slug?
     course_prefix = Figaro.env.course_prefix
     wiki_title = "#{course_prefix}/#{@course.slug}"
     params = { action: 'edit',
