@@ -197,8 +197,8 @@ describe 'the course page', type: :feature do
   describe 'articles edited view', js: true do
     it 'should display a list of articles' do
       visit "/courses/#{slug}/articles"
-      rows = page.all('tr.article').count
       sleep 1 # Try to avoid issue where this test fails with 0 rows found.
+      rows = page.all('tr.article').count
       expect(rows).to eq(article_count)
     end
 
