@@ -38,11 +38,61 @@ describe 'New course creation and editing', type: :feature do
       find('#course_expected_students').set('500')
       find('textarea').set('In this course, we study things.')
       # TODO: test the date picker
+
+      # Stub out the posting of content to Wikipedia using the same protocol as
+      # wiki_edits_spec.rb
+      # rubocop:disable Metrics/LineLength
+      fake_tokens = "{\"query\":{\"tokens\":{\"csrftoken\":\"myfaketoken+\\\\\"}}}"
+      # rubocop:enable Metrics/LineLength
+      stub_request(:get, /.*wikipedia.*/)
+        .to_return(status: 200, body: fake_tokens, headers: {})
+      stub_request(:post, /.*wikipedia.*/)
+        .to_return(status: 200, body: 'success', headers: {})
+
+      # This click should create the course and start the wizard
       find('#course_create').click
 
-      # expect there to be a course created
-      # go through the wizard
-      # expect there to be a timeline
+      # Go through the wizard, checking necessary options.
+      sleep 1
+      page.all('.wizard__option__description')[1].click
+      sleep 1
+      first('.button.dark').click
+      sleep 1
+      page.all('div.wizard__option__checkbox')[1].click
+      page.all('div.wizard__option__checkbox')[3].click
+      sleep 1
+      first('.button.dark').click
+
+      # Now go back and edit choices
+      sleep 1
+      page.all('div.wizard__option.summary')[1].click
+      sleep 1
+      page.all('div.wizard__option__checkbox')[3].click
+      page.all('div.wizard__option__checkbox')[2].click
+      page.all('div.wizard__option__checkbox')[4].click
+      sleep 1
+      first('.button.dark').click
+      sleep 1
+      first('.button.dark').click
+
+      # Now we're back at the timeline, having completed the wizard.
+      sleep 1
+      expect(page).to have_content 'Week 1'
+      expect(page).to have_content 'Week 2'
+
+      # Click edit and then cancel
+      first('.button.dark').click
+      sleep 1
+      first('.button').click
+
+      # Click edit and then make a change and save it.
+      sleep 1
+      first('.button.dark').click
+      first('input').set('The first week')
+      sleep 1
+      first('.button.dark').click
+      sleep 1
+      expect(page).to have_content 'The first week'
     end
   end
 
