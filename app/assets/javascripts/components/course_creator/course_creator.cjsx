@@ -145,8 +145,8 @@ CourseCreator = React.createClass(
         <div className='wizard__panel__controls'>
           <div className='left'></div>
           <div className='right'>
-            <Link className="button" to="/">Cancel</Link>
-            <div className="button dark" onClick={@saveCourse}>Create my Course!</div>
+            <Link className="button" to="/" id='course_cancel'>Cancel</Link>
+            <div className="button dark" onClick={@saveCourse} id='course_create'>Create my Course!</div>
           </div>
         </div>
       </div>
