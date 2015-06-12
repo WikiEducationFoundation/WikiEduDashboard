@@ -72,6 +72,7 @@ CourseCreator = React.createClass(
               label='Course title'
             />
             <TextInput
+              id='course_school'
               onChange={@updateCourse}
               value={@state.course.school}
               value_key='school'
@@ -80,6 +81,7 @@ CourseCreator = React.createClass(
               label='Course school'
             />
             <TextInput
+              id='course_term'
               onChange={@updateCourse}
               value={@state.course.term}
               value_key='term'
@@ -88,6 +90,7 @@ CourseCreator = React.createClass(
               label='Course term'
             />
             <TextInput
+              id='course_subject'
               onChange={@updateCourse}
               value={@state.course.subject}
               value_key='subject'
@@ -96,6 +99,7 @@ CourseCreator = React.createClass(
               label='Course subject'
             />
             <TextInput
+              id='course_expected_students'
               onChange={@updateCourse}
               value={@state.course.expected_students}
               value_key='expected_students'
@@ -107,6 +111,7 @@ CourseCreator = React.createClass(
           </div>
           <div className='column'>
             <TextAreaInput
+              id='course_description'
               onChange={@updateCourse}
               value={@state.course.description}
               value_key='description'
@@ -116,6 +121,7 @@ CourseCreator = React.createClass(
               autoExpand=true
             />
             <TextInput
+              id='course_start'
               onChange={@updateCourse}
               value={@state.course.start}
               value_key='start'
@@ -125,6 +131,7 @@ CourseCreator = React.createClass(
               label='Start date'
             />
             <TextInput
+              id='course_end'
               onChange={@updateCourse}
               value={@state.course.end}
               value_key='end'

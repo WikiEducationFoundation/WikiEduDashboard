@@ -4,13 +4,18 @@ body > .container
 
 .container
   center(1100px)
+  cf()
   padding 0 10px
   position relative
   .container
     padding 0
-  cf()
+
+  
   +above(1140px)
     padding 0
+  
+  &.narrow
+    center(800px)
     
 
 main
@@ -39,7 +44,7 @@ header
 
 .section-header
   overflow hidden
-  padding 20px 0 0
+  padding 20px 0 20px
   position relative
   h3
     color dove
