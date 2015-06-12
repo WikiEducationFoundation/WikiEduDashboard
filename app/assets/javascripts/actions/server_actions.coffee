@@ -55,5 +55,8 @@ ServerActions = Flux.createActions
   enrollStudent: (data, course_id) ->
     API.enrollStudent(data, course_id).then (data) ->
       { actionType: 'ENROLLED_STUDENT', data: data }
+  unenrollStudent: (data, course_id) ->
+    API.unenrollStudent(data, course_id).then (data) ->
+      { actionType: 'ENROLLED_STUDENT', data: data }
 
 module.exports = ServerActions

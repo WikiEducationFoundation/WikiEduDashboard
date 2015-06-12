@@ -192,4 +192,19 @@ API =
           console.log 'Couldn\'t enroll student! ' + e
           rej e
 
+  unenrollStudent: (data, course_id) ->
+    new Promise (res, rej) ->
+      $.ajax
+        type: 'DELETE'
+        url: '/courses/' + course_id + '/students',
+        contentType: 'application/json',
+        data: JSON.stringify
+          student: data
+        success: (data) ->
+          console.log 'Enrolled student!'
+          res data
+        failure: (e) ->
+          console.log 'Couldn\'t enroll student! ' + e
+          rej e
+
 module.exports = API

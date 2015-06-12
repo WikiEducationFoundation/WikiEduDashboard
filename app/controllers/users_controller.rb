@@ -132,7 +132,7 @@ class UsersController < ApplicationController
   # Enrollment management #
   #########################
   def enroll_params
-    params.require(:student).permit(:wiki_id, :role)
+    params.require(:student).permit(:user_id, :wiki_id, :role)
   end
 
   def fetch_enroll_records
@@ -163,7 +163,7 @@ class UsersController < ApplicationController
 
     CoursesUsers.find_by(
       user_id: @user.id,
-      course_id: params[:course_id],
+      course_id: @course.id,
       role: enroll_params[:role]
     ).destroy
   end

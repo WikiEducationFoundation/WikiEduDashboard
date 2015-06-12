@@ -8,7 +8,6 @@ Course              = require '../components/course'
 Wizard              = require '../components/wizard/wizard'
 CourseCreator       = require '../components/course_creator/course_creator'
 CourseCreatorButton = require '../components/course_creator/course_creator_button'
-AddStudent          = require '../components/students/add_student'
 
 OverviewHandler     = require '../components/overview/overview_handler'
 TimelineHandler     = require '../components/timeline/timeline_handler'
@@ -25,9 +24,7 @@ routes = (
         <Route name='wizard' path='wizard' handler={Wizard} />
       </Route>
       <Route name='activity' path='activity' handler={RevisionsHandler}></Route>
-      <Route name='students' path='students' handler={StudentsHandler}>
-        <Route name='add_student' path='new' handler={AddStudent}></Route>
-      </Route>
+      <Route name='students' path='students' handler={StudentsHandler}></Route>
       <Route name='articles' path='articles' handler={ArticlesHandler}></Route>
       <Route name='uploads' path='uploads' handler={UploadsHandler}></Route>
       <DefaultRoute handler={OverviewHandler} />

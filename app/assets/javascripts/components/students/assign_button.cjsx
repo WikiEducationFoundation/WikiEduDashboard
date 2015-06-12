@@ -62,7 +62,7 @@ AssignButton = React.createClass(
       edit_row = (
         <tr className='edit'>
           <td>
-            <input type="text" ref='ass_input' />
+            <input type="text" ref='ass_input' placeholder='Article title' />
             <span className='button border' onClick={@assign}>Assign</span>
           </td>
         </tr>
