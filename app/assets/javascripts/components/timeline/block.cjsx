@@ -102,6 +102,7 @@ Block = React.createClass(
         rows='4'
         hr=true
         placeholder='Block description'
+        autoExpand=true
       />
     </li>
 )

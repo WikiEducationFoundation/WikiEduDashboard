@@ -15,27 +15,39 @@ TextAreaInput = React.createClass(
   render: ->
     if @props.label
       label = @props.label + ':'
+    input_element = (
+      <textarea
+        rows={@props.rows || '8'}
+        value={@state.value}
+        onChange={@onChange}
+        autoFocus={@props.focus}
+        placeholder={@props.label || @props.placeholder}
+      />
+    )
     if @props.editable
-      if @props.hr
+      if @props.hr and @props.autoExpand is false
         <label><hr />{label}
-          <textarea
-            rows={@props.rows || '8'}
-            value={@state.value}
-            onChange={@onChange}
-            autoFocus={@props.focus}
-            placeholder={@props.label || @props.placeholder}
-          />
+          {input_element}
+        </label>
+      else if @props.hr and @props.autoExpand is true
+        <label><hr />{label}
+          <div className="expandingArea active">
+            <pre><span>{@state.value}</span><br/></pre>
+            {input_element}
+          </div>
         </label>
       else
-        <label>{label}
-          <textarea
-            rows={@props.rows || '8'}
-            value={@state.value}
-            onChange={@onChange}
-            autoFocus={@props.focus}
-            placeholder={@props.label || @props.placeholder}
-          />
-        </label>
+        if @props.autoExpand is true
+          <label>{label}
+            <div className="expandingArea active">
+              <pre><span>{@state.value}</span><br/></pre>
+              {input_element}
+            </div>
+          </label>
+        else
+          <label>{label}
+            {input_element}
+          </label>
     else if @props.value
       raw_html = Marked(@props.value, { renderer: Renderer })
       <div dangerouslySetInnerHTML={{__html: raw_html}}></div>
