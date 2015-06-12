@@ -17,6 +17,7 @@ TextAreaInput = React.createClass(
       label = @props.label + ':'
     input_element = (
       <textarea
+        id={@props.id || @props.value_key || ''}
         rows={@props.rows || '8'}
         value={@state.value}
         onChange={@onChange}

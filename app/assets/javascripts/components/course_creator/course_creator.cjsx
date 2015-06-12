@@ -118,7 +118,7 @@ CourseCreator = React.createClass(
               invalid={@state.validation['description']}
               editable=true
               label='Course description'
-              autoExpand=true
+              autoExpand=false
             />
             <TextInput
               id='course_start'

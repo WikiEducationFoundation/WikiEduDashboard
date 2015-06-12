@@ -26,7 +26,7 @@ TextInput = React.createClass(
         {spacer if @props.value? or @props.editable}
         <input
           className={inputClass}
-          id={@props.id}
+          id={@props.id || ''}
           value={@state.value}
           onChange={@onChange}
           autoFocus={@props.focus}
