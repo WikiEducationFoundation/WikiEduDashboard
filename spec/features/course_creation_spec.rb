@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'New course creation and editing', type: :feature do
   before do
     include Devise::TestHelpers, type: :feature
-    # Capybara.current_driver = :selenium
+    Capybara.current_driver = :selenium
   end
 
   before :each do
@@ -98,5 +98,6 @@ describe 'New course creation and editing', type: :feature do
 
   after do
     logout
+    Capybara.use_default_driver
   end
 end

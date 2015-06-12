@@ -47,6 +47,7 @@ group :development, :test do
   gem 'rubocop'
   gem 'zeus'
   gem 'sqlite3'
+  gem 'selenium-webdriver'
 end
 
 group :staging, :production do
