@@ -19,7 +19,7 @@ describe 'New course creation and editing', type: :feature do
   end
 
   describe 'new course workflow', js: true do
-    it 'should display "Create course" button' do
+    it 'should allow the user to create a course' do
       find("a[href='/course_creator']").click
       expect(page).to have_content 'Create a New Course'
       find('#course_title').set('My awesome new cour$e: Foo 101')
@@ -38,8 +38,6 @@ describe 'New course creation and editing', type: :feature do
       find('#course_expected_students').set('500')
       find('textarea').set('In this course, we study things.')
       # TODO: test the date picker
-      stub_request(:any, /.*/)
-        .to_return(status: 200, body: 'success', headers: {})
       find('#course_create').click
 
       # expect there to be a course created
