@@ -53,7 +53,7 @@ describe 'New course creation and editing', type: :feature do
       find('#course_create').click
 
       # Go through the wizard, checking necessary options.
-      sleep 1
+      sleep 3
       page.all('.wizard__option__description')[1].click
       sleep 1
       first('.button.dark').click
