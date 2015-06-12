@@ -22,6 +22,33 @@ describe 'New course creation and editing', type: :feature do
     it 'should display "Create course" button' do
       find("a[href='/course_creator']").click
       expect(page).to have_content 'Create a New Course'
+      find('#course_title').set('My awesome new cour$e: Foo 101')
+
+      # If we click before filling out all require fields, only the invalid
+      # fields get restyled to indicate the problem.
+      find('#course_create').click
+      expect(find('#course_title')['class']).not_to eq('invalid')
+      expect(find('#course_school')['class']).to eq('invalid')
+      expect(find('#course_term')['class']).to eq('invalid')
+
+      # Now we fill out all the fields and continue.
+      find('#course_school').set('University of Eastern Wikipedia')
+      find('#course_term').set('Fall 2015')
+      find('#course_subject').set('Advanced Studies')
+      find('#course_expected_students').set('500')
+      find('textarea').set('In this course, we study things.')
+      # TODO: test the date picker
+      stub_request(:any, /.*/)
+        .to_return(status: 200, body: 'success', headers: {})
+      find('#course_create').click
+
+      # expect there to be a course created
+      # go through the wizard
+      # expect there to be a timeline
     end
+  end
+
+  after do
+    logout
   end
 end

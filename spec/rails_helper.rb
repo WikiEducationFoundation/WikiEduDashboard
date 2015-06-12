@@ -57,7 +57,4 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
 
   config.include Warden::Test::Helpers
-  config.before :suite do
-    Warden.test_mode!
-  end
 end
