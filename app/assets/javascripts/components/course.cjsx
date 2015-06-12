@@ -94,9 +94,6 @@ Course = React.createClass(
             <p><Link params={route_params} to="overview">Overview</Link></p>
           </div>
           {timeline}
-          <div className="nav__item" id="activity-link">
-            <p><Link params={route_params} to="activity">Activity</Link></p>
-          </div>
           <div className="nav__item" id="students-link">
             <p><Link params={route_params} to="students">Students</Link></p>
           </div>
@@ -105,6 +102,9 @@ Course = React.createClass(
           </div>
           <div className="nav__item" id="uploads-link">
             <p><Link params={route_params} to="uploads">Uploads</Link></p>
+          </div>
+          <div className="nav__item" id="activity-link">
+            <p><Link params={route_params} to="activity">Activity</Link></p>
           </div>
         </nav>
       </div>
