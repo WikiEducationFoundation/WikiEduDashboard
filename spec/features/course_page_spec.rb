@@ -190,7 +190,7 @@ describe 'the course page', type: :feature do
   #     select 'MS Chars Added', from: 'sorts'
   #     expect(page.all(selector)[3][:class]).to have_content 'desc'
   #     select 'US Chars Added', from: 'sorts'
-  #     expect(page.all(selector)[4][:class]).to have_content 'desc'
+  #     expect(page.all(selector)[4][:class]).to expect 'desc'
   #   end
   # end
 
@@ -198,7 +198,7 @@ describe 'the course page', type: :feature do
     it 'should display a list of articles' do
       visit "/courses/#{slug}/articles"
       rows = page.all('tr.article').count
-      # one extra .article-list__row__title element for the column header
+      sleep 1 # Try to avoid issue where this test fails with 0 rows found.
       expect(rows).to eq(article_count)
     end
 
