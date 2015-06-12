@@ -204,6 +204,7 @@ describe 'the course page', type: :feature do
 
     it 'should sort article by class' do
       visit "/courses/#{slug}/articles"
+      sleep 1 # Try to avoid intermittent test failures
       # first click on the Class sorting should sort high to low
       find('th.sortable', text: 'Class').click
       first_rating = page.find(:css, 'table.articles').first('td .rating p')
