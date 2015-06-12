@@ -9,14 +9,14 @@ Article = React.createClass(
     ratingMobileClass = ratingClass + ' tablet-only'
 
     <tr className={className}>
-      <td className='popover-trigger desktop-only-tc rating-cell'>
+      <td className='popover-trigger desktop-only-tc'>
         <p className="rating_num hidden">{@props.article.rating_num}</p>
         <div className={ratingClass}><p>{@props.article.pretty_rating || '-'}</p></div>
         <div className="popover dark">
           <p>Copy here</p>
         </div>
       </td>
-      <td className="rating-cell">
+      <td>
         <div className={ratingMobileClass}><p>{@props.article.pretty_rating || '-'}</p></div>
         <p className="title">
           <a onClick={@stop} href={@props.article.url} target="_blank" className="inline">{@props.article.title} {(if @props.article.new then ' (new)' else '')}</a>

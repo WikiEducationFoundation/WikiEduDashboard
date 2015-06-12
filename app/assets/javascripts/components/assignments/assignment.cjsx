@@ -32,7 +32,7 @@ Assignment = React.createClass(
           <p>Copy here</p>
         </div>
       </td>
-      <td className='rating-cell'>
+      <td>
         <div className={ratingMobileClass}><p>{article.pretty_rating}</p></div>
         <p className="title">
           <a onClick={@stop} href={article.url} target="_blank" className="inline">{article.title} {(if article.new then ' (new)' else '')}</a>

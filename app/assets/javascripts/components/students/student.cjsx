@@ -16,7 +16,7 @@ Student = React.createClass(
   stop: (e) ->
     e.stopPropagation()
   render: ->
-    className = 'student'
+    className = 'students'
     className += if @state.is_open then ' open' else ''
     className += if @props.student.revisions.length == 0 then ' no_revisions' else ''
     trained = if @props.student.trained then '' else 'Training Incomplete'
@@ -55,7 +55,7 @@ Student = React.createClass(
       </td>
       <td className='desktop-only-tc'>{@props.student.character_sum_ms}</td>
       <td className='desktop-only-tc'>{@props.student.character_sum_us}</td>
-      <td><p className="icon icon-arrow"></p></td>
+      <td style={{borderRight: '1px solid #ced1dd'}}><p className="icon icon-arrow" ></p></td>
     </tr>
 )
 

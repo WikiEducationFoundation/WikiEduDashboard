@@ -20,8 +20,8 @@ table
       transform rotate(180deg)
     &.desc:after
       transform rotate(0deg)
-    &:first-child
-      padding-left 1px
+    
+
 
   td, th
     box-sizing content-box
@@ -31,10 +31,11 @@ table
     height 40px
     padding 15px 0
     vertical-align middle
-    &:first-child, &.rating-cell
+    &:first-child
       padding-left 15px
       float left
       +above(tablet)
+        padding-left 0
         float none
     &:last-child
       padding-right 15px
@@ -55,8 +56,15 @@ table.list > tbody > tr
     color dove
     &.red
       color burnt
-      
-
+  
+  p.title
+    +below(tablet)
+      white-space nowrap
+      overflow hidden
+      -ms-text-overflow ellipsis 
+      text-overflow ellipsis
+      padding-right 5px
+      margin-left -5px
 
       
   .icon
@@ -66,6 +74,11 @@ table.list > tbody > tr
     background athens
 
 table.students tbody tr, table.articles tbody tr
+  table tbody tr td:first-child, th:first-child
+    padding-right 15px
+    padding-left 15px
+    table tbody tr:last-child
+      border-bottom 0
   &.open
     background manatee
     &:hover
@@ -110,6 +123,8 @@ table.students tbody tr, table.articles tbody tr
     p.name
       line-height 1
       margin-top 2px
+      +below(tablet)
+        white-space nowrap
       +above(desktop)
         margin-top 10px
       small
