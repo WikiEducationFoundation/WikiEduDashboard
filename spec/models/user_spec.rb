@@ -104,12 +104,19 @@ describe User do
              role: 0) # student
       role = user.role(course)
       expect(role).to eq(0)
+      expect(user.student?(course)).to eq(true)
+      expect(user.instructor?(course)).to eq(false)
 
       # Now let's make this user also an instructor.
       create(:courses_user,
              course_id: 1,
              user_id: 1,
              role: 1) # instructor
+      expect(user.instructor?(course)).to eq(true)
+
+      # User is only an instructor, not an admin.
+      adminship = user.roles(course)[:admin]
+      expect(adminship).to eq(false)
       # role = user.role(course)
       # FIXME: User#role does not account for users with multiple roles.
       # We can probably disable the option of multiple roles when we disconnect
