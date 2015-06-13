@@ -40,14 +40,8 @@ class CoursesUsers < ActiveRecord::Base
                 .where(user_id: user.id)
                 .where('date >= ?', course.start)
                 .where('date <= ?', course.end)
-    self.character_sum_ms = revisions
-      .where(articles: { namespace: 0, deleted: false })
-      .where('characters >= 0')
-      .sum(:characters) || 0
-    self.character_sum_us = revisions
-      .where(articles: { namespace: 2, deleted: false })
-      .where('characters >= 0')
-      .sum(:characters) || 0
+    self.character_sum_ms = character_sum(revisions, 0)
+    self.character_sum_us = character_sum(revisions, 2)
     self.revision_count = revisions
       .where(articles: { deleted: false })
       .count || 0
@@ -56,6 +50,16 @@ class CoursesUsers < ActiveRecord::Base
     self.assigned_article_title = assignments.empty? ? nil : assignments.first.article_title
     # rubocop:enable Metrics/LineLength
     save
+  end
+
+  ##################
+  # Helper methods #
+  ##################
+  def character_sum(revisions, namespace)
+    revisions
+      .where(articles: { namespace: namespace, deleted: false })
+      .where('characters >= 0')
+      .sum(:characters) || 0
   end
 
   #################
