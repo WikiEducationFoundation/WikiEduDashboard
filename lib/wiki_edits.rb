@@ -1,31 +1,26 @@
 #= Class for making edits to Wikipedia via OAuth, using a user's credentials
 class WikiEdits
   def self.notify_untrained(course_id, current_user)
-    @course = Course.find(course_id)
-    tokens = WikiEdits.tokens(current_user)
+    course = Course.find(course_id)
+    untrained_users = course.users.role('student').where(trained: false)
 
-    @course.users.role('student').where(trained: false).each do |student|
-      params = { action: 'edit',
-                 title: "User_talk:#{student.wiki_id}",
-                 section: 'new',
-                 sectiontitle: I18n.t('wiki_edits.notify_untrained.header'),
-                 text: I18n.t('wiki_edits.notify_untrained.message'),
-                 summary: I18n.t('wiki_edits.notify_untrained.summary'),
-                 format: 'json',
-                 token: tokens.csrf_token }
-      WikiEdits.api_get params, tokens
-    end
+    message = { sectiontitle: I18n.t('wiki_edits.notify_untrained.header'),
+                text: I18n.t('wiki_edits.notify_untrained.message'),
+                summary: I18n.t('wiki_edits.notify_untrained.summary') }
 
-    untrained_count = @course.users.role('student').where(trained: false).count
+    notify_students(course_id, current_user, untrained_users, message)
+
+    # We want to see how much this specific feature gets used, so we send it
+    # to Sentry.
     Raven.capture_message 'WikiEdits.notify_untrained',
                           level: 'info',
                           culprit: 'WikiEdits.notify_untrained',
                           extra: { sender: current_user.wiki_id,
-                                   course_name: @course.slug,
-                                   untrained_count: untrained_count }
+                                   course_name: course.slug,
+                                   untrained_count: untrained_users.count }
   end
 
-  def self.notify_students(course_id, current_user, recipient_users, _params)
+  def self.notify_students(course_id, current_user, recipient_users, message)
     @course = Course.find(course_id)
     tokens = WikiEdits.tokens(current_user)
 
@@ -33,20 +28,14 @@ class WikiEdits
       params = { action: 'edit',
                  title: "User_talk:#{recipient.wiki_id}",
                  section: 'new',
-                 sectiontitle: _params[:sectiontitle],
-                 text: _params[:text],
-                 summary: _params[:summary],
+                 sectiontitle: message[:sectiontitle],
+                 text: message[:text],
+                 summary: message[:summary],
                  format: 'json',
                  token: tokens.csrf_token }
 
       WikiEdits.api_get params, tokens
     end
-    Raven.capture_message 'WikiEdits.notify_students',
-                          level: 'info',
-                          culprit: 'WikiEdits.notify_students',
-                          extra: { sender: current_user.wiki_id,
-                                   course_name: @course.slug,
-                                   params: _params }
   end
 
   def self.update_course(course, current_user, delete = false)
