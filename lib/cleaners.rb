@@ -55,18 +55,11 @@ class Cleaners
   # Revisions #
   #############
   def self.repair_orphan_revisions
-    article_ids = Article.all.pluck(:id)
-    orphan_revisions = Revision.where
-                       .not(article_id: article_ids)
-                       .order('date ASC')
-
-    Rails.logger.info "Found #{orphan_revisions.count} orphan revisions"
+    orphan_revisions = find_orphan_revisions
     return if orphan_revisions.blank?
 
-    start = orphan_revisions.first.date - 1.day
-    start = start.strftime('%Y%m%d')
-    end_date = orphan_revisions.last.date + 1.day
-    end_date = end_date.strftime('%Y%m%d')
+    start = before_earliest_revision(orphan_revisions)
+    end_date = after_latest_revision(orphan_revisions)
 
     user_ids = orphan_revisions.pluck(:user_id).uniq
     users = User.where(id: user_ids)
@@ -78,5 +71,25 @@ class Cleaners
     Rails.logger.info "Imported articles for #{revs.count} revisions"
 
     ArticlesCourses.update_from_revisions revs unless revs.blank?
+  end
+
+  def self.find_orphan_revisions
+    article_ids = Article.all.pluck(:id)
+    orphan_revisions = Revision.where
+                       .not(article_id: article_ids)
+                       .order('date ASC')
+
+    Rails.logger.info "Found #{orphan_revisions.count} orphan revisions"
+    orphan_revisions
+  end
+
+  def self.before_earliest_revision(revisions)
+    date = revisions.first.date - 1.day
+    date.strftime('%Y%m%d')
+  end
+
+  def self.after_latest_revision(revisions)
+    date = revisions.last.date + 1.day
+    date.strftime('%Y%m%d')
   end
 end
