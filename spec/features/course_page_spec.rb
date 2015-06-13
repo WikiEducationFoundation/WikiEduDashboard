@@ -194,6 +194,14 @@ describe 'the course page', type: :feature do
   #   end
   # end
 
+  describe 'overview view', js: true do
+    it 'should be the same as the root view' do
+      root_content = page
+      visit "/courses/#{slug}/overview"
+      expect(root_content).to eq(page)
+    end
+  end
+
   describe 'articles edited view', js: true do
     it 'should display a list of articles' do
       visit "/courses/#{slug}/articles"
@@ -216,6 +224,32 @@ describe 'the course page', type: :feature do
     end
   end
 
+  describe 'uploads view', js: true do
+    it 'should display a list of uploads' do
+      # First, visit it no uploads
+      visit "/courses/#{slug}/uploads"
+      expect(page).to have_content 'This course has no uploads'
+      create(:commons_upload,
+             user_id: 1,
+             file_name: 'File:Example.jpg')
+      visit "/courses/#{slug}/uploads"
+      expect(page).to have_content 'Example.jpg'
+    end
+  end
+
+  describe 'students view', js: true do
+    it 'should display a list of students' do
+      visit "/courses/#{slug}/students"
+      expect(page).to have_content 'Student 1'
+    end
+  end
+
+  describe 'activity view', js: true do
+    it 'should display a list of edits' do
+      visit "/courses/#{slug}/activity"
+      expect(page).to have_content 'Article 1'
+    end
+  end
   # describe 'manual update' do
   #   it 'should redirect to the course overview', js: true do
   #     visit "/courses/#{slug}/manual_update"
