@@ -5,8 +5,8 @@ describe WikiEdits do
   # We're not testing any of the network stuff, nor whether the requests are
   # well-formatted, but at least this verifies that the flow is parsing tokens
   # in the expected way.
-  # rubocop:disable Metrics/LineLength
   before do
+    # rubocop:disable Metrics/LineLength
     fake_tokens = "{\"query\":{\"tokens\":{\"csrftoken\":\"myfaketoken+\\\\\"}}}"
     # rubocop:enable Metrics/LineLength
     stub_request(:get, /.*wikipedia.*/)
