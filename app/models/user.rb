@@ -34,9 +34,7 @@ class User < ActiveRecord::Base
 
   def contribution_url
     language = Figaro.env.wiki_language
-    # rubocop:disable Metrics/LineLength
     "https://#{language}.wikipedia.org/wiki/Special:Contributions/#{wiki_id}"
-    # rubocop:enable Metrics/LineLength
   end
 
   def admin?
