@@ -38,6 +38,6 @@ class RatingImporter
   ##################
   def self.update_article_rating(article, ratings)
     article.rating = ratings[article.title]
-    article.rating_update_at = Time.now
+    article.rating_updated_at = Time.now
   end
 end
