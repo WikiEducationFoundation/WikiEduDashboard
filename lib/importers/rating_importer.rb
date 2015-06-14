@@ -23,13 +23,21 @@ class RatingImporter
   def self.update_ratings(articles)
     require './lib/wiki'
     articles.with_index do |group, _batch|
-      ratings = Wiki.get_article_rating(group.map(&:title)).inject(&:merge)
+      titles = group.map(&:title)
+      ratings = Wiki.get_article_rating(titles).inject(&:merge)
       next if ratings.blank?
       group.each do |article|
-        article.rating = ratings[article.title]
-        article.rating_updated_at = Time.now
+        update_article_rating(article, ratings)
       end
       group.each(&:save)
     end
+  end
+
+  ##################
+  # Helper methods #
+  ##################
+  def self.update_article_rating(article, ratings)
+    article.rating = ratings[article.title]
+    article.rating_update_at = Time.now
   end
 end
