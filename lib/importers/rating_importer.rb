@@ -25,13 +25,10 @@ class RatingImporter
     articles.with_index do |group, _batch|
       ratings = Wiki.get_article_rating(group.map(&:title)).inject(&:merge)
       next if ratings.blank?
-      threads = group.each_with_index.map do |a, i|
-        Thread.new(i) do
-          a.rating = ratings[a.title]
-          a.rating_updated_at = Time.now
-        end
+      group.each do |article|
+        article.rating = ratings[article.title]
+        article.rating_updated_at = Time.now
       end
-      threads.each(&:join)
       group.each(&:save)
     end
   end
