@@ -91,17 +91,23 @@ class User < ActiveRecord::Base
   end
 
   def update_cache
-    # Do not consider revisions with negative byte changes
-    self.character_sum = Revision.joins(:article)
-      .where(articles: { namespace: 0 })
-      .where(user_id: id)
-      .where('characters >= 0')
-      .sum(:characters) || 0
+    # TODO: Remove character sum and view sum? We use these for CoursesUsers
+    # and for Courses, but not for Users.
+    self.character_sum = get_character_sum(0)
     self.view_sum = articles.map { |a| a.views || 0 }.inject(:+) || 0
     self.revision_count = revisions.size
     self.article_count = articles.size
     self.course_count = courses.size
     save
+  end
+
+  def get_character_sum(namespace)
+    # Do not consider revisions with negative byte changes
+    Revision.joins(:article)
+      .where(articles: { namespace: namespace })
+      .where(user_id: id)
+      .where('characters >= 0')
+      .sum(:characters) || 0
   end
 
   #################
