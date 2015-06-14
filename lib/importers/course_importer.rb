@@ -82,17 +82,21 @@ class CourseImporter
     assignments = []
     ActiveRecord::Base.transaction do
       participants.each do |course_id, group|
-        group_flat = group.map do |role, users|
-          users = [users] unless users.instance_of? Array
-          users.empty? ? nil : users.each { |u| u.merge! 'role' => role }
-        end
-        group_flat = group_flat.compact.flatten.sort_by { |user| user['id'] }
-        group_flat = update_enrollment course_id, group_flat
-        all_assignments = update_assignments course_id, group_flat
-        assignments += all_assignments
+        assignments += get_assignments_for_group(course_id, group)
       end
     end
     Assignment.import assignments
+  end
+
+  def self.get_assignments_for_group(course_id, group)
+    group_flat = group.map do |role, users|
+      users = [users] unless users.instance_of? Array
+      users.empty? ? nil : users.each { |u| u.merge! 'role' => role }
+    end
+    group_flat = group_flat.compact.flatten.sort_by { |user| user['id'] }
+    group_flat = update_enrollment course_id, group_flat
+    all_assignments = update_assignments course_id, group_flat
+    all_assignments
   end
 
   def self.update_enrollment(course_id, group_flat)
@@ -149,31 +153,31 @@ class CourseImporter
       (0...assignment_count).each do |a|
         raw = user[a.to_s]
         article = Article.find_by(title: raw['title'])
-        assignment = {
-          'user_id' => user['id'],
-          'course_id' => course_id,
-          'article_title' => raw['title'],
-          'article_id' => article.nil? ? nil : article.id,
-          'role' => 0   # assignee
-        }
+        # role 0 is for assignee
+        assignment = assignment_hash(user, course_id, raw, article, 0)
         new_assignment = Assignment.new(assignment)
         assignments.push new_assignment
 
         # Get the reviewers
         raw.each do |_key, reviewer|
           next unless reviewer.is_a?(Hash) && reviewer.key?('username')
-          assignment = {
-            'user_id' => reviewer['id'],
-            'course_id' => course_id,
-            'article_title' => raw['title'],
-            'article_id' => article.nil? ? nil : article.id,
-            'role' => 1   # reviewer
-          }
+          # role 1 is for reviewer
+          assignment = assignment_hash(reviewer, course_id, raw, article, 1)
           new_assignment = Assignment.new(assignment)
           assignments.push new_assignment
         end
       end
     end
     return assignments
+  end
+
+  def self.assignment_hash(user, course_id, raw, article, role)
+    {
+      'user_id' => user['id'],
+      'course_id' => course_id,
+      'article_title' => raw['title'],
+      'article_id' => article.nil? ? nil : article.id,
+      'role' => role
+    }
   end
 end
