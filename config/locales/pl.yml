@@ -1,0 +1,9 @@
+# Messages for Polish (polski)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Chrumps
+---
+pl:
+  course:
+    students_short: Studenci
+...

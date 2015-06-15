@@ -1,0 +1,20 @@
+# Messages for Dutch (Nederlands)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Milenej
+---
+nl:
+  application:
+    dashboard: Wiki Ed Dashboard
+  activity:
+    edited_by: Bewerkt Door
+    all: Activiteit
+  article:
+    assigned_to: Toegewezen aan
+    character_doc: De som van de tekens die wordt toegevoegd aan de artikelen door
+      de loop van de studenten tijdens de cursus termijn
+    edited: Artikelen toegevoegd
+    edited_mobile: Pagina's
+    edited_none: '%{titel} heeft niet bewerkte artikelen.'
+    no_assignee: Geen gebruiker toegewezen
+...

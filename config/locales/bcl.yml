@@ -1,0 +1,33 @@
+# Messages for Bikol Central (Bikol Central)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Geopoet
+---
+bcl:
+  activity:
+    edited_by: Pinagliwat ni
+  article:
+    view: Hilingon an Artikulo
+  course:
+    articles: Mga Artikulo
+    duration: Lawig kan kurso
+    students_short: Mga Estudyante
+    view: Hilingón an Kurso
+    view_doc: An kabilogan kan gabos na mga hiniling sa mga artikulong pinagliwat
+      nin mga estudyante magpoon na an mga estudyante naghimo kan saindang enot na
+      pagliwat sa lambang artikulo
+  metrics:
+    activity_none: '%{title} mayo nin pinakahuring actibidad'
+    char_changed: Mga karakter pinagliwat
+    student_editors: Mga Estudyanteng Paraliwat
+  user:
+    reviewers: Tagapagmansay
+    contributions: Mga Kontribusyon kan paragamit
+    training_complete_short: Kumpleto
+    training_complete_count: '%{count} pinagkumpletong training'
+  error_422:
+    explanation: May bagay na nangyaring sala. Tabi man pakikontak an mga paramantiner
+      kaining tablang-husayan tanganing maaraman ninda an manunungod sa problema.
+  error_500:
+    header: 500 — kasalaan sa panlaog na serbidor.  :-(
+...

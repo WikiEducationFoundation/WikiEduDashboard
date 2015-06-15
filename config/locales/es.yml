@@ -1,0 +1,99 @@
+# Messages for Spanish (español)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Macofe
+---
+es:
+  application:
+    dashboard: Panel de Wiki Ed
+  activity:
+    edited_by: Editado por
+    all: Actividad
+  article:
+    assigned_to: Asignado a
+    edited: Artículos editados
+    edited_mobile: Artículos
+    edited_none: '%{title} no ha editado ningún artículo.'
+    no_assignee: No hay usuarios asignados
+    rating: Clase
+    title: Título
+    view: Ver artículo
+    view_all: Ver todo
+  cohort:
+    view_other: Ver otras cohortes
+  course:
+    activity: Actividad
+    articles: Artículos
+    course_description: Curos de Wiki Ed
+    courses: Cursos
+    yourcourses: Tus cursos
+    nocourses: No participas de ningún curso
+    current: Cursos actuales
+    duration: Duración del curso
+    instructor:
+      one: Instructor
+      other: Instructores
+    students: Estudiantes
+    students_none: '%{title} no tiene ningún estudiante inscripto'
+    students_short: Estudiantes
+    new_week: Agregar una semana nueva al cronograma de %{title}
+    overview: Resumen
+    title: Título
+    view: Ver curso
+    view_wiki: Ver en Wikipedia
+    volunteer:
+      one: Voluntario
+      other: Voluntarios
+    wiki_staff: Personal de Wiki Ed
+    error:
+      exists: Ese curso ya existe. Intenta de nuevo con un título, escuela o término
+        diferentes.
+  metrics:
+    activity: Actividad reciente
+    activity_none: '%{title} no tiene actividad reciente'
+    articles_created: Artículos creados
+    articles_edited: Artículos editados
+    characters: Caracteres
+    char_changed: Caracteres cambiados
+    date_time: Fecha/hora
+    edit_count_description: Ediciones totales
+  namespace:
+    user_ns: Usuario
+  uploads:
+    none: No se ha subido ningún archivo
+    usages: Usos
+  user:
+    assigned: Artículo asignado
+    reviewers: Revisor
+    assigned_none: Sin artículo asignado
+    reviewer_none: Sin revisor
+    contributions: Contribuciones del usuario
+    contributions_more: Ver más contribuciones
+    name: Nombre
+    training_complete:
+      one: ha completado el entrenamiento
+      other: han completado el entrenamiento
+    training_complete_short: Completado
+    training_complete_count: '%{count} han completado el entrenamiento'
+    training_incomplete_short: Incompleto
+    view_all: Ver todos
+  wiki_edits:
+    notify_untrained:
+      header: No has completado el entrenamiento estudiantil.
+      summary: entrenamiento estudiantil incompleto
+  error_401:
+    header: No autorizado. >:-(
+    explanation: No tienes autorización para ejecutar esta solicitud. Si crees que
+      has llegado a este aviso por error, pónte en contacto con los responsables del
+      mantenimiento de este panel para informarles sobre el problema.
+  error_404:
+    header: No se encontró la página. :-(
+  error_422:
+    header: 422 — entidad no procesable.  :-(
+    explanation: Algo salió mal. Pónte en contacto con los responsables del mantenimiento
+      de este panel para informarles sobre el problema.
+  error_500:
+    header: 500 — error interno del servidor. :-(
+    explanation: Algo salió mal. Pónte en contacto con los responsables del mantenimiento
+      de este panel para informarles sobre el problema.
+...

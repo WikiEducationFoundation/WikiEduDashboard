@@ -1,0 +1,55 @@
+# Messages for Colognian (Ripoarisch)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Purodha
+---
+ksh:
+  activity:
+    edited_by: Jeändert Vum
+    all: Aktivitäht
+  article:
+    assigned_to: Zohjedeijlt aan
+    edited: Jeännderte Atikelle
+    edited_mobile: Atikelle
+    edited_none: '%{title} hät kein Atikele beärbeidt.'
+    no_assignee: Keine Metmaacher zohjedeijlt
+    rating: Klaß
+    title: Övverschreff
+    view: Atikel belohre
+    view_all: Alle belohre
+  course:
+    activity: Aktivitäht
+    articles: Atikele
+    overview: Övverblek
+    title: Övverschreff
+    view_wiki: Op de Wikipehdija belohre
+  metrics:
+    activity: Zeläz jedonn
+    articles_created: Aanjelahte Atikelle
+    articles_edited: Jeännderte Atikelle
+    char: Zeijsche derbei jedonn
+    characters: Zeijsche
+    char_added: Zeijsche derbei jedonn
+    char_changed: Zeijsche jetusch
+    date_time: Dattum un Zigg
+    edit_count_description: Änderonge ensjesamp
+    view: Aanzahl Affrohfe
+    view_count_description: Aanzahl Affrohfe vun Atikelle
+  namespace:
+    main: Houp_Appachemang
+    main_char_added: Zeijsche em Houp_Appachemang derbei jedonn
+    user: Appachtemang för de Metmaacher
+    user_char_added: Zeijsche em Appachtemang för de Metmaacher derbei jedonn
+    user_ns: Metmaacher
+  user:
+    name: Nahme
+    training_complete_short: Komplädd
+    training_incomplete_short: Onfähdesch
+    view_all: Alle belohre
+  error_401:
+    header: Kei Berääschtejong.
+  error_404:
+    header: Di Sigg wohd nit jefonge.
+  error_500:
+    header: Ene entärne Fähler em ẞööver.
+...
