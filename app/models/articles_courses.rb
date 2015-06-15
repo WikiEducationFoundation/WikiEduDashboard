@@ -57,7 +57,7 @@ class ArticlesCourses < ActiveRecord::Base
           # Check whether the article is already associated with the course.
           next if course.articles.include?(revision.article)
           # Check whether the revision happened during the course.
-          next unless revision_happened_during_course?(revision, course)
+          next unless revision.happened_during_course?(course)
           # Check whether the user is a student in the course.
           next unless user.student?(course)
           course.articles << revision.article
@@ -68,10 +68,5 @@ class ArticlesCourses < ActiveRecord::Base
 
   def self.get_mainspace_revisions(revisions)
     revisions.joins(:article).where(articles: { namespace: '0' })
-  end
-
-  def self.revision_happened_during_course?(revision, course)
-    date = revision.date
-    date >= course.start && date <= course.end
   end
 end
