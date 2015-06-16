@@ -7,10 +7,13 @@ TransitionGroup = require '../../utils/TransitionGroup'
 CourseCreatorButton = React.createClass(
   displayName: 'CourseCreatorButton'
   render: ->
+    style =
+      marginLeft: 0
     <div>
       <Link
         to="course_creator"
         className="button dark"
+        style={style}
       >Create New Course</Link>
       <TransitionGroup
         transitionName="wizard"
