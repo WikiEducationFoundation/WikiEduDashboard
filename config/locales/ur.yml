@@ -1,0 +1,13 @@
+# Messages for Urdu (اردو)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Obaid Raza
+---
+ur:
+  article:
+    edited_mobile: مضامین
+    view: مضمون دیکھیں
+    view_all: سب دیکھیں
+  course:
+    articles: مضامین
+...

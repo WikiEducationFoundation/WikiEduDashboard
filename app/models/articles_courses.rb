@@ -49,18 +49,24 @@ class ArticlesCourses < ActiveRecord::Base
 
   def self.update_from_revisions(revisions=nil)
     revisions ||= Revision.all
+    mainspace_revisions = get_mainspace_revisions(revisions)
     ActiveRecord::Base.transaction do
-      revisions.joins(:article)
-        .where(articles: { namespace: '0' }).each do |r|
-        r.user.courses.each do |c|
-          association_exists = !c.articles.include?(r.article)
-          within_dates = r.date >= c.start && r.date <= c.end
-          is_student = c.students.include?(r.user)
-          if association_exists && within_dates && is_student
-            c.articles << r.article
-          end
+      mainspace_revisions.each do |revision|
+        user = revision.user
+        user.courses.each do |course|
+          # Check whether the article is already associated with the course.
+          next if course.articles.include?(revision.article)
+          # Check whether the revision happened during the course.
+          next unless revision.happened_during_course?(course)
+          # Check whether the user is a student in the course.
+          next unless user.student?(course)
+          course.articles << revision.article
         end
       end
     end
+  end
+
+  def self.get_mainspace_revisions(revisions)
+    revisions.joins(:article).where(articles: { namespace: '0' })
   end
 end

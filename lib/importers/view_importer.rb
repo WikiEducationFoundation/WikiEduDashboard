@@ -54,21 +54,34 @@ class ViewImporter
   def self.update_views_for_article(article, all_time=false, views=nil)
     return unless article.views_updated_at < Date.today
 
-    since = article.views_updated_at + 1.day
-    since = article.courses.order(:start).first.start.to_date if all_time
+    since = views_since_when(article, all_time)
 
     # Update views on all revisions and the article
     views ||= Grok.views_for_article(article.title, since)
 
     add_views_to_revisions(article, views, all_time)
 
-    last = since
-    last = views.sort_by { |(d)| d }.last.first.to_date unless views.empty?
+    last = views_last_updated(since, views)
     article.views_updated_at = last.nil? ? article.views_updated_at : last
     if article.revisions.count > 0
       article.views = article.revisions.order('date ASC').first.views
     end
     article.save
+  end
+
+  def self.views_since_when(article, all_time)
+    if all_time
+      since = article.courses.order(:start).first.start.to_date
+    else
+      since = article.views_updated_at + 1.day
+    end
+    since
+  end
+
+  def self.views_last_updated(since, views)
+    last = since
+    last = views.sort_by { |(d)| d }.last.first.to_date unless views.empty?
+    last
   end
 
   def self.add_views_to_revisions(article, views, all_time)
