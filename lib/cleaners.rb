@@ -19,7 +19,7 @@ class Cleaners
     course = course_user.course
     user_id = course_user.user_id
     # Check if the non-student user is also a student in the same course.
-    return if user_is_a_student?(course, user_id)
+    return if course_user.user.student?(course)
 
     user_articles = find_user_articles(course_user, course)
     return if user_articles.empty?
@@ -41,13 +41,6 @@ class Cleaners
     )
     # update course cache to account for removed articles
     course.update_cache unless to_delete.empty?
-  end
-
-  def self.user_is_a_student?(course, user_id)
-    true unless CoursesUsers.where(role: 0,
-                                   course_id: course.id,
-                                   user_id: user_id
-                                  ).empty?
   end
 
   def self.find_user_articles(course_user, course)
