@@ -49,6 +49,8 @@ wizard-width = 860px
       transition left panel_speed ease-in-out, opacity .01s
     &.active ~ .wizard__panel
       left 150%
+    &.is-submitting
+      opacity: 0.5
     > h3
       font-weight 300
     p, ul

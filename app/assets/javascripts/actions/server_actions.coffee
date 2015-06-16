@@ -6,6 +6,9 @@ ServerActions = Flux.createActions
   fetchCourse: (course_id) ->
     API.fetchCourse(course_id).then (data) ->
       { actionType: 'RECEIVE_COURSE', data: data }
+  checkCourse: (course_id) ->
+    API.checkCourse(course_id).then (data) ->
+      { actionType: 'CHECK_COURSE', data: data }
   fetchTimeline: (course_id) ->
     API.fetchTimeline(course_id).then (data) ->
       { actionType: 'RECEIVE_TIMELINE', data: data }
@@ -34,7 +37,6 @@ ServerActions = Flux.createActions
       { actionType: 'RECEIVE_WIZARD_PANELS', data: {
         wizard_panels: data
       }}
-
   saveCourse: (data, course_id=null) ->
     API.saveCourse(data, course_id).then (data) ->
       actionType = if course_id == null then 'CREATED_COURSE' else 'SAVED_COURSE'

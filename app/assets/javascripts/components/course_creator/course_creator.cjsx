@@ -21,7 +21,9 @@ CourseCreator = React.createClass(
     router: React.PropTypes.func.isRequired
   storeDidChange: ->
     @setState getState()
-    if @state.course.slug?    # Primitive check for a server-created course
+    @state.tempCourseId = @generateTempId()
+    if @state.course.slug? and @state.validation.form? is false
+      @state.isSubmitting = false
       # This has to be a window.location set due to our limited ReactJS scope
       window.location = '/courses/' + @state.course.slug + '/timeline/wizard'
 
@@ -38,30 +40,52 @@ CourseCreator = React.createClass(
     course_valid
   validateKey: (key, value) ->
     switch key
-      when 'title', 'school', 'term', 'start', 'end'
+      when 'title', 'school', 'term'
+        valid = value.length > 0
+        CourseActions.setValid key, valid
+        valid
+      when 'start', 'end'
         valid = value.length > 0
         CourseActions.setValid key, valid
         valid
       else
         return true
-
+  generateTempId: ->
+    title = if @state.course.title? then @slugify @state.course.title else ''
+    school = if @state.course.school? then @slugify @state.course.school else ''
+    term = if @state.course.term? then @slugify @state.course.term else ''
+    return "#{school}/#{title}_(#{term})"
+  slugify: (text) ->
+    return text.replace " ", "_"
   saveCourse: ->
-    if @validateCourse()
-      ServerActions.saveCourse $.extend(true, {}, { course: @state.course })
+    @state.hasSubmitted = true
+    @state.isSubmitting = true
+    ServerActions.checkCourse(@generateTempId()).then(=>
+      if @validateCourse()
+        if @state.validation.form?
+          alert("This course already exists (#{@generateTempId()}). The combination of course title, term, and school must be unique.")
+          @state.isSubmitting = false
+        else
+          ServerActions.saveCourse $.extend(true, {}, { course: @state.course })
+    )
   updateCourse: (value_key, value) ->
     to_pass = $.extend(true, {}, @state.course)
     to_pass[value_key] = value
     CourseActions.updateCourse to_pass
     @validateKey(value_key, value)
   getInitialState: ->
-    getState()
+    $.extend(true, { hasSubmitted: false, tempCourseId: '', isSubmitting: false}, getState())
   render: ->
+    form_style = { }
+    form_style.opacity = 0.5 if @state.isSubmitting is true
+    form_style.pointerEvents = 'none' if @state.isSubmitting is true
     <Modal>
-      <div className="wizard__panel active">
+      <div className="wizard__panel active" style={form_style}>
         <h3>Create a New Course</h3>
         <p>Lorem ipsum Ut Duis sint nisi consectetur esse voluptate tempor sit cillum eiusmod et ad fugiat veniam officia irure nisi dolor ad minim sed mollit in officia dolore sint esse sed veniam eiusmod aute esse labore reprehenderit sint.</p>
         <div className='wizard__form'>
           <div className='column'>
+            
             <TextInput
               id='course_title'
               onChange={@updateCourse}
@@ -143,7 +167,7 @@ CourseCreator = React.createClass(
           </div>
         </div>
         <div className='wizard__panel__controls'>
-          <div className='left'></div>
+          <div className='left'><p>{@state.tempCourseId}</p></div>
           <div className='right'>
             <Link className="button" to="/" id='course_cancel'>Cancel</Link>
             <div className="button dark" onClick={@saveCourse} id='course_create'>Create my Course!</div>
