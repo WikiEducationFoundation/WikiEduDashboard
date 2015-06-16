@@ -16,6 +16,8 @@ API =
   ###########
   fetchCourse: (course_id) ->
     fetch(course_id, 'raw')
+  checkCourse: (course_id) ->
+    fetch(course_id, 'check')
 
   fetchWizardIndex: ->
     new Promise (res, rej) ->
@@ -116,7 +118,6 @@ API =
         failure: (e) ->
           console.log 'Couldn\'t save gradeables! ' + e
           rej e
-
   saveCourse: (data, course_id=null) ->
     append = if course_id? then '/' + course_id else ''
     # append += '.json'

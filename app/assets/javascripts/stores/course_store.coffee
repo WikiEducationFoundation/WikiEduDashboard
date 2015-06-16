@@ -30,7 +30,7 @@ setValid = (key, value) ->
 
 addCourse = ->
   setCourse {
-    title: "",
+    title: ""
     description: ""
     school: ""
     term: ""
@@ -60,6 +60,13 @@ CourseStore = Flux.createStore
   switch(payload.actionType)
     when 'RECEIVE_COURSE', 'CREATED_COURSE'
       setCourse data.course, true
+      break
+    when 'CHECK_COURSE'
+      setValid 'form', data.course_exists
+      if data.course_exists is true
+        setValid 'title', false
+        setValid 'term', false
+        setValid 'school', false
       break
     when 'SAVED_COURSE'
       setCourse data.course, true, true

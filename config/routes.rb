@@ -37,6 +37,8 @@ Rails.application.routes.draw do
 
     get 'courses/*id/overview' => 'courses#overview',
         :as => :overview, constraints: { id: /.*/ }
+    get 'courses/*id/check' => 'courses#check',
+        :as => :check, constraints: { id: /.*/ }
     get 'courses/*id/timeline(/*any)' => 'courses#timeline',
         :as => :timeline, constraints: { id: /.*/ }
     get 'courses/*id/activity' => 'courses#activity',
