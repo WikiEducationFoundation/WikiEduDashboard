@@ -140,6 +140,7 @@ class CoursesController < ApplicationController
     standard_setup
     @courses_users = @course.courses_users
     @articles = @course.articles.order(:title).limit(4)
+    ***REMOVED***
     respond_to do |format|
       format.json { render json: @course }
       format.html { render }

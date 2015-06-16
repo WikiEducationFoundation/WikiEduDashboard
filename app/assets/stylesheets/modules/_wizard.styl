@@ -49,6 +49,8 @@ wizard-width = 860px
       transition left panel_speed ease-in-out, opacity .01s
     &.active ~ .wizard__panel
       left 150%
+    &.is-submitting
+      opacity: 0.5
     > h3
       font-weight 300
     p, ul
@@ -196,9 +198,6 @@ wizard-width = 860px
       padding 20px 0
       position absolute
       width calc(100% - 40px)
-      button
-        .section-header &
-          margin-left 10px
       .left
         col(1/3)
         padding 9px 0
