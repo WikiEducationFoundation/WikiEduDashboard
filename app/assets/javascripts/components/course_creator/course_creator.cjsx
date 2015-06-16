@@ -21,7 +21,7 @@ CourseCreator = React.createClass(
     router: React.PropTypes.func.isRequired
   storeDidChange: ->
     @setState getState()
-    if @state.course.slug?    # Primitive check for a server-created course
+    if @state.course.slug? and @state.validation.form?
       # This has to be a window.location set due to our limited ReactJS scope
       window.location = '/courses/' + @state.course.slug + '/timeline/wizard'
 
@@ -38,16 +38,36 @@ CourseCreator = React.createClass(
     course_valid
   validateKey: (key, value) ->
     switch key
-      when 'title', 'school', 'term', 'start', 'end'
+      when 'title', 'school', 'term'
+        valid = value.length > 0
+        CourseActions.setValid key, valid
+        valid
+      when 'start', 'end'
         valid = value.length > 0
         CourseActions.setValid key, valid
         valid
       else
         return true
+  generateTempId: ->
+    if @state.course.title != '' and @state.course.school != '' and @state.course.term != ''
+      title = @state.course.title.replace(" ", "_")
+      school = @state.course.school.replace(" ", "_")
+      term = @state.course.term.replace(" ", "_")
+      return "#{school}/#{title}_(#{term})"
+    else
+      return ''
 
   saveCourse: ->
-    if @validateCourse()
-      ServerActions.saveCourse $.extend(true, {}, { course: @state.course })
+    ServerActions.checkCourse(@generateTempId()).then(=>
+      unless @state.validation.form?
+        alert("This course already exists (#{@generateTempId()}). The combination of course title, term, and school must be unique.")
+        CourseActions.setValid 'school', false
+        CourseActions.setValid 'term', false
+        CourseActions.setValid 'title', false
+      if @validateCourse()
+        ServerActions.saveCourse $.extend(true, {}, { course: @state.course })
+    )
+    
   updateCourse: (value_key, value) ->
     to_pass = $.extend(true, {}, @state.course)
     to_pass[value_key] = value
