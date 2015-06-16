@@ -1,0 +1,39 @@
+# Messages for Luxembourgish (Lëtzebuergesch)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Robby
+---
+lb:
+  activity:
+    edited_by: Geännert Vum
+    all: Aktivitéit
+  article:
+    edited: Geännert Artikelen
+    edited_mobile: Artikelen
+    edited_none: '%{title} huet keng Artikele geännert.'
+    title: Titel
+    view: Artikel weisen
+  course:
+    activity: Aktivitéit
+    articles: Artikelen
+    courses: Coursen
+    yourcourses: Är Coursen
+    current: Aktuell Coursen
+    students: Studenten
+    students_short: Studenten
+    overview: Iwwersiicht
+    title: Titel
+    view: Cours weisen
+  metrics:
+    articles_edited: Geännert Artikelen
+    characters: Buschtawen
+    date_time: Datum/Zäit
+  namespace:
+    user_ns: Benotzer
+  user:
+    name: Numm
+  error_404:
+    header: Säit net fonnt. :-(
+  error_500:
+    header: 500 - Interne Feeler vum Server. :-(
+...

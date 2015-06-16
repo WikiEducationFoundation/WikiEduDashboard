@@ -22,4 +22,8 @@ class Revision < ActiveRecord::Base
     self.attributes = data
     self.save if save
   end
+
+  def happened_during_course?(course)
+    date >= course.start && date <= course.end
+  end
 end

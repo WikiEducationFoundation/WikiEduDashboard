@@ -53,19 +53,20 @@ class Replica
   #     }
   #   }
   def self.parse_revision(revision)
-    parsed = { 'revision' => {}, 'article' => {} }
-    parsed.tap do |p|
-      p['article']['id'] = revision['page_id']
-      p['article']['title'] = revision['page_title']
-      p['article']['namespace'] = revision['page_namespace']
+    article_data = {}
+    article_data['id'] = revision['page_id']
+    article_data['title'] = revision['page_title']
+    article_data['namespace'] = revision['page_namespace']
 
-      p['revision']['id'] = revision['rev_id']
-      p['revision']['date'] = revision['rev_timestamp'].to_datetime
-      p['revision']['characters'] = revision['byte_change']
-      p['revision']['article_id'] = revision['page_id']
-      p['revision']['user_id'] = revision['rev_user']
-      p['revision']['new_article'] = revision['new_article']
-    end
+    revision_data = {}
+    revision_data['id'] = revision['rev_id']
+    revision_data['date'] = revision['rev_timestamp'].to_datetime
+    revision_data['characters'] = revision['byte_change']
+    revision_data['article_id'] = revision['page_id']
+    revision_data['user_id'] = revision['rev_user']
+    revision_data['new_article'] = revision['new_article']
+
+    { 'article' => article_data, 'revision' => revision_data }
   end
 
   ###################
