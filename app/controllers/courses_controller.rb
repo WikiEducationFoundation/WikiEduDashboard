@@ -23,8 +23,7 @@ class CoursesController < ApplicationController
     if params.key?(:cohort)
       @cohort = Cohort.includes(:students).find_by(slug: params[:cohort])
     elsif !Figaro.env.default_cohort.nil?
-      @cohort = Cohort.includes(:students)
-                .find_by(slug: Figaro.env.default_cohort)
+      @cohort = Cohort.includes(:students).find_by(slug: Figaro.env.default_cohort)
     end
     @cohort ||= nil
 
@@ -93,6 +92,7 @@ class CoursesController < ApplicationController
     respond_to do |format|
       format.json { render json: @course }
     end
+
   end
 
   def destroy
@@ -212,11 +212,9 @@ class CoursesController < ApplicationController
 
   # Will send custom message to course user's talk pages on Wikipedia
   # Responds to route '/notify_students'
-  # :roles is optional and will send to specific roles using comma-seperated
-  # string 'student,instructor', etc.
+  # :roles is optional and will send to specific roles using comma-seperated string 'student,instructor', etc.
   # if :roles is omitted, will send , message to all course users
-  # Send the variables via query params, like:
-  # '/courses/*id/notify_students?sectiontitle=TITLE&text=TEXT&summary=SUMMARY&roles=student,instructor'
+  # Send the variables via query params, eg. '/courses/*id/notify_students?sectiontitle=TITLE&text=TEXT&summary=SUMMARY&roles=student,instructor'
   # :sectiontitle, :text, :summary, :roles
   # TODO WRITE TEST
   def notify_students
@@ -225,7 +223,7 @@ class CoursesController < ApplicationController
     if params[:roles]
       recipient_roles = params[:roles].split(',')
       recipient_roles.each do |role|
-        recipients += @course.users.role(role)
+        recipients = recipients + @course.users.role(role)
       end
     else
       recipients = @course.users
