@@ -162,6 +162,16 @@ API =
           console.log 'Couldn\'t save students! ' + e
           rej e
 
+  deleteCourse: (course_id) ->
+    console.log 'woop'
+    $.ajax
+      type: 'DELETE'
+      url: '/courses/' + course_id
+      success: (data) ->
+        window.location = '/'
+      failure: (e) ->
+        console.log 'Couldn\'t delete course'
+
   submitWizard: (course_id, wizard_id, data) ->
     new Promise (res, rej) ->
       $.ajax

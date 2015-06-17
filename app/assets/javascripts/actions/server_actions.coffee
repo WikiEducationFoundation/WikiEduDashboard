@@ -54,6 +54,10 @@ ServerActions = Flux.createActions
     API.submitWizard(course_id, wizard_id, data).then (data) ->
       { actionType: 'WIZARD_SUBMITTED', data: data }
 
+  deleteCourse: (course_id) ->
+    # This redirects, no need for an action to be broadcast
+    API.deleteCourse(course_id)
+
   enrollStudent: (data, course_id) ->
     API.enrollStudent(data, course_id).then (data) ->
       { actionType: 'ENROLLED_STUDENT', data: data }

@@ -1,0 +1,13 @@
+<li class="row course-list__row">
+  <%= link_to course_slug_path(course.slug), 'id' => course.id do %>
+    <div class="row__wrapper">
+      <div class="course-list__row__long_title">
+        <p class="<%= user ? 'u' : admin ? 'a' : '' %>title"><%= course.title %></p>
+      </div>
+      <div class="course-list__row__link desktop-only-flex">
+        <p class="fake-link"><%= t("course.view") %></p>
+      </div>
+      <div class="row__fake__link tablet-only"><p class="icon icon-arrow"></p></div>
+    </div>
+  <% end %>
+</li>

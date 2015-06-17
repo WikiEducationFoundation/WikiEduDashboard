@@ -31,6 +31,25 @@
 
 <div class="container">
   <% if user_signed_in? %>
+    <% if current_user.permissions > 0 && !@admin_courses.empty? %>
+      <section id="admin_courses">
+        <div class="section-header">
+          <h3>Submitted Courses</h3>
+        </div>
+        <div class="row course-list__row list__header">
+          <div class="row__wrapper desktop-only-flex">
+            <div class="course-list__row__long_title sort asc" data-sort="atitle"><p><%= t("course.courses") %></p></div>
+            <div class="course-list__row__link"></div>
+          </div>
+        </div>
+        <ul class="list">
+        <% @admin_courses.each do |c| %>
+          <%= render :partial => 'unapproved_row', :locals => {:course => c, :admin => true, :user => false} %>
+        <% end %>
+        </ul>
+      </section>
+    <% end %>
+
     <section id="user_courses">
       <div class="section-header">
         <h3><%= t("course.yourcourses") %></h3>
@@ -62,7 +81,7 @@
         </li>
       <% else %>
         <% @user_courses.each do |c| %>
-          <%= render :partial => 'row', :locals => {:course => c, :user => true} %>
+          <%= render :partial => 'row', :locals => {:course => c, :admin => false, :user => true} %>
         <% end %>
       <% end %>
       </ul>
@@ -112,7 +131,7 @@
     </div>
     <ul class="list">
     <% @courses.each do |c| %>
-      <%= render :partial => 'row', :locals => {:course => c, :user => false} %>
+      <%= render :partial => 'row', :locals => {:course => c, :admin => false, :user => false} %>
     <% end %>
     </ul>
   </section>

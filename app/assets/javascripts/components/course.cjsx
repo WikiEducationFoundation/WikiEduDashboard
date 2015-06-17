@@ -4,6 +4,7 @@ Link              = Router.Link
 RouteHandler      = Router.RouteHandler
 HandlerInterface  = require './highlevels/handler'
 ServerActions     = require '../actions/server_actions'
+CourseActions     = require '../actions/course_actions'
 CourseStore       = require '../stores/course_store'
 
 getState = ->
@@ -29,15 +30,62 @@ Course = React.createClass(
     if $('#react_root').attr('data-current_user')
       $('#react_root').data('current_user')
     else null
+  submit: (e) ->
+    e.preventDefault()
+    to_pass = $.extend(true, {}, @state.course)
+    to_pass['submitted'] = true
+    CourseActions.updateCourse to_pass, true
+  publish: (e) ->
+    e.preventDefault()
+    to_pass = $.extend(true, {}, @state.course)
+    to_pass['published'] = true
+    CourseActions.updateCourse to_pass, true
+  approve: (e) ->
+    e.preventDefault()
+    to_pass = $.extend(true, {}, @state.course)
+    to_pass['approved'] = true
+    CourseActions.updateCourse to_pass, true
+  delete: (e) ->
+    e.preventDefault()
+    console.log @getCourseID()
+    ServerActions.deleteCourse @getCourseID()
   routeParams: ->
     @context.router.getCurrentParams()
   render: ->
     route_params = @context.router.getCurrentParams()
 
-    if !(@state.course.listed || @state.course.approved || @state.course.published) && @getCurrentUser.role == 1
-      alert = (
-        <div className="container alert module">
-          <p>You will be able to delete this course as long as it remains unapproved and unpublished. <a href='#'>Click here</a> to delete the course now.</p>
+    alerts = []
+    if !(@state.course.submitted || @state.listed)
+      alerts.push (
+        <div className='container module text-center' key='submit'>
+          <p>Your course is not yet published on the Wiki Edu platform. <a href="#" onClick={@submit}>Click here</a> to submit it for approval by Wiki Edu staff.</p>
+        </div>
+      )
+    else if !@state.course.approved && !@getCurrentUser().admin
+      alerts.push (
+        <div className='container module text-center' key='submit'>
+          <p>Your course has been submitted for approval. Wiki Edu staff will review and get in touch with any questions.</p>
+        </div>
+      )
+
+    if @state.course.approved && !@state.course.published
+      alerts.push (
+        <div className='container module text-center' key='publish'>
+          <p>Your course has been approved by Wiki Edu staff. <a href="#" onClick={@publish}>Click here</a> to publish it!</p>
+        </div>
+      )
+
+    if @state.course.submitted && !@state.course.approved && @getCurrentUser().admin
+      alerts.push (
+        <div className='container module text-center' key='publish'>
+          <p>This course has been submitted for approval by its creator. <a href="#" onClick={@approve}>Click here</a> to approve it!</p>
+        </div>
+      )
+
+    if !(@state.course.listed || @state.course.approved || @state.course.published) && @getCurrentUser().role == 1
+      alerts.push (
+        <div className="container alert module text-center" key='delete'>
+          <p>You will be able to delete this course as long as it remains unapproved and unpublished. <a href='#' onClick={@delete}>Click here</a> to delete the course now.</p>
         </div>
       )
 
@@ -108,7 +156,7 @@ Course = React.createClass(
           </div>
         </nav>
       </div>
-      {alert}
+      {alerts}
       <div className="course_main container">
         <RouteHandler {...@props}
           course_id={@getCourseID()}

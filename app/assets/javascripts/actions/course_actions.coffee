@@ -2,9 +2,10 @@ McFly       = require 'mcfly'
 Flux        = new McFly()
 
 CourseActions = Flux.createActions
-  updateCourse: (course) ->
+  updateCourse: (course, save=false) ->
     { actionType: 'UPDATE_COURSE', data: {
-      course: course
+      course: course,
+      save: save
     }}
   setValid: (key, is_valid) ->
     { actionType: 'SET_INVALID_KEY', data: {

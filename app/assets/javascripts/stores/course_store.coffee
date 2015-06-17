@@ -1,6 +1,7 @@
 McFly       = require 'mcfly'
 Flux        = new McFly()
 API         = require '../utils/api.coffee'
+ServerActions = require '../actions/server_actions'
 
 
 # Data
@@ -69,6 +70,8 @@ CourseStore = Flux.createStore
       break
     when 'UPDATE_COURSE'
       setCourse data.course
+      if data.save
+        ServerActions.saveCourse($.extend(true, {}, { course: _course }), data.course.slug)
       break
     when 'ADD_COURSE'
       addCourse()
