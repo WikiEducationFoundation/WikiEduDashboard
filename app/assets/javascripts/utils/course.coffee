@@ -1,5 +1,8 @@
 $ ->
   # Course sorting
+  adminCourseList = new List('admin_courses', {
+    valueNames: ['atitle']
+  })
   userCourseList = new List('user_courses', {
     valueNames: ['utitle','ucharacters','uviews','ustudents']
   })
@@ -7,25 +10,25 @@ $ ->
     valueNames: ['title','characters','views','students']
   })
 
-  # Activity sorting
-  activityList = new List('activity', {
-    valueNames: ['rating_num', 'title', 'edited_by', 'characters', 'date_time']
-  })
+  # # Activity sorting
+  # activityList = new List('activity', {
+  #   valueNames: ['rating_num', 'title', 'edited_by', 'characters', 'date_time']
+  # })
 
   # # User sorting
   # userList = new List('users', {
   #   valueNames: ['name','training','characters-ms', 'characters-us', 'assignee', 'reviewer']
   # })
 
-  # Article sorting
-  articleList = new List('articles', {
-    valueNames: ['rating_num', 'title', 'assigned_to', 'characters', 'views']
-  })
+  # # Article sorting
+  # articleList = new List('articles', {
+  #   valueNames: ['rating_num', 'title', 'assigned_to', 'characters', 'views']
+  # })
 
-  # Revision sorting
-  revisionList = new List('revisions', {
-    valueNames: ['title', 'date', 'characters', 'views']
-  })
+  # # Revision sorting
+  # revisionList = new List('revisions', {
+  #   valueNames: ['title', 'date', 'characters', 'views']
+  # })
 
   $('select.cohorts').change (e) ->
     cohort = $('select.cohorts option:selected').val()

@@ -11,6 +11,10 @@ class CoursesController < ApplicationController
   ###############
   def index
     if user_signed_in?
+      if current_user.permissions > 0
+        @admin_courses = Course.where(submitted: true, approved: false)
+      end
+
       @user_courses = current_user.courses.select do |c|
         c if current_user.instructor?(c) || c.listed
       end
@@ -55,7 +59,11 @@ class CoursesController < ApplicationController
       :subject,
       :expected_students,
       :start,
-      :end
+      :end,
+      :submitted,
+      :approved,
+      :published,
+      :listed
     )
   end
 
@@ -79,6 +87,7 @@ class CoursesController < ApplicationController
     validate
     params = {}
     params['course'] = course_params
+
     @course.update params
     WikiEdits.update_course(@course, current_user)
     respond_to do |format|
@@ -96,7 +105,9 @@ class CoursesController < ApplicationController
     @course.gradeables.destroy_all
     @course.destroy
     WikiEdits.update_course(@course, current_user, true)
-    redirect_to :root
+    respond_to do |format|
+      format.json { render json: { success: true } }
+    end
   end
 
   ########################
