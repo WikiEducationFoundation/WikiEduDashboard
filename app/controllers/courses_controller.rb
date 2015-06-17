@@ -138,6 +138,17 @@ class CoursesController < ApplicationController
     end
   end
 
+  def overview
+    standard_setup
+    @courses_users = @course.courses_users
+    @articles = @course.articles.order(:title).limit(4)
+
+    respond_to do |format|
+      format.json { render json: @course }
+      format.html { render }
+    end
+  end
+
   def check
     course_exists = Course.exists?(slug: params[:id])
     @course = Course.find_by_slug(params[:id]) || {}
@@ -147,16 +158,7 @@ class CoursesController < ApplicationController
     end
   end
 
-  def overview
-    standard_setup
-    @courses_users = @course.courses_users
-    @articles = @course.articles.order(:title).limit(4)
-    ***REMOVED***
-    respond_to do |format|
-      format.json { render json: @course }
-      format.html { render }
-    end
-  end
+  
 
   def timeline
     standard_setup
