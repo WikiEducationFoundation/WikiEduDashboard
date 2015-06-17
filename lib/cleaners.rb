@@ -28,10 +28,8 @@ class Cleaners
     possible_deletions = course_articles & user_articles
 
     to_delete = []
-    possible_deletions.each do |pd|
-      other_editors = Article.find(pd).editors - [user_id]
-      course_editors = course.students & other_editors
-      to_delete.push pd if other_editors.empty? || course_editors.empty?
+    possible_deletions.each do |a_id|
+      to_delete.push a_id unless other_editors_in_course?(a_id, user_id, course)
     end
 
     # remove orphaned articles from the course
@@ -41,6 +39,14 @@ class Cleaners
     )
     # update course cache to account for removed articles
     course.update_cache unless to_delete.empty?
+  end
+
+  def self.other_editors_in_course?(article_id, user_id, course)
+    other_editors = Article.find(article_id).editors - [user_id]
+    return false if other_editors.empty?
+    course_editors = course.students & other_editors
+    return false if course_editors.empty?
+    true
   end
 
   def self.find_user_articles(course_user, course)
