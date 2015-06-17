@@ -17,17 +17,17 @@ class CohortImporter
     end
   end
 
-  def self.add_courses_to_cohort(course_ids, cohort)
-    course_ids.each do |course_id|
-      course = Course.find_by_id(course_id)
-      course.cohorts << cohort if course
+  def self.add_courses_to_cohort(new_course_ids, cohort)
+    new_course_ids.each do |course_id|
+      new_course = Course.find_by_id(course_id)
+      new_course.cohorts << cohort if new_course
     end
   end
 
-  def self.remove_courses_from_cohort(course_ids, cohort)
-    course_ids.each do |course_id|
-      course = Course.find_by_id(course_id)
-      course.cohorts.delete(cohort) if course
+  def self.remove_courses_from_cohort(removed_course_ids, cohort)
+    removed_course_ids.each do |course_id|
+      removed_course = Course.find_by_id(course_id)
+      removed_course.cohorts.delete(cohort) if removed_course
     end
   end
 end
