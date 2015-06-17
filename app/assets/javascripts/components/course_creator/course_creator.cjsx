@@ -58,16 +58,17 @@ CourseCreator = React.createClass(
   slugify: (text) ->
     return text.replace " ", "_"
   saveCourse: ->
-    @state.hasSubmitted = true
-    @state.isSubmitting = true
-    ServerActions.checkCourse(@generateTempId()).then(=>
-      if @validateCourse()
-        if @state.validation.form?
-          alert("This course already exists (#{@generateTempId()}). The combination of course title, term, and school must be unique.")
-          @state.isSubmitting = false
-        else
-          ServerActions.saveCourse $.extend(true, {}, { course: @state.course })
-    )
+    if @validateCourse()
+      @state.hasSubmitted = true
+      @state.isSubmitting = true
+      ServerActions.checkCourse(@generateTempId()).then(=>
+        if @validateCourse()
+          if @state.validation.form?
+            alert("This course already exists (#{@generateTempId()}). The combination of course title, term, and school must be unique.")
+            @state.isSubmitting = false
+          else
+            ServerActions.saveCourse $.extend(true, {}, { course: @state.course })
+      )
   updateCourse: (value_key, value) ->
     to_pass = $.extend(true, {}, @state.course)
     to_pass[value_key] = value
