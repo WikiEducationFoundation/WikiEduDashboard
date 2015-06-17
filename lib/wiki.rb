@@ -64,7 +64,7 @@ class Wiki
     titles = [titles] unless titles.is_a?(Array)
     titles = titles.sort_by(&:downcase)
 
-    talk_titles = titles.map { |at| 'Talk:' + at }
+    talk_titles = titles.map { |title| 'Talk:' + title }
     raw = get_raw_page_content(talk_titles)
     return [] unless raw
 

@@ -29,9 +29,9 @@ class ViewImporter
     end
   end
 
-  def self.update_views_for_batch(group, all_time)
+  def self.update_views_for_batch(articles, all_time)
     views, vua = {}, {}
-    threads = group.each_with_index.map do |a, i|
+    threads = articles.each_with_index.map do |a, i|
       start = a.courses.order(:start).first.start.to_date
       Thread.new(i) do
         vua[a.id] = a.views_updated_at || start
@@ -42,15 +42,20 @@ class ViewImporter
       end
     end
     threads.each(&:join)
-    group.each do |a|
-      a.views_updated_at = vua[a.id]
-      update_views_for_article(a, all_time, views[a.id])
-    end
+
+    save_updated_views(articles, views, vua, all_time)
   end
 
   ###########
   # Helpers #
   ###########
+  def self.save_updated_views(articles, views, views_updated_at, all_time)
+    articles.each do |article|
+      article.views_updated_at = views_updated_at[article.id]
+      update_views_for_article(article, all_time, views[article.id])
+    end
+  end
+
   def self.update_views_for_article(article, all_time=false, views=nil)
     return unless article.views_updated_at < Date.today
 
