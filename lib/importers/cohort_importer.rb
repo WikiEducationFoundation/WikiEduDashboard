@@ -5,19 +5,29 @@ class CohortImporter
   # { "cohort_slug" => [31, 554, 1234], "cohort_slug_2" => [31, 999, 2345] }
   def self.update_cohorts(raw_ids)
     Course.transaction do
-      raw_ids.each do |ch, ch_courses|
-        cohort = Cohort.find_or_create_by(slug: ch)
-        ch_new = ch_courses - cohort.courses.map(&:id)
-        ch_old = cohort.courses.map(&:id) - ch_courses
-        ch_new.each do |co|
-          course = Course.find_by_id(co)
-          course.cohorts << cohort if course
-        end
-        ch_old.each do |co|
-          course = Course.find_by_id(co)
-          course.cohorts.delete(cohort) if course
-        end
+      raw_ids.each do |slug, course_ids|
+        cohort = Cohort.find_or_create_by(slug: slug)
+        ids_in_cohort = cohort.courses.map(&:id)
+        new_course_ids = course_ids - ids_in_cohort
+        removed_course_ids = ids_in_cohort - course_ids
+
+        add_courses_to_cohort(new_course_ids, cohort)
+        remove_courses_from_cohort(removed_course_ids, cohort)
       end
+    end
+  end
+
+  def self.add_courses_to_cohort(course_ids, cohort)
+    course_ids.each do |course_id|
+      course = Course.find_by_id(course_id)
+      course.cohorts << cohort if course
+    end
+  end
+
+  def self.remove_courses_from_cohort(course_ids, cohort)
+    course_ids.each do |course_id|
+      course = Course.find_by_id(course_id)
+      course.cohorts.delete(cohort) if course
     end
   end
 end
