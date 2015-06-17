@@ -12,7 +12,8 @@ class CoursesController < ApplicationController
   def index
     if user_signed_in?
       if current_user.permissions > 0
-        @admin_courses = Course.where(submitted: true, approved: false)
+        @admin_courses = Course.includes(:cohorts).where('cohorts.id IS NULL')
+                         .references(:cohorts)
       end
 
       @user_courses = current_user.courses.select do |c|
@@ -60,8 +61,6 @@ class CoursesController < ApplicationController
       :start,
       :end,
       :submitted,
-      :approved,
-      :published,
       :listed
     )
   end
@@ -158,7 +157,7 @@ class CoursesController < ApplicationController
     end
   end
 
-  
+
 
   def timeline
     standard_setup

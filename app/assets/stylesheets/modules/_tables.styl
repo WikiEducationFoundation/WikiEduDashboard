@@ -20,7 +20,7 @@ table
       transform rotate(180deg)
     &.desc:after
       transform rotate(0deg)
-    
+
 
 
   td, th
@@ -51,22 +51,22 @@ table.list > tbody > tr
   transition background .15s
   &:first-child
     border-width 1px
-    
+
   p, small, h4
     color dove
     &.red
       color burnt
-  
+
   p.title
     +below(tablet)
       white-space nowrap
       overflow hidden
-      -ms-text-overflow ellipsis 
+      -ms-text-overflow ellipsis
       text-overflow ellipsis
       padding-right 5px
       margin-left -5px
 
-      
+
   .icon
     display inline-block
     transition transform .2s
@@ -146,5 +146,6 @@ table.students tbody tr, table.articles tbody tr
 
 table.uploads
   img
+    margin-left 20px
     +above(desktop)
       height 60px

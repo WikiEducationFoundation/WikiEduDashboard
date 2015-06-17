@@ -35,16 +35,6 @@ Course = React.createClass(
     to_pass = $.extend(true, {}, @state.course)
     to_pass['submitted'] = true
     CourseActions.updateCourse to_pass, true
-  publish: (e) ->
-    e.preventDefault()
-    to_pass = $.extend(true, {}, @state.course)
-    to_pass['published'] = true
-    CourseActions.updateCourse to_pass, true
-  approve: (e) ->
-    e.preventDefault()
-    to_pass = $.extend(true, {}, @state.course)
-    to_pass['approved'] = true
-    CourseActions.updateCourse to_pass, true
   delete: (e) ->
     e.preventDefault()
     console.log @getCourseID()
@@ -55,37 +45,30 @@ Course = React.createClass(
     route_params = @context.router.getCurrentParams()
 
     alerts = []
-    if !(@state.course.submitted || @state.listed)
+    if !(@state.course.submitted || @state.course.published || @state.listed)
       alerts.push (
         <div className='container module text-center' key='submit'>
           <p>Your course is not yet published on the Wiki Edu platform. <a href="#" onClick={@submit}>Click here</a> to submit it for approval by Wiki Edu staff.</p>
         </div>
       )
-    else if !@state.course.approved && !@getCurrentUser().admin
+    else if @state.course.submitted && !@state.course.published && !@getCurrentUser().admin
       alerts.push (
         <div className='container module text-center' key='submit'>
-          <p>Your course has been submitted for approval. Wiki Edu staff will review and get in touch with any questions.</p>
+          <p>Your course has been submitted for addition to a cohort. Wiki Edu staff will review and get in touch with any questions.</p>
         </div>
       )
 
-    if @state.course.approved && !@state.course.published
+    if @state.course.submitted && !@state.course.published && @getCurrentUser().admin
       alerts.push (
         <div className='container module text-center' key='publish'>
-          <p>Your course has been approved by Wiki Edu staff. <a href="#" onClick={@publish}>Click here</a> to publish it!</p>
+          <p>This course has been submitted for approval by its creator. <a href="#">Click here</a> to add it to a cohort!</p>
         </div>
       )
 
-    if @state.course.submitted && !@state.course.approved && @getCurrentUser().admin
-      alerts.push (
-        <div className='container module text-center' key='publish'>
-          <p>This course has been submitted for approval by its creator. <a href="#" onClick={@approve}>Click here</a> to approve it!</p>
-        </div>
-      )
-
-    if !(@state.course.listed || @state.course.approved || @state.course.published) && @getCurrentUser().role == 1
+    if !(@state.course.listed || @state.course.published) && @getCurrentUser().role == 1
       alerts.push (
         <div className="container alert module text-center" key='delete'>
-          <p>You will be able to delete this course as long as it remains unapproved and unpublished. <a href='#' onClick={@delete}>Click here</a> to delete the course now.</p>
+          <p>You will be able to delete this course as long as it remains unpublished. <a href='#' onClick={@delete}>Click here</a> to delete the course now.</p>
         </div>
       )
 
@@ -168,83 +151,3 @@ Course = React.createClass(
 )
 
 module.exports = Course
-
-
-# <header className="course-page" data-current_user="<%= user_signed_in? ? current_user.roles(@course).to_json : { admin: false } %>">
-#   <div className="container">
-#     <div class="title">
-#       <a href="<%= @course.url %>" target="_blank"><h2><%= @course.title %></h2></a>
-#     </div>
-#     <div class="stat-display">
-#       <div class="stat-display__stat" id="articles-created">
-#         <h3><%= number_to_human @course.revisions.joins(:article).where(articles: {namespace: 0}).where(new_article: true).count %></h3>
-#         <small><%= t("metrics.articles_created") %></small>
-#       </div>
-#       <div class="stat-display__stat" id="articles-edited">
-#         <h3><%= number_to_human @course.article_count %></h3>
-#         <small><%= t("metrics.articles_edited") %></small>
-#       </div>
-#       <div class="stat-display__stat" id="total-edits">
-#         <h3><%= number_to_human @course.revisions.count %></h3>
-#         <small><%= t("metrics.edit_count_description") %></small>
-#       </div>
-#       <div class="stat-display__stat popover-trigger" id="student-editors">
-#         <h3><%= @course.user_count %></h3>
-#         <small><%= t("metrics.student_editors") %></small>
-#         <div class="popover dark" id="trained-count">
-#           <h4><%= @course.users.role('student').where(trained: true).count %></h4>
-#           <p><%= t("user.training_complete", count: @course.users.role('student').where(trained: true).count) %></p>
-#         </div>
-#       </div>
-#       <div class="stat-display__stat" id="characters-added">
-#         <h3><%= number_to_human @course.character_sum %></h3>
-#         <small><%= t("metrics.char_added") %></small>
-#       </div>
-#       <div class="stat-display__stat" id="view-count">
-#         <h3><%= number_to_human @course.view_sum %></h3>
-#         <small><%= t("metrics.view_count_description") %></small>
-#       </div>
-#     </div>
-#   </div>
-# </header>
-
-
-# <div class="course_navigation">
-#   <div class="nav__item <%= page == 0 ? 'active' : '' %>" id="overview-link">
-#     <p><%= link_to t("course.overview"), course_slug_path(@course.slug) %></p>
-#   </div>
-#   <div class="nav__item <%= page == 3 ? 'active' : '' %>" id="timeline-link">
-#     <p><%= link_to t("course.timeline"), :action => "timeline" %></p>
-#   </div>
-#   <div class="nav__item <%= page == 4 ? 'active' : '' %>" id="activity-link">
-#     <p><%= link_to t("course.activity"), :action => "activity" %></p>
-#   </div>
-#   <div class="nav__item <%= page == 1 ? 'active' : '' %>" id="students-link">
-#     <p><%= link_to t("course.students"), :action => "students" %></p>
-#   </div>
-#   <div class="nav__item <%= page == 2 ? 'active' : '' %>" id="articles-link">
-#     <p><%= link_to t("course.articles"), :action => "articles" %></p>
-#   </div>
-#   <div class="nav__item <%= page == 5 ? 'active' : '' %>" id="uploads-link">
-#     <p><%= link_to t("course.uploads"), :action => "uploads" %></p>
-#   </div>
-# </div>
-
-# <% if !current?(@course) && user_signed_in? && @course.start < Time.now %>
-# <div class="container">
-#   <div class="alert module">
-#     <div class="container">
-#       <p>This course has ended and the data here may be out of date. <%= link_to 'Click here', {:action => 'manual_update'}, class: 'manual_update', rel: 'nofollow' %> to pull new data.</p>
-#     </div>
-#   </div>
-# </div>
-# <% end %>
-# <% if !(@course.listed || @course.approved || @course.published) && current_user.can_edit?(@course) %>
-# <div class="container">
-#   <div class="alert module">
-#     <div class="container">
-#       <p>You will be able to delete this course as long as it remains unapproved and unpublished. <%= link_to 'Click here', course_slug_path(@course.slug), method: :delete, data: { confirm: 'Are you sure you want to delete this course?' } %> to delete the course now.</p>
-#     </div>
-#   </div>
-# </div>
-# <% end %>
