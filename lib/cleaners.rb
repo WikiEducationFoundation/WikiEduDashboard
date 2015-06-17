@@ -40,7 +40,7 @@ class Cleaners
     # update course cache to account for removed articles
     course.update_cache unless to_delete.empty?
   end
-
+  
   def self.other_editors_in_course?(article_id, user_id, course)
     other_editors = Article.find(article_id).editors - [user_id]
     return false if other_editors.empty?
