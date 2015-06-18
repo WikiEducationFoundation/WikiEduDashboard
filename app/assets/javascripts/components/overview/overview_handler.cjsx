@@ -13,6 +13,7 @@ getState = ->
 Overview = React.createClass(
   displayName: 'Overview'
   componentDidMount: ->
+    ServerActions.fetchUsers @props.course_id
     ServerActions.fetchTimeline @props.course_id
   render: ->
     <section className='overview container'>

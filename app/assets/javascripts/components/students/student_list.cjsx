@@ -6,13 +6,13 @@ Student           = require './student'
 StudentDrawer     = require './student_drawer'
 AddStudentButton  = require './add_student_button'
 
-StudentStore      = require '../../stores/student_store'
+UserStore         = require '../../stores/user_store'
 AssignmentStore   = require '../../stores/assignment_store'
 UIActions         = require '../../actions/ui_actions'
 ServerActions     = require '../../actions/server_actions'
 
 getState = ->
-  students: StudentStore.getModels()
+  students: UserStore.getFiltered({ role: 0 })
   assignments: AssignmentStore.getModels()
 
 StudentList = React.createClass(
@@ -68,10 +68,10 @@ StudentList = React.createClass(
         elements={elements}
         keys={keys}
         table_key='students'
-        store={StudentStore}
+        store={UserStore}
         editable={@props.editable}
       />
     </div>
 )
 
-module.exports = Editable(StudentList, [StudentStore, AssignmentStore], ServerActions.saveStudents, getState)
+module.exports = Editable(StudentList, [UserStore, AssignmentStore], ServerActions.saveStudents, getState)

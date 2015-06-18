@@ -46,8 +46,8 @@ API =
   fetchTimeline: (course_id) ->
     fetch(course_id, 'timeline')
 
-  fetchStudents: (course_id) ->
-    fetch(course_id, 'students')
+  fetchUsers: (course_id) ->
+    fetch(course_id, 'users')
 
   fetchRevisions: (course_id) ->
     fetch(course_id, 'activity')
@@ -152,7 +152,7 @@ API =
     new Promise (res, rej) ->
       $.ajax
         type: 'POST',
-        url: '/courses/' + course_id + '/students',
+        url: '/courses/' + course_id + '/users',
         contentType: 'application/json',
         data: JSON.stringify data
         success: (data) ->
@@ -192,7 +192,7 @@ API =
       console.log data
       $.ajax
         type: 'POST'
-        url: '/courses/' + course_id + '/students/add',
+        url: '/courses/' + course_id + '/users/add',
         contentType: 'application/json',
         data: JSON.stringify
           student: data
@@ -207,7 +207,7 @@ API =
     new Promise (res, rej) ->
       $.ajax
         type: 'DELETE'
-        url: '/courses/' + course_id + '/students',
+        url: '/courses/' + course_id + '/users',
         contentType: 'application/json',
         data: JSON.stringify
           student: data

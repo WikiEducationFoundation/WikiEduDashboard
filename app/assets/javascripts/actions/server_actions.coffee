@@ -12,9 +12,9 @@ ServerActions = Flux.createActions
   fetchTimeline: (course_id) ->
     API.fetchTimeline(course_id).then (data) ->
       { actionType: 'RECEIVE_TIMELINE', data: data }
-  fetchStudents: (course_id) ->
-    API.fetchStudents(course_id).then (data) ->
-      { actionType: 'RECEIVE_STUDENTS', data: data }
+  fetchUsers: (course_id) ->
+    API.fetchUsers(course_id).then (data) ->
+      { actionType: 'RECEIVE_USERS', data: data }
   fetchRevisions: (course_id) ->
     API.fetchRevisions(course_id).then (data) ->
       { actionType: 'RECEIVE_REVISIONS', data: data }
@@ -43,7 +43,7 @@ ServerActions = Flux.createActions
       { actionType: actionType, data: data }
   saveStudents: (data, course_id) ->
     API.saveStudents(data, course_id).then (data) ->
-      { actionType: 'SAVED_STUDENTS', data: data }
+      { actionType: 'SAVED_USERS', data: data }
   saveTimeline: (data, course_id) ->
     API.saveTimeline(course_id, data).then (data) ->
       { actionType: 'SAVED_TIMELINE', data: data }

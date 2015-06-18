@@ -3,11 +3,14 @@ Editable          = require '../highlevels/editable'
 TextInput         = require '../common/text_input'
 TextAreaInput     = require '../common/text_area_input'
 CourseStore       = require '../../stores/course_store'
+UserStore         = require '../../stores/user_store'
 CourseActions     = require '../../actions/course_actions'
 ServerActions     = require '../../actions/server_actions'
 
 getState = (course_id) ->
   course: CourseStore.getCourse()
+  instructors: UserStore.getFiltered({ role: 1 })
+  volunteers: UserStore.getFiltered({ role: 4 })
 
 Details = React.createClass(
   displayName: 'Details'
@@ -16,6 +19,11 @@ Details = React.createClass(
     to_pass[value_key] = value
     CourseActions.updateCourse to_pass
   render: ->
+    instructor_list = _.pluck(@props.instructors, 'wiki_id').join(', ')
+    instructors = <p><span>Instructors: {instructor_list}</span></p> if instructor_list.length > 0
+    volunteer_list = _.pluck(@props.volunteers, 'wiki_id').join(', ')
+    volunteers = <p><span>Volunteers: {volunteer_list}</span></p> if volunteer_list.length > 0
+
     if @props.current_user.role > 0
       passcode = (
         <fieldset>
@@ -38,8 +46,8 @@ Details = React.createClass(
         {@props.controls()}
       </div>
       <div className='module__data'>
-        <p><span>Instructors: {@props.course.instructors}</span></p>
-        <p><span>Volunteers: {@props.course.volunteers}</span></p>
+        {instructors}
+        {volunteers}
         <p><span>School: {@props.course.school}</span></p>
         <p><span>Term: {@props.course.term}</span></p>
         {passcode}
@@ -68,4 +76,4 @@ Details = React.createClass(
     </div>
 )
 
-module.exports = Editable(Details, [CourseStore], ServerActions.saveCourse, getState)
+module.exports = Editable(Details, [CourseStore, UserStore], ServerActions.saveCourse, getState)

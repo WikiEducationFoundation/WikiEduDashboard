@@ -1,12 +1,12 @@
 StockStore = require './stock_store'
 
-StudentStore = new StockStore(
+UserStore = new StockStore(
   sortKey: 'wiki_id'
   sortAsc: true
   descKeys:
     character_sum_ms: true
     character_sum_us: true
-  modelKey: 'student'
+  modelKey: 'user'
   defaultModel:
     wiki_id: ""
   triggers: [
@@ -14,4 +14,4 @@ StudentStore = new StockStore(
   ]
 )
 
-module.exports = StudentStore.store
+module.exports = UserStore.store

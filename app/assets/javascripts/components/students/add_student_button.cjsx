@@ -4,30 +4,30 @@ Link          = Router.Link
 Expandable    = require '../highlevels/expandable'
 Popover       = require '../common/popover'
 ServerActions = require '../../actions/server_actions'
-StudentStore      = require '../../stores/student_store'
+UserStore      = require '../../stores/user_store'
 AssignmentActions = require '../../actions/assignment_actions'
 
 AddStudentButton = React.createClass(
   displayname: 'AddStudentButton'
-  mixins: [StudentStore.mixin]
+  mixins: [UserStore.mixin]
   storeDidChange: ->
     return unless @refs.wiki_id?
     wiki_id = @refs.wiki_id.getDOMNode().value
     student_obj = { wiki_id: wiki_id }
-    if StudentStore.getFiltered({ wiki_id: wiki_id }).length > 0
+    if UserStore.getFiltered({ wiki_id: wiki_id, role: 0 }).length > 0
       alert (wiki_id + ' successfully enrolled!')
       @refs.wiki_id.getDOMNode().value = ''
       @props.open()
   enroll: ->
     wiki_id = @refs.wiki_id.getDOMNode().value
     student_obj = { wiki_id: wiki_id, role: 0 }
-    if StudentStore.getFiltered({ wiki_id: wiki_id }).length == 0 &&
+    if UserStore.getFiltered({ wiki_id: wiki_id, role: 0 }).length == 0 &&
        confirm 'Are you sure you want to add ' + wiki_id + ' to this course?'
         ServerActions.enrollStudent student_obj, @props.course_id
     else
       alert 'That student is already enrolled!'
   unenroll: (student_id) ->
-    student = StudentStore.getFiltered({ id: student_id })[0]
+    student = UserStore.getFiltered({ id: student_id, role: 0 })[0]
     student_obj = { user_id: student_id, role: 0 }
     if confirm 'Are you sure you want to remove ' + student.wiki_id + ' from this course?'
       ServerActions.unenrollStudent student_obj, @props.course_id
