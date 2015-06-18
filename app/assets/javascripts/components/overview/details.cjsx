@@ -7,20 +7,7 @@ CourseActions     = require '../../actions/course_actions'
 ServerActions     = require '../../actions/server_actions'
 
 getState = (course_id) ->
-  course_tmp = CourseStore.getCourse()
-  course:
-    id: course_tmp.id
-    school: course_tmp.school
-    term: course_tmp.term
-    start: course_tmp.start
-    end: course_tmp.end
-    passcode: course_tmp.passcode
-    instructors: if course_tmp.instructors == undefined then '' else $.map(course_tmp.instructors, (inst, i) ->
-      inst.wiki_id + (if i == course_tmp.instructors.length - 1 then '' else ', ')
-    )
-    volunteers: if course_tmp.volunteers == undefined then '' else $.map(course_tmp.volunteers, (vol, i) ->
-      vol.wiki_id + (if i == course_tmp.volunteers.length - 1 then '' else ', ')
-    )
+  course: CourseStore.getCourse()
 
 Details = React.createClass(
   displayName: 'Details'

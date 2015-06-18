@@ -1,6 +1,7 @@
 json.course do
   json.(@course, :id, :title, :description, :start, :end, :school,
-                 :term, :subject, :slug, :url, :listed, :submitted, :listed)
+                 :term, :subject, :slug, :url, :listed, :submitted, :listed,
+                 :passcode)
 
   json.created_count number_to_human @course.revisions.joins(:article).where(articles: {namespace: 0}).where(new_article: true).count
   json.edited_count number_to_human @course.article_count

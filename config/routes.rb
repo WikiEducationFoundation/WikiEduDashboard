@@ -21,6 +21,10 @@ Rails.application.routes.draw do
     get 'users/revisions' => 'users#revisions', :as => :user_revisions
   end
 
+  # Enrollment
+  get 'courses/:course_id/enroll/:passcode' => 'users#enroll',
+      constraints: { course_id: /.*/ }
+
   # Courses
   controller :courses do
     get 'courses/*id/raw' => 'courses#raw',
@@ -42,8 +46,6 @@ Rails.application.routes.draw do
   end
 
   # Enrollment
-  get 'courses/:course_id/enroll/:passcode' => 'users#enroll',
-      constraints: { course_id: /.*/ }
   post 'courses/:course_id/students' => 'users#save',
        constraints: { course_id: /.*/ }
   delete 'courses/:course_id/students' => 'users#remove',

@@ -1,10 +1,14 @@
 React         = require 'react'
+Controls      = require './controls'
 Description   = require './description'
 Details       = require './details'
 Grading       = require './grading'
 ThisWeek      = require '../timeline/this_week'
 Handler       = require '../highlevels/handler'
 ServerActions     = require '../../actions/server_actions'
+
+getState = ->
+  course: CourseStore.getCourse()
 
 Overview = React.createClass(
   displayName: 'Overview'
@@ -18,6 +22,7 @@ Overview = React.createClass(
       </div>
       <div className='sidebar'>
         <Details {...@props} />
+        <Controls {...@props} />
       </div>
     </section>
 )
