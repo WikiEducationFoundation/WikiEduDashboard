@@ -1,5 +1,4 @@
 React             = require 'react/addons'
-StudentActions    = require '../../actions/student_actions'
 Expandable        = require '../highlevels/expandable'
 
 StudentDrawer = React.createClass(

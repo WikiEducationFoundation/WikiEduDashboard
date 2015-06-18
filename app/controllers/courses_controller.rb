@@ -124,7 +124,7 @@ class CoursesController < ApplicationController
     is_instructor = (user_signed_in? && current_user.instructor?(@course))
     if @course.listed || is_instructor || @course.nil?
       respond_to do |format|
-        format.html { render params[:endpoint] }
+        format.html { render }
         format.json { render params[:endpoint] }
       end
     else

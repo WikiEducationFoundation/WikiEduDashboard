@@ -33,6 +33,7 @@ class UsersController < ApplicationController
       assignment['course_id'] = @course.id
       update_util Assignment, assignment
     end
+    render 'students'
   end
 
   #########################
@@ -85,6 +86,7 @@ class UsersController < ApplicationController
       course_id: @course.id,
       role: enroll_params[:role]
     )
+    render 'students'
   end
 
   def remove
@@ -96,6 +98,7 @@ class UsersController < ApplicationController
       course_id: @course.id,
       role: enroll_params[:role]
     ).destroy
+    render 'students'
   end
 
   def set_role

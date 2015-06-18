@@ -12,10 +12,4 @@ json.course do
 
   json.published CohortsCourses.exists?(course_id: @course.id)
   json.passcode @course.passcode if user_signed_in? && current_user.role(@course) > 0
-
-  # json.partial! 'courses/uploads', course: @course
-  # json.partial! 'courses/students', course: @course
-  # json.partial! 'courses/articles', course: @course
-  # json.partial! 'courses/revisions', course: @course
-  # json.partial! 'courses/weeks', course: @course
 end

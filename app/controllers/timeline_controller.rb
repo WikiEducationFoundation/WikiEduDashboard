@@ -8,7 +8,6 @@ class TimelineController < ApplicationController
 
   def index
     @course = Course.find_by_slug(params[:course_id])
-
   end
 
   ########################
@@ -58,6 +57,7 @@ class TimelineController < ApplicationController
       update_week week
     end
     WikiEdits.update_course(@course, current_user)
+    render 'timeline'
   end
 
   def update_week(week)
@@ -106,5 +106,6 @@ class TimelineController < ApplicationController
       @gradeable = Gradeable.find(gradeable['id'])
       @gradeable.update(title: gradeable['title'], points: gradeable['points'])
     end
+    render 'timeline'
   end
 end

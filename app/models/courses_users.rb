@@ -4,6 +4,7 @@ require "#{Rails.root}/lib/utils"
 class CoursesUsers < ActiveRecord::Base
   belongs_to :course
   belongs_to :user
+  before_destroy :cleanup
 
   has_many :assignments, -> (ac) { where(course_id: ac.course_id) },
            through: :user
@@ -60,6 +61,10 @@ class CoursesUsers < ActiveRecord::Base
       .where(articles: { namespace: namespace, deleted: false })
       .where('characters >= 0')
       .sum(:characters) || 0
+  end
+
+  def cleanup
+    Assignment.where(user_id: user_id, course_id: course_id).destroy_all
   end
 
   #################
