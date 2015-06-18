@@ -119,6 +119,19 @@ class CoursesController < ApplicationController
     users.role('online_volunteer') + users.role('campus_volunteer')
   end
 
+  def show
+    @course = Course.find_by_slug("#{params[:school]}/#{params[:titleterm]}")
+    is_instructor = (user_signed_in? && current_user.instructor?(@course))
+    if @course.listed || is_instructor || @course.nil?
+      respond_to do |format|
+        format.html { render params[:endpoint] }
+        format.json { render params[:endpoint] }
+      end
+    else
+      fail ActionController::RoutingError.new('Not Found'), 'Not permitted'
+    end
+  end
+
   def standard_setup
     @course = Course.find_by_slug(params[:id])
     @volunteers = volunteers
@@ -131,48 +144,17 @@ class CoursesController < ApplicationController
     standard_setup
   end
 
-  def show
-    standard_setup
-    respond_to do |format|
-      format.html { render :overview }
-    end
-  end
-
-  def overview
-    standard_setup
-  end
-
-  def timeline
-    standard_setup
-  end
-
-  def students
-    standard_setup
-  end
-
-  def articles
-    standard_setup
-  end
-
-  def assignments
-    standard_setup
-  end
-
-  def activity
-    standard_setup
-  end
-
-  def uploads
-    standard_setup
-  end
-
   ##################
   # Helper methods #
   ##################
   def check
     course_exists = Course.exists?(slug: params[:id])
     @course = Course.find_by_slug(params[:id]) || {}
-    @validation = { course_exists: course_exists, course: @course, params: params }
+    @validation = {
+      course_exists: course_exists,
+      course: @course,
+      params: params
+    }
     respond_to do |format|
       format.json { render json: @validation }
     end
@@ -194,18 +176,20 @@ class CoursesController < ApplicationController
 
   # Will send custom message to course user's talk pages on Wikipedia
   # Responds to route '/notify_students'
-  # :roles is optional and will send to specific roles using comma-seperated string 'student,instructor', etc.
+  # :roles is optional and will send to specific roles using comma-seperated
+  #   string 'student,instructor', etc.
   # if :roles is omitted, will send , message to all course users
-  # Send the variables via query params, eg. '/courses/*id/notify_students?sectiontitle=TITLE&text=TEXT&summary=SUMMARY&roles=student,instructor'
+  # Send the variables via query params, eg. '/courses/*id/notify_students?
+  #   sectiontitle=TITLE&text=TEXT&summary=SUMMARY&roles=student,instructor'
   # :sectiontitle, :text, :summary, :roles
-  # TODO WRITE TEST
+  # TODO: WRITE TEST
   def notify_students
     standard_setup
     recipients = []
     if params[:roles]
       recipient_roles = params[:roles].split(',')
       recipient_roles.each do |role|
-        recipients = recipients + @course.users.role(role)
+        recipients += @course.users.role(role)
       end
     else
       recipients = @course.users
