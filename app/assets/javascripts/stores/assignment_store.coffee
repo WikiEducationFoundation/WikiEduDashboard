@@ -1,3 +1,11 @@
 StockStore = require './stock_store'
 
-module.exports = new StockStore(null, null, null, 'assignment', null, ['SAVED_STUDENTS', 'ENROLLED_STUDENT']).store
+AssignmentStore = new StockStore(
+  modelKey: 'assignment'
+  triggers: [
+    'SAVED_STUDENTS',
+    'ENROLLED_STUDENT'
+  ]
+)
+
+module.exports = AssignmentStore.store

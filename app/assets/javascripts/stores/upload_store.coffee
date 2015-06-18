@@ -1,11 +1,13 @@
 StockStore = require './stock_store'
 
-# Sort state
-_sortKey = 'file_name'
-_sortAsc = true
-_descKeys =
-  usage_count: true
-  date: true
-  uploader: true
+UploadStore = new StockStore(
+  sortKey: 'file_name'
+  sortAsc: true
+  descKeys:
+    usage_count: true
+    date: true
+    uploader: true
+  modelKey: 'upload'
+)
 
-module.exports = new StockStore(_sortKey, _sortAsc, _descKeys, 'upload', null).store
+module.exports = UploadStore.store
