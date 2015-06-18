@@ -23,6 +23,7 @@
 # This should probably be in the Project (Wikipedia) namespace, and should be
 # a prefix that will only be used for this purpose.
   course_prefix: 'Wikipedia:Wiki_Ed'
+  course_talk_prefix: 'Wikipedia_talk:Wiki_Ed'
 
 # Setting disable_wiki_output to 'true' means course pages will not be mirrored
 # to the wiki.
