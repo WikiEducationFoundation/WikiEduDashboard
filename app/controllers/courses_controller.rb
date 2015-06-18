@@ -12,7 +12,8 @@ class CoursesController < ApplicationController
   def index
     if user_signed_in?
       if current_user.permissions > 0
-        @admin_courses = Course.where(submitted: true, approved: false)
+        @admin_courses = Course.includes(:cohorts).where('cohorts.id IS NULL')
+                         .references(:cohorts)
       end
 
       @user_courses = current_user.courses.select do |c|
@@ -23,7 +24,8 @@ class CoursesController < ApplicationController
     if params.key?(:cohort)
       @cohort = Cohort.includes(:students).find_by(slug: params[:cohort])
     elsif !Figaro.env.default_cohort.nil?
-      @cohort = Cohort.includes(:students).find_by(slug: Figaro.env.default_cohort)
+      slug = Figaro.env.default_cohort
+      @cohort = Cohort.includes(:students).find_by(slug: slug)
     end
     @cohort ||= nil
 
@@ -60,9 +62,8 @@ class CoursesController < ApplicationController
       :start,
       :end,
       :submitted,
-      :approved,
-      :published,
-      :listed
+      :listed,
+      :passcode
     )
   end
 
@@ -92,7 +93,6 @@ class CoursesController < ApplicationController
     respond_to do |format|
       format.json { render json: @course }
     end
-
   end
 
   def destroy
@@ -119,6 +119,19 @@ class CoursesController < ApplicationController
     users.role('online_volunteer') + users.role('campus_volunteer')
   end
 
+  def show
+    @course = Course.find_by_slug("#{params[:school]}/#{params[:titleterm]}")
+    is_instructor = (user_signed_in? && current_user.instructor?(@course))
+    if @course.listed || is_instructor || @course.nil?
+      respond_to do |format|
+        format.html { render }
+        format.json { render params[:endpoint] }
+      end
+    else
+      fail ActionController::RoutingError.new('Not Found'), 'Not permitted'
+    end
+  end
+
   def standard_setup
     @course = Course.find_by_slug(params[:id])
     @volunteers = volunteers
@@ -132,73 +145,22 @@ class CoursesController < ApplicationController
     update_course_talk
   end
 
-  def show
-    standard_setup
-    respond_to do |format|
-      format.html { render :overview }
-    end
-  end
-
-  def overview
-    standard_setup
-    @courses_users = @course.courses_users
-    @articles = @course.articles.order(:title).limit(4)
-
-    respond_to do |format|
-      format.json { render json: @course }
-      format.html { render }
-    end
-  end
-
+  ##################
+  # Helper methods #
+  ##################
   def check
     course_exists = Course.exists?(slug: params[:id])
     @course = Course.find_by_slug(params[:id]) || {}
-    @validation = { course_exists: course_exists, course: @course, params: params }
+    @validation = {
+      course_exists: course_exists,
+      course: @course,
+      params: params
+    }
     respond_to do |format|
       format.json { render json: @validation }
     end
   end
 
-  
-
-  def timeline
-    standard_setup
-  end
-
-  def students
-    standard_setup
-    return if @course.users.empty?
-    @courses_users = @course.courses_users
-                     .includes(user: { assignments: :article })
-                     .where(role: 0).order('users.wiki_id')
-  end
-
-  def articles
-    standard_setup
-    @articles_courses = @course.articles_courses.live
-                        .includes(:article).order('articles.title')
-    @articles_courses
-  end
-
-  def assignments
-    standard_setup
-  end
-
-  def activity
-    standard_setup
-    @revisions = @course.revisions.live
-                 .includes(:article).includes(:user).order(date: :desc)
-  end
-
-  def uploads
-    standard_setup
-    @uploads = @course.uploads
-    @uploads
-  end
-
-  ##################
-  # Helper methods #
-  ##################
   def manual_update
     @course = Course.where(listed: true).find_by_slug(params[:id])
     @course.manual_update if user_signed_in?
@@ -234,18 +196,20 @@ class CoursesController < ApplicationController
 
   # Will send custom message to course user's talk pages on Wikipedia
   # Responds to route '/notify_students'
-  # :roles is optional and will send to specific roles using comma-seperated string 'student,instructor', etc.
+  # :roles is optional and will send to specific roles using comma-seperated
+  #   string 'student,instructor', etc.
   # if :roles is omitted, will send , message to all course users
-  # Send the variables via query params, eg. '/courses/*id/notify_students?sectiontitle=TITLE&text=TEXT&summary=SUMMARY&roles=student,instructor'
+  # Send the variables via query params, eg. '/courses/*id/notify_students?
+  #   sectiontitle=TITLE&text=TEXT&summary=SUMMARY&roles=student,instructor'
   # :sectiontitle, :text, :summary, :roles
-  # TODO WRITE TEST
+  # TODO: WRITE TEST
   def notify_students
     standard_setup
     recipients = []
     if params[:roles]
       recipient_roles = params[:roles].split(',')
       recipient_roles.each do |role|
-        recipients = recipients + @course.users.role(role)
+        recipients += @course.users.role(role)
       end
     else
       recipients = @course.users

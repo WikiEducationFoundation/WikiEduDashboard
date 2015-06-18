@@ -192,7 +192,7 @@ API =
       console.log data
       $.ajax
         type: 'POST'
-        url: '/courses/' + course_id + '/students/enroll',
+        url: '/courses/' + course_id + '/students/add',
         contentType: 'application/json',
         data: JSON.stringify
           student: data

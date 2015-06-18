@@ -14,6 +14,14 @@ class ApplicationController < ActionController::Base
 
   before_action :set_locale
 
+  def after_sign_out_path_for(_resource_or_scope)
+    request.referrer
+  end
+
+  def after_sign_in_path_for(_resource_or_scope)
+    request.env['omniauth.origin'] || '/'
+  end
+
   def require_permissions
     course = Course.find_by_slug(params[:id])
     exception = ActionController::InvalidAuthenticityToken.new('Unauthorized')
@@ -21,7 +29,8 @@ class ApplicationController < ActionController::Base
   end
 
   def course_slug_path(slug)
-    show_path(id: slug)
+    slug_parts = slug.split('/')
+    show_path(school: slug_parts[0], titleterm: slug_parts[1])
   end
   helper_method :course_slug_path
 

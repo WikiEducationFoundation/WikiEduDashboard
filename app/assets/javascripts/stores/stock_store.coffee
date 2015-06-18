@@ -3,7 +3,7 @@
 McFly = require 'mcfly'
 Flux  = new McFly()
 
-StockStore = (helper, model_key, new_model, triggers) ->
+StockStore = (helper, model_key, default_model, triggers) ->
   plural_model_key = model_key + 's'
   Flux.createStore
     getFiltered: (options) ->
@@ -36,10 +36,9 @@ StockStore = (helper, model_key, new_model, triggers) ->
       when 'SORT_' + plural_model_key.toUpperCase()
         helper.sortByKey data.key
       when 'ADD_' + model_key.toUpperCase()
-        default_model = new_model || {
+        default_model = _.assign (default_model || {}),
           id: Date.now() # could THEORETICALLY collide but highly unlikely
           is_new: true # remove ids from objects with is_new when persisting
-        }
         helper.setModel _.assign default_model, data
       when 'UPDATE_' + model_key.toUpperCase()
         helper.setModel data[model_key]
@@ -50,13 +49,13 @@ StockStore = (helper, model_key, new_model, triggers) ->
     return true
 
 class Store
-  constructor: (SortKey, SortAsc, DescKeys, ModelKey, AddModel, Triggers=null) ->
+  constructor: (opts) ->
     @models = {}
     @persisted = {}
-    @sortKey = SortKey
-    @sortAsc = SortAsc
-    @descKeys = DescKeys
-    @store = StockStore(@, ModelKey, AddModel, Triggers)
+    @sortKey = opts.sortKey
+    @sortAsc = opts.sortAsc
+    @descKeys = opts.descKeys
+    @store = StockStore(@, opts.modelKey, opts.defaultModel, opts.triggers)
 
   # Utilities
   setModels: (data, persisted=false) ->

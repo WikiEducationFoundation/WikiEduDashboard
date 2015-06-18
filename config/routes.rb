@@ -32,35 +32,25 @@ Rails.application.routes.draw do
         :as => :manual_update, constraints: { id: /.*/ }
     get 'courses/*id/notify_untrained' => 'courses#notify_untrained',
         :as => :notify_untrained, constraints: { id: /.*/ }
-    get 'courses/*id/notify_students(/:notification_type)' => 'courses#notify_students',
+    get 'courses/*id/notify_students(/:type)' => 'courses#notify_students',
         :as => :notify_students, constraints: { id: /.*/ }
     get 'courses/*id/update_course_talk' => 'courses#update_course_talk',
         :as => :update_course_talk, constraints: { id: /.*/ }
 
-    get 'courses/*id/overview' => 'courses#overview',
-        :as => :overview, constraints: { id: /.*/ }
     get 'courses/*id/check' => 'courses#check',
         :as => :check, constraints: { id: /.*/ }
-    get 'courses/*id/timeline(/*any)' => 'courses#timeline',
-        :as => :timeline, constraints: { id: /.*/ }
-    get 'courses/*id/activity' => 'courses#activity',
-        :as => :activity, constraints: { id: /.*/ }
-    get 'courses/*id/students' => 'courses#students',
-        :as => :students, constraints: { id: /.*/ }
-    get 'courses/*id/articles' => 'courses#articles',
-        :as => :articles, constraints: { id: /.*/ }
-    get 'courses/*id/assignments' => 'courses#assignments',
-        :as => :assignments, constraints: { id: /.*/ }
-    get 'courses/*id/uploads' => 'courses#uploads',
-        :as => :uploads, constraints: { id: /.*/ }
+    get 'courses/:school/:titleterm(/:endpoint(/*any))' => 'courses#show',
+        defaults: { endpoint: 'overview' }, :as => 'show'
   end
 
   # Enrollment
+  get 'courses/:course_id/enroll/:passcode' => 'users#enroll',
+      constraints: { course_id: /.*/ }
   post 'courses/:course_id/students' => 'users#save',
        constraints: { course_id: /.*/ }
-  delete 'courses/:course_id/students' => 'users#unenroll',
+  delete 'courses/:course_id/students' => 'users#remove',
          constraints: { course_id: /.*/ }
-  post 'courses/:course_id/students/enroll' => 'users#enroll',
+  post 'courses/:course_id/students/add' => 'users#add',
        constraints: { course_id: /.*/ }
   post 'courses/:course_id/students/:user_id/setrole' => 'users#setrole',
        constraints: { course_id: /.*/ }
@@ -87,7 +77,7 @@ Rails.application.routes.draw do
   # Misc
   get 'courses' => 'courses#index'
   get 'talk' => 'courses#talk'
-  get 'courses/*id' => 'courses#show', :as => :show, constraints: { id: /.*/ }
+  # get 'courses/*id' => 'courses#show', :as => :show, constraints: { id: /.*/ }
 
   # Root
   root to: 'courses#index'

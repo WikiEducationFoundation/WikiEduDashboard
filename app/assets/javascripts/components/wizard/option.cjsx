@@ -6,6 +6,7 @@ Option = React.createClass(
   select: ->
     WizardActions.toggleOptionSelected @props.panel_index, @props.index
   expand: ->
+    $(React.findDOMNode(@refs.expandable)).toggleHeight()
     WizardActions.toggleOptionExpanded @props.panel_index, @props.index
   render: ->
     className = 'wizard__option section-header'
@@ -20,7 +21,7 @@ Option = React.createClass(
         expand_className += ' open'
         more_className += ' open'
       expand = (
-        <div className={expand_className}>
+        <div className={expand_className} ref='expandable'>
           <p>{@props.option.description}</p>
         </div>
       )

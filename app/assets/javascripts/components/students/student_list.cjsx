@@ -10,7 +10,6 @@ StudentStore      = require '../../stores/student_store'
 AssignmentStore   = require '../../stores/assignment_store'
 UIActions         = require '../../actions/ui_actions'
 ServerActions     = require '../../actions/server_actions'
-StudentActions    = require '../../actions/student_actions'
 
 getState = ->
   students: StudentStore.getModels()
