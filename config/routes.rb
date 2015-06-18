@@ -34,6 +34,8 @@ Rails.application.routes.draw do
         :as => :notify_untrained, constraints: { id: /.*/ }
     get 'courses/*id/notify_students(/:notification_type)' => 'courses#notify_students',
         :as => :notify_students, constraints: { id: /.*/ }
+    get 'courses/*id/update_course_talk' => 'courses#update_course_talk',
+        :as => :update_course_talk, constraints: { id: /.*/ }
 
     get 'courses/*id/overview' => 'courses#overview',
         :as => :overview, constraints: { id: /.*/ }

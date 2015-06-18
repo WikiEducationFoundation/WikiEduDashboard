@@ -129,6 +129,7 @@ class CoursesController < ApplicationController
 
   def raw
     standard_setup
+    update_course_talk
   end
 
   def show
@@ -211,6 +212,25 @@ class CoursesController < ApplicationController
     redirect_to show_path(@course)
   end
   helper_method :notify_untrained
+
+  
+  # Send the variables via query params, eg. '/courses/*id/update_course_talk?section=0&text=TEXT&contenttype=markdown'
+  # optional 'pagetitle={PAGETITLE}' to explicitly target a page
+  # otherwise will post to page using Figaro.env.course_talk_prefix + course.slug
+  # contenttype can be 'markdown', which will be converted to wikitext, or send wikitext to it directly
+  # will not post anything unless text parameter has content
+  # TODO Tests
+  def update_course_talk
+    standard_setup
+    content = {
+      section: params[:section] || 'new',
+      text: params[:text] || '',
+      contenttype: params[:contenttype] || 'markdown'
+    }
+    WikiEdits.update_course_talk(@course, current_user, content)
+    redirect_to show_path(@course)
+  end
+  helper_method :update_course_talk
 
   # Will send custom message to course user's talk pages on Wikipedia
   # Responds to route '/notify_students'
