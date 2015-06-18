@@ -11,7 +11,7 @@ TextInput = React.createClass(
     spacer = @props.spacer || <span>: </span>
     if @props.label
       label = @props.label
-    value = @props.value
+    value = @props.value || @props.placeholder
     if @props.type == 'date'
       v_date = moment(value)
       value = v_date.format('YYYY-MM-DD')
@@ -23,7 +23,7 @@ TextInput = React.createClass(
         inputClass = 'invalid'
       <label>
         <span className={labelClass}>{label}</span>
-        {spacer if @props.value? or @props.editable}
+        {spacer if @props.value? or @props.placeholder? or @props.editable}
         <input
           className={inputClass}
           id={@props.id || ''}
@@ -37,7 +37,7 @@ TextInput = React.createClass(
     else if @props.label
       <p>
         <span>{label}</span>
-        {spacer if @props.value? or @props.editable}
+        {spacer if @props.value? or @props.placeholder? or @props.editable}
         <span>{value}</span>
       </p>
     else

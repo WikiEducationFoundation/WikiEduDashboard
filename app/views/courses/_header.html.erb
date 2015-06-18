@@ -48,7 +48,7 @@
   </div>
 </div>
 <% end %>
-<% if !(@course.listed || @course.approved || @course.published) && current_user.can_edit?(@course) %>
+<% if !(@course.listed) && current_user.can_edit?(@course) %>
 <div class="container">
   <div class="alert module">
     <div class="container">

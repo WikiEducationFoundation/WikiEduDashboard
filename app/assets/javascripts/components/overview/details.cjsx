@@ -14,6 +14,7 @@ getState = (course_id) ->
     term: course_tmp.term
     start: course_tmp.start
     end: course_tmp.end
+    passcode: course_tmp.passcode
     instructors: if course_tmp.instructors == undefined then '' else $.map(course_tmp.instructors, (inst, i) ->
       inst.wiki_id + (if i == course_tmp.instructors.length - 1 then '' else ', ')
     )
@@ -28,6 +29,22 @@ Details = React.createClass(
     to_pass[value_key] = value
     CourseActions.updateCourse to_pass
   render: ->
+    if @props.current_user.role > 0
+      passcode = (
+        <fieldset>
+          <TextInput
+            onChange={@updateDetails}
+            value={@props.course.passcode}
+            value_key='passcode'
+            editable={@props.editable}
+            type='text'
+            autoExpand=true
+            label='Passcode'
+            placeholder='Not set'
+          />
+        </fieldset>
+      )
+
     <div className='module'>
       <div className="section-header">
         <h3>Details</h3>
@@ -38,6 +55,7 @@ Details = React.createClass(
         <p><span>Volunteers: {@props.course.volunteers}</span></p>
         <p><span>School: {@props.course.school}</span></p>
         <p><span>Term: {@props.course.term}</span></p>
+        {passcode}
         <fieldset>
           <TextInput
             onChange={@updateDetails}

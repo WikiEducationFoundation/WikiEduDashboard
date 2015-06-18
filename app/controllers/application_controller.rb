@@ -14,14 +14,12 @@ class ApplicationController < ActionController::Base
 
   before_action :set_locale
 
-  def after_sign_out_path_for(resource_or_scope)
+  def after_sign_out_path_for(_resource_or_scope)
     request.referrer
   end
 
-  def after_sign_in_path_for(resource_or_scope)
-    if request.env['omniauth.origin']
-      request.env['omniauth.origin']
-    end
+  def after_sign_in_path_for(_resource_or_scope)
+    request.env['omniauth.origin'] || '/'
   end
 
   def require_permissions

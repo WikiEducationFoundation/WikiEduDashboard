@@ -11,6 +11,7 @@ json.course do
   json.view_count number_to_human @course.view_sum
 
   json.published CohortsCourses.exists?(course_id: @course.id)
+  json.passcode @course.passcode if user_signed_in? && current_user.role(@course) > 0
 
   # json.partial! 'courses/uploads', course: @course
   # json.partial! 'courses/students', course: @course

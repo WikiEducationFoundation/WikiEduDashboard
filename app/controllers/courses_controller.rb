@@ -61,7 +61,8 @@ class CoursesController < ApplicationController
       :start,
       :end,
       :submitted,
-      :listed
+      :listed,
+      :passcode
     )
   end
 

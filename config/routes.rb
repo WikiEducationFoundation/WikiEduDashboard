@@ -54,11 +54,13 @@ Rails.application.routes.draw do
   end
 
   # Enrollment
+  get 'courses/:course_id/enroll/:passcode' => 'users#enroll',
+      constraints: { course_id: /.*/ }
   post 'courses/:course_id/students' => 'users#save',
        constraints: { course_id: /.*/ }
-  delete 'courses/:course_id/students' => 'users#unenroll',
+  delete 'courses/:course_id/students' => 'users#remove',
          constraints: { course_id: /.*/ }
-  post 'courses/:course_id/students/enroll' => 'users#enroll',
+  post 'courses/:course_id/students/add' => 'users#add',
        constraints: { course_id: /.*/ }
   post 'courses/:course_id/students/:user_id/setrole' => 'users#setrole',
        constraints: { course_id: /.*/ }
