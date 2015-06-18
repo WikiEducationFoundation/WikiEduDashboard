@@ -24,7 +24,8 @@ class CoursesController < ApplicationController
     if params.key?(:cohort)
       @cohort = Cohort.includes(:students).find_by(slug: params[:cohort])
     elsif !Figaro.env.default_cohort.nil?
-      @cohort = Cohort.includes(:students).find_by(slug: Figaro.env.default_cohort)
+      slug = Figaro.env.default_cohort
+      @cohort = Cohort.includes(:students).find_by(slug: slug)
     end
     @cohort ||= nil
 
@@ -92,7 +93,6 @@ class CoursesController < ApplicationController
     respond_to do |format|
       format.json { render json: @course }
     end
-
   end
 
   def destroy
@@ -140,15 +140,35 @@ class CoursesController < ApplicationController
 
   def overview
     standard_setup
-    @courses_users = @course.courses_users
-    @articles = @course.articles.order(:title).limit(4)
-
-    respond_to do |format|
-      format.json { render json: @course }
-      format.html { render }
-    end
   end
 
+  def timeline
+    standard_setup
+  end
+
+  def students
+    standard_setup
+  end
+
+  def articles
+    standard_setup
+  end
+
+  def assignments
+    standard_setup
+  end
+
+  def activity
+    standard_setup
+  end
+
+  def uploads
+    standard_setup
+  end
+
+  ##################
+  # Helper methods #
+  ##################
   def check
     course_exists = Course.exists?(slug: params[:id])
     @course = Course.find_by_slug(params[:id]) || {}
@@ -158,46 +178,6 @@ class CoursesController < ApplicationController
     end
   end
 
-
-
-  def timeline
-    standard_setup
-  end
-
-  def students
-    standard_setup
-    return if @course.users.empty?
-    @courses_users = @course.courses_users
-                     .includes(user: { assignments: :article })
-                     .where(role: 0).order('users.wiki_id')
-  end
-
-  def articles
-    standard_setup
-    @articles_courses = @course.articles_courses.live
-                        .includes(:article).order('articles.title')
-    @articles_courses
-  end
-
-  def assignments
-    standard_setup
-  end
-
-  def activity
-    standard_setup
-    @revisions = @course.revisions.live
-                 .includes(:article).includes(:user).order(date: :desc)
-  end
-
-  def uploads
-    standard_setup
-    @uploads = @course.uploads
-    @uploads
-  end
-
-  ##################
-  # Helper methods #
-  ##################
   def manual_update
     @course = Course.where(listed: true).find_by_slug(params[:id])
     @course.manual_update if user_signed_in?
