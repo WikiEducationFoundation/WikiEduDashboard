@@ -7,7 +7,6 @@ TransitionGroup   = require '../../utils/TransitionGroup'
 Timeline          = require './timeline'
 Grading           = require './grading'
 Wizard            = require '../wizard/wizard'
-HandlerInterface  = require '../highlevels/handler'
 ServerActions     = require '../../actions/server_actions'
 
 

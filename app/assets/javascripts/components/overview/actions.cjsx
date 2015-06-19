@@ -5,8 +5,8 @@ CourseStore       = require '../../stores/course_store'
 getState = (course_id) ->
   course: CourseStore.getCourse()
 
-Controls = React.createClass(
-  displayName: 'Controls'
+Actions = React.createClass(
+  displayName: 'Actions'
   mixins: [CourseStore.mixin]
   storeDidChange: ->
     @setState getState()
@@ -23,6 +23,11 @@ Controls = React.createClass(
       user_obj = { user_id: @props.current_user.id, role: 0 }
       ServerActions.unenrollStudent user_obj, @state.course.slug
   delete: ->
+    entered_title = prompt 'Are you sure you want to delete this course? If so, enter the title of the course to proceed.'
+    if entered_title == @state.course.title
+      ServerActions.deleteCourse @state.course.slug
+    else
+      alert('"' + entered_title + '" is not the title of this course. The course has not been deleted.')
   render: ->
     controls = []
     user = @props.current_user
@@ -31,9 +36,9 @@ Controls = React.createClass(
         controls.push (
           <p key='leave'><span className='button dark' onClick={@leave}>Leave course</span></p>
         )
-      else if user.role == 1 && !@state.course.listed
+      if (user.role == 1 || user.admin) && !@state.course.listed
         controls.push (
-          <p key='delete'><span className='button dark red'>Delete course</span></p>
+          <p key='delete'><span className='button dark red' onClick={@delete}>Delete course</span></p>
         )
     else
       controls.push (
@@ -57,4 +62,4 @@ Controls = React.createClass(
     </div>
 )
 
-module.exports = Controls
+module.exports = Actions

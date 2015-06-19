@@ -43,7 +43,7 @@ StockStore = (helper, model_key, default_model, triggers) ->
       when 'UPDATE_' + model_key.toUpperCase()
         helper.setModel data[model_key]
       when 'DELETE_' + model_key.toUpperCase()
-        helper.removeModel data.model_id
+        helper.removeModel data
     if triggers? && payload.actionType in triggers
       helper.setModels data.course[plural_model_key], true
     return true
@@ -55,15 +55,21 @@ class Store
     @sortKey = opts.sortKey
     @sortAsc = opts.sortAsc
     @descKeys = opts.descKeys
+    @uniqueKeys = opts.uniqueKeys || ['id']
     @store = StockStore(@, opts.modelKey, opts.defaultModel, opts.triggers)
 
   # Utilities
+  getKey: (model) ->
+    @uniqueKeys.map((key) ->
+      model[key]
+    ).join()
+
   setModels: (data, persisted=false) ->
     @models = {}
     return unless data?
     for model, i in data
-      @models[model.id] = model
-      @persisted[model.id] = $.extend(true, {}, model) if persisted
+      @models[@getKey(model)] = model
+      @persisted[@getKey(model)] = $.extend(true, {}, model) if persisted
     @store.emitChange()
 
   updatePersisted: ->
@@ -71,10 +77,11 @@ class Store
       @persisted[model_id] = $.extend(true, {}, @models[model_id])
 
   setModel: (data) ->
-    @models[data.id] = data
+    @models[@getKey(data)] = data
     @store.emitChange()
 
-  removeModel: (model_id) ->
+  removeModel: (model) ->
+    model_id = @getKey(model)
     model = @models[model_id]
     if model.is_new
       delete @models[model_id]

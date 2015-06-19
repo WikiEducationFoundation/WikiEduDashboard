@@ -11,7 +11,8 @@ UserStore = new StockStore(
     wiki_id: ""
   triggers: [
     'ENROLLED_STUDENT'
-  ]
+  ],
+  uniqueKeys: ['id', 'role']
 )
 
 module.exports = UserStore.store

@@ -2,7 +2,6 @@ React             = require 'react/addons'
 Router            = require 'react-router'
 RouteHandler      = Router.RouteHandler
 
-HandlerInterface  = require '../highlevels/handler'
 StudentList       = require './student_list'
 UIActions         = require '../../actions/ui_actions'
 ServerActions     = require '../../actions/server_actions'
@@ -11,7 +10,6 @@ ServerActions     = require '../../actions/server_actions'
 StudentsHandler = React.createClass(
   displayName: 'StudentsHandler'
   componentWillMount: ->
-    ServerActions.fetchUsers @props.course_id
     ServerActions.fetchAssignments @props.course_id
   sortSelect: (e) ->
     UIActions.sort 'students', e.target.value

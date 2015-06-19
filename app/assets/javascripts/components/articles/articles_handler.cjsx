@@ -1,6 +1,5 @@
 React             = require 'react/addons'
 Router            = require 'react-router'
-HandlerInterface  = require '../highlevels/handler'
 ArticleList       = require './article_list'
 UIActions         = require '../../actions/ui_actions'
 AssignmentList    = require '../assignments/assignment_list'

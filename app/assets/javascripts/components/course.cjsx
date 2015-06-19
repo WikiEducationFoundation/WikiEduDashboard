@@ -2,21 +2,27 @@ React             = require 'react'
 Router            = require 'react-router'
 Link              = Router.Link
 RouteHandler      = Router.RouteHandler
-HandlerInterface  = require './highlevels/handler'
 ServerActions     = require '../actions/server_actions'
 CourseActions     = require '../actions/course_actions'
 CourseStore       = require '../stores/course_store'
+UserStore         = require '../stores/user_store'
 
 getState = ->
-  course: CourseStore.getCourse()
+  current = $('#react_root').data('current_user')
+  cu = UserStore.getFiltered({ id: current.id })[0]
+  return {
+    course: CourseStore.getCourse()
+    current_user: cu || current
+  }
 
 Course = React.createClass(
   displayName: 'Course'
-  mixins: [CourseStore.mixin]
+  mixins: [CourseStore.mixin, UserStore.mixin]
   contextTypes:
     router: React.PropTypes.func.isRequired
   componentWillMount: ->
     ServerActions.fetchCourse @getCourseID()
+    ServerActions.fetchUsers @getCourseID()
   getInitialState: ->
     getState()
   storeDidChange: ->
@@ -27,18 +33,12 @@ Course = React.createClass(
     params = @context.router.getCurrentParams()
     return params.course_school + '/' + params.course_title
   getCurrentUser: ->
-    if $('#react_root').attr('data-current_user')
-      $('#react_root').data('current_user')
-    else null
+    @state.current_user
   submit: (e) ->
     e.preventDefault()
     to_pass = $.extend(true, {}, @state.course)
     to_pass['submitted'] = true
     CourseActions.updateCourse to_pass, true
-  delete: (e) ->
-    e.preventDefault()
-    console.log @getCourseID()
-    ServerActions.deleteCourse @getCourseID()
   routeParams: ->
     @context.router.getCurrentParams()
   render: ->
@@ -62,13 +62,6 @@ Course = React.createClass(
       alerts.push (
         <div className='container module text-center' key='publish'>
           <p>This course has been submitted for approval by its creator. <a href="#">Click here</a> to add it to a cohort!</p>
-        </div>
-      )
-
-    if !(@state.course.listed || @state.course.published) && @getCurrentUser().role == 1
-      alerts.push (
-        <div className="container alert module text-center" key='delete'>
-          <p>You will be able to delete this course as long as it remains unpublished. <a href='#' onClick={@delete}>Click here</a> to delete the course now.</p>
         </div>
       )
 

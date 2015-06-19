@@ -1,10 +1,9 @@
 React         = require 'react'
-Controls      = require './controls'
+Actions       = require './actions'
 Description   = require './description'
 Details       = require './details'
 Grading       = require './grading'
 ThisWeek      = require '../timeline/this_week'
-Handler       = require '../highlevels/handler'
 ServerActions     = require '../../actions/server_actions'
 
 getState = ->
@@ -13,7 +12,6 @@ getState = ->
 Overview = React.createClass(
   displayName: 'Overview'
   componentDidMount: ->
-    ServerActions.fetchUsers @props.course_id
     ServerActions.fetchTimeline @props.course_id
   render: ->
     <section className='overview container'>
@@ -23,7 +21,7 @@ Overview = React.createClass(
       </div>
       <div className='sidebar'>
         <Details {...@props} />
-        <Controls {...@props} />
+        <Actions {...@props} />
       </div>
     </section>
 )

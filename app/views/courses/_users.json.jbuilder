@@ -1,6 +1,7 @@
 json.users course.courses_users do |cu|
   json.(cu, :character_sum_ms, :character_sum_us, :role)
   json.(cu.user, :id, :wiki_id, :trained, :contribution_url)
+  json.admin cu.user.permissions == 1
 
   if cu.role == 0
     json.revisions cu.user.revisions.order(date: :desc).limit(10) do |rev|

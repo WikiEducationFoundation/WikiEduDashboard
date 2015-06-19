@@ -8,7 +8,6 @@ Modal         = require '../common/modal'
 WizardActions = require '../../actions/wizard_actions'
 ServerActions = require '../../actions/server_actions'
 WizardStore   = require '../../stores/wizard_store'
-HandlerInterface  = require '../highlevels/handler'
 TransitionGroup   = require '../../utils/TransitionGroup'
 
 getState = ->

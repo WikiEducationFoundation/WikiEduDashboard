@@ -163,7 +163,6 @@ API =
           rej e
 
   deleteCourse: (course_id) ->
-    console.log 'woop'
     $.ajax
       type: 'DELETE'
       url: '/courses/' + course_id

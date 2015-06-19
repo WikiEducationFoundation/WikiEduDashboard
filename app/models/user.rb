@@ -27,7 +27,6 @@ class User < ActiveRecord::Base
   def roles(course)
     {
       id: id,
-      role: role(course),
       admin: admin?
     }
   end
