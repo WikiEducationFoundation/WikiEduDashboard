@@ -44,7 +44,11 @@ Rails.application.routes.draw do
     get 'courses/*id/check' => 'courses#check',
         :as => :check, constraints: { id: /.*/ }
     get 'courses/:school/:titleterm(/:endpoint(/*any))' => 'courses#show',
-        defaults: { endpoint: 'overview' }, :as => 'show'
+        defaults: { endpoint: 'overview' }, :as => 'show',
+        constraints: {
+          school: /[^\/]*/,
+          titleterm: /[^\/]*/
+        }
   end
 
   # Enrollment
