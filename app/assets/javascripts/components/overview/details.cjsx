@@ -6,11 +6,14 @@ CourseStore       = require '../../stores/course_store'
 UserStore         = require '../../stores/user_store'
 CourseActions     = require '../../actions/course_actions'
 ServerActions     = require '../../actions/server_actions'
+InlineUsers       = require './inline_users'
 
 getState = (course_id) ->
   course: CourseStore.getCourse()
   instructors: UserStore.getFiltered({ role: 1 })
-  volunteers: UserStore.getFiltered({ role: 4 })
+  online: UserStore.getFiltered({ role: 2 })
+  campus: UserStore.getFiltered({ role: 3 })
+  staff: UserStore.getFiltered({ role: 4 })
 
 Details = React.createClass(
   displayName: 'Details'
@@ -19,12 +22,12 @@ Details = React.createClass(
     to_pass[value_key] = value
     CourseActions.updateCourse to_pass
   render: ->
-    instructor_list = _.pluck(@props.instructors, 'wiki_id').join(', ')
-    instructors = <p><span>Instructors: {instructor_list}</span></p> if instructor_list.length > 0
-    volunteer_list = _.pluck(@props.volunteers, 'wiki_id').join(', ')
-    volunteers = <p><span>Volunteers: {volunteer_list}</span></p> if volunteer_list.length > 0
+    instructors = <InlineUsers {...@props} users={@props.instructors} role={1} title='Instructors' />
+    online = <InlineUsers {...@props} users={@props.online} role={2} title='Online Volunteers' />
+    campus = <InlineUsers {...@props} users={@props.campus} role={3} title='Campus Volunteers' />
+    staff = <InlineUsers {...@props} users={@props.staff} role={4} title='Wiki Edu Staff' />
 
-    if @props.current_user.role > 0
+    if @props.current_user.role > 0 || @props.current_user.admin
       passcode = (
         <fieldset>
           <TextInput
@@ -47,7 +50,9 @@ Details = React.createClass(
       </div>
       <div className='module__data'>
         {instructors}
-        {volunteers}
+        {online}
+        {campus}
+        {staff}
         <p><span>School: {@props.course.school}</span></p>
         <p><span>Term: {@props.course.term}</span></p>
         {passcode}

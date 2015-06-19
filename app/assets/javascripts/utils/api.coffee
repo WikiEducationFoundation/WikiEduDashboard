@@ -171,6 +171,31 @@ API =
       failure: (e) ->
         console.log 'Couldn\'t delete course'
 
+  # TODO: This should add a task to a queue and return immediately
+  manualUpdate: (course_id) ->
+    new Promise (res, rej) ->
+      $.ajax
+        type: 'GET'
+        url: '/courses/' + course_id + '/manual_update'
+        success: (data) ->
+          console.log 'Course updated!'
+          res data
+        failure: (e) ->
+          console.log 'Couldn\'t update the course! ' + e
+          rej e
+
+  notifyUntrained: (course_id) ->
+    new Promise (res, rej) ->
+      $.ajax
+        type: 'GET'
+        url: '/courses/' + course_id + '/notify_untrained'
+        success: (data) ->
+          console.log 'Untrained students notified!'
+          res data
+        failure: (e) ->
+          console.log 'Couldn\'t notify untrained students! ' + e
+          rej e
+
   submitWizard: (course_id, wizard_id, data) ->
     new Promise (res, rej) ->
       $.ajax

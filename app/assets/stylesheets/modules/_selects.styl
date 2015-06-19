@@ -1,14 +1,17 @@
 .notify_untrained
   background url('../images/message.svg') no-repeat 50% white
+  border 1px solid mischka
+  cursor pointer
+  display inline-block
+  float right
+  height 40px
+  margin-left 10px
+  position relative
   width 64px
   &.loading
     background url('../images/loader.gif') no-repeat 50% white
-  +above(desktop)
-    right 74px !important
-  &:hover
-    border 3px solid smoke
 
-.cohort-select, .sort-select, .notify_untrained
+.cohort-select, .sort-select
   border 3px solid smoke
   cursor pointer
   float left

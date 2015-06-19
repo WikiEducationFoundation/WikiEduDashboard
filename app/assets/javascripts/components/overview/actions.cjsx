@@ -16,7 +16,7 @@ Actions = React.createClass(
     passcode = prompt('Enter the passcode given to you by your instructor for this course')
     if passcode && passcode == @state.course.passcode
       window.location = '/courses/' + @state.course.slug + '/enroll/' + passcode
-    else
+    else if passcode?
       alert 'That passcode is invalid.'
   leave: ->
     if confirm 'Are you sure you want to leave this course?'
@@ -26,24 +26,29 @@ Actions = React.createClass(
     entered_title = prompt 'Are you sure you want to delete this course? If so, enter the title of the course to proceed.'
     if entered_title == @state.course.title
       ServerActions.deleteCourse @state.course.slug
-    else
+    else if entered_title?
       alert('"' + entered_title + '" is not the title of this course. The course has not been deleted.')
+  update: ->
+    ServerActions.manualUpdate @state.course.slug
   render: ->
     controls = []
     user = @props.current_user
     if user.role?
+      # controls.push (
+      #   <p key='update'><span className='button' onClick={@update}>Update course</span></p>
+      # )
       if user.role == 0
         controls.push (
-          <p key='leave'><span className='button dark' onClick={@leave}>Leave course</span></p>
+          <p key='leave'><span className='button' onClick={@leave}>Leave course</span></p>
         )
       if (user.role == 1 || user.admin) && !@state.course.listed
         controls.push (
-          <p key='delete'><span className='button dark red' onClick={@delete}>Delete course</span></p>
+          <p key='delete'><span className='button danger' onClick={@delete}>Delete course</span></p>
         )
     else
       controls.push (
         <p key='join'>
-          <span className='button dark' onClick={@join}>Join course</span>
+          <span className='button' onClick={@join}>Join course</span>
         </p>
       )
 

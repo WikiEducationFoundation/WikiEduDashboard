@@ -4,6 +4,7 @@ json.course do
                  :passcode)
 
   json.legacy @course.id < 10000
+  json.ended !current?(@course) && @course.start < Time.now
 
   json.created_count number_to_human @course.revisions.joins(:article).where(articles: {namespace: 0}).where(new_article: true).count
   json.edited_count number_to_human @course.article_count

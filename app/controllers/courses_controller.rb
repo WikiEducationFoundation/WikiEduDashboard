@@ -163,17 +163,16 @@ class CoursesController < ApplicationController
   def manual_update
     @course = Course.where(listed: true).find_by_slug(params[:id])
     @course.manual_update if user_signed_in?
-    redirect_to show_path(@course)
+    render nothing: true, status: :ok
   end
   helper_method :manual_update
 
   def notify_untrained
     standard_setup
-    WikiEdits.notify_untrained(params[:course], current_user)
-    redirect_to show_path(@course)
+    WikiEdits.notify_untrained(@course.id, current_user)
+    render nothing: true, status: :ok
   end
   helper_method :notify_untrained
-
 
   # Send the variables via query params, eg. '/courses/*id/update_course_talk?section=0&text=TEXT&contenttype=markdown'
   # optional 'pagetitle={PAGETITLE}' to explicitly target a page

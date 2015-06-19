@@ -57,6 +57,12 @@ ServerActions = Flux.createActions
   deleteCourse: (course_id) ->
     # This redirects, no need for an action to be broadcast
     API.deleteCourse(course_id)
+  manualUpdate: (course_id) ->
+    API.manualUpdate(course_id).then (data) ->
+      { actionType: 'MANUAL_UPDATE', data: data }
+  notifyUntrained: (course_id) ->
+    API.notifyUntrained(course_id).then (data) ->
+      { actionType: 'NOTIFIED_UNTRAINED', data: data }
 
   enrollStudent: (data, course_id) ->
     API.enrollStudent(data, course_id).then (data) ->
