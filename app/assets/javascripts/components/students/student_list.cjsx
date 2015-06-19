@@ -22,6 +22,9 @@ StudentList = React.createClass(
     @refs[key].open()
   save: ->
     ServerActions.saveStudents $.extend(true, {}, getState()), @props.course_id
+  notify: ->
+    if confirm 'This will post a reminder on the talk pages of all students who have not completed training. Are you sure you want to do this?'
+      ServerActions.notifyUntrained @props.course_id
   render: ->
     students = @props.students.map (student) =>
       open_drawer = if student.revisions.length > 0 then @openDrawer.bind(@, student.id) else null
@@ -43,7 +46,8 @@ StudentList = React.createClass(
         ref={student.id + '_drawer'} />
     elements = _.flatten(_.zip(students, drawers))
 
-    add_student = <AddStudentButton {...@props} />
+    add_student = <AddStudentButton {...@props} key='add_student' />
+    notify_untrained = <div className='notify_untrained' onClick={@notify} key='notify'></div>
 
     keys =
       'wiki_id':
@@ -63,7 +67,7 @@ StudentList = React.createClass(
         'desktop_only': true
 
     <div className='list__wrapper'>
-      {@props.controls(add_student)}
+      {@props.controls([add_student, notify_untrained])}
       <List
         elements={elements}
         keys={keys}

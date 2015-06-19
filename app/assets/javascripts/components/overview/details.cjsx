@@ -24,7 +24,7 @@ Details = React.createClass(
     volunteer_list = _.pluck(@props.volunteers, 'wiki_id').join(', ')
     volunteers = <p><span>Volunteers: {volunteer_list}</span></p> if volunteer_list.length > 0
 
-    if @props.current_user.role > 0
+    if @props.current_user.role > 0 || @props.current_user.admin
       passcode = (
         <fieldset>
           <TextInput
