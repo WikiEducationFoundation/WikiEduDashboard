@@ -142,7 +142,6 @@ class CoursesController < ApplicationController
 
   def raw
     standard_setup
-    update_course_talk
   end
 
   ##################
@@ -175,7 +174,7 @@ class CoursesController < ApplicationController
   end
   helper_method :notify_untrained
 
-  
+
   # Send the variables via query params, eg. '/courses/*id/update_course_talk?section=0&text=TEXT&contenttype=markdown'
   # optional 'pagetitle={PAGETITLE}' to explicitly target a page
   # otherwise will post to page using Figaro.env.course_talk_prefix + course.slug

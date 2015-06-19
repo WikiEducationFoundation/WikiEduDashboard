@@ -3,6 +3,8 @@ json.course do
                  :term, :subject, :slug, :url, :listed, :submitted, :listed,
                  :passcode)
 
+  json.legacy @course.id < 10000
+
   json.created_count number_to_human @course.revisions.joins(:article).where(articles: {namespace: 0}).where(new_article: true).count
   json.edited_count number_to_human @course.article_count
   json.edit_count number_to_human @course.revisions.count

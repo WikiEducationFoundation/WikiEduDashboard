@@ -45,27 +45,27 @@ Course = React.createClass(
     route_params = @context.router.getCurrentParams()
 
     alerts = []
-    if !(@state.course.submitted || @state.course.published || @state.listed)
+    if !(@state.course.submitted || @state.course.published || @state.listed) && !@state.course.legacy
       alerts.push (
         <div className='container module text-center' key='submit'>
           <p>Your course is not yet published on the Wiki Edu platform. <a href="#" onClick={@submit}>Click here</a> to submit it for approval by Wiki Edu staff.</p>
         </div>
       )
-    else if @state.course.submitted && !@state.course.published && !@getCurrentUser().admin
+    else if @state.course.submitted && !@state.course.published && !@getCurrentUser().admin && !@state.course.legacy
       alerts.push (
         <div className='container module text-center' key='submit'>
           <p>Your course has been submitted for addition to a cohort. Wiki Edu staff will review and get in touch with any questions.</p>
         </div>
       )
 
-    if @state.course.submitted && !@state.course.published && @getCurrentUser().admin
+    if @state.course.submitted && !@state.course.published && @getCurrentUser().admin && !@state.course.legacy
       alerts.push (
         <div className='container module text-center' key='publish'>
           <p>This course has been submitted for approval by its creator. <a href="#">Click here</a> to add it to a cohort!</p>
         </div>
       )
 
-    if @state.course.id >= 10000
+    unless @state.course.legacy
       timeline = (
         <div className="nav__item" id="timeline-link">
           <p><Link params={route_params} to="timeline">Timeline</Link></p>
