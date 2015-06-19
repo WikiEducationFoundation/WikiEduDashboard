@@ -38,6 +38,31 @@ class WikiEdits
     end
   end
 
+  def self.update_course_talk(course, current_user, content, clear = false)
+    require './lib/wiki_course_output'
+    @course = course
+    return unless current_user.wiki_id? && @course.slug?
+    return if content[:text] == ''
+    tokens = WikiEdits.tokens(current_user)
+
+    if content[:contenttype] == 'markdown'
+      text = WikiCourseOutput.markdown_to_mediawiki(content[:text])
+    else
+      text = content[:text]
+    end
+    course_talk_prefix = Figaro.env.course_talk_prefix
+    course_talk_page_title = content[:pagetitle] || "#{course_talk_prefix}/#{@course.slug}"
+    section = content[:section]
+    params = { action: 'edit',
+               title: course_talk_page_title,
+               section: section,
+               text: text,
+               format: 'json',
+               token: tokens.csrf_token }
+
+    WikiEdits.api_get params, tokens
+  end
+
   def self.update_course(course, current_user, delete = false)
     require './lib/wiki_course_output'
 
