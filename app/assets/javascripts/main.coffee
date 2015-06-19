@@ -1,4 +1,5 @@
 $ ->
+  require("./utils/localization.coffee")
   require("./utils/course.coffee")
   require("./utils/router.cjsx")
 
