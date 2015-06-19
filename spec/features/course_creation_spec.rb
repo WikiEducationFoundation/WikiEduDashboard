@@ -109,6 +109,18 @@ describe 'New course creation and editing', type: :feature do
       first('.button.dark').click
       sleep 1
       expect(page).not_to have_content 'The first week'
+
+      # Navigate back to the overview, then delete the course
+      find('#overview-link').find('a').click
+      sleep 1
+      first('.button.danger').click
+
+      # Follow the alert popup instructions to complete the deletion
+      prompt = page.driver.browser.switch_to.alert
+      prompt.send_keys('My awesome new cour$e: Foo 101')
+      sleep 1
+      prompt.accept
+      expect(page).to have_content 'You are not participating in any courses'
     end
   end
 
