@@ -4,7 +4,7 @@ Editable          = require '../highlevels/editable'
 List              = require '../common/list'
 Student           = require './student'
 StudentDrawer     = require './student_drawer'
-AddStudentButton  = require './add_student_button'
+EnrollButton      = require './enroll_button'
 
 UserStore         = require '../../stores/user_store'
 AssignmentStore   = require '../../stores/assignment_store'
@@ -12,7 +12,7 @@ UIActions         = require '../../actions/ui_actions'
 ServerActions     = require '../../actions/server_actions'
 
 getState = ->
-  students: UserStore.getFiltered({ role: 0 })
+  users: UserStore.getFiltered({ role: 0 })
   assignments: AssignmentStore.getModels()
 
 StudentList = React.createClass(
@@ -26,7 +26,7 @@ StudentList = React.createClass(
     if confirm 'This will post a reminder on the talk pages of all students who have not completed training. Are you sure you want to do this?'
       ServerActions.notifyUntrained @props.course_id
   render: ->
-    students = @props.students.map (student) =>
+    users = @props.users.map (student) =>
       open_drawer = if student.revisions.length > 0 then @openDrawer.bind(@, student.id) else null
       assign_options = { user_id: student.id, role: 0 }
       review_options = { user_id: student.id, role: 1 }
@@ -38,15 +38,15 @@ StudentList = React.createClass(
         reviewing={AssignmentStore.getFiltered review_options}
         save={@save}
         {...@props} />
-    drawers = @props.students.map (student) ->
+    drawers = @props.users.map (student) ->
       <StudentDrawer
         revisions={student.revisions}
         student_id={student.id}
         key={student.id + '_drawer'}
         ref={student.id + '_drawer'} />
-    elements = _.flatten(_.zip(students, drawers))
+    elements = _.flatten(_.zip(users, drawers))
 
-    add_student = <AddStudentButton {...@props} key='add_student' />
+    add_student = <EnrollButton {...@props} role=0 key='add_student' />
     notify_untrained = <div className='notify_untrained' onClick={@notify} key='notify'></div>
 
     keys =
