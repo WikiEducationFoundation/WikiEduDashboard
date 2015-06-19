@@ -166,6 +166,8 @@ GEM
       domain_name (~> 0.5)
     http_parser.rb (0.6.0)
     i18n (0.7.0)
+    i18n-js (3.0.0.rc10)
+      i18n (~> 0.6)
     jbuilder (2.2.5)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
@@ -347,6 +349,7 @@ DEPENDENCIES
   guard-livereload
   guard-rails
   guard-rspec
+  i18n-js (>= 3.0.0.rc8)
   jbuilder (~> 2.0)
   mediawiki_api
   mysql2

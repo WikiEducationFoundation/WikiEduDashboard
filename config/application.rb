@@ -19,6 +19,12 @@ module WikiEduDashboard
       g.fixture_replacement :factory_girl, dir: "spec/factories"
     end
 
+    # i18n-js
+    # Provides support for localization/translations on the front end utilizing Rails localization.
+    # Uses same translation files, config/
+    # In combination with configuration 
+    config.middleware.use I18n::JS::Middleware
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -33,7 +39,12 @@ module WikiEduDashboard
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
-    # config.i18n.default_locale = :de
+    config.i18n.default_locale = :en
+
+    ## NOTE - LOCALES with hyphens creates and error when exporting translation files
+    ## currently can't add :ku-latn, :roa-tara, or :zh-hans
+    # config.i18n.available_locales = [:en, :de, :bcl, :de, :es, :ja, :ksh, :lb, :nl, :pl, :pt, :qqq, :ru, :ur]
+
 
     # Fallback to default locale when messages are missing.
     config.i18n.fallbacks = true
