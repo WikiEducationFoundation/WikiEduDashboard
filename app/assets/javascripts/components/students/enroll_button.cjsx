@@ -40,7 +40,7 @@ EnrollButton = React.createClass(
     users = @props.users.map (user) =>
       remove_button = (
         <span className='button border plus' onClick={@unenroll.bind(@, user.id)}>-</span>
-      ) unless user.id == @props.current_user.id && user.role == 1
+      ) unless @props.role == 1 && @props.users.length < 2
       <tr key={user.id + '_enrollment'}>
         <td>{user.wiki_id}{remove_button}</td>
       </tr>
