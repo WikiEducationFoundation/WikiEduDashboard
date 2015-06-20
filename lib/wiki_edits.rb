@@ -38,6 +38,24 @@ class WikiEdits
     end
   end
 
+  def self.get_wiki_top_section(course_page_slug, current_user, talk_page = true)
+    tokens = WikiEdits.tokens(current_user)
+    if talk_page
+      course_prefix = Figaro.env.course_talk_prefix
+    else
+      course_prefix = Figaro.env.course_prefix
+    end
+    page_title = "#{course_prefix}/#{course_page_slug}"
+    params = { action: 'parse',
+               page: page_title,
+               section: '0',
+               prop: 'wikitext',
+               format: 'json' }
+
+    response = WikiEdits.api_get params, tokens
+    response.body
+  end
+
   def self.update_course_talk(course, current_user, content, clear = false)
     require './lib/wiki_course_output'
     @course = course
