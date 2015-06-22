@@ -14,11 +14,13 @@ WeekActions     = require '../../actions/week_actions'
 BlockActions    = require '../../actions/block_actions'
 ServerActions   = require '../../actions/server_actions'
 
+CourseStore     = require '../../stores/course_store'
 WeekStore       = require '../../stores/week_store'
 BlockStore      = require '../../stores/block_store'
 GradeableStore  = require '../../stores/gradeable_store'
 
 getState = ->
+  course: CourseStore.getCourse()
   weeks: WeekStore.getWeeks()
   blocks: BlockStore.getBlocks()
   gradeables: GradeableStore.getGradeables()
@@ -51,6 +53,7 @@ Timeline = React.createClass(
             week={week}
             index={i + 1}
             key={week.id}
+            start={@props.course.start}
             editable={@props.editable}
             blocks={BlockStore.getBlocksInWeek(week.id)}
             moveBlock={@moveBlock}
