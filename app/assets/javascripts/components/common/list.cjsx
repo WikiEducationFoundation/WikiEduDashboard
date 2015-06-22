@@ -28,10 +28,14 @@ List = React.createClass(
 
     elements = @props.elements
     if elements.length == 0
+      if @props.store.isLoaded()
+        text = 'This course has no ' + @props.table_key
+      else
+        text = 'Loading ' + @props.table_key + '...'
       elements = (
         <tr>
           <td colSpan={headers.length + 1} className='text-center'>
-            <span>This course has no {@props.table_key}</span>
+            <span>{text}</span>
           </td>
         </tr>
       )

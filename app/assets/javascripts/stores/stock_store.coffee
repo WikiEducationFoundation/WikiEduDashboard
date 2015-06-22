@@ -24,6 +24,9 @@ StockStore = (helper, model_key, default_model, triggers) ->
     getSorting: ->
       key: helper.sortKey
       asc: helper.sortAsc
+    isLoaded: ->
+      console.log helper.isLoaded()
+      helper.isLoaded()
     restore: ->
       helper.models = $.extend(true, {}, helper.persisted)
       @emitChange()
@@ -51,6 +54,7 @@ class Store
   constructor: (opts) ->
     @models = {}
     @persisted = {}
+    @loaded = false
     @sortKey = opts.sortKey
     @sortAsc = opts.sortAsc
     @descKeys = opts.descKeys
@@ -64,6 +68,7 @@ class Store
     ).join()
 
   setModels: (data, persisted=false) ->
+    @loaded = true
     @models = {}
     return unless data?
     for model, i in data
@@ -101,6 +106,9 @@ class Store
 
   getSorting: ->
     @store.getSorting()
+
+  isLoaded: ->
+    @loaded
 
   restore: ->
     @store.restore()
