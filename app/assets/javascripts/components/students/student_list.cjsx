@@ -54,7 +54,7 @@ StudentList = React.createClass(
         'label': 'Name'
         'desktop_only': false
       'assignment_title':
-        'label': 'Assigned To'
+        'label': 'Assigned Articles'
         'desktop_only': true,
       'reviewing_title':
         'label': 'Reviewing'
