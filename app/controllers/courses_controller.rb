@@ -119,6 +119,14 @@ class CoursesController < ApplicationController
     users.role('online_volunteer') + users.role('campus_volunteer')
   end
 
+  def get_wiki_top_section
+    @course = Course.find_by_slug(params[:id])
+    response = WikiEdits.get_wiki_top_section(@course.slug, current_user)
+    respond_to do |format|
+      format.json { render json: response }
+    end
+  end
+
   def show
     @course = Course.find_by_slug("#{params[:school]}/#{params[:titleterm]}")
     is_instructor = (user_signed_in? && current_user.instructor?(@course))
