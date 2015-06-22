@@ -160,6 +160,29 @@ class CoursesController < ApplicationController
     end
   end
 
+  def cohort_params
+    params.require(:cohort).permit(:title)
+  end
+
+  def list
+    @course = Course.find_by_slug(params[:id])
+    @cohort = Cohort.find_by(title: cohort_params[:title])
+    unless @cohort.nil?
+      exists = CohortsCourses.exists?(course_id: @course.id, cohort_id: @cohort.id)
+      if request.post? && !exists
+        CohortsCourses.create(
+          course_id: @course.id,
+          cohort_id: @cohort.id
+        )
+      elsif request.delete?
+        CohortsCourses.find_by(
+          course_id: @course.id,
+          cohort_id: @cohort.id
+        ).destroy
+      end
+    end
+  end
+
   def manual_update
     @course = Course.where(listed: true).find_by_slug(params[:id])
     @course.manual_update if user_signed_in?

@@ -43,6 +43,9 @@ Rails.application.routes.draw do
 
     get 'courses/*id/check' => 'courses#check',
         :as => :check, constraints: { id: /.*/ }
+    match 'courses/*id/list' => 'courses#list',
+        constraints: { id: /.*/ }, via: [:post, :delete]
+
     get 'courses/:school/:titleterm(/:endpoint(/*any))' => 'courses#show',
         defaults: { endpoint: 'overview' }, :as => 'show',
         constraints: {

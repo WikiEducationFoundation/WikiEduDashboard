@@ -5,6 +5,7 @@ json.course do
 
   json.legacy @course.id < 10000
   json.ended !current?(@course) && @course.start < Time.now
+  json.published CohortsCourses.exists?(course_id: @course.id)
 
   json.created_count number_to_human @course.revisions.joins(:article).where(articles: {namespace: 0}).where(new_article: true).count
   json.edited_count number_to_human @course.article_count
@@ -14,6 +15,5 @@ json.course do
   json.character_count number_to_human @course.character_sum
   json.view_count number_to_human @course.view_sum
 
-  json.published CohortsCourses.exists?(course_id: @course.id)
   json.passcode @course.passcode if user_signed_in? && current_user.role(@course) > 0
 end

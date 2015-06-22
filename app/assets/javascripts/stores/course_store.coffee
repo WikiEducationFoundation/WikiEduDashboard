@@ -59,14 +59,11 @@ CourseStore = Flux.createStore
 , (payload) ->
   data = payload.data
   switch(payload.actionType)
-    when 'RECEIVE_COURSE', 'CREATED_COURSE'
+    when 'RECEIVE_COURSE', 'CREATED_COURSE', 'LIST_COURSE', 'SAVED_COURSE'
       setCourse data.course, true
       break
     when 'CHECK_COURSE'
       setValid 'form', !data.course_exists
-      break
-    when 'SAVED_COURSE'
-      setCourse data.course, true, true
       break
     when 'UPDATE_COURSE'
       setCourse data.course

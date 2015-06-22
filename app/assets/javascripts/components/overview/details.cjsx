@@ -4,12 +4,17 @@ TextInput         = require '../common/text_input'
 TextAreaInput     = require '../common/text_area_input'
 CourseStore       = require '../../stores/course_store'
 UserStore         = require '../../stores/user_store'
+CohortStore       = require '../../stores/cohort_store'
 CourseActions     = require '../../actions/course_actions'
 ServerActions     = require '../../actions/server_actions'
 InlineUsers       = require './inline_users'
+CohortButton      = require './cohort_button'
+
+# For some reason getState is not being triggered when CohortStore gets updated
 
 getState = (course_id) ->
   course: CourseStore.getCourse()
+  cohorts: CohortStore.getModels()
   instructors: UserStore.getFiltered({ role: 1 })
   online: UserStore.getFiltered({ role: 2 })
   campus: UserStore.getFiltered({ role: 3 })
@@ -43,6 +48,10 @@ Details = React.createClass(
         </fieldset>
       )
 
+    cohorts = if @props.cohorts.length > 0
+      _.pluck(@props.cohorts, 'title').join(', ')
+    else 'None'
+
     <div className='module'>
       <div className="section-header">
         <h3>Details</h3>
@@ -53,6 +62,10 @@ Details = React.createClass(
         {online}
         {campus}
         {staff}
+        <p>
+          <span>Cohorts: {cohorts}</span>
+          <CohortButton {...@props} show={@props.editable} />
+        </p>
         <p><span>School: {@props.course.school}</span></p>
         <p><span>Term: {@props.course.term}</span></p>
         {passcode}
@@ -81,4 +94,4 @@ Details = React.createClass(
     </div>
 )
 
-module.exports = Editable(Details, [CourseStore, UserStore], ServerActions.saveCourse, getState)
+module.exports = Editable(Details, [CourseStore, UserStore, CohortStore], ServerActions.saveCourse, getState)

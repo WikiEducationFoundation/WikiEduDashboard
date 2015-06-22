@@ -2,10 +2,12 @@ React             = require 'react'
 Router            = require 'react-router'
 Link              = Router.Link
 RouteHandler      = Router.RouteHandler
+CourseLink        = require './common/course_link'
 ServerActions     = require '../actions/server_actions'
 CourseActions     = require '../actions/course_actions'
 CourseStore       = require '../stores/course_store'
 UserStore         = require '../stores/user_store'
+CohortStore       = require '../stores/cohort_store'
 
 getState = ->
   current = $('#react_root').data('current_user')
@@ -23,6 +25,7 @@ Course = React.createClass(
   componentWillMount: ->
     ServerActions.fetchCourse @getCourseID()
     ServerActions.fetchUsers @getCourseID()
+    ServerActions.fetchCohorts @getCourseID()
   getInitialState: ->
     getState()
   storeDidChange: ->
@@ -61,7 +64,7 @@ Course = React.createClass(
     if @state.course.submitted && !@state.course.published && @getCurrentUser().admin && !@state.course.legacy
       alerts.push (
         <div className='container module text-center' key='publish'>
-          <p>This course has been submitted for approval by its creator. <a href="#">Click here</a> to add it to a cohort!</p>
+          <p>This course has been submitted for approval by its creator. To approve it, add it to a cohort on the <CourseLink to='overview'>Overview</CourseLink> page.</p>
         </div>
       )
 

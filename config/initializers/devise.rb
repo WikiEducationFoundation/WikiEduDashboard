@@ -230,7 +230,9 @@ Devise.setup do |config|
   config.sign_out_via = :delete
 
   ## POSSIBLE SOLUTION FOR SSL ISSUE ##
-  OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE if Rails.env.development?
+  silence_warnings do
+    OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE if Rails.env.development?
+  end
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.

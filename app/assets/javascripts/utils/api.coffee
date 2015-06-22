@@ -43,6 +43,9 @@ API =
           console.log 'Error: ' + e
           rej e
 
+  fetchCohorts: (course_id) ->
+    fetch(course_id, 'cohorts')
+
   fetchTimeline: (course_id) ->
     fetch(course_id, 'timeline')
 
@@ -236,10 +239,26 @@ API =
         data: JSON.stringify
           student: data
         success: (data) ->
-          console.log 'Enrolled student!'
+          console.log 'Unenrolled student!'
           res data
         failure: (e) ->
-          console.log 'Couldn\'t enroll student! ' + e
+          console.log 'Couldn\'t unenroll student! ' + e
+          rej e
+
+  listCourse: (course_id, cohort_title, list) ->
+    new Promise (res, rej) ->
+      $.ajax
+        type: (if list then 'POST' else 'DELETE')
+        url: '/courses/' + course_id + '/list',
+        contentType: 'application/json',
+        data: JSON.stringify
+          cohort:
+            title: cohort_title
+        success: (data) ->
+          console.log 'Listed course!'
+          res data
+        failure: (e) ->
+          console.log 'Couldn\'t list course! ' + e
           rej e
 
 module.exports = API

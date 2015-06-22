@@ -6,9 +6,9 @@ ServerActions = Flux.createActions
   fetchCourse: (course_id) ->
     API.fetchCourse(course_id).then (data) ->
       { actionType: 'RECEIVE_COURSE', data: data }
-  checkCourse: (course_id) ->
-    API.checkCourse(course_id).then (data) ->
-      { actionType: 'CHECK_COURSE', data: data }
+  fetchCohorts: (course_id) ->
+    API.fetchCohorts(course_id).then (data) ->
+      { actionType: 'RECEIVE_COHORTS', data: data }
   fetchTimeline: (course_id) ->
     API.fetchTimeline(course_id).then (data) ->
       { actionType: 'RECEIVE_TIMELINE', data: data }
@@ -54,6 +54,9 @@ ServerActions = Flux.createActions
     API.submitWizard(course_id, wizard_id, data).then (data) ->
       { actionType: 'WIZARD_SUBMITTED', data: data }
 
+  checkCourse: (course_id) ->
+    API.checkCourse(course_id).then (data) ->
+      { actionType: 'CHECK_COURSE', data: data }
   deleteCourse: (course_id) ->
     # This redirects, no need for an action to be broadcast
     API.deleteCourse(course_id)
@@ -70,5 +73,11 @@ ServerActions = Flux.createActions
   unenrollStudent: (data, course_id) ->
     API.unenrollStudent(data, course_id).then (data) ->
       { actionType: 'ENROLLED_STUDENT', data: data }
+  listCourse: (course_id, cohort_title) ->
+    API.listCourse(course_id, cohort_title, true).then (data) ->
+      { actionType: 'LIST_COURSE', data: data }
+  delistCourse: (course_id, cohort_title) ->
+    API.listCourse(course_id, cohort_title, false).then (data) ->
+      { actionType: 'LIST_COURSE', data: data }
 
 module.exports = ServerActions
