@@ -9,5 +9,9 @@ InputMixin =
         @props.onChange @props.value_key, @state.value
   componentWillReceiveProps: (props) ->
     @setState value: props.value
+  focus: (e) ->
+    $(@refs.input.getDOMNode()).closest('.block').attr('draggable', false)
+  blur: (e) ->
+    $(@refs.input.getDOMNode()).closest('.block').attr('draggable', true)
 
 module.exports = InputMixin

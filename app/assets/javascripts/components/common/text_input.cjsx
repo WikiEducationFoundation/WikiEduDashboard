@@ -25,11 +25,14 @@ TextInput = React.createClass(
         <span className={labelClass}>{label}</span>
         {spacer if @props.value? or @props.placeholder? or @props.editable}
         <input
+          ref='input'
           className={inputClass}
           id={@props.id || ''}
           value={@state.value}
           onChange={@onChange}
           autoFocus={@props.focus}
+          onFocus={@focus}
+          onBlur={@blur}
           type={@props.type || 'text'}
           placeholder={@props.label || @props.placeholder}
         />

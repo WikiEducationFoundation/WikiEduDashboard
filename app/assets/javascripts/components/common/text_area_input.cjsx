@@ -17,11 +17,14 @@ TextAreaInput = React.createClass(
       label = @props.label + ':'
     input_element = (
       <textarea
+        ref='input'
         id={@props.id || @props.value_key || ''}
         rows={@props.rows || '8'}
         value={@state.value}
         onChange={@onChange}
         autoFocus={@props.focus}
+        onFocus={@focus}
+        onBlur={@blur}
         placeholder={@props.label || @props.placeholder}
       />
     )
