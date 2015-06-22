@@ -64,7 +64,7 @@ Details = React.createClass(
         {staff}
         <p>
           <span>Cohorts: {cohorts}</span>
-          <CohortButton {...@props} show={@props.editable} />
+          <CohortButton {...@props} show={@props.editable && @props.current_user.admin} />
         </p>
         <p><span>School: {@props.course.school}</span></p>
         <p><span>Term: {@props.course.term}</span></p>

@@ -48,25 +48,31 @@ Course = React.createClass(
     route_params = @context.router.getCurrentParams()
 
     alerts = []
-    if !(@state.course.submitted || @state.course.published || @state.listed) && !@state.course.legacy
-      alerts.push (
-        <div className='container module text-center' key='submit'>
-          <p>Your course is not yet published on the Wiki Edu platform. <a href="#" onClick={@submit}>Click here</a> to submit it for approval by Wiki Edu staff.</p>
-        </div>
-      )
-    else if @state.course.submitted && !@state.course.published && !@getCurrentUser().admin && !@state.course.legacy
-      alerts.push (
-        <div className='container module text-center' key='submit'>
-          <p>Your course has been submitted for addition to a cohort. Wiki Edu staff will review and get in touch with any questions.</p>
-        </div>
-      )
 
-    if @state.course.submitted && !@state.course.published && @getCurrentUser().admin && !@state.course.legacy
-      alerts.push (
-        <div className='container module text-center' key='publish'>
-          <p>This course has been submitted for approval by its creator. To approve it, add it to a cohort on the <CourseLink to='overview'>Overview</CourseLink> page.</p>
-        </div>
-      )
+    user_role = if @getCurrentUser().id?
+      UserStore.getFiltered({ id: @getCurrentUser().id }).role
+    else -1
+
+    if user_role > 0 && !@state.course.legacy && !@state.course.published
+      if !(@state.course.submitted || @state.listed)
+        alerts.push (
+          <div className='container module text-center' key='submit'>
+            <p>Your course is not yet published on the Wiki Edu platform. <a href="#" onClick={@submit}>Click here</a> to submit it for approval by Wiki Edu staff.</p>
+          </div>
+        )
+      if @state.course.submitted
+        if !@getCurrentUser().admin
+          alerts.push (
+            <div className='container module text-center' key='submit'>
+              <p>Your course has been submitted for addition to a cohort. Wiki Edu staff will review and get in touch with any questions.</p>
+            </div>
+          )
+        else
+          alerts.push (
+            <div className='container module text-center' key='publish'>
+              <p>This course has been submitted for approval by its creator. To approve it, add it to a cohort on the <CourseLink to='overview'>Overview</CourseLink> page.</p>
+            </div>
+          )
 
     unless @state.course.legacy
       timeline = (

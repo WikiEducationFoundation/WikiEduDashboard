@@ -4,7 +4,8 @@ Description   = require './description'
 Details       = require './details'
 Grading       = require './grading'
 ThisWeek      = require '../timeline/this_week'
-ServerActions     = require '../../actions/server_actions'
+CourseStore   = require '../../stores/course_store'
+ServerActions = require '../../actions/server_actions'
 
 getState = ->
   course: CourseStore.getCourse()
@@ -13,11 +14,16 @@ Overview = React.createClass(
   displayName: 'Overview'
   componentDidMount: ->
     ServerActions.fetchTimeline @props.course_id
+  getInitialState: ->
+    getState()
   render: ->
+    unless @state.course.legacy
+      this_week = <ThisWeek {...@props} />
+
     <section className='overview container'>
       <div className='primary'>
         <Description {...@props} />
-        <ThisWeek {...@props} />
+        {this_week}
       </div>
       <div className='sidebar'>
         <Details {...@props} />
