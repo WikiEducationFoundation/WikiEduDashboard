@@ -53,8 +53,8 @@ Course = React.createClass(
       UserStore.getFiltered({ id: @getCurrentUser().id }).role
     else -1
 
-    if user_role > 0 && !@state.course.legacy && !@state.course.published
-      if !(@state.course.submitted || @state.listed)
+    if (user_role > 0 || @getCurrentUser().admin) && !@state.course.legacy && !@state.course.published
+      if !(@state.course.submitted || @state.published)
         alerts.push (
           <div className='container module text-center' key='submit'>
             <p>Your course is not yet published on the Wiki Edu platform. <a href="#" onClick={@submit}>Click here</a> to submit it for approval by Wiki Edu staff.</p>

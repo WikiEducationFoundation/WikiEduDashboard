@@ -41,7 +41,7 @@ Actions = React.createClass(
         controls.push (
           <p key='leave'><span className='button' onClick={@leave}>Leave course</span></p>
         )
-      if (user.role == 1 || user.admin) && !@state.course.listed
+      if (user.role == 1 || user.admin) && !@state.course.published
         controls.push (
           <p key='delete'><span className='button danger' onClick={@delete}>Delete course</span></p>
         )

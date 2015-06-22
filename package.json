@@ -56,6 +56,8 @@
     "mcfly": "0.0.10",
     "react-dnd": "^1.0.0",
     "marked": "^0.3.3",
-    "i18n-js": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc8.tar.gz"
+    "i18n-js": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc8.tar.gz",
+    "moment": "^2.10.3",
+    "react-datepicker": "^0.8.0"
   }
 }
