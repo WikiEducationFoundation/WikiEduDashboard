@@ -43,6 +43,8 @@ Panel = React.createClass(
     classes += ' active' if @props.panel.active
     advance = @props.advance || @advance
 
+    next_text = @props.button_text || (if @props.summary then 'Summary' else null) || 'Next'
+
     <div className={classes}>
       <div className='wizard__controls'>
         <p>
@@ -60,7 +62,7 @@ Panel = React.createClass(
         <div className='right'>
           <div><p className='red'>{@props.panel.error}</p></div>
           {rewind}
-          <div className="button dark" onClick={advance}>{@props.button_text || 'Next'}</div>
+          <div className="button dark" onClick={advance}>{next_text}</div>
         </div>
       </div>
     </div>

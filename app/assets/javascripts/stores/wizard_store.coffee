@@ -4,6 +4,7 @@ Flux            = new McFly()
 ServerActions   = require '../actions/server_actions'
 
 _active_index = 0
+_summary = false
 _wizard_key = null
 _panels = [{
   title: "Assignment Type"
@@ -46,6 +47,7 @@ selectOption = (panel_index, option_index, value=true) ->
     panel.options.forEach (option) -> option.selected = false
   option.selected = !(option.selected || false)
   verifyPanelSelections(panel)
+  _summary = _summary && !(_active_index == 0 && _summary)
   WizardStore.emitChange()
 
 expandOption = (panel_index, option_index) ->
@@ -72,9 +74,11 @@ moveWizard = (backwards=false, to_index=null) ->
   else
     _active_index += increment
 
+  _summary = to_index? if backwards
+
   if _active_index == -1
     _active_index = 0
-  else if _active_index == _panels.length
+  else if _active_index == _panels.length || (_summary && !backwards)
     _active_index = _panels.length - 1
 
   #####
@@ -87,7 +91,7 @@ moveWizard = (backwards=false, to_index=null) ->
       $('.wizard').animate(
         scrollTop: 0
       ,timeoutTime)
-      
+
   setTimeout(->
     updateActivePanels()
     WizardStore.emitChange()
@@ -119,6 +123,8 @@ WizardStore = Flux.createStore
     $.extend([], _panels, true)
   getWizardKey: ->
     _wizard_key
+  getSummary: ->
+    _summary
   getAnswers: ->
     answers = []
     _panels.forEach (panel, i) ->

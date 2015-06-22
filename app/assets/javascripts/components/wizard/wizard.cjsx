@@ -11,6 +11,7 @@ WizardStore   = require '../../stores/wizard_store'
 TransitionGroup   = require '../../utils/TransitionGroup'
 
 getState = ->
+  summary: WizardStore.getSummary()
   panels: WizardStore.getPanels()
   wizard_id: WizardStore.getWizardKey()
 
@@ -39,6 +40,7 @@ Wizard = React.createClass(
           key={panel.key}
           index={i}
           step={step}
+          summary={@state.summary}
         />
       else
         <SummaryPanel panel={panel}
