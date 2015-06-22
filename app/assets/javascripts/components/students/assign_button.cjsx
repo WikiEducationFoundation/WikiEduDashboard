@@ -31,9 +31,12 @@ AssignButton = React.createClass(
     AssignmentActions.deleteAssignment assignment_id
     @setState send: (!@props.editable && @props.current_user.id == @props.student.id)
   render: ->
+    className = 'button border'
+    className += ' dark' if @props.is_open
+
     if @props.assignments.length > 1 || (@props.assignments.length > 0 && @props.permitted)
       raw_a = @props.assignments[0]
-      show_button = <span className='button border plus' onClick={@props.open}>+</span>
+      show_button = <span className={className + ' plus'} onClick={@props.open}>+</span>
     else if @props.permitted
       if @props.current_user.id == @props.student.id
         assign_text = 'Assign myself an article'
@@ -43,11 +46,11 @@ AssignButton = React.createClass(
         review_text = 'Assign a review'
       final_text = if @props.role == 0 then assign_text else review_text
       edit_button = (
-        <span className='button border' onClick={@props.open}>{final_text}</span>
+        <span className={className} onClick={@props.open}>{final_text}</span>
       )
     assignments = @props.assignments.map (ass) =>
       if @props.permitted
-        remove_button = <span className='button border plus' onClick={@unassign.bind(@, ass.id)}>-</span>
+        remove_button = <span className={className + ' plus'} onClick={@unassign.bind(@, ass.id)}>-</span>
       if ass.article_url?
         link = <a href={ass.article_url} target='_blank' className='inline'>{ass.article_title}</a>
       else
@@ -63,7 +66,7 @@ AssignButton = React.createClass(
         <tr className='edit'>
           <td>
             <input type="text" ref='ass_input' placeholder='Article title' />
-            <span className='button border' onClick={@assign}>Assign</span>
+            <span className={className} onClick={@assign}>Assign</span>
           </td>
         </tr>
       )
