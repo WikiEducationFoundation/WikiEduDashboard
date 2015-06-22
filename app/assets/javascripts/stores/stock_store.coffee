@@ -8,8 +8,7 @@ StockStore = (helper, model_key, default_model, triggers) ->
   Flux.createStore
     getFiltered: (options) ->
       filtered_models = []
-      for model_id in Object.keys(helper.models)
-        model = helper.models[model_id]
+      for model in @getModels()
         add = true
         for criteria in Object.keys(options)
           add = add && model[criteria] == options[criteria] && !model['deleted']

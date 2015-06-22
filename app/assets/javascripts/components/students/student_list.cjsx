@@ -55,10 +55,12 @@ StudentList = React.createClass(
         'desktop_only': false
       'assignment_title':
         'label': 'Assigned Articles'
-        'desktop_only': true,
+        'desktop_only': true
+        'sortable': false
       'reviewing_title':
         'label': 'Reviewing'
         'desktop_only': true
+        'sortable': false
       'character_sum_ms':
         'label': 'Mainspace<br />chars added'
         'desktop_only': true
@@ -71,7 +73,7 @@ StudentList = React.createClass(
       <List
         elements={elements}
         keys={keys}
-        table_key='students'
+        table_key='users'
         store={UserStore}
         editable={@props.editable}
       />

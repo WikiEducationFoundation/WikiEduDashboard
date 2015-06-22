@@ -12,9 +12,11 @@ List = React.createClass(
       key_obj = @props.keys[key]
       header_class = if sorting.key == key then sortClass else ''
       header_class += if key_obj['desktop_only'] then ' desktop-only-tc' else ''
-      unless (@props.sortable? && !@props.sortable)
+      unless (@props.sortable? && !@props.sortable) || (key_obj['sortable']? && !key_obj['sortable'])
         header_class += ' sortable'
         header_onclick = UIActions.sort.bind(null, @props.table_key, key)
+      else
+        header_onclick = null
       headers.push (
         <th
           onClick={header_onclick}
