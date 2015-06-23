@@ -19,12 +19,6 @@ module WikiEduDashboard
       g.fixture_replacement :factory_girl, dir: "spec/factories"
     end
 
-    # i18n-js
-    # Provides support for localization/translations on the front end utilizing Rails localization.
-    # Uses same translation files, config/
-    # In combination with configuration 
-    config.middleware.use I18n::JS::Middleware
-
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
