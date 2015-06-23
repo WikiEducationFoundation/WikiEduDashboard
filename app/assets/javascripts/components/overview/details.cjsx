@@ -30,7 +30,7 @@ Details = React.createClass(
     instructors = <InlineUsers {...@props} users={@props.instructors} role={1} title='Instructors' />
     online = <InlineUsers {...@props} users={@props.online} role={2} title='Online Volunteers' />
     campus = <InlineUsers {...@props} users={@props.campus} role={3} title='Campus Volunteers' />
-    staff = <InlineUsers {...@props} users={@props.staff} role={4} title='Wiki Edu Staff' />
+    staff = <InlineUsers {...@props} users={@props.staff} role={4} title='Wiki Ed Staff' />
 
     if @props.current_user.role > 0 || @props.current_user.admin
       passcode = (

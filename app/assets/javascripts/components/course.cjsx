@@ -57,14 +57,14 @@ Course = React.createClass(
       if !(@state.course.submitted || @state.published)
         alerts.push (
           <div className='container module text-center' key='submit'>
-            <p>Your course is not yet published on the Wiki Edu platform. <a href="#" onClick={@submit}>Click here</a> to submit it for approval by Wiki Edu staff.</p>
+            <p>Your course is not yet published on the Wiki Ed platform. <a href="#" onClick={@submit}>Click here</a> to submit it for approval by Wiki Ed staff.</p>
           </div>
         )
       if @state.course.submitted
         if !@getCurrentUser().admin
           alerts.push (
             <div className='container module text-center' key='submit'>
-              <p>Your course has been submitted for addition to a cohort. Wiki Edu staff will review and get in touch with any questions.</p>
+              <p>Your course has been submitted. Wiki Ed staff will review it and get in touch with any questions.</p>
             </div>
           )
         else
