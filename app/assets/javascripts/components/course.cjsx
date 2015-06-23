@@ -147,6 +147,8 @@ Course = React.createClass(
           course_id={@getCourseID()}
           current_user={@getCurrentUser()}
           transitionTo={@transitionTo}
+          course_passcode={@state.course.passcode}
+          course_published={@state.course.published}
         />
       </div>
     </div>

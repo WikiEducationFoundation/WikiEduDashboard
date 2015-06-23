@@ -18,7 +18,6 @@ EnrollButton = React.createClass(
     if UserStore.getFiltered({ wiki_id: wiki_id, role: @props.role }).length > 0
       alert (wiki_id + ' successfully enrolled!')
       @refs.wiki_id.getDOMNode().value = ''
-      @props.open()
   enroll: ->
     wiki_id = @refs.wiki_id.getDOMNode().value
     user_obj = { wiki_id: wiki_id, role: @props.role }
@@ -45,14 +44,23 @@ EnrollButton = React.createClass(
         <td>{user.wiki_id}{remove_button}</td>
       </tr>
 
-    edit_row = (
+    enroll_url = window.location.href + '/enroll/' + @props.course_passcode
+    edit_row = [(
+      <tr className='edit'>
+        <td>
+          <p>Course passcode: <b>{@props.course_passcode}</b></p>
+          <p>Students may enroll by visiting this URL:</p>
+          <input type="text" disabled value={enroll_url} style={'width': '100%'} />
+        </td>
+      </tr>
+    ), (
       <tr className='edit'>
         <td>
           <input type="text" ref='wiki_id' placeholder='Username' />
           <span className='button border' onClick={@enroll}>Enroll</span>
         </td>
       </tr>
-    )
+    )]
 
     button_class = 'button ' + (if @props.inline then ' border plus' else ' dark')
     button_text = if @props.inline then '+' else 'Enrollment'

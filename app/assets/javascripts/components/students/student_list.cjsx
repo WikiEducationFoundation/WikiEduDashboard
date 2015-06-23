@@ -46,7 +46,8 @@ StudentList = React.createClass(
         ref={student.id + '_drawer'} />
     elements = _.flatten(_.zip(users, drawers))
 
-    add_student = <EnrollButton {...@props} role=0 key='add_student' />
+    if @props.course_published
+      add_student = <EnrollButton {...@props} role=0 key='add_student' />
     notify_untrained = <div className='notify_untrained' onClick={@notify} key='notify'></div>
 
     keys =
