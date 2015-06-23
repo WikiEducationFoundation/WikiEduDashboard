@@ -25,7 +25,6 @@ StockStore = (helper, model_key, default_model, triggers) ->
       key: helper.sortKey
       asc: helper.sortAsc
     isLoaded: ->
-      console.log helper.isLoaded()
       helper.isLoaded()
     restore: ->
       helper.models = $.extend(true, {}, helper.persisted)

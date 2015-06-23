@@ -6,9 +6,9 @@ fetch = (course_id, endpoint) ->
       success: (data) ->
         console.log 'Received ' + endpoint
         res data
-      failure: (e) ->
-        console.log 'Error: ' + e
-        rej e
+    .fail (obj, status) ->
+      console.log 'Error: ' + obj.responseText
+      rej obj
 
 API =
   ###########
@@ -27,9 +27,9 @@ API =
         success: (data) ->
           console.log 'Received wizard index'
           res data
-        failure: (e) ->
-          console.log 'Error: ' + e
-          rej e
+      .fail (obj, status) ->
+        console.log 'Error: ' + obj.responseText
+        rej obj
 
   fetchWizardPanels: (wizard_id) ->
     new Promise (res, rej) ->
@@ -39,9 +39,9 @@ API =
         success: (data) ->
           console.log 'Received wizard configuration'
           res data
-        failure: (e) ->
-          console.log 'Error: ' + e
-          rej e
+      .fail (obj, status) ->
+        console.log 'Error: ' + obj.responseText
+        rej obj
 
   fetchCohorts: (course_id) ->
     fetch(course_id, 'cohorts')
@@ -103,9 +103,9 @@ API =
         success: (data) ->
           console.log 'Saved timeline!'
           res data
-        failure: (e) ->
-          console.log 'Couldn\'t save timeline! ' + e
-          rej e
+      .fail (obj, status) ->
+        console.log 'Couldn\'t save timeline! ' + obj.responseText
+        rej obj
 
   saveGradeables: (course_id, data) ->
     new Promise (res, rej) ->
@@ -118,9 +118,9 @@ API =
         success: (data) ->
           console.log 'Saved gradeables!'
           res data
-        failure: (e) ->
-          console.log 'Couldn\'t save gradeables! ' + e
-          rej e
+      .fail (obj, status) ->
+        console.log 'Couldn\'t save gradeables! ' + obj.responseText
+        rej obj
   saveCourse: (data, course_id=null) ->
     append = if course_id? then '/' + course_id else ''
     # append += '.json'
@@ -135,9 +135,9 @@ API =
         success: (data) ->
           console.log 'Saved course!'
           res data
-        failure: (e) ->
-          console.log 'Couldn\'t save course! ' + e
-          rej e
+      .fail (obj, status) ->
+        console.log 'Couldn\'t save course! ' + obj.responseText
+        rej obj
 
   saveStudents: (data, course_id) ->
     cleanup = (array) ->
@@ -161,9 +161,9 @@ API =
         success: (data) ->
           console.log 'Saved students!'
           res data
-        failure: (e) ->
-          console.log 'Couldn\'t save students! ' + e
-          rej e
+      .fail (obj, status) ->
+        console.log 'Couldn\'t save students! ' + obj.responseText
+        rej obj
 
   deleteCourse: (course_id) ->
     $.ajax
@@ -171,7 +171,7 @@ API =
       url: '/courses/' + course_id
       success: (data) ->
         window.location = '/'
-      failure: (e) ->
+    .fail (obj, status) ->
         console.log 'Couldn\'t delete course'
 
   # TODO: This should add a task to a queue and return immediately
@@ -183,9 +183,9 @@ API =
         success: (data) ->
           console.log 'Course updated!'
           res data
-        failure: (e) ->
-          console.log 'Couldn\'t update the course! ' + e
-          rej e
+      .fail (obj, status) ->
+        console.log 'Couldn\'t update the course! ' + obj.responseText
+        rej obj
 
   notifyUntrained: (course_id) ->
     new Promise (res, rej) ->
@@ -195,9 +195,9 @@ API =
         success: (data) ->
           console.log 'Untrained students notified!'
           res data
-        failure: (e) ->
-          console.log 'Couldn\'t notify untrained students! ' + e
-          rej e
+      .fail (obj, status) ->
+        console.log 'Couldn\'t notify untrained students! ' + obj.responseText
+        rej obj
 
   submitWizard: (course_id, wizard_id, data) ->
     new Promise (res, rej) ->
@@ -210,13 +210,12 @@ API =
         success: (data) ->
           console.log 'Submitted the wizard answers!'
           res data
-        failure: (e) ->
-          console.log 'Couldn\'t submit wizard answers! ' + e
-          rej e
+      .fail (obj, status) ->
+        console.log 'Couldn\'t submit wizard answers! ' + obj.responseText
+        rej obj
 
   enrollStudent: (data, course_id) ->
     new Promise (res, rej) ->
-      console.log data
       $.ajax
         type: 'POST'
         url: '/courses/' + course_id + '/users/add',
@@ -226,9 +225,10 @@ API =
         success: (data) ->
           console.log 'Enrolled student!'
           res data
-        failure: (e) ->
-          console.log 'Couldn\'t enroll student! ' + e
-          rej e
+      .fail (obj, status) ->
+        console.log 'Couldn\'t enroll student! ' + obj.responseText
+        alert obj.responseText
+        rej obj
 
   unenrollStudent: (data, course_id) ->
     new Promise (res, rej) ->
@@ -241,9 +241,9 @@ API =
         success: (data) ->
           console.log 'Unenrolled student!'
           res data
-        failure: (e) ->
-          console.log 'Couldn\'t unenroll student! ' + e
-          rej e
+      .fail (obj, status) ->
+        console.log 'Couldn\'t unenroll student! ' + obj.responseText
+        rej obj
 
   listCourse: (course_id, cohort_title, list) ->
     new Promise (res, rej) ->
@@ -257,8 +257,9 @@ API =
         success: (data) ->
           console.log 'Listed course!'
           res data
-        failure: (e) ->
-          console.log 'Couldn\'t list course! ' + e
-          rej e
+      .fail (obj, status) ->
+        console.log 'Couldn\'t list course! ' + obj.responseText
+        alert obj.responseText
+        rej obj
 
 module.exports = API

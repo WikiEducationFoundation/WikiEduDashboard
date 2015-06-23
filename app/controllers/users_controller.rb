@@ -79,14 +79,17 @@ class UsersController < ApplicationController
 
   def add
     fetch_enroll_records
-    return if @user.nil?
-
-    CoursesUsers.create(
-      user: @user,
-      course_id: @course.id,
-      role: enroll_params[:role]
-    )
-    render 'users'
+    if !@user.nil?
+      CoursesUsers.create(
+        user: @user,
+        course_id: @course.id,
+        role: enroll_params[:role]
+      )
+      render 'users'
+    else
+      username = enroll_params[:user_id] || enroll_params[:wiki_id]
+      render plain: "Sorry, #{username} is not an existing user.", status: 404
+    end
   end
 
   def remove
