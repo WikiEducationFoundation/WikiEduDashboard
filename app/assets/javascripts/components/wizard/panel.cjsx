@@ -1,10 +1,11 @@
-React         = require 'react/addons'
-Marked        = require 'marked'
-WizardActions = require '../../actions/wizard_actions'
-WizardStore   = require '../../stores/wizard_store'
+React           = require 'react/addons'
+Marked          = require 'marked'
+MarkedRenderer  = require '../../utils/marked_renderer'
+WizardActions   = require '../../actions/wizard_actions'
+WizardStore     = require '../../stores/wizard_store'
 
-CourseLink    = require '../common/course_link'
-Option        = require './option'
+CourseLink      = require '../common/course_link'
+Option          = require './option'
 
 Panel = React.createClass(
   displayName: 'Panel'
@@ -53,7 +54,7 @@ Panel = React.createClass(
         </p>
       </div>
       <h3>{@props.panel.title}</h3>
-      <div dangerouslySetInnerHTML={{__html: Marked(@props.panel.description)}}></div>
+      <div dangerouslySetInnerHTML={{__html: Marked(@props.panel.description, { renderer: MarkedRenderer })}}></div>
       <div className='wizard__panel__options'>{options}</div>
       <div className='wizard__panel__controls'>
         <div className='left'>
