@@ -50,6 +50,8 @@ class CoursesController < ApplicationController
       params[:course][:slug] = "#{school}/#{title}_(#{term})"
     end
 
+    params[:course][:passcode] = ('a'..'z').to_a.shuffle[0,8].join
+
     params.require(:course).permit(
       :id,
       :title,
