@@ -25,7 +25,6 @@ TextInput = React.createClass(
         inputClass = 'invalid'
 
       if @props.type == 'date'
-        console.log value
         v_date = if value? then moment(value) else moment()
         value = v_date.format('YYYY-MM-DD')
         input = (

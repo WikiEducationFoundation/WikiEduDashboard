@@ -45,7 +45,6 @@ ServerActions = Flux.createActions
     API.saveStudents(data, course_id).then (data) ->
       { actionType: 'SAVED_USERS', data: data }
   saveTimeline: (data, course_id) ->
-    console.log data
     API.saveTimeline(course_id, data).then (data) ->
       { actionType: 'SAVED_TIMELINE', data: data }
   saveGradeables: (data, course_id) ->
