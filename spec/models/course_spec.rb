@@ -234,11 +234,24 @@ describe Course, type: :model do
 
   describe '#url' do
     it 'should return the url of a course page' do
+      # A legacy course
+      lang = Figaro.env.wiki_language
+      prefix = Figaro.env.course_prefix
       course = build(:course,
+                     id: 618,
                      slug: 'UW Bothell/Conservation Biology (Winter 2015)')
       url = course.url
       # rubocop:disable Metrics/LineLength
-      expect(url).to eq("https://#{Figaro.env.wiki_language}.wikipedia.org/wiki/Education_Program:UW_Bothell/Conservation_Biology_(Winter_2015)")
+      expect(url).to eq("https://#{lang}.wikipedia.org/wiki/Education_Program:UW_Bothell/Conservation_Biology_(Winter_2015)")
+      # rubocop:enable Metrics/LineLength
+
+      # A new course
+      new_course = build(:course,
+                         id: 10618,
+                         slug: 'UW Bothell/Conservation Biology (Winter 2016)')
+      url = new_course.url
+      # rubocop:disable Metrics/LineLength
+      expect(url).to eq("https://#{lang}.wikipedia.org/wiki/#{prefix}/UW_Bothell/Conservation_Biology_(Winter_2016)")
       # rubocop:enable Metrics/LineLength
     end
   end
