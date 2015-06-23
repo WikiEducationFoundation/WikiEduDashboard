@@ -34,6 +34,7 @@ Block = React.createClass(
           editable={@props.editable}
           type='date'
           label='Due'
+          show=false
         />
       )
     if @props.editable
@@ -71,7 +72,7 @@ Block = React.createClass(
             value_key='due_date'
             editable={@props.editable}
             type='date'
-            show={gradeable && @props.editable}
+            show={gradeable && @props.editable && false}
             spacer=' '
           />
         </span>
