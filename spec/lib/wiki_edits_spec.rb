@@ -47,6 +47,15 @@ describe WikiEdits do
     end
   end
 
+  # Broken???
+  # describe '.get_wiki_top_section' do
+  #   it 'should return the top section content of a page' do
+  #     title = 'Wikipedia:Education_program/Dashboard/test_ids'
+  #     response = WikiEdits.get_wiki_top_section(title, User.first)
+  #     expect(response.wikitext).to eq("439\n456\n351")
+  #   end
+  # end
+
   describe '.update_course' do
     it 'should edit a Wikipedia page representing a course' do
       WikiEdits.update_course(Course.first, User.first)

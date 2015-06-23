@@ -91,7 +91,7 @@ describe 'New course creation and editing', type: :feature do
       first('input').set('The first week')
       sleep 1
       first('input[type=checkbox]').set(true)
-      first('input[type=date]').set('2015-09-09')
+      first('input.datepicker__input').set('2015-09-09')
       sleep 1
       first('.button.dark').click
       sleep 1

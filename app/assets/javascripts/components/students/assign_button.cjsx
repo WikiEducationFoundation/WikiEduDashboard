@@ -50,7 +50,7 @@ AssignButton = React.createClass(
       )
     assignments = @props.assignments.map (ass) =>
       if @props.permitted
-        remove_button = <span className={className + ' plus'} onClick={@unassign.bind(@, ass.id)}>-</span>
+        remove_button = <span className='button border plus' onClick={@unassign.bind(@, ass.id)}>-</span>
       if ass.article_url?
         link = <a href={ass.article_url} target='_blank' className='inline'>{ass.article_title}</a>
       else

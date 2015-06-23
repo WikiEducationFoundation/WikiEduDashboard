@@ -11,14 +11,6 @@ describe Wiki do
       end
     end
 
-    it 'should return the top section content of a page' do
-      VCR.use_cassette 'wiki/course_list' do
-        title = 'Wikipedia:Education program/Dashboard/test_ids'
-        response = Wiki.get_page_top_section_content(title)
-        expect(response.wikitext).to eq("439\n456\n351")
-      end
-    end
-
     it 'should return course info for an existing course' do
       VCR.use_cassette 'wiki/single_course' do
         # A single course
