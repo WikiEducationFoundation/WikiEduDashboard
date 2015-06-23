@@ -83,10 +83,10 @@ CourseCreator = React.createClass(
     <Modal>
       <div className="wizard__panel active" style={form_style}>
         <h3>Create a New Course</h3>
-        <p>Lorem ipsum Ut Duis sint nisi consectetur esse voluptate tempor sit cillum eiusmod et ad fugiat veniam officia irure nisi dolor ad minim sed mollit in officia dolore sint esse sed veniam eiusmod aute esse labore reprehenderit sint.</p>
+        <p>After you create your course, the wizard will walk you through creating an assignment timeline.</p>
         <div className='wizard__form'>
           <div className='column'>
-            
+
             <TextInput
               id='course_title'
               onChange={@updateCourse}
