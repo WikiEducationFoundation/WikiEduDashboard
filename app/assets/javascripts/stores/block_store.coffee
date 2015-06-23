@@ -35,7 +35,8 @@ addBlock = (week_id) ->
     content: "",
     gradeable_id: null,
     week_id: week_id,
-    order: week_blocks.length
+    order: week_blocks.length,
+    due_date: null
   }
 
 removeBlock = (block_id) ->

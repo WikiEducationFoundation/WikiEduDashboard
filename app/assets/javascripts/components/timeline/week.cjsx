@@ -44,7 +44,9 @@ Week = React.createClass(
       deleteWeek = <span className="button danger" onClick={@props.deleteWeek}>Delete Week</span>
     if @props.showTitle == undefined || @props.showTitle
       if (@props.week.title? || @props.editable)
-        spacer = <span>  —  </span>
+        spacer = '  —  '
+      else
+        spacer = ' '
       week_label = 'Week ' + @props.index
       start = moment(@props.start).add(7 * (@props.index - 1), 'day')
       week_label += ' (' + start.format('MM/DD') + ' - ' + start.add(6, 'day').format('MM/DD') + ')'

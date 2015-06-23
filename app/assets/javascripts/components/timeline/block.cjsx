@@ -51,8 +51,6 @@ Block = React.createClass(
           />
         </p>
       )
-    style =
-      top: 100 + @props.block.order * (220 + 10)
     if (@props.block.kind < 3 && !@props.editable)
       spacer = <span>  —  </span>
     if @props.block.title || @props.editable
@@ -70,7 +68,7 @@ Block = React.createClass(
           <TextInput
             onChange={@updateBlock}
             value={@props.block.due_date}
-            value_key={'due_date'}
+            value_key='due_date'
             editable={@props.editable}
             type='date'
             show={gradeable && @props.editable}
@@ -79,7 +77,7 @@ Block = React.createClass(
         </span>
       )
 
-    <li className={className} style={style}>
+    <li className={className}>
       <h4>
         <Select
           onChange={@updateBlock}

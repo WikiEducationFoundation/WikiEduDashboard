@@ -7,13 +7,14 @@ TextInput = React.createClass(
   displayName: 'TextInput'
   mixins: [InputMixin],
   getInitialState: ->
-    value: @props.value
+    value: if @props.value? then @props.value else moment().format('YYYY-MM-DD')
   dateChange: (date) ->
     @onChange({ target: { value: date.format('YYYY-MM-DD') } })
   render: ->
-    spacer = @props.spacer || <span>: </span>
+    spacer = @props.spacer || ': '
     if @props.label
       label = @props.label
+      label += spacer
     value = @props.value || @props.placeholder
 
     if @props.editable
@@ -24,7 +25,8 @@ TextInput = React.createClass(
         inputClass = 'invalid'
 
       if @props.type == 'date'
-        v_date = moment(value)
+        console.log value
+        v_date = if value? then moment(value) else moment()
         value = v_date.format('YYYY-MM-DD')
         input = (
           <DatePicker
@@ -57,14 +59,15 @@ TextInput = React.createClass(
 
       <label>
         <span className={labelClass}>{label}</span>
-        {spacer if @props.value? or @props.placeholder? or @props.editable}
+        {spacer if (@props.value? or @props.placeholder? or @props.editable) && !@props.label}
         {input}
       </label>
     else if @props.label
       <p>
         <span>{label}</span>
-        {spacer if @props.value? or @props.placeholder? or @props.editable}
+        {spacer if (@props.value? or @props.placeholder? or @props.editable) && !@props.label}
         <span>{value}</span>
+        {@props.append}
       </p>
     else
       <span>{value}</span>

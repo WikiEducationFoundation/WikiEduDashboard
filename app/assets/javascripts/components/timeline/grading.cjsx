@@ -23,8 +23,8 @@ Grading = React.createClass(
   deleteGradeable: (gradeable_id) ->
     GradeableActions.deleteGradeable gradeable_id
   render: ->
-    return <div></div>
     gradeables = []
+    total = _.sum(@props.gradeables, 'points')
     @props.gradeables.forEach (gradeable, i) =>
       unless gradeable.deleted
         block = BlockStore.getBlock(gradeable.gradeable_item_id)
@@ -34,6 +34,7 @@ Grading = React.createClass(
             block={block}
             key={gradeable.id}
             editable={@props.editable}
+            total={total}
             deleteGradeable={@deleteGradeable.bind(this, gradeable.id)}
           />
         )
@@ -41,7 +42,7 @@ Grading = React.createClass(
       addGradeable = (
         <li className="row view-all">
           <div>
-            <div className='button large dark' onClick={@addGradeable}>Add New Grading Item</div>
+            <div className='button dark' onClick={@addGradeable}>Add New Grading Item</div>
           </div>
         </li>
       )
