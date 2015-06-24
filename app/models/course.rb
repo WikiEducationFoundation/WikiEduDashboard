@@ -49,12 +49,16 @@ class Course < ActiveRecord::Base
     slug
   end
 
-  def url
-    language = Figaro.env.wiki_language
+  def wiki_title
     # Legacy courses using the EducationProgram extension have ids under 10000.
     prefix = id < 10000 ? 'Education_Program:' : Figaro.env.course_prefix + '/'
     escaped_slug = slug.gsub(' ', '_')
-    "https://#{language}.wikipedia.org/wiki/#{prefix}#{escaped_slug}"
+    "#{prefix}#{escaped_slug}"
+  end
+
+  def url
+    language = Figaro.env.wiki_language
+    "https://#{language}.wikipedia.org/wiki/#{wiki_title}"
   end
 
   def delist

@@ -34,8 +34,21 @@ class WikiEdits
                  format: 'json',
                  token: tokens.csrf_token }
 
-      WikiEdits.api_get params, tokens
+      WikiEdits.api_post params, tokens
     end
+  end
+
+  def self.enroll_in_course(course, current_user, role = 0)
+    tokens = WikiEdits.tokens(current_user)
+    template = "{{student editor|course = [[#{course.wiki_title}]] }}\n"
+    params = { action: 'edit',
+               title: "User:#{current_user.wiki_id}",
+               prependtext: template,
+               summary: "I am enrolled in [[#{course.wiki_title}]].",
+               format: 'json',
+               token: tokens.csrf_token }
+
+    WikiEdits.api_post params, tokens
   end
 
   def self.get_wiki_top_section(course_page_slug, current_user, talk_page = true)
@@ -53,7 +66,7 @@ class WikiEdits
                prop: 'wikitext',
                format: 'json' }
 
-    response = WikiEdits.api_get params, tokens
+    response = WikiEdits.api_post params, tokens
     puts response.body
     response.body
   end
@@ -80,13 +93,12 @@ class WikiEdits
                format: 'json',
                token: tokens.csrf_token }
 
-    WikiEdits.api_get params, tokens
+    WikiEdits.api_post params, tokens
   end
 
   def self.update_course(course, current_user, delete = false)
     require './lib/wiki_course_output'
 
-    return if Figaro.env.disable_wiki_output == 'true'
     @course = course
     return unless current_user.wiki_id? && @course.slug?
 
@@ -104,7 +116,7 @@ class WikiEdits
                text: wiki_text,
                format: 'json',
                token: tokens.csrf_token }
-    WikiEdits.api_get params, tokens
+    WikiEdits.api_post params, tokens
   end
 
   def self.tokens(current_user)
@@ -128,7 +140,8 @@ class WikiEdits
     )
   end
 
-  def self.api_get(data, tokens)
+  def self.api_post(data, tokens)
+    return if Figaro.env.disable_wiki_output == 'true'
     language = Figaro.env.wiki_language
     tokens.access_token.post("https://#{language}.wikipedia.org/w/api.php",
                              data)
