@@ -38,6 +38,9 @@ class Course < ActiveRecord::Base
     where('start < ?', Time.now).where('end > ?', Time.now - update_length)
   }
 
+  # Courses sourced from Wikipedia, not created with this tool
+  scope :legacy, -> { where('courses.id < 10000') }
+
   ####################
   # Instance methods #
   ####################

@@ -17,7 +17,7 @@ class CourseImporter
   def self.update_all_courses(initial=false, raw_ids={})
     raw_ids = Wiki.course_list if raw_ids.empty?
     listed_ids = raw_ids.values.flatten
-    course_ids = listed_ids | Course.where(listed: true).pluck(:id)
+    course_ids = listed_ids | Course.legacy.where(listed: true).pluck(:id)
 
     if initial
       _minimum = course_ids.min

@@ -7,7 +7,7 @@ class CohortImporter
     Course.transaction do
       raw_ids.each do |slug, course_ids|
         cohort = Cohort.find_or_create_by(slug: slug)
-        ids_in_cohort = cohort.courses.map(&:id)
+        ids_in_cohort = cohort.courses.legacy.map(&:id)
 
         new_course_ids = course_ids - ids_in_cohort
         new_courses = Course.where(id: new_course_ids)
