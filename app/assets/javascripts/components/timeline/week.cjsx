@@ -37,11 +37,11 @@ Week = React.createClass(
       addBlock = (
         <li className="row view-all">
           <div>
-            <div className='button' onClick={@addBlock}>Add New Block</div>
+            <button onClick={@addBlock}>Add New Block</button>
           </div>
         </li>
       )
-      deleteWeek = <span className="button danger" onClick={@props.deleteWeek}>Delete Week</span>
+      deleteWeek = <button onClick={@props.deleteWeek} className='danger'>Delete Week</button>
     if @props.showTitle == undefined || @props.showTitle
       if (@props.week.title? || @props.editable)
         spacer = '  —  '

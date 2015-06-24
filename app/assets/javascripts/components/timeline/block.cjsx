@@ -38,7 +38,7 @@ Block = React.createClass(
         />
       )
     if @props.editable
-      deleteBlock = <span className='button danger' onClick={@deleteBlock}>Delete Block</span>
+      deleteBlock = <button className='danger' onClick={@deleteBlock}>Delete Block</button>
       className += ' editable'
       className += ' dragging' if @props.isDragging
       graded = (

@@ -171,7 +171,7 @@ CourseCreator = React.createClass(
           <div className='left'><p>{@state.tempCourseId}</p></div>
           <div className='right'>
             <Link className="button" to="/" id='course_cancel'>Cancel</Link>
-            <div className="button dark" onClick={@saveCourse} id='course_create'>Create my Course!</div>
+            <button onClick={@saveCourse} className='dark'>Create my Course!</button>
           </div>
         </div>
       </div>

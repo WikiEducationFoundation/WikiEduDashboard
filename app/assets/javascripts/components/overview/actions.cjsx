@@ -1,6 +1,6 @@
 React           = require 'react'
 ServerActions   = require '../../actions/server_actions'
-CourseStore       = require '../../stores/course_store'
+CourseStore     = require '../../stores/course_store'
 
 getState = (course_id) ->
   course: CourseStore.getCourse()
@@ -35,20 +35,20 @@ Actions = React.createClass(
     user = @props.current_user
     if user.role?
       # controls.push (
-      #   <p key='update'><span className='button' onClick={@update}>Update course</span></p>
+      #   <p key='update'><button onClick={@update}>Update course</button></p>
       # )
       if user.role == 0
         controls.push (
-          <p key='leave'><span className='button' onClick={@leave}>Leave course</span></p>
+          <p key='leave'><button onClick={@leave}>Leave course</button></p>
         )
       if (user.role == 1 || user.admin) && !@state.course.published
         controls.push (
-          <p key='delete'><span className='button danger' onClick={@delete}>Delete course</span></p>
+          <p key='delete'><button className='danger' onClick={@delete}>Delete course</button></p>
         )
     else
       controls.push (
         <p key='join'>
-          <span className='button' onClick={@join}>Join course</span>
+          <button onClick={@join}>Join course</button>
         </p>
       )
 

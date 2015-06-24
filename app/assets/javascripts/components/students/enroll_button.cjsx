@@ -38,7 +38,7 @@ EnrollButton = React.createClass(
   render: ->
     users = @props.users.map (user) =>
       remove_button = (
-        <span className='button border plus' onClick={@unenroll.bind(@, user.id)}>-</span>
+        <button className='border plus' onClick={@unenroll.bind(@, user.id)}>-</button>
       ) unless @props.role == 1 && @props.users.length < 2
       <tr key={user.id + '_enrollment'}>
         <td>{user.wiki_id}{remove_button}</td>
@@ -60,16 +60,16 @@ EnrollButton = React.createClass(
       <tr className='edit'>
         <td>
           <input type="text" ref='wiki_id' placeholder='Username' />
-          <span className='button border' onClick={@enroll}>Enroll</span>
+          <button className='border' onClick={@enroll}>Enroll</button>
         </td>
       </tr>
     )
 
-    button_class = 'button ' + (if @props.inline then ' border plus' else ' dark')
+    button_class = if @props.inline then ' border plus' else ' dark'
     button_text = if @props.inline then '+' else 'Enrollment'
 
     <div className='pop__container' onClick={@stop}>
-      <span className={button_class} onClick={@props.open}>{button_text}</span>
+      <button className={button_class} onClick={@props.open}>{button_text}</button>
       <Popover
         is_open={@props.is_open}
         edit_row={edit_rows}

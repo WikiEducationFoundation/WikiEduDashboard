@@ -42,7 +42,7 @@ Grading = React.createClass(
       addGradeable = (
         <li className="row view-all">
           <div>
-            <div className='button dark' onClick={@addGradeable}>Add New Grading Item</div>
+            <button className='dark' onClick={@addGradeable}>Add New Grading Item</button>
           </div>
         </li>
       )
