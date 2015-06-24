@@ -50,7 +50,7 @@ EnrollButton = React.createClass(
         <td>
           <p>Course passcode: <b>{@props.course_passcode}</b></p>
           <p>Students may enroll by visiting this URL:</p>
-          <input type="text" disabled value={enroll_url} style={'width': '100%'} />
+          <input type="text" readonly value={enroll_url} style={'width': '100%'} />
         </td>
       </tr>
     ), (
