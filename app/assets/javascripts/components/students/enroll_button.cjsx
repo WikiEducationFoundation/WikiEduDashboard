@@ -48,16 +48,16 @@ EnrollButton = React.createClass(
 
     edit_rows = []
     edit_rows.push (
-      <tr className='edit'>
+      <tr className='edit' key='enroll_students'>
         <td>
           <p>Course passcode: <b>{@props.course_passcode}</b></p>
           <p>Students may enroll by visiting this URL:</p>
-          <input type="text" readonly value={enroll_url} style={'width': '100%'} />
+          <input type="text" readOnly value={enroll_url} style={'width': '100%'} />
         </td>
       </tr>
     ) if @props.role == 0
     edit_rows.push (
-      <tr className='edit'>
+      <tr className='edit' key='add_students'>
         <td>
           <input type="text" ref='wiki_id' placeholder='Username' />
           <button className='border' onClick={@enroll}>Enroll</button>

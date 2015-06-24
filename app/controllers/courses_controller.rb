@@ -191,7 +191,7 @@ class CoursesController < ApplicationController
         ).destroy
       end
     else
-      render plain: "Sorry, #{cohort_params[:title]} is not a valid cohort.", status: 404
+      render json: { message: "Sorry, #{cohort_params[:title]} is not a valid cohort." }, status: 404
     end
   end
 

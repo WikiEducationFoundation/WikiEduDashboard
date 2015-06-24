@@ -94,7 +94,7 @@ class UsersController < ApplicationController
       render 'users'
     else
       username = enroll_params[:user_id] || enroll_params[:wiki_id]
-      render plain: "Sorry, #{username} is not an existing user.", status: 404
+      render json: { message: "Sorry, #{username} is not an existing user." }, status: 404
     end
   end
 
