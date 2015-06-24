@@ -66,6 +66,10 @@ Timeline = React.createClass(
           <div>
             <div className='button dark' onClick={@addWeek}>Add New Week</div>
           </div>
+          <br />
+          <div>
+            {@props.controls(null, true)}
+          </div>
         </li>
       )
     unless week_components.length
