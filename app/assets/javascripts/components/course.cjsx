@@ -49,9 +49,9 @@ Course = React.createClass(
 
     alerts = []
 
-    user_role = if @getCurrentUser().id?
-      UserStore.getFiltered({ id: @getCurrentUser().id }).role
-    else -1
+    if @getCurrentUser().id?
+      user_obj = UserStore.getFiltered({ id: @getCurrentUser().id })[0]
+    user_role = if user_obj? then user_obj.role else -1
 
     if (user_role > 0 || @getCurrentUser().admin) && !@state.course.legacy && !@state.course.published
       if !(@state.course.submitted || @state.published)
