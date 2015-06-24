@@ -45,7 +45,9 @@ EnrollButton = React.createClass(
       </tr>
 
     enroll_url = window.location.href + '/enroll/' + @props.course_passcode
-    edit_row = [(
+
+    edit_rows = []
+    edit_rows.push (
       <tr className='edit'>
         <td>
           <p>Course passcode: <b>{@props.course_passcode}</b></p>
@@ -53,14 +55,15 @@ EnrollButton = React.createClass(
           <input type="text" readonly value={enroll_url} style={'width': '100%'} />
         </td>
       </tr>
-    ), (
+    ) if @props.role == 0
+    edit_rows.push (
       <tr className='edit'>
         <td>
           <input type="text" ref='wiki_id' placeholder='Username' />
           <span className='button border' onClick={@enroll}>Enroll</span>
         </td>
       </tr>
-    )]
+    )
 
     button_class = 'button ' + (if @props.inline then ' border plus' else ' dark')
     button_text = if @props.inline then '+' else 'Enrollment'
@@ -69,7 +72,7 @@ EnrollButton = React.createClass(
       <span className={button_class} onClick={@props.open}>{button_text}</span>
       <Popover
         is_open={@props.is_open}
-        edit_row={edit_row}
+        edit_row={edit_rows}
         rows={users}
       />
     </div>
