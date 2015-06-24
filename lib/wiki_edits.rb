@@ -38,7 +38,7 @@ class WikiEdits
     end
   end
 
-  def self.enroll_in_course(current_user, course, role = 0)
+  def self.enroll_in_course(course, current_user, role = 0)
     tokens = WikiEdits.tokens(current_user)
     template = "{{student editor|course = [[#{course.wiki_title}]] }}\n"
     params = { action: 'edit',
@@ -99,7 +99,6 @@ class WikiEdits
   def self.update_course(course, current_user, delete = false)
     require './lib/wiki_course_output'
 
-    return if Figaro.env.disable_wiki_output == 'true'
     @course = course
     return unless current_user.wiki_id? && @course.slug?
 
@@ -142,6 +141,7 @@ class WikiEdits
   end
 
   def self.api_post(data, tokens)
+    return if Figaro.env.disable_wiki_output == 'true'
     language = Figaro.env.wiki_language
     tokens.access_token.post("https://#{language}.wikipedia.org/w/api.php",
                              data)

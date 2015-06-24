@@ -1,3 +1,5 @@
+require "#{Rails.root}/lib/wiki_edits"
+
 #= Controller for user functionality
 class UsersController < ApplicationController
   respond_to :html, :json
@@ -33,6 +35,7 @@ class UsersController < ApplicationController
       assignment['course_id'] = @course.id
       update_util Assignment, assignment
     end
+    WikiEdits.update_course(@course, current_user)
     render 'users'
   end
 
@@ -58,6 +61,7 @@ class UsersController < ApplicationController
       )
     end
     WikiEdits.enroll_in_course(current_user, @course)
+    WikiEdits.update_course(@course, current_user)
     # Redirect to course
     redirect_to course_slug_path(@course.slug)
   end
@@ -85,6 +89,8 @@ class UsersController < ApplicationController
         course_id: @course.id,
         role: enroll_params[:role]
       )
+
+      WikiEdits.update_course(@course, current_user)
       render 'users'
     else
       username = enroll_params[:user_id] || enroll_params[:wiki_id]
@@ -102,16 +108,19 @@ class UsersController < ApplicationController
       role: enroll_params[:role]
     ).destroy
     render 'users'
+    WikiEdits.update_course(@course, current_user)
   end
 
   def set_role
     fetch_enroll_records
-    return if @user.nil?
+    return if @user.nil? || @course.nil?
 
     CoursesUsers.find_by(
       user_id: @user.id,
       course_id: params[:course_id],
       role: enroll_params[:old_role]
     ).update(role: enroll_params[:role])
+
+    WikiEdits.update_course(@course, current_user)
   end
 end
