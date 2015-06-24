@@ -1,4 +1,5 @@
 require "#{Rails.root}/lib/replica"
+require "#{Rails.root}/lib/importers/revision_importer"
 
 #= Imports and updates articles from Wikipedia into the dashboard database
 class ArticleImporter
@@ -31,9 +32,10 @@ class ArticleImporter
 
     # Delete articles as appropriate
     local_articles.where(id: deleted_ids).update_all(deleted: true)
+    local_articles.where(id: synced_ids).update_all(deleted: false)
     ArticlesCourses.where(article_id: deleted_ids).destroy_all
     limbo_revisions = Revision.where(article_id: deleted_ids)
-    move_or_delete_revisions limbo_revisions
+    RevisionImporter.move_or_delete_revisions limbo_revisions
   end
 
   def self.update_title_and_namespace(synced_articles)
@@ -103,34 +105,7 @@ class ArticleImporter
     # At this stage check to see if the deleted articles' revisions still exist
     # if so, move them to their new article ID
     limbo_revisions = Revision.where(article_id: deleted_ids)
-    move_or_delete_revisions limbo_revisions
-  end
-
-  def self.move_or_delete_revisions(revisions=nil)
-    revisions ||= Revision.all
-    return if revisions.empty?
-
-    synced_revisions = Utils.chunk_requests(revisions, 100) do |block|
-      Replica.get_existing_revisions_by_id block
-    end
-    synced_ids = synced_revisions.map { |r| r['rev_id'].to_i }
-
-    deleted_ids = revisions.pluck(:id) - synced_ids
-    Revision.where(id: deleted_ids).update_all(deleted: true)
-
-    moved_ids = synced_ids - deleted_ids
-    moved_revisions = synced_revisions.reduce([]) do |moved, rev|
-      moved.push rev if moved_ids.include? rev['rev_id'].to_i
-    end
-    moved_revisions.each do |moved|
-      handle_moved_revision moved
-    end
-  end
-
-  def self.handle_moved_revision(moved)
-    article_id = moved['rev_page']
-    Revision.find(moved['rev_id']).update(article_id: article_id)
-    import_article(article_id) unless Article.exists?(article_id)
+    RevisionImporter.move_or_delete_revisions limbo_revisions
   end
 
   def self.import_article(id)
