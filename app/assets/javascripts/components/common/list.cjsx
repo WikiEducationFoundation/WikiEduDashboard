@@ -17,14 +17,31 @@ List = React.createClass(
         header_onclick = UIActions.sort.bind(null, @props.table_key, key)
       else
         header_onclick = null
+      if key_obj['info_key']?
+        header_class += ' popover-trigger'
+        popover = (
+          <div className='popover dark'>
+            <p>{I18n.t(key_obj['info_key'])}</p>
+          </div>
+        )
+      else
+        popover = null
       headers.push (
-        <th
-          onClick={header_onclick}
-          className={header_class}
-          key={key}
-          dangerouslySetInnerHTML={{__html: key_obj['label']}}></th>
+        <th onClick={header_onclick} className={header_class} key={key}>
+          <span dangerouslySetInnerHTML={{__html: key_obj['label']}}></span>
+          {popover}
+        </th>
       )
       className = @props.table_key + ' list'
+
+
+          # <div class="course-list__row__characters sort popover-trigger" data-default-order="desc" data-sort="ucharacters">
+          #   <p><%= t("metrics.char") %></p>
+          #   <div class="popover dark">
+          #     <p><%= t("course.character_doc") %></p>
+          #   </div>
+          # </div>
+
 
     elements = @props.elements
     if elements.length == 0

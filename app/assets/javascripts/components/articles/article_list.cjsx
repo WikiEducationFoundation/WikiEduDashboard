@@ -19,15 +19,18 @@ ArticleList = React.createClass(
       'rating_num':
         'label': 'Class'
         'desktop_only': true
+        'info_key': 'article.rating_doc'
       'title':
         'label': 'Title'
         'desktop_only': false
       'character_sum':
         'label': 'Chars added'
         'desktop_only': true
+        'info_key': 'article.character_doc'
       'view_count':
         'label': 'Views'
         'desktop_only': true
+        'info_key': 'article.view_doc'
 
     <List
       elements={elements}
