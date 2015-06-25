@@ -56,7 +56,7 @@ Grading = React.createClass(
     <div>
       <div className="section-header">
         <h3>Grading</h3>
-        {@props.controls()}
+        {@props.controls(null, @props.gradeables.length < 1)}
       </div>
       <ul className="list">
         {gradeables}
