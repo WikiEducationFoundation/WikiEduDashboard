@@ -81,7 +81,8 @@ class CoursesController < ApplicationController
   end
 
   def validate
-    @course = Course.find_by_slug(params[:id])
+    slug = params[:id].gsub(/\.json$/, '')
+    @course = Course.find_by_slug(slug)
     return unless user_signed_in? && current_user.instructor?(@course)
   end
 
