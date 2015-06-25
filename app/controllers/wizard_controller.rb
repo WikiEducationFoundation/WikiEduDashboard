@@ -115,7 +115,22 @@ class WizardController < ApplicationController
         end
         block['week_id'] = new_week.id
         block['order'] = i
-        Block.create(block.except('if', 'unless'))
+
+        if block.key?('graded') && block['graded']
+          gradeable = {
+            points: block['points'] || 10,
+            gradeable_item_type: 'block',
+            title: ''
+          }
+        end
+
+        block = Block.create(block.except('if', 'unless', 'graded', 'points'))
+
+        unless gradeable.nil?
+          gradeable['gradeable_item_id'] = block.id
+          gradeable = Gradeable.create(gradeable)
+          block.update(gradeable_id: gradeable.id)
+        end
       end
       week_finished = true
     end

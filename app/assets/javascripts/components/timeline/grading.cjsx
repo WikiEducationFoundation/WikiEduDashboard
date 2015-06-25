@@ -36,6 +36,7 @@ Grading = React.createClass(
           deleteGradeable={@deleteGradeable.bind(this, gradeable.id)}
         />
     gradeables.sort (a, b) ->
+      return 1 unless a.props.block? && b.props.block?
       a.props.block.order - b.props.block.order
     if @props.editable && false
       addGradeable = (
