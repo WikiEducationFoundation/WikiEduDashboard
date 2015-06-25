@@ -101,12 +101,14 @@ wizard-width = 860px
       &.half
         +above(desktop)
           col(1/2, cycle: 2)
-      > div
+      > button
+        cursor pointer
         padding 20px
       &.summary
         border-top-width 0
         margin-bottom 0
         padding 20px
+        width 100%
         &:first-child
           border-top-width 1px
       .edit
@@ -154,10 +156,10 @@ wizard-width = 860px
         border-top 1px solid mischka
         bottom 0
         left 0
-        padding 5px 0 9px
+        padding 5px 0 7px
         position absolute
-        right 0
         transition all .2s ease-in-out
+        width 100%
         &.open p:after
           transform rotate(-180deg)
         p

@@ -31,7 +31,7 @@ AssignButton = React.createClass(
     AssignmentActions.deleteAssignment assignment
     @setState send: (!@props.editable && @props.current_user.id == @props.student.id)
   render: ->
-    className = 'border'
+    className = 'button border'
     className += ' dark' if @props.is_open
 
     if @props.assignments.length > 1 || (@props.assignments.length > 0 && @props.permitted)
@@ -50,7 +50,7 @@ AssignButton = React.createClass(
       )
     assignments = @props.assignments.map (ass) =>
       if @props.permitted
-        remove_button = <button className='border plus' onClick={@unassign.bind(@, ass)}>-</button>
+        remove_button = <button className='button border plus' onClick={@unassign.bind(@, ass)}>-</button>
       if ass.article_url?
         link = <a href={ass.article_url} target='_blank' className='inline'>{ass.article_title}</a>
       else
@@ -66,7 +66,7 @@ AssignButton = React.createClass(
         <tr className='edit'>
           <td>
             <input type="text" ref='ass_input' placeholder='Article title' />
-            <button className='border' onClick={@assign}>Assign</button>
+            <button className='button border' onClick={@assign}>Assign</button>
           </td>
         </tr>
       )

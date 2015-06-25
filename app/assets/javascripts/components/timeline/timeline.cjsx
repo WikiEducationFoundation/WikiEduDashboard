@@ -64,7 +64,7 @@ Timeline = React.createClass(
       add_week = (
         <li className="row view-all">
           <div>
-            <button className='dark' onClick={@addWeek}>Add New Week</button>
+            <button className='button dark' onClick={@addWeek}>Add New Week</button>
           </div>
           <br />
           <div>

@@ -35,20 +35,20 @@ Actions = React.createClass(
     user = @props.current_user
     if user.role?
       # controls.push (
-      #   <p key='update'><button onClick={@update}>Update course</button></p>
+      #   <p key='update'><button onClick={@update} className='button'>Update course</button></p>
       # )
       if user.role == 0
         controls.push (
-          <p key='leave'><button onClick={@leave}>Leave course</button></p>
+          <p key='leave'><button onClick={@leave} className='button'>Leave course</button></p>
         )
       if (user.role == 1 || user.admin) && !@state.course.published
         controls.push (
-          <p key='delete'><button className='danger' onClick={@delete}>Delete course</button></p>
+          <p key='delete'><button className='button danger' onClick={@delete}>Delete course</button></p>
         )
     else
       controls.push (
         <p key='join'>
-          <button onClick={@join}>Join course</button>
+          <button onClick={@join} className='button'>Join course</button>
         </p>
       )
 

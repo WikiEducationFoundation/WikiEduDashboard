@@ -26,16 +26,16 @@ Option = React.createClass(
         </div>
       )
       expand_link = (
-        <div className={more_className} onClick={@expand}><p>{expand_text}</p></div>
+        <button className={more_className} onClick={@expand}><p>{expand_text}</p></button>
       )
 
     <div className={className}>
-      <div onClick={@select}>
+      <button onClick={@select}>
         {checkbox}
         <h3>{@props.option.title}</h3>
         <p>{@props.option.blurb}</p>
         {expand}
-      </div>
+      </button>
       {expand_link}
       <div className='wizard__option__border'></div>
     </div>

@@ -29,17 +29,17 @@ Editable = (Component, Stores, Save, GetState) ->
         unless save_only
           className = 'controls'
           cancel = (
-            <button onClick={@cancelChanges}>Cancel</button>
+            <button onClick={@cancelChanges} className='button'>Cancel</button>
           )
 
         <div className={className}>
           {cancel}
-          <button onClick={@saveChanges} className='dark'>Save</button>
+          <button onClick={@saveChanges} className='dark button'>Save</button>
           {extra_controls}
        </div>
       else if permissions && (@props.editable == undefined || @props.editable)
         unless hide_edit
-          edit = <button onClick={@toggleEditable} className='dark'>Edit</button>
+          edit = <button onClick={@toggleEditable} className='dark button'>Edit</button>
         <div className="controls">
           {edit}
           {extra_controls}

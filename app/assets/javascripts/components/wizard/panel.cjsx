@@ -18,7 +18,7 @@ Panel = React.createClass(
     WizardActions.resetWizard()
   render: ->
     if @props.index > 0
-      rewind =  <button onClick={@rewind}>{'Previous'}</button>
+      rewind =  <button className='button' onClick={@rewind}>{'Previous'}</button>
 
     options_1 = []
     options_2 = []
@@ -63,7 +63,7 @@ Panel = React.createClass(
         <div className='right'>
           <div><p className='red'>{@props.panel.error}</p></div>
           {rewind}
-          <button className="dark" onClick={advance}>{next_text}</button>
+          <button className="button dark" onClick={advance}>{next_text}</button>
         </div>
       </div>
     </div>

@@ -33,7 +33,7 @@ CohortButton = React.createClass(
   render: ->
     cohorts = @props.cohorts.map (cohort) =>
       remove_button = (
-        <button className='border plus' onClick={@delist.bind(@, cohort.id)}>-</button>
+        <button className='button border plus' onClick={@delist.bind(@, cohort.id)}>-</button>
       )
       <tr key={cohort.id + '_cohort'}>
         <td>{cohort.title}{remove_button}</td>
@@ -43,13 +43,13 @@ CohortButton = React.createClass(
       <tr className='edit'>
         <td>
           <input type="text" ref='cohort_title' placeholder='Title' />
-          <button className='border' onClick={@list}>List</button>
+          <button className='button border' onClick={@list}>List</button>
         </td>
       </tr>
     )
 
     <div className='pop__container' onClick={@stop}>
-      <button className='border plus' onClick={@props.open}>+</button>
+      <button className='button border plus' onClick={@props.open}>+</button>
       <Popover
         is_open={@props.is_open}
         edit_row={edit_row}
