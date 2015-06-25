@@ -109,6 +109,23 @@ describe 'New course creation and editing', type: :feature do
       sleep 1
       expect(page).not_to have_content 'The first week'
 
+      # Click edit, mark a gradeable and save it.
+      first('button.dark').click
+      sleep 1
+      first('input[type=checkbox]').set(true)
+      sleep 1
+      first('button.dark').click
+      sleep 1
+
+      # Edit the gradeable.
+      page.all('button').last.click
+      sleep 1
+      page.all('input').last.set('20')
+      sleep 1
+      page.all('button.dark').last.click
+      sleep 1
+      expect(page).to have_content 'Points: 20'
+
       # Navigate back to the overview, then delete the course
       find('#overview-link').find('a').click
       sleep 1
