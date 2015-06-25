@@ -15,7 +15,7 @@ Actions = React.createClass(
   join: ->
     passcode = prompt('Enter the passcode given to you by your instructor for this course')
     if passcode && passcode == @state.course.passcode
-      window.location = '/courses/' + @state.course.slug + '/enroll/' + passcode
+      window.location = '/courses/' + @state.course.slug + '/students/enroll/' + passcode
     else if passcode?
       alert 'That passcode is invalid.'
   leave: ->
