@@ -101,8 +101,10 @@ translation_core:
           Handouts: [Citing Sources](https://commons.wikimedia.org/wiki/File:Citing_your_sources.pdf) and [Avoid Plagiarism](https://commons.wikimedia.org/wiki/File:Avoiding_plagiarism.pdf)
       - # Week three assignment WITH fact-checking assignment
         if: fact_checking
-        title: Translation
+        title: Translation and fact-checking
         kind: 1
+        graded: true
+        point: 20
         content: |
           * Continue to translate your work.
           * Introduce citations from English-language texts that support the facts stated in your translated article. Adjust your translation if necessary.
@@ -136,7 +138,9 @@ translation_core:
         content: |
           * Individual presentations about your translation process, how you selected your articles, and your observations about how this differs from a traditional translation assignment.
       -
-        title:
+        title: Final translation
         kind: 2 # Milestone
+        graded: true
+        points: 80
         content: |
           * Students have finished all their work on Wikipedia that will be considered for grading.
