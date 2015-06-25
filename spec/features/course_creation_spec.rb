@@ -81,7 +81,7 @@ describe 'New course creation and editing', type: :feature do
       expect(page).to have_content 'Week 2'
 
       # Click edit and then cancel
-      find('button.dark').click
+      first('button.dark').click
       sleep 1
       first('button').click
 
