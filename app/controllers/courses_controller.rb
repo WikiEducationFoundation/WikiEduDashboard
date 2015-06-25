@@ -13,6 +13,7 @@ class CoursesController < ApplicationController
     if user_signed_in?
       if current_user.permissions > 0
         @admin_courses = Course.includes(:cohorts).where('cohorts.id IS NULL')
+                         .where(listed: true).where(submitted: true)
                          .references(:cohorts)
       end
 
