@@ -1,5 +1,17 @@
 require 'rails_helper'
 
+def stub_oauth_edit
+  # Stub out the posting of content to Wikipedia using the same protocol as
+  # wiki_edits_spec.rb
+  # rubocop:disable Metrics/LineLength
+  fake_tokens = "{\"query\":{\"tokens\":{\"csrftoken\":\"myfaketoken+\\\\\"}}}"
+  # rubocop:enable Metrics/LineLength
+  stub_request(:get, /.*wikipedia.*/)
+    .to_return(status: 200, body: fake_tokens, headers: {})
+  stub_request(:post, /.*wikipedia.*/)
+    .to_return(status: 200, body: 'success', headers: {})
+end
+
 describe 'Student users', type: :feature do
   before do
     include Devise::TestHelpers, type: :feature
@@ -28,19 +40,28 @@ describe 'Student users', type: :feature do
     visit root_path
   end
 
+  describe 'enrolling by button', js: true do
+    it 'should let students join a course' do
+      stub_oauth_edit
+
+      visit "/courses/#{Course.first.slug}"
+      first('button').click
+
+      # enter passcode in alert popup
+      prompt = page.driver.browser.switch_to.alert
+      prompt.send_keys('passcode')
+      sleep 1
+      prompt.accept
+
+      visit "/courses/#{Course.first.slug}/students"
+      expect(page).to have_content User.first.wiki_id
+    end
+  end
   # TODO: enroll via action button
 
   describe 'enrolling by url', js: true do
     it 'should let students join a course' do
-      # Stub out the posting of content to Wikipedia using the same protocol as
-      # wiki_edits_spec.rb
-      # rubocop:disable Metrics/LineLength
-      fake_tokens = "{\"query\":{\"tokens\":{\"csrftoken\":\"myfaketoken+\\\\\"}}}"
-      # rubocop:enable Metrics/LineLength
-      stub_request(:get, /.*wikipedia.*/)
-        .to_return(status: 200, body: fake_tokens, headers: {})
-      stub_request(:post, /.*wikipedia.*/)
-        .to_return(status: 200, body: 'success', headers: {})
+      stub_oauth_edit
 
       visit "/courses/#{Course.first.slug}/students/enroll/passcode"
       sleep 1
