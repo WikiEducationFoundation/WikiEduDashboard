@@ -159,10 +159,10 @@ API =
           delete obj.id
           delete obj.is_new
 
-    for student in data.students
-      delete student.revisions
+    for user in data.users
+      delete user.revisions
 
-    cleanup data.students
+    cleanup data.users
     cleanup data.assignments
 
     new Promise (res, rej) ->

@@ -24,7 +24,9 @@ AssignCell = React.createClass(
     else if !@props.current_user
       link = <span>No articles</span>
 
-    permitted = @props.current_user.id == @props.student.id || (@props.current_user.role > 0 && @props.editable)
+    is_current_user = @props.current_user.id == @props.student.id
+    instructor_or_admin = @props.current_user.role > 0 || @props.current_user.admin
+    permitted = is_current_user || (instructor_or_admin && @props.editable)
 
     <div>
       {link}

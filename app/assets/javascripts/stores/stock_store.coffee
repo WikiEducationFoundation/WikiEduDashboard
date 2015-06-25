@@ -5,6 +5,12 @@ Flux  = new McFly()
 
 StockStore = (helper, model_key, default_model, triggers) ->
   plural_model_key = model_key + 's'
+  base_model = ->
+    _.assign({
+      id: Date.now() # could THEORETICALLY collide but highly unlikely
+      is_new: true # remove ids from objects with is_new when persisting
+    }, default_model)
+
   Flux.createStore
     getFiltered: (options) ->
       filtered_models = []
@@ -37,14 +43,11 @@ StockStore = (helper, model_key, default_model, triggers) ->
       when 'SORT_' + plural_model_key.toUpperCase()
         helper.sortByKey data.key
       when 'ADD_' + model_key.toUpperCase()
-        default_model = _.assign (default_model || {}),
-          id: Date.now() # could THEORETICALLY collide but highly unlikely
-          is_new: true # remove ids from objects with is_new when persisting
-        helper.setModel _.assign default_model, data
+        helper.setModel _.assign(data, base_model())
       when 'UPDATE_' + model_key.toUpperCase()
         helper.setModel data[model_key]
       when 'DELETE_' + model_key.toUpperCase()
-        helper.removeModel data
+        helper.removeModel data['model']
     if triggers? && payload.actionType in triggers
       helper.setModels data.course[plural_model_key], true
     return true
@@ -85,10 +88,10 @@ class Store
 
   removeModel: (model) ->
     model_id = @getKey(model)
-    model = @models[model_id]
     if model.is_new
       delete @models[model_id]
     else
+      model = @models[model_id]
       model['deleted'] = true
     @store.emitChange()
 

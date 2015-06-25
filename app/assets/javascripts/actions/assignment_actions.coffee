@@ -8,9 +8,9 @@ AssignmentActions = Flux.createActions
       article_title: article_title
       role: role
     }}
-  deleteAssignment: (assignment_id) ->
+  deleteAssignment: (assignment) ->
     { actionType: 'DELETE_ASSIGNMENT', data: {
-      model_id: assignment_id
+      model: assignment
     }}
 
 module.exports = AssignmentActions

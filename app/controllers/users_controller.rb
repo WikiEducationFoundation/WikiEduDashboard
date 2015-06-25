@@ -11,7 +11,7 @@ class UsersController < ApplicationController
 
   def user_params
     params.permit(
-      students: [:id, :wiki_id, :deleted],
+      users: [:id, :wiki_id, :deleted],
       assignments: [:id, :user_id, :article_title, :role, :course_id, :deleted]
     )
   end
@@ -28,7 +28,7 @@ class UsersController < ApplicationController
 
   def save
     @course = Course.find_by_slug(params[:course_id])
-    user_params['students'].each do |student|
+    user_params['users'].each do |student|
       update_util User, student
     end
     user_params['assignments'].each do |assignment|
