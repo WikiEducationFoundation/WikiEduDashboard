@@ -48,7 +48,8 @@ StudentList = React.createClass(
 
     if @props.course_published
       add_student = <EnrollButton {...@props} role=0 key='add_student' />
-    notify_untrained = <div className='notify_untrained' onClick={@notify} key='notify'></div>
+    if @props.users.length > 0 && _.filter(@props.users, 'trained', false).length > 0
+      notify_untrained = <div className='notify_untrained' onClick={@notify} key='notify'></div>
 
     keys =
       'wiki_id':
@@ -70,7 +71,7 @@ StudentList = React.createClass(
         'desktop_only': true
 
     <div className='list__wrapper'>
-      {@props.controls([add_student, notify_untrained])}
+      {@props.controls([add_student, notify_untrained], @props.users.length < 1)}
       <List
         elements={elements}
         keys={keys}

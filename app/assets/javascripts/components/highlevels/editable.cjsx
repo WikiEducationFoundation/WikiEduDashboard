@@ -22,7 +22,7 @@ Editable = (Component, Stores, Save, GetState) ->
       return new_state
     storeDidChange: ->
       @setState GetState()
-    controls: (extra_controls, save_only=false) ->
+    controls: (extra_controls, hide_edit=false, save_only=false) ->
       permissions = @props.current_user.admin || @props.current_user.role > 0
 
       if permissions && @state.editable
@@ -38,8 +38,10 @@ Editable = (Component, Stores, Save, GetState) ->
           {extra_controls}
        </div>
       else if permissions && (@props.editable == undefined || @props.editable)
+        unless hide_edit
+          edit = <button onClick={@toggleEditable} className='dark'>Edit</button>
         <div className="controls">
-          <button onClick={@toggleEditable} className='dark'>Edit</button>
+          {edit}
           {extra_controls}
         </div>
     render: ->

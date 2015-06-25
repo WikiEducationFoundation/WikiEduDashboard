@@ -68,7 +68,7 @@ Timeline = React.createClass(
           </div>
           <br />
           <div>
-            {@props.controls(null, true)}
+            {@props.controls(null, false, true)}
           </div>
         </li>
       )
