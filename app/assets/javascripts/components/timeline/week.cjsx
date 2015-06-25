@@ -41,7 +41,7 @@ Week = React.createClass(
           </div>
         </li>
       )
-      deleteWeek = <button onClick={@props.deleteWeek} className='danger'>Delete Week</button>
+      deleteWeek = <button onClick={@props.deleteWeek} className='danger right'>Delete Week</button>
     if @props.showTitle == undefined || @props.showTitle
       if (@props.week.title? || @props.editable)
         spacer = '  —  '
@@ -58,6 +58,7 @@ Week = React.createClass(
           editable={@props.editable}
           label={week_label}
           spacer={spacer}
+          placeholder='Title'
         />
       )
 

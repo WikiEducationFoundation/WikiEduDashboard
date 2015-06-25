@@ -52,7 +52,7 @@ CourseStore = Flux.createStore
     course_start = new Date(_course.start)
     now = new Date()
     time_diff = now.getTime() - course_start.getTime()
-    Math.ceil(time_diff / (1000 * 3600 * 24 * 7)) - 1
+    Math.max(Math.ceil(time_diff / (1000 * 3600 * 24 * 7)) - 1, 0)
   restore: ->
     _course = $.extend(true, {}, _persisted)
     CourseStore.emitChange()

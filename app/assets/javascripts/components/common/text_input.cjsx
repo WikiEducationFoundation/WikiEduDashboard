@@ -15,7 +15,7 @@ TextInput = React.createClass(
     if @props.label
       label = @props.label
       label += spacer
-    value = @props.value || @props.placeholder
+    value = @props.value
 
     if @props.editable
       labelClass = ''
@@ -37,7 +37,7 @@ TextInput = React.createClass(
             autoFocus={@props.focus}
             onFocus={@focus}
             onBlur={@blur}
-            placeholderText={@props.label || @props.placeholder}
+            placeholderText={@props.placeholder}
           />
         )
       else
@@ -52,19 +52,19 @@ TextInput = React.createClass(
             onFocus={@focus}
             onBlur={@blur}
             type={@props.type || 'text'}
-            placeholder={@props.label || @props.placeholder}
+            placeholder={@props.placeholder}
           />
         )
 
       <label>
         <span className={labelClass}>{label}</span>
-        {spacer if (@props.value? or @props.placeholder? or @props.editable) && !@props.label}
+        {spacer if (@props.value? or @props.editable) && !@props.label}
         {input}
       </label>
     else if @props.label
       <p>
         <span>{label}</span>
-        {spacer if (@props.value? or @props.placeholder? or @props.editable) && !@props.label}
+        {spacer if (@props.value? or @props.editable) && !@props.label}
         <span>{value}</span>
         {@props.append}
       </p>

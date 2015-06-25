@@ -1,6 +1,5 @@
 McFly           = require 'mcfly'
 Flux            = new McFly()
-GradeableStore  = require './gradeable_store'
 
 
 # Data
@@ -78,7 +77,6 @@ BlockStore = Flux.createStore
   data = payload.data
   switch(payload.actionType)
     when 'RECEIVE_TIMELINE'
-      Flux.dispatcher.waitFor([GradeableStore.dispatcherID])
       setBlocks data.course.weeks, true
       break
     when 'SAVED_TIMELINE', 'WIZARD_SUBMITTED'

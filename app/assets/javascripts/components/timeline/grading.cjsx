@@ -23,21 +23,21 @@ Grading = React.createClass(
   deleteGradeable: (gradeable_id) ->
     GradeableActions.deleteGradeable gradeable_id
   render: ->
-    gradeables = []
     total = _.sum(@props.gradeables, 'points')
-    @props.gradeables.forEach (gradeable, i) =>
+    gradeables = @props.gradeables.map (gradeable, i) =>
       unless gradeable.deleted
         block = BlockStore.getBlock(gradeable.gradeable_item_id)
-        gradeables.push (
-          <Gradeable
-            gradeable={gradeable}
-            block={block}
-            key={gradeable.id}
-            editable={@props.editable}
-            total={total}
-            deleteGradeable={@deleteGradeable.bind(this, gradeable.id)}
-          />
-        )
+        <Gradeable
+          gradeable={gradeable}
+          block={block}
+          key={gradeable.id}
+          editable={@props.editable}
+          total={total}
+          deleteGradeable={@deleteGradeable.bind(this, gradeable.id)}
+        />
+    gradeables.sort (a, b) ->
+      debugger
+      a.props.block.order - b.props.block.order
     if @props.editable && false
       addGradeable = (
         <li className="row view-all">

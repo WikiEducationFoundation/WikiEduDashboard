@@ -95,6 +95,7 @@ CourseCreator = React.createClass(
               invalid={@state.validation['title']}
               editable=true
               label='Course title'
+              placeholder='Title'
             />
             <TextInput
               id='course_school'
@@ -104,6 +105,7 @@ CourseCreator = React.createClass(
               invalid={@state.validation['school']}
               editable=true
               label='Course school'
+              placeholder='School'
             />
             <TextInput
               id='course_term'
@@ -113,6 +115,7 @@ CourseCreator = React.createClass(
               invalid={@state.validation['term']}
               editable=true
               label='Course term'
+              placeholder='Term'
             />
             <TextInput
               id='course_subject'
@@ -122,6 +125,7 @@ CourseCreator = React.createClass(
               invalid={@state.validation['subject']}
               editable=true
               label='Course subject'
+              placeholder='Subject'
             />
             <TextInput
               id='course_expected_students'
@@ -132,6 +136,7 @@ CourseCreator = React.createClass(
               editable=true
               type='number'
               label='Expected number of students'
+              placeholder='Expected number of students'
             />
           </div>
           <div className='column'>
