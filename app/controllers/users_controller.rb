@@ -60,7 +60,7 @@ class UsersController < ApplicationController
         role: 0
       )
     end
-    WikiEdits.enroll_in_course(current_user, @course)
+    WikiEdits.enroll_in_course(@course, current_user)
     WikiEdits.update_course(@course, current_user)
     # Redirect to course
     redirect_to course_slug_path(@course.slug)
