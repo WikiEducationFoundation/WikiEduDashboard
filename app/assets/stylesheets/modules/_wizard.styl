@@ -21,6 +21,7 @@ wizard-width = 860px
   bottom 0
   left 0
   max-height 100%
+  overflow-x hidden
   overflow-y scroll
   padding-top 80px
   position fixed
@@ -41,12 +42,14 @@ wizard-width = 860px
     text-align left
     top 160px
     transform translateX(-50%)
-    transition left panel_speed ease-in-out, opacity .01s ease panel_speed
+    transition left panel_speed ease-in-out, opacity .01s ease panel_speed, visibility .01s ease panel_speed
     width 100%
+    visibility hidden
     &.active
       left 50%
       opacity 1
       transition left panel_speed ease-in-out, opacity .01s
+      visibility visible
     &.active ~ .wizard__panel
       left 150%
     &.is-submitting
