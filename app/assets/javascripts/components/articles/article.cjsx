@@ -1,4 +1,4 @@
-React             = require 'react/addons'
+React = require 'react/addons'
 
 Article = React.createClass(
   displayName: 'Article'
@@ -13,7 +13,7 @@ Article = React.createClass(
         <p className="rating_num hidden">{@props.article.rating_num}</p>
         <div className={ratingClass}><p>{@props.article.pretty_rating || '-'}</p></div>
         <div className="popover dark">
-          <p>Copy here</p>
+          <p>{I18n.t('article.rating_docs.' + (@props.article.rating || '?'))}</p>
         </div>
       </td>
       <td>
