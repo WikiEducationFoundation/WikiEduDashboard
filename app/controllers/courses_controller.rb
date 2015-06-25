@@ -23,7 +23,18 @@ class CoursesController < ApplicationController
     end
 
     if params.key?(:cohort)
-      @cohort = Cohort.includes(:students).find_by(slug: params[:cohort])
+      if params[:cohort] == 'none'
+        @cohort = OpenStruct.new(
+          title: 'Unsubmitted Courses',
+          slug: 'none',
+          students: []
+        )
+        @courses = Course.where(submitted: false)
+                   .where(listed: true).where('id >= 10000')
+        return
+      else
+        @cohort = Cohort.includes(:students).find_by(slug: params[:cohort])
+      end
     elsif !Figaro.env.default_cohort.nil?
       slug = Figaro.env.default_cohort
       @cohort = Cohort.includes(:students).find_by(slug: slug)

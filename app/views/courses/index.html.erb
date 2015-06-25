@@ -107,6 +107,9 @@
               <option value="<%= c.slug %>"><%= c.title %></option>
             <% end %>
           <% end %>
+          <% if user_signed_in? && current_user.permissions > 0 && @cohort.slug != 'none' %>
+            <option value="none">None</option>
+          <% end %>
         </select>
       </div>
     </div>
