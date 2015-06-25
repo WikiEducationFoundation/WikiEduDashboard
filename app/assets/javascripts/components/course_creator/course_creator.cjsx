@@ -83,7 +83,7 @@ CourseCreator = React.createClass(
     <Modal>
       <div className="wizard__panel active" style={form_style}>
         <h3>Create a New Course</h3>
-        <p>After you create your course, the wizard will walk you through creating an assignment timeline.</p>
+        <p>The title, school and term will become part of course page url, and cannot be changed. The rest of the course information may be edited later on. After you create your course, the wizard will walk you through creating an assignment timeline.</p>
         <div className='wizard__form'>
           <div className='column'>
 
