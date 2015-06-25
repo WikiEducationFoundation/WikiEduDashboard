@@ -14,6 +14,9 @@ Student = React.createClass(
     is_open: false
   stop: (e) ->
     e.stopPropagation()
+  buttonClick: (e) ->
+    e.stopPropagation()
+    @props.onClick()
   render: ->
     className = 'students'
     className += if @state.is_open then ' open' else ''
@@ -54,7 +57,7 @@ Student = React.createClass(
       </td>
       <td className='desktop-only-tc'>{@props.student.character_sum_ms}</td>
       <td className='desktop-only-tc'>{@props.student.character_sum_us}</td>
-      <td style={{borderRight: '1px solid #ced1dd'}}><p className="icon icon-arrow" ></p></td>
+      <td style={{borderRight: '1px solid #ced1dd'}}><button onClick={@buttonClick} className="icon icon-arrow" ></button></td>
     </tr>
 )
 
