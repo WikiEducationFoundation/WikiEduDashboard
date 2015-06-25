@@ -54,7 +54,7 @@ describe 'New course creation and editing', type: :feature do
 
       # Go through the wizard, checking necessary options.
       sleep 3
-      page.all('.wizard__option__description')[1].click
+      page.all('.wizard__option')[1].first('button').click
       sleep 1
       first('button.dark').click
       sleep 1
@@ -65,7 +65,7 @@ describe 'New course creation and editing', type: :feature do
 
       # Now go back and edit choices
       sleep 1
-      page.all('div.wizard__option.summary')[1].click
+      page.all('button.wizard__option.summary')[1].click
       sleep 1
       page.all('div.wizard__option__checkbox')[3].click
       page.all('div.wizard__option__checkbox')[2].click
