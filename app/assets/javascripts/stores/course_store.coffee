@@ -8,10 +8,12 @@ ServerActions = require '../actions/server_actions'
 _course = {}
 _persisted = {}
 _invalid = {}
+_loaded = false
 
 
 # Utilities
 setCourse = (data, persisted=false, quiet=false) ->
+  _loaded = true
   $.extend(true, _course, data)
   delete _course['weeks']
   _persisted = $.extend(true, {}, _course) if persisted
@@ -56,6 +58,8 @@ CourseStore = Flux.createStore
   restore: ->
     _course = $.extend(true, {}, _persisted)
     CourseStore.emitChange()
+  isLoaded: ->
+    _loaded
 , (payload) ->
   data = payload.data
   switch(payload.actionType)

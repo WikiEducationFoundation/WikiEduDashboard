@@ -54,7 +54,7 @@ Course = React.createClass(
     user_role = if user_obj? then user_obj.role else -1
 
     if (user_role > 0 || @getCurrentUser().admin) && !@state.course.legacy && !@state.course.published
-      if !(@state.course.submitted || @state.published)
+      if CourseStore.isLoaded() && !(@state.course.submitted || @state.published)
         alerts.push (
           <div className='container module text-center' key='submit'>
             <p>Your course is not yet published on the Wiki Ed platform. <a href="#" onClick={@submit}>Click here</a> to submit it for approval by Wiki Ed staff.</p>
@@ -73,7 +73,7 @@ Course = React.createClass(
               <p>This course has been submitted for approval by its creator. To approve it, add it to a cohort on the <CourseLink to='overview'>Overview</CourseLink> page.</p>
             </div>
           )
-    if @state.course.published && UserStore.getFiltered({ role: 0 }).length == 0
+    if @state.course.published && UserStore.isLoaded() && UserStore.getFiltered({ role: 0 }).length == 0 && !@state.course.legacy
       alerts.push (
         <div className='container module text-center' key='enroll'>
           <p>Your course has been published! Students may enroll in the course by visiting the following URL:</p>
