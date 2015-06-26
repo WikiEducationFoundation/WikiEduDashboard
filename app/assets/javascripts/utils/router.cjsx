@@ -18,16 +18,19 @@ UploadsHandler      = require '../components/uploads/uploads_handler'
 
 routes = (
   <Route name='root' path='/' handler={App}>
-    <Route name='course' path='courses/:course_school/:course_title' handler={Course}>
-      <Route name='overview' path='overview' handler={OverviewHandler}></Route>
-      <Route name='timeline' path='timeline' handler={TimelineHandler} >
-        <Route name='wizard' path='wizard' handler={Wizard} />
+    <Route path='courses' handler={App}>
+      <Route name='course' path=':course_school/:course_title' handler={Course}>
+        <Route name='overview' path='overview' handler={OverviewHandler}></Route>
+        <Route name='timeline' path='timeline' handler={TimelineHandler} >
+          <Route name='wizard' path='wizard' handler={Wizard} />
+        </Route>
+        <Route name='activity' path='activity' handler={RevisionsHandler}></Route>
+        <Route name='students' path='students' handler={StudentsHandler}></Route>
+        <Route name='articles' path='articles' handler={ArticlesHandler}></Route>
+        <Route name='uploads' path='uploads' handler={UploadsHandler}></Route>
+        <DefaultRoute handler={OverviewHandler} />
       </Route>
-      <Route name='activity' path='activity' handler={RevisionsHandler}></Route>
-      <Route name='students' path='students' handler={StudentsHandler}></Route>
-      <Route name='articles' path='articles' handler={ArticlesHandler}></Route>
-      <Route name='uploads' path='uploads' handler={UploadsHandler}></Route>
-      <DefaultRoute handler={OverviewHandler} />
+      <DefaultRoute handler={CourseCreatorButton} />
     </Route>
     <Route handler={CourseCreatorButton}>
       <Route name='course_creator' path='course_creator' handler={CourseCreator} />

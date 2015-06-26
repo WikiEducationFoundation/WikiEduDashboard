@@ -85,7 +85,7 @@ Block = React.createClass(
           value={@props.block.kind}
           value_key={'kind'}
           editable={@props.editable}
-          options={['Class', 'Assignment', 'Milestone', 'Custom']}
+          options={['In Class', 'Assignment', 'Milestone', 'Custom']}
           show={@props.block.kind < 3 || @props.editable}
         />
         {title}
