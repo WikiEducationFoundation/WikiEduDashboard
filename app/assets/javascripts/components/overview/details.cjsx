@@ -72,6 +72,16 @@ Details = React.createClass(
         <fieldset>
           <TextInput
             onChange={@updateDetails}
+            value={@props.course.expected_students}
+            value_key='expected_students'
+            editable={@props.editable}
+            type='number'
+            label='Expected Students'
+          />
+        </fieldset>
+        <fieldset>
+          <TextInput
+            onChange={@updateDetails}
             value={@props.course.start}
             value_key='start'
             editable={@props.editable}
