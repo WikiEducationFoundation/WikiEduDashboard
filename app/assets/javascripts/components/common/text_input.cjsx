@@ -24,6 +24,9 @@ TextInput = React.createClass(
         labelClass = 'red'
         inputClass = 'invalid'
 
+      if @props.type == 'number'
+        title = 'This is a number field. The buttons rendered by most browsers will increment and decrement the input.'
+
       if @props.type == 'date'
         v_date = if value? then moment(value) else moment()
         value = v_date.format('YYYY-MM-DD')
@@ -53,6 +56,7 @@ TextInput = React.createClass(
             onBlur={@blur}
             type={@props.type || 'text'}
             placeholder={@props.placeholder}
+            title={title}
           />
         )
 
