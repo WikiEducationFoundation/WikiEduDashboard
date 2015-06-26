@@ -73,6 +73,13 @@ Course = React.createClass(
               <p>This course has been submitted for approval by its creator. To approve it, add it to a cohort on the <CourseLink to='overview'>Overview</CourseLink> page.</p>
             </div>
           )
+    if @state.course.published && UserStore.getFiltered({ role: 0 }).length == 0
+      alerts.push (
+        <div className='container module text-center' key='enroll'>
+          <p>Your course has been published! Students may enroll in the course by visiting the following URL:</p>
+          <p>{@state.course.enroll_url + @state.course.passcode}</p>
+        </div>
+      )
 
     unless @state.course.legacy
       timeline = (
@@ -147,8 +154,7 @@ Course = React.createClass(
           course_id={@getCourseID()}
           current_user={@getCurrentUser()}
           transitionTo={@transitionTo}
-          course_passcode={@state.course.passcode}
-          course_published={@state.course.published}
+          course={@state.course}
         />
       </div>
     </div>

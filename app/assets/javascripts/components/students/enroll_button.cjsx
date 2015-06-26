@@ -44,13 +44,13 @@ EnrollButton = React.createClass(
         <td>{user.wiki_id}{remove_button}</td>
       </tr>
 
-    enroll_url = window.location.href + '/enroll/' + @props.course_passcode
+    enroll_url = @props.course.enroll_url + @props.course.passcode
 
     edit_rows = []
     edit_rows.push (
       <tr className='edit' key='enroll_students'>
         <td>
-          <p>Course passcode: <b>{@props.course_passcode}</b></p>
+          <p>Course passcode: <b>{@props.course.passcode}</b></p>
           <p>Students may enroll by visiting this URL:</p>
           <input type="text" readOnly value={enroll_url} style={'width': '100%'} />
         </td>

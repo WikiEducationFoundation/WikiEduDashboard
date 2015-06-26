@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   end
 
   # Enrollment
-  get 'courses/:course_id/students/enroll/:passcode' => 'users#enroll',
+  get 'courses/:course_id/enroll/:passcode' => 'users#enroll',
       constraints: { course_id: /.*/ }
 
   # Courses
