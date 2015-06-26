@@ -87,7 +87,6 @@ class CoursesController < ApplicationController
       redirect_to :back
     else
       @course = Course.create(course_params)
-      WikiEdits.update_course(@course, current_user)
       CoursesUsers.create(user: current_user, course: @course, role: 1)
     end
   end
@@ -104,7 +103,7 @@ class CoursesController < ApplicationController
     params['course'] = course_params
 
     @course.update params
-    WikiEdits.update_course(@course, current_user)
+    WikiEdits.update_course(@course, current_user) if @course.submitted
     respond_to do |format|
       format.json { render json: @course }
     end
