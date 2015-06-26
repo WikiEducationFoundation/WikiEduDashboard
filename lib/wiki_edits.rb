@@ -99,18 +99,17 @@ class WikiEdits
   def self.update_course(course, current_user, delete = false)
     require './lib/wiki_course_output'
 
-    @course = course
-    return unless current_user.wiki_id? && @course.slug?
+    return unless current_user.wiki_id? && course.submitted && course.slug?
 
     if delete == true
       wiki_text = ''
     else
-      wiki_text = WikiCourseOutput.translate_course(@course)
+      wiki_text = WikiCourseOutput.translate_course(course)
     end
 
     tokens = WikiEdits.tokens(current_user)
     course_prefix = Figaro.env.course_prefix
-    wiki_title = "#{course_prefix}/#{@course.slug}"
+    wiki_title = "#{course_prefix}/#{course.slug}"
     params = { action: 'edit',
                title: wiki_title,
                text: wiki_text,

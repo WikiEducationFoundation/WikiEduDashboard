@@ -103,7 +103,7 @@ class CoursesController < ApplicationController
     params['course'] = course_params
 
     @course.update params
-    WikiEdits.update_course(@course, current_user) if @course.submitted
+    WikiEdits.update_course(@course, current_user)
     respond_to do |format|
       format.json { render json: @course }
     end
