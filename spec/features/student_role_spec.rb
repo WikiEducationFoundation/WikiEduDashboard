@@ -55,14 +55,17 @@ describe 'Student users', type: :feature, js: true do
       prompt.accept
 
       visit "/courses/#{Course.first.slug}/students"
+      sleep 1
       expect(first('tbody')).to have_content User.first.wiki_id
 
       # now unenroll
       visit "/courses/#{Course.first.slug}"
+      sleep 1
       page.all('button').last.click
       page.driver.browser.switch_to.alert.accept
 
       visit "/courses/#{Course.first.slug}/students"
+      sleep 1
       expect(first('tbody')).not_to have_content User.first.wiki_id
     end
   end
@@ -72,7 +75,9 @@ describe 'Student users', type: :feature, js: true do
       stub_oauth_edit
 
       visit "/courses/#{Course.first.slug}/students/enroll/passcode"
+      sleep 1
       visit "/courses/#{Course.first.slug}/students"
+      sleep 1
       expect(first('tbody')).to have_content User.first.wiki_id
     end
   end
