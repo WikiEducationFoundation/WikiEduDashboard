@@ -26,27 +26,30 @@ CourseCreator = React.createClass(
       @state.isSubmitting = false
       # This has to be a window.location set due to our limited ReactJS scope
       window.location = '/courses/' + @state.course.slug + '/timeline/wizard'
-
-      # @context.router.transitionTo('wizard',
-      #   course_title: (@state.course.title + '_(' + @state.course.term + ')'),
-      #   course_school: @state.course.school
-      # )
   componentWillMount: ->
     CourseActions.addCourse()
   validateCourse: ->
     course_valid = true
     for key, value of @state.course
       course_valid = @validateKey(key, value) && course_valid
+    if course_valid
+      @setState(error: null)
+    else
+      @setState(error: 'Please fix all invalid fields.')
     course_valid
   validateKey: (key, value) ->
     switch key
       when 'title', 'school', 'term'
-        valid = value.length > 0
+        filled = value.length > 0
+        charcheck = (new RegExp(/^[\w\-\s]+$/)).test(value)
+        valid = filled && charcheck
         CourseActions.setValid key, valid
+        @setState(error: null) if valid
         valid
       when 'start', 'end'
         valid = value.length > 0
         CourseActions.setValid key, valid
+        @setState(error: null) if valid
         valid
       else
         return true
@@ -175,6 +178,7 @@ CourseCreator = React.createClass(
         <div className='wizard__panel__controls'>
           <div className='left'><p>{@state.tempCourseId}</p></div>
           <div className='right'>
+            <div><p className='red'>{@state.error}</p></div>
             <Link className="button" to="/" id='course_cancel'>Cancel</Link>
             <button onClick={@saveCourse} className='dark button'>Create my Course!</button>
           </div>
