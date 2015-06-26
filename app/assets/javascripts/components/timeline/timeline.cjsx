@@ -78,7 +78,7 @@ Timeline = React.createClass(
           <div><p>This course does not have a timeline yet</p></div>
         </li>
       )
-    wizard_link = <CourseLink to='wizard' className='button dark'>Open Wizard</CourseLink>
+    wizard_link = <CourseLink to='wizard' className='button dark'>Add Assignment</CourseLink>
 
     <div>
       <div className="section-header">
