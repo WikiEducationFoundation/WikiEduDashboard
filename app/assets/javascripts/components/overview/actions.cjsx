@@ -14,10 +14,8 @@ Actions = React.createClass(
     getState()
   join: ->
     passcode = prompt('Enter the passcode given to you by your instructor for this course')
-    if passcode && passcode == @state.course.passcode
+    if passcode
       window.location = @state.course.enroll_url + passcode
-    else if passcode?
-      alert 'That passcode is invalid.'
   leave: ->
     if confirm 'Are you sure you want to leave this course?'
       user_obj = { user_id: @props.current_user.id, role: 0 }

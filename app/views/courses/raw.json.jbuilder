@@ -1,7 +1,6 @@
 json.course do
   json.(@course, :id, :title, :description, :start, :end, :school,
-                 :term, :subject, :slug, :url, :listed, :submitted, :listed,
-                 :passcode)
+                 :term, :subject, :slug, :url, :listed, :submitted, :listed)
 
   json.legacy @course.id < 10000
   json.ended !current?(@course) && @course.start < Time.now
@@ -16,5 +15,7 @@ json.course do
   json.character_count number_to_human @course.character_sum
   json.view_count number_to_human @course.view_sum
 
-  json.passcode @course.passcode if user_signed_in? && current_user.role(@course) > 0
+  if user_signed_in? && current_user.role(@course) > 0
+    json.passcode @course.passcode
+  end
 end
