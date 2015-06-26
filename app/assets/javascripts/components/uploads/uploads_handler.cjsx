@@ -15,7 +15,7 @@ UploadsHandler = React.createClass(
   render: ->
     <div id='uploads'>
       <div className='section-header'>
-        <h3>Files Uploaded</h3>
+        <h3>Files Uploaded to Wikimedia Commons</h3>
         <div className='sort-select'>
           <select className='sorts' name='sorts' onChange={@sortSelect}>
             <option value='file_name'>File Name</option>
