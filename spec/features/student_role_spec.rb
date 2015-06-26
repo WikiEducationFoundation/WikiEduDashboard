@@ -37,7 +37,6 @@ describe 'Student users', type: :feature, js: true do
                   wiki_token: 'foo',
                   wiki_secret: 'bar')
     login_as(user, scope: :user)
-    visit root_path
   end
 
   describe 'enrolling and unenrolling by button' do
