@@ -31,11 +31,15 @@ class Course < ActiveRecord::Base
   has_many :blocks, through: :weeks
   has_many :gradeables, as: :gradeable_item
 
+  scope :current, lambda {
+    current_and_future.where('start < ?', Time.now)
+  }
+
   # A course stays "current" for a while after the end date, during which time
   # we still check for new data and update page views.
-  scope :current, lambda {
+  scope :current_and_future, lambda {
     update_length = Figaro.env.update_length.to_i.days.seconds.to_i
-    where('start < ?', Time.now).where('end > ?', Time.now - update_length)
+    where('end > ?', Time.now - update_length)
   }
 
   # Courses sourced from Wikipedia, not created with this tool

@@ -53,7 +53,7 @@ class UsersController < ApplicationController
     end
 
     # Check passcode, enroll if valid
-    if @course.passcode? && params[:passcode] == @course.passcode
+    if !@course.passcode.nil? && params[:passcode] == @course.passcode
       CoursesUsers.create(
         user_id: current_user.id,
         course_id: @course.id,

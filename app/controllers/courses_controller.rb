@@ -17,8 +17,8 @@ class CoursesController < ApplicationController
                          .references(:cohorts)
       end
 
-      @user_courses = current_user.courses.select do |c|
-        c if current_user.instructor?(c) || c.listed
+      @user_courses = current_user.courses.current_and_future.select do |c|
+        c if c.listed
       end
     end
 

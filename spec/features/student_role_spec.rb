@@ -73,7 +73,7 @@ describe 'Student users', type: :feature, js: true do
     it 'should join a course' do
       stub_oauth_edit
 
-      visit "/courses/#{Course.first.slug}/students/enroll/passcode"
+      visit "/courses/#{Course.first.slug}/enroll/passcode"
       sleep 1
       visit "/courses/#{Course.first.slug}/students"
       sleep 1
