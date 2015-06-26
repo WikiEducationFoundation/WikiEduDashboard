@@ -66,4 +66,4 @@ Grading = React.createClass(
     </div>
 )
 
-module.exports = Editable(Grading, [BlockStore, GradeableStore], ServerActions.saveGradeables, getState)
+module.exports = Editable(Grading, [BlockStore, GradeableStore], ServerActions.saveGradeables, getState, "Gradeables")

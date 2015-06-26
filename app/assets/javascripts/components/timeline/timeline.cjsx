@@ -94,4 +94,4 @@ Timeline = React.createClass(
     </div>
 )
 
-module.exports = DDContext(HTML5Backend)(Editable(Timeline, [WeekStore, BlockStore, GradeableStore], ServerActions.saveTimeline, getState))
+module.exports = DDContext(HTML5Backend)(Editable(Timeline, [WeekStore, BlockStore, GradeableStore], ServerActions.saveTimeline, getState, "Timeline"))

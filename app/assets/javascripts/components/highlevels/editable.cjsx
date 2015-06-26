@@ -3,7 +3,7 @@
 React = require 'react'
 UIActions = require '../../actions/ui_actions'
 
-Editable = (Component, Stores, Save, GetState) ->
+Editable = (Component, Stores, Save, GetState, Label) ->
   React.createClass(
     mixins: Stores.map (store) -> store.mixin
     toggleEditable: ->
@@ -38,8 +38,11 @@ Editable = (Component, Stores, Save, GetState) ->
           {extra_controls}
        </div>
       else if permissions && (@props.editable == undefined || @props.editable)
+        edit_label = 'Edit'
+        if Label?
+          edit_label += ' ' + Label
         unless hide_edit
-          edit = <button onClick={@toggleEditable} className='dark button'>Edit</button>
+          edit = <button onClick={@toggleEditable} className='dark button'>{edit_label}</button>
         <div className="controls">
           {edit}
           {extra_controls}
