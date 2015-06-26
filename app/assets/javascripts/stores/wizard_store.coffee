@@ -111,6 +111,7 @@ verifyPanelSelections = (panel) ->
   return verified
 
 restore = ->
+  _summary = false
   _active_index = 0
   _wizard_key = null
   setPanels([])
