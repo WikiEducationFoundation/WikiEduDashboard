@@ -57,23 +57,22 @@ EnrollButton = React.createClass(
       </tr>
     ) if @props.role == 0
 
-    # # This row allows permitted users to add students to the course by wiki_id
-    # edit_rows.push (
-    #   <tr className='edit' key='add_students'>
-    #     <td>
-    #       <input type="text" ref='wiki_id' placeholder='Username' />
-    #       <button className='border' onClick={@enroll}>Enroll</button>
-    #     </td>
-    #   </tr>
-    # )
+    # This row allows permitted users to add students to the course by wiki_id
+    edit_rows.push (
+      <tr className='edit' key='add_students'>
+        <td>
+          <input type="text" ref='wiki_id' placeholder='Username' />
+          <button className='button border' onClick={@enroll}>Enroll</button>
+        </td>
+      </tr>
+    ) if @props.role != 0 && @props.role != 4
 
     button_class = 'button'
     button_class += if @props.inline then ' border plus' else ' dark'
     button_text = if @props.inline then '+' else 'Enrollment'
 
     # Remove this check when we re-enable adding users by wiki_id
-    if users.length > 1
-      button = <button className={button_class} onClick={@props.open}>{button_text}</button>
+    button = <button className={button_class} onClick={@props.open}>{button_text}</button>
 
     <div className='pop__container' onClick={@stop}>
       {button}
