@@ -30,12 +30,10 @@ CourseCreator = React.createClass(
     CourseActions.addCourse()
   validateCourse: ->
     course_valid = true
+    return course_valid unless @state.course?
     for key, value of @state.course
       course_valid = @validateKey(key, value) && course_valid
-    if course_valid
-      @setState(error: null)
-    else
-      @setState(error: 'Please fix all invalid fields.')
+    @setState courseValid: course_valid
     course_valid
   validateKey: (key, value) ->
     switch key
@@ -44,12 +42,10 @@ CourseCreator = React.createClass(
         charcheck = (new RegExp(/^[\w\-\s]+$/)).test(value)
         valid = filled && charcheck
         CourseActions.setValid key, valid
-        @setState(error: null) if valid
         valid
       when 'start', 'end'
         valid = value.length > 0
         CourseActions.setValid key, valid
-        @setState(error: null) if valid
         valid
       else
         return true
@@ -62,13 +58,12 @@ CourseCreator = React.createClass(
     return text.replace " ", "_"
   saveCourse: ->
     if @validateCourse()
-      @state.hasSubmitted = true
-      @state.isSubmitting = true
+      @setState isSubmitting: true
       ServerActions.checkCourse(@generateTempId()).then(=>
         if @validateCourse()
           if @state.validation.form?
             alert("This course already exists (#{@generateTempId()}). The combination of course title, term, and school must be unique.")
-            @state.isSubmitting = false
+            @setState isSubmitting: false
           else
             ServerActions.saveCourse $.extend(true, {}, { course: @state.course })
       )
@@ -78,11 +73,17 @@ CourseCreator = React.createClass(
     CourseActions.updateCourse to_pass
     @validateKey(value_key, value)
   getInitialState: ->
-    $.extend(true, { hasSubmitted: false, tempCourseId: '', isSubmitting: false}, getState())
+    $.extend(true, { courseValid: true, tempCourseId: '', isSubmitting: false}, getState())
   render: ->
     form_style = { }
     form_style.opacity = 0.5 if @state.isSubmitting is true
     form_style.pointerEvents = 'none' if @state.isSubmitting is true
+
+    if @state.courseValid
+      error = null
+    else
+      error = 'Please fix invalid fields.'
+
     <Modal>
       <div className="wizard__panel active" style={form_style}>
         <h3>Create a New Course</h3>
@@ -178,7 +179,7 @@ CourseCreator = React.createClass(
         <div className='wizard__panel__controls'>
           <div className='left'><p>{@state.tempCourseId}</p></div>
           <div className='right'>
-            <div><p className='red'>{@state.error}</p></div>
+            <div><p className='red'>{error}</p></div>
             <Link className="button" to="/" id='course_cancel'>Cancel</Link>
             <button onClick={@saveCourse} className='dark button'>Create my Course!</button>
           </div>

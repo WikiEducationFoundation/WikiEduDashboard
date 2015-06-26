@@ -22,7 +22,7 @@ describe 'New course creation and editing', type: :feature do
     it 'should allow the user to create a course' do
       find("a[href='/course_creator']").click
       expect(page).to have_content 'Create a New Course'
-      find('#course_title').set('My awesome new cour$e: Foo 101')
+      find('#course_title').set('My awesome new course - Foo 101')
 
       # If we click before filling out all require fields, only the invalid
       # fields get restyled to indicate the problem.
@@ -133,7 +133,7 @@ describe 'New course creation and editing', type: :feature do
 
       # Follow the alert popup instructions to complete the deletion
       prompt = page.driver.browser.switch_to.alert
-      prompt.send_keys('My awesome new cour$e: Foo 101')
+      prompt.send_keys('My awesome new course - Foo 101')
       sleep 1
       prompt.accept
       expect(page).to have_content 'You are not participating in any courses'
