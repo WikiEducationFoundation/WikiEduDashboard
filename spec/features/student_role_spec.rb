@@ -46,6 +46,7 @@ describe 'Student users', type: :feature, js: true do
 
       # click enroll button
       visit "/courses/#{Course.first.slug}"
+      sleep 1
       first('button').click
 
       # enter passcode in alert popup to enroll
@@ -84,6 +85,7 @@ describe 'Student users', type: :feature, js: true do
              user_id: 1,
              role: 0)
       visit "/courses/#{Course.first.slug}/students"
+      sleep 1
 
       # Add an assigned article
       first('button.border').click
