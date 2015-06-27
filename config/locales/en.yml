@@ -65,6 +65,9 @@ en:
     view_doc: The sum of all views to each article during the course term
     views_added: "Added %{count} new views for %{title}"
 
+  revision:
+    time_doc: The time of each revision in your local time
+
   cohort:
     view_other: View other cohorts
 
@@ -129,6 +132,7 @@ en:
   uploads:
     none: No files have been uploaded
     usages: Usages
+    time_doc: The time of each upload in your local time
 
 
   user:

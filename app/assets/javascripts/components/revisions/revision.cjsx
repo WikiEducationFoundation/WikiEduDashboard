@@ -7,6 +7,8 @@ Revision = React.createClass(
     ratingClass = 'rating ' + @props.revision.rating
     ratingMobileClass = ratingClass + ' tablet-only'
 
+    console.log @props.revision.date if @props.revision.characters == 68
+
     <tr className='revision'>
       <td className='popover-trigger desktop-only-tc'>
         <p className='rating_num hidden'>{@props.revision.rating_num}</p>
@@ -21,9 +23,9 @@ Revision = React.createClass(
       </td>
       <td className='desktop-only-tc'>{@props.revision.revisor}</td>
       <td className='desktop-only-tc'>{@props.revision.characters}</td>
-      <td className='desktop-only-tc'>{moment(@props.revision.date).format('YYYY-MM-DD hh:mm')} UTC</td>
+      <td className='desktop-only-tc date'>{moment(@props.revision.date).format('YYYY-MM-DD   h:mm A')}</td>
       <td>
-        <a className='inline' href={@props.revision.url} target='_blank'>Diff</a>
+        <a className='inline' href={@props.revision.url} target='_blank'>diff</a>
       </td>
     </tr>
 )

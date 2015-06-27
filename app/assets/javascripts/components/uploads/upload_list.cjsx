@@ -31,6 +31,7 @@ UploadList = React.createClass(
       'date':
         'label': 'Date/Time'
         'desktop_only': true
+        'info_key': 'uploads.time_doc'
 
     <List
       elements={elements}
