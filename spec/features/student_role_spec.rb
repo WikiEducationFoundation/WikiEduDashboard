@@ -52,7 +52,6 @@ describe 'Student users', type: :feature, js: true do
   describe 'logging out' do
     it 'should work' do
       visit "/courses/#{Course.first.slug}"
-      sleep 5
       expect(page).to have_content 'Log Out'
       expect(page).not_to have_content 'Login'
       find('a', text: 'Log Out').click
@@ -154,7 +153,7 @@ describe 'Student users', type: :feature, js: true do
   #     create(:assignment,
   #            article_title: 'Selfie',
   #            course_id: 10001,
-  #            user_id: 1,
+  #            user_id: 200,
   #            role: 0)
   #     visit "/courses/#{Course.first.slug}/students"
   #     sleep 1
