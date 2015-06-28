@@ -1,5 +1,8 @@
 #= Class for making edits to Wikipedia via OAuth, using a user's credentials
 class WikiEdits
+  ################
+  # Entry points #
+  ################
   def self.notify_untrained(course_id, current_user)
     course = Course.find(course_id)
     untrained_users = course.users.role('student').where(trained: false)
@@ -8,7 +11,7 @@ class WikiEdits
                 text: I18n.t('wiki_edits.notify_untrained.message'),
                 summary: I18n.t('wiki_edits.notify_untrained.summary') }
 
-    notify_students(course_id, current_user, untrained_users, message)
+    notify_users(course_id, current_user, untrained_users, message)
 
     # We want to see how much this specific feature gets used, so we send it
     # to Sentry.
@@ -20,39 +23,25 @@ class WikiEdits
                                    untrained_count: untrained_users.count }
   end
 
-  def self.notify_students(course_id, current_user, recipient_users, message)
-    @course = Course.find(course_id)
-    tokens = WikiEdits.tokens(current_user)
+  def self.announce_course(course, current_user, instructor = nil)
+    instructor ||= current_user
+    user_page = "User:#{instructor.wiki_id}"
+    template = "{{course instructor|course = [[#{course.wiki_title}]] }}\n"
+    summary = "New course announcement: [[#{course.wiki_title}]]."
 
-    recipient_users.each do |recipient|
-      params = { action: 'edit',
-                 title: "User_talk:#{recipient.wiki_id}",
-                 section: 'new',
-                 sectiontitle: message[:sectiontitle],
-                 text: message[:text],
-                 summary: message[:summary],
-                 format: 'json',
-                 token: tokens.csrf_token }
-
-      WikiEdits.api_post params, tokens
-    end
+    add_to_page_top(user_page, current_user, template, summary)
   end
 
-  def self.enroll_in_course(course, current_user, role = 0)
-    tokens = WikiEdits.tokens(current_user)
+  def self.enroll_in_course(course, current_user)
     template = "{{student editor|course = [[#{course.wiki_title}]] }}\n"
-    params = { action: 'edit',
-               title: "User:#{current_user.wiki_id}",
-               prependtext: template,
-               summary: "I am enrolled in [[#{course.wiki_title}]].",
-               format: 'json',
-               token: tokens.csrf_token }
+    user_page = "User:#{current_user.wiki_id}"
+    summary = "I am enrolled in [[#{course.wiki_title}]]."
 
-    WikiEdits.api_post params, tokens
+    add_to_page_top(user_page, current_user, template, summary)
   end
 
   def self.get_wiki_top_section(course_page_slug, current_user, talk_page = true)
-    tokens = WikiEdits.tokens(current_user)
+    tokens = get_tokens(current_user)
     # if talk_page
     #   course_prefix = Figaro.env.course_talk_prefix
     # else
@@ -66,34 +55,9 @@ class WikiEdits
                prop: 'wikitext',
                format: 'json' }
 
-    response = WikiEdits.api_post params, tokens
+    response = api_post params, tokens
     puts response.body
     response.body
-  end
-
-  def self.update_course_talk(course, current_user, content, clear = false)
-    require './lib/wiki_course_output'
-    @course = course
-    return unless current_user.wiki_id? && @course.slug?
-    return if content[:text] == ''
-    tokens = WikiEdits.tokens(current_user)
-
-    if content[:contenttype] == 'markdown'
-      text = WikiCourseOutput.markdown_to_mediawiki(content[:text])
-    else
-      text = content[:text]
-    end
-    course_talk_prefix = Figaro.env.course_talk_prefix
-    course_talk_page_title = content[:pagetitle] || "#{course_talk_prefix}/#{@course.slug}"
-    section = content[:section]
-    params = { action: 'edit',
-               title: course_talk_page_title,
-               section: section,
-               text: text,
-               format: 'json',
-               token: tokens.csrf_token }
-
-    WikiEdits.api_post params, tokens
   end
 
   def self.update_course(course, current_user, delete = false)
@@ -107,7 +71,7 @@ class WikiEdits
       wiki_text = WikiCourseOutput.translate_course(course)
     end
 
-    tokens = WikiEdits.tokens(current_user)
+    tokens = get_tokens(current_user)
     course_prefix = Figaro.env.course_prefix
     wiki_title = "#{course_prefix}/#{course.slug}"
     params = { action: 'edit',
@@ -115,34 +79,74 @@ class WikiEdits
                text: wiki_text,
                format: 'json',
                token: tokens.csrf_token }
-    WikiEdits.api_post params, tokens
+    api_post params, tokens
   end
 
-  def self.tokens(current_user)
-    language = Figaro.env.wiki_language
-    @consumer = OAuth::Consumer.new Figaro.env.wikipedia_token,
-                                    Figaro.env.wikipedia_secret,
-                                    client_options: {
-                                      site: "https://#{language}.wikipedia.org"
-                                    }
-    @access_token = OAuth::AccessToken.new @consumer,
-                                           current_user.wiki_token,
-                                           current_user.wiki_secret
-    # rubocop:disable Metrics/LineLength
-    get_token = @access_token.get("https://#{language}.wikipedia.org/w/api.php?action=query&meta=tokens&format=json")
-    # rubocop:enable Metrics/LineLength
-    token_response = JSON.parse(get_token.body)
+  ###################
+  # Helpler methods #
+  ###################
+  def self.add_to_page_top(page_title, current_user, content, summary)
+    tokens = get_tokens(current_user)
+    params = { action: 'edit',
+               title: page_title,
+               prependtext: content,
+               summary: summary,
+               format: 'json',
+               token: tokens.csrf_token }
 
-    OpenStruct.new(
-      csrf_token: token_response['query']['tokens']['csrftoken'],
-      access_token: @access_token
-    )
+    api_post params, tokens
   end
 
-  def self.api_post(data, tokens)
-    return if Figaro.env.disable_wiki_output == 'true'
-    language = Figaro.env.wiki_language
-    tokens.access_token.post("https://#{language}.wikipedia.org/w/api.php",
-                             data)
+  def self.notify_users(course_id, current_user, recipient_users, message)
+    @course = Course.find(course_id)
+    tokens = get_tokens(current_user)
+
+    recipient_users.each do |recipient|
+      params = { action: 'edit',
+                 title: "User_talk:#{recipient.wiki_id}",
+                 section: 'new',
+                 sectiontitle: message[:sectiontitle],
+                 text: message[:text],
+                 summary: message[:summary],
+                 format: 'json',
+                 token: tokens.csrf_token }
+
+      api_post params, tokens
+    end
+  end
+
+  ###############
+  # API methods #
+  ###############
+  class << self
+    private
+
+    def get_tokens(current_user)
+      lang = Figaro.env.wiki_language
+      @consumer = OAuth::Consumer.new Figaro.env.wikipedia_token,
+                                      Figaro.env.wikipedia_secret,
+                                      client_options: {
+                                        site: "https://#{lang}.wikipedia.org"
+                                      }
+      @access_token = OAuth::AccessToken.new @consumer,
+                                             current_user.wiki_token,
+                                             current_user.wiki_secret
+      # rubocop:disable Metrics/LineLength
+      get_token = @access_token.get("https://#{lang}.wikipedia.org/w/api.php?action=query&meta=tokens&format=json")
+      # rubocop:enable Metrics/LineLength
+      token_response = JSON.parse(get_token.body)
+
+      OpenStruct.new(
+        csrf_token: token_response['query']['tokens']['csrftoken'],
+        access_token: @access_token
+      )
+    end
+
+    def api_post(data, tokens)
+      return if Figaro.env.disable_wiki_output == 'true'
+      language = Figaro.env.wiki_language
+      tokens.access_token.post("https://#{language}.wikipedia.org/w/api.php",
+                               data)
+    end
   end
 end

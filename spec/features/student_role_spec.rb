@@ -100,6 +100,16 @@ describe 'Student users', type: :feature, js: true do
       sleep 1
       expect(first('tbody')).to have_content User.last.wiki_id
     end
+
+    # it 'should work even if a student is not logged in yet' do
+    #   stub_oauth_edit
+    #   logout
+    #   visit "/courses/#{Course.first.slug}/enroll/passcode"
+    #   sleep 15
+    #   visit "/courses/#{Course.first.slug}/students"
+    #   sleep 1
+    #   expect(first('tbody')).to have_content User.last.wiki_id
+    # end
   end
 
   # TODO: Figure out why these fail on travis, even though they pass locally.
