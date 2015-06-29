@@ -104,7 +104,7 @@ en:
 
   metrics:
     activity: Recent Activity
-    activity_none: "%{title} has no recent activity"
+    activity_none: "%{title} has no recent Wikipedia edits"
     articles_created: Articles Created
     articles_edited: Articles Edited
     char: Chars Added
