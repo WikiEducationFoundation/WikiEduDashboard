@@ -50,7 +50,7 @@ List = React.createClass(
       else
         text = 'Loading ' + @props.table_key + '...'
       elements = (
-        <tr>
+        <tr className='disabled'>
           <td colSpan={headers.length + 1} className='text-center'>
             <span>{text}</span>
           </td>
