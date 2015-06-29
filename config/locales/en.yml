@@ -88,7 +88,7 @@ en:
     students_none: "%{title} does not have any enrolled students"
     students_short: Students
     timeline: Assignment Details
-    weeks_none: "%{title} has no assignments"
+    weeks_none: "%{title} has no assigned Wikipedia articles"
     new_week: "Add a new week to the timeline for %{title}"
     overview: "Overview"
     title: Title
@@ -104,7 +104,7 @@ en:
 
   metrics:
     activity: Recent Activity
-    activity_none: "%{title} has no recent activity"
+    activity_none: "%{title} has no recent Wikipedia edits"
     articles_created: Articles Created
     articles_edited: Articles Edited
     char: Chars Added
