@@ -38,12 +38,12 @@ describe WikiEdits do
     end
   end
 
-  describe '.notify_students' do
+  describe '.notify_users' do
     it 'should post talk page messages on Wikipedia' do
       params = { sectiontitle: 'My message headline',
                  text: 'My message to you',
                  summary: 'My edit summary' }
-      WikiEdits.notify_students(1, User.first, User.all, params)
+      WikiEdits.notify_users(1, User.first, User.all, params)
     end
   end
 
