@@ -54,6 +54,9 @@ class WizardController < ApplicationController
 
     # Create and save week/block objects based on the object generated above
     save_timeline(timeline, logic)
+
+    # JBuilder will not render weeks for previous-empty course without this...
+    @course = Course.find_by_slug(params[:course_id])
   end
 
   def build_timeline(content_groups, course)
