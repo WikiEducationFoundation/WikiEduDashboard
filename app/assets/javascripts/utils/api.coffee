@@ -122,12 +122,21 @@ API =
 
   saveGradeables: (course_id, data) ->
     new Promise (res, rej) ->
+      cleanup = (array) ->
+        for obj in array
+          if obj.is_new
+            delete obj.id
+            delete obj.is_new
+
+      gradeables = data.gradeables
+      cleanup gradeables
+
       $.ajax
         type: 'POST',
         url: '/courses/' + course_id + '/gradeables.json',
         contentType: 'application/json',
         data: JSON.stringify
-          gradeables: data.gradeables
+          gradeables: gradeables
         success: (data) ->
           console.log 'Saved gradeables!'
           res data

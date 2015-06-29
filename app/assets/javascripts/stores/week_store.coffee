@@ -56,11 +56,8 @@ WeekStore = Flux.createStore
 , (payload) ->
   data = payload.data
   switch(payload.actionType)
-    when 'RECEIVE_TIMELINE'
+    when 'RECEIVE_TIMELINE', 'SAVED_TIMELINE', 'WIZARD_SUBMITTED'
       Flux.dispatcher.waitFor([BlockStore.dispatcherID, GradeableStore.dispatcherID])
-      setWeeks data.course.weeks, true
-      break
-    when 'SAVED_TIMELINE', 'WIZARD_SUBMITTED'
       _weeks = {}
       setWeeks data.course.weeks, true
       break

@@ -5,7 +5,6 @@ RouteHandler      = Router.RouteHandler
 TransitionGroup   = require '../../utils/TransitionGroup'
 
 Timeline          = require './timeline'
-Grading           = require './grading'
 Wizard            = require '../wizard/wizard'
 ServerActions     = require '../../actions/server_actions'
 
@@ -25,7 +24,6 @@ TimelineHandler = React.createClass(
         <RouteHandler key={Date.now()} {...@props} />
       </TransitionGroup>
       <Timeline {...@props} />
-      <Grading {...@props} />
     </div>
 )
 

@@ -76,10 +76,7 @@ BlockStore = Flux.createStore
 , (payload) ->
   data = payload.data
   switch(payload.actionType)
-    when 'RECEIVE_TIMELINE'
-      setBlocks data.course.weeks, true
-      break
-    when 'SAVED_TIMELINE', 'WIZARD_SUBMITTED'
+    when 'RECEIVE_TIMELINE', 'SAVED_TIMELINE', 'WIZARD_SUBMITTED'
       _blocks = {}
       setBlocks data.course.weeks, true
       break

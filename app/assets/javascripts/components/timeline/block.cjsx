@@ -23,9 +23,9 @@ Block = React.createClass(
     else
       GradeableActions.deleteGradeable @props.gradeable.id
   render: ->
-    gradeable = @props.gradeable != undefined && !@props.gradeable.deleted
+    is_graded = @props.gradeable != undefined && !@props.gradeable.deleted
     className = 'block'
-    if gradeable && !@props.editable
+    if is_graded && !@props.editable
       dueDateRead = (
         <TextInput
           onChange={@updateBlock}
@@ -45,7 +45,7 @@ Block = React.createClass(
         <p>
           <span>Graded: </span>
           <Checkbox
-            value={gradeable}
+            value={is_graded}
             onChange={@updateGradeable}
             value_key={'gradeable'}
             editable={@props.editable}
@@ -72,7 +72,7 @@ Block = React.createClass(
             value_key='due_date'
             editable={@props.editable}
             type='date'
-            show={gradeable && @props.editable && false}
+            show={is_graded && @props.editable && false}
             spacer=' '
           />
         </span>
