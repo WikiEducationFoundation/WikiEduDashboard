@@ -1,5 +1,60 @@
 require 'rails_helper'
 
+def stub_oauth_edit
+  # Stub out the posting of content to Wikipedia using the same protocol as
+  # wiki_edits_spec.rb
+  # rubocop:disable Metrics/LineLength
+  fake_tokens = "{\"query\":{\"tokens\":{\"csrftoken\":\"myfaketoken+\\\\\"}}}"
+  # rubocop:enable Metrics/LineLength
+  stub_request(:get, /.*wikipedia.*/)
+    .to_return(status: 200, body: fake_tokens, headers: {})
+  stub_request(:post, /.*wikipedia.*/)
+    .to_return(status: 200, body: 'success', headers: {})
+end
+
+def go_through_researchwrite_wizard
+  # Choose researchwrite option
+  first('.wizard__option').first('button').click
+  first('button.dark').click
+  sleep 1
+
+  # Click through the offered choices
+  first('.wizard__option').first('button').click # Training not graded
+  first('button.dark').click # Next
+  sleep 1
+
+  first('button.dark').click # Next (default getting started options)
+  sleep 1
+
+  first('.wizard__option').first('button').click # Instructor prepares list
+  first('button.dark').click # Next
+  sleep 1
+
+  first('.wizard__option').first('button').click # Traditional outline
+  first('button.dark').click # Next
+  sleep 1
+
+  first('.wizard__option').first('button').click # Yes, medical articles
+  first('button.dark').click # Next
+  sleep 1
+
+  first('.wizard__option').first('button').click # Work live from start
+  first('button.dark').click # Next
+  sleep 1
+
+  first('button.dark').click # Next (default 2 peer reviews)
+  sleep 1
+
+  first('button.dark').click # Next (no supplementary assignments)
+  sleep 1
+
+  first('button.dark').click # Next (no DYK/GA)
+  sleep 1
+
+  first('button.dark').click # Submit
+  sleep 1
+end
+
 describe 'New course creation and editing', type: :feature do
   before do
     include Devise::TestHelpers, type: :feature
@@ -13,13 +68,16 @@ describe 'New course creation and editing', type: :feature do
       # page.driver.block_unknown_urls  # suppress warnings
     end
     create(:cohort)
-    user = create(:user)
+    user = create(:user,
+                  id: 1)
     login_as(user, scope: :user)
     visit root_path
   end
 
   describe 'new course workflow', js: true do
     it 'should allow the user to create a course' do
+      stub_oauth_edit
+
       find("a[href='/course_creator']").click
       expect(page).to have_content 'Create a New Course'
       find('#course_title').set('My awesome new course - Foo 101')
@@ -38,16 +96,6 @@ describe 'New course creation and editing', type: :feature do
       find('#course_expected_students').set('500')
       find('textarea').set('In this course, we study things.')
       # TODO: test the date picker
-
-      # Stub out the posting of content to Wikipedia using the same protocol as
-      # wiki_edits_spec.rb
-      # rubocop:disable Metrics/LineLength
-      fake_tokens = "{\"query\":{\"tokens\":{\"csrftoken\":\"myfaketoken+\\\\\"}}}"
-      # rubocop:enable Metrics/LineLength
-      stub_request(:get, /.*wikipedia.*/)
-        .to_return(status: 200, body: fake_tokens, headers: {})
-      stub_request(:post, /.*wikipedia.*/)
-        .to_return(status: 200, body: 'success', headers: {})
 
       # This click should create the course and start the wizard
       find('button.dark').click
@@ -137,6 +185,63 @@ describe 'New course creation and editing', type: :feature do
       sleep 1
       prompt.accept
       expect(page).to have_content 'You are not participating in any courses'
+    end
+
+    it 'should create a full-length research-write assignment' do
+      create(:course,
+             id: 10001,
+             title: 'Course',
+             school: 'University',
+             term: 'Term',
+             slug: 'University/Course_(Term)',
+             submitted: 0,
+             listed: true,
+             passcode: 'passcode',
+             start: '2015-08-24'.to_date,
+             end: '2015-12-15'.to_date)
+      create(:courses_user,
+             user_id: 1,
+             course_id: 10001,
+             role: 1)
+      stub_oauth_edit
+
+      # Visit timline and open wizard
+      visit "/courses/#{Course.first.slug}/timeline"
+      wizard_link = "/courses/#{Course.first.slug}/timeline/wizard"
+      find("a[href='#{wizard_link}']").click
+
+      go_through_researchwrite_wizard
+
+      expect(page).to have_content 'Week 14'
+    end
+
+    it 'should squeeze assignments into the course dates' do
+      create(:course,
+             id: 10001,
+             title: 'Course',
+             school: 'University',
+             term: 'Term',
+             slug: 'University/Course_(Term)',
+             submitted: 0,
+             listed: true,
+             passcode: 'passcode',
+             start: '2015-09-01'.to_date,
+             end: '2015-10-09'.to_date) # extends over six calendar weeks
+      create(:courses_user,
+             user_id: 1,
+             course_id: 10001,
+             role: 1)
+      stub_oauth_edit
+
+      # Visit timline and open wizard
+      visit "/courses/#{Course.first.slug}/timeline"
+      wizard_link = "/courses/#{Course.first.slug}/timeline/wizard"
+      find("a[href='#{wizard_link}']").click
+
+      go_through_researchwrite_wizard
+
+      expect(page).to have_content 'Week 6'
+      expect(page).not_to have_content 'Week 7'
     end
   end
 
