@@ -41,6 +41,7 @@ TextInput = React.createClass(
             onFocus={@focus}
             onBlur={@blur}
             placeholderText={@props.placeholder}
+            weekStart="0"
           />
         )
       else
