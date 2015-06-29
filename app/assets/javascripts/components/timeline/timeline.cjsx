@@ -59,6 +59,7 @@ Timeline = React.createClass(
             index={i + 1}
             key={week.id}
             start={@props.course.start}
+            end={@props.course.end}
             editable={@props.editable}
             blocks={BlockStore.getBlocksInWeek(week.id)}
             moveBlock={@moveBlock}
@@ -83,7 +84,14 @@ Timeline = React.createClass(
           <div><p>This course does not have a timeline yet</p></div>
         </li>
       )
-    wizard_link = <CourseLink to='wizard' className='button dark'>Add Assignment</CourseLink>
+
+    course_start = moment(@props.course.start)
+    course_end = moment(@props.course.end)
+    timeline_full = Math.ceil(course_end.diff(course_start, 'days') / 7) - @props.weeks.length <= 0
+    if timeline_full
+      wizard_link = <div className='button dark disabled' title='You cannot use the assignment design wizard when your timeline is full. Delete at least one week to make room for a new assignment.'>Add Assignment</div>
+    else
+      wizard_link = <CourseLink to='wizard' className='button dark'>Add Assignment</CourseLink>
 
     total = _.sum(@props.gradeables, 'points')
     gradeables = @props.gradeables.map (gradeable, i) =>

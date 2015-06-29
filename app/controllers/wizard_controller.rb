@@ -57,31 +57,32 @@ class WizardController < ApplicationController
   end
 
   def build_timeline(content_groups, course)
-    # Add up the total weight of the content to be added
-    total_weight = content_groups.reduce(0) do |tw, cg|
-      tw + (cg.map { |w| w['weight'] }).inject(0, :+)
+    total_weeks = ((course.end - course.start) / 7).ceil
+    available_weeks = total_weeks - course.weeks.size
+
+    return [] if available_weeks <= 0
+
+    timeline = content_groups.flatten.map do |week|
+      OpenStruct.new(
+        weight: week['weight'],
+        blocks: week['blocks']
+      )
     end
 
-    # Find average weight per week to aim for
-    total_weeks = ((course.end - course.start) / 7).floor
-    average_weight = total_weight / total_weeks
-
-    timeline = []
-    content_groups.each do |cg|       # An array of week collections
-      cg.each do |week|               # An array of weeks
-        curr_week = timeline[-1]
-        weeks_maxed = timeline.size >= total_weeks
-        curr_weight = (curr_week || { weight: 0 })[:weight]
-        if !curr_week.nil? && (curr_weight <= average_weight || weeks_maxed)
-          curr_week[:weight] += week['weight']
-          curr_week[:blocks] += week['blocks']
-        else
-          timeline.push OpenStruct.new(
-            weight: week['weight'],
-            blocks: week['blocks']
-          )
+    while timeline.size > available_weeks
+      low_weight = 1000       # arbitrarily high number
+      low_cons = nil
+      timeline.each_cons(2) do |week_set|
+        next unless week_set.size == 2
+        cons_weight = week_set[0].weight + week_set[1].weight
+        if cons_weight < low_weight
+          low_weight = cons_weight
+          low_cons = week_set
         end
       end
+      low_cons[0][:weight] += low_cons[1][:weight]
+      low_cons[0][:blocks] += low_cons[1][:blocks]
+      timeline.delete low_cons[1]
     end
     timeline
   end
@@ -126,11 +127,11 @@ class WizardController < ApplicationController
 
         block = Block.create(block.except('if', 'unless', 'graded', 'points'))
 
-        unless gradeable.nil?
-          gradeable['gradeable_item_id'] = block.id
-          gradeable = Gradeable.create(gradeable)
-          block.update(gradeable_id: gradeable.id)
-        end
+        next if gradeable.nil?
+
+        gradeable['gradeable_item_id'] = block.id
+        gradeable = Gradeable.create(gradeable)
+        block.update(gradeable_id: gradeable.id)
       end
       week_finished = true
     end

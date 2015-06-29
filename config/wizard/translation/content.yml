@@ -104,7 +104,7 @@ translation_core:
         title: Translation and fact-checking
         kind: 1
         graded: true
-        point: 20
+        points: 20
         content: |
           * Continue to translate your work.
           * Introduce citations from English-language texts that support the facts stated in your translated article. Adjust your translation if necessary.
