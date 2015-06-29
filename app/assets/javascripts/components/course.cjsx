@@ -73,7 +73,7 @@ Course = React.createClass(
               <p>This course has been submitted for approval by its creator. To approve it, add it to a cohort on the <CourseLink to='overview'>Overview</CourseLink> page.</p>
             </div>
           )
-    if @getCurrentUser().id? && @state.course.published && UserStore.isLoaded() && UserStore.getFiltered({ role: 0 }).length == 0 && !@state.course.legacy
+    if (user_role > 0 || @getCurrentUser().admin) && @state.course.published && UserStore.isLoaded() && UserStore.getFiltered({ role: 0 }).length == 0 && !@state.course.legacy
       alerts.push (
         <div className='container module text-center' key='enroll'>
           <p>Your course has been published! Students may enroll in the course by visiting the following URL:</p>
