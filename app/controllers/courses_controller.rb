@@ -144,7 +144,7 @@ class CoursesController < ApplicationController
   def show
     @course = Course.find_by_slug("#{params[:school]}/#{params[:titleterm]}")
     is_instructor = (user_signed_in? && current_user.instructor?(@course))
-    if @course.listed || is_instructor || @course.nil?
+    if @course.nil? || @course.listed || is_instructor
       respond_to do |format|
         format.html { render }
         format.json { render params[:endpoint] }
@@ -158,7 +158,7 @@ class CoursesController < ApplicationController
     @course = Course.find_by_slug(params[:id])
     @volunteers = volunteers
     is_instructor = (user_signed_in? && current_user.instructor?(@course))
-    return if @course.listed || is_instructor || @course.nil?
+    return if @course.nil? || @course.listed || is_instructor
     fail ActionController::RoutingError.new('Not Found'), 'Not permitted'
   end
 
