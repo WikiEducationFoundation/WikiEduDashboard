@@ -97,8 +97,8 @@ describe 'New course creation and editing', type: :feature do
       find('textarea').set('In this course, we study things.')
 
       # TODO: test the date picker instead of just setting fields
-      page.all('.datepicker__input')[0].set('2015-06-01')
-      page.all('.datepicker__input')[1].set('2015-08-30')
+      page.all('input.datepicker__input')[0].set('2015-01-01') # Start date
+      page.all('input.datepicker__input')[1].set('2015-12-15') # End date
 
       # This click should create the course and start the wizard
       find('button.dark').click
