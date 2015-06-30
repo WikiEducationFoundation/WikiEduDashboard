@@ -171,14 +171,8 @@ class CoursesController < ApplicationController
   ##################
   def check
     course_exists = Course.exists?(slug: params[:id])
-    @course = Course.find_by_slug(params[:id]) || {}
-    @validation = {
-      course_exists: course_exists,
-      course: @course,
-      params: params
-    }
     respond_to do |format|
-      format.json { render json: @validation }
+      format.json { render json: { course_exists: course_exists } }
     end
   end
 

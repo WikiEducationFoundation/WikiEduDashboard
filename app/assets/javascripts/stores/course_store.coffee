@@ -7,7 +7,6 @@ ServerActions = require '../actions/server_actions'
 # Data
 _course = {}
 _persisted = {}
-_invalid = {}
 _loaded = false
 
 
@@ -21,14 +20,6 @@ setCourse = (data, persisted=false, quiet=false) ->
 
 updateCourseValue = (key, value) ->
   _course[key] = value
-  CourseStore.emitChange()
-
-# TODO: Pull this off into a separate class that can be reused
-setValid = (key, value) ->
-  if value
-    delete _invalid[key]
-  else
-    _invalid[key] = true
   CourseStore.emitChange()
 
 addCourse = ->
@@ -48,8 +39,6 @@ addCourse = ->
 CourseStore = Flux.createStore
   getCourse: ->
     return _course
-  getValidation: ->
-    return _invalid
   getCurrentWeek: ->
     course_start = new Date(_course.start)
     now = new Date()
@@ -63,11 +52,8 @@ CourseStore = Flux.createStore
 , (payload) ->
   data = payload.data
   switch(payload.actionType)
-    when 'RECEIVE_COURSE', 'CREATED_COURSE', 'LIST_COURSE', 'SAVED_COURSE'
+    when 'RECEIVE_COURSE', 'CREATED_COURSE', 'LIST_COURSE', 'SAVED_COURSE', 'CHECK_COURSE'
       setCourse data.course, true
-      break
-    when 'CHECK_COURSE'
-      setValid 'form', !data.course_exists
       break
     when 'UPDATE_COURSE'
       setCourse data.course
@@ -77,8 +63,6 @@ CourseStore = Flux.createStore
     when 'ADD_COURSE'
       addCourse()
       break
-    when 'SET_INVALID_KEY'
-      setValid data.key, data.valid
   return true
 
 module.exports = CourseStore

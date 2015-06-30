@@ -54,9 +54,13 @@ ServerActions = Flux.createActions
     API.submitWizard(course_id, wizard_id, data).then (data) ->
       { actionType: 'WIZARD_SUBMITTED', data: data }
 
-  checkCourse: (course_id) ->
+  checkCourse: (key, course_id) ->
     API.checkCourse(course_id).then (data) ->
-      { actionType: 'CHECK_COURSE', data: data }
+      message = if data.course_exists then 'This course already exists' else null
+      { actionType: 'CHECK_SERVER', data: {
+        key: key
+        message: message
+      }}
   deleteCourse: (course_id) ->
     # This redirects, no need for an action to be broadcast
     API.deleteCourse(course_id)

@@ -20,7 +20,7 @@ TextInput = React.createClass(
     if @props.editable
       labelClass = ''
       inputClass = ''
-      if @props.invalid
+      if @state.invalid
         labelClass = 'red'
         inputClass = 'invalid'
 
