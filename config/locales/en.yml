@@ -69,7 +69,7 @@ en:
 
   assignments:
     loading: Loading assignments...
-    none: This course has no assignments
+    none: This course has no assigned Wikipedia articles
 
   cohort:
     view_other: View other cohorts
@@ -129,7 +129,7 @@ en:
 
   revisions:
     loading: Loading revisions...
-    none: This course has no recent activity
+    none: This course has no recent Wikipedia editing activity.
     time_doc: The time of each revision in your local time
 
   tasks:
@@ -139,7 +139,7 @@ en:
 
   uploads:
     loading: Loading uploads...
-    none: No files have been uploaded
+    none: This class has not contributed any images or other media files to Wikimedia Commons.
     usages: Usages
     time_doc: The time of each upload in your local time
 
@@ -160,7 +160,7 @@ en:
     editors: Student Editors
     loading: Loading users...
     name: Name
-    none: This course has no students
+    none: This course has no students.
     training_complete:
       one: "has completed training"
       other: "have completed training"
