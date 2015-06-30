@@ -51,13 +51,13 @@ describe 'the home page', type: :feature do
   describe 'header' do
     it 'should display number of courses accurately' do
       course_count = Cohort.first.courses.count
-      stat_text = "#{course_count} #{I18n.t('course.course_description')}"
+      stat_text = "#{course_count} #{I18n.t('courses.course_description')}"
       expect(page.find('.stat-display')).to have_content stat_text
     end
 
     it 'should display number of students accurately' do
       student_count = User.role('student').count
-      stat_text = "#{student_count} #{I18n.t('course.students')}"
+      stat_text = "#{student_count} #{I18n.t('courses.students')}"
       expect(page.find('.stat-display')).to have_content stat_text
     end
 

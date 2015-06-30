@@ -21,7 +21,7 @@
         <small><%= t("metrics.student_editors") %></small>
         <div class="popover dark" id="trained-count">
           <h4><%= @course.users.role('student').where(trained: true).count %></h4>
-          <p><%= t("user.training_complete", count: @course.users.role('student').where(trained: true).count) %></p>
+          <p><%= t("users.training_complete", count: @course.users.role('student').where(trained: true).count) %></p>
         </div>
       </div>
       <div class="stat-display__stat" id="characters-added">

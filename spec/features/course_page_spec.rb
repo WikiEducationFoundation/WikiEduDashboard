@@ -236,7 +236,7 @@ describe 'the course page', type: :feature do
     it 'should display a list of uploads' do
       # First, visit it no uploads
       visit "/courses/#{slug}/uploads"
-      expect(page).to have_content 'This course has no uploads'
+      expect(page).to have_content "#{I18n.t('uploads.none')}"
       create(:commons_upload,
              user_id: 1,
              file_name: 'File:Example.jpg')
