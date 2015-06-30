@@ -38,7 +38,7 @@ List = React.createClass(
           # <div class="course-list__row__characters sort popover-trigger" data-default-order="desc" data-sort="ucharacters">
           #   <p><%= t("metrics.char") %></p>
           #   <div class="popover dark">
-          #     <p><%= t("course.character_doc") %></p>
+          #     <p><%= t("courses.character_doc") %></p>
           #   </div>
           # </div>
 
@@ -46,9 +46,11 @@ List = React.createClass(
     elements = @props.elements
     if elements.length == 0
       if @props.store.isLoaded()
-        text = 'This course has no ' + @props.table_key
+        text = I18n.t(@props.table_key + '.none')
+        text ||= 'This course has no ' + @props.table_key
       else
-        text = 'Loading ' + @props.table_key + '...'
+        text = I18n.t(@props.table_key + '.loading')
+        text ||= 'Loading ' + @props.table_key + '...'
       elements = (
         <tr className='disabled'>
           <td colSpan={headers.length + 1} className='text-center'>

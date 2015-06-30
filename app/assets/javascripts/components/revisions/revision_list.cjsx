@@ -31,7 +31,7 @@ RevisionList = React.createClass(
       'date':
         'label': 'Date/Time'
         'desktop_only': true
-        'info_key': 'revision.time_doc'
+        'info_key': 'revisions.time_doc'
 
     <List
       elements={elements}

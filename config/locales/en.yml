@@ -39,7 +39,9 @@ en:
     edited_by: Edited By
     all: Activity
 
-  article:
+  articles:
+    none: This course has no edited articles
+    loading: Loading articles...
     assigned_to: Assigned To
     character_doc: The sum of characters added to articles by the course's students during the course term
     edited: Articles Edited
@@ -65,13 +67,14 @@ en:
     view_doc: The sum of all views to each article during the course term
     views_added: "Added %{count} new views for %{title}"
 
-  revision:
-    time_doc: The time of each revision in your local time
+  assignments:
+    loading: Loading assignments...
+    none: This course has no assignments
 
   cohort:
     view_other: View other cohorts
 
-  course:
+  courses:
     activity: Activity
     articles: Articles
     character_doc: The sum of characters added to mainspace articles by the course's students during the course term
@@ -124,18 +127,24 @@ en:
     user_char_added: Userspace chars added
     user_ns: User
 
+  revisions:
+    loading: Loading revisions...
+    none: This course has no recent activity
+    time_doc: The time of each revision in your local time
+
   tasks:
     conseq: "Task %{task} is already running!"
     constant: "Task %{task} can not run while task update_daily is running."
     paused: "Task %{task} cannot run because scheduled updates have been paused. Run 'rake batch:resume' to resume updates."
 
   uploads:
+    loading: Loading uploads...
     none: No files have been uploaded
     usages: Usages
     time_doc: The time of each upload in your local time
 
 
-  user:
+  users:
     assigned: Assigned Article
     reviewers: Reviewer
     assigned_none: No Assigned Article
@@ -149,7 +158,9 @@ en:
     contributions: User Contributions
     contributions_more: View More Contributions
     editors: Student Editors
+    loading: Loading users...
     name: Name
+    none: This course has no students
     training_complete:
       one: "has completed training"
       other: "have completed training"

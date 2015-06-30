@@ -66,11 +66,11 @@ StudentList = React.createClass(
       'character_sum_ms':
         'label': 'Mainspace<br />chars added'
         'desktop_only': true
-        'info_key': 'user.character_doc'
+        'info_key': 'users.character_doc'
       'character_sum_us':
         'label': 'Userspace<br />chars added'
         'desktop_only': true
-        'info_key': 'user.character_doc'
+        'info_key': 'users.character_doc'
 
     <div className='list__wrapper'>
       {@props.controls([add_student, notify_untrained], @props.users.length < 1)}

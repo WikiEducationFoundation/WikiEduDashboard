@@ -14,7 +14,7 @@ Revision = React.createClass(
         <p className='rating_num hidden'>{@props.revision.rating_num}</p>
         <div className={ratingClass}><p>{@props.revision.pretty_rating || '-'}</p></div>
         <div className='popover dark'>
-          <p>{I18n.t('article.rating_docs.' + (@props.revision.rating || '?'))}</p>
+          <p>{I18n.t('articles.rating_docs.' + (@props.revision.rating || '?'))}</p>
         </div>
       </td>
       <td>
