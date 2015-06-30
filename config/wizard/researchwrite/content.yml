@@ -143,7 +143,7 @@ essentials:
         content: |
           * Research and list 3–5 articles on your Wikipedia user page that you will consider working on as your main project. Look at the talk page for existing topics for a sense of who else is working on it and what they're doing. Describe your choices to your instructor for feedback.
       -
-        if: choose_article_from_list
+        if: choose_articles_from_list
         title: Choosing your article
         kind: 1
         content: |
@@ -164,15 +164,6 @@ essentials:
         content: |
           * Select an article to work on, removing the rest from your user page. Add your topic on the course page.
           * Compile a bibliography of relevant, reliable sources and post it to the talk page of the article you are working on. Begin reading the sources. Make sure to check in on the talk page (or watchlist) to see if anyone has advice on your bibliography.
-  - # Week six
-    weight: 10
-    blocks:
-      -
-        title: Wikipedia culture and etiquette
-        kind: 0
-        content: |
-          * Talk about Wikipedia culture and etiquette, and (optionally) revisit the concept of sandboxes and how to use them.
-          * Q&A session with instructor about interacting on Wikipedia and getting started with writing.
       -
         if: traditional_outline
         title: Drafting starter articles
@@ -183,6 +174,15 @@ essentials:
           * If you are starting a new article, write a 3–4 paragraph summary version of your article—with citations—in your Wikipedia sandbox. If you are improving an existing article, create a detailed outline reflecting your proposed changes, and post this for community feedback, along with a brief description of your plans, on the article’s talk page. Make sure to check back on the talk page often and engage with any responses.
           * Begin working with classmates and other editors to polish your short starter article and fix any major issues.
           * Continue research in preparation for expanding your article.
+  - # Week six
+    weight: 10
+    blocks:
+      -
+        title: Wikipedia culture and etiquette
+        kind: 0
+        content: |
+          * Talk about Wikipedia culture and etiquette, and (optionally) revisit the concept of sandboxes and how to use them.
+          * Q&A session with instructor about interacting on Wikipedia and getting started with writing.
       -
         if: outline_as_lead_section
         title: Drafting starter articles
