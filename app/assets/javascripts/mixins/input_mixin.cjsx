@@ -16,7 +16,7 @@ InputMixin =
 
         # Validation
         if @props.required || @props.validation
-          filled = @state.value.length > 0
+          filled = @state.value? && @state.value.length > 0
           charcheck = (new RegExp(@props.validation)).test(@state.value)
           if @props.required && !filled
             ValidationActions.setInvalid @props.value_key, 'This field is required'
@@ -27,7 +27,7 @@ InputMixin =
   componentWillReceiveProps: (props) ->
     @setState value: props.value, ->
       valid = ValidationStore.getValidation(@props.value_key)
-      if valid && @props.required && props.value.length == 0
+      if valid && @props.required && (!props.value? || props.value.length == 0)
         ValidationActions.initialize @props.value_key, 'This field is required'
   focus: (e) ->
     $(@refs.input.getDOMNode()).closest('.block').attr('draggable', false)

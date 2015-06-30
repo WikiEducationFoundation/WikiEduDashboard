@@ -7,8 +7,6 @@ Revision = React.createClass(
     ratingClass = 'rating ' + @props.revision.rating
     ratingMobileClass = ratingClass + ' tablet-only'
 
-    console.log @props.revision.date if @props.revision.characters == 68
-
     <tr className='revision'>
       <td className='popover-trigger desktop-only-tc'>
         <p className='rating_num hidden'>{@props.revision.rating_num}</p>
