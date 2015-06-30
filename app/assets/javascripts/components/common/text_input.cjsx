@@ -40,6 +40,7 @@ TextInput = React.createClass(
             onBlur={@blur}
             placeholderText={@props.placeholder}
             weekStart="0"
+            {...@props.date_props}
           />
         )
       else

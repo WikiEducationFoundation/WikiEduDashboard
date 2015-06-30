@@ -95,7 +95,10 @@ describe 'New course creation and editing', type: :feature do
       find('#course_subject').set('Advanced Studies')
       find('#course_expected_students').set('500')
       find('textarea').set('In this course, we study things.')
-      # TODO: test the date picker
+
+      # TODO: test the date picker instead of just setting fields
+      page.all('.datepicker__input')[0].set('2015-06-01')
+      page.all('.datepicker__input')[1].set('2015-08-30')
 
       # This click should create the course and start the wizard
       find('button.dark').click
@@ -198,7 +201,8 @@ describe 'New course creation and editing', type: :feature do
              listed: true,
              passcode: 'passcode',
              start: '2015-08-24'.to_date,
-             end: '2015-12-15'.to_date)
+             end: '2015-12-15'.to_date,
+             timeline_start: '2015-08-31'.to_date)
       create(:courses_user,
              user_id: 1,
              course_id: 10001,
@@ -227,7 +231,8 @@ describe 'New course creation and editing', type: :feature do
              listed: true,
              passcode: 'passcode',
              start: '2015-09-01'.to_date,
-             end: '2015-10-09'.to_date) # extends over six calendar weeks
+             end: '2015-10-09'.to_date,
+             timeline_start: '2015-08-31'.to_date) # extends over six calendar weeks
       create(:courses_user,
              user_id: 1,
              course_id: 10001,

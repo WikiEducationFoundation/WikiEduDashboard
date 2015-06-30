@@ -62,6 +62,10 @@ class CoursesController < ApplicationController
       params[:course][:slug] = "#{school}/#{title}_(#{term})"
     end
 
+    unless params[:course].key? :timeline_start
+      params[:course][:timeline_start] = params[:course][:start]
+    end
+
     params[:course][:passcode] = ('a'..'z').to_a.shuffle[0, 8].join
 
     params.require(:course).permit(
@@ -77,7 +81,8 @@ class CoursesController < ApplicationController
       :end,
       :submitted,
       :listed,
-      :passcode
+      :passcode,
+      :timeline_start
     )
   end
 

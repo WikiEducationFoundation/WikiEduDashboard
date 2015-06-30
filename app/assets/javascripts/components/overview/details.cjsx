@@ -52,6 +52,10 @@ Details = React.createClass(
       _.pluck(@props.cohorts, 'title').join(', ')
     else 'None'
 
+    date_props =
+      minDate: moment(@props.course.start)
+      maxDate: moment(@props.course.end).subtract(1, 'week')
+
     <div className='module'>
       <div className="section-header">
         <h3>Details</h3>
@@ -98,6 +102,17 @@ Details = React.createClass(
             editable={@props.editable}
             type='date'
             label='End'
+          />
+        </fieldset>
+        <fieldset>
+          <TextInput
+            onChange={@updateDetails}
+            value={@props.course.timeline_start}
+            value_key='timeline_start'
+            editable={@props.editable}
+            type='date'
+            label='Assignment Start'
+            date_props={date_props}
           />
         </fieldset>
       </div>

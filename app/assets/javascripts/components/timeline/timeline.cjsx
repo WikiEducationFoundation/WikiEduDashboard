@@ -58,7 +58,7 @@ Timeline = React.createClass(
             week={week}
             index={i + 1}
             key={week.id}
-            start={@props.course.start}
+            start={@props.course.timeline_start}
             end={@props.course.end}
             editable={@props.editable}
             blocks={BlockStore.getBlocksInWeek(week.id)}
@@ -85,7 +85,7 @@ Timeline = React.createClass(
         </li>
       )
 
-    course_start = moment(@props.course.start)
+    course_start = moment(@props.course.timeline_start)
     course_end = moment(@props.course.end)
     timeline_full = Math.ceil(course_end.diff(course_start, 'days') / 7) - @props.weeks.length <= 0
     if timeline_full
