@@ -209,6 +209,7 @@ describe 'New course creation and editing', type: :feature do
       visit "/courses/#{Course.first.slug}/timeline"
       wizard_link = "/courses/#{Course.first.slug}/timeline/wizard"
       find("a[href='#{wizard_link}']").click
+      sleep 1
 
       go_through_researchwrite_wizard
 
@@ -237,6 +238,7 @@ describe 'New course creation and editing', type: :feature do
       visit "/courses/#{Course.first.slug}/timeline"
       wizard_link = "/courses/#{Course.first.slug}/timeline/wizard"
       find("a[href='#{wizard_link}']").click
+      sleep 1
 
       go_through_researchwrite_wizard
 
