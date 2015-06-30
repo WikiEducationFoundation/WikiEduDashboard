@@ -42,7 +42,7 @@ CohortButton = React.createClass(
     edit_row = (
       <tr className='edit'>
         <td>
-          <input type="text" ref='cohort_title' placeholder='Title' />
+          <input type="text" ref='cohort_title' placeholder='Cohort' />
           <button className='button border' onClick={@list}>List</button>
         </td>
       </tr>

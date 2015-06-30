@@ -142,7 +142,7 @@ CourseCreator = React.createClass(
               editable=true
               type='date'
               label='Start date'
-              placeholder='Start date'
+              placeholder='Start date (YYYY-MM-DD)'
             />
             <TextInput
               id='course_end'
@@ -153,7 +153,7 @@ CourseCreator = React.createClass(
               editable=true
               type='date'
               label='End date'
-              placeholder='End date'
+              placeholder='End date (YYYY-MM-DD)'
             />
           </div>
         </div>

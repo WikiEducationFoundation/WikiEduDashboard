@@ -65,7 +65,7 @@ EnrollButton = React.createClass(
           <button className='button border' onClick={@enroll}>Enroll</button>
         </td>
       </tr>
-    ) if @props.role != 0 && @props.role != 4
+    ) if @props.role != 0 || @props.allowed
 
     button_class = 'button'
     button_class += if @props.inline then ' border plus' else ' dark'
