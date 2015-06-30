@@ -40,7 +40,7 @@ en:
     all: Activity
 
   articles:
-    none: This course has no edited articles
+    none: This course has not edited any articles.
     loading: Loading articles...
     assigned_to: Assigned To
     character_doc: The sum of characters added to articles by the course's students during the course term
@@ -69,7 +69,7 @@ en:
 
   assignments:
     loading: Loading assignments...
-    none: This course has no assigned Wikipedia articles
+    none: This course has no assigned Wikipedia articles.
 
   cohort:
     view_other: View other cohorts
@@ -81,14 +81,14 @@ en:
     course_description: Wiki Ed Courses
     courses: Courses
     yourcourses: Your Courses
-    nocourses: You are not participating in any courses
+    nocourses: You are not participating in any courses.
     current: Current Courses
     duration: Course Duration
     instructor:
       one: Instructor
       other: Instructors
     students: Students
-    students_none: "%{title} does not have any enrolled students"
+    students_none: "%{title} does not have any enrolled students."
     students_short: Students
     timeline: Assignment Details
     weeks_none: "%{title} has no assignments"
@@ -107,7 +107,7 @@ en:
 
   metrics:
     activity: Recent Activity
-    activity_none: "%{title} has no recent Wikipedia edits"
+    activity_none: "%{title} has no recent Wikipedia edits."
     articles_created: Articles Created
     articles_edited: Articles Edited
     char: Chars Added
