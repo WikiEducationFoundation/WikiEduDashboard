@@ -95,6 +95,8 @@ describe 'New course creation and editing', type: :feature do
       find('#course_subject').set('Advanced Studies')
       find('#course_expected_students').set('500')
       find('textarea').set('In this course, we study things.')
+      page.all('input.datepicker__input')[0].set('2015-01-01') # Start date
+      page.all('input.datepicker__input')[1].set('2015-12-15') # End date
       # TODO: test the date picker
 
       # This click should create the course and start the wizard
