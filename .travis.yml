@@ -1,14 +1,6 @@
 language: ruby
 rvm: 2.1.5
 
-env:
-  - TEST1: spec/features
-    TEST2: spec/features
-    TEST3: spec/features
-  - TEST1: spec/lib
-    TEST2: spec/helpers
-    TEST3: spec/models
-
 before_install:
   # Set the database.
   - export DB=test
@@ -32,5 +24,3 @@ before_script:
                 DEFAULT COLLATE utf8_general_ci;'''
   - cp config/database.travis.yml config/database.yml
   - bundle exec rake db:migrate RAILS_ENV=test
-
-script: "bundle exec rspec $TEST1 $TEST2 $TEST3"
