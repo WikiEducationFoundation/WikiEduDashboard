@@ -66,4 +66,9 @@ describe 'Admin users', type: :feature, js: true do
       expect(page).to have_content 'Your course has been published'
     end
   end
+
+  after do
+    logout
+    Capybara.use_default_driver
+  end
 end
