@@ -1,17 +1,13 @@
 language: ruby
+rvm: 2.1.5
 
-matrix:
-  include:
-    - rvm: 2.1.5
-      env:
-        - DB: test
-          TEST_SUITE: spec/features
-    - rvm: 2.1.5
-      env:
-        - DB: test
-          TEST_SUITE: spec/lib spec/helpers spec/models
+env:
+  - TEST_SUITE: spec/features
+    TEST_SUITE: "spec/lib spec/helpers spec/models"
 
 before_install:
+  # Set the database.
+  - export DB=test
   # Set up a headless display so capybara will work.
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
