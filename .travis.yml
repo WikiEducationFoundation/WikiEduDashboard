@@ -2,8 +2,12 @@ language: ruby
 rvm: 2.1.5
 
 env:
-  - TEST_SUITE: spec/features
-    TEST_SUITE: "spec/lib spec/helpers spec/models"
+  - TEST1: spec/features
+    TEST2: spec/features
+    TEST3: spec/features
+  - TEST1: spec/lib
+    TEST2: spec/helpers
+    TEST3: spec/models
 
 before_install:
   # Set the database.
@@ -29,4 +33,4 @@ before_script:
   - cp config/database.travis.yml config/database.yml
   - bundle exec rake db:migrate RAILS_ENV=test
 
-script: "bundle exec rspec $TEST_SUITE"
+script: "bundle exec rspec $TEST1 $TEST2 $TEST3"
