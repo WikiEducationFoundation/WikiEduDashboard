@@ -11,7 +11,7 @@ class WikiEdits
                 text: I18n.t('wiki_edits.notify_untrained.message'),
                 summary: I18n.t('wiki_edits.notify_untrained.summary') }
 
-    notify_users(course_id, current_user, untrained_users, message)
+    notify_users(current_user, untrained_users, message)
 
     # We want to see how much this specific feature gets used, so we send it
     # to Sentry.
@@ -23,13 +23,29 @@ class WikiEdits
                                    untrained_count: untrained_users.count }
   end
 
+  # This method both posts to the instructor's userpage and also makes a public
+  # announcment of a newly submitted course at the course announcement page.
   def self.announce_course(course, current_user, instructor = nil)
     instructor ||= current_user
     user_page = "User:#{instructor.wiki_id}"
     template = "{{course instructor|course = [[#{course.wiki_title}]] }}\n"
     summary = "New course announcement: [[#{course.wiki_title}]]."
 
+    # Add template to userpage to indicate instructor role.
     add_to_page_top(user_page, current_user, template, summary)
+
+    # Announce the course on the Education Noticeboard or equivalent.
+    announcement_page = Figaro.env.course_announcement_page
+    course_page_url = "http://dashboard.wikiedu.org/courses/#{course.slug}"
+    # rubocop:disable Metrics/LineLength
+    announcement = "I have created a new course at dashboard.wikiedu.org, [#{course_page_url} #{course.title}]. If you'd like to see more details about my course, check out my course page.--~~~~"
+    section_title = "New course announcement: [[#{course.wiki_title}]] (instructor: [[User:#{instructor.wiki_id}]])"
+    # rubocop:enable Metrics/LineLength
+    message = { sectiontitle: section_title,
+                text: announcement,
+                summary: summary }
+
+    add_new_section(current_user, announcement_page, message)
   end
 
   def self.enroll_in_course(course, current_user)
@@ -38,6 +54,36 @@ class WikiEdits
     summary = "I am enrolled in [[#{course.wiki_title}]]."
 
     add_to_page_top(user_page, current_user, template, summary)
+  end
+
+  def self.update_course(course, current_user, delete = false)
+    require './lib/wiki_course_output'
+
+    return unless current_user.wiki_id? && course.submitted && course.slug?
+
+    if delete == true
+      wiki_text = ''
+    else
+      wiki_text = WikiCourseOutput.translate_course(course)
+    end
+
+    course_prefix = Figaro.env.course_prefix
+    wiki_title = "#{course_prefix}/#{course.slug}"
+
+    summary = 'Updating course from dashboard.wikiedu.org'
+
+    post_whole_page(current_user, wiki_title, wiki_text, summary)
+  end
+
+  ###################
+  # Helpler methods #
+  ###################
+
+  def self.notify_users(current_user, recipient_users, message)
+    recipient_users.each do |recipient|
+      user_talk_page = "User_talk:#{recipient.wiki_id}"
+      add_new_section(current_user, user_talk_page, message)
+    end
   end
 
   def self.get_wiki_top_section(course_page_slug, current_user, talk_page = true)
@@ -60,31 +106,36 @@ class WikiEdits
     response.body
   end
 
-  def self.update_course(course, current_user, delete = false)
-    require './lib/wiki_course_output'
+  ####################
+  # Basic edit types #
+  ####################
 
-    return unless current_user.wiki_id? && course.submitted && course.slug?
-
-    if delete == true
-      wiki_text = ''
-    else
-      wiki_text = WikiCourseOutput.translate_course(course)
-    end
-
+  def self.post_whole_page(current_user, page_title, content, summary = nil)
     tokens = get_tokens(current_user)
-    course_prefix = Figaro.env.course_prefix
-    wiki_title = "#{course_prefix}/#{course.slug}"
     params = { action: 'edit',
-               title: wiki_title,
-               text: wiki_text,
+               title: page_title,
+               text: content,
+               summary: summary,
                format: 'json',
                token: tokens.csrf_token }
+
     api_post params, tokens
   end
 
-  ###################
-  # Helpler methods #
-  ###################
+  def self.add_new_section(current_user, page_title, message)
+    tokens = get_tokens(current_user)
+    params = { action: 'edit',
+               title: page_title,
+               section: 'new',
+               sectiontitle: message[:sectiontitle],
+               text: message[:text],
+               summary: message[:summary],
+               format: 'json',
+               token: tokens.csrf_token }
+
+    api_post params, tokens
+  end
+
   def self.add_to_page_top(page_title, current_user, content, summary)
     tokens = get_tokens(current_user)
     params = { action: 'edit',
@@ -95,24 +146,6 @@ class WikiEdits
                token: tokens.csrf_token }
 
     api_post params, tokens
-  end
-
-  def self.notify_users(course_id, current_user, recipient_users, message)
-    @course = Course.find(course_id)
-    tokens = get_tokens(current_user)
-
-    recipient_users.each do |recipient|
-      params = { action: 'edit',
-                 title: "User_talk:#{recipient.wiki_id}",
-                 section: 'new',
-                 sectiontitle: message[:sectiontitle],
-                 text: message[:text],
-                 summary: message[:summary],
-                 format: 'json',
-                 token: tokens.csrf_token }
-
-      api_post params, tokens
-    end
   end
 
   ###############

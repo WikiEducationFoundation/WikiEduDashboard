@@ -25,6 +25,9 @@
   course_prefix: 'Wikipedia:Wiki_Ed'
   course_talk_prefix: 'Wikipedia_talk:Wiki_Ed'
 
+# This is the community discussion page where new courses should be announced.
+  course_announcement_page: 'Wikipedia:Education_noticeboard'
+
 # Setting disable_wiki_output to 'true' means course pages will not be mirrored
 # to the wiki.
   disable_wiki_output: 'false'

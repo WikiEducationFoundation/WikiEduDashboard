@@ -43,7 +43,7 @@ describe WikiEdits do
       params = { sectiontitle: 'My message headline',
                  text: 'My message to you',
                  summary: 'My edit summary' }
-      WikiEdits.notify_users(1, User.first, User.all, params)
+      WikiEdits.notify_users(User.first, User.all, params)
     end
   end
 
@@ -60,6 +60,18 @@ describe WikiEdits do
     it 'should edit a Wikipedia page representing a course' do
       WikiEdits.update_course(Course.first, User.first)
       WikiEdits.update_course(Course.first, User.first, true)
+    end
+  end
+
+  describe '.enroll_in_course' do
+    it 'should post to the userpage of the enrolling student' do
+      WikiEdits.enroll_in_course(Course.first, User.first)
+    end
+  end
+
+  describe '.announce_course' do
+    it 'should post to the userpage of the instructor and a noticeboard' do
+      WikiEdits.announce_course(Course.first, User.first)
     end
   end
 end

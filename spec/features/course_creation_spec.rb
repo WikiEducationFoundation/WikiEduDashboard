@@ -90,7 +90,7 @@ describe 'New course creation and editing', type: :feature do
       expect(find('#course_term')['class']).to eq('invalid')
 
       # Now we fill out all the fields and continue.
-      find('#course_school').set('University of Eastern Wikipedia')
+      find('#course_school').set('University of Wikipedia, East Campus')
       find('#course_term').set('Fall 2015')
       find('#course_subject').set('Advanced Studies')
       find('#course_expected_students').set('500')
@@ -172,11 +172,11 @@ describe 'New course creation and editing', type: :feature do
       # Edit the gradeable.
       page.all('button').last.click
       sleep 1
-      page.all('input').last.set('20')
+      page.all('input').last.set('50')
       sleep 1
       page.all('button.dark').last.click
       sleep 1
-      expect(page).to have_content 'Points: 20'
+      expect(page).to have_content 'Points: 50'
 
       # Navigate back to the overview, then delete the course
       find('#overview-link').find('a').click
