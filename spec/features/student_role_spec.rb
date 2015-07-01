@@ -121,7 +121,7 @@ describe 'Student users', type: :feature, js: true do
              user_id: 200,
              role: 0)
       visit "/courses/#{Course.first.slug}/students"
-      sleep 1
+      sleep 3
 
       # Add an assigned article
       first('button.border').click
@@ -142,7 +142,7 @@ describe 'Student users', type: :feature, js: true do
              user_id: 200,
              role: 0)
       visit "/courses/#{Course.first.slug}/students"
-      sleep 1
+      sleep 3
 
       page.all('button.border')[1].click
       first('input').set('Self-portrait')
@@ -166,7 +166,7 @@ describe 'Student users', type: :feature, js: true do
              user_id: 200,
              role: 0)
       visit "/courses/#{Course.first.slug}/students"
-      sleep 1
+      sleep 3
 
       # Remove the assignment
       page.all('button.border')[0].click
