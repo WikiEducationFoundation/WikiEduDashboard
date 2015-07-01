@@ -3,11 +3,13 @@ language: ruby
 matrix:
   include:
     - rvm: 2.1.5
-      DB: test
-      TEST_SUITE: spec/features
+      env:
+        - DB: test
+          TEST_SUITE: spec/features
     - rvm: 2.1.5
-      DB: test
-      TEST_SUITE: spec/lib spec/helpers spec/models
+      env:
+        - DB: test
+          TEST_SUITE: spec/lib spec/helpers spec/models
 
 before_install:
   # Set up a headless display so capybara will work.
