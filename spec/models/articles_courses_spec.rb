@@ -18,8 +18,8 @@ describe ArticlesCourses, type: :model do
 
       create(:course,
              id: 1,
-             start: '2015-01-01'.to_date,
-             end: '2015-07-01'.to_date,
+             start: Date.today - 1.month,
+             end: Date.today + 1.month,
              title: 'Underwater basket-weaving')
 
       create(:article,
@@ -35,7 +35,7 @@ describe ArticlesCourses, type: :model do
              id: 1,
              user_id: 1,
              article_id: 1,
-             date: '2015-03-01'.to_date,
+             date: Date.today,
              characters: 9000,
              new_article: 1,
              views: 1234)
@@ -70,8 +70,8 @@ describe ArticlesCourses, type: :model do
     it 'should remove ArticlesCourses that do not belong' do
       create(:course,
              id: 1,
-             start: '2015-01-01'.to_date,
-             end: '2015-07-01'.to_date,
+             start: Date.today - 1.month,
+             end: Date.today + 1.month,
              title: 'Underwater basket-weaving')
       create(:user,
              id: 1)
@@ -85,7 +85,7 @@ describe ArticlesCourses, type: :model do
       create(:revision,
              user_id: 1,
              article_id: 1,
-             date: '2015-03-01'.to_date)
+             date: Date.today)
       # An ArticlesCourse that should be removed
       create(:articles_course,
              course_id: 1,

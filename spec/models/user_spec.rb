@@ -20,8 +20,8 @@ describe User do
 
       build(:course,
             id: 1,
-            start: '2015-01-01'.to_date,
-            end: '2015-07-01'.to_date,
+            start: Date.today - 1.month,
+            end: Date.today + 1.month,
             title: 'Underwater basket-weaving').save
 
       build(:article,
@@ -34,7 +34,7 @@ describe User do
             id: 1,
             user_id: 1,
             article_id: 1,
-            date: '2015-01-01'.to_date,
+            date: Date.today,
             characters: 9000,
             views: 1234).save
 
@@ -42,7 +42,7 @@ describe User do
             id: 2,
             user_id: 1,
             article_id: 1,
-            date: '2015-03-01'.to_date,
+            date: Date.today + 2.months,
             characters: 3000,
             views: 567).save
 
@@ -73,7 +73,7 @@ describe User do
       expect(user.view_sum).to eq(1234)
       expect(user.course_count).to eq(1)
       expect(user.revision_count).to eq(2)
-      expect(user.revision_count('2015-02-01'.to_date)).to eq(1)
+      expect(user.revision_count(Date.today + 1.month)).to eq(1)
       expect(user.article_count).to eq(1)
     end
   end

@@ -90,8 +90,8 @@ describe Course, type: :model do
     VCR.use_cassette 'wiki/course_list_delisted' do
       create(:course,
              id: 589,
-             start: '2015-01-01'.to_date,
-             end: '2015-07-01'.to_date,
+            start: Date.today - 1.month,
+            end: Date.today + 1.month,
              title: 'Underwater basket-weaving',
              listed: true)
 
@@ -105,8 +105,8 @@ describe Course, type: :model do
     VCR.use_cassette 'wiki/course_list_deleted' do
       create(:course,
              id: 9999,
-             start: '2015-01-01'.to_date,
-             end: '2015-07-01'.to_date,
+            start: Date.today - 1.month,
+            end: Date.today + 1.month,
              title: 'Underwater basket-weaving',
              listed: true)
 
@@ -119,8 +119,8 @@ describe Course, type: :model do
   it 'should remove users who have been unenrolled from a course' do
     build(:course,
           id: 1,
-          start: '2015-01-01'.to_date,
-          end: '2015-07-01'.to_date,
+          start: Date.today - 1.month,
+          end: Date.today + 1.month,
           title: 'Underwater basket-weaving').save
 
     build(:user,
@@ -144,7 +144,7 @@ describe Course, type: :model do
            id: 1)
     create(:revision,
            user_id: 2,
-           date: '2015-02-01'.to_date,
+           date: Date.today,
            article_id: 1)
     create(:articles_course,
            article_id: 1,
@@ -174,8 +174,8 @@ describe Course, type: :model do
 
     build(:course,
           id: 1,
-          start: '2015-01-01'.to_date,
-          end: '2015-07-01'.to_date,
+          start: Date.today - 1.month,
+          end: Date.today + 1.month,
           title: 'Underwater basket-weaving').save
 
     build(:article,
@@ -187,7 +187,7 @@ describe Course, type: :model do
           id: 1,
           user_id: 1,
           article_id: 1,
-          date: '2015-03-01'.to_date,
+          date: Date.today,
           characters: 9000,
           views: 1234).save
 
