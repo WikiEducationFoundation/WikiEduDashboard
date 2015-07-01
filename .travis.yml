@@ -1,9 +1,13 @@
 language: ruby
-rvm:
-  - 2.1.5
 
-env:
-  - DB: test
+matrix:
+  include:
+    - rvm: 2.1.5
+      DB: test
+      TEST_SUITE: spec/features
+    - rvm: 2.1.5
+      DB: test
+      TEST_SUITE: spec/lib spec/helpers spec/models
 
 before_install:
   # Set up a headless display so capybara will work.
@@ -26,3 +30,5 @@ before_script:
                 DEFAULT COLLATE utf8_general_ci;'''
   - cp config/database.travis.yml config/database.yml
   - bundle exec rake db:migrate RAILS_ENV=test
+
+script: "bundle exec rspec $TEST_SUITE"
