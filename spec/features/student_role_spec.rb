@@ -33,8 +33,8 @@ describe 'Student users', type: :feature, js: true do
            start: '2015-01-01'.to_date,
            end: '2020-01-01'.to_date)
     create(:user,
-            id: 100,
-            wiki_id: 'Professor Sage')
+           id: 100,
+           wiki_id: 'Professor Sage')
     create(:courses_user,
            user_id: 100,
            course_id: 10001,
