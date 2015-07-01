@@ -39,14 +39,16 @@ class UserImporter
     new_user = save ? User.find_or_create_by(id: user['id']) : empty_user
     new_user.wiki_id = user['username']
     if save
-      role_index = %w(student instructor online_volunteer
-                      campus_volunteer wiki_ed_staff)
-      has_user = course.users.role(role_index[role]).include? new_user
-      unless has_user
-        role = (user['username'].include? '(Wiki Ed)') ? 4 : role
-        CoursesUsers.new(user: new_user, course: course, role: role).save
-        new_user.save
+      if !role.nil? && !course.nil?
+        role_index = %w(student instructor online_volunteer
+                        campus_volunteer wiki_ed_staff)
+        has_user = course.users.role(role_index[role]).include? new_user
+        unless has_user
+          role = (user['username'].include? '(Wiki Ed)') ? 4 : role
+          CoursesUsers.new(user: new_user, course: course, role: role).save
+        end
       end
+      new_user.save
     end
     new_user
   end

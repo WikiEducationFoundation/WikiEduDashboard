@@ -72,10 +72,33 @@ class CourseImporter
     users = []
     participants.each do |_course_id, groups|
       groups.each_with_index do |(r, _p), i|
+        # Students
         users = UserImporter.add_users(groups[r], i, nil, false) | users
+        # Assignment reviewers
+        reviewers = reviewers(groups[r])
+        users = UserImporter.add_users(reviewers, nil, nil, false) | users
       end
     end
     User.import users
+  end
+
+  def self.reviewers(group)
+    reviewers = []
+    group.each do |user|
+      # Add reviewers
+      a_index = r_index = 0
+      while user.key? a_index.to_s
+        while user[a_index.to_s].key? r_index.to_s
+          reviewers.push(
+            'username' => user[a_index.to_s][r_index.to_s]['username'],
+            'id' => user[a_index.to_s][r_index.to_s]['id']
+          )
+          r_index += 1
+        end
+        a_index += 1
+      end
+    end
+    reviewers
   end
 
   def self.import_assignments(participants)
@@ -163,6 +186,7 @@ class CourseImporter
           next unless reviewer.is_a?(Hash) && reviewer.key?('username')
           # role 1 is for reviewer
           assignment = assignment_hash(reviewer, course_id, raw, article, 1)
+
           new_assignment = Assignment.new(assignment)
           assignments.push new_assignment
         end
