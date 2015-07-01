@@ -10,6 +10,7 @@ Week            = require './week'
 Gradeable       = require './gradeable'
 Editable        = require '../highlevels/editable'
 CourseLink      = require '../common/course_link'
+CourseDates     = require './course_dates'
 
 WeekActions     = require '../../actions/week_actions'
 BlockActions    = require '../../actions/block_actions'
@@ -124,6 +125,7 @@ Timeline = React.createClass(
       )
 
     <div>
+      <CourseDates current_user={@props.current_user} />
       <div className="section-header">
         <h3>Timeline</h3>
         <CourseLink to='wizard', text='Open Wizard', className='button large dark' />

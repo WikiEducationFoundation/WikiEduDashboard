@@ -139,17 +139,17 @@ describe 'New course creation and editing', type: :feature do
 
       # Click edit and then make a change and save it.
       sleep 1
-      first('button.dark').click
+      page.all('button.dark')[1].click
       first('input').set('The first week')
       sleep 1
       first('input[type=checkbox]').set(true)
       sleep 1
-      first('button.dark').click
+      page.all('button.dark')[1].click
       sleep 1
       expect(page).to have_content 'The first week'
 
       # Click edit, delete some stuff, and save it.
-      first('button.dark').click
+      page.all('button.dark')[1].click
       sleep 1
       page.all('button.danger')[1].click
       sleep 1
@@ -157,16 +157,16 @@ describe 'New course creation and editing', type: :feature do
       sleep 1
       page.all('button.danger')[1].click
       sleep 1
-      first('button.dark').click
+      page.all('button.dark')[1].click
       sleep 1
       expect(page).not_to have_content 'The first week'
 
       # Click edit, mark a gradeable and save it.
-      first('button.dark').click
+      page.all('button.dark')[1].click
       sleep 1
       first('input[type=checkbox]').set(true)
       sleep 1
-      first('button.dark').click
+      page.all('button.dark')[1].click
       sleep 1
 
       # Edit the gradeable.
