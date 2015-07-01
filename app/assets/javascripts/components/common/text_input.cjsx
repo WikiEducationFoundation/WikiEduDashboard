@@ -57,6 +57,7 @@ TextInput = React.createClass(
             type={@props.type || 'text'}
             placeholder={@props.placeholder}
             title={title}
+            min=0
           />
         )
 

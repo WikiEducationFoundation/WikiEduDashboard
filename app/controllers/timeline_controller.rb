@@ -28,7 +28,7 @@ class TimelineController < ApplicationController
         :deleted,
         :order,
         :gradeable_id,
-        :due_date,
+        :duration,
         { gradeable: [
           :id,
           :gradeable_item_id,

@@ -58,4 +58,6 @@ ValidationStore = Flux.createStore
       break
   return true
 
+ValidationStore.setMaxListeners(0)
+
 module.exports = ValidationStore

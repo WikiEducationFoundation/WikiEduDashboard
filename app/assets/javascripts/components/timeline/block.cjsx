@@ -29,12 +29,11 @@ Block = React.createClass(
       dueDateRead = (
         <TextInput
           onChange={@updateBlock}
-          value={@props.block.due_date}
-          value_key={'due_date'}
-          editable={@props.editable}
-          type='date'
+          value={'Week ' + (@props.week_index + @props.block.duration)}
+          value_key={'duration'}
+          editable={false}
           label='Due'
-          show=false
+          show={is_graded && !@props.editable}
         />
       )
     if @props.editable
@@ -42,15 +41,14 @@ Block = React.createClass(
       className += ' editable'
       className += ' dragging' if @props.isDragging
       graded = (
-        <p>
-          <span>Graded: </span>
-          <Checkbox
-            value={is_graded}
-            onChange={@updateGradeable}
-            value_key={'gradeable'}
-            editable={@props.editable}
-          />
-        </p>
+        <Checkbox
+          value={is_graded}
+          onChange={@updateGradeable}
+          value_key={'gradeable'}
+          editable={@props.editable}
+          label='Graded'
+          container_class='graded'
+        />
       )
     if (@props.block.kind < 3 && !@props.editable)
       spacer = <span>  —  </span>
@@ -65,15 +63,27 @@ Block = React.createClass(
             editable={@props.editable}
             placeholder='Block title'
             spacer=' '
+            show={!@props.editable}
           />
           <TextInput
             onChange={@updateBlock}
-            value={@props.block.due_date}
-            value_key='due_date'
+            value={@props.block.title}
+            value_key={'title'}
             editable={@props.editable}
-            type='date'
-            show={is_graded && @props.editable && false}
-            spacer=' '
+            placeholder='Block title'
+            label='Title'
+            show={@props.editable}
+          />
+          <TextInput
+            onChange={@updateBlock}
+            value={@props.block.duration}
+            value_key='duration'
+            editable={@props.editable}
+            type='number'
+            show={is_graded}
+            label='Duration (weeks)'
+            placeholder='Weeks until due'
+            show={@props.editable && is_graded}
           />
         </span>
       )

@@ -29,6 +29,7 @@ Week = React.createClass(
           gradeable={GradeableStore.getGradeableByBlock(block.id)}
           deleteBlock={@deleteBlock.bind(this, block.id)}
           moveBlock={@props.moveBlock}
+          week_index={@props.index}
         />
     blocks.sort (a, b) ->
       a.props.block.order - b.props.block.order

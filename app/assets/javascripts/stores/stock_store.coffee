@@ -62,6 +62,7 @@ class Store
     @descKeys = opts.descKeys
     @uniqueKeys = opts.uniqueKeys || ['id']
     @store = StockStore(@, opts.modelKey, opts.defaultModel, opts.triggers)
+    @store.setMaxListeners(0)
 
   # Utilities
   getKey: (model) ->

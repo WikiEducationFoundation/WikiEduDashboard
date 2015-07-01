@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150630221324) do
+ActiveRecord::Schema.define(version: 20150701205933) do
 
   create_table "articles", force: true do |t|
     t.string   "title"
@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 20150630221324) do
     t.datetime "updated_at"
     t.string   "title"
     t.integer  "order"
-    t.date     "due_date"
+    t.integer  "duration",                  default: 0
   end
 
   create_table "cohorts", force: true do |t|
@@ -170,7 +170,6 @@ ActiveRecord::Schema.define(version: 20150630221324) do
 
   create_table "weeks", force: true do |t|
     t.string   "title"
-    t.date     "start"
     t.integer  "course_id"
     t.datetime "created_at"
     t.datetime "updated_at"
