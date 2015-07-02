@@ -1,17 +1,5 @@
 require 'rails_helper'
 
-def stub_oauth_edit
-  # Stub out the posting of content to Wikipedia using the same protocol as
-  # wiki_edits_spec.rb
-  # rubocop:disable Metrics/LineLength
-  fake_tokens = "{\"query\":{\"tokens\":{\"csrftoken\":\"myfaketoken+\\\\\"}}}"
-  # rubocop:enable Metrics/LineLength
-  stub_request(:get, /.*wikipedia.*/)
-    .to_return(status: 200, body: fake_tokens, headers: {})
-  stub_request(:post, /.*wikipedia.*/)
-    .to_return(status: 200, body: 'success', headers: {})
-end
-
 def go_through_researchwrite_wizard
   # Choose researchwrite option
   first('.wizard__option').first('button').click
