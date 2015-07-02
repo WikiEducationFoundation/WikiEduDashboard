@@ -35,7 +35,7 @@ Option = React.createClass(
       <button onClick={@select}>
         {checkbox}
         <h3>{@props.option.title}</h3>
-        <p>{@props.option.blurb}</p>
+        <p dangerouslySetInnerHTML={{__html: Marked(@props.option.blurb, { renderer: MarkedRenderer })}}></p>
         {expand}
       </button>
       {expand_link}
