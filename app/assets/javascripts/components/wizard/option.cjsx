@@ -1,4 +1,6 @@
 React             = require 'react/addons'
+Marked            = require 'marked'
+MarkedRenderer    = require '../../utils/marked_renderer'
 WizardActions     = require '../../actions/wizard_actions'
 
 Option = React.createClass(
@@ -22,7 +24,7 @@ Option = React.createClass(
         more_className += ' open'
       expand = (
         <div className={expand_className} ref='expandable'>
-          <p>{@props.option.description}</p>
+          <p dangerouslySetInnerHTML={{__html: Marked(@props.option.description, { renderer: MarkedRenderer })}}></p>
         </div>
       )
       expand_link = (
