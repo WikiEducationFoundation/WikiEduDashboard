@@ -2,17 +2,20 @@ React           = require 'react/addons'
 Router          = require 'react-router'
 Link            = Router.Link
 AssignButton    = require './assign_button'
+UIActions       = require '../../actions/ui_actions'
 
 AssignCell = React.createClass(
   displayname: 'AssignCell'
   stop: (e) ->
     e.stopPropagation()
+  open: (e) ->
+    @refs.button.open(e)
   render: ->
     if @props.assignments.length > 0
       raw_a = @props.assignments[0]
       if @props.assignments.length > 1
         title_text =
-        link = <span>{@props.assignments.length + ' articles'}</span>
+        link = <span onClick={@open}>{@props.assignments.length + ' articles'}</span>
       else
         title_text = raw_a.article_title
         if raw_a.article_url?
@@ -30,7 +33,7 @@ AssignCell = React.createClass(
 
     <div>
       {link}
-      <AssignButton {...@props} role={@props.role} permitted={permitted} />
+      <AssignButton {...@props} role={@props.role} permitted={permitted} ref='button' />
     </div>
 )
 
