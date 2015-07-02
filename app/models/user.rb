@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
 
   has_many :courses_users, class_name: CoursesUsers
   has_many :courses, -> { uniq }, through: :courses_users
-  has_many :revisions
+  has_many :revisions, -> { where(system: false) }
   has_many :articles, -> { uniq }, through: :revisions
   has_many :assignments
   has_many :uploads, class_name: CommonsUpload

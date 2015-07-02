@@ -32,6 +32,9 @@
 # to the wiki.
   disable_wiki_output: 'false'
 
+# Comma-separated list of OAuth client IDs used by the system for Wiki edits
+  oauth_ids: '252,212'
+
 # To set up error logging via Sentry, add a Sentry project url here:
   sentry_dsn: 'http://somelongkey:anotherlongkey@sentry.myserver.com/1'
 

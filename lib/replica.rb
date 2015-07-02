@@ -65,6 +65,7 @@ class Replica
     revision_data['article_id'] = revision['page_id']
     revision_data['user_id'] = revision['rev_user']
     revision_data['new_article'] = revision['new_article']
+    revision_data['system'] = revision['system']
 
     { 'article' => article_data, 'revision' => revision_data }
   end
@@ -80,7 +81,9 @@ class Replica
   #   2 (User:)
   def self.get_revisions_raw(users, rev_start, rev_end)
     user_list = compile_user_string(users)
-    query = user_list + "&start=#{rev_start}&end=#{rev_end}"
+    oauth_tags = compile_oauth_tags
+    oauth_tags = oauth_tags.blank? ? oauth_tags : "&#{oauth_tags}"
+    query = user_list + oauth_tags + "&start=#{rev_start}&end=#{rev_end}"
     api_get('revisions.php', query)
   end
 
@@ -196,6 +199,17 @@ class Replica
         user_list += "user_ids[#{i}]='#{u.id}'"
       end
       user_list
+    end
+
+    def compile_oauth_tags
+      tag_list = ''
+      oauth_ids = Figaro.env.oauth_ids
+      return '' if oauth_ids.nil?
+      oauth_ids.split(',').each_with_index do |id, i|
+        tag_list += '&' if i > 0
+        tag_list += "oauth_tags[#{i}]='OAuth CID: #{id}'"
+      end
+      tag_list
     end
 
     # Compile an article list to send to the replica endpoint, which might look

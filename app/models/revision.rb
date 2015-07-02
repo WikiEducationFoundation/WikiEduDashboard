@@ -4,6 +4,7 @@ class Revision < ActiveRecord::Base
   belongs_to :article
   scope :after_date, -> (date) { where('date > ?', date) }
   scope :live, -> { where(deleted: false) }
+  scope :user, -> { where(system: false) }
 
   ####################
   # Instance methods #

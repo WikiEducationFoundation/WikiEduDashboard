@@ -49,6 +49,7 @@ class ArticlesCourses < ActiveRecord::Base
 
   def self.update_from_revisions(revisions=nil)
     revisions ||= Revision.all
+    revisions = revisions.where(system: false)
     mainspace_revisions = get_mainspace_revisions(revisions)
     ActiveRecord::Base.transaction do
       mainspace_revisions.each do |revision|
