@@ -31,7 +31,7 @@ Actions = React.createClass(
   render: ->
     controls = []
     user = @props.current_user
-    if user.role?
+    if user.role? || user.admin
       # controls.push (
       #   <p key='update'><button onClick={@update} className='button'>Update course</button></p>
       # )
