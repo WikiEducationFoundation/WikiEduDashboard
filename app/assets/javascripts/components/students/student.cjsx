@@ -32,7 +32,7 @@ Student = React.createClass(
           <img alt="User" src="/images/user.svg" />
         </div>
         <p className="name">
-          <span><a onClick={@stop} href={@props.student.contribution_url} target="_blank" className="inline">{@props.student.wiki_id}</a></span>
+          <span><a onClick={@stop} href={@props.student.contribution_url} target="_blank" className="inline">{@props.student.wiki_id.trunc()}</a></span>
           <br />
           <small>
             <span className='red'>{trained}</span>

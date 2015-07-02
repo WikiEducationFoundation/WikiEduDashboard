@@ -14,10 +14,9 @@ AssignCell = React.createClass(
     if @props.assignments.length > 0
       raw_a = @props.assignments[0]
       if @props.assignments.length > 1
-        title_text =
         link = <span onClick={@open}>{@props.assignments.length + ' articles'}</span>
       else
-        title_text = raw_a.article_title
+        title_text = raw_a.article_title.trunc()
         if raw_a.article_url?
           link = (
             <a onClick={@stop} href={raw_a.article_url} target="_blank" className="inline">{title_text}</a>

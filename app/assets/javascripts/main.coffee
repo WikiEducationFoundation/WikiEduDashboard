@@ -19,3 +19,9 @@ $.fn.extend
     height = elem.css("height")
     elem.remove()
     return height
+
+String.prototype.trunc = (length=15) ->
+  if @length > length + 3
+    return @substring(0, length) + '...'
+  else
+    return @
