@@ -14,7 +14,7 @@ Option = React.createClass(
     className = 'wizard__option section-header'
     className += ' selected' if @props.option.selected
     checkbox = <div className='wizard__option__checkbox'></div> if @props.multiple
-    if @props.option.description
+    if @props.option.description?
       expand_text = 'Read More'
       expand_className = 'wizard__option__description'
       more_className = 'wizard__option__more'
@@ -24,18 +24,22 @@ Option = React.createClass(
         more_className += ' open'
       expand = (
         <div className={expand_className} ref='expandable'>
-          <p dangerouslySetInnerHTML={{__html: Marked(@props.option.description, { renderer: MarkedRenderer })}}></p>
+          <div dangerouslySetInnerHTML={{__html: Marked(@props.option.description, { renderer: MarkedRenderer })}}></div>
         </div>
       )
       expand_link = (
         <button className={more_className} onClick={@expand}><p>{expand_text}</p></button>
+      )
+    if @props.option.blurb?
+      blurb = (
+        <div dangerouslySetInnerHTML={{__html: Marked(@props.option.blurb, { renderer: MarkedRenderer })}}></div>
       )
 
     <div className={className}>
       <button onClick={@select}>
         {checkbox}
         <h3>{@props.option.title}</h3>
-        <p dangerouslySetInnerHTML={{__html: Marked(@props.option.blurb, { renderer: MarkedRenderer })}}></p>
+        {blurb}
         {expand}
       </button>
       {expand_link}
