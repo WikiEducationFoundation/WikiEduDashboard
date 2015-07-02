@@ -98,7 +98,7 @@ class CoursesController < ApplicationController
 
   def validate
     slug = params[:id].gsub(/\.json$/, '')
-    @course = Course.find_by_slug(slug)
+    @course = find_course_by_slug(slug)
     return unless user_signed_in? && current_user.instructor?(@course)
   end
 
@@ -132,6 +132,14 @@ class CoursesController < ApplicationController
   ########################
   # View support methods #
   ########################
+  def find_course_by_slug(slug)
+    course = Course.where(listed: true).find_by_slug(slug)
+    if course.nil?
+      fail ActionController::RoutingError.new('Not Found'), 'Course not found'
+    end
+    return course
+  end
+
   def volunteers
     return nil if @course.nil?
     users = @course.users
@@ -139,7 +147,7 @@ class CoursesController < ApplicationController
   end
 
   def get_wiki_top_section
-    @course = Course.find_by_slug(params[:id])
+    @course = find_course_by_slug(params[:id])
     response = WikiEdits.get_wiki_top_section(@course.slug, current_user)
     respond_to do |format|
       format.json { render json: response }
@@ -147,7 +155,8 @@ class CoursesController < ApplicationController
   end
 
   def show
-    @course = Course.find_by_slug("#{params[:school]}/#{params[:titleterm]}")
+    @course = find_course_by_slug("#{params[:school]}/#{params[:titleterm]}")
+
     is_instructor = (user_signed_in? && current_user.instructor?(@course))
     if @course.nil? || @course.listed || is_instructor
       respond_to do |format|
@@ -160,7 +169,7 @@ class CoursesController < ApplicationController
   end
 
   def standard_setup
-    @course = Course.find_by_slug(params[:id])
+    @course = find_course_by_slug(params[:id])
     @volunteers = volunteers
     is_instructor = (user_signed_in? && current_user.instructor?(@course))
     return if @course.nil? || @course.listed || is_instructor
@@ -186,7 +195,7 @@ class CoursesController < ApplicationController
   end
 
   def list
-    @course = Course.find_by_slug(params[:id])
+    @course = find_course_by_slug(params[:id])
     @cohort = Cohort.find_by(title: cohort_params[:title])
     unless @cohort.nil?
       exists = CohortsCourses.exists?(course_id: @course.id, cohort_id: @cohort.id)
@@ -207,7 +216,7 @@ class CoursesController < ApplicationController
   end
 
   def manual_update
-    @course = Course.where(listed: true).find_by_slug(params[:id])
+    @course = find_course_by_slug(params[:id])
     @course.manual_update if user_signed_in?
     render nothing: true, status: :ok
   end

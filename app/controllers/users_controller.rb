@@ -33,6 +33,9 @@ class UsersController < ApplicationController
     end
     user_params['assignments'].each do |assignment|
       assignment['course_id'] = @course.id
+      assignment['article_title'].gsub!(' ', '_')
+      assigned = Article.find_by(title: assignment['article_title'])
+      assignment['article_id'] = assigned.id unless assigned.nil?
       update_util Assignment, assignment
     end
     WikiEdits.update_course(@course, current_user)

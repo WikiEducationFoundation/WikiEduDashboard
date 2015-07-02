@@ -6,6 +6,15 @@ Popover       = require '../common/popover'
 ServerActions = require '../../actions/server_actions'
 AssignmentActions = require '../../actions/assignment_actions'
 
+urlToTitle = (article_url) ->
+  article_url = article_url.trim()
+  unless /http/.test(article_url)
+    return article_url.replace(/_/g, ' ')
+
+  url_parts = /\/wiki\/(.*)/.exec(article_url)
+  return unescape(url_parts[1]).replace(/_/g, ' ') if url_parts.length > 1
+  return null
+
 AssignButton = React.createClass(
   displayname: 'AssignButton'
   getInitialState: ->
@@ -20,7 +29,7 @@ AssignButton = React.createClass(
     tag = if @props.role == 0 then 'assign_' else 'review_'
     tag + @props.student.id
   assign: ->
-    article_title = @refs.ass_input.getDOMNode().value
+    article_title = urlToTitle @refs.ass_input.getDOMNode().value
     return unless confirm("Are you sure you want to assign " + article_title + " to " + @props.student.wiki_id + "?")
     if(article_title)
       AssignmentActions.addAssignment @props.course_id, @props.student.id, article_title, @props.role
