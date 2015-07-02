@@ -107,6 +107,11 @@ class CoursesController < ApplicationController
     params = {}
     params['course'] = course_params
 
+    if !(@course.submitted == 1) && params['course']['submitted']
+      instructor = @course.instructors.first
+      WikiEdits.announce_course(@course, current_user, instructor)
+    end
+
     @course.update params
     WikiEdits.update_course(@course, current_user)
     respond_to do |format|
