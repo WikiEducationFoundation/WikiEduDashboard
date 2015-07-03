@@ -112,7 +112,6 @@ class WikiEdits
 
   def self.post_whole_page(current_user, page_title, content, summary = nil)
     tokens = get_tokens(current_user)
-    cleanup(content)
     params = { action: 'edit',
                title: page_title,
                text: content,
@@ -181,19 +180,6 @@ class WikiEdits
       language = Figaro.env.wiki_language
       tokens.access_token.post("https://#{language}.wikipedia.org/w/api.php",
                                data)
-    end
-
-    #############
-    # Utilities #
-    #############
-    def cleanup(content)
-      # Clean up file URLS
-      # TODO: Fence this, ensure usage of wikimedia commons?
-      file_tags = content.scan(/\[\[File:[^\]]*\]\]/)
-      file_tags.each do |file_tag|
-        fixed_tag = file_tag.gsub /(?<=File:)[^\]]*\//, ''
-        content.gsub! file_tag, fixed_tag
-      end
     end
   end
 end

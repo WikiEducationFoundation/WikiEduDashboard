@@ -22,8 +22,6 @@ class WikiCourseOutput
     end
 
     # TODO: grading
-
-    output = replace_code_with_nowiki(output)
     output
   end
 
@@ -92,7 +90,10 @@ class WikiCourseOutput
   # wikitext formatting methods #
   ################################
   def self.markdown_to_mediawiki(item)
-    return PandocRuby.convert(item, from: :markdown, to: :mediawiki)
+    wikitext = PandocRuby.convert(item, from: :markdown, to: :mediawiki)
+    wikitext = replace_code_with_nowiki(wikitext)
+    wikitext = reformat_image_links(wikitext)
+    wikitext
   end
 
   # Replace instances of <code></code> with <nowiki></nowiki>
@@ -112,6 +113,19 @@ class WikiCourseOutput
     wikitext
   end
 
+  # Take file links that come out of Pandoc and attempt to create valid wiki
+  # image code for them. This method assumes a recent version of Pandoc that
+  # uses "File:" rather than "Image:" as the MediaWiki file prefix.
+  def self.reformat_image_links(text)
+    # Clean up file URLS
+    # TODO: Fence this, ensure usage of wikimedia commons?
+    file_tags = text.scan(/\[\[File:[^\]]*\]\]/)
+    file_tags.each do |file_tag|
+      fixed_tag = file_tag.gsub(/(?<=File:)[^\]]*\//, '')
+      text.gsub! file_tag, fixed_tag
+    end
+    text
+  end
   #####################
   # Debugging methods #
   #####################
