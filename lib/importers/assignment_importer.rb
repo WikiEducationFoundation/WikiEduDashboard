@@ -12,4 +12,17 @@ class AssignmentImporter
       end
     end
   end
+
+  def self.update_article_ids(raw_articles)
+    articles = Article.where(
+      title: raw_articles.map(&:title)
+    )
+    Assignment.where(
+      article_title: articles.pluck(:title),
+      article_id: nil
+    ).each do |assignment|
+      article = articles.find_by(title: assignment.article_title)
+      assignment.update(article_id: article.id)
+    end
+  end
 end

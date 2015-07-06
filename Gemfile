@@ -22,7 +22,7 @@ gem 'activerecord-import', :git => 'https://github.com/onemedical/activerecord-i
 # UNIVERSAL TEXT CONVERTER - FOR MARDOWN TO MEDIAWIKI TEXT
 gem 'pandoc-ruby', '~> 1.0.0'
 
-gem "i18n-js", ">= 3.0.0.rc8" 
+gem "i18n-js", ">= 3.0.0.rc8"
 
 group :development do
   gem 'better_errors'

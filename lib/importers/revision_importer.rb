@@ -97,6 +97,7 @@ class RevisionImporter
     end
 
     Article.import articles
+    AssignmentImporter.update_article_ids(articles)
     ArticleImporter.resolve_duplicate_articles(articles)
     Revision.import revisions
   end
