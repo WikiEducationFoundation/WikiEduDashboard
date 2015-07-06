@@ -119,8 +119,11 @@ class WikiCourseOutput
   def self.reformat_image_links(text)
     # Clean up file URLS
     # TODO: Fence this, ensure usage of wikimedia commons?
+
+    # Get an array of [[File: ...]] tags from the content
     file_tags = text.scan(/\[\[File:[^\]]*\]\]/)
     file_tags.each do |file_tag|
+      # Remove the absolute portion of the file's URL
       fixed_tag = file_tag.gsub(/(?<=File:)[^\]]*\//, '')
       text.gsub! file_tag, fixed_tag
     end
