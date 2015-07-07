@@ -75,6 +75,74 @@ class WikiEdits
     post_whole_page(current_user, wiki_title, wiki_text, summary)
   end
 
+  def self.update_assignments(current_user, course, assignments=nil, delete=false)
+    if assignments.nil?
+      assignment_titles = course.assignments.group_by(&:article_title).as_json
+    else
+      assignment_titles = assignments.group_by { |a| a['article_title'] }
+    end
+
+    if delete
+      assignment_titles.each do |_title, title_assignments|
+        title_assignments.each do |assignment|
+          assignment['deleted'] = true
+        end
+      end
+    end
+
+    assignment_titles.each do |title, title_assignments|
+      talk_title = "Talk:#{title.gsub(' ', '_')}"
+      page_content = Wiki.get_page_content talk_title
+      return if page_content.nil?
+
+      # Get all assignments for this article/course
+      siblings = title_assignments.select { |a| !a['deleted'] }
+
+      # Build new tag
+      tag_course = course.wiki_title
+      a_ids = siblings.select { |a| a['role'] == 0 }.map { |a| a['user_id'] }
+      tag_a = User.where(id: a_ids).pluck(:wiki_id)
+              .map { |wiki_id| "[[User:#{wiki_id}|#{wiki_id}]]" }.join(', ')
+      r_ids = siblings.select { |a| a['role'] == 1 }.map { |a| a['user_id'] }
+      tag_r = User.where(id: r_ids).pluck(:wiki_id)
+              .map { |wiki_id| "[[User:#{wiki_id}|#{wiki_id}]]" }.join(', ')
+      new_tag = "{{wikiedu.org assignment | course = #{tag_course}"
+      new_tag += " | assignments = #{tag_a}" unless tag_a.blank?
+      new_tag += " | reviewers = #{tag_r}" unless tag_r.blank?
+      new_tag += ' }}'
+
+      # Return if tag already exists on page
+      return if page_content.include? new_tag
+
+      # Check for existing tags and replace
+      old_tag_ex = "{{course assignment | course = #{course.wiki_title}"
+      new_tag_ex = "{{wikiedu.org assignment | course = #{course.wiki_title}"
+      if siblings.empty?
+        page_content.gsub!(/#{Regexp.quote(old_tag_ex)}[^\}]*\}\}[\n]?/, '')
+        page_content.gsub!(/#{Regexp.quote(new_tag_ex)}[^\}]*\}\}[\n]?/, '')
+      else
+        page_content.gsub!(/#{Regexp.quote(old_tag_ex)}[^\}]*\}\}/, new_tag)
+        page_content.gsub!(/#{Regexp.quote(new_tag_ex)}[^\}]*\}\}/, new_tag)
+      end
+
+      # Add new tag at top (if there wasn't an existing tag already)
+      if !page_content.include?(new_tag) && !siblings.empty?
+        if page_content[0..1] == '{{' # Append after existing tags
+          page_content.sub!(/\}\}(?!\n\{\{)/, "}}\n#{new_tag}")
+        else # Add the tag to the top of the page
+          page_content = "#{new_tag}\n\n#{page_content}"
+        end
+      end
+
+      # Do not update page if nothing has chnged
+      # return unless page_content.include? new_tag
+
+      # Save the changed content to Wikipedia
+      summary = "Update #{tag_course} assignment details"
+      post_whole_page(current_user, talk_title, page_content, summary)
+    end
+  end
+
   ###################
   # Helpler methods #
   ###################

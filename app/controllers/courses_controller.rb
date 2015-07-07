@@ -121,6 +121,7 @@ class CoursesController < ApplicationController
 
   def destroy
     validate
+    WikiEdits.update_assignments current_user, @course, nil, true
     @course.courses_users.destroy_all
     @course.articles_courses.destroy_all
     @course.assignments.destroy_all

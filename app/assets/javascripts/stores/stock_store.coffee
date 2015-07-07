@@ -73,10 +73,11 @@ class Store
   setModels: (data, persisted=false) ->
     @loaded = true
     @models = {}
-    return unless data?
-    for model, i in data
-      @models[@getKey(model)] = model
-      @persisted[@getKey(model)] = $.extend(true, {}, model) if persisted
+    @persisted = {} if persisted
+    if data.length > 0
+      for model, i in data
+        @models[@getKey(model)] = model
+        @persisted[@getKey(model)] = $.extend(true, {}, model) if persisted
     @store.emitChange()
 
   updatePersisted: ->

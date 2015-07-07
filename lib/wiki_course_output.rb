@@ -121,7 +121,7 @@ class WikiCourseOutput
     # TODO: Fence this, ensure usage of wikimedia commons?
 
     # Get an array of [[File: ...]] and [[Image: ...]] tags from the content
-    file_tags = text.scan(/\[\[(File|Image):[^\]]*\]\]/)
+    file_tags = text.scan(/\[\[[File:|Image:][^\]]*\]\]/)
     file_tags.each do |file_tag|
       # Remove the absolute portion of the file's URL
       fixed_tag = file_tag.gsub(/(?<=File:|Image:)[^\]]*\//, '')

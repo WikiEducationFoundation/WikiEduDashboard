@@ -29,8 +29,19 @@ class UsersController < ApplicationController
   def save
     @course = Course.find_by_slug(params[:course_id])
     user_params['users'].each do |student|
+      if student['deleted']
+        s_assignments = @course.assignments.select do |a|
+          a.user_id == student['id']
+        end
+        s_assignments.to_json!
+        WikiEdits.update_assignments current_user, @course, s_assignments, true
+      end
       update_util User, student
     end
+
+    WikiEdits.update_assignments current_user, @course,
+                                 user_params['assignments']
+
     user_params['assignments'].each do |assignment|
       assignment['course_id'] = @course.id
       assignment['article_title'].gsub!(' ', '_')
@@ -38,6 +49,7 @@ class UsersController < ApplicationController
       assignment['article_id'] = assigned.id unless assigned.nil?
       update_util Assignment, assignment
     end
+
     WikiEdits.update_course(@course, current_user)
     render 'users'
   end
@@ -105,11 +117,15 @@ class UsersController < ApplicationController
     fetch_enroll_records
     return if @user.nil?
 
-    CoursesUsers.find_by(
+    cu = CoursesUsers.find_by(
       user_id: @user.id,
       course_id: @course.id,
       role: enroll_params[:role]
-    ).destroy
+    )
+    WikiEdits.update_assignments current_user, @course,
+                                 cu.assignments.as_json, true
+    cu.destroy
+
     render 'users'
     WikiEdits.update_course(@course, current_user)
   end

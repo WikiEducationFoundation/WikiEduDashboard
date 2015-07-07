@@ -3,7 +3,7 @@ StockStore = require './stock_store'
 AssignmentStore = new StockStore(
   modelKey: 'assignment'
   triggers: [
-    'SAVED_STUDENTS',
+    'SAVED_USERS',
     'ENROLLED_STUDENT'
   ]
 )
