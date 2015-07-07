@@ -221,6 +221,28 @@ class CoursesController < ApplicationController
     end
   end
 
+  def tag_params
+    params.require(:tag).permit(:tag)
+  end
+
+  def tag
+    @course = find_course_by_slug(params[:id])
+    exists = Tag.exists?(course_id: @course.id, tag: tag_params[:tag])
+    if request.post? && !exists
+      Tag.create(
+        course_id: @course.id,
+        tag: tag_params[:tag],
+        key: nil
+      )
+    elsif request.delete? && exists
+      Tag.find_by(
+        course_id: @course.id,
+        tag: tag_params[:tag],
+        key: nil
+      ).destroy
+    end
+  end
+
   def manual_update
     @course = find_course_by_slug(params[:id])
     @course.manual_update if user_signed_in?

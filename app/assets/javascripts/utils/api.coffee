@@ -1,15 +1,3 @@
-fetch = (course_id, endpoint) ->
-  new Promise (res, rej) ->
-    $.ajax
-      type: 'GET',
-      url: '/courses/' + course_id + '/' + endpoint + '.json',
-      success: (data) ->
-        console.log 'Received ' + endpoint
-        res data
-    .fail (obj, status) ->
-      console.log 'Error: ' + obj.responseJSON.message
-      rej obj
-
 request = (options) ->
   new Promise (res, rej) ->
     $.ajax
@@ -27,11 +15,6 @@ API =
   ###########
   # Getters #
   ###########
-  fetchCourse: (course_id) ->
-    fetch(course_id, 'raw')
-  checkCourse: (course_id) ->
-    fetch(course_id, 'check')
-
   fetchWizardIndex: ->
     new Promise (res, rej) ->
       $.ajax
@@ -56,26 +39,17 @@ API =
         console.log 'Error: ' + obj.responseJSON.message
         rej obj
 
-  fetchCohorts: (course_id) ->
-    fetch(course_id, 'cohorts')
-
-  fetchTimeline: (course_id) ->
-    fetch(course_id, 'timeline')
-
-  fetchUsers: (course_id) ->
-    fetch(course_id, 'users')
-
-  fetchRevisions: (course_id) ->
-    fetch(course_id, 'activity')
-
-  fetchArticles: (course_id) ->
-    fetch(course_id, 'articles')
-
-  fetchAssignments: (course_id) ->
-    fetch(course_id, 'assignments')
-
-  fetchUploads: (course_id) ->
-    fetch(course_id, 'uploads')
+  fetch: (course_id, endpoint) ->
+    new Promise (res, rej) ->
+      $.ajax
+        type: 'GET',
+        url: '/courses/' + course_id + '/' + endpoint + '.json',
+        success: (data) ->
+          console.log 'Received ' + endpoint
+          res data
+      .fail (obj, status) ->
+        console.log 'Error: ' + obj.responseJSON.message
+        rej obj
 
 
   ###########
@@ -282,6 +256,22 @@ API =
       .fail (obj, status) ->
         console.log 'Couldn\'t list course! ' + obj.responseJSON.message
         alert obj.responseJSON.message
+        rej obj
+
+  tagCourse: (course_id, tag, add) ->
+    new Promise (res, rej) ->
+      $.ajax
+        type: (if add then 'POST' else 'DELETE')
+        url: '/courses/' + course_id + '/tag.json',
+        contentType: 'application/json',
+        data: JSON.stringify
+          tag:
+            tag: tag
+        success: (data) ->
+          console.log 'Tagged course!'
+          res data
+      .fail (obj, status) ->
+        console.log 'Couldn\'t tag course! ' + obj.responseJSON.message
         rej obj
 
 module.exports = API

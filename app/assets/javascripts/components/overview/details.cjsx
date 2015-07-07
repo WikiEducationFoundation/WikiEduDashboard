@@ -1,14 +1,18 @@
 React             = require 'react'
+
+InlineUsers       = require './inline_users'
+CohortButton      = require './cohort_button'
+TagButton         = require './tag_button'
 Editable          = require '../highlevels/editable'
 TextInput         = require '../common/text_input'
 TextAreaInput     = require '../common/text_area_input'
-CourseStore       = require '../../stores/course_store'
-UserStore         = require '../../stores/user_store'
-CohortStore       = require '../../stores/cohort_store'
 CourseActions     = require '../../actions/course_actions'
 ServerActions     = require '../../actions/server_actions'
-InlineUsers       = require './inline_users'
-CohortButton      = require './cohort_button'
+
+CourseStore       = require '../../stores/course_store'
+TagStore          = require '../../stores/tag_store'
+UserStore         = require '../../stores/user_store'
+CohortStore       = require '../../stores/cohort_store'
 
 # For some reason getState is not being triggered when CohortStore gets updated
 
@@ -19,6 +23,7 @@ getState = (course_id) ->
   online: UserStore.getFiltered({ role: 2 })
   campus: UserStore.getFiltered({ role: 3 })
   staff: UserStore.getFiltered({ role: 4 })
+  tags: TagStore.getModels()
 
 Details = React.createClass(
   displayName: 'Details'
@@ -52,6 +57,10 @@ Details = React.createClass(
       _.pluck(@props.cohorts, 'title').join(', ')
     else 'None'
 
+    tags = if @props.tags.length > 0
+      _.pluck(@props.tags, 'tag').join(', ').replace(/_/g, ' ')
+    else 'None'
+
     date_props =
       minDate: moment(@props.course.start)
       maxDate: moment(@props.course.end).subtract(1, 'week')
@@ -66,10 +75,6 @@ Details = React.createClass(
         {online}
         {campus}
         {staff}
-        <p>
-          <span>Cohorts: {cohorts}</span>
-          <CohortButton {...@props} show={@props.editable && @props.current_user.admin} />
-        </p>
         <p><span>School: {@props.course.school}</span></p>
         <p><span>Term: {@props.course.term}</span></p>
         {passcode}
@@ -115,8 +120,16 @@ Details = React.createClass(
             date_props={date_props}
           />
         </fieldset>
+        <p>
+          <span>Cohorts: {cohorts}</span>
+          <CohortButton {...@props} show={@props.editable && @props.current_user.admin} />
+        </p>
+        <p className='tags'>
+          <span>Tags: {tags}</span>
+          <TagButton {...@props} show={@props.editable && @props.current_user.admin} />
+        </p>
       </div>
     </div>
 )
 
-module.exports = Editable(Details, [CourseStore, UserStore, CohortStore], ServerActions.saveCourse, getState, "Details")
+module.exports = Editable(Details, [CourseStore, UserStore, CohortStore, TagStore], ServerActions.saveCourse, getState, "Details")
