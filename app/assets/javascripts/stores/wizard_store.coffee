@@ -140,6 +140,7 @@ WizardStore = Flux.createStore
   getOutput: ->
     output = []
     logic = []
+    tags = []
     _panels.forEach (panel) ->
       if $.isArray(panel.output)
         output = output.concat panel.output
@@ -154,7 +155,8 @@ WizardStore = Flux.createStore
             else
               output.push option.output
           logic.push option.logic if option.logic?
-    { output: output, logic: logic }
+          tags.push { key: panel.key, tag: option.tag } if option.tag?
+    { output: output, logic: logic, tags: tags }
 
 , (payload) ->
   data = payload.data

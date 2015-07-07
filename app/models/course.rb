@@ -3,6 +3,7 @@ require "#{Rails.root}/lib/importers/user_importer"
 
 #= Course model
 class Course < ActiveRecord::Base
+  has_many :tags
   has_many :courses_users, class_name: CoursesUsers
   has_many :users, -> { uniq }, through: :courses_users,
                                 after_remove: :cleanup_articles

@@ -166,13 +166,13 @@
   options:
     -
       title: Yes. We will work on medicine or psychology articles.
-      logic: yes_medical_topics
+      tag: yes_medical_topics
     -
       title: Maybe. Students might choose a medicine or psychology topic.
-      logic: maybe_medical_topics
+      tag: maybe_medical_topics
     -
       title: No. No one will work on medicine or psychology topics.
-      logic: no_medical_topics
+      tag: no_medical_topics
 -
   key: draft_and_mainspace
   title: Drafts and mainspace
@@ -191,10 +191,10 @@
   options:
     -
       title: Work live from the start
-      logic: work_live
+      tag: work_live
     -
       title: Draft early work in sandboxes
-      logic: use_sandboxes
+      tag: use_sandboxes
 -
   key: peer_feedback
   title: Peer feedback

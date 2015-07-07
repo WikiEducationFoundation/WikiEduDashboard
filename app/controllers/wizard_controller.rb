@@ -30,7 +30,8 @@ class WizardController < ApplicationController
   def wizard_params
     params.permit(wizard_output: {
                     output: [],
-                    logic: []
+                    logic: [],
+                    tags: [:key, :tag]
                   })
   end
 
@@ -44,6 +45,7 @@ class WizardController < ApplicationController
     all_content = YAML.load(File.read(File.expand_path(content_path, __FILE__)))
     output = wizard_params['wizard_output']['output'] || []
     logic = wizard_params['wizard_output']['logic'] || []
+    tags = wizard_params['wizard_output']['tags'] || []
     content_groups = output.map do |content_key|
       all_content[content_key]
     end
@@ -55,8 +57,22 @@ class WizardController < ApplicationController
     # Create and save week/block objects based on the object generated above
     save_timeline(timeline, logic)
 
+    # Save any tags that have been generated from this Wizard output
+    add_tags(tags)
+
     # JBuilder will not render weeks for previous-empty course without this...
     @course = Course.find_by_slug(params[:course_id])
+  end
+
+  def add_tags(tags)
+    tags.each do |tag|
+      if Tag.exists?(course_id: @course.id, key: tag[:key])
+        tag_model = Tag.find_by(course_id: @course.id, key: tag[:key])
+        tag_model.update(tag: tag[:tag])
+      else
+        Tag.create(course_id: @course.id, tag: tag[:tag], key: tag[:key])
+      end
+    end
   end
 
   def build_timeline(content_groups, course)

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150702200259) do
+ActiveRecord::Schema.define(version: 20150707191922) do
 
   create_table "articles", force: true do |t|
     t.string   "title"
@@ -150,6 +150,16 @@ ActiveRecord::Schema.define(version: 20150702200259) do
     t.boolean  "deleted",               default: false
     t.boolean  "system",                default: false
   end
+
+  create_table "tags", force: true do |t|
+    t.integer  "course_id"
+    t.string   "tag"
+    t.string   "key"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tags", ["course_id", "key"], name: "index_tags_on_course_id_and_key", unique: true, using: :btree
 
   create_table "users", force: true do |t|
     t.string   "wiki_id"
