@@ -38,7 +38,7 @@ StockStore = (helper, model_key, default_model, triggers) ->
   , (payload) ->
     data = payload.data
     switch(payload.actionType)
-      when 'RECEIVE_' + plural_model_key.toUpperCase()
+      when "RECEIVE_#{plural_model_key.toUpperCase()}", "#{model_key.toUpperCase()}_MODIFIED"
         helper.setModels data.course[plural_model_key], true
       when 'SORT_' + plural_model_key.toUpperCase()
         helper.sortByKey data.key

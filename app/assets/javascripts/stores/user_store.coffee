@@ -9,9 +9,6 @@ UserStore = new StockStore(
   modelKey: 'user'
   defaultModel:
     wiki_id: ""
-  triggers: [
-    'USER_MODIFIED'
-  ],
   uniqueKeys: ['id', 'role']
 )
 

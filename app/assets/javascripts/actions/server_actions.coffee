@@ -3,11 +3,22 @@ Flux        = new McFly()
 API         = require '../utils/api'
 
 ServerActions = Flux.createActions
+
+  # General-purpose
   fetch: (model, course_id) ->
     actionType = "RECEIVE_#{model.toUpperCase()}"
     API.fetch(course_id, model).then (data) ->
       { actionType: actionType, data: data }
+  add: (model, course_id, data) ->
+    actionType = model.toUpperCase() + '_MODIFIED'
+    API.modify(model, course_id, data, true).then (data) ->
+      { actionType: actionType, data: data }
+  remove: (model, course_id, data) ->
+    actionType = model.toUpperCase() + '_MODIFIED'
+    API.modify(model, course_id, data, false).then (data) ->
+      { actionType: actionType, data: data }
 
+  # Specific
   fetchWizardIndex: ->
     API.fetchWizardIndex().then (data) ->
       { actionType: 'RECEIVE_WIZARD_INDEX', data: {
@@ -51,14 +62,5 @@ ServerActions = Flux.createActions
   notifyUntrained: (course_id) ->
     API.notifyUntrained(course_id).then (data) ->
       { actionType: 'NOTIFIED_UNTRAINED', data: data }
-
-  add: (model, course_id, data) ->
-    actionType = model.toUpperCase() + '_MODIFIED'
-    API.modify(model, course_id, data, true).then (data) ->
-      { actionType: actionType, data: data }
-  remove: (model, course_id, data) ->
-    actionType = model.toUpperCase() + '_MODIFIED'
-    API.modify(model, course_id, data, false).then (data) ->
-      { actionType: actionType, data: data }
 
 module.exports = ServerActions
