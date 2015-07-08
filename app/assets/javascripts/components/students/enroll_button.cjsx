@@ -23,14 +23,14 @@ EnrollButton = React.createClass(
     user_obj = { wiki_id: wiki_id, role: @props.role }
     if UserStore.getFiltered({ wiki_id: wiki_id, role: @props.role }).length == 0 &&
        confirm 'Are you sure you want to add ' + wiki_id + ' to this course?'
-        ServerActions.enrollStudent user_obj, @props.course_id
+        ServerActions.add 'user', @props.course_id, { user: user_obj }
     else
       alert 'That student is already enrolled!'
   unenroll: (user_id) ->
     user = UserStore.getFiltered({ id: user_id, role: @props.role })[0]
     user_obj = { user_id: user_id, role: @props.role }
     if confirm 'Are you sure you want to remove ' + user.wiki_id + ' from this course?'
-      ServerActions.unenrollStudent user_obj, @props.course_id
+      ServerActions.remove 'user', @props.course_id, { user: user_obj }
   stop: (e) ->
     e.stopPropagation()
   getKey: ->

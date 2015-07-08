@@ -13,8 +13,8 @@ getState = ->
 Overview = React.createClass(
   displayName: 'Overview'
   componentDidMount: ->
-    ServerActions.fetchTimeline @props.course_id
-    ServerActions.fetchTags @props.course_id
+    ServerActions.fetch 'timeline', @props.course_id
+    ServerActions.fetch 'tags', @props.course_id
   getInitialState: ->
     getState()
   render: ->

@@ -164,7 +164,7 @@ describe 'New course creation and editing', type: :feature do
       sleep 1
       page.all('button.dark').last.click
       sleep 1
-      expect(page).to have_content 'Points: 50'
+      expect(page).to have_content 'Value: 50%'
 
       # Navigate back to the overview, then delete the course
       find('#overview-link').find('a').click

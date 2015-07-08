@@ -8,8 +8,8 @@ ServerActions     = require '../../actions/server_actions'
 ArticlesHandler = React.createClass(
   displayName: 'ArticlesHandler'
   componentWillMount: ->
-    ServerActions.fetchArticles @props.course_id
-    ServerActions.fetchAssignments @props.course_id
+    ServerActions.fetch 'articles', @props.course_id
+    ServerActions.fetch 'assignments', @props.course_id
   sortSelect: (e) ->
     UIActions.sort 'articles', e.target.value
   render: ->

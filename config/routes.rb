@@ -27,8 +27,6 @@ Rails.application.routes.draw do
 
   # Courses
   controller :courses do
-    get 'courses/*id/raw' => 'courses#raw',
-        :as => :raw, constraints: { id: /.*/ }
     get 'courses/*id/get_wiki_top_section' => 'courses#get_wiki_top_section',
         :as => :get_wiki_top_section, constraints: { id: /.*/ }
     get 'courses/new' => 'courses#new',
@@ -45,10 +43,12 @@ Rails.application.routes.draw do
 
     get 'courses/*id/check' => 'courses#check',
         :as => :check, constraints: { id: /.*/ }
-    match 'courses/*id/list' => 'courses#list',
-        constraints: { id: /.*/ }, via: [:post, :delete]
+    match 'courses/*id/cohort' => 'courses#list',
+          constraints: { id: /.*/ }, via: [:post, :delete]
     match 'courses/*id/tag' => 'courses#tag',
-        constraints: { id: /.*/ }, via: [:post, :delete]
+          constraints: { id: /.*/ }, via: [:post, :delete]
+    match 'courses/*id/user' => 'users#enroll',
+          constraints: { id: /.*/ }, via: [:post, :delete]
 
     get 'courses/:school/:titleterm(/:endpoint(/*any))' => 'courses#show',
         defaults: { endpoint: 'overview' }, :as => 'show',
@@ -61,11 +61,11 @@ Rails.application.routes.draw do
   # Enrollment
   post 'courses/:course_id/users' => 'users#save',
        constraints: { course_id: /.*/ }
-  delete 'courses/:course_id/users' => 'users#remove',
-         constraints: { course_id: /.*/ }
-  post 'courses/:course_id/users/add' => 'users#add',
-       constraints: { course_id: /.*/ }
-  post 'courses/:course_id/users/:user_id/setrole' => 'users#setrole',
+  # delete 'courses/:course_id/users' => 'users#remove',
+  #        constraints: { course_id: /.*/ }
+  # post 'courses/:course_id/users/add' => 'users#add',
+  #      constraints: { course_id: /.*/ }
+  post 'courses/:course_id/users/:user_id/setrole' => 'users#set_role',
        constraints: { course_id: /.*/ }
 
   # Timeline

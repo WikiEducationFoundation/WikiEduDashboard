@@ -58,6 +58,16 @@ class UsersController < ApplicationController
   # Enrollment management #
   #########################
   def enroll
+    if request.get?
+      enroll_user
+    elsif request.post?
+      add
+    elsif request.delete?
+      remove
+    end
+  end
+
+  def enroll_user
     # Redirect to sign in (with callback leading back to this method)
     @course = Course.find_by_slug(params[:course_id])
     if current_user.nil?
@@ -82,11 +92,11 @@ class UsersController < ApplicationController
   end
 
   def enroll_params
-    params.require(:student).permit(:user_id, :wiki_id, :role)
+    params.require(:user).permit(:user_id, :wiki_id, :role)
   end
 
   def fetch_enroll_records
-    @course = Course.find_by_slug(params[:course_id])
+    @course = Course.find_by_slug(params[:id])
     if enroll_params.key? :user_id
       @user = User.find(enroll_params[:user_id])
     elsif enroll_params.key? :wiki_id

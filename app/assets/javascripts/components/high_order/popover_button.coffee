@@ -2,8 +2,14 @@ React         = require 'react/addons'
 Expandable    = require '../high_order/expandable'
 Popover       = require '../common/popover'
 Conditional   = require '../high_order/conditional'
+ServerActions = require '../../actions/server_actions'
 
-PopoverButton = (Key, ValueKey, Store, Add, Remove, New, Items) ->
+PopoverButton = (Key, ValueKey, Store, New, Items) ->
+  format = (value) ->
+    data = {}
+    data[Key] = {}
+    data[Key][ValueKey] = value
+    return data
   component = React.createClass(
     displayname: Key.capitalize() + 'Button'
     mixins: [Store.mixin]
@@ -18,13 +24,13 @@ PopoverButton = (Key, ValueKey, Store, Add, Remove, New, Items) ->
       item = @refs.entry.getDOMNode().value
       if confirm 'Are you sure?'
         if New(item)
-          Add @props.course_id, item
+          ServerActions.add Key, @props.course_id, format(item)
         else
           alert 'That already exists for this course!'
     remove: (item_id) ->
       item = Store.getFiltered({ id: item_id })[0]
       if confirm 'Are you sure?'
-        Remove @props.course_id, item[ValueKey]
+        ServerActions.remove Key, @props.course_id, format(item[ValueKey])
     stop: (e) ->
       e.stopPropagation()
     getKey: ->

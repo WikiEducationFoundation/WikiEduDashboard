@@ -19,7 +19,7 @@ Actions = React.createClass(
   leave: ->
     if confirm 'Are you sure you want to leave this course?'
       user_obj = { user_id: @props.current_user.id, role: 0 }
-      ServerActions.unenrollStudent user_obj, @state.course.slug
+      ServerActions.remove 'user', @state.course.slug, { user: user_obj }
   delete: ->
     entered_title = prompt 'Are you sure you want to delete this course? If so, enter the title of the course to proceed.'
     if entered_title == @state.course.title

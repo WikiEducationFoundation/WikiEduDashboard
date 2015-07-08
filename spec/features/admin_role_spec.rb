@@ -72,8 +72,8 @@ describe 'Admin users', type: :feature, js: true do
       # Edit details and add cohort
       page.all('.button.dark')[1].click
       page.all('.button.border.plus')[4].click
-      first('input').set('Fall 2015')
-      find('button', text: 'List').click
+      find('.pop input', visible: true).set('Fall 2015')
+      find('.pop button', visible: true).click
       page.driver.browser.switch_to.alert.accept
       page.driver.browser.switch_to.alert.accept
       sleep 1

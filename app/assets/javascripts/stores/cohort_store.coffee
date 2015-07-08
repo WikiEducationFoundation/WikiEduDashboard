@@ -3,7 +3,7 @@ StockStore = require './stock_store'
 CohortStore = new StockStore(
   modelKey: 'cohort'
   triggers: [
-    'LIST_COURSE'
+    'COHORT_MODIFIED'
   ]
 )
 

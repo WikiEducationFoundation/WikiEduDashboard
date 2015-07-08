@@ -25,7 +25,7 @@ getState = ->
 TimelineHandler = React.createClass(
   displayName: 'TimelineHandler'
   componentWillMount: ->
-    ServerActions.fetchTimeline @props.course_id
+    ServerActions.fetch 'timeline', @props.course_id
   render: ->
     <div>
       <TransitionGroup

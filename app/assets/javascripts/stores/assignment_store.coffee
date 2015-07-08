@@ -4,7 +4,7 @@ AssignmentStore = new StockStore(
   modelKey: 'assignment'
   triggers: [
     'SAVED_USERS',
-    'ENROLLED_STUDENT'
+    'USER_MODIFIED'
   ]
 )
 

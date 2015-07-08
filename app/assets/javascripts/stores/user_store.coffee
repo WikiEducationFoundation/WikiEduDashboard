@@ -10,7 +10,7 @@ UserStore = new StockStore(
   defaultModel:
     wiki_id: ""
   triggers: [
-    'ENROLLED_STUDENT'
+    'USER_MODIFIED'
   ],
   uniqueKeys: ['id', 'role']
 )

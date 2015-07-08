@@ -8,7 +8,7 @@ ServerActions     = require '../../actions/server_actions'
 RevisionHandler = React.createClass(
   displayName: 'RevisionHandler'
   componentWillMount: ->
-    ServerActions.fetchRevisions @props.course_id
+    ServerActions.fetch 'revisions', @props.course_id
   sortSelect: (e) ->
     UIActions.sort 'revisions', e.target.value
   render: ->

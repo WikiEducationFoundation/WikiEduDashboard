@@ -1,6 +1,6 @@
+React         = require 'react'
 PopoverButton = require '../high_order/popover_button'
 CohortStore   = require '../../stores/cohort_store'
-ServerActions = require '../../actions/server_actions'
 
 cohortIsNew = (cohort) ->
   CohortStore.getFiltered({ title: cohort }).length == 0
@@ -14,4 +14,4 @@ cohorts = (props, remove) ->
       <td>{cohort.title}{remove_button}</td>
     </tr>
 
-module.exports = PopoverButton('cohort', 'title', CohortStore, ServerActions.listCourse, ServerActions.delistCourse, cohortIsNew, cohorts)
+module.exports = PopoverButton('cohort', 'title', CohortStore, cohortIsNew, cohorts)

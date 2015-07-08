@@ -10,7 +10,7 @@ ServerActions     = require '../../actions/server_actions'
 StudentsHandler = React.createClass(
   displayName: 'StudentsHandler'
   componentWillMount: ->
-    ServerActions.fetchAssignments @props.course_id
+    ServerActions.fetch 'assignments', @props.course_id
   sortSelect: (e) ->
     UIActions.sort 'users', e.target.value
   render: ->

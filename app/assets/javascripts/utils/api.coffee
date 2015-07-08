@@ -210,68 +210,20 @@ API =
         console.log 'Couldn\'t submit wizard answers! ' + obj.responseJSON.message
         rej obj
 
-  enrollStudent: (data, course_id) ->
-    new Promise (res, rej) ->
-      $.ajax
-        type: 'POST'
-        url: '/courses/' + course_id + '/users/add.json',
-        contentType: 'application/json',
-        data: JSON.stringify
-          student: data
-        success: (data) ->
-          console.log 'Enrolled student!'
-          res data
-      .fail (obj, status) ->
-        console.log 'Couldn\'t enroll student! ' + obj.responseJSON.message
-        alert obj.responseJSON.message
-        rej obj
-
-  unenrollStudent: (data, course_id) ->
-    new Promise (res, rej) ->
-      $.ajax
-        type: 'DELETE'
-        url: '/courses/' + course_id + '/users.json',
-        contentType: 'application/json',
-        data: JSON.stringify
-          student: data
-        success: (data) ->
-          console.log 'Unenrolled student!'
-          res data
-      .fail (obj, status) ->
-        console.log 'Couldn\'t unenroll student! ' + obj.responseJSON.message
-        rej obj
-
-  listCourse: (course_id, cohort_title, list) ->
-    new Promise (res, rej) ->
-      $.ajax
-        type: (if list then 'POST' else 'DELETE')
-        url: '/courses/' + course_id + '/list.json',
-        contentType: 'application/json',
-        data: JSON.stringify
-          cohort:
-            title: cohort_title
-        success: (data) ->
-          console.log 'Listed course!'
-          res data
-      .fail (obj, status) ->
-        console.log 'Couldn\'t list course! ' + obj.responseJSON.message
-        alert obj.responseJSON.message
-        rej obj
-
-  tagCourse: (course_id, tag, add) ->
+  modify: (model, course_id, data, add) ->
+    verb = if add then 'added' else 'removed'
     new Promise (res, rej) ->
       $.ajax
         type: (if add then 'POST' else 'DELETE')
-        url: '/courses/' + course_id + '/tag.json',
+        url: "/courses/#{course_id}/#{model}.json"
         contentType: 'application/json',
-        data: JSON.stringify
-          tag:
-            tag: tag
+        data: JSON.stringify data
         success: (data) ->
-          console.log 'Tagged course!'
+          console.log (verb.capitalize() + ' ' + model)
           res data
       .fail (obj, status) ->
-        console.log 'Couldn\'t tag course! ' + obj.responseJSON.message
+        console.log "#{model.capitalize()} not #{verb}: #{obj.responseJSON.message}"
+        alert obj.responseJSON.message
         rej obj
 
 module.exports = API

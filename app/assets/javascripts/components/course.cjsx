@@ -23,9 +23,9 @@ Course = React.createClass(
   contextTypes:
     router: React.PropTypes.func.isRequired
   componentWillMount: ->
-    ServerActions.fetchCourse @getCourseID()
-    ServerActions.fetchUsers @getCourseID()
-    ServerActions.fetchCohorts @getCourseID()
+    ServerActions.fetch 'course', @getCourseID()
+    ServerActions.fetch 'users', @getCourseID()
+    ServerActions.fetch 'cohorts', @getCourseID()
   getInitialState: ->
     getState()
   storeDidChange: ->

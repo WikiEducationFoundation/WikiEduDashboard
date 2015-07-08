@@ -11,7 +11,7 @@ UploadsHandler = React.createClass(
   sortSelect: (e) ->
     UIActions.sort 'uploads', e.target.value
   componentWillMount: ->
-    ServerActions.fetchUploads @props.course_id
+    ServerActions.fetch 'uploads', @props.course_id
   render: ->
     <div id='uploads'>
       <div className='section-header'>
