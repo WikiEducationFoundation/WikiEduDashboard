@@ -1,13 +1,26 @@
-React             = require 'react/addons'
-Router            = require 'react-router'
-Link              = Router.Link
-RouteHandler      = Router.RouteHandler
-TransitionGroup   = require '../../utils/TransitionGroup'
+React           = require 'react/addons'
+Router          = require 'react-router'
+Link            = Router.Link
+RouteHandler    = Router.RouteHandler
+TransitionGroup = require '../../utils/TransitionGroup'
 
-Timeline          = require './timeline'
-Wizard            = require '../wizard/wizard'
-ServerActions     = require '../../actions/server_actions'
+Timeline        = require './timeline'
+Grading         = require './grading'
+CourseDates     = require './course_dates'
+Editable        = require '../highlevels/editable'
 
+ServerActions   = require '../../actions/server_actions'
+
+CourseStore     = require '../../stores/course_store'
+WeekStore       = require '../../stores/week_store'
+BlockStore      = require '../../stores/block_store'
+GradeableStore  = require '../../stores/gradeable_store'
+
+getState = ->
+  course: CourseStore.getCourse()
+  weeks: WeekStore.getWeeks()
+  blocks: BlockStore.getBlocks()
+  gradeables: GradeableStore.getGradeables()
 
 TimelineHandler = React.createClass(
   displayName: 'TimelineHandler'
@@ -23,8 +36,10 @@ TimelineHandler = React.createClass(
       >
         <RouteHandler key={Date.now()} {...@props} />
       </TransitionGroup>
+      <CourseDates current_user={@props.current_user} course_id={@props.course_id} />
       <Timeline {...@props} />
+      <Grading {...@props} />
     </div>
 )
 
-module.exports = TimelineHandler
+module.exports = Editable(TimelineHandler, [WeekStore, BlockStore, GradeableStore], ServerActions.saveTimeline, getState)

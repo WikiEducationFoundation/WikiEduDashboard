@@ -3,7 +3,7 @@ Actions       = require './actions'
 Description   = require './description'
 Details       = require './details'
 Grading       = require './grading'
-ThisWeek      = require '../timeline/this_week'
+ThisWeek      = require './this_week'
 CourseStore   = require '../../stores/course_store'
 ServerActions = require '../../actions/server_actions'
 
