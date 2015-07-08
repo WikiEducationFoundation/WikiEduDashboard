@@ -1,1 +1,0 @@
-window.I18n = I18n = require 'i18n-js'
