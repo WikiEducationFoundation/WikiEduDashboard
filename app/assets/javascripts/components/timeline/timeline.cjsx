@@ -137,7 +137,7 @@ Timeline = React.createClass(
         {add_week}
       </ul>
       <div className="section-header">
-        <h3>Grading</h3>
+        <h3>Grading <span>(Total: {total}%)</span></h3>
         {@props.controls(null, @props.gradeables.length < 1)}
       </div>
       <ul className="list">

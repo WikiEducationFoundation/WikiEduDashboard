@@ -30,8 +30,8 @@ Gradeable = React.createClass(
         value={@props.gradeable.points}
         value_key={'points'}
         editable={@props.editable}
-        label='Points'
-        append={percent}
+        label='Value'
+        append='%'
       />
     </li>
 )
