@@ -1,12 +1,12 @@
 React         = require 'react/addons'
 Router        = require 'react-router'
 Link          = Router.Link
-Expandable    = require '../highlevels/expandable'
+Expandable    = require '../high_order/expandable'
 Popover       = require '../common/popover'
 ServerActions = require '../../actions/server_actions'
 UserStore      = require '../../stores/user_store'
 AssignmentActions = require '../../actions/assignment_actions'
-Conditional   = require '../highlevels/conditional'
+Conditional   = require '../high_order/conditional'
 
 EnrollButton = React.createClass(
   displayname: 'EnrollButton'

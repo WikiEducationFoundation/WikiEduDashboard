@@ -7,7 +7,7 @@ TransitionGroup = require '../../utils/TransitionGroup'
 Timeline        = require './timeline'
 Grading         = require './grading'
 CourseDates     = require './course_dates'
-Editable        = require '../highlevels/editable'
+Editable        = require '../high_order/editable'
 
 ServerActions   = require '../../actions/server_actions'
 

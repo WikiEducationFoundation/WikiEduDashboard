@@ -1,7 +1,7 @@
 React = require 'react'
 DatePicker = require 'react-datepicker'
 InputMixin = require '../../mixins/input_mixin'
-Conditional = require '../highlevels/conditional'
+Conditional = require '../high_order/conditional'
 
 TextInput = React.createClass(
   displayName: 'TextInput'

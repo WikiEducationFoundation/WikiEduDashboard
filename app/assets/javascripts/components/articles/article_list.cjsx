@@ -1,5 +1,5 @@
 React             = require 'react/addons'
-Editable          = require '../highlevels/editable'
+Editable          = require '../high_order/editable'
 
 List              = require '../common/list'
 Article           = require './article'

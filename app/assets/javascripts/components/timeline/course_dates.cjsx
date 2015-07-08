@@ -1,5 +1,5 @@
 React             = require 'react'
-Editable          = require '../highlevels/editable'
+Editable          = require '../high_order/editable'
 TextInput         = require '../common/text_input'
 CourseStore       = require '../../stores/course_store'
 CourseActions     = require '../../actions/course_actions'

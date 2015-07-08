@@ -1,5 +1,5 @@
 React = require 'react'
-Conditional = require '../highlevels/conditional'
+Conditional = require '../high_order/conditional'
 InputMixin = require '../../mixins/input_mixin'
 
 Select = React.createClass(

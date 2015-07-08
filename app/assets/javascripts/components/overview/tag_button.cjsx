@@ -1,8 +1,8 @@
 React         = require 'react/addons'
-Expandable    = require '../highlevels/expandable'
+Expandable    = require '../high_order/expandable'
 Popover       = require '../common/popover'
 ServerActions = require '../../actions/server_actions'
-Conditional   = require '../highlevels/conditional'
+Conditional   = require '../high_order/conditional'
 TagStore      = require '../../stores/tag_store'
 
 TagButton = React.createClass(

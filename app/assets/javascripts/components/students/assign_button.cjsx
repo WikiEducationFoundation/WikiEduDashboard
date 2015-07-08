@@ -1,7 +1,7 @@
 React         = require 'react/addons'
 Router        = require 'react-router'
 Link          = Router.Link
-Expandable    = require '../highlevels/expandable'
+Expandable    = require '../high_order/expandable'
 Popover       = require '../common/popover'
 ServerActions = require '../../actions/server_actions'
 AssignmentActions = require '../../actions/assignment_actions'

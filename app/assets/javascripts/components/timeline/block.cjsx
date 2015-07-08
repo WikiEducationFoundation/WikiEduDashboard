@@ -6,7 +6,7 @@ Checkbox          = require '../common/checkbox'
 Select            = require '../common/select'
 BlockActions      = require '../../actions/block_actions'
 GradeableActions  = require '../../actions/gradeable_actions'
-Reorderable       = require '../highlevels/reorderable'
+Reorderable       = require '../high_order/reorderable'
 
 Block = React.createClass(
   displayName: 'Block'
