@@ -53,7 +53,8 @@ class UploadImporter
 
     usages.each do |usage|
       id = usage['pageid']
-      usage_count = usage['globalusage'].count
+      # Do not count non-mainspace usages
+      usage_count = usage['globalusage'].count { |u| u['ns'] == '0' }
       usage_counts[id] += usage_count
     end
 
