@@ -191,7 +191,8 @@ describe 'New course creation and editing', type: :feature do
              passcode: 'passcode',
              start: '2015-08-24'.to_date,
              end: '2015-12-15'.to_date,
-             timeline_start: '2015-08-31'.to_date)
+             timeline_start: '2015-08-31'.to_date,
+             timeline_end: '2015-12-15'.to_date)
       create(:courses_user,
              user_id: 1,
              course_id: 10001,
@@ -221,7 +222,8 @@ describe 'New course creation and editing', type: :feature do
              passcode: 'passcode',
              start: '2015-09-01'.to_date,
              end: '2015-10-09'.to_date,
-             timeline_start: '2015-08-31'.to_date) # extends over six calendar weeks
+             timeline_start: '2015-08-31'.to_date, # extends over six calendar weeks
+             timeline_end: '2015-10-09'.to_date)
       create(:courses_user,
              user_id: 1,
              course_id: 10001,

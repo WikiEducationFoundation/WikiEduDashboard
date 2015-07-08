@@ -15,9 +15,12 @@ CourseDates = React.createClass(
     to_pass[value_key] = value
     CourseActions.updateCourse to_pass
   render: ->
-    date_props =
+    timeline_start_props =
       minDate: moment(@props.course.start)
-      maxDate: moment(@props.course.end).subtract(1, 'week')
+      maxDate: moment(@props.course.timeline_end).subtract(1, 'week')
+    timeline_end_props =
+      minDate: moment(@props.course.timeline_start).add(1, 'week')
+      maxDate: moment(@props.course.end)
 
     spacer = <span>&mdash;</span> if !@props.editable
 
@@ -58,7 +61,19 @@ CourseDates = React.createClass(
             editable={@props.editable}
             type='date'
             label='Assignment Start'
-            date_props={date_props}
+            date_props={timeline_start_props}
+          />
+        </fieldset>
+        {spacer}
+        <fieldset>
+          <TextInput
+            onChange={@updateDetails}
+            value={@props.course.timeline_end}
+            value_key='timeline_end'
+            editable={@props.editable}
+            type='date'
+            label='Assignment End'
+            date_props={timeline_end_props}
           />
         </fieldset>
       </div>

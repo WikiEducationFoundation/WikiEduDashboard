@@ -76,7 +76,7 @@ class WizardController < ApplicationController
   end
 
   def build_timeline(content_groups, course)
-    total_weeks = ((course.end - course.timeline_start) / 7).ceil
+    total_weeks = ((course.timeline_end - course.timeline_start) / 7).ceil
     available_weeks = total_weeks - course.weeks.size
 
     return [] if available_weeks <= 0

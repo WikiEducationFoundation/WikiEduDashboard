@@ -65,8 +65,11 @@ class CoursesController < ApplicationController
     unless params[:course].key? :timeline_start
       params[:course][:timeline_start] = params[:course][:start]
     end
+    unless params[:course].key? :timeline_end
+      params[:course][:timeline_end] = params[:course][:end]
+    end
 
-    params[:course][:passcode] = ('a'..'z').to_a.shuffle[0, 8].join
+    params[:course][:passcode] = ('a'..'z').to_a.sample(8).join
 
     params.require(:course).permit(
       :id,
@@ -82,7 +85,8 @@ class CoursesController < ApplicationController
       :submitted,
       :listed,
       :passcode,
-      :timeline_start
+      :timeline_start,
+      :timeline_end
     )
   end
 

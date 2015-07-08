@@ -42,7 +42,7 @@ Timeline = React.createClass(
             index={i + 1}
             key={week.id}
             start={@props.course.timeline_start}
-            end={@props.course.end}
+            end={@props.course.timeline_end}
             editable={@props.editable}
             blocks={BlockStore.getBlocksInWeek(week.id)}
             moveBlock={@moveBlock}
@@ -68,9 +68,9 @@ Timeline = React.createClass(
         </li>
       )
 
-    course_start = moment(@props.course.timeline_start)
-    course_end = moment(@props.course.end)
-    timeline_full = Math.ceil(course_end.diff(course_start, 'days') / 7) - @props.weeks.length <= 0
+    start = moment(@props.course.timeline_start)
+    end = moment(@props.course.timeline_end)
+    timeline_full = Math.ceil(end.diff(start, 'days') / 7) - @props.weeks.length <= 0
     if timeline_full
       wizard_link = <div className='button dark disabled' title='You cannot use the assignment design wizard when your timeline is full. Delete at least one week to make room for a new assignment.'>Add Assignment</div>
     else
