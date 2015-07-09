@@ -13,9 +13,9 @@ FormPanel = React.createClass(
   render: ->
     timeline_start_props =
       minDate: moment(@props.course.start)
-      maxDate: moment(@props.course.timeline_end).subtract(1, 'week')
+      maxDate: moment(@props.course.timeline_end).subtract(Math.max(1, @props.weeks), 'week')
     timeline_end_props =
-      minDate: moment(@props.course.timeline_start).add(1, 'week')
+      minDate: moment(@props.course.timeline_start).add(Math.max(1, @props.weeks), 'week')
       maxDate: moment(@props.course.end)
     raw_options = (
       <div className='wizard__form'>

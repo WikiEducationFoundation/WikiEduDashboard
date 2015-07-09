@@ -34,9 +34,13 @@ TimelineHandler = React.createClass(
         enterTimeout={500}
         leaveTimeout={500}
       >
-        <RouteHandler key='wizard_handler' {...@props} />
+        <RouteHandler key='wizard_handler' {...@props} weeks={@props.weeks.length} />
       </TransitionGroup>
-      <CourseDates current_user={@props.current_user} course_id={@props.course_id} />
+      <CourseDates
+        current_user={@props.current_user}
+        course_id={@props.course_id}
+        weeks={@props.weeks.length}
+      />
       <Timeline {...@props} />
       <Grading {...@props} />
     </div>

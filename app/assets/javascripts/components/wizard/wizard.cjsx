@@ -41,6 +41,7 @@ Wizard = React.createClass(
           key={panel.key}
           index={i}
           step={step}
+          weeks={@props.weeks}
         />
       else if i < panel_count - 1
         <Panel panel={panel}
