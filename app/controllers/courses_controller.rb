@@ -69,7 +69,9 @@ class CoursesController < ApplicationController
       params[:course][:timeline_end] = params[:course][:end]
     end
 
-    params[:course][:passcode] = ('a'..'z').to_a.sample(8).join
+    unless params[:course].key? :passcode
+      params[:course][:passcode] = ('a'..'z').to_a.sample(8).join
+    end
 
     params.require(:course).permit(
       :id,
