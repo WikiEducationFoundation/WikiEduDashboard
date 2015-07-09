@@ -8,6 +8,9 @@ TextInput = React.createClass(
   mixins: [InputMixin],
   getInitialState: ->
     value: @props.value
+  componentWillReceiveProps: (nextProps) ->
+    unless @state.value?
+      @setState value: nextProps.value
   dateChange: (date) ->
     @onChange({ target: { value: date.format('YYYY-MM-DD') } })
   render: ->
@@ -27,7 +30,7 @@ TextInput = React.createClass(
       if @props.type == 'number'
         title = 'This is a number field. The buttons rendered by most browsers will increment and decrement the input.'
 
-      if @props.type == 'date'
+      if @props.type == 'date' && (@state.value? || @props.blank)
         input = (
           <DatePicker
             ref='input'

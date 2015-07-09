@@ -44,7 +44,7 @@ Panel = React.createClass(
     classes += ' active' if @props.panel.active
     advance = @props.advance || @advance
 
-    next_text = @props.button_text || (if @props.summary then 'Summary' else null) || 'Next'
+    next_text = @props.button_text || (if @props.summary then 'Summary' else 'Next')
 
     <div className={classes}>
       <div className='wizard__controls'>

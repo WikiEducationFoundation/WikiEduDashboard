@@ -1,6 +1,7 @@
 React         = require 'react'
 Router        = require 'react-router'
 Panel         = require './panel'
+FormPanel     = require './form_panel'
 SummaryPanel  = require './summary_panel'
 CourseLink    = require '../common/course_link'
 
@@ -33,8 +34,15 @@ Wizard = React.createClass(
   render: ->
     panels = @state.panels.map (panel, i) =>
       panel_count = @state.panels.length
-      step = 'Step ' + (i + 1) + ' of ' + (if i > 0 then panel_count else '?')
-      if i < panel_count - 1
+      step = "Step #{i + 1} of #{if i > 1 then panel_count else '?'}"
+      if i == 0
+        <FormPanel panel={panel}
+          course={@props.course}
+          key={panel.key}
+          index={i}
+          step={step}
+        />
+      else if i < panel_count - 1
         <Panel panel={panel}
           parentPath={@timelinePath()}
           key={panel.key}
@@ -52,6 +60,7 @@ Wizard = React.createClass(
           wizardId={@state.wizard_id}
           transitionTo={@props.transitionTo}
         />
+
     <Modal>
       <TransitionGroup
         transitionName="wizard__panel"

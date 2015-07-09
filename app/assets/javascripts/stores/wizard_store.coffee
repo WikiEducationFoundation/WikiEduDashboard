@@ -7,9 +7,17 @@ _active_index = 0
 _summary = false
 _wizard_key = null
 _panels = [{
+  title: "Assignment Dates"
+  description: "Enter your desired assignment start and end dates."
+  active: true
+  options: []
+  type: -1
+  minimum: 0
+  key: 'dates'
+},{
   title: "Assignment Type"
   description: "Select the kind of assignment you want to add to your timeline."
-  active: true
+  active: false
   options: []
   type: 1
   minimum: 1
@@ -26,13 +34,13 @@ _panels = [{
 
 # Utilities
 setIndex = (index) ->
-  _panels[0].options = index
+  _panels[1].options = index
   WizardStore.emitChange()
 
 setPanels = (panels) ->
-  to_remove = _panels.length - 2
-  _panels.splice.apply(_panels, [1, to_remove].concat(panels))
-  moveWizard()
+  to_remove = _panels.length - 3
+  _panels.splice.apply(_panels, [2, to_remove].concat(panels))
+  moveWizard() if _active_index > 0
   WizardStore.emitChange()
 
 updateActivePanels = ->
@@ -47,7 +55,7 @@ selectOption = (panel_index, option_index, value=true) ->
     panel.options.forEach (option) -> option.selected = false
   option.selected = !(option.selected || false)
   verifyPanelSelections(panel)
-  _summary = _summary && !(_active_index == 0 && _summary)
+  _summary = _summary && !(_active_index == 1 && _summary)
   WizardStore.emitChange()
 
 expandOption = (panel_index, option_index) ->
@@ -62,7 +70,7 @@ moveWizard = (backwards=false, to_index=null) ->
 
   if !backwards && verifyPanelSelections(active_panel)
     increment = 1
-    if _active_index == 0
+    if _active_index == 1
       selected_wizard = _.find(_panels[_active_index].options, (o) -> o.selected)
       if selected_wizard.key != _wizard_key
         _wizard_key = selected_wizard.key
@@ -113,6 +121,7 @@ verifyPanelSelections = (panel) ->
 restore = ->
   _summary = false
   _active_index = 0
+  updateActivePanels()
   _wizard_key = null
   setPanels([])
   _panels[0].options.forEach (option) -> option.selected = false

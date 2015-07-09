@@ -34,7 +34,7 @@ TimelineHandler = React.createClass(
         enterTimeout={500}
         leaveTimeout={500}
       >
-        <RouteHandler key={Date.now()} {...@props} />
+        <RouteHandler key='wizard_handler' {...@props} />
       </TransitionGroup>
       <CourseDates current_user={@props.current_user} course_id={@props.course_id} />
       <Timeline {...@props} />
