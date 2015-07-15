@@ -24,7 +24,7 @@ class WikiEdits
   end
 
   # This method both posts to the instructor's userpage and also makes a public
-  # announcment of a newly submitted course at the course announcement page.
+  # announcement of a newly submitted course at the course announcement page.
   def self.announce_course(course, current_user, instructor = nil)
     instructor ||= current_user
     user_page = "User:#{instructor.wiki_id}"
@@ -144,7 +144,7 @@ class WikiEdits
   end
 
   ###################
-  # Helpler methods #
+  # Helper methods #
   ###################
 
   def self.notify_users(current_user, recipient_users, message)
