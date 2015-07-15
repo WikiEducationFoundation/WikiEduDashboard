@@ -40,7 +40,7 @@ class WikiCourseOutput
      | start_date = #{course.start}
      | end_date = #{course.end}
      | institution =  #{course.school}
-     | expected_students = #{course.user_count}
+     | expected_students = #{course.expected_students}
      | assignment_page = #{course_prefix}/#{course.slug}
      | wikiedu.org = yes
     }}"
