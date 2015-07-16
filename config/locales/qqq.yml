@@ -76,6 +76,8 @@ qqq:
     training_incomplete_short: Shorter label (for mobile) stating that training is
       not complete.
     view_all: Command to view all users.
+    already_enrolled: Indication that a user cannot be added to a course because
+      they are already enrolled.
   wiki_edits:
     notify_untrained:
       header: Section header for a talk page message indicating that the user has

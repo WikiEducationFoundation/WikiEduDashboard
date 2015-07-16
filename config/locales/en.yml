@@ -176,6 +176,7 @@ en:
       one: Training Incomplete
     training_incomplete_short: Incomplete
     view_all: View All
+    already_enrolled: That user is already enrolled!
 
   wiki_edits:
     notify_untrained:
