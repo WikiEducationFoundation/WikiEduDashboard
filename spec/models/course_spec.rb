@@ -16,9 +16,7 @@ describe Course, type: :model do
   end
 
   it 'should handle MediaWiki API errors' do
-    error = MediawikiApi::ApiError.new nil
-    allow(error).to receive(:data).and_return({})
-    allow(error).to receive(:info).and_return('bar')
+    error = MediawikiApi::ApiError.new
     stub_request(:any, %r{.*wikipedia\.org/w/api\.php.*})
       .to_raise(error)
     CourseImporter.update_all_courses(false, cohort: [798, 800])
