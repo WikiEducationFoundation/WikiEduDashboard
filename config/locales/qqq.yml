@@ -20,6 +20,11 @@ qqq:
     view_doc: Documentation for the view count.
     views_added: Maintenance script message stating how many view counts have been
       added to an article.
+  assignments:
+    loading: Placeholder message indicating that assignment data is still loading
+    none: Label for an empty list of assignments
+    confirm_addition: Confirmation dialog for adding a new assignment
+    confirm_deletion: Confirmation dialog for an assignment should be deleted
   cohort:
     view_other: Command to view another cohort.
   course:

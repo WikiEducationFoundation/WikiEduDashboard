@@ -70,6 +70,8 @@ en:
   assignments:
     loading: Loading assignments...
     none: This course has no assigned Wikipedia articles.
+    confirm_addition: "Are you sure you want to assign %{title} to %{username}?"
+    confirm_deletion: Are you sure you want to delete this assignment?
 
   cohort:
     view_other: View other cohorts

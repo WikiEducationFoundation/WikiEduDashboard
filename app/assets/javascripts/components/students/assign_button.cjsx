@@ -30,13 +30,13 @@ AssignButton = React.createClass(
     tag + @props.student.id
   assign: ->
     article_title = urlToTitle @refs.ass_input.getDOMNode().value
-    return unless confirm("Are you sure you want to assign " + article_title + " to " + @props.student.wiki_id + "?")
+    return unless confirm(I18n.t('assignments.confirm_addition', { title: article_title, username: @props.student.wiki_id }))
     if(article_title)
       AssignmentActions.addAssignment @props.course_id, @props.student.id, article_title, @props.role
       @setState send: (!@props.editable && @props.current_user.id == @props.student.id)
       @refs.ass_input.getDOMNode().value = ''
   unassign: (assignment) ->
-    return unless confirm("Are you sure you want to delete this assignment?")
+    return unless confirm(I18n.t('assignments.confirm_deletion'))
     AssignmentActions.deleteAssignment assignment
     @setState send: (!@props.editable && @props.current_user.id == @props.student.id)
   render: ->
