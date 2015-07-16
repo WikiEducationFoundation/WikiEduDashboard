@@ -30,6 +30,8 @@ essentials:
       -
         title: Create your account and learn the basics
         kind: 1
+        graded: true
+        points: 5
         content: |
           * Create an account and then complete the online training for students. During this training, you will make edits in a sandbox and learn the basic rules of Wikipedia.
 
