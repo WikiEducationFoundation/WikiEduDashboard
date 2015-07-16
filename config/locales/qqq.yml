@@ -9,7 +9,8 @@ qqq:
     dashboard: Application name.
   activity:
     all: '{{Identical|Activity}}'
-  article:
+  articles:
+    assigned: Label for a list of assigned articles
     character_doc: Documentation for an article's character total add and remove count.
     edited: Label for a list of articles edited.
     edited_mobile: '{{Identical|Article}}'
@@ -43,6 +44,8 @@ qqq:
     view_doc: Documentation for the total number of article views.
     volunteer: Label for the course's volunteers.
     wiki_staff: Label for wiki program staff assigned to a course.
+  course_creator:
+    intro: Description of the course creator form
   metrics:
     activity: Label for activity feed.
     activity_none: Label for no activity.

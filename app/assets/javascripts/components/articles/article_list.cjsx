@@ -17,18 +17,18 @@ ArticleList = React.createClass(
 
     keys =
       'rating_num':
-        'label': 'Class'
+        'label': I18n.t('articles.rating')
         'desktop_only': true
         'info_key': 'articles.rating_doc'
       'title':
-        'label': 'Title'
+        'label': I18n.t('articles.title')
         'desktop_only': false
       'character_sum':
-        'label': 'Chars added'
+        'label': I18n.t('metrics.char_added')
         'desktop_only': true
         'info_key': 'articles.character_doc'
       'view_count':
-        'label': 'Views'
+        'label': I18n.t('metrics.view')
         'desktop_only': true
         'info_key': 'articles.view_doc'
 

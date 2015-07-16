@@ -27,16 +27,16 @@ AssignmentList = React.createClass(
 
     keys =
       'rating_num':
-        'label': 'Class'
+        'label': I18n.t('articles.rating')
         'desktop_only': true
       'title':
-        'label': 'Title'
+        'label': I18n.t('articles.title')
         'desktop_only': false
       'assignee':
-        'label': 'Assignee(s)'
+        'label': I18n.t('assignments.assignees')
         'desktop_only': true
       'reviewer':
-        'label': 'Reviewer(s)'
+        'label': I18n.t('assignments.reviewers')
         'desktop_only': true
 
     <List

@@ -42,6 +42,7 @@ en:
   articles:
     none: This course has not edited any articles.
     loading: Loading articles...
+    assigned: Assigned Articles
     assigned_to: Assigned To
     character_doc: The sum of characters added to articles by the course's students during the course term
     edited: Articles Edited
@@ -68,6 +69,8 @@ en:
     views_added: "Added %{count} new views for %{title}"
 
   assignments:
+    assignees: Assignee(s)
+    reviewers: Reviewer(s)
     loading: Loading assignments...
     none: This course has no assigned Wikipedia articles.
     confirm_addition: "Are you sure you want to assign %{title} to %{username}?"
@@ -106,6 +109,14 @@ en:
     wiki_staff: Wiki Ed Staff
     error:
       exists: That course already exists! Please try again with a different title, school, or term.
+
+  course_creator:
+    create_new: Create a New Course
+    intro: >
+      The title, school and term will become part of course page url, and cannot
+      be changed. The rest of the course information may be edited later on.
+      After you create your course, the wizard will walk you through creating an
+      assignment timeline.
 
   metrics:
     activity: Recent Activity
