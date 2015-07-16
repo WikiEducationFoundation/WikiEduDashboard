@@ -28,8 +28,23 @@ translation_essentials:
           ---
           Handouts: [Editing Wikipedia](http://wikiedu.org/editingwikipedia) and [Using Talk Pages](https://commons.wikimedia.org/wiki/File:Using_talk_pages.pdf)
       -
+        if: ungraded_training
         title: Practicing the basics
         kind: 1
+        content: |
+          * Create an account and a user page on Wikipedia
+          * Enroll in this course.
+          * Complete the *Online Training for Language Students*.
+          * To practice editing and communicating on Wikipedia, introduce yourself to another student on their user talk page.
+
+          ---
+          Resources: [Online Training for Language Students](https://en.wikipedia.org/wiki/Wikipedia:Training/For_language_students)
+      -
+        if: graded_training
+        title: Practicing the basics
+        kind: 1
+        graded: true
+        points: 5
         content: |
           * Create an account and a user page on Wikipedia
           * Enroll in this course.
