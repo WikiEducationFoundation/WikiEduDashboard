@@ -7,7 +7,11 @@
     <% after = content_for?(:after_title) ? yield(:after_title) : '' %>
     <title><%=  "#{before}Wiki Ed Dashboard#{after}" %></title>
 
-    <%= logo_favicon_tag %>
+    <% if(Rails.env == 'development' || Rails.env == 'developmentcp') %>
+      <%= favicon_link_tag 'favicon_dev.png' %>
+    <% else %>
+      <%= favicon_link_tag 'favicon.ico' %>
+    <% end %>
 
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Myapp" %>">
 
@@ -30,7 +34,7 @@
       <aside>
         <div class="container">
           <div class="logo">
-            <a class="logo__link" href="/"><%= logo_tag %></a>
+            <a class="logo__link" href="/"><%= image_tag "/images/wiki-logo.png" %></a>
           </div>
           <div class="home">
             <p><%= link_to 'Home', root_url, class: 'inline' %></p>

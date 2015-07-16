@@ -57,12 +57,3 @@
 
 # Uncomment no_views to disable view stats updates.
 # no_views: "true"
-
-# Logo filename, under the /images directory.
-  logo_file: "wiki-logo.png"
-
-# Favicon filename, under /images
-  favicon_file: "favicon.ico"
-
-# Development-mode favicon filename, under /images
-  favicon_dev_file: "favicon_dev.png"
