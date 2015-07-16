@@ -5,7 +5,7 @@
 
     <% before = content_for?(:before_title) ? yield(:before_title) : '' %>
     <% after = content_for?(:after_title) ? yield(:after_title) : '' %>
-    <title><%=  "#{before}Wiki Ed Dashboard#{after}" %></title>
+    <title><%=  "#{before}#{Figaro.env.dashboard_title}#{after}" %></title>
 
     <%= logo_favicon_tag %>
 

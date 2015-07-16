@@ -4,6 +4,9 @@
 #
 # Values required for WikiEduDashboard include:
 
+# The name of the dashboard
+  dashboard_title: Wiki Ed Dashboard
+
 # Wikimedia OAuth consumer details. Register a consumer at:
 # https://www.mediawiki.org/wiki/Special:OAuthConsumerRegistration/propose
 # No one but the user who registers the consumer will be able to log in until
