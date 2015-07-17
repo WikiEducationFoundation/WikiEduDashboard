@@ -6,13 +6,7 @@ describe WikiEdits do
   # well-formatted, but at least this verifies that the flow is parsing tokens
   # in the expected way.
   before do
-    # rubocop:disable Metrics/LineLength
-    fake_tokens = "{\"query\":{\"tokens\":{\"csrftoken\":\"myfaketoken+\\\\\"}}}"
-    # rubocop:enable Metrics/LineLength
-    stub_request(:get, /.*wikipedia.*/)
-      .to_return(status: 200, body: fake_tokens, headers: {})
-    stub_request(:post, /.*wikipedia.*/)
-      .to_return(status: 200, body: 'success', headers: {})
+    stub_oauth_edit
 
     create(:course,
            id: 1)
@@ -38,28 +32,9 @@ describe WikiEdits do
     end
   end
 
-  describe '.notify_users' do
-    it 'should post talk page messages on Wikipedia' do
-      params = { sectiontitle: 'My message headline',
-                 text: 'My message to you',
-                 summary: 'My edit summary' }
-      WikiEdits.notify_users(User.first, User.all, params)
-    end
-  end
-
-  # Broken???
-  # describe '.get_wiki_top_section' do
-  #   it 'should return the top section content of a page' do
-  #     title = 'Wikipedia:Education_program/Dashboard/test_ids'
-  #     response = WikiEdits.get_wiki_top_section(title, User.first)
-  #     expect(response.wikitext).to eq("439\n456\n351")
-  #   end
-  # end
-
-  describe '.update_course' do
-    it 'should edit a Wikipedia page representing a course' do
-      WikiEdits.update_course(Course.first, User.first)
-      WikiEdits.update_course(Course.first, User.first, true)
+  describe '.announce_course' do
+    it 'should post to the userpage of the instructor and a noticeboard' do
+      WikiEdits.announce_course(Course.first, User.first)
     end
   end
 
@@ -69,9 +44,40 @@ describe WikiEdits do
     end
   end
 
-  describe '.announce_course' do
-    it 'should post to the userpage of the instructor and a noticeboard' do
-      WikiEdits.announce_course(Course.first, User.first)
+  describe '.update_course' do
+    it 'should edit a Wikipedia page representing a course' do
+      WikiEdits.update_course(Course.first, User.first)
+      WikiEdits.update_course(Course.first, User.first, true)
     end
   end
+
+  describe '.notify_users' do
+    it 'should post talk page messages on Wikipedia' do
+      params = { sectiontitle: 'My message headline',
+                 text: 'My message to you',
+                 summary: 'My edit summary' }
+      WikiEdits.notify_users(User.first, User.all, params)
+    end
+  end
+
+  describe '.update_assignments' do
+    it 'should update talk pages and course page with assignment info' do
+      create(:assignment,
+             user_id: 1,
+             course_id: 1,
+             article_title: 'Selfie',
+             role: 0)
+      WikiEdits.update_assignments(User.first, Course.first, Assignment.all)
+      WikiEdits.update_assignments(User.first, Course.first, nil, true)
+    end
+  end
+  # Broken???
+  # describe '.get_wiki_top_section' do
+  #   it 'should return the top section content of a page' do
+  #     title = 'Wikipedia:Education_program/Dashboard/test_ids'
+  #     response = WikiEdits.get_wiki_top_section(title, User.first)
+  #     expect(response.wikitext).to eq("439\n456\n351")
+  #   end
+  # end
+
 end
