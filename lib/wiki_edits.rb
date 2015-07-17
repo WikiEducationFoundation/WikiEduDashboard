@@ -36,9 +36,10 @@ class WikiEdits
 
     # Announce the course on the Education Noticeboard or equivalent.
     announcement_page = Figaro.env.course_announcement_page
-    course_page_url = "http://dashboard.wikiedu.org/courses/#{course.slug}"
+    dashboard_url = Figaro.env.dashboard_url
+    course_page_url = "http://#{dashboard_url}/courses/#{course.slug}"
     # rubocop:disable Metrics/LineLength
-    announcement = "I have created a new course at dashboard.wikiedu.org, [#{course_page_url} #{course.title}]. If you'd like to see more details about my course, check out my course page.--~~~~"
+    announcement = "I have created a new course at #{dashboard_url}, [#{course_page_url} #{course.title}]. If you'd like to see more details about my course, check out my course page.--~~~~"
     section_title = "New course announcement: [[#{course.wiki_title}]] (instructor: [[User:#{instructor.wiki_id}]])"
     # rubocop:enable Metrics/LineLength
     message = { sectiontitle: section_title,
@@ -70,7 +71,8 @@ class WikiEdits
     course_prefix = Figaro.env.course_prefix
     wiki_title = "#{course_prefix}/#{course.slug}"
 
-    summary = 'Updating course from dashboard.wikiedu.org'
+    dashboard_url = Figaro.env.dashboard_url
+    summary = "Updating course from #{dashboard_url}"
 
     post_whole_page(current_user, wiki_title, wiki_text, summary)
   end
@@ -90,6 +92,8 @@ class WikiEdits
       end
     end
 
+    dashboard_url = Figaro.env.dashboard_url
+
     assignment_titles.each do |title, title_assignments|
       talk_title = "Talk:#{title.gsub(' ', '_')}"
       page_content = Wiki.get_page_content talk_title
@@ -106,7 +110,7 @@ class WikiEdits
       r_ids = siblings.select { |a| a['role'] == 1 }.map { |a| a['user_id'] }
       tag_r = User.where(id: r_ids).pluck(:wiki_id)
               .map { |wiki_id| "[[User:#{wiki_id}|#{wiki_id}]]" }.join(', ')
-      new_tag = "{{wikiedu.org assignment | course = #{tag_course}"
+      new_tag = "{{#{dashboard_url} assignment | course = #{tag_course}"
       new_tag += " | assignments = #{tag_a}" unless tag_a.blank?
       new_tag += " | reviewers = #{tag_r}" unless tag_r.blank?
       new_tag += ' }}'
@@ -116,7 +120,7 @@ class WikiEdits
 
       # Check for existing tags and replace
       old_tag_ex = "{{course assignment | course = #{course.wiki_title}"
-      new_tag_ex = "{{wikiedu.org assignment | course = #{course.wiki_title}"
+      new_tag_ex = "{{#{dashboard_url} assignment | course = #{course.wiki_title}"
       if siblings.empty?
         page_content.gsub!(/#{Regexp.quote(old_tag_ex)}[^\}]*\}\}[\n]?/, '')
         page_content.gsub!(/#{Regexp.quote(new_tag_ex)}[^\}]*\}\}[\n]?/, '')

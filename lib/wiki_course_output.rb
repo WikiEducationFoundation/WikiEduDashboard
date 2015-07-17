@@ -32,6 +32,7 @@ class WikiCourseOutput
     # TODO: add support for multiple instructors
     instructor = course.instructors.first
     course_prefix = Figaro.env.course_prefix
+    dashboard_url = Figaro.env.dashboard_url
     course_details = "{{course details
      | course_name = #{course.title}
      | instructor_username = #{instructor.wiki_id unless instructor.nil?}
@@ -42,7 +43,7 @@ class WikiCourseOutput
      | institution =  #{course.school}
      | expected_students = #{course.expected_students}
      | assignment_page = #{course_prefix}/#{course.slug}
-     | wikiedu.org = yes
+     | #{dashboard_url} = yes
     }}"
     description = markdown_to_mediawiki("#{course.description}")
     course_details + "\r" + description
