@@ -16,8 +16,8 @@ ActiveRecord::Schema.define(version: 20150708222255) do
   create_table "articles", force: true do |t|
     t.string   "title"
     t.integer  "views",             limit: 8, default: 0
-    t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "created_at"
     t.integer  "character_sum",               default: 0
     t.integer  "revision_count",              default: 0
     t.date     "views_updated_at"
@@ -40,10 +40,10 @@ ActiveRecord::Schema.define(version: 20150708222255) do
   create_table "assignments", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "article_title"
     t.integer  "user_id"
     t.integer  "course_id"
     t.integer  "article_id"
-    t.string   "article_title"
     t.integer  "role"
   end
 
@@ -140,16 +140,18 @@ ActiveRecord::Schema.define(version: 20150708222255) do
   end
 
   create_table "revisions", force: true do |t|
-    t.integer  "characters",            default: 0
+    t.integer  "characters",              default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
     t.integer  "article_id"
-    t.integer  "views",       limit: 8, default: 0
+    t.integer  "views",         limit: 8, default: 0
     t.datetime "date"
-    t.boolean  "new_article",           default: false
-    t.boolean  "deleted",               default: false
-    t.boolean  "system",                default: false
+    t.boolean  "new_article",             default: false
+    t.boolean  "deleted",                 default: false
+    t.boolean  "system",                  default: false
+    t.string   "wp10"
+    t.string   "wp10_previous"
   end
 
   create_table "tags", force: true do |t|
