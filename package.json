@@ -50,11 +50,14 @@
     "stylus": "0.49.2"
   },
   "dependencies": {
-    "react": "^0.13.2",
-    "react-router": "^0.13.2",
     "gulp-browserify": "^0.5.1",
+    "i18n-js": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc8.tar.gz",
+    "marked": "^0.3.3",
     "mcfly": "0.0.10",
+    "moment": "^2.10.3",
+    "react": "^0.13.2",
+    "react-date-picker": "^2.1.6",
     "react-dnd": "^1.0.0",
-    "marked": "^0.3.3"
+    "react-router": "^0.13.2"
   }
 }

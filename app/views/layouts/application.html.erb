@@ -5,13 +5,9 @@
 
     <% before = content_for?(:before_title) ? yield(:before_title) : '' %>
     <% after = content_for?(:after_title) ? yield(:after_title) : '' %>
-    <title><%=  "#{before}Wiki Ed Dashboard#{after}" %></title>
+    <title><%=  "#{before}#{Figaro.env.dashboard_title}#{after}" %></title>
 
-    <% if(Rails.env == 'development' || Rails.env == 'developmentcp') %>
-      <%= favicon_link_tag 'favicon_dev.png' %>
-    <% else %>
-      <%= favicon_link_tag 'favicon.ico' %>
-    <% end %>
+    <%= logo_favicon_tag %>
 
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Myapp" %>">
 
@@ -19,6 +15,12 @@
     <%= stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Droid+Serif', media: 'all' %>
     <%= stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Roboto:300,400,500', media: 'all' %>
     <%= stylesheet_link_tag '/stylesheets/' + (rtl? ? 'rtl/' : '') + 'main.css', media: 'all' %>
+    <%= javascript_include_tag '/javascripts/i18n' %>
+    <%= javascript_include_tag '/javascripts/i18n/' + I18n.locale.to_s %>
+    <script type="text/javascript">
+      I18n.defaultLocale = "<%= I18n.default_locale %>";
+      I18n.locale = "<%= I18n.locale %>";
+    </script>
     <%= javascript_include_tag '/javascripts/vendor.js' %>
     <%= javascript_include_tag '/javascripts/main.js' %>
     <%= csrf_meta_tags %>
@@ -28,11 +30,14 @@
       <aside>
         <div class="container">
           <div class="logo">
-            <a class="logo__link" href="/"><%= image_tag "/images/wiki-logo.png" %></a>
+            <a class="logo__link" href="/"><%= logo_tag %></a>
+          </div>
+          <div class="home">
+            <p><%= link_to 'Home', root_url, class: 'inline' %></p>
           </div>
           <div class="login">
             <% if user_signed_in? %>
-              <p><b><%= current_user.wiki_id %></b>.&nbsp;&nbsp;&nbsp;<%= link_to "Log Out", :destroy_user_session %></p>
+              <p><b><%= link_to current_user.wiki_id, :root, class: 'inline' %></b>.&nbsp;&nbsp;&nbsp;<%= link_to "Log Out", :destroy_user_session %></p>
             <% else %>
               <p><%= link_to "Login", user_omniauth_authorize_path(:mediawiki) %></p>
             <% end %>

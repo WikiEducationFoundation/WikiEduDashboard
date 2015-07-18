@@ -13,6 +13,8 @@ Capybara.configure do |config|
   config.javascript_driver = :webkit
 end
 
+Capybara.default_wait_time = 15
+
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end
@@ -55,4 +57,6 @@ RSpec.configure do |config|
   # The different available types are documented in the features, such as in
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
+
+  config.include Warden::Test::Helpers
 end

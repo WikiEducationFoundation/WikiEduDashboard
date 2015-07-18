@@ -20,19 +20,26 @@ class RatingImporter
   ##############
   # API Access #
   ##############
-  def self.update_ratings(articles)
+  def self.update_ratings(article_groups)
     require './lib/wiki'
-    articles.with_index do |group, _batch|
-      ratings = Wiki.get_article_rating(group.map(&:title)).inject(&:merge)
+    article_groups.with_index do |articles, _batch|
+      titles = articles.map(&:title)
+      ratings = Wiki.get_article_rating(titles).inject(&:merge)
       next if ratings.blank?
-      threads = group.each_with_index.map do |a, i|
-        Thread.new(i) do
-          a.rating = ratings[a.title]
-          a.rating_updated_at = Time.now
-        end
-      end
-      threads.each(&:join)
-      group.each(&:save)
+      update_article_ratings(articles, ratings)
+    end
+  end
+
+  ####################
+  # Database methods #
+  ####################
+  def self.update_article_ratings(articles, ratings)
+    articles.each do |article|
+      article.rating = ratings[article.title]
+      article.rating_updated_at = Time.now
+    end
+    Article.transaction do
+      articles.each(&:save)
     end
   end
 end

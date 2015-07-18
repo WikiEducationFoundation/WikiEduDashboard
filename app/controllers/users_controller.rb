@@ -1,18 +1,8 @@
+require "#{Rails.root}/lib/wiki_edits"
+
 #= Controller for user functionality
 class UsersController < ApplicationController
   respond_to :html, :json
-
-  # Support the user revision dropdown
-  def revisions
-    @revisions = Course.find(params[:course_id]).revisions
-                 .where(user_id: params[:user_id]).order(date: :desc)
-                 .limit(params[:limit].nil? ? 100 : params[:limit])
-                 .drop(params[:drop].to_i || 0)
-    revisions = { revisions: @revisions }
-    r_list = render_to_string partial: 'revisions/list', locals: revisions
-    r_list =  r_list.html_safe.gsub(/\n/, '').gsub(/\t/, '').gsub(/\r/, '')
-    render json: { html: r_list, error: '' }
-  end
 
   def signout
     current_user.update_attributes(wiki_token: nil, wiki_secret: nil)
@@ -21,7 +11,7 @@ class UsersController < ApplicationController
 
   def user_params
     params.permit(
-      students: [:id, :wiki_id, :deleted],
+      users: [:id, :wiki_id, :deleted],
       assignments: [:id, :user_id, :article_title, :role, :course_id, :deleted]
     )
   end
@@ -38,144 +28,128 @@ class UsersController < ApplicationController
 
   def save
     @course = Course.find_by_slug(params[:course_id])
-    user_params['students'].each do |student|
+    user_params['users'].each do |student|
+      if student['deleted']
+        s_assignments = @course.assignments.select do |a|
+          a.user_id == student['id']
+        end
+        s_assignments.to_json!
+        WikiEdits.update_assignments current_user, @course, s_assignments, true
+      end
       update_util User, student
     end
+
+    WikiEdits.update_assignments current_user, @course,
+                                 user_params['assignments']
+
     user_params['assignments'].each do |assignment|
       assignment['course_id'] = @course.id
+      assignment['article_title'].gsub!(' ', '_')
+      assigned = Article.find_by(title: assignment['article_title'])
+      assignment['article_id'] = assigned.id unless assigned.nil?
       update_util Assignment, assignment
     end
+
+    WikiEdits.update_course(@course, current_user)
+    render 'users'
   end
-
-  # #########################
-  # # Assignment management #
-  # #########################
-  # def assign_params
-  #   params.require(:assignment).permit(:user_id, :article_title, :role)
-  # end
-
-  # def fetch_assign_records
-  #   @course = Course.find_by_slug(params[:course_id])
-  #   @article = Article.find_by(
-  #     title: assign_params['article_title'].gsub(' ', '_'),
-  #     namespace: 0
-  #   )
-  # end
-
-  # def assign
-  #   fetch_assign_records
-  #   title = @article.nil? ? assign_params['article_title'] : @article.title
-  #   Assignment.create(
-  #     user_id: assign_params['user_id'],
-  #     course_id: @course.id,
-  #     article_id: @article.nil? ? nil : @article.id,
-  #     article_title: title.gsub('_', ' '),
-  #     role: assign_params['role']
-  #   )
-  # end
-
-  # def unassign_params
-  #   params.permit(:assignment_id)
-  # end
-
-  # def unassign
-  #   @course = Course.find_by_slug(params[:course_id])
-  #   Assignment.find(unassign_params['assignment_id']).destroy
-  # end
-
-  # #######################
-  # # Reviewer management #
-  # #######################
-  # def review_params
-  #   params.permit(:assignment_id, :reviewer_id, :reviewer_wiki_id)
-  # end
-
-  # def fetch_review_records
-  #   @course = Course.find_by_slug(params[:course_id])
-  #   if review_params.key? :reviewer_id
-  #     @reviewer = @course.users.find(review_params[:reviewer_id])
-  #   elsif review_params.key? :reviewer_wiki_id
-  #     @reviewer = @course.users.find_by(
-  #       wiki_id: review_params[:reviewer_wiki_id]
-  #     )
-  #   else
-  #     return
-  #   end
-  # end
-
-  # def review
-  #   fetch_review_records
-  #   return if @reviewer.nil?
-
-  #   AssignmentsUsers.create(
-  #     assignment_id: review_params[:assignment_id],
-  #     user_id: @reviewer.id
-  #   )
-  # end
-
-  # def unreview
-  #   fetch_review_records
-  #   return if @reviewer.nil?
-
-  #   AssignmentsUsers.find_by(
-  #     assignment_id: review_params[:assignment_id],
-  #     user_id: @reviewer.id
-  #   ).destroy
-  #   respond_to do |format|
-  #     format.json do
-  #       render json: 'Success!'
-  #     end
-  #   end
-  # end
 
   #########################
   # Enrollment management #
   #########################
+  def enroll
+    if request.get?
+      enroll_user
+    elsif request.post?
+      add
+    elsif request.delete?
+      remove
+    end
+  end
+
+  def enroll_user
+    # Redirect to sign in (with callback leading back to this method)
+    @course = Course.find_by_slug(params[:course_id])
+    if current_user.nil?
+      auth_path = user_omniauth_authorize_path(:mediawiki)
+      path = "#{auth_path}?origin=#{request.original_url}"
+      redirect_to path
+      return
+    end
+
+    # Check passcode, enroll if valid
+    if !@course.passcode.nil? && params[:passcode] == @course.passcode
+      CoursesUsers.create(
+        user_id: current_user.id,
+        course_id: @course.id,
+        role: 0
+      )
+      WikiEdits.enroll_in_course(@course, current_user)
+      WikiEdits.update_course(@course, current_user)
+    end
+    # Redirect to course
+    redirect_to course_slug_path(@course.slug)
+  end
+
   def enroll_params
-    params.permit(:user_id, :user_wiki_id, :role, :old_role)
+    params.require(:user).permit(:user_id, :wiki_id, :role)
   end
 
   def fetch_enroll_records
+    @course = Course.find_by_slug(params[:id])
     if enroll_params.key? :user_id
       @user = User.find(enroll_params[:user_id])
-    elsif enroll_params.key? :user_wiki_id
-      @user = User.find_by(wiki_id: enroll_params[:user_wiki_id])
+    elsif enroll_params.key? :wiki_id
+      @user = User.find_by(wiki_id: enroll_params[:wiki_id])
     else
       return
     end
   end
 
-  def enroll
+  def add
     fetch_enroll_records
-    return if @user.nil?
+    if !@user.nil?
+      CoursesUsers.create(
+        user: @user,
+        course_id: @course.id,
+        role: enroll_params[:role]
+      )
 
-    CoursesUsers.create(
-      user: @user,
-      course_id: params[:course_id],
-      role: enroll_params[:role],
-      old_role: enroll_params[:old_role]
-    )
+      WikiEdits.update_course(@course, current_user)
+      render 'users'
+    else
+      username = enroll_params[:user_id] || enroll_params[:wiki_id]
+      render json: { message: "Sorry, #{username} is not an existing user." }, status: 404
+    end
   end
 
-  def unenroll
+  def remove
     fetch_enroll_records
     return if @user.nil?
 
-    CoursesUsers.find_by(
+    cu = CoursesUsers.find_by(
       user_id: @user.id,
-      course_id: params[:course_id],
+      course_id: @course.id,
       role: enroll_params[:role]
-    ).destroy
+    )
+    WikiEdits.update_assignments current_user, @course,
+                                 cu.assignments.as_json, true
+    cu.destroy
+
+    render 'users'
+    WikiEdits.update_course(@course, current_user)
   end
 
   def set_role
     fetch_enroll_records
-    return if @user.nil?
+    return if @user.nil? || @course.nil?
 
     CoursesUsers.find_by(
       user_id: @user.id,
       course_id: params[:course_id],
       role: enroll_params[:old_role]
     ).update(role: enroll_params[:role])
+
+    WikiEdits.update_course(@course, current_user)
   end
 end

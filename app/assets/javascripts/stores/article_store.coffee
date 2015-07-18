@@ -1,11 +1,12 @@
 StockStore = require './stock_store'
 
-# Sort state
-_sortKey = 'title'
-_sortAsc = true
-_descKeys =
-  character_sum: true
-  view_count: true
+ArticleStore = new StockStore(
+  sortKey: 'title'
+  sortAsc: true
+  descKeys:
+    character_sum: true
+    view_count: true
+  modelKey: 'article'
+)
 
-module.exports = new StockStore(_sortKey, _sortAsc, _descKeys, 'article', null).store
-
+module.exports = ArticleStore.store

@@ -2,20 +2,30 @@ React             = require 'react'
 Router            = require 'react-router'
 Link              = Router.Link
 RouteHandler      = Router.RouteHandler
-HandlerInterface  = require './highlevels/handler'
+CourseLink        = require './common/course_link'
 ServerActions     = require '../actions/server_actions'
+CourseActions     = require '../actions/course_actions'
 CourseStore       = require '../stores/course_store'
+UserStore         = require '../stores/user_store'
+CohortStore       = require '../stores/cohort_store'
 
 getState = ->
-  course: CourseStore.getCourse()
+  current = $('#react_root').data('current_user')
+  cu = UserStore.getFiltered({ id: current.id })[0]
+  return {
+    course: CourseStore.getCourse()
+    current_user: cu || current
+  }
 
 Course = React.createClass(
   displayName: 'Course'
-  mixins: [CourseStore.mixin]
+  mixins: [CourseStore.mixin, UserStore.mixin]
   contextTypes:
     router: React.PropTypes.func.isRequired
   componentWillMount: ->
-    ServerActions.fetchCourse @getCourseID()
+    ServerActions.fetch 'course', @getCourseID()
+    ServerActions.fetch 'users', @getCourseID()
+    ServerActions.fetch 'cohorts', @getCourseID()
   getInitialState: ->
     getState()
   storeDidChange: ->
@@ -26,22 +36,52 @@ Course = React.createClass(
     params = @context.router.getCurrentParams()
     return params.course_school + '/' + params.course_title
   getCurrentUser: ->
-    if $('#react_root').attr('data-current_user')
-      $('#react_root').data('current_user')
-    else null
+    @state.current_user
+  submit: (e) ->
+    e.preventDefault()
+    to_pass = $.extend(true, {}, @state.course)
+    to_pass['submitted'] = true
+    CourseActions.updateCourse to_pass, true
   routeParams: ->
     @context.router.getCurrentParams()
   render: ->
     route_params = @context.router.getCurrentParams()
 
-    if !(@state.course.listed || @state.course.approved || @state.course.published) && @getCurrentUser.role == 1
-      alert = (
-        <div className="container alert module">
-          <p>You will be able to delete this course as long as it remains unapproved and unpublished. <a href='#'>Click here</a> to delete the course now.</p>
+    alerts = []
+
+    if @getCurrentUser().id?
+      user_obj = UserStore.getFiltered({ id: @getCurrentUser().id })[0]
+    user_role = if user_obj? then user_obj.role else -1
+
+    if (user_role > 0 || @getCurrentUser().admin) && !@state.course.legacy && !@state.course.published
+      if CourseStore.isLoaded() && !(@state.course.submitted || @state.published)
+        alerts.push (
+          <div className='container module text-center' key='submit'>
+            <p>Your course is not yet published on the Wiki Ed platform. <a href="#" onClick={@submit}>Click here</a> to submit it for approval by Wiki Ed staff.</p>
+          </div>
+        )
+      if @state.course.submitted
+        if !@getCurrentUser().admin
+          alerts.push (
+            <div className='container module text-center' key='submit'>
+              <p>Your course has been submitted. Wiki Ed staff will review it and get in touch with any questions.</p>
+            </div>
+          )
+        else
+          alerts.push (
+            <div className='container module text-center' key='publish'>
+              <p>This course has been submitted for approval by its creator. To approve it, add it to a cohort on the <CourseLink to='overview'>Overview</CourseLink> page.</p>
+            </div>
+          )
+    if (user_role > 0 || @getCurrentUser().admin) && @state.course.published && UserStore.isLoaded() && UserStore.getFiltered({ role: 0 }).length == 0 && !@state.course.legacy
+      alerts.push (
+        <div className='container module text-center' key='enroll'>
+          <p>Your course has been published! Students may enroll in the course by visiting the following URL:</p>
+          <p>{@state.course.enroll_url + @state.course.passcode}</p>
         </div>
       )
 
-    if @state.course.id >= 10000
+    unless @state.course.legacy
       timeline = (
         <div className="nav__item" id="timeline-link">
           <p><Link params={route_params} to="timeline">Timeline</Link></p>
@@ -94,9 +134,6 @@ Course = React.createClass(
             <p><Link params={route_params} to="overview">Overview</Link></p>
           </div>
           {timeline}
-          <div className="nav__item" id="activity-link">
-            <p><Link params={route_params} to="activity">Activity</Link></p>
-          </div>
           <div className="nav__item" id="students-link">
             <p><Link params={route_params} to="students">Students</Link></p>
           </div>
@@ -106,97 +143,21 @@ Course = React.createClass(
           <div className="nav__item" id="uploads-link">
             <p><Link params={route_params} to="uploads">Uploads</Link></p>
           </div>
+          <div className="nav__item" id="activity-link">
+            <p><Link params={route_params} to="activity">Activity</Link></p>
+          </div>
         </nav>
       </div>
-      {alert}
+      {alerts}
       <div className="course_main container">
         <RouteHandler {...@props}
           course_id={@getCourseID()}
           current_user={@getCurrentUser()}
           transitionTo={@transitionTo}
+          course={@state.course}
         />
       </div>
     </div>
 )
 
 module.exports = Course
-
-
-# <header className="course-page" data-current_user="<%= user_signed_in? ? current_user.roles(@course).to_json : { admin: false } %>">
-#   <div className="container">
-#     <div class="title">
-#       <a href="<%= @course.url %>" target="_blank"><h2><%= @course.title %></h2></a>
-#     </div>
-#     <div class="stat-display">
-#       <div class="stat-display__stat" id="articles-created">
-#         <h3><%= number_to_human @course.revisions.joins(:article).where(articles: {namespace: 0}).where(new_article: true).count %></h3>
-#         <small><%= t("metrics.articles_created") %></small>
-#       </div>
-#       <div class="stat-display__stat" id="articles-edited">
-#         <h3><%= number_to_human @course.article_count %></h3>
-#         <small><%= t("metrics.articles_edited") %></small>
-#       </div>
-#       <div class="stat-display__stat" id="total-edits">
-#         <h3><%= number_to_human @course.revisions.count %></h3>
-#         <small><%= t("metrics.edit_count_description") %></small>
-#       </div>
-#       <div class="stat-display__stat popover-trigger" id="student-editors">
-#         <h3><%= @course.user_count %></h3>
-#         <small><%= t("metrics.student_editors") %></small>
-#         <div class="popover dark" id="trained-count">
-#           <h4><%= @course.users.role('student').where(trained: true).count %></h4>
-#           <p><%= t("user.training_complete", count: @course.users.role('student').where(trained: true).count) %></p>
-#         </div>
-#       </div>
-#       <div class="stat-display__stat" id="characters-added">
-#         <h3><%= number_to_human @course.character_sum %></h3>
-#         <small><%= t("metrics.char_added") %></small>
-#       </div>
-#       <div class="stat-display__stat" id="view-count">
-#         <h3><%= number_to_human @course.view_sum %></h3>
-#         <small><%= t("metrics.view_count_description") %></small>
-#       </div>
-#     </div>
-#   </div>
-# </header>
-
-
-# <div class="course_navigation">
-#   <div class="nav__item <%= page == 0 ? 'active' : '' %>" id="overview-link">
-#     <p><%= link_to t("course.overview"), course_slug_path(@course.slug) %></p>
-#   </div>
-#   <div class="nav__item <%= page == 3 ? 'active' : '' %>" id="timeline-link">
-#     <p><%= link_to t("course.timeline"), :action => "timeline" %></p>
-#   </div>
-#   <div class="nav__item <%= page == 4 ? 'active' : '' %>" id="activity-link">
-#     <p><%= link_to t("course.activity"), :action => "activity" %></p>
-#   </div>
-#   <div class="nav__item <%= page == 1 ? 'active' : '' %>" id="students-link">
-#     <p><%= link_to t("course.students"), :action => "students" %></p>
-#   </div>
-#   <div class="nav__item <%= page == 2 ? 'active' : '' %>" id="articles-link">
-#     <p><%= link_to t("course.articles"), :action => "articles" %></p>
-#   </div>
-#   <div class="nav__item <%= page == 5 ? 'active' : '' %>" id="uploads-link">
-#     <p><%= link_to t("course.uploads"), :action => "uploads" %></p>
-#   </div>
-# </div>
-
-# <% if !current?(@course) && user_signed_in? && @course.start < Time.now %>
-# <div class="container">
-#   <div class="alert module">
-#     <div class="container">
-#       <p>This course has ended and the data here may be out of date. <%= link_to 'Click here', {:action => 'manual_update'}, class: 'manual_update', rel: 'nofollow' %> to pull new data.</p>
-#     </div>
-#   </div>
-# </div>
-# <% end %>
-# <% if !(@course.listed || @course.approved || @course.published) && current_user.can_edit?(@course) %>
-# <div class="container">
-#   <div class="alert module">
-#     <div class="container">
-#       <p>You will be able to delete this course as long as it remains unapproved and unpublished. <%= link_to 'Click here', course_slug_path(@course.slug), method: :delete, data: { confirm: 'Are you sure you want to delete this course?' } %> to delete the course now.</p>
-#     </div>
-#   </div>
-# </div>
-# <% end %>

@@ -1,6 +1,5 @@
 React             = require 'react/addons'
 Router            = require 'react-router'
-HandlerInterface  = require '../highlevels/handler'
 UploadList        = require './upload_list'
 AssignmentList    = require '../assignments/assignment_list'
 UIActions         = require '../../actions/ui_actions'
@@ -12,11 +11,11 @@ UploadsHandler = React.createClass(
   sortSelect: (e) ->
     UIActions.sort 'uploads', e.target.value
   componentWillMount: ->
-    ServerActions.fetchUploads @props.course_id
+    ServerActions.fetch 'uploads', @props.course_id
   render: ->
     <div id='uploads'>
       <div className='section-header'>
-        <h3>Files Uploaded</h3>
+        <h3>Files Uploaded to Wikimedia Commons</h3>
         <div className='sort-select'>
           <select className='sorts' name='sorts' onChange={@sortSelect}>
             <option value='file_name'>File Name</option>

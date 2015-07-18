@@ -8,7 +8,7 @@
 .list__wrapper .controls
   right 10px
   +above(desktop)
-    right 83px
+    right 74px
 
 .button
   background-color mercury
@@ -23,16 +23,13 @@
   margin-left 10px
   padding 8px 20px 9px
   transition background .15s ease-out, color .15s ease-out
+  &:focus
+    outline none
   &:hover
     background-color white
     border-bottom 1px solid zircon
   &.large
     padding 18px 27px
-  &.dark
-    background-color bayoux
-    color white
-    &:hover
-      background-color manatee
   &.border
     background-color transparent
     border 2px solid bayoux
@@ -41,6 +38,14 @@
     &:hover
       background-color bayoux
       color white
+  &.disabled
+    cursor default
+    opacity 0.5
+  &.dark
+    background-color bayoux
+    color white
+    &:hover
+      background-color manatee
   &.danger:hover
     background-color burnt
     color white
@@ -53,16 +58,20 @@
     padding 0px
     text-align center
     width 25px
-  
-  .section-header &
-    margin-left 0
-    
-    +below(tablet)
-      display block
-      width 165px
-      text-align center
-      margin-left auto
-      margin-right auto
+  &.right
+    float right
+
+  &.disabled
+    background-color mercury
+    border 1px solid zircon
+    color dove
+
+    &:hover
+      background-color mercury
+      border 1px solid zircon
+      color dove
+
+
 
 .button.arrow:hover
   background-color bayoux

@@ -19,27 +19,17 @@ class Cleaners
     course = course_user.course
     user_id = course_user.user_id
     # Check if the non-student user is also a student in the same course.
-    return unless CoursesUsers.where(
-      role: 0,
-      course_id: course.id,
-      user_id: user_id
-    ).empty?
+    return if course_user.user.student?(course)
 
-    user_articles = course_user.user.revisions
-                    .where('date >= ?', course.start)
-                    .where('date <= ?', course.end)
-                    .pluck(:article_id)
-
+    user_articles = find_user_articles(course_user, course)
     return if user_articles.empty?
 
     course_articles = course.articles.pluck(:id)
     possible_deletions = course_articles & user_articles
 
     to_delete = []
-    possible_deletions.each do |pd|
-      other_editors = Article.find(pd).editors - [user_id]
-      course_editors = course.students & other_editors
-      to_delete.push pd if other_editors.empty? || course_editors.empty?
+    possible_deletions.each do |a_id|
+      to_delete.push a_id unless other_editors_in_course?(a_id, user_id, course)
     end
 
     # remove orphaned articles from the course
@@ -50,23 +40,31 @@ class Cleaners
     # update course cache to account for removed articles
     course.update_cache unless to_delete.empty?
   end
+  
+  def self.other_editors_in_course?(article_id, user_id, course)
+    other_editors = Article.find(article_id).editors - [user_id]
+    return false if other_editors.empty?
+    course_editors = course.students & other_editors
+    return false if course_editors.empty?
+    true
+  end
 
+  def self.find_user_articles(course_user, course)
+    course_user
+      .user.revisions
+      .where('date >= ?', course.start)
+      .where('date <= ?', course.end)
+      .pluck(:article_id)
+  end
   #############
   # Revisions #
   #############
   def self.repair_orphan_revisions
-    article_ids = Article.all.pluck(:id)
-    orphan_revisions = Revision.where
-                       .not(article_id: article_ids)
-                       .order('date ASC')
-
-    Rails.logger.info "Found #{orphan_revisions.count} orphan revisions"
+    orphan_revisions = find_orphan_revisions
     return if orphan_revisions.blank?
 
-    start = orphan_revisions.first.date - 1.day
-    start = start.strftime('%Y%m%d')
-    end_date = orphan_revisions.last.date + 1.day
-    end_date = end_date.strftime('%Y%m%d')
+    start = before_earliest_revision(orphan_revisions)
+    end_date = after_latest_revision(orphan_revisions)
 
     user_ids = orphan_revisions.pluck(:user_id).uniq
     users = User.where(id: user_ids)
@@ -78,5 +76,25 @@ class Cleaners
     Rails.logger.info "Imported articles for #{revs.count} revisions"
 
     ArticlesCourses.update_from_revisions revs unless revs.blank?
+  end
+
+  def self.find_orphan_revisions
+    article_ids = Article.all.pluck(:id)
+    orphan_revisions = Revision.where
+                       .not(article_id: article_ids)
+                       .order('date ASC')
+
+    Rails.logger.info "Found #{orphan_revisions.count} orphan revisions"
+    orphan_revisions
+  end
+
+  def self.before_earliest_revision(revisions)
+    date = revisions.first.date - 1.day
+    date.strftime('%Y%m%d')
+  end
+
+  def self.after_latest_revision(revisions)
+    date = revisions.last.date + 1.day
+    date.strftime('%Y%m%d')
   end
 end

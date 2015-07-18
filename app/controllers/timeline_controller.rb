@@ -8,7 +8,6 @@ class TimelineController < ApplicationController
 
   def index
     @course = Course.find_by_slug(params[:course_id])
-
   end
 
   ########################
@@ -29,7 +28,7 @@ class TimelineController < ApplicationController
         :deleted,
         :order,
         :gradeable_id,
-        :due_date,
+        :duration,
         { gradeable: [
           :id,
           :gradeable_item_id,
@@ -45,7 +44,7 @@ class TimelineController < ApplicationController
   def update_util(model, object)
     if object['id'].nil?
       model.create object
-    elsif object['deleted']
+    elsif object.key?(:deleted) && object['deleted']
       model.destroy object['id']
     else
       model.update object['id'], object
@@ -58,6 +57,7 @@ class TimelineController < ApplicationController
       update_week week
     end
     WikiEdits.update_course(@course, current_user)
+    render 'timeline'
   end
 
   def update_week(week)
@@ -103,8 +103,8 @@ class TimelineController < ApplicationController
   def update_gradeables
     @course = Course.find_by_slug(params[:course_id])
     gradeable_params['gradeables'].each do |gradeable|
-      @gradeable = Gradeable.find(gradeable['id'])
-      @gradeable.update(title: gradeable['title'], points: gradeable['points'])
+      @gradeable = update_util Gradeable, gradeable
     end
+    render 'timeline'
   end
 end

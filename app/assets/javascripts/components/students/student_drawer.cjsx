@@ -1,6 +1,5 @@
 React             = require 'react/addons'
-StudentActions    = require '../../actions/student_actions'
-Expandable        = require '../highlevels/expandable'
+Expandable        = require '../high_order/expandable'
 
 StudentDrawer = React.createClass(
   displayName: 'StudentDrawer'
@@ -17,11 +16,11 @@ StudentDrawer = React.createClass(
             <small className='tablet-only-ib'>{details}</small>
           </p>
         </td>
-        <td className='desktop-only-tc'>{moment(rev.date).format('YYYY-MM-DD hh:mm')} UTC</td>
+        <td className='desktop-only-tc date'>{moment(rev.date).format('YYYY-MM-DD   h:mm A')}</td>
         <td className='desktop-only-tc'>{rev.characters}</td>
         <td className='desktop-only-tc'>{rev.views}</td>
         <td className='desktop-only-tc'>
-          <a href={rev.url} target="_blank" className="inline">Dif.</a>
+          <a href={rev.url} target="_blank" className="inline">diff</a>
         </td>
       </tr>
     style =

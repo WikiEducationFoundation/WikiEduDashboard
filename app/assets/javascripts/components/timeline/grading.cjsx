@@ -1,20 +1,7 @@
 React             = require 'react'
-Week              = require './week'
-Editable          = require '../highlevels/editable'
 Gradeable         = require './gradeable'
-
 GradeableActions  = require '../../actions/gradeable_actions'
-ServerActions     = require '../../actions/server_actions'
-
 BlockStore        = require '../../stores/block_store'
-GradeableStore    = require '../../stores/gradeable_store'
-
-getState = ->
-  gradeables = []
-  from_store = GradeableStore.getGradeables()
-  for gradeable in from_store
-    gradeables.push(gradeable) unless gradeable.is_new
-  gradeables: gradeables
 
 Grading = React.createClass(
   displayName: 'Grading'
@@ -23,25 +10,26 @@ Grading = React.createClass(
   deleteGradeable: (gradeable_id) ->
     GradeableActions.deleteGradeable gradeable_id
   render: ->
-    return <div></div>
-    gradeables = []
-    @props.gradeables.forEach (gradeable, i) =>
+    total = _.sum(@props.gradeables, 'points')
+    gradeables = @props.gradeables.map (gradeable, i) =>
       unless gradeable.deleted
         block = BlockStore.getBlock(gradeable.gradeable_item_id)
-        gradeables.push (
-          <Gradeable
-            gradeable={gradeable}
-            block={block}
-            key={gradeable.id}
-            editable={@props.editable}
-            deleteGradeable={@deleteGradeable.bind(this, gradeable.id)}
-          />
-        )
-    if @props.editable
+        <Gradeable
+          gradeable={gradeable}
+          block={block}
+          key={gradeable.id}
+          editable={@props.editable}
+          total={total}
+          deleteGradeable={@deleteGradeable.bind(this, gradeable.id)}
+        />
+    gradeables.sort (a, b) ->
+      return 1 unless a.props.gradeable? && b.props.gradeable?
+      a.props.gradeable.order - b.props.gradeable.order
+    if @props.editable && false
       addGradeable = (
         <li className="row view-all">
           <div>
-            <div className='button large dark' onClick={@addGradeable}>Add New Grading Item</div>
+            <button className='button dark' onClick={@addGradeable}>Add New Grading Item</button>
           </div>
         </li>
       )
@@ -54,8 +42,8 @@ Grading = React.createClass(
 
     <div>
       <div className="section-header">
-        <h3>Grading</h3>
-        {@props.controls()}
+        <h3>Grading <span>(Total: {total}%)</span></h3>
+        {@props.controls(null, @props.gradeables.length < 1)}
       </div>
       <ul className="list">
         {gradeables}
@@ -65,4 +53,4 @@ Grading = React.createClass(
     </div>
 )
 
-module.exports = Editable(Grading, [BlockStore, GradeableStore], ServerActions.saveGradeables, getState)
+module.exports = Grading

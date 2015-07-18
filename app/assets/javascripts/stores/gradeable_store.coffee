@@ -1,5 +1,6 @@
 McFly       = require 'mcfly'
 Flux        = new McFly()
+BlockStore  = require './block_store'
 
 
 # Data
@@ -9,11 +10,13 @@ _persisted = {}
 
 # Utilities
 setGradeables = (data, persisted=false) ->
-  for week in data
-    for block in week.blocks
+  for week, iw in data
+    for block, ib in week.blocks
       if block.gradeable != undefined
-        _gradeables[block.gradeable.id] = block.gradeable
-        _persisted[block.gradeable.id] = $.extend(true, {}, block.gradeable) if persisted
+        gradeable = block.gradeable
+        gradeable['order'] = iw + '' + block.order
+        _gradeables[gradeable.id] = gradeable
+        _persisted[gradeable.id] = $.extend(true, {}, gradeable) if persisted
   GradeableStore.emitChange()
 
 updatePersisted = ->
@@ -33,6 +36,7 @@ addGradeable = (block) ->
       id: Date.now(),
       is_new: true,
       title: "",
+      points: 10,
       gradeable_item_id: block.id,
       gradeable_item_type: 'block'
     }
@@ -65,10 +69,8 @@ GradeableStore = Flux.createStore
 , (payload) ->
   data = payload.data
   switch(payload.actionType)
-    when 'RECEIVE_TIMELINE'
-      setGradeables data.course.weeks, true
-      break
-    when 'SAVED_TIMELINE', 'WIZARD_SUBMITTED'
+    when 'RECEIVE_TIMELINE', 'SAVED_TIMELINE', 'WIZARD_SUBMITTED'
+      Flux.dispatcher.waitFor([BlockStore.dispatcherID])
       _gradeables = {}
       setGradeables data.course.weeks, true
       break

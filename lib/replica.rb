@@ -53,19 +53,21 @@ class Replica
   #     }
   #   }
   def self.parse_revision(revision)
-    parsed = { 'revision' => {}, 'article' => {} }
-    parsed.tap do |p|
-      p['article']['id'] = revision['page_id']
-      p['article']['title'] = revision['page_title']
-      p['article']['namespace'] = revision['page_namespace']
+    article_data = {}
+    article_data['id'] = revision['page_id']
+    article_data['title'] = revision['page_title']
+    article_data['namespace'] = revision['page_namespace']
 
-      p['revision']['id'] = revision['rev_id']
-      p['revision']['date'] = revision['rev_timestamp'].to_datetime
-      p['revision']['characters'] = revision['byte_change']
-      p['revision']['article_id'] = revision['page_id']
-      p['revision']['user_id'] = revision['rev_user']
-      p['revision']['new_article'] = revision['new_article']
-    end
+    revision_data = {}
+    revision_data['id'] = revision['rev_id']
+    revision_data['date'] = revision['rev_timestamp'].to_datetime
+    revision_data['characters'] = revision['byte_change']
+    revision_data['article_id'] = revision['page_id']
+    revision_data['user_id'] = revision['rev_user']
+    revision_data['new_article'] = revision['new_article']
+    revision_data['system'] = revision['system']
+
+    { 'article' => article_data, 'revision' => revision_data }
   end
 
   ###################
@@ -79,7 +81,9 @@ class Replica
   #   2 (User:)
   def self.get_revisions_raw(users, rev_start, rev_end)
     user_list = compile_user_string(users)
-    query = user_list + "&start=#{rev_start}&end=#{rev_end}"
+    oauth_tags = compile_oauth_tags
+    oauth_tags = oauth_tags.blank? ? oauth_tags : "&#{oauth_tags}"
+    query = user_list + oauth_tags + "&start=#{rev_start}&end=#{rev_end}"
     api_get('revisions.php', query)
   end
 
@@ -195,6 +199,17 @@ class Replica
         user_list += "user_ids[#{i}]='#{u.id}'"
       end
       user_list
+    end
+
+    def compile_oauth_tags
+      tag_list = ''
+      oauth_ids = Figaro.env.oauth_ids
+      return '' if oauth_ids.nil?
+      oauth_ids.split(',').each_with_index do |id, i|
+        tag_list += '&' if i > 0
+        tag_list += "oauth_tags[#{i}]='OAuth CID: #{id}'"
+      end
+      tag_list
     end
 
     # Compile an article list to send to the replica endpoint, which might look

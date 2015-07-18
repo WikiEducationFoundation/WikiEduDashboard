@@ -3,7 +3,7 @@ ruby '2.1.5'
 gem 'rails', '4.1.8'
 gem 'jbuilder', '~> 2.0'
 
-gem 'mediawiki_api'
+gem 'mediawiki_api', '0.4.1'
 gem 'crack'
 gem 'figaro'
 gem 'whenever'
@@ -21,6 +21,8 @@ gem 'activerecord-import', :git => 'https://github.com/onemedical/activerecord-i
 
 # UNIVERSAL TEXT CONVERTER - FOR MARDOWN TO MEDIAWIKI TEXT
 gem 'pandoc-ruby', '~> 1.0.0'
+
+gem "i18n-js", ">= 3.0.0.rc8"
 
 group :development do
   gem 'better_errors'
@@ -47,6 +49,7 @@ group :development, :test do
   gem 'rubocop'
   gem 'zeus'
   gem 'sqlite3'
+  gem 'selenium-webdriver'
 end
 
 group :staging, :production do

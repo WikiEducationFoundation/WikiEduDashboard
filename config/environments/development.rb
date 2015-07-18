@@ -1,4 +1,5 @@
 Rails.application.configure do
+  config.middleware.use I18n::JS::Middleware
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on
@@ -36,4 +37,10 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  # i18n-js
+  # Provides support for localization/translations on the front end utilizing Rails localization.
+  # Uses same translation files, config/
+  # In combination with configuration
+  config.middleware.use I18n::JS::Middleware
 end

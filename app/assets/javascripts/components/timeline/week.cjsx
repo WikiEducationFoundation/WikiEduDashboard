@@ -29,6 +29,7 @@ Week = React.createClass(
           gradeable={GradeableStore.getGradeableByBlock(block.id)}
           deleteBlock={@deleteBlock.bind(this, block.id)}
           moveBlock={@props.moveBlock}
+          week_index={@props.index}
         />
     blocks.sort (a, b) ->
       a.props.block.order - b.props.block.order
@@ -37,15 +38,20 @@ Week = React.createClass(
       addBlock = (
         <li className="row view-all">
           <div>
-            <div className='button' onClick={@addBlock}>Add New Block</div>
+            <button className='button' onClick={@addBlock}>Add New Block</button>
           </div>
         </li>
       )
-      deleteWeek = <span className="button danger" onClick={@props.deleteWeek}>Delete Week</span>
+      deleteWeek = <button onClick={@props.deleteWeek} className='button danger right'>Delete Week</button>
     if @props.showTitle == undefined || @props.showTitle
       if (@props.week.title? || @props.editable)
-        spacer = <span>  —  </span>
+        spacer = '  —  '
+      else
+        spacer = ' '
       week_label = 'Week ' + @props.index
+      start = moment(@props.start).add(7 * (@props.index - 1), 'day')
+      end = moment.min(start.clone().add(6, 'day'), moment(@props.end))
+      week_label += ' (' + start.format('MM/DD') + ' - ' + end.format('MM/DD') + ')'
       title = (
         <TextInput
           onChange={@updateWeek}
@@ -54,6 +60,7 @@ Week = React.createClass(
           editable={@props.editable}
           label={week_label}
           spacer={spacer}
+          placeholder='Title'
         />
       )
 

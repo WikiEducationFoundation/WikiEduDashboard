@@ -4,9 +4,9 @@
   description: |
     To get started, you'll want to introduce your students to the basic rules of writing Wikipedia articles and working with the Wikipedia community.
 
-    As their first Wikipedia assignment milestone, you can ask the students to create user accounts and then complete the *online training for students*. This training introduces the Wikipedia community and how it works, demonstrates the basics of editing and walks students through their first edits, gives advice for selecting articles and drafting revisions, and explains further sources of support as they continue along. It takes about an hour and ends with a certification step, which you can use to verify that students completed the training.
+    As their first Wikipedia assignment milestone, you can ask the students to create user accounts and then complete the **[online training for students](https://en.wikipedia.org/wiki/Wikipedia:Training/For_students)**. This training introduces the Wikipedia community and how it works, demonstrates the basics of editing and walks students through their first edits, gives advice for selecting articles and drafting revisions, and explains further sources of support as they continue along. It takes about an hour and ends with a certification step, which you can use to verify that students completed the training.
 
-    Students who complete this training are better prepared to focus on learning outcomes, and spend less time distracted by cleaning up after errors.
+    Students who complete this training are better prepared to focus on learning outcomes, and spend less time distracted by cleaning up after errors. Your course page will indicate which students have not yet completed the training.
 
     ### Assignment milestones
     * Create a user account and enroll on the course page.
@@ -166,13 +166,13 @@
   options:
     -
       title: Yes. We will work on medicine or psychology articles.
-      logic: yes_medical_topics
+      tag: yes_medical_topics
     -
       title: Maybe. Students might choose a medicine or psychology topic.
-      logic: maybe_medical_topics
+      tag: maybe_medical_topics
     -
       title: No. No one will work on medicine or psychology topics.
-      logic: no_medical_topics
+      tag: no_medical_topics
 -
   key: draft_and_mainspace
   title: Drafts and mainspace
@@ -191,10 +191,10 @@
   options:
     -
       title: Work live from the start
-      logic: work_live
+      tag: work_live
     -
       title: Draft early work in sandboxes
-      logic: use_sandboxes
+      tag: use_sandboxes
 -
   key: peer_feedback
   title: Peer feedback

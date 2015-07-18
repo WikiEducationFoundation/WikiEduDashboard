@@ -21,6 +21,7 @@ wizard-width = 860px
   bottom 0
   left 0
   max-height 100%
+  overflow-x hidden
   overflow-y scroll
   padding-top 80px
   position fixed
@@ -41,18 +42,29 @@ wizard-width = 860px
     text-align left
     top 160px
     transform translateX(-50%)
-    transition left panel_speed ease-in-out, opacity .01s ease panel_speed
+    transition left panel_speed ease-in-out, opacity .01s ease panel_speed, visibility .01s ease panel_speed
     width 100%
+    visibility hidden
     &.active
       left 50%
       opacity 1
       transition left panel_speed ease-in-out, opacity .01s
+      visibility visible
     &.active ~ .wizard__panel
       left 150%
+    &.is-submitting
+      opacity: 0.5
     > h3
       font-weight 300
     p, ul
       color dove
+      a
+        color blue-violet
+        &:hover
+          border-bottom 2px solid blue-violet
+        &:active
+          color manatee
+          border-bottom 2px solid manatee
     .section-header
       padding 0
       .controls
@@ -92,12 +104,14 @@ wizard-width = 860px
       &.half
         +above(desktop)
           col(1/2, cycle: 2)
-      > div
+      > button
         padding 20px
+        width 100%
       &.summary
         border-top-width 0
         margin-bottom 0
         padding 20px
+        width 100%
         &:first-child
           border-top-width 1px
       .edit
@@ -115,7 +129,7 @@ wizard-width = 860px
         transition all .2s ease-in-out
         width 100%
       .wizard__option__checkbox
-        background url("/assets/check.svg")
+        background url("../images/check.svg")
         background-position 45%
         background-repeat no-repeat
         background-size 60%
@@ -145,10 +159,10 @@ wizard-width = 860px
         border-top 1px solid mischka
         bottom 0
         left 0
-        padding 5px 0 9px
+        padding 5px 0 7px
         position absolute
-        right 0
         transition all .2s ease-in-out
+        width 100%
         &.open p:after
           transform rotate(-180deg)
         p
@@ -171,7 +185,6 @@ wizard-width = 860px
         padding-right 30px
         text-align left
       p
-        margin 0
         text-align left
         white-space pre-line
     .wizard__controls

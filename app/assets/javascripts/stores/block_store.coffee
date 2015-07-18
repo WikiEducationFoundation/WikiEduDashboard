@@ -1,6 +1,5 @@
 McFly           = require 'mcfly'
 Flux            = new McFly()
-GradeableStore  = require './gradeable_store'
 
 
 # Data
@@ -35,7 +34,8 @@ addBlock = (week_id) ->
     content: "",
     gradeable_id: null,
     week_id: week_id,
-    order: week_blocks.length
+    order: week_blocks.length,
+    duration: null
   }
 
 removeBlock = (block_id) ->
@@ -76,11 +76,7 @@ BlockStore = Flux.createStore
 , (payload) ->
   data = payload.data
   switch(payload.actionType)
-    when 'RECEIVE_TIMELINE'
-      Flux.dispatcher.waitFor([GradeableStore.dispatcherID])
-      setBlocks data.course.weeks, true
-      break
-    when 'SAVED_TIMELINE', 'WIZARD_SUBMITTED'
+    when 'RECEIVE_TIMELINE', 'SAVED_TIMELINE', 'WIZARD_SUBMITTED'
       _blocks = {}
       setBlocks data.course.weeks, true
       break

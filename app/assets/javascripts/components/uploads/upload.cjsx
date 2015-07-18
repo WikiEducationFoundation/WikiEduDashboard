@@ -16,6 +16,10 @@ Upload = React.createClass(
         <p className='tablet-only'><span>{@props.upload.uploader}</span></p>
       )
 
+    file_name = @props.upload.file_name
+    file_name = @props.upload.file_name.substr(0,60) + '...' if file_name.length > 60
+
+
     <tr className='upload'>
       <td>
         <a href={@props.upload.url} target="_blank">
@@ -24,11 +28,11 @@ Upload = React.createClass(
         {details}
       </td>
       <td className="desktop-only-tc">
-        <a href={@props.upload.url} target="_blank" className="inline">{@props.upload.file_name}</a>
+        <a href={@props.upload.url} target="_blank" className="inline">{file_name}</a>
       </td>
       <td className="desktop-only-tc">{@props.upload.uploader}</td>
       <td className="desktop-only-tc">{@props.upload.usage_count}</td>
-      <td className="desktop-only-tc">{moment(@props.upload.uploaded_at).format('YYYY-MM-DD hh:mm')} UTC</td>
+      <td className="desktop-only-tc">{moment(@props.upload.uploaded_at).format('YYYY-MM-DD   h:mm A')}</td>
       <td></td>
     </tr>
 )

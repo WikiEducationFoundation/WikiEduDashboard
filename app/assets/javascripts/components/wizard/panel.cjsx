@@ -1,10 +1,11 @@
-React         = require 'react/addons'
-Marked        = require 'marked'
-WizardActions = require '../../actions/wizard_actions'
-WizardStore   = require '../../stores/wizard_store'
+React           = require 'react/addons'
+Marked          = require 'marked'
+MarkedRenderer  = require '../../utils/marked_renderer'
+WizardActions   = require '../../actions/wizard_actions'
+WizardStore     = require '../../stores/wizard_store'
 
-CourseLink    = require '../common/course_link'
-Option        = require './option'
+CourseLink      = require '../common/course_link'
+Option          = require './option'
 
 Panel = React.createClass(
   displayName: 'Panel'
@@ -17,7 +18,7 @@ Panel = React.createClass(
     WizardActions.resetWizard()
   render: ->
     if @props.index > 0
-      rewind =  <div className="button" onClick={@rewind}>{'Previous'}</div>
+      rewind =  <button className='button' onClick={@rewind}>{'Previous'}</button>
 
     options_1 = []
     options_2 = []
@@ -43,6 +44,8 @@ Panel = React.createClass(
     classes += ' active' if @props.panel.active
     advance = @props.advance || @advance
 
+    next_text = @props.button_text || (if @props.summary then 'Summary' else 'Next')
+
     <div className={classes}>
       <div className='wizard__controls'>
         <p>
@@ -51,7 +54,7 @@ Panel = React.createClass(
         </p>
       </div>
       <h3>{@props.panel.title}</h3>
-      <div dangerouslySetInnerHTML={{__html: Marked(@props.panel.description)}}></div>
+      <div dangerouslySetInnerHTML={{__html: Marked(@props.panel.description, { renderer: MarkedRenderer })}}></div>
       <div className='wizard__panel__options'>{options}</div>
       <div className='wizard__panel__controls'>
         <div className='left'>
@@ -60,7 +63,7 @@ Panel = React.createClass(
         <div className='right'>
           <div><p className='red'>{@props.panel.error}</p></div>
           {rewind}
-          <div className="button dark" onClick={advance}>{@props.button_text || 'Next'}</div>
+          <button className="button dark" onClick={advance}>{next_text}</button>
         </div>
       </div>
     </div>

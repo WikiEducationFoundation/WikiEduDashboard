@@ -11,6 +11,11 @@ Gradeable = React.createClass(
   render: ->
     block = @props.block
     title = if block? then block.title else @props.gradeable.title
+
+    unless @props.editable
+      percent_num = ((@props.gradeable.points / @props.total) * 100).toFixed(1)
+      percent = <span> ({percent_num}%)</span>
+
     <li className="gradeable block">
       <h4>
         <TextInput
@@ -25,7 +30,8 @@ Gradeable = React.createClass(
         value={@props.gradeable.points}
         value_key={'points'}
         editable={@props.editable}
-        label='Points'
+        label='Value'
+        append='%'
       />
     </li>
 )

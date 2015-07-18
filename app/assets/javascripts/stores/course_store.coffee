@@ -1,16 +1,18 @@
 McFly       = require 'mcfly'
 Flux        = new McFly()
 API         = require '../utils/api.coffee'
+ServerActions = require '../actions/server_actions'
 
 
 # Data
 _course = {}
 _persisted = {}
-_invalid = {}
+_loaded = false
 
 
 # Utilities
 setCourse = (data, persisted=false, quiet=false) ->
+  _loaded = true
   $.extend(true, _course, data)
   delete _course['weeks']
   _persisted = $.extend(true, {}, _course) if persisted
@@ -20,24 +22,16 @@ updateCourseValue = (key, value) ->
   _course[key] = value
   CourseStore.emitChange()
 
-# TODO: Pull this off into a separate class that can be reused
-setValid = (key, value) ->
-  if value
-    delete _invalid[key]
-  else
-    _invalid[key] = true
-  CourseStore.emitChange()
-
 addCourse = ->
   setCourse {
-    title: "",
+    title: ""
     description: ""
     school: ""
     term: ""
     subject: ""
     expected_students: 0
-    start: moment().format('YYYY-MM-DD')
-    end: moment().add(4, 'months').format('YYYY-MM-DD')
+    start: null
+    end: null
   }
 
 
@@ -45,33 +39,30 @@ addCourse = ->
 CourseStore = Flux.createStore
   getCourse: ->
     return _course
-  getValidation: ->
-    return _invalid
   getCurrentWeek: ->
-    course_start = new Date(_course.start)
+    course_start = new Date(_course.timeline_start)
     now = new Date()
     time_diff = now.getTime() - course_start.getTime()
-    Math.ceil(time_diff / (1000 * 3600 * 24 * 7)) - 1
+    Math.max(Math.ceil(time_diff / (1000 * 3600 * 24 * 7)) - 1, 0)
   restore: ->
     _course = $.extend(true, {}, _persisted)
     CourseStore.emitChange()
+  isLoaded: ->
+    _loaded
 , (payload) ->
   data = payload.data
   switch(payload.actionType)
-    when 'RECEIVE_COURSE', 'CREATED_COURSE'
+    when 'RECEIVE_COURSE', 'CREATED_COURSE', 'COHORT_MODIFIED', 'SAVED_COURSE', 'CHECK_COURSE'
       setCourse data.course, true
-      break
-    when 'SAVED_COURSE'
-      setCourse data.course, true, true
       break
     when 'UPDATE_COURSE'
       setCourse data.course
+      if data.save
+        ServerActions.saveCourse($.extend(true, {}, { course: _course }), data.course.slug)
       break
     when 'ADD_COURSE'
       addCourse()
       break
-    when 'SET_INVALID_KEY'
-      setValid data.key, data.valid
   return true
 
 module.exports = CourseStore

@@ -77,6 +77,7 @@ class Commons
                     pageids: file_ids,
                     gulimit: 500, # 500 is max for non-bots
                     gufilterlocal: 'true', # Don't return local Commons usage
+                    guprop: 'namespace', # Fetch NS for each usage
                     continue: ''
                   }
     usage_query

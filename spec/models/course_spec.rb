@@ -16,9 +16,7 @@ describe Course, type: :model do
   end
 
   it 'should handle MediaWiki API errors' do
-    error = MediawikiApi::ApiError.new nil
-    allow(error).to receive(:data).and_return({})
-    allow(error).to receive(:info).and_return('bar')
+    error = MediawikiApi::ApiError.new
     stub_request(:any, %r{.*wikipedia\.org/w/api\.php.*})
       .to_raise(error)
     CourseImporter.update_all_courses(false, cohort: [798, 800])
@@ -90,8 +88,8 @@ describe Course, type: :model do
     VCR.use_cassette 'wiki/course_list_delisted' do
       create(:course,
              id: 589,
-             start: '2015-01-01'.to_date,
-             end: '2015-07-01'.to_date,
+            start: Date.today - 1.month,
+            end: Date.today + 1.month,
              title: 'Underwater basket-weaving',
              listed: true)
 
@@ -105,8 +103,8 @@ describe Course, type: :model do
     VCR.use_cassette 'wiki/course_list_deleted' do
       create(:course,
              id: 9999,
-             start: '2015-01-01'.to_date,
-             end: '2015-07-01'.to_date,
+            start: Date.today - 1.month,
+            end: Date.today + 1.month,
              title: 'Underwater basket-weaving',
              listed: true)
 
@@ -119,8 +117,8 @@ describe Course, type: :model do
   it 'should remove users who have been unenrolled from a course' do
     build(:course,
           id: 1,
-          start: '2015-01-01'.to_date,
-          end: '2015-07-01'.to_date,
+          start: Date.today - 1.month,
+          end: Date.today + 1.month,
           title: 'Underwater basket-weaving').save
 
     build(:user,
@@ -144,7 +142,7 @@ describe Course, type: :model do
            id: 1)
     create(:revision,
            user_id: 2,
-           date: '2015-02-01'.to_date,
+           date: Date.today,
            article_id: 1)
     create(:articles_course,
            article_id: 1,
@@ -174,8 +172,8 @@ describe Course, type: :model do
 
     build(:course,
           id: 1,
-          start: '2015-01-01'.to_date,
-          end: '2015-07-01'.to_date,
+          start: Date.today - 1.month,
+          end: Date.today + 1.month,
           title: 'Underwater basket-weaving').save
 
     build(:article,
@@ -187,7 +185,7 @@ describe Course, type: :model do
           id: 1,
           user_id: 1,
           article_id: 1,
-          date: '2015-03-01'.to_date,
+          date: Date.today,
           characters: 9000,
           views: 1234).save
 
@@ -234,11 +232,24 @@ describe Course, type: :model do
 
   describe '#url' do
     it 'should return the url of a course page' do
+      # A legacy course
+      lang = Figaro.env.wiki_language
+      prefix = Figaro.env.course_prefix
       course = build(:course,
+                     id: 618,
                      slug: 'UW Bothell/Conservation Biology (Winter 2015)')
       url = course.url
       # rubocop:disable Metrics/LineLength
-      expect(url).to eq("https://#{Figaro.env.wiki_language}.wikipedia.org/wiki/Education_Program:UW_Bothell/Conservation_Biology_(Winter_2015)")
+      expect(url).to eq("https://#{lang}.wikipedia.org/wiki/Education_Program:UW_Bothell/Conservation_Biology_(Winter_2015)")
+      # rubocop:enable Metrics/LineLength
+
+      # A new course
+      new_course = build(:course,
+                         id: 10618,
+                         slug: 'UW Bothell/Conservation Biology (Winter 2016)')
+      url = new_course.url
+      # rubocop:disable Metrics/LineLength
+      expect(url).to eq("https://#{lang}.wikipedia.org/wiki/#{prefix}/UW_Bothell/Conservation_Biology_(Winter_2016)")
       # rubocop:enable Metrics/LineLength
     end
   end

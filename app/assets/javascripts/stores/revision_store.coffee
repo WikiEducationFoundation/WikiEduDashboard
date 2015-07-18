@@ -1,10 +1,12 @@
 StockStore = require './stock_store'
 
-# Sort state
-_sortKey = 'date'
-_sortAsc = false
-_descKeys =
-  date: true
-  characters: true
+RevisionStore = new StockStore(
+  sortKey: 'date'
+  sortAsc: false
+  descKeys:
+    date: true
+    characters: true
+  modelKey: 'revision'
+)
 
-module.exports = new StockStore(_sortKey, _sortAsc, _descKeys, 'revision', null).store
+module.exports = RevisionStore.store

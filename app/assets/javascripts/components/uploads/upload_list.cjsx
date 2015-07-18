@@ -1,5 +1,5 @@
 React             = require 'react/addons'
-Editable          = require '../highlevels/editable'
+Editable          = require '../high_order/editable'
 
 List              = require '../common/list'
 Upload            = require './upload'
@@ -31,6 +31,7 @@ UploadList = React.createClass(
       'date':
         'label': 'Date/Time'
         'desktop_only': true
+        'info_key': 'uploads.time_doc'
 
     <List
       elements={elements}

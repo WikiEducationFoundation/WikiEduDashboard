@@ -1,5 +1,7 @@
 #= Controller for error functionality
 class ErrorsController < ApplicationController
+  respond_to :html, :json
+
   def file_not_found
     render status: 404
   end

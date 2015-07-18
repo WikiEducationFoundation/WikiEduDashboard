@@ -1,27 +1,17 @@
 React           = require 'react'
 Router          = require 'react-router'
-Link            = Router.Link
 
 RDnD            = require 'react-dnd'
 HTML5Backend    = require 'react-dnd/modules/backends/HTML5'
 DDContext       = RDnD.DragDropContext
 
 Week            = require './week'
-Editable        = require '../highlevels/editable'
 CourseLink      = require '../common/course_link'
 
 WeekActions     = require '../../actions/week_actions'
 BlockActions    = require '../../actions/block_actions'
-ServerActions   = require '../../actions/server_actions'
 
-WeekStore       = require '../../stores/week_store'
 BlockStore      = require '../../stores/block_store'
-GradeableStore  = require '../../stores/gradeable_store'
-
-getState = ->
-  weeks: WeekStore.getWeeks()
-  blocks: BlockStore.getBlocks()
-  gradeables: GradeableStore.getGradeables()
 
 Timeline = React.createClass(
   displayName: 'Timeline'
@@ -51,6 +41,8 @@ Timeline = React.createClass(
             week={week}
             index={i + 1}
             key={week.id}
+            start={@props.course.timeline_start}
+            end={@props.course.timeline_end}
             editable={@props.editable}
             blocks={BlockStore.getBlocksInWeek(week.id)}
             moveBlock={@moveBlock}
@@ -61,7 +53,11 @@ Timeline = React.createClass(
       add_week = (
         <li className="row view-all">
           <div>
-            <div className='button dark' onClick={@addWeek}>Add New Week</div>
+            <button className='button dark' onClick={@addWeek}>Add New Week</button>
+          </div>
+          <br />
+          <div>
+            {@props.controls(null, false, true)}
           </div>
         </li>
       )
@@ -71,7 +67,14 @@ Timeline = React.createClass(
           <div><p>This course does not have a timeline yet</p></div>
         </li>
       )
-    wizard_link = <CourseLink to='wizard' className='button dark'>Open Wizard</CourseLink>
+
+    start = moment(@props.course.timeline_start)
+    end = moment(@props.course.timeline_end)
+    timeline_full = Math.ceil(end.diff(start, 'days') / 7) - @props.weeks.length <= 0
+    if timeline_full
+      wizard_link = <div className='button dark disabled' title='You cannot use the assignment design wizard when your timeline is full. Delete at least one week to make room for a new assignment.'>Add Assignment</div>
+    else
+      wizard_link = <CourseLink to='wizard' className='button dark'>Add Assignment</CourseLink>
 
     <div>
       <div className="section-header">
@@ -87,4 +90,4 @@ Timeline = React.createClass(
     </div>
 )
 
-module.exports = DDContext(HTML5Backend)(Editable(Timeline, [WeekStore, BlockStore, GradeableStore], ServerActions.saveTimeline, getState))
+module.exports = DDContext(HTML5Backend)(Timeline)

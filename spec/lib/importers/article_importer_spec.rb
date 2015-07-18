@@ -5,9 +5,7 @@ require "#{Rails.root}/lib/importers/rating_importer"
 describe ArticleImporter do
   describe '.update_ratings' do
     it 'should handle MediaWiki API errors' do
-      error = MediawikiApi::ApiError.new nil
-      allow(error).to receive(:data).and_return({})
-      allow(error).to receive(:info).and_return('bar')
+      error = MediawikiApi::ApiError.new
       stub_request(:any, %r{.*wikipedia\.org/w/api\.php.*query.*})
         .to_raise(error)
 

@@ -4,7 +4,7 @@
   description: |
     Choose one or more of these exercises to add to your course timeline. You'll be able to re-order them however you wish, and you can also add additional custom assignments after you complete this wizard.
   type: 0  # multiple choice
-  minimum: 2
+  minimum: 1
   options:
     -
       title: Wikipedia essentials

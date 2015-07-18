@@ -1,5 +1,5 @@
 React             = require 'react/addons'
-Editable          = require '../highlevels/editable'
+Editable          = require '../high_order/editable'
 
 List              = require '../common/list'
 Revision          = require './revision'
@@ -31,6 +31,7 @@ RevisionList = React.createClass(
       'date':
         'label': 'Date/Time'
         'desktop_only': true
+        'info_key': 'revisions.time_doc'
 
     <List
       elements={elements}

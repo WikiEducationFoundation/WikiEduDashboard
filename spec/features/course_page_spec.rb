@@ -1,5 +1,13 @@
 require 'rails_helper'
 
+# Wait one second after loading a path
+# Allows React to properly load the page
+# Remove this after implementing server-side rendering
+def js_visit(path)
+  visit path
+  sleep 1
+end
+
 user_count = 10
 article_count = 19
 revision_count = 214
@@ -12,11 +20,11 @@ describe 'the course page', type: :feature do
   before do
     course = create(:course,
                     id: 10001,
-                    title: 'This course',
+                    title: 'This.course',
                     slug: slug,
                     start: course_start.to_date,
                     end: course_end.to_date,
-                    school: 'This university',
+                    school: 'This university.foo',
                     term: 'term 2015',
                     listed: 1,
                     description: 'This is a great course')
@@ -96,12 +104,13 @@ describe 'the course page', type: :feature do
       page.driver.allow_url 'maxcdn.bootstrapcdn.com'
       # page.driver.block_unknown_urls  # suppress warnings
     end
-    visit "/courses/#{slug}"
+    js_visit "/courses/#{slug}"
+    sleep 1 # Try to avoid issue where this test fails with 0 rows found.
   end
 
   describe 'header', js: true do
     it 'should display the course title' do
-      title_text = 'This course'
+      title_text = 'This.course'
       expect(page.find('.title')).to have_content title_text
     end
 
@@ -121,7 +130,7 @@ describe 'the course page', type: :feature do
 
   describe 'overview', js: true do
     it 'should display title' do
-      title = 'This course'
+      title = 'This.course'
       expect(page.find('.primary')).to have_content title
     end
 
@@ -190,35 +199,63 @@ describe 'the course page', type: :feature do
   #     select 'MS Chars Added', from: 'sorts'
   #     expect(page.all(selector)[3][:class]).to have_content 'desc'
   #     select 'US Chars Added', from: 'sorts'
-  #     expect(page.all(selector)[4][:class]).to have_content 'desc'
+  #     expect(page.all(selector)[4][:class]).to expect 'desc'
   #   end
   # end
 
+  describe 'overview view', js: true do
+    it 'should be the same as the root view' do
+      root_content = page
+      js_visit "/courses/#{slug}/overview"
+      expect(root_content).to eq(page)
+    end
+  end
+
   describe 'articles edited view', js: true do
     it 'should display a list of articles' do
-      visit "/courses/#{slug}/articles"
+      js_visit "/courses/#{slug}/articles"
       rows = page.all('tr.article').count
-      # one extra .article-list__row__title element for the column header
       expect(rows).to eq(article_count)
     end
 
     it 'should sort article by class' do
-      visit "/courses/#{slug}/articles"
+      js_visit "/courses/#{slug}/articles"
+      sleep 1 # Try to avoid intermittent test failures
       # first click on the Class sorting should sort high to low
-      find('th', text: 'Class').click
+      find('th.sortable', text: 'Class').click
       first_rating = page.find(:css, 'table.articles').first('td .rating p')
       expect(first_rating).to have_content 'FA'
       # second click should sort from low to high
-      find('th', text: 'Class').click
+      find('th.sortable', text: 'Class').click
       new_first_rating = page.find(:css, 'table.articles').first('td .rating p')
       expect(new_first_rating).to have_content '-'
     end
   end
 
-  # describe 'manual update' do
-  #   it 'should redirect to the course overview', js: true do
-  #     visit "/courses/#{slug}/manual_update"
-  #     expect(current_path).to eq("/courses/#{slug}")
-  #   end
-  # end
+  describe 'uploads view', js: true do
+    it 'should display a list of uploads' do
+      # First, visit it no uploads
+      visit "/courses/#{slug}/uploads"
+      expect(page).to have_content "#{I18n.t('uploads.none')}"
+      create(:commons_upload,
+             user_id: 1,
+             file_name: 'File:Example.jpg')
+      js_visit "/courses/#{slug}/uploads"
+      expect(page).to have_content 'Example.jpg'
+    end
+  end
+
+  describe 'students view', js: true do
+    it 'should display a list of students' do
+      js_visit "/courses/#{slug}/students"
+      expect(page).to have_content 'Student 1'
+    end
+  end
+
+  describe 'activity view', js: true do
+    it 'should display a list of edits' do
+      js_visit "/courses/#{slug}/activity"
+      expect(page).to have_content 'Article 1'
+    end
+  end
 end

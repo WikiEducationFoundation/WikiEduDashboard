@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
 
   has_many :courses_users, class_name: CoursesUsers
   has_many :courses, -> { uniq }, through: :courses_users
-  has_many :revisions
+  has_many :revisions, -> { where(system: false) }
   has_many :articles, -> { uniq }, through: :revisions
   has_many :assignments
   has_many :uploads, class_name: CommonsUpload
@@ -27,16 +27,13 @@ class User < ActiveRecord::Base
   def roles(course)
     {
       id: id,
-      role: role(course),
       admin: admin?
     }
   end
 
   def contribution_url
     language = Figaro.env.wiki_language
-    # rubocop:disable Metrics/LineLength
     "https://#{language}.wikipedia.org/wiki/Special:Contributions/#{wiki_id}"
-    # rubocop:enable Metrics/LineLength
   end
 
   def admin?
@@ -91,17 +88,23 @@ class User < ActiveRecord::Base
   end
 
   def update_cache
-    # Do not consider revisions with negative byte changes
-    self.character_sum = Revision.joins(:article)
-      .where(articles: { namespace: 0 })
-      .where(user_id: id)
-      .where('characters >= 0')
-      .sum(:characters) || 0
+    # TODO: Remove character sum and view sum? We use these for CoursesUsers
+    # and for Courses, but not for Users.
+    self.character_sum = get_character_sum(0)
     self.view_sum = articles.map { |a| a.views || 0 }.inject(:+) || 0
     self.revision_count = revisions.size
     self.article_count = articles.size
     self.course_count = courses.size
     save
+  end
+
+  def get_character_sum(namespace)
+    # Do not consider revisions with negative byte changes
+    Revision.joins(:article)
+      .where(articles: { namespace: namespace })
+      .where(user_id: id)
+      .where('characters >= 0')
+      .sum(:characters) || 0
   end
 
   #################

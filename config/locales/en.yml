@@ -39,7 +39,10 @@ en:
     edited_by: Edited By
     all: Activity
 
-  article:
+  articles:
+    none: This course has not edited any articles.
+    loading: Loading articles...
+    assigned: Assigned Articles
     assigned_to: Assigned To
     character_doc: The sum of characters added to articles by the course's students during the course term
     edited: Articles Edited
@@ -65,24 +68,32 @@ en:
     view_doc: The sum of all views to each article during the course term
     views_added: "Added %{count} new views for %{title}"
 
+  assignments:
+    assignees: Assignee(s)
+    reviewers: Reviewer(s)
+    loading: Loading assignments...
+    none: This course has no assigned Wikipedia articles.
+    confirm_addition: "Are you sure you want to assign %{title} to %{username}?"
+    confirm_deletion: Are you sure you want to delete this assignment?
+
   cohort:
     view_other: View other cohorts
 
-  course:
+  courses:
     activity: Activity
     articles: Articles
     character_doc: The sum of characters added to mainspace articles by the course's students during the course term
     course_description: Wiki Ed Courses
     courses: Courses
     yourcourses: Your Courses
-    nocourses: You are not participating in any courses
+    nocourses: You are not participating in any courses.
     current: Current Courses
     duration: Course Duration
     instructor:
       one: Instructor
       other: Instructors
     students: Students
-    students_none: "%{title} does not have any enrolled students"
+    students_none: "%{title} does not have any enrolled students."
     students_short: Students
     timeline: Assignment Details
     weeks_none: "%{title} has no assignments"
@@ -99,9 +110,17 @@ en:
     error:
       exists: That course already exists! Please try again with a different title, school, or term.
 
+  course_creator:
+    create_new: Create a New Course
+    intro: >
+      The title, school and term will become part of course page url, and cannot
+      be changed. The rest of the course information may be edited later on.
+      After you create your course, the wizard will walk you through creating an
+      assignment timeline.
+
   metrics:
     activity: Recent Activity
-    activity_none: "%{title} has no recent activity"
+    activity_none: "%{title} has no recent Wikipedia edits."
     articles_created: Articles Created
     articles_edited: Articles Edited
     char: Chars Added
@@ -121,17 +140,24 @@ en:
     user_char_added: Userspace chars added
     user_ns: User
 
+  revisions:
+    loading: Loading revisions...
+    none: This course has no recent Wikipedia editing activity.
+    time_doc: The time of each revision in your local time
+
   tasks:
     conseq: "Task %{task} is already running!"
     constant: "Task %{task} can not run while task update_daily is running."
     paused: "Task %{task} cannot run because scheduled updates have been paused. Run 'rake batch:resume' to resume updates."
 
   uploads:
-    none: No files have been uploaded
+    loading: Loading uploads...
+    none: This class has not contributed any images or other media files to Wikimedia Commons.
     usages: Usages
+    time_doc: The time of each upload in your local time
 
 
-  user:
+  users:
     assigned: Assigned Article
     reviewers: Reviewer
     assigned_none: No Assigned Article
@@ -145,7 +171,9 @@ en:
     contributions: User Contributions
     contributions_more: View More Contributions
     editors: Student Editors
+    loading: Loading users...
     name: Name
+    none: This course has no students.
     training_complete:
       one: "has completed training"
       other: "have completed training"
@@ -161,6 +189,7 @@ en:
       one: Training Incomplete
     training_incomplete_short: Incomplete
     view_all: View All
+    already_enrolled: That user is already enrolled!
 
   wiki_edits:
     notify_untrained:

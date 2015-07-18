@@ -21,10 +21,14 @@ Rails.application.routes.draw do
     get 'users/revisions' => 'users#revisions', :as => :user_revisions
   end
 
+  # Enrollment
+  get 'courses/:course_id/enroll/:passcode' => 'users#enroll',
+      constraints: { course_id: /.*/ }
+
   # Courses
   controller :courses do
-    get 'courses/*id/raw' => 'courses#raw',
-        :as => :raw, constraints: { id: /.*/ }
+    get 'courses/*id/get_wiki_top_section' => 'courses#get_wiki_top_section',
+        :as => :get_wiki_top_section, constraints: { id: /.*/ }
     get 'courses/new' => 'courses#new',
         constraints: { id: /.*/ } # repeat of resources
 
@@ -32,33 +36,36 @@ Rails.application.routes.draw do
         :as => :manual_update, constraints: { id: /.*/ }
     get 'courses/*id/notify_untrained' => 'courses#notify_untrained',
         :as => :notify_untrained, constraints: { id: /.*/ }
-    get 'courses/*id/notify_students(/:notification_type)' => 'courses#notify_students',
+    get 'courses/*id/notify_students(/:type)' => 'courses#notify_students',
         :as => :notify_students, constraints: { id: /.*/ }
+    get 'courses/*id/update_course_talk' => 'courses#update_course_talk',
+        :as => :update_course_talk, constraints: { id: /.*/ }
 
-    get 'courses/*id/overview' => 'courses#overview',
-        :as => :overview, constraints: { id: /.*/ }
-    get 'courses/*id/timeline(/*any)' => 'courses#timeline',
-        :as => :timeline, constraints: { id: /.*/ }
-    get 'courses/*id/activity' => 'courses#activity',
-        :as => :activity, constraints: { id: /.*/ }
-    get 'courses/*id/students' => 'courses#students',
-        :as => :students, constraints: { id: /.*/ }
-    get 'courses/*id/articles' => 'courses#articles',
-        :as => :articles, constraints: { id: /.*/ }
-    get 'courses/*id/assignments' => 'courses#assignments',
-        :as => :assignments, constraints: { id: /.*/ }
-    get 'courses/*id/uploads' => 'courses#uploads',
-        :as => :uploads, constraints: { id: /.*/ }
+    get 'courses/*id/check' => 'courses#check',
+        :as => :check, constraints: { id: /.*/ }
+    match 'courses/*id/cohort' => 'courses#list',
+          constraints: { id: /.*/ }, via: [:post, :delete]
+    match 'courses/*id/tag' => 'courses#tag',
+          constraints: { id: /.*/ }, via: [:post, :delete]
+    match 'courses/*id/user' => 'users#enroll',
+          constraints: { id: /.*/ }, via: [:post, :delete]
+
+    get 'courses/:school/:titleterm(/:endpoint(/*any))' => 'courses#show',
+        defaults: { endpoint: 'overview' }, :as => 'show',
+        constraints: {
+          school: /[^\/]*/,
+          titleterm: /[^\/]*/
+        }
   end
 
   # Enrollment
-  post 'courses/:course_id/students/enroll' => 'users#enroll',
+  post 'courses/:course_id/users' => 'users#save',
        constraints: { course_id: /.*/ }
-  post 'courses/:course_id/students/:user_id/unenroll' => 'users#unenroll',
-       constraints: { course_id: /.*/ }
-  post 'courses/:course_id/students/:user_id/setrole' => 'users#setrole',
-       constraints: { course_id: /.*/ }
-  post 'courses/:course_id/students' => 'users#save',
+  # delete 'courses/:course_id/users' => 'users#remove',
+  #        constraints: { course_id: /.*/ }
+  # post 'courses/:course_id/users/add' => 'users#add',
+  #      constraints: { course_id: /.*/ }
+  post 'courses/:course_id/users/:user_id/setrole' => 'users#set_role',
        constraints: { course_id: /.*/ }
 
   # Timeline
@@ -83,7 +90,7 @@ Rails.application.routes.draw do
   # Misc
   get 'courses' => 'courses#index'
   get 'talk' => 'courses#talk'
-  get 'courses/*id' => 'courses#show', :as => :show, constraints: { id: /.*/ }
+  # get 'courses/*id' => 'courses#show', :as => :show, constraints: { id: /.*/ }
 
   # Root
   root to: 'courses#index'

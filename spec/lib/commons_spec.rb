@@ -72,11 +72,9 @@ describe Commons do
 
     it 'should not fail when missing files are queried' do
       VCR.use_cassette 'commons/missing_files' do
-        # rubocop:disable Metrics/LineLength
         upload = create(:commons_upload,
-                        id: 39636530,
-                        file_name: 'File:Paper prototype of website user interface, 2015-04-16.jpg')
-        # rubocop:enable Metrics/LineLength
+                        id: 541408,
+                        file_name: 'File:Haeckel Stephoidea.jpg')
         missing = create(:commons_upload,
                          id: 0)
         response = Commons.get_usages [missing]
@@ -91,22 +89,22 @@ describe Commons do
     it 'should get thumbnail url data for files' do
       VCR.use_cassette 'commons/get_urls' do
         create(:commons_upload,
-               id: 39636530,
-               file_name: 'File:Paper prototype of website user interface, 2015-04-16.jpg')
+               id: 541408,
+               file_name: 'File:Haeckel Stephoidea.jpg')
         response = Commons.get_urls(CommonsUpload.all)
         id = response[0]['pageid']
-        expect(id).to eq(39636530)
+        expect(id).to eq(541408)
         info = response[0]['imageinfo'][0]
         expect(info['thumburl']).to be_a(String)
         # Now add a second file and try again
         create(:commons_upload,
-               id: 39997956,
-               file_name: 'File:Designing Internet Research class at University of Washington, 2015-04-28 21.jpg')
+               id: 543690,
+               file_name: 'File:Haeckel Spumellaria.jpg ')
         response = Commons.get_urls(CommonsUpload.all)
         id0 = response[0]['pageid']
-        expect(id0).to eq(39636530)
+        expect(id0).to eq(541408)
         id1 = response[1]['pageid']
-        expect(id1).to eq(39997956)
+        expect(id1).to eq(543690)
       end
     end
 
@@ -119,12 +117,16 @@ describe Commons do
         expect(response).to be_empty
         # now add a legitimate file
         create(:commons_upload,
-               id: 39997956,
-               file_name: 'File:Designing Internet Research class at University of Washington, 2015-04-28 21.jpg')
+               id: 541408,
+               file_name: 'File:Haeckel Stephoidea.jpg')
         response = Commons.get_urls(CommonsUpload.all)
         id = response[0]['pageid']
-        expect(id).to eq(39997956)
+        expect(id).to eq(541408)
       end
     end
+  end
+
+  describe '.api_get' do
+    pending 'should handle typical network errors'
   end
 end

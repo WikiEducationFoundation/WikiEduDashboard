@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150610171642) do
+ActiveRecord::Schema.define(version: 20150708222255) do
 
   create_table "articles", force: true do |t|
     t.string   "title"
@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 20150610171642) do
     t.datetime "updated_at"
     t.string   "title"
     t.integer  "order"
-    t.date     "due_date"
+    t.integer  "duration",                  default: 0
   end
 
   create_table "cohorts", force: true do |t|
@@ -102,16 +102,18 @@ ActiveRecord::Schema.define(version: 20150610171642) do
     t.integer  "article_count",               default: 0
     t.integer  "revision_count",              default: 0
     t.string   "slug"
-    t.boolean  "listed",                      default: false
+    t.boolean  "listed",                      default: true
     t.integer  "untrained_count",             default: 0
     t.string   "meeting_days"
     t.string   "signup_token"
-    t.boolean  "published",                   default: false
-    t.boolean  "approved",                    default: false
     t.string   "assignment_source"
     t.string   "subject"
     t.integer  "expected_students"
     t.text     "description"
+    t.integer  "submitted",                   default: 0
+    t.string   "passcode"
+    t.date     "timeline_start"
+    t.date     "timeline_end"
   end
 
   add_index "courses", ["slug"], name: "index_courses_on_slug", using: :btree
@@ -147,7 +149,18 @@ ActiveRecord::Schema.define(version: 20150610171642) do
     t.datetime "date"
     t.boolean  "new_article",           default: false
     t.boolean  "deleted",               default: false
+    t.boolean  "system",                default: false
   end
+
+  create_table "tags", force: true do |t|
+    t.integer  "course_id"
+    t.string   "tag"
+    t.string   "key"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tags", ["course_id", "key"], name: "index_tags_on_course_id_and_key", unique: true, using: :btree
 
   create_table "users", force: true do |t|
     t.string   "wiki_id"
@@ -169,7 +182,6 @@ ActiveRecord::Schema.define(version: 20150610171642) do
 
   create_table "weeks", force: true do |t|
     t.string   "title"
-    t.date     "start"
     t.integer  "course_id"
     t.datetime "created_at"
     t.datetime "updated_at"

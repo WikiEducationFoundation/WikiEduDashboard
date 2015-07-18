@@ -24,6 +24,11 @@
         float right
     .list
       margin-top 15px
+  .week, .block
+    +.view-all
+      border-bottom 0
+  .block +.view-all
+    margin-top 20px
   .block
     background-color white
     border 1px solid zircon
@@ -33,6 +38,7 @@
     padding 18px 20px 20px
     width 100%
     transition all .25s ease-out
+    -moz-user-select none
     &:first-child
       border-width 1px
     &.editable
@@ -70,6 +76,8 @@
     hr
       margin-top 20px
       padding-bottom 10px
+  .gradeable
+    overflow hidden
 
 input[type="radio"]
   -webkit-appearance radio

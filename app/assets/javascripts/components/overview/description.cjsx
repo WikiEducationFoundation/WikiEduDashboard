@@ -1,5 +1,5 @@
 React             = require 'react'
-Editable          = require '../highlevels/editable'
+Editable          = require '../high_order/editable'
 TextInput         = require '../common/text_input'
 TextAreaInput     = require '../common/text_area_input'
 CourseStore       = require '../../stores/course_store'
@@ -7,11 +7,7 @@ CourseActions     = require '../../actions/course_actions'
 ServerActions     = require '../../actions/server_actions'
 
 getState = (course_id) ->
-  course_tmp = CourseStore.getCourse()
-  course:
-    id: course_tmp.id
-    title: course_tmp.title
-    description: course_tmp.description
+  course: CourseStore.getCourse()
 
 Description = React.createClass(
   displayName: 'Description'
@@ -38,4 +34,4 @@ Description = React.createClass(
     </div>
 )
 
-module.exports = Editable(Description, [CourseStore], ServerActions.saveCourse, getState)
+module.exports = Editable(Description, [CourseStore], ServerActions.saveCourse, getState, "Description")

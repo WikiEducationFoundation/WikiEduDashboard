@@ -20,8 +20,8 @@ describe User do
 
       build(:course,
             id: 1,
-            start: '2015-01-01'.to_date,
-            end: '2015-07-01'.to_date,
+            start: Date.today - 1.month,
+            end: Date.today + 1.month,
             title: 'Underwater basket-weaving').save
 
       build(:article,
@@ -34,7 +34,7 @@ describe User do
             id: 1,
             user_id: 1,
             article_id: 1,
-            date: '2015-01-01'.to_date,
+            date: Date.today,
             characters: 9000,
             views: 1234).save
 
@@ -42,7 +42,7 @@ describe User do
             id: 2,
             user_id: 1,
             article_id: 1,
-            date: '2015-03-01'.to_date,
+            date: Date.today + 2.months,
             characters: 3000,
             views: 567).save
 
@@ -73,7 +73,7 @@ describe User do
       expect(user.view_sum).to eq(1234)
       expect(user.course_count).to eq(1)
       expect(user.revision_count).to eq(2)
-      expect(user.revision_count('2015-02-01'.to_date)).to eq(1)
+      expect(user.revision_count(Date.today + 1.month)).to eq(1)
       expect(user.article_count).to eq(1)
     end
   end
@@ -104,12 +104,19 @@ describe User do
              role: 0) # student
       role = user.role(course)
       expect(role).to eq(0)
+      expect(user.student?(course)).to eq(true)
+      expect(user.instructor?(course)).to eq(false)
 
       # Now let's make this user also an instructor.
       create(:courses_user,
              course_id: 1,
              user_id: 1,
              role: 1) # instructor
+      expect(user.instructor?(course)).to eq(true)
+
+      # User is only an instructor, not an admin.
+      adminship = user.roles(course)[:admin]
+      expect(adminship).to eq(false)
       # role = user.role(course)
       # FIXME: User#role does not account for users with multiple roles.
       # We can probably disable the option of multiple roles when we disconnect

@@ -3,13 +3,18 @@
 McFly = require 'mcfly'
 Flux  = new McFly()
 
-StockStore = (helper, model_key, new_model, triggers) ->
+StockStore = (helper, model_key, default_model, triggers) ->
   plural_model_key = model_key + 's'
+  base_model = ->
+    _.assign({
+      id: Date.now() # could THEORETICALLY collide but highly unlikely
+      is_new: true # remove ids from objects with is_new when persisting
+    }, default_model)
+
   Flux.createStore
     getFiltered: (options) ->
       filtered_models = []
-      for model_id in Object.keys(helper.models)
-        model = helper.models[model_id]
+      for model in @getModels()
         add = true
         for criteria in Object.keys(options)
           add = add && model[criteria] == options[criteria] && !model['deleted']
@@ -25,45 +30,54 @@ StockStore = (helper, model_key, new_model, triggers) ->
     getSorting: ->
       key: helper.sortKey
       asc: helper.sortAsc
+    isLoaded: ->
+      helper.isLoaded()
     restore: ->
       helper.models = $.extend(true, {}, helper.persisted)
       @emitChange()
   , (payload) ->
     data = payload.data
     switch(payload.actionType)
-      when 'RECEIVE_' + plural_model_key.toUpperCase()
+      when "RECEIVE_#{plural_model_key.toUpperCase()}", "#{model_key.toUpperCase()}_MODIFIED"
         helper.setModels data.course[plural_model_key], true
       when 'SORT_' + plural_model_key.toUpperCase()
         helper.sortByKey data.key
       when 'ADD_' + model_key.toUpperCase()
-        default_model =
-          id: Date.now(), # could THEORETICALLY collide but highly unlikely
-          is_new: true, # remove ids from objects with is_new when persisting
-        helper.setModel _.assign default_model, data
+        helper.setModel _.assign(data, base_model())
       when 'UPDATE_' + model_key.toUpperCase()
         helper.setModel data[model_key]
       when 'DELETE_' + model_key.toUpperCase()
-        helper.removeModel data.model_id
+        helper.removeModel data['model']
     if triggers? && payload.actionType in triggers
       helper.setModels data.course[plural_model_key], true
     return true
 
 class Store
-  constructor: (SortKey, SortAsc, DescKeys, ModelKey, AddModel, Triggers=null) ->
+  constructor: (opts) ->
     @models = {}
     @persisted = {}
-    @sortKey = SortKey
-    @sortAsc = SortAsc
-    @descKeys = DescKeys
-    @store = StockStore(@, ModelKey, AddModel, Triggers)
+    @loaded = false
+    @sortKey = opts.sortKey
+    @sortAsc = opts.sortAsc
+    @descKeys = opts.descKeys
+    @uniqueKeys = opts.uniqueKeys || ['id']
+    @store = StockStore(@, opts.modelKey, opts.defaultModel, opts.triggers)
+    @store.setMaxListeners(0)
 
   # Utilities
+  getKey: (model) ->
+    @uniqueKeys.map((key) ->
+      model[key]
+    ).join()
+
   setModels: (data, persisted=false) ->
+    @loaded = true
     @models = {}
-    return unless data?
-    for model, i in data
-      @models[model.id] = model
-      @persisted[model.id] = $.extend(true, {}, model) if persisted
+    @persisted = {} if persisted
+    if data.length > 0
+      for model, i in data
+        @models[@getKey(model)] = model
+        @persisted[@getKey(model)] = $.extend(true, {}, model) if persisted
     @store.emitChange()
 
   updatePersisted: ->
@@ -71,14 +85,15 @@ class Store
       @persisted[model_id] = $.extend(true, {}, @models[model_id])
 
   setModel: (data) ->
-    @models[data.id] = data
+    @models[@getKey(data)] = data
     @store.emitChange()
 
-  removeModel: (model_id) ->
-    model = @models[model_id]
+  removeModel: (model) ->
+    model_id = @getKey(model)
     if model.is_new
       delete @models[model_id]
     else
+      model = @models[model_id]
       model['deleted'] = true
     @store.emitChange()
 
@@ -95,6 +110,9 @@ class Store
 
   getSorting: ->
     @store.getSorting()
+
+  isLoaded: ->
+    @loaded
 
   restore: ->
     @store.restore()

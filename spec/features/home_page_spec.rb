@@ -10,13 +10,13 @@ describe 'the home page', type: :feature do
     (1..cohort_course_count).each do |i|
       course1 = create(:course,
                        id: i.to_s,
-                       slug: "course_#{i}",
+                       slug: "school/course_#{i}_(term)",
                        start: '2014-01-01'.to_date,
                        end: Date.today + 2.days)
       course1.cohorts << cohort
       course2 = create(:course,
                        id: (i + cohort_course_count).to_s,
-                       slug: "course_#{i}",
+                       slug: "school/course_#{i}_(term)",
                        start: '2014-01-01'.to_date,
                        end: Date.today + 2.days)
       course2.cohorts << cohort_two
@@ -51,13 +51,13 @@ describe 'the home page', type: :feature do
   describe 'header' do
     it 'should display number of courses accurately' do
       course_count = Cohort.first.courses.count
-      stat_text = "#{course_count} #{I18n.t('course.course_description')}"
+      stat_text = "#{course_count} #{I18n.t('courses.course_description')}"
       expect(page.find('.stat-display')).to have_content stat_text
     end
 
     it 'should display number of students accurately' do
       student_count = User.role('student').count
-      stat_text = "#{student_count} #{I18n.t('course.students')}"
+      stat_text = "#{student_count} #{I18n.t('courses.students')}"
       expect(page.find('.stat-display')).to have_content stat_text
     end
 
@@ -127,7 +127,7 @@ describe 'the home page', type: :feature do
       first_course = Cohort.first.courses.first
       click_link(first_course.id)
       # FIXME: This test fails intermittently, typically with course 6 vs 1.
-      expect(current_path).to eq(course_path(first_course))
+      expect(current_path).to eq("/courses/#{first_course.slug}")
     end
   end
 
@@ -151,7 +151,7 @@ describe 'the home page', type: :feature do
   describe 'non-default locales' do
     it 'should switch languages' do
       visit '/courses?locale=qqq'
-      expect(page.find('header')).to have_content 'Application name'
+      expect(page.find('header')).to have_content 'Long label for the number'
     end
   end
 end

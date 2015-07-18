@@ -1,5 +1,4 @@
 React             = require 'react/addons'
-StudentActions    = require '../../actions/student_actions'
 ServerActions     = require '../../actions/server_actions'
 
 AssignCell      = require './assign_cell'
@@ -15,8 +14,11 @@ Student = React.createClass(
     is_open: false
   stop: (e) ->
     e.stopPropagation()
+  buttonClick: (e) ->
+    e.stopPropagation()
+    @props.onClick()
   render: ->
-    className = 'student'
+    className = 'students'
     className += if @state.is_open then ' open' else ''
     className += if @props.student.revisions.length == 0 then ' no_revisions' else ''
     trained = if @props.student.trained then '' else 'Training Incomplete'
@@ -30,7 +32,7 @@ Student = React.createClass(
           <img alt="User" src="/images/user.svg" />
         </div>
         <p className="name">
-          <span><a onClick={@stop} href={@props.student.contribution_url} target="_blank" className="inline">{@props.student.wiki_id}</a></span>
+          <span><a onClick={@stop} href={@props.student.contribution_url} target="_blank" className="inline">{@props.student.wiki_id.trunc()}</a></span>
           <br />
           <small>
             <span className='red'>{trained}</span>
@@ -55,7 +57,7 @@ Student = React.createClass(
       </td>
       <td className='desktop-only-tc'>{@props.student.character_sum_ms}</td>
       <td className='desktop-only-tc'>{@props.student.character_sum_us}</td>
-      <td><p className="icon icon-arrow"></p></td>
+      <td style={{borderRight: '1px solid #ced1dd'}}><button onClick={@buttonClick} className="icon icon-arrow" ></button></td>
     </tr>
 )
 

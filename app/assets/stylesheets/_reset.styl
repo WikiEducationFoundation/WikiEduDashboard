@@ -56,3 +56,31 @@ input, textarea {
   -webkit-appearance: none;
   -webkit-border-radius: 0;
 }
+
+/* Reset `button` and button-style `input` default styles */
+/* Source: http://codepen.io/terkel/pen/dvejH */
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+button {
+  background: none;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  line-height: normal;
+  overflow: visible;
+  padding: 0;
+  -webkit-appearance: button; /* for input */
+  -webkit-user-select: none; /* for button */
+     -moz-user-select: none;
+      -ms-user-select: none;
+}
+button:focus {
+  outline: none;
+}
+input::-moz-focus-inner,
+button::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}

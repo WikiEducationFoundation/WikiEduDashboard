@@ -1,6 +1,5 @@
 require 'oauth'
 require "#{Rails.root}/lib/wiki_edits"
-require "#{Rails.root}/lib/wiki_output"
 
 #= Controller for course functionality
 class CoursesController < ApplicationController
@@ -12,15 +11,33 @@ class CoursesController < ApplicationController
   ###############
   def index
     if user_signed_in?
-      @user_courses = current_user.courses.map do |c|
-        c if current_user.instructor?(c) || c.listed
+      if current_user.permissions > 0
+        @admin_courses = Course.includes(:cohorts).where('cohorts.id IS NULL')
+                         .where(listed: true).where(submitted: true)
+                         .references(:cohorts)
+      end
+
+      @user_courses = current_user.courses.current_and_future.select do |c|
+        c if c.listed
       end
     end
 
     if params.key?(:cohort)
-      @cohort = Cohort.includes(:students).find_by(slug: params[:cohort])
+      if params[:cohort] == 'none'
+        @cohort = OpenStruct.new(
+          title: 'Unsubmitted Courses',
+          slug: 'none',
+          students: []
+        )
+        @courses = Course.where(submitted: false)
+                   .where(listed: true).where('id >= 10000')
+        return
+      else
+        @cohort = Cohort.includes(:students).find_by(slug: params[:cohort])
+      end
     elsif !Figaro.env.default_cohort.nil?
-      @cohort = Cohort.includes(:students).find_by(slug: Figaro.env.default_cohort)
+      slug = Figaro.env.default_cohort
+      @cohort = Cohort.includes(:students).find_by(slug: slug)
     end
     @cohort ||= nil
 
@@ -45,6 +62,17 @@ class CoursesController < ApplicationController
       params[:course][:slug] = "#{school}/#{title}_(#{term})"
     end
 
+    unless params[:course].key? :timeline_start
+      params[:course][:timeline_start] = params[:course][:start]
+    end
+    unless params[:course].key? :timeline_end
+      params[:course][:timeline_end] = params[:course][:end]
+    end
+
+    unless params[:course].key? :passcode
+      params[:course][:passcode] = ('a'..'z').to_a.sample(8).join
+    end
+
     params.require(:course).permit(
       :id,
       :title,
@@ -55,7 +83,12 @@ class CoursesController < ApplicationController
       :subject,
       :expected_students,
       :start,
-      :end
+      :end,
+      :submitted,
+      :listed,
+      :passcode,
+      :timeline_start,
+      :timeline_end
     )
   end
 
@@ -65,13 +98,13 @@ class CoursesController < ApplicationController
       redirect_to :back
     else
       @course = Course.create(course_params)
-      WikiEdits.update_course(@course, current_user)
       CoursesUsers.create(user: current_user, course: @course, role: 1)
     end
   end
 
   def validate
-    @course = Course.find_by_slug(params[:id])
+    slug = params[:id].gsub(/\.json$/, '')
+    @course = find_course_by_slug(slug)
     return unless user_signed_in? && current_user.instructor?(@course)
   end
 
@@ -79,16 +112,22 @@ class CoursesController < ApplicationController
     validate
     params = {}
     params['course'] = course_params
+
+    if !(@course.submitted == 1) && params['course']['submitted'] == true
+      instructor = @course.instructors.first
+      WikiEdits.announce_course(@course, current_user, instructor)
+    end
+
     @course.update params
     WikiEdits.update_course(@course, current_user)
     respond_to do |format|
       format.json { render json: @course }
     end
-
   end
 
   def destroy
     validate
+    WikiEdits.update_assignments current_user, @course, nil, true
     @course.courses_users.destroy_all
     @course.articles_courses.destroy_all
     @course.assignments.destroy_all
@@ -97,121 +136,126 @@ class CoursesController < ApplicationController
     @course.gradeables.destroy_all
     @course.destroy
     WikiEdits.update_course(@course, current_user, true)
-    redirect_to :root
+    respond_to do |format|
+      format.json { render json: { success: true } }
+    end
   end
 
   ########################
   # View support methods #
   ########################
+  def find_course_by_slug(slug)
+    course = Course.where(listed: true).find_by_slug(slug)
+    if course.nil?
+      fail ActionController::RoutingError.new('Not Found'), 'Course not found'
+    end
+    return course
+  end
+
   def volunteers
     return nil if @course.nil?
     users = @course.users
     users.role('online_volunteer') + users.role('campus_volunteer')
   end
 
-  def standard_setup
-    @course = Course.find_by_slug(params[:id])
-    @volunteers = volunteers
-    is_instructor = (user_signed_in? && current_user.instructor?(@course))
-    return if @course.listed || is_instructor || @course.nil?
-    fail ActionController::RoutingError.new('Not Found'), 'Not permitted'
-  end
-
-  def raw
-    standard_setup
+  def get_wiki_top_section
+    @course = find_course_by_slug(params[:id])
+    response = WikiEdits.get_wiki_top_section(@course.slug, current_user)
+    respond_to do |format|
+      format.json { render json: response }
+    end
   end
 
   def show
-    standard_setup
-    respond_to do |format|
-      format.html { render :overview }
+    @course = find_course_by_slug("#{params[:school]}/#{params[:titleterm]}")
+
+    is_instructor = (user_signed_in? && current_user.instructor?(@course))
+    if @course.nil? || @course.listed || is_instructor
+      respond_to do |format|
+        format.html { render }
+        format.json { render params[:endpoint] }
+      end
+    else
+      fail ActionController::RoutingError.new('Not Found'), 'Not permitted'
     end
   end
 
-  def overview
-    standard_setup
-    @courses_users = @course.courses_users
-    @articles = @course.articles.order(:title).limit(4)
-    respond_to do |format|
-      format.json { render json: @course }
-      format.html { render }
-    end
-  end
-
-  def timeline
-    standard_setup
-  end
-
-  def students
-    standard_setup
-    return if @course.users.empty?
-    @courses_users = @course.courses_users
-                     .includes(user: { assignments: :article })
-                     .where(role: 0).order('users.wiki_id')
-  end
-
-  def articles
-    standard_setup
-    @articles_courses = @course.articles_courses.live
-                        .includes(:article).order('articles.title')
-    @articles_courses
-  end
-
-  def assignments
-    standard_setup
-  end
-
-  def activity
-    standard_setup
-    @revisions = @course.revisions.live
-                 .includes(:article).includes(:user).order(date: :desc)
-  end
-
-  def uploads
-    standard_setup
-    @uploads = @course.uploads
-    @uploads
+  def standard_setup
+    @course = find_course_by_slug(params[:id])
+    @volunteers = volunteers
+    is_instructor = (user_signed_in? && current_user.instructor?(@course))
+    return if @course.nil? || @course.listed || is_instructor
+    fail ActionController::RoutingError.new('Not Found'), 'Not permitted'
   end
 
   ##################
   # Helper methods #
   ##################
+  def check
+    course_exists = Course.exists?(slug: params[:id])
+    respond_to do |format|
+      format.json { render json: { course_exists: course_exists } }
+    end
+  end
+
+  def cohort_params
+    params.require(:cohort).permit(:title)
+  end
+
+  def list
+    @course = find_course_by_slug(params[:id])
+    @cohort = Cohort.find_by(title: cohort_params[:title])
+    unless @cohort.nil?
+      exists = CohortsCourses.exists?(course_id: @course.id, cohort_id: @cohort.id)
+      if request.post? && !exists
+        CohortsCourses.create(
+          course_id: @course.id,
+          cohort_id: @cohort.id
+        )
+      elsif request.delete?
+        CohortsCourses.find_by(
+          course_id: @course.id,
+          cohort_id: @cohort.id
+        ).destroy
+      end
+    else
+      render json: { message: "Sorry, #{cohort_params[:title]} is not a valid cohort." }, status: 404
+    end
+  end
+
+  def tag_params
+    params.require(:tag).permit(:tag)
+  end
+
+  def tag
+    @course = find_course_by_slug(params[:id])
+    exists = Tag.exists?(course_id: @course.id, tag: tag_params[:tag])
+    if request.post? && !exists
+      Tag.create(
+        course_id: @course.id,
+        tag: tag_params[:tag],
+        key: nil
+      )
+    elsif request.delete? && exists
+      Tag.find_by(
+        course_id: @course.id,
+        tag: tag_params[:tag],
+        key: nil
+      ).destroy
+    end
+  end
+
   def manual_update
-    @course = Course.where(listed: true).find_by_slug(params[:id])
+    @course = find_course_by_slug(params[:id])
     @course.manual_update if user_signed_in?
-    redirect_to show_path(@course)
+    render nothing: true, status: :ok
   end
   helper_method :manual_update
 
   def notify_untrained
     standard_setup
-    WikiEdits.notify_untrained(params[:course], current_user)
-    redirect_to show_path(@course)
+    WikiEdits.notify_untrained(@course.id, current_user)
+    render nothing: true, status: :ok
   end
   helper_method :notify_untrained
-
-  # Will send custom message to course user's talk pages on Wikipedia
-  # Responds to route '/notify_students'
-  # :roles is optional and will send to specific roles using comma-seperated string 'student,instructor', etc.
-  # if :roles is omitted, will send , message to all course users
-  # Send the variables via query params, eg. '/courses/*id/notify_students?sectiontitle=TITLE&text=TEXT&summary=SUMMARY&roles=student,instructor'
-  # :sectiontitle, :text, :summary, :roles
-  # TODO WRITE TEST
-  def notify_students
-    standard_setup
-    recipients = []
-    if params[:roles]
-      recipient_roles = params[:roles].split(',')
-      recipient_roles.each do |role|
-        recipients = recipients + @course.users.role(role)
-      end
-    else
-      recipients = @course.users
-    end
-    if recipients.count > 0
-      WikiEdits.notify_students(@course.id, current_user, recipients, params)
-    end
-    redirect_to show_path(@course)
-  end
-  helper_method :notify_course_users
 end

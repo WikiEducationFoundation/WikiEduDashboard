@@ -1,6 +1,7 @@
 React         = require 'react'
 Router        = require 'react-router'
 Panel         = require './panel'
+FormPanel     = require './form_panel'
 SummaryPanel  = require './summary_panel'
 CourseLink    = require '../common/course_link'
 
@@ -8,10 +9,10 @@ Modal         = require '../common/modal'
 WizardActions = require '../../actions/wizard_actions'
 ServerActions = require '../../actions/server_actions'
 WizardStore   = require '../../stores/wizard_store'
-HandlerInterface  = require '../highlevels/handler'
 TransitionGroup   = require '../../utils/TransitionGroup'
 
 getState = ->
+  summary: WizardStore.getSummary()
   panels: WizardStore.getPanels()
   wizard_id: WizardStore.getWizardKey()
 
@@ -33,13 +34,22 @@ Wizard = React.createClass(
   render: ->
     panels = @state.panels.map (panel, i) =>
       panel_count = @state.panels.length
-      step = 'Step ' + (i + 1) + ' of ' + (if i > 0 then panel_count else '?')
-      if i < panel_count - 1
+      step = "Step #{i + 1} of #{if i > 1 then panel_count else '?'}"
+      if i == 0
+        <FormPanel panel={panel}
+          course={@props.course}
+          key={panel.key}
+          index={i}
+          step={step}
+          weeks={@props.weeks}
+        />
+      else if i < panel_count - 1
         <Panel panel={panel}
           parentPath={@timelinePath()}
           key={panel.key}
           index={i}
           step={step}
+          summary={@state.summary}
         />
       else
         <SummaryPanel panel={panel}
@@ -51,6 +61,7 @@ Wizard = React.createClass(
           wizardId={@state.wizard_id}
           transitionTo={@props.transitionTo}
         />
+
     <Modal>
       <TransitionGroup
         transitionName="wizard__panel"

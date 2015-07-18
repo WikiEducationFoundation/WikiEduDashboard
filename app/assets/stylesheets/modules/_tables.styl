@@ -20,6 +20,9 @@ table
       transform rotate(180deg)
     &.desc:after
       transform rotate(0deg)
+
+
+
   td, th
     box-sizing content-box
     color dove
@@ -28,21 +31,20 @@ table
     height 40px
     padding 15px 0
     vertical-align middle
-    &:first-child, &.rating-cell
+    white-space nowrap
+    &.date
+      white-space pre
+    &:first-child
       padding-left 15px
       float left
       +above(tablet)
+        padding-left 0
         float none
     &:last-child
       padding-right 15px
     &.wide-mobile
       padding-left 15px
       padding-right 15px
-      
-  p.title
-    font-size 20px
-    +above(desktop)
-      font-size 16px
 
 table.list > tbody > tr
   background-color white
@@ -52,22 +54,41 @@ table.list > tbody > tr
   transition background .15s
   &:first-child
     border-width 1px
-    
+
   p, small, h4
     color dove
     &.red
       color burnt
-      
 
+  p.title
+    +below(tablet)
+      white-space nowrap
+      overflow hidden
+      -ms-text-overflow ellipsis
+      text-overflow ellipsis
+      padding-right 5px
+      margin-left -5px
 
-      
+  &.disabled
+    cursor default
+    &:hover
+      background white
+
   .icon
     display inline-block
     transition transform .2s
   &:hover
     background athens
 
-table.students tbody tr, table.articles tbody tr
+table.users th:first-child
+  padding-left 77px
+
+table.users tbody tr, table.articles tbody tr
+  table tbody tr td:first-child, th:first-child
+    padding-right 15px
+    padding-left 15px
+    table tbody tr:last-child
+      border-bottom 0
   &.open
     background manatee
     &:hover
@@ -112,6 +133,8 @@ table.students tbody tr, table.articles tbody tr
     p.name
       line-height 1
       margin-top 2px
+      +below(tablet)
+        white-space nowrap
       +above(desktop)
         margin-top 10px
       small
@@ -133,5 +156,6 @@ table.students tbody tr, table.articles tbody tr
 
 table.uploads
   img
+    margin-left 20px
     +above(desktop)
       height 60px

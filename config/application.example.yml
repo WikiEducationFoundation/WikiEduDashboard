@@ -4,10 +4,10 @@
 #
 # Values required for WikiEduDashboard include:
 
-# A Wikipedia username and password. This is used for making API calls.
-# You can (and probably should) make an account just to use for this purpose.
-  wikipedia_username: <Wikipedia username>
-  wikipedia_password: <Wikipedia password>
+# The name of the dashboard
+  dashboard_title: Wiki Ed Dashboard
+# The root url of the dashboard
+  dashboard_url: dashboard.wikiedu.org
 
 # Wikimedia OAuth consumer details. Register a consumer at:
 # https://www.mediawiki.org/wiki/Special:OAuthConsumerRegistration/propose
@@ -22,11 +22,18 @@
 # The prefix for all course pages that get posted on behalf of users.
 # This should probably be in the Project (Wikipedia) namespace, and should be
 # a prefix that will only be used for this purpose.
-  course_prefix: 'Wikipedia:Wiki_Ed'
+  course_prefix: 'User:Ragesock'
+  course_talk_prefix: 'User_talk:Ragesock'
+
+# This is the community discussion page where new courses should be announced.
+  course_announcement_page: 'User:Ragesock'
 
 # Setting disable_wiki_output to 'true' means course pages will not be mirrored
 # to the wiki.
-  disable_wiki_output: 'false'
+  disable_wiki_output: 'true'
+
+# Comma-separated list of OAuth client IDs used by the system for Wiki edits
+  oauth_ids: '252,212'
 
 # To set up error logging via Sentry, add a Sentry project url here:
   sentry_dsn: 'http://somelongkey:anotherlongkey@sentry.myserver.com/1'
@@ -38,11 +45,13 @@
 # Cohort names become uppercase, and underscores become spaces.
   cohorts: "fall_2014,spring_2015"
 
-  cohort_fall_2014: "Wikipedia:Education_program/Dashboard/Fall_2014_course_ids"
-  cohort_spring_2015: "Wikipedia:Education_program/Dashboard/course_ids"
+## You can create wiki-based cohorts that pull data from the EP extension.
+## You should not do so.
+#  cohort_fall_2014: "Wikipedia:Education_program/Dashboard/Fall_2014_course_ids"
+#  cohort_spring_2015: "Wikipedia:Education_program/Dashboard/course_ids"
 
 # The slug for the default cohort
-  default_cohort: "student_groups"
+  default_cohort: "fall_2014"
 
 # How many days after a course ends should the dashboard continue updating
 # data for it?
@@ -53,3 +62,12 @@
 
 # Uncomment no_views to disable view stats updates.
 # no_views: "true"
+
+# Logo filename, under the /images directory.
+  logo_file: "wiki-logo.png"
+
+# Favicon filename, under /images
+  favicon_file: "favicon.ico"
+
+# Development-mode favicon filename, under /images
+  favicon_dev_file: "favicon_dev.png"

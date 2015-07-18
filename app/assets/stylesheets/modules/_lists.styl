@@ -84,7 +84,7 @@
       transform rotate(270deg)
   &.view-all
     background none
-    border 1px solid manatee
+    border none
     border-width 0 0 1px 0
     justify-content center !important
     padding-left 20px
@@ -127,6 +127,8 @@
     col(1)
     +above(desktop)
       col(2/6)
+  .course-list__row__long_title
+    col(1)
   .course-list__row__characters, .course-list__row__views,
   .course-list__row__students
     float left
@@ -246,15 +248,16 @@
 
 
 .avatar, .rating
+  margin-left 15px
   margin-right 15px
   +above(desktop)
     display inline-block
 
 .avatar
-  round-placeholder(20)
+  round-placeholder(23)
   float left
   img
-    width 40px
+    width 46px
 
 rating(color)
   border 3px solid color
@@ -268,6 +271,7 @@ rating(color)
   border 3px solid #D2D2D2
   text-align center
   text-transform uppercase
+  float left
   p
     font-size 15px
     font-weight 600
@@ -316,7 +320,7 @@ rating(color)
       border-right 1px solid manatee
       +above(desktop)
         border-right none
-  
+
 
 
   p.title
@@ -325,18 +329,18 @@ rating(color)
       font-size 16px
     +below(tablet)
       padding-right 50px
-  
+
   p.utitle
     +below(tablet)
       white-space nowrap
       font-size 15px
       margin-right 30px
-  
+
   p.title, p.utitle
     +below(tablet)
       white-space nowrap
-      -ms-text-overflow ellipsis 
-      text-overflow ellipsis 
+      -ms-text-overflow ellipsis
+      text-overflow ellipsis
       overflow hidden
       display inline-block
 

@@ -1,11 +1,9 @@
 language: ruby
-rvm:
-  - 2.1.5
-
-env:
-  - DB: test
+rvm: 2.1.5
 
 before_install:
+  # Set the database.
+  - export DB=test
   # Set up a headless display so capybara will work.
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start

@@ -47,7 +47,7 @@ describe CoursesUsers, type: :model do
              course_id: 1)
 
       # Update caches for all CoursesUsers
-      CoursesUsers.update_all_caches(CoursesUsers.where(id: 1).first)
+      CoursesUsers.update_all_caches(CoursesUsers.find(1))
 
       # Fetch the created CoursesUsers entry
       course_user = CoursesUsers.all.first

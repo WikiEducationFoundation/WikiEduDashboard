@@ -1,7 +1,7 @@
 .module
   background-color white
   border 1px solid zircon
-  margin 20px 0
+  margin 20px auto
   padding 20px
   position relative
   &:first-child
@@ -13,10 +13,19 @@
     padding 0
     .controls
       padding 0
+
   .module__data
     padding 0
+    fieldset
+      margin 5px auto
     textarea
       width 100%
+    > p > .button
+      margin-left 0
+      text-align center
+      width 100%
+    .tags
+      text-transform capitalize
   h3
     color bayoux
   p

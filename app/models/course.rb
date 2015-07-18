@@ -3,6 +3,7 @@ require "#{Rails.root}/lib/importers/user_importer"
 
 #= Course model
 class Course < ActiveRecord::Base
+  has_many :tags
   has_many :courses_users, class_name: CoursesUsers
   has_many :users, -> { uniq }, through: :courses_users,
                                 after_remove: :cleanup_articles
@@ -31,12 +32,19 @@ class Course < ActiveRecord::Base
   has_many :blocks, through: :weeks
   has_many :gradeables, as: :gradeable_item
 
+  scope :current, lambda {
+    current_and_future.where('start < ?', Time.now)
+  }
+
   # A course stays "current" for a while after the end date, during which time
   # we still check for new data and update page views.
-  scope :current, lambda {
+  scope :current_and_future, lambda {
     update_length = Figaro.env.update_length.to_i.days.seconds.to_i
-    where('start < ?', Time.now).where('end > ?', Time.now - update_length)
+    where('end > ?', Time.now - update_length)
   }
+
+  # Courses sourced from Wikipedia, not created with this tool
+  scope :legacy, -> { where('courses.id < 10000') }
 
   ####################
   # Instance methods #
@@ -46,10 +54,16 @@ class Course < ActiveRecord::Base
     slug
   end
 
+  def wiki_title
+    # Legacy courses using the EducationProgram extension have ids under 10000.
+    prefix = id < 10000 ? 'Education_Program:' : Figaro.env.course_prefix + '/'
+    escaped_slug = slug.gsub(' ', '_')
+    "#{prefix}#{escaped_slug}"
+  end
+
   def url
     language = Figaro.env.wiki_language
-    escaped_slug = slug.gsub(' ', '_')
-    "https://#{language}.wikipedia.org/wiki/Education_Program:#{escaped_slug}"
+    "https://#{language}.wikipedia.org/wiki/#{wiki_title}"
   end
 
   def delist

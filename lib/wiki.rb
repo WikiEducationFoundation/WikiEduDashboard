@@ -39,30 +39,32 @@ class Wiki
   end
 
   def self.parse_course_info(course)
-    parsed = { 'course' => {}, 'participants' => {} }
     append = course['name'][-1, 1] != ')' ? ' ()' : ''
-    course_info = (course['name'] + append).split(%r{(.*)/(.*)\s\(([^\)]+)?\)})
-    parsed.tap do |p|
-      p['course']['id'] = course['id']
-      p['course']['slug'] = course['name'].gsub(' ', '_')
-      p['course']['school'] = course_info[1]
-      p['course']['title'] = course_info[2]
-      p['course']['term'] = course_info[3]
-      p['course']['start'] = course['start'].to_date
-      p['course']['end'] = course['end'].to_date
+    course_slug_info = (course['name'] + append)
+                       .split(%r{(.*)/(.*)\s\(([^\)]+)?\)})
+    course_info = {}
+    course_info['id'] = course['id']
+    course_info['slug'] = course['name'].gsub(' ', '_')
+    course_info['school'] = course_slug_info[1]
+    course_info['title'] = course_slug_info[2]
+    course_info['term'] = course_slug_info[3]
+    course_info['start'] = course['start'].to_date
+    course_info['end'] = course['end'].to_date
 
-      roles = %w(student instructor online_volunteer campus_volunteer)
-      roles.each do |r|
-        p['participants'][r] = course[r + 's']
-      end
+    participants = {}
+    roles = %w(student instructor online_volunteer campus_volunteer)
+    roles.each do |r|
+      participants[r] = course[r + 's']
     end
+
+    { 'course' => course_info, 'participants' => participants }
   end
 
   def self.get_article_rating(titles)
     titles = [titles] unless titles.is_a?(Array)
     titles = titles.sort_by(&:downcase)
 
-    talk_titles = titles.map { |at| 'Talk:' + at }
+    talk_titles = titles.map { |title| 'Talk:' + title }
     raw = get_raw_page_content(talk_titles)
     return [] unless raw
 

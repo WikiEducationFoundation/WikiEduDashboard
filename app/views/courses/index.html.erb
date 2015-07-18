@@ -2,19 +2,19 @@
 
 <header class="main-page">
   <div class="container">
-    <h1><%= t("application.dashboard") %></h1>
+    <h1><%= Figaro.env.dashboard_title %></h1>
     <!-- <p class="subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at nisl quis nisl fermentum condimentum eu ut felis ed at nisl quis dolor sit amet.</p> -->
     <div class="stat-display">
       <div class="stat-display__stat">
         <h1><%= @courses.count %></h1>
-        <small><%= t("course.course_description") %></small>
+        <small><%= t("courses.course_description") %></small>
         </div>
       <div class="stat-display__stat popover-trigger">
         <h1><%= @cohort.students.count %></h1>
-        <small><%= t("course.students") %></small>
+        <small><%= t("courses.students") %></small>
         <div class="popover">
           <h4><%= @trained %></h4>
-          <p><%= t("user.training_complete", count: @trained) %></p>
+          <p><%= t("users.training_complete", count: @trained) %></p>
         </div>
       </div>
       <div class="stat-display__stat">
@@ -31,38 +31,57 @@
 
 <div class="container">
   <% if user_signed_in? %>
+    <% if current_user.permissions > 0 && !@admin_courses.empty? %>
+      <section id="admin_courses">
+        <div class="section-header">
+          <h3>Submitted Courses</h3>
+        </div>
+        <div class="row course-list__row list__header">
+          <div class="row__wrapper desktop-only-flex">
+            <div class="course-list__row__long_title sort asc" data-sort="atitle"><p><%= t("courses.courses") %></p></div>
+            <div class="course-list__row__link"></div>
+          </div>
+        </div>
+        <ul class="list">
+        <% @admin_courses.each do |c| %>
+          <%= render :partial => 'unapproved_row', :locals => {:course => c, :admin => true, :user => false} %>
+        <% end %>
+        </ul>
+      </section>
+    <% end %>
+
     <section id="user_courses">
       <div class="section-header">
-        <h3><%= t("course.yourcourses") %></h3>
+        <h3><%= t("courses.yourcourses") %></h3>
         <div id="react_root" class="new_course"></div>
       </div>
       <div class="row course-list__row list__header">
         <div class="row__wrapper desktop-only-flex">
-          <div class="course-list__row__title sort asc" data-sort="utitle"><p><%= t("course.courses") %></p></div>
+          <div class="course-list__row__title sort asc" data-sort="utitle"><p><%= t("courses.courses") %></p></div>
           <div class="course-list__row__characters sort popover-trigger" data-default-order="desc" data-sort="ucharacters">
             <p><%= t("metrics.char") %></p>
             <div class="popover dark">
-              <p><%= t("course.character_doc") %></p>
+              <p><%= t("courses.character_doc") %></p>
             </div>
           </div>
           <div class="course-list__row__views sort popover-trigger" data-default-order="desc" data-sort="uviews">
             <p><%= t("metrics.view") %></p>
             <div class="popover dark">
-              <p><%= t("course.view_doc") %></p>
+              <p><%= t("courses.view_doc") %></p>
             </div>
           </div>
-          <div class="course-list__row__students sort" data-default-order="desc" data-sort="ustudents"><p><%= t("user.editors") %></p></div>
+          <div class="course-list__row__students sort" data-default-order="desc" data-sort="ustudents"><p><%= t("users.editors") %></p></div>
           <div class="course-list__row__link"></div>
         </div>
       </div>
       <ul class="list">
       <% if @user_courses.empty? %>
         <li class="row view-all">
-          <div><%= t("course.nocourses") %></div>
+          <div><%= t("courses.nocourses") %></div>
         </li>
       <% else %>
         <% @user_courses.each do |c| %>
-          <%= render :partial => 'row', :locals => {:course => c, :user => true} %>
+          <%= render :partial => 'row', :locals => {:course => c, :admin => false, :user => true} %>
         <% end %>
       <% end %>
       </ul>
@@ -71,13 +90,13 @@
 
   <section id="courses">
     <div class="section-header">
-      <h3><%= [t("course.courses"), @cohort.title].join(" | ") %></h3>
+      <h3><%= [t("courses.courses"), @cohort.title].join(" | ") %></h3>
       <div class="sort-select inset">
         <select class="sorts" rel="courses">
-          <option rel="asc" value="title"><%= t("course.title") %></option>
+          <option rel="asc" value="title"><%= t("courses.title") %></option>
           <option rel="desc" value="characters"><%= t("metrics.characters") %></option>
           <option rel="desc" value="views"><%= t("metrics.view") %></option>
-          <option rel="desc" value="students"><%= t("course.students_short") %></option>
+          <option rel="desc" value="students"><%= t("courses.students_short") %></option>
         </select>
       </div>
       <div class="cohort-select">
@@ -88,31 +107,34 @@
               <option value="<%= c.slug %>"><%= c.title %></option>
             <% end %>
           <% end %>
+          <% if user_signed_in? && current_user.permissions > 0 && @cohort.slug != 'none' %>
+            <option value="none">None</option>
+          <% end %>
         </select>
       </div>
     </div>
     <div class="row course-list__row list__header">
       <div class="row__wrapper desktop-only-flex">
-        <div class="course-list__row__title sort asc" data-sort="title"><p><%= t("course.courses") %></p></div>
+        <div class="course-list__row__title sort asc" data-sort="title"><p><%= t("courses.courses") %></p></div>
         <div class="course-list__row__characters sort popover-trigger" data-default-order="desc" data-sort="characters">
           <p><%= t("metrics.char") %></p>
           <div class="popover dark">
-            <p><%= t("course.character_doc") %></p>
+            <p><%= t("courses.character_doc") %></p>
           </div>
         </div>
         <div class="course-list__row__views sort popover-trigger" data-default-order="desc" data-sort="views">
           <p><%= t("metrics.view") %></p>
           <div class="popover dark">
-            <p><%= t("course.view_doc") %></p>
+            <p><%= t("courses.view_doc") %></p>
           </div>
         </div>
-        <div class="course-list__row__students sort" data-default-order="desc" data-sort="students"><p><%= t("user.editors") %></p></div>
+        <div class="course-list__row__students sort" data-default-order="desc" data-sort="students"><p><%= t("users.editors") %></p></div>
         <div class="course-list__row__link"></div>
       </div>
     </div>
     <ul class="list">
     <% @courses.each do |c| %>
-      <%= render :partial => 'row', :locals => {:course => c, :user => false} %>
+      <%= render :partial => 'row', :locals => {:course => c, :admin => false, :user => false} %>
     <% end %>
     </ul>
   </section>

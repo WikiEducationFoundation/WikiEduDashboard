@@ -10,12 +10,17 @@ Checkbox = React.createClass(
     e.target.value = e.target.checked
     @onChange e
   render: ->
-    <input
-      type="checkbox"
-      checked={@state.value}
-      onChange={@onCheckboxChange}
-      disabled={!@props.editable}
-    />
+    if @props.label
+      label = <span>{@props.label + ': '}</span>
+    <p className={@props.container_class}>
+      {label}
+      <input
+        type="checkbox"
+        checked={@state.value}
+        onChange={@onCheckboxChange}
+        disabled={!@props.editable}
+      />
+    </p>
 )
 
 module.exports = Checkbox
