@@ -26,6 +26,7 @@ Tests reside in the `/spec` folder. Both unit and integration tests are driven b
 * Write unit tests before building new features whenever possible. This project uses [RSpec](https://github.com/rspec/rspec) in conjuction with [SimpleCov](https://github.com/colszowka/simplecov) for unit testing. 
 * Write integration tests for new interfaces. This project uses [Capybara](https://github.com/jnicklas/capybara) and [Capybara-webkit](https://github.com/thoughtbot/capybara-webkit) for integration testing.
     * Integration tests require [qt5](https://www.qt.io/). On OSX we recommend installing via Homebrew: `brew install qt5`.
+* Install test dependencies: `apt-get install pandoc`
 
 #### Translations
 Copy translations live at /config/locales and the fallback for missing strings is `en`. [i18n.js](https://github.com/fnando/i18n-js) is used to make these translations available on the frontend. The JS files providing the translations to the front end must be regenerated whenever a change is made by running `rake i18n:js:export`.
