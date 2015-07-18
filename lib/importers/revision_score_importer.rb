@@ -1,14 +1,13 @@
 require 'mediawiki_api'
 
 class RevisionScoreImporter
-  def self.update_revision_scores(articles)
-    articles.each do |article|
-      pp "importing #{article.title}"
-      article.revisions.find_in_batches(batch_size: 50) do |rev_batch|
-        rev_ids = rev_batch.map(&:id)
-        scores = get_revision_scores rev_ids
-        save_scores scores
-      end
+  def self.update_revision_scores
+    article_ids = Article.namespace(0).pluck(:id)
+    revisions = Revision.where(article_id: article_ids)
+    revisions.find_in_batches(batch_size: 50) do |rev_batch|
+      rev_ids = rev_batch.map(&:id)
+      scores = get_revision_scores rev_ids
+      save_scores scores
     end
   end
 

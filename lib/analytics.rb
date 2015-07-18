@@ -31,4 +31,17 @@ class Analytics
     )
     report
   end
+
+  def self.article_quality(courses)
+    puts 'course,article,revision,score'
+    courses.each do |course|
+      articles = course.articles.namespace(0)
+      articles.each do |article|
+        revisions = article.revisions
+        revisions.each do |revision|
+          puts '"' + course.title + '","' + article.title + '","' + revision.id.to_s + '",' + revision.wp10.to_s
+        end
+      end
+    end
+  end
 end

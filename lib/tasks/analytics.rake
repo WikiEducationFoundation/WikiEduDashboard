@@ -20,4 +20,9 @@ namespace :analytics do
     report = Analytics.report_statistics course_ids
     Rails.logger.info report
   end
+
+  desc 'Report on estimated article quality'
+  task ores: 'batch:setup_logger' do
+    Analytics.article_quality(Course.all)
+  end
 end
