@@ -43,10 +43,11 @@ Project Setup
 
 - Fork this repo, so that you can set it up for a new server.
 - Clone the new WikiEduDashboard repo and enter that directory.
+- Make sure you are in the "sudo" group.
 - Install Ruby 2.1.5 (RVM is recommended)
     - From the WikiEduDashboard directory, run the curl script from [rvm.io](https://rvm.io/)
-    - Run the install command suggested by the script, something like `rvm install ruby-2.1.5`
-- Install Node: [Node.js Installer](http://nodejs.org/)
+    - `rvm install ruby-2.1.5`
+- Install Node: `apt-get install nodejs npm`
 
 - Install Gems:
     - $ `gem install bundler`
@@ -65,8 +66,11 @@ Project Setup
 
 - Create mysql development and test database:
     - Install mysql-server and start a mysql command line
-    - mysql> `CREATE DATABASE dashboard DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;`
-    - mysql> `CREATE DATABASE dashboard_testing DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;`
+    - `CREATE DATABASE dashboard DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;`
+    - `CREATE DATABASE dashboard_testing DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;`
+    - Grant access to these databases to your user.
+    - `GRANT ALL ON dashboard.* TO <USER>@localhost identified by <PASSWORD>;`
+    - `GRANT ALL ON dashboard_testing.* TO <USER>@localhost identified by <PASSWORD>;`
 
 #### Integrations
 
