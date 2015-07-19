@@ -49,7 +49,7 @@ class RevisionScoreImporter
   end
 
   def self.get_revision_scores(rev_ids)
-    base_url = 'http://ores-staging.wmflabs.org/scores/enwiki/wp10/?revids='
+    base_url = 'http://ores.wmflabs.org/scores/enwiki/wp10/?revids='
     rev_ids_param = rev_ids.map(&:to_s).join('|')
     url = base_url + rev_ids_param
     url = URI.encode url
