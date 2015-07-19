@@ -9,6 +9,19 @@ class RevisionScoreImporter
       scores = get_revision_scores rev_ids
       save_scores scores
     end
+
+    first_revisions = []
+    article_ids.each do |id|
+      first_revisions << Revision.where(article_id: id).first
+    end
+
+    first_revisions.each do |revision|
+      parent_id = get_parent_id revision
+      score = get_revision_scores [parent_id]
+      pp score
+      revision.wp10_previous = weighted_mean_score score[parent_id.to_s]['probability']
+      revision.save
+    end
   end
 
   def self.save_scores(scores)
