@@ -26,6 +26,7 @@ Tests reside in the `/spec` folder. Both unit and integration tests are driven b
 * Write unit tests before building new features whenever possible. This project uses [RSpec](https://github.com/rspec/rspec) in conjuction with [SimpleCov](https://github.com/colszowka/simplecov) for unit testing. 
 * Write integration tests for new interfaces. This project uses [Capybara](https://github.com/jnicklas/capybara) and [Capybara-webkit](https://github.com/thoughtbot/capybara-webkit) for integration testing.
     * Integration tests require [qt5](https://www.qt.io/). On OSX we recommend installing via Homebrew: `brew install qt5`.
+* Install test dependencies: `apt-get install pandoc`
 
 #### Translations
 Copy translations live at /config/locales and the fallback for missing strings is `en`. [i18n.js](https://github.com/fnando/i18n-js) is used to make these translations available on the frontend. The JS files providing the translations to the front end must be regenerated whenever a change is made by running `rake i18n:js:export`.
@@ -42,10 +43,11 @@ Project Setup
 
 - Fork this repo, so that you can set it up for a new server.
 - Clone the new WikiEduDashboard repo and enter that directory.
+- Make sure you are in the "sudo" group.
 - Install Ruby 2.1.5 (RVM is recommended)
     - From the WikiEduDashboard directory, run the curl script from [rvm.io](https://rvm.io/)
-    - Run the install command suggested by the script, something like `rvm install ruby-2.1.5`
-- Install Node: [Node.js Installer](http://nodejs.org/)
+    - `rvm install ruby-2.1.5`
+- Install Node: `apt-get install nodejs npm`
 
 - Install Gems:
     - $ `gem install bundler`
@@ -64,8 +66,11 @@ Project Setup
 
 - Create mysql development and test database:
     - Install mysql-server and start a mysql command line
-    - mysql> `CREATE DATABASE dashboard DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;`
-    - mysql> `CREATE DATABASE dashboard_testing DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;`
+    - `CREATE DATABASE dashboard DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;`
+    - `CREATE DATABASE dashboard_testing DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;`
+    - Grant access to these databases to your user.
+    - `GRANT ALL ON dashboard.* TO <USER>@localhost identified by <PASSWORD>;`
+    - `GRANT ALL ON dashboard_testing.* TO <USER>@localhost identified by <PASSWORD>;`
 
 #### Integrations
 
