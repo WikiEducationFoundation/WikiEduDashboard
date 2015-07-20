@@ -156,6 +156,8 @@ CourseCreator = React.createClass(
               label='End date'
               placeholder='End date (YYYY-MM-DD)'
               blank=true
+              date_props={minDate: moment(@state.course.start).add(1, 'week')}
+              enabled={@state.course.start?}
             />
           </div>
         </div>

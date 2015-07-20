@@ -43,6 +43,7 @@ TextInput = React.createClass(
             onBlur={@blur}
             placeholderText={@props.placeholder}
             weekStart="0"
+            disabled={@props.enabled? && !@props.enabled}
             {...@props.date_props}
           />
         )
@@ -60,6 +61,7 @@ TextInput = React.createClass(
             type={@props.type || 'text'}
             placeholder={@props.placeholder}
             title={title}
+            disabled={@props.enabled? && !@props.enabled}
             min=0
           />
         )

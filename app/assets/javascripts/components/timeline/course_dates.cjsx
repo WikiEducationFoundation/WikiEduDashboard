@@ -50,6 +50,8 @@ CourseDates = React.createClass(
             editable={@props.editable}
             type='date'
             label='End'
+            date_props={minDate: moment(@props.course.start).add(1, 'week')}
+            enabled={@props.course.start?}
           />
         </fieldset>
         {spacer}
