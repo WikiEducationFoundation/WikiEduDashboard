@@ -78,9 +78,9 @@ class UsersController < ApplicationController
     end
 
     # Make sure the user isn't already enrolled.
-    if CoursesUsers.where(user_id: current_user.id,
-                          course_id: @course.id,
-                          role: 0).empty?
+    unless CoursesUsers.where(user_id: current_user.id,
+                              course_id: @course.id,
+                              role: 0).empty?
       redirect_to course_slug_path(@course.slug)
       return
     end
