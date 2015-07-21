@@ -77,6 +77,10 @@ class UsersController < ApplicationController
       return
     end
 
+    # Make sure the user isn't already enrolled.
+    return unless CoursesUsers.where(user_id: current_user.id,
+                                     course_id: @course.id,
+                                     role: 0).empty?
     # Check passcode, enroll if valid
     if !@course.passcode.nil? && params[:passcode] == @course.passcode
       CoursesUsers.create(
