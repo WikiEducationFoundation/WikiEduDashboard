@@ -33,7 +33,10 @@
             <a class="logo__link" href="/"><%= logo_tag %></a>
           </div>
           <div class="home">
-            <p><%= link_to 'Home', root_url, class: 'inline' %></p>
+            <p>
+              <%= link_to 'Home', root_url, class: 'inline' %>
+              <%= link_to 'FAQ', 'http://wikiedu.org/dashboard-faq/', class: 'inline', target: '_blank' %>
+            </p>
           </div>
           <div class="login">
             <% if user_signed_in? %>
