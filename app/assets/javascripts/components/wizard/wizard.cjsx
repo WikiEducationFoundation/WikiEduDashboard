@@ -55,6 +55,7 @@ Wizard = React.createClass(
       else
         <SummaryPanel panel={panel}
           parentPath={@timelinePath()}
+          course={@props.course}
           key={panel.key}
           index={i}
           step={step}
