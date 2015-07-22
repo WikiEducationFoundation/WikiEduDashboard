@@ -35,7 +35,11 @@ ThisWeek = React.createClass(
           showTitle=false
         />
       )
-      title = ('Week ' + (@state.current + 1) + ': ' + week.title) if week.title?
+      if moment().diff(@props.timeline_start, 'days') < 0
+        week_end = moment(@props.timeline_start).add(7, 'days')
+        title = "First Week (#{moment(@props.timeline_start).format('MM/DD')} - #{week_end.format('MM/DD')})"
+      else
+        title = "Week #{@state.current + 1}#{if week.title.length > 0 then ': ' + week.title else ''}"
     else
       no_weeks = (
         <li className="row view-all">
