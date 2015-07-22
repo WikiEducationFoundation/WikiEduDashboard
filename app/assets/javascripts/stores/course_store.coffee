@@ -32,6 +32,8 @@ addCourse = ->
     expected_students: 0
     start: null
     end: null
+    day_exceptions: ""
+    weekdays: ""
   }
 
 

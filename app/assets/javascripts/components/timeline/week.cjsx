@@ -49,9 +49,11 @@ Week = React.createClass(
       else
         spacer = ' '
       week_label = 'Week ' + @props.index
+      # Start and end dates
       start = moment(@props.start).add(7 * (@props.index - 1), 'day')
       end = moment.min(start.clone().add(6, 'day'), moment(@props.end))
-      week_label += ' (' + start.format('MM/DD') + ' - ' + end.format('MM/DD') + ')'
+      # Final label
+      week_label += ' (' + start.format('MM/DD') + ' - ' + end.format('MM/DD') + ')' + ' (' + @props.meetings + ')'
       title = (
         <TextInput
           onChange={@updateWeek}

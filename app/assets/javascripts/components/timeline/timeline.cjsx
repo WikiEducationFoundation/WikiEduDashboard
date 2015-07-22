@@ -32,10 +32,38 @@ Timeline = React.createClass(
     else
       block.week_id = after_block.week_id
       BlockActions.insertBlock block, after_block.week_id, after_block.order
+  meetingsForWeek: (index) ->
+    week_start = moment(@props.course.timeline_start).add(7 * index, 'day')
+    weekdays = @props.course.weekdays.split('')
+    exceptions = @props.course.day_exceptions.split(',')
+    ms = []
+    meetings = [0..6].forEach (i) =>
+      added = moment(week_start).add(i, 'day')
+      if weekdays[parseInt(added.format('e'))] == '1' && !(added.format('YYYYMMDD') in exceptions)
+        ms.push moment.localeData().weekdaysShort(added)
+    if ms.length == 0
+      'No meetings this week'
+    else
+      ms.join(', ')
   render: ->
     week_components = []
-    @props.weeks.forEach (week, i) =>
+    i = 0
+    @props.weeks.forEach (week) =>
       unless week.deleted
+        while @meetingsForWeek(i) == 'No meetings this week'
+          week_components.push (
+            <Week
+              blocks={[]}
+              week={title: null}
+              index={i + 1}
+              key={"noweek_#{i}"}
+              start={@props.course.timeline_start}
+              end={@props.course.timeline_end}
+              editable=false
+              meetings='No meetings this week'
+            />
+          )
+          i++
         week_components.push (
           <Week
             week={week}
@@ -47,8 +75,10 @@ Timeline = React.createClass(
             blocks={BlockStore.getBlocksInWeek(week.id)}
             moveBlock={@moveBlock}
             deleteWeek={@deleteWeek.bind(this, week.id)}
+            meetings={@meetingsForWeek(i)}
           />
         )
+        i++
     if @props.editable
       add_week = (
         <li className="row view-all">

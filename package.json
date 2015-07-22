@@ -3,9 +3,9 @@
   "devDependencies": {
     "browserify": "^9.0.8",
     "chai": "^1.9.1",
+    "coffee-reactify": "^3.0.0",
     "coffee-script": "^1.7.1",
     "coffeeify": "^0.6.0",
-    "coffee-reactify": "^3.0.0",
     "event-stream": "^3.1.7",
     "gulp": "^3.8.7",
     "gulp-autoprefixer": "0.0.7",
@@ -57,7 +57,9 @@
     "moment": "^2.10.3",
     "react": "^0.13.2",
     "react-date-picker": "^2.1.6",
+    "react-day-picker": "^1.0.1",
     "react-dnd": "^1.0.0",
-    "react-router": "^0.13.2"
+    "react-router": "^0.13.2",
+    "react-weekday-picker": "^1.0.0"
   }
 }

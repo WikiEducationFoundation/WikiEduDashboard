@@ -1,7 +1,8 @@
 json.course do
   json.(@course, :id, :title, :description, :start, :end, :school,
         :term, :subject, :slug, :url, :listed, :submitted, :listed,
-        :expected_students, :timeline_start, :timeline_end)
+        :expected_students, :timeline_start, :timeline_end, :day_exceptions,
+        :weekdays)
 
   json.legacy @course.id < 10000
   json.ended !current?(@course) && @course.start < Time.now
