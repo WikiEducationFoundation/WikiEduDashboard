@@ -17,20 +17,17 @@ PopoverButton = (Key, ValueKey, Store, New, Items) ->
       return unless @refs.entry?
       item = @refs.entry.getDOMNode().value
       if !New(item)
-        alert 'Success!'
         @refs.entry.getDOMNode().value = ''
         @props.open()
     add: ->
       item = @refs.entry.getDOMNode().value
-      if confirm 'Are you sure?'
-        if New(item)
-          ServerActions.add Key, @props.course_id, format(item)
-        else
-          alert 'That already exists for this course!'
+      if New(item)
+        ServerActions.add Key, @props.course_id, format(item)
+      else
+        alert 'That already exists for this course!'
     remove: (item_id) ->
       item = Store.getFiltered({ id: item_id })[0]
-      if confirm 'Are you sure?'
-        ServerActions.remove Key, @props.course_id, format(item[ValueKey])
+      ServerActions.remove Key, @props.course_id, format(item[ValueKey])
     stop: (e) ->
       e.stopPropagation()
     getKey: ->
