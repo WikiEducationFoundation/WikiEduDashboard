@@ -33,7 +33,7 @@ addCourse = ->
     start: null
     end: null
     day_exceptions: ""
-    weekdays: ""
+    weekdays: "0000000"
   }
 
 

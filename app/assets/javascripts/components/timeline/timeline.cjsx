@@ -33,6 +33,7 @@ Timeline = React.createClass(
       block.week_id = after_block.week_id
       BlockActions.insertBlock block, after_block.week_id, after_block.order
   meetingsForWeek: (index) ->
+    return '' if @props.course.weekdays == '0000000'
     week_start = moment(@props.course.timeline_start).add(7 * index, 'day')
     weekdays = @props.course.weekdays.split('')
     exceptions = @props.course.day_exceptions.split(',')
@@ -42,15 +43,15 @@ Timeline = React.createClass(
       if weekdays[parseInt(added.format('e'))] == '1' && !(added.format('YYYYMMDD') in exceptions)
         ms.push moment.localeData().weekdaysShort(added)
     if ms.length == 0
-      'No meetings this week'
+      '()'
     else
-      ms.join(', ')
+      "(#{ms.join(', ')})"
   render: ->
     week_components = []
     i = 0
     @props.weeks.forEach (week) =>
       unless week.deleted
-        while @meetingsForWeek(i) == 'No meetings this week'
+        while @meetingsForWeek(i) == '()'
           week_components.push (
             <Week
               blocks={[]}
@@ -60,7 +61,7 @@ Timeline = React.createClass(
               start={@props.course.timeline_start}
               end={@props.course.timeline_end}
               editable=false
-              meetings='No meetings this week'
+              meetings='(No meetings this week)'
             />
           )
           i++
