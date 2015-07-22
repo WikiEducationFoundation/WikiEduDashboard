@@ -45,6 +45,7 @@ FormPanel = React.createClass(
         </div>
       </div>
     )
+    console.log @props.summary
 
     <Panel {...@props} raw_options={raw_options} />
 )
