@@ -17,7 +17,9 @@ qqq:
     edited_none: Label stating that no articles have been edited.
     title: Label for an article title.
     view: Command to view an article.
-    view_all: Command to view all articles.
+    view_all: |-
+      Command to view all articles.
+      {{Identical|View all}}
     view_doc: Documentation for the view count.
     views_added: Maintenance script message stating how many view counts have been
       added to an article.
@@ -28,22 +30,6 @@ qqq:
     confirm_deletion: Confirmation dialog for an assignment should be deleted
   cohort:
     view_other: Command to view another cohort.
-  course:
-    character_doc: Documentation for the total course characters added and removed.
-    course_description: Label for the number of courses.
-    courses: Label for the list of courses.
-    current: Label for the currently active courses.
-    duration: Label for the course's duration.
-    instructor: Label for the course's instructor.
-    students: Label for the list of students in a course.
-    students_none: Label indicating the course has no students.
-    students_short: Short label for a list of students.
-    title: Label for a course title.
-    view: Command to view a course.
-    view_wiki: Command to view a course on the wiki.
-    view_doc: Documentation for the total number of article views.
-    volunteer: Label for the course's volunteers.
-    wiki_staff: Label for wiki program staff assigned to a course.
   course_creator:
     intro: Description of the course creator form
   metrics:
@@ -65,27 +51,6 @@ qqq:
     user: Long label for the User namespace.
     user_char_added: Label for number of characters added to the User namespace.
     user_ns: Wiki title for the User namespace.
-  user:
-    assigned: Label for article assigned to a user.
-    assigned_none: Label for when no article is assigned to a user.
-    character_doc: Documentation for the count of user's characters added.
-    contributions: Label for a list of articles improved by a user.
-    contributions_more: Command to view more contributions by a user.
-    editors: Label for list of editors.
-    name: Label for username.
-    training_complete: Label for students who have finished the training.
-    training_complete_short: |-
-      Shorter label (for mobile) stating that training is complete.
-      {{Identical|Complete}}
-    training_complete_count: Number of students who have finished the training, with
-      the count.
-    training_doc: Documentation for finishing training.
-    training_incomplete: Label stating that training is not complete.
-    training_incomplete_short: Shorter label (for mobile) stating that training is
-      not complete.
-    view_all: Command to view all users.
-    already_enrolled: Indication that a user cannot be added to a course because
-      they are already enrolled.
   wiki_edits:
     notify_untrained:
       header: Section header for a talk page message indicating that the user has

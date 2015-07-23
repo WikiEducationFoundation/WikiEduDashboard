@@ -1,0 +1,39 @@
+# Messages for Swedish (svenska)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: WikiPhoenix
+---
+sv:
+  activity:
+    edited_by: Redigerad av
+    all: Aktivitet
+  metrics:
+    activity: Senaste aktivitet
+    activity_none: '%{title} har ingen senaste aktivitet'
+    articles_created: Skapade artiklar
+    articles_edited: Redigerade artiklar
+    char: Tillagda tecken
+    characters: Tecken
+    char_added: Tillagda tecken
+    char_changed: Ändrade tecken
+    date_time: Datum/Tid
+    student_editors: Studentredigerare
+    view: Visningar
+    view_count_description: Artikelvisningar
+  namespace:
+    main: Huvudnamnrymd
+    user: Användarnamnrymd
+    user_ns: Användare
+  uploads:
+    none: Inga filer har laddats upp
+    usages: Användning
+  wiki_edits:
+    notify_untrained:
+      header: Du har inte slutfört studentträningen.
+  error_401:
+    header: Obehörig. >:-(
+  error_404:
+    header: Sidan kunde inte hittas. :-(
+  error_500:
+    header: 500 — internt serverfel.  :-(
+...

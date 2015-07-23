@@ -1,0 +1,33 @@
+# Messages for Breton (brezhoneg)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Gwenn-Ael
+---
+br:
+  application:
+    dashboard: Taolenn-stur kemmañ ar wiki
+  activity:
+    edited_by: Kemmet gant
+    all: Obererezh
+  metrics:
+    activity: Oberiantiz nevez
+    articles_created: Pennadoù krouet
+    articles_edited: Pennadoù kemmet
+    char: Arouezennoù ouzhpennet
+    characters: Arouezennoù
+    char_added: Arouezennoù ouzhpennet
+    char_changed: Arouezennoù kemmet
+    date_time: Deiz/Eur
+    edit_count_description: Hollad ar c'hemmoù
+    view: Gweladennoù
+    view_count_description: Pennadoù gwelet
+  namespace:
+    user_ns: Implijer
+  uploads:
+    none: Restr ebet n'eo bet pellgarget
+    usages: Implijoù
+  error_401:
+    header: Nann aotreet >:-(
+  error_404:
+    header: 'Pajenn nann kavet: -('
+...

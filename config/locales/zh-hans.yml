@@ -9,47 +9,11 @@ zh-hans:
   activity:
     edited_by: 编辑自
     all: 活跃
-  article:
-    assigned_to: 分配给
-    edited: 编辑的条目
-    edited_mobile: 条目
-    edited_none: '%{title}没有编辑任何条目。'
-    rating: 等级
-    rating_docs:
-      fa: 特色条目 — 维基百科的最高评级，probably too mature an article for a student editor's main
-        project
-      fl: 特色列表 — 维基百科用于列表的最高评级
-      a: 甲级 — very developed article that may be too mature an article for a student
-        editor's main project
-      ga: 优良条目 — a well-developed article that may be too mature an article for a
-        student editor's main project
-      b: 乙级 — a moderately developed article
-      c: 丙级 — an intermediate article with room for improvement
-      start: 初级 — a preliminary article with plenty of room for improvement
-      stub: 小条目级 — 一篇条目的短小开始，它需要更多内容
-      list: 列表级 — 一个列表，而不是一篇传统条目
-      '?': 未评级 — 一篇未被维基百科质量等级体系评级的条目
-    title: 标题
-    view: 查看条目
-    view_all: 查看所有
-  course:
-    activity: 活跃
-    articles: 条目
-    course_description: Wiki Ed课程
-    courses: 课程
-    yourcourses: 您的课程
-    current: 当前课程
-    students: 学生
-    students_short: 学生
-    overview: 综述
-    title: 标题
-    view: 查看源代码
-    view_wiki: 在维基百科查看
-    volunteer:
-      other: 志愿者
-    wiki_staff: Wiki Ed职员
+  cohort:
+    view_other: 查看其它军团
   metrics:
     activity: 最近活跃
+    activity_none: '%{title}没有最近活跃'
     articles_created: 创建的条目
     articles_edited: 编辑的条目
     char: 添加的字符
@@ -67,22 +31,25 @@ zh-hans:
     user: 用户名字空间
     user_char_added: 添加的用户名字空间字符
     user_ns: 用户
+  tasks:
+    conseq: 课程%{task}已在进行！
   uploads:
+    none: 没有上传文件
     usages: 用法
-  user:
-    reviewers: 评论者
-    contributions: 用户贡献
-    editors: 学生编辑者
-    name: 名字
-    training_complete_short: 完成
-    training_incomplete_short: 未完成
-    view_all: 查看所有
+  wiki_edits:
+    notify_untrained:
+      header: 您没有完成学生培训。
+      message: 请完成[[WP:STUDENT|学生培训]]。如果您已经完成了它，请确保点击页尾的按钮以记录您完成了它。--~~~~
+      summary: 学生培训未完成
   error_401:
     header: 未获授权。>:-(
   error_404:
     header: 找不到页面。:-(
   error_422:
     header: 422 — 错误实体。:-(
+    explanation: 出现一些错误。请联络此控制面板的维护人员以让他们得知有关问题。
   error_500:
     header: 500 — 内部服务器错误。:-(
+    explanation: 出现一些错误。请联络此控制面板的维护人员以让他们得知有关问题。
+  timeout: 向%{api} API的请求已超时，并将再试%{tries}次。
 ...

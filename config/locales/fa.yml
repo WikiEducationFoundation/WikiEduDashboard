@@ -1,0 +1,15 @@
+# Messages for Persian (فارسی)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Reza1615
+---
+fa:
+  activity:
+    all: فعالیت
+  metrics:
+    characters: کاراکترها
+    date_time: تاریخ/ساعت
+    view: بازدیدها
+  namespace:
+    user_ns: کاربر
+...

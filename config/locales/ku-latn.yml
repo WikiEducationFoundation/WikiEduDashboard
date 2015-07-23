@@ -1,9 +1,9 @@
-# Messages for Kurdish (Kurdî)
+# Messages for Kurdish (Latin script) (Kurdî (latînî)‎)
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Bikarhêner
 ---
-ku:
+ku-latn:
   application:
     dashboard: Panela Wiki Ed'ê
   activity:

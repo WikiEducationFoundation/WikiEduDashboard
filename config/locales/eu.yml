@@ -1,0 +1,32 @@
+# Messages for Basque (euskara)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Subi
+---
+eu:
+  activity:
+    all: Jarduera
+  cohort:
+    view_other: Ikusi beste kohorteak
+  metrics:
+    articles_created: Sortutako artikuluak
+    articles_edited: Editatutako artikuluak
+    char: Gehitutako karaktereak
+    characters: Karaktereak
+    char_added: Gehitutako karaktereak
+    char_changed: Aldatutako karaktereak
+    date_time: Data/Ordua
+    edit_count_description: Aldaketak guztira
+    view: Ikustaldiak
+    view_count_description: Artikuluaren ikustaldiak
+  uploads:
+    usages: Erabilerak
+  error_401:
+    header: Ez duzu baimenik. >:-(
+  error_404:
+    header: Orria ez da aurkitu :-(
+  error_422:
+    header: 422 — entitate prozesaezina.  :-(
+  error_500:
+    header: 500 — zerbitzariaren barne-errorea.  :-(
+...

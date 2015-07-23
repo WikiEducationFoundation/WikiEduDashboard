@@ -1,0 +1,24 @@
+# Messages for Pashto (پښتو)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Ahmed-Najib-Biabani-Ibrahimkhel
+---
+ps:
+  activity:
+    edited_by: سمونگر
+    all: فعاليت
+  metrics:
+    activity: تازه فعاليتونه
+    activity_none: '%{title} تازه فعاليتونه نه لري'
+    articles_created: جوړې شوې ليکنې
+    articles_edited: سمې شوې ليکنې
+    date_time: نېټه/وخت
+    edit_count_description: ټولټال سمونونه
+    view: کتنې
+    view_count_description: د ليکنې کتنې
+  namespace:
+    user: کارن تشيال
+    user_ns: کارن
+  uploads:
+    usages: کارېدنې
+...

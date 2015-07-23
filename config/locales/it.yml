@@ -1,0 +1,37 @@
+# Messages for Italian (italiano)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Alexmar983
+# Author: Beta16
+# Author: Macofe
+---
+it:
+  activity:
+    all: Attività
+  metrics:
+    activity: Attività recente
+    activity_none: '%{titolo} mostra alcuna attività recente'
+    articles_created: Voci create
+    articles_edited: Articoli modificati
+    char: Aggiunti caratteri
+    characters: Caratteri
+    char_changed: Caratteri Modificati
+    date_time: Data/Ora
+    edit_count_description: Modifiche totali
+    view_count_description: Visite alla Voce
+  namespace:
+    main: Ambiente principale
+    user_ns: Utente
+  uploads:
+    none: Nessun file è stato caricato
+    usages: Usi
+  wiki_edits:
+    notify_untrained:
+      header: Non hai completato la formazione degli studenti.
+  error_404:
+    header: Pagina non trovata. :-(
+  error_500:
+    header: 500 — errore interno del server. :-(
+    explanation: Qualcosa è andato storto. Si prega di contattare i responsabili di
+      questo quadro per informarli del problema.
+...

@@ -1,0 +1,19 @@
+# Messages for Armenian (Հայերեն)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Vahe Gharakhanyan
+---
+hy:
+  activity:
+    all: Ակտիվություն
+  metrics:
+    activity: Վերջին փոփոխություններ
+    articles_created: Ստեղծված հոդվածներ
+    articles_edited: Խմբագրված հոդվածներ
+    date_time: Ամսաթիվ/Ժամ
+    edit_count_description: Ընդհանուր խմբագրումներ
+    view: Դիտումներ
+    view_count_description: Հոդվածի դիտումներ
+  namespace:
+    user_ns: Մասնակից
+...
