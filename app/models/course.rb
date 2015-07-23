@@ -115,7 +115,11 @@ class Course < ActiveRecord::Base
   end
 
   def article_count
-    self[:article_count] || articles.size
+    self[:article_count] || articles.live.size
+  end
+
+  def new_article_count
+    self[:article_count] || articles_courses.live.new_article.size
   end
 
   def update_cache
@@ -126,6 +130,7 @@ class Course < ActiveRecord::Base
     self.untrained_count = users.role('student').where(trained: false).size
     self.revision_count = revisions.size
     self.article_count = articles.live.size
+    self.new_article_count = articles_courses.live.new_article.size
     save
   end
 

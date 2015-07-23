@@ -25,6 +25,14 @@
         <h1><%= number_to_human @courses.sum(:view_sum) %></h1>
         <small><%= t("metrics.view_count_description") %></small>
       </div>
+      <div class="stat-display__stat">
+        <h1><%= number_to_human @courses.sum(:article_count) %></h1>
+        <small><%= "Articles Edited" %></small>
+      </div>
+      <div class="stat-display__stat">
+        <h1><%= number_to_human @courses.sum(:new_article_count) %></h1>
+        <small><%= "Articles Created" %></small>
+      </div>
     </div>
   </div>
 </header>
