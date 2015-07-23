@@ -29,7 +29,7 @@ Meetings = React.createClass(
         {@props.controls()}
       </div>
       <div className='module course-dates'>
-        <div >
+        <div>
           <Calendar course={@props.course} editable={@props.editable} />
         </div>
         <div className='vertical-form'>
