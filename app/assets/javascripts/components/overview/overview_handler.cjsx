@@ -4,7 +4,6 @@ Description   = require './description'
 Details       = require './details'
 Grading       = require './grading'
 ThisWeek      = require './this_week'
-Meetings      = require './meetings'
 CourseStore   = require '../../stores/course_store'
 WeekStore     = require '../../stores/week_store'
 ServerActions = require '../../actions/server_actions'
@@ -32,7 +31,6 @@ Overview = React.createClass(
       <div className='primary'>
         <Description {...@props} />
         {this_week}
-        <Meetings {...@props} />
       </div>
       <div className='sidebar'>
         <Details {...@props} />
