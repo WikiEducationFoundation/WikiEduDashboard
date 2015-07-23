@@ -1,0 +1,71 @@
+# Messages for French (français)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Gomoko
+---
+fr:
+  application:
+    dashboard: Tableau de bord de modification du wiki
+  activity:
+    edited_by: Modifié par
+    all: Activité
+  cohort:
+    view_other: Afficher les autres cohortes
+  metrics:
+    activity: Activité récente
+    activity_none: '%{title} n’a pas d’activité récente'
+    articles_created: Articles créés
+    articles_edited: Articles modifiés
+    char: Caractères ajoutés
+    characters: Caractères
+    char_added: Caractères ajoutés
+    char_changed: Caractères modifiés
+    date_time: Date/Heure
+    edit_count_description: Total des modifications
+    student_editors: Étudiants éditeur
+    view: Vues
+    view_count_description: Articles vus
+  namespace:
+    main: Espace principal
+    main_char_added: Caractères ajoutés à l’espace principal
+    user: Espace utilisateur
+    user_char_added: Caractères ajoutés à l’espace utilisateur
+    user_ns: Utilisateur
+  tasks:
+    conseq: La tâche %{task} tourne déjà !
+    constant: La tâche %{task} ne peut pas tourner tant que la tâche update_daily
+      fonctionne.
+    paused: La tâche %{task} ne peut pas tourner car les mises à jour de l’ordonnanceur
+      ont été suspendues. Lancez 'rake batch:resume' pour reprendre les mises à jour.
+  uploads:
+    none: Aucun fichier n’a été téléchargé
+    usages: Utilisations
+  wiki_edits:
+    notify_untrained:
+      header: Vous n’avez pas terminé la formation d’étudiant.
+      message: Veuillez terminer la [[WP:STUDENT|formation étudiant]]. Si vous l’avez
+        déjà faite, assurez-vous de bien cliquer sur le bouton à la fin pour enregistrer
+        que vous l’avez terminée. --~~~~
+      summary: formation étudiant non terminée
+  error_401:
+    header: Non autorisé. >:-(
+    explanation: Vous n’êtes pas autorisé à exécuter cette requête. Si vous pensez
+      avoir eu cet avertissement par erreur, veuillez contacter les mainteneurs de
+      ce tableau de bord pour les informer du problème.
+  error_404:
+    header: Page non trouvée. :-(
+    explanation: Cette page n’existe pas. Si vous essayez d’atteindre le tableau de
+      bord d’un cours, ce cours peut ne pas être inscrit dans ce tableau de bord.
+      S’il a été inscrit récemment, cela peut prendre un peu de temps pour que le
+      système l’ajoute.
+  error_422:
+    header: 422 — entité non traitable.  :-(
+    explanation: Quelque chose s’est mal passé. Veuillez contacter les mainteneurs
+      de ce tableau de bord pour les informer du problème.
+  error_500:
+    header: 500 — erreur interne du serveur.  :-(
+    explanation: Quelque chose s’est mal passé. Veuillez contacter les mainteneurs
+      de ce tableau de bord pour les informer du problème.
+  timeout: Une requête à l’API %{api} a dépassé son délai et sera retentée %{tries}
+    fois.
+...

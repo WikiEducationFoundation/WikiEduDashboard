@@ -1,0 +1,19 @@
+# Messages for Occitan (occitan)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Cedric31
+---
+oc:
+  activity:
+    edited_by: Modificat per
+    all: Activitat
+  metrics:
+    date_time: Data/Ora
+    view: Vistas
+  namespace:
+    main: Espaci principal
+    user: Espaci utilizaire
+    user_ns: Utilizaire
+  uploads:
+    usages: Utilizacions
+...

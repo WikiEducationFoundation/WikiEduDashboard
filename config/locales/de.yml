@@ -9,73 +9,8 @@ de:
   activity:
     edited_by: Bearbeitet von
     all: Aktivität
-  article:
-    assigned_to: Zugewiesen an
-    character_doc: Die Summe der Zeichen, die den Artikeln von den Kursstudenten während
-      der Kursdauer hinzugefügt wurden
-    edited: Bearbeitete Artikel
-    edited_mobile: Artikel
-    edited_none: '%{title} hat keine Artikel bearbeitet.'
-    no_assignee: Kein Benutzer zugewiesen
-    rating: Klasse
-    rating_doc: Die Bewertung eines Artikels wurde den WikiProjekten auf Wikipedia
-      zugewiesen. Diese Bewertungen entsprechen zu stark älteren Versionen, so dass
-      sie nur ein grobes Kennzeichen für die Artikelreife sind.
-    rating_docs:
-      fa: Exzellenter Artikel – Wikipedias höchste Bewertung, vermutlich zu gewagt
-        für ein Hauptprojekt eines Studentenautoren
-      fl: Exzellente Liste – Wikipedias höchste Bewertung für Listen
-      a: A-Klasse – Gut ausgestalteter Artikel, der vermutlich zu gewagt ist für ein
-        Hauptprojekt eines Studentenautoren
-      ga: Guter Artikel – Ein gut entwickelter Artikel, der vermutlich zu gewagt ist
-        für ein Hauptprojekt eines Studentenautoren
-      b: B-Klasse – Ein mäßig entwickelter Artikel
-      c: C-Klasse – Ein dazwischenliegender Artikel mit Spielraum für Verbesserungen
-      start: Start-Klasse – Ein vorläufiger Artikel mit viel Spielraum für Verbesserungen
-      stub: Stub-Klasse – Ein kurzer Anfang eines Artikels, der mehr Inhalt benötigt
-      list: Listen-Klasse – Eher eine Liste als ein gewöhnlicher Artikel
-      '?': Nicht bewertet – Ein Artikel, der noch nicht auf der Wikipedia-Qualitätsskala
-        bewertet wurde
-    title: Titel
-    view: Artikel ansehen
-    view_all: Alle ansehen
-    view_doc: Die Summe aller Aufrufe jedes Artikels während der Kursdauer
-    views_added: '%{count} neue Aufrufe für %{title} hinzugefügt'
   cohort:
     view_other: Andere Jahrgänge ansehen
-  course:
-    activity: Aktivität
-    articles: Artikel
-    character_doc: Die Summe der von den Kursstudenten während der Kursdauer hinzugefügten
-      Zeichen zu Hauptnamensraum-Artikeln
-    course_description: Wiki-Ed-Kurse
-    courses: Kurse
-    yourcourses: Deine Kurse
-    nocourses: Du nimmst an keinen Kursen teil
-    current: Aktuelle Kurse
-    duration: Kursdauer
-    instructor:
-      one: Leiter
-      other: Leiter
-    students: Studenten
-    students_none: '%{title} hat keine eingeschriebenen Studenten'
-    students_short: Studenten
-    timeline: Einzelheiten zur Zuweisung
-    weeks_none: '%{title} hat keine Zuweisungen'
-    new_week: Der Zeitleiste für %{title} eine neue Woche hinzufügen
-    overview: Übersicht
-    title: Titel
-    view: Kurs ansehen
-    view_wiki: Auf Wikipedia ansehen
-    view_doc: Die Summe aller Aufrufe von Artikeln, die von Studenten bearbeitet wurden
-      seit ihrer ersten Bearbeitung an jedem Artikel
-    volunteer:
-      one: Freiwilliger
-      other: Freiwillige
-    wiki_staff: Wiki-Ed-Mitarbeiter
-    error:
-      exists: Dieser Kurs ist bereits vorhanden! Bitte versuche es mit einem anderen
-        Titel, Begriff oder einer anderen Schule.
   metrics:
     activity: Letzte Aktivitäten
     activity_none: '%{title} hat keine kürzlichen Aktivitäten'
@@ -105,32 +40,6 @@ de:
   uploads:
     none: Es wurden keine Dateien hochgeladen
     usages: Verwendungen
-  user:
-    assigned: Zugewiesener Artikel
-    reviewers: Prüfer
-    assigned_none: Kein zugewiesener Artikel
-    reviewer_none: Keine Prüfer
-    character_doc: Die gesamte Anzahl des Inhalts, den ein Benutzer diesem Namensraum
-      hinzugefügt hat, berechnet durch Aufaddieren der hinzugefügten Zeichen für alle
-      Bearbeitungen, die die Seitengröße erhöhen. Diese Zahl muss nicht unbedingt
-      die Menge des neuen Inhalts widerspiegeln, den der Benutzer hinzugefügt hat.
-      Das Wiederherstellen entfernten Inhalts erhöht ebenfalls diese Gesamtmenge.
-    contributions: Benutzerbeiträge
-    contributions_more: Weitere Beiträge ansehen
-    editors: Studentenautoren
-    name: Name
-    training_complete:
-      one: hat die Ausbildung abgeschlossen
-      other: haben die Ausbildung abgeschlossen
-    training_complete_short: Vollständig
-    training_complete_count: '%{count} abgeschlossene Ausbildungen'
-    training_doc: 'Studentenautoren, die die „Ausbildung für Studenten“ abgeschlossen
-      haben, sollten eine Bearbeitung auf der Rückmeldungsseite durchführen, wenn
-      sie fertig sind. Falls ein Studentenautor die Ausbildung absolviert hat, jedoch
-      nicht den Rückmeldungsschritt abschließt, kann er am Ende der Ausbildung hier
-      zurückkehren: https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete'
-    training_incomplete_short: Unvollständig
-    view_all: Alle ansehen
   wiki_edits:
     notify_untrained:
       header: Du hast die Studentenausbildung nicht abgeschlossen.

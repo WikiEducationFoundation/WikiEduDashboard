@@ -2,19 +2,190 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Milenej
+# Author: Siebrand
 ---
 nl:
   application:
     dashboard: Wiki Ed Dashboard
   activity:
-    edited_by: Bewerkt Door
+    edited_by: Bewerkt door
     all: Activiteit
-  article:
+  articles:
+    none: Deze cursus heeft geen bewerkte pagina's.
+    loading: Bezig met pagina's laden...
+    assigned: Toegewezen pagina's
     assigned_to: Toegewezen aan
-    character_doc: De som van de tekens die wordt toegevoegd aan de artikelen door
-      de loop van de studenten tijdens de cursus termijn
-    edited: Artikelen toegevoegd
+    character_doc: Het totale aantal tekens dat door de studenten van de cursus tijdens
+      de cursustermijn is toegevoegd
+    edited: Pagina's bewerkt
     edited_mobile: Pagina's
-    edited_none: '%{titel} heeft niet bewerkte artikelen.'
+    edited_none: '%{title} heeft geen pagina''s bewerkt.'
     no_assignee: Geen gebruiker toegewezen
+    rating: Klasse
+    rating_doc: De waardering van een pagina is toegewezen door WikiProjecten op Wikipedia.
+      Deze waarderingen kunnen gebaseerd zijn op veel oudere versies, dus ze zijn
+      een ruwe indicator van de volwassenheid van een pagina.
+    rating_docs:
+      fa: Uitgelichte pagina - De hoogste waardering in Wikipedia, waarschijnlijk
+        een te volwassen pagina voor het hoofdproject van een student
+      fl: Uitgelichte lijst - De hoogste waardering van lijsten in Wikipedia
+      a: Klasse A - zeer ontwikkelde pagina, waarschijnlijk een te volwassen pagina
+        voor het hoofdproject van een student
+      ga: Goede pagina - een prima ontwikkelde pagina, mogelijk een te volwassen pagina
+        voor het hoofdproject van een student
+      b: Klasse B - een matig ontwikkelde pagina
+      c: Klasse C - een redelijk ontwikkelde pagina met ruimte voor verbetering
+      start: Startklasse - een pagina in het beginstadium met ruim voldoende ruimte
+        voor verbetering
+      stub: Beginnetjeklasse - een kort begin van een pagina die meer inhoud nodig
+        heeft
+      list: Lijstklasse - een lijst in plaats van een conventionele pagina
+      '?': Zonder beoordeling — een pagina die nog niet is beoordeeld op de kwaliteitsschaal
+        van Wikipedia
+    title: Naam
+    view: Pagina bekijken
+    view_all: Alle bekijken
+    view_doc: Het aantal paginaweergaven van iedere pagina tijdens te cursustermijn
+    views_added: '%{count} nieuwe weergaven toegevoegd voor %{title}'
+  assignments:
+    assignees: Toegewezen aan
+    reviewers: Controleur(s)
+    loading: Bezig met het laden van opdrachten...
+    none: Deze cursus heeft geen toegewezen Wikipediapagina's.
+    confirm_addition: Weet u zeker dat u %{title} wilt toewijzen aan %{username}?
+    confirm_deletion: Weet u zeker dat u deze opdracht wilt verwijderen?
+  cohort:
+    view_other: Andere cohorten bekijken
+  courses:
+    activity: Activiteit
+    articles: Pagina's
+    character_doc: Het aantal tekens dat tijdens de cursus is toegevoegd aan pagina's
+      in de hoofdnaamruimte door studenten van de cursus
+    course_description: Wiki Edcursussen
+    courses: Cursussen
+    yourcourses: Uw cursussen
+    nocourses: U neemt niet deel aan een cursus.
+    current: Huidige cursussen
+    duration: Duur van de cursus
+    instructor:
+      one: Instructeur
+      other: Instructeurs
+    students: Studenten
+    students_none: '%{title} heeft nog geen geregistreerde studenten.'
+    students_short: Studenten
+    timeline: Opdrachtdetails
+    weeks_none: '%{title} heeft geen opdrachten'
+    new_week: Nieuwe week toevoegen aan de tijdlijn voor %{title}
+    overview: Overzicht
+    title: Naam
+    view: Cursus weergeven
+    view_wiki: Op Wikipedia bekijken
+    view_doc: Het aantal weergaven van pagina's die door studenten zijn bewerkt sinds
+      de studenten hun eerste bewerking hebben gemaakt aan iedere pagina
+    volunteer:
+      other: =Vrijwilliger
+    wiki_staff: Medewerkers van Wiki Ed
+    error:
+      exists: Die cursus bestaat al. Probeer het opnieuw met een andere naam, school
+        of termijn.
+  course_creator:
+    create_new: Nieuwe cursus maken
+    intro: De naam, school en termijn die onderdeel worden van de pagina-URL. Dit
+      kan niet gewijzigd worden. De rest van de cursusgegevens kunnen later gewijzigd
+      worden. Nadat u de cursus aanmaakt, wordt u door het aanmaken van een opdrachtentijdlijn
+      geleid.
+  metrics:
+    activity: Recente activiteit
+    activity_none: '%{title} heeft geen recente Wikipediabewerkingen'
+    articles_created: Pagina's aangemaakt
+    articles_edited: Pagina's bewerkt
+    char: Tekens toegevoegd
+    characters: Tekens
+    char_added: Tekens toegevoegd
+    char_changed: Tekens gewijzigd
+    date_time: Datum- en tijd
+    edit_count_description: Totaal bewerkingen
+    student_editors: Studentbewerkers
+    view: Weergaven
+    view_count_description: Paginaweergaven
+  namespace:
+    main: Hoofdnaamruimte
+    main_char_added: Tekens toegevoegd aan de hoofdnaamruimte
+    user: Gebruikersruimte
+    user_char_added: Tekens toegevoegd aan de gebruikersruimte
+    user_ns: Gebruiker
+  revisions:
+    loading: Bezig met het laden van versies...
+    none: Deze cursus heeft geen recente bijbehorende Wikipediabewerkingen.
+    time_doc: De tijd van iedere versie in uw lokale tijd
+  tasks:
+    conseq: Taak %{task} is al actief!
+    constant: Taak %{task} kan niet actief zijn terwijl update_daily wordt uitgevoerd.
+    paused: 'De taak %{task} kan niet uitgevoerd worden omdat geplande taken gepauzeerd
+      zijn. Voer het volgende commando uit om bijwerken te hervatten: ''rake batch:resume''.'
+  uploads:
+    loading: Bezig met het laden van uploads...
+    none: Voor deze klasse zijn geen afbeeldingen of andere mediabestanden bijgedragen
+      aan Wikimedia Commons.
+    usages: Gebruik
+    time_doc: De tijd van iedere upload in uw lokale tijd
+  users:
+    assigned: Toegewezen pagina
+    reviewers: Controleur
+    assigned_none: Geen pagina toegewezen
+    reviewer_none: Geen controleur
+    character_doc: De totale hoeveelheid inhoud die een gebruiker heeft toegevoegd
+      aan deze naamruimte, berekend door het aantal tekens dat de bewerkte pagina's
+      groter zijn geworden bij elkaar op te tellen. Dit getal is niet noodzakelijk
+      gelijk aan de hoeveelheid inhoud die een gebruiker heeft toegevoegd. Het terugplaatsen
+      van verwijderde inhoud verhoogt dit getal ook.
+    contributions: Gebruikersbijdragen
+    contributions_more: Meer bijdragen bekijken
+    editors: Studentbewerkers
+    loading: Bezig met het laden van gebruikers...
+    name: Naam
+    none: Deze cursus heeft geen studenten.
+    training_complete:
+      one: heeft de training voltooid
+      other: hebben de training voltooid
+    training_complete_short: Afgerond
+    training_complete_count: '%{count} hebben de training afgerond'
+    training_doc: 'Studentbewerkers die de "training voor studenten" hebben voltooid,
+      horen als ze klaar zijn een bewerking te hebben gemaakt op de pagina voor terugkoppeling.
+      Als studentbewerkers de training hebben gedaan, maar de stap voor terugkoppeling
+      niet hebben uitgevoerd, dan kunnen ze aan het einde van de training hier terugkeren:
+      https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete.'
+    training_incomplete:
+      other: =Training onvolledig
+    training_incomplete_short: Onvolledig
+    view_all: Alle bekijken
+    already_enrolled: Deze gebruiker is al ingeschreven!
+  wiki_edits:
+    notify_untrained:
+      header: U hebt de studententraining niet voltooid.
+      message: Voltooi alstublieft de [[WP:STUDENT|studententraining]]. Als u deze
+        al hebt afgerond, zorg er dan voor dat u aan het einde op de knop klikt, zodat
+        er wordt opgeslagen dat u de training hebt voltooid. --~~~~
+      summary: studententraining incompleet
+  error_401:
+    header: Geen rechten
+    explanation: U kunt dit verzoek niet uitvoeren. Als u denk dat deze foutmelding
+      onterecht is, neem dan contact op met de beheerders van dit dashboard en stel
+      ze op de hoogte van het probleem.
+  error_404:
+    header: Pagina niet gevonden.
+    explanation: Deze pagina bestaat niet. Als u probeerde het dashboard van een cursus
+      te bereiken, dan is het mogelijk dat die cursus niet is geregistreerd bij dit
+      dashboard. Als de cursus recent is geregistreerd, dan kan het even duren voordat
+      deze wordt toegevoegd door het systeem.
+  error_422:
+    header: 422 — entiteit kan niet verwerkt worden.
+    explanation: Er is iets fout gegaan. Neem contact op met de beheerders van dit
+      dashboard en geef ze details over het probleem.
+  error_500:
+    header: 500 — interne serverfout.
+    explanation: Er is iets fout gegaan. Neem contact op met de beheerders van dit
+      dashboard en geef ze details over het probleem.
+  timeout: Een verzoek aan de API van %{api} heeft te lang geduurd en wordt %{tries}
+    keer herhaald.
 ...

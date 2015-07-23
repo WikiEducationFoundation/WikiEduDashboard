@@ -4,34 +4,29 @@
 # Author: Robby
 ---
 lb:
+  application:
+    dashboard: Iwwersiicht iwwer d'Ännerungen op der Wiki
   activity:
     edited_by: Geännert Vum
     all: Aktivitéit
-  article:
-    edited: Geännert Artikelen
-    edited_mobile: Artikelen
-    edited_none: '%{title} huet keng Artikele geännert.'
-    title: Titel
-    view: Artikel weisen
-  course:
-    activity: Aktivitéit
-    articles: Artikelen
-    courses: Coursen
-    yourcourses: Är Coursen
-    current: Aktuell Coursen
-    students: Studenten
-    students_short: Studenten
-    overview: Iwwersiicht
-    title: Titel
-    view: Cours weisen
+  articles:
+    loading: Artikele lueden...
+    view_all: All weisen
   metrics:
+    activity: Rezent Aktivitéit
+    activity_none: '%{title} huet keng rezent Aktiviéit'
     articles_edited: Geännert Artikelen
     characters: Buschtawen
+    char_changed: Geännert Buschtawen
     date_time: Datum/Zäit
+    edit_count_description: Total vun den Ännerungen
   namespace:
+    user: Benotzernummraum
     user_ns: Benotzer
-  user:
-    name: Numm
+  uploads:
+    none: Et goufe keng Fichieren eropgelueden
+  error_401:
+    header: Net autoriséiert.>:-(
   error_404:
     header: Säit net fonnt. :-(
   error_500:

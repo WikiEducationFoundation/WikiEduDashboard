@@ -4,8 +4,18 @@
 # Author: Sujiniku
 ---
 ja:
-  course:
-    students_short: 学生
+  activity:
+    all: 活動
+  metrics:
+    activity: 最近の活動
+    date_time: 日付/時刻
+    edit_count_description: 総編集回数
+    student_editors: 学生の編集者
   namespace:
+    user: ユーザー空間
     user_ns: ユーザー
+  error_422:
+    header: 422 — unprocessable entity.  :-(
+  error_500:
+    header: 500 — internal server error.  :-(
 ...

@@ -7,22 +7,6 @@ ksh:
   activity:
     edited_by: Jeändert Vum
     all: Aktivitäht
-  article:
-    assigned_to: Zohjedeijlt aan
-    edited: Jeännderte Atikelle
-    edited_mobile: Atikelle
-    edited_none: '%{title} hät kein Atikele beärbeidt.'
-    no_assignee: Keine Metmaacher zohjedeijlt
-    rating: Klaß
-    title: Övverschreff
-    view: Atikel belohre
-    view_all: Alle belohre
-  course:
-    activity: Aktivitäht
-    articles: Atikele
-    overview: Övverblek
-    title: Övverschreff
-    view_wiki: Op de Wikipehdija belohre
   metrics:
     activity: Zeläz jedonn
     articles_created: Aanjelahte Atikelle
@@ -41,11 +25,8 @@ ksh:
     user: Appachtemang för de Metmaacher
     user_char_added: Zeijsche em Appachtemang för de Metmaacher derbei jedonn
     user_ns: Metmaacher
-  user:
-    name: Nahme
-    training_complete_short: Komplädd
-    training_incomplete_short: Onfähdesch
-    view_all: Alle belohre
+  uploads:
+    none: Kein datteije wodt huhjelahde
   error_401:
     header: Kei Berääschtejong.
   error_404:

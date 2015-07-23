@@ -1,0 +1,12 @@
+# Messages for Malay (Bahasa Melayu)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Anakmalaysia
+---
+ms:
+  application:
+    dashboard: Papan Pemuka Wiki Ed
+  activity:
+    edited_by: Disunting oleh
+    all: Kegiatan
+...

@@ -4,17 +4,6 @@
 # Author: Okras
 ---
 ru:
-  article:
-    edited_mobile: Статьи
-    title: Заголовок
-  course:
-    articles: Статьи
-    courses: Курсы
-    yourcourses: Ваши курсы
-    students_short: Студенты
-    overview: Обзор
-    title: Заголовок
-    view: Просмотр курса
   metrics:
     date_time: Дата/время
   namespace:
