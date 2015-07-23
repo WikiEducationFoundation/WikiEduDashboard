@@ -19,7 +19,8 @@ PopoverButton = (Key, ValueKey, Store, New, Items) ->
       if !New(item)
         @refs.entry.getDOMNode().value = ''
         @props.open()
-    add: ->
+    add: (e) ->
+      e.preventDefault()
       item = @refs.entry.getDOMNode().value
       if New(item)
         ServerActions.add Key, @props.course_id, format(item)
@@ -37,8 +38,10 @@ PopoverButton = (Key, ValueKey, Store, New, Items) ->
       edit_row = (
         <tr className='edit'>
           <td>
-            <input type="text" ref='entry' placeholder={placeholder} />
-            <button className='button border' onClick={@add}>Add</button>
+            <form onSubmit={@add}>
+              <input type="text" ref='entry' placeholder={placeholder} />
+              <button type="submit" className='button border'>Add</button>
+            </form>
           </td>
         </tr>
       )

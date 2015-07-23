@@ -28,7 +28,8 @@ AssignButton = React.createClass(
   getKey: ->
     tag = if @props.role == 0 then 'assign_' else 'review_'
     tag + @props.student.id
-  assign: ->
+  assign: (e) ->
+    e.preventDefault()
     article_title = urlToTitle @refs.ass_input.getDOMNode().value
     return unless confirm(I18n.t('assignments.confirm_addition', { title: article_title, username: @props.student.wiki_id }))
     if(article_title)
@@ -74,8 +75,10 @@ AssignButton = React.createClass(
       edit_row = (
         <tr className='edit'>
           <td>
-            <input type="text" ref='ass_input' placeholder='Article title' />
-            <button className='button border' onClick={@assign}>Assign</button>
+            <form onSubmit={@assign}>
+              <input type="text" ref='ass_input' placeholder='Article title' />
+              <button className='button border' type="submit">Assign</button>
+            </form>
           </td>
         </tr>
       )

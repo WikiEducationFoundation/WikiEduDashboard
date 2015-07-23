@@ -18,7 +18,8 @@ EnrollButton = React.createClass(
     if UserStore.getFiltered({ wiki_id: wiki_id, role: @props.role }).length > 0
       alert (wiki_id + ' successfully enrolled!')
       @refs.wiki_id.getDOMNode().value = ''
-  enroll: ->
+  enroll: (e) ->
+    e.preventDefault()
     wiki_id = @refs.wiki_id.getDOMNode().value
     user_obj = { wiki_id: wiki_id, role: @props.role }
     if UserStore.getFiltered({ wiki_id: wiki_id, role: @props.role }).length == 0 &&
@@ -61,8 +62,10 @@ EnrollButton = React.createClass(
     edit_rows.push (
       <tr className='edit' key='add_students'>
         <td>
-          <input type="text" ref='wiki_id' placeholder='Username' />
-          <button className='button border' onClick={@enroll}>Enroll</button>
+          <form onSubmit={@enroll}>
+            <input type="text" ref='wiki_id' placeholder='Username' />
+            <button className='button border' type='submit'>Enroll</button>
+          </form>
         </td>
       </tr>
     ) if @props.role != 0 || @props.allowed
