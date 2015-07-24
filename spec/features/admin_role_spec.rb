@@ -70,12 +70,10 @@ describe 'Admin users', type: :feature, js: true do
       sleep 1
 
       # Edit details and add cohort
-      page.all('.button.dark')[1].click
+      click_button('Edit Details')
       page.all('.button.border.plus')[4].click
       find('.pop input', visible: true).set('Fall 2015')
       find('.pop button', visible: true).click
-      page.driver.browser.switch_to.alert.accept
-      page.driver.browser.switch_to.alert.accept
       sleep 1
 
       expect(page).to have_content 'Your course has been published'

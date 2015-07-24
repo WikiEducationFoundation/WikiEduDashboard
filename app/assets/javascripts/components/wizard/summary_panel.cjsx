@@ -14,8 +14,13 @@ SummaryPanel = React.createClass(
     WizardActions.rewindWizard(to_index)
   render: ->
     raw_options = WizardStore.getAnswers().map (answer, i) =>
-      details = answer.selections.map (selection, j) ->
-        <p key={'detail' + i + '' + j}>{selection}</p>
+      if i == 0
+        details = [
+          <p key={'assignment_summary'}>{@props.course.timeline_start} — {@props.course.timeline_end}</p>
+        ]
+      else
+        details = answer.selections.map (selection, j) ->
+          <p key={'detail' + i + '' + j}>{selection}</p>
       <button key={'answer' + i} className='wizard__option summary' onClick={@rewind.bind(this, i)}>
         <h3>{answer.title}</h3>
         {details}

@@ -1,6 +1,7 @@
 # Messages for Portuguese (português)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Macofe
 # Author: Vitorvicentevalente
 ---
 pt:
@@ -9,58 +10,6 @@ pt:
   activity:
     edited_by: Editado por
     all: Atividade
-  article:
-    edited: Artigos editados
-    edited_mobile: Artigos
-    edited_none: '%{title} não editou nenhum artigo.'
-    rating: Qualidade
-    rating_doc: A qualidade de um artigo foi atribuída pelos WikiProjetos da Wikipédia.
-      Estas avaliações podem corresponder a versões antigas, de modo que são apenas
-      um indicador aproximado da qualidade da página.
-    rating_docs:
-      fa: Artigo destacado - os melhores trabalhos da Wikipédia, provavelmente algo
-        muito maduro para um projeto principal de um editor-estudante
-      fl: Lista destacada — classificação mais elevada da Wikipédia para listas.
-      a: 4 — reservado a artigos bem desenvolvidos, talvez muito maduro para um projeto
-        principal de um editor-estudante
-      ga: Artigo bom — reservado para artigos muito bem desenvolvidos, talvez muito
-        maduro para um projeto principal de um editor-estudante
-      b: 3 — reservado a artigos moderadamente desenvolvidos
-      c: 2 — reservado a artigos intermédios e referenciados que precisam de melhorias
-      start: 1 — reservado aos artigos mínimos sem referências.
-      stub: Esboços — um artigo curto que precisa de mais conteúdo
-      list: Listas — uma lista em vez de um artigo convencional
-      '?': Sem classificação — reservado aos artigos cuja qualidade ainda não foi
-        avaliada.
-    title: Título
-    view: Ver artigo
-    view_all: Ver todos
-  course:
-    activity: Atividade
-    articles: Artigos
-    course_description: Cursos
-    courses: Cursos
-    yourcourses: Os seus cursos
-    nocourses: Não está inscrito em nenhum curso
-    current: Cursos atuais
-    duration: Duração do curso
-    instructor:
-      one: Instrutor
-      other: Instrutores
-    students: Estudantes
-    students_none: '%{title} não possui quaisquer estudantes inscritos'
-    students_short: Estudantes
-    timeline: Detalhes da avaliação
-    title: Título
-    view: Ver Curso
-    view_wiki: Ver na Wikipédia
-    volunteer:
-      one: Voluntário
-      other: Voluntários
-    wiki_staff: Equipa
-    error:
-      exists: Este curso já existe! Por favor, experimente novamente com um título,
-        escola ou termo diferentes.
   metrics:
     activity: Atividade recente
     activity_none: '%{title} não tem atividade recente'
@@ -80,13 +29,7 @@ pt:
     user_ns: Utilizador(a)
   uploads:
     none: Não foram carregados ficheiros
-  user:
-    contributions: Contribuições de utilizador
-    contributions_more: Ver mais contribuições
-    name: Nome
-    training_complete_short: Concluído
-    training_incomplete_short: Incompleto
-    view_all: Ver todos
+    usages: Usos
   error_401:
     header: Não autorizado. >:-(
   error_404:

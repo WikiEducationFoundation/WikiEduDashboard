@@ -1,0 +1,39 @@
+# Messages for Kurdish (Latin script) (Kurdî (latînî)‎)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Bikarhêner
+---
+ku-latn:
+  application:
+    dashboard: Panela Wiki Ed'ê
+  activity:
+    edited_by: Hat Sererastkirin Ji Alî
+    all: Çalakî
+  cohort:
+    view_other: Komên din bibîne
+  metrics:
+    activity: Aktîvîteyên Dawî
+    activity_none: '%{title} di demên dawî de çalakîyan nekirîye'
+    articles_created: Gotar Hate Çêkirin
+    articles_edited: Gotar Hate Sererastkirin
+    characters: Karakter
+    char_changed: Karakter Hate Guhertin
+    date_time: Dîrok/Katjimêr
+    edit_count_description: Hemû Guherandin
+    student_editors: Edîtorên Xwendekara
+    view: Dîtin
+    view_count_description: Dîtinên Gotara
+  namespace:
+    user_ns: Bikarhêner
+  uploads:
+    none: Pel nehatiye barkirin
+    usages: Bikaranîn
+  wiki_edits:
+    notify_untrained:
+      header: Xwendekar rahênana xwe xilas nekirîye.
+      summary: rahênana xwedekarê netemame
+  error_401:
+    header: Bêdestûr. >:-(
+  error_404:
+    header: Rûpel nehate dîtin. :-(
+...

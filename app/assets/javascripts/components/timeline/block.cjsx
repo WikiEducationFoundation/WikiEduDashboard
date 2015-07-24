@@ -29,7 +29,7 @@ Block = React.createClass(
       dueDateRead = (
         <TextInput
           onChange={@updateBlock}
-          value={'Week ' + (@props.week_index + @props.block.duration)}
+          value={"In #{@props.block.duration} week#{if @props.block.duration != 1 then 's' else ''}"}
           value_key={'duration'}
           editable={false}
           label='Due'

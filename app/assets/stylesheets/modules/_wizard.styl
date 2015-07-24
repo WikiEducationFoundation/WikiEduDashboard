@@ -72,8 +72,6 @@ wizard-width = 860px
     .wizard__form
       height 80%
       margin-top 20px
-      .column
-        col(1/2)
       p
         text-align left
       textarea
@@ -81,6 +79,11 @@ wizard-width = 860px
       input, textarea
         margin-bottom 10px
         width 100%
+      .vertical-form
+        float none
+        margin 0
+        overflow hidden
+        padding-left 20px
     .wizard__panel__options
       padding 20px 0
       .left, .right
@@ -224,3 +227,6 @@ wizard-width = 860px
           color burnt
   .section-header
     margin-bottom 10px
+
+.column
+  col(1/2)

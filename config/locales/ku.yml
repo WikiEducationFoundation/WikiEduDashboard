@@ -1,37 +1,16 @@
-# Messages for Kurdish (Latin script) (Kurdî (latînî)‎)
+# Messages for Kurdish (Kurdî)
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Bikarhêner
 ---
-ku-latn:
+ku:
   application:
     dashboard: Panela Wiki Ed'ê
   activity:
     edited_by: Hat Sererastkirin Ji Alî
     all: Çalakî
-  article:
-    edited_mobile: Gotar
-    rating: Klas
-    title: Sernav
-    view: Xuyanga Nivisarê
-    view_all: Hemûyan Bibîne
   cohort:
     view_other: Komên din bibîne
-  course:
-    activity: Çalakî
-    articles: Gotar
-    course_description: Kursên Wiki Ed'ê
-    courses: Kurs
-    yourcourses: Kursên Te
-    current: Kursên Dawî
-    duration: Wextê Kursê
-    students: Xwendekar
-    students_short: Xwendekar
-    timeline: Detayên Tayînkirinê
-    title: Sernav
-    view: Kursa Bibîne
-    view_wiki: Li Ser Wîkîpediya Nîşan Bide
-    wiki_staff: Karmendên Wiki Ed'ê
   metrics:
     activity: Aktîvîteyên Dawî
     activity_none: '%{title} di demên dawî de çalakîyan nekirîye'
@@ -49,19 +28,6 @@ ku-latn:
   uploads:
     none: Pel nehatiye barkirin
     usages: Bikaranîn
-  user:
-    assigned: Gotarê Tayînkirî
-    reviewers: Nirxîner
-    assigned_none: Gotarê Teyînkirî Tine
-    reviewer_none: Nirxîner Tine
-    contributions: Beşdarîyên Bikarhêner
-    contributions_more: Bêhtir Beşdarîyan Bibîne
-    editors: Edîtorên Xwendekara
-    name: Nav
-    training_complete_short: Xilas Bû
-    training_complete_count: Rahênan %{count} hate temamkirin
-    training_incomplete_short: Xilas Nebû
-    view_all: Hemûyan Bibîne
   wiki_edits:
     notify_untrained:
       header: Xwendekar rahênana xwe xilas nekirîye.

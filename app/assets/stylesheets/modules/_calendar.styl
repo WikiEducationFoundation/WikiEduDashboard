@@ -1,0 +1,162 @@
+.DayPicker
+  border 1px solid athens
+  clear both
+  color dove
+  display inline-flex
+  font-size 15px
+  flex-wrap wrap
+  float left
+  justify-content center
+  margin 0 auto 10px
+  position relative
+  padding 1rem 0 0
+  text-transform uppercase
+  user-select none
+
+  &:focus
+    outline none
+
+.DayPicker-Month
+  display table
+  border-collapse collapse
+  border-spacing 0
+  user-select none
+
+.DayPicker-NavBar
+  position absolute
+  left 0
+  right 0
+  top 0
+  padding .5rem .5rem
+
+.DayPicker-NavButton
+  position absolute
+  width 1.5rem
+  height 1.5rem
+  background-repeat no-repeat
+  background-position center
+  background-size contain
+  cursor pointer
+
+.DayPicker-NavButton--prev
+  left 1rem
+  background-image url("../images/arrow.svg")
+  transform rotate(90deg)
+
+.DayPicker-NavButton--next
+  right 1rem
+  background-image url("../images/arrow.svg")
+  transform rotate(-90deg)
+
+
+.DayPicker-Caption
+  display table-caption
+  height 1.5rem
+  text-align center
+
+.DayPicker-Weekdays
+  display table-header-group
+  margin-top .5rem
+  > div
+    display table-row
+
+.DayPicker-Weekday
+  display table-cell
+  border-top 1px solid lighten(mischka, 5)
+  padding .5rem 1rem
+  font-size .875em
+  text-align center
+
+.DayPicker-Weekday--selected
+  background manatee
+  color white
+
+.DayPicker-Body
+  display table-row-group
+
+.DayPicker-Week
+  display table-row
+
+.DayPicker-Day
+  display table-cell
+  padding .5rem 1rem
+  border 1px solid lighten(mischka, 5)
+  border-width 1px 0
+  text-align center
+  cursor pointer
+  vertical-align middle
+  &:focus
+    outline none
+
+.DayPicker--interactionDisabled .DayPicker-Day, .DayPicker-Day--outrange
+  cursor default
+
+
+// Modifiers
+
+.DayPicker-Day--today
+  color burnt
+  font-weight 500
+
+.DayPicker-Day--disabled
+  color mischka
+  cursor default
+  background-color lighten(mischka, 7)
+
+.DayPicker-Day--sunday
+  color mischka
+  background-color lighten(mischka, 10)
+
+.DayPicker-Day--outside
+  cursor default
+  color mischka
+
+.DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside)
+  color white
+  background-color manatee
+
+.DayPicker-Day--highlighted:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside):not(.DayPicker-Day--selected)
+  background-color athens
+
+.DayPicker-Day--bordered:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside)
+  overflow hidden
+  position relative
+  &:before, &:after
+    border 2px solid manatee
+    border-width 0 0 2px 0
+    content ''
+    left 0
+    height 100%
+    position absolute
+    top 0
+    width 100%
+  &:before
+    transform rotate(30deg) translateY(-17px)
+  &:after
+    transform rotate(-30deg) translateY(-17px)
+
+.WeekdayPicker
+  border 0
+  clear both
+  float left
+  padding 0
+
+.WeekdayPicker .DayPicker-Month
+  border-collapse separate
+  border-spacing .9rem
+
+.WeekdayPicker .DayPicker-Weekday
+  border 1px solid gray
+  border-radius 20px
+  cursor pointer
+  padding .5rem
+  &:focus
+    outline none
+
+.WeekdayPicker--InteractionDisabled .DayPicker-Weekday
+  cursor default
+
+// Locales
+
+.DayPicker--ar
+  direction rtl

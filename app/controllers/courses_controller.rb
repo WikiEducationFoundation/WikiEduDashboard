@@ -88,7 +88,9 @@ class CoursesController < ApplicationController
       :listed,
       :passcode,
       :timeline_start,
-      :timeline_end
+      :timeline_end,
+      :day_exceptions,
+      :weekdays
     )
   end
 

@@ -34,7 +34,7 @@ Wizard = React.createClass(
   render: ->
     panels = @state.panels.map (panel, i) =>
       panel_count = @state.panels.length
-      step = "Step #{i + 1} of #{if i > 1 then panel_count else '?'}"
+      step = "Step #{i + 1}#{if i > 1 then ' of ' + panel_count else ''}"
       if i == 0
         <FormPanel panel={panel}
           course={@props.course}
@@ -42,6 +42,7 @@ Wizard = React.createClass(
           index={i}
           step={step}
           weeks={@props.weeks}
+          summary={@state.summary}
         />
       else if i < panel_count - 1
         <Panel panel={panel}
@@ -54,6 +55,7 @@ Wizard = React.createClass(
       else
         <SummaryPanel panel={panel}
           parentPath={@timelinePath()}
+          course={@props.course}
           key={panel.key}
           index={i}
           step={step}

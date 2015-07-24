@@ -6,6 +6,7 @@ class ArticlesCourses < ActiveRecord::Base
   belongs_to :course
 
   scope :live, -> { joins(:article).where(articles: { deleted: false }).uniq }
+  scope :new_article, -> { where(new_article: true) }
   scope :current, -> { joins(:course).merge(Course.current).uniq }
 
   ####################

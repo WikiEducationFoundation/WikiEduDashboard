@@ -6,8 +6,8 @@ TransitionGroup = require '../../utils/TransitionGroup'
 
 Timeline        = require './timeline'
 Grading         = require './grading'
-CourseDates     = require './course_dates'
 Editable        = require '../high_order/editable'
+Meetings        = require './meetings'
 
 ServerActions   = require '../../actions/server_actions'
 
@@ -36,10 +36,10 @@ TimelineHandler = React.createClass(
       >
         <RouteHandler key='wizard_handler' {...@props} weeks={@props.weeks.length} />
       </TransitionGroup>
-      <CourseDates
+      <Meetings
         current_user={@props.current_user}
         course_id={@props.course_id}
-        weeks={@props.weeks.length}
+        course={@props.course}
       />
       <Timeline {...@props} />
       <Grading {...@props} />
