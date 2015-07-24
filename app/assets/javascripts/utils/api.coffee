@@ -15,6 +15,18 @@ API =
   ###########
   # Getters #
   ###########
+  fetchLookups: (model) ->
+    new Promise (res, rej) =>
+      $.ajax
+        type: 'GET',
+        url: "/lookups/#{model}.json",
+        success: (data) ->
+          console.log "Received '#{model}' lookups"
+          res data
+      .fail (obj, status) ->
+        console.log 'Error: ' + obj.responseJSON.message
+        rej obj
+
   fetchWizardIndex: ->
     new Promise (res, rej) ->
       $.ajax
@@ -22,6 +34,18 @@ API =
         url: '/wizards.json',
         success: (data) ->
           console.log 'Received wizard index'
+          res data
+      .fail (obj, status) ->
+        console.log 'Error: ' + obj.responseJSON.message
+        rej obj
+
+  fetchCohorts: ->
+    new Promise (res, rej) ->
+      $.ajax
+        type: 'GET',
+        url: '/cohorts.json',
+        success: (data) ->
+          console.log 'Received cohorts'
           res data
       .fail (obj, status) ->
         console.log 'Error: ' + obj.responseJSON.message

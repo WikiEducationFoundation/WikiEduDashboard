@@ -11,46 +11,42 @@
     After small editing assignments to learn the basics, you and your students will select course-related topics that are not well-covered on Wikipedia. The students will work individually or in small teams to develop content — either expanding existing articles or creating new ones.
 
     **Choose this option if you plan to have students make significant additions to articles. You will be able to select small preliminary assignments to introduce your students to Wikipedia editing.**
-  #
-  # ##### Minimum timeline
-  # 6 weeks
+
+    **Minimum timeline**: *6 weeks*
   description: |
     Students analyze the current gaps, start their research to find high-quality secondary sources, and then consider the best way to organize the available information. Then it's time for them in turn to: propose an outline; draft new articles or new content for existing ones; provide and respond to peer feedback; and move their work into the live article namespace on Wikipedia.
 
     Along the way, students may work with experienced Wikipedia editors who can offer critical feedback and help make sure articles meet Wikipedia's standards and style conventions, and it's important to incorporate time into the assignment for the students to integrate those suggestions. Students who do great work may have their articles highlighted on Wikipedia's main page, and high quality articles will help inform thousands of future readers about the selected topic.
 
     Optionally, you may ask your students to write a reflective paper about their Wikipedia experience, present their contributions in class, or develop their own conclusions and arguments in a supplementary essay.
-  #
-  # ##### Recommended timeline:
-  # 12 weeks
-  #
-  # ##### Best for
-  # * Classes with fewer than 30 students
-  # * Advanced undergraduates or grad students
-  #
-  # ##### Not appropriate for
-  # * Large survey classes
-  # * Intro (100-level) classes
+
+    **Recommended timeline**: *12 weeks*
+
+    **Best for**:
+        Classes with fewer than 30 students
+        Advanced undergraduates or grad students
+
+    **Not appropriate for**:
+        Large survey classes
+        Intro (100-level) classes
 -
   key: translation
   title: Translate an article
   blurb: |
     Students work individually, or in small groups, to translate high-quality articles from the language they are studying's (L2) Wikipedia to their native-language (L1) Wikipedia.
-  #
-  # ##### Minimum timeline
-  # 6 weeks
+
+    **Minimum timeline**: *4 weeks*
   description: |
     Students gain skills in translation as well as expanding their vocabulary in the language they are studying. Optionally, students fact-check the translated article and seek out sources to support and expand the article in their native-language Wikipedia.
-  #
-  # ##### Recommended timeline:
-  # 5 weeks
-  #
-  # ##### Best for
-  # * Foreign language classrooms
-  #
-  # ##### Not appropriate for
-  # * Students without proficiency in both languages
-  # * Students translating from their native language to the language they're studying
+
+    **Recommended timeline**: *5 weeks*
+
+    **Best for**:
+        Foreign language classrooms
+
+    **Not appropriate for**:
+        Students without proficiency in both languages
+        Students translating from their native language to the language they're studying
 -
   key: smallassignments
   title: Pick and choose small projects

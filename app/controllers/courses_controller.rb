@@ -3,6 +3,7 @@ require "#{Rails.root}/lib/wiki_edits"
 
 #= Controller for course functionality
 class CoursesController < ApplicationController
+  include CourseHelper
   respond_to :html, :json
   before_action :require_permissions, only: [:create, :update, :destroy]
 
@@ -146,14 +147,6 @@ class CoursesController < ApplicationController
   ########################
   # View support methods #
   ########################
-  def find_course_by_slug(slug)
-    course = Course.where(listed: true).find_by_slug(slug)
-    if course.nil?
-      fail ActionController::RoutingError.new('Not Found'), 'Course not found'
-    end
-    return course
-  end
-
   def volunteers
     return nil if @course.nil?
     users = @course.users
