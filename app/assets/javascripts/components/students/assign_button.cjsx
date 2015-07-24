@@ -3,6 +3,7 @@ Router        = require 'react-router'
 Link          = Router.Link
 Expandable    = require '../high_order/expandable'
 Popover       = require '../common/popover'
+Lookup        = require '../common/lookup'
 ServerActions = require '../../actions/server_actions'
 AssignmentActions = require '../../actions/assignment_actions'
 
@@ -30,12 +31,12 @@ AssignButton = React.createClass(
     tag + @props.student.id
   assign: (e) ->
     e.preventDefault()
-    article_title = urlToTitle @refs.ass_input.getDOMNode().value
+    article_title = urlToTitle @refs.lookup.getValue()
     return unless confirm(I18n.t('assignments.confirm_addition', { title: article_title, username: @props.student.wiki_id }))
     if(article_title)
       AssignmentActions.addAssignment @props.course_id, @props.student.id, article_title, @props.role
       @setState send: (!@props.editable && @props.current_user.id == @props.student.id)
-      @refs.ass_input.getDOMNode().value = ''
+      @refs.lookup.clear()
   unassign: (assignment) ->
     return unless confirm(I18n.t('assignments.confirm_deletion'))
     AssignmentActions.deleteAssignment assignment
@@ -76,7 +77,12 @@ AssignButton = React.createClass(
         <tr className='edit'>
           <td>
             <form onSubmit={@assign}>
-              <input type="text" ref='ass_input' placeholder='Article title' />
+              <Lookup model='article'
+                placeholder='Article title'
+                ref='lookup'
+                onSubmit={@assign}
+                disabled=true
+              />
               <button className='button border' type="submit">Assign</button>
             </form>
           </td>

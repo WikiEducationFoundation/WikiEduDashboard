@@ -58,6 +58,8 @@ Rails.application.routes.draw do
         }
   end
 
+  get 'lookups/(:action)(.:format)' => 'lookups'
+
   # Enrollment
   post 'courses/:course_id/users' => 'users#save',
        constraints: { course_id: /.*/ }

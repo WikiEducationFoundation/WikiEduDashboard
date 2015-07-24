@@ -3,6 +3,7 @@ Expandable    = require '../high_order/expandable'
 Popover       = require '../common/popover'
 Conditional   = require '../high_order/conditional'
 ServerActions = require '../../actions/server_actions'
+Lookup        = require '../common/lookup'
 
 PopoverButton = (Key, ValueKey, Store, New, Items) ->
   format = (value) ->
@@ -15,13 +16,12 @@ PopoverButton = (Key, ValueKey, Store, New, Items) ->
     mixins: [Store.mixin]
     storeDidChange: ->
       return unless @refs.entry?
-      item = @refs.entry.getDOMNode().value
+      item = @refs.entry.getValue()
       if !New(item)
-        @refs.entry.getDOMNode().value = ''
-        @props.open()
+        @refs.entry.clear()
     add: (e) ->
-      e.preventDefault()
-      item = @refs.entry.getDOMNode().value
+      e.preventDefault() if e.preventDefault?
+      item = @refs.entry.getValue()
       if New(item)
         ServerActions.add Key, @props.course_id, format(item)
       else
@@ -39,7 +39,11 @@ PopoverButton = (Key, ValueKey, Store, New, Items) ->
         <tr className='edit'>
           <td>
             <form onSubmit={@add}>
-              <input type="text" ref='entry' placeholder={placeholder} />
+              <Lookup model={Key}
+                placeholder={placeholder}
+                ref='entry'
+                onSubmit={@add}
+              />
               <button type="submit" className='button border'>Add</button>
             </form>
           </td>
