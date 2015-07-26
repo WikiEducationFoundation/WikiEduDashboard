@@ -157,9 +157,9 @@ textarea {
 }
 
 button,
-input[type=button],
+input[type=submit],
 input[type=reset],
-input[type=submit] {
+input[type=button] {
   background: 0 0;
   border: 0;
   color: inherit;
@@ -1004,7 +1004,7 @@ strong {
 }
 
 .WeekdayPicker .DayPicker-Weekday {
-  border: 1px solid gray;
+  border: 1px solid grey;
   border-radius: 20px;
   cursor: pointer;
   padding: .5rem;
@@ -1139,7 +1139,7 @@ strong {
   vertical-align: top;
 }
 
-.typeahead +button {
+.typeahead+button {
   margin-right: 10px!important;
 }
 
@@ -1229,7 +1229,7 @@ strong {
   box-shadow: none!important;
 }
 
-.datepicker__input +span {
+.datepicker__input+span {
   margin: 0;
 }
 
@@ -1435,7 +1435,7 @@ strong {
 }
 
 .drawer .list__header p,
-.drawer height 2s p,
+.drawer height 2.s p,
 .drawer transition border .15s p,
 .drawer width 100% p {
   font-size: 14px!important;
@@ -1443,7 +1443,7 @@ strong {
 }
 
 .drawer .list__header h6,
-.drawer height 2s h6,
+.drawer height 2.s h6,
 .drawer transition border .15s h6,
 .drawer width 100% h6 {
   color: #858daa;
@@ -1881,7 +1881,7 @@ select {
 }
 
 .row.view-all:hover {
-  background: none!important;
+  background: 0 0!important;
 }
 
 .row.open:hover {
@@ -3257,9 +3257,9 @@ nav .nav__item.bordered {
   position: absolute;
   top: -webkit-calc(100% + 14px);
   top: calc(100% + 14px);
-  -webkit-transform: translateX(-50%) translateY(-30px) scale(0.7,.7);
-  -ms-transform: translateX(-50%) translateY(-30px) scale(0.7,.7);
-  transform: translateX(-50%) translateY(-30px) scale(0.7,.7);
+  -webkit-transform: translateX(-50%) translateY(-30px) scale(.7,.7);
+  -ms-transform: translateX(-50%) translateY(-30px) scale(.7,.7);
+  transform: translateX(-50%) translateY(-30px) scale(.7,.7);
   -webkit-transition: all .2s;
   transition: all .2s;
   z-index: 10;
@@ -4083,12 +4083,12 @@ table.uploads img {
   margin-top: 15px;
 }
 
-#react_root .block +.view-all,
-#react_root .week +.view-all {
+#react_root .block+.view-all,
+#react_root .week+.view-all {
   border-bottom: 0;
 }
 
-#react_root .block +.view-all {
+#react_root .block+.view-all {
   margin-top: 20px;
 }
 
@@ -4124,9 +4124,9 @@ table.uploads img {
 
 #react_root .block.block-leave-active {
   opacity: 0;
-  -webkit-transform: scale(0.5);
-  -ms-transform: scale(0.5);
-  transform: scale(0.5);
+  -webkit-transform: scale(.5);
+  -ms-transform: scale(.5);
+  transform: scale(.5);
 }
 
 #react_root .block p,
@@ -4150,8 +4150,8 @@ table.uploads img {
   width: 100%;
 }
 
-#react_root .block input[type=date],
 #react_root .block input[type=text],
+#react_root .block input[type=date],
 #react_root .block select {
   display: block;
   float: right;
@@ -4445,8 +4445,9 @@ input[type=checkbox] {
 }
 
 .wizard .wizard__panel .wizard__option .wizard__option__checkbox {
-  background: url(../images/check.svg) 45%/60% no-repeat;
+  background: url(../images/check.svg) 45% no-repeat;
   -webkit-background-size: 60%;
+  background-size: 60%;
   border: 1px solid #ced1dd;
   border-width: 0 1px 1px 0;
   height: 30px;
