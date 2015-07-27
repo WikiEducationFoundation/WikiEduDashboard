@@ -7,6 +7,7 @@
 -
   key: researchwrite
   title: Create or expand an article
+  min_weeks: 5
   blurb: |
     After small editing assignments to learn the basics, you and your students will select course-related topics that are not well-covered on Wikipedia. The students will work individually or in small teams to develop content — either expanding existing articles or creating new ones.
 

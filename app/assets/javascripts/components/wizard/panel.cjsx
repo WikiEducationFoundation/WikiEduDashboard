@@ -30,6 +30,7 @@ Panel = React.createClass(
             key={@props.index + '' + i}
             index={i}
             multiple={@props.panel.type == 0}
+            open_weeks={@props.open_weeks}
           />
         )
         if i % 2 == 0 then options_1.push(option) else options_2.push(option)

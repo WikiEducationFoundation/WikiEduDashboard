@@ -11,8 +11,10 @@ Option = React.createClass(
     $(React.findDOMNode(@refs.expandable)).toggleHeight()
     WizardActions.toggleOptionExpanded @props.panel_index, @props.index
   render: ->
+    disabled = @props.option.min_weeks? && @props.option.min_weeks > @props.open_weeks
     className = 'wizard__option section-header'
     className += ' selected' if @props.option.selected
+    className += ' disabled' if disabled
     checkbox = <div className='wizard__option__checkbox'></div> if @props.multiple
     if @props.option.description?
       expand_text = 'Read More'
@@ -34,16 +36,18 @@ Option = React.createClass(
       blurb = (
         <div dangerouslySetInnerHTML={{__html: Marked(@props.option.blurb, { renderer: MarkedRenderer })}}></div>
       )
+    if disabled
+      notice = <h3>This assignment requires at least {@props.option.min_weeks} available weeks. Please adjust your assignment start and end dates.</h3>
 
     <div className={className}>
-      <button onClick={@select}>
+      <button onClick={@select unless disabled}>
         {checkbox}
         <h3>{@props.option.title}</h3>
         {blurb}
         {expand}
       </button>
       {expand_link}
-      <div className='wizard__option__border'></div>
+      <div className='wizard__option__border'>{notice}</div>
     </div>
 )
 
