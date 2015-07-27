@@ -9,54 +9,68 @@
   title: Create or expand an article
   min_weeks: 5
   blurb: |
-    After small editing assignments to learn the basics, you and your students will select course-related topics that are not well-covered on Wikipedia. The students will work individually or in small teams to develop content — either expanding existing articles or creating new ones.
+    Students work individually or in small teams to create or expand articles.
 
+    ----
+    Minimum timeline: *6 weeks*
+    Recommended timeline: *12 weeks*
+
+    Best for:
+    — Classes with fewer than 30 students
+    — Advanced undergraduates or grad students
+
+    Not recommended for:
+    — Large survey classes
+    — Intro (100-level) classes
+
+    ----
     **Choose this option if you plan to have students make significant additions to articles. You will be able to select small preliminary assignments to introduce your students to Wikipedia editing.**
-  #
-  # ##### Minimum timeline
-  # 6 weeks
   description: |
-    Students analyze the current gaps, start their research to find high-quality secondary sources, and then consider the best way to organize the available information. Then it's time for them in turn to: propose an outline; draft new articles or new content for existing ones; provide and respond to peer feedback; and move their work into the live article namespace on Wikipedia.
+    Meets these learning objectives:
+    — Master course content
+    — Writing skills development
+    — Increase media and information fluency
+    — Improve critical thinking and research skills
+    — Foster collaboration
+    — Develop technical and communication skills
 
-    Along the way, students may work with experienced Wikipedia editors who can offer critical feedback and help make sure articles meet Wikipedia's standards and style conventions, and it's important to incorporate time into the assignment for the students to integrate those suggestions. Students who do great work may have their articles highlighted on Wikipedia's main page, and high quality articles will help inform thousands of future readers about the selected topic.
-
-    Optionally, you may ask your students to write a reflective paper about their Wikipedia experience, present their contributions in class, or develop their own conclusions and arguments in a supplementary essay.
-  #
-  # ##### Recommended timeline:
-  # 12 weeks
-  #
-  # ##### Best for
-  # * Classes with fewer than 30 students
-  # * Advanced undergraduates or grad students
-  #
-  # ##### Not appropriate for
-  # * Large survey classes
-  # * Intro (100-level) classes
 -
   key: translation
   title: Translate an article
   blurb: |
-    Students work individually, or in small groups, to translate high-quality articles from the language they are studying's (L2) Wikipedia to their native-language (L1) Wikipedia.
-  #
-  # ##### Minimum timeline
-  # 6 weeks
+    Students translate high-quality articles from the language they are studying to share on their native-language Wikipedia.
+
+    ----
+    Minimum timeline: *4 weeks*
+    Recommended timeline: * 5 weeks*
+
+    Best for:
+    — Foreign language classrooms
+
+    Not recommended for:
+    — Students without proficiency in both languages
+    — Students translating *from* their native language *to* the language they're studying
   description: |
-    Students gain skills in translation as well as expanding their vocabulary in the language they are studying. Optionally, students fact-check the translated article and seek out sources to support and expand the article in their native-language Wikipedia.
-  #
-  # ##### Recommended timeline:
-  # 5 weeks
-  #
-  # ##### Best for
-  # * Foreign language classrooms
-  #
-  # ##### Not appropriate for
-  # * Students without proficiency in both languages
-  # * Students translating from their native language to the language they're studying
+    Meets these learning objectives:
+    — Master course content
+    — Writing skills development
+
 -
   key: smallassignments
   title: Pick and choose small projects
   blurb: |
-    Build your own Wikipedia project out of small Wikipedia exercises and assignments, such as copyediting existing articles, adding a small amount of new content to an article, critiquing an article, and adding images to an article.
+    Build your own custom Wikipedia project from small exercises and assignments, such as:
+    — copyediting existing articles
+    — adding smaller amounts of new content to an article
+    — critiquing an article
+    — adding images
+
+    ----
+    Minimum timeline: *2 weeks*
+    Recommended timeline: * 1-3 weeks per small assignment*
+
+    Best for:
+    — Courses with minimal time to give to Wikipedia assignments
   description: |
     Even if a larger 'research and write an article' project doesn't fit with your course, you may still be able to achieve many of your learning objectives with one or more short Wikipedia exercises. You can also use these exercises as a starting point for creating your own custom assignment.
 
@@ -64,6 +78,20 @@
   key: addimages
   title: Add images & multimedia
   blurb: |
-    Students find topics on Wikipedia that need better illustrations and use their media skills — including photography, graphic design, and videography — to create new media files and add them to Wikipedia.
+    Students find Wikipedia topics in need of photography, graphic design, or video, then create new media files and add them to Wikipedia.
+
+    ----
+    Minimum timeline: *2 weeks*
+    Recommended timeline: *3 or more weeks*
+
+    Best for:
+    — Students studying photography, videography, or graphic design
+
+    Not appropriate for:
+    — Students without media skills
+
   description: |
-    If your students are adept at media, this can be a great way of contributing to Wikipedia in a non-textual way. In the past, students have photographed local monuments to illustrate articles, designed infographics to illustrate concepts, or created videos that demonstrated audio-visually what articles describe in words. Researching and restoring public domain archival images is also a possibility.
+    Meets these learning objectives:
+    — Master course content
+    — Increase media and information fluency
+    — Develop technical and communication skills

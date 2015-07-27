@@ -2,20 +2,25 @@
   key: essentials
   title: Wikipedia essentials
   description: |
-    To get started, you'll want to introduce your students to the basic rules of writing Wikipedia articles and working with the Wikipedia community.
+    As your first Wikipedia milestone, you'll want to introduce students to the
+    basic rules of participating in, and contributing to, the Wikipedia
+    community.
 
-    As their first Wikipedia assignment milestone, you can ask the students to create user accounts and then complete the **[online training for students](https://en.wikipedia.org/wiki/Wikipedia:Training/For_students)**. This training introduces the Wikipedia community and how it works, demonstrates the basics of editing and walks students through their first edits, gives advice for selecting articles and drafting revisions, and explains further sources of support as they continue along. It takes about an hour and ends with a certification step, which you can use to verify that students completed the training.
+    Students should create user accounts and complete the
+    **[online training for students](https://en.wikipedia.org/wiki/Wikipedia:Training/For_students)**.
+    It helps students understand the Wikipedia fundamentals, walks students
+    through their first edits, gives advice for picking articles and drafting
+    revisions, and how to find support. It takes about an hour. Students who
+    complete the training are better prepared to focus on your course's learning
+    outcomes, and generally have better experiences.
 
-    Students who complete this training are better prepared to focus on learning outcomes, and spend less time distracted by cleaning up after errors. Your course page will indicate which students have not yet completed the training.
-
-    ### Assignment milestones
-    * Create a user account and enroll on the course page.
-    * Complete the *online training for students*. During this training, you will make edits in a sandbox and learn the basic rules of Wikipedia.
-    * To practice editing and communicating on Wikipedia, introduce yourself to any Wikipedians helping your class (such as a Wikipedia Ambassador), and leave a message for a classmate on their user talk page.
+    You can track which students have not completed the training through your
+    course Dashboard. **Grading students for completing the training is
+    recommended.**
 
     <br>
 
-    **Will completion of the student training be part of your students' grades?**
+    **Will you ask students to complete this training as part of their grade? **
   type: 1  # single choice
   minimum: 1
   options:
@@ -32,35 +37,33 @@
   key: early_editing_tasks
   title: Getting started with editing
   description: |
-    It is important for students to start editing Wikipedia early on. That way, they become familiar with Wikipedia's markup ("wikisyntax", "wikimarkup", or "wikicode") and the mechanics of editing and communicating on the site. We recommend assigning a few basic Wikipedia tasks early on.
+    It's best for students to start editing Wikipedia early on. We recommend assigning a few basic Wikipedia assignments to ease them in.
 
     #### Which introductory assignments would you like to use?
-    You can select none, one, or more. Whichever you select will be added to the assignment timeline.
-
-    For most courses, the *Critique an article* and *Add to an article* exercises provide a nice foundation for the main writing project. These have been selected by default.
+    Select none, one, or more.
   type: 0 # multiple choice
   minimum: 0
   options:
     -
-      title: Critique an article
-      blurb: Critically evaluate an existing Wikipedia article related to the class, and leave suggestions for improving it on the article’s talk page.
+      title: Critique an article (recommended)
+      blurb: Students critically evaluate a Wikipedia article related to their class, and leave suggestions for improving it on that article's talk page.
       # description:
       logic: critique
       selected: true # selected by default
     -
-      title: Add to an article
-      blurb: Using course readings or other relevant secondary sources, add 1–2 sentences of new information to a Wikipedia article related to the class. Be sure to integrate it well into the existing article, and include a citation to the source.
+      title: Add to an article (recommended)
+      blurb: Students use course readings or other relevant secondary sources to add 1-2 sentences to a Wikipedia article related to the class. They see how to integrate their new information, and how to include a citation for their source.
       # description:
       logic: add_to_article
       selected: true # selected by default
     -
       title: Copyedit an article
-      blurb: Browse Wikipedia until you find an article that you would like to improve, and make some edits to improve the language or formatting.
+      blurb: Students browse Wikipedia until they find an article they'd like to improve. They make edits to improve the language or formatting.
       # description:
       logic: copyedit
     -
       title: Illustrate an article
-      blurb: Find an opportunity to improve an article by uploading and adding a photo you took.
+      blurb: Students improve an article by uploading one of their own photographs.
       # description:
       logic: illustrate
 
@@ -177,13 +180,17 @@
   key: draft_and_mainspace
   title: Drafts and mainspace
   description: |
-    Once students have gotten a grip on their topics and the sources they will use to write about them, it’s time to start writing on Wikipedia. You can ask them to jump right in and edit live, or start them off in their own sandbox pages. There are pros and cons of each approach.
+    Once students have a grip on their topics and the sources they'll use to write about them, it’s time to start writing on Wikipedia. You can ask them to jump right in and edit live, or start them off in their own sandbox pages. There are pros and cons of each approach.
 
-    #### Pros and cons of sandboxes
-    Sandboxes — pages associated with an individual editor that are not considered part of Wikipedia proper — make students feel safe. They can edit without the pressure of the whole world reading their drafts or other Wikipedians altering their writing. However, sandbox editing limits many of the unique aspects of Wikipedia as a teaching tool, such as collaborative writing and incremental drafting. Spending more than a week or two in sandboxes is strongly discouraged.
+    #### Sandboxes
+    **Pro:** Sandboxes — pages associated with an individual editor that are not considered part of Wikipedia proper — make students feel safe. They can edit without the pressure of the whole world reading their drafts or other Wikipedians altering their writing.
 
-    #### Pros and cons of editing live
-    Editing live is exciting for the students because they can see their changes to the articles immediately and experience the collaborative editing process throughout the assignment. However, because new editors often unintentionally break Wikipedia rules, sometimes students’ additions are questioned or removed.
+    **Con:** Sandbox editing limits many of the unique aspects of Wikipedia as a teaching tool, such as collaborative writing and incremental drafting. Spending more than a week or two in sandboxes is strongly discouraged.
+
+    #### Editing live
+    **Pro:** Editing live is exciting for the students because they can see their changes to the articles immediately, and experience the collaborative editing process throughout the assignment.
+
+    **Con:** New editors often unintentionally break Wikipedia rules; sometimes students’ additions are questioned or removed.
 
     **Choose one.**
   type: 1 # single choice
@@ -201,9 +208,9 @@
   description: |
     Collaboration is a critical element of contributing to Wikipedia.
 
-    For some students, this will happen spontaneously; their choice of topics will attract interested Wikipedians who will pitch in with ideas, copyedits, or even substantial contributions to the students’ articles. In many cases, however, there will be little spontaneous editing of students’ articles before the end of the term. Fortunately, you have a classroom full of peer reviewers. You can make the most of this by assigning students to review each others’ articles soon after full-length drafts are posted. This gives students plenty of time to act on the advice of their peers.
+    Some students will choose topics that naturally attract interested Wikipedians who will pitch in with ideas, copyedits, or even substantial contributions to the students’ articles. Some topics, however, may not attract much interest. Consider assigning students to review each others’ articles soon after full-length drafts are posted, so they have time to act on that advice.
 
-    Peer reviews are another chance for students to practice critical thinking. Useful reviews focus on specific issues that can be improved. Since students are usually hesitant to criticize their classmates—and other Wikipedia editors may get annoyed with a stream of praise from students that glosses over an article's shortcomings—it's important to gives examples of the kinds of constructively critical feedback that are the most helpful.
+    Peer reviews are another chance for students to practice critical thinking. Since students are usually hesitant to criticize their classmates—and other Wikipedia editors may get annoyed with a stream of praise from students that glosses over an article's shortcomings—it's important to gives examples of constructively critical feedback that focus on specific aspects for improvement.
 
     **How many peer reviews will you ask each student to contribute during the course?**
   type: 1 # single choice
