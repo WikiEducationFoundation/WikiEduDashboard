@@ -1,6 +1,5 @@
 React           = require 'react/addons'
 Router          = require 'react-router'
-Link            = Router.Link
 RouteHandler    = Router.RouteHandler
 TransitionGroup = require '../../utils/TransitionGroup'
 
@@ -22,6 +21,9 @@ getState = ->
   blocks: BlockStore.getBlocks()
   gradeables: GradeableStore.getGradeables()
 
+
+# Returns string describing weekday meetings for each week
+# Ex: ["(Mon, Weds, Fri)", "(Mon, Weds)", "()", "(Mon, Weds, Fri)"]
 weekMeetings = (course) ->
   timeline_start = moment(course.timeline_start)
   timeline_end = moment(course.timeline_end)
@@ -53,9 +55,9 @@ weekMeetings = (course) ->
       week_index++
     time_index++
   return meetings
+
 # Returns number of available weeks without anything scheduled
 # Available weeks are inside the timeline dates and have weekday meetings
-
 openWeeks = (course, week_count) ->
   meetings = weekMeetings(course)
   open_weeks = meetings.reduce (total, i) ->
@@ -67,8 +69,6 @@ TimelineHandler = React.createClass(
   displayName: 'TimelineHandler'
   componentWillMount: ->
     ServerActions.fetch 'timeline', @props.course_id
-  # Returns string describing weekday meetings for each week
-  # Ex: ["(Mon, Weds, Fri)", "(Mon, Weds)", "()", "(Mon, Weds, Fri)"]
   render: ->
     <div>
       <TransitionGroup
@@ -82,11 +82,6 @@ TimelineHandler = React.createClass(
           open_weeks={openWeeks(@props.course, @props.weeks.length)}
         />
       </TransitionGroup>
-      <Meetings
-        current_user={@props.current_user}
-        course_id={@props.course_id}
-        course={@props.course}
-      />
       <Timeline {...@props} week_meetings={weekMeetings(@props.course)} />
       <Grading {...@props} />
     </div>

@@ -93,11 +93,18 @@ Timeline = React.createClass(
     else
       wizard_link = <CourseLink to='wizard' className='button dark'>Add Assignment</CourseLink>
 
+    controls = (
+      <span>
+        {wizard_link}
+        <CourseLink to='dates' className='button dark'>Edit Course Dates</CourseLink>
+      </span>
+    )
+
     <div>
       <div className="section-header">
         <h3>Timeline</h3>
         <CourseLink to='wizard', text='Open Wizard', className='button large dark' />
-        {@props.controls(wizard_link)}
+        {@props.controls(controls)}
       </div>
       <ul className="list">
         {week_components}

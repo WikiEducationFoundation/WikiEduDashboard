@@ -20,7 +20,7 @@ Calendar = React.createClass(
     else
       exceptions.push formatted
     to_pass['day_exceptions'] = exceptions.join(',')
-    CourseActions.updateCourse to_pass
+    CourseActions.updateCourse to_pass, (@props.save? && @props.save)
   selectWeekday: (e, weekday) ->
     to_pass = @props.course
     if !to_pass['weekdays']?
@@ -30,7 +30,7 @@ Calendar = React.createClass(
       weekdays = to_pass['weekdays'].split('')
     weekdays[weekday] = if weekdays[weekday] == '1' then '0' else '1'
     to_pass['weekdays'] = weekdays.join('')
-    CourseActions.updateCourse to_pass
+    CourseActions.updateCourse to_pass, (@props.save? && @props.save)
   inrange: (day) ->
     return false unless @props.course.start?
     start = moment(@props.course.start, 'YYYY-MM-DD').subtract(1, 'day').format('YYYY-MM-DD')
