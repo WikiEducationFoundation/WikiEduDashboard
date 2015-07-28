@@ -5,8 +5,11 @@ InlineUsers = React.createClass(
   displayName: 'InlineUsers'
   render: ->
     key = @props.title + '_' + @props.role
-    name_key = if @props.users.length > 0 && @props.users[0].real_name? then 'real_name' else 'wiki_id'
-    user_list = _.pluck(@props.users, name_key).join(', ')
+    if @props.users.length > 0 && @props.users[0].real_name?
+      user_list = @props.users.map (user) -> "#{user.real_name} (#{user.wiki_id})"
+    else
+      user_list = _.pluck(@props.users, 'wiki_id')
+    user_list = user_list.join(', ')
     user_list = if user_list.length > 0 then user_list else 'None'
     inline_list = <span>{@props.title}: {user_list}</span> if @props.users.length > 0 || @props.editable
     allowed = @props.role != 4 || (@props.current_user.role == 4 || @props.current_user.admin)
