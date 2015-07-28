@@ -8,6 +8,7 @@ Assignment = React.createClass(
       rating_num: null
       pretty_rating: null
       url: null
+      language: null
       title: @props.assign_group[0].article_title
       new: false
     }
@@ -15,7 +16,8 @@ Assignment = React.createClass(
     className = 'assignment'
     ratingClass = 'rating ' + article.rating
     ratingMobileClass = ratingClass + ' tablet-only'
-
+    languagePrefix = if article.language then "#{article.language}:" else ''
+    formattedTitle = "#{languagePrefix}#{article.title}"
     assignees = []
     reviewers = []
     for assignment in _.sortBy @props.assign_group, 'user_wiki_id'
@@ -35,7 +37,7 @@ Assignment = React.createClass(
       <td>
         <div className={ratingMobileClass}><p>{article.pretty_rating}</p></div>
         <p className="title">
-          <a onClick={@stop} href={article.url} target="_blank" className="inline">{article.title} {(if article.new then ' (new)' else '')}</a>
+          <a onClick={@stop} href={article.url} target="_blank" className="inline">{formattedTitle} {(if article.new then ' (new)' else '')}</a>
         </p>
       </td>
       <td className='desktop-only-tc'>{assignees.join(', ')}</td>

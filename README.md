@@ -82,7 +82,7 @@ For analytics (ie, tracking traffic), we use [Piwik](https://github.com/piwik/pi
 
 In order to use and develop the authenticated features of the application (course creation, the assignment design wizard, user management, etc) you will need to create a MediaWiki OAuth consumer).
 
-[Log in to mediawiki](https://www.mediawiki.org/w/index.php?title=Special:UserLogin&returnto=Special%3AUserLogout&returntoquery=noreturnto%3D) with the username and password from the application.yml file. Once you're logged in, click on "Preferences" in the upper right-hand corner. In the "User profile" tab under "Preferences" (selected by default), change the email address to your email. You'll need this to confirm your account and get your token and secret key in the next step.
+[Log in to mediawiki](https://www.mediawiki.org/w/index.php?title=Special:UserLogin&returnto=Special%3AUserLogout&returntoquery=noreturnto%3D) with your username and password for mediawiki.org. Once you're logged in, click on "Preferences" in the upper right-hand corner. In the "User profile" tab under "Preferences" (selected by default), change the email address to your email. You'll need this to confirm your account and get your token and secret key in the next step.
 
 You'll now [propose an OAuth consumer](https://www.mediawiki.org/wiki/Special:OAuthConsumerRegistration/propose). Fill out the form like so:
 

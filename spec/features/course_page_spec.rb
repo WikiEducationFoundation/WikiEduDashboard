@@ -48,6 +48,7 @@ describe 'the course page', type: :feature do
              id: i.to_s,
              title: "Article #{i}",
              namespace: 0,
+             language: 'es',
              rating: ratings[(i + 5) % 10])
     end
 
@@ -229,6 +230,8 @@ describe 'the course page', type: :feature do
       find('th.sortable', text: 'Class').click
       new_first_rating = page.find(:css, 'table.articles').first('td .rating p')
       expect(new_first_rating).to have_content '-'
+      title = page.find(:css, 'table.articles').first('td p.title')
+      expect(title).to have_content 'es:Article'
     end
   end
 
