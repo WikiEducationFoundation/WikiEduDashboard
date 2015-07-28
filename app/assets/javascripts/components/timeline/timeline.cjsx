@@ -87,7 +87,7 @@ Timeline = React.createClass(
 
     start = moment(@props.course.timeline_start)
     end = moment(@props.course.timeline_end)
-    timeline_full = Math.ceil(end.diff(start, 'days') / 7) - @props.weeks.length <= 0
+    timeline_full = (end.week() - start.week() + 1) - @props.weeks.length <= 0
     if timeline_full
       wizard_link = <div className='button dark disabled' title='You cannot use the assignment design wizard when your timeline is full. Delete at least one week to make room for a new assignment.'>Add Assignment</div>
     else

@@ -34,15 +34,6 @@ List = React.createClass(
       )
       className = @props.table_key + ' list'
 
-
-          # <div class="course-list__row__characters sort popover-trigger" data-default-order="desc" data-sort="ucharacters">
-          #   <p><%= t("metrics.char") %></p>
-          #   <div class="popover dark">
-          #     <p><%= t("courses.character_doc") %></p>
-          #   </div>
-          # </div>
-
-
     elements = @props.elements
     if elements.length == 0
       if @props.store.isLoaded()
