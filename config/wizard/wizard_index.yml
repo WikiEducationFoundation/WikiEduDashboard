@@ -7,6 +7,7 @@
 -
   key: researchwrite
   title: Create or expand an article
+  min_weeks: 6
   blurb: |
     Students work individually or in small teams to create or expand articles.
 
@@ -36,6 +37,7 @@
 -
   key: translation
   title: Translate an article
+  min_weeks: 4
   blurb: |
     Students translate high-quality articles from the language they are studying to share on their native-language Wikipedia.
 
@@ -57,6 +59,7 @@
 -
   key: smallassignments
   title: Pick and choose small projects
+  min_weeks: 2
   blurb: |
     Build your own custom Wikipedia project from small exercises and assignments, such as:
     — copyediting existing articles
@@ -76,6 +79,7 @@
 -
   key: addimages
   title: Add images & multimedia
+  min_weeks: 2
   blurb: |
     Students find Wikipedia topics in need of photography, graphic design, or video, then create new media files and add them to Wikipedia.
 

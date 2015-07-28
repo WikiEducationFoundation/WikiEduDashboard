@@ -74,6 +74,11 @@ class CoursesController < ApplicationController
       params[:course][:passcode] = ('a'..'z').to_a.sample(8).join
     end
 
+    if params[:course].key? :instructor_name
+      current_user.update(real_name: params[:course][:instructor_name])
+      params[:course].delete(:instructor_name)
+    end
+
     params.require(:course).permit(
       :id,
       :title,

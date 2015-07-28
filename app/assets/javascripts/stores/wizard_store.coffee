@@ -8,7 +8,7 @@ _summary = false
 _wizard_key = null
 _panels = [{
   title: "Assignment Dates"
-  description: "Configure the timeline for your assignment."
+  description: "Confirm the course dates, assignment dates, and weekly meetings for your course"
   active: true
   options: []
   type: -1

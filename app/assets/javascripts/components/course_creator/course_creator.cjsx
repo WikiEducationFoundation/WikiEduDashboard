@@ -82,6 +82,16 @@ CourseCreator = React.createClass(
               placeholder='Title'
             />
             <TextInput
+              id='instructor_name'
+              onChange={@updateCourse}
+              value={@state.course.instructor_name}
+              value_key='instructor_name'
+              required=true
+              editable=true
+              label='Instructor Name'
+              placeholder='Name'
+            />
+            <TextInput
               id='course_school'
               onChange={@updateCourse}
               value={@state.course.school}

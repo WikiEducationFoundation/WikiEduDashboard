@@ -32,26 +32,12 @@ Timeline = React.createClass(
     else
       block.week_id = after_block.week_id
       BlockActions.insertBlock block, after_block.week_id, after_block.order
-  meetingsForWeek: (index) ->
-    return '' if @props.course.weekdays == '0000000'
-    week_start = moment(@props.course.timeline_start).add(7 * index, 'day')
-    weekdays = @props.course.weekdays.split('')
-    exceptions = @props.course.day_exceptions.split(',')
-    ms = []
-    meetings = [0..6].forEach (i) =>
-      added = moment(week_start).add(i, 'day')
-      if weekdays[parseInt(added.format('e'))] == '1' && !(added.format('YYYYMMDD') in exceptions)
-        ms.push moment.localeData().weekdaysShort(added)
-    if ms.length == 0
-      '()'
-    else
-      "(#{ms.join(', ')})"
   render: ->
     week_components = []
     i = 0
     @props.weeks.forEach (week) =>
       unless week.deleted
-        while @meetingsForWeek(i) == '()'
+        while @props.week_meetings[i] == '()'
           week_components.push (
             <Week
               blocks={[]}
@@ -76,7 +62,7 @@ Timeline = React.createClass(
             blocks={BlockStore.getBlocksInWeek(week.id)}
             moveBlock={@moveBlock}
             deleteWeek={@deleteWeek.bind(this, week.id)}
-            meetings={@meetingsForWeek(i)}
+            meetings={@props.week_meetings[i]}
           />
         )
         i++
@@ -107,11 +93,18 @@ Timeline = React.createClass(
     else
       wizard_link = <CourseLink to='wizard' className='button dark'>Add Assignment</CourseLink>
 
+    controls = (
+      <span>
+        {wizard_link}
+        <CourseLink to='dates' className='button dark'>Edit Course Dates</CourseLink>
+      </span>
+    )
+
     <div>
       <div className="section-header">
         <h3>Timeline</h3>
         <CourseLink to='wizard', text='Open Wizard', className='button large dark' />
-        {@props.controls(wizard_link)}
+        {@props.controls(controls)}
       </div>
       <ul className="list">
         {week_components}

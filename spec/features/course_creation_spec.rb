@@ -82,6 +82,7 @@ describe 'New course creation and editing', type: :feature do
       expect(find('#course_term')['class']).to eq('invalid')
 
       # Now we fill out all the fields and continue.
+      find('#instructor_name').set('Mr. Capybara')
       find('#course_school').set('University of Wikipedia, East Campus')
       find('#course_term').set('Fall 2015')
       find('#course_subject').set('Advanced Studies')
@@ -133,17 +134,17 @@ describe 'New course creation and editing', type: :feature do
 
       # Click edit and then make a change and save it.
       sleep 1
-      page.all('button.dark')[1].click
+      first('button.dark').click
       first('input').set('The first week')
       sleep 1
       first('input[type=checkbox]').set(true)
       sleep 1
-      page.all('button.dark')[1].click
+      first('button.dark').click
       sleep 1
       expect(page).to have_content 'The first week'
 
       # Click edit, delete some stuff, and save it.
-      page.all('button.dark')[1].click
+      first('button.dark').click
       sleep 1
       page.all('button.danger')[1].click
       sleep 1
@@ -151,16 +152,16 @@ describe 'New course creation and editing', type: :feature do
       sleep 1
       page.all('button.danger')[1].click
       sleep 1
-      page.all('button.dark')[1].click
+      first('button.dark').click
       sleep 1
       expect(page).not_to have_content 'The first week'
 
       # Click edit, mark a gradeable and save it.
-      page.all('button.dark')[1].click
+      first('button.dark').click
       sleep 1
       first('input[type=checkbox]').set(true)
       sleep 1
-      page.all('button.dark')[1].click
+      first('button.dark').click
       sleep 1
 
       # Edit the gradeable.
