@@ -2,6 +2,7 @@ React               = require 'react'
 Router              = require 'react-router'
 Route               = Router.Route
 DefaultRoute        = Router.DefaultRoute
+Redirect            = Router.Redirect
 
 App                 = require '../components/app'
 Course              = require '../components/course'
@@ -21,7 +22,7 @@ routes = (
   <Route name='root' path='/' handler={App}>
     <Route path='courses' handler={App}>
       <Route name='course' path=':course_school/:course_title' handler={Course}>
-        <Route name='overview' path='overview' handler={OverviewHandler}></Route>
+        <DefaultRoute name='overview' handler={OverviewHandler} />
         <Route name='timeline' path='timeline' handler={TimelineHandler} >
           <Route name='wizard' path='wizard' handler={Wizard} />
           <Route name='dates' path='dates' handler={Dates} />
@@ -30,7 +31,7 @@ routes = (
         <Route name='students' path='students' handler={StudentsHandler}></Route>
         <Route name='articles' path='articles' handler={ArticlesHandler}></Route>
         <Route name='uploads' path='uploads' handler={UploadsHandler}></Route>
-        <DefaultRoute handler={OverviewHandler} />
+        <Redirect from="overview" to="overview" />
       </Route>
       <DefaultRoute handler={CourseCreatorButton} />
     </Route>
