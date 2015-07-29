@@ -6,6 +6,7 @@ Popover       = require '../common/popover'
 Lookup        = require '../common/lookup'
 ServerActions = require '../../actions/server_actions'
 AssignmentActions = require '../../actions/assignment_actions'
+AssignmentStore = require '../../stores/assignment_store'
 
 urlToTitle = (article_url) ->
   article_url = article_url.trim()
@@ -32,7 +33,23 @@ AssignButton = React.createClass(
   assign: (e) ->
     e.preventDefault()
     article_title = urlToTitle @refs.lookup.getValue()
-    return unless confirm(I18n.t('assignments.confirm_addition', { title: article_title, username: @props.student.wiki_id }))
+
+    # Check if the assignment exists
+    if AssignmentStore.getFiltered({
+      article_title: article_title,
+      user_id: @props.student.id,
+      role: @props.role
+    }).length != 0
+      alert 'This assignment already exists!'
+      return
+
+    # Confirm
+    return unless confirm I18n.t('assignments.confirm_addition', {
+      title: article_title,
+      username: @props.student.wiki_id
+    })
+
+    # Send
     if(article_title)
       AssignmentActions.addAssignment @props.course_id, @props.student.id, article_title, @props.role
       @setState send: (!@props.editable && @props.current_user.id == @props.student.id)
