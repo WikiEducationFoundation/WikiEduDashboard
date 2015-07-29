@@ -22,6 +22,7 @@ Panel = React.createClass(
 
     options_1 = []
     options_2 = []
+
     if @props.panel.options != undefined
       @props.panel.options.forEach (option, i) =>
         option = (

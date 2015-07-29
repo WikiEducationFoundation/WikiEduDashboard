@@ -11,6 +11,7 @@ Option = React.createClass(
     $(React.findDOMNode(@refs.expandable)).toggleHeight()
     WizardActions.toggleOptionExpanded @props.panel_index, @props.index
   render: ->
+    console.log @props.open_weeks
     disabled = @props.option.min_weeks? && @props.option.min_weeks > @props.open_weeks
     className = 'wizard__option section-header'
     className += ' selected' if @props.option.selected
