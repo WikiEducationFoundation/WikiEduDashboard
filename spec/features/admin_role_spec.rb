@@ -72,7 +72,7 @@ describe 'Admin users', type: :feature, js: true do
       # Edit details and add cohort
       click_button('Edit Details')
       page.all('.button.border.plus')[4].click
-      find('.pop input', visible: true).set('Fall 2015')
+      select 'Fall 2015', from: 'cohort'
       find('.pop button', visible: true).click
       sleep 1
 

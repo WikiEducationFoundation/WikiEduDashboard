@@ -74,10 +74,14 @@ input[type=text], input[type=date], select
   height 40px
 
 .input_wrapper
-  display inline-block
   float left
   overflow hidden
+
+.select_wrapper
+  display inline-block
   position relative
+  select
+    min-width 170px
   &:after
     content '\25BE'
     font-size 24px

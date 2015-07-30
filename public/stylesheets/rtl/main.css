@@ -1648,13 +1648,20 @@ select {
 }
 
 .input_wrapper {
-  display: inline-block;
   float: right;
   overflow: hidden;
+}
+
+.select_wrapper {
+  display: inline-block;
   position: relative;
 }
 
-.input_wrapper:after {
+.select_wrapper select {
+  min-width: 170px;
+}
+
+.select_wrapper:after {
   content: '\25BE';
   font-size: 24px;
   line-height: 1;

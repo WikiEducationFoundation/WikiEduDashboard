@@ -14,4 +14,4 @@ cohorts = (props, remove) ->
       <td>{cohort.title}{remove_button}</td>
     </tr>
 
-module.exports = PopoverButton('cohort', 'title', CohortStore, cohortIsNew, cohorts)
+module.exports = PopoverButton('cohort', 'title', CohortStore, cohortIsNew, cohorts, true)

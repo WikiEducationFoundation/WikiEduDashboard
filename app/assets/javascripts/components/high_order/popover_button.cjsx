@@ -4,8 +4,11 @@ Popover       = require '../common/popover'
 Conditional   = require '../high_order/conditional'
 ServerActions = require '../../actions/server_actions'
 Lookup        = require '../common/lookup'
+LookupSelect  = require '../common/lookup_select'
 
-PopoverButton = (Key, ValueKey, Store, New, Items) ->
+PopoverButton = (Key, ValueKey, Store, New, Items, IsSelect=false) ->
+  getState = ->
+    exclude: _.pluck(Store.getModels(), ValueKey)
   format = (value) ->
     data = {}
     data[Key] = {}
@@ -15,10 +18,13 @@ PopoverButton = (Key, ValueKey, Store, New, Items) ->
     displayname: Key.capitalize() + 'Button'
     mixins: [Store.mixin]
     storeDidChange: ->
-      return unless @refs.entry?
-      item = @refs.entry.getValue()
-      if !New(item)
-        @refs.entry.clear()
+      if @refs.entry?
+        item = @refs.entry.getValue()
+        if !New(item)
+          @refs.entry.clear()
+      @setState getState()
+    getInitialState: ->
+      getState()
     add: (e) ->
       e.preventDefault() if e.preventDefault?
       item = @refs.entry.getValue()
@@ -35,15 +41,29 @@ PopoverButton = (Key, ValueKey, Store, New, Items) ->
       Key + '_button'
     render: ->
       placeholder = Key.capitalize()
+      if IsSelect
+        lookup = (
+          <LookupSelect model={Key}
+            exclude={@state.exclude}
+            placeholder={placeholder}
+            ref='entry'
+            onSubmit={@add}
+          />
+        )
+      else
+        lookup = (
+          <Lookup model={Key}
+            exclude={@state.exclude}
+            placeholder={placeholder}
+            ref='entry'
+            onSubmit={@add}
+          />
+        )
       edit_row = (
         <tr className='edit'>
           <td>
             <form onSubmit={@add}>
-              <Lookup model={Key}
-                placeholder={placeholder}
-                ref='entry'
-                onSubmit={@add}
-              />
+              {lookup}
               <button type="submit" className='button border'>Add</button>
             </form>
           </td>

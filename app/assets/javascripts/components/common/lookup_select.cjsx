@@ -6,19 +6,17 @@ LookupSelect = React.createClass(
   getValue: ->
     @refs.entry.getDOMNode().value
   clear: ->
-    console.log 'select the first option??'
-  keyDownHandler: (e) ->
-    if e.keyCode == 13 && @getValue() != ''
-      @props.onSubmit e
+    @refs.entry.getDOMNode().value = 'placeholder'
   render: ->
     options = @props.models.map (model, i) =>
       <option value={model} key={model}>{model}</option>
 
-    <select
-      onKeyDown={@keyDownHandler}
-    >
-      {options}
-    </select>
+    <div className='select_wrapper'>
+      <select name={@props.placeholder.toLowerCase()} ref='entry' defaultValue='placeholder'>
+        <option value='placeholder' key='placeholder' disabled=true>{"Select a #{@props.placeholder}" || 'Select one'}</option>
+        {options}
+      </select>
+    </div>
 )
 
 module.exports = LookupWrapper(LookupSelect)

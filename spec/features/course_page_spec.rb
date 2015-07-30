@@ -160,7 +160,7 @@ describe 'the course page', type: :feature do
 
   describe 'navigation bar', js: true do
     it 'should link to overview' do
-      link = "/courses/#{slug}/overview"
+      link = "/courses/#{slug}"
       expect(page.has_link?('', href: link)).to be true
     end
 
