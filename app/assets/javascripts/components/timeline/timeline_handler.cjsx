@@ -27,8 +27,8 @@ getState = ->
 weekMeetings = (recurrence) ->
   return unless recurrence?
   course_weeks = Math.ceil(recurrence.endDate().diff(recurrence.startDate(), 'weeks', true))
-  unless recurrence.rules? && recurrence.rules[0].measure == 'daysOfWeek'
-    return ('' for week in [0..(course_weeks)])
+  unless recurrence.rules? && recurrence.rules[0].measure == 'daysOfWeek' && Object.keys(recurrence.rules[0].units).length > 0
+    return null
 
   meetings = []
   [0..(course_weeks)].forEach (week) =>

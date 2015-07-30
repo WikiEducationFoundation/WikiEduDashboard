@@ -37,20 +37,22 @@ Timeline = React.createClass(
     i = 0
     @props.weeks.forEach (week) =>
       unless week.deleted
-        while @props.week_meetings[i] == '()'
-          week_components.push (
-            <Week
-              blocks={[]}
-              week={title: null}
-              index={i + 1}
-              key={"noweek_#{i}"}
-              start={@props.course.timeline_start}
-              end={@props.course.timeline_end}
-              editable=false
-              meetings='(No meetings this week)'
-            />
-          )
-          i++
+        if @props.week_meetings?
+          while @props.week_meetings[i] == '()'
+            week_components.push (
+              <Week
+                blocks={[]}
+                week={title: null}
+                index={i + 1}
+                key={"noweek_#{i}"}
+                start={@props.course.timeline_start}
+                end={@props.course.timeline_end}
+                editable=false
+                meetings='(No meetings this week)'
+              />
+            )
+            i++
+
         week_components.push (
           <Week
             week={week}
@@ -62,7 +64,7 @@ Timeline = React.createClass(
             blocks={BlockStore.getBlocksInWeek(week.id)}
             moveBlock={@moveBlock}
             deleteWeek={@deleteWeek.bind(this, week.id)}
-            meetings={@props.week_meetings[i]}
+            meetings={if @props.week_meetings? then @props.week_meetings[i] else ''}
           />
         )
         i++
