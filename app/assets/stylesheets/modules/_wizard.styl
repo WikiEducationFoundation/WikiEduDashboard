@@ -35,9 +35,8 @@ wizard-width = 860px
     left -150%
     margin-bottom 20px
     max-width wizard-width
-    min-height 600px
     opacity 0
-    padding 20px 20px 81px
+    padding 20px
     position absolute
     text-align left
     top 160px
@@ -215,10 +214,9 @@ wizard-width = 860px
     .wizard__panel__controls
       background-color white
       border-top 1px solid mischka
-      bottom 0
-      padding 20px 0
-      position absolute
-      width calc(100% - 40px)
+      overflow hidden
+      padding 20px 0 0
+      width 100%
       .left
         col(1/3)
         padding 9px 0
@@ -234,6 +232,15 @@ wizard-width = 860px
           color burnt
   .section-header
     margin-bottom 10px
+
+.new_course
+  .wizard__panel
+    .wizard__panel__controls
+      .left
+        col(3/5)
+      .right
+        col(2/5)
+        text-align right
 
 .column
   col(1/2)

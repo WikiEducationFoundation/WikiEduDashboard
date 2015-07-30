@@ -2,18 +2,10 @@ React         = require 'react/addons'
 Typeahead     = require('react-typeahead').Typeahead
 LookupStore   = require '../../stores/lookup_store'
 TextInput     = require './text_input'
-
-getState = (model) ->
-  models: LookupStore.getLookups(model)
-  submitting: false
+LookupWrapper = require '../high_order/lookup_wrapper'
 
 Lookup = React.createClass(
   displayname: 'Lookup'
-  mixins: [LookupStore.mixin]
-  getInitialState: ->
-    getState(@props.model)
-  storeDidChange: ->
-    @setState getState(@props.model)
   getValue: ->
     if !(@props.disabled? && @props.disabled)
       @refs.entry.state.entryValue
@@ -34,7 +26,7 @@ Lookup = React.createClass(
   render: ->
     if !(@props.disabled? && @props.disabled)
       <Typeahead
-        options={@state.models}
+        options={@props.models}
         placeholder={@props.placeholder || 'Start typing'}
         maxVisible=5
         ref='entry'
@@ -45,4 +37,4 @@ Lookup = React.createClass(
       <input placeholder={@props.placeholder || 'Start typing'} ref='entry' />
 )
 
-module.exports = Lookup
+module.exports = LookupWrapper(Lookup)

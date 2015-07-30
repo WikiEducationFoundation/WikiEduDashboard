@@ -56,7 +56,7 @@
     "mcfly": "0.0.10",
     "moment": "^2.10.3",
     "react": "^0.13.2",
-    "react-datepicker": "^0.11.0",
+    "react-datepicker": "^0.9.0",
     "react-day-picker": "^1.0.1",
     "react-dnd": "^1.0.0",
     "react-router": "^0.13.2",
