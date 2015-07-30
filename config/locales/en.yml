@@ -53,7 +53,7 @@ en:
     rating_doc: The rating an article has been assigned by WikiProjects on Wikipedia. These ratings may corresponds to much older versions, so they are just a rough indicator of article maturity.
     rating_docs:
       fa: Featured article — Wikipedia's highest rating, probably too mature an article for a student editor's main project
-      fl: Feature list — Wikipedia's highest rating for lists
+      fl: Featured list — Wikipedia's highest rating for lists
       a: A-class — very developed article that may be too mature an article for a student editor's main project
       ga: Good article — a well-developed article that may be too mature an article for a student editor's main project
       b: B-class — a moderately developed article
@@ -183,7 +183,7 @@ en:
       have made an edit to the feedback page when they finished. If any
       student editors went through the training but did not complete the
       feedback step, they can return to the end of the training here:
-      https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete.
+      https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete .
     training_incomplete:
       one: Training Incomplete
     training_incomplete_short: Incomplete
