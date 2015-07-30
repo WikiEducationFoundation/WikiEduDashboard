@@ -53,7 +53,7 @@ en:
     rating_doc: The rating an article has been assigned by WikiProjects on Wikipedia. These ratings may corresponds to much older versions, so they are just a rough indicator of article maturity.
     rating_docs:
       fa: Featured article — Wikipedia's highest rating, probably too mature an article for a student editor's main project
-      fl: Feature list — Wikipedia's highest rating for lists
+      fl: Featured list — Wikipedia's highest rating for lists
       a: A-class — very developed article that may be too mature an article for a student editor's main project
       ga: Good article — a well-developed article that may be too mature an article for a student editor's main project
       b: B-class — a moderately developed article
