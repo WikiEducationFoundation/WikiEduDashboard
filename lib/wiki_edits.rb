@@ -239,19 +239,33 @@ class WikiEdits
       # rubocop:disable Metrics/LineLength
       get_token = @access_token.get("https://#{lang}.wikipedia.org/w/api.php?action=query&meta=tokens&format=json")
       # rubocop:enable Metrics/LineLength
-      token_response = JSON.parse(get_token.body)
 
+      unless get_token.body == 'success'
+        raise StandardError JSON.parse(get_token.body)['error']['info']
+      end
+
+      token_response = JSON.parse(get_token.body)
       OpenStruct.new(
         csrf_token: token_response['query']['tokens']['csrftoken'],
         access_token: @access_token
       )
+    rescue StandardError => e
+      Raven.capture_exception e, level: 'warning'
     end
 
     def api_post(data, tokens)
       return if Figaro.env.disable_wiki_output == 'true'
       language = Figaro.env.wiki_language
-      tokens.access_token.post("https://#{language}.wikipedia.org/w/api.php",
-                               data)
+      url = "https://#{language}.wikipedia.org/w/api.php"
+
+      # Make the request
+      response = tokens.access_token.post(url, data)
+      unless get_token.body == 'success'
+        raise StandardError JSON.parse(get_token.body)['error']['info']
+      end
+      return response
+    rescue StandardError => e
+      Raven.capture_exception e, level: 'warning'
     end
   end
 end
