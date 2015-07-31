@@ -84,6 +84,7 @@ Calendar = React.createClass(
         modifiers={modifiers}
         onDayClick={if @props.editable then @selectDay else null}
         onWeekdayClick={if @props.editable then @selectWeekday else null}
+        initialMonth={moment.max(moment(@props.course.start), moment()).toDate()}
       />
     </div>
 )
