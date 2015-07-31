@@ -240,8 +240,9 @@ class WikiEdits
       get_token = @access_token.get("https://#{lang}.wikipedia.org/w/api.php?action=query&meta=tokens&format=json")
       # rubocop:enable Metrics/LineLength
 
-      unless get_token.body == 'success'
-        raise StandardError JSON.parse(get_token.body)['error']['info']
+      body = JSON.parse(get_token.body)
+      if body.key? 'error'
+        raise Exception.new body['error']['info']
       end
 
       token_response = JSON.parse(get_token.body)
@@ -249,7 +250,8 @@ class WikiEdits
         csrf_token: token_response['query']['tokens']['csrftoken'],
         access_token: @access_token
       )
-    rescue StandardError => e
+    rescue Exception => e
+      Rails.logger.error "Authentication error: #{e}"
       Raven.capture_exception e, level: 'warning'
     end
 
@@ -260,11 +262,12 @@ class WikiEdits
 
       # Make the request
       response = tokens.access_token.post(url, data)
-      unless get_token.body == 'success'
-        raise StandardError JSON.parse(get_token.body)['error']['info']
+      unless response.kind_of? Net::HTTPOK
+        raise Exception.new response.message
       end
       return response
-    rescue StandardError => e
+    rescue Exception => e
+      Rails.logger.error "Authentication error: #{e}"
       Raven.capture_exception e, level: 'warning'
     end
   end
