@@ -37,7 +37,7 @@ Option = React.createClass(
         <div dangerouslySetInnerHTML={{__html: Marked(@props.option.blurb, { renderer: MarkedRenderer })}}></div>
       )
     if disabled
-      notice = <h3>This assignment requires at least {@props.option.min_weeks} available weeks. Please adjust your assignment start and end dates.</h3>
+      notice = <h3>This assignment requires at least {@props.option.min_weeks} available weeks. Please adjust your assignment start and end dates if you want to use this type of assignment.</h3>
 
     <div className={className}>
       <button onClick={@select unless disabled}>

@@ -1575,10 +1575,10 @@ Course = React.createClass({
         alerts.push(React.createElement("div", {
           "className": 'container module text-center',
           "key": 'submit'
-        }, React.createElement("p", null, "Your course is not yet published on the Wiki Ed platform. ", React.createElement("a", {
+        }, React.createElement("p", null, "Please review this timeline and make changes. Once you\'re satisfied with your timeline, ", React.createElement("a", {
           "href": "#",
           "onClick": this.submit
-        }, "Click here"), " to submit it for approval by Wiki Ed staff.")));
+        }, "click here"), " to submit it for approval by Wiki Ed staff."), React.createElement("p", null, "When you submit it, this course will be posted automatically to Wikipedia with your user account."), React.createElement("p", null, "Once your course has been approved, you will have an enrollment url that students can use to join the course.")));
       }
       if (this.state.course.submitted) {
         if (!this.getCurrentUser().admin) {
@@ -4880,7 +4880,7 @@ Option = React.createClass({
       });
     }
     if (disabled) {
-      notice = React.createElement("h3", null, "This assignment requires at least ", this.props.option.min_weeks, " available weeks. Please adjust your assignment start and end dates.");
+      notice = React.createElement("h3", null, "This assignment requires at least ", this.props.option.min_weeks, " available weeks. Please adjust your assignment start and end dates if you want to use this type of assignment.");
     }
     return React.createElement("div", {
       "className": className
