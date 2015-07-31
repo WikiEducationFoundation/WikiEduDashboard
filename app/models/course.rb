@@ -102,7 +102,7 @@ class Course < ActiveRecord::Base
   end
 
   def user_count
-    self[:user_count] || users.role('student').size
+    self[:user_count] || students.size
   end
 
   def untrained_count
