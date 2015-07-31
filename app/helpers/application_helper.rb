@@ -14,4 +14,10 @@ module ApplicationHelper
 
     favicon_link_tag favicon_path
   end
+
+  def fingerprinted(path, filename)
+    manifest_path = "#{Rails.root}/public/#{path}/rev-manifest.json"
+    manifest = JSON.parse(File.read(File.expand_path(manifest_path, __FILE__)))
+    "#{path}#{manifest[filename]}"
+  end
 end
