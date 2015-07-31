@@ -1578,7 +1578,7 @@ Course = React.createClass({
         }, React.createElement("p", null, "Please review this timeline and make changes. Once you\'re satisfied with your timeline, ", React.createElement("a", {
           "href": "#",
           "onClick": this.submit
-        }, "click here"), " to submit it for approval by Wiki Ed staff."), React.createElement("p", null, "When you submit it, this course will be posted automatically to Wikipedia with your user account."), React.createElement("p", null, "Once your course has been approved, you will have an enrollment url that students can use to join the course.")));
+        }, "click here"), " to submit it for approval by Wiki Ed staff."), React.createElement("p", null, "When you submit it, this course will be posted automatically to Wikipedia with your user account. After that, new edits to the timeline will be mirrored to Wikipedia."), React.createElement("p", null, "Once your course has been approved, you will have an enrollment url that students can use to join the course.")));
       }
       if (this.state.course.submitted) {
         if (!this.getCurrentUser().admin) {
