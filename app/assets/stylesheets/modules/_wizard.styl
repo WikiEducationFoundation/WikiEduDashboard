@@ -95,8 +95,12 @@ wizard-width = 860px
       text-align left
       transition all .2s ease-in-out
       &.disabled
-        button:first-child
-          opacity .1
+        button > div, h3:not(:first-child)
+          opacity .5
+        h3:first-child
+          color burnt
+          padding 20px
+          text-align center
       &:hover
         background smoke
       &.selected
@@ -133,10 +137,6 @@ wizard-width = 860px
         top 0
         transition all .2s ease-in-out
         width 100%
-        h3
-          color burnt
-          padding 20px
-          text-align center
       .wizard__option__checkbox
         background url("../images/check.svg")
         background-position 45%

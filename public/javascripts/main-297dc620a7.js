@@ -4886,9 +4886,9 @@ Option = React.createClass({
       "className": className
     }, React.createElement("button", {
       "onClick": (!disabled ? this.select : void 0)
-    }, checkbox, React.createElement("h3", null, this.props.option.title), blurb, expand), expand_link, React.createElement("div", {
+    }, checkbox, notice, React.createElement("h3", null, this.props.option.title), blurb, expand), expand_link, React.createElement("div", {
       "className": 'wizard__option__border'
-    }, notice));
+    }));
   }
 });
 

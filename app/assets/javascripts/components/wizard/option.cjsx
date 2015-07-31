@@ -42,12 +42,13 @@ Option = React.createClass(
     <div className={className}>
       <button onClick={@select unless disabled}>
         {checkbox}
+        {notice}
         <h3>{@props.option.title}</h3>
         {blurb}
         {expand}
       </button>
       {expand_link}
-      <div className='wizard__option__border'>{notice}</div>
+      <div className='wizard__option__border'></div>
     </div>
 )
 
