@@ -57,7 +57,9 @@ Course = React.createClass(
       if CourseStore.isLoaded() && !(@state.course.submitted || @state.published)
         alerts.push (
           <div className='container module text-center' key='submit'>
-            <p>Your course is not yet published on the Wiki Ed platform. <a href="#" onClick={@submit}>Click here</a> to submit it for approval by Wiki Ed staff.</p>
+            <p>Please review this timeline and make changes. Once you're satisfied with your timeline, <a href="#" onClick={@submit}>click here</a> to submit it for approval by Wiki Ed staff.</p>
+            <p>When you submit it, this course will be posted automatically to Wikipedia with your user account.</p>
+            <p>Once your course has been approved, you will have an enrollment url that students can use to join the course.</p>
           </div>
         )
       if @state.course.submitted
