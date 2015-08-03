@@ -23,7 +23,7 @@ The Dashboard pulls information from the EducationProgram extension's Wikipedia 
 - [Troubleshooting](docs/troubleshooting.md)
 
 ### Other
-- [Contribution Guidelines](docs/contributing.md)
-- [Deployment Process & Tools](docs/deploy.md)
+- [Contributing](docs/contributing.md)
+- [Deployment](docs/deploy.md)
 - [Tools & Integrations](docs/tools.md)
 - [Model diagram](erd.pdf)
