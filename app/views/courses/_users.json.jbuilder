@@ -1,4 +1,4 @@
-json.users course.courses_users do |cu|
+json.users course.courses_users.eager_load(:user) do |cu|
   json.(cu, :character_sum_ms, :character_sum_us, :role)
   json.(cu.user, :id, :wiki_id, :trained, :contribution_url)
   json.admin cu.user.permissions == 1
@@ -8,7 +8,7 @@ json.users course.courses_users do |cu|
   end
 
   if cu.role == 0
-    json.revisions cu.user.revisions.order(date: :desc).limit(10) do |rev|
+    json.revisions cu.user.revisions.order(date: :desc).eager_load(:article).limit(10) do |rev|
       json.(rev, :id, :characters, :views, :date, :url)
       json.article do
         if rev.article.nil?

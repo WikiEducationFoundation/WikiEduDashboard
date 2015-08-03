@@ -1,4 +1,4 @@
-json.weeks course.weeks do |week|
+json.weeks course.weeks.eager_load(:blocks => [ :gradeable ]) do |week|
   json.(week, :id, :title)
   json.blocks week.blocks do |block|
     json.(block, :id, :kind, :content, :week_id, :gradeable_id, :title, :order, :duration)

@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: assignments
+#
+#  id            :integer          not null, primary key
+#  created_at    :datetime
+#  updated_at    :datetime
+#  user_id       :integer
+#  course_id     :integer
+#  article_id    :integer
+#  article_title :string(255)
+#  role          :integer
+#
+
 FactoryGirl.define do
   # article that exists
   factory :assignment do
