@@ -1,7 +1,5 @@
 [Back to README](../README.md)
 
----
-
 ## Integrations
 
 ### Error Logging: [Sentry](https://github.com/getsentry/sentry)

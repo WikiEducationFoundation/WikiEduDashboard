@@ -20,8 +20,10 @@ The Dashboard pulls information from the EducationProgram extension's Wikipedia 
 ### Setup
 - [Dashboard Setup](docs/setup.md)
 - [OAuth Setup](docs/oauth.md)
+- [Troubleshooting](docs/troubleshooting.md)
 
 ### Other
 - [Contribution Guidelines](docs/contributing.md)
 - [Deployment Process & Tools](docs/deploy.md)
 - [Tools & Integrations](docs/tools.md)
+- [Model diagram](erd.pdf)

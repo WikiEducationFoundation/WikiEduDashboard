@@ -1,7 +1,5 @@
 [Back to README](../README.md)
 
----
-
 ## Deploy
 
 For deployment, the Dashboard uses [Capistrano](https://en.wikipedia.org/wiki/Capistrano_%28software%29). This requires authentication with the server via SSH.

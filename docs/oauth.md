@@ -1,8 +1,8 @@
 [Back to README](../README.md)
 
----
-
 ## OAuth Setup
+
+**If you have not already completed the [dashboard setup](setup.md) portion of the documentation, please head over there first.**
 
 In order to use and develop the authenticated features of the application (course creation, the assignment design wizard, user management, etc) you will need to create a MediaWiki OAuth consumer).
 

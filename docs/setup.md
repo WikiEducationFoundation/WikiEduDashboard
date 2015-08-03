@@ -1,14 +1,10 @@
 [Back to README](../README.md)
 
----
-
 ## Requirements
  * **Ruby (RVM recommended)**
  * **Node**
  * **NPM**
  * **Bower**
-
----
 
 ## Project Setup
 
@@ -43,8 +39,6 @@
     - `GRANT ALL ON dashboard.* TO <USER>@localhost identified by <PASSWORD>;`
     - `GRANT ALL ON dashboard_testing.* TO <USER>@localhost identified by <PASSWORD>;`
 
----
-
 ## Initialize
 1. **Start Guard**
       $ `guard`
@@ -58,11 +52,7 @@
 4. **Pull data from sources** (optional; this could take a very long time)
       $ `rake batch:initialize`
 
----
-
-At this point in the process you will likely want to [set up OAuth integration](oauth.md)
-
----
+**At this point in the process you will likely want to [set up OAuth integration](oauth.md)**
 
 ## Develop
 1. **Start Zeus**
@@ -78,8 +68,6 @@ At this point in the process you will likely want to [set up OAuth integration](
       $ `gulp`
 
 4. The frontend is now visible at http://localhost:3000/
-
----
 
 ## Maintain
 
