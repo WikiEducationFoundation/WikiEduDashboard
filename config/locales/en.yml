@@ -47,7 +47,6 @@ en:
     character_doc: The sum of characters added to articles by the course's students during the course term
     edited: Articles Edited
     edited_mobile: Articles
-    edited_none: "%{title} has not edited any articles."
     no_assignee: No user assigned
     rating: Class
     rating_doc: The rating an article has been assigned by WikiProjects on Wikipedia. These ratings may corresponds to much older versions, so they are just a rough indicator of article maturity.
@@ -66,6 +65,7 @@ en:
     view: View Article
     view_all: View All
     view_doc: The sum of all views to each article during the course term
+    # This is a maintence script message
     views_added: "Added %{count} new views for %{title}"
 
   assignments:
@@ -89,16 +89,17 @@ en:
     nocourses: You are not participating in any courses.
     current: Current Courses
     duration: Course Duration
+    gradeables_none: This course has no gradeable assignments.
     instructor:
       one: Instructor
       other: Instructors
     students: Students
-    students_none: "%{title} does not have any enrolled students."
+    students_none: This course has no students.
     students_short: Students
     timeline: Assignment Details
-    weeks_none: "%{title} has no assignments"
-    new_week: "Add a new week to the timeline for %{title}"
-    overview: "Overview"
+    weeks_none: This course does not have a timeline yet.
+    new_week: Add New Week
+    overview: Overview
     title: Title
     view: View Course
     view_wiki: View on Wikipedia
@@ -119,7 +120,6 @@ en:
 
   metrics:
     activity: Recent Activity
-    activity_none: "%{title} has no recent Wikipedia edits."
     articles_created: Articles Created
     articles_edited: Articles Edited
     char: Chars Added
@@ -144,6 +144,7 @@ en:
     none: This course has no recent Wikipedia editing activity.
     time_doc: The time of each revision in your local time
 
+  # These are maintenance script messages.
   tasks:
     conseq: "Task %{task} is already running!"
     constant: "Task %{task} can not run while task update_daily is running."
@@ -157,10 +158,8 @@ en:
 
 
   users:
-    assigned: Assigned Article
-    reviewers: Reviewer
-    assigned_none: No Assigned Article
-    reviewer_none: No Reviewer
+    assigned: Assigned Articles
+    assignees: Assignee(s)
     character_doc: >
       The total amount of content a user has added to this namespace,
       calculated by adding up the added characters for all edits that
@@ -173,10 +172,10 @@ en:
     loading: Loading users...
     name: Name
     none: This course has no students.
+    reviewers: Reviewer(s)
     training_complete:
       one: "has completed training"
       other: "have completed training"
-    training_complete_short: "Complete"
     training_complete_count: "%{count} completed training"
     training_doc: >
       Student editors who have completed the 'training for students' should
@@ -186,11 +185,10 @@ en:
       https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete .
     training_incomplete:
       one: Training Incomplete
-    training_incomplete_short: Incomplete
-    view_all: View All
     already_enrolled: That user is already enrolled!
 
   wiki_edits:
+    # These messages are wikitext output that gets posted on user talk pages.
     notify_untrained:
       header: You have not completed the student training.
       message: Please complete the [[WP:STUDENT|student training]]. If you have already gone through it, be sure to click the button at the end to record that you finished it. --~~~~
@@ -223,4 +221,5 @@ en:
       Something went wrong. Please contact the maintainers of this dashboard
       to let them know about the problem.
 
+  # This is a maintenance script message.
   timeout: "A request to the %{api} API has timed out and will retried %{tries} times."
