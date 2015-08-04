@@ -24,3 +24,4 @@ Copy translations live at /config/locales and the fallback for missing strings i
 
 #### Procedure
 - If you change the model schema please run `rake erd orientation=vertical` to regenerate `erd.pdf`
+- Front end assets (JS and CSS) are fingerprinted for proper cache busting. Currently `gulp build` must be run locally before assets are committed: this will add some gunk to your `git status`as the old assets will be deleted and the new assets must be added.

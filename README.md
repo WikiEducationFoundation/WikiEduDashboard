@@ -22,6 +22,10 @@ The Dashboard pulls information from the EducationProgram extension's Wikipedia 
 - [OAuth Setup](docs/oauth.md)
 - [Troubleshooting](docs/troubleshooting.md)
 
+### Technology
+- [Front end](docs/frontend.md)
+- [Analytics Pipeline](docs/importers.md)
+
 ### Other
 - [Contributing](docs/contributing.md)
 - [Deployment](docs/deploy.md)
