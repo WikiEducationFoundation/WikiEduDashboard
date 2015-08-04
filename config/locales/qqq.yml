@@ -14,7 +14,20 @@ qqq:
     character_doc: Documentation for an article's character total add and remove count.
     edited: Label for a list of articles edited.
     edited_mobile: '{{Identical|Article}}'
-    edited_none: Label stating that no articles have been edited.
+    none: Message stating that no articles have been edited.
+    rating: Label for an article's quality rating on the Wikipedia 1.0 scale
+    rating_doc: Explanation of where an article's quality rating comes from and what it means
+    rating_docs:
+      fa: Explanation of what a Featured Article is
+      fl: Explanation of what a Featured List is
+      a: Explanation of what an A-class article is
+      ga: Explanation of what a Good Article is
+      b: Explanation of what a B-class article is
+      c: Explanation of what a C-class article is
+      start: Explanation of what a Start-class article is
+      stub: Explanation of what a Stub-class article is
+      list: Explanation of what a List-class page is
+      ?: Explanation of what an unrated article is
     title: Label for an article title.
     view: Command to view an article.
     view_all: |-
@@ -26,10 +39,42 @@ qqq:
   assignments:
     loading: Placeholder message indicating that assignment data is still loading
     none: Label for an empty list of assignments
-    confirm_addition: Confirmation dialog for adding a new assignment
+    confirm_addition: Confirmation dialog for adding a new assignment.
+      %{title} is the Wikipedia page title.
+      %{username} is the username of the assignee.
     confirm_deletion: Confirmation dialog for an assignment should be deleted
   cohort:
     view_other: Command to view another cohort.
+  courses:
+    activity: Label for link to the 'recent activity' list for a course
+    articles: Label for link to list of articles worked on by a course
+    character_doc: Explanation of what 'characters added' means
+    course_description: Label for the number of courses in a cohort
+    courses: Label for the number of courses in a cohort
+    yourcourses: Label for the list of courses associated with the logged in user
+    nocourses: Message indicating that the logged in user is not part of any courses
+    current: Label for the list of current courses
+    duration: Label for duration of a course
+    gradeables_none: Message indicating that the course has no gradeable items in the timeline
+    instructor:
+      one: Label for a single instructor of a course
+      other: Label for plural instructors of a course
+    students: Label for link to the list of students for a course
+    students_none: This course has no students.
+    students_short: Label for the number of students in a course, in the mobile layout
+    weeks_none: Message indicating that a course does not have a timeline
+    new_week: Button text for adding a new week to the timeline
+    overview: Label for link to the overview page for a course
+    title: Label for the title of each course
+    view: ???
+    view_wiki: ???
+    view_doc: Explanation of what 'article views' means
+    volunteer:
+      one: Label for a single course volunteer
+      other: Label for multiple course volunteers
+    wiki_staff: Label for staff members supporting the course
+    error:
+      exists: Error message indicating that a course with the same title, school and term already exists.
   course_creator:
     intro: Description of the course creator form
   metrics:
@@ -51,6 +96,29 @@ qqq:
     user: Long label for the User namespace.
     user_char_added: Label for number of characters added to the User namespace.
     user_ns: Wiki title for the User namespace.
+  users:
+    assigned: Assigned Article
+    assignees: Label for list of assigned users
+    character_doc: Explanation of the characters added for a user.
+    contributions: Label for list of contributions by a user
+    contributions_more: Label for a link that loads more of a user's contributions
+    editors: Label for the number of students enrolled in a course
+    loading: Message indicating that information about users is still loading
+    name: Label for usernames of students
+    none: Message indicating that a course has no students enrolled
+    reviewers: Label for list of users who are reviewers
+    training_complete:
+      one: Label that appears after the number of students who completed training
+      other: Label that appears after the number of students who completed training
+    training_complete_count: Message indicating how many students completed training.
+      %{count} is the number of students.
+    training_doc: >
+      Explanation of what it means to have completed training and how completion
+      is measured
+    training_incomplete:
+      one: Label indicating that a user has not completed training
+    already_enrolled: Message indicating that a user is already enrolled in the
+      course and cannot be enrolled again.
   wiki_edits:
     notify_untrained:
       header: Section header for a talk page message indicating that the user has
