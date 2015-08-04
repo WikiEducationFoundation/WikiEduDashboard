@@ -562,7 +562,7 @@ Article = React.createClass({
       "href": this.props.article.url,
       "target": "_blank",
       "className": "inline"
-    }, formattedTitle, " ", (this.props.article["new"] ? ' (new)' : '')))), React.createElement("td", {
+    }, formattedTitle, " ", (this.props.article.new_article ? ' (new)' : '')))), React.createElement("td", {
       "className": 'desktop-only-tc'
     }, this.props.article.character_sum), React.createElement("td", {
       "className": 'desktop-only-tc'
@@ -750,7 +750,7 @@ Assignment = React.createClass({
       "href": article.url,
       "target": "_blank",
       "className": "inline"
-    }, formattedTitle, " ", (article["new"] ? ' (new)' : '')))), React.createElement("td", {
+    }, formattedTitle, " ", (article.new_article ? ' (new)' : '')))), React.createElement("td", {
       "className": 'desktop-only-tc'
     }, assignees.join(', ')), React.createElement("td", {
       "className": 'desktop-only-tc'

@@ -21,7 +21,7 @@ Article = React.createClass(
       <td>
         <div className={ratingMobileClass}><p>{@props.article.pretty_rating || '-'}</p></div>
         <p className="title">
-          <a onClick={@stop} href={@props.article.url} target="_blank" className="inline">{formattedTitle} {(if @props.article.new then ' (new)' else '')}</a>
+          <a onClick={@stop} href={@props.article.url} target="_blank" className="inline">{formattedTitle} {(if @props.article.new_article then ' (new)' else '')}</a>
         </p>
       </td>
       <td className='desktop-only-tc'>{@props.article.character_sum}</td>

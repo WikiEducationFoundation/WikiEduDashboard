@@ -37,7 +37,7 @@ Assignment = React.createClass(
       <td>
         <div className={ratingMobileClass}><p>{article.pretty_rating}</p></div>
         <p className="title">
-          <a onClick={@stop} href={article.url} target="_blank" className="inline">{formattedTitle} {(if article.new then ' (new)' else '')}</a>
+          <a onClick={@stop} href={article.url} target="_blank" className="inline">{formattedTitle} {(if article.new_article then ' (new)' else '')}</a>
         </p>
       </td>
       <td className='desktop-only-tc'>{assignees.join(', ')}</td>
