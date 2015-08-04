@@ -97,9 +97,9 @@ qqq:
     user_char_added: Label for number of characters added to the User namespace.
     user_ns: Wiki title for the User namespace.
   users:
-    assigned: Assigned Article
-    assignees: Label for list of assigned users
-    character_doc: Explanation of the characters added for a user.
+    assigned: Label for articles assigned to a user
+    assignees: Label for list of assigned users for an article
+    character_doc: Explanation of the characters added for a user
     contributions: Label for list of contributions by a user
     contributions_more: Label for a link that loads more of a user's contributions
     editors: Label for the number of students enrolled in a course
@@ -107,6 +107,7 @@ qqq:
     name: Label for usernames of students
     none: Message indicating that a course has no students enrolled
     reviewers: Label for list of users who are reviewers
+    reviewing: Label for article or articles being reviewed by a user
     training_complete:
       one: Label that appears after the number of students who completed training
       other: Label that appears after the number of students who completed training
@@ -121,12 +122,13 @@ qqq:
       course and cannot be enrolled again.
   wiki_edits:
     notify_untrained:
+      confirm: Confirmation dialog before talk page messages are sent
       header: Section header for a talk page message indicating that the user has
-        not completed training.
+        not completed training. This is a wikitext message.
       message: A new talk page message indicating that the user has not completed
-        training.
+        training. This is a wikitext message.
       summary: Edit summary for a talk page message indicating that the user has not
-        completed training.
+        completed training. This is a wikitext message.
   error_404:
     header: Message indicating that a page doesn't exist.
     explanation: Message explaining why a user may have reached a page that doesn't

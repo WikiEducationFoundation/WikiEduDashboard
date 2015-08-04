@@ -5,7 +5,7 @@
     </div>
     <div class="stat-display">
       <div class="stat-display__stat" id="articles-created">
-        <h3><%= number_to_human @course.revisions.joins(:article).where(articles: {namespace: 0}).where(new_article: true).count %></h3>
+        <h3><%= number_to_human @course.new_article_count %></h3>
         <small><%= t("metrics.articles_created") %></small>
       </div>
       <div class="stat-display__stat" id="articles-edited">

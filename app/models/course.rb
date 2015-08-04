@@ -154,7 +154,7 @@ class Course < ActiveRecord::Base
   end
 
   def new_article_count
-    self[:article_count] || articles_courses.live.new_article.size
+    self[:new_article_count] || articles_courses.live.new_article.size
   end
 
   def update_cache
