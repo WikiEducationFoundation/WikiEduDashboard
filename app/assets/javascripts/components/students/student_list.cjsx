@@ -23,7 +23,7 @@ StudentList = React.createClass(
   save: ->
     ServerActions.saveStudents $.extend(true, {}, getState()), @props.course_id
   notify: ->
-    if confirm 'This will post a reminder on the talk pages of all students who have not completed training. Are you sure you want to do this?'
+    if confirm I18n.t('wiki_edits.notify_untrained.confirm')
       ServerActions.notifyUntrained @props.course_id
   render: ->
     users = @props.users.map (student) =>
@@ -53,22 +53,22 @@ StudentList = React.createClass(
 
     keys =
       'wiki_id':
-        'label': 'Name'
+        'label': I18n.t('users.name')
         'desktop_only': false
       'assignment_title':
-        'label': 'Assigned Articles'
+        'label': I18n.t('users.assigned')
         'desktop_only': true
         'sortable': false
       'reviewing_title':
-        'label': 'Reviewing'
+        'label': I18n.t('users.reviewing')
         'desktop_only': true
         'sortable': false
       'character_sum_ms':
-        'label': 'Mainspace<br />chars added'
+        'label': I18n.t('users.mainspace_chars')
         'desktop_only': true
         'info_key': 'users.character_doc'
       'character_sum_us':
-        'label': 'Userspace<br />chars added'
+        'label': I18n.t('users.userspace_chars')
         'desktop_only': true
         'info_key': 'users.character_doc'
 
