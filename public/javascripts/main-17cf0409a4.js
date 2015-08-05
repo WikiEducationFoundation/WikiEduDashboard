@@ -3862,6 +3862,11 @@ Reorderable = require('../high_order/reorderable');
 
 Block = React.createClass({
   displayName: 'Block',
+  updateDue: function(value_key, value) {
+    var difference;
+    difference = moment(value).diff(this.props.week_start, 'days');
+    return this.updateBlock(value_key, difference);
+  },
   updateBlock: function(value_key, value) {
     var to_pass;
     to_pass = $.extend(true, {}, this.props.block);
@@ -3885,8 +3890,8 @@ Block = React.createClass({
     className = 'block';
     if (is_graded && !this.props.editable) {
       dueDateRead = React.createElement(TextInput, {
-        "onChange": this.updateBlock,
-        "value": "In " + this.props.block.duration + " week" + (this.props.block.duration !== 1 ? 's' : ''),
+        "onChange": this.updateDue,
+        "value": this.props.week_start.clone().add(this.props.block.duration, 'days').format("YYYY-MM-DD"),
         "value_key": 'duration',
         "editable": false,
         "label": 'Due',
@@ -3932,15 +3937,16 @@ Block = React.createClass({
         "label": 'Title',
         "show": this.props.editable
       }), React.createElement(TextInput, {
-        "onChange": this.updateBlock,
-        "value": this.props.block.duration,
+        "onChange": this.updateDue,
+        "value": this.props.week_start.clone().add(this.props.block.duration, 'days').format("YYYY-MM-DD"),
         "value_key": 'duration',
         "editable": this.props.editable,
-        "type": 'number',
-        "show": is_graded,
-        "label": 'Duration (weeks)',
-        "placeholder": 'Weeks until due',
-        "show": this.props.editable && is_graded
+        "type": 'date',
+        "label": 'Due date',
+        "show": is_graded && this.props.editable,
+        "date_props": {
+          minDate: this.props.week_start.clone().subtract(1, 'days')
+        }
       }));
     }
     return React.createElement("li", {
@@ -4497,6 +4503,8 @@ Week = React.createClass({
   },
   render: function() {
     var addBlock, blocks, deleteWeek, end, spacer, start, title, week_label;
+    start = moment(this.props.start).startOf('week').add(7 * (this.props.index - 1), 'day');
+    end = moment.min(start.clone().add(6, 'day'), moment(this.props.end));
     blocks = this.props.blocks.map((function(_this) {
       return function(block, i) {
         if (!block.deleted) {
@@ -4507,7 +4515,8 @@ Week = React.createClass({
             "gradeable": GradeableStore.getGradeableByBlock(block.id),
             "deleteBlock": _this.deleteBlock.bind(_this, block.id),
             "moveBlock": _this.props.moveBlock,
-            "week_index": _this.props.index
+            "week_index": _this.props.index,
+            "week_start": moment(_this.props.start).startOf('isoWeek').add(7 * (_this.props.index - 1), 'day')
           });
         }
       };
@@ -4534,8 +4543,6 @@ Week = React.createClass({
         spacer = ' ';
       }
       week_label = 'Week ' + this.props.index;
-      start = moment(this.props.start).startOf('week').add(7 * (this.props.index - 1), 'day');
-      end = moment.min(start.clone().add(6, 'day'), moment(this.props.end));
       week_label += " (" + (start.format('MM/DD')) + " - " + (end.format('MM/DD')) + ") " + this.props.meetings;
       title = React.createElement(TextInput, {
         "onChange": this.updateWeek,

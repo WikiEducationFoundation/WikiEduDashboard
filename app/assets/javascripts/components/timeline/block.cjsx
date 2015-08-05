@@ -10,6 +10,9 @@ Reorderable       = require '../high_order/reorderable'
 
 Block = React.createClass(
   displayName: 'Block'
+  updateDue: (value_key, value) ->
+    difference = moment(value).diff(@props.week_start, 'days')
+    @updateBlock(value_key, difference)
   updateBlock: (value_key, value) ->
     to_pass = $.extend(true, {}, @props.block)
     to_pass[value_key] = value
@@ -28,8 +31,8 @@ Block = React.createClass(
     if is_graded && !@props.editable
       dueDateRead = (
         <TextInput
-          onChange={@updateBlock}
-          value={"In #{@props.block.duration} week#{if @props.block.duration != 1 then 's' else ''}"}
+          onChange={@updateDue}
+          value={@props.week_start.clone().add(@props.block.duration, 'days').format("YYYY-MM-DD")}
           value_key={'duration'}
           editable={false}
           label='Due'
@@ -75,15 +78,14 @@ Block = React.createClass(
             show={@props.editable}
           />
           <TextInput
-            onChange={@updateBlock}
-            value={@props.block.duration}
+            onChange={@updateDue}
+            value={@props.week_start.clone().add(@props.block.duration, 'days').format("YYYY-MM-DD")}
             value_key='duration'
             editable={@props.editable}
-            type='number'
-            show={is_graded}
-            label='Duration (weeks)'
-            placeholder='Weeks until due'
-            show={@props.editable && is_graded}
+            type='date'
+            label='Due date'
+            show={is_graded && @props.editable}
+            date_props={minDate: @props.week_start.clone().subtract(1, 'days')}
           />
         </span>
       )
