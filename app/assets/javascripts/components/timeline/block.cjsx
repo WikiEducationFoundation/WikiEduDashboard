@@ -67,6 +67,7 @@ Block = React.createClass(
             placeholder='Block title'
             spacer=' '
             show={!@props.editable}
+            className='title'
           />
           <TextInput
             onChange={@updateBlock}
@@ -104,6 +105,7 @@ Block = React.createClass(
           editable={@props.editable}
           options={['In Class', 'Assignment', 'Milestone', 'Custom']}
           show={@props.block.kind < 3 || @props.editable}
+          label='Block Type'
         />
         {title}
         {deleteBlock}
@@ -116,7 +118,6 @@ Block = React.createClass(
         value_key='content'
         editable={@props.editable}
         rows='4'
-        hr=true
         placeholder='Block description'
         autoExpand=true
       />

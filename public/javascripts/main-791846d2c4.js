@@ -1287,7 +1287,11 @@ Select = React.createClass({
     };
   },
   render: function() {
-    var options;
+    var label, options;
+    if (this.props.label) {
+      label = this.props.label;
+      label += this.props.spacer || ': ';
+    }
     options = this.props.options.map((function(_this) {
       return function(option, i) {
         return React.createElement("option", {
@@ -1297,9 +1301,9 @@ Select = React.createClass({
       };
     })(this));
     if (this.props.editable) {
-      return React.createElement("div", {
+      return React.createElement("label", {
         "className": 'input_wrapper select_wrapper'
-      }, React.createElement("select", {
+      }, React.createElement("span", null, label), React.createElement("select", {
         "value": this.state.value,
         "onChange": this.onChange
       }, options));
@@ -1437,7 +1441,7 @@ TextInput = React.createClass({
       if (this.props.type === 'date' && ((this.state.value != null) || this.props.blank)) {
         input = React.createElement(DatePicker, React.__spread({
           "ref": 'input',
-          "className": inputClass,
+          "className": inputClass + " " + this.props.value_key,
           "id": this.props.id || '',
           "selected": (this.state.value != null ? moment(this.state.value) : null),
           "onChange": this.dateChange,
@@ -1451,7 +1455,7 @@ TextInput = React.createClass({
       } else {
         input = React.createElement("input", {
           "ref": 'input',
-          "className": inputClass,
+          "className": inputClass + " " + this.props.value_key,
           "id": this.props.id || '',
           "value": this.state.value,
           "onChange": this.onChange,
@@ -3925,7 +3929,8 @@ Block = React.createClass({
         "editable": this.props.editable,
         "placeholder": 'Block title',
         "spacer": ' ',
-        "show": !this.props.editable
+        "show": !this.props.editable,
+        "className": 'title'
       }), React.createElement(TextInput, {
         "onChange": this.updateBlock,
         "value": this.props.block.title,
@@ -3963,14 +3968,14 @@ Block = React.createClass({
       "value_key": 'kind',
       "editable": this.props.editable,
       "options": ['In Class', 'Assignment', 'Milestone', 'Custom'],
-      "show": this.props.block.kind < 3 || this.props.editable
+      "show": this.props.block.kind < 3 || this.props.editable,
+      "label": 'Block Type'
     }), title, deleteBlock), graded, dueDateRead, React.createElement(TextAreaInput, {
       "onChange": this.updateBlock,
       "value": this.props.block.content,
       "value_key": 'content',
       "editable": this.props.editable,
       "rows": '4',
-      "hr": true,
       "placeholder": 'Block description',
       "autoExpand": true
     }));
