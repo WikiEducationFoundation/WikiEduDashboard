@@ -36,6 +36,7 @@
     left 0
     margin 0 0 15px 0
     padding 18px 20px 20px
+    position relative
     width 100%
     transition all .25s ease-out
     -moz-user-select none
@@ -47,6 +48,8 @@
       cursor move
       &:hover
         box-shadow 0 0 15px 0 rgba(0, 0, 0, .2)
+      .drag-handle
+        display block
     &.dragging
       opacity 0
       // transform scale(1.05)
@@ -80,6 +83,20 @@
       padding-bottom 10px
   .gradeable
     overflow hidden
+
+.drag-handle
+  display none
+  left 0
+  position absolute
+  top 10px
+  width 15px
+  .drag-handle__bar
+    background-color mercury
+    height 3px
+    margin-bottom 2px
+    width 100%
+    &:last-child
+      margin-bottom 0
 
 input[type="radio"]
   -webkit-appearance radio

@@ -91,6 +91,11 @@ Block = React.createClass(
       )
 
     <li className={className}>
+      <div className="drag-handle">
+        <div className="drag-handle__bar"></div>
+        <div className="drag-handle__bar"></div>
+        <div className="drag-handle__bar"></div>
+      </div>
       <h4>
         <Select
           onChange={@updateBlock}

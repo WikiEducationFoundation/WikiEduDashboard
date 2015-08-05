@@ -1355,14 +1355,12 @@ TextAreaInput = React.createClass({
         return React.createElement("label", null, React.createElement("hr", null), label, React.createElement("div", {
           "className": "expandingArea active"
         }, React.createElement("pre", null, React.createElement("span", null, this.state.value), React.createElement("br", null)), input_element));
+      } else if (this.props.autoExpand === true) {
+        return React.createElement("label", null, label, React.createElement("div", {
+          "className": "expandingArea active"
+        }, React.createElement("pre", null, React.createElement("span", null, this.state.value), React.createElement("br", null)), input_element));
       } else {
-        if (this.props.autoExpand === true) {
-          return React.createElement("label", null, label, React.createElement("div", {
-            "className": "expandingArea active"
-          }, React.createElement("pre", null, React.createElement("span", null, this.state.value), React.createElement("br", null)), input_element));
-        } else {
-          return React.createElement("label", null, label, input_element);
-        }
+        return React.createElement("label", null, label, input_element);
       }
     } else if (this.props.value) {
       raw_html = Marked(this.props.value, {
@@ -3951,7 +3949,15 @@ Block = React.createClass({
     }
     return React.createElement("li", {
       "className": className
-    }, React.createElement("h4", null, React.createElement(Select, {
+    }, React.createElement("div", {
+      "className": "drag-handle"
+    }, React.createElement("div", {
+      "className": "drag-handle__bar"
+    }), React.createElement("div", {
+      "className": "drag-handle__bar"
+    }), React.createElement("div", {
+      "className": "drag-handle__bar"
+    })), React.createElement("h4", null, React.createElement(Select, {
       "onChange": this.updateBlock,
       "value": this.props.block.kind,
       "value_key": 'kind',
