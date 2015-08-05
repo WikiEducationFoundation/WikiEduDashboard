@@ -562,7 +562,7 @@ Article = React.createClass({
       "href": this.props.article.url,
       "target": "_blank",
       "className": "inline"
-    }, formattedTitle, " ", (this.props.article["new"] ? ' (new)' : '')))), React.createElement("td", {
+    }, formattedTitle, " ", (this.props.article.new_article ? ' (new)' : '')))), React.createElement("td", {
       "className": 'desktop-only-tc'
     }, this.props.article.character_sum), React.createElement("td", {
       "className": 'desktop-only-tc'
@@ -750,7 +750,7 @@ Assignment = React.createClass({
       "href": article.url,
       "target": "_blank",
       "className": "inline"
-    }, formattedTitle, " ", (article["new"] ? ' (new)' : '')))), React.createElement("td", {
+    }, formattedTitle, " ", (article.new_article ? ' (new)' : '')))), React.createElement("td", {
       "className": 'desktop-only-tc'
     }, assignees.join(', ')), React.createElement("td", {
       "className": 'desktop-only-tc'
@@ -3700,7 +3700,7 @@ StudentList = React.createClass({
     return ServerActions.saveStudents($.extend(true, {}, getState()), this.props.course_id);
   },
   notify: function() {
-    if (confirm('This will post a reminder on the talk pages of all students who have not completed training. Are you sure you want to do this?')) {
+    if (confirm(I18n.t('wiki_edits.notify_untrained.confirm'))) {
       return ServerActions.notifyUntrained(this.props.course_id);
     }
   },
@@ -3753,26 +3753,26 @@ StudentList = React.createClass({
     }
     keys = {
       'wiki_id': {
-        'label': 'Name',
+        'label': I18n.t('users.name'),
         'desktop_only': false
       },
       'assignment_title': {
-        'label': 'Assigned Articles',
+        'label': I18n.t('users.assigned'),
         'desktop_only': true,
         'sortable': false
       },
       'reviewing_title': {
-        'label': 'Reviewing',
+        'label': I18n.t('users.reviewing'),
         'desktop_only': true,
         'sortable': false
       },
       'character_sum_ms': {
-        'label': 'Mainspace<br />chars added',
+        'label': I18n.t('users.mainspace_chars'),
         'desktop_only': true,
         'info_key': 'users.character_doc'
       },
       'character_sum_us': {
-        'label': 'Userspace<br />chars added',
+        'label': I18n.t('users.userspace_chars'),
         'desktop_only': true,
         'info_key': 'users.character_doc'
       }

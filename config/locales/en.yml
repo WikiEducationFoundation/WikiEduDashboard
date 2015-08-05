@@ -158,6 +158,7 @@ en:
 
 
   users:
+    already_enrolled: That user is already enrolled!
     assigned: Assigned Articles
     assignees: Assignee(s)
     character_doc: >
@@ -170,9 +171,11 @@ en:
     contributions_more: View More Contributions
     editors: Student Editors
     loading: Loading users...
+    mainspace_chars: Mainspace<br />chars added
     name: Name
     none: This course has no students.
     reviewers: Reviewer(s)
+    reviewing: Reviewing
     training_complete:
       one: "has completed training"
       other: "have completed training"
@@ -185,11 +188,14 @@ en:
       https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete .
     training_incomplete:
       one: Training Incomplete
-    already_enrolled: That user is already enrolled!
+    userspace_chars: Userspace<br />chars added
 
   wiki_edits:
-    # These messages are wikitext output that gets posted on user talk pages.
     notify_untrained:
+      confirm: >
+        This will post a reminder on the talk pages of all students who have not
+        completed training. Are you sure you want to do this?
+      # header, message and summary are wikitext output that gets posted on user talk pages.
       header: You have not completed the student training.
       message: Please complete the [[WP:STUDENT|student training]]. If you have already gone through it, be sure to click the button at the end to record that you finished it. --~~~~
       summary: student training incomplete

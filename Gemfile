@@ -39,6 +39,8 @@ group :development do
   gem 'capistrano-rails'
   gem 'capistrano-bundler'
   gem 'capistrano-passenger'
+  gem 'rack-mini-profiler'
+  gem 'rails-erd'
 end
 
 group :development, :test do
