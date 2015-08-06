@@ -5,6 +5,16 @@ GIT
     vcr (2.9.3)
 
 GIT
+  remote: https://github.com/activerecord-hackery/squeel.git
+  revision: 5542266d502db8022e14105f9dfb455a79d6fc4a
+  branch: master
+  specs:
+    squeel (1.2.3)
+      activerecord (>= 3.0)
+      activesupport (>= 3.0)
+      polyamorous (~> 1.1.0)
+
+GIT
   remote: https://github.com/halfdan/piwik-ruby-tracking.git
   revision: 00942cf25e43d6cc02af33ca802959074e1022f4
   specs:
@@ -308,10 +318,6 @@ GEM
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
     sqlite3 (1.3.10)
-    squeel (1.2.3)
-      activerecord (>= 3.0)
-      activesupport (>= 3.0)
-      polyamorous (~> 1.1.0)
     sshkit (1.6.1)
       colorize (>= 0.7.0)
       net-scp (>= 1.1.2)
@@ -386,11 +392,11 @@ DEPENDENCIES
   sentry-raven
   simplecov
   sqlite3
-  squeel
+  squeel!
   vcr!
   webmock
   whenever
   zeus
 
 BUNDLED WITH
-   1.10.3
+   1.10.6

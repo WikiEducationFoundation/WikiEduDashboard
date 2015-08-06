@@ -38,6 +38,13 @@ ServerActions = Flux.createActions
   fetchCohorts: ->
     API.fetchCohorts().then (data) ->
       { actionType: 'RECEIVE_COHORTS', data: data }
+
+  fetchRevisions: (studentId, courseId) ->
+    API.fetchRevisions(studentId, courseId).then (data) ->
+      { actionType: 'RECEIVE_REVISIONS', data: data }
+
+
+  # Save
   saveCourse: (data, course_id=null) ->
     API.saveCourse(data, course_id).then (data) ->
       actionType = if course_id == null then 'CREATED_COURSE' else 'SAVED_COURSE'
