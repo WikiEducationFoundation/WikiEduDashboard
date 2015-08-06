@@ -3,7 +3,9 @@ ServerActions     = require '../../actions/server_actions'
 
 AssignCell      = require './assign_cell'
 
-UIStore           = require '../../stores/ui_store'
+RevisionStore   = require '../../stores/revision_store'
+UIStore         = require '../../stores/ui_store'
+UIActions       = require '../../actions/ui_actions'
 
 Student = React.createClass(
   displayName: 'Student'
@@ -14,19 +16,23 @@ Student = React.createClass(
     is_open: false
   stop: (e) ->
     e.stopPropagation()
+  openDrawer: ->
+    RevisionStore.clear()
+    ServerActions.fetchRevisions(@props.student.id, @props.course.id)
+    UIActions.open("drawer_#{@props.student.id}")
   buttonClick: (e) ->
     e.stopPropagation()
-    @props.onClick()
+    @openDrawer()
+
   render: ->
     className = 'students'
     className += if @state.is_open then ' open' else ''
-    className += if !@props.student.revisions || @props.student.revisions.length == 0 then ' no_revisions' else ''
     trained = if @props.student.trained then '' else 'Training Incomplete'
     unless @props.student.trained
       separator = <span className='tablet-only-ib'>&nbsp;|&nbsp;</span>
     chars = 'MS: ' + @props.student.character_sum_us + ', US: ' + @props.student.character_sum_us
 
-    <tr onClick={@props.onClick} className={className}>
+    <tr onClick={@openDrawer} className={className}>
       <td>
         <div className="avatar">
           <img alt="User" src="/images/user.svg" />

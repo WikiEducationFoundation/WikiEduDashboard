@@ -41,7 +41,8 @@ group :development do
   gem 'capistrano-passenger'
   gem 'rack-mini-profiler'
   gem 'rails-erd'
-  gem 'squeel'
+  gem 'squeel', git: 'https://github.com/activerecord-hackery/squeel.git', branch: 'master'
+
 end
 
 group :development, :test do

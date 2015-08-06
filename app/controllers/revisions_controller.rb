@@ -6,10 +6,10 @@ class RevisionsController < ApplicationController
     user = User.find(params[:user_id])
     course = Course.find(params[:course_id])
     @revisions = user.revisions
-                 .where{ date >= my{course.start} }
-                 .where{ date <= my{course.end} }
-                 .order("#{params[:order]} DESC")
+                 .where('date >= ?', course.start)
+                 .where('date <= ?', course.end)
+                 .order('revisions.created_at DESC')
                  .eager_load(:article)
-                 .limit(params[:limit])
+                 .limit(params[:limit] || 10)
   end
 end
