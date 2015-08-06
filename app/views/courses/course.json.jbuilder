@@ -9,9 +9,7 @@ json.course do
   json.published CohortsCourses.exists?(course_id: @course.id)
   json.enroll_url "#{request.base_url}#{course_slug_path(@course.slug)}/enroll/"
 
-  json.created_count number_to_human @course.revisions.joins(:article)
-    .where(articles: { namespace: 0 })
-    .where(new_article: true).count
+  json.created_count number_to_human @course.new_article_count
   json.edited_count number_to_human @course.article_count
   json.edit_count number_to_human @course.revisions.count
   json.student_count @course.user_count
