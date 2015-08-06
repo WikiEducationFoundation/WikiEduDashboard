@@ -6,7 +6,7 @@ StudentDrawer = React.createClass(
   getKey: ->
     'drawer_' + @props.student_id
   render: ->
-    revisions = @props.revisions.map (rev) ->
+    revisions = (@props.revisions || []).map (rev) ->
       details = 'Chars Added: ' + rev.characters + ', Views: ' + rev.views
       <tr key={rev.id}>
         <td>

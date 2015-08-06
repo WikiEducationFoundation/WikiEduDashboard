@@ -20,7 +20,7 @@ Student = React.createClass(
   render: ->
     className = 'students'
     className += if @state.is_open then ' open' else ''
-    className += if @props.student.revisions.length == 0 then ' no_revisions' else ''
+    className += if !@props.student.revisions || @props.student.revisions.length == 0 then ' no_revisions' else ''
     trained = if @props.student.trained then '' else 'Training Incomplete'
     unless @props.student.trained
       separator = <span className='tablet-only-ib'>&nbsp;|&nbsp;</span>
