@@ -50,7 +50,7 @@ class ArticlesCourses < ActiveRecord::Base
       characters = revisions.where('characters >= 0').sum(:characters) || 0
       self.view_count = revisions.order('date ASC').first.views || 0
       self.character_sum = characters
-      self.new_article = revisions.where(new_article: true).count > 0
+      self.new_article = revisions.where(new_article: true).size > 0
     end
     save
   end
