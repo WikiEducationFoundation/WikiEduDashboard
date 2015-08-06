@@ -61,10 +61,10 @@ class CoursesUsers < ActiveRecord::Base
     self.character_sum_us = character_sum(revisions, 2)
     self.revision_count = revisions
       .where(articles: { deleted: false })
-      .count || 0
+      .size || 0
     assignments = user.assignments.where(course_id: course.id)
     # rubocop:disable Metrics/LineLength
-    self.assigned_article_title = assignments.empty? ? nil : assignments.first.article_title
+    self.assigned_article_title = assignments.empty? ? '' : assignments.first.article_title
     # rubocop:enable Metrics/LineLength
     save
   end
