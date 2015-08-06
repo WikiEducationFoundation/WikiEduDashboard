@@ -44,7 +44,7 @@ class Article < ActiveRecord::Base
   ####################
   def update(data={}, save=true)
     self.attributes = data
-    if revisions.size > 0
+    if revisions.count > 0
       self.views = revisions.order('date ASC').first.views || 0
     else
       self.views = 0
