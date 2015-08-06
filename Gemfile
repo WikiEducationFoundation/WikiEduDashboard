@@ -41,6 +41,7 @@ group :development do
   gem 'capistrano-passenger'
   gem 'rack-mini-profiler'
   gem 'rails-erd'
+  gem 'squeel'
 end
 
 group :development, :test do

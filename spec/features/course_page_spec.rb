@@ -248,13 +248,6 @@ describe 'the course page', type: :feature do
     end
   end
 
-  describe 'students view', js: true do
-    it 'should display a list of students' do
-      js_visit "/courses/#{slug}/students"
-      expect(page).to have_content 'Student 1'
-    end
-  end
-
   describe 'activity view', js: true do
     it 'should display a list of edits' do
       js_visit "/courses/#{slug}/activity"

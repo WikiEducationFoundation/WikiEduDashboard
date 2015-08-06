@@ -27,7 +27,7 @@ StudentList = React.createClass(
       ServerActions.notifyUntrained @props.course_id
   render: ->
     users = @props.users.map (student) =>
-      open_drawer = if student.revisions.length > 0 then @openDrawer.bind(@, student.id) else null
+      open_drawer = if student.revisions? and student.revisions.length > 0 then @openDrawer.bind(@, student.id) else null
       assign_options = { user_id: student.id, role: 0 }
       review_options = { user_id: student.id, role: 1 }
       <Student
