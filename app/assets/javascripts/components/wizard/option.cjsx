@@ -17,11 +17,11 @@ Option = React.createClass(
     className += ' disabled' if disabled
     checkbox = <div className='wizard__option__checkbox'></div> if @props.multiple
     if @props.option.description?
-      expand_text = 'Read More'
+      expand_text = I18n.t('wizard.read_more')
       expand_className = 'wizard__option__description'
       more_className = 'wizard__option__more'
       if @props.option.expanded
-        expand_text = 'Read Less'
+        expand_text = I18n.t('wizard.read_less')
         expand_className += ' open'
         more_className += ' open'
       expand = (
@@ -37,7 +37,8 @@ Option = React.createClass(
         <div dangerouslySetInnerHTML={{__html: Marked(@props.option.blurb, { renderer: MarkedRenderer })}}></div>
       )
     if disabled
-      notice = <h3>This assignment requires at least {@props.option.min_weeks} available weeks. Please adjust your assignment start and end dates if you want to use this type of assignment.</h3>
+      notice = <h3>{I18n.t('wizard.min_weeks', {
+        min_weeks: @props.option.min_weeks })}</h3>
 
     <div className={className}>
       <button onClick={@select unless disabled}>

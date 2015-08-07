@@ -200,6 +200,23 @@ en:
       message: Please complete the [[WP:STUDENT|student training]]. If you have already gone through it, be sure to click the button at the end to record that you finished it. --~~~~
       summary: student training incomplete
 
+  wizard:
+    assignment_dates: Assignment Dates
+    assignment_type: Assignment Type
+    confirm_dates: Confirm the course dates, assignment dates, and weekly meetings for your course.
+    min_weeks: >
+      This assignment requires at least %{min_weeks} available
+      weeks. Please adjust your assignment start and end dates if you want to
+      use this type of assignment.
+    minimum_options: Please select at least %{minimum} option(s).
+    read_more: Read More
+    read_less: Read Less
+    review_selections: >
+      Please review your selections below. Click to edit a selection. When
+      finished, click 'Submit' to finish the wizard and build your timeline.
+    select_assignment: Select the kind of assignment you want to add to your timeline.
+    summary: Summary
+
   error_401:
     header: "Unauthorized. >:-("
     explanation: >
