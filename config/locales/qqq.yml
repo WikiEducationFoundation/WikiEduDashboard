@@ -129,6 +129,21 @@ qqq:
         training. This is a wikitext message.
       summary: Edit summary for a talk page message indicating that the user has not
         completed training. This is a wikitext message.
+  wizard:
+    assignment_dates: Header for the assignment dates section of the wizard
+    assignment_type: Header for the assignment type section of the wizard
+    confirm_dates: Instructions for inputting assignment date information
+    min_weeks: Message indicating that an assignment is not available because
+      there is not enough time for it. %{min_weeks} is the minimum number of weeks
+      for the assignment type.
+    minimum_options: Message indicating that more options must be selected.
+      %{minimum} is the required number of options.
+    read_more: Button label to expand a section with additional information
+    read_less: Button label to collapse an expanded section of addition information
+    review_selections: Instructions for the summary section
+    select_assignment: Instructions for the assignment type section
+    summary: Header for the summary section
+
   error_404:
     header: Message indicating that a page doesn't exist.
     explanation: Message explaining why a user may have reached a page that doesn't

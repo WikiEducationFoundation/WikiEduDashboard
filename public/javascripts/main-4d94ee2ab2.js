@@ -259,6 +259,14 @@ ServerActions = Flux.createActions({
       };
     });
   },
+  fetchRevisions: function(studentId, courseId) {
+    return API.fetchRevisions(studentId, courseId).then(function(data) {
+      return {
+        actionType: 'RECEIVE_REVISIONS',
+        data: data
+      };
+    });
+  },
   saveCourse: function(data, course_id) {
     if (course_id == null) {
       course_id = null;
@@ -3499,7 +3507,7 @@ module.exports = Conditional(Expandable(EnrollButton));
 
 
 },{"../../actions/assignment_actions":1,"../../actions/server_actions":5,"../../stores/user_store":84,"../common/popover":23,"../high_order/conditional":30,"../high_order/expandable":32,"react-router":250,"react/addons":275}],51:[function(require,module,exports){
-var AssignCell, React, ServerActions, Student, UIStore;
+var AssignCell, React, RevisionStore, ServerActions, Student, UIActions, UIStore;
 
 React = require('react/addons');
 
@@ -3507,7 +3515,11 @@ ServerActions = require('../../actions/server_actions');
 
 AssignCell = require('./assign_cell');
 
+RevisionStore = require('../../stores/revision_store');
+
 UIStore = require('../../stores/ui_store');
+
+UIActions = require('../../actions/ui_actions');
 
 Student = React.createClass({
   displayName: 'Student',
@@ -3525,15 +3537,19 @@ Student = React.createClass({
   stop: function(e) {
     return e.stopPropagation();
   },
+  openDrawer: function() {
+    RevisionStore.clear();
+    ServerActions.fetchRevisions(this.props.student.id, this.props.course.id);
+    return UIActions.open("drawer_" + this.props.student.id);
+  },
   buttonClick: function(e) {
     e.stopPropagation();
-    return this.props.onClick();
+    return this.openDrawer();
   },
   render: function() {
     var chars, className, separator, trained;
     className = 'students';
     className += this.state.is_open ? ' open' : '';
-    className += this.props.student.revisions.length === 0 ? ' no_revisions' : '';
     trained = this.props.student.trained ? '' : 'Training Incomplete';
     if (!this.props.student.trained) {
       separator = React.createElement("span", {
@@ -3542,7 +3558,7 @@ Student = React.createClass({
     }
     chars = 'MS: ' + this.props.student.character_sum_us + ', US: ' + this.props.student.character_sum_us;
     return React.createElement("tr", {
-      "onClick": this.props.onClick,
+      "onClick": this.openDrawer,
       "className": className
     }, React.createElement("td", null, React.createElement("div", {
       "className": "avatar"
@@ -3591,21 +3607,41 @@ module.exports = Student;
 
 
 
-},{"../../actions/server_actions":5,"../../stores/ui_store":82,"./assign_cell":49,"react/addons":275}],52:[function(require,module,exports){
-var Expandable, React, StudentDrawer;
+},{"../../actions/server_actions":5,"../../actions/ui_actions":6,"../../stores/revision_store":79,"../../stores/ui_store":82,"./assign_cell":49,"react/addons":275}],52:[function(require,module,exports){
+var Expandable, React, RevisionStore, StudentDrawer, getRevisions;
 
 React = require('react/addons');
 
 Expandable = require('../high_order/expandable');
 
+RevisionStore = require('../../stores/revision_store');
+
+getRevisions = function() {
+  return RevisionStore.getModels();
+};
+
 StudentDrawer = React.createClass({
   displayName: 'StudentDrawer',
+  mixins: [RevisionStore.mixin],
   getKey: function() {
     return 'drawer_' + this.props.student_id;
   },
+  storeDidChange: function() {
+    return this.setState({
+      revisions: getRevisions()
+    });
+  },
+  getInitialState: function() {
+    return {
+      revisions: getRevisions()
+    };
+  },
   render: function() {
     var className, revisions, style;
-    revisions = this.props.revisions.map(function(rev) {
+    if (!this.props.is_open) {
+      return React.createElement("div", null);
+    }
+    revisions = (this.state.revisions || []).map(function(rev) {
       var details;
       details = 'Chars Added: ' + rev.characters + ', Views: ' + rev.views;
       return React.createElement("tr", {
@@ -3633,7 +3669,7 @@ StudentDrawer = React.createClass({
       }, "diff")));
     });
     style = {
-      height: this.props.is_open ? 40 + 71 * this.props.revisions.length : 0,
+      height: this.props.is_open ? 40 + 71 * this.state.revisions.length : 0,
       transition: 'height .2s'
     };
     className = 'drawer';
@@ -3662,7 +3698,7 @@ module.exports = Expandable(StudentDrawer);
 
 
 
-},{"../high_order/expandable":32,"react/addons":275}],53:[function(require,module,exports){
+},{"../../stores/revision_store":79,"../high_order/expandable":32,"react/addons":275}],53:[function(require,module,exports){
 var AssignmentStore, Editable, EnrollButton, List, React, ServerActions, Student, StudentDrawer, StudentList, UIActions, UserStore, getState;
 
 React = require('react/addons');
@@ -3696,11 +3732,6 @@ getState = function() {
 
 StudentList = React.createClass({
   displayName: 'StudentList',
-  openDrawer: function(model_id) {
-    var key;
-    key = model_id + '_drawer';
-    return this.refs[key].open();
-  },
   save: function() {
     return ServerActions.saveStudents($.extend(true, {}, getState()), this.props.course_id);
   },
@@ -3713,8 +3744,7 @@ StudentList = React.createClass({
     var add_student, drawers, elements, keys, notify_untrained, users;
     users = this.props.users.map((function(_this) {
       return function(student) {
-        var assign_options, open_drawer, review_options;
-        open_drawer = student.revisions.length > 0 ? _this.openDrawer.bind(_this, student.id) : null;
+        var assign_options, review_options;
         assign_options = {
           user_id: student.id,
           role: 0
@@ -3724,7 +3754,6 @@ StudentList = React.createClass({
           role: 1
         };
         return React.createElement(Student, React.__spread({
-          "onClick": open_drawer,
           "student": student,
           "key": student.id,
           "assigned": AssignmentStore.getFiltered(assign_options),
@@ -3733,14 +3762,15 @@ StudentList = React.createClass({
         }, _this.props));
       };
     })(this));
-    drawers = this.props.users.map(function(student) {
-      return React.createElement(StudentDrawer, {
-        "revisions": student.revisions,
-        "student_id": student.id,
-        "key": student.id + '_drawer',
-        "ref": student.id + '_drawer'
-      });
-    });
+    drawers = this.props.users.map((function(_this) {
+      return function(student) {
+        return React.createElement(StudentDrawer, {
+          "student_id": student.id,
+          "key": student.id + '_drawer',
+          "ref": student.id + '_drawer'
+        });
+      };
+    })(this));
     elements = _.flatten(_.zip(users, drawers));
     if (this.props.course.published) {
       add_student = React.createElement(EnrollButton, React.__spread({}, this.props, {
@@ -4897,11 +4927,11 @@ Option = React.createClass({
       });
     }
     if (this.props.option.description != null) {
-      expand_text = 'Read More';
+      expand_text = I18n.t('wizard.read_more');
       expand_className = 'wizard__option__description';
       more_className = 'wizard__option__more';
       if (this.props.option.expanded) {
-        expand_text = 'Read Less';
+        expand_text = I18n.t('wizard.read_less');
         expand_className += ' open';
         more_className += ' open';
       }
@@ -4930,7 +4960,9 @@ Option = React.createClass({
       });
     }
     if (disabled) {
-      notice = React.createElement("h3", null, "This assignment requires at least ", this.props.option.min_weeks, " available weeks. Please adjust your assignment start and end dates if you want to use this type of assignment.");
+      notice = React.createElement("h3", null, I18n.t('wizard.min_weeks', {
+        min_weeks: this.props.option.min_weeks
+      }));
     }
     return React.createElement("div", {
       "className": className
@@ -5879,6 +5911,10 @@ StockStore = function(helper, model_key, default_model, triggers) {
       }
       return filtered_models;
     },
+    clear: function() {
+      helper.models = {};
+      return this.emitChange();
+    },
     getModels: function() {
       var j, len, model_id, model_list, ref, sorted;
       model_list = [];
@@ -6353,24 +6389,24 @@ _wizard_key = null;
 
 _panels = [
   {
-    title: "Assignment Dates",
-    description: "Confirm the course dates, assignment dates, and weekly meetings for your course",
+    title: I18n.t('wizard.assignment_dates'),
+    description: I18n.t('wizard.confirm_dates'),
     active: true,
     options: [],
     type: -1,
     minimum: 0,
     key: 'dates'
   }, {
-    title: "Assignment Type",
-    description: "Select the kind of assignment you want to add to your timeline.",
+    title: I18n.t('wizard.assignment_type'),
+    description: I18n.t('wizard.select_assignment'),
     active: false,
     options: [],
     type: 1,
     minimum: 1,
     key: 'index'
   }, {
-    title: "Summary",
-    description: "Please review your selections below. Click to edit a selection. When finished, click 'Submit' to finish the wizard and build your timeline.",
+    title: I18n.t('wizard.summary'),
+    description: I18n.t('wizard.review_selections'),
     active: false,
     options: [],
     type: -1,
@@ -6491,7 +6527,9 @@ verifyPanelSelections = function(panel) {
   if (verified) {
     panel.error = null;
   } else {
-    error_message = 'Please select at least ' + panel.minimum + ' option(s)';
+    error_message = I18n.t('wizard.minimum_options', {
+      minimum: panel.minimum
+    });
     panel.error = error_message;
   }
   return verified;
@@ -6912,6 +6950,23 @@ API = {
         url: '/wizards.json',
         success: function(data) {
           console.log('Received wizard index');
+          return res(data);
+        }
+      }).fail(function(obj, status) {
+        console.log('Error: ' + obj.responseJSON.message);
+        return rej(obj);
+      });
+    });
+  },
+  fetchRevisions: function(studentId, courseId) {
+    return new Promise(function(res, rej) {
+      var url;
+      url = "/revisions.json?user_id=" + studentId + "&course_id=" + courseId;
+      return $.ajax({
+        type: 'GET',
+        url: url,
+        success: function(data) {
+          console.log('Received revisions');
           return res(data);
         }
       }).fail(function(obj, status) {
