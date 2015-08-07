@@ -242,7 +242,7 @@ class WikiEdits
 
       body = JSON.parse(get_token.body)
       if body.key? 'error'
-        raise Exception.new body['error']['info']
+        raise StandardError.new body['error']['info']
       end
 
       token_response = JSON.parse(get_token.body)
@@ -250,7 +250,7 @@ class WikiEdits
         csrf_token: token_response['query']['tokens']['csrftoken'],
         access_token: @access_token
       )
-    rescue Exception => e
+    rescue StandardError => e
       Rails.logger.error "Authentication error: #{e}"
       Raven.capture_exception e, level: 'warning'
     end
@@ -287,8 +287,7 @@ class WikiEdits
     rescue StandardError => e
       Rails.logger.error "Edit error: #{e}"
       Raven.capture_exception e, level: 'warning',
-                                 extra: { username: current_user.id,
-                                          response_data: response_data }
+                                 extra: { response_data: response_data }
     end
   end
 end
