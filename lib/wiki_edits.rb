@@ -280,7 +280,7 @@ class WikiEdits
       #     "info"=>"The \"templateeditor\" right is required to edit this page",
       #     "*"=>"See https://en.wikipedia.org/w/api.php for API usage"}}
 
-      unless response_data['edit']['result'] == 'Success'
+      if response_data['error']
         raise StandardError.new response_data['error']['code']
       end
       return response
