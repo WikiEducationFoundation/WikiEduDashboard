@@ -1,6 +1,7 @@
 React         = require 'react'
 Actions       = require './actions'
 Description   = require './description'
+Milestones    = require './milestones'
 Details       = require './details'
 Grading       = require './grading'
 ThisWeek      = require './this_week'
@@ -35,6 +36,7 @@ Overview = React.createClass(
       <div className='sidebar'>
         <Details {...@props} />
         <Actions {...@props} />
+        <Milestones {...@props} />
       </div>
     </section>
 )

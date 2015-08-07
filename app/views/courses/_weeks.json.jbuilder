@@ -1,5 +1,5 @@
 json.weeks course.weeks.eager_load(:blocks => [ :gradeable ]) do |week|
-  json.(week, :id, :title)
+  json.(week, :id, :title, :order)
   json.blocks week.blocks do |block|
     json.(block, :id, :kind, :content, :week_id, :gradeable_id, :title, :order, :due_date)
     unless block.gradeable.nil?

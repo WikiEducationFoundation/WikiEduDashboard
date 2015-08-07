@@ -190,6 +190,7 @@ ActiveRecord::Schema.define(version: 20150807220634) do
     t.integer  "course_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "order",      default: 1, null: false
   end
 
 end
