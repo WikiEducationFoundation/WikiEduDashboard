@@ -37,6 +37,8 @@ Block = React.createClass(
           editable={false}
           label='Due'
           show={is_graded && !@props.editable}
+          onFocus={@props.toggleFocused}
+          onBlur={@props.toggleFocused}
         />
       )
     if @props.editable
@@ -68,6 +70,8 @@ Block = React.createClass(
             spacer=' '
             show={!@props.editable}
             className='title'
+            onFocus={@props.toggleFocused}
+            onBlur={@props.toggleFocused}
           />
           <TextInput
             onChange={@updateBlock}
@@ -77,6 +81,8 @@ Block = React.createClass(
             placeholder='Block title'
             label='Title'
             show={@props.editable}
+            onFocus={@props.toggleFocused}
+            onBlur={@props.toggleFocused}
           />
           <TextInput
             onChange={@updateDue}
@@ -87,11 +93,13 @@ Block = React.createClass(
             label='Due date'
             show={is_graded && @props.editable}
             date_props={minDate: @props.week_start.clone().subtract(1, 'days')}
+            onFocus={@props.toggleFocused}
+            onBlur={@props.toggleFocused}
           />
         </span>
       )
 
-    <li className={className}>
+    <li className={className} draggable={@props.canDrag}>
       <div className="drag-handle">
         <div className="drag-handle__bar"></div>
         <div className="drag-handle__bar"></div>
@@ -120,6 +128,8 @@ Block = React.createClass(
         rows='4'
         placeholder='Block description'
         autoExpand=true
+        onFocus={@props.toggleFocused}
+        onBlur={@props.toggleFocused}
       />
     </li>
 )

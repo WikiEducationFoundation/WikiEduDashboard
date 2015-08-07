@@ -11,6 +11,8 @@ ReactCSSTG      = React.addons.CSSTransitionGroup
 
 Week = React.createClass(
   displayName: 'Week'
+  getInitialState: ->
+    focusedBlockId: null
   addBlock: ->
     BlockActions.addBlock @props.week.id
   deleteBlock: (block_id) ->
@@ -19,6 +21,11 @@ Week = React.createClass(
     to_pass = $.extend(true, {}, @props.week)
     to_pass['title'] = value
     WeekActions.updateWeek to_pass
+  toggleFocused: (block_id) ->
+    if @state.focusedBlockId == block_id
+      @setState focusedBlockId: null
+    else
+      @setState focusedBlockId: block_id
   render: ->
     # Start and end dates
     start = moment(@props.start).startOf('week').add(7 * (@props.index - 1), 'day')
@@ -27,6 +34,8 @@ Week = React.createClass(
     blocks = @props.blocks.map (block, i) =>
       unless block.deleted
         <Block
+          toggleFocused={@toggleFocused.bind(this, block.id)}
+          canDrag={@state.focusedBlockId != block.id}
           block={block}
           key={block.id}
           editable={@props.editable}
