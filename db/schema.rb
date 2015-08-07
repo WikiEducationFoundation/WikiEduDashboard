@@ -11,13 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150807174533) do
+ActiveRecord::Schema.define(version: 20150807220634) do
 
   create_table "articles", force: true do |t|
     t.string   "title"
     t.integer  "views",             limit: 8,  default: 0
-    t.datetime "updated_at"
     t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "character_sum",                default: 0
     t.integer  "revision_count",               default: 0
     t.date     "views_updated_at"
@@ -41,10 +41,10 @@ ActiveRecord::Schema.define(version: 20150807174533) do
   create_table "assignments", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "article_title"
     t.integer  "user_id"
     t.integer  "course_id"
     t.integer  "article_id"
+    t.string   "article_title"
     t.integer  "role"
   end
 
@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(version: 20150807174533) do
     t.datetime "updated_at"
     t.string   "title"
     t.integer  "order"
-    t.integer  "duration",     default: 1
+    t.datetime "due_date"
   end
 
   create_table "cohorts", force: true do |t|

@@ -1446,7 +1446,7 @@ TextInput = React.createClass({
       if (this.props.type === 'number') {
         title = 'This is a number field. The buttons rendered by most browsers will increment and decrement the input.';
       }
-      if (this.props.type === 'date' && ((this.state.value != null) || this.props.blank)) {
+      if (this.props.type === 'date') {
         input = React.createElement(DatePicker, React.__spread({
           "ref": 'input',
           "className": inputClass + " " + this.props.value_key,
@@ -3897,11 +3897,6 @@ Reorderable = require('../high_order/reorderable');
 
 Block = React.createClass({
   displayName: 'Block',
-  updateDue: function(value_key, value) {
-    var difference;
-    difference = moment(value).diff(this.props.week_start, 'days');
-    return this.updateBlock(value_key, difference);
-  },
   updateBlock: function(value_key, value) {
     var to_pass;
     to_pass = $.extend(true, {}, this.props.block);
@@ -3923,14 +3918,14 @@ Block = React.createClass({
     var className, deleteBlock, dueDateRead, graded, is_graded, spacer, title;
     is_graded = this.props.gradeable !== void 0 && !this.props.gradeable.deleted;
     className = 'block';
-    if (is_graded && !this.props.editable) {
+    if ((this.props.block.due_date != null) && !this.props.editable) {
       dueDateRead = React.createElement(TextInput, {
-        "onChange": this.updateDue,
-        "value": this.props.week_start.clone().add(this.props.block.duration, 'days').format("YYYY-MM-DD"),
-        "value_key": 'duration',
+        "onChange": this.updateBlock,
+        "value": moment(this.props.block.due_date).format("YYYY-MM-DD"),
+        "value_key": 'due_date',
         "editable": false,
         "label": 'Due',
-        "show": is_graded && !this.props.editable,
+        "show": (this.props.block.due_date != null) && !this.props.editable,
         "onFocus": this.props.toggleFocused,
         "onBlur": this.props.toggleFocused
       });
@@ -3979,13 +3974,14 @@ Block = React.createClass({
         "onFocus": this.props.toggleFocused,
         "onBlur": this.props.toggleFocused
       }), React.createElement(TextInput, {
-        "onChange": this.updateDue,
-        "value": this.props.week_start.clone().add(this.props.block.duration, 'days').format("YYYY-MM-DD"),
-        "value_key": 'duration',
+        "onChange": this.updateBlock,
+        "value": this.props.block.due_date,
+        "value_key": 'due_date',
         "editable": this.props.editable,
         "type": 'date',
         "label": 'Due date',
-        "show": is_graded && this.props.editable,
+        "placeholder": 'Due date',
+        "show": this.props.editable,
         "date_props": {
           minDate: this.props.week_start.clone().subtract(1, 'days')
         },
@@ -4012,7 +4008,7 @@ Block = React.createClass({
       "options": ['In Class', 'Assignment', 'Milestone', 'Custom'],
       "show": this.props.block.kind < 3 || this.props.editable,
       "label": 'Block Type'
-    }), title, deleteBlock), graded, dueDateRead, React.createElement(TextAreaInput, {
+    }), title, deleteBlock), graded, dueDateRead || (is_graded ? React.createElement("p", null, I18n.t('timeline.due_default')) : ''), React.createElement(TextAreaInput, {
       "onChange": this.updateBlock,
       "value": this.props.block.content,
       "value_key": 'content',

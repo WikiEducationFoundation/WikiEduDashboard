@@ -10,9 +10,6 @@ Reorderable       = require '../high_order/reorderable'
 
 Block = React.createClass(
   displayName: 'Block'
-  updateDue: (value_key, value) ->
-    difference = moment(value).diff(@props.week_start, 'days')
-    @updateBlock(value_key, difference)
   updateBlock: (value_key, value) ->
     to_pass = $.extend(true, {}, @props.block)
     to_pass[value_key] = value
@@ -28,15 +25,15 @@ Block = React.createClass(
   render: ->
     is_graded = @props.gradeable != undefined && !@props.gradeable.deleted
     className = 'block'
-    if is_graded && !@props.editable
+    if @props.block.due_date? && !@props.editable
       dueDateRead = (
         <TextInput
-          onChange={@updateDue}
-          value={@props.week_start.clone().add(@props.block.duration, 'days').format("YYYY-MM-DD")}
-          value_key={'duration'}
+          onChange={@updateBlock}
+          value={moment(@props.block.due_date).format("YYYY-MM-DD")}
+          value_key={'due_date'}
           editable={false}
           label='Due'
-          show={is_graded && !@props.editable}
+          show={@props.block.due_date? && !@props.editable}
           onFocus={@props.toggleFocused}
           onBlur={@props.toggleFocused}
         />
@@ -85,13 +82,14 @@ Block = React.createClass(
             onBlur={@props.toggleFocused}
           />
           <TextInput
-            onChange={@updateDue}
-            value={@props.week_start.clone().add(@props.block.duration, 'days').format("YYYY-MM-DD")}
-            value_key='duration'
+            onChange={@updateBlock}
+            value={@props.block.due_date}
+            value_key='due_date'
             editable={@props.editable}
             type='date'
             label='Due date'
-            show={is_graded && @props.editable}
+            placeholder='Due date'
+            show={@props.editable}
             date_props={minDate: @props.week_start.clone().subtract(1, 'days')}
             onFocus={@props.toggleFocused}
             onBlur={@props.toggleFocused}
@@ -119,7 +117,7 @@ Block = React.createClass(
         {deleteBlock}
       </h4>
       {graded}
-      {dueDateRead}
+      {dueDateRead || (if is_graded then (<p>{I18n.t('timeline.due_default')}</p>) else '')}
       <TextAreaInput
         onChange={@updateBlock}
         value={@props.block.content}

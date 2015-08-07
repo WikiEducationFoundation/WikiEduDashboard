@@ -246,3 +246,6 @@ en:
 
   # This is a maintenance script message.
   timeout: "A request to the %{api} API has timed out and will retried %{tries} times."
+
+  timeline:
+    due_default: Due next week

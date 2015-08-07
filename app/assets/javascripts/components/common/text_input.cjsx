@@ -30,7 +30,7 @@ TextInput = React.createClass(
       if @props.type == 'number'
         title = 'This is a number field. The buttons rendered by most browsers will increment and decrement the input.'
 
-      if @props.type == 'date' && (@state.value? || @props.blank)
+      if @props.type == 'date'
         input = (
           <DatePicker
             ref='input'
