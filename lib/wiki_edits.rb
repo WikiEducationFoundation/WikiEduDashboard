@@ -102,25 +102,24 @@ class WikiEdits
       # Get all assignments for this article/course
       siblings = title_assignments.select { |a| !a['deleted'] }
 
+      # Make a list of the assignees, role 0
+      tag_assigned = build_wikitext_user_list(siblings, 0)
+      # Make a list of the reviwers, role 1
+      tag_reviewing = build_wikitext_user_list(siblings, 1)
+
       # Build new tag
       tag_course = course.wiki_title
-      a_ids = siblings.select { |a| a['role'] == 0 }.map { |a| a['user_id'] }
-      tag_a = User.where(id: a_ids).pluck(:wiki_id)
-              .map { |wiki_id| "[[User:#{wiki_id}|#{wiki_id}]]" }.join(', ')
-      r_ids = siblings.select { |a| a['role'] == 1 }.map { |a| a['user_id'] }
-      tag_r = User.where(id: r_ids).pluck(:wiki_id)
-              .map { |wiki_id| "[[User:#{wiki_id}|#{wiki_id}]]" }.join(', ')
       new_tag = "{{#{dashboard_url} assignment | course = #{tag_course}"
-      new_tag += " | assignments = #{tag_a}" unless tag_a.blank?
-      new_tag += " | reviewers = #{tag_r}" unless tag_r.blank?
+      new_tag += " | assignments = #{tag_assigned}" unless tag_assigned.blank?
+      new_tag += " | reviewers = #{tag_reviewing}" unless tag_reviewing.blank?
       new_tag += ' }}'
 
       # Return if tag already exists on page
       return if page_content.include? new_tag
 
       # Check for existing tags and replace
-      old_tag_ex = "{{course assignment | course = #{course.wiki_title}"
-      new_tag_ex = "{{#{dashboard_url} assignment | course = #{course.wiki_title}"
+      old_tag_ex = "{{course assignment | course = #{tag_course}"
+      new_tag_ex = "{{#{dashboard_url} assignment | course = #{tag_course}"
       if siblings.empty?
         page_content.gsub!(/#{Regexp.quote(old_tag_ex)}[^\}]*\}\}[\n]?/, '')
         page_content.gsub!(/#{Regexp.quote(new_tag_ex)}[^\}]*\}\}[\n]?/, '')
@@ -158,7 +157,7 @@ class WikiEdits
     end
   end
 
-  def self.get_wiki_top_section(course_page_slug, current_user, talk_page = true)
+  def self.get_wiki_top_section(course_page_slug, current_user, talk_page=true)
     tokens = get_tokens(current_user)
     # if talk_page
     #   course_prefix = Figaro.env.course_talk_prefix
@@ -178,6 +177,12 @@ class WikiEdits
     response.body
   end
 
+  def self.build_wikitext_user_list(siblings, role)
+    user_ids = siblings.select { |a| a['role'] == role }
+               .map { |a| a['user_id'] }
+    User.where(id: user_ids).pluck(:wiki_id)
+      .map { |wiki_id| "[[User:#{wiki_id}|#{wiki_id}]]" }.join(', ')
+  end
   ####################
   # Basic edit types #
   ####################
