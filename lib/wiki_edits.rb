@@ -262,13 +262,33 @@ class WikiEdits
 
       # Make the request
       response = tokens.access_token.post(url, data)
-      unless response.kind_of? Net::HTTPOK
-        raise Exception.new response.message
+      response_data = JSON.parse(response.body)
+      # A successful edit will have response data like this:
+      # {"edit"=>
+      #   {"result"=>"Success",
+      #    "pageid"=>11543696,
+      #    "title"=>"User:Ragesock",
+      #    "contentmodel"=>"wikitext",
+      #    "oldrevid"=>671572777,
+      #    "newrevid"=>674946741,
+      #    "newtimestamp"=>"2015-08-07T05:27:43Z"}}
+      #
+      # A failed edit will have a response like this:
+      # {"servedby"=>"mw1135",
+      #  "error"=>
+      #    {"code"=>"protectedpage",
+      #     "info"=>"The \"templateeditor\" right is required to edit this page",
+      #     "*"=>"See https://en.wikipedia.org/w/api.php for API usage"}}
+
+      unless response_data['edit']['result'] == 'Success'
+        raise StandardError.new response_data['error']['code']
       end
       return response
-    rescue Exception => e
-      Rails.logger.error "Authentication error: #{e}"
-      Raven.capture_exception e, level: 'warning'
+    rescue StandardError => e
+      Rails.logger.error "Edit error: #{e}"
+      Raven.capture_exception e, level: 'warning',
+                                 extra: { username: current_user.id,
+                                          response_data: response_data }
     end
   end
 end
