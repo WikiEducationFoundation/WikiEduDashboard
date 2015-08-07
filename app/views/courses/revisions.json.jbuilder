@@ -1,5 +1,5 @@
 json.course do
-  json.revisions @course.revisions.live.order(date: :desc).limit(50) do |rev|
+  json.revisions @course.revisions.live.eager_load(:article).order(date: :desc).limit(50) do |rev|
     json.(rev, :id, :url, :characters, :date)
 
     json.(rev.article, :rating)
