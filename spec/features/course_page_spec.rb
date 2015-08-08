@@ -93,16 +93,12 @@ describe 'the course page', type: :feature do
            views: 9999,
            new_article: 1)
 
-    MILESTONE_KIND = 2
-
     week = create(:week,
-           course_id: course.id
-          )
+                  course_id: course.id)
     create(:block,
-           kind: MILESTONE_KIND,
+           kind: 2, # milestone
            week_id: week.id,
-           content: 'block content'
-          )
+           content: 'block content')
 
     ArticlesCourses.update_from_revisions
     ArticlesCourses.update_all_caches

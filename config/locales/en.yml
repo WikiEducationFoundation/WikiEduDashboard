@@ -76,6 +76,9 @@ en:
     confirm_addition: "Are you sure you want to assign %{title} to %{username}?"
     confirm_deletion: Are you sure you want to delete this assignment?
 
+  blocks:
+    milestones: Milestones
+
   cohort:
     view_other: View other cohorts
 
