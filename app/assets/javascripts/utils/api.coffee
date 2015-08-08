@@ -39,6 +39,19 @@ API =
         console.log 'Error: ' + obj.responseJSON.message
         rej obj
 
+  fetchRevisions: (studentId, courseId) ->
+    new Promise (res, rej) ->
+      url = "/revisions.json?user_id=#{studentId}&course_id=#{courseId}"
+      $.ajax
+        type: 'GET',
+        url: url
+        success: (data) ->
+          console.log 'Received revisions'
+          res data
+      .fail (obj, status) ->
+        console.log 'Error: ' + obj.responseJSON.message
+        rej obj
+
   fetchCohorts: ->
     new Promise (res, rej) ->
       $.ajax

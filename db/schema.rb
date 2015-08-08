@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150730225033) do
+ActiveRecord::Schema.define(version: 20150807220634) do
 
   create_table "articles", force: true do |t|
     t.string   "title"
@@ -52,14 +52,14 @@ ActiveRecord::Schema.define(version: 20150730225033) do
 
   create_table "blocks", force: true do |t|
     t.integer  "kind"
-    t.string   "content",      limit: 5000
+    t.text     "content"
     t.integer  "week_id"
     t.integer  "gradeable_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "title"
     t.integer  "order"
-    t.integer  "duration",                  default: 1
+    t.datetime "due_date"
   end
 
   create_table "cohorts", force: true do |t|
@@ -190,6 +190,7 @@ ActiveRecord::Schema.define(version: 20150730225033) do
     t.integer  "course_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "order",      default: 1, null: false
   end
 
 end

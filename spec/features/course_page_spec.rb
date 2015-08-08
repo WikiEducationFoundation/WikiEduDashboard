@@ -93,6 +93,17 @@ describe 'the course page', type: :feature do
            views: 9999,
            new_article: 1)
 
+    MILESTONE_KIND = 2
+
+    week = create(:week,
+           course_id: course.id
+          )
+    create(:block,
+           kind: MILESTONE_KIND,
+           week_id: week.id,
+           content: 'block content'
+          )
+
     ArticlesCourses.update_from_revisions
     ArticlesCourses.update_all_caches
     CoursesUsers.update_all_caches
@@ -210,6 +221,13 @@ describe 'the course page', type: :feature do
       js_visit "/courses/#{slug}/overview"
       expect(root_content).to eq(page)
     end
+
+    it 'displays a list of milestone blocks' do
+      within '.milestones' do
+        expect(page).to have_content 'Milestones'
+        expect(page).to have_content 'block content'
+      end
+    end
   end
 
   describe 'articles edited view', js: true do
@@ -245,13 +263,6 @@ describe 'the course page', type: :feature do
              file_name: 'File:Example.jpg')
       js_visit "/courses/#{slug}/uploads"
       expect(page).to have_content 'Example.jpg'
-    end
-  end
-
-  describe 'students view', js: true do
-    it 'should display a list of students' do
-      js_visit "/courses/#{slug}/students"
-      expect(page).to have_content 'Student 1'
     end
   end
 

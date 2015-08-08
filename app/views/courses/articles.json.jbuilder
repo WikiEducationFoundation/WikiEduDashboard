@@ -1,5 +1,5 @@
 json.course do
-  json.articles @course.articles_courses.live do |ac|
+  json.articles @course.articles_courses.live.eager_load(:article) do |ac|
     json.(ac, :character_sum, :view_count, :new_article)
     json.(ac.article, :id, :namespace, :rating)
     json.title full_title(ac.article)

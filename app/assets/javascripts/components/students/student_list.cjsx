@@ -17,9 +17,6 @@ getState = ->
 
 StudentList = React.createClass(
   displayName: 'StudentList'
-  openDrawer: (model_id) ->
-    key = model_id + '_drawer'
-    @refs[key].open()
   save: ->
     ServerActions.saveStudents $.extend(true, {}, getState()), @props.course_id
   notify: ->
@@ -27,20 +24,17 @@ StudentList = React.createClass(
       ServerActions.notifyUntrained @props.course_id
   render: ->
     users = @props.users.map (student) =>
-      open_drawer = if student.revisions.length > 0 then @openDrawer.bind(@, student.id) else null
       assign_options = { user_id: student.id, role: 0 }
       review_options = { user_id: student.id, role: 1 }
       <Student
-        onClick={open_drawer}
         student={student}
         key={student.id}
         assigned={AssignmentStore.getFiltered assign_options}
         reviewing={AssignmentStore.getFiltered review_options}
         save={@save}
         {...@props} />
-    drawers = @props.users.map (student) ->
+    drawers = @props.users.map (student) =>
       <StudentDrawer
-        revisions={student.revisions}
         student_id={student.id}
         key={student.id + '_drawer'}
         ref={student.id + '_drawer'} />

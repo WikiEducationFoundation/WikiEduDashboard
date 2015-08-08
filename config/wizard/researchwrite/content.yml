@@ -49,7 +49,7 @@ essentials:
         content: |
           * Create an account and then complete the online training for students. During this training, you will make edits in a sandbox and learn the basic rules of Wikipedia.
           * Create a User page.
-          * To practice editing and communicating on Wikipedia, introduce yourself on the user talk page of one of your classmates, who should also be enrolled in the table at the bottom of the page.
+          * To practice editing and communicating on Wikipedia, introduce yourself to another student on their user talk page.
           * Explore topics related to your topic area to get a feel for how Wikipedia is organized. What areas seem to be missing? As you explore, make a mental note of articles that seem like good candidates for improvement.
 
           ---
@@ -266,7 +266,7 @@ essentials:
         title: Complete first draft
         kind: 1
         content: |
-          * Expand your article into an initial draft of a comprehensive treatment of the topic.
+          * Expand your article into a complete first draft.
   - # Week ten
     weight: 4
     blocks:

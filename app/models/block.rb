@@ -11,7 +11,7 @@
 #  updated_at   :datetime
 #  title        :string(255)
 #  order        :integer
-#  duration     :integer          default(1)
+#  due_date     :datetime
 #
 
 #= Block model

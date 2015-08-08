@@ -45,14 +45,19 @@
 
 2. **Migrate the database**
       $ `rake db:migrate`
+      
+## Seed data (optional; this could take a very long time)
 
-3. **Create cohorts**
-      $ `rake cohort:add_cohorts`
+1. **Uncomment or add cohort URLs in `application.yml`** 
 
-4. **Pull data from sources** (optional; this could take a very long time)
+	`cohort_fall_2014: "Wikipedia:Education_program/Dashboard/Fall_2014_course_ids"`
+	`cohort_spring_2015: "Wikipedia:Education_program/Dashboard/course_ids"`
+
+2. **Pull data from sources**
+
       $ `rake batch:initialize`
 
-**At this point in the process you will likely want to [set up OAuth integration](oauth.md)**
+## [Set up OAuth integration](oauth.md) (optional)
 
 ## Develop
 1. **Start Zeus**

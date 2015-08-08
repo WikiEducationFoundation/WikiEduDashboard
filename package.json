@@ -1,5 +1,5 @@
 {
-  "name": "wintr-gulp-template",
+  "name": "WikiEduDashboard",
   "devDependencies": {
     "browserify": "^9.0.8",
     "chai": "^1.9.1",
@@ -46,7 +46,7 @@
     "mocha": "^2.2.5",
     "reactify": "^1.1.0",
     "require-dir": "^0.1.0",
-    "rev-del": "ntdb/rev-del",
+    "rev-del": "^1.0.5",
     "run-sequence": "~0.3.6",
     "rupture": "^0.1.0",
     "stylus": "0.49.2"
@@ -60,7 +60,7 @@
     "react": "^0.13.2",
     "react-datepicker": "^0.9.0",
     "react-day-picker": "^1.0.1",
-    "react-dnd": "^1.0.0",
+    "react-dnd": "ntdb/react-dnd",
     "react-router": "^0.13.2",
     "react-typeahead": "^1.1.1",
     "react-weekday-picker": "^1.0.0"
