@@ -91,6 +91,14 @@ class WikiEdits
       # places that it shouldn't.
       talk_title = "Talk:#{title.gsub(' ', '_')}"
 
+      initial_page_content = Wiki.get_page_content talk_title
+      # We only want to add assignment tags to non-existant talk pages if the
+      # article page actually exists.
+      if initial_page_content.nil?
+        next if Wiki.get_page_content(title).nil?
+        initial_page_content = ''
+      end
+
       # Limit it to live assignments for this article-course
       title_assignments = title_assignments.select { |a| !a['deleted'] }
 
@@ -98,7 +106,8 @@ class WikiEdits
       page_content = build_assignment_page_content(title,
                                                    talk_title,
                                                    course_assignments_tag,
-                                                   course_page)
+                                                   course_page,
+                                                   initial_page_content)
       next if page_content.nil?
       summary = "Update #{course_page} assignment details"
       post_whole_page(current_user, talk_title, page_content, summary)
@@ -123,9 +132,6 @@ class WikiEdits
       assignment_titles = assignments.group_by { |a| a['article_title'] }
     end
 
-    # TODO: actually handle the case of deleted assignments. If all the
-    # course assignments for an article are deleted, then we need to remove the
-    # entire tag for that course.
     if delete
       assignment_titles.each do |_title, title_assignments|
         title_assignments.each do |assignment|
@@ -167,15 +173,8 @@ class WikiEdits
   def self.build_assignment_page_content(title,
                                          talk_title,
                                          new_tag,
-                                         course_page)
-
-    page_content = Wiki.get_page_content talk_title
-    # We only want to add assignment tags to non-existant talk pages if the
-    # article page actually exists.
-    if page_content.nil?
-      return nil if Wiki.get_page_content(title).nil?
-      page_content = ''
-    end
+                                         course_page,
+                                         page_content)
 
     dashboard_url = Figaro.env.dashboard_url
     # Return if tag already exists on page

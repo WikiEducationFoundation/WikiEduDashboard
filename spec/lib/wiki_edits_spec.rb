@@ -110,7 +110,6 @@ describe WikiEdits do
       ***please see my post on the first selfie. I really think that we need to foreground that the selfie is a unique phenomenon and that any comparison to previous forms of portraiture (classic or photographic) can be useful to understand formal (use of mirrors etc.) or functional (to convey or create identity) overlap, but they cannot explain away the selfie as a mere remediation of the photographic self-portrait.[[User:Crystal vibes|Crystal vibes]] ([[User talk:Crystal vibes|talk]]) 07:23, 22 September 2014 (UTC)
 
 eos
-      allow(Wiki).to receive(:get_page_content).and_return(selfie_talk)
       create(:assignment,
              id: 1,
              user_id: 3,
@@ -144,8 +143,16 @@ eos
       page_content = WikiEdits.build_assignment_page_content(title,
                                                              talk_title,
                                                              assignment_tag,
-                                                             course_page)
+                                                             course_page,
+                                                             selfie_talk)
       expect(page_content).to include("{{dashboard.wikiedu.org assignment | course = ")
+      page_content = WikiEdits.build_assignment_page_content(title,
+                                                             talk_title,
+                                                             assignment_tag,
+                                                             course_page,
+                                                             '')
+      expect(page_content).to include("{{dashboard.wikiedu.org assignment | course = ")
+
     end
   end
 end
