@@ -87,6 +87,9 @@ class WikiEdits
       assignment_titles = assignments.group_by { |a| a['article_title'] }
     end
 
+    # TODO: actually handle the case of deleted assignments. If all the
+    # course assignments for an article are deleted, then we need to remove the
+    # entire tag for that course.
     if delete
       assignment_titles.each do |_title, title_assignments|
         title_assignments.each do |assignment|
@@ -198,6 +201,7 @@ class WikiEdits
 
     # Add new tag at top (if there wasn't an existing tag already)
     if !page_content.include?(new_tag) && !siblings.empty?
+      # FIXME: Allow whitespace before the beginning of the first template.
       if page_content[0..1] == '{{' # Append after existing tags
         page_content.sub!(/\}\}(?!\n\{\{)/, "}}\n#{new_tag}")
       else # Add the tag to the top of the page
