@@ -81,22 +81,8 @@ class WikiEdits
                               course,
                               assignments = nil,
                               delete = false)
-    if assignments.nil?
-      assignment_titles = course.assignments.group_by(&:article_title).as_json
-    else
-      assignment_titles = assignments.group_by { |a| a['article_title'] }
-    end
 
-    # TODO: actually handle the case of deleted assignments. If all the
-    # course assignments for an article are deleted, then we need to remove the
-    # entire tag for that course.
-    if delete
-      assignment_titles.each do |_title, title_assignments|
-        title_assignments.each do |assignment|
-          assignment['deleted'] = true
-        end
-      end
-    end
+    assignment_titles = assignments_by_article(course, assignments, delete)
 
     course_page = course.wiki_title
 
@@ -145,6 +131,26 @@ class WikiEdits
     response = api_post params, tokens
     puts response.body
     response.body
+  end
+
+  def self.assignments_by_article(course, assignments, delete)
+    if assignments.nil?
+      assignment_titles = course.assignments.group_by(&:article_title).as_json
+    else
+      assignment_titles = assignments.group_by { |a| a['article_title'] }
+    end
+
+    # TODO: actually handle the case of deleted assignments. If all the
+    # course assignments for an article are deleted, then we need to remove the
+    # entire tag for that course.
+    if delete
+      assignment_titles.each do |_title, title_assignments|
+        title_assignments.each do |assignment|
+          assignment['deleted'] = true
+        end
+      end
+    end
+    assignment_titles
   end
 
   # This method creates updated wikitext for an article talk page, for when

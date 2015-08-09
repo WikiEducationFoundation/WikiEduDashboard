@@ -135,10 +135,10 @@ eos
                       school: 'School',
                       term: 'Term',
                       slug: 'School/Course_Title_(Term)')
-      assignment_titles = course.assignments.group_by(&:article_title).as_json
       title = 'Selfie'
       talk_title = 'Talk:Selfie'
       course_page = course.wiki_title
+      assignment_titles = WikiEdits.assignments_by_article(course, nil, nil)
       title_assignments = assignment_titles['Selfie']
       page_content = WikiEdits.build_assignment_page_content(title,
                                                              talk_title,
