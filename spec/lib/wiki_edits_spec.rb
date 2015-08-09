@@ -140,20 +140,12 @@ eos
       course_page = course.wiki_title
       assignment_titles = WikiEdits.assignments_by_article(course, nil, nil)
       title_assignments = assignment_titles['Selfie']
+      assignment_tag = WikiEdits.assignments_tag(course_page, title_assignments)
       page_content = WikiEdits.build_assignment_page_content(title,
                                                              talk_title,
-                                                             title_assignments,
+                                                             assignment_tag,
                                                              course_page)
       expect(page_content).to include("{{dashboard.wikiedu.org assignment | course = ")
     end
   end
-  # Broken???
-  # describe '.get_wiki_top_section' do
-  #   it 'should return the top section content of a page' do
-  #     title = 'Wikipedia:Education_program/Dashboard/test_ids'
-  #     response = WikiEdits.get_wiki_top_section(title, User.first)
-  #     expect(response.wikitext).to eq("439\n456\n351")
-  #   end
-  # end
-
 end

@@ -83,7 +83,6 @@ class WikiEdits
                               delete = false)
 
     assignment_titles = assignments_by_article(course, assignments, delete)
-
     course_page = course.wiki_title
 
     assignment_titles.each do |title, title_assignments|
@@ -91,9 +90,14 @@ class WikiEdits
       # or a page in another namespace is assigned, then this would post to
       # places that it shouldn't.
       talk_title = "Talk:#{title.gsub(' ', '_')}"
+
+      # Limit it to live assignments for this article-course
+      title_assignments = title_assignments.select { |a| !a['deleted'] }
+
+      course_assignments_tag = assignments_tag(course_page, title_assignments)
       page_content = build_assignment_page_content(title,
                                                    talk_title,
-                                                   title_assignments,
+                                                   course_assignments_tag,
                                                    course_page)
       next if page_content.nil?
       summary = "Update #{course_page} assignment details"
@@ -110,27 +114,6 @@ class WikiEdits
       user_talk_page = "User_talk:#{recipient.wiki_id}"
       add_new_section(current_user, user_talk_page, message)
     end
-  end
-
-  # NOTE: method not used
-  def self.get_wiki_top_section(course_page_slug, current_user, talk_page = true)
-    tokens = get_tokens(current_user)
-    # if talk_page
-    #   course_prefix = Figaro.env.course_talk_prefix
-    # else
-    #   course_prefix = Figaro.env.course_prefix
-    # end
-    # page_title = "#{course_page_slug}"
-    puts course_page_slug
-    params = { action: 'parse',
-               page: course_page_slug,
-               section: '0',
-               prop: 'wikitext',
-               format: 'json' }
-
-    response = api_post params, tokens
-    puts response.body
-    response.body
   end
 
   def self.assignments_by_article(course, assignments, delete)
@@ -153,6 +136,28 @@ class WikiEdits
     assignment_titles
   end
 
+  def self.assignments_tag(course_page, title_assignments)
+    return '' if title_assignments.empty?
+
+    # Make a list of the assignees, role 0
+    tag_assigned = build_wikitext_user_list(title_assignments, 0)
+    # Make a list of the reviwers, role 1
+    tag_reviewing = build_wikitext_user_list(title_assignments, 1)
+
+    # Build new tag
+    # NOTE: If the format of this tag gets changed, then the dashboard may
+    # post duplicate tags for the same page, unless we update the way that
+    # we check for the presense of existging tags to account for both the new
+    # and old formats.
+    dashboard_url = Figaro.env.dashboard_url
+    tag = "{{#{dashboard_url} assignment | course = #{course_page}"
+    tag += " | assignments = #{tag_assigned}" unless tag_assigned.blank?
+    tag += " | reviewers = #{tag_reviewing}" unless tag_reviewing.blank?
+    tag += ' }}'
+
+    tag
+  end
+
   # This method creates updated wikitext for an article talk page, for when
   # the set of assigned users for the article for a single course changes.
   # The strategy here is to only update the tag for one course at a time, so
@@ -161,7 +166,7 @@ class WikiEdits
   # to make sure that we're not disrupting the format of existing content.
   def self.build_assignment_page_content(title,
                                          talk_title,
-                                         title_assignments,
+                                         new_tag,
                                          course_page)
 
     page_content = Wiki.get_page_content talk_title
@@ -172,41 +177,25 @@ class WikiEdits
       page_content = ''
     end
 
-    # Get all assignments for this article/course
-    siblings = title_assignments.select { |a| !a['deleted'] }
-
-    # Make a list of the assignees, role 0
-    tag_assigned = build_wikitext_user_list(siblings, 0)
-    # Make a list of the reviwers, role 1
-    tag_reviewing = build_wikitext_user_list(siblings, 1)
-
-    # Build new tag
-    # NOTE: If the format of this tag gets changed, then the dashboard may
-    # post duplicate tags for the same page, unless we update the way that
-    # we check for the presense of existging tags to account for both the new
-    # and old formats.
     dashboard_url = Figaro.env.dashboard_url
-    new_tag = "{{#{dashboard_url} assignment | course = #{course_page}"
-    new_tag += " | assignments = #{tag_assigned}" unless tag_assigned.blank?
-    new_tag += " | reviewers = #{tag_reviewing}" unless tag_reviewing.blank?
-    new_tag += ' }}'
-
     # Return if tag already exists on page
-    return nil if page_content.include? new_tag
+    unless new_tag.blank?
+      return nil if page_content.include? new_tag
+    end
 
     # Check for existing tags and replace
     old_tag_ex = "{{course assignment | course = #{course_page}"
     new_tag_ex = "{{#{dashboard_url} assignment | course = #{course_page}"
-    if siblings.empty?
-      page_content.gsub!(/#{Regexp.quote(old_tag_ex)}[^\}]*\}\}[\n]?/, '')
-      page_content.gsub!(/#{Regexp.quote(new_tag_ex)}[^\}]*\}\}[\n]?/, '')
+    if new_tag.blank?
+      page_content.gsub!(/#{Regexp.quote(old_tag_ex)}[^\}]*\}\}[\n]?/, new_tag)
+      page_content.gsub!(/#{Regexp.quote(new_tag_ex)}[^\}]*\}\}[\n]?/, new_tag)
     else
       page_content.gsub!(/#{Regexp.quote(old_tag_ex)}[^\}]*\}\}/, new_tag)
       page_content.gsub!(/#{Regexp.quote(new_tag_ex)}[^\}]*\}\}/, new_tag)
     end
 
     # Add new tag at top (if there wasn't an existing tag already)
-    if !page_content.include?(new_tag) && !siblings.empty?
+    if !page_content.include?(new_tag) && !new_tag.blank?
       # FIXME: Allow whitespace before the beginning of the first template.
       if page_content[0..1] == '{{' # Append after existing tags
         page_content.sub!(/\}\}(?!\n\{\{)/, "}}\n#{new_tag}")
