@@ -77,7 +77,10 @@ class WikiEdits
     post_whole_page(current_user, wiki_title, wiki_text, summary)
   end
 
-  def self.update_assignments(current_user, course, assignments=nil, delete=false)
+  def self.update_assignments(current_user,
+                              course,
+                              assignments = nil,
+                              delete = false)
     if assignments.nil?
       assignment_titles = course.assignments.group_by(&:article_title).as_json
     else
@@ -92,56 +95,19 @@ class WikiEdits
       end
     end
 
-    dashboard_url = Figaro.env.dashboard_url
+    course_page = course.wiki_title
 
     assignment_titles.each do |title, title_assignments|
+      # FIXME: make sure each title is actually a mainspace page. If a talk page
+      # or a page in another namespace is assigned, then this would post to
+      # places that it shouldn't.
       talk_title = "Talk:#{title.gsub(' ', '_')}"
-      page_content = Wiki.get_page_content talk_title
-      return if page_content.nil?
-
-      # Get all assignments for this article/course
-      siblings = title_assignments.select { |a| !a['deleted'] }
-
-      # Make a list of the assignees, role 0
-      tag_assigned = build_wikitext_user_list(siblings, 0)
-      # Make a list of the reviwers, role 1
-      tag_reviewing = build_wikitext_user_list(siblings, 1)
-
-      # Build new tag
-      tag_course = course.wiki_title
-      new_tag = "{{#{dashboard_url} assignment | course = #{tag_course}"
-      new_tag += " | assignments = #{tag_assigned}" unless tag_assigned.blank?
-      new_tag += " | reviewers = #{tag_reviewing}" unless tag_reviewing.blank?
-      new_tag += ' }}'
-
-      # Return if tag already exists on page
-      return if page_content.include? new_tag
-
-      # Check for existing tags and replace
-      old_tag_ex = "{{course assignment | course = #{tag_course}"
-      new_tag_ex = "{{#{dashboard_url} assignment | course = #{tag_course}"
-      if siblings.empty?
-        page_content.gsub!(/#{Regexp.quote(old_tag_ex)}[^\}]*\}\}[\n]?/, '')
-        page_content.gsub!(/#{Regexp.quote(new_tag_ex)}[^\}]*\}\}[\n]?/, '')
-      else
-        page_content.gsub!(/#{Regexp.quote(old_tag_ex)}[^\}]*\}\}/, new_tag)
-        page_content.gsub!(/#{Regexp.quote(new_tag_ex)}[^\}]*\}\}/, new_tag)
-      end
-
-      # Add new tag at top (if there wasn't an existing tag already)
-      if !page_content.include?(new_tag) && !siblings.empty?
-        if page_content[0..1] == '{{' # Append after existing tags
-          page_content.sub!(/\}\}(?!\n\{\{)/, "}}\n#{new_tag}")
-        else # Add the tag to the top of the page
-          page_content = "#{new_tag}\n\n#{page_content}"
-        end
-      end
-
-      # Do not update page if nothing has chnged
-      # return unless page_content.include? new_tag
-
-      # Save the changed content to Wikipedia
-      summary = "Update #{tag_course} assignment details"
+      page_content = build_assignment_page_content(title,
+                                                   talk_title,
+                                                   title_assignments,
+                                                   course_page)
+      next if page_content.nil?
+      summary = "Update #{course_page} assignment details"
       post_whole_page(current_user, talk_title, page_content, summary)
     end
   end
@@ -157,7 +123,8 @@ class WikiEdits
     end
   end
 
-  def self.get_wiki_top_section(course_page_slug, current_user, talk_page=true)
+  # NOTE: method not used
+  def self.get_wiki_top_section(course_page_slug, current_user, talk_page = true)
     tokens = get_tokens(current_user)
     # if talk_page
     #   course_prefix = Figaro.env.course_talk_prefix
@@ -175,6 +142,70 @@ class WikiEdits
     response = api_post params, tokens
     puts response.body
     response.body
+  end
+
+  # This method creates updated wikitext for an article talk page, for when
+  # the set of assigned users for the article for a single course changes.
+  # The strategy here is to only update the tag for one course at a time, so
+  # that the user who updates the assignments for a course only introduces data
+  # for that course. We also want to make as minimal a change as possible, and
+  # to make sure that we're not disrupting the format of existing content.
+  def self.build_assignment_page_content(title,
+                                         talk_title,
+                                         title_assignments,
+                                         course_page)
+
+    page_content = Wiki.get_page_content talk_title
+    # We only want to add assignment tags to non-existant talk pages if the
+    # article page actually exists.
+    if page_content.nil?
+      return nil if Wiki.get_page_content(title).nil?
+      page_content = ''
+    end
+
+    # Get all assignments for this article/course
+    siblings = title_assignments.select { |a| !a['deleted'] }
+
+    # Make a list of the assignees, role 0
+    tag_assigned = build_wikitext_user_list(siblings, 0)
+    # Make a list of the reviwers, role 1
+    tag_reviewing = build_wikitext_user_list(siblings, 1)
+
+    # Build new tag
+    # NOTE: If the format of this tag gets changed, then the dashboard may
+    # post duplicate tags for the same page, unless we update the way that
+    # we check for the presense of existging tags to account for both the new
+    # and old formats.
+    dashboard_url = Figaro.env.dashboard_url
+    new_tag = "{{#{dashboard_url} assignment | course = #{course_page}"
+    new_tag += " | assignments = #{tag_assigned}" unless tag_assigned.blank?
+    new_tag += " | reviewers = #{tag_reviewing}" unless tag_reviewing.blank?
+    new_tag += ' }}'
+
+    # Return if tag already exists on page
+    return nil if page_content.include? new_tag
+
+    # Check for existing tags and replace
+    old_tag_ex = "{{course assignment | course = #{course_page}"
+    new_tag_ex = "{{#{dashboard_url} assignment | course = #{course_page}"
+    if siblings.empty?
+      page_content.gsub!(/#{Regexp.quote(old_tag_ex)}[^\}]*\}\}[\n]?/, '')
+      page_content.gsub!(/#{Regexp.quote(new_tag_ex)}[^\}]*\}\}[\n]?/, '')
+    else
+      page_content.gsub!(/#{Regexp.quote(old_tag_ex)}[^\}]*\}\}/, new_tag)
+      page_content.gsub!(/#{Regexp.quote(new_tag_ex)}[^\}]*\}\}/, new_tag)
+    end
+
+    # Add new tag at top (if there wasn't an existing tag already)
+    if !page_content.include?(new_tag) && !siblings.empty?
+      if page_content[0..1] == '{{' # Append after existing tags
+        page_content.sub!(/\}\}(?!\n\{\{)/, "}}\n#{new_tag}")
+      else # Add the tag to the top of the page
+        page_content = "#{new_tag}\n\n#{page_content}"
+      end
+    end
+
+    page_content
   end
 
   def self.build_wikitext_user_list(siblings, role)
