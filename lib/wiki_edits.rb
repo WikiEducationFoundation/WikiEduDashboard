@@ -186,13 +186,8 @@ class WikiEdits
     # Check for existing tags and replace
     old_tag_ex = "{{course assignment | course = #{course_page}"
     new_tag_ex = "{{#{dashboard_url} assignment | course = #{course_page}"
-    if new_tag.blank?
-      page_content.gsub!(/#{Regexp.quote(old_tag_ex)}[^\}]*\}\}[\n]?/, new_tag)
-      page_content.gsub!(/#{Regexp.quote(new_tag_ex)}[^\}]*\}\}[\n]?/, new_tag)
-    else
-      page_content.gsub!(/#{Regexp.quote(old_tag_ex)}[^\}]*\}\}/, new_tag)
-      page_content.gsub!(/#{Regexp.quote(new_tag_ex)}[^\}]*\}\}/, new_tag)
-    end
+    page_content.gsub!(/#{Regexp.quote(old_tag_ex)}[^\}]*\}\}/, new_tag)
+    page_content.gsub!(/#{Regexp.quote(new_tag_ex)}[^\}]*\}\}/, new_tag)
 
     # Add new tag at top (if there wasn't an existing tag already)
     if !page_content.include?(new_tag) && !new_tag.blank?
