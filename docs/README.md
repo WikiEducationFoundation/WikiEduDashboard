@@ -1,15 +1,15 @@
 ## Documentation Table of Contents
 ### Setup
-- [Dashboard Setup](docs/setup.md)
-- [OAuth Setup](docs/oauth.md)
-- [Troubleshooting](docs/troubleshooting.md)
+- [Dashboard Setup](setup.md)
+- [OAuth Setup](oauth.md)
+- [Troubleshooting](troubleshooting.md)
 
 ### Technology
-- [Front end](docs/frontend.md)
-- [Analytics Pipeline](docs/importers.md)
+- [Front end](frontend.md)
+- [Analytics Pipeline](importers.md)
 
 ### Other
-- [Contributing](docs/contributing.md)
-- [Deployment](docs/deploy.md)
-- [Tools & Integrations](docs/tools.md)
-- [Model diagram](erd.pdf)
+- [Contributing](contributing.md)
+- [Deployment](deploy.md)
+- [Tools & Integrations](tools.md)
+- [Model diagram](../erd.pdf)
