@@ -1,6 +1,9 @@
 require 'rails_helper'
 require "#{Rails.root}/lib/wiki_edits"
 
+ASSIGNEE_ROLE = 0
+REVIEWER_ROLE = 1
+
 describe WikiEdits do
   # We're not testing any of the network stuff, nor whether the requests are
   # well-formatted, but at least this verifies that the flow is parsing tokens
@@ -66,18 +69,9 @@ describe WikiEdits do
              user_id: 1,
              course_id: 1,
              article_title: 'Selfie',
-             role: 0)
+             role: ASSIGNEE_ROLE)
       WikiEdits.update_assignments(User.first, Course.first, Assignment.all)
       WikiEdits.update_assignments(User.first, Course.first, nil, true)
     end
   end
-  # Broken???
-  # describe '.get_wiki_top_section' do
-  #   it 'should return the top section content of a page' do
-  #     title = 'Wikipedia:Education_program/Dashboard/test_ids'
-  #     response = WikiEdits.get_wiki_top_section(title, User.first)
-  #     expect(response.wikitext).to eq("439\n456\n351")
-  #   end
-  # end
-
 end

@@ -6,7 +6,11 @@ module RequestHelpers
     stub_request(:get, /.*wikipedia.*/)
       .to_return(status: 200, body: fake_tokens, headers: {})
     # Then the edit request itself
+    success = '{"edit":{"result":"Success","pageid":11543696,
+              "title":"User:Ragesock","contentmodel":"wikitext",
+              "oldrevid":671572777,"newrevid":674946741,
+              "newtimestamp":"2015-08-07T05:27:43Z"}}'
     stub_request(:post, /.*wikipedia.*/)
-      .to_return(status: 200, body: 'success', headers: {})
+      .to_return(status: 200, body: success, headers: {})
   end
 end

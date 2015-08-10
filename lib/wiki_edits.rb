@@ -77,71 +77,31 @@ class WikiEdits
     post_whole_page(current_user, wiki_title, wiki_text, summary)
   end
 
-  def self.update_assignments(current_user, course, assignments=nil, delete=false)
-    if assignments.nil?
-      assignment_titles = course.assignments.group_by(&:article_title).as_json
-    else
-      assignment_titles = assignments.group_by { |a| a['article_title'] }
-    end
+  def self.update_assignments(current_user,
+                              course,
+                              assignments = nil,
+                              delete = false)
+    require './lib/wiki_assignment_output'
 
-    if delete
-      assignment_titles.each do |_title, title_assignments|
-        title_assignments.each do |assignment|
-          assignment['deleted'] = true
-        end
-      end
-    end
-
-    dashboard_url = Figaro.env.dashboard_url
+    assignment_titles = assignments_by_article(course, assignments, delete)
+    course_page = course.wiki_title
 
     assignment_titles.each do |title, title_assignments|
-      talk_title = "Talk:#{title.gsub(' ', '_')}"
-      page_content = Wiki.get_page_content talk_title
-      return if page_content.nil?
-
-      # Get all assignments for this article/course
-      siblings = title_assignments.select { |a| !a['deleted'] }
-
-      # Make a list of the assignees, role 0
-      tag_assigned = build_wikitext_user_list(siblings, 0)
-      # Make a list of the reviwers, role 1
-      tag_reviewing = build_wikitext_user_list(siblings, 1)
-
-      # Build new tag
-      tag_course = course.wiki_title
-      new_tag = "{{#{dashboard_url} assignment | course = #{tag_course}"
-      new_tag += " | assignments = #{tag_assigned}" unless tag_assigned.blank?
-      new_tag += " | reviewers = #{tag_reviewing}" unless tag_reviewing.blank?
-      new_tag += ' }}'
-
-      # Return if tag already exists on page
-      return if page_content.include? new_tag
-
-      # Check for existing tags and replace
-      old_tag_ex = "{{course assignment | course = #{tag_course}"
-      new_tag_ex = "{{#{dashboard_url} assignment | course = #{tag_course}"
-      if siblings.empty?
-        page_content.gsub!(/#{Regexp.quote(old_tag_ex)}[^\}]*\}\}[\n]?/, '')
-        page_content.gsub!(/#{Regexp.quote(new_tag_ex)}[^\}]*\}\}[\n]?/, '')
+      # TODO: i18n of talk namespace
+      if title[0..4] == 'Talk:'
+        talk_title = title
       else
-        page_content.gsub!(/#{Regexp.quote(old_tag_ex)}[^\}]*\}\}/, new_tag)
-        page_content.gsub!(/#{Regexp.quote(new_tag_ex)}[^\}]*\}\}/, new_tag)
+        talk_title = "Talk:#{title.gsub(' ', '_')}"
       end
 
-      # Add new tag at top (if there wasn't an existing tag already)
-      if !page_content.include?(new_tag) && !siblings.empty?
-        if page_content[0..1] == '{{' # Append after existing tags
-          page_content.sub!(/\}\}(?!\n\{\{)/, "}}\n#{new_tag}")
-        else # Add the tag to the top of the page
-          page_content = "#{new_tag}\n\n#{page_content}"
-        end
-      end
+      page_content = WikiAssignmentOutput
+                     .build_talk_page_update(title,
+                                             talk_title,
+                                             title_assignments,
+                                             course_page)
 
-      # Do not update page if nothing has chnged
-      # return unless page_content.include? new_tag
-
-      # Save the changed content to Wikipedia
-      summary = "Update #{tag_course} assignment details"
+      next if page_content.nil?
+      summary = "Update #{course_page} assignment details"
       post_whole_page(current_user, talk_title, page_content, summary)
     end
   end
@@ -157,32 +117,23 @@ class WikiEdits
     end
   end
 
-  def self.get_wiki_top_section(course_page_slug, current_user, talk_page=true)
-    tokens = get_tokens(current_user)
-    # if talk_page
-    #   course_prefix = Figaro.env.course_talk_prefix
-    # else
-    #   course_prefix = Figaro.env.course_prefix
-    # end
-    # page_title = "#{course_page_slug}"
-    puts course_page_slug
-    params = { action: 'parse',
-               page: course_page_slug,
-               section: '0',
-               prop: 'wikitext',
-               format: 'json' }
+  def self.assignments_by_article(course, assignments = nil, delete = false)
+    if assignments.nil?
+      assignment_titles = course.assignments.group_by(&:article_title).as_json
+    else
+      assignment_titles = assignments.group_by { |a| a['article_title'] }
+    end
 
-    response = api_post params, tokens
-    puts response.body
-    response.body
+    if delete
+      assignment_titles.each do |_title, title_assignments|
+        title_assignments.each do |assignment|
+          assignment['deleted'] = true
+        end
+      end
+    end
+    assignment_titles
   end
 
-  def self.build_wikitext_user_list(siblings, role)
-    user_ids = siblings.select { |a| a['role'] == role }
-               .map { |a| a['user_id'] }
-    User.where(id: user_ids).pluck(:wiki_id)
-      .map { |wiki_id| "[[User:#{wiki_id}|#{wiki_id}]]" }.join(', ')
-  end
   ####################
   # Basic edit types #
   ####################
@@ -196,7 +147,7 @@ class WikiEdits
                format: 'json',
                token: tokens.csrf_token }
 
-    api_post params, tokens
+    api_post params, tokens, current_user
   end
 
   def self.add_new_section(current_user, page_title, message)
@@ -210,7 +161,7 @@ class WikiEdits
                format: 'json',
                token: tokens.csrf_token }
 
-    api_post params, tokens
+    api_post params, tokens, current_user
   end
 
   def self.add_to_page_top(page_title, current_user, content, summary)
@@ -222,7 +173,7 @@ class WikiEdits
                format: 'json',
                token: tokens.csrf_token }
 
-    api_post params, tokens
+    api_post params, tokens, current_user
   end
 
   ###############
@@ -245,22 +196,16 @@ class WikiEdits
       get_token = @access_token.get("https://#{lang}.wikipedia.org/w/api.php?action=query&meta=tokens&format=json")
       # rubocop:enable Metrics/LineLength
 
-      body = JSON.parse(get_token.body)
-      if body.key? 'error'
-        raise StandardError.new body['error']['info']
-      end
-
       token_response = JSON.parse(get_token.body)
+      check_api_response(token_response, current_user)
+
       OpenStruct.new(
         csrf_token: token_response['query']['tokens']['csrftoken'],
         access_token: @access_token
       )
-    rescue StandardError => e
-      Rails.logger.error "Authentication error: #{e}"
-      Raven.capture_exception e, level: 'warning'
     end
 
-    def api_post(data, tokens)
+    def api_post(data, tokens, current_user)
       return if Figaro.env.disable_wiki_output == 'true'
       language = Figaro.env.wiki_language
       url = "https://#{language}.wikipedia.org/w/api.php"
@@ -268,6 +213,12 @@ class WikiEdits
       # Make the request
       response = tokens.access_token.post(url, data)
       response_data = JSON.parse(response.body)
+      check_api_response(response_data, current_user)
+
+      response
+    end
+
+    def check_api_response(response_data, current_user)
       # A successful edit will have response data like this:
       # {"edit"=>
       #   {"result"=>"Success",
@@ -284,15 +235,17 @@ class WikiEdits
       #    {"code"=>"protectedpage",
       #     "info"=>"The \"templateeditor\" right is required to edit this page",
       #     "*"=>"See https://en.wikipedia.org/w/api.php for API usage"}}
-
       if response_data['error']
-        raise StandardError.new response_data['error']['code']
+        raise ResponseError.new response_data['error']['info']
       end
-      return response
-    rescue StandardError => e
-      Rails.logger.error "Edit error: #{e}"
+    rescue ResponseError => e
+      Rails.logger.error "WikiEdits error: #{e}"
       Raven.capture_exception e, level: 'warning',
-                                 extra: { response_data: response_data }
+                                 extra: { response_data: response_data,
+                                          current_user: current_user }
     end
   end
+end
+
+class ResponseError < Exception
 end
