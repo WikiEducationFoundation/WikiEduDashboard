@@ -197,22 +197,15 @@ class WikiEdits
       # rubocop:enable Metrics/LineLength
 
       token_response = JSON.parse(get_token.body)
-      if token_response.key? 'error'
-        raise StandardError.new body['error']['info']
-      end
+      check_api_response(token_response, current_user)
 
       OpenStruct.new(
         csrf_token: token_response['query']['tokens']['csrftoken'],
         access_token: @access_token
       )
-    rescue StandardError => e
-      Rails.logger.error "Authentication error: #{e}"
-      Raven.capture_exception e, level: 'warning'
     end
 
-    def parse_tokens()
-
-    def api_post(data, tokens)
+    def api_post(data, tokens, current_user)
       return if Figaro.env.disable_wiki_output == 'true'
       language = Figaro.env.wiki_language
       url = "https://#{language}.wikipedia.org/w/api.php"
@@ -220,6 +213,12 @@ class WikiEdits
       # Make the request
       response = tokens.access_token.post(url, data)
       response_data = JSON.parse(response.body)
+      check_api_response(response_data, current_user)
+
+      response
+    end
+
+    def check_api_response(response_data, current_user)
       # A successful edit will have response data like this:
       # {"edit"=>
       #   {"result"=>"Success",
@@ -236,13 +235,11 @@ class WikiEdits
       #    {"code"=>"protectedpage",
       #     "info"=>"The \"templateeditor\" right is required to edit this page",
       #     "*"=>"See https://en.wikipedia.org/w/api.php for API usage"}}
-
       if response_data['error']
-        raise StandardError.new response_data['error']['code']
+        raise StandardError.new response_data['error']['info']
       end
-      return response
     rescue StandardError => e
-      Rails.logger.error "Edit error: #{e}"
+      Rails.logger.error "WikiEdits error: #{e}"
       Raven.capture_exception e, level: 'warning',
                                  extra: { response_data: response_data,
                                           current_user: current_user }
