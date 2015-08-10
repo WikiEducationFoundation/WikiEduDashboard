@@ -196,12 +196,11 @@ class WikiEdits
       get_token = @access_token.get("https://#{lang}.wikipedia.org/w/api.php?action=query&meta=tokens&format=json")
       # rubocop:enable Metrics/LineLength
 
-      body = JSON.parse(get_token.body)
-      if body.key? 'error'
+      token_response = JSON.parse(get_token.body)
+      if token_response.key? 'error'
         raise StandardError.new body['error']['info']
       end
 
-      token_response = JSON.parse(get_token.body)
       OpenStruct.new(
         csrf_token: token_response['query']['tokens']['csrftoken'],
         access_token: @access_token
