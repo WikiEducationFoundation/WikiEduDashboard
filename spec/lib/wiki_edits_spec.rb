@@ -140,15 +140,11 @@ eos
       assignment_titles = WikiEdits.assignments_by_article(course, nil, nil)
       title_assignments = assignment_titles['Selfie']
       assignment_tag = WikiEdits.assignments_tag(course_page, title_assignments)
-      page_content = WikiEdits.build_assignment_page_content(title,
-                                                             talk_title,
-                                                             assignment_tag,
+      page_content = WikiEdits.build_assignment_page_content(assignment_tag,
                                                              course_page,
                                                              selfie_talk)
       expect(page_content).to include("{{dashboard.wikiedu.org assignment | course = ")
-      page_content = WikiEdits.build_assignment_page_content(title,
-                                                             talk_title,
-                                                             assignment_tag,
+      page_content = WikiEdits.build_assignment_page_content(assignment_tag,
                                                              course_page,
                                                              '')
       expect(page_content).to include("{{dashboard.wikiedu.org assignment | course = ")

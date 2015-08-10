@@ -86,14 +86,18 @@ class WikiEdits
     course_page = course.wiki_title
 
     assignment_titles.each do |title, title_assignments|
-      # FIXME: make sure each title is actually a mainspace page. If a talk page
-      # or a page in another namespace is assigned, then this would post to
-      # places that it shouldn't.
-      talk_title = "Talk:#{title.gsub(' ', '_')}"
+      # TODO: i18n of talk namespace
+      if title[0..4] == 'Talk:'
+        talk_title = title
+      else
+        talk_title = "Talk:#{title.gsub(' ', '_')}"
+      end
 
       initial_page_content = Wiki.get_page_content talk_title
       # We only want to add assignment tags to non-existant talk pages if the
-      # article page actually exists.
+      # article page actually exists. This also servces to make sure that we
+      # only post to talk pages of mainspace articles, as we assume that pages
+      # like Talk:Template:Citation or Talk:Wikipedia:Notability do not exist.
       if initial_page_content.nil?
         next if Wiki.get_page_content(title).nil?
         initial_page_content = ''
@@ -103,9 +107,7 @@ class WikiEdits
       title_assignments = title_assignments.select { |a| !a['deleted'] }
 
       course_assignments_tag = assignments_tag(course_page, title_assignments)
-      page_content = build_assignment_page_content(title,
-                                                   talk_title,
-                                                   course_assignments_tag,
+      page_content = build_assignment_page_content(course_assignments_tag,
                                                    course_page,
                                                    initial_page_content)
       next if page_content.nil?
@@ -170,9 +172,7 @@ class WikiEdits
   # that the user who updates the assignments for a course only introduces data
   # for that course. We also want to make as minimal a change as possible, and
   # to make sure that we're not disrupting the format of existing content.
-  def self.build_assignment_page_content(title,
-                                         talk_title,
-                                         new_tag,
+  def self.build_assignment_page_content(new_tag,
                                          course_page,
                                          page_content)
 
