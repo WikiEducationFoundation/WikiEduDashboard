@@ -23,6 +23,8 @@ Tests reside in the `/spec` folder. Both unit and integration tests are driven b
 Copy translations live at /config/locales and the fallback for missing strings is `en`. [i18n.js](https://github.com/fnando/i18n-js) is used to make these translations available on the frontend. The JS files providing the translations to the front end must be regenerated whenever a change is made by running `rake i18n:js:export`.
 
 ## Pre-push checklist
+- If you have added any external libraries via a package manager please ensure that you have updated the proper dependency list (`bower.json`, `package.json`, or `Gemfile`).
+
 - If your changes modify the model schema please regenerate `erd.pdf`.
 
 		$ rake erd orientation=vertical
@@ -31,6 +33,6 @@ Copy translations live at /config/locales and the fallback for missing strings i
 
 		$ rake i18n:js:export
 	
-- If your changes modify the JS or CSS of the application you must rebuild fingerprinted assets (for proper cache busting). This will add some gunk to your `git status`as the old assets will be deleted and the new assets must be added.
+- If your changes modify the JS or CSS of the application (or if you have added external libraries via Bower or NPM) you must rebuild fingerprinted assets (for proper cache busting). This will add some gunk to your `git status`as the old assets will be deleted and the new assets must be added.
 
 		$ gulp build
