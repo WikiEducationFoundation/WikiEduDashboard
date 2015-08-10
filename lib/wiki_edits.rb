@@ -117,7 +117,7 @@ class WikiEdits
     end
   end
 
-  def self.assignments_by_article(course, assignments, delete)
+  def self.assignments_by_article(course, assignments = nil, delete = false)
     if assignments.nil?
       assignment_titles = course.assignments.group_by(&:article_title).as_json
     else

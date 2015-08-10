@@ -19,7 +19,7 @@ class WikiAssignmentOutput
     end
 
     # Limit it to live assignments for this article-course
-    title_assignments = title_assignments.select { |a| !a['deleted'] }
+    title_assignments = title_assignments.reject { |a| a['deleted'] }
 
     course_assignments_tag = assignments_tag(course_page, title_assignments)
     page_content = build_assignment_page_content(course_assignments_tag,
@@ -44,7 +44,7 @@ class WikiAssignmentOutput
     # post duplicate tags for the same page, unless we update the way that
     # we check for the presense of existging tags to account for both the new
     # and old formats.
-    dashboard_url = Figaro.env.dashboard_url
+    dashboard_url = ENV['dashboard_url']
     tag = "{{#{dashboard_url} assignment | course = #{course_page}"
     tag += " | assignments = #{tag_assigned}" unless tag_assigned.blank?
     tag += " | reviewers = #{tag_reviewing}" unless tag_reviewing.blank?
@@ -63,7 +63,7 @@ class WikiAssignmentOutput
                                          course_page,
                                          page_content)
 
-    dashboard_url = Figaro.env.dashboard_url
+    dashboard_url = ENV['dashboard_url']
     # Return if tag already exists on page
     unless new_tag.blank?
       return nil if page_content.include? new_tag

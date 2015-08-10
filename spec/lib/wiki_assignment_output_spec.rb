@@ -42,7 +42,6 @@ describe WikiAssignmentOutput do
                        .build_assignment_page_content(assignment_tag,
                                                       course_page,
                                                       selfie_talk)
-        pp page_content
         expect(page_content)
           .to include('{{dashboard.wikiedu.org assignment | course = ')
         page_content = WikiAssignmentOutput
