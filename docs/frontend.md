@@ -30,5 +30,25 @@ StockStore is store factory that returns a Store implementing a set of features 
 Components are the view layer of the JS application. They contain HTML markup and methods that trigger Actions based on user input.
 
 ##### High-order components
+[High-order components](/app/assets/javascripts/components/high_order) are essentially wrappers for passed components. [This post](https://medium.com/@dan_abramov/mixins-are-dead-long-live-higher-order-components-94a0d2f9e750) describes the idea very well. They are not polymorphic classes, they are a replacement for mixins. That is, they provide reusable methods or rendering patterns to the components that they wrap without violating idiomatic React (as mixins do).
+
+The [Conditional component](/app/assets/javascripts/components/high_order/conditional.cjsx) is a simple example: it contains all of the logic for conditionally rendering a component based on a boolean prop. This means we can make any component render based on a boolean without repeating that logic. For example, adding this functionality to the Select component is as simple as changing 
+
+	module.exports = Select
+to
+
+	module.exports = Conditional(Select)
+	
+and passing a `show` parameter to any Select used in our application.
 
 ##### Common components
+Common components are utilities used throughout the application. These include inputs and modals, among others. They are not special components, they just don't belong to a specific part of the application.
+
+### Utils
+Utils include several different helpers for our application and two of them are worth an explanation.
+
+#### Router
+The [router.cjsx](/app/assets/javascripts/utils/router.cjsx) file contains an implementation of [React Router](https://github.com/rackt/react-router). Here we define handlers for different URL paths and structure a hierarchy that allows components to optionally wrap other components based on the URL. As of this writing the React Router library is undergoing some big restructuring for a 1.0 push but documentation for the current version [can be found here](http://rackt.github.io/react-router/).
+
+#### API
+The [api.coffee](/app/assets/javascripts/utils/api.coffee) file contains all AJAX requests for the application. Many methods are named according to their  purpose excepting the `fetch` and `modify` methods. These are written to be widely reused by `ServerActions` and require some extra hand-holding to ensure that the proper endpoint is reached.
