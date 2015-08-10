@@ -31,6 +31,8 @@ TextInput = React.createClass(
         title = 'This is a number field. The buttons rendered by most browsers will increment and decrement the input.'
 
       if @props.type == 'date'
+        # Note: normally we want an onBlur={@blur} prop on the DatePicker
+        # it's missing due to a bug in react-datepicker (#158)
         input = (
           <DatePicker
             ref='input'
@@ -40,7 +42,6 @@ TextInput = React.createClass(
             onChange={@dateChange}
             autoFocus={@props.focus}
             onFocus={@focus}
-            onBlur={@blur}
             placeholderText={@props.placeholder}
             weekStart="0"
             disabled={@props.enabled? && !@props.enabled}
