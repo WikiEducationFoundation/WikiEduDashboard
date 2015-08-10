@@ -147,7 +147,7 @@ class WikiEdits
                format: 'json',
                token: tokens.csrf_token }
 
-    api_post params, tokens
+    api_post params, tokens, current_user
   end
 
   def self.add_new_section(current_user, page_title, message)
@@ -161,7 +161,7 @@ class WikiEdits
                format: 'json',
                token: tokens.csrf_token }
 
-    api_post params, tokens
+    api_post params, tokens, current_user
   end
 
   def self.add_to_page_top(page_title, current_user, content, summary)
@@ -173,7 +173,7 @@ class WikiEdits
                format: 'json',
                token: tokens.csrf_token }
 
-    api_post params, tokens
+    api_post params, tokens, current_user
   end
 
   ###############
@@ -210,6 +210,8 @@ class WikiEdits
       Raven.capture_exception e, level: 'warning'
     end
 
+    def parse_tokens()
+
     def api_post(data, tokens)
       return if Figaro.env.disable_wiki_output == 'true'
       language = Figaro.env.wiki_language
@@ -242,7 +244,8 @@ class WikiEdits
     rescue StandardError => e
       Rails.logger.error "Edit error: #{e}"
       Raven.capture_exception e, level: 'warning',
-                                 extra: { response_data: response_data }
+                                 extra: { response_data: response_data,
+                                          current_user: current_user }
     end
   end
 end
