@@ -29,6 +29,16 @@ describe WikiEdits do
            user_id: 2)
   end
 
+  it 'should handle failure to fetch an edit token' do
+    stub_oauth_edit_failure
+    WikiEdits.notify_untrained(1, User.first)
+  end
+
+  #it 'should handle failed edits' do
+  #  stub_token_request_failure
+  #  WikiEdits.notify_untrained(1, User.first)
+  #end
+
   describe '.notify_untrained' do
     it 'should post talk page messages on Wikipedia' do
       WikiEdits.notify_untrained(1, User.first)
@@ -70,7 +80,14 @@ describe WikiEdits do
              course_id: 1,
              article_title: 'Selfie',
              role: ASSIGNEE_ROLE)
+      create(:assignment,
+             id: 2,
+             user_id: 1,
+             course_id: 1,
+             article_title: 'Talk:Selfie',
+             role: REVIEWER_ROLE)
       WikiEdits.update_assignments(User.first, Course.first, Assignment.all)
+      WikiEdits.update_assignments(User.first, Course.first, nil)
       WikiEdits.update_assignments(User.first, Course.first, nil, true)
     end
   end
