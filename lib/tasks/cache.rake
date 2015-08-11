@@ -13,4 +13,11 @@ namespace :cache do
     Course.update_all_caches
     Rails.logger.debug 'Finished updating cached values'
   end
+
+  namespace :warm do
+    desc 'Warm homepage fragment cache'
+    task :homepage do
+      sh "curl http://#{ENV['dashboard_url']}"
+    end
+  end
 end
