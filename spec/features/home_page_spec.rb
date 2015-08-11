@@ -80,10 +80,12 @@ describe 'the home page', type: :feature do
   describe 'control bar' do
     it 'should allow sorting via dropdown', js: true do
       find('select.sorts').find(:xpath, 'option[2]').select_option
-      expect(page).to have_selector('.course-list__row__characters.sort.desc')
+      expect(page).to have_selector('.course-list__row__revisions.sort.desc')
       find('select.sorts').find(:xpath, 'option[3]').select_option
-      expect(page).to have_selector('.course-list__row__views.sort.desc')
+      expect(page).to have_selector('.course-list__row__characters.sort.desc')
       find('select.sorts').find(:xpath, 'option[4]').select_option
+      expect(page).to have_selector('.course-list__row__views.sort.desc')
+      find('select.sorts').find(:xpath, 'option[5]').select_option
       expect(page).to have_selector('.course-list__row__students.sort.desc')
       find('select.sorts').find(:xpath, 'option[1]').select_option
       expect(page).to have_selector('.course-list__row__title.sort.asc')
@@ -127,15 +129,15 @@ describe 'the home page', type: :feature do
 
   describe 'course rows' do
     it 'should allow navigation to a course page', js: true do
-      first_course = Cohort.first.courses.first
-      click_link(first_course.id)
-      # FIXME: This test fails intermittently, typically with course 6 vs 1.
-      expect(current_path).to eq("/courses/#{first_course.slug}")
+      within 'ul.list' do
+        find('.course-list__row:first-child a').click
+      end
+      expect(current_path).to eq("/courses/#{Course.first.slug}")
     end
 
     it 'contains the number of revisions in past 7 days' do
-      within('.course-list__row:first-child .course-list__row__revisions') do
-        expect(page.text).to eq("Recent Revisions: 1")
+      within('.course-list__row:first-child .course-list__row__revisions p.revisions') do
+        expect(page.text).to eq("1")
       end
     end
   end
