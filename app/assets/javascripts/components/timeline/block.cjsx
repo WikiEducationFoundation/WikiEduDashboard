@@ -70,6 +70,7 @@ Block = React.createClass(
           options={['In Class', 'Assignment', 'Milestone', 'Custom']}
           show={@props.block.kind < 3 || @props.editable}
           label='Block Type'
+          inline=true
         />
         {spacer}
         <TextInput
@@ -83,6 +84,7 @@ Block = React.createClass(
           className='title'
           onFocus={@props.toggleFocused}
           onBlur={@props.toggleFocused}
+          inline=true
         />
         <TextInput
           onChange={@updateBlock}
@@ -94,6 +96,7 @@ Block = React.createClass(
           show={@props.editable}
           onFocus={@props.toggleFocused}
           onBlur={@props.toggleFocused}
+          inline=true
         />
         <TextInput
           onChange={@updateBlock}
@@ -103,6 +106,8 @@ Block = React.createClass(
           type='date'
           label='Due date'
           placeholder='Due date'
+          inline=true
+          isClearable=true
           show={@props.editable && parseInt(@props.block.kind) == 1}
           date_props={minDate: @props.week_start.clone().subtract(1, 'days')}
           onFocus={@props.toggleFocused}

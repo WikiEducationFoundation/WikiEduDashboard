@@ -154,6 +154,7 @@ CourseCreator = React.createClass(
               label='Start date'
               placeholder='Start date (YYYY-MM-DD)'
               blank=true
+              isClearable=false
             />
             <TextInput
               id='course_end'
@@ -168,6 +169,7 @@ CourseCreator = React.createClass(
               blank=true
               date_props={minDate: moment(@state.course.start).add(1, 'week')}
               enabled={@state.course.start?}
+              isClearable=false
             />
           </div>
         </div>

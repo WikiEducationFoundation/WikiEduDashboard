@@ -1310,7 +1310,7 @@ Select = React.createClass({
     })(this));
     if (this.props.editable) {
       return React.createElement("label", {
-        "className": 'input_wrapper select_wrapper'
+        "className": "input_wrapper select_wrapper " + ((this.props.inline != null) && this.props.inline ? ' inline' : '')
       }, React.createElement("span", null, label), React.createElement("select", {
         "value": this.state.value,
         "onChange": this.onChange
@@ -1440,10 +1440,10 @@ TextInput = React.createClass({
     value = this.props.value;
     if (this.props.editable) {
       labelClass = '';
-      inputClass = 'input_wrapper';
+      inputClass = (this.props.inline != null) && this.props.inline ? ' inline' : '';
       if (this.state.invalid) {
-        labelClass = 'red';
-        inputClass += ' invalid';
+        labelClass += 'red';
+        inputClass += 'invalid';
       }
       if (this.props.type === 'number') {
         title = 'This is a number field. The buttons rendered by most browsers will increment and decrement the input.';
@@ -1460,7 +1460,7 @@ TextInput = React.createClass({
           "placeholderText": this.props.placeholder,
           "weekStart": "0",
           "disabled": (this.props.enabled != null) && !this.props.enabled,
-          "isClearable": true
+          "isClearable": (this.props.isClearable != null ? this.props.isClearable : false)
         }, this.props.date_props));
       } else {
         input = React.createElement("input", {
@@ -1480,7 +1480,7 @@ TextInput = React.createClass({
         });
       }
       return React.createElement("label", {
-        "className": inputClass
+        "className": "" + inputClass + (this.props.type === 'date' ? ' input_wrapper' : '')
       }, React.createElement("span", {
         "className": labelClass
       }, label), (((this.props.value != null) || this.props.editable) && !this.props.label ? spacer : void 0), input);
@@ -1896,7 +1896,8 @@ CourseCreator = React.createClass({
       "type": 'date',
       "label": 'Start date',
       "placeholder": 'Start date (YYYY-MM-DD)',
-      "blank": true
+      "blank": true,
+      "isClearable": false
     }), React.createElement(TextInput, {
       "id": 'course_end',
       "onChange": this.updateCourse,
@@ -1911,7 +1912,8 @@ CourseCreator = React.createClass({
       "date_props": {
         minDate: moment(this.state.course.start).add(1, 'week')
       },
-      "enabled": (this.state.course.start != null)
+      "enabled": (this.state.course.start != null),
+      "isClearable": false
     }))), React.createElement("div", {
       "className": 'wizard__panel__controls'
     }, React.createElement("div", {
@@ -4048,7 +4050,8 @@ Block = React.createClass({
       "editable": this.props.editable,
       "options": ['In Class', 'Assignment', 'Milestone', 'Custom'],
       "show": this.props.block.kind < 3 || this.props.editable,
-      "label": 'Block Type'
+      "label": 'Block Type',
+      "inline": true
     }), spacer, React.createElement(TextInput, {
       "onChange": this.updateBlock,
       "value": this.props.block.title,
@@ -4059,7 +4062,8 @@ Block = React.createClass({
       "show": this.props.block.title && !this.props.editable,
       "className": 'title',
       "onFocus": this.props.toggleFocused,
-      "onBlur": this.props.toggleFocused
+      "onBlur": this.props.toggleFocused,
+      "inline": true
     }), React.createElement(TextInput, {
       "onChange": this.updateBlock,
       "value": this.props.block.title,
@@ -4069,7 +4073,8 @@ Block = React.createClass({
       "label": 'Title',
       "show": this.props.editable,
       "onFocus": this.props.toggleFocused,
-      "onBlur": this.props.toggleFocused
+      "onBlur": this.props.toggleFocused,
+      "inline": true
     }), React.createElement(TextInput, {
       "onChange": this.updateBlock,
       "value": this.props.block.due_date,
@@ -4078,6 +4083,8 @@ Block = React.createClass({
       "type": 'date',
       "label": 'Due date',
       "placeholder": 'Due date',
+      "inline": true,
+      "isClearable": true,
       "show": this.props.editable && parseInt(this.props.block.kind) === 1,
       "date_props": {
         minDate: this.props.week_start.clone().subtract(1, 'days')

@@ -16,7 +16,7 @@ Select = React.createClass(
       <option value={i} key={i}>{option}</option>
 
     if @props.editable
-      <label className='input_wrapper select_wrapper'>
+      <label className="input_wrapper select_wrapper #{if @props.inline? && @props.inline then ' inline' else ''}">
         <span>{label}</span>
         <select
           value={@state.value}

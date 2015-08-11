@@ -23,10 +23,10 @@ TextInput = React.createClass(
 
     if @props.editable
       labelClass = ''
-      inputClass = 'input_wrapper'
+      inputClass = if @props.inline? && @props.inline then ' inline' else ''
       if @state.invalid
-        labelClass = 'red'
-        inputClass += ' invalid'
+        labelClass += 'red'
+        inputClass += 'invalid'
 
       if @props.type == 'number'
         title = 'This is a number field. The buttons rendered by most browsers will increment and decrement the input.'
@@ -46,7 +46,7 @@ TextInput = React.createClass(
             placeholderText={@props.placeholder}
             weekStart="0"
             disabled={@props.enabled? && !@props.enabled}
-            isClearable=true
+            isClearable={if @props.isClearable? then @props.isClearable else false}
             {...@props.date_props}
           />
         )
@@ -69,7 +69,7 @@ TextInput = React.createClass(
           />
         )
 
-      <label className={inputClass}>
+      <label className={"#{inputClass}#{if @props.type == 'date' then ' input_wrapper' else ''}"}>
         <span className={labelClass}>{label}</span>
         {spacer if (@props.value? or @props.editable) && !@props.label}
         {input}
