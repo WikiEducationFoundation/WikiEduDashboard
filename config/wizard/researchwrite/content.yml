@@ -197,7 +197,7 @@ essentials:
         title: Students have started editing
         kind: 2
         content: |
-          * All students have started editing articles or drafts on Wikipedia.
+          All students have started editing articles or drafts on Wikipedia.
   - # Week seven
     weight: 10
     blocks:
@@ -306,7 +306,7 @@ essentials:
         title:
         kind: 2
         content: |
-          * Every student has finished reviewing their assigned articles, making sure that every article has been reviewed.
+          Every student has finished reviewing their assigned articles, making sure that every article has been reviewed.
   - # Week eleven
     weight: 4
     blocks:
@@ -392,4 +392,4 @@ essentials:
         title:
         kind: 2
         content: |
-          * Students have finished all their work on Wikipedia that will be considered for grading.
+          Students have finished all their work on Wikipedia that will be considered for grading.
