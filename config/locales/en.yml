@@ -86,6 +86,7 @@ en:
     activity: Activity
     articles: Articles
     character_doc: The sum of characters added to mainspace articles by the course's students during the course term
+    revisions_doc: The number of edits in the past %{timeframe} days
     course_description: Wiki Ed Courses
     courses: Courses
     yourcourses: Your Courses
@@ -131,6 +132,7 @@ en:
     char_changed: Characters Changed
     date_time: Date/Time
     edit_count_description: Total Edits
+    revisions: Recent Revisions
     student_editors: Student Editors
     view: Views
     view_count_description: Article Views

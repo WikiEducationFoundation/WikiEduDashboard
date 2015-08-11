@@ -25,15 +25,18 @@ describe 'the home page', type: :feature do
              id: i.to_s,
              course_id: i.to_s,
              user_id: i.to_s)
-      create(:article,
+      article = create(:article,
              id: i.to_s,
              title: 'Selfie',
              namespace: 0)
+      create(:articles_course,
+             course_id: course1.id,
+             article_id: article.id)
       create(:revision,
              id: i.to_s,
              user_id: i.to_s,
              article_id: i.to_s,
-             date: '2015-03-01'.to_date,
+             date: 6.days.ago,
              characters: 9000)
     end
     Course.update_all_caches
@@ -128,6 +131,12 @@ describe 'the home page', type: :feature do
       click_link(first_course.id)
       # FIXME: This test fails intermittently, typically with course 6 vs 1.
       expect(current_path).to eq("/courses/#{first_course.slug}")
+    end
+
+    it 'contains the number of revisions in past 7 days' do
+      within('.course-list__row:first-child .course-list__row__revisions') do
+        expect(page.text).to eq("Recent Revisions: 1")
+      end
     end
   end
 

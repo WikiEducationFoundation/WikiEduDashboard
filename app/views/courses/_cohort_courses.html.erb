@@ -1,0 +1,58 @@
+<section id="courses">
+  <div class="section-header">
+    <h3><%= [t("courses.courses"), @cohort.title].join(" | ") %></h3>
+    <div class="sort-select inset">
+      <select class="sorts" rel="courses">
+        <option rel="asc" value="title"><%= t("courses.title") %></option>
+        <option rel="desc" value="revisions"><%= t("metrics.revisions") %></option>
+        <option rel="desc" value="characters"><%= t("metrics.characters") %></option>
+        <option rel="desc" value="views"><%= t("metrics.view") %></option>
+        <option rel="desc" value="students"><%= t("courses.students_short") %></option>
+      </select>
+    </div>
+    <div class="cohort-select">
+      <select class="cohorts">
+        <option selected disabled><%= t("cohort.view_other") %></option>
+        <% Cohort.all.each do |c| %>
+          <% unless @cohort.slug == c.slug %>
+            <option value="<%= c.slug %>"><%= c.title %></option>
+          <% end %>
+        <% end %>
+        <% if user_signed_in? && current_user.permissions > 0 && @cohort.slug != 'none' %>
+          <option value="none">None</option>
+        <% end %>
+      </select>
+    </div>
+  </div>
+  <div class="row course-list__row list__header">
+    <div class="row__wrapper desktop-only-flex">
+      <div class="course-list__row__title sort asc" data-sort="title"><p><%= t("courses.courses") %></p></div>
+
+      <div class="course-list__row__revisions sort popover-trigger" data-default-order="desc" data-sort="revisions">
+        <p><%= t("metrics.revisions") %></p>
+        <div class="popover dark">
+          <p><%= t("courses.revisions_doc", timeframe: RevisionStat::REVISION_TIMEFRAME) %></p>
+        </div>
+      </div>
+
+      <div class="course-list__row__characters sort popover-trigger" data-default-order="desc" data-sort="characters">
+        <p><%= t("metrics.char") %></p>
+        <div class="popover dark">
+          <p><%= t("courses.character_doc") %></p>
+        </div>
+      </div>
+      <div class="course-list__row__views sort popover-trigger" data-default-order="desc" data-sort="views">
+        <p><%= t("metrics.view") %></p>
+        <div class="popover dark">
+          <p><%= t("courses.view_doc") %></p>
+        </div>
+      </div>
+      <div class="course-list__row__students sort" data-default-order="desc" data-sort="students"><p><%= t("users.editors") %></p></div>
+    </div>
+  </div>
+  <ul class="list">
+  <% @courses.each do |c| %>
+    <%= render :partial => 'row', :locals => {:course => c, :admin => false, :user => false} %>
+  <% end %>
+  </ul>
+</section>

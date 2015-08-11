@@ -1,0 +1,36 @@
+<section id="user_courses">
+  <div class="section-header">
+    <h3><%= t("courses.yourcourses") %></h3>
+    <div id="react_root" class="new_course"></div>
+  </div>
+  <div class="row course-list__row list__header">
+    <div class="row__wrapper desktop-only-flex">
+      <div class="course-list__row__title sort asc" data-sort="utitle"><p><%= t("courses.courses") %></p></div>
+      <div class="course-list__row__characters sort popover-trigger" data-default-order="desc" data-sort="ucharacters">
+        <p><%= t("metrics.char") %></p>
+        <div class="popover dark">
+          <p><%= t("courses.character_doc") %></p>
+        </div>
+      </div>
+      <div class="course-list__row__views sort popover-trigger" data-default-order="desc" data-sort="uviews">
+        <p><%= t("metrics.view") %></p>
+        <div class="popover dark">
+          <p><%= t("courses.view_doc") %></p>
+        </div>
+      </div>
+      <div class="course-list__row__students sort" data-default-order="desc" data-sort="ustudents"><p><%= t("users.editors") %></p></div>
+      <div class="course-list__row__link"></div>
+    </div>
+  </div>
+  <ul class="list">
+  <% if @user_courses.empty? %>
+    <li class="row view-all">
+      <div><%= t("courses.nocourses") %></div>
+    </li>
+  <% else %>
+    <% @user_courses.each do |c| %>
+      <%= render :partial => 'row', :locals => {:course => c, :admin => false, :user => true} %>
+    <% end %>
+  <% end %>
+  </ul>
+</section>

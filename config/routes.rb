@@ -88,6 +88,9 @@ Rails.application.routes.draw do
 
   resources :weeks, only: [:index]
 
+  # Recent Activity
+  get 'recent_activity' => 'recent_activity#activity'
+
   # Wizard
   get 'wizards' => 'wizard#wizard_index'
   get 'wizards/:wizard_id' => 'wizard#wizard'
