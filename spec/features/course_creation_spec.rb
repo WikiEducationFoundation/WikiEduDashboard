@@ -77,9 +77,9 @@ describe 'New course creation and editing', type: :feature do
       # If we click before filling out all require fields, only the invalid
       # fields get restyled to indicate the problem.
       find('button.dark').click
-      expect(find('#course_title')['class']).not_to eq('invalid title')
-      expect(find('#course_school')['class']).to eq('input_wrapper invalid school')
-      expect(find('#course_term')['class']).to eq('invalid term')
+      expect(find('#course_title')['class']).not_to include('invalid title')
+      expect(find('#course_school')['class']).to include('invalid school')
+      expect(find('#course_term')['class']).to include('invalid term')
 
       # Now we fill out all the fields and continue.
       find('#instructor_name').set('Mr. Capybara')
