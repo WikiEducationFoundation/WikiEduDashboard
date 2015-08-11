@@ -78,7 +78,7 @@ describe 'New course creation and editing', type: :feature do
       # fields get restyled to indicate the problem.
       find('button.dark').click
       expect(find('#course_title')['class']).not_to eq('invalid title')
-      expect(find('#course_school')['class']).to eq('invalid school')
+      expect(find('#course_school')['class']).to eq('input_wrapper invalid school')
       expect(find('#course_term')['class']).to eq('invalid term')
 
       # Now we fill out all the fields and continue.

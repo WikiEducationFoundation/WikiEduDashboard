@@ -25,7 +25,7 @@ Block = React.createClass(
   render: ->
     is_graded = @props.gradeable != undefined && !@props.gradeable.deleted
     className = 'block'
-    if @props.block.due_date? && !@props.editable
+    if @props.block.due_date?
       dueDateRead = (
         <TextInput
           onChange={@updateBlock}
@@ -33,7 +33,7 @@ Block = React.createClass(
           value_key={'due_date'}
           editable={false}
           label='Due'
-          show={@props.block.due_date? && !@props.editable}
+          show={@props.block.due_date?}
           onFocus={@props.toggleFocused}
           onBlur={@props.toggleFocused}
         />
@@ -54,50 +54,8 @@ Block = React.createClass(
       )
     if (@props.block.kind < 3 && !@props.editable)
       spacer = <span>  —  </span>
-    if @props.block.title || @props.editable
-      title = (
-        <span>
-          {spacer}
-          <TextInput
-            onChange={@updateBlock}
-            value={@props.block.title}
-            value_key={'title'}
-            editable={@props.editable}
-            placeholder='Block title'
-            spacer=' '
-            show={!@props.editable}
-            className='title'
-            onFocus={@props.toggleFocused}
-            onBlur={@props.toggleFocused}
-          />
-          <TextInput
-            onChange={@updateBlock}
-            value={@props.block.title}
-            value_key={'title'}
-            editable={@props.editable}
-            placeholder='Block title'
-            label='Title'
-            show={@props.editable}
-            onFocus={@props.toggleFocused}
-            onBlur={@props.toggleFocused}
-          />
-          <TextInput
-            onChange={@updateBlock}
-            value={@props.block.due_date}
-            value_key='due_date'
-            editable={@props.editable}
-            type='date'
-            label='Due date'
-            placeholder='Due date'
-            show={@props.editable}
-            date_props={minDate: @props.week_start.clone().subtract(1, 'days')}
-            onFocus={@props.toggleFocused}
-            onBlur={@props.toggleFocused}
-          />
-        </span>
-      )
 
-    <li className={className} draggable={@props.canDrag}>
+    <li className={className} draggable={@props.canDrag && @props.editable}>
       <div className="drag-handle">
         <div className="drag-handle__bar"></div>
         <div className="drag-handle__bar"></div>
@@ -113,7 +71,43 @@ Block = React.createClass(
           show={@props.block.kind < 3 || @props.editable}
           label='Block Type'
         />
-        {title}
+        {spacer}
+        <TextInput
+          onChange={@updateBlock}
+          value={@props.block.title}
+          value_key={'title'}
+          editable={@props.editable}
+          placeholder='Block title'
+          spacer=' '
+          show={@props.block.title  && !@props.editable}
+          className='title'
+          onFocus={@props.toggleFocused}
+          onBlur={@props.toggleFocused}
+        />
+        <TextInput
+          onChange={@updateBlock}
+          value={@props.block.title}
+          value_key={'title'}
+          editable={@props.editable}
+          placeholder='Block title'
+          label='Title'
+          show={@props.editable}
+          onFocus={@props.toggleFocused}
+          onBlur={@props.toggleFocused}
+        />
+        <TextInput
+          onChange={@updateBlock}
+          value={@props.block.due_date}
+          value_key='due_date'
+          editable={@props.editable}
+          type='date'
+          label='Due date'
+          placeholder='Due date'
+          show={@props.editable && parseInt(@props.block.kind) == 1}
+          date_props={minDate: @props.week_start.clone().subtract(1, 'days')}
+          onFocus={@props.toggleFocused}
+          onBlur={@props.toggleFocused}
+        />
         {deleteBlock}
       </h4>
       {graded}
