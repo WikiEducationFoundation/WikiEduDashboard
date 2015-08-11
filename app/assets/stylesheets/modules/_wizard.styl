@@ -197,20 +197,24 @@ wizard-width = 860px
         text-align left
         white-space pre-line
     .wizard__controls
-      font-size 12px
+      font-size 14px
       left 20px
       position absolute
-      top -35px
+      top -25px
       transition all 0.2s
+      width 100%
       +above(880px)
         left 0
-      a
-        color dove
-        margin-left 20px
-        margin-right 10px
-        &.icon:before
-          margin-right 8px
-          vertical-align middle
+      .left, .right
+        col(1/2, cycle: 2)
+        a
+          color dove
+          margin 0 20px
+          &.icon:before
+            margin-right 8px
+            vertical-align middle
+      .right
+        text-align right
     .wizard__panel__controls
       background-color white
       border-top 1px solid mischka

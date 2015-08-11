@@ -11,14 +11,18 @@ Panel = React.createClass(
   displayName: 'Panel'
   advance: ->
     WizardActions.advanceWizard()
-  rewind: ->
+  rewind: (e) ->
+    e.preventDefault()
     WizardActions.rewindWizard()
   reset: (e) ->
     e.preventDefault()
     WizardActions.resetWizard()
+  close: (e) ->
+    confirm "This will close the wizard without saving your progress. Are you sure you want to do this?"
   render: ->
     if @props.index > 0
       rewind =  <button className='button' onClick={@rewind}>{'Previous'}</button>
+      rewind_top = <a href='' onClick={@rewind} className='icon icon-left_arrow'>Previous</a>
 
     options_1 = []
     options_2 = []
@@ -50,10 +54,12 @@ Panel = React.createClass(
 
     <div className={classes}>
       <div className='wizard__controls'>
-        <p>
-          <CourseLink to='timeline' className='icon icon-left_arrow'>Back to dashboard</CourseLink>
-          <a href='' onClick={@reset} className='icon icon-restart'>Start over</a>
-        </p>
+        <div className='left'>
+          {rewind_top}
+        </div>
+        <div className='right'>
+          <CourseLink to='timeline' onClick={@close}>Close</CourseLink>
+        </div>
       </div>
       <h3>{@props.panel.title}</h3>
       <div dangerouslySetInnerHTML={{__html: Marked(@props.panel.description, { renderer: MarkedRenderer })}}></div>

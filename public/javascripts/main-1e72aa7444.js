@@ -1040,6 +1040,7 @@ CourseLink = React.createClass({
   render: function() {
     return React.createElement(Link, {
       "to": this.props.to,
+      "onClick": this.props.onClick,
       "params": this.routeParams(),
       "className": this.props.className
     }, this.props.children);
@@ -5083,20 +5084,29 @@ Panel = React.createClass({
   advance: function() {
     return WizardActions.advanceWizard();
   },
-  rewind: function() {
+  rewind: function(e) {
+    e.preventDefault();
     return WizardActions.rewindWizard();
   },
   reset: function(e) {
     e.preventDefault();
     return WizardActions.resetWizard();
   },
+  close: function(e) {
+    return confirm("This will close the wizard without saving your progress. Are you sure you want to do this?");
+  },
   render: function() {
-    var advance, classes, next_text, options, options_1, options_2, rewind;
+    var advance, classes, next_text, options, options_1, options_2, rewind, rewind_top;
     if (this.props.index > 0) {
       rewind = React.createElement("button", {
         "className": 'button',
         "onClick": this.rewind
       }, 'Previous');
+      rewind_top = React.createElement("a", {
+        "href": '',
+        "onClick": this.rewind,
+        "className": 'icon icon-left_arrow'
+      }, "Previous");
     }
     options_1 = [];
     options_2 = [];
@@ -5134,14 +5144,14 @@ Panel = React.createClass({
       "className": classes
     }, React.createElement("div", {
       "className": 'wizard__controls'
-    }, React.createElement("p", null, React.createElement(CourseLink, {
+    }, React.createElement("div", {
+      "className": 'left'
+    }, rewind_top), React.createElement("div", {
+      "className": 'right'
+    }, React.createElement(CourseLink, {
       "to": 'timeline',
-      "className": 'icon icon-left_arrow'
-    }, "Back to dashboard"), React.createElement("a", {
-      "href": '',
-      "onClick": this.reset,
-      "className": 'icon icon-restart'
-    }, "Start over"))), React.createElement("h3", null, this.props.panel.title), React.createElement("div", {
+      "onClick": this.close
+    }, "Close"))), React.createElement("h3", null, this.props.panel.title), React.createElement("div", {
       "dangerouslySetInnerHTML": {
         __html: Marked(this.props.panel.description, {
           renderer: MarkedRenderer

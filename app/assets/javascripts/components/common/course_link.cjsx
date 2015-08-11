@@ -11,6 +11,7 @@ CourseLink = React.createClass(
   render: ->
     <Link
       to={@props.to}
+      onClick={@props.onClick}
       params={@routeParams()}
       className={@props.className}>
         {@props.children}
