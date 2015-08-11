@@ -129,8 +129,13 @@
       col(2/6)
   .course-list__row__long_title
     col(1)
-  .course-list__row__characters, .course-list__row__views,
-  .course-list__row__students
+  .course-list__row__revisions,
+    float left
+    +above(desktop)
+      col(1/4)
+    span
+      display inline
+  .course-list__row__views, .course-list__row__characters
     float left
     +above(desktop)
       col(1/6)
@@ -140,6 +145,10 @@
     p
       border-right none
       padding-right 0
+  .course-list__row__revisions
+    col(1)
+    +above(desktop)
+      col(1/6)
   .course-list__row__link
     +above(desktop)
       col(1/6)
@@ -298,7 +307,7 @@ rating(color)
 
 
 .row:not(.list__header)
-  .course-list__row__characters, .course-list__row__views,
+  .course-list__row__characters, .course-list__row__revisions, .course-list__row__views,
   .course-list__row__students, .user-list__row__characters__mobile,
   .user-list__row__training, .article-list__row__characters,
   .article-list__row__views, .revision-list__row__characters,
@@ -310,7 +319,7 @@ rating(color)
         font-size 16px
         padding 0
 
-  .course-list__row__characters, .course-list__row__views,
+  .course-list__row__characters, .course-list__row__revisions, .course-list__row__views,
   .article-list__row__characters, .user-list__row__training,
   .revision-list__row__characters
     +below(desktop)

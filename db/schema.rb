@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150807220634) do
+ActiveRecord::Schema.define(version: 20150810193243) do
 
   create_table "articles", force: true do |t|
     t.string   "title"
@@ -155,6 +155,8 @@ ActiveRecord::Schema.define(version: 20150807220634) do
     t.boolean  "deleted",               default: false
     t.boolean  "system",                default: false
   end
+
+  add_index "revisions", ["article_id", "created_at"], name: "index_revisions_on_article_id_and_created_at", using: :btree
 
   create_table "tags", force: true do |t|
     t.integer  "course_id"

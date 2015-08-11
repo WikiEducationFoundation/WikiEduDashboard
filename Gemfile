@@ -25,6 +25,7 @@ gem 'pandoc-ruby', '~> 1.0.0'
 gem "i18n-js", ">= 3.0.0.rc8"
 
 group :development do
+  gem 'pry-rails'
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_21]
   gem 'guard-bundler'
