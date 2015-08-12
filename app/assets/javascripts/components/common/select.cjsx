@@ -15,9 +15,17 @@ Select = React.createClass(
     options = @props.options.map (option, i) =>
       <option value={i} key={i}>{option}</option>
 
+    if @props.popover_text
+      labelClass = 'popover-trigger'
+      popover = (
+        <div className="popover dark">
+          <p>{@props.popover_text}</p>
+        </div>
+      )
+
     if @props.editable
       <label className="input_wrapper select_wrapper #{if @props.inline? && @props.inline then ' inline' else ''}">
-        <span>{label}</span>
+        <div className={labelClass}>{label}{popover}</div>
         <select
           value={@state.value}
           onChange={@onChange}
