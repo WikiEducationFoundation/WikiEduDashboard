@@ -5126,7 +5126,7 @@ Panel = React.createClass({
     return confirm("This will close the wizard without saving your progress. Are you sure you want to do this?");
   },
   render: function() {
-    var advance, classes, next_text, options, options_1, options_2, reqs_met, rewind, rewind_top;
+    var advance, classes, next_text, options, options_1, options_2, reqs, reqs_met, rewind, rewind_top;
     if (this.props.index > 0) {
       rewind = React.createElement("button", {
         "className": 'button',
@@ -5174,6 +5174,11 @@ Panel = React.createClass({
       return total + (option.selected ? 1 : 0);
     }, 0) >= this.props.panel.minimum;
     reqs_met = reqs_met || !((this.props.panel.options != null) && this.props.panel.minimum);
+    if ((this.props.panel.minimum != null) && this.props.panel.minimum > 0) {
+      reqs = I18n.t('wizard.minimum_options', {
+        minimum: this.props.panel.minimum
+      });
+    }
     return React.createElement("div", {
       "className": classes
     }, React.createElement("div", {
@@ -5200,8 +5205,8 @@ Panel = React.createClass({
     }, React.createElement("p", null, this.props.step)), React.createElement("div", {
       "className": 'right'
     }, React.createElement("div", null, React.createElement("p", {
-      "className": 'red'
-    }, this.props.panel.error)), rewind, React.createElement("button", {
+      "className": (this.props.panel.error != null ? 'red' : '')
+    }, this.props.panel.error || reqs)), rewind, React.createElement("button", {
       "className": "button dark",
       "onClick": advance,
       "disabled": (reqs_met ? '' : 'disabled')
@@ -6629,7 +6634,7 @@ moveWizard = function(backwards, to_index) {
   } else if (_active_index === _panels.length || (_summary && !backwards)) {
     _active_index = _panels.length - 1;
   }
-  timeoutTime = verifyPanelSelections(active_panel) ? 150 : 0;
+  timeoutTime = increment !== 0 ? 150 : 0;
   if (timeoutTime > 0) {
     if ($('.wizard').scrollTop() > 0) {
       $('.wizard').animate({

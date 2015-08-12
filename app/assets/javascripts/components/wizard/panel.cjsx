@@ -58,6 +58,9 @@ Panel = React.createClass(
     , 0) >= @props.panel.minimum
     reqs_met = reqs_met || !(@props.panel.options? && @props.panel.minimum)
 
+    if @props.panel.minimum? && @props.panel.minimum > 0
+      reqs = I18n.t('wizard.minimum_options', { minimum: @props.panel.minimum })
+
     <div className={classes}>
       <div className='wizard__controls'>
         <div className='left'>
@@ -75,7 +78,7 @@ Panel = React.createClass(
           <p>{@props.step}</p>
         </div>
         <div className='right'>
-          <div><p className='red'>{@props.panel.error}</p></div>
+          <div><p className={if @props.panel.error? then 'red' else ''}>{@props.panel.error || reqs}</p></div>
           {rewind}
           <button className="button dark" onClick={advance} disabled={if reqs_met then '' else 'disabled'}>{next_text}</button>
         </div>
