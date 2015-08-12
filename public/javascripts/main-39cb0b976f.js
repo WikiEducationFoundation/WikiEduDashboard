@@ -5109,7 +5109,7 @@ Panel = React.createClass({
     return confirm("This will close the wizard without saving your progress. Are you sure you want to do this?");
   },
   render: function() {
-    var advance, classes, next_text, options, options_1, options_2, rewind, rewind_top;
+    var advance, classes, next_text, options, options_1, options_2, reqs_met, rewind, rewind_top;
     if (this.props.index > 0) {
       rewind = React.createElement("button", {
         "className": 'button',
@@ -5153,6 +5153,10 @@ Panel = React.createClass({
     }
     advance = this.props.advance || this.advance;
     next_text = this.props.button_text || (this.props.summary ? 'Summary' : 'Next');
+    reqs_met = _.reduce(this.props.panel.options, function(total, option) {
+      return total + (option.selected ? 1 : 0);
+    }, 0) >= this.props.panel.minimum;
+    reqs_met = reqs_met || !((this.props.panel.options != null) && this.props.panel.minimum);
     return React.createElement("div", {
       "className": classes
     }, React.createElement("div", {
@@ -5182,7 +5186,8 @@ Panel = React.createClass({
       "className": 'red'
     }, this.props.panel.error)), rewind, React.createElement("button", {
       "className": "button dark",
-      "onClick": advance
+      "onClick": advance,
+      "disabled": (reqs_met ? '' : 'disabled')
     }, next_text))));
   }
 });

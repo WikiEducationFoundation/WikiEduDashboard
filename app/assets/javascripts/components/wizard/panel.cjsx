@@ -52,6 +52,12 @@ Panel = React.createClass(
 
     next_text = @props.button_text || (if @props.summary then 'Summary' else 'Next')
 
+
+    reqs_met = _.reduce(@props.panel.options, (total, option) ->
+      total + (if option.selected then 1 else 0)
+    , 0) >= @props.panel.minimum
+    reqs_met = reqs_met || !(@props.panel.options? && @props.panel.minimum)
+
     <div className={classes}>
       <div className='wizard__controls'>
         <div className='left'>
@@ -71,7 +77,7 @@ Panel = React.createClass(
         <div className='right'>
           <div><p className='red'>{@props.panel.error}</p></div>
           {rewind}
-          <button className="button dark" onClick={advance}>{next_text}</button>
+          <button className="button dark" onClick={advance} disabled={if reqs_met then '' else 'disabled'}>{next_text}</button>
         </div>
       </div>
     </div>
