@@ -44,7 +44,7 @@ Option = React.createClass(
       <button onClick={@select unless disabled}>
         {checkbox}
         {notice}
-        <h3>{@props.option.title}</h3>
+        <h3>{"#{@props.option.title}#{if @props.option.recommended then ' (recommended)' else ''}"}</h3>
         {blurb}
         {expand}
       </button>
