@@ -3711,8 +3711,10 @@ Expandable = require('../high_order/expandable');
 
 RevisionStore = require('../../stores/revision_store');
 
-getRevisions = function() {
-  return RevisionStore.getModels();
+getRevisions = function(student_id) {
+  return RevisionStore.getFiltered({
+    user_id: student_id
+  });
 };
 
 StudentDrawer = React.createClass({
@@ -3723,12 +3725,12 @@ StudentDrawer = React.createClass({
   },
   storeDidChange: function() {
     return this.setState({
-      revisions: getRevisions()
+      revisions: getRevisions(this.props.student_id)
     });
   },
   getInitialState: function() {
     return {
-      revisions: getRevisions()
+      revisions: getRevisions(this.props.student_id)
     };
   },
   render: function() {
@@ -3763,8 +3765,14 @@ StudentDrawer = React.createClass({
         "className": "inline"
       }, "diff")));
     });
+    if (this.props.is_open && revisions.length === 0) {
+      revisions = React.createElement("tr", null, React.createElement("td", {
+        "colSpan": "6",
+        "className": "text-center"
+      }, React.createElement("p", null, "This student has made no revisions")));
+    }
     style = {
-      height: this.props.is_open ? 40 + 71 * this.state.revisions.length : 0,
+      height: this.props.is_open ? 40 + 71 * revisions.length : 0,
       transition: 'height .2s'
     };
     className = 'drawer';
