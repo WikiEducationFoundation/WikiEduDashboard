@@ -42,7 +42,7 @@
             <% if user_signed_in? %>
               <p><b><%= link_to current_user.wiki_id, :root, class: 'inline' %></b>.&nbsp;&nbsp;&nbsp;<%= link_to "Log Out", :destroy_user_session %></p>
             <% else %>
-              <p><%= link_to "Login", user_omniauth_authorize_path(:mediawiki) %></p>
+              <p><%= link_to "Login / Sign Up", user_omniauth_authorize_path(:mediawiki) %></p>
             <% end %>
           </div>
         </div>
