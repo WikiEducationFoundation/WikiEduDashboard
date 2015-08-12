@@ -5,7 +5,7 @@
           <p class="<%= user ? 'u' : '' %>title"><%= course.title %></p>
         </div>
 
-        <%= cache("rows-#{Date.today.to_s}") do %>
+        <%= cache("revision-row-#{Date.today.to_s}-#{course.id}") do %>
           <div class="course-list__row__revisions">
             <% revisions = RevisionStat.get_records(course.id) %>
             <p><span class="tablet-only-flex"><%= t("metrics.revisions") %>: </span><%= revisions %></p>
