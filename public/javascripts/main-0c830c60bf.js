@@ -4081,7 +4081,7 @@ Block = React.createClass({
       "options": ['In Class', 'Assignment', 'Milestone', 'Custom'],
       "show": this.props.block.kind < 3 || this.props.editable,
       "label": 'Block Type',
-      "popover_text": i18n.t('timeline.block_type'),
+      "popover_text": I18n.t('timeline.block_type'),
       "inline": true
     }), spacer, React.createElement(TextInput, {
       "onChange": this.updateBlock,
