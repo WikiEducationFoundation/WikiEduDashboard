@@ -7,6 +7,7 @@
 - [MediaWiki API Manual](https://www.mediawiki.org/wiki/Manual:Contents)
 - [MediaWiki API Sandbox](https://en.wikipedia.org/wiki/Special%3aApiSandbox)
 - [Quarry](http://quarry.wmflabs.org/): Public querying interface for the Labs replica database. Very useful for testing SQL queries and for figuring out what data is available.
+- [Guide to the front end](frontend.md)
 
 #### Code Style
 This project adheres as strictly as possible to the community [Ruby Style Guide](https://github.com/bbatsov/ruby-style-guide). [Rubocop](https://github.com/bbatsov/rubocop) is used for this purpose and its associated editor integrations are highly recommended for contributors.
