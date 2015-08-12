@@ -39,6 +39,7 @@ Course = React.createClass(
     @state.current_user
   submit: (e) ->
     e.preventDefault()
+    return unless confirm "Upon submission, this course will be automatically posted to Wikipedia with your user account. After that, new edits to the timeline will be mirrored to Wikipedia.\n\nAre you sure you want to do this?"
     to_pass = $.extend(true, {}, @state.course)
     to_pass['submitted'] = true
     CourseActions.updateCourse to_pass, true
@@ -56,30 +57,38 @@ Course = React.createClass(
     if (user_role > 0 || @getCurrentUser().admin) && !@state.course.legacy && !@state.course.published
       if CourseStore.isLoaded() && !(@state.course.submitted || @state.published)
         alerts.push (
-          <div className='container module text-center' key='submit'>
-            <p>Please review this timeline and make changes. Once you're satisfied with your timeline, <a href="#" onClick={@submit}>click here</a> to submit it for approval by Wiki Ed staff.</p>
-            <p>When you submit it, this course will be posted automatically to Wikipedia with your user account. After that, new edits to the timeline will be mirrored to Wikipedia.</p>
-            <p>Once your course has been approved, you will have an enrollment url that students can use to join the course.</p>
+          <div className='notification' key='submit'>
+            <div className='container'>
+              <p>Please review this timeline and make changes. Once you're satisfied with your timeline, submit it for approval by Wiki Ed staff. Once approved, you will be given an enrollment URL that students can use to join the course.</p>
+              <a href="#" onClick={@submit} className='button'>Submit</a>
+            </div>
           </div>
         )
       if @state.course.submitted
         if !@getCurrentUser().admin
           alerts.push (
-            <div className='container module text-center' key='submit'>
-              <p>Your course has been submitted. Wiki Ed staff will review it and get in touch with any questions.</p>
+            <div className='notification' key='submit'>
+              <div className='container'>
+                <p>Your course has been submitted. Wiki Ed staff will review it and get in touch with any questions.</p>
+              </div>
             </div>
           )
         else
           alerts.push (
-            <div className='container module text-center' key='publish'>
-              <p>This course has been submitted for approval by its creator. To approve it, add it to a cohort on the <CourseLink to='overview'>Overview</CourseLink> page.</p>
+            <div className='notification' key='publish'>
+              <div className='container'>
+                <p>This course has been submitted for approval by its creator. To approve it, add it to a cohort on the Overview page.</p>
+                <CourseLink to='overview' className="button">Overview</CourseLink>
+              </div>
             </div>
           )
     if (user_role > 0 || @getCurrentUser().admin) && @state.course.published && UserStore.isLoaded() && UserStore.getFiltered({ role: 0 }).length == 0 && !@state.course.legacy
       alerts.push (
-        <div className='container module text-center' key='enroll'>
-          <p>Your course has been published! Students may enroll in the course by visiting the following URL:</p>
-          <p>{@state.course.enroll_url + @state.course.passcode}</p>
+        <div className='notification' key='enroll'>
+          <div className='container'>
+            <p>Your course has been published! Students may enroll in the course by visiting the following URL:</p>
+            <p>{@state.course.enroll_url + @state.course.passcode}</p>
+          </div>
         </div>
       )
 
@@ -130,6 +139,7 @@ Course = React.createClass(
           </div>
         </div>
       </header>
+      {alerts}
       <div className="course_navigation">
         <nav className='container'>
           <div className="nav__item" id="overview-link">
@@ -150,7 +160,6 @@ Course = React.createClass(
           </div>
         </nav>
       </div>
-      {alerts}
       <div className="course_main container">
         <RouteHandler {...@props}
           course_id={@getCourseID()}

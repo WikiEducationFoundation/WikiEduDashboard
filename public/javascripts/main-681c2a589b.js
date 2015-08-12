@@ -1566,6 +1566,9 @@ Course = React.createClass({
   submit: function(e) {
     var to_pass;
     e.preventDefault();
+    if (!confirm("Upon submission, this course will be automatically posted to Wikipedia with your user account. After that, new edits to the timeline will be mirrored to Wikipedia.\n\nAre you sure you want to do this?")) {
+      return;
+    }
     to_pass = $.extend(true, {}, this.state.course);
     to_pass['submitted'] = true;
     return CourseActions.updateCourse(to_pass, true);
@@ -1586,26 +1589,34 @@ Course = React.createClass({
     if ((user_role > 0 || this.getCurrentUser().admin) && !this.state.course.legacy && !this.state.course.published) {
       if (CourseStore.isLoaded() && !(this.state.course.submitted || this.state.published)) {
         alerts.push(React.createElement("div", {
-          "className": 'container module text-center',
+          "className": 'notification',
           "key": 'submit'
-        }, React.createElement("p", null, "Please review this timeline and make changes. Once you\'re satisfied with your timeline, ", React.createElement("a", {
+        }, React.createElement("div", {
+          "className": 'container'
+        }, React.createElement("p", null, "Please review this timeline and make changes. Once you\'re satisfied with your timeline, submit it for approval by Wiki Ed staff. Once approved, you will be given an enrollment URL that students can use to join the course."), React.createElement("a", {
           "href": "#",
-          "onClick": this.submit
-        }, "click here"), " to submit it for approval by Wiki Ed staff."), React.createElement("p", null, "When you submit it, this course will be posted automatically to Wikipedia with your user account. After that, new edits to the timeline will be mirrored to Wikipedia."), React.createElement("p", null, "Once your course has been approved, you will have an enrollment url that students can use to join the course.")));
+          "onClick": this.submit,
+          "className": 'button'
+        }, "Submit"))));
       }
       if (this.state.course.submitted) {
         if (!this.getCurrentUser().admin) {
           alerts.push(React.createElement("div", {
-            "className": 'container module text-center',
+            "className": 'notification',
             "key": 'submit'
-          }, React.createElement("p", null, "Your course has been submitted. Wiki Ed staff will review it and get in touch with any questions.")));
+          }, React.createElement("div", {
+            "className": 'container'
+          }, React.createElement("p", null, "Your course has been submitted. Wiki Ed staff will review it and get in touch with any questions."))));
         } else {
           alerts.push(React.createElement("div", {
-            "className": 'container module text-center',
+            "className": 'notification',
             "key": 'publish'
-          }, React.createElement("p", null, "This course has been submitted for approval by its creator. To approve it, add it to a cohort on the ", React.createElement(CourseLink, {
-            "to": 'overview'
-          }, "Overview"), " page.")));
+          }, React.createElement("div", {
+            "className": 'container'
+          }, React.createElement("p", null, "This course has been submitted for approval by its creator. To approve it, add it to a cohort on the Overview page."), React.createElement(CourseLink, {
+            "to": 'overview',
+            "className": "button"
+          }, "Overview"))));
         }
       }
     }
@@ -1613,9 +1624,11 @@ Course = React.createClass({
       role: 0
     }).length === 0 && !this.state.course.legacy) {
       alerts.push(React.createElement("div", {
-        "className": 'container module text-center',
+        "className": 'notification',
         "key": 'enroll'
-      }, React.createElement("p", null, "Your course has been published! Students may enroll in the course by visiting the following URL:"), React.createElement("p", null, this.state.course.enroll_url + this.state.course.passcode)));
+      }, React.createElement("div", {
+        "className": 'container'
+      }, React.createElement("p", null, "Your course has been published! Students may enroll in the course by visiting the following URL:"), React.createElement("p", null, this.state.course.enroll_url + this.state.course.passcode))));
     }
     if (!this.state.course.legacy) {
       timeline = React.createElement("div", {
@@ -1658,7 +1671,7 @@ Course = React.createClass({
     }, React.createElement("h3", null, this.state.course.character_count), React.createElement("small", null, "Chars Added")), React.createElement("div", {
       "className": "stat-display__stat",
       "id": "view-count"
-    }, React.createElement("h3", null, this.state.course.view_count), React.createElement("small", null, "Article Views"))))), React.createElement("div", {
+    }, React.createElement("h3", null, this.state.course.view_count), React.createElement("small", null, "Article Views"))))), alerts, React.createElement("div", {
       "className": "course_navigation"
     }, React.createElement("nav", {
       "className": 'container'
@@ -1692,7 +1705,7 @@ Course = React.createClass({
     }, React.createElement("p", null, React.createElement(Link, {
       "params": route_params,
       "to": "activity"
-    }, "Activity"))))), alerts, React.createElement("div", {
+    }, "Activity"))))), React.createElement("div", {
       "className": "course_main container"
     }, React.createElement(RouteHandler, React.__spread({}, this.props, {
       "course_id": this.getCourseID(),
