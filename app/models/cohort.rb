@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: cohorts
+#
+#  id         :integer          not null, primary key
+#  title      :string(255)
+#  slug       :string(255)
+#  url        :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 #= Cohort model
 class Cohort < ActiveRecord::Base
   has_many :cohorts_courses, class_name: CohortsCourses

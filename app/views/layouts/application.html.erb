@@ -14,7 +14,7 @@
     <%= stylesheet_link_tag '//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css', media: 'all' %>
     <%= stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Droid+Serif', media: 'all' %>
     <%= stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Roboto:300,400,500', media: 'all' %>
-    <%= stylesheet_link_tag '/stylesheets/' + (rtl? ? 'rtl/' : '') + 'main.css', media: 'all' %>
+    <%= stylesheet_link_tag fingerprinted("/stylesheets/#{rtl? ? 'rtl/' : nil}", 'main.css'), media: 'all' %>
     <%= javascript_include_tag '/javascripts/i18n' %>
     <%= javascript_include_tag '/javascripts/i18n/' + I18n.locale.to_s %>
     <script type="text/javascript">
@@ -22,7 +22,7 @@
       I18n.locale = "<%= I18n.locale %>";
     </script>
     <%= javascript_include_tag '/javascripts/vendor.js' %>
-    <%= javascript_include_tag '/javascripts/main.js' %>
+    <%= javascript_include_tag fingerprinted('/javascripts/', 'main.js') %>
     <%= csrf_meta_tags %>
   </head>
   <body>
@@ -33,7 +33,10 @@
             <a class="logo__link" href="/"><%= logo_tag %></a>
           </div>
           <div class="home">
-            <p><%= link_to 'Home', root_url, class: 'inline' %></p>
+            <p>
+              <%= link_to 'Home', root_url, class: 'inline' %>
+              <%= link_to 'FAQ', 'http://wikiedu.org/dashboard-faq/', class: 'inline', target: '_blank' %>
+            </p>
           </div>
           <div class="login">
             <% if user_signed_in? %>

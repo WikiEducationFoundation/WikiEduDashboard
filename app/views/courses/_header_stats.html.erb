@@ -1,0 +1,36 @@
+<header class="main-page">
+  <div class="container">
+    <h1><%= Figaro.env.dashboard_title %></h1>
+    <!-- <p class="subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at nisl quis nisl fermentum condimentum eu ut felis ed at nisl quis dolor sit amet.</p> -->
+    <div class="stat-display">
+      <div class="stat-display__stat">
+        <h1><%= @courses.count %></h1>
+        <small><%= t("courses.course_description") %></small>
+        </div>
+      <div class="stat-display__stat popover-trigger">
+        <h1><%= @cohort.students.count %></h1>
+        <small><%= t("courses.students") %></small>
+        <div class="popover">
+          <h4><%= @trained %></h4>
+          <p><%= t("users.training_complete", count: @trained) %></p>
+        </div>
+      </div>
+      <div class="stat-display__stat">
+        <h1><%= number_to_human @courses.sum(:character_sum) %></h1>
+        <small><%= t("metrics.char_added") %></small>
+      </div>
+      <div class="stat-display__stat">
+        <h1><%= number_to_human @courses.sum(:view_sum) %></h1>
+        <small><%= t("metrics.view_count_description") %></small>
+      </div>
+      <div class="stat-display__stat">
+        <h1><%= number_to_human @courses.sum(:article_count) %></h1>
+        <small><%= "Articles Edited" %></small>
+      </div>
+      <div class="stat-display__stat">
+        <h1><%= number_to_human @courses.sum(:new_article_count) %></h1>
+        <small><%= "Articles Created" %></small>
+      </div>
+    </div>
+  </div>
+</header>

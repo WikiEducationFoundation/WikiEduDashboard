@@ -1,0 +1,15 @@
+# Messages for Catalan (català)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Macofe
+---
+ca:
+  activity:
+    all: Activitat
+  metrics:
+    view: Vistes
+  namespace:
+    user_ns: Usuari
+  uploads:
+    usages: Usos
+...

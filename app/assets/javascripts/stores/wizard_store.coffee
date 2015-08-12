@@ -7,24 +7,24 @@ _active_index = 0
 _summary = false
 _wizard_key = null
 _panels = [{
-  title: "Assignment Dates"
-  description: "Enter your desired assignment start and end dates."
+  title:  I18n.t('wizard.assignment_dates')
+  description: I18n.t('wizard.confirm_dates')
   active: true
   options: []
   type: -1
   minimum: 0
   key: 'dates'
 },{
-  title: "Assignment Type"
-  description: "Select the kind of assignment you want to add to your timeline."
+  title: I18n.t('wizard.assignment_type')
+  description: I18n.t('wizard.select_assignment')
   active: false
   options: []
   type: 1
   minimum: 1
   key: 'index'
 },{
-  title: "Summary"
-  description: "Please review your selections below. Click to edit a selection. When finished, click 'Submit' to finish the wizard and build your timeline."
+  title: I18n.t('wizard.summary')
+  description: I18n.t('wizard.review_selections')
   active: false
   options: []
   type: -1
@@ -114,7 +114,7 @@ verifyPanelSelections = (panel) ->
   if verified
     panel.error = null
   else
-    error_message = 'Please select at least ' + panel.minimum + ' option(s)'
+    error_message = I18n.t('wizard.minimum_options', { minimum: panel.minimum })
     panel.error = error_message
   return verified
 

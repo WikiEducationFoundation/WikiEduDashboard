@@ -21,7 +21,7 @@ Actions = React.createClass(
       user_obj = { user_id: @props.current_user.id, role: 0 }
       ServerActions.remove 'user', @state.course.slug, { user: user_obj }
   delete: ->
-    entered_title = prompt 'Are you sure you want to delete this course? If so, enter the title of the course to proceed.'
+    entered_title = prompt "Are you sure you want to delete the course titled '#{@state.course.title}'? If so, type the title of the course to proceed."
     if entered_title == @state.course.title
       ServerActions.deleteCourse @state.course.slug
     else if entered_title?

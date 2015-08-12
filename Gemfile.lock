@@ -5,6 +5,16 @@ GIT
     vcr (2.9.3)
 
 GIT
+  remote: https://github.com/activerecord-hackery/squeel.git
+  revision: 5542266d502db8022e14105f9dfb455a79d6fc4a
+  branch: master
+  specs:
+    squeel (1.2.3)
+      activerecord (>= 3.0)
+      activesupport (>= 3.0)
+      polyamorous (~> 1.1.0)
+
+GIT
   remote: https://github.com/halfdan/piwik-ruby-tracking.git
   revision: 00942cf25e43d6cc02af33ca802959074e1022f4
   specs:
@@ -96,6 +106,7 @@ GEM
       timers (~> 4.0.0)
     childprocess (0.5.6)
       ffi (~> 1.0, >= 1.0.11)
+    choice (0.2.0)
     chronic (0.10.2)
     codeclimate-test-reporter (0.4.7)
       simplecov (>= 0.7.1, < 1.0.0)
@@ -159,7 +170,7 @@ GEM
     guard-rspec (4.4.1)
       guard (~> 2.1)
       rspec (>= 2.99.0, < 4.0)
-    hashie (3.4.0)
+    hashie (3.4.2)
     hike (1.2.3)
     hitimes (1.2.2)
     http-cookie (1.0.2)
@@ -172,7 +183,7 @@ GEM
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
     json (1.8.1)
-    jwt (1.4.1)
+    jwt (1.5.1)
     listen (2.8.3)
       celluloid (>= 0.15.2)
       rb-fsevent (>= 0.9.3)
@@ -202,7 +213,7 @@ GEM
     omniauth-mediawiki (0.0.2)
       jwt (~> 1.0)
       omniauth-oauth (~> 1.0)
-    omniauth-oauth (1.0.1)
+    omniauth-oauth (1.1.0)
       oauth
       omniauth (~> 1.0)
     orm_adapter (0.5.0)
@@ -211,14 +222,20 @@ GEM
       ast (>= 1.1, < 3.0)
       slop (~> 3.4, >= 3.4.5)
     pg (0.17.1)
+    polyamorous (1.1.0)
+      activerecord (>= 3.0)
     powerpack (0.0.9)
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    pry-rails (0.3.4)
+      pry (>= 0.9.10)
     quiet_assets (1.0.3)
       railties (>= 3.1, < 5.0)
     rack (1.5.2)
+    rack-mini-profiler (0.9.7)
+      rack (>= 1.1.3)
     rack-test (0.6.2)
       rack (>= 1.0)
     rails (4.1.8)
@@ -231,6 +248,11 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.1.8)
       sprockets-rails (~> 2.0)
+    rails-erd (1.4.1)
+      activerecord (>= 3.2)
+      activesupport (>= 3.2)
+      choice (~> 0.2.0)
+      ruby-graphviz (~> 1.2)
     railties (4.1.8)
       actionpack (= 4.1.8)
       activesupport (= 4.1.8)
@@ -271,6 +293,7 @@ GEM
       powerpack (~> 0.0.6)
       rainbow (>= 1.99.1, < 3.0)
       ruby-progressbar (~> 1.4)
+    ruby-graphviz (1.2.2)
     ruby-progressbar (1.7.0)
     rubyzip (1.1.7)
     safe_yaml (1.0.4)
@@ -357,8 +380,11 @@ DEPENDENCIES
   pandoc-ruby (~> 1.0.0)
   pg
   piwik_analytics!
+  pry-rails
   quiet_assets
+  rack-mini-profiler
   rails (= 4.1.8)
+  rails-erd
   rake
   rb-fchange
   rb-fsevent
@@ -369,10 +395,11 @@ DEPENDENCIES
   sentry-raven
   simplecov
   sqlite3
+  squeel!
   vcr!
   webmock
   whenever
   zeus
 
 BUNDLED WITH
-   1.10.3
+   1.10.6

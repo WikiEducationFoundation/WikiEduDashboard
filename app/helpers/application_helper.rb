@@ -1,17 +1,23 @@
 #= Root-level helpers
 module ApplicationHelper
   def logo_tag
-    logo_path = "/images/" + Figaro.env.logo_file
+    logo_path = "/images/#{Figaro.env.logo_file}"
     image_tag logo_path
   end
 
   def logo_favicon_tag
     if Rails.env == 'development' || Rails.env == 'developmentcp'
-      favicon_path = "/images/" + Figaro.env.favicon_dev_file
+      favicon_path = "/images/#{Figaro.env.favicon_dev_file}"
     else
-      favicon_path = "/images/" + Figaro.env.favicon_file
+      favicon_path = "/images/#{Figaro.env.favicon_file}"
     end
 
     favicon_link_tag favicon_path
+  end
+
+  def fingerprinted(path, filename)
+    manifest_path = "#{Rails.root}/public/#{path}/rev-manifest.json"
+    manifest = JSON.parse(File.read(File.expand_path(manifest_path, __FILE__)))
+    "#{path}#{manifest[filename]}"
   end
 end

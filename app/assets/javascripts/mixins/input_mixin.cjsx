@@ -30,8 +30,8 @@ InputMixin =
       if valid && @props.required && (!props.value? || props.value.length == 0)
         ValidationActions.initialize @props.value_key, 'This field is required'
   focus: (e) ->
-    $(@refs.input.getDOMNode()).closest('.block').attr('draggable', false)
+    @props.onFocus() if @props.onFocus?
   blur: (e) ->
-    $(@refs.input.getDOMNode()).closest('.block').attr('draggable', true)
+    @props.onBlur() if @props.onBlur?
 
 module.exports = InputMixin

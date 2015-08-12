@@ -3,8 +3,10 @@ Router        = require 'react-router'
 Link          = Router.Link
 Expandable    = require '../high_order/expandable'
 Popover       = require '../common/popover'
+Lookup        = require '../common/lookup'
 ServerActions = require '../../actions/server_actions'
 AssignmentActions = require '../../actions/assignment_actions'
+AssignmentStore = require '../../stores/assignment_store'
 
 urlToTitle = (article_url) ->
   article_url = article_url.trim()
@@ -28,13 +30,30 @@ AssignButton = React.createClass(
   getKey: ->
     tag = if @props.role == 0 then 'assign_' else 'review_'
     tag + @props.student.id
-  assign: ->
-    article_title = urlToTitle @refs.ass_input.getDOMNode().value
-    return unless confirm(I18n.t('assignments.confirm_addition', { title: article_title, username: @props.student.wiki_id }))
+  assign: (e) ->
+    e.preventDefault()
+    article_title = urlToTitle @refs.lookup.getValue()
+
+    # Check if the assignment exists
+    if AssignmentStore.getFiltered({
+      article_title: article_title,
+      user_id: @props.student.id,
+      role: @props.role
+    }).length != 0
+      alert 'This assignment already exists!'
+      return
+
+    # Confirm
+    return unless confirm I18n.t('assignments.confirm_addition', {
+      title: article_title,
+      username: @props.student.wiki_id
+    })
+
+    # Send
     if(article_title)
       AssignmentActions.addAssignment @props.course_id, @props.student.id, article_title, @props.role
       @setState send: (!@props.editable && @props.current_user.id == @props.student.id)
-      @refs.ass_input.getDOMNode().value = ''
+      @refs.lookup.clear()
   unassign: (assignment) ->
     return unless confirm(I18n.t('assignments.confirm_deletion'))
     AssignmentActions.deleteAssignment assignment
@@ -74,8 +93,15 @@ AssignButton = React.createClass(
       edit_row = (
         <tr className='edit'>
           <td>
-            <input type="text" ref='ass_input' placeholder='Article title' />
-            <button className='button border' onClick={@assign}>Assign</button>
+            <form onSubmit={@assign}>
+              <Lookup model='article'
+                placeholder='Article title'
+                ref='lookup'
+                onSubmit={@assign}
+                disabled=true
+              />
+              <button className='button border' type="submit">Assign</button>
+            </form>
           </td>
         </tr>
       )

@@ -11,17 +11,22 @@ Panel = React.createClass(
   displayName: 'Panel'
   advance: ->
     WizardActions.advanceWizard()
-  rewind: ->
+  rewind: (e) ->
+    e.preventDefault()
     WizardActions.rewindWizard()
   reset: (e) ->
     e.preventDefault()
     WizardActions.resetWizard()
+  close: (e) ->
+    confirm "This will close the wizard without saving your progress. Are you sure you want to do this?"
   render: ->
     if @props.index > 0
       rewind =  <button className='button' onClick={@rewind}>{'Previous'}</button>
+      rewind_top = <a href='' onClick={@rewind} className='icon icon-left_arrow'>Previous</a>
 
     options_1 = []
     options_2 = []
+
     if @props.panel.options != undefined
       @props.panel.options.forEach (option, i) =>
         option = (
@@ -30,6 +35,7 @@ Panel = React.createClass(
             key={@props.index + '' + i}
             index={i}
             multiple={@props.panel.type == 0}
+            open_weeks={@props.open_weeks}
           />
         )
         if i % 2 == 0 then options_1.push(option) else options_2.push(option)
@@ -46,12 +52,20 @@ Panel = React.createClass(
 
     next_text = @props.button_text || (if @props.summary then 'Summary' else 'Next')
 
+
+    reqs_met = _.reduce(@props.panel.options, (total, option) ->
+      total + (if option.selected then 1 else 0)
+    , 0) >= @props.panel.minimum
+    reqs_met = reqs_met || !(@props.panel.options? && @props.panel.minimum)
+
     <div className={classes}>
       <div className='wizard__controls'>
-        <p>
-          <CourseLink to='timeline' className='icon icon-left_arrow'>Back to dashboard</CourseLink>
-          <a href='' onClick={@reset} className='icon icon-restart'>Start over</a>
-        </p>
+        <div className='left'>
+          {rewind_top}
+        </div>
+        <div className='right'>
+          <CourseLink to='timeline' onClick={@close}>Close</CourseLink>
+        </div>
       </div>
       <h3>{@props.panel.title}</h3>
       <div dangerouslySetInnerHTML={{__html: Marked(@props.panel.description, { renderer: MarkedRenderer })}}></div>
@@ -63,7 +77,7 @@ Panel = React.createClass(
         <div className='right'>
           <div><p className='red'>{@props.panel.error}</p></div>
           {rewind}
-          <button className="button dark" onClick={advance}>{next_text}</button>
+          <button className="button dark" onClick={advance} disabled={if reqs_met then '' else 'disabled'}>{next_text}</button>
         </div>
       </div>
     </div>

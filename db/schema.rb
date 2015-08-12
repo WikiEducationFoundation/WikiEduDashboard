@@ -11,20 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150708222255) do
+ActiveRecord::Schema.define(version: 20150810193243) do
 
   create_table "articles", force: true do |t|
     t.string   "title"
-    t.integer  "views",             limit: 8, default: 0
-    t.datetime "updated_at"
+    t.integer  "views",             limit: 8,  default: 0
     t.datetime "created_at"
-    t.integer  "character_sum",               default: 0
-    t.integer  "revision_count",              default: 0
+    t.datetime "updated_at"
+    t.integer  "character_sum",                default: 0
+    t.integer  "revision_count",               default: 0
     t.date     "views_updated_at"
     t.integer  "namespace"
     t.string   "rating"
     t.datetime "rating_updated_at"
-    t.boolean  "deleted",                     default: false
+    t.boolean  "deleted",                      default: false
+    t.string   "language",          limit: 10
   end
 
   create_table "articles_courses", force: true do |t|
@@ -51,14 +52,14 @@ ActiveRecord::Schema.define(version: 20150708222255) do
 
   create_table "blocks", force: true do |t|
     t.integer  "kind"
-    t.string   "content",      limit: 5000
+    t.text     "content"
     t.integer  "week_id"
     t.integer  "gradeable_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "title"
     t.integer  "order"
-    t.integer  "duration",                  default: 0
+    t.datetime "due_date"
   end
 
   create_table "cohorts", force: true do |t|
@@ -110,10 +111,13 @@ ActiveRecord::Schema.define(version: 20150708222255) do
     t.string   "subject"
     t.integer  "expected_students"
     t.text     "description"
-    t.integer  "submitted",                   default: 0
+    t.boolean  "submitted",                   default: false
     t.string   "passcode"
     t.date     "timeline_start"
     t.date     "timeline_end"
+    t.string   "day_exceptions",              default: ""
+    t.string   "weekdays",                    default: "0000000"
+    t.integer  "new_article_count"
   end
 
   add_index "courses", ["slug"], name: "index_courses_on_slug", using: :btree
@@ -154,6 +158,8 @@ ActiveRecord::Schema.define(version: 20150708222255) do
     t.string   "wp10_previous"
   end
 
+  add_index "revisions", ["article_id", "created_at"], name: "index_revisions_on_article_id_and_created_at", using: :btree
+
   create_table "tags", force: true do |t|
     t.integer  "course_id"
     t.string   "tag"
@@ -180,6 +186,7 @@ ActiveRecord::Schema.define(version: 20150708222255) do
     t.string   "wiki_token"
     t.string   "wiki_secret"
     t.integer  "permissions",                   default: 0
+    t.string   "real_name"
   end
 
   create_table "weeks", force: true do |t|
@@ -187,6 +194,7 @@ ActiveRecord::Schema.define(version: 20150708222255) do
     t.integer  "course_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "order",      default: 1, null: false
   end
 
 end

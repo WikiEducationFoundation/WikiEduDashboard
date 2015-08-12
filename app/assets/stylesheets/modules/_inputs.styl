@@ -12,6 +12,7 @@ input, textarea, select, .expandingArea > pre
   background-color white
   border 1px solid dove
   border-radius 0
+  font-family body-font
   font-size 15px
   outline 0
   padding 10px
@@ -36,14 +37,13 @@ pre
   position relative
   background-color white
   border 1px solid dove
-  padding 15px
 
   & > textarea, & > pre
     white-space pre-wrap
     word-wrap break-word
     border 0
     background transparent
-    // line-height 1.4
+    line-height 1.4
 
   & > textarea
     box-sizing border-box
@@ -52,6 +52,7 @@ pre
 
   & > pre
     display none
+    padding-bottom 20px
 
   &.active
     & > textarea
@@ -74,10 +75,17 @@ input[type=text], input[type=date], select
   height 40px
 
 .input_wrapper
-  display inline-block
-  float left
   overflow hidden
+  &.inline
+    float left
+    div
+      float left
+
+.select_wrapper
+  display inline-block
   position relative
+  select
+    min-width 170px
   &:after
     content '\25BE'
     font-size 24px
@@ -87,3 +95,6 @@ input[type=text], input[type=date], select
     position absolute
     right 20px
     top 50%
+
+// .tether-enabled
+//   overflow hidden

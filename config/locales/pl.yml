@@ -4,6 +4,6 @@
 # Author: Chrumps
 ---
 pl:
-  course:
-    students_short: Studenci
+  namespace:
+    user_ns: Użytkownik
 ...

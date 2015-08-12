@@ -7,7 +7,7 @@ $ ->
     valueNames: ['utitle','ucharacters','uviews','ustudents']
   })
   courseList = new List('courses', {
-    valueNames: ['title','characters','views','students']
+    valueNames: ['title','revisions','characters','views','students']
   })
 
   $('select.cohorts').change (e) ->

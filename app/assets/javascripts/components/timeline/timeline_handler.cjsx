@@ -1,13 +1,12 @@
 React           = require 'react/addons'
 Router          = require 'react-router'
-Link            = Router.Link
 RouteHandler    = Router.RouteHandler
 TransitionGroup = require '../../utils/TransitionGroup'
 
 Timeline        = require './timeline'
 Grading         = require './grading'
-CourseDates     = require './course_dates'
 Editable        = require '../high_order/editable'
+Meetings        = require './meetings'
 
 ServerActions   = require '../../actions/server_actions'
 
@@ -22,11 +21,53 @@ getState = ->
   blocks: BlockStore.getBlocks()
   gradeables: GradeableStore.getGradeables()
 
+
+# Returns string describing weekday meetings for each week
+# Ex: ["(Mon, Weds, Fri)", "(Mon, Weds)", "()", "(Mon, Weds, Fri)"]
+weekMeetings = (recurrence) ->
+  return unless recurrence?
+  course_weeks = Math.ceil(recurrence.endDate().diff(recurrence.startDate(), 'weeks', true))
+  unless recurrence.rules? && recurrence.rules[0].measure == 'daysOfWeek' && Object.keys(recurrence.rules[0].units).length > 0
+    return null
+
+  meetings = []
+  [0..(course_weeks)].forEach (week) =>
+    week_start = moment(recurrence.startDate()).startOf('week').add(week, 'weeks')
+    ms = []
+    [0..6].forEach (i) =>
+      added = moment(week_start).add(i, 'days')
+      if recurrence.matches(added)
+        ms.push moment.localeData().weekdaysShort(added)
+    if ms.length == 0
+      meetings.push '()'
+    else
+      meetings.push "(#{ms.join(', ')})"
+  return meetings
+
+# Returns number of available weeks without anything scheduled
+# Available weeks are inside the timeline dates and have weekday meetings
+openWeeks = (recurrence, weeks) ->
+  return unless recurrence?
+  Math.ceil(recurrence.endDate().diff(recurrence.startDate(), 'weeks', true)) - weeks
+
+
 TimelineHandler = React.createClass(
   displayName: 'TimelineHandler'
   componentWillMount: ->
     ServerActions.fetch 'timeline', @props.course_id
   render: ->
+    # Would rather not run this on every render.. not sure how to pull it out though
+    if @props.course.weekdays?
+      meetings = moment().recur(@props.course.timeline_start, @props.course.timeline_end)
+      weekdays = []
+      @props.course.weekdays.split('').forEach (wd, i) ->
+        return unless wd == '1'
+        day = moment().weekday(i)
+        weekdays.push(moment.localeData().weekdaysShort(day))
+      meetings.every(weekdays).daysOfWeek()
+      @props.course.day_exceptions.split(',').forEach (e) ->
+        meetings.except(moment(e, 'YYYYMMDD')) if e.length > 0
+
     <div>
       <TransitionGroup
         transitionName="wizard"
@@ -34,16 +75,14 @@ TimelineHandler = React.createClass(
         enterTimeout={500}
         leaveTimeout={500}
       >
-        <RouteHandler key='wizard_handler' {...@props} weeks={@props.weeks.length} />
+        <RouteHandler {...@props}
+          key='wizard_handler'
+          open_weeks={openWeeks(meetings, @props.weeks.length)}
+        />
       </TransitionGroup>
-      <CourseDates
-        current_user={@props.current_user}
-        course_id={@props.course_id}
-        weeks={@props.weeks.length}
-      />
-      <Timeline {...@props} />
+      <Timeline {...@props} week_meetings={weekMeetings(meetings)} />
       <Grading {...@props} />
     </div>
 )
 
-module.exports = Editable(TimelineHandler, [WeekStore, BlockStore, GradeableStore], ServerActions.saveTimeline, getState)
+module.exports = Editable(TimelineHandler, [CourseStore, WeekStore, BlockStore, GradeableStore], ServerActions.saveTimeline, getState)

@@ -1,12 +1,23 @@
 React             = require 'react/addons'
 Expandable        = require '../high_order/expandable'
+RevisionStore     = require '../../stores/revision_store'
+
+getRevisions = (student_id) ->
+  RevisionStore.getFiltered({ user_id: student_id })
 
 StudentDrawer = React.createClass(
   displayName: 'StudentDrawer'
+  mixins: [RevisionStore.mixin]
   getKey: ->
     'drawer_' + @props.student_id
+  storeDidChange: ->
+    @setState revisions: getRevisions(@props.student_id)
+  getInitialState: ->
+    revisions: getRevisions(@props.student_id)
   render: ->
-    revisions = @props.revisions.map (rev) ->
+    return <div></div> unless @props.is_open
+
+    revisions = (@state.revisions || []).map (rev) ->
       details = 'Chars Added: ' + rev.characters + ', Views: ' + rev.views
       <tr key={rev.id}>
         <td>
@@ -23,8 +34,18 @@ StudentDrawer = React.createClass(
           <a href={rev.url} target="_blank" className="inline">diff</a>
         </td>
       </tr>
+
+    if @props.is_open && revisions.length == 0
+      revisions = (
+        <tr>
+          <td colSpan="6" className="text-center">
+            <p>This student has made no revisions</p>
+          </td>
+        </tr>
+      )
+
     style =
-      height: if @props.is_open then (40 + 71 * @props.revisions.length) else 0
+      height: if @props.is_open then (40 + 71 * revisions.length) else 0
       transition: 'height .2s'
     className = 'drawer'
     className += if !@props.is_open then ' closed' else ''

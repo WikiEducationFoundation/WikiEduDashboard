@@ -1,3 +1,38 @@
+# == Schema Information
+#
+# Table name: courses
+#
+#  id                :integer          not null, primary key
+#  title             :string(255)
+#  created_at        :datetime
+#  updated_at        :datetime
+#  start             :date
+#  end               :date
+#  school            :string(255)
+#  term              :string(255)
+#  character_sum     :integer          default(0)
+#  view_sum          :integer          default(0)
+#  user_count        :integer          default(0)
+#  article_count     :integer          default(0)
+#  revision_count    :integer          default(0)
+#  slug              :string(255)
+#  listed            :boolean          default(TRUE)
+#  untrained_count   :integer          default(0)
+#  meeting_days      :string(255)
+#  signup_token      :string(255)
+#  assignment_source :string(255)
+#  subject           :string(255)
+#  expected_students :integer
+#  description       :text
+#  submitted         :boolean          default(FALSE)
+#  passcode          :string(255)
+#  timeline_start    :date
+#  timeline_end      :date
+#  day_exceptions    :string(255)      default("")
+#  weekdays          :string(255)      default("0000000")
+#  new_article_count :integer
+#
+
 require "#{Rails.root}/lib/importers/course_importer"
 require "#{Rails.root}/lib/importers/user_importer"
 
@@ -102,7 +137,7 @@ class Course < ActiveRecord::Base
   end
 
   def user_count
-    self[:user_count] || users.role('student').size
+    self[:user_count] || students.size
   end
 
   def untrained_count
@@ -115,7 +150,11 @@ class Course < ActiveRecord::Base
   end
 
   def article_count
-    self[:article_count] || articles.size
+    self[:article_count] || articles.live.size
+  end
+
+  def new_article_count
+    self[:new_article_count] || articles_courses.live.new_article.size
   end
 
   def update_cache
@@ -126,6 +165,7 @@ class Course < ActiveRecord::Base
     self.untrained_count = users.role('student').where(trained: false).size
     self.revision_count = revisions.size
     self.article_count = articles.live.size
+    self.new_article_count = articles_courses.live.new_article.size
     save
   end
 

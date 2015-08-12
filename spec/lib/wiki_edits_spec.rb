@@ -1,6 +1,9 @@
 require 'rails_helper'
 require "#{Rails.root}/lib/wiki_edits"
 
+ASSIGNEE_ROLE = 0
+REVIEWER_ROLE = 1
+
 describe WikiEdits do
   # We're not testing any of the network stuff, nor whether the requests are
   # well-formatted, but at least this verifies that the flow is parsing tokens
@@ -25,6 +28,16 @@ describe WikiEdits do
            course_id: 1,
            user_id: 2)
   end
+
+  it 'should handle failure to fetch an edit token' do
+    stub_oauth_edit_failure
+    WikiEdits.notify_untrained(1, User.first)
+  end
+
+  #it 'should handle failed edits' do
+  #  stub_token_request_failure
+  #  WikiEdits.notify_untrained(1, User.first)
+  #end
 
   describe '.notify_untrained' do
     it 'should post talk page messages on Wikipedia' do
@@ -66,18 +79,16 @@ describe WikiEdits do
              user_id: 1,
              course_id: 1,
              article_title: 'Selfie',
-             role: 0)
+             role: ASSIGNEE_ROLE)
+      create(:assignment,
+             id: 2,
+             user_id: 1,
+             course_id: 1,
+             article_title: 'Talk:Selfie',
+             role: REVIEWER_ROLE)
       WikiEdits.update_assignments(User.first, Course.first, Assignment.all)
+      WikiEdits.update_assignments(User.first, Course.first, nil)
       WikiEdits.update_assignments(User.first, Course.first, nil, true)
     end
   end
-  # Broken???
-  # describe '.get_wiki_top_section' do
-  #   it 'should return the top section content of a page' do
-  #     title = 'Wikipedia:Education_program/Dashboard/test_ids'
-  #     response = WikiEdits.get_wiki_top_section(title, User.first)
-  #     expect(response.wikitext).to eq("439\n456\n351")
-  #   end
-  # end
-
 end

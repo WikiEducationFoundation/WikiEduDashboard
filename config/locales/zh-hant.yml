@@ -1,0 +1,21 @@
+# Messages for Traditional Chinese (中文（繁體）‎)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Cwlin0416
+---
+zh-hant:
+  activity:
+    all: 活動
+  metrics:
+    activity: 最近活動
+    date_time: 日期/時間
+    edit_count_description: 總編輯數
+    view: 檢視數
+    view_count_description: 文章檢視數
+  namespace:
+    user_ns: 使用者
+  uploads:
+    usages: 使用狀況
+  error_404:
+    header: 查無頁面。:-(
+...

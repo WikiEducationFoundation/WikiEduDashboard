@@ -1,0 +1,36 @@
+# Messages for Galician (galego)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Elisardojm
+# Author: Macofe
+---
+gl:
+  application:
+    dashboard: Panel de Wiki Ed
+  activity:
+    edited_by: Modificado por
+    all: Actividade
+  cohort:
+    view_other: Ver outras cohortes
+  metrics:
+    activity: Actividade recente
+    articles_created: Artigos creados
+    articles_edited: Artigos editados
+    char: Caracteres engadidos
+    characters: Caracteres
+    char_added: Caracteres engadidos
+    char_changed: Caracteres cambiados
+    date_time: Data/Hora
+    edit_count_description: Total de edicións
+    student_editors: Editores estudantes
+    view: Vistas
+    view_count_description: Visualizacións do artigo
+  namespace:
+    main: Espazo principal
+    main_char_added: Caracteres engadidos ó espazo principal
+    user: Espazo de usuario
+    user_char_added: Caracteres engadidos ó espazo de usuario
+    user_ns: Usuario
+  tasks:
+    conseq: A tarefa %{task} está en execución!
+...

@@ -17,30 +17,24 @@ getState = ->
 
 StudentList = React.createClass(
   displayName: 'StudentList'
-  openDrawer: (model_id) ->
-    key = model_id + '_drawer'
-    @refs[key].open()
   save: ->
     ServerActions.saveStudents $.extend(true, {}, getState()), @props.course_id
   notify: ->
-    if confirm 'This will post a reminder on the talk pages of all students who have not completed training. Are you sure you want to do this?'
+    if confirm I18n.t('wiki_edits.notify_untrained.confirm')
       ServerActions.notifyUntrained @props.course_id
   render: ->
     users = @props.users.map (student) =>
-      open_drawer = if student.revisions.length > 0 then @openDrawer.bind(@, student.id) else null
       assign_options = { user_id: student.id, role: 0 }
       review_options = { user_id: student.id, role: 1 }
       <Student
-        onClick={open_drawer}
         student={student}
         key={student.id}
         assigned={AssignmentStore.getFiltered assign_options}
         reviewing={AssignmentStore.getFiltered review_options}
         save={@save}
         {...@props} />
-    drawers = @props.users.map (student) ->
+    drawers = @props.users.map (student) =>
       <StudentDrawer
-        revisions={student.revisions}
         student_id={student.id}
         key={student.id + '_drawer'}
         ref={student.id + '_drawer'} />
@@ -53,22 +47,22 @@ StudentList = React.createClass(
 
     keys =
       'wiki_id':
-        'label': 'Name'
+        'label': I18n.t('users.name')
         'desktop_only': false
       'assignment_title':
-        'label': 'Assigned Articles'
+        'label': I18n.t('users.assigned')
         'desktop_only': true
         'sortable': false
       'reviewing_title':
-        'label': 'Reviewing'
+        'label': I18n.t('users.reviewing')
         'desktop_only': true
         'sortable': false
       'character_sum_ms':
-        'label': 'Mainspace<br />chars added'
+        'label': I18n.t('users.mainspace_chars')
         'desktop_only': true
         'info_key': 'users.character_doc'
       'character_sum_us':
-        'label': 'Userspace<br />chars added'
+        'label': I18n.t('users.userspace_chars')
         'desktop_only': true
         'info_key': 'users.character_doc'
 

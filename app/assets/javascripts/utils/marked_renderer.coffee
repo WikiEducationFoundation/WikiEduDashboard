@@ -4,6 +4,7 @@ Marked      = require 'marked'
 Renderer    = new Marked.Renderer()
 
 Renderer.link = (href, title, text) ->
-  '<a href="' + href + '" title="' + title + '" target="_blank">' + text + '</a>'
+  conditional_title = if title? then "title='#{title}" else ''
+  "<a href='#{href}' #{conditional_title} target='_blank'>#{text}</a>"
 
 module.exports = Renderer

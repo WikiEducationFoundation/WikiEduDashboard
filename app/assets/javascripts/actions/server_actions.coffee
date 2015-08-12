@@ -19,6 +19,12 @@ ServerActions = Flux.createActions
       { actionType: actionType, data: data }
 
   # Specific
+  fetchLookups: (key) ->
+    API.fetchLookups(key).then (data) =>
+      { actionType: 'RECEIVE_LOOKUPS', data: {
+        model: data.model,
+        values: data.values
+      }}
   fetchWizardIndex: ->
     API.fetchWizardIndex().then (data) ->
       { actionType: 'RECEIVE_WIZARD_INDEX', data: {
@@ -29,6 +35,16 @@ ServerActions = Flux.createActions
       { actionType: 'RECEIVE_WIZARD_PANELS', data: {
         wizard_panels: data
       }}
+  fetchCohorts: ->
+    API.fetchCohorts().then (data) ->
+      { actionType: 'RECEIVE_COHORTS', data: data }
+
+  fetchRevisions: (studentId, courseId) ->
+    API.fetchRevisions(studentId, courseId).then (data) ->
+      { actionType: 'RECEIVE_REVISIONS', data: data }
+
+
+  # Save
   saveCourse: (data, course_id=null) ->
     API.saveCourse(data, course_id).then (data) ->
       actionType = if course_id == null then 'CREATED_COURSE' else 'SAVED_COURSE'

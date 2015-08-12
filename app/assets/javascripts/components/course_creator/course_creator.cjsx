@@ -82,6 +82,16 @@ CourseCreator = React.createClass(
               placeholder='Title'
             />
             <TextInput
+              id='instructor_name'
+              onChange={@updateCourse}
+              value={@state.course.instructor_name}
+              value_key='instructor_name'
+              required=true
+              editable=true
+              label='Instructor Name'
+              placeholder='Name'
+            />
+            <TextInput
               id='course_school'
               onChange={@updateCourse}
               value={@state.course.school}
@@ -144,6 +154,7 @@ CourseCreator = React.createClass(
               label='Start date'
               placeholder='Start date (YYYY-MM-DD)'
               blank=true
+              isClearable=false
             />
             <TextInput
               id='course_end'
@@ -156,6 +167,9 @@ CourseCreator = React.createClass(
               label='End date'
               placeholder='End date (YYYY-MM-DD)'
               blank=true
+              date_props={minDate: moment(@state.course.start).add(1, 'week')}
+              enabled={@state.course.start?}
+              isClearable=false
             />
           </div>
         </div>

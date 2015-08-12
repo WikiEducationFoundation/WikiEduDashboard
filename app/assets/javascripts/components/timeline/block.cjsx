@@ -25,15 +25,17 @@ Block = React.createClass(
   render: ->
     is_graded = @props.gradeable != undefined && !@props.gradeable.deleted
     className = 'block'
-    if is_graded && !@props.editable
+    if @props.block.due_date?
       dueDateRead = (
         <TextInput
           onChange={@updateBlock}
-          value={'Week ' + (@props.week_index + @props.block.duration)}
-          value_key={'duration'}
+          value={moment(@props.block.due_date).format("YYYY-MM-DD")}
+          value_key={'due_date'}
           editable={false}
           label='Due'
-          show={is_graded && !@props.editable}
+          show={@props.block.due_date?}
+          onFocus={@props.toggleFocused}
+          onBlur={@props.toggleFocused}
         />
       )
     if @props.editable
@@ -52,43 +54,13 @@ Block = React.createClass(
       )
     if (@props.block.kind < 3 && !@props.editable)
       spacer = <span>  —  </span>
-    if @props.block.title || @props.editable
-      title = (
-        <span>
-          {spacer}
-          <TextInput
-            onChange={@updateBlock}
-            value={@props.block.title}
-            value_key={'title'}
-            editable={@props.editable}
-            placeholder='Block title'
-            spacer=' '
-            show={!@props.editable}
-          />
-          <TextInput
-            onChange={@updateBlock}
-            value={@props.block.title}
-            value_key={'title'}
-            editable={@props.editable}
-            placeholder='Block title'
-            label='Title'
-            show={@props.editable}
-          />
-          <TextInput
-            onChange={@updateBlock}
-            value={@props.block.duration}
-            value_key='duration'
-            editable={@props.editable}
-            type='number'
-            show={is_graded}
-            label='Duration (weeks)'
-            placeholder='Weeks until due'
-            show={@props.editable && is_graded}
-          />
-        </span>
-      )
 
-    <li className={className}>
+    <li className={className} draggable={@props.canDrag && @props.editable}>
+      <div className="drag-handle">
+        <div className="drag-handle__bar"></div>
+        <div className="drag-handle__bar"></div>
+        <div className="drag-handle__bar"></div>
+      </div>
       <h4>
         <Select
           onChange={@updateBlock}
@@ -97,21 +69,64 @@ Block = React.createClass(
           editable={@props.editable}
           options={['In Class', 'Assignment', 'Milestone', 'Custom']}
           show={@props.block.kind < 3 || @props.editable}
+          label='Block Type'
+          inline=true
         />
-        {title}
+        {spacer}
+        <TextInput
+          onChange={@updateBlock}
+          value={@props.block.title}
+          value_key={'title'}
+          editable={@props.editable}
+          placeholder='Block title'
+          spacer=' '
+          show={@props.block.title  && !@props.editable}
+          className='title'
+          onFocus={@props.toggleFocused}
+          onBlur={@props.toggleFocused}
+          inline=true
+        />
+        <TextInput
+          onChange={@updateBlock}
+          value={@props.block.title}
+          value_key={'title'}
+          editable={@props.editable}
+          placeholder='Block title'
+          label='Title'
+          show={@props.editable}
+          onFocus={@props.toggleFocused}
+          onBlur={@props.toggleFocused}
+          inline=true
+        />
+        <TextInput
+          onChange={@updateBlock}
+          value={@props.block.due_date}
+          value_key='due_date'
+          editable={@props.editable}
+          type='date'
+          label='Due date'
+          placeholder='Due date'
+          inline=true
+          isClearable=true
+          show={@props.editable && parseInt(@props.block.kind) == 1}
+          date_props={minDate: @props.week_start.clone().subtract(1, 'days')}
+          onFocus={@props.toggleFocused}
+          onBlur={@props.toggleFocused}
+        />
         {deleteBlock}
       </h4>
       {graded}
-      {dueDateRead}
+      {dueDateRead || (if is_graded then (<p>{I18n.t('timeline.due_default')}</p>) else '')}
       <TextAreaInput
         onChange={@updateBlock}
         value={@props.block.content}
         value_key='content'
         editable={@props.editable}
         rows='4'
-        hr=true
         placeholder='Block description'
         autoExpand=true
+        onFocus={@props.toggleFocused}
+        onBlur={@props.toggleFocused}
       />
     </li>
 )

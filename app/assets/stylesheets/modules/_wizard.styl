@@ -35,9 +35,8 @@ wizard-width = 860px
     left -150%
     margin-bottom 20px
     max-width wizard-width
-    min-height 600px
     opacity 0
-    padding 20px 20px 81px
+    padding 20px
     position absolute
     text-align left
     top 160px
@@ -72,8 +71,6 @@ wizard-width = 860px
     .wizard__form
       height 80%
       margin-top 20px
-      .column
-        col(1/2)
       p
         text-align left
       textarea
@@ -81,6 +78,11 @@ wizard-width = 860px
       input, textarea
         margin-bottom 10px
         width 100%
+      .vertical-form
+        float none
+        margin 0
+        overflow hidden
+        padding-left 20px
     .wizard__panel__options
       padding 20px 0
       .left, .right
@@ -92,6 +94,13 @@ wizard-width = 860px
       position relative
       text-align left
       transition all .2s ease-in-out
+      &.disabled
+        button > div, h3:not(:first-child)
+          opacity .5
+        h3:first-child
+          color burnt
+          padding 20px
+          text-align center
       &:hover
         background smoke
       &.selected
@@ -188,27 +197,30 @@ wizard-width = 860px
         text-align left
         white-space pre-line
     .wizard__controls
-      font-size 12px
+      font-size 14px
       left 20px
       position absolute
-      top -35px
+      top -25px
       transition all 0.2s
+      width 100%
       +above(880px)
         left 0
-      a
-        color dove
-        margin-left 20px
-        margin-right 10px
-        &.icon:before
-          margin-right 8px
-          vertical-align middle
+      .left, .right
+        col(1/2, cycle: 2)
+        a
+          color dove
+          margin 0 20px
+          &.icon:before
+            margin-right 8px
+            vertical-align middle
+      .right
+        text-align right
     .wizard__panel__controls
       background-color white
       border-top 1px solid mischka
-      bottom 0
-      padding 20px 0
-      position absolute
-      width calc(100% - 40px)
+      overflow hidden
+      padding 20px 0 0
+      width 100%
       .left
         col(1/3)
         padding 9px 0
@@ -224,3 +236,15 @@ wizard-width = 860px
           color burnt
   .section-header
     margin-bottom 10px
+
+.new_course
+  .wizard__panel
+    .wizard__panel__controls
+      .left
+        col(3/5)
+      .right
+        col(2/5)
+        text-align right
+
+.column
+  col(1/2)

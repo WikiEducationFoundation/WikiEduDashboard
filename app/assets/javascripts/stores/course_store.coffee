@@ -26,12 +26,15 @@ addCourse = ->
   setCourse {
     title: ""
     description: ""
+    instructor_name: ""
     school: ""
     term: ""
     subject: ""
     expected_students: 0
     start: null
     end: null
+    day_exceptions: ""
+    weekdays: "0000000"
   }
 
 

@@ -12,10 +12,8 @@ CourseActions = Flux.createActions
       key: key,
       valid: is_valid
     }}
-  save: (course_id) ->
-    { actionType: 'SAVE_COURSE', data: {
-      course_id: course_id
-    }}
+  save: ->
+    { actionType: 'SAVE_COURSE' }
   addCourse: ->
     { actionType: 'ADD_COURSE' }
   setCourse: (course) ->

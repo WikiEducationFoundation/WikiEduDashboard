@@ -13,7 +13,7 @@ runSequence    = require 'run-sequence'
 
 # Require individual tasks
 requireDir './gulp/tasks', { recurse: true }
-    
+
 #---------------------------------------------------------
 
 gulp.task "default", ["dev"]
@@ -30,7 +30,7 @@ gulp.task "build", ->
   runSequence [
     "copy-images"
     "bower"
-    "javascripts"
-    "stylesheets"
+    "javascripts-fingerprint"
+    "stylesheets-fingerprint"
   ], "minify"
 

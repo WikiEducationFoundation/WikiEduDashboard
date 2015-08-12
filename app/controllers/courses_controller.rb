@@ -3,6 +3,7 @@ require "#{Rails.root}/lib/wiki_edits"
 
 #= Controller for course functionality
 class CoursesController < ApplicationController
+  include CourseHelper
   respond_to :html, :json
   before_action :require_permissions, only: [:create, :update, :destroy]
 
@@ -73,6 +74,11 @@ class CoursesController < ApplicationController
       params[:course][:passcode] = ('a'..'z').to_a.sample(8).join
     end
 
+    if params[:course].key? :instructor_name
+      current_user.update(real_name: params[:course][:instructor_name])
+      params[:course].delete(:instructor_name)
+    end
+
     params.require(:course).permit(
       :id,
       :title,
@@ -88,7 +94,9 @@ class CoursesController < ApplicationController
       :listed,
       :passcode,
       :timeline_start,
-      :timeline_end
+      :timeline_end,
+      :day_exceptions,
+      :weekdays
     )
   end
 
@@ -113,7 +121,7 @@ class CoursesController < ApplicationController
     params = {}
     params['course'] = course_params
 
-    if !(@course.submitted == 1) && params['course']['submitted'] == true
+    if !@course.submitted && params['course']['submitted'] == true
       instructor = @course.instructors.first
       WikiEdits.announce_course(@course, current_user, instructor)
     end
@@ -144,14 +152,6 @@ class CoursesController < ApplicationController
   ########################
   # View support methods #
   ########################
-  def find_course_by_slug(slug)
-    course = Course.where(listed: true).find_by_slug(slug)
-    if course.nil?
-      fail ActionController::RoutingError.new('Not Found'), 'Course not found'
-    end
-    return course
-  end
-
   def volunteers
     return nil if @course.nil?
     users = @course.users

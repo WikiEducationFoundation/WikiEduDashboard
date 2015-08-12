@@ -14,36 +14,67 @@ qqq:
     character_doc: Documentation for an article's character total add and remove count.
     edited: Label for a list of articles edited.
     edited_mobile: '{{Identical|Article}}'
-    edited_none: Label stating that no articles have been edited.
+    none: Message stating that no articles have been edited.
+    rating: Label for an article's quality rating on the Wikipedia 1.0 scale
+    rating_doc: Explanation of where an article's quality rating comes from and what it means
+    rating_docs:
+      fa: Explanation of what a Featured Article is
+      fl: Explanation of what a Featured List is
+      a: Explanation of what an A-class article is
+      ga: Explanation of what a Good Article is
+      b: Explanation of what a B-class article is
+      c: Explanation of what a C-class article is
+      start: Explanation of what a Start-class article is
+      stub: Explanation of what a Stub-class article is
+      list: Explanation of what a List-class page is
+      ?: Explanation of what an unrated article is
     title: Label for an article title.
     view: Command to view an article.
-    view_all: Command to view all articles.
+    view_all: |-
+      Command to view all articles.
+      {{Identical|View all}}
     view_doc: Documentation for the view count.
     views_added: Maintenance script message stating how many view counts have been
       added to an article.
   assignments:
     loading: Placeholder message indicating that assignment data is still loading
     none: Label for an empty list of assignments
-    confirm_addition: Confirmation dialog for adding a new assignment
+    confirm_addition: Confirmation dialog for adding a new assignment.
+      %{title} is the Wikipedia page title.
+      %{username} is the username of the assignee.
     confirm_deletion: Confirmation dialog for an assignment should be deleted
   cohort:
     view_other: Command to view another cohort.
-  course:
-    character_doc: Documentation for the total course characters added and removed.
-    course_description: Label for the number of courses.
-    courses: Label for the list of courses.
-    current: Label for the currently active courses.
-    duration: Label for the course's duration.
-    instructor: Label for the course's instructor.
-    students: Label for the list of students in a course.
-    students_none: Label indicating the course has no students.
-    students_short: Short label for a list of students.
-    title: Label for a course title.
-    view: Command to view a course.
-    view_wiki: Command to view a course on the wiki.
-    view_doc: Documentation for the total number of article views.
-    volunteer: Label for the course's volunteers.
-    wiki_staff: Label for wiki program staff assigned to a course.
+  courses:
+    activity: Label for link to the 'recent activity' list for a course
+    articles: Label for link to list of articles worked on by a course
+    character_doc: Explanation of what 'characters added' means
+    course_description: Label for the number of courses in a cohort
+    courses: Label for the number of courses in a cohort
+    yourcourses: Label for the list of courses associated with the logged in user
+    nocourses: Message indicating that the logged in user is not part of any courses
+    current: Label for the list of current courses
+    duration: Label for duration of a course
+    gradeables_none: Message indicating that the course has no gradeable items in the timeline
+    instructor:
+      one: Label for a single instructor of a course
+      other: Label for plural instructors of a course
+    students: Label for link to the list of students for a course
+    students_none: This course has no students.
+    students_short: Label for the number of students in a course, in the mobile layout
+    weeks_none: Message indicating that a course does not have a timeline
+    new_week: Button text for adding a new week to the timeline
+    overview: Label for link to the overview page for a course
+    title: Label for the title of each course
+    view: ???
+    view_wiki: ???
+    view_doc: Explanation of what 'article views' means
+    volunteer:
+      one: Label for a single course volunteer
+      other: Label for multiple course volunteers
+    wiki_staff: Label for staff members supporting the course
+    error:
+      exists: Error message indicating that a course with the same title, school and term already exists.
   course_creator:
     intro: Description of the course creator form
   metrics:
@@ -65,35 +96,54 @@ qqq:
     user: Long label for the User namespace.
     user_char_added: Label for number of characters added to the User namespace.
     user_ns: Wiki title for the User namespace.
-  user:
-    assigned: Label for article assigned to a user.
-    assigned_none: Label for when no article is assigned to a user.
-    character_doc: Documentation for the count of user's characters added.
-    contributions: Label for a list of articles improved by a user.
-    contributions_more: Command to view more contributions by a user.
-    editors: Label for list of editors.
-    name: Label for username.
-    training_complete: Label for students who have finished the training.
-    training_complete_short: |-
-      Shorter label (for mobile) stating that training is complete.
-      {{Identical|Complete}}
-    training_complete_count: Number of students who have finished the training, with
-      the count.
-    training_doc: Documentation for finishing training.
-    training_incomplete: Label stating that training is not complete.
-    training_incomplete_short: Shorter label (for mobile) stating that training is
-      not complete.
-    view_all: Command to view all users.
-    already_enrolled: Indication that a user cannot be added to a course because
-      they are already enrolled.
+  users:
+    assigned: Label for articles assigned to a user
+    assignees: Label for list of assigned users for an article
+    character_doc: Explanation of the characters added for a user
+    contributions: Label for list of contributions by a user
+    contributions_more: Label for a link that loads more of a user's contributions
+    editors: Label for the number of students enrolled in a course
+    loading: Message indicating that information about users is still loading
+    name: Label for usernames of students
+    none: Message indicating that a course has no students enrolled
+    reviewers: Label for list of users who are reviewers
+    reviewing: Label for article or articles being reviewed by a user
+    training_complete:
+      one: Label that appears after the number of students who completed training
+      other: Label that appears after the number of students who completed training
+    training_complete_count: Message indicating how many students completed training.
+      %{count} is the number of students.
+    training_doc: >
+      Explanation of what it means to have completed training and how completion
+      is measured
+    training_incomplete:
+      one: Label indicating that a user has not completed training
+    already_enrolled: Message indicating that a user is already enrolled in the
+      course and cannot be enrolled again.
   wiki_edits:
     notify_untrained:
+      confirm: Confirmation dialog before talk page messages are sent
       header: Section header for a talk page message indicating that the user has
-        not completed training.
+        not completed training. This is a wikitext message.
       message: A new talk page message indicating that the user has not completed
-        training.
+        training. This is a wikitext message.
       summary: Edit summary for a talk page message indicating that the user has not
-        completed training.
+        completed training. This is a wikitext message.
+  wizard:
+    assignment_dates: Header for the assignment dates section of the wizard
+    assignment_type: Header for the assignment type section of the wizard
+    confirm_dates: Instructions for inputting assignment date information
+    min_weeks: Message indicating that an assignment is not available because
+      there is not enough time for it. %{min_weeks} is the minimum number of weeks
+      for the assignment type.
+    minimum_options: Message indicating that more options must be selected.
+      %{minimum} is the required number of options.
+    read_more: Button label to expand a section with additional information
+    read_less: Button label to collapse an expanded section of addition information
+    review_selections: Instructions for the summary section
+    select_assignment: Instructions for the assignment type section
+    summary: Header for the summary section
+
   error_404:
     header: Message indicating that a page doesn't exist.
     explanation: Message explaining why a user may have reached a page that doesn't

@@ -1,0 +1,39 @@
+# Messages for Korean (한국어)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Alex00728
+---
+ko:
+  activity:
+    edited_by: '편집자 :'
+    all: 활동
+  metrics:
+    activity: 최근 활동
+    activity_none: '%{title}은(는) 최근 활동이 없습니다.'
+    articles_created: 문서 생성됨
+    articles_edited: 문서 편집됨
+    characters: 글자
+    date_time: 날짜/시간
+    edit_count_description: 총 편집
+    student_editors: 학생 편집자
+    view: 보기
+  namespace:
+    user: 사용자 공간
+    user_ns: 사용자
+  tasks:
+    conseq: '%{task} 작업이 아직도 돌아가고 있습니다!'
+  uploads:
+    none: 업로드된 파일이 없습니다.
+  error_401:
+    header: 인증되지 않음. >:-(
+    explanation: 이 요청을 실행할 수 있도록 인증되지 않았습니다. 이 문제가 에러라고 생각되면, 이 게시판의 유지자에게 연락해서 문제를
+      알도록 하세요.
+  error_404:
+    header: 페이지를 찾을 수 없습니다. :-(
+  error_422:
+    explanation: 무언가 문제가 생겼습니다. 이 게시판의 유지자에게 연락해서 문제를 알도록 하세요.
+  error_500:
+    header: 500 — 내부 서버 에러  :-(
+    explanation: 무언가 문제가 생겼습니다. 이 게시판의 유지자에게 연락해서 문제를 알도록 하세요.
+  timeout: '%{api} API의 요청이 타임아웃되었으며, %{tries}번 재시도 할 것입니다.'
+...

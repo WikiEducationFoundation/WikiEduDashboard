@@ -36,18 +36,17 @@ TextAreaInput = React.createClass(
             {input_element}
           </div>
         </label>
-      else
-        if @props.autoExpand is true
-          <label>{label}
-            <div className="expandingArea active">
-              <pre><span>{@state.value}</span><br/></pre>
-              {input_element}
-            </div>
-          </label>
-        else
-          <label>{label}
+      else if @props.autoExpand is true
+        <label>{label}
+          <div className="expandingArea active">
+            <pre><span>{@state.value}</span><br/></pre>
             {input_element}
-          </label>
+          </div>
+        </label>
+      else
+        <label>{label}
+          {input_element}
+        </label>
     else if @props.value
       raw_html = Marked(@props.value, { renderer: MarkedRenderer })
       <div dangerouslySetInnerHTML={{__html: raw_html}}></div>

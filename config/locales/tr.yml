@@ -1,0 +1,17 @@
+# Messages for Turkish (Türkçe)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Uğurkent
+# Author: Watermelon juice
+---
+tr:
+  activity:
+    edited_by: Düzenleyen
+  metrics:
+    char_changed: Karakterler Değişti
+    student_editors: Öğrenci Editörler
+  namespace:
+    user_ns: Kullanıcı
+  error_404:
+    header: Sayfa bulunamadı. :-(
+...

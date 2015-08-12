@@ -7,6 +7,8 @@ Article = React.createClass(
     chars = 'Chars Added: ' + @props.article.character_sum + ', Views: ' + @props.article.view_count
     ratingClass = 'rating ' + @props.article.rating
     ratingMobileClass = ratingClass + ' tablet-only'
+    languagePrefix = if @props.article.language then "#{@props.article.language}:" else ''
+    formattedTitle = "#{languagePrefix}#{@props.article.title}"
 
     <tr className={className}>
       <td className='popover-trigger desktop-only-tc'>
@@ -19,7 +21,7 @@ Article = React.createClass(
       <td>
         <div className={ratingMobileClass}><p>{@props.article.pretty_rating || '-'}</p></div>
         <p className="title">
-          <a onClick={@stop} href={@props.article.url} target="_blank" className="inline">{@props.article.title} {(if @props.article.new then ' (new)' else '')}</a>
+          <a onClick={@stop} href={@props.article.url} target="_blank" className="inline">{formattedTitle} {(if @props.article.new_article then ' (new)' else '')}</a>
         </p>
       </td>
       <td className='desktop-only-tc'>{@props.article.character_sum}</td>

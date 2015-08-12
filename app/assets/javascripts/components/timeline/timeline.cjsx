@@ -34,8 +34,25 @@ Timeline = React.createClass(
       BlockActions.insertBlock block, after_block.week_id, after_block.order
   render: ->
     week_components = []
-    @props.weeks.forEach (week, i) =>
+    i = 0
+    @props.weeks.forEach (week) =>
       unless week.deleted
+        if @props.week_meetings?
+          while @props.week_meetings[i] == '()'
+            week_components.push (
+              <Week
+                blocks={[]}
+                week={title: null}
+                index={i + 1}
+                key={"noweek_#{i}"}
+                start={@props.course.timeline_start}
+                end={@props.course.timeline_end}
+                editable=false
+                meetings='(No meetings this week)'
+              />
+            )
+            i++
+
         week_components.push (
           <Week
             week={week}
@@ -47,14 +64,24 @@ Timeline = React.createClass(
             blocks={BlockStore.getBlocksInWeek(week.id)}
             moveBlock={@moveBlock}
             deleteWeek={@deleteWeek.bind(this, week.id)}
+            meetings={if @props.week_meetings? then @props.week_meetings[i] else ''}
           />
         )
+        i++
+
+    start = moment(@props.course.timeline_start)
+    end = moment(@props.course.timeline_end)
+    timeline_full = (end.week() - start.week() + 1) - @props.weeks.length <= 0
+
     if @props.editable
+      add_week_button = if timeline_full then (
+        <div className='button dark disabled' title='You cannot add new weeks when your timeline is full. Delete at least one week to make room for a new one.'>Add New Week</div>
+      ) else (
+        <button className='button dark' onClick={@addWeek}>Add New Week</button>
+      )
       add_week = (
         <li className="row view-all">
-          <div>
-            <button className='button dark' onClick={@addWeek}>Add New Week</button>
-          </div>
+          <div>{add_week_button}</div>
           <br />
           <div>
             {@props.controls(null, false, true)}
@@ -68,19 +95,23 @@ Timeline = React.createClass(
         </li>
       )
 
-    start = moment(@props.course.timeline_start)
-    end = moment(@props.course.timeline_end)
-    timeline_full = Math.ceil(end.diff(start, 'days') / 7) - @props.weeks.length <= 0
     if timeline_full
       wizard_link = <div className='button dark disabled' title='You cannot use the assignment design wizard when your timeline is full. Delete at least one week to make room for a new assignment.'>Add Assignment</div>
     else
       wizard_link = <CourseLink to='wizard' className='button dark'>Add Assignment</CourseLink>
 
+    controls = (
+      <span>
+        {wizard_link}
+        <CourseLink to='dates' className='button dark'>Edit Course Dates</CourseLink>
+      </span>
+    )
+
     <div>
       <div className="section-header">
         <h3>Timeline</h3>
         <CourseLink to='wizard', text='Open Wizard', className='button large dark' />
-        {@props.controls(wizard_link)}
+        {@props.controls(controls)}
       </div>
       <ul className="list">
         {week_components}

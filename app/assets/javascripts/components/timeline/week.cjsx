@@ -11,6 +11,8 @@ ReactCSSTG      = React.addons.CSSTransitionGroup
 
 Week = React.createClass(
   displayName: 'Week'
+  getInitialState: ->
+    focusedBlockId: null
   addBlock: ->
     BlockActions.addBlock @props.week.id
   deleteBlock: (block_id) ->
@@ -19,10 +21,21 @@ Week = React.createClass(
     to_pass = $.extend(true, {}, @props.week)
     to_pass['title'] = value
     WeekActions.updateWeek to_pass
+  toggleFocused: (block_id) ->
+    if @state.focusedBlockId == block_id
+      @setState focusedBlockId: null
+    else
+      @setState focusedBlockId: block_id
   render: ->
+    # Start and end dates
+    start = moment(@props.start).startOf('week').add(7 * (@props.index - 1), 'day')
+    end = moment.min(start.clone().add(6, 'day'), moment(@props.end))
+
     blocks = @props.blocks.map (block, i) =>
       unless block.deleted
         <Block
+          toggleFocused={@toggleFocused.bind(this, block.id)}
+          canDrag={@state.focusedBlockId != block.id}
           block={block}
           key={block.id}
           editable={@props.editable}
@@ -30,6 +43,7 @@ Week = React.createClass(
           deleteBlock={@deleteBlock.bind(this, block.id)}
           moveBlock={@props.moveBlock}
           week_index={@props.index}
+          week_start={moment(@props.start).startOf('isoWeek').add(7 * (@props.index - 1), 'day')}
         />
     blocks.sort (a, b) ->
       a.props.block.order - b.props.block.order
@@ -49,9 +63,8 @@ Week = React.createClass(
       else
         spacer = ' '
       week_label = 'Week ' + @props.index
-      start = moment(@props.start).add(7 * (@props.index - 1), 'day')
-      end = moment.min(start.clone().add(6, 'day'), moment(@props.end))
-      week_label += ' (' + start.format('MM/DD') + ' - ' + end.format('MM/DD') + ')'
+      # Final label
+      week_label += " (#{start.format('MM/DD')} - #{end.format('MM/DD')}) #{@props.meetings}"
       title = (
         <TextInput
           onChange={@updateWeek}
@@ -65,7 +78,7 @@ Week = React.createClass(
       )
 
     <li className="week">
-      <div>
+      <div style={overflow: 'hidden'}>
         {deleteWeek}
         {title}
       </div>

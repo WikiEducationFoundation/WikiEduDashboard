@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: courses_users
+#
+#  id                     :integer          not null, primary key
+#  created_at             :datetime
+#  updated_at             :datetime
+#  course_id              :integer
+#  user_id                :integer
+#  character_sum_ms       :integer          default(0)
+#  character_sum_us       :integer          default(0)
+#  revision_count         :integer          default(0)
+#  assigned_article_title :string(255)
+#  role                   :integer          default(0)
+#
+
 require "#{Rails.root}/lib/utils"
 
 #= Course + User join model
@@ -45,10 +61,10 @@ class CoursesUsers < ActiveRecord::Base
     self.character_sum_us = character_sum(revisions, 2)
     self.revision_count = revisions
       .where(articles: { deleted: false })
-      .count || 0
+      .size || 0
     assignments = user.assignments.where(course_id: course.id)
     # rubocop:disable Metrics/LineLength
-    self.assigned_article_title = assignments.empty? ? nil : assignments.first.article_title
+    self.assigned_article_title = assignments.empty? ? '' : assignments.first.article_title
     # rubocop:enable Metrics/LineLength
     save
   end

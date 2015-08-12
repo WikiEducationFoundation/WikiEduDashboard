@@ -1,7 +1,5 @@
 React             = require 'react/addons'
 RDnD              = require 'react-dnd'
-HTML5Backend      = require 'react-dnd/modules/backends/HTML5'
-DDContext         = RDnD.DragDropContext
 DragSource        = RDnD.DragSource
 DropTarget        = RDnD.DropTarget
 
@@ -11,6 +9,12 @@ module.exports = (Component, Type, MoveFunction) ->
       props[Type]
     isDragging: (props, monitor) ->
       props[Type].id == monitor.getItem().id
+    canDrag: (props, monitor) ->
+      if props.canDrag?
+        props.canDrag
+      else
+        true
+
   sourceConnect = (connect, monitor) ->
     connectDragSource: connect.dragSource()
     isDragging: monitor.isDragging()

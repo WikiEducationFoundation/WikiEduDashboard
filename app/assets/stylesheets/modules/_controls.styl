@@ -23,6 +23,10 @@
   margin-left 10px
   padding 8px 20px 9px
   transition background .15s ease-out, color .15s ease-out
+  &:disabled
+    background-color white !important
+    color zircon !important
+    cursor default
   &:focus
     outline none
   &:hover
@@ -81,3 +85,33 @@
   &:after
     content '\003e'
     margin-left 5px
+
+.typeahead
+  display inline-block
+  vertical-align top
+  +button
+    margin-left 10px !important
+  input
+    margin-right 0 !important
+  ul.typeahead-selector
+    border 1px solid bayoux
+    border-width 0 1px 1px
+    list-style-type none
+    li
+      background smoke
+      border-bottom 1px solid bayoux
+      cursor pointer
+      margin-left 0
+      overflow-x scroll
+      padding 10px
+      max-width 186px
+      &:hover, &.hover
+        background manatee
+        a
+          color white
+      &:last-child
+        border-bottom none
+      a
+        color bayoux
+        &:hover
+          border-bottom 0

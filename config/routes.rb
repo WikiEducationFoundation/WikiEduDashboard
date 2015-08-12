@@ -58,6 +58,8 @@ Rails.application.routes.draw do
         }
   end
 
+  get 'lookups/(:action)(.:format)' => 'lookups'
+
   # Enrollment
   post 'courses/:course_id/users' => 'users#save',
        constraints: { course_id: /.*/ }
@@ -80,6 +82,14 @@ Rails.application.routes.draw do
        constraints: { course_id: /.*/ }
   post 'courses/:course_id/gradeables' => 'timeline#update_gradeables',
        constraints: { course_id: /.*/ }
+
+
+  get 'revisions' => 'revisions#index'
+
+  resources :weeks, only: [:index]
+
+  # Recent Activity
+  get 'recent_activity' => 'recent_activity#activity'
 
   # Wizard
   get 'wizards' => 'wizard#wizard_index'
