@@ -1,5 +1,6 @@
 require "#{Rails.root}/lib/replica"
 require "#{Rails.root}/lib/importers/revision_score_importer"
+require "#{Rails.root}/lib/grok"
 require 'mediawiki_api'
 
 #= Creates Articles for a category
@@ -16,6 +17,16 @@ class CategoryImporter
     article_ids = articles_in_cat.map { |article| article['pageid'] }
     import_latest_revision article_ids
     RevisionScoreImporter.update_revision_scores article_ids
+    output = "title, average views, completeness, views/completeness\n"
+    article_ids.each do |id|
+      article = Article.find(id)
+      title = article.title
+      date = Date.today - 1.month
+      average_views = Grok.average_views_for_article(title)
+      completeness = article.revisions.last.wp10.to_f
+      output += "#{title}, #{average_views}, #{completeness}, #{average_views / completeness}\n"
+    end
+    puts output
   end
 
   ##################
@@ -24,7 +35,8 @@ class CategoryImporter
   def self.category_query(category)
     cat = 'Category:' + category
     cat_query = { list: 'categorymembers',
-                  cmtitle: cat
+                  cmtitle: cat,
+                  cmlimit: 50
                 }
     cat_query
   end
@@ -32,7 +44,8 @@ class CategoryImporter
   def self.revisions_query(article_ids)
     rev_query = { prop: 'revisions',
                   pageids: article_ids,
-                  rvprop: 'userid|ids|timestamp' }
+                  rvprop: 'userid|ids|timestamp'
+                }
     rev_query
   end
 
