@@ -16,8 +16,8 @@ class Replica
 
   # Given a list of users and a start and end date, return a nicely formatted
   # array of revisions made by those users between those dates.
-  def self.get_revisions(users, rev_start, rev_end)
-    raw = Replica.get_revisions_raw(users, rev_start, rev_end)
+  def self.get_revisions(users, rev_start, rev_end, language=nil)
+    raw = Replica.get_revisions_raw(users, rev_start, rev_end, language)
     data = {}
     return data unless raw.is_a?(Enumerable)
     raw.each do |revision|
@@ -79,48 +79,48 @@ class Replica
   # As of 2015-02-24, revisions.php only queries namespaces:
   #   0 ([mainspace])
   #   2 (User:)
-  def self.get_revisions_raw(users, rev_start, rev_end)
+  def self.get_revisions_raw(users, rev_start, rev_end, language=nil)
     user_list = compile_user_string(users)
     oauth_tags = compile_oauth_tags
     oauth_tags = oauth_tags.blank? ? oauth_tags : "&#{oauth_tags}"
     query = user_list + oauth_tags + "&start=#{rev_start}&end=#{rev_end}"
-    api_get('revisions.php', query)
+    api_get('revisions.php', query, language)
   end
 
   # Given a list of users, fetch their global_id and trained status. Completion
   # of training is defined by the users.php endpoint as having made an edit
   # to a specific page on Wikipedia:
   # [[Wikipedia:Training/For students/Training feedback]]
-  def self.get_user_info(users)
+  def self.get_user_info(users, language=nil)
     query = compile_user_id_string(users)
     if Figaro.env.training_page_id?
       query = "#{query}&training_page_id=#{Figaro.env.training_page_id}"
     end
-    api_get('users.php', query)
+    api_get('users.php', query, language)
   end
 
-  def self.get_user_id(username)
-    api_get('user_id.php', "user_name='#{username}'")['user_id']
+  def self.get_user_id(username, language=nil)
+    api_get('user_id.php', "user_name='#{username}'", language)['user_id']
   end
 
   # Given a list of articles, see which ones have not been deleted.
-  def self.get_existing_articles_by_id(articles)
+  def self.get_existing_articles_by_id(articles, language=nil)
     article_list = compile_article_id_string(articles)
-    existing_articles = api_get('articles.php', article_list)
+    existing_articles = api_get('articles.php', article_list, language)
     existing_articles unless existing_articles.nil?
   end
 
   # Given a list of articles, see which ones have not been deleted.
-  def self.get_existing_articles_by_title(articles)
+  def self.get_existing_articles_by_title(articles, language=nil)
     article_list = compile_article_title_string(articles)
-    existing_articles = api_get('articles.php', article_list)
+    existing_articles = api_get('articles.php', article_list, language)
     existing_articles unless existing_articles.nil?
   end
 
   # Given a list of revisions, see which ones have not been deleted
-  def self.get_existing_revisions_by_id(revisions)
+  def self.get_existing_revisions_by_id(revisions, language=nil)
     revision_list = compile_revision_id_string(revisions)
-    existing_revisions = api_get('revisions.php', revision_list)
+    existing_revisions = api_get('revisions.php', revision_list, language)
     existing_revisions unless existing_revisions.nil?
   end
 
@@ -163,12 +163,9 @@ class Replica
     #   "new_article"=>"false",
     #   "byte_change"=>"-50"
     #  }]
-    def api_get(endpoint, query='')
+    def api_get(endpoint, query='', language=nil)
       tries ||= 3
-      language = Figaro.env.wiki_language
-      base_url = 'http://tools.wmflabs.org/wikiedudashboard/'
-      raw_url = "#{base_url}#{endpoint}?lang=#{language}&#{query}"
-      url = URI.encode(raw_url)
+      url = compile_query_url(endpoint, query, language)
       response = Net::HTTP::get(URI.parse(url))
       return unless response.length > 0
       parsed = JSON.parse response.to_s
@@ -180,6 +177,13 @@ class Replica
         retry
       end
       report_exception e, endpoint, query
+    end
+
+    def compile_query_url(endpoint, query, language=nil)
+      language ||= ENV['wiki_language']
+      base_url = 'http://tools.wmflabs.org/wikiedudashboard/'
+      raw_url = "#{base_url}#{endpoint}?lang=#{language}&#{query}"
+      URI.encode(raw_url)
     end
 
     # Compile a user list to send to the replica endpoint, which might look
@@ -206,7 +210,7 @@ class Replica
 
     def compile_oauth_tags
       tag_list = ''
-      oauth_ids = Figaro.env.oauth_ids
+      oauth_ids = ENV['oauth_ids']
       return '' if oauth_ids.nil?
       oauth_ids.split(',').each_with_index do |id, i|
         tag_list += '&' if i > 0

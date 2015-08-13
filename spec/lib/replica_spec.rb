@@ -148,7 +148,6 @@ describe Replica do
 
     it 'should function identically on non-English wikis' do
       VCR.use_cassette 'replica/es_revisions' do
-        allow(Figaro.env).to receive(:wiki_language).and_return('es')
         all_users = [
           { 'wiki_id' => 'AndresAlvarezGalina95' },
           { 'wiki_id' => 'Patyelena25' },
@@ -162,7 +161,7 @@ describe Replica do
         all_users.each_with_index do |u, i|
           all_users[i] = OpenStruct.new u
         end
-        response = Replica.get_revisions(all_users, rev_start, rev_end)
+        response = Replica.get_revisions(all_users, rev_start, rev_end, 'es')
         expect(response.count).to eq(25)
       end
     end
