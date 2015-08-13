@@ -16,14 +16,14 @@ class CategoryImporter
     import_articles_in_category articles_in_cat
     article_ids = articles_in_cat.map { |article| article['pageid'] }
     import_latest_revision article_ids
-    RevisionScoreImporter.update_revision_scores article_ids
+    import_scores_for_latest_revision article_ids
+    update_average_views article_ids
     output = "title, average views, completeness, views/completeness\n"
     article_ids.each do |id|
       article = Article.find(id)
       title = article.title
-      date = Date.today - 1.month
-      average_views = Grok.average_views_for_article(title)
       completeness = article.revisions.last.wp10.to_f
+      average_views = article.average_views
       output += "#{title}, #{average_views}, #{completeness}, #{average_views / completeness}\n"
     end
     puts output
@@ -62,6 +62,7 @@ class CategoryImporter
   end
 
   def self.import_latest_revision(article_ids)
+    # TODO: handle continuation
     rev_query = revisions_query(article_ids)
     rev_response = wikipedia.query rev_query
     latest_revisions = rev_response.data['pages']
@@ -77,6 +78,25 @@ class CategoryImporter
                                new_article: new_article)
     end
     Revision.import revisions_to_import
+  end
+
+  def self.import_scores_for_latest_revision(article_ids)
+    revisions_to_update = []
+    article_ids.each do |id|
+      revision = Article.find(id).revisions.last
+      revisions_to_update << revision if revision.wp10.nil?
+    end
+    RevisionScoreImporter.update_revision_scores revisions_to_update
+  end
+
+  def self.update_average_views(article_ids)
+    articles = Article.where(id: article_ids)
+    articles.each do |article|
+      next unless article.average_views.nil? || article.average_views_updated_at < 1.month.ago
+      article.average_views = Grok.average_views_for_article(article.title)
+      article.average_views_updated_at = Date.today
+      article.save
+    end
   end
   ##############
   # API Access #
