@@ -1,8 +1,8 @@
 require 'mediawiki_api'
 
 class RevisionScoreImporter
-  def self.update_revision_scores
-    article_ids = Article.namespace(0).pluck(:id)
+  def self.update_revision_scores(article_ids = nil)
+    article_ids ||= Article.namespace(0).pluck(:id)
     revisions = Revision.where(article_id: article_ids)
     revisions.find_in_batches(batch_size: 50) do |rev_batch|
       rev_ids = rev_batch.map(&:id)
@@ -18,7 +18,6 @@ class RevisionScoreImporter
     first_revisions.each do |revision|
       parent_id = get_parent_id revision
       score = get_revision_scores [parent_id]
-      pp score
       revision.wp10_previous = weighted_mean_score score[parent_id.to_s]['probability']
       revision.save
     end
@@ -60,12 +59,11 @@ class RevisionScoreImporter
 
   def self.weighted_mean_score(probability)
     mean = probability['FA'] * 100
-    # mean += probability['A'] * 90
     mean += probability['GA'] * 80
-    mean += probability['B'] * 50
+    mean += probability['B'] * 60
     mean += probability['C'] * 40
     mean += probability['Start'] * 20
-    mean += probability['Stub'] * 10
+    mean += probability['Stub'] * 0
     mean
   end
 
@@ -73,7 +71,7 @@ class RevisionScoreImporter
     private
 
     def wikipedia
-      language = Figaro.env.wiki_language
+      language = ENV['wiki_language']
       url = "https://#{language}.wikipedia.org/w/api.php"
       @wikipedia = MediawikiApi::Client.new url
       @wikipedia
