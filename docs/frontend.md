@@ -7,6 +7,7 @@ The dashboard front end is primary built using React.js and Flux written in Coff
 ### Resources
 - [Thinking in React](https://facebook.github.io/react/docs/thinking-in-react.html)
 - [Flux: Actions and the Dispatcher](https://facebook.github.io/react/blog/2014/07/30/flux-actions-and-the-dispatcher.html) - Note that the dispatcher is abstracted away in [McFly](https://github.com/kenwheeler/mcfly), the Flux implementation used on the Dashboard.
+- [React DnD](http://gaearon.github.io/react-dnd/) - The library used for drag-and-drop interactions on the timeline
 
 ### Actions
 Actions are exactly what they sound like: any impactful change front end user action should trigger a Flux action that can be received and acted upon by a store. Think of a Flux action as being similar to an emitted event.

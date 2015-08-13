@@ -93,7 +93,7 @@ moveWizard = (backwards=false, to_index=null) ->
   # THIS IS CHECK TO SEE IF WE NEED TO SCROLL PANEL TO TOP BEFORE TRANSITION
   # THERE IS PERHAPS A BETTER PLACE THEN THIS FILE TO PUT THIS EVENT/TRANSITION
   #####
-  timeoutTime = if verifyPanelSelections(active_panel) then 150 else 0
+  timeoutTime = if increment != 0 then 150 else 0
   if timeoutTime > 0
     if $('.wizard').scrollTop() > 0
       $('.wizard').animate(

@@ -92,8 +92,11 @@ class Replica
   # to a specific page on Wikipedia:
   # [[Wikipedia:Training/For students/Training feedback]]
   def self.get_user_info(users)
-    user_list = compile_user_id_string(users)
-    api_get('users.php', user_list)
+    query = compile_user_id_string(users)
+    if Figaro.env.training_page_id?
+      query = "#{query}&training_page_id=#{Figaro.env.training_page_id}"
+    end
+    api_get('users.php', query)
   end
 
   def self.get_user_id(username)

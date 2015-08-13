@@ -70,6 +70,7 @@ Block = React.createClass(
           options={['In Class', 'Assignment', 'Milestone', 'Custom']}
           show={@props.block.kind < 3 || @props.editable}
           label='Block Type'
+          popover_text={I18n.t('timeline.block_type')}
           inline=true
         />
         {spacer}

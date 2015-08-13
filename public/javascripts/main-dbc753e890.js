@@ -1296,7 +1296,7 @@ Select = React.createClass({
     };
   },
   render: function() {
-    var label, options;
+    var label, labelClass, options, popover;
     if (this.props.label) {
       label = this.props.label;
       label += this.props.spacer || ': ';
@@ -1309,10 +1309,18 @@ Select = React.createClass({
         }, option);
       };
     })(this));
+    if (this.props.popover_text) {
+      labelClass = 'popover-trigger';
+      popover = React.createElement("div", {
+        "className": "popover dark"
+      }, React.createElement("p", null, this.props.popover_text));
+    }
     if (this.props.editable) {
       return React.createElement("label", {
         "className": "input_wrapper select_wrapper " + ((this.props.inline != null) && this.props.inline ? ' inline' : '')
-      }, React.createElement("span", null, label), React.createElement("select", {
+      }, React.createElement("div", {
+        "className": labelClass
+      }, label, popover), React.createElement("select", {
         "value": this.state.value,
         "onChange": this.onChange
       }, options));
@@ -2325,8 +2333,8 @@ DragSource = RDnD.DragSource;
 DropTarget = RDnD.DropTarget;
 
 module.exports = function(Component, Type, MoveFunction) {
-  var Reorderable, dragSource, dragTarget, sourceConnect, targetConnect;
-  dragSource = {
+  var Reorderable, dragSourceSpec, dragTargetSpec, sourceConnect, targetConnect;
+  dragSourceSpec = {
     beginDrag: function(props) {
       return props[Type];
     },
@@ -2347,7 +2355,7 @@ module.exports = function(Component, Type, MoveFunction) {
       isDragging: monitor.isDragging()
     };
   };
-  dragTarget = {
+  dragTargetSpec = {
     hover: function(props, monitor) {
       var item;
       item = monitor.getItem();
@@ -2369,7 +2377,7 @@ module.exports = function(Component, Type, MoveFunction) {
       }
     }
   });
-  return _.flow(DragSource(Type, dragSource, sourceConnect), DropTarget(Type, dragTarget, targetConnect))(Reorderable);
+  return _.flow(DragSource(Type, dragSourceSpec, sourceConnect), DropTarget(Type, dragTargetSpec, targetConnect))(Reorderable);
 };
 
 
@@ -4073,6 +4081,7 @@ Block = React.createClass({
       "options": ['In Class', 'Assignment', 'Milestone', 'Custom'],
       "show": this.props.block.kind < 3 || this.props.editable,
       "label": 'Block Type',
+      "popover_text": I18n.t('timeline.block_type'),
       "inline": true
     }), spacer, React.createElement(TextInput, {
       "onChange": this.updateBlock,
@@ -5073,7 +5082,7 @@ Option = React.createClass({
       "className": className
     }, React.createElement("button", {
       "onClick": (!disabled ? this.select : void 0)
-    }, checkbox, notice, React.createElement("h3", null, this.props.option.title), blurb, expand), expand_link, React.createElement("div", {
+    }, checkbox, notice, React.createElement("h3", null, "" + this.props.option.title + (this.props.option.recommended ? ' (recommended)' : '')), blurb, expand), expand_link, React.createElement("div", {
       "className": 'wizard__option__border'
     }));
   }
@@ -5117,7 +5126,7 @@ Panel = React.createClass({
     return confirm("This will close the wizard without saving your progress. Are you sure you want to do this?");
   },
   render: function() {
-    var advance, classes, next_text, options, options_1, options_2, reqs_met, rewind, rewind_top;
+    var advance, classes, next_text, options, options_1, options_2, reqs, reqs_met, rewind, rewind_top;
     if (this.props.index > 0) {
       rewind = React.createElement("button", {
         "className": 'button',
@@ -5165,6 +5174,11 @@ Panel = React.createClass({
       return total + (option.selected ? 1 : 0);
     }, 0) >= this.props.panel.minimum;
     reqs_met = reqs_met || !((this.props.panel.options != null) && this.props.panel.minimum);
+    if ((this.props.panel.minimum != null) && this.props.panel.minimum > 0) {
+      reqs = I18n.t('wizard.minimum_options', {
+        minimum: this.props.panel.minimum
+      });
+    }
     return React.createElement("div", {
       "className": classes
     }, React.createElement("div", {
@@ -5191,8 +5205,8 @@ Panel = React.createClass({
     }, React.createElement("p", null, this.props.step)), React.createElement("div", {
       "className": 'right'
     }, React.createElement("div", null, React.createElement("p", {
-      "className": 'red'
-    }, this.props.panel.error)), rewind, React.createElement("button", {
+      "className": (this.props.panel.error != null ? 'red' : '')
+    }, this.props.panel.error || reqs)), rewind, React.createElement("button", {
       "className": "button dark",
       "onClick": advance,
       "disabled": (reqs_met ? '' : 'disabled')
@@ -6620,7 +6634,7 @@ moveWizard = function(backwards, to_index) {
   } else if (_active_index === _panels.length || (_summary && !backwards)) {
     _active_index = _panels.length - 1;
   }
-  timeoutTime = verifyPanelSelections(active_panel) ? 150 : 0;
+  timeoutTime = increment !== 0 ? 150 : 0;
   if (timeoutTime > 0) {
     if ($('.wizard').scrollTop() > 0) {
       $('.wizard').animate({

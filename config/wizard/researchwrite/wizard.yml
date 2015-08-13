@@ -45,13 +45,15 @@
   minimum: 0
   options:
     -
-      title: Critique an article (recommended)
+      title: Critique an article
+      recommended: true
       blurb: Students critically evaluate a Wikipedia article related to their class, and leave suggestions for improving it on that article's talk page.
       # description:
       logic: critique
       selected: true # selected by default
     -
-      title: Add to an article (recommended)
+      title: Add to an article
+      recommended: true
       blurb: Students use course readings or other relevant secondary sources to add 1-2 sentences to a Wikipedia article related to the class. They see how to integrate their new information, and how to include a citation for their source.
       # description:
       logic: add_to_article
