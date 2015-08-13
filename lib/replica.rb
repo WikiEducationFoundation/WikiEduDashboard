@@ -259,6 +259,7 @@ class Replica
         .error "replica.rb #{endpoint} query failed after 3 tries: #{error}"
       # These are typical network errors that we expect to encounter.
       typical_errors = [Errno::ETIMEDOUT,
+                        Net::ReadTimeout,
                         Errno::ECONNREFUSED,
                         JSON::ParserError]
       level = 'warning' if typical_errors.include?(error.class)
