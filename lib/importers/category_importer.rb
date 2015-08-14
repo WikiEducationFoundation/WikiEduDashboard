@@ -9,7 +9,12 @@ class CategoryImporter
   ################
   # Entry points #
   ################
+
+  # Takes a category name of the form 'Category:Foo' and imports all articles
+  # in that category. Optionally, also recursively imports subcategories of
+  # the specified depth.
   def self.import_category(category, depth=0, cumulative_article_ids=nil)
+    # TODO: Get all the article_ids first, and then only run the imports once.
     cumulative_article_ids ||= []
     article_ids = article_ids_for_category(category)
     ArticleImporter.import_articles article_ids
