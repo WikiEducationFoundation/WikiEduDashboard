@@ -9,13 +9,23 @@ class CategoryImporter
   ################
   # Entry points #
   ################
-  def self.import_category(category)
+  def self.import_category(category, depth=0, cumulative_article_ids=nil)
+    cumulative_article_ids ||= []
     article_ids = article_ids_for_category(category)
     ArticleImporter.import_articles article_ids
     import_latest_revision article_ids
     import_scores_for_latest_revision article_ids
     update_average_views article_ids
-    views_and_scores_output article_ids
+    cumulative_article_ids += article_ids
+    if depth > 0
+      depth = depth - 1
+      subcats = subcategories_of(category)
+      subcats.each do |subcat|
+        import_category(subcat, depth)
+        cumulative_article_ids += article_ids_for_category(subcat)
+      end
+    end
+    views_and_scores_output cumulative_article_ids
   end
 
   ##################
@@ -54,12 +64,28 @@ class CategoryImporter
     article_ids
   end
 
-  def self.category_query(category)
-    cat = 'Category:' + category
+  def self.subcategories_of(category)
+    subcats = []
+    subcat_query = category_query(category, 14) # 14 is the Category namespace
+
+    continue = true
+    until continue.nil?
+      subcat_response = Wiki.query subcat_query
+      subcat_data = subcat_response.data['categorymembers']
+      subcat_data.each do |subcat|
+        subcats << subcat['title']
+      end
+      continue = subcat_response['continue']
+      subcat_query['cmcontinue'] = continue['cmcontinue'] if continue
+    end
+    subcats
+  end
+
+  def self.category_query(category, namespace=0)
     cat_query = { list: 'categorymembers',
-                  cmtitle: cat,
+                  cmtitle: category,
                   cmlimit: 500,
-                  cmnamespace: 0, # only get mainspace articles
+                  cmnamespace: namespace, # mainspace articles by default
                   continue: ''
                 }
     cat_query
@@ -74,12 +100,7 @@ class CategoryImporter
   end
 
   def self.import_latest_revision(article_ids)
-    latest_revisions = {}
-    article_ids.each_slice(50) do |fifty_ids|
-      rev_query = revisions_query(fifty_ids)
-      rev_response = Wiki.query rev_query
-      latest_revisions.merge! rev_response.data['pages']
-    end
+    latest_revisions = get_revision_data article_ids
     revisions_to_import = []
     article_ids.each do |id|
       rev_data = latest_revisions[id.to_s]['revisions'][0]
@@ -92,6 +113,16 @@ class CategoryImporter
                                new_article: new_article)
     end
     Revision.import revisions_to_import
+  end
+
+  def self.get_revision_data(article_ids)
+    latest_revisions = {}
+    article_ids.each_slice(50) do |fifty_ids|
+      rev_query = revisions_query(fifty_ids)
+      rev_response = Wiki.query rev_query
+      latest_revisions.merge! rev_response.data['pages']
+    end
+    latest_revisions
   end
 
   def self.import_scores_for_latest_revision(article_ids)
