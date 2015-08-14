@@ -148,4 +148,4 @@ Details = React.createClass(
     </div>
 )
 
-module.exports = Editable(Details, [CourseStore, UserStore, CohortStore, TagStore], ServerActions.saveCourse, getState, "Details")
+module.exports = Editable(Details, [CourseStore, UserStore, CohortStore, TagStore], ServerActions.saveCourse, getState, "Edit Details")

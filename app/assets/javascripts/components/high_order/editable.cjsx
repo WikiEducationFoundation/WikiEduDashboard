@@ -40,7 +40,7 @@ Editable = (Component, Stores, Save, GetState, Label) ->
       else if permissions && (@props.editable == undefined || @props.editable)
         edit_label = 'Edit'
         if Label?
-          edit_label += ' ' + Label
+          edit_label = Label
         unless hide_edit
           edit = <button onClick={@toggleEditable} className='dark button'>{edit_label}</button>
         <div className="controls">

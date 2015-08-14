@@ -78,4 +78,4 @@ StudentList = React.createClass(
     </div>
 )
 
-module.exports = Editable(StudentList, [UserStore, AssignmentStore], ServerActions.saveStudents, getState, "Assignments")
+module.exports = Editable(StudentList, [UserStore, AssignmentStore], ServerActions.saveStudents, getState, "Assign Articles")
