@@ -1,16 +1,16 @@
 require "#{Rails.root}/lib/replica"
 require "#{Rails.root}/lib/importers/revision_score_importer"
 require "#{Rails.root}/lib/grok"
-require 'mediawiki_api'
+require "#{Rails.root}/lib/wiki"
 
-#= Creates Articles for a category
+#= Imports articles for a category, along with view data and revision scores
 class CategoryImporter
   ################
   # Entry points #
   ################
   def self.import_category(category)
     cat_query = category_query category
-    cat_response = wikipedia.query cat_query
+    cat_response = Wiki.query cat_query
     # turn this into a list of articles
     articles_in_cat = cat_response.data['categorymembers']
     import_articles_in_category articles_in_cat
@@ -18,6 +18,12 @@ class CategoryImporter
     import_latest_revision article_ids
     import_scores_for_latest_revision article_ids
     update_average_views article_ids
+    views_and_scores_output article_ids
+  end
+  ##################
+  # Output methods #
+  ##################
+  def self.views_and_scores_output(article_ids)
     output = "title, average views, completeness, views/completeness\n"
     article_ids.each do |id|
       article = Article.find(id)
@@ -28,6 +34,7 @@ class CategoryImporter
     end
     puts output
   end
+
 
   ##################
   # Helper methods #
@@ -64,7 +71,7 @@ class CategoryImporter
   def self.import_latest_revision(article_ids)
     # TODO: handle continuation
     rev_query = revisions_query(article_ids)
-    rev_response = wikipedia.query rev_query
+    rev_response = Wiki.query rev_query
     latest_revisions = rev_response.data['pages']
     revisions_to_import = []
     article_ids.each do |id|
@@ -96,19 +103,6 @@ class CategoryImporter
       article.average_views = Grok.average_views_for_article(article.title)
       article.average_views_updated_at = Date.today
       article.save
-    end
-  end
-  ##############
-  # API Access #
-  ##############
-  class << self
-    private
-
-    def wikipedia
-      language = ENV['wiki_language']
-      url = "https://#{language}.wikipedia.org/w/api.php"
-      @wikipedia = MediawikiApi::Client.new url
-      @wikipedia
     end
   end
 end

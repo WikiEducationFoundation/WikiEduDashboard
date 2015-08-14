@@ -46,9 +46,11 @@ class RevisionScoreImporter
   end
 
   def self.get_parent_id(revision)
+    require "#{Rails.root}/lib/wiki"
+
     rev_id = revision.id
     rev_query = revision_query(rev_id)
-    response = wikipedia.query rev_query
+    response = Wiki.query rev_query
     prev_id = response.data['pages'].values[0]['revisions'][0]['parentid']
     prev_id
   end
@@ -83,16 +85,5 @@ class RevisionScoreImporter
     response = Net::HTTP.get(URI.parse(url))
     scores = JSON.parse(response)
     scores
-  end
-
-  class << self
-    private
-
-    def wikipedia
-      language = ENV['wiki_language']
-      url = "https://#{language}.wikipedia.org/w/api.php"
-      @wikipedia = MediawikiApi::Client.new url
-      @wikipedia
-    end
   end
 end
