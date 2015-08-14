@@ -3,6 +3,13 @@ require 'json'
 
 #= This class is for getting data directly from the Wikipedia API.
 class Wiki
+  def self.get_user_id(username, language=nil)
+    user_query = { list: 'users',
+                   ususers: username }
+    user_data = wikipedia(language).query user_query
+    user_id = user_data.data['users'][0]['userid']
+    user_id
+  end
   ###################
   # Parsing methods #
   ###################
@@ -137,8 +144,8 @@ class Wiki
   class << self
     private
 
-    def wikipedia
-      language = Figaro.env.wiki_language
+    def wikipedia(language=nil)
+      language ||= ENV['wiki_language']
       url = "https://#{language}.wikipedia.org/w/api.php"
       @wikipedia = MediawikiApi::Client.new url
       @wikipedia
