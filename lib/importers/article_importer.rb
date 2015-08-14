@@ -108,16 +108,18 @@ class ArticleImporter
     RevisionImporter.move_or_delete_revisions limbo_revisions
   end
 
-  def self.import_article(id)
-    article_id = [{ 'id' => id }]
-    article_data = Replica.get_existing_articles_by_id article_id
-    return if article_data.empty?
-    article = Article.new(
-      id: article_data[0]['page_id'],
-      title: article_data[0]['page_title'],
-      namespace: article_data[0]['page_namespace']
-    )
-    Article.import [article]
+  def self.import_articles(ids)
+    article_ids = ids.map { |id| { id: id } }
+    articles_data = Replica.get_existing_articles_by_id article_ids
+    return if articles_data.empty?
+    articles = []
+    articles_data.each do |article_data|
+      articles << Article.new(
+                    id: article_data['page_id'],
+                    title: article_data['page_title'],
+                    namespace: article_data['page_namespace'])
+    end
+    Article.import articles
   end
 
   # Delete all articles with the given title

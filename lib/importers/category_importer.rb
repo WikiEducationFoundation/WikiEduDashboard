@@ -1,5 +1,6 @@
 require "#{Rails.root}/lib/replica"
 require "#{Rails.root}/lib/importers/revision_score_importer"
+require "#{Rails.root}/lib/importers/article_importer"
 require "#{Rails.root}/lib/grok"
 require "#{Rails.root}/lib/wiki"
 
@@ -13,13 +14,14 @@ class CategoryImporter
     cat_response = Wiki.query cat_query
     # turn this into a list of articles
     articles_in_cat = cat_response.data['categorymembers']
-    import_articles_in_category articles_in_cat
     article_ids = articles_in_cat.map { |article| article['pageid'] }
+    ArticleImporter.import_articles article_ids
     import_latest_revision article_ids
     import_scores_for_latest_revision article_ids
     update_average_views article_ids
     views_and_scores_output article_ids
   end
+
   ##################
   # Output methods #
   ##################
@@ -34,7 +36,6 @@ class CategoryImporter
     end
     puts output
   end
-
 
   ##################
   # Helper methods #
@@ -54,18 +55,6 @@ class CategoryImporter
                   rvprop: 'userid|ids|timestamp'
                 }
     rev_query
-  end
-
-  def self.import_articles_in_category(articles_in_cat)
-    articles_to_import = articles_in_cat.map do |article|
-      Article.new(
-        id: article['pageid'],
-        title: article['title'],
-        namespace: article['ns'],
-        deleted: false)
-    end
-    # import all the articles
-    Article.import articles_to_import
   end
 
   def self.import_latest_revision(article_ids)
