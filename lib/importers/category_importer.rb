@@ -44,7 +44,8 @@ class CategoryImporter
     cat = 'Category:' + category
     cat_query = { list: 'categorymembers',
                   cmtitle: cat,
-                  cmlimit: 50
+                  cmlimit: 50,
+                  cmnamespace: 0 # only get mainspace articles
                 }
     cat_query
   end
@@ -79,6 +80,7 @@ class CategoryImporter
   def self.import_scores_for_latest_revision(article_ids)
     revisions_to_update = []
     article_ids.each do |id|
+      next unless Article.exists?(id)
       revision = Article.find(id).revisions.last
       revisions_to_update << revision if revision.wp10.nil?
     end
