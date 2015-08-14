@@ -67,6 +67,8 @@ describe 'New course creation and editing', type: :feature do
   end
 
   describe 'new course workflow', js: true do
+    let(:instructor_name) { 'Mr. Capybara' }
+    let(:instructor_email) { 'capybara@wikiedu.org' }
     it 'should allow the user to create a course' do
       stub_oauth_edit
 
@@ -82,7 +84,8 @@ describe 'New course creation and editing', type: :feature do
       expect(find('#course_term')['class']).to include('invalid term')
 
       # Now we fill out all the fields and continue.
-      find('#instructor_name').set('Mr. Capybara')
+      find('#instructor_name').set(instructor_name)
+      find('#instructor_email').set(instructor_email)
       find('#course_school').set('University of Wikipedia, East Campus')
       find('#course_term').set('Fall 2015')
       find('#course_subject').set('Advanced Studies')
@@ -110,7 +113,6 @@ describe 'New course creation and editing', type: :feature do
       sleep 1
       first('button.dark').click
 
-      # Now go back and edit choices
       sleep 1
       page.all('button.wizard__option.summary')[2].click
       sleep 1
@@ -173,8 +175,15 @@ describe 'New course creation and editing', type: :feature do
       sleep 1
       expect(page).to have_content 'Value: 50%'
 
-      # Navigate back to the overview, then delete the course
+      # Navigate back to the overview, check relevant data, then delete the course
       find('#overview-link').find('a').click
+
+      within('.sidebar') do
+        expect(page).to have_content I18n.t('courses.instructor.other')
+        expect(page).to have_content instructor_name
+        expect(page).to have_content instructor_email
+      end
+
       sleep 1
       first('button.danger').click
 

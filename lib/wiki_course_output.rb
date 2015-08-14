@@ -37,6 +37,7 @@ class WikiCourseOutput
      | course_name = #{course.title}
      | instructor_username = #{instructor.wiki_id unless instructor.nil?}
      | instructor_realname = #{instructor.wiki_id unless instructor.nil?}
+     | instructor_email = #{instructor.email unless instructor.nil?}
      | subject = #{course.subject}
      | start_date = #{course.start}
      | end_date = #{course.end}

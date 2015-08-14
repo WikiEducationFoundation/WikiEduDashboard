@@ -43,7 +43,7 @@ group :development do
   gem 'rack-mini-profiler'
   gem 'rails-erd'
   gem 'squeel', git: 'https://github.com/activerecord-hackery/squeel.git', branch: 'master'
-
+  gem 'annotate', '~> 2.6.6'
 end
 
 group :development, :test do

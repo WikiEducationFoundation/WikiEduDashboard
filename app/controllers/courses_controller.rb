@@ -79,6 +79,11 @@ class CoursesController < ApplicationController
       params[:course].delete(:instructor_name)
     end
 
+    if params[:course].key? :instructor_email
+      current_user.update(email: params[:course][:instructor_email])
+      params[:course].delete(:instructor_email)
+    end
+
     params.require(:course).permit(
       :id,
       :title,
