@@ -47,56 +47,46 @@ class CategoryImporter
   # Helper methods #
   ##################
   def self.article_ids_for_category(category)
-    article_ids = []
-
     cat_query = category_query category
+    article_ids = get_category_member_properties(cat_query, 'pageid')
+    article_ids
+  end
+
+  def self.get_category_member_properties(query, property)
+    property_values = []
     continue = true
     until continue.nil?
-      cat_response = Wiki.query cat_query
-      article_data = cat_response.data['categorymembers']
-      article_data.each do |article|
-        article_ids << article['pageid']
+      cat_response = Wiki.query query
+      page_data = cat_response.data['categorymembers']
+      page_data.each do |page|
+        property_values << page[property]
       end
       continue = cat_response['continue']
       cat_query['cmcontinue'] = continue['cmcontinue'] if continue
     end
-
-    article_ids
+    property_values
   end
 
   def self.subcategories_of(category)
-    subcats = []
     subcat_query = category_query(category, 14) # 14 is the Category namespace
-
-    continue = true
-    until continue.nil?
-      subcat_response = Wiki.query subcat_query
-      subcat_data = subcat_response.data['categorymembers']
-      subcat_data.each do |subcat|
-        subcats << subcat['title']
-      end
-      continue = subcat_response['continue']
-      subcat_query['cmcontinue'] = continue['cmcontinue'] if continue
-    end
+    subcats = get_category_member_properties(subcat_query, 'title')
     subcats
   end
 
   def self.category_query(category, namespace=0)
-    cat_query = { list: 'categorymembers',
-                  cmtitle: category,
-                  cmlimit: 500,
-                  cmnamespace: namespace, # mainspace articles by default
-                  continue: ''
-                }
-    cat_query
+    { list: 'categorymembers',
+      cmtitle: category,
+      cmlimit: 500,
+      cmnamespace: namespace, # mainspace articles by default
+      continue: ''
+    }
   end
 
   def self.revisions_query(article_ids)
-    rev_query = { prop: 'revisions',
-                  pageids: article_ids,
-                  rvprop: 'userid|ids|timestamp'
-                }
-    rev_query
+    { prop: 'revisions',
+      pageids: article_ids,
+      rvprop: 'userid|ids|timestamp'
+    }
   end
 
   def self.import_latest_revision(article_ids)
