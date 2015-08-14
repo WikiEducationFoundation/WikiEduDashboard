@@ -10,11 +10,7 @@ class CategoryImporter
   # Entry points #
   ################
   def self.import_category(category)
-    cat_query = category_query category
-    cat_response = Wiki.query cat_query
-    # turn this into a list of articles
-    articles_in_cat = cat_response.data['categorymembers']
-    article_ids = articles_in_cat.map { |article| article['pageid'] }
+    article_ids = article_ids_for_category(category)
     ArticleImporter.import_articles article_ids
     import_latest_revision article_ids
     import_scores_for_latest_revision article_ids
@@ -40,12 +36,31 @@ class CategoryImporter
   ##################
   # Helper methods #
   ##################
+  def self.article_ids_for_category(category)
+    article_ids = []
+
+    cat_query = category_query category
+    continue = true
+    until continue.nil?
+      cat_response = Wiki.query cat_query
+      article_data = cat_response.data['categorymembers']
+      article_data.each do |article|
+        article_ids << article['pageid']
+      end
+      continue = cat_response['continue']
+      cat_query['cmcontinue'] = continue['cmcontinue'] if continue
+    end
+
+    article_ids
+  end
+
   def self.category_query(category)
     cat = 'Category:' + category
     cat_query = { list: 'categorymembers',
                   cmtitle: cat,
-                  cmlimit: 50,
-                  cmnamespace: 0 # only get mainspace articles
+                  cmlimit: 500,
+                  cmnamespace: 0, # only get mainspace articles
+                  continue: ''
                 }
     cat_query
   end
@@ -59,10 +74,12 @@ class CategoryImporter
   end
 
   def self.import_latest_revision(article_ids)
-    # TODO: handle continuation
-    rev_query = revisions_query(article_ids)
-    rev_response = Wiki.query rev_query
-    latest_revisions = rev_response.data['pages']
+    latest_revisions = {}
+    article_ids.each_slice(50) do |fifty_ids|
+      rev_query = revisions_query(fifty_ids)
+      rev_response = Wiki.query rev_query
+      latest_revisions.merge! rev_response.data['pages']
+    end
     revisions_to_import = []
     article_ids.each do |id|
       rev_data = latest_revisions[id.to_s]['revisions'][0]
