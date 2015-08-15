@@ -37,9 +37,8 @@ class WikiEdits
     # Announce the course on the Education Noticeboard or equivalent.
     announcement_page = Figaro.env.course_announcement_page
     dashboard_url = Figaro.env.dashboard_url
-    course_page_url = "http://#{dashboard_url}/courses/#{course.slug}"
     # rubocop:disable Metrics/LineLength
-    announcement = "I have created a new course at #{dashboard_url}, [#{course_page_url} #{course.title}]. If you'd like to see more details about my course, check out my course page.--~~~~"
+    announcement = "I have created a new course at #{dashboard_url}, {{#{dashboard_url} course link|#{course.slug}|#{course.title}}}. If you'd like to see more details about my course, check out my course page.--~~~~"
     section_title = "New course announcement: [[#{course.wiki_title}]] (instructor: [[User:#{instructor.wiki_id}]])"
     # rubocop:enable Metrics/LineLength
     message = { sectiontitle: section_title,
