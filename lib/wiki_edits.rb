@@ -196,7 +196,8 @@ class WikiEdits
       # rubocop:enable Metrics/LineLength
 
       token_response = JSON.parse(get_token.body)
-      check_api_response(token_response, current_user)
+      check_api_response(token_response, current_user: current_user,
+                                         type: 'tokens')
 
       OpenStruct.new(
         csrf_token: token_response['query']['tokens']['csrftoken'],
@@ -212,12 +213,23 @@ class WikiEdits
       # Make the request
       response = tokens.access_token.post(url, data)
       response_data = JSON.parse(response.body)
-      check_api_response(response_data, current_user)
+      check_api_response(response_data, current_user: current_user,
+                                        post_data: data,
+                                        type: 'edit')
 
       response
     end
 
-    def check_api_response(response_data, current_user)
+    def check_api_response(response_data, opts={})
+      current_user = opts[:current_user]
+      post_data = opts[:post_data]
+      type = opts[:type]
+
+      if current_user
+        username = current_user.wiki_id
+      else
+        username = nil
+      end
       # A successful edit will have response data like this:
       # {"edit"=>
       #   {"result"=>"Success",
@@ -239,7 +251,10 @@ class WikiEdits
       end
       Raven.capture_message 'Successful edit',
                             level: 'info',
+                            tags: { username: username,
+                                    action_type: type },
                             extra: { response_data: response_data,
+                                     post_data: post_data,
                                      current_user: current_user }
     rescue ResponseError => e
       Rails.logger.error "WikiEdits error: #{e}"
