@@ -53,7 +53,7 @@ class TimelineController < ApplicationController
 
   def update_timeline
     @course = Course.find_by_slug(params[:course_id])
-    timeline_params['weeks'].each do |week|
+    Array.wrap(timeline_params['weeks']).each do |week|
       update_week week
     end
     WikiEdits.update_course(@course, current_user)
