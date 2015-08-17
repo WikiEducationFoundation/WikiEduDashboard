@@ -11,6 +11,8 @@ request = (options) ->
       console.log 'Error fetching ' + options.kind + ': ' + obj.responseJSON.message
       rej obj
 
+RavenLogger = {}
+
 API =
   ###########
   # Getters #
@@ -155,10 +157,17 @@ API =
         console.log 'Couldn\'t save gradeables! ' + obj.responseJSON.message
         rej obj
   saveCourse: (data, course_id=null) ->
+
+    RavenLogger['context'] = "In saveCourse method"
     append = if course_id? then '/' + course_id else ''
     # append += '.json'
     type = if course_id? then 'PUT' else 'POST'
+    RavenLogger['type'] = type
     req_data = course: data.course
+
+    RavenLogger['req_data'] = req_data
+    RavenLogger['data'] = data
+
     new Promise (res, rej) ->
       $.ajax
         type: type,
@@ -169,7 +178,10 @@ API =
           console.log 'Saved course!'
           res data
       .fail (obj, status) ->
-        console.log 'Couldn\'t save course! ' + obj.responseJSON.message
+        RavenLogger['obj'] = obj
+        RavenLogger['status'] = status
+        console.log 'Couldn\'t save course! ' + obj
+        Raven.captureMessage('saveCourse failed', tags: RavenLogger)
         rej obj
 
   saveStudents: (data, course_id) ->
