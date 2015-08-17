@@ -35,8 +35,8 @@ class WikiEdits
     add_to_page_top(user_page, current_user, template, summary)
 
     # Announce the course on the Education Noticeboard or equivalent.
-    announcement_page = Figaro.env.course_announcement_page
-    dashboard_url = Figaro.env.dashboard_url
+    announcement_page = ENV['course_announcement_page']
+    dashboard_url = ENV['dashboard_url']
     # rubocop:disable Metrics/LineLength
     announcement = "I have created a new course at #{dashboard_url}, {{#{dashboard_url} course link|#{course.slug}|#{course.title}}}. If you'd like to see more details about my course, check out my course page.--~~~~"
     section_title = "New course announcement: [[#{course.wiki_title}]] (instructor: [[User:#{instructor.wiki_id}]])"
@@ -67,10 +67,10 @@ class WikiEdits
       wiki_text = WikiCourseOutput.translate_course(course)
     end
 
-    course_prefix = Figaro.env.course_prefix
+    course_prefix = ENV['course_prefix']
     wiki_title = "#{course_prefix}/#{course.slug}"
 
-    dashboard_url = Figaro.env.dashboard_url
+    dashboard_url = ENV['dashboard_url']
     summary = "Updating course from #{dashboard_url}"
 
     post_whole_page(current_user, wiki_title, wiki_text, summary)
@@ -182,9 +182,9 @@ class WikiEdits
     private
 
     def get_tokens(current_user)
-      lang = Figaro.env.wiki_language
-      @consumer = OAuth::Consumer.new Figaro.env.wikipedia_token,
-                                      Figaro.env.wikipedia_secret,
+      lang = ENV['wiki_language']
+      @consumer = OAuth::Consumer.new ENV['wikipedia_token'],
+                                      ENV['wikipedia_secret'],
                                       client_options: {
                                         site: "https://#{lang}.wikipedia.org"
                                       }
@@ -206,8 +206,8 @@ class WikiEdits
     end
 
     def api_post(data, tokens, current_user)
-      return if Figaro.env.disable_wiki_output == 'true'
-      language = Figaro.env.wiki_language
+      return if ENV['disable_wiki_output'] == 'true'
+      language = ENV['wiki_language']
       url = "https://#{language}.wikipedia.org/w/api.php"
 
       # Make the request
