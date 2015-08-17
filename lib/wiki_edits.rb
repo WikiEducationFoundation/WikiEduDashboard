@@ -247,23 +247,19 @@ class WikiEdits
       #     "info"=>"The \"templateeditor\" right is required to edit this page",
       #     "*"=>"See https://en.wikipedia.org/w/api.php for API usage"}}
       if response_data['error']
-        raise ResponseError.new response_data['error']['info']
+        title = "Failed #{type}"
+        level = 'warning'
+      else
+        title = "Successful #{type}"
+        level = 'info'
       end
-      Raven.capture_message 'Successful edit',
-                            level: 'info',
+      Raven.capture_message title,
+                            level: level,
                             tags: { username: username,
                                     action_type: type },
                             extra: { response_data: response_data,
                                      post_data: post_data,
                                      current_user: current_user }
-    rescue ResponseError => e
-      Rails.logger.error "WikiEdits error: #{e}"
-      Raven.capture_exception e, level: 'warning',
-                                 extra: { response_data: response_data,
-                                          current_user: current_user }
     end
   end
-end
-
-class ResponseError < Exception
 end
