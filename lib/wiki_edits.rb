@@ -246,13 +246,29 @@ class WikiEdits
       #    {"code"=>"protectedpage",
       #     "info"=>"The \"templateeditor\" right is required to edit this page",
       #     "*"=>"See https://en.wikipedia.org/w/api.php for API usage"}}
+      #
+      # An edit stopped by the abuse filter will respond like this:
+      # {"edit"=>
+      #   {"result"=>"Failure",
+      #    "code"=>"abusefilter-warning-email",
+      #    "info"=>"Hit AbuseFilter: Adding emails in articles",
+      #    "warning"=>"[LOTS OF HTML WARNING TEXT]"}}
       if response_data['error']
         title = "Failed #{type}"
         level = 'warning'
+      elsif response_data['edit']
+        if response_data['edit']['result'] == 'Success'
+          title = "Successful #{type}"
+          level = 'info'
+        else
+          title = "Failed #{type}"
+          level = 'warning'
+        end
       else
-        title = "Successful #{type}"
-        level = 'info'
+        title = "Unknown response for #{type}"
+        level = 'error'
       end
+
       Raven.capture_message title,
                             level: level,
                             tags: { username: username,
