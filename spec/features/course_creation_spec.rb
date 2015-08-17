@@ -57,6 +57,7 @@ describe 'New course creation and editing', type: :feature do
     if page.driver.is_a?(Capybara::Webkit::Driver)
       page.driver.allow_url 'fonts.googleapis.com'
       page.driver.allow_url 'maxcdn.bootstrapcdn.com'
+      page.driver.allow_url 'cdn.ravenjs.com'
       # page.driver.block_unknown_urls  # suppress warnings
     end
     create(:cohort)
@@ -93,17 +94,25 @@ describe 'New course creation and editing', type: :feature do
       find('textarea').set('In this course, we study things.')
 
       # TODO: test the date picker instead of just setting fields
-      find('input[placeholder="Start date (YYYY-MM-DD)"]').set('2015-01-01') # Start date
-      find('input[placeholder="End date (YYYY-MM-DD)"]').set('2015-12-15') # End date
+      start_date = '2015-01-01'
+      end_date = '2015-12-15'
+      find('input[placeholder="Start date (YYYY-MM-DD)"]').set(start_date) # Start date
+      find('input[placeholder="End date (YYYY-MM-DD)"]').set(end_date) # End date
       sleep 1
 
       # This click should create the course and start the wizard
       find('button.dark').click
 
       # Go through the wizard, checking necessary options.
+
+      # This is the course and assignment dates screen
       sleep 3
+      expect(page).to have_content start_date
+      expect(page).to have_content end_date
       first('button.dark').click
       sleep 1
+
+      # This is the assignment type chooser
       page.all('.wizard__option')[1].first('button').click
       sleep 1
       first('button.dark').click
