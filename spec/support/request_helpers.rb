@@ -33,4 +33,15 @@ module RequestHelpers
     stub_request(:post, /.*wikipedia.*/)
       .to_return(status: 200, body: failure, headers: {})
   end
+
+  def stub_oauth_edit_abusefilter
+    stub_token_request
+    # Then the edit request itself
+    failure = '{"edit":{"result":"Failure","code":"abusefilter-warning-email",
+              "info":"Hit AbuseFilter: Adding emails in articles",
+              "warning":"LOTS OF WARNING TEXT"}}'
+    stub_request(:post, /.*wikipedia.*/)
+      .to_return(status: 200, body: failure, headers: {})
+  end
+
 end

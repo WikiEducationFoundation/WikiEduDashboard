@@ -29,12 +29,17 @@ describe WikiEdits do
            user_id: 2)
   end
 
-  it 'should handle failure to fetch an edit token' do
+  it 'should handle failed edits' do
     stub_oauth_edit_failure
     WikiEdits.notify_untrained(1, User.first)
   end
 
-  #it 'should handle failed edits' do
+  it 'should handle edits that hit the abuse filter' do
+    stub_oauth_edit_abusefilter
+    WikiEdits.notify_untrained(1, User.first)
+  end
+
+  #it 'should handle failed token requests' do
   #  stub_token_request_failure
   #  WikiEdits.notify_untrained(1, User.first)
   #end
