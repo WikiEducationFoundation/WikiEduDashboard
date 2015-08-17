@@ -236,7 +236,7 @@ class Replica
     # something like this:
     # "article_ids[0]='100'&article_ids[1]='300'"
     def compile_article_id_string(articles)
-      compile_id_string(revisions, 'article_ids')
+      compile_id_string(articles, 'article_ids')
     end
 
     def compile_revision_id_string(revisions)
