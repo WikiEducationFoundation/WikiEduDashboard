@@ -107,8 +107,8 @@ describe 'New course creation and editing', type: :feature do
 
       # This is the course and assignment dates screen
       sleep 3
-      expect(page).to have_content start_date
-      expect(page).to have_content end_date
+      start_input = first('input.start').value()
+      expect(start_input).to eq(start_date)
       first('button.dark').click
       sleep 1
 
