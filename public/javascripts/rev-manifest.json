@@ -1,3 +1,7 @@
 {
+<<<<<<< HEAD
   "main.js": "main-2920efe97d.js"
+=======
+  "main.js": "main-d4955eb8ed.js"
+>>>>>>> add user id to sentry logging
 }

@@ -168,7 +168,9 @@ API =
     RavenLogger['req_data'] = req_data
     RavenLogger['data'] = data
 
-    new Promise (res, rej) ->
+    @obj = null
+    @status = null
+    promise = new Promise (res, rej) ->
       $.ajax
         type: type,
         url: '/courses' + append + '.json',
@@ -178,11 +180,15 @@ API =
           console.log 'Saved course!'
           res data
       .fail (obj, status) ->
-        RavenLogger['obj'] = obj
-        RavenLogger['status'] = status
+        @obj = obj
+        @status = status
         console.log 'Couldn\'t save course! ' + obj
-        Raven.captureMessage('saveCourse failed', tags: RavenLogger)
         rej obj
+    RavenLogger['obj'] = @obj
+    RavenLogger['status'] = @status
+    Raven.captureMessage('saveCourse called with these params:', extra: RavenLogger)
+
+    promise
 
   saveStudents: (data, course_id) ->
     cleanup = (array) ->
