@@ -155,10 +155,18 @@ API =
         console.log 'Couldn\'t save gradeables! ' + obj.responseJSON.message
         rej obj
   saveCourse: (data, course_id=null) ->
+    console.log "In saveCourse method"
     append = if course_id? then '/' + course_id else ''
     # append += '.json'
     type = if course_id? then 'PUT' else 'POST'
+    console.log "type:"
+    console.log type
     req_data = course: data.course
+    console.log "req_data:"
+    console.log req_data
+
+    console.log "data variable:"
+    console.log data
     new Promise (res, rej) ->
       $.ajax
         type: type,
@@ -169,7 +177,11 @@ API =
           console.log 'Saved course!'
           res data
       .fail (obj, status) ->
-        console.log 'Couldn\'t save course! ' + obj.responseJSON.message
+        console.log "obj variable:"
+        console.log obj
+        console.log "status:"
+        console.log status
+        console.log 'Couldn\'t save course! ' + obj
         rej obj
 
   saveStudents: (data, course_id) ->
