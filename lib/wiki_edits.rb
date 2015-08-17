@@ -133,6 +133,47 @@ class WikiEdits
     assignment_titles
   end
 
+  def self.parse_api_response(response_data, type)
+    # A successful edit will have response data like this:
+    # {"edit"=>
+    #   {"result"=>"Success",
+    #    "pageid"=>11543696,
+    #    "title"=>"User:Ragesock",
+    #    "contentmodel"=>"wikitext",
+    #    "oldrevid"=>671572777,
+    #    "newrevid"=>674946741,
+    #    "newtimestamp"=>"2015-08-07T05:27:43Z"}}
+    #
+    # A failed edit will have a response like this:
+    # {"servedby"=>"mw1135",
+    #  "error"=>
+    #    {"code"=>"protectedpage",
+    #     "info"=>"The \"templateeditor\" right is required to edit this page",
+    #     "*"=>"See https://en.wikipedia.org/w/api.php for API usage"}}
+    #
+    # An edit stopped by the abuse filter will respond like this:
+    # {"edit"=>
+    #   {"result"=>"Failure",
+    #    "code"=>"abusefilter-warning-email",
+    #    "info"=>"Hit AbuseFilter: Adding emails in articles",
+    #    "warning"=>"[LOTS OF HTML WARNING TEXT]"}}
+    if response_data['error']
+      title = "Failed #{type}"
+      level = 'warning'
+    elsif response_data['edit']
+      if response_data['edit']['result'] == 'Success'
+        title = "Successful #{type}"
+        level = 'info'
+      else
+        title = "Failed #{type}"
+        level = 'warning'
+      end
+    else
+      title = "Unknown response for #{type}"
+      level = 'error'
+    end
+    { title: title, level: level}
+  end
   ####################
   # Basic edit types #
   ####################
@@ -230,47 +271,9 @@ class WikiEdits
       else
         username = nil
       end
-      # A successful edit will have response data like this:
-      # {"edit"=>
-      #   {"result"=>"Success",
-      #    "pageid"=>11543696,
-      #    "title"=>"User:Ragesock",
-      #    "contentmodel"=>"wikitext",
-      #    "oldrevid"=>671572777,
-      #    "newrevid"=>674946741,
-      #    "newtimestamp"=>"2015-08-07T05:27:43Z"}}
-      #
-      # A failed edit will have a response like this:
-      # {"servedby"=>"mw1135",
-      #  "error"=>
-      #    {"code"=>"protectedpage",
-      #     "info"=>"The \"templateeditor\" right is required to edit this page",
-      #     "*"=>"See https://en.wikipedia.org/w/api.php for API usage"}}
-      #
-      # An edit stopped by the abuse filter will respond like this:
-      # {"edit"=>
-      #   {"result"=>"Failure",
-      #    "code"=>"abusefilter-warning-email",
-      #    "info"=>"Hit AbuseFilter: Adding emails in articles",
-      #    "warning"=>"[LOTS OF HTML WARNING TEXT]"}}
-      if response_data['error']
-        title = "Failed #{type}"
-        level = 'warning'
-      elsif response_data['edit']
-        if response_data['edit']['result'] == 'Success'
-          title = "Successful #{type}"
-          level = 'info'
-        else
-          title = "Failed #{type}"
-          level = 'warning'
-        end
-      else
-        title = "Unknown response for #{type}"
-        level = 'error'
-      end
-
-      Raven.capture_message title,
-                            level: level,
+      sorting_info = parse_api_response(response_data, type)
+      Raven.capture_message sorting_info[:title],
+                            level: sorting_info[:level],
                             tags: { username: username,
                                     action_type: type },
                             extra: { response_data: response_data,
