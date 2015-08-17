@@ -5,13 +5,11 @@
           <p class="<%= user ? 'u' : '' %>title"><%= course.title %></p>
         </div>
 
-        <%= cache("revision-row-#{Date.today.to_s}-#{course.id}") do %>
-          <div class="course-list__row__revisions">
-            <% revisions = RevisionStat.get_records(course.id) %>
-            <p><span class="tablet-only-flex"><%= t("metrics.revisions") %>: </span><%= revisions %></p>
-            <p class="<%= user ? 'u' : '' %>revisions hidden"><%= revisions %></p>
-          </div>
-        <% end %>
+        <div class="course-list__row__revisions">
+          <% revisions = RevisionStat.get_records(course.id) %>
+          <p><span class="tablet-only-flex"><%= t("metrics.revisions") %>: </span><%= revisions %></p>
+          <p class="<%= user ? 'u' : '' %>revisions hidden"><%= revisions %></p>
+        </div>
 
         <div class="course-list__row__characters">
           <p><span class="tablet-only-flex"><%= t("metrics.char") %>: </span><%= number_to_human course.character_sum %></p>
