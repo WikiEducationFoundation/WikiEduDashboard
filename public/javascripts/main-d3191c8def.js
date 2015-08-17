@@ -7048,7 +7048,7 @@ module.exports = TimeoutTransitionGroup;
 
 
 },{"react/addons":276}],90:[function(require,module,exports){
-var API, request;
+var API, RavenLogger, request;
 
 request = function(options) {
   return new Promise(function(res, rej) {
@@ -7066,6 +7066,8 @@ request = function(options) {
     });
   });
 };
+
+RavenLogger = {};
 
 API = {
   fetchLookups: function(model) {
@@ -7263,18 +7265,15 @@ API = {
     if (course_id == null) {
       course_id = null;
     }
-    console.log("In saveCourse method");
+    RavenLogger['context'] = "In saveCourse method";
     append = course_id != null ? '/' + course_id : '';
     type = course_id != null ? 'PUT' : 'POST';
-    console.log("type:");
-    console.log(type);
+    RavenLogger['type'] = type;
     req_data = {
       course: data.course
     };
-    console.log("req_data:");
-    console.log(req_data);
-    console.log("data variable:");
-    console.log(data);
+    RavenLogger['req_data'] = req_data;
+    RavenLogger['data'] = data;
     return new Promise(function(res, rej) {
       return $.ajax({
         type: type,
@@ -7286,11 +7285,12 @@ API = {
           return res(data);
         }
       }).fail(function(obj, status) {
-        console.log("obj variable:");
-        console.log(obj);
-        console.log("status:");
-        console.log(status);
+        RavenLogger['obj'] = obj;
+        RavenLogger['status'] = status;
         console.log('Couldn\'t save course! ' + obj);
+        Raven.captureMessage('saveCourse failed', {
+          tags: RavenLogger
+        });
         return rej(obj);
       });
     });

@@ -21,7 +21,13 @@
       I18n.defaultLocale = "<%= I18n.default_locale %>";
       I18n.locale = "<%= I18n.locale %>";
     </script>
+
     <%= javascript_include_tag '/javascripts/vendor.js' %>
+
+    <!-- Temporary Raven logging -->
+    <script src="//cdn.ravenjs.com/1.1.19/jquery,native/raven.min.js"></script>
+    <script>Raven.config('http://03b8de7425d242acabfc364b8fcab278:bfc399d61ccd43068e91c0302914ed5a@sentry.ragesoss.com:8080/8').install();</script>
+
     <%= javascript_include_tag fingerprinted('/javascripts/', 'main.js') %>
     <%= csrf_meta_tags %>
   </head>
