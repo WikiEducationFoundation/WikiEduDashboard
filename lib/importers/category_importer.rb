@@ -18,19 +18,24 @@ class CategoryImporter
     import_articles_with_scores_and_views article_ids
   end
 
-  def self.report_on_category(category, depth=0)
+  def self.report_on_category(category, opts={})
+    depth = opts[:depth] || 0
+    min_views = opts[:min_views] || 0
+    max_wp10 = opts[:max_wp10] || 100
     article_ids = article_ids_for_category(category, depth)
-    views_and_scores_output(article_ids)
+    views_and_scores_output(article_ids, min_views, max_wp10)
   end
   ##################
   # Output methods #
   ##################
-  def self.views_and_scores_output(article_ids)
+  def self.views_and_scores_output(article_ids, min_views, max_wp10)
     output = "title, average views, completeness, views/completeness\n"
-    article_ids.each do |id|
-      article = Article.find(id)
+    articles = Article.where(id: article_ids)
+               .where('average_views > ?', min_views)
+    articles.each do |article|
       title = article.title
       completeness = article.revisions.last.wp10.to_f
+      next unless completeness < max_wp10
       average_views = article.average_views
       output += "#{title}, #{average_views}, #{completeness}, #{average_views / completeness}\n"
     end
