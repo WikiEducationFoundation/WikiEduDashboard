@@ -101,73 +101,73 @@ describe 'Student users', type: :feature, js: true do
   end
 
   # TODO: Figure out why these fail on travis, even though they pass locally.
-  # describe 'adding an assigned article' do
-  #   it 'should work' do
-  #     stub_oauth_edit
-  #     create(:courses_user,
-  #            course_id: 10001,
-  #            user_id: 200,
-  #            role: 0)
-  #     visit "/courses/#{Course.first.slug}/students"
-  #     sleep 3
-  #
-  #     # Add an assigned article
-  #     first('button.border').click
-  #     first('input').set('Selfie')
-  #     page.all('button.border')[1].click
-  #     page.driver.browser.switch_to.alert.accept
-  #     page.all('button.border')[0].click
-  #     sleep 1
-  #     expect(page).to have_content 'Selfie'
-  #   end
-  # end
-  #
-  # describe 'adding a reviewed article' do
-  #   it 'should work' do
-  #     stub_oauth_edit
-  #     create(:courses_user,
-  #            course_id: 10001,
-  #            user_id: 200,
-  #            role: 0)
-  #     visit "/courses/#{Course.first.slug}/students"
-  #     sleep 3
-  #
-  #     page.all('button.border')[1].click
-  #     first('input').set('Self-portrait')
-  #     page.all('button.border')[2].click
-  #     page.driver.browser.switch_to.alert.accept
-  #     page.all('button.border')[1].click
-  #     expect(page).to have_content 'Self-portrait'
-  #   end
-  # end
-  #
-  # describe 'removing an assigned article' do
-  #   it 'should work' do
-  #     stub_oauth_edit
-  #     create(:courses_user,
-  #            course_id: 10001,
-  #            user_id: 200,
-  #            role: 0)
-  #     create(:assignment,
-  #            article_title: 'Selfie',
-  #            course_id: 10001,
-  #            user_id: 200,
-  #            role: 0)
-  #     visit "/courses/#{Course.first.slug}/students"
-  #     sleep 3
-  #
-  #     # Remove the assignment
-  #     page.all('button.border')[0].click
-  #     page.all('button.border')[2].click
-  #     sleep 1
-  #     page.driver.browser.switch_to.alert.accept
-  #     page.all('button.border')[0].click
-  #     sleep 1
-  #     visit "/courses/#{Course.first.slug}/students"
-  #     sleep 1
-  #     expect(page).not_to have_content 'Selfie'
-  #   end
-  # end
+  describe 'adding an assigned article' do
+    it 'should work' do
+      stub_oauth_edit
+      create(:courses_user,
+             course_id: 10001,
+             user_id: 200,
+             role: 0)
+      visit "/courses/#{Course.first.slug}/students"
+      sleep 3
+
+      # Add an assigned article
+      first('button.border').click
+      first('input').set('Selfie')
+      page.all('button.border')[1].click
+      page.driver.browser.switch_to.alert.accept
+      page.all('button.border')[0].click
+      sleep 1
+      expect(page).to have_content 'Selfie'
+    end
+  end
+
+  describe 'adding a reviewed article' do
+    it 'should work' do
+      stub_oauth_edit
+      create(:courses_user,
+             course_id: 10001,
+             user_id: 200,
+             role: 0)
+      visit "/courses/#{Course.first.slug}/students"
+      sleep 3
+
+      page.all('button.border')[1].click
+      first('input').set('Self-portrait')
+      page.all('button.border')[2].click
+      page.driver.browser.switch_to.alert.accept
+      page.all('button.border')[1].click
+      expect(page).to have_content 'Self-portrait'
+    end
+  end
+
+  describe 'removing an assigned article' do
+    it 'should work' do
+      stub_oauth_edit
+      create(:courses_user,
+             course_id: 10001,
+             user_id: 200,
+             role: 0)
+      create(:assignment,
+             article_title: 'Selfie',
+             course_id: 10001,
+             user_id: 200,
+             role: 0)
+      visit "/courses/#{Course.first.slug}/students"
+      sleep 3
+
+      # Remove the assignment
+      page.all('button.border')[0].click
+      page.all('button.border')[2].click
+      sleep 1
+      page.driver.browser.switch_to.alert.accept
+      page.all('button.border')[0].click
+      sleep 1
+      visit "/courses/#{Course.first.slug}/students"
+      sleep 1
+      expect(page).not_to have_content 'Selfie'
+    end
+  end
 
   after do
     logout

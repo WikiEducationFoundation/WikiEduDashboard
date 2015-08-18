@@ -70,10 +70,12 @@ describe 'Students Page', type: :feature, js: true do
   end
 
   it 'should open a list of individual student revisions' do
+    expect(page).not_to have_content 'Article Title'
     page.first('tr.students').click
     sleep 1
     within 'table.users' do
       expect(page).to have_content 'User Contributions'
+      expect(page).to have_content 'Article Title'
     end
   end
 end
