@@ -265,19 +265,14 @@ class WikiEdits
     end
 
     def check_api_response(response_data, opts={})
-      current_user = opts[:current_user]
+      current_user = opts[:current_user] || {}
       post_data = opts[:post_data]
       type = opts[:type]
 
-      if current_user
-        username = current_user.wiki_id
-      else
-        username = nil
-      end
       sorting_info = parse_api_response(response_data, type)
       Raven.capture_message sorting_info[:title],
                             level: sorting_info[:level],
-                            tags: { username: username,
+                            tags: { username: current_user[:wiki_id],
                                     action_type: type },
                             extra: { response_data: response_data,
                                      post_data: post_data,

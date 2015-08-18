@@ -12,7 +12,8 @@ describe WikiEdits do
     stub_oauth_edit
 
     create(:course,
-           id: 1)
+           id: 1,
+           submitted: true)
     create(:user,
            id: 1,
            wiki_token: 'foo',
