@@ -38,7 +38,7 @@ class WikiEdits
     announcement_page = ENV['course_announcement_page']
     dashboard_url = ENV['dashboard_url']
     # rubocop:disable Metrics/LineLength
-    announcement = "I have created a new course at #{dashboard_url}, {{#{dashboard_url} course link|#{course.slug}|#{course.title}}}. If you'd like to see more details about my course, check out my course page.--~~~~"
+    announcement = "I have created a new course — #{course.title} — at #{dashboard_url}/courses/#{course.slug}. If you'd like to see more details about my course, check out my course page.--~~~~"
     section_title = "New course announcement: [[#{course.wiki_title}]] (instructor: [[User:#{instructor.wiki_id}]])"
     # rubocop:enable Metrics/LineLength
     message = { sectiontitle: section_title,
