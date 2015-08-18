@@ -112,11 +112,11 @@ describe 'Student users', type: :feature, js: true do
       sleep 3
 
       # Add an assigned article
-      first('button.border').click
+      first('button').click
       first('input').set('Selfie')
-      page.all('button.border')[1].click
+      page.all('button')[1].click
       page.driver.browser.switch_to.alert.accept
-      page.all('button.border')[0].click
+      page.all('button')[0].click
       sleep 1
       expect(page).to have_content 'Selfie'
     end
@@ -132,11 +132,11 @@ describe 'Student users', type: :feature, js: true do
       visit "/courses/#{Course.first.slug}/students"
       sleep 3
 
-      page.all('button.border')[1].click
+      page.all('button')[1].click
       first('input').set('Self-portrait')
-      page.all('button.border')[2].click
+      page.all('button')[2].click
       page.driver.browser.switch_to.alert.accept
-      page.all('button.border')[1].click
+      page.all('button')[1].click
       expect(page).to have_content 'Self-portrait'
     end
   end
@@ -157,11 +157,11 @@ describe 'Student users', type: :feature, js: true do
       sleep 3
 
       # Remove the assignment
-      page.all('button.border')[0].click
-      page.all('button.border')[2].click
+      page.all('button')[0].click
+      page.all('button')[2].click
       sleep 1
       page.driver.browser.switch_to.alert.accept
-      page.all('button.border')[0].click
+      page.all('button')[0].click
       sleep 1
       visit "/courses/#{Course.first.slug}/students"
       sleep 1
