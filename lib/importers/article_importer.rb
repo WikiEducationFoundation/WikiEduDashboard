@@ -110,7 +110,10 @@ class ArticleImporter
 
   def self.import_articles(ids)
     article_ids = ids.map { |id| { 'id' => id } }
-    articles_data = Replica.get_existing_articles_by_id article_ids
+    articles_data = []
+    article_ids.each_slice(40) do |some_article_ids|
+      articles_data += Replica.get_existing_articles_by_id some_article_ids
+    end
     return if articles_data.empty?
     articles = []
     articles_data.each do |article_data|

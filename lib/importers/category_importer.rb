@@ -13,26 +13,15 @@ class CategoryImporter
   # Takes a category name of the form 'Category:Foo' and imports all articles
   # in that category. Optionally, also recursively imports subcategories of
   # the specified depth.
-  def self.import_category(category, depth=0, cumulative_article_ids=nil)
-    # TODO: Get all the article_ids first, and then only run the imports once.
-    cumulative_article_ids ||= []
-    article_ids = article_ids_for_category(category)
-    ArticleImporter.import_articles article_ids
-    import_latest_revision article_ids
-    import_scores_for_latest_revision article_ids
-    update_average_views article_ids
-    cumulative_article_ids += article_ids
-    if depth > 0
-      depth = depth - 1
-      subcats = subcategories_of(category)
-      subcats.each do |subcat|
-        import_category(subcat, depth)
-        cumulative_article_ids += article_ids_for_category(subcat)
-      end
-    end
-    views_and_scores_output cumulative_article_ids
+  def self.import_category(category, depth=0)
+    article_ids = article_ids_for_category(category, depth)
+    import_articles_with_scores_and_views article_ids
   end
 
+  def self.report_on_category(category, depth=0)
+    article_ids = article_ids_for_category(category, depth)
+    views_and_scores_output(article_ids)
+  end
   ##################
   # Output methods #
   ##################
@@ -51,9 +40,47 @@ class CategoryImporter
   ##################
   # Helper methods #
   ##################
-  def self.article_ids_for_category(category)
+  def self.import_missing_scores_and_views(article_ids)
+    existing_article_ids = Article.where(id: article_ids).pluck(:id)
+    update_missing_info existing_article_ids
+    missing_article_ids = article_ids - existing_article_ids
+    import_articles_with_scores_and_views missing_article_ids
+  end
+
+  def self.import_missing_info(article_ids)
+    outdated_views = Article
+                     .where(id: article_ids)
+                     .where('average_views_updated_at < ?', 1.month.ago)
+                     .pluck(:id)
+    update_average_views outdated_views
+
+    existing_revisions = Revision
+                         .where(article_id: article_ids)
+                         .pluck(:article_id)
+    missing_revisions = article_ids - existing_revisions
+    import_latest_revision missing_revisions
+
+    missing_revision_scores = existing_revisions.where(wp10: nil)
+    RevisionScoreImporter.update_revision_scores missing_revision_scores
+  end
+
+  def self.import_articles_with_scores_and_views(article_ids)
+    ArticleImporter.import_articles article_ids
+    import_latest_revision article_ids
+    import_scores_for_latest_revision article_ids
+    update_average_views article_ids
+  end
+
+  def self.article_ids_for_category(category, depth=0)
     cat_query = category_query category
     article_ids = get_category_member_properties(cat_query, 'pageid')
+    if depth > 0
+      depth -= 1
+      subcats = subcategories_of(category)
+      subcats.each do |subcat|
+        article_ids += article_ids_for_category(subcat, depth)
+      end
+    end
     article_ids
   end
 

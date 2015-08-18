@@ -8,8 +8,8 @@ class Wiki
   ################
 
   # General entry point for making arbitrary queries of the Wikipedia API
-  def self.query(query_parameters)
-    wikipedia.query query_parameters
+  def self.query(query_parameters, language=nil)
+    wikipedia(language).query query_parameters
   end
 
   def self.get_page_content(page_title)
