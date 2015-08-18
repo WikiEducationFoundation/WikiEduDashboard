@@ -23,6 +23,7 @@ class CategoryImporter
     min_views = opts[:min_views] || 0
     max_wp10 = opts[:max_wp10] || 100
     article_ids = article_ids_for_category(category, depth)
+    import_missing_scores_and_views article_ids
     views_and_scores_output(article_ids, min_views, max_wp10)
   end
   ##################
@@ -47,7 +48,7 @@ class CategoryImporter
   ##################
   def self.import_missing_scores_and_views(article_ids)
     existing_article_ids = Article.where(id: article_ids).pluck(:id)
-    update_missing_info existing_article_ids
+    import_missing_info existing_article_ids
     missing_article_ids = article_ids - existing_article_ids
     import_articles_with_scores_and_views missing_article_ids
   end
@@ -65,6 +66,7 @@ class CategoryImporter
     missing_revisions = article_ids - existing_revisions
     import_latest_revision missing_revisions
 
+    return if missing_revisions.empty?
     missing_revision_scores = existing_revisions.where(wp10: nil)
     RevisionScoreImporter.update_revision_scores missing_revision_scores
   end
