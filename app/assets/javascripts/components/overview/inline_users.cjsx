@@ -6,7 +6,7 @@ InlineUsers = React.createClass(
   render: ->
     key = @props.title + '_' + @props.role
     if @props.users.length > 0 && @props.users[0].real_name?
-      user_list = @props.users.map (user) -> "#{user.real_name} (#{user.wiki_id})"
+      user_list = @props.users.map (user) ->  "#{user.real_name} (#{user.wiki_id}#{if user.email? then " / " + user.email else ""})"
     else
       user_list = _.pluck(@props.users, 'wiki_id')
     user_list = user_list.join(', ')

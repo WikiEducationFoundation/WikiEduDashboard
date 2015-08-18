@@ -253,5 +253,6 @@ en:
   timeout: "A request to the %{api} API has timed out and will retried %{tries} times."
 
   timeline:
+    title: Timeline
     due_default: Due next week
     block_type: The block type is used to communicate to your students about this item on their timeline and to build useful tools for you (such as the milestone outline on the Overview page)

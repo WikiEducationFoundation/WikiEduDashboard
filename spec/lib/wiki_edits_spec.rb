@@ -12,7 +12,8 @@ describe WikiEdits do
     stub_oauth_edit
 
     create(:course,
-           id: 1)
+           id: 1,
+           submitted: true)
     create(:user,
            id: 1,
            wiki_token: 'foo',
@@ -29,15 +30,25 @@ describe WikiEdits do
            user_id: 2)
   end
 
-  it 'should handle failure to fetch an edit token' do
+  it 'should handle failed edits' do
     stub_oauth_edit_failure
     WikiEdits.notify_untrained(1, User.first)
   end
 
-  #it 'should handle failed edits' do
-  #  stub_token_request_failure
-  #  WikiEdits.notify_untrained(1, User.first)
-  #end
+  it 'should handle edits that hit the abuse filter' do
+    stub_oauth_edit_abusefilter
+    WikiEdits.notify_untrained(1, User.first)
+  end
+
+  it 'should handle unexpected responses' do
+    stub_oauth_edit_with_empty_response
+    WikiEdits.notify_untrained(1, User.first)
+  end
+
+  # it 'should handle failed token requests' do
+  #   stub_token_request_failure
+  #   WikiEdits.notify_untrained(1, User.first)
+  # end
 
   describe '.notify_untrained' do
     it 'should post talk page messages on Wikipedia' do

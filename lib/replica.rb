@@ -93,8 +93,8 @@ class Replica
   # [[Wikipedia:Training/For students/Training feedback]]
   def self.get_user_info(users, language=nil)
     query = compile_user_id_string(users)
-    if Figaro.env.training_page_id?
-      query = "#{query}&training_page_id=#{Figaro.env.training_page_id}"
+    if ENV['training_page_id']
+      query = "#{query}&training_page_id=#{ENV['training_page_id']}"
     end
     api_get('users.php', query, language)
   end
@@ -236,22 +236,20 @@ class Replica
     # something like this:
     # "article_ids[0]='100'&article_ids[1]='300'"
     def compile_article_id_string(articles)
-      article_list = ''
-      articles.each_with_index do |a, i|
-        article_list += '&' if i > 0
-        article_id = a['id']
-        article_list += "article_ids[#{i}]='#{article_id}'"
-      end
-      article_list
+      compile_id_string(articles, 'article_ids')
     end
 
     def compile_revision_id_string(revisions)
-      revision_list = ''
-      revisions.each_with_index do |r, i|
-        revision_list += '&' if i > 0
-        revision_list += "revision_ids[#{i}]='#{r['id']}'"
+      compile_id_string(revisions, 'revision_ids')
+    end
+
+    def compile_id_string(ids, prefix)
+      id_list = ''
+      ids.each_with_index do |id, index|
+        id_list += '&' if index > 0
+        id_list += "#{prefix}[#{index}]='#{id['id']}'"
       end
-      revision_list
+      id_list
     end
 
     def report_exception(error, endpoint, query, level='error')

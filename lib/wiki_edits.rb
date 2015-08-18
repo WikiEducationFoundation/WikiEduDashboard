@@ -35,11 +35,10 @@ class WikiEdits
     add_to_page_top(user_page, current_user, template, summary)
 
     # Announce the course on the Education Noticeboard or equivalent.
-    announcement_page = Figaro.env.course_announcement_page
-    dashboard_url = Figaro.env.dashboard_url
-    course_page_url = "http://#{dashboard_url}/courses/#{course.slug}"
+    announcement_page = ENV['course_announcement_page']
+    dashboard_url = ENV['dashboard_url']
     # rubocop:disable Metrics/LineLength
-    announcement = "I have created a new course at #{dashboard_url}, [#{course_page_url} #{course.title}]. If you'd like to see more details about my course, check out my course page.--~~~~"
+    announcement = "I have created a new course — #{course.title} — at #{dashboard_url}/courses/#{course.slug}. If you'd like to see more details about my course, check out my course page.--~~~~"
     section_title = "New course announcement: [[#{course.wiki_title}]] (instructor: [[User:#{instructor.wiki_id}]])"
     # rubocop:enable Metrics/LineLength
     message = { sectiontitle: section_title,
@@ -68,10 +67,10 @@ class WikiEdits
       wiki_text = WikiCourseOutput.translate_course(course)
     end
 
-    course_prefix = Figaro.env.course_prefix
+    course_prefix = ENV['course_prefix']
     wiki_title = "#{course_prefix}/#{course.slug}"
 
-    dashboard_url = Figaro.env.dashboard_url
+    dashboard_url = ENV['dashboard_url']
     summary = "Updating course from #{dashboard_url}"
 
     post_whole_page(current_user, wiki_title, wiki_text, summary)
@@ -134,6 +133,50 @@ class WikiEdits
     assignment_titles
   end
 
+  def self.parse_api_response(response_data, type)
+    # A successful edit will have response data like this:
+    # {"edit"=>
+    #   {"result"=>"Success",
+    #    "pageid"=>11543696,
+    #    "title"=>"User:Ragesock",
+    #    "contentmodel"=>"wikitext",
+    #    "oldrevid"=>671572777,
+    #    "newrevid"=>674946741,
+    #    "newtimestamp"=>"2015-08-07T05:27:43Z"}}
+    #
+    # A failed edit will have a response like this:
+    # {"servedby"=>"mw1135",
+    #  "error"=>
+    #    {"code"=>"protectedpage",
+    #     "info"=>"The \"templateeditor\" right is required to edit this page",
+    #     "*"=>"See https://en.wikipedia.org/w/api.php for API usage"}}
+    #
+    # An edit stopped by the abuse filter will respond like this:
+    # {"edit"=>
+    #   {"result"=>"Failure",
+    #    "code"=>"abusefilter-warning-email",
+    #    "info"=>"Hit AbuseFilter: Adding emails in articles",
+    #    "warning"=>"[LOTS OF HTML WARNING TEXT]"}}
+    if response_data['error']
+      title = "Failed #{type}"
+      level = 'warning'
+    elsif response_data['edit']
+      if response_data['edit']['result'] == 'Success'
+        title = "Successful #{type}"
+        level = 'info'
+      else
+        title = "Failed #{type}"
+        level = 'warning'
+      end
+    elsif response_data['query']
+      title = "#{type} query"
+      level = 'info'
+    else
+      title = "Unknown response for #{type}"
+      level = 'error'
+    end
+    { title: title, level: level }
+  end
   ####################
   # Basic edit types #
   ####################
@@ -183,9 +226,9 @@ class WikiEdits
     private
 
     def get_tokens(current_user)
-      lang = Figaro.env.wiki_language
-      @consumer = OAuth::Consumer.new Figaro.env.wikipedia_token,
-                                      Figaro.env.wikipedia_secret,
+      lang = ENV['wiki_language']
+      @consumer = OAuth::Consumer.new ENV['wikipedia_token'],
+                                      ENV['wikipedia_secret'],
                                       client_options: {
                                         site: "https://#{lang}.wikipedia.org"
                                       }
@@ -197,7 +240,8 @@ class WikiEdits
       # rubocop:enable Metrics/LineLength
 
       token_response = JSON.parse(get_token.body)
-      check_api_response(token_response, current_user)
+      check_api_response(token_response, current_user: current_user,
+                                         type: 'tokens')
 
       OpenStruct.new(
         csrf_token: token_response['query']['tokens']['csrftoken'],
@@ -206,46 +250,33 @@ class WikiEdits
     end
 
     def api_post(data, tokens, current_user)
-      return if Figaro.env.disable_wiki_output == 'true'
-      language = Figaro.env.wiki_language
+      return if ENV['disable_wiki_output'] == 'true'
+      language = ENV['wiki_language']
       url = "https://#{language}.wikipedia.org/w/api.php"
 
       # Make the request
       response = tokens.access_token.post(url, data)
       response_data = JSON.parse(response.body)
-      check_api_response(response_data, current_user)
+      check_api_response(response_data, current_user: current_user,
+                                        post_data: data,
+                                        type: 'edit')
 
       response
     end
 
-    def check_api_response(response_data, current_user)
-      # A successful edit will have response data like this:
-      # {"edit"=>
-      #   {"result"=>"Success",
-      #    "pageid"=>11543696,
-      #    "title"=>"User:Ragesock",
-      #    "contentmodel"=>"wikitext",
-      #    "oldrevid"=>671572777,
-      #    "newrevid"=>674946741,
-      #    "newtimestamp"=>"2015-08-07T05:27:43Z"}}
-      #
-      # A failed edit will have a response like this:
-      # {"servedby"=>"mw1135",
-      #  "error"=>
-      #    {"code"=>"protectedpage",
-      #     "info"=>"The \"templateeditor\" right is required to edit this page",
-      #     "*"=>"See https://en.wikipedia.org/w/api.php for API usage"}}
-      if response_data['error']
-        raise ResponseError.new response_data['error']['info']
-      end
-    rescue ResponseError => e
-      Rails.logger.error "WikiEdits error: #{e}"
-      Raven.capture_exception e, level: 'warning',
-                                 extra: { response_data: response_data,
-                                          current_user: current_user }
+    def check_api_response(response_data, opts={})
+      current_user = opts[:current_user] || {}
+      post_data = opts[:post_data]
+      type = opts[:type]
+
+      sorting_info = parse_api_response(response_data, type)
+      Raven.capture_message sorting_info[:title],
+                            level: sorting_info[:level],
+                            tags: { username: current_user[:wiki_id],
+                                    action_type: type },
+                            extra: { response_data: response_data,
+                                     post_data: post_data,
+                                     current_user: current_user }
     end
   end
-end
-
-class ResponseError < Exception
 end

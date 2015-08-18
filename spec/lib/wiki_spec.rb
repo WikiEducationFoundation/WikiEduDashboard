@@ -114,4 +114,16 @@ describe Wiki do
       end
     end
   end
+
+  describe '.get_user_id' do
+    it 'should take a username and return the user_id' do
+      VCR.use_cassette 'wiki/get_user_id' do
+        username = 'Ragesoss'
+        user_id_enwiki = Wiki.get_user_id(username)
+        expect(user_id_enwiki).to eq(319203)
+        user_id_eswiki = Wiki.get_user_id(username, 'es')
+        expect(user_id_eswiki).to eq(772153)
+      end
+    end
+  end
 end

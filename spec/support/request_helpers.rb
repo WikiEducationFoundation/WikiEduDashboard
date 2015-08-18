@@ -11,6 +11,12 @@ module RequestHelpers
       .to_return(status: 200, body: token_error, headers: {})
   end
 
+  def stub_oauth_edit_with_empty_response
+    stub_token_request
+    stub_request(:post, /.*wikipedia.*/)
+      .to_return(status: 200, body: '{}', headers: {})
+  end
+
   def stub_oauth_edit
     # Stub out the posting of content to Wikipedia
     # First the request for edit tokens for a user
@@ -28,8 +34,18 @@ module RequestHelpers
     stub_token_request
     # Then the edit request itself
     failure = '{"servedby":"mw1135", "error":{"code":"protectedpage",
-              "info":"The \"templateeditor\" right is required to edit this page",
-              "*":"See https://en.wikipedia.org/w/api.php for API usage"}}'
+      "info":"The \"templateeditor\" right is required to edit this page",
+      "*":"See https://en.wikipedia.org/w/api.php for API usage"}}'
+    stub_request(:post, /.*wikipedia.*/)
+      .to_return(status: 200, body: failure, headers: {})
+  end
+
+  def stub_oauth_edit_abusefilter
+    stub_token_request
+    # Then the edit request itself
+    failure = '{"edit":{"result":"Failure","code":"abusefilter-warning-email",
+              "info":"Hit AbuseFilter: Adding emails in articles",
+              "warning":"LOTS OF WARNING TEXT"}}'
     stub_request(:post, /.*wikipedia.*/)
       .to_return(status: 200, body: failure, headers: {})
   end

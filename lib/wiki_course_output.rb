@@ -130,12 +130,4 @@ class WikiCourseOutput
     end
     text
   end
-  #####################
-  # Debugging methods #
-  #####################
-  def self.save_as_file(location, content)
-    File.open(location, 'w+') do |f|
-      f.write(content)
-    end
-  end
 end

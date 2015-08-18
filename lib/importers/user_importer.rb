@@ -17,7 +17,14 @@ class UserImporter
   end
 
   def self.new_from_omniauth(auth)
-    id = Replica.get_user_id(auth.info.name)
+    require "#{Rails.root}/lib/wiki"
+
+    id = Wiki.get_user_id(auth.info.name)
+    # Replica can also provide us the id via Replica.get_user_id.
+    # However, Wiki will always have an up-to-date database, while
+    # there may be replication lag for the one Replica uses.
+    # If the user account was just created, this means the user_id
+    # may not be available on Replica yet.
     user = User.create(
       id: id,
       wiki_id: auth.info.name,

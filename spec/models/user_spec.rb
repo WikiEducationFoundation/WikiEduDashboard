@@ -19,6 +19,7 @@
 #  wiki_secret         :string(255)
 #  permissions         :integer          default(0)
 #  real_name           :string(255)
+#  email               :string(255)
 #
 
 require 'rails_helper'

@@ -31,6 +31,17 @@ class Wiki
     info
   end
 
+  def self.get_user_id(username, language=nil)
+    user_query = { list: 'users',
+                   ususers: username }
+    user_data = wikipedia(language).query user_query
+    user_id = user_data.data['users'][0]['userid']
+    user_id
+  end
+  ###################
+  # Parsing methods #
+  ###################
+
   # Based on the cohorts and wiki pages defined in application.yml, get the list
   # of courses for each cohort.
   def self.course_list
@@ -147,8 +158,8 @@ class Wiki
   class << self
     private
 
-    def wikipedia
-      language = Figaro.env.wiki_language
+    def wikipedia(language=nil)
+      language ||= ENV['wiki_language']
       url = "https://#{language}.wikipedia.org/w/api.php"
       @wikipedia = MediawikiApi::Client.new url
       @wikipedia

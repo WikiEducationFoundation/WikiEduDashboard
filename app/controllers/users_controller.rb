@@ -9,13 +9,6 @@ class UsersController < ApplicationController
     redirect_to true_destroy_user_session_path
   end
 
-  def user_params
-    params.permit(
-      users: [:id, :wiki_id, :deleted],
-      assignments: [:id, :user_id, :article_title, :role, :course_id, :deleted]
-    )
-  end
-
   def update_util(model, object)
     if object['id'].nil?
       model.create object
@@ -160,4 +153,14 @@ class UsersController < ApplicationController
 
     WikiEdits.update_course(@course, current_user)
   end
+
+  private
+
+  def user_params
+    params.permit(
+      users: [:id, :wiki_id, :deleted, :email],
+      assignments: [:id, :user_id, :article_title, :role, :course_id, :deleted]
+    )
+  end
+
 end

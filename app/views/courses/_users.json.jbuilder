@@ -5,5 +5,6 @@ json.users course.courses_users.eager_load(:user) do |cu|
 
   if user_signed_in? && current_user.role(course) > 0
     json.real_name cu.user.real_name
+    json.email cu.user.email
   end
 end

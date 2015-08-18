@@ -13,7 +13,7 @@ TextInput     = require '../common/text_input'
 TextAreaInput = require '../common/text_area_input'
 
 getState = ->
-  course: CourseStore.getCourse()
+  course: _.extend CourseStore.getCourse(), user_id: $('main').data('user-id')
   error_message: ValidationStore.firstMessage()
 
 CourseCreator = React.createClass(
@@ -90,6 +90,16 @@ CourseCreator = React.createClass(
               editable=true
               label='Instructor Name'
               placeholder='Name'
+            />
+            <TextInput
+              id='instructor_email'
+              onChange={@updateCourse}
+              value={@state.course.instructor_email}
+              value_key='instructor_email'
+              required=true
+              editable=true
+              label='Instructor Email'
+              placeholder='hello@example.edu'
             />
             <TextInput
               id='course_school'

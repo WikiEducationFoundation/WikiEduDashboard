@@ -57,6 +57,7 @@ describe 'New course creation and editing', type: :feature do
     if page.driver.is_a?(Capybara::Webkit::Driver)
       page.driver.allow_url 'fonts.googleapis.com'
       page.driver.allow_url 'maxcdn.bootstrapcdn.com'
+      page.driver.allow_url 'cdn.ravenjs.com'
       # page.driver.block_unknown_urls  # suppress warnings
     end
     create(:cohort)
@@ -67,6 +68,8 @@ describe 'New course creation and editing', type: :feature do
   end
 
   describe 'new course workflow', js: true do
+    let(:instructor_name) { 'Mr. Capybara' }
+    let(:instructor_email) { 'capybara@wikiedu.org' }
     it 'should allow the user to create a course' do
       stub_oauth_edit
 
@@ -82,7 +85,8 @@ describe 'New course creation and editing', type: :feature do
       expect(find('#course_term')['class']).to include('invalid term')
 
       # Now we fill out all the fields and continue.
-      find('#instructor_name').set('Mr. Capybara')
+      find('#instructor_name').set(instructor_name)
+      find('#instructor_email').set(instructor_email)
       find('#course_school').set('University of Wikipedia, East Campus')
       find('#course_term').set('Fall 2015')
       find('#course_subject').set('Advanced Studies')
@@ -90,17 +94,25 @@ describe 'New course creation and editing', type: :feature do
       find('textarea').set('In this course, we study things.')
 
       # TODO: test the date picker instead of just setting fields
-      find('input[placeholder="Start date (YYYY-MM-DD)"]').set('2015-01-01') # Start date
-      find('input[placeholder="End date (YYYY-MM-DD)"]').set('2015-12-15') # End date
+      start_date = '2015-01-01'
+      end_date = '2015-12-15'
+      find('input[placeholder="Start date (YYYY-MM-DD)"]').set(start_date) # Start date
+      find('input[placeholder="End date (YYYY-MM-DD)"]').set(end_date) # End date
       sleep 1
 
       # This click should create the course and start the wizard
       find('button.dark').click
 
       # Go through the wizard, checking necessary options.
+
+      # This is the course and assignment dates screen
       sleep 3
+      start_input = first('input.start').value()
+      expect(start_input).to eq(start_date)
       first('button.dark').click
       sleep 1
+
+      # This is the assignment type chooser
       page.all('.wizard__option')[1].first('button').click
       sleep 1
       first('button.dark').click
@@ -110,7 +122,6 @@ describe 'New course creation and editing', type: :feature do
       sleep 1
       first('button.dark').click
 
-      # Now go back and edit choices
       sleep 1
       page.all('button.wizard__option.summary')[2].click
       sleep 1
@@ -173,8 +184,15 @@ describe 'New course creation and editing', type: :feature do
       sleep 1
       expect(page).to have_content 'Value: 50%'
 
-      # Navigate back to the overview, then delete the course
+      # Navigate back to the overview, check relevant data, then delete the course
       find('#overview-link').find('a').click
+
+      within('.sidebar') do
+        expect(page).to have_content I18n.t('courses.instructor.other')
+        expect(page).to have_content instructor_name
+        expect(page).to have_content instructor_email
+      end
+
       sleep 1
       first('button.danger').click
 
@@ -215,6 +233,12 @@ describe 'New course creation and editing', type: :feature do
       go_through_researchwrite_wizard
 
       expect(page).to have_content 'Week 14'
+
+      # Now submit the course
+      first('a.button').click
+      prompt = page.driver.browser.switch_to.alert
+      prompt.accept
+      expect(page).to have_content 'Your course has been submitted.'
     end
 
     it 'should squeeze assignments into the course dates' do

@@ -15,7 +15,7 @@ StudentDrawer = React.createClass(
   getInitialState: ->
     revisions: getRevisions(@props.student_id)
   render: ->
-    return <div></div> unless @props.is_open
+    return <tr></tr> unless @props.is_open
 
     revisions = (@state.revisions || []).map (rev) ->
       details = 'Chars Added: ' + rev.characters + ', Views: ' + rev.views
