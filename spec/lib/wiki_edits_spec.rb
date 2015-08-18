@@ -39,10 +39,15 @@ describe WikiEdits do
     WikiEdits.notify_untrained(1, User.first)
   end
 
-  #it 'should handle failed token requests' do
-  #  stub_token_request_failure
-  #  WikiEdits.notify_untrained(1, User.first)
-  #end
+  it 'should handle unexpected responses' do
+    stub_oauth_edit_with_empty_response
+    WikiEdits.notify_untrained(1, User.first)
+  end
+
+  # it 'should handle failed token requests' do
+  #   stub_token_request_failure
+  #   WikiEdits.notify_untrained(1, User.first)
+  # end
 
   describe '.notify_untrained' do
     it 'should post talk page messages on Wikipedia' do
