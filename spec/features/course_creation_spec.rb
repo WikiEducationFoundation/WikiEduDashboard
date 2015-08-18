@@ -239,6 +239,10 @@ describe 'New course creation and editing', type: :feature do
       prompt = page.driver.browser.switch_to.alert
       prompt.accept
       expect(page).to have_content 'Your course has been submitted.'
+
+      Course.last.weeks.each_with_index do |week, i|
+        expect(week.order).to eq(i+1)
+      end
     end
 
     it 'should squeeze assignments into the course dates' do

@@ -1,5 +1,7 @@
 require 'rails_helper'
 
+MILESTONE_BLOCK_KIND = 2
+
 # Wait one second after loading a path
 # Allows React to properly load the page
 # Remove this after implementing server-side rendering
@@ -96,9 +98,9 @@ describe 'the course page', type: :feature do
     week = create(:week,
                   course_id: course.id)
     create(:block,
-           kind: 2, # milestone
+           kind: MILESTONE_BLOCK_KIND,
            week_id: week.id,
-           content: 'block content')
+           content: 'blocky block')
 
     ArticlesCourses.update_from_revisions
     ArticlesCourses.update_all_caches
@@ -221,7 +223,7 @@ describe 'the course page', type: :feature do
     it 'displays a list of milestone blocks' do
       within '.milestones' do
         expect(page).to have_content 'Milestones'
-        expect(page).to have_content 'block content'
+        expect(page).to have_content 'blocky block'
       end
     end
   end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150817164836) do
+ActiveRecord::Schema.define(version: 20150818202420) do
 
   create_table "articles", force: true do |t|
     t.string   "title"
@@ -118,6 +118,7 @@ ActiveRecord::Schema.define(version: 20150817164836) do
     t.string   "day_exceptions",              default: ""
     t.string   "weekdays",                    default: "0000000"
     t.integer  "new_article_count"
+    t.integer  "order",                       default: 1,         null: false
   end
 
   add_index "courses", ["slug"], name: "index_courses_on_slug", using: :btree

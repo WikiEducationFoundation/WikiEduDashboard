@@ -67,6 +67,7 @@ class TimelineController < ApplicationController
       week['course_id'] = @course.id
     end
     @week = update_util Week, week
+    @week.course.reorder_weeks
 
     return if week['deleted'] || blocks.blank?
     blocks.each do |block|

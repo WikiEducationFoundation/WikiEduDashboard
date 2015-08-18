@@ -22,24 +22,26 @@ Milestones = React.createClass(
     week.order < @state.currentWeek
   render: ->
     weeks = @state.weeks.map (week) =>
-      week.blocks.map (block) =>
-        if block.kind == @milestoneBlockType
-          classNames = 'module__data'
-          classNames += ' completed' if @weekIsCompleted(week)
-          raw_html = Marked(block.content, { renderer: MarkedRenderer })
-          @blocks.push(
-            <div key={block.id} className='section-header'>
-              <div className={classNames}>
-                <p>Week {week.order} {if @weekIsCompleted(week) then '- Complete'}</p>
-                <div className='markdown' dangerouslySetInnerHTML={{__html: raw_html}}></div>
-                <hr />
-              </div>
+      milestone_blocks = _.select(week.blocks, (block) => block.kind == @milestoneBlockType)
+      milestone_blocks.map (block) =>
+        classNames = 'module__data'
+        classNames += ' completed' if @weekIsCompleted(week)
+        raw_html = Marked(block.content, { renderer: MarkedRenderer })
+        @blocks.push(
+          <div key={block.id} className='section-header'>
+            <div className={classNames}>
+              <p>Week {week.order} {if @weekIsCompleted(week) then '- Complete'}</p>
+              <div className='markdown' dangerouslySetInnerHTML={{__html: raw_html}}></div>
+              <hr />
             </div>
-          )
+          </div>
+        )
+    @emptyMessage = if !@blocks.length then I18n.t('blocks.milestones.empty') else ''
 
     <div className='module milestones'>
-      <h3>{I18n.t('blocks.milestones')}</h3>
+      <h3>{I18n.t('blocks.milestones.title')}</h3>
       {@blocks}
+      <p>{@emptyMessage}</p>
     </div>
 )
 

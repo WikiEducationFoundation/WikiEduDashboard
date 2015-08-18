@@ -81,6 +81,8 @@ class Course < ActiveRecord::Base
   # Courses sourced from Wikipedia, not created with this tool
   scope :legacy, -> { where('courses.id < 10000') }
 
+  before_save :order_weeks
+
   ####################
   # Instance methods #
   ####################
@@ -220,4 +222,17 @@ class Course < ActiveRecord::Base
       Course.current.each(&:update_cache)
     end
   end
+
+  def reorder_weeks
+    order_weeks
+  end
+
+  private
+
+  def order_weeks
+    weeks.each_with_index do |week, i|
+      week.update_attribute(:order, i + 1)
+    end
+  end
+
 end

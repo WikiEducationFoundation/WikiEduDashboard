@@ -2857,34 +2857,37 @@ Milestones = React.createClass({
     var weeks;
     weeks = this.state.weeks.map((function(_this) {
       return function(week) {
-        return week.blocks.map(function(block) {
+        var milestone_blocks;
+        milestone_blocks = _.select(week.blocks, function(block) {
+          return block.kind === _this.milestoneBlockType;
+        });
+        return milestone_blocks.map(function(block) {
           var classNames, raw_html;
-          if (block.kind === _this.milestoneBlockType) {
-            classNames = 'module__data';
-            if (_this.weekIsCompleted(week)) {
-              classNames += ' completed';
-            }
-            raw_html = Marked(block.content, {
-              renderer: MarkedRenderer
-            });
-            return _this.blocks.push(React.createElement("div", {
-              "key": block.id,
-              "className": 'section-header'
-            }, React.createElement("div", {
-              "className": classNames
-            }, React.createElement("p", null, "Week ", week.order, " ", (_this.weekIsCompleted(week) ? '- Complete' : void 0)), React.createElement("div", {
-              "className": 'markdown',
-              "dangerouslySetInnerHTML": {
-                __html: raw_html
-              }
-            }), React.createElement("hr", null))));
+          classNames = 'module__data';
+          if (_this.weekIsCompleted(week)) {
+            classNames += ' completed';
           }
+          raw_html = Marked(block.content, {
+            renderer: MarkedRenderer
+          });
+          return _this.blocks.push(React.createElement("div", {
+            "key": block.id,
+            "className": 'section-header'
+          }, React.createElement("div", {
+            "className": classNames
+          }, React.createElement("p", null, "Week ", week.order, " ", (_this.weekIsCompleted(week) ? '- Complete' : void 0)), React.createElement("div", {
+            "className": 'markdown',
+            "dangerouslySetInnerHTML": {
+              __html: raw_html
+            }
+          }), React.createElement("hr", null))));
         });
       };
     })(this));
+    this.emptyMessage = !this.blocks.length ? I18n.t('blocks.milestones.empty') : '';
     return React.createElement("div", {
       "className": 'module milestones'
-    }, React.createElement("h3", null, I18n.t('blocks.milestones')), this.blocks);
+    }, React.createElement("h3", null, I18n.t('blocks.milestones.title')), this.blocks, React.createElement("p", null, this.emptyMessage));
   }
 });
 
