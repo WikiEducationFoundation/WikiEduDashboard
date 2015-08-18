@@ -175,7 +175,7 @@ class WikiEdits
       title = "Unknown response for #{type}"
       level = 'error'
     end
-    { title: title, level: level}
+    { title: title, level: level }
   end
   ####################
   # Basic edit types #
