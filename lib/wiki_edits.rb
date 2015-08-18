@@ -168,6 +168,9 @@ class WikiEdits
         title = "Failed #{type}"
         level = 'warning'
       end
+    elsif response_data['query']
+      title = "#{type} query"
+      level = 'info'
     else
       title = "Unknown response for #{type}"
       level = 'error'
