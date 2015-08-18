@@ -233,6 +233,12 @@ describe 'New course creation and editing', type: :feature do
       go_through_researchwrite_wizard
 
       expect(page).to have_content 'Week 14'
+
+      # Now submit the course
+      first('a.button').click
+      prompt = page.driver.browser.switch_to.alert
+      prompt.accept
+      expect(page).to have_content 'Your course has been submitted.'
     end
 
     it 'should squeeze assignments into the course dates' do
