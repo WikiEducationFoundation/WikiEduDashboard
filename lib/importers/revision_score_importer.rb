@@ -1,12 +1,13 @@
 require 'mediawiki_api'
 
+#= Imports revision scoring data from ores.wmflabs.org
 class RevisionScoreImporter
   ################
   # Entry points #
   ################
   def self.update_revision_scores(revisions=nil)
-    # Unscored mainspace and userspace revisions, by default
-    revisions ||= Revision.where(namespace: [0,2], wp10: nil)
+    # Unscored mainspace, userspace, and Draft revisions, by default
+    revisions ||= Revision.where(namespace: [0, 2, 118], wp10: nil)
     revisions.each_slice(50) do |rev_batch|
       rev_ids = rev_batch.map(&:id)
       scores = get_revision_scores rev_ids
