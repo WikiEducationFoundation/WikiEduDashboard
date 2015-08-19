@@ -191,19 +191,18 @@ class Replica
     # "user_ids[0]='Ragesoss'&user_ids[1]='Sage (Wiki Ed)'"
     def compile_user_string(users)
       user_list = ''
-      users.each_with_index do |u, i|
+      users.each_with_index do |user, i|
         user_list += '&' if i > 0
-        wiki_id = CGI.escape(u.wiki_id)
-        user_list += "user_ids[#{i}]='#{wiki_id}'"
+        user_list += "user_ids[#{i}]='#{user.wiki_id}'"
       end
       user_list
     end
 
     def compile_user_id_string(users)
       user_list = ''
-      users.each_with_index do |u, i|
+      users.each_with_index do |user, i|
         user_list += '&' if i > 0
-        user_list += "user_ids[#{i}]='#{u.id}'"
+        user_list += "user_ids[#{i}]='#{user.id}'"
       end
       user_list
     end

@@ -78,6 +78,18 @@ describe Replica do
     end
     # rubocop:enable Style/NumericLiterals
 
+    it 'should work for users with a comma in the name' do
+      VCR.use_cassette 'replica/comma' do
+        user = build(:user,
+                     id: 17137867,
+                     wiki_id: 'JRicker,PhD')
+        rev_start = 2015_01_01
+        rev_end = 2016_01_01
+        response = Replica.get_revisions([user], rev_start, rev_end)
+        expect(response.count).to be > 1
+      end
+    end
+
     it 'should return training status' do
       VCR.use_cassette 'replica/training' do
         all_users = [
