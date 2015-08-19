@@ -115,7 +115,8 @@ qqq:
       %{count} is the number of students.
     training_doc: >
       Explanation of what it means to have completed training and how completion
-      is measured
+      is measured. The entire message should be customized to describe the on-wiki
+      training (if any) available in each language.
     training_incomplete:
       one: Label indicating that a user has not completed training
     already_enrolled: Message indicating that a user is already enrolled in the
