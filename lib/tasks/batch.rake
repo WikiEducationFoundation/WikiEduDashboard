@@ -88,7 +88,8 @@ namespace :batch do
       start = Time.now
 
       Rails.logger.info 'Daily update tasks are beginning.'
-      Rake::Task['article:update_views'].invoke unless Figaro.env.no_views
+      Rake::Task['article:rebuild_articles_courses'].invoke
+      Rake::Task['article:update_views'].invoke unless ENV['no_views']
       Rake::Task['article:update_all_ratings'].invoke
       Rake::Task['article:update_article_status'].invoke
 
