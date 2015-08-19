@@ -40,7 +40,7 @@ class CategoryImporter
       average_views = article.average_views
       output += "#{title}, #{average_views}, #{completeness}, #{average_views / completeness}\n"
     end
-    puts output
+    output
   end
 
   ##################
