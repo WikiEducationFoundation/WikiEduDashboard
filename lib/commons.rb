@@ -114,7 +114,8 @@ class Commons
     rescue StandardError => e
       tries -= 1
       typical_errors = [Faraday::TimeoutError,
-                        Faraday::ConnectionFailed]
+                        Faraday::ConnectionFailed,
+                        MediawikiApi::HttpError]
       retry if typical_errors.include?(e.class) && tries >= 0
       raise e
     end
