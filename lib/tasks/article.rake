@@ -50,8 +50,8 @@ namespace :article do
 
   desc 'Rebuild ArticlesCourses based on all Revisions'
   task rebuild_articles_courses: 'batch:setup_logger' do
-    Rails.logger.debug 'Rebuilding ArticlesCourses from all Revisions'
-    ArticlesCourses.update_from_revisions(Revision.all)
+    Rails.logger.debug 'Rebuilding ArticlesCourses for all current students'
+    Cleaners.rebuild_articles_courses
   end
 
   desc 'Find articles for orphaned revisions'

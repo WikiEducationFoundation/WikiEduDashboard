@@ -12,6 +12,17 @@ class Cleaners
     end
   end
 
+  def self.rebuild_articles_courses(courses=nil)
+    courses ||= Course.current
+    user_ids = []
+    courses.each do |course|
+      user_ids += course.students.pluck(:id)
+    end
+    user_ids.uniq!
+    revisions = Revision.where(user_id: user_ids)
+    ArticlesCourses.update_from_revisions revisions
+  end
+
   ############
   # Articles #
   ############
@@ -40,7 +51,7 @@ class Cleaners
     # update course cache to account for removed articles
     course.update_cache unless to_delete.empty?
   end
-  
+
   def self.other_editors_in_course?(article_id, user_id, course)
     other_editors = Article.find(article_id).editors - [user_id]
     return false if other_editors.empty?
