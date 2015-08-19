@@ -16,6 +16,18 @@
 
 require 'rails_helper'
 
-RSpec.describe Block, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe Block, type: :model do
+  describe '#cleanup' do
+    it 'should the associated Gradeable' do
+      create(:block,
+             id: 1,
+             gradeable_id: 1,
+             kind: 1)
+      create(:gradeable,
+             id: 1,
+             gradeable_item_id: 1)
+      Block.find(1).cleanup
+      expect(Gradeable.exists?(1)).to be false
+    end
+  end
 end

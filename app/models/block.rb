@@ -20,11 +20,6 @@ class Block < ActiveRecord::Base
   has_one :gradeable, as: :gradeable_item
   before_destroy :cleanup
 
-  def pretty_kind
-    index = %w(Class Assignment Milestone Custom)
-    index[kind]
-  end
-
   def cleanup
     Gradeable.destroy gradeable_id unless gradeable_id.nil?
   end
