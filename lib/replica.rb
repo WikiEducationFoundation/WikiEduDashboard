@@ -80,7 +80,7 @@ class Replica
   #   0 ([mainspace])
   #   2 (User:)
   def self.get_revisions_raw(users, rev_start, rev_end, language=nil)
-    user_list = compile_user_string(users)
+    user_list = compile_user_string(users, 'wiki_id')
     oauth_tags = compile_oauth_tags
     oauth_tags = oauth_tags.blank? ? oauth_tags : "&#{oauth_tags}"
     query = user_list + oauth_tags + "&start=#{rev_start}&end=#{rev_end}"
@@ -92,7 +92,7 @@ class Replica
   # to a specific page on Wikipedia:
   # [[Wikipedia:Training/For students/Training feedback]]
   def self.get_user_info(users, language=nil)
-    query = compile_user_id_string(users)
+    query = compile_user_string(users, 'id')
     if ENV['training_page_id']
       query = "#{query}&training_page_id=#{ENV['training_page_id']}"
     end
@@ -189,20 +189,11 @@ class Replica
     # Compile a user list to send to the replica endpoint, which might look
     # something like this:
     # "user_ids[0]='Ragesoss'&user_ids[1]='Sage (Wiki Ed)'"
-    def compile_user_string(users)
+    def compile_user_string(users, prop)
       user_list = ''
       users.each_with_index do |user, i|
         user_list += '&' if i > 0
-        user_list += "user_ids[#{i}]='#{user.wiki_id}'"
-      end
-      user_list
-    end
-
-    def compile_user_id_string(users)
-      user_list = ''
-      users.each_with_index do |user, i|
-        user_list += '&' if i > 0
-        user_list += "user_ids[#{i}]='#{user.id}'"
+        user_list += "user_ids[#{i}]='#{user.send(prop)}'"
       end
       user_list
     end
