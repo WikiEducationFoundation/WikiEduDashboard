@@ -116,8 +116,12 @@ class Commons
       typical_errors = [Faraday::TimeoutError,
                         Faraday::ConnectionFailed,
                         MediawikiApi::HttpError]
-      retry if typical_errors.include?(e.class) && tries >= 0
-      raise e
+      if typical_errors.include?(e.class)
+        retry if tries >= 0
+        Raven.capture_exception e, level: 'warning'
+      else
+        raise e
+      end
     end
 
     def handle_api_error(e, query)
