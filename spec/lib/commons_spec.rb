@@ -127,6 +127,13 @@ describe Commons do
   end
 
   describe '.api_get' do
-    pending 'should handle typical network errors'
+    it 'should handle typical network errors' do
+      stub_commons_503_error
+      create(:commons_upload,
+             id: 541408,
+             file_name: 'File:Haeckel Stephoidea.jpg')
+      response = Commons.get_urls(CommonsUpload.all)
+      expect(response.empty?).to be true
+    end
   end
 end

@@ -1,4 +1,7 @@
 module RequestHelpers
+  ##################
+  # OAuth requests #
+  ##################
   def stub_token_request
     fake_tokens = "{\"query\":{\"tokens\":{\"csrftoken\":\"faketoken+\\\\\"}}}"
     stub_request(:get, /.*wikipedia.*/)
@@ -48,5 +51,13 @@ module RequestHelpers
               "warning":"LOTS OF WARNING TEXT"}}'
     stub_request(:post, /.*wikipedia.*/)
       .to_return(status: 200, body: failure, headers: {})
+  end
+
+  ############################
+  # MediaWiki query requests #
+  ############################
+  def stub_commons_503_error
+    stub_request(:get, /.*commons.wikimedia.org.*/)
+      .to_return(status: 503, body: '', headers: {})
   end
 end
