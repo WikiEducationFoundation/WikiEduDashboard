@@ -30,4 +30,11 @@ describe CategoryImporter do
       expect(output).to include 'Tor_(anonymity_network)'
     end
   end
+
+  it 'should pull importin missing data for category' do
+    VCR.use_cassette 'category_importer/report_on_category_incomplete' do
+      output = CategoryImporter.report_on_category('Category:Dark Web')
+      expect(output).to include 'Tor_(anonymity_network)'
+    end
+  end
 end

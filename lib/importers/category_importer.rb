@@ -64,9 +64,10 @@ class CategoryImporter
                          .where(article_id: article_ids)
                          .pluck(:article_id)
     missing_revisions = article_ids - existing_revisions
-    import_latest_revision missing_revisions
 
     return if missing_revisions.empty?
+    import_latest_revision missing_revisions
+
     missing_revision_scores = existing_revisions.where(wp10: nil)
     RevisionScoreImporter.update_revision_scores missing_revision_scores
   end
