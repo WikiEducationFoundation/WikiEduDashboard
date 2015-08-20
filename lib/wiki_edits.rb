@@ -49,11 +49,19 @@ class WikiEdits
   end
 
   def self.enroll_in_course(course, current_user)
+    # Add a template to the user page
     template = "{{student editor|course = [[#{course.wiki_title}]] }}\n"
     user_page = "User:#{current_user.wiki_id}"
     summary = "I am enrolled in [[#{course.wiki_title}]]."
-
     add_to_page_top(user_page, current_user, template, summary)
+
+    # Pre-create the user's sandbox
+    # TODO: Do this more selectively, replacing the default template if
+    # it is present.
+    sandbox = user_page + '/sandbox'
+    sandbox_template = '{{student sandbox}}'
+    sandbox_summary = 'adding {{student sandbox}}'
+    add_to_page_top(sandbox, current_user, sandbox_template, sandbox_summary)
   end
 
   def self.update_course(course, current_user, delete = false)
