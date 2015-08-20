@@ -2,7 +2,7 @@
 class MonthlyReport
   class << self
     def run(opts={})
-      month = opts[:month] || Time.now.month - 1
+      month = opts[:month] || 1.month.ago.month
       year = opts[:year] || Time.now.year
       last_year = year - 1
 
@@ -67,11 +67,8 @@ class MonthlyReport
     end
 
     def student_ids_for(courses)
-      student_ids = []
-      courses.each do |course|
-        student_ids += course.students.pluck(:id)
-      end
-      student_ids
+      student_ids = courses.map { |course| course.students.pluck(:id) }
+      student_ids.flatten.uniq
     end
   end
 end
