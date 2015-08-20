@@ -1,5 +1,5 @@
 #= Utilities for calcuating statistics for course activity
-class Analytics
+class CourseStatistics
   # For a set of course ids, generate a human-readable summary of what the users
   # in those courses contributed.
   class << self
