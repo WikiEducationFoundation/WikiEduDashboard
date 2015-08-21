@@ -120,8 +120,6 @@ API =
       cleanup gradeables
 
       req_data = weeks: weeks
-      RavenLogger['req_data'] = req_data
-      RavenLogger['data'] = data
       RavenLogger['type'] = 'POST'
 
       $.ajax
