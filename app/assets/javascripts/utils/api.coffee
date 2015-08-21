@@ -120,6 +120,9 @@ API =
       cleanup gradeables
 
       req_data = weeks: weeks
+      RavenLogger['req_data'] = req_data
+      RavenLogger['data'] = data
+      RavenLogger['type'] = 'POST'
 
       $.ajax
         type: 'POST',
@@ -129,10 +132,18 @@ API =
         success: (data) ->
           console.log 'Saved timeline!'
           res data
+          RavenLogger['level'] = 'info'
       .fail (obj, status) ->
+        @obj = obj
+        @status = status
         console.log 'Couldn\'t save timeline! ' + obj.responseJSON.message
         rej obj
-
+        RavenLogger['level'] = 'error'
+      RavenLogger['obj'] = @obj
+      RavenLogger['status'] = @status
+      Raven.captureMessage('saveTimeline called',
+                           level: RavenLogger['level'],
+                           extra: RavenLogger)
   saveGradeables: (course_id, data) ->
     new Promise (res, rej) ->
       cleanup = (array) ->
@@ -179,14 +190,18 @@ API =
         success: (data) ->
           console.log 'Saved course!'
           res data
+          RavenLogger['level'] = 'info'
       .fail (obj, status) ->
         @obj = obj
         @status = status
         console.log 'Couldn\'t save course! ' + obj
         rej obj
+        RavenLogger['level'] = 'error'
     RavenLogger['obj'] = @obj
     RavenLogger['status'] = @status
-    Raven.captureMessage('saveCourse called with these params:', extra: RavenLogger)
+    Raven.captureMessage('saveCourse called',
+                         level: RavenLogger['level'],
+                         extra: RavenLogger)
 
     promise
 
