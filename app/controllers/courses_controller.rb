@@ -126,12 +126,14 @@ class CoursesController < ApplicationController
     params = {}
     params['course'] = course_params
 
-    if !@course.submitted && params['course']['submitted'] == true
+    newly_submitted = !@course.submitted && params['course']['submitted']
+
+    @course.update params
+
+    if newly_submitted
       instructor = @course.instructors.first
       WikiEdits.announce_course(@course, current_user, instructor)
     end
-
-    @course.update params
     WikiEdits.update_course(@course, current_user)
     respond_to do |format|
       format.json { render json: @course }
