@@ -121,6 +121,7 @@ API =
 
       req_data = weeks: weeks
       RavenLogger['type'] = 'POST'
+      @result = null
 
       $.ajax
         type: 'POST',
@@ -181,6 +182,7 @@ API =
 
     @obj = null
     @status = null
+    @result = null
     promise = new Promise (res, rej) ->
       $.ajax
         type: type,
