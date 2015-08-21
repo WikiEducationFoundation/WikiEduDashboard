@@ -129,19 +129,21 @@ API =
         data: JSON.stringify(req_data)
         success: (data) ->
           console.log 'Saved timeline!'
-          res data
           RavenLogger['level'] = 'info'
+          @result = 'successful'
+          res data
       .fail (obj, status) ->
         @obj = obj
         @status = status
         console.log 'Couldn\'t save timeline! ' + obj.responseJSON.message
-        rej obj
         RavenLogger['level'] = 'error'
-      RavenLogger['obj'] = @obj
-      RavenLogger['status'] = @status
-      Raven.captureMessage('saveTimeline called',
-                           level: RavenLogger['level'],
-                           extra: RavenLogger)
+        @result = 'failed'
+        rej obj
+    RavenLogger['obj'] = @obj
+    RavenLogger['status'] = @status
+    Raven.captureMessage('saveTimeline ' + @result,
+                         level: RavenLogger['level'],
+                         extra: RavenLogger)
   saveGradeables: (course_id, data) ->
     new Promise (res, rej) ->
       cleanup = (array) ->
@@ -187,17 +189,19 @@ API =
         data: JSON.stringify(req_data)
         success: (data) ->
           console.log 'Saved course!'
-          res data
           RavenLogger['level'] = 'info'
+          @result = 'successful'
+          res data
       .fail (obj, status) ->
         @obj = obj
         @status = status
         console.log 'Couldn\'t save course! ' + obj
-        rej obj
         RavenLogger['level'] = 'error'
+        @result = 'failed'
+        rej obj
     RavenLogger['obj'] = @obj
     RavenLogger['status'] = @status
-    Raven.captureMessage('saveCourse called',
+    Raven.captureMessage('saveCourse ' + @result,
                          level: RavenLogger['level'],
                          extra: RavenLogger)
 
