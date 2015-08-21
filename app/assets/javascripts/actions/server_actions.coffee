@@ -58,7 +58,7 @@ ServerActions = Flux.createActions
   saveGradeables: (data, course_id) ->
     API.saveGradeables(course_id, data).then (data) ->
       { actionType: 'SAVED_TIMELINE', data: data }
-  submitWizard: (data, course_id, wizard_id) ->
+  submitWizard: (course_id, wizard_id, data) ->
     API.submitWizard(course_id, wizard_id, data).then (data) ->
       { actionType: 'WIZARD_SUBMITTED', data: data }
 

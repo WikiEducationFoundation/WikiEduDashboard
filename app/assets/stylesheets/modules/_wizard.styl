@@ -75,7 +75,7 @@ wizard-width = 860px
         text-align left
       textarea
         height 189px
-      input, textarea
+      input:not([type=checkbox]), textarea
         margin-bottom 10px
         width 100%
       .vertical-form
@@ -85,6 +85,8 @@ wizard-width = 860px
         padding-left 20px
     .wizard__panel__options
       padding 20px 0
+      width 100%
+      display inline-block
       .left, .right
         col(1/2)
     .wizard__option
@@ -245,6 +247,19 @@ wizard-width = 860px
       .right
         col(2/5)
         text-align right
+
+.wizard__form.course-dates
+  float left
+  width 47%
+  input[type=checkbox]
+    position relative
+    top 7px
+  .DayPicker
+    float none
+
+.wizard__panel__options .vertical-form
+  width 40%
+  margin-top 15px
 
 .column
   col(1/2)

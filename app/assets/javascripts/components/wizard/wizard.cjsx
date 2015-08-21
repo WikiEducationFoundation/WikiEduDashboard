@@ -2,6 +2,7 @@ React         = require 'react'
 Router        = require 'react-router'
 Panel         = require './panel'
 FormPanel     = require './form_panel'
+TimelinePanel = require './timeline_panel'
 SummaryPanel  = require './summary_panel'
 CourseLink    = require '../common/course_link'
 
@@ -44,7 +45,16 @@ Wizard = React.createClass(
           weeks={@props.weeks.length}
           summary={@state.summary}
         />
-      else if i < panel_count - 1
+      else if i == 1
+        <TimelinePanel panel={panel}
+          course={@props.course}
+          key={panel.key}
+          index={i}
+          step={step}
+          weeks={@props.weeks.length}
+          summary={@state.summary}
+        />
+      else if i != 1 && i < panel_count - 1
         <Panel panel={panel}
           parentPath={@timelinePath()}
           key={panel.key}

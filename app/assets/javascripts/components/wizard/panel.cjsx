@@ -19,6 +19,8 @@ Panel = React.createClass(
     WizardActions.resetWizard()
   close: (e) ->
     confirm "This will close the wizard without saving your progress. Are you sure you want to do this?"
+  nextEnabled: ->
+    !@props.hasOwnProperty('nextEnabled') || (@props.hasOwnProperty('nextEnabled') && @props.nextEnabled() is true)
   render: ->
     if @props.index > 0
       rewind =  <button className='button' onClick={@rewind}>{'Previous'}</button>
@@ -61,6 +63,8 @@ Panel = React.createClass(
     if @props.panel.minimum? && @props.panel.minimum > 0
       reqs = I18n.t('wizard.minimum_options', { minimum: @props.panel.minimum })
 
+    helper_text = @props.helperText || ""
+
     <div className={classes}>
       <div className='wizard__controls'>
         <div className='left'>
@@ -80,7 +84,8 @@ Panel = React.createClass(
         <div className='right'>
           <div><p className={if @props.panel.error? then 'red' else ''}>{@props.panel.error || reqs}</p></div>
           {rewind}
-          <button className="button dark" onClick={advance} disabled={if reqs_met then '' else 'disabled'}>{next_text}</button>
+          <div><p>{helper_text}</p></div>
+          <button className="button dark" onClick={advance} disabled={if reqs_met && @nextEnabled() then '' else 'disabled'}>{next_text}</button>
         </div>
       </div>
     </div>

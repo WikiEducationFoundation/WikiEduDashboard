@@ -1,6 +1,22 @@
 require 'rails_helper'
 
+def go_through_course_dates_and_timeline_dates
+  first('attr[title="Wednesday"]').click
+  within('.wizard__panel.active') do
+    expect(page).to have_css('button.dark[disabled=""]')
+  end
+  first('.wizard__form.course-dates input[type=checkbox]').set(true)
+  within('.wizard__panel.active') do
+    expect(page).not_to have_css('button.dark[disabled=disabled]')
+  end
+  first('button.dark').click
+  sleep 1
+end
+
+
 def go_through_researchwrite_wizard
+  go_through_course_dates_and_timeline_dates
+
   # Advance past the timeline date panel
   first('button.dark').click
   sleep 1
@@ -67,8 +83,8 @@ describe 'New course creation and editing', type: :feature do
     visit root_path
   end
 
-  describe 'new course workflow', js: true do
-    let(:instructor_name) { 'Mr. Capybara' }
+  describe 'course workflow', js: true do
+    let(:instructor_name)  { 'Mr. Capybara' }
     let(:instructor_email) { 'capybara@wikiedu.org' }
     it 'should allow the user to create a course' do
       stub_oauth_edit
@@ -105,25 +121,41 @@ describe 'New course creation and editing', type: :feature do
 
       # Go through the wizard, checking necessary options.
 
-      # This is the course and assignment dates screen
+      # This is the course dates screen
       sleep 3
+      ## validate either blackout date chosen or "no blackout dates" checkbox checked
+      expect(page).to have_css('button.dark[disabled=""]')
       start_input = first('input.start').value()
       expect(start_input).to eq(start_date)
+
+      # capybara doesn't like trying to click the calendar to set a blackout date
+      go_through_course_dates_and_timeline_dates
+      sleep 1
+
+      # This is the timeline datepicker
+      find('input.timeline_start').set(start_date)
+      find('input.timeline_end').set(end_date)
       first('button.dark').click
+
       sleep 1
 
       # This is the assignment type chooser
+
+      # pick and choose
       page.all('.wizard__option')[1].first('button').click
       sleep 1
       first('button.dark').click
       sleep 1
+      # pick 2 types of assignemnts
       page.all('div.wizard__option__checkbox')[1].click
       page.all('div.wizard__option__checkbox')[3].click
       sleep 1
       first('button.dark').click
 
+      # on the summary
       sleep 1
-      page.all('button.wizard__option.summary')[2].click
+      # go back to the pick and choose and choose different assignemtns
+      page.all('button.wizard__option.summary')[3].click
       sleep 1
       page.all('div.wizard__option__checkbox')[3].click
       page.all('div.wizard__option__checkbox')[2].click

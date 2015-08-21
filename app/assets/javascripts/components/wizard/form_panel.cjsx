@@ -11,6 +11,22 @@ FormPanel = React.createClass(
     to_pass = @props.course
     to_pass[value_key] = value
     CourseActions.updateCourse to_pass, true
+  getInitialState: ->
+    anyDatesSelected: false
+    blackoutDatesSelected: false
+    noBlackoutDatesChecked: false
+  nextEnabled: ->
+    if @state.anyDatesSelected && (@state.blackoutDatesSelected || @state.noBlackoutDatesChecked)
+      true
+    else
+      false
+  setAnyDatesSelected: (bool) ->
+    @setState anyDatesSelected: bool
+  setBlackoutDatesSelected: (bool) ->
+    @setState blackoutDatesSelected: bool
+  setNoBlackoutDatesChecked: ->
+    checked = React.findDOMNode(@refs.noDates).checked
+    @setState noBlackoutDatesChecked: checked
   render: ->
     timeline_start_props =
       minDate: moment(@props.course.start)
@@ -19,9 +35,16 @@ FormPanel = React.createClass(
       minDate: moment(@props.course.timeline_start).add(Math.max(1, @props.weeks), 'week')
       maxDate: moment(@props.course.end)
     raw_options = (
-      <div className='wizard__form course-dates'>
-        <div>
-          <Calendar course={@props.course} editable=true />
+      <div>
+        <div className='wizard__form course-dates'>
+          <Calendar course={@props.course}
+            editable=true
+            setAnyDatesSelected={@setAnyDatesSelected}
+            setBlackoutDatesSelected={@setBlackoutDatesSelected}
+          />
+          <label> I have no class holidays
+            <input type='checkbox' onChange={@setNoBlackoutDatesChecked} ref='noDates' />
+          </label>
         </div>
         <div className='vertical-form'>
           <TextInput
@@ -43,29 +66,15 @@ FormPanel = React.createClass(
             date_props={minDate: moment(@props.course.start).add(1, 'week')}
             enabled={@props.course.start?}
           />
-          <TextInput
-            onChange={@updateDetails}
-            value={@props.course.timeline_start}
-            value_key='timeline_start'
-            editable=true
-            type='date'
-            label='Assignment Start'
-            date_props={timeline_start_props}
-          />
-          <TextInput
-            onChange={@updateDetails}
-            value={@props.course.timeline_end}
-            value_key='timeline_end'
-            editable=true
-            type='date'
-            label='Assignment End'
-            date_props={timeline_end_props}
-          />
         </div>
       </div>
     )
 
-    <Panel {...@props} raw_options={raw_options} />
+    <Panel {...@props}
+      raw_options={raw_options}
+      nextEnabled={@nextEnabled}
+      helperText = 'Choose a blackout dates or confirm no class holidays to continue'
+    />
 )
 
 module.exports = FormPanel

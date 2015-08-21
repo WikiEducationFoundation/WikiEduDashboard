@@ -208,9 +208,11 @@ en:
       summary: student training incomplete
 
   wizard:
-    assignment_dates: Assignment Dates
+    course_dates: Course Dates
+    assignment_dates: Assignment Type
     assignment_type: Assignment Type
-    confirm_dates: Confirm the course dates, assignment dates, and weekly meetings for your course.
+    confirm_dates: Choose the course dates, weekly meetings, and holidays for your course.
+    assignment_description: Choose the start and end dates of this assignment
     min_weeks: >
       This assignment requires at least %{min_weeks} available
       weeks. Please adjust your assignment start and end dates if you want to
