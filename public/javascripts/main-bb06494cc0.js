@@ -7346,8 +7346,6 @@ API = {
         this.obj = obj;
         this.status = status;
         console.log('Couldn\'t save timeline! ' + obj.responseJSON.message);
-        RavenLogger['level'] = 'error';
-        RavenLogger['result'] = 'failed';
         RavenLogger['obj'] = this.obj;
         RavenLogger['status'] = this.status;
         Raven.captureMessage('saveTimeline failed', {
@@ -7406,8 +7404,6 @@ API = {
     req_data = {
       course: data.course
     };
-    RavenLogger['req_data'] = req_data;
-    RavenLogger['data'] = data;
     this.obj = null;
     this.status = null;
     promise = new Promise(function(res, rej) {

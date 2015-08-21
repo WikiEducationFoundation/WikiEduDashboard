@@ -176,9 +176,6 @@ API =
     RavenLogger['type'] = type
     req_data = course: data.course
 
-    RavenLogger['req_data'] = req_data
-    RavenLogger['data'] = data
-
     @obj = null
     @status = null
     promise = new Promise (res, rej) ->
