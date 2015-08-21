@@ -131,20 +131,21 @@ API =
         success: (data) ->
           console.log 'Saved timeline!'
           RavenLogger['level'] = 'info'
-          @result = 'successful'
+          RavenLogger['result'] = 'successful'
           res data
       .fail (obj, status) ->
         @obj = obj
         @status = status
         console.log 'Couldn\'t save timeline! ' + obj.responseJSON.message
         RavenLogger['level'] = 'error'
-        @result = 'failed'
+        RavenLogger['result'] = 'failed'
         rej obj
     RavenLogger['obj'] = @obj
     RavenLogger['status'] = @status
-    Raven.captureMessage('saveTimeline ' + @result,
+    Raven.captureMessage("saveTimeline #{RavenLogger['result']}",
                          level: RavenLogger['level'],
                          extra: RavenLogger)
+    promise
   saveGradeables: (course_id, data) ->
     new Promise (res, rej) ->
       cleanup = (array) ->
@@ -169,8 +170,6 @@ API =
         console.log 'Couldn\'t save gradeables! ' + obj.responseJSON.message
         rej obj
   saveCourse: (data, course_id=null) ->
-
-    RavenLogger['context'] = "In saveCourse method"
     append = if course_id? then '/' + course_id else ''
     # append += '.json'
     type = if course_id? then 'PUT' else 'POST'
@@ -192,18 +191,18 @@ API =
         success: (data) ->
           console.log 'Saved course!'
           RavenLogger['level'] = 'info'
-          @result = 'successful'
+          RavenLogger['result'] = 'successful'
           res data
       .fail (obj, status) ->
         @obj = obj
         @status = status
         console.log 'Couldn\'t save course! ' + obj
         RavenLogger['level'] = 'error'
-        @result = 'failed'
+        RavenLogger['result'] = 'failed'
         rej obj
     RavenLogger['obj'] = @obj
     RavenLogger['status'] = @status
-    Raven.captureMessage('saveCourse ' + @result,
+    Raven.captureMessage("saveCourse #{RavenLogger['result']}",
                          level: RavenLogger['level'],
                          extra: RavenLogger)
 
