@@ -139,8 +139,6 @@ API =
         @obj = obj
         @status = status
         console.log 'Couldn\'t save timeline! ' + obj.responseJSON.message
-        RavenLogger['level'] = 'error'
-        RavenLogger['result'] = 'failed'
         RavenLogger['obj'] = @obj
         RavenLogger['status'] = @status
         Raven.captureMessage('saveTimeline failed',
