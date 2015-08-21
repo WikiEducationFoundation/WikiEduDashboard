@@ -26,7 +26,7 @@
 
     <!-- Temporary Raven logging -->
     <script src="//cdn.ravenjs.com/1.1.19/jquery,native/raven.min.js"></script>
-    <script>Raven.config('http://683391eea2774591b40c179f96c9cf00@sentry.ragesoss.com:8080/6').install();</script>
+    <script>Raven.config(<%= ENV['sentry_public_dsn'] %>).install();</script>
 
     <%= javascript_include_tag fingerprinted('/javascripts/', 'main.js') %>
     <%= csrf_meta_tags %>
