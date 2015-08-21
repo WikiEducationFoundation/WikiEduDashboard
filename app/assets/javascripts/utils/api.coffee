@@ -129,8 +129,11 @@ API =
         data: JSON.stringify(req_data)
         success: (data) ->
           console.log 'Saved timeline!'
-          RavenLogger['level'] = 'info'
-          RavenLogger['result'] = 'successful'
+          RavenLogger['obj'] = @obj
+          RavenLogger['status'] = @status
+          Raven.captureMessage('saveTimeline successful',
+                               level: 'info',
+                               extra: RavenLogger)
           res data
       .fail (obj, status) ->
         @obj = obj
@@ -138,12 +141,12 @@ API =
         console.log 'Couldn\'t save timeline! ' + obj.responseJSON.message
         RavenLogger['level'] = 'error'
         RavenLogger['result'] = 'failed'
+        RavenLogger['obj'] = @obj
+        RavenLogger['status'] = @status
+        Raven.captureMessage('saveTimeline failed',
+                             level: 'error',
+                             extra: RavenLogger)
         rej obj
-    RavenLogger['obj'] = @obj
-    RavenLogger['status'] = @status
-    Raven.captureMessage("saveTimeline #{RavenLogger['result']}",
-                         level: RavenLogger['level'],
-                         extra: RavenLogger)
     promise
   saveGradeables: (course_id, data) ->
     new Promise (res, rej) ->
@@ -188,21 +191,21 @@ API =
         data: JSON.stringify(req_data)
         success: (data) ->
           console.log 'Saved course!'
-          RavenLogger['level'] = 'info'
-          RavenLogger['result'] = 'successful'
+          RavenLogger['status'] = @status
+          Raven.captureMessage('saveCourse successful',
+                               level: 'info',
+                               extra: RavenLogger)
           res data
       .fail (obj, status) ->
         @obj = obj
         @status = status
         console.log 'Couldn\'t save course! ' + obj
-        RavenLogger['level'] = 'error'
-        RavenLogger['result'] = 'failed'
+        RavenLogger['obj'] = @obj
+        RavenLogger['status'] = @status
+        Raven.captureMessage('saveCourse failed',
+                             level: 'error',
+                             extra: RavenLogger)
         rej obj
-    RavenLogger['obj'] = @obj
-    RavenLogger['status'] = @status
-    Raven.captureMessage("saveCourse #{RavenLogger['result']}",
-                         level: RavenLogger['level'],
-                         extra: RavenLogger)
 
     promise
 

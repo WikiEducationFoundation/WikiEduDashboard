@@ -7334,8 +7334,12 @@ API = {
         data: JSON.stringify(req_data),
         success: function(data) {
           console.log('Saved timeline!');
-          RavenLogger['level'] = 'info';
-          RavenLogger['result'] = 'successful';
+          RavenLogger['obj'] = this.obj;
+          RavenLogger['status'] = this.status;
+          Raven.captureMessage('saveTimeline successful', {
+            level: 'info',
+            extra: RavenLogger
+          });
           return res(data);
         }
       }).fail(function(obj, status) {
@@ -7344,14 +7348,14 @@ API = {
         console.log('Couldn\'t save timeline! ' + obj.responseJSON.message);
         RavenLogger['level'] = 'error';
         RavenLogger['result'] = 'failed';
+        RavenLogger['obj'] = this.obj;
+        RavenLogger['status'] = this.status;
+        Raven.captureMessage('saveTimeline failed', {
+          level: 'error',
+          extra: RavenLogger
+        });
         return rej(obj);
       });
-    });
-    RavenLogger['obj'] = this.obj;
-    RavenLogger['status'] = this.status;
-    Raven.captureMessage("saveTimeline " + RavenLogger['result'], {
-      level: RavenLogger['level'],
-      extra: RavenLogger
     });
     return promise;
   },
@@ -7414,24 +7418,25 @@ API = {
         data: JSON.stringify(req_data),
         success: function(data) {
           console.log('Saved course!');
-          RavenLogger['level'] = 'info';
-          RavenLogger['result'] = 'successful';
+          RavenLogger['status'] = this.status;
+          Raven.captureMessage('saveCourse successful', {
+            level: 'info',
+            extra: RavenLogger
+          });
           return res(data);
         }
       }).fail(function(obj, status) {
         this.obj = obj;
         this.status = status;
         console.log('Couldn\'t save course! ' + obj);
-        RavenLogger['level'] = 'error';
-        RavenLogger['result'] = 'failed';
+        RavenLogger['obj'] = this.obj;
+        RavenLogger['status'] = this.status;
+        Raven.captureMessage('saveCourse failed', {
+          level: 'error',
+          extra: RavenLogger
+        });
         return rej(obj);
       });
-    });
-    RavenLogger['obj'] = this.obj;
-    RavenLogger['status'] = this.status;
-    Raven.captureMessage("saveCourse " + RavenLogger['result'], {
-      level: RavenLogger['level'],
-      extra: RavenLogger
     });
     return promise;
   },
