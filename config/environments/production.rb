@@ -50,7 +50,7 @@ Rails.application.configure do
   # config.log_tags = [ :subdomain, :uuid ]
 
   # Use a different logger for distributed setups.
-  config.logger = Syslog::Logger.new('/var/log/dashboard.log')
+  #config.logger = Syslog::Logger.new('/var/log/dashboard.log')
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
