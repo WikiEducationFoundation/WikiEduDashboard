@@ -7281,7 +7281,8 @@ API = {
     });
   },
   saveTimeline: function(course_id, data) {
-    new Promise(function(res, rej) {
+    var promise;
+    promise = new Promise(function(res, rej) {
       var block, blocks, cleanup, gradeable, gradeables, i, j, k, len, len1, len2, req_data, week, weeks;
       cleanup = function(array) {
         var i, len, obj, results;
@@ -7326,7 +7327,6 @@ API = {
         weeks: weeks
       };
       RavenLogger['type'] = 'POST';
-      this.result = null;
       return $.ajax({
         type: 'POST',
         url: '/courses/' + course_id + '/timeline.json',
@@ -7406,7 +7406,6 @@ API = {
     RavenLogger['data'] = data;
     this.obj = null;
     this.status = null;
-    this.result = null;
     promise = new Promise(function(res, rej) {
       return $.ajax({
         type: type,

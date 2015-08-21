@@ -95,7 +95,7 @@ API =
   # Setters #
   ###########
   saveTimeline: (course_id, data) ->
-    new Promise (res, rej) ->
+    promise = new Promise (res, rej) ->
       cleanup = (array) ->
         for obj in array
           if obj.is_new
@@ -121,7 +121,6 @@ API =
 
       req_data = weeks: weeks
       RavenLogger['type'] = 'POST'
-      @result = null
 
       $.ajax
         type: 'POST',
@@ -181,7 +180,6 @@ API =
 
     @obj = null
     @status = null
-    @result = null
     promise = new Promise (res, rej) ->
       $.ajax
         type: type,
