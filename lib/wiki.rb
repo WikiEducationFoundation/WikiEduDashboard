@@ -3,6 +3,34 @@ require 'json'
 
 #= This class is for getting data directly from the Wikipedia API.
 class Wiki
+  ################
+  # Entry points #
+  ################
+
+  # General entry point for making arbitrary queries of the Wikipedia API
+  def self.query(query_parameters, language=nil)
+    wikipedia(language).query query_parameters
+  end
+
+  def self.get_page_content(page_title)
+    response = wikipedia.get_wikitext page_title
+    response.status == 200 ? response.body : nil
+  end
+
+  def self.get_course_info(course_ids)
+    raw = get_course_info_raw(course_ids)
+    return [nil] if raw.nil? # This indicates a failure to get the course data.
+    return [] unless raw # This indicates that the course(s) don't exist.
+
+    info = []
+    (0...raw.count).each do |course|
+      raw_course_info = raw[course.to_s]
+      course_info = parse_course_info(raw_course_info)
+      info.append(course_info)
+    end
+    info
+  end
+
   def self.get_user_id(username, language=nil)
     user_query = { list: 'users',
                    ususers: username }
@@ -31,19 +59,26 @@ class Wiki
     response
   end
 
-  def self.get_course_info(course_ids)
-    raw = get_course_info_raw(course_ids)
-    return [nil] if raw.nil? # This indicates a failure to get the course data.
-    return [] unless raw # This indicates that the course(s) don't exist.
+  def self.get_article_rating(titles)
+    titles = [titles] unless titles.is_a?(Array)
+    titles = titles.sort_by(&:downcase)
 
-    info = []
-    (0...raw.count).each do |course|
-      raw_course_info = raw[course.to_s]
-      course_info = parse_course_info(raw_course_info)
-      info.append(course_info)
+    talk_titles = titles.map { |title| 'Talk:' + title }
+    raw = get_raw_page_content(talk_titles)
+    return [] unless raw
+
+    # Pages that are missing get returned before pages that exist, so we cannot
+    # count on our array being in the same order as titles.
+    raw.map do |_article_id, talkpage|
+      # Remove "Talk:" from the "title" value to get the title.
+      { talkpage['title'][5..-1].gsub(' ', '_') =>
+        parse_article_rating(talkpage) }
     end
-    info
   end
+
+  ###################
+  # Parsing methods #
+  ###################
 
   def self.parse_course_info(course)
     append = course['name'][-1, 1] != ')' ? ' ()' : ''
@@ -67,23 +102,6 @@ class Wiki
     { 'course' => course_info, 'participants' => participants }
   end
 
-  def self.get_article_rating(titles)
-    titles = [titles] unless titles.is_a?(Array)
-    titles = titles.sort_by(&:downcase)
-
-    talk_titles = titles.map { |title| 'Talk:' + title }
-    raw = get_raw_page_content(talk_titles)
-    return [] unless raw
-
-    # Pages that are missing get returned before pages that exist, so we cannot
-    # count on our array being in the same order as titles.
-    raw.map do |_article_id, talkpage|
-      # Remove "Talk:" from the "title" value to get the title.
-      { talkpage['title'][5..-1].gsub(' ', '_') =>
-        parse_article_rating(talkpage) }
-    end
-  end
-
   def self.parse_article_rating(raw_talk)
     # Handle MediaWiki API errors
     return nil if raw_talk.nil?
@@ -94,13 +112,9 @@ class Wiki
     ApplicationController.helpers.find_article_class wikitext
   end
 
-  ###################
-  # Request methods #
-  ###################
-  def self.get_page_content(page_title)
-    response = wikipedia.get_wikitext page_title
-    response.status == 200 ? response.body : nil
-  end
+  ##############################
+  # Additional request methods #
+  ##############################
 
   # Query the liststudents API to get info about a course. For example:
   # http://en.wikipedia.org/w/api.php?action=liststudents&courseids=30&group=

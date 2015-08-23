@@ -3,7 +3,6 @@ class CourseStatistics
   # For a set of course ids, generate a human-readable summary of what the users
   # in those courses contributed.
   class << self
-
     def report_statistics(course_ids)
       @@course_ids = course_ids
       report = %(
@@ -22,13 +21,12 @@ class CourseStatistics
 
     private
 
-
     def students
       CoursesUsers.where(course_id: @@course_ids, role: 0)
     end
 
     def nonstudents
-      CoursesUsers.where(course_id: @@course_ids, role: [1,2,3,4])
+      CoursesUsers.where(course_id: @@course_ids, role: [1, 2, 3, 4])
     end
 
     def nonstudent_ids
@@ -36,7 +34,7 @@ class CourseStatistics
     end
 
     def student_ids
-      student_ids = students.pluck(:user_id).uniq
+      students.pluck(:user_id).uniq
     end
 
     def pure_student_ids
@@ -48,6 +46,8 @@ class CourseStatistics
     end
 
     def revisions
+      # Note that these may include revisions from outside the scope
+      # of the target course_ids, for example from earlier terms.
       Revision.where(user_id: pure_student_ids)
     end
 
@@ -83,8 +83,6 @@ class CourseStatistics
       created_articles.where(deleted: true).pluck(:id)
     end
 
-    # Note that these calculations may include revisions from outside the scope
-    # of the target course_ids, for example from earlier terms.
     def upload_ids
       CommonsUpload.where(user_id: pure_student_ids).pluck(:id)
     end
@@ -102,4 +100,18 @@ class CourseStatistics
     end
   end
 
+  # def self.article_quality(courses)
+  #   puts 'course,article,revision,score'
+  #   courses.each do |course|
+  #     articles = course.articles.namespace(0)
+  #     articles.each do |article|
+  #       revisions = article.revisions
+  #       first_rev = revisions.first
+  #       puts '"' + course.title + '","' + article.title + '","' + first_rev.id.to_s + 'prev",' + first_rev.wp10_previous.to_s
+  #       revisions.each do |revision|
+  #         puts '"' + course.title + '","' + article.title + '","' + revision.id.to_s + '",' + revision.wp10.to_s
+  #       end
+  #     end
+  #   end
+  # end
 end

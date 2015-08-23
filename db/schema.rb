@@ -15,17 +15,19 @@ ActiveRecord::Schema.define(version: 20150818202420) do
 
   create_table "articles", force: true do |t|
     t.string   "title"
-    t.integer  "views",             limit: 8,  default: 0
+    t.integer  "views",                    limit: 8,  default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "character_sum",                default: 0
-    t.integer  "revision_count",               default: 0
+    t.integer  "character_sum",                       default: 0
+    t.integer  "revision_count",                      default: 0
     t.date     "views_updated_at"
     t.integer  "namespace"
     t.string   "rating"
     t.datetime "rating_updated_at"
-    t.boolean  "deleted",                      default: false
-    t.string   "language",          limit: 10
+    t.boolean  "deleted",                             default: false
+    t.string   "language",                 limit: 10
+    t.float    "average_views",            limit: 24
+    t.date     "average_views_updated_at"
   end
 
   create_table "articles_courses", force: true do |t|
@@ -145,16 +147,18 @@ ActiveRecord::Schema.define(version: 20150818202420) do
   end
 
   create_table "revisions", force: true do |t|
-    t.integer  "characters",            default: 0
+    t.integer  "characters",              default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
     t.integer  "article_id"
-    t.integer  "views",       limit: 8, default: 0
+    t.integer  "views",         limit: 8, default: 0
     t.datetime "date"
-    t.boolean  "new_article",           default: false
-    t.boolean  "deleted",               default: false
-    t.boolean  "system",                default: false
+    t.boolean  "new_article",             default: false
+    t.boolean  "deleted",                 default: false
+    t.string   "wp10"
+    t.string   "wp10_previous"
+    t.boolean  "system",                  default: false
   end
 
   add_index "revisions", ["article_id", "date"], name: "index_revisions_on_article_id_and_date", using: :btree
