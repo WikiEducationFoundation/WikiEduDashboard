@@ -91,4 +91,18 @@ describe RevisionImporter do
       expect(Assignment.where.not(article_id: nil).count).to eq(1)
     end
   end
+
+  describe '.move_or_delete_revisions' do
+    it 'should update the article_id for a moved revision' do
+      # https://en.wikipedia.org/w/index.php?title=Selfie&oldid=547645475
+      create(:revision,
+             id: 547645475,
+             article_id: 1) # Not the actual article_id
+      revision = Revision.all
+      RevisionImporter.move_or_delete_revisions(revision)
+      article_id = Revision.find(547645475).article_id
+      expect(article_id).to eq(38956275)
+      expect(Article.exists?(38956275)).to be true
+    end
+  end
 end

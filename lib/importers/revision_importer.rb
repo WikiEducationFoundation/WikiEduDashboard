@@ -127,6 +127,7 @@ class RevisionImporter
   def self.handle_moved_revision(moved)
     article_id = moved['rev_page']
     Revision.find(moved['rev_id']).update(article_id: article_id)
-    ArticleImporter.import_article(article_id) unless Article.exists?(article_id)
+    ArticleImporter
+      .import_articles([article_id]) unless Article.exists?(article_id)
   end
 end
