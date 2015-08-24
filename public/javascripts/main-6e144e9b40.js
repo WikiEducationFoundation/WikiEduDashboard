@@ -882,7 +882,9 @@ Calendar = React.createClass({
     }
     to_pass['day_exceptions'] = exceptions.join(',');
     anyBlackoutDatesSelected = _.compact(exceptions).length > 0;
-    this.props.setBlackoutDatesSelected(anyBlackoutDatesSelected);
+    if (_.has(this.props, setBlackoutDatesSelected)) {
+      this.props.setBlackoutDatesSelected(anyBlackoutDatesSelected);
+    }
     return CourseActions.updateCourse(to_pass, (this.props.save != null) && this.props.save);
   },
   selectWeekday: function(e, weekday) {
@@ -897,7 +899,9 @@ Calendar = React.createClass({
     weekdays[weekday] = weekdays[weekday] === '1' ? '0' : '1';
     to_pass['weekdays'] = weekdays.join('');
     anyDatesSelected = !(to_pass['weekdays'] === '0000000');
-    this.props.setAnyDatesSelected(anyDatesSelected);
+    if (_.has(this.props, setAnyDatesSelected)) {
+      this.props.setAnyDatesSelected(anyDatesSelected);
+    }
     return CourseActions.updateCourse(to_pass, (this.props.save != null) && this.props.save);
   },
   inrange: function(day) {

@@ -21,7 +21,8 @@ Calendar = React.createClass(
       exceptions.push formatted
     to_pass['day_exceptions'] = exceptions.join(',')
     anyBlackoutDatesSelected = _.compact(exceptions).length > 0
-    @props.setBlackoutDatesSelected(anyBlackoutDatesSelected)
+    if _.has(@props, setBlackoutDatesSelected)
+      @props.setBlackoutDatesSelected(anyBlackoutDatesSelected)
     CourseActions.updateCourse to_pass, (@props.save? && @props.save)
   selectWeekday: (e, weekday) ->
     to_pass = @props.course
@@ -33,7 +34,8 @@ Calendar = React.createClass(
     weekdays[weekday] = if weekdays[weekday] == '1' then '0' else '1'
     to_pass['weekdays'] = weekdays.join('')
     anyDatesSelected = !(to_pass['weekdays'] is '0000000')
-    @props.setAnyDatesSelected(anyDatesSelected)
+    if _.has(@props, setAnyDatesSelected)
+      @props.setAnyDatesSelected(anyDatesSelected)
     CourseActions.updateCourse to_pass, (@props.save? && @props.save)
   inrange: (day) ->
     return false unless @props.course.start?
