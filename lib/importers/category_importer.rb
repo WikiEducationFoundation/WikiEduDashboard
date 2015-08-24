@@ -1,7 +1,7 @@
 require "#{Rails.root}/lib/replica"
 require "#{Rails.root}/lib/importers/revision_score_importer"
 require "#{Rails.root}/lib/importers/article_importer"
-require "#{Rails.root}/lib/grok"
+require "#{Rails.root}/lib/importers/view_importer"
 require "#{Rails.root}/lib/wiki"
 
 #= Imports articles for a category, along with view data and revision scores
@@ -30,7 +30,7 @@ class CategoryImporter
   # Output methods #
   ##################
   def self.views_and_scores_output(article_ids, min_views, max_wp10)
-    output = "title, average views, completeness, views/completeness\n"
+    output = "title,average_views,completeness,views/completeness\n"
     articles = Article.where(id: article_ids)
                .where('average_views > ?', min_views)
     articles.each do |article|
@@ -38,7 +38,7 @@ class CategoryImporter
       completeness = article.revisions.last.wp10.to_f
       next unless completeness < max_wp10
       average_views = article.average_views
-      output += "#{title}, #{average_views}, #{completeness}, #{average_views / completeness}\n"
+      output += "\"#{title}\",#{average_views},#{completeness},#{average_views / completeness}\n"
     end
     output
   end
@@ -58,7 +58,7 @@ class CategoryImporter
                      .where(id: article_ids)
                      .where('average_views_updated_at < ?', 1.month.ago)
                      .pluck(:id)
-    update_average_views outdated_views
+    import_average_views outdated_views
 
     existing_revisions = Revision
                          .where(article_id: article_ids)
@@ -76,7 +76,7 @@ class CategoryImporter
     ArticleImporter.import_articles article_ids
     import_latest_revision article_ids
     import_scores_for_latest_revision article_ids
-    update_average_views article_ids
+    import_average_views article_ids
   end
 
   def self.article_ids_for_category(category, depth=0)
@@ -165,13 +165,11 @@ class CategoryImporter
     RevisionScoreImporter.update_revision_scores revisions_to_update
   end
 
-  def self.update_average_views(article_ids)
+  def self.import_average_views(article_ids)
     articles = Article.where(id: article_ids)
-    articles.each do |article|
-      next unless article.average_views.nil? || article.average_views_updated_at < 1.month.ago
-      article.average_views = Grok.average_views_for_article(article.title)
-      article.average_views_updated_at = Date.today
-      article.save
+    articles = articles.select do |a|
+      a.average_views.nil? || a.average_views_updated_at < 1.month.ago
     end
+    ViewImporter.update_average_views articles
   end
 end

@@ -20,6 +20,12 @@ class ViewImporter
     update_views(articles, true)
   end
 
+  def self.update_average_views(articles)
+    article_batches = articles.each_slice(30)
+    article_batches.each do |batch|
+      update_average_views_for_batch batch
+    end
+  end
   ##############
   # API Access #
   ##############
@@ -46,6 +52,16 @@ class ViewImporter
     save_updated_views(articles, views, vua, all_time)
   end
 
+  def self.update_average_views_for_batch(articles)
+    threads = articles.each_with_index.map do |article, i|
+      Thread.new(i) do
+        article.average_views = Grok.average_views_for_article(article.title)
+        article.average_views_updated_at = Date.today
+        article.save
+      end
+    end
+    threads.each(&:join)
+  end
   ###########
   # Helpers #
   ###########
