@@ -102,7 +102,7 @@ class CategoryImporter
         property_values << page[property]
       end
       continue = cat_response['continue']
-      cat_query['cmcontinue'] = continue['cmcontinue'] if continue
+      query['cmcontinue'] = continue['cmcontinue'] if continue
     end
     property_values
   end
