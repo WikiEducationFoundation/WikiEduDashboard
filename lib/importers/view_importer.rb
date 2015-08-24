@@ -53,14 +53,16 @@ class ViewImporter
   end
 
   def self.update_average_views_for_batch(articles)
-    threads = articles.each_with_index.map do |article, i|
-      Thread.new(i) do
-        article.average_views = Grok.average_views_for_article(article.title)
-        article.average_views_updated_at = Date.today
-        article.save
+    ActiveRecord::Base.transaction do
+      threads = articles.each_with_index.map do |article, i|
+        Thread.new(i) do
+          article.average_views = Grok.average_views_for_article(article.title)
+          article.average_views_updated_at = Date.today
+          article.save
+        end
       end
+      threads.each(&:join)
     end
-    threads.each(&:join)
   end
   ###########
   # Helpers #
