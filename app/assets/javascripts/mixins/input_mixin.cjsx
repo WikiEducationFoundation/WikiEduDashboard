@@ -19,6 +19,8 @@ InputMixin =
           filled = @state.value? && @state.value.length > 0
           charcheck = (new RegExp(@props.validation)).test(@state.value)
           if @props.required && !filled
+            if _.has(@props, 'disableSave')
+              @props.disableSave(true)
             ValidationActions.setInvalid @props.value_key, 'This field is required'
           else if @props.validation && !charcheck
             ValidationActions.setInvalid @props.value_key, 'This field has invalid characters'

@@ -129,6 +129,8 @@ Details = React.createClass(
             type='date'
             label='Assignment Start'
             date_props={timeline_start_props}
+            required=true
+            disableSave=@disableSave
           />
         </fieldset>
         <fieldset>
@@ -140,6 +142,8 @@ Details = React.createClass(
             type='date'
             label='Assignment End'
             date_props={timeline_end_props}
+            required=true
+            disableSave=@disableSave
           />
         </fieldset>
         <p>

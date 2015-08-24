@@ -12,7 +12,7 @@ TextInput = React.createClass(
     unless @state.value?
       @setState value: nextProps.value
   dateChange: (date) ->
-    value = if date? then date.format('YYYY-MM-DD Z') else null
+    value = if date? then date.format('YYYY-MM-DD') else null
     if _.has(@props, 'disableSave')
       @props.disableSave((value is null))
     @onChange({ target: { value: value } })
