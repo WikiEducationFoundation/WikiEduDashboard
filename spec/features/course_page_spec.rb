@@ -226,6 +226,21 @@ describe 'the course page', type: :feature do
         expect(page).to have_content 'blocky block'
       end
     end
+
+    it "doesn't allow null values for course start/end" do
+      admin = create(:admin, id: User.last.id + 1)
+      login_as(admin)
+      js_visit "/courses/#{slug}/overview"
+      within '.sidebar' do
+        click_button 'Edit Details'
+      end
+      fill_in 'Start:', with: ''
+      within 'input.start' do
+        # TODO: Capybara seems to be able to clear this field.
+        #expect(page).to have_text Course.first.start.strftime("%Y-%m-%d")
+      end
+      #expect(page).to have_css('button.dark[disabled="disabled"]')
+    end
   end
 
   describe 'articles edited view', js: true do

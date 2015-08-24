@@ -1,3 +1,7 @@
 {
+<<<<<<< HEAD
   "main.js": "main-22e794ec9d.js"
+=======
+  "main.js": "main-e36507588a.js"
+>>>>>>> Disallow blanking of course start/end in overview (closes #319)
 }

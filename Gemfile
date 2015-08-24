@@ -55,6 +55,7 @@ group :development, :test do
   gem 'zeus'
   gem 'sqlite3'
   gem 'selenium-webdriver'
+  gem 'launchy'
 end
 
 group :staging, :production do

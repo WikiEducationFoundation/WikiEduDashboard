@@ -8,6 +8,8 @@ Editable = (Component, Stores, Save, GetState, Label) ->
     mixins: Stores.map (store) -> store.mixin
     toggleEditable: ->
       @setState editable: !@state.editable
+    disableSave: (bool) ->
+      @setState saveDisabled: bool
     saveChanges: ->
       UIActions.open null
       Save $.extend(true, {}, @state), @props.course_id
@@ -34,7 +36,7 @@ Editable = (Component, Stores, Save, GetState, Label) ->
 
         <div className={className}>
           {cancel}
-          <button onClick={@saveChanges} className='dark button'>Save</button>
+          <button onClick={@saveChanges} disabled={if @state.saveDisabled is true then 'disabled' else '' } className='dark button'>Save</button>
           {extra_controls}
        </div>
       else if permissions && (@props.editable == undefined || @props.editable)
@@ -48,7 +50,7 @@ Editable = (Component, Stores, Save, GetState, Label) ->
           {extra_controls}
         </div>
     render: ->
-      return <Component {...@props} {...@state} controls={@controls} />;
+      return <Component {...@props} {...@state} disableSave={@disableSave} controls={@controls} />;
   )
 
 module.exports = Editable

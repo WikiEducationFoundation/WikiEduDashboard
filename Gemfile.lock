@@ -187,6 +187,8 @@ GEM
       multi_json (~> 1.2)
     json (1.8.1)
     jwt (1.5.1)
+    launchy (2.4.3)
+      addressable (~> 2.3)
     listen (2.8.3)
       celluloid (>= 0.15.2)
       rb-fsevent (>= 0.9.3)
@@ -378,6 +380,7 @@ DEPENDENCIES
   guard-rspec
   i18n-js (>= 3.0.0.rc8)
   jbuilder (~> 2.0)
+  launchy
   mediawiki_api (= 0.4.1)
   mysql2
   omniauth-mediawiki
