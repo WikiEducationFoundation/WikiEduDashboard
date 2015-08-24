@@ -64,13 +64,16 @@ wizard-width = 860px
         &:active
           color manatee
           border-bottom 2px solid manatee
+    hr
+      clear both
+      border-top 1px solid border_lt
+      margin 25px 0
     .section-header
       padding 0
       .controls
         padding 0
     .wizard__form
       height 80%
-      margin-top 20px
       p
         text-align left
       textarea
@@ -250,12 +253,78 @@ wizard-width = 860px
 
 .wizard__form.course-dates
   float left
-  width 47%
+  clear both
   input[type=checkbox]
     position relative
     top 7px
   .DayPicker
     float none
+
+.course-dates__step
+  display inline-block
+  .vertical-form.full-width
+    width 100%
+    margin 0 0 0 35px
+    label
+      float left
+      display inline
+      margin-right 25px
+
+  .WeekdayPicker.DayPicker
+    margin-left 20px
+  .DayPicker
+    margin-left 33px
+  h2
+    line-height 15px
+    margin-bottom 15px
+    display inline-block
+    width 100%
+    span
+      float left
+    small
+      text-align left
+      color inherit
+      display inline
+      float left
+      width 80%
+      line-height 20px
+      margin-left 8px
+      position relative
+      top 3px
+      &.no-baseline
+        top -3px
+
+.course-dates__calendar-container
+  display inline-block
+  width 100%
+  .DayPicker
+    float left !important
+    width 45%
+    clear none
+  .course-dates__calendar-key
+    float left
+    width 45%
+    clear none
+    margin-left 3.5%
+    list-style none
+    border-left 1px solid border_lt
+    ul
+      padding 25px 0 27px 30px
+    li
+      display inline-block
+      width 100%
+      margin 15px 0
+      .DayPicker-Day
+        position relative
+        float left
+        margin-right 8px
+        position relative
+        bottom 8px
+        height 36px
+        padding 5px 20px
+      span
+        float left
+
 
 .wizard__panel__options .vertical-form
   width 40%

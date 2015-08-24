@@ -36,7 +36,32 @@ FormPanel = React.createClass(
       maxDate: moment(@props.course.end)
     raw_options = (
       <div>
-        <div className='wizard__form course-dates'>
+        <div className='course-dates__step'>
+          <h2><span>1.</span><small> Confirm the course’s start and end dates.</small></h2>
+          <div className='vertical-form full-width'>
+            <TextInput
+              onChange={@updateDetails}
+              value={@props.course.start}
+              value_key='start'
+              editable=true
+              type='date'
+              autoExpand=true
+              label='Course Start'
+            />
+            <TextInput
+              onChange={@updateDetails}
+              value={@props.course.end}
+              value_key='end'
+              editable=true
+              type='date'
+              label='Course End'
+              date_props={minDate: moment(@props.course.start).add(1, 'week')}
+              enabled={@props.course.start?}
+            />
+          </div>
+        </div>
+        <hr />
+        <div className='wizard__form course-dates course-dates__step'>
           <Calendar course={@props.course}
             editable=true
             setAnyDatesSelected={@setAnyDatesSelected}
@@ -45,27 +70,6 @@ FormPanel = React.createClass(
           <label> I have no class holidays
             <input type='checkbox' onChange={@setNoBlackoutDatesChecked} ref='noDates' />
           </label>
-        </div>
-        <div className='vertical-form'>
-          <TextInput
-            onChange={@updateDetails}
-            value={@props.course.start}
-            value_key='start'
-            editable=true
-            type='date'
-            autoExpand=true
-            label='Course Start'
-          />
-          <TextInput
-            onChange={@updateDetails}
-            value={@props.course.end}
-            value_key='end'
-            editable=true
-            type='date'
-            label='Course End'
-            date_props={minDate: moment(@props.course.start).add(1, 'week')}
-            enabled={@props.course.start?}
-          />
         </div>
       </div>
     )

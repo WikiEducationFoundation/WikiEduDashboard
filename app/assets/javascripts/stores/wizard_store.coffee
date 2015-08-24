@@ -8,7 +8,7 @@ _summary = false
 _wizard_key = null
 _panels = [{
   title:  I18n.t('wizard.course_dates')
-  description: I18n.t('wizard.confirm_dates')
+  description: ''
   active: true
   options: []
   type: -1
