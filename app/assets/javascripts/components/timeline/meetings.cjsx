@@ -16,6 +16,8 @@ Meetings = React.createClass(
   mixins: [CourseStore.mixin]
   getInitialState: ->
     getState(@props.course_id)
+  disableSave: (bool) ->
+    @setState saveDisabled: bool
   storeDidChange: ->
     @setState getState(@props.course_id)
   updateCourse: (value_key, value) ->
@@ -47,6 +49,9 @@ Meetings = React.createClass(
               type='date'
               autoExpand=true
               label='Course Start'
+              required=true
+              clearable=false
+              disableSave=@disableSave
             />
             <TextInput
               onChange={@updateCourse}
@@ -57,6 +62,9 @@ Meetings = React.createClass(
               label='Course End'
               date_props={minDate: moment(@props.course.start).add(1, 'week')}
               enabled={@props.course.start?}
+              required=true
+              clearable=false
+              disableSave=@disableSave
             />
             <TextInput
               onChange={@updateCourse}
@@ -66,6 +74,9 @@ Meetings = React.createClass(
               type='date'
               label='Assignment Start'
               date_props={timeline_start_props}
+              required=true
+              clearable=false
+              disableSave=@disableSave
             />
             <TextInput
               onChange={@updateCourse}
@@ -75,13 +86,16 @@ Meetings = React.createClass(
               type='date'
               label='Assignment End'
               date_props={timeline_end_props}
+              required=true
+              clearable=false
+              disableSave=@disableSave
             />
           </div>
         </div>
         <div className='wizard__panel__controls'>
           <div className='left'></div>
           <div className='right'>
-            <CourseLink className="dark button" to="timeline" id='course_cancel'>Done</CourseLink>
+            <CourseLink className="dark button" disabled={if @state.saveDisabled is true then 'disabled' else '' } to="timeline" id='course_cancel'>Done</CourseLink>
           </div>
         </div>
       </div>

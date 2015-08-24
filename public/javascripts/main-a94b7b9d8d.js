@@ -4348,6 +4348,11 @@ Meetings = React.createClass({
   getInitialState: function() {
     return getState(this.props.course_id);
   },
+  disableSave: function(bool) {
+    return this.setState({
+      saveDisabled: bool
+    });
+  },
   storeDidChange: function() {
     return this.setState(getState(this.props.course_id));
   },
@@ -4384,7 +4389,10 @@ Meetings = React.createClass({
       "editable": true,
       "type": 'date',
       "autoExpand": true,
-      "label": 'Course Start'
+      "label": 'Course Start',
+      "required": true,
+      "clearable": false,
+      "disableSave": this.disableSave
     }), React.createElement(TextInput, {
       "onChange": this.updateCourse,
       "value": this.props.course.end,
@@ -4395,7 +4403,10 @@ Meetings = React.createClass({
       "date_props": {
         minDate: moment(this.props.course.start).add(1, 'week')
       },
-      "enabled": (this.props.course.start != null)
+      "enabled": (this.props.course.start != null),
+      "required": true,
+      "clearable": false,
+      "disableSave": this.disableSave
     }), React.createElement(TextInput, {
       "onChange": this.updateCourse,
       "value": this.props.course.timeline_start,
@@ -4403,7 +4414,10 @@ Meetings = React.createClass({
       "editable": true,
       "type": 'date',
       "label": 'Assignment Start',
-      "date_props": timeline_start_props
+      "date_props": timeline_start_props,
+      "required": true,
+      "clearable": false,
+      "disableSave": this.disableSave
     }), React.createElement(TextInput, {
       "onChange": this.updateCourse,
       "value": this.props.course.timeline_end,
@@ -4411,7 +4425,10 @@ Meetings = React.createClass({
       "editable": true,
       "type": 'date',
       "label": 'Assignment End',
-      "date_props": timeline_end_props
+      "date_props": timeline_end_props,
+      "required": true,
+      "clearable": false,
+      "disableSave": this.disableSave
     }))), React.createElement("div", {
       "className": 'wizard__panel__controls'
     }, React.createElement("div", {
@@ -4420,6 +4437,7 @@ Meetings = React.createClass({
       "className": 'right'
     }, React.createElement(CourseLink, {
       "className": "dark button",
+      "disabled": (this.state.saveDisabled === true ? 'disabled' : ''),
       "to": "timeline",
       "id": 'course_cancel'
     }, "Done")))));
