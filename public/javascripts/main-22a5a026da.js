@@ -9036,9 +9036,8 @@ block.normal = merge({}, block);
  */
 
 block.gfm = merge({}, block.normal, {
-  fences: /^ *(`{3,}|~{3,})[ \.]*(\S+)? *\n([\s\S]*?)\s*\1 *(?:\n+|$)/,
-  paragraph: /^/,
-  heading: /^ *(#{1,6}) +([^\n]+?) *#* *(?:\n+|$)/
+  fences: /^ *(`{3,}|~{3,}) *(\S+)? *\n([\s\S]+?)\s*\1 *(?:\n+|$)/,
+  paragraph: /^/
 });
 
 block.gfm.paragraph = replace(block.paragraph)
@@ -9150,7 +9149,7 @@ Lexer.prototype.token = function(src, top, bq) {
       this.tokens.push({
         type: 'code',
         lang: cap[2],
-        text: cap[3] || ''
+        text: cap[3]
       });
       continue;
     }
@@ -9321,8 +9320,7 @@ Lexer.prototype.token = function(src, top, bq) {
         type: this.options.sanitize
           ? 'paragraph'
           : 'html',
-        pre: !this.options.sanitizer
-          && (cap[1] === 'pre' || cap[1] === 'script' || cap[1] === 'style'),
+        pre: cap[1] === 'pre' || cap[1] === 'script' || cap[1] === 'style',
         text: cap[0]
       });
       continue;
@@ -9417,7 +9415,7 @@ var inline = {
   reflink: /^!?\[(inside)\]\s*\[([^\]]*)\]/,
   nolink: /^!?\[((?:\[[^\]]*\]|[^\[\]])*)\]/,
   strong: /^__([\s\S]+?)__(?!_)|^\*\*([\s\S]+?)\*\*(?!\*)/,
-  em: /^\b_((?:[^_]|__)+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,
+  em: /^\b_((?:__|[\s\S])+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,
   code: /^(`+)\s*([\s\S]*?[^`])\s*\1(?!`)/,
   br: /^ {2,}\n(?!\s*$)/,
   del: noop,
@@ -9569,10 +9567,8 @@ InlineLexer.prototype.output = function(src) {
       }
       src = src.substring(cap[0].length);
       out += this.options.sanitize
-        ? this.options.sanitizer
-          ? this.options.sanitizer(cap[0])
-          : escape(cap[0])
-        : cap[0]
+        ? escape(cap[0])
+        : cap[0];
       continue;
     }
 
@@ -9643,7 +9639,7 @@ InlineLexer.prototype.output = function(src) {
     // text
     if (cap = this.rules.text.exec(src)) {
       src = src.substring(cap[0].length);
-      out += this.renderer.text(escape(this.smartypants(cap[0])));
+      out += escape(this.smartypants(cap[0]));
       continue;
     }
 
@@ -9677,9 +9673,7 @@ InlineLexer.prototype.smartypants = function(text) {
   if (!this.options.smartypants) return text;
   return text
     // em-dashes
-    .replace(/---/g, '\u2014')
-    // en-dashes
-    .replace(/--/g, '\u2013')
+    .replace(/--/g, '\u2014')
     // opening singles
     .replace(/(^|[-\u2014/(\[{"\s])'/g, '$1\u2018')
     // closing singles & apostrophes
@@ -9697,7 +9691,6 @@ InlineLexer.prototype.smartypants = function(text) {
  */
 
 InlineLexer.prototype.mangle = function(text) {
-  if (!this.options.mangle) return text;
   var out = ''
     , l = text.length
     , i = 0
@@ -9855,10 +9848,6 @@ Renderer.prototype.image = function(href, title, text) {
   }
   out += this.options.xhtml ? '/>' : '>';
   return out;
-};
-
-Renderer.prototype.text = function(text) {
-  return text;
 };
 
 /**
@@ -10204,8 +10193,6 @@ marked.defaults = {
   breaks: false,
   pedantic: false,
   sanitize: false,
-  sanitizer: null,
-  mangle: true,
   smartLists: false,
   silent: false,
   highlight: null,
@@ -10495,7 +10482,7 @@ module.exports = Store;
  * @copyright Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors (Conversion to ES6 API by Jake Archibald)
  * @license   Licensed under MIT license
  *            See https://raw.githubusercontent.com/jakearchibald/es6-promise/master/LICENSE
- * @version   2.3.0
+ * @version   2.1.1
  */
 
 (function() {
@@ -10525,9 +10512,7 @@ module.exports = Store;
     var lib$es6$promise$asap$$len = 0;
     var lib$es6$promise$asap$$toString = {}.toString;
     var lib$es6$promise$asap$$vertxNext;
-    var lib$es6$promise$asap$$customSchedulerFn;
-
-    var lib$es6$promise$asap$$asap = function asap(callback, arg) {
+    function lib$es6$promise$asap$$asap(callback, arg) {
       lib$es6$promise$asap$$queue[lib$es6$promise$asap$$len] = callback;
       lib$es6$promise$asap$$queue[lib$es6$promise$asap$$len + 1] = arg;
       lib$es6$promise$asap$$len += 2;
@@ -10535,21 +10520,11 @@ module.exports = Store;
         // If len is 2, that means that we need to schedule an async flush.
         // If additional callbacks are queued before the queue is flushed, they
         // will be processed by this flush that we are scheduling.
-        if (lib$es6$promise$asap$$customSchedulerFn) {
-          lib$es6$promise$asap$$customSchedulerFn(lib$es6$promise$asap$$flush);
-        } else {
-          lib$es6$promise$asap$$scheduleFlush();
-        }
+        lib$es6$promise$asap$$scheduleFlush();
       }
     }
 
-    function lib$es6$promise$asap$$setScheduler(scheduleFn) {
-      lib$es6$promise$asap$$customSchedulerFn = scheduleFn;
-    }
-
-    function lib$es6$promise$asap$$setAsap(asapFn) {
-      lib$es6$promise$asap$$asap = asapFn;
-    }
+    var lib$es6$promise$asap$$default = lib$es6$promise$asap$$asap;
 
     var lib$es6$promise$asap$$browserWindow = (typeof window !== 'undefined') ? window : undefined;
     var lib$es6$promise$asap$$browserGlobal = lib$es6$promise$asap$$browserWindow || {};
@@ -10682,7 +10657,7 @@ module.exports = Store;
     }
 
     function lib$es6$promise$$internal$$handleForeignThenable(promise, thenable, then) {
-       lib$es6$promise$asap$$asap(function(promise) {
+       lib$es6$promise$asap$$default(function(promise) {
         var sealed = false;
         var error = lib$es6$promise$$internal$$tryThen(then, thenable, function(value) {
           if (sealed) { return; }
@@ -10763,7 +10738,7 @@ module.exports = Store;
       promise._state = lib$es6$promise$$internal$$FULFILLED;
 
       if (promise._subscribers.length !== 0) {
-        lib$es6$promise$asap$$asap(lib$es6$promise$$internal$$publish, promise);
+        lib$es6$promise$asap$$default(lib$es6$promise$$internal$$publish, promise);
       }
     }
 
@@ -10772,7 +10747,7 @@ module.exports = Store;
       promise._state = lib$es6$promise$$internal$$REJECTED;
       promise._result = reason;
 
-      lib$es6$promise$asap$$asap(lib$es6$promise$$internal$$publishRejection, promise);
+      lib$es6$promise$asap$$default(lib$es6$promise$$internal$$publishRejection, promise);
     }
 
     function lib$es6$promise$$internal$$subscribe(parent, child, onFulfillment, onRejection) {
@@ -10786,7 +10761,7 @@ module.exports = Store;
       subscribers[length + lib$es6$promise$$internal$$REJECTED]  = onRejection;
 
       if (length === 0 && parent._state) {
-        lib$es6$promise$asap$$asap(lib$es6$promise$$internal$$publish, parent);
+        lib$es6$promise$asap$$default(lib$es6$promise$$internal$$publish, parent);
       }
     }
 
@@ -11043,7 +11018,7 @@ module.exports = Store;
     /**
       Promise objects represent the eventual result of an asynchronous operation. The
       primary way of interacting with a promise is through its `then` method, which
-      registers callbacks to receive either a promise's eventual value or the reason
+      registers callbacks to receive either a promise’s eventual value or the reason
       why the promise cannot be fulfilled.
 
       Terminology
@@ -11166,9 +11141,6 @@ module.exports = Store;
     lib$es6$promise$promise$$Promise.race = lib$es6$promise$promise$race$$default;
     lib$es6$promise$promise$$Promise.resolve = lib$es6$promise$promise$resolve$$default;
     lib$es6$promise$promise$$Promise.reject = lib$es6$promise$promise$reject$$default;
-    lib$es6$promise$promise$$Promise._setScheduler = lib$es6$promise$asap$$setScheduler;
-    lib$es6$promise$promise$$Promise._setAsap = lib$es6$promise$asap$$setAsap;
-    lib$es6$promise$promise$$Promise._asap = lib$es6$promise$asap$$asap;
 
     lib$es6$promise$promise$$Promise.prototype = {
       constructor: lib$es6$promise$promise$$Promise,
@@ -11379,7 +11351,7 @@ module.exports = Store;
 
         if (state) {
           var callback = arguments[state - 1];
-          lib$es6$promise$asap$$asap(function(){
+          lib$es6$promise$asap$$default(function(){
             lib$es6$promise$$internal$$invokeCallback(state, child, callback, result);
           });
         } else {
@@ -11902,7 +11874,7 @@ module.exports = Object.assign || function (target, source) {
 
 },{}],111:[function(require,module,exports){
 //! moment.js
-//! version : 2.10.6
+//! version : 2.10.3
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
 //! license : MIT
 //! momentjs.com
@@ -11997,7 +11969,6 @@ module.exports = Object.assign || function (target, source) {
                 flags.overflow < 0 &&
                 !flags.empty &&
                 !flags.invalidMonth &&
-                !flags.invalidWeekday &&
                 !flags.nullInput &&
                 !flags.invalidFormat &&
                 !flags.userInvalidated;
@@ -12078,7 +12049,7 @@ module.exports = Object.assign || function (target, source) {
     // Moment prototype object
     function Moment(config) {
         copyConfig(this, config);
-        this._d = new Date(config._d != null ? config._d.getTime() : NaN);
+        this._d = new Date(+config._d);
         // Prevent infinite loop in case updateOffset creates new moment
         // objects.
         if (updateInProgress === false) {
@@ -12092,20 +12063,16 @@ module.exports = Object.assign || function (target, source) {
         return obj instanceof Moment || (obj != null && obj._isAMomentObject != null);
     }
 
-    function absFloor (number) {
-        if (number < 0) {
-            return Math.ceil(number);
-        } else {
-            return Math.floor(number);
-        }
-    }
-
     function toInt(argumentForCoercion) {
         var coercedNumber = +argumentForCoercion,
             value = 0;
 
         if (coercedNumber !== 0 && isFinite(coercedNumber)) {
-            value = absFloor(coercedNumber);
+            if (coercedNumber >= 0) {
+                value = Math.floor(coercedNumber);
+            } else {
+                value = Math.ceil(coercedNumber);
+            }
         }
 
         return value;
@@ -12203,7 +12170,9 @@ module.exports = Object.assign || function (target, source) {
     function defineLocale (name, values) {
         if (values !== null) {
             values.abbr = name;
-            locales[name] = locales[name] || new Locale();
+            if (!locales[name]) {
+                locales[name] = new Locale();
+            }
             locales[name].set(values);
 
             // backwards compat for now: also set the locale
@@ -12307,14 +12276,16 @@ module.exports = Object.assign || function (target, source) {
     }
 
     function zeroFill(number, targetLength, forceSign) {
-        var absNumber = '' + Math.abs(number),
-            zerosToFill = targetLength - absNumber.length,
+        var output = '' + Math.abs(number),
             sign = number >= 0;
-        return (sign ? (forceSign ? '+' : '') : '-') +
-            Math.pow(10, Math.max(0, zerosToFill)).toString().substr(1) + absNumber;
+
+        while (output.length < targetLength) {
+            output = '0' + output;
+        }
+        return (sign ? (forceSign ? '+' : '') : '-') + output;
     }
 
-    var formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Q|YYYYYY|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|mm?|ss?|S{1,9}|x|X|zz?|ZZ?|.)/g;
+    var formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Q|YYYYYY|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|mm?|ss?|S{1,4}|x|X|zz?|ZZ?|.)/g;
 
     var localFormattingTokens = /(\[[^\[]*\])|(\\)?(LTS|LT|LL?L?L?|l{1,4})/g;
 
@@ -12382,7 +12353,10 @@ module.exports = Object.assign || function (target, source) {
         }
 
         format = expandFormat(format, m.localeData());
-        formatFunctions[format] = formatFunctions[format] || makeFormatFunction(format);
+
+        if (!formatFunctions[format]) {
+            formatFunctions[format] = makeFormatFunction(format);
+        }
 
         return formatFunctions[format](m);
     }
@@ -12426,15 +12400,8 @@ module.exports = Object.assign || function (target, source) {
 
     var regexes = {};
 
-    function isFunction (sth) {
-        // https://github.com/moment/moment/issues/2325
-        return typeof sth === 'function' &&
-            Object.prototype.toString.call(sth) === '[object Function]';
-    }
-
-
     function addRegexToken (token, regex, strictRegex) {
-        regexes[token] = isFunction(regex) ? regex : function (isStrict) {
+        regexes[token] = typeof regex === 'function' ? regex : function (isStrict) {
             return (isStrict && strictRegex) ? strictRegex : regex;
         };
     }
@@ -12642,11 +12609,12 @@ module.exports = Object.assign || function (target, source) {
     }
 
     function deprecate(msg, fn) {
-        var firstTime = true;
+        var firstTime = true,
+            msgWithStack = msg + '\n' + (new Error()).stack;
 
         return extend(function () {
             if (firstTime) {
-                warn(msg + '\n' + (new Error()).stack);
+                warn(msgWithStack);
                 firstTime = false;
             }
             return fn.apply(this, arguments);
@@ -12694,14 +12662,14 @@ module.exports = Object.assign || function (target, source) {
             getParsingFlags(config).iso = true;
             for (i = 0, l = isoDates.length; i < l; i++) {
                 if (isoDates[i][1].exec(string)) {
-                    config._f = isoDates[i][0];
+                    // match[5] should be 'T' or undefined
+                    config._f = isoDates[i][0] + (match[6] || ' ');
                     break;
                 }
             }
             for (i = 0, l = isoTimes.length; i < l; i++) {
                 if (isoTimes[i][1].exec(string)) {
-                    // match[6] should be 'T' or space
-                    config._f += (match[6] || ' ') + isoTimes[i][0];
+                    config._f += isoTimes[i][0];
                     break;
                 }
             }
@@ -12780,10 +12748,7 @@ module.exports = Object.assign || function (target, source) {
     addRegexToken('YYYYY',  match1to6, match6);
     addRegexToken('YYYYYY', match1to6, match6);
 
-    addParseToken(['YYYYY', 'YYYYYY'], YEAR);
-    addParseToken('YYYY', function (input, array) {
-        array[YEAR] = input.length === 2 ? utils_hooks__hooks.parseTwoDigitYear(input) : toInt(input);
-    });
+    addParseToken(['YYYY', 'YYYYY', 'YYYYYY'], YEAR);
     addParseToken('YY', function (input, array) {
         array[YEAR] = utils_hooks__hooks.parseTwoDigitYear(input);
     });
@@ -12910,18 +12875,18 @@ module.exports = Object.assign || function (target, source) {
 
     //http://en.wikipedia.org/wiki/ISO_week_date#Calculating_a_date_given_the_year.2C_week_number_and_weekday
     function dayOfYearFromWeeks(year, week, weekday, firstDayOfWeekOfYear, firstDayOfWeek) {
-        var week1Jan = 6 + firstDayOfWeek - firstDayOfWeekOfYear, janX = createUTCDate(year, 0, 1 + week1Jan), d = janX.getUTCDay(), dayOfYear;
-        if (d < firstDayOfWeek) {
-            d += 7;
-        }
+        var d = createUTCDate(year, 0, 1).getUTCDay();
+        var daysToAdd;
+        var dayOfYear;
 
-        weekday = weekday != null ? 1 * weekday : firstDayOfWeek;
-
-        dayOfYear = 1 + week1Jan + 7 * (week - 1) - d + weekday;
+        d = d === 0 ? 7 : d;
+        weekday = weekday != null ? weekday : firstDayOfWeek;
+        daysToAdd = firstDayOfWeek - d + (d > firstDayOfWeekOfYear ? 7 : 0) - (d < firstDayOfWeek ? 7 : 0);
+        dayOfYear = 7 * (week - 1) + (weekday - firstDayOfWeek) + daysToAdd + 1;
 
         return {
-            year: dayOfYear > 0 ? year : year - 1,
-            dayOfYear: dayOfYear > 0 ?  dayOfYear : daysInYear(year - 1) + dayOfYear
+            year      : dayOfYear > 0 ? year      : year - 1,
+            dayOfYear : dayOfYear > 0 ? dayOfYear : daysInYear(year - 1) + dayOfYear
         };
     }
 
@@ -13207,19 +13172,9 @@ module.exports = Object.assign || function (target, source) {
     }
 
     function createFromConfig (config) {
-        var res = new Moment(checkOverflow(prepareConfig(config)));
-        if (res._nextDay) {
-            // Adding is smart enough around DST
-            res.add(1, 'd');
-            res._nextDay = undefined;
-        }
-
-        return res;
-    }
-
-    function prepareConfig (config) {
         var input = config._i,
-            format = config._f;
+            format = config._f,
+            res;
 
         config._locale = config._locale || locale_locales__getLocale(config._l);
 
@@ -13243,7 +13198,14 @@ module.exports = Object.assign || function (target, source) {
             configFromInput(config);
         }
 
-        return config;
+        res = new Moment(checkOverflow(config));
+        if (res._nextDay) {
+            // Adding is smart enough around DST
+            res.add(1, 'd');
+            res._nextDay = undefined;
+        }
+
+        return res;
     }
 
     function configFromInput(config) {
@@ -13323,7 +13285,7 @@ module.exports = Object.assign || function (target, source) {
         }
         res = moments[0];
         for (i = 1; i < moments.length; ++i) {
-            if (!moments[i].isValid() || moments[i][fn](res)) {
+            if (moments[i][fn](res)) {
                 res = moments[i];
             }
         }
@@ -13435,6 +13397,7 @@ module.exports = Object.assign || function (target, source) {
         } else {
             return local__createLocal(input).local();
         }
+        return model._isUTC ? local__createLocal(input).zone(model._offset || 0) : local__createLocal(input).local();
     }
 
     function getDateOffset (m) {
@@ -13534,7 +13497,12 @@ module.exports = Object.assign || function (target, source) {
     }
 
     function hasAlignedHourOffset (input) {
-        input = input ? local__createLocal(input).utcOffset() : 0;
+        if (!input) {
+            input = 0;
+        }
+        else {
+            input = local__createLocal(input).utcOffset();
+        }
 
         return (this.utcOffset() - input) % 60 === 0;
     }
@@ -13547,24 +13515,12 @@ module.exports = Object.assign || function (target, source) {
     }
 
     function isDaylightSavingTimeShifted () {
-        if (typeof this._isDSTShifted !== 'undefined') {
-            return this._isDSTShifted;
+        if (this._a) {
+            var other = this._isUTC ? create_utc__createUTC(this._a) : local__createLocal(this._a);
+            return this.isValid() && compareArrays(this._a, other.toArray()) > 0;
         }
 
-        var c = {};
-
-        copyConfig(c, this);
-        c = prepareConfig(c);
-
-        if (c._a) {
-            var other = c._isUTC ? create_utc__createUTC(c._a) : local__createLocal(c._a);
-            this._isDSTShifted = this.isValid() &&
-                compareArrays(c._a, other.toArray()) > 0;
-        } else {
-            this._isDSTShifted = false;
-        }
-
-        return this._isDSTShifted;
+        return false;
     }
 
     function isLocal () {
@@ -13724,7 +13680,7 @@ module.exports = Object.assign || function (target, source) {
     var add_subtract__add      = createAdder(1, 'add');
     var add_subtract__subtract = createAdder(-1, 'subtract');
 
-    function moment_calendar__calendar (time, formats) {
+    function moment_calendar__calendar (time) {
         // We want to compare the start of today, vs this.
         // Getting start-of-today depends on whether we're local/utc/offset or not.
         var now = time || local__createLocal(),
@@ -13736,7 +13692,7 @@ module.exports = Object.assign || function (target, source) {
                 diff < 1 ? 'sameDay' :
                 diff < 2 ? 'nextDay' :
                 diff < 7 ? 'nextWeek' : 'sameElse';
-        return this.format(formats && formats[format] || this.localeData().calendar(format, this, local__createLocal(now)));
+        return this.format(this.localeData().calendar(format, this, local__createLocal(now)));
     }
 
     function clone () {
@@ -13780,6 +13736,14 @@ module.exports = Object.assign || function (target, source) {
         } else {
             inputMs = +local__createLocal(input);
             return +(this.clone().startOf(units)) <= inputMs && inputMs <= +(this.clone().endOf(units));
+        }
+    }
+
+    function absFloor (number) {
+        if (number < 0) {
+            return Math.ceil(number);
+        } else {
+            return Math.floor(number);
         }
     }
 
@@ -13973,19 +13937,6 @@ module.exports = Object.assign || function (target, source) {
         return [m.year(), m.month(), m.date(), m.hour(), m.minute(), m.second(), m.millisecond()];
     }
 
-    function toObject () {
-        var m = this;
-        return {
-            years: m.year(),
-            months: m.month(),
-            date: m.date(),
-            hours: m.hours(),
-            minutes: m.minutes(),
-            seconds: m.seconds(),
-            milliseconds: m.milliseconds()
-        };
-    }
-
     function moment_valid__isValid () {
         return valid__isValid(this);
     }
@@ -14157,20 +14108,18 @@ module.exports = Object.assign || function (target, source) {
     // HELPERS
 
     function parseWeekday(input, locale) {
-        if (typeof input !== 'string') {
-            return input;
+        if (typeof input === 'string') {
+            if (!isNaN(input)) {
+                input = parseInt(input, 10);
+            }
+            else {
+                input = locale.weekdaysParse(input);
+                if (typeof input !== 'number') {
+                    return null;
+                }
+            }
         }
-
-        if (!isNaN(input)) {
-            return parseInt(input, 10);
-        }
-
-        input = locale.weekdaysParse(input);
-        if (typeof input === 'number') {
-            return input;
-        }
-
-        return null;
+        return input;
     }
 
     // LOCALES
@@ -14193,7 +14142,9 @@ module.exports = Object.assign || function (target, source) {
     function localeWeekdaysParse (weekdayName) {
         var i, mom, regex;
 
-        this._weekdaysParse = this._weekdaysParse || [];
+        if (!this._weekdaysParse) {
+            this._weekdaysParse = [];
+        }
 
         for (i = 0; i < 7; i++) {
             // make the regex if we don't have it already
@@ -14340,26 +14291,12 @@ module.exports = Object.assign || function (target, source) {
         return ~~(this.millisecond() / 10);
     });
 
-    addFormatToken(0, ['SSS', 3], 0, 'millisecond');
-    addFormatToken(0, ['SSSS', 4], 0, function () {
-        return this.millisecond() * 10;
-    });
-    addFormatToken(0, ['SSSSS', 5], 0, function () {
-        return this.millisecond() * 100;
-    });
-    addFormatToken(0, ['SSSSSS', 6], 0, function () {
-        return this.millisecond() * 1000;
-    });
-    addFormatToken(0, ['SSSSSSS', 7], 0, function () {
-        return this.millisecond() * 10000;
-    });
-    addFormatToken(0, ['SSSSSSSS', 8], 0, function () {
-        return this.millisecond() * 100000;
-    });
-    addFormatToken(0, ['SSSSSSSSS', 9], 0, function () {
-        return this.millisecond() * 1000000;
-    });
+    function millisecond__milliseconds (token) {
+        addFormatToken(0, [token, 3], 0, 'millisecond');
+    }
 
+    millisecond__milliseconds('SSS');
+    millisecond__milliseconds('SSSS');
 
     // ALIASES
 
@@ -14370,19 +14307,11 @@ module.exports = Object.assign || function (target, source) {
     addRegexToken('S',    match1to3, match1);
     addRegexToken('SS',   match1to3, match2);
     addRegexToken('SSS',  match1to3, match3);
-
-    var token;
-    for (token = 'SSSS'; token.length <= 9; token += 'S') {
-        addRegexToken(token, matchUnsigned);
-    }
-
-    function parseMs(input, array) {
+    addRegexToken('SSSS', matchUnsigned);
+    addParseToken(['S', 'SS', 'SSS', 'SSSS'], function (input, array) {
         array[MILLISECOND] = toInt(('0.' + input) * 1000);
-    }
+    });
 
-    for (token = 'S'; token.length <= 9; token += 'S') {
-        addParseToken(token, parseMs);
-    }
     // MOMENTS
 
     var getSetMillisecond = makeGetSet('Milliseconds', false);
@@ -14429,7 +14358,6 @@ module.exports = Object.assign || function (target, source) {
     momentPrototype__proto.startOf      = startOf;
     momentPrototype__proto.subtract     = add_subtract__subtract;
     momentPrototype__proto.toArray      = toArray;
-    momentPrototype__proto.toObject     = toObject;
     momentPrototype__proto.toDate       = toDate;
     momentPrototype__proto.toISOString  = moment_format__toISOString;
     momentPrototype__proto.toJSON       = moment_format__toISOString;
@@ -14529,23 +14457,19 @@ module.exports = Object.assign || function (target, source) {
         LT   : 'h:mm A',
         L    : 'MM/DD/YYYY',
         LL   : 'MMMM D, YYYY',
-        LLL  : 'MMMM D, YYYY h:mm A',
-        LLLL : 'dddd, MMMM D, YYYY h:mm A'
+        LLL  : 'MMMM D, YYYY LT',
+        LLLL : 'dddd, MMMM D, YYYY LT'
     };
 
     function longDateFormat (key) {
-        var format = this._longDateFormat[key],
-            formatUpper = this._longDateFormat[key.toUpperCase()];
-
-        if (format || !formatUpper) {
-            return format;
+        var output = this._longDateFormat[key];
+        if (!output && this._longDateFormat[key.toUpperCase()]) {
+            output = this._longDateFormat[key.toUpperCase()].replace(/MMMM|MM|DD|dddd/g, function (val) {
+                return val.slice(1);
+            });
+            this._longDateFormat[key] = output;
         }
-
-        this._longDateFormat[key] = formatUpper.replace(/MMMM|MM|DD|dddd/g, function (val) {
-            return val.slice(1);
-        });
-
-        return this._longDateFormat[key];
+        return output;
     }
 
     var defaultInvalidDate = 'Invalid date';
@@ -14754,29 +14678,12 @@ module.exports = Object.assign || function (target, source) {
         return duration_add_subtract__addSubtract(this, input, value, -1);
     }
 
-    function absCeil (number) {
-        if (number < 0) {
-            return Math.floor(number);
-        } else {
-            return Math.ceil(number);
-        }
-    }
-
     function bubble () {
         var milliseconds = this._milliseconds;
         var days         = this._days;
         var months       = this._months;
         var data         = this._data;
-        var seconds, minutes, hours, years, monthsFromDays;
-
-        // if we have a mix of positive and negative values, bubble down first
-        // check: https://github.com/moment/moment/issues/2166
-        if (!((milliseconds >= 0 && days >= 0 && months >= 0) ||
-                (milliseconds <= 0 && days <= 0 && months <= 0))) {
-            milliseconds += absCeil(monthsToDays(months) + days) * 864e5;
-            days = 0;
-            months = 0;
-        }
+        var seconds, minutes, hours, years = 0;
 
         // The following code bubbles up values, see the tests for
         // examples of what that means.
@@ -14793,13 +14700,17 @@ module.exports = Object.assign || function (target, source) {
 
         days += absFloor(hours / 24);
 
-        // convert days to months
-        monthsFromDays = absFloor(daysToMonths(days));
-        months += monthsFromDays;
-        days -= absCeil(monthsToDays(monthsFromDays));
+        // Accurately convert days to years, assume start from year 0.
+        years = absFloor(daysToYears(days));
+        days -= absFloor(yearsToDays(years));
+
+        // 30 days to a month
+        // TODO (iskren): Use anchor date (like 1st Jan) to compute this.
+        months += absFloor(days / 30);
+        days   %= 30;
 
         // 12 months -> 1 year
-        years = absFloor(months / 12);
+        years  += absFloor(months / 12);
         months %= 12;
 
         data.days   = days;
@@ -14809,15 +14720,15 @@ module.exports = Object.assign || function (target, source) {
         return this;
     }
 
-    function daysToMonths (days) {
+    function daysToYears (days) {
         // 400 years have 146097 days (taking into account leap year rules)
-        // 400 years have 12 months === 4800
-        return days * 4800 / 146097;
+        return days * 400 / 146097;
     }
 
-    function monthsToDays (months) {
-        // the reverse of daysToMonths
-        return months * 146097 / 4800;
+    function yearsToDays (years) {
+        // years * 365 + absFloor(years / 4) -
+        //     absFloor(years / 100) + absFloor(years / 400);
+        return years * 146097 / 400;
     }
 
     function as (units) {
@@ -14829,11 +14740,11 @@ module.exports = Object.assign || function (target, source) {
 
         if (units === 'month' || units === 'year') {
             days   = this._days   + milliseconds / 864e5;
-            months = this._months + daysToMonths(days);
+            months = this._months + daysToYears(days) * 12;
             return units === 'month' ? months : months / 12;
         } else {
             // handle milliseconds separately because of floating point math errors (issue #1867)
-            days = this._days + Math.round(monthsToDays(this._months));
+            days = this._days + Math.round(yearsToDays(this._months / 12));
             switch (units) {
                 case 'week'   : return days / 7     + milliseconds / 6048e5;
                 case 'day'    : return days         + milliseconds / 864e5;
@@ -14883,7 +14794,7 @@ module.exports = Object.assign || function (target, source) {
         };
     }
 
-    var milliseconds = makeGetter('milliseconds');
+    var duration_get__milliseconds = makeGetter('milliseconds');
     var seconds      = makeGetter('seconds');
     var minutes      = makeGetter('minutes');
     var hours        = makeGetter('hours');
@@ -14961,36 +14872,13 @@ module.exports = Object.assign || function (target, source) {
     var iso_string__abs = Math.abs;
 
     function iso_string__toISOString() {
-        // for ISO strings we do not use the normal bubbling rules:
-        //  * milliseconds bubble up until they become hours
-        //  * days do not bubble at all
-        //  * months bubble up until they become years
-        // This is because there is no context-free conversion between hours and days
-        // (think of clock changes)
-        // and also not between days and months (28-31 days per month)
-        var seconds = iso_string__abs(this._milliseconds) / 1000;
-        var days         = iso_string__abs(this._days);
-        var months       = iso_string__abs(this._months);
-        var minutes, hours, years;
-
-        // 3600 seconds -> 60 minutes -> 1 hour
-        minutes           = absFloor(seconds / 60);
-        hours             = absFloor(minutes / 60);
-        seconds %= 60;
-        minutes %= 60;
-
-        // 12 months -> 1 year
-        years  = absFloor(months / 12);
-        months %= 12;
-
-
         // inspired by https://github.com/dordille/moment-isoduration/blob/master/moment.isoduration.js
-        var Y = years;
-        var M = months;
-        var D = days;
-        var h = hours;
-        var m = minutes;
-        var s = seconds;
+        var Y = iso_string__abs(this.years());
+        var M = iso_string__abs(this.months());
+        var D = iso_string__abs(this.days());
+        var h = iso_string__abs(this.hours());
+        var m = iso_string__abs(this.minutes());
+        var s = iso_string__abs(this.seconds() + this.milliseconds() / 1000);
         var total = this.asSeconds();
 
         if (!total) {
@@ -15027,7 +14915,7 @@ module.exports = Object.assign || function (target, source) {
     duration_prototype__proto.valueOf        = duration_as__valueOf;
     duration_prototype__proto._bubble        = bubble;
     duration_prototype__proto.get            = duration_get__get;
-    duration_prototype__proto.milliseconds   = milliseconds;
+    duration_prototype__proto.milliseconds   = duration_get__milliseconds;
     duration_prototype__proto.seconds        = seconds;
     duration_prototype__proto.minutes        = minutes;
     duration_prototype__proto.hours          = hours;
@@ -15065,7 +14953,7 @@ module.exports = Object.assign || function (target, source) {
     // Side effect imports
 
 
-    utils_hooks__hooks.version = '2.10.6';
+    utils_hooks__hooks.version = '2.10.3';
 
     setHookCallback(local__createLocal);
 
@@ -15097,7 +14985,7 @@ module.exports = Object.assign || function (target, source) {
 
 }));
 },{}],112:[function(require,module,exports){
-!function(e,t){"object"==typeof exports&&"object"==typeof module?module.exports=t(require("react"),require("tether"),require("moment"),require("lodash"),require("react-onclickoutside")):"function"==typeof define&&define.amd?define(["react","tether","moment","lodash","react-onclickoutside"],t):"object"==typeof exports?exports.DatePicker=t(require("react"),require("tether"),require("moment"),require("lodash"),require("react-onclickoutside")):e.DatePicker=t(e.React,e.Tether,e.moment,e._,e.OnClickOutside)}(this,function(e,t,n,s,o){return function(e){function t(s){if(n[s])return n[s].exports;var o=n[s]={exports:{},id:s,loaded:!1};return e[s].call(o.exports,o,o.exports,t),o.loaded=!0,o.exports}var n={};return t.m=e,t.c=n,t.p="",t(0)}([function(e,t,n){"use strict";var s=n(1),o=n(2),a=(n(4),n(5)),r=n(10),i=n(7),p=n(8),c=s.createClass({displayName:"DatePicker",propTypes:{weekdays:s.PropTypes.arrayOf(s.PropTypes.string),locale:s.PropTypes.string,dateFormatCalendar:s.PropTypes.string,popoverAttachment:s.PropTypes.string,popoverTargetAttachment:s.PropTypes.string,popoverTargetOffset:s.PropTypes.string,onChange:s.PropTypes.func.isRequired,onBlur:s.PropTypes.func},getDefaultProps:function(){return{weekdays:["Su","Mo","Tu","We","Th","Fr","Sa"],locale:"en",dateFormatCalendar:"MMMM YYYY",moment:i,onChange:function(){},disabled:!1}},getInitialState:function(){return{focus:!1,virtualFocus:!1,selected:this.props.selected}},componentWillReceiveProps:function(e){this.setState({selected:e.selected})},shouldComponentUpdate:function(e,t){return!(p.isEqual(e,this.props)&&p.isEqual(t,this.state))},getValue:function(){return this.state.selected},handleFocus:function(){this.setState({focus:!0})},handleBlur:function(){this.setState({virtualFocus:!1},function(){setTimeout(function(){this.state.virtualFocus||"function"!=typeof this.props.onBlur||(this.props.onBlur(this.state.selected),this.hideCalendar())}.bind(this),200)}.bind(this))},hideCalendar:function(){setTimeout(function(){this.setState({focus:!1})}.bind(this),0)},handleSelect:function(e){this.setSelected(e),setTimeout(function(){this.hideCalendar()}.bind(this),200)},setSelected:function(e){this.setState({selected:e.moment(),virtualFocus:!0},function(){this.props.onChange(this.state.selected)}.bind(this))},clearSelected:function(){null!==this.state.selected&&this.setState({selected:null},function(){this.props.onChange(null)}.bind(this))},onInputClick:function(){this.setState({focus:!0,virtualFocus:!0})},calendar:function(){return this.state.focus?s.createElement(o,{attachment:this.props.popoverAttachment,targetAttachment:this.props.popoverTargetAttachment,targetOffset:this.props.popoverTargetOffset},s.createElement(a,{weekdays:this.props.weekdays,locale:this.props.locale,moment:this.props.moment,dateFormat:this.props.dateFormatCalendar,selected:this.state.selected,onSelect:this.handleSelect,hideCalendar:this.hideCalendar,minDate:this.props.minDate,maxDate:this.props.maxDate,excludeDates:this.props.excludeDates,weekStart:this.props.weekStart})):void 0},render:function(){var e=null;return this.props.isClearable&&null!=this.state.selected&&(e=s.createElement("button",{className:"close-icon",onClick:this.clearSelected})),s.createElement("div",{className:"datepicker__input-container"},s.createElement(r,{name:this.props.name,date:this.state.selected,dateFormat:this.props.dateFormat,focus:this.state.focus,onFocus:this.handleFocus,onBlur:this.handleBlur,handleClick:this.onInputClick,handleEnter:this.hideCalendar,setSelected:this.setSelected,clearSelected:this.clearSelected,hideCalendar:this.hideCalendar,placeholderText:this.props.placeholderText,disabled:this.props.disabled,className:this.props.className,title:this.props.title}),e,this.props.disabled?null:this.calendar())}});e.exports=c},function(t,n){t.exports=e},function(e,t,n){"use strict";var s=n(1),o=s.createClass({displayName:"Popover",propTypes:{attachment:s.PropTypes.string,targetAttachment:s.PropTypes.string,targetOffset:s.PropTypes.string},getDefaultProps:function(){return{attachment:"top left",targetAttachment:"bottom left",targetOffset:"10px 0"}},componentWillMount:function(){var e=document.createElement("span");e.className="datepicker__container",this._popoverElement=e,document.querySelector("body").appendChild(this._popoverElement)},componentDidMount:function(){this._renderPopover()},componentDidUpdate:function(){this._renderPopover()},_popoverComponent:function(){var e=this.props.className;return s.createElement("div",{className:e},this.props.children)},_tetherOptions:function(){return{element:this._popoverElement,target:this.getDOMNode().parentElement.querySelector("input"),attachment:this.props.attachment,targetAttachment:this.props.targetAttachment,targetOffset:this.props.targetOffset,optimizations:{moveElement:!1},constraints:[{to:"window",attachment:"together"}]}},_renderPopover:function(){if(s.render(this._popoverComponent(),this._popoverElement),null!=this._tether)this._tether.setOptions(this._tetherOptions());else if(window&&document){var e=n(3);this._tether=new e(this._tetherOptions())}},componentWillUnmount:function(){this._tether.destroy(),s.unmountComponentAtNode(this._popoverElement),this._popoverElement.parentNode&&this._popoverElement.parentNode.removeChild(this._popoverElement)},render:function(){return s.createElement("span",null)}});e.exports=o},function(e,n){e.exports=t},function(e,t){"use strict";function n(e){this._date=e}n.prototype.isBefore=function(e){return this._date.isBefore(e._date,"day")},n.prototype.isAfter=function(e){return this._date.isAfter(e._date,"day")},n.prototype.sameDay=function(e){return this._date.isSame(e._date,"day")},n.prototype.sameMonth=function(e){return this._date.isSame(e._date,"month")},n.prototype.day=function(){return this._date.date()},n.prototype.mapDaysInWeek=function(e){for(var t=[],s=this._date.clone(),o=0;7>o;o++){var a=new n(s.clone().add(o,"days"));t[o]=e(a,o)}return t},n.prototype.mapWeeksInMonth=function(e){for(var t=[],s=this._date.clone().startOf("month").startOf("week"),o=0;6>o;o++){var a=new n(s.clone().add(o,"weeks"));t[o]=e(a,o)}return t},n.prototype.weekInMonth=function(e){var t=this._date.clone(),n=this._date.clone().weekday(7);return t.isSame(e._date,"month")||n.isSame(e._date,"month")},n.prototype.format=function(){return this._date.format.apply(this._date,arguments)},n.prototype.localeFormat=function(){var e=Array.prototype.slice.call(arguments),t=e.shift();return this._date.locale(t).format.apply(this._date,e)},n.prototype.addMonth=function(){return new n(this._date.clone().add(1,"month"))},n.prototype.subtractMonth=function(){return new n(this._date.clone().subtract(1,"month"))},n.prototype.clone=function(){return new n(this._date.clone())},n.prototype.safeClone=function(e){return this._date?this.clone():(void 0===e&&(e=null),new n(e))},n.prototype.moment=function(){return this._date},e.exports=n},function(e,t,n){"use strict";var s=n(1),o=n(6),a=n(4),r=n(8),i=s.createClass({displayName:"Calendar",mixins:[n(9)],handleClickOutside:function(){this.props.hideCalendar()},getInitialState:function(){return{date:new a(this.props.selected).safeClone(this.props.moment())}},getDefaultProps:function(){return{weekStart:1}},componentWillMount:function(){this.initializeMomentLocale()},componentWillReceiveProps:function(e){null!==e.selected&&e.selected!==this.props.selected&&this.setState({date:new a(e.selected).clone()})},initializeMomentLocale:function(){var e=this.props.weekdays.slice(0);e=e.concat(e.splice(0,this.props.weekStart)),this.props.moment.locale(this.props.locale,{week:{dow:this.props.weekStart},weekdaysMin:e})},increaseMonth:function(){this.setState({date:this.state.date.addMonth()})},decreaseMonth:function(){this.setState({date:this.state.date.subtractMonth()})},weeks:function(){return this.state.date.mapWeeksInMonth(this.renderWeek)},handleDayClick:function(e){this.props.onSelect(e)},renderWeek:function(e,t){return e.weekInMonth(this.state.date)?s.createElement("div",{key:t},this.days(e)):void 0},renderDay:function(e,t){var n,i,p=new a(this.props.minDate).safeClone(),c=new a(this.props.maxDate).safeClone();return this.props.excludeDates&&Array.isArray(this.props.excludeDates)&&(n=r(this.props.excludeDates).map(function(e){return new a(e).safeClone()})),i=e.isBefore(p)||e.isAfter(c)||r(n).some(function(t){return e.sameDay(t)}),s.createElement(o,{key:t,day:e,date:this.state.date,onClick:this.handleDayClick.bind(this,e),selected:new a(this.props.selected),disabled:i})},days:function(e){return e.mapDaysInWeek(this.renderDay)},header:function(){return this.props.moment.weekdaysMin().map(function(e,t){return s.createElement("div",{className:"datepicker__day",key:t},e)})},render:function(){return s.createElement("div",{className:"datepicker"},s.createElement("div",{className:"datepicker__triangle"}),s.createElement("div",{className:"datepicker__header"},s.createElement("a",{className:"datepicker__navigation datepicker__navigation--previous",onClick:this.decreaseMonth}),s.createElement("span",{className:"datepicker__current-month"},this.state.date.localeFormat(this.props.locale,this.props.dateFormat)),s.createElement("a",{className:"datepicker__navigation datepicker__navigation--next",onClick:this.increaseMonth}),s.createElement("div",null,this.header())),s.createElement("div",{className:"datepicker__month"},this.weeks()))}});e.exports=i},function(e,t,n){"use strict";var s=n(1),o=n(7),a=s.createClass({displayName:"Day",handleClick:function(e){this.props.disabled||this.props.onClick(e)},isWeekend:function(){var e=this.props.day.moment().weekday();return 5===e||6===e},render:function(){var e=["datepicker__day"];return this.props.disabled&&e.push("datepicker__day--disabled"),this.props.day.sameDay(this.props.selected)&&e.push("datepicker__day--selected"),this.props.day.sameDay(o())&&e.push("datepicker__day--today"),this.isWeekend()&&e.push("datepicker__day--weekend"),s.createElement("div",{className:e.join(" "),onClick:this.handleClick},this.props.day.day())}});e.exports=a},function(e,t){e.exports=n},function(e,t){e.exports=s},function(e,t){e.exports=o},function(e,t,n){"use strict";var s=n(1),o=n(4),a=n(7),r=s.createClass({displayName:"DateInput",getDefaultProps:function(){return{dateFormat:"YYYY-MM-DD",className:"datepicker__input",onBlur:function(){}}},componentDidMount:function(){this.toggleFocus(this.props.focus)},componentWillReceiveProps:function(e){this.toggleFocus(e.focus)},toggleFocus:function(e){e?s.findDOMNode(this.refs.input).focus():s.findDOMNode(this.refs.input).blur()},handleChange:function(e){var t=e.target.value,n=a(t,this.props.dateFormat,!0);n.isValid()?this.props.setSelected(new o(n)):""===t&&this.props.clearSelected()},safeDateFormat:function(e){return e?e.format(this.props.dateFormat):null},handleKeyDown:function(e){switch(e.key){case"Enter":e.preventDefault(),this.props.handleEnter();break;case"Escape":e.preventDefault(),this.props.hideCalendar()}},handleClick:function(e){this.props.disabled||this.props.handleClick(e)},render:function(){return s.createElement("input",{ref:"input",type:"text",name:this.props.name,value:this.safeDateFormat(this.props.date),onClick:this.handleClick,onKeyDown:this.handleKeyDown,onFocus:this.props.onFocus,onBlur:this.props.onBlur,onChange:this.handleChange,className:this.props.className,disabled:this.props.disabled,placeholder:this.props.placeholderText})}});e.exports=r}])});
+!function(e,t){"object"==typeof exports&&"object"==typeof module?module.exports=t(require("react"),require("tether"),require("moment"),require("lodash"),require("react-onclickoutside")):"function"==typeof define&&define.amd?define(["react","tether","moment","lodash","react-onclickoutside"],t):"object"==typeof exports?exports.DatePicker=t(require("react"),require("tether"),require("moment"),require("lodash"),require("react-onclickoutside")):e.DatePicker=t(e.React,e.Tether,e.moment,e._,e.OnClickOutside)}(this,function(e,t,n,s,a){return function(e){function t(s){if(n[s])return n[s].exports;var a=n[s]={exports:{},id:s,loaded:!1};return e[s].call(a.exports,a,a.exports,t),a.loaded=!0,a.exports}var n={};return t.m=e,t.c=n,t.p="",t(0)}([function(e,t,n){"use strict";var s=n(1),a=n(2),o=(n(4),n(5)),r=n(10),i=n(7),c=n(8),l=s.createClass({displayName:"DatePicker",propTypes:{weekdays:s.PropTypes.arrayOf(s.PropTypes.string),locale:s.PropTypes.string,dateFormatCalendar:s.PropTypes.string,onChange:s.PropTypes.func.isRequired,onBlur:s.PropTypes.func},getDefaultProps:function(){return{weekdays:["Su","Mo","Tu","We","Th","Fr","Sa"],locale:"en",dateFormatCalendar:"MMMM YYYY",moment:i,onChange:function(){},disabled:!1}},getInitialState:function(){return{focus:!1,virtualFocus:!1,selected:this.props.selected}},componentWillReceiveProps:function(e){this.setState({selected:e.selected})},shouldComponentUpdate:function(e,t){return!(c.isEqual(e,this.props)&&c.isEqual(t,this.state))},getValue:function(){return this.state.selected},handleFocus:function(){this.setState({focus:!0})},handleBlur:function(){this.setState({virtualFocus:!1}),setTimeout(function(){this.state.virtualFocus||"function"!=typeof this.props.onBlur||(this.props.onBlur(this.state.selected),this.hideCalendar())}.bind(this),200)},hideCalendar:function(){setTimeout(function(){this.setState({focus:!1})}.bind(this),0)},handleSelect:function(e){this.setSelected(e),setTimeout(function(){this.hideCalendar()}.bind(this),200)},setSelected:function(e){var t=e.moment();this.props.onChange(t),this.setState({selected:t,virtualFocus:!0})},clearSelected:function(){this.props.onChange(null),this.setState({selected:null})},onInputClick:function(){this.setState({focus:!0,virtualFocus:!0})},calendar:function(){return this.state.focus?s.createElement(a,null,s.createElement(o,{weekdays:this.props.weekdays,locale:this.props.locale,moment:this.props.moment,dateFormat:this.props.dateFormatCalendar,selected:this.state.selected,onSelect:this.handleSelect,hideCalendar:this.hideCalendar,minDate:this.props.minDate,maxDate:this.props.maxDate,excludeDates:this.props.excludeDates,weekStart:this.props.weekStart})):void 0},render:function(){var e=null;return this.props.isClearable&&null!=this.state.selected&&(e=s.createElement("button",{className:"close-icon",onClick:this.clearSelected})),s.createElement("div",null,s.createElement(r,{name:this.props.name,date:this.state.selected,dateFormat:this.props.dateFormat,focus:this.state.focus,onFocus:this.handleFocus,onBlur:this.handleBlur,handleClick:this.onInputClick,handleEnter:this.hideCalendar,setSelected:this.setSelected,clearSelected:this.clearSelected,hideCalendar:this.hideCalendar,placeholderText:this.props.placeholderText,disabled:this.props.disabled,className:this.props.className,title:this.props.title}),e,this.props.disabled?null:this.calendar())}});e.exports=l},function(t,n){t.exports=e},function(e,t,n){"use strict";var s=n(1),a=s.createClass({displayName:"Popover",componentWillMount:function(){var e=document.createElement("span");e.className="datepicker__container",this._popoverElement=e,document.querySelector("body").appendChild(this._popoverElement)},componentDidMount:function(){this._renderPopover()},componentDidUpdate:function(){this._renderPopover()},_popoverComponent:function(){var e=this.props.className;return s.createElement("div",{className:e},this.props.children)},_tetherOptions:function(){return{element:this._popoverElement,target:this.getDOMNode().parentElement,attachment:"top left",targetAttachment:"bottom left",targetOffset:"10px 0",optimizations:{moveElement:!1},constraints:[{to:"window",attachment:"together"}]}},_renderPopover:function(){if(s.render(this._popoverComponent(),this._popoverElement),null!=this._tether)this._tether.setOptions(this._tetherOptions());else if(window&&document){var e=n(3);this._tether=new e(this._tetherOptions())}},componentWillUnmount:function(){this._tether.destroy(),s.unmountComponentAtNode(this._popoverElement),this._popoverElement.parentNode&&this._popoverElement.parentNode.removeChild(this._popoverElement)},render:function(){return s.createElement("span",null)}});e.exports=a},function(e,n){e.exports=t},function(e,t){"use strict";function n(e){this._date=e}n.prototype.isBefore=function(e){return this._date.isBefore(e._date,"day")},n.prototype.isAfter=function(e){return this._date.isAfter(e._date,"day")},n.prototype.sameDay=function(e){return this._date.isSame(e._date,"day")},n.prototype.sameMonth=function(e){return this._date.isSame(e._date,"month")},n.prototype.day=function(){return this._date.date()},n.prototype.mapDaysInWeek=function(e){for(var t=[],s=this._date.clone(),a=0;7>a;a++){var o=new n(s.clone().add(a,"days"));t[a]=e(o,a)}return t},n.prototype.mapWeeksInMonth=function(e){for(var t=[],s=this._date.clone().startOf("month").startOf("week"),a=0;6>a;a++){var o=new n(s.clone().add(a,"weeks"));t[a]=e(o,a)}return t},n.prototype.weekInMonth=function(e){var t=this._date.clone(),n=this._date.clone().weekday(7);return t.isSame(e._date,"month")||n.isSame(e._date,"month")},n.prototype.format=function(){return this._date.format.apply(this._date,arguments)},n.prototype.localeFormat=function(){var e=Array.prototype.slice.call(arguments),t=e.shift();return this._date.locale(t).format.apply(this._date,e)},n.prototype.addMonth=function(){return new n(this._date.clone().add(1,"month"))},n.prototype.subtractMonth=function(){return new n(this._date.clone().subtract(1,"month"))},n.prototype.clone=function(){return new n(this._date.clone())},n.prototype.safeClone=function(e){return this._date?this.clone():(void 0===e&&(e=null),new n(e))},n.prototype.moment=function(){return this._date},e.exports=n},function(e,t,n){"use strict";var s=n(1),a=n(6),o=n(4),r=n(8),i=s.createClass({displayName:"Calendar",mixins:[n(9)],handleClickOutside:function(){this.props.hideCalendar()},getInitialState:function(){return{date:new o(this.props.selected).safeClone(this.props.moment())}},getDefaultProps:function(){return{weekStart:1}},componentWillMount:function(){this.initializeMomentLocale()},componentWillReceiveProps:function(e){null!==e.selected&&e.selected!==this.props.selected&&this.setState({date:new o(e.selected).clone()})},initializeMomentLocale:function(){var e=this.props.weekdays.slice(0);e=e.concat(e.splice(0,this.props.weekStart)),this.props.moment.locale(this.props.locale,{week:{dow:this.props.weekStart},weekdaysMin:e})},increaseMonth:function(){this.setState({date:this.state.date.addMonth()})},decreaseMonth:function(){this.setState({date:this.state.date.subtractMonth()})},weeks:function(){return this.state.date.mapWeeksInMonth(this.renderWeek)},handleDayClick:function(e){this.props.onSelect(e)},renderWeek:function(e,t){return e.weekInMonth(this.state.date)?s.createElement("div",{key:t},this.days(e)):void 0},renderDay:function(e,t){var n,i,c=new o(this.props.minDate).safeClone(),l=new o(this.props.maxDate).safeClone();return this.props.excludeDates&&Array.isArray(this.props.excludeDates)&&(n=r(this.props.excludeDates).map(function(e){return new o(e).safeClone()})),i=e.isBefore(c)||e.isAfter(l)||r(n).some(function(t){return e.sameDay(t)}),s.createElement(a,{key:t,day:e,date:this.state.date,onClick:this.handleDayClick.bind(this,e),selected:new o(this.props.selected),disabled:i})},days:function(e){return e.mapDaysInWeek(this.renderDay)},header:function(){return this.props.moment.weekdaysMin().map(function(e,t){return s.createElement("div",{className:"datepicker__day",key:t},e)})},render:function(){return s.createElement("div",{className:"datepicker"},s.createElement("div",{className:"datepicker__triangle"}),s.createElement("div",{className:"datepicker__header"},s.createElement("a",{className:"datepicker__navigation datepicker__navigation--previous",onClick:this.decreaseMonth}),s.createElement("span",{className:"datepicker__current-month"},this.state.date.localeFormat(this.props.locale,this.props.dateFormat)),s.createElement("a",{className:"datepicker__navigation datepicker__navigation--next",onClick:this.increaseMonth}),s.createElement("div",null,this.header())),s.createElement("div",{className:"datepicker__month"},this.weeks()))}});e.exports=i},function(e,t,n){"use strict";var s=n(1),a=n(7),o=s.createClass({displayName:"Day",handleClick:function(e){this.props.disabled||this.props.onClick(e)},isWeekend:function(){var e=this.props.day.moment().weekday();return 5===e||6===e},render:function(){var e=["datepicker__day"];return this.props.disabled&&e.push("datepicker__day--disabled"),this.props.day.sameDay(this.props.selected)&&e.push("datepicker__day--selected"),this.props.day.sameDay(a())&&e.push("datepicker__day--today"),this.isWeekend()&&e.push("datepicker__day--weekend"),s.createElement("div",{className:e.join(" "),onClick:this.handleClick},this.props.day.day())}});e.exports=o},function(e,t){e.exports=n},function(e,t){e.exports=s},function(e,t){e.exports=a},function(e,t,n){"use strict";var s=n(1),a=n(4),o=n(7),r=s.createClass({displayName:"DateInput",getDefaultProps:function(){return{dateFormat:"YYYY-MM-DD",className:"datepicker__input",onBlur:function(){}}},getInitialState:function(){return{value:this.safeDateFormat(this.props.date)}},componentDidMount:function(){this.toggleFocus(this.props.focus)},componentWillReceiveProps:function(e){this.toggleFocus(e.focus),this.setState({value:this.safeDateFormat(e.date)})},toggleFocus:function(e){e?s.findDOMNode(this.refs.input).focus():s.findDOMNode(this.refs.input).blur()},handleChange:function(e){var t=o(e.target.value,this.props.dateFormat,!0);this.setState({value:e.target.value}),t.isValid()?this.props.setSelected(new a(t)):""===e.target.value&&this.props.clearSelected()},safeDateFormat:function(e){return e?e.format(this.props.dateFormat):null},handleKeyDown:function(e){switch(e.key){case"Enter":e.preventDefault(),this.props.handleEnter();break;case"Escape":e.preventDefault(),this.props.hideCalendar()}},handleClick:function(e){this.props.disabled||this.props.handleClick(e)},render:function(){return s.createElement("input",{ref:"input",type:"text",name:this.props.name,value:this.state.value,onClick:this.handleClick,onKeyDown:this.handleKeyDown,onFocus:this.props.onFocus,onBlur:this.props.onBlur,onChange:this.handleChange,className:this.props.className,disabled:this.props.disabled,placeholder:this.props.placeholderText})}});e.exports=r}])});
 },{"lodash":113,"moment":111,"react":449,"react-onclickoutside":114,"tether":115}],113:[function(require,module,exports){
 (function (global){
 /**
@@ -29362,8 +29250,12 @@ var DayPicker = (function (_Component) {
     _classCallCheck(this, DayPicker);
 
     _get(Object.getPrototypeOf(DayPicker.prototype), "constructor", this).call(this, props);
+    var _props = this.props;
+    var initialMonth = _props.initialMonth;
+    var tabIndex = _props.tabIndex;
+
     this.state = {
-      currentMonth: _Utils2["default"].startOfMonth(props.initialMonth)
+      currentMonth: _Utils2["default"].startOfMonth(initialMonth)
     };
   }
 
@@ -29379,12 +29271,12 @@ var DayPicker = (function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var _props = this.props;
-      var numberOfMonths = _props.numberOfMonths;
-      var locale = _props.locale;
-      var style = _props.style;
-      var tabIndex = _props.tabIndex;
-      var canChangeMonth = _props.canChangeMonth;
+      var _props2 = this.props;
+      var numberOfMonths = _props2.numberOfMonths;
+      var locale = _props2.locale;
+      var style = _props2.style;
+      var tabIndex = _props2.tabIndex;
+      var canChangeMonth = _props2.canChangeMonth;
       var currentMonth = this.state.currentMonth;
 
       var className = "DayPicker DayPicker--" + locale;
@@ -29437,10 +29329,12 @@ var DayPicker = (function (_Component) {
     value: function renderMonth(d, i) {
       var _this = this;
 
-      var _props2 = this.props;
-      var locale = _props2.locale;
-      var localeUtils = _props2.localeUtils;
-      var onCaptionClick = _props2.onCaptionClick;
+      var _props3 = this.props;
+      var locale = _props3.locale;
+      var numberOfMonths = _props3.numberOfMonths;
+      var canChangeMonth = _props3.canChangeMonth;
+      var localeUtils = _props3.localeUtils;
+      var onCaptionClick = _props3.onCaptionClick;
       var currentMonth = this.state.currentMonth;
 
       return _react2["default"].createElement(
@@ -29470,9 +29364,9 @@ var DayPicker = (function (_Component) {
   }, {
     key: "renderWeekDays",
     value: function renderWeekDays() {
-      var _props3 = this.props;
-      var locale = _props3.locale;
-      var localeUtils = _props3.localeUtils;
+      var _props4 = this.props;
+      var locale = _props4.locale;
+      var localeUtils = _props4.localeUtils;
 
       var days = [];
       for (var i = 0; i < 7; i++) {
@@ -29497,9 +29391,9 @@ var DayPicker = (function (_Component) {
     value: function renderWeeksInMonth(month) {
       var _this2 = this;
 
-      var _props4 = this.props;
-      var locale = _props4.locale;
-      var localeUtils = _props4.localeUtils;
+      var _props5 = this.props;
+      var locale = _props5.locale;
+      var localeUtils = _props5.localeUtils;
 
       var firstDayOfWeek = localeUtils.getFirstDayOfWeek(locale);
       return _Utils2["default"].getWeekArray(month, firstDayOfWeek).map(function (week, i) {
@@ -29517,10 +29411,11 @@ var DayPicker = (function (_Component) {
     value: function renderDay(month, day) {
       var _this3 = this;
 
+      var currentMonth = this.state.currentMonth;
       var renderDay = this.props.renderDay;
-      var _props5 = this.props;
-      var enableOutsideDays = _props5.enableOutsideDays;
-      var modifierFunctions = _props5.modifiers;
+      var _props6 = this.props;
+      var enableOutsideDays = _props6.enableOutsideDays;
+      var modifierFunctions = _props6.modifiers;
 
       var className = "DayPicker-Day";
       var modifiers = [];
@@ -29549,11 +29444,11 @@ var DayPicker = (function (_Component) {
         return _react2["default"].createElement("div", { key: "outside-" + key, className: className });
       }
 
-      var _props6 = this.props;
-      var onDayMouseEnter = _props6.onDayMouseEnter;
-      var onDayMouseLeave = _props6.onDayMouseLeave;
-      var onDayTouchTap = _props6.onDayTouchTap;
-      var onDayClick = _props6.onDayClick;
+      var _props7 = this.props;
+      var onDayMouseEnter = _props7.onDayMouseEnter;
+      var onDayMouseLeave = _props7.onDayMouseLeave;
+      var onDayTouchTap = _props7.onDayTouchTap;
+      var onDayClick = _props7.onDayClick;
 
       var tabIndex = null;
       if ((onDayTouchTap || onDayClick) && !isOutside) {
@@ -29599,9 +29494,10 @@ var DayPicker = (function (_Component) {
     value: function showNextMonth(callback) {
       var _this4 = this;
 
+      var numberOfMonths = this.props.numberOfMonths;
       var currentMonth = this.state.currentMonth;
 
-      var nextMonth = _Utils2["default"].addMonths(currentMonth, 1);
+      var nextMonth = _Utils2["default"].addMonths(currentMonth, numberOfMonths);
       this.setState({
         currentMonth: nextMonth
       }, function () {
@@ -29618,9 +29514,10 @@ var DayPicker = (function (_Component) {
     value: function showPreviousMonth(callback) {
       var _this5 = this;
 
+      var numberOfMonths = this.props.numberOfMonths;
       var currentMonth = this.state.currentMonth;
 
-      var prevMonth = _Utils2["default"].addMonths(currentMonth, -1);
+      var prevMonth = _Utils2["default"].addMonths(currentMonth, -numberOfMonths);
       this.setState({
         currentMonth: prevMonth
       }, function () {
@@ -29631,28 +29528,6 @@ var DayPicker = (function (_Component) {
           _this5.props.onMonthChange(_this5.state.currentMonth);
         }
       });
-    }
-
-    // Show the month(s) belonging to an outside day, counting the
-    // number of months actually shown in the calendar.
-  }, {
-    key: "showMonthsForOutsideDay",
-    value: function showMonthsForOutsideDay(day) {
-      var currentMonth = this.state.currentMonth;
-      var numberOfMonths = this.props.numberOfMonths;
-
-      var diffInMonths = _Utils2["default"].getMonthsDiff(currentMonth, day);
-      if (diffInMonths > 0 && diffInMonths >= numberOfMonths) {
-        var nextMonth = _Utils2["default"].addMonths(currentMonth, numberOfMonths);
-        this.setState({
-          currentMonth: nextMonth
-        });
-      } else if (diffInMonths < 0) {
-        var prevMonth = _Utils2["default"].addMonths(currentMonth, -numberOfMonths);
-        this.setState({
-          currentMonth: prevMonth
-        });
-      }
     }
   }, {
     key: "focusPreviousDay",
@@ -29667,13 +29542,7 @@ var DayPicker = (function (_Component) {
         }
       }
       if (nodeIndex === 0) {
-        var currentMonth = this.state.currentMonth;
-        var numberOfMonths = this.props.numberOfMonths;
-
-        var prevMonth = _Utils2["default"].addMonths(currentMonth, -numberOfMonths);
-        this.setState({
-          currentMonth: prevMonth
-        }, function () {
+        this.showPreviousMonth(function () {
           dayNodes = body.querySelectorAll(".DayPicker-Day:not(.DayPicker-Day--outside)");
           dayNodes[dayNodes.length - 1].focus();
         });
@@ -29686,6 +29555,7 @@ var DayPicker = (function (_Component) {
     value: function focusNextDay(dayNode) {
       var body = dayNode.parentNode.parentNode.parentNode.parentNode;
       var dayNodes = body.querySelectorAll(".DayPicker-Day:not(.DayPicker-Day--outside)");
+
       var nodeIndex = undefined;
       for (var i = 0; i < dayNodes.length; i++) {
         if (dayNodes[i] === dayNode) {
@@ -29695,13 +29565,7 @@ var DayPicker = (function (_Component) {
       }
 
       if (nodeIndex === dayNodes.length - 1) {
-        var currentMonth = this.state.currentMonth;
-        var numberOfMonths = this.props.numberOfMonths;
-
-        var nextMonth = _Utils2["default"].addMonths(currentMonth, numberOfMonths);
-        this.setState({
-          currentMonth: nextMonth
-        }, function () {
+        this.showNextMonth(function () {
           dayNodes = body.querySelectorAll(".DayPicker-Day:not(.DayPicker-Day--outside)");
           dayNodes[0].focus();
         });
@@ -29774,8 +29638,8 @@ var DayPicker = (function (_Component) {
     key: "handleDayTouchTap",
     value: function handleDayTouchTap(e, day, modifiers) {
       e.persist();
-      if (modifiers.indexOf("outside") > -1) {
-        this.showMonthsForOutsideDay(day);
+      if (day.getMonth() !== this.state.currentMonth.getMonth()) {
+        this.showMonth(day);
       }
       this.props.onDayTouchTap(e, day, modifiers);
     }
@@ -29783,10 +29647,9 @@ var DayPicker = (function (_Component) {
     key: "handleDayClick",
     value: function handleDayClick(e, day, modifiers) {
       e.persist();
-      if (modifiers.indexOf("outside") > -1) {
-        this.showMonthsForOutsideDay(day);
+      if (day.getMonth() !== this.state.currentMonth.getMonth()) {
+        this.showMonth(day);
       }
-
       this.props.onDayClick(e, day, modifiers);
     }
   }, {
@@ -29934,10 +29797,6 @@ var Utils = {
 
   getFirstDayOfWeek: function getFirstDayOfWeek() {
     return 0;
-  },
-
-  getMonthsDiff: function getMonthsDiff(d1, d2) {
-    return d2.getMonth() - d1.getMonth() + 12 * (d2.getFullYear() - d1.getFullYear());
   }
 
 };
@@ -39876,10 +39735,7 @@ var Typeahead = React.createClass({displayName: "Typeahead",
       React.PropTypes.func
     ]),
     defaultClassNames: React.PropTypes.bool,
-    customListComponent: React.PropTypes.oneOfType([
-      React.PropTypes.element,
-      React.PropTypes.func
-    ])
+    customListComponent: React.PropTypes.element
   },
 
   getDefaultProps: function() {
