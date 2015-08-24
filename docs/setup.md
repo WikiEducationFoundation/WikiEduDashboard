@@ -40,10 +40,7 @@
     - `GRANT ALL ON dashboard_testing.* TO <USER>@localhost identified by <PASSWORD>;`
 
 ## Initialize
-1. **Start Guard**
-      $ `guard`
-
-2. **Migrate the database**
+1. **Migrate the database**
       $ `rake db:migrate`
       
 ## Seed data (optional; this could take a very long time)
