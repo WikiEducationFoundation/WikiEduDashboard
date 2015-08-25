@@ -8,6 +8,7 @@ config    = require "../config.coffee"
 coffeeify = require 'coffeeify'
 handleify = require 'handleify'
 reactify  = require 'reactify'
+uglify    = require 'gulp-uglify'
 revDel  = require 'rev-del'
 utils   = require '../utils.coffee'
 
@@ -37,6 +38,7 @@ gulp.task "javascripts-fingerprint", ->
       extensions: [".coffee", ".js", ".jsx", ".cjsx"]
       debug: config.development
     .pipe plugins.rename "#{config.jsMainFile}.js"
+    .pipe uglify(mangle: false)
     .pipe plugins.rev()
     .pipe gulp.dest js_dir
     .pipe plugins.rev.manifest()
