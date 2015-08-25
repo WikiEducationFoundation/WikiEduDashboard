@@ -15,7 +15,11 @@ Meetings = React.createClass(
   displayName: 'Meetings'
   mixins: [CourseStore.mixin]
   getInitialState: ->
-    getState(@props.course_id)
+    _.extend getState(@props.course_id), {
+      anyDatesSelected: false,
+      blackoutDatesSelected: false,
+      noBlackoutDatesChecked: false
+    }
   disableSave: (bool) ->
     @setState saveDisabled: bool
   storeDidChange: ->
@@ -24,6 +28,15 @@ Meetings = React.createClass(
     to_pass = @props.course
     to_pass[value_key] = value
     CourseActions.updateCourse to_pass, true
+  setAnyDatesSelected: (bool) ->
+    @setState anyDatesSelected: bool
+  setBlackoutDatesSelected: (bool) ->
+    @setState blackoutDatesSelected: bool
+  saveDisabled: ->
+    if @state.anyDatesSelected && (@state.blackoutDatesSelected || @state.noBlackoutDatesChecked)
+      false
+    else
+      true
   render: ->
     timeline_start_props =
       minDate: moment(@props.course.start)
@@ -32,29 +45,23 @@ Meetings = React.createClass(
       minDate: moment(@props.course.timeline_start).add(Math.max(1, @props.weeks), 'week')
       maxDate: moment(@props.course.end)
 
-    <Modal>
-      <div className="wizard__panel active">
+    <Modal >
+      <div className='wizard__panel active'>
         <h3>Course Dates</h3>
-        <p>Modify the course dates, assignment dates, and weekly meetings for your course</p>
-        <div className='wizard__form course-dates'>
-          <div>
-            <Calendar course={@props.course} editable=true save=true />
-          </div>
-          <div className='vertical-form'>
+        <div className='course-dates__step'>
+          <h2><span>1.</span><small> Confirm the course’s start and end dates.</small></h2>
+          <div className='vertical-form full-width'>
             <TextInput
-              onChange={@updateCourse}
+              onChange={@updateDetails}
               value={@props.course.start}
               value_key='start'
               editable=true
               type='date'
               autoExpand=true
               label='Course Start'
-              required=true
-              clearable=false
-              disableSave=@disableSave
             />
             <TextInput
-              onChange={@updateCourse}
+              onChange={@updateDetails}
               value={@props.course.end}
               value_key='end'
               editable=true
@@ -62,40 +69,24 @@ Meetings = React.createClass(
               label='Course End'
               date_props={minDate: moment(@props.course.start).add(1, 'week')}
               enabled={@props.course.start?}
-              required=true
-              clearable=false
-              disableSave=@disableSave
-            />
-            <TextInput
-              onChange={@updateCourse}
-              value={@props.course.timeline_start}
-              value_key='timeline_start'
-              editable=true
-              type='date'
-              label='Assignment Start'
-              date_props={timeline_start_props}
-              required=true
-              clearable=false
-              disableSave=@disableSave
-            />
-            <TextInput
-              onChange={@updateCourse}
-              value={@props.course.timeline_end}
-              value_key='timeline_end'
-              editable=true
-              type='date'
-              label='Assignment End'
-              date_props={timeline_end_props}
-              required=true
-              clearable=false
-              disableSave=@disableSave
             />
           </div>
         </div>
-        <div className='wizard__panel__controls'>
-          <div className='left'></div>
-          <div className='right'>
-            <CourseLink className="dark button" disabled={if @state.saveDisabled is true then 'disabled' else '' } to="timeline" id='course_cancel'>Done</CourseLink>
+        <hr />
+        <div className='wizard__form course-dates course-dates__step'>
+          <Calendar course={@props.course}
+            editable=true
+            setAnyDatesSelected={@setAnyDatesSelected}
+            setBlackoutDatesSelected={@setBlackoutDatesSelected}
+          />
+          <label> I have no class holidays
+            <input type='checkbox' onChange={@setNoBlackoutDatesChecked} ref='noDates' />
+          </label>
+          <div className='wizard__panel__controls'>
+            <div className='left'></div>
+            <div className='right'>
+              <CourseLink className="dark button #{if @saveDisabled() is true then 'disabled' else '' }" to="timeline" id='course_cancel'>Done</CourseLink>
+            </div>
           </div>
         </div>
       </div>

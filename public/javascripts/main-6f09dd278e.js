@@ -1275,7 +1275,7 @@ Modal = React.createClass({
   },
   render: function() {
     return React.createElement("div", {
-      "className": 'wizard active'
+      "className": "wizard active " + this.props.modalClass
     }, this.props.children);
   }
 });
@@ -4346,7 +4346,11 @@ Meetings = React.createClass({
   displayName: 'Meetings',
   mixins: [CourseStore.mixin],
   getInitialState: function() {
-    return getState(this.props.course_id);
+    return _.extend(getState(this.props.course_id), {
+      anyDatesSelected: false,
+      blackoutDatesSelected: false,
+      noBlackoutDatesChecked: false
+    });
   },
   disableSave: function(bool) {
     return this.setState({
@@ -4362,6 +4366,23 @@ Meetings = React.createClass({
     to_pass[value_key] = value;
     return CourseActions.updateCourse(to_pass, true);
   },
+  setAnyDatesSelected: function(bool) {
+    return this.setState({
+      anyDatesSelected: bool
+    });
+  },
+  setBlackoutDatesSelected: function(bool) {
+    return this.setState({
+      blackoutDatesSelected: bool
+    });
+  },
+  saveDisabled: function() {
+    if (this.state.anyDatesSelected && (this.state.blackoutDatesSelected || this.state.noBlackoutDatesChecked)) {
+      return false;
+    } else {
+      return true;
+    }
+  },
   render: function() {
     var timeline_end_props, timeline_start_props;
     timeline_start_props = {
@@ -4373,28 +4394,21 @@ Meetings = React.createClass({
       maxDate: moment(this.props.course.end)
     };
     return React.createElement(Modal, null, React.createElement("div", {
-      "className": "wizard__panel active"
-    }, React.createElement("h3", null, "Course Dates"), React.createElement("p", null, "Modify the course dates, assignment dates, and weekly meetings for your course"), React.createElement("div", {
-      "className": 'wizard__form course-dates'
-    }, React.createElement("div", null, React.createElement(Calendar, {
-      "course": this.props.course,
-      "editable": true,
-      "save": true
-    })), React.createElement("div", {
-      "className": 'vertical-form'
+      "className": 'wizard__panel active'
+    }, React.createElement("h3", null, "Course Dates"), React.createElement("div", {
+      "className": 'course-dates__step'
+    }, React.createElement("h2", null, React.createElement("span", null, "1."), React.createElement("small", null, " Confirm the course\u2019s start and end dates.")), React.createElement("div", {
+      "className": 'vertical-form full-width'
     }, React.createElement(TextInput, {
-      "onChange": this.updateCourse,
+      "onChange": this.updateDetails,
       "value": this.props.course.start,
       "value_key": 'start',
       "editable": true,
       "type": 'date',
       "autoExpand": true,
-      "label": 'Course Start',
-      "required": true,
-      "clearable": false,
-      "disableSave": this.disableSave
+      "label": 'Course Start'
     }), React.createElement(TextInput, {
-      "onChange": this.updateCourse,
+      "onChange": this.updateDetails,
       "value": this.props.course.end,
       "value_key": 'end',
       "editable": true,
@@ -4403,44 +4417,29 @@ Meetings = React.createClass({
       "date_props": {
         minDate: moment(this.props.course.start).add(1, 'week')
       },
-      "enabled": (this.props.course.start != null),
-      "required": true,
-      "clearable": false,
-      "disableSave": this.disableSave
-    }), React.createElement(TextInput, {
-      "onChange": this.updateCourse,
-      "value": this.props.course.timeline_start,
-      "value_key": 'timeline_start',
+      "enabled": (this.props.course.start != null)
+    }))), React.createElement("hr", null), React.createElement("div", {
+      "className": 'wizard__form course-dates course-dates__step'
+    }, React.createElement(Calendar, {
+      "course": this.props.course,
       "editable": true,
-      "type": 'date',
-      "label": 'Assignment Start',
-      "date_props": timeline_start_props,
-      "required": true,
-      "clearable": false,
-      "disableSave": this.disableSave
-    }), React.createElement(TextInput, {
-      "onChange": this.updateCourse,
-      "value": this.props.course.timeline_end,
-      "value_key": 'timeline_end',
-      "editable": true,
-      "type": 'date',
-      "label": 'Assignment End',
-      "date_props": timeline_end_props,
-      "required": true,
-      "clearable": false,
-      "disableSave": this.disableSave
-    }))), React.createElement("div", {
+      "setAnyDatesSelected": this.setAnyDatesSelected,
+      "setBlackoutDatesSelected": this.setBlackoutDatesSelected
+    }), React.createElement("label", null, " I have no class holidays", React.createElement("input", {
+      "type": 'checkbox',
+      "onChange": this.setNoBlackoutDatesChecked,
+      "ref": 'noDates'
+    })), React.createElement("div", {
       "className": 'wizard__panel__controls'
     }, React.createElement("div", {
       "className": 'left'
     }), React.createElement("div", {
       "className": 'right'
     }, React.createElement(CourseLink, {
-      "className": "dark button",
-      "disabled": (this.state.saveDisabled === true ? 'disabled' : ''),
+      "className": "dark button " + (this.saveDisabled() === true ? 'disabled' : ''),
       "to": "timeline",
       "id": 'course_cancel'
-    }, "Done")))));
+    }, "Done"))))));
   }
 });
 
