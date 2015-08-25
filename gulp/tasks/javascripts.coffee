@@ -38,7 +38,7 @@ gulp.task "javascripts-fingerprint", ->
       extensions: [".coffee", ".js", ".jsx", ".cjsx"]
       debug: config.development
     .pipe plugins.rename "#{config.jsMainFile}.js"
-    .pipe uglify(mangle: false)
+    .pipe uglify()
     .pipe plugins.rev()
     .pipe gulp.dest js_dir
     .pipe plugins.rev.manifest()
