@@ -31,8 +31,6 @@ Details = React.createClass(
     to_pass = @props.course
     to_pass[value_key] = value
     CourseActions.updateCourse to_pass
-  disableSave: (bool) ->
-    @props.disableSave(bool)
   render: ->
     instructors = <InlineUsers {...@props} users={@props.instructors} role={1} title='Instructors' />
     online = <InlineUsers {...@props} users={@props.online} role={2} title='Online Volunteers' />
@@ -103,7 +101,6 @@ Details = React.createClass(
             autoExpand=true
             label='Start'
             required=true
-            disableSave=@disableSave
           />
         </fieldset>
         <fieldset>
@@ -117,7 +114,6 @@ Details = React.createClass(
             date_props={minDate: moment(@props.course.start).add(1, 'week')}
             enabled={@props.course.start?}
             required=true
-            disableSave=@disableSave
           />
         </fieldset>
         <fieldset>
@@ -130,7 +126,6 @@ Details = React.createClass(
             label='Assignment Start'
             date_props={timeline_start_props}
             required=true
-            disableSave=@disableSave
           />
         </fieldset>
         <fieldset>
@@ -143,7 +138,6 @@ Details = React.createClass(
             label='Assignment End'
             date_props={timeline_end_props}
             required=true
-            disableSave=@disableSave
           />
         </fieldset>
         <p>

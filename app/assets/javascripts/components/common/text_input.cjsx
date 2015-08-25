@@ -13,8 +13,7 @@ TextInput = React.createClass(
       @setState value: nextProps.value
   dateChange: (date) ->
     value = if date? then date.format('YYYY-MM-DD') else null
-    if _.has(@props, 'disableSave')
-      @props.disableSave((value is null))
+    return unless value
     @onChange({ target: { value: value } })
   render: ->
     spacer = @props.spacer || ': '
