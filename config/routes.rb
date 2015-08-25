@@ -88,9 +88,6 @@ Rails.application.routes.draw do
 
   resources :weeks, only: [:index]
 
-  # Recent Activity
-  get 'recent_activity' => 'recent_activity#activity'
-
   # Wizard
   get 'wizards' => 'wizard#wizard_index'
   get 'wizards/:wizard_id' => 'wizard#wizard'
@@ -107,6 +104,7 @@ Rails.application.routes.draw do
 
   # Route aliases for React frontend
   get '/course_creator(/*any)' => 'courses#index'
+  get '/recent-activity' => 'recent_activity#index'
 
   # Errors
   match '/404', to: 'errors#file_not_found', via: :all
