@@ -176,6 +176,7 @@ class WikiEdits
       else
         title = "Failed #{type}"
         title += ': CAPTCHA' if response_data['edit']['captcha']
+        title += ': spamblacklist' if response_data['edit']['spamblacklist']
         code = response_data['edit']['code']
         title += ": #{code}" if response_data['edit']['code']
         level = 'warning'
