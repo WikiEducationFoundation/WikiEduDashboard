@@ -166,7 +166,8 @@ class WikiEdits
     #    "info"=>"Hit AbuseFilter: Adding emails in articles",
     #    "warning"=>"[LOTS OF HTML WARNING TEXT]"}}
     if response_data['error']
-      title = "Failed #{type}"
+      code = response_data['error']['code']
+      title = "Failed #{type}: #{code}"
       level = 'warning'
     elsif response_data['edit']
       if response_data['edit']['result'] == 'Success'
@@ -174,6 +175,9 @@ class WikiEdits
         level = 'info'
       else
         title = "Failed #{type}"
+        title += ': CAPTCHA' if response_data['edit']['captcha']
+        code = response_data['edit']['code']
+        title += ": #{code}" if response_data['edit']['code']
         level = 'warning'
       end
     elsif response_data['query']
