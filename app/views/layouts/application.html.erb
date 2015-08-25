@@ -23,10 +23,6 @@
 
     <%= javascript_include_tag '/javascripts/vendor.js' %>
 
-    <!-- Temporary Raven logging -->
-    <script src="//cdn.ravenjs.com/1.1.19/jquery,native/raven.min.js"></script>
-    <script>Raven.config("<%= ENV['sentry_public_dsn'] %>").install();</script>
-
     <%= javascript_include_tag fingerprinted('/javascripts/', 'main.js') %>
     <%= csrf_meta_tags %>
   </head>
@@ -41,6 +37,12 @@
             <p>
               <%= link_to 'Home', root_url, class: 'inline' %>
               <%= link_to 'FAQ', 'http://wikiedu.org/dashboard-faq/', class: 'inline', target: '_blank' %>
+<<<<<<< HEAD
+=======
+              <% if current_user.admin? %>
+                <%= link_to 'Activity', '/recent-activity', class: 'inline' %>
+              <% end %>
+>>>>>>> establish basic routing and components within /recent-activity
             </p>
           </div>
           <div class="login">
