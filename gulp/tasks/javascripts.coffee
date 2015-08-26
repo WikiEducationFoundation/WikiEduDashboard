@@ -49,6 +49,7 @@ initBrowserify = ->
 
   return b
 
+# Perform bundling
 bundle = (b) ->
   b.bundle()
     .on 'error', plugins.util.log.bind(plugins.util, 'Browserify Error')
