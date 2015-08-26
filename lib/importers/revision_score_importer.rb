@@ -53,7 +53,11 @@ class RevisionScoreImporter
 
   def self.save_scores(scores)
     scores.each do |rev_id, score|
+<<<<<<< HEAD
       next unless score.key?('probability')
+=======
+      next unless score.has_key?('probability')
+>>>>>>> Fix issues with revision importer (data type, logging, etc.)
       revision = Revision.find(rev_id.to_i)
       revision.wp10 = weighted_mean_score score['probability']
       revision.save

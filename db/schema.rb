@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150818202420) do
+ActiveRecord::Schema.define(version: 20150826164224) do
 
   create_table "articles", force: true do |t|
     t.string   "title"
@@ -147,18 +147,18 @@ ActiveRecord::Schema.define(version: 20150818202420) do
   end
 
   create_table "revisions", force: true do |t|
-    t.integer  "characters",              default: 0
+    t.integer  "characters",               default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
     t.integer  "article_id"
-    t.integer  "views",         limit: 8, default: 0
+    t.integer  "views",         limit: 8,  default: 0
     t.datetime "date"
-    t.boolean  "new_article",             default: false
-    t.boolean  "deleted",                 default: false
-    t.string   "wp10"
-    t.string   "wp10_previous"
-    t.boolean  "system",                  default: false
+    t.boolean  "new_article",              default: false
+    t.boolean  "deleted",                  default: false
+    t.boolean  "system",                   default: false
+    t.float    "wp10",          limit: 24
+    t.float    "wp10_previous", limit: 24
   end
 
   add_index "revisions", ["article_id", "date"], name: "index_revisions_on_article_id_and_date", using: :btree
