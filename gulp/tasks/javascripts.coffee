@@ -26,7 +26,7 @@ outputPath = "#{config.outputPath}/#{config.jsDirectory}"
 sourcePath = "#{config.sourcePath}/#{config.jsDirectory}"
 
 
-# Setuput browserify bundler
+# Setup browserify bundler
 initBrowserify = -> 
   browserifyOpts =
     extensions: [".coffee", ".js", ".jsx", ".cjsx"]
