@@ -77,7 +77,7 @@ class WikiResponse
     { title: title, level: level }
   end
 
-  def self.parse_api_error_response(response_data)
+  def self.parse_api_error_response(response_data, type)
     code = response_data['error']['code']
     title = "Failed #{type}: #{code}"
     level = 'warning'

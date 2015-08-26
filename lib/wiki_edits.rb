@@ -202,7 +202,7 @@ class WikiEdits
       # rubocop:enable Metrics/LineLength
 
       token_response = JSON.parse(get_token.body)
-      WikiReponse.capture(token_response, current_user: current_user,
+      WikiResponse.capture(token_response, current_user: current_user,
                                           type: 'tokens')
 
       OpenStruct.new(
