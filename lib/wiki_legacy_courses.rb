@@ -46,6 +46,17 @@ class WikiLegacyCourses
     { 'course' => course_info, 'participants' => participants }
   end
 
+  ##################
+  # Helper methods #
+  ##################
+  def self.course_query(course_ids)
+    courseids_param = course_ids.join('|')
+    query_parameters = { token_type: false,
+                         courseids: courseids_param,
+                         group: '' }
+    query_parameters
+  end
+
   ###################
   # Private methods #
   ###################
@@ -56,10 +67,7 @@ class WikiLegacyCourses
     # http://en.wikipedia.org/w/api.php?action=liststudents&courseids=30&group=
     def get_course_info_raw(course_ids)
       course_ids = [course_ids] unless course_ids.is_a?(Array)
-      courseids_param = course_ids.join('|')
-      query_parameters = { token_type: false,
-                           courseids: courseids_param,
-                           group: '' }
+      query_parameters = course_query course_ids
       response = api_client.action 'liststudents', query_parameters
       info = response.data
       info.nil? ? nil : info

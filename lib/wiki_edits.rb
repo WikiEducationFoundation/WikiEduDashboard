@@ -166,28 +166,40 @@ class WikiEdits
     #    "info"=>"Hit AbuseFilter: Adding emails in articles",
     #    "warning"=>"[LOTS OF HTML WARNING TEXT]"}}
     if response_data['error']
-      code = response_data['error']['code']
-      title = "Failed #{type}: #{code}"
-      level = 'warning'
+      title_and_level = parse_api_error_response(response_data)
     elsif response_data['edit']
-      if response_data['edit']['result'] == 'Success'
-        title = "Successful #{type}"
-        level = 'info'
-      else
-        title = "Failed #{type}"
-        title += ': CAPTCHA' if response_data['edit']['captcha']
-        title += ': spamblacklist' if response_data['edit']['spamblacklist']
-        code = response_data['edit']['code']
-        title += ": #{code}" if response_data['edit']['code']
-        level = 'warning'
-      end
+      title_and_level = parse_api_edit_response(response_data)
     elsif response_data['query']
       title = "#{type} query"
       level = 'info'
+      title_and_level = { title: title, level: level }
     else
       title = "Unknown response for #{type}"
       level = 'error'
+      title_and_level = { title: title, level: level }
     end
+    title_and_level
+  end
+
+  def self.parse_api_edit_response(response_data)
+    if response_data['edit']['result'] == 'Success'
+      title = "Successful #{type}"
+      level = 'info'
+    else
+      title = "Failed #{type}"
+      title += ': CAPTCHA' if response_data['edit']['captcha']
+      title += ': spamblacklist' if response_data['edit']['spamblacklist']
+      code = response_data['edit']['code']
+      title += ": #{code}" if response_data['edit']['code']
+      level = 'warning'
+    end
+    { title: title, level: level }
+  end
+
+  def self.parse_api_error_response(response_data)
+    code = response_data['error']['code']
+    title = "Failed #{type}: #{code}"
+    level = 'warning'
     { title: title, level: level }
   end
   ####################
@@ -240,11 +252,7 @@ class WikiEdits
 
     def get_tokens(current_user)
       lang = ENV['wiki_language']
-      @consumer = OAuth::Consumer.new ENV['wikipedia_token'],
-                                      ENV['wikipedia_secret'],
-                                      client_options: {
-                                        site: "https://#{lang}.wikipedia.org"
-                                      }
+      @consumer = oauth_consumer(lang)
       @access_token = OAuth::AccessToken.new @consumer,
                                              current_user.wiki_token,
                                              current_user.wiki_secret
@@ -260,6 +268,14 @@ class WikiEdits
         csrf_token: token_response['query']['tokens']['csrftoken'],
         access_token: @access_token
       )
+    end
+
+    def oauth_consumer(lang)
+      OAuth::Consumer.new ENV['wikipedia_token'],
+                          ENV['wikipedia_secret'],
+                          client_options: {
+                            site: "https://#{lang}.wikipedia.org"
+                          }
     end
 
     def api_post(data, tokens, current_user)
