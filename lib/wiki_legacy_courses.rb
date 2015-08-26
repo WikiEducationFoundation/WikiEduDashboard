@@ -66,7 +66,7 @@ class WikiLegacyCourses
     # Query the liststudents API to get info about a course. For example:
     # http://en.wikipedia.org/w/api.php?action=liststudents&courseids=30&group=
     def get_course_info_raw(course_ids)
-      course_ids = [course_ids] unless course_ids.is_a?(Array)
+      course_ids = Array.wrap(course_ids)
       query_parameters = course_query course_ids
       response = api_client.action 'liststudents', query_parameters
       info = response.data
@@ -75,20 +75,20 @@ class WikiLegacyCourses
       # The message for invalid course ids looks like this:
       # "Invalid course id: 953"
       if e.info[0..16] == 'Invalid course id'
-        invalid = e.info[19..-1].to_i # This is the invalid id.
-        handle_invalid_course_id course_ids, invalid
+        handle_invalid_course_id course_ids, e.info
       else
         handle_api_error e
       end
     end
 
-    def api_client
+    def api_get
       language = ENV['wiki_language']
       url = "https://#{language}.wikipedia.org/w/api.php"
       MediawikiApi::Client.new url
     end
 
-    def handle_invalid_course_id(course_ids, invalid)
+    def handle_invalid_course_id(course_ids, error_info)
+      invalid = error_info[19..-1].to_i # This is the invalid id.
       course_ids.delete(invalid)
       if course_ids.blank?
         return false # This indicates that the course doesn't exist
