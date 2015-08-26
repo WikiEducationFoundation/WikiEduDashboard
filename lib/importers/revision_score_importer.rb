@@ -86,5 +86,11 @@ class RevisionScoreImporter
     response = Net::HTTP.get(URI.parse(url))
     scores = JSON.parse(response)
     scores
+  rescue StandardError => error
+    typical_errors = [Errno::ETIMEDOUT,
+                      Net::ReadTimeout,
+                      Errno::ECONNREFUSED]
+    raise error unless typical_errors.include?(error.class)
+    return []
   end
 end
