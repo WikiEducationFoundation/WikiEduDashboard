@@ -40,10 +40,6 @@ describe 'activity page', type: :feature, js: true do
       # we should test that service, also.
       allow(RevisionAnalyticsService).to receive(:dyk_eligible).and_return([article])
     end
-    let(:user) { create(:admin,
-                  id: 200,
-                  wiki_token: 'foo',
-                  wiki_secret: 'bar') }
 
     it 'should be viewable by admins' do
       within '.container .home' do
