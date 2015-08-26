@@ -30,7 +30,7 @@ describe WikiLegacyCourses do
       # Several courses, including some that don't exist
       course_ids = [9999, 351, 366, 398, 2155897, 411, 415, 9999]
       response = WikiLegacyCourses.get_course_info course_ids
-      expect(response).to be
+      expect(response).not_to be_nil
     end
   end
 end
