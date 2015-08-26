@@ -19,16 +19,7 @@ gulp.task "watch", ->
   plugins.watch "#{config.sourcePath}/#{config.imagesDirectory}/**/*", ->
     gulp.start "copy-images"
 
-  plugins.watch "#{config.sourcePath}/#{config.jsDirectory}/**/*.{coffee,js,jsx,cjsx}", ->
-    gulp.start "javascripts"
-
   plugins.watch "bower.json", ->
     gulp.start "bower"
-
-  # server = plugins.livereload()
-  # plugins.livereload.listen()
-
-  # plugins.watch "#{config.publicPath}/**/*.{css,js,svg,jpg,gif,png}"
-  #   .pipe plugins.livereload()
 
   return

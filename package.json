@@ -1,11 +1,12 @@
 {
   "name": "WikiEduDashboard",
   "devDependencies": {
-    "browserify": "^9.0.8",
+    "browserify": "^11.0.1",
     "chai": "^1.9.1",
     "coffee-reactify": "^3.0.0",
     "coffee-script": "^1.7.1",
     "coffeeify": "^0.6.0",
+    "envify": "^3.4.0",
     "event-stream": "^3.1.7",
     "gulp": "^3.8.7",
     "gulp-autoprefixer": "0.0.7",
@@ -33,9 +34,10 @@
     "gulp-rev": "^5.1.0",
     "gulp-run": "^1.5.2",
     "gulp-sketch": "0.0.3",
-    "gulp-sourcemaps": "^1.2.8",
+    "gulp-sourcemaps": "^1.5.2",
     "gulp-stylus": "^1.0.2",
     "gulp-uglify": "^1.3.0",
+    "gulp-util": "^3.0.6",
     "gulp-watch": "^3.0.0",
     "gulp-webserver": "^0.8.2",
     "handleify": "^0.1.2",
@@ -49,10 +51,13 @@
     "rev-del": "^1.0.5",
     "run-sequence": "~0.3.6",
     "rupture": "^0.1.0",
-    "stylus": "0.49.2"
+    "stylus": "0.49.2",
+    "uglifyify": "^3.0.1",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.3.1"
   },
   "dependencies": {
-    "gulp-browserify": "^0.5.1",
     "i18n-js": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc8.tar.gz",
     "marked": "^0.3.3",
     "mcfly": "0.0.10",
