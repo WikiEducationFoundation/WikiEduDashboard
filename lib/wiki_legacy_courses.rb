@@ -81,7 +81,7 @@ class WikiLegacyCourses
       end
     end
 
-    def api_get
+    def api_client
       language = ENV['wiki_language']
       url = "https://#{language}.wikipedia.org/w/api.php"
       MediawikiApi::Client.new url
