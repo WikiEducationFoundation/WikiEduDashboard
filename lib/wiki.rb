@@ -82,7 +82,6 @@ class Wiki
   # relevant info.) Example query:
   # http://en.wikipedia.org/w/api.php?action=query&prop=revisions&rvprop=content&rawcontinue=true&redirects=true&titles=Talk:Selfie
   def self.get_raw_page_content(article_titles)
-    pp article_titles
     query_parameters = { titles: article_titles,
                          prop: 'revisions',
                          rvprop: 'content' }
