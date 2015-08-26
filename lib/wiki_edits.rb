@@ -27,9 +27,10 @@ class WikiEdits
   # announcement of a newly submitted course at the course announcement page.
   def self.announce_course(course, current_user, instructor = nil)
     instructor ||= current_user
+    course_title = course.wiki_title
     user_page = "User:#{instructor.wiki_id}"
-    template = "{{course instructor|course = [[#{course.wiki_title}]] }}\n"
-    summary = "New course announcement: [[#{course.wiki_title}]]."
+    template = "{{course instructor|course = [[#{course_title}]] }}\n"
+    summary = "New course announcement: [[#{course_title}]]."
 
     # Add template to userpage to indicate instructor role.
     add_to_page_top(user_page, current_user, template, summary)
@@ -39,7 +40,7 @@ class WikiEdits
     dashboard_url = ENV['dashboard_url']
     # rubocop:disable Metrics/LineLength
     announcement = "I have created a new course — #{course.title} — at #{dashboard_url}/courses/#{course.slug}. If you'd like to see more details about my course, check out my course page.--~~~~"
-    section_title = "New course announcement: [[#{course.wiki_title}]] (instructor: [[User:#{instructor.wiki_id}]])"
+    section_title = "New course announcement: [[#{course_title}]] (instructor: [[User:#{instructor.wiki_id}]])"
     # rubocop:enable Metrics/LineLength
     message = { sectiontitle: section_title,
                 text: announcement,
@@ -50,9 +51,10 @@ class WikiEdits
 
   def self.enroll_in_course(course, current_user)
     # Add a template to the user page
-    template = "{{student editor|course = [[#{course.wiki_title}]] }}\n"
+    course_title = course.wiki_title
+    template = "{{student editor|course = [[#{course_title}]] }}\n"
     user_page = "User:#{current_user.wiki_id}"
-    summary = "I am enrolled in [[#{course.wiki_title}]]."
+    summary = "I am enrolled in [[#{course_title}]]."
     add_to_page_top(user_page, current_user, template, summary)
 
     # Pre-create the user's sandbox
@@ -166,9 +168,9 @@ class WikiEdits
     #    "info"=>"Hit AbuseFilter: Adding emails in articles",
     #    "warning"=>"[LOTS OF HTML WARNING TEXT]"}}
     if response_data['error']
-      title_and_level = parse_api_error_response(response_data)
+      title_and_level = parse_api_error_response(response_data, type)
     elsif response_data['edit']
-      title_and_level = parse_api_edit_response(response_data)
+      title_and_level = parse_api_edit_response(response_data, type)
     elsif response_data['query']
       title = "#{type} query"
       level = 'info'
@@ -181,16 +183,17 @@ class WikiEdits
     title_and_level
   end
 
-  def self.parse_api_edit_response(response_data)
-    if response_data['edit']['result'] == 'Success'
+  def self.parse_api_edit_response(response_data, type)
+    edit_data = response_data['edit']
+    if edit_data['result'] == 'Success'
       title = "Successful #{type}"
       level = 'info'
     else
       title = "Failed #{type}"
-      title += ': CAPTCHA' if response_data['edit']['captcha']
-      title += ': spamblacklist' if response_data['edit']['spamblacklist']
+      title += ': CAPTCHA' if edit_data['captcha']
+      title += ': spamblacklist' if edit_data['spamblacklist']
       code = response_data['edit']['code']
-      title += ": #{code}" if response_data['edit']['code']
+      title += ": #{code}" if edit_data['code']
       level = 'warning'
     end
     { title: title, level: level }
