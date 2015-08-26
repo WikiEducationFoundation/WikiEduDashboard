@@ -8,19 +8,19 @@ class Wiki
   ################
 
   # General entry point for making arbitrary queries of the Wikipedia API
-  def self.query(query_parameters, language=nil)
-    wikipedia('query', query_parameters, language)
+  def self.query(query_parameters, opts={})
+    wikipedia('query', query_parameters, opts)
   end
 
   def self.get_page_content(page_title, language=nil)
-    response = wikipedia('get_wikitext', page_title, language)
+    response = wikipedia('get_wikitext', page_title, language: language)
     response.status == 200 ? response.body : nil
   end
 
   def self.get_user_id(username, language=nil)
     user_query = { list: 'users',
                    ususers: username }
-    user_data = wikipedia('query', user_query, language)
+    user_data = wikipedia('query', user_query, language: language)
     user_id = user_data.data['users'][0]['userid']
     user_id
   end
@@ -81,11 +81,11 @@ class Wiki
   # find the article ratings. (The corresponding Talk page are the one with the
   # relevant info.) Example query:
   # http://en.wikipedia.org/w/api.php?action=query&prop=revisions&rvprop=content&rawcontinue=true&redirects=true&titles=Talk:Selfie
-  def self.get_raw_page_content(article_titles)
+  def self.get_raw_page_content(article_titles, language=nil)
     query_parameters = { titles: article_titles,
                          prop: 'revisions',
                          rvprop: 'content' }
-    info = wikipedia('query', query_parameters)
+    info = wikipedia('query', query_parameters, language: language)
     return if info.nil?
     page = info.data['pages']
     page.nil? ? nil : page
@@ -97,10 +97,10 @@ class Wiki
   class << self
     private
 
-    def wikipedia(action, query, language=nil)
-      language ||= ENV['wiki_language']
-      @wikipedia = api_client language
-      @wikipedia.send(action, query)
+    def wikipedia(action, query, opts = {})
+      tries ||= 3
+      @mediawiki = api_client(opts)
+      @mediawiki.send(action, query)
     rescue MediawikiApi::ApiError => e
       handle_api_error e
     rescue StandardError => e
@@ -116,15 +116,22 @@ class Wiki
       end
     end
 
-    def api_client(language)
-      url = "https://#{language}.wikipedia.org/w/api.php"
+    def api_client(opts)
+      site = opts[:site]
+      language = opts[:language] || ENV['wiki_language']
+
+      if site
+        url = "https://#{site}/w/api.php"
+      else
+        url = "https://#{language}.wikipedia.org/w/api.php"
+      end
       MediawikiApi::Client.new url
     end
 
     def handle_api_error(e)
       Rails.logger.warn 'Caught #{e}'
       Raven.capture_exception e, level: 'warning'
-      nil # because Raven captures return 'true' if successful
+      fail e if e.code == 'iiurlparamnormal' # handled by Commons.rb
     end
   end
 end

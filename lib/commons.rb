@@ -100,28 +100,10 @@ class Commons
   class << self
     private
 
-    def commons
-      url = 'https://commons.wikimedia.org/w/api.php'
-      @commons = MediawikiApi::Client.new url
-      @commons
-    end
-
     def api_get(query)
-      tries ||= 3
-      commons.query query
+      Wiki.query(query, site: 'commons.wikimedia.org')
     rescue MediawikiApi::ApiError => e
       handle_api_error e, query
-    rescue StandardError => e
-      tries -= 1
-      typical_errors = [Faraday::TimeoutError,
-                        Faraday::ConnectionFailed,
-                        MediawikiApi::HttpError]
-      if typical_errors.include?(e.class)
-        retry if tries >= 0
-        Raven.capture_exception e, level: 'warning'
-      else
-        raise e
-      end
     end
 
     def handle_api_error(e, query)
