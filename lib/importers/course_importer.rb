@@ -7,13 +7,6 @@ class CourseImporter
   ################
   # Entry points #
   ################
-  def self.get_course_info(course_id)
-    Wiki.get_course_info course_id
-  end
-
-  ##############
-  # API Access #
-  ##############
   def self.update_all_courses(initial=false, raw_ids={})
     raw_ids = Wiki.course_list if raw_ids.empty?
     listed_ids = raw_ids.values.flatten
@@ -30,9 +23,14 @@ class CourseImporter
     import_courses(raw_ids, data)
   end
 
-  ###########
-  # Helpers #
-  ###########
+  ##############
+  # API Access #
+  ##############
+
+  def self.get_course_info(course_id)
+    WikiLegacyCourses.get_course_info course_id
+  end
+
   def self.import_courses(raw_ids, data)
     # Encountered an API error; cancel course import for today
     if data.include? nil
@@ -194,6 +192,10 @@ class CourseImporter
     end
     return assignments
   end
+
+  ###########
+  # Helpers #
+  ###########
 
   def self.assignment_hash(user, course_id, raw, article, role)
     {
