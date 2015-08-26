@@ -55,7 +55,7 @@ bundle = (b) ->
     .pipe source("#{config.jsMainFile}.js")
     .pipe buffer()
     .pipe plugins.sourcemaps.init(loadMaps: true)
-    .pipe unless config.development then plugins.rev() else plugins.util.noop() # revs for sourcemap pathing
+    .pipe if config.development then plugins.util.noop() else plugins.rev() # revs for sourcemap pathing
     .pipe plugins.sourcemaps.write('.')
     .pipe gulp.dest outputPath
 
