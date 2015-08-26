@@ -41,6 +41,11 @@ describe WikiEdits do
   end
 
   it 'should handle unexpected responses' do
+    stub_oauth_edit_captcha
+    WikiEdits.notify_untrained(1, User.first)
+  end
+
+  it 'should handle unexpected responses' do
     stub_oauth_edit_with_empty_response
     WikiEdits.notify_untrained(1, User.first)
   end

@@ -53,6 +53,14 @@ module RequestHelpers
       .to_return(status: 200, body: failure, headers: {})
   end
 
+  def stub_oauth_edit_captcha
+    stub_token_request
+    failure = '{"edit":{"result":"Failure","captcha":{"id":1234567,
+      "mime":"image/png","type":"image",
+      "url":"/w/index.php?title=Special:Captcha/image&wpCaptchaId=1234567"}}}'
+    stub_request(:post, /.*wikipedia.*/)
+      .to_return(status: 200, body: failure, headers: {})
+  end
   ############################
   # MediaWiki query requests #
   ############################
