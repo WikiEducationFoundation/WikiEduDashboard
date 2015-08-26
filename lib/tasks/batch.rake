@@ -1,5 +1,6 @@
 require 'action_view'
 include ActionView::Helpers::DateHelper
+require "#{Rails.root}/lib/importers/revision_score_importer"
 
 namespace :batch do
   desc 'Setup CRON logger to STDOUT'
@@ -146,5 +147,13 @@ namespace :batch do
     pid_file = 'tmp/batch_pause.pid'
     File.delete pid_file if File.exist? pid_file
     Raven.capture_message 'Updates resumed.', level: 'warn'
+  end
+
+  namespace :revision_scores do
+    desc 'Import revision scores'
+    task import: 'batch:setup_logger' do
+      Rails.logger.debug 'Importing revision scores'
+      RevisionScoreImporter.update_revision_scores
+    end
   end
 end
