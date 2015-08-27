@@ -36,7 +36,10 @@ DidYouKnowHandler = React.createClass(
     articles = _.sortByOrder(@state.articles, [key])
     articles = articles.reverse() if sortOrder is 'desc'
     @setState articles: articles
+<<<<<<< HEAD
 
+=======
+>>>>>>> Sorting on dyk table
   render: ->
 <<<<<<< HEAD
     articles = @state.articles.map (article) =>
@@ -89,11 +92,11 @@ DidYouKnowHandler = React.createClass(
 
     elements = @state.articles.map (article) ->
       <tr className='dyk-article'>
-        <td className='popover-trigger desktop-only-tc'>
+        <td>
           {article.title}
         </td>
         <td>
-          {article.revision_score}
+          {Math.round(article.revision_score)}
         </td>
         <td>
           {article.user_wiki_id}
