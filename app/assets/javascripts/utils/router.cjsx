@@ -17,16 +17,13 @@ RevisionsHandler    = require '../components/revisions/revisions_handler'
 StudentsHandler     = require '../components/students/students_handler'
 ArticlesHandler     = require '../components/articles/articles_handler'
 UploadsHandler      = require '../components/uploads/uploads_handler'
-<<<<<<< HEAD
-
-routes = (
-  <Route name='root' path='/' handler={App}>
-=======
 
 RecentActivityHandler = require '../components/activity/recent_activity_handler'
 DidYouKnowHandler     = require '../components/activity/did_you_know_handler'
 MainspaceHandler      = require '../components/activity/mainspace_handler'
 PlagiarismHandler     = require '../components/activity/plagiarism_handler'
+
+
 
 routes = (
   <Route name='root' path='/' handler={App}>
@@ -35,7 +32,6 @@ routes = (
       <Route path='mainspace' name='mainspace' handler={MainspaceHandler} />
       <Route path='plagiarism' name='plagiarism' handler={PlagiarismHandler} />
     </Route>
->>>>>>> establish basic routing and components within /recent-activity
     <Route path='courses' handler={App}>
       <Route name='course' path=':course_school/:course_title' handler={Course}>
         <DefaultRoute name='overview' handler={OverviewHandler} />

@@ -43,6 +43,10 @@ ServerActions = Flux.createActions
     API.fetchRevisions(studentId, courseId).then (data) ->
       { actionType: 'RECEIVE_REVISIONS', data: data }
 
+  fetchDYKArticles: ->
+    API.fetchDykArticles().then (data) ->
+      { actionType: 'RECEIVE_DYK', data: data }
+
 
   # Save
   saveCourse: (data, course_id=null) ->
@@ -78,5 +82,9 @@ ServerActions = Flux.createActions
   notifyUntrained: (course_id) ->
     API.notifyUntrained(course_id).then (data) ->
       { actionType: 'NOTIFIED_UNTRAINED', data: data }
+
+
+
+
 
 module.exports = ServerActions
