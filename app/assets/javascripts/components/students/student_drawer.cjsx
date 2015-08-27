@@ -53,7 +53,7 @@ StudentDrawer = React.createClass(
     <tr className={className}>
       <td colSpan="6">
         <div style={style}>
-          <table className='list'>
+          <table className='list list--striped'>
             <thead>
               <tr>
                 <th>User Contributions</th>

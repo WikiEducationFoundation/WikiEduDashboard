@@ -80,6 +80,16 @@ table.list > tbody > tr
   &:hover
     background athens
 
+table.list.list--striped > tbody > tr:nth-child(even)
+  background-color alabaster
+  &:hover
+    background athens
+
+table.list.list--striped > thead > tr
+  background-color alabaster
+  &:hover
+    background alabaster
+
 table.users th:first-child
   padding-left 77px
 
@@ -122,11 +132,8 @@ table.users tbody tr, table.articles tbody tr
         tr
           border 1px solid mischka
           border-width 0 0 1px
-        thead
-          tr:hover
-            background white
-            th
-              cursor default
+        thead tr:hover th
+          cursor default
     &.closed
       border-bottom 0
   td, th
