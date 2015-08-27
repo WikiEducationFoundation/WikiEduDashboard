@@ -4,6 +4,7 @@ RouteHandler = Router.RouteHandler
 DidYouKnowStore = require '../../stores/did_you_know_store'
 
 ServerActions = require '../../actions/server_actions'
+TransitionGroup = require '../../utils/TransitionGroup'
 
 getState = ->
   articles: DidYouKnowStore.getArticles()
@@ -18,17 +19,48 @@ DidYouKnowHandler = React.createClass(
   componentWillMount: ->
     ServerActions.fetchDYKArticles()
   render: ->
-    articles = @state.articles.map (article) ->
-      <ul>
-        <li>{article.title}</li>
-        <li>{article.revision_score}</li>
-        <li>{article.user_wiki_id}</li>
-        <li>{article.revision_datetime}</li>
-      </ul>
+    elements = @state.articles.map (article) ->
+      <tr className='dyk-article'>
+        <td className='popover-trigger desktop-only-tc'>
+          {article.title}
+        </td>
+        <td>
+          {article.revision_score}
+        </td>
+        <td>
+          {article.user_wiki_id}
+        </td>
+        <td>
+          {moment(article.revision_datetime).format('YYYY/MM/DD h:mm a')}
+        </td>
+      </tr>
 
-    <div className='container'>
-      {articles}
-    </div>
+    <table className='dyk-articles list'>
+      <thead>
+        <tr>
+          <th>
+            Article Title
+          </th>
+          <th>
+            Revision Score
+          </th>
+          <th>
+            Revision Author
+          </th>
+          <th>
+            Revision Date/Time
+          </th>
+        </tr>
+      </thead>
+      <TransitionGroup
+        transitionName={'dyk'}
+        component='tbody'
+        enterTimeout={500}
+        leaveTimeout={500}
+      >
+        {elements}
+      </TransitionGroup>
+    </table>
 )
 
 module.exports = DidYouKnowHandler
