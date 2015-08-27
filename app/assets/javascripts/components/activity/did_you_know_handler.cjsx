@@ -3,9 +3,13 @@ Router          = require 'react-router'
 RouteHandler    = Router.RouteHandler
 DidYouKnowStore = require '../../stores/did_you_know_store'
 
+<<<<<<< HEAD
 DYKArticle      = require './dyk_article'
 
 ServerActions   = require '../../actions/server_actions'
+=======
+ServerActions = require '../../actions/server_actions'
+>>>>>>> table styling for dyk-eligible revisions
 TransitionGroup = require '../../utils/TransitionGroup'
 
 getState = ->
@@ -34,6 +38,7 @@ DidYouKnowHandler = React.createClass(
     @setState articles: articles
 
   render: ->
+<<<<<<< HEAD
     articles = @state.articles.map (article) =>
       revisionDateTime = moment(article.revision_datetime).format('YYYY/MM/DD h:mm a')
       roundedRevisionScore = Math.round(article.revision_score)
@@ -81,6 +86,23 @@ DidYouKnowHandler = React.createClass(
       <th onClick={@sortArticles} className='sortable' data-sort-key={header.key}>
         {header.title}
       </th>
+
+    elements = @state.articles.map (article) ->
+      <tr className='dyk-article'>
+        <td className='popover-trigger desktop-only-tc'>
+          {article.title}
+        </td>
+        <td>
+          {article.revision_score}
+        </td>
+        <td>
+          {article.user_wiki_id}
+        </td>
+        <td>
+          {moment(article.revision_datetime).format('YYYY/MM/DD h:mm a')}
+        </td>
+      </tr>
+
 
     <table className='dyk-articles list'>
       <thead>
