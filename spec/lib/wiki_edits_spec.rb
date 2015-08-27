@@ -9,8 +9,6 @@ describe WikiEdits do
   # well-formatted, but at least this verifies that the flow is parsing tokens
   # in the expected way.
   before do
-    stub_oauth_edit
-
     create(:course,
            id: 1,
            submitted: true,
@@ -58,24 +56,28 @@ describe WikiEdits do
 
   describe '.notify_untrained' do
     it 'should post talk page messages on Wikipedia' do
+      stub_oauth_edit
       WikiEdits.notify_untrained(1, User.first)
     end
   end
 
   describe '.announce_course' do
     it 'should post to the userpage of the instructor and a noticeboard' do
+      stub_oauth_edit
       WikiEdits.announce_course(Course.first, User.first)
     end
   end
 
   describe '.enroll_in_course' do
     it 'should post to the userpage of the enrolling student' do
+      stub_oauth_edit
       WikiEdits.enroll_in_course(Course.first, User.first)
     end
   end
 
   describe '.update_course' do
     it 'should edit a Wikipedia page representing a course' do
+      stub_oauth_edit
       WikiEdits.update_course(Course.first, User.first)
       WikiEdits.update_course(Course.first, User.first, true)
     end
@@ -88,6 +90,7 @@ describe WikiEdits do
 
   describe '.notify_users' do
     it 'should post talk page messages on Wikipedia' do
+      stub_oauth_edit
       params = { sectiontitle: 'My message headline',
                  text: 'My message to you',
                  summary: 'My edit summary' }
@@ -97,6 +100,7 @@ describe WikiEdits do
 
   describe '.update_assignments' do
     it 'should update talk pages and course page with assignment info' do
+      stub_oauth_edit
       create(:assignment,
              user_id: 1,
              course_id: 1,
