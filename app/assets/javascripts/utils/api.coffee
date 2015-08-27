@@ -54,6 +54,18 @@ API =
         console.log 'Error: ' + obj.responseJSON.message
         rej obj
 
+  fetchDykArticles: ->
+    new Promise (res, rej) ->
+      $.ajax
+        type: 'GET',
+        url: '/revision_analytics/dyk_eligible.json',
+        success: (data) ->
+          console.log 'Received DYK'
+          res data
+      .fail (obj, status) ->
+        console.log 'Error: ' + obj.responseJSON.message
+        rej obj
+
   fetchCohorts: ->
     new Promise (res, rej) ->
       $.ajax

@@ -123,8 +123,6 @@ ActiveRecord::Schema.define(version: 20150826164224) do
     t.integer  "order",                       default: 1,         null: false
   end
 
-  add_index "courses", ["slug"], name: "index_courses_on_slug", using: :btree
-
   create_table "courses_users", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"

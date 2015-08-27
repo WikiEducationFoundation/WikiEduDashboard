@@ -27,3 +27,4 @@ RecentActivityHandler = React.createClass(
 )
 
 module.exports = RecentActivityHandler
+

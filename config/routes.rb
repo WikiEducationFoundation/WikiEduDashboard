@@ -86,7 +86,14 @@ Rails.application.routes.draw do
 
   get 'revisions' => 'revisions#index'
 
+
   resources :weeks, only: [:index]
+
+  # Recent Activity
+  get 'recent-activity' => 'recent_activity#index'
+
+  # Revision analytics JSON API for React
+  get 'revision_analytics/dyk_eligible', controller: 'revision_analytics', action: 'dyk_eligible'
 
   # Wizard
   get 'wizards' => 'wizard#wizard_index'
@@ -104,7 +111,6 @@ Rails.application.routes.draw do
 
   # Route aliases for React frontend
   get '/course_creator(/*any)' => 'courses#index'
-  get '/recent-activity' => 'recent_activity#index'
 
   # Errors
   match '/404', to: 'errors#file_not_found', via: :all
