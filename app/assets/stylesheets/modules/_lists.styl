@@ -45,7 +45,7 @@
       color burnt
   div:not(.drawer):last-child
     justify-content flex-start
-    +above(desktop)
+    +below(desktop)
       justify-content center
   div:not(.drawer)
     align-items center
@@ -367,8 +367,3 @@ rating(color)
       font-family "FontAwesome"
       font-size 16px
       font-weight 100
-
-  &.course-list__row, &.revision-list__row,
-  &.article-list__row
-    .row__wrapper > div:nth-last-child(2)
-      margin-right 0
