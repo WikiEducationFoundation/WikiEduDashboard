@@ -4,12 +4,16 @@ RouteHandler    = Router.RouteHandler
 DidYouKnowStore = require '../../stores/did_you_know_store'
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 DYKArticle      = require './dyk_article'
 
 ServerActions   = require '../../actions/server_actions'
 =======
 ServerActions = require '../../actions/server_actions'
 >>>>>>> table styling for dyk-eligible revisions
+=======
+ServerActions   = require '../../actions/server_actions'
+>>>>>>> refactor did_you_know_handler headers
 TransitionGroup = require '../../utils/TransitionGroup'
 
 getState = ->
@@ -37,9 +41,13 @@ DidYouKnowHandler = React.createClass(
     articles = articles.reverse() if sortOrder is 'desc'
     @setState articles: articles
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> Sorting on dyk table
+=======
+
+>>>>>>> refactor did_you_know_handler headers
   render: ->
 <<<<<<< HEAD
     articles = @state.articles.map (article) =>
@@ -106,7 +114,17 @@ DidYouKnowHandler = React.createClass(
         </td>
       </tr>
 
+    headers = [
+      { title: 'Article Title', key: 'title' },
+      { title: 'Revision Score', key: 'revision_score' },
+      { title: 'Revision Author', key: 'user_wiki_id' },
+      { title: 'Revision Date/Time', key: 'revision_datetime' },
+    ]
 
+    ths = headers.map (header) =>
+      <th onClick={@sortArticles} className='sortable' data-sort-key={header.key}>
+        {header.title}
+      </th>
     <table className='dyk-articles list'>
       <thead>
         <tr>
