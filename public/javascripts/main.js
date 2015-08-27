@@ -572,6 +572,7 @@ DidYouKnowHandler = React.createClass({
   },
   render: function() {
     var articles, drawers, elements, headers, ths;
+<<<<<<< HEAD
     articles = this.state.articles.map((function(_this) {
       return function(article) {
         var revisionDateTime, roundedRevisionScore, talkPageLink;
@@ -601,6 +602,27 @@ DidYouKnowHandler = React.createClass({
         "colSpan": 6
       }, React.createElement("span", null, React.createElement("h6", null, "Article is active in"), React.createElement("ul", null, courses))));
     });
+=======
+    articles = this.state.articles.map(function(article) {
+      return React.createElement("tr", {
+        "className": 'dyk-article',
+        "key": article.key
+      }, React.createElement("td", null, article.title), React.createElement("td", null, Math.round(article.revision_score)), React.createElement("td", null, article.user_wiki_id), React.createElement("td", null, moment(article.revision_datetime).format('YYYY/MM/DD h:mm a')), React.createElement("td", null, React.createElement("button", {
+        "className": 'icon icon-arrow'
+      })));
+    });
+    drawers = this.state.articles.map(function(article) {
+      var courses;
+      courses = article.courses.map(function(course) {
+        return React.createElement("li", null, course);
+      });
+      return React.createElement("tr", {
+        "className": 'drawer'
+      }, React.createElement("td", {
+        "colSpan": 6
+      }, React.createElement("h6", null, "Article is active in"), React.createElement("ul", null, courses)));
+    });
+>>>>>>> Update article query to join courses, set empty msg
     elements = _.flatten(_.zip(articles, drawers));
     if (!elements.length) {
       elements = React.createElement("td", {

@@ -3,17 +3,7 @@ Router          = require 'react-router'
 RouteHandler    = Router.RouteHandler
 DidYouKnowStore = require '../../stores/did_you_know_store'
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-DYKArticle      = require './dyk_article'
-
 ServerActions   = require '../../actions/server_actions'
-=======
-ServerActions = require '../../actions/server_actions'
->>>>>>> table styling for dyk-eligible revisions
-=======
-ServerActions   = require '../../actions/server_actions'
->>>>>>> refactor did_you_know_handler headers
 TransitionGroup = require '../../utils/TransitionGroup'
 
 getState = ->
@@ -40,44 +30,37 @@ DidYouKnowHandler = React.createClass(
     articles = _.sortByOrder(@state.articles, [key])
     articles = articles.reverse() if sortOrder is 'desc'
     @setState articles: articles
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
->>>>>>> Sorting on dyk table
-=======
-
->>>>>>> refactor did_you_know_handler headers
   render: ->
-<<<<<<< HEAD
-    articles = @state.articles.map (article) =>
-      revisionDateTime = moment(article.revision_datetime).format('YYYY/MM/DD h:mm a')
-      roundedRevisionScore = Math.round(article.revision_score)
-      talkPageLink = "https://en.wikipedia.org/wiki/User_talk:#{article.user_wiki_id}"
-
-      <DYKArticle
-        key={article.key}
-        articleId={article.key}
-        title={article.title}
-        revisionScore={roundedRevisionScore}
-        talkPageLink={talkPageLink}
-        author={article.user_wiki_id}
-        revisionDateTime={revisionDateTime}
-      />
-
+    articles = @state.articles.map (article) ->
+      <tr className='dyk-article' key={article.key}>
+        <td>
+          {article.title}
+        </td>
+        <td>
+          {Math.round(article.revision_score)}
+        </td>
+        <td>
+          {article.user_wiki_id}
+        </td>
+        <td>
+          {moment(article.revision_datetime).format('YYYY/MM/DD h:mm a')}
+        </td>
+        <td>
+          <button className='icon icon-arrow'></button>
+        </td>
+      </tr>
 
     drawers = @state.articles.map (article) ->
       courses = article.courses.map (course) ->
-        <li><a href="/courses/#{course.slug}">{course.title}</a></li>
+        <li>{course}</li>
 
-      <tr className='dyk-drawer'>
+      <tr className='drawer'>
         <td colSpan=6>
-          <span>
-            <h5>Article is active in</h5>
-            <ul className='dyk__course-list'>
-              {courses}
-            </ul>
-          </span>
+          <h6>Article is active in</h6>
+          <ul>
+            {courses}
+          </ul>
         </td>
       </tr>
 
@@ -98,33 +81,6 @@ DidYouKnowHandler = React.createClass(
         {header.title}
       </th>
 
-    elements = @state.articles.map (article) ->
-      <tr className='dyk-article'>
-        <td>
-          {article.title}
-        </td>
-        <td>
-          {Math.round(article.revision_score)}
-        </td>
-        <td>
-          {article.user_wiki_id}
-        </td>
-        <td>
-          {moment(article.revision_datetime).format('YYYY/MM/DD h:mm a')}
-        </td>
-      </tr>
-
-    headers = [
-      { title: 'Article Title', key: 'title' },
-      { title: 'Revision Score', key: 'revision_score' },
-      { title: 'Revision Author', key: 'user_wiki_id' },
-      { title: 'Revision Date/Time', key: 'revision_datetime' },
-    ]
-
-    ths = headers.map (header) =>
-      <th onClick={@sortArticles} className='sortable' data-sort-key={header.key}>
-        {header.title}
-      </th>
     <table className='dyk-articles list'>
       <thead>
         <tr>
