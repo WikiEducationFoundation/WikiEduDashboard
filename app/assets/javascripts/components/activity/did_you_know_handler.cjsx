@@ -1,9 +1,9 @@
-React        = require 'react/addons'
-Router       = require 'react-router'
-RouteHandler = Router.RouteHandler
+React           = require 'react/addons'
+Router          = require 'react-router'
+RouteHandler    = Router.RouteHandler
 DidYouKnowStore = require '../../stores/did_you_know_store'
 
-ServerActions = require '../../actions/server_actions'
+ServerActions   = require '../../actions/server_actions'
 TransitionGroup = require '../../utils/TransitionGroup'
 
 getState = ->
@@ -30,6 +30,7 @@ DidYouKnowHandler = React.createClass(
     articles = _.sortByOrder(@state.articles, [key])
     articles = articles.reverse() if sortOrder is 'desc'
     @setState articles: articles
+
   render: ->
     elements = @state.articles.map (article) ->
       <tr className='dyk-article'>
@@ -47,21 +48,22 @@ DidYouKnowHandler = React.createClass(
         </td>
       </tr>
 
+    headers = [
+      { title: 'Article Title', key: 'title' },
+      { title: 'Revision Score', key: 'revision_score' },
+      { title: 'Revision Author', key: 'user_wiki_id' },
+      { title: 'Revision Date/Time', key: 'revision_datetime' },
+    ]
+
+    ths = headers.map (header) =>
+      <th onClick={@sortArticles} className='sortable' data-sort-key={header.key}>
+        {header.title}
+      </th>
+
     <table className='dyk-articles list'>
       <thead>
         <tr>
-          <th onClick={@sortArticles} className='sortable' data-sort-key='title'>
-            Article Title
-          </th>
-          <th onClick={@sortArticles} className='sortable' data-sort-key='revision_score'>
-            Revision Score
-          </th>
-          <th onClick={@sortArticles} className='sortable' data-sort-key='user_wiki_id'>
-            Revision Author
-          </th>
-          <th onClick={@sortArticles} className='sortable' data-sort-key='revision_datetime'>
-            Revision Date/Time
-          </th>
+          {ths}
         </tr>
       </thead>
       <TransitionGroup
