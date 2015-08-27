@@ -3,6 +3,8 @@ Router          = require 'react-router'
 RouteHandler    = Router.RouteHandler
 DidYouKnowStore = require '../../stores/did_you_know_store'
 
+DYKArticle      = require './dyk_article'
+
 ServerActions   = require '../../actions/server_actions'
 TransitionGroup = require '../../utils/TransitionGroup'
 
@@ -32,30 +34,20 @@ DidYouKnowHandler = React.createClass(
     @setState articles: articles
 
   render: ->
-    articles = @state.articles.map (article) ->
-      <tr className='dyk-article' key={article.key}>
-        <td>
-          {article.title}
-        </td>
-        <td>
-          {Math.round(article.revision_score)}
-        </td>
-        <td>
-          {article.user_wiki_id}
-        </td>
-        <td>
-          {moment(article.revision_datetime).format('YYYY/MM/DD h:mm a')}
-        </td>
-        <td>
-          <button className='icon icon-arrow'></button>
-        </td>
-      </tr>
+    articles = @state.articles.map (article) =>
+      <DYKArticle
+        title={article.title}
+        revisionScore={Math.round(article.revision_score)}
+        author={article.user_wiki_id}
+        revisionDateTime={moment(article.revision_datetime).format('YYYY/MM/DD h:mm a')}
+      />
+
 
     drawers = @state.articles.map (article) ->
       courses = article.courses.map (course) ->
         <li>{course}</li>
 
-      <tr className='drawer'>
+      <tr>
         <td colSpan=6>
           <h6>Article is active in</h6>
           <ul>
@@ -94,7 +86,7 @@ DidYouKnowHandler = React.createClass(
         enterTimeout={500}
         leaveTimeout={500}
       >
-        {elements}
+        {articles}
       </TransitionGroup>
     </table>
 )
