@@ -18,14 +18,26 @@ DidYouKnowHandler = React.createClass(
     @setState getState()
   componentWillMount: ->
     ServerActions.fetchDYKArticles()
+  clearAllSortableClassNames: ->
+    Array.prototype.map.call document.getElementsByClassName('sortable'), (el) ->
+      el.classList.remove('asc')
+      el.classList.remove('desc')
+  sortArticles: (e) ->
+    sortOrder = if e.target.classList.contains('asc') then 'desc' else 'asc'
+    @clearAllSortableClassNames()
+    e.target.classList.add(sortOrder)
+    key = e.target.dataset.sortKey
+    articles = _.sortByOrder(@state.articles, [key])
+    articles = articles.reverse() if sortOrder is 'desc'
+    @setState articles: articles
   render: ->
     elements = @state.articles.map (article) ->
       <tr className='dyk-article'>
-        <td className='popover-trigger desktop-only-tc'>
+        <td>
           {article.title}
         </td>
         <td>
-          {article.revision_score}
+          {Math.round(article.revision_score)}
         </td>
         <td>
           {article.user_wiki_id}
@@ -38,16 +50,16 @@ DidYouKnowHandler = React.createClass(
     <table className='dyk-articles list'>
       <thead>
         <tr>
-          <th>
+          <th onClick={@sortArticles} className='sortable' data-sort-key='title'>
             Article Title
           </th>
-          <th>
+          <th onClick={@sortArticles} className='sortable' data-sort-key='revision_score'>
             Revision Score
           </th>
-          <th>
+          <th onClick={@sortArticles} className='sortable' data-sort-key='user_wiki_id'>
             Revision Author
           </th>
-          <th>
+          <th onClick={@sortArticles} className='sortable' data-sort-key='revision_datetime'>
             Revision Date/Time
           </th>
         </tr>
