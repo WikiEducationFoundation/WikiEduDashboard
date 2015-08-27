@@ -32,8 +32,8 @@ DidYouKnowHandler = React.createClass(
     @setState articles: articles
 
   render: ->
-    elements = @state.articles.map (article) ->
-      <tr className='dyk-article'>
+    articles = @state.articles.map (article) ->
+      <tr className='dyk-article' key={article.key}>
         <td>
           {article.title}
         </td>
@@ -46,12 +46,33 @@ DidYouKnowHandler = React.createClass(
         <td>
           {moment(article.revision_datetime).format('YYYY/MM/DD h:mm a')}
         </td>
+        <td>
+          <button className='icon icon-arrow'></button>
+        </td>
       </tr>
 
+    drawers = @state.articles.map (article) ->
+      courses = article.courses.map (course) ->
+        <li>{course}</li>
+
+      <tr className='drawer'>
+        <td colSpan=6>
+          <h6>Article is active in</h6>
+          <ul>
+            {courses}
+          </ul>
+        </td>
+      </tr>
+
+    elements = _.flatten(_.zip(articles, drawers))
+
+    unless elements.length
+      elements = <td colSpan=6>There are not currently any DYK-eligible articles.</td>
+
     headers = [
-      { title: 'Article Title', key: 'title' },
-      { title: 'Revision Score', key: 'revision_score' },
-      { title: 'Revision Author', key: 'user_wiki_id' },
+      { title: 'Article Title',      key: 'title' },
+      { title: 'Revision Score',     key: 'revision_score' },
+      { title: 'Revision Author',    key: 'user_wiki_id' },
       { title: 'Revision Date/Time', key: 'revision_datetime' },
     ]
 
@@ -64,6 +85,7 @@ DidYouKnowHandler = React.createClass(
       <thead>
         <tr>
           {ths}
+          <th></th>
         </tr>
       </thead>
       <TransitionGroup

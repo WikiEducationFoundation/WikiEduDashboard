@@ -4,7 +4,7 @@ class RevisionAnalyticsController < ApplicationController
   respond_to :json
 
   def dyk_eligible
-    @articles = Article.joins(:revisions).includes(:revisions).where{ revisions.wp10 > 40 }.where{(namespace == 118) | ((namespace == 2) & (title !~ '%/%'))}
+    @articles = RevisionAnalyticsService.dyk_eligible
   end
 
 end
