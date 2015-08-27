@@ -46,4 +46,13 @@ namespace :deploy do
     end
   end
 
+  # Gulp build
+  # system 'gulp build'
+
+  # Upload built assets
+  # system "rsync -r -u -v public/assets/ #{user}@#{address}:#{shared_path}/assets"
+
+  # Symlink built assets into release
+  # run "ln -s #{deploy_to}/#{shared_dir}/assets #{current_release}/public/assets"
+
 end
