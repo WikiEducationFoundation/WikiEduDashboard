@@ -573,6 +573,7 @@ DidYouKnowHandler = React.createClass({
   render: function() {
     var articles, drawers, elements, headers, ths;
 <<<<<<< HEAD
+<<<<<<< HEAD
     articles = this.state.articles.map((function(_this) {
       return function(article) {
         var revisionDateTime, roundedRevisionScore, talkPageLink;
@@ -611,14 +612,24 @@ DidYouKnowHandler = React.createClass({
         "className": 'icon icon-arrow'
       })));
     });
+=======
+    articles = this.state.articles.map((function(_this) {
+      return function(article) {
+        return React.createElement(DYKArticle, {
+          "title": article.title,
+          "revisionScore": Math.round(article.revision_score),
+          "author": article.user_wiki_id,
+          "revisionDateTime": moment(article.revision_datetime).format('YYYY/MM/DD h:mm a')
+        });
+      };
+    })(this));
+>>>>>>> Format article titles and link to author's talk page
     drawers = this.state.articles.map(function(article) {
       var courses;
       courses = article.courses.map(function(course) {
         return React.createElement("li", null, course);
       });
-      return React.createElement("tr", {
-        "className": 'drawer'
-      }, React.createElement("td", {
+      return React.createElement("tr", null, React.createElement("td", {
         "colSpan": 6
       }, React.createElement("h6", null, "Article is active in"), React.createElement("ul", null, courses)));
     });
@@ -660,7 +671,7 @@ DidYouKnowHandler = React.createClass({
       "component": 'tbody',
       "enterTimeout": 500.,
       "leaveTimeout": 500.
-    }, elements));
+    }, articles));
   }
 });
 
@@ -668,6 +679,7 @@ module.exports = DidYouKnowHandler;
 
 
 },{"../../actions/server_actions":5,"../../stores/did_you_know_store":84,"../../utils/TransitionGroup":96,"./dyk_article":11,"react-router":258,"react/addons":283}],11:[function(require,module,exports){
+<<<<<<< HEAD
 var DYKArticle, React, UIActions, UIStore;
 
 React = require('react/addons');
@@ -701,6 +713,18 @@ DYKArticle = React.createClass({
       "key": this.props.key
     }, React.createElement("td", null, this.props.title), React.createElement("td", null, this.props.revisionScore), React.createElement("td", null, React.createElement("a", {
       "href": this.props.talkPageLink
+=======
+var DYKArticle, React;
+
+React = require('react/addons');
+
+DYKArticle = React.createClass({
+  render: function() {
+    return React.createElement("tr", {
+      "className": 'dyk-article closed'
+    }, React.createElement("td", null, this.props.title), React.createElement("td", null, this.props.revisionScore), React.createElement("td", null, React.createElement("a", {
+      "href": "https://en.wikipedia.org/wiki/User_talk:" + this.props.author
+>>>>>>> Format article titles and link to author's talk page
     }, this.props.author)), React.createElement("td", null, this.props.revisionDateTime), React.createElement("td", null, React.createElement("button", {
       "className": 'icon icon-arrow'
     })));
@@ -710,7 +734,11 @@ DYKArticle = React.createClass({
 module.exports = DYKArticle;
 
 
+<<<<<<< HEAD
 },{"../../actions/ui_actions":6,"../../stores/ui_store":90,"react/addons":283}],12:[function(require,module,exports){
+=======
+},{"react/addons":283}],12:[function(require,module,exports){
+>>>>>>> Format article titles and link to author's talk page
 var MainspaceHandler, React, RouteHandler, Router;
 
 React = require('react/addons');
