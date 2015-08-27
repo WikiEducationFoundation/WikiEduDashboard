@@ -25,6 +25,14 @@ describe WikiCourseOutput do
     end
   end
 
+  describe '.replace_at_sign_with_template' do
+    it 'should reformat email addresses' do
+      code_snippet = 'My email is email@example.com.'
+      response = WikiCourseOutput.replace_at_sign_with_template(code_snippet)
+      expect(response).to eq('My email is email{{@}}example.com.')
+    end
+  end
+
   describe '.translate_course' do
     it 'should return a wikitext version of the course' do
       week1 = create(:week, id: 2, title: 'This is the beginning')

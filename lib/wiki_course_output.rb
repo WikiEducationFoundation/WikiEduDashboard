@@ -94,6 +94,7 @@ class WikiCourseOutput
     wikitext = PandocRuby.convert(item, from: :markdown, to: :mediawiki)
     wikitext = replace_code_with_nowiki(wikitext)
     wikitext = reformat_image_links(wikitext)
+    wikitext = replace_at_sign_with_template(wikitext)
     wikitext
   end
 
@@ -105,6 +106,13 @@ class WikiCourseOutput
       text = text.gsub('<code>', '<nowiki>')
       text = text.gsub('</code>', '</nowiki>')
     end
+    text
+  end
+
+  # Replace instances of @ with an image-based template equivalent.
+  # This prevents email addresses from triggering a spam warning.
+  def self.replace_at_sign_with_template(text)
+    text = text.gsub('@', '{{@}}')
     text
   end
 
