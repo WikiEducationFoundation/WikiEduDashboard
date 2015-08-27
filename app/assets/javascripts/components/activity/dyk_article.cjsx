@@ -1,8 +1,20 @@
-React           = require 'react/addons'
+React     = require 'react/addons'
+UIStore   = require '../../stores/ui_store'
+UIActions = require '../../actions/ui_actions'
 
 DYKArticle = React.createClass
+  mixins: [UIStore.mixin]
+  storeDidChange: ->
+    @setState is_open: UIStore.getOpenKey() == ('drawer_' + @props.articleId)
+  getInitialState: ->
+    is_open: false
+  openDrawer: ->
+    UIActions.open("drawer_#{@props.articleId}")
   render: ->
-    <tr className='dyk-article closed'>
+    className = 'dyk-article'
+    className += if @state.is_open then ' open' else ' closed'
+
+    <tr className={className} onClick={@openDrawer} key={@props.key}>
       <td>
         {@props.title}
       </td>
@@ -10,7 +22,7 @@ DYKArticle = React.createClass
         {@props.revisionScore}
       </td>
       <td>
-        <a href="https://en.wikipedia.org/wiki/User_talk:#{@props.author}">{@props.author}</a>
+        <a href={@props.talkPageLink}>{@props.author}</a>
       </td>
       <td>
         {@props.revisionDateTime}

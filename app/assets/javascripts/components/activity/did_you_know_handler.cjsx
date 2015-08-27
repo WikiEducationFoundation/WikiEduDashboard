@@ -35,11 +35,19 @@ DidYouKnowHandler = React.createClass(
 
   render: ->
     articles = @state.articles.map (article) =>
+      revisionDateTime = moment(article.revision_datetime).format('YYYY/MM/DD h:mm a')
+      roundedRevisionScore = Math.round(article.revision_score)
+      talkPageLink = "https://en.wikipedia.org/wiki/User_talk:#{article.user_wiki_id}"
+
+      console.log "article_key: #{article.key}"
       <DYKArticle
+        key={article.key}
+        articleId={article.key}
         title={article.title}
-        revisionScore={Math.round(article.revision_score)}
+        revisionScore={roundedRevisionScore}
+        talkPageLink={talkPageLink}
         author={article.user_wiki_id}
-        revisionDateTime={moment(article.revision_datetime).format('YYYY/MM/DD h:mm a')}
+        revisionDateTime={revisionDateTime}
       />
 
 
@@ -47,12 +55,14 @@ DidYouKnowHandler = React.createClass(
       courses = article.courses.map (course) ->
         <li>{course}</li>
 
-      <tr>
+      <tr className='dyk-drawer'>
         <td colSpan=6>
-          <h6>Article is active in</h6>
-          <ul>
-            {courses}
-          </ul>
+          <span>
+            <h6>Article is active in</h6>
+            <ul>
+              {courses}
+            </ul>
+          </span>
         </td>
       </tr>
 
@@ -86,7 +96,7 @@ DidYouKnowHandler = React.createClass(
         enterTimeout={500}
         leaveTimeout={500}
       >
-        {articles}
+        {elements}
       </TransitionGroup>
     </table>
 )
