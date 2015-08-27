@@ -569,31 +569,39 @@ DidYouKnowHandler = React.createClass({
     });
   },
   render: function() {
-    var elements;
+    var elements, headers, ths;
     elements = this.state.articles.map(function(article) {
       return React.createElement("tr", {
         "className": 'dyk-article'
       }, React.createElement("td", null, article.title), React.createElement("td", null, Math.round(article.revision_score)), React.createElement("td", null, article.user_wiki_id), React.createElement("td", null, moment(article.revision_datetime).format('YYYY/MM/DD h:mm a')));
     });
+    headers = [
+      {
+        title: 'Article Title',
+        key: 'title'
+      }, {
+        title: 'Revision Score',
+        key: 'revision_score'
+      }, {
+        title: 'Revision Author',
+        key: 'user_wiki_id'
+      }, {
+        title: 'Revision Date/Time',
+        key: 'revision_datetime'
+      }
+    ];
+    ths = headers.map((function(_this) {
+      return function(header) {
+        return React.createElement("th", {
+          "onClick": _this.sortArticles,
+          "className": 'sortable',
+          "data-sort-key": header.key
+        }, header.title);
+      };
+    })(this));
     return React.createElement("table", {
       "className": 'dyk-articles list'
-    }, React.createElement("thead", null, React.createElement("tr", null, React.createElement("th", {
-      "onClick": this.sortArticles,
-      "className": 'sortable',
-      "data-sort-key": 'title'
-    }, "Article Title"), React.createElement("th", {
-      "onClick": this.sortArticles,
-      "className": 'sortable',
-      "data-sort-key": 'revision_score'
-    }, "Revision Score"), React.createElement("th", {
-      "onClick": this.sortArticles,
-      "className": 'sortable',
-      "data-sort-key": 'user_wiki_id'
-    }, "Revision Author"), React.createElement("th", {
-      "onClick": this.sortArticles,
-      "className": 'sortable',
-      "data-sort-key": 'revision_datetime'
-    }, "Revision Date\x2FTime"))), React.createElement(TransitionGroup, {
+    }, React.createElement("thead", null, React.createElement("tr", null, ths)), React.createElement(TransitionGroup, {
       "transitionName": 'dyk',
       "component": 'tbody',
       "enterTimeout": 500.,
