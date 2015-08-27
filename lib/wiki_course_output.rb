@@ -138,4 +138,12 @@ class WikiCourseOutput
     end
     text
   end
+
+  def self.substitute_bad_links(text, links)
+    links.each do |link|
+      safe_link = link.gsub('.', '(.)')
+      text = text.gsub(link, safe_link)
+    end
+    text
+  end
 end

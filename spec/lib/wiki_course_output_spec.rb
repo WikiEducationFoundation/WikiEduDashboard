@@ -33,6 +33,18 @@ describe WikiCourseOutput do
     end
   end
 
+  describe '.substitute_bad_links' do
+    it 'should find links and munge them into readable non-urls' do
+      code_snippet = 'My bad links are bit.ly/foo and http://ur1.ca/bar'
+      bad_links = ['bit.ly/foo', 'ur1.ca/bar']
+      response = WikiCourseOutput.substitute_bad_links(code_snippet, bad_links)
+      expect(response).to include 'bit(.)ly/foo'
+      expect(response).to include 'ur1(.)ca/bar'
+      expect(response).not_to include 'bit.ly/foo'
+      expect(response).not_to include 'ur1.ca/bar'
+    end
+  end
+
   describe '.translate_course' do
     it 'should return a wikitext version of the course' do
       week1 = create(:week, id: 2, title: 'This is the beginning')

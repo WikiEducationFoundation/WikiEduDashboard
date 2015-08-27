@@ -13,7 +13,8 @@ describe WikiEdits do
 
     create(:course,
            id: 1,
-           submitted: true)
+           submitted: true,
+           slug: 'University/Course_(term)')
     create(:user,
            id: 1,
            wiki_token: 'foo',
@@ -77,6 +78,11 @@ describe WikiEdits do
     it 'should edit a Wikipedia page representing a course' do
       WikiEdits.update_course(Course.first, User.first)
       WikiEdits.update_course(Course.first, User.first, true)
+    end
+
+    it 'should repost a clean version after hitting the spamblacklist' do
+      stub_oauth_edit_abusefilter
+      WikiEdits.update_course(Course.first, User.first)
     end
   end
 

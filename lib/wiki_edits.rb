@@ -85,7 +85,18 @@ class WikiEdits
     dashboard_url = ENV['dashboard_url']
     summary = "Updating course from #{dashboard_url}"
 
-    post_whole_page(current_user, wiki_title, wiki_text, summary)
+    # Post the update
+    response = post_whole_page(current_user, wiki_title, wiki_text, summary)
+
+    # If it hit the spam blacklist, replace the offending links and try again.
+    if response['edit']
+      bad_links = response['edit']['spamblacklist']
+      return response if bad_links.nil?
+      bad_links = bad_links.split('|')
+      safe_wiki_text = WikiCourseOutput
+                       .substitute_bad_links(wiki_text, bad_links)
+      post_whole_page(current_user, wiki_title, safe_wiki_text, summary)
+    end
   end
 
   def self.update_assignments(current_user,
@@ -205,7 +216,7 @@ class WikiEdits
 
       token_response = JSON.parse(get_token.body)
       WikiResponse.capture(token_response, current_user: current_user,
-                                          type: 'tokens')
+                                           type: 'tokens')
 
       OpenStruct.new(
         csrf_token: token_response['query']['tokens']['csrftoken'],
@@ -222,7 +233,7 @@ class WikiEdits
     end
 
     def api_post(data, tokens, current_user)
-      return if ENV['disable_wiki_output'] == 'true'
+      return {} if ENV['disable_wiki_output'] == 'true'
       language = ENV['wiki_language']
       url = "https://#{language}.wikipedia.org/w/api.php"
 
@@ -233,7 +244,7 @@ class WikiEdits
                                           post_data: data,
                                           type: 'edit')
 
-      response
+      response_data
     end
   end
 end

@@ -53,6 +53,14 @@ module RequestHelpers
       .to_return(status: 200, body: failure, headers: {})
   end
 
+  def stub_oauth_edit_spamblacklist
+    stub_token_request
+    failure = '{"edit":{"result":"Failure",
+              "spamblacklist":"ur1.ca|bit.ly/foo"}}'
+    stub_request(:post, /.*wikipedia.*/)
+      .to_return(status: 200, body: failure, headers: {})
+  end
+
   def stub_oauth_edit_captcha
     stub_token_request
     failure = '{"edit":{"result":"Failure","captcha":{"id":1234567,
