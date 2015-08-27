@@ -569,12 +569,32 @@ DidYouKnowHandler = React.createClass({
     });
   },
   render: function() {
-    var elements, headers, ths;
-    elements = this.state.articles.map(function(article) {
+    var articles, drawers, elements, headers, ths;
+    articles = this.state.articles.map(function(article) {
       return React.createElement("tr", {
-        "className": 'dyk-article'
-      }, React.createElement("td", null, article.title), React.createElement("td", null, Math.round(article.revision_score)), React.createElement("td", null, article.user_wiki_id), React.createElement("td", null, moment(article.revision_datetime).format('YYYY/MM/DD h:mm a')));
+        "className": 'dyk-article',
+        "key": article.key
+      }, React.createElement("td", null, article.title), React.createElement("td", null, Math.round(article.revision_score)), React.createElement("td", null, article.user_wiki_id), React.createElement("td", null, moment(article.revision_datetime).format('YYYY/MM/DD h:mm a')), React.createElement("td", null, React.createElement("button", {
+        "className": 'icon icon-arrow'
+      })));
     });
+    drawers = this.state.articles.map(function(article) {
+      var courses;
+      courses = article.courses.map(function(course) {
+        return React.createElement("li", null, course);
+      });
+      return React.createElement("tr", {
+        "className": 'drawer'
+      }, React.createElement("td", {
+        "colSpan": 6
+      }, React.createElement("h6", null, "Article is active in"), React.createElement("ul", null, courses)));
+    });
+    elements = _.flatten(_.zip(articles, drawers));
+    if (!elements.length) {
+      elements = React.createElement("td", {
+        "colSpan": 6
+      }, "There are not currently any DYK-eligible articles.");
+    }
     headers = [
       {
         title: 'Article Title',
@@ -601,7 +621,7 @@ DidYouKnowHandler = React.createClass({
     })(this));
     return React.createElement("table", {
       "className": 'dyk-articles list'
-    }, React.createElement("thead", null, React.createElement("tr", null, ths)), React.createElement(TransitionGroup, {
+    }, React.createElement("thead", null, React.createElement("tr", null, ths, React.createElement("th", null))), React.createElement(TransitionGroup, {
       "transitionName": 'dyk',
       "component": 'tbody',
       "enterTimeout": 500.,
@@ -6097,6 +6117,7 @@ ServerActions = '../actions/server_actions';
 _articles = [];
 
 setArticles = function(data) {
+  DidYouKnowStore.empty();
   data.articles.map(function(article) {
     return _articles.push(article);
   });
@@ -6104,6 +6125,9 @@ setArticles = function(data) {
 };
 
 DidYouKnowStore = Flux.createStore({
+  empty: function() {
+    return _articles.length = 0;
+  },
   getArticles: function() {
     return _articles;
   }
