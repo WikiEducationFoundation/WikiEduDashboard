@@ -93,7 +93,7 @@ table.list.list--striped > thead > tr
 table.users th:first-child
   padding-left 77px
 
-table.users tbody tr, table.articles tbody tr
+table.users tbody tr, table.articles tbody tr, table.dyk-articles tbody tr
   table tbody tr td:first-child, th:first-child
     padding-right 15px
     padding-left 15px
@@ -168,6 +168,11 @@ table.uploads
       height 60px
 
 table.dyk-articles
+  tbody
+    td:last-child
+      border-right 1px solid mischka
+  tr
+    border-collapse collapse
   td:first-child, th:first-child
     padding-left 15px
   a
@@ -178,5 +183,23 @@ table.dyk-articles
       color darken(bayoux, 55%)
       border 0
 
+.dyk-article + .dyk-drawer span
+  display block
 
+.dyk-article.closed + .dyk-drawer
+  border 0
+  span
+    height 0
+    display none
+  td
+    padding 0
+    height 0
+    border 0
+.dyk-article.open + .dyk-drawer span
+  span
+    height 78px
+    display block
+  td
+    padding 15px
+    border inherit
 

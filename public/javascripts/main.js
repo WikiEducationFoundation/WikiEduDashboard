@@ -574,11 +574,19 @@ DidYouKnowHandler = React.createClass({
     var articles, drawers, elements, headers, ths;
     articles = this.state.articles.map((function(_this) {
       return function(article) {
+        var revisionDateTime, roundedRevisionScore, talkPageLink;
+        revisionDateTime = moment(article.revision_datetime).format('YYYY/MM/DD h:mm a');
+        roundedRevisionScore = Math.round(article.revision_score);
+        talkPageLink = "https://en.wikipedia.org/wiki/User_talk:" + article.user_wiki_id;
+        console.log("article_key: " + article.key);
         return React.createElement(DYKArticle, {
+          "key": article.key,
+          "articleId": article.key,
           "title": article.title,
-          "revisionScore": Math.round(article.revision_score),
+          "revisionScore": roundedRevisionScore,
+          "talkPageLink": talkPageLink,
           "author": article.user_wiki_id,
-          "revisionDateTime": moment(article.revision_datetime).format('YYYY/MM/DD h:mm a')
+          "revisionDateTime": revisionDateTime
         });
       };
     })(this));
@@ -587,9 +595,11 @@ DidYouKnowHandler = React.createClass({
       courses = article.courses.map(function(course) {
         return React.createElement("li", null, course);
       });
-      return React.createElement("tr", null, React.createElement("td", {
+      return React.createElement("tr", {
+        "className": 'dyk-drawer'
+      }, React.createElement("td", {
         "colSpan": 6
-      }, React.createElement("h6", null, "Article is active in"), React.createElement("ul", null, courses)));
+      }, React.createElement("span", null, React.createElement("h6", null, "Article is active in"), React.createElement("ul", null, courses))));
     });
     elements = _.flatten(_.zip(articles, drawers));
     if (!elements.length) {
@@ -628,7 +638,7 @@ DidYouKnowHandler = React.createClass({
       "component": 'tbody',
       "enterTimeout": 500.,
       "leaveTimeout": 500.
-    }, articles));
+    }, elements));
   }
 });
 
@@ -636,16 +646,39 @@ module.exports = DidYouKnowHandler;
 
 
 },{"../../actions/server_actions":5,"../../stores/did_you_know_store":84,"../../utils/TransitionGroup":96,"./dyk_article":11,"react-router":258,"react/addons":283}],11:[function(require,module,exports){
-var DYKArticle, React;
+var DYKArticle, React, UIActions, UIStore;
 
 React = require('react/addons');
 
+UIStore = require('../../stores/ui_store');
+
+UIActions = require('../../actions/ui_actions');
+
 DYKArticle = React.createClass({
+  mixins: [UIStore.mixin],
+  storeDidChange: function() {
+    return this.setState({
+      is_open: UIStore.getOpenKey() === ('drawer_' + this.props.articleId)
+    });
+  },
+  getInitialState: function() {
+    return {
+      is_open: false
+    };
+  },
+  openDrawer: function() {
+    return UIActions.open("drawer_" + this.props.articleId);
+  },
   render: function() {
+    var className;
+    className = 'dyk-article';
+    className += this.state.is_open ? ' open' : ' closed';
     return React.createElement("tr", {
-      "className": 'dyk-article closed'
+      "className": className,
+      "onClick": this.openDrawer,
+      "key": this.props.key
     }, React.createElement("td", null, this.props.title), React.createElement("td", null, this.props.revisionScore), React.createElement("td", null, React.createElement("a", {
-      "href": "https://en.wikipedia.org/wiki/User_talk:" + this.props.author
+      "href": this.props.talkPageLink
     }, this.props.author)), React.createElement("td", null, this.props.revisionDateTime), React.createElement("td", null, React.createElement("button", {
       "className": 'icon icon-arrow'
     })));
@@ -655,7 +688,7 @@ DYKArticle = React.createClass({
 module.exports = DYKArticle;
 
 
-},{"react/addons":283}],12:[function(require,module,exports){
+},{"../../actions/ui_actions":6,"../../stores/ui_store":90,"react/addons":283}],12:[function(require,module,exports){
 var MainspaceHandler, React, RouteHandler, Router;
 
 React = require('react/addons');
