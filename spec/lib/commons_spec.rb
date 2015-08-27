@@ -112,10 +112,14 @@ describe Commons do
       VCR.use_cassette 'commons/get_urls_with_errors' do
         create(:commons_upload,
                id: 28591020,
-               file_name: 'File:Jewish Encyclopedia Volume 6.pdf')
+               file_name: 'File:Jewish Encyclopedia Volume 6.pdf',
+               thumburl: nil)
         response = Commons.get_urls(CommonsUpload.all)
         expect(response).to be_empty
-        # now add a legitimate file
+        # It should add a placeholder url so that we don't request it again.
+        file = CommonsUpload.find(28591020)
+        expect(file.thumburl).not_to be_nil
+        # Now add a legitimate file.
         create(:commons_upload,
                id: 541408,
                file_name: 'File:Haeckel Stephoidea.jpg')

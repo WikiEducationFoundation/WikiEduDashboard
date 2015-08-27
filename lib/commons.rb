@@ -94,6 +94,19 @@ class Commons
                 }
     url_query
   end
+
+  ####################
+  # Database methods #
+  ####################
+  def self.save_placeholder_thumbnail(file)
+    # rubocop:disable Metrics/LineLength
+    file.thumburl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/No_image_3x4.svg/200px-No_image_3x4.svg.png'
+    # rubocop:enable Metrics/LineLength
+    file.thumbwidth = 200
+    file.thumbheight = 150
+    file.save
+  end
+
   ###################
   # Private methods #
   ###################
@@ -115,12 +128,10 @@ class Commons
         info = e.info
         info['Could not normalise image parameters for '] = ''
         bad_file_name = ('File:' + info).gsub('_', ' ')
-        file = CommonsUpload.find_by(file_name: bad_file_name)
-        # TODO: implement CommonsUpload#not_an_image
-        #       to mark files that won't have a thumburl
-        # TODO: exclude such files from the url batch
+        bad_file = CommonsUpload.find_by(file_name: bad_file_name)
+        save_placeholder_thumbnail bad_file
         Rails.logger.debug "Caught iiurlparamnormal error: #{bad_file_name}"
-        query[:pageids] -= [file.id]
+        query[:pageids] -= [bad_file.id]
         api_get(query) unless query[:pageids].empty?
       else
         fail e
