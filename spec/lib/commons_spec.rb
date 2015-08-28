@@ -139,5 +139,14 @@ describe Commons do
       response = Commons.get_urls(CommonsUpload.all)
       expect(response.empty?).to be true
     end
+
+    it 'should raise unexpected errors' do
+      stub_request(:get, /.*commons.wikimedia.org.*/).to_raise(StandardError)
+      create(:commons_upload,
+             id: 541408,
+             file_name: 'File:Haeckel Stephoidea.jpg')
+      expect { Commons.get_urls(CommonsUpload.all) }
+        .to raise_error(StandardError)
+    end
   end
 end
