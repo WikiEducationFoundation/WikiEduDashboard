@@ -42,7 +42,7 @@
     "gulp-webserver": "^0.8.2",
     "handleify": "^0.1.2",
     "jeet": "^6.1.2",
-    "lodash": "^2.4.1",
+    "lodash": "^3.10.1",
     "main-bower-files": "^2.0.0",
     "merge-stream": "^0.1.6",
     "mocha": "^2.2.5",
