@@ -1,0 +1,20 @@
+<% content_for :after_title do " - Article Finder" end %>
+<header class="main-page">
+  <div class="container">
+    <h1>Article Finder <%= @category %></h1>
+  </div>
+</header>
+<div class="container">
+<section>
+<div class="section-header">
+<h3><%= form_tag(method: 'get') do %>
+  Put in a category name, including the prefix, like "Category:Feminism"<br/>
+  <%= label_tag(:q, "") %>
+  <%= text_field_tag(:q) %>
+  <%= submit_tag("Go") %>
+<% end %></h3>
+</div>
+<div>
+<p><%= @output %></p></div>
+</section>
+</div>
