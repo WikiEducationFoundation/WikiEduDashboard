@@ -578,6 +578,7 @@ DidYouKnowHandler = React.createClass({
         revisionDateTime = moment(article.revision_datetime).format('YYYY/MM/DD h:mm a');
         roundedRevisionScore = Math.round(article.revision_score);
         talkPageLink = "https://en.wikipedia.org/wiki/User_talk:" + article.user_wiki_id;
+        console.log("article_key: " + article.key);
         return React.createElement(DYKArticle, {
           "key": article.key,
           "articleId": article.key,
@@ -592,17 +593,13 @@ DidYouKnowHandler = React.createClass({
     drawers = this.state.articles.map(function(article) {
       var courses;
       courses = article.courses.map(function(course) {
-        return React.createElement("li", null, React.createElement("a", {
-          "href": "/courses/" + course.slug
-        }, course.title));
+        return React.createElement("li", null, course);
       });
       return React.createElement("tr", {
         "className": 'dyk-drawer'
       }, React.createElement("td", {
         "colSpan": 6
-      }, React.createElement("span", null, React.createElement("h5", null, "Article is active in"), React.createElement("ul", {
-        "className": 'dyk__course-list'
-      }, courses))));
+      }, React.createElement("span", null, React.createElement("h6", null, "Article is active in"), React.createElement("ul", null, courses))));
     });
     elements = _.flatten(_.zip(articles, drawers));
     if (!elements.length) {
