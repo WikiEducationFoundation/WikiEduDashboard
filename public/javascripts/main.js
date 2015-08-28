@@ -6172,6 +6172,7 @@ ServerActions = '../actions/server_actions';
 _articles = [];
 
 setArticles = function(data) {
+  DidYouKnowStore.empty();
   data.articles.map(function(article) {
     return _articles.push(article);
   });
@@ -6179,6 +6180,9 @@ setArticles = function(data) {
 };
 
 DidYouKnowStore = Flux.createStore({
+  empty: function() {
+    return _articles.length = 0;
+  },
   getArticles: function() {
     return _articles;
   }
@@ -7959,7 +7963,7 @@ routes = React.createElement(Route, {
   "path": 'recent-activity',
   "name": 'recent-activity',
   "handler": RecentActivityHandler
-}, React.createElement(Route, {
+}, React.createElement(DefaultRoute, {
   "path": 'did-you-know',
   "name": 'did-you-know',
   "handler": DidYouKnowHandler
