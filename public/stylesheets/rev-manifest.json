@@ -1,7 +1,11 @@
 {
+<<<<<<< 15d91fb8b29cbb9c7b9ae4c4d9413e1293d3d036
 <<<<<<< 85faafab41df68448ebc1b937d357e30f24fd05b
   "main.css": "main-848a53e1ce.css"
 =======
   "main.css": "main-d5cb38369c.css"
 >>>>>>> rebuild assets
+=======
+  "main.css": "main-ed34272b56.css"
+>>>>>>> Switch back to built icon font instead of icomoon. Updated usages.
 }
