@@ -7,7 +7,7 @@ class RevisionScoreImporter
   ################
   def self.update_revision_scores(revisions=nil)
     # Unscored mainspace, userspace, and Draft revisions, by default
-    revisions ||= Revision.where(namespace: [0, 2, 118], wp10: nil)
+    revisions ||= unscored_mainspace_userspace_and_draft_revisions
     revisions.each_slice(50) do |rev_batch|
       rev_ids = rev_batch.map(&:id)
       scores = get_revision_scores rev_ids
@@ -37,6 +37,12 @@ class RevisionScoreImporter
   ##################
   # Helper methods #
   ##################
+
+  def self.unscored_mainspace_userspace_and_draft_revisions
+    Revision.joins(:article)
+      .where(wp10: nil)
+      .where(articles: { namespace: [0, 2, 118] })
+  end
 
   def self.save_scores(scores)
     scores.each do |rev_id, score|
