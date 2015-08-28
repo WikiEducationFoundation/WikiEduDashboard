@@ -32,6 +32,14 @@ describe 'activity page', type: :feature, js: true do
   end
 
   describe 'admins' do
+    let!(:article)  { create(:article, namespace: 118) }
+    let!(:user)     { create(:user) }
+    let!(:revision) { create(:revision, article_id: article.id, wp10: 50, user_id: user.id) }
+    before do
+      # TODO: If we're going to stub this because of the service's weird chaining of scopes,
+      # we should test that service, also.
+      allow(RevisionAnalyticsService).to receive(:dyk_eligible).and_return([article])
+    end
     let(:user) { create(:admin,
                   id: 200,
                   wiki_token: 'foo',
@@ -45,8 +53,8 @@ describe 'activity page', type: :feature, js: true do
 
     it 'displays a list of DYK-eligible articles' do
       click_link 'Recent Activity'
-      click_link 'Did You Know Eligible'
-      expect(page).to have_content 'Hello from did you know'
+      sleep 1
+      expect(page).to have_content article.title.gsub('_', ' ')
     end
   end
 end
