@@ -97,6 +97,18 @@ describe 'Admin users', type: :feature, js: true do
       visit "/courses/#{Course.first.slug}"
       sleep 1
       expect(page).to have_content 'My Tag'
+
+      # Add the same tag again
+      click_button('Edit Details')
+      page.all('.button.border.plus')[5].click
+      page.all('input')[6].set 'My Tag'
+      find('.pop button', visible: true).click
+
+      # Delete the tag
+      page.all('.button.border.plus')[6].click
+      visit "/courses/#{Course.first.slug}"
+      sleep 1
+      expect(page).not_to have_content 'My Tag'
     end
   end
 
