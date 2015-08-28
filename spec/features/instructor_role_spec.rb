@@ -74,8 +74,8 @@ describe 'Instructor users', type: :feature, js: true do
       expect(page).not_to have_content 'Student B'
     end
 
-    # FIXME: As with the similar tests for assigning articles in the student_role_spec,
-    # this test breaks on travis-ci.org even though it passes locally.
+    # FIXME: As with the similar tests for assigning articles in the student
+    # role spec, this breaks on travis-ci.org even though it passes locally.
     # it 'should be able to assign articles' do
     #   stub_oauth_edit
     #   visit "/courses/#{Course.first.slug}/students"
@@ -111,6 +111,7 @@ describe 'Instructor users', type: :feature, js: true do
       # Notify untrained users
       page.first('button.notify_untrained').click
       page.driver.browser.switch_to.alert.accept
+      sleep 1
     end
   end
 
