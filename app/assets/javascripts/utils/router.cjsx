@@ -28,7 +28,7 @@ PlagiarismHandler     = require '../components/activity/plagiarism_handler'
 routes = (
   <Route name='root' path='/' handler={App}>
     <Route path='recent-activity' name='recent-activity' handler={RecentActivityHandler}>
-      <Route path='did-you-know' name='did-you-know' handler={DidYouKnowHandler} />
+      <DefaultRoute path='did-you-know' name='did-you-know' handler={DidYouKnowHandler} />
       <Route path='mainspace' name='mainspace' handler={MainspaceHandler} />
       <Route path='plagiarism' name='plagiarism' handler={PlagiarismHandler} />
     </Route>

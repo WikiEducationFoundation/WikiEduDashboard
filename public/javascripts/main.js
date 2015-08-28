@@ -7963,7 +7963,7 @@ routes = React.createElement(Route, {
   "path": 'recent-activity',
   "name": 'recent-activity',
   "handler": RecentActivityHandler
-}, React.createElement(Route, {
+}, React.createElement(DefaultRoute, {
   "path": 'did-you-know',
   "name": 'did-you-know',
   "handler": DidYouKnowHandler
