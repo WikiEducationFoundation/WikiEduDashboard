@@ -83,7 +83,7 @@ describe WikiEdits do
     end
 
     it 'should repost a clean version after hitting the spamblacklist' do
-      stub_oauth_edit_abusefilter
+      stub_oauth_edit_spamblacklist
       WikiEdits.update_course(Course.first, User.first)
     end
   end
