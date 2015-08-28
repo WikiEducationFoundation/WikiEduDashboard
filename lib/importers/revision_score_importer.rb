@@ -11,10 +11,15 @@ class RevisionScoreImporter
     batches = revisions.count / 50 + 1
     revisions.each_slice(50).with_index do |rev_batch, i|
       Rails.logger.debug "Pulling revisions: batch #{i + 1} of #{batches}"
-      rev_ids = rev_batch.map(&:id)
-      scores = get_revision_scores rev_ids
-      save_scores scores
+      get_and_save_scores rev_batch
     end
+  end
+
+  # This should take up to 50 rev_ids per batch
+  def self.get_and_save_scores(rev_batch)
+    rev_ids = rev_batch.map(&:id)
+    scores = get_revision_scores rev_ids
+    save_scores scores
   end
 
   def self.update_all_revision_scores_for_articles(article_ids = nil)
@@ -83,15 +88,20 @@ class RevisionScoreImporter
     mean
   end
 
+  def self.query_url(rev_ids)
+    base_url = 'http://ores.wmflabs.org/scores/enwiki/wp10/?revids='
+    rev_ids_param = rev_ids.map(&:to_s).join('|')
+    url = base_url + rev_ids_param
+    url = URI.encode url
+    url
+  end
+
   ###############
   # API methods #
   ###############
   def self.get_revision_scores(rev_ids)
     # TODO: i18n
-    base_url = 'http://ores.wmflabs.org/scores/enwiki/wp10/?revids='
-    rev_ids_param = rev_ids.map(&:to_s).join('|')
-    url = base_url + rev_ids_param
-    url = URI.encode url
+    url = query_url(rev_ids)
     response = Net::HTTP.get(URI.parse(url))
     scores = JSON.parse(response)
     scores
