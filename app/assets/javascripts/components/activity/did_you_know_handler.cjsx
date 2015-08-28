@@ -39,7 +39,6 @@ DidYouKnowHandler = React.createClass(
       roundedRevisionScore = Math.round(article.revision_score)
       talkPageLink = "https://en.wikipedia.org/wiki/User_talk:#{article.user_wiki_id}"
 
-      console.log "article_key: #{article.key}"
       <DYKArticle
         key={article.key}
         articleId={article.key}
@@ -53,13 +52,13 @@ DidYouKnowHandler = React.createClass(
 
     drawers = @state.articles.map (article) ->
       courses = article.courses.map (course) ->
-        <li>{course}</li>
+        <li><a href="/courses/#{course.slug}">{course.title}</a></li>
 
       <tr className='dyk-drawer'>
         <td colSpan=6>
           <span>
-            <h6>Article is active in</h6>
-            <ul>
+            <h5>Article is active in</h5>
+            <ul className='dyk__course-list'>
               {courses}
             </ul>
           </span>
