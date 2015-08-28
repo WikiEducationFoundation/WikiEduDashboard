@@ -2659,13 +2659,17 @@ module.exports = function(Component, Type, MoveFunction) {
 
 
 },{"react-dnd":138,"react/addons":283}],41:[function(require,module,exports){
-var Actions, CourseStore, React, ServerActions, getState;
+var Actions, AssignCell, AssignmentStore, CourseStore, React, ServerActions, getState;
 
 React = require('react');
 
 ServerActions = require('../../actions/server_actions');
 
 CourseStore = require('../../stores/course_store');
+
+AssignCell = require('../../components/students/assign_cell');
+
+AssignmentStore = require('../../stores/assignment_store');
 
 getState = function(course_id) {
   return {
@@ -2710,21 +2714,42 @@ Actions = React.createClass({
       return alert('"' + entered_title + '" is not the title of this course. The course has not been deleted.');
     }
   },
+  assignments: function(opts) {
+    return AssignmentStore.getFiltered(opts);
+  },
   update: function() {
     return ServerActions.manualUpdate(this.state.course.slug);
   },
+  save: function(opts) {
+    return ServerActions.saveStudents($.extend(true, {}, opts), this.state.course.id);
+  },
   render: function() {
-    var controls, user;
+    var controls, user, userAssignments;
     controls = [];
     user = this.props.current_user;
     if ((user.role != null) || user.admin) {
       if (user.role === 0) {
-        controls.push(React.createElement("p", {
+        userAssignments = this.assignments({
+          user_id: user.id,
+          role: 0
+        });
+        controls.push((React.createElement("p", {
           "key": 'leave'
         }, React.createElement("button", {
           "onClick": this.leave,
           "className": 'button'
-        }, "Leave course")));
+        }, "Leave course")), React.createElement(AssignCell, {
+          "assignments": userAssignments,
+          "current_user": user,
+          "student": user,
+          "role": 0,
+          "course_id": this.state.course.id,
+          "editable": false,
+          "save": this.save.bind(null, {
+            users: user,
+            assignments: userAssignments
+          })
+        })));
       }
       if ((user.role === 1 || user.admin) && !this.state.course.published) {
         controls.push(React.createElement("p", {
@@ -2760,7 +2785,7 @@ Actions = React.createClass({
 module.exports = Actions;
 
 
-},{"../../actions/server_actions":5,"../../stores/course_store":83,"react":455}],42:[function(require,module,exports){
+},{"../../actions/server_actions":5,"../../components/students/assign_cell":55,"../../stores/assignment_store":80,"../../stores/course_store":83,"react":455}],42:[function(require,module,exports){
 var CohortStore, PopoverButton, React, cohortIsNew, cohorts;
 
 React = require('react');
@@ -3530,10 +3555,22 @@ urlToTitle = function(article_url) {
 
 AssignButton = React.createClass({
   displayname: 'AssignButton',
+  mixins: [AssignmentStore.mixin],
   getInitialState: function() {
     return {
       send: false
     };
+  },
+  storeDidChange: function() {
+    console.log('storedidchange');
+    if (this.state.send) {
+      return this.props.save();
+    }
+  },
+  componentWillMount: function() {
+    if (this.state.send) {
+      return this.props.save();
+    }
   },
   componentWillReceiveProps: function(nProps) {
     if (this.state.send) {
@@ -3572,7 +3609,7 @@ AssignButton = React.createClass({
     if (article_title) {
       AssignmentActions.addAssignment(this.props.course_id, this.props.student.id, article_title, this.props.role);
       this.setState({
-        send: !this.props.editable && this.props.current_user.id === this.props.student.id
+        send: !this.props.editable && (this.props.current_user.id === this.props.student.id)
       });
       return this.refs.lookup.clear();
     }

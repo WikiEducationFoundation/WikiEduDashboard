@@ -19,8 +19,15 @@ urlToTitle = (article_url) ->
 
 AssignButton = React.createClass(
   displayname: 'AssignButton'
+  mixins: [AssignmentStore.mixin]
   getInitialState: ->
     send: false
+  storeDidChange: ->
+    console.log 'storedidchange'
+    @props.save() if @state.send
+  componentWillMount: ->
+    if @state.send
+      @props.save()
   componentWillReceiveProps: (nProps) ->
     if @state.send
       @props.save()
@@ -52,7 +59,7 @@ AssignButton = React.createClass(
     # Send
     if(article_title)
       AssignmentActions.addAssignment @props.course_id, @props.student.id, article_title, @props.role
-      @setState send: (!@props.editable && @props.current_user.id == @props.student.id)
+      @setState send: (!@props.editable && (@props.current_user.id == @props.student.id))
       @refs.lookup.clear()
   unassign: (assignment) ->
     return unless confirm(I18n.t('assignments.confirm_deletion'))

@@ -1,6 +1,8 @@
 React           = require 'react'
 ServerActions   = require '../../actions/server_actions'
 CourseStore     = require '../../stores/course_store'
+AssignCell      = require '../../components/students/assign_cell'
+AssignmentStore = require '../../stores/assignment_store'
 
 getState = (course_id) ->
   course: CourseStore.getCourse()
@@ -26,8 +28,12 @@ Actions = React.createClass(
       ServerActions.deleteCourse @state.course.slug
     else if entered_title?
       alert('"' + entered_title + '" is not the title of this course. The course has not been deleted.')
+  assignments: (opts) ->
+    AssignmentStore.getFiltered opts
   update: ->
     ServerActions.manualUpdate @state.course.slug
+  save: (opts) ->
+    ServerActions.saveStudents $.extend(true, {}, opts), @state.course.id
   render: ->
     controls = []
     user = @props.current_user
@@ -36,8 +42,17 @@ Actions = React.createClass(
       #   <p key='update'><button onClick={@update} className='button'>Update course</button></p>
       # )
       if user.role == 0
+        userAssignments = @assignments(user_id: user.id, role: 0)
         controls.push (
           <p key='leave'><button onClick={@leave} className='button'>Leave course</button></p>
+          <AssignCell
+            assignments={userAssignments}
+            current_user={user}
+            student={user}
+            role=0
+            course_id={@state.course.id}
+            editable={false}
+            save={@save.bind(null, users: user, assignments: userAssignments)} />
         )
       if (user.role == 1 || user.admin) && !@state.course.published
         controls.push (
