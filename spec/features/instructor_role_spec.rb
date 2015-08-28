@@ -110,4 +110,9 @@ describe 'Instructor users', type: :feature, js: true do
       page.driver.browser.switch_to.alert.accept
     end
   end
+
+  after do
+    logout
+    Capybara.use_default_driver
+  end
 end
