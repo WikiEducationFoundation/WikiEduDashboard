@@ -11,6 +11,7 @@ class RevisionScoreImporter
     revisions.each_slice(50) do |rev_batch|
       rev_ids = rev_batch.map(&:id)
       scores = get_revision_scores rev_ids
+      next if scores.blank?
       save_scores scores
     end
   end
