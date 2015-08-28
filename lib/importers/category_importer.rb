@@ -18,14 +18,22 @@ class CategoryImporter
     import_articles_with_scores_and_views article_ids
   end
 
+  def self.show_category(category, opts={})
+    depth = opts[:depth] || 0
+    # min_views = opts[:min_views] || 0
+    # max_wp10 = opts[:max_wp10] || 100
+    article_ids = article_ids_for_category(category, depth)
+    import_missing_scores_and_views article_ids
+    Article.where(id: article_ids).order(average_views: :desc)
+  end
+
   def self.report_on_category(category, opts={})
     depth = opts[:depth] || 0
     min_views = opts[:min_views] || 0
     max_wp10 = opts[:max_wp10] || 100
     article_ids = article_ids_for_category(category, depth)
     import_missing_scores_and_views article_ids
-    Article.where(id: article_ids).order(average_views: :desc)
-    # views_and_scores_output(article_ids, min_views, max_wp10)
+    views_and_scores_output(article_ids, min_views, max_wp10)
   end
   ##################
   # Output methods #

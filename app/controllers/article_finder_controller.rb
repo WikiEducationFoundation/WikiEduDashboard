@@ -6,7 +6,7 @@ class ArticleFinderController < ApplicationController
     if params[:category]
       @category = params[:category]
       @depth = params[:depth].to_i
-      @articles = CategoryImporter.report_on_category(@category, depth: @depth)
+      @articles = CategoryImporter.show_category(@category, depth: @depth)
     end
   end
 end
