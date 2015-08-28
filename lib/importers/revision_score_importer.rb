@@ -8,10 +8,11 @@ class RevisionScoreImporter
   def self.update_revision_scores(revisions=nil)
     # Unscored mainspace, userspace, and Draft revisions, by default
     revisions ||= unscored_mainspace_userspace_and_draft_revisions
-    revisions.each_slice(50) do |rev_batch|
+    batches = revisions.count / 50 + 1
+    revisions.each_slice(50).with_index do |rev_batch, i|
+      Rails.logger.debug "Pulling revisions: batch #{i + 1} of #{batches}"
       rev_ids = rev_batch.map(&:id)
       scores = get_revision_scores rev_ids
-      next if scores.blank?
       save_scores scores
     end
   end
@@ -47,6 +48,7 @@ class RevisionScoreImporter
 
   def self.save_scores(scores)
     scores.each do |rev_id, score|
+      next unless score.key?('probability')
       revision = Revision.find(rev_id.to_i)
       revision.wp10 = weighted_mean_score score['probability']
       revision.save
