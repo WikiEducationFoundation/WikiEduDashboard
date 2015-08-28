@@ -285,4 +285,11 @@ describe 'the course page', type: :feature do
       expect(page).to have_content 'Article 1'
     end
   end
+
+  describe 'non-existent courses' do
+    it 'should raise a routing error' do
+      route = '/courses/this/one_is_not_(real)'
+      expect { visit route }.to raise_error(ActionController::RoutingError)
+    end
+  end
 end
