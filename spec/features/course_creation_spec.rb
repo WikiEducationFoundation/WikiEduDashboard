@@ -236,6 +236,44 @@ describe 'New course creation and editing', type: :feature do
       expect(page).to have_content 'You are not participating in any courses'
     end
 
+    it 'should not allow a second course with the same slug' do
+      create(:course,
+             id: 10001,
+             title: 'Course',
+             school: 'University',
+             term: 'Term',
+             slug: 'University/Course_(Term)',
+             submitted: 0,
+             listed: true,
+             passcode: 'passcode',
+             start: '2015-08-24'.to_date,
+             end: '2015-12-15'.to_date,
+             timeline_start: '2015-08-31'.to_date,
+             timeline_end: '2015-12-15'.to_date)
+      stub_oauth_edit
+
+      find("a[href='/course_creator']").click
+      expect(page).to have_content 'Create a New Course'
+      find('#course_title').set('Course')
+      find('#instructor_name').set(instructor_name)
+      find('#instructor_email').set(instructor_email)
+      find('#course_school').set('University')
+      find('#course_term').set('Term')
+      find('#course_subject').set('Advanced Studies')
+
+      start_date = '2015-01-01'
+      end_date = '2015-12-15'
+      find('input[placeholder="Start date (YYYY-MM-DD)"]').set(start_date)
+      find('input[placeholder="End date (YYYY-MM-DD)"]').set(end_date)
+      sleep 1
+
+      # This click should not successfully create a course.
+      find('button.dark').click
+      expect(page).to have_content 'This course already exists'
+      expect(Course.all.count).to eq(1)
+    end
+
+
     it 'should create a full-length research-write assignment' do
       create(:course,
              id: 10001,
