@@ -24,7 +24,8 @@ class CategoryImporter
     max_wp10 = opts[:max_wp10] || 100
     article_ids = article_ids_for_category(category, depth)
     import_missing_scores_and_views article_ids
-    views_and_scores_output(article_ids, min_views, max_wp10)
+    Article.where(id: article_ids).order(average_views: :desc)
+    # views_and_scores_output(article_ids, min_views, max_wp10)
   end
   ##################
   # Output methods #

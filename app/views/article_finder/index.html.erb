@@ -9,12 +9,24 @@
 <div class="section-header">
 <h3><%= form_tag(method: 'get') do %>
   Put in a category name, including the prefix, like "Category:Feminism"<br/>
-  <%= label_tag(:q, "") %>
-  <%= text_field_tag(:q) %>
+  <%= label_tag(:category, "category") %>
+  <%= text_field_tag(:category) %>
+  <%= label_tag(:depth, "depth") %>
+  <%= text_field_tag(:depth) %>
+  <%= label_tag(:minviews, "minimum views") %>
+  <%= text_field_tag(:minviews) %>
+  <%= label_tag(:maxwp10, "maximum completeness") %>
+  <%= text_field_tag(:maxwp10) %>
   <%= submit_tag("Go") %>
 <% end %></h3>
 </div>
 <div>
-<p><%= @output %></p></div>
+<p><% @articles.each do |article| %>
+<%= article.title %>
+<%= article.average_views %>
+<%= article.revisions.last.wp10 %>
+<br/>
+<% end %>
+</p></div>
 </section>
 </div>
