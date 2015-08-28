@@ -6,6 +6,6 @@ json.articles do
     json.revision_score revision.wp10
     json.user_wiki_id User.find(revision.user_id).wiki_id
     json.revision_datetime revision.date
-    json.courses article.courses.collect(&:title)
+    json.courses article.courses
   end
 end

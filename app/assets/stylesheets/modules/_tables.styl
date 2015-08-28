@@ -184,8 +184,16 @@ table.dyk-articles
       color darken(bayoux, 55%)
       border 0
 
-.dyk-article + .dyk-drawer span
-  display block
+.dyk-article + .dyk-drawer
+  span
+    display block
+
+.dyk-article.open
+  td
+    a
+      color #fff
+      &:hover
+        font-weight bold
 
 .dyk-article.closed + .dyk-drawer
   border 0
@@ -196,11 +204,25 @@ table.dyk-articles
     padding 0
     height 0
     border 0
-.dyk-article.open + .dyk-drawer span
+
+.dyk-article.open + .dyk-drawer
   span
-    height 78px
+    height auto
     display block
   td
-    padding 15px
+    padding 25px 15px
     border inherit
 
+.dyk__course-list
+  list-style none
+  margin-left 0
+  padding-left 0
+  li
+    margin-left 0
+
+.dyk-drawer h5
+  text-transform uppercase
+  font-size 15px
+  letter-spacing 0.5px
+  margin 0 0 3px
+  padding 0
