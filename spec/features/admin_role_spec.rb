@@ -102,10 +102,10 @@ describe 'Admin users', type: :feature, js: true do
       click_button('Edit Details')
       page.all('.button.border.plus')[5].click
       page.all('input')[6].set 'My Tag'
-      find('.pop button', visible: true).click
+      page.all('.pop button', visible: true)[1].click
 
       # Delete the tag
-      page.all('.button.border.plus')[6].click
+      page.all('.button.border.plus')[5].click
       visit "/courses/#{Course.first.slug}"
       sleep 1
       expect(page).not_to have_content 'My Tag'

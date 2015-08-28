@@ -9,8 +9,9 @@ describe 'Instructor users', type: :feature, js: true do
   before :each do
     user = create(:user,
                   id: 100,
-                  wiki_id: 'Professor Sage')
-
+                  wiki_id: 'Professor Sage',
+                  wiki_token: 'foo',
+                  wiki_secret: 'bar')
 
     create(:user,
            id: 101,
