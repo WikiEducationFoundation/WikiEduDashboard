@@ -62,7 +62,7 @@ describe 'Admin users', type: :feature, js: true do
     end
   end
 
-  describe 'adding a course to cohort' do
+  describe 'adding a course to a cohort' do
     it 'should make the course live' do
       stub_oauth_edit
 
@@ -81,6 +81,31 @@ describe 'Admin users', type: :feature, js: true do
       visit root_path
       sleep 1
       expect(page).not_to have_content 'Submitted Courses'
+    end
+  end
+
+  describe 'removing a course from a cohort' do
+    it 'should make a course not live' do
+      stub_oauth_edit
+      create(:cohorts_course,
+             cohort_id: 1,
+             course_id: 10001)
+      visit "/courses/#{Course.first.slug}"
+      sleep 1
+
+      expect(page).to have_content 'Your course has been published'
+
+      # Edit details and remove cohort
+      click_button('Edit Details')
+      page.all('.button.border.plus')[4].click
+      page.all('.button.border.plus')[5].click
+      sleep 1
+
+      expect(page).to have_content 'This course has been submitted'
+
+      visit root_path
+      sleep 1
+      expect(page).to have_content 'Submitted Courses'
     end
   end
 
