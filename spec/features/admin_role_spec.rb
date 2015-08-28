@@ -84,6 +84,22 @@ describe 'Admin users', type: :feature, js: true do
     end
   end
 
+  describe 'adding a tag to a course' do
+    it 'should work' do
+      visit "/courses/#{Course.first.slug}"
+      sleep 1
+
+      click_button('Edit Details')
+      page.all('.button.border.plus')[5].click
+      page.all('input')[6].set 'My Tag'
+      find('.pop button', visible: true).click
+
+      visit "/courses/#{Course.first.slug}"
+      sleep 1
+      expect(page).to have_content 'My Tag'
+    end
+  end
+
   describe 'visiting the None cohort' do
     it 'should see unsubmitted courses' do
       visit '/courses?cohort=none'
