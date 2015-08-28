@@ -13,7 +13,6 @@ def go_through_course_dates_and_timeline_dates
   sleep 1
 end
 
-
 def go_through_researchwrite_wizard
   go_through_course_dates_and_timeline_dates
 
@@ -112,8 +111,8 @@ describe 'New course creation and editing', type: :feature do
       # TODO: test the date picker instead of just setting fields
       start_date = '2015-01-01'
       end_date = '2015-12-15'
-      find('input[placeholder="Start date (YYYY-MM-DD)"]').set(start_date) # Start date
-      find('input[placeholder="End date (YYYY-MM-DD)"]').set(end_date) # End date
+      find('input[placeholder="Start date (YYYY-MM-DD)"]').set(start_date)
+      find('input[placeholder="End date (YYYY-MM-DD)"]').set(end_date)
       sleep 1
 
       # This click should create the course and start the wizard
@@ -123,12 +122,14 @@ describe 'New course creation and editing', type: :feature do
 
       # This is the course dates screen
       sleep 3
-      ## validate either blackout date chosen or "no blackout dates" checkbox checked
+      # validate either blackout date chosen
+      # or "no blackout dates" checkbox checked
       expect(page).to have_css('button.dark[disabled=""]')
-      start_input = first('input.start').value()
+      start_input = first('input.start').value
       expect(start_input).to eq(start_date)
 
-      # capybara doesn't like trying to click the calendar to set a blackout date
+      # capybara doesn't like trying to click the calendar
+      # to set a blackout date
       go_through_course_dates_and_timeline_dates
       sleep 1
 
@@ -216,7 +217,7 @@ describe 'New course creation and editing', type: :feature do
       sleep 1
       expect(page).to have_content 'Value: 50%'
 
-      # Navigate back to the overview, check relevant data, then delete the course
+      # Navigate back to overview, check relevant data, then delete course
       find('#overview-link').find('a').click
 
       within('.sidebar') do
@@ -273,7 +274,6 @@ describe 'New course creation and editing', type: :feature do
       expect(Course.all.count).to eq(1)
     end
 
-
     it 'should create a full-length research-write assignment' do
       create(:course,
              id: 10001,
@@ -311,7 +311,7 @@ describe 'New course creation and editing', type: :feature do
       expect(page).to have_content 'Your course has been submitted.'
 
       Course.last.weeks.each_with_index do |week, i|
-        expect(week.order).to eq(i+1)
+        expect(week.order).to eq(i + 1)
       end
     end
 
@@ -327,7 +327,7 @@ describe 'New course creation and editing', type: :feature do
              passcode: 'passcode',
              start: '2015-09-01'.to_date,
              end: '2015-10-09'.to_date,
-             timeline_start: '2015-08-31'.to_date, # extends over six calendar weeks
+             timeline_start: '2015-08-31'.to_date, # covers six calendar weeks
              timeline_end: '2015-10-09'.to_date)
       create(:courses_user,
              user_id: 1,
