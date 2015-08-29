@@ -6,10 +6,17 @@ class RevisionAnalyticsService
                           .pluck(:user_id)
     good_student_revisions = Revision
                              .where(user_id: current_student_ids)
-                             .where('wp10 > ?', 30)
+                             .where('wp10 > ?', 50)
     good_article_ids = good_student_revisions.pluck(:article_id)
-    good_drafts = Article.where(id: good_article_ids)
-                 .where { (namespace == 118) | ((namespace == 2) & ('title like %/%')) }
+    good_user_space = Article.where(id: good_article_ids)
+                             .where(namespace: 2)
+                             .where('title LIKE ?', '%/%')
+                             .pluck(:id)
+    good_draft_space = Article.where(id: good_article_ids)
+                              .where(namespace: 118)
+                              .pluck(:id)
+
+    good_drafts = Article.where(id: good_draft_space + good_user_space)
     good_drafts
   end
 end
