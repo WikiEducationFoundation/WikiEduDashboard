@@ -13,4 +13,5 @@
 #### APIs
 - **grok.se:** Source for all article and revision view counts
 - **WMFLabsTools:** Source for all revision and article data except view counts
-- **MediaWiki:** Source for course, user, and assignment data ***(this will be deprecated in Fall 2015 when the Dashboard project takes over course page functionality)***
+- **MediaWiki API:** Data about uploads to Wikimedia Commons, revision metadata, and user information. All or nearly all data from WMFLabsTools could be reimplemented to pull directly from MediaWiki, and we need to use MediaWiki directly when it is important to fetch up-to-date data, since the replica database used by WMFLabsTools may have replication lag.
+- **MediaWiki EducationProgram extension:** The 'liststudents' API provided by this extension is the source for legacuy course, user, and assignment data ***(this will be deprecated in Fall 2015 when the Dashboard project takes over course page functionality)***
