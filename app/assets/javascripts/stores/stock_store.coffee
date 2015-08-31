@@ -16,8 +16,8 @@ StockStore = (helper, model_key, default_model, triggers) ->
       filtered_models = []
       for model in @getModels()
         add = true
-        for criteria in Object.keys(options)
-          add = add && model[criteria] == options[criteria] && !model['deleted']
+        for criterion in Object.keys(options)
+          add = add && model[criterion] == options[criterion] && !model['deleted']
         filtered_models.push model if add
       return filtered_models
 

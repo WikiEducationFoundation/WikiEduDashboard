@@ -21,6 +21,7 @@ Overview = React.createClass(
   componentDidMount: ->
     ServerActions.fetch 'timeline', @props.course_id
     ServerActions.fetch 'tags', @props.course_id
+    ServerActions.fetchUserAssignments(user_id: @props.current_user.id, course_id: @props.course_id, role: 0)
   getInitialState: ->
     getState()
   render: ->

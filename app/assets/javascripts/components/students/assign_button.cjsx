@@ -23,8 +23,8 @@ AssignButton = React.createClass(
   getInitialState: ->
     send: false
   storeDidChange: ->
-    console.log 'storedidchange'
-    @props.save() if @state.send
+    #@props.save() if @state.send
+    true
   componentWillMount: ->
     if @state.send
       @props.save()
@@ -32,6 +32,8 @@ AssignButton = React.createClass(
     if @state.send
       @props.save()
       @setState send: false
+  overviewSend: (opts) ->
+    @props.save(opts) if @props.fromOverview
   stop: (e) ->
     e.stopPropagation()
   getKey: ->
@@ -58,13 +60,11 @@ AssignButton = React.createClass(
 
     # Send
     if(article_title)
-      AssignmentActions.addAssignment @props.course_id, @props.student.id, article_title, @props.role
-      @setState send: (!@props.editable && (@props.current_user.id == @props.student.id))
+      ServerActions.addAssignment(user_id: @props.student.id, course_id: @props.course_id, article_title: article_title, role: @props.role)
       @refs.lookup.clear()
   unassign: (assignment) ->
     return unless confirm(I18n.t('assignments.confirm_deletion'))
-    AssignmentActions.deleteAssignment assignment
-    @setState send: (!@props.editable && @props.current_user.id == @props.student.id)
+    ServerActions.deleteAssignment assignment
   render: ->
     className = 'button border'
     className += ' dark' if @props.is_open

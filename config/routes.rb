@@ -21,6 +21,8 @@ Rails.application.routes.draw do
     get 'users/revisions' => 'users#revisions', :as => :user_revisions
   end
 
+  resources :assignments
+
   # Enrollment
   get 'courses/:course_id/enroll/:passcode' => 'users#enroll',
       constraints: { course_id: /.*/ }

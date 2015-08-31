@@ -90,6 +90,44 @@ API =
         console.log 'Error: ' + obj.responseJSON.message
         rej obj
 
+  fetchUserAssignments: (opts) ->
+    new Promise (res, rej) ->
+      $.ajax
+        type: 'GET',
+        url: "/assignments.json?user_id=#{opts.user_id}&role=#{opts.role}&course_id=#{opts.course_id}"
+        success: (data) ->
+          console.log 'Received user assignments'
+          res data
+      .fail (obj, status) ->
+        console.log 'Error: ' + obj.responseJSON.message
+        rej obj
+
+  deleteAssignment: (assignment) ->
+    new Promise (res, rej) ->
+      $.ajax
+        type: 'DELETE',
+        url: "/assignments/#{assignment.id}"
+        success: (data) ->
+          console.log 'Deleted assignment'
+          res data
+      .fail (obj, status) ->
+        console.log 'Error: ' + obj.responseJSON.message
+        rej obj
+
+  createAssignment: (opts) ->
+    queryString = "user_id=#{opts.user_id}&course_id=#{opts.course_id}&article_title=#{opts.article_title}&role=#{opts.role}"
+    new Promise (res, rej) ->
+      $.ajax
+        type: 'POST',
+        url: "/assignments.json?#{queryString}"
+        success: (data) ->
+          console.log 'Created assignment'
+          res data
+      .fail (obj, status) ->
+        console.log 'Error: ' + obj.responseJSON.message
+        rej obj
+
+
   fetch: (course_id, endpoint) ->
     new Promise (res, rej) ->
       $.ajax

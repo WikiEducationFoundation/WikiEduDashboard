@@ -47,6 +47,17 @@ ServerActions = Flux.createActions
     API.fetchDykArticles().then (data) ->
       { actionType: 'RECEIVE_DYK', data: data }
 
+  fetchUserAssignments: (opts) ->
+    API.fetchUserAssignments(opts).then (data) ->
+      { actionType: 'RECEIVE_USER_ASSIGNMENTS', data: data }
+
+  deleteAssignment: (assignment) ->
+    API.deleteAssignment(assignment).then (data) ->
+      { actionType: 'DELETE_USER_ASSIGNMENT', data: data }
+
+  addAssignment: (opts) ->
+    API.createAssignment(opts).then (data) ->
+      { actionType: 'CREATE_USER_ASSIGNMENT', data: data }
 
   # Save
   saveCourse: (data, course_id=null) ->
