@@ -120,9 +120,9 @@ en:
   course_creator:
     create_new: Create a New Course
     intro: >
-      The title, school, and term forms your course page’s URL, and can't be
+      The title, school, and term create your course page’s URL, and can't be
       changed. Everything else, you can edit later. Click “Create my Course!” to
-      start building your course’s Wikipedia timeline.
+      start building the timeline for your Wikipedia assignment.
 
   metrics:
     activity: Recent Activity
