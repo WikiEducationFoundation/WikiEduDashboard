@@ -91,10 +91,10 @@ Rails.application.routes.draw do
   resources :weeks, only: [:index]
 
   # Article Finder
-  unless Rails.env == 'production'
-    get 'article_finder(/*any)' => 'article_finder#index'
-    post 'article_finder(/*any)' => 'article_finder#index'
-  end
+  # unless Rails.env == 'production'
+  #   get 'article_finder(/*any)' => 'article_finder#index'
+  #   post 'article_finder(/*any)' => 'article_finder#index'
+  # end
 
   # Recent Activity
   get 'recent-activity(/*any)' => 'recent_activity#index'
