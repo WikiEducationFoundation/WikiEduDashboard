@@ -21,12 +21,6 @@ gulp.task "copy-images", ->
       optimizationLevel: 5
     .pipe gulp.dest "#{config.outputPath}/#{config.imagesDirectory}"
 
-
-gulp.task "copy-misc", ->
-
-  return gulp.src "#{config.sourcePath}/*.*"
-    .pipe gulp.dest "#{config.outputPath}"
-
 gulp.task "copy-fonts", ->
 
   return gulp.src "#{config.sourcePath}/#{config.fontsDirectory}/**/*"
@@ -34,4 +28,4 @@ gulp.task "copy-fonts", ->
 
 
 gulp.task "copy-static", (cb) ->
-  runSequence ["copy-images", "copy-misc", "copy-fonts"], cb
+  runSequence ["copy-images", "copy-fonts"], cb
