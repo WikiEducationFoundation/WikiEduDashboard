@@ -95,7 +95,9 @@ Rails.application.routes.draw do
   post 'article_finder(/*any)' => 'article_finder#index'
 
   # Recent Activity
-  get 'recent-activity(/*any)' => 'recent_activity#index'
+  unless Rails.env == 'production'
+    get 'recent-activity(/*any)' => 'recent_activity#index'
+  end
 
   # Revision analytics JSON API for React
   get 'revision_analytics/dyk_eligible', controller: 'revision_analytics', action: 'dyk_eligible'
