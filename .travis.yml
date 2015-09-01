@@ -11,13 +11,13 @@ before_install:
 
   # We need qt5 to make capybara-webkit work with React.
   # Copied from https://gist.github.com/jreese/6207161
-  - sudo add-apt-repository --yes ppa:ubuntu-sdk-team/ppa
-  - sudo apt-get update -qq
-  - sudo apt-get install -qq libqt5webkit5-dev qtdeclarative5-dev
+  - add-apt-repository --yes ppa:ubuntu-sdk-team/ppa
+  - apt-get update -qq
+  - apt-get install -qq libqt5webkit5-dev qtdeclarative5-dev
   - export QMAKE=/usr/lib/x86_64-linux-gnu/qt5/bin/qmake
 
   # pandoc for markdown->mediawiki
-  - sudo apt-get install pandoc
+  - apt-get install pandoc
 
 install:
   - npm install gulp -g
