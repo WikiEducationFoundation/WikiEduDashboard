@@ -18,10 +18,12 @@ before_install:
   # pandoc for markdown->mediawiki
   - sudo apt-get install pandoc
 
+install:
   - npm install gulp -g
   - npm install bower -g
   - npm install
   - bower install
+  - bundle install --jobs=3 --retry=3 --deployment
   - gulp build
 
 before_script:
