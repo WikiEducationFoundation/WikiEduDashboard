@@ -9,17 +9,16 @@ CourseActions     = require '../../actions/course_actions'
 ServerActions     = require '../../actions/server_actions'
 
 getState = (course_id) ->
-  course: CourseStore.getCourse()
+  course = CourseStore.getCourse()
+  course: course
+  anyDatesSelected: course.weekdays?.indexOf(1) >= 0
+  blackoutDatesSelected: course.day_exceptions?.length > 0
 
 Meetings = React.createClass(
   displayName: 'Meetings'
   mixins: [CourseStore.mixin]
   getInitialState: ->
-    _.extend getState(@props.course_id), {
-      anyDatesSelected: false,
-      blackoutDatesSelected: false,
-      noBlackoutDatesChecked: false
-    }
+    getState(@props.course_id)
   disableSave: (bool) ->
     @setState saveDisabled: bool
   storeDidChange: ->
@@ -28,15 +27,16 @@ Meetings = React.createClass(
     to_pass = @props.course
     to_pass[value_key] = value
     CourseActions.updateCourse to_pass, true
-  setAnyDatesSelected: (bool) ->
-    @setState anyDatesSelected: bool
   setBlackoutDatesSelected: (bool) ->
     @setState blackoutDatesSelected: bool
+  setNoBlackoutDatesChecked: (e) ->
+    @setState noBlackoutDatesChecked: e.target.checked
+  updateCheckbox: (e) ->
+    @updateCourse('no_day_exceptions', e.target.checked)
   saveDisabled: ->
-    if @state.anyDatesSelected && (@state.blackoutDatesSelected || @state.noBlackoutDatesChecked)
-      false
-    else
-      true
+    enable = @state.anyDatesSelected && (@state.blackoutDatesSelected || @state.course.no_day_exceptions)
+
+    if enable then false else true
   render: ->
     timeline_start_props =
       minDate: moment(@props.course.start)
@@ -75,12 +75,18 @@ Meetings = React.createClass(
         <hr />
         <div className='wizard__form course-dates course-dates__step'>
           <Calendar course={@props.course}
+            save=true
             editable=true
             setAnyDatesSelected={@setAnyDatesSelected}
             setBlackoutDatesSelected={@setBlackoutDatesSelected}
           />
           <label> I have no class holidays
-            <input type='checkbox' onChange={@setNoBlackoutDatesChecked} ref='noDates' />
+            <input
+              type='checkbox'
+              onChange={@updateCheckbox}
+              ref='noDates'
+              checked={@state.course.no_day_exceptions || @state.noBlackoutDatesChecked}
+            />
           </label>
           <div className='wizard__panel__controls'>
             <div className='left'></div>

@@ -101,7 +101,8 @@ class CoursesController < ApplicationController
       :timeline_start,
       :timeline_end,
       :day_exceptions,
-      :weekdays
+      :weekdays,
+      :no_day_exceptions
     )
   end
 
