@@ -85,11 +85,14 @@ Rails.application.routes.draw do
   post 'courses/:course_id/gradeables' => 'timeline#update_gradeables',
        constraints: { course_id: /.*/ }
 
-
   get 'revisions' => 'revisions#index'
 
 
   resources :weeks, only: [:index]
+
+  # Article Finder
+  get 'article_finder(/*any)' => 'article_finder#index'
+  post 'article_finder(/*any)' => 'article_finder#index'
 
   # Recent Activity
   get 'recent-activity(/*any)' => 'recent_activity#index'
