@@ -17,6 +17,11 @@ before_install:
 
   # pandoc for markdown->mediawiki
   - sudo apt-get install pandoc
+
+  - npm install gulp -g
+  - npm install bower -g
+  - gulp build
+
 before_script:
   # Set up our database.
   - mysql -e '''CREATE DATABASE test
