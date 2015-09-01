@@ -27,12 +27,12 @@ gulp.task "dev", ->
     "stylesheets"
   ], "watch"
 
-gulp.task "build", ->
-  return runSequence "clean", [
+gulp.task "build", (cb) ->
+  runSequence "clean", [
     "i18n"
     "copy-static"
     "bower"
     "javascripts-fingerprint"
     "stylesheets-fingerprint"
-  ], "minify"
+  ], "minify", cb
 
