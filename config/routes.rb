@@ -91,13 +91,13 @@ Rails.application.routes.draw do
   resources :weeks, only: [:index]
 
   # Article Finder
-  get 'article_finder(/*any)' => 'article_finder#index'
-  post 'article_finder(/*any)' => 'article_finder#index'
+  unless Rails.env == 'production'
+    get 'article_finder(/*any)' => 'article_finder#index'
+    post 'article_finder(/*any)' => 'article_finder#index'
+  end
 
   # Recent Activity
-  unless Rails.env == 'production'
-    get 'recent-activity(/*any)' => 'recent_activity#index'
-  end
+  get 'recent-activity(/*any)' => 'recent_activity#index'
 
   # Revision analytics JSON API for React
   get 'revision_analytics/dyk_eligible', controller: 'revision_analytics', action: 'dyk_eligible'
