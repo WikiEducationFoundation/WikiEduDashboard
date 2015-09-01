@@ -7,6 +7,7 @@ class CourseStatistics
       @@course_ids = course_ids
       report = %(
         #{pure_student_ids.count} students (excluding instructors)
+        #{trained_student_count} trained students
         #{characters_added} characters added
         #{revision_ids.count} revisions
         #{article_ids.count} articles edited
@@ -39,6 +40,10 @@ class CourseStatistics
 
     def pure_student_ids
       student_ids - nonstudent_ids
+    end
+
+    def trained_student_count
+      User.where(id: pure_student_ids, trained: true).count
     end
 
     def characters_added
