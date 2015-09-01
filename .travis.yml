@@ -7,7 +7,7 @@ addons:
     sources:
     - ubuntu-sdk-team
     packages:
-    - libqt5webkit5-de
+    - libqt5webkit5-dev
     - qtdeclarative5-dev
     - pandoc
 
