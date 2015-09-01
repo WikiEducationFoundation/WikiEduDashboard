@@ -142,7 +142,7 @@ Details = React.createClass(
         </fieldset>
         <p>
           <span>Cohorts: {cohorts}</span>
-          <CohortButton {...@props} show={@props.editable && @props.current_user.admin} />
+          <CohortButton {...@props} show={@props.editable && @props.current_user.admin && @props.course.submitted} />
         </p>
         <p className='tags'>
           <span>Tags: {tags}</span>
