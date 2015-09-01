@@ -41,4 +41,4 @@ gulp.task "icon-font", ->
         )
         .pipe plugins.rename cssOutputFilename
         .pipe gulp.dest "#{config.sourcePath}/#{config.cssDirectory}"
-    ).pipe gulp.dest "#{config.outputPath}/#{config.fontsDirectory}"
+    ).pipe gulp.dest "#{config.sourcePath}/#{config.fontsDirectory}"

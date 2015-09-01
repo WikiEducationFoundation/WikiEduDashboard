@@ -7,17 +7,11 @@ plugins   = require('gulp-load-plugins')()
 config    = require "../config.coffee"
 
 
-# --------------------------------------------------------
-# Clean output directories
-# --------------------------------------------------------
+#--------------------------------------------------------
+# Clean
+#--------------------------------------------------------
 
 gulp.task "clean", ->
-  
-  directoriesToClean = [
-    "#{config.outputPath}/#{config.jsDirectory}"
-    "#{config.outputPath}/#{config.cssDirectory}"
-    "#{config.outputPath}/#{config.imagesDirectory}"
-  ]
 
-  gulp.src directoriesToClean, read: false
+  return gulp.src "#{config.outputPath}", read: false
     .pipe plugins.clean()
