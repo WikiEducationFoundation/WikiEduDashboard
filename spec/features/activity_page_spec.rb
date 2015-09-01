@@ -33,7 +33,7 @@ describe 'activity page', type: :feature, js: true do
 
   describe 'admins' do
     let!(:article)  { create(:article, namespace: 118) }
-    let!(:user)     { create(:user) }
+    let!(:user)     { create(:admin) }
     let!(:revision) { create(:revision, article_id: article.id, wp10: 50, user_id: user.id) }
     before do
       # TODO: If we're going to stub this because of the service's weird chaining of scopes,
