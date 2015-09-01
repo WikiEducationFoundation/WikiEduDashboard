@@ -1,15 +1,3 @@
 {
-<<<<<<< 0cf7b1b3e367f65f2055829bfac02a2a8b20b54f
-<<<<<<< 15d91fb8b29cbb9c7b9ae4c4d9413e1293d3d036
-<<<<<<< 85faafab41df68448ebc1b937d357e30f24fd05b
-  "main.css": "main-81c1e8b68f.css"
-=======
-  "main.css": "main-7ff0c6a6bb.css"
->>>>>>> rebuild assets
-=======
-  "main.css": "main-9bd54a4913.css"
->>>>>>> Switch back to built icon font instead of icomoon. Updated usages.
-=======
   "main.css": "main-78056c21ef.css"
->>>>>>> Update generated resources
 }
