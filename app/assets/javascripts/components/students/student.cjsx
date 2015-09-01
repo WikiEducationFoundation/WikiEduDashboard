@@ -35,7 +35,7 @@ Student = React.createClass(
     <tr onClick={@openDrawer} className={className}>
       <td>
         <div className="avatar">
-          <img alt="User" src="/images/user.svg" />
+          <img alt="User" src="/assets/images/user.svg" />
         </div>
         <p className="name">
           <span><a onClick={@stop} href={@props.student.contribution_url} target="_blank" className="inline">{@props.student.wiki_id.trunc()}</a></span>

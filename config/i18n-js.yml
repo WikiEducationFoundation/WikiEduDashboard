@@ -22,7 +22,8 @@
 # like this:
 #
 fallbacks: :en
+export_i18n_js: "public/assets/javascripts"
 translations:
-  - file: "public/javascripts/i18n/%{locale}.js"
+  - file: "public/assets/javascripts/i18n/%{locale}.js"
     only: "*"
 #
