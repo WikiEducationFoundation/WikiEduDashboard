@@ -38,7 +38,7 @@ gulp.task "stylesheets", ->
 
 gulp.task "stylesheets-fingerprint", ->
   style_dir = "#{config.outputPath}/#{config.cssDirectory}"
-  stream = gulp.src ["#{config.sourcePath}/#{config.cssDirectory}/#{config.cssMainFile}.styl"]
+  return stream = gulp.src ["#{config.sourcePath}/#{config.cssDirectory}/#{config.cssMainFile}.styl"]
     .pipe plugins.plumber()
     .pipe plugins.stylus
       sourcemap:

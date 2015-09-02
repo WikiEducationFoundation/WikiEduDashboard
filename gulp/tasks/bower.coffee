@@ -13,6 +13,6 @@ config         = require "../config.coffee"
 #--------------------------------------------------------
 
 gulp.task "bower", ->
-  gulp.src mainBowerFiles()
+  return gulp.src mainBowerFiles()
     .pipe plugins.concat("vendor.js")
     .pipe gulp.dest "#{config.outputPath}/#{config.jsDirectory}"
