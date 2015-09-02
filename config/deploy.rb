@@ -38,8 +38,6 @@ set :linked_dirs, fetch(:linked_dirs, []).push('bin', 'log', 'tmp')
 
 set :whenever_identifier, -> { "#{fetch(:application)}_#{fetch(:stage)}" }
 
-before :deploy, "deploy:local_gulp_build"
-after :deploy, "deploy:upload_built_assets"
 
 namespace :deploy do
 
@@ -50,8 +48,8 @@ namespace :deploy do
     end
   end
 
-  desc 'Upload built assets into the release'
-  task :upload_built_assets do
+  desc 'Upload compiled assets'
+  task :upload_compiled_assets do
     run_locally do
       execute "rsync -r -u -v public/assets/ #{user}@#{address}:#{current_release}/public/assets"
     end
@@ -62,5 +60,8 @@ namespace :deploy do
 
     end
   end
+
+  before :deploy, "deploy:local_gulp_build"
+  after :deploy, "deploy:upload_compiled_assets"
 
 end
