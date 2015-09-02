@@ -38,21 +38,29 @@ set :linked_dirs, fetch(:linked_dirs, []).push('bin', 'log', 'tmp')
 
 set :whenever_identifier, -> { "#{fetch(:application)}_#{fetch(:stage)}" }
 
+# before :deploy, "deploy:local_gulp_build"
+# after :deploy, "deploy:upload_built_assets"
+
 namespace :deploy do
+
+  desc 'Run gulp to compile the assets'
+  task :local_gulp_build do
+    run_locally do
+      execute "gulp build"
+    end
+  end
+
+  desc 'Upload built assets into the release'
+  task :upload_built_assets do
+    run_locally do
+      execute "rsync -r -u -v public/assets/ #{user}@#{address}:#{current_release}/public/assets"
+    end
+  end
 
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
 
     end
   end
-
-  # Gulp build
-  # system 'gulp build'
-
-  # Upload built assets
-  # system "rsync -r -u -v public/assets/ #{user}@#{address}:#{shared_path}/assets"
-
-  # Symlink built assets into release
-  # run "ln -s #{deploy_to}/#{shared_dir}/assets #{current_release}/public/assets"
 
 end
