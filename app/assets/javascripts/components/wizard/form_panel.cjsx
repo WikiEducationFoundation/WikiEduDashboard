@@ -5,18 +5,21 @@ Calendar      = require '../common/calendar'
 CourseActions = require '../../actions/course_actions'
 ServerActions = require '../../actions/server_actions'
 
+
+getState = (course_id) ->
+  course = CourseStore.getCourse()
+  course: course
+  anyDatesSelected: course.weekdays?.indexOf(1) >= 0
+  blackoutDatesSelected: course.day_exceptions?.length > 0
+
 FormPanel = React.createClass(
   displayName: 'FormPanel'
   updateDetails: (value_key, value) ->
     to_pass = @props.course
     to_pass[value_key] = value
     CourseActions.updateCourse to_pass, true
-  getInitialState: ->
-    anyDatesSelected: false
-    blackoutDatesSelected: false
-    noBlackoutDatesChecked: false
   nextEnabled: ->
-    if @state.anyDatesSelected && (@state.blackoutDatesSelected || @state.noBlackoutDatesChecked)
+    if @props.course.weekdays?.indexOf(1) >= 0 && (@props.course.day_exceptions?.length > 0 || @props.course.no_day_exceptions)
       true
     else
       false
@@ -26,7 +29,7 @@ FormPanel = React.createClass(
     @setState blackoutDatesSelected: bool
   setNoBlackoutDatesChecked: ->
     checked = React.findDOMNode(@refs.noDates).checked
-    @setState noBlackoutDatesChecked: checked
+    @updateDetails 'no_day_exceptions', checked
   render: ->
     timeline_start_props =
       minDate: moment(@props.course.start)

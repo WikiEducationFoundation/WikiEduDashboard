@@ -1144,16 +1144,16 @@ CourseActions = require('../../actions/course_actions');
 Calendar = React.createClass({
   displayName: 'Calendar',
   selectDay: function(e, day) {
-    var anyBlackoutDatesSelected, exceptions, formatted, to_pass;
+    var course, exceptions, formatted;
     if (!this.inrange(day)) {
       return;
     }
-    to_pass = this.props.course;
-    if (to_pass['day_exceptions'] == null) {
-      to_pass['day_exceptions'] = '';
+    course = this.props.course;
+    if (course['day_exceptions'] == null) {
+      course['day_exceptions'] = '';
       exceptions = [];
     } else {
-      exceptions = to_pass['day_exceptions'].split(',');
+      exceptions = course['day_exceptions'].split(',');
     }
     formatted = moment(day).format('YYYYMMDD');
     if (indexOf.call(exceptions, formatted) >= 0) {
@@ -1161,12 +1161,9 @@ Calendar = React.createClass({
     } else {
       exceptions.push(formatted);
     }
-    to_pass['day_exceptions'] = exceptions.join(',');
-    anyBlackoutDatesSelected = _.compact(exceptions).length > 0;
-    if (_.has(this.props, 'setBlackoutDatesSelected')) {
-      this.props.setBlackoutDatesSelected(anyBlackoutDatesSelected);
-    }
-    return CourseActions.updateCourse(to_pass, (this.props.save != null) && this.props.save);
+    course['day_exceptions'] = exceptions.join(',');
+    CourseActions.updateCourse(course, (this.props.save != null) && this.props.save);
+    return CourseActions.updateCourse('no_day_exceptions', _.compact(exceptions).length === 0);
   },
   selectWeekday: function(e, weekday) {
     var anyDatesSelected, to_pass, weekdays;
@@ -1180,9 +1177,6 @@ Calendar = React.createClass({
     weekdays[weekday] = weekdays[weekday] === '1' ? '0' : '1';
     to_pass['weekdays'] = weekdays.join('');
     anyDatesSelected = !(to_pass['weekdays'] === '0000000');
-    if (_.has(this.props, 'setAnyDatesSelected')) {
-      this.props.setAnyDatesSelected(anyDatesSelected);
-    }
     return CourseActions.updateCourse(to_pass, (this.props.save != null) && this.props.save);
   },
   inrange: function(day) {
@@ -4637,22 +4631,13 @@ Meetings = React.createClass({
   },
   updateCourse: function(value_key, value) {
     var to_pass;
-    to_pass = this.props.course;
+    to_pass = this.state.course;
     to_pass[value_key] = value;
     return CourseActions.updateCourse(to_pass, true);
   },
-  setBlackoutDatesSelected: function(bool) {
-    return this.setState({
-      blackoutDatesSelected: bool
-    });
-  },
-  setNoBlackoutDatesChecked: function(e) {
-    return this.setState({
-      noBlackoutDatesChecked: e.target.checked
-    });
-  },
   updateCheckbox: function(e) {
-    return this.updateCourse('no_day_exceptions', e.target.checked);
+    this.updateCourse('no_day_exceptions', e.target.checked);
+    return this.updateCourse('day_exceptions', '');
   },
   saveDisabled: function() {
     var enable;
@@ -4666,12 +4651,12 @@ Meetings = React.createClass({
   render: function() {
     var timeline_end_props, timeline_start_props;
     timeline_start_props = {
-      minDate: moment(this.props.course.start),
-      maxDate: moment(this.props.course.timeline_end).subtract(Math.max(1, this.props.weeks), 'week')
+      minDate: moment(this.state.course.start),
+      maxDate: moment(this.state.course.timeline_end).subtract(Math.max(1, this.props.weeks), 'week')
     };
     timeline_end_props = {
-      minDate: moment(this.props.course.timeline_start).add(Math.max(1, this.props.weeks), 'week'),
-      maxDate: moment(this.props.course.end)
+      minDate: moment(this.state.course.timeline_start).add(Math.max(1, this.props.weeks), 'week'),
+      maxDate: moment(this.state.course.end)
     };
     return React.createElement(Modal, null, React.createElement("div", {
       "className": 'wizard__panel active'
@@ -4680,37 +4665,35 @@ Meetings = React.createClass({
     }, React.createElement("h2", null, React.createElement("span", null, "1."), React.createElement("small", null, " Confirm the course\u2019s start and end dates.")), React.createElement("div", {
       "className": 'vertical-form full-width'
     }, React.createElement(TextInput, {
-      "onChange": this.updateDetails,
-      "value": this.props.course.start,
+      "onChange": this.updateCourse,
+      "value": this.state.course.start,
       "value_key": 'start',
       "editable": true,
       "type": 'date',
       "autoExpand": true,
       "label": 'Course Start'
     }), React.createElement(TextInput, {
-      "onChange": this.updateDetails,
-      "value": this.props.course.end,
+      "onChange": this.updateCourse,
+      "value": this.state.course.end,
       "value_key": 'end',
       "editable": true,
       "type": 'date',
       "label": 'Course End',
       "date_props": {
-        minDate: moment(this.props.course.start).add(1, 'week')
+        minDate: moment(this.state.course.start).add(1, 'week')
       },
-      "enabled": (this.props.course.start != null)
+      "enabled": (this.state.course.start != null)
     }))), React.createElement("hr", null), React.createElement("div", {
       "className": 'wizard__form course-dates course-dates__step'
     }, React.createElement(Calendar, {
-      "course": this.props.course,
+      "course": this.state.course,
       "save": true,
-      "editable": true,
-      "setAnyDatesSelected": this.setAnyDatesSelected,
-      "setBlackoutDatesSelected": this.setBlackoutDatesSelected
+      "editable": true
     }), React.createElement("label", null, " I have no class holidays", React.createElement("input", {
       "type": 'checkbox',
       "onChange": this.updateCheckbox,
       "ref": 'noDates',
-      "checked": this.state.course.no_day_exceptions || this.state.noBlackoutDatesChecked
+      "checked": this.state.course.day_exceptions === '' && this.state.course.no_day_exceptions
     })), React.createElement("div", {
       "className": 'wizard__panel__controls'
     }, React.createElement("div", {
@@ -5271,7 +5254,7 @@ module.exports = UploadsHandler;
 
 
 },{"../../actions/server_actions":5,"../../actions/ui_actions":6,"../assignments/assignment_list":20,"./upload_list":69,"react-router":259,"react/addons":284}],71:[function(require,module,exports){
-var Calendar, CourseActions, FormPanel, Panel, React, ServerActions, TextInput;
+var Calendar, CourseActions, FormPanel, Panel, React, ServerActions, TextInput, getState;
 
 React = require('react');
 
@@ -5285,6 +5268,16 @@ CourseActions = require('../../actions/course_actions');
 
 ServerActions = require('../../actions/server_actions');
 
+getState = function(course_id) {
+  var course, ref, ref1;
+  course = CourseStore.getCourse();
+  return {
+    course: course,
+    anyDatesSelected: ((ref = course.weekdays) != null ? ref.indexOf(1) : void 0) >= 0,
+    blackoutDatesSelected: ((ref1 = course.day_exceptions) != null ? ref1.length : void 0) > 0
+  };
+};
+
 FormPanel = React.createClass({
   displayName: 'FormPanel',
   updateDetails: function(value_key, value) {
@@ -5293,15 +5286,9 @@ FormPanel = React.createClass({
     to_pass[value_key] = value;
     return CourseActions.updateCourse(to_pass, true);
   },
-  getInitialState: function() {
-    return {
-      anyDatesSelected: false,
-      blackoutDatesSelected: false,
-      noBlackoutDatesChecked: false
-    };
-  },
   nextEnabled: function() {
-    if (this.state.anyDatesSelected && (this.state.blackoutDatesSelected || this.state.noBlackoutDatesChecked)) {
+    var ref, ref1;
+    if (((ref = this.props.course.weekdays) != null ? ref.indexOf(1) : void 0) >= 0 && (((ref1 = this.props.course.day_exceptions) != null ? ref1.length : void 0) > 0 || this.props.course.no_day_exceptions)) {
       return true;
     } else {
       return false;
@@ -5320,9 +5307,7 @@ FormPanel = React.createClass({
   setNoBlackoutDatesChecked: function() {
     var checked;
     checked = React.findDOMNode(this.refs.noDates).checked;
-    return this.setState({
-      noBlackoutDatesChecked: checked
-    });
+    return this.updateDetails('no_day_exceptions', checked);
   },
   render: function() {
     var raw_options, timeline_end_props, timeline_start_props;

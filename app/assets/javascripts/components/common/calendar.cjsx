@@ -8,22 +8,20 @@ Calendar = React.createClass(
   displayName: 'Calendar'
   selectDay: (e, day) ->
     return unless @inrange(day)
-    to_pass = @props.course
-    if !to_pass['day_exceptions']?
-      to_pass['day_exceptions'] = ''
+    course = @props.course
+    unless course['day_exceptions']?
+      course['day_exceptions'] = ''
       exceptions = []
     else
-      exceptions = to_pass['day_exceptions'].split(',')
+      exceptions = course['day_exceptions'].split(',')
     formatted = moment(day).format('YYYYMMDD')
     if formatted in exceptions
       exceptions.splice(exceptions.indexOf(formatted), 1)
     else
       exceptions.push formatted
-    to_pass['day_exceptions'] = exceptions.join(',')
-    anyBlackoutDatesSelected = _.compact(exceptions).length > 0
-    if _.has(@props, 'setBlackoutDatesSelected')
-      @props.setBlackoutDatesSelected(anyBlackoutDatesSelected)
-    CourseActions.updateCourse to_pass, (@props.save? && @props.save)
+    course['day_exceptions'] = exceptions.join(',')
+    CourseActions.updateCourse course, (@props.save? && @props.save)
+    CourseActions.updateCourse 'no_day_exceptions', (_.compact(exceptions).length is 0)
   selectWeekday: (e, weekday) ->
     to_pass = @props.course
     if !to_pass['weekdays']?
@@ -34,8 +32,6 @@ Calendar = React.createClass(
     weekdays[weekday] = if weekdays[weekday] == '1' then '0' else '1'
     to_pass['weekdays'] = weekdays.join('')
     anyDatesSelected = !(to_pass['weekdays'] is '0000000')
-    if _.has(@props, 'setAnyDatesSelected')
-      @props.setAnyDatesSelected(anyDatesSelected)
     CourseActions.updateCourse to_pass, (@props.save? && @props.save)
   inrange: (day) ->
     return false unless @props.course.start?

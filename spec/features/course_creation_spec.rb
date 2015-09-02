@@ -147,7 +147,7 @@ describe 'New course creation and editing', type: :feature do
       sleep 1
       first('button.dark').click
       sleep 1
-      # pick 2 types of assignemnts
+      # pick 2 types of assignments
       page.all('div.wizard__option__checkbox')[1].click
       page.all('div.wizard__option__checkbox')[3].click
       sleep 1
@@ -155,7 +155,7 @@ describe 'New course creation and editing', type: :feature do
 
       # on the summary
       sleep 1
-      # go back to the pick and choose and choose different assignemtns
+      # go back to the pick and choose and choose different assignments
       page.all('button.wizard__option.summary')[3].click
       sleep 1
       page.all('div.wizard__option__checkbox')[3].click
@@ -176,7 +176,16 @@ describe 'New course creation and editing', type: :feature do
       sleep 1
       first('button').click
 
+      # Edit course dates and save
+      click_link 'Edit Course Dates'
+      first('attr[title="Thursday"]').click
+      sleep 1
+      expect(Course.last.weekdays).to eq('0001100')
+      first('.button.dark').click
+      sleep 1
+
       # Click edit and then make a change and save it.
+      first('.section-header') { click_button('Edit') }
       sleep 1
       first('button.dark').click
       first('input').set('The first week')

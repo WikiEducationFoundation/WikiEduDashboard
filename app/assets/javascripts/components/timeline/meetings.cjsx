@@ -24,26 +24,23 @@ Meetings = React.createClass(
   storeDidChange: ->
     @setState getState(@props.course_id)
   updateCourse: (value_key, value) ->
-    to_pass = @props.course
+    to_pass = @state.course
     to_pass[value_key] = value
     CourseActions.updateCourse to_pass, true
-  setBlackoutDatesSelected: (bool) ->
-    @setState blackoutDatesSelected: bool
-  setNoBlackoutDatesChecked: (e) ->
-    @setState noBlackoutDatesChecked: e.target.checked
   updateCheckbox: (e) ->
-    @updateCourse('no_day_exceptions', e.target.checked)
+    @updateCourse 'no_day_exceptions', e.target.checked
+    @updateCourse 'day_exceptions', ''
   saveDisabled: ->
     enable = @state.anyDatesSelected && (@state.blackoutDatesSelected || @state.course.no_day_exceptions)
 
     if enable then false else true
   render: ->
     timeline_start_props =
-      minDate: moment(@props.course.start)
-      maxDate: moment(@props.course.timeline_end).subtract(Math.max(1, @props.weeks), 'week')
+      minDate: moment(@state.course.start)
+      maxDate: moment(@state.course.timeline_end).subtract(Math.max(1, @props.weeks), 'week')
     timeline_end_props =
-      minDate: moment(@props.course.timeline_start).add(Math.max(1, @props.weeks), 'week')
-      maxDate: moment(@props.course.end)
+      minDate: moment(@state.course.timeline_start).add(Math.max(1, @props.weeks), 'week')
+      maxDate: moment(@state.course.end)
 
     <Modal >
       <div className='wizard__panel active'>
@@ -52,8 +49,8 @@ Meetings = React.createClass(
           <h2><span>1.</span><small> Confirm the course’s start and end dates.</small></h2>
           <div className='vertical-form full-width'>
             <TextInput
-              onChange={@updateDetails}
-              value={@props.course.start}
+              onChange={@updateCourse}
+              value={@state.course.start}
               value_key='start'
               editable=true
               type='date'
@@ -61,31 +58,29 @@ Meetings = React.createClass(
               label='Course Start'
             />
             <TextInput
-              onChange={@updateDetails}
-              value={@props.course.end}
+              onChange={@updateCourse}
+              value={@state.course.end}
               value_key='end'
               editable=true
               type='date'
               label='Course End'
-              date_props={minDate: moment(@props.course.start).add(1, 'week')}
-              enabled={@props.course.start?}
+              date_props={minDate: moment(@state.course.start).add(1, 'week')}
+              enabled={@state.course.start?}
             />
           </div>
         </div>
         <hr />
         <div className='wizard__form course-dates course-dates__step'>
-          <Calendar course={@props.course}
+          <Calendar course={@state.course}
             save=true
             editable=true
-            setAnyDatesSelected={@setAnyDatesSelected}
-            setBlackoutDatesSelected={@setBlackoutDatesSelected}
           />
           <label> I have no class holidays
             <input
               type='checkbox'
               onChange={@updateCheckbox}
               ref='noDates'
-              checked={@state.course.no_day_exceptions || @state.noBlackoutDatesChecked}
+              checked={@state.course.day_exceptions is '' && @state.course.no_day_exceptions}
             />
           </label>
           <div className='wizard__panel__controls'>
