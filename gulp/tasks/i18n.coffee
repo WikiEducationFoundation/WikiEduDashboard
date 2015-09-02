@@ -11,5 +11,5 @@ config    = require "../config.coffee"
 # Copy images, misc public files, and fonts
 #--------------------------------------------------------
 
-gulp.task "i18n", ->
-  return plugins.run('rake i18n:js:export').exec()
+gulp.task "i18n", (cb) ->
+  plugins.run('rake i18n:js:export').exec(cb)
