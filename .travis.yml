@@ -13,38 +13,44 @@ addons:
 
 
 before_install:
+  # Export QMAKE for libqt5webkit5-dev
+  - export QMAKE=/usr/lib/x86_64-linux-gnu/qt5/bin/qmake
+
   # Set the database.
   - export DB=test
+
   # Set up a headless display so capybara will work.
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
 
-  # We need qt5 to make capybara-webkit work with React.
-  # Copied from https://gist.github.com/jreese/6207161
-  #- add-apt-repository --yes ppa:ubuntu-sdk-team/ppa
-  #- apt-get update -qq
-  #- apt-get install -qq libqt5webkit5-dev qtdeclarative5-dev
-  - export QMAKE=/usr/lib/x86_64-linux-gnu/qt5/bin/qmake
-
+  # Use specific node versions
   - nvm install v0.12.7
   - nvm use v0.12.7
-
-  # pandoc for markdown->mediawiki
-  # - apt-get install pandoc
+  - node --version
+  - npm --version
 
 
 install:
-  - cp config/database.travis.yml config/database.yml
   - npm install gulp -g
   - npm install bower -g
   - npm install
   - bower install
   - bundle install --jobs=3 --retry=3 --deployment
-  - gulp build
+
 
 before_script:
+  - cp config/database.travis.yml config/database.yml
   # Set up our database.
   - mysql -e '''CREATE DATABASE test
                 DEFAULT CHARACTER SET utf8
                 DEFAULT COLLATE utf8_general_ci;'''
   - bundle exec rake db:migrate RAILS_ENV=test
+
+
+script: gulp build && bundle exec rake
+
+
+notifications:
+  slack:
+    rooms:
+    - secure: OZcMEKx3prPJva4P6W0E55pSMWnTWdm7d6bBZ6B66LewU9Ge6parEJcaUAAH+sNbi0lvDvMG7Ivs9FKHDU3DoJXNmKG1ow4QpZ0EIMkaBxUWgQRELw2l375G+8vz/VpH3W4zTmVsYWmcaMSER+PmclnBMGQma8vR8JVLVuIDMHU=
