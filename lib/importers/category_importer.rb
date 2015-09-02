@@ -71,8 +71,7 @@ class CategoryImporter
 
     existing_revisions = Revision
                          .where(article_id: article_ids)
-                         .pluck(:article_id)
-    missing_revisions = article_ids - existing_revisions
+    missing_revisions = article_ids - existing_revisions.pluck(:article_id)
 
     return if missing_revisions.empty?
     import_latest_revision missing_revisions
