@@ -43,7 +43,7 @@ Actions = React.createClass(
       # )
       if user.role == 0
         controls.push (
-          <div>
+          <div className='sidebar__course-actions'>
             <p key='leave'><button onClick={@leave} className='button'>Leave course</button></p>
             <AssignCell
               assignments={@state.assignments}
