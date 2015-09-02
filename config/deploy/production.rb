@@ -11,6 +11,9 @@ role :app, %w(root@dashboard.wikiedu.org)
 role :web, %w(root@dashboard.wikiedu.org)
 role :db,  %w(root@dashboard.wikiedu.org)
 
+set :user, 'root'
+set :address, 'dashboard.wikiedu.org'
+
 set :deploy_to, '/var/www/dashboard'
 
 # Extended Server Syntax

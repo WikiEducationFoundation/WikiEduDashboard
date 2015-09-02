@@ -11,6 +11,9 @@ role :app, %w(ragesoss@outreachdashboard.globaleducation.eqiad.wmflabs)
 role :web, %w(ragesoss@outreachdashboard.globaleducation.eqiad.wmflabs)
 role :db,  %w(ragesoss@outreachdashboard.globaleducation.eqiad.wmflabs)
 
+set :user, 'ragesoss'
+set :address, 'outreachdashboard.globaleducation.eqiad.wmflabs'
+
 set :deploy_to, '/var/www/dashboard'
 
 # Extended Server Syntax
