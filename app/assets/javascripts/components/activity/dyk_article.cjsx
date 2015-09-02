@@ -16,7 +16,7 @@ DYKArticle = React.createClass
 
     <tr className={className} onClick={@openDrawer} key={@props.key}>
       <td>
-        {@props.title}
+        <a href={@props.articleUrl}>{@props.title}</a>
       </td>
       <td>
         {@props.revisionScore}

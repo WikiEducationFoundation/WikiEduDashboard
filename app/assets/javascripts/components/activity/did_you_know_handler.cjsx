@@ -42,6 +42,7 @@ DidYouKnowHandler = React.createClass(
       <DYKArticle
         key={article.key}
         articleId={article.key}
+        articleUrl={article.article_url}
         title={article.title}
         revisionScore={roundedRevisionScore}
         talkPageLink={talkPageLink}

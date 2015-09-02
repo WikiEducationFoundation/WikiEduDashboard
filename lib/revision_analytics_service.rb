@@ -8,5 +8,6 @@ class RevisionAnalyticsService
       .merge(Course.current)
       .where { revisions.wp10 > wm10_limit }
       .where { (namespace == 118) | ((namespace == 2) & (title =~ '%/%')) }
+      .group{ articles.id }
   end
 end
