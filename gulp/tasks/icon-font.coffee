@@ -25,15 +25,20 @@ gulp.task "icon-font", ->
   # Generate Font and CSS from all SVGs
   fileSvgStream
     .pipe(plugins.iconfont
-      fontName: "icons"
+      fontName: fontName
       normalize: true
-    ).on("codepoints", (codepoints, options) ->
+    ).on("glyphs", (glyphs) ->
+      glyphs = glyphs.map((glyph) ->
+        name: glyph.name,
+        codepoint: glyph.unicode[0].charCodeAt(0)
+      )
       gulp.src "#{config.sourcePath}/#{config.svgDirectory}/#{cssTemplateFilename}"
         .pipe(plugins.consolidate "lodash",
-          glyphs: codepoints
+          glyphs: glyphs
           fontName: fontName
           fontPath: fontPath
           className: className
-        ).pipe plugins.rename cssOutputFilename
+        )
+        .pipe plugins.rename cssOutputFilename
         .pipe gulp.dest "#{config.sourcePath}/#{config.cssDirectory}"
-    ).pipe gulp.dest "#{config.outputPath}/#{config.fontsDirectory}"
+    ).pipe gulp.dest "#{config.sourcePath}/#{config.fontsDirectory}"

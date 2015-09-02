@@ -27,7 +27,7 @@ sourcePath = "#{config.sourcePath}/#{config.jsDirectory}"
 
 
 # Setup browserify bundler
-initBrowserify = -> 
+initBrowserify = ->
   browserifyOpts =
     extensions: [".coffee", ".js", ".jsx", ".cjsx"]
     entries: ["#{sourcePath}/#{config.jsMainFile}.coffee"]
@@ -65,7 +65,7 @@ gulp.task "javascripts", ->
   bundle initBrowserify()
 
 gulp.task "javascripts-fingerprint", ->
-  bundle initBrowserify()
+  return bundle initBrowserify()
     .pipe gulp.dest outputPath
     .pipe plugins.rev.manifest()
     .pipe revDel(dest: outputPath)

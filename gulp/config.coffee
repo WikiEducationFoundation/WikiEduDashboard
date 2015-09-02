@@ -14,7 +14,7 @@ Config = ->
   @viewPath = "app/views"
 
   # Compile path
-  @outputPath = "public"
+  @outputPath = "public/assets"
 
   # Public directory
   @publicPath = "public"
