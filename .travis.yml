@@ -36,11 +36,11 @@ install:
   - bower install
   - bundle install --jobs=3 --retry=3 --deployment
   - gulp build
+  - cp config/database.travis.yml config/database.yml
 
 before_script:
   # Set up our database.
   - mysql -e '''CREATE DATABASE test
                 DEFAULT CHARACTER SET utf8
                 DEFAULT COLLATE utf8_general_ci;'''
-  - cp config/database.travis.yml config/database.yml
   - bundle exec rake db:migrate RAILS_ENV=test
