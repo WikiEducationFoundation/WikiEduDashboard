@@ -70,6 +70,10 @@
 # data for it?
   update_length: "30"
 
+# What is the cutoff score for "article completeness" to flag articles/drafts
+# as potential DYK candidates?
+  dyk_wp10_limit: "30"
+
 # Uncomment cron_log_debug to use log level 'debug' for update logs. The default is 'info'.
 #  cron_log_debug: "true"
 
