@@ -1,3 +1,4 @@
+#= Stubs for various requests
 module RequestHelpers
   ##################
   # OAuth requests #

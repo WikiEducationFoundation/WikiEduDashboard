@@ -237,9 +237,9 @@ describe 'the course page', type: :feature do
       fill_in 'Start:', with: ''
       within 'input.start' do
         # TODO: Capybara seems to be able to clear this field.
-        #expect(page).to have_text Course.first.start.strftime("%Y-%m-%d")
+        # expect(page).to have_text Course.first.start.strftime("%Y-%m-%d")
       end
-      #expect(page).to have_css('button.dark[disabled="disabled"]')
+      # expect(page).to have_css('button.dark[disabled="disabled"]')
     end
   end
 

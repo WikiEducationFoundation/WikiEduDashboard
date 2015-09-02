@@ -29,7 +29,7 @@ describe AssignmentsController do
 
     it 'renders a json response' do
       id = assignment.id.to_s
-      expect(response.body).to eq({article: id}.to_json)
+      expect(response.body).to eq({ article: id }.to_json)
     end
   end
 
@@ -47,10 +47,10 @@ describe AssignmentsController do
       json_response = JSON.parse(response.body)
       # response makes created_at differ by milliseconds, which is weird,
       # so test attrs that actually matter rather than whole record
-      expect(json_response['article_title']).to eq(Assignment.last.article_title)
+      expect(json_response['article_title'])
+        .to eq(Assignment.last.article_title)
       expect(json_response['user_id']).to eq(Assignment.last.user_id)
       expect(json_response['role']).to eq(Assignment.last.role)
     end
   end
-
 end

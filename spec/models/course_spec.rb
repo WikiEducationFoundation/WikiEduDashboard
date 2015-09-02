@@ -123,8 +123,8 @@ describe Course, type: :model do
     VCR.use_cassette 'wiki/course_list_delisted' do
       create(:course,
              id: 589,
-            start: Date.today - 1.month,
-            end: Date.today + 1.month,
+             start: Date.today - 1.month,
+             end: Date.today + 1.month,
              title: 'Underwater basket-weaving',
              listed: true)
 
@@ -138,8 +138,8 @@ describe Course, type: :model do
     VCR.use_cassette 'wiki/course_list_deleted' do
       create(:course,
              id: 9999,
-            start: Date.today - 1.month,
-            end: Date.today + 1.month,
+             start: Date.today - 1.month,
+             end: Date.today + 1.month,
              title: 'Underwater basket-weaving',
              listed: true)
 

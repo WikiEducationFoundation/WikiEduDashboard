@@ -6,10 +6,10 @@ describe CategoryImporter do
     VCR.use_cassette 'category_importer/import' do
       CategoryImporter
         .import_category('Category:"Crocodile" Dundee')
-      expect(Article.exists?(title: 'Michael_"Crocodile"_Dundee'))  # depth 0
-        .to be true
-      expect(Article.exists?(title: 'Crocodile_Dundee_in_Los_Angeles'))  # depth 1
-        .to be false
+      expect(Article.exists?(title: 'Michael_"Crocodile"_Dundee'))
+        .to be true # depth 0
+      expect(Article.exists?(title: 'Crocodile_Dundee_in_Los_Angeles'))
+        .to be false # depth 1
     end
   end
 
@@ -17,8 +17,8 @@ describe CategoryImporter do
     VCR.use_cassette 'category_importer/import' do
       CategoryImporter
         .import_category('Category:"Crocodile" Dundee', 1)
-      expect(Article.exists?(title: 'Michael_"Crocodile"_Dundee')) # depth 0
-        .to be true
+      expect(Article.exists?(title: 'Michael_"Crocodile"_Dundee'))
+        .to be true # depth 0
       expect(Article.exists?(title: 'Crocodile_Dundee_in_Los_Angeles'))
         .to be true # depth 1
     end

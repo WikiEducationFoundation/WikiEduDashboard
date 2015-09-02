@@ -32,9 +32,9 @@ describe 'Students Page', type: :feature, js: true do
     course.cohorts << cohort
 
     @user = create(:user,
-           id: 1,
-           wiki_id: 'Mr_Tester',
-           trained: true)
+                   id: 1,
+                   wiki_id: 'Mr_Tester',
+                   trained: true)
 
     create(:courses_user,
            id: 1,
@@ -42,11 +42,11 @@ describe 'Students Page', type: :feature, js: true do
            user_id: @user.id)
 
     article = create(:article,
-           id: 1,
-           title: 'Article_Title',
-           namespace: 0,
-           language: 'es',
-           rating: 'fa')
+                     id: 1,
+                     title: 'Article_Title',
+                     namespace: 0,
+                     language: 'es',
+                     rating: 'fa')
 
     create(:articles_course,
            article_id: article.id,

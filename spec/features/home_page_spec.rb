@@ -26,9 +26,9 @@ describe 'the home page', type: :feature do
              course_id: i.to_s,
              user_id: i.to_s)
       article = create(:article,
-             id: i.to_s,
-             title: 'Selfie',
-             namespace: 0)
+                       id: i.to_s,
+                       title: 'Selfie',
+                       namespace: 0)
       create(:articles_course,
              course_id: course1.id,
              article_id: article.id)
@@ -136,8 +136,10 @@ describe 'the home page', type: :feature do
     end
 
     it 'contains the number of revisions in past 7 days' do
-      within('.course-list__row:first-child .course-list__row__revisions p.revisions') do
-        expect(page.text).to eq("1")
+      row = '.course-list__row:first-child ' \
+            '.course-list__row__revisions p.revisions'
+      within(row) do
+        expect(page.text).to eq('1')
       end
     end
   end
