@@ -68,6 +68,8 @@ class CategoryImporter
                      .where('average_views_updated_at < ?', 1.month.ago)
                      .pluck(:id)
     import_average_views outdated_views
+    missing_views = Article.where(id: article_ids, average_views: nil)
+    import_average_views missing_views
 
     existing_revisions = Revision
                          .where(article_id: article_ids)
