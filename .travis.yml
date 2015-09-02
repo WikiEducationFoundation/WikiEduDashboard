@@ -26,6 +26,9 @@ before_install:
   #- apt-get install -qq libqt5webkit5-dev qtdeclarative5-dev
   - export QMAKE=/usr/lib/x86_64-linux-gnu/qt5/bin/qmake
 
+  - nvm install v0.12.7
+  - nvm use v0.12.7
+
   # pandoc for markdown->mediawiki
   # - apt-get install pandoc
 
