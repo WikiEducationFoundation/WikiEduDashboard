@@ -69,7 +69,7 @@ describe 'Student users', type: :feature, js: true do
       # now unenroll
       visit "/courses/#{Course.first.slug}"
       sleep 1
-      page.all('button').last.click
+      click_button 'Leave course'
       page.driver.browser.switch_to.alert.accept
 
       visit "/courses/#{Course.first.slug}/students"

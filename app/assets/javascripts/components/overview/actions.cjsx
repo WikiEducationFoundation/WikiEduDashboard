@@ -43,16 +43,18 @@ Actions = React.createClass(
       # )
       if user.role == 0
         controls.push (
-          <p key='leave'><button onClick={@leave} className='button'>Leave course</button></p>
-          <AssignCell
-            assignments={@state.assignments}
-            current_user={user}
-            student={user}
-            role=0
-            course_id={@state.course.slug}
-            editable={false}
-            fromOverview={true}
-            save={@save} />
+          <div>
+            <p key='leave'><button onClick={@leave} className='button'>Leave course</button></p>
+            <AssignCell
+              assignments={@state.assignments}
+              current_user={user}
+              student={user}
+              role=0
+              course_id={@state.course.slug}
+              editable={false}
+              fromOverview={true}
+              save={@save} />
+          </div>
         )
       if (user.role == 1 || user.admin) && !@state.course.published
         controls.push (
