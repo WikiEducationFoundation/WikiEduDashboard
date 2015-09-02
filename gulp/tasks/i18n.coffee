@@ -13,7 +13,7 @@ exec      = require("child_process").exec
 #--------------------------------------------------------
 
 gulp.task "i18n", (cb) ->
-  exec "rake i18n:js:export", (err, stdout, stderr) ->
+  exec "bundle exec rake i18n:js:export", (err, stdout, stderr) ->
     if stdout
       console.log stdout
     if stderr
