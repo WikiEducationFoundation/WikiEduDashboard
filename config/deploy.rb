@@ -38,8 +38,8 @@ set :linked_dirs, fetch(:linked_dirs, []).push('bin', 'log', 'tmp')
 
 set :whenever_identifier, -> { "#{fetch(:application)}_#{fetch(:stage)}" }
 
-# before :deploy, "deploy:local_gulp_build"
-# after :deploy, "deploy:upload_built_assets"
+before :deploy, "deploy:local_gulp_build"
+after :deploy, "deploy:upload_built_assets"
 
 namespace :deploy do
 
