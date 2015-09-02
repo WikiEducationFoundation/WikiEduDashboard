@@ -6,8 +6,8 @@ class RevisionAnalyticsService
       .joins(courses: { courses_users: :user })
       .references(:all)
       .merge(Course.current)
-      .where { revisions.wp10 > wm10_limit }
-      .where { (namespace == 118) | ((namespace == 2) & (title =~ '%/%')) }
+      .where{ revisions.wp10 > wm10_limit }
+      .where{ (namespace == 118) | ((namespace == 2) & (title =~ '%/%')) }
       .group{ articles.id }
   end
 end
