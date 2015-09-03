@@ -7,6 +7,18 @@ describe ViewImporter do
       article = create(:article,
                        title: 'Selfie',
                        views_updated_at: '2015-01-01')
+
+      # Course, article-course, and revision are also needed.
+      create(:course,
+             id: 1,
+             start: '2014-01-01'.to_date)
+      create(:articles_course,
+             id: 1,
+             course_id: 1,
+             article_id: 1)
+      create(:revision,
+             article_id: 1)
+      ViewImporter.update_views_for_article(article, true)
       ViewImporter.update_views_for_article(article)
     end
   end
@@ -36,7 +48,7 @@ describe ViewImporter do
               article_id: 1).save
 
         # Update again with this article.
-        ViewImporter.update_all_views(true)
+        ViewImporter.update_all_views
       end
     end
   end
@@ -66,7 +78,7 @@ describe ViewImporter do
 
         # Update again with this article.
         ViewImporter.update_new_views
-        ViewImporter.update_all_views(true)
+        ViewImporter.update_all_views
       end
     end
   end
