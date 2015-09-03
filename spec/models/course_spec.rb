@@ -126,6 +126,7 @@ describe Course, type: :model do
              start: Date.today - 1.month,
              end: Date.today + 1.month,
              title: 'Underwater basket-weaving',
+             passcode: 'pizza',
              listed: true)
 
       CourseImporter.update_all_courses(false, cohort: [351, 590])
@@ -141,6 +142,7 @@ describe Course, type: :model do
              start: Date.today - 1.month,
              end: Date.today + 1.month,
              title: 'Underwater basket-weaving',
+             passcode: 'pizza',
              listed: true)
 
       CourseImporter.update_all_courses(false, cohort: [351, 9999])
@@ -154,6 +156,7 @@ describe Course, type: :model do
           id: 1,
           start: Date.today - 1.month,
           end: Date.today + 1.month,
+          passcode: 'pizza',
           title: 'Underwater basket-weaving').save
 
     build(:user,
@@ -209,6 +212,7 @@ describe Course, type: :model do
           id: 1,
           start: Date.today - 1.month,
           end: Date.today + 1.month,
+          passcode: 'pizza',
           title: 'Underwater basket-weaving').save
 
     build(:article,
@@ -286,6 +290,46 @@ describe Course, type: :model do
       # rubocop:disable Metrics/LineLength
       expect(url).to eq("https://#{lang}.wikipedia.org/wiki/#{prefix}/UW_Bothell/Conservation_Biology_(Winter_2016)")
       # rubocop:enable Metrics/LineLength
+    end
+  end
+
+  describe 'validation' do
+    let(:course) { Course.new(passcode: passcode) }
+    let(:id)     { Course::LEGACY_COURSE_MAX_ID + 1000 }
+    subject { course.valid? }
+
+    before do
+      create(:course)
+      Course.last.update_column(:id, id)
+    end
+
+    context 'legacy course' do
+      context 'passcode nil' do
+        let(:passcode) { nil }
+        it "doesn't save" do
+          expect(subject).to eq(false)
+        end
+      end
+      context 'passcode empty string' do
+        let(:passcode) { '' }
+        it "doesn't save" do
+          expect(subject).to eq(false)
+        end
+      end
+      context 'valid passcode' do
+        let(:passcode) { 'Peanut Butter' }
+        it 'saves' do
+          expect(subject).to eq(true)
+        end
+      end
+    end
+
+    context 'not legacy course' do
+      let(:id)       { Course::LEGACY_COURSE_MAX_ID - 1 }
+      let(:passcode) { nil }
+      it 'saves nil passcode' do
+        expect(subject).to eq(true)
+      end
     end
   end
 end

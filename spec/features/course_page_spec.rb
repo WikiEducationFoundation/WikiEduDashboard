@@ -241,6 +241,19 @@ describe 'the course page', type: :feature do
       end
       # expect(page).to have_css('button.dark[disabled="disabled"]')
     end
+
+    it "doesn't allow null values for passcode" do
+      admin = create(:admin, id: User.last.id + 1)
+      previous_passcode = Course.last.passcode
+      login_as(admin)
+      js_visit "/courses/#{slug}/overview"
+      within '.sidebar' do
+        click_button 'Edit Details'
+        find('input.passcode').set ''
+        click_button 'Save'
+      end
+      expect(Course.last.passcode).to eq(previous_passcode)
+    end
   end
 
   describe 'articles edited view', js: true do

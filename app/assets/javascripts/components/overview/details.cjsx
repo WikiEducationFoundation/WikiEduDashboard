@@ -49,6 +49,7 @@ Details = React.createClass(
             autoExpand=true
             label='Passcode'
             placeholder='Not set'
+            required=true
           />
         </fieldset>
       )

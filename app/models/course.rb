@@ -38,6 +38,8 @@ require "#{Rails.root}/lib/importers/user_importer"
 
 #= Course model
 class Course < ActiveRecord::Base
+  LEGACY_COURSE_MAX_ID = 9999
+
   has_many :tags
   has_many :courses_users, class_name: CoursesUsers
   has_many :users, -> { uniq }, through: :courses_users,
@@ -82,6 +84,8 @@ class Course < ActiveRecord::Base
   scope :legacy, -> { where('courses.id < 10000') }
 
   before_save :order_weeks
+
+  validates :passcode, presence: true, unless: :is_legacy_course?
 
   ####################
   # Instance methods #
@@ -233,6 +237,12 @@ class Course < ActiveRecord::Base
     weeks.each_with_index do |week, i|
       week.update_attribute(:order, i + 1)
     end
+  end
+
+  # for use in validation
+  def is_legacy_course?
+    return true unless Course.any?
+    Course.last.id <= LEGACY_COURSE_MAX_ID
   end
 
 end

@@ -39,5 +39,6 @@ FactoryGirl.define do
     title 'Underwater basket-weaving'
     listed true
     slug 'slug'
+    passcode 'pizza'
   end
 end
