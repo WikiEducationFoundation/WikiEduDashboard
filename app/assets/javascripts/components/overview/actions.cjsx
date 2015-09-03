@@ -1,17 +1,13 @@
 React           = require 'react'
 ServerActions   = require '../../actions/server_actions'
 CourseStore     = require '../../stores/course_store'
-AssignCell      = require '../../components/students/assign_cell'
-AssignmentStore = require '../../stores/assignment_store'
-UserAssignmentStore = require '../../stores/user_assignment_store'
 
 getState = (course_id) ->
   course: CourseStore.getCourse()
-  assignments: UserAssignmentStore.getUserAssignments()
 
 Actions = React.createClass(
   displayName: 'Actions'
-  mixins: [CourseStore.mixin, UserAssignmentStore.mixin]
+  mixins: [CourseStore.mixin]
   storeDidChange: ->
     @setState getState()
   getInitialState: ->
@@ -32,8 +28,6 @@ Actions = React.createClass(
       alert('"' + entered_title + '" is not the title of this course. The course has not been deleted.')
   update: ->
     ServerActions.manualUpdate @state.course.slug
-  save: (opts) ->
-    ServerActions.saveStudents $.extend(true, {}, opts), @state.course.slug
   render: ->
     controls = []
     user = @props.current_user
@@ -43,18 +37,7 @@ Actions = React.createClass(
       # )
       if user.role == 0
         controls.push (
-          <div className='sidebar__course-actions'>
-            <p key='leave'><button onClick={@leave} className='button'>Leave course</button></p>
-            <AssignCell
-              assignments={@state.assignments}
-              current_user={user}
-              student={user}
-              role=0
-              course_id={@state.course.slug}
-              editable={false}
-              fromOverview={true}
-              save={@save} />
-          </div>
+          <p key='leave'><button onClick={@leave} className='button'>Leave course</button></p>
         )
       if (user.role == 1 || user.admin) && !@state.course.published
         controls.push (

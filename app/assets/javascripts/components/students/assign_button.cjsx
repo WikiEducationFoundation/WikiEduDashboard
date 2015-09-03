@@ -19,21 +19,12 @@ urlToTitle = (article_url) ->
 
 AssignButton = React.createClass(
   displayname: 'AssignButton'
-  mixins: [AssignmentStore.mixin]
   getInitialState: ->
     send: false
-  storeDidChange: ->
-    #@props.save() if @state.send
-    true
-  componentWillMount: ->
-    if @state.send
-      @props.save()
   componentWillReceiveProps: (nProps) ->
     if @state.send
       @props.save()
       @setState send: false
-  overviewSend: (opts) ->
-    @props.save(opts) if @props.fromOverview
   stop: (e) ->
     e.stopPropagation()
   getKey: ->
@@ -60,11 +51,13 @@ AssignButton = React.createClass(
 
     # Send
     if(article_title)
-      ServerActions.addAssignment(user_id: @props.student.id, course_id: @props.course_id, article_title: article_title, role: @props.role)
+      AssignmentActions.addAssignment @props.course_id, @props.student.id, article_title, @props.role
+      @setState send: (!@props.editable && @props.current_user.id == @props.student.id)
       @refs.lookup.clear()
   unassign: (assignment) ->
     return unless confirm(I18n.t('assignments.confirm_deletion'))
-    ServerActions.deleteAssignment assignment
+    AssignmentActions.deleteAssignment assignment
+    @setState send: (!@props.editable && @props.current_user.id == @props.student.id)
   render: ->
     className = 'button border'
     className += ' dark' if @props.is_open

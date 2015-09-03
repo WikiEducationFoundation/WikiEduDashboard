@@ -7,17 +7,13 @@ RevisionStore   = require '../../stores/revision_store'
 UIStore         = require '../../stores/ui_store'
 UIActions       = require '../../actions/ui_actions'
 
-UserAssignmentStore = require '../../stores/user_assignment_store'
-
 Student = React.createClass(
   displayName: 'Student'
-  mixins: [UIStore.mixin, UserAssignmentStore.mixin]
+  mixins: [UIStore.mixin]
   storeDidChange: ->
-    newState = is_open: UIStore.getOpenKey() == ('drawer_' + @props.student.id), assignments: UserAssignmentStore.getUserAssignments()
-    @setState newState
+    @setState is_open: UIStore.getOpenKey() == ('drawer_' + @props.student.id)
   getInitialState: ->
     is_open: false
-    assignments: UserAssignmentStore.getUserAssignments()
   stop: (e) ->
     e.stopPropagation()
   openDrawer: ->
@@ -55,7 +51,7 @@ Student = React.createClass(
         <AssignCell {...@props}
           role=0
           editable={@props.editable}
-          assignments={@state.assignments}
+          assignments={@props.assigned}
         />
       </td>
 -     <td className='desktop-only-tc'>
