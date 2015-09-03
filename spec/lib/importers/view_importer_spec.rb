@@ -36,7 +36,7 @@ describe ViewImporter do
               article_id: 1).save
 
         # Update again with this article.
-        ViewImporter.update_all_views
+        ViewImporter.update_all_views(true)
       end
     end
   end

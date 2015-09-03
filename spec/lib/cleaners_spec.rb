@@ -11,11 +11,17 @@ describe Cleaners do
              title: 'Underwater basket-weaving')
       create(:user,
              id: 1)
+      create(:user,
+             id: 2)
       # A user who is not a student, so they should not have ArticlesCourses
       create(:courses_user,
              course_id: 1,
              user_id: 1,
              role: 2)
+      create(:courses_user,
+             course_id: 1,
+             user_id: 2,
+             role: 0)
       create(:article,
              id: 1)
       create(:revision,
@@ -29,6 +35,16 @@ describe Cleaners do
 
       Cleaners.remove_bad_articles_courses
       expect(ArticlesCourses.all.count).to eq(0)
+      # Now recreate it where another classmate touched it
+      create(:revision,
+             user_id: 2,
+             article_id: 1,
+             date: Date.today)
+      create(:articles_course,
+             course_id: 1,
+             article_id: 1)
+      Cleaners.remove_bad_articles_courses
+      expect(ArticlesCourses.all.count).to eq(1)
     end
   end
 

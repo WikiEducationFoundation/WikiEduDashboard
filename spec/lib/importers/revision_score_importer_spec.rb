@@ -28,7 +28,7 @@ describe RevisionScoreImporter do
 
   it 'should save wp10 scores for revisions' do
     VCR.use_cassette 'revision_scores/by_revisions' do
-      RevisionScoreImporter.update_revision_scores(Revision.all)
+      RevisionScoreImporter.update_revision_scores
       early_score = Revision.find(641962088).wp10.to_f
       later_score = Revision.find(675892696).wp10.to_f
       expect(early_score).to be > 0
