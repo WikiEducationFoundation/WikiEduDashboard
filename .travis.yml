@@ -2,8 +2,10 @@ language: ruby
 rvm: 2.1.5
 sudo: false
 cache:
-  - npm
-  - bundler
+  apt: true
+  directories:
+  - vendor
+  - node_modules
 addons:
   apt:
     sources:
