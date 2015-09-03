@@ -96,6 +96,8 @@ describe 'Student users', type: :feature, js: true do
       visit "/courses/#{Course.first.slug}/students"
       sleep 1
       expect(first('tbody')).to have_content User.last.wiki_id
+      # Now try enrolling again, which shouldn't cause any errors
+      visit "/courses/#{Course.first.slug}/enroll/passcode"
     end
 
     # it 'should work even if a student is not logged in yet' do
