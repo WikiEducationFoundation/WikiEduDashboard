@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe AssignmentsController do
-
   describe 'GET index' do
     let!(:assignment) { create(:assignment) }
     before do
@@ -34,7 +33,9 @@ describe AssignmentsController do
   end
 
   describe 'create' do
-    let(:assignment_params) {{ user_id: 1, course_id: 1, article_title: 'pizza', role: 0 }}
+    let(:assignment_params) do
+      { user_id: 1, course_id: 1, article_title: 'pizza', role: 0 }
+    end
     before do
       allow(Course).to receive(:find_by_slug).and_return(OpenStruct.new(id: 1))
     end

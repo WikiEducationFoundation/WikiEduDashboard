@@ -6,7 +6,6 @@ describe 'activity page', type: :feature, js: true do
     Capybara.current_driver = :selenium
   end
 
-
   before :each do
     create(:cohort,
            id: 1,
@@ -34,11 +33,15 @@ describe 'activity page', type: :feature, js: true do
   describe 'admins' do
     let!(:article)  { create(:article, namespace: 118) }
     let!(:user)     { create(:admin) }
-    let!(:revision) { create(:revision, article_id: article.id, wp10: 50, user_id: user.id) }
+    let!(:revision) do
+      create(:revision, article_id: article.id, wp10: 50, user_id: user.id)
+    end
+
     before do
-      # TODO: If we're going to stub this because of the service's weird chaining of scopes,
-      # we should test that service, also.
-      allow(RevisionAnalyticsService).to receive(:dyk_eligible).and_return([article])
+      # TODO: If we're going to stub this because of the service's weird
+      # chaining of scopes, we should test that service, also.
+      allow(RevisionAnalyticsService).to receive(:dyk_eligible)
+        .and_return([article])
     end
 
     it 'should be viewable by admins' do
@@ -54,4 +57,3 @@ describe 'activity page', type: :feature, js: true do
     end
   end
 end
-

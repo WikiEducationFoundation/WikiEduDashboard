@@ -3,9 +3,13 @@ require 'rails_helper'
 describe RevisionStat do
   let(:created_date)     { 1.day.ago }
   let!(:article)         { create(:article) }
-  let!(:revision)        { create(:revision, article_id: article.id, date: created_date) }
+  let!(:revision) do
+    create(:revision, article_id: article.id, date: created_date)
+  end
   let!(:course)          { create(:course) }
-  let!(:articles_course) { create(:articles_course, article_id: article.id, course_id: course.id) }
+  let!(:articles_course) do
+    create(:articles_course, article_id: article.id, course_id: course.id)
+  end
 
   let(:date) { 7.days.ago.to_date }
 
