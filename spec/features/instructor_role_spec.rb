@@ -4,6 +4,7 @@ describe 'Instructor users', type: :feature, js: true do
   before do
     include Devise::TestHelpers, type: :feature
     Capybara.current_driver = :selenium
+    page.driver.browser.manage.window.resize_to(1920, 1080)
   end
 
   before :each do
@@ -74,34 +75,32 @@ describe 'Instructor users', type: :feature, js: true do
       expect(page).not_to have_content 'Student B'
     end
 
-    # FIXME: As with the similar tests for assigning articles in the student
-    # role spec, this breaks on travis-ci.org even though it passes locally.
-    # it 'should be able to assign articles' do
-    #   stub_oauth_edit
-    #   visit "/courses/#{Course.first.slug}/students"
-    #   sleep 1
-    #
-    #   # Assign an article
-    #   page.all('button.dark')[0].click
-    #   page.all('button.border')[0].click
-    #   page.first('input').set('Article 1')
-    #   page.all('button.border')[1].click
-    #   page.driver.browser.switch_to.alert.accept
-    #   page.first('button.border.dark.plus').click
-    #   sleep 1
-    #
-    #   # Assign a review
-    #   page.all('button.border')[1].click
-    #   page.first('input').set('Article 2')
-    #   page.all('button.border')[2].click
-    #   page.driver.browser.switch_to.alert.accept
-    #   page.all('button.border.dark.plus')[0].click
-    #
-    #   # Save these assignments
-    #   page.all('button.dark')[0].click
-    #   expect(page).to have_content 'Article 1'
-    #   expect(page).to have_content 'Article 2'
-    # end
+    it 'should be able to assign articles' do
+      stub_oauth_edit
+      visit "/courses/#{Course.first.slug}/students"
+      sleep 1
+
+      # Assign an article
+      page.all('button.dark')[0].click
+      page.all('button.border')[0].click
+      page.first('input').set('Article 1')
+      page.all('button.border')[1].click
+      page.driver.browser.switch_to.alert.accept
+      page.first('button.border.dark.plus').click
+      sleep 1
+
+      # Assign a review
+      page.all('button.border')[1].click
+      page.first('input').set('Article 2')
+      page.all('button.border')[2].click
+      page.driver.browser.switch_to.alert.accept
+      page.all('button.border.dark.plus')[0].click
+
+      # Save these assignments
+      page.all('button.dark')[0].click
+      expect(page).to have_content 'Article 1'
+      expect(page).to have_content 'Article 2'
+    end
 
     it 'should be able to notify untrained users' do
       stub_oauth_edit
