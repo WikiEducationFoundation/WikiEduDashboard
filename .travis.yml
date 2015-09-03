@@ -1,7 +1,9 @@
 language: ruby
 rvm: 2.1.5
 sudo: false
-
+cache:
+  - npm
+  - bundler
 addons:
   apt:
     sources:
