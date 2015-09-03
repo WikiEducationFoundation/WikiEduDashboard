@@ -4,9 +4,7 @@ lock '3.3.5'
 set :application, 'wiki_edu_dashboard'
 set :repo_url, 'git@github.com:WikiEducationFoundation/WikiEduDashboard.git'
 
-ssh_options = { forward_agent: true }
-ssh_options[:keys] = ["config/deploy_travis_id_rsa"] if File.exist?("config/deploy_travis_id_rsa")
-set :ssh_options, ssh_options
+set :ssh_options, { :forward_agent => true }
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
