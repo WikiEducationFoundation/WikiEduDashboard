@@ -103,6 +103,15 @@ describe 'Instructor users', type: :feature, js: true do
       click_button 'Save'
       expect(page).to have_content 'Article 1'
       expect(page).to have_content 'Article 2'
+
+      # Delete an assignments
+      click_button 'Assign Articles'
+      page.first('button.border.plus').click
+      click_button '-'
+      page.driver.browser.switch_to.alert.accept
+      sleep 1
+      click_button 'Save'
+      expect(page).not_to have_content 'Article 1'
     end
 
     it 'should be able to notify untrained users' do
