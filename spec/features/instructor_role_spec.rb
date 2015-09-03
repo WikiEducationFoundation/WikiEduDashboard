@@ -95,6 +95,7 @@ describe 'Instructor users', type: :feature, js: true do
       page.first('input').set('Article 2')
       click_button 'Assign'
       page.driver.browser.switch_to.alert.accept
+      sleep 1
       page.all('button.border.dark.plus')[0].click
       sleep 1
 
