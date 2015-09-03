@@ -31,6 +31,14 @@ describe 'Student users', type: :feature, js: true do
     create(:cohorts_course,
            cohort_id: 1,
            course_id: 10001)
+    create(:user,
+           id: 101,
+           wiki_id: 'Classmate')
+    create(:courses_user,
+           id: 2,
+           user_id: 101,
+           course_id: 10001,
+           role: 0)
     user = create(:user,
                   id: 200,
                   wiki_token: 'foo',
@@ -116,9 +124,12 @@ describe 'Student users', type: :feature, js: true do
       first('input').set('Selfie')
       page.all('button.border')[1].click
       page.driver.browser.switch_to.alert.accept
+      sleep 1
       page.all('button.border')[0].click
       sleep 1
-      expect(page).to have_content 'Selfie'
+      expect(page.all('tr.students')[1]).to have_content 'Selfie'
+      expect(first('tr.students')).not_to have_content 'Selfie'
+
     end
   end
 
