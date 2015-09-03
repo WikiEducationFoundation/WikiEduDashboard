@@ -15,6 +15,10 @@ addons:
 
 
 before_install:
+  # Decrypt SSH key
+  - openssl aes-256-cbc -K $encrypted_513b9a3c0df8_key -iv $encrypted_513b9a3c0df8_iv
+    -in config/deploy_travis_id_rsa.enc -out config/deploy_travis_id_rsa -d
+
   # Export QMAKE for libqt5webkit5-dev
   - export QMAKE=/usr/lib/x86_64-linux-gnu/qt5/bin/qmake
 
@@ -41,15 +45,19 @@ install:
 
 
 before_script:
-  - cp config/database.travis.yml config/database.yml
   # Set up our database.
-  - mysql -e '''CREATE DATABASE test
-                DEFAULT CHARACTER SET utf8
-                DEFAULT COLLATE utf8_general_ci;'''
+  - cp config/database.travis.yml config/database.yml
+  - mysql -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
   - bundle exec rake db:migrate RAILS_ENV=test
 
 
 script: gulp build && bundle exec rake
+
+
+after_success:
+  # Deploy with Capistrano if the branch is production or staging
+  - if [ $TRAVIS_BRANCH = 'production' ]; then bundle exec cap deploy production -S skip_gulp=true; fi
+  - if [ $TRAVIS_BRANCH = 'staging' ]; then bundle exec cap deploy staging -S skip_gulp=true; fi
 
 
 notifications:
