@@ -56,8 +56,8 @@ script: gulp build && bundle exec rake
 
 after_success:
   # Deploy with Capistrano if the branch is production or staging
-  - if [ $TRAVIS_BRANCH = 'production' ]; then bundle exec cap deploy production -S skip_gulp=true; fi
-  - if [ $TRAVIS_BRANCH = 'staging' ]; then bundle exec cap deploy staging -S skip_gulp=true; fi
+  - if [ $TRAVIS_BRANCH = 'production' ]; then bundle exec cap production deploy skip_gulp=true; fi
+  - if [ $TRAVIS_BRANCH = 'staging' ]; then bundle exec cap staging deploy skip_gulp=true; fi
 
 
 notifications:

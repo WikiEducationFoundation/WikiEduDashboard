@@ -62,7 +62,7 @@ namespace :deploy do
     end
   end
 
-  before :deploy, "deploy:local_gulp_build" unless fetch(:skip_gulp, false)
+  before :deploy, "deploy:local_gulp_build" unless ENV['skip_gulp']
   after :deploy, "deploy:upload_compiled_assets"
 
 end
