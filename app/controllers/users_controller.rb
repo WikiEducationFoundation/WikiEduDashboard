@@ -44,7 +44,7 @@ class UsersController < ApplicationController
     end
 
     WikiEdits.update_course(@course, current_user)
-    render 'users'
+    render 'users', formats: :json
   end
 
   #########################
@@ -57,6 +57,8 @@ class UsersController < ApplicationController
       add
     elsif request.delete?
       remove
+    else
+      render json: { status: 200 }
     end
   end
 
@@ -117,7 +119,7 @@ class UsersController < ApplicationController
       )
 
       WikiEdits.update_course(@course, current_user)
-      render 'users'
+      render 'users', formats: :json
     else
       username = enroll_params[:user_id] || enroll_params[:wiki_id]
       render json: { message: I18n.t('courses.error.user_exists', username) },
@@ -139,7 +141,7 @@ class UsersController < ApplicationController
                                  cu.assignments.as_json, true
     cu.destroy
 
-    render 'users'
+    render 'users', formats: :json
     WikiEdits.update_course(@course, current_user)
   end
 

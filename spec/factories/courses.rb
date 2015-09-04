@@ -38,7 +38,7 @@ FactoryGirl.define do
     start '2015-01-01'.to_date
     title 'Underwater basket-weaving'
     listed true
-    slug 'slug'
+    slug 'slug/titleterm'
     passcode 'pizza'
   end
 end

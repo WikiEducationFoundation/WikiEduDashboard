@@ -109,8 +109,10 @@ VCR.configure do |c|
   c.configure_rspec_metadata!
   # Allows RSPEC to test the availability of the Wikimedia Tools
   c.ignore_hosts 'tools.wmflabs.org', '127.0.0.1'
-  # c.allow_http_connections_when_no_cassette = true
+  #c.allow_http_connections_when_no_cassette = true
   c.ignore_hosts 'codeclimate.com'
+  # for controller test
+  c.ignore_localhost = true
 end
 
 RSpec::Matchers.define :be_boolean do
