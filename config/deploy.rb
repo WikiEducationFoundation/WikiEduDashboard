@@ -2,7 +2,7 @@
 lock '3.3.5'
 
 set :application, 'wiki_edu_dashboard'
-set :repo_url, 'https://github.com/WikiEducationFoundation/WikiEduDashboard.git'
+set :repo_url, 'git@github.com/WikiEducationFoundation/WikiEduDashboard.git'
 
 set :ssh_options, { :forward_agent => true }
 
