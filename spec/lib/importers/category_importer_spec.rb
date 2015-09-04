@@ -36,11 +36,21 @@ describe CategoryImporter do
     end
   end
 
-  it 'should pull importin missing data for category' do
+  it 'should import missing data for category' do
     VCR.use_cassette 'category_importer/report_on_category_incomplete' do
       output = CategoryImporter
                .report_on_category('Category:"Crocodile" Dundee')
       expect(output).to include 'Michael_"Crocodile"_Dundee'
+    end
+  end
+
+  describe '.show_category' do
+    it 'should return the articles in a category' do
+      VCR.use_cassette 'category_importer/import' do
+        results = CategoryImporter.show_category('Category:"Crocodile" Dundee')
+        article = Article.find_by(title: 'Michael_"Crocodile"_Dundee')
+        expect(results).to include article
+      end
     end
   end
 end
