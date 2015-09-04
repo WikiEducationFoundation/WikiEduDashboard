@@ -6,6 +6,12 @@ CourseActions = require '../../actions/course_actions'
 
 Calendar = React.createClass(
   displayName: 'Calendar'
+  getInitialState: ->
+    return initialMonth: moment(@props.course.start).toDate()
+  componentWillReceiveProps: (nextProps) ->
+    if nextProps.course.start != moment(@state.initialMonth).format('YYYY-MM-DD')
+      @setState
+        initialMonth: moment(nextProps.course.start).toDate()
   selectDay: (e, day) ->
     return unless @inrange(day)
     course = @props.course
@@ -91,7 +97,7 @@ Calendar = React.createClass(
             modifiers={modifiers}
             onDayClick={if @props.editable then @selectDay else null}
             onWeekdayClick={if @props.editable then @selectWeekday else null}
-            initialMonth={moment.max(moment(@props.course.start), moment()).toDate()}
+            initialMonth={@state.initialMonth}
           />
           <div className='course-dates__calendar-key'>
             <ul>
