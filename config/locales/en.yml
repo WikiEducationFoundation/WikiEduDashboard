@@ -116,6 +116,7 @@ en:
     wiki_staff: Wiki Ed Staff
     error:
       exists: That course already exists! Please try again with a different title, school, or term.
+      user_exists: "Sorry, %{username} is not an existing user."
 
   course_creator:
     create_new: Create a New Course

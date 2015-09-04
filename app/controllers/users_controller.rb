@@ -120,7 +120,8 @@ class UsersController < ApplicationController
       render 'users'
     else
       username = enroll_params[:user_id] || enroll_params[:wiki_id]
-      render json: { message: "Sorry, #{username} is not an existing user." }, status: 404
+      render json: { message: I18n.t('courses.error.user_exists', username) },
+             status: 404
     end
   end
 
@@ -133,6 +134,7 @@ class UsersController < ApplicationController
       course_id: @course.id,
       role: enroll_params[:role]
     )
+    return if cu.nil? # This will happen if the user was already removed.
     WikiEdits.update_assignments current_user, @course,
                                  cu.assignments.as_json, true
     cu.destroy
