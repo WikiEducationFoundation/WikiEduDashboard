@@ -17,6 +17,10 @@ input, textarea, select, .expandingArea > pre
   outline 0
   padding 10px
   -webkit-appearance none
+  -moz-appearance none
+
+  &::-ms-expand
+    display none
 
 input.invalid, label.invalid input
   border 2px solid burnt !important
