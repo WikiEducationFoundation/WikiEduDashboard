@@ -27,6 +27,24 @@ describe UserImporter do
     end
   end
 
+  describe '.new_from_wiki_id' do
+    it 'should create a new user' do
+      VCR.use_cassette 'user/new_from_wiki_id' do
+        username = 'Ragesoss'
+        user = UserImporter.new_from_wiki_id(username)
+        expect(user.id).to eq(319203)
+      end
+    end
+
+    it 'should not create a user if the username is not registered' do
+      VCR.use_cassette 'user/new_from_wiki_id_nonexistent' do
+        username = 'RagesossRagesossRagesoss'
+        user = UserImporter.new_from_wiki_id(username)
+        expect(user).to be_nil
+      end
+    end
+  end
+
   describe '.update_users' do
     it 'should update which users have completed training' do
       # Create a new user, who by default is assumed not to have been trained.
