@@ -58,7 +58,9 @@ EnrollButton = React.createClass(
       </tr>
     ) if @props.role == 0
 
-    # This row allows permitted users to add students to the course by wiki_id
+    # This row allows permitted users to add usrs to the course by wiki_id
+    # @props.role controls its presence in the Enrollment popup on /students
+    # @props.allowed controls its presence in Edit Details mode on Overview
     edit_rows.push (
       <tr className='edit' key='add_students'>
         <td>
@@ -68,7 +70,7 @@ EnrollButton = React.createClass(
           </form>
         </td>
       </tr>
-    ) if @props.role == 0
+    ) if @props.role == 0 || @props.allowed
 
     button_class = 'button'
     button_class += if @props.inline then ' border plus' else ' dark'
