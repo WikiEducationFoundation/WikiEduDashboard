@@ -103,7 +103,9 @@ class UsersController < ApplicationController
     if enroll_params.key? :user_id
       @user = User.find(enroll_params[:user_id])
     elsif enroll_params.key? :wiki_id
-      @user = User.find_by(wiki_id: enroll_params[:wiki_id])
+      wiki_id = enroll_params[:wiki_id]
+      @user = User.find_by(wiki_id: wiki_id)
+      @user = UserImporter.new_from_wiki_id(wiki_id) if @user.nil?
     else
       return
     end
@@ -122,7 +124,8 @@ class UsersController < ApplicationController
       render 'users', formats: :json
     else
       username = enroll_params[:user_id] || enroll_params[:wiki_id]
-      render json: { message: I18n.t('courses.error.user_exists', username) },
+      render json: { message: I18n.t('courses.error.user_exists',
+                                     username: username) },
              status: 404
     end
   end
@@ -166,5 +169,4 @@ class UsersController < ApplicationController
       assignments: [:id, :user_id, :article_title, :role, :course_id, :deleted]
     )
   end
-
 end

@@ -35,6 +35,17 @@ class UserImporter
     user
   end
 
+  def self.new_from_wiki_id(wiki_id)
+    require "#{Rails.root}/lib/wiki"
+    id = Wiki.get_user_id(wiki_id)
+    return unless id
+    user = User.create(
+      id: id,
+      wiki_id: wiki_id
+    )
+    user
+  end
+
   def self.add_users(data, role, course, save=true)
     data.map do |p|
       add_user(p, role, course, save)
