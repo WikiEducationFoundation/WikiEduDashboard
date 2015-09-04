@@ -46,8 +46,14 @@ describe CategoryImporter do
 
   describe '.show_category' do
     it 'should return the articles in a category' do
+      # Create an article ahead of time, to make sure we handle both articles
+      # that we already have and ones we don't.
+      create(:article,
+             id: 10670306,
+             title: 'Michael_"Crocodile"_Dundee')
       VCR.use_cassette 'category_importer/import' do
-        results = CategoryImporter.show_category('Category:"Crocodile" Dundee')
+        results = CategoryImporter
+                  .show_category('Category:"Crocodile" Dundee', depth: 1)
         article = Article.find_by(title: 'Michael_"Crocodile"_Dundee')
         expect(results).to include article
       end
