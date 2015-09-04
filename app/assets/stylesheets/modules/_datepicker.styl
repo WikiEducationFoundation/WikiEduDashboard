@@ -180,38 +180,36 @@
 }
 
 .close-icon {
-  border: 1px solid transparent;
-  background-color: transparent;
+  background-color: zircon;
+  border: 1px solid mercury;
+  border-radius: 50%;
   cursor: pointer;
-  display: inline-block;
   outline: 0;
   position: absolute;
-  z-index: 0;
+  margin-left: -38px;
+  margin-top: 9px;
+  padding: 2px;
+  width: 22px;
+  height: 22px;
+  text-align: center;
+  transition: background-color ts-speed, color ts-speed, border-color ts-speed;
 
   &:after {
-    background-color: zircon;
-    border: 1px solid mercury;
-    border-radius: 50%;
-    bottom: 0;
-    color: dove;
     content: "\00d7";
+    color: dove;
     cursor: pointer;
     display: block;
+    z-index: 1;
+    line-height: 1;
     font-size: 15px;
     font-weight: normal;
-    height: 14px;
-    line-height: 1;
-    position: absolute;
-    padding: 2px;
-    right: 22px;
-    text-align: center;
-    top: 9px;
-    transition: background-color ts-speed, color ts-speed;
-    width: 14px;
-    z-index: 1;
   }
-  &:hover:after {
+
+  &:hover {
     background-color: burnt;
-    color: white;
+    border-color: burnt;
+    &:after {
+      color: white;
+    }
   }
 }
