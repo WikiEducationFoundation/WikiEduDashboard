@@ -93,5 +93,13 @@ describe Wiki do
         expect(user_id_eswiki).to eq(772153)
       end
     end
+
+    it 'should return nil for usernames that do not exist' do
+      VCR.use_cassette 'wiki/get_user_id_nonexistent' do
+        username = 'RagesossRagesossRagesoss'
+        user_id = Wiki.get_user_id(username)
+        expect(user_id).to be_nil
+      end
+    end
   end
 end

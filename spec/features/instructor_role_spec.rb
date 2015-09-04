@@ -57,13 +57,38 @@ describe 'Instructor users', type: :feature, js: true do
   end
 
   describe 'visiting the students page' do
+    it 'should be able to add students' do
+      stub_oauth_edit
+      allow(Wiki).to receive(:get_user_id).and_return(123)
+      visit "/courses/#{Course.first.slug}/students"
+      sleep 1
+      click_button 'Enrollment'
+      page.all('input')[1].set('Risker')
+      click_button 'Enroll'
+      page.driver.browser.switch_to.alert.accept
+      page.driver.browser.switch_to.alert.accept
+      expect(page).to have_content 'Risker'
+    end
+
+    it 'should not be able to add nonexistent users as students' do
+      allow(Wiki).to receive(:get_user_id).and_return(nil)
+      visit "/courses/#{Course.first.slug}/students"
+      sleep 1
+      click_button 'Enrollment'
+      page.all('input')[1].set('NotARealUser')
+      click_button 'Enroll'
+      page.driver.browser.switch_to.alert.accept
+      page.driver.browser.switch_to.alert.accept
+      expect(page).not_to have_content 'NotARealUser'
+    end
+
     it 'should be able to remove students' do
       stub_oauth_edit
       visit "/courses/#{Course.first.slug}/students"
       sleep 1
 
       # Click the Enrollment button
-      page.all('button.dark')[1].click
+      click_button 'Enrollment'
       sleep 1
       # Remove a user
       page.all('button.border.plus')[1].click
