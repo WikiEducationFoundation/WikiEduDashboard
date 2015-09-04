@@ -114,6 +114,17 @@ describe 'Instructor users', type: :feature, js: true do
       expect(page).not_to have_content 'Article 1'
     end
 
+    it 'should be able to remove students from the course' do
+      stub_oauth_edit
+      visit "/courses/#{Course.first.slug}/students"
+
+      click_button 'Enrollment'
+      page.first('button.border.plus').click
+      page.driver.browser.switch_to.alert.accept
+      sleep 1
+      expect(page).not_to have_content 'Student A'
+    end
+
     it 'should be able to notify untrained users' do
       stub_oauth_edit
       visit "/courses/#{Course.first.slug}/students"
