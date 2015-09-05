@@ -38,8 +38,6 @@ describe 'activity page', type: :feature, js: true do
     end
 
     before do
-      # TODO: If we're going to stub this because of the service's weird
-      # chaining of scopes, we should test that service, also.
       allow(RevisionAnalyticsService).to receive(:dyk_eligible)
         .and_return([article])
     end
