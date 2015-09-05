@@ -55,6 +55,13 @@ describe 'Student users', type: :feature, js: true do
       expect(page).to have_content 'Login'
       expect(page).not_to have_content 'Log Out'
     end
+
+    it 'should not cause problems if done twice' do
+      visit "/courses/#{Course.first.slug}"
+      find('a', text: 'Log Out').click
+      sleep 1
+      visit '/sign_out'
+    end
   end
 
   describe 'enrolling and unenrolling by button' do

@@ -5,8 +5,12 @@ class UsersController < ApplicationController
   respond_to :html, :json
 
   def signout
-    current_user.update_attributes(wiki_token: nil, wiki_secret: nil)
-    redirect_to true_destroy_user_session_path
+    if current_user.nil?
+      redirect_to '/'
+    else
+      current_user.update_attributes(wiki_token: nil, wiki_secret: nil)
+      redirect_to true_destroy_user_session_path
+    end
   end
 
   def update_util(model, object)
