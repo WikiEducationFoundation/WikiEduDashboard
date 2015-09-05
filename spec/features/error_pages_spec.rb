@@ -26,4 +26,12 @@ describe 'error pages' do
       expect(page).to have_content 'Page not found'
     end
   end
+
+  describe 'for server errors' do
+    it 'should say there was a server error' do
+      allow(Cohort).to receive(:includes).and_raise(StandardError)
+      visit '/'
+      expect(page).to have_content 'internal server error'
+    end
+  end
 end
