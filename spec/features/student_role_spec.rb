@@ -138,7 +138,6 @@ describe 'Student users', type: :feature, js: true do
       sleep 1
       expect(page.all('tr.students')[1]).to have_content 'Selfie'
       expect(first('tr.students')).not_to have_content 'Selfie'
-
     end
   end
 
@@ -186,6 +185,19 @@ describe 'Student users', type: :feature, js: true do
       visit "/courses/#{Course.first.slug}/students"
       sleep 1
       expect(page).not_to have_content 'Selfie'
+    end
+  end
+
+  describe 'visiting the home page' do
+    it 'should see their course' do
+      create(:courses_user,
+             course_id: 10001,
+             user_id: 200,
+             role: 0)
+      visit '/'
+      expect(page).to have_content 'Your Courses'
+      expect(page)
+        .not_to have_content 'You are not participating in any courses.'
     end
   end
 
