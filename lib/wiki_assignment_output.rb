@@ -65,9 +65,7 @@ class WikiAssignmentOutput
 
     dashboard_url = ENV['dashboard_url']
     # Return if tag already exists on page
-    unless new_tag.blank?
-      return nil if page_content.include? new_tag
-    end
+    return nil if page_content.include? new_tag unless new_tag.blank?
 
     # Check for existing tags and replace
     old_tag_ex = "{{course assignment | course = #{course_page}"
@@ -76,7 +74,7 @@ class WikiAssignmentOutput
     page_content.gsub!(/#{Regexp.quote(new_tag_ex)}[^\}]*\}\}/, new_tag)
 
     # Add new tag at top (if there wasn't an existing tag already)
-    if !page_content.include?(new_tag)
+    unless page_content.include?(new_tag)
       # FIXME: Allow whitespace before the beginning of the first template.
       if page_content[0..1] == '{{' # Append after existing tags
         page_content.sub!(/\}\}(?!\n\{\{)/, "}}\n#{new_tag}")

@@ -27,7 +27,7 @@ class WikiLegacyCourses
   def self.parse_course_info(course)
     append = course['name'][-1, 1] != ')' ? ' ()' : ''
     course_slug_info = (course['name'] + append)
-                       .split(%r{(.*)/(.*)\s\(([^\)]+)?\)})
+                       .split(/(.*)\/(.*)\s\(([^\)]+)?\)/)
     course_info = {}
     course_info['id'] = course['id']
     course_info['slug'] = course['name'].gsub(' ', '_')

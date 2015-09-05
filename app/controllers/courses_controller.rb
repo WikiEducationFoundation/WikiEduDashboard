@@ -206,7 +206,8 @@ class CoursesController < ApplicationController
     @course = find_course_by_slug(params[:id])
     @cohort = Cohort.find_by(title: cohort_params[:title])
     unless @cohort.nil?
-      exists = CohortsCourses.exists?(course_id: @course.id, cohort_id: @cohort.id)
+      exists = CohortsCourses.exists?(course_id: @course.id,
+                                      cohort_id: @cohort.id)
       if request.post? && !exists
         CohortsCourses.create(
           course_id: @course.id,
@@ -219,7 +220,9 @@ class CoursesController < ApplicationController
         ).destroy
       end
     else
-      render json: { message: "Sorry, #{cohort_params[:title]} is not a valid cohort." }, status: 404
+      cohort_name = cohort_params[:title]
+      render json: { message: "Sorry, #{cohort_name} is not a valid cohort." },
+             status: 404
     end
   end
 

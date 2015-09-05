@@ -112,9 +112,14 @@ class CourseStatistics
   #     articles.each do |article|
   #       revisions = article.revisions
   #       first_rev = revisions.first
-  #       puts '"' + course.title + '","' + article.title + '","' + first_rev.id.to_s + 'prev",' + first_rev.wp10_previous.to_s
+  #       puts '"' + course.title + '","' +
+  #         article.title + '","' + first_rev.id.to_s +
+  #         'prev",' + first_rev.wp10_previous.to_s
   #       revisions.each do |revision|
-  #         puts '"' + course.title + '","' + article.title + '","' + revision.id.to_s + '",' + revision.wp10.to_s
+  #         puts '"' + course.title + '","' +
+  #           article.title + '","' +
+  #           revision.id.to_s + '",' +
+  #           revision.wp10.to_s
   #       end
   #     end
   #   end

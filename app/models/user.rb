@@ -48,7 +48,7 @@ class User < ActiveRecord::Base
   ####################
   # Instance methods #
   ####################
-  def roles(course)
+  def roles(_course)
     {
       id: id,
       admin: admin?

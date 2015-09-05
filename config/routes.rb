@@ -87,7 +87,6 @@ Rails.application.routes.draw do
 
   get 'revisions' => 'revisions#index'
 
-
   resources :weeks, only: [:index]
 
   # Article Finder
@@ -100,7 +99,8 @@ Rails.application.routes.draw do
   get 'recent-activity(/*any)' => 'recent_activity#index'
 
   # Revision analytics JSON API for React
-  get 'revision_analytics/dyk_eligible', controller: 'revision_analytics', action: 'dyk_eligible'
+  get 'revision_analytics/dyk_eligible', controller: 'revision_analytics',
+                                         action: 'dyk_eligible'
 
   # Wizard
   get 'wizards' => 'wizard#wizard_index'

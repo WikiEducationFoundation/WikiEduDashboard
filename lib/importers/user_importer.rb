@@ -62,13 +62,18 @@ class UserImporter
                         campus_volunteer wiki_ed_staff)
         has_user = course.users.role(role_index[role]).include? new_user
         unless has_user
-          role = (user['username'].include? '(Wiki Ed)') ? 4 : role
+          role = get_wiki_ed_role(user, role)
           CoursesUsers.new(user: new_user, course: course, role: role).save
         end
       end
       new_user.save
     end
     new_user
+  end
+
+  # If a user has (Wiki Ed) in their name, assign them to the staff role
+  def self.get_wiki_ed_role(user, role)
+    (user['username'].include? '(Wiki Ed)') ? 4 : role
   end
 
   def self.update_users(users=nil)

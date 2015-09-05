@@ -47,7 +47,10 @@ class CategoryImporter
       completeness = article.revisions.last.wp10.to_f
       next unless completeness < max_wp10
       average_views = article.average_views
-      output += "\"#{title}\",#{average_views},#{completeness},#{average_views / completeness}\n"
+      output += "\"#{title}\"," \
+                "#{average_views}," \
+                "#{completeness}," \
+                "#{average_views / completeness}\n"
     end
     output
   end

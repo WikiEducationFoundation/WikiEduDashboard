@@ -1,1 +1,1 @@
-json.message "Internal server error"
+json.message 'Internal server error'

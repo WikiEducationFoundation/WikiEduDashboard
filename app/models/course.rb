@@ -244,5 +244,4 @@ class Course < ActiveRecord::Base
     return true unless Course.any?
     Course.last.id <= LEGACY_COURSE_MAX_ID
   end
-
 end
