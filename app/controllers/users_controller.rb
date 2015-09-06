@@ -69,6 +69,9 @@ class UsersController < ApplicationController
   def enroll_user
     # Redirect to sign in (with callback leading back to this method)
     @course = Course.find_by_slug(params[:course_id])
+    # Check if the course exists
+    fail ActionController::RoutingError, 'Course not found' if @course.nil?
+
     if current_user.nil?
       auth_path = user_omniauth_authorize_path(:mediawiki)
       path = "#{auth_path}?origin=#{request.original_url}"
