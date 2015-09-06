@@ -11,6 +11,19 @@
 
 require 'rails_helper'
 
-RSpec.describe Week, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe Week do
+  describe '#cleanup' do
+    it 'should destroy associated blocks' do
+      create(:block,
+             id: 1,
+             week_id: 1)
+      create(:block,
+             id: 2,
+             week_id: 1)
+      week = create(:week,
+                    id: 1)
+      week.cleanup
+      expect(Block.all).to be_empty
+    end
+  end
 end
