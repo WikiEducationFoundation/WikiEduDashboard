@@ -57,7 +57,7 @@ describe Revision do
     let(:course_start)  { revision.created_at - 3.days }
     let(:course_end)    { revision.date + 3.days }
 
-    subject { revision.infer_courses_from_user(user) }
+    subject { revision.infer_courses_from_user }
 
     context 'one course' do
       it 'returns the course record we assume the user was in when they made the revision' do

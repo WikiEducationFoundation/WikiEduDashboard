@@ -41,7 +41,7 @@ class Revision < ActiveRecord::Base
     self.save if save
   end
 
-  def infer_courses_from_user(user)
+  def infer_courses_from_user
     user.courses.where('start <= ?', date).where('end >= ?', date)
   end
 
