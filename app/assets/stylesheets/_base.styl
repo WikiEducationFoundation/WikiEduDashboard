@@ -86,10 +86,15 @@ li
 ul
   list-style disc
   margin-bottom 16px
+  &:last-child
+    margin-bottom 0
 
 ol
   list-style decimal
   margin-bottom 16px
+  &:last-child
+    margin-bottom 0
+
 
 blockquote
   margin-bottom 16px
@@ -102,13 +107,14 @@ code
   font-family Courier, monospace
   background-color rgba(0,0,0,0.04)
   border-radius 3px
-  margin-bottom 16px
+  line-height 1.4
   padding .2em
 
 pre > code
   display block
   font-size 0.8em
   padding 1em 1em
+  margin-bottom 16px
 
 hr
   border 1px solid mercury
