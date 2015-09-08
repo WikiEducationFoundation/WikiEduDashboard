@@ -110,7 +110,6 @@ Timeline = React.createClass(
     <div>
       <div className="section-header">
         <h3>Timeline</h3>
-        <CourseLink to='wizard', text='Open Wizard', className='button large dark' />
         {@props.controls(controls)}
       </div>
       <ul className="list">
