@@ -364,4 +364,44 @@ describe Course, type: :model do
       end
     end
   end
+
+  describe '#article_count' do
+    it 'should count mainspace articles edited by students' do
+      course = create(:course)
+      student = create(:user)
+      create(:courses_user, course_id: course.id, user_id: student.id)
+      # mainspace article
+      article = create(:article, namespace: 0)
+      create(:revision, article_id: article.id, user_id: student.id)
+      create(:articles_course, article_id: article.id, course_id: course.id)
+      # non-mainspace page
+      sandbox = create(:article, namespace: 2)
+      create(:revision, article_id: sandbox.id, user_id: student.id)
+      create(:articles_course, article_id: sandbox.id, course_id: course.id)
+
+      course.update_cache
+      expect(course.article_count).to eq(1)
+    end
+  end
+
+  describe '#new_article_count' do
+    it 'should count newly created mainspace articles' do
+      course = create(:course)
+      student = create(:user)
+      create(:courses_user, course_id: course.id, user_id: student.id)
+      # mainspace article
+      article = create(:article, namespace: 0)
+      create(:revision, article_id: article.id, user_id: student.id)
+      create(:articles_course, article_id: article.id, course_id: course.id,
+                               new_article: true)
+      # non-mainspace page
+      sandbox = create(:article, namespace: 2)
+      create(:revision, article_id: sandbox.id, user_id: student.id)
+      create(:articles_course, article_id: sandbox.id, course_id: course.id,
+                               new_article: true)
+
+      course.update_cache
+      expect(course.new_article_count).to eq(1)
+    end
+  end
 end
