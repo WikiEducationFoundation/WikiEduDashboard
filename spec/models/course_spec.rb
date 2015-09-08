@@ -332,4 +332,36 @@ describe Course, type: :model do
       end
     end
   end
+
+  describe '#user_count' do
+    let!(:course) { create(:course) }
+    let!(:user1)  { create(:test_user) }
+    let!(:user2)  { create(:test_user) }
+    let!(:cu1)    { create(:courses_user, course_id: course.id, user_id: user1.id, role: role1) }
+    let!(:cu2)    { create(:courses_user, course_id: course.id, user_id: user2.id, role: role2) }
+    let!(:cu3)    { create(:courses_user, course_id: course.id, user_id: user3, role: role3) }
+
+    before  { course.update_cache }
+    subject { course.user_count }
+
+    context 'students in course, no instructor-students' do
+      let(:role1) { CoursesUsers::Roles::STUDENT_ROLE }
+      let(:role2) { CoursesUsers::Roles::STUDENT_ROLE }
+      let(:user3) { nil }
+      let(:role3) { nil }
+      it 'returns 2' do
+        expect(subject).to eq(2)
+      end
+    end
+
+    context 'one student, one instructor, one instructor-student' do
+      let(:role1) { CoursesUsers::Roles::STUDENT_ROLE }
+      let(:role2) { CoursesUsers::Roles::STUDENT_ROLE }
+      let(:user3) { user1.id }
+      let(:role3) { CoursesUsers::Roles::INSTRUCTOR_ROLE }
+      it 'returns 1' do
+        expect(subject).to eq(1)
+      end
+    end
+  end
 end

@@ -23,6 +23,10 @@
 #
 
 FactoryGirl.define do
+  factory :test_user, class: User do
+    wiki_id 'Pizza'
+  end
+
   factory :user do
     id '4543197'
     wiki_id 'Ragesock'

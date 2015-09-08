@@ -4,11 +4,11 @@ describe 'Instructor users', type: :feature, js: true do
   before do
     include Devise::TestHelpers, type: :feature
     Capybara.current_driver = :selenium
-    page.driver.browser.manage.window.resize_to(1920, 1080)
+    page.driver.browser.manage.window.resize_to(1920, 1920)
   end
 
   before :each do
-    user = create(:user,
+    instructor = create(:user,
                   id: 100,
                   wiki_id: 'Professor Sage',
                   wiki_token: 'foo',
@@ -53,7 +53,7 @@ describe 'Instructor users', type: :feature, js: true do
            cohort_id: 1,
            course_id: 10001)
 
-    login_as(user, scope: :user)
+    login_as(instructor, scope: :user)
   end
 
   describe 'visiting the students page' do

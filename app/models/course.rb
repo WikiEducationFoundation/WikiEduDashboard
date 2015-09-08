@@ -129,6 +129,14 @@ class Course < ActiveRecord::Base
     self.save
   end
 
+  def instructor_students
+    students.where(id: students.collect(&:id) & instructors.collect(&:id))
+  end
+
+  def students_without_instructor_students
+    students - instructor_students
+  end
+
   #################
   # Cache methods #
   #################
@@ -143,7 +151,7 @@ class Course < ActiveRecord::Base
   end
 
   def user_count
-    self[:user_count] || students.size
+    self[:user_count] || students_without_instructor_students.size
   end
 
   def untrained_count
@@ -167,7 +175,7 @@ class Course < ActiveRecord::Base
     # Do not consider revisions with negative byte changes
     self.character_sum = courses_users.where(role: 0).sum(:character_sum_ms)
     self.view_sum = articles_courses.live.sum(:view_count)
-    self.user_count = users.role('student').size
+    self.user_count = students_without_instructor_students.size
     self.untrained_count = users.role('student').where(trained: false).size
     self.revision_count = revisions.size
     self.article_count = articles.live.size

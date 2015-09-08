@@ -30,6 +30,16 @@ class CoursesUsers < ActiveRecord::Base
   scope :current, -> { joins(:course).merge(Course.current).uniq }
 
   ####################
+  # CONSTANTS        #
+  ####################
+  module Roles
+    STUDENT_ROLE          = 0
+    INSTRUCTOR_ROLE       = 1
+    CAMPUS_VOLUNTEER_ROLE = 2
+    WIKI_ED_STAFF_ROLE    = 3
+  end
+
+  ####################
   # Instance methods #
   ####################
   def character_sum_ms
