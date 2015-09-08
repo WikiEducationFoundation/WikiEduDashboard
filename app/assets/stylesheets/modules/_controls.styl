@@ -25,17 +25,21 @@
   transition all .15s ease-out, color .15s ease-out
   font-weight 500
   text-decoration none
-  &:disabled
-    background-color white !important
-    color zircon !important
-    cursor default
+
   &:focus
     outline none
   &:hover
     background-color white
     border-bottom 1px solid zircon
+  &.disabled,
+  &:disabled
+    cursor default
+    opacity 0.5
+    pointer-events none
+
   &.large
     padding 18px 27px
+
   &.border
     background-color transparent
     border 2px solid bayoux
@@ -44,9 +48,7 @@
     &:hover
       background-color bayoux
       color white
-  &.disabled
-    cursor default
-    opacity 0.5
+
   &.dark
     background-color bayoux
     border-color bayoux
@@ -54,10 +56,12 @@
     &:hover
       background-color manatee
       border-color manatee
+
   &.danger:hover
     background-color burnt
     border-color burnt
     color white
+
   &.plus
     border-radius 25px
     display inline-block
@@ -67,18 +71,10 @@
     padding 0px
     text-align center
     width 25px
+
   &.right
     float right
 
-  &.disabled
-    background-color mercury
-    border 1px solid zircon
-    color dove
-
-    &:hover
-      background-color mercury
-      border 1px solid zircon
-      color dove
 
 
 
@@ -122,6 +118,6 @@
           border-bottom 0
 
 .sidebar__course-actions span
-  font-size: 15px
+  font-size 15px
   color dove
 
