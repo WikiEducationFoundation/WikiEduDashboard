@@ -45,7 +45,7 @@ Grading = React.createClass(
         <h3>Grading <span>(Total: {total}%)</span></h3>
         {@props.controls(null, @props.gradeables.length < 1)}
       </div>
-      <ul className="list">
+      <ul className="list-unstyled">
         {gradeables}
         {no_gradeables}
         {addGradeable}

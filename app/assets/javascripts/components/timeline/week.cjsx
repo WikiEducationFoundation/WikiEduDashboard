@@ -82,7 +82,7 @@ Week = React.createClass(
         {deleteWeek}
         {title}
       </div>
-      <ul className="list">
+      <ul className="list-unstyled">
         {blocks}
         {addBlock}
       </ul>

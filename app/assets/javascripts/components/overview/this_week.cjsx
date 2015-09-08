@@ -51,7 +51,7 @@ ThisWeek = React.createClass(
       <div className="section-header">
         <h3>{title || 'This Week'}</h3>
       </div>
-      <ul className="list">
+      <ul className="list-unstyled">
         {week_component}
         {no_weeks}
       </ul>
