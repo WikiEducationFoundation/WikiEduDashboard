@@ -19,6 +19,10 @@ class RevisionAnalyticsService
     good_drafts
   end
 
+  def self.suspected_plagiarism
+    Revision.where.not(ithenticate_id: nil)
+  end
+
   # Students in current courses, excluding instructors
   def self.current_student_ids
     current_course_ids = Course.current.pluck(:id)
