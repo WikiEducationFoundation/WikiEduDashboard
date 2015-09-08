@@ -17,7 +17,7 @@ Gradeable = React.createClass(
       percent = <span> ({percent_num}%)</span>
 
     <li className="gradeable block">
-      <h4>
+      <h4 className={"block-title" + (if @props.editable then " block-title--editing" else "")}>
         <TextInput
           onChange={@updateGradeable}
           value={title}

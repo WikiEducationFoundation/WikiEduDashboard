@@ -61,7 +61,7 @@ Block = React.createClass(
         <div className="drag-handle__bar"></div>
         <div className="drag-handle__bar"></div>
       </div>
-      <p>
+      <h4 className={"block-title" + (if @props.editable then " block-title--editing" else "")}>
         <Select
           onChange={@updateBlock}
           value={@props.block.kind}
@@ -114,7 +114,7 @@ Block = React.createClass(
           onBlur={@props.toggleFocused}
         />
         {deleteBlock}
-      </p>
+      </h4>
       {graded}
       {dueDateRead || (if is_graded then (<p>{I18n.t('timeline.due_default')}</p>) else '')}
       <TextAreaInput
