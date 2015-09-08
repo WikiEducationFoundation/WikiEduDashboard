@@ -13,47 +13,52 @@ html
   -webkit-text-size-adjust 100%
   -webkit-font-smoothing antialiased
   height 100%
+  font-size 0.938em
 
 body
+  line-height 1.56
   background-color smoke
   font-family body-font
-  font-weight 500
   width 100%
   height 100%
-  color bayoux
+  color body-color
   &.modal-open
     overflow hidden
 
-h1, h2, h3, h4, h5
-  margin 0
+h1
+h2
+h3
+h4
+h5
+  letter-spacing .02em
+  color bayoux
+  margin 0 0 16px 0
+  line-height 1.2
+  font-weight 500
 
 h1
-  @extend .large-heading
+  margin-top 0
+  font-size 2.441em
 
 h2
-  @extend .medium-heading
+  font-size 1.953em
 
 h3
-  @extend .small-heading
+  font-size 1.563em
 
 h4
-  font-size 22px
-  &.training
-    font-size 25px
+  font-size 1.25em
 
 h5
-  font-size 20px
-  padding 20px 0
+  font-size 1em
 
-h6
-  color zircon
-  font-size 17px
-  line-height 1.5
+p
+  margin-bottom 16px
 
 small
+  font-size 0.8em
   color mischka
   display inline-block
-  font-size 15px
   text-align center
 
 small.training
@@ -64,34 +69,56 @@ small.training
   text-align left
 
 p
-  @extend .body-content
-  margin 5px auto
-  color bayoux
-
   &:first-child
     margin-top 0
   &:last-child
     margin-bottom 0
-  &.large
-    @extend .body-content--large
 
 i
   font-style italic
 
 li
-  @extend .body-content
   margin-left 20px
 
   &:first-child
     margin-top 0
-  &.large
-    @extend .body-content--large
 
 ul
   list-style disc
+  margin-bottom 16px
+
+ol
+  list-style decimal
+  margin-bottom 16px
+
+blockquote
+  margin-bottom 16px
+  border-left: 4px solid #eee
+  padding 0 1em
+
+code
+  display inline-block
+  font-size 0.8em
+  font-family Courier, monospace
+  background-color rgba(0,0,0,0.04)
+  border-radius 3px
+  margin-bottom 16px
+  padding .2em
+
+pre > code
+  display block
+  font-size 0.8em
+  padding 1em 1em
+
+hr
+  border 1px solid mercury
+  border-width 1px 0 0
+  height 1px
+  clear both
+  margin-bottom 16px
 
 a
-  color suit
+  color bayoux
   text-decoration none
   outline 0
   &:hover

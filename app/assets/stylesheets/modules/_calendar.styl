@@ -1,15 +1,13 @@
 .DayPicker
-  border 1px solid athens
+  border 1px solid border_lt
   clear both
   color dove
-  display inline-flex
+  display block
   font-size 15px
-  flex-wrap wrap
   float left
   justify-content center
   margin 0 auto 10px
   position relative
-  padding 1rem 0 0
   text-transform uppercase
   user-select none
 
@@ -21,6 +19,7 @@
   border-collapse collapse
   border-spacing 0
   user-select none
+  width: 100%
 
 .DayPicker-NavBar
   position absolute
@@ -51,7 +50,8 @@
 
 .DayPicker-Caption
   display table-caption
-  height 1.5rem
+  line-height 40px
+  height 40px
   text-align center
 
 .DayPicker-Weekdays
@@ -76,6 +76,9 @@
 
 .DayPicker-Week
   display table-row
+  &:last-child
+    .DayPicker-Day
+      border-bottom 0
 
 .DayPicker-Day
   display table-cell
@@ -140,6 +143,7 @@
   clear both
   float left
   padding 0
+  width: 400px
 
 .WeekdayPicker .DayPicker-Month
   border-collapse separate
@@ -150,6 +154,7 @@
   border-radius 20px
   cursor pointer
   padding .5rem
+  line-height 1
   &:focus
     outline none
 

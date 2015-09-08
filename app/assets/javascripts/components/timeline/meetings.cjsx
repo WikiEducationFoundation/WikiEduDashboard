@@ -83,11 +83,11 @@ Meetings = React.createClass(
               checked={@state.course.day_exceptions is '' && @state.course.no_day_exceptions}
             />
           </label>
-          <div className='wizard__panel__controls'>
-            <div className='left'></div>
-            <div className='right'>
-              <CourseLink className="dark button #{if @saveDisabled() is true then 'disabled' else '' }" to="timeline" id='course_cancel'>Done</CourseLink>
-            </div>
+        </div>
+        <div className='wizard__panel__controls'>
+          <div className='left'></div>
+          <div className='right'>
+            <CourseLink className="dark button #{if @saveDisabled() is true then 'disabled' else '' }" to="timeline" id='course_cancel'>Done</CourseLink>
           </div>
         </div>
       </div>

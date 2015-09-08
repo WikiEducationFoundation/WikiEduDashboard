@@ -61,7 +61,7 @@ Block = React.createClass(
         <div className="drag-handle__bar"></div>
         <div className="drag-handle__bar"></div>
       </div>
-      <h4>
+      <div>
         <Select
           onChange={@updateBlock}
           value={@props.block.kind}
@@ -69,7 +69,7 @@ Block = React.createClass(
           editable={@props.editable}
           options={['In Class', 'Assignment', 'Milestone', 'Custom']}
           show={@props.block.kind < 3 || @props.editable}
-          label='Block Type'
+          label='Block type'
           popover_text={I18n.t('timeline.block_type')}
           inline=true
         />
@@ -80,7 +80,6 @@ Block = React.createClass(
           value_key={'title'}
           editable={@props.editable}
           placeholder='Block title'
-          spacer=' '
           show={@props.block.title  && !@props.editable}
           className='title'
           onFocus={@props.toggleFocused}
@@ -115,7 +114,7 @@ Block = React.createClass(
           onBlur={@props.toggleFocused}
         />
         {deleteBlock}
-      </h4>
+      </div>
       {graded}
       {dueDateRead || (if is_graded then (<p>{I18n.t('timeline.due_default')}</p>) else '')}
       <TextAreaInput

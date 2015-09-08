@@ -70,7 +70,7 @@ TextInput = React.createClass(
           />
         )
 
-      <label className={"#{inputClass}#{if @props.type == 'date' then ' input_wrapper' else ''}"}>
+      <label className={"#{inputClass} input_wrapper"}>
         <span className={labelClass}>{label}</span>
         {spacer if (@props.value? or @props.editable) && !@props.label}
         {input}

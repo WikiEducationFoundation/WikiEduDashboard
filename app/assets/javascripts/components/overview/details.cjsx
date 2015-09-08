@@ -69,7 +69,7 @@ Details = React.createClass(
       minDate: moment(@props.course.timeline_start).add(1, 'week')
       maxDate: moment(@props.course.end)
 
-    <div className='module'>
+    <div className='module course-details'>
       <div className="section-header">
         <h3>Details</h3>
         {@props.controls()}
@@ -79,8 +79,8 @@ Details = React.createClass(
         {online}
         {campus}
         {staff}
-        <p><span>School: {@props.course.school}</span></p>
-        <p><span>Term: {@props.course.term}</span></p>
+        <p>School: {@props.course.school}</p>
+        <p>Term: {@props.course.term}</p>
         {passcode}
         <fieldset>
           <TextInput

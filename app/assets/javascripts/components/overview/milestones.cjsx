@@ -39,7 +39,9 @@ Milestones = React.createClass(
     @emptyMessage = if !@blocks.length then I18n.t('blocks.milestones.empty') else ''
 
     <div className='module milestones'>
-      <h3>{I18n.t('blocks.milestones.title')}</h3>
+      <div className="section-header">
+        <h3>{I18n.t('blocks.milestones.title')}</h3>
+      </div>
       {@blocks}
       <p>{@emptyMessage}</p>
     </div>

@@ -11,13 +11,12 @@
   .section-header
     min-height 40px
     padding 0
+    h3
+      color bayoux
     .controls
       padding 0
 
   .module__data
-    padding 0
-    fieldset
-      margin 5px auto
     textarea
       width 100%
     > p > .button
@@ -26,13 +25,27 @@
       width 100%
     .tags
       text-transform capitalize
-  h3
-    color bayoux
-  p
-    color dove
 
   .week
     margin-bottom 0 !important
+
+.module.course-details
+  p
+    margin 0 0 5px 0
+  fieldset
+    margin 0 0 5px 0
+    > p
+      margin 0
+
+.module.course-description
+  table
+    border 1px solid border_lt
+    td, th
+      padding .5em .75em
+      height auto
+      border 1px solid border_lt
+    thead
+      background smoke
 
 .alert
   padding 20px

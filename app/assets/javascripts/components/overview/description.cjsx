@@ -16,7 +16,7 @@ Description = React.createClass(
     to_pass[value_key] = value
     CourseActions.updateCourse to_pass
   render: ->
-    <div className='module'>
+    <div className='module course-description'>
       <div className="section-header">
         <h3>{@props.course.title}</h3>
         {@props.controls()}

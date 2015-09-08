@@ -221,6 +221,7 @@ wizard-width = 860px
       .right
         text-align right
     .wizard__panel__controls
+      margin-top 10px
       background-color white
       border-top 1px solid mischka
       overflow hidden
@@ -252,16 +253,13 @@ wizard-width = 860px
         text-align right
 
 .wizard__form.course-dates
-  float left
   clear both
-  input[type=checkbox]
-    position relative
-    top 7px
   .DayPicker
     float none
 
 .course-dates__step
   display inline-block
+  width 100%
   .vertical-form.full-width
     width 100%
     margin 0 0 0 35px
@@ -275,7 +273,6 @@ wizard-width = 860px
   .DayPicker
     margin-left 33px
   h2
-    line-height 15px
     margin-bottom 15px
     display inline-block
     width 100%
@@ -284,15 +281,13 @@ wizard-width = 860px
     small
       text-align left
       color inherit
-      display inline
-      float left
+      display inline-block
+      vertical-align middle
       width 80%
-      line-height 20px
       margin-left 8px
       position relative
       top 3px
-      &.no-baseline
-        top -3px
+      font-size 15px
 
 .course-dates__calendar-container
   display inline-block

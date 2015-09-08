@@ -1,23 +1,21 @@
 fieldset
   display block
 
-label
-  font-size 15px
-  span
-    float left
-    font-weight normal
-    margin 8px 5px 0 0
 
 input, textarea, select, .expandingArea > pre
   background-color white
-  border 1px solid dove
+  border 1px solid border_lt
   border-radius 0
   font-family body-font
+  color body-color
   font-size 15px
   outline 0
   padding 10px
   -webkit-appearance none
   -moz-appearance none
+
+  &:focus
+    border-color dove
 
   &::-ms-expand
     display none
@@ -40,7 +38,7 @@ pre
 .expandingArea
   position relative
   background-color white
-  border 1px solid dove
+  border 1px solid border_lt
 
   & > textarea, & > pre
     white-space pre-wrap
@@ -81,9 +79,16 @@ input[type=text], input[type=date], select
 .input_wrapper
   overflow hidden
   &.inline
-    float left
-    div
-      float left
+    vertical-align middle
+    display inline-block
+    > div
+      display inline-block
+    > span
+    > .popover-trigger > span
+      display inline-block
+      margin-right 5px
+
+
 
 .select_wrapper
   display inline-block
