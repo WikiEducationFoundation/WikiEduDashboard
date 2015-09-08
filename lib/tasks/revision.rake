@@ -1,5 +1,6 @@
 require "#{Rails.root}/lib/importers/revision_importer"
 require "#{Rails.root}/lib/importers/revision_score_importer"
+require "#{Rails.root}/lib/importers/plagiabot_importer"
 
 namespace :revision do
   desc 'Update the data for current-term revisions and articles'
@@ -18,5 +19,11 @@ namespace :revision do
   task update_deleted_revisions: 'batch:setup_logger' do
     Rails.logger.debug 'Updating deleted status of all revisions'
     RevisionImporter.move_or_delete_revisions
+  end
+
+  desc 'Import recent plagiabot data for revisions'
+  task import_recent_plagiarism: 'batch:setup_logger' do
+    Rails.logger.debug 'Updating deleted status of all revisions'
+    PlagiabotImporter.find_recent_plagiarism
   end
 end
