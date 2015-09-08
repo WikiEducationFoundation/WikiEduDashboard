@@ -42,8 +42,8 @@ Milestones = React.createClass(
       <div className="section-header">
         <h3>{I18n.t('blocks.milestones.title')}</h3>
       </div>
-      {@blocks}
       <p>{@emptyMessage}</p>
+      {@blocks}
     </div>
 )
 
