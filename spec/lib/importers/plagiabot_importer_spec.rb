@@ -8,13 +8,15 @@ describe PlagiabotImporter do
       # 1.day.ago
       create(:revision,
              id: 678763820,
-             article_id: 1,
+             article_id: 123321,
              date: 1.day.ago)
       create(:article,
-             id: 1,
+             id: 123321,
              namespace: 0)
       PlagiabotImporter.check_recent_revisions
-      expect(Revision.find(678763820).ithenticate_id).to eq(19201081)
+      rev = Revision.find(678763820)
+      expect(rev.ithenticate_id).to eq(19201081)
+      expect(rev.report_url).to include('https://api.ithenticate.com/')
     end
   end
 
@@ -22,14 +24,15 @@ describe PlagiabotImporter do
     it 'should save ithenticate_id for recent suspect revisions' do
       # This is tricky to test, because we don't know what the recent revisions
       # will be. So, first we have to get one of those revisions.
-      suspected_diff = PlagiabotImporter.api_get[0]['diff'].to_i
+      suspected_diff = PlagiabotImporter
+                       .api_get('suspected_diffs')[0]['diff'].to_i
       expect(suspected_diff.class).to eq(Fixnum)
       create(:revision,
              id: suspected_diff,
-             article_id: 1,
+             article_id: 1123322,
              date: 1.day.ago)
       create(:article,
-             id: 1,
+             id: 123332,
              namespace: 0)
       PlagiabotImporter.find_recent_plagiarism
       expect(Revision.find(suspected_diff).ithenticate_id).not_to be_nil

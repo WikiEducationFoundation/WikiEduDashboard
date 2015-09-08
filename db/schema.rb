@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150903225416) do
+ActiveRecord::Schema.define(version: 20150908201507) do
 
   create_table "articles", force: true do |t|
     t.string   "title"
@@ -160,6 +160,7 @@ ActiveRecord::Schema.define(version: 20150903225416) do
     t.float    "wp10_previous",  limit: 24
     t.boolean  "system",                    default: false
     t.integer  "ithenticate_id"
+    t.string   "report_url"
   end
 
   add_index "revisions", ["article_id", "date"], name: "index_revisions_on_article_id_and_date", using: :btree
