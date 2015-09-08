@@ -46,4 +46,32 @@ describe Revision do
       # rubocop:enable Metrics/LineLength
     end
   end
+
+
+  describe '#infer_courses_from_user' do
+    let!(:user)         { create(:user) }
+    let!(:article)      { create(:article) }
+    let!(:revision)     { create(:revision, article_id: article.id, user_id: user.id, date: Date.today) }
+    let!(:course)       { create(:course, start: course_start, end: course_end) }
+    let!(:courses_user) { create(:courses_user, course_id: course.id, user_id: user.id) }
+    let(:course_start)  { revision.created_at - 3.days }
+    let(:course_end)    { revision.date + 3.days }
+
+    subject { revision.infer_courses_from_user(user) }
+
+    context 'one course' do
+      it 'returns the course record we assume the user was in when they made the revision' do
+        expect(subject).to include(course)
+      end
+    end
+
+    context 'two courses' do
+      let!(:course2)       { create(:course, start: course_start, end: course_end) }
+      let!(:courses_user2) { create(:courses_user, course_id: course2.id, user_id: user.id) }
+      it 'returns the course records for the user; we do not know which course it was for' do
+        expect(subject).to include(course)
+        expect(subject).to include(course2)
+      end
+    end
+  end
 end
