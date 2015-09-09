@@ -2,8 +2,7 @@ React          = require 'react'
 BlockStore     = require '../../stores/block_store'
 WeekStore      = require '../../stores/week_store'
 CourseStore    = require '../../stores/course_store'
-Marked         = require 'marked'
-MarkedRenderer = require '../../utils/marked_renderer'
+md             = require('markdown-it')({ html: true, linkify: true })
 
 getState = ->
   weeks: WeekStore.getWeeks()
@@ -26,7 +25,7 @@ Milestones = React.createClass(
       milestone_blocks.map (block) =>
         classNames = 'module__data'
         classNames += ' completed' if @weekIsCompleted(week)
-        raw_html = Marked(block.content, { renderer: MarkedRenderer })
+        raw_html = md.render(block.content)
         @blocks.push(
           <div key={block.id} className='section-header'>
             <div className={classNames}>

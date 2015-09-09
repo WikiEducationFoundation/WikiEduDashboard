@@ -1,6 +1,5 @@
 React           = require 'react/addons'
-Marked          = require 'marked'
-MarkedRenderer  = require '../../utils/marked_renderer'
+md              = require('markdown-it')({ html: true, linkify: true })
 WizardActions   = require '../../actions/wizard_actions'
 WizardStore     = require '../../stores/wizard_store'
 
@@ -75,7 +74,7 @@ Panel = React.createClass(
         </div>
       </div>
       <h3>{@props.panel.title}</h3>
-      <div dangerouslySetInnerHTML={{__html: Marked(@props.panel.description, { renderer: MarkedRenderer })}}></div>
+      <div dangerouslySetInnerHTML={{__html: md.render(@props.panel.description)}}></div>
       <div className='wizard__panel__options'>{options}</div>
       <div className='wizard__panel__controls'>
         <div className='left'>

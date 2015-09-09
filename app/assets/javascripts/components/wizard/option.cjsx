@@ -1,6 +1,5 @@
 React             = require 'react/addons'
-Marked            = require 'marked'
-MarkedRenderer    = require '../../utils/marked_renderer'
+md                = require('markdown-it')({ html: true, linkify: true })
 WizardActions     = require '../../actions/wizard_actions'
 
 Option = React.createClass(
@@ -26,7 +25,7 @@ Option = React.createClass(
         more_className += ' open'
       expand = (
         <div className={expand_className} ref='expandable'>
-          <div dangerouslySetInnerHTML={{__html: Marked(@props.option.description, { renderer: MarkedRenderer })}}></div>
+          <div dangerouslySetInnerHTML={{__html: md.render(@props.option.description)}}></div>
         </div>
       )
       expand_link = (
@@ -34,7 +33,7 @@ Option = React.createClass(
       )
     if @props.option.blurb?
       blurb = (
-        <div dangerouslySetInnerHTML={{__html: Marked(@props.option.blurb, { renderer: MarkedRenderer })}}></div>
+        <div dangerouslySetInnerHTML={{__html: md.render(@props.option.blurb)}}></div>
       )
     if disabled
       notice = <h3>{I18n.t('wizard.min_weeks', {

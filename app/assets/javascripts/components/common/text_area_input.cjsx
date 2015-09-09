@@ -1,6 +1,5 @@
 React           = require 'react'
-Marked          = require 'marked'
-MarkedRenderer  = require '../../utils/marked_renderer'
+md              = require('markdown-it')({ html: true, linkify: true })
 InputMixin      = require '../../mixins/input_mixin'
 
 TextAreaInput = React.createClass(
@@ -48,7 +47,7 @@ TextAreaInput = React.createClass(
           {input_element}
         </label>
     else if @props.value
-      raw_html = Marked(@props.value, { renderer: MarkedRenderer })
+      raw_html = md.render(@props.value)
       <div dangerouslySetInnerHTML={{__html: raw_html}}></div>
     else
       <p className="content"></p>
