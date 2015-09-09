@@ -129,12 +129,8 @@ class Course < ActiveRecord::Base
     self.save
   end
 
-  def instructor_students
-    students.where(id: students.collect(&:id) & instructors.collect(&:id))
-  end
-
   def students_without_instructor_students
-    students - instructor_students
+    students - instructors
   end
 
   #################
