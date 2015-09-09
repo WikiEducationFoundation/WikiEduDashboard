@@ -14426,39 +14426,39 @@
     },
     "markdown-it": {
       "version": "4.4.0",
-      "from": "markdown-it@*",
+      "from": "https://registry.npmjs.org/markdown-it/-/markdown-it-4.4.0.tgz",
       "resolved": "https://registry.npmjs.org/markdown-it/-/markdown-it-4.4.0.tgz",
       "dependencies": {
         "argparse": {
           "version": "1.0.2",
-          "from": "argparse@>=1.0.2 <1.1.0",
+          "from": "https://registry.npmjs.org/argparse/-/argparse-1.0.2.tgz",
           "resolved": "https://registry.npmjs.org/argparse/-/argparse-1.0.2.tgz",
           "dependencies": {
             "sprintf-js": {
               "version": "1.0.3",
-              "from": "sprintf-js@>=1.0.2 <1.1.0",
+              "from": "https://registry.npmjs.org/sprintf-js/-/sprintf-js-1.0.3.tgz",
               "resolved": "https://registry.npmjs.org/sprintf-js/-/sprintf-js-1.0.3.tgz"
             }
           }
         },
         "entities": {
           "version": "1.1.1",
-          "from": "entities@>=1.1.1 <1.2.0",
+          "from": "https://registry.npmjs.org/entities/-/entities-1.1.1.tgz",
           "resolved": "https://registry.npmjs.org/entities/-/entities-1.1.1.tgz"
         },
         "linkify-it": {
           "version": "1.2.0",
-          "from": "linkify-it@>=1.2.0 <1.3.0",
+          "from": "https://registry.npmjs.org/linkify-it/-/linkify-it-1.2.0.tgz",
           "resolved": "https://registry.npmjs.org/linkify-it/-/linkify-it-1.2.0.tgz"
         },
         "mdurl": {
           "version": "1.0.0",
-          "from": "mdurl@>=1.0.0 <1.1.0",
+          "from": "https://registry.npmjs.org/mdurl/-/mdurl-1.0.0.tgz",
           "resolved": "https://registry.npmjs.org/mdurl/-/mdurl-1.0.0.tgz"
         },
         "uc.micro": {
           "version": "1.0.0",
-          "from": "uc.micro@>=1.0.0 <2.0.0",
+          "from": "https://registry.npmjs.org/uc.micro/-/uc.micro-1.0.0.tgz",
           "resolved": "https://registry.npmjs.org/uc.micro/-/uc.micro-1.0.0.tgz"
         }
       }
@@ -14978,17 +14978,17 @@
     },
     "react-datepicker": {
       "version": "0.11.5",
-      "from": "ntdb/react-datepicker",
+      "from": "git://github.com/ntdb/react-datepicker.git#eb8e4a233f112f34f89a55655762ed066fe821bf",
       "resolved": "git://github.com/ntdb/react-datepicker.git#eb8e4a233f112f34f89a55655762ed066fe821bf",
       "dependencies": {
         "tether": {
           "version": "1.1.0",
-          "from": "tether@>=1.1.0 <2.0.0",
+          "from": "https://registry.npmjs.org/tether/-/tether-1.1.0.tgz",
           "resolved": "https://registry.npmjs.org/tether/-/tether-1.1.0.tgz"
         },
         "react-onclickoutside": {
           "version": "0.3.0",
-          "from": "react-onclickoutside@0.3.0",
+          "from": "https://registry.npmjs.org/react-onclickoutside/-/react-onclickoutside-0.3.0.tgz",
           "resolved": "https://registry.npmjs.org/react-onclickoutside/-/react-onclickoutside-0.3.0.tgz"
         }
       }
@@ -15000,56 +15000,56 @@
     },
     "react-dnd": {
       "version": "1.1.4",
-      "from": "ntdb/react-dnd",
+      "from": "git://github.com/ntdb/react-dnd.git#edf250fbf178383c6e8052643df1a7ae39fd02b3",
       "resolved": "git://github.com/ntdb/react-dnd.git#edf250fbf178383c6e8052643df1a7ae39fd02b3",
       "dependencies": {
         "disposables": {
           "version": "1.0.1",
-          "from": "disposables@>=1.0.1 <2.0.0",
+          "from": "https://registry.npmjs.org/disposables/-/disposables-1.0.1.tgz",
           "resolved": "https://registry.npmjs.org/disposables/-/disposables-1.0.1.tgz"
         },
         "dnd-core": {
           "version": "1.1.0",
-          "from": "dnd-core@>=1.1.0 <2.0.0",
+          "from": "https://registry.npmjs.org/dnd-core/-/dnd-core-1.1.0.tgz",
           "resolved": "https://registry.npmjs.org/dnd-core/-/dnd-core-1.1.0.tgz",
           "dependencies": {
             "flummox": {
               "version": "2.13.2",
-              "from": "flummox@>=2.13.0 <3.0.0",
+              "from": "https://registry.npmjs.org/flummox/-/flummox-2.13.2.tgz",
               "resolved": "https://registry.npmjs.org/flummox/-/flummox-2.13.2.tgz",
               "dependencies": {
                 "eventemitter3": {
                   "version": "0.1.6",
-                  "from": "eventemitter3@>=0.1.6 <0.2.0",
+                  "from": "https://registry.npmjs.org/eventemitter3/-/eventemitter3-0.1.6.tgz",
                   "resolved": "https://registry.npmjs.org/eventemitter3/-/eventemitter3-0.1.6.tgz"
                 },
                 "flux": {
                   "version": "2.0.3",
-                  "from": "flux@>=2.0.1 <2.1.0",
+                  "from": "https://registry.npmjs.org/flux/-/flux-2.0.3.tgz",
                   "resolved": "https://registry.npmjs.org/flux/-/flux-2.0.3.tgz"
                 },
                 "object-assign": {
                   "version": "2.0.0",
-                  "from": "object-assign@>=2.0.0 <2.1.0",
+                  "from": "https://registry.npmjs.org/object-assign/-/object-assign-2.0.0.tgz",
                   "resolved": "https://registry.npmjs.org/object-assign/-/object-assign-2.0.0.tgz"
                 },
                 "uniqueid": {
                   "version": "0.1.0",
-                  "from": "uniqueid@>=0.1.0 <0.2.0",
+                  "from": "https://registry.npmjs.org/uniqueid/-/uniqueid-0.1.0.tgz",
                   "resolved": "https://registry.npmjs.org/uniqueid/-/uniqueid-0.1.0.tgz"
                 }
               }
             },
             "keymirror": {
               "version": "0.1.1",
-              "from": "keymirror@>=0.1.1 <0.2.0",
+              "from": "https://registry.npmjs.org/keymirror/-/keymirror-0.1.1.tgz",
               "resolved": "https://registry.npmjs.org/keymirror/-/keymirror-0.1.1.tgz"
             }
           }
         },
         "invariant": {
           "version": "2.1.0",
-          "from": "invariant@>=2.1.0 <3.0.0",
+          "from": "https://registry.npmjs.org/invariant/-/invariant-2.1.0.tgz",
           "resolved": "https://registry.npmjs.org/invariant/-/invariant-2.1.0.tgz"
         }
       }
@@ -15090,8 +15090,8 @@
     },
     "react-weekday-picker": {
       "version": "1.0.2",
-      "from": "git+ssh://git@github.com/bmathews/react-weekday-picker.git#key-handlers",
-      "resolved": "git+ssh://git@github.com/bmathews/react-weekday-picker.git#1bb771c8e492958c919dbf9d5ae099b79223ac7e"
+      "from": "react-weekday-picker@*",
+      "resolved": "https://registry.npmjs.org/react-weekday-picker/-/react-weekday-picker-1.0.2.tgz"
     },
     "reactify": {
       "version": "1.1.1",
