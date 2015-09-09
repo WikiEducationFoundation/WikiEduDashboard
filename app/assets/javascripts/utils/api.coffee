@@ -66,6 +66,18 @@ API =
         console.log 'Error: ' + obj.responseJSON.message
         rej obj
 
+  fetchSuspectedPlagiarism: ->
+    new Promise (res, rej) ->
+      $.ajax
+        type: 'GET',
+        url: '/revision_analytics/suspected_plagiarism.json',
+        success: (data) ->
+          console.log 'Recieved suspected plagiarism'
+          res data
+      .fail (obj, status) ->
+        console.log 'Error: ' + obj.responseJSON.message
+        rej obj
+
   fetchCohorts: ->
     new Promise (res, rej) ->
       $.ajax

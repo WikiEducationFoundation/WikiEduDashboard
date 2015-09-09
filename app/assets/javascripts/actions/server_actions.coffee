@@ -47,6 +47,10 @@ ServerActions = Flux.createActions
     API.fetchDykArticles().then (data) ->
       { actionType: 'RECEIVE_DYK', data: data }
 
+  fetchSuspectedPlagiarism: ->
+    API.fetchSuspectedPlagiarism().then (data) ->
+      { actionType: 'RECEIVE_SUSPECTED_PLAGIARISM', data: data }
+
   fetchUserAssignments: (opts) ->
     API.fetchUserAssignments(opts).then (data) ->
       { actionType: 'RECEIVE_USER_ASSIGNMENTS', data: data }

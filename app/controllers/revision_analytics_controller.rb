@@ -7,4 +7,8 @@ class RevisionAnalyticsController < ApplicationController
   def dyk_eligible
     @articles = RevisionAnalyticsService.dyk_eligible
   end
+
+  def suspected_plagiarism
+    @revisions = RevisionAnalyticsService.suspected_plagiarism
+  end
 end
