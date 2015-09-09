@@ -65,7 +65,7 @@ class PlagiabotImporter
     url = query_url(type, opts)
     response = Net::HTTP.get(URI.parse(url))
     response = response.gsub("'", '"')
-    JSON.parse(response, quirks_mode: true)
+    JSON.parse(response)
   end
 
   def self.api_get_url(opts = {})
