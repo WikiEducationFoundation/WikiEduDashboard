@@ -8,7 +8,7 @@ In order to use and develop the authenticated features of the application (cours
 
 [Log in to mediawiki](https://www.mediawiki.org/w/index.php?title=Special:UserLogin&returnto=Special%3AUserLogout&returntoquery=noreturnto%3D) with your username and password for mediawiki.org. Once you're logged in, click on "Preferences" in the upper right-hand corner. In the "User profile" tab under "Preferences" (selected by default), change the email address to your email. You'll need this to confirm your account and get your token and secret key in the next step.
 
-You'll now [propose an OAuth consumer](https://www.mediawiki.org/wiki/Special:OAuthConsumerRegistration/propose). Fill out the form with the following values:
+You'll now [propose an OAuth consumer](https://meta.wikimedia.org/wiki/Special:OAuthConsumerRegistration/propose). Fill out the form with the following values:
 
 - **Application name:** `<YOUR_NAME>_at_<YOUR_COMPANY>`
 - **Application description:** `<YOUR_NAME>'s local machine`
