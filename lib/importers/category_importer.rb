@@ -20,11 +20,13 @@ class CategoryImporter
 
   def self.show_category(category, opts={})
     depth = opts[:depth] || 0
-    # min_views = opts[:min_views] || 0
-    # max_wp10 = opts[:max_wp10] || 100
+    min_views = opts[:min_views] || 0
+    max_wp10 = opts[:max_wp10] || 100
     article_ids = article_ids_for_category(category, depth)
     import_missing_scores_and_views article_ids
-    Article.where(id: article_ids).order(average_views: :desc)
+    articles = Article.where(id: article_ids).order(average_views: :desc)
+               .where('average_views > ?', min_views)
+    articles.select { |article| article.revisions.last.wp10 < max_wp10 }
   end
 
   def self.report_on_category(category, opts={})

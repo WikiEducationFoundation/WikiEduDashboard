@@ -8,20 +8,21 @@
 <section>
 <div class="section-header">
 <h3><%= form_tag(method: 'get') do %>
-  Put in a category name, including the prefix, like "Category:Feminism"<br/>
+  Put in a category name, including the prefix, like "Category:Feminism"<br/><br/>
   <%= label_tag(:category, "category") %>
-  <%= text_field_tag(:category) %>
-  <%= label_tag(:depth, "depth") %>
-  <%= text_field_tag(:depth) %>
-  <!-- <%= label_tag(:minviews, "minimum views") %>
-  <%= text_field_tag(:minviews) %>
-  <%= label_tag(:maxwp10, "maximum completeness") %>
-  <%= text_field_tag(:maxwp10) %> -->
-  <%= submit_tag("Go") %>
+  <%= text_field_tag(:category, @category) %><br/>
+  <!--<%= label_tag(:depth, "depth") %>
+  <%= text_field_tag(:depth) %><br/>-->
+  <%= label_tag(:minviews, "minimum views") %>
+  <%= text_field_tag(:minviews, @min_views) %><br/>
+  <%= label_tag(:maxwp10, "maximum completeness (0-100)") %>
+  <%= text_field_tag(:maxwp10, @max_wp10) %><br/>
+  <button class="button dark"><%= submit_tag("Go") %></button>
 <% end %></h3>
 </div>
 <div>
   <ul class="list">
+    <li class="row course-list__row">Title, Average Views, Completeness</li>
     <% @articles.each do |article| %>
       <%= render :partial => 'row', :locals => {:article => article} %>
     <% end %>
