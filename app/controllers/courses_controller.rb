@@ -13,9 +13,7 @@ class CoursesController < ApplicationController
   def index
     if user_signed_in?
       if current_user.permissions > 0
-        @admin_courses = Course.includes(:cohorts).where('cohorts.id IS NULL')
-                         .where(listed: true).where(submitted: true)
-                         .references(:cohorts)
+        @admin_courses = Course.submitted_listed
       end
 
       @user_courses = current_user.courses.current_and_future.select do |c|
@@ -31,8 +29,7 @@ class CoursesController < ApplicationController
           students_without_instructor_students: [],
           trained_count: 0
         )
-        @courses = Course.where(submitted: false)
-                   .where(listed: true).where('id >= 10000')
+        @courses = Course.unsubmitted_listed
         return
       else
         @cohort = Cohort.includes(:students).find_by(slug: params[:cohort])

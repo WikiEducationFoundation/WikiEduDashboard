@@ -73,6 +73,11 @@ class Course < ActiveRecord::Base
     current_and_future.where('start < ?', Time.now)
   }
 
+  scope :unsubmitted_listed, -> { where(submitted: false).where(listed: true).merge(Course.not_legacy) }
+
+  scope :not_legacy, -> { where('id > ?', LEGACY_COURSE_MAX_ID) }
+
+
   # A course stays "current" for a while after the end date, during which time
   # we still check for new data and update page views.
   scope :current_and_future, lambda {
@@ -86,6 +91,12 @@ class Course < ActiveRecord::Base
   before_save :order_weeks
 
   validates :passcode, presence: true, unless: :is_legacy_course?
+
+  def self.submitted_listed
+    Course.includes(:cohorts).where('cohorts.id IS NULL')
+      .where(listed: true).where(submitted: true)
+      .references(:cohorts)
+  end
 
   ####################
   # Instance methods #
