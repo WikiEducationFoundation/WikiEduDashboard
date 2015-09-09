@@ -3,7 +3,8 @@ Router          = require 'react-router'
 RouteHandler    = Router.RouteHandler
 DidYouKnowStore = require '../../stores/did_you_know_store'
 
-DYKArticle      = require './dyk_article'
+ActivityTableRow = require './activity_table_row'
+
 
 ServerActions   = require '../../actions/server_actions'
 TransitionGroup = require '../../utils/TransitionGroup'
@@ -39,7 +40,7 @@ DidYouKnowHandler = React.createClass(
       roundedRevisionScore = Math.round(article.revision_score)
       talkPageLink = "https://en.wikipedia.org/wiki/User_talk:#{article.user_wiki_id}"
 
-      <DYKArticle
+      <ActivityTableRow
         key={article.key}
         articleId={article.key}
         articleUrl={article.article_url}
@@ -55,11 +56,11 @@ DidYouKnowHandler = React.createClass(
       courses = article.courses.map (course) ->
         <li><a href="/courses/#{course.slug}">{course.title}</a></li>
 
-      <tr className='dyk-drawer'>
+      <tr className='activity-table-drawer'>
         <td colSpan=6>
           <span>
             <h5>Article is active in</h5>
-            <ul className='dyk__course-list'>
+            <ul className='activity-table__course-list'>
               {courses}
             </ul>
           </span>
@@ -83,7 +84,7 @@ DidYouKnowHandler = React.createClass(
         {header.title}
       </th>
 
-    <table className='dyk-articles list'>
+    <table className='activity-table list'>
       <thead>
         <tr>
           {ths}

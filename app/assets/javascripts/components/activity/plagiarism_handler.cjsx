@@ -3,7 +3,7 @@ Router       = require 'react-router'
 RouteHandler = Router.RouteHandler
 SuspectedPlagiarismStore = require '../../stores/suspected_plagiarism_store'
 
-PlagiarismRevision      = require './plagiarism_revision'
+ActivityTableRow = require './activity_table_row'
 
 ServerActions   = require '../../actions/server_actions'
 TransitionGroup = require '../../utils/TransitionGroup'
@@ -20,6 +20,9 @@ PlagiarismHandler = React.createClass(
     @setState getState()
   componentWillMount: ->
     ServerActions.fetchSuspectedPlagiarism()
+  sortableHeaders: ['title', 'user_wiki_id', 'revision_datetime']
+  isSortable: (header) ->
+    _.indexOf(@sortableHeaders, header) >= 0
   clearAllSortableClassNames: ->
     Array.prototype.map.call document.getElementsByClassName('sortable'), (el) ->
       el.classList.remove('asc')
@@ -38,11 +41,12 @@ PlagiarismHandler = React.createClass(
       revisionDateTime = moment(revision.datetime).format('YYYY/MM/DD h:mm a')
       talkPageLink = "https://en.wikipedia.org/wiki/User_talk:#{revision.user_wiki_id}"
 
-      <PlagiarismRevision
+      <ActivityTableRow
         key={revision.key}
         articleId={revision.article_id}
         articleUrl={revision.article_url}
         reportUrl={revision.report_url}
+        talkPageLink={talkPageLink}
         title={revision.title}
         author={revision.user_wiki_id}
         revisionDateTime={revisionDateTime}
@@ -53,11 +57,11 @@ PlagiarismHandler = React.createClass(
       courses = revision.courses.map (course) ->
         <li><a href="/courses/#{course.slug}">{course.title}</a></li>
 
-      <tr className='plagiarism-drawer'>
+      <tr className='activity-table-drawer'>
         <td colSpan=6>
           <span>
             <h5>Article is active in</h5>
-            <ul className='plagiarism__course-list'>
+            <ul className='activity-table__course-list'>
               {courses}
             </ul>
           </span>
@@ -71,17 +75,19 @@ PlagiarismHandler = React.createClass(
 
     headers = [
       { title: 'Article Title',      key: 'title' },
-      { title: 'Plagiarism Report',     key: 'report_url' },
+      { title: 'Plagiarism Report',  key: 'report_url' },
       { title: 'Revision Author',    key: 'user_wiki_id' },
       { title: 'Revision Date/Time', key: 'revision_datetime' },
     ]
 
     ths = headers.map (header) =>
-      <th onClick={@sortRevisions} className='sortable' data-sort-key={header.key}>
-        {header.title}
+      <th onClick={if @isSortable(header.key) then @sortRevisions else false}
+          className={if @isSortable(header.key) then 'sortable'}
+          data-sort-key={header.key}>
+            {header.title}
       </th>
 
-    <table className='suspected_plagiarism-revisions list'>
+    <table className='activity-table list'>
       <thead>
         <tr>
           {ths}
