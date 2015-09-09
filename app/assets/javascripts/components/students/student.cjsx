@@ -47,14 +47,14 @@ Student = React.createClass(
           </small>
         </p>
       </td>
--     <td className='desktop-only-tc'>
+      <td className='desktop-only-tc'>
         <AssignCell {...@props}
           role=0
           editable={@props.editable}
           assignments={@props.assigned}
         />
       </td>
--     <td className='desktop-only-tc'>
+      <td className='desktop-only-tc'>
         <AssignCell {...@props}
           role=1
           editable={@props.editable}
