@@ -35,7 +35,7 @@ class RevisionScoreImporter
     first_revisions.each do |revision|
       parent_id = get_parent_id revision
       score = get_revision_scores [parent_id]
-      next unless score.key?('probability')
+      next unless score[parent_id.to_s].key?('probability')
       probability = score[parent_id.to_s]['probability']
       revision.wp10_previous = weighted_mean_score probability
       revision.save
