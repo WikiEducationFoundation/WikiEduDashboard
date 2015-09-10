@@ -64,32 +64,32 @@ describe 'the home page', type: :feature do
     if page.driver.is_a?(Capybara::Webkit::Driver)
       page.driver.allow_url 'fonts.googleapis.com'
       page.driver.allow_url 'maxcdn.bootstrapcdn.com'
+      page.driver.allow_url 'cdn.ravenjs.com'
       # page.driver.block_unknown_urls  # suppress warnings
     end
-    visit root_path
   end
 
   describe 'header' do
-    it 'should display number of courses accurately' do
+    it 'should display stats accurately' do
+      visit root_path
+
+      # Number of courses
       course_count = Cohort.first.courses.count
       stat_text = "#{course_count} #{I18n.t('courses.course_description')}"
       expect(page.find('.stat-display')).to have_content stat_text
-    end
 
-    it 'should display number of students accurately' do
+      # Number of students
       # one non-instructor student per course
       student_count = cohort_course_count
       stat_text = "#{student_count} #{I18n.t('courses.students')}"
       expect(page.find('.stat-display')).to have_content stat_text
-    end
 
-    it 'should display number of characters added accurately' do
+      # Characters added
       character_count = Course.all.sum(:character_sum)
       stat_text = "#{character_count} #{I18n.t('metrics.char_added')}"
       expect(page.find('.stat-display')).to have_content stat_text
-    end
 
-    it 'should display number of views accurately' do
+      # Views
       view_count = Course.all.sum(:view_sum)
       stat_text = "#{view_count} #{I18n.t('metrics.view_count_description')}"
       expect(page.find('.stat-display')).to have_content stat_text
@@ -97,7 +97,10 @@ describe 'the home page', type: :feature do
   end
 
   describe 'control bar' do
-    it 'should allow sorting via dropdown', js: true do
+    it 'should allow sorting via dropdown and loading of cohorts', js: true do
+      visit root_path
+
+      # sorting via dropdown
       find('select.sorts').find(:xpath, 'option[2]').select_option
       expect(page).to have_selector('.course-list__row__revisions.sort.desc')
       find('select.sorts').find(:xpath, 'option[3]').select_option
@@ -108,9 +111,8 @@ describe 'the home page', type: :feature do
       expect(page).to have_selector('.course-list__row__students.sort.desc')
       find('select.sorts').find(:xpath, 'option[1]').select_option
       expect(page).to have_selector('.course-list__row__title.sort.asc')
-    end
 
-    it 'should allow loading of different cohorts', js: true do
+      # loading a different cohort
       expect(page).to have_content(Cohort.first.title)
       find('select.cohorts').find(:xpath, 'option[2]').select_option
       expect(page).to have_content(Cohort.last.title)
@@ -118,27 +120,27 @@ describe 'the home page', type: :feature do
   end
 
   describe 'course list' do
-    it 'should be sortable by title', js: true do
+    it 'should be sortable', js: true do
+      visit root_path
+
+      # Sortable by title
       expect(page).to have_selector('.course-list__row__title.sort.asc')
       find('.course-list__row__title.sort').trigger('click')
       expect(page).to have_selector('.course-list__row__title.sort.desc')
-    end
 
-    it 'should be sortable by character count', js: true do
+      # Sortable by character count
       find('.course-list__row__characters.sort').trigger('click')
       expect(page).to have_selector('.course-list__row__characters.sort.desc')
       find('.course-list__row__characters.sort').trigger('click')
       expect(page).to have_selector('.course-list__row__characters.sort.asc')
-    end
 
-    it 'should be sortable by view count', js: true do
+      # Sortable by view count
       find('.course-list__row__views.sort').trigger('click')
       expect(page).to have_selector('.course-list__row__views.sort.desc')
       find('.course-list__row__views.sort').trigger('click')
       expect(page).to have_selector('.course-list__row__views.sort.asc')
-    end
 
-    it 'should be sortable by student count', js: true do
+      # Sortable by student count
       find('.course-list__row__students.sort').trigger('click')
       expect(page).to have_selector('.course-list__row__students.sort.desc')
       find('.course-list__row__students.sort').trigger('click')
@@ -148,6 +150,8 @@ describe 'the home page', type: :feature do
 
   describe 'course rows' do
     it 'should allow navigation to a course page', js: true do
+      visit root_path
+
       within 'ul.list' do
         find('.course-list__row:first-child a').click
       end
@@ -155,6 +159,8 @@ describe 'the home page', type: :feature do
     end
 
     it 'contains the number of revisions in past 7 days' do
+      visit root_path
+
       row = '.course-list__row:first-child ' \
             '.course-list__row__revisions p.revisions'
       within(row) do
@@ -165,14 +171,15 @@ describe 'the home page', type: :feature do
 
   describe 'cohort pages' do
     # This will fail unless there are at least two cohorts in application.yml.
-    it 'should load courses from the right cohort' do
+    it 'should load courses from the right cohorts' do
+      visit root_path
+
       all('.course-list__row > a').each do |course_row_anchor|
         expect(course_row_anchor[:id].to_i).to be <= cohort_course_count
       end
-    end
 
-    # This will fail unless there are at least two cohorts in application.yml.
-    it 'should load courses from a different cohort' do
+      # This will fail unless there are at least two cohorts in application.yml.
+      # load courses from a different cohort
       visit "/courses?cohort=#{Cohort.last.slug}"
       all('.course-list__row > a').each do |course_row_anchor|
         expect(course_row_anchor[:id].to_i).to be > cohort_course_count
