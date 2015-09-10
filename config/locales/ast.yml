@@ -1,0 +1,177 @@
+# Messages for Asturian (asturianu)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Xuacu
+---
+ast:
+  application:
+    dashboard: Tableru de Wiki Ed
+  activity:
+    edited_by: Editáu por
+    all: Actividá
+  articles:
+    none: Esti cursu nun editó nengún artículu.
+    loading: Cargando artículos...
+    assigned: Artículos axudicaos
+    assigned_to: Axudicáu a
+    character_doc: La suma de caráuteres amestaos a los artículos polos estudiantes
+      nel periodu del cursu
+    edited: Artículos editaos
+    edited_mobile: Artículos
+    no_assignee: Sin usuariu axudicáu
+    rating: Clase
+    rating_doc: La calificación qu'un artículu recibió de Wikiproyeutos en Wikipedia.
+      Estes calificaciones puen corresponder a versiones muncho más antigues, de mou
+      que son sólo un indicador aproximáu de la madurez del artículu.
+    rating_docs:
+      fa: Artículu destacáu — Calificación más alta de Wikipedia, probablemente ye
+        un artículu demasiao maduru como para ser el proyeutu principal como editor
+        d'un estudiante
+      fl: Llista destacada — Calificación más alta de Wikipedia para les llistes
+      a: Clase A — artículu desendolcáu enforma que pué ser demasiao maduru como para
+        ser el proyeutu principal como editor d'un estudiante
+      ga: Artículu bonu — artículu bien desendolcáu que pué ser demasiao maduru como
+        para ser el proyeutu principal como editor d'un estudiante
+      b: Clase B — un artículu moderadamente desendolcáu
+      c: Clase C — un artículu intermediu con espaciu pal ameyoramientu
+      start: Clase principiu — un artículu preliminar con munchu espaciu pal ameyoramientu
+      stub: Clase entamu — un entamu curtiu d'un artículu que necesita más conteníu
+      list: Clase llista — una llista, más qu'un artículu convencional
+      '?': Sin calificar — un artículu qu'inda nun se calificó na escala de calidá
+        de Wikipedia
+    title: Títulu
+    view: Ver artículu
+    view_all: Ver toos
+    view_doc: La suma de toles visites a cada artículu demientres el periodu del cursu
+    views_added: Amestáronse %{count} visites nueves a %{title}
+  assignments:
+    assignees: Encargáu(os)
+    reviewers: Revisor(es)
+    loading: Cargando xeres...
+    none: Esti cursu nun tien artículos de Wikipedia designaos.
+    confirm_addition: ¿Tas seguru de que quies encargar de %{title} a %{username}?
+    confirm_deletion: ¿Tas seguru de que quies desaniciar esta designación?
+  cohort:
+    view_other: Ver otres cohortes
+  courses:
+    activity: Actividá
+    articles: Artículos
+    character_doc: La suma de caráuteres amestaos a los artículos del espaciu principal
+      polos estudiantes nel periodu del cursu
+    course_description: Cursos de Wiki Ed
+    courses: Cursos
+    yourcourses: Los tos cursos
+    nocourses: Nun participes en nengún cursu.
+    current: Cursos actuales
+    duration: Duración del cursu
+    instructor:
+      one: Profesor
+      other: Profesores
+    students: Estudiantes
+    students_none: '%{title} nun tien inscritu nengún estudiante.'
+    students_short: Estudiantes
+    timeline: Detalles de la xera
+    weeks_none: '%{title} nun tien xeres'
+    new_week: Amestar una selmana más al cronograma de %{title}
+    overview: Resume
+    title: Títulu
+    view: Ver el cursu
+    view_wiki: Ver en Wikipedia
+    view_doc: La suma de toles visites a los artículos editaos polos estudiantes desque
+      ficieron la primera edición en cada artículu
+    volunteer:
+      one: Voluntariu
+      other: Voluntarios
+    wiki_staff: Personal de Wiki Ed
+    error:
+      exists: Esi cursu yá esiste. Inténtalo otra vuelta con un títulu, escuela o
+        periodu diferentes.
+  course_creator:
+    create_new: Crear un nuevu cursu
+    intro: El títulu, escuela y periodu pasarán a formar parte de la url del cursu,
+      y nun puen cambiase. El resto de la información del cursu pué editase más alantre.
+      Tres crear el cursu, l'asistente guiaráte pela creación d'un cronograma de xeres.
+  metrics:
+    activity: Actividá reciente
+    articles_created: Artículos creaos
+    articles_edited: Artículos editaos
+    char: Caráuteres añadíos
+    characters: Caráuteres
+    char_added: Caráuteres añadíos
+    char_changed: Caráuteres camudaos
+    date_time: Data/Hora
+    edit_count_description: Total d'ediciones
+    student_editors: Editores estudiantes
+    view: Visites
+    view_count_description: Visites del artículu
+  namespace:
+    main: Espaciu principal
+    main_char_added: Caráuteres añadíos nel espaciu principal
+    user: Espaciu d'usuariu
+    user_char_added: Caráuteres añadíos nel espaciu d'usuariu
+    user_ns: Usuariu
+  revisions:
+    loading: Cargando revisiones...
+    none: Esti cursu nun tien actividá editorial reciente en Wikipedia.
+    time_doc: La hora de cada revisión n'hora llocal
+  tasks:
+    conseq: La xera %{task} yá ta n'execución
+    constant: Nun pué executase la xera %{task} mentanto tea executándose la xera
+      update_daily.
+    paused: La xera %{task} nun pué executase porque tán posaos los anovamientos programaos.
+      Executa 'rake batch:resume' pa siguir colos anovamientos.
+  uploads:
+    loading: Cargando xubes...
+    none: Esta clase nun contribuyó con nenguna imaxe o ficheru multimedia a Wikimedia
+      Commons.
+    usages: Usos
+    time_doc: La hora de cada xuba n'hora llocal
+  users:
+    already_enrolled: Esi usuario yá ta apuntáu.
+    assigned: Artículu axudicáu
+    character_doc: La cantidá total de conteníu qu'un usuariu amestó a esti espaciu
+      de nomes, calculada sumando los caráuteres añadíos de toles ediciones qu'aumentaron
+      el tamañu de la páxina. Esti númberu nun espeya necesariamente la cantidá de
+      conteníu nuevu amestáu pol usuariu. Restaurar conteníu desaniciáu tamién aumentará
+      esti total.
+    contributions: Contribuciones del usuariu
+    contributions_more: Ver más contribuciones
+    editors: Editores estudiantes
+    loading: Cargando usuarios...
+    name: Nome
+    none: Esti cursu nun tien estudiantes.
+    reviewers: Revisor
+    training_complete:
+      one: completó l'entrenamientu
+      other: completaron l'entrenamientu
+    training_complete_count: '%{count} completaron l''entrenamientu'
+    training_doc: 'Los editores estudiantes que tengan completáu el ''entrenamientu
+      pa estudiantes'' habríen tener fecha una edición na páxina de comentarios al
+      acabar. Los editores estudiantes que pasaron pel entrenamientu pero nun completaron
+      el pasu del comentariu, puen volver al final del entrenamientu equí: https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete.'
+  wiki_edits:
+    notify_untrained:
+      header: Nun completasti l'entrenamientu d'estudiante.
+      message: Completa l'[[WP:STUDENT|entrenamientu d'estudiante]]. Si yá pasasti
+        per ehí, asegúrate de facer clic nel botón del final pa rexistrar que yá lu
+        acabasti. --~~~~
+      summary: entrenamientu d'estudiante incompletu
+  error_401:
+    header: Non autorizáu. >:-(
+    explanation: Nun tas autorizáu a executar esta solicitú. Si crees que llegasti
+      a esti avisu por error, comunícate colos responsables del mantenimientu d'esti
+      tableru pa informa-yos del problema.
+  error_404:
+    header: Nun s'alcontró la páxina. :-(
+    explanation: Esta páxina nun esiste. Si intentabes entrar al tableru por un cursu,
+      seique'l mesmu nun tea rexistráu nesti tableru. Si se rexistró recientemente,
+      pué tardar un poco que'l sistema lu añada.
+  error_422:
+    header: 422 — la entidá nun pué procesase.  :-(
+    explanation: Daqué salió mal. Comunícate colos encargaos del mantenimientu de
+      esti tableru pa informa-yos del problema.
+  error_500:
+    header: 500 — error internu del sirvidor. :-(
+    explanation: Daqué salió mal. Comunícate colos encargaos del mantenimientu de
+      esti tableru pa informa-yos del problema.
+...

@@ -1,11 +1,92 @@
 # Messages for Russian (русский)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Nzeemin
 # Author: Okras
+# Author: SmartNart12
 ---
 ru:
+  articles:
+    loading: Загрузка статей...
+    assigned: Назначенные статьи
+    assigned_to: Назначен
+    character_doc: Сумма символов, добавленных к статьям студентами курса в течение
+      семестра
+    edited: Статей редактировано
+    edited_mobile: Статьи
+    no_assignee: Нет назначенного участника
+    rating: Класс
+    rating_docs:
+      fl: Избранный список — высший рейтинг для списка в Википедии
+      b: B-класс — умеренно развитая статья
+      stub: Заглушка — короткая статья, которую нужно дополнить
+    title: Заголовок
+    view: Просмотр статьи
+    view_all: Посмотреть все
+    view_doc: Сумма просмотров каждой статьи в течение семестра
+  assignments:
+    assignees: Назначенные
+    loading: Загрузка назначений...
+  courses:
+    articles: Статьи
+    character_doc: Сумма символов, добавленных к статьям основного пространства студентами
+      курса в течение семестра
+    courses: Курсы
+    yourcourses: Ваши курсы
+    current: Текущие курсы
+    duration: Продолжительность курса
+    instructor:
+      one: Инструктор
+      other: Инструкторы
+    students: Студенты
+    students_short: Студенты
+    weeks_none: '%{title} не имеет назначений'
+    view: Просмотр курса
+    view_wiki: Посмотреть на Википедии
+    volunteer:
+      one: Доброволец
+      other: Добровольцы
+    error:
+      exists: Такой курс уже существует! Пожалуйста, попробуйте ещё раз, с другим
+        заголовком, школой или семестром.
+  course_creator:
+    create_new: Создать новый курс
   metrics:
+    activity: Недавние действия
+    articles_created: Статей создано
+    articles_edited: Статей отредактировано
+    char: Символов добавлено
+    characters: Символов
+    char_added: Символов добавлено
+    char_changed: Символов изменено
     date_time: Дата/время
+    edit_count_description: Всего правок
+    view: Просмотров
+    view_count_description: Просмотров статей
   namespace:
+    main: Основное пространство
+    main_char_added: Добавлено символов в основном пространстве
+    user: Пространство участника
+    user_char_added: Добавлено символов в пространстве участника
     user_ns: Участник
+  revisions:
+    loading: Загрузка версий...
+    time_doc: Время каждой ревизии по вашему местному времени
+  tasks:
+    conseq: Задача %{task} уже выполняется!
+  uploads:
+    usages: Использование
+  users:
+    assigned: Назначенная статья
+    contributions: Вклад участника
+    loading: Загрузка участников...
+    name: Имя
+    none: На этом курсе нет студентов.
+    training_complete_count: '%{count} завершили тренинг'
+  error_401:
+    header: Неавторизован. >:-(
+  error_404:
+    header: Страница не найдена. :-(
+  error_500:
+    header: 500 — внутренняя ошибка сервера. :-(
 ...

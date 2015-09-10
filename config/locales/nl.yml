@@ -1,6 +1,7 @@
 # Messages for Dutch (Nederlands)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Mbch331
 # Author: Milenej
 # Author: Siebrand
 ---
@@ -19,7 +20,6 @@ nl:
       de cursustermijn is toegevoegd
     edited: Pagina's bewerkt
     edited_mobile: Pagina's
-    edited_none: '%{title} heeft geen pagina''s bewerkt.'
     no_assignee: Geen gebruiker toegewezen
     rating: Klasse
     rating_doc: De waardering van een pagina is toegewezen door WikiProjecten op Wikipedia.
@@ -83,7 +83,8 @@ nl:
     view_doc: Het aantal weergaven van pagina's die door studenten zijn bewerkt sinds
       de studenten hun eerste bewerking hebben gemaakt aan iedere pagina
     volunteer:
-      other: =Vrijwilliger
+      one: Vrijwilliger
+      other: Vrijwilligers
     wiki_staff: Medewerkers van Wiki Ed
     error:
       exists: Die cursus bestaat al. Probeer het opnieuw met een andere naam, school
@@ -96,7 +97,6 @@ nl:
       geleid.
   metrics:
     activity: Recente activiteit
-    activity_none: '%{title} heeft geen recente Wikipediabewerkingen'
     articles_created: Pagina's aangemaakt
     articles_edited: Pagina's bewerkt
     char: Tekens toegevoegd
@@ -130,10 +130,8 @@ nl:
     usages: Gebruik
     time_doc: De tijd van iedere upload in uw lokale tijd
   users:
+    already_enrolled: Deze gebruiker is al ingeschreven!
     assigned: Toegewezen pagina
-    reviewers: Controleur
-    assigned_none: Geen pagina toegewezen
-    reviewer_none: Geen controleur
     character_doc: De totale hoeveelheid inhoud die een gebruiker heeft toegevoegd
       aan deze naamruimte, berekend door het aantal tekens dat de bewerkte pagina's
       groter zijn geworden bij elkaar op te tellen. Dit getal is niet noodzakelijk
@@ -145,21 +143,16 @@ nl:
     loading: Bezig met het laden van gebruikers...
     name: Naam
     none: Deze cursus heeft geen studenten.
+    reviewers: Controleur
     training_complete:
       one: heeft de training voltooid
       other: hebben de training voltooid
-    training_complete_short: Afgerond
     training_complete_count: '%{count} hebben de training afgerond'
     training_doc: 'Studentbewerkers die de "training voor studenten" hebben voltooid,
       horen als ze klaar zijn een bewerking te hebben gemaakt op de pagina voor terugkoppeling.
       Als studentbewerkers de training hebben gedaan, maar de stap voor terugkoppeling
       niet hebben uitgevoerd, dan kunnen ze aan het einde van de training hier terugkeren:
       https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete.'
-    training_incomplete:
-      other: =Training onvolledig
-    training_incomplete_short: Onvolledig
-    view_all: Alle bekijken
-    already_enrolled: Deze gebruiker is al ingeschreven!
   wiki_edits:
     notify_untrained:
       header: U hebt de studententraining niet voltooid.
@@ -186,6 +179,4 @@ nl:
     header: 500 — interne serverfout.
     explanation: Er is iets fout gegaan. Neem contact op met de beheerders van dit
       dashboard en geef ze details over het probleem.
-  timeout: Een verzoek aan de API van %{api} heeft te lang geduurd en wordt %{tries}
-    keer herhaald.
 ...

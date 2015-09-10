@@ -6,6 +6,9 @@
 zh-hant:
   activity:
     all: 活動
+  articles:
+    loading: 讀取文章中...
+    title: 標題
   metrics:
     activity: 最近活動
     date_time: 日期/時間

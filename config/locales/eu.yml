@@ -1,13 +1,34 @@
 # Messages for Basque (euskara)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Sator
 # Author: Subi
 ---
 eu:
   activity:
     all: Jarduera
+  articles:
+    loading: Artikuluak kargatzen...
+    assigned_to: 'Nori Esleitua:'
+    edited: Editatutako artikuluak
+    edited_mobile: Artikuluak
+    rating: Klasea
+    title: Izenburua
+    view_all: Denak ikusi
+  assignments:
+    reviewers: Berrikuslea(k)
   cohort:
     view_other: Ikusi beste kohorteak
+  courses:
+    activity: Jarduera
+    articles: Artikuluak
+    courses: Ikastaroak
+    yourcourses: Zure ikastaroak
+    students: Ikasleak
+    students_short: Ikasleak
+    overview: Ikuspegi orokorra
+    title: Izenburua
+    view_wiki: Wikipedia-n ikusi
   metrics:
     articles_created: Sortutako artikuluak
     articles_edited: Editatutako artikuluak
@@ -20,7 +41,13 @@ eu:
     view: Ikustaldiak
     view_count_description: Artikuluaren ikustaldiak
   uploads:
+    loading: Igoerak kargatzen...
     usages: Erabilerak
+  users:
+    contributions: Lankidearen ekarpenak
+    loading: Erabiltzaileak kargatzen...
+    name: Izena
+    reviewers: Berrikusleak
   error_401:
     header: Ez duzu baimenik. >:-(
   error_404:

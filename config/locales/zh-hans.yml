@@ -9,11 +9,70 @@ zh-hans:
   activity:
     edited_by: 编辑自
     all: 活跃
+  articles:
+    none: 此课程没有编辑任何条目。
+    loading: 正在加载条目...
+    assigned: 分配的条目
+    assigned_to: 分配给
+    edited: 编辑的条目
+    edited_mobile: 条目
+    no_assignee: 没有分配用户
+    rating: 等级
+    rating_doc: 条目的等级由维基百科的对应专题分配。这些等级可能与旧有版本相对应，因此这些评级只是粗略的条目成熟度指标。
+    rating_docs:
+      fa: 特色条目 — 维基百科的最高评级，可能过于成熟而不适合作为学生编辑的主要项目目标
+      fl: 特色列表 — 维基百科用于列表的最高评级
+      a: 甲级 — 十分完善的条目，可能过于成熟而不适合作为学生编辑的主要项目目标
+      ga: 优良条目 — 一个组织良好的条目，可能过于成熟而不适合作为学生编辑的主要项目目标
+      b: 乙级 — 一个适度发展的条目
+      c: 丙级 — 一个有改进空间的中等条目
+      start: 初级 — 一个有很大改进空间的初等条目
+      stub: 小条目级 — 一篇条目的短小开始，它需要更多内容
+      list: 列表级 — 一个列表，而不是一篇传统条目
+      '?': 未评级 — 一篇未被维基百科质量等级体系评级的条目
+    title: 标题
+    view: 查看条目
+    view_all: 查看全部
+    views_added: 已为%{title}添加%{count}次新查看
+  assignments:
+    assignees: 委托人
+    reviewers: 复核员
+    loading: 正在加载作业...
+    none: 此课程没有被维基百科条目所分配。
+    confirm_addition: 您确定要分配%{title}至%{username}？
+    confirm_deletion: 您确定要删除此分配吗？
   cohort:
-    view_other: 查看其它军团
+    view_other: 查看其它同班同学
+  courses:
+    activity: 活动
+    articles: 条目
+    course_description: Wiki Ed课程
+    courses: 课程
+    yourcourses: 您的课程
+    current: 当前课程
+    duration: 课程持续时间
+    instructor:
+      other: 导师
+    students: 学生
+    students_none: '%{title}没有任何登记的学生。'
+    students_short: 学生
+    timeline: 分配详细信息
+    weeks_none: '%{title}没有分配任务'
+    new_week: 添加新的一周至用于%{title}的时间线
+    overview: 概述
+    title: 标题
+    view: 查看课程
+    view_wiki: 在维基百科上查看
+    volunteer:
+      other: 志愿者
+    wiki_staff: Wiki Ed职员
+    error:
+      exists: 那个课程已存在！请使用不同的标题、学校或学期再试。
+      user_exists: 对不起，%{username}不是一位存在的用户。
+  course_creator:
+    create_new: 创建一个新课程
   metrics:
     activity: 最近活跃
-    activity_none: '%{title}没有最近活跃'
     articles_created: 创建的条目
     articles_edited: 编辑的条目
     char: 添加的字符
@@ -31,11 +90,30 @@ zh-hans:
     user: 用户名字空间
     user_char_added: 添加的用户名字空间字符
     user_ns: 用户
+  revisions:
+    loading: 正在加载修订……
+    none: 此课程最近没有活跃编辑维基百科。
+    time_doc: 在您本地时间内，每个修订的时间
   tasks:
     conseq: 课程%{task}已在进行！
   uploads:
-    none: 没有上传文件
+    loading: 正在加载上传...
+    none: 此班级没有贡献任何图片或其他媒体文件至维基共享资源。
     usages: 用法
+    time_doc: 您本地时间的每次上传时间
+  users:
+    already_enrolled: 那位用户已经登记了！
+    assigned: 分配的条目
+    contributions: 用户贡献
+    contributions_more: 查看更多贡献
+    editors: 学生编辑者
+    loading: 正在加载用户...
+    name: 名字
+    none: 此课程没有学生。
+    reviewers: 复核员
+    training_complete:
+      other: 完成了培训
+    training_complete_count: '%{count}完成了培训'
   wiki_edits:
     notify_untrained:
       header: 您没有完成学生培训。
@@ -51,5 +129,4 @@ zh-hans:
   error_500:
     header: 500 — 内部服务器错误。:-(
     explanation: 出现一些错误。请联络此控制面板的维护人员以让他们得知有关问题。
-  timeout: 向%{api} API的请求已超时，并将再试%{tries}次。
 ...

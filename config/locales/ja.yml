@@ -1,11 +1,14 @@
 # Messages for Japanese (日本語)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Sudachi
 # Author: Sujiniku
 ---
 ja:
   activity:
     all: 活動
+  articles:
+    view_all: すべてを表示
   metrics:
     activity: 最近の活動
     date_time: 日付/時刻

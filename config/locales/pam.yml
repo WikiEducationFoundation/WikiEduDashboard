@@ -1,0 +1,15 @@
+# Messages for Pampanga (Kapampangan)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Leeheonjin
+---
+pam:
+  articles:
+    title: Titulu
+    view_all: Lawen eganagana
+  courses:
+    courses: Deng kursu
+    students: Deng estudyanti
+  users:
+    name: Lagyu
+...

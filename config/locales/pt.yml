@@ -10,9 +10,29 @@ pt:
   activity:
     edited_by: Editado por
     all: Atividade
+  articles:
+    loading: A carregar artigos...
+    edited: Artigos editados
+    edited_mobile: Artigos
+    rating: Qualidade
+    title: Título
+    view_all: Ver todos
+  courses:
+    activity: Atividade
+    articles: Artigos
+    courses: Cursos
+    yourcourses: Os seus cursos
+    nocourses: Não está inscrito em nenhum curso.
+    duration: Duração do curso
+    students: Estudantes
+    students_short: Estudantes
+    title: Título
+    view_wiki: Ver na Wikipédia
+    volunteer:
+      one: Voluntário
+      other: Voluntários
   metrics:
     activity: Atividade recente
-    activity_none: '%{title} não tem atividade recente'
     articles_created: Artigos criados
     articles_edited: Artigos editados
     char: Caracteres adicionados
@@ -30,6 +50,10 @@ pt:
   uploads:
     none: Não foram carregados ficheiros
     usages: Usos
+  users:
+    contributions: Contribuições de utilizador
+    contributions_more: Ver mais contribuições
+    name: Nome
   error_401:
     header: Não autorizado. >:-(
   error_404:

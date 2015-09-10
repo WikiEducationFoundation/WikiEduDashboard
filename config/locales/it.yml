@@ -4,13 +4,49 @@
 # Author: Alexmar983
 # Author: Beta16
 # Author: Macofe
+# Author: Statix64
 ---
 it:
   activity:
     all: Attività
+  articles:
+    loading: Caricamento articoli...
+    assigned: Articoli Assegnati
+    assigned_to: Assegnato a
+    edited: Articoli modificati
+    edited_mobile: Voci
+    rating: Classe
+    rating_docs:
+      stub: classe abbozzo - un breve inizio di una voce che necessita di più contenuto
+    title: Titolo
+    view: Visualizza articolo
+    view_all: Mostra tutto
+  assignments:
+    reviewers: Revisori
+    loading: Caricando gli incarichi...
+    confirm_addition: Sei sicuro di voler assegnare %{title} a %{username}?
+  courses:
+    activity: Attività
+    articles: Voci
+    course_description: Corsi Wiki Educazionali
+    courses: Corsi
+    yourcourses: Tuoi corsi
+    nocourses: Non stai partecipando ad alcun corso.
+    current: Corsi attuali
+    duration: Durata del corso
+    students: Studenti
+    students_none: '%{title} non ha studenti iscritti.'
+    students_short: Studenti
+    timeline: Dettagli dell'incarico
+    weeks_none: '%{title} non ha incarichi'
+    overview: Panoramica
+    title: Titolo
+    view: Visualizza corso
+    view_wiki: Mostra su Wikipedia
+    error:
+      exists: Quel corso esiste già! Riprova con un differente titolo, scuola o termine.
   metrics:
     activity: Attività recente
-    activity_none: '%{titolo} mostra alcuna attività recente'
     articles_created: Voci create
     articles_edited: Articoli modificati
     char: Aggiunti caratteri
@@ -22,9 +58,22 @@ it:
   namespace:
     main: Ambiente principale
     user_ns: Utente
+  revisions:
+    loading: Caricamento revisioni...
   uploads:
+    loading: Caricando gli upload...
     none: Nessun file è stato caricato
     usages: Usi
+  users:
+    already_enrolled: Quell'utente è già iscritto!
+    assigned: Articolo assegnato
+    contributions: Contributi dell'utente
+    contributions_more: Visualizza Ulteriori Contributi
+    loading: Caricamento utenti...
+    name: Nome
+    none: Questo corso non ha studenti.
+    reviewers: Revisore
+    training_complete_count: '%{count} hanno completato l''allenamento'
   wiki_edits:
     notify_untrained:
       header: Non hai completato la formazione degli studenti.

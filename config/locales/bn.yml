@@ -1,0 +1,18 @@
+# Messages for Bengali (বাংলা)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Aftabuzzaman
+---
+bn:
+  articles:
+    loading: নিবন্ধ লোড হচ্ছে...
+    edited_mobile: নিবন্ধ
+    rating: শ্রেণী
+  assignments:
+    reviewers: নিরীক্ষক(গণ)
+  courses:
+    title: শিরোনাম
+    view_wiki: উইকিপিডিয়ায় দেখুন
+  users:
+    name: নাম
+...

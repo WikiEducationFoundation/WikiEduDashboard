@@ -1,0 +1,34 @@
+# Messages for Goan Konkani (Latin script) (Gova Konknni)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: The Discoverer
+---
+gom-latn:
+  articles:
+    edited: Sompadit lekh
+    edited_mobile: Lekh
+    title: Mathallo
+    view: Lekh polloi
+    view_all: Soglle polloi
+  courses:
+    articles: Lekh
+    students: Vidyarthi
+    students_short: Vidyarthi
+    title: Mathallo
+    view_wiki: Wikipidiacher polloi
+  metrics:
+    articles_created: Rochlele lekh
+    articles_edited: Sompadit Lekh
+    date_time: Tarikh/Vell
+    edit_count_description: Melloun Sompadon
+    student_editors: Vidyarthi Sompadok
+  namespace:
+    user_ns: Vapurpi
+  revisions:
+    time_doc: Doreka uzollnecho tumchea thollavea vellapormonnem vell
+  users:
+    contributions: Vapurpi Yogdanam
+    contributions_more: Anik Yogdanam Polloi
+    editors: Vidyarthi Sompadok
+    name: Nanv
+...

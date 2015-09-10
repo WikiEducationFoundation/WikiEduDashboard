@@ -9,7 +9,6 @@ sv:
     all: Aktivitet
   metrics:
     activity: Senaste aktivitet
-    activity_none: '%{title} har ingen senaste aktivitet'
     articles_created: Skapade artiklar
     articles_edited: Redigerade artiklar
     char: Tillagda tecken

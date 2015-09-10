@@ -6,8 +6,57 @@
 bcl:
   activity:
     edited_by: Pinagliwat ni
+  articles:
+    none: An kursong ini dae nakapagliwat nin arinman na mga artikulo.
+    loading: Ikinakarga an mga artikulo...
+    assigned: Pinagtokang mga Artikulo
+    assigned_to: Naitoka ki
+    edited_mobile: Mga Artikulo
+    no_assignee: Mayong paragamit na pinagtokahan
+    rating: Klase
+    rating_docs:
+      start: Poon-sa-klase — sarong preliminaryong artikulo na igwa nin kadakol na
+        kuwarto para sa ikapag-gayon
+      list: Lista-nin-klase — sarong listahan kesa baya sa sarong konbensyonal na
+        artikulo
+    title: Titulo
+    view: Hilingon an Artikulo
+    view_all: Tanawon Gabos
+    views_added: Pinagdugang %{count} baguhong mga pagtanaw para sa %{title}
+  assignments:
+    assignees: Tinokahan
+    reviewers: Pararepaso
+    loading: Ikinakarga an mga katokahan...
+    none: An kursong ini mayo nin pinagtokang mga artikulo sa Wikipidya
+    confirm_addition: Segurado ka na muya mong magtoka nin %{title} sa %{username}?
+    confirm_deletion: Segurado ka na muya mong puraon ining katokahan?
+  courses:
+    activity: Aktibidad
+    articles: Mga Artikulo
+    course_description: Mga kurso sa Pagliwat sa Wiki
+    courses: Mga Kurso
+    yourcourses: An saimong mga Kurso
+    nocourses: Ika dae nagpapartisipar sa arinman na mga kurso.
+    current: Presenteng mga Kurso
+    students: Mga Estudyante
+    students_none: '%{title} mayo nin siisay man na nakapagpatalang mga estudyante.'
+    students_short: Mga Estudyante
+    timeline: Katokahang mga Detalye
+    weeks_none: '%{title} mayo nin mga katokahan'
+    overview: Mahiwason na patanaw
+    title: Titulo
+    view: Tanawon an Kurso
+    view_wiki: Tanawon sa Wikipedia
+    view_doc: An kabilogan kan gabos na mga hiniling sa mga artikulong pinagliwat
+      nin mga estudyante magpoon na an mga estudyante naghimo kan saindang enot na
+      pagliwat sa lambang artikulo
+  course_creator:
+    create_new: Magmukna nin Baguhong Kurso
+    intro: An titulo, eskuwelahan asin termino magigin parte kan pahina nin kursong
+      estada, asin dae na mababago. An katadaan kan impormasyon nin kuso mapuwedeng
+      pagliliwaton sa dae mahaloy. Matapos mong muknaon an saimong kurso, an tagapagtukdo
+      magpapasyar saimo sa pagmumukna nin linya sa panahon na katokahan.
   metrics:
-    activity_none: '%{title} mayo nin pinakahuring actibidad'
     characters: Mga Letra
     char_changed: Mga karakter pinagliwat
     student_editors: Mga Estudyanteng Paraliwat
@@ -15,6 +64,28 @@ bcl:
   namespace:
     user_char_added: Espasyo-nin-paragamit na mga tsar pinagdugang
     user_ns: Paragamit
+  revisions:
+    loading: Ikinakarga an mga rebisyon...
+    none: An kursong ini dae nagkaigwa kan pinakahuring aktibidad nin pagliliwat sa
+      Wikipedia.
+    time_doc: An oras kan lambang rebisyon sa saimong lokal na oras
+  uploads:
+    none: An klaseng ini dae nakapag-ambag nin anuman na mga imahe o ibang mga sagunson
+      nin medya sa Wikimania Commons.
+    time_doc: An oras kan lambang pagkarga sa saimong lokal na oras
+  users:
+    already_enrolled: An paragamit na yan nakapagpatala na!
+    assigned: Pinagtokang Artikulo
+    contributions_more: Tanawon an iba pang mga Karambagan
+    editors: Mga Estudyanteng Paraliwat
+    loading: Ikinakarga ang mga paragamit...
+    name: Pangaran
+    reviewers: Tagapagrepaso
+    training_complete:
+      other: saro=nakapagkumpleto na nin pagsanay
+    training_complete_count: '%{count} nakapagkumpleto nin pagsanay'
+    training_incomplete:
+      other: saro=Pagsanay Bakong Kumpleto
   error_422:
     header: 422 — dae maprosesong entidad.  :-(
     explanation: May bagay na nangyaring sala. Tabi man pakikontak an mga paramantiner

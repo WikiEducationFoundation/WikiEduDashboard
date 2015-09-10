@@ -1,0 +1,14 @@
+# Messages for Albanian (shqip)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Kosovastar
+---
+sq:
+  assignments:
+    reviewers: Recensues(s)
+  course_creator:
+    intro: Titulli, shkolla dhe kushtet do të bëhen pjesë url-së së faqes dhe nuk
+      mund të ndryshohen. Pjesa tjetër e informatave të kursit mund të redaktohen
+      më vonë. Pasi ju të krijoni kursin tuaj, magjistari do të ju udhëzojë nëpërmjet
+      krijimit të një detyre në afat kohor.
+...

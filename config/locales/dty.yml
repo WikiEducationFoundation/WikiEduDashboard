@@ -1,0 +1,12 @@
+# Messages for डोटेली (डोटेली)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: जनक राज भट्ट
+---
+dty:
+  courses:
+    students: इस्कुल्या
+    students_short: इस्कुल्या
+  users:
+    name: नाऊ
+...

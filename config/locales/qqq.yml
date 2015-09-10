@@ -10,13 +10,14 @@ qqq:
   activity:
     all: '{{Identical|Activity}}'
   articles:
+    none: Message stating that no articles have been edited.
     assigned: Label for a list of assigned articles
     character_doc: Documentation for an article's character total add and remove count.
     edited: Label for a list of articles edited.
     edited_mobile: '{{Identical|Article}}'
-    none: Message stating that no articles have been edited.
     rating: Label for an article's quality rating on the Wikipedia 1.0 scale
-    rating_doc: Explanation of where an article's quality rating comes from and what it means
+    rating_doc: Explanation of where an article's quality rating comes from and what
+      it means
     rating_docs:
       fa: Explanation of what a Featured Article is
       fl: Explanation of what a Featured List is
@@ -27,8 +28,10 @@ qqq:
       start: Explanation of what a Start-class article is
       stub: Explanation of what a Stub-class article is
       list: Explanation of what a List-class page is
-      ?: Explanation of what an unrated article is
-    title: Label for an article title.
+      '?': Explanation of what an unrated article is
+    title: |-
+      Label for an article title.
+      {{Identical|Title}}
     view: Command to view an article.
     view_all: |-
       Command to view all articles.
@@ -39,9 +42,8 @@ qqq:
   assignments:
     loading: Placeholder message indicating that assignment data is still loading
     none: Label for an empty list of assignments
-    confirm_addition: Confirmation dialog for adding a new assignment.
-      %{title} is the Wikipedia page title.
-      %{username} is the username of the assignee.
+    confirm_addition: Confirmation dialog for adding a new assignment. %{title} is
+      the Wikipedia page title. %{username} is the username of the assignee.
     confirm_deletion: Confirmation dialog for an assignment should be deleted
   cohort:
     view_other: Command to view another cohort.
@@ -55,7 +57,8 @@ qqq:
     nocourses: Message indicating that the logged in user is not part of any courses
     current: Label for the list of current courses
     duration: Label for duration of a course
-    gradeables_none: Message indicating that the course has no gradeable items in the timeline
+    gradeables_none: Message indicating that the course has no gradeable items in
+      the timeline
     instructor:
       one: Label for a single instructor of a course
       other: Label for plural instructors of a course
@@ -74,12 +77,12 @@ qqq:
       other: Label for multiple course volunteers
     wiki_staff: Label for staff members supporting the course
     error:
-      exists: Error message indicating that a course with the same title, school and term already exists.
+      exists: Error message indicating that a course with the same title, school and
+        term already exists.
   course_creator:
     intro: Description of the course creator form
   metrics:
     activity: Label for activity feed.
-    activity_none: Label for no activity.
     articles_created: Label for the number of articles created.
     articles_edited: Label for the number of articles edited.
     char: Label for number of characters added and removed.
@@ -97,6 +100,8 @@ qqq:
     user_char_added: Label for number of characters added to the User namespace.
     user_ns: Wiki title for the User namespace.
   users:
+    already_enrolled: Message indicating that a user is already enrolled in the course
+      and cannot be enrolled again.
     assigned: Label for articles assigned to a user
     assignees: Label for list of assigned users for an article
     character_doc: Explanation of the characters added for a user
@@ -113,14 +118,9 @@ qqq:
       other: Label that appears after the number of students who completed training
     training_complete_count: Message indicating how many students completed training.
       %{count} is the number of students.
-    training_doc: >
-      Explanation of what it means to have completed training and how completion
-      is measured. The entire message should be customized to describe the on-wiki
-      training (if any) available in each language.
-    training_incomplete:
-      one: Label indicating that a user has not completed training
-    already_enrolled: Message indicating that a user is already enrolled in the
-      course and cannot be enrolled again.
+    training_doc: Explanation of what it means to have completed training and how
+      completion is measured. The entire message should be customized to describe
+      the on-wiki training (if any) available in each language.
   wiki_edits:
     notify_untrained:
       confirm: Confirmation dialog before talk page messages are sent
@@ -134,17 +134,16 @@ qqq:
     assignment_dates: Header for the assignment dates section of the wizard
     assignment_type: Header for the assignment type section of the wizard
     confirm_dates: Instructions for inputting assignment date information
-    min_weeks: Message indicating that an assignment is not available because
-      there is not enough time for it. %{min_weeks} is the minimum number of weeks
-      for the assignment type.
-    minimum_options: Message indicating that more options must be selected.
-      %{minimum} is the required number of options.
+    min_weeks: Message indicating that an assignment is not available because there
+      is not enough time for it. %{min_weeks} is the minimum number of weeks for the
+      assignment type.
+    minimum_options: Message indicating that more options must be selected. %{minimum}
+      is the required number of options.
     read_more: Button label to expand a section with additional information
     read_less: Button label to collapse an expanded section of addition information
     review_selections: Instructions for the summary section
     select_assignment: Instructions for the assignment type section
     summary: Header for the summary section
-
   error_404:
     header: Message indicating that a page doesn't exist.
     explanation: Message explaining why a user may have reached a page that doesn't

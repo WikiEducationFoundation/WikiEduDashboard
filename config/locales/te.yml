@@ -1,0 +1,28 @@
+# Messages for Telugu (తెలుగు)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Naidugari Jayanna
+---
+te:
+  activity:
+    edited_by: సవరించినవారు
+    all: కలాపం
+  articles:
+    edited_mobile: వ్యాసాలు
+    rating: తరగతి
+  courses:
+    duration: కోర్సు కాలపరిమితి
+    students: విద్యార్థులు
+    students_short: విద్యార్థులు
+    overview: అవలోకనం
+    title: శీర్షిక
+    view: కోర్సును చూపించు
+  course_creator:
+    create_new: ఒక కొత్త కోర్సును సృష్టించు
+  metrics:
+    activity: ఇటీవలి కార్యకలాపం
+    articles_edited: సవరించబడిన వ్యాసాలు
+    characters: పాత్రలు
+    date_time: తేదీ/సమయం
+    edit_count_description: మొత్తం దిద్దుబాట్లు
+...

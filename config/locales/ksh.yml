@@ -7,6 +7,24 @@ ksh:
   activity:
     edited_by: Jeändert Vum
     all: Aktivitäht
+  articles:
+    loading: Ben Atikelle aam Lahde&nbsp;&hellip;
+    assigned_to: Zohjedeijlt aan
+    edited: Jeännderte Atikelle
+    edited_mobile: Atikele
+    title: Övverschreff
+    view: Atikel belohre
+    view_all: Alle belohre
+  assignments:
+    loading: Ben de Aufjahbe aam Lahde&nbsp;&hellip;
+    confirm_addition: Wells De verhaftesch %{title} aan der Metmaacher %{username}
+      zohwihse?
+  courses:
+    activity: Aktivitäht
+    articles: Atikele
+    course_description: Korse för em Wikki ze liehre.
+    overview: Övverblek
+    title: Övverschreff
   metrics:
     activity: Zeläz jedonn
     articles_created: Aanjelahte Atikelle
@@ -25,8 +43,14 @@ ksh:
     user: Appachtemang för de Metmaacher
     user_char_added: Zeijsche em Appachtemang för de Metmaacher derbei jedonn
     user_ns: Metmaacher
+  revisions:
+    time_doc: De Zigg vun jehde Väsjohn en Dinge Ziggzohn
   uploads:
+    loading: Ben huhjelahde Dahte aam Lahde&nbsp;&hellip;
     none: Kein datteije wodt huhjelahde
+  users:
+    contributions_more: Belohr mih Beijdrähsch
+    name: Nahme
   error_401:
     header: Kei Berääschtejong.
   error_404:

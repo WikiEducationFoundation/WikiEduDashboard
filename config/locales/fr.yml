@@ -2,6 +2,8 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Gomoko
+# Author: LudaOtaku
+# Author: Wladek92
 ---
 fr:
   application:
@@ -9,11 +11,92 @@ fr:
   activity:
     edited_by: Modifié par
     all: Activité
+  articles:
+    none: Ce cours n’a modifié aucun article.
+    loading: Chargement des articles...
+    assigned: Articles affectés
+    assigned_to: Assigné à
+    character_doc: Le total du nombre de caractères ajoutés aux articles par les étudiants
+      du cours durant son déroulement
+    edited: Articles modifiés
+    edited_mobile: Articles
+    no_assignee: Aucun utilisateur affecté
+    rating: Classe
+    rating_doc: La notation attribuée à un article par WikiProjects sur Wikipédia.
+      Ces notes peuvent correspondre à des versions plus anciennes ; elles sont donc
+      simplement un indicateur approximatif de la maturité de l’article.
+    rating_docs:
+      fa: Article en vedette — Plus haute notation de WIkipédia, probablement un article
+        trop mature pour être le projet principal d’un étudiant éditeur
+      fl: Liste en vedette — Plus haute notation de Wikipédia pour les listes
+      a: Classe A — article très développé qui pourrait être trop mature pour être
+        le projet principal d’un étudiant éditeur
+      ga: Bon article — un article bien développé qui pourrait être trop mature pour
+        être le projet principal d’un étudiant éditeur
+      b: Classe B — un article modérément développé
+      c: Classe C — un article intermédiaire, avec des possibilités d’amélioration
+      start: Classe démarrage — un article préliminaire avec beaucoup de possibilités
+        d’amélioration
+      stub: Classe squelette — le court début d’un article qui nécessite plus de contenu
+      list: Classe liste — une liste plutôt qu’un article habituel
+      '?': Non classé — un article qui n’a pas encore été noté sur l’échelle de qualité
+        de Wikipédia
+    title: Titre
+    view: Afficher l’article
+    view_all: Tout afficher
+    view_doc: Le total de toutes les vues sur chaque article durant le déroulement
+      du cours
+    views_added: '%{count} nouvelles vues ajoutées pour %{title}'
+  assignments:
+    assignees: Affectation(s)
+    reviewers: Relecteur(s)
+    loading: Chargement des affectations…
+    none: Ce cours n'a aucun article wikipedié assigné.
+    confirm_addition: Êtes-vous sûr de vouloir assigner %{title} à %{username}?
+    confirm_deletion: Êtes-vous sûr de vouloir supprimer cette affectation ?
   cohort:
     view_other: Afficher les autres cohortes
+  courses:
+    activity: Activité
+    articles: Articles
+    character_doc: Le nombre total de caractères ajoutés aux articles de l’espace
+      de nom principal par les étudiants du cours durant son déroulement
+    course_description: Cours d’édition de wiki
+    courses: Cours
+    yourcourses: Vos cours
+    nocourses: Vous ne participez à aucun cours.
+    current: Cours actuels
+    duration: Durée du cours
+    instructor:
+      one: Instructeur
+      other: Instructeurs
+    students: Étudiants
+    students_none: '%{title} n’a aucun étudiant inscrit.'
+    students_short: Étudiants
+    timeline: Détails d'assignement
+    weeks_none: '%{title} n''a aucun assignement'
+    new_week: Ajouter une nouvelle semaine au planning pour %{title}
+    overview: Vue d'ensemble
+    title: Titre
+    view: Afficher le cours
+    view_wiki: Afficher sur Wikipédia
+    view_doc: La somme de toutes les vues des articles édités par des étudiants depuis
+      que ces derniers ont édité pour la première fois chacun des articles.
+    volunteer:
+      one: Bénévole
+      other: Bénévoles
+    wiki_staff: Équipe d’édition de wiki
+    error:
+      exists: Ce cours existe déjà ! Veuillez réessayer avec un autre titre, école,
+        ou échéance.
+  course_creator:
+    create_new: Créer un Nouveau cours
+    intro: Le titre, l’école et l’échéance feront partie de l’URL de la page, et ne
+      pourront pas être modifiés. Le reste des informations du cours pourra être modifié
+      ultérieurement. Une fois que vous aurez créé le cours, l’assistant vous guidera
+      pour créer un planning d’affectation.
   metrics:
     activity: Activité récente
-    activity_none: '%{title} n’a pas d’activité récente'
     articles_created: Articles créés
     articles_edited: Articles modifiés
     char: Caractères ajoutés
@@ -31,6 +114,10 @@ fr:
     user: Espace utilisateur
     user_char_added: Caractères ajoutés à l’espace utilisateur
     user_ns: Utilisateur
+  revisions:
+    loading: Chargement des révisions…
+    none: Ce cours n’a pas d’activité récente de modification Wikipédia.
+    time_doc: Le temps de chaque révision à votre heure locale.
   tasks:
     conseq: La tâche %{task} tourne déjà !
     constant: La tâche %{task} ne peut pas tourner tant que la tâche update_daily
@@ -38,8 +125,34 @@ fr:
     paused: La tâche %{task} ne peut pas tourner car les mises à jour de l’ordonnanceur
       ont été suspendues. Lancez 'rake batch:resume' pour reprendre les mises à jour.
   uploads:
-    none: Aucun fichier n’a été téléchargé
+    loading: Chargement des téléchargements…
+    none: Cette classe n'a contribué avec aucune image ou autre fichier média à Wikimedia
+      Commons.
     usages: Utilisations
+    time_doc: L’heure de chaque téléchargement dans votre heure locale
+  users:
+    already_enrolled: Cet utilisateur est déjà inscrit !
+    assigned: Article affecté
+    character_doc: La quantité totale de contenu qu’un utilisateur a ajouté à son
+      espace de nom, calculée en ajoutant les caractères ajoutés pour chaque modification
+      ayant augmenté la taille de la page. Ce nombre ne reflète pas nécessairement
+      la quantité de nouveau contenu ajouté par l’utilisateur. Restaurer un contenu
+      supprimé augmentera également ce total.
+    contributions: Contributions de l’utilisateur
+    contributions_more: Afficher plus de contributions
+    editors: Editeurs étudiants
+    loading: Chargement des utilisateurs…
+    name: Nom
+    none: Ce cours n’a aucun étudiant.
+    reviewers: Relecteur
+    training_complete:
+      one: a terminé l'entrainement
+      other: ont terminé l'entrainement
+    training_complete_count: '%{count} ont/a terminé l''entrainement'
+    training_doc: 'Les étudiants éditeur qui ont terminé l’''entraînement pour étudiants''
+      devraient avoir fait une modification sur la page d’avis une fois qu’ils ont
+      terminé. Si un étudiant éditeur effectue le cours mais ne termine pas la tâche
+      d’avis, il peut revenir à la fin du cours ici: https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete.'
   wiki_edits:
     notify_untrained:
       header: Vous n’avez pas terminé la formation d’étudiant.
@@ -66,6 +179,4 @@ fr:
     header: 500 — erreur interne du serveur.  :-(
     explanation: Quelque chose s’est mal passé. Veuillez contacter les mainteneurs
       de ce tableau de bord pour les informer du problème.
-  timeout: Une requête à l’API %{api} a dépassé son délai et sera retentée %{tries}
-    fois.
 ...

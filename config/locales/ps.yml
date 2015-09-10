@@ -7,9 +7,26 @@ ps:
   activity:
     edited_by: سمونگر
     all: فعاليت
+  articles:
+    edited_mobile: ليکنې
+    rating: ټولگی
+    title: سرليک
+    view: ليکنه کتل
+    view_all: ټول کتل
+  courses:
+    articles: ليکنې
+    courses: کورسونه
+    yourcourses: ستاسې کورس
+    duration: کورس موده
+    students: زده کړيالان
+    students_short: زده کړيالان
+    title: سرليک
+    view: کورس کتل
+    view_wiki: په ويکيپېډيا باندې کتل
+  course_creator:
+    create_new: يو نوی کورس جوړول
   metrics:
     activity: تازه فعاليتونه
-    activity_none: '%{title} تازه فعاليتونه نه لري'
     articles_created: جوړې شوې ليکنې
     articles_edited: سمې شوې ليکنې
     date_time: نېټه/وخت
@@ -21,4 +38,11 @@ ps:
     user_ns: کارن
   uploads:
     usages: کارېدنې
+  users:
+    contributions: د کارن ونډې
+    contributions_more: نورې ونډې کتل
+    name: نوم
+    none: دا کورس کوم زدکړيال نه لري.
+  error_404:
+    header: مخ و نه موندل شو. :-(
 ...

@@ -1,0 +1,58 @@
+# Messages for Finnish (suomi)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Nike
+# Author: Pitke
+---
+fi:
+  articles:
+    none: Tämän kurssin osallistujat eivät ole muokanneet yhtään artikkelia.
+    loading: Ladataan artikkeleita...
+    edited: Muokattuja artikkeleita
+    rating_docs:
+      fa: Suositeltu artikkeli — Wikipedian korkein luokittelu, todennäköisesti liian
+        valmis opiskelijamuokkaajan pääprojektiksi
+      fl: Suositellut luettelot — Wikipedian korkein luokitus luetteloille
+    title: Otsikko
+    view: Näytä artikkeli
+    view_all: Näytä kaikki
+  assignments:
+    loading: Ladataan tehtäviä...
+    confirm_deletion: Haluatko varmasti poistaa tämän tehtävän?
+  courses:
+    courses: Kurssit
+    yourcourses: Omat kurssisi
+    duration: Kurssin kesto
+    instructor:
+      one: ohjaaja
+      other: ohjaajat
+    students: Opiskelijat
+    students_short: Opiskelijat
+    timeline: Tehtävän tiedot
+    title: Otsikko
+    view: Näytä kurssi
+    view_wiki: Näytä Wikipediassa
+    view_doc: Yhteenlaskettu latausmäärä kaikille oppilaitten muokkaamille artikkeleille
+      alkaen ensimmäisistä heidän tekemistään muokkauksista per artikkeli.
+  course_creator:
+    create_new: Luo uusi kurssi
+  revisions:
+    loading: Ladataan versioita...
+    none: Tämän kurssin osallistujat eivät ole muokanneet Wikipediaa viime aikoina.
+  uploads:
+    loading: Ladataan latauksia...
+    none: Tämä luokka ei ole tallentanut kuvia tai muita tiedostoja Wikimedia Commonsiin.
+  users:
+    character_doc: Kokonaismäärä sisällöstä, jonka käyttäjä on lisännyt tähän nimiavaruuteen.
+      Lasketaan yhteen lisättyjen merkkien määrät niistä muokkauksista, jotka nostivat
+      sivun merkkimäärää. Tämä luku sisältää myös poistettua sisältöä palauttaneet
+      muokkaukset, eikä se välttämättä vastaa käyttäjän lisäämän uuden sisällön määrää.
+    contributions: Käyttäjän muokkaukset
+    contributions_more: Näytä lisää muokkauksia
+    loading: Ladataan käyttäjiä...
+    name: Nimi
+    none: Tällä kurssilla ei ole opiskelijoita.
+    training_complete:
+      one: on valmistunut koulutuksesta
+      other: ovat valmistuneet koulutuksesta
+...

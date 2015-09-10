@@ -2,14 +2,22 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Alex00728
+# Author: Hwangjy9
 ---
 ko:
   activity:
     edited_by: '편집자 :'
     all: 활동
+  articles:
+    edited: 문서 편집됨
+    edited_mobile: 문서
+    title: 제목
+    view: 문서 보기
+  courses:
+    activity: 활동
+    articles: 문서
   metrics:
     activity: 최근 활동
-    activity_none: '%{title}은(는) 최근 활동이 없습니다.'
     articles_created: 문서 생성됨
     articles_edited: 문서 편집됨
     characters: 글자
@@ -35,5 +43,4 @@ ko:
   error_500:
     header: 500 — 내부 서버 에러  :-(
     explanation: 무언가 문제가 생겼습니다. 이 게시판의 유지자에게 연락해서 문제를 알도록 하세요.
-  timeout: '%{api} API의 요청이 타임아웃되었으며, %{tries}번 재시도 할 것입니다.'
 ...

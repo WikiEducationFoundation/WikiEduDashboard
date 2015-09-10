@@ -1,0 +1,32 @@
+# Messages for Indonesian (Bahasa Indonesia)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Mirws
+---
+id:
+  articles:
+    loading: Memuat artikel...
+    rating_docs:
+      start: Mulai kelas - artikel awal dengan banyak ruang untuk perbaikan
+  assignments:
+    reviewers: Peninjau
+    loading: Memuat tugas...
+    confirm_addition: Apakah Anda yakin Anda ingin menetapkan%{title} ke %{username}%?
+  courses:
+    course_description: Wiki Ed Courses
+  course_creator:
+    intro: Judul, sekolah dan jangka waktu akan menjadi bagian dari url halaman kursus,
+      dan tidak dapat diubah. informasi kursus lainnya dapat diedit nanti. Setelah
+      Anda membuat kursus Anda, wizard akan memandu Anda melalui pembuatan timeline
+      penugasan.
+  revisions:
+    time_doc: Waktu setiap revisi dalam waktu lokal Anda
+  uploads:
+    none: Kelas ini belum memberikan kontribusi setiap gambar atau file media lainnya
+      untuk Wikimedia Commons.
+  users:
+    contributions_more: Lihat Kontribusi lainnya
+    training_complete:
+      one: has completed training
+      other: have completed training
+...

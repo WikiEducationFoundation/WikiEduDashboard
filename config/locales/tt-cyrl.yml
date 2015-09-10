@@ -1,0 +1,10 @@
+# Messages for Tatar (Cyrillic script) (татарча)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Ильнар
+---
+tt-cyrl:
+  courses:
+    articles: Мәкаләләр
+    title: Башлам
+...

@@ -1,15 +1,28 @@
 # Messages for Catalan (català)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Eduardo Martinez
 # Author: Macofe
 ---
 ca:
   activity:
     all: Activitat
+  articles:
+    edited_mobile: Articles
+    rating: Classe
+    title: Títol
+  courses:
+    activity: Activitat
+    articles: Articles
+    yourcourses: El teus cursos
+    students: Estudiants
+    students_short: Estudiants
   metrics:
     view: Vistes
   namespace:
     user_ns: Usuari
   uploads:
     usages: Usos
+  users:
+    name: Nom
 ...

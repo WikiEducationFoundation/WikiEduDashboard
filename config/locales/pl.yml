@@ -2,8 +2,40 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Chrumps
+# Author: The Polish
 ---
 pl:
+  articles:
+    loading: Wczytywanie artykułów...
+    edited_mobile: Artykuły
+    rating: Klasa
+    title: Tytuł
+    view: Zobacz artykuł
+    view_all: Zobacz wszystkie
+  assignments:
+    confirm_addition: Czy na pewno chcesz przypisać %{title} do %{username}?
+  courses:
+    activity: Aktywność
+    articles: Artykuły
+    courses: Kursy
+    yourcourses: Twoje Kursy
+    nocourses: Nie bierzesz udziału w żadnych kursach.
+    instructor:
+      one: Instruktor
+      other: Instruktorzy
+    students: Studenci
+    students_short: Studenci
+    title: Tytuł
+    view: Zobacz Kursy
+    view_wiki: Zobacz w Wikipedii
+  course_creator:
+    create_new: Utwórz Nowy Kurs
   namespace:
     user_ns: Użytkownik
+  revisions:
+    loading: Wczytywanie wersji...
+  users:
+    contributions: Wkład użytkownika
+    loading: Wczytywanie użytkowników...
+    name: Nazwa
 ...

@@ -1,0 +1,35 @@
+# Messages for Latvian (latviešu)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Papuass
+---
+lv:
+  articles:
+    loading: Ielādē rakstus...
+    assigned: Piešķirtie raksti
+    edited: Labotie raksti
+    edited_mobile: Raksti
+    title: Nosaukums
+    view_all: Skatīt visus
+  courses:
+    activity: Aktivitāte
+    articles: Raksti
+    courses: Kursi
+    duration: Kursa ilgums
+    students: Studenti
+    students_short: Studenti
+    overview: Pārskats
+    title: Nosaukums
+    view: Apskatīt kursu
+  course_creator:
+    create_new: Izveidot jaunu kursu
+  revisions:
+    loading: Ielādē versijas...
+  uploads:
+    loading: Ielādē augšupielādes...
+  users:
+    contributions: Lietotāja devums
+    loading: Ielādē lietotājus...
+    name: Nosaukums
+    none: Šim kursam nav studentu.
+...

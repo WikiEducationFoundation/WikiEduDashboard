@@ -1,0 +1,25 @@
+# Messages for Goan Konkani (Devanagari script) (गोवा कोंकणी)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Vaishali Parab
+---
+gom-deva:
+  articles:
+    edited: संपादीत लेख
+    edited_mobile: लेख
+    title: माथाळो
+    view: लेख पळेयात
+    view_all: सगळें पळयात
+  courses:
+    articles: लेख
+    students: विद्यार्थी
+    students_short: विद्यार्थी
+    view_wiki: विकिपीडियाचेर पळेयात
+  revisions:
+    time_doc: दरेका उजळणेचो तुमच्या थळाव्या वेळाप्रमाण वेळ
+  users:
+    contributions: उपेगकर्त्यांचीं योगदानां
+    contributions_more: आनीक योगदानां पळेयात
+    editors: विद्यार्थी संपादक
+    name: नांव
+...

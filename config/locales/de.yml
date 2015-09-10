@@ -9,11 +9,90 @@ de:
   activity:
     edited_by: Bearbeitet von
     all: Aktivität
+  articles:
+    none: Dieser Kurs hat keine Artikel bearbeitet.
+    loading: Lade Artikel …
+    assigned: Zugewiesene Artikel
+    assigned_to: Zugewiesen an
+    character_doc: Die Summe aller durch die Kursstudenten während der Kursdauer zu
+      Artikeln hinzugefügten Zeichen
+    edited: Bearbeitete Artikel
+    edited_mobile: Artikel
+    no_assignee: Kein Benutzer zugewiesen
+    rating: Klasse
+    rating_doc: Die Bewertung eines Artikels, die von den Wikiprojekten vergeben wurde.
+      Diese Bewertungen entsprechen zu stark älteren Versionen, so dass sie nur ein
+      grobes Anzeichen der Artikelreife sind.
+    rating_docs:
+      fa: Exzellenter Artikel – Wikipedias höchste Bewertung, vermutlich zu gewagt
+        für ein Hauptprojekt eines Studentenautoren.
+      fl: Exzellente Liste – Wikipedias höchste Bewertung für Listen.
+      a: A-Klasse – Ein sehr entwickelter Artikel, der vermutlich zu gewagt ist für
+        ein Hauptprojekt eines Studentenautoren.
+      ga: Guter Artikel – Ein gut entwickelter Artikel, der vermutlich zu gewagt ist
+        für ein Hauptprojekt eines Studentenautoren.
+      b: B-Klasse – Ein mäßig entwickelter Artikel.
+      c: C-Klasse – Ein dazwischenliegender Artikel mit Raum für Verbesserungen.
+      start: Start-Klasse – Ein vorläufiger Artikel mit Spielraum für Verbesserungen.
+      stub: Stub-Klasse – Ein kurzer Anfang eines Artikels, der mehr Inhalt benötigt.
+      list: Listen-Klasse – Eher eine Liste als ein gewöhnlicher Artikel.
+      '?': Nicht bewertet – Ein Artikel, der noch nicht auf einer Wikipedia-Qualitätsskala
+        bewertet wurde.
+    title: Titel
+    view: Artikel ansehen
+    view_all: Alle ansehen
+    view_doc: Die Summe aller Aufrufe für jeden Artikel während der Kursdauer
+    views_added: '%{count} neue Aufrufe für %{title} hinzugefügt'
+  assignments:
+    assignees: Zuweiser
+    reviewers: Prüfer
+    loading: Lade Zuweisungen …
+    none: Dieser Kurs hat keine zugewiesenen Wikipedia-Artikel.
+    confirm_addition: Bist du sicher, dass du %{title} zu %{username} zuweisen möchtest?
+    confirm_deletion: Bist du sicher, dass du diese Zuweisung löschen möchtest?
   cohort:
     view_other: Andere Jahrgänge ansehen
+  courses:
+    activity: Aktivität
+    articles: Artikel
+    character_doc: Die Summe der durch die Kursstudenten während der Kursdauer zu
+      Hauptnamensraum-Artikeln hinzugefügten Zeichen
+    course_description: Wiki-Ed-Kurse
+    courses: Kurse
+    yourcourses: Deine Kurse
+    nocourses: Du nimmst an keinen Kursen teil.
+    current: Aktuelle Kurse
+    duration: Kursdauer
+    instructor:
+      one: Leiter
+      other: Leiter
+    students: Studenten
+    students_none: '%{title} hat keine eingeschriebenen Studenten.'
+    students_short: Studenten
+    timeline: Einzelheiten zur Zuweisung
+    weeks_none: '%{title} hat keine Zuweisungen'
+    new_week: Eine neue Woche der Zeitleiste für %{title} hinzufügen
+    overview: Übersicht
+    title: Titel
+    view: Kurs ansehen
+    view_wiki: Auf Wikipedia ansehen
+    view_doc: Die Summe aller Aufrufe von Artikeln, die von Studenten bearbeitet wurden,
+      seit sie ihre erste Bearbeitung an jedem Artikel gemacht haben.
+    volunteer:
+      one: Freiwilliger
+      other: Freiwillige
+    wiki_staff: Wiki-Ed-Mitarbeiter
+    error:
+      exists: Dieser Kurs ist bereits vorhanden! Bitte versuche es erneut mit einem
+        anderen Titel, einer anderen Schule oder Dauer.
+  course_creator:
+    create_new: Einen neuen Kurs erstellen
+    intro: Der Titel, die Schule und Dauer werden Teil der Kurs-Seiten-URL und können
+      nicht geändert werden. Der Rest der Kursinformationen kann später bearbeitet
+      werden. Nachdem du deinen Kurs erstellt hast, führt dich der Assistent durch
+      die Erstellung der Zuweisungs-Zeitleiste.
   metrics:
     activity: Letzte Aktivitäten
-    activity_none: '%{title} hat keine kürzlichen Aktivitäten'
     articles_created: Erstellte Artikel
     articles_edited: Bearbeitete Artikel
     char: Zeichen hinzugefügt
@@ -31,6 +110,10 @@ de:
     user: Benutzernamensraum
     user_char_added: Benutzernamensraum-Zeichen hinzugefügt
     user_ns: Benutzer
+  revisions:
+    loading: Lade Versionen …
+    none: Dieser Kurs hat keine kürzliche Wikipedia-Bearbeitungsaktivität.
+    time_doc: Die Zeit jeder Version in deiner Ortszeit
   tasks:
     conseq: Die Aufgabe %{task} läuft bereits!
     constant: Die Aufgabe %{task} kann nicht ausgeführt werden, während die Aufgabe
@@ -38,8 +121,35 @@ de:
     paused: Die Aufgabe %{task} kann nicht ausgeführt werden, da geplante Aktualisierungen
       angehalten wurden. Führe „rake batch:resume“ aus, um die Aktualisierungen fortzusetzen.
   uploads:
-    none: Es wurden keine Dateien hochgeladen
+    loading: Lade Uploads …
+    none: Diese Klasse hat keine Bilder oder andere Mediendateien für Wikimedia Commons
+      beigetragen.
     usages: Verwendungen
+    time_doc: Die Zeit jedes Uploads in deiner Ortszeit
+  users:
+    already_enrolled: Dieser Benutzer ist bereits eingeschrieben!
+    assigned: Zugewiesener Artikel
+    character_doc: Die Gesamtanzahl des Inhalts, den ein Benutzer zu diesem Namensraum
+      hinzugefügt hat, wird berechnet durch das Aufaddieren der hinzugefügten Zeichen
+      für alle Bearbeitungen, die die Seitengröße erhöht haben. Diese Anzahl muss
+      nicht unbedingt die Menge des hinzugefügten Inhalts widerspiegeln. Das Wiederherstellen
+      entfernten Inhalts erhöht ebenfalls diese Summe.
+    contributions: Benutzerbeiträge
+    contributions_more: Weitere Beiträge ansehen
+    editors: Studentenautoren
+    loading: Lade Benutzer …
+    name: Name
+    none: Dieser Kurs hat keine Studenten.
+    reviewers: Überprüfer
+    training_complete:
+      one: hat die Ausbildung abgeschlossen
+      other: haben die Ausbildung abgeschlossen
+    training_complete_count: '%{count} haben die Ausbildung abgeschlossen'
+    training_doc: 'Studentenautoren, die die „Ausbildung für Studenten“ abgeschlossen
+      haben, sollten eine Bearbeitung auf der Rückmeldungsseite durchführen, wenn
+      sie fertig sind. Studentenautoren, die durch die Ausbildung gegangen sind, aber
+      nicht den Rückmeldungsschritt vervollständigen, können am Ende der Ausbildung
+      hier zurückkehren: https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete.'
   wiki_edits:
     notify_untrained:
       header: Du hast die Studentenausbildung nicht abgeschlossen.
@@ -66,6 +176,4 @@ de:
     header: 500 – Interner Serverfehler. :-(
     explanation: Etwas ist schief gelaufen. Bitte kontaktiere die Instandhalter dieses
       Dashboards, damit sie über dieses Problem Bescheid wissen.
-  timeout: Eine Anfrage an die %{api}-API ergab eine Zeitüberschreitung. Ein erneuter
-    Versuch wird %{tries} Mal unternommen.
 ...

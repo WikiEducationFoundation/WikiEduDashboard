@@ -1,0 +1,23 @@
+# Messages for Brazilian Portuguese (português do Brasil)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: AndroidOSUser
+---
+pt-br:
+  application:
+    dashboard: Painel do Wiki Ed
+  activity:
+    edited_by: Editado por
+    all: Atividade
+  articles:
+    none: Este curso não editou nenhum artigo.
+    loading: Carregando artigos...
+    assigned: Artigos atribuídos
+    assigned_to: Atribuído a
+    character_doc: A soma de caracteres adicionados a artigos por os alunos do curso
+      durante a vigência do curso.
+    edited: Artigos editados
+    edited_mobile: Artigos
+    no_assignee: Nenhum usuário atribuído
+    rating: Qualidade
+...

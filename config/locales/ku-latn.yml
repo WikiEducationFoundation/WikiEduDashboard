@@ -13,7 +13,6 @@ ku-latn:
     view_other: Komên din bibîne
   metrics:
     activity: Aktîvîteyên Dawî
-    activity_none: '%{title} di demên dawî de çalakîyan nekirîye'
     articles_created: Gotar Hate Çêkirin
     articles_edited: Gotar Hate Sererastkirin
     characters: Karakter

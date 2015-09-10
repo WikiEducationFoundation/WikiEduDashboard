@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Macofe
+# Author: Themasterriot
 ---
 es:
   application:
@@ -9,27 +10,154 @@ es:
   activity:
     edited_by: Editado por
     all: Actividad
+  articles:
+    none: Este curso no ha editado ningún artículo.
+    loading: Cargando artículos...
+    assigned: Artículos asignados
+    assigned_to: Asignado a
+    character_doc: La suma de caracteres agregados a los artículos durante el período
+      del curso
+    edited: Artículos editados
+    edited_mobile: Artículos
+    no_assignee: Sin usuario asignado
+    rating: Clase
+    rating_doc: La calificación que ha recibido un artículo de Wikiproyectos en la
+      Wikipedia. Estas calificaciones pueden corresponder a versiones mucho más antiguas,
+      por lo que son sólo un indicador aproximado de la madurez del artículo.
+    rating_docs:
+      fa: 'Artículo destacado: la calificación más alta de Wikipedia, probablemente
+        sea un artículo muy maduro como para ser el proyecto principal de un estudiante'
+      fl: 'Lista destacada: la calificación más alta de Wikipedia para las listas'
+      a: 'Clase A: un artículo muy desarrollado que puede ser demasiado maduro para
+        el proyecto principal de un editor estudiantil'
+      ga: 'Artículo bueno: un artículo bien desarrollado que puede ser demasiado maduro
+        para el proyecto principal de un editor estudiantil'
+      b: 'Clase B: un artículo moderadamente desarrollado'
+      c: 'Clase C: un artículo intermedio con posibilidades de mejoras'
+      start: 'Clase inicial: un artículo preliminar con muchas posibilidades de mejoras'
+      stub: 'Clase esbozo: un artículo en sus comienzos que requiere más contenido'
+      list: 'Clase lista: una lista en lugar de un artículo convencional'
+      '?': 'Sin clasificación: un artículo que aún no ha sido clasificado en la escala
+        de calidad de Wikipedia'
+    title: Título
+    view: Ver artículo
+    view_all: Ver todos
+    view_doc: La suma de todas las visitas a cada artículo durante el período del
+      curso
+    views_added: Se añadieron %{count} visitas nuevas para %{title}
+  assignments:
+    assignees: Asignado(s)
+    reviewers: Revisor(es)
+    loading: Cargando tareas...
+    none: Este curso no tiene artículos de Wikipedia asignados.
+    confirm_addition: ¿Estás seguro de que quieres asignar %{title} a %{username}?
+    confirm_deletion: ¿Estás seguro de que quieres eliminar esta tarea?
   cohort:
     view_other: Ver otras cohortes
+  courses:
+    activity: Actividad
+    articles: Artículos
+    character_doc: La suma de caracteres agregados a los artículos del espacio principal
+      por parte de los estudiantes durante el período del curso
+    course_description: Cursos de Wiki Ed
+    courses: Cursos
+    yourcourses: Tus cursos
+    nocourses: No participas de ningún curso.
+    current: Cursos actuales
+    duration: Duración del curso
+    instructor:
+      one: Instructor
+      other: Instructores
+    students: Estudiantes
+    students_none: '%{title} no tiene ningún estudiante inscrito.'
+    students_short: Estudiantes
+    timeline: Detalles de la tarea
+    weeks_none: '%{title} no tiene tareas'
+    new_week: Agregar una semana nueva al cronograma de %{title}
+    overview: Resumen
+    title: Título
+    view: Ver curso
+    view_wiki: Ver en Wikipedia
+    view_doc: La suma de todas las visitas a artículos editados por estudiantes desde
+      que ellos hicieron su primera edición en cada artículo
+    volunteer:
+      one: Voluntario
+      other: Voluntarios
+    wiki_staff: Personal de Wiki Ed
+    error:
+      exists: Ese curso ya existe. Intenta de nuevo con un título, escuela o término
+        diferentes.
+  course_creator:
+    create_new: Crear un curso nuevo
+    intro: El título, la escuela y el plazo pasarán a formar parte de la dirección
+      url del curso, y no puede cambiarse. El resto de la información del curso puede
+      editarse posteriormente. Después de crear el curso, el asistente te guiará a
+      través de la creación de un cronograma de tareas.
   metrics:
     activity: Actividad reciente
-    activity_none: '%{title} no tiene actividad reciente'
     articles_created: Artículos creados
     articles_edited: Artículos editados
+    char: Caracteres añadidos
     characters: Caracteres
+    char_added: Caracteres añadidos
     char_changed: Caracteres cambiados
     date_time: Fecha/hora
     edit_count_description: Ediciones totales
+    student_editors: Editores estudiantiles
     view: Visualizaciones
     view_count_description: Visualizaciones del artículo
   namespace:
+    main: Espacio principal
+    main_char_added: Caracteres añadidos en el espacio principal
+    user: Espacio de usuarios
+    user_char_added: Caracteres añadidos en el espacio de usuarios
     user_ns: Usuario
+  revisions:
+    loading: Cargando revisiones...
+    none: Este curso no tiene ediciones recientes en Wikipedia.
+    time_doc: El tiempo de cada revisión en tu hora local
+  tasks:
+    conseq: La tarea %{task} ya se está ejecutando.
+    constant: La tarea %{task} no se puede ejecutar mientras la tarea update_daily
+      se está ejecutando.
+    paused: La tarea %{task} no se puede ejecutar porque se han pausado las actualizaciones
+      programadas. Ejecuta 'rake batch:resume' para reanudar las actualizaciones.
   uploads:
-    none: No se ha subido ningún archivo
+    loading: Cargando subidas...
+    none: Esta clase no ha contribuido ninguna imagen o archivo multimedia a Wikimedia
+      Commons.
     usages: Usos
+    time_doc: El tiempo de cada subida en tu hora local
+  users:
+    already_enrolled: Ese usuario ya está inscrito.
+    assigned: Artículo asignado
+    character_doc: La cantidad total de contenido que un usuario ha añadido a este
+      espacio de nombres, calculada sumando los caracteres añadidos de todas las ediciones
+      que aumentaron el tamaño de la página. Este número no refleja necesariamente
+      la cantidad de contenido nuevo agregado por el usuario. Restaurar el contenido
+      eliminado también aumentará este total.
+    contributions: Contribuciones del usuario
+    contributions_more: Ver más contribuciones
+    editors: Editores estudiantiles
+    loading: Cargando usuarios...
+    name: Nombre
+    none: Este curso no tiene estudiantes.
+    reviewers: Revisor
+    training_complete:
+      one: ha completado el entrenamiento
+      other: han completado el entrenamiento
+    training_complete_count: '%{count} han completado el entrenamiento'
+    training_doc: 'Los editores estudiantiles quiénes hayan completado el ''entrenamiento
+      para estudiantes'' tendrían que haber hecho una edición a la página de comentarios
+      cuándo finalizaron. Si los editores estudiantiles pasaron por el entrenamiento
+      pero no completaron el paso de comentario, pueden regresar al final del entrenamiento
+      aquí: https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete.'
   wiki_edits:
     notify_untrained:
       header: No has completado el entrenamiento estudiantil.
+      message: Completa el [[WP:STUDENT|entrenamiento para estudiantes]]. Si ya lo
+        has hecho, asegúrate de pulsar el botón al final para registrar que lo has
+        completado. --~~~~
       summary: entrenamiento estudiantil incompleto
   error_401:
     header: No autorizado. >:-(
@@ -38,6 +166,9 @@ es:
       mantenimiento de este panel para informarles sobre el problema.
   error_404:
     header: No se encontró la página. :-(
+    explanation: Esta página no existe. Si estás intentando acceder al panel de un
+      curso, puede que ese curso no esté registrado para este panel. Si se ha registrado
+      recientemente, puede tomar un poco de tiempo hasta que el sistema lo añada.
   error_422:
     header: 422 — entidad no procesable.  :-(
     explanation: Algo salió mal. Pónte en contacto con los responsables del mantenimiento
