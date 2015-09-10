@@ -93,6 +93,13 @@ describe 'the home page', type: :feature do
       view_count = Course.all.sum(:view_sum)
       stat_text = "#{view_count} #{I18n.t('metrics.view_count_description')}"
       expect(page.find('.stat-display')).to have_content stat_text
+
+      # Recent revisions
+      row = '.course-list__row:first-child ' \
+            '.course-list__row__revisions p.revisions'
+      within(row) do
+        expect(page.text).to eq('1')
+      end
     end
   end
 
@@ -156,16 +163,6 @@ describe 'the home page', type: :feature do
         find('.course-list__row:first-child a').click
       end
       expect(current_path).to eq("/courses/#{Course.first.slug}")
-    end
-
-    it 'contains the number of revisions in past 7 days' do
-      visit root_path
-
-      row = '.course-list__row:first-child ' \
-            '.course-list__row__revisions p.revisions'
-      within(row) do
-        expect(page.text).to eq('1')
-      end
     end
   end
 
