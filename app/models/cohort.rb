@@ -25,6 +25,9 @@ class Cohort < ActiveRecord::Base
     students.where.not(id: instructors.pluck(:id))
   end
 
+  def trained_count
+    students_without_instructor_students.trained.count
+  end
   #################
   # Class methods #
   #################
