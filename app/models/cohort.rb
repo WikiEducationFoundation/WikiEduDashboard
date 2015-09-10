@@ -22,17 +22,15 @@ class Cohort < ActiveRecord::Base
   ####################
 
   def students_without_instructor_students
-    students - instructors
+    students.where.not(id: instructors.pluck(:id))
   end
 
   def trained_students_without_instructor_students
-    ids = students_without_instructor_students.map(&:id)
-    students.where(id: ids, trained: true)
+    students_without_instructor_students.where(trained: true)
   end
 
   def untrained_students_without_instructor_students
-    ids = students_without_instructor_students.map(&:id)
-    students.where(id: ids, trained: false)
+    students_without_instructor_students.where(trained: false)
   end
 
   #################
