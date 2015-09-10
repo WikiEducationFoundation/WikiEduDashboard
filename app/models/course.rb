@@ -40,8 +40,8 @@ require "#{Rails.root}/lib/importers/user_importer"
 class Course < ActiveRecord::Base
   LEGACY_COURSE_MAX_ID = 9999
 
-  has_many :tags
-  has_many :courses_users, class_name: CoursesUsers
+  has_many :tags, dependent: :destroy
+  has_many :courses_users, class_name: CoursesUsers, dependent: :destroy
   has_many :users, -> { uniq }, through: :courses_users,
                                 after_remove: :cleanup_articles
   has_many :students, -> { where('courses_users.role = 0') },
@@ -55,19 +55,19 @@ class Course < ActiveRecord::Base
     where('date >= ?', course.start).where('date <= ?', course.end)
   }, through: :students
 
-  has_many :cohorts_courses, class_name: CohortsCourses
+  has_many :cohorts_courses, class_name: CohortsCourses, dependent: :destroy
   has_many :cohorts, through: :cohorts_courses
 
-  has_many :articles_courses, class_name: ArticlesCourses
+  has_many :articles_courses, class_name: ArticlesCourses, dependent: :destroy
   has_many :articles, -> { uniq }, through: :articles_courses
 
-  has_many :uploads, through: :students
+  has_many :uploads, through: :students, dependent: :destroy
 
-  has_many :assignments
+  has_many :assignments, dependent: :destroy
 
-  has_many :weeks
-  has_many :blocks, through: :weeks
-  has_many :gradeables, as: :gradeable_item
+  has_many :weeks, dependent: :destroy
+  has_many :blocks, through: :weeks, dependent: :destroy
+  has_many :gradeables, as: :gradeable_item, dependent: :destroy
 
   scope :current, lambda {
     current_and_future.where('start < ?', Time.now)
@@ -77,6 +77,8 @@ class Course < ActiveRecord::Base
 
   scope :listed, -> { where(listed: true) }
 
+  # Courses sourced from Wikipedia, not created with this tool
+  scope :legacy, -> { where('id <= ?', LEGACY_COURSE_MAX_ID) }
   scope :not_legacy, -> { where('id > ?', LEGACY_COURSE_MAX_ID) }
 
 
@@ -87,17 +89,17 @@ class Course < ActiveRecord::Base
     where('end > ?', Time.now - update_length)
   }
 
-  # Courses sourced from Wikipedia, not created with this tool
-  scope :legacy, -> { where('courses.id < 10000') }
-
   before_save :order_weeks
-
   validates :passcode, presence: true, unless: :is_legacy_course?
 
   def self.submitted_listed
     Course.includes(:cohorts).where('cohorts.id IS NULL')
       .where(listed: true).where(submitted: true)
       .references(:cohorts)
+  end
+
+  def self.generate_passcode
+    ('a'..'z').to_a.sample(8).join
   end
 
   ####################
@@ -131,7 +133,7 @@ class Course < ActiveRecord::Base
       return if data.blank? || data[0].nil?
       data = data[0]
     end
-    self.attributes = data['course']
+    self.attributes = data[:course]
 
     return unless save
     if data['participants']

@@ -26,120 +26,43 @@ class CoursesController < ApplicationController
   ################
   # CRUD methods #
   ################
-  def course_params
-    slugify = params[:course].key? :title
-    slugify &= params[:course].key? :school
-    slugify &= params[:course].key? :term
-
-    if slugify
-      title = params[:course][:title].gsub(' ', '_')
-      school = params[:course][:school].gsub(' ', '_')
-      term = params[:course][:term].gsub(' ', '_')
-      params[:course][:slug] = "#{school}/#{title}_(#{term})"
-    end
-
-    unless params[:course].key? :timeline_start
-      params[:course][:timeline_start] = params[:course][:start]
-    end
-    unless params[:course].key? :timeline_end
-      params[:course][:timeline_end] = params[:course][:end]
-    end
-
-    unless params[:course].key? :passcode
-      params[:course][:passcode] = ('a'..'z').to_a.sample(8).join
-    end
-
-    if params[:course].key? :instructor_name
-      current_user.update(real_name: params[:course][:instructor_name])
-      params[:course].delete(:instructor_name)
-    end
-
-    if params[:course].key? :instructor_email
-      current_user.update(email: params[:course][:instructor_email])
-      params[:course].delete(:instructor_email)
-    end
-
-    params.require(:course).permit(
-      :id,
-      :title,
-      :description,
-      :school,
-      :term,
-      :slug,
-      :subject,
-      :expected_students,
-      :start,
-      :end,
-      :submitted,
-      :listed,
-      :passcode,
-      :timeline_start,
-      :timeline_end,
-      :day_exceptions,
-      :weekdays,
-      :no_day_exceptions
-    )
-  end
 
   def create
     if Course.exists?(slug: course_params[:slug])
       flash[:notice] = t('course.error.exists')
       redirect_to :back
     else
-      @course = Course.create(course_params)
+      @course = Course.new(course_params)
+      @course.slug = set_slug if should_set_slug?
+      @course.save
       CoursesUsers.create(user: current_user, course: @course, role: 1)
     end
   end
 
-  def validate
-    slug = params[:id].gsub(/\.json$/, '')
-    @course = find_course_by_slug(slug)
-    return unless user_signed_in? && current_user.instructor?(@course)
-  end
-
   def update
     validate
-    params = {}
-    params['course'] = course_params
+    newly_submitted = !@course.submitted? && course_params[:submitted] == true
+    announce_course(@course.instructors.first) if newly_submitted
+    @course.update course: course_params
+    handle_timeline_dates
+    handle_instructor_info if should_update_instructor_info?
+    @course.update_attribute(:passcode, Course.generate_passcode) if course_params[:passcode].nil?
 
-    newly_submitted = !@course.submitted && params['course']['submitted']
-
-    @course.update params
-
-    if newly_submitted
-      instructor = @course.instructors.first
-      WikiEdits.announce_course(@course, current_user, instructor)
-    end
     WikiEdits.update_course(@course, current_user)
-    respond_to do |format|
-      format.json { render json: @course }
-    end
+    render json: @course
   end
 
   def destroy
     validate
-    WikiEdits.update_assignments current_user, @course, nil, true
-    @course.courses_users.destroy_all
-    @course.articles_courses.destroy_all
-    @course.assignments.destroy_all
-    @course.cohorts_courses.destroy_all
-    @course.weeks.destroy_all
-    @course.gradeables.destroy_all
     @course.destroy
+    WikiEdits.update_assignments current_user, @course, nil, true
     WikiEdits.update_course(@course, current_user, true)
-    respond_to do |format|
-      format.json { render json: { success: true } }
-    end
+    render json: { success: true }
   end
 
   ########################
   # View support methods #
   ########################
-  def volunteers
-    return nil if @course.nil?
-    users = @course.users
-    users.role('online_volunteer') + users.role('campus_volunteer')
-  end
 
   def show
     @course = find_course_by_slug("#{params[:school]}/#{params[:titleterm]}")
@@ -155,71 +78,38 @@ class CoursesController < ApplicationController
     end
   end
 
-  def standard_setup
-    @course = find_course_by_slug(params[:id])
-    @volunteers = volunteers
-    is_instructor = (user_signed_in? && current_user.instructor?(@course))
-    return if @course.nil? || @course.listed || is_instructor
-    fail ActionController::RoutingError.new('Not Found'), 'Not permitted'
-  end
-
   ##################
   # Helper methods #
   ##################
+
   def check
     course_exists = Course.exists?(slug: params[:id])
-    respond_to do |format|
-      format.json { render json: { course_exists: course_exists } }
-    end
-  end
-
-  def cohort_params
-    params.require(:cohort).permit(:title)
+    render json: { course_exists: course_exists }
   end
 
   def list
     @course = find_course_by_slug(params[:id])
     @cohort = Cohort.find_by(title: cohort_params[:title])
-    unless @cohort.nil?
-      exists = CohortsCourses.exists?(course_id: @course.id,
-                                      cohort_id: @cohort.id)
-      if request.post? && !exists
-        CohortsCourses.create(
-          course_id: @course.id,
-          cohort_id: @cohort.id
-        )
-      elsif request.delete?
-        CohortsCourses.find_by(
-          course_id: @course.id,
-          cohort_id: @cohort.id
-        ).destroy
-      end
-    else
-      cohort_name = cohort_params[:title]
-      render json: { message: "Sorry, #{cohort_name} is not a valid cohort." },
-             status: 404
+    if @cohort.nil?
+      render json: { message: "Sorry, #{cohort_params[:title]} is not a valid cohort." }, status: 404 and return
     end
-  end
-
-  def tag_params
-    params.require(:tag).permit(:tag)
+    if request.post?
+      return if CohortsCourses.find_by(course_id: @course.id, cohort_id: @cohort.id).present?
+      CohortsCourses.create(course_id: @course.id, cohort_id: @cohort.id)
+    elsif request.delete?
+      CohortsCourses.find_by(course_id: @course.id, cohort_id: @cohort.id).destroy
+    end
   end
 
   def tag
     @course = find_course_by_slug(params[:id])
-    exists = Tag.exists?(course_id: @course.id, tag: tag_params[:tag])
-    if request.post? && !exists
-      Tag.create(
-        course_id: @course.id,
-        tag: tag_params[:tag],
-        key: nil
-      )
-    elsif request.delete? && exists
-      Tag.find_by(
-        course_id: @course.id,
-        tag: tag_params[:tag],
-        key: nil
-      ).destroy
+    t_params = { course_id: @course.id, tag: tag_params[:tag] }
+    if request.post?
+      return if Tag.find_by(t_params).present?
+      Tag.create(t_params)
+    elsif request.delete?
+      return unless Tag.find_by(t_params).present?
+      Tag.find_by(t_params).destroy
     end
   end
 
@@ -239,6 +129,42 @@ class CoursesController < ApplicationController
 
   private
 
+  def tag_params
+    params.require(:tag).permit(:tag)
+  end
+
+  def cohort_params
+    params.require(:cohort).permit(:title)
+  end
+
+  def validate
+    slug = params[:id].gsub(/\.json$/, '')
+    @course = find_course_by_slug(slug)
+    return unless user_signed_in? && current_user.instructor?(@course)
+  end
+
+  def should_update_instructor_info?
+    (%w(instructor_email instructor_name) & params[:course].keys).any?
+  end
+
+  def handle_timeline_dates
+    @course.timeline_start = @course.start if @course.timeline_start.nil?
+    @course.timeline_end = @course.end if @course.timeline_end.nil?
+    @course.save
+  end
+
+  def announce_course(instructor)
+    WikiEdits.announce_course(@course, current_user, instructor)
+  end
+
+  def standard_setup
+    @course = find_course_by_slug(params[:id])
+    return unless @course
+    @volunteers = @course.volunteers
+    return if @course.listed || (current_user && current_user.instructor?)
+    fail ActionController::RoutingError.new('Not Found'), 'Not permitted'
+  end
+
   def unsubmitted_cohort
     OpenStruct.new(title: 'Unsubmitted Courses', slug: 'none', students: [])
   end
@@ -254,5 +180,27 @@ class CoursesController < ApplicationController
     end
     return Cohort.includes(:students).find_by(slug: params[:cohort]) if params.key?(:cohort)
     Cohort.includes(:students).find_by(slug: ENV['default_cohort'])
+  end
+
+  def handle_instructor_info
+    c_params = params[:course]
+    current_user.real_name = c_params['instructor_name'] if c_params.key?('instructor_name')
+    current_user.email = c_params['instructor_email'] if c_params.key?('instructor_email')
+    current_user.save
+  end
+
+  def should_set_slug?
+    %i(title school term).all? { |key| params[:course].key?(key) }
+  end
+
+  def set_slug
+    @course.slug = "#{@course.school}/#{@course.title}_(#{@course.term})".gsub(' ', '_')
+  end
+
+  def course_params
+    params.require(:course).permit(:id, :title, :description, :school, :term,
+      :slug, :subject, :expected_students, :start, :end, :submitted, :listed,
+      :passcode, :timeline_start, :timeline_end, :day_exceptions, :weekdays,
+      :no_day_exceptions)
   end
 end
