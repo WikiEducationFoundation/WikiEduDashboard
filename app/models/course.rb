@@ -75,6 +75,8 @@ class Course < ActiveRecord::Base
 
   scope :unsubmitted_listed, -> { where(submitted: false).where(listed: true).merge(Course.not_legacy) }
 
+  scope :listed, -> { where(listed: true) }
+
   scope :not_legacy, -> { where('id > ?', LEGACY_COURSE_MAX_ID) }
 
 

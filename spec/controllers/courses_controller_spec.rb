@@ -45,6 +45,7 @@ describe CoursesController do
         let!(:course) { create(:course, id: 100000, listed: true, submitted: false) }
         it 'sets the courses to unsubmitted' do
           get :index, cohort: 'none'
+          expect(assigns(:cohort)).to be_an_instance_of(OpenStruct)
           expect(assigns(:courses)).to eq(Course.unsubmitted_listed)
           expect(assigns(:trained)).to be_nil
         end
@@ -53,7 +54,7 @@ describe CoursesController do
       context 'default cohort in env' do
         let!(:cohort) { create(:cohort) }
         before do
-          allow(Figaro).to receive_message_chain(:env, :default_cohort).and_return('spring_2015')
+          ENV['default_cohort'] = 'spring_2015'
           allow(Figaro).to receive_message_chain(:env, :update_length).and_return(7)
         end
         it 'gets the slug' do
@@ -62,7 +63,8 @@ describe CoursesController do
         end
       end
 
-      context 'cohort not in params' do
+      context 'cohort not in params; no default' do
+        before { ENV['default_cohort'] = nil }
         it 'raises' do
           expect{get :index}.to raise_error(ActionController::RoutingError)
         end

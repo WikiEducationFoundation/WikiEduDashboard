@@ -12,37 +12,15 @@ class CoursesController < ApplicationController
   ###############
   def index
     if user_signed_in?
-      if current_user.permissions > 0
-        @admin_courses = Course.submitted_listed
-      end
-
-      @user_courses = current_user.courses.current_and_future.select do |c|
-        c if c.listed
-      end
+      @admin_courses = Course.submitted_listed if current_user.admin?
+      @user_courses = current_user.courses.current_and_future.select(&:listed)
     end
 
-    if params.key?(:cohort)
-      if params[:cohort] == 'none'
-        @cohort = OpenStruct.new(
-          title: 'Unsubmitted Courses',
-          slug: 'none',
-          students_without_instructor_students: [],
-          trained_count: 0
-        )
-        @courses = Course.unsubmitted_listed
-        return
-      else
-        @cohort = Cohort.includes(:students).find_by(slug: params[:cohort])
-      end
-    elsif !Figaro.env.default_cohort.nil?
-      slug = Figaro.env.default_cohort
-      @cohort = Cohort.includes(:students).find_by(slug: slug)
-    end
-    @cohort ||= nil
+    return handle_no_cohort if params[:cohort] == 'none'
 
-    raise ActionController::RoutingError.new('Not Found') if @cohort.nil?
-
-    @courses = @cohort.courses.where(listed: true).order(:title)
+    @cohort = set_cohort(params)
+    @courses = @cohort.courses.listed.order(:title)
+    @trained = @cohort.students.trained.count
   end
 
   ################
@@ -258,4 +236,23 @@ class CoursesController < ApplicationController
     render nothing: true, status: :ok
   end
   helper_method :notify_untrained
+
+  private
+
+  def unsubmitted_cohort
+    OpenStruct.new(title: 'Unsubmitted Courses', slug: 'none', students: [])
+  end
+
+  def handle_no_cohort
+    @cohort = unsubmitted_cohort
+    @courses = Course.unsubmitted_listed
+  end
+
+  def set_cohort(params)
+    unless params.key?(:cohort) || ENV['default_cohort'].present?
+      raise ActionController::RoutingError.new('Cohort must be selected or set by default')
+    end
+    return Cohort.includes(:students).find_by(slug: params[:cohort]) if params.key?(:cohort)
+    Cohort.includes(:students).find_by(slug: ENV['default_cohort'])
+  end
 end

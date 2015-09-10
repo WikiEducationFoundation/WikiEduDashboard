@@ -47,6 +47,8 @@ class User < ActiveRecord::Base
     joins(:courses_users).where(courses_users: { role: index.index(role) })
   }
 
+  scope :trained, -> { where(trained: true) }
+
   ####################
   # Instance methods #
   ####################
