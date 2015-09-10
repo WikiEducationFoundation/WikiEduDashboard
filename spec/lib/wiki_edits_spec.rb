@@ -1,9 +1,6 @@
 require 'rails_helper'
 require "#{Rails.root}/lib/wiki_edits"
 
-ASSIGNEE_ROLE = 0
-REVIEWER_ROLE = 1
-
 describe WikiEdits do
   # We're not testing any of the network stuff, nor whether the requests are
   # well-formatted, but at least this verifies that the flow is parsing tokens
@@ -105,13 +102,13 @@ describe WikiEdits do
              user_id: 1,
              course_id: 1,
              article_title: 'Selfie',
-             role: ASSIGNEE_ROLE)
+             role: Assignment::Roles::ASSIGNED_ROLE)
       create(:assignment,
              id: 2,
              user_id: 1,
              course_id: 1,
              article_title: 'Talk:Selfie',
-             role: REVIEWER_ROLE)
+             role: Assignment::Roles::REVIEWING_ROLE)
       WikiEdits.update_assignments(User.first, Course.first, Assignment.all)
       WikiEdits.update_assignments(User.first, Course.first, nil)
       WikiEdits.update_assignments(User.first, Course.first, nil, true)

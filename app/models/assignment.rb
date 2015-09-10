@@ -20,4 +20,12 @@ class Assignment < ActiveRecord::Base
 
   scope :assigned, -> { where(role: 0) }
   scope :reviewing, -> { where(role: 1) }
+
+  ####################
+  # CONSTANTS        #
+  ####################
+  module Roles
+    ASSIGNED_ROLE  = 0
+    REVIEWING_ROLE = 1
+  end
 end

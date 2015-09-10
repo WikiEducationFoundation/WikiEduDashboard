@@ -2,9 +2,6 @@ require 'rails_helper'
 require "#{Rails.root}/lib/wiki_edits"
 require "#{Rails.root}/lib/wiki_assignment_output"
 
-ASSIGNEE_ROLE = 0
-REVIEWER_ROLE = 1
-
 describe WikiAssignmentOutput do
   before do
     create(:assignment,
@@ -12,13 +9,13 @@ describe WikiAssignmentOutput do
            user_id: 3,
            course_id: 10001,
            article_title: 'Selfie',
-           role: ASSIGNEE_ROLE)
+           role: Assignment::Roles::ASSIGNED_ROLE)
     create(:assignment,
            id: 2,
            user_id: 3,
            course_id: 10001,
            article_title: 'Selfie',
-           role: REVIEWER_ROLE)
+           role: Assignment::Roles::REVIEWING_ROLE)
     create(:user,
            id: 3,
            wiki_id: 'Ragesock')
