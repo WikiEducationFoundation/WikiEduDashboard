@@ -7,7 +7,7 @@ class WikiEdits
   ################
   def self.notify_untrained(course_id, current_user)
     course = Course.find(course_id)
-    untrained_users = course.users.role('student').where(trained: false)
+    untrained_users = course.students.untrained
 
     message = { sectiontitle: I18n.t('wiki_edits.notify_untrained.header'),
                 text: I18n.t('wiki_edits.notify_untrained.message'),
