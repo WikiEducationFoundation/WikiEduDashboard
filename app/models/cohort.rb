@@ -26,11 +26,11 @@ class Cohort < ActiveRecord::Base
   end
 
   def trained_students_without_instructor_students
-    students_without_instructor_students.where(trained: true)
+    students_without_instructor_students.trained
   end
 
   def untrained_students_without_instructor_students
-    students_without_instructor_students.where(trained: false)
+    students_without_instructor_students.untrained
   end
 
   #################

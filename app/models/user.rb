@@ -38,6 +38,8 @@ class User < ActiveRecord::Base
   has_many :uploads, class_name: CommonsUpload
 
   scope :admin, -> { where(permissions: 1) }
+  scope :trained, -> { where(trained: true) }
+  scope :untrained, -> { where(trained: false) }
   scope :current, -> { joins(:courses).merge(Course.current).uniq }
   scope :role, lambda { |role|
     index = %w(student instructor online_volunteer
