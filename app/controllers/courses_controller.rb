@@ -28,7 +28,8 @@ class CoursesController < ApplicationController
         @cohort = OpenStruct.new(
           title: 'Unsubmitted Courses',
           slug: 'none',
-          students: []
+          students_without_instructor_students: [],
+          trained_students_without_instructor_students: []
         )
         @courses = Course.where(submitted: false)
                    .where(listed: true).where('id >= 10000')
@@ -45,7 +46,6 @@ class CoursesController < ApplicationController
     raise ActionController::RoutingError.new('Not Found') if @cohort.nil?
 
     @courses = @cohort.courses.where(listed: true).order(:title)
-    @trained = @cohort.students.where(trained: true).count
   end
 
   ################

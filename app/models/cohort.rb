@@ -15,6 +15,29 @@ class Cohort < ActiveRecord::Base
   has_many :cohorts_courses, class_name: CohortsCourses
   has_many :courses, through: :cohorts_courses
   has_many :students, -> { uniq }, through: :courses
+  has_many :instructors, -> { uniq }, through: :courses
+
+  ####################
+  # Instance methods #
+  ####################
+
+  def students_without_instructor_students
+    students - instructors
+  end
+
+  def trained_students_without_instructor_students
+    ids = students_without_instructor_students.map(&:id)
+    students.where(id: ids, trained: true)
+  end
+
+  def untrained_students_without_instructor_students
+    ids = students_without_instructor_students.map(&:id)
+    students.where(id: ids, trained: false)
+  end
+
+  #################
+  # Class methods #
+  #################
 
   # Create new cohorts from application.yml entries
   def self.initialize_cohorts

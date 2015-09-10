@@ -9,33 +9,51 @@ describe 'the home page', type: :feature do
 
     (1..cohort_course_count).each do |i|
       course1 = create(:course,
-                       id: i.to_s,
+                       id: i,
                        slug: "school/course_#{i}_(term)",
                        start: '2014-01-01'.to_date,
                        end: Date.today + 2.days)
       course1.cohorts << cohort
       course2 = create(:course,
-                       id: (i + cohort_course_count).to_s,
+                       id: (i + cohort_course_count),
                        slug: "school/course_#{i}_(term)",
                        start: '2014-01-01'.to_date,
                        end: Date.today + 2.days)
       course2.cohorts << cohort_two
-      create(:user, id: i.to_s)
+
+      # STUDENTS, one per course
+      create(:user, id: i, trained: true)
       create(:courses_user,
-             id: i.to_s,
-             course_id: i.to_s,
-             user_id: i.to_s)
+             id: i,
+             course_id: i,
+             user_id: i,
+             role: CoursesUsers::Roles::STUDENT_ROLE)
+
+      # INSTRUCTORS, one per course
+      create(:user, id: i + cohort_course_count, trained: true)
+      create(:courses_user,
+             id: i + cohort_course_count,
+             course_id: i,
+             user_id: i + cohort_course_count,
+             role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+      # The instructors are also enrolled as students.
+      create(:courses_user,
+             id: i + cohort_course_count * 2,
+             course_id: i,
+             user_id: i + cohort_course_count,
+             role: CoursesUsers::Roles::STUDENT_ROLE)
+
       article = create(:article,
-                       id: i.to_s,
+                       id: i,
                        title: 'Selfie',
                        namespace: 0)
       create(:articles_course,
              course_id: course1.id,
              article_id: article.id)
       create(:revision,
-             id: i.to_s,
-             user_id: i.to_s,
-             article_id: i.to_s,
+             id: i,
+             user_id: i,
+             article_id: i,
              date: 6.days.ago,
              characters: 9000)
     end
@@ -59,7 +77,8 @@ describe 'the home page', type: :feature do
     end
 
     it 'should display number of students accurately' do
-      student_count = User.role('student').count
+      # one non-instructor student per course
+      student_count = cohort_course_count
       stat_text = "#{student_count} #{I18n.t('courses.students')}"
       expect(page.find('.stat-display')).to have_content stat_text
     end

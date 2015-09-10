@@ -133,6 +133,16 @@ class Course < ActiveRecord::Base
     students - instructors
   end
 
+  def trained_students_without_instructor_students
+    ids = students_without_instructor_students.map(&:id)
+    students.where(id: ids, trained: true)
+  end
+
+  def untrained_students_without_instructor_students
+    ids = students_without_instructor_students.map(&:id)
+    students.where(id: ids, trained: false)
+  end
+
   #################
   # Cache methods #
   #################
@@ -174,7 +184,7 @@ class Course < ActiveRecord::Base
     self.character_sum = courses_users.where(role: 0).sum(:character_sum_ms)
     self.view_sum = articles_courses.live.sum(:view_count)
     self.user_count = students_without_instructor_students.size
-    self.untrained_count = users.role('student').where(trained: false).size
+    self.untrained_count = untrained_students_without_instructor_students.size
     self.revision_count = revisions.size
     self.article_count = articles.namespace(0).live.size
     self.new_article_count = articles_courses.live.new_article
