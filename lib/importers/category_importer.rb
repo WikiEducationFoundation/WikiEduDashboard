@@ -26,7 +26,10 @@ class CategoryImporter
     import_missing_scores_and_views article_ids
     articles = Article.where(id: article_ids).order(average_views: :desc)
                .where('average_views > ?', min_views)
-    articles.select { |article| article.revisions.last.wp10 < max_wp10 }
+    articles.select do |article|
+      wp10 = article.revisions.last.wp10 || 0
+      wp10 < max_wp10
+    end
   end
 
   def self.report_on_category(category, opts={})
