@@ -71,4 +71,53 @@ describe CoursesController do
       end
     end
   end
+
+  describe '#destroy' do
+    let!(:course)           { create(:course) }
+    let!(:user)             { create(:test_user) }
+    let!(:courses_users)    { create(:courses_user, course_id: course.id, user_id: user.id) }
+    let!(:article)          { create(:article) }
+    let!(:articles_courses) { create(:articles_course, course_id: course.id, article_id: article.id) }
+    let!(:assignment)       { create(:assignment, course_id: course.id) }
+    let!(:cohorts_courses)  { create(:cohorts_course, course_id: course.id) }
+    let!(:week)             { create(:week, course_id: course.id) }
+    let!(:gradeable)        { create(:gradeable, gradeable_item_type: 'Course', gradeable_item_id: course.id) }
+    let!(:admin)            { create(:admin, id: 2) }
+
+    before do
+      allow(controller).to receive(:current_user).and_return(admin)
+      controller.instance_variable_set(:@course, course)
+    end
+
+    it 'calls update methods on WikiEdits' do
+      expect(WikiEdits).to receive(:update_assignments)
+      expect(WikiEdits).to receive(:update_course)
+      delete :destroy, id: "#{course.slug}.json", format: :json
+    end
+
+    context 'destroy callbacks' do
+      before do
+        allow(WikiEdits).to receive(:update_assignments)
+        allow(WikiEdits).to receive(:update_course)
+      end
+
+      it 'destroys associated models' do
+        delete :destroy, id: "#{course.slug}.json", format: :json
+
+        %w(CoursesUsers ArticlesCourses CohortsCourses).each do |model|
+          expect {
+            # metaprogramming for: CoursesUser.find(courses_user.id)
+            Object.const_get(model).send(:find, send(model.underscore).id)
+          }.to raise_error(ActiveRecord::RecordNotFound)
+        end
+
+        %i(assignment week gradeable).each do |model|
+          expect{
+            # metaprogramming for: Assigment.find(assignment.id)
+            model.to_s.classify.constantize.send(:find, send(model).id)
+          }.to raise_error(ActiveRecord::RecordNotFound)
+        end
+      end
+    end
+  end
 end
