@@ -11,8 +11,8 @@
         <h1><%= @cohort.students_without_instructor_students.count %></h1>
         <small><%= t("courses.students") %></small>
         <div class="popover dark">
-          <h4><%= @cohort.trained_students_without_instructor_students.count %></h4>
-          <p><%= t("users.training_complete", count: @cohort.trained_students_without_instructor_students.count) %></p>
+          <h4><%= @cohort.students_without_instructor_students.trained.count %></h4>
+          <p><%= t("users.training_complete", count: @cohort.students_without_instructor_students.trained.count) %></p>
         </div>
       </div>
       <div class="stat-display__stat">

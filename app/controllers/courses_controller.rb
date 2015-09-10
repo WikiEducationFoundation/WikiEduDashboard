@@ -28,8 +28,7 @@ class CoursesController < ApplicationController
         @cohort = OpenStruct.new(
           title: 'Unsubmitted Courses',
           slug: 'none',
-          students_without_instructor_students: [],
-          trained_students_without_instructor_students: []
+          students_without_instructor_students: []
         )
         @courses = Course.where(submitted: false)
                    .where(listed: true).where('id >= 10000')

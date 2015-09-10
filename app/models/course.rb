@@ -133,14 +133,6 @@ class Course < ActiveRecord::Base
     students.where.not(id: instructors.pluck(:id))
   end
 
-  def trained_students_without_instructor_students
-    students_without_instructor_students.trained
-  end
-
-  def untrained_students_without_instructor_students
-    students_without_instructor_students.untrained
-  end
-
   #################
   # Cache methods #
   #################
