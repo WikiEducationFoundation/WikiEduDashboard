@@ -17,7 +17,6 @@
 #  revision_count    :integer          default(0)
 #  slug              :string(255)
 #  listed            :boolean          default(TRUE)
-#  untrained_count   :integer          default(0)
 #  trained_count     :integer          default(0)
 #  meeting_days      :string(255)
 #  signup_token      :string(255)
@@ -151,11 +150,6 @@ class Course < ActiveRecord::Base
     self[:user_count] || students_without_instructor_students.size
   end
 
-  def untrained_count
-    update_cache unless self[:untrained_count]
-    self[:untrained_count]
-  end
-
   def trained_count
     update_cache unless self[:trained_count]
     self[:trained_count]
@@ -180,7 +174,6 @@ class Course < ActiveRecord::Base
     self.character_sum = courses_users.where(role: 0).sum(:character_sum_ms)
     self.view_sum = articles_courses.live.sum(:view_count)
     self.user_count = students_without_instructor_students.size
-    self.untrained_count = students_without_instructor_students.untrained.size
     self.trained_count = students_without_instructor_students.trained.size
     self.revision_count = revisions.size
     self.article_count = articles.namespace(0).live.size
