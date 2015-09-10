@@ -5,7 +5,7 @@ class ArticleFinderController < ApplicationController
   def index
     @articles = []
     return unless params[:category]
-    @category = params[:category]
+    @category = 'Category:' + params[:category]
     @depth = params[:depth].to_i
     @min_views = params[:minviews].to_i
     @max_wp10 = (params[:maxwp10] || 100).to_i
