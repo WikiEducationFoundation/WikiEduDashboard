@@ -62,14 +62,6 @@ describe CoursesController do
           expect(assigns(:cohort)).to eq(cohort)
         end
       end
-
-      describe 'cohort not in params; no default' do
-        before(:example) { ENV['default_cohort'] = nil }
-        after(:example)  { ENV['default_cohort'] = 'spring_2015' }
-        it 'raises' do
-          expect{get :index}.to raise_error(ActionController::RoutingError)
-        end
-      end
     end
   end
 
