@@ -13,7 +13,7 @@ TextInput     = require '../common/text_input'
 TextAreaInput = require '../common/text_area_input'
 
 getState = ->
-  course: _.extend CourseStore.getCourse(), user_id: $('main').data('user-id')
+  course: CourseStore.getCourse()
   error_message: ValidationStore.firstMessage()
 
 CourseCreator = React.createClass(
