@@ -83,17 +83,10 @@ class CoursesController < ApplicationController
   end
 
   def list
-    @course = find_course_by_slug(params[:id])
-    @cohort = Cohort.find_by(title: cohort_params[:title])
-    if @cohort.nil?
-      render json: { message: "Sorry, #{cohort_params[:title]} is not a valid cohort." }, status: 404 and return
-    end
-    if request.post?
-      return if CohortsCourses.find_by(course_id: @course.id, cohort_id: @cohort.id).present?
-      CohortsCourses.create(course_id: @course.id, cohort_id: @cohort.id)
-    elsif request.delete?
-      CohortsCourses.find_by(course_id: @course.id, cohort_id: @cohort.id).destroy
-    end
+    course = find_course_by_slug(params[:id])
+    cohort = Cohort.find_by(title: cohort_params[:title])
+    render json: { message: "Sorry, #{cohort_params[:title]} is not a valid cohort." }, status: 404 and return unless cohort
+    ListCourseManager.new(course, cohort, request).manage
   end
 
   def tag
