@@ -41,7 +41,7 @@ describe Course, type: :model do
     VCR.use_cassette 'wiki/course_data' do
       CourseImporter.update_all_courses(false, cohort: [351])
 
-      course = Course.all.first
+      course = Course.first
       course.update_cache
 
       expect(course.term).to eq('Summer 2014')

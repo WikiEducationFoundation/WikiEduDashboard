@@ -187,6 +187,7 @@ class CoursesController < ApplicationController
     c_params = params[:course]
     current_user.real_name = c_params['instructor_name'] if c_params.key?('instructor_name')
     current_user.email = c_params['instructor_email'] if c_params.key?('instructor_email')
+    c_params = c_params.except(:instructor_name, :instructor_email)
     current_user.save
   end
 
@@ -202,6 +203,6 @@ class CoursesController < ApplicationController
     params.require(:course).permit(:id, :title, :description, :school, :term,
       :slug, :subject, :expected_students, :start, :end, :submitted, :listed,
       :passcode, :timeline_start, :timeline_end, :day_exceptions, :weekdays,
-      :no_day_exceptions)
+      :no_day_exceptions, :instructor_name, :instructor_email, :user_id)
   end
 end

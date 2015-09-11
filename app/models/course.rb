@@ -78,8 +78,8 @@ class Course < ActiveRecord::Base
   scope :listed, -> { where(listed: true) }
 
   # Courses sourced from Wikipedia, not created with this tool
-  scope :legacy, -> { where('id <= ?', LEGACY_COURSE_MAX_ID) }
-  scope :not_legacy, -> { where('id > ?', LEGACY_COURSE_MAX_ID) }
+  scope :legacy, -> { where('courses.id <= ?', LEGACY_COURSE_MAX_ID) }
+  scope :not_legacy, -> { where('courses.id > ?', LEGACY_COURSE_MAX_ID) }
 
 
   # A course stays "current" for a while after the end date, during which time
@@ -133,7 +133,8 @@ class Course < ActiveRecord::Base
       return if data.blank? || data[0].nil?
       data = data[0]
     end
-    self.attributes = data[:course]
+    # Symbol if coming from controller, string if from course importer
+    self.attributes = data[:course] || data['course']
 
     return unless save
     if data['participants']
