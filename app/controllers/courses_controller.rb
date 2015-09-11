@@ -83,10 +83,10 @@ class CoursesController < ApplicationController
   end
 
   def list
-    course = find_course_by_slug(params[:id])
+    @course = find_course_by_slug(params[:id])
     cohort = Cohort.find_by(title: cohort_params[:title])
     render json: { message: "Sorry, #{cohort_params[:title]} is not a valid cohort." }, status: 404 and return unless cohort
-    ListCourseManager.new(course, cohort, request).manage
+    ListCourseManager.new(@course, cohort, request).manage
   end
 
   def tag
