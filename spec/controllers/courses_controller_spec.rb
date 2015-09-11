@@ -165,12 +165,6 @@ describe CoursesController do
       end
     end
 
-    it 'sets timeline start/end to course start/end if not in params' do
-      put :update, id: course.slug, course: course_params, format: :json
-      expect(course.reload.timeline_start).to eq(course_params[:start])
-      expect(course.reload.timeline_end).to eq(course_params[:end])
-    end
-
     context 'setting passcode' do
       let(:course) { create(:course) }
       before { course.update_attribute(:passcode, nil) }
@@ -182,6 +176,20 @@ describe CoursesController do
 
     context 'setting instructor info' do
       let(:course_params) {{
+        title: 'New title',
+        description: 'New description',
+        # Don't use 2.months.ago; it'll return a datetime, not a date
+        start: Date.today - 2.months,
+        end: Date.today + 2.months,
+        term: 'pizza',
+        slug: 'food',
+        subject: 'cooking',
+        expected_students: 1,
+        submitted: submitted_2,
+        listed: false,
+        day_exceptions: '',
+        weekdays: '0001000',
+        no_day_exceptions: true,
         instructor_name: 'pizza',
         instructor_email: 'pizza@tacos.com'
       }}
@@ -189,7 +197,7 @@ describe CoursesController do
         user.update_attributes(real_name: 'fakename', email: 'fake@example.com')
       end
       it 'sets the instructor name and email if they are in the params' do
-        put :update, id: course.slug, course: course_params, format: :json
+        post :create, course: course_params, format: :json
         expect(user.reload.real_name).to eq(course_params[:instructor_name])
         expect(user.reload.email).to eq(course_params[:instructor_email])
       end
@@ -257,7 +265,34 @@ describe CoursesController do
           expect(Course.last.slug).to be_nil
         end
       end
+
+      describe 'timeline dates' do
+        let(:course_params) {{
+          title: 'New title',
+          description: 'New description',
+          # Don't use 2.months.ago; it'll return a datetime, not a date
+          start: Date.today - 2.months,
+          end: Date.today + 2.months,
+          term: 'pizza',
+          slug: 'food',
+          subject: 'cooking',
+          expected_students: 1,
+          submitted: false,
+          listed: false,
+          day_exceptions: '',
+          weekdays: '0001000',
+          no_day_exceptions: true,
+          instructor_name: 'pizza',
+          instructor_email: 'pizza@tacos.com'
+        }}
+        it 'sets timeline start/end to course start/end if not in params' do
+          put :create, course: course_params, format: :json
+          expect(Course.last.timeline_start).to eq(course_params[:start])
+          expect(Course.last.timeline_end).to eq(course_params[:end])
+        end
+      end
     end
+
   end
 
   describe '#list' do

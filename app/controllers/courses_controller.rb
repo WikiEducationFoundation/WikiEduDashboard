@@ -38,9 +38,9 @@ class CoursesController < ApplicationController
     validate
     newly_submitted = !@course.submitted? && course_params[:submitted] == true
     announce_course(@course.instructors.first) if newly_submitted
-    @course.update course: course_params
-    handle_timeline_dates
     handle_instructor_info if should_update_instructor_info?
+    handle_timeline_dates
+    @course.update course: course_params
     @course.update_attribute(:passcode, Course.generate_passcode) if course_params[:passcode].nil?
 
     WikiEdits.update_course(@course, current_user)
@@ -142,6 +142,15 @@ class CoursesController < ApplicationController
     (%w(instructor_email instructor_name) & params[:course].keys).any?
   end
 
+  def handle_instructor_info
+    c_params = params[:course]
+    current_user.real_name = c_params['instructor_name'] if c_params.key?('instructor_name')
+    current_user.email = c_params['instructor_email'] if c_params.key?('instructor_email')
+    current_user.save
+    c_params.delete('instructor_email')
+    c_params.delete('instructor_name')
+  end
+
   def handle_timeline_dates
     @course.timeline_start = @course.start if @course.timeline_start.nil?
     @course.timeline_end = @course.end if @course.timeline_end.nil?
@@ -161,7 +170,12 @@ class CoursesController < ApplicationController
   end
 
   def unsubmitted_cohort
-    OpenStruct.new(title: 'Unsubmitted Courses', slug: 'none', students: [])
+    OpenStruct.new(
+      title: 'Unsubmitted Courses',
+      slug: 'none',
+      students_without_instructor_students: [],
+      trained_count: 0
+    )
   end
 
   def handle_no_cohort
@@ -176,15 +190,6 @@ class CoursesController < ApplicationController
     end
     return Cohort.includes(:students).find_by(slug: params[:cohort]) if params.key?(:cohort)
     Cohort.includes(:students).find_by(slug: default_cohort)
-  end
-
-  def handle_instructor_info
-    c_params = params[:course]
-    current_user.real_name = c_params['instructor_name'] if c_params.key?('instructor_name')
-    current_user.email = c_params['instructor_email'] if c_params.key?('instructor_email')
-    current_user.save
-    c_params.delete('instructor_email')
-    c_params.delete('instructor_name')
   end
 
   def should_set_slug?
