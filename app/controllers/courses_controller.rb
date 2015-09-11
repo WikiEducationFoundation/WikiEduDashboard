@@ -98,14 +98,7 @@ class CoursesController < ApplicationController
 
   def tag
     @course = find_course_by_slug(params[:id])
-    t_params = { course_id: @course.id, tag: tag_params[:tag] }
-    if request.post?
-      return if Tag.find_by(t_params).present?
-      Tag.create(t_params)
-    elsif request.delete?
-      return unless Tag.find_by(t_params).present?
-      Tag.find_by(t_params).destroy
-    end
+    TagManager.new(@course, request).manage
   end
 
   def manual_update
