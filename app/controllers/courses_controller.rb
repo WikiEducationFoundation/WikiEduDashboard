@@ -20,7 +20,6 @@ class CoursesController < ApplicationController
 
     @cohort = set_cohort(params)
     @courses = @cohort.courses.listed.order(:title)
-    @trained = @cohort.students.trained.count
   end
 
   ################
