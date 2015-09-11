@@ -185,11 +185,10 @@ class CoursesController < ApplicationController
 
   def set_cohort(params)
     default_cohort = Figaro.env.default_cohort || ENV['default_cohort']
-    unless params.key?(:cohort) || default_cohort.present?
+    if params[:cohort] && !Cohort.exists?(slug: params[:cohort]) 
       raise ActionController::RoutingError.new('Cohort must be selected or set by default')
     end
-    return Cohort.includes(:students).find_by(slug: params[:cohort]) if params.key?(:cohort)
-    Cohort.includes(:students).find_by(slug: default_cohort)
+    Cohort.includes(:students).find_by(slug: (params[:cohort] || default_cohort))
   end
 
   def should_set_slug?
