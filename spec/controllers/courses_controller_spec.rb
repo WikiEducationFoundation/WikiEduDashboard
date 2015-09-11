@@ -54,7 +54,7 @@ describe CoursesController do
       context 'default cohort in env' do
         let!(:cohort) { create(:cohort) }
         before do
-          ENV['default_cohort'] = 'spring_2015'
+          allow(Figaro).to receive_message_chain(:env, :default_cohort).and_return('spring_2015')
           allow(Figaro).to receive_message_chain(:env, :update_length).and_return(7)
         end
         it 'gets the slug' do
@@ -63,8 +63,9 @@ describe CoursesController do
         end
       end
 
-      context 'cohort not in params; no default' do
-        before { ENV['default_cohort'] = nil }
+      describe 'cohort not in params; no default' do
+        before(:example) { ENV['default_cohort'] = nil }
+        after(:example)  { ENV['default_cohort'] = 'spring_2015' }
         it 'raises' do
           expect{get :index}.to raise_error(ActionController::RoutingError)
         end
