@@ -85,7 +85,12 @@ class CoursesController < ApplicationController
   def list
     @course = find_course_by_slug(params[:id])
     cohort = Cohort.find_by(title: cohort_params[:title])
-    render json: { message: "Sorry, #{cohort_params[:title]} is not a valid cohort." }, status: 404 and return unless cohort
+    unless cohort
+      render json: {
+        message: "Sorry, #{cohort_params[:title]} is not a valid cohort."
+      }, status: 404
+      return
+    end
     ListCourseManager.new(@course, cohort, request).manage
   end
 
@@ -130,8 +135,10 @@ class CoursesController < ApplicationController
 
   def handle_instructor_info
     c_params = params[:course]
-    current_user.real_name = c_params['instructor_name'] if c_params.key?('instructor_name')
-    current_user.email = c_params['instructor_email'] if c_params.key?('instructor_email')
+    current_user.real_name =
+      c_params['instructor_name'] if c_params.key?('instructor_name')
+    current_user.email =
+      c_params['instructor_email'] if c_params.key?('instructor_email')
     current_user.save
     c_params.delete('instructor_email')
     c_params.delete('instructor_name')
@@ -171,10 +178,12 @@ class CoursesController < ApplicationController
 
   def set_cohort(params)
     default_cohort = Figaro.env.default_cohort || ENV['default_cohort']
-    if params[:cohort] && !Cohort.exists?(slug: params[:cohort]) 
-      raise ActionController::RoutingError.new('Cohort must be selected or set by default')
+    if params[:cohort] && !Cohort.exists?(slug: params[:cohort])
+      raise ActionController::RoutingError
+        .new('Cohort must be selected or set by default')
     end
-    Cohort.includes(:students).find_by(slug: (params[:cohort] || default_cohort))
+    Cohort.includes(:students)
+      .find_by(slug: (params[:cohort] || default_cohort))
   end
 
   def should_set_slug?
@@ -183,13 +192,16 @@ class CoursesController < ApplicationController
 
   def set_slug
     course = params[:course]
-    course[:slug] = "#{course[:school]}/#{course[:title]}_(#{course[:term]})".gsub(' ', '_')
+    course[:slug] = "#{course[:school]}/#{course[:title]}_(#{course[:term]})"
+                    .gsub(' ', '_')
   end
 
   def course_params
-    params.require(:course).permit(:id, :title, :description, :school, :term,
-      :slug, :subject, :expected_students, :start, :end, :submitted, :listed,
-      :passcode, :timeline_start, :timeline_end, :day_exceptions, :weekdays,
-      :no_day_exceptions)
+    params
+      .require(:course)
+      .permit(:id, :title, :description, :school, :term, :slug, :subject,
+              :expected_students, :start, :end, :submitted, :listed, :passcode,
+              :timeline_start, :timeline_end, :day_exceptions, :weekdays,
+              :no_day_exceptions)
   end
 end
