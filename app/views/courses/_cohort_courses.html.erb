@@ -1,6 +1,6 @@
 <section id="courses">
   <div class="section-header">
-    <h3><%= [t("courses.courses"), @cohort.title].join(" | ") %></h3>
+    <h3><%= [t("courses.courses"), presenter.cohort.title].join(" | ") %></h3>
     <div class="sort-select inset">
       <select class="sorts" rel="courses">
         <option rel="asc" value="title"><%= t("courses.title") %></option>
@@ -14,11 +14,11 @@
       <select class="cohorts">
         <option selected disabled><%= t("cohort.view_other") %></option>
         <% Cohort.all.each do |c| %>
-          <% unless @cohort.slug == c.slug %>
+          <% unless presenter.cohort.slug == c.slug %>
             <option value="<%= c.slug %>"><%= c.title %></option>
           <% end %>
         <% end %>
-        <% if user_signed_in? && current_user.permissions > 0 && @cohort.slug != 'none' %>
+        <% if user_signed_in? && current_user.permissions > 0 && presenter.cohort.slug != 'none' %>
           <option value="none">None</option>
         <% end %>
       </select>
@@ -51,8 +51,8 @@
     </div>
   </div>
   <ul class="list">
-  <% @courses.each do |c| %>
-    <%= render :partial => 'row', :locals => {:course => c, :admin => false, :user => false} %>
+  <% presenter.courses.each do |c| %>
+    <%= render 'row', course: c, admin: false, user: false %>
   <% end %>
   </ul>
 </section>

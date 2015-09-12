@@ -32,13 +32,13 @@
     </div>
   </div>
   <ul class="list">
-  <% if @user_courses.empty? %>
+  <% if presenter.user_courses.empty? %>
     <li class="row view-all">
       <div><%= t("courses.nocourses") %></div>
     </li>
   <% else %>
-    <% @user_courses.each do |c| %>
-      <%= render :partial => 'row', :locals => {:course => c, :admin => false, :user => true} %>
+    <% presenter.user_courses.each do |c| %>
+      <%= render 'row', course: c, admin: false, user: true %>
     <% end %>
   <% end %>
   </ul>

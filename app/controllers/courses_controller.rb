@@ -11,15 +11,7 @@ class CoursesController < ApplicationController
   # Root method #
   ###############
   def index
-    if user_signed_in?
-      @admin_courses = Course.submitted_listed if current_user.admin?
-      @user_courses = current_user.courses.current_and_future.select(&:listed)
-    end
-
-    return handle_no_cohort if params[:cohort] == 'none'
-
-    @cohort = set_cohort(params)
-    @courses = @cohort.courses.listed.order(:title)
+    @presenter = HomePagePresenter.new(current_user, params[:cohort] || Figaro.env.default_cohort)
   end
 
   ################
@@ -160,15 +152,6 @@ class CoursesController < ApplicationController
     @volunteers = @course.volunteers
     return if @course.listed || (current_user && current_user.instructor?)
     fail ActionController::RoutingError.new('Not Found'), 'Not permitted'
-  end
-
-  def unsubmitted_cohort
-    OpenStruct.new(
-      title: 'Unsubmitted Courses',
-      slug: 'none',
-      students_without_instructor_students: [],
-      trained_count: 0
-    )
   end
 
   def handle_no_cohort

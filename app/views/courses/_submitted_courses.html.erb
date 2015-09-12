@@ -1,4 +1,4 @@
-<% if current_user.permissions > 0 && !@admin_courses.empty? %>
+<% if current_user.permissions > 0 && presenter.admin_courses.any? %>
   <section id="admin_courses">
     <div class="section-header">
       <h3>Submitted Courses</h3>
@@ -10,8 +10,8 @@
       </div>
     </div>
     <ul class="list">
-    <% @admin_courses.each do |c| %>
-      <%= render :partial => 'unapproved_row', :locals => {:course => c, :admin => true, :user => false} %>
+    <% presenter.admin_courses.each do |c| %>
+      <%= render 'unapproved_row', course: c, admin: true, user: false %>
     <% end %>
     </ul>
   </section>
