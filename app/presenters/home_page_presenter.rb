@@ -1,5 +1,4 @@
 class HomePagePresenter
-
   attr_reader :current_user, :cohort_param
 
   def initialize(current_user, cohort_param)
@@ -19,14 +18,14 @@ class HomePagePresenter
 
   def cohort
     return NullCohort.new if cohort_param == 'none'
-    raise ActionController::RoutingError.new('nope') unless Cohort.exists?(slug: cohort_param)
+    raise ActionController::RoutingError
+      .new('nope') unless Cohort.exists?(slug: cohort_param)
     Cohort.includes(:students).find_by(slug: cohort_param)
   end
 
   def courses
     cohort.courses.listed.order(:title)
   end
-
 end
 
 class NullCohort
@@ -36,6 +35,10 @@ class NullCohort
 
   def slug
     'none'
+  end
+
+  def courses
+    Course.unsubmitted_listed
   end
 
   def students_without_instructor_students
