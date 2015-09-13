@@ -120,9 +120,13 @@ class Course < ActiveRecord::Base
     slug
   end
 
+  def legacy?
+    id <= LEGACY_COURSE_MAX_ID
+  end
+
   def wiki_title
     # Legacy courses using the EducationProgram extension have ids under 10000.
-    prefix = id < 10000 ? 'Education_Program:' : Figaro.env.course_prefix + '/'
+    prefix = legacy? ? 'Education_Program:' : Figaro.env.course_prefix + '/'
     escaped_slug = slug.gsub(' ', '_')
     "#{prefix}#{escaped_slug}"
   end
@@ -138,21 +142,8 @@ class Course < ActiveRecord::Base
   end
 
   def update(data={}, save=true)
-    if data.blank?
-      data = CourseImporter.get_course_info id
-      return if data.blank? || data[0].nil?
-      data = data[0]
-    end
-    # Symbol if coming from controller, string if from course importer
-    self.attributes = data[:course] || data['course']
-
-    return unless save
-    if data['participants']
-      data['participants'].each_with_index do |(r, _p), i|
-        UserImporter.add_users(data['participants'][r], i, self)
-      end
-    end
-    self.save
+    require "#{Rails.root}/lib/course_update_manager"
+    CourseUpdateManager.update_from_wiki(self, data, save)
   end
 
   def students_without_instructor_students
@@ -210,20 +201,8 @@ class Course < ActiveRecord::Base
   end
 
   def manual_update
-    Dir["#{Rails.root}/lib/importers/*.rb"].each { |file| require file }
-
-    update if is_legacy_course?
-    UserImporter.update_users users
-    RevisionImporter.update_all_revisions self
-    ViewImporter.update_views articles.namespace(0)
-      .find_in_batches(batch_size: 30)
-    RatingImporter.update_ratings articles.namespace(0)
-      .find_in_batches(batch_size: 30)
-    Article.update_all_caches articles
-    User.update_all_caches users
-    ArticlesCourses.update_all_caches articles_courses
-    CoursesUsers.update_all_caches courses_users
-    update_cache
+    require "#{Rails.root}/lib/course_update_manager"
+    CourseUpdateManager.manual_update self
   end
 
   ####################
