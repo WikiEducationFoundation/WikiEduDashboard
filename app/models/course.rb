@@ -138,9 +138,14 @@ class Course < ActiveRecord::Base
     save
   end
 
-  def update(data={}, save=true)
-    require "#{Rails.root}/lib/course_update_manager"
-    CourseUpdateManager.update_from_wiki(self, data, save)
+  def update(data={}, should_save=true)
+    if legacy?
+      require "#{Rails.root}/lib/course_update_manager"
+      CourseUpdateManager.update_from_wiki(self, data, should_save)
+    else
+      self.attributes = data[:course]
+      save if should_save
+    end
   end
 
   def students_without_instructor_students
