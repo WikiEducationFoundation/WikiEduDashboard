@@ -1,3 +1,4 @@
+#= Presenter for main page / cohort view
 class HomePagePresenter
   attr_reader :current_user, :cohort_param
 
@@ -12,7 +13,7 @@ class HomePagePresenter
   end
 
   def user_courses
-    return [] unless current_user && current_user.admin?
+    return [] unless current_user
     current_user.courses.current_and_future.listed
   end
 
@@ -28,6 +29,7 @@ class HomePagePresenter
   end
 end
 
+#= Pseudo-Cohort that displays all unsubmitted, non-deleted courses
 class NullCohort
   def title
     'Unsubmitted Courses'
