@@ -75,7 +75,9 @@ class Course < ActiveRecord::Base
   scope :legacy, -> { where('courses.id <= ?', LEGACY_COURSE_MAX_ID) }
   scope :not_legacy, -> { where('courses.id > ?', LEGACY_COURSE_MAX_ID) }
 
-  scope :unsubmitted_listed, -> { where(submitted: false).where(listed: true).merge(Course.not_legacy) }
+  scope :unsubmitted_listed, -> {
+    where(submitted: false).where(listed: true).merge(Course.not_legacy)
+  }
 
   scope :listed, -> { where(listed: true) }
 
@@ -92,12 +94,12 @@ class Course < ActiveRecord::Base
   # A course stays "current" for a while after the end date, during which time
   # we still check for new data and update page views.
   scope :current_and_future, lambda {
-    update_length = Figaro.env.update_length.to_i.days.seconds.to_i
+    update_length = ENV['update_length'].to_i.days.seconds.to_i
     where('end > ?', Time.now - update_length)
   }
 
   before_save :order_weeks
-  validates :passcode, presence: true, unless: :is_legacy_course?
+  validates :passcode, presence: true, unless: :legacy?
 
   def self.submitted_listed
     Course.includes(:cohorts).where('cohorts.id IS NULL')
@@ -118,18 +120,22 @@ class Course < ActiveRecord::Base
   end
 
   def legacy?
+    # If a course doesn't have an id yet, it's a new, unsaved course, and
+    # therefore not a legacy course. Legacy courses get their ids from the wiki.
+    return false if id.nil?
     id <= LEGACY_COURSE_MAX_ID
   end
 
   def wiki_title
-    # Legacy courses using the EducationProgram extension have ids under 10000.
-    prefix = legacy? ? 'Education_Program:' : Figaro.env.course_prefix + '/'
+    # Legacy courses using the EducationProgram extension have wiki pages
+    # in a different namespace on Wikipedia.
+    prefix = legacy? ? 'Education_Program:' : ENV['course_prefix'] + '/'
     escaped_slug = slug.gsub(' ', '_')
     "#{prefix}#{escaped_slug}"
   end
 
   def url
-    language = Figaro.env.wiki_language
+    language = ENV['wiki_language']
     "https://#{language}.wikipedia.org/wiki/#{wiki_title}"
   end
 
@@ -139,9 +145,11 @@ class Course < ActiveRecord::Base
   end
 
   def update(data={}, should_save=true)
+    # For legacy courses, the update may involve pulling data from MediaWiki
     if legacy?
       require "#{Rails.root}/lib/course_update_manager"
       CourseUpdateManager.update_from_wiki(self, data, should_save)
+    # For non-legacy courses, update simply means saving posted attributes.
     else
       self.attributes = data[:course]
       save if should_save
@@ -252,11 +260,5 @@ class Course < ActiveRecord::Base
     weeks.each_with_index do |week, i|
       week.update_attribute(:order, i + 1)
     end
-  end
-
-  # for use in validation
-  def is_legacy_course?
-    return true unless Course.any?
-    Course.last.id <= LEGACY_COURSE_MAX_ID
   end
 end
