@@ -101,16 +101,6 @@ class Course < ActiveRecord::Base
   before_save :order_weeks
   validates :passcode, presence: true, unless: :legacy?
 
-  def self.submitted_listed
-    Course.includes(:cohorts).where('cohorts.id IS NULL')
-      .where(listed: true).where(submitted: true)
-      .references(:cohorts)
-  end
-
-  def self.generate_passcode
-    ('a'..'z').to_a.sample(8).join
-  end
-
   ####################
   # Instance methods #
   ####################
@@ -168,34 +158,36 @@ class Course < ActiveRecord::Base
   # Cache methods #
   #################
   def character_sum
-    update_cache unless self[:character_sum]
-    self[:character_sum]
+    return_or_calculate :character_sum
   end
 
   def view_sum
-    update_cache unless self[:view_sum]
-    self[:view_sum]
+    return_or_calculate :view_sum
   end
 
   def user_count
-    self[:user_count] || students_without_instructor_students.size
+    return_or_calculate :user_count
   end
 
   def trained_count
-    update_cache unless self[:trained_count]
-    self[:trained_count]
+    return_or_calculate :trained_count
   end
 
   def revision_count
-    self[:revision_count] || revisions.size
+    return_or_calculate :revision_count
   end
 
   def article_count
-    self[:article_count] || articles.namespace(0).live.size
+    return_or_calculate :article_count
   end
 
   def new_article_count
-    self[:new_article_count] || new_articles.count
+    return_or_calculate :new_article_count
+  end
+
+  def return_or_calculate(attribute)
+    update_cache unless self[attribute]
+    self[attribute]
   end
 
   def update_cache
@@ -230,6 +222,16 @@ class Course < ActiveRecord::Base
     Course.transaction do
       Course.current.each(&:update_cache)
     end
+  end
+
+  def self.submitted_listed
+    Course.includes(:cohorts).where('cohorts.id IS NULL')
+      .where(listed: true).where(submitted: true)
+      .references(:cohorts)
+  end
+
+  def self.generate_passcode
+    ('a'..'z').to_a.sample(8).join
   end
 
   def reorder_weeks
