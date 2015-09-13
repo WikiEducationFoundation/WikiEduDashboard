@@ -64,28 +64,35 @@ class ArticleImporter
 
     # Update articles whose IDs have changed (keyed on title and namespace)
     same_title_pages.each do |stp|
-      article = Article.find_by(
-        title: stp['page_title'],
-        namespace: stp['page_namespace'],
-        deleted: false
-      )
-      next if article.nil?
-      next unless deleted_ids.include?(article.id)
-      # This catches false positives when the query for page_title matches
-      # a case variant.
-      next unless article.title == stp['page_title']
+      resolve_article_id(stp, deleted_ids)
+    end
+  end
 
-      ArticlesCourses.where(article_id: article.id).update_all(
-        article_id: stp['page_id']
-      )
+  def self.resolve_article_id(same_title_page, deleted_ids)
+    title = same_title_page['page_title']
+    id = same_title_page['page_id']
+    namespace = same_title_page['page_namespace']
 
-      if Article.exists?(stp['page_id'])
-        # Catches case where update_constantly has
-        # already added this article under a new ID
-        article.update(deleted: true)
-      else
-        article.update(id: stp['page_id'])
-      end
+    article = Article.find_by(
+      title: title,
+      namespace: namespace,
+      deleted: false
+    )
+    return if article.nil?
+    return unless deleted_ids.include?(article.id)
+    # This catches false positives when the query for page_title matches
+    # a case variant.
+    return unless article.title == title
+
+    ArticlesCourses.where(article_id: article.id)
+      .update_all(article_id: id)
+
+    if Article.exists?(id)
+      # Catches case where update_constantly has
+      # already added this article under a new ID
+      article.update(deleted: true)
+    else
+      article.update(id: id)
     end
   end
 
