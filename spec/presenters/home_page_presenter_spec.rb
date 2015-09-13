@@ -96,9 +96,9 @@ describe HomePagePresenter do
 
   describe '#courses' do
     let(:user)   { create(:admin) }
-    let(:cohort) { nil }
+    let(:cohort_param)    { 'none' }
     let!(:course) { create(:course, listed: true, submitted: false, id: 10001) }
-    subject { described_class.new(user, cohort).courses }
+    subject { described_class.new(user, 'none').courses }
 
     context 'cohort is "none"' do
       it 'returns unsubmitted listed courses' do
