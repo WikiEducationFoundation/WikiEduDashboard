@@ -160,6 +160,10 @@ class Course < ActiveRecord::Base
     students.where.not(id: instructors.pluck(:id))
   end
 
+  def new_articles
+    articles_courses.live.new_article
+      .joins(:article).where('articles.namespace = 0')
+  end
   #################
   # Cache methods #
   #################
@@ -191,9 +195,7 @@ class Course < ActiveRecord::Base
   end
 
   def new_article_count
-    self[:new_article_count] || articles_courses.live.new_article
-      .joins(:article).where('articles.namespace = 0')
-      .size
+    self[:new_article_count] || new_articles.count
   end
 
   def update_cache
@@ -204,9 +206,7 @@ class Course < ActiveRecord::Base
     self.trained_count = students_without_instructor_students.trained.size
     self.revision_count = revisions.size
     self.article_count = articles.namespace(0).live.size
-    self.new_article_count = articles_courses.live.new_article
-      .joins(:article).where('articles.namespace = 0')
-      .size
+    self.new_article_count = new_articles.count
     save
   end
 
