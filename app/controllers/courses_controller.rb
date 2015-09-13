@@ -11,7 +11,8 @@ class CoursesController < ApplicationController
   # Root method #
   ###############
   def index
-    @presenter = HomePagePresenter.new(current_user, params[:cohort] || Figaro.env.default_cohort)
+    cohort = params[:cohort] || ENV['default_cohort']
+    @presenter = HomePagePresenter.new(current_user, cohort)
   end
 
   ################
@@ -21,19 +22,21 @@ class CoursesController < ApplicationController
   def create
     handle_instructor_info if should_update_instructor_info?
     set_slug if should_set_slug?
-    @course = Course.create(course_params.merge('passcode' => Course.generate_passcode))
+    @course =
+      Course.create(course_params.merge('passcode' => Course.generate_passcode))
     handle_timeline_dates
     CoursesUsers.create(user: current_user, course: @course, role: 1)
   end
 
   def update
     validate
-    newly_submitted = !@course.submitted? && course_params[:submitted] == true
-    announce_course(@course.instructors.first) if newly_submitted
-    handle_instructor_info if should_update_instructor_info?
+    handle_course_announcement(@course.instructors.first)
+    handle_instructor_info
     handle_timeline_dates
     @course.update course: course_params
-    @course.update_attribute(:passcode, Course.generate_passcode) if course_params[:passcode].nil?
+    @course.update_attribute(
+      :passcode, Course.generate_passcode
+      ) if course_params[:passcode].nil?
 
     WikiEdits.update_course(@course, current_user)
     render json: @course
@@ -55,13 +58,12 @@ class CoursesController < ApplicationController
     @course = find_course_by_slug("#{params[:school]}/#{params[:titleterm]}")
 
     is_instructor = (user_signed_in? && current_user.instructor?(@course))
-    if @course.nil? || @course.listed || is_instructor
-      respond_to do |format|
-        format.html { render }
-        format.json { render params[:endpoint] }
-      end
-    else
-      fail ActionController::RoutingError.new('Not Found'), 'Not permitted'
+    permitted = @course.nil? || @course.listed || is_instructor
+    fail ActionController::RoutingError
+      .new('Not Found'), 'Not permitted' unless permitted
+    respond_to do |format|
+      format.html { render }
+      format.json { render params[:endpoint] }
     end
   end
 
@@ -126,6 +128,7 @@ class CoursesController < ApplicationController
   end
 
   def handle_instructor_info
+    return unless should_update_instructor_info?
     c_params = params[:course]
     current_user.real_name =
       c_params['instructor_name'] if c_params.key?('instructor_name')
@@ -142,7 +145,9 @@ class CoursesController < ApplicationController
     @course.save
   end
 
-  def announce_course(instructor)
+  def handle_course_announcement(instructor)
+    newly_submitted = !@course.submitted? && course_params[:submitted] == true
+    return unless newly_submitted
     WikiEdits.announce_course(@course, current_user, instructor)
   end
 
