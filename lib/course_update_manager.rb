@@ -1,3 +1,4 @@
+#= Class for performing updates on data related to an individual Course
 class CourseUpdateManager
   def self.update_from_wiki(course, data={}, save=true)
     require "#{Rails.root}/lib/importers/course_importer"

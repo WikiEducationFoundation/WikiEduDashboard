@@ -219,26 +219,8 @@ class Course < ActiveRecord::Base
   # Callback methods #
   ####################
   def cleanup_articles(user)
-    # find which course articles this user contributed to
-    user_articles = user.revisions
-                    .where('date >= ? AND date <= ?', start, self.end)
-                    .pluck(:article_id)
-    course_articles = articles.pluck(:id)
-    possible_deletions = course_articles & user_articles
-
-    # have these articles been edited by other students in this course?
-    to_delete = []
-    possible_deletions.each do |pd|
-      other_editors = Article.find(pd).editors - [user.id]
-      course_editors = students & other_editors
-      to_delete.push pd if other_editors.empty? || course_editors.empty?
-    end
-
-    # remove orphaned articles from the course
-    articles.delete(Article.find(to_delete))
-
-    # update course cache to account for removed articles
-    update_cache unless to_delete.empty?
+    require "#{Rails.root}/lib/course_cleanup_manager"
+    CourseCleanupManager.cleanup_articles(self, user)
   end
 
   #################

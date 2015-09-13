@@ -303,7 +303,7 @@ describe Course, type: :model do
       Course.last.update_column(:id, id)
     end
 
-    context 'legacy course' do
+    context 'non-legacy course' do
       context 'passcode nil' do
         let(:passcode) { nil }
         it "doesn't save" do
@@ -324,11 +324,14 @@ describe Course, type: :model do
       end
     end
 
-    context 'not legacy course' do
-      let(:id)       { Course::LEGACY_COURSE_MAX_ID - 1 }
-      let(:passcode) { nil }
+    context 'legacy course' do
       it 'saves nil passcode' do
-        expect(subject).to eq(true)
+        id = Course::LEGACY_COURSE_MAX_ID - 1
+        passcode = nil
+        course = build(:course,
+                       id: id,
+                       passcode: passcode)
+        expect(course.valid?).to eq(true)
       end
     end
   end
