@@ -26,14 +26,14 @@ class RevisionImporter
   end
 
   # Given a Course, get new revisions for the users in that course.
-  def self.get_revisions_for_course(c)
+  def self.get_revisions_for_course(course)
     results = []
-    return results if c.students.empty?
-    start = c.start.strftime('%Y%m%d')
-    end_date = c.end.strftime('%Y%m%d')
-    new_users = c.users.role('student').where(revision_count: 0)
+    return results if course.students.empty?
+    start = course_start_date(course)
+    end_date = course_end_date(course)
+    new_users = users_with_no_revisions(course)
 
-    old_users = c.students - new_users
+    old_users = course.students - new_users
 
     # rubocop:disable Style/IfUnlessModifier
     unless new_users.empty?
@@ -42,7 +42,7 @@ class RevisionImporter
     # rubocop:enable Style/IfUnlessModifier
 
     unless old_users.empty?
-      first_rev = c.revisions.order('date DESC').first
+      first_rev = first_revision(course)
       start = first_rev.date.strftime('%Y%m%d') unless first_rev.blank?
       results += get_revisions(old_users, start, end_date)
     end
@@ -59,6 +59,22 @@ class RevisionImporter
   ###########
   # Helpers #
   ###########
+  def self.course_start_date(course)
+    course.start.strftime('%Y%m%d')
+  end
+
+  def self.course_end_date(course)
+    course.end.strftime('%Y%m%d')
+  end
+
+  def self.users_with_no_revisions(course)
+    course.users.role('student').where(revision_count: 0)
+  end
+
+  def self.first_revision(course)
+    course.revisions.order('date DESC').first
+  end
+
   def self.import_revisions(data)
     # Use revision data fetched from Replica to add new Revisions as well as
     # new Articles where appropriate.
