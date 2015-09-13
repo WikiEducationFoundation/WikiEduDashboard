@@ -1,5 +1,8 @@
 class CourseUpdateManager
   def self.update_from_wiki(course, data={}, save=true)
+    require "#{Rails.root}/lib/importers/course_importer"
+    require "#{Rails.root}/lib/importers/user_importer"
+
     id = course.id
     if data.blank?
       data = CourseImporter.get_course_info id

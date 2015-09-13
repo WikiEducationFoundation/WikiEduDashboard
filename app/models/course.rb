@@ -33,9 +33,6 @@
 #  new_article_count :integer
 #
 
-require "#{Rails.root}/lib/importers/course_importer"
-require "#{Rails.root}/lib/importers/user_importer"
-
 #= Course model
 class Course < ActiveRecord::Base
   ######################
