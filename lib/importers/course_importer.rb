@@ -33,29 +33,23 @@ class CourseImporter
 
   def self.import_courses(raw_ids, data)
     # Encountered an API error; cancel course import for today
-    if data.include? nil
-      Rails.logger.warn 'Network error. Course import cancelled.'
-      return
-    end
+    return unless data_ok?(data)
 
     courses = []
     participants = {}
     listed_ids = raw_ids.values.flatten
-    valid_ids = data.map { |c| c['course']['id'] }
-    deleted_ids = listed_ids - valid_ids
 
     # Delist courses that have been deleted
-    deleted_ids.each do |id|
-      Course.find(id).delist if Course.exists?(id)
-    end
+    handle_deleted_courses(listed_ids, course_data)
 
     # Update courses from new data
     data.each do |c|
-      c['course']['listed'] = listed_ids.include?(c['course']['id'])
-      course = Course.new(id: c['course']['id'])
+      id = c['course']['id']
+      c['course']['listed'] = listed_ids.include?(id)
+      course = Course.new(id: id)
       course.update(c, false)
       courses.push course
-      participants[c['course']['id']] = c['participants']
+      participants[id] = c['participants']
     end
     Course.import courses, on_duplicate_key_update: [:start, :end, :listed]
 
@@ -193,9 +187,27 @@ class CourseImporter
     return assignments
   end
 
+  #######################
+  # Database operations #
+  #######################
+  def handle_deleted_courses(listed_ids, course_data)
+    valid_ids = course_data.map { |c| c['course']['id'] }
+    deleted_ids = listed_ids - valid_ids
+    deleted_ids.each do |id|
+      Course.find(id).delist if Course.exists?(id)
+    end
+  end
+
   ###########
   # Helpers #
   ###########
+  def data_ok?(data)
+    if data.include? nil
+      Rails.logger.warn 'Network error. Course import cancelled.'
+      return false
+    end
+    return true
+  end
 
   def self.assignment_hash(user, course_id, raw, article, role)
     {
