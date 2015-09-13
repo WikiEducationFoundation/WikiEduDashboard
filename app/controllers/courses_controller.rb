@@ -154,21 +154,6 @@ class CoursesController < ApplicationController
     fail ActionController::RoutingError.new('Not Found'), 'Not permitted'
   end
 
-  def handle_no_cohort
-    @cohort = unsubmitted_cohort
-    @courses = Course.unsubmitted_listed
-  end
-
-  def set_cohort(params)
-    default_cohort = Figaro.env.default_cohort || ENV['default_cohort']
-    if params[:cohort] && !Cohort.exists?(slug: params[:cohort])
-      raise ActionController::RoutingError
-        .new('Cohort must be selected or set by default')
-    end
-    Cohort.includes(:students)
-      .find_by(slug: (params[:cohort] || default_cohort))
-  end
-
   def should_set_slug?
     %i(title school term).all? { |key| params[:course].key?(key) }
   end
