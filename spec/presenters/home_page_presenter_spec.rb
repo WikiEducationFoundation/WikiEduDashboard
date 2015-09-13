@@ -40,8 +40,8 @@ describe HomePagePresenter do
 
     context 'not admin' do
       let(:user) { create(:test_user) }
-      it 'is nil' do
-        expect(subject).to be_nil
+      it 'is empty' do
+        expect(subject).to be_empty
       end
     end
 
@@ -52,7 +52,7 @@ describe HomePagePresenter do
       let!(:c_user)  { create(:courses_user, course_id: course.id, user_id: user.id) }
 
       it 'returns the current and future listed courses for the user' do
-        expect(subject).to include(course) 
+        expect(subject).to include(course)
       end
     end
   end
@@ -117,4 +117,3 @@ describe HomePagePresenter do
     end
   end
 end
-

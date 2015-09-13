@@ -8,12 +8,12 @@ class HomePagePresenter
   end
 
   def admin_courses
-    return [] unless current_user && current_user.admin?
+    return unless current_user && current_user.admin?
     Course.submitted_listed
   end
 
   def user_courses
-    return [] unless current_user
+    return unless current_user
     current_user.courses.current_and_future.listed
   end
 
