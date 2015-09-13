@@ -40,7 +40,7 @@ class CourseImporter
     listed_ids = raw_ids.values.flatten
 
     # Delist courses that have been deleted
-    handle_deleted_courses(listed_ids, course_data)
+    handle_deleted_courses(listed_ids, data)
 
     # Update courses from new data
     data.each do |c|
