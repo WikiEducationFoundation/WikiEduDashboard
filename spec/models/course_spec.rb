@@ -294,14 +294,9 @@ describe Course, type: :model do
   end
 
   describe 'validation' do
-    let(:course) { Course.new(passcode: passcode) }
     let(:id)     { Course::LEGACY_COURSE_MAX_ID + 1000 }
+    let(:course) { Course.new(passcode: passcode, id: id) }
     subject { course.valid? }
-
-    before do
-      create(:course)
-      Course.last.update_column(:id, id)
-    end
 
     context 'non-legacy course' do
       context 'passcode nil' do
