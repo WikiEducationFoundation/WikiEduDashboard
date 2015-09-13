@@ -202,7 +202,7 @@ class Course < ActiveRecord::Base
   def manual_update
     Dir["#{Rails.root}/lib/importers/*.rb"].each { |file| require file }
 
-    update
+    update if is_legacy_course?
     UserImporter.update_users users
     RevisionImporter.update_all_revisions self
     ViewImporter.update_views articles.namespace(0)

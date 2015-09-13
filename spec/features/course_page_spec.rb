@@ -112,6 +112,7 @@ describe 'the course page', type: :feature do
     if page.driver.is_a?(Capybara::Webkit::Driver)
       page.driver.allow_url 'fonts.googleapis.com'
       page.driver.allow_url 'maxcdn.bootstrapcdn.com'
+      page.driver.allow_url 'cdn.ravenjs.com'
       # page.driver.block_unknown_urls  # suppress warnings
     end
     js_visit "/courses/#{slug}"
@@ -296,6 +297,30 @@ describe 'the course page', type: :feature do
     it 'should display a list of edits' do
       js_visit "/courses/#{slug}/activity"
       expect(page).to have_content 'Article 1'
+    end
+  end
+
+  describe '/manual_update', js: true do
+    it 'should update the course cache' do
+      user = create(:user, id: user_count + 100)
+      course = Course.find(10001)
+      create(:courses_user,
+             course_id: course.id,
+             user_id: user.id,
+             role: 0)
+      login_as(user, scope: :user)
+      stub_oauth_edit
+
+      Dir["#{Rails.root}/lib/importers/*.rb"].each { |file| require file }
+      allow(UserImporter).to receive(:update_users)
+      allow(RevisionImporter).to receive(:update_all_revisions)
+      allow(ViewImporter).to receive(:update_views)
+      allow(RatingImporter).to receive(:update_ratings)
+
+      js_visit "/courses/#{slug}/manual_update"
+      js_visit "/courses/#{slug}"
+      updated_user_count = user_count + 1
+      expect(page.find('#student-editors')).to have_content updated_user_count
     end
   end
 
