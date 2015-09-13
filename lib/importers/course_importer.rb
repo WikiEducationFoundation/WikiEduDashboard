@@ -117,31 +117,34 @@ class CourseImporter
   def self.update_enrollment(course_id, group_flat)
     # Update enrollment (add/remove students)
     user_ids = group_flat.map { |user| user['id'] }
-    course = Course.find_by(id: course_id)
     return [] if user_ids.empty?
 
-    role_index = %w(student instructor online_volunteer
-                    campus_volunteer wiki_ed_staff)
+    course = Course.find_by(id: course_id)
 
     # Set up structures for operating on
-    existing_flat = course.courses_users.map do |cu|
-      { 'id' => cu.user_id, 'role' => role_index[cu.role] }
-    end
-    new_flat = group_flat.map do |u|
-      role = u['username'].include?('(Wiki Ed)') ? role_index[4] : u['role']
-      { 'id' => u['id'], 'role' => role }
-    end
+    existing_flat = existing_enrollment_flat(course)
+    new_flat = new_enrollment_flat(group_flat)
 
     # Unenroll users who have been removed
-    unless course.users.empty?
-      unenrolled = (existing_flat - new_flat).map { |u| u['id'] }
-      course.users.delete(course.users.find(unenrolled))
-    end
+    unenroll_removed_users(course, existing_flat, new_flat)
 
     # Enroll new users
     enrolled = (new_flat - existing_flat).map { |u| u['id'] }
     return group_flat unless enrolled.count > 0
     enroll_users(group_flat, enrolled, course)
+  end
+
+  def self.existing_enrollment_flat(course)
+    course.courses_users.map do |cu|
+      { 'id' => cu.user_id, 'role' => role_index[cu.role] }
+    end
+  end
+
+  def self.new_enrollment_flat(group_flat)
+    group_flat.map do |u|
+      role = u['username'].include?('(Wiki Ed)') ? role_index[4] : u['role']
+      { 'id' => u['id'], 'role' => role }
+    end
   end
 
   def self.enroll_users(users, enrolled, course)
@@ -190,7 +193,7 @@ class CourseImporter
   #######################
   # Database operations #
   #######################
-  def handle_deleted_courses(listed_ids, course_data)
+  def self.handle_deleted_courses(listed_ids, course_data)
     valid_ids = course_data.map { |c| c['course']['id'] }
     deleted_ids = listed_ids - valid_ids
     deleted_ids.each do |id|
@@ -198,15 +201,27 @@ class CourseImporter
     end
   end
 
+  def self.unenroll_removed_users(course, existing_flat, new_flat)
+    unless course.users.empty?
+      unenrolled = (existing_flat - new_flat).map { |u| u['id'] }
+      course.users.delete(course.users.find(unenrolled))
+    end
+  end
+
   ###########
   # Helpers #
   ###########
-  def data_ok?(data)
+  def self.data_ok?(data)
     if data.include? nil
       Rails.logger.warn 'Network error. Course import cancelled.'
       return false
     end
     return true
+  end
+
+  def self.role_index
+    %w(student instructor online_volunteer
+       campus_volunteer wiki_ed_staff)
   end
 
   def self.assignment_hash(user, course_id, raw, article, role)
