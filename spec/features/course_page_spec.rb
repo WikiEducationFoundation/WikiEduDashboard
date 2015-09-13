@@ -26,6 +26,8 @@ describe 'the course page', type: :feature do
                     slug: slug,
                     start: course_start.to_date,
                     end: course_end.to_date,
+                    timeline_start: course_start.to_date,
+                    timeline_end: course_end.to_date,
                     school: 'This university.foo',
                     term: 'term 2015',
                     listed: 1,
