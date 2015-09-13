@@ -69,4 +69,20 @@ describe UsersController do
       end
     end
   end
+
+  describe '#enroll_user' do
+    let!(:course) { create(:course) }
+    let(:request_params) do
+      { course_id: course.slug, passcode: course.passcode }
+    end
+    before do
+      allow(controller).to receive(:current_user).and_return(nil)
+    end
+
+    context 'when a user is not logged in' do
+      it 'should redirect to mediawiki for OAuth' do
+        expect(get 'enroll', request_params).to redirect_to(/.*mediawiki.*/)
+      end
+    end
+  end
 end
