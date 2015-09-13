@@ -29,7 +29,7 @@ describe 'error pages' do
 
   describe 'for server errors' do
     it 'should say there was a server error' do
-      allow(Cohort).to receive(:includes).and_raise(StandardError)
+      allow(HomePagePresenter).to receive(:new).and_raise(StandardError)
       visit '/'
       expect(page).to have_content 'internal server error'
     end
