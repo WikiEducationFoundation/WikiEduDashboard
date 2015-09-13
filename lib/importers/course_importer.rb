@@ -134,22 +134,7 @@ class CourseImporter
     enroll_users(group_flat, enrolled, course)
   end
 
-  def self.existing_enrollment_flat(course)
-    course.courses_users.map do |cu|
-      { 'id' => cu.user_id, 'role' => role_index[cu.role] }
-    end
-  end
-
-  def self.new_enrollment_flat(group_flat)
-    group_flat.map do |u|
-      role = u['username'].include?('(Wiki Ed)') ? role_index[4] : u['role']
-      { 'id' => u['id'], 'role' => role }
-    end
-  end
-
   def self.enroll_users(users, enrolled, course)
-    role_index = %w(student instructor online_volunteer
-                    campus_volunteer wiki_ed_staff)
     users.each do |u|
       next() unless enrolled.include? u['id']
       role = role_index.index(u['role'])
@@ -222,6 +207,19 @@ class CourseImporter
   def self.role_index
     %w(student instructor online_volunteer
        campus_volunteer wiki_ed_staff)
+  end
+
+  def self.existing_enrollment_flat(course)
+    course.courses_users.map do |cu|
+      { 'id' => cu.user_id, 'role' => role_index[cu.role] }
+    end
+  end
+
+  def self.new_enrollment_flat(group_flat)
+    group_flat.map do |u|
+      role = u['username'].include?('(Wiki Ed)') ? role_index[4] : u['role']
+      { 'id' => u['id'], 'role' => role }
+    end
   end
 
   def self.assignment_hash(user, course_id, raw, article, role)
