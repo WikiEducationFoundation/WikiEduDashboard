@@ -38,9 +38,9 @@ require "#{Rails.root}/lib/importers/user_importer"
 
 #= Course model
 class Course < ActiveRecord::Base
-  LEGACY_COURSE_MAX_ID = 9999
-
-  has_many :tags, dependent: :destroy
+  ######################
+  # Users for a course #
+  ######################
   has_many :courses_users, class_name: CoursesUsers, dependent: :destroy
   has_many :users, -> { uniq }, through: :courses_users,
                                 after_remove: :cleanup_articles
@@ -51,20 +51,40 @@ class Course < ActiveRecord::Base
   has_many :volunteers, -> { where('courses_users.role > 1') },
            through: :courses_users, source: :user
 
+  #########################
+  # Activity by the users #
+  #########################
   has_many :revisions, -> (course) {
     where('date >= ?', course.start).where('date <= ?', course.end)
   }, through: :students
-
-  has_many :cohorts_courses, class_name: CohortsCourses, dependent: :destroy
-  has_many :cohorts, through: :cohorts_courses
+  has_many :uploads, through: :students
 
   has_many :articles_courses, class_name: ArticlesCourses, dependent: :destroy
   has_many :articles, -> { uniq }, through: :articles_courses
 
-  has_many :uploads, through: :students, dependent: :destroy
-
   has_many :assignments, dependent: :destroy
 
+  ############
+  # Metadata #
+  ############
+  has_many :cohorts_courses, class_name: CohortsCourses, dependent: :destroy
+  has_many :cohorts, through: :cohorts_courses
+
+  has_many :tags, dependent: :destroy
+
+  # Legacy courses are ones that are imported from the EducationProgram
+  # MediaWiki extension, not created within the dashboard via the wizard.
+  LEGACY_COURSE_MAX_ID = 9999
+  scope :legacy, -> { where('courses.id <= ?', LEGACY_COURSE_MAX_ID) }
+  scope :not_legacy, -> { where('courses.id > ?', LEGACY_COURSE_MAX_ID) }
+
+  scope :unsubmitted_listed, -> { where(submitted: false).where(listed: true).merge(Course.not_legacy) }
+
+  scope :listed, -> { where(listed: true) }
+
+  ##################
+  # Course content #
+  ##################
   has_many :weeks, dependent: :destroy
   has_many :blocks, through: :weeks, dependent: :destroy
   has_many :gradeables, as: :gradeable_item, dependent: :destroy
@@ -72,16 +92,6 @@ class Course < ActiveRecord::Base
   scope :current, lambda {
     current_and_future.where('start < ?', Time.now)
   }
-
-  scope :unsubmitted_listed, -> { where(submitted: false).where(listed: true).merge(Course.not_legacy) }
-
-  scope :listed, -> { where(listed: true) }
-
-  # Courses sourced from Wikipedia, not created with this tool
-  scope :legacy, -> { where('courses.id <= ?', LEGACY_COURSE_MAX_ID) }
-  scope :not_legacy, -> { where('courses.id > ?', LEGACY_COURSE_MAX_ID) }
-
-
   # A course stays "current" for a while after the end date, during which time
   # we still check for new data and update page views.
   scope :current_and_future, lambda {
