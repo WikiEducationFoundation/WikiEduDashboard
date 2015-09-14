@@ -155,19 +155,6 @@ class UsersController < ApplicationController
     WikiEdits.update_course(@course, current_user)
   end
 
-  def set_role
-    fetch_enroll_records
-    return if @user.nil? || @course.nil?
-
-    CoursesUsers.find_by(
-      user_id: @user.id,
-      course_id: params[:course_id],
-      role: enroll_params[:old_role]
-    ).update(role: enroll_params[:role])
-
-    WikiEdits.update_course(@course, current_user)
-  end
-
   private
 
   def user_params
