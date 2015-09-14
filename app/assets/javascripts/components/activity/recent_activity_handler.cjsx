@@ -15,9 +15,6 @@ RecentActivityHandler = React.createClass(
         <div className="nav__item" id="dyk-link">
           <p><Link to="did-you-know">Did You Know Eligible</Link></p>
         </div>
-        <div className="nav__item" id="mainspace-link">
-          <p><Link to="mainspace">Mainspace Eligible</Link></p>
-        </div>
         <div className="nav__item" id="plagiarism-link">
           <p><Link to="plagiarism">Plagiarism Flag</Link></p>
         </div>
@@ -27,4 +24,3 @@ RecentActivityHandler = React.createClass(
 )
 
 module.exports = RecentActivityHandler
-
