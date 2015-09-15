@@ -70,6 +70,7 @@ class CoursesController < ApplicationController
     clone.slug = "#{course.school}/#{clone.title}_(#{course.term})".gsub(' ', '_')
     clone.passcode = Course.generate_passcode
     clone.save
+    clone.update_cache
     new_course = Course.last
     new_course.update_attributes(
       title: new_course.title,

@@ -17,7 +17,7 @@
 #= Block model
 class Block < ActiveRecord::Base
   belongs_to :week
-  has_one :gradeable, as: :gradeable_item
+  has_one :gradeable, as: :gradeable_item, dependent: :destroy
   before_destroy :cleanup
 
   def cleanup
