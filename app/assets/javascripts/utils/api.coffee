@@ -78,6 +78,18 @@ API =
         console.log 'Error: ' + obj.responseJSON.message
         rej obj
 
+  cloneCourse: (id) ->
+    new Promise (res, rej) ->
+      $.ajax
+        type: 'POST',
+        url: "/clone_course/#{id}",
+        success: (data) ->
+          console.log 'Recieved course clone'
+          res data
+      .fail (obj, status) ->
+        console.log 'Error: ' + obj.responseJSON.message
+        rej obj
+
   fetchCohorts: ->
     new Promise (res, rej) ->
       $.ajax

@@ -64,7 +64,7 @@ CourseCreator = React.createClass(
     if value_key in ['title', 'school', 'term']
       ValidationActions.setValid 'exists'
   getInitialState: ->
-    inits = 
+    inits =
       tempCourseId: ''
       isSubmitting: false
       shouldShowForm: false
@@ -75,7 +75,9 @@ CourseCreator = React.createClass(
   showCourseDropdown: ->
     @setState showCourseDropdown: true
   useThisClass: (e) ->
-    console.log e.target.value
+    select = React.findDOMNode(@refs.courseSelect)
+    courseId = select.options[select.selectedIndex].dataset.idKey
+    ServerActions.cloneCourse(courseId)
   render: ->
     form_style = { }
     form_style.opacity = 0.5 if @state.isSubmitting is true
@@ -84,7 +86,7 @@ CourseCreator = React.createClass(
     formClass = 'wizard__form'
     formClass += if @state.shouldShowForm is true then '' else ' hidden'
 
-    controlClass = 'wizard__panel__controls' 
+    controlClass = 'wizard__panel__controls'
     controlClass += if @state.shouldShowForm is true then '' else ' hidden'
 
     buttonClass = 'dark button'
@@ -94,8 +96,10 @@ CourseCreator = React.createClass(
     selectClass += if @state.showCourseDropdown is true then '' else ' hidden'
 
     options = @state.user_courses.map (course) -> (
-      <option value={course.id}>{course.title}</option>
+      <option data-id-key={course.id}>{course.title}</option>
     )
+
+    console.log @state.course
 
     <Modal>
       <div className="wizard__panel active" style={form_style}>
@@ -103,11 +107,10 @@ CourseCreator = React.createClass(
         <p>{I18n.t('course_creator.intro')}</p>
         <button className={buttonClass} onClick={@showForm}>Create New Course</button>
         <button className={buttonClass} onClick={@showCourseDropdown}>Reuse Existing Course</button>
-        <select
-          className={selectClass}
-          onChange={@useThisClass}
-        >{options}
-        </select>
+        <div className={selectClass}>
+          <select ref='courseSelect' >{options} </select>
+          <button className='button dark' onClick={@useThisClass}>Clone This Course</button>
+        </div>
         <div className={formClass}>
           <div className='column'>
 

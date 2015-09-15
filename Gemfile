@@ -14,6 +14,8 @@ gem 'browser'
 gem 'devise'
 gem 'omniauth-mediawiki'
 
+gem 'deep_cloneable', '~> 2.1.1'
+
 gem 'sentry-raven'
 gem 'piwik_analytics', :git => 'https://github.com/halfdan/piwik-ruby-tracking.git'
 

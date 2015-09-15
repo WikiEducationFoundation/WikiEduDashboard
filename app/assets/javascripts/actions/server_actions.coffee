@@ -19,6 +19,10 @@ ServerActions = Flux.createActions
       { actionType: actionType, data: data }
 
   # Specific
+  cloneCourse: (courseId) ->
+    API.cloneCourse(courseId).then (data) ->
+      { actionType: 'RECEIVE_COURSE_CLONE', data: data }
+
   fetchLookups: (key) ->
     API.fetchLookups(key).then (data) =>
       { actionType: 'RECEIVE_LOOKUPS', data: {
