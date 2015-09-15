@@ -69,8 +69,6 @@ Rails.application.routes.draw do
   #        constraints: { course_id: /.*/ }
   # post 'courses/:course_id/users/add' => 'users#add',
   #      constraints: { course_id: /.*/ }
-  post 'courses/:course_id/users/:user_id/setrole' => 'users#set_role',
-       constraints: { course_id: /.*/ }
 
   # Timeline
   resources :courses, constraints: { id: /.*/ } do
