@@ -14,13 +14,14 @@ class MonthlyReport
                                                         month, last_year)
       uploads = monthly_uploads_for(courses, month, year)
       old_uploads = monthly_uploads_for(old_courses, month, last_year)
-      output = "#{month} #{year}
-        #{articles_edited} articles edited
-        #{uploads} uploads
-        #{month} #{last_year}
-        #{old_articles_edited} articles edited
-        #{old_uploads} uploads"
-      output
+      report = { "#{year}-#{month}".to_sym =>
+                   { articles_edited: articles_edited,
+                     uploads: uploads },
+                 "#{last_year}-#{month}".to_sym =>
+                   { articles_edited: old_articles_edited,
+                     uploads: old_uploads }
+               }
+      report
     end
 
     def courses_during(month, year)

@@ -3,20 +3,23 @@ class CourseStatistics
   # For a set of course ids, generate a human-readable summary of what the users
   # in those courses contributed.
   class << self
-    def report_statistics(course_ids)
+    def report_statistics(course_ids, opts = {})
       @@course_ids = course_ids
-      report = %(
-        #{pure_student_ids.count} students (excluding instructors)
-        #{trained_student_count} trained students
-        #{characters_added} characters added
-        #{revision_ids.count} revisions
-        #{article_ids.count} articles edited
-        #{surviving_article_ids.count} articles created
-        #{deleted_article_ids.count} articles deleted
-        #{upload_ids.count} files uploaded
-        #{used_count} files in use
-        #{usage_count} global usages
-      )
+      report = {
+        students_excluding_instructors: pure_student_ids.count,
+        trained_students: trained_student_count,
+        characters_added: characters_added,
+        revisions: revision_ids.count,
+        articles_edited: article_ids.count,
+        articles_created: surviving_article_ids.count,
+        articles_deleted: deleted_article_ids.count,
+        files_uploads: upload_ids.count,
+        files_in_use: used_count,
+        global_usages: usage_count
+      }
+      if opts[:cohort]
+        report = { opts[:cohort].to_sym => report }
+      end
       report
     end
 
