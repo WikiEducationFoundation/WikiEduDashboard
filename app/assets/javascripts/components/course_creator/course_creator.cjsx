@@ -2,11 +2,12 @@ React         = require 'react'
 Router        = require 'react-router'
 Link          = Router.Link
 
-CourseStore       = require '../../stores/course_store'
-CourseActions     = require '../../actions/course_actions'
-ValidationStore   = require '../../stores/validation_store'
-ValidationActions = require '../../actions/validation_actions'
-ServerActions     = require '../../actions/server_actions'
+CourseStore        = require '../../stores/course_store'
+UserCoursesStore   = require '../../stores/user_courses_store'
+CourseActions      = require '../../actions/course_actions'
+ValidationStore    = require '../../stores/validation_store'
+ValidationActions  = require '../../actions/validation_actions'
+ServerActions      = require '../../actions/server_actions'
 
 Modal         = require '../common/modal'
 TextInput     = require '../common/text_input'
@@ -15,10 +16,11 @@ TextAreaInput = require '../common/text_area_input'
 getState = ->
   course: CourseStore.getCourse()
   error_message: ValidationStore.firstMessage()
+  user_courses: UserCoursesStore.getUserCourses()
 
 CourseCreator = React.createClass(
   displayName: 'CourseCreator'
-  mixins: [CourseStore.mixin, ValidationStore.mixin]
+  mixins: [CourseStore.mixin, ValidationStore.mixin, UserCoursesStore.mixin]
   contextTypes:
     router: React.PropTypes.func.isRequired
   storeDidChange: ->
@@ -28,6 +30,11 @@ CourseCreator = React.createClass(
     @handleCourse()
   componentWillMount: ->
     CourseActions.addCourse()
+    ServerActions.fetchCoursesForUser(@currentUserId())
+
+  currentUserId: ->
+    document.getElementById('main').dataset.userId
+
   generateTempId: ->
     title = if @state.course.title? then @slugify @state.course.title else ''
     school = if @state.course.school? then @slugify @state.course.school else ''
@@ -57,17 +64,51 @@ CourseCreator = React.createClass(
     if value_key in ['title', 'school', 'term']
       ValidationActions.setValid 'exists'
   getInitialState: ->
-    $.extend(true, { tempCourseId: '', isSubmitting: false}, getState())
+    inits = 
+      tempCourseId: ''
+      isSubmitting: false
+      shouldShowForm: false
+      shouldShowCourseDropdown: false
+    $.extend(true, inits, getState())
+  showForm: ->
+    @setState shouldShowForm: true
+  showCourseDropdown: ->
+    @setState showCourseDropdown: true
+  useThisClass: (e) ->
+    console.log e.target.value
   render: ->
     form_style = { }
     form_style.opacity = 0.5 if @state.isSubmitting is true
     form_style.pointerEvents = 'none' if @state.isSubmitting is true
 
+    formClass = 'wizard__form'
+    formClass += if @state.shouldShowForm is true then '' else ' hidden'
+
+    controlClass = 'wizard__panel__controls' 
+    controlClass += if @state.shouldShowForm is true then '' else ' hidden'
+
+    buttonClass = 'dark button'
+    buttonClass += if @state.shouldShowForm is true then ' hidden' else ''
+
+    selectClass = ''
+    selectClass += if @state.showCourseDropdown is true then '' else ' hidden'
+
+    options = @state.user_courses.map (course) -> (
+      <option value={course.id}>{course.title}</option>
+    )
+
     <Modal>
       <div className="wizard__panel active" style={form_style}>
         <h3>{I18n.t('course_creator.create_new')}</h3>
         <p>{I18n.t('course_creator.intro')}</p>
-        <div className='wizard__form'>
+        <button className={buttonClass} onClick={@showForm}>Create New Course</button>
+        <button className={buttonClass} onClick={@showCourseDropdown}>Reuse Existing Course</button>
+        <select
+          className={selectClass}
+          onChange={@useThisClass}
+        >{options}
+        </select>
+        <div className={formClass}>
           <div className='column'>
 
             <TextInput
@@ -183,7 +224,7 @@ CourseCreator = React.createClass(
             />
           </div>
         </div>
-        <div className='wizard__panel__controls'>
+        <div className={controlClass}>
           <div className='left'><p>{@state.tempCourseId}</p></div>
           <div className='right'>
             <div><p className='red'>{@state.error_message}</p></div>

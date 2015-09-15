@@ -63,6 +63,10 @@ ServerActions = Flux.createActions
     API.createAssignment(opts).then (data) ->
       { actionType: 'CREATE_USER_ASSIGNMENT', data: data }
 
+  fetchCoursesForUser: (userId) ->
+    API.fetchUserCourses(userId).then (data) ->
+      { actionType: 'RECEIVE_USER_COURSES', data: data }
+
   # Save
   saveCourse: (data, course_id=null) ->
     API.saveCourse(data, course_id).then (data) ->

@@ -86,6 +86,7 @@ Rails.application.routes.draw do
   get 'revisions' => 'revisions#index'
 
   resources :weeks, only: [:index]
+  resources :courses_users, only: [:index]
 
   # Article Finder
   if ENV['dashboard_url'] == 'outreachdashboard.wmflabs.org'

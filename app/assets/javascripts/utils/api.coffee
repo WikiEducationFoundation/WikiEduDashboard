@@ -114,6 +114,18 @@ API =
         console.log 'Error: ' + obj.responseJSON.message
         rej obj
 
+  fetchUserCourses: (userId) ->
+    new Promise (res, rej) ->
+      $.ajax
+        type: 'GET',
+        url: "/courses_users.json?user_id=#{userId}"
+        success: (data) ->
+          console.log 'Received user courses'
+          res data
+      .fail (obj, status) ->
+        console.log 'Error: ' + obj.responseJSON.message
+        rej obj
+
   deleteAssignment: (assignment) ->
     new Promise (res, rej) ->
       $.ajax

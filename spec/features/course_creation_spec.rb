@@ -89,7 +89,7 @@ describe 'New course creation and editing', type: :feature do
       stub_oauth_edit
 
       find("a[href='/course_creator']").click
-      expect(page).to have_content 'Create a New Course'
+      expect(page).to have_content 'Create a Course'
       find('#course_title').set('My awesome new course - Foo 101')
 
       # If we click before filling out all require fields, only the invalid

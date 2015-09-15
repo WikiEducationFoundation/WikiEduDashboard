@@ -14,4 +14,9 @@ module CourseHelper
     month = 2_592_000 # number of seconds in 30 days
     course.start < Time.now && course.end > Time.now - month
   end
+
+  def cohort_title(course)
+    return course.title unless course.cohorts_courses.any?
+    "#{course.title} (#{course.cohorts_courses.first.cohort.title})"
+  end
 end
