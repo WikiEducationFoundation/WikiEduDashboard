@@ -30,9 +30,9 @@
 <%= form_tag(method: 'get') do %>
   <input name="cohort_intersection" type="hidden" value="true" />
   <%= label_tag(:cohort_1, "cohort 1") %>
-  <%= collection_select(:cohort_1, :id, Cohort.all, :id, :slug, prompt: true) %><br/>
+  <%= collection_select(:cohort_1, :id, Cohort.all, :id, :title, prompt: true) %><br/>
   <%= label_tag(:cohort_2, "cohort 2") %>
-  <%= collection_select(:cohort_2, :id, Cohort.all, :id, :slug, prompt: true) %><br/>
+  <%= collection_select(:cohort_2, :id, Cohort.all, :id, :title, prompt: true) %><br/>
   <button class="button dark"><%= submit_tag("Cohort Intersection") %></button>
 <% end %><br/>
 

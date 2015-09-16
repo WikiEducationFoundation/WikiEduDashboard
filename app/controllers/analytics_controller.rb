@@ -22,7 +22,7 @@ class AnalyticsController < ApplicationController
       @cohort_1 = Cohort.find(params[:cohort_1][:id])
       @cohort_2 = Cohort.find(params[:cohort_2][:id])
 
-      cohort_name = @cohort_1.slug + ' + ' + @cohort_2.slug
+      cohort_name = @cohort_1.title + ' + ' + @cohort_2.title
       cohort_1_course_ids = @cohort_1.courses.pluck(:id)
       course_ids = @cohort_2.courses
                    .where(id: cohort_1_course_ids)
