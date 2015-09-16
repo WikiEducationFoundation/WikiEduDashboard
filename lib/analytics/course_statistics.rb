@@ -6,6 +6,7 @@ class CourseStatistics
     def report_statistics(course_ids, opts = {})
       @@course_ids = course_ids
       report = {
+        course_count: course_ids.uniq.count,
         students_excluding_instructors: pure_student_ids.count,
         trained_students: trained_student_count,
         characters_added: characters_added,
