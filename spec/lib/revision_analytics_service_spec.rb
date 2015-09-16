@@ -18,35 +18,42 @@ describe RevisionAnalyticsService do
     let!(:article)   { create(:article, id: 1, title: 'Student_1/A_great_draft', namespace: 2) }
     let!(:article2)  { create(:article, id: 2, title: 'Student_1/A_poor_draft', namespace: 2) }
     let!(:revision2) { create(:revision, id: 2, user_id: 1, article_id: 2, date: 1.day.ago, wp10: 20) }
+    let!(:article3)  { create(:article, id: 3, title: 'Student_1/An_old_draft', namespace: 2) }
+    let!(:revision3) { create(:revision, id: 3, user_id: 1, article_id: 3, date: 1.year.ago, wp10: 80) }
 
     subject { described_class.dyk_eligible }
 
-    context 'sufficient wp10' do
-      it 'should return relevant revisions' do
+    context 'revisions with sufficient wp10' do
+      it 'should be returned' do
         expect(subject).to include(article)
       end
     end
 
-    context 'insufficient wp10' do
-      it 'should not return irrelevant revisions' do
+    context 'revisions with insufficient wp10' do
+      it 'should not be returned' do
         expect(subject).not_to include(article2)
+      end
+    end
+
+    context 'revisions that are too old' do
+      it 'should not be returned' do
+        expect(subject).not_to include(article3)
       end
     end
   end
 
-
   describe '#suspected_plagiarism' do
     subject { described_class.suspected_plagiarism }
-    context 'no ithenticate_id' do
+    context 'revision with no ithenticate_id' do
       let(:r1_id) { nil }
-      it 'does not include revision' do
+      it 'should not be included' do
         expect(subject).not_to include(revision)
       end
     end
 
-    context 'ithenticate_id present' do
+    context 'revision with ithenticate_id' do
       let(:r1_id) { 5 }
-      it 'does include revision' do
+      it 'should be included' do
         expect(subject).to include(revision)
       end
     end

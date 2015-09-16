@@ -5,6 +5,7 @@ class RevisionAnalyticsService
     good_student_revisions = Revision
                              .where(user_id: current_student_ids)
                              .where('wp10 > ?', wp10_limit)
+                             .where('date > ?', 2.months.ago)
     good_article_ids = good_student_revisions.pluck(:article_id)
     good_user_space = Article.where(id: good_article_ids)
                       .where(namespace: 2)
