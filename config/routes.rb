@@ -95,7 +95,7 @@ Rails.application.routes.draw do
 
   # Reports and analytics
   get 'analytics(/*any)' => 'analytics#index'
-  post 'analytics(/*any)' => 'analytics#index'
+  post 'analytics(/*any)' => 'analytics#results'
 
   # Recent Activity
   get 'recent-activity(/*any)' => 'recent_activity#index'

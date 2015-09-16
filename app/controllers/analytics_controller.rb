@@ -4,6 +4,9 @@ require "#{Rails.root}/lib/analytics/course_statistics"
 #= Controller for analytics tools
 class AnalyticsController < ApplicationController
   def index
+  end
+
+  def results
     if params[:monthly_report]
       @monthly_report = MonthlyReport.run
     elsif params[:cohort_stats]
@@ -13,7 +16,7 @@ class AnalyticsController < ApplicationController
         stats = CourseStatistics.report_statistics(ids, cohort: cohort.slug)
         @cohort_stats.merge! stats
       end
-      pp @cohort_stats
     end
+    render 'index'
   end
 end
