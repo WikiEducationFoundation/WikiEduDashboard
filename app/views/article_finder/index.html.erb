@@ -7,7 +7,7 @@
 <div class="container">
 <section>
 <div class="section-header">
-<h3><%= form_tag(method: 'get') do %>
+<h3><%= form_tag(method: 'post') do %>
   Put in a category name, excluding the prefix, like "Feminism"<br/><br/>
   <%= label_tag(:category, "category") %>
   <%= text_field_tag(:category, @category) %><br/>
@@ -20,6 +20,7 @@
   <button class="button dark"><%= submit_tag("Go") %></button>
 <% end %></h3>
 </div>
+<% if @articles %>
 <div>
   <ul class="list">
     <li class="row course-list__row">Title, Average Views, Completeness</li>
@@ -28,5 +29,6 @@
     <% end %>
   </ul>
 </div>
+<% end %>
 </section>
 </div>

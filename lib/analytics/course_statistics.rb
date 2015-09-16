@@ -50,7 +50,7 @@ class CourseStatistics
     end
 
     def characters_added
-      CoursesUsers.sum(:character_sum_ms)
+      students.sum(:character_sum_ms)
     end
 
     def revisions

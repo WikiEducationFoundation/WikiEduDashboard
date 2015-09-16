@@ -90,7 +90,7 @@ Rails.application.routes.draw do
   # Article Finder
   if ENV['dashboard_url'] == 'outreachdashboard.wmflabs.org'
     get 'article_finder(/*any)' => 'article_finder#index'
-    post 'article_finder(/*any)' => 'article_finder#index'
+    post 'article_finder(/*any)' => 'article_finder#results'
   end
 
   # Reports and analytics

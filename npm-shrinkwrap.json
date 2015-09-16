@@ -15089,9 +15089,9 @@
       }
     },
     "react-weekday-picker": {
-      "version": "1.0.2",
+      "version": "1.0.3",
       "from": "react-weekday-picker@*",
-      "resolved": "https://registry.npmjs.org/react-weekday-picker/-/react-weekday-picker-1.0.2.tgz"
+      "resolved": "https://registry.npmjs.org/react-weekday-picker/-/react-weekday-picker-1.0.3.tgz"
     },
     "reactify": {
       "version": "1.1.1",
