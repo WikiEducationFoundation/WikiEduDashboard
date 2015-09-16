@@ -37,10 +37,15 @@ FormPanel = React.createClass(
     timeline_end_props =
       minDate: moment(@props.course.timeline_start).add(Math.max(1, @props.weeks), 'week')
       maxDate: moment(@props.course.end)
+    step1 = if @props.shouldShowSteps then (
+      <h2><span>1.</span><small> Confirm the course’s start and end dates.</small></h2>
+    ) else (
+      <p>Confirm the course’s start and end dates.</p>
+    )
     raw_options = (
       <div>
         <div className='course-dates__step'>
-          <h2><span>1.</span><small> Confirm the course’s start and end dates.</small></h2>
+          {step1}
           <div className='vertical-form full-width'>
             <TextInput
               onChange={@updateDetails}

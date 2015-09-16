@@ -99,8 +99,6 @@ CourseCreator = React.createClass(
       <option data-id-key={course.id}>{course.title}</option>
     )
 
-    console.log @state.course
-
     <Modal>
       <div className="wizard__panel active" style={form_style}>
         <h3>{I18n.t('course_creator.create_new')}</h3>

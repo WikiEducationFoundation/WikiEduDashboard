@@ -74,12 +74,26 @@ Calendar = React.createClass(
         weekday = @props.course.weekdays.charAt(moment(day).format('e')) == '1'
         inrange && exception && weekday
     }
-    editing_days = (
-      <h2>2.<small>Select the days of the week on which your class meets.</small></h2>
-    ) if @props.editable
-    editing_calendar = (
-      <h2>3.<small className='no-baseline'>Select dates to add or remove them from the schedule (e.g., holidays, no school). This helps the course creation tool accurately space out your assignments. Click the date to change between unselected, selected, and holiday state. If you have no holidays, check "I have no class holidays" below.</small></h2>
-    ) if @props.editable
+
+    edit_days_text = 'Select the days of the week on which your class meets.'
+    edit_calendar_text = 'Select dates to add or remove them from the schedule
+      (e.g., holidays, no school). This helps the course creation tool accurately
+      space out your assignments. Click the date to change between unselected,
+      selected, and holiday state. If you have no holidays, check
+      "I have no class holidays" below.'
+
+    if @props.editable
+      if @props.shouldShowSteps
+        editing_days = ( <h2>2.<small>{edit_days_text}</small></h2>)
+        editing_calendar = (
+          <h2>3.<small className='no-baseline'>{edit_calendar_text}</small></h2>
+        )
+      else
+        editing_days = (<p>{edit_days_text}</p>)
+        editing_calendar = (
+          <p>{edit_calendar_text}</p>
+        )
+
 
     <div>
       <div className='course-dates__step'>
