@@ -18,9 +18,8 @@ class CourseStatistics
         files_in_use: used_count,
         global_usages: usage_count
       }
-      if opts[:cohort]
-        report = { opts[:cohort].to_sym => report }
-      end
+
+      report = { opts[:cohort].to_sym => report } if opts[:cohort]
       report
     end
 

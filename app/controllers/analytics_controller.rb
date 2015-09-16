@@ -19,8 +19,8 @@ class AnalyticsController < ApplicationController
       end
     elsif params[:cohort_intersection]
       @cohort_stats = {}
-      @cohort_1 = Cohort.find(params[:cohort_1][:cohort])
-      @cohort_2 = Cohort.find(params[:cohort_2][:cohort])
+      @cohort_1 = Cohort.find(params[:cohort_1][:id])
+      @cohort_2 = Cohort.find(params[:cohort_2][:id])
 
       cohort_name = @cohort_1.slug + ' + ' + @cohort_2.slug
       cohort_1_course_ids = @cohort_1.courses.pluck(:id)
