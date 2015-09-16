@@ -16,7 +16,9 @@ class RevisionAnalyticsService
                        .where(namespace: 118)
                        .pluck(:id)
 
-    good_drafts = Article.where(id: good_draft_space + good_user_space)
+    good_drafts = Article.where(id: good_draft_space + good_user_space).to_a
+    good_drafts.sort_by! { |a| a.revisions.last.date }
+    good_drafts.reverse!
     good_drafts
   end
 
