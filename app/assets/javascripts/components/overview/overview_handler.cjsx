@@ -10,6 +10,10 @@ WeekStore     = require '../../stores/week_store'
 ServerActions = require '../../actions/server_actions'
 Modal         = require '../common/modal'
 
+CourseActions      = require '../../actions/course_actions'
+ValidationStore    = require '../../stores/validation_store'
+ValidationActions  = require '../../actions/validation_actions'
+
 TextInput     = require '../common/text_input'
 TextAreaInput = require '../common/text_area_input'
 Calendar      = require '../common/calendar'
@@ -24,15 +28,38 @@ getState = ->
 
 Overview = React.createClass(
   displayName: 'Overview'
-  mixins: [WeekStore.mixin]
+  mixins: [WeekStore.mixin, CourseStore.mixin, ValidationStore.mixin]
   storeDidChange: ->
     @setState getState()
+    @handleCourse()
   componentDidMount: ->
     ServerActions.fetch 'timeline', @props.course_id
     ServerActions.fetch 'tags', @props.course_id
     ServerActions.fetchUserAssignments(user_id: @props.current_user.id, course_id: @props.course_id, role: 0)
-  updateCourse: ->
-    false
+  updateCourse: (value_key, value) ->
+    to_pass = $.extend(true, {}, @state.course)
+    to_pass[value_key] = value
+    CourseActions.updateCourse to_pass
+    if value_key in ['title', 'school', 'term']
+      ValidationActions.setValid 'exists'
+  slugify: (text) ->
+    return text.replace " ", "_"
+  generateTempId: ->
+    title = if @state.course.title? then @slugify @state.course.title else ''
+    school = if @state.course.school? then @slugify @state.course.school else ''
+    term = if @state.course.term? then @slugify @state.course.term else ''
+    return "#{school}/#{title}_(#{term})"
+  saveCourse: ->
+    if ValidationStore.isValid()
+      @setState isSubmitting: true
+      ValidationActions.setInvalid 'exists', 'This course is being checked for uniqueness', true
+      ServerActions.checkCourse('exists', @generateTempId())
+  handleCourse: ->
+    return unless @state.isSubmitting
+    if ValidationStore.isValid()
+      ServerActions.saveClone($.extend(true, {}, { course: @state.course }), @state.course.slug)
+    else if !ValidationStore.getValidation('exists').valid
+      @setState isSubmitting: false
   getInitialState: ->
     getState()
   render: ->
@@ -141,12 +168,7 @@ Overview = React.createClass(
                 </label>
               </div>
 
-              <Link
-                to='overview'
-                className='button dark closeModal'
-                params={{ course_school: school, course_title: title }}>
-                Save
-              </Link>
+              <button onClick={@saveCourse} className='dark button'>Save New Course</button>
             </div>
           </div>
         </Modal>

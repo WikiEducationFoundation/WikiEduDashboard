@@ -32,6 +32,7 @@ class CoursesController < ApplicationController
     validate
     handle_course_announcement(@course.instructors.first)
     handle_instructor_info
+    set_slug if should_set_slug?
     handle_timeline_dates
     @course.update course: course_params
     @course.update_attribute(
