@@ -6,3 +6,8 @@
 <br /></br />
 <% end %>
 </h3>
+<br /><br />
+<h3><% @articles_edited.each do |article| %>
+  <li><%= full_title(article) %>
+<% end %>
+</h3>

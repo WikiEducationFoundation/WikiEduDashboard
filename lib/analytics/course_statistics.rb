@@ -23,6 +23,11 @@ class CourseStatistics
       report
     end
 
+    def articles_edited(course_ids)
+      @@course_ids = course_ids
+      Article.where(namespace: 0, id: page_ids)
+    end
+
     private
 
     def students
