@@ -55,10 +55,9 @@ Overview = React.createClass(
       ValidationActions.setInvalid 'exists', 'This course is being checked for uniqueness', true
       ServerActions.checkCourse('exists', @generateTempId())
   isNewCourse: (course) ->
-    # it's "new" if it was updated fewer than 15 seconds ago.
-    # TODO: rethink
+    # it's "new" if it was updated fewer than 10 seconds ago.
     updated = new Date(course.updated_at)
-    ((Date.now() - updated) / 1000) < 15
+    ((Date.now() - updated) / 1000) < 10
   handleCourse: ->
     return unless @state.isSubmitting
     if @isNewCourse(@state.course)

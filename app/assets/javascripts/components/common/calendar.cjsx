@@ -26,8 +26,8 @@ Calendar = React.createClass(
     else
       exceptions.push formatted
     course['day_exceptions'] = exceptions.join(',')
+    course['no_day_exceptions'] = (_.compact(exceptions).length is 0)
     CourseActions.updateCourse course, (@props.save? && @props.save)
-    CourseActions.updateCourse 'no_day_exceptions', (_.compact(exceptions).length is 0)
   selectWeekday: (e, weekday) ->
     to_pass = @props.course
     if !to_pass['weekdays']?
@@ -40,10 +40,11 @@ Calendar = React.createClass(
     anyDatesSelected = !(to_pass['weekdays'] is '0000000')
     CourseActions.updateCourse to_pass, (@props.save? && @props.save)
   inrange: (day) ->
-    return false unless @props.course.start?
-    start = moment(@props.course.start, 'YYYY-MM-DD').subtract(1, 'day').format('YYYY-MM-DD')
-    end = moment(@props.course.end, 'YYYY-MM-DD').add(1, 'day').format('YYYY-MM-DD')
-    moment(day).isBetween(start, end)
+    course = @props.course
+    return false unless course.start?
+    start = new Date(course.start)
+    end = new Date(course.end)
+    start < day < end
   render: ->
     modifiers = {
       'outrange': (day) =>
