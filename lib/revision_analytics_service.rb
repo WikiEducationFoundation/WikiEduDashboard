@@ -17,17 +17,17 @@ class RevisionAnalyticsService
                        .pluck(:id)
 
     good_draft_ids = good_draft_space + good_user_space
-    # last_revisions = Revision
-    #                  .where(article_id: good_draft_ids)
-    #                  .group(:article_id)
-    #                  .having('date = MAX(date)')
-    # last_rev_dates = last_revisions.map do |revision|
-    #   { revision.article_id => revision.date }
-    # end
-    # pp last_rev_dates
-    good_drafts = Article.where(id: good_draft_ids).to_a
+    last_revisions = Revision
+                     .where(article_id: good_draft_ids)
+                     .select('MAX(date) as date, article_id')
+                     .group(:article_id)
+    last_rev_dates = {}
+    last_revisions.each do |revision|
+      last_rev_dates[revision.article_id] = revision.date
+    end
 
-    good_drafts.sort_by! { |a| a.revisions.last.date }
+    good_drafts = Article.where(id: good_draft_ids).to_a
+    good_drafts.sort! { |a, b| last_rev_dates[a.id] <=>  last_rev_dates[b.id] }
     good_drafts.reverse!
     good_drafts
   end
