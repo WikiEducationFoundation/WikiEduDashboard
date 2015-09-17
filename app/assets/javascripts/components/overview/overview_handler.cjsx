@@ -70,6 +70,8 @@ Overview = React.createClass(
     getState()
   render: ->
     if @props.query.modal is 'true' && _.keysIn(@state.course).length > 0
+      buttonClass = 'button dark'
+      buttonClass += if @state.isSubmitting then ' working' else ''
       slug = @state.course.slug
       [school, title] = slug.split('/')
       return (
@@ -174,7 +176,7 @@ Overview = React.createClass(
                 </label>
               </div>
 
-              <button onClick={@saveCourse} className='dark button'>Save New Course</button>
+              <button onClick={@saveCourse} className={buttonClass}>Save New Course</button>
             </div>
           </div>
         </Modal>
