@@ -40,7 +40,7 @@ class CoursesController < ApplicationController
       ) if course_params[:passcode].nil?
 
     WikiEdits.update_course(@course, current_user)
-    render json: @course
+    render json: { course: @course }
   end
 
   def destroy

@@ -54,10 +54,17 @@ Overview = React.createClass(
       @setState isSubmitting: true
       ValidationActions.setInvalid 'exists', 'This course is being checked for uniqueness', true
       ServerActions.checkCourse('exists', @generateTempId())
+  isNewCourse: (course) ->
+    # it's "new" if it was updated fewer than 15 seconds ago.
+    # TODO: rethink
+    updated = new Date(course.updated_at)
+    ((Date.now() - updated) / 1000) < 15
   handleCourse: ->
     return unless @state.isSubmitting
+    if @isNewCourse(@state.course)
+      return window.location = "/courses/#{@state.course.slug}"
     if ValidationStore.isValid()
-      ServerActions.saveClone($.extend(true, {}, { course: @state.course }), @state.course.slug)
+      ServerActions.updateClone($.extend(true, {}, { course: @state.course }), @state.course.slug)
     else if !ValidationStore.getValidation('exists').valid
       @setState isSubmitting: false
   getInitialState: ->
