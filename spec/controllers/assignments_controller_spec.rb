@@ -1,8 +1,14 @@
 require 'rails_helper'
 
 describe AssignmentsController do
+  let!(:user) { create(:user) }
+  before do
+    allow(controller).to receive(:current_user).and_return(user)
+  end
+
   describe 'GET index' do
     let!(:assignment) { create(:assignment) }
+
     before do
       allow(Course).to receive(:find_by_slug).and_return(OpenStruct.new(id: 1))
       allow(Assignment).to receive(:where).and_return(assignment)

@@ -13,6 +13,7 @@ class ApplicationController < ActionController::Base
   end
 
   before_action :set_locale
+  before_action :check_for_expired_oauth_credentials
 
   def after_sign_out_path_for(_resource_or_scope)
     request.referrer
@@ -25,7 +26,15 @@ class ApplicationController < ActionController::Base
   def require_permissions
     course = Course.find_by_slug(params[:id])
     exception = ActionController::InvalidAuthenticityToken.new('Unauthorized')
-    raise exception unless user_signed_in? && current_user.can_edit?(course)
+    fail exception unless user_signed_in? && current_user.can_edit?(course)
+  end
+
+  def check_for_expired_oauth_credentials
+    return unless user_signed_in?
+    return unless current_user.wiki_token == 'invalid'
+
+    flash[:notice] = 'Your Wikipedia authorization has expired. Please log in again.'
+    redirect_to '/sign_out'
   end
 
   def course_slug_path(slug)
