@@ -34,7 +34,8 @@ class ApplicationController < ActionController::Base
     return unless current_user.wiki_token == 'invalid'
 
     flash[:notice] = 'Your Wikipedia authorization has expired. Please log in again.'
-    redirect_to '/sign_out'
+    sign_out current_user
+    redirect_to root_path
   end
 
   def course_slug_path(slug)
