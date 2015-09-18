@@ -12,12 +12,6 @@
 #= Week model
 class Week < ActiveRecord::Base
   belongs_to :course
-  has_many :blocks
-  has_many :gradeables, through: :blocks, dependent: :destroy
-
-  before_destroy :cleanup
-
-  def cleanup
-    blocks.destroy_all
-  end
+  has_many :blocks, dependent: :destroy
+  has_many :gradeables, through: :blocks
 end

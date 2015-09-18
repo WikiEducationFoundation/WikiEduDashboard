@@ -18,9 +18,4 @@
 class Block < ActiveRecord::Base
   belongs_to :week
   has_one :gradeable, as: :gradeable_item, dependent: :destroy
-  before_destroy :cleanup
-
-  def cleanup
-    Gradeable.destroy gradeable_id unless gradeable_id.nil?
-  end
 end

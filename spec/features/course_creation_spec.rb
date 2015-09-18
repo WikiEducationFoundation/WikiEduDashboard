@@ -88,7 +88,11 @@ describe 'New course creation and editing', type: :feature do
     it 'should allow the user to create a course' do
       stub_oauth_edit
 
-      find("a[href='/course_creator']").click
+      click_link 'Create a Course'
+
+      # It's a new course
+      click_button 'Create New Course'
+
       expect(page).to have_content 'Create a Course'
       find('#course_title').set('My awesome new course - Foo 101')
 
@@ -262,7 +266,8 @@ describe 'New course creation and editing', type: :feature do
              timeline_end: '2015-12-15'.to_date)
       stub_oauth_edit
 
-      find("a[href='/course_creator']").click
+      click_link 'Create a Course'
+      click_button 'Create New Course'
       expect(page).to have_content 'Create a New Course'
       find('#course_title').set('Course')
       find('#instructor_name').set(instructor_name)
