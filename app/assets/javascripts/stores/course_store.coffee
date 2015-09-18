@@ -58,16 +58,13 @@ CourseStore = Flux.createStore
     when 'RECEIVE_COURSE', 'CREATED_COURSE', 'COHORT_MODIFIED', 'SAVED_COURSE', 'CHECK_COURSE'
       setCourse data.course, true
       break
-    when 'UPDATE_CLONE'
+    when 'UPDATE_CLONE', 'RECEIVE_COURSE_CLONE'
       setCourse data.course, true
       break
     when 'UPDATE_COURSE'
       setCourse data.course
       if data.save
         ServerActions.saveCourse($.extend(true, {}, { course: _course }), data.course.slug)
-      break
-    when 'RECEIVE_COURSE_CLONE'
-      window.location = "/courses/#{data.course.slug}/overview"
       break
     when 'ADD_COURSE'
       addCourse()

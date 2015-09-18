@@ -48,6 +48,8 @@ CourseCreator = React.createClass(
       ValidationActions.setInvalid 'exists', 'This course is being checked for uniqueness', true
       ServerActions.checkCourse('exists', @generateTempId())
   handleCourse: ->
+    if @state.shouldRedirect is true
+      window.location = "/courses/#{@state.course.slug}?modal=true"
     return unless @state.isSubmitting
     if ValidationStore.isValid()
       if @state.course.slug?
@@ -78,6 +80,7 @@ CourseCreator = React.createClass(
     select = React.findDOMNode(@refs.courseSelect)
     courseId = select.options[select.selectedIndex].dataset.idKey
     ServerActions.cloneCourse(courseId)
+    @setState isSubmitting: true, shouldRedirect: true
   render: ->
     form_style = { }
     form_style.opacity = 0.5 if @state.isSubmitting is true
@@ -106,7 +109,7 @@ CourseCreator = React.createClass(
         <button className={buttonClass} onClick={@showForm}>Create New Course</button>
         <button className={buttonClass} onClick={@showCourseDropdown}>Reuse Existing Course</button>
         <div className={selectClass}>
-          <select ref='courseSelect' >{options} </select>
+          <select id='reuse-existing-course-select' ref='courseSelect'>{options} </select>
           <button className='button dark' onClick={@useThisClass}>Clone This Course</button>
         </div>
         <div className={formClass}>

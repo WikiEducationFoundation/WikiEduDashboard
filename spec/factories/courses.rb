@@ -35,9 +35,12 @@
 
 FactoryGirl.define do
   factory :course do
-    start '2015-01-01'.to_date
+    start Date.new(2015, 01, 01)
+    # end is a reserved keyword, set that in the let(:course) calls
     title 'Underwater basket-weaving'
     listed true
+    school 'WINTR'
+    term 'spring 2015'
     slug 'slug/titleterm'
     passcode 'pizza'
   end

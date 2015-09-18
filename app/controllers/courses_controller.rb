@@ -66,17 +66,7 @@ class CoursesController < ApplicationController
 
   def clone
     course = Course.find(params[:id])
-    clone = course.deep_clone include: [ :gradeables, { weeks: :blocks } ]
-    clone.title = "#{course.title} (Copy)"
-    clone.slug = "#{course.school}/#{clone.title}_(#{course.term})".gsub(' ', '_')
-    clone.passcode = Course.generate_passcode
-    clone.save
-    clone.update_cache
-    new_course = Course.last
-    new_course.update_attributes(
-      title: new_course.title,
-      slug: new_course.slug
-    )
+    new_course = CourseCloneManager.new(course, current_user).clone!
     render json: { course: new_course.as_json }
   end
 
@@ -177,8 +167,7 @@ class CoursesController < ApplicationController
     %i(title school term).all? { |key| params[:course].key?(key) }
   end
 
-  def set_slug
-    course = params[:course]
+  def set_slug(course = params[:course])
     course[:slug] = "#{course[:school]}/#{course[:title]}_(#{course[:term]})"
                     .gsub(' ', '_')
   end
