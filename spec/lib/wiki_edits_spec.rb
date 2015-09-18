@@ -46,10 +46,12 @@ describe WikiEdits do
     WikiEdits.notify_untrained(1, User.first)
   end
 
-  # it 'should handle failed token requests' do
-  #   stub_token_request_failure
-  #   WikiEdits.notify_untrained(1, User.first)
-  # end
+  it 'should handle failed token requests' do
+    stub_token_request_failure
+    result = WikiEdits.post_whole_page(User.first, 'Foo', 'Bar')
+    expect(result[:status]).to eq('failed')
+    expect(User.first.wiki_token).to eq('invalid')
+  end
 
   describe '.notify_untrained' do
     it 'should post talk page messages on Wikipedia' do

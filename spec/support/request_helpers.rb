@@ -10,7 +10,8 @@ module RequestHelpers
   end
 
   def stub_token_request_failure
-    token_error = '{"servedby":"mw1135","error":{"code":"foo","info":"bar"}}'
+    token_error = '{"servedby":"mw1135",
+      "error": {"code":"mwoauth-invalid-authorization","info":"bar"}}'
     stub_request(:get, /.*wikipedia.*/)
       .to_return(status: 200, body: token_error, headers: {})
   end

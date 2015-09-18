@@ -8,7 +8,7 @@ class WikiResponse
     post_data = opts[:post_data]
     type = opts[:type]
 
-    sorting_info = parse_api_response(response_data, type)
+    sorting_info = parse_api_response(response_data, type, current_user)
     Raven.capture_message sorting_info[:title],
                           level: sorting_info[:level],
                           tags: { username: current_user[:wiki_id],
@@ -21,7 +21,7 @@ class WikiResponse
   ###################
   # Parsing methods #
   ###################
-  def self.parse_api_response(response_data, type)
+  def self.parse_api_response(response_data, type, current_user)
     # A successful edit will have response data like this:
     # {"edit"=>
     #   {"result"=>"Success",
@@ -46,7 +46,7 @@ class WikiResponse
     #    "info"=>"Hit AbuseFilter: Adding emails in articles",
     #    "warning"=>"[LOTS OF HTML WARNING TEXT]"}}
     if response_data['error']
-      title_and_level = parse_api_error_response(response_data, type)
+      title_and_level = parse_api_error_response(response_data, type, current_user)
     elsif response_data['edit']
       title_and_level = parse_api_edit_response(response_data, type)
     elsif response_data['query']
@@ -77,8 +77,15 @@ class WikiResponse
     { title: title, level: level }
   end
 
-  def self.parse_api_error_response(response_data, type)
+  def self.parse_api_error_response(response_data, type, current_user)
     code = response_data['error']['code']
+
+    # If the OAuth credentials are invalid, we need to flag this.
+    # It gets handled by application controller.
+    if code == 'mwoauth-invalid-authorization'
+      current_user.update_attributes(wiki_token: 'invalid')
+    end
+
     title = "Failed #{type}: #{code}"
     level = 'warning'
     { title: title, level: level }

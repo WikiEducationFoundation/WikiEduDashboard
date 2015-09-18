@@ -161,41 +161,35 @@ class WikiEdits
   ####################
 
   def self.post_whole_page(current_user, page_title, content, summary = nil)
-    tokens = get_tokens(current_user)
     params = { action: 'edit',
                title: page_title,
                text: content,
                summary: summary,
-               format: 'json',
-               token: tokens.csrf_token }
+               format: 'json' }
 
-    api_post params, tokens, current_user
+    api_post params, current_user
   end
 
   def self.add_new_section(current_user, page_title, message)
-    tokens = get_tokens(current_user)
     params = { action: 'edit',
                title: page_title,
                section: 'new',
                sectiontitle: message[:sectiontitle],
                text: message[:text],
                summary: message[:summary],
-               format: 'json',
-               token: tokens.csrf_token }
+               format: 'json' }
 
-    api_post params, tokens, current_user
+    api_post params, current_user
   end
 
   def self.add_to_page_top(page_title, current_user, content, summary)
-    tokens = get_tokens(current_user)
     params = { action: 'edit',
                title: page_title,
                prependtext: content,
                summary: summary,
-               format: 'json',
-               token: tokens.csrf_token }
+               format: 'json' }
 
-    api_post params, tokens, current_user
+    api_post params, current_user
   end
 
   ###############
@@ -217,7 +211,7 @@ class WikiEdits
       token_response = JSON.parse(get_token.body)
       WikiResponse.capture(token_response, current_user: current_user,
                                            type: 'tokens')
-
+      return {} unless token_response.key?('query')
       OpenStruct.new(
         csrf_token: token_response['query']['tokens']['csrftoken'],
         access_token: @access_token
@@ -232,8 +226,11 @@ class WikiEdits
                           }
     end
 
-    def api_post(data, tokens, current_user)
+    def api_post(data, current_user)
       return {} if ENV['disable_wiki_output'] == 'true'
+      tokens = get_tokens(current_user)
+      return { status: 'failed' } if tokens['csrf_token'].nil?
+      data.merge! token: tokens.csrf_token
       language = ENV['wiki_language']
       url = "https://#{language}.wikipedia.org/w/api.php"
 
