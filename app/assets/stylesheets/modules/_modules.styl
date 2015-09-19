@@ -58,13 +58,6 @@
   p
     color burnt
 
-.notice
-  @extend .notification
-  position fixed
-  top 0
-  z-index 9999
-  width 100%
-
 .notification
   background-color sprout
   padding global-margin
@@ -81,3 +74,9 @@
     +above(desktop)
       margin 0
       float right
+
+.notice
+  @extends .notification
+  z-index 9999
+  width 100%
+  text-align center
