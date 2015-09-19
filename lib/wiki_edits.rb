@@ -201,9 +201,7 @@ class WikiEdits
     def get_tokens(current_user)
       lang = ENV['wiki_language']
       @consumer = oauth_consumer(lang)
-      @access_token = OAuth::AccessToken.new @consumer,
-                                             current_user.wiki_token,
-                                             current_user.wiki_secret
+      @access_token = oauth_access_token(@consumer, current_user)
       # rubocop:disable Metrics/LineLength
       get_token = @access_token.get("https://#{lang}.wikipedia.org/w/api.php?action=query&meta=tokens&format=json")
       # rubocop:enable Metrics/LineLength
@@ -224,6 +222,12 @@ class WikiEdits
                           client_options: {
                             site: "https://#{lang}.wikipedia.org"
                           }
+    end
+
+    def oauth_access_token(consumer, current_user)
+      OAuth::AccessToken.new consumer,
+                             current_user.wiki_token,
+                             current_user.wiki_secret
     end
 
     def api_post(data, current_user)
