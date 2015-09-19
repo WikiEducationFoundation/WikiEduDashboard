@@ -5,6 +5,11 @@ class WikiEdits
   ################
   # Entry points #
   ################
+  def self.verify_oauth_credentials(current_user)
+    tokens = get_tokens(current_user)
+    tokens['csrf_token'] ? true : false
+  end
+
   def self.notify_untrained(course_id, current_user)
     course = Course.find(course_id)
     untrained_users = course.students.untrained
@@ -209,7 +214,7 @@ class WikiEdits
       token_response = JSON.parse(get_token.body)
       WikiResponse.capture(token_response, current_user: current_user,
                                            type: 'tokens')
-      return {} unless token_response.key?('query')
+      return { status: 'failed' } unless token_response.key?('query')
       OpenStruct.new(
         csrf_token: token_response['query']['tokens']['csrftoken'],
         access_token: @access_token
@@ -233,7 +238,7 @@ class WikiEdits
     def api_post(data, current_user)
       return {} if ENV['disable_wiki_output'] == 'true'
       tokens = get_tokens(current_user)
-      return { status: 'failed' } if tokens['csrf_token'].nil?
+      return tokens unless tokens['csrf_token']
       data.merge! token: tokens.csrf_token
       language = ENV['wiki_language']
       url = "https://#{language}.wikipedia.org/w/api.php"

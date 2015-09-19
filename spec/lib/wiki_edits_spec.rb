@@ -6,6 +6,7 @@ describe WikiEdits do
   # well-formatted, but at least this verifies that the flow is parsing tokens
   # in the expected way.
   before do
+    ENV['disable_wiki_output'] = 'false'
     create(:course,
            id: 1,
            submitted: true,
@@ -115,5 +116,23 @@ describe WikiEdits do
       WikiEdits.update_assignments(User.first, Course.first, nil)
       WikiEdits.update_assignments(User.first, Course.first, nil, true)
     end
+  end
+
+  describe '.verify_oauth_credentials' do
+    it 'should return true if credentials are valid' do
+      stub_oauth_edit
+      response = WikiEdits.verify_oauth_credentials(User.first)
+      expect(response).to eq(true)
+    end
+
+    it 'should return false if credentials are invalid' do
+      stub_token_request_failure
+      response = WikiEdits.verify_oauth_credentials(User.first)
+      expect(response).to eq(false)
+    end
+  end
+
+  after do
+    ENV['disable_wiki_output'] = Figaro.env.disable_wiki_output
   end
 end
