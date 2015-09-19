@@ -111,6 +111,7 @@ describe 'New course creation and editing', type: :feature do
 
       # It's a new course
       click_button 'Create New Course'
+      sleep 1
 
       expect(page).to have_content 'Create a Course'
       find('#course_title').set('My awesome new course - Foo 101')
@@ -448,4 +449,3 @@ describe 'cloning a course', js: true do
     Capybara.use_default_driver
   end
 end
-
