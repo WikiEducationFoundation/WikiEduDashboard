@@ -227,6 +227,9 @@ en:
     select_assignment: Select the kind of assignment you want to add to your timeline.
     summary: Summary
 
+  error:
+    oauth_invalid: Your Wikipedia authorization has expired. Please log in again.
+
   error_401:
     header: "Unauthorized. >:-("
     explanation: >

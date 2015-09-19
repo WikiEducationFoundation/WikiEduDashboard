@@ -17,8 +17,9 @@ describe 'a user with invalid oauth credentials', type: :feature do
   end
 
   it 'should get logged out and see a message about the problem' do
+    error_message = I18n.t('error.oauth_invalid')
     visit root_path
-    expect(page).to have_content 'Your Wikipedia authorization has expired.'
+    expect(page).to have_content error_message
     expect(page).to have_content 'Login'
   end
 end

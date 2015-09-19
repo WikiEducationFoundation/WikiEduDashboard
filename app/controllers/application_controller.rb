@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
     return unless user_signed_in?
     return unless current_user.wiki_token == 'invalid'
 
-    flash[:notice] = 'Your Wikipedia authorization has expired. Please log in again.'
+    flash[:notice] = t('error.oauth_invalid')
     sign_out current_user
     redirect_to root_path
   end
