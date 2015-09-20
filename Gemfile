@@ -9,6 +9,8 @@ gem 'figaro'
 gem 'whenever'
 gem 'mysql2'
 
+gem 'browser'
+
 gem 'devise'
 gem 'omniauth-mediawiki'
 

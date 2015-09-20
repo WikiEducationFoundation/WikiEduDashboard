@@ -2,6 +2,10 @@
 class ErrorsController < ApplicationController
   respond_to :html, :json
 
+  def unsupported_browser
+    render status: 403
+  end
+
   def file_not_found
     render status: 404
   end
