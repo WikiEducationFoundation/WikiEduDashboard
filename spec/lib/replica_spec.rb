@@ -174,7 +174,7 @@ describe Replica do
           all_users[i] = OpenStruct.new u
         end
         response = Replica.get_revisions(all_users, rev_start, rev_end, 'es')
-        expect(response.count).to eq(25)
+        expect(response.count).to eq(24)
       end
     end
   end
