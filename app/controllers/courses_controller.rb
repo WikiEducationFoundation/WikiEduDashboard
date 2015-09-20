@@ -118,10 +118,6 @@ class CoursesController < ApplicationController
 
   private
 
-  def tag_params
-    params.require(:tag).permit(:tag)
-  end
-
   def cohort_params
     params.require(:cohort).permit(:title)
   end
