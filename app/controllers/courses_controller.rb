@@ -109,7 +109,8 @@ class CoursesController < ApplicationController
   helper_method :manual_update
 
   def notify_untrained
-    standard_setup
+    @course = find_course_by_slug(params[:id])
+    return unless user_signed_in? && current_user.instructor?(@course)
     WikiEdits.notify_untrained(@course.id, current_user)
     render nothing: true, status: :ok
   end
@@ -157,14 +158,6 @@ class CoursesController < ApplicationController
     newly_submitted = !@course.submitted? && course_params[:submitted] == true
     return unless newly_submitted
     WikiEdits.announce_course(@course, current_user, instructor)
-  end
-
-  def standard_setup
-    @course = find_course_by_slug(params[:id])
-    return unless @course
-    @volunteers = @course.volunteers
-    return if @course.listed || (current_user && current_user.instructor?)
-    fail ActionController::RoutingError.new('Not Found'), 'Not permitted'
   end
 
   def should_set_slug?
