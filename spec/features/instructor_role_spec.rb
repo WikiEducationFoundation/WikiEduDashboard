@@ -9,10 +9,10 @@ describe 'Instructor users', type: :feature, js: true do
 
   before :each do
     instructor = create(:user,
-                  id: 100,
-                  wiki_id: 'Professor Sage',
-                  wiki_token: 'foo',
-                  wiki_secret: 'bar')
+                        id: 100,
+                        wiki_id: 'Professor Sage',
+                        wiki_token: 'foo',
+                        wiki_secret: 'bar')
 
     create(:user,
            id: 101,
@@ -159,6 +159,28 @@ describe 'Instructor users', type: :feature, js: true do
       page.first('button.notify_untrained').click
       page.driver.browser.switch_to.alert.accept
       sleep 1
+    end
+
+    it 'should be able to view their own deleted course' do
+      Course.first.update_attributes(listed: false)
+      visit "/courses/#{Course.first.slug}"
+      expect(page).to have_content 'My Active Course'
+    end
+
+    it 'should not be able to view other deleted courses' do
+      # Allow routing error to resolve to 404 page
+      method = Rails.application.method(:env_config)
+      expect(Rails.application).to receive(:env_config).with(no_args) do
+        method.call.merge(
+          'action_dispatch.show_exceptions' => true,
+          'action_dispatch.show_detailed_exceptions' => false
+        )
+      end
+
+      Course.first.update_attributes(listed: false)
+      CoursesUsers.find(1).destroy
+      visit "/courses/#{Course.first.slug}"
+      expect(page).to have_content 'Page not found'
     end
   end
 

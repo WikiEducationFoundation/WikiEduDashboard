@@ -106,6 +106,8 @@ class UsersController < ApplicationController
   end
 
   def fetch_enroll_records
+    require "#{Rails.root}/lib/importers/user_importer"
+
     @course = Course.find_by_slug(params[:id])
     if enroll_params.key? :user_id
       @user = User.find(enroll_params[:user_id])
