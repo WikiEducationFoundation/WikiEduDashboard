@@ -11,12 +11,32 @@ describe 'error pages' do
         'action_dispatch.show_detailed_exceptions' => false
       )
     end
+
+    create(:cohort)
+  end
+
+  before :each do
+    if page.driver.is_a?(Capybara::Webkit::Driver)
+      page.driver.allow_url 'fonts.googleapis.com'
+      page.driver.allow_url 'maxcdn.bootstrapcdn.com'
+      page.driver.allow_url 'cdn.ravenjs.com'
+      # page.driver.block_unknown_urls  # suppress warnings
+    end
+  end
+
+  describe 'for unsupported browsers' do
+    it 'should describe the browser problem' do
+      visit '/unsupported_browser'
+      expect(page).to have_content 'Unsupported browser'
+      expect(page.status_code).to eq(403)
+    end
   end
 
   describe 'for non-existent courses' do
     it 'should describe the 404 problem' do
       visit '/courses/this/course_is_not_(real)'
       expect(page).to have_content 'Page not found'
+      expect(page.status_code).to eq(404)
     end
   end
 
@@ -32,6 +52,7 @@ describe 'error pages' do
       allow(HomePagePresenter).to receive(:new).and_raise(StandardError)
       visit '/'
       expect(page).to have_content 'internal server error'
+      expect(page.status_code).to eq(500)
     end
   end
 end
