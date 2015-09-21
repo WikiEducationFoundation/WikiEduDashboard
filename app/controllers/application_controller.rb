@@ -1,4 +1,5 @@
-#= Root-level controller for the application
+gem 'browser'
+
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -14,6 +15,7 @@ class ApplicationController < ActionController::Base
 
   before_action :set_locale
   before_action :check_for_expired_oauth_credentials
+  before_action :check_for_unsupported_browser
 
   def after_sign_out_path_for(_resource_or_scope)
     request.referrer
@@ -36,6 +38,11 @@ class ApplicationController < ActionController::Base
     flash[:notice] = t('error.oauth_invalid')
     sign_out current_user
     redirect_to root_path
+  end
+
+  def check_for_unsupported_browser
+    supported = !browser.ie? || browser.version.to_i >= 10
+    flash[:notice] = t('error.unsupported_browser.explanation') unless supported
   end
 
   def course_slug_path(slug)
