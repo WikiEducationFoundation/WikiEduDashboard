@@ -94,7 +94,7 @@ ServerActions = Flux.createActions
 
   checkCourse: (key, course_id) ->
     API.fetch(course_id, 'check').then (data) ->
-      message = if data.course_exists then 'This course already exists' else null
+      message = if data.course_exists then 'This course already exists. Consider changing the name, school, or term to make it unique.' else null
       { actionType: 'CHECK_SERVER', data: {
         key: key
         message: message

@@ -43,6 +43,6 @@ class CourseCloneManager
   end
 
   def set_slug(course)
-    course.slug = "#{course.school}/#{course.title}_(#{course.term} [COPY])".gsub(' ', '_')
+    course.slug = "#{course.school}/#{course.title}_(#{course.term}__COPY__)".gsub(' ', '_')
   end
 end

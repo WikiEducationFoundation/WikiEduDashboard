@@ -109,9 +109,6 @@ describe 'New course creation and editing', type: :feature do
 
       click_link 'Create a Course'
 
-      # It's a new course
-      click_button 'Create New Course'
-
       expect(page).to have_content 'Create a New Course'
       find('#course_title').set('My awesome new course - Foo 101')
 
@@ -286,7 +283,6 @@ describe 'New course creation and editing', type: :feature do
       stub_oauth_edit
 
       click_link 'Create a Course'
-      click_button 'Create New Course'
       expect(page).to have_content 'Create a New Course'
       find('#course_title').set('Course')
       find('#instructor_name').set(instructor_name)

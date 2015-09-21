@@ -25,6 +25,7 @@ Link          = Router.Link
 getState = ->
   course: CourseStore.getCourse()
   weeks: WeekStore.getWeeks()
+  error_message: ValidationStore.firstMessage()
 
 Overview = React.createClass(
   displayName: 'Overview'
@@ -77,10 +78,8 @@ Overview = React.createClass(
       slug = @state.course.slug
       [school, title] = slug.split('/')
 
-      errorMessage = if @state.attemptedToSaveExistingCourse then (
-        <div className='warning'>
-          This course exists. You must change at least one of the school, course title, or term name for it to have a unique URL.
-        </div>
+      errorMessage = if @state.error_message then (
+        <div className='warning'>{@state.error_message}</div>
       )
 
       return (
@@ -184,8 +183,8 @@ Overview = React.createClass(
                 <label> I have no class holidays
                   <input type='checkbox' onChange={@setNoBlackoutDatesChecked} ref='noDates' />
                 </label>
-              </div>
 
+              </div>
               <button onClick={@saveCourse}
                       disabled={@shouldDisableButton}
                       className={buttonClass}>Save New Course</button>
