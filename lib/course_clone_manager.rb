@@ -34,6 +34,7 @@ class CourseCloneManager
   end
 
   def clear_dates
+    @clone.update_attributes(meeting_days: nil, day_exceptions: nil, weekdays: '0000000', no_day_exceptions: nil)
     @clone.blocks.update_all(due_date: nil)
   end
 
@@ -42,6 +43,6 @@ class CourseCloneManager
   end
 
   def set_slug(course)
-    course.slug = "#{course.school}/#{course.title}_(#{course.term})".gsub(' ', '_')
+    course.slug = "#{course.school}/#{course.title}_(#{course.term} [COPY])".gsub(' ', '_')
   end
 end

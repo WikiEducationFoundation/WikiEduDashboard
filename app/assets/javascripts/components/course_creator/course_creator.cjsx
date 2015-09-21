@@ -89,7 +89,7 @@ CourseCreator = React.createClass(
     formClass = 'wizard__form'
     formClass += if (@state.shouldShowForm is true || @state.user_courses.length is 0) then '' else ' hidden'
 
-    cloneOptions = if formClass.match(/hidden/) then '' else ' hidden'
+    cloneOptions = if formClass.match(/hidden/) && !@state.showCourseDropdown then '' else ' hidden'
 
     controlClass = 'wizard__panel__controls'
     controlClass += " #{formClass}"
@@ -107,10 +107,10 @@ CourseCreator = React.createClass(
         <div className={cloneOptions}>
           <button className='button dark' onClick={@showForm}>Create New Course</button>
           <button className='button dark' onClick={@showCourseDropdown}>Reuse Existing Course</button>
-          <div className={selectClass}>
-            <select id='reuse-existing-course-select' ref='courseSelect'>{options} </select>
-            <button className='button dark' onClick={@useThisClass}>Clone This Course</button>
-          </div>
+        </div>
+        <div className={selectClass}>
+          <select id='reuse-existing-course-select' ref='courseSelect'>{options} </select>
+          <button className='button dark' onClick={@useThisClass}>Clone This Course</button>
         </div>
         <div className={formClass}>
           <div className='column'>

@@ -42,6 +42,7 @@ Overview = React.createClass(
     CourseActions.updateCourse to_pass
     if value_key in ['title', 'school', 'term']
       ValidationActions.setValid 'exists'
+    @setState valuesUpdated: true
   slugify: (text) ->
     return text.replace " ", "_"
   generateTempId: ->
@@ -65,7 +66,8 @@ Overview = React.createClass(
     if ValidationStore.isValid()
       ServerActions.updateClone($.extend(true, {}, { course: @state.course }), @state.course.slug)
     else if !ValidationStore.getValidation('exists').valid
-      @setState isSubmitting: false
+      @setState isSubmitting: false, attemptedToSaveExistingCourse: true
+      window.scrollTop()
   getInitialState: ->
     getState()
   render: ->
@@ -74,11 +76,19 @@ Overview = React.createClass(
       buttonClass += if @state.isSubmitting then ' working' else ''
       slug = @state.course.slug
       [school, title] = slug.split('/')
+
+      errorMessage = if @state.attemptedToSaveExistingCourse then (
+        <div className='warning'>
+          This course exists. You must change at least one of the school, course title, or term name for it to have a unique URL.
+        </div>
+      )
+
       return (
         <Modal>
           <div className='wizard__panel active cloned-course'>
             <h3>Course Successfully Cloned</h3>
             <p>Your course has been cloned, including the elements of the timeline. Has anything else about your course changed? Feel free to update it now.</p>
+            {errorMessage}
             <div className='wizard__form'>
               <div className='column'>
                 <TextInput
@@ -136,7 +146,7 @@ Overview = React.createClass(
                 <TextInput
                   id='course_start'
                   onChange={@updateCourse}
-                  value={@state.course.start}
+                  value={if @state.valuesUpdated then @state.course.start else null}
                   value_key='start'
                   required=true
                   editable=true
@@ -149,7 +159,7 @@ Overview = React.createClass(
                 <TextInput
                   id='course_end'
                   onChange={@updateCourse}
-                  value={@state.course.end}
+                  value={if @state.valuesUpdated then @state.course.end else null}
                   value_key='end'
                   required=true
                   editable=true
@@ -176,7 +186,9 @@ Overview = React.createClass(
                 </label>
               </div>
 
-              <button onClick={@saveCourse} className={buttonClass}>Save New Course</button>
+              <button onClick={@saveCourse}
+                      disabled={@shouldDisableButton}
+                      className={buttonClass}>Save New Course</button>
             </div>
           </div>
         </Modal>
