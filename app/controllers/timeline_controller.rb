@@ -4,11 +4,7 @@ require "#{Rails.root}/lib/wiki_edits"
 class TimelineController < ApplicationController
   respond_to :html, :json
   before_action :require_permissions,
-                only: [:update_timeline, :update_gradeables]
-
-  def index
-    @course = Course.find_by_slug(params[:course_id])
-  end
+                only: [:update_timeline]
 
   ########################
   # Week + Block Methods #
@@ -88,24 +84,5 @@ class TimelineController < ApplicationController
     @gradeable = update_util Gradeable, gradeable
     gradeable_id = Gradeable.exists?(@gradeable) ? @gradeable.id : nil
     @block.update(gradeable_id: gradeable_id)
-  end
-
-  #####################
-  # Gradeable methods #
-  #####################
-  def gradeable_params
-    params.permit(gradeables: [
-      :id,
-      :title,
-      :points
-    ])
-  end
-
-  def update_gradeables
-    @course = Course.find_by_slug(params[:course_id])
-    gradeable_params['gradeables'].each do |gradeable|
-      @gradeable = update_util Gradeable, gradeable
-    end
-    render 'timeline'
   end
 end
