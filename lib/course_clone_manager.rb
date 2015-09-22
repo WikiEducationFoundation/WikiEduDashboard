@@ -21,6 +21,8 @@ class CourseCloneManager
     set_slug(@clone)
     @clone.passcode = Course.generate_passcode
     @clone.submitted = false
+    @clone.start = Date.today
+    @clone.end = Date.today
     @clone.save
     @clone.update_cache
   end

@@ -50,6 +50,18 @@ CourseClonedModal = React.createClass(
     else if !ValidationStore.getValidation('exists').valid
       @setState isSubmitting: false, attemptedToSaveExistingCourse: true
       window.scrollTop()
+  saveEnabled: ->
+    if @props.course.weekdays?.indexOf(1) >= 0 && (@props.course.day_exceptions?.length > 0 || @props.course.no_day_exceptions)
+      true
+    else
+      false
+  setAnyDatesSelected: (bool) ->
+    @setState anyDatesSelected: bool
+  setBlackoutDatesSelected: (bool) ->
+    @setState blackoutDatesSelected: bool
+  setNoBlackoutDatesChecked: ->
+    checked = React.findDOMNode(@refs.noDates).checked
+    @updateCourse 'no_day_exceptions', checked
   render: ->
     buttonClass = 'button dark'
     buttonClass += if @state.isSubmitting then ' working' else ''
@@ -77,6 +89,18 @@ CourseClonedModal = React.createClass(
               editable=true
               label='Course title'
               placeholder='Title'
+            />
+
+            <TextInput
+              id='course_school'
+              onChange={@updateCourse}
+              value={@props.course.school}
+              value_key='school'
+              required=true
+              validation={/^[\w\-\s\,\']+$/}
+              editable=true
+              label='Course school'
+              placeholder='School'
             />
 
             <TextInput
@@ -162,7 +186,7 @@ CourseClonedModal = React.createClass(
             </label>
 
           </div>
-          <button onClick={@saveCourse} className={buttonClass}>Save New Course</button>
+          <button onClick={@saveCourse} disabled={if @saveEnabled() then '' else 'disabled' } className={buttonClass}>Save New Course</button>
         </div>
       </div>
     </Modal>
