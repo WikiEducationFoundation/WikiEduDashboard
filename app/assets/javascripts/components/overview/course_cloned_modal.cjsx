@@ -75,7 +75,7 @@ CourseClonedModal = React.createClass(
     <Modal>
       <div className='wizard__panel active cloned-course'>
         <h3>Course Successfully Cloned</h3>
-        <p>Your course has been cloned, including the elements of the timeline. Has anything else about your course changed? Feel free to update it now.</p>
+        <p>Your course has been cloned, including the elements of the timeline (weeks and blocks). Has anything else about your course changed? Feel free to update it now.</p>
         {errorMessage}
         <div className='wizard__form'>
           <div className='column'>
@@ -166,6 +166,36 @@ CourseClonedModal = React.createClass(
               type='date'
               label='End date'
               placeholder='End date (YYYY-MM-DD)'
+              blank=true
+              date_props={minDate: moment(@props.course.start).add(1, 'week')}
+              enabled={@props.course.start?}
+              isClearable=false
+            />
+
+            <TextInput
+              id='timeline_start'
+              onChange={@updateCourse}
+              value={if @state.valuesUpdated then @props.course.timeline_start else null}
+              value_key='start'
+              required=true
+              editable=true
+              type='date'
+              label='Assignment start'
+              placeholder='Assignment start (YYYY-MM-DD)'
+              blank=true
+              isClearable=false
+            />
+
+            <TextInput
+              id='timeline_end'
+              onChange={@updateCourse}
+              value={if @state.valuesUpdated then @props.course.timeline_end else null}
+              value_key='end'
+              required=true
+              editable=true
+              type='date'
+              label='Assignment end'
+              placeholder='Assignment end (YYYY-MM-DD)'
               blank=true
               date_props={minDate: moment(@props.course.start).add(1, 'week')}
               enabled={@props.course.start?}
