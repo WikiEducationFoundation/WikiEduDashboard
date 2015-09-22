@@ -24,14 +24,6 @@ describe 'error pages' do
     end
   end
 
-  describe 'for unsupported browsers' do
-    it 'should describe the browser problem' do
-      visit '/unsupported_browser'
-      expect(page).to have_content 'Unsupported browser'
-      expect(page.status_code).to eq(403)
-    end
-  end
-
   describe 'for non-existent courses' do
     it 'should describe the 404 problem' do
       visit '/courses/this/course_is_not_(real)'
