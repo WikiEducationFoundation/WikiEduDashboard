@@ -46,7 +46,7 @@ Meetings = React.createClass(
       <div className='wizard__panel active'>
         <h3>Course Dates</h3>
         <div className='course-dates__step'>
-          <h2><span>1.</span><small> Confirm the course’s start and end dates.</small></h2>
+          <p>Select the start and end dates of the entire course (not just the Wikipedia assignment).</p>
           <div className='vertical-form full-width'>
             <TextInput
               onChange={@updateCourse}
@@ -65,6 +65,32 @@ Meetings = React.createClass(
               type='date'
               label='Course End'
               date_props={minDate: moment(@state.course.start).add(1, 'week')}
+              enabled={@state.course.start?}
+            />
+          </div>
+        </div>
+        <hr />
+        <div className='course-dates__step'>
+          <p>Select the start and end dates for the Wikipedia assignment timeline. Changing the start date will shift the dates of the entire timeline.</p>
+          <div className='vertical-form full-width'>
+            <TextInput
+              onChange={@updateCourse}
+              value={@state.course.timeline_start}
+              value_key='timeline_start'
+              editable=true
+              type='date'
+              autoExpand=true
+              label='Assignment Start'
+              date_props={timeline_start_props}
+            />
+            <TextInput
+              onChange={@updateCourse}
+              value={@state.course.timeline_end}
+              value_key='timeline_end'
+              editable=true
+              type='date'
+              label='Assignment End'
+              date_props={timeline_end_props}
               enabled={@state.course.start?}
             />
           </div>
