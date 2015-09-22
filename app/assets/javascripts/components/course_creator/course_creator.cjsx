@@ -12,6 +12,7 @@ ServerActions      = require '../../actions/server_actions'
 Modal         = require '../common/modal'
 TextInput     = require '../common/text_input'
 TextAreaInput = require '../common/text_area_input'
+CourseUtils   = require '../../utils/course_utils'
 
 getState = ->
   course: CourseStore.getCourse()
@@ -25,8 +26,7 @@ CourseCreator = React.createClass(
     router: React.PropTypes.func.isRequired
   storeDidChange: ->
     @setState getState()
-    @state.tempCourseId = @generateTempId()
-
+    @state.tempCourseId = CourseUtils.generateTempId(@state.course)
     @handleCourse()
   componentWillMount: ->
     CourseActions.addCourse()
@@ -35,18 +35,11 @@ CourseCreator = React.createClass(
   currentUserId: ->
     document.getElementById('main').dataset.userId
 
-  generateTempId: ->
-    title = if @state.course.title? then @slugify @state.course.title else ''
-    school = if @state.course.school? then @slugify @state.course.school else ''
-    term = if @state.course.term? then @slugify @state.course.term else ''
-    return "#{school}/#{title}_(#{term})"
-  slugify: (text) ->
-    return text.replace " ", "_"
   saveCourse: ->
     if ValidationStore.isValid()
       @setState isSubmitting: true
       ValidationActions.setInvalid 'exists', 'This course is being checked for uniqueness', true
-      ServerActions.checkCourse('exists', @generateTempId())
+      ServerActions.checkCourse('exists', CourseUtils.generateTempId(@state.course))
   handleCourse: ->
     if @state.shouldRedirect is true
       window.location = "/courses/#{@state.course.slug}?modal=true"
