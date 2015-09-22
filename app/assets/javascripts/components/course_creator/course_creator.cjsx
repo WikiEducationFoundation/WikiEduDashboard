@@ -140,6 +140,17 @@ CourseCreator = React.createClass(
               placeholder='hello@example.edu'
             />
             <TextInput
+              id='course_school'
+              onChange={@updateCourse}
+              value={@state.course.school}
+              value_key='school'
+              required=true
+              validation={/^[\w\-\s\,\']+$/}
+              editable=true
+              label='Course school'
+              placeholder='School'
+            />
+            <TextInput
               id='course_term'
               onChange={@updateCourse}
               value={@state.course.term}
