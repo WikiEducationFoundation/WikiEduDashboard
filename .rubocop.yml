@@ -8,6 +8,10 @@ AllCops:
     - 'config/**/*'
     - 'bin/**/*'
 
+
+Metrics/LineLength:
+  Max: 100
+
 # Disable complexity cops, since we use CodeClimate for that.
 Metrics/MethodLength:
   Enabled: false
