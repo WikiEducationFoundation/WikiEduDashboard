@@ -17,7 +17,6 @@ class CourseCloneManager
   private
 
   def sanitize_clone_info
-    @clone.title = "#{@course.title} (Copy)"
     set_slug(@clone)
     @clone.passcode = Course.generate_passcode
     @clone.submitted = false
