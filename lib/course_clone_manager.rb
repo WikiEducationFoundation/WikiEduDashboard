@@ -17,6 +17,7 @@ class CourseCloneManager
   private
 
   def sanitize_clone_info
+    @clone.term = "#{@course.term}__COPY__"
     set_slug(@clone)
     @clone.passcode = Course.generate_passcode
     @clone.submitted = false
@@ -42,6 +43,6 @@ class CourseCloneManager
   end
 
   def set_slug(course)
-    course.slug = "#{course.school}/#{course.title}_(#{course.term}__COPY__)".gsub(' ', '_')
+    course.slug = "#{course.school}/#{course.title}_(#{course.term})".gsub(' ', '_')
   end
 end
