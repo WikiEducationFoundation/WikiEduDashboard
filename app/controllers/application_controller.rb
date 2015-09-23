@@ -17,6 +17,8 @@ class ApplicationController < ActionController::Base
   before_action :check_for_expired_oauth_credentials
   before_action :check_for_unsupported_browser
 
+  force_ssl if: :ssl_configured?
+
   def after_sign_out_path_for(_resource_or_scope)
     request.referrer
   end
@@ -73,4 +75,10 @@ class ApplicationController < ActionController::Base
     new_user_session_path
   end
   helper_method :new_session_path
+
+  private
+
+  def ssl_configured?
+    Rails.env.staging? || Rails.env.production
+  end
 end
