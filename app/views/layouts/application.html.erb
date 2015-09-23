@@ -11,7 +11,7 @@
 
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Myapp" %>">
 
-    <%= stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Roboto:300,400,500,700', media: 'all' %>
+    <%= stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700', media: 'all' %>
     <%= stylesheet_link_tag fingerprinted("/assets/stylesheets/#{rtl? ? 'rtl/' : nil}", 'main.css'), media: 'all' %>
     <%= javascript_include_tag '/assets/javascripts/i18n' %>
     <%= javascript_include_tag '/assets/javascripts/i18n/' + I18n.locale.to_s %>
