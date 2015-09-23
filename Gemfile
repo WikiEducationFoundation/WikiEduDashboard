@@ -57,13 +57,8 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rubocop'
   gem 'zeus'
-  gem 'sqlite3'
   gem 'selenium-webdriver'
   gem 'launchy'
-end
-
-group :staging, :production do
-  gem 'pg'
 end
 
 group :test do
