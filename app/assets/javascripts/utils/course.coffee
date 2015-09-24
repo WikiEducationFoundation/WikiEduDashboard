@@ -1,14 +1,16 @@
 $ ->
   # Course sorting
-  adminCourseList = new List('admin_courses', {
-    valueNames: ['atitle']
-  })
-  userCourseList = new List('user_courses', {
-    valueNames: ['utitle','ucharacters','uviews','ustudents']
-  })
-  courseList = new List('courses', {
-    valueNames: ['title','revisions','characters','views','students']
-  })
+  # only sort if there are uls to sort
+  if $('section#courses ul').length
+    adminCourseList = new List('admin_courses', {
+      valueNames: ['atitle']
+    })
+    userCourseList = new List('user_courses', {
+      valueNames: ['utitle','ucharacters','uviews','ustudents']
+    })
+    courseList = new List('courses', {
+      valueNames: ['title','revisions','characters','views','students']
+    })
 
   $('select.cohorts').change (e) ->
     cohort = $('select.cohorts option:selected').val()

@@ -34,8 +34,7 @@ class ApplicationController < ActionController::Base
   end
 
   def check_for_expired_oauth_credentials
-    return unless user_signed_in?
-    return unless current_user.wiki_token == 'invalid'
+    return unless current_user && current_user.wiki_token == 'invalid'
 
     flash[:notice] = t('error.oauth_invalid')
     sign_out current_user
