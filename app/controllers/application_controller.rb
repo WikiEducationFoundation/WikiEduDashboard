@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   before_action :check_for_expired_oauth_credentials
   before_action :check_for_unsupported_browser
 
-  force_ssl if: :ssl_configured?
+  #force_ssl if: :ssl_configured?
 
   def after_sign_out_path_for(_resource_or_scope)
     request.referrer
