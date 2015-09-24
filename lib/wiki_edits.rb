@@ -76,7 +76,7 @@ class WikiEdits
   def self.update_course(course, current_user, delete = false)
     require './lib/wiki_course_output'
 
-    return unless current_user.wiki_id? && course.submitted && course.slug?
+    return unless current_user && course.submitted && course.slug?
 
     if delete == true
       wiki_text = ''
