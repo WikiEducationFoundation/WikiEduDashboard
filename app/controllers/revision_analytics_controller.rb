@@ -11,4 +11,8 @@ class RevisionAnalyticsController < ApplicationController
   def suspected_plagiarism
     @revisions = RevisionAnalyticsService.suspected_plagiarism
   end
+
+  def recent_edits
+    @revisions = RevisionAnalyticsService.recent_edits
+  end
 end

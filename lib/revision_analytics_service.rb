@@ -29,6 +29,10 @@ class RevisionAnalyticsService
     Revision.where.not(ithenticate_id: nil)
   end
 
+  def self.recent_edits
+    Revision.last(200)
+  end
+
   ##################
   # Helper methods #
   ##################

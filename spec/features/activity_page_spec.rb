@@ -80,7 +80,7 @@ describe 'activity page', type: :feature, js: true do
   def view_plagiarism_page
     click_link 'Recent Activity'
     sleep 1
-    click_link 'Plagiarism Flag'
+    click_link 'Suspected Plagiarism'
     sleep 1
   end
 

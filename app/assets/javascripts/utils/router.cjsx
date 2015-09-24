@@ -22,8 +22,7 @@ RecentActivityHandler = require '../components/activity/recent_activity_handler'
 DidYouKnowHandler     = require '../components/activity/did_you_know_handler'
 MainspaceHandler      = require '../components/activity/mainspace_handler'
 PlagiarismHandler     = require '../components/activity/plagiarism_handler'
-
-
+RecentEditsHandler     = require '../components/activity/recent_edits_handler'
 
 routes = (
   <Route name='root' path='/' handler={App}>
@@ -31,6 +30,7 @@ routes = (
       <DefaultRoute name='did-you-know' handler={DidYouKnowHandler} />
       <Route path='mainspace' name='mainspace' handler={MainspaceHandler} />
       <Route path='plagiarism' name='plagiarism' handler={PlagiarismHandler} />
+      <Route path='recent-edits' name='recent-edits' handler={RecentEditsHandler} />
     </Route>
     <Route path='courses' handler={App}>
       <Route name='course' path=':course_school/:course_title' handler={Course}>

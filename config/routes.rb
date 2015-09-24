@@ -105,6 +105,9 @@ Rails.application.routes.draw do
   get 'revision_analytics/suspected_plagiarism',
       controller: 'revision_analytics',
       action: 'suspected_plagiarism'
+  get 'revision_analytics/recent_edits',
+      controller: 'revision_analytics',
+      action: 'recent_edits'
 
   # Wizard
   get 'wizards' => 'wizard#wizard_index'

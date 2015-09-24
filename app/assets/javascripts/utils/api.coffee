@@ -78,6 +78,18 @@ API =
         console.log 'Error: ' + obj.responseJSON.message
         rej obj
 
+  fetchRecentEdits: ->
+    new Promise (res, rej) ->
+      $.ajax
+        type: 'GET',
+        url: '/revision_analytics/recent_edits.json',
+        success: (data) ->
+          console.log 'Recieved recent edits'
+          res data
+      .fail (obj, status) ->
+        console.log 'Error: ' + obj.responseJSON.message
+        rej obj
+
   cloneCourse: (id) ->
     new Promise (res, rej) ->
       $.ajax

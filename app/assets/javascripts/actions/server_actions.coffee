@@ -55,6 +55,10 @@ ServerActions = Flux.createActions
     API.fetchSuspectedPlagiarism().then (data) ->
       { actionType: 'RECEIVE_SUSPECTED_PLAGIARISM', data: data }
 
+  fetchRecentEdits: ->
+    API.fetchRecentEdits().then (data) ->
+      { actionType: 'RECEIVE_RECENT_EDITS', data: data }
+
   fetchUserAssignments: (opts) ->
     API.fetchUserAssignments(opts).then (data) ->
       { actionType: 'RECEIVE_USER_ASSIGNMENTS', data: data }
