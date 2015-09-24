@@ -30,6 +30,7 @@ class AnalyticsController < ApplicationController
 
   def cohort_stats
     @cohort_stats = {}
+    @articles_edited = {}
     Cohort.all.each do |cohort|
       course_ids = cohort.courses.pluck(:id)
       stats =
