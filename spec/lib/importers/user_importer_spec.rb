@@ -1,5 +1,6 @@
 require 'rails_helper'
 require "#{Rails.root}/lib/importers/user_importer"
+require "#{Rails.root}/lib/importers/course_importer"
 
 describe UserImporter do
   describe 'OAuth model association' do
@@ -30,6 +31,15 @@ describe UserImporter do
   describe '.new_from_wiki_id' do
     it 'should create a new user' do
       VCR.use_cassette 'user/new_from_wiki_id' do
+        username = 'Ragesoss'
+        user = UserImporter.new_from_wiki_id(username)
+        expect(user.id).to eq(319203)
+      end
+    end
+
+    it 'should return an existing user' do
+      VCR.use_cassette 'user/new_from_wiki_id' do
+        create(:user, id: 319203, wiki_id: 'Ragesoss')
         username = 'Ragesoss'
         user = UserImporter.new_from_wiki_id(username)
         expect(user.id).to eq(319203)

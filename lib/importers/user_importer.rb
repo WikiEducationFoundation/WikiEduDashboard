@@ -39,10 +39,16 @@ class UserImporter
     require "#{Rails.root}/lib/wiki"
     id = Wiki.get_user_id(wiki_id)
     return unless id
-    user = User.create(
-      id: id,
-      wiki_id: wiki_id
-    )
+
+    if User.exists?(id)
+      user = User.find(id)
+    else
+      user = User.create(
+        id: id,
+        wiki_id: wiki_id
+      )
+    end
+
     user
   end
 
