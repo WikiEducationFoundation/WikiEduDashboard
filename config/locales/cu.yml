@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Илья Драконов
+# Author: ОйЛ
 ---
 cu:
   articles:
@@ -13,5 +14,5 @@ cu:
   courses:
     articles: Статьи
     students: Студѣнты
-    title: Названиѣ
+    title: имѧ
 ...

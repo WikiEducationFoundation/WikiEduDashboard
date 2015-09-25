@@ -17,6 +17,9 @@ eu:
     view_all: Denak ikusi
   assignments:
     reviewers: Berrikuslea(k)
+  blocks:
+    milestones:
+      title: Mugarriak
   cohort:
     view_other: Ikusi beste kohorteak
   courses:
@@ -47,7 +50,7 @@ eu:
     contributions: Lankidearen ekarpenak
     loading: Erabiltzaileak kargatzen...
     name: Izena
-    reviewers: Berrikusleak
+    reviewers: Berrikuslea(k)
   error_401:
     header: Ez duzu baimenik. >:-(
   error_404:

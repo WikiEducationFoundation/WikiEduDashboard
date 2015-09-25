@@ -1,0 +1,10 @@
+# Messages for Nāhuatl (Nāhuatl)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Taresi
+---
+nah:
+  blocks:
+    milestones:
+      title: Tepāmmachiyōtl
+...

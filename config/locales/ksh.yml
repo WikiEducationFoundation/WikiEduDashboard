@@ -19,6 +19,9 @@ ksh:
     loading: Ben de Aufjahbe aam Lahde&nbsp;&hellip;
     confirm_addition: Wells De verhaftesch %{title} aan der Metmaacher %{username}
       zohwihse?
+  blocks:
+    milestones:
+      title: Meijleschtein
   courses:
     activity: Aktivitäht
     articles: Atikele
@@ -49,8 +52,12 @@ ksh:
     loading: Ben huhjelahde Dahte aam Lahde&nbsp;&hellip;
     none: Kein datteije wodt huhjelahde
   users:
+    assigned: Uohjedeijlte Atikelle
+    assignees: Zohjedeijlt
     contributions_more: Belohr mih Beijdrähsch
     name: Nahme
+  wizard:
+    summary: Zosammejefaß
   error_401:
     header: Kei Berääschtejong.
   error_404:

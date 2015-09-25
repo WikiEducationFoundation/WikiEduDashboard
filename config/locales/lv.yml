@@ -17,6 +17,7 @@ lv:
     courses: Kursi
     duration: Kursa ilgums
     students: Studenti
+    students_none: Šim kursam nav studentu.
     students_short: Studenti
     overview: Pārskats
     title: Nosaukums
@@ -28,7 +29,7 @@ lv:
   uploads:
     loading: Ielādē augšupielādes...
   users:
-    contributions: Lietotāja devums
+    contributions: Dalībieka devums
     loading: Ielādē lietotājus...
     name: Nosaukums
     none: Šim kursam nav studentu.

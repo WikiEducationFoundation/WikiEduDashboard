@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Gomoko
 # Author: LudaOtaku
+# Author: Macofe
 # Author: Wladek92
 ---
 fr:
@@ -54,6 +55,10 @@ fr:
     none: Ce cours n'a aucun article wikipedié assigné.
     confirm_addition: Êtes-vous sûr de vouloir assigner %{title} à %{username}?
     confirm_deletion: Êtes-vous sûr de vouloir supprimer cette affectation ?
+  blocks:
+    milestones:
+      title: Jalons
+      empty: Ce cours n’a encore aucun jalon.
   cohort:
     view_other: Afficher les autres cohortes
   courses:
@@ -61,21 +66,23 @@ fr:
     articles: Articles
     character_doc: Le nombre total de caractères ajoutés aux articles de l’espace
       de nom principal par les étudiants du cours durant son déroulement
+    revisions_doc: Le nombre de modifications dans les %{timeframe} jours passés
     course_description: Cours d’édition de wiki
     courses: Cours
     yourcourses: Vos cours
     nocourses: Vous ne participez à aucun cours.
     current: Cours actuels
     duration: Durée du cours
+    gradeables_none: Ce cours n’a aucune affectation notable.
     instructor:
       one: Instructeur
       other: Instructeurs
     students: Étudiants
-    students_none: '%{title} n’a aucun étudiant inscrit.'
+    students_none: Ce cours n’a aucun étudiant.
     students_short: Étudiants
     timeline: Détails d'assignement
-    weeks_none: '%{title} n''a aucun assignement'
-    new_week: Ajouter une nouvelle semaine au planning pour %{title}
+    weeks_none: Ce cours n’a pas encore de planning.
+    new_week: Ajouter une nouvelle semaine
     overview: Vue d'ensemble
     title: Titre
     view: Afficher le cours
@@ -89,12 +96,13 @@ fr:
     error:
       exists: Ce cours existe déjà ! Veuillez réessayer avec un autre titre, école,
         ou échéance.
+      user_exists: Désolé, %{username} n’existe pas.
   course_creator:
     create_new: Créer un Nouveau cours
-    intro: Le titre, l’école et l’échéance feront partie de l’URL de la page, et ne
-      pourront pas être modifiés. Le reste des informations du cours pourra être modifié
-      ultérieurement. Une fois que vous aurez créé le cours, l’assistant vous guidera
-      pour créer un planning d’affectation.
+    intro: Le titre, l’école et l’échéance contribuent à la création de l’URL de la
+      page de votre cours, et ne peuvent pas être modifiés. Vous pourrez modifier
+      tout le reste ultérieurement. Cliquez sur « Créer mon cours ! » pour démarrer
+      la construction du planning pour votre affectation Wikipédia.
   metrics:
     activity: Activité récente
     articles_created: Articles créés
@@ -105,6 +113,7 @@ fr:
     char_changed: Caractères modifiés
     date_time: Date/Heure
     edit_count_description: Total des modifications
+    revisions: Révisions récentes
     student_editors: Étudiants éditeur
     view: Vues
     view_count_description: Articles vus
@@ -132,7 +141,8 @@ fr:
     time_doc: L’heure de chaque téléchargement dans votre heure locale
   users:
     already_enrolled: Cet utilisateur est déjà inscrit !
-    assigned: Article affecté
+    assigned: Articles affectés
+    assignees: Affecté(s)
     character_doc: La quantité totale de contenu qu’un utilisateur a ajouté à son
       espace de nom, calculée en ajoutant les caractères ajoutés pour chaque modification
       ayant augmenté la taille de la page. Ce nombre ne reflète pas nécessairement
@@ -142,9 +152,11 @@ fr:
     contributions_more: Afficher plus de contributions
     editors: Editeurs étudiants
     loading: Chargement des utilisateurs…
+    mainspace_chars: Espace principal<br />caractères ajoutés
     name: Nom
     none: Ce cours n’a aucun étudiant.
-    reviewers: Relecteur
+    reviewers: Relecteur(s)
+    reviewing: Relecture
     training_complete:
       one: a terminé l'entrainement
       other: ont terminé l'entrainement
@@ -153,13 +165,35 @@ fr:
       devraient avoir fait une modification sur la page d’avis une fois qu’ils ont
       terminé. Si un étudiant éditeur effectue le cours mais ne termine pas la tâche
       d’avis, il peut revenir à la fin du cours ici: https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete.'
+    userspace_chars: Espace utilisateur<br />caractères ajoutés
   wiki_edits:
     notify_untrained:
+      confirm: Cela publiera un rappel sur les pages de discussion de tous les étudiants
+        qui n’ont pas achevé la formation. Êtes-vous sûr de vouloir le faire ?
       header: Vous n’avez pas terminé la formation d’étudiant.
       message: Veuillez terminer la [[WP:STUDENT|formation étudiant]]. Si vous l’avez
         déjà faite, assurez-vous de bien cliquer sur le bouton à la fin pour enregistrer
         que vous l’avez terminée. --~~~~
       summary: formation étudiant non terminée
+  wizard:
+    course_dates: Dates du cours
+    assignment_dates: Type de tâche
+    assignment_type: Type de tâche
+    confirm_dates: Choisir les dates du cours, les réunions hebdomadaires, et les
+      vacances pour votre cours.
+    assignment_description: Choisir les dates de début et de fin de cette tâche
+    min_weeks: Cette tâche nécessite au moins %{min_weeks} semaines disponibles. Veuillez
+      ajuster vos dates de début et de fin de tâche si vous voulez utiliser ce type
+      de tâche.
+    minimum_options: Veuillez sélectionner au moins %{minimum} option(s).
+    read_more: Lire plus
+    read_less: Lire moins
+    review_selections: Veuillez vérifier vos sélections ci-dessous. Cliquez pour modifier
+      une sélection. Quand ce sera fini, cliquez sur 'Soumettre' pour terminer l’assistant
+      et construire votre planning.
+    select_assignment: Sélectionner le type de tâche que vous voulez ajouter à votre
+      planning.
+    summary: Résumé
   error_401:
     header: Non autorisé. >:-(
     explanation: Vous n’êtes pas autorisé à exécuter cette requête. Si vous pensez
@@ -179,4 +213,10 @@ fr:
     header: 500 — erreur interne du serveur.  :-(
     explanation: Quelque chose s’est mal passé. Veuillez contacter les mainteneurs
       de ce tableau de bord pour les informer du problème.
+  timeline:
+    title: Planning
+    due_default: Attendu de la semaine prochaine
+    block_type: Le type de bloc est utilisé pour communiquer à vos étudiants sur cet
+      élément dans leur planning et pour construire des outils utiles pour vous (comme
+      la visualisation des jalons sur la page Vue d’ensemble)
 ...

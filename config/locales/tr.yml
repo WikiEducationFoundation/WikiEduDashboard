@@ -1,17 +1,26 @@
 # Messages for Turkish (Türkçe)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: KorkmazO
 # Author: Uğurkent
 # Author: Watermelon juice
 ---
 tr:
   activity:
     edited_by: Düzenleyen
+  blocks:
+    milestones:
+      title: Kilometre taşları
+  courses:
+    gradeables_none: Bu kursta notlandırılabilen ödev bulunmamaktadır
   metrics:
     char_changed: Karakterler Değişti
     student_editors: Öğrenci Editörler
   namespace:
     user_ns: Kullanıcı
+  wizard:
+    course_dates: Kurs günleri
+    summary: Özet
   error_404:
     header: Sayfa bulunamadı. :-(
 ...

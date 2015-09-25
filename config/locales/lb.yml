@@ -36,9 +36,13 @@ lb:
     view_all: All weisen
     view_doc: D'Zomme vun de Kéiere wou all Artikel während der Dauer vum Cours gewise
       gouf
+  blocks:
+    milestones:
+      title: Kilometersténg
   courses:
     activity: Aktivitéit
     articles: Artikelen
+    revisions_doc: D'Zuel vun den ännerungen an de leschten %{timeframe}-Deeg
     course_description: Wiki-Ed-Coursen
     courses: Coursen
     yourcourses: Är Coursen
@@ -46,9 +50,10 @@ lb:
     current: Aktuell Coursen
     duration: Dauer vum Cours
     students: Studenten
-    students_none: '%{title} huet keng ageschriwwe Studenten.'
+    students_none: An dësem Cours si keng Studenten ageschriwwen.
     students_short: Studenten
-    new_week: Eng nei Woch op d'Zäitleescht fir %{title} debäisetzen
+    weeks_none: Dëse Cours huet nach keen Zäitplang.
+    new_week: Nei Woch debäisetzen
     overview: Iwwersiicht
     title: Titel
     view: Cours weisen
@@ -59,6 +64,7 @@ lb:
     error:
       exists: Dee Cours gëtt et schonn! Probéiert et w.e.g. nach eng Kéier mat engem
         aneren Titel, enger anerer Schoul oder enger anerer Dauer.
+      user_exists: Pardon, de Benotzer %{username} gëtt et net.
   course_creator:
     create_new: En neie Cours uleeën
   metrics:
@@ -68,6 +74,7 @@ lb:
     char_changed: Geännert Buschtawen
     date_time: Datum/Zäit
     edit_count_description: Total vun den Ännerungen
+    revisions: Rezent Versiounen
   namespace:
     user: Benotzernummraum
     user_ns: Benotzer
@@ -81,7 +88,7 @@ lb:
     time_doc: D'Zäit vun all Eroplueden an Ärer lokaler Zäit
   users:
     already_enrolled: Dee Benotzer ass schonn ageschriwwen!
-    assigned: Assignéierten Artikel
+    assigned: Assignéiert Artikelen
     contributions: Benotzerkontributiounen
     contributions_more: Méi Kontributioune weisen
     loading: Benotzer lueden...
@@ -90,10 +97,18 @@ lb:
     training_complete:
       one: huet d'Formatioun ofgeschloss
       other: hunn d'Formatioun ofgeschloss
+  wizard:
+    course_dates: Datume vun de Coursen
+    minimum_options: Sicht w.e.g. mindestens %{minimum} Optioun(en).
+    read_more: Liest méi
+    read_less: Manner liesen
+    summary: Resumé
   error_401:
     header: Net autoriséiert.>:-(
   error_404:
     header: Säit net fonnt. :-(
   error_500:
     header: 500 - Interne Feeler vum Server. :-(
+  timeline:
+    title: Chronologie
 ...

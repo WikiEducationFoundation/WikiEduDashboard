@@ -26,7 +26,7 @@ olo:
     current: Nygöizet kursat
     duration: Kursan piduhus
     students: Opastujat
-    students_none: Kursal %{title} ei ole jiävinnyhyzii opastujii.
+    students_none: Täl kursal ei ole opastujii.
     students_short: Opastujat
     view: Ozuta kursu
     view_wiki: Kačo Wikipedies
@@ -48,6 +48,11 @@ olo:
   users:
     name: Nimi
     none: Täl kursal ei ole opastujua.
+    reviewers: Tarkistuslugii(-lugijat)
+    reviewing: Tarkistusluvetah
+  wizard:
+    read_less: Luve vähembi
+    summary: Yhtehvedo
   error_404:
     header: Sivuu ei lövvy. :-(
   error_422:

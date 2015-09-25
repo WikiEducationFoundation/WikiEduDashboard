@@ -1,0 +1,14 @@
+# Messages for Lithuanian (lietuvių)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Zygimantus
+---
+lt:
+  courses:
+    students_none: Šis kursas neturi studentų.
+  wizard:
+    assignment_type: Užduoties tipas
+    summary: Apibendrinimas
+  timeline:
+    title: Laiko juosta
+...

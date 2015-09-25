@@ -1,12 +1,16 @@
 # Messages for Swedish (svenska)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Josve05a
 # Author: WikiPhoenix
 ---
 sv:
   activity:
     edited_by: Redigerad av
     all: Aktivitet
+  blocks:
+    milestones:
+      title: Milstolpar
   metrics:
     activity: Senaste aktivitet
     articles_created: Skapade artiklar
@@ -29,6 +33,8 @@ sv:
   wiki_edits:
     notify_untrained:
       header: Du har inte slutfört studentträningen.
+  wizard:
+    summary: Sammanfattning
   error_401:
     header: Obehörig. >:-(
   error_404:

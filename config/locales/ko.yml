@@ -3,19 +3,64 @@
 # Export driver: phpyaml
 # Author: Alex00728
 # Author: Hwangjy9
+# Author: Revi
 ---
 ko:
+  application:
+    dashboard: 위키 에듀 대시보드
   activity:
     edited_by: '편집자 :'
     all: 활동
   articles:
+    none: 이 코스는 어느 문서도 편집하지 않았습니다.
+    loading: 문서 불러오는 중...
+    assigned: 할당된 문서
+    assigned_to: 할당됨
     edited: 문서 편집됨
     edited_mobile: 문서
+    no_assignee: 할당된 사용자 없음
+    rating: 클래스
+    rating_docs:
+      fa: 알찬 글 &mdash; 위키백과의 최고품질의 글로써, 학생 편집자가 프로젝트로 편집하기에는 지나치게 복잡할 수 있습니다
+      fl: 알찬 목록 &mdash; 위키백과의 최고품질 리스트
+      ga: 좋은 글 &mdash; 잘 쓰여진 글로써 학생 편집자가 프로젝트로써 편집하기에는 지나치게 복잡할 수 있습니다
+      b: B 클래스 &mdash; 적절하게 쓰여진 글
+      c: C 클래스 &mdash; 발전의 여지가 있는 중간 정도의 글
+      start: 시작 등급 &mdash; 발전의 여지가 충분한 준비 단계의 글
+      stub: 토막글 &mdash; 더 많은 내용이 필요한 시작 단계의 글
+      list: 목록 &mdash; 일반 글이 아닌 목록
+      '?': 등급 없음 &mdash; 아직 위키백과의 품질 등급에 따라 분류되지 않은 글
     title: 제목
     view: 문서 보기
+    view_all: 모두 보기
+  assignments:
+    assignees: 담당자
+    reviewers: 검토자
   courses:
     activity: 활동
     articles: 문서
+    course_description: 위키 에듀 코스
+    courses: 과정
+    yourcourses: 내 과정
+    nocourses: 어떤 과정에도 참여하고 있지 않습니다.
+    current: 현재 과정
+    duration: 과정 기간
+    gradeables_none: 등급을 매길 수 있는 과제가 없습니다.
+    instructor:
+      other: 지도자
+    students: 학생
+    students_none: 이 과정에는 학생이 없습니다.
+    students_short: 학생
+    timeline: 숙제 상세사항
+    overview: 둘러보기
+    title: 제목
+    view: 과정 보기
+    view_wiki: 위키백과에서 보기
+    volunteer:
+      other: 자원봉사자
+    wiki_staff: 위키 에듀 임원
+  course_creator:
+    create_new: 새 과정 만들기
   metrics:
     activity: 최근 활동
     articles_created: 문서 생성됨
@@ -31,7 +76,9 @@ ko:
   tasks:
     conseq: '%{task} 작업이 아직도 돌아가고 있습니다!'
   uploads:
-    none: 업로드된 파일이 없습니다.
+    loading: 업로드 불러오는 중
+    none: 이 과정에서는 위키미디어 공용에 기여한 이미지 또는 미디어 파일이 없습니다.
+    usages: 사용
   error_401:
     header: 인증되지 않음. >:-(
     explanation: 이 요청을 실행할 수 있도록 인증되지 않았습니다. 이 문제가 에러라고 생각되면, 이 게시판의 유지자에게 연락해서 문제를

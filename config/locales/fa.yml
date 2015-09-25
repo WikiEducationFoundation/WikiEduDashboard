@@ -6,10 +6,28 @@
 fa:
   activity:
     all: فعالیت
+  articles:
+    edited_mobile: مقالات
+    rating: کلاس
+    title: عنوان
+  courses:
+    activity: فعالیت
+    articles: مقالات
+    courses: دوره‌ها
+    students: دانشجویان
+    students_short: دانشجویان
+    overview: چشم‌انداز
+    title: عنوان
   metrics:
     characters: کاراکترها
     date_time: تاریخ/ساعت
     view: بازدیدها
   namespace:
     user_ns: کاربر
+  users:
+    name: نام
+  wizard:
+    summary: خلاصه
+  timeline:
+    title: خط زمان
 ...

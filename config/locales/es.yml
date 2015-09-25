@@ -52,6 +52,10 @@ es:
     none: Este curso no tiene artículos de Wikipedia asignados.
     confirm_addition: ¿Estás seguro de que quieres asignar %{title} a %{username}?
     confirm_deletion: ¿Estás seguro de que quieres eliminar esta tarea?
+  blocks:
+    milestones:
+      title: Hitos
+      empty: Este curso actualmente no tiene ningún hito.
   cohort:
     view_other: Ver otras cohortes
   courses:
@@ -59,21 +63,23 @@ es:
     articles: Artículos
     character_doc: La suma de caracteres agregados a los artículos del espacio principal
       por parte de los estudiantes durante el período del curso
+    revisions_doc: El número de ediciones en los últimos %{timeframe} días
     course_description: Cursos de Wiki Ed
     courses: Cursos
     yourcourses: Tus cursos
     nocourses: No participas de ningún curso.
     current: Cursos actuales
     duration: Duración del curso
+    gradeables_none: Este curso no tiene tareas calificable.
     instructor:
       one: Instructor
       other: Instructores
     students: Estudiantes
-    students_none: '%{title} no tiene ningún estudiante inscrito.'
+    students_none: Este curso no tiene estudiantes.
     students_short: Estudiantes
     timeline: Detalles de la tarea
-    weeks_none: '%{title} no tiene tareas'
-    new_week: Agregar una semana nueva al cronograma de %{title}
+    weeks_none: Este curso aún no tiene un cronograma.
+    new_week: Agregar una semana nueva
     overview: Resumen
     title: Título
     view: Ver curso
@@ -87,12 +93,13 @@ es:
     error:
       exists: Ese curso ya existe. Intenta de nuevo con un título, escuela o término
         diferentes.
+      user_exists: Lo siento, %{username} no es un usuario existente.
   course_creator:
     create_new: Crear un curso nuevo
-    intro: El título, la escuela y el plazo pasarán a formar parte de la dirección
-      url del curso, y no puede cambiarse. El resto de la información del curso puede
-      editarse posteriormente. Después de crear el curso, el asistente te guiará a
-      través de la creación de un cronograma de tareas.
+    intro: El título, la escuela y el plazo crean la dirección URL de la página del
+      curso, y no pueden cambiarse. Todo lo demás puede editarse luego. Haz clic en
+      "Crear mi curso" para iniciar la construcción del cronograma para tu tarea en
+      Wikipedia.
   metrics:
     activity: Actividad reciente
     articles_created: Artículos creados
@@ -103,6 +110,7 @@ es:
     char_changed: Caracteres cambiados
     date_time: Fecha/hora
     edit_count_description: Ediciones totales
+    revisions: Revisiones recientes
     student_editors: Editores estudiantiles
     view: Visualizaciones
     view_count_description: Visualizaciones del artículo
@@ -130,7 +138,8 @@ es:
     time_doc: El tiempo de cada subida en tu hora local
   users:
     already_enrolled: Ese usuario ya está inscrito.
-    assigned: Artículo asignado
+    assigned: Artículos asignados
+    assignees: Asignado(s)
     character_doc: La cantidad total de contenido que un usuario ha añadido a este
       espacio de nombres, calculada sumando los caracteres añadidos de todas las ediciones
       que aumentaron el tamaño de la página. Este número no refleja necesariamente
@@ -140,9 +149,11 @@ es:
     contributions_more: Ver más contribuciones
     editors: Editores estudiantiles
     loading: Cargando usuarios...
+    mainspace_chars: Caracteres añadidos<br />en el espacio principal
     name: Nombre
     none: Este curso no tiene estudiantes.
-    reviewers: Revisor
+    reviewers: Revisor(es)
+    reviewing: Revisando
     training_complete:
       one: ha completado el entrenamiento
       other: han completado el entrenamiento
@@ -152,13 +163,34 @@ es:
       cuándo finalizaron. Si los editores estudiantiles pasaron por el entrenamiento
       pero no completaron el paso de comentario, pueden regresar al final del entrenamiento
       aquí: https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete.'
+    userspace_chars: Caracteres añadidos<br />en el espacio de usuarios
   wiki_edits:
     notify_untrained:
+      confirm: Esto publicará un recordatorio en las páginas de discusión de todos
+        los estudiantes que no hayan completado el entrenamiento. ¿Estás seguro de
+        que quieres hacer esto?
       header: No has completado el entrenamiento estudiantil.
       message: Completa el [[WP:STUDENT|entrenamiento para estudiantes]]. Si ya lo
         has hecho, asegúrate de pulsar el botón al final para registrar que lo has
         completado. --~~~~
       summary: entrenamiento estudiantil incompleto
+  wizard:
+    course_dates: Fechas del curso
+    assignment_dates: Tipo de tarea
+    assignment_type: Tipo de tarea
+    confirm_dates: Elige las fechas, las reuniones semanales y las vacaciones para
+      tu curso.
+    assignment_description: Elija las fechas de inicio y finalización de esta tarea
+    min_weeks: Esta tarea requiere al menos de %{min_weeks} disponible semanas. Ajusta
+      tus fechas de inicio y finalización de tarea, si quieres usar este tipo de tarea.
+    minimum_options: Selecciona al menos %{minimum} opción/opciones.
+    read_more: Leer más
+    read_less: Leer menos
+    review_selections: Revisa las opciones de abajo. Haz clic para modificar una selección.
+      Cuando hayas terminado, haz clic en "Enviar" para finalizar el asistente y crear
+      tu cronograma.
+    select_assignment: Selecciona el tipo de tarea que quieres añadir a tu cronograma.
+    summary: Resumen
   error_401:
     header: No autorizado. >:-(
     explanation: No tienes autorización para ejecutar esta solicitud. Si crees que
@@ -177,4 +209,10 @@ es:
     header: 500 — error interno del servidor. :-(
     explanation: Algo salió mal. Pónte en contacto con los responsables del mantenimiento
       de este panel para informarles sobre el problema.
+  timeline:
+    title: Cronograma
+    due_default: Previsto la semana próxima
+    block_type: El tipo de bloque se usa para comunicarse con tus estudiantes acerca
+      de este tema en su cronograma y para construir herramientas útiles para tí (tales
+      como el hito descripto en la página de información general)
 ...

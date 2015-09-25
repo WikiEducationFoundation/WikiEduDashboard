@@ -10,8 +10,63 @@ gl:
   activity:
     edited_by: Modificado por
     all: Actividade
+  articles:
+    none: Este curso non editou ningún artigo.
+    loading: Cargando artigos...
+    assigned: Artigos asignados
+    assigned_to: Asignado a
+    character_doc: A suma de caracteres engadidos a artigos polos estudiantes durante
+      a realización do curso
+    edited: Artigos editados
+    edited_mobile: Artigos
+    no_assignee: Sen usuario asignado
+    rating: Clase
+    rating_docs:
+      fl: Lista destacada - a maior calificación para unha lista na Wikipedia
+    title: Título
+    view: Ver artigo
+    view_all: Ver todos
+    view_doc: Suma de todas as vistas a cada artigo durante o curso
+  assignments:
+    loading: Cargando asignacións...
+    none: Este curso non ten artigos de Wikipedia asignados.
+    confirm_addition: Está seguro de que quere asignar %{title} a %{username}?
+    confirm_deletion: Está seguro de que quere borrar esta asignación?
+  blocks:
+    milestones:
+      title: Fitos
+      empty: Este curso actualmente non ten fitos.
   cohort:
     view_other: Ver outras cohortes
+  courses:
+    activity: Actividade
+    articles: Artigos
+    revisions_doc: Número de edicións nos pasados %{timeframe} días
+    courses: Cursos
+    yourcourses: Os seus cursos
+    nocourses: Non está a participar en ningún curso.
+    current: Cursos actuais
+    duration: Duración do curso
+    instructor:
+      one: Monitor
+      other: Monitores
+    students: Estudantes
+    students_none: Este curso non ten estudantes.
+    students_short: Estudantes
+    timeline: Detalles de asignación
+    new_week: Engadir nova semana
+    title: Título
+    view: Ver curso
+    view_wiki: Ver en Wikipedia
+    volunteer:
+      one: Voluntario
+      other: Voluntarios
+    error:
+      exists: Este curso xa existe! Por favor, inténteo de novo cun título diferente,
+        escola, ou termo.
+      user_exists: Sentímolo, o usuario %{username} non existe.
+  course_creator:
+    create_new: Crear un novo curso
   metrics:
     activity: Actividade recente
     articles_created: Artigos creados
@@ -22,6 +77,7 @@ gl:
     char_changed: Caracteres cambiados
     date_time: Data/Hora
     edit_count_description: Total de edicións
+    revisions: Revisións recentes
     student_editors: Editores estudantes
     view: Vistas
     view_count_description: Visualizacións do artigo
@@ -31,6 +87,22 @@ gl:
     user: Espazo de usuario
     user_char_added: Caracteres engadidos ó espazo de usuario
     user_ns: Usuario
+  revisions:
+    loading: Cargando revisións...
+    none: Este curso non ten actividade recente de edición na Wikipedia.
+    time_doc: A hora de cada revisión no seu tempo local
   tasks:
     conseq: A tarefa %{task} está en execución!
+  wizard:
+    read_more: Ler máis
+    read_less: Ler menos
+    summary: Resumo
+  error_401:
+    header: Sen permiso. >:-(
+  error_404:
+    header: Páxina non atopada :-(
+  error_422:
+    header: 422 — non se pode procesar a entidade.  :-(
+  error_500:
+    header: 500 — erro interno do servidor.  :-(
 ...

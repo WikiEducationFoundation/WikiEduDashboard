@@ -1,6 +1,8 @@
 # Messages for Portuguese (português)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Fúlvio
+# Author: Jkb8
 # Author: Macofe
 # Author: Vitorvicentevalente
 ---
@@ -17,6 +19,9 @@ pt:
     rating: Qualidade
     title: Título
     view_all: Ver todos
+  blocks:
+    milestones:
+      title: Marcos
   courses:
     activity: Atividade
     articles: Artigos
@@ -25,6 +30,7 @@ pt:
     nocourses: Não está inscrito em nenhum curso.
     duration: Duração do curso
     students: Estudantes
+    students_none: Este curso não tem estudantes.
     students_short: Estudantes
     title: Título
     view_wiki: Ver na Wikipédia
@@ -53,11 +59,22 @@ pt:
   users:
     contributions: Contribuições de utilizador
     contributions_more: Ver mais contribuições
+    mainspace_chars: Mainspace<br />caracteres adicionados
     name: Nome
+    training_doc: 'Os editores estudantes quem tenham completado o ''curso para estudantes''
+      teriam que ter feito uma edição na página de comentários quando finalizaram.
+      Se os editores estudantes passaram pelo curso mas não completaram o passo de
+      comentário, podem regressar ao final do curso aqui: https://en.wikipedia.org/wiki/wikipedia:Training/For_students/Training_complete.'
+  wizard:
+    assignment_type: Tipo de atribuição
+    read_more: Ler mais
+    summary: Resumo
   error_401:
     header: Não autorizado. >:-(
   error_404:
     header: Página não encontrada. :-(
   error_500:
     header: 500 — erro interno do servidor.  :-(
+  timeline:
+    title: Linha do tempo
 ...

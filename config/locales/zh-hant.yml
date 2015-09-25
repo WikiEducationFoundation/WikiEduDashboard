@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Cwlin0416
+# Author: LNDDYL
 ---
 zh-hant:
   activity:
@@ -9,6 +10,9 @@ zh-hant:
   articles:
     loading: 讀取文章中...
     title: 標題
+  blocks:
+    milestones:
+      title: 里程碑
   metrics:
     activity: 最近活動
     date_time: 日期/時間
@@ -19,6 +23,10 @@ zh-hant:
     user_ns: 使用者
   uploads:
     usages: 使用狀況
+  wizard:
+    summary: 摘要
   error_404:
     header: 查無頁面。:-(
+  timeline:
+    title: 時間線
 ...

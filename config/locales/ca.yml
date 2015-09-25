@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Eduardo Martinez
 # Author: Macofe
+# Author: Vriullop
 ---
 ca:
   activity:
@@ -11,6 +12,9 @@ ca:
     edited_mobile: Articles
     rating: Classe
     title: Títol
+  blocks:
+    milestones:
+      title: Fites
   courses:
     activity: Activitat
     articles: Articles
@@ -25,4 +29,7 @@ ca:
     usages: Usos
   users:
     name: Nom
+  wizard:
+    read_more: Més informació
+    summary: Resum
 ...

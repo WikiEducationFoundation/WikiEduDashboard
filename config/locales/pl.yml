@@ -38,4 +38,8 @@ pl:
     contributions: Wkład użytkownika
     loading: Wczytywanie użytkowników...
     name: Nazwa
+  wizard:
+    summary: Podsumowanie
+  timeline:
+    title: Oś czasu
 ...

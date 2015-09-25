@@ -1,0 +1,32 @@
+# Messages for Kannada (ಕನ್ನಡ)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Nayvik
+---
+kn:
+  courses:
+    students: ವಿದ್ಯಾರ್ಥಿಗಳು
+    students_none: ಈ ಪಠ್ಯದಲ್ಲಿ ಯಾವುದೇ ವಿದ್ಯಾರ್ಥಿಗಳಿಲ್ಲ.
+    students_short: ವಿದ್ಯಾರ್ಥಿಗಳು
+    new_week: ಹೊಸ ವಾರ ಸೇರಿಸಿ
+    overview: ಅವಲೋಕನ
+    title: ಶೀರ್ಷಿಕೆ
+    view: ಪಠ್ಯ ವೀಕ್ಷಿಸು
+    view_wiki: ವಿಕಿಪೀಡಿಯದಲ್ಲಿ ವೀಕ್ಷಿಸು
+    volunteer:
+      one: ಸ್ವಯಂಸೇವಕ
+      other: ಸ್ವಯಂಸೇವಕರು
+    wiki_staff: ವಿಕಿ ಎಡ್ ಸಿಬ್ಬಂದಿ
+    error:
+      user_exists: ಕ್ಷಮಿಸಿ, %{username} ಅಸ್ತಿತ್ವದಲ್ಲಿರುವ ಬಳಕೆದಾರರಲ್ಲ.
+  course_creator:
+    create_new: ಹೊಸ ಪಠ್ಯವನ್ನು ರಚಿಸಿ
+  metrics:
+    activity: ಇತ್ತೀಚಿನ ಚಟುವಟಿಕೆ
+    articles_created: ಸೃಷ್ಟಿಸಿದ ಲೇಖನಗಳು
+    articles_edited: ಸಂಪಾದಿಸಿದ ಲೇಖನಗಳು
+    date_time: ದಿನಾಂಕ/ಸಮಯ
+    edit_count_description: ಒಟ್ಟು ಸಂಪಾದನೆಗಳು
+    revisions: ಇತ್ತೀಚೆಗಿನ ಆವೃತ್ತಿಗಳು
+    student_editors: ವಿದ್ಯಾರ್ಥಿ ಸಂಪಾದಕರು
+...

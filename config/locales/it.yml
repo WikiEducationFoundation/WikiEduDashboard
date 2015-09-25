@@ -35,7 +35,7 @@ it:
     current: Corsi attuali
     duration: Durata del corso
     students: Studenti
-    students_none: '%{title} non ha studenti iscritti.'
+    students_none: Questo corso non ha studenti.
     students_short: Studenti
     timeline: Dettagli dell'incarico
     weeks_none: '%{title} non ha incarichi'
@@ -77,6 +77,8 @@ it:
   wiki_edits:
     notify_untrained:
       header: Non hai completato la formazione degli studenti.
+  wizard:
+    summary: Sommario
   error_404:
     header: Pagina non trovata. :-(
   error_500:

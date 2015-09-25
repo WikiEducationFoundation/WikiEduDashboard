@@ -1,6 +1,7 @@
 # Messages for Russian (русский)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: INS Pirat
 # Author: Nzeemin
 # Author: Okras
 # Author: SmartNart12
@@ -17,7 +18,7 @@ ru:
     no_assignee: Нет назначенного участника
     rating: Класс
     rating_docs:
-      fl: Избранный список — высший рейтинг для списка в Википедии
+      fl: Избранный список — высший рейтинг для списков в Википедии
       b: B-класс — умеренно развитая статья
       stub: Заглушка — короткая статья, которую нужно дополнить
     title: Заголовок
@@ -31,6 +32,7 @@ ru:
     articles: Статьи
     character_doc: Сумма символов, добавленных к статьям основного пространства студентами
       курса в течение семестра
+    revisions_doc: Число правок за последние %{timeframe} дней
     courses: Курсы
     yourcourses: Ваши курсы
     current: Текущие курсы
@@ -41,6 +43,8 @@ ru:
     students: Студенты
     students_short: Студенты
     weeks_none: '%{title} не имеет назначений'
+    overview: Обзор
+    title: Заголовок
     view: Просмотр курса
     view_wiki: Посмотреть на Википедии
     volunteer:
@@ -49,6 +53,7 @@ ru:
     error:
       exists: Такой курс уже существует! Пожалуйста, попробуйте ещё раз, с другим
         заголовком, школой или семестром.
+      user_exists: К сожалению, участника %{username} не существует.
   course_creator:
     create_new: Создать новый курс
   metrics:
@@ -77,7 +82,7 @@ ru:
   uploads:
     usages: Использование
   users:
-    assigned: Назначенная статья
+    assigned: Назначенные статьи
     contributions: Вклад участника
     loading: Загрузка участников...
     name: Имя

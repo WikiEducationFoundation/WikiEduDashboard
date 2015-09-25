@@ -41,11 +41,16 @@ zh-hans:
     none: 此课程没有被维基百科条目所分配。
     confirm_addition: 您确定要分配%{title}至%{username}？
     confirm_deletion: 您确定要删除此分配吗？
+  blocks:
+    milestones:
+      title: 里程碑
+      empty: 此课程目前没有任何里程碑。
   cohort:
     view_other: 查看其它同班同学
   courses:
     activity: 活动
     articles: 条目
+    revisions_doc: 过去%{timeframe}天内的编辑数
     course_description: Wiki Ed课程
     courses: 课程
     yourcourses: 您的课程
@@ -54,11 +59,11 @@ zh-hans:
     instructor:
       other: 导师
     students: 学生
-    students_none: '%{title}没有任何登记的学生。'
+    students_none: 此课程没有学生。
     students_short: 学生
     timeline: 分配详细信息
-    weeks_none: '%{title}没有分配任务'
-    new_week: 添加新的一周至用于%{title}的时间线
+    weeks_none: 此课程尚无时间线。
+    new_week: 添加新的一周
     overview: 概述
     title: 标题
     view: 查看课程
@@ -81,6 +86,7 @@ zh-hans:
     char_changed: 更改的字符
     date_time: 日期/时间
     edit_count_description: 总计编辑
+    revisions: 最近修订
     student_editors: 学生编辑者
     view: 查看
     view_count_description: 条目查阅
@@ -104,21 +110,32 @@ zh-hans:
   users:
     already_enrolled: 那位用户已经登记了！
     assigned: 分配的条目
+    assignees: 委托人
     contributions: 用户贡献
     contributions_more: 查看更多贡献
     editors: 学生编辑者
     loading: 正在加载用户...
+    mainspace_chars: 主空间<br />字符已添加
     name: 名字
     none: 此课程没有学生。
     reviewers: 复核员
+    reviewing: 正在复核
     training_complete:
       other: 完成了培训
     training_complete_count: '%{count}完成了培训'
+    userspace_chars: 用户空间<br />字符已添加
   wiki_edits:
     notify_untrained:
       header: 您没有完成学生培训。
       message: 请完成[[WP:STUDENT|学生培训]]。如果您已经完成了它，请确保点击页尾的按钮以记录您完成了它。--~~~~
       summary: 学生培训未完成
+  wizard:
+    course_dates: 课程日期
+    assignment_type: 分配类型
+    minimum_options: 请至少选择%{minimum}个选项。
+    read_more: 阅读更多
+    read_less: 阅读更少
+    summary: 摘要
   error_401:
     header: 未获授权。>:-(
   error_404:
@@ -129,4 +146,7 @@ zh-hans:
   error_500:
     header: 500 — 内部服务器错误。:-(
     explanation: 出现一些错误。请联络此控制面板的维护人员以让他们得知有关问题。
+  timeline:
+    title: 时间轴
+    due_default: 预计下周
 ...

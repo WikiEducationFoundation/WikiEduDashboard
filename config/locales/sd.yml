@@ -1,0 +1,25 @@
+# Messages for Sindhi (سنڌي)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Mehtab ahmed
+---
+sd:
+  blocks:
+    milestones:
+      title: سنگ ميل
+      empty: فلحال هن ڪورس کي ڪي به سنگ ميل نه آهن.
+  courses:
+    students_none: هن ڪورس جا ڪي به شاگرد نه آهن.
+    weeks_none: هن ڪورس وٽ اڃان تائين وقت جي پٽي نه آهي.
+    new_week: نئون هفتو شامل ڪريو
+  users:
+    assigned: حوالي ڪيل مضمون
+    reviewers: تجزيو ڪندڙ
+    reviewing: جائزو وٺڻ
+  wizard:
+    course_dates: ڪورس جون تاريخون
+    read_less: گھٽ پڙهو
+    summary: تَتُ
+  timeline:
+    title: وقت جي پٽي
+...

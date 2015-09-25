@@ -21,19 +21,39 @@ br:
     no_assignee: Implijer ebet deverket
     rating: Rummad
     rating_docs:
+      fa: Pennad war wel - Notadur uheloc'h Wikipedia, ur  pennad re zarev moarvat
+        evit bezañ raktres pennañ ur studier embanner
+      a: Rummad A - ur pennad displeget mat hag a c'hallfe bezañ re zarev evit bezañ
+        raktres pennañ ur studier embanner
+      ga: Pennad mat - ur pennad displeget mat hag a c'hallfe bezañ re zarev evit
+        bezañ raktres pennañ ur studier embanner
+      b: Klas B - ur pennad displeget ent-reizh
       c: Klass C - ur pennad etre a c'hallfe bezañ gwellaet
+      start: Klas loc'hañ - ur pennad kent gant doareoù gwellaat a-leizh.
+      list: Klas roll - ur roll kentoc'h eget ur pennad kustum
+      '?': Nann rummet - ur pennad n'eo ket notennet c'hoazh war skeulenn galite Wikipedia
     title: Titl
     view: Diskwel ar pennad
     view_all: Gwelet pep tra
     view_doc: Hollad an holl welioù war bep pennad e-pad ar gentel
     views_added: '%{count} gwel nevez ouzhpennet evit %{title}'
   assignments:
-    reviewers: Reizherien
+    assignees: Deverkadenn(où)
+    reviewers: Reizher(ien)
+    loading: O pellgargañ deverkadennoù...
+    none: Ar gentel-mañ n'he deus pennad Wikipedia ebet deverket.
+    confirm_addition: Ha sur eo ho peus c'hoant da zeverkañ %{title} da %{username}
     confirm_deletion: Ha sur oc'h hoc'h eus c'hoant da zilemel an deverkadenn-mañ
       ?
+  blocks:
+    milestones:
+      title: Mein-bonn
+  cohort:
+    view_other: Diskwel ar bagadoù all
   courses:
     activity: Obererezh
     articles: Pennadoù
+    revisions_doc: An niver a gemmoù en %{timeframe} deiz tremenet
     course_description: Kentel evit kemmañ wiki
     courses: Kentelioù
     yourcourses: Ho kentelioù
@@ -44,9 +64,10 @@ br:
       one: Kelenner
       other: Kelennerien
     students: Studierien
-    students_none: '%{title}n''en deus studier ebet enrollet.'
+    students_none: N'eus studier ebet enrollet er gentel-mañ.
     students_short: Studierien
-    new_week: Ouzhpennañ ur sizhunvezh nevez d'an implij-amzer evit %{title}
+    timeline: Munudoù deverkañ
+    new_week: Ouzhpennañ ur sizhunvezh nevez
     overview: Brassell
     title: Titl
     view: Diskwel ar gentel
@@ -58,6 +79,7 @@ br:
     error:
       exists: Ar gentel-mañ zo anezhi c'hoazh ! Klaskit, mar plij, gant un titl, ur
         skol, pe un termen all.
+      user_exists: Hon digarez, %{username} n'eo ket un implijer zo anezhañ dija
   course_creator:
     create_new: Krouiñ ur Gentel nevez
   metrics:
@@ -81,17 +103,30 @@ br:
     user_ns: Implijer
   revisions:
     loading: O kargañ an adweladurioù...
+    time_doc: Amzer pep adweladur en hoc'h eur lec'hel.
   uploads:
-    none: Restr ebet n'eo bet pellgarget
+    none: Ar rummmad-mañ n'en deus ket degaset e lod gant skeudenn ebet pe gant restr
+      vedia ebet e Wikipedia Commons
     usages: Implijoù
+    time_doc: Eur pep pellgargadennoù en hoc'h eur lec'hel
   users:
     already_enrolled: Enskrivet eo an implijer-mañ dija !
+    assigned: Pennadoù deverket
+    assignees: Deverkadenn(où)
+    contributions: Degasadennoù an implijer
+    contributions_more: Diskwel muioc'h a zegasadennoù
+    editors: Studierien embannerien
+    loading: Pellgargadenn an implijerien...
+    mainspace_chars: Egorenn<br/>arouezennoù ouzhpennet
     name: Nom
     none: N'eus studier ebet er gentel-mañ.
+    reviewers: Reizher(ien)
+    reviewing: Reizhañ
     training_complete:
       one: en deus echuet da c'hourdonañ
       other: o deus echuet da c'hourdonnañ
     training_complete_count: '%{count}o deus/en deus echuet da c''houdonañ'
+    userspace_chars: Egorenn an implijer<br/>arouezennoù ouzhpennet
   wiki_edits:
     notify_untrained:
       header: N'ho peus ket echuet ar stummadur studierien
@@ -99,6 +134,14 @@ br:
         peus graet anezhi anezhañ dija, bezit sur ho peus kliket mat war ar bouton
         er fin evit enrollañ ho peus echuet anezhañ. --~~~~
       summary: Stummadur studierien diechu
+  wizard:
+    course_dates: Deizioù ar gentel
+    assignment_dates: Seurt deverkadenn
+    assignment_type: Seurt deverkadenn
+    assignment_description: Dibab deizioù deroù ha dibenn an deverkadenn-mañ
+    read_more: Lenn muioc'h
+    read_less: Lenn nebeutoc'h
+    summary: Diverradur
   error_401:
     header: Nann aotreet >:-(
     explanation: N'oc'h aotreet da seveniñ ar reked-mañ. Ma soñjit ho peus resevet
@@ -106,8 +149,13 @@ br:
       stur-mañ evit kelaouiñ anezho ez eus ur gudenn.
   error_404:
     header: 'Pajenn nann kavet: -('
+  error_422:
+    header: 422- hennad na c'haller tretañ :-(
   error_500:
     header: 500 - fazi diabarzh ar servijer. :-(
     explanation: Un dra bennak a-dreuz a zo bet. Kit e darempred, mar plij gant an
       daolenn-stur-mañ evit kelaouiñ anezho ez eus ur gudenn.
+  timeline:
+    title: Kronologiezh
+    due_default: Ar sizhun a zeu
 ...

@@ -82,7 +82,8 @@ bcl:
     name: Pangaran
     reviewers: Tagapagrepaso
     training_complete:
-      other: saro=nakapagkumpleto na nin pagsanay
+      one: nakapagkumpleto na nin pagsanay
+      other: nakakumpleto na nin pagsanay
     training_complete_count: '%{count} nakapagkumpleto nin pagsanay'
     training_incomplete:
       other: saro=Pagsanay Bakong Kumpleto

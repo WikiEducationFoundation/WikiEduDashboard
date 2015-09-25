@@ -40,6 +40,8 @@ qqq:
     views_added: Maintenance script message stating how many view counts have been
       added to an article.
   assignments:
+    assignees: '{{Identical|Assignee}}'
+    reviewers: '{{Identical|Reviewer}}'
     loading: Placeholder message indicating that assignment data is still loading
     none: Label for an empty list of assignments
     confirm_addition: Confirmation dialog for adding a new assignment. %{title} is
@@ -139,11 +141,15 @@ qqq:
       assignment type.
     minimum_options: Message indicating that more options must be selected. %{minimum}
       is the required number of options.
-    read_more: Button label to expand a section with additional information
+    read_more: |-
+      Button label to expand a section with additional information
+      {{Identical|Read more}}
     read_less: Button label to collapse an expanded section of addition information
     review_selections: Instructions for the summary section
     select_assignment: Instructions for the assignment type section
-    summary: Header for the summary section
+    summary: |-
+      Header for the summary section
+      {{Identical|Summary}}
   error_404:
     header: Message indicating that a page doesn't exist.
     explanation: Message explaining why a user may have reached a page that doesn't
@@ -154,4 +160,6 @@ qqq:
   error_500:
     header: Message indicating a 500 internal server error.
     explanation: Explanation of what to do after encountering this error.
+  timeline:
+    title: '{{Identical|Timeline}}'
 ...

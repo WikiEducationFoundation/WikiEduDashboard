@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Metalhead64
+# Author: Taresi
 ---
 de:
   application:
@@ -12,13 +13,13 @@ de:
   articles:
     none: Dieser Kurs hat keine Artikel bearbeitet.
     loading: Lade Artikel …
-    assigned: Zugewiesene Artikel
-    assigned_to: Zugewiesen an
+    assigned: Zugeordnete Artikel
+    assigned_to: Zuordnung zu
     character_doc: Die Summe aller durch die Kursstudenten während der Kursdauer zu
       Artikeln hinzugefügten Zeichen
     edited: Bearbeitete Artikel
     edited_mobile: Artikel
-    no_assignee: Kein Benutzer zugewiesen
+    no_assignee: Keinem Benutzer zugeordnet
     rating: Klasse
     rating_doc: Die Bewertung eines Artikels, die von den Wikiprojekten vergeben wurde.
       Diese Bewertungen entsprechen zu stark älteren Versionen, so dass sie nur ein
@@ -39,17 +40,21 @@ de:
       '?': Nicht bewertet – Ein Artikel, der noch nicht auf einer Wikipedia-Qualitätsskala
         bewertet wurde.
     title: Titel
-    view: Artikel ansehen
-    view_all: Alle ansehen
+    view: Artikel anzeigen
+    view_all: Alles anzeigen
     view_doc: Die Summe aller Aufrufe für jeden Artikel während der Kursdauer
     views_added: '%{count} neue Aufrufe für %{title} hinzugefügt'
   assignments:
-    assignees: Zuweiser
-    reviewers: Prüfer
-    loading: Lade Zuweisungen …
-    none: Dieser Kurs hat keine zugewiesenen Wikipedia-Artikel.
-    confirm_addition: Bist du sicher, dass du %{title} zu %{username} zuweisen möchtest?
-    confirm_deletion: Bist du sicher, dass du diese Zuweisung löschen möchtest?
+    assignees: Zugeordnete/r Benutzer/in(nen)
+    reviewers: Prüfer/in(nen)
+    loading: Lade Zuordnungen…
+    none: Dieser Kurs hat keine zugeordnete Wikipedia-Artikel.
+    confirm_addition: Möchtest du %{title} wirklich zu %{username} zuordnen?
+    confirm_deletion: Möchtest du diese Zuordnung wirklich löschen?
+  blocks:
+    milestones:
+      title: Meilensteine
+      empty: Dieser Kurs hat derzeit keine Meilensteine.
   cohort:
     view_other: Andere Jahrgänge ansehen
   courses:
@@ -57,25 +62,27 @@ de:
     articles: Artikel
     character_doc: Die Summe der durch die Kursstudenten während der Kursdauer zu
       Hauptnamensraum-Artikeln hinzugefügten Zeichen
+    revisions_doc: Die Anzahl der Bearbeitungen in den letzten %{timeframe} Tagen
     course_description: Wiki-Ed-Kurse
     courses: Kurse
     yourcourses: Deine Kurse
     nocourses: Du nimmst an keinen Kursen teil.
     current: Aktuelle Kurse
     duration: Kursdauer
+    gradeables_none: Dieser Kurs hat keine steigerbaren Zuweisungen.
     instructor:
       one: Leiter
       other: Leiter
     students: Studenten
-    students_none: '%{title} hat keine eingeschriebenen Studenten.'
+    students_none: Dieser Kurs hat keine Studenten.
     students_short: Studenten
     timeline: Einzelheiten zur Zuweisung
-    weeks_none: '%{title} hat keine Zuweisungen'
-    new_week: Eine neue Woche der Zeitleiste für %{title} hinzufügen
+    weeks_none: Dieser Kurs hat noch keine Zeitleiste.
+    new_week: Neue Woche hinzufügen
     overview: Übersicht
     title: Titel
-    view: Kurs ansehen
-    view_wiki: Auf Wikipedia ansehen
+    view: Kurs anzeigen
+    view_wiki: Auf Wikipedia anzeigen
     view_doc: Die Summe aller Aufrufe von Artikeln, die von Studenten bearbeitet wurden,
       seit sie ihre erste Bearbeitung an jedem Artikel gemacht haben.
     volunteer:
@@ -85,12 +92,12 @@ de:
     error:
       exists: Dieser Kurs ist bereits vorhanden! Bitte versuche es erneut mit einem
         anderen Titel, einer anderen Schule oder Dauer.
+      user_exists: Leider ist der Benutzer %{username} nicht vorhanden.
   course_creator:
     create_new: Einen neuen Kurs erstellen
-    intro: Der Titel, die Schule und Dauer werden Teil der Kurs-Seiten-URL und können
-      nicht geändert werden. Der Rest der Kursinformationen kann später bearbeitet
-      werden. Nachdem du deinen Kurs erstellt hast, führt dich der Assistent durch
-      die Erstellung der Zuweisungs-Zeitleiste.
+    intro: Der Titel, die Schule und die Dauer erstellen die URL deiner Kursseite
+      und können nicht geändert werden. Alles andere kannst du später bearbeiten.
+      Klicke auf „Meinen Kurs erstellen!“ zum Erstellen der Zeitleiste für deine Wikipedia-Zuweisung.
   metrics:
     activity: Letzte Aktivitäten
     articles_created: Erstellte Artikel
@@ -99,8 +106,9 @@ de:
     characters: Zeichen
     char_added: Zeichen hinzugefügt
     char_changed: Zeichen geändert
-    date_time: Datum/Zeit
+    date_time: Datum/Uhrzeit
     edit_count_description: Gesamte Bearbeitungen
+    revisions: Letzte Versionen
     student_editors: Studentenautoren
     view: Aufrufe
     view_count_description: Artikelaufrufe
@@ -109,7 +117,7 @@ de:
     main_char_added: Hauptnamensraum-Zeichen hinzugefügt
     user: Benutzernamensraum
     user_char_added: Benutzernamensraum-Zeichen hinzugefügt
-    user_ns: Benutzer
+    user_ns: Benutzer/in
   revisions:
     loading: Lade Versionen …
     none: Dieser Kurs hat keine kürzliche Wikipedia-Bearbeitungsaktivität.
@@ -128,7 +136,8 @@ de:
     time_doc: Die Zeit jedes Uploads in deiner Ortszeit
   users:
     already_enrolled: Dieser Benutzer ist bereits eingeschrieben!
-    assigned: Zugewiesener Artikel
+    assigned: Zugewiesene Artikel
+    assignees: Zugewiesene(r)
     character_doc: Die Gesamtanzahl des Inhalts, den ein Benutzer zu diesem Namensraum
       hinzugefügt hat, wird berechnet durch das Aufaddieren der hinzugefügten Zeichen
       für alle Bearbeitungen, die die Seitengröße erhöht haben. Diese Anzahl muss
@@ -138,9 +147,11 @@ de:
     contributions_more: Weitere Beiträge ansehen
     editors: Studentenautoren
     loading: Lade Benutzer …
+    mainspace_chars: Hauptnamensraum<br />hinzugefügte Zeichen
     name: Name
     none: Dieser Kurs hat keine Studenten.
     reviewers: Überprüfer
+    reviewing: Überprüft
     training_complete:
       one: hat die Ausbildung abgeschlossen
       other: haben die Ausbildung abgeschlossen
@@ -150,13 +161,44 @@ de:
       sie fertig sind. Studentenautoren, die durch die Ausbildung gegangen sind, aber
       nicht den Rückmeldungsschritt vervollständigen, können am Ende der Ausbildung
       hier zurückkehren: https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete.'
+    userspace_chars: Benutzernamensraum<br />hinzugefügte Zeichen
   wiki_edits:
     notify_untrained:
+      confirm: Dies sendet eine Erinnerung an die Diskussionsseiten aller Studenten,
+        die die Ausbildung nicht abgeschlossen haben. Bist du sicher, dass du dies
+        tun möchtest?
       header: Du hast die Studentenausbildung nicht abgeschlossen.
       message: Bitte vervollständige die [[WP:STUDENT|Studentenausbildung]]. Falls
         du sie bereits durchgegangen bist, stelle sicher, die Schaltfläche am Ende
         anzuklicken, um zu protokollieren, dass du fertig bist. <nowiki>--~~~~</nowiki>
       summary: Studentenausbildung unvollständig
+  wizard:
+    course_dates: Kursdaten
+    assignment_dates: Zuweisungstyp
+    assignment_type: Zuweisungstyp
+    confirm_dates: Wähle die Kursdaten, wöchentlichen Treffen und Feiertage für deinen
+      Kurs aus.
+    assignment_description: Wähle die Start- und Enddaten dieser Zuweisung aus
+    min_weeks: Diese Zuweisung erfordert mindestens %{min_weeks} verfügbare Wochen.
+      Bitte passe deine Start- und Enddaten deiner Zuweisung an, falls du diesen Zuweisungstyp
+      verwenden möchtest.
+    minimum_options: Bitte wähle mindestens %{minimum} Option(en) aus.
+    read_more: Mehr lesen
+    read_less: Weniger lesen
+    review_selections: Bitte überprüfe unten deine Auswahl. Klicke zum Bearbeiten
+      einer Auswahl. Wenn du fertig bist, klicke auf „Übermitteln“, um den Assistenten
+      zu schließen und deine Zeitleiste zu erstellen.
+    select_assignment: Wähle die Art der Zuweisung aus, die du zu deiner Zeitleiste
+      hinzufügen möchtest.
+    summary: Zusammenfassung
+  error:
+    oauth_invalid: Deine Wikipedia-Autorisierung ist abgelaufen. Bitte erneut anmelden.
+    unsupported_browser:
+      header: Nicht unterstützter Browser. :-(
+      explanation: Du benutzt einen Browser, der nicht mit dem Dashboard kompatibel
+        ist. Diese Website funktioniert gut auf dem Internet Explorer, Version 10
+        oder später, auf aktuellen Versionen von Chrome und Firefox und auf anderen
+        modernen Browsern.
   error_401:
     header: Nicht berechtigt. >:-(
     explanation: Du bist nicht berechtigt, diese Anfrage auszuführen. Falls du denkst,
@@ -176,4 +218,10 @@ de:
     header: 500 – Interner Serverfehler. :-(
     explanation: Etwas ist schief gelaufen. Bitte kontaktiere die Instandhalter dieses
       Dashboards, damit sie über dieses Problem Bescheid wissen.
+  timeline:
+    title: Zeitleiste
+    due_default: Während nächster Woche
+    block_type: Der Sperrtyp wird verwendet, um mit anderen Studenten über dieses
+      Objekt auf ihrer Zeitleiste zu kommunizieren und zum Erstellen nützlicher Werkzeuge
+      für dich (wie der Meilensteinentwurf auf der Übersichtsseite).
 ...

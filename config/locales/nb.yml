@@ -1,0 +1,10 @@
+# Messages for Norwegian Bokmål (norsk bokmål)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Tarjeimo
+---
+nb:
+  blocks:
+    milestones:
+      title: Milepæler
+...
