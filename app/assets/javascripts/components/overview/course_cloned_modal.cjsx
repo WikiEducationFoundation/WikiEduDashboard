@@ -106,7 +106,7 @@ CourseClonedModal = React.createClass(
             <TextInput
               id='course_term'
               onChange={@updateCourse}
-              value=''
+              value={@props.course.term}
               value_key='term'
               required=true
               validation={/^[\w\-\s\,\']+$/}
