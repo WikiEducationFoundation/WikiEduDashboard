@@ -32,7 +32,7 @@ Note: batch updates can take a while, so you probably don't want to do them live
 
 For detailed instructions on setting up a production server — specifically on a wmflabs virtual server, but the process will be similar for other infrastructure as well — see [WMFLABS_DEPLOYMENT](../WMFLABS_DEPLOYMENT.md).
 
-## Recover procedure
+## Recovery procedure
 
 1. Set up a new production server. Production apache conf and sanitized application.yml are checked in to this repo.
 2. Import SSL certs using sslmate.
