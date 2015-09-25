@@ -13,7 +13,7 @@ json.course do
   json.edited_count number_to_human @course.article_count
   json.edit_count number_to_human @course.revisions.count
   json.student_count @course.user_count
-  json.trained_count @course.students_without_instructor_students.trained.count
+  json.trained_count @course.students_without_nonstudents.trained.count
   json.character_count number_to_human @course.character_sum
   json.view_count number_to_human @course.view_sum
 

@@ -43,6 +43,8 @@ class Course < ActiveRecord::Base
                                 after_remove: :cleanup_articles
   has_many :students, -> { where('courses_users.role = 0') },
            through: :courses_users, source: :user
+  has_many :nonstudents, -> { where('courses_users.role > 0') },
+           through: :courses_users, source: :user
   has_many :instructors, -> { where('courses_users.role = 1') },
            through: :courses_users, source: :user
   has_many :volunteers, -> { where('courses_users.role > 1') },
@@ -146,8 +148,8 @@ class Course < ActiveRecord::Base
     end
   end
 
-  def students_without_instructor_students
-    students.where.not(id: instructors.pluck(:id))
+  def students_without_nonstudents
+    students.where.not(id: nonstudents.pluck(:id))
   end
 
   def new_articles
@@ -194,8 +196,8 @@ class Course < ActiveRecord::Base
     # Do not consider revisions with negative byte changes
     self.character_sum = courses_users.where(role: 0).sum(:character_sum_ms)
     self.view_sum = articles_courses.live.sum(:view_count)
-    self.user_count = students_without_instructor_students.size
-    self.trained_count = students_without_instructor_students.trained.size
+    self.user_count = students_without_nonstudents.size
+    self.trained_count = students_without_nonstudents.trained.size
     self.revision_count = revisions.size
     self.article_count = articles.namespace(0).live.size
     self.new_article_count = new_articles.count

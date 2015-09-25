@@ -43,7 +43,7 @@ class NullCohort
     Course.unsubmitted_listed
   end
 
-  def students_without_instructor_students
+  def students_without_nonstudents
     []
   end
 

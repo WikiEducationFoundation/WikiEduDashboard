@@ -16,17 +16,18 @@ class Cohort < ActiveRecord::Base
   has_many :courses, through: :cohorts_courses
   has_many :students, -> { uniq }, through: :courses
   has_many :instructors, -> { uniq }, through: :courses
+  has_many :nonstudents, -> { uniq }, through: :courses
 
   ####################
   # Instance methods #
   ####################
 
-  def students_without_instructor_students
-    students.where.not(id: instructors.pluck(:id))
+  def students_without_nonstudents
+    students.where.not(id: nonstudents.pluck(:id))
   end
 
   def trained_count
-    students_without_instructor_students.trained.count
+    students_without_nonstudents.trained.count
   end
   #################
   # Class methods #

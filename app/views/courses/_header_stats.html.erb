@@ -7,7 +7,7 @@
         <small><%= t("courses.course_description") %></small>
         </div>
       <div class="stat-display__stat popover-trigger">
-        <h1><%= presenter.cohort.students_without_instructor_students.count %></h1>
+        <h1><%= presenter.cohort.students_without_nonstudents.count %></h1>
         <small><%= t("courses.students") %></small>
         <div class="popover dark">
           <h4><%= presenter.cohort.trained_count %></h4>
