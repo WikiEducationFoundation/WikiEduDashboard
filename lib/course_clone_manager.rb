@@ -17,7 +17,7 @@ class CourseCloneManager
   private
 
   def sanitize_clone_info
-    @clone.term = "#{@course.term}__COPY__"
+    @clone.term = "CLONED FROM #{@course.term}"
     @clone.slug = course_slug(@clone)
     @clone.passcode = Course.generate_passcode
     @clone.submitted = false
