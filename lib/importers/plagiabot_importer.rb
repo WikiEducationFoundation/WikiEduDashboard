@@ -64,7 +64,11 @@ class PlagiabotImporter
   def self.api_get(type, opts = {})
     url = query_url(type, opts)
     response = Net::HTTP.get(URI.parse(url))
+    # Work around the not-quite-parseable format of the response.
+    # We don't care about the title, we just want to make the response parseable.
+    response = response.gsub(/: ".*"/, ": 'foo'")
     response = response.gsub("'", '"')
+
     JSON.parse(response)
   end
 
