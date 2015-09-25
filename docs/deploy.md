@@ -31,3 +31,10 @@ Note: batch updates can take a while, so you probably don't want to do them live
 ## Set up a new production server
 
 For detailed instructions on setting up a production server — specifically on a wmflabs virtual server, but the process will be similar for other infrastructure as well — see [WMFLABS_DEPLOYMENT](../WMFLABS_DEPLOYMENT.md).
+
+## Recover procedure
+
+1. Set up a new production server. Production apache conf and sanitized application.yml are checked in to this repo.
+2. Import SSL certs using sslmate.
+3. Create a new OAuth consumer on meta.wikimedia.org and ping a WMF developer to get it approved quickly. Add tokens to application.yml
+4. Import the lastest database backup. Recent backups are stored on the production server and also on wikiedubackups.globaleducation.eqiad.wmflabs (a virtual server on wmflabs.org).
