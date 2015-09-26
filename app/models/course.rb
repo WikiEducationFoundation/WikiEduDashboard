@@ -83,6 +83,11 @@ class Course < ActiveRecord::Base
 
   scope :listed, -> { where(listed: true) }
 
+  CLONED_STATUSES = {
+    'PENDING' => 1,
+    'COMPLETED' => 2
+  }
+
   ##################
   # Course content #
   ##################
