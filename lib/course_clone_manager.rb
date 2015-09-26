@@ -44,7 +44,7 @@ class CourseCloneManager
 
   def clear_dates
     @clone.update_attributes(meeting_days: nil,
-                             day_exceptions: nil,
+                             day_exceptions: '',
                              weekdays: '0000000',
                              no_day_exceptions: nil)
     @clone.blocks.update_all(due_date: nil)
