@@ -5,6 +5,7 @@ class LookupsController < ApplicationController
   before_action :require_permissions
   respond_to :json
 
+  # Used to generate list of existing cohorts for pulldown
   def cohort
     @model = 'cohort'
     @key = 'title'
@@ -12,6 +13,7 @@ class LookupsController < ApplicationController
     render 'index'
   end
 
+  # Used to generate list of existing tags for pulldown
   def tag
     @model = 'tag'
     @key = 'tag'
@@ -19,11 +21,14 @@ class LookupsController < ApplicationController
     render 'index'
   end
 
+  # FIXME: called by AssignButton, but the result is not used for anything.
+  # It's been stubbed out for now, but the AssignButton should be modified to
+  # not make this lookup at all.
+  # See https://github.com/WikiEducationFoundation/WikiEduDashboard/issues/399
   def article
     @model = 'article'
     @key = 'title'
-    @values = Article.live.namespace(0).select('title').pluck(:title)
-    @values.map! { |a| a.gsub('_', ' ') }
+    @values = nil
     render 'index'
   end
 end
