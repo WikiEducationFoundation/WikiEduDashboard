@@ -71,7 +71,7 @@ class WikiLegacyCourses
       response = api_client.action 'liststudents', query_parameters
       info = response.data
       info.nil? ? nil : info
-    rescue MediawikiApi::ApiError => e
+    rescue MediawikiApi::ApiError, MediawikiApi::HttpError => e
       # The message for invalid course ids looks like this:
       # "Invalid course id: 953"
       if e.info[0..16] == 'Invalid course id'
