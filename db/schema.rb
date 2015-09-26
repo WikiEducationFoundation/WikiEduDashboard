@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150926002358) do
+ActiveRecord::Schema.define(version: 20150926153658) do
 
   create_table "articles", force: true do |t|
     t.string   "title"
@@ -106,7 +106,6 @@ ActiveRecord::Schema.define(version: 20150926002358) do
     t.integer  "revision_count",              default: 0
     t.string   "slug"
     t.boolean  "listed",                      default: true
-    t.string   "meeting_days"
     t.string   "signup_token"
     t.string   "assignment_source"
     t.string   "subject"
@@ -119,11 +118,12 @@ ActiveRecord::Schema.define(version: 20150926002358) do
     t.string   "day_exceptions",              default: ""
     t.string   "weekdays",                    default: "0000000"
     t.integer  "new_article_count"
-    t.integer  "order",                       default: 1,         null: false
     t.boolean  "no_day_exceptions",           default: false
     t.integer  "trained_count",               default: 0
     t.integer  "cloned_status"
   end
+
+  add_index "courses", ["slug"], name: "index_courses_on_slug", using: :btree
 
   create_table "courses_users", force: true do |t|
     t.datetime "created_at"
@@ -156,9 +156,9 @@ ActiveRecord::Schema.define(version: 20150926002358) do
     t.datetime "date"
     t.boolean  "new_article",               default: false
     t.boolean  "deleted",                   default: false
-    t.boolean  "system",                    default: false
     t.float    "wp10",           limit: 24
     t.float    "wp10_previous",  limit: 24
+    t.boolean  "system",                    default: false
     t.integer  "ithenticate_id"
     t.string   "report_url"
   end

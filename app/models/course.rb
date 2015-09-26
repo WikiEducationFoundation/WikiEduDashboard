@@ -18,7 +18,6 @@
 #  slug              :string(255)
 #  listed            :boolean          default(TRUE)
 #  trained_count     :integer          default(0)
-#  meeting_days      :string(255)
 #  signup_token      :string(255)
 #  assignment_source :string(255)
 #  subject           :string(255)
