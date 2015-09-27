@@ -83,23 +83,8 @@ class WizardTimelineManager
     week_finished = false
     timeline.each do |week|
       week[:blocks].each_with_index do |block, i|
-        # Skip blocks with unmet 'if' dependencies
-        if_met = !block.key?('if')
-        block_if = block['if'].is_a?(Array) ? block['if'] : [block['if']]
-        if_met ||= block_if.reduce(true) do |met, dep|
-          met && @logic.include?(dep)
-        end
-        next unless if_met
-
-        # Skip blocks with unmet 'unless' dependencies
-        unless_met = !block.key?('unless')
-        block_unless = block['unless']
-        block_unless = [block_unless] unless block_unless.is_a?(Array)
-
-        unless_met ||= block_unless.reduce(true) do |met, dep|
-          met && !@logic.include?(dep)
-        end
-        next unless unless_met
+        # Skip blocks with unmet 'if' or 'unless' dependencies
+        next unless dependencies_met?(block, 'if') && dependencies_met?(block, 'unless')
 
         if new_week.nil? || (!new_week.blocks.blank? && week_finished)
           new_week = Week.create(course_id: @course.id)
@@ -126,6 +111,16 @@ class WizardTimelineManager
       end
       week_finished = true
     end
+  end
+
+  def dependencies_met?(block, type)
+    met = !block.key?(type)
+    block_dep = [block_dep] unless block_dep.is_a?(Array)
+    met ||= block_dep.reduce(true) do |met, dep|
+      met && @logic.include?(dep)
+    end
+
+    met
   end
 
   def add_tags
