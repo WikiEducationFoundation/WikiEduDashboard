@@ -84,7 +84,9 @@ class WizardTimelineManager
     timeline.each do |week|
       week[:blocks].each_with_index do |block, i|
         # Skip blocks with unmet 'if' or 'unless' dependencies
-        next unless dependencies_met?(block, 'if') && dependencies_met?(block, 'unless')
+
+        next unless if_dependencies_met?(block)
+        next unless unless_dependencies_met?(block)
 
         if new_week.nil? || (!new_week.blocks.blank? && week_finished)
           new_week = Week.create(course_id: @course.id)
@@ -96,14 +98,25 @@ class WizardTimelineManager
     end
   end
 
-  def dependencies_met?(block, type)
-    met = !block.key?(type)
-    block_dep = [block_dep] unless block_dep.is_a?(Array)
-    met ||= block_dep.reduce(true) do |met, dep|
+  def if_dependencies_met?(block)
+    if_met = !block.key?('if')
+    block_if = block['if'].is_a?(Array) ? block['if'] : [block['if']]
+    if_met ||= block_if.reduce(true) do |met, dep|
       met && @logic.include?(dep)
     end
+    if_met
+  end
 
-    met
+  def unless_dependencies_met?(block)
+    # Skip blocks with unmet 'unless' dependencies
+    unless_met = !block.key?('unless')
+    block_unless = block['unless']
+    block_unless = [block_unless] unless block_unless.is_a?(Array)
+
+    unless_met ||= block_unless.reduce(true) do |met, dep|
+      met && !@logic.include?(dep)
+    end
+    unless_met
   end
 
   def save_block_and_gradeable(week, block, i)
