@@ -19,8 +19,7 @@ class HomePagePresenter
 
   def cohort
     return NullCohort.new if cohort_param == 'none'
-    raise ActionController::RoutingError
-      .new('nope') unless Cohort.exists?(slug: cohort_param)
+    return unless Cohort.exists?(slug: cohort_param)
     Cohort.find_by(slug: cohort_param)
   end
 
