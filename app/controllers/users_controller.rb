@@ -59,8 +59,6 @@ class UsersController < ApplicationController
       add
     elsif request.delete?
       remove
-    else
-      render json: { status: 200 }
     end
   end
 
