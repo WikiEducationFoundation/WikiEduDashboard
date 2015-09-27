@@ -55,7 +55,7 @@ before_script:
   - bundle exec rake db:migrate RAILS_ENV=test
 
 
-script: gulp build && bundle exec rake
+script: gulp build && bundle exec rspec --color --format documentation
 
 
 after_success:
