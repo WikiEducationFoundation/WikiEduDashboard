@@ -55,50 +55,13 @@ class UsersController < ApplicationController
   # Enrollment management #
   #########################
   def enroll
-    if request.get?
-      enroll_user
-    elsif request.post?
+    if request.post?
       add
     elsif request.delete?
       remove
     else
       render json: { status: 200 }
     end
-  end
-
-  def enroll_user
-    # Redirect to sign in (with callback leading back to this method)
-    @course = Course.find_by_slug(params[:course_id])
-    # Check if the course exists
-    fail ActionController::RoutingError, 'Course not found' if @course.nil?
-
-    if current_user.nil?
-      auth_path = user_omniauth_authorize_path(:mediawiki)
-      path = "#{auth_path}?origin=#{request.original_url}"
-      redirect_to path
-      return
-    end
-
-    # Make sure the user isn't already enrolled.
-    unless CoursesUsers.where(user_id: current_user.id,
-                              course_id: @course.id,
-                              role: 0).empty?
-      redirect_to course_slug_path(@course.slug)
-      return
-    end
-
-    # Check passcode, enroll if valid
-    if !@course.passcode.nil? && params[:passcode] == @course.passcode
-      CoursesUsers.create(
-        user_id: current_user.id,
-        course_id: @course.id,
-        role: 0
-      )
-      WikiEdits.enroll_in_course(@course, current_user)
-      WikiEdits.update_course(@course, current_user)
-    end
-    # Redirect to course
-    redirect_to course_slug_path(@course.slug)
   end
 
   def enroll_params

@@ -17,13 +17,6 @@ describe UsersController do
 
     subject { response.status }
 
-    context 'GET' do
-      it 'enrolls user (and redirects)' do
-        get 'enroll', request_params
-        expect(subject).to eq(302)
-      end
-    end
-
     context 'POST' do
       let(:post_params) do
         { id: course.slug, user: { user_id: user.id, role: 0 }.as_json }
@@ -58,30 +51,6 @@ describe UsersController do
       end
       it 'succeeds' do
         expect(subject).to eq(200)
-      end
-    end
-
-    # This is the HTTP verb that MS Word links use (for some reason)
-    context 'HEAD' do
-      it "doesn't error" do
-        head 'enroll', request_params
-        expect(subject).to eq(200)
-      end
-    end
-  end
-
-  describe '#enroll_user' do
-    let!(:course) { create(:course) }
-    let(:request_params) do
-      { course_id: course.slug, passcode: course.passcode }
-    end
-    before do
-      allow(controller).to receive(:current_user).and_return(nil)
-    end
-
-    context 'when a user is not logged in' do
-      it 'should redirect to mediawiki for OAuth' do
-        expect(get 'enroll', request_params).to redirect_to(/.*mediawiki.*/)
       end
     end
   end
