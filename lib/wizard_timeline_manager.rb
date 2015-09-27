@@ -90,24 +90,7 @@ class WizardTimelineManager
           new_week = Week.create(course_id: @course.id)
           week_finished = false
         end
-        block['week_id'] = new_week.id
-        block['order'] = i
-
-        if block.key?('graded') && block['graded']
-          gradeable = {
-            points: block['points'] || 10,
-            gradeable_item_type: 'block',
-            title: ''
-          }
-        end
-
-        block = Block.create(block.except('if', 'unless', 'graded', 'points'))
-
-        next if gradeable.nil?
-
-        gradeable['gradeable_item_id'] = block.id
-        gradeable = Gradeable.create(gradeable)
-        block.update(gradeable_id: gradeable.id)
+        save_block_and_gradeable(new_week, block, i)
       end
       week_finished = true
     end
@@ -121,6 +104,27 @@ class WizardTimelineManager
     end
 
     met
+  end
+
+  def save_block_and_gradeable(week, block, i)
+    block['week_id'] = week.id
+    block['order'] = i
+
+    if block.key?('graded') && block['graded']
+      gradeable = {
+        points: block['points'] || 10,
+        gradeable_item_type: 'block',
+        title: ''
+      }
+    end
+
+    block = Block.create(block.except('if', 'unless', 'graded', 'points'))
+
+    return if gradeable.nil?
+
+    gradeable['gradeable_item_id'] = block.id
+    gradeable = Gradeable.create(gradeable)
+    block.update(gradeable_id: gradeable.id)
   end
 
   def add_tags
