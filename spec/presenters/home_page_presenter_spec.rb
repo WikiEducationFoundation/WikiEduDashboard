@@ -3,7 +3,6 @@ require_relative '../../app/presenters/home_page_presenter'
 require 'ostruct'
 
 describe HomePagePresenter do
-
   describe '#admin_courses' do
     let(:admin)  { OpenStruct.new(:admin? => is_admin) }
     let(:user)   { user }
@@ -87,8 +86,8 @@ describe HomePagePresenter do
       end
       context 'invalid cohort' do
         let(:cohort_param) { 'lolfakecohort' }
-        it 'raises a routing error' do
-          expect{ subject }.to raise_error ActionController::RoutingError
+        it 'returns nil' do
+          expect(subject).to be_nil
         end
       end
     end
