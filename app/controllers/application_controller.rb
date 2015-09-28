@@ -5,12 +5,8 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   rescue_from ActionController::InvalidAuthenticityToken do
-    respond_to do |format|
-      format.json do
-        render plain: t('error_401.explanation'),
-               status: :unauthorized
-      end
-    end
+    render plain: t('error_401.explanation'),
+           status: :unauthorized
   end
 
   before_action :set_locale
