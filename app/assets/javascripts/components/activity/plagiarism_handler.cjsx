@@ -45,6 +45,7 @@ PlagiarismHandler = React.createClass(
         key={revision.key}
         articleId={revision.article_id}
         articleUrl={revision.article_url}
+        diffUrl={revision.diff_url}
         reportUrl={revision.report_url}
         talkPageLink={talkPageLink}
         title={revision.title}

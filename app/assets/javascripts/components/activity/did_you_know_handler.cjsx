@@ -42,7 +42,7 @@ DidYouKnowHandler = React.createClass(
 
       <ActivityTableRow
         key={article.key}
-        articleId={article.key}
+        rowId={article.key}
         articleUrl={article.article_url}
         title={article.title}
         revisionScore={roundedRevisionScore}

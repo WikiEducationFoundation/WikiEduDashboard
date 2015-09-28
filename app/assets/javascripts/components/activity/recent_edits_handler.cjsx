@@ -20,9 +20,6 @@ RecentEditsHandler = React.createClass(
     @setState getState()
   componentWillMount: ->
     ServerActions.fetchRecentEdits()
-  sortableHeaders: ['title', 'user_wiki_id', 'revision_datetime']
-  isSortable: (header) ->
-    _.indexOf(@sortableHeaders, header) >= 0
   clearAllSortableClassNames: ->
     Array.prototype.map.call document.getElementsByClassName('sortable'), (el) ->
       el.classList.remove('asc')
@@ -38,20 +35,21 @@ RecentEditsHandler = React.createClass(
 
   render: ->
     revisions = @state.revisions.map (revision) =>
+      roundedRevisionScore = Math.round(revision.revision_score) or 'unknown'
       revisionDateTime = moment(revision.datetime).format('YYYY/MM/DD h:mm a')
       talkPageLink = "https://en.wikipedia.org/wiki/User_talk:#{revision.user_wiki_id}"
 
       <ActivityTableRow
         key={revision.key}
-        articleId={revision.article_id}
+        rowId={revision.key}
         articleUrl={revision.article_url}
-        reportUrl={revision.report_url}
+        diffUrl={revision.diff_url}
         talkPageLink={talkPageLink}
         title={revision.title}
+        revisionScore={roundedRevisionScore}
         author={revision.user_wiki_id}
         revisionDateTime={revisionDateTime}
       />
-
 
     drawers = @state.revisions.map (revision) ->
       courses = revision.courses.map (course) ->
@@ -75,16 +73,14 @@ RecentEditsHandler = React.createClass(
 
     headers = [
       { title: 'Article Title',      key: 'title' },
-      { title: 'Plagiarism Report',  key: 'report_url' },
+      { title: 'Revision Score',     key: 'revision_score' },
       { title: 'Revision Author',    key: 'user_wiki_id' },
       { title: 'Revision Date/Time', key: 'revision_datetime' },
     ]
 
     ths = headers.map (header) =>
-      <th onClick={if @isSortable(header.key) then @sortRevisions else false}
-          className={if @isSortable(header.key) then 'sortable'}
-          data-sort-key={header.key}>
-            {header.title}
+      <th onClick={@sortRevisions} className='sortable' data-sort-key={header.key}>
+        {header.title}
       </th>
 
     <table className='activity-table list'>

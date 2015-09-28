@@ -5,14 +5,20 @@ UIActions = require '../../actions/ui_actions'
 ActivityTableRow = React.createClass
   mixins: [UIStore.mixin]
   storeDidChange: ->
-    @setState is_open: UIStore.getOpenKey() == ('drawer_' + @props.articleId)
+    @setState is_open: UIStore.getOpenKey() == ('drawer_' + @props.rowId)
   getInitialState: ->
     is_open: false
   openDrawer: ->
-    UIActions.open("drawer_#{@props.articleId}")
+    UIActions.open("drawer_#{@props.rowId}")
   render: ->
     className = 'activity-table-row'
     className += if @state.is_open then ' open' else ' closed'
+    if @props.diffUrl
+      revisionDateTime = (
+        <a href={@props.diffUrl}>{@props.revisionDateTime}</a>
+      )
+    else
+      revisionLink = @props.revisionDateTime
 
     if @props.revisionScore
       col2 = (
@@ -34,10 +40,10 @@ ActivityTableRow = React.createClass
       </td>
       {col2}
       <td>
-        {@props.author}
+        <a href={@props.talkPageLink}>{@props.author}</a>
       </td>
       <td>
-        {@props.revisionDateTime}
+        {revisionDateTime}
       </td>
       <td>
         <button className='icon icon-arrow'></button>
