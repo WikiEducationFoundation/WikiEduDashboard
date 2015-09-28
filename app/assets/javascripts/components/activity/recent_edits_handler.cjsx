@@ -69,7 +69,7 @@ RecentEditsHandler = React.createClass(
     elements = _.flatten(_.zip(revisions, drawers))
 
     unless elements.length
-      elements = <td colSpan=6>There are not currently any recent revisions suspected of plagiarism.</td>
+      elements = <td colSpan=6>Loading recent edits...</td>
 
     headers = [
       { title: 'Article Title',      key: 'title' },

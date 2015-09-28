@@ -42,6 +42,7 @@ class Revision < ActiveRecord::Base
   end
 
   def infer_courses_from_user
+    return [] if user.blank?
     user.courses.where('start <= ?', date).where('end >= ?', date)
   end
 
