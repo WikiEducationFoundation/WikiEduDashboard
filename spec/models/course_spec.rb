@@ -402,4 +402,24 @@ describe Course, type: :model do
       expect(course.new_article_count).to eq(1)
     end
   end
+
+  describe '.uploads' do
+    before do
+      create(:course, id: 1, start: 1.year.ago, end: 1.week.ago)
+      create(:user, id: 1)
+      create(:courses_user, user_id: 1, course_id: 1, role: 0)
+      create(:commons_upload, id: 1, user_id: 1, uploaded_at: 2.week.ago)
+      create(:commons_upload, id: 2, user_id: 1, uploaded_at: 2.years.ago)
+      create(:commons_upload, id: 3, user_id: 1, uploaded_at: 1.day.ago)
+    end
+    it 'should include uploads by students during the course' do
+      course = Course.find(1)
+      expect(course.uploads).to include(CommonsUpload.find(1))
+    end
+    it 'should exclude uploads from before or after the course' do
+      course = Course.find(1)
+      expect(course.uploads).not_to include(CommonsUpload.find(2))
+      expect(course.uploads).not_to include(CommonsUpload.find(3))
+    end
+  end
 end

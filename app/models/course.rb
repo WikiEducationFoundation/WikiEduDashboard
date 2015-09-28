@@ -55,7 +55,9 @@ class Course < ActiveRecord::Base
   has_many :revisions, -> (course) {
     where('date >= ?', course.start).where('date <= ?', course.end)
   }, through: :students
-  has_many :uploads, through: :students
+  has_many :uploads, -> (course) {
+    where('uploaded_at >= ?', course.start).where('uploaded_at <= ?', course.end)
+  }, through: :students
 
   has_many :articles_courses, class_name: ArticlesCourses, dependent: :destroy
   has_many :articles, -> { uniq }, through: :articles_courses
