@@ -289,7 +289,8 @@ describe 'the course page', type: :feature do
       expect(page).to have_content "#{I18n.t('uploads.none')}"
       create(:commons_upload,
              user_id: 1,
-             file_name: 'File:Example.jpg')
+             file_name: 'File:Example.jpg',
+             uploaded_at: '2015-06-01')
       js_visit "/courses/#{slug}/uploads"
       expect(page).to have_content 'Example.jpg'
     end
