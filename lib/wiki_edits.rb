@@ -203,7 +203,26 @@ class WikiEdits
   class << self
     private
 
+    def api_post(data, current_user)
+      return {} if ENV['disable_wiki_output'] == 'true'
+      tokens = get_tokens(current_user)
+      return tokens unless tokens['csrf_token']
+      data.merge! token: tokens.csrf_token
+      language = ENV['wiki_language']
+      url = "https://#{language}.wikipedia.org/w/api.php"
+
+      # Make the request
+      response = tokens.access_token.post(url, data)
+      response_data = JSON.parse(response.body)
+      WikiResponse.capture(response_data, current_user: current_user,
+                                          post_data: data,
+                                          type: 'edit')
+
+      response_data
+    end
+
     def get_tokens(current_user)
+      return { status: 'no current user' } unless current_user
       lang = ENV['wiki_language']
       @consumer = oauth_consumer(lang)
       @access_token = oauth_access_token(@consumer, current_user)
@@ -233,24 +252,6 @@ class WikiEdits
       OAuth::AccessToken.new consumer,
                              current_user.wiki_token,
                              current_user.wiki_secret
-    end
-
-    def api_post(data, current_user)
-      return {} if ENV['disable_wiki_output'] == 'true'
-      tokens = get_tokens(current_user)
-      return tokens unless tokens['csrf_token']
-      data.merge! token: tokens.csrf_token
-      language = ENV['wiki_language']
-      url = "https://#{language}.wikipedia.org/w/api.php"
-
-      # Make the request
-      response = tokens.access_token.post(url, data)
-      response_data = JSON.parse(response.body)
-      WikiResponse.capture(response_data, current_user: current_user,
-                                          post_data: data,
-                                          type: 'edit')
-
-      response_data
     end
   end
 end
