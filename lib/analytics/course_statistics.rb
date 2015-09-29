@@ -64,6 +64,7 @@ class CourseStatistics
 
   def find_upload_usage
     used_uploads = CommonsUpload.where(id: @upload_ids).where('usage_count > 0')
+    @used_count = used_uploads.count
     @upload_count = used_uploads.count
     @usage_count = used_uploads.sum(:usage_count)
   end
