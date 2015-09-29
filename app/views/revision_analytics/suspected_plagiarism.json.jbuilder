@@ -2,7 +2,6 @@ json.revisions do
   json.array! @revisions do |revision|
     article = revision.article
     json.key revision.id
-    json.article_id article.id
     json.title full_title(article)
     json.article_url article_url(article)
     json.report_url revision.report_url

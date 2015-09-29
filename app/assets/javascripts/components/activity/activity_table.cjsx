@@ -1,6 +1,4 @@
 React     = require 'react/addons'
-UIStore   = require '../../stores/ui_store'
-UIActions = require '../../actions/ui_actions'
 ActivityTableRow = require './activity_table_row'
 TransitionGroup = require '../../utils/TransitionGroup'
 
