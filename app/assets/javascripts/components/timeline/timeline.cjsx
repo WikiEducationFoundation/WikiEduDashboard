@@ -71,7 +71,8 @@ Timeline = React.createClass(
 
     start = moment(@props.course.timeline_start)
     end = moment(@props.course.timeline_end)
-    timeline_full = (end.week() - start.week() + 1) - @props.weeks.length <= 0
+
+    timeline_full = end.diff(start, 'weeks') - @props.weeks.length <= 0
 
     if @props.editable
       add_week_button = if timeline_full then (
