@@ -66,6 +66,10 @@
   padding .5rem 1rem
   font-size .875em
   text-align center
+  text-transform uppercase
+  margin 0 1.5%
+  attr
+    padding 5px
 
 .DayPicker-Weekday--selected
   background manatee
@@ -145,10 +149,6 @@
   padding 0
   width: 400px
 
-.WeekdayPicker .DayPicker-Month
-  border-collapse separate
-  border-spacing .9rem
-
 .WeekdayPicker .DayPicker-Weekday
   border 1px solid gray
   border-radius 20px
@@ -156,7 +156,7 @@
   padding .5rem
   line-height 1
   &:focus
-    outline none
+    box-shadow 0 0 3px bayoux - 10
 
 .WeekdayPicker--InteractionDisabled .DayPicker-Weekday
   cursor default
