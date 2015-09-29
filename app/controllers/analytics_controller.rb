@@ -34,7 +34,7 @@ class AnalyticsController < ApplicationController
     Cohort.all.each do |cohort|
       course_ids = cohort.courses.pluck(:id)
       stats =
-        CourseStatistics.report_statistics(course_ids, cohort: cohort.slug)
+        CourseStatistics.new(course_ids, cohort: cohort.slug).report_statistics
       @cohort_stats.merge! stats
     end
   end
@@ -49,9 +49,8 @@ class AnalyticsController < ApplicationController
     course_ids = @cohort_2.courses
                  .where(id: cohort_1_course_ids)
                  .pluck(:id)
-    stats =
-      CourseStatistics.report_statistics(course_ids, cohort: cohort_name)
-    @cohort_stats.merge! stats
-    @articles_edited = CourseStatistics.articles_edited(course_ids)
+    stats = CourseStatistics.new(course_ids, cohort: cohort_name)
+    @cohort_stats.merge! stats.report_statistics
+    @articles_edited = stats.articles_edited
   end
 end

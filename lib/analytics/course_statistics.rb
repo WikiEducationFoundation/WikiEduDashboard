@@ -1,135 +1,89 @@
 #= Utilities for calcuating statistics for course activity
 class CourseStatistics
-  # For a set of course ids, generate a human-readable summary of what the users
-  # in those courses contributed.
-  class << self
-    def report_statistics(course_ids, opts = {})
-      @@course_ids = course_ids
-      report = {
-        course_count: course_ids.uniq.count,
-        students_excluding_instructors: pure_student_ids.count,
-        trained_students: trained_student_count,
-        characters_added: characters_added,
-        revisions: revision_ids.count,
-        articles_edited: article_ids.count,
-        articles_created: surviving_article_ids.count,
-        articles_deleted: deleted_article_ids.count,
-        files_uploads: upload_ids.count,
-        files_in_use: used_count,
-        global_usages: usage_count
-      }
+  ################
+  # Entry points #
+  ################
 
-      report = { opts[:cohort].to_sym => report } if opts[:cohort]
-      report
-    end
-
-    def articles_edited(course_ids)
-      @@course_ids = course_ids
-      Article.where(namespace: 0, id: page_ids)
-    end
-
-    private
-
-    def students
-      CoursesUsers.where(course_id: @@course_ids, role: 0)
-    end
-
-    def nonstudents
-      CoursesUsers.where(course_id: @@course_ids, role: [1, 2, 3, 4])
-    end
-
-    def nonstudent_ids
-      nonstudents.pluck(:user_id).uniq
-    end
-
-    def student_ids
-      students.pluck(:user_id).uniq
-    end
-
-    def pure_student_ids
-      student_ids - nonstudent_ids
-    end
-
-    def trained_student_count
-      User.where(id: pure_student_ids, trained: true).count
-    end
-
-    def characters_added
-      students.sum(:character_sum_ms)
-    end
-
-    def revisions
-      # Note that these may include revisions from outside the scope
-      # of the target course_ids, for example from earlier terms.
-      Revision.where(user_id: pure_student_ids)
-    end
-
-    def revision_ids
-      revisions.pluck(:id)
-    end
-
-    def page_ids
-      revisions.pluck(:article_id).uniq
-    end
-
-    def article_ids
-      Article.where(namespace: 0, id: page_ids).pluck(:id)
-    end
-
-    def new_revisions
-      Revision.where(user_id: pure_student_ids, new_article: true)
-    end
-
-    def new_page_ids
-      new_revisions.pluck(:article_id).uniq
-    end
-
-    def created_articles
-      Article.where(namespace: 0, id: new_page_ids)
-    end
-
-    def surviving_article_ids
-      created_articles.where(deleted: false).pluck(:id)
-    end
-
-    def deleted_article_ids
-      created_articles.where(deleted: true).pluck(:id)
-    end
-
-    def upload_ids
-      CommonsUpload.where(user_id: pure_student_ids).pluck(:id)
-    end
-
-    def used_uploads
-      CommonsUpload .where(id: upload_ids) .where('usage_count > 0')
-    end
-
-    def used_count
-      used_uploads.count
-    end
-
-    def usage_count
-      used_uploads.sum(:usage_count)
-    end
+  def initialize(course_ids, opts = {})
+    @course_ids = course_ids
+    @opts = opts
+    find_contribution_ids
+    find_upload_usage
+    find_user_counts
+    find_article_counts
   end
 
-  # def self.article_quality(courses)
-  #   puts 'course,article,revision,score'
-  #   courses.each do |course|
-  #     articles = course.articles.namespace(0)
-  #     articles.each do |article|
-  #       revisions = article.revisions
-  #       first_rev = revisions.first
-  #       puts '"' + course.title + '","' +
-  #         article.title + '","' + first_rev.id.to_s +
-  #         'prev",' + first_rev.wp10_previous.to_s
-  #       revisions.each do |revision|
-  #         puts '"' + course.title + '","' +
-  #           article.title + '","' +
-  #           revision.id.to_s + '",' +
-  #           revision.wp10.to_s
-  #       end
-  #     end
-  #   end
-  # end
+  # For a set of course ids, generate a human-readable summary of what the users
+  # in those courses contributed.
+  def report_statistics
+    report = {
+      course_count: @course_ids.uniq.count,
+      students_excluding_instructors: @pure_student_ids.count,
+      trained_students: @trained_student_count,
+      characters_added: @characters_added,
+      revisions: @revision_ids.count,
+      articles_edited: @article_ids.count,
+      articles_created: @surviving_article_ids.count,
+      articles_deleted: @deleted_article_ids.count,
+      files_uploads: @upload_ids.count,
+      files_in_use: @used_count,
+      global_usages: @usage_count
+    }
+
+    report = { @opts[:cohort].to_sym => report } if @opts[:cohort]
+    report
+  end
+
+  def articles_edited
+    Article.where(namespace: 0, id: @page_ids)
+  end
+
+  ################
+  # Calculations #
+  ################
+
+  private
+
+  def find_contribution_ids
+    revision_ids = []
+    page_ids = []
+    upload_ids = []
+
+    @course_ids.each do |course_id|
+      course = Course.find(course_id)
+      revisions = course.revisions
+      revision_ids << revisions.pluck(:id)
+      page_ids << revisions.pluck(:article_id)
+      upload_ids << course.uploads.pluck(:id)
+    end
+    @revision_ids = revision_ids.flatten.uniq
+    @page_ids = page_ids.flatten.uniq
+    @upload_ids = upload_ids.flatten.uniq
+    @article_ids = Article.where(namespace: 0, id: @page_ids).pluck(:id)
+  end
+
+  def find_upload_usage
+    used_uploads = CommonsUpload.where(id: @upload_ids).where('usage_count > 0')
+    @upload_count = used_uploads.count
+    @usage_count = used_uploads.sum(:usage_count)
+  end
+
+  def find_user_counts
+    students = CoursesUsers.where(course_id: @course_ids, role: 0)
+    @student_ids = students.pluck(:user_id).uniq
+    @characters_added = students.sum(:character_sum_ms)
+    nonstudents = CoursesUsers.where(course_id: @course_ids, role: [1, 2, 3, 4])
+    @nonstudent_ids = nonstudents.pluck(:user_id).uniq
+    @pure_student_ids = @student_ids - @nonstudent_ids
+    @trained_student_count = User.where(id: @pure_student_ids, trained: true).count
+  end
+
+  def find_article_counts
+    new_revisions = Revision.where(id: @revision_ids, new_article: true)
+    new_page_ids = new_revisions.pluck(:article_id).uniq
+    created_articles = Article.where(namespace: 0, id: new_page_ids)
+
+    @surviving_article_ids = created_articles.where(deleted: false).pluck(:id)
+    @deleted_article_ids = created_articles.where(deleted: true).pluck(:id)
+  end
 end
