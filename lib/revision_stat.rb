@@ -9,4 +9,10 @@ class RevisionStat
       .where('date >= ?', date)
       .count
   end
+
+  def self.for_user_and_course(user, course)
+    rev_user = CoursesUsers.find_by(user_id: user.id, course_id: course.id).user
+    Revision.where(user_id: rev_user.id)
+      .where('date >= ?', REVISION_TIMEFRAME.days.ago.to_date)
+  end
 end

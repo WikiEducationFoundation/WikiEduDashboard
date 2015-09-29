@@ -61,6 +61,7 @@ Student = React.createClass(
           assignments={@props.reviewing}
         />
       </td>
+      <td className='desktop-only-tc'>{@props.student.recent_revisions}</td>
       <td className='desktop-only-tc'>{@props.student.character_sum_ms}</td>
       <td className='desktop-only-tc'>{@props.student.character_sum_us}</td>
       <td style={{borderRight: '1px solid #ced1dd'}}><button onClick={@buttonClick} className="icon icon-arrow" ></button></td>

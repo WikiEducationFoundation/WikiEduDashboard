@@ -182,6 +182,8 @@ en:
     mainspace_chars: Mainspace<br />chars added
     name: Name
     none: This course has no students.
+    recent_revisions: Recent Revisions
+    revisions_doc: Number of revisions in the past 7 days.
     reviewers: Reviewer(s)
     reviewing: Reviewing
     training_complete:

@@ -59,6 +59,11 @@ StudentList = React.createClass(
         'label': I18n.t('users.reviewing')
         'desktop_only': true
         'sortable': false
+      'recent_revisions':
+        'label': I18n.t('users.recent_revisions')
+        'desktop_only': true
+        'sortable': true
+        'info_key': 'users.revisions_doc'
       'character_sum_ms':
         'label': I18n.t('users.mainspace_chars')
         'desktop_only': true
