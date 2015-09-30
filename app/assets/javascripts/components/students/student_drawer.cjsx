@@ -38,7 +38,7 @@ StudentDrawer = React.createClass(
     if @props.is_open && revisions.length == 0
       revisions = (
         <tr>
-          <td colSpan="6" className="text-center">
+          <td colSpan="7" className="text-center">
             <p>This student has made no revisions</p>
           </td>
         </tr>
@@ -51,7 +51,7 @@ StudentDrawer = React.createClass(
     className += if !@props.is_open then ' closed' else ''
 
     <tr className={className}>
-      <td colSpan="6">
+      <td colSpan="7">
         <div style={style}>
           <table className='list list--striped'>
             <thead>
