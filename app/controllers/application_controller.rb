@@ -29,6 +29,12 @@ class ApplicationController < ActionController::Base
     fail exception unless user_signed_in? && current_user.can_edit?(course)
   end
 
+  def require_participating_user
+    course = Course.find_by_slug(params[:id])
+    exception = ActionController::InvalidAuthenticityToken.new('Unauthorized')
+    fail exception unless user_signed_in? && current_user.role(course) >= 0
+  end
+
   def check_for_expired_oauth_credentials
     return unless current_user && current_user.wiki_token == 'invalid'
 

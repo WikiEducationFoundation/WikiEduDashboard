@@ -3,6 +3,8 @@ require "#{Rails.root}/lib/wiki_edits"
 #= Controller for user functionality
 class UsersController < ApplicationController
   respond_to :html, :json
+  before_action :require_participating_user,
+                only: [:save, :enroll]
 
   def signout
     if current_user.nil?
@@ -25,6 +27,7 @@ class UsersController < ApplicationController
 
   def save
     @course = Course.find_by_slug(params[:course_id])
+    pp user_params
     user_params['users'].each do |student|
       if student['deleted']
         s_assignments = @course.assignments.select do |a|
