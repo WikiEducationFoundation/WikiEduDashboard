@@ -276,6 +276,25 @@ describe 'the course page', type: :feature do
     end
   end
 
+  describe 'students view', js: true do
+    before do
+      Revision.last.update_attributes(date: 2.days.ago, user_id: User.first.id)
+      CoursesUsers.last.update_attributes(course_id: Course.find_by(slug: slug).id, user_id: User.first.id)
+    end
+    it 'shows a number of most recent revisions for a student' do
+      js_visit "/courses/#{slug}/students"
+      sleep 1
+      expect(page).to have_content(User.last.wiki_id)
+      student_row = 'table.users tbody tr.students:first-child'
+      within(student_row) do
+        expect(page).to have_content User.first.wiki_id
+        within 'td:nth-of-type(4)' do
+          expect(page.text).to eq('1')
+        end
+      end
+    end
+  end
+
   describe 'uploads view', js: true do
     it 'should display a list of uploads' do
       # First, visit it no uploads
