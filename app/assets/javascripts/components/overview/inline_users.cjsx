@@ -9,7 +9,7 @@ InlineUsers = React.createClass(
     user_list = @props.users.map (user, index) ->
       link = "https://en.wikipedia.org/wiki/User:#{user.wiki_id}"
       if user.real_name?
-        extra_info = " (#{user.wiki_id}#{if user.email? then " / " + user.email else ""})"
+        extra_info = " (#{user.real_name}#{if user.email? then " / " + user.email else ""})"
       else
         extra_info = ''
       extra_info = extra_info + ', ' unless index == last_user_index
