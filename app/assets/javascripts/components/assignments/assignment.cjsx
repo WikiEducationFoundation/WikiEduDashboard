@@ -1,6 +1,9 @@
 React             = require 'react/addons'
 ArticleStore      = require '../../stores/article_store'
 
+userLink = (wiki_id) ->
+  <a key={wiki_id} href="https://en.wikiedia.org/wiki/User:#{wiki_id}">{wiki_id}</a>
+
 Assignment = React.createClass(
   displayName: 'Assignment'
   render: ->
@@ -18,13 +21,26 @@ Assignment = React.createClass(
     ratingMobileClass = ratingClass + ' tablet-only'
     languagePrefix = if article.language then "#{article.language}:" else ''
     formattedTitle = "#{languagePrefix}#{article.title}"
+
+    if article.url
+      articleLink = <a onClick={@stop} href={article.url} target="_blank" className="inline">{formattedTitle} {(if article.new_article then ' (new)' else '')}</a>
+    else
+      articleLink = formattedTitle
+
+
     assignees = []
     reviewers = []
     for assignment in _.sortBy @props.assign_group, 'user_wiki_id'
       if assignment.role == 0
-        assignees.push assignment.user_wiki_id
+        assignees.push userLink(assignment.user_wiki_id)
+        assignees.push ', '
       else if assignment.role == 1
-        reviewers.push assignment.user_wiki_id
+        reviewers.push userLink(assignment.user_wiki_id)
+        reviewers.push ', '
+
+    assignees.pop() if assignees.length
+    reviewers.pop() if reviewers.length
+
 
     <tr className={className}>
       <td className='popover-trigger desktop-only-tc'>
@@ -37,11 +53,11 @@ Assignment = React.createClass(
       <td>
         <div className={ratingMobileClass}><p>{article.pretty_rating}</p></div>
         <p className="title">
-          <a onClick={@stop} href={article.url} target="_blank" className="inline">{formattedTitle} {(if article.new_article then ' (new)' else '')}</a>
+          {articleLink}
         </p>
       </td>
-      <td className='desktop-only-tc'>{assignees.join(', ')}</td>
-      <td className='desktop-only-tc'>{reviewers.join(', ')}</td>
+      <td className='desktop-only-tc'>{assignees}</td>
+      <td className='desktop-only-tc'>{reviewers}</td>
       <td></td>
     </tr>
 )
