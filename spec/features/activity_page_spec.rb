@@ -11,12 +11,6 @@ describe 'activity page', type: :feature, js: true do
            id: 1,
            title: 'Fall 2015')
 
-    if page.driver.is_a?(Capybara::Webkit::Driver)
-      page.driver.allow_url 'fonts.googleapis.com'
-      page.driver.allow_url 'maxcdn.bootstrapcdn.com'
-      page.driver.allow_url 'cdn.ravenjs.com'
-      # page.driver.block_unknown_urls  # suppress warnings
-    end
     login_as(user, scope: :user)
     visit root_path
   end

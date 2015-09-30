@@ -9,14 +9,6 @@ def js_visit(path)
 end
 
 describe 'Students Page', type: :feature, js: true do
-  before :each do
-    if page.driver.is_a?(Capybara::Webkit::Driver)
-      page.driver.allow_url 'fonts.googleapis.com'
-      page.driver.allow_url 'maxcdn.bootstrapcdn.com'
-      page.driver.block_unknown_urls  # suppress warnings
-    end
-  end
-
   before do
     course = create(:course,
                     id: 10001,

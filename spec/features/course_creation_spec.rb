@@ -3,12 +3,6 @@ require 'rails_helper'
 def set_up_suite
   include Devise::TestHelpers, type: :feature
   Capybara.current_driver = :selenium
-  if page.driver.is_a?(Capybara::Webkit::Driver)
-    page.driver.allow_url 'fonts.googleapis.com'
-    page.driver.allow_url 'maxcdn.bootstrapcdn.com'
-    page.driver.allow_url 'cdn.ravenjs.com'
-    # page.driver.block_unknown_urls  # suppress warnings
-  end
 end
 
 def interact_with_clone_form

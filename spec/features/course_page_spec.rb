@@ -111,12 +111,6 @@ describe 'the course page', type: :feature do
   end
 
   before :each do
-    if page.driver.is_a?(Capybara::Webkit::Driver)
-      page.driver.allow_url 'fonts.googleapis.com'
-      page.driver.allow_url 'maxcdn.bootstrapcdn.com'
-      page.driver.allow_url 'cdn.ravenjs.com'
-      # page.driver.block_unknown_urls  # suppress warnings
-    end
     js_visit "/courses/#{slug}"
     sleep 1 # Try to avoid issue where this test fails with 0 rows found.
   end

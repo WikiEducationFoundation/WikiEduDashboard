@@ -60,15 +60,6 @@ describe 'the home page', type: :feature do
     Course.update_all_caches
   end
 
-  before :each do
-    if page.driver.is_a?(Capybara::Webkit::Driver)
-      page.driver.allow_url 'fonts.googleapis.com'
-      page.driver.allow_url 'maxcdn.bootstrapcdn.com'
-      page.driver.allow_url 'cdn.ravenjs.com'
-      # page.driver.block_unknown_urls  # suppress warnings
-    end
-  end
-
   describe 'header' do
     it 'should display stats accurately' do
       visit root_path

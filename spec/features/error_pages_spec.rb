@@ -15,15 +15,6 @@ describe 'error pages' do
     create(:cohort)
   end
 
-  before :each do
-    if page.driver.is_a?(Capybara::Webkit::Driver)
-      page.driver.allow_url 'fonts.googleapis.com'
-      page.driver.allow_url 'maxcdn.bootstrapcdn.com'
-      page.driver.allow_url 'cdn.ravenjs.com'
-      # page.driver.block_unknown_urls  # suppress warnings
-    end
-  end
-
   describe 'for non-existent courses' do
     it 'should describe the 404 problem' do
       visit '/courses/this/course_is_not_(real)'
