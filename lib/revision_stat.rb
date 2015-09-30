@@ -10,8 +10,10 @@ class RevisionStat
       .count
   end
 
-  def self.for_user_and_course(user, course)
-    rev_user = CoursesUsers.find_by(user_id: user.id, course_id: course.id).user
+  def self.recent_revisions_for_user_and_course(user, course)
+    cu = CoursesUsers.find_by(user_id: user.id, course_id: course.id)
+    return [] unless cu.present?
+    rev_user = cu.user
     Revision.where(user_id: rev_user.id)
       .where('date >= ?', REVISION_TIMEFRAME.days.ago.to_date)
   end
