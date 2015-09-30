@@ -135,7 +135,7 @@ en:
     char_changed: Characters Changed
     date_time: Date/Time
     edit_count_description: Total Edits
-    revisions: Recent Revisions
+    revisions: Recent Edits
     student_editors: Student Editors
     view: Views
     view_count_description: Article Views
@@ -182,8 +182,8 @@ en:
     mainspace_chars: Mainspace<br />chars added
     name: Name
     none: This course has no students.
-    recent_revisions: Recent Revisions
-    revisions_doc: Number of revisions in the past 7 days.
+    recent_revisions: Recent Edits
+    revisions_doc: The number of edits made by this editor in the past 7 days
     reviewers: Reviewer(s)
     reviewing: Reviewing
     training_complete:
