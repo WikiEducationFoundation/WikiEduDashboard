@@ -5,14 +5,12 @@ InlineUsers = React.createClass(
   displayName: 'InlineUsers'
   render: ->
     key = @props.title + '_' + @props.role
-    if @props.users.length > 0 && @props.users[0].real_name?
-      user_list = @props.users.map (user) ->
-        if user.real_name?
-          "#{user.real_name} (#{user.wiki_id}#{if user.email? then " / " + user.email else ""})"
-        else
-          user.wiki_id
-    else
-      user_list = _.pluck(@props.users, 'wiki_id')
+    user_list = @props.users.map (user) ->
+      if user.real_name?
+        "#{user.real_name} (#{user.wiki_id}#{if user.email? then " / " + user.email else ""})"
+      else
+        user.wiki_id
+
     user_list = user_list.join(', ')
     user_list = if user_list.length > 0 then user_list else 'None'
     inline_list = <span>{@props.title}: {user_list}</span> if @props.users.length > 0 || @props.editable
