@@ -6,14 +6,21 @@ InlineUsers = React.createClass(
   render: ->
     key = @props.title + '_' + @props.role
     user_list = @props.users.map (user) ->
+      link = "https://en.wikipedia.org/wiki/User:#{user.wiki_id}"
       if user.real_name?
-        "#{user.real_name} (#{user.wiki_id}#{if user.email? then " / " + user.email else ""})"
+        displayName = "#{user.real_name} (#{user.wiki_id}#{if user.email? then " / " + user.email else ""})"
       else
-        user.wiki_id
+        displayName = user.wiki_id
+      <a key={user.wiki_id} href={link}>{displayName}</a>
 
-    user_list = user_list.join(', ')
-    user_list = if user_list.length > 0 then user_list else 'None'
-    inline_list = <span>{@props.title}: {user_list}</span> if @props.users.length > 0 || @props.editable
+    # This is feels really hacky, but it works.
+    last_user_index = user_list.length - 1
+    inline_user_list = ([user, ', '] for user, index in user_list when index != last_user_index)
+    inline_user_list.push user_list[last_user_index]
+
+    inline_user_list = if user_list.length > 0 then inline_user_list else 'None'
+    if @props.users.length > 0 || @props.editable
+      inline_list = <span>{@props.title}: {inline_user_list}</span>
     allowed = @props.role != 4 || (@props.current_user.role == 4 || @props.current_user.admin)
     button = <EnrollButton {...@props} users={@props.users} role={@props.role} key={key} inline=true allowed={allowed} show={@props.editable && allowed} />
 
