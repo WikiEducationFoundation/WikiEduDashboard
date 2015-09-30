@@ -15,42 +15,10 @@ class UsersController < ApplicationController
     end
   end
 
-  def update_util(model, object)
-    if object['id'].nil?
-      model.create object
-    elsif object['deleted']
-      model.destroy object['id']
-    else
-      model.update object['id'], object
-    end
-  end
-
-  def save
+  def save_assignments
+    require "#{Rails.root}/lib/assignments_manager"
     @course = Course.find_by_slug(params[:course_id])
-    pp user_params
-    user_params['users'].each do |student|
-      if student['deleted']
-        s_assignments = @course.assignments.select do |a|
-          a.user_id == student['id']
-        end
-        s_assignments.to_json!
-        WikiEdits.update_assignments current_user, @course, s_assignments, true
-      end
-      update_util User, student
-    end
-
-    WikiEdits.update_assignments current_user, @course,
-                                 user_params['assignments']
-
-    user_params['assignments'].each do |assignment|
-      assignment['course_id'] = @course.id
-      assignment['article_title'].gsub!(' ', '_')
-      assigned = Article.find_by(title: assignment['article_title'])
-      assignment['article_id'] = assigned.id unless assigned.nil?
-      update_util Assignment, assignment
-    end
-
-    WikiEdits.update_course(@course, current_user)
+    AssignmentsManager.update_assignments(@course, user_params, current_user)
     render 'users', formats: :json
   end
 

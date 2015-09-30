@@ -63,13 +63,9 @@ Rails.application.routes.draw do
 
   get 'lookups/(:action)(.:format)' => 'lookups'
 
-  # Enrollment
-  post 'courses/:course_id/users' => 'users#save',
+  # Assigning articles to students
+  post 'courses/:course_id/users' => 'users#save_assignments',
        constraints: { course_id: /.*/ }
-  # delete 'courses/:course_id/users' => 'users#remove',
-  #        constraints: { course_id: /.*/ }
-  # post 'courses/:course_id/users/add' => 'users#add',
-  #      constraints: { course_id: /.*/ }
 
   # Timeline
   resources :courses, constraints: { id: /.*/ } do
