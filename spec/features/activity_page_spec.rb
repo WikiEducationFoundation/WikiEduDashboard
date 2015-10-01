@@ -3,7 +3,6 @@ require 'rails_helper'
 describe 'activity page', type: :feature, js: true do
   before do
     include Devise::TestHelpers, type: :feature
-    Capybara.current_driver = :selenium
   end
 
   before :each do
@@ -63,7 +62,7 @@ describe 'activity page', type: :feature, js: true do
         end
       end
 
-      context 'no plagiarism revisions' do
+      context 'plagiarism revisions' do
         before do
           allow(RevisionAnalyticsService).to receive(:suspected_plagiarism)
             .and_return([revision])
@@ -75,13 +74,23 @@ describe 'activity page', type: :feature, js: true do
         end
       end
     end
+
+    context 'recent edits' do
+      before do
+        allow(RevisionAnalyticsService).to receive(:recent_edits)
+          .and_return([revision])
+      end
+
+      it 'displays a list of recent revisions' do
+        visit '/recent-activity/recent-edits'
+        assert_page_content article.title.gsub('_', ' ')
+      end
+    end
   end
 
   def view_plagiarism_page
     click_link 'Recent Activity'
-    sleep 1
     click_link 'Possible Plagiarism'
-    sleep 1
   end
 
   def assert_page_content(content)

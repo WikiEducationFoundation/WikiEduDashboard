@@ -11,7 +11,7 @@ describe RevisionAnalyticsService do
                              ithenticate_id: r1_id) }
   let(:r1_id) { nil }
 
-  describe '#dyk_eligible' do
+  describe '.dyk_eligible' do
     let!(:course)    { create(:course, id: 10001, start: 1.month.ago, end: 1.month.from_now) }
     let!(:user)      { create(:user, id: 1, wiki_id: 'Student_1') }
     let!(:c_user)    { create(:courses_user, user_id: 1, course_id: 10001, role: 0) }
@@ -48,7 +48,7 @@ describe RevisionAnalyticsService do
     end
   end
 
-  describe '#suspected_plagiarism' do
+  describe '.suspected_plagiarism' do
     subject { described_class.suspected_plagiarism }
     context 'revision with no ithenticate_id' do
       let(:r1_id) { nil }
@@ -62,6 +62,13 @@ describe RevisionAnalyticsService do
       it 'should be included' do
         expect(subject).to include(revision)
       end
+    end
+  end
+
+  describe '.recent_edits' do
+    subject { described_class.recent_edits }
+    it 'should return recent edits' do
+      expect(subject).to include(revision)
     end
   end
 end
