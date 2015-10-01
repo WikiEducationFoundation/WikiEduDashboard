@@ -53,28 +53,38 @@ class WizardTimelineManager
 
     return [] if available_weeks <= 0
 
-    timeline = content_groups.flatten.map do |week|
+    timeline = initial_weeks_and_weights(content_groups)
+
+    while timeline.size > available_weeks
+      timeline = squish_timeline_by_one_week(timeline)
+    end
+    timeline
+  end
+
+  def initial_weeks_and_weights(content_groups)
+    content_groups.flatten.map do |week|
       OpenStruct.new(
         weight: week['weight'],
         blocks: week['blocks']
       )
     end
+  end
 
-    while timeline.size > available_weeks
-      low_weight = 1000       # arbitrarily high number
-      low_cons = nil
-      timeline.each_cons(2) do |week_set|
-        next unless week_set.size == 2
-        cons_weight = week_set[0].weight + week_set[1].weight
-        if cons_weight < low_weight
-          low_weight = cons_weight
-          low_cons = week_set
-        end
+  def squish_timeline_by_one_week(timeline)
+    low_weight = 1000       # arbitrarily high number
+    low_cons = nil
+    timeline.each_cons(2) do |week_set|
+      next unless week_set.size == 2
+      cons_weight = week_set[0].weight + week_set[1].weight
+      if cons_weight < low_weight
+        low_weight = cons_weight
+        low_cons = week_set
       end
-      low_cons[0][:weight] += low_cons[1][:weight]
-      low_cons[0][:blocks] += low_cons[1][:blocks]
-      timeline.delete low_cons[1]
     end
+    low_cons[0][:weight] += low_cons[1][:weight]
+    low_cons[0][:blocks] += low_cons[1][:blocks]
+    timeline.delete low_cons[1]
+
     timeline
   end
 

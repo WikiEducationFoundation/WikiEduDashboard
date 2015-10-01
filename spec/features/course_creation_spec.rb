@@ -336,6 +336,7 @@ describe 'New course creation and editing', type: :feature do
       Course.last.weeks.each_with_index do |week, i|
         expect(week.order).to eq(i + 1)
       end
+      expect(Course.first.blocks.count).to eq(26)
     end
 
     it 'should squeeze assignments into the course dates' do
@@ -368,6 +369,7 @@ describe 'New course creation and editing', type: :feature do
 
       expect(page).to have_content 'Week 6'
       expect(page).not_to have_content 'Week 7'
+      expect(Course.first.blocks.count).to eq(26)
     end
   end
 
@@ -382,19 +384,15 @@ describe 'cloning a course', js: true do
     set_up_suite
   end
 
-  let!(:course)    { create(:course,
-                     id: 10001,
-                     start: 1.year.from_now.to_date,
-                     end: 2.years.from_now.to_date,
-                     submitted: true
-                   )}
+  let!(:course) do
+    create(:course, id: 10001, start: 1.year.from_now.to_date,
+                    end: 2.years.from_now.to_date, submitted: true)
+  end
   let!(:week)      { create(:week, course_id: course.id) }
   let!(:block)     { create(:block, week_id: week.id, due_date: course.start + 3.months) }
-  let!(:gradeable) { create(:gradeable,
-                      gradeable_item_type: 'block',
-                      gradeable_item_id: block.id,
-                      points: 10
-                   )}
+  let!(:gradeable) do
+    create(:gradeable, gradeable_item_type: 'block', gradeable_item_id: block.id, points: 10)
+  end
   let!(:user)      { create(:user, permissions: 1) }
   let!(:c_user)    { create(:courses_user, course_id: course.id, user_id: user.id) }
   let!(:term)      { 'Spring 2016' }
@@ -412,7 +410,7 @@ describe 'cloning a course', js: true do
 
     expect(page).to have_content 'Course Successfully Cloned'
 
-    #interact_with_clone_form
+    # interact_with_clone_form
 
     # form not working right now
     visit "/courses/#{Course.last.slug}"
