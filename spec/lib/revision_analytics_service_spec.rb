@@ -11,23 +11,24 @@ describe RevisionAnalyticsService do
                              ithenticate_id: r1_id) }
   let(:r1_id) { nil }
 
-  describe '.dyk_eligible' do
-    let!(:course)    { create(:course, id: 10001, start: 1.month.ago, end: 1.month.from_now) }
-    let!(:user)      { create(:user, id: 1, wiki_id: 'Student_1') }
-    let!(:c_user)    { create(:courses_user, user_id: 1, course_id: 10001, role: 0) }
+  describe '#dyk_eligible' do
+    let(:opts)       { {} }
+    let(:course)     { create(:course, id: 10001, start: 1.month.ago, end: 1.month.from_now) }
+    let(:user)       { create(:user, id: 1, wiki_id: 'Student_1') }
+    let!(:c_user)    { create(:courses_user, user_id: user.id, course_id: course.id, role: 0) }
     let!(:article)   { create(:article, id: 1, title: 'Student_1/A_great_draft', namespace: 2) }
     let!(:revision5) { create(:revision, id: 5, user_id: 1, article_id: 1, date: 1.week.ago, wp10: 59) }
 
     let!(:article4)  { create(:article, id: 4, title: 'Student_1/Another_good_draft', namespace: 2) }
     let!(:revision4) { create(:revision, id: 4, user_id: 1, article_id: 4, date: 2.weeks.ago, wp10: 60) }
 
-    # Artciles/Revisions that should not show up
+    # Articles/Revisions that should not show up
     let!(:article2)  { create(:article, id: 2, title: 'Student_1/A_poor_draft', namespace: 2) }
     let!(:revision2) { create(:revision, id: 2, user_id: 1, article_id: 2, date: 1.day.ago, wp10: 20) }
     let!(:article3)  { create(:article, id: 3, title: 'Student_1/An_old_draft', namespace: 2) }
     let!(:revision3) { create(:revision, id: 3, user_id: 1, article_id: 3, date: 1.year.ago, wp10: 80) }
 
-    subject { described_class.dyk_eligible }
+    subject { described_class.dyk_eligible(opts) }
 
     context 'revisions with sufficient wp10' do
       it 'should be returned' do
@@ -44,6 +45,22 @@ describe RevisionAnalyticsService do
     context 'revisions that are too old' do
       it 'should not be returned' do
         expect(subject).not_to include(article3)
+      end
+    end
+
+    context '`scoped` param' do
+      context 'article is in scope' do
+        let(:opts) {{ scoped: true, current_user: user }}
+        it 'includes the article' do
+          expect(subject).to include(article)
+        end
+      end
+      context 'article is not in scope' do
+        let(:user) { create(:user) }
+        let(:opts) {{ scoped: true, current_user: user }}
+        it 'does not include the article' do
+          expect(subject).not_to include(article)
+        end
       end
     end
   end

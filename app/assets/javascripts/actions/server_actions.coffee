@@ -47,8 +47,8 @@ ServerActions = Flux.createActions
     API.fetchRevisions(studentId, courseId).then (data) ->
       { actionType: 'RECEIVE_REVISIONS', data: data }
 
-  fetchDYKArticles: ->
-    API.fetchDykArticles().then (data) ->
+  fetchDYKArticles: (opts={}) ->
+    API.fetchDykArticles(opts=opts).then (data) ->
       { actionType: 'RECEIVE_DYK', data: data }
 
   fetchSuspectedPlagiarism: ->

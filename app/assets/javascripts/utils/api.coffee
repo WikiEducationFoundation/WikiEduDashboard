@@ -54,11 +54,11 @@ API =
         console.log 'Error: ' + obj.responseJSON.message
         rej obj
 
-  fetchDykArticles: ->
+  fetchDykArticles: (opts={}) ->
     new Promise (res, rej) ->
       $.ajax
         type: 'GET',
-        url: '/revision_analytics/dyk_eligible.json',
+        url: "/revision_analytics/dyk_eligible.json?scoped=#{opts.scoped || false}",
         success: (data) ->
           console.log 'Received DYK'
           res data
