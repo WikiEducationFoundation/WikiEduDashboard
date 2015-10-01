@@ -1,0 +1,22 @@
+<div class="container">
+  <br><br><br><br><br>
+  <ul>
+    <%- @libs.each do |lib| %>
+      <li>
+        <h3><%= lib.keys.first %></h3>
+        <ul>
+          <%- lib.values.each do |modules| %>
+            <%- modules.each do |t_module| %>
+              <%- mod = t_module.last %>
+              <li>
+                <a href=<%= "modules/#{mod['slug']}" %>>
+                  <%= mod['title'] %>
+                </a>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+      </li>
+    <% end %>
+  </ul>
+</div>

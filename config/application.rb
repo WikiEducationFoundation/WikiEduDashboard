@@ -25,7 +25,7 @@ module WikiEduDashboard
 
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
-    paths = %w(lib presenters).collect { |path| Rails.root.join(path) }
+    paths = %w(lib presenters training_content).collect { |path| Rails.root.join(path) }
     config.autoload_paths += paths
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
