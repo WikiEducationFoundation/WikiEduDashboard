@@ -67,6 +67,6 @@
     "react-dnd": "ntdb/react-dnd",
     "react-router": "^0.13.2",
     "react-typeahead": "^1.1.1",
-    "react-weekday-picker": "1.0.3"
+    "react-weekday-picker": "1.0.4"
   }
 }
