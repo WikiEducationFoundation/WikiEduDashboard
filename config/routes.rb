@@ -115,6 +115,10 @@ Rails.application.routes.draw do
   post 'courses/:course_id/wizard/:wizard_id' => 'wizard#submit_wizard',
        constraints: { course_id: /.*/ }
 
+  get 'training' => 'training#index'
+  get 'training/:library_id' => 'training#show'
+
+
   # Misc
   get 'courses' => 'courses#index'
   get 'talk' => 'courses#talk'

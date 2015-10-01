@@ -1,0 +1,7 @@
+student:
+  one:
+    slug: path-to-module
+    title: Hello from Student Module One
+  two:
+    slug: path-to-module2
+    title: Hello from Student Module Two

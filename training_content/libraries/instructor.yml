@@ -1,0 +1,7 @@
+instructor:
+  one:
+    slug: path-to-module
+    title: Hello from Instructor Module One
+  two:
+    slug: path-to-module2
+    title: Hello from Instructor Module Two
