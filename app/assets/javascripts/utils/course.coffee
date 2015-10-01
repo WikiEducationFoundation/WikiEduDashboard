@@ -6,7 +6,7 @@ $ ->
       valueNames: ['atitle']
     })
     userCourseList = new List('user_courses', {
-      valueNames: ['utitle','ucharacters','uviews','ustudents']
+      valueNames: ['utitle','urevisions','ucharacters','uviews','ustudents']
     })
     courseList = new List('courses', {
       valueNames: ['title','revisions','characters','views','students']
