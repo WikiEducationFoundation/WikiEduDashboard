@@ -22,18 +22,6 @@ DidYouKnowHandler = React.createClass(
   setCourseScope: (e) ->
     scoped = e.target.checked
     ServerActions.fetchDYKArticles(scoped: scoped)
-  clearAllSortableClassNames: ->
-    Array.prototype.map.call document.getElementsByClassName('sortable'), (el) ->
-      el.classList.remove('asc')
-      el.classList.remove('desc')
-  sortArticles: (e) ->
-    sortOrder = if e.target.classList.contains('asc') then 'desc' else 'asc'
-    @clearAllSortableClassNames()
-    e.target.classList.add(sortOrder)
-    key = e.target.dataset.sortKey
-    articles = _.sortByOrder(@state.articles, [key])
-    articles = articles.reverse() if sortOrder is 'desc'
-    @setState articles: articles
 
   render: ->
     headers = [
@@ -45,11 +33,6 @@ DidYouKnowHandler = React.createClass(
 
     noActivityMessage = 'There are not currently any DYK-eligible articles.'
 
-    ths = headers.map (header) =>
-      <th onClick={@sortArticles} className='sortable' data-sort-key={header.key}>
-        {header.title}
-      </th>
-
     <div>
       <label>
         <input ref='myCourses' type='checkbox' onChange={@setCourseScope} />
@@ -57,7 +40,7 @@ DidYouKnowHandler = React.createClass(
       </label>
       <ActivityTable
         activity={@state.articles}
-        headers={ths}
+        headers={headers}
         noActivityMessage={noActivityMessage}
       />
   </div>
