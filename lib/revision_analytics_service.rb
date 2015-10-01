@@ -4,10 +4,10 @@ class RevisionAnalyticsService
   # Entry points #
   ################
 
-  def self.dyk_eligible
+  def self.dyk_eligible(opts={})
     wp10_limit = ENV['dyk_wp10_limit'] || 30
     good_student_revisions = Revision
-                             .where(user_id: current_student_ids)
+                             .where(user_id: current_student_ids(opts))
                              .where('wp10 > ?', wp10_limit)
                              .where('date > ?', 2.months.ago)
     good_article_ids = good_student_revisions.pluck(:article_id)
@@ -55,8 +55,14 @@ class RevisionAnalyticsService
     end
 
     # Students in current courses, excluding instructors
-    def current_student_ids
-      current_course_ids = Course.current.pluck(:id)
+    def current_student_ids(opts)
+      if opts[:scoped] == 'true'
+        current_course_ids = Course.joins(:courses_users)
+                               .where('courses_users.user_id = ?', opts[:current_user].id)
+                               .current.pluck(:id)
+      else
+        current_course_ids = Course.current.pluck(:id)
+      end
       current_student_ids = CoursesUsers
                             .where(course_id: current_course_ids, role: 0)
                             .pluck(:user_id)

@@ -24,10 +24,26 @@ describe 'activity page', type: :feature, js: true do
   end
 
   describe 'admins' do
-    let!(:article)  { create(:article, namespace: 118) }
-    let!(:user)     { create(:admin) }
+    let(:article)  { create(:article, namespace: 118) }
+    let(:article2) { create(:article, namespace: 118, title: 'pandas') }
+    let!(:admin)   { create(:admin) }
+    let!(:user)    { create(:user, id: 100) }
+    let!(:user2)   { create(:user, id: 101) }
+    let(:course)   { create(:course, end: 1.year.from_now) }
+    let(:course2)  { create(:course, end: 1.year.from_now) }
+    let!(:cu1)     { create(:courses_user, user_id: user.id, course_id: course.id) }
+    let!(:cu2)     { create(:courses_user, user_id: user2.id, course_id: course2.id) }
+    let!(:cu3)     { create(:courses_user, user_id: admin.id, course_id: course.id) }
     let!(:revision) do
-      create(:revision, article_id: article.id, wp10: 50, user_id: user.id)
+      create(:revision, article_id: article.id, wp10: 50, user_id: user.id, date: 2.days.ago)
+    end
+    let!(:revision2) do
+      create(:revision, article_id: article2.id, wp10: 50, user_id: user2.id, date: 2.days.ago)
+    end
+
+    before do
+      login_as(admin, scope: :user)
+      visit root_path
     end
 
     it 'should be viewable by admins' do
@@ -37,15 +53,26 @@ describe 'activity page', type: :feature, js: true do
     end
 
     context 'dyk eligible' do
-      before do
-        allow(RevisionAnalyticsService).to receive(:dyk_eligible)
-          .and_return([article])
-      end
-
       it 'displays a list of DYK-eligible articles' do
         click_link 'Recent Activity'
         sleep 1
         expect(page).to have_content article.title.gsub('_', ' ')
+      end
+
+      it 'filters the courses to my courses' do
+        # Admin is admin of course 1, should only see user1's revision
+        # when checked
+        click_link 'Recent Activity'
+        sleep 1
+        within '.activity-table.list' do
+          expect(page).to have_content article.title.tr('_', ' ')
+          expect(page).to have_content article2.title.tr('_', ' ')
+        end
+        check 'Show My Courses Only'
+        within '.activity-table.list' do
+          expect(page).to have_content article.title.tr('_', ' ')
+          expect(page).not_to have_content article2.title.tr('_', ' ')
+        end
       end
     end
 
