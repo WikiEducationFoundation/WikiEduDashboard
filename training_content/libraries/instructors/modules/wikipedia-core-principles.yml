@@ -1,5 +1,18 @@
 module:
   title: Wikipedia Training Core Principles
+  slides:
+    1:
+      title: Introduction to Wikipedia’s policies and guidelines
+      summary: Lorem ipsum dolor sit amet
+    2:
+      title: Wikipedia's Five Pillars
+      summary: Lorem ipsum dolor sit amet
+    3:
+      title: 'Beyond the Five Pillars: Verifyability'
+      summary: Lorem ipsum dolor sit amet
+    4:
+      title: 'Beyond the Five Pillars: Notability'
+      summary: Lorem ipsum dolor sit amet
   intro: |
     This module will provide a basic overview of Wikipedia’s core polocies and guidelines.
 
