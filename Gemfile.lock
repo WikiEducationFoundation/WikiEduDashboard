@@ -316,6 +316,8 @@ GEM
       multi_json (~> 1.0)
       simplecov-html (~> 0.9.0)
     simplecov-html (0.9.0)
+    skylight (0.8.1)
+      activesupport (>= 3.0.0)
     slop (3.6.0)
     sprockets (2.12.3)
       hike (~> 1.2)
@@ -403,6 +405,7 @@ DEPENDENCIES
   selenium-webdriver
   sentry-raven
   simplecov
+  skylight
   squeel!
   vcr!
   webmock
