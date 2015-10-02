@@ -1,0 +1,7 @@
+students:
+  one:
+    slug: 'module-name'
+    title: First module name
+  two:
+    slug: 'module-name2'
+    title: Second module name

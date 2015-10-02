@@ -117,6 +117,7 @@ Rails.application.routes.draw do
 
   get 'training' => 'training#index'
   get 'training/:library_id' => 'training#show'
+  get 'training/:library_id/:module_id' => 'training#training_module'
 
 
   # Misc

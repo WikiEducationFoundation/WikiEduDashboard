@@ -1,0 +1,17 @@
+<div class="container">
+  <br><br><br><br><br>
+  <h3>
+    <%= @library.titleize %>
+  </h3>
+  <ul>
+    <%- mods = @modules[@modules.keys.first] %>
+    <%- mods.each do |t_module| %>
+      <%- mod = t_module.last %>
+      <li>
+        <a href=<%= "#{@library}/#{mod['slug']}" %>>
+          <%= mod['title'] %>
+        </a>
+      </li>
+    <% end %>
+  </ul>
+</div>

@@ -5,8 +5,14 @@ class TrainingController < ApplicationController
   end
 
   def show
-    @training_content = TrainingLibrary.find(library: params[:library_id])
-    render 'index'
+    @library = params[:library_id]
+    @modules = TrainingLibrary.find_library(library: @library)
+  end
+
+  def training_module
+    library = params[:library_id]
+    t_module = params[:module_id]
+    @training_module = TrainingLibrary.find_module(library: library, module: t_module)
   end
 
 end
