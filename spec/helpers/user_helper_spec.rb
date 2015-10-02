@@ -5,7 +5,7 @@ describe UsersHelper, type: :helper do
     it 'should return a link to a user\'s contributions page' do
       user = build(:user)
       link = contribution_link(user)
-      expect(link).to include('<a href=')
+      expect(link).to match(/<a.*href=/)
     end
   end
 end
