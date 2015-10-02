@@ -66,11 +66,11 @@ API =
         console.log 'Error: ' + obj.responseJSON.message
         rej obj
 
-  fetchSuspectedPlagiarism: ->
+  fetchSuspectedPlagiarism: (opts={}) ->
     new Promise (res, rej) ->
       $.ajax
         type: 'GET',
-        url: '/revision_analytics/suspected_plagiarism.json',
+        url: "/revision_analytics/suspected_plagiarism.json?scoped=#{opts.scoped || false}",
         success: (data) ->
           console.log 'Recieved suspected plagiarism'
           res data
@@ -78,11 +78,11 @@ API =
         console.log 'Error: ' + obj.responseJSON.message
         rej obj
 
-  fetchRecentEdits: ->
+  fetchRecentEdits: (opts={}) ->
     new Promise (res, rej) ->
       $.ajax
         type: 'GET',
-        url: '/revision_analytics/recent_edits.json',
+        url: "/revision_analytics/recent_edits.json?scoped=#{opts.scoped || false}",
         success: (data) ->
           console.log 'Recieved recent edits'
           res data

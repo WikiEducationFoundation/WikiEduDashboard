@@ -51,12 +51,12 @@ ServerActions = Flux.createActions
     API.fetchDykArticles(opts=opts).then (data) ->
       { actionType: 'RECEIVE_DYK', data: data }
 
-  fetchSuspectedPlagiarism: ->
-    API.fetchSuspectedPlagiarism().then (data) ->
+  fetchSuspectedPlagiarism: (opts={}) ->
+    API.fetchSuspectedPlagiarism(opts=opts).then (data) ->
       { actionType: 'RECEIVE_SUSPECTED_PLAGIARISM', data: data }
 
-  fetchRecentEdits: ->
-    API.fetchRecentEdits().then (data) ->
+  fetchRecentEdits: (opts={}) ->
+    API.fetchRecentEdits(opts=opts).then (data) ->
       { actionType: 'RECEIVE_RECENT_EDITS', data: data }
 
   fetchUserAssignments: (opts) ->

@@ -5,9 +5,35 @@ class RevisionAnalyticsService
   ################
 
   def self.dyk_eligible(opts={})
+    new(opts).dyk_eligible
+  end
+
+  def self.suspected_plagiarism(opts={})
+    new(opts).suspected_plagiarism
+  end
+
+  def self.recent_edits(opts={})
+    new(opts).recent_edits
+  end
+
+  #########
+  # Setup #
+  #########
+
+  def initialize(opts)
+    return unless opts[:scoped] == 'true'
+    @course_ids = Course.joins(:courses_users)
+                  .where('courses_users.user_id = ?', opts[:current_user].id)
+                  .current.pluck(:id)
+  end
+
+  #################
+  # Main routines #
+  #################
+  def dyk_eligible
     wp10_limit = ENV['dyk_wp10_limit'] || 30
     good_student_revisions = Revision
-                             .where(user_id: current_student_ids(opts))
+                             .where(user_id: student_ids)
                              .where('wp10 > ?', wp10_limit)
                              .where('date > ?', 2.months.ago)
     good_article_ids = good_student_revisions.pluck(:article_id)
@@ -25,52 +51,52 @@ class RevisionAnalyticsService
     good_drafts
   end
 
-  def self.suspected_plagiarism
-    Revision.where.not(ithenticate_id: nil)
+  def suspected_plagiarism
+    if @course_ids
+      suspected_revisions = Revision.where.not(ithenticate_id: nil).where(user_id: student_ids)
+    else
+      suspected_revisions = Revision.where.not(ithenticate_id: nil)
+    end
+    suspected_revisions
   end
 
-  def self.recent_edits
-    Revision.last(200)
+  def recent_edits
+    if @course_ids
+      recent_revisions = Revision.where(user_id: student_ids).last(200)
+    else
+      recent_revisions = Revision.last(200)
+    end
+    recent_revisions
   end
-
   ##################
   # Helper methods #
   ##################
-  class << self
-    private
 
-    def articles_sorted_by_latest_revision(article_ids)
-      last_revisions = Revision
-                       .where(article_id: article_ids)
-                       .select('MAX(date) as date, article_id')
-                       .group(:article_id)
-      last_rev_dates = {}
-      last_revisions.each do |revision|
-        last_rev_dates[revision.article_id] = revision.date
-      end
-
-      articles = Article.where(id: article_ids).to_a
-      articles.sort! { |a, b| last_rev_dates[a.id] <=>  last_rev_dates[b.id] }
-      articles.reverse!
+  def articles_sorted_by_latest_revision(article_ids)
+    last_revisions = Revision
+                     .where(article_id: article_ids)
+                     .select('MAX(date) as date, article_id')
+                     .group(:article_id)
+    last_rev_dates = {}
+    last_revisions.each do |revision|
+      last_rev_dates[revision.article_id] = revision.date
     end
 
-    # Students in current courses, excluding instructors
-    def current_student_ids(opts)
-      if opts[:scoped] == 'true'
-        current_course_ids = Course.joins(:courses_users)
-                               .where('courses_users.user_id = ?', opts[:current_user].id)
-                               .current.pluck(:id)
-      else
-        current_course_ids = Course.current.pluck(:id)
-      end
-      current_student_ids = CoursesUsers
-                            .where(course_id: current_course_ids, role: 0)
-                            .pluck(:user_id)
-      current_instructor_ids = CoursesUsers
-                               .where(course_id: current_course_ids, role: 1)
-                               .pluck(:user_id)
-      pure_student_ids = current_student_ids - current_instructor_ids
-      pure_student_ids
-    end
+    articles = Article.where(id: article_ids).to_a
+    articles.sort! { |a, b| last_rev_dates[a.id] <=>  last_rev_dates[b.id] }
+    articles.reverse!
+  end
+
+  # Students in current courses, excluding instructors
+  def student_ids
+    @course_ids ||= Course.current.pluck(:id)
+    student_ids = CoursesUsers
+                  .where(course_id: @course_ids, role: 0)
+                  .pluck(:user_id)
+    instructor_ids = CoursesUsers
+                     .where(course_id: @course_ids, role: 1)
+                     .pluck(:user_id)
+    pure_student_ids = student_ids - instructor_ids
+    pure_student_ids
   end
 end

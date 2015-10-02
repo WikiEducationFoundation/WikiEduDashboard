@@ -19,6 +19,9 @@ PlagiarismHandler = React.createClass(
     @setState getState()
   componentWillMount: ->
     ServerActions.fetchSuspectedPlagiarism()
+  setCourseScope: (e) ->
+      scoped = e.target.checked
+      ServerActions.fetchSuspectedPlagiarism(scoped: scoped)
 
   render: ->
     headers = [
@@ -29,11 +32,17 @@ PlagiarismHandler = React.createClass(
     ]
     noActivityMessage = 'There are not currently any recent revisions suspected of plagiarism.'
 
-    <ActivityTable
-      activity={@state.revisions}
-      headers={headers}
-      noActivityMessage={noActivityMessage}
-    />
+    <div>
+      <label>
+        <input ref='myCourses' type='checkbox' onChange={@setCourseScope} />
+        Show My Courses Only
+      </label>
+      <ActivityTable
+        activity={@state.revisions}
+        headers={headers}
+        noActivityMessage={noActivityMessage}
+      />
+    </div>
 )
 
 module.exports = PlagiarismHandler

@@ -19,6 +19,9 @@ RecentEditsHandler = React.createClass(
     @setState getState()
   componentWillMount: ->
     ServerActions.fetchRecentEdits()
+  setCourseScope: (e) ->
+      scoped = e.target.checked
+      ServerActions.fetchRecentEdits(scoped: scoped)
 
   render: ->
     headers = [
@@ -29,11 +32,16 @@ RecentEditsHandler = React.createClass(
     ]
     noActivityMessage = 'Loading recent edits...'
 
-    <ActivityTable
-      activity={@state.revisions}
-      headers={headers}
-      noActivityMessage={noActivityMessage}
-    />
-
+    <div>
+      <label>
+        <input ref='myCourses' type='checkbox' onChange={@setCourseScope} />
+        Show My Courses Only
+      </label>
+      <ActivityTable
+        activity={@state.revisions}
+        headers={headers}
+        noActivityMessage={noActivityMessage}
+      />
+    </div>
 )
 module.exports = RecentEditsHandler
