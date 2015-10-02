@@ -8,6 +8,18 @@
     <%= raw html %>
   </div>
 
-  <div class="training__toc">
+  <div class="training__toc-container">
+    <ol class="training__toc">
+      <%- mod['slides'].each do |slide| %>
+        <%- slide_attrs = slide.last %>
+        <li>
+          <span class="training__toc-progress"></span>
+          <div class="training__toc-inner">
+            <h3><%= slide.first %>. <%= slide_attrs['title'] %></h3>
+            <p><%= slide_attrs['summary'] %></p>
+          </div>
+        </li>
+      <% end %>
+    </ol>
   </div>
 </div>
