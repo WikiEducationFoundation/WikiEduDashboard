@@ -1,0 +1,7 @@
+instructors:
+  one:
+    slug: 'wikipedia-core-principles'
+    title: Wikipedia Core Principles
+  two:
+    slug: 'module-name2'
+    title: Second module name

@@ -1,0 +1,13 @@
+<br><br><br><br><br>
+<div class="container training">
+  <div class="training__intro">
+    <%- mod = @training_module['module']%>
+    <h1><%= mod['title'] %></h1>
+    <%- markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML) %>
+    <%- html = markdown.render(mod['intro']) %>
+    <%= raw html %>
+  </div>
+
+  <div class="training__toc">
+  </div>
+</div>
