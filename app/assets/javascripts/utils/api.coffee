@@ -236,7 +236,7 @@ API =
       .fail (obj, status) ->
         @obj = obj
         @status = status
-        console.log 'Couldn\'t save timeline! ' + obj.responseJSON.message
+        console.log 'Couldn\'t save timeline!'
         RavenLogger['obj'] = @obj
         RavenLogger['status'] = @status
         Raven.captureMessage('saveTimeline failed',
@@ -265,7 +265,7 @@ API =
           console.log 'Saved gradeables!'
           res data
       .fail (obj, status) ->
-        console.log 'Couldn\'t save gradeables! ' + obj.responseJSON.message
+        console.log 'Couldn\'t save gradeables!'
         rej obj
   saveCourse: (data, course_id=null) ->
     append = if course_id? then '/' + course_id else ''
@@ -292,7 +292,7 @@ API =
       .fail (obj, status) ->
         @obj = obj
         @status = status
-        console.log 'Couldn\'t save course! ' + obj
+        console.log 'Couldn\'t save course!'
         RavenLogger['obj'] = @obj
         RavenLogger['status'] = @status
         Raven.captureMessage('saveCourse failed',
@@ -325,7 +325,7 @@ API =
           console.log 'Saved students!'
           res data
       .fail (obj, status) ->
-        console.log 'Couldn\'t save students! ' + obj.responseJSON.message
+        console.log 'Couldn\'t save students!'
         rej obj
 
   deleteCourse: (course_id) ->
