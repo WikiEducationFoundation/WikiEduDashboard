@@ -42,7 +42,6 @@ describe Replica do
       expect(response).to be_nil
     end
 
-    # rubocop:disable Style/NumericLiterals
     it 'should return revisions from this term' do
       VCR.use_cassette 'replica/revisions' do
         all_users = [
@@ -76,7 +75,6 @@ describe Replica do
         expect(response.count).to eq(1)
       end
     end
-    # rubocop:enable Style/NumericLiterals
 
     it 'should work for users with a comma in the name' do
       VCR.use_cassette 'replica/comma' do
@@ -165,10 +163,8 @@ describe Replica do
           { 'wiki_id' => 'Patyelena25' },
           { 'wiki_id' => 'Lizmich91' }
         ]
-        # rubocop:disable Style/NumericLiterals
         rev_start = 2015_02_12_003430
         rev_end = 2015_03_10_003430
-        # rubocop:enable Style/NumericLiterals
 
         all_users.each_with_index do |u, i|
           all_users[i] = OpenStruct.new u

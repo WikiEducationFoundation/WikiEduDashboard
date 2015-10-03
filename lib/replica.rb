@@ -216,7 +216,7 @@ class Replica
       article_list = ''
       articles.each_with_index do |a, i|
         article_list += '&' if i > 0
-        title = CGI.escape(a['title'].gsub(' ', '_'))
+        title = CGI.escape(a['title'].tr(' ', '_'))
         article_list += "article_titles[#{i}]='#{title}'"
       end
       article_list

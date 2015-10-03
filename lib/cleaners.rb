@@ -67,6 +67,7 @@ class Cleaners
       .where('date <= ?', course.end)
       .pluck(:article_id)
   end
+
   #############
   # Revisions #
   #############

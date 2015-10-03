@@ -26,6 +26,7 @@ class UploadImporter
       import_urls file_urls
     end
   end
+
   ###################
   # Parsing methods #
   ###################

@@ -24,7 +24,7 @@ class CourseCloneManager
     @clone.submitted = false
 
     # The datepickers require an ititial date, so we set these to today's date
-    today = Date.today
+    today = Time.zone.today
     @clone.start = today
     @clone.end = today
     @clone.timeline_start = today
@@ -55,6 +55,6 @@ class CourseCloneManager
   end
 
   def course_slug(course)
-    "#{course.school}/#{course.title}_(#{course.term})".gsub(' ', '_')
+    "#{course.school}/#{course.title}_(#{course.term})".tr(' ', '_')
   end
 end

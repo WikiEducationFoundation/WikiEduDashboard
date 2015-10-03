@@ -128,7 +128,7 @@ class Course < ActiveRecord::Base
     # Legacy courses using the EducationProgram extension have wiki pages
     # in a different namespace on Wikipedia.
     prefix = legacy? ? 'Education_Program:' : ENV['course_prefix'] + '/'
-    escaped_slug = slug.gsub(' ', '_')
+    escaped_slug = slug.tr(' ', '_')
     "#{prefix}#{escaped_slug}"
   end
 
@@ -162,6 +162,7 @@ class Course < ActiveRecord::Base
     articles_courses.live.new_article
       .joins(:article).where('articles.namespace = 0')
   end
+
   #################
   # Cache methods #
   #################

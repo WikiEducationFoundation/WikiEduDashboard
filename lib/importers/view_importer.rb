@@ -26,6 +26,7 @@ class ViewImporter
       update_average_views_for_batch batch
     end
   end
+
   ##############
   # API Access #
   ##############
@@ -60,6 +61,7 @@ class ViewImporter
       article.save
     end
   end
+
   ###########
   # Helpers #
   ###########

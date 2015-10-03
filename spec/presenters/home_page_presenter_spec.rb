@@ -4,7 +4,7 @@ require 'ostruct'
 
 describe HomePagePresenter do
   describe '#admin_courses' do
-    let(:admin)  { OpenStruct.new(:admin? => is_admin) }
+    let(:admin)  { OpenStruct.new(admin?: is_admin) }
     let(:user)   { user }
     let(:cohort) { nil }
     before { create(:course, submitted: true, listed: true) }
@@ -47,7 +47,7 @@ describe HomePagePresenter do
     context 'user is admin' do
       let!(:user)     { admin }
       let!(:is_admin) { true }
-      let!(:course)  { create(:course, end: Date.today + 4.months, listed: true) }
+      let!(:course)  { create(:course, end: Time.zone.today + 4.months, listed: true) }
       let!(:c_user)  { create(:courses_user, course_id: course.id, user_id: user.id) }
 
       it 'returns the current and future listed courses for the user' do
@@ -94,8 +94,8 @@ describe HomePagePresenter do
   end
 
   describe '#courses' do
-    let(:user)   { create(:admin) }
-    let(:cohort_param)    { 'none' }
+    let(:user) { create(:admin) }
+    let(:cohort_param) { 'none' }
     let!(:course) { create(:course, listed: true, submitted: false, id: 10001) }
     subject { described_class.new(user, 'none').courses }
 

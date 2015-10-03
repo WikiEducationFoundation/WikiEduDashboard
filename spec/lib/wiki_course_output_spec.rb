@@ -6,7 +6,7 @@ describe WikiCourseOutput do
     it 'should return a wikitext formatted version of the markdown input' do
       title = WikiCourseOutput.markdown_to_mediawiki('# Title #')
       text = WikiCourseOutput.markdown_to_mediawiki('This is some plain text')
-      response =  title + text
+      response = title + text
       expect(response).to eq("= Title =\n\nThis is some plain text\n\n")
     end
   end
@@ -54,9 +54,7 @@ describe WikiCourseOutput do
                       title: 'Block 1 title',
                       kind: 0,
                       content: 'block 1 content')
-      # rubocop:disable Metrics/LineLength
       markdown_with_image = 'block 2 content with ![image](https://upload.wikimedia.org/wikipedia/commons/6/6b/View_from_Imperia_Tower_Moscow_04-2014_img12.jpg)'
-      # rubocop:enable Metrics/LineLength
       block2 = create(:block,
                       id: 5,
                       title: nil,
@@ -93,9 +91,7 @@ describe WikiCourseOutput do
       expect(response).to include('This is the beginning')
       expect(response).to include('Block 1 title')
       expect(response).to include('block 2 content')
-      # rubocop:disable Metrics/LineLength
       expect(response).to match(/[Image|File]:View_from_Imperia_Tower_Moscow_04-2014_img12\.jpg/)
-      # rubocop:enable Metrics/LineLength
       expect(response).to include('[[My article]]')
       expect(response).to include('[[Your article]]')
     end

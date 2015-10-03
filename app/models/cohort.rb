@@ -38,7 +38,7 @@ class Cohort < ActiveRecord::Base
     ENV['cohorts'].split(',').each do |cohort|
       next if Cohort.exists?(slug: cohort)
       Cohort.new(
-        'title' => cohort.gsub('_', ' ').capitalize,
+        'title' => cohort.tr('_', ' ').capitalize,
         'slug' => cohort,
         'url' => ENV['cohort_' + cohort]
       ).save

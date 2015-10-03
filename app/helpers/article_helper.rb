@@ -17,13 +17,13 @@ module ArticleHelper
     return nil if article.nil?
     language = Figaro.env.wiki_language
     prefix = NS[article.namespace]
-    escaped_title = article.title.gsub(' ', '_')
+    escaped_title = article.title.tr(' ', '_')
     "https://#{language}.wikipedia.org/wiki/#{prefix}#{escaped_title}"
   end
 
   def full_title(article)
     prefix = NS[article.namespace]
-    title = article.title.gsub('_', ' ')
+    title = article.title.tr('_', ' ')
     "#{prefix}#{title}"
   end
 

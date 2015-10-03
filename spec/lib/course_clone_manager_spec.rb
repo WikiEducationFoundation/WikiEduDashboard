@@ -28,7 +28,7 @@ describe CourseCloneManager do
            role: CoursesUsers::Roles::STUDENT_ROLE)
     create(:week, id: 1, course_id: 1, title: 'Week 1')
     create(:block,
-           id: 1,  week_id: 1, content: 'First Assignment',
+           id: 1, week_id: 1, content: 'First Assignment',
            kind: 1, due_date: 10.months.ago, gradeable_id: 1)
     create(:gradeable,
            id: 1, gradeable_item_type: 'block',

@@ -40,6 +40,7 @@ class CategoryImporter
     import_missing_scores_and_views article_ids
     views_and_scores_output(article_ids, min_views, max_wp10)
   end
+
   ##################
   # Output methods #
   ##################

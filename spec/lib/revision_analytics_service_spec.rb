@@ -2,7 +2,7 @@ require 'rails_helper'
 require "#{Rails.root}/lib/revision_analytics_service"
 
 describe RevisionAnalyticsService do
-  let!(:revision)  do
+  let!(:revision) do
     create(:revision, id: 1, user_id: 1, article_id: 1, date: 1.day.ago,
                       wp10: 60, ithenticate_id: r1_id)
   end
@@ -36,7 +36,6 @@ describe RevisionAnalyticsService do
   end
 
   describe '#dyk_eligible' do
-
     subject { described_class.dyk_eligible(opts) }
 
     context 'revisions with sufficient wp10' do
@@ -59,14 +58,14 @@ describe RevisionAnalyticsService do
 
     context '`scoped` param' do
       context 'article is in scope' do
-        let(:opts) {{ scoped: true, current_user: user }}
+        let(:opts) { { scoped: true, current_user: user } }
         it 'includes the article' do
           expect(subject).to include(article)
         end
       end
       context 'article is not in scope' do
         let(:user) { create(:user) }
-        let(:opts) {{ scoped: true, current_user: user }}
+        let(:opts) { { scoped: true, current_user: user } }
         it 'does not include the article' do
           expect(subject).not_to include(article)
         end

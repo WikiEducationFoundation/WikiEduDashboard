@@ -71,6 +71,7 @@ module RequestHelpers
     stub_request(:post, /.*wikipedia.*/)
       .to_return(status: 200, body: failure, headers: {})
   end
+
   ############################
   # MediaWiki query requests #
   ############################

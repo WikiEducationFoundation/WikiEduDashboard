@@ -37,7 +37,7 @@ class Article < ActiveRecord::Base
   # they are in the MediaWiki database.
   validates :title, presence: true
   before_validation do
-    self.title = title.gsub(' ', '_')
+    self.title = title.tr(' ', '_')
   end
   ####################
   # Instance methods #

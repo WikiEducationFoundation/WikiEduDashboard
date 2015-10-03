@@ -38,6 +38,7 @@ class PlagiabotImporter
       revision.save
     end
   end
+
   ##################
   # Helper methods #
   ##################
@@ -67,7 +68,7 @@ class PlagiabotImporter
     # Work around the not-quite-parseable format of the response.
     # We don't care about the title, we just want to make the response parseable.
     response = response.gsub(/: ".*"/, ": 'foo'")
-    response = response.gsub("'", '"')
+    response = response.tr("'", '"')
 
     JSON.parse(response)
   end

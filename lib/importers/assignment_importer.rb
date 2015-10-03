@@ -5,7 +5,7 @@ class AssignmentImporter
   def self.update_assignment_article_ids
     ActiveRecord::Base.transaction do
       Assignment.where(article_id: nil).each do |ass|
-        title = ass.article_title.gsub(' ', '_')
+        title = ass.article_title.tr(' ', '_')
         article = Article.where(namespace: 0).find_by(title: title)
         ass.article_id = article.nil? ? nil : article.id
         ass.save

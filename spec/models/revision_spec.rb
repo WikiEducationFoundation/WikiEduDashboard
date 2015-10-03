@@ -41,17 +41,16 @@ describe Revision do
              id: 637221390,
              article_id: 1)
       url = Revision.find(637221390).url
-      # rubocop:disable Metrics/LineLength
       expect(url).to eq('https://en.wikipedia.org/w/index.php?title=Vectors_in_gene_therapy&diff=prev&oldid=637221390')
-      # rubocop:enable Metrics/LineLength
     end
   end
-
 
   describe '#infer_courses_from_user' do
     let!(:user)         { create(:user) }
     let!(:article)      { create(:article) }
-    let!(:revision)     { create(:revision, article_id: article.id, user_id: user.id, date: Date.today) }
+    let!(:revision) do
+      create(:revision, article_id: article.id, user_id: user.id, date: Time.zone.today)
+    end
     let!(:course)       { create(:course, start: course_start, end: course_end) }
     let!(:courses_user) { create(:courses_user, course_id: course.id, user_id: user.id) }
     let(:course_start)  { revision.created_at - 3.days }

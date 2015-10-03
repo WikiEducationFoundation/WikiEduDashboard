@@ -1,6 +1,5 @@
 class ListCourseManager
-
-  def initialize(course, cohort, request) 
+  def initialize(course, cohort, request)
     @course = course
     @cohort = cohort
     @request = request
@@ -10,7 +9,7 @@ class ListCourseManager
   def manage
     self.send("handle_#{@request.request_method.downcase}")
   end
-  
+
   private
 
   def handle_post
@@ -22,5 +21,4 @@ class ListCourseManager
     return unless CohortsCourses.find_by(@cohorts_courses_attrs).present?
     CohortsCourses.find_by(@cohorts_courses_attrs).destroy
   end
-
 end

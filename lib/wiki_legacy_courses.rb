@@ -30,7 +30,7 @@ class WikiLegacyCourses
                        .split(/(.*)\/(.*)\s\(([^\)]+)?\)/)
     course_info = {}
     course_info['id'] = course['id']
-    course_info['slug'] = course['name'].gsub(' ', '_')
+    course_info['slug'] = course['name'].tr(' ', '_')
     course_info['school'] = course_slug_info[1]
     course_info['title'] = course_slug_info[2]
     course_info['term'] = course_slug_info[3]

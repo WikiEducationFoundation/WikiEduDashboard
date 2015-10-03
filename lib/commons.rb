@@ -35,6 +35,7 @@ class Commons
     file_urls = get_image_data(url_query, 'imageinfo', 'iicontinue')
     file_urls
   end
+
   ##################
   # Helper methods #
   ##################
@@ -99,9 +100,7 @@ class Commons
   # Database methods #
   ####################
   def self.save_placeholder_thumbnail(file)
-    # rubocop:disable Metrics/LineLength
     file.thumburl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/No_image_3x4.svg/200px-No_image_3x4.svg.png'
-    # rubocop:enable Metrics/LineLength
     file.thumbwidth = 200
     file.thumbheight = 150
     file.save
@@ -129,7 +128,7 @@ class Commons
       # for Jewish_Encyclopedia_Volume_6.pdf"
       info = e.info
       info['Could not normalise image parameters for '] = ''
-      bad_file_name = ('File:' + info).gsub('_', ' ')
+      bad_file_name = ('File:' + info).tr('_', ' ')
       bad_file = CommonsUpload.find_by(file_name: bad_file_name)
       save_placeholder_thumbnail bad_file
       Rails.logger.debug "Caught iiurlparamnormal error: #{bad_file_name}"

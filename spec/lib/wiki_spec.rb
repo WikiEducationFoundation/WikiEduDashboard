@@ -35,7 +35,6 @@ describe Wiki do
 
         # A mix of existing and non-existant, including ones with niche ratings.
         # Some of these ratings may change over time.
-        # rubocop:disable Metrics/LineLength
         articles = [
           'History_of_biology', # fa
           'A_Clash_of_Kings', # c
@@ -58,7 +57,6 @@ describe Wiki do
           'Selfie_(disambiguation)', # no talk page
           'Sex_trafficking' # blank talk page
         ]
-        # rubocop:enable Metrics/LineLength
 
         response = Wiki.get_article_rating(articles)
         expect(response).to include('History_of_biology' => 'fa')
@@ -69,14 +67,12 @@ describe Wiki do
 
     it 'should return the raw page contents' do
       VCR.use_cassette 'wiki/article_ratings_raw' do
-        # rubocop:disable Metrics/LineLength
         articles = [
           'Talk:Selfie_(disambiguation)', # probably doesn't exist; the corresponding article does
           'Talk:The_American_Monomyth', # exists
           'Talk:THIS_PAGE_WILL_NEVER_EXIST,_RIGHT?', # definitely doesn't exist
           'Talk:List_of_Canadian_plants_by_family_S' # exists
         ]
-        # rubocop:enable Metrics/LineLength
         response = Wiki.get_raw_page_content(articles)
         expect(response.count).to eq(4)
       end

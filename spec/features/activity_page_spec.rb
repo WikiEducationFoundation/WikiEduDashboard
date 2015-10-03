@@ -56,7 +56,7 @@ describe 'activity page', type: :feature, js: true do
       it 'displays a list of DYK-eligible articles' do
         click_link 'Recent Activity'
         sleep 1
-        expect(page).to have_content article.title.gsub('_', ' ')
+        expect(page).to have_content article.title.tr('_', ' ')
       end
 
       it 'filters the courses to my courses' do
@@ -85,7 +85,7 @@ describe 'activity page', type: :feature, js: true do
 
         it 'displays a list of revisions suspected of plagiarism' do
           view_plagiarism_page
-          assert_page_content "There are not currently any recent revisions suspected of plagiarism."
+          assert_page_content 'There are not currently any recent revisions suspected of plagiarism.'
         end
       end
 
@@ -97,7 +97,7 @@ describe 'activity page', type: :feature, js: true do
 
         it 'displays a list of revisions suspected of plagiarism' do
           view_plagiarism_page
-          assert_page_content article.title.gsub('_', ' ')
+          assert_page_content article.title.tr('_', ' ')
         end
       end
     end
@@ -110,7 +110,7 @@ describe 'activity page', type: :feature, js: true do
 
       it 'displays a list of recent revisions' do
         visit '/recent-activity/recent-edits'
-        assert_page_content article.title.gsub('_', ' ')
+        assert_page_content article.title.tr('_', ' ')
       end
     end
   end

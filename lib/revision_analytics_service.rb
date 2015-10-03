@@ -83,7 +83,7 @@ class RevisionAnalyticsService
     end
 
     articles = Article.where(id: article_ids).to_a
-    articles.sort! { |a, b| last_rev_dates[a.id] <=>  last_rev_dates[b.id] }
+    articles.sort! { |a, b| last_rev_dates[a.id] <=> last_rev_dates[b.id] }
     articles.reverse!
   end
 

@@ -39,7 +39,7 @@ class CoursesController < ApplicationController
     @course.update course: course_params
     @course.update_attribute(
       :passcode, Course.generate_passcode
-      ) if course_params[:passcode].nil?
+    ) if course_params[:passcode].nil?
 
     WikiEdits.update_course(@course, current_user)
     render json: { course: @course }
@@ -171,7 +171,7 @@ class CoursesController < ApplicationController
 
   def set_slug(course = params[:course])
     course[:slug] = "#{course[:school]}/#{course[:title]}_(#{course[:term]})"
-                    .gsub(' ', '_')
+                    .tr(' ', '_')
   end
 
   def course_params

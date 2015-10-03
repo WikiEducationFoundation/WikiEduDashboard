@@ -73,9 +73,7 @@ class CoursesUsers < ActiveRecord::Base
       .where(articles: { deleted: false })
       .size || 0
     assignments = user.assignments.where(course_id: course.id)
-    # rubocop:disable Metrics/LineLength
     self.assigned_article_title = assignments.empty? ? '' : assignments.first.article_title
-    # rubocop:enable Metrics/LineLength
     save
   end
 

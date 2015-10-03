@@ -118,7 +118,7 @@ class WikiEdits
       if title[0..4] == 'Talk:'
         talk_title = title
       else
-        talk_title = "Talk:#{title.gsub(' ', '_')}"
+        talk_title = "Talk:#{title.tr(' ', '_')}"
       end
 
       page_content = WikiAssignmentOutput

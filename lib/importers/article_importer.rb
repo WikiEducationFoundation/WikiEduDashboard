@@ -45,7 +45,7 @@ class ArticleImporter
         id: sa['page_id'],
         title: sa['page_title'],
         namespace: sa['page_namespace'],
-        deleted: false  # Accounts for the case of undeleted articles
+        deleted: false # Accounts for the case of undeleted articles
       )
     end
     update_keys = [:title, :namespace, :deleted]
@@ -124,10 +124,9 @@ class ArticleImporter
     return if articles_data.empty?
     articles = []
     articles_data.each do |article_data|
-      articles << Article.new(
-                    id: article_data['page_id'],
-                    title: article_data['page_title'],
-                    namespace: article_data['page_namespace'])
+      articles << Article.new(id: article_data['page_id'],
+                              title: article_data['page_title'],
+                              namespace: article_data['page_namespace'])
     end
     Article.import articles
   end

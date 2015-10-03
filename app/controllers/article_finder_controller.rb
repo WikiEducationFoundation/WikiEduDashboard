@@ -14,8 +14,8 @@ class ArticleFinderController < ApplicationController
     @min_views = params[:minviews].to_i
     @max_wp10 = (params[:maxwp10] || 100).to_i
     @articles = CategoryImporter.show_category(cat_name, depth: @depth,
-                                                          min_views: @min_views,
-                                                          max_wp10: @max_wp10)
+                                                         min_views: @min_views,
+                                                         max_wp10: @max_wp10)
     render 'index'
   end
 end

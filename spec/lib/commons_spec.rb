@@ -60,11 +60,9 @@ describe Commons do
 
     it 'should get usage data for a file used only once' do
       VCR.use_cassette 'commons/get_uploads_one' do
-        # rubocop:disable Metrics/LineLength
         upload = create(:commons_upload,
                         id: 39636530,
                         file_name: 'File:Paper prototype of website user interface, 2015-04-16.jpg')
-        # rubocop:enable Metrics/LineLength
         response = Commons.get_usages [upload]
         expect(response.count).to eq(1)
       end

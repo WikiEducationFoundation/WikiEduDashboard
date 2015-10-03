@@ -54,7 +54,7 @@ class Wiki
     # count on our array being in the same order as titles.
     raw.map do |_article_id, talkpage|
       # Remove "Talk:" from the "title" value to get the title.
-      { talkpage['title'][5..-1].gsub(' ', '_') =>
+      { talkpage['title'][5..-1].tr(' ', '_') =>
         parse_article_rating(talkpage) }
     end
   end

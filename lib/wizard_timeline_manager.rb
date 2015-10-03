@@ -71,7 +71,7 @@ class WizardTimelineManager
   end
 
   def squish_timeline_by_one_week(timeline)
-    low_weight = 1000       # arbitrarily high number
+    low_weight = 1000 # arbitrarily high number
     low_cons = nil
     timeline.each_cons(2) do |week_set|
       next unless week_set.size == 2

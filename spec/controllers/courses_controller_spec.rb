@@ -34,17 +34,17 @@ describe CoursesController do
         delete :destroy, id: "#{course.slug}.json", format: :json
 
         %w(CoursesUsers ArticlesCourses CohortsCourses).each do |model|
-          expect {
+          expect do
             # metaprogramming for: CoursesUser.find(courses_user.id)
             Object.const_get(model).send(:find, send(model.underscore).id)
-          }.to raise_error(ActiveRecord::RecordNotFound), "#{model} did not raise"
+          end.to raise_error(ActiveRecord::RecordNotFound), "#{model} did not raise"
         end
 
         %i(assignment week gradeable).each do |model|
-          expect{
+          expect do
             # metaprogramming for: Assigment.find(assignment.id)
             model.to_s.classify.constantize.send(:find, send(model).id)
-          }.to raise_error(ActiveRecord::RecordNotFound), "#{model} did not raise"
+          end.to raise_error(ActiveRecord::RecordNotFound), "#{model} did not raise"
         end
       end
 
@@ -65,22 +65,22 @@ describe CoursesController do
     let(:submitted_2) { false }
     let!(:course) { create(:course, submitted: submitted_1) }
     let(:user)    { create(:admin) }
-    let(:course_params) {{
-      title: 'New title',
-      description: 'New description',
-      # Don't use 2.months.ago; it'll return a datetime, not a date
-      start: Date.today - 2.months,
-      end: Date.today + 2.months,
-      term: 'pizza',
-      slug: 'food',
-      subject: 'cooking',
-      expected_students: 1,
-      submitted: submitted_2,
-      listed: false,
-      day_exceptions: '',
-      weekdays: '0001000',
-      no_day_exceptions: true
-    }}
+    let(:course_params) do
+      { title: 'New title',
+        description: 'New description',
+        # Don't use 2.months.ago; it'll return a datetime, not a date
+        start: Time.zone.today - 2.months,
+        end: Time.zone.today + 2.months,
+        term: 'pizza',
+        slug: 'food',
+        subject: 'cooking',
+        expected_students: 1,
+        submitted: submitted_2,
+        listed: false,
+        day_exceptions: '',
+        weekdays: '0001000',
+        no_day_exceptions: true }
+    end
     before do
       allow(controller).to receive(:current_user).and_return(user)
       allow(controller).to receive(:user_signed_in?).and_return(true)
@@ -103,24 +103,24 @@ describe CoursesController do
     end
 
     context 'setting instructor info' do
-      let(:course_params) {{
-        title: 'New title',
-        description: 'New description',
-        # Don't use 2.months.ago; it'll return a datetime, not a date
-        start: Date.today - 2.months,
-        end: Date.today + 2.months,
-        term: 'pizza',
-        slug: 'food',
-        subject: 'cooking',
-        expected_students: 1,
-        submitted: submitted_2,
-        listed: false,
-        day_exceptions: '',
-        weekdays: '0001000',
-        no_day_exceptions: true,
-        instructor_name: 'pizza',
-        instructor_email: 'pizza@tacos.com'
-      }}
+      let(:course_params) do
+        { title: 'New title',
+          description: 'New description',
+          # Don't use 2.months.ago; it'll return a datetime, not a date
+          start: Time.zone.today - 2.months,
+          end: Time.zone.today + 2.months,
+          term: 'pizza',
+          slug: 'food',
+          subject: 'cooking',
+          expected_students: 1,
+          submitted: submitted_2,
+          listed: false,
+          day_exceptions: '',
+          weekdays: '0001000',
+          no_day_exceptions: true,
+          instructor_name: 'pizza',
+          instructor_email: 'pizza@tacos.com' }
+      end
       before do
         user.update_attributes(real_name: 'fakename', email: 'fake@example.com')
       end
@@ -132,7 +132,8 @@ describe CoursesController do
     end
 
     it 'raises if course is not found' do
-      expect { put :update, id: 'peanut-butter', course: course_params, format: :json }.to raise_error
+      expect { put :update, id: 'peanut-butter', course: course_params, format: :json }
+        .to raise_error
     end
 
     it 'returns the new course as json' do
@@ -172,11 +173,11 @@ describe CoursesController do
       end
 
       context 'all slug params present' do
-        let(:course_params) {{
-          school: 'Wiki University',
-          title: 'How to Wiki',
-          term: 'Fall 2015'
-        }}
+        let(:course_params) do
+          { school: 'Wiki University',
+            title: 'How to Wiki',
+            term: 'Fall 2015' }
+        end
         it 'sets slug correctly' do
           post :create, course: course_params, format: :json
           expect(Course.last.slug).to eq(expected_slug)
@@ -184,10 +185,10 @@ describe CoursesController do
       end
 
       context 'not all slug params present' do
-        let(:course_params) {{
-          school: 'Wiki University',
-          title: 'How to Wiki',
-        }}
+        let(:course_params) do
+          { school: 'Wiki University',
+            title: 'How to Wiki' }
+        end
         it 'does not set slug' do
           post :create, course: course_params, format: :json
           expect(Course.last.slug).to be_nil
@@ -195,24 +196,24 @@ describe CoursesController do
       end
 
       describe 'timeline dates' do
-        let(:course_params) {{
-          title: 'New title',
-          description: 'New description',
-          # Don't use 2.months.ago; it'll return a datetime, not a date
-          start: Date.today - 2.months,
-          end: Date.today + 2.months,
-          term: 'pizza',
-          slug: 'food',
-          subject: 'cooking',
-          expected_students: 1,
-          submitted: false,
-          listed: false,
-          day_exceptions: '',
-          weekdays: '0001000',
-          no_day_exceptions: true,
-          instructor_name: 'pizza',
-          instructor_email: 'pizza@tacos.com'
-        }}
+        let(:course_params) do
+          { title: 'New title',
+            description: 'New description',
+            # Don't use 2.months.ago; it'll return a datetime, not a date
+            start: Time.zone.today - 2.months,
+            end: Time.zone.today + 2.months,
+            term: 'pizza',
+            slug: 'food',
+            subject: 'cooking',
+            expected_students: 1,
+            submitted: false,
+            listed: false,
+            day_exceptions: '',
+            weekdays: '0001000',
+            no_day_exceptions: true,
+            instructor_name: 'pizza',
+            instructor_email: 'pizza@tacos.com' }
+        end
         it 'sets timeline start/end to course start/end if not in params' do
           put :create, course: course_params, format: :json
           expect(Course.last.timeline_start).to eq(course_params[:start])
@@ -220,7 +221,6 @@ describe CoursesController do
         end
       end
     end
-
   end
 
   describe '#list' do
@@ -283,7 +283,7 @@ describe CoursesController do
       let(:tag) { Tag.create(tag: 'pizza', course_id: course.id) }
       it 'deletes the tag' do
         delete :tag, id: course.slug, tag: { tag: tag.tag }, format: :json
-        expect{ Tag.find(tag.id) }.to raise_error(ActiveRecord::RecordNotFound)
+        expect { Tag.find(tag.id) }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
   end
