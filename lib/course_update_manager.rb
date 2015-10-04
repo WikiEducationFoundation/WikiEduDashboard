@@ -5,12 +5,12 @@ class CourseUpdateManager
   ################
 
   def self.update_from_wiki(course, data={}, save=true)
-    require "#{Rails.root}/lib/importers/course_importer"
+    require "#{Rails.root}/lib/legacy_courses/legacy_course_importer"
     require "#{Rails.root}/lib/importers/user_importer"
 
     id = course.id
     if data.blank?
-      data = CourseImporter.get_course_info id
+      data = LegacyCourseImporter.get_course_info id
       return if data.blank? || data[0].nil?
       data = data[0]
     end

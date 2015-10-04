@@ -34,12 +34,12 @@
 #
 
 require 'rails_helper'
-require "#{Rails.root}/lib/importers/course_importer"
+require "#{Rails.root}/lib/legacy_courses/legacy_course_importer"
 
 describe Course, type: :model do
   it 'should update data for all courses on demand' do
     VCR.use_cassette 'wiki/course_data' do
-      CourseImporter.update_all_courses(false, cohort: [351])
+      LegacyCourseImporter.update_all_courses(false, cohort: [351])
 
       course = Course.first
       course.update_cache
@@ -54,7 +54,7 @@ describe Course, type: :model do
     error = MediawikiApi::ApiError.new
     stub_request(:any, %r{.*wikipedia\.org/w/api\.php.*})
       .to_raise(error)
-    CourseImporter.update_all_courses(false, cohort: [798, 800])
+    LegacyCourseImporter.update_all_courses(false, cohort: [798, 800])
 
     course = create(:course, id: 519)
     course.manual_update
@@ -64,7 +64,7 @@ describe Course, type: :model do
     VCR.use_cassette 'wiki/initial' do
       expect(Course.all.count).to eq(0)
       # This should check for course_ids up to 5.
-      CourseImporter.update_all_courses(true, cohort: [5])
+      LegacyCourseImporter.update_all_courses(true, cohort: [5])
       # On English Wikipedia, courses 1 and 3 do not exist.
       expect(Course.all.count).to eq(3)
     end
@@ -96,7 +96,7 @@ describe Course, type: :model do
 
   it 'should update assignments when updating courses' do
     VCR.use_cassette 'wiki/update_many_courses' do
-      CourseImporter.update_all_courses(false, cohort: [351, 500, 577])
+      LegacyCourseImporter.update_all_courses(false, cohort: [351, 500, 577])
 
       expect(Assignment.where(role: 0).count).to eq(81)
       # Check that users with multiple assignments are handled properly.
@@ -129,7 +129,7 @@ describe Course, type: :model do
              passcode: 'pizza',
              listed: true)
 
-      CourseImporter.update_all_courses(false, cohort: [351, 590])
+      LegacyCourseImporter.update_all_courses(false, cohort: [351, 590])
       course = Course.find(589)
       expect(course.listed).to be false
     end
@@ -145,7 +145,7 @@ describe Course, type: :model do
              passcode: 'pizza',
              listed: true)
 
-      CourseImporter.update_all_courses(false, cohort: [351, 9999])
+      LegacyCourseImporter.update_all_courses(false, cohort: [351, 9999])
       course = Course.find(9999)
       expect(course.listed).to be false
     end
@@ -195,7 +195,7 @@ describe Course, type: :model do
     data = { '1' => {
       'student' => [{ 'id' => '1', 'username' => 'Ragesoss' }]
     } }
-    CourseImporter.import_assignments data
+    LegacyCourseImporter.import_assignments data
 
     course = Course.all.first
     expect(course.users.count).to eq(1)

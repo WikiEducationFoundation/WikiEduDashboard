@@ -1,5 +1,5 @@
 require 'rails_helper'
-require "#{Rails.root}/lib/wiki_legacy_courses"
+require "#{Rails.root}/lib/legacy_courses/wiki_legacy_courses"
 
 describe WikiLegacyCourses do
   it 'should return course info for an existing course' do

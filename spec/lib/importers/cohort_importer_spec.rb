@@ -1,5 +1,4 @@
 require 'rails_helper'
-require "#{Rails.root}/lib/importers/course_importer"
 require "#{Rails.root}/lib/importers/cohort_importer"
 
 describe CohortImporter do

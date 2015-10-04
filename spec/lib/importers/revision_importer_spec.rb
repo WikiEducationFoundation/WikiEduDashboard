@@ -1,5 +1,6 @@
 require 'rails_helper'
 require "#{Rails.root}/lib/importers/revision_importer"
+require "#{Rails.root}/lib/legacy_courses/legacy_course_importer"
 require "#{Rails.root}/lib/cleaners"
 
 describe RevisionImporter do
@@ -12,7 +13,7 @@ describe RevisionImporter do
 
         # Now add a course with users
         VCR.use_cassette 'wiki/course_data' do
-          CourseImporter.update_all_courses(false, cohort: [351])
+          LegacyCourseImporter.update_all_courses(false, cohort: [351])
         end
 
         RevisionImporter.update_all_revisions nil, true
@@ -57,7 +58,7 @@ describe RevisionImporter do
     it 'should add article ids to assignments after importing revisions' do
       VCR.use_cassette 'revisions/update_all_revisions' do
         VCR.use_cassette 'wiki/course_data' do
-          CourseImporter.update_all_courses(false, cohort: [351])
+          LegacyCourseImporter.update_all_courses(false, cohort: [351])
         end
         # .update_all_revisions calls .update_assignment_article_ids at the end.
         RevisionImporter.update_all_revisions nil, true

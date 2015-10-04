@@ -3,7 +3,7 @@ require "#{Rails.root}/lib/importers/user_importer"
 require "#{Rails.root}/lib/importers/cohort_importer"
 
 #= Imports and updates courses from Wikipedia into the dashboard database
-class CourseImporter
+class LegacyCourseImporter
   ################
   # Entry points #
   ################
@@ -28,6 +28,7 @@ class CourseImporter
   ##############
 
   def self.get_course_info(course_id)
+    require "#{Rails.root}/lib/legacy_courses/wiki_legacy_courses"
     WikiLegacyCourses.get_course_info course_id
   end
 
@@ -75,21 +76,8 @@ class CourseImporter
   end
 
   def self.reviewers(group)
-    reviewers = []
-    group.each do |user|
-      # Add reviewers
-      a_index = r_index = 0
-      while user.key? a_index.to_s
-        while user[a_index.to_s].key? r_index.to_s
-          reviewers.push(
-            'username' => user[a_index.to_s][r_index.to_s]['username'],
-            'id' => user[a_index.to_s][r_index.to_s]['id']
-          )
-          r_index += 1
-        end
-        a_index += 1
-      end
-    end
+    require "#{Rails.root}/lib/legacy_courses/legacy_course_reviewers"
+    reviewers = LegacyCourseReviewers.find_reviewers(group)
     reviewers
   end
 
@@ -144,9 +132,9 @@ class CourseImporter
   end
 
   def self.build_assignments(course_id, group_flat)
-    require "#{Rails.root}/lib/importers/course_importer_assignment_builder"
+    require "#{Rails.root}/lib/legacy_courses/legacy_course_assignments"
     # Add assigned articles
-    assignments = CourseImporterAssignmentBuilder
+    assignments = LegacyCourseAssignments
                   .build_assignments_from_group_flat(course_id, group_flat)
     assignments
   end
