@@ -139,11 +139,29 @@ describe 'Student users', type: :feature, js: true do
       allow(Wiki).to receive(:get_user_id).and_return(234567)
       stub_oauth_edit
       logout
-      visit "/courses/#{Course.first.slug}/students"
       visit "/courses/#{Course.first.slug}/enroll/passcode"
       visit "/courses/#{Course.first.slug}/students"
       sleep 1
       expect(first('tbody')).to have_content 'Ragesoss'
+    end
+
+    it 'should not work if user is not persisted' do
+      OmniAuth.config.test_mode = true
+      allow_any_instance_of(OmniAuth::Strategies::Mediawiki)
+        .to receive(:callback_url).and_return('/users/auth/mediawiki/callback')
+      OmniAuth.config.mock_auth[:mediawiki] = OmniAuth::AuthHash.new(
+        provider: 'mediawiki',
+        uid: '123456',
+        info: { name: 'Ragesoss' },
+        credentials: { token: 'foo', secret: 'bar' }
+      )
+      allow(UserImporter).to receive(:from_omniauth).and_return(build(:user, id: 2345678))
+      stub_oauth_edit
+      logout
+      visit "/courses/#{Course.first.slug}/enroll/passcode"
+      visit "/courses/#{Course.first.slug}/students"
+      sleep 1
+      expect(first('tbody')).not_to have_content 'Ragesoss'
     end
   end
 
