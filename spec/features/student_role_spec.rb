@@ -107,15 +107,22 @@ describe 'Student users', type: :feature, js: true do
       visit "/courses/#{Course.first.slug}/enroll/passcode"
     end
 
-    # it 'should work even if a student is not logged in yet' do
-    #   stub_oauth_edit
-    #   logout
-    #   visit "/courses/#{Course.first.slug}/enroll/passcode"
-    #   sleep 15
-    #   visit "/courses/#{Course.first.slug}/students"
-    #   sleep 1
-    #   expect(first('tbody')).to have_content User.last.wiki_id
-    # end
+    it 'should work even if a student is not logged in yet' do
+      OmniAuth.config.test_mode = true
+      allow_any_instance_of(OmniAuth::Strategies::Mediawiki).to receive(:callback_url).and_return('/users/auth/mediawiki/callback')
+      OmniAuth.config.mock_auth[:mediawiki] = OmniAuth::AuthHash.new(
+        provider: 'mediawiki',
+        uid: '12345',
+        info: { name: 'Ragesock' },
+        credentials: { token: 'foo', secret: 'bar' }
+      )
+      stub_oauth_edit
+      logout
+      visit "/courses/#{Course.first.slug}/enroll/passcode"
+      visit "/courses/#{Course.first.slug}/students"
+      sleep 1
+      expect(first('tbody')).to have_content User.last.wiki_id
+    end
   end
 
   describe 'adding an assigned article' do
