@@ -107,9 +107,10 @@ describe 'Student users', type: :feature, js: true do
       visit "/courses/#{Course.first.slug}/enroll/passcode"
     end
 
-    it 'should work even if a student is not logged in yet' do
+    it 'should work even if a student is not logged in' do
       OmniAuth.config.test_mode = true
-      allow_any_instance_of(OmniAuth::Strategies::Mediawiki).to receive(:callback_url).and_return('/users/auth/mediawiki/callback')
+      allow_any_instance_of(OmniAuth::Strategies::Mediawiki)
+        .to receive(:callback_url).and_return('/users/auth/mediawiki/callback')
       OmniAuth.config.mock_auth[:mediawiki] = OmniAuth::AuthHash.new(
         provider: 'mediawiki',
         uid: '12345',
@@ -118,10 +119,31 @@ describe 'Student users', type: :feature, js: true do
       )
       stub_oauth_edit
       logout
+      visit "/courses/#{Course.first.slug}/students"
       visit "/courses/#{Course.first.slug}/enroll/passcode"
       visit "/courses/#{Course.first.slug}/students"
       sleep 1
-      expect(first('tbody')).to have_content User.last.wiki_id
+      expect(first('tbody')).to have_content 'Ragesock'
+    end
+
+    it 'should work even if a student has never logged in before' do
+      OmniAuth.config.test_mode = true
+      allow_any_instance_of(OmniAuth::Strategies::Mediawiki)
+        .to receive(:callback_url).and_return('/users/auth/mediawiki/callback')
+      OmniAuth.config.mock_auth[:mediawiki] = OmniAuth::AuthHash.new(
+        provider: 'mediawiki',
+        uid: '123456',
+        info: { name: 'Ragesoss' },
+        credentials: { token: 'foo', secret: 'bar' }
+      )
+      allow(Wiki).to receive(:get_user_id).and_return(234567)
+      stub_oauth_edit
+      logout
+      visit "/courses/#{Course.first.slug}/students"
+      visit "/courses/#{Course.first.slug}/enroll/passcode"
+      visit "/courses/#{Course.first.slug}/students"
+      sleep 1
+      expect(first('tbody')).to have_content 'Ragesoss'
     end
   end
 
