@@ -110,7 +110,7 @@ class CourseImporter
     end
     group_flat = group_flat.compact.flatten.sort_by { |user| user['id'] }
     group_flat = update_enrollment course_id, group_flat
-    all_assignments = update_assignments course_id, group_flat
+    all_assignments = build_assignments course_id, group_flat
     all_assignments
   end
 
@@ -143,36 +143,12 @@ class CourseImporter
     end
   end
 
-  def self.update_assignments(course_id, group_flat)
+  def self.build_assignments(course_id, group_flat)
+    require "#{Rails.root}/lib/importers/course_importer_assignment_builder"
     # Add assigned articles
-    assignments = []
-    group_flat.each do |user|
-      # Each assigned article has a numerical (string) index, starting from 0.
-      next unless user.key? '0'
-
-      # Each user has username, id, & role. Extra keys are assigned articles.
-      assignment_count = user.keys.count - 3
-
-      (0...assignment_count).each do |a|
-        raw = user[a.to_s]
-        article = Article.find_by(title: raw['title'])
-        # role 0 is for assignee
-        assignment = assignment_hash(user, course_id, raw, article, 0)
-        new_assignment = Assignment.new(assignment)
-        assignments.push new_assignment
-
-        # Get the reviewers
-        raw.each do |_key, reviewer|
-          next unless reviewer.is_a?(Hash) && reviewer.key?('username')
-          # role 1 is for reviewer
-          assignment = assignment_hash(reviewer, course_id, raw, article, 1)
-
-          new_assignment = Assignment.new(assignment)
-          assignments.push new_assignment
-        end
-      end
-    end
-    return assignments
+    assignments = CourseImporterAssignmentBuilder
+                  .build_assignments_from_group_flat(course_id, group_flat)
+    assignments
   end
 
   #######################
@@ -220,15 +196,5 @@ class CourseImporter
       role = u['username'].include?('(Wiki Ed)') ? role_index[4] : u['role']
       { 'id' => u['id'], 'role' => role }
     end
-  end
-
-  def self.assignment_hash(user, course_id, raw, article, role)
-    {
-      'user_id' => user['id'],
-      'course_id' => course_id,
-      'article_title' => raw['title'],
-      'article_id' => article.nil? ? nil : article.id,
-      'role' => role
-    }
   end
 end
