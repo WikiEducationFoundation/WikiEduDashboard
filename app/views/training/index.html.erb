@@ -1,11 +1,11 @@
 <div class="container">
   <br><br><br><br><br>
   <ul>
-    <%- @libs.each do |lib| %>
+    <%- @libraries.each do |library| %>
       <li>
         <h3>
-          <a href="training/<%= lib.keys.first %>">
-            <%= lib.keys.first.titleize %>
+          <a href="training/<%= library.slug %>">
+            <%= library.slug.humanize.titleize %>
           </a>
         </h3>
       </li>
