@@ -74,6 +74,7 @@ GEM
       rack (>= 0.9.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    breadcrumbs_on_rails (2.3.1)
     browser (1.0.1)
     builder (3.2.2)
     byebug (6.0.2)
@@ -358,6 +359,7 @@ DEPENDENCIES
   annotate (~> 2.6.6)
   better_errors
   binding_of_caller
+  breadcrumbs_on_rails
   browser
   byebug
   capistrano-bundler
