@@ -64,6 +64,11 @@ class User < ActiveRecord::Base
     "https://#{language}.wikipedia.org/wiki/Special:Contributions/#{wiki_id}"
   end
 
+  def sandbox_url
+    language = Figaro.env.wiki_language
+    "https://#{language}.wikipedia.org/wiki/User:#{wiki_id}/sandbox"
+  end
+
   def admin?
     permissions == 1
   end

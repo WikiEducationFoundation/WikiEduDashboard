@@ -45,6 +45,8 @@ Student = React.createClass(
             {separator}
             <span className='tablet-only-ib'>{chars}</span>
           </small>
+          <br />
+          <span className='sandbox-link'><a onClick={@stop} href={@props.student.sandbox_url} target="_blank" className="inline">(sandbox)</a></span>
         </p>
       </td>
       <td className='desktop-only-tc'>
