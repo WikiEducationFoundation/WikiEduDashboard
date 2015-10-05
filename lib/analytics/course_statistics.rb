@@ -25,7 +25,7 @@ class CourseStatistics
       articles_edited: @article_ids.count,
       articles_created: @surviving_article_ids.count,
       articles_deleted: @deleted_article_ids.count,
-      files_uploads: @upload_ids.count,
+      file_uploads: @upload_ids.count,
       files_in_use: @used_count,
       global_usages: @usage_count
     }
