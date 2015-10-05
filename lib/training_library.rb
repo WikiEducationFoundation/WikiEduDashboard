@@ -4,6 +4,7 @@ class TrainingLibrary < FromYaml
 
   attr_accessor :name, :modules, :introduction, :categories
   alias_method :raw_modules, :modules 
+  alias_method :raw_categories, :categories
 
   # Class Methods
 
@@ -20,6 +21,11 @@ class TrainingLibrary < FromYaml
     TrainingModule.all.find_all do |training_module|
       raw_modules.include?(training_module.slug)
     end
+  end
+
+  # transform categories hash into nested objects for view simplicity
+  def categories
+    raw_categories.to_hashugar
   end
   
 

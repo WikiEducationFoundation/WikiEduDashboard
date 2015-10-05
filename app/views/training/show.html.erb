@@ -7,14 +7,14 @@
   <ul>
     <%- @library.categories.each do |lib_category| %>
       <li>
-        <h2><%= lib_category['title'] %></h2>
-        <p><%= lib_category['description'] %></p>
+        <h2><%= lib_category.title %></h2>
+        <p><%= lib_category.description %></p>
         <ul>
-          <%- lib_category['modules'].each do |lib_module| %>
+          <%- lib_category.modules.each do |lib_module| %>
             <li>
               <a href=<%= "#{@library.slug}/#{lib_module.slug}" %>>
-                <h3><%= lib_module['name'] %></h3>
-                <p><%= lib_module['description'] %></p>
+                <h3><%= lib_module.name %></h3>
+                <p><%= lib_module.description %></p>
               </a>
             </li>
           <% end %>
