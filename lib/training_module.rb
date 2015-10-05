@@ -2,7 +2,7 @@ require 'from_yaml'
 
 class TrainingModule < FromYaml
 
-  attr_accessor :name, :slides
+  attr_accessor :name, :slides, :description, :estimated_ttc
   alias_method :raw_slides, :slides 
 
   # Class Methods

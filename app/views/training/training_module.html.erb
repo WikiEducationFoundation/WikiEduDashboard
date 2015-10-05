@@ -1,25 +1,14 @@
 <br><br><br><br><br>
 <div class="container training">
   <div class="training__intro">
-    <%- mod = @training_module['module']%>
-    <h1><%= mod['title'] %></h1>
+    <h1><%= @training_module.name %></h1>
     <%- markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML) %>
-    <%- html = markdown.render(mod['intro']) %>
+    <%- html = markdown.render(@training_module.description) %>
     <%= raw html %>
+    <hr>
+    <h4>Estimated time to complete:<br><%= @training_module.estimated_ttc %></h4>
   </div>
 
   <div class="training__toc-container">
-    <ol class="training__toc">
-      <%- mod['slides'].each do |slide| %>
-        <%- slide_attrs = slide.last %>
-        <li>
-          <span class="training__toc-progress"></span>
-          <div class="training__toc-inner">
-            <h3><%= slide.first %>. <%= slide_attrs['title'] %></h3>
-            <p><%= slide_attrs['summary'] %></p>
-          </div>
-        </li>
-      <% end %>
-    </ol>
   </div>
 </div>
