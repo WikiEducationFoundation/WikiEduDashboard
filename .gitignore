@@ -37,3 +37,5 @@ developmentcp.rb
 .ruby-version
 .*.*.sw?
 npm-debug.log
+.DS_Store
+Session.vim
