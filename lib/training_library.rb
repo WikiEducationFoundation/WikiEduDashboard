@@ -1,30 +1,26 @@
-class TrainingLibrary
-  @@libs = []
+require 'from_yaml'
 
-  def self.all
-    @@libs.any? ? @@libs : self.load
-  end
+class TrainingLibrary < FromYaml
 
-  def self.find_library(opts)
-    library_id = opts[:library]
-    YAML.load_file("#{Rails.root}/training_content/libraries/#{library_id}.yml")
-  end
+  attr_accessor :name, :modules, :introduction, :categories
+  alias_method :raw_modules, :modules 
 
-  def self.find_module(opts)
-    library_id = opts[:library]
-    module_id = opts[:module]
-    YAML.load_file("#{Rails.root}/training_content/libraries/#{library_id}/modules/#{module_id}.yml")
-  end
-
-  private
+  # Class Methods
 
   def self.load
-    Dir.glob(Rails.root.join('training_content/libraries/*.yml')).each do |library_file|
-      library = YAML.load_file(library_file)
-      @@libs << library
-    end
-    @@libs
+    super path_to_yaml: "#{Rails.root}/training_content/libraries/*.yml", cache_key: "libraries"
   end
 
-end
 
+  # Instance Methods
+
+  # raw_modules can be called to access the string representation;
+  # #modules now returns the instances of TrainingModule
+  def modules
+    TrainingModule.all.find_all do |training_module|
+      raw_modules.include?(training_module.slug)
+    end
+  end
+  
+
+end

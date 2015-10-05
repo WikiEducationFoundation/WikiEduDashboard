@@ -1,16 +1,24 @@
 <div class="container">
   <br><br><br><br><br>
   <h3>
-    <%= @library.titleize %>
+    Wikipedia Training for <%= @library.slug.humanize.titleize %>
   </h3>
+  <p><%= @library.introduction %>
   <ul>
-    <%- mods = @modules[@modules.keys.first] %>
-    <%- mods.each do |t_module| %>
-      <%- mod = t_module.last %>
+    <%- @library.categories.each do |lib_category| %>
       <li>
-        <a href=<%= "#{@library}/#{mod['slug']}" %>>
-          <%= mod['title'] %>
-        </a>
+        <h2><%= lib_category['title'] %></h2>
+        <p><%= lib_category['description'] %></p>
+        <ul>
+          <%- lib_category['modules'].each do |lib_module| %>
+            <li>
+              <a href=<%= "#{@library.slug}/#{lib_module.slug}" %>>
+                <h3><%= lib_module['name'] %></h3>
+                <p><%= lib_module['description'] %></p>
+              </a>
+            </li>
+          <% end %>
+        </ul>
       </li>
     <% end %>
   </ul>

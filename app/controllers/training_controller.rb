@@ -1,18 +1,15 @@
 class TrainingController < ApplicationController
 
   def index
-    @libs = TrainingLibrary.all
+    @libraries = TrainingLibrary.all
   end
 
   def show
-    @library = params[:library_id]
-    @modules = TrainingLibrary.find_library(library: @library)
+    @library = TrainingLibrary.find_by(slug: params[:library_id])
   end
 
   def training_module
-    library = params[:library_id]
-    t_module = params[:module_id]
-    @training_module = TrainingLibrary.find_module(library: library, module: t_module)
+    @training_module = TrainingModule.find_by(slug: params[:module_id])
   end
 
 end

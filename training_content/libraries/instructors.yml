@@ -1,7 +1,26 @@
-instructors:
-  one:
-    slug: 'wikipedia-core-principles'
-    title: Wikipedia Core Principles
-  two:
-    slug: 'module-name2'
-    title: Second module name
+name: Instructors
+introduction: This orientation for instructors editing Wikipedia says some stuff
+categories:
+  - title: Basics
+    description: This is the description of the basic category
+    modules:
+      - slug: welcome-to-wikipedia
+        name: Welcome to Wikipedia
+        description: An introduction to Wikipedia
+      - slug: wikipedia-core-principles
+        name: Core Principles of Wikipedia
+        description: An overview of Wikipedia's principles and policies
+      - slug: editing-in-wikipedia
+        name: Basic mechanics of editing Wikipedia pages and communicating with others
+  - title: Advanced
+    description: This is the description of the advanced category
+    modules:
+      - slug: advanced-techniques
+        name: Advanced Techniques
+        description: Some advanced techniques
+      - medical-research: medical-research
+        name: Medical Research
+        description: Talking about medical research
+      - general-topic-advice: general-topics
+        name: General Topics
+        description: A description of general topics
