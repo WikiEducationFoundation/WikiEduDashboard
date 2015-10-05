@@ -26,3 +26,34 @@
   float left
   position relative
   top 20px
+
+.training__header
+  margin 2em 0
+
+.training__categories
+  list-style none
+  margin-left 0
+  padding-left 0
+  col(12/12)
+  & > li
+    border-top 1px solid gray
+    padding 2em 0 0 2em
+    margin-left 0
+    display inline-block
+    width 100%
+
+.training__category__header
+  col(4/12)
+
+.training__categories__modules
+  col(8/12)
+  list-style none
+  li
+    border 2px solid #cbcbcb
+    padding 2em
+    margin 1em 0
+    background white
+    &:first-of-type
+      margin-top 0
+  a
+    text-decoration none

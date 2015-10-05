@@ -22,6 +22,7 @@ gem 'newrelic_rpm'
 
 gem 'redcarpet'
 gem 'hashugar'
+gem 'breadcrumbs_on_rails'
 
 # This fork has a fix for enums not working
 # https://github.com/zdennis/activerecord-import/issues/139
