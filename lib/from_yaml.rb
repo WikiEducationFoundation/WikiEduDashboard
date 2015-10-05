@@ -2,7 +2,7 @@ class FromYaml
 
   # cattr_accessor would be cause children's implementations to conflict w/each other
   class << self
-    attr_accessor :cache_key
+    attr_accessor :cache_key, :path_to_yaml
   end
   
   attr_accessor :slug
@@ -14,8 +14,9 @@ class FromYaml
     collection = []
 
     self.cache_key = args[:cache_key]
+    self.path_to_yaml = args[:path_to_yaml]
 
-    Dir.glob(args[:path_to_yaml]) do |yaml_file|
+    Dir.glob(self.path_to_yaml) do |yaml_file|
       slug = File.basename(yaml_file, ".yml")
       content = YAML.load_file(yaml_file).to_hashugar
       collection << self.new(content, slug)
@@ -24,6 +25,9 @@ class FromYaml
   end
 
   def self.all
+    if Rails.cache.read(self.cache_key).nil?
+      self.load(self.cache_key, self.path_to_yaml)
+    end
     Rails.cache.read(self.cache_key)
   end
 
