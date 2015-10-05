@@ -6,7 +6,7 @@ class TrainingController < ApplicationController
   end
 
   def show
-    add_breadcrumb params[:library_id].titleize, :training_libraries_path
+    add_breadcrumb params[:library_id].titleize, :training_library_path
     @library = TrainingLibrary.find_by(slug: params[:library_id])
   end
 

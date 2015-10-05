@@ -1,13 +1,15 @@
-<div class="container">
-  <ul>
-    <%- @libraries.each do |library| %>
-      <li>
-        <h3>
-          <a href="training/<%= library.slug %>">
-            <%= library.slug.humanize.titleize %>
-          </a>
-        </h3>
-      </li>
-    <% end %>
-  </ul>
+<div class="container training">
+  <header>
+    <ul>
+      <%- @libraries.each do |library| %>
+        <li>
+          <h3>
+            <a href="training/<%= library.slug %>">
+              <%= library.slug.humanize.titleize %>
+            </a>
+          </h3>
+        </li>
+      <% end %>
+    </ul>
+  </header>
 </div>
