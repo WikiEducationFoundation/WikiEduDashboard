@@ -1,11 +1,14 @@
 <div class="container training">
+  <ol class='breadcrumbs'><%= render_breadcrumbs tag: :li, separator: ' > ' %></ol>
   <div class="training__intro">
-    <h1><%= @training_module.name %></h1>
-    <%- markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML) %>
-    <%- html = markdown.render(@training_module.description) %>
-    <%= raw html %>
-    <hr>
-    <h4>Estimated time to complete:<br><%= @training_module.estimated_ttc %></h4>
+    <div class="training-intro__header">
+      <h1><%= @training_module.name %></h1>
+      <%- markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML) %>
+      <%- html = markdown.render(@training_module.description) %>
+      <%= raw html %>
+      <hr>
+      <h4>Estimated time to complete:<br><%= @training_module.estimated_ttc %></h4>
+    </div>
   </div>
 
   <div class="training__toc-container">

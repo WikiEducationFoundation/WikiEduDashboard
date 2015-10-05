@@ -116,8 +116,8 @@ Rails.application.routes.draw do
        constraints: { course_id: /.*/ }
 
   get 'training' => 'training#index'
-  get 'training/:library_id' => 'training#show'
-  get 'training/:library_id/:module_id' => 'training#training_module'
+  get 'training/:library_id' => 'training#show', as: :training_library
+  get 'training/:library_id/:module_id' => 'training#training_module', as: :training_module
 
 
   # Misc
