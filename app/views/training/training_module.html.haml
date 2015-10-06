@@ -1,0 +1,14 @@
+.container.training
+  %ol.breadcrumbs= render_breadcrumbs tag: :li, separator: ' > '
+  .training__intro
+    .training-intro__header.appearance-hr
+      %h1= @training_module.name
+      - markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
+      - html = markdown.render(@training_module.description)
+      = raw html
+    %h3.pull-left.py2
+      %small Estimated time to complete:
+      %br/
+      = @training_module.estimated_ttc
+    = link_to 'Start', '', class: 'btn btn-primary pull-right py2'
+  #react_root{ "data-module-id" => params[:module_id] }
