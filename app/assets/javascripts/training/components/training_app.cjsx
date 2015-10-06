@@ -21,8 +21,8 @@ TrainingApp = React.createClass(
         <p>{slide.summary}</p>
       </li>
 
-    <div>
-      <h1>Table of Contents</h1>
+    <div className='training__toc-container'>
+      <h1><small className="heading appearance-hr">Table of Contents</small></h1>
       <ol>
       {slides}
       </ol>

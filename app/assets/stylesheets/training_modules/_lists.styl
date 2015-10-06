@@ -1,0 +1,378 @@
+.sort
+  cursor pointer
+  &.asc > p:after, &.desc > p:after
+    display inline-block
+    content '\EA01'
+    vertical-align middle
+    font-family "icons"
+    font-size 12px
+    margin-left 3px
+    transition transform .2s
+
+  &.asc p:after
+    transform rotate(180deg)
+  &.desc p:after
+    transform rotate(0deg)
+.list__header
+  background-color transparent !important
+  border 0 !important
+  font-family "Roboto"
+  .row__wrapper
+    border 0 !important
+    padding-top 0 !important
+    padding-bottom 0 !important
+    p
+      color manatee
+      // letter-spacing 0.5px
+  &:hover
+    background initial !important
+.list
+  list-style none
+  list-style-type none
+  p
+    margin 0
+.list-unstyled
+  list-style none
+  list-style-type none
+.row
+  align-items center
+  background-color white
+  border 1px solid mischka
+  border-width 0 1px 1px
+  justify-content flex-start
+  margin 0
+  padding 0
+  transition background .15s
+  > a
+    text-decoration none
+  &:first-child
+    border-width 1px
+  p, small
+    color dove
+    &.red
+      color warning
+  div:not(.drawer):last-child
+    justify-content flex-start
+    +below(desktop)
+      justify-content center
+  div:not(.drawer)
+    align-items center
+    display flex
+    min-height 40px
+    p
+      flex 1
+  h4
+    color dove
+  .row__wrapper
+    cf()
+    flex-wrap wrap
+    padding 15px
+    position relative
+    width 100%
+    +above(desktop)
+      flex-wrap nowrap
+    > div > p
+      color dove
+      font-size 14px
+  .fake-link
+    font-size 14px
+    font-family "Roboto"
+    text-align right
+  &:last-child .row__wrapper
+    border-bottom none
+  &:hover
+    background athens
+    .fake-link:after
+      display inline-block
+      content '\f107'
+      font-family "FontAwesome"
+      font-size 13px
+      font-weight bold
+      margin-left 8px
+      transform rotate(270deg)
+  &.view-all
+    background none
+    border none
+    border-width 0 0 1px 0
+    justify-content center !important
+    padding-left 20px
+    padding-right 20px
+    +above(desktop)
+      padding-left 0
+      padding-right 0
+    a
+      font-family "Roboto"
+    div
+      align-items center
+      justify-content center
+      min-height 48px
+    &:hover
+      background none !important
+  &.open
+    &:hover
+      background none
+    > .row__wrapper
+      background-color manatee
+      &:hover
+        background manatee !important
+      p
+        color white
+      small
+        color white
+
+.table__header
+  border-bottom 0
+  padding 0
+  width 100%
+  div
+    align-items flex-end
+    p
+      color white
+      text-align left
+
+.course-list__row
+  .course-list__row__title
+    col(1)
+    +above(desktop)
+      col(2/6)
+  .course-list__row__long_title
+    col(1)
+  .course-list__row__revisions,
+    float left
+    +above(desktop)
+      col(1/4)
+    span
+      display inline
+  .course-list__row__views, .course-list__row__characters
+    float left
+    +above(desktop)
+      col(1/6)
+    span
+      display inline
+  .course-list__row__students
+    p
+      min-width: 28px
+      border-right none
+      padding-right 0
+  .course-list__row__revisions
+    col(1)
+    +above(desktop)
+      col(1/6)
+  .course-list__row__link
+    +above(desktop)
+      col(1/6)
+      position static
+  div:not(.drawer)
+    min-height 40px
+
+.user-list__row
+  .user-list__row__name
+    col(1)
+    +above(desktop)
+      col(5/20)
+    p.name
+      line-height 1
+      margin-top 13px
+    small
+      display none
+      font-size 8px
+      +above(desktop)
+        display inline-block
+  .user-list__row__training
+    +above(desktop)
+      display none !important
+  .user-list__row__characters__mobile
+    +above(desktop)
+      display none !important
+  .user-list__row__characters-ms
+    col(5/40)
+    display none !important
+    +above(desktop)
+      display flex !important
+  .user-list__row__characters-us
+    col(5/40)
+    display none !important
+    +above(desktop)
+      display flex !important
+  .user-list__row__edits
+    display none !important
+  .user-list__row__assignee,
+  .user-list__row__reviewer
+    display none !important
+    +above(desktop)
+      col(5/20)
+      display flex !important
+    span.article_rating
+      font-size 11px
+      vertical-align super
+  .user-list__row__link
+    margin-top -20px
+    position absolute
+    right 30px
+    top 50%
+    .icon:before
+      content '\EA01'
+      font-family 'icons'
+      font-size 16px
+      font-weight 100
+    +above(desktop)
+      col(2/20)
+      position static
+      margin-top 0
+      .icon:before
+        font-weight normal
+  .user-list__row__spacer
+    col(0/20)
+
+.article-list__row
+  .article-list__row__rating
+    col(1/10)
+  .article-list__row__title
+    col(1)
+    +above(desktop)
+      col(6/20)
+  .article-list__row__characters, .article-list__row__views
+    font-size 14px
+    +above(desktop)
+      col(6/40)
+    span
+      display inline
+  .article-list__row__link
+    col(6/40)
+
+.revision-list__row
+  &.list__header
+    p, h6
+      font-size 14px
+    max-height 40px
+  .revision-list__row__title
+    col(1)
+    +above(desktop)
+      col(9/40)
+  .revision-list__row__date
+    col(9/40)
+  .revision-list__row__characters
+    +above(desktop)
+      col(9/40)
+    span
+      display inline-block
+  .revision-list__row__views
+    +above(desktop)
+      col(5/40)
+    span
+      display inline-block
+  .revision-list__row__link
+    col(8/40)
+
+
+.avatar, .rating
+  margin-left 15px
+  margin-right 15px
+  +above(desktop)
+    display inline-block
+
+.avatar
+  round-placeholder(23)
+  float left
+  img
+    width 46px
+
+rating(color)
+  border 3px solid color
+  p
+    color color
+
+.rating
+  round-placeholder(23)
+  rating(#D2D2D2)
+  background-color transparent
+  border 3px solid #D2D2D2
+  text-align center
+  text-transform uppercase
+  float left
+  p
+    font-size 15px
+    font-weight 600
+    line-height 40px
+
+  &.null
+    rating(#D2D2D2)
+  &.fa, &.fl
+    rating(#E36944)
+  &.a
+    rating(#656E92)
+  &.ga
+    rating(#F9C623)
+  &.b
+    rating(#858DAA)
+  &.c
+    rating(#858DAA)
+  &.start
+    rating(#858DAA)
+  &.stub
+    rating(#D2D2D2)
+  &.list
+    rating(#656E92)
+
+
+.row:not(.list__header)
+  .course-list__row__characters, .course-list__row__revisions, .course-list__row__views,
+  .course-list__row__students, .user-list__row__characters__mobile,
+  .user-list__row__training, .article-list__row__characters,
+  .article-list__row__views, .revision-list__row__characters,
+  .revision-list__row__views
+    p
+      font-size 14px
+      +above(desktop)
+        border 0
+        font-size 16px
+        padding 0
+
+  .course-list__row__characters, .course-list__row__revisions, .course-list__row__views,
+  .article-list__row__characters, .user-list__row__training,
+  .revision-list__row__characters
+    +below(desktop)
+      margin-right 8px
+    p
+      padding-right 8px
+      border-right 1px solid manatee
+      +above(desktop)
+        border-right none
+
+
+
+  p.title
+    font-size 20px
+    +above(desktop)
+      font-size 16px
+    +below(tablet)
+      padding-right 50px
+
+  p.utitle
+    +below(tablet)
+      white-space nowrap
+      font-size 15px
+      margin-right 30px
+
+  p.title, p.utitle
+    +below(tablet)
+      white-space nowrap
+      -ms-text-overflow ellipsis
+      text-overflow ellipsis
+      overflow hidden
+      display inline-block
+
+  .row__fake__link
+    margin-top -20px
+    position absolute
+    right 15px
+    top 50%
+    transform rotate(270deg)
+    +above(desktop)
+      span(0)
+      right 0
+    .icon:before
+      content '\f078'
+      font-family "FontAwesome"
+      font-size 16px
+      font-weight 100

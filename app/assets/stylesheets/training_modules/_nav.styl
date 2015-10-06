@@ -1,0 +1,55 @@
+header.site-header
+  overflow hidden
+  width 100%
+  z-index 100
+  padding 16px 16px 0 16px
+  a
+    text-decoration none
+  a.active,
+  a:hover
+    border-bottom 2px solid bayoux
+  .container
+    border-bottom 1px solid $border_lt
+    padding 5px 10px
+
+
+.logo
+  float left
+  font-size 0
+  width 40px
+  position relative
+  bottom 5px
+  .logo__link
+    display inline-block
+    font-size 0
+    &:hover
+      border-bottom 0
+    img
+      width 40px
+      height 40px
+
+.home
+  clear none
+  float left
+  margin-left 10px
+  p
+    font-size 15px
+    margin 5px auto
+    padding 5px
+    +above(desktop)
+      margin 0
+    a.inline:last-child
+      margin-left 8px
+
+.login
+  @extends .home
+  float right
+
+.breadcrumbs
+  color $type_light
+  list-style none 
+  margin 2em 0
+  font-size 13px
+  li
+    display inline
+    margin 0

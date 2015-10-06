@@ -1,4 +1,5 @@
 class TrainingController < ApplicationController
+  layout 'training'
   add_breadcrumb 'Training Library', :training_path
 
   def index

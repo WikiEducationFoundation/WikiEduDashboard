@@ -1,0 +1,48 @@
+!!!
+%html{ dir: rtl? ? "rtl" : nil }
+  %meta{content: "width=device-width, initial-scale=1.0", name: "viewport"}
+  - before = content_for?(:before_title) ? yield(:before_title) : ''
+  - after = content_for?(:after_title) ? yield(:after_title) : ''
+  %title= "#{before}#{Figaro.env.dashboard_title}#{after}"
+  = logo_favicon_tag
+  %meta{content: content_for?(:description) ? yield(:description) : "Myapp", name: "description"}
+  = stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700', media: 'all'
+  = stylesheet_link_tag "/assets/stylesheets/training.css", media: 'all'
+  = javascript_include_tag '/assets/javascripts/i18n'
+  = javascript_include_tag '/assets/javascripts/i18n/' + I18n.locale.to_s
+  :javascript
+    I18n.defaultLocale = "#{I18n.default_locale}";
+    I18n.locale = "#{I18n.locale}";
+  = javascript_include_tag '/assets/javascripts/vendor.js'
+  / Temporary Raven logging
+  %script{src: "//cdn.ravenjs.com/1.1.19/jquery,native/raven.min.js"}
+  :javascript
+    Raven.config("#{ENV['sentry_public_dsn']}").install();
+  = javascript_include_tag fingerprinted('/assets/javascripts/', 'main.js')
+  = csrf_meta_tags
+  %body
+    - if flash[:notice]
+      .notice= flash[:notice]
+    %div
+      %header.site-header
+        .container
+          .logo
+            %a.logo__link
+              = link_to root_path do
+                = logo_tag
+          .home
+            %p
+              = link_to 'Home', root_url, class: 'inline'
+              = link_to 'FAQ', 'http://wikiedu.org/dashboard-faq/', class: 'inline', target: '_blank'
+              - if current_user && current_user.admin?
+                = link_to 'Recent Activity', '/recent-activity', class: 'inline'
+          .login
+            - if user_signed_in?
+              %p
+                %b>= link_to current_user.wiki_id, :root, class: 'inline'
+                \.   #{link_to "Log Out", :destroy_user_session}
+            - else
+              %p= link_to "Login / Sign Up", user_omniauth_authorize_path(:mediawiki)
+      %main#main{"data-user-id" => current_user.try(:id), :role => "main"}
+        = yield
+    = piwik_tracking_tag

@@ -1,0 +1,102 @@
+body > .container
+  +above(desktop)
+    padding-bottom 80px
+
+.container
+  cf()
+  padding 0 10px
+  position relative
+  .container
+    padding 0
+
+header .container
+  center(1100px)
+main .container
+  center(1000px)
+
+
+  +above(1140px)
+    padding 0
+
+  &.narrow
+    center(800px)
+
+
+main
+  background-color transparent
+  border-width 0 1px
+  padding-bottom 80px
+  header
+    color bayoux
+    padding 150px 0 70px
+    &.course-page
+      padding 80px 0 20px
+      +above(desktop)
+        padding 80px 0 0
+
+header
+  padding 20px
+  text-align center
+  width 100%
+  .title
+    padding 0 20px
+
+.section-header
+  overflow hidden
+  padding 20px 0 20px
+  position relative
+  h3
+    color dove
+
+  +above(tablet)
+    padding 20px 0 0
+
+  +above(desktop)
+    padding 20px 0
+
+section
+  position relative
+
+.details
+  padding-top 20px
+  overflow hidden
+  text-align left
+  span(1)
+  .details__detail
+    span(1/2)
+    padding 20px 0
+    text-align left
+    +above(desktop)
+      span(1/5)
+      text-align left
+    &:last-child
+      span(2/5)
+      text-align left
+    h6
+      font-family "Roboto"
+      font-size 15px
+    p
+      color white
+      font-size 15px
+      font-weight
+      a:hover
+        color white
+
+.hidden
+  display none !important
+
+.course-page
+  background: mercury
+  .title
+    span(1/2)
+    padding-right 20px
+    text-align left
+    h2
+      display inline-block
+      color: bayoux
+
+.course_main
+  background-color smoke
+
+.text-center
+  text-align center

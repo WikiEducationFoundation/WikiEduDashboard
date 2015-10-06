@@ -1,10 +1,28 @@
 .wiki_training
 
 .training__intro
-  col(4/12)
+  col(6/12)
 
 .training__toc-container
-  col(8/12)
+  col(6/12)
+  ol
+    counter-reset item
+  li
+    margin 0 0 1.5em
+    padding 0
+    list-style-type none
+    counter-increment item
+    &:before
+      display inline-block
+      width 1em
+      padding-right 0.5em
+      font-weight bold
+      text-align right
+      content counter(item) "."
+    h3
+      display inline
+    p
+      margin-left 24.5px
 
 .training__toc
   list-style none
@@ -63,3 +81,4 @@
 
 .container.training header
   text-align left
+

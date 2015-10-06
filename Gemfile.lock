@@ -172,10 +172,23 @@ GEM
     guard-rspec (4.4.1)
       guard (~> 2.1)
       rspec (>= 2.99.0, < 4.0)
+    haml (4.0.7)
+      tilt
+    haml-rails (0.9.0)
+      actionpack (>= 4.0.1)
+      activesupport (>= 4.0.1)
+      haml (>= 4.0.6, < 5.0)
+      html2haml (>= 1.0.1)
+      railties (>= 4.0.1)
     hashie (3.4.2)
     hashugar (1.0.0)
     hike (1.2.3)
     hitimes (1.2.2)
+    html2haml (2.0.0)
+      erubis (~> 2.7.0)
+      haml (~> 4.0.0)
+      nokogiri (~> 1.6.0)
+      ruby_parser (~> 3.5)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
     http_parser.rb (0.6.0)
@@ -300,6 +313,8 @@ GEM
       ruby-progressbar (~> 1.4)
     ruby-graphviz (1.2.2)
     ruby-progressbar (1.7.5)
+    ruby_parser (3.7.1)
+      sexp_processor (~> 4.1)
     rubyzip (1.1.7)
     safe_yaml (1.0.4)
     selenium-webdriver (2.47.1)
@@ -309,10 +324,11 @@ GEM
       websocket (~> 1.0)
     sentry-raven (0.13.1)
       faraday (>= 0.7.6)
-    simplecov (0.10.0)
+    sexp_processor (4.6.0)
       docile (~> 1.1.0)
       json (~> 1.8)
       simplecov-html (~> 0.10.0)
+    simplecov (0.10.0)
     simplecov-html (0.10.0)
     slop (3.6.0)
     sprockets (2.12.3)
@@ -380,6 +396,7 @@ DEPENDENCIES
   guard-livereload
   guard-rails
   guard-rspec
+  haml-rails
   hashugar
   i18n-js (>= 3.0.0.rc8)
   jbuilder (~> 2.0)
