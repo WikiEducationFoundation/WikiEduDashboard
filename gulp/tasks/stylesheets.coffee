@@ -15,9 +15,9 @@ utils   = require '../utils.coffee'
 
 gulp.task "stylesheets", ->
   style_dir = "#{config.outputPath}/#{config.cssDirectory}"
-  utils.update_manifest(style_dir, "#{config.cssMainFile}.css")
+  utils.update_manifest(style_dir, "#{config.cssMainFiles}.css")
 
-  stream = gulp.src ["#{config.sourcePath}/#{config.cssDirectory}/#{config.cssMainFile}.styl"]
+  stream = gulp.src ["#{config.sourcePath}/#{config.cssDirectory}/#{config.cssMainFiles}.styl"]
     .pipe plugins.plumber()
     .pipe plugins.stylus
       sourcemap:
@@ -31,14 +31,14 @@ gulp.task "stylesheets", ->
   stream.on 'end', =>
     # Flip for RTL
     rtl_dir = "#{config.outputPath}/#{config.cssDirectory}/rtl"
-    utils.update_manifest(rtl_dir, "#{config.cssMainFile}.css")
+    utils.update_manifest(rtl_dir, "#{config.cssMainFiles}.css")
     gulp.src "#{config.outputPath}/#{config.cssDirectory}/*.css"
       .pipe flipper()
       .pipe gulp.dest rtl_dir
 
 gulp.task "stylesheets-fingerprint", ->
   style_dir = "#{config.outputPath}/#{config.cssDirectory}"
-  stream = gulp.src ["#{config.sourcePath}/#{config.cssDirectory}/#{config.cssMainFile}.styl"]
+  stream = gulp.src ["#{config.sourcePath}/#{config.cssDirectory}/#{config.cssMainFiles}.styl"]
     .pipe plugins.plumber()
     .pipe plugins.stylus
       sourcemap:
@@ -52,7 +52,7 @@ gulp.task "stylesheets-fingerprint", ->
   stream.on 'end', =>
     # Flip for RTL
     rtl_dir = "#{config.outputPath}/#{config.cssDirectory}/rtl"
-    rtl_stream = gulp.src ["#{config.outputPath}/#{config.cssDirectory}/#{config.cssMainFile}.css"]
+    rtl_stream = gulp.src ["#{config.outputPath}/#{config.cssDirectory}/#{config.cssMainFiles}.css"]
       .pipe flipper()
       .pipe plugins.rev()
       .pipe gulp.dest rtl_dir
@@ -61,7 +61,7 @@ gulp.task "stylesheets-fingerprint", ->
       .pipe gulp.dest rtl_dir
 
     rtl_stream.on 'end', =>
-      gulp.src ["#{config.outputPath}/#{config.cssDirectory}/#{config.cssMainFile}.css"]
+      gulp.src ["#{config.outputPath}/#{config.cssDirectory}/#{config.cssMainFiles}.css"]
         .pipe plugins.rev()
         .pipe gulp.dest style_dir
         .pipe plugins.rev.manifest()
