@@ -14,9 +14,9 @@ class AssignmentImporter
   end
 
   def self.update_article_ids(raw_articles)
-    articles = Article.where(
-      title: raw_articles.map(&:title)
-    )
+    articles = Article
+               .where(title: raw_articles.map(&:title))
+               .where(namespace: 0)
     Assignment.where(
       article_title: articles.pluck(:title),
       article_id: nil

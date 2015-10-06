@@ -28,4 +28,10 @@ class Assignment < ActiveRecord::Base
     ASSIGNED_ROLE  = 0
     REVIEWING_ROLE = 1
   end
+
+  def page_url
+    language = ENV['wiki_language']
+    escaped_title = article_title.tr(' ', '_')
+    "https://#{language}.wikipedia.org/wiki/#{escaped_title}"
+  end
 end
