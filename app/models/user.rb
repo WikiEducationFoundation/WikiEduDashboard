@@ -66,7 +66,7 @@ class User < ActiveRecord::Base
 
   def sandbox_url
     language = Figaro.env.wiki_language
-    "https://#{language}.wikipedia.org/wiki/User:#{wiki_id}/sandbox"
+    "https://#{language}.wikipedia.org/wiki/Special:PrefixIndex/User:#{wiki_id}"
   end
 
   def admin?
