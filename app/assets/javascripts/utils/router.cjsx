@@ -24,7 +24,9 @@ MainspaceHandler      = require '../components/activity/mainspace_handler'
 PlagiarismHandler     = require '../components/activity/plagiarism_handler'
 RecentEditsHandler     = require '../components/activity/recent_edits_handler'
 
-TrainingApp = require '../training/components/training_app'
+TrainingApp           = require '../training/components/training_app'
+TrainingModuleHandler = require '../training/components/training_module_handler'
+TrainingSlideHandler  = require '../training/components/training_slide_handler'
 
 routes = (
   <Route name='root' path='/' handler={App}>
@@ -54,7 +56,10 @@ routes = (
     </Route>
     <DefaultRoute handler={CourseCreatorButton} />
 
-    <Route path='training/*/*' handler={TrainingApp} />
+    <Route path='training' handler={TrainingApp} >
+      <Route path=':library_id/:module_id' handler={TrainingModuleHandler} />
+      <Route path='/training/:library_id/:module_id/:slide_id' handler={TrainingSlideHandler} />
+    </Route>
   </Route>
 )
 

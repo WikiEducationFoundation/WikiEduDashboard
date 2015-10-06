@@ -17,15 +17,11 @@ description: |
   * How are copyright and plagarisim handled?
 estimated_ttc: 23 minutes
 slides:
-  - id: 1
-    title: Introduction to Wikipedia’s policies and guidelines
+  - title: Introduction to Wikipedia’s policies and guidelines
     slug: intro-to-wikipedia-policies-guidelines
-  - id: 2
-    title: Wikipedia's Five Pillars
+  - title: Wikipedia's Five Pillars
     slug: wikipedia-five-pillars
-  - id: 3
-    title: 'Beyond the Five Pillars: Verifyability'
+  - title: 'Beyond the Five Pillars: Verifyability'
     slug: beyond-five-pillars-verifyability
-  - id: 4
-    title: 'Beyond the Five Pillars: Notability'
+  - title: 'Beyond the Five Pillars: Notability'
     slug: beyond-five-pillars-notability

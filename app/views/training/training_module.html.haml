@@ -10,5 +10,7 @@
       %small Estimated time to complete:
       %br/
       = @training_module.estimated_ttc
-    = link_to 'Start', '', class: 'btn btn-primary pull-right py2'
+    = link_to [@training_module.slug, @training_module.slides.first.slug].join('/'),
+      class: 'btn btn-primary pull-right py2' do
+      Start
   #react_root{ "data-module-id" => params[:module_id] }
