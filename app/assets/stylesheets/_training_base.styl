@@ -11,16 +11,17 @@ Only single elements. No classes or ids.
 
 html
   -webkit-text-size-adjust 100%
-  -webkit-font-smoothing antialiased
   height 100%
   font-size 0.938em
 
 body
   background-color $body_bg
-  font 16px/1.56 $body_font
+  font $body_font_size/$body_leading $body_font
+  font-weight $body_font_weight
   width 100%
   height 100%
   color $type_dark
+  letter-spacing $body_letter_spacing
   &.modal-open
     overflow hidden
 
@@ -49,9 +50,12 @@ h2
 h3
   font-size 17px
   margin-bottom 5px
+  small
+    font-size 14.5px
+    font-weight 400
 
 h4
-  font-size 1.25em
+  font-size 16px
 
 h5
   font-size 1em
