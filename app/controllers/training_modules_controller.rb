@@ -5,4 +5,5 @@ class TrainingModulesController < ApplicationController
     @training_module = TrainingModule.find_by(slug: params[:module_id])
   end
 
+
 end
