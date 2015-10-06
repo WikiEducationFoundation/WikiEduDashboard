@@ -17,7 +17,7 @@ class TrainingModule < FromYaml
   # raw_slides can be called to access the string representation;
   # #slides now returns the instances of TrainingSlide
   def slides
-    TrainingSlide.all.select { |slide| raw_slides.include?(slide.slug) }
+    TrainingSlide.all.select { |slide| raw_slides.collect(&:slug).include?(slide.slug) }
   end
   
 end

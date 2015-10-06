@@ -26,7 +26,7 @@ class FromYaml
 
   def self.all
     if Rails.cache.read(self.cache_key).nil?
-      self.load(self.cache_key, self.path_to_yaml)
+      self.load(cache_key: self.cache_key, path_to_yaml: self.path_to_yaml)
     end
     Rails.cache.read(self.cache_key)
   end

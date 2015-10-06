@@ -75,6 +75,10 @@ ServerActions = Flux.createActions
     API.fetchUserCourses(userId).then (data) ->
       { actionType: 'RECEIVE_USER_COURSES', data: data }
 
+  fetchTrainingModule: (opts={}) ->
+    API.fetchTrainingModule(opts).then (data) ->
+      { actionType: 'RECEIVE_TRAINING_MODULES', data: data }
+
   # Save
   saveCourse: (data, course_id=null) ->
     API.saveCourse(data, course_id).then (data) ->

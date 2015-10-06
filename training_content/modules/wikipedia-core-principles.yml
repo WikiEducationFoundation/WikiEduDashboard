@@ -1,4 +1,12 @@
 name: Wikipedia Training Core Principles
+intro: |
+  This module will provide a basic overview of Wikipedia’s core polocies and guidelines.
+
+  When you finish, you should be able to answer:
+
+  * What are Wikipedia’s core policies and guidelines?
+  * What are copyright and plagarisim on Wikipedia?
+  * How are copyright and plagarisim handled?
 description: |
   This module will provide a basic overview of Wikipedia’s core polocies and guidelines.
 
@@ -8,3 +16,12 @@ description: |
   * What are copyright and plagarisim on Wikipedia?
   * How are copyright and plagarisim handled?
 estimated_ttc: 23 minutes
+slides:
+  - title: Introduction to Wikipedia’s policies and guidelines
+    slug: intro-to-wikipedia-policies-guidelines
+  - title: Wikipedia's Five Pillars
+    slug: wikipedia-five-pillars
+  - title: 'Beyond the Five Pillars: Verifyability'
+    slug: beyond-five-pillars-verifyability
+  - title: 'Beyond the Five Pillars: Notability'
+    slug: beyond-five-pillars-notability

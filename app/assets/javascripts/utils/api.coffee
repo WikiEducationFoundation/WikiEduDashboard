@@ -188,6 +188,18 @@ API =
         console.log 'Error: ' + obj.responseJSON.message
         rej obj
 
+  fetchTrainingModule: (opts) ->
+    new Promise (res, rej) ->
+      $.ajax
+        type: 'GET'
+        url: "/training_modules.json?module_id=#{opts.module_id}"
+        success: (data) ->
+          console.log 'Received training module'
+          res data
+      .fail (obj, status) ->
+        console.log 'Error: ' + obj.responseJSON.message
+        rej obj
+
 
   ###########
   # Setters #
