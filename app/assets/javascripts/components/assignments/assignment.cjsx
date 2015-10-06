@@ -2,7 +2,7 @@ React             = require 'react/addons'
 ArticleStore      = require '../../stores/article_store'
 
 userLink = (wiki_id) ->
-  <a key={wiki_id} href="https://en.wikiedia.org/wiki/User:#{wiki_id}">{wiki_id}</a>
+  <a key={wiki_id} href="https://en.wikipedia.org/wiki/User:#{wiki_id}">{wiki_id}</a>
 
 Assignment = React.createClass(
   displayName: 'Assignment'
