@@ -63,7 +63,7 @@ describe 'Instructor users', type: :feature, js: true do
       visit "/courses/#{Course.first.slug}/students"
       sleep 1
       click_button 'Enrollment'
-      page.all('input')[1].set('Risker')
+      within('#users') { all('input')[1].set('Risker') }
       click_button 'Enroll'
       page.driver.browser.switch_to.alert.accept
       page.driver.browser.switch_to.alert.accept
@@ -75,7 +75,7 @@ describe 'Instructor users', type: :feature, js: true do
       visit "/courses/#{Course.first.slug}/students"
       sleep 1
       click_button 'Enrollment'
-      page.all('input')[1].set('NotARealUser')
+      within('#users') { all('input')[1].set('NotARealUser') }
       click_button 'Enroll'
       page.driver.browser.switch_to.alert.accept
       page.driver.browser.switch_to.alert.accept
@@ -108,7 +108,7 @@ describe 'Instructor users', type: :feature, js: true do
       # Assign an article
       click_button 'Assign Articles'
       page.all('button.border')[0].click
-      page.first('input').set('Article 1')
+      within('#users') { first('input').set('Article 1') }
       click_button 'Assign'
       page.driver.browser.switch_to.alert.accept
       sleep 1
@@ -117,7 +117,7 @@ describe 'Instructor users', type: :feature, js: true do
 
       # Assign a review
       page.all('button.border')[1].click
-      page.first('input').set('Article 2')
+      within('#users') { first('input').set('Article 2') }
       click_button 'Assign'
       page.driver.browser.switch_to.alert.accept
       sleep 1

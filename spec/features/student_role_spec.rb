@@ -177,7 +177,7 @@ describe 'Student users', type: :feature, js: true do
 
       # Add an assigned article
       first('button.border').click
-      first('input').set('Selfie')
+      within('#users') { first('input').set('Selfie') }
       page.all('button.border')[1].click
       page.driver.browser.switch_to.alert.accept
       sleep 1
@@ -199,7 +199,7 @@ describe 'Student users', type: :feature, js: true do
       sleep 3
 
       page.all('button.border')[1].click
-      first('input').set('Self-portrait')
+      within('#users') { first('input').set('Self-portrait') }
       page.all('button.border')[2].click
       page.driver.browser.switch_to.alert.accept
       page.all('button.border')[1].click
