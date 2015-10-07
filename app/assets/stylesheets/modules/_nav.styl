@@ -42,8 +42,14 @@ aside
     padding 5px
     +above(desktop)
       margin 0
-    a.inline:last-child
+    a.inline
       margin-left 8px
+
+.search
+  @extends .home
+  align center
+  +below(desktop)
+    display none
 
 .login
   @extends .home
