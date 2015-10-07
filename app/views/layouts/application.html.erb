@@ -42,7 +42,6 @@
           <div class="home">
             <p>
               <%= link_to 'Home', root_url, class: 'inline' %>
-              <%= link_to 'FAQ', 'http://wikiedu.org/dashboard-faq/', class: 'inline', target: '_blank' %>
               <% if current_user && current_user.admin? %>
                 <%= link_to 'Recent Activity', '/recent-activity', class: 'inline' %>
               <% end %>
