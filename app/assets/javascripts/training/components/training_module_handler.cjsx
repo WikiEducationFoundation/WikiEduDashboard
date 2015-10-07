@@ -2,9 +2,6 @@ React = require 'react'
 TrainingStore = require '../stores/training_store'
 ServerActions = require '../../actions/server_actions'
 
-Router          = require 'react-router'
-RouteHandler    = Router.RouteHandler
-
 getState = ->
   training_module: TrainingStore.getTrainingModule()
 
