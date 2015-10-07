@@ -58,7 +58,7 @@ routes = (
 
     <Route path='training' handler={TrainingApp} >
       <Route path=':library_id/:module_id' handler={TrainingModuleHandler} />
-      <Route path='/training/:library_id/:module_id/:slide_id' handler={TrainingSlideHandler} />
+      <Route name='slide' path='/training/:library_id/:module_id/:slide_id' handler={TrainingSlideHandler} />
     </Route>
   </Route>
 )
