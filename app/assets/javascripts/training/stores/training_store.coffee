@@ -14,17 +14,19 @@ TrainingStore = Flux.createStore
   getTrainingModule: ->
     return _module
   getPreviousSlide: (props) ->
-    currentSlide = @getCurrentSlide(props)
-    return {} if !currentSlide || currentSlide.id is 1
-    slides = @getSlides()
-    if slides && props?.params
-      return slides[_.findIndex(slides, (slide) -> slide.slug == props.params.slide_id) - 1]
+    @getSlideRelativeToCurrent(props, position: 'previous')
   getNextSlide: (props) ->
+    @getSlideRelativeToCurrent(props, position: 'next')
+  getSlideRelativeToCurrent: (props, opts) ->
     currentSlide = @getCurrentSlide(props)
-    return {} if !currentSlide || currentSlide.id == _module.slides.length
+    return if !currentSlide || @desiredSlideIsCurrentSlide(opts, currentSlide, _module.slides)
     slides = @getSlides()
     if slides && props?.params
-      return slides[_.findIndex(slides, (slide) -> slide.slug == props.params.slide_id) + 1]
+      slideIndex = _.findIndex(slides, (slide) -> slide.slug == props.params.slide_id)
+      newIndex = if opts.position is 'next' then slideIndex + 1 else slideIndex - 1
+      return slides[newIndex]
+  desiredSlideIsCurrentSlide: (opts, currentSlide, slides) ->
+    (opts.position is 'next' && currentSlide.id == slides.length) || (opts.position is 'previous' && currentSlide.id == 1)
   getCurrentSlide: (props) ->
     slides = @getSlides()
     if slides && props?.params
