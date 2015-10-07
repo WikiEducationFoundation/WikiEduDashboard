@@ -3,6 +3,7 @@ TrainingStore = require '../stores/training_store'
 ServerActions = require '../../actions/server_actions'
 Router          = require 'react-router'
 Link            = Router.Link
+SlideLink       = require './slide_link'
 md              = require('markdown-it')({ html: true, linkify: true })
 
 getState = (props) ->
@@ -34,18 +35,20 @@ TrainingSlideHandler = React.createClass(
   storeDidChange: ->
     @setState getState(@props)
   render: ->
-    console.log 'rendered'
+    if @state.nextSlide?.slug
+      nextLink = <SlideLink
+                    slideId={@state.nextSlide.slug}
+                    direction='Next'
+                    slideTitle={@state.nextSlide.title}
+                    {... @props} />
 
-    if @state.nextSlide.slug
-      nextLink = (<Link to="slide" params={{ library_id: @props.params.library_id, module_id: @props.params.module_id, slide_id: @state.nextSlide.slug }}>Next Slide: {@state.nextSlide.title}</Link>)
-    else
-      ''
-
-    if @state.previousSlide.slug
-      previousLink = (<Link to="slide" params={{ library_id: @props.params.library_id, module_id: @props.params.module_id, slide_id: @state.previousSlide.slug }}>Previous Slide: {@state.previousSlide.title}</Link>)
-    else
-      ''
-
+    if @state.previousSlide?.slug
+      previousLink = <SlideLink
+                       slideId={@state.previousSlide.slug}
+                       direction='Previous'
+                       slideTitle={@state.previousSlide.title}
+                       {... @props} />
+ 
     raw_html = md.render(@state.currentSlide.content)
 
     <article className="training__slide">
