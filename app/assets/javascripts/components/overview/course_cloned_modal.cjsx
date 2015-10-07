@@ -34,7 +34,7 @@ CourseClonedModal = React.createClass(
     @setState valuesUpdated: true
   cloneCompletedStatus: 2
   saveCourse: ->
-    @updateCourse('cloned_status', @clonedCompletedStatus)
+    @updateCourse('cloned_status', @cloneCompletedStatus)
     if ValidationStore.isValid()
       @setState isSubmitting: true
       ValidationActions.setInvalid 'exists', 'This course is being checked for uniqueness', true
