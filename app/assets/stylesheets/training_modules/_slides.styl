@@ -1,2 +1,34 @@
 .training__slide header
-  padding-top 0
+  padding 10px 0
+  border-bottom 1px solid $border
+  display inline-block
+
+.training__slide__content
+  margin 30px auto
+  max-width 800px
+
+
+.training__slide__footer
+  display inline-block
+  width 100%
+  border-top 1px solid $border
+  margin-top 20px
+  padding-top 20px
+
+.slide__menu__nav
+  float left
+  position absolute
+  right 0
+  background rgba(0,0,0,0.8)
+  color #fff
+  padding 15px
+  width 250px
+  li
+    white-space nowrap
+    overflow hidden
+    text-overflow ellipsis
+    font-size 15px
+    line-height 21px
+    margin-left 0
+    &.current
+      font-weight bold

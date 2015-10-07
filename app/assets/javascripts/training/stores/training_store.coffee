@@ -2,13 +2,19 @@ McFly = require 'mcfly'
 Flux  = new McFly()
 
 _module = {}
+_menuState = false
 
 setModule = (trainingModule) ->
   _module = trainingModule
   TrainingStore.emitChange()
 
+setMenuState = (currently) ->
+  _menuState = !currently
+  TrainingStore.emitChange()
 
 TrainingStore = Flux.createStore
+  getMenuState: ->
+    return _menuState
   getSlides: ->
     return _module.slides
   getTrainingModule: ->
@@ -36,6 +42,9 @@ TrainingStore = Flux.createStore
   switch(payload.actionType)
     when 'RECEIVE_TRAINING_MODULES'
       setModule data.training_module
+      break
+    when 'MENU_TOGGLE'
+      setMenuState data.currently
       break
 
 module.exports = TrainingStore
