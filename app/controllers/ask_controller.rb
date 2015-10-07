@@ -4,7 +4,7 @@ require 'uri'
 class AskController < ApplicationController
   def search
     if params[:q].blank?
-      redirect_to 'http://ask.wikiedu.org'
+      redirect_to 'http://ask.wikiedu.org/questions/scope:all/sort:activity-desc/tags:student/page:1/'
       return
     end
 

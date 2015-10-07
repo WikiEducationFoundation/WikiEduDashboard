@@ -50,8 +50,8 @@
           </div>
           <div class="search">
               <%= form_tag("/ask", method: "get") do %>
-                <%= text_field_tag(:q) %>
-                <%= submit_tag("Ask a question") %>
+                <%= text_field_tag(:q, '', placeholder: 'search ask.wikiedu.org') %>
+                <%= submit_tag("Help!") %>
               <% end %>
           </div>
           <div class="login">
