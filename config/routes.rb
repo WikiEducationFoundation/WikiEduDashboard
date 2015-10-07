@@ -120,6 +120,9 @@ Rails.application.routes.draw do
   get 'talk' => 'courses#talk'
   # get 'courses/*id' => 'courses#show', :as => :show, constraints: { id: /.*/ }
 
+  # ask.wikiedu.org search box
+  get 'ask' => 'ask#search'
+
   # Root
   root to: 'courses#index'
 
