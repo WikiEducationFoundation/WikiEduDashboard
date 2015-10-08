@@ -10,7 +10,7 @@ The dashboard front end is primary built using React.js and Flux written in Coff
 - [React DnD](http://gaearon.github.io/react-dnd/) - The library used for drag-and-drop interactions on the timeline
 
 ### Actions
-Actions are exactly what they sound like: any impactful change front end user action should trigger a Flux action that can be received and acted upon by a store. Think of a Flux action as being similar to an emitted event.
+Actions are exactly what they sound like: any impactful front end user action should trigger a Flux action that can be received and acted upon by a store. Think of a Flux action as being similar to an emitted event.
 
 ##### ServerActions
 ServerActions define a set of actions that interact with the Rails application via AJAX requests. Notably, several ServerActions are triggered by default when a course page is first loaded. These Actions trigger AJAX requests through the API helper and use a promise to emit an event for subscribed Stores when the AJAX request returns.
@@ -33,13 +33,13 @@ Components are the view layer of the JS application. They contain HTML markup an
 ##### High-order components
 [High-order components](/app/assets/javascripts/components/high_order) are essentially wrappers for passed components. [This post](https://medium.com/@dan_abramov/mixins-are-dead-long-live-higher-order-components-94a0d2f9e750) describes the idea very well. They are not polymorphic classes, they are a replacement for mixins. That is, they provide reusable methods or rendering patterns to the components that they wrap without violating idiomatic React (as mixins do).
 
-The [Conditional component](/app/assets/javascripts/components/high_order/conditional.cjsx) is a simple example: it contains all of the logic for conditionally rendering a component based on a boolean prop. This means we can make any component render based on a boolean without repeating that logic. For example, adding this functionality to the Select component is as simple as changing 
+The [Conditional component](/app/assets/javascripts/components/high_order/conditional.cjsx) is a simple example: it contains all of the logic for conditionally rendering a component based on a boolean prop. This means we can make any component render based on a boolean without repeating that logic. For example, adding this functionality to the Select component is as simple as changing
 
 	module.exports = Select
 to
 
 	module.exports = Conditional(Select)
-	
+
 and passing a `show` parameter to any Select used in our application.
 
 ##### Common components
