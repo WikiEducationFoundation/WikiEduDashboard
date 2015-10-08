@@ -1,5 +1,8 @@
 gem 'browser'
 
+# The application controller is the parent for all other controllers.
+# It includes methods are relevant across the application, such as permissions
+# and login.
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.

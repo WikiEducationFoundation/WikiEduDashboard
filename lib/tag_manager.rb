@@ -1,3 +1,4 @@
+#= Adds and removes tags to/from courses
 class TagManager
   # tested via courses_controller
 

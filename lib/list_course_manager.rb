@@ -1,3 +1,4 @@
+#= Routines for adding or removing a course to/from a cohort
 class ListCourseManager
   def initialize(course, cohort, request)
     @course = course

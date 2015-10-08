@@ -1,3 +1,4 @@
+#= Routines to create Assignments from legacy course API data
 class LegacyCourseAssignments
   def self.build_assignments_from_group_flat(course_id, group_flat)
     new(course_id, group_flat).build_assignments_from_group_flat

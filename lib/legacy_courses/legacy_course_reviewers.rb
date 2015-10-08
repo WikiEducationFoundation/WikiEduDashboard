@@ -1,3 +1,4 @@
+#= Routines for parsing legacy course reviewers data and getting it ready to generate Assignments
 class LegacyCourseReviewers
   def self.find_reviewers(group)
     new(group).reviewers
