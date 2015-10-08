@@ -3,7 +3,11 @@ Flux  = new McFly()
 
 _module = {}
 _menuState = false
-_selectedAnswer = null
+_currentSlide = {
+  id: null,
+  title: '',
+  content: ''
+}
 
 setModule = (trainingModule) ->
   _module = trainingModule
@@ -14,7 +18,13 @@ setMenuState = (currently) ->
   TrainingStore.emitChange()
 
 setSelectedAnswer = (answer) ->
-  _selectedAnswer = parseInt(answer)
+  _currentSlide.selectedAnswer = parseInt(answer)
+  TrainingStore.emitChange()
+
+setCurrentSlide = (slide_id) ->
+  return _currentSlide unless _module.slides
+  slideIndex = _.findIndex(_module.slides, (slide) -> slide.slug == slide_id)
+  _currentSlide = _module.slides[slideIndex]
   TrainingStore.emitChange()
 
 TrainingStore = Flux.createStore
@@ -24,8 +34,10 @@ TrainingStore = Flux.createStore
     return _module.slides
   getTrainingModule: ->
     return _module
+  getCurrentSlide: ->
+    return _currentSlide
   getSelectedAnswer: ->
-    return _selectedAnswer
+    currentSlide = @getCurrentSlide
   getPreviousSlide: (props) ->
     @getSlideRelativeToCurrent(props, position: 'previous')
   getNextSlide: (props) ->
@@ -39,22 +51,24 @@ TrainingStore = Flux.createStore
       newIndex = if opts.position is 'next' then slideIndex + 1 else slideIndex - 1
       return slides[newIndex]
   desiredSlideIsCurrentSlide: (opts, currentSlide, slides) ->
+    return unless slides?.length
     (opts.position is 'next' && currentSlide.id == slides.length) || (opts.position is 'previous' && currentSlide.id == 1)
-  getCurrentSlide: (props) ->
-    slides = @getSlides()
-    if slides && props?.params
-      return slides[_.findIndex(slides, (slide) -> slide.slug == props.params.slide_id)]
+
 , (payload) ->
   data = payload.data
   switch(payload.actionType)
-    when 'RECEIVE_TRAINING_MODULES'
+    when 'RECEIVE_TRAINING_MODULE'
       setModule data.training_module
+      setCurrentSlide data.slide
       break
     when 'MENU_TOGGLE'
       setMenuState data.currently
       break
     when 'SET_SELECTED_ANSWER'
       setSelectedAnswer data.answer
+      break
+    when 'SET_CURRENT_SLIDE'
+      setCurrentSlide data.slide
       break
 
 module.exports = TrainingStore

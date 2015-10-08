@@ -11,11 +11,10 @@ md              = require('markdown-it')({ html: true, linkify: true })
 
 getState = (props) ->
   slides: TrainingStore.getSlides()
-  currentSlide: TrainingStore.getCurrentSlide(props)
+  currentSlide: TrainingStore.getCurrentSlide()
   previousSlide: TrainingStore.getPreviousSlide(props)
   nextSlide: TrainingStore.getNextSlide(props)
   menuIsOpen: TrainingStore.getMenuState()
-  selectedAnswer: TrainingStore.getSelectedAnswer()
 
 TrainingSlideHandler = React.createClass(
   displayName: 'TrainingSlideHandler'
@@ -23,22 +22,18 @@ TrainingSlideHandler = React.createClass(
   getInitialState: ->
     slides: []
     previousSlide: { slug: '' }
+    currentSlide: TrainingStore.getCurrentSlide()
     nextSlide: { slug: '' }
-    currentSlide: {
-      id: null
-      title: ''
-      content: ''
-    }
     menuIsOpen: false
-    selectedAnswer: null
   moduleId: ->
     @props.params.module_id
   componentDidMount: ->
     getState(@props)
   componentWillReceiveProps: (newProps) ->
+    TrainingActions.setCurrentSlide(newProps.params.slide_id)
     @setState getState(newProps)
   componentWillMount: ->
-    ServerActions.fetchTrainingModule(module_id: @moduleId())
+    ServerActions.fetchTrainingModule(module_id: @moduleId(), current_slide_id: @props.params.slide_id)
   storeDidChange: ->
     @setState getState(@props)
   toggleMenuOpen: ->
@@ -66,7 +61,7 @@ TrainingSlideHandler = React.createClass(
       quiz = <Quiz
         question={assessment.question}
         answers={assessment.answers}
-        selectedAnswer={@state.selectedAnswer}
+        selectedAnswer={@state.currentSlide.selectedAnswer}
         correctAnswer={@state.currentSlide.assessment.correct_answer_id}
       />
 

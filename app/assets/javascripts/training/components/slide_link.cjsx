@@ -9,7 +9,7 @@ SlideLink = React.createClass(
     slide_id: props.slideId 
   render: ->
     linkParams = @linkParams(@props)
-    <Link className="btn btn-primary slide-nav" to="slide" params={linkParams}>
+    <Link onClick={@props.setCurrentSlide} className="btn btn-primary slide-nav" to="slide" params={linkParams}>
       {@props.direction} Slide: {@props.slideTitle}
     </Link>
 )

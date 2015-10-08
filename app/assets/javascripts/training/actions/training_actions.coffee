@@ -10,5 +10,10 @@ TrainingActions = Flux.createActions
     { actionType: 'SET_SELECTED_ANSWER', data: {
       answer: answer
     }}
+  setCurrentSlide: (slide_id) ->
+    { actionType: 'SET_CURRENT_SLIDE', data: {
+      slide: slide_id
+    }}
+
 
 module.exports = TrainingActions
