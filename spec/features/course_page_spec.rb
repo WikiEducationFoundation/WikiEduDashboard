@@ -279,7 +279,10 @@ describe 'the course page', type: :feature do
   describe 'students view', js: true do
     before do
       Revision.last.update_attributes(date: 2.days.ago, user_id: User.first.id)
-      CoursesUsers.last.update_attributes(course_id: Course.find_by(slug: slug).id, user_id: User.first.id)
+      CoursesUsers.last.update_attributes(
+        course_id: Course.find_by(slug: slug).id,
+        user_id: User.first.id
+      )
     end
     it 'shows a number of most recent revisions for a student' do
       js_visit "/courses/#{slug}/students"

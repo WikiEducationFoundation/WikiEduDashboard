@@ -252,7 +252,10 @@ describe CoursesController do
       end
 
       context 'delete request' do
-        let!(:cohorts_course) { create(:cohorts_course, cohort_id: cohort.id, course_id: course.id) }
+        let!(:cohorts_course) do
+          create(:cohorts_course, cohort_id: cohort.id, course_id: course.id)
+        end
+
         it 'deletes CohortsCourse' do
           delete :list, id: course.slug, cohort: { title: cohort.title }, format: :json
           expect(CohortsCourses.find_by(course_id: course.id, cohort_id: cohort.id)).to be_nil

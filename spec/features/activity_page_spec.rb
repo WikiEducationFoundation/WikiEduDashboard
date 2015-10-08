@@ -85,7 +85,7 @@ describe 'activity page', type: :feature, js: true do
 
         it 'displays a list of revisions suspected of plagiarism' do
           view_plagiarism_page
-          assert_page_content 'There are not currently any recent revisions suspected of plagiarism.'
+          assert_page_content 'There are not currently any recent revisions suspected of plagiarism'
         end
       end
 

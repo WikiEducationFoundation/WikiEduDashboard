@@ -154,12 +154,12 @@ class CategoryImporter
     article_ids.each do |id|
       rev_data = latest_revisions[id.to_s]['revisions'][0]
       new_article = (rev_data['parentid'] == 0)
-      revisions_to_import << Revision.new(
-                               id: rev_data['revid'],
-                               article_id: id,
-                               date: rev_data['timestamp'].to_datetime,
-                               user_id: rev_data['userid'],
-                               new_article: new_article)
+      new_revision = Revision.new(id: rev_data['revid'],
+                                  article_id: id,
+                                  date: rev_data['timestamp'].to_datetime,
+                                  user_id: rev_data['userid'],
+                                  new_article: new_article)
+      revisions_to_import << new_revision
     end
     Revision.import revisions_to_import
   end
