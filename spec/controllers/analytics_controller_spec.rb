@@ -5,6 +5,8 @@ describe AnalyticsController do
     allow(controller).to receive(:current_user).and_return(nil)
     create(:cohort, id: 1, slug: 'first_cohort')
     create(:cohort, id: 2, slug: 'second_cohort')
+    create(:course, id: 1, start: 1.year.ago, end: Time.zone.today)
+    create(:cohorts_course, course_id: 1, cohort_id: 1)
   end
 
   describe '#index' do
