@@ -6,6 +6,7 @@ Router          = require 'react-router'
 Link            = Router.Link
 SlideLink       = require './slide_link'
 SlideMenu       = require './slide_menu'
+Quiz            = require './quiz'
 md              = require('markdown-it')({ html: true, linkify: true })
 
 getState = (props) ->
@@ -14,6 +15,7 @@ getState = (props) ->
   previousSlide: TrainingStore.getPreviousSlide(props)
   nextSlide: TrainingStore.getNextSlide(props)
   menuIsOpen: TrainingStore.getMenuState()
+  selectedAnswer: TrainingStore.getSelectedAnswer()
 
 TrainingSlideHandler = React.createClass(
   displayName: 'TrainingSlideHandler'
@@ -28,6 +30,7 @@ TrainingSlideHandler = React.createClass(
       content: ''
     }
     menuIsOpen: false
+    selectedAnswer: null
   moduleId: ->
     @props.params.module_id
   componentDidMount: ->
@@ -58,6 +61,15 @@ TrainingSlideHandler = React.createClass(
     raw_html = md.render(@state.currentSlide.content)
     menuClass = if @state.menuIsOpen is false then 'hidden' else 'shown'
 
+    if @state.currentSlide.assessment
+      assessment = @state.currentSlide.assessment
+      quiz = <Quiz
+        question={assessment.question}
+        answers={assessment.answers}
+        selectedAnswer={@state.selectedAnswer}
+        correctAnswer={@state.currentSlide.assessment.correct_answer_id}
+      />
+
     <article className="training__slide">
       <header>
         <h3 className="pull-left">{@state.currentSlide.title}</h3>
@@ -77,6 +89,7 @@ TrainingSlideHandler = React.createClass(
           slides={@state.slides} />
       </header>
       <div className='markdown training__slide__content' dangerouslySetInnerHTML={{__html: raw_html}}></div>
+      {quiz}
       <footer className="training__slide__footer">
        <span className="pull-left">{previousLink}</span>
        <span className="pull-right">{nextLink}</span>

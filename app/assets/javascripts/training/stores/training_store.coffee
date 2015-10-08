@@ -3,6 +3,7 @@ Flux  = new McFly()
 
 _module = {}
 _menuState = false
+_selectedAnswer = null
 
 setModule = (trainingModule) ->
   _module = trainingModule
@@ -12,6 +13,10 @@ setMenuState = (currently) ->
   _menuState = !currently
   TrainingStore.emitChange()
 
+setSelectedAnswer = (answer) ->
+  _selectedAnswer = parseInt(answer)
+  TrainingStore.emitChange()
+
 TrainingStore = Flux.createStore
   getMenuState: ->
     return _menuState
@@ -19,6 +24,8 @@ TrainingStore = Flux.createStore
     return _module.slides
   getTrainingModule: ->
     return _module
+  getSelectedAnswer: ->
+    return _selectedAnswer
   getPreviousSlide: (props) ->
     @getSlideRelativeToCurrent(props, position: 'previous')
   getNextSlide: (props) ->
@@ -45,6 +52,9 @@ TrainingStore = Flux.createStore
       break
     when 'MENU_TOGGLE'
       setMenuState data.currently
+      break
+    when 'SET_SELECTED_ANSWER'
+      setSelectedAnswer data.answer
       break
 
 module.exports = TrainingStore

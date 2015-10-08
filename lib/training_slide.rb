@@ -2,7 +2,7 @@ require 'from_yaml'
 
 class TrainingSlide < FromYaml
 
-  attr_accessor :name, :content, :title, :summary, :id, :slug
+  attr_accessor :name, :content, :title, :summary, :id, :slug, :assessment
 
   # Class Methods
 
