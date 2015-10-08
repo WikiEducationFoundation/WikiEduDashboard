@@ -72,7 +72,8 @@ TrainingSlideHandler = React.createClass(
         <SlideMenu
           onClick={@toggleMenuOpen}
           menuClass={menuClass}
-          currentSlideId={@state.currentSlide.id}
+          currentSlide={@state.currentSlide}
+          params={@props.params}
           slides={@state.slides} />
       </header>
       <div className='markdown training__slide__content' dangerouslySetInnerHTML={{__html: raw_html}}></div>
