@@ -1,12 +1,12 @@
 json.course do
-  json.(@course, :id, :title, :description, :start, :end, :school,
-        :subject, :slug, :url, :listed, :submitted, :listed,
-        :expected_students, :timeline_start, :timeline_end, :day_exceptions,
-        :weekdays, :no_day_exceptions, :updated_at)
+  json.call(@course, :id, :title, :description, :start, :end, :school,
+            :subject, :slug, :url, :listed, :submitted, :listed,
+            :expected_students, :timeline_start, :timeline_end, :day_exceptions,
+            :weekdays, :no_day_exceptions, :updated_at)
 
   json.term @course.cloned_status == 1 ? '' : @course.term
   json.legacy @course.id < 10000
-  json.ended !current?(@course) && @course.start < Time.now
+  json.ended !current?(@course) && @course.start < Time.zone.now
   json.published CohortsCourses.exists?(course_id: @course.id)
   json.enroll_url "#{request.base_url}#{course_slug_path(@course.slug)}/enroll/"
 

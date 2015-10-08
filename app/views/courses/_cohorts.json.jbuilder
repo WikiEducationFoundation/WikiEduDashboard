@@ -1,3 +1,3 @@
-json.cohorts @course.cohorts do |ch|
-  json.(ch, :id, :title)
+json.cohorts @course.cohorts do |cohort_course|
+  json.call(cohort_course, :id, :title)
 end

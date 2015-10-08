@@ -1,3 +1,3 @@
 json.tags course.tags do |tag|
-  json.(tag, :id, :tag, :key)
+  json.call(tag, :id, :tag, :key)
 end

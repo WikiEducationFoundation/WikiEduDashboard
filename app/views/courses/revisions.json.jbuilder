@@ -1,8 +1,8 @@
 json.course do
   json.revisions @course.revisions.live.eager_load(:article).order(date: :desc).limit(50) do |rev|
-    json.(rev, :id, :url, :characters, :date, :user_id)
+    json.call(rev, :id, :url, :characters, :date, :user_id)
 
-    json.(rev.article, :rating)
+    json.call(rev.article, :rating)
     json.article_url article_url(rev.article)
     json.title full_title(rev.article)
     json.rating_num rating_priority(rev.article.rating)

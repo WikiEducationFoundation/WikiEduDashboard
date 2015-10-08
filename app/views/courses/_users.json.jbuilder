@@ -1,6 +1,6 @@
 json.users course.courses_users.eager_load(:user) do |cu|
-  json.(cu, :character_sum_ms, :character_sum_us, :role)
-  json.(cu.user, :id, :wiki_id, :trained, :contribution_url, :sandbox_url)
+  json.call(cu, :character_sum_ms, :character_sum_us, :role)
+  json.call(cu.user, :id, :wiki_id, :trained, :contribution_url, :sandbox_url)
   json.admin cu.user.permissions == 1
   json.recent_revisions RevisionStat.recent_revisions_for_user_and_course(cu.user, cu.course).count
 
