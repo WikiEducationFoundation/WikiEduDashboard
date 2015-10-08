@@ -1,7 +1,7 @@
 require 'codeclimate-test-reporter'
 CodeClimate::TestReporter.start
 require 'simplecov'
-SimpleCov.start 'rails' unless ARGV.any? { |e| e =~ /guard-rspec/ }
+SimpleCov.start 'rails'
 
 require 'vcr'
 require 'rspec/core' unless defined? RSpec.configure
