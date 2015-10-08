@@ -18,7 +18,10 @@ setMenuState = (currently) ->
   TrainingStore.emitChange()
 
 setSelectedAnswer = (answer) ->
-  _currentSlide.selectedAnswer = parseInt(answer)
+  answerId = parseInt(answer)
+  _currentSlide.selectedAnswer = answerId
+  if _currentSlide.assessment.correct_answer_id == answerId
+    _currentSlide.answeredCorrectly = true
   TrainingStore.emitChange()
 
 setCurrentSlide = (slide_id) ->

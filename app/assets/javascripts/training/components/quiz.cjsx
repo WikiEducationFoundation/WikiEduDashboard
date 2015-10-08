@@ -25,7 +25,8 @@ Quiz = React.createClass(
       explanationClass += @visibilityStatus(answer.id)
       defaultChecked = parseInt(@props.selectedAnswer) == answer.id
       checked = if @state.selectedAnswerId? then parseInt(@state.selectedAnswerId) == answer.id else defaultChecked
-      <li>
+      liClass = if @visibilityStatus(answer.id) == ' shown' then ' revealed'
+      <li className={liClass}>
         <label>
           <input
             onChange={@setAnswer}
@@ -46,7 +47,7 @@ Quiz = React.createClass(
           {answers}
         </ul>
       </fieldset>
-      <button onClick={@verifyAnswer}>Check Answer</button>
+      <button className="btn btn-primary" onClick={@verifyAnswer}>Check Answer</button>
     </form>
 
 

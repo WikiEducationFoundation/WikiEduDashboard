@@ -39,10 +39,13 @@ TrainingSlideHandler = React.createClass(
   toggleMenuOpen: ->
     TrainingActions.toggleMenuOpen(currently: @state.menuIsOpen)
   render: ->
+    disableNext = @state.currentSlide.assessment? && !@state.currentSlide.answeredCorrectly
+
     if @state.nextSlide?.slug
       nextLink = <SlideLink
                     slideId={@state.nextSlide.slug}
                     direction='Next'
+                    disabled={disableNext}
                     slideTitle={@state.nextSlide.title}
                     {... @props} />
 
@@ -87,7 +90,7 @@ TrainingSlideHandler = React.createClass(
       {quiz}
       <footer className="training__slide__footer">
        <span className="pull-left">{previousLink}</span>
-       <span className="pull-right">{nextLink}</span>
+       <span  className="pull-right">{nextLink}</span>
       </footer>
     </article>
 )

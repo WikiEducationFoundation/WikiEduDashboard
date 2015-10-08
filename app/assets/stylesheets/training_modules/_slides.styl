@@ -1,3 +1,5 @@
+$slide_inner_content_width = 800px
+
 .training__slide header
   padding 10px 0
   border-bottom 1px solid $border
@@ -5,7 +7,7 @@
 
 .training__slide__content
   margin 30px auto
-  max-width 800px
+  max-width $slide_inner_content_width
 
 
 .training__slide__footer
@@ -35,6 +37,8 @@
       pointer-events none
 
 .training__slide__quiz
+  width $slide_inner_content_width
+  margin 0 auto
   ul
     list-style none
     padding-left 0
@@ -42,11 +46,21 @@
   li
     margin-left 0
     padding-left 0
+    &.revealed
+      padding 10px
+      background $body_bg - 15
   label
     cursor pointer
   input[type=radio]
     margin-right 8px
     -webkit-appearance radio
+  button
+    margin-top 20px
 
 .assessment__answer-explanation
-  border 1px solid $border
+  margin-left 23px
+  font-size 90%
+  &.correct
+    color $success
+  &.incorrect
+    color $warning
