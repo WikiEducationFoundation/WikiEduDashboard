@@ -3,23 +3,35 @@ TrainingStore = require '../stores/training_store'
 TrainingActions = require '../actions/training_actions'
 
 Quiz = React.createClass(
-  setSelectedAnswer: (e) ->
-    TrainingActions.setSelectedAnswer(e.currentTarget.dataset.answerId)
-  isChecked: (selectedAnswer, answerId) ->
-    selectedAnswer == answerId
+  setSelectedAnswer: (id) ->
+    TrainingActions.setSelectedAnswer(id)
+  verifyAnswer: (e) ->
+    e.preventDefault()
+    @setSelectedAnswer(@state.selectedAnswerId)
+  setAnswer: (e) ->
+    @setState selectedAnswerId: e.currentTarget.dataset.answerId
+  componentWillReceiveProps: (newProps) ->
+    @setState selectedAnswerId: newProps.selectedAnswerId
+  correctStatus: (answer) ->
+    if @props.correctAnswer == answer then ' correct' else ' incorrect'
+  visibilityStatus: (answer) ->
+    if @props.selectedAnswer == answer then ' shown' else ' hidden'
+  getInitialState: ->
+    selectedAnswerId: @props.selectedAnswerId
   render: ->
     answers = @props.answers.map (answer, i) =>
       explanationClass = "assessment__answer-explanation"
-      explanationClass += if @props.correctAnswer == answer.id then ' correct' else ' incorrect'
-      explanationClass += if @props.selectedAnswer == answer.id then ' shown' else ' hidden'
-      isChecked = @isChecked(@props.selectedAnswer, answer.id)
+      explanationClass += @correctStatus(answer.id)
+      explanationClass += @visibilityStatus(answer.id)
+      defaultChecked = parseInt(@props.selectedAnswer) == answer.id
+      checked = if @state.selectedAnswerId? then parseInt(@state.selectedAnswerId) == answer.id else defaultChecked
       <li>
         <label>
           <input
-            onChange={@setSelectedAnswer}
+            onChange={@setAnswer}
             data-answer-id={answer.id}
-            defaultChecked={isChecked}
-            checked={isChecked}
+            defaultChecked={defaultChecked}
+            checked={checked}
             type="radio"
             name="answer" />
           {answer.text}
@@ -34,6 +46,7 @@ Quiz = React.createClass(
           {answers}
         </ul>
       </fieldset>
+      <button onClick={@verifyAnswer}>Check Answer</button>
     </form>
 
 
