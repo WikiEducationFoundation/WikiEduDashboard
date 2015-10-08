@@ -34,7 +34,7 @@ Style/NumericLiterals:
   Enabled: false
 Style/AsciiComments:
   Enabled: false # We need non-ascii characters to document Wikipedia stuff.
-Performance/ParallelAssignment:
-  Enabled: false # We general use this only to initialize empty variables.
+Style/ParallelAssignment:
+  Enabled: false # We generally use this only to initialize empty variables.
 Style/RedundantReturn:
   Enabled: false # Sometimes a redundant return enhances clarity.
