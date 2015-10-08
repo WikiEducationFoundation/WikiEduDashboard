@@ -1,0 +1,22 @@
+id: 6
+title: Quiz
+content: |
+  Another day, another quiz.
+
+assessment:
+  correct_answer_id: 1
+  question: Which one of these is a color?
+  answers: 
+    - id: 1
+      text: Yellow
+      explanation: Yep
+    - id: 2
+      text: Birds
+      explanation: Nope
+    - id: 3
+      text: Vehicle
+      explanation: Nope
+    - id: 4 
+      text: Computering
+      explanation: Nope
+

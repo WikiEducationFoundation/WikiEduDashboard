@@ -1,0 +1,22 @@
+id: 5
+title: Quiz
+content: |
+  Here is lead up to the quiz question.
+
+assessment:
+  correct_answer_id: 4
+  question: Which one of these is one of the five pillars?
+  answers: 
+    - id: 1
+      text: Nothing
+      explanation: Nothing is not something
+    - id: 2
+      text: Everything
+      explanation: Nope
+    - id: 3
+      text: Another wrong thing
+      explanation: Nope
+    - id: 4 
+      text: Verifyability
+      explanation: Yes!
+
