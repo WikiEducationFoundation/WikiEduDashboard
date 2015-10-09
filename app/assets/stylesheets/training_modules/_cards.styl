@@ -1,0 +1,39 @@
+.action-card
+  display block
+  margin-bottom 30px
+  text-decoration none
+  &:hover
+    header
+      background $wiki_brand_dk
+    .action-card-arrow-icon img
+      left 4px
+    p
+      box-shadow 0px 1px 6px rgba(0, 0, 0, 0.25)
+.action-card-arrow-icon
+  float right
+  padding 10px
+  width 45px
+  height 45px
+  background $wiki_brand_dk
+  img
+    position relative
+    left 0
+    width 20px
+    transition left 0.125s
+.action-card-header
+  padding 0
+  height 45px
+  text-align left
+  background $wiki_brand
+  transition background 0.075s
+.action-card-title
+  color $btn_text_color
+  font-weight 400
+  float left
+  padding 12px
+  width 90%
+  @extends .truncated-text
+.action-card-text
+  padding 20px 12px
+  box-shadow 0px 1px 6px rgba(0, 0, 0, 0.1)
+  transition box-shadow 0.075s
