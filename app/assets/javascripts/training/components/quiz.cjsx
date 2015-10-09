@@ -26,6 +26,7 @@ Quiz = React.createClass(
       defaultChecked = parseInt(@props.selectedAnswer) == answer.id
       checked = if @state.selectedAnswerId? then parseInt(@state.selectedAnswerId) == answer.id else defaultChecked
       liClass = if @visibilityStatus(answer.id) == ' shown' then ' revealed'
+      liClass += @correctStatus(answer.id)
       <li className={liClass}>
         <label>
           <input
