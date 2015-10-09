@@ -19,7 +19,7 @@ SlideMenu = React.createClass(
           </Link>
         </li>
 
-    menuClass = "slide__menu__nav "
+    menuClass = "slide__menu__nav__dropdown "
     menuClass += @props.menuClass
 
     <div className={menuClass}>
