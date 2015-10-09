@@ -4,19 +4,19 @@ content: |
   Another day, another quiz.
 
 assessment:
-  correct_answer_id: 1
-  question: Which one of these is a color?
+  correct_answer_id: 3
+  question: Which one of these is not one of the Five Pillars?
   answers: 
     - id: 1
-      text: Yellow
-      explanation: Yep
+      text: Wikipedia is an online encyclopedia
+      explanation: No, this is one of the pillars.
     - id: 2
-      text: Birds
-      explanation: Nope
+      text: Wikipedia is free content
+      explanation: No, this is one of the pillars.
     - id: 3
-      text: Vehicle
-      explanation: Nope
+      text: Wikipedia has firm rules
+      explanation: That's correct! This is not one of the five pillars.
     - id: 4 
-      text: Computering
-      explanation: Nope
+      text: Wikipedians should interact in a respectful and civil manner
+      explanation: Actually, this is one of the five pillars.
 
