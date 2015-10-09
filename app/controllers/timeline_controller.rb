@@ -43,6 +43,7 @@ class TimelineController < ApplicationController
     elsif object.key?(:deleted) && object['deleted']
       model.destroy object['id']
     else
+      object.delete('deleted') if object['deleted'] == false
       model.update object['id'], object
     end
   end
