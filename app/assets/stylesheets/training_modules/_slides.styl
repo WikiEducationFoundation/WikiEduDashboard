@@ -16,6 +16,14 @@ $slide_inner_content_width = 800px
   border-top 1px solid $border
   margin-top 20px
   padding-top 20px
+  span
+    position relative
+    width 100%
+    &.pull-right a
+      right 0
+    &.pull-left a
+      left 0
+
 
 .slide__menu__nav
   float left
@@ -33,6 +41,12 @@ $slide_inner_content_width = 800px
     &.current
       font-weight bold
       pointer-events none
+
+a.slide-nav
+  max-width 45%
+  display block
+  position absolute
+  @extends .truncated-text
 
 .training__slide__quiz
   width $slide_inner_content_width

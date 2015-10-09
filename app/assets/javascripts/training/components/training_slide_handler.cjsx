@@ -47,6 +47,7 @@ TrainingSlideHandler = React.createClass(
                     direction='Next'
                     disabled={disableNext}
                     slideTitle={@state.nextSlide.title}
+                    button=true
                     {... @props} />
 
     if @state.previousSlide?.slug
