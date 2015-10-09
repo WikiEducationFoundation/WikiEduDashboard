@@ -1,0 +1,36 @@
+.training__slide__quiz
+  width $slide_inner_content_width
+  margin 0 auto
+  ul
+    list-style none
+    padding-left 0
+    margin-left 0
+  li
+    margin-left 0
+    padding-left 0
+    &.revealed
+      padding 10px
+      position relative
+      right 11px
+      &.correct
+        background $success_bg
+        border 1px solid $success_border
+      &.incorrect
+        background $warning_bg
+        border 1px solid $warning_border
+  label
+    cursor pointer
+  input[type=radio]
+    margin-right 8px
+    -webkit-appearance radio
+  button
+    margin-top 20px
+
+.assessment__answer-explanation
+  margin-left 23px
+  font-size 90%
+  &.correct
+    color $success_text
+  &.incorrect
+    color $warning_text
+
