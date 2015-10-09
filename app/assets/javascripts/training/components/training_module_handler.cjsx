@@ -6,6 +6,7 @@ getState = ->
   training_module: TrainingStore.getTrainingModule()
 
 TrainingModuleHandler = React.createClass(
+  displayName: 'TraniningModuleHandler'
   mixins: [TrainingStore.mixin]
   getInitialState: ->
     getState()
@@ -15,10 +16,13 @@ TrainingModuleHandler = React.createClass(
     module_id = document.getElementById('react_root').dataset.moduleId
     ServerActions.fetchTrainingModule(module_id: module_id)
   render: ->
-    slides = _.compact(@state.training_module.slides).map (slide) ->
+    slides = _.compact(@state.training_module.slides).map (slide) =>
+      link = "#{@state.training_module.slug}/#{slide.slug}"
       <li>
-        <h3>{slide.title}</h3>
-        <p>{slide.summary}</p>
+        <a href={link}>
+          <h3>{slide.title}</h3>
+          <p>{slide.summary}</p>
+        </a>
       </li>
 
     <div className='training__toc-container'>
