@@ -1,0 +1,17 @@
+.container.training
+  %h1 Training Libraries
+  %p Here's some copy about what training libraries are about. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+  %ul.training-libraries.no-bullets.no-margin
+    - @libraries.each do |library|
+      %li.training-libraries__individual-library.no-left-margin
+        %a.action-card{href: "training/#{library.slug}"}
+          %header.action-card-header
+            %span.action-card-arrow-icon
+              %img{ src: "http://i.imgsafe.org/bfd7bcf.png", alt: "arrow icon" }
+            %h3.action-card-title
+              = library.slug.humanize.titleize
+          .action-card-text
+            %h3 Included Modules:
+            %ul
+              - library.categories.collect(&:modules).flatten.each do |training_module|
+                %li= training_module.name
