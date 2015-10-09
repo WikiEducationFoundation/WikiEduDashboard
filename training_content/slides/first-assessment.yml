@@ -1,22 +1,22 @@
 id: 5
 title: Quiz
 content: |
-  Here is lead up to the quiz question.
+  Let's see what you've retained from what you've read
 
 assessment:
   correct_answer_id: 4
-  question: Which one of these is one of the five pillars?
+  question: Which one of these is one of the important aspects of Wikipedia beyond the Five Pillars?
   answers: 
     - id: 1
-      text: Nothing
-      explanation: Nothing is not something
+      text: Explainability
+      explanation: Explainability is not one of the important aspects of Wikipedia beyond the Five Pillars?
     - id: 2
-      text: Everything
-      explanation: Nope
+      text: Maintainability
+      explanation: Maintainability is not one of the important aspects of Wikipedia beyond the Five Pillars?
     - id: 3
-      text: Another wrong thing
-      explanation: Nope
+      text: Tenacity 
+      explanation: Tenactity is not one of the important aspects of Wikipedia beyond the Five Pillars?
     - id: 4 
       text: Verifyability
-      explanation: Yes!
+      explanation: That's correct! Verifyability is a key component of Wikipedia's community.
 
