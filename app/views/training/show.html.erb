@@ -2,9 +2,9 @@
   <ol class='breadcrumbs'><%= render_breadcrumbs tag: :li, separator: ' > ' %></ol>
 
   <section class="training__header">
-    <h3>
+    <h2>
       Wikipedia Training for <%= @library.slug.humanize.titleize %>
-    </h3>
+    </h2>
     <p><%= @library.introduction %>
   </section>
   <ul class="training__categories">
@@ -18,7 +18,12 @@
           <%- lib_category.modules.each do |lib_module| %>
             <li>
               <a href=<%= "#{@library.slug}/#{lib_module.slug}" %>>
-                <h3><%= lib_module.name %></h3>
+                <header>
+                  <h3><%= lib_module.name %></h3>
+                  <span class="icon">
+                    <img src="http://i.imgsafe.org/bfd7bcf.png" />
+                  </span>
+                </header>
                 <p><%= lib_module.description %></p>
               </a>
             </li>
