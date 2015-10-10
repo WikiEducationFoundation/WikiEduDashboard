@@ -38,13 +38,14 @@ class ViewImporter
 
   def self.update_views_for_batch(articles, all_time)
     views, vua = {}, {}
-    threads = articles.each_with_index.map do |a, i|
-      start = a.courses.order(:start).first.start.to_date
+    threads = articles.each_with_index.map do |article, i|
+      start = earliest_course_start_date(article)
+      article_id = article.id
       Thread.new(i) do
-        vua[a.id] = a.views_updated_at || start
-        if vua[a.id] < Date.today
-          since = all_time ? start : vua[a.id] + 1.day
-          views[a.id] = Grok.views_for_article a.title, since
+        vua[article_id] = article.views_updated_at || start
+        if vua[article_id] < Time.zone.yesterday
+          since = all_time ? start : vua[article_id] + 1.day
+          views[article_id] = Grok.views_for_article article.title, since
         end
       end
     end
@@ -65,6 +66,10 @@ class ViewImporter
   ###########
   # Helpers #
   ###########
+  def self.earliest_course_start_date(article)
+    article.courses.order(:start).first.start.to_date
+  end
+
   def self.save_updated_views(articles, views, views_updated_at, all_time)
     articles.each do |article|
       article.views_updated_at = views_updated_at[article.id]

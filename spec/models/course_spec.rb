@@ -90,7 +90,12 @@ describe Course, type: :model do
         .to be true
 
       # Check views
-      expect(course.view_sum).to be >= 46_200
+      course_views = course.view_sum
+      expect(course_views).to be >= 46_200
+      # Run the update again, and expect view count to be the same
+      course.manual_update
+      course.reload
+      expect(course.view_sum).to eq(course_views)
     end
   end
 
