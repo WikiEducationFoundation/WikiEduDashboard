@@ -9,12 +9,14 @@ qqq:
     dashboard: Application name.
   activity:
     all: '{{Identical|Activity}}'
+    edited_by: Column label for username of user who made an edit
   articles:
     none: Message stating that no articles have been edited.
     assigned: Label for a list of assigned articles
     character_doc: Documentation for an article's character total add and remove count.
     edited: Label for a list of articles edited.
     edited_mobile: '{{Identical|Article}}'
+    loading: Placeholder message indicating that article data is still loading
     rating: Label for an article's quality rating on the Wikipedia 1.0 scale
     rating_doc: Explanation of where an article's quality rating comes from and what
       it means
@@ -47,6 +49,10 @@ qqq:
     confirm_addition: Confirmation dialog for adding a new assignment. %{title} is
       the Wikipedia page title. %{username} is the username of the assignee.
     confirm_deletion: Confirmation dialog for an assignment should be deleted
+  blocks:
+    milestones:
+      title: Label for the Milestone section of a course page
+      empty: Message indicating that there are no milestones for a course
   cohort:
     view_other: Command to view another cohort.
   courses:
@@ -64,6 +70,7 @@ qqq:
     instructor:
       one: Label for a single instructor of a course
       other: Label for plural instructors of a course
+    revision_doc: Explanation for what the count of edits/revisions means
     students: Label for link to the list of students for a course
     students_none: This course has no students.
     students_short: Label for the number of students in a course, in the mobile layout
@@ -71,8 +78,8 @@ qqq:
     new_week: Button text for adding a new week to the timeline
     overview: Label for link to the overview page for a course
     title: Label for the title of each course
-    view: ???
-    view_wiki: ???
+    view: Label for link to a course page
+    view_wiki: Label for link to the on-wiki version of a course page
     view_doc: Explanation of what 'article views' means
     volunteer:
       one: Label for a single course volunteer
@@ -93,6 +100,8 @@ qqq:
     char_changed: Laber for the number of characters changed.
     date_time: Label for a revision or activity timestamp.
     edit_count_description: Label for the number of edits made.
+    revisions: Label for the number of recent edits/revisions.
+    student_editors: Label for number of editors participating as students in a course
     view: Label for the number of article views.
     view_count_description: Long label for the number of article views.
   namespace:
