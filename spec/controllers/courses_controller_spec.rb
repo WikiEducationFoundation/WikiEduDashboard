@@ -6,12 +6,19 @@ describe CoursesController do
     let!(:user)             { create(:test_user) }
     let!(:courses_users)    { create(:courses_user, course_id: course.id, user_id: user.id) }
     let!(:article)          { create(:article) }
-    let!(:articles_courses) { create(:articles_course, course_id: course.id, article_id: article.id) }
+    let!(:articles_courses) do
+      create(:articles_course, course_id: course.id, article_id: article.id)
+    end
+
     let!(:assignment)       { create(:assignment, course_id: course.id) }
     let!(:cohorts_courses)  { create(:cohorts_course, course_id: course.id) }
     let!(:week)             { create(:week, course_id: course.id) }
-    let!(:gradeable)        { create(:gradeable, gradeable_item_type: 'Course', gradeable_item_id: course.id) }
-    let!(:admin)            { create(:admin, id: 2) }
+
+    let!(:gradeable) do
+      create(:gradeable, gradeable_item_type: 'Course', gradeable_item_id: course.id)
+    end
+
+    let!(:admin) { create(:admin, id: 2) }
 
     before do
       allow(controller).to receive(:current_user).and_return(admin)

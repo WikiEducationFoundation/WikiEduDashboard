@@ -40,11 +40,9 @@ class CourseUpdateManager
     course.update_cache
   end
 
-  ###################
-  # Private methods #
-  ###################
-
-  private
+  ##################
+  # Helper methods #
+  ##################
 
   def self.import_course_data(course, users, articles)
     Dir["#{Rails.root}/lib/importers/*.rb"].each { |file| require file }

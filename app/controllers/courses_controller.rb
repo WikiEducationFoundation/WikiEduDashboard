@@ -23,7 +23,7 @@ class CoursesController < ApplicationController
 
   def create
     handle_instructor_info if should_update_instructor_info?
-    set_slug if should_set_slug?
+    slug_from_params if should_set_slug?
     @course =
       Course.create(course_params.merge('passcode' => Course.generate_passcode))
     handle_timeline_dates
@@ -169,7 +169,7 @@ class CoursesController < ApplicationController
     %i(title school term).all? { |key| params[:course].key?(key) }
   end
 
-  def set_slug(course = params[:course])
+  def slug_from_params(course = params[:course])
     course[:slug] = "#{course[:school]}/#{course[:title]}_(#{course[:term]})"
                     .tr(' ', '_')
   end

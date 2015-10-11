@@ -8,7 +8,7 @@ class ListCourseManager
   end
 
   def manage
-    self.send("handle_#{@request.request_method.downcase}")
+    send("handle_#{@request.request_method.downcase}")
   end
 
   private
