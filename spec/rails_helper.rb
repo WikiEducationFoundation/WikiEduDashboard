@@ -13,7 +13,7 @@ Capybara.configure do |config|
   config.javascript_driver = :webkit
 end
 
-Capybara.default_wait_time = 15
+Capybara.default_max_wait_time = 15
 
 Capybara::Webkit.configure do |config|
   config.allow_url 'fonts.googleapis.com'
