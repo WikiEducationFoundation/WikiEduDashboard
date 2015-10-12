@@ -14,7 +14,7 @@ You'll now [propose an OAuth consumer](https://meta.wikimedia.org/wiki/Special:O
 - **Application description:** `<YOUR_NAME>'s local machine`
 - **OAuth "callback" URL:** `http://localhost:3000/users/auth/mediawiki/callback`
 - **Contact email address:** `<YOUR_EMAIL>` (this must match your Wiki account email)
-- **Permissions:** select `Edit existing pages` and `Make changes to pages`
+- **Permissions:** select `Edit existing pages` and `Create, edit, and move pages`
 
 <!--![Screenshot](https://lh3.googleusercontent.com/-BMSA42xP8fU/VbaP35rumaI/AAAAAAAAAAc/b40znxPGbkU/s1024-Ic42/Screen%252520Shot%2525202015-07-27%252520at%2525201.07.21%252520PM.png)-->
 
