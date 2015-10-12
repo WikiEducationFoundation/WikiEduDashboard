@@ -116,7 +116,7 @@ describe 'Admin users', type: :feature, js: true do
 
       click_button('Edit Details')
       page.all('.button.border.plus')[5].click
-      page.all('input')[6].set 'My Tag'
+      within('section.overview') { all('input')[6].set 'My Tag' }
       find('.pop button', visible: true).click
 
       visit "/courses/#{Course.first.slug}"
@@ -126,7 +126,7 @@ describe 'Admin users', type: :feature, js: true do
       # Add the same tag again
       click_button('Edit Details')
       page.all('.button.border.plus')[5].click
-      page.all('input')[6].set 'My Tag'
+      within('section.overview') { all('input')[6].set 'My Tag' }
       page.all('.pop button', visible: true)[1].click
 
       # Delete the tag

@@ -202,7 +202,7 @@ describe 'New course creation and editing', type: :feature do
       first('.section-header') { click_button('Edit') }
       sleep 1
       first('button.dark').click
-      first('input').set('The first week')
+      within('div.course_main') { first('input').set('The first week') }
       sleep 1
       first('input[type=checkbox]').set(true)
       sleep 1
