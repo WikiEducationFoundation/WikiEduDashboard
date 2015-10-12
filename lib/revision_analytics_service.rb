@@ -93,10 +93,10 @@ class RevisionAnalyticsService
   def student_ids
     @course_ids ||= Course.current.pluck(:id)
     student_ids = CoursesUsers
-                  .where(course_id: @course_ids, role: User::Roles::STUDENT_ROLE)
+                  .where(course_id: @course_ids, role: CoursesUsers::Roles::STUDENT_ROLE)
                   .pluck(:user_id)
     instructor_ids = CoursesUsers
-                     .where(course_id: @course_ids, role: User::Roles::INSTRUCTOR_ROLE)
+                     .where(course_id: @course_ids, role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
                      .pluck(:user_id)
     pure_student_ids = student_ids - instructor_ids
     pure_student_ids
