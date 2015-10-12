@@ -4,6 +4,7 @@ class RevisionAnalyticsService
   # Entry points #
   ################
 
+  DEFAULT_DYK_WP10_LIMIT = 30
   def self.dyk_eligible(opts={})
     new(opts).dyk_eligible
   end
@@ -12,6 +13,7 @@ class RevisionAnalyticsService
     new(opts).suspected_plagiarism
   end
 
+  DEFAULT_RECENT_EDITS_LIMIT = 200
   def self.recent_edits(opts={})
     new(opts).recent_edits
   end
@@ -31,19 +33,19 @@ class RevisionAnalyticsService
   # Main routines #
   #################
   def dyk_eligible
-    wp10_limit = ENV['dyk_wp10_limit'] || 30
+    wp10_limit = ENV['dyk_wp10_limit'] || DEFAULT_DYK_WP10_LIMIT
     good_student_revisions = Revision
                              .where(user_id: student_ids)
                              .where('wp10 > ?', wp10_limit)
                              .where('date > ?', 2.months.ago)
     good_article_ids = good_student_revisions.pluck(:article_id)
     good_user_space = Article.where(id: good_article_ids)
-                      .where(namespace: 2)
+                      .where(namespace: Article::Namespaces::USER)
                       .where('title LIKE ?', '%/%') # only get subpages
                       .where('title NOT LIKE ?', '%/TWA/%') # skip TWA pages
                       .pluck(:id)
     good_draft_space = Article.where(id: good_article_ids)
-                       .where(namespace: 118)
+                       .where(namespace: Article::Namespaces::DRAFT)
                        .pluck(:id)
 
     good_draft_ids = good_draft_space + good_user_space
@@ -62,9 +64,9 @@ class RevisionAnalyticsService
 
   def recent_edits
     if @course_ids
-      recent_revisions = Revision.where(user_id: student_ids).last(200)
+      recent_revisions = Revision.where(user_id: student_ids).last(DEFAULT_RECENT_EDITS_LIMIT)
     else
-      recent_revisions = Revision.last(200)
+      recent_revisions = Revision.last(DEFAULT_RECENT_EDITS_LIMIT)
     end
     recent_revisions
   end
@@ -91,10 +93,10 @@ class RevisionAnalyticsService
   def student_ids
     @course_ids ||= Course.current.pluck(:id)
     student_ids = CoursesUsers
-                  .where(course_id: @course_ids, role: 0)
+                  .where(course_id: @course_ids, role: User::Roles::STUDENT_ROLE)
                   .pluck(:user_id)
     instructor_ids = CoursesUsers
-                     .where(course_id: @course_ids, role: 1)
+                     .where(course_id: @course_ids, role: User::Roles::INSTRUCTOR_ROLE)
                      .pluck(:user_id)
     pure_student_ids = student_ids - instructor_ids
     pure_student_ids

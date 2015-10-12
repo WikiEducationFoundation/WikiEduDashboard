@@ -35,9 +35,9 @@ class WikiAssignmentOutput
     return '' if title_assignments.empty?
 
     # Make a list of the assignees, role 0
-    tag_assigned = build_wikitext_user_list(title_assignments, 0)
+    tag_assigned = build_wikitext_user_list(title_assignments, Assignment::Roles::ASSIGNED_ROLE)
     # Make a list of the reviwers, role 1
-    tag_reviewing = build_wikitext_user_list(title_assignments, 1)
+    tag_reviewing = build_wikitext_user_list(title_assignments, Assignment::Roles::REVIEWING_ROLE)
 
     # Build new tag
     # NOTE: If the format of this tag gets changed, then the dashboard may
@@ -76,6 +76,9 @@ class WikiAssignmentOutput
     # Add new tag at top (if there wasn't an existing tag already)
     unless page_content.include?(new_tag)
       # FIXME: Allow whitespace before the beginning of the first template.
+      # FIXME: Account for templates within templates, which is common on pages
+      # that are part of multiple WikiProjects, where all the project banners are
+      # wrapped in another template.
       if page_content[0..1] == '{{' # Append after existing tags
         page_content.sub!(/\}\}(?!\n\{\{)/, "}}\n#{new_tag}")
       else # Add the tag to the top of the page
