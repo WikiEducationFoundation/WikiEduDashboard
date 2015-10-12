@@ -20,7 +20,7 @@ class SelfEnrollmentController < ApplicationController
     end
 
     # Make sure the user isn't already enrolled.
-    unless user_already_enrolled?
+    if user_already_enrolled?
       redirect_to course_slug_path(@course.slug)
       return
     end
@@ -50,9 +50,9 @@ class SelfEnrollmentController < ApplicationController
   end
 
   def user_already_enrolled?
-    CoursesUsers.where(user_id: current_user.id,
-                       course_id: @course.id,
-                       role: 0).empty?
+    CoursesUsers.exists?(user_id: current_user.id,
+                         course_id: @course.id,
+                         role: CoursesUsers::Roles::STUDENT_ROLE)
   end
 
   def passcode_valid?
@@ -63,7 +63,7 @@ class SelfEnrollmentController < ApplicationController
     CoursesUsers.create(
       user_id: current_user.id,
       course_id: @course.id,
-      role: 0
+      role: CoursesUsers::Roles::STUDENT_ROLE
     )
   end
 end

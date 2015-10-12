@@ -89,22 +89,23 @@ class Course < ActiveRecord::Base
     'COMPLETED' => 2
   }
 
+  scope :current, lambda {
+    current_and_future.where('start < ?', Time.now)
+  }
+  # A course stays "current" for a while after the end date, during which time
+  # we still check for new data and update page views.
+  UPDATE_LENGTH = ENV['update_length'].to_i.days.seconds.to_i
+
+  scope :current_and_future, lambda {
+    where('end > ?', Time.now - UPDATE_LENGTH)
+  }
+
   ##################
   # Course content #
   ##################
   has_many :weeks, dependent: :destroy
   has_many :blocks, through: :weeks, dependent: :destroy
   has_many :gradeables, as: :gradeable_item, dependent: :destroy
-
-  scope :current, lambda {
-    current_and_future.where('start < ?', Time.now)
-  }
-  # A course stays "current" for a while after the end date, during which time
-  # we still check for new data and update page views.
-  scope :current_and_future, lambda {
-    update_length = ENV['update_length'].to_i.days.seconds.to_i
-    where('end > ?', Time.now - update_length)
-  }
 
   before_save :order_weeks
   validates :passcode, presence: true, unless: :legacy?
@@ -122,6 +123,10 @@ class Course < ActiveRecord::Base
     # therefore not a legacy course. Legacy courses get their ids from the wiki.
     return false if id.nil?
     id <= LEGACY_COURSE_MAX_ID
+  end
+
+  def current?
+    start < Time.now && self.end > Time.now - UPDATE_LENGTH
   end
 
   def wiki_title
@@ -201,7 +206,9 @@ class Course < ActiveRecord::Base
 
   def update_cache
     # Do not consider revisions with negative byte changes
-    self.character_sum = courses_users.where(role: 0).sum(:character_sum_ms)
+    self.character_sum = courses_users
+      .where(role: CoursesUsers::Roles::STUDENT_ROLE)
+      .sum(:character_sum_ms)
     self.view_sum = articles_courses.live.sum(:view_count)
     self.user_count = students_without_nonstudents.size
     self.trained_count = students_without_nonstudents.trained.size
@@ -239,8 +246,9 @@ class Course < ActiveRecord::Base
       .references(:cohorts)
   end
 
+  RANDOM_PASSCODE_LENGTH = 8
   def self.generate_passcode
-    ('a'..'z').to_a.sample(8).join
+    ('a'..'z').to_a.sample(RANDOM_PASSCODE_LENGTH).join
   end
 
   def reorder_weeks

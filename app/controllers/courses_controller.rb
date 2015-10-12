@@ -27,7 +27,9 @@ class CoursesController < ApplicationController
     @course =
       Course.create(course_params.merge('passcode' => Course.generate_passcode))
     handle_timeline_dates
-    CoursesUsers.create(user: current_user, course: @course, role: 1)
+    CoursesUsers.create(user: current_user,
+                        course: @course,
+                        role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
   end
 
   def update

@@ -39,6 +39,23 @@ class Article < ActiveRecord::Base
   before_validation do
     self.title = title.tr(' ', '_')
   end
+
+  ####################
+  # CONSTANTS        #
+  ####################
+  module Namespaces
+    MAINSPACE      = 0
+    TALK           = 1
+    USER           = 2
+    USER_TALK      = 3
+    WIKIPEDIA      = 4
+    WIKIPEDIA_TALK = 5
+    TEMPLATE       = 10
+    TEMPLATE_TALK  = 11
+    DRAFT          = 118
+    DRAFT_TALK     = 119
+  end
+
   ####################
   # Instance methods #
   ####################

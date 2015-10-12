@@ -1,6 +1,7 @@
 #= Controller for revisions functionality
 class RevisionsController < ApplicationController
   respond_to :json
+  DEFAULT_REVISION_LIMIT = 10
 
   def index
     user = User.find(params[:user_id])
@@ -10,6 +11,6 @@ class RevisionsController < ApplicationController
                  .where('date <= ?', course.end)
                  .order('revisions.created_at DESC')
                  .eager_load(:article)
-                 .limit(params[:limit] || 10)
+                 .limit(params[:limit] || DEFAULT_REVISION_LIMIT)
   end
 end

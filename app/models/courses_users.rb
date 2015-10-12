@@ -33,10 +33,12 @@ class CoursesUsers < ActiveRecord::Base
   # CONSTANTS        #
   ####################
   module Roles
+    VISITOR_ROLE          = -1
     STUDENT_ROLE          = 0
     INSTRUCTOR_ROLE       = 1
     CAMPUS_VOLUNTEER_ROLE = 2
-    WIKI_ED_STAFF_ROLE    = 3
+    ONLINE_VOLUNTEER_ROLE = 3
+    WIKI_ED_STAFF_ROLE    = 4
   end
 
   ####################
@@ -67,8 +69,8 @@ class CoursesUsers < ActiveRecord::Base
                 .where(user_id: user.id)
                 .where('date >= ?', course.start)
                 .where('date <= ?', course.end)
-    self.character_sum_ms = character_sum(revisions, 0)
-    self.character_sum_us = character_sum(revisions, 2)
+    self.character_sum_ms = character_sum(revisions, Article::Namespaces::MAINSPACE)
+    self.character_sum_us = character_sum(revisions, Article::Namespaces::USER)
     self.revision_count = revisions
       .where(articles: { deleted: false })
       .size || 0

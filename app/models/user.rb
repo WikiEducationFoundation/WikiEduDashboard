@@ -26,6 +26,14 @@ require "#{Rails.root}/lib/utils"
 
 #= User model
 class User < ActiveRecord::Base
+  #############
+  # Constants #
+  #############
+  module Permissions
+    NONE  = 0
+    ADMIN = 1
+  end
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :rememberable, :omniauthable, omniauth_providers: [:mediawiki]
@@ -37,7 +45,7 @@ class User < ActiveRecord::Base
   has_many :assignments
   has_many :uploads, class_name: CommonsUpload
 
-  scope :admin, -> { where(permissions: 1) }
+  scope :admin, -> { where(permissions: Permissions::ADMIN) }
   scope :trained, -> { where(trained: true) }
   scope :untrained, -> { where(trained: false) }
   scope :current, -> { joins(:courses).merge(Course.current).uniq }
@@ -70,7 +78,7 @@ class User < ActiveRecord::Base
   end
 
   def admin?
-    permissions == 1
+    permissions == Permissions::ADMIN
   end
 
   def instructor?(course)
@@ -85,16 +93,20 @@ class User < ActiveRecord::Base
     return 1 if course.nil? # This is a new course, grant permissions
     course_user = course.courses_users.where(user_id: id).first
     if admin?
-      1                   # give admin instructor permissions
+      CoursesUsers::Roles::INSTRUCTOR_ROLE # give admin instructor permissions
     elsif !course_user.nil?
-      course_user.role    # course role
+      course_user.role # course role
     else
-      -1                  # visitor
+      CoursesUsers::Roles::VISITOR_ROLE # visitor
     end
   end
 
   def can_edit?(course)
-    [1, 4].include? role(course)
+    editing_roles = [CoursesUsers::Roles::INSTRUCTOR_ROLE,
+                     CoursesUsers::Roles::CAMPUS_VOLUNTEER_ROLE,
+                     CoursesUsers::Roles::ONLINE_VOLUNTEER_ROLE,
+                     CoursesUsers::Roles::WIKI_ED_STAFF_ROLE]
+    editing_roles.include? role(course)
   end
 
   #################

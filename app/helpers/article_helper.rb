@@ -1,16 +1,16 @@
 #= Helpers for article views
 module ArticleHelper
   NS = {
-    0 => '', # Mainspace for Wikipedia articles
-    1 => 'Talk:',
-    2 => 'User:',
-    3 => 'User_talk:',
-    4 => 'Wikipedia:',
-    5 => 'Wikipedia_talk:',
-    10 => 'Template:',
-    11 => 'Template_talk:',
-    118 => 'Draft:',
-    119 => 'Draft_talk:'
+    Article::Namespaces::MAINSPACE => '',
+    Article::Namespaces::TALK => 'Talk:',
+    Article::Namespaces::USER => 'User:',
+    Article::Namespaces::USER_TALK => 'User_talk:',
+    Article::Namespaces::WIKIPEDIA => 'Wikipedia:',
+    Article::Namespaces::WIKIPEDIA_TALK => 'Wikipedia_talk:',
+    Article::Namespaces::TEMPLATE => 'Template:',
+    Article::Namespaces::TEMPLATE_TALK => 'Template_talk:',
+    Article::Namespaces::DRAFT => 'Draft:',
+    Article::Namespaces::DRAFT_TALK => 'Draft_talk:'
   }
 
   def article_url(article)
