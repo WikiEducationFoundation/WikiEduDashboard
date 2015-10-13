@@ -2,7 +2,7 @@ require 'from_yaml'
 
 class TrainingModule < FromYaml
 
-  attr_accessor :name, :slides, :description, :estimated_ttc, :id
+  attr_accessor :name, :slides, :description, :estimated_ttc, :id, :intro
   alias_method :raw_slides, :slides
 
   # Class Methods
@@ -25,5 +25,5 @@ class TrainingModule < FromYaml
     slugs = raw_slides.collect(&:slug)
     slides.sort { |a, b| slugs.index(a.slug) <=> slugs.index(b.slug) }
   end
-  
+
 end

@@ -19,7 +19,14 @@ TrainingBlock = React.createClass(
     ServerActions.fetchTrainingModuleForBlock(@props.block.id)
 
   render: ->
-    <h3>{@state.module.name}</h3>
+    link = "/training/students/#{@state.module.slug}"
+
+    <div>
+      <p>{@state.module.name}</p>
+      <p>{@state.module.intro}</p>
+      <hr />
+      <p><a href={link}>Go to training</a></p>
+    </div>
 
 )
 
