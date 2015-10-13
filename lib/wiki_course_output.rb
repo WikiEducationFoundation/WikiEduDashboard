@@ -133,7 +133,7 @@ class WikiCourseOutput
     file_tags = text.scan(/\[\[[File:|Image:][^\]]*\]\]/)
     file_tags.each do |file_tag|
       # Remove the absolute portion of the file's URL
-      fixed_tag = file_tag.gsub(/(?<=File:|Image:)[^\]]*\//, '')
+      fixed_tag = file_tag.gsub(%r{(?<=File:|Image:)[^\]]*/}, '')
       text.gsub! file_tag, fixed_tag
     end
     text
