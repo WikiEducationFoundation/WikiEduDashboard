@@ -27,7 +27,6 @@ ActiveRecord::Schema.define(version: 20150926153658) do
     t.string 'language', limit: 10
     t.float 'average_views', limit: 24
     t.date 'average_views_updated_at'
-  end
 
   create_table 'articles_courses', force: true do |t|
     t.datetime 'created_at'

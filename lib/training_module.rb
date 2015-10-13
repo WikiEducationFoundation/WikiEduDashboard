@@ -2,13 +2,17 @@ require 'from_yaml'
 
 class TrainingModule < FromYaml
 
-  attr_accessor :name, :slides, :description, :estimated_ttc
-  alias_method :raw_slides, :slides 
+  attr_accessor :name, :slides, :description, :estimated_ttc, :id
+  alias_method :raw_slides, :slides
 
   # Class Methods
 
   def self.load
     super path_to_yaml: "#{Rails.root}/training_content/modules/*.yml", cache_key: "modules"
+  end
+
+  def self.find(id)
+    self.all.detect { |obj| obj.id == id }
   end
 
 

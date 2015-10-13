@@ -6,6 +6,7 @@
 # 1. Assignment
 # 2. Milestone
 # 3. Custom
+# 4. Training
 
 # Week weight
 # - The app will attempt to evenly distribute weights across the course timeline
@@ -16,8 +17,7 @@ essentials:
   - # Week one
     weight: 2
     blocks:
-      -
-        title: Wikipedia essentials
+      - title: Wikipedia essentials
         kind: 0
         content: |
           * Overview of the course
@@ -26,6 +26,10 @@ essentials:
 
           ---
           Handout: [Editing Wikipedia](http://wikiedu.org/editingwikipedia)
+
+      - title: Training
+        kind: 4
+        module_ids: 1
   - # Week two
     weight: 3
     blocks:

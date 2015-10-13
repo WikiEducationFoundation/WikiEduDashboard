@@ -6,6 +6,7 @@
 # 1. Assignment
 # 2. Milestone
 # 3. Custom
+# 4. Training
 
 # Week weight
 # - The app will attempt to evenly distribute weights across the course timeline
@@ -16,8 +17,7 @@ illustrate:
   - # generic preparation material
     weight: 1
     blocks:
-      -
-        title: Wikipedia essentials
+      - title: Wikipedia essentials
         kind: 0
         content: |
           * Overview of the course
@@ -27,8 +27,7 @@ illustrate:
           ---
           Handouts: [Editing Wikipedia](http://wikiedu.org/editingwikipedia), [***Illustrating Wikipedia***](http://wikiedu.org/illustratingwikipedia)
 
-      -
-        title: Create your account and learn the basics
+      - title: Create your account and learn the basics
         kind: 1
         graded: true
         content: |
@@ -36,6 +35,11 @@ illustrate:
 
           ---
           Resources: [Online Training for Students](https://en.wikipedia.org/wiki/Wikipedia:Training/For_students)
+
+      - title: Training
+        kind: 4
+        graded: false
+        training_module_id: 1
 
   - # ILLUSTRATE
     weight: 1

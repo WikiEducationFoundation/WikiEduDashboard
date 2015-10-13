@@ -2,6 +2,7 @@ React             = require 'react/addons'
 
 TextInput         = require '../common/text_input'
 TextAreaInput     = require '../common/text_area_input'
+TrainingBlock     = require '../training_block'
 Checkbox          = require '../common/checkbox'
 Select            = require '../common/select'
 BlockActions      = require '../../actions/block_actions'
@@ -54,6 +55,26 @@ Block = React.createClass(
       )
     if (@props.block.kind < 3 && !@props.editable)
       spacer = <span>  —  </span>
+
+
+    if @props.block.training_module_id?
+      content = (
+        <TrainingBlock {... @props} />
+      )
+    else
+      content = (
+        <TextAreaInput
+          onChange={@updateBlock}
+          value={@props.block.content}
+          value_key='content'
+          editable={@props.editable}
+          rows='4'
+          placeholder='Block description'
+          autoExpand=true
+          onFocus={@props.toggleFocused}
+          onBlur={@props.toggleFocused}
+        />
+      )
 
     <li className={className} draggable={@props.canDrag && @props.editable}>
       <div className="drag-handle">
@@ -117,17 +138,7 @@ Block = React.createClass(
       </h4>
       {graded}
       {dueDateRead || (if is_graded then (<p>{I18n.t('timeline.due_default')}</p>) else '')}
-      <TextAreaInput
-        onChange={@updateBlock}
-        value={@props.block.content}
-        value_key='content'
-        editable={@props.editable}
-        rows='4'
-        placeholder='Block description'
-        autoExpand=true
-        onFocus={@props.toggleFocused}
-        onBlur={@props.toggleFocused}
-      />
+      {content}
     </li>
 )
 
