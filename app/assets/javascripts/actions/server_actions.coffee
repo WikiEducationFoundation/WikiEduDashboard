@@ -80,6 +80,10 @@ ServerActions = Flux.createActions
       data = _.extend(data, slide: opts.current_slide_id)
       { actionType: 'RECEIVE_TRAINING_MODULE', data: data }
 
+  fetchTrainingModuleForBlock: (block_id) ->
+    API.fetchTrainingModuleForBlock(block_id).then (data) ->
+      { actionType: 'RECEIVE_TRAINING_MODULE_FOR_BLOCK', data: data }
+
   # Save
   saveCourse: (data, course_id=null) ->
     API.saveCourse(data, course_id).then (data) ->

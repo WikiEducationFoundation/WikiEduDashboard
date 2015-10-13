@@ -1,0 +1,18 @@
+name: Welcome to Wikipedia
+id: 1
+intro: |
+  We can't wait to see what you'll share.
+
+  If you are part of a course that involves contributing to Wikipedia, you've come to the right place. After completing this orientation, you'll be ready to help build the world's knowledge by contributing your own expertise to Wikipedia.
+description: |
+  We can't wait to see what you'll share.
+
+  If you are part of a course that involves contributing to Wikipedia, you've come to the right place. After completing this orientation, you'll be ready to help build the world's knowledge by contributing your own expertise to Wikipedia.
+estimated_ttc: 10 minutes
+slides:
+  - title: About This Orientation
+    slug: about-this-orientation
+  - title: Navigating This Orientation
+    slug: navigating-this-orientation
+  - title: Let's Begin
+    slug: lets-begin

@@ -16,7 +16,7 @@
 
 FactoryGirl.define do
   factory :block do
-    kind 1
+    kind Block::KINDS['assignment']
     content 'MyString'
     order 0
   end

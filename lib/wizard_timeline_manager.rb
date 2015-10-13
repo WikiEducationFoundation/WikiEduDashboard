@@ -20,7 +20,7 @@ class WizardTimelineManager
 
     # Load the wizard content building blocks.
     content_path = "#{Rails.root}/config/wizard/#{wizard_id}/content.yml"
-    @all_content = YAML.load(File.read(File.expand_path(content_path, __FILE__)))
+    @all_content = YAML.load_file(content_path)
   end
 
   def update_timeline_and_tags
@@ -112,8 +112,7 @@ class WizardTimelineManager
 
   def if_dependencies_met?(block)
     if_met = !block.key?('if')
-    block_if = block['if'].is_a?(Array) ? block['if'] : [block['if']]
-    if_met ||= block_if.reduce(true) do |met, dep|
+    if_met ||= Array.wrap(block_if).reduce(true) do |met, dep|
       met && @logic.include?(dep)
     end
     if_met
@@ -143,7 +142,9 @@ class WizardTimelineManager
       }
     end
 
-    block = Block.create(block.except('if', 'unless', 'graded', 'points'))
+    attr_keys_to_skip = %w(if unless graded points)
+    block_params = block.except(*attr_keys_to_skip)
+    block = Block.create(block_params)
 
     return if gradeable.nil?
 

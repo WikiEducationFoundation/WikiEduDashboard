@@ -5,6 +5,7 @@ Flux            = new McFly()
 # Data
 _blocks = {}
 _persisted = {}
+_trainingModule = {}
 
 
 # Utilities
@@ -22,6 +23,10 @@ updatePersisted = ->
 setBlock = (data, quiet) ->
   _blocks[data.id] = data
   BlockStore.emitChange() unless quiet
+
+setTrainingModule = (module) ->
+  _trainingModule = module
+  BlockStore.emitChange()
 
 addBlock = (week_id) ->
   week_blocks = BlockStore.getBlocksInWeek week_id
@@ -73,6 +78,10 @@ BlockStore = Flux.createStore
   restore: ->
     _blocks = $.extend(true, {}, _persisted)
     BlockStore.emitChange()
+  getTrainingModule: ->
+    console.log _trainingModule
+    return _trainingModule
+
 , (payload) ->
   data = payload.data
   switch(payload.actionType)
@@ -91,6 +100,9 @@ BlockStore = Flux.createStore
       break
     when 'INSERT_BLOCK'
       insertBlock data.block, data.week_id, data.order
+      break
+    when 'RECEIVE_TRAINING_MODULE_FOR_BLOCK'
+      setTrainingModule data.training_module
       break
   return true
 
