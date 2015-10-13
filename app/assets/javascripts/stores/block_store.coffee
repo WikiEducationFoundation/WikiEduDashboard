@@ -79,7 +79,6 @@ BlockStore = Flux.createStore
     _blocks = $.extend(true, {}, _persisted)
     BlockStore.emitChange()
   getTrainingModule: ->
-    console.log _trainingModule
     return _trainingModule
 
 , (payload) ->
