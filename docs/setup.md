@@ -8,7 +8,7 @@
 
 ## Project Setup
 
-- Fork this repo, so that you can set it up for a new server.
+- Fork this repo, so that you can make changes and push them freely to GitHub.  
 - Clone the new WikiEduDashboard repo and enter that directory.
 - Make sure you are in the "sudo" group.
 - Install Ruby 2.1.5 (RVM is recommended)
