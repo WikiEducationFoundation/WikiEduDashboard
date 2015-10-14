@@ -29,7 +29,8 @@ essentials:
 
       - title: Training
         kind: 4
-        module_ids: 1
+        graded: false
+        training_module_id: 1
   - # Week two
     weight: 3
     blocks:

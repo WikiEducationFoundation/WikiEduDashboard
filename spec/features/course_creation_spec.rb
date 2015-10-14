@@ -110,6 +110,7 @@ describe 'New course creation and editing', type: :feature do
   describe 'course workflow', js: true do
     let(:instructor_name)  { 'Mr. Capybara' }
     let(:instructor_email) { 'capybara@wikiedu.org' }
+    let(:expected_course_blocks) { 27 }
     it 'should allow the user to create a course' do
       stub_oauth_edit
 
@@ -348,7 +349,7 @@ describe 'New course creation and editing', type: :feature do
       Course.last.weeks.each_with_index do |week, i|
         expect(week.order).to eq(i + 1)
       end
-      expect(Course.first.blocks.count).to eq(26)
+      expect(Course.first.blocks.count).to eq(expected_course_blocks)
     end
 
     it 'should squeeze assignments into the course dates' do
@@ -381,7 +382,7 @@ describe 'New course creation and editing', type: :feature do
 
       expect(page).to have_content 'Week 6'
       expect(page).not_to have_content 'Week 7'
-      expect(Course.first.blocks.count).to eq(26)
+      expect(Course.first.blocks.count).to eq(expected_course_blocks)
     end
   end
 
