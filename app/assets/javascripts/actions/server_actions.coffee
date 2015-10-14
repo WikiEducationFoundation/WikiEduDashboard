@@ -85,7 +85,7 @@ ServerActions = Flux.createActions
       { actionType: 'RECEIVE_TRAINING_MODULE', data: data }
 
   fetchTrainingModuleById: (id) ->
-    API.fetchTrainingModule(id: id).then (data) ->
+    API.fetchTrainingModuleById(id: id).then (data) ->
       { actionType: 'RECEIVE_TRAINING_MODULE_BY_ID', data: data }
 
   fetchTrainingModuleForBlock: (block_id) ->

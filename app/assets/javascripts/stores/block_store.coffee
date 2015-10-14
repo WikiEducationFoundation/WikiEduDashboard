@@ -100,9 +100,6 @@ BlockStore = Flux.createStore
     when 'INSERT_BLOCK'
       insertBlock data.block, data.week_id, data.order
       break
-    when 'RECEIVE_TRAINING_MODULE_FOR_BLOCK'
-      setTrainingModule data.training_module
-      break
   return true
 
 module.exports = BlockStore
