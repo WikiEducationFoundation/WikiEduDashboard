@@ -1,0 +1,40 @@
+name: Policies and Guidelines
+id: 2
+intro: |
+  This module will provide a basic overview of Wikipedia’s core polocies and guidelines.
+
+  When you finish, you should be able to answer:
+
+  * What are Wikipedia’s core policies and guidelines?
+  * What are copyright and plagarisim on Wikipedia?
+  * How are copyright and plagarisim handled?
+description: |
+  This module will provide a basic overview of Wikipedia’s core policies and guidelines.
+
+  When you finish, you should be able to answer:
+
+  * What are Wikipedia’s core policies and guidelines?
+  * What are copyright and plagarisim on Wikipedia?
+  * How are copyright and plagarisim handled?
+estimated_ttc: 23 minutes
+slides:
+  - title: 'Policies and guidelines: basic overview'
+    slug: policies-and-guidelines-basic-overview # 1
+  - title: What to expect
+    slug: what-to-expect # 2
+  - title: Five Pillars
+    slug: five-pillars # 3
+  - title: Wikipedia is an encyclopedia
+    slug: wikipedia-is-an-encyclopedia # 4
+  - title: Wikipedia has a neutral point of view
+    slug: neutral-point-of-view # 5
+  - title: Wikipedia is free
+    slug: wikipedia-is-free # 6
+  - title: Be polite
+    slug: be-polite # 7
+  - title: Wikipedia does not have firm rules
+    slug: ignore-all-rules # 8
+  - title: Review
+    slug: five-pillars-review # 9
+  - title: Quiz Question 1
+    slug: five-pillars-quiz-1 # 10
