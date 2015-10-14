@@ -48,7 +48,7 @@ describe 'Students Page', type: :feature, js: true do
            id: 1,
            user_id: @user.id,
            article_id: article.id,
-           date: Date.today,
+           date: Time.zone.today,
            characters: 2,
            views: 10,
            new_article: false)

@@ -9,10 +9,10 @@ class Grok
   # [title]  title of a Wikipedia page (including namespace, if applicable)
   # [date]   a specific date
   def self.views_for_article(title, date, language=nil)
-    language = Figaro.env.wiki_language if language.nil?
+    language = ENV['wiki_language'] if language.nil?
     i_date = date
     views = {}
-    while Date.today >= i_date
+    while Time.zone.today >= i_date
       data = monthly_views(title, i_date.strftime('%Y%m'), language)
       return views unless data
       data = Utils.parse_json(data)
@@ -27,7 +27,7 @@ class Grok
   end
 
   def self.average_views_for_article(title, language=nil)
-    language = Figaro.env.wiki_language if language.nil?
+    language = ENV['wiki_language'] if language.nil?
     data = sixty_day_views(title, language)
     return unless data
     data = Utils.parse_json(data)

@@ -12,13 +12,13 @@ describe 'the home page', type: :feature do
                        id: i,
                        slug: "school/course_#{i}_(term)",
                        start: '2014-01-01'.to_date,
-                       end: Date.today + 2.days)
+                       end: Time.zone.today + 2.days)
       course1.cohorts << cohort
       course2 = create(:course,
                        id: (i + cohort_course_count),
                        slug: "school/course_#{i}_(term)",
                        start: '2014-01-01'.to_date,
-                       end: Date.today + 2.days)
+                       end: Time.zone.today + 2.days)
       course2.cohorts << cohort_two
 
       # STUDENTS, one per course

@@ -36,7 +36,7 @@ class RatingImporter
   def self.update_article_ratings(articles, ratings)
     articles.each do |article|
       article.rating = ratings[article.title]
-      article.rating_updated_at = Time.now
+      article.rating_updated_at = Time.zone.now
     end
     Article.transaction do
       articles.each(&:save)

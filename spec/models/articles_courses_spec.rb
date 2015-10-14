@@ -32,8 +32,8 @@ describe ArticlesCourses, type: :model do
 
       create(:course,
              id: 1,
-             start: Date.today - 1.month,
-             end: Date.today + 1.month,
+             start: Time.zone.today - 1.month,
+             end: Time.zone.today + 1.month,
              title: 'Underwater basket-weaving')
 
       create(:article,
@@ -49,7 +49,7 @@ describe ArticlesCourses, type: :model do
              id: 1,
              user_id: 1,
              article_id: 1,
-             date: Date.today,
+             date: Time.zone.today,
              characters: 9000,
              new_article: 1,
              views: 1234)

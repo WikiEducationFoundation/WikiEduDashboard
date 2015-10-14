@@ -68,12 +68,12 @@ class User < ActiveRecord::Base
   end
 
   def contribution_url
-    language = Figaro.env.wiki_language
+    language = ENV['wiki_language']
     "https://#{language}.wikipedia.org/wiki/Special:Contributions/#{wiki_id}"
   end
 
   def sandbox_url
-    language = Figaro.env.wiki_language
+    language = ENV['wiki_language']
     "https://#{language}.wikipedia.org/wiki/Special:PrefixIndex/User:#{wiki_id}"
   end
 
@@ -90,15 +90,13 @@ class User < ActiveRecord::Base
   end
 
   def role(course)
-    return 1 if course.nil? # This is a new course, grant permissions
-    course_user = course.courses_users.where(user_id: id).first
-    if admin?
-      CoursesUsers::Roles::INSTRUCTOR_ROLE # give admin instructor permissions
-    elsif !course_user.nil?
-      course_user.role # course role
-    else
-      CoursesUsers::Roles::VISITOR_ROLE # visitor
-    end
+    return 1 if course.nil? # If this is a new course, grant permissions.
+    return CoursesUsers::Roles::INSTRUCTOR_ROLE if admin? # Give admins the instructor permissions.
+
+    course_user = course.courses_users.where(user_id: id).order('role DESC').first
+    return course_user.role unless course_user.nil?
+
+    CoursesUsers::Roles::VISITOR_ROLE # User is in visitor role, if no other role found.
   end
 
   def can_edit?(course)

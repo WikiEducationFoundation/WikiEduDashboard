@@ -6,8 +6,8 @@ describe Cleaners do
     it 'should remove ArticlesCourses that do not belong' do
       create(:course,
              id: 1,
-             start: Date.today - 1.month,
-             end: Date.today + 1.month,
+             start: Time.zone.today - 1.month,
+             end: Time.zone.today + 1.month,
              title: 'Underwater basket-weaving')
       create(:user,
              id: 1)
@@ -27,7 +27,7 @@ describe Cleaners do
       create(:revision,
              user_id: 1,
              article_id: 1,
-             date: Date.today)
+             date: Time.zone.today)
       # An ArticlesCourse that should be removed
       create(:articles_course,
              course_id: 1,
@@ -39,7 +39,7 @@ describe Cleaners do
       create(:revision,
              user_id: 2,
              article_id: 1,
-             date: Date.today)
+             date: Time.zone.today)
       create(:articles_course,
              course_id: 1,
              article_id: 1)
@@ -90,7 +90,7 @@ describe Cleaners do
       create(:course,
              id: 1,
              start: 1.month.ago,
-             end: Date.today + 1.year)
+             end: Time.zone.today + 1.year)
       create(:revision,
              id: 661324615,
              article_id: 46640378,

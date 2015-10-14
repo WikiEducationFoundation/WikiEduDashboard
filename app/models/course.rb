@@ -52,12 +52,13 @@ class Course < ActiveRecord::Base
   #########################
   # Activity by the users #
   #########################
-  has_many :revisions, -> (course) {
+  has_many(:revisions, lambda do |course|
     where('date >= ?', course.start).where('date <= ?', course.end)
-  }, through: :students
-  has_many :uploads, -> (course) {
+  end, through: :students)
+
+  has_many(:uploads, lambda do |course|
     where('uploaded_at >= ?', course.start).where('uploaded_at <= ?', course.end)
-  }, through: :students
+  end, through: :students)
 
   has_many :articles_courses, class_name: ArticlesCourses, dependent: :destroy
   has_many :articles, -> { uniq }, through: :articles_courses
@@ -78,9 +79,9 @@ class Course < ActiveRecord::Base
   scope :legacy, -> { where('courses.id <= ?', LEGACY_COURSE_MAX_ID) }
   scope :not_legacy, -> { where('courses.id > ?', LEGACY_COURSE_MAX_ID) }
 
-  scope :unsubmitted_listed, -> {
+  scope(:unsubmitted_listed, lambda do
     where(submitted: false).where(listed: true).merge(Course.not_legacy)
-  }
+  end)
 
   scope :listed, -> { where(listed: true) }
 
@@ -89,15 +90,14 @@ class Course < ActiveRecord::Base
     'COMPLETED' => 2
   }
 
-  scope :current, lambda {
-    current_and_future.where('start < ?', Time.now)
-  }
+  scope :current, -> { current_and_future.where('start < ?', Time.zone.now) }
+
   # A course stays "current" for a while after the end date, during which time
   # we still check for new data and update page views.
   UPDATE_LENGTH = ENV['update_length'].to_i.days.seconds.to_i
 
   scope :current_and_future, lambda {
-    where('end > ?', Time.now - UPDATE_LENGTH)
+    where('end > ?', Time.zone.now - UPDATE_LENGTH)
   }
 
   ##################
@@ -126,7 +126,7 @@ class Course < ActiveRecord::Base
   end
 
   def current?
-    start < Time.now && self.end > Time.now - UPDATE_LENGTH
+    start < Time.zone.now && self.end > Time.zone.now - UPDATE_LENGTH
   end
 
   def wiki_title

@@ -128,8 +128,8 @@ describe Course, type: :model do
     VCR.use_cassette 'wiki/course_list_delisted' do
       create(:course,
              id: 589,
-             start: Date.today - 1.month,
-             end: Date.today + 1.month,
+             start: Time.zone.today - 1.month,
+             end: Time.zone.today + 1.month,
              title: 'Underwater basket-weaving',
              passcode: 'pizza',
              listed: true)
@@ -144,8 +144,8 @@ describe Course, type: :model do
     VCR.use_cassette 'wiki/course_list_deleted' do
       create(:course,
              id: 9999,
-             start: Date.today - 1.month,
-             end: Date.today + 1.month,
+             start: Time.zone.today - 1.month,
+             end: Time.zone.today + 1.month,
              title: 'Underwater basket-weaving',
              passcode: 'pizza',
              listed: true)
@@ -159,8 +159,8 @@ describe Course, type: :model do
   it 'should remove users who have been unenrolled from a course' do
     build(:course,
           id: 1,
-          start: Date.today - 1.month,
-          end: Date.today + 1.month,
+          start: Time.zone.today - 1.month,
+          end: Time.zone.today + 1.month,
           passcode: 'pizza',
           title: 'Underwater basket-weaving').save
 
@@ -185,7 +185,7 @@ describe Course, type: :model do
            id: 1)
     create(:revision,
            user_id: 2,
-           date: Date.today,
+           date: Time.zone.today,
            article_id: 1)
     create(:articles_course,
            article_id: 1,
@@ -215,8 +215,8 @@ describe Course, type: :model do
 
     build(:course,
           id: 1,
-          start: Date.today - 1.month,
-          end: Date.today + 1.month,
+          start: Time.zone.today - 1.month,
+          end: Time.zone.today + 1.month,
           passcode: 'pizza',
           title: 'Underwater basket-weaving').save
 
@@ -229,7 +229,7 @@ describe Course, type: :model do
           id: 1,
           user_id: 1,
           article_id: 1,
-          date: Date.today,
+          date: Time.zone.today,
           characters: 9000,
           views: 1234).save
 

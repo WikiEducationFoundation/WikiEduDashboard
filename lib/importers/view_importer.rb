@@ -58,7 +58,7 @@ class ViewImporter
     # TODO: threading to get views for more than one at a time
     articles.each do |article|
       article.average_views = Grok.average_views_for_article(article.title)
-      article.average_views_updated_at = Date.today
+      article.average_views_updated_at = Time.zone.today
       article.save
     end
   end
@@ -78,7 +78,7 @@ class ViewImporter
   end
 
   def self.update_views_for_article(article, all_time=false, views=nil)
-    return unless article.views_updated_at < Date.today
+    return unless article.views_updated_at < Time.zone.today
 
     since = views_since_when(article, all_time)
 

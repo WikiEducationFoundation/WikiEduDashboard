@@ -3,7 +3,7 @@ class MonthlyReport
   class << self
     def run(opts={})
       month = opts[:month] || 1.month.ago.month
-      year = opts[:year] || Time.now.year
+      year = opts[:year] || Time.zone.now.year
       last_year = year - 1
 
       courses = courses_during(month, year)
