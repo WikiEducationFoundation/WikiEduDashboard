@@ -9,6 +9,11 @@ class TrainingModulesController < ApplicationController
     @training_module = TrainingModule.find_by(slug: params[:module_id])
   end
 
+  def by_id
+    @training_module = TrainingModule.find(params[:id].to_i)
+    render 'for_block'
+  end
+
   def for_block
     @training_module = Block.find(params[:block_id]).training_module
   end

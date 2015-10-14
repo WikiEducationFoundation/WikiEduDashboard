@@ -212,6 +212,19 @@ API =
         console.log 'Error: ' + obj.responseJSON.message
         rej obj
 
+  fetchTrainingModuleById: (opts) ->
+    new Promise (res, rej) ->
+      $.ajax
+        type: 'GET'
+        url: "/training_module_by_id.json?id=#{opts.id}"
+        success: (data) ->
+          console.log 'Received training module'
+          res data
+      .fail (obj, status) ->
+        console.log 'Error: ' + obj.responseJSON.message
+        rej obj
+
+
   fetchTrainingModuleForBlock: (block_id) ->
     new Promise (res, rej) ->
       $.ajax

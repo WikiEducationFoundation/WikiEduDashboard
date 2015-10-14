@@ -6,7 +6,7 @@ BlockActions = require '../actions/block_actions'
 md              = require('markdown-it')({ html: true, linkify: true })
 
 getState = ->
-  module: BlockStore.getTrainingModule()
+  module: TrainingStore.getTrainingModule()
   all_modules: TrainingStore.getAllModules()
 
 TrainingBlock = React.createClass(
@@ -20,6 +20,8 @@ TrainingBlock = React.createClass(
   componentWillMount: ->
     ServerActions.fetchTrainingModuleForBlock(@props.block.id)
     ServerActions.fetchAllTrainingModules()
+  componentWillReceiveProps: (newProps) ->
+    ServerActions.fetchTrainingModuleById(newProps.block.training_module_id)
   render: ->
     if @props.editable
       modules = _.compact(@state.all_modules).map (module) -> (
@@ -28,7 +30,7 @@ TrainingBlock = React.createClass(
       content = (
         <label className="select_wrapper" id="training_module_select">
           Module Name:&nbsp;
-          <select id="module_select" ref="module_select" value={@state.module.id} onChange={@props.onChange.bind(@state.module.id)}>
+          <select id="module_select" ref="module_select" value={@state.module.id} onChange={@props.onChange}>
             {modules}
           </select>
         </label>

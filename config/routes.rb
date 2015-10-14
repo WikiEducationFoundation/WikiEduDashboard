@@ -125,6 +125,7 @@ Rails.application.routes.draw do
   # API for slides for a module
   get 'training_modules' => 'training_modules#index'
   get 'training_module' => 'training_modules#show'
+  get 'training_module_by_id' => 'training_modules#by_id'
   get 'training_module_for_block' => 'training_modules#for_block'
 
 
