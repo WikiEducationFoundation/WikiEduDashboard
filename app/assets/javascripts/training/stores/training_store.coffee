@@ -1,6 +1,7 @@
 McFly = require 'mcfly'
 Flux  = new McFly()
 
+_modules = []
 _module = {}
 _menuState = false
 _currentSlide = {
@@ -11,6 +12,10 @@ _currentSlide = {
 
 setModule = (trainingModule) ->
   _module = trainingModule
+  TrainingStore.emitChange()
+
+setAllModules = (modules) ->
+  _modules = modules
   TrainingStore.emitChange()
 
 setMenuState = (currently) ->
@@ -37,6 +42,8 @@ TrainingStore = Flux.createStore
     return _module.slides
   getTrainingModule: ->
     return _module
+  getAllModules: ->
+    return _modules
   getCurrentSlide: ->
     return _currentSlide
   getSelectedAnswer: ->
@@ -72,6 +79,9 @@ TrainingStore = Flux.createStore
       break
     when 'SET_CURRENT_SLIDE'
       setCurrentSlide data.slide
+      break
+    when 'RECEIVE_ALL_TRAINING_MODULES'
+      setAllModules data.training_modules
       break
 
 module.exports = TrainingStore

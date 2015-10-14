@@ -1,31 +1,53 @@
 React             = require 'react'
 ServerActions = require '../actions/server_actions'
 BlockStore = require '../stores/block_store'
+TrainingStore = require '../training/stores/training_store'
+BlockActions = require '../actions/block_actions'
+md              = require('markdown-it')({ html: true, linkify: true })
 
 getState = ->
   module: BlockStore.getTrainingModule()
+  all_modules: TrainingStore.getAllModules()
 
 TrainingBlock = React.createClass(
   displayName: 'TrainingBlock'
-  mixins: [BlockStore.mixin]
+  mixins: [BlockStore.mixin, TrainingStore.mixin]
   storeDidChange: ->
     @setState getState()
   getInitialState: ->
-    module: {
-      name: ''
-    }
-
+    module: { name: '' }
+    all_modules: []
   componentWillMount: ->
     ServerActions.fetchTrainingModuleForBlock(@props.block.id)
-
+    ServerActions.fetchAllTrainingModules()
   render: ->
-    link = "/training/students/#{@state.module.slug}"
+    if @props.editable
+      modules = _.compact(@state.all_modules).map (module) -> (
+        <option id={module.id} value={module.id}>{module.name}</option>
+      )
+      content = (
+        <label className="select_wrapper" id="training_module_select">
+          Module Name:&nbsp;
+          <select id="module_select" ref="module_select" value={@state.module.id} onChange={@props.onChange.bind(@state.module.id)}>
+            {modules}
+          </select>
+        </label>
+      )
+    else
+      if @state.module.name
+        link = "/training/students/#{@state.module.slug}"
+        raw_html = md.render(@state.module.intro)
+        content = (
+          <div>
+            <p>{@state.module.name}</p>
+            <div dangerouslySetInnerHTML={{__html: raw_html}}></div>
+            <hr />
+            <p><a href={link}>Go to training</a></p>
+          </div>
+        )
 
     <div>
-      <p>{@state.module.name}</p>
-      <p>{@state.module.intro}</p>
-      <hr />
-      <p><a href={link}>Go to training</a></p>
+     {content}
     </div>
 
 )

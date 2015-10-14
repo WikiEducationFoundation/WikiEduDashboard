@@ -75,10 +75,18 @@ ServerActions = Flux.createActions
     API.fetchUserCourses(userId).then (data) ->
       { actionType: 'RECEIVE_USER_COURSES', data: data }
 
+  fetchAllTrainingModules: ->
+    API.fetchAllTrainingModules().then (data) ->
+      { actionType: 'RECEIVE_ALL_TRAINING_MODULES', data: data }
+
   fetchTrainingModule: (opts={}) ->
     API.fetchTrainingModule(opts).then (data) ->
       data = _.extend(data, slide: opts.current_slide_id)
       { actionType: 'RECEIVE_TRAINING_MODULE', data: data }
+
+  fetchTrainingModuleById: (id) ->
+    API.fetchTrainingModule(id: id).then (data) ->
+      { actionType: 'RECEIVE_TRAINING_MODULE_BY_ID', data: data }
 
   fetchTrainingModuleForBlock: (block_id) ->
     API.fetchTrainingModuleForBlock(block_id).then (data) ->

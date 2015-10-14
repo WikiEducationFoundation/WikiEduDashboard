@@ -2,6 +2,10 @@ class TrainingModulesController < ApplicationController
   respond_to :json
 
   def index
+    @training_modules = TrainingModule.all
+  end
+
+  def show
     @training_module = TrainingModule.find_by(slug: params[:module_id])
   end
 
