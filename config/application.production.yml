@@ -1,70 +1,31 @@
-# Add configuration values here.
-#
-# Fulfill value requirements and save as application.yml
-#
-# Values required for WikiEduDashboard include:
+dashboard_title: Wiki Ed Dashboard
+dashboard_url: dashboard.wikiedu.org
+wiki_language: en
 
-# The name of the dashboard
-  dashboard_title: Wiki Ed Dashboard
-# The root url of the dashboard
-  dashboard_url: dashboard.wikiedu.org
+wikipedia_token: <SECRET>
+wikipedia_secret: <SECRET>
+oauth_ids: '218,306'
 
-# The language version of Wikipedia: <wiki_language>.wikipedia.org
-  wiki_language: en
+course_prefix: "Wikipedia:Wiki_Ed"
+course_announcement_page: 'Wikipedia:Education_noticeboard'
 
-# The prefix for all course pages that get posted on behalf of users.
-# This should probably be in the Project (Wikipedia) namespace, and should be
-# a prefix that will only be used for this purpose.
-  course_prefix: 'User:Ragesock'
-  course_talk_prefix: 'User_talk:Ragesock'
 
-# This is the community discussion page where new courses should be announced.
-  course_announcement_page: 'User:Ragesock'
+sentry_dsn: <SECRET>
+sentry_public_dsn: <SECRET>
 
-# Setting disable_wiki_output to 'true' means course pages will not be mirrored
-# to the wiki.
-  disable_wiki_output: 'true'
+course_id_list: "Wikipedia:Education_program/Dashboard/course_ids"
 
-# Comma-separated list of OAuth client IDs used by the system for Wiki edits
-  oauth_ids: '252,212'
+cohorts: "Society_for_Marine_Mammalogy,American_Sociological_Association,National_Women's_Studies_Association,Association_for_Psychological_Science,Midwest_Political_Science_Association,American_Society_of_Plant_Biologists,Louisiana_State_University,spring_2016,fall_2014,visiting_scholars,summer_2015,Student_Groups_Pilot,spring_2015,fall_2015,2015_summer_seminar"
 
-# One or more cohorts of classes, with each cohort defined by a wiki page of
-# course ids, one per line. For development, list at least 2 cohorts,
-# which are needed for integration tests.
-#
-# Cohort names become uppercase, and underscores become spaces.
-  cohorts: "fall_2014,spring_2015,summer_2015"
+cohort_summer_2015: "Wikipedia:Education_program/Dashboard/Summer_2015_course_ids"
+cohort_Student_Groups_Pilot: "Wikipedia:Education_program/Dashboard/Student_Groups_Pilot"
+cohort_spring_2015: "Wikipedia:Education_program/Dashboard/course_ids"
+cohort_fall_2014: "Wikipedia:Education_program/Dashboard/Fall_2014_course_ids"
 
-## You can create wiki-based cohorts that pull data from the EP extension.
-## You should not do so.
-  cohort_fall_2014: "Wikipedia:Education_program/Dashboard/Fall_2014_course_ids"
-  cohort_spring_2015: "Wikipedia:Education_program/Dashboard/course_ids"
-  cohort_summer_2015: "Wikipedia:Education_program/Dashboard/Summer_2015_course_ids"
+default_cohort: "fall_2015"
+update_length: "30"
+cron_log_debug: "true"
 
-# The slug for the default cohort
-  default_cohort: "spring_2015"
-
-# How many days after a course ends should the dashboard continue updating
-# data for it?
-  update_length: "7"
-
-# Uncomment cron_log_debug to use log level 'debug' for update logs. The default is 'info'.
-#  cron_log_debug: "true"
-
-# Uncomment no_views to disable view stats updates.
-# no_views: "true"
-
-# Logo filename, under the /images directory.
-  logo_file: "wiki-logo.png"
-
-# Favicon filename, under /images
-  favicon_file: "favicon.ico"
-
-# Development-mode favicon filename, under /images
-  favicon_dev_file: "favicon_dev.png"
-
-test:
-  default_cohort: "spring_2015"
-  cohorts: "fall_2014,spring_2015"
-  cohort_fall_2014: "Wikipedia:Education_program/Dashboard/Fall_2014_course_ids"
-  cohort_spring_2015: "Wikipedia:Education_program/Dashboard/course_ids"
+logo_file: "wiki-logo.png"
+favicon_file: favicon.ico"
+favicon_dev_file: "favicon_dev.png"
