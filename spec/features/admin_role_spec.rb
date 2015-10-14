@@ -116,9 +116,11 @@ describe 'Admin users', type: :feature, js: true do
       sleep 1
 
       click_button('Edit Details')
-      page.all('.button.border.plus')[5].click
-      within('section.overview') { all('input')[6].set 'My Tag' }
-      find('.pop button', visible: true).click
+      within 'p.tags' do
+        page.find('.button.border.plus').click
+        page.find('input').set 'My Tag'
+        find('.pop button', visible: true).click
+      end
 
       visit "/courses/#{Course.first.slug}"
       sleep 1
