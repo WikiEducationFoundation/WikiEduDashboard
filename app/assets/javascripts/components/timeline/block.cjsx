@@ -16,6 +16,12 @@ Block = React.createClass(
     to_pass[value_key] = value
     delete to_pass.deleteBlock
     BlockActions.updateBlock to_pass
+  passedUpdateBlock: (moduleId) ->
+    id = document.getElementById('module_select').value
+    parsedId = parseInt(id)
+    newBlock = $.extend(true, {}, @props.block)
+    newBlock.training_module_id = parsedId
+    BlockActions.updateBlock newBlock
   deleteBlock: ->
     BlockActions.deleteBlock @props.block.id
   updateGradeable: (value_key, value) ->
@@ -59,7 +65,7 @@ Block = React.createClass(
 
     if @props.block.training_module_id?
       content = (
-        <TrainingBlock {... @props} />
+        <TrainingBlock onChange={@passedUpdateBlock} {... @props} />
       )
     else
       content = (
@@ -88,7 +94,7 @@ Block = React.createClass(
           value={@props.block.kind}
           value_key={'kind'}
           editable={@props.editable}
-          options={['In Class', 'Assignment', 'Milestone', 'Custom']}
+          options={['In Class', 'Assignment', 'Milestone', 'Custom', 'Training']}
           show={@props.block.kind < 3 || @props.editable}
           label='Block type'
           popover_text={I18n.t('timeline.block_type')}

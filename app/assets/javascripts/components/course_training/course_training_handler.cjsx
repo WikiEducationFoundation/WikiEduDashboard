@@ -15,7 +15,6 @@ CourseTrainingHandler = React.createClass(
   componentDidMount: ->
     ServerActions.fetchTrainingModulesForCourse(@props.course_id)
   render: ->
-    console.log @state
     trainingModules = _.compact(@state.training_modules).map (module) -> <li>{module.name}</li>
     <div className='section-header'>
       <h3>Training</h3>
