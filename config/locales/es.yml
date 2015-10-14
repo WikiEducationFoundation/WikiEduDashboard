@@ -191,6 +191,9 @@ es:
       tu cronograma.
     select_assignment: Selecciona el tipo de tarea que quieres añadir a tu cronograma.
     summary: Resumen
+  error:
+    unsupported_browser:
+      header: Navegador no soportado. :-(
   error_401:
     header: No autorizado. >:-(
     explanation: No tienes autorización para ejecutar esta solicitud. Si crees que

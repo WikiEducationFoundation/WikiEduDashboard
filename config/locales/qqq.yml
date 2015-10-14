@@ -8,15 +8,15 @@ qqq:
   application:
     dashboard: Application name.
   activity:
-    all: '{{Identical|Activity}}'
     edited_by: Column label for username of user who made an edit
+    all: '{{Identical|Activity}}'
   articles:
     none: Message stating that no articles have been edited.
+    loading: Placeholder message indicating that article data is still loading
     assigned: Label for a list of assigned articles
     character_doc: Documentation for an article's character total add and remove count.
     edited: Label for a list of articles edited.
     edited_mobile: '{{Identical|Article}}'
-    loading: Placeholder message indicating that article data is still loading
     rating: Label for an article's quality rating on the Wikipedia 1.0 scale
     rating_doc: Explanation of where an article's quality rating comes from and what
       it means
@@ -70,7 +70,6 @@ qqq:
     instructor:
       one: Label for a single instructor of a course
       other: Label for plural instructors of a course
-    revision_doc: Explanation for what the count of edits/revisions means
     students: Label for link to the list of students for a course
     students_none: This course has no students.
     students_short: Label for the number of students in a course, in the mobile layout

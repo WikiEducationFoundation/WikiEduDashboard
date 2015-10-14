@@ -69,6 +69,9 @@ pt:
     assignment_type: Tipo de atribuição
     read_more: Ler mais
     summary: Resumo
+  error:
+    unsupported_browser:
+      header: Navegador sem suporte.  :-(
   error_401:
     header: Não autorizado. >:-(
   error_404:

@@ -1,0 +1,16 @@
+# Messages for Arabic (العربية)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Haytham morsy
+---
+ar:
+  activity:
+    edited_by: عدل بواسطة
+    all: النشاط
+  articles:
+    loading: تحميل المقالات ...
+    assigned: المقالات المخصصة
+    edited: المقالات التي تم تعديلها
+    edited_mobile: المقالات
+    no_assignee: لا مستخدم تم تعيينه
+...

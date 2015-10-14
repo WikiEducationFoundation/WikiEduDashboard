@@ -194,6 +194,13 @@ fr:
     select_assignment: Sélectionner le type de tâche que vous voulez ajouter à votre
       planning.
     summary: Résumé
+  error:
+    oauth_invalid: Votre autorisation sur Wikipédia a expiré. Veuillez vous reconnecter.
+    unsupported_browser:
+      header: Navigateur non supporté. :-(
+      explanation: Vous utilisez un navigateur qui n’est pas compatible avec le tableau
+        de bord. Le site fonctionne bien sur Internet Explorer 10 ou plus, sur les
+        versions récentes de Chrome ou Firefox, et sur d’autres navigateurs modernes.
   error_401:
     header: Non autorisé. >:-(
     explanation: Vous n’êtes pas autorisé à exécuter cette requête. Si vous pensez

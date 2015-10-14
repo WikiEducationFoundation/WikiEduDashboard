@@ -35,6 +35,9 @@ sv:
       header: Du har inte slutfört studentträningen.
   wizard:
     summary: Sammanfattning
+  error:
+    unsupported_browser:
+      header: Webbläsaren stöds inte. :-(
   error_401:
     header: Obehörig. >:-(
   error_404:

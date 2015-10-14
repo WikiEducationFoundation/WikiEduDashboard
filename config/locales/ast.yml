@@ -186,6 +186,13 @@ ast:
       En acabando, fai clic en "Unviar" pa rematar l'asistente y crear el cronograma.
     select_assignment: Escueye'l tipu de xera que quies añadir al cronograma.
     summary: Resume
+  error:
+    oauth_invalid: Caducó la autorización de Wikipedia. Anicia sesión otra vuelta.
+    unsupported_browser:
+      header: Navegador ensin encontu. :-(
+      explanation: Tas usando un navegador que nun ye compatible col tableru. Esti
+        sitiu funciona bien con Internet Explorer versión 10 o mayor, en versiones
+        nueves de Chrome y Firefox, y n'otros navegadores modernos.
   error_401:
     header: Non autorizáu. >:-(
     explanation: Nun tas autorizáu a executar esta solicitú. Si crees que llegasti

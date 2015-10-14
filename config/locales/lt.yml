@@ -4,11 +4,45 @@
 # Author: Zygimantus
 ---
 lt:
+  articles:
+    rating: Klasė
   courses:
+    activity: Veikla
+    articles: Straipsniai
+    courses: Kursai
+    yourcourses: Jūsų kursai
+    current: Dabartiniai kursai
+    duration: Kurso trukmė
+    students: Studentai
     students_none: Šis kursas neturi studentų.
+    students_short: Studentai
+    timeline: Užduoties detalės
+    new_week: Pridėti naują savaitę
+    overview: Apžvalga
+    title: Pavadinimas
+  course_creator:
+    create_new: Sukurti naują kursą
+  metrics:
+    articles_created: Sukurti straipsniai
+    articles_edited: Redaguoti straipsniai
+    characters: Simboliai
+    date_time: Data/Laikas
+    edit_count_description: Iš viso pakeitimų
+    view: Peržiūros
+  namespace:
+    main: Pagrindinė sritis
+    user_ns: Naudotojas
+  uploads:
+    usages: Panaudojimai
+  users:
+    name: Pavadinimas
   wizard:
+    course_dates: Kurso datos
     assignment_type: Užduoties tipas
     summary: Apibendrinimas
+  error:
+    unsupported_browser:
+      header: Nepalaikoma naršyklė :-(
   timeline:
     title: Laiko juosta
 ...

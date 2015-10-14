@@ -136,6 +136,9 @@ zh-hans:
     read_more: 阅读更多
     read_less: 阅读更少
     summary: 摘要
+  error:
+    unsupported_browser:
+      header: 浏览器不受支持。:-(
   error_401:
     header: 未获授权。>:-(
   error_404:

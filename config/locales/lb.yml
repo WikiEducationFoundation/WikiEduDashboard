@@ -111,4 +111,5 @@ lb:
     header: 500 - Interne Feeler vum Server. :-(
   timeline:
     title: Chronologie
+    due_default: Nächst Woch fälleg
 ...

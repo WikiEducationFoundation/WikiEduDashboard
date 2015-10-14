@@ -1,0 +1,17 @@
+# Messages for Sinhala (සිංහල)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Susith Chandira Gts
+---
+si:
+  activity:
+    all: ක්‍රියාකාරකම්
+  courses:
+    activity: ක්‍රියාකාරකම්
+  metrics:
+    activity: මෑත ක්‍රියාකාරකම්
+  namespace:
+    user_ns: පරිශීලක
+  users:
+    contributions: පරිශීලකයාගේ දායකත්ව
+...

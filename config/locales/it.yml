@@ -8,26 +8,35 @@
 ---
 it:
   activity:
+    edited_by: Modificato da
     all: Attività
   articles:
+    none: Questo corso non ha modificato alcuna voce.
     loading: Caricamento articoli...
-    assigned: Articoli Assegnati
+    assigned: Voci assegnate
     assigned_to: Assegnato a
+    character_doc: La somma dei caratteri aggiunti alle voci dagli studenti del corso
+      durante il periodo del corso
     edited: Articoli modificati
     edited_mobile: Voci
     rating: Classe
     rating_docs:
-      stub: classe abbozzo - un breve inizio di una voce che necessita di più contenuto
+      stub: Abbozzo di classe — un breve inizio di una voce che necessita di più contenuto
+      list: Elenco di classe — un elenco piuttosto che una voce tradizionale
     title: Titolo
-    view: Visualizza articolo
+    view: Visualizza voce
     view_all: Mostra tutto
+    view_doc: La somma di tutte le visite ad ogni voce durante il periodo del corso
   assignments:
     reviewers: Revisori
     loading: Caricando gli incarichi...
+    none: Questo corso non ha assegnato voci di Wikipedia.
     confirm_addition: Sei sicuro di voler assegnare %{title} a %{username}?
   courses:
     activity: Attività
     articles: Voci
+    character_doc: La somma dei caratteri aggiunti alle voci nel namespace principale
+      dagli studenti del corso durante il periodo del corso
     course_description: Corsi Wiki Educazionali
     courses: Corsi
     yourcourses: Tuoi corsi
@@ -38,47 +47,69 @@ it:
     students_none: Questo corso non ha studenti.
     students_short: Studenti
     timeline: Dettagli dell'incarico
-    weeks_none: '%{title} non ha incarichi'
+    weeks_none: Questo corso non ha ancora una linea temporale.
+    new_week: Aggiungi nuova settimana
     overview: Panoramica
     title: Titolo
     view: Visualizza corso
     view_wiki: Mostra su Wikipedia
+    view_doc: La somma di tutte le visite alle voci modificate dagli studenti da quando
+      gli studenti hanno fatto la loro prima modifica ad ogni voce
+    volunteer:
+      other: =Volontario
     error:
       exists: Quel corso esiste già! Riprova con un differente titolo, scuola o termine.
+      user_exists: Spiacenti, %{username} non è un utente esistente.
+  course_creator:
+    create_new: Crea un nuovo corso
   metrics:
     activity: Attività recente
     articles_created: Voci create
     articles_edited: Articoli modificati
-    char: Aggiunti caratteri
+    char: Caratteri aggiunti
     characters: Caratteri
+    char_added: Caratteri aggiunti
     char_changed: Caratteri Modificati
     date_time: Data/Ora
     edit_count_description: Modifiche totali
-    view_count_description: Visite alla Voce
+    view: Visualizzazioni
+    view_count_description: Visite alla voce
   namespace:
     main: Ambiente principale
+    main_char_added: Caratteri aggiunti namespace principale
     user_ns: Utente
   revisions:
     loading: Caricamento revisioni...
   uploads:
     loading: Caricando gli upload...
-    none: Nessun file è stato caricato
+    none: Questa classe non ha contribuito con alcuna immagine o altri file multimediali
+      su Wikimedia Commons.
     usages: Usi
   users:
     already_enrolled: Quell'utente è già iscritto!
-    assigned: Articolo assegnato
+    assigned: Voci assegnate
     contributions: Contributi dell'utente
     contributions_more: Visualizza Ulteriori Contributi
     loading: Caricamento utenti...
     name: Nome
     none: Questo corso non ha studenti.
-    reviewers: Revisore
+    reviewers: Revisori
     training_complete_count: '%{count} hanno completato l''allenamento'
   wiki_edits:
     notify_untrained:
       header: Non hai completato la formazione degli studenti.
   wizard:
+    course_dates: Date del corso
+    assignment_dates: Tipo di assegnazione
+    assignment_type: Tipo di assegnazione
+    confirm_dates: Scegli le date dei corsi, incontri settimanali e le festività per
+      il tuo corso.
+    minimum_options: Seleziona almeno %{minimum} opzioni.
+    read_more: Leggi di più
+    read_less: Leggi di meno
     summary: Sommario
+  error_401:
+    header: Non autorizzato. >:-(
   error_404:
     header: Pagina non trovata. :-(
   error_500:

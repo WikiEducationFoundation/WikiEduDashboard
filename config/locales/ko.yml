@@ -4,6 +4,7 @@
 # Author: Alex00728
 # Author: Hwangjy9
 # Author: Revi
+# Author: Yearning
 ---
 ko:
   application:
@@ -36,6 +37,9 @@ ko:
   assignments:
     assignees: 담당자
     reviewers: 검토자
+  blocks:
+    milestones:
+      title: 이정표
   courses:
     activity: 활동
     articles: 문서
@@ -65,9 +69,13 @@ ko:
     activity: 최근 활동
     articles_created: 문서 생성됨
     articles_edited: 문서 편집됨
+    char: 글자가 추가됨
     characters: 글자
+    char_added: 글자가 추가됨
+    char_changed: 글자가 바뀜
     date_time: 날짜/시간
     edit_count_description: 총 편집
+    revisions: 최신판
     student_editors: 학생 편집자
     view: 보기
   namespace:
@@ -79,6 +87,17 @@ ko:
     loading: 업로드 불러오는 중
     none: 이 과정에서는 위키미디어 공용에 기여한 이미지 또는 미디어 파일이 없습니다.
     usages: 사용
+  users:
+    name: 이름
+    reviewers: 검토자
+  wizard:
+    assignment_dates: 과제 유형
+    assignment_type: 과제 유형
+    read_more: 더 보기
+    summary: 요약
+  error:
+    unsupported_browser:
+      header: 지원되지 않는 브라우저입니다. :-(
   error_401:
     header: 인증되지 않음. >:-(
     explanation: 이 요청을 실행할 수 있도록 인증되지 않았습니다. 이 문제가 에러라고 생각되면, 이 게시판의 유지자에게 연락해서 문제를
