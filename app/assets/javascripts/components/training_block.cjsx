@@ -27,10 +27,11 @@ TrainingBlock = React.createClass(
       modules = _.compact(@state.all_modules).map (module) -> (
         <option id={module.id} value={module.id}>{module.name}</option>
       )
+      selectVal = @state.module.id?.toString()
       content = (
         <label className="select_wrapper" id="training_module_select">
           Module Name:&nbsp;
-          <select id="module_select" ref="module_select" value={@state.module.id} onChange={@props.onChange}>
+          <select id="module_select" ref="module_select" value={selectVal} onChange={@props.onChange}>
             {modules}
           </select>
         </label>
