@@ -112,7 +112,7 @@ class WizardTimelineManager
 
   def if_dependencies_met?(block)
     if_met = !block.key?('if')
-    if_met ||= Array.wrap(block_if).reduce(true) do |met, dep|
+    if_met ||= Array.wrap(block['if']).reduce(true) do |met, dep|
       met && @logic.include?(dep)
     end
     if_met
@@ -135,7 +135,7 @@ class WizardTimelineManager
     block['order'] = i
 
     if block.key?('graded') && block['graded']
-      gradeable = {
+      gradeable_params = {
         points: block['points'] || 10,
         gradeable_item_type: 'block',
         title: ''
@@ -146,10 +146,10 @@ class WizardTimelineManager
     block_params = block.except(*attr_keys_to_skip)
     block = Block.create(block_params)
 
-    return if gradeable.nil?
+    return if gradeable_params.nil?
 
-    gradeable['gradeable_item_id'] = block.id
-    gradeable = Gradeable.create(gradeable)
+    gradeable_params['gradeable_item_id'] = block.id
+    gradeable = Gradeable.create(gradeable_params)
     block.update(gradeable_id: gradeable.id)
   end
 
