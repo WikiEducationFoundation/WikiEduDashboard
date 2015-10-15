@@ -56,7 +56,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'rspec-rails'
-  gem 'rubocop'
+  gem 'rubocop', require: false
   gem 'zeus'
   gem 'selenium-webdriver'
   gem 'launchy'
