@@ -56,7 +56,7 @@ before_script:
   - bundle exec rubocop -R
 
 
-script: gulp build && bundle exec rspec --color --format documentation && npm test
+script: gulp build && npm test && bundle exec rspec --color --format documentation
 
 
 after_success:
