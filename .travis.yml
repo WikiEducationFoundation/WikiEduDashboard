@@ -34,8 +34,8 @@ before_install:
   - sh -e /etc/init.d/xvfb start
 
   # Use specific node versions
-  - nvm install v0.12.7
-  - nvm use v0.12.7
+  - nvm install v4.2.1
+  - nvm use v4.2.1
   - node --version
   - npm --version
 
