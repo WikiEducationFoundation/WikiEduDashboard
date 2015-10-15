@@ -3,13 +3,15 @@ json.weeks course.weeks.eager_load(blocks: [:gradeable]) do |week|
   json.blocks week.blocks do |block|
     json.call(block, :id, :kind, :content, :week_id,
               :gradeable_id, :title, :order, :due_date,
-              :training_module_id)
+              :training_module_ids)
     unless block.gradeable.nil?
       json.gradeable block.gradeable, :id, :title, :points,
                      :gradeable_item_type, :gradeable_item_id
     end
-    if block.training_module.present?
-      json.training_module block.training_module, :id, :name, :slug, :intro
+    if block.training_modules.any?
+      json.training_modules block.training_modules do |tm|
+        json.call(tm, :slug, :id, :name, :intro)
+      end
     end
   end
 end
