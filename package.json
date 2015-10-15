@@ -1,6 +1,7 @@
 {
   "name": "WikiEduDashboard",
   "devDependencies": {
+    "babel-jest": "^5.3.0",
     "browserify": "^11.0.1",
     "chai": "^1.9.1",
     "coffee-react-transform": "^3.3.0",
@@ -42,6 +43,7 @@
     "handleify": "^0.1.2",
     "jeet": "^6.1.2",
     "jest": "^0.1.40",
+    "jest-cli": "^0.5.10",
     "lodash": "^3.10.1",
     "main-bower-files": "^2.0.0",
     "merge-stream": "^0.1.6",
