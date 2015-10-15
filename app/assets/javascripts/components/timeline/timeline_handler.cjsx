@@ -15,12 +15,14 @@ CourseStore     = require '../../stores/course_store'
 WeekStore       = require '../../stores/week_store'
 BlockStore      = require '../../stores/block_store'
 GradeableStore  = require '../../stores/gradeable_store'
+TrainingStore   = require '../../training/stores/training_store'
 
 getState = ->
   course: CourseStore.getCourse()
   weeks: WeekStore.getWeeks()
   blocks: BlockStore.getBlocks()
   gradeables: GradeableStore.getGradeables()
+  all_training_modules: TrainingStore.getAllModules()
 
 
 # Returns string describing weekday meetings for each week
@@ -56,6 +58,7 @@ TimelineHandler = React.createClass(
   displayName: 'TimelineHandler'
   componentWillMount: ->
     ServerActions.fetch 'timeline', @props.course_id
+    ServerActions.fetchAllTrainingModules()
   render: ->
     # Would rather not run this on every render.. not sure how to pull it out though
     if @props.course.weekdays?
@@ -86,4 +89,4 @@ TimelineHandler = React.createClass(
     </div>
 )
 
-module.exports = Editable(TimelineHandler, [CourseStore, WeekStore, BlockStore, GradeableStore], TimelineActions.persistTimeline, getState)
+module.exports = Editable(TimelineHandler, [CourseStore, WeekStore, BlockStore, GradeableStore, TrainingStore], TimelineActions.persistTimeline, getState)

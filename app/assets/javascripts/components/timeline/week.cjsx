@@ -44,6 +44,7 @@ Week = React.createClass(
           moveBlock={@props.moveBlock}
           week_index={@props.index}
           week_start={moment(@props.start).startOf('isoWeek').add(7 * (@props.index - 1), 'day')}
+          all_training_modules={@props.all_training_modules}
         />
     blocks.sort (a, b) ->
       a.props.block.order - b.props.block.order
