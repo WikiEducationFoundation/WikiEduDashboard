@@ -111,6 +111,7 @@ describe 'New course creation and editing', type: :feature do
     let(:instructor_name)  { 'Mr. Capybara' }
     let(:instructor_email) { 'capybara@wikiedu.org' }
     let(:expected_course_blocks) { 27 }
+    let(:module_name) { 'Wikipedia Training Core Principles' }
     it 'should allow the user to create a course' do
       stub_oauth_edit
 
@@ -350,6 +351,20 @@ describe 'New course creation and editing', type: :feature do
         expect(week.order).to eq(i + 1)
       end
       expect(Course.first.blocks.count).to eq(expected_course_blocks)
+
+      # Training blocks
+      within ".block-kind-#{Block::KINDS['training']}" do
+        expect(page).to have_content 'Training'
+      end
+
+      first('.section-header') { click_button 'Edit' }
+      first('.training_module_select') { select module_name }
+      first('.section-header') { click_button 'Save' }
+
+      within ".block-kind-#{Block::KINDS['training']}" do
+        expect(page).to have_content module_name
+      end
+
     end
 
     it 'should squeeze assignments into the course dates' do

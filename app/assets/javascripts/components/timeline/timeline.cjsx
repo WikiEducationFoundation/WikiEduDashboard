@@ -49,6 +49,7 @@ Timeline = React.createClass(
                 end={@props.course.timeline_end}
                 editable=false
                 meetings='(No meetings this week)'
+                all_training_modules={@props.all_training_modules}
               />
             )
             i++
@@ -65,6 +66,7 @@ Timeline = React.createClass(
             moveBlock={@moveBlock}
             deleteWeek={@deleteWeek.bind(this, week.id)}
             meetings={if @props.week_meetings? then @props.week_meetings[i] else ''}
+            all_training_modules={@props.all_training_modules}
           />
         )
         i++

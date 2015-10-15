@@ -16,9 +16,8 @@ Block = React.createClass(
     to_pass[value_key] = value
     delete to_pass.deleteBlock
     BlockActions.updateBlock to_pass
-  passedUpdateBlock: (moduleId) ->
-    id = document.getElementById('module_select').value
-    parsedId = parseInt(id)
+  passedUpdateBlock: (e) ->
+    parsedId = parseInt(e.target.value)
     newBlock = $.extend(true, {}, @props.block)
     newBlock.training_module_id = parsedId
     BlockActions.updateBlock newBlock
@@ -32,6 +31,7 @@ Block = React.createClass(
   render: ->
     is_graded = @props.gradeable != undefined && !@props.gradeable.deleted
     className = 'block'
+    className += " block-kind-#{@props.block.kind}"
     if @props.block.due_date?
       dueDateRead = (
         <TextInput
@@ -63,9 +63,15 @@ Block = React.createClass(
       spacer = <span>  —  </span>
 
 
-    if @props.block.training_module_id?
+    if @props.block.training_module || @props.block.kind is 4
       content = (
-        <TrainingBlock onChange={@passedUpdateBlock} {... @props} />
+        <TrainingBlock
+          onChange={@passedUpdateBlock}
+          all_modules={@props.all_training_modules}
+          module={@props.block.training_module}
+          editable={@props.editable}
+          block={@props.block}
+        />
       )
     else
       content = (
