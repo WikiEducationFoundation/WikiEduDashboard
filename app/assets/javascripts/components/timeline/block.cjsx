@@ -19,7 +19,7 @@ Block = React.createClass(
   passedUpdateBlock: (e) ->
     parsedId = parseInt(e.target.value)
     newBlock = $.extend(true, {}, @props.block)
-    newBlock.training_module_id = parsedId
+    newBlock.training_module_ids = [parsedId]
     BlockActions.updateBlock newBlock
   deleteBlock: ->
     BlockActions.deleteBlock @props.block.id
@@ -63,18 +63,19 @@ Block = React.createClass(
       spacer = <span>  —  </span>
 
 
-    if @props.block.training_module || @props.block.kind is 4
-      content = (
-        <TrainingBlock
-          onChange={@passedUpdateBlock}
-          all_modules={@props.all_training_modules}
-          module={@props.block.training_module}
-          editable={@props.editable}
-          block={@props.block}
-        />
-      )
-    else
-      content = (
+    content = (
+      if @props.block.training_modules
+        modules = @props.block.training_modules.map (module) =>
+          (
+            <TrainingBlock
+              onChange={@passedUpdateBlock}
+              all_modules={@props.all_training_modules}
+              module={module}
+              editable={@props.editable}
+              block={@props.block}
+            />
+          )
+      <div>
         <TextAreaInput
           onChange={@updateBlock}
           value={@props.block.content}
@@ -86,7 +87,10 @@ Block = React.createClass(
           onFocus={@props.toggleFocused}
           onBlur={@props.toggleFocused}
         />
-      )
+        {modules}
+      </div>
+
+    )
 
     <li className={className} draggable={@props.canDrag && @props.editable}>
       <div className="drag-handle">

@@ -25,7 +25,6 @@ class TimelineController < ApplicationController
         :order,
         :gradeable_id,
         :due_date,
-        :training_module_id,
         { gradeable: [
           :id,
           :gradeable_item_id,
@@ -33,7 +32,8 @@ class TimelineController < ApplicationController
           :title,
           :points,
           :deleted
-        ] }
+        ] },
+        training_module_ids: [],
       ] }
     ])
   end

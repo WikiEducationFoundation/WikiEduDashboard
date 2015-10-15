@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150926153658) do
+ActiveRecord::Schema.define(version: 20151015192344) do
   create_table 'articles', force: true do |t|
     t.string 'title'
     t.integer 'views', limit: 8, default: 0
@@ -36,6 +36,23 @@ ActiveRecord::Schema.define(version: 20150926153658) do
     t.integer 'view_count', limit: 8, default: 0
     t.integer 'character_sum', default: 0
     t.boolean 'new_article', default: false
+  end
+
+  create_table "articles", force: true do |t|
+    t.string   "title"
+    t.integer  "views",                    limit: 8,  default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "character_sum",                       default: 0
+    t.integer  "revision_count",                      default: 0
+    t.date     "views_updated_at"
+    t.integer  "namespace"
+    t.string   "rating"
+    t.datetime "rating_updated_at"
+    t.boolean  "deleted",                             default: false
+    t.string   "language",                 limit: 10
+    t.float    "average_views",            limit: 24
+    t.date     "average_views_updated_at"
   end
 
   create_table 'assignments', force: true do |t|
@@ -63,6 +80,7 @@ ActiveRecord::Schema.define(version: 20150926153658) do
     t.string 'title'
     t.integer 'order'
     t.date 'due_date'
+    t.text 'training_module_ids'
   end
 
   create_table 'cohorts', force: true do |t|

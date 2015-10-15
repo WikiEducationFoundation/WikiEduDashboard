@@ -23,6 +23,8 @@ TrainingBlock = React.createClass(
         raw_html = md.render(@props.module?.intro)
         content = (
           <div>
+            <br /><br />
+            <h4>Training</h4>
             <p>{@props.module?.name}</p>
             <div dangerouslySetInnerHTML={{__html: raw_html}}></div>
             <hr />
