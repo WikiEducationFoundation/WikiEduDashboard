@@ -1,0 +1,8 @@
+-
+  key: build_your_own
+  title: Build your own timeline
+  description: |
+    Continue on to start from an empty timeline.
+  type: 1  # Single choice
+  minimum: 0
+  options: []

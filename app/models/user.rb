@@ -50,6 +50,7 @@ class User < ActiveRecord::Base
   scope :untrained, -> { where(trained: false) }
   scope :current, -> { joins(:courses).merge(Course.current).uniq }
   scope :role, lambda { |role|
+    #FIXME: Use the CoursesUsers named constants for these roles.
     index = %w(student instructor online_volunteer
                campus_volunteer wiki_ed_staff)
     joins(:courses_users).where(courses_users: { role: index.index(role) })
@@ -83,6 +84,13 @@ class User < ActiveRecord::Base
 
   def instructor?(course)
     course.users.role('instructor').include? self
+  end
+
+  # A user is a returning instructor if they have more than one course in the
+  # system. They become a returning instructor as soon as their second course
+  # is created, before they go through the assignment wizard.
+  def returning_instructor?
+    courses_users.where(role: CoursesUsers::Roles::INSTRUCTOR_ROLE).count > 1
   end
 
   def student?(course)
