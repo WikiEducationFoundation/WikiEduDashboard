@@ -6,6 +6,6 @@ class CourseUtils
     return "#{school}/#{title}_(#{term})"
 
   slugify: (text) ->
-    text?.replace " ", "_"
+    text?.split(" ").join("_")
 
 module.exports = new CourseUtils()

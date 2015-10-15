@@ -3,6 +3,7 @@
   "devDependencies": {
     "browserify": "^11.0.1",
     "chai": "^1.9.1",
+    "coffee-react-transform": "^3.3.0",
     "coffee-reactify": "^3.0.0",
     "coffee-script": "^1.7.1",
     "coffeeify": "^0.6.0",
@@ -40,6 +41,7 @@
     "gulp-webserver": "^0.8.2",
     "handleify": "^0.1.2",
     "jeet": "^6.1.2",
+    "jest": "^0.1.40",
     "lodash": "^3.10.1",
     "main-bower-files": "^2.0.0",
     "merge-stream": "^0.1.6",
@@ -68,5 +70,22 @@
     "react-router": "^0.13.2",
     "react-typeahead": "^1.1.1",
     "react-weekday-picker": "1.0.4"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "jest": {
+    "scriptPreprocessor": "preprocessor.js",
+    "testFileExtensions": [
+      "coffee",
+      "js"
+    ],
+    "moduleFileExtensions": [
+      "coffee",
+      "js"
+    ],
+    "unmockedModulePathPatterns": [
+      "react"
+    ]
   }
 }
