@@ -5,6 +5,17 @@ def set_up_suite
   Capybara.current_driver = :selenium
 end
 
+def fill_out_course_creator_form
+  fill_in 'Course title:', with: 'My course'
+  fill_in 'Instructor name:', with: 'Sage'
+  fill_in 'Instructor email:', with: 'sage@example.edu'
+  fill_in 'Course term:', with: 'Spring 2016'
+  fill_in 'Course school:', with: 'University of Oklahoma'
+  find('input[placeholder="Start date (YYYY-MM-DD)"]').set(Time.zone.today)
+  find('input[placeholder="End date (YYYY-MM-DD)"]').set(Time.zone.tomorrow)
+  click_button 'Create my Course!'
+end
+
 def interact_with_clone_form
   fill_in 'Course term:', with: 'Spring 2016'
   fill_in 'Course description:', with: 'A new course'
@@ -370,6 +381,40 @@ describe 'New course creation and editing', type: :feature do
       expect(page).to have_content 'Week 6'
       expect(page).not_to have_content 'Week 7'
       expect(Course.first.blocks.count).to eq(26)
+    end
+  end
+
+  describe 'returning instructor creating a new course', js: true do
+    it 'should have the option of starting with no timeline' do
+      create(:course, id: 1)
+      create(:courses_user,
+             course_id: 1,
+             user_id: 1,
+             role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+
+      click_link 'Create a Course'
+      click_button 'Create New Course'
+      fill_out_course_creator_form
+      sleep 1
+      go_through_course_dates_and_timeline_dates
+
+      # Advance past the timeline date panel
+      first('button.dark').click
+      sleep 1
+
+      # First option for returning instructor is 'build your own'
+      expect(page).to have_content 'Start from scratch'
+      first('.wizard__option').first('button').click
+      first('button.dark').click
+      sleep 1
+
+      # Proceed to the summary
+      first('button.dark').click # Next
+      sleep 1
+
+      # Finish the wizard
+      first('button.dark').click
+      expect(page).to have_content 'This course does not have a timeline yet'
     end
   end
 

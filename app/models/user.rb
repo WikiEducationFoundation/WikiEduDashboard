@@ -86,10 +86,10 @@ class User < ActiveRecord::Base
     course.users.role('instructor').include? self
   end
 
-  # A user is a returning instructor if they have more than one course in the
-  # system. They become a returning instructor as soon as their second course
-  # is created, before they go through the assignment wizard.
   def returning_instructor?
+    # A user is a returning instructor if they have more than one course in the
+    # system. They become a returning instructor as soon as their second course
+    # is created, before they go through the assignment wizard.
     courses_users.where(role: CoursesUsers::Roles::INSTRUCTOR_ROLE).count > 1
   end
 

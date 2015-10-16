@@ -126,7 +126,7 @@ CourseCreator = React.createClass(
               value_key='instructor_name'
               required=true
               editable=true
-              label='Instructor Name'
+              label='Instructor name'
               placeholder='Name'
             />
             <TextInput
@@ -136,7 +136,7 @@ CourseCreator = React.createClass(
               value_key='instructor_email'
               required=true
               editable=true
-              label='Instructor Email'
+              label='Instructor email'
               placeholder='hello@example.edu'
             />
             <TextInput
