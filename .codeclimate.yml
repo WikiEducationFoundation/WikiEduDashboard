@@ -1,9 +1,23 @@
-# Remove any languages you don't want analyzed.
-languages:
-   Ruby: true
-   JavaScript: true
-   Python: true
-   PHP: true
+engines:
+  rubocop:
+    enabled: true
+  coffeelint:
+    enabled: true
+  eslint:
+    enabled: true
+  csslint:
+    enabled: true
+  bundler-audit:
+    enabled: true
+ratings:
+  paths:
+  - "**.rb"
+  - "**.coffee"
+  - "**.js"
+  - "**.jsx"
+  - "**.cjsx"
+  - "**.css"
+  - Gemfile.lock
 
 # For all languages, we support a standard set of Glob patterns.
 # exclude_paths:
