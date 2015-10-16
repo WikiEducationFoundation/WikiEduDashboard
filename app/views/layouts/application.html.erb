@@ -48,7 +48,7 @@
             </p>
           </div>
           <div class="search">
-              <%= form_tag("/ask", method: "get") do %>
+              <%= form_tag("/ask", method: "get", target: '_blank') do %>
                 <%= text_field_tag(:q, '', placeholder: 'search ask.wikiedu.org') %>
                 <%= submit_tag("Help!") %>
               <% end %>
