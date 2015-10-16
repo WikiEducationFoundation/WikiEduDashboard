@@ -44,11 +44,13 @@ CourseCreator = React.createClass(
     if @state.shouldRedirect is true
       window.location = "/courses/#{@state.course.slug}?modal=true"
     return unless @state.isSubmitting
+
     if ValidationStore.isValid()
       if @state.course.slug?
         # This has to be a window.location set due to our limited ReactJS scope
         window.location = '/courses/' + @state.course.slug + '/timeline/wizard'
       else
+        @setState course: CourseUtils.cleanupCourseSlugComponents(@state.course)
         ServerActions.saveCourse $.extend(true, {}, { course: @state.course })
     else if !ValidationStore.getValidation('exists').valid
       @setState isSubmitting: false
