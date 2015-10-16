@@ -50,10 +50,12 @@ class User < ActiveRecord::Base
   scope :untrained, -> { where(trained: false) }
   scope :current, -> { joins(:courses).merge(Course.current).uniq }
   scope :role, lambda { |role|
-    #FIXME: Use the CoursesUsers named constants for these roles.
-    index = %w(student instructor online_volunteer
-               campus_volunteer wiki_ed_staff)
-    joins(:courses_users).where(courses_users: { role: index.index(role) })
+    roles = { 'student' => CoursesUsers::Roles::STUDENT_ROLE,
+              'instructor' => CoursesUsers::Roles::INSTRUCTOR_ROLE,
+              'online_volunteer' => CoursesUsers::Roles::ONLINE_VOLUNTEER_ROLE,
+              'campus_volunteer' => CoursesUsers::Roles::CAMPUS_VOLUNTEER_ROLE,
+              'wiki_ed_staff' => CoursesUsers::Roles::WIKI_ED_STAFF_ROLE }
+    joins(:courses_users).where(courses_users: { role: roles[role] })
   }
 
   scope :trained, -> { where(trained: true) }
