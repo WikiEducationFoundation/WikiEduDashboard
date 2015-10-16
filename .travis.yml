@@ -53,11 +53,11 @@ before_script:
   - cp config/database.travis.yml config/database.yml
   - mysql -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
   - bundle exec rake db:migrate RAILS_ENV=test
-  - bundle exec rubocop -R
-
 
 script: gulp build && npm test && bundle exec rspec --color --format documentation
 
+after_script:
+  - bundle exec rubocop -R
 
 after_success:
   # Deploy with Capistrano if the branch is production or staging
