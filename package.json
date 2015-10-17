@@ -81,11 +81,13 @@
     "scriptPreprocessor": "preprocessor.js",
     "testFileExtensions": [
       "coffee",
-      "js"
+      "js",
+      "csjx"
     ],
     "moduleFileExtensions": [
       "coffee",
-      "js"
+      "js",
+      "cjsx"
     ],
     "unmockedModulePathPatterns": [
       "react"

@@ -3,11 +3,9 @@ var transform = require('coffee-react-transform');
 
 module.exports = {
   process: function(src, path) {
-    if (coffee.helpers.isCoffee(path)) {
-      compiled_cjx = transform(src);
-      compiled_to_react = coffee.compile(compiled_cjx, {bare: true});
-
-      return compiled_to_react;
+    // CoffeeScript files can be .coffee, .litcoffee, or .coffee.md
+    if (coffee.helpers.isCoffee(path) || (path.match(/\.cjsx/))) {
+      return coffee.compile(transform(src), {'bare': true});
     }
 
     return src;
