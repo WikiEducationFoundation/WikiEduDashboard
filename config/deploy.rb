@@ -28,7 +28,6 @@ set :ssh_options, { :forward_agent => true }
 set :linked_files, fetch(:linked_files, []).push('config/application.yml',
                                                  'config/database.yml',
                                                  'config/secrets.yml',
-                                                 'config/skylight.yml',
                                                  'config/newrelic.yml')
 
 # Default value for linked_dirs is []
