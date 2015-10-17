@@ -19,6 +19,7 @@ gem 'deep_cloneable', '~> 2.1.1'
 gem 'sentry-raven'
 gem 'skylight'
 gem 'piwik_analytics', :git => 'https://github.com/halfdan/piwik-ruby-tracking.git'
+gem 'newrelic_rpm'
 
 # This fork has a fix for enums not working
 # https://github.com/zdennis/activerecord-import/issues/139

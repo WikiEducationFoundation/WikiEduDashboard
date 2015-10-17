@@ -207,6 +207,7 @@ GEM
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.1)
+    newrelic_rpm (3.13.2.302)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
     oauth (0.4.7)
@@ -382,6 +383,7 @@ DEPENDENCIES
   launchy
   mediawiki_api (= 0.4.1)
   mysql2
+  newrelic_rpm
   omniauth-mediawiki
   pandoc-ruby (~> 1.0.0)
   piwik_analytics!
