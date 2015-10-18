@@ -34,6 +34,12 @@ en:
 
   application:
     dashboard: Wiki Ed Dashboard
+    help: Help!
+    home: Home
+    log_out: Log Out
+    login_sign_up: Login / Sign Up
+    recent_activity: Recent Activity
+    search: search ask.wikiedu.org
 
   activity:
     edited_by: Edited By
@@ -125,6 +131,16 @@ en:
 
   course_creator:
     create_new: Create a New Course
+    course_title: Course title
+    course_school: Course school
+    course_term: Course term
+    course_subject: Course subject
+    course_description: Course description
+    expected_number: Expected number of students
+    instructor_name: Instructor name
+    instructor_email: Instructor email
+    start_date: Start date
+    end_date: End date
     intro: >
       The title, school, and term create your course page’s URL, and can't be
       changed. Everything else, you can edit later. Click “Create my Course!” to
@@ -159,9 +175,14 @@ en:
     user_ns: User
 
   revisions:
+    date_time: Date/Time
+    chars_added: Chars added
+    class: Class
+    edited_by: Edited by
     loading: Loading revisions...
     none: This course has no recent Wikipedia editing activity.
     time_doc: The time of each revision in your local time
+    title: Title
 
   # These are maintenance script messages.
   tasks:
