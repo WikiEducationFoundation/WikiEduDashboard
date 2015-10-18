@@ -194,7 +194,7 @@ GEM
     lumberjack (1.0.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
-    mediawiki_api (0.4.1)
+    mediawiki_api (0.5.0)
       faraday (~> 0.9, >= 0.9.0)
       faraday-cookie_jar (~> 0.0, >= 0.0.6)
     method_source (0.8.2)
@@ -379,7 +379,7 @@ DEPENDENCIES
   i18n-js (>= 3.0.0.rc8)
   jbuilder (~> 2.0)
   launchy
-  mediawiki_api (= 0.4.1)
+  mediawiki_api (= 0.5.0)
   mysql2
   newrelic_rpm
   omniauth-mediawiki
