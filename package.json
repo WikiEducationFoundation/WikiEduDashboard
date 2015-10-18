@@ -62,7 +62,7 @@
   },
   "dependencies": {
     "i18n-js": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc8.tar.gz",
-    "markdown-it": "^4.4.0",
+    "markdown-it": "^5.0.0",
     "mcfly": "0.0.10",
     "moment": "^2.10.3",
     "react": "^0.13.2",
