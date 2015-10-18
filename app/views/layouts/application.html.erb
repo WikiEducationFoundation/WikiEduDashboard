@@ -41,23 +41,23 @@
           </div>
           <div class="home">
             <p>
-              <%= link_to 'Home', root_url, class: 'inline' %>
+              <%= link_to I18n.t('Home'), root_url, class: 'inline' %>
               <% if current_user && current_user.admin? %>
-                <%= link_to 'Recent Activity', '/recent-activity', class: 'inline' %>
+                <%= link_to I18n.t('Recent Activity'), '/recent-activity', class: 'inline' %>
               <% end %>
             </p>
           </div>
           <div class="search">
               <%= form_tag("/ask", method: "get") do %>
-                <%= text_field_tag(:q, '', placeholder: 'search ask.wikiedu.org') %>
-                <%= submit_tag("Help!") %>
+                <%= text_field_tag(:q, '', placeholder: I18n.t('search ask.wikiedu.org')) %>
+                <%= submit_tag(I18n.t('Help!')) %>
               <% end %>
           </div>
           <div class="login">
             <% if user_signed_in? %>
-              <p><b><%= link_to current_user.wiki_id, :root, class: 'inline' %></b>.&nbsp;&nbsp;&nbsp;<%= link_to "Log Out", :destroy_user_session %></p>
+              <p><b><%= link_to current_user.wiki_id, :root, class: 'inline' %></b>.&nbsp;&nbsp;&nbsp;<%= link_to I18n.t('Log Out'), :destroy_user_session %></p>
             <% else %>
-              <p><%= link_to "Login / Sign Up", user_omniauth_authorize_path(:mediawiki) %></p>
+              <p><%= link_to I18n.t('Login / Sign Up'), user_omniauth_authorize_path(:mediawiki) %></p>
             <% end %>
           </div>
         </div>

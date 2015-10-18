@@ -116,7 +116,7 @@ CourseCreator = React.createClass(
               required=true
               validation={/^[\w\-\s\,\']+$/}
               editable=true
-              label='Course title'
+              label=I18n.t('Course title')
               placeholder='Title'
             />
             <TextInput
@@ -126,7 +126,7 @@ CourseCreator = React.createClass(
               value_key='instructor_name'
               required=true
               editable=true
-              label='Instructor Name'
+              label=I18n.t('Instructor Name')
               placeholder='Name'
             />
             <TextInput
@@ -136,7 +136,7 @@ CourseCreator = React.createClass(
               value_key='instructor_email'
               required=true
               editable=true
-              label='Instructor Email'
+              label=I18n.t('Instructor Email')
               placeholder='hello@example.edu'
             />
             <TextInput
@@ -147,7 +147,7 @@ CourseCreator = React.createClass(
               required=true
               validation={/^[\w\-\s\,\']+$/}
               editable=true
-              label='Course school'
+              label=I18n.t('Course school')
               placeholder='School'
             />
             <TextInput
@@ -158,7 +158,7 @@ CourseCreator = React.createClass(
               required=true
               validation={/^[\w\-\s\,\']+$/}
               editable=true
-              label='Course term'
+              label=I18n.t('Course term')
               placeholder='Term'
             />
             <TextInput
@@ -167,7 +167,7 @@ CourseCreator = React.createClass(
               value={@state.course.subject}
               value_key='subject'
               editable=true
-              label='Course subject'
+              label=I18n.t('Course subject')
               placeholder='Subject'
             />
             <TextInput
@@ -177,7 +177,7 @@ CourseCreator = React.createClass(
               value_key='expected_students'
               editable=true
               type='number'
-              label='Expected number of students'
+              label=I18n.t('Expected number of students')
               placeholder='Expected number of students'
             />
           </div>
@@ -188,7 +188,7 @@ CourseCreator = React.createClass(
               value={@state.course.description}
               value_key='description'
               editable=true
-              label='Course description'
+              label=I18n.t('Course description')
               autoExpand=false
             />
             <TextInput
@@ -199,7 +199,7 @@ CourseCreator = React.createClass(
               required=true
               editable=true
               type='date'
-              label='Start date'
+              label=I18n.t('Start date')
               placeholder='Start date (YYYY-MM-DD)'
               blank=true
               isClearable=false
@@ -212,7 +212,7 @@ CourseCreator = React.createClass(
               required=true
               editable=true
               type='date'
-              label='End date'
+              label=I18n.t('End date')
               placeholder='End date (YYYY-MM-DD)'
               blank=true
               date_props={minDate: moment(@state.course.start).add(1, 'week')}
