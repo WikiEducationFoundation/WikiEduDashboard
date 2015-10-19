@@ -1,5 +1,5 @@
-jest.dontMock '../course_utils.coffee'
-CourseUtils = require '../course_utils.coffee'
+CourseUtils = require '../../app/assets/javascripts/utils/course_utils'
+should = require 'should'
 
 describe '.generateTempId', ->
   it 'creates a slug from term, title and school', ->
@@ -8,7 +8,7 @@ describe '.generateTempId', ->
       school: 'University of Wikipedia'
       title: 'Introduction to Editing'
     slug = CourseUtils.generateTempId(course)
-    expect(slug).toBe 'University_of_Wikipedia/Introduction_to_Editing_(Fall_2015)'
+    slug.should.equal 'University_of_Wikipedia/Introduction_to_Editing_(Fall_2015)'
 
   it 'trims unnecessary whitespace', ->
     course =
@@ -16,7 +16,7 @@ describe '.generateTempId', ->
       school: '   University of Wikipedia '
       title: ' Introduction to Editing     '
     slug = CourseUtils.generateTempId(course)
-    expect(slug).toBe 'University_of_Wikipedia/Introduction_to_Editing_(Fall_2015)'
+    slug.should.equal 'University_of_Wikipedia/Introduction_to_Editing_(Fall_2015)'
 
 describe '.cleanupCourseSlugComponents', ->
   it 'trims whitespace from the slug-related fields of a course object', ->
@@ -25,6 +25,6 @@ describe '.cleanupCourseSlugComponents', ->
       school: '   University of Wikipedia '
       title: ' Introduction to Editing     '
     updatedCourse = CourseUtils.cleanupCourseSlugComponents(course)
-    expect(course.term).toBe 'Fall 2015'
-    expect(course.school).toBe 'University of Wikipedia'
-    expect(course.title).toBe 'Introduction to Editing'
+    course.term.should.equal 'Fall 2015'
+    course.school.should.equal 'University of Wikipedia'
+    course.title.should.equal 'Introduction to Editing'

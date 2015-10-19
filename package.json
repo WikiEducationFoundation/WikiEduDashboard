@@ -1,7 +1,7 @@
 {
   "name": "WikiEduDashboard",
   "devDependencies": {
-    "babel-jest": "^5.3.0",
+    "babel": "^5.8.23",
     "browserify": "^11.0.1",
     "chai": "^1.9.1",
     "coffee-react-transform": "^3.3.0",
@@ -42,18 +42,18 @@
     "gulp-webserver": "^0.8.2",
     "handleify": "^0.1.2",
     "jeet": "^6.1.2",
-    "jest": "^0.1.40",
-    "jest-cli": "^0.5.10",
+    "jsdom": "^7.0.1",
     "lodash": "^3.10.1",
     "main-bower-files": "^2.0.0",
     "merge-stream": "^0.1.6",
     "mkdirp": "^0.5.1",
-    "mocha": "^2.2.5",
+    "mocha": "https://registry.npmjs.org/mocha/-/mocha-2.3.3.tgz",
     "reactify": "^1.1.0",
     "require-dir": "^0.1.0",
     "rev-del": "^1.0.5",
     "run-sequence": "~0.3.6",
     "rupture": "^0.1.0",
+    "should": "^7.1.0",
     "stylus": "0.49.2",
     "uglifyify": "^3.0.1",
     "vinyl-buffer": "^1.0.0",
@@ -74,23 +74,6 @@
     "react-weekday-picker": "1.0.4"
   },
   "scripts": {
-    "test": "jest"
-  },
-  "jest": {
-    "verbose": true,
-    "scriptPreprocessor": "preprocessor.js",
-    "testFileExtensions": [
-      "coffee",
-      "js",
-      "csjx"
-    ],
-    "moduleFileExtensions": [
-      "coffee",
-      "js",
-      "cjsx"
-    ],
-    "unmockedModulePathPatterns": [
-      "react"
-    ]
+    "test": "mocha --compilers coffee:coffee-script/register --recursive"
   }
 }
