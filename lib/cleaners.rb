@@ -118,7 +118,7 @@ class Cleaners
     assignments.each do |assignment|
       article_title = assignment.article_title
       article_id = assignment.article_id
-      if article_id
+      if article_id && Article.exists?(article_id)
         assignment.article_title = Article.find(article_id).title
         assignment.save
       elsif title_not_capitalized?(article_title)
