@@ -335,7 +335,7 @@ API =
       success: (data) ->
         window.location = '/'
     .fail (obj, status) ->
-        console.log 'Couldn\'t delete course'
+      console.log 'Couldn\'t delete course'
 
   # TODO: This should add a task to a queue and return immediately
   manualUpdate: (course_id) ->
