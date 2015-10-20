@@ -91,8 +91,8 @@ CourseCreator = React.createClass(
 
     selectClass = if @state.showCourseDropdown is true then '' else ' hidden'
 
-    options = @state.user_courses.map (course) -> (
-      <option data-id-key={course.id}>{course.title}</option>
+    options = @state.user_courses.map (course, i) -> (
+      <option key={i} data-id-key={course.id}>{course.title}</option>
     )
 
     <Modal>
@@ -104,7 +104,7 @@ CourseCreator = React.createClass(
           <button className='button dark' onClick={@showCourseDropdown}>Reuse Existing Course</button>
         </div>
         <div className={selectClass}>
-          <select id='reuse-existing-course-select' ref='courseSelect'>{options} </select>
+          <select id='reuse-existing-course-select' ref='courseSelect'>{options}</select>
           <button className='button dark' onClick={@useThisClass}>Clone This Course</button>
         </div>
         <div className={formClass}>
