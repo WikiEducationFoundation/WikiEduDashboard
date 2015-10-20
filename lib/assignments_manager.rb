@@ -11,7 +11,7 @@ class AssignmentsManager
       update_util Assignment, assignment
     end
 
-    WikiEdits.update_assignments(current_user, course, user_params['assignments'])
+    WikiEdits.update_assignments(current_user, course)
     WikiEdits.update_course(course, current_user)
   end
 
