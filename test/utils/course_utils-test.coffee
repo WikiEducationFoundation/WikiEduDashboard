@@ -1,7 +1,6 @@
 CourseUtils = require '../../app/assets/javascripts/utils/course_utils'
-should = require 'should'
 
-describe '.generateTempId', ->
+describe 'CourseUtils.generateTempId', ->
   it 'creates a slug from term, title and school', ->
     course =
       term: 'Fall 2015'
@@ -18,7 +17,7 @@ describe '.generateTempId', ->
     slug = CourseUtils.generateTempId(course)
     slug.should.equal 'University_of_Wikipedia/Introduction_to_Editing_(Fall_2015)'
 
-describe '.cleanupCourseSlugComponents', ->
+describe 'CourseUtils.cleanupCourseSlugComponents', ->
   it 'trims whitespace from the slug-related fields of a course object', ->
     course =
       term: ' Fall 2015'
