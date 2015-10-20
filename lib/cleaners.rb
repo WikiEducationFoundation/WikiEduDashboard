@@ -109,4 +109,31 @@ class Cleaners
     date = revisions.last.date + 1.day
     date.strftime('%Y%m%d')
   end
+
+  ###############
+  # Assignments #
+  ###############
+  def self.repair_case_variant_assignment_titles
+    assignments = Assignment.all
+    assignments.each do |assignment|
+      article_title = assignment.article_title
+      article_id = assignment.article_id
+      if article_id
+        assignment.article_title = Article.find(article_id).title
+        assignment.save
+      elsif title_not_capitalized?(article_title)
+        assignment.article_title = capitalize_article_title(article_title)
+        assignment.save
+      end
+    end
+  end
+
+  def self.title_not_capitalized?(article_title)
+    article_title != capitalize_article_title(article_title)
+  end
+
+  def self.capitalize_article_title(article_title)
+    # Use mb_chars so that we can capitalize unicode letters too.
+    article_title.mb_chars.capitalize.to_s
+  end
 end
