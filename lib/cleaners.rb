@@ -119,6 +119,8 @@ class Cleaners
       article_title = assignment.article_title
       article_id = assignment.article_id
       if article_id && Article.exists?(article_id)
+        canonical_title = Article.find(article_id).title
+        next if article_title == canonical_title
         assignment.article_title = Article.find(article_id).title
         assignment.save
       elsif title_not_capitalized?(article_title)
