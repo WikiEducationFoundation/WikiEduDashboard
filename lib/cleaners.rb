@@ -121,13 +121,21 @@ class Cleaners
       if article_id && Article.exists?(article_id)
         canonical_title = Article.find(article_id).title
         next if article_title == canonical_title
-        assignment.article_title = Article.find(article_id).title
-        assignment.save
+        update_assignment_title_to_match_article(assignment, canonical_title)
       elsif title_not_capitalized?(article_title)
         assignment.article_title = capitalize_article_title(article_title)
         assignment.save
       end
     end
+  end
+
+  def self.update_assignment_title_to_match_article(assignment, canonical_title)
+    assignment.article_title = canonical_title
+    assignment.save
+  rescue ActiveRecord::RecordNotUnique
+    # This may happen if one assignment has spaces instead of underscores for the title.
+    # In that case, we can just remove the duplicate assignment.
+    assignment.destroy
   end
 
   def self.title_not_capitalized?(article_title)
