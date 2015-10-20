@@ -37,10 +37,11 @@ before_install:
   - nvm install v4.2.1
   - nvm use v4.2.1
   - node --version
-  - npm --version
 
 
 install:
+  - npm install -g npm
+  - npm --version
   - npm install gulp -g
   - npm install bower -g
   - npm install
