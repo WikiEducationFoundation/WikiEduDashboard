@@ -128,7 +128,8 @@ class WikiEdits
                                              course_page)
 
       next if page_content.nil?
-      summary = "Update #{course_page} assignment details"
+      course_title = course.title
+      summary = "Update [[#{course_page}|#{course_title}]] assignment details"
       post_whole_page(current_user, talk_title, page_content, summary)
     end
   end
