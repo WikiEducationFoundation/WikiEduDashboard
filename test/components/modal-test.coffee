@@ -20,5 +20,9 @@ describe 'Modal', ->
     modalContent.getDOMNode().textContent.should.equal 'bar'
     modalContent.getDOMNode().className.should.equal 'wizard active foo'
 
-  it 'adds modal-open to the body', ->
+  it 'adds modal-open class to the body', ->
     document.body.className.should.equal 'modal-open'
+
+  it 'removes the modal-open when it unmounts', ->
+    TestModal.componentWillUnmount()
+    document.body.className.should.equal ''
