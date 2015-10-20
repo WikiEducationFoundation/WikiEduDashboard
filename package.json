@@ -4,6 +4,7 @@
     "babel": "^5.8.23",
     "browserify": "^11.0.1",
     "chai": "^1.9.1",
+    "coffee-react": "^4.0.0",
     "coffee-react-transform": "^3.3.0",
     "coffee-reactify": "^4.0.0",
     "coffee-script": "^1.7.1",
@@ -42,12 +43,14 @@
     "gulp-webserver": "^0.8.2",
     "handleify": "^0.1.2",
     "jeet": "^6.1.2",
+    "jquery": "^2.1.4",
     "jsdom": "^7.0.1",
     "lodash": "^3.10.1",
     "main-bower-files": "^2.0.0",
     "merge-stream": "^0.1.6",
     "mkdirp": "^0.5.1",
     "mocha": "https://registry.npmjs.org/mocha/-/mocha-2.3.3.tgz",
+    "mocha-jsdom": "^1.0.0",
     "reactify": "^1.1.0",
     "require-dir": "^0.1.0",
     "rev-del": "^1.0.5",
@@ -55,6 +58,7 @@
     "rupture": "^0.1.0",
     "should": "^7.1.0",
     "stylus": "0.49.2",
+    "testdom": "^2.0.0",
     "uglifyify": "^3.0.1",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
@@ -74,6 +78,6 @@
     "react-weekday-picker": "1.0.4"
   },
   "scripts": {
-    "test": "mocha --compilers coffee:coffee-script/register --recursive"
+    "test": "mocha"
   }
 }
