@@ -22,10 +22,12 @@
 
     <%= javascript_include_tag '/assets/javascripts/vendor.js' %>
 
-    <!-- Temporary Raven logging -->
-    <script src="//cdn.ravenjs.com/1.1.19/jquery,native/raven.min.js"></script>
-    <script>Raven.config("<%= ENV['sentry_public_dsn'] %>").install();</script>
-
+    <% if ENV['sentry_public_dsn'] %>    
+      <!-- Temporary Raven logging -->
+      <script src="//cdn.ravenjs.com/1.1.19/jquery,native/raven.min.js"></script>
+      <script>Raven.config("<%= ENV['sentry_public_dsn'] %>").install();</script>
+    <% end %>
+    
     <%= javascript_include_tag fingerprinted('/assets/javascripts/', 'main.js') %>
     <%= csrf_meta_tags %>
   </head>
