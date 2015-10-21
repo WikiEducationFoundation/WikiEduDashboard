@@ -105,32 +105,48 @@ class WikiEdits
   end
 
   def self.update_assignments(current_user, course)
-    require './lib/wiki_assignment_output'
-
-    assignment_titles = assignments_by_article(course)
-    course_page = course.wiki_title
-
-    assignment_titles.each do |title, title_assignments|
-      # TODO: i18n of talk namespace
-      if title[0..4] == 'Talk:'
-        talk_title = title
-      else
-        talk_title = "Talk:#{title.tr(' ', '_')}"
-      end
-
-      page_content = WikiAssignmentOutput
-                     .build_talk_page_update(title,
-                                             talk_title,
-                                             title_assignments,
-                                             course_page)
-
-      next if page_content.nil?
-      course_title = course.title
-      summary = "Update [[#{course_page}|#{course_title}]] assignment details"
-      post_whole_page(current_user, talk_title, page_content, summary)
+    grouped_assignments = assignments_grouped_by_article_title(course)
+    grouped_assignments.each do |title, assignments_for_same_title|
+      update_assignments_for_title(current_user,
+                                   title,
+                                   assignments_for_same_title,
+                                   course)
     end
   end
 
+  def self.remove_assignment(current_user, assignment)
+    article_title = assignment.article_title
+    other_assignments_for_same_course_and_title = assignment.sibling_assignments
+    course = assignment.course
+
+    update_assignments_for_title(current_user,
+                                 article_title,
+                                 other_assignments_for_same_course_and_title,
+                                 course)
+  end
+
+  def self.update_assignments_for_title(current_user, title, assignments_for_same_title, course)
+    require './lib/wiki_assignment_output'
+
+    # TODO: i18n of talk namespace
+    if title[0..4] == 'Talk:'
+      talk_title = title
+    else
+      talk_title = "Talk:#{title.tr(' ', '_')}"
+    end
+
+    course_page = course.wiki_title
+    page_content = WikiAssignmentOutput
+                   .build_talk_page_update(title,
+                                           talk_title,
+                                           assignments_for_same_title,
+                                           course_page)
+
+    return if page_content.nil?
+    course_title = course.title
+    summary = "Update [[#{course_page}|#{course_title}]] assignment details"
+    post_whole_page(current_user, talk_title, page_content, summary)
+  end
   ###################
   # Helper methods #
   ###################
@@ -142,8 +158,8 @@ class WikiEdits
     end
   end
 
-  def self.assignments_by_article(course)
-    course.assignments.group_by(&:article_title).as_json
+  def self.assignments_grouped_by_article_title(course)
+    course.assignments.group_by(&:article_title)
   end
 
   ####################

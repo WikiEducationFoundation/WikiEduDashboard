@@ -3,16 +3,17 @@ require "#{Rails.root}/lib/assignments_manager"
 
 describe AssignmentsManager do
   describe '.update_assignments' do
+    let(:course) { create(:course, id: 1) }
+    let(:user) { create(:user, id: 1) }
+
     it 'creates new assignments for existing articles' do
-      course = create(:course, id: 1)
-      user = create(:user, id: 1)
       create(:article, id: 1, namespace: 0, title: 'Existing_article')
       params = { 'users' => [{ 'id' => 1, 'wiki_id' => 'Ragesock' }],
                  'assignments' => [{ 'user_id' => 1,
                                      'article_title' => 'existing article',
                                      'role' => 0 }] }
-      allow(WikiEdits).to receive(:update_assignments)
-      allow(WikiEdits).to receive(:update_course)
+      expect(WikiEdits).to receive(:update_assignments)
+      expect(WikiEdits).to receive(:update_course)
 
       AssignmentsManager.update_assignments(course, params, user)
       expect(Assignment.last.article_title).to eq('Existing_article')
@@ -20,18 +21,71 @@ describe AssignmentsManager do
     end
 
     it 'creates new assignments for non-existent articles' do
-      course = create(:course, id: 1)
-      user = create(:user, id: 1)
       params = { 'users' => [{ 'id' => 1, 'wiki_id' => 'Ragesock' }],
                  'assignments' => [{ 'user_id' => 1,
                                      'article_title' => 'existing article',
                                      'role' => 0 }] }
-      allow(WikiEdits).to receive(:update_assignments)
-      allow(WikiEdits).to receive(:update_course)
+      expect(WikiEdits).to receive(:update_assignments)
+      expect(WikiEdits).to receive(:update_course)
 
       AssignmentsManager.update_assignments(course, params, user)
       expect(Assignment.last.article_title).to eq('Existing_article')
       expect(Assignment.last.article_id).to eq(nil)
+    end
+
+    it 'deletes existing assignments' do
+      create(:assignment,
+             id: 1,
+             user_id: 1,
+             article_id: 1,
+             article_title: 'Existing_article',
+             course_id: 1,
+             role: 0)
+      params = { 'users' => [{ 'id' => 1, 'wiki_id' => 'Ragesock' }],
+                 'assignments' => [{ 'user_id' => 1,
+                                     'id' => 1,
+                                     'article_title' => 'existing article',
+                                     'role' => 0,
+                                     'deleted' => 'true' }] }
+      expect(WikiEdits).to receive(:remove_assignment)
+      expect(WikiEdits).to receive(:update_assignments)
+      expect(WikiEdits).to receive(:update_course)
+      AssignmentsManager.update_assignments(course, params, user)
+      expect(Assignment.all).to be_empty
+    end
+
+    it 'handles deletion of already-deleted assignments gracefully' do
+      params = { 'users' => [{ 'id' => 1, 'wiki_id' => 'Ragesock' }],
+                 'assignments' => [{ 'user_id' => 1,
+                                     'id' => 1,
+                                     'article_title' => 'existing article',
+                                     'role' => 0,
+                                     'deleted' => 'true' }] }
+      expect(WikiEdits).to receive(:update_assignments)
+      expect(WikiEdits).to receive(:update_course)
+
+      AssignmentsManager.update_assignments(course, params, user)
+      expect(Assignment.all).to be_empty
+    end
+
+    it 'handles duplicate assignments gracefully' do
+      create(:assignment,
+             user_id: 1,
+             article_id: 1,
+             article_title: 'Existing_article',
+             course_id: 1,
+             role: 0)
+      create(:article, id: 1, namespace: 0, title: 'Existing_article')
+      params = { 'users' => [{ 'id' => 1, 'wiki_id' => 'Ragesock' }],
+                 'assignments' => [{ 'user_id' => 1,
+                                     'article_title' => 'existing article',
+                                     'role' => 0 }] }
+      expect(WikiEdits).to receive(:update_assignments)
+      expect(WikiEdits).to receive(:update_course)
+      expect(Raven).to receive(:capture_exception)
+
+      AssignmentsManager.update_assignments(course, params, user)
+      expect(Assignment.all.count).to eq(1)
     end
   end
 end

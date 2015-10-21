@@ -6,8 +6,9 @@ class WikiAssignmentOutput
   ################
   def self.build_talk_page_update(title,
                                   talk_title,
-                                  title_assignments,
+                                  assignments,
                                   course_page)
+
     initial_page_content = Wiki.get_page_content talk_title
     # We only want to add assignment tags to non-existant talk pages if the
     # article page actually exists. This also servces to make sure that we
@@ -18,10 +19,7 @@ class WikiAssignmentOutput
       initial_page_content = ''
     end
 
-    # Limit it to live assignments for this article-course
-    title_assignments = title_assignments.reject { |a| a['deleted'] }
-
-    course_assignments_tag = assignments_tag(course_page, title_assignments)
+    course_assignments_tag = assignments_tag(course_page, assignments)
     page_content = build_assignment_page_content(course_assignments_tag,
                                                  course_page,
                                                  initial_page_content)
@@ -31,13 +29,13 @@ class WikiAssignmentOutput
   ###################
   # Helper methods #
   ###################
-  def self.assignments_tag(course_page, title_assignments)
-    return '' if title_assignments.empty?
+  def self.assignments_tag(course_page, assignments)
+    return '' if assignments.empty?
 
     # Make a list of the assignees, role 0
-    tag_assigned = build_wikitext_user_list(title_assignments, Assignment::Roles::ASSIGNED_ROLE)
+    tag_assigned = build_wikitext_user_list(assignments, Assignment::Roles::ASSIGNED_ROLE)
     # Make a list of the reviwers, role 1
-    tag_reviewing = build_wikitext_user_list(title_assignments, Assignment::Roles::REVIEWING_ROLE)
+    tag_reviewing = build_wikitext_user_list(assignments, Assignment::Roles::REVIEWING_ROLE)
 
     # Build new tag
     # NOTE: If the format of this tag gets changed, then the dashboard may
@@ -89,9 +87,9 @@ class WikiAssignmentOutput
     page_content
   end
 
-  def self.build_wikitext_user_list(siblings, role)
-    user_ids = siblings.select { |a| a['role'] == role }
-               .map { |a| a['user_id'] }
+  def self.build_wikitext_user_list(assignments, role)
+    user_ids = assignments.select { |assignment| assignment.role == role }
+               .map(&:user_id)
     User.where(id: user_ids).pluck(:wiki_id)
       .map { |wiki_id| "[[User:#{wiki_id}|#{wiki_id}]]" }.join(', ')
   end

@@ -21,17 +21,29 @@ class Assignment < ActiveRecord::Base
   scope :assigned, -> { where(role: 0) }
   scope :reviewing, -> { where(role: 1) }
 
-  ####################
-  # CONSTANTS        #
-  ####################
+  #############
+  # CONSTANTS #
+  #############
   module Roles
     ASSIGNED_ROLE  = 0
     REVIEWING_ROLE = 1
   end
 
+  ####################
+  # Instance methods #
+  ####################
   def page_url
     language = ENV['wiki_language']
     escaped_title = article_title.tr(' ', '_')
     "https://#{language}.wikipedia.org/wiki/#{escaped_title}"
+  end
+
+  # A sibling assignment is an assignment for a different user,
+  # but for the same Article in the same course.
+  def sibling_assignments
+    Assignment
+      .where(course_id: course_id, article_id: article_id)
+      .where.not(id: id)
+      .where.not(user: user_id)
   end
 end
