@@ -47,7 +47,7 @@ class ApplicationController < ActionController::Base
   end
 
   def check_for_unsupported_browser
-    supported = !browser.ie? || browser.version.to_i >= 10
+    supported = !browser.ie? || browser.version.to_i >= 11
     flash[:notice] = t('error.unsupported_browser.explanation') unless supported
   end
 
