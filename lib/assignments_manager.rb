@@ -28,5 +28,7 @@ class AssignmentsManager
     else
       model.update object['id'], object
     end
+  rescue ActiveRecord::RecordNotUnique => error
+    Raven.capture_exception error, level: 'warning'
   end
 end
