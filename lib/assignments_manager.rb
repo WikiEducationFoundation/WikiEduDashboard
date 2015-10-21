@@ -7,8 +7,12 @@ class AssignmentsManager
     user_params['assignments'].each do |assignment|
       assignment['course_id'] = course.id
       assignment['article_title'] = Utils.format_article_title(assignment['article_title'])
-      assigned = Article.find_by(title: assignment['article_title'])
-      assignment['article_id'] = assigned.id unless assigned.nil?
+      assigned = Article.find_by(title: assignment['article_title'], namespace: 0)
+      if assigned
+        # We double check that the titles are equal to avoid false matches of case variants.
+        # We can revise this once the database is set to use case-sensitive collation.
+        assignment['article_id'] = assigned.id if assigned.title == assignment['article_title']
+      end
       update_util Assignment, assignment
     end
 
