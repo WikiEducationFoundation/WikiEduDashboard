@@ -75,17 +75,16 @@ class UsersController < ApplicationController
     fetch_enroll_records
     return if @user.nil?
 
-    cu = CoursesUsers.find_by(
+    course_user = CoursesUsers.find_by(
       user_id: @user.id,
       course_id: @course.id,
       role: enroll_params[:role]
     )
-    return if cu.nil? # This will happen if the user was already removed.
-    WikiEdits.update_assignments current_user, @course,
-                                 cu.assignments.as_json, true
-    cu.destroy
+    return if course_user.nil? # This will happen if the user was already removed.
+    course_user.destroy # destroying the course_user also destroys associated Assignments.
 
     render 'users', formats: :json
+    WikiEdits.update_assignments(current_user, @course)
     WikiEdits.update_course(@course, current_user)
   end
 
