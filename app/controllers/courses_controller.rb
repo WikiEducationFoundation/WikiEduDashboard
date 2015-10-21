@@ -50,7 +50,6 @@ class CoursesController < ApplicationController
   def destroy
     validate
     @course.destroy
-    WikiEdits.update_assignments current_user, @course, nil, true
     WikiEdits.update_course(@course, current_user, true)
     render json: { success: true }
   end

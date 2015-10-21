@@ -104,13 +104,10 @@ class WikiEdits
     end
   end
 
-  def self.update_assignments(current_user,
-                              course,
-                              assignments = nil,
-                              delete = false)
+  def self.update_assignments(current_user, course)
     require './lib/wiki_assignment_output'
 
-    assignment_titles = assignments_by_article(course, assignments, delete)
+    assignment_titles = assignments_by_article(course)
     course_page = course.wiki_title
 
     assignment_titles.each do |title, title_assignments|
@@ -145,21 +142,8 @@ class WikiEdits
     end
   end
 
-  def self.assignments_by_article(course, assignments = nil, delete = false)
-    if assignments.nil?
-      assignment_titles = course.assignments.group_by(&:article_title).as_json
-    else
-      assignment_titles = assignments.group_by { |a| a['article_title'] }
-    end
-
-    if delete
-      assignment_titles.each do |_title, title_assignments|
-        title_assignments.each do |assignment|
-          assignment['deleted'] = true
-        end
-      end
-    end
-    assignment_titles
+  def self.assignments_by_article(course)
+    course.assignments.group_by(&:article_title).as_json
   end
 
   ####################

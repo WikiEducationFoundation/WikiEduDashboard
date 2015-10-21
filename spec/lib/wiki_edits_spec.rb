@@ -112,9 +112,7 @@ describe WikiEdits do
              course_id: 1,
              article_title: 'Talk:Selfie',
              role: Assignment::Roles::REVIEWING_ROLE)
-      WikiEdits.update_assignments(User.first, Course.first, Assignment.all)
-      WikiEdits.update_assignments(User.first, Course.first, nil)
-      WikiEdits.update_assignments(User.first, Course.first, nil, true)
+      WikiEdits.update_assignments(User.first, Course.first)
     end
   end
 

@@ -26,7 +26,6 @@ describe CoursesController do
     end
 
     it 'calls update methods on WikiEdits' do
-      expect(WikiEdits).to receive(:update_assignments)
       expect(WikiEdits).to receive(:update_course)
       delete :destroy, id: "#{course.slug}.json", format: :json
     end
