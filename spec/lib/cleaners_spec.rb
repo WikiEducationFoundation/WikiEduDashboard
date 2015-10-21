@@ -116,7 +116,7 @@ describe Cleaners do
       create(:assignment, id: 1, article_id: 1,
                           article_title: 'Bombus_hortorum', user_id: 1, role: 0)
       create(:assignment, id: 2, article_id: 1,
-                          article_title: 'bombus_hortorum', user_id: 2, role: 0)
+                          article_title: 'bombus hortorum', user_id: 2, role: 0)
       create(:article, id: 1, title: 'Bombus_hortorum')
       Cleaners.repair_case_variant_assignment_titles
 

@@ -114,6 +114,7 @@ class Cleaners
   # Assignments #
   ###############
   def self.repair_case_variant_assignment_titles
+    require "#{Rails.root}/lib/utils"
     assignments = Assignment.all
     assignments.each do |assignment|
       article_title = assignment.article_title
@@ -122,8 +123,8 @@ class Cleaners
         canonical_title = Article.find(article_id).title
         next if article_title == canonical_title
         update_assignment_title_to_match_article(assignment, canonical_title)
-      elsif title_not_capitalized?(article_title)
-        assignment.article_title = capitalize_article_title(article_title)
+      elsif title_improperly_formatted?(article_title)
+        assignment.article_title = Utils.format_article_title(article_title)
         assignment.save
       end
     end
@@ -138,12 +139,7 @@ class Cleaners
     assignment.destroy
   end
 
-  def self.title_not_capitalized?(article_title)
-    article_title != capitalize_article_title(article_title)
-  end
-
-  def self.capitalize_article_title(article_title)
-    # Use mb_chars so that we can capitalize unicode letters too.
-    article_title.mb_chars.capitalize.to_s
+  def self.title_improperly_formatted?(article_title)
+    article_title != Utils.format_article_title(article_title)
   end
 end
