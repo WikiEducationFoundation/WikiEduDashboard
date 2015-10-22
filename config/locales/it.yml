@@ -72,6 +72,7 @@ it:
     char_changed: Caratteri Modificati
     date_time: Data/Ora
     edit_count_description: Modifiche totali
+    revisions: Modifiche recenti
     view: Visualizzazioni
     view_count_description: Visite alla voce
   namespace:
@@ -93,6 +94,9 @@ it:
     loading: Caricamento utenti...
     name: Nome
     none: Questo corso non ha studenti.
+    recent_revisions: Modifiche recenti
+    revisions_doc: Il numero di modifiche effettuate da questo contributore negli
+      ultimi 7 giorni
     reviewers: Revisori
     training_complete_count: '%{count} hanno completato l''allenamento'
   wiki_edits:

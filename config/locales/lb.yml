@@ -74,7 +74,7 @@ lb:
     char_changed: Geännert Buschtawen
     date_time: Datum/Zäit
     edit_count_description: Total vun den Ännerungen
-    revisions: Rezent Versiounen
+    revisions: Rezent Ännerungen
   namespace:
     user: Benotzernummraum
     user_ns: Benotzer
@@ -94,6 +94,7 @@ lb:
     loading: Benotzer lueden...
     name: Numm
     none: Dëse Cours huet keng Studenten.
+    recent_revisions: Rezent Ännerungen
     training_complete:
       one: huet d'Formatioun ofgeschloss
       other: hunn d'Formatioun ofgeschloss

@@ -1,25 +1,60 @@
 # Messages for Sindhi (سنڌي)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Aursani
 # Author: Mehtab ahmed
 ---
 sd:
+  activity:
+    all: سرگرمي
+  articles:
+    title: عنوان
+    view: مضمون ڏسو
+    view_all: سڀ ڏسو
+  assignments:
+    reviewers: تجزيو ڪندڙ
   blocks:
     milestones:
       title: سنگ ميل
       empty: فلحال هن ڪورس کي ڪي به سنگ ميل نه آهن.
   courses:
+    activity: سرگرمي
+    articles: مضمون
+    students: شاگرد
     students_none: هن ڪورس جا ڪي به شاگرد نه آهن.
+    students_short: شاگرد
     weeks_none: هن ڪورس وٽ اڃان تائين وقت جي پٽي نه آهي.
     new_week: نئون هفتو شامل ڪريو
+    title: عنوان
+    view_wiki: وڪي‌پيڊيا تي ڏسو
+  metrics:
+    date_time: تاريخ/وقت
+    edit_count_description: ڪل ترميمون
+    revisions: تازيون تبديليون
+    student_editors: شاگرد سنواريندڙ
+    view: ڏيٺون
+    view_count_description: مضمون جون ڏيٿون
+  namespace:
+    user: يُوزرپولار
+    user_ns: يُوزر
   users:
     assigned: حوالي ڪيل مضمون
+    contributions: يُوزر جون ڀاڱيداريون
+    contributions_more: وڌيڪ ڀاڱيداريون ڏسو
+    editors: شاگرد سنواريندڙ
+    name: نالو
+    none: هن ڪورس جا ڪي بہ شاگرد نہ آهن.
+    recent_revisions: تازيون تبديليون
+    revisions_doc: هن ايڊيٽر طرفان گذريل 7 ڏينهن ۾ ڪيل تبديلين جو انگ.
     reviewers: تجزيو ڪندڙ
     reviewing: جائزو وٺڻ
   wizard:
     course_dates: ڪورس جون تاريخون
+    read_more: وڌيڪ پڙهو
     read_less: گھٽ پڙهو
     summary: تَتُ
+  error_404:
+    header: صفحو نہ لڌو. :-(
   timeline:
     title: وقت جي پٽي
 ...

@@ -38,6 +38,8 @@ pl:
     contributions: Wkład użytkownika
     loading: Wczytywanie użytkowników...
     name: Nazwa
+    revisions_doc: Liczba edycji dokonanych przez tego edytora w ciągu ostatnich 7
+      dni
   wizard:
     summary: Podsumowanie
   timeline:

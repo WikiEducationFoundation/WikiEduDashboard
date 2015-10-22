@@ -22,6 +22,7 @@ ja:
     activity: 最近の活動
     date_time: 日付/時刻
     edit_count_description: 総編集回数
+    revisions: 最近の編集
     student_editors: 学生の編集者
   namespace:
     user: ユーザー空間
@@ -34,6 +35,7 @@ ja:
     assignees: 譲り受け人
     loading: 利用者を読み込み中...
     name: 名前
+    recent_revisions: 最近の編集
   wizard:
     read_more: さらに読む
     summary: 要約

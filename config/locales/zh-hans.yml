@@ -86,7 +86,7 @@ zh-hans:
     char_changed: 更改的字符
     date_time: 日期/时间
     edit_count_description: 总计编辑
-    revisions: 最近修订
+    revisions: 最近编辑
     student_editors: 学生编辑者
     view: 查看
     view_count_description: 条目查阅
@@ -118,6 +118,8 @@ zh-hans:
     mainspace_chars: 主空间<br />字符已添加
     name: 名字
     none: 此课程没有学生。
+    recent_revisions: 最近编辑
+    revisions_doc: 此编辑者在过去7天内的编辑次数
     reviewers: 复核员
     reviewing: 正在复核
     training_complete:
@@ -137,6 +139,7 @@ zh-hans:
     read_less: 阅读更少
     summary: 摘要
   error:
+    oauth_invalid: 您的维基百科授权已过期。请重新登录。
     unsupported_browser:
       header: 浏览器不受支持。:-(
   error_401:

@@ -107,7 +107,7 @@ mk:
     char_changed: Изменети знаци
     date_time: Датум/време
     edit_count_description: Вкупно уредувања
-    revisions: Скорешни преработки
+    revisions: Скорешни уредувања
     student_editors: Ученици што уредуваат
     view: Посети
     view_count_description: Посети на статии
@@ -146,6 +146,8 @@ mk:
     mainspace_chars: Додадени знаци<br />во глав. простор
     name: Име
     none: Овој курс нема ученици.
+    recent_revisions: Скорешни уредувања
+    revisions_doc: Број на уредувања на уредникот во изминатите 7 дена
     reviewers: Оценувач(и)
     reviewing: Оценување
     training_complete:

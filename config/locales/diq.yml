@@ -1,0 +1,18 @@
+# Messages for Zazaki (Zazaki)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Gorizon
+---
+diq:
+  activity:
+    edited_by: Vurnayox
+    all: Aktivite
+  articles:
+    loading: Wesiqey bebé bar
+    edited_mobile: Wesiqey
+    no_assignee: Karbaré qeydini çıni
+    rating: Sınıfe
+    title: Sername
+    view: Wesiqer bıvin
+    view_all: Hemınan bıvin
+...

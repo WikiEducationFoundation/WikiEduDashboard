@@ -113,7 +113,7 @@ fr:
     char_changed: Caractères modifiés
     date_time: Date/Heure
     edit_count_description: Total des modifications
-    revisions: Révisions récentes
+    revisions: Modifications récentes
     student_editors: Étudiants éditeur
     view: Vues
     view_count_description: Articles vus
@@ -155,6 +155,9 @@ fr:
     mainspace_chars: Espace principal<br />caractères ajoutés
     name: Nom
     none: Ce cours n’a aucun étudiant.
+    recent_revisions: Modifications récentes
+    revisions_doc: Le nombre de modifications faites par cet éditeur durant les 7
+      derniers jours
     reviewers: Relecteur(s)
     reviewing: Relecture
     training_complete:

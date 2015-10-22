@@ -19,6 +19,7 @@ ku-latn:
     char_changed: Karakter Hate Guhertin
     date_time: Dîrok/Katjimêr
     edit_count_description: Hemû Guherandin
+    revisions: Guhertinên Dawî
     student_editors: Edîtorên Xwendekara
     view: Dîtin
     view_count_description: Dîtinên Gotara
@@ -27,6 +28,8 @@ ku-latn:
   uploads:
     none: Pel nehatiye barkirin
     usages: Bikaranîn
+  users:
+    recent_revisions: Guhertinên Dawî
   wiki_edits:
     notify_untrained:
       header: Xwendekar rahênana xwe xilas nekirîye.

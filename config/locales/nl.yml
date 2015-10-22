@@ -54,6 +54,10 @@ nl:
     none: Deze cursus heeft geen toegewezen Wikipediapagina's.
     confirm_addition: Weet u zeker dat u %{title} wilt toewijzen aan %{username}?
     confirm_deletion: Weet u zeker dat u deze opdracht wilt verwijderen?
+  blocks:
+    milestones:
+      title: Mijlpalen
+      empty: Deze cursus heeft nog geen mijlpalen.
   cohort:
     view_other: Andere cohorten bekijken
   courses:
@@ -61,21 +65,23 @@ nl:
     articles: Pagina's
     character_doc: Het aantal tekens dat tijdens de cursus is toegevoegd aan pagina's
       in de hoofdnaamruimte door studenten van de cursus
+    revisions_doc: Het aantal bewerkingen in de afgelopen %{timeframe} dagen
     course_description: Wiki Edcursussen
     courses: Cursussen
     yourcourses: Uw cursussen
     nocourses: U neemt niet deel aan een cursus.
     current: Huidige cursussen
     duration: Duur van de cursus
+    gradeables_none: Deze cursus heeft nog geen te beoordelen opdrachten.
     instructor:
       one: Instructeur
       other: Instructeurs
     students: Studenten
-    students_none: '%{title} heeft nog geen geregistreerde studenten.'
+    students_none: Deze cursus heeft nog geen geregistreerde studenten.
     students_short: Studenten
     timeline: Opdrachtdetails
-    weeks_none: '%{title} heeft geen opdrachten'
-    new_week: Nieuwe week toevoegen aan de tijdlijn voor %{title}
+    weeks_none: Deze cursus heeft nog geen tijdlijn.
+    new_week: Nieuwe week toevoegen
     overview: Overzicht
     title: Naam
     view: Cursus weergeven
@@ -89,12 +95,12 @@ nl:
     error:
       exists: Die cursus bestaat al. Probeer het opnieuw met een andere naam, school
         of termijn.
+      user_exists: '%{username} is geen bestaande gebruiker.'
   course_creator:
     create_new: Nieuwe cursus maken
-    intro: De naam, school en termijn die onderdeel worden van de pagina-URL. Dit
-      kan niet gewijzigd worden. De rest van de cursusgegevens kunnen later gewijzigd
-      worden. Nadat u de cursus aanmaakt, wordt u door het aanmaken van een opdrachtentijdlijn
-      geleid.
+    intro: De naam, school en semester vormen de URL voor uw cursuspagina en dit kan
+      niet gewijzigd worden. Al het andere kan later aangepast worden. Klik op "Cursus
+      aanmaken" om te beginnen met het maken van de tijdlijn voor uw Wikipedia-opdracht.
   metrics:
     activity: Recente activiteit
     articles_created: Pagina's aangemaakt
@@ -105,6 +111,7 @@ nl:
     char_changed: Tekens gewijzigd
     date_time: Datum- en tijd
     edit_count_description: Totaal bewerkingen
+    revisions: Recente bewerkingen
     student_editors: Studentbewerkers
     view: Weergaven
     view_count_description: Paginaweergaven
@@ -131,7 +138,8 @@ nl:
     time_doc: De tijd van iedere upload in uw lokale tijd
   users:
     already_enrolled: Deze gebruiker is al ingeschreven!
-    assigned: Toegewezen pagina
+    assigned: Toegewezen pagina's
+    assignees: Toegewezen aan
     character_doc: De totale hoeveelheid inhoud die een gebruiker heeft toegevoegd
       aan deze naamruimte, berekend door het aantal tekens dat de bewerkte pagina's
       groter zijn geworden bij elkaar op te tellen. Dit getal is niet noodzakelijk
@@ -141,9 +149,14 @@ nl:
     contributions_more: Meer bijdragen bekijken
     editors: Studentbewerkers
     loading: Bezig met het laden van gebruikers...
+    mainspace_chars: Hoofdnaamruimte<br />tekens toegevoegd
     name: Naam
     none: Deze cursus heeft geen studenten.
-    reviewers: Controleur
+    recent_revisions: Recente bewerkingen
+    revisions_doc: Het aantal bewerkingen dat is gemaakt door deze redacteur in de
+      afeglopen 7 dagen
+    reviewers: Controleur(s)
+    reviewing: Wordt gecontroleerd
     training_complete:
       one: heeft de training voltooid
       other: hebben de training voltooid
@@ -153,13 +166,41 @@ nl:
       Als studentbewerkers de training hebben gedaan, maar de stap voor terugkoppeling
       niet hebben uitgevoerd, dan kunnen ze aan het einde van de training hier terugkeren:
       https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete.'
+    training_incomplete: Training onvolledig
+    userspace_chars: Gebruikersruimte<br />tekens toegevoegd
   wiki_edits:
     notify_untrained:
+      confirm: Hierdoor wordt een herinnering op de overlegpagina's van alle studenten
+        geplaatst die de training nog niet hebben afgerond. Weet u zeker dat u dit
+        wilt doen?
       header: U hebt de studententraining niet voltooid.
       message: Voltooi alstublieft de [[WP:STUDENT|studententraining]]. Als u deze
         al hebt afgerond, zorg er dan voor dat u aan het einde op de knop klikt, zodat
         er wordt opgeslagen dat u de training hebt voltooid. --~~~~
       summary: studententraining incompleet
+  wizard:
+    course_dates: Cursusdatums
+    assignment_dates: Opdrachttype
+    assignment_type: Opdrachttype
+    confirm_dates: Kies de cursusdatums, wekelijkse oplevermomenten en vakanties voor
+      uw cursus.
+    assignment_description: Kies de begin- en einddatums voor deze opdracht
+    min_weeks: Voor deze opdracht zijn tenminste %{min_weeks} beschikbare weken nodig.
+      Pas de begin- en einddatum aan als u dit type opdracht wilt gebruiken.
+    minimum_options: Selecteer tenminste %{minimum} optie(s).
+    read_more: Meer lezen
+    read_less: Minder lezen
+    review_selections: Controleer uw keuzes. Klik om een keuze te bewerken. Klik op
+      "Opslaan" als u klaar bent om uw tijdlijn op te bouwen.
+    select_assignment: Selecteer het soort opdracht dat u wilt toevoegen aan uw tijdlijn.
+    summary: Samenvatting
+  error:
+    oauth_invalid: Uw toegang tot Wikipedia is verlopen. Meld u opnieuw aan.
+    unsupported_browser:
+      header: De browser wordt niet ondersteund
+      explanation: U gebruikt een browser die niet door het dashboard wordt ondersteund.
+        Deze site werkt goed met Internet Explorer 11 of latere versie, op recente
+        versies van Chrome en Firefox, en op andere moderne webbrowsers.
   error_401:
     header: Geen rechten
     explanation: U kunt dit verzoek niet uitvoeren. Als u denk dat deze foutmelding
@@ -179,4 +220,10 @@ nl:
     header: 500 — interne serverfout.
     explanation: Er is iets fout gegaan. Neem contact op met de beheerders van dit
       dashboard en geef ze details over het probleem.
+  timeline:
+    title: Tijdlijn
+    due_default: Volgende week af te ronden
+    block_type: Het type blok wordt gebruikt om te communiceren met uw studenten over
+      dit item op hun tijdlijn en om handige hulpmiddelen voor u te bouwen (zoals
+      het mijlpaaloverzicht op de pagina Overzicht)
 ...

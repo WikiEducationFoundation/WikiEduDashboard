@@ -110,7 +110,7 @@ es:
     char_changed: Caracteres cambiados
     date_time: Fecha/hora
     edit_count_description: Ediciones totales
-    revisions: Revisiones recientes
+    revisions: Ediciones recientes
     student_editors: Editores estudiantiles
     view: Visualizaciones
     view_count_description: Visualizaciones del artículo
@@ -152,6 +152,9 @@ es:
     mainspace_chars: Caracteres añadidos<br />en el espacio principal
     name: Nombre
     none: Este curso no tiene estudiantes.
+    recent_revisions: Ediciones recientes
+    revisions_doc: El número de ediciones realizadas por este editor en los últimos
+      7 días
     reviewers: Revisor(es)
     reviewing: Revisando
     training_complete:
@@ -192,8 +195,12 @@ es:
     select_assignment: Selecciona el tipo de tarea que quieres añadir a tu cronograma.
     summary: Resumen
   error:
+    oauth_invalid: Tu sesión de Wikipedia ha caducado. Inicia sesión de nuevo.
     unsupported_browser:
       header: Navegador no soportado. :-(
+      explanation: Está utilizando un navegador que no es compatible con el panel
+        de control. Este sitio funciona bien en Internet Explorer versión 10 o posterior,
+        en versiones recientes de Chrome y Firefox, y en otros navegadores modernos.
   error_401:
     header: No autorizado. >:-(
     explanation: No tienes autorización para ejecutar esta solicitud. Si crees que

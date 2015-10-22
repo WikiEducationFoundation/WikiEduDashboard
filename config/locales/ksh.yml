@@ -38,6 +38,7 @@ ksh:
     char_changed: Zeijsche jetusch
     date_time: Dattum un Zigg
     edit_count_description: Änderonge ensjesamp
+    revisions: Köözlesche Änderonge
     view: Aanzahl Affrohfe
     view_count_description: Aanzahl Affrohfe vun Atikelle
   namespace:
@@ -56,6 +57,7 @@ ksh:
     assignees: Zohjedeijlt
     contributions_more: Belohr mih Beijdrähsch
     name: Nahme
+    recent_revisions: Köözlesche Änderonge
   wizard:
     summary: Zosammejefaß
   error_401:

@@ -20,6 +20,7 @@ sv:
     char_added: Tillagda tecken
     char_changed: Ändrade tecken
     date_time: Datum/Tid
+    revisions: Senaste redigeringar
     student_editors: Studentredigerare
     view: Visningar
     view_count_description: Artikelvisningar
@@ -30,6 +31,8 @@ sv:
   uploads:
     none: Inga filer har laddats upp
     usages: Användning
+  users:
+    recent_revisions: Senaste redigeringar
   wiki_edits:
     notify_untrained:
       header: Du har inte slutfört studentträningen.

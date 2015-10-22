@@ -108,7 +108,7 @@ ast:
     char_changed: Caráuteres camudaos
     date_time: Data/Hora
     edit_count_description: Total d'ediciones
-    revisions: Revisiones recién
+    revisions: Ediciones recién
     student_editors: Editores estudiantes
     view: Visites
     view_count_description: Visites del artículu
@@ -150,6 +150,8 @@ ast:
     mainspace_chars: Caráuteres añadíos<br />nel espaciu principal
     name: Nome
     none: Esti cursu nun tien estudiantes.
+    recent_revisions: Ediciones recién
+    revisions_doc: El númberu d'ediciones feches por esti editor nos 7 díes anteriores
     reviewers: Revisor(es)
     reviewing: Revisando
     training_complete:

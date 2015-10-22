@@ -108,7 +108,7 @@ de:
     char_changed: Zeichen geändert
     date_time: Datum/Uhrzeit
     edit_count_description: Gesamte Bearbeitungen
-    revisions: Letzte Versionen
+    revisions: Letzte Bearbeitungen
     student_editors: Studentenautoren
     view: Aufrufe
     view_count_description: Artikelaufrufe
@@ -150,6 +150,9 @@ de:
     mainspace_chars: Hauptnamensraum<br />hinzugefügte Zeichen
     name: Name
     none: Dieser Kurs hat keine Studenten.
+    recent_revisions: Letzte Bearbeitungen
+    revisions_doc: Die Anzahl der Bearbeitungen, die von diesem Autor in den letzten
+      7 Tagen gemacht wurden.
     reviewers: Überprüfer
     reviewing: Überprüft
     training_complete:
@@ -196,7 +199,7 @@ de:
     unsupported_browser:
       header: Nicht unterstützter Browser. :-(
       explanation: Du benutzt einen Browser, der nicht mit dem Dashboard kompatibel
-        ist. Diese Website funktioniert gut auf dem Internet Explorer, Version 10
+        ist. Diese Website funktioniert gut auf dem Internet Explorer, Version 11
         oder später, auf aktuellen Versionen von Chrome und Firefox und auf anderen
         modernen Browsern.
   error_401:
