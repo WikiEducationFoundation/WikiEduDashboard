@@ -31,7 +31,7 @@ class Utils
   # This method takes user input and tries to convert it into a valid article title
   def self.format_article_title(article_title)
     # Use mb_chars so that we can capitalize unicode letters too.
-    article_title = article_title.mb_chars.capitalize.to_s
+    article_title[0] = article_title[0].mb_chars.capitalize.to_s
     article_title = article_title.tr(' ', '_')
     article_title
   end
