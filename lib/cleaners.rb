@@ -149,9 +149,10 @@ class Cleaners
     assignments = Assignment.where(article_id: nil)
     assignments = assignments.last(count) if count
     assignments.each do |assignment|
-      possibly_bad_title = assignment.article_title.tr(' ', '_')
+      possibly_bad_title = assignment.article_title
       title_search_result = first_article_search_result(possibly_bad_title)
-      next unless title_search_result.downcase == possibly_bad_title.downcase
+      next if possibly_bad_title == title_search_result
+      next unless title_search_result.downcase == possibly_bad_title.downcase.tr(' ', '_')
       pp "Updating assignment title '#{possibly_bad_title}' to '#{title_search_result}'"
       assignment.article_title = title_search_result
       assignment.save
@@ -165,7 +166,9 @@ class Cleaners
               srnamespace: 0,
               srlimit: 1 }
     response = Wiki.query(query)
-    title = response.data['search'][0]['title']
-    title.tr(' ', '_')
+    results = response.data['search']
+    return '' if results.empty?
+    results = results[0]['title'].tr(' ', '_')
+    results
   end
 end
