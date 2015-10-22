@@ -11,6 +11,7 @@ describe UsersController do
     before do
       allow(WikiEdits).to receive(:enroll_in_course)
       allow(WikiEdits).to receive(:update_course)
+      allow(WikiEdits).to receive(:remove_assignment)
       allow(WikiEdits).to receive(:update_assignments)
       allow(controller).to receive(:current_user).and_return(user)
       allow(controller).to receive(:require_participating_user)
