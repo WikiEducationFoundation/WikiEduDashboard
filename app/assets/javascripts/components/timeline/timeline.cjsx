@@ -113,7 +113,9 @@ Timeline = React.createClass(
     <div>
       <div className="section-header">
         <h3>Timeline</h3>
-        {@props.controls(controls)}
+        <div className="timeline-ctas">
+          {@props.controls(controls)}
+        </div>
       </div>
       <ul className="list-unstyled">
         {week_components}

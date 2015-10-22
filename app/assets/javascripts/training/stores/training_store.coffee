@@ -63,7 +63,8 @@ TrainingStore = Flux.createStore
   desiredSlideIsCurrentSlide: (opts, currentSlide, slides) ->
     return unless slides?.length
     (opts.position is 'next' && currentSlide.id == slides.length) || (opts.position is 'previous' && currentSlide.id == 1)
-
+  restore: ->
+    false
 , (payload) ->
   data = payload.data
   switch(payload.actionType)
