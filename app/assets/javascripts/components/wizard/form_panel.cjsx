@@ -74,6 +74,7 @@ FormPanel = React.createClass(
             editable=true
             setAnyDatesSelected={@setAnyDatesSelected}
             setBlackoutDatesSelected={@setBlackoutDatesSelected}
+            calendarInstructions= {I18n.t('wizard.calendar_instructions')}
           />
           <label> I have no class holidays
             <input type='checkbox' onChange={@setNoBlackoutDatesChecked} ref='noDates' />

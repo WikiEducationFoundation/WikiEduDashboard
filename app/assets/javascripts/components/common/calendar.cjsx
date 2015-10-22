@@ -77,11 +77,7 @@ Calendar = React.createClass(
     }
 
     edit_days_text = 'Select the days of the week on which your class meets.'
-    edit_calendar_text = 'Select dates to add or remove them from the schedule
-      (e.g., holidays, no school). This helps the course creation tool accurately
-      space out your assignments. Click the date to change between unselected,
-      selected, and holiday state. If you have no holidays, check
-      "I have no class holidays" below.'
+    edit_calendar_text = @props.calendarInstructions
 
     if @props.editable
       if @props.shouldShowSteps

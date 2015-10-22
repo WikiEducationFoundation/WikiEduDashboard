@@ -100,6 +100,7 @@ Meetings = React.createClass(
           <Calendar course={@state.course}
             save=true
             editable=true
+            calendarInstructions={I18n.t('courses.course_dates_calendar_instructions')}
           />
           <label> I have no class holidays
             <input
