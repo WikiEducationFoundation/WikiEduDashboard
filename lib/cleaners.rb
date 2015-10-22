@@ -150,6 +150,7 @@ class Cleaners
     assignments = assignments.last(count) if count
     assignments.each do |assignment|
       possibly_bad_title = assignment.article_title
+      next unless possibly_bad_title == Utils.format_article_title(possibly_bad_title.downcase)
       title_search_result = first_article_search_result(possibly_bad_title)
       next if possibly_bad_title == title_search_result
       next unless title_search_result.downcase == possibly_bad_title.downcase.tr(' ', '_')
@@ -166,6 +167,7 @@ class Cleaners
               srnamespace: 0,
               srlimit: 1 }
     response = Wiki.query(query)
+    return '' if response.nil?
     results = response.data['search']
     return '' if results.empty?
     results = results[0]['title'].tr(' ', '_')
