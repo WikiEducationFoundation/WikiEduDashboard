@@ -142,4 +142,30 @@ class Cleaners
   def self.title_improperly_formatted?(article_title)
     article_title != Utils.format_article_title(article_title)
   end
+
+  def self.match_assignment_titles_with_case_variant_articles_that_exist(count=nil)
+    require "#{Rails.root}/lib/utils"
+
+    assignments = Assignment.where(article_id: nil)
+    assignments = assignments.last(count) if count
+    assignments.each do |assignment|
+      possibly_bad_title = assignment.article_title.tr(' ', '_')
+      title_search_result = first_article_search_result(possibly_bad_title)
+      next unless title_search_result.downcase == possibly_bad_title.downcase
+      pp "Updating assignment title '#{possibly_bad_title}' to '#{title_search_result}'"
+      assignment.article_title = title_search_result
+      assignment.save
+    end
+  end
+
+  def self.first_article_search_result(search_term)
+    require "#{Rails.root}/lib/wiki"
+    query = { list: 'search',
+              srsearch: search_term,
+              srnamespace: 0,
+              srlimit: 1 }
+    response = Wiki.query(query)
+    title = response.data['search'][0]['title']
+    title.tr(' ', '_')
+  end
 end

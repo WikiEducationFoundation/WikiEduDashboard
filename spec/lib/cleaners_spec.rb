@@ -143,4 +143,17 @@ describe Cleaners do
     Cleaners.repair_case_variant_assignment_titles
     expect(Article.exists?(2)).to eq(false)
   end
+
+  describe '.match_assignment_titles_with_case_variant_articles_that_exist' do
+    it 'updates assignment article titles when it should' do
+      VCR.use_cassette 'cleaners/assignment_title_cleanup' do
+        create(:assignment, id: 1, article_id: nil, article_title: 'Robert montgomery (artist)')
+        create(:assignment, id: 2, article_id: nil, article_title: 'American institute of wine & food')
+
+        Cleaners.match_assignment_titles_with_case_variant_articles_that_exist(2)
+        expect(Assignment.find(1).article_title).to eq('Robert_Montgomery_(artist)')
+        expect(Assignment.find(2).article_title).to eq('American_Institute_of_Wine_&_Food')
+      end
+    end
+  end
 end
