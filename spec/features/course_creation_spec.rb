@@ -110,8 +110,8 @@ describe 'New course creation and editing', type: :feature do
   describe 'course workflow', js: true do
     let(:instructor_name)  { 'Mr. Capybara' }
     let(:instructor_email) { 'capybara@wikiedu.org' }
-    let(:expected_course_blocks) { 27 }
-    let(:module_name) { 'Wikipedia Training Core Principles' }
+    let(:expected_course_blocks) { 26 }
+    let(:module_name) { 'Policies and Guidelines' }
     it 'should allow the user to create a course' do
       stub_oauth_edit
 
@@ -352,16 +352,11 @@ describe 'New course creation and editing', type: :feature do
       end
       expect(Course.first.blocks.count).to eq(expected_course_blocks)
 
-      # Training blocks
-      within ".block-kind-#{Block::KINDS['training']}" do
-        expect(page).to have_content 'Training'
-      end
+      within('.timeline-ctas') { click_button 'Edit' }
+      within(".week-2 .block-kind-#{Block::KINDS['assignment']}") { select module_name }
+      within('.timeline-ctas') { click_button 'Save' }
 
-      first('.section-header') { click_button 'Edit' }
-      first('.training_module_select') { select module_name }
-      first('.section-header') { click_button 'Save' }
-
-      within ".block-kind-#{Block::KINDS['training']}" do
+      within ".week-2 .block-kind-#{Block::KINDS['assignment']}" do
         expect(page).to have_content module_name
       end
 

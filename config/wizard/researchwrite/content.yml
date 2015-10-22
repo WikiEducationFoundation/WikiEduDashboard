@@ -27,10 +27,6 @@ essentials:
           ---
           Handout: [Editing Wikipedia](http://wikiedu.org/editingwikipedia)
 
-      - title: Training
-        kind: 4
-        graded: false
-        training_module_id: 1
   - # Week two
     weight: 3
     blocks:
@@ -50,6 +46,7 @@ essentials:
         title: Practicing the basics
         kind: 1
         graded: true
+        training_module_ids: [1]
         points: 5
         content: |
           * Create an account and then complete the online training for students. During this training, you will make edits in a sandbox and learn the basic rules of Wikipedia.
