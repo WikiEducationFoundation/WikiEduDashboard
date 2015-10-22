@@ -26,6 +26,7 @@ describe Utils do
       title = 'ábcde'
       formatted_title = Utils.format_article_title title
       expect(formatted_title).to eq('Ábcde')
+      expect(title).to eq('ábcde')
     end
   end
 end
