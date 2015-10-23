@@ -7,7 +7,6 @@ class AssignedArticleImporter
 
   def self.import_articles_for_assignments
     titles = Assignment.where(article_id: nil).pluck(:article_title).uniq
-    pp titles
     ArticleImporter.import_articles_by_title(titles)
     new_article_titles = Article.where(namespace: 0, title: titles).pluck(:title)
     Assignment.where(article_title: new_article_titles).each do |assignment|
