@@ -92,6 +92,15 @@ Course = React.createClass(
         </div>
       )
 
+    if @state.course.error
+      alerts.push (
+        <div className='notice' key='enroll'>
+          <div className='container'>
+            <p>There was an error: {@state.course.error}</p>
+          </div>
+        </div>
+      )
+
     unless @state.course.legacy
       timeline = (
         <div className="nav__item" id="timeline-link">

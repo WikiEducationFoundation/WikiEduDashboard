@@ -18,6 +18,13 @@ setCourse = (data, persisted=false, quiet=false) ->
   _persisted = $.extend(true, {}, _course) if persisted
   CourseStore.emitChange() unless quiet
 
+setError = (error) ->
+  _course.error = error
+  CourseStore.emitChange()
+
+clearError = ->
+  _course.error = undefined
+
 updateCourseValue = (key, value) ->
   _course[key] = value
   CourseStore.emitChange()
@@ -54,6 +61,7 @@ CourseStore = Flux.createStore
     _loaded
 , (payload) ->
   data = payload.data
+  clearError()
   switch(payload.actionType)
     when 'RECEIVE_COURSE', 'CREATED_COURSE', 'COHORT_MODIFIED', 'SAVED_COURSE', 'CHECK_COURSE'
       setCourse data.course, true
@@ -65,6 +73,13 @@ CourseStore = Flux.createStore
       setCourse data.course
       if data.save
         ServerActions.saveCourse($.extend(true, {}, { course: _course }), data.course.slug)
+      break
+    when 'COURSE_API_FAIL'
+      if data.responseJSON.error
+        error = data.responseJSON.error
+      else
+        error = data.statusText
+      setError(error)
       break
     when 'ADD_COURSE'
       addCourse()

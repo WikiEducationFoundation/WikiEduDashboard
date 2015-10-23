@@ -33,6 +33,10 @@ class CoursesController < ApplicationController
   end
 
   def update
+
+    render json: {error: "Fail!"}, status: 500
+    return
+
     validate
     handle_course_announcement(@course.instructors.first)
     handle_instructor_info
