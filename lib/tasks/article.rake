@@ -2,6 +2,7 @@ require "#{Rails.root}/lib/importers/article_importer"
 require "#{Rails.root}/lib/importers/view_importer"
 require "#{Rails.root}/lib/importers/rating_importer"
 require "#{Rails.root}/lib/cleaners"
+require "#{Rails.root}/lib/importers/assigned_article_importer"
 
 namespace :article do
   desc 'Update article views incrementally'
@@ -58,5 +59,11 @@ namespace :article do
   task repair_orphan_revisions: 'batch:setup_logger' do
     Rails.logger.debug 'Repairing orphaned revisions'
     Cleaners.repair_orphan_revisions
+  end
+
+  desc 'Import assigned articles'
+  task import_assigned_articles: 'batch:setup_logger' do
+    Rails.logger.debug 'Finding articles that match assignment titles'
+    AssignedArticleImporter.import_articles_for_assignments
   end
 end
