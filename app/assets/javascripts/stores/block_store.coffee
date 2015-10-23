@@ -71,10 +71,7 @@ BlockStore = Flux.createStore
       block_list.push _blocks[block_id]
     return block_list
   getBlocksInWeek: (week_id) ->
-    weekBlocks = []
-    for block_id in Object.keys(_blocks)
-      weekBlocks.push _blocks[block_id] if _blocks[block_id].week_id == week_id
-    return weekBlocks
+    _.filter(_blocks, (block) -> block.week_id == week_id)
   restore: ->
     _blocks = $.extend(true, {}, _persisted)
     BlockStore.emitChange()

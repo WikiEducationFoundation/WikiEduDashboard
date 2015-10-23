@@ -2,7 +2,7 @@ React             = require 'react/addons'
 
 TextInput         = require '../common/text_input'
 TextAreaInput     = require '../common/text_area_input'
-TrainingBlock     = require '../training_block'
+TrainingModules   = require '../training_modules'
 Checkbox          = require '../common/checkbox'
 Select            = require '../common/select'
 BlockActions      = require '../../actions/block_actions'
@@ -16,10 +16,10 @@ Block = React.createClass(
     to_pass[value_key] = value
     delete to_pass.deleteBlock
     BlockActions.updateBlock to_pass
-  passedUpdateBlock: (e) ->
-    parsedId = parseInt(e.target.value)
+  passedUpdateBlock: (_, modules) ->
     newBlock = $.extend(true, {}, @props.block)
-    newBlock.training_module_ids = [parsedId]
+    selectedIds = modules.map (module) -> module.value
+    newBlock.training_module_ids = selectedIds
     BlockActions.updateBlock newBlock
   deleteBlock: ->
     BlockActions.deleteBlock @props.block.id
@@ -62,19 +62,19 @@ Block = React.createClass(
     if (@props.block.kind < 3 && !@props.editable)
       spacer = <span>  —  </span>
 
+    modules = undefined
+    if @props.block.training_modules || (@props.block.kind is 1 && @props.editable)
+      modules = (
+        <TrainingModules
+          onChange={@passedUpdateBlock}
+          all_modules={@props.all_training_modules}
+          block_modules={@props.block.training_modules}
+          editable={@props.editable}
+          block={@props.block}
+        />
+      )
 
     content = (
-      if @props.block.training_modules
-        modules = @props.block.training_modules.map (module) =>
-          (
-            <TrainingBlock
-              onChange={@passedUpdateBlock}
-              all_modules={@props.all_training_modules}
-              module={module}
-              editable={@props.editable}
-              block={@props.block}
-            />
-          )
       <div>
         <TextAreaInput
           onChange={@updateBlock}
@@ -89,7 +89,6 @@ Block = React.createClass(
         />
         {modules}
       </div>
-
     )
 
     <li className={className} draggable={@props.canDrag && @props.editable}>
