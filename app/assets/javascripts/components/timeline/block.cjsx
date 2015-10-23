@@ -63,7 +63,7 @@ Block = React.createClass(
       spacer = <span>  —  </span>
 
     modules = undefined
-    if @props.block.training_modules || (@props.block.kind is 1 && @props.editable)
+    if @props.block.training_modules || (parseInt(@props.block.kind) is 1 && @props.editable)
       modules = (
         <TrainingModules
           onChange={@passedUpdateBlock}
@@ -103,7 +103,7 @@ Block = React.createClass(
           value={@props.block.kind}
           value_key={'kind'}
           editable={@props.editable}
-          options={['In Class', 'Assignment', 'Milestone', 'Custom', 'Training']}
+          options={['In Class', 'Assignment', 'Milestone', 'Custom']}
           show={@props.block.kind < 3 || @props.editable}
           label='Block type'
           popover_text={I18n.t('timeline.block_type')}
