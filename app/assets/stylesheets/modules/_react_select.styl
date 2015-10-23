@@ -23,7 +23,6 @@
   background-color #ffffff
   border 1px solid #cccccc
   border-color #d9d9d9 #cccccc #b3b3b3
-  border-radius 4px
   box-sizing border-box
   color #333333
   cursor default
@@ -57,7 +56,7 @@
 .is-focused
   &:not(.is-open)
     & > .Select-control
-      border-color #0088cc #0099e6 #0099e6
+      border-color bayoux
       box-shadow inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 0 5px -1px rgba(0, 136, 204, 0.5)
   .Select-input
     & > input
@@ -165,8 +164,6 @@
   cursor pointer
 
 .Select-menu-outer
-  border-bottom-right-radius 4px
-  border-bottom-left-radius 4px
   background-color #ffffff
   border 1px solid #cccccc
   border-top-color #e6e6e6
@@ -190,12 +187,9 @@
   cursor pointer
   display block
   padding 8px 10px
-  &:last-child
-    border-bottom-right-radius 4px
-    border-bottom-left-radius 4px
   &.is-focused
-    background-color #f2f9fc
-    color #333333
+    background-color bayoux
+    color #fff
   &.is-disabled
     color #cccccc
     cursor not-allowed
@@ -210,10 +204,10 @@
   padding 8px 10px
 
 .Select-item
-  background-color #f2f9fc
+  background-color border_lt + 10
   border-radius 2px
-  border 1px solid #c9e6f2
-  color #0088cc
+  border 1px solid border_lt
+  color bayoux
   display inline-block
   font-size 1em
   margin 2px
@@ -236,15 +230,16 @@
   cursor pointer
   border-bottom-left-radius 2px
   border-top-left-radius 2px
-  border-right 1px solid #c9e6f2
+  border-right 1px solid border_lt
   padding 2px 5px 4px
   &:active
-    background-color #c9e6f2
+    background-color bayoux
+    color #fff
 
 .Select-item-icon:hover,
 .Select-item-icon:focus
-  background-color #ddeff7
-  color #0077b3
+  background-color bayoux
+  color #fff
 
 .Select.is-multi.is-disabled .Select-item-icon:hover,
 .Select.is-multi.is-disabled .Select-item-icon:focus,
