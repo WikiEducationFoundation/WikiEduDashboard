@@ -4,6 +4,7 @@
     "babel": "^5.8.23",
     "browserify": "^11.0.1",
     "chai": "^1.9.1",
+    "coffee-coverage": "^0.6.3",
     "coffee-react": "^4.0.0",
     "coffee-react-transform": "^3.3.0",
     "coffee-reactify": "^4.0.0",
@@ -42,6 +43,7 @@
     "gulp-watch": "^3.0.0",
     "gulp-webserver": "^0.8.2",
     "handleify": "^0.1.2",
+    "istanbul": "^0.4.0",
     "jeet": "^6.1.2",
     "jquery": "^2.1.4",
     "jsdom": "^7.0.1",
@@ -78,6 +80,6 @@
     "react-weekday-picker": "1.0.4"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha && istanbul report text-summary lcov"
   }
 }

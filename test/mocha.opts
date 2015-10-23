@@ -1,4 +1,5 @@
 --require should
 --debug
 --compilers coffee:coffee-react/register
+--require coffee-coverage/register-istanbul
 --recursive
