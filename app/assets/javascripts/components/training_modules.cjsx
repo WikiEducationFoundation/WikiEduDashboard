@@ -1,5 +1,4 @@
-React = require 'react'
-md    = require('markdown-it')({ html: true, linkify: true })
+React  = require 'react'
 Select = require 'react-select'
 
 TrainingModules = React.createClass(
@@ -20,7 +19,7 @@ TrainingModules = React.createClass(
           <h3>Training Modules:&nbsp;</h3>
           <Select
             multi={true}
-            name='foo'
+            name='block-training-modules'
             value={@state.value}
             options={options}
             onChange={@onChange}
@@ -31,25 +30,24 @@ TrainingModules = React.createClass(
     else
       modules = @props.block_modules.map (module) ->
         link = "/training/students/#{module.slug}"
-        raw_html = md.render(module.intro)
         (
-          <div>
-            <br /><br />
-            <p>{module.name}</p>
-            <div dangerouslySetInnerHTML={{__html: raw_html}}></div>
-            <hr />
-            <p><a href={link}>Go to training</a></p>
-          </div>
+          <tr className="training-module">
+            <td>{module.name}</td>
+            <td className="training-module__link"><a href={link}>View</a></td>
+          </tr>
         )
       content = (
         <div>
-          <br />
           <h3>Training</h3>
-          {modules}
+          <table>
+            <tbody>
+              {modules}
+            </tbody>
+          </table>
         </div>
       )
 
-    <div>
+    <div className="block__training-modules">
       {content}
     </div>
 

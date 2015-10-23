@@ -353,7 +353,10 @@ describe 'New course creation and editing', type: :feature do
       expect(Course.first.blocks.count).to eq(expected_course_blocks)
 
       within('.timeline-ctas') { click_button 'Edit' }
-      within(".week-2 .block-kind-#{Block::KINDS['assignment']}") { select module_name }
+      within(".week-2 .block-kind-#{Block::KINDS['assignment']}") do
+        find('.Select-control input').set(module_name[0..5])
+        find('.Select-menu-outer .Select-option', text: module_name).click
+      end
       within('.timeline-ctas') { click_button 'Save' }
 
       within ".week-2 .block-kind-#{Block::KINDS['assignment']}" do
