@@ -67,8 +67,9 @@ class PlagiabotImporter
     response = Net::HTTP.get(URI.parse(url))
     # Work around the not-quite-parseable format of the response.
     # We don't care about the title, we just want to make the response parseable.
-    response = response.gsub(/: ".*"/, ": 'foo'")
-    response = response.tr("'", '"')
+    response = response.gsub(/: ".*"/, ": 'foo'") # replace any values with double parens
+    response = response.gsub(/'page_title': '.*?', /, '') # remove the page_title keys/values
+    response = response.tr("'", '"') # convert to double quotes per json standard
 
     JSON.parse(response)
   end
