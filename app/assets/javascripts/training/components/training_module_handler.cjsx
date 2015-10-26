@@ -16,17 +16,18 @@ TrainingModuleHandler = React.createClass(
     module_id = document.getElementById('react_root').dataset.moduleId
     ServerActions.fetchTrainingModule(module_id: module_id)
   render: ->
-    slides = _.compact(@state.training_module.slides).map (slide) =>
+    slidesAry = _.compact(@state.training_module.slides)
+    slides = slidesAry.map (slide, i) =>
       link = "#{@state.training_module.slug}/#{slide.slug}"
-      <li>
+      <li key={i}>
         <a href={link}>
-          <h3>{slide.title}</h3>
-          <p>{slide.summary}</p>
+          <h3 className="h5">{slide.title}</h3>
+          <div className="ui-text small sidebar-text">{slide.summary}</div>
         </a>
       </li>
 
-    <div className='training__toc-container'>
-      <h1><small className="heading appearance-hr">Table of Contents</small></h1>
+    <div className="training__toc-container">
+      <h1 className="h4 capitalize">Table of Contents <span className="pull-right total-slides">({slidesAry.length})</span></h1>
       <ol>
       {slides}
       </ol>

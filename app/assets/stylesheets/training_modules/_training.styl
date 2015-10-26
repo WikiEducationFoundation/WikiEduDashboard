@@ -5,29 +5,50 @@
 
 .training__toc-container
   col(4/12)
+  position relative
+  bottom 35px
+  padding 45px 35px 0 35px
+  background $light_bg
+  color $type_light
   ol
     counter-reset item
   a
     text-decoration none
-    color $type_dark
+    color $type_light
   li
     margin 0 0 1.5em
-    padding 0 0 0 25px
+    padding 0 0 0 20px
     list-style-type none
     counter-increment item
-    text-indent -25px
-    font-size: 16.5px
+    text-indent -20px
+    font-size: 14px
     &:before
       display inline-block
       width 1em
-      padding-right 0.5em
+      padding-right 5px
       font-weight bold
       text-align right
       content counter(item) "."
     h3
       display inline
-    p
-      text-indent 0
+      color $type_light
+  .ui-text
+    margin-left 20px
+
+.total-slides
+  font-weight 400
+
+.training-intro__cta-container
+  margin-top 30px
+
+.training-intro__estimated-ttc
+  background url('../images/clock-icon.svg') left center no-repeat
+  padding-left 37px
+  font-family $headline_font
+  font-size 13px
+  font-weight 400
+  position relative
+  top 5px
 
 .training__toc
   list-style none
