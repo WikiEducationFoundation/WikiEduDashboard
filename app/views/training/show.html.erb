@@ -2,16 +2,16 @@
   <ol class='breadcrumbs'><%= render_breadcrumbs tag: :li, separator: ' > ' %></ol>
 
   <section class="training__header">
-    <h2>
-      Wikipedia Training for <%= @library.slug.humanize.titleize %>
-    </h2>
+    <h1>
+      Wikipedia <%= @library.slug.humanize.titleize.singularize %> Training
+    </h1>
     <p><%= @library.introduction %>
   </section>
   <ul class="training__categories">
     <%- @library.categories.each do |lib_category| %>
       <li>
         <div class="training__category__header">
-          <h2><%= lib_category.title %></h2>
+          <h1 class="h3 capitalize"><%= lib_category.title %></h1>
           <p><%= lib_category.description %></p>
         </div>
         <ul class="training__categories__modules">

@@ -1,13 +1,12 @@
 class TrainingController < ApplicationController
   layout 'training'
-  add_breadcrumb 'Training Library', :training_path
+  add_breadcrumb 'Training Library', :training_path, only: %w(training_module slide_view)
 
   def index
     @libraries = TrainingLibrary.all
   end
 
   def show
-    add_breadcrumb params[:library_id].titleize, :training_library_path
     @library = TrainingLibrary.find_by(slug: params[:library_id])
   end
 
