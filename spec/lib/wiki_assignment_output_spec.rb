@@ -55,6 +55,18 @@ describe WikiAssignmentOutput do
           .to include('{{dashboard.wikiedu.org assignment | course = ')
       end
     end
+
+    it 'does not mess up instances that are not simple template lines' do
+      assignment_tag = '{{template|foo=bar}}'
+      initial_talk_page_content = "{{ping|Johnjes6}} Greetings! Good start on an article! I had some concrete feedback.\n"
+
+      output = WikiAssignmentOutput
+               .build_assignment_page_content(assignment_tag,
+                                              'Talk:TRX System',
+                                              initial_talk_page_content)
+      expected_output = assignment_tag + "\n\n" + initial_talk_page_content
+      expect(output).to eq(expected_output)
+    end
   end
 
   describe '.build_talk_page_update' do

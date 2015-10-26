@@ -68,8 +68,8 @@ class WikiAssignmentOutput
     # Check for existing tags and replace
     old_tag_ex = "{{course assignment | course = #{course_page}"
     new_tag_ex = "{{#{dashboard_url} assignment | course = #{course_page}"
-    page_content.gsub!(/#{Regexp.quote(old_tag_ex)}[^\}]*\}\}/, new_tag)
-    page_content.gsub!(/#{Regexp.quote(new_tag_ex)}[^\}]*\}\}/, new_tag)
+    page_content.gsub!(/#{Regexp.quote(old_tag_ex)}[^\}]*\}\}\n/, new_tag)
+    page_content.gsub!(/#{Regexp.quote(new_tag_ex)}[^\}]*\}\}\n/, new_tag)
 
     # Add new tag at top (if there wasn't an existing tag already)
     unless page_content.include?(new_tag)
@@ -77,14 +77,25 @@ class WikiAssignmentOutput
       # FIXME: Account for templates within templates, which is common on pages
       # that are part of multiple WikiProjects, where all the project banners are
       # wrapped in another template.
-      if page_content[0..1] == '{{' # Append after existing tags
-        page_content.sub!(/\}\}(?!\n\{\{)/, "}}\n#{new_tag}")
+
+      # Append after existing templates, but only if there is no additional content
+      # on the line where the templates end.
+      if starts_with_template?(page_content) && end_of_template_is_end_of_line?(page_content)
+        page_content.sub!(/\}\}\n(?!\{\{)/, "}}\n#{new_tag}\n")
       else # Add the tag to the top of the page
         page_content = "#{new_tag}\n\n#{page_content}"
       end
     end
 
     page_content
+  end
+
+  def self.starts_with_template?(page_content)
+    page_content[0..1] == '{{'
+  end
+
+  def self.end_of_template_is_end_of_line?(page_content)
+    /\}\}\n(?!\{\{)/.match(page_content)
   end
 
   def self.build_wikitext_user_list(assignments, role)
