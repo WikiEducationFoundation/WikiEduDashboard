@@ -19,7 +19,7 @@ $.fn.extend
 # Prototype additions
 String.prototype.trunc = (length=15) ->
   if @length > length + 3
-    return @substring(0, length) + '...'
+    return @substring(0, length) + '…'
   else
     return @
 

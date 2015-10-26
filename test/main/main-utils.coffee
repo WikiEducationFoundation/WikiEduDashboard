@@ -6,7 +6,7 @@ describe 'main-utils', ->
     it 'shorterns a string to 15 characters plus ellipsis', ->
       testString = 'áBcdèfghijklmnopqrstuvwxyz'
       truncatedString = testString.trunc()
-      truncatedString.should.equal 'áBcdèfghijklmno...'
+      truncatedString.should.equal 'áBcdèfghijklmno…'
 
   describe 'String.capitalize', ->
     it 'upcases the first letter of a string', ->
