@@ -1,4 +1,4 @@
-require '../../specHelper'
+require '../../testHelper'
 
 describe 'Modal', ->
 

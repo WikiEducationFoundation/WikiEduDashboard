@@ -1,9 +1,9 @@
-require '../specHelper'
+require '../testHelper'
 require '../../app/assets/javascripts/main-utils'
 
 describe 'main-utils', ->
   describe 'String.trunc', ->
-    it 'shorterns a string to 15 characters plus elipsis', ->
+    it 'shorterns a string to 15 characters plus ellipsis', ->
       testString = 'áBcdèfghijklmnopqrstuvwxyz'
       truncatedString = testString.trunc()
       truncatedString.should.equal 'áBcdèfghijklmno...'
