@@ -4,15 +4,24 @@
   color $btn_text_color
   padding 10px 15px
   font-size $btn_font_size
-  font-weight 700
+  font-weight 600
+  font-family $headline_font
   letter-spacing 2px
   text-transform uppercase
   text-decoration none
+  position relative
   &:hover
     color $btn_text_color
+  &.icon
+    padding-right 40px
+
+.icon-rt_arrow:before
+  position absolute
+  right 10px
+  top 30%
 
 .btn.btn-primary
-  background $training_primary
+  background-color $training_primary
   transition background 0.35s
   &:hover
     background $training_primary_dk
