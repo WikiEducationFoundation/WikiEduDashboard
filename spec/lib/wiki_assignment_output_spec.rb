@@ -82,6 +82,19 @@ describe WikiAssignmentOutput do
     end
   end
 
+  it 'returns nil if the assignment template is already present' do
+    course_page = Course.find(10001).wiki_title
+    assignment_tag = "{{#{ENV['dashboard_url']} assignment | course = #{course_page}"
+    talk_page_templates = "{{some template}}\n{{some other template}}\n"
+    additional_talk_content = "This is a comment\n"
+    initial_talk_page_content = talk_page_templates + assignment_tag + additional_talk_content
+    output = WikiAssignmentOutput
+             .build_assignment_page_content(assignment_tag,
+                                            course_page,
+                                            initial_talk_page_content)
+    expect(output).to be_nil
+  end
+
   describe '.build_talk_page_update' do
     it 'should return content even if the talk page does not yet exist' do
       VCR.use_cassette 'wiki_edits/talk_page_update' do
