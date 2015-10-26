@@ -67,6 +67,19 @@ describe WikiAssignmentOutput do
       expected_output = assignment_tag + "\n\n" + initial_talk_page_content
       expect(output).to eq(expected_output)
     end
+
+    it 'puts assignment templates after other top-of-page templates' do
+      assignment_tag = '{{template|foo=bar}}'
+      talk_page_templates = "{{some template}}\n{{some other template}}\n"
+      additional_talk_content = "This is a comment\n"
+      initial_talk_page_content = talk_page_templates + additional_talk_content
+      output = WikiAssignmentOutput
+               .build_assignment_page_content(assignment_tag,
+                                              'Talk:An_article',
+                                              initial_talk_page_content)
+      expected_output = talk_page_templates + assignment_tag + "\n" + additional_talk_content
+      expect(output).to eq(expected_output)
+    end
   end
 
   describe '.build_talk_page_update' do
