@@ -20,7 +20,7 @@
     Raven.config("#{ENV['sentry_public_dsn']}").install();
   = javascript_include_tag fingerprinted('/assets/javascripts/', 'main.js')
   = csrf_meta_tags
-  %body
+  %body.training
     - if flash[:notice]
       .notice= flash[:notice]
     %div

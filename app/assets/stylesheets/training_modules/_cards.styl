@@ -4,7 +4,7 @@
   text-decoration none
   &:hover
     header
-      background $wiki_brand_dk
+      background $training_primary
     .action-card-arrow-icon img
       left 4px
     p
@@ -14,7 +14,7 @@
   padding 10px
   width 45px
   height 45px
-  background $wiki_brand_dk
+  background $training_primary_dk
   img
     position relative
     left 0
@@ -24,7 +24,7 @@
   padding 0
   height 45px
   text-align left
-  background $wiki_brand
+  background $training_primary
   transition background 0.075s
 .action-card-title
   color $btn_text_color
@@ -32,8 +32,12 @@
   float left
   padding 12px
   width 90%
+  font-size 18px
   @extends .truncated-text
 .action-card-text
   padding 20px 12px
   box-shadow 0px 1px 6px rgba(0, 0, 0, 0.1)
   transition box-shadow 0.075s
+  color $card_type_color
+  font-size 16px
+  font-weight 400
