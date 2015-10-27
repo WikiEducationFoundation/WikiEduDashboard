@@ -23,7 +23,8 @@ SlideMenu = React.createClass(
     menuClass += @props.menuClass
 
     <div className={menuClass}>
-      <span className="dropdown__close" onClick={@props.onClick}>&times;</span>
+      <span className="dropdown__close pull-right" onClick={@props.onClick}>&times;</span>
+      <h1 className="h5 capitalize">Table of Contents</h1>
       <ol>
         {slides}
       </ol>

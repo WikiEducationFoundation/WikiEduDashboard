@@ -18,7 +18,6 @@ class TrainingController < ApplicationController
   end
 
   def slide_view
-    add_breadcrumb params[:library_id].titleize, :training_library_path
     add_breadcrumb params[:module_id].titleize, :training_module_path
   end
 

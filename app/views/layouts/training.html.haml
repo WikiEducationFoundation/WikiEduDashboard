@@ -25,24 +25,23 @@
       .notice= flash[:notice]
     %div
       %header.site-header
-        .container
-          .logo
-            %a.logo__link
-              = link_to root_path do
-                = logo_tag
-          .home
+        .logo
+          %a.logo__link
+            = link_to root_path do
+              = logo_tag
+        .home
+          %p
+            = link_to 'Home', root_url, class: 'inline'
+            = link_to 'FAQ', 'http://wikiedu.org/dashboard-faq/', class: 'inline', target: '_blank'
+            - if current_user && current_user.admin?
+              = link_to 'Recent Activity', '/recent-activity', class: 'inline'
+        .login
+          - if user_signed_in?
             %p
-              = link_to 'Home', root_url, class: 'inline'
-              = link_to 'FAQ', 'http://wikiedu.org/dashboard-faq/', class: 'inline', target: '_blank'
-              - if current_user && current_user.admin?
-                = link_to 'Recent Activity', '/recent-activity', class: 'inline'
-          .login
-            - if user_signed_in?
-              %p
-                %b>= link_to current_user.wiki_id, :root, class: 'inline'
-                \.   #{link_to "Log Out", :destroy_user_session}
-            - else
-              %p= link_to "Login / Sign Up", user_omniauth_authorize_path(:mediawiki)
+              %b>= link_to current_user.wiki_id, :root, class: 'inline'
+              \.   #{link_to "Log Out", :destroy_user_session}
+          - else
+            %p= link_to "Login / Sign Up", user_omniauth_authorize_path(:mediawiki)
       %main#main{"data-user-id" => current_user.try(:id), :role => "main"}
         = yield
     = piwik_tracking_tag

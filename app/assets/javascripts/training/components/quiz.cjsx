@@ -48,7 +48,7 @@ Quiz = React.createClass(
           {answers}
         </ul>
       </fieldset>
-      <button className="btn btn-primary" onClick={@verifyAnswer}>Check Answer</button>
+      <button className="btn btn-primary ghost-button capitalize btn-med" onClick={@verifyAnswer}>Check Answer</button>
     </form>
 
 
