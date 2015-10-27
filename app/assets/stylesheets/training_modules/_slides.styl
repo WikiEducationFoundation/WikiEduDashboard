@@ -1,19 +1,26 @@
 .training__slide header
   padding 10px 0
-  border-bottom 1px solid $border
   display inline-block
 
-.training__slide__content
-  margin 30px auto
+.training__slide__content, .training__slide .h3, .training__slide__footer
+  margin-left auto
+  margin-right auto
   max-width $slide_inner_content_width
 
+.training__slide__content
+  margin-top 30px
+  margin-bottom 30px
 
-.training__slide__footer
-  display inline-block
+.training__slide .h3
+  margin-bottom 21px
+
+.training__slide footer
   width 100%
-  border-top 1px solid $border
+  border-top 1px solid $border_med
   margin-top 20px
-  padding-top 20px
+  padding-top 28px
+  font-size 16px
+  font-family $headline_font
   span
     position relative
     width 100%
@@ -23,56 +30,3 @@
       left 0
 
 
-.slide__menu__nav__dropdown
-  float left
-  position absolute
-  top 80px
-  right 0
-  background $dark_bg
-  color #fff
-  padding 25px 15px
-  width 275px
-  box-shadow 3px 3px 6px rgba(0,0,0,0.3)
-  border-radius 3px
-  li
-    @extends .truncated-text
-    font-size 17px
-    line-height 21px
-    margin 10px 0
-    padding-left 0
-    &.current
-      font-weight bold
-      pointer-events none
-    a
-      color #fff
-      text-decoration none
-      &:hover
-        text-decoration underline
-
-a.slide-nav
-  max-width 45%
-  display block
-  position absolute
-  @extends .truncated-text
-
-.training__slide__nav
-  cursor pointer
-  display inline-block
-  position relative
-
-.dropdown__close
-  cursor pointer
-  position absolute
-  top 0px
-  right 5px
-  font-size 23px
-
-.hamburger
-  margin 3px 0 0 10px
-
-.hamburger__bar
-  background $type_dark
-  display block
-  height 2px
-  width 13px
-  margin 2px

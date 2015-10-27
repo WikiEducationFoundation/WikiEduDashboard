@@ -2,16 +2,11 @@ header.site-header
   overflow hidden
   width 100%
   z-index 100
-  padding 16px 16px 0 16px
+  padding 15px
+  border-bottom 1px solid $border_lt
+  height 70px
   a
     text-decoration none
-  a.active,
-  a:hover
-    border-bottom 2px solid bayoux
-  .container
-    border-bottom 1px solid $border_lt
-    padding 5px 0
-
 
 .logo
   float left
@@ -45,14 +40,106 @@ header.site-header
   @extends .home
   float right
 
-.breadcrumbs
-  color $type_light
-  list-style none
-  margin 2em 0
-  font-size 14px
-  li
-    display inline
-    margin 0
 
 body.training .breadcrumbs
   margin 0
+
+.training__slide-header
+  padding 12px 16px 16px 16px
+  height 55px
+  background $training_primary
+  .breadcrumbs
+    list-style none
+    font-size 18px
+    color $breadcrumb_light_text
+    text-align left
+    a
+      color #fff
+      text-decoration none
+      font-weight 600
+      letter-spacing 1px
+    li
+      display inline
+      margin 0
+      color #fff
+      &:first-child a
+        color $breadcrumb_light_text
+        font-weight 400
+        letter-spacing 0
+
+
+a.slide-nav
+  max-width 45%
+  display block
+  position absolute
+  @extends .truncated-text
+
+.training__slide__nav
+  cursor pointer
+  display inline-block
+  position absolute
+  right 16px
+  top 70px
+  color #fff
+  height 55px
+  width 192px
+  padding 17px 12px 12px 12px
+  background $training_primary_dk
+  h3
+    font-weight 400
+    font-size 15px
+    letter-spacing 0.35px
+
+.dropdown__close
+  cursor pointer
+  position absolute
+  top 11px
+  right 10px
+  font-size 23px
+  font-weight 500
+
+.hamburger
+  margin 2px 0 0 10px
+
+.hamburger__bar
+  background #fff
+  display block
+  height 2px
+  width 14px
+  margin 2px
+
+.slide__menu__nav__dropdown
+  float left
+  position absolute
+  top 70px
+  right 16px
+  background $light_bg
+  padding 5px 0
+  width 275px
+  box-shadow 3px 3px 6px rgba(0,0,0,0.3)
+  z-index 999
+  h1
+    margin-bottom 15px
+    padding 16px 16px 0
+  li
+    @extends .truncated-text
+    font-size 17px
+    line-height 21px
+    margin 10px 0
+    padding-left 0
+    border-top 2px solid $border_lightest
+    padding 14px 15px 5px 15px
+    color $type_dark
+    font-weight 400
+    &.current
+      font-weight 600
+      pointer-events none
+      color $training_primary
+      a
+        color $training_primary
+    a
+      color $type_dark
+      text-decoration none
+      &:hover
+        text-decoration underline
+

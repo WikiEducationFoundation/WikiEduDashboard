@@ -7,7 +7,6 @@
   font-weight 600
   font-family $headline_font
   letter-spacing 2px
-  text-transform uppercase
   text-decoration none
   position relative
   &:hover
@@ -29,3 +28,14 @@
 a[disabled]
   opacity 0.5
   pointer-events none
+
+.btn-primary.ghost-button
+  background transparent
+  color $training_primary
+  border 3px solid $training_primary
+  &:hover
+    background $training_primary
+    color #fff
+
+.btn.btn-med
+  font-size $btn_font_size_med

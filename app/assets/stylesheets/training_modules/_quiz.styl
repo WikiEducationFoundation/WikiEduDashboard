@@ -14,10 +14,9 @@
       right 11px
       &.correct
         background $success_bg
-        border 1px solid $success_border
       &.incorrect
         background $warning_bg
-        border 1px solid $warning_border
+
   label
     cursor pointer
   input[type=radio]
@@ -28,9 +27,11 @@
 
 .assessment__answer-explanation
   margin-left 23px
-  font-size 90%
+  font-size 14px
   &.correct
     color $success_text
+    font-weight bold
   &.incorrect
     color $warning_text
+    font-weight bold
 

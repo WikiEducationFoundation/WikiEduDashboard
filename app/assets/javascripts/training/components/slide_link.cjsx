@@ -6,13 +6,18 @@ SlideLink = React.createClass(
   linkParams: (props) ->
     library_id: props.params.library_id
     module_id: props.params.module_id
-    slide_id: props.slideId 
+    slide_id: props.slideId
   render: ->
     linkParams = @linkParams(@props)
     linkClass = 'slide-nav'
-    linkClass += if @props.button then ' btn btn-primary' else ''
+    buttonClasses = ' btn btn-primary icon icon-rt_arrow'
+    linkClass += if @props.button then buttonClasses else ''
+    if @props.direction is 'Previous'
+      linkText = "< #{@props.direction} Page: #{@props.slideTitle}"
+    else
+      linkText = "Next Page"
     <Link disabled={@props.disabled} onClick={@props.setCurrentSlide} className={linkClass} to="slide" params={linkParams}>
-      {@props.direction} Slide: {@props.slideTitle}
+      {linkText}
     </Link>
 )
 

@@ -46,7 +46,7 @@ TrainingSlideHandler = React.createClass(
                     slideId={@state.nextSlide.slug}
                     direction='Next'
                     disabled={disableNext}
-                    slideTitle={@state.nextSlide.title}
+                    slideTitle='Next Page'
                     button=true
                     {... @props} />
 
@@ -56,7 +56,7 @@ TrainingSlideHandler = React.createClass(
                        direction='Previous'
                        slideTitle={@state.previousSlide.title}
                        {... @props} />
- 
+
     raw_html = md.render(@state.currentSlide.content)
     menuClass = if @state.menuIsOpen is false then 'hidden' else 'shown'
 
@@ -69,16 +69,15 @@ TrainingSlideHandler = React.createClass(
         correctAnswer={@state.currentSlide.assessment.correct_answer_id}
       />
 
-    <article className="training__slide">
+    <div>
       <header>
-        <h3 className="pull-left">{@state.currentSlide.title}</h3>
         <div className="pull-right training__slide__nav" onClick={@toggleMenuOpen}>
-          <h3 className="pull-left">Page {@state.currentSlide.id} of {@state.slides.length}</h3>
           <div className="pull-right hamburger">
             <span className="hamburger__bar"></span>
             <span className="hamburger__bar"></span>
             <span className="hamburger__bar"></span>
           </div>
+          <h3 className="pull-right">Page {@state.currentSlide.id} of {@state.slides.length}</h3>
         </div>
         <SlideMenu
           onClick={@toggleMenuOpen}
@@ -87,13 +86,16 @@ TrainingSlideHandler = React.createClass(
           params={@props.params}
           slides={@state.slides} />
       </header>
-      <div className='markdown training__slide__content' dangerouslySetInnerHTML={{__html: raw_html}}></div>
-      {quiz}
-      <footer className="training__slide__footer">
-       <span className="pull-left">{previousLink}</span>
-       <span  className="pull-right">{nextLink}</span>
-      </footer>
-    </article>
+      <article className="training__slide">
+        <h1 className="h3">{@state.currentSlide.title}</h1>
+        <div className='markdown training__slide__content' dangerouslySetInnerHTML={{__html: raw_html}}></div>
+        {quiz}
+        <footer className="training__slide__footer">
+         <span className="pull-left">{previousLink}</span>
+         <span  className="pull-right">{nextLink}</span>
+        </footer>
+      </article>
+    </div>
 )
 
 module.exports = TrainingSlideHandler
