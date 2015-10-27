@@ -32,22 +32,28 @@ en:
           trillion: T
           quadrillion: Q
 
-  application:
-    dashboard: Wiki Ed Dashboard
-
   activity:
     edited_by: Edited By
     all: Activity
 
+  application:
+    dashboard: Wiki Ed Dashboard
+	help: Help!
+	home: Home
+	log_out: Log Out
+	login_sign_up: Login / Sign Up
+	recent_activity: Recent Activity
+	search: search ask.wikiedu.org
+	
   articles:
-    none: This course has not edited any articles.
-    loading: Loading articles...
     assigned: Assigned Articles
     assigned_to: Assigned To
     character_doc: The sum of characters added to articles by the course's students during the course term
     edited: Articles Edited
     edited_mobile: Articles
+	loading: Loading articles...
     no_assignee: No user assigned
+	none: This course has not edited any articles.
     rating: Class
     rating_doc: The rating an article has been assigned by WikiProjects on Wikipedia. These ratings may corresponds to much older versions, so they are just a rough indicator of article maturity.
     rating_docs:
@@ -148,9 +154,14 @@ en:
     user_ns: User
 
   revisions:
+	date_time: Date/Time
+	chars_added: Chars added
+	class: Class
+	edited_by: Edited by
     loading: Loading revisions...
     none: This course has no recent Wikipedia editing activity.
     time_doc: The time of each revision in your local time
+	title: Title
 
   # These are maintenance script messages.
   tasks:
@@ -163,7 +174,6 @@ en:
     none: This class has not contributed any images or other media files to Wikimedia Commons.
     usages: Usages
     time_doc: The time of each upload in your local time
-
 
   users:
     already_enrolled: That user is already enrolled!
