@@ -16,8 +16,8 @@ module ApplicationHelper
   end
 
   def fingerprinted(path, filename)
-    file_without_extension = File.basename(filename).split('.')[0]
-    extname = File.extname(filename)
-    "#{path}#{file_without_extension}#{extname}"
+    manifest_path = "#{Rails.root}/public/#{path}/rev-manifest.json"
+    manifest = JSON.parse(File.read(File.expand_path(manifest_path, __FILE__)))
+    "#{path}#{manifest[filename]}"
   end
 end
