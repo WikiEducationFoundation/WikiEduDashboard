@@ -18,6 +18,8 @@ description: |
   * How are copyright and plagarisim handled?
 estimated_ttc: 23 minutes
 slides:
+  - title: Wikipedia has a neutral point of view
+    slug: neutral-point-of-view # 5
   - title: 'Policies and guidelines: basic overview'
     slug: policies-and-guidelines-basic-overview # 1
   - title: What to expect
@@ -26,8 +28,6 @@ slides:
     slug: five-pillars # 3
   - title: Wikipedia is an encyclopedia
     slug: wikipedia-is-an-encyclopedia # 4
-  - title: Wikipedia has a neutral point of view
-    slug: neutral-point-of-view # 5
   - title: Wikipedia is free
     slug: wikipedia-is-free # 6
   - title: Be polite
