@@ -31,6 +31,7 @@ The Dashboard allows instructors to create a course page, which students can joi
 
 ### Other
 - [Contributing](docs/contributing.md)
+- [Interface strings & Internationalization](docs/i18n.md)
 - [Deployment](docs/deploy.md)
 - [Tools & Integrations](docs/tools.md)
 - [Model diagram](erd.pdf)
