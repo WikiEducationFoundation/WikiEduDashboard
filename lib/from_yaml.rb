@@ -4,7 +4,7 @@ class FromYaml
   class << self
     attr_accessor :cache_key, :path_to_yaml
   end
-  
+
   attr_accessor :slug
 
   # Class Methods
@@ -44,5 +44,5 @@ class FromYaml
       self.instance_variable_set("@#{k}",v)
     end
   end
-  
+
 end

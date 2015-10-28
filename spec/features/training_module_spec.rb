@@ -34,7 +34,7 @@ describe 'A training module', type: :feature, js: true do
     Capybara.current_driver = :selenium
   end
 
-  let(:training_module) { TrainingModule.all[0] }
+  let(:training_module) { TrainingModule.find(2) } # Policies and Guidelines module
 
   describe 'index page' do
     before do
