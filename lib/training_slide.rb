@@ -9,6 +9,7 @@ class TrainingSlide < FromYaml
   #################
   def self.load
     super path_to_yaml: File.join("#{Rails.root}/training_content/slides/**", '*.yml'),
-          cache_key: 'slides'
+          cache_key: 'slides',
+          trim_id_from_filename: true
   end
 end
