@@ -18,25 +18,14 @@ description: |
   * How are copyright and plagarisim handled?
 estimated_ttc: 23 minutes
 slides:
-  - title: 'Policies and guidelines: basic overview'
-    slug: policies-and-guidelines-basic-overview # 1
-  - title: What to expect
-    slug: what-to-expect # 2
-  - title: Five Pillars
-    slug: five-pillars # 3
-  - title: Wikipedia is an encyclopedia
-    slug: wikipedia-is-an-encyclopedia # 4
-  - title: Wikipedia has a neutral point of view
-    slug: neutral-point-of-view # 5
-  - title: Wikipedia is free
-    slug: wikipedia-is-free # 6
-  - title: Be polite
-    slug: be-polite # 7
-  - title: Wikipedia does not have firm rules
-    slug: ignore-all-rules # 8
-  - title: Review
-    slug: five-pillars-review # 9
-  - title: Quiz Question 1
-    slug: five-pillars-quiz-1 # 10
-  - title: Testing
-    slug: last-slide-TEST # 11
+  - slug: policies-and-guidelines-basic-overview # 1
+  - slug: what-to-expect # 2
+  - slug: five-pillars # 3
+  - slug: wikipedia-is-an-encyclopedia # 4
+  - slug: neutral-point-of-view # 5
+  - slug: wikipedia-is-free # 6
+  - slug: be-polite # 7
+  - slug: ignore-all-rules # 8
+  - slug: five-pillars-review # 9
+  - slug: five-pillars-quiz-1 # 10
+  - slug: last-slide-TEST # 11
