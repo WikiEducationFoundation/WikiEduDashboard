@@ -13,6 +13,6 @@ content: >
   Wikipedia. Although we come from different perspectives (and often disagree!)
   we're all here to try to make Wikipedia better.
 
-
-
-  ![Wikipedia community collage](https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Wikipedia_community_collage.png/640px-Wikipedia_community_collage.png)
+  <div style="clear:both;" align="center">
+    <img align="middle" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Wikipedia_community_collage.png/480px-Wikipedia_community_collage.png" />
+  </div>
