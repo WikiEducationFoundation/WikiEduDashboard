@@ -44,6 +44,7 @@ class User < ActiveRecord::Base
   has_many :articles, -> { uniq }, through: :revisions
   has_many :assignments
   has_many :uploads, class_name: CommonsUpload
+  has_many :training_modules_users, class_name: 'TrainingModulesUsers'
 
   scope :admin, -> { where(permissions: Permissions::ADMIN) }
   scope :trained, -> { where(trained: true) }
