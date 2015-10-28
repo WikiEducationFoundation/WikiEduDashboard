@@ -19,9 +19,10 @@ describe UsersController do
 
     subject { response.status }
 
-    context 'POST' do
+    context 'POST, when the user is not part of the course' do
       let(:post_params) do
-        { id: course.slug, user: { user_id: user.id, role: 0 }.as_json }
+        { id: course.slug,
+          user: { user_id: user.id, role: CoursesUsers::Roles::STUDENT_ROLE }.as_json }
       end
       before { post 'enroll', post_params }
       it 'creates a CoursesUsers' do
@@ -35,12 +36,34 @@ describe UsersController do
       end
     end
 
-    context 'DELETE' do
-      let(:delete_params) do
-        { id: course.slug, user: { user_id: user.id, role: 0 }.as_json }
+    context 'POST, when the user is the instructor' do
+      let(:post_params) do
+        { id: course.slug,
+          user: { user_id: user.id, role: CoursesUsers::Roles::STUDENT_ROLE }.as_json }
       end
       before do
-        CoursesUsers.create(user_id: user.id, course_id: course.id, role: 0)
+        create(:courses_user, user_id: user.id,
+                              course_id: course.id,
+                              role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+        post 'enroll', post_params
+      end
+      it 'returns a 404' do
+        expect(subject).to eq(404)
+      end
+      it 'does not enroll the user' do
+        expect(CoursesUsers.where(role: CoursesUsers::Roles::STUDENT_ROLE).count).to eq(0)
+      end
+    end
+
+    context 'DELETE' do
+      let(:delete_params) do
+        { id: course.slug,
+          user: { user_id: user.id, role: CoursesUsers::Roles::STUDENT_ROLE }.as_json }
+      end
+      before do
+        create(:courses_user, user_id: user.id,
+                              course_id: course.id,
+                              role: CoursesUsers::Roles::STUDENT_ROLE)
         article = create(:article)
         create(:assignment,
                course_id: course.id,

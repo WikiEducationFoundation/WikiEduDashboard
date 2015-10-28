@@ -91,6 +91,7 @@ namespace :batch do
       start = Time.zone.now
 
       Rails.logger.info 'Daily update tasks are beginning.'
+      Rake::Task['article:import_assigned_articles'].invoke
       Rake::Task['article:rebuild_articles_courses'].invoke
       Rake::Task['article:update_views'].invoke unless ENV['no_views']
       Rake::Task['article:update_all_ratings'].invoke

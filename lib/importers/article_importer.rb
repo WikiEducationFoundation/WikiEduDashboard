@@ -7,9 +7,42 @@ class ArticleImporter
   # Entry points #
   ################
 
-  ##############
-  # API Access #
-  ##############
+  def self.import_articles(ids)
+    article_ids = ids.map { |id| { 'id' => id } }
+    articles_data = []
+    article_ids.each_slice(40) do |some_article_ids|
+      articles_data += Replica.get_existing_articles_by_id some_article_ids
+    end
+    return if articles_data.empty?
+    articles = []
+    articles_data.each do |article_data|
+      articles << Article.new(id: article_data['page_id'],
+                              title: article_data['page_title'],
+                              namespace: article_data['page_namespace'])
+    end
+    Article.import articles
+  end
+
+  def self.import_articles_by_title(titles)
+    titles.each_slice(40) do |some_article_titles|
+      query = { prop: 'info',
+                titles: some_article_titles }
+      response = Wiki.query(query)
+      next if response.nil?
+      results = response.data
+      next if results.empty?
+      results = results['pages']
+      articles = []
+      results.each do |_id, page_data|
+        next if page_data['missing']
+        articles << Article.new(id: page_data['pageid'].to_i,
+                                title: page_data['title'].tr(' ', '_'),
+                                namespace: page_data['ns'].to_i)
+      end
+      Article.import articles
+    end
+  end
+
   # Queries deleted state and namespace for all articles
   def self.update_article_status(articles=nil)
     # TODO: Narrow this down even more. Current courses, maybe?
@@ -37,6 +70,29 @@ class ArticleImporter
     limbo_revisions = Revision.where(article_id: deleted_ids)
     RevisionImporter.move_or_delete_revisions limbo_revisions
   end
+
+  def self.resolve_duplicate_articles(articles=nil)
+    articles ||= Article.where(deleted: false)
+    titles = articles.map(&:title)
+    grouped = Article.where(title: titles).group(%w(title namespace)).count
+    deleted_ids = []
+    grouped.each do |article|
+      next unless article[1] > 1
+      title = article[0][0]
+      namespace = article[0][1]
+      Rails.logger.debug "Resolving duplicates for '#{title}, ns #{namespace}'"
+      deleted_ids += delete_duplicates title, namespace
+    end
+
+    # At this stage check to see if the deleted articles' revisions still exist
+    # if so, move them to their new article ID
+    limbo_revisions = Revision.where(article_id: deleted_ids)
+    RevisionImporter.move_or_delete_revisions limbo_revisions
+  end
+
+  ##################
+  # Helper methods #
+  ##################
 
   def self.update_title_and_namespace(synced_articles)
     # Update titles and namespaces based on ids (we trust ids!)
@@ -94,41 +150,6 @@ class ArticleImporter
     else
       article.update(id: id)
     end
-  end
-
-  def self.resolve_duplicate_articles(articles=nil)
-    articles ||= Article.where(deleted: false)
-    titles = articles.map(&:title)
-    grouped = Article.where(title: titles).group(%w(title namespace)).count
-    deleted_ids = []
-    grouped.each do |article|
-      next unless article[1] > 1
-      title = article[0][0]
-      namespace = article[0][1]
-      Rails.logger.debug "Resolving duplicates for '#{title}, ns #{namespace}'"
-      deleted_ids += delete_duplicates title, namespace
-    end
-
-    # At this stage check to see if the deleted articles' revisions still exist
-    # if so, move them to their new article ID
-    limbo_revisions = Revision.where(article_id: deleted_ids)
-    RevisionImporter.move_or_delete_revisions limbo_revisions
-  end
-
-  def self.import_articles(ids)
-    article_ids = ids.map { |id| { 'id' => id } }
-    articles_data = []
-    article_ids.each_slice(40) do |some_article_ids|
-      articles_data += Replica.get_existing_articles_by_id some_article_ids
-    end
-    return if articles_data.empty?
-    articles = []
-    articles_data.each do |article_data|
-      articles << Article.new(id: article_data['page_id'],
-                              title: article_data['page_title'],
-                              namespace: article_data['page_namespace'])
-    end
-    Article.import articles
   end
 
   # Delete all articles with the given title

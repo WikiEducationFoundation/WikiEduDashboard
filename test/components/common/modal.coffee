@@ -1,22 +1,16 @@
-require('testdom')('<html><body></body></html>')
-global.$ = require 'jquery'
-
-jsdom = require 'mocha-jsdom'
-React = require 'react/addons'
+require '../../testHelper'
 
 describe 'Modal', ->
-  jsdom( skipWindowCheck: true )
 
   Modal = require '../../../app/assets/javascripts/components/common/modal'
-  TestUtils = React.addons.TestUtils
-  TestModal = TestUtils.renderIntoDocument(
+  TestModal = ReactTestUtils.renderIntoDocument(
     <Modal modalClass='foo'>
       <h3>bar</h3>
     </Modal>
   )
 
   it 'renders its children with the modalClass', ->
-    modalContent = TestUtils.findRenderedDOMComponentWithTag(TestModal, 'div')
+    modalContent = ReactTestUtils.findRenderedDOMComponentWithTag(TestModal, 'div')
     modalContent.getDOMNode().textContent.should.equal 'bar'
     modalContent.getDOMNode().className.should.equal 'wizard active foo'
 

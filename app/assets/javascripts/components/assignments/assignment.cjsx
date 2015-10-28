@@ -21,12 +21,8 @@ Assignment = React.createClass(
     ratingMobileClass = ratingClass + ' tablet-only'
     languagePrefix = if article.language then "#{article.language}:" else ''
     formattedTitle = "#{languagePrefix}#{article.title}"
-
-    if article.url
-      articleLink = <a onClick={@stop} href={article.url} target="_blank" className="inline">{formattedTitle} {(if article.new_article then ' (new)' else '')}</a>
-    else
-      articleLink = formattedTitle
-
+    articleUrl = @props.assign_group[0].article_url
+    articleLink = <a onClick={@stop} href={articleUrl} target="_blank" className="inline">{formattedTitle} {(if article.new_article then ' (new)' else '')}</a>
 
     assignees = []
     reviewers = []

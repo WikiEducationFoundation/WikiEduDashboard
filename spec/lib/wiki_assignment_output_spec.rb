@@ -55,6 +55,44 @@ describe WikiAssignmentOutput do
           .to include('{{dashboard.wikiedu.org assignment | course = ')
       end
     end
+
+    it 'does not mess up instances that are not simple template lines' do
+      assignment_tag = '{{template|foo=bar}}'
+      initial_talk_page_content = "{{ping|Johnjes6}} Greetings! Good start on an article! I had some concrete feedback.\n"
+
+      output = WikiAssignmentOutput
+               .build_assignment_page_content(assignment_tag,
+                                              'Talk:TRX System',
+                                              initial_talk_page_content)
+      expected_output = assignment_tag + "\n\n" + initial_talk_page_content
+      expect(output).to eq(expected_output)
+    end
+
+    it 'puts assignment templates after other top-of-page templates' do
+      assignment_tag = '{{template|foo=bar}}'
+      talk_page_templates = "{{some template}}\n{{some other template}}\n"
+      additional_talk_content = "This is a comment\n"
+      initial_talk_page_content = talk_page_templates + additional_talk_content
+      output = WikiAssignmentOutput
+               .build_assignment_page_content(assignment_tag,
+                                              'Talk:An_article',
+                                              initial_talk_page_content)
+      expected_output = talk_page_templates + assignment_tag + "\n" + additional_talk_content
+      expect(output).to eq(expected_output)
+    end
+  end
+
+  it 'returns nil if the assignment template is already present' do
+    course_page = Course.find(10001).wiki_title
+    assignment_tag = "{{#{ENV['dashboard_url']} assignment | course = #{course_page}"
+    talk_page_templates = "{{some template}}\n{{some other template}}\n"
+    additional_talk_content = "This is a comment\n"
+    initial_talk_page_content = talk_page_templates + assignment_tag + additional_talk_content
+    output = WikiAssignmentOutput
+             .build_assignment_page_content(assignment_tag,
+                                            course_page,
+                                            initial_talk_page_content)
+    expect(output).to be_nil
   end
 
   describe '.build_talk_page_update' do

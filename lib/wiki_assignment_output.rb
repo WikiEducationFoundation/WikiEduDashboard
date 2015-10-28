@@ -77,14 +77,25 @@ class WikiAssignmentOutput
       # FIXME: Account for templates within templates, which is common on pages
       # that are part of multiple WikiProjects, where all the project banners are
       # wrapped in another template.
-      if page_content[0..1] == '{{' # Append after existing tags
-        page_content.sub!(/\}\}(?!\n\{\{)/, "}}\n#{new_tag}")
+
+      # Append after existing templates, but only if there is no additional content
+      # on the line where the templates end.
+      if starts_with_template?(page_content) && end_of_template_is_end_of_line?(page_content)
+        page_content.sub!(/\}\}\n(?!\{\{)/, "}}\n#{new_tag}\n")
       else # Add the tag to the top of the page
         page_content = "#{new_tag}\n\n#{page_content}"
       end
     end
 
     page_content
+  end
+
+  def self.starts_with_template?(page_content)
+    page_content[0..1] == '{{'
+  end
+
+  def self.end_of_template_is_end_of_line?(page_content)
+    /\}\}\n(?!\{\{)/.match(page_content)
   end
 
   def self.build_wikitext_user_list(assignments, role)

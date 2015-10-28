@@ -4,7 +4,7 @@ lock '3.3.5'
 set :application, 'wiki_edu_dashboard'
 set :repo_url, 'git@github.com:WikiEducationFoundation/WikiEduDashboard.git'
 
-set :ssh_options, { :forward_agent => true }
+set :ssh_options, forward_agent: true
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
@@ -42,11 +42,10 @@ set :linked_dirs, fetch(:linked_dirs, []).push('bin', 'log', 'tmp')
 set :whenever_identifier, -> { "#{fetch(:application)}_#{fetch(:stage)}" }
 
 namespace :deploy do
-
   desc 'Run gulp to compile the assets'
   task :local_gulp_build do
     run_locally do
-      execute "gulp build"
+      execute 'gulp build'
     end
   end
 
@@ -59,11 +58,11 @@ namespace :deploy do
 
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
-
+      # nothing
     end
   end
 
-  before :deploy, "deploy:local_gulp_build" unless ENV['skip_gulp']
-  before "deploy:restart", "deploy:upload_compiled_assets"
+  before :deploy, 'deploy:local_gulp_build' unless ENV['skip_gulp']
+  before 'deploy:restart', 'deploy:upload_compiled_assets'
 
 end
