@@ -5,7 +5,7 @@ require "#{Rails.root}/lib/wiki_edits"
 class CoursesController < ApplicationController
   include CourseHelper
   respond_to :html, :json
-  before_action :require_permissions, only: [:create, :update, :destroy]
+  before_action :require_permissions, only: [:create, :update, :destroy, :notify_untrained]
 
   ###############
   # Root method #
@@ -120,7 +120,6 @@ class CoursesController < ApplicationController
 
   def notify_untrained
     @course = find_course_by_slug(params[:id])
-    return unless user_signed_in? && current_user.instructor?(@course)
     WikiEdits.notify_untrained(@course.id, current_user)
     render nothing: true, status: :ok
   end

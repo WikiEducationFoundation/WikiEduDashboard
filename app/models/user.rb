@@ -110,6 +110,7 @@ class User < ActiveRecord::Base
   end
 
   def can_edit?(course)
+    return true if admin?
     editing_roles = [CoursesUsers::Roles::INSTRUCTOR_ROLE,
                      CoursesUsers::Roles::CAMPUS_VOLUNTEER_ROLE,
                      CoursesUsers::Roles::ONLINE_VOLUNTEER_ROLE,

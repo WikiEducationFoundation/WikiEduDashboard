@@ -296,4 +296,55 @@ describe CoursesController do
       end
     end
   end
+
+  describe '#notify_untrained' do
+    let(:course) { create(:course) }
+    let(:user) { create(:user) }
+    let(:admin) { create(:admin) }
+    let(:instructor) do
+      create(:user, id: 5)
+      create(:courses_user, user_id: 5,
+                            course_id: course.id,
+                            role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+      User.find(5)
+    end
+
+    before do
+      allow(controller).to receive(:user_signed_in?).and_return(true)
+    end
+
+    let(:subject) { get :notify_untrained, id: course.slug }
+
+    context 'user is admin' do
+      before do
+        allow(controller).to receive(:current_user).and_return(admin)
+      end
+
+      it 'triggers WikiEdits.notify_untrained' do
+        expect(WikiEdits).to receive(:notify_untrained)
+        expect(subject.status).to eq(200)
+      end
+    end
+
+    context 'user is instructor' do
+      before do
+        allow(controller).to receive(:current_user).and_return(instructor)
+      end
+
+      it 'triggers WikiEdits.notify_untrained' do
+        expect(WikiEdits).to receive(:notify_untrained)
+        expect(subject.status).to eq(200)
+      end
+    end
+
+    context 'user is not admin or instructor' do
+      before do
+        allow(controller).to receive(:current_user).and_return(user)
+      end
+
+      it 'triggers WikiEdits.notify_untrained' do
+        expect(subject.status).to eq(401)
+      end
+    end
+  end
 end
