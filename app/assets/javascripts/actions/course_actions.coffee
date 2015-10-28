@@ -3,6 +3,12 @@ Flux        = new McFly()
 API         = require '../utils/api'
 
 CourseActions = Flux.createActions
+  persistCourse: (data, course_id=null) ->
+    API.saveCourse(data, course_id)
+      .then (data) ->
+        { actionType: 'PERSISTED_COURSE', data: data }
+      .catch (data) ->
+        { actionType: 'API_FAIL', data: data }
   updateCourse: (course, save=false) ->
     { actionType: 'UPDATE_COURSE', data: {
       course: course,
@@ -15,12 +21,6 @@ CourseActions = Flux.createActions
     }}
   save: ->
     { actionType: 'SAVE_COURSE' }
-  persistCourse: (data, course_id=null) ->
-    API.saveCourse(data, course_id)
-      .then (data) ->
-        console.log "Persist success"
-      .catch (data) ->
-        { actionType: 'COURSE_API_FAIL', data: data }
   addCourse: ->
     { actionType: 'ADD_COURSE' }
   setCourse: (course) ->

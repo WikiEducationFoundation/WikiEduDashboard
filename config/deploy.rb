@@ -64,6 +64,6 @@ namespace :deploy do
   end
 
   before :deploy, "deploy:local_gulp_build" unless ENV['skip_gulp']
-  after :deploy, "deploy:upload_compiled_assets"
+  before "deploy:restart", "deploy:upload_compiled_assets"
 
 end
