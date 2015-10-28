@@ -18,6 +18,9 @@ class FromYaml
 
     Dir.glob(self.path_to_yaml) do |yaml_file|
       slug = File.basename(yaml_file, ".yml")
+      if args[:trim_id_from_filename]
+        slug.gsub!(/^[0-9]+-/, '')
+      end
       content = YAML.load_file(yaml_file).to_hashugar
       collection << self.new(content, slug)
     end
