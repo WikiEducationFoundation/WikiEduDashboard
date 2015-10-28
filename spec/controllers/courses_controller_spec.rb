@@ -342,7 +342,7 @@ describe CoursesController do
         allow(controller).to receive(:current_user).and_return(user)
       end
 
-      it 'triggers WikiEdits.notify_untrained' do
+      it 'returns a 401' do
         expect(subject.status).to eq(401)
       end
     end
