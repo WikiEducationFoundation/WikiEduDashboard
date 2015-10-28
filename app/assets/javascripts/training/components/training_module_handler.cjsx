@@ -18,9 +18,10 @@ TrainingModuleHandler = React.createClass(
   render: ->
     slidesAry = _.compact(@state.training_module.slides)
     slides = slidesAry.map (slide, i) =>
+      disabled = !slide.enabled
       link = "#{@state.training_module.slug}/#{slide.slug}"
       <li key={i}>
-        <a href={link}>
+        <a disabled={disabled} href={link}>
           <h3 className="h5">{slide.title}</h3>
           <div className="ui-text small sidebar-text">{slide.summary}</div>
         </a>
