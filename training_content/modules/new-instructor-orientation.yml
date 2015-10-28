@@ -1,0 +1,16 @@
+name: Orientation for New Instructors
+id: 3
+intro: |
+  PLACEHOLDER
+description: |
+  PLACEHOLDER
+estimated_ttc: 23 minutes
+slides:
+  - title: Welcome to Wikipedia
+    slug: welcome-new-instructors # 301
+  - title: What we’ll cover
+    slug: what-we-will-cover # 302
+  - title: What’s Wikipedia?
+    slug: what-is-wikipedia # 303
+  - title: Meet Wikipedia’s community
+    slug: meet-the-wikipedia-community # 304
