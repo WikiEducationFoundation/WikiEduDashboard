@@ -253,7 +253,7 @@ describe 'New course creation and editing', type: :feature do
       expect(page).to have_content 'Value: 50%'
 
       # Navigate back to overview, check relevant data, then delete course
-      find('#overview-link').find('a').click
+      visit "/courses/#{Course.first.slug}"
 
       within('.sidebar') do
         expect(page).to have_content I18n.t('courses.instructor.other')
