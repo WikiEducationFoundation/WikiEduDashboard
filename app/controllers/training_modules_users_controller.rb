@@ -8,17 +8,18 @@ class TrainingModulesUsersController < ApplicationController
       user_id: params[:user_id],
       training_module_id: module_id
     )
+    slide = TrainingSlide.find_by(slug: params[:slide_id])
     progress_manager = TrainingProgressManager.new(
       current_user,
       training_module,
-      TrainingSlide.find_by(slug: params[:slide_id])
+      slide
     )
     if tmu.last_slide_completed.nil? ||
       progress_manager.current_slide_further_than_previous?(tmu.last_slide_completed)
         tmu.last_slide_completed = params[:slide_id]
       tmu.save
     end
-    render nothing: true
+    render json: { slide: slide }
   end
 
 end
