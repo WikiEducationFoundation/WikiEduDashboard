@@ -126,6 +126,16 @@ en:
 
   course_creator:
     create_new: Create a New Course
+    course_title: Course title
+    course_school: Course School
+    course_term: Course Term
+    course_subject: Course Subject
+    course_description: Course description
+    expected_number: Expected number of students
+    instructor_name: Instructor Name
+    instructor_email: Instructor Email
+    start_date: Start date
+    end_date: End date
     intro: >
       The title, school, and term create your course page’s URL, and can't be
       changed. Everything else, you can edit later. Click “Create my Course!” to
