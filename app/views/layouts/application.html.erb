@@ -50,7 +50,7 @@
           <div class="search">
               <%= form_tag("/ask", method: "get") do %>
                 <%= text_field_tag(:q, '', placeholder: I18n.t('search')) %>
-                <%= submit_tag(I18n.t('help!')) %>
+                <%= submit_tag(I18n.t('help')) %>
               <% end %>
           </div>
           <div class="login">
