@@ -34,28 +34,38 @@ TrainingSlideHandler = React.createClass(
     @setState getState(newProps)
   componentWillMount: ->
     ServerActions.fetchTrainingModule(module_id: @moduleId(), current_slide_id: @props.params.slide_id)
+  setSlideCompleted: ->
+    user_id = document.getElementById('main').dataset.userId
+    return unless user_id
+    ServerActions.setSlideCompleted(slide_id: @props.params.slide_id, module_id: @moduleId(), user_id: user_id)
   storeDidChange: ->
     @setState getState(@props)
   toggleMenuOpen: ->
     TrainingActions.toggleMenuOpen(currently: @state.menuIsOpen)
   render: ->
     disableNext = @state.currentSlide.assessment? && !@state.currentSlide.answeredCorrectly
+    linkParams =
+      library_id: @props.params.library_id
+      module_id: @props.params.module_id
 
     if @state.nextSlide?.slug
       nextLink = <SlideLink
-                    slideId={@state.nextSlide.slug}
-                    direction='Next'
-                    disabled={disableNext}
-                    slideTitle='Next Page'
-                    button=true
-                    {... @props} />
+                   slideId={@state.nextSlide.slug}
+                   direction='Next'
+                   disabled={disableNext}
+                   slideTitle='Next Page'
+                   button=true
+                   linkParams={linkParams}
+                   onClick={@setSlideCompleted}
+                 />
 
     if @state.previousSlide?.slug
       previousLink = <SlideLink
                        slideId={@state.previousSlide.slug}
                        direction='Previous'
                        slideTitle={@state.previousSlide.title}
-                       {... @props} />
+                       linkParams={linkParams}
+                      />
 
     raw_html = md.render(@state.currentSlide.content)
     menuClass = if @state.menuIsOpen is false then 'hidden' else 'shown'

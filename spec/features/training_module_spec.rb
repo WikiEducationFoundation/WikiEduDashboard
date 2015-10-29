@@ -26,15 +26,14 @@ def find_correct_answer_by_trial_and_error
 end
 
 describe 'A training module', type: :feature, js: true do
+  let(:cohort) { create(:cohort) }
+  let(:user)   { create(:user, id: 1) }
+  let(:training_module) { TrainingModule.find(2) } # Policies and Guidelines module
+
   before do
-    create(:cohort)
-    user = create(:user,
-                  id: 1)
     login_as(user, scope: :user)
     Capybara.current_driver = :selenium
   end
-
-  let(:training_module) { TrainingModule.find(2) } # Policies and Guidelines module
 
   describe 'index page' do
     before do
@@ -57,6 +56,17 @@ describe 'A training module', type: :feature, js: true do
       click_link 'Start'
       slide_count = training_module.slides.count
       #expect(page).to have_content "Page 1 of #{slide_count}"
+      expect(TrainingModulesUsers.find_by(
+        user_id: user.id,
+        training_module_id: training_module.id
+      )).not_to be_nil
+    end
+
+    it 'disables slides that have not been seen' do
+      click_link 'Start'
+      find('.training__slide__nav').click
+      unseen_slide_link = find('.slide__menu__nav__dropdown li:nth-child(3) a')
+      expect(unseen_slide_link['disabled']).to eq('true')
     end
   end
 

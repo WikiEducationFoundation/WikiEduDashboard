@@ -115,9 +115,11 @@ Rails.application.routes.draw do
   post 'courses/:course_id/wizard/:wizard_id' => 'wizard#submit_wizard',
        constraints: { course_id: /.*/ }
 
+  # Training
   get 'training' => 'training#index'
   get 'training/:library_id' => 'training#show', as: :training_library
   get 'training/:library_id/:module_id' => 'training#training_module', as: :training_module
+  post 'training_modules_users' => 'training_modules_users#create_or_update'
 
   # for React
   get 'training/:library_id/:module_id(/*any)' => 'training#slide_view'

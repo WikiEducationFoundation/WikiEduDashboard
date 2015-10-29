@@ -27,10 +27,15 @@ class TrainingProgressManager
     @utm.completed_at.present?
   end
 
+  def current_slide_further_than_previous?(previous_slug)
+    slug_index(@slide) > slug_index(previous_slug)
+  end
+
   private
 
-  def slug_index(slide)
-    @training_module.slides.collect(&:slug).index(slide.slug)
+  def slug_index(entity)
+    slug = entity.respond_to?(:slug) ? entity.slug : entity
+    @training_module.slides.collect(&:slug).index(slug)
   end
 
 end
