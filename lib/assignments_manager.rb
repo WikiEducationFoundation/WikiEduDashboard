@@ -4,6 +4,10 @@ require "#{Rails.root}/lib/utils"
 # Handles assignment data submitted by users
 class AssignmentsManager
   def self.update_assignments(course, user_params, current_user)
+    # Course may have been saved with no assignments, in which case there is no
+    # assignment data to handle.
+    return if user_params['assignments'].nil?
+
     user_params['assignments'].each do |assignment_data|
       assignment_data['course_id'] = course.id
       assignment_data['article_title'] =
