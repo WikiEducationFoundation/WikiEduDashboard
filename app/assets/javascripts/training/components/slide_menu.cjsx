@@ -13,8 +13,9 @@ SlideMenu = React.createClass(
       slides = @props.slides.map (slide, index) =>
         liClass = if @props.currentSlide.id == index + 1 then 'current' else ''
         newParams = _.extend @linkParams(@props), slide_id: slide.slug
+        disabled = !slide.enabled && (slide.id != @props.currentSlide.id)
         <li key={slide.id} onClick={@props.onClick} className={liClass}>
-          <Link to="slide" params={newParams}>
+          <Link to="slide" disabled={disabled} params={newParams}>
             {index + 1}. {slide.title}
           </Link>
         </li>

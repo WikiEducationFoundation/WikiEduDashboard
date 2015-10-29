@@ -3,8 +3,8 @@ require 'rails_helper'
 describe TrainingProgressManager do
   let(:user)     { create(:user) }
   # first and last slide
-  let(:slides)   { [OpenStruct.new(slug: 'neutral-point-of-view'), OpenStruct.new(slug: 'five-pillars-quiz-1')] }
   let(:t_module) { TrainingModule.all.first }
+  let(:slides)   { [t_module.slides.first, t_module.slides.last] }
   let(:slide)    { slides.first }
   let(:last_slide_completed) { slides.first.slug }
   let(:utm)      { create(:training_modules_users, user_id: user.try(:id), training_module_id: t_module.id, last_slide_completed: last_slide_completed, completed_at: completed_at ) }

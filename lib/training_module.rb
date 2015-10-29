@@ -15,7 +15,6 @@ class TrainingModule < FromYaml
     self.all.detect { |obj| obj.id == id }
   end
 
-
   # Instance Methods
 
   # raw_slides can be called to access the string representation;
