@@ -1,13 +1,13 @@
 source 'https://rubygems.org'
 ruby '2.1.5'
-gem 'rails', '4.1.8'
+gem 'rails', '4.2.4'
 gem 'jbuilder', '~> 2.0'
 
 gem 'mediawiki_api', '0.5.0'
 gem 'crack'
 gem 'figaro'
 gem 'whenever'
-gem 'mysql2'
+gem 'mysql2', '~> 0.3.20'
 
 gem 'browser'
 
@@ -16,7 +16,7 @@ gem 'omniauth-mediawiki'
 
 gem 'deep_cloneable', '~> 2.1.1'
 
-gem 'sentry-raven'
+gem 'sentry-raven', '~>0.13.3'
 gem 'piwik_analytics', git: 'https://github.com/halfdan/piwik-ruby-tracking.git'
 gem 'newrelic_rpm'
 
