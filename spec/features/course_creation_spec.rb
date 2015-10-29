@@ -3,6 +3,7 @@ require 'rails_helper'
 def set_up_suite
   include Devise::TestHelpers, type: :feature
   Capybara.current_driver = :selenium
+  page.driver.browser.manage.window.resize_to(1920, 1080)
 end
 
 def fill_out_course_creator_form
