@@ -40,6 +40,9 @@ setEnabledSlides = (slide) ->
   _enabledSlides.push(slide.id)
   TrainingStore.emitChange()
 
+redirectTo = (data) ->
+  window.location = "/training/#{data.library_id}/#{data.module_id}"
+
 TrainingStore = Flux.createStore
   getMenuState: ->
     return _menuState
@@ -96,6 +99,9 @@ TrainingStore = Flux.createStore
       break
     when 'SLIDE_COMPLETED'
       setEnabledSlides data.slide
+      break
+    when 'MODULE_COMPLETED'
+      redirectTo data
       break
 
 module.exports = TrainingStore

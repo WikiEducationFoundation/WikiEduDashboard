@@ -252,6 +252,22 @@ API =
         console.log 'Error: ' + obj.responseJSON.message
         rej obj
 
+  setModuleCompleted: (opts) ->
+    new Promise (res, rej) ->
+      $.ajax
+        type: 'POST'
+        url: "/training_modules_users.json?\
+          library_id=#{opts.library_id}&\
+          module_id=#{opts.module_id}&\
+          user_id=#{opts.user_id}&\
+          module_completed=true"
+        success: (data) ->
+          console.log 'Slide completed'
+          res data
+      .fail (obj, status) ->
+        console.log 'Error: ' + obj.responseJSON.message
+        rej obj
+
 
   ###########
   # Setters #

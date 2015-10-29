@@ -79,9 +79,12 @@ describe 'A training module', type: :feature, js: true do
       training_module.slides.each_with_index do |slide, i|
         pp "slide #{i}"
         check_slide_contents(slide, i, slide_count)
-        next if i == slide_count - 1 # Nowhere to go after the last slide
-
-        proceed_to_next_slide
+        unless i == slide_count - 1
+          proceed_to_next_slide
+          next
+        end
+        click_link 'Done!'
+        expect(TrainingModulesUsers.last.completed_at).not_to be_nil
       end
     end
   end
