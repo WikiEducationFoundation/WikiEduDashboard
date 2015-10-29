@@ -57,7 +57,7 @@ routes = (
     <DefaultRoute handler={CourseCreatorButton} />
 
     <Route path='training' handler={TrainingApp} >
-      <Route path=':library_id/:module_id' handler={TrainingModuleHandler} />
+      <Route name='module' path=':library_id/:module_id' handler={TrainingModuleHandler} />
       <Route name='slide' path='/training/:library_id/:module_id/:slide_id' handler={TrainingSlideHandler} />
     </Route>
   </Route>

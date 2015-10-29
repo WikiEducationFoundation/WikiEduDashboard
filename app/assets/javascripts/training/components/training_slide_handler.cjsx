@@ -39,7 +39,20 @@ TrainingSlideHandler = React.createClass(
   setSlideCompleted: ->
     user_id = document.getElementById('main').dataset.userId
     return unless user_id
-    ServerActions.setSlideCompleted(slide_id: @props.params.slide_id, module_id: @moduleId(), user_id: user_id)
+    ServerActions.setSlideCompleted(
+      slide_id: @props.params.slide_id,
+      module_id: @moduleId(),
+      user_id: user_id
+    )
+  setModuleCompleted: (e) ->
+    e.preventDefault()
+    user_id = document.getElementById('main').dataset.userId
+    return unless user_id
+    ServerActions.setModuleCompleted(
+      library_id: @props.params.library_id,
+      module_id: @moduleId(),
+      user_id: user_id
+    )
   storeDidChange: ->
     @setState getState(@props)
   toggleMenuOpen: ->
@@ -56,6 +69,14 @@ TrainingSlideHandler = React.createClass(
                    button=true
                    onClick={@setSlideCompleted}
                    params={@props.params} />
+    else
+      nextLink = <Link
+                   to='module'
+                   params={@props.params}
+                   className='btn btn-primary pull-right'
+                   onClick={@setModuleCompleted}>
+                   Done!
+                  </Link>
 
     if @state.previousSlide?.slug
       previousLink = <SlideLink

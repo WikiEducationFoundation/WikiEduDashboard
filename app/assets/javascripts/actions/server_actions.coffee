@@ -96,6 +96,10 @@ ServerActions = Flux.createActions
     API.setSlideCompleted(opts).then (data) ->
       { actionType: 'SLIDE_COMPLETED', data: data }
 
+  setModuleCompleted: (opts) ->
+    API.setModuleCompleted(opts).then (data) ->
+      { actionType: 'MODULE_COMPLETED', data: data }
+
   # Save
   saveCourse: (data, course_id=null) ->
     API.saveCourse(data, course_id).then (data) ->

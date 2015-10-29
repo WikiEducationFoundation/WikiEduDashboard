@@ -8,6 +8,16 @@ class TrainingModulesUsersController < ApplicationController
       user_id: params[:user_id],
       training_module_id: module_id
     )
+    if params[:module_completed] == 'true'
+      tmu.update_attributes(
+        completed_at: Time.now,
+        last_slide_completed: training_module.slides.last.slug
+      )
+      render json: {
+        library_id: params[:library_id],
+        module_id: training_module.slug
+      } and return
+    end
     slide = TrainingSlide.find_by(slug: params[:slide_id])
     progress_manager = TrainingProgressManager.new(
       current_user,
