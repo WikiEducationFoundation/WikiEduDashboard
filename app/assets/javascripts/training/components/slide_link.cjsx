@@ -3,6 +3,7 @@ Router = require 'react-router'
 Link   = Router.Link
 
 SlideLink = React.createClass(
+  displayName: 'SlideLink'
   linkParams: (props) ->
     library_id: props.params.library_id
     module_id: props.params.module_id
@@ -16,7 +17,7 @@ SlideLink = React.createClass(
       linkText = "< #{@props.direction} Page: #{@props.slideTitle}"
     else
       linkText = "Next Page"
-    <Link disabled={@props.disabled} onClick={@props.setCurrentSlide} className={linkClass} to="slide" params={linkParams}>
+    <Link disabled={@props.disabled} onClick={@props.onClick} className={linkClass} to="slide" params={linkParams}>
       {linkText}
     </Link>
 )

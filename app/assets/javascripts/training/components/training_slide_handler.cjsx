@@ -15,6 +15,7 @@ getState = (props) ->
   previousSlide: TrainingStore.getPreviousSlide(props)
   nextSlide:     TrainingStore.getNextSlide(props)
   menuIsOpen:    TrainingStore.getMenuState()
+  enabledSlides: TrainingStore.getEnabledSlides()
 
 TrainingSlideHandler = React.createClass(
   displayName: 'TrainingSlideHandler'
@@ -25,6 +26,7 @@ TrainingSlideHandler = React.createClass(
     currentSlide: TrainingStore.getCurrentSlide()
     nextSlide: { slug: '' }
     menuIsOpen: false
+    enabledSlides: []
   moduleId: ->
     @props.params.module_id
   componentDidMount: ->
@@ -89,6 +91,7 @@ TrainingSlideHandler = React.createClass(
           menuClass={menuClass}
           currentSlide={@state.currentSlide}
           params={@props.params}
+          enabledSlides={@state.enabledSlides}
           slides={@state.slides} />
       </header>
       <article className="training__slide">

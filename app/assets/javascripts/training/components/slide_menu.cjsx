@@ -3,6 +3,7 @@ Router = require 'react-router'
 Link   = Router.Link
 
 SlideMenu = React.createClass(
+  displayName: 'SlideMenu'
   linkParams: (props) ->
     library_id: props.params.library_id
     module_id: props.params.module_id
@@ -10,12 +11,16 @@ SlideMenu = React.createClass(
     if @props.slides
       # need the slide index because overflow: hidden cuts off li numbering
       params = @linkParams(@props)
-      slides = @props.slides.map (slide, index) =>
-        liClass = if @props.currentSlide.id == index + 1 then 'current' else ''
+      slides = @props.slides.map (slide, loopIndex) =>
+        liClass = if @props.currentSlide.index == loopIndex + 1 then 'current' else ''
         newParams = _.extend @linkParams(@props), slide_id: slide.slug
-        <li key={slide.index} onClick={@props.onClick} className={liClass}>
-          <Link to="slide" params={newParams}>
-            {index + 1}. {slide.title}
+        # a slide is enabled if it comes back from the API as such,
+        # it is set enabled in the parent component,
+        # or it's the current slide
+        enabled = slide.enabled is true || @props.enabledSlides.indexOf(slide.id) >= 0 || (slide.id == @props.currentSlide.id)
+        <li key={slide.id} onClick={@props.onClick} className={liClass}>
+          <Link to="slide" disabled={!enabled} params={newParams}>
+            {loopIndex + 1}. {slide.title}
           </Link>
         </li>
 

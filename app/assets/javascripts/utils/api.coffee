@@ -245,6 +245,13 @@ API =
           module_id=#{opts.module_id}&\
           user_id=#{opts.user_id}&\
           slide_id=#{opts.slide_id}"
+        success: (data) ->
+          console.log 'Slide completed'
+          res data
+      .fail (obj, status) ->
+        console.log 'Error: ' + obj.responseJSON.message
+        rej obj
+
 
   ###########
   # Setters #

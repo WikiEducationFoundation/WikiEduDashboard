@@ -4,6 +4,7 @@ Flux  = new McFly()
 _modules = []
 _module = {}
 _menuState = false
+_enabledSlides = []
 _currentSlide = {
   id: null,
   title: '',
@@ -35,6 +36,10 @@ setCurrentSlide = (slide_id) ->
   _currentSlide = _module.slides[slideIndex]
   TrainingStore.emitChange()
 
+setEnabledSlides = (slide) ->
+  _enabledSlides.push(slide.id)
+  TrainingStore.emitChange()
+
 TrainingStore = Flux.createStore
   getMenuState: ->
     return _menuState
@@ -63,6 +68,8 @@ TrainingStore = Flux.createStore
   desiredSlideIsCurrentSlide: (opts, currentSlide, slides) ->
     return unless slides?.length
     (opts.position is 'next' && currentSlide.id == slides.length) || (opts.position is 'previous' && currentSlide.id == 1)
+  getEnabledSlides: ->
+    return _enabledSlides
   restore: ->
     false
 , (payload) ->
@@ -86,6 +93,9 @@ TrainingStore = Flux.createStore
       break
     when 'RECEIVE_ALL_TRAINING_MODULES'
       setAllModules data.training_modules
+      break
+    when 'SLIDE_COMPLETED'
+      setEnabledSlides data.slide
       break
 
 module.exports = TrainingStore
