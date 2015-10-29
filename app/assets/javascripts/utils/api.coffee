@@ -246,7 +246,6 @@ API =
           user_id=#{opts.user_id}&\
           slide_id=#{opts.slide_id}"
 
-
   ###########
   # Setters #
   ###########

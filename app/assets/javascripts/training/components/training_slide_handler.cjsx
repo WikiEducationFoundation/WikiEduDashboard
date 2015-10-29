@@ -10,11 +10,11 @@ Quiz            = require './quiz'
 md              = require('markdown-it')({ html: true, linkify: true })
 
 getState = (props) ->
-  slides: TrainingStore.getSlides()
-  currentSlide: TrainingStore.getCurrentSlide()
+  slides:        TrainingStore.getSlides()
+  currentSlide:  TrainingStore.getCurrentSlide()
   previousSlide: TrainingStore.getPreviousSlide(props)
-  nextSlide: TrainingStore.getNextSlide(props)
-  menuIsOpen: TrainingStore.getMenuState()
+  nextSlide:     TrainingStore.getNextSlide(props)
+  menuIsOpen:    TrainingStore.getMenuState()
 
 TrainingSlideHandler = React.createClass(
   displayName: 'TrainingSlideHandler'
@@ -44,9 +44,6 @@ TrainingSlideHandler = React.createClass(
     TrainingActions.toggleMenuOpen(currently: @state.menuIsOpen)
   render: ->
     disableNext = @state.currentSlide.assessment? && !@state.currentSlide.answeredCorrectly
-    linkParams =
-      library_id: @props.params.library_id
-      module_id: @props.params.module_id
 
     if @state.nextSlide?.slug
       nextLink = <SlideLink
@@ -55,17 +52,15 @@ TrainingSlideHandler = React.createClass(
                    disabled={disableNext}
                    slideTitle='Next Page'
                    button=true
-                   linkParams={linkParams}
                    onClick={@setSlideCompleted}
-                 />
+                   params={@props.params} />
 
     if @state.previousSlide?.slug
       previousLink = <SlideLink
                        slideId={@state.previousSlide.slug}
                        direction='Previous'
                        slideTitle={@state.previousSlide.title}
-                       linkParams={linkParams}
-                      />
+                       params={@props.params} />
 
     raw_html = md.render(@state.currentSlide.content)
     menuClass = if @state.menuIsOpen is false then 'hidden' else 'shown'
