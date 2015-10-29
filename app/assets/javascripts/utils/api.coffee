@@ -268,6 +268,7 @@ API =
         console.log 'Couldn\'t save gradeables!'
         rej obj
   saveCourse: (data, course_id=null) ->
+    console.log "API: saveCourse"
     append = if course_id? then '/' + course_id else ''
     # append += '.json'
     type = if course_id? then 'PUT' else 'POST'

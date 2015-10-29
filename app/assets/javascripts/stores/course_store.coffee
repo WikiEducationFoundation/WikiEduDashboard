@@ -63,7 +63,7 @@ CourseStore = Flux.createStore
   data = payload.data
   clearError()
   switch(payload.actionType)
-    when 'RECEIVE_COURSE', 'CREATED_COURSE', 'COHORT_MODIFIED', 'SAVED_COURSE', 'CHECK_COURSE'
+    when 'RECEIVE_COURSE', 'CREATED_COURSE', 'COHORT_MODIFIED', 'SAVED_COURSE', 'CHECK_COURSE', 'PERSISTED_COURSE'
       setCourse data.course, true
       break
     when 'UPDATE_CLONE', 'RECEIVE_COURSE_CLONE'
@@ -73,13 +73,6 @@ CourseStore = Flux.createStore
       setCourse data.course
       if data.save
         ServerActions.saveCourse($.extend(true, {}, { course: _course }), data.course.slug)
-      break
-    when 'COURSE_API_FAIL'
-      if data.responseJSON.error
-        error = data.responseJSON.error
-      else
-        error = data.statusText
-      setError(error)
       break
     when 'ADD_COURSE'
       addCourse()

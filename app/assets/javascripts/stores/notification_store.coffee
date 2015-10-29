@@ -30,7 +30,7 @@ NotificationStore = Flux.createStore
     when 'API_FAIL'
       notification = {}
       notification.type = "error"
-      if data.responseJSON.error
+      if data.responseJSON and data.responseJSON.error
         notification.message = data.responseJSON.error
       else
         notification.message = data.statusText

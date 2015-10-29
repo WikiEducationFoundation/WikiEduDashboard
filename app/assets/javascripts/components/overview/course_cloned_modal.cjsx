@@ -6,7 +6,6 @@ ValidationStore    = require '../../stores/validation_store'
 ValidationActions  = require '../../actions/validation_actions'
 
 CourseActions = require '../../actions/course_actions'
-ServerActions = require '../../actions/server_actions'
 
 TextInput     = require '../common/text_input'
 TextAreaInput = require '../common/text_area_input'
@@ -36,9 +35,11 @@ CourseClonedModal = React.createClass(
   saveCourse: ->
     @updateCourse('cloned_status', @cloneCompletedStatus)
     if ValidationStore.isValid()
-      @setState isSubmitting: true
       ValidationActions.setInvalid 'exists', 'This course is being checked for uniqueness', true
-      ServerActions.checkCourse('exists', CourseUtils.generateTempId(@props.course))
+      setTimeout =>
+        CourseActions.checkIfCourseExists('exists', CourseUtils.generateTempId(@props.course))
+        @setState isSubmitting: true
+      , 0
   isNewCourse: (course) ->
     # it's "new" if it was updated fewer than 10 seconds ago.
     updated = new Date(course.updated_at)
@@ -47,11 +48,11 @@ CourseClonedModal = React.createClass(
     return unless @state.isSubmitting
     if @isNewCourse(@props.course)
       return window.location = "/courses/#{@props.course.slug}"
-    if ValidationStore.isValid()
-      ServerActions.updateClone($.extend(true, {}, { course: @props.course }), @props.course.slug)
+    else if ValidationStore.isValid()
+      CourseActions.persistCourse($.extend(true, {}, { course: @props.course }), @props.course.slug)
     else if !ValidationStore.getValidation('exists').valid
-      @setState isSubmitting: false, attemptedToSaveExistingCourse: true
-      window.scrollTop()
+      @setState isSubmitting: false
+      $("html, body").animate({ scrollTop: 0 })
   saveEnabled: ->
     if @props.course.weekdays?.indexOf(1) >= 0 && (@props.course.day_exceptions?.length > 0 || @props.course.no_day_exceptions)
       true
