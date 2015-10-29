@@ -17,7 +17,7 @@ getState = ->
 
 CourseClonedModal = React.createClass(
   displayName: 'CourseClonedModal'
-  mixins: [CourseStore.mixin, ValidationStore.mixin]
+  mixins: [ValidationStore.mixin]
   storeDidChange: ->
     @setState getState()
     @state.tempCourseId = CourseUtils.generateTempId(@props.course)
