@@ -16,10 +16,12 @@ class TrainingController < ApplicationController
   end
 
   def slide_view
-    @tmu = TrainingModulesUsers.find_or_create_by(
-      user_id: current_user.id,
-      training_module_id: TrainingModule.find_by(slug: params[:module_id]).id
-    )
+    if current_user
+      @tmu = TrainingModulesUsers.find_or_create_by(
+        user_id: current_user.id,
+        training_module_id: TrainingModule.find_by(slug: params[:module_id]).id
+      )
+    end
     add_breadcrumb params[:module_id].titleize, :training_module_path
   end
 
