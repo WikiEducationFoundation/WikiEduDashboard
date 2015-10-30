@@ -27,6 +27,22 @@ CourseActions = Flux.createActions
     { actionType: 'RECEIVE_COURSE', data: {
       course: course
     }}
+  updateClonedCourse: (data, course_id, temp_id) ->
+    # Ensure course name is unique
+    API.fetch(temp_id, 'check')
+      .then (response) ->
+        # Invalidate if course name taken
+        if response.course_exists 
+          message = 'This course already exists. Consider changing the name, school, or term to make it unique.' 
+          { actionType: 'CHECK_SERVER', data: {
+            key: 'exists'
+            message: message
+          }}
+        else
+          # Course name is all good... save it
+          CourseActions.persistCourse(data, course_id)        
+      .catch (data) ->
+        { actionType: 'API_FAIL', data: data }
   checkIfCourseExists: (key, course_id) ->
     API.fetch(course_id, 'check').then (data) ->
       message = if data.course_exists then 'This course already exists. Consider changing the name, school, or term to make it unique.' else null
