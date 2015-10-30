@@ -18,6 +18,13 @@ setCourse = (data, persisted=false, quiet=false) ->
   _persisted = $.extend(true, {}, _course) if persisted
   CourseStore.emitChange() unless quiet
 
+setError = (error) ->
+  _course.error = error
+  CourseStore.emitChange()
+
+clearError = ->
+  _course.error = undefined
+
 updateCourseValue = (key, value) ->
   _course[key] = value
   CourseStore.emitChange()
@@ -54,8 +61,9 @@ CourseStore = Flux.createStore
     _loaded
 , (payload) ->
   data = payload.data
+  clearError()
   switch(payload.actionType)
-    when 'RECEIVE_COURSE', 'CREATED_COURSE', 'COHORT_MODIFIED', 'SAVED_COURSE', 'CHECK_COURSE'
+    when 'RECEIVE_COURSE', 'CREATED_COURSE', 'COHORT_MODIFIED', 'SAVED_COURSE', 'CHECK_COURSE', 'PERSISTED_COURSE'
       setCourse data.course, true
       break
     when 'UPDATE_CLONE', 'RECEIVE_COURSE_CLONE'

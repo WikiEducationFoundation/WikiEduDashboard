@@ -9,6 +9,7 @@ Editable        = require '../high_order/editable'
 Meetings        = require './meetings'
 
 ServerActions   = require '../../actions/server_actions'
+TimelineActions   = require '../../actions/timeline_actions'
 
 CourseStore     = require '../../stores/course_store'
 WeekStore       = require '../../stores/week_store'
@@ -85,4 +86,4 @@ TimelineHandler = React.createClass(
     </div>
 )
 
-module.exports = Editable(TimelineHandler, [CourseStore, WeekStore, BlockStore, GradeableStore], ServerActions.saveTimeline, getState)
+module.exports = Editable(TimelineHandler, [CourseStore, WeekStore, BlockStore, GradeableStore], TimelineActions.persistTimeline, getState)

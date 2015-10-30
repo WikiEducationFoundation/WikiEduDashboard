@@ -34,4 +34,4 @@ Description = React.createClass(
     </div>
 )
 
-module.exports = Editable(Description, [CourseStore], ServerActions.saveCourse, getState, "Edit Description")
+module.exports = Editable(Description, [CourseStore], CourseActions.persistCourse, getState, "Edit Description")

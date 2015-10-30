@@ -154,7 +154,6 @@ class Cleaners
       title_search_result = first_article_search_result(possibly_bad_title)
       next if possibly_bad_title == title_search_result
       next unless title_search_result.downcase == possibly_bad_title.downcase.tr(' ', '_')
-      pp "Updating assignment title '#{possibly_bad_title}' to '#{title_search_result}'"
       assignment.article_title = title_search_result
       assignment.save
     end

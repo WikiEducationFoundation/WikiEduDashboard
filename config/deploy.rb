@@ -64,4 +64,5 @@ namespace :deploy do
 
   before :deploy, 'deploy:local_gulp_build' unless ENV['skip_gulp']
   before 'deploy:restart', 'deploy:upload_compiled_assets'
+
 end

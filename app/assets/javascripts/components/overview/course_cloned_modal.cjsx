@@ -6,7 +6,6 @@ ValidationStore    = require '../../stores/validation_store'
 ValidationActions  = require '../../actions/validation_actions'
 
 CourseActions = require '../../actions/course_actions'
-ServerActions = require '../../actions/server_actions'
 
 TextInput     = require '../common/text_input'
 TextAreaInput = require '../common/text_area_input'
@@ -18,13 +17,17 @@ getState = ->
 
 CourseClonedModal = React.createClass(
   displayName: 'CourseClonedModal'
-  mixins: [CourseStore.mixin, ValidationStore.mixin]
+  mixins: [ValidationStore.mixin, CourseStore.mixin]
+  cloneCompletedStatus: 2
+
   storeDidChange: ->
     @setState getState()
     @state.tempCourseId = CourseUtils.generateTempId(@props.course)
     @handleCourse()
+  
   getInitialState: ->
     getState()
+  
   updateCourse: (value_key, value) ->
     to_pass = $.extend(true, {}, @props.course)
     to_pass[value_key] = value
@@ -32,41 +35,48 @@ CourseClonedModal = React.createClass(
     if value_key in ['title', 'school', 'term']
       ValidationActions.setValid 'exists'
     @setState valuesUpdated: true
-  cloneCompletedStatus: 2
+  
   saveCourse: ->
     @updateCourse('cloned_status', @cloneCompletedStatus)
     if ValidationStore.isValid()
-      @setState isSubmitting: true
       ValidationActions.setInvalid 'exists', 'This course is being checked for uniqueness', true
-      ServerActions.checkCourse('exists', CourseUtils.generateTempId(@props.course))
+      setTimeout =>
+        CourseActions.updateClonedCourse($.extend(true, {}, { course: @props.course }), @props.course.slug, CourseUtils.generateTempId(@props.course))
+        @setState isPersisting: true
+      , 0
+
   isNewCourse: (course) ->
     # it's "new" if it was updated fewer than 10 seconds ago.
     updated = new Date(course.updated_at)
     ((Date.now() - updated) / 1000) < 10
+
   handleCourse: ->
-    return unless @state.isSubmitting
+    return unless @state.isPersisting
     if @isNewCourse(@props.course)
       return window.location = "/courses/#{@props.course.slug}"
-    if ValidationStore.isValid()
-      ServerActions.updateClone($.extend(true, {}, { course: @props.course }), @props.course.slug)
     else if !ValidationStore.getValidation('exists').valid
-      @setState isSubmitting: false, attemptedToSaveExistingCourse: true
-      window.scrollTop()
+      $("html, body").animate({ scrollTop: 0 })
+      @setState isPersisting: false
+
   saveEnabled: ->
     if @props.course.weekdays?.indexOf(1) >= 0 && (@props.course.day_exceptions?.length > 0 || @props.course.no_day_exceptions)
       true
     else
       false
+
   setAnyDatesSelected: (bool) ->
     @setState anyDatesSelected: bool
+
   setBlackoutDatesSelected: (bool) ->
     @setState blackoutDatesSelected: bool
+
   setNoBlackoutDatesChecked: ->
     checked = React.findDOMNode(@refs.noDates).checked
     @updateCourse 'no_day_exceptions', checked
+
   render: ->
     buttonClass = 'button dark'
-    buttonClass += if @state.isSubmitting then ' working' else ''
+    buttonClass += if @state.isPersisting then ' working' else ''
     slug = @props.course.slug
     [school, title] = slug.split('/')
 
