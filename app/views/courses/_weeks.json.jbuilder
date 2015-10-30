@@ -10,9 +10,9 @@ json.weeks course.weeks.eager_load(blocks: [:gradeable]) do |week|
     end
     if block.training_modules.any?
       json.training_modules block.training_modules do |tm|
-        json.call(tm, :slug, :id, :name, :intro)
-        progress_manager = TrainingProgressManager.new(current_user, @training_module, slide)
-        json.completed progress_manager.module_completed?
+        progress_manager = TrainingProgressManager.new(current_user, tm)
+        json.call(tm, :slug, :id, :name)
+        json.module_progress progress_manager.module_progress
       end
     end
   end
