@@ -84,7 +84,7 @@ class TimelineController < ApplicationController
     gradeable['gradeable_item_type'] = 'block'
     gradeable['points'] = gradeable['points'] || DEFAULT_BLOCK_POINTS
     @gradeable = update_util Gradeable, gradeable
-    gradeable_id = Gradeable.exists?(@gradeable) ? @gradeable.id : nil
+    gradeable_id = Gradeable.exists?(@gradeable.id) ? @gradeable.id : nil
     @block.update(gradeable_id: gradeable_id)
   end
 end
