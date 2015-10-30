@@ -41,7 +41,7 @@ FactoryGirl.define do
     listed true
     school 'WINTR'
     term 'spring 2015'
-    slug 'slug/titleterm'
+    slug 'WINTR/Underwater_basket-weaving_(spring_2015)'
     passcode 'pizza'
   end
 end

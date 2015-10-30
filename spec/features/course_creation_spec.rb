@@ -453,7 +453,6 @@ describe 'cloning a course', js: true do
     click_button 'Reuse Existing Course'
     select course.title, from: 'reuse-existing-course-select'
     click_button 'Clone This Course'
-    sleep 1
 
     expect(page).to have_content 'Course Successfully Cloned'
 
