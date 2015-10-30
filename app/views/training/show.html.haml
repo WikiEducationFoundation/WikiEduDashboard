@@ -1,0 +1,23 @@
+.training__section-overview.container
+  %section.training__header
+    %h1
+      Wikipedia #{@library.slug.humanize.titleize.singularize} Training
+    %p
+      = @library.introduction
+  %ul.training__categories
+    - @library.categories.each do |lib_category|
+      %li
+        .training__category__header
+          %h1.h3.capitalize= lib_category.title
+          %p= lib_category.description
+        %ul.training__categories__modules
+          - lib_category.modules.each do |lib_module|
+            - pm = TrainingProgressManager.new(current_user, lib_module)
+            %li
+              = link_to training_module_path(@library.slug, lib_module.slug), class: 'action-card' do
+                %header.action-card-header
+                  %h3.action-card-title
+                    = lib_module.name
+                    %span.pull-right= pm.module_progress
+                  %span.action-card-icon.arrow-icon
+                %p.action-card-text= lib_module.description
