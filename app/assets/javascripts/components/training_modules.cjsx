@@ -9,6 +9,9 @@ TrainingModules = React.createClass(
   onChange: (value, values) ->
     @setState value: values
     @props.onChange(value, values)
+  progressClass: (progress) ->
+    linkStart = 'timeline-module__'
+    if progress is 'Complete' then "#{linkStart}progress-complete" else "#{linkStart}in-progress"
   render: ->
     if @props.editable
       options = _.compact(@props.all_modules).map (module) -> (
@@ -28,12 +31,27 @@ TrainingModules = React.createClass(
         </div>
       )
     else
-      modules = @props.block_modules.map (module) ->
+      modules = @props.block_modules.map (module) =>
         link = "/training/students/#{module.slug}"
+        iconClassName = 'icon '
+        if module.module_progress
+          progressClass = @progressClass(module.module_progress)
+          linkText = if module.module_progress is 'Complete' then 'View' else 'Continue'
+          iconClassName += if module.module_progress is 'Complete' then 'icon-check' else 'icon-rt_arrow'
+        else
+          linkText = 'Start'
+          iconClassName += 'icon-arrow'
+
         (
           <tr className="training-module">
             <td>{module.name}</td>
-            <td className="training-module__link"><a href={link}>View</a></td>
+            <td className={progressClass}>{module.module_progress}</td>
+            <td className="training-module__link">
+              <a className={module.module_progress} href={link}>
+                {linkText}
+                <i className={iconClassName}></i>
+              </a>
+            </td>
           </tr>
         )
       content = (

@@ -69,7 +69,7 @@ TimelineHandler = React.createClass(
         day = moment().weekday(i)
         weekdays.push(moment.localeData().weekdaysShort(day))
       meetings.every(weekdays).daysOfWeek()
-      @props.course.day_exceptions.split(',').forEach (e) ->
+      @props.course.day_exceptions?.split(',').forEach (e) ->
         meetings.except(moment(e, 'YYYYMMDD')) if e.length > 0
 
     <div>

@@ -91,6 +91,13 @@ describe TrainingProgressManager do
   end
 
   describe '#module_completed?' do
+    context 'user is nil' do
+      let(:user) { nil }
+      it 'returns nil' do
+        expect(subject.module_completed?).to be_nil
+      end
+    end
+
     context 'completed_at is nil for tmu' do
       it 'returns false' do
         expect(subject.module_completed?).to eq(false)
@@ -116,18 +123,15 @@ describe TrainingProgressManager do
     context 'completed' do
       let(:completed_at) { Time.now }
       it 'returns "completed"' do
-        expect(subject.module_progress).to eq('Completed')
+        expect(subject.module_progress).to eq('Complete')
       end
     end
 
     context 'not started' do
       let(:completed_at) { nil }
-      context '0 of 35' do
-        # module has 35 slides
-        let(:last_slide_completed) { nil }
-        it 'returns empty string' do
-          expect(subject.module_progress).to eq('')
-        end
+      let(:last_slide_completed) { nil }
+      it 'returns nil' do
+        expect(subject.module_progress).to be_nil
       end
     end
 
@@ -138,7 +142,7 @@ describe TrainingProgressManager do
           # module has 35 slides
           let(:last_slide_completed) { t_module.slides[11].slug }
           it 'returns 34%' do
-            expect(subject.module_progress).to eq('34%')
+            expect(subject.module_progress).to eq('34% Complete')
           end
         end
       end
@@ -149,7 +153,7 @@ describe TrainingProgressManager do
           # module has 35 slides
           let(:last_slide_completed) { t_module.slides[22].slug }
           it 'returns 66%' do
-            expect(subject.module_progress).to eq('66%')
+            expect(subject.module_progress).to eq('66% Complete')
           end
         end
       end
