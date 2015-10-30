@@ -27,6 +27,6 @@ class TrainingLibrary < FromYaml
   def categories
     raw_categories.to_hashugar
   end
-  
+
 
 end
