@@ -4,24 +4,34 @@
   text-decoration none
   &:hover
     header
-      background $training_primary
+      background $training_primary_dk
     .action-card-icon
-      background-position 85% 50%
+      left 8px
     p
       box-shadow 0px 1px 6px rgba(0, 0, 0, 0.25)
-.action-card-icon
+
+.icon-container
+  background $training_primary_dk
   float right
   padding 10px
   width 45px
   height 45px
-  background $training_primary_dk url('../images/rt_arrow_icon.svg') 50% center no-repeat
-  transition background-position 0.125s
+.action-card-icon
+  transition left 0.125s
+  color #fff
+  position relative
+  left 3px
+  &:before
+    right 0
+    position relative
+    top 1px
 .action-card-header
   padding 0
   height 45px
   text-align left
   background $training_primary
   transition background 0.075s
+  position relative
 .action-card-title
   color $btn_text_color
   font-weight 400
