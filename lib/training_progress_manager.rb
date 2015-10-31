@@ -33,7 +33,7 @@ class TrainingProgressManager
   end
 
   def module_progress
-    return unless @user && @tmu.last_slide_completed.present?
+    return unless @user && @tmu.last_slide_completed.present? && @training_module.slides
     quotient = (slug_index(@tmu.last_slide_completed) + 1) / @training_module.slides.length.to_f
     percentage = (quotient * 100).round
     module_completed? ? 'Complete' : "#{percentage}% Complete"
@@ -42,6 +42,7 @@ class TrainingProgressManager
   private
 
   def slug_index(entity)
+    # it's either a slide or a slug
     slug = entity.respond_to?(:slug) ? entity.slug : entity
     @training_module.slides.collect(&:slug).index(slug)
   end
