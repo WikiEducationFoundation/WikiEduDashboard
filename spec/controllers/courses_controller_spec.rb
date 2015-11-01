@@ -139,7 +139,7 @@ describe CoursesController do
 
     it 'raises if course is not found' do
       expect { put :update, id: 'peanut-butter', course: course_params, format: :json }
-        .to raise_error
+        .to raise_error(ActionController::RoutingError)
     end
 
     it 'returns the new course as json' do
