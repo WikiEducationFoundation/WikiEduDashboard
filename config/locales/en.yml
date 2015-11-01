@@ -122,7 +122,6 @@ en:
       school). Click the date to change between unselected, selected, and
       holiday state. The dates of course activities will change to account for
       weeks that have no scheduled meetings.
-
   course_creator:
     create_new: Create a New Course
     intro: >
@@ -135,7 +134,6 @@ en:
       holiday state. If you have no holidays, check "I have no class holidays".
       The cloned timeline will automatically adjust the dates to account for
       weeks that have no scheduled meetings.
-
   metrics:
     activity: Recent Activity
     articles_created: Articles Created
@@ -245,7 +243,6 @@ en:
       assignments. Click the date to change between unselected, selected, and
       holiday state. If you have no holidays, check "I have no class holidays"
       below.
-
   error:
     oauth_invalid: Your Wikipedia authorization has expired. Please log in again.
     unsupported_browser:
@@ -254,14 +251,12 @@ en:
         You are using a browser that isn't compatible with the dashboard. This
         site works well on Internet Explorer version 11 or later, on recent
         versions of Chrome and Firefox, and on other modern browsers.
-
   error_401:
     header: "Unauthorized. >:-("
     explanation: >
       You are not authorized to execute this request. If you believe you have
       reached this notice in error, please contact the maintainers of this
       dashboard to let them know about the problem.
-
   error_404:
     header: "Page not found. :-("
     explanation: >
@@ -269,19 +264,16 @@ en:
       for a course, that course may not be registered for this dashboard.
       If it was recently registered, it may take a little while for the
       system to add it.
-
   error_422:
     header: "422 — unprocessable entity.  :-("
     explanation: >
       Something went wrong. Please contact the maintainers of this dashboard
       to let them know about the problem.
-
   error_500:
     header: "500 — internal server error.  :-("
     explanation: >
       Something went wrong. Please contact the maintainers of this dashboard
       to let them know about the problem.
-
   # This is a maintenance script message.
   timeout: "A request to the %{api} API has timed out and will retried %{tries} times."
 
@@ -289,3 +281,14 @@ en:
     title: Timeline
     due_default: Due next week
     block_type: The block type is used to communicate to your students about this item on their timeline and to build useful tools for you (such as the milestone outline on the Overview page)
+  
+  
+  didyouknowhandler:
+     article_title: "Article Title"     
+     revision_score: "Revision Score"  
+     revision_author: "Revision Author"   
+     revision_date_time: "Revision Date/Time"
+     noActivityMessage: "There are not currently any DYK-eligible articles." 
+     explanation: >
+          No activity detected
+          

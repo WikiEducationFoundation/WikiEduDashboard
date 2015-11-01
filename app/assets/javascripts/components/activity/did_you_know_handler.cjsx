@@ -25,13 +25,13 @@ DidYouKnowHandler = React.createClass(
 
   render: ->
     headers = [
-      { title: 'Article Title',      key: 'title' },
-      { title: 'Revision Score',     key: 'revision_score' },
-      { title: 'Revision Author',    key: 'user_wiki_id' },
-      { title: 'Revision Date/Time', key: 'revision_datetime' },
+      { title: I18n.t('didyouknowhandler.article_title'),      key: 'title' },
+      { title: I18n.t('didyouknowhandler.revision_score'),     key: 'revision_score' },
+      { title: I18n.t('didyouknowhandler.revision_author'),    key: 'user_wiki_id' },
+      { title: I18n.t('didyouknowhandler.revision_date_time'), key: 'revision_datetime' },
     ]
 
-    noActivityMessage = 'There are not currently any DYK-eligible articles.'
+    noActivityMessage = I18n.t('didyouknowhandler.noActivityMessage')
 
     <div>
       <label>

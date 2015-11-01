@@ -169,5 +169,10 @@ qqq:
     header: Message indicating a 500 internal server error.
     explanation: Explanation of what to do after encountering this error.
   timeline:
-    title: '{{Identical|Timeline}}'
-...
+    title: '{{Identical|Timeline}}' 
+  didyouknowhandler:
+    article_title: Article's title     
+    revision_score: Article's revision score  
+    revision_author: Revision's author   
+    revision_date_time: Date of revision
+    noActivityMessage: Message incating no Activity.
