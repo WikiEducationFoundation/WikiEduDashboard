@@ -7,12 +7,12 @@
 qqq:
   application:
     dashboard: Application name.
-	help: Help
-	home: The main page
-	log_out: Log out (for registered users)
-	login_sign_up: Login (for registered users) or sign up
-	recent_activity: Last actions (for registered users)
-	search: Search on ask.wikiedu.org
+    help: Help
+    home: The main page
+    log_out: Log out (for registered users)
+    login_sign_up: Login (for registered users) or sign up
+    recent_activity: Last actions (for registered users)
+    search: Search on ask.wikiedu.org
   
   activity:
     all: '{{Identical|Activity}}'
@@ -102,6 +102,17 @@ qqq:
         term already exists.
   
   course_creator:
+    create_new: Create a New Course
+    course_title: New course title
+    course_school: New course school
+    сourse_term: New course term
+    course_subject: New course subject
+    course_description: New course description
+    expected_number: Expected number of students
+    instructor_name: Instructor name
+    instructor_email: Instructor email
+    start_date: Start date of the course
+    end_date: End date of the course
     intro: Description of the course creator form
   
   metrics:
@@ -118,23 +129,23 @@ qqq:
     student_editors: Label for number of editors participating as students in a course
     view: Label for the number of article views.
     view_count_description: Long label for the number of article views.
-  
+
   namespace:
     main: Long label for the Main namespace.
     main_char_added: Label for number of characters added to the Main namespace.
     user: Long label for the User namespace.
     user_char_added: Label for number of characters added to the User namespace.
-    user_ns: Wiki title for the User namespace.
-	
-revisions:
-	date_time: Date/Time
-	chars_added: Number of added chars
-	class: Class
-	edited_by: Author of the last edition
+    user_ns: Wiki title for the user namespace.
+
+  revisions:
+    date_time: Date/Time
+    chars_added: Number of added chars
+    class: Class
+    edited_by: Author of the last edition
     loading: Loading revisions
     none: This course has no recent Wikipedia editing activity.
     time_doc: The time of each revision in your local time
-	title: Title
+    title: Title
   
   users:
     already_enrolled: Message indicating that a user is already enrolled in the course
