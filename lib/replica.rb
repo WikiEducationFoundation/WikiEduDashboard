@@ -100,6 +100,7 @@ class Replica
   end
 
   def self.get_user_id(username, language=nil)
+    username = CGI.escape(username)
     api_get('user_id.php', "user_name='#{username}'", language)['user_id']
   end
 
@@ -183,7 +184,7 @@ class Replica
       language ||= ENV['wiki_language']
       base_url = 'http://tools.wmflabs.org/wikiedudashboard/'
       raw_url = "#{base_url}#{endpoint}?lang=#{language}&#{query}"
-      URI.encode(raw_url)
+      raw_url
     end
 
     # Compile a user list to send to the replica endpoint, which might look
@@ -193,7 +194,9 @@ class Replica
       user_list = ''
       users.each_with_index do |user, i|
         user_list += '&' if i > 0
-        user_list += "user_ids[#{i}]='#{user.send(prop)}'"
+        user_prop = user.send(prop)
+        user_prop = CGI.escape(user_prop) if prop == 'wiki_id'
+        user_list += "user_ids[#{i}]='#{user_prop}'"
       end
       user_list
     end

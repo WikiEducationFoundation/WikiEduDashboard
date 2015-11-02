@@ -76,14 +76,33 @@ describe Replica do
       end
     end
 
-    it 'should work for users with a comma in the name' do
+    it 'should work for users with a reserved url characters in the name' do
       VCR.use_cassette 'replica/comma' do
-        user = build(:user,
-                     id: 17137867,
-                     wiki_id: 'JRicker,PhD')
+        comma_user = build(:user,
+                           id: 17137867,
+                           wiki_id: 'JRicker,PhD')
         rev_start = 2015_01_01
         rev_end = 2016_01_01
-        response = Replica.get_revisions([user], rev_start, rev_end)
+        response = Replica.get_revisions([comma_user], rev_start, rev_end)
+        expect(response.count).to be > 1
+
+        ampersand_user = build(:user,
+                               id: 22403865,
+                               wiki_id: 'Evol&Glass')
+        response = Replica.get_revisions([ampersand_user], rev_start, rev_end)
+        expect(response.count).to be > 1
+
+        # apostrophe_user = build(:user,
+        #                         wiki_id: "Jack's nomadic mind")
+        # response = Replica.get_revisions([apostrophe_user], rev_start, rev_end)
+        # expect(response.count).to be > 1
+
+        rev_start = 2008_01_01
+        rev_end = 2010_01_01
+        exclamation_user = build(:user,
+                                 id: 11274650,
+                                 wiki_id: '!!Aaapplesauce')
+        response = Replica.get_revisions([exclamation_user], rev_start, rev_end)
         expect(response.count).to be > 1
       end
     end
