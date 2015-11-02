@@ -22,5 +22,6 @@
                   %span.icon-container
                     %i.action-card-icon.icon.icon-rt_arrow
                 %p.action-card-text
-                  %small.block-element.capitalize= pm.assignment_status
+                  %small.block-element.capitalize{ class: pm.assignment_status_css_class }
+                    = pm.assignment_status
                   %span= lib_module.description
