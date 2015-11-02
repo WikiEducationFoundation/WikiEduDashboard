@@ -162,7 +162,6 @@ class Replica
     def api_get(endpoint, query='', language=nil)
       tries ||= 3
       url = compile_query_url(endpoint, query, language)
-      pp url
       response = Net::HTTP::get(URI.parse(url))
       return unless response.length > 0
       parsed = JSON.parse response.to_s

@@ -148,13 +148,16 @@ describe Replica do
         article_titles = [
           { 'title' => 'Autism' }, # exists in namespace 0, 1
           { 'title' => 'Allegiance' }, # exists in namespace 0, 1
+          # Test with URI reserved characters
+          { 'title' => "Broussard's" }, # exists in namespace 0, 1
+          { 'title' => 'Procter & Gamble' }, # exists in namespace 0, 1, 10, 11
           # Test with special characters
           { 'title' => 'Paul Cézanne' }, # exists in namespace 0, 1, 10, 11
           { 'title' => 'Mmilldev/sandbox' }, # exists in namespace 2
           { 'title' => 'THIS ARTICLE_DOES NOT_EXIST' }
         ]
         response = Replica.get_existing_articles_by_title(article_titles)
-        expect(response.size).to eq(9)
+        expect(response.size).to eq(15)
       end
     end
 
