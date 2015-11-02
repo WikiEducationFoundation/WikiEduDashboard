@@ -21,4 +21,6 @@
                     %span.pull-right= pm.module_progress
                   %span.icon-container
                     %i.action-card-icon.icon.icon-rt_arrow
-                %p.action-card-text= lib_module.description
+                %p.action-card-text
+                  %small.block-element.capitalize= pm.assignment_status
+                  %span= lib_module.description
