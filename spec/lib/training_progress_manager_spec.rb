@@ -112,6 +112,50 @@ describe TrainingProgressManager do
     end
   end
 
+  describe '#assignment_status_css_class' do
+    let(:course)   { create(:course) }
+    let(:user_id)  { user.id }
+    let!(:cu)      { create(:courses_user, user_id: user_id, course_id: course.id) }
+    let(:week)     { create(:week, course_id: course.id) }
+    let(:ids)      { [t_module.id] }
+    let(:due_date) { 1.week.from_now.to_date }
+    let!(:block) do
+      create(:block, week_id: week.id, training_module_ids: ids, due_date: due_date)
+    end
+
+    context 'user is present, has courses, courses have this module assigned' do
+      context 'date is passed, module is complete' do
+        let(:due_date)     { 1.day.ago }
+        let(:completed_at) { 2.days.ago }
+        it 'is nil' do
+          expect(subject.assignment_status_css_class).to eq('completed')
+        end
+      end
+
+      context 'block has due date' do
+        context 'due date is upcoming' do
+          it 'is nil' do
+            expect(subject.assignment_status_css_class).to be_nil
+          end
+        end
+
+        context 'due date is in past' do
+          let(:due_date) { 1.week.ago.to_date }
+          it 'returns "overdue"' do
+            expect(subject.assignment_status_css_class).to eq('overdue')
+          end
+        end
+      end
+
+      context 'block has no due date' do
+        let(:due_date) { nil }
+        it 'is nil' do
+          expect(subject.assignment_status_css_class).to be_nil
+        end
+      end
+    end
+  end
+
   describe '#assignment_status' do
     let(:course)   { create(:course) }
     let(:user_id)  { user.id }
@@ -125,10 +169,22 @@ describe TrainingProgressManager do
 
     context 'user is present, has courses, courses have this module assigned' do
       context 'block has due date' do
-        it "displays training assignment text" do
-          expect(subject.assignment_status).to eq(
-           "Training Assignment (due " + 1.week.from_now.to_date.strftime("%m/%d/%Y") + ")"
-          )
+        context 'module completed' do
+          let(:due_date)     { 1.day.ago }
+          let(:completed_at) { 2.days.ago }
+          it 'displays "completed"' do
+            expect(subject.assignment_status).to eq(
+              "Training Assignment (completed)"
+            )
+          end
+        end
+
+        context 'module not completed' do
+          it "displays training assignment text" do
+            expect(subject.assignment_status).to eq(
+             "Training Assignment (due " + 1.week.from_now.to_date.strftime("%m/%d/%Y") + ")"
+            )
+          end
         end
       end
 

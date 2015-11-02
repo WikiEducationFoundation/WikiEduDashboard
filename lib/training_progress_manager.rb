@@ -28,11 +28,19 @@ class TrainingProgressManager
     @tmu.completed_at.present?
   end
 
+  def assignment_status_css_class
+    return 'completed' if module_completed?
+    earliest_due_date.present? && earliest_due_date < Date.today ? 'overdue' : nil
+  end
+
   def assignment_status
-    blocks = blocks_with_module_assigned(@training_module)
-    return unless blocks.any?
-    due_date = block_with_earliest_due_date(blocks).due_date
-    "Training Assignment (#{due_date.present? ? "due #{due_date.strftime("%m/%d/%Y")}" : "no due date"})"
+    return unless blocks_with_module_assigned(@training_module).any?
+    if earliest_due_date.present?
+      parenthetical = "due #{earliest_due_date.strftime("%m/%d/%Y")}"
+    else
+      parenthetical = "no due date"
+    end
+    "Training Assignment (#{module_completed? ? 'completed' : parenthetical})"
   end
 
   def current_slide_further_than_previous?(previous_slug)
@@ -47,6 +55,11 @@ class TrainingProgressManager
   end
 
   private
+
+  def earliest_due_date
+    blocks = blocks_with_module_assigned(@training_module)
+    block_with_earliest_due_date(blocks).due_date
+  end
 
   def block_with_earliest_due_date(blocks)
     return blocks.first if blocks.length == 1
