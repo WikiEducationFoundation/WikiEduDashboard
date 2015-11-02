@@ -14,16 +14,13 @@ describe Replica do
       stub_request(:any, %r{http://tools.wmflabs.org/.*})
         .to_raise(Errno::ETIMEDOUT)
       all_users = [
-        { 'wiki_id' => 'ELE427' },
-        { 'wiki_id' => 'Ragesoss' },
-        { 'wiki_id' => 'Mrbauer1234' }
+        build(:user, wiki_id: 'ELE427', id: 22905965),
+        build(:user, wiki_id: 'Ragesoss', id: 319203),
+        build(:user, wiki_id: 'Mrbauer1234', id: 23011474)
       ]
       rev_start = 2014_01_01_003430
       rev_end = 2014_12_31_003430
 
-      all_users.each_with_index do |u, i|
-        all_users[i] = OpenStruct.new u
-      end
       response = Replica.get_revisions(all_users, rev_start, rev_end)
       expect(response).to be_empty
     end
@@ -32,12 +29,11 @@ describe Replica do
       stub_request(:any, %r{http://tools.wmflabs.org/.*})
         .to_raise(Errno::ECONNREFUSED)
       all_users = [
-        { 'id' => '319203' },
-        { 'id' => '4543197' }
+        build(:user, wiki_id: 'ELE427', id: 22905965),
+        build(:user, wiki_id: 'Ragesoss', id: 319203),
+        build(:user, wiki_id: 'Mrbauer1234', id: 23011474)
       ]
-      all_users.each_with_index do |u, i|
-        all_users[i] = OpenStruct.new u
-      end
+
       response = Replica.get_user_info(all_users)
       expect(response).to be_nil
     end
@@ -45,16 +41,13 @@ describe Replica do
     it 'should return revisions from this term' do
       VCR.use_cassette 'replica/revisions' do
         all_users = [
-          { 'wiki_id' => 'ELE427' },
-          { 'wiki_id' => 'Ragesoss' },
-          { 'wiki_id' => 'Mrbauer1234' }
+          build(:user, wiki_id: 'ELE427', id: 22905965),
+          build(:user, wiki_id: 'Ragesoss', id: 319203),
+          build(:user, wiki_id: 'Mrbauer1234', id: 23011474)
         ]
         rev_start = 2014_01_01_003430
         rev_end = 2014_12_31_003430
 
-        all_users.each_with_index do |u, i|
-          all_users[i] = OpenStruct.new u
-        end
         response = Replica.get_revisions(all_users, rev_start, rev_end)
 
         # This count represents the number of pages in a subset of namespaces
@@ -92,10 +85,11 @@ describe Replica do
         response = Replica.get_revisions([ampersand_user], rev_start, rev_end)
         expect(response.count).to be > 1
 
-        # apostrophe_user = build(:user,
-        #                         wiki_id: "Jack's nomadic mind")
-        # response = Replica.get_revisions([apostrophe_user], rev_start, rev_end)
-        # expect(response.count).to be > 1
+        apostrophe_user = build(:user,
+                                id: 26211578,
+                                wiki_id: "Jack's nomadic mind")
+        response = Replica.get_revisions([apostrophe_user], rev_start, rev_end)
+        expect(response.count).to be > 1
 
         rev_start = 2008_01_01
         rev_end = 2010_01_01
@@ -122,17 +116,6 @@ describe Replica do
         response = Replica.get_user_info(all_users)
         trained = response.reduce(0) { |a, e| a + e['trained'].to_i }
         expect(trained).to eq(3)
-      end
-    end
-
-    it 'should get an id from a username' do
-      VCR.use_cassette 'replica/get_user_id' do
-        # make sure usernames with spaces get handled correctly
-        response = Replica.get_user_id('LiAnna (Wiki Ed)')
-        expect(response).to eq('21102089')
-        # make sure unicode works
-        response = Replica.get_user_id('ערן')
-        expect(response).to eq('7201119')
       end
     end
 
@@ -165,7 +148,7 @@ describe Replica do
         article_titles = [
           { 'title' => 'Autism' }, # exists in namespace 0, 1
           { 'title' => 'Allegiance' }, # exists in namespace 0, 1
-          #  Test with special characters)
+          # Test with special characters
           { 'title' => 'Paul Cézanne' }, # exists in namespace 0, 1, 10, 11
           { 'title' => 'Mmilldev/sandbox' }, # exists in namespace 2
           { 'title' => 'THIS ARTICLE_DOES NOT_EXIST' }
@@ -178,16 +161,14 @@ describe Replica do
     it 'should function identically on non-English wikis' do
       VCR.use_cassette 'replica/es_revisions' do
         all_users = [
-          { 'wiki_id' => 'AndresAlvarezGalina95' },
-          { 'wiki_id' => 'Patyelena25' },
-          { 'wiki_id' => 'Lizmich91' }
+          build(:user, wiki_id: 'AndresAlvarezGalina95', id: 3556537),
+          build(:user, wiki_id: 'Patyelena25', id: 3471984),
+          build(:user, wiki_id: 'Lizmich91', id: 3558536)
         ]
+
         rev_start = 2015_02_12_003430
         rev_end = 2015_03_10_003430
 
-        all_users.each_with_index do |u, i|
-          all_users[i] = OpenStruct.new u
-        end
         response = Replica.get_revisions(all_users, rev_start, rev_end, 'es')
         expect(response.count).to eq(24)
       end

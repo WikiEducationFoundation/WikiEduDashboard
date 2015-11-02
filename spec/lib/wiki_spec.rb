@@ -87,6 +87,12 @@ describe Wiki do
         expect(user_id_enwiki).to eq(319203)
         user_id_eswiki = Wiki.get_user_id(username, 'es')
         expect(user_id_eswiki).to eq(772153)
+        # make sure usernames with spaces get handled correctly
+        user_with_spaces = Wiki.get_user_id('LiAnna (Wiki Ed)')
+        expect(user_with_spaces).to eq(21102089)
+        # make sure unicode works
+        unicode_name = Wiki.get_user_id('ערן')
+        expect(unicode_name).to eq(7201119)
       end
     end
 

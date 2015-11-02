@@ -80,11 +80,11 @@ class Replica
   #   0 ([mainspace])
   #   2 (User:)
   def self.get_revisions_raw(users, rev_start, rev_end, language=nil)
-    user_list = compile_user_string(users, 'wiki_id')
+    user_list = compile_user_ids_string(users)
     oauth_tags = compile_oauth_tags
     oauth_tags = oauth_tags.blank? ? oauth_tags : "&#{oauth_tags}"
     query = user_list + oauth_tags + "&start=#{rev_start}&end=#{rev_end}"
-    api_get('revisions.php', query, language)
+    api_get('revisions_by_user_id.php', query, language)
   end
 
   # Given a list of users, fetch their global_id and trained status. Completion
@@ -92,16 +92,11 @@ class Replica
   # to a specific page on Wikipedia:
   # [[Wikipedia:Training/For students/Training feedback]]
   def self.get_user_info(users, language=nil)
-    query = compile_user_string(users, 'id')
+    query = compile_user_ids_string(users)
     if ENV['training_page_id']
       query = "#{query}&training_page_id=#{ENV['training_page_id']}"
     end
     api_get('users.php', query, language)
-  end
-
-  def self.get_user_id(username, language=nil)
-    username = CGI.escape(username)
-    api_get('user_id.php', "user_name='#{username}'", language)['user_id']
   end
 
   # Given a list of articles, see which ones have not been deleted.
@@ -167,6 +162,7 @@ class Replica
     def api_get(endpoint, query='', language=nil)
       tries ||= 3
       url = compile_query_url(endpoint, query, language)
+      pp url
       response = Net::HTTP::get(URI.parse(url))
       return unless response.length > 0
       parsed = JSON.parse response.to_s
@@ -190,13 +186,12 @@ class Replica
     # Compile a user list to send to the replica endpoint, which might look
     # something like this:
     # "user_ids[0]='Ragesoss'&user_ids[1]='Sage (Wiki Ed)'"
-    def compile_user_string(users, prop)
+    def compile_user_ids_string(users)
       user_list = ''
       users.each_with_index do |user, i|
+        fail unless user.id
         user_list += '&' if i > 0
-        user_prop = user.send(prop)
-        user_prop = CGI.escape(user_prop) if prop == 'wiki_id'
-        user_list += "user_ids[#{i}]='#{user_prop}'"
+        user_list += "user_ids[#{i}]='#{user.id}'"
       end
       user_list
     end
