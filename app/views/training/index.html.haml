@@ -6,10 +6,10 @@
       %li.training-libraries__individual-library.no-left-margin
         %a.action-card{href: "training/#{library.slug}"}
           %header.action-card-header
-            %span.action-card-arrow-icon
-              %img{ src: "http://i.imgsafe.org/bfd7bcf.png", alt: "arrow icon" }
             %h3.action-card-title
               = library.slug.humanize.titleize
+            %span.icon-container
+              %i.action-card-icon.icon.icon-rt_arrow
           .action-card-text
             %h3 Included Modules:
             %ul
