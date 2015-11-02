@@ -55,8 +55,12 @@ TrainingSlideHandler = React.createClass(
     )
   storeDidChange: ->
     @setState getState(@props)
-  toggleMenuOpen: ->
+  toggleMenuOpen: (e) ->
+    e.stopPropagation()
     TrainingActions.toggleMenuOpen(currently: @state.menuIsOpen)
+  closeMenu: (e) ->
+    e.stopPropagation
+    TrainingActions.toggleMenuOpen(currently: true)
   render: ->
     disableNext = @state.currentSlide.assessment? && !@state.currentSlide.answeredCorrectly
 
@@ -108,6 +112,7 @@ TrainingSlideHandler = React.createClass(
           <h3 className="pull-right">Page {@state.currentSlide.index} of {@state.slides.length}</h3>
         </div>
         <SlideMenu
+          closeMenu={@closeMenu}
           onClick={@toggleMenuOpen}
           menuClass={menuClass}
           currentSlide={@state.currentSlide}

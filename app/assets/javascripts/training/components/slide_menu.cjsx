@@ -7,6 +7,10 @@ SlideMenu = React.createClass(
   linkParams: (props) ->
     library_id: props.params.library_id
     module_id: props.params.module_id
+  componentWillMount: ->
+    window.addEventListener 'click', @props.closeMenu, false
+  componentWillUnmount: ->
+    window.removeEventListener 'click', @props.closeMenu, false
   render: ->
     if @props.slides
       # need the slide index because overflow: hidden cuts off li numbering
