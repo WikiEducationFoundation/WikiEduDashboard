@@ -7,6 +7,7 @@ Quiz = React.createClass(
     TrainingActions.setSelectedAnswer(id)
   verifyAnswer: (e) ->
     e.preventDefault()
+    e.stopPropagation()
     @setSelectedAnswer(@state.selectedAnswerId)
   setAnswer: (e) ->
     @setState selectedAnswerId: e.currentTarget.dataset.answerId

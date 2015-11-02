@@ -33,7 +33,7 @@ class TrainingProgressManager
   end
 
   def module_progress
-    return unless @user && @tmu.last_slide_completed.present? && @training_module.slides
+    return unless @user && @tmu && @tmu.last_slide_completed.present? && @training_module.slides
     quotient = (slug_index(@tmu.last_slide_completed) + 1) / @training_module.slides.length.to_f
     percentage = (quotient * 100).round
     module_completed? ? 'Complete' : "#{percentage}% Complete"

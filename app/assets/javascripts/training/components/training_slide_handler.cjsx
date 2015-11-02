@@ -59,8 +59,9 @@ TrainingSlideHandler = React.createClass(
     e.stopPropagation()
     TrainingActions.toggleMenuOpen(currently: @state.menuIsOpen)
   closeMenu: (e) ->
-    e.stopPropagation
-    TrainingActions.toggleMenuOpen(currently: true)
+    if @state.menuIsOpen
+      e.stopPropagation()
+      TrainingActions.toggleMenuOpen(currently: true)
   render: ->
     disableNext = @state.currentSlide.assessment? && !@state.currentSlide.answeredCorrectly
 
