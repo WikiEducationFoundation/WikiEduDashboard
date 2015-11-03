@@ -32,6 +32,7 @@ class TrainingProgressManager
     return 'completed' if module_completed?
     earliest_due_date.present? && earliest_due_date < Date.today ? 'overdue' : nil
   end
+  alias_method :assignment_deadline_status, :assignment_status_css_class
 
   def assignment_status
     return unless blocks_with_module_assigned(@training_module).any?

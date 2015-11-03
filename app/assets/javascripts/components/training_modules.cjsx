@@ -11,7 +11,7 @@ TrainingModules = React.createClass(
     @props.onChange(value, values)
   progressClass: (progress) ->
     linkStart = 'timeline-module__'
-    if progress is 'Complete' then "#{linkStart}progress-complete" else "#{linkStart}in-progress"
+    if progress is 'Complete' then "#{linkStart}progress-complete " else "#{linkStart}in-progress "
   render: ->
     if @props.editable
       options = _.compact(@props.all_modules).map (module) -> (
@@ -40,12 +40,19 @@ TrainingModules = React.createClass(
           iconClassName += if module.module_progress is 'Complete' then 'icon-check' else 'icon-rt_arrow'
         else
           linkText = 'Start'
-          iconClassName += 'icon-arrow'
+          iconClassName += 'icon-rt_arrow'
+
+        progressClass += " #{module.assignment_status_css_class}"
+        if module.assignment_deadline_status?.toString() is 'overdue'
+          deadlineStatus = " (#{module.assignment_deadline_status.capitalize()})"
 
         (
           <tr className="training-module">
             <td>{module.name}</td>
-            <td className={progressClass}>{module.module_progress}</td>
+            <td className={progressClass}>
+              {module.module_progress}
+              {deadlineStatus}
+            </td>
             <td className="training-module__link">
               <a className={module.module_progress} href={link}>
                 {linkText}
@@ -58,6 +65,12 @@ TrainingModules = React.createClass(
         <div>
           <h3>Training</h3>
           <table>
+            <thead>
+              <tr>
+                <td>Module Name</td>
+                <td>Status</td>
+              </tr>
+            </thead>
             <tbody>
               {modules}
             </tbody>
