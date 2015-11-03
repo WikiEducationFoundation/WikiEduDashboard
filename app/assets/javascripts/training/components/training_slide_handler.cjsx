@@ -10,24 +10,14 @@ SlideMenu       = require './slide_menu'
 Quiz            = require './quiz'
 md              = require('markdown-it')({ html: true, linkify: true })
 
-getState = (props) ->
-  slides:        TrainingStore.getSlides()
-  currentSlide:  TrainingStore.getCurrentSlide()
-  previousSlide: TrainingStore.getPreviousSlide(props)
-  nextSlide:     TrainingStore.getNextSlide(props)
-  menuIsOpen:    TrainingStore.getMenuState()
-  enabledSlides: TrainingStore.getEnabledSlides()
+getState = ->
+  return TrainingStore.getState()
 
 TrainingSlideHandler = React.createClass(
   displayName: 'TrainingSlideHandler'
   mixins: [TrainingStore.mixin, Navigation]
   getInitialState: ->
-    slides: []
-    previousSlide: { slug: '' }
-    currentSlide: TrainingStore.getCurrentSlide()
-    nextSlide: { slug: '' }
-    menuIsOpen: false
-    enabledSlides: []
+    loading: true
   moduleId: ->
     @props.params.module_id
   componentDidMount: ->
@@ -55,7 +45,7 @@ TrainingSlideHandler = React.createClass(
       user_id: user_id
     )
   storeDidChange: ->
-    @setState getState(@props)
+    @setState getState()
   toggleMenuOpen: (e) ->
     e.stopPropagation()
     TrainingActions.toggleMenuOpen(currently: @state.menuIsOpen)
@@ -83,6 +73,9 @@ TrainingSlideHandler = React.createClass(
     window.removeEventListener('keyup', @handleKeyPress)
 
   render: ->
+    if @state.loading is true
+      return (<h1>Loading</h1>)
+
     disableNext = @state.currentSlide.assessment? && !@state.currentSlide.answeredCorrectly
 
     if @state.nextSlide?.slug
