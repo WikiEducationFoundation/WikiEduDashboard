@@ -44,10 +44,15 @@ redirectTo = (data) ->
   window.location = "/training/#{data.library_id}/#{data.module_id}"
 
 TrainingStore = Flux.createStore
-  getMenuState: ->
-    return _menuState
-  getSlides: ->
-    return _module.slides
+  getState: ->
+    slides:        _module.slides
+    currentSlide:  _currentSlide
+    previousSlide: @getPreviousSlide()
+    nextSlide:     @getNextSlide()
+    menuIsOpen:    _menuState
+    enabledSlides: _enabledSlides
+    loading: false
+
   getTrainingModule: ->
     return _module
   getAllModules: ->
@@ -56,23 +61,18 @@ TrainingStore = Flux.createStore
     return _currentSlide
   getSelectedAnswer: ->
     currentSlide = @getCurrentSlide
-  getPreviousSlide: (props) ->
-    @getSlideRelativeToCurrent(props, position: 'previous')
-  getNextSlide: (props) ->
-    @getSlideRelativeToCurrent(props, position: 'next')
-  getSlideRelativeToCurrent: (props, opts) ->
-    currentSlide = @getCurrentSlide(props)
-    return if !currentSlide || @desiredSlideIsCurrentSlide(opts, currentSlide, _module.slides)
-    slides = @getSlides()
-    if slides && props?.params
-      slideIndex = _.findIndex(slides, (slide) -> slide.slug == props.params.slide_id)
-      newIndex = if opts.position is 'next' then slideIndex + 1 else slideIndex - 1
-      return slides[newIndex]
+  getPreviousSlide: ->
+    @getSlideRelativeToCurrent(position: 'previous')
+  getNextSlide: ->
+    @getSlideRelativeToCurrent(position: 'next')
+  getSlideRelativeToCurrent: (opts) ->
+    return if !@getCurrentSlide() || @desiredSlideIsCurrentSlide(opts, @getCurrentSlide(), _module.slides)
+    slideIndex = _.findIndex(_module.slides, (slide) => slide.slug == @getCurrentSlide().slug)
+    newIndex = if opts.position is 'next' then slideIndex + 1 else slideIndex - 1
+    return _module.slides[newIndex]
   desiredSlideIsCurrentSlide: (opts, currentSlide, slides) ->
     return unless slides?.length
     (opts.position is 'next' && currentSlide.id == slides.length) || (opts.position is 'previous' && currentSlide.id == 1)
-  getEnabledSlides: ->
-    return _enabledSlides
   restore: ->
     false
 , (payload) ->
