@@ -68,7 +68,6 @@ describe CourseTrainingProgressManager do
           it 'returns an OpenStruct with relevant data' do
             tm = TrainingModule.find(tm_ids.first)
             expect(subject.title).to eq(tm.name)
-            expect(subject.due_date).to eq(block.due_date)
             expect(subject.link).to eq("/library/students/#{tm.slug}")
           end
         end
@@ -93,9 +92,26 @@ describe CourseTrainingProgressManager do
         it 'returns the first module by due date' do
           tm = TrainingModule.find(tm_ids2.first)
           expect(subject.title).to eq(tm.name)
-          expect(subject.due_date).to eq(block2.due_date)
           expect(subject.link).to eq("/library/students/#{tm.slug}")
         end
+      end
+    end
+  end
+
+  describe '#first_overdue_module' do
+    subject { described_class.new(user, course).first_overdue_module }
+    context 'no overdue modules' do
+      it 'returns nil' do
+        expect(subject).to be_nil
+      end
+    end
+
+    context 'overdue modules' do
+      let(:tm_ids)   { [3] }
+      let(:due_date) { 1.week.ago }
+      it 'returns the first module by due date' do
+        tm = TrainingModule.find(tm_ids.first)
+        expect(subject.title).to eq(tm.name)
       end
     end
   end

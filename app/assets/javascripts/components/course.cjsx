@@ -100,6 +100,17 @@ Course = React.createClass(
           </div>
         )
 
+      if @state.course.first_overdue_module
+        module = @state.course.first_overdue_module
+        alerts.push(
+          <div className='notification' key='upcoming_module'>
+            <div className='container'>
+              <p>The training module "{module.title}" is assigned for this course, and was due on {module.due_date}.</p>
+              <a href={module.link} className="button pull-right">Go to training</a>
+            </div>
+          </div>
+        )
+
     if (user_role > 0 || @getCurrentUser().admin) && @state.course.published && UserStore.isLoaded() && UserStore.getFiltered({ role: 0 }).length == 0 && !@state.course.legacy
       alerts.push (
         <div className='notification' key='enroll'>
