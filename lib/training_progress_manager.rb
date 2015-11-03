@@ -28,6 +28,11 @@ class TrainingProgressManager
     @tmu.completed_at.present?
   end
 
+  def total_modules_completed
+    TrainingModulesUsers.where(user_id: @user.id)
+      .where.not(completed_at: nil).count
+  end
+
   def assignment_status_css_class
     return 'completed' if module_completed?
     earliest_due_date.present? && earliest_due_date < Date.today ? 'overdue' : nil
