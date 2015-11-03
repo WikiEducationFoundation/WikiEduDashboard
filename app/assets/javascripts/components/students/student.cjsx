@@ -27,7 +27,6 @@ Student = React.createClass(
   render: ->
     className = 'students'
     className += if @state.is_open then ' open' else ''
-    trained = if @props.student.trained then '' else 'Training Incomplete'
     unless @props.student.trained
       separator = <span className='tablet-only-ib'>&nbsp;|&nbsp;</span>
     chars = 'MS: ' + @props.student.character_sum_us + ', US: ' + @props.student.character_sum_us
@@ -41,7 +40,7 @@ Student = React.createClass(
           <span><a onClick={@stop} href={@props.student.contribution_url} target="_blank" className="inline">{@props.student.wiki_id.trunc()}</a></span>
           <br />
           <small>
-            <span className='red'>{trained}</span>
+            <span className='red'>{@props.student.course_training_progress}</span>
             {separator}
             <span className='tablet-only-ib'>{chars}</span>
           </small>

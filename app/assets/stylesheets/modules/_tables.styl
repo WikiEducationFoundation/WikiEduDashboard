@@ -137,6 +137,8 @@ table.users tbody tr, table.articles tbody tr, table.activity-table tbody tr
           cursor default
     &.closed
       border-bottom 0
+  .avatar
+    margin-bottom 7px
   td, th
     p.name
       line-height 1
@@ -144,14 +146,16 @@ table.users tbody tr, table.articles tbody tr, table.activity-table tbody tr
       +below(tablet)
         white-space nowrap
       +above(desktop)
+        white-space normal
         margin-top 10px
       small
         display inline-block
-        font-size 14px
+        font-size 11px
         margin-top 8px
         +above(desktop)
-          font-size 8px
-          margin 0
+          margin-top 3px
+          text-align left
+          width 103px
     .button
       margin-left 0
 
