@@ -88,6 +88,18 @@ Course = React.createClass(
               </div>
             </div>
           )
+
+      if @state.course.next_upcoming_assigned_module
+        module = @state.course.next_upcoming_assigned_module.table
+        alerts.push(
+          <div className='notification' key='upcoming_module'>
+            <div className='container'>
+              <p>The training module "{module.title}" is assigned for this course, and is due on {module.due_date}.</p>
+              <a href={module.link} className="button pull-right">Go to training</a>
+            </div>
+          </div>
+        )
+
     if (user_role > 0 || @getCurrentUser().admin) && @state.course.published && UserStore.isLoaded() && UserStore.getFiltered({ role: 0 }).length == 0 && !@state.course.legacy
       alerts.push (
         <div className='notification' key='enroll'>
