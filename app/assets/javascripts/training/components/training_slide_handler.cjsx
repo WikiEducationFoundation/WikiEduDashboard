@@ -72,6 +72,7 @@ TrainingSlideHandler = React.createClass(
       params = _.extend navParams, slide_id: @state.previousSlide.slug
       @transitionTo 'slide', params
     if e.which == @keys.rightKey && @state.nextSlide?
+      @setSlideCompleted()
       params = _.extend navParams, slide_id: @state.nextSlide.slug
       @transitionTo 'slide', params
 
