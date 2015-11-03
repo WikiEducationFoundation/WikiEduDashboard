@@ -4,6 +4,7 @@ TrainingActions = require '../actions/training_actions'
 ServerActions = require '../../actions/server_actions'
 Router          = require 'react-router'
 Link            = Router.Link
+Navigation      = Router.Navigation
 SlideLink       = require './slide_link'
 SlideMenu       = require './slide_menu'
 Quiz            = require './quiz'
@@ -19,7 +20,7 @@ getState = (props) ->
 
 TrainingSlideHandler = React.createClass(
   displayName: 'TrainingSlideHandler'
-  mixins: [TrainingStore.mixin]
+  mixins: [TrainingStore.mixin, Navigation]
   getInitialState: ->
     slides: []
     previousSlide: { slug: '' }
@@ -62,6 +63,24 @@ TrainingSlideHandler = React.createClass(
     if @state.menuIsOpen
       e.stopPropagation()
       TrainingActions.toggleMenuOpen(currently: true)
+
+  keys: { rightKey: 39, leftKey: 37 }
+
+  handleKeyPress: (e) ->
+    navParams = library_id: @props.params.library_id, module_id: @props.params.module_id
+    if e.which == @keys.leftKey && @state.previousSlide?
+      params = _.extend navParams, slide_id: @state.previousSlide.slug
+      @transitionTo 'slide', params
+    if e.which == @keys.rightKey && @state.nextSlide?
+      params = _.extend navParams, slide_id: @state.nextSlide.slug
+      @transitionTo 'slide', params
+
+  componentDidMount: ->
+    window.addEventListener('keyup', @handleKeyPress)
+
+  componentWillUnmount: ->
+    window.removeEventListener('keyup', @handleKeyPress)
+
   render: ->
     disableNext = @state.currentSlide.assessment? && !@state.currentSlide.answeredCorrectly
 
