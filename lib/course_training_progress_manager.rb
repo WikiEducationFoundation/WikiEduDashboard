@@ -1,3 +1,5 @@
+require 'ostruct'
+
 class CourseTrainingProgressManager
 
   def initialize(user, course)
@@ -12,6 +14,24 @@ class CourseTrainingProgressManager
     "#{numerator}/#{denominator} training modules completed"
   end
 
+  def next_upcoming_assigned_module
+    upcoming_block_mods = blocks_with_modules_for_course
+      .where('due_date > ?', Date.today)
+    return unless upcoming_block_mods.any?
+    block = upcoming_block_mods
+      .order(:due_date).first
+    tm_id = block.training_module_ids.first
+    return if TrainingModulesUsers.where(
+      user_id: @user.id,
+      training_module_id: tm_id,
+    ).where.not(completed_at: nil).present?
+    tm = TrainingModule.find(tm_id)
+    OpenStruct.new(
+      title: tm.name,
+      link: "/library/students/#{tm.slug}",
+      due_date: block.due_date.strftime("%m/%d/%Y")
+    )
+  end
 
   private
 

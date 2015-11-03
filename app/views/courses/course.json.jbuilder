@@ -1,4 +1,5 @@
 json.course do
+  ctpm = CourseTrainingProgressManager.new(current_user, @course)
   json.call(@course, :id, :title, :description, :start, :end, :school,
             :subject, :slug, :url, :listed, :submitted, :listed,
             :expected_students, :timeline_start, :timeline_end, :day_exceptions,
@@ -17,6 +18,10 @@ json.course do
   json.trained_count @course.students_without_nonstudents.trained.count
   json.character_count number_to_human @course.character_sum
   json.view_count number_to_human @course.view_sum
+
+  if current_user
+    json.next_upcoming_assigned_module ctpm.next_upcoming_assigned_module
+  end
 
   if user_signed_in? && current_user.role(@course) > 0
     json.passcode @course.passcode
