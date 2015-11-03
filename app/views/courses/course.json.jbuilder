@@ -21,6 +21,7 @@ json.course do
 
   if current_user
     json.next_upcoming_assigned_module ctpm.next_upcoming_assigned_module
+    json.first_overdue_module ctpm.first_overdue_module
   end
 
   if user_signed_in? && current_user.role(@course) > 0
