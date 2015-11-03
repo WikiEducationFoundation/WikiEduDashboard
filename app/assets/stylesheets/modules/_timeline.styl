@@ -104,7 +104,8 @@ input[type="checkbox"]
   margin-top 1.5em
   padding-top 1em
   table
-    border-top 1px solid border_lt
+    border-bottom 1px solid border_lt
+  thead
     border-bottom 1px solid border_lt
 
 
@@ -117,10 +118,20 @@ input[type="checkbox"]
   &:last-child
     margin-bottom 0
     border-bottom none
+  .overdue
+    color warning
+  .completed
+    color $success_text
 
 .training-module__link
   margin-top 0.75em
+  i
+    font-size 14px
+    position relative
+    top 1px
+    left 1px
 
 .timeline-module__progress-complete
   color $success_text
   font-weight bold
+
