@@ -179,7 +179,7 @@ class Replica
       language ||= ENV['wiki_language']
       base_url = 'http://tools.wmflabs.org/wikiedudashboard/'
       raw_url = "#{base_url}#{endpoint}?lang=#{language}&#{query}"
-      raw_url
+      URI.encode(raw_url)
     end
 
     # Compile a user list to send to the replica endpoint, which might look
