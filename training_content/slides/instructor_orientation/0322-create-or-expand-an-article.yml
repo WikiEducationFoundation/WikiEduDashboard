@@ -2,7 +2,8 @@ id: 322
 title: Create or expand an article
 summary:
 content: >
-  <img src="https://commons.wikimedia.org/wiki/File%3AArizona_Geosciences_Student_Club_010.jpg" />
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Arizona_Geosciences_Student_Club_010.jpg/640px-Arizona_Geosciences_Student_Club_010.jpg" />
+
 
   This is the “classic” Wikipedia writing assignment, as described in the sample
   course. Students work individually or in small teams to create or expand
@@ -37,5 +38,13 @@ content: >
 
 
   To see a case study of this kind of course, which covers the full assignment
-  over 12 weeks, CLICK HERE. Alternatively, you can explore this training as an
+  over 12 weeks, click here:
+
+
+  <div style="text-align:center"><a class="btn btn-primary" href="/training/instructors/designing-a-writing-assignment/most-intense">
+    Case Study: Wikipedia article writing assignment
+  </a></div></br />
+
+
+  Alternatively, you can explore this training as an
   optional module later on.
