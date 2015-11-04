@@ -13,7 +13,7 @@ TrainingModuleHandler = React.createClass(
   storeDidChange: ->
     @setState getState()
   componentWillMount: ->
-    module_id = document.getElementById('react_root').dataset.moduleId
+    module_id = document.getElementById('react_root').getAttribute('data-module-id')
     ServerActions.fetchTrainingModule(module_id: module_id)
   render: ->
     slidesAry = _.compact(@state.training_module.slides)

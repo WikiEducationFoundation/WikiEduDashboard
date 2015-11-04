@@ -28,7 +28,7 @@ TrainingSlideHandler = React.createClass(
   componentWillMount: ->
     ServerActions.fetchTrainingModule(module_id: @moduleId(), current_slide_id: @props.params.slide_id)
   setSlideCompleted: ->
-    user_id = document.getElementById('main').dataset.userId
+    user_id = document.getElementById('main').getAttribute('data-user-id')
     return unless user_id
     ServerActions.setSlideCompleted(
       slide_id: @props.params.slide_id,
@@ -37,7 +37,7 @@ TrainingSlideHandler = React.createClass(
     )
   setModuleCompleted: (e) ->
     e.preventDefault()
-    user_id = document.getElementById('main').dataset.userId
+    user_id = document.getElementById('main').getAttribute('data-user-id')
     return unless user_id
     ServerActions.setModuleCompleted(
       library_id: @props.params.library_id,
