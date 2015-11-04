@@ -11,5 +11,6 @@ content: >
   should take about 20 minutes to complete. Would you like to start that now?
 
 
-  **Yes, I teach on health-related matters and would like to take the
-  training.**
+  <div style="text-align:center"><a class="btn btn-primary" href="/training/instructors/assigning-medical-topics/medical-assignments-introduction">
+    Yes, I teach on health-related matters and would like to take the training.
+  </a></div></br />
