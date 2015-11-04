@@ -33,7 +33,7 @@ h4
 h5
   letter-spacing .02em
   color $headline_dark
-  margin 0 0 16px 0
+  margin 0 0 $body_font_size 0
   line-height 1.2
   font-weight 700
   font-family $headline_font
@@ -58,7 +58,7 @@ h3
     font-weight 400
 
 h4
-  font-size 16px
+  font-size $body_font_size
 
 h5
   font-size 1em
@@ -88,19 +88,20 @@ li
 
 ul
   list-style disc
-  margin-bottom 16px
+  margin-bottom $body_font_size
+  margin-left $body_font_size
   &:last-child
     margin-bottom 0
 
 ol
   list-style decimal
-  margin-bottom 16px
+  margin-bottom $body_font_size
   &:last-child
     margin-bottom 0
 
 
 blockquote
-  margin-bottom 16px
+  margin-bottom $body_font_size
   border-left: 4px solid #eee
   padding 0 1em
 
@@ -117,14 +118,14 @@ pre > code
   display block
   font-size 0.8em
   padding 1em 1em
-  margin-bottom 16px
+  margin-bottom $body_font_size
 
 hr
   border 1px solid $border
   border-width 1px 0 0
   height 1px
   clear both
-  margin-bottom 16px
+  margin-bottom $body_font_size
 
 a
   color $training_primary
