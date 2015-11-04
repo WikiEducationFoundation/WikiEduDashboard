@@ -10,3 +10,8 @@ categories:
       - slug: designing-a-writing-assignment
         name: 'Designing a Wikipedia writing and research assignment'
         description: 'A case study of the "classic" Wikipedia assignment'
+      - slug: assigning-medical-topics
+        name: Assigning medical and psychology topics
+        description: |
+          Special considerations for Wikipedia projects involving medicine- and
+          health-related topics

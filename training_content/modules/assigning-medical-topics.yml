@@ -1,0 +1,18 @@
+name: Assigning medical and psychology topics
+id: 5
+intro: |
+  PLACEHOLDER
+description: |
+  PLACEHOLDER
+estimated_ttc: 20 minutes
+slides:
+  - slug: medical-assignments-introduction # 501
+  - slug: who-should-edit-health-information # 502
+  - slug: identifying-reliable-medical-sources # 503
+  - slug: why-these-sourcing-requirements # 504
+  - slug: avoid-primary-sources # 505
+  - slug: further-sourcing-guidelines # 506
+  - slug: style-conventions-for-medicine-and-psychology # 507
+  - slug: working-with-the-community # 508
+  - slug: medicine-psychology-review # 509
+  - slug: additional-resources-for-medicine-psychology # 510
