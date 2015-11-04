@@ -14,7 +14,7 @@ ActivityTable = React.createClass(
     sortOrder = if e.target.classList.contains('asc') then 'desc' else 'asc'
     @clearAllSortableClassNames()
     e.target.classList.add(sortOrder)
-    key = e.target.dataset.sortKey
+    key = e.target.getAttribute('data-sort-key')
     activities = _.sortByOrder(@state.activity, [key])
     activities = activities.reverse() if sortOrder is 'desc'
     @setState @state.activity = activities

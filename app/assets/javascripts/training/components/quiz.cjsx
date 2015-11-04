@@ -10,7 +10,7 @@ Quiz = React.createClass(
     e.stopPropagation()
     @setSelectedAnswer(@state.selectedAnswerId)
   setAnswer: (e) ->
-    @setState selectedAnswerId: e.currentTarget.dataset.answerId
+    @setState selectedAnswerId: e.currentTarget.getAttribute('data-answer-id')
   componentWillReceiveProps: (newProps) ->
     @setState selectedAnswerId: newProps.selectedAnswerId
   correctStatus: (answer) ->

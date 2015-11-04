@@ -33,7 +33,7 @@ CourseCreator = React.createClass(
     ServerActions.fetchCoursesForUser(@currentUserId())
 
   currentUserId: ->
-    document.getElementById('main').dataset.userId
+    document.getElementById('main').getAttribute('data-user-id')
 
   saveCourse: ->
     if ValidationStore.isValid()
@@ -73,7 +73,7 @@ CourseCreator = React.createClass(
     @setState showCourseDropdown: true
   useThisClass: (e) ->
     select = React.findDOMNode(@refs.courseSelect)
-    courseId = select.options[select.selectedIndex].dataset.idKey
+    courseId = select.options[select.selectedIndex].getAttribute('data-id-key')
     ServerActions.cloneCourse(courseId)
     @setState isSubmitting: true, shouldRedirect: true
   render: ->
