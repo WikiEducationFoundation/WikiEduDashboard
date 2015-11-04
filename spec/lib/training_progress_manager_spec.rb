@@ -123,6 +123,14 @@ describe TrainingProgressManager do
       create(:block, week_id: week.id, training_module_ids: ids, due_date: due_date)
     end
 
+    context 'user is nil' do
+      let(:user)    { nil }
+      let(:user_id) { nil }
+      it 'returns nil' do
+        expect(subject.assignment_status_css_class).to be_nil
+      end
+    end
+
     context 'user is present, has courses, courses have this module assigned' do
       context 'date is passed, module is complete' do
         let(:due_date)     { 1.day.ago }
