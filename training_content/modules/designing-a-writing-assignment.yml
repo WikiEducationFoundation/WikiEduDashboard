@@ -1,0 +1,31 @@
+name: 'Designing a Wikipedia writing and research assignment'
+id: 4
+intro: |
+  This is the “classic” Wikipedia writing assignment: students work individually
+  or in small teams to create or expand Wikipedia articles on a given topic.
+
+  Timeline: 6 weeks (minimum) to 12 weeks (ideal).
+description: |
+  Explore a case study of the “classic” Wikipedia writing assignment: students
+  work individually or in small teams to create or expand Wikipedia articles on
+  a given topic.
+estimated_ttc: 10 minutes
+slides:
+  - slug: most-intense # 9001
+  - slug: wikipedia-writing-assignment # 401
+  - slug: a-sample-writing-assignment # 402
+  - slug: case-study-a-student-perspective # 403
+  - slug: a-12-week-course # 404
+  - slug: week-1-wikipedia-essentials # 405
+  - slug: week-2-editing-basics # 406
+  - slug: week-3-exploring-the-topic # 407
+  - slug: week-4-using-sources # 408
+  - slug: week-5-choosing-articles # 409
+  - slug: week-6-drafting-starter-articles # 410
+  - slug: week-7-moving-articles-to-mainspace # 411
+  - slug: week-8-building-articles # 412
+  - slug: week-9-getting-and-giving-feedback # 413
+  - slug: week-10-responding-to-feedback # 414
+  - slug: week-11-class-presentations # 415
+  - slug: week-12-all-assignments-due # 416
+  - slug: that-is-it # 417
