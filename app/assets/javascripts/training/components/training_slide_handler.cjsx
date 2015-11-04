@@ -121,7 +121,9 @@ TrainingSlideHandler = React.createClass(
             <span className="hamburger__bar"></span>
             <span className="hamburger__bar"></span>
           </div>
-          <h3 className="pull-right">Page {@state.currentSlide.index} of {@state.slides.length}</h3>
+          <h3 className="pull-right">
+            <a href="" onFocus={@toggleMenuOpen}>Page {@state.currentSlide.index} of {@state.slides.length}</a>
+          </h3>
         </div>
         <SlideMenu
           closeMenu={@closeMenu}
