@@ -10,7 +10,8 @@
         class: 'btn btn-primary py2 icon icon-rt_arrow mx2 pull-left' do
         Start
       %h3.py2.pull-left.training-intro__estimated-ttc
-        %small Estimated time to complete:
-        %br/
-        = @training_module.estimated_ttc
+        %small
+          Estimated time to complete:
+          %br/
+          = @training_module.estimated_ttc
   #react_root{ "data-module-id" => params[:module_id] }
