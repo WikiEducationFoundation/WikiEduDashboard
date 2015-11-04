@@ -83,7 +83,6 @@ TrainingSlideHandler = React.createClass(
                    slideId={@state.nextSlide.slug}
                    direction='Next'
                    disabled={disableNext}
-                   slideTitle='Next Page'
                    button=true
                    onClick={@setSlideCompleted}
                    params={@props.params} />
@@ -99,8 +98,7 @@ TrainingSlideHandler = React.createClass(
     if @state.previousSlide?.slug
       previousLink = <SlideLink
                        slideId={@state.previousSlide.slug}
-                       direction='Previous'
-                       slideTitle={@state.previousSlide.title}
+                       direction='< Previous'
                        params={@props.params} />
 
     raw_html = md.render(@state.currentSlide.content)
