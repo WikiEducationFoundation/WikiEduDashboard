@@ -65,6 +65,7 @@ class TrainingProgressManager
   def earliest_due_date
     return unless @user.present?
     blocks = blocks_with_module_assigned(@training_module)
+    return if blocks.empty?
     block_with_earliest_due_date(blocks).due_date
   end
 
