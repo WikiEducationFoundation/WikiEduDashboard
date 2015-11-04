@@ -135,7 +135,7 @@ TrainingSlideHandler = React.createClass(
           slides={@state.slides} />
       </header>
       <article className="training__slide">
-        <h1 className="h3">{@state.currentSlide.title}</h1>
+        <h1>{@state.currentSlide.title}</h1>
         <div className='markdown training__slide__content' dangerouslySetInnerHTML={{__html: raw_html}}></div>
         {quiz}
         <footer className="training__slide__footer">
