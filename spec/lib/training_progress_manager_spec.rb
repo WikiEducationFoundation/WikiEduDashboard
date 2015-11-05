@@ -252,22 +252,28 @@ describe TrainingProgressManager do
     context 'partial completion' do
       context 'round down' do
         let(:completed_at) { nil }
-        context '12 of 35' do
-          # module has 35 slides
-          let(:last_slide_completed) { t_module.slides[11].slug }
-          it 'returns 34%' do
-            expect(subject.module_progress).to eq('34% Complete')
+        context 'roughly one third' do
+          let(:index) { t_module.slides.length / 3 }
+          let(:last_slide_completed) { t_module.slides[index].slug }
+          let(:target_percentage) { 33 }
+          it 'returns a percentage' do
+            expect(subject.module_progress).to include('Complete')
+            expect(subject.module_progress.scan(/\d/).join.to_i)
+              .to be_within(10).of(target_percentage)
           end
         end
       end
 
       context 'round up' do
         let(:completed_at) { nil }
-        context '23 of 35' do
-          # module has 35 slides
-          let(:last_slide_completed) { t_module.slides[22].slug }
-          it 'returns 66%' do
-            expect(subject.module_progress).to eq('66% Complete')
+        context 'roughly two thirds' do
+          let(:index) { t_module.slides.length / 3 }
+          let(:last_slide_completed) { t_module.slides[index * 2].slug }
+          let(:target_percentage) { 66 }
+          it 'returns a percentage' do
+            expect(subject.module_progress).to include('Complete')
+            expect(subject.module_progress.scan(/\d/).join.to_i)
+              .to be_within(10).of(target_percentage)
           end
         end
       end
