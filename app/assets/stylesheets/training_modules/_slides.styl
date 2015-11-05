@@ -2,7 +2,7 @@
   padding 10px 0
   display inline-block
 
-.training__slide__content, .training__slide .h3, .training__slide__footer
+.training__slide__content, .training__slide h1, .training__slide__footer
   margin-left auto
   margin-right auto
   max-width $slide_inner_content_width
@@ -10,30 +10,54 @@
 .training__slide__content
   margin-top 30px
   margin-bottom 30px
-  -webkit-font-smoothing antialiased
-  -moz-osx-font-smoothing grayscale
 
-.training__slide h1
-  margin 0 auto 21px auto
-  width $slide_inner_content_width
+.training__slide .h3
+  margin-bottom 21px
 
 .training__slide footer
   width 100%
   border-top 1px solid $border_med
-  margin-top 37px
+  margin-top 20px
   padding-top 28px
-  font-size 15px
+  font-size 16px
   font-family $headline_font
   span
     position relative
-    width 80%
+    width 100%
     &.pull-right a
       right 0
     &.pull-left a
       left 0
-      font-size 15px
-      margin-top 10px
-  .btn
-    font-size 15px
 
 
+.training-loader
+  margin 100px auto
+  color $type_light
+  text-align center
+
+.training-loader__spinner
+  margin 60px auto
+  font-size 10px
+  position relative
+  text-indent -9999em
+  border-top 2px solid #fff
+  border-right 2px solid #fff
+  border-bottom 2px solid #fff
+  border-left 2px solid $training_primary
+  transform translateZ(0)
+  animation load 0.5s infinite linear
+
+.training-loader__spinner,
+.training-loader__spinner:after
+  border-radius 50%
+  width 60px
+  height 60px
+
+@keyframes load {
+  0% {
+    transform rotate(0deg)
+  }
+  100% {
+    transform rotate(360deg)
+  }
+}
