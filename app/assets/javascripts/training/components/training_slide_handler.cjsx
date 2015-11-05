@@ -109,6 +109,11 @@ TrainingSlideHandler = React.createClass(
     raw_html = md.render(@state.currentSlide.content)
     menuClass = if @state.menuIsOpen is false then 'hidden' else 'shown'
 
+    if @state.isFirstSlide
+      arrowKeyHelper = (
+        <div className="arrow-key-helper"></div>
+      )
+
     if @state.currentSlide.assessment
       assessment = @state.currentSlide.assessment
       quiz = <Quiz
@@ -144,6 +149,7 @@ TrainingSlideHandler = React.createClass(
         <div className='markdown training__slide__content' dangerouslySetInnerHTML={{__html: raw_html}}></div>
         {quiz}
         <footer className="training__slide__footer">
+         {arrowKeyHelper}
          <span className="pull-left">{previousLink}</span>
          <span  className="pull-right">{nextLink}</span>
         </footer>
