@@ -64,8 +64,8 @@ describe 'A training module', type: :feature, js: true do
 
     it 'disables slides that have not been seen' do
       click_link 'Start'
-      find('.training__slide__nav').click
-      unseen_slide_link = find('.slide__menu__nav__dropdown li:nth-child(3) a')
+      within('.training__slide__nav') { find('.hamburger').click }
+      unseen_slide_link = find('.slide__menu__nav__dropdown li:last-child a')
       expect(unseen_slide_link['disabled']).to eq('true')
     end
   end
