@@ -8,6 +8,9 @@
   dashboard_title: Wiki Ed Dashboard
 # The root url of the dashboard
   dashboard_url: dashboard.wikiedu.org
+# description of the dashboard for the 'meta' html tag, which is used by search
+# engines
+  meta_description: Wiki Education Foundation dashboard for Wikipedia editing projects
 
 # Wikimedia OAuth consumer details. Register a consumer at:
 # https://www.mediawiki.org/wiki/Special:OAuthConsumerRegistration/propose
