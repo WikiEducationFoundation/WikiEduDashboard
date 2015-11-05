@@ -74,7 +74,12 @@ TrainingSlideHandler = React.createClass(
 
   render: ->
     if @state.loading is true
-      return (<h1>Loading</h1>)
+      return (
+        <div className="training-loader">
+          <h1 className="h2">Loading…</h1>
+          <div className="training-loader__spinner"></div>
+        </div>
+      )
 
     disableNext = @state.currentSlide.assessment? && !@state.currentSlide.answeredCorrectly
 
