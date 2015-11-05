@@ -52,7 +52,10 @@ TrainingStore = Flux.createStore
     menuIsOpen:    _menuState
     enabledSlides: _enabledSlides
     loading: false
+    isFirstSlide: @isFirstSlide()
 
+  isFirstSlide: ->
+    _currentSlide.index is 1
   getTrainingModule: ->
     return _module
   getAllModules: ->
