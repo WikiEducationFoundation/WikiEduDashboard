@@ -39,10 +39,10 @@ content: >
 
 
   To see a case study of this kind of course, which covers the full assignment
-  over 12 weeks, click here:
+  over 12 weeks, open it in a new tab by clicking below:
 
 
-  <div style="text-align:center"><a class="btn btn-primary" href="/training/instructors/designing-a-writing-assignment/most-intense">
+  <div style="text-align:center"><a target="_blank" class="btn btn-primary" href="/training/instructors/designing-a-writing-assignment/most-intense">
     Case Study: Wikipedia article writing assignment
   </a></div></br />
 

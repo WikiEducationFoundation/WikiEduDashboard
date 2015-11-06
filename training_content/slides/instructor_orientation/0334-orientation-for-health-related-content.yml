@@ -8,9 +8,11 @@ content: >
   If you are teaching about medical or psychology content (anything related to
   human health), you are strongly encouraged to take the orientation module for
   medical and health-related content. It's much shorter than this module, and
-  should take about 20 minutes to complete. Would you like to start that now?
+  should take about 20 minutes to complete.
 
 
-  <div style="text-align:center"><a class="btn btn-primary" href="/training/instructors/assigning-medical-topics/medical-assignments-introduction">
+  Would you like to start that now? Click below to open it in a new tab:
+
+  <div style="text-align:center"><a target="_blank" class="btn btn-primary" href="/training/instructors/assigning-medical-topics/medical-assignments-introduction">
     Yes, I teach on health-related matters and would like to take the training.
   </a></div></br />
