@@ -1,7 +1,6 @@
 id: 10
 title: Quiz Question 1
 summary:
-content: BUG NUMBER 423
 assessment:
   correct_answer_id: 3
   question: A Wikipedia article should...
