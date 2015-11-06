@@ -90,6 +90,7 @@ Course = React.createClass(
           )
 
       if @state.course.next_upcoming_assigned_module
+        # `table` key is because it comes back as an openstruct
         module = @state.course.next_upcoming_assigned_module.table
         alerts.push(
           <div className='notification' key='upcoming_module'>
@@ -101,7 +102,8 @@ Course = React.createClass(
         )
 
       if @state.course.first_overdue_module
-        module = @state.course.first_overdue_module
+        # `table` key is because it comes back as an openstruct
+        module = @state.course.first_overdue_module.table
         alerts.push(
           <div className='notification' key='upcoming_module'>
             <div className='container'>
