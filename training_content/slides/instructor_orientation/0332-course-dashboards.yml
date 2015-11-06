@@ -2,12 +2,12 @@ id: 332
 title: Dashboard
 summary:
 content: >
-  Your course dashboard is designed to facilitate your Wikipedia assignment from
+  Your course Dashboard is designed to facilitate your Wikipedia assignment from
   beginning to end. You'll begin by creating a timeline for your course with our
   assignment design tool. The timeline will not replace the syllabus for your
   course, but will provide your students with a series of weekly milestones to
   prepare them for each stage of the editing process, along with relevant
-  trainings and resources. You will use the dashboard to track the work that
+  trainings and resources. You will use the Dashboard to track the work that
   your students do on Wikipedia,from assigning articles to peer reviews.
 
 
@@ -43,7 +43,7 @@ content: >
   peer-reviewing; and how many edits each student has made in the previous 7
   days. Finally, the chart shows you how many characters students have added to
   Mainspace (usually that means articles) and to Userspace (usually, that means
-  their sandboxes or Talk pages). There’s a little arrow to drop down and see
+  their sandboxes or user pages). There’s a little arrow to drop down and see
   more details, including links to every page a student has edited while logged
   in under their usernames.
 
