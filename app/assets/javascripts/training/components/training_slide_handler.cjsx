@@ -8,7 +8,7 @@ Navigation      = Router.Navigation
 SlideLink       = require './slide_link'
 SlideMenu       = require './slide_menu'
 Quiz            = require './quiz'
-md              = require('markdown-it')({ html: true, linkify: true })
+md              = require('../../utils/markdown_it')({ openLinksExternally: true })
 
 getState = ->
   return TrainingStore.getState()
