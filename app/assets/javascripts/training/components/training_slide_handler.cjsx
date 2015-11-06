@@ -106,7 +106,8 @@ TrainingSlideHandler = React.createClass(
                        direction='< Previous'
                        params={@props.params} />
 
-    raw_html = md.render(@state.currentSlide.content)
+    if @state.currentSlide.content?
+      raw_html = md.render(@state.currentSlide.content)
     menuClass = if @state.menuIsOpen is false then 'hidden' else 'shown'
 
     if @state.isFirstSlide
