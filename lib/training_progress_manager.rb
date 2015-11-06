@@ -24,7 +24,7 @@ class TrainingProgressManager
   end
 
   def module_completed?
-    return unless @user.present?
+    return unless @user.present? && @tmu.present?
     @tmu.completed_at.present?
   end
 
