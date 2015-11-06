@@ -20,8 +20,8 @@ StudentList = React.createClass(
   save: ->
     ServerActions.saveStudents $.extend(true, {}, getState()), @props.course_id
   notify: ->
-    if confirm I18n.t('wiki_edits.notify_untrained.confirm')
-      ServerActions.notifyUntrained @props.course_id
+    if confirm I18n.t('wiki_edits.notify_overdue.confirm')
+      ServerActions.notifyOverdue @props.course_id
   componentDidMount: ->
     ServerActions.fetchUserAssignments(user_id: @props.current_user.id, course_id: @props.course_id, role: 0)
   render: ->
@@ -44,8 +44,8 @@ StudentList = React.createClass(
 
     if @props.course.published
       add_student = <EnrollButton {...@props} role=0 key='add_student' allowed=false />
-    if @props.users.length > 0 && _.filter(@props.users, 'trained', false).length > 0
-      notify_untrained = <button className='notify_untrained' onClick={@notify} key='notify'></button>
+    if @props.users.length > 0 && _.filter(@props.users, 'modules_overdue', true).length > 0
+      notify_overdue = <button className='notify_overdue' onClick={@notify} key='notify'></button>
 
     keys =
       'wiki_id':
@@ -74,7 +74,7 @@ StudentList = React.createClass(
         'info_key': 'users.character_doc'
 
     <div className='list__wrapper'>
-      {@props.controls([add_student, notify_untrained], @props.users.length < 1)}
+      {@props.controls([add_student, notify_overdue], @props.users.length < 1)}
       <List
         elements={elements}
         keys={keys}

@@ -57,6 +57,17 @@ describe 'Instructor users', type: :feature, js: true do
   end
 
   describe 'visiting the students page' do
+    let(:week) { create(:week, course_id: Course.first.id) }
+    let(:tm) { TrainingModule.all.first }
+    let!(:block) do
+      create(:block, week_id: week.id, training_module_ids: [tm.id], due_date: Date.today)
+    end
+
+    before do
+      TrainingModulesUsers.destroy_all
+      Timecop.travel(1.year.from_now)
+    end
+
     it 'should be able to add students' do
       stub_oauth_edit
       allow(Wiki).to receive(:get_user_id).and_return(123)
@@ -150,13 +161,13 @@ describe 'Instructor users', type: :feature, js: true do
       expect(page).not_to have_content 'Student A'
     end
 
-    it 'should be able to notify untrained users' do
+    it 'should be able to notify users with overdue training' do
       stub_oauth_edit
       visit "/courses/#{Course.first.slug}/students"
-      sleep 1
 
-      # Notify untrained users
-      page.first('button.notify_untrained').click
+      sleep 1
+      # Notify users with overdue training
+      page.first('button.notify_overdue').click
       page.driver.browser.switch_to.alert.accept
       sleep 1
     end

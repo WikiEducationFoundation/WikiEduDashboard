@@ -67,6 +67,7 @@ group :development, :test do
   gem 'zeus'
   gem 'selenium-webdriver'
   gem 'launchy'
+  gem 'timecop'
 end
 
 group :test do

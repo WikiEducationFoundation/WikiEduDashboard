@@ -233,14 +233,14 @@ en:
     userspace_chars: Userspace<br />chars added
 
   wiki_edits:
-    notify_untrained:
+    notify_overdue:
       confirm: >
-        This will post a reminder on the talk pages of all students who have not
-        completed training. Are you sure you want to do this?
+        This will post a reminder on the talk pages of all students who have
+        overdue training. Are you sure you want to do this?
       # header, message and summary are wikitext output that gets posted on user talk pages.
-      header: You have not completed the student training.
+      header: You have an overdue training assignment.
       message: Please complete the [[WP:STUDENT|student training]]. If you have already gone through it, be sure to click the button at the end to record that you finished it. --~~~~
-      summary: student training incomplete
+      summary: student training overdue
 
   wizard:
     course_dates: Course Dates

@@ -134,9 +134,9 @@ ServerActions = Flux.createActions
   manualUpdate: (course_id) ->
     API.manualUpdate(course_id).then (data) ->
       { actionType: 'MANUAL_UPDATE', data: data }
-  notifyUntrained: (course_id) ->
-    API.notifyUntrained(course_id).then (data) ->
-      { actionType: 'NOTIFIED_UNTRAINED', data: data }
+  notifyOverdue: (course_id) ->
+    API.notifyOverdue(course_id).then (data) ->
+      { actionType: 'NOTIFIED_OVERDUE', data: data }
 
 
 
