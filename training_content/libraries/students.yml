@@ -1,24 +1,9 @@
-students:
+name: Students
 introduction: This orientation for instructors editing Wikipedia says some stuff
 categories:
   - title: Basics
     description: This is the description of the basic category
     modules:
-      - slug: welcome-to-wikipedia
-        name: Welcome to Wikipedia
-        description: An introduction to Wikipedia
       - slug: policies-and-guidelines
         name: Policies and Guidelines
         description: An overview of Wikipedia's principles and policiess
-  - title: Advanced
-    description: This is the description of the advanced category
-    modules:
-      - slug: advanced-techniques
-        name: PLACEHOLDER Advanced Techniques
-        description: Some advanced techniques
-      - medical-research: medical-research
-        name: PLACEHOLDER Medical Research
-        description: Talking about medical research
-      - general-topic-advice: general-topics
-        name: PLACEHOLDER General Topics
-        description: A description of general topics
