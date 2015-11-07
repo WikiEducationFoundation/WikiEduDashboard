@@ -12,10 +12,10 @@ describe 'Student users', type: :feature, js: true do
            id: 1)
     create(:course,
            id: 10001,
-           title: 'Course',
+           title: 'An Example Course',
            school: 'University',
            term: 'Term',
-           slug: 'University/Course_(Term)',
+           slug: 'University/An_Example_Course_(Term)',
            submitted: 1,
            listed: true,
            passcode: 'passcode',
@@ -79,7 +79,6 @@ describe 'Student users', type: :feature, js: true do
       prompt.accept
 
       visit "/courses/#{Course.first.slug}/students"
-      sleep 1
       expect(first('tbody')).to have_content User.last.wiki_id
 
       # now unenroll
@@ -101,7 +100,6 @@ describe 'Student users', type: :feature, js: true do
       visit "/courses/#{Course.first.slug}/enroll/passcode"
       sleep 1
       visit "/courses/#{Course.first.slug}/students"
-      sleep 1
       expect(first('tbody')).to have_content User.last.wiki_id
       # Now try enrolling again, which shouldn't cause any errors
       visit "/courses/#{Course.first.slug}/enroll/passcode"
@@ -141,7 +139,6 @@ describe 'Student users', type: :feature, js: true do
       logout
       visit "/courses/#{Course.first.slug}/enroll/passcode"
       visit "/courses/#{Course.first.slug}/students"
-      sleep 1
       expect(first('tbody')).to have_content 'Ragesoss'
     end
 
@@ -225,10 +222,8 @@ describe 'Student users', type: :feature, js: true do
       # Remove the assignment
       page.all('button.border')[0].click
       page.all('button.border')[2].click
-      sleep 1
       page.driver.browser.switch_to.alert.accept
       page.all('button.border')[0].click
-      sleep 1
       visit "/courses/#{Course.first.slug}/students"
       sleep 1
       expect(page).not_to have_content 'Selfie'
@@ -241,10 +236,11 @@ describe 'Student users', type: :feature, js: true do
              course_id: 10001,
              user_id: 200,
              role: 0)
+
       visit '/'
       expect(page).to have_content 'Your Courses'
-      expect(page)
-        .not_to have_content 'You are not participating in any courses.'
+      user_courses = find('#user_courses')
+      expect(user_courses).to have_content 'An Example Course'
     end
   end
 
