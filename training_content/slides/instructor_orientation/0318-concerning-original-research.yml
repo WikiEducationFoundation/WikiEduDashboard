@@ -2,8 +2,14 @@ id: 316
 title: No original research
 summary:
 content: >
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Nora_the_shaggy_dog_03.jpg/640px-Nora_the_shaggy_dog_03.jpg" />
- 
+  <figure class="alt-layout-40-left">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Nora_the_shaggy_dog_03.jpg/640px-Nora_the_shaggy_dog_03.jpg" />
+    <figcaption>
+      Image by:
+      <a href="foo.com">Ragesoss</a>
+    </figcaption>
+  </figure>
+
   On the internet, nobody knows if you're a dog — or an accomplished scholar.
   Content on Wikipedia *must* stand on its own, without an appeal to authority.
   That means a critical reader should expect to find any claims in an article
