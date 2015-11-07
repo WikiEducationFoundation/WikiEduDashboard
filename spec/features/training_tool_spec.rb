@@ -1,7 +1,7 @@
 require 'rails_helper'
 require "#{Rails.root}/lib/training_module"
 
-describe 'A training module', type: :feature, js: true do
+describe 'Training', type: :feature, js: true do
   let(:cohort) { create(:cohort) }
   let(:user)   { create(:user, id: 1) }
   let(:module_2) { TrainingModule.find(2) } # Policies and Guidelines module
@@ -11,7 +11,7 @@ describe 'A training module', type: :feature, js: true do
     Capybara.current_driver = :selenium
   end
 
-  describe 'index page' do
+  describe 'module index page' do
     before do
       visit "/training/students/#{module_2.slug}"
     end
@@ -46,11 +46,12 @@ describe 'A training module', type: :feature, js: true do
     end
   end
 
-  describe 'slide sequence' do
-    it 'lets the user go from start to finish for every module' do
-      module_ids = TrainingModule.all.map(&:id)
-      module_ids.each do |module_id|
-        training_module = TrainingModule.find(module_id)
+  module_ids = TrainingModule.all.map(&:id)
+  module_ids.each do |module_id|
+    training_module = TrainingModule.find(module_id)
+    describe "'#{training_module.name}' module" do
+      training_module = TrainingModule.find(module_id)
+      it 'lets the user go from start to finish' do
         go_through_module_from_start_to_finish(training_module)
       end
     end
