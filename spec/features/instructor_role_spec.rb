@@ -68,6 +68,10 @@ describe 'Instructor users', type: :feature, js: true do
       Timecop.travel(1.year.from_now)
     end
 
+    after do
+      Timecop.return
+    end
+
     it 'should be able to add students' do
       stub_oauth_edit
       allow(Wiki).to receive(:get_user_id).and_return(123)
