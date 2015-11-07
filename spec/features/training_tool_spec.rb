@@ -69,6 +69,7 @@ def go_through_module_from_start_to_finish(training_module)
       next
     end
     click_link 'Done!'
+    sleep 1
     expect(TrainingModulesUsers.find_by(
       user_id: 1,
       training_module_id: training_module.id
