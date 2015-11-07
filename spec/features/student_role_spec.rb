@@ -79,6 +79,7 @@ describe 'Student users', type: :feature, js: true do
       prompt.accept
 
       visit "/courses/#{Course.first.slug}/students"
+      sleep 1
       expect(first('tbody')).to have_content User.last.wiki_id
 
       # now unenroll
@@ -100,6 +101,7 @@ describe 'Student users', type: :feature, js: true do
       visit "/courses/#{Course.first.slug}/enroll/passcode"
       sleep 1
       visit "/courses/#{Course.first.slug}/students"
+      sleep 1
       expect(first('tbody')).to have_content User.last.wiki_id
       # Now try enrolling again, which shouldn't cause any errors
       visit "/courses/#{Course.first.slug}/enroll/passcode"
@@ -139,6 +141,7 @@ describe 'Student users', type: :feature, js: true do
       logout
       visit "/courses/#{Course.first.slug}/enroll/passcode"
       visit "/courses/#{Course.first.slug}/students"
+      sleep 1
       expect(first('tbody')).to have_content 'Ragesoss'
     end
 
