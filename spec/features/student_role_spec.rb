@@ -27,7 +27,7 @@ describe 'Student users', type: :feature, js: true do
     create(:courses_user,
            user_id: 100,
            course_id: 10001,
-           role: 1)
+           role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
     create(:cohorts_course,
            cohort_id: 1,
            course_id: 10001)
@@ -38,7 +38,7 @@ describe 'Student users', type: :feature, js: true do
            id: 2,
            user_id: 101,
            course_id: 10001,
-           role: 0)
+           role: CoursesUsers::Roles::STUDENT_ROLE)
     user = create(:user,
                   id: 200,
                   wiki_token: 'foo',
@@ -168,7 +168,7 @@ describe 'Student users', type: :feature, js: true do
       create(:courses_user,
              course_id: 10001,
              user_id: 200,
-             role: 0)
+             role: CoursesUsers::Roles::STUDENT_ROLE)
       visit "/courses/#{Course.first.slug}/students"
       sleep 3
 
@@ -191,7 +191,7 @@ describe 'Student users', type: :feature, js: true do
       create(:courses_user,
              course_id: 10001,
              user_id: 200,
-             role: 0)
+             role: CoursesUsers::Roles::STUDENT_ROLE)
       visit "/courses/#{Course.first.slug}/students"
       sleep 3
 
@@ -210,12 +210,12 @@ describe 'Student users', type: :feature, js: true do
       create(:courses_user,
              course_id: 10001,
              user_id: 200,
-             role: 0)
+             role: CoursesUsers::Roles::STUDENT_ROLE)
       create(:assignment,
              article_title: 'Selfie',
              course_id: 10001,
              user_id: 200,
-             role: 0)
+             role: Assignment::Roles::ASSIGNED_ROLE)
       visit "/courses/#{Course.first.slug}/students"
       sleep 3
 
@@ -235,7 +235,7 @@ describe 'Student users', type: :feature, js: true do
       create(:courses_user,
              course_id: 10001,
              user_id: 200,
-             role: 0)
+             role: CoursesUsers::Roles::STUDENT_ROLE)
 
       visit '/'
       expect(page).to have_content 'Your Courses'
