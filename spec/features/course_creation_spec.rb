@@ -444,7 +444,7 @@ describe 'cloning a course', js: true do
   let!(:term)      { 'Spring 2016' }
   let!(:desc)      { 'A new course' }
 
-  it 'copies relevant attributes of an existing course' do
+  xit 'copies relevant attributes of an existing course' do
     create(:cohort)
     login_as user, scope: :user, run_callbacks: false
     visit root_path
