@@ -160,18 +160,20 @@ describe 'the home page', type: :feature do
   describe 'cohort pages' do
     # This will fail unless there are at least two cohorts in application.yml.
     it 'should load courses from the right cohorts' do
-      pending 'fixing the intermittent failures on travis-ci'
-      visit root_path
+      pending 'fixing the intermittent failures on travis-ci' do
+        visit root_path
 
-      all('.course-list__row > a').each do |course_row_anchor|
-        expect(course_row_anchor[:id].to_i).to be <= cohort_course_count
-      end
+        all('.course-list__row > a').each do |course_row_anchor|
+          expect(course_row_anchor[:id].to_i).to be <= cohort_course_count
+        end
 
-      # This will fail unless there are at least two cohorts in application.yml.
-      # load courses from a different cohort
-      visit "/courses?cohort=#{Cohort.last.slug}"
-      all('.course-list__row > a').each do |course_row_anchor|
-        expect(course_row_anchor[:id].to_i).to be > cohort_course_count
+        # This will fail unless there are at least two cohorts in application.yml.
+        # load courses from a different cohort
+        visit "/courses?cohort=#{Cohort.last.slug}"
+        all('.course-list__row > a').each do |course_row_anchor|
+          expect(course_row_anchor[:id].to_i).to be > cohort_course_count
+        end
+        raise 'this test passed — this time'
       end
     end
   end
