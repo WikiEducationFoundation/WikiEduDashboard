@@ -43,6 +43,7 @@ before_install:
 install:
   - npm install gulp -g
   - npm install bower -g
+  - npm install codeclimate-test-reporter -g
   - npm install
   - bower install
   - bundle install --jobs=3 --retry=3 --deployment
@@ -57,6 +58,7 @@ before_script:
 script: gulp build && npm test && bundle exec rspec --color --format documentation
 
 after_script:
+  - codeclimate-test-reporter < coverage/lcov.info
   - bundle exec rubocop -R
 
 after_success:

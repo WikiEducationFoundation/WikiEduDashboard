@@ -159,7 +159,8 @@ describe 'the home page', type: :feature do
 
   describe 'cohort pages' do
     # This will fail unless there are at least two cohorts in application.yml.
-    xit 'should load courses from the right cohorts' do
+    it 'should load courses from the right cohorts' do
+      pending 'fixing the intermittent failures on travis-ci'
       visit root_path
 
       all('.course-list__row > a').each do |course_row_anchor|
