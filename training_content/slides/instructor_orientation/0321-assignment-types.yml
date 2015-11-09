@@ -4,7 +4,7 @@ summary:
 content: >
   <figure class="alt-layout-40-right">
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Global_Feminist_Art_class_at_University_of_Washington%2C_2015-04-23_05.jpg/320px-Global_Feminist_Art_class_at_University_of_Washington%2C_2015-04-23_05.jpg" />
-    <figcaption>
+    <figcaption class="image-credit">
       <a href="https://commons.wikimedia.org/wiki/Global_Feminist_Art_class_at_University_of_Washington%2C_2015-04-23_05.jpg">Photo by Ragesoss</a>,
       CC-BY-SA
     </figcaption>

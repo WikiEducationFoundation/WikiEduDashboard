@@ -4,7 +4,7 @@ summary:
 content: >
   <figure class="alt-layout-30-right">
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Palace_of_Fine_Arts%2C_four_pillars.jpg/320px-Palace_of_Fine_Arts%2C_four_pillars.jpg" />
-    <figcaption>
+    <figcaption class="image-credit">
       <a href="https://commons.wikimedia.org/wiki/Palace_of_Fine_Arts%2C_four_pillars.jpg">Photo by Eryk Salvaggio</a>,
       CC-BY-SA
     </figcaption>
