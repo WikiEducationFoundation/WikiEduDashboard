@@ -3,7 +3,13 @@ title: A sample assignment
 summary:
 image: https://upload.wikimedia.org/wikipedia/commons/c/ce/Msu_prof_ruppel_students_nas_act.jpg
 content: >
-  <img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/Msu_prof_ruppel_students_nas_act.jpg"/>
+  <figure class="alt-layout-40-right">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/Msu_prof_ruppel_students_nas_act.jpg" />
+    <figcaption>
+      <a href="https://commons.wikimedia.org/wiki/File:Msu_prof_ruppel_students_nas_act.jpg">Photo by McMormor</a>,
+      CC-BY-SA
+    </figcaption>
+  </figure>
 
   Professor Ruppel is teaching a class in Federal Indian Law and Policy. She’s
   decided to include researching and contributing to Wikipedia as part of the
@@ -25,8 +31,8 @@ content: >
   growing appreciation of the ideal of a pluralistic society.
 
   Using the four course goals as a base, the graduate students will
-  collaboratively produce a literature review about Federal Indian Law 
-  and Policy. As part of the literature review, the grad students will 
+  collaboratively produce a literature review about Federal Indian Law
+  and Policy. As part of the literature review, the grad students will
   identify major gaps in Wikipedia articles and content related to the course goals.
 
   As a result of the review and analysis, the grad students should be

@@ -3,7 +3,13 @@ title: "Case study: A student's perspective"
 summary:
 image: https://commons.wikimedia.org/wiki/File:Wpm02_16.JPG
 content: >
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Wpm02_16.JPG/640px-Wpm02_16.JPG" />
+  <figure class="alt-layout-40-right">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Wpm02_16.JPG/640px-Wpm02_16.JPG" />
+    <figcaption>
+      <a href="https://commons.wikimedia.org/wiki/File:Wpm02_16.JPG">Photo by Ziko-C</a>,
+      CC-BY-SA
+    </figcaption>
+  </figure>
 
   Marguerite is taking Professor Ruppel’s class. Marguerite sees that she’ll be
   contributing to Wikipedia in the syllabus. She knows she’ll be graded on the
