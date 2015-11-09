@@ -1,10 +1,19 @@
 id: 413
 title: "Week 9: Getting and giving feedback"
 summary:
-image:
-  - https://commons.wikimedia.org/wiki/File:Msu_prof_ruppel_nas_act.jpg
-  - https://commons.wikimedia.org/wiki/File:Aaron,_SJ_and_Mako_at_Boston_Wikipedia_Meetup,_2009-08-18.jpg
 content: >
+  <figure class="alt-layout-30-right">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Msu_prof_ruppel_nas_act.jpg/640px-Msu_prof_ruppel_nas_act.jpg" />
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Aaron%2C_SJ_and_Mako_at_Boston_Wikipedia_Meetup%2C_2009-08-18.jpg/640px-Aaron%2C_SJ_and_Mako_at_Boston_Wikipedia_Meetup%2C_2009-08-18.jpg" />
+    <figcaption>
+      Photos by
+      <a href="https://commons.wikimedia.org/wiki/File:Msu_prof_ruppel_nas_act.jpg">McMormor</a>
+      and
+      <a href="https://commons.wikimedia.org/wiki/File:Aaron,_SJ_and_Mako_at_Boston_Wikipedia_Meetup,_2009-08-18.jpg">Ragesoss</a>,
+      CC-BY-SA
+    </figcaption>
+  </figure>
+  
   Collaboration is a critical element of contributing to Wikipedia. Students
   hear feedback from Wikipedians with ideas, copyedits, and contributions to the
   students' articles. Others have seen little editing or participation from the
