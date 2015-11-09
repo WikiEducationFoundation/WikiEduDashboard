@@ -5,7 +5,7 @@ image: https://upload.wikimedia.org/wikipedia/commons/c/ce/Msu_prof_ruppel_stude
 content: >
   <figure class="alt-layout-40-right">
     <img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/Msu_prof_ruppel_students_nas_act.jpg" />
-    <figcaption>
+    <figcaption class="image-credit">
       <a href="https://commons.wikimedia.org/wiki/File:Msu_prof_ruppel_students_nas_act.jpg">Photo by McMormor</a>,
       CC-BY-SA
     </figcaption>

@@ -4,7 +4,7 @@ summary:
 content: >
   <figure class="alt-layout-40-right">
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Nora_the_shaggy_dog_03.jpg/640px-Nora_the_shaggy_dog_03.jpg" />
-    <figcaption>
+    <figcaption class="image-credit">
       <a href="https://commons.wikimedia.org/wiki/File:Nora_the_shaggy_dog_03.jpg">Photo by Ragesoss</a>,
       CC-BY-SA
     </figcaption>

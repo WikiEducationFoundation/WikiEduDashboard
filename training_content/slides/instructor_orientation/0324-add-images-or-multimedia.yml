@@ -4,7 +4,7 @@ summary:
 content: >
   <figure class="alt-layout-40-right">
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/A_student_using_the_upload_wizard.jpg/640px-A_student_using_the_upload_wizard.jpg" />
-    <figcaption>
+    <figcaption class="image-credit">
       <a href="https://commons.wikimedia.org/wiki/File:A_student_using_the_upload_wizard.jpg">Photo by Samantha Erickson</a>,
       CC-BY-SA
     </figcaption>
