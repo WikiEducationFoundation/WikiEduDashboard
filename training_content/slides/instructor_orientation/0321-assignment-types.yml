@@ -2,8 +2,13 @@ id: 321
 title: Assignment types
 summary:
 content: >
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Global_Feminist_Art_class_at_University_of_Washington%2C_2015-04-23_05.jpg/320px-Global_Feminist_Art_class_at_University_of_Washington%2C_2015-04-23_05.jpg" />
-
+  <figure class="alt-layout-40-right">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Global_Feminist_Art_class_at_University_of_Washington%2C_2015-04-23_05.jpg/320px-Global_Feminist_Art_class_at_University_of_Washington%2C_2015-04-23_05.jpg" />
+    <figcaption>
+      <a href="https://commons.wikimedia.org/wiki/Global_Feminist_Art_class_at_University_of_Washington%2C_2015-04-23_05.jpg">Photo by Ragesoss</a>,
+      CC-BY-SA
+    </figcaption>
+  </figure>
 
   Let's look at a few types of Wikipedia assignments. Of course, you
   can adjust and adapt the course assignment from how it’s described here.

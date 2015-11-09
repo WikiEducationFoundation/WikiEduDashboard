@@ -2,8 +2,13 @@ id: 305
 title: The Five Pillars
 summary:
 content: |
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Palace_of_Fine_Arts%2C_five_pillars.jpg/640px-Palace_of_Fine_Arts%2C_five_pillars.jpg" />
-
+  <figure class="alt-layout-40-right">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Palace_of_Fine_Arts%2C_five_pillars.jpg/640px-Palace_of_Fine_Arts%2C_five_pillars.jpg" />
+    <figcaption>
+      <a href="https://commons.wikimedia.org/wiki/File:Palace_of_Fine_Arts%2C_five_pillars.jpg">Photo by Eryk Salvaggio</a>,
+      CC-BY-SA
+    </figcaption>
+  </figure>
 
   These five guiding principles are key to how Wikipedia works.
 
@@ -15,5 +20,3 @@ content: |
   * Wikipedia is free content
   * Wikipedians should interact in a respectful and civil manner
   * Wikipedia does not have firm rules
-
-  <div style="clear: both" />

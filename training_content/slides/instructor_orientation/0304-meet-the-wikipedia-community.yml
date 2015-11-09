@@ -15,9 +15,10 @@ content: >
   different perspectives (and often disagree!), we're here to make Wikipedia
   better.
 
-
-  <div style="clear:both;" align="center">
-    <img align="middle" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Wikipedia_community_collage.png/480px-Wikipedia_community_collage.png" />
-  </div>
-  
-  Photo: "Wikipedia community collage" by Images: Jelly Helm. Collage: Sage Ross - Stills from File:Great Feeling.ogv, File:Edit Button.ogv, File:Nice People MEDIUM.ogv, and File:Wikipedia User Name MEDIUM.ogv. Licensed under CC BY-SA 3.0 via Wikimedia Commons - https://commons.wikimedia.org/wiki/File:Wikipedia_community_collage.png#/media/File:Wikipedia_community_collage.png
+  <figure>
+    <img align="middle" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Wikipedia_community_collage.png/800px-Wikipedia_community_collage.png" />
+    <figcaption>
+      <a href="https://commons.wikimedia.org/wiki/File:Wikipedia_community_collage.png">Wikipedia community collage</a>,
+      images by Jelly Helm, CC-BY-SA
+    </figcaption>
+  </figure>

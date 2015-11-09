@@ -2,8 +2,13 @@ id: 324
 title: "Assignment: Add images and/or multimedia"
 summary:
 content: >
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/A_student_using_the_upload_wizard.jpg/640px-A_student_using_the_upload_wizard.jpg" />
-
+  <figure class="alt-layout-40-right">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/A_student_using_the_upload_wizard.jpg/640px-A_student_using_the_upload_wizard.jpg" />
+    <figcaption>
+      <a href="https://commons.wikimedia.org/wiki/File:A_student_using_the_upload_wizard.jpg">Photo by Samantha Erickson</a>,
+      CC-BY-SA
+    </figcaption>
+  </figure>
 
   Wikipedia isn’t just for words. Wikipedia articles can often be greatly
   improved through the addition of photographs, illustrations, or video. This
