@@ -2,11 +2,11 @@ id: 316
 title: No original research
 summary:
 content: >
-  <figure class="alt-layout-40-left">
+  <figure class="alt-layout-40-right">
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Nora_the_shaggy_dog_03.jpg/640px-Nora_the_shaggy_dog_03.jpg" />
     <figcaption>
-      Image by:
-      <a href="foo.com">Ragesoss</a>
+      <a href="https://commons.wikimedia.org/wiki/File:Nora_the_shaggy_dog_03.jpg">Photo by Ragesoss</a>,
+      CC-BY-SA
     </figcaption>
   </figure>
 
@@ -15,8 +15,8 @@ content: >
   That means a critical reader should expect to find any claims in an article
   supported by the sources it cites.
 
-  Wikipedia is built on secondary sources writing about a primary source. 
-  Wikipedia is not a place to publish original research or to synthesize ideas. 
+  Wikipedia is built on secondary sources writing about a primary source.
+  Wikipedia is not a place to publish original research or to synthesize ideas.
   It’s a place to summarize what reliable sources have previously written about the topic.
 
   Some instructors find success in assigning students to write an

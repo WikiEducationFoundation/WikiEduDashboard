@@ -2,7 +2,14 @@ id: 330
 title: Wiki Ed staff
 summary:
 content: >
-  <img src="https://commons.wikimedia.org/wiki/File:Wiki_Ed_Content_Experts.png" />
+  <figure>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/40/Wiki_Ed_Content_Experts.png" />
+    <figcaption>
+      Adam Hyland and Ian Ramjohn, Wiki Ed's Content Experts
+    </figcaption>
+  </figure>
+
+
   When your course is underway, you’ll be assigned a **Content Expert**. They
   can help at every step of the process, including:
 

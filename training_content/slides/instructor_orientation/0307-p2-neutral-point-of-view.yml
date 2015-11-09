@@ -2,8 +2,13 @@ id: 307
 title: "Pillar 2: Wikipedia has a neutral point of view"
 summary:
 content: >
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Palace_of_Fine_Arts%2C_two_pillars.jpg/320px-Palace_of_Fine_Arts%2C_two_pillars.jpg" />
-
+  <figure class="alt-layout-30-right">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Palace_of_Fine_Arts%2C_two_pillars.jpg/320px-Palace_of_Fine_Arts%2C_two_pillars.jpg" />
+    <figcaption>
+      <a href="https://commons.wikimedia.org/wiki/Palace_of_Fine_Arts%2C_two_pillars.jpg">Photo by Eryk Salvaggio</a>,
+      CC-BY-SA
+    </figcaption>
+  </figure>
 
   Wikipedia strives for a “neutral point of view,” which is defined as
   “representing significant views fairly, proportionately and without bias.”
