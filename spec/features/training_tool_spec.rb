@@ -11,6 +11,50 @@ describe 'Training', type: :feature, js: true do
     Capybara.current_driver = :selenium
   end
 
+  describe 'root library' do
+    library_names = TrainingLibrary.all.map(&:name)
+    it 'loads for a logged-in user' do
+      visit '/training'
+      library_names.each do |library_name|
+        expect(page).to have_content library_name
+      end
+    end
+
+    it 'loads for a logged-out user' do
+      logout(:user)
+      visit '/training'
+      library_names.each do |library_name|
+        expect(page).to have_content library_name
+      end
+    end
+
+    after do
+      login_as(user, scope: :user)
+    end
+  end
+
+  describe 'libraries' do
+    TrainingLibrary.all.each do |library|
+      describe "'#{library.name}' library" do
+        it 'renders the overview' do
+          visit "/training/#{library.slug}"
+          expect(page).to have_content library.name
+        end
+      end
+    end
+
+    it 'load for a logged out user' do
+      logout(:user)
+      first_library = TrainingLibrary.all[0]
+      visit "/training/#{first_library.slug}"
+      expect(page).to have_content first_library.name
+    end
+
+    after do
+      login_as(user, scope: :user)
+    end
+  end
+
   describe 'module index page' do
     before do
       visit "/training/students/#{module_2.slug}"
@@ -43,6 +87,17 @@ describe 'Training', type: :feature, js: true do
       within('.training__slide__nav') { find('.hamburger').click }
       unseen_slide_link = find('.slide__menu__nav__dropdown li:last-child a')
       expect(unseen_slide_link['disabled']).to eq('true')
+    end
+
+    it 'loads for a logged out user' do
+      logout(:user)
+      expect(page).to have_content 'TABLE OF CONTENTS'
+      expect(page).to have_content module_2.slides[0].title
+      expect(page).to have_content module_2.slides[-1].title
+    end
+
+    after do
+      login_as(user, scope: :user)
     end
   end
 
