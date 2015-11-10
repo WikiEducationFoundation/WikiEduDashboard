@@ -14,7 +14,8 @@
           %p= lib_category.description
         %ul.training__categories__modules
           - lib_category.modules.each do |lib_module|
-            - pm = TrainingProgressManager.new(current_user, lib_module)
+            - mod = TrainingModule.find_by(slug: lib_module.slug)
+            - pm = TrainingProgressManager.new(current_user, mod)
             %li
               = link_to training_module_path(@library.slug, lib_module.slug), class: 'action-card' do
                 %header.action-card-header

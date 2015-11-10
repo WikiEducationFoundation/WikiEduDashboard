@@ -18,6 +18,7 @@ class TrainingController < ApplicationController
     add_breadcrumb params[:module_id].titleize, :training_module_path
     @library = TrainingLibrary.find_by(slug: params[:library_id])
     @training_module = TrainingModule.find_by(slug: params[:module_id])
+    @progress_manager = TrainingProgressManager.new(current_user, @training_module)
   end
 
   def slide_view
