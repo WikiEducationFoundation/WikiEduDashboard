@@ -82,6 +82,16 @@ describe 'Training', type: :feature, js: true do
       )).not_to be_nil
     end
 
+    it 'updates the last_slide_completed upon viewing a slide (not after clicking `next`)' do
+      click_link 'Start'
+      sleep 1
+      tmu = TrainingModulesUsers.find_by(user_id: user.id, training_module_id: module_2.id)
+      expect(tmu.last_slide_completed).to eq(module_2.slides.first.slug)
+      click_link 'Next Page'
+      sleep 1
+      expect(tmu.reload.last_slide_completed).to eq(module_2.slides.second.slug)
+    end
+
     it 'disables slides that have not been seen' do
       click_link 'Start'
       within('.training__slide__nav') { find('.hamburger').click }
@@ -114,9 +124,18 @@ describe 'Training', type: :feature, js: true do
 end
 
 def go_through_module_from_start_to_finish(training_module)
-  slide_count = training_module.slides.count
   visit "/training/students/#{training_module.slug}"
   click_link 'Start'
+  click_through_slides(training_module)
+  sleep 1
+  expect(TrainingModulesUsers.find_by(
+    user_id: 1,
+    training_module_id: training_module.id
+  ).completed_at).not_to be_nil
+end
+
+def click_through_slides(training_module)
+  slide_count = training_module.slides.count
   training_module.slides.each_with_index do |slide, i|
     check_slide_contents(slide, i, slide_count)
     unless i == slide_count - 1
@@ -124,11 +143,6 @@ def go_through_module_from_start_to_finish(training_module)
       next
     end
     click_link 'Done!'
-    sleep 1
-    expect(TrainingModulesUsers.find_by(
-      user_id: 1,
-      training_module_id: training_module.id
-    ).completed_at).not_to be_nil
   end
 end
 
