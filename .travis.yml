@@ -17,12 +17,6 @@ addons:
 
 
 before_install:
-  # Decrypt and add SSH key
-  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && openssl aes-256-cbc -K $encrypted_513b9a3c0df8_key -iv $encrypted_513b9a3c0df8_iv -in config/deploy_travis_id_rsa.enc -out config/deploy_travis_id_rsa -d'
-  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && chmod 600 config/deploy_travis_id_rsa'
-  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && eval `ssh-agent -s`'
-  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && ssh-add config/deploy_travis_id_rsa'
-
   # Export QMAKE for libqt5webkit5-dev
   - export QMAKE=/usr/lib/x86_64-linux-gnu/qt5/bin/qmake
 
@@ -62,10 +56,7 @@ after_script:
   - bundle exec rubocop -R
 
 after_success:
-  # Deploy with Capistrano if the branch is production or staging
-  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && if [ $TRAVIS_BRANCH = "production" ]; then bundle exec cap production deploy skip_gulp=true; fi'
-  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && if [ $TRAVIS_BRANCH = "staging" ]; then bundle exec cap staging deploy skip_gulp=true; fi'
-
+  - ./travis-deploy.sh
 
 notifications:
   slack:
