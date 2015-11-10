@@ -28,7 +28,7 @@ TrainingSlideHandler = React.createClass(
   componentWillMount: ->
     ServerActions.fetchTrainingModule(module_id: @moduleId(), current_slide_id: @props.params.slide_id)
   setSlideCompleted: (e) ->
-    e.target.blur()
+    e?.target.blur()
     user_id = document.getElementById('main').getAttribute('data-user-id')
     return unless user_id
     ServerActions.setSlideCompleted(
