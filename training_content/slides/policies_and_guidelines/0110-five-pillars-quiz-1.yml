@@ -1,9 +1,9 @@
-id: 10
-title: Quiz Question 1
+id: 110
+title: Five Pillars quiz
 summary:
 assessment:
   correct_answer_id: 3
-  question: A Wikipedia article should...
+  question: A Wikipedia article should…
   answers:
     - id: 1
       text: |
@@ -13,8 +13,7 @@ assessment:
         Incorrect. Remember, a Wikipedia article should be neutral, balanced,
         and fair to all views. You want readers to have access to facts, and
         trust that those facts will lead them to their own conclusions. This is
-        the policy known as [Neutral Point of View] (INSERT LINK to
-        neutral-point-of-view slide).
+        the policy known as [Neutral Point of View](../neutral-point-of-view)
     - id: 2
       text: |
         Replicate the best information from published authors, word-for-word.
