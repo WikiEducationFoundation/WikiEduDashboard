@@ -40,6 +40,7 @@ class TrainingModulePresenter
   private
 
   def training_modules_user
+    return unless @user
     TrainingModulesUsers.find_by(
       user_id: @user.id,
       training_module_id: @training_module.id
@@ -47,6 +48,7 @@ class TrainingModulePresenter
   end
 
   def last_slide_completed
+    return unless @user
     training_modules_user.last_slide_completed
   end
 
