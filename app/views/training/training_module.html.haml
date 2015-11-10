@@ -3,26 +3,19 @@
 .container.training
   .training__intro
     .training-intro__header
-      %h1= @training_module.name
+      %h1= @pres.training_module.name
       - markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
-      - html = markdown.render(@training_module.description)
+      - html = markdown.render(@pres.training_module.description)
       = raw html
     .training-intro__cta-container
-      %small.block-element.capitalize{ class: @progress_manager.assignment_status_css_class }
-        = @progress_manager.assignment_status
-      = link_to [@training_module.slug, @training_module.slides.first.slug].join('/'),
-        class: 'btn btn-primary py2 icon icon-rt_arrow mx2 pull-left' do
-        - if @progress_manager.present?
-          - if @progress_manager.module_completed?
-            View
-          - else
-            Continue (#{@progress_manager.module_progress})
-        - else
-          Start
+      %small.block-element.capitalize{ class: @pres.progress_manager.assignment_status_css_class }
+        = @pres.progress_manager.assignment_status
+      = link_to @pres.cta_button_link, class: @pres.cta_button_classes do
+        = @pres.cta_button_text
       %h3.py2.pull-left.training-intro__estimated-ttc
-        - unless @progress_manager.present?
+        - if @pres.should_show_ttc?
           %small
             Estimated time to complete:
             %br/
-            = @training_module.estimated_ttc
+            = @pres.training_module.estimated_ttc
   #react_root{ "data-module-id" => params[:module_id] }
