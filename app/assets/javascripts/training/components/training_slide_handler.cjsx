@@ -57,12 +57,16 @@ TrainingSlideHandler = React.createClass(
 
   keys: { rightKey: 39, leftKey: 37 }
 
+  disableNext: ->
+    @state.currentSlide.assessment? && !@state.currentSlide.answeredCorrectly
+
   handleKeyPress: (e) ->
     navParams = library_id: @props.params.library_id, module_id: @props.params.module_id
     if e.which == @keys.leftKey && @state.previousSlide?
       params = _.extend navParams, slide_id: @state.previousSlide.slug
       @transitionTo 'slide', params
     if e.which == @keys.rightKey && @state.nextSlide?
+      return if @disableNext()
       @setSlideCompleted()
       params = _.extend navParams, slide_id: @state.nextSlide.slug
       @transitionTo 'slide', params
@@ -82,13 +86,11 @@ TrainingSlideHandler = React.createClass(
         </div>
       )
 
-    disableNext = @state.currentSlide.assessment? && !@state.currentSlide.answeredCorrectly
-
     if @state.nextSlide?.slug
       nextLink = <SlideLink
                    slideId={@state.nextSlide.slug}
                    direction='Next'
-                   disabled={disableNext}
+                   disabled={@disableNext()}
                    button=true
                    onClick={@setSlideCompleted}
                    params={@props.params} />
