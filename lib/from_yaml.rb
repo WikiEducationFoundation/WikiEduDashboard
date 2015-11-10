@@ -46,6 +46,8 @@ class FromYaml
     content.each do |k, v|
       self.instance_variable_set("@#{k}",v)
     end
+  rescue StandardError => e
+    puts "There's a problem with file '#{slug}'"
+    raise e
   end
-
 end
