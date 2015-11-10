@@ -1,3 +1,5 @@
+Documentation:
+  Enabled: false
 AllCops:
   Exclude:
     - 'Gemfile'

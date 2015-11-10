@@ -23,16 +23,21 @@ TrainingSlideHandler = React.createClass(
   componentDidMount: ->
     getState(@props)
   componentWillReceiveProps: (newProps) ->
-    TrainingActions.setCurrentSlide(newProps.params.slide_id)
+    slide_id = newProps.params.slide_id
+    TrainingActions.setCurrentSlide(slide_id)
+    @setSlideCompleted(slide_id)
     @setState getState(newProps)
   componentWillMount: ->
-    ServerActions.fetchTrainingModule(module_id: @moduleId(), current_slide_id: @props.params.slide_id)
-  setSlideCompleted: (e) ->
-    e?.target.blur()
+    slide_id = @props.params.slide_id
+    ServerActions.fetchTrainingModule(module_id: @moduleId(), current_slide_id: slide_id)
+    @setSlideCompleted(slide_id)
+  storeDidChange: ->
+    @setState getState()
+  setSlideCompleted: (slide_id) ->
     user_id = document.getElementById('main').getAttribute('data-user-id')
     return unless user_id
     ServerActions.setSlideCompleted(
-      slide_id: @props.params.slide_id,
+      slide_id: slide_id,
       module_id: @moduleId(),
       user_id: user_id
     )
@@ -45,8 +50,6 @@ TrainingSlideHandler = React.createClass(
       module_id: @moduleId(),
       user_id: user_id
     )
-  storeDidChange: ->
-    @setState getState()
   toggleMenuOpen: (e) ->
     e.stopPropagation()
     TrainingActions.toggleMenuOpen(currently: @state.menuIsOpen)
@@ -67,7 +70,7 @@ TrainingSlideHandler = React.createClass(
       @transitionTo 'slide', params
     if e.which == @keys.rightKey && @state.nextSlide?
       return if @disableNext()
-      @setSlideCompleted()
+      @setSlideCompleted(@props.params.slide_id)
       params = _.extend navParams, slide_id: @state.nextSlide.slug
       @transitionTo 'slide', params
 
@@ -92,7 +95,6 @@ TrainingSlideHandler = React.createClass(
                    direction='Next'
                    disabled={@disableNext()}
                    button=true
-                   onClick={@setSlideCompleted}
                    params={@props.params} />
     else
       nextLink = <Link
