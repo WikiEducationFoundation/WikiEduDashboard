@@ -1,9 +1,12 @@
 name: Orientation for New Instructors
 id: 3
-intro: |
-  This orientation explores Wikipedia as it relates to classrooms and learning across academic institutions. Instructors will learn about Wikipedia’s culture, expectations, and rules, with an emphasis on aspects that impact educational assignments. There are also models for successful Wikipedia assignments for a variety of contexts, and an overview of Wiki Ed’s tools and resources. 
 description: |
-  This orientation explores Wikipedia as it relates to classrooms and learning across academic institutions. Instructors will learn about Wikipedia’s culture, expectations, and rules, with an emphasis on aspects that impact educational assignments. There are also models for successful Wikipedia assignments for a variety of contexts, and an overview of Wiki Ed’s tools and resources. 
+  This orientation explores Wikipedia as it relates to classrooms and learning
+  across academic institutions. Instructors will learn about Wikipedia’s
+  culture, expectations, and rules, with an emphasis on aspects that impact
+  educational assignments. There are also models for successful Wikipedia
+  assignments for a variety of contexts, and an overview of Wiki Ed’s tools
+  and resources.
 estimated_ttc: 23 minutes
 slides:
   - slug: welcome-new-instructors # 301
