@@ -92,6 +92,16 @@ describe 'Training', type: :feature, js: true do
       expect(tmu.reload.last_slide_completed).to eq(module_2.slides.second.slug)
     end
 
+    it 'sets the module completed on viewing the last slide' do
+      login_as(user, scope: :user)
+      sleep 1
+      click_link 'Start'
+      tmu = TrainingModulesUsers.find_by(user_id: user.id, training_module_id: module_2.id)
+      visit "/training/students/#{module_2.slug}/#{module_2.slides.last.slug}"
+      sleep 1
+      expect(tmu.reload.completed_at).to be_between(1.minute.ago, 1.minute.from_now)
+    end
+
     it 'disables slides that have not been seen' do
       click_link 'Start'
       within('.training__slide__nav') { find('.hamburger').click }
