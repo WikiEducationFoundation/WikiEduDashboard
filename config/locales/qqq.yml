@@ -7,12 +7,12 @@
 qqq:
   application:
     dashboard: Application name.
-    help: Help
-    home: The main page
-    log_out: Log out (for registered users)
-    login_sign_up: Login (for registered users) or sign up
-    recent_activity: Last actions (for registered users)
-    search: Search on ask.wikiedu.org
+    help: Link to http://ask.wikiedu.org
+    home: Link to the main page
+    log_out: Button for logging out (for registered users)
+    login_sign_up: Button for logging in (for registered users) or signing up
+    recent_activity: Link to recent activity (for registered users)
+    search: Input box for search on ask.wikiedu.org
   
   activity:
     all: '{{Identical|Activity}}'
@@ -102,17 +102,17 @@ qqq:
         term already exists.
   
   course_creator:
-    create_new: Create a New Course
-    course_title: New course title
-    course_school: New course school
-    сourse_term: New course term
-    course_subject: New course subject
-    course_description: New course description
-    expected_number: Expected number of students
-    instructor_name: Instructor name
-    instructor_email: Instructor email
-    start_date: Start date of the course
-    end_date: End date of the course
+    create_new: Header of button for creating a new course
+    course_title: Label for title of the course
+    course_school: Label for name of school which organized the course
+    сourse_term: Label for term of the course
+    course_subject: Label for subject of the course
+    course_description: Label for description of the course
+    expected_number: Label for expected number of students who will enroll in the course
+    instructor_name: Label for the course instructor's name
+    instructor_email: Label for the course instructor's email
+    start_date: Label for date of the course start
+    end_date: Label for date of the course end
     intro: Description of the course creator form
   
   metrics:
@@ -138,14 +138,14 @@ qqq:
     user_ns: Wiki title for the user namespace.
 
   revisions:
-    date_time: Date/Time
-    chars_added: Number of added chars
-    class: Class
-    edited_by: Author of the last edition
-    loading: Loading revisions
-    none: This course has no recent Wikipedia editing activity.
-    time_doc: The time of each revision in your local time
-    title: Title
+    date_time: Label for date and time of revision
+    chars_added: Label for counter of added chars
+    class: Label for class of the article
+    edited_by: Label for author of the last edition
+    loading: Message about loading revisions
+    none: Message stating there's no Wikipedia editing activity
+    time_doc: Explanation of what 'time' means
+    title: Label for title of the article
   
   users:
     already_enrolled: Message indicating that a user is already enrolled in the course
