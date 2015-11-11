@@ -431,4 +431,41 @@ describe Course, type: :model do
       expect(course.uploads).not_to include(CommonsUpload.find(3))
     end
   end
+
+  describe 'callbacks' do
+    let(:course) { create(:course) }
+    describe '#before_save' do
+      subject { course.update_attributes(course_attrs) }
+      context 'params are legit' do
+        let(:course_attrs) {{ end: 1.year.from_now }}
+        it 'succeeds' do
+          expect(subject).to eq(true)
+        end
+      end
+      context 'slug is nil' do
+        let(:course_attrs) {{ slug: nil }}
+        it 'fails' do
+          expect(subject).to eq(false)
+        end
+      end
+      context 'title is nil' do
+        let(:course_attrs) {{ title: nil }}
+        it 'fails' do
+          expect(subject).to eq(false)
+        end
+      end
+      context 'school is nil' do
+        let(:course_attrs) {{ school: nil }}
+        it 'fails' do
+          expect(subject).to eq(false)
+        end
+      end
+      context 'term is nil' do
+        let(:course_attrs) {{ term: nil }}
+        it 'fails' do
+          expect(subject).to eq(false)
+        end
+      end
+    end
+  end
 end

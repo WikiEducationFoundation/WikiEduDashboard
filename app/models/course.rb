@@ -111,6 +111,12 @@ class Course < ActiveRecord::Base
   validates :passcode, presence: true, unless: :legacy?
 
   ####################
+  # Callbacks        #
+  ####################
+
+  before_save :ensure_required_params
+
+  ####################
   # Instance methods #
   ####################
   def to_param
@@ -262,4 +268,9 @@ class Course < ActiveRecord::Base
       week.update_attribute(:order, i + 1)
     end
   end
+
+  def ensure_required_params
+    return false unless [title, school, term, slug].select(&:nil?).length.zero?
+  end
+
 end
