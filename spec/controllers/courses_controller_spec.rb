@@ -195,9 +195,9 @@ describe CoursesController do
           { school: 'Wiki University',
             title: 'How to Wiki' }
         end
-        it 'does not set slug' do
+        it 'does not set slug (and does not create course)' do
           post :create, course: course_params, format: :json
-          expect(Course.last.slug).to be_nil
+          expect(Course.all).to be_empty
         end
       end
 
@@ -208,6 +208,7 @@ describe CoursesController do
             # Don't use 2.months.ago; it'll return a datetime, not a date
             start: Time.zone.today - 2.months,
             end: Time.zone.today + 2.months,
+            school: 'burritos',
             term: 'pizza',
             slug: 'food',
             subject: 'cooking',
