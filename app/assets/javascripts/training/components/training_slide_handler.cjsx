@@ -41,15 +41,6 @@ TrainingSlideHandler = React.createClass(
       module_id: @moduleId(),
       user_id: user_id
     )
-  setModuleCompleted: (e) ->
-    e.preventDefault()
-    user_id = document.getElementById('main').getAttribute('data-user-id')
-    return unless user_id
-    ServerActions.setModuleCompleted(
-      library_id: @props.params.library_id,
-      module_id: @moduleId(),
-      user_id: user_id
-    )
   toggleMenuOpen: (e) ->
     e.stopPropagation()
     TrainingActions.toggleMenuOpen(currently: @state.menuIsOpen)
