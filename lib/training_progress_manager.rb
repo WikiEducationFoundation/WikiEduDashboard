@@ -1,15 +1,12 @@
 class TrainingProgressManager
-
   def initialize(user, training_module, slide=nil)
     @user = user
     @training_module = training_module
     @slide = slide
-    if @user
-      @tmu = TrainingModulesUsers.find_by(
-        user_id: @user.id,
-        training_module_id: @training_module.id
-      )
-    end
+    @tmu = TrainingModulesUsers.find_by(
+      user_id: @user.id,
+      training_module_id: @training_module.id
+    ) if @user.present?
   end
 
   def slide_completed?
@@ -42,9 +39,9 @@ class TrainingProgressManager
   def assignment_status
     return unless blocks_with_module_assigned(@training_module).any?
     if earliest_due_date.present?
-      parenthetical = "due #{earliest_due_date.strftime("%m/%d/%Y")}"
+      parenthetical = format 'due %s', earliest_due_date.strftime('%m/%d/%Y')
     else
-      parenthetical = "no due date"
+      parenthetical = 'no due date'
     end
     "Training Assignment (#{module_completed? ? 'completed' : parenthetical})"
   end
@@ -82,7 +79,7 @@ class TrainingProgressManager
 
   def blocks_with_training_modules_for_user
     return [] unless @user.present?
-    Block.joins(week: { course: :courses_users})
+    Block.joins(week: { course: :courses_users })
       .where(courses_users: { user_id: @user.id })
       .where.not('training_module_ids = ?', [].to_yaml)
   end
@@ -92,5 +89,4 @@ class TrainingProgressManager
     slug = entity.respond_to?(:slug) ? entity.slug : entity
     @training_module.slides.collect(&:slug).index(slug)
   end
-
 end
