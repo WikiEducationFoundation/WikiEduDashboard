@@ -157,4 +157,4 @@ Block = React.createClass(
     </li>
 )
 
-module.exports = Reorderable(Block, 'block', 'moveBlock')
+module.exports = Block

@@ -22,6 +22,7 @@ Week = React.createClass(
     to_pass['title'] = value
     WeekActions.updateWeek to_pass
   toggleFocused: (block_id) ->
+    console.log("togling focus", block_id)
     if @state.focusedBlockId == block_id
       @setState focusedBlockId: null
     else

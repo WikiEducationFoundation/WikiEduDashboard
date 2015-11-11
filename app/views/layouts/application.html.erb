@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html <%= rtl? ? "dir=rtl" : "" %>>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <% before = content_for?(:before_title) ? yield(:before_title) : '' %>
+    <% after = content_for?(:after_title) ? yield(:after_title) : '' %>
+    <title><%=  "#{before}#{Figaro.env.dashboard_title}#{after}" %></title>
+
+    <%= logo_favicon_tag %>
+
+    <meta name="description" content="<%= ENV['meta_description'] || 'Wiki Dashboard' %>">
+
+    <%= stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700', media: 'all' %>
+    <%= stylesheet_link_tag fingerprinted("/assets/stylesheets/#{rtl? ? 'rtl/' : nil}", 'main.css'), media: 'all' %>
+    <%= javascript_include_tag '/assets/javascripts/i18n' %>
+    <%= javascript_include_tag '/assets/javascripts/i18n/' + I18n.locale.to_s %>
+    <script type="text/javascript">
+      I18n.defaultLocale = "<%= I18n.default_locale %>";
+      I18n.locale = "<%= I18n.locale %>";
+    </script>
+
+    <script>
+      window.CKEDITOR_BASEPATH = "/vendor/"
+    </script>
+
+    <%= javascript_include_tag '/assets/javascripts/vendor.js' %>
+
+    <!-- Temporary Raven logging -->
+    <script src="//cdn.ravenjs.com/1.1.19/jquery,native/raven.min.js"></script>
+    <script>Raven.config("<%= ENV['sentry_public_dsn'] %>").install();</script>
+
+    <%= javascript_include_tag fingerprinted('/assets/javascripts/', 'main.js') %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <% if flash[:notice] %>
+      <div class="notice"><%= flash[:notice] %></div>
+    <% end %>
+    <div>
+      <aside>
+        <div class="container">
+          <div class="logo">
+            <a class="logo__link" href="/"><%= logo_tag %></a>
+          </div>
+          <div class="home">
+            <p>
+              <%= link_to t('application.home'), root_url, class: 'inline' %>
+              <% if current_user && current_user.admin? %>
+                <%= link_to t('application.recent_activity'), '/recent-activity', class: 'inline' %>
+              <% end %>
+            </p>
+          </div>
+          <div class="search">
+              <%= form_tag("/ask", method: "get", target: '_blank') do %>
+                <%= text_field_tag(:q, '', placeholder: t('application.search')) %>
+                <%= submit_tag(t('application.help')) %>
+              <% end %>
+          </div>
+          <div class="login">
+            <% if user_signed_in? %>
+              <p><b><%= link_to current_user.wiki_id, :root, class: 'inline' %></b>.&nbsp;&nbsp;&nbsp;<%= link_to I18n.t('application.log_out'), :destroy_user_session %></p>
+            <% else %>
+              <p><%= link_to t('application.login_sign_up'), user_omniauth_authorize_path(:mediawiki) %></p>
+            <% end %>
+          </div>
+        </div>
+      </aside>
+      <main role="main" id="main" data-user-id=<%= current_user.try(:id) %>>
+        <%= yield %>
+      </main>
+    </div>
+    <%= piwik_tracking_tag %>
+  </body>
+</html>
