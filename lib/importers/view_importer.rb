@@ -1,4 +1,5 @@
 require "#{Rails.root}/lib/grok"
+require "#{Rails.root}/lib/wiki_pageviews"
 
 #= Imports and updates views for articles, revisions, and join tables
 class ViewImporter
@@ -61,7 +62,7 @@ class ViewImporter
     threads = articles.each_with_index.map do |article, i|
       article_id = article.id
       Thread.new(i) do
-        average_views[article_id] = Grok.average_views_for_article(article.title)
+        average_views[article_id] = WikiPageviews.average_views_for_article(article.title)
         avua[article_id] = datestamp
       end
     end
