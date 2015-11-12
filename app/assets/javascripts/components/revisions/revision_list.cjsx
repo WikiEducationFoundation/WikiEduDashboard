@@ -17,19 +17,19 @@ RevisionList = React.createClass(
 
     keys =
       'rating_num':
-        'label': I18n.t('revision.class')
+        'label': I18n.t('revisions.class')
         'desktop_only': true
       'title':
-        'label': I18n.t('revision.title')
+        'label': I18n.t('revisions.title')
         'desktop_only': false
       'edited_by':
-        'label': I18n.t('revision.edited_by')
+        'label': I18n.t('revisions.edited_by')
         'desktop_only': true
       'characters':
-        'label': I18n.t('revision.chars_added')
+        'label': I18n.t('revisions.chars_added')
         'desktop_only': true
       'date':
-        'label': I18n.t('revision.date_time')
+        'label': I18n.t('revisions.date_time')
         'desktop_only': true
         'info_key': 'revisions.time_doc'
 
