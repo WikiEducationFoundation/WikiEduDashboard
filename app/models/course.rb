@@ -17,12 +17,11 @@
 #  revision_count    :integer          default(0)
 #  slug              :string(255)
 #  listed            :boolean          default(TRUE)
-#  trained_count     :integer          default(0)
 #  signup_token      :string(255)
 #  assignment_source :string(255)
 #  subject           :string(255)
 #  expected_students :integer
-#  description       :text
+#  description       :text(65535)
 #  submitted         :boolean          default(FALSE)
 #  passcode          :string(255)
 #  timeline_start    :date
@@ -30,6 +29,10 @@
 #  day_exceptions    :string(255)      default("")
 #  weekdays          :string(255)      default("0000000")
 #  new_article_count :integer
+#  order             :integer          default(1), not null
+#  no_day_exceptions :boolean          default(FALSE)
+#  trained_count     :integer          default(0)
+#  cloned_status     :integer
 #
 
 #= Course model
