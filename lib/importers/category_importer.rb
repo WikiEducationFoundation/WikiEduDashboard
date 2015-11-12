@@ -74,7 +74,7 @@ class CategoryImporter
   def self.import_missing_info(article_ids)
     outdated_views = Article
                      .where(id: article_ids)
-                     .where('average_views_updated_at < ?', 1.month.ago)
+                     .where('average_views_updated_at < ?', 1.year.ago)
                      .pluck(:id)
     import_average_views outdated_views
     missing_views = Article.where(id: article_ids, average_views: nil)
