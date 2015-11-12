@@ -56,11 +56,17 @@ class ViewImporter
 
   def self.update_average_views_for_batch(articles)
     # TODO: threading to get views for more than one at a time
-    articles.each do |article|
-      article.average_views = Grok.average_views_for_article(article.title)
-      article.average_views_updated_at = Time.zone.today
-      article.save
+    average_views, avua = {}, {}
+    datestamp = Time.zone.today
+    threads = articles.each_with_index.map do |article, i|
+      article_id = article.id
+      Thread.new(i) do
+        average_views[article_id] = Grok.average_views_for_article(article.title)
+        avua[article_id] = datestamp
+      end
     end
+    threads.each(&:join)
+    save_updated_average_views(articles, average_views, avua)
   end
 
   ###########
@@ -74,6 +80,16 @@ class ViewImporter
     articles.each do |article|
       article.views_updated_at = views_updated_at[article.id]
       update_views_for_article(article, all_time, views[article.id])
+    end
+  end
+
+  def self.save_updated_average_views(articles, average_views, average_views_updated_at)
+    Article.transaction do
+      articles.each do |article|
+        article.average_views_updated_at = average_views_updated_at[article.id]
+        article.average_views = average_views[article.id]
+        article.save
+      end
     end
   end
 
