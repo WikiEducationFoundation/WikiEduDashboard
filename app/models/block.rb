@@ -2,16 +2,17 @@
 #
 # Table name: blocks
 #
-#  id           :integer          not null, primary key
-#  kind         :integer
-#  content      :string(5000)
-#  week_id      :integer
-#  gradeable_id :integer
-#  created_at   :datetime
-#  updated_at   :datetime
-#  title        :string(255)
-#  order        :integer
-#  due_date     :datetime
+#  id                  :integer          not null, primary key
+#  kind                :integer
+#  content             :text(65535)
+#  week_id             :integer
+#  gradeable_id        :integer
+#  created_at          :datetime
+#  updated_at          :datetime
+#  title               :string(255)
+#  order               :integer
+#  due_date            :date
+#  training_module_ids :text(65535)
 #
 
 #= Block model

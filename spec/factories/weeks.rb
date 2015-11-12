@@ -7,6 +7,7 @@
 #  course_id  :integer
 #  created_at :datetime
 #  updated_at :datetime
+#  order      :integer          default(1), not null
 #
 
 FactoryGirl.define do
