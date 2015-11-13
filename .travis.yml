@@ -55,6 +55,11 @@ after_script:
   - codeclimate-test-reporter < coverage/lcov.info
   - bundle exec rubocop -R
 
+after_failure:
+  - npm install imgur-uploader-cli -g
+  - find $TRAVIS_BUILD_DIR/tmp/screenshots -name "*.png" -print0 | xargs -n 1 -0 imgur-uploader
+
+
 after_success:
   - ./travis-deploy.sh
 
