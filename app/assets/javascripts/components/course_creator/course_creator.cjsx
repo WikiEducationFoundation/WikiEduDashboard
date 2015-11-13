@@ -101,7 +101,7 @@ CourseCreator = React.createClass(
         <p>{I18n.t('course_creator.intro')}</p>
         <div className={cloneOptions}>
           <button className='button dark' onClick={@showForm}>Create New Course</button>
-          <button className='button dark' onClick={@showCourseDropdown}>Reuse Existing Course</button>
+          <button className='button dark' onClick={@showCourseDropdown}>Clone Previous Course</button>
         </div>
         <div className={selectClass}>
           <select id='reuse-existing-course-select' ref='courseSelect'>{options}</select>
