@@ -30,13 +30,15 @@ TrainingSlideHandler  = require '../training/components/training_slide_handler'
 
 routes = (
   <Route name='root' path='/' handler={App}>
+    <DefaultRoute handler={CourseCreatorButton} />
     <Route path='recent-activity' name='recent-activity' handler={RecentActivityHandler}>
       <DefaultRoute name='did-you-know' handler={DidYouKnowHandler} />
       <Route path='mainspace' name='mainspace' handler={MainspaceHandler} />
       <Route path='plagiarism' name='plagiarism' handler={PlagiarismHandler} />
       <Route path='recent-edits' name='recent-edits' handler={RecentEditsHandler} />
     </Route>
-    <Route path='courses' handler={App}>
+    <Route path='courses'>
+      <DefaultRoute handler={CourseCreatorButton} />
       <Route name='course' path=':course_school/:course_title' handler={Course}>
         <DefaultRoute name='overview' handler={OverviewHandler} />
         <Route name='timeline' path='timeline' handler={TimelineHandler} >
@@ -47,15 +49,9 @@ routes = (
         <Route name='students' path='students' handler={StudentsHandler}></Route>
         <Route name='articles' path='articles' handler={ArticlesHandler}></Route>
         <Route name='uploads' path='uploads' handler={UploadsHandler}></Route>
-        <Redirect from="overview" to="overview" />
       </Route>
-      <DefaultRoute handler={CourseCreatorButton} />
     </Route>
-    <Route handler={CourseCreatorButton}>
-      <Route name='course_creator' path='course_creator' handler={CourseCreator} />
-    </Route>
-    <DefaultRoute handler={CourseCreatorButton} />
-
+    <Route name='course_creator' path='course_creator' handler={CourseCreator} />
     <Route path='training' handler={TrainingApp} >
       <Route name='module' path=':library_id/:module_id' handler={TrainingModuleHandler} />
       <Route name='slide' path='/training/:library_id/:module_id/:slide_id' handler={TrainingSlideHandler} />

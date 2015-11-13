@@ -54,7 +54,7 @@ describe 'activity page', type: :feature, js: true do
 
     context 'dyk eligible' do
       it 'displays a list of DYK-eligible articles' do
-        click_link 'Recent Activity'
+        visit '/recent-activity'
         sleep 1
         expect(page).to have_content article.title.tr('_', ' ')
       end
@@ -62,7 +62,7 @@ describe 'activity page', type: :feature, js: true do
       it 'filters the courses to my courses' do
         # Admin is admin of course 1, should only see user1's revision
         # when checked
-        click_link 'Recent Activity'
+        visit '/recent-activity'
         sleep 1
         within '.activity-table.list' do
           expect(page).to have_content article.title.tr('_', ' ')
@@ -84,7 +84,7 @@ describe 'activity page', type: :feature, js: true do
         end
 
         it 'displays a list of revisions suspected of plagiarism' do
-          view_plagiarism_page
+          visit '/recent-activity/plagiarism'
           assert_page_content 'There are not currently any recent revisions suspected of plagiarism'
         end
       end
@@ -96,7 +96,7 @@ describe 'activity page', type: :feature, js: true do
         end
 
         it 'displays a list of revisions suspected of plagiarism' do
-          view_plagiarism_page
+          visit '/recent-activity/plagiarism'
           assert_page_content article.title.tr('_', ' ')
         end
       end
@@ -113,11 +113,6 @@ describe 'activity page', type: :feature, js: true do
         assert_page_content article.title.tr('_', ' ')
       end
     end
-  end
-
-  def view_plagiarism_page
-    click_link 'Recent Activity'
-    click_link 'Possible Plagiarism'
   end
 
   def assert_page_content(content)

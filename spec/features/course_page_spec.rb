@@ -20,6 +20,10 @@ course_end = '2015-12-31'
 
 describe 'the course page', type: :feature do
   before do
+    include Devise::TestHelpers, type: :feature
+    Capybara.current_driver = :selenium
+    page.driver.browser.manage.window.resize_to(1920, 1080)
+
     course = create(:course,
                     id: 10001,
                     title: 'This.course',
@@ -213,7 +217,7 @@ describe 'the course page', type: :feature do
   describe 'overview view', js: true do
     it 'should be the same as the root view' do
       root_content = page
-      js_visit "/courses/#{slug}/overview"
+      js_visit "/courses/#{slug}"
       expect(root_content).to eq(page)
     end
 
@@ -227,7 +231,7 @@ describe 'the course page', type: :feature do
     it "doesn't allow null values for course start/end" do
       admin = create(:admin, id: User.last.id + 1)
       login_as(admin)
-      js_visit "/courses/#{slug}/overview"
+      js_visit "/courses/#{slug}"
       within '.sidebar' do
         click_button 'Edit Details'
       end
@@ -243,7 +247,7 @@ describe 'the course page', type: :feature do
       admin = create(:admin, id: User.last.id + 1)
       previous_passcode = Course.last.passcode
       login_as(admin)
-      js_visit "/courses/#{slug}/overview"
+      js_visit "/courses/#{slug}"
       within '.sidebar' do
         click_button 'Edit Details'
         find('input.passcode').set ''
@@ -343,10 +347,7 @@ describe 'the course page', type: :feature do
     end
   end
 
-  describe 'non-existent courses' do
-    it 'should raise a routing error' do
-      route = '/courses/this/one_is_not_(real)'
-      expect { visit route }.to raise_error(ActionController::RoutingError)
-    end
+  after do
+    Capybara.use_default_driver
   end
 end
