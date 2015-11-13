@@ -30,19 +30,17 @@ class TrainingProgressManager
       .where.not(completed_at: nil).count
   end
 
+  # For display on training modules overview,
+  # where modules could belong to any number of courses
   def assignment_status_css_class
     return 'completed' if module_completed?
-    earliest_due_date.present? && earliest_due_date < Date.today ? 'overdue' : nil
+    overall_due_date.present? && overall_due_date < Date.today ? 'overdue' : nil
   end
   alias_method :assignment_deadline_status, :assignment_status_css_class
 
   def assignment_status
-    return unless blocks_with_module_assigned(@training_module).any?
-    if earliest_due_date.present?
-      parenthetical = format 'due %s', earliest_due_date.strftime('%m/%d/%Y')
-    else
-      parenthetical = 'no due date'
-    end
+    return unless due_date_manager.blocks_with_module_assigned(@training_module).any?
+    parenthetical = "due #{overall_due_date}"
     "Training Assignment (#{module_completed? ? 'completed' : parenthetical})"
   end
 
@@ -59,29 +57,12 @@ class TrainingProgressManager
 
   private
 
-  def earliest_due_date
-    return unless @user.present?
-    blocks = blocks_with_module_assigned(@training_module)
-    return if blocks.empty?
-    block_with_earliest_due_date(blocks).due_date
+  def overall_due_date
+    due_date_manager.overall_due_date
   end
 
-  def block_with_earliest_due_date(blocks)
-    return blocks.first if blocks.length == 1
-    blocks.sort { |a, b| a.due_date <=> b.due_date }
-  end
-
-  def blocks_with_module_assigned(training_module)
-    blocks_with_training_modules_for_user.select do |block|
-      block.training_module_ids.include?(training_module.id)
-    end
-  end
-
-  def blocks_with_training_modules_for_user
-    return [] unless @user.present?
-    Block.joins(week: { course: :courses_users })
-      .where(courses_users: { user_id: @user.id })
-      .where.not('training_module_ids = ?', [].to_yaml)
+  def due_date_manager
+    TrainingModuleDueDateManager.new(course: nil, training_module: @training_module, user: @user)
   end
 
   def slug_index(entity)
