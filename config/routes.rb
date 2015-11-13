@@ -86,7 +86,7 @@ Rails.application.routes.draw do
   resources :courses_users, only: [:index]
 
   # Article Finder
-  if ENV['dashboard_url'] == 'outreachdashboard.wmflabs.org'
+  if (ENV['dashboard_url'] == 'outreachdashboard.wmflabs.org') || (ENV['enable_article_finder'] == 'true')
     get 'article_finder(/*any)' => 'article_finder#index'
     post 'article_finder(/*any)' => 'article_finder#results'
   end
