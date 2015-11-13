@@ -9,6 +9,11 @@ describe TrainingProgressManager do
   let(:last_slide_completed) { slides.first.slug }
   let(:tmu)      { create(:training_modules_users, user_id: user.try(:id), training_module_id: t_module.id, last_slide_completed: last_slide_completed, completed_at: completed_at ) }
   let(:completed_at) { nil }
+  let(:ids) { [t_module.id] }
+  let(:week) { create(:week) }
+  let!(:block) do
+    create(:block, training_module_ids: ids, week_id: week.id)
+  end
 
   before  { tmu }
   subject { described_class.new(user, t_module, slide) }
@@ -119,116 +124,27 @@ describe TrainingProgressManager do
     end
   end
 
-  describe '#assignment_status_css_class' do
-    let(:course)   { create(:course) }
-    let(:user_id)  { user.id }
-    let!(:cu)      { create(:courses_user, user_id: user_id, course_id: course.id) }
-    let(:week)     { create(:week, course_id: course.id) }
-    let(:ids)      { [t_module.id] }
-    let(:due_date) { 1.week.from_now.to_date }
-    let!(:block) do
-      create(:block, week_id: week.id, training_module_ids: ids, due_date: due_date)
-    end
-
-    context 'user is nil' do
-      let(:user)    { nil }
-      let(:user_id) { nil }
-      it 'returns nil' do
-        expect(subject.assignment_status_css_class).to be_nil
-      end
-    end
-
-    context 'user is present, has courses, courses have this module assigned' do
-      context 'date is passed, module is complete' do
-        let(:due_date)     { 1.day.ago }
-        let(:completed_at) { 2.days.ago }
-        it 'is nil' do
-          expect(subject.assignment_status_css_class).to eq('completed')
-        end
-      end
-
-      context 'block has due date' do
-        context 'due date is upcoming' do
-          it 'is nil' do
-            expect(subject.assignment_status_css_class).to be_nil
-          end
-        end
-
-        context 'due date is in past' do
-          let(:due_date) { 1.week.ago.to_date }
-          it 'returns "overdue"' do
-            expect(subject.assignment_status_css_class).to eq('overdue')
-          end
-        end
-      end
-
-      context 'block has no due date' do
-        let(:due_date) { nil }
-        it 'is nil' do
-          expect(subject.assignment_status_css_class).to be_nil
-        end
-      end
-    end
-  end
-
   describe '#assignment_status' do
-    let(:course)   { create(:course) }
-    let(:user_id)  { user.id }
-    let!(:cu)      { create(:courses_user, user_id: user_id, course_id: course.id) }
-    let(:week)     { create(:week, course_id: course.id) }
-    let(:ids)      { [t_module.id] }
-    let(:due_date) { 1.week.from_now.to_date }
-    let!(:block) do
-      create(:block, week_id: week.id, training_module_ids: ids, due_date: due_date)
-    end
+    subject { described_class.new(user, t_module).assignment_status }
 
-    context 'user is present, has courses, courses have this module assigned' do
-      context 'block has due date' do
-        context 'module completed' do
-          let(:due_date)     { 1.day.ago }
-          let(:completed_at) { 2.days.ago }
-          it 'displays "completed"' do
-            expect(subject.assignment_status).to eq(
-              "Training Assignment (completed)"
-            )
-          end
-        end
-
-        context 'module not completed' do
-          it "displays training assignment text" do
-            expect(subject.assignment_status).to eq(
-             "Training Assignment (due " + 1.week.from_now.to_date.strftime("%m/%d/%Y") + ")"
-            )
-          end
-        end
-      end
-
-      context 'block has no due date' do
-        let(:due_date) { nil }
-        it "displays training assignment text with no date" do
-          expect(subject.assignment_status).to eq("Training Assignment (no due date)")
-        end
-      end
-    end
-
-    context 'user is present, has courses, no courses have blocks with this module' do
-      let(:ids) { [] }
-      it "returns nil" do
-        expect(subject.assignment_status).to be_nil
-      end
-    end
-
-    context 'user is nil' do
-      let(:user_id) { nil }
+    context 'no blocks with this module assigned' do
+      before { Block.destroy_all }
+      let(:ids) { nil }
       it 'returns nil' do
-        expect(subject.assignment_status).to be_nil
+        expect(subject).to be_nil
       end
     end
 
-    context 'user has no courses' do
-      before { user.courses_users.destroy_all }
-      it 'returns nil' do
-        expect(subject.assignment_status).to be_nil
+    context 'module is completed' do
+      let(:completed_at) { Time.now }
+      before do
+        allow_any_instance_of(TrainingModuleDueDateManager)
+          .to receive(:blocks_with_module_assigned).with(t_module).and_return([block])
+        allow_any_instance_of(TrainingModuleDueDateManager)
+          .to receive(:computed_due_date).and_return(Date.yesterday)
+      end
+      it 'returns "Training Assignment (completed)"' do
+        expect(subject).to eq('Training Assignment (completed)')
       end
     end
   end
