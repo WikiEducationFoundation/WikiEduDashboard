@@ -131,7 +131,6 @@ Rails.application.routes.draw do
 
   # Misc
   get 'courses' => 'courses#index'
-  get 'talk' => 'courses#talk'
   # get 'courses/*id' => 'courses#show', :as => :show, constraints: { id: /.*/ }
 
   # ask.wikiedu.org search box
