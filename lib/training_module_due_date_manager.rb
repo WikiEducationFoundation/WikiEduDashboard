@@ -27,7 +27,7 @@ class TrainingModuleDueDateManager
   end
 
   def overdue?
-    Date.today > computed_due_date
+    !progress_manager.module_completed? && Date.today > computed_due_date
   end
 
   def deadline_status
