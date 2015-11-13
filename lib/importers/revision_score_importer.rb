@@ -8,8 +8,8 @@ class RevisionScoreImporter
   def self.update_revision_scores(revisions=nil)
     # Unscored mainspace, userspace, and Draft revisions, by default
     revisions ||= unscored_mainspace_userspace_and_draft_revisions
-    batches = revisions.count / 50 + 1
-    revisions.each_slice(50).with_index do |rev_batch, i|
+    batches = revisions.count / 1000 + 1
+    revisions.each_slice(1000).with_index do |rev_batch, i|
       Rails.logger.debug "Pulling revisions: batch #{i + 1} of #{batches}"
       get_and_save_scores rev_batch
     end
@@ -17,8 +17,15 @@ class RevisionScoreImporter
 
   # This should take up to 50 rev_ids per batch
   def self.get_and_save_scores(rev_batch)
-    rev_ids = rev_batch.map(&:id)
-    scores = get_revision_scores rev_ids
+    scores = {}
+    threads = rev_batch.in_groups_of(50).each_with_index.map do |fifty_revs, i|
+      rev_ids = rev_batch.map(&:id)
+      Thread.new(i) do
+        thread_scores = get_revision_scores rev_ids
+        scores.merge!(thread_scores)
+      end
+    end
+    threads.each(&:join)
     save_scores scores
   end
 
@@ -112,6 +119,6 @@ class RevisionScoreImporter
                       Errno::ECONNREFUSED,
                       JSON::ParserError]
     raise error unless typical_errors.include?(error.class)
-    return []
+    return {}
   end
 end
