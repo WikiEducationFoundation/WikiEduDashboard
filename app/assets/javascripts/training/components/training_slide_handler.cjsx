@@ -88,13 +88,10 @@ TrainingSlideHandler = React.createClass(
                    button=true
                    params={@props.params} />
     else
-      nextLink = <Link
-                   to='module'
-                   params={@props.params}
-                   className='btn btn-primary pull-right'
-                   onClick={@setModuleCompleted}>
+      nextLink = <a href="/training/#{@props.params.library_id}"
+                  className='btn btn-primary pull-right'>
                    Done!
-                  </Link>
+                  </a>
 
     if @state.previousSlide?.slug
       previousLink = <SlideLink
