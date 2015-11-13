@@ -47,21 +47,31 @@ describe TrainingModuleDueDateManager do
       described_class.new(course: course, training_module: t_module, user: user)
         .overdue?
     end
-    context "today's date is before computed_due_date" do
-      it 'returns false' do
-        expect(subject).to eq(false)
+    context 'module is not complete' do
+      context "today's date is before computed_due_date" do
+        it 'returns false' do
+          expect(subject).to eq(false)
+        end
+      end
+      context "today's date is computed_due_date" do
+        let(:due_date) { Date.today }
+        it 'returns false' do
+          expect(subject).to eq(false)
+        end
+      end
+      context "today's date is after computed_due_date" do
+        let(:due_date) { 1.week.ago.to_date }
+        it 'returns true' do
+          expect(subject).to eq(true)
+        end
       end
     end
-    context "today's date is computed_due_date" do
-      let(:due_date) { Date.today }
-      it 'returns false' do
-        expect(subject).to eq(false)
-      end
-    end
-    context "today's date is after computed_due_date" do
+
+    context 'module is complete' do
+      let(:completed_at) { 10.days.ago.to_date }
       let(:due_date) { 1.week.ago.to_date }
-      it 'returns true' do
-        expect(subject).to eq(true)
+      it 'returns false' do
+        expect(subject).to eq(false)
       end
     end
   end
