@@ -1,15 +1,5 @@
-request = (options) ->
-  new Promise (res, rej) ->
-    $.ajax
-      type: options.type
-      url: options.url + '.json'
-      contentType: 'application/json'
-      success: (data) ->
-        console.log 'Received ' + options.kind
-        res data
-    .fail (obj, status) ->
-      console.log 'Error fetching ' + options.kind + ': ' + obj.responseJSON.message
-      rej obj
+getErrorMessage = (obj) ->
+  obj.responseJSON?.message || obj.statusText
 
 RavenLogger = {}
 
@@ -26,7 +16,7 @@ API =
           console.log "Received '#{model}' lookups"
           res data
       .fail (obj, status) ->
-        console.log 'Error: ' + obj.responseJSON.message
+        console.error 'Error: ' + getErrorMessage(obj)
         rej obj
 
   fetchWizardIndex: ->
@@ -38,7 +28,7 @@ API =
           console.log 'Received wizard index'
           res data
       .fail (obj, status) ->
-        console.log 'Error: ' + obj.responseJSON.message
+        console.error 'Error: ' + getErrorMessage(obj)
         rej obj
 
   fetchRevisions: (studentId, courseId) ->
@@ -51,7 +41,7 @@ API =
           console.log 'Received revisions'
           res data
       .fail (obj, status) ->
-        console.log 'Error: ' + obj.responseJSON.message
+        console.error 'Error: ' + getErrorMessage(obj)
         rej obj
 
   fetchDykArticles: (opts={}) ->
@@ -63,7 +53,7 @@ API =
           console.log 'Received DYK'
           res data
       .fail (obj, status) ->
-        console.log 'Error: ' + obj.responseJSON.message
+        console.error 'Error: ' + getErrorMessage(obj)
         rej obj
 
   fetchSuspectedPlagiarism: (opts={}) ->
@@ -75,7 +65,7 @@ API =
           console.log 'Recieved suspected plagiarism'
           res data
       .fail (obj, status) ->
-        console.log 'Error: ' + obj.responseJSON.message
+        console.error 'Error: ' + getErrorMessage(obj)
         rej obj
 
   fetchRecentEdits: (opts={}) ->
@@ -87,7 +77,7 @@ API =
           console.log 'Recieved recent edits'
           res data
       .fail (obj, status) ->
-        console.log 'Error: ' + obj.responseJSON.message
+        console.error 'Error: ' + getErrorMessage(obj)
         rej obj
 
   cloneCourse: (id) ->
@@ -99,7 +89,7 @@ API =
           console.log 'Recieved course clone'
           res data
       .fail (obj, status) ->
-        console.log 'Error: ' + obj.responseJSON.message
+        console.error 'Error: ' + getErrorMessage(obj)
         rej obj
 
   fetchCohorts: ->
@@ -111,7 +101,7 @@ API =
           console.log 'Received cohorts'
           res data
       .fail (obj, status) ->
-        console.log 'Error: ' + obj.responseJSON.message
+        console.error 'Error: ' + getErrorMessage(obj)
         rej obj
 
   fetchWizardPanels: (wizard_id) ->
@@ -123,7 +113,7 @@ API =
           console.log 'Received wizard configuration'
           res data
       .fail (obj, status) ->
-        console.log 'Error: ' + obj.responseJSON.message
+        console.error 'Error: ' + getErrorMessage(obj)
         rej obj
 
   fetchUserAssignments: (opts) ->
@@ -135,7 +125,7 @@ API =
           console.log 'Received user assignments'
           res data
       .fail (obj, status) ->
-        console.log 'Error: ' + obj.responseJSON.message
+        console.error 'Error: ' + getErrorMessage(obj)
         rej obj
 
   fetchUserCourses: (userId) ->
@@ -147,7 +137,7 @@ API =
           console.log 'Received user courses'
           res data
       .fail (obj, status) ->
-        console.log 'Error: ' + obj.responseJSON.message
+        console.error 'Error: ' + getErrorMessage(obj)
         rej obj
 
   deleteAssignment: (assignment) ->
@@ -159,7 +149,7 @@ API =
           console.log 'Deleted assignment'
           res data
       .fail (obj, status) ->
-        console.log 'Error: ' + obj.responseJSON.message
+        console.error 'Error: ' + getErrorMessage(obj)
         rej obj
 
   createAssignment: (opts) ->
@@ -172,7 +162,7 @@ API =
           console.log 'Created assignment'
           res data
       .fail (obj, status) ->
-        console.log 'Error: ' + obj.responseJSON.message
+        console.error 'Error: ' + getErrorMessage(obj)
         rej obj
 
 
@@ -185,7 +175,7 @@ API =
           console.log 'Received ' + endpoint
           res data
       .fail (obj, status) ->
-        console.log 'Error: ' + obj.responseJSON.message
+        console.error 'Error: ' + getErrorMessage(obj)
         rej obj
 
   fetchAllTrainingModules: (opts) ->
@@ -197,7 +187,7 @@ API =
           console.log 'Received training modules'
           res data
       .fail (obj, status) ->
-        console.log 'Error: ' + obj.responseJSON.message
+        console.error 'Error: ' + getErrorMessage(obj)
         rej obj
 
   fetchTrainingModule: (opts) ->
@@ -209,7 +199,7 @@ API =
           console.log 'Received training module'
           res data
       .fail (obj, status) ->
-        console.log 'Error: ' + obj.responseJSON.message
+        console.error 'Error: ' + getErrorMessage(obj)
         rej obj
 
   setSlideCompleted: (opts) ->
@@ -224,7 +214,7 @@ API =
           console.log 'Slide completed'
           res data
       .fail (obj, status) ->
-        console.log 'Error: ' + obj.responseJSON.message
+        console.error 'Error: ' + getErrorMessage(obj)
         rej obj
 
   ###########
@@ -274,7 +264,7 @@ API =
       .fail (obj, status) ->
         @obj = obj
         @status = status
-        console.log 'Couldn\'t save timeline!'
+        console.error 'Couldn\'t save timeline!'
         RavenLogger['obj'] = @obj
         RavenLogger['status'] = @status
         Raven.captureMessage('saveTimeline failed',
@@ -303,7 +293,7 @@ API =
           console.log 'Saved gradeables!'
           res data
       .fail (obj, status) ->
-        console.log 'Couldn\'t save gradeables!'
+        console.error 'Couldn\'t save gradeables!'
         rej obj
   saveCourse: (data, course_id=null) ->
     console.log "API: saveCourse"
@@ -331,7 +321,7 @@ API =
       .fail (obj, status) ->
         @obj = obj
         @status = status
-        console.log 'Couldn\'t save course!'
+        console.error 'Couldn\'t save course!'
         RavenLogger['obj'] = @obj
         RavenLogger['status'] = @status
         Raven.captureMessage('saveCourse failed',
@@ -364,7 +354,7 @@ API =
           console.log 'Saved students!'
           res data
       .fail (obj, status) ->
-        console.log 'Couldn\'t save students!'
+        console.error 'Couldn\'t save students!'
         rej obj
 
   deleteCourse: (course_id) ->
@@ -374,7 +364,7 @@ API =
       success: (data) ->
         window.location = '/'
     .fail (obj, status) ->
-        console.log 'Couldn\'t delete course'
+        console.error 'Couldn\'t delete course'
 
   # TODO: This should add a task to a queue and return immediately
   manualUpdate: (course_id) ->
@@ -386,7 +376,7 @@ API =
           console.log 'Course updated!'
           res data
       .fail (obj, status) ->
-        console.log 'Couldn\'t update the course! ' + obj.responseJSON.message
+        console.error 'Couldn\'t update the course! ' + getErrorMessage(obj)
         rej obj
 
   notifyUntrained: (course_id) ->
@@ -398,7 +388,7 @@ API =
           console.log 'Untrained students notified!'
           res data
       .fail (obj, status) ->
-        console.log 'Couldn\'t notify untrained students! ' + obj.responseJSON.message
+        console.error 'Couldn\'t notify untrained students! ' + getErrorMessage(obj)
         rej obj
 
   submitWizard: (course_id, wizard_id, data) ->
@@ -413,7 +403,7 @@ API =
           console.log 'Submitted the wizard answers!'
           res data
       .fail (obj, status) ->
-        console.log 'Couldn\'t submit wizard answers! ' + obj.responseJSON.message
+        console.error 'Couldn\'t submit wizard answers! ' + getErrorMessage(obj)
         rej obj
 
   modify: (model, course_id, data, add) ->
@@ -428,8 +418,8 @@ API =
           console.log (verb.capitalize() + ' ' + model)
           res data
       .fail (obj, status) ->
-        console.log "#{model.capitalize()} not #{verb}: #{obj.responseJSON.message}"
-        alert obj.responseJSON.message
+        console.error "#{model.capitalize()} not #{verb}: #{getErrorMessage(obj)}"
+        alert getErrorMessage(obj)
         rej obj
 
 module.exports = API
