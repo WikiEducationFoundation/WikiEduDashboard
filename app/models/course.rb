@@ -122,6 +122,8 @@ class Course < ActiveRecord::Base
   ####################
   # Instance methods #
   ####################
+  delegate :students_without_overdue_training, to: :trained_students_manager
+
   def to_param
     # This method is used by ActiveRecord
     slug
@@ -136,6 +138,13 @@ class Course < ActiveRecord::Base
 
   def current?
     start < Time.zone.now && self.end > Time.zone.now - UPDATE_LENGTH
+  end
+
+  def training_modules
+    ids = Block.joins(:week).where(weeks: { course_id: id })
+            .where.not('training_module_ids = ?', [].to_yaml)
+            .collect(&:training_module_ids).flatten
+    TrainingModule.all.select { |tm| ids.include?(tm.id) }
   end
 
   def wiki_title
@@ -193,6 +202,9 @@ class Course < ActiveRecord::Base
   end
 
   def trained_count
+    if start > CourseTrainingProgressManager::TRAINING_BOOLEAN_CUTOFF_DATE
+      return return_or_calculate :students_without_overdue_training
+    end
     return_or_calculate :trained_count
   end
 
@@ -265,6 +277,10 @@ class Course < ActiveRecord::Base
   end
 
   private
+
+  def trained_students_manager
+    TrainedStudentsManager.new(self)
+  end
 
   def order_weeks
     weeks.each_with_index do |week, i|
