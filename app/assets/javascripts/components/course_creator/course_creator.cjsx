@@ -9,10 +9,11 @@ ValidationStore    = require '../../stores/validation_store'
 ValidationActions  = require '../../actions/validation_actions'
 ServerActions      = require '../../actions/server_actions'
 
-Modal         = require '../common/modal'
-TextInput     = require '../common/text_input'
-TextAreaInput = require '../common/text_area_input'
-CourseUtils   = require '../../utils/course_utils'
+Modal           = require '../common/modal'
+TextInput       = require '../common/text_input'
+TextAreaInput   = require '../common/text_area_input'
+CourseUtils     = require '../../utils/course_utils'
+TransitionGroup = require '../../utils/TransitionGroup'
 
 getState = ->
   course: CourseStore.getCourse()
@@ -95,144 +96,151 @@ CourseCreator = React.createClass(
       <option key={i} data-id-key={course.id}>{course.title}</option>
     )
 
-    <Modal>
-      <div className="wizard__panel active" style={form_style}>
-        <h3>{I18n.t('course_creator.create_new')}</h3>
-        <p>{I18n.t('course_creator.intro')}</p>
-        <div className={cloneOptions}>
-          <button className='button dark' onClick={@showForm}>Create New Course</button>
-          <button className='button dark' onClick={@showCourseDropdown}>Clone Previous Course</button>
-        </div>
-        <div className={selectClass}>
-          <select id='reuse-existing-course-select' ref='courseSelect'>{options}</select>
-          <button className='button dark' onClick={@useThisClass}>Clone This Course</button>
-        </div>
-        <div className={formClass}>
-          <div className='column'>
+    <TransitionGroup
+      transitionName="wizard"
+      component='div'
+      enterTimeout={500}
+      leaveTimeout={500}
+    >
+      <Modal key="modal">
+        <div className="wizard__panel active" style={form_style}>
+          <h3>{I18n.t('course_creator.create_new')}</h3>
+          <p>{I18n.t('course_creator.intro')}</p>
+          <div className={cloneOptions}>
+            <button className='button dark' onClick={@showForm}>Create New Course</button>
+            <button className='button dark' onClick={@showCourseDropdown}>Clone Previous Course</button>
+          </div>
+          <div className={selectClass}>
+            <select id='reuse-existing-course-select' ref='courseSelect'>{options}</select>
+            <button className='button dark' onClick={@useThisClass}>Clone This Course</button>
+          </div>
+          <div className={formClass}>
+            <div className='column'>
 
-            <TextInput
-              id='course_title'
-              onChange={@updateCourse}
-              value={@state.course.title}
-              value_key='title'
-              required=true
-              validation={/^[\w\-\s\,\']+$/}
-              editable=true
-              label={I18n.t('course_creator.course_title')}
-              placeholder='Title'
-            />
-            <TextInput
-              id='instructor_name'
-              onChange={@updateCourse}
-              value={@state.course.instructor_name}
-              value_key='instructor_name'
-              required=true
-              editable=true
-              label={I18n.t('course_creator.instructor_name')}
-              placeholder='Name'
-            />
-            <TextInput
-              id='instructor_email'
-              onChange={@updateCourse}
-              value={@state.course.instructor_email}
-              value_key='instructor_email'
-              required=true
-              editable=true
-              label={I18n.t('course_creator.instructor_email')}
-              placeholder='hello@example.edu'
-            />
-            <TextInput
-              id='course_school'
-              onChange={@updateCourse}
-              value={@state.course.school}
-              value_key='school'
-              required=true
-              validation={/^[\w\-\s\,\']+$/}
-              editable=true
-              label={I18n.t('course_creator.course_school')}
-              placeholder='School'
-            />
-            <TextInput
-              id='course_term'
-              onChange={@updateCourse}
-              value={@state.course.term}
-              value_key='term'
-              required=true
-              validation={/^[\w\-\s\,\']+$/}
-              editable=true
-              label={I18n.t('course_creator.course_term')}
-              placeholder='Term'
-            />
-            <TextInput
-              id='course_subject'
-              onChange={@updateCourse}
-              value={@state.course.subject}
-              value_key='subject'
-              editable=true
-              label={I18n.t('course_creator.course_subject')}
-              placeholder='Subject'
-            />
-            <TextInput
-              id='course_expected_students'
-              onChange={@updateCourse}
-              value={@state.course.expected_students}
-              value_key='expected_students'
-              editable=true
-              type='number'
-              label={I18n.t('course_creator.expected_number')}
-              placeholder='Expected number of students'
-            />
+              <TextInput
+                id='course_title'
+                onChange={@updateCourse}
+                value={@state.course.title}
+                value_key='title'
+                required=true
+                validation={/^[\w\-\s\,\']+$/}
+                editable=true
+                label={I18n.t('course_creator.course_title')}
+                placeholder='Title'
+              />
+              <TextInput
+                id='instructor_name'
+                onChange={@updateCourse}
+                value={@state.course.instructor_name}
+                value_key='instructor_name'
+                required=true
+                editable=true
+                label={I18n.t('course_creator.instructor_name')}
+                placeholder='Name'
+              />
+              <TextInput
+                id='instructor_email'
+                onChange={@updateCourse}
+                value={@state.course.instructor_email}
+                value_key='instructor_email'
+                required=true
+                editable=true
+                label={I18n.t('course_creator.instructor_email')}
+                placeholder='hello@example.edu'
+              />
+              <TextInput
+                id='course_school'
+                onChange={@updateCourse}
+                value={@state.course.school}
+                value_key='school'
+                required=true
+                validation={/^[\w\-\s\,\']+$/}
+                editable=true
+                label={I18n.t('course_creator.course_school')}
+                placeholder='School'
+              />
+              <TextInput
+                id='course_term'
+                onChange={@updateCourse}
+                value={@state.course.term}
+                value_key='term'
+                required=true
+                validation={/^[\w\-\s\,\']+$/}
+                editable=true
+                label={I18n.t('course_creator.course_term')}
+                placeholder='Term'
+              />
+              <TextInput
+                id='course_subject'
+                onChange={@updateCourse}
+                value={@state.course.subject}
+                value_key='subject'
+                editable=true
+                label={I18n.t('course_creator.course_subject')}
+                placeholder='Subject'
+              />
+              <TextInput
+                id='course_expected_students'
+                onChange={@updateCourse}
+                value={@state.course.expected_students}
+                value_key='expected_students'
+                editable=true
+                type='number'
+                label={I18n.t('course_creator.expected_number')}
+                placeholder='Expected number of students'
+              />
+            </div>
+            <div className='column'>
+              <TextAreaInput
+                id='course_description'
+                onChange={@updateCourse}
+                value={@state.course.description}
+                value_key='description'
+                editable=true
+                label={I18n.t('course_creator.course_description')}
+                autoExpand=false
+              />
+              <TextInput
+                id='course_start'
+                onChange={@updateCourse}
+                value={@state.course.start}
+                value_key='start'
+                required=true
+                editable=true
+                type='date'
+                label={I18n.t('course_creator.start_date')}
+                placeholder='Start date (YYYY-MM-DD)'
+                blank=true
+                isClearable=false
+              />
+              <TextInput
+                id='course_end'
+                onChange={@updateCourse}
+                value={@state.course.end}
+                value_key='end'
+                required=true
+                editable=true
+                type='date'
+                label={I18n.t('course_creator.end_date')}
+                placeholder='End date (YYYY-MM-DD)'
+                blank=true
+                date_props={minDate: moment(@state.course.start).add(1, 'week')}
+                enabled={@state.course.start?}
+                isClearable=false
+              />
+            </div>
           </div>
-          <div className='column'>
-            <TextAreaInput
-              id='course_description'
-              onChange={@updateCourse}
-              value={@state.course.description}
-              value_key='description'
-              editable=true
-              label={I18n.t('course_creator.course_description')}
-              autoExpand=false
-            />
-            <TextInput
-              id='course_start'
-              onChange={@updateCourse}
-              value={@state.course.start}
-              value_key='start'
-              required=true
-              editable=true
-              type='date'
-              label={I18n.t('course_creator.start_date')}
-              placeholder='Start date (YYYY-MM-DD)'
-              blank=true
-              isClearable=false
-            />
-            <TextInput
-              id='course_end'
-              onChange={@updateCourse}
-              value={@state.course.end}
-              value_key='end'
-              required=true
-              editable=true
-              type='date'
-              label={I18n.t('course_creator.end_date')}
-              placeholder='End date (YYYY-MM-DD)'
-              blank=true
-              date_props={minDate: moment(@state.course.start).add(1, 'week')}
-              enabled={@state.course.start?}
-              isClearable=false
-            />
+          <div className={controlClass}>
+            <div className='left'><p>{@state.tempCourseId}</p></div>
+            <div className='right'>
+              <div><p className='red'>{@state.error_message}</p></div>
+              <Link className="button" to="/" id='course_cancel'>Cancel</Link>
+              <button onClick={@saveCourse} className='dark button'>Create my Course!</button>
+            </div>
           </div>
         </div>
-        <div className={controlClass}>
-          <div className='left'><p>{@state.tempCourseId}</p></div>
-          <div className='right'>
-            <div><p className='red'>{@state.error_message}</p></div>
-            <Link className="button" to="/" id='course_cancel'>Cancel</Link>
-            <button onClick={@saveCourse} className='dark button'>Create my Course!</button>
-          </div>
-        </div>
-      </div>
-    </Modal>
+      </Modal>
+    </TransitionGroup>
 )
 
 module.exports = CourseCreator

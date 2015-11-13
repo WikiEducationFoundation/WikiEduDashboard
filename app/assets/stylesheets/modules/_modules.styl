@@ -77,8 +77,20 @@
 
 .notice
   @extends .notification
+  position relative
   z-index 9999
   width 100%
   text-align left
   background-color warning
   color black
+  > .container
+    display flex
+    align-items center
+    p
+      flex 1
+    svg
+      &:focus,
+      &:hover
+        cursor pointer
+        color smoke
+        outline none

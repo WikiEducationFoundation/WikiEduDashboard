@@ -8,21 +8,18 @@ CourseActions     = require '../actions/course_actions'
 CourseStore       = require '../stores/course_store'
 UserStore         = require '../stores/user_store'
 CohortStore       = require '../stores/cohort_store'
-NotificationStore = require '../stores/notification_store'
-Notifications     = require '../components/common/notifications'
 
 getState = ->
   current = $('#react_root').data('current_user')
   cu = UserStore.getFiltered({ id: current.id })[0]
   return {
     course: CourseStore.getCourse()
-    notifications: NotificationStore.getNotifications()
     current_user: cu || current
   }
 
 Course = React.createClass(
   displayName: 'Course'
-  mixins: [CourseStore.mixin, UserStore.mixin, NotificationStore.mixin]
+  mixins: [CourseStore.mixin, UserStore.mixin]
   contextTypes:
     router: React.PropTypes.func.isRequired
   componentWillMount: ->
@@ -52,9 +49,6 @@ Course = React.createClass(
     route_params = @context.router.getCurrentParams()
 
     alerts = []
-
-    #################################################
-    # This should be refactored into <Notifications />
 
     if @getCurrentUser().id?
       user_obj = UserStore.getFiltered({ id: @getCurrentUser().id })[0]
@@ -173,8 +167,6 @@ Course = React.createClass(
         </div>
       </header>
       {alerts}
-
-      <Notifications notifications={@state.notifications} />
 
       <div className="course_navigation">
         <nav className='container'>
