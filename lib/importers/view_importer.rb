@@ -56,18 +56,16 @@ class ViewImporter
   end
 
   def self.update_average_views_for_batch(articles)
-    # TODO: threading to get views for more than one at a time
-    average_views, avua = {}, {}
-    datestamp = Time.zone.today
+    average_views = {}
     threads = articles.each_with_index.map do |article, i|
-      article_id = article.id
       Thread.new(i) do
-        average_views[article_id] = WikiPageviews.average_views_for_article(article.title)
-        avua[article_id] = datestamp
+        average_views[article.id] = WikiPageviews.average_views_for_article(article.title)
       end
     end
     threads.each(&:join)
-    save_updated_average_views(articles, average_views, avua)
+
+    datestamp = Time.zone.today
+    save_updated_average_views(articles, average_views, datestamp)
   end
 
   ###########
@@ -87,7 +85,7 @@ class ViewImporter
   def self.save_updated_average_views(articles, average_views, average_views_updated_at)
     Article.transaction do
       articles.each do |article|
-        article.average_views_updated_at = average_views_updated_at[article.id]
+        article.average_views_updated_at = average_views_updated_at
         article.average_views = average_views[article.id]
         article.save
       end
