@@ -74,6 +74,7 @@ group :test do
   gem 'rake'
   gem 'capybara'
   gem 'capybara-webkit'
+  gem 'capybara-screenshot'
   gem 'database_cleaner'
   gem 'webmock'
   gem 'vcr', github: 'vcr/vcr'
