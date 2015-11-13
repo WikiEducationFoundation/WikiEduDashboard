@@ -2,6 +2,15 @@ id: 411
 title: "Week 7: Moving article to the main space"
 summary:
 content: >
+  <figure class="alt-layout-40-right">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Msu_prof_ruppel_history_page.jpg/640px-Msu_prof_ruppel_history_page.jpg" />
+    <figcaption class="image-credit">
+      <a href="https://commons.wikimedia.org/wiki/File:Msu_prof_ruppel_history_page.jpg">Photo by McMormor</a>,
+      CC-BY-SA
+    </figcaption>
+  </figure>
+
+
   Prof. Ruppel realizes it’s critical to get the students working "live" on
   Wikipedia early. She assigns students to move their work into Wikipedia, and
   to keep an eye on the article’s Talk page and edit history.

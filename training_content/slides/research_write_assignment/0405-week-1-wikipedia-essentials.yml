@@ -2,6 +2,13 @@ id: 405
 title: "Week 1: Wikipedia essentials"
 summary:
 content: >
+  <figure class="alt-layout-30-right">
+    <a href="https://upload.wikimedia.org/wikipedia/commons/5/5c/Editing_Wikipedia_brochure_%28Wiki_Education_Foundation%29.pdf" title="download 'Editing Wikipedia' PDF (12MB)">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Editing_Wikipedia_brochure_%28Wiki_Education_Foundation%29.pdf/page1-420px-Editing_Wikipedia_brochure_%28Wiki_Education_Foundation%29.pdf.jpg" />
+    </a>
+  </figure>
+
+
   In week 1, Prof. Ruppel Wikipedia introduces Wikipedia by distributing the
   brochure, “[Editing Wikipedia](https://commons.wikimedia.org/wiki/File:Editing_Wikipedia_brochure_(Wiki_Education_Foundation).pdf)."
   She also assigned students to complete the one-hour online training.
@@ -11,7 +18,7 @@ content: >
   research to see what she can find on the subject.
 
 
-  Students who go through the training have better experiences. The training has 
+  Students who go through the training have better experiences. The training has
   various steps that students complete throughout the term. We encourage
   attaching a pass/fail metric to up-to-date training your grading rubric (5%-10% is
   common). You can easily see where students are in their training through the
