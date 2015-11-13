@@ -25,10 +25,13 @@ class WikiPageviews
   # Helper methods #
   ##################
   def self.recent_views(title, language)
-    title = URI.escape(title)
+    # Double escape is necessary temporarily to work around this bug: https://phabricator.wikimedia.org/T118403
+    # Switch to single escape once that is fixed.
+    title = CGI.escape(CGI.escape(title))
     base_url = "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/#{language}.wikipedia/all-access/user/"
     # TODO: make this pick a recent month, or recent two months.
-    url = base_url + "#{title}/daily/2015100100/2015103000"
+    url = base_url + "#{title}/daily/2015100100/2016103000"
+    pp url
     api_get url
   end
 
