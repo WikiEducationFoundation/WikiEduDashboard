@@ -13,8 +13,14 @@
   display table
   table-layout fixed
   width $slide_inner_content_width
-  +below(desktop)
+  +below($desktop)
     width 100%
+  // youtube videos
+  iframe
+    +above($desktop)
+      width 100%
+      height 421px
+
 
 .training__slide .h3
   margin-bottom 21px
