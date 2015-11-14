@@ -203,7 +203,7 @@ class Course < ActiveRecord::Base
 
   def trained_count
     if start > CourseTrainingProgressManager::TRAINING_BOOLEAN_CUTOFF_DATE
-      return return_or_calculate :students_without_overdue_training
+      return students_without_overdue_training
     end
     return_or_calculate :trained_count
   end
