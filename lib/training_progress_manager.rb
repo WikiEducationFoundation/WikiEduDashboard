@@ -5,7 +5,7 @@ class TrainingProgressManager
     @slide = slide
     @tmu = TrainingModulesUsers.find_by(
       user_id: @user.id,
-      training_module_id: @training_module.id
+      training_module_id: @training_module.try(:id)
     ) if @user.present?
   end
 

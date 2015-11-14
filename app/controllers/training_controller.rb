@@ -9,6 +9,7 @@ class TrainingController < ApplicationController
   def show
     add_breadcrumb 'Training Library', :training_path
     add_breadcrumb params[:library_id].titleize, :training_library_path
+    fail_if_entity_not_found(TrainingLibrary, params[:library_id])
     @library = TrainingLibrary.find_by(slug: params[:library_id])
   end
 
@@ -16,6 +17,7 @@ class TrainingController < ApplicationController
     add_breadcrumb 'Training Library', :training_path
     add_breadcrumb params[:library_id].titleize, :training_library_path
     add_breadcrumb params[:module_id].titleize, :training_module_path
+    fail_if_entity_not_found(TrainingModule, params[:module_id])
     @pres = TrainingModulePresenter.new(current_user, params)
   end
 
@@ -29,4 +31,9 @@ class TrainingController < ApplicationController
     add_breadcrumb params[:module_id].titleize, :training_module_path
   end
 
+  private
+
+  def fail_if_entity_not_found(entity, finder)
+    fail ActiveRecord::RecordNotFound unless entity.find_by(slug: finder).present?
+  end
 end
