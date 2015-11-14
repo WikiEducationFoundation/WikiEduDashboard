@@ -19,8 +19,12 @@ describe TrainedStudentsManager do
   end
   let(:completed_at) { 1.week.ago.to_date }
 
+  before do
+    TrainedStudentsManager.send(:public, *TrainedStudentsManager.private_instance_methods)
+  end
+
   describe '#students_without_overdue_training' do
-    subject { described_class.new(course).students_without_overdue_training }
+    subject { described_class.new(course).students_scope }
     context 'no trainings assigned' do
       let(:ids) { nil }
       it 'returns empty array' do
