@@ -109,6 +109,7 @@ describe 'Instructor users', type: :feature, js: true do
       page.all('button.border.plus')[1].click
       sleep 1
       page.driver.browser.switch_to.alert.accept
+      sleep 1
 
       visit "/courses/#{Course.first.slug}/students"
       expect(page).to have_content 'Student A'
