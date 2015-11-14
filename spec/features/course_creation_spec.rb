@@ -465,7 +465,7 @@ describe 'cloning a course', js: true do
     visit root_path
 
     click_link 'Create a Course'
-    click_button 'Reuse Existing Course'
+    click_button 'Clone Previous Course'
     select course.title, from: 'reuse-existing-course-select'
     click_button 'Clone This Course'
 
