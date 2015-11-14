@@ -87,6 +87,7 @@ describe 'Student users', type: :feature, js: true do
       sleep 1
       click_button 'Leave course'
       page.driver.browser.switch_to.alert.accept
+      sleep 1
 
       visit "/courses/#{Course.first.slug}/students"
       sleep 1
