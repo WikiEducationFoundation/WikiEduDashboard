@@ -10,7 +10,7 @@ class TrainedStudentsManager
   private
 
   def students_scope
-    return [] unless @course.training_modules.any?
+    return @course.students_without_nonstudents unless @course.training_modules.any?
     @course.students.select do |student|
       @course.training_modules.select do |training_module|
         man = TrainingModuleDueDateManager.new(
