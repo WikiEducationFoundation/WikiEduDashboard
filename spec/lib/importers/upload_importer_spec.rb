@@ -28,6 +28,26 @@ describe UploadImporter do
     end
   end
 
+  describe '.find_deleted_files' do
+    before do
+      create(:commons_upload, id: 4)
+      create(:commons_upload, id: 20523186)
+      VCR.use_cassette 'commons/find_deleted_files' do
+        UploadImporter.find_deleted_files(CommonsUpload.all)
+      end
+    end
+
+    it 'marks missing files as deleted' do
+      missing_file = CommonsUpload.find(4)
+      expect(missing_file.deleted).to eq(true)
+    end
+
+    it 'does not affect non-deleted files' do
+      existing_file = CommonsUpload.find(20523186)
+      expect(existing_file.deleted).to eq(false)
+    end
+  end
+
   describe '.import_urls_in_batches' do
     it 'should find and record Commons thumbnail urls' do
       create(:user,

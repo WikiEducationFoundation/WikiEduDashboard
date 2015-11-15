@@ -30,6 +30,14 @@ class Commons
     usages
   end
 
+  def self.find_missing_files(commons_uploads)
+    missing_query = build_info_query(commons_uploads)
+    pages = get_image_data(missing_query, 'pageid', '')
+    missing_pages = pages.select { |page| page['missing'] }
+    missing_page_ids = missing_pages.map { |page| page['pageid'] }
+    commons_uploads.select { |file| missing_page_ids.include? file.id }
+  end
+
   def self.get_urls(commons_uploads)
     url_query = build_url_query commons_uploads
     file_urls = get_image_data(url_query, 'imageinfo', 'iicontinue')
@@ -82,6 +90,14 @@ class Commons
                     continue: ''
                   }
     usage_query
+  end
+
+  def self.build_info_query(commons_uploads)
+    file_ids = commons_uploads.map(&:id)
+    info_query = { pageids: file_ids,
+                   continue: ''
+                 }
+    info_query
   end
 
   def self.build_url_query(commons_uploads)

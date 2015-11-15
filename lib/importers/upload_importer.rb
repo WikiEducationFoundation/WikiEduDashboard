@@ -19,6 +19,18 @@ class UploadImporter
     end
   end
 
+  def self.find_deleted_files(commons_uploads)
+    Utils.chunk_requests(commons_uploads) do |file_batch|
+      deleted_files = Commons.find_missing_files file_batch
+      CommonsUpload.transaction do
+        deleted_files.each do |file|
+          file.deleted = true
+          file.save
+        end
+      end
+    end
+  end
+
   def self.import_urls_in_batches(commons_uploads)
     # Larger values (50) per batch choke the MediaWiki API on this query.
     Utils.chunk_requests(commons_uploads, 10) do |file_batch|
