@@ -429,7 +429,8 @@ describe Course, type: :model do
     end
     context 'after the introduction of in-dashboard training modules' do
       let(:course) do
-        create(:course, id: 1, start: '2016-01-01'.to_date, end: '2016-06-01'.to_date)
+        create(:course, id: 1, start: '2016-01-01'.to_date, end: '2016-06-01'.to_date,
+                        timeline_start: '2016-01-01'.to_date, timeline_end: '2016-06-01'.to_date)
       end
 
       it 'returns the whole student count if no training modules are assigned' do
@@ -437,7 +438,34 @@ describe Course, type: :model do
         expect(course.trained_count).to eq(3)
       end
 
-      xit 'returns the number of students without overdue training' do
+      it 'returns the whole student count before assigned trainings are due' do
+        create(:week, id: 1, course_id: 1)
+        create(:block, week_id: 1, training_module_ids: [1, 2])
+        Timecop.freeze('2016-01-02'.to_date)
+        course.update_cache
+        expect(course.trained_count).to eq(3)
+      end
+
+      it 'returns the count of students who are not overude on trainings' do
+        create(:week, id: 1, course_id: 1)
+        create(:block, week_id: 1, training_module_ids: [1, 2])
+        # User who completed all assigned modules
+        create(:training_modules_users, training_module_id: 1, user_id: 1,
+                                        completed_at: '2016-01-09'.to_date)
+        create(:training_modules_users, training_module_id: 2, user_id: 1,
+                                        completed_at: '2016-01-09'.to_date)
+        # User who completed only 1 of 2 modules
+        create(:training_modules_users, training_module_id: 1, user_id: 2,
+                                        completed_at: '2016-01-09'.to_date)
+        create(:training_modules_users, training_module_id: 2, user_id: 2,
+                                        completed_at: nil)
+        Timecop.freeze('2016-01-10'.to_date)
+        course.update_cache
+        expect(course.trained_count).to eq(1)
+      end
+
+      after do
+        Timecop.return
       end
     end
     context 'before in-dashboard training modules' do
