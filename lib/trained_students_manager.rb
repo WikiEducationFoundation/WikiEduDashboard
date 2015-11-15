@@ -10,7 +10,11 @@ class TrainedStudentsManager
   private
 
   def students_scope
-    return @course.students_without_nonstudents unless @course.training_modules.any?
+    # NOTE: Here we can use .students instead of .students_without_nonstudents,
+    # because by the time the new training system was introduced, users were
+    # no longer allowed to have both student and nonstudent roles in the same
+    # course.
+    return @course.students unless @course.training_modules.any?
     @course.students.select do |student|
       @course.training_modules.select do |training_module|
         man = TrainingModuleDueDateManager.new(
