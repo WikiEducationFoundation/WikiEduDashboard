@@ -142,8 +142,8 @@ class Course < ActiveRecord::Base
 
   def training_modules
     ids = Block.joins(:week).where(weeks: { course_id: id })
-            .where.not('training_module_ids = ?', [].to_yaml)
-            .collect(&:training_module_ids).flatten
+          .where.not('training_module_ids = ?', [].to_yaml)
+          .collect(&:training_module_ids).flatten
     TrainingModule.all.select { |tm| ids.include?(tm.id) }
   end
 
@@ -202,9 +202,6 @@ class Course < ActiveRecord::Base
   end
 
   def trained_count
-    if start > CourseTrainingProgressManager::TRAINING_BOOLEAN_CUTOFF_DATE
-      return students_without_overdue_training
-    end
     return_or_calculate :trained_count
   end
 
@@ -232,11 +229,24 @@ class Course < ActiveRecord::Base
       .sum(:character_sum_ms)
     self.view_sum = articles_courses.live.sum(:view_count)
     self.user_count = students_without_nonstudents.size
-    self.trained_count = students_without_nonstudents.trained.size
+    self.trained_count = calculate_trained_count
     self.revision_count = revisions.size
     self.article_count = articles.namespace(0).live.size
     self.new_article_count = new_articles.count
     save
+  end
+
+  def calculate_trained_count
+    # The cutoff date represents the switch from on-wiki training, indicated by
+    # the 'trained' attribute of a User, to the in-dashboard training module
+    # system introduced for the beginning of 2016. For courses after the cutoff
+    # date, 'trained_count' is represents the count of students who don't have
+    # assigned training modules that are overdue.
+    if start > CourseTrainingProgressManager::TRAINING_BOOLEAN_CUTOFF_DATE
+      students_without_overdue_training
+    else
+      students_without_nonstudents.trained.size
+    end
   end
 
   def manual_update
@@ -291,5 +301,4 @@ class Course < ActiveRecord::Base
   def ensure_required_params
     return false unless [title, school, term, slug].select(&:nil?).length.zero?
   end
-
 end
