@@ -109,7 +109,7 @@ describe Course, type: :model do
     VCR.use_cassette 'wiki/update_many_courses' do
       LegacyCourseImporter.update_all_courses(false, cohort: [351, 500, 577])
 
-      expect(Assignment.where(role: 0).count).to eq(81)
+      expect(Assignment.where(role: Assignment::Roles::ASSIGNED_ROLE).count).to eq(81)
       # Check that users with multiple assignments are handled properly.
       user = User.where(wiki_id: 'AndrewHamsha').first
       expect(user.assignments.assigned.count).to eq(2)
@@ -180,11 +180,13 @@ describe Course, type: :model do
     build(:courses_user,
           id: 1,
           course_id: 1,
-          user_id: 1).save
+          user_id: 1,
+          role: CoursesUsers::Roles::STUDENT_ROLE).save
     build(:courses_user,
           id: 2,
           course_id: 1,
-          user_id: 2).save
+          user_id: 2,
+          role: CoursesUsers::Roles::STUDENT_ROLE).save
 
     # Add an article edited by user 2.
     create(:article,
@@ -378,13 +380,14 @@ describe Course, type: :model do
     it 'should count mainspace articles edited by students' do
       course = create(:course)
       student = create(:user)
-      create(:courses_user, course_id: course.id, user_id: student.id)
+      create(:courses_user, course_id: course.id, user_id: student.id,
+                            role: CoursesUsers::Roles::STUDENT_ROLE)
       # mainspace article
-      article = create(:article, namespace: 0)
+      article = create(:article, namespace: Article::Namespaces::MAINSPACE)
       create(:revision, article_id: article.id, user_id: student.id)
       create(:articles_course, article_id: article.id, course_id: course.id)
       # non-mainspace page
-      sandbox = create(:article, namespace: 2)
+      sandbox = create(:article, namespace: Article::Namespaces::TALK)
       create(:revision, article_id: sandbox.id, user_id: student.id)
       create(:articles_course, article_id: sandbox.id, course_id: course.id)
 
@@ -397,14 +400,15 @@ describe Course, type: :model do
     it 'should count newly created mainspace articles' do
       course = create(:course)
       student = create(:user)
-      create(:courses_user, course_id: course.id, user_id: student.id)
+      create(:courses_user, course_id: course.id, user_id: student.id,
+                            role: CoursesUsers::Roles::STUDENT_ROLE)
       # mainspace article
-      article = create(:article, namespace: 0)
+      article = create(:article, namespace: Article::Namespaces::MAINSPACE)
       create(:revision, article_id: article.id, user_id: student.id)
       create(:articles_course, article_id: article.id, course_id: course.id,
                                new_article: true)
       # non-mainspace page
-      sandbox = create(:article, namespace: 2)
+      sandbox = create(:article, namespace: Article::Namespaces::TALK)
       create(:revision, article_id: sandbox.id, user_id: student.id)
       create(:articles_course, article_id: sandbox.id, course_id: course.id,
                                new_article: true)
@@ -414,11 +418,45 @@ describe Course, type: :model do
     end
   end
 
+  describe '#trained_count' do
+    before do
+      create(:user, id: 1, trained: 0)
+      create(:courses_user, user_id: 1, course_id: 1, role: CoursesUsers::Roles::STUDENT_ROLE)
+      create(:user, id: 2, trained: 1)
+      create(:courses_user, user_id: 2, course_id: 1, role: CoursesUsers::Roles::STUDENT_ROLE)
+      create(:user, id: 3, trained: 1)
+      create(:courses_user, user_id: 3, course_id: 1, role: CoursesUsers::Roles::STUDENT_ROLE)
+    end
+    context 'after the introduction of in-dashboard training modules' do
+      let(:course) do
+        create(:course, id: 1, start: '2016-01-01'.to_date, end: '2016-06-01'.to_date)
+      end
+
+      it 'returns the whole student count if no training modules are assigned' do
+        course.update_cache
+        expect(course.trained_count).to eq(3)
+      end
+
+      xit 'returns the number of students without overdue training' do
+      end
+    end
+    context 'before in-dashboard training modules' do
+      let(:course) do
+        create(:course, id: 1, start: '2015-01-01'.to_date, end: '2015-06-01'.to_date)
+      end
+
+      it 'returns the number of students who have completed on-wiki training' do
+        course.update_cache
+        expect(course.trained_count).to eq(2)
+      end
+    end
+  end
+
   describe '.uploads' do
     before do
       create(:course, id: 1, start: 1.year.ago, end: 1.week.ago)
       create(:user, id: 1)
-      create(:courses_user, user_id: 1, course_id: 1, role: 0)
+      create(:courses_user, user_id: 1, course_id: 1, role: CoursesUsers::Roles::STUDENT_ROLE)
       create(:commons_upload, id: 1, user_id: 1, uploaded_at: 2.week.ago)
       create(:commons_upload, id: 2, user_id: 1, uploaded_at: 2.years.ago)
       create(:commons_upload, id: 3, user_id: 1, uploaded_at: 1.day.ago)
@@ -439,31 +477,31 @@ describe Course, type: :model do
     describe '#before_save' do
       subject { course.update_attributes(course_attrs) }
       context 'params are legit' do
-        let(:course_attrs) {{ end: 1.year.from_now }}
+        let(:course_attrs) { { end: 1.year.from_now } }
         it 'succeeds' do
           expect(subject).to eq(true)
         end
       end
       context 'slug is nil' do
-        let(:course_attrs) {{ slug: nil }}
+        let(:course_attrs) { { slug: nil } }
         it 'fails' do
           expect(subject).to eq(false)
         end
       end
       context 'title is nil' do
-        let(:course_attrs) {{ title: nil }}
+        let(:course_attrs) { { title: nil } }
         it 'fails' do
           expect(subject).to eq(false)
         end
       end
       context 'school is nil' do
-        let(:course_attrs) {{ school: nil }}
+        let(:course_attrs) { { school: nil } }
         it 'fails' do
           expect(subject).to eq(false)
         end
       end
       context 'term is nil' do
-        let(:course_attrs) {{ term: nil }}
+        let(:course_attrs) { { term: nil } }
         it 'fails' do
           expect(subject).to eq(false)
         end

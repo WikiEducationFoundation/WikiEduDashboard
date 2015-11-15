@@ -27,8 +27,8 @@ describe TrainedStudentsManager do
     subject { described_class.new(course).students_scope }
     context 'no trainings assigned' do
       let(:ids) { nil }
-      it 'returns empty array' do
-        expect(subject).to be_empty
+      it 'returns all students' do
+        expect(subject).not_to be_empty
       end
     end
     context 'no students in course' do
