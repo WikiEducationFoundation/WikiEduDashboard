@@ -5,14 +5,15 @@ class TrainingModule < FromYaml
   alias_method :raw_slides, :slides
 
   #################
-  # Class Methods #
+  # Class methods #
   #################
   def self.load(*)
-    super path_to_yaml: "#{Rails.root}/training_content/modules/*.yml", cache_key: 'modules'
+    super path_to_yaml: "#{Rails.root}/training_content/modules/*.yml",
+          cache_key: 'modules'
   end
 
   def self.find(id)
-    all.detect { |obj| obj.id == id }
+    all.detect { |training_module| training_module.id == id }
   end
 
   ####################
