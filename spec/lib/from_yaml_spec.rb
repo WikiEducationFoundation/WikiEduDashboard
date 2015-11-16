@@ -8,7 +8,8 @@ describe FromYaml do
       FromYaml.load(path_to_yaml: "#{Rails.root}/spec/support/bad_yaml_file.yml",
                     cache_key: 'test')
     end
-    it 'raises an error if a loaded file is misformatted' do
+    it 'outputs the filename when loading a misformatted file causes an error' do
+      expect(STDOUT).to receive(:puts).with(/.*bad_yaml_file.*/)
       expect { subject }.to raise_error(NoMethodError)
     end
   end
