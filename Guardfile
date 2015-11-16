@@ -22,6 +22,7 @@ end
 guard 'rails', environment: 'development' do
   watch('Gemfile.lock')
   watch(%r{^(config|lib)/.*})
+  watch(%r{training_content/.+\.yml})
 end
 
 # Note: The cmd option is now required due to the increasing number of ways
