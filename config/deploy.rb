@@ -58,7 +58,9 @@ namespace :deploy do
 
   desc 'ensure permissions on /tmp'
   task :ensure_tmp_permissions do
-    run "chmod 777 #{current_path}/tmp/cache"
+    on roles(:all) do
+      execute :chmod, '-R', '777', "#{current_path}/tmp/cache"
+    end
   end
 
   after :restart, :clear_cache do
@@ -68,6 +70,7 @@ namespace :deploy do
   end
 
   before :deploy, 'deploy:local_gulp_build' unless ENV['skip_gulp']
-  before 'deploy:restart', 'deploy:upload_compiled_assets', 'deploy:ensure_tmp_permissions'
+  before 'deploy:restart', 'deploy:upload_compiled_assets'
+  before 'deploy:restart', 'deploy:ensure_tmp_permissions'
 
 end
