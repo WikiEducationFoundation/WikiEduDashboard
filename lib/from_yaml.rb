@@ -7,7 +7,9 @@ class FromYaml
 
   attr_accessor :slug
 
-  # Class Methods
+  #################
+  # Class methods #
+  #################
 
   # called from the initializers/training_content.rb
   def self.load(args)
@@ -17,7 +19,7 @@ class FromYaml
     self.path_to_yaml = args[:path_to_yaml]
 
     Dir.glob(self.path_to_yaml) do |yaml_file|
-      slug = File.basename(yaml_file, ".yml")
+      slug = File.basename(yaml_file, '.yml')
       if args[:trim_id_from_filename]
         slug.gsub!(/^[0-9]+-/, '')
       end
@@ -38,7 +40,9 @@ class FromYaml
     self.all.detect { |obj| obj.slug == opts[:slug] }
   end
 
-  # Instance Methods
+  ####################
+  # Instance methods #
+  ####################
 
   # called in load
   def initialize(content, slug)
