@@ -23,6 +23,7 @@ Capybara::Webkit.configure do |config|
 end
 
 Capybara::Screenshot.webkit_options = { width: 1400, height: 768 }
+Capybara::Screenshot.prune_strategy = :keep_last_run
 Capybara.save_and_open_page_path = "tmp/screenshots/"
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
