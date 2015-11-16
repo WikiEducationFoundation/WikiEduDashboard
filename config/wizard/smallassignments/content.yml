@@ -29,15 +29,14 @@ essentials:
           Handout: [Editing Wikipedia](http://wikiedu.org/editingwikipedia)
 
       -
-        title: Create your account and learn the basics
+        title: Learn the basics
         kind: 1
         graded: true
         points: 5
+        training_module_ids: [1, 2] # Wikipedia essentials, Editing basics
         content: |
-          * Create an account and then complete the online training for students. During this training, you will make edits in a sandbox and learn the basic rules of Wikipedia.
-
-          ---
-          Resources: [Online Training for Students](https://en.wikipedia.org/wiki/Wikipedia:Training/For_students)
+          * Complete the online training for students. During this training,
+          you will make edits in a sandbox and learn the basic rules of Wikipedia.
 
 critique:
   - # CRITIQUE
@@ -48,6 +47,7 @@ critique:
         kind: 1
         graded: true
         points: 10
+        training_module_ids: [7] # Evaluate an article
         content: |
           * Review pages 4-7 of the Evaluating Wikipedia brochure. This will give you a good, brief overview of what to look for in other articles, and what other people will look for in your own.
           * Evaluate an existing Wikipedia article related to the class, and leave suggestions for improving it on the article's talk page.
@@ -72,6 +72,7 @@ add_to_article:
         kind: 1
         graded: true
         points: 10
+        training_module_ids: [8] # Sources
         content: |
           * Add 1–2 sentences of new information, backed up with a citation to an appropriate source, to a Wikipedia article related to the class.
 
@@ -84,6 +85,7 @@ illustrate:
         kind: 1
         graded: true
         points: 10
+        training_module_ids: [6] # Images and multimedia
         content: |
           * Identify an article that would benefit from illustration, create or find an appropriate photo, illustration, or audio/video, and add it to the article.
             * All media uploaded to Wikipedia must fall under a "free license," which means they can be used or shared by anyone. Examples of media you can use are photos that you take yourself, images and text in the public domain, and works created by someone else who has given permission for their work to be used by others. For more information about which types of media can be uploaded to Wikipedia, see [Commons:Help desk](https://commons.wikimedia.org/wiki/Commons:Help_desk).

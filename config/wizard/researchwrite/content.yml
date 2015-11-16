@@ -46,28 +46,27 @@ essentials:
         title: Practicing the basics
         kind: 1
         graded: true
-        training_module_ids: [1]
+        training_module_ids: [1,2,7] # Wikipedia essentials, Editing basics, Evaluate an article
         points: 5
         content: |
-          * Create an account and then complete the online training for students. During this training, you will make edits in a sandbox and learn the basic rules of Wikipedia.
+          * Create an account and join this course page.
+          * Complete the introductory training modules. During this training, you will make edits in a sandbox and learn the basic rules of Wikipedia.
           * Create a User page.
           * To practice editing and communicating on Wikipedia, introduce yourself to another student on their user talk page.
           * Explore topics related to your topic area to get a feel for how Wikipedia is organized. What areas seem to be missing? As you explore, make a mental note of articles that seem like good candidates for improvement.
 
-          ---
-          Resources: [Online Training for Students](https://en.wikipedia.org/wiki/Wikipedia:Training/For_students)
       -
         if: ungraded_training
         title: Practicing the basics
         kind: 1
+        training_module_ids: [1,2,7] # Wikipedia essentials, Editing basics, Evaluate an article
         content: |
-          * Create an account and then complete the online training for students. During this training, you will make edits in a sandbox and learn the basic rules of Wikipedia.
+          * Create an account and join this course page.
+          * Complete the introductory training modules. During this training, you will make edits in a sandbox and learn the basic rules of Wikipedia.
           * Create a User page.
           * To practice editing and communicating on Wikipedia, introduce yourself on the user talk page of one of your classmates, who should also be enrolled in the table at the bottom of the page.
           * Explore topics related to your topic area to get a feel for how Wikipedia is organized. What areas seem to be missing? As you explore, make a mental note of articles that seem like good candidates for improvement.
 
-          ---
-          Resources: [Online Training for Students](https://en.wikipedia.org/wiki/Wikipedia:Training/For_students)
       -
         title:
         kind: 2
@@ -134,6 +133,7 @@ essentials:
         kind: 1
         graded: true
         points: 5
+        training_module_ids: [6] # Images and multimedia
         content: |
           * Identify an article that would benefit from illustration, create or find an appropriate photo, illustration, or audio/video, and add it to the article.
             * All media uploaded to Wikipedia must fall under a "free license," which means they can be used or shared by anyone. Examples of media you can use are photos that you take yourself, images and text in the public domain, and works created by someone else who has given permission for their work to be used by others. For more information about which types of media can be uploaded to Wikipedia, see [Commons:Help desk](https://commons.wikimedia.org/wiki/Commons:Help_desk).
@@ -142,12 +142,14 @@ essentials:
         if: explore_to_find_articles
         title: Choosing your article
         kind: 1
+        training_module_ids: [8] # Sources
         content: |
           * Research and list 3–5 articles on your Wikipedia user page that you will consider working on as your main project. Look at the talk page for existing topics for a sense of who else is working on it and what they're doing. Describe your choices to your instructor for feedback.
       -
         if: choose_articles_from_list
         title: Choosing your article
         kind: 1
+        training_module_ids: [8] # Sources
         content: |
           * Your instructor has created a list of potential topics for your main project. Choose the one you will work on.
           * Compile a bibliography of relevant, reliable sources and post it to the talk page of the article you are working on. Begin reading the sources. Make sure to check in on the talk page (or watchlist) to see if anyone has advice on your bibliography.
@@ -172,6 +174,7 @@ essentials:
         kind: 1
         graded: true
         points: 20
+        training_module_ids: [9] # Sandboxes
         content: |
           * If you are starting a new article, write a 3–4 paragraph summary version of your article—with citations—in your Wikipedia sandbox. If you are improving an existing article, create a detailed outline reflecting your proposed changes, and post this for community feedback, along with a brief description of your plans, on the article’s talk page. Make sure to check back on the talk page often and engage with any responses.
           * Begin working with classmates and other editors to polish your short starter article and fix any major issues.
@@ -191,6 +194,7 @@ essentials:
         kind: 1
         graded: true
         points: 20
+        training_module_ids: [9] # Sandboxes
         content: |
           * If you are starting a new article, write an outline of the topic in the form of a standard Wikipedia lead section of 3–4 paragraphs in your sandbox. Wikipedia articles use "summary style", in which the lead section provides a balanced summary of the entire body of the article, with the first sentence serving to define the topic and place it in context. The lead section should summarize, very briefly, each of the main aspects of the topic that will be covered in detail in the rest of the article. If you are improving an existing article, draft a new lead section reflecting your proposed changes, and post this along with a brief description of your plans on the article’s talk page. Make sure to check that page often to gather any feedback the community might provide.
           * Begin working with classmates and other editors to polish your lead section and fix any major issues.

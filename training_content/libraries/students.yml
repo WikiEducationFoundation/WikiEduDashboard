@@ -11,6 +11,9 @@ categories:
       of Wikipedia, the mechanics of editing, and best practices for getting
       started as a student editor.
     modules:
-      - slug: policies-and-guidelines
-        name: Policies and Guidelines
+      - slug: wikipedia-essentials
+        name: Wikipedia Essentials
         description: An overview of Wikipedia's main rules
+      - slug: editing-basics
+        name: Editing Basics
+        description: An introduction to editing Wikipedia pages
