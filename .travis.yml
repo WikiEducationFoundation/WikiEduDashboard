@@ -1,3 +1,12 @@
+# Run feature specs in a parallel build from the rest, to speed up the process.
+# Only run the deployment script on the faster non-feature branch.
+# We should only be pushing healthy builds to staging or production anyway.
+env:
+  - TEST_SUITE='~type:feature'
+    AFTER_SUCCESS='./travis-deploy.sh'
+  - TEST_SUITE=type:feature
+    AFTER_SUCCESS=''
+
 language: ruby
 rvm: 2.1.5
 sudo: false
@@ -49,14 +58,14 @@ before_script:
   - mysql -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
   - bundle exec rake db:migrate RAILS_ENV=test
 
-script: gulp build && npm test && bundle exec rspec --color --format documentation
+script: gulp build && npm test && bundle exec rspec --color --format documentation --tag $TEST_SUITE
 
 after_script:
   - codeclimate-test-reporter < coverage/lcov.info
   - bundle exec rubocop -R
 
 after_success:
-  - ./travis-deploy.sh
+  - $AFTER_SUCCESS
 
 notifications:
   slack:
