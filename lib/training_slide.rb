@@ -7,7 +7,7 @@ class TrainingSlide < FromYaml
   #################
   # Class Methods #
   #################
-  def self.load
+  def self.load(*)
     super path_to_yaml: File.join("#{Rails.root}/training_content/slides/**", '*.yml'),
           cache_key: 'slides',
           trim_id_from_filename: true

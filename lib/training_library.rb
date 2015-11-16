@@ -3,12 +3,12 @@ require 'from_yaml'
 class TrainingLibrary < FromYaml
 
   attr_accessor :name, :modules, :introduction, :categories
-  alias_method :raw_modules, :modules 
+  alias_method :raw_modules, :modules
   alias_method :raw_categories, :categories
 
   # Class Methods
 
-  def self.load
+  def self.load(*)
     super path_to_yaml: "#{Rails.root}/training_content/libraries/*.yml", cache_key: "libraries"
   end
 
