@@ -17,14 +17,6 @@ class TrainingLibrary < FromYaml
   # Instance methods #
   ####################
 
-  # raw_modules can be called to access the string representation;
-  # #modules now returns the instances of TrainingModule
-  def modules
-    TrainingModule.all.find_all do |training_module|
-      raw_modules.include?(training_module.slug)
-    end
-  end
-
   # transform categories hash into nested objects for view simplicity
   def categories
     raw_categories.to_hashugar
