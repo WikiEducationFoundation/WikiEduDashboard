@@ -117,9 +117,9 @@ TrainingSlideHandler = React.createClass(
         correctAnswer={@state.currentSlide.assessment.correct_answer_id}
       />
 
-    if @state.currentSlide.subtitle?
-      subtitle = (
-        <h2 className="training__slide__subtitle">{@state.currentSlide.subtitle}</h2>
+    if @state.currentSlide.title_prefix?
+      titlePrefix = (
+        <h2 className="training__slide__title-prefix">{@state.currentSlide.title_prefix}</h2>
       )
 
     <div>
@@ -144,7 +144,7 @@ TrainingSlideHandler = React.createClass(
           slides={@state.slides} />
       </header>
       <article className="training__slide">
-        {subtitle}
+        {titlePrefix}
         <h1>{@state.currentSlide.title}</h1>
         <div className='markdown training__slide__content' dangerouslySetInnerHTML={{__html: raw_html}}></div>
         {quiz}
