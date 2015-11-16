@@ -84,14 +84,6 @@ ServerActions = Flux.createActions
       data = _.extend(data, slide: opts.current_slide_id)
       { actionType: 'RECEIVE_TRAINING_MODULE', data: data }
 
-  fetchTrainingModuleById: (id) ->
-    API.fetchTrainingModuleById(id: id).then (data) ->
-      { actionType: 'RECEIVE_TRAINING_MODULE_BY_ID', data: data }
-
-  fetchTrainingModuleForBlock: (block_id) ->
-    API.fetchTrainingModuleForBlock(block_id).then (data) ->
-      { actionType: 'RECEIVE_TRAINING_MODULE_FOR_BLOCK', data: data }
-
   setSlideCompleted: (opts) ->
     API.setSlideCompleted(opts).then (data) ->
       { actionType: 'SLIDE_COMPLETED', data: data }

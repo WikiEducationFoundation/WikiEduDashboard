@@ -85,9 +85,6 @@ TrainingStore = Flux.createStore
       setModule data.training_module
       setCurrentSlide data.slide
       break
-    when 'RECEIVE_TRAINING_MODULE_FOR_BLOCK', 'RECEIVE_TRAINING_MODULE_BY_ID'
-      setModule data.training_module
-      break
     when 'MENU_TOGGLE'
       setMenuState data.currently
       break
