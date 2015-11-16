@@ -23,7 +23,7 @@ Notifications = React.createClass(
   _handleClose: (notification) ->
     NotificationActions.removeNotification(notification)
 
-  renderNotification: (notification, i) ->
+  _renderNotification: (notification, i) ->
     if notification.type is "error"
       message = (
         <p>
@@ -46,7 +46,7 @@ Notifications = React.createClass(
     </div>
 
   render: ->
-    notifications = @state.notifications.map (n, i) => @renderNotification(n, i)
+    notifications = @state.notifications.map (n, i) => @_renderNotification(n, i)
 
     <div className="notifications">
       {notifications}
