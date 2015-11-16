@@ -2,7 +2,7 @@ class TrainingModulesController < ApplicationController
   respond_to :json
 
   def index
-    @training_modules = TrainingModule.all.sort {|a, b| a.id <=> b.id }
+    @training_modules = TrainingModule.all.sort { |a, b| a.id <=> b.id }
   end
 
   def show
@@ -15,7 +15,6 @@ class TrainingModulesController < ApplicationController
   end
 
   def for_block
-    @training_module = Block.find(params[:block_id]).training_module
+    @training_module = Block.find(params[:block_id]).training_modules
   end
-
 end

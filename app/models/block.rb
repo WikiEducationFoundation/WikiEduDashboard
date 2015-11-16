@@ -25,10 +25,10 @@ class Block < ActiveRecord::Base
     'in_class'   => 0,
     'assignment' => 1,
     'milestone'  => 2,
-    'custom'     => 3,
+    'custom'     => 3
   }
 
   def training_modules
-    training_module_ids.collect {|id| TrainingModule.find(id) }
+    training_module_ids.collect { |id| TrainingModule.find(id) }
   end
 end
