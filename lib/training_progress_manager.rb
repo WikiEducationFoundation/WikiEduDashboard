@@ -25,11 +25,6 @@ class TrainingProgressManager
     @tmu.completed_at.present?
   end
 
-  def total_modules_completed
-    TrainingModulesUsers.where(user_id: @user.id)
-      .where.not(completed_at: nil).count
-  end
-
   # For display on training modules overview,
   # where modules could belong to any number of courses
   def assignment_status_css_class
