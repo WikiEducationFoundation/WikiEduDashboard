@@ -111,7 +111,8 @@ describe 'New course creation and editing', type: :feature do
     let(:instructor_name)  { 'Mr. Capybara' }
     let(:instructor_email) { 'capybara@wikiedu.org' }
     let(:expected_course_blocks) { 26 }
-    let(:module_name) { 'Policies and Guidelines' }
+    let(:module_name) { 'Wikipedia Essentials' }
+    let(:unassigned_module_name) { 'Orientation for New Instructors' }
     it 'should allow the user to create a course' do
       stub_oauth_edit
 
@@ -352,15 +353,20 @@ describe 'New course creation and editing', type: :feature do
       end
       expect(Course.first.blocks.count).to eq(expected_course_blocks)
 
+      # Interact with training modules within a block
+      within ".week-2 .block-kind-#{Block::KINDS['assignment']}" do
+        expect(page).to have_content module_name
+      end
+
       within('.timeline-ctas') { click_button 'Edit' }
       within(".week-2 .block-kind-#{Block::KINDS['assignment']}") do
-        find('.Select-control input').set(module_name[0..5])
-        find('.Select-menu-outer .Select-option', text: module_name).click
+        find('.Select-control input').set(unassigned_module_name[0..5])
+        find('.Select-menu-outer .Select-option', text: unassigned_module_name).click
       end
       within('.timeline-ctas') { click_button 'Save' }
 
       within ".week-2 .block-kind-#{Block::KINDS['assignment']}" do
-        expect(page).to have_content module_name
+        expect(page).to have_content unassigned_module_name
       end
 
     end
