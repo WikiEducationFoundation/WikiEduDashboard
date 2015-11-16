@@ -42,13 +42,11 @@ TrainingModules = React.createClass(
           linkText = 'Start'
           iconClassName += 'icon-rt_arrow'
 
-        progressClass += 'overdue' if module.overdue is true
-        progressClass += 'complete' if module.deadline_status is 'complete'
-
-        deadlineStatus = module.deadline_status
+        progressClass += ' overdue' if module.overdue is true
+        progressClass += ' complete' if module.deadline_status is 'complete'
 
         if module.deadline_status is 'overdue'
-          deadlineStatus = "(#{deadlineStatus}, due on #{module.due_date})"
+          deadlineStatus = "(#{module.deadline_status}, due on #{module.due_date})"
 
         (
           <tr className="training-module">
