@@ -122,6 +122,7 @@ describe 'Admin users', type: :feature, js: true do
         find('.pop button', visible: true).click
       end
 
+      sleep 1
       visit "/courses/#{Course.first.slug}"
       sleep 1
       expect(page).to have_content 'My Tag'
@@ -134,6 +135,7 @@ describe 'Admin users', type: :feature, js: true do
 
       # Delete the tag
       page.all('.button.border.plus')[5].click
+      sleep 1
       visit "/courses/#{Course.first.slug}"
       sleep 1
       expect(page).not_to have_content 'My Tag'
