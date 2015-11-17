@@ -1,61 +1,79 @@
 aside
   background-color white
-  box-shadow 0 5px 10px -5px rgba(0, 0, 0, .1)
+  box-shadow 0px 1px 0 rgba(0,0,0,.1)
+  position relative
   overflow hidden
-  position fixed
   width 100%
-  z-index 100
+  font-size 15px
+
   a
     text-decoration none
+    margin-left 24px
+    display inline-block
+    border-bottom 2px solid transparent
+    margin-bottom -2px
+    color inherit
   a.active,
   a:hover
     border-bottom 2px solid bayoux
 
-
-.logo
-  float left
-  font-size 0
-  width 50px
-  padding 15px 0
-  .logo__link
-    display inline-block
-    font-size 0
-    &:hover
-      border-bottom 0
-    img
-      width 50px
-      height 50px
-
-.home
-  clear none
-  color bayoux
-  float left
-  height 55px
-  margin-left 10px
-  padding 17px 0
-  +above(desktop)
-    height 80px
-    padding 22px 0
-  p
-    font-size 15px
-    margin 5px auto
-    padding 5px
-    +above(desktop)
+  .logo
+    line-height 0
+    a
+      display inline-block
       margin 0
-    a.inline
-      margin-left 8px
+      border none
 
-.search
-  @extends .home
-  align center
-  +below(desktop)
-    display none
+    img
+      width 35px
+      height 35px
 
-.login
-  @extends .home
-  float right
+  .container
+    height $nav_height
+    display flex
+    align-items center
+    justify-content space-around
+
+  .home
+    flex 1
+  .search
+    flex 1
+    text-align center
+    input[type="text"]
+      width 180px
+      border 1px solid $border_lt
+      border-radius 0
+      font-family inherit
+      font-size inherit
+      outline 0
+      padding 10px
+      -webkit-appearance none
+
+    input[type="submit"]
+      @extend aside a
+      line-height inherit
+      &:hover
+        @extend aside a:hover
+
+
+    +below(desktop)
+      display none
+
+  .login
+    flex 1
+    text-align right
+
+
+body.fixed-nav
+  padding-top $nav_height
+  aside
+    position fixed
+    top 0
+    z-index 100
 
 nav
+  a.inline
+    margin-left 8px
   .nav__item
     overflow hidden
     padding 0
@@ -110,10 +128,3 @@ nav
     padding 0
   a
     color #696971
-
-.breadcrumbs
-  color $type_light
-  list-style none
-  li
-    display inline
-    margin 0

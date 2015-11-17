@@ -1,0 +1,23 @@
+%meta{content: "width=device-width, initial-scale=1.0", name: "viewport"}
+- before = content_for?(:before_title) ? yield(:before_title) : ''
+- after = content_for?(:after_title) ? yield(:after_title) : ''
+%title= "#{before}#{Figaro.env.dashboard_title}#{after}"
+= logo_favicon_tag
+%meta{content: content_for?(:description) ? yield(:description) : "Myapp", name: "description"}
+= stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,600', media: 'all'
+= stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700', media: 'all'
+
+= content_for :head
+
+= javascript_include_tag '/assets/javascripts/i18n'
+= javascript_include_tag '/assets/javascripts/i18n/' + I18n.locale.to_s
+:javascript
+  I18n.defaultLocale = "#{I18n.default_locale}";
+  I18n.locale = "#{I18n.locale}";
+= javascript_include_tag '/assets/javascripts/vendor.js'
+/ Temporary Raven logging
+%script{src: "//cdn.ravenjs.com/1.1.19/jquery,native/raven.min.js"}
+:javascript
+  Raven.config("#{ENV['sentry_public_dsn']}").install();
+= javascript_include_tag fingerprinted('/assets/javascripts/', 'main.js')
+= csrf_meta_tags

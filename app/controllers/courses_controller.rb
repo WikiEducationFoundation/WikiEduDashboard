@@ -12,7 +12,7 @@ class CoursesController < ApplicationController
   ###############
   def index
     cohort = params[:cohort] || ENV['default_cohort']
-    @presenter = HomePagePresenter.new(current_user, cohort)
+    @presenter = CoursesPresenter.new(current_user, cohort)
     fail ActionController::RoutingError
       .new('Not Found'), 'Cohort does not exist' unless @presenter.cohort
   end
