@@ -1,35 +1,30 @@
-<header class="main-page">
-  <div class="container">
-    <h1><%= Figaro.env.dashboard_title %></h1>
-    <div class="stat-display">
-      <div class="stat-display__stat">
-        <h1><%= presenter.courses.count %></h1>
-        <small><%= t("courses.course_description") %></small>
-        </div>
-      <div class="stat-display__stat popover-trigger">
-        <h1><%= presenter.cohort.students_without_nonstudents.count %></h1>
-        <small><%= t("courses.students") %></small>
-        <div class="popover dark">
-          <h4><%= presenter.cohort.trained_count %></h4>
-          <p><%= t("users.training_complete", count: presenter.cohort.trained_count) %></p>
-        </div>
-      </div>
-      <div class="stat-display__stat">
-        <h1><%= number_to_human presenter.courses.sum(:character_sum) %></h1>
-        <small><%= t("metrics.char_added") %></small>
-      </div>
-      <div class="stat-display__stat">
-        <h1><%= number_to_human presenter.courses.sum(:view_sum) %></h1>
-        <small><%= t("metrics.view_count_description") %></small>
-      </div>
-      <div class="stat-display__stat">
-        <h1><%= number_to_human presenter.courses.sum(:article_count) %></h1>
-        <small><%= "Articles Edited" %></small>
-      </div>
-      <div class="stat-display__stat">
-        <h1><%= number_to_human presenter.courses.sum(:new_article_count) %></h1>
-        <small><%= "Articles Created" %></small>
-      </div>
+<div class="stat-display">
+  <div class="stat-display__stat">
+    <h1><%= presenter.courses.count %></h1>
+    <small><%= t("courses.course_description") %></small>
+    </div>
+  <div class="stat-display__stat popover-trigger">
+    <h1><%= presenter.cohort.students_without_nonstudents.count %></h1>
+    <small><%= t("courses.students") %></small>
+    <div class="popover dark">
+      <h4><%= presenter.cohort.trained_count %></h4>
+      <p><%= t("users.training_complete", count: presenter.cohort.trained_count) %></p>
     </div>
   </div>
-</header>
+  <div class="stat-display__stat">
+    <h1><%= number_to_human presenter.courses.sum(:character_sum) %></h1>
+    <small><%= t("metrics.char_added") %></small>
+  </div>
+  <div class="stat-display__stat">
+    <h1><%= number_to_human presenter.courses.sum(:view_sum) %></h1>
+    <small><%= t("metrics.view_count_description") %></small>
+  </div>
+  <div class="stat-display__stat">
+    <h1><%= number_to_human presenter.courses.sum(:article_count) %></h1>
+    <small><%= "Articles Edited" %></small>
+  </div>
+  <div class="stat-display__stat">
+    <h1><%= number_to_human presenter.courses.sum(:new_article_count) %></h1>
+    <small><%= "Articles Created" %></small>
+  </div>
+</div>
