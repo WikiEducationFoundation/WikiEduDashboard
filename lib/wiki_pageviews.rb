@@ -50,8 +50,6 @@ class WikiPageviews
   # Helper methods #
   ##################
   def self.recent_views(title, language)
-    # Double escape is necessary temporarily to work around this bug: https://phabricator.wikimedia.org/T118403
-    # Switch to single escape once that is fixed.
     start_date = 50.days.ago
     end_date = 1.day.ago
     url = query_url(title, start_date, end_date, language)
@@ -59,7 +57,7 @@ class WikiPageviews
   end
 
   def self.query_url(title, start_date, end_date, language)
-    title = CGI.escape(CGI.escape(title))
+    title = CGI.escape(title)
     base_url = 'https://wikimedia.org/api/rest_v1/metrics/pageviews/'
     configuration_params = "per-article/#{language}.wikipedia/all-access/user/"
     start_param = start_date.strftime('%Y%m%d')
