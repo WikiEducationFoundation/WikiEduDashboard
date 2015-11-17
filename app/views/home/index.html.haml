@@ -14,7 +14,7 @@
 
 %section.stats
   .container.text-center
-    %h2 2015 Fall Cohort
+    %h2= @presenter.cohort.title
 
     = render 'courses/header_stats', presenter: @presenter
 
