@@ -5,17 +5,13 @@ aside
   overflow hidden
   width 100%
   font-size 15px
+  -webkit-font-smoothing auto
 
   a
     text-decoration none
     margin-left 24px
     display inline-block
-    border-bottom 2px solid transparent
-    margin-bottom -2px
     color inherit
-  a.active,
-  a:hover
-    border-bottom 2px solid bayoux
 
   .logo
     line-height 0
@@ -25,8 +21,8 @@ aside
       border none
 
     img
-      width 35px
-      height 35px
+      width 40px
+      height 40px
 
   .container
     height $nav_height
@@ -52,8 +48,6 @@ aside
     input[type="submit"]
       @extend aside a
       line-height inherit
-      &:hover
-        @extend aside a:hover
 
 
     +below(desktop)
@@ -62,6 +56,29 @@ aside
   .login
     flex 1
     text-align right
+    line-height $nav_height - 3
+
+    i
+      margin-right 4px
+      margin-bottom: -1px;
+      display: inline-block;
+      font-size 16px
+      vertical-align middle
+
+    .expand
+      overflow hidden
+      display inline-block
+      width 0
+      transition all 250ms ease-in-out
+      opacity 0
+      vertical-align top
+      white-space nowrap
+      text-align left
+
+    a:hover
+      .expand
+        opacity 1
+        width 110px
 
 
 body.fixed-nav
