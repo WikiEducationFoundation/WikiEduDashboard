@@ -1,6 +1,11 @@
 <% content_for :after_title do " - #{@presenter.cohort.title}" end %>
 
-<%= render 'header_stats', presenter: @presenter %>
+<header class="main-page">
+  <div class="container">
+    <h1><%= Figaro.env.dashboard_title %></h1>
+    <%= render 'header_stats', presenter: @presenter %>
+  </div>
+</header>
 
 <div class="container">
   <% if user_signed_in? %>
