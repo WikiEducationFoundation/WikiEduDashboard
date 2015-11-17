@@ -1,6 +1,5 @@
 - content_for :head do
   = stylesheet_link_tag fingerprinted("/assets/stylesheets/#{rtl? ? 'rtl/' : nil}", 'main.css'), media: 'all'
-  = stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700', media: 'all'
 
 !!!
 %html{ dir: rtl? ? "rtl" : nil }
