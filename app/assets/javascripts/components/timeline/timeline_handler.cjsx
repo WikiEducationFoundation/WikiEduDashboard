@@ -39,7 +39,7 @@ TimelineHandler = React.createClass(
       >
         <RouteHandler {...@props}
           key='wizard_handler'
-          open_weeks={@state.course.open_weeks}
+          open_weeks={@props.course.open_weeks}
         />
       </TransitionGroup>
       <Timeline {...@props} week_meetings={@props.course.week_meetings} />
