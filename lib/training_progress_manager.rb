@@ -44,8 +44,10 @@ class TrainingProgressManager
   end
 
   def module_progress
-    return unless @user && @tmu && @tmu.last_slide_completed.present? && @training_module.slides
-    quotient = (slug_index(@tmu.last_slide_completed) + 1) / @training_module.slides.length.to_f
+    return unless module_started?
+    last_completed_index = slug_index(@tmu.last_slide_completed)
+    return unless last_completed_index
+    quotient = (last_completed_index + 1) / @training_module.slides.length.to_f
     percentage = (quotient * 100).round
     module_completed? ? 'Complete' : "#{percentage}% Complete"
   end
@@ -58,6 +60,10 @@ class TrainingProgressManager
 
   def due_date_manager
     TrainingModuleDueDateManager.new(course: nil, training_module: @training_module, user: @user)
+  end
+
+  def module_started?
+    @user && @tmu && @tmu.last_slide_completed.present? && @training_module.slides
   end
 
   def slug_index(entity)
