@@ -38,6 +38,19 @@ body.home
       &:before
         vertical-align bottom
 
+  .help
+    color #fff
+    border-radius: 50%
+    font-size 16px
+    border 1px solid #fff
+    font-weight 600
+    display inline-block
+    width 26px
+    height 26px
+    line-height 24px
+    text-decoration none
+    text-align center
+
   .hero
     background-color $brand_primary
     background-image linear-gradient(135deg, $brand_primary, $brand_primary_light)
@@ -81,7 +94,7 @@ body.home
       max-width 100%
 
     h2, .h2
-      font-family $h2_font
+      font-family $heading_font
       font-size 30px
       font-weight 300
       color $body_color_dark
@@ -91,7 +104,7 @@ body.home
     h3, .h3
       color $brand_primary
       font-size 20px
-      font-family $h2_font
+      font-family $heading_font
 
   .col
     margin-top 40px
@@ -104,11 +117,18 @@ body.home
   .stat-display
     display inline-block
     width 100%
-    margin 40px 0
+    margin 20px 0 60px 0
+    display flex
+    justify-content space-between
+
+    .stat-display__stat
+      width (1/6*100)%
+      float none
+      margin 0
 
     h1
       font-family inherit
       color $brand_primary
-      font-size 34px
+      font-size 38px
     small
       color #aaa
