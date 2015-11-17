@@ -2,11 +2,11 @@
   .container
     %h1 Wikipedia Education Foundation Dashboard
 
-    %a.btn{href: user_omniauth_authorize_path(:mediawiki)}
+    %a.button{href: user_omniauth_authorize_path(:mediawiki)}
       %i.icon.icon-wiki-logo
       Log in with Wikipedia
 
-    %a.btn.btn-ghost.btn-inverse{href: user_omniauth_authorize_path(:mediawiki)}
+    %a.button.button-ghost.button-inverse{href: user_omniauth_authorize_path(:mediawiki)}
       %i.icon.icon-wiki-logo
       Sign up with Wikipedia
 
@@ -18,7 +18,7 @@
 
     = render 'courses/header_stats', presenter: @presenter
 
-    %a.btn.btn-ghost{href: '/courses'} Explore
+    %a.button.button-ghost{href: '/courses'} Explore
 
 %section.light
   .container

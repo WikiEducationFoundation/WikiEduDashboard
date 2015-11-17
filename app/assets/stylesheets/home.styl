@@ -10,21 +10,23 @@ body.home
   color $body_color
   font-family $body_font
 
-  .btn
-    display inline-block
+  .button
     background #fff
-    color: $brand_primary
-    text-decoration none
-    padding 8px 16px
+    border none
     border-radius 2px
+    color: $brand_primary
+    font-family inherit
     font-weight 600
-    margin-right 20px
-    transition all 62ms ease-in-out
+    margin-left 0
+
+    & + .button {
+      margin-left 10px
+    }
 
     &:hover, &:focus
       background-image linear-gradient(top, #fff, #e0e0e0)
 
-    &.btn-ghost
+    &.button-ghost
       background transparent
       border 1px solid $brand_primary
 
@@ -32,8 +34,9 @@ body.home
         color #fff
         background $brand_primary
 
-      &.btn-inverse
-        border-color #fff
+      &.button-inverse
+        border none
+        box-shadow inset 0 0 0 1px #fff
         color #fff
 
         &:hover, &:focus
@@ -51,10 +54,10 @@ body.home
         vertical-align bottom
 
   .help
+    border 1px solid #fff
     color #fff
     border-radius: 50%
     font-size 16px
-    border 1px solid #fff
     font-weight 600
     display inline-block
     width 26px
@@ -63,6 +66,8 @@ body.home
     text-decoration none
     text-align center
     transition all 62ms ease-in-out
+    padding-left 1px
+    margin-left 10px
 
     &:hover, &:focus
       background-color #fff
@@ -76,10 +81,10 @@ body.home
     .container
       padding 60px 40px 80px 40px
 
-    .btn i
+    .button i
       color #7c7c77
 
-    .btn-ghost i
+    .button-ghost i
       color inherit
 
     h1
