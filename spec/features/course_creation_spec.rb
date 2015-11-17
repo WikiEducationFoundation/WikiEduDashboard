@@ -110,7 +110,7 @@ describe 'New course creation and editing', type: :feature do
   describe 'course workflow', js: true do
     let(:instructor_name)  { 'Mr. Capybara' }
     let(:instructor_email) { 'capybara@wikiedu.org' }
-    let(:expected_course_blocks) { 26 }
+    let(:expected_course_blocks) { 27 }
     let(:module_name) { 'Wikipedia Essentials' }
     let(:unassigned_module_name) { 'Orientation for New Instructors' }
     it 'should allow the user to create a course' do
