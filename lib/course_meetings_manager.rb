@@ -9,6 +9,7 @@ class CourseMeetingsManager
   # e.g., ["(Tue, Thu)", "(Tue, Thu)", "()", "(Thu)"]
   # rubocop:disable Metrics/MethodLength
   def week_meetings
+    return unless course_has_timeline_dates?
     meetings = []
     timeline_week_count.times do |wk|
       week_start = beginning_of_first_week + wk.weeks
@@ -28,7 +29,8 @@ class CourseMeetingsManager
   # (used on the client for calculating what type of assignment the user can
   # choose in the wizard based on the available time)
   def open_weeks
-    timeline_week_count - @course.weeks
+    return 0 unless course_has_timeline_dates?
+    timeline_week_count - @course.weeks.count
   end
 
   # Returns an array of Date objects representing all days
@@ -61,10 +63,15 @@ class CourseMeetingsManager
 
   # Returns an int representing number of weeks of timeline duration
   def timeline_week_count
+    return unless course_has_timeline_dates?
     ((@course.timeline_end - beginning_of_first_week).to_f / 7).ceil
   end
 
   private
+
+  def course_has_timeline_dates?
+    @course.timeline_start.present? && @course.timeline_end.present?
+  end
 
   def date_is_between(date, min, max)
     min < date && date < max
