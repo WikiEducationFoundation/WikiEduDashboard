@@ -97,6 +97,7 @@ namespace :batch do
       Rake::Task['article:update_all_ratings'].invoke
       Rake::Task['article:update_article_status'].invoke
 
+      Rake::Task['upload:find_deleted_files'].invoke
       Rake::Task['upload:import_all_uploads'].invoke
       Rake::Task['upload:update_usage_count'].invoke
       Rake::Task['upload:get_thumbnail_urls'].invoke

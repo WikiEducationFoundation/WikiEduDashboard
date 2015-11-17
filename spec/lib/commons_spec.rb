@@ -83,6 +83,26 @@ describe Commons do
     end
   end
 
+  describe '.find_missing_files' do
+    let(:deleted_file) { create(:commons_upload, id: 4) }
+    let(:existing_file) { create(:commons_upload, id: 20523186) }
+
+    it 'returns CommonsUploads that are reported missing' do
+      VCR.use_cassette 'commons/find_missing_files' do
+        result = Commons.find_missing_files([deleted_file, existing_file])
+        expect(result).to include deleted_file
+        expect(result).not_to include existing_file
+      end
+    end
+
+    it 'returns an empty array if all files exist' do
+      VCR.use_cassette 'commons/find_missing_files' do
+        result = Commons.find_missing_files([existing_file])
+        expect(result).to eq([])
+      end
+    end
+  end
+
   describe '.get_urls' do
     it 'should get thumbnail url data for files' do
       VCR.use_cassette 'commons/get_urls' do

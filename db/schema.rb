@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151027174719) do
+ActiveRecord::Schema.define(version: 20151115182730) do
 
   create_table "articles", force: true do |t|
     t.string   "title"
@@ -90,6 +90,7 @@ ActiveRecord::Schema.define(version: 20151027174719) do
     t.string   "thumburl",    limit: 2000
     t.string   "thumbwidth"
     t.string   "thumbheight"
+    t.boolean  'deleted', default: false
   end
 
   create_table "courses", force: true do |t|
