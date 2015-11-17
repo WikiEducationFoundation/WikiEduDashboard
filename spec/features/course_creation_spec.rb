@@ -104,7 +104,7 @@ describe 'New course creation and editing', type: :feature do
     user = create(:user,
                   id: 1)
     login_as(user, scope: :user)
-    visit root_path
+    visit '/courses'
   end
 
   describe 'course workflow', js: true do
@@ -340,6 +340,8 @@ describe 'New course creation and editing', type: :feature do
 
       go_through_researchwrite_wizard
 
+      sleep 1
+
       expect(page).to have_content 'Week 14'
 
       # Now submit the course
@@ -468,7 +470,7 @@ describe 'cloning a course', js: true do
     pending 'fixing the intermittent failures on travis-ci'
     create(:cohort)
     login_as user, scope: :user, run_callbacks: false
-    visit root_path
+    visit '/courses'
 
     click_link 'Create a Course'
     click_button 'Clone Previous Course'
