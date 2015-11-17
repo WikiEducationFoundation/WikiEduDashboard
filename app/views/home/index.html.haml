@@ -1,6 +1,6 @@
 %section.dark.hero
   .container
-    %h1 Wikipedia Education Foundation Dashboard
+    %h1= ENV['dashboard_title']
 
     %a.button{href: user_omniauth_authorize_path(:mediawiki)}
       %i.icon.icon-wiki-logo
@@ -44,7 +44,7 @@
         %li A single location to stay up to date with your Wikipedia assignment
         %li A clean interface for tracking your progress while editing Wikipedia
 
-%section.dark.stats-explained
+%section.dark.stats-total
   .container
     %h2.h1 Impact since 2010:
 
@@ -72,3 +72,11 @@
         %h4 69.4 Million
         %p
           How many people have read the Wikipedia articles these students have edited? In a single term, 69.4 million – larger than the population of France.
+
+%section.universities
+  .container
+    %h2
+      Wiki Education Foundation staff have supported instructors and students in more than
+      %b 400 universities
+      across the United States and Canada, including:
+
