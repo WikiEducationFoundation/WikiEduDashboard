@@ -37,8 +37,8 @@ Timeline = React.createClass(
     i = 0
     @props.weeks.forEach (week) =>
       unless week.deleted
-        if @props.week_meetings?
-          while @props.week_meetings[i] == '()'
+        if @props.course.week_meetings?
+          while @props.course.week_meetings[i] == '()'
             week_components.push (
               <Week
                 blocks={[]}
@@ -65,7 +65,7 @@ Timeline = React.createClass(
             blocks={BlockStore.getBlocksInWeek(week.id)}
             moveBlock={@moveBlock}
             deleteWeek={@deleteWeek.bind(this, week.id)}
-            meetings={if @props.week_meetings? then @props.week_meetings[i] else ''}
+            meetings={if @props.course.week_meetings? then @props.course.week_meetings[i] else ''}
             all_training_modules={@props.all_training_modules}
           />
         )

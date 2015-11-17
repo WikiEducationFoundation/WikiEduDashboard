@@ -1,5 +1,6 @@
 json.course do
   ctpm = CourseTrainingProgressManager.new(current_user, @course)
+  meeting_manager = CourseMeetingsManager.new(@course)
   json.call(@course, :id, :title, :description, :start, :end, :school,
             :subject, :slug, :url, :listed, :submitted, :listed,
             :expected_students, :timeline_start, :timeline_end, :day_exceptions,
@@ -27,4 +28,7 @@ json.course do
   if user_signed_in? && current_user.role(@course) > 0
     json.passcode @course.passcode
   end
+
+  json.week_meetings meeting_manager.week_meetings
+  json.open_weeks meeting_manager.open_weeks
 end
