@@ -49,26 +49,26 @@
     %h2.h1 Impact since 2010:
 
     %h3 Wiki Ed Courses
-    %h4= @presenter.courses.count
+    %h4= 640
 
-    %div.clearfix
+    %div
       .col
         %h3 Students
-        %h4= @presenter.cohort.students_without_nonstudents.count
+        %h4 14,000
 
       .col
         %h3 Articles worked on
-        %h4= number_to_human @presenter.courses.sum(:article_count)
+        %h4 35,000
 
-    %div.clearfix
+    %div
       .col
         %h3 Characters added
-        %h4= number_to_human @presenter.courses.sum(:character_sum)
+        %h4 20.5 Million
         %p
           The number of words students have donated to the world. That’s 28,000 pages – the equivalent of 28 volumes of a printed encyclopedia, shared with everyone, for free.
 
       .col
         %h3 Article views, in a single term
-        %h4= number_to_human @presenter.courses.sum(:view_sum)
+        %h4 69.4 Million
         %p
           How many people have read the Wikipedia articles these students have edited? In a single term, 69.4 million – larger than the population of France.
