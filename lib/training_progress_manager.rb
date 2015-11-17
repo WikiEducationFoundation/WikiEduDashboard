@@ -44,8 +44,9 @@ class TrainingProgressManager
   end
 
   def module_progress
-    return unless @user && @tmu && @tmu.last_slide_completed.present? && @training_module.slides
-    quotient = (slug_index(@tmu.last_slide_completed) + 1) / @training_module.slides.length.to_f
+    return unless module_started?
+    last_completed_index = slug_index(@tmu.last_slide_completed)
+    quotient = (last_completed_index + 1) / @training_module.slides.length.to_f
     percentage = (quotient * 100).round
     module_completed? ? 'Complete' : "#{percentage}% Complete"
   end
@@ -60,9 +61,18 @@ class TrainingProgressManager
     TrainingModuleDueDateManager.new(course: nil, training_module: @training_module, user: @user)
   end
 
+  def module_started?
+    @user && @tmu && @tmu.last_slide_completed.present? && @training_module.slides
+  end
+
   def slug_index(entity)
     # it's either a slide or a slug
     slug = entity.respond_to?(:slug) ? entity.slug : entity
-    @training_module.slides.collect(&:slug).index(slug)
+    index = @training_module.slides.collect(&:slug).index(slug)
+    # If passed a slug that isn't part of the module — which may happen because
+    # of changes to the module content — then return 0, representing the beginning
+    # of the module.
+    index = 0 if index.nil?
+    index
   end
 end
