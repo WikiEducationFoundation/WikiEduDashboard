@@ -23,10 +23,7 @@ class UploadImporter
     Utils.chunk_requests(commons_uploads) do |file_batch|
       deleted_files = Commons.find_missing_files file_batch
       CommonsUpload.transaction do
-        deleted_files.each do |file|
-          file.deleted = true
-          file.save
-        end
+        deleted_files.each { |file| file.update_attribute(:deleted, true) }
       end
     end
   end
