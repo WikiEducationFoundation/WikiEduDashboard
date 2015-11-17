@@ -29,6 +29,7 @@ sprout = #BCDA97
 $success_text = #359178
 
 border_lt = #D9D9D9
+$border_lt = #D9D9D9
 
 // Margin & Padding
 global-margin = 20px
@@ -42,9 +43,12 @@ wide-desktop = 1200px
 
 ts-speed = .2s
 
+$nav_height = 65px
+
 // Responsive switches (overridden in ie.styl)
 fix-mqs ?= false
 old-ie ?= false
+
 
 @import "_reset"
 @import "../../../node_modules/jeet/stylus/jeet"
@@ -54,3 +58,4 @@ old-ie ?= false
 @import "_layout"
 @import "_base"
 @import "modules/*"
+@import "home"

@@ -1,0 +1,9 @@
+.hero
+  .container
+    %h1 Wikipedia Education Foundation Dashboard
+
+    = link_to "Log in with Wikipedia", user_omniauth_authorize_path(:mediawiki), class: 'btn'
+    = link_to "Sign up with Wikipedia", user_omniauth_authorize_path(:mediawiki), class: 'btn btn-ghost'
+
+    %a Help
+

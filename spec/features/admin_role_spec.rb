@@ -54,9 +54,9 @@ describe 'Admin users', type: :feature, js: true do
     login_as(user, scope: :user)
   end
 
-  describe 'visiting the homepage' do
+  describe 'visiting the courses page' do
     it 'should see submitted courses awaiting approval' do
-      visit root_path
+      visit '/courses'
       sleep 1
       expect(page).to have_content 'Submitted Courses'
       expect(page).to have_content 'My Submitted Course'
@@ -79,7 +79,7 @@ describe 'Admin users', type: :feature, js: true do
 
       expect(page).to have_content 'Your course has been published'
 
-      visit root_path
+      visit '/courses'
       sleep 1
       expect(page).not_to have_content 'Submitted Courses'
     end
@@ -104,7 +104,7 @@ describe 'Admin users', type: :feature, js: true do
 
       expect(page).to have_content 'This course has been submitted'
 
-      visit root_path
+      visit '/courses'
       sleep 1
       expect(page).to have_content 'Submitted Courses'
     end

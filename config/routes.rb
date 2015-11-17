@@ -137,8 +137,13 @@ Rails.application.routes.draw do
   # ask.wikiedu.org search box
   get 'ask' => 'ask#search'
 
-  # Root
-  root to: 'courses#index'
+  # Authenticated users root to the courses dashboard
+  authenticated :user do
+    root to: "courses#index", as: :courses_dashboard
+  end
+
+  # Unauthenticated users root to the home page
+  root to: 'home#index'
 
   # Route aliases for React frontend
   get '/course_creator(/*any)' => 'courses#index'
