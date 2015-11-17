@@ -172,9 +172,11 @@
     -
       title: Yes. We will work on medicine or psychology articles.
       tag: yes_medical_topics
+      logic: medical_topics
     -
       title: Maybe. Students might choose a medicine or psychology topic.
       tag: maybe_medical_topics
+      logic: medical_topics
     -
       title: No. No one will work on medicine or psychology topics.
       tag: no_medical_topics
