@@ -19,14 +19,26 @@ body.home
     border-radius 2px
     font-weight 600
     margin-right 20px
+    transition all 62ms ease-in-out
+
+    &:hover, &:focus
+      background-image linear-gradient(top, #fff, #e0e0e0)
 
     &.btn-ghost
       background transparent
       border 1px solid $brand_primary
 
+      &:hover, &:focus
+        color #fff
+        background $brand_primary
+
       &.btn-inverse
         border-color #fff
         color #fff
+
+        &:hover, &:focus
+          color $brand_primary
+          background #fff
 
     i
       font-size 28px
@@ -50,6 +62,12 @@ body.home
     line-height 24px
     text-decoration none
     text-align center
+    transition all 62ms ease-in-out
+
+    &:hover, &:focus
+      background-color #fff
+      color $brand_primary
+
 
   .hero
     background-color $brand_primary
@@ -62,7 +80,7 @@ body.home
       color #7c7c77
 
     .btn-ghost i
-      color #fff
+      color inherit
 
     h1
       color #fff
@@ -117,7 +135,7 @@ body.home
   .stat-display
     display inline-block
     width 100%
-    margin 20px 0 60px 0
+    margin 20px 0 55px 0
     display flex
     justify-content space-between
 
