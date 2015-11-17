@@ -1,35 +1,114 @@
 $brand_primary = #696BB1
+$brand_primary_light = #7274c3
+$body_color_dark = #2C2C2C
+$body_color = #6A6A6A
+$body_font = "Open Sans", "Source Sans Pro", sans-serif
+$heading_font = $body_font
+$h1_font = "Source Sans Pro", "Open Sans", sans-serif
 
 body.home
+  color $body_color
+  font-family $body_font
+
+  .btn
+    display inline-block
+    background #fff
+    color: $brand_primary
+    text-decoration none
+    padding 8px 16px
+    border-radius 2px
+    font-weight 600
+    margin-right 20px
+
+    &.btn-ghost
+      background transparent
+      border 1px solid $brand_primary
+
+      &.btn-inverse
+        border-color #fff
+        color #fff
+
+    i
+      font-size 28px
+      vertical-align middle
+      margin -6px 6px -4px -4px
+      line-height 0
+      display inline-block
+
+      &:before
+        vertical-align bottom
+
   .hero
     background-color $brand_primary
+    background-image linear-gradient(135deg, $brand_primary, $brand_primary_light)
 
     .container
       padding 60px 40px 80px 40px
 
+    .btn i
+      color #7c7c77
+
+    .btn-ghost i
+      color #fff
+
     h1
       color #fff
-      font-family "Source Sans Pro"
+      font-family $h1_font
       font-size 54px
       line-height 1.4
       max-width 800px
       margin-bottom 60px
 
-    .btn {
-      display inline-block
-      background: #fff;
-      color: $brand_primary
-      text-decoration none
-      padding 11px 16px
-      border-radius 2px
-      font-weight 500
-      margin-right 20px
+  section
+    .container
+      padding 60px 40px 60px 40px
 
-      &.btn-ghost {
+    &.light
+      background-color #fff
+
+    &.dark
+      background-color $brand_primary
+      background-image linear-gradient(135deg, $brand_primary, $brand_primary_light)
+
+      &, h1, h2, h3
         color #fff
-        background transparent
-        border 1px solid #fff
-      }
-    }
 
+    h1, .h1
+      font-family $h1_font
+      font-size 54px
+      line-height 1.4
+      color $brand_primary
+      max-width 100%
 
+    h2, .h2
+      font-family $h2_font
+      font-size 30px
+      font-weight 300
+      color $body_color_dark
+      max-width 640px
+      margin 0 auto 20px auto
+
+    h3, .h3
+      color $brand_primary
+      font-size 20px
+      font-family $h2_font
+
+  .col
+    margin-top 40px
+    col(1/2)
+
+  ul
+    font-size 21px
+    margin-bottom 20px
+
+  .stat-display
+    display inline-block
+    width 100%
+    margin 40px 0
+
+    h1
+      font-family inherit
+      color $brand_primary
+      font-size 34px
+    small
+      color #aaa

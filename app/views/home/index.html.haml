@@ -1,9 +1,49 @@
-.hero
+%section.dark.hero
   .container
     %h1 Wikipedia Education Foundation Dashboard
 
-    = link_to "Log in with Wikipedia", user_omniauth_authorize_path(:mediawiki), class: 'btn'
-    = link_to "Sign up with Wikipedia", user_omniauth_authorize_path(:mediawiki), class: 'btn btn-ghost'
+    %a.btn{href: user_omniauth_authorize_path(:mediawiki)}
+      %i.icon.icon-wiki-logo
+      Log in with Wikipedia
+
+    %a.btn.btn-ghost.btn-inverse{href: user_omniauth_authorize_path(:mediawiki)}
+      %i.icon.icon-wiki-logo
+      Sign up with Wikipedia
 
     %a Help
 
+%section.stats
+  .container.text-center
+    %h2 2015 Fall Cohort
+
+    = render 'courses/header_stats', presenter: @presenter
+
+    %a.btn.btn-ghost{href: '/courses'} Explore
+
+%section.light
+  .container
+    %h2.h1 We cultivate learning that enriches Wikipedia and universities, creating a world where any learner can contribute to open scholarship and education for all.
+
+%section
+  .container
+    %h2.text-center The dashboard provides easy to use tools for instructors and students
+
+    .col
+      %h3 Instructors
+      %h2 Create and Manage a Wikipedia Assignment
+      %ul
+        %li Learn how to edit Wikipedia, create, and manage a course with our interactice training
+        %li Create a course from our templates and refine the course to meet your needs.
+        %li A clean interface for tracking the class’s progress
+
+    .col
+      %h3 Students
+      %h2 Stay Informed and Learn How to Edit Wikipedia
+      %ul
+        %li Learn how to edit Wikipedia with our interactive training
+        %li A single location to stay up to date with your Wikipedia assignment
+        %li A clean interface for tracking your progress while editing Wikipedia
+
+%section.dark
+  .container
+    %h2.h1 Impact since 2010:
