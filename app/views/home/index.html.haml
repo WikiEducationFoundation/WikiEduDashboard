@@ -12,7 +12,7 @@
 
     %a.help{href: '/ask'} ?
 
-%section.stats
+%section
   .container.text-center
     %h2= @presenter.cohort.title
 
@@ -44,6 +44,31 @@
         %li A single location to stay up to date with your Wikipedia assignment
         %li A clean interface for tracking your progress while editing Wikipedia
 
-%section.dark
+%section.dark.stats-explained
   .container
     %h2.h1 Impact since 2010:
+
+    %h3 Wiki Ed Courses
+    %h4= @presenter.courses.count
+
+    %div.clearfix
+      .col
+        %h3 Students
+        %h4= @presenter.cohort.students_without_nonstudents.count
+
+      .col
+        %h3 Articles worked on
+        %h4= number_to_human @presenter.courses.sum(:article_count)
+
+    %div.clearfix
+      .col
+        %h3 Characters added
+        %h4= number_to_human @presenter.courses.sum(:character_sum)
+        %p
+          The number of words students have donated to the world. That’s 28,000 pages – the equivalent of 28 volumes of a printed encyclopedia, shared with everyone, for free.
+
+      .col
+        %h3 Article views, in a single term
+        %h4= number_to_human @presenter.courses.sum(:view_sum)
+        %p
+          How many people have read the Wikipedia articles these students have edited? In a single term, 69.4 million – larger than the population of France.
