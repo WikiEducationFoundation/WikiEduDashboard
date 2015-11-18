@@ -23,7 +23,7 @@ class TrainingModuleDueDateManager
     # (0 weeks from timeline start)
     weeks_from_start = (block.week.order - 1).to_i
     (block.week.course.timeline_start + weeks_from_start.weeks)
-      .to_date.end_of_week(start_day = :sunday)
+      .to_date.end_of_week(:sunday)
   end
 
   def overdue?
