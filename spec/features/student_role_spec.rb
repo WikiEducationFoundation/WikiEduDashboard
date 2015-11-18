@@ -50,9 +50,9 @@ describe 'Student users', type: :feature, js: true do
     it 'should work' do
       visit "/courses/#{Course.first.slug}"
       expect(page).to have_content 'Log Out'
-      expect(page).not_to have_content 'Login'
+      expect(page).not_to have_content 'Log in'
       find('a', text: 'Log Out').click
-      expect(page).to have_content 'Login'
+      expect(page).to have_content 'Log in'
       expect(page).not_to have_content 'Log Out'
     end
 
