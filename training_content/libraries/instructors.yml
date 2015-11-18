@@ -3,7 +3,7 @@ introduction: |
   This page contains a variety of modules intended to help instructors get
   started with Wikipedia-based classroom assignments in higher education.
 categories:
-  - title: Assignment design and best practices
+  - title: Assignment Design and Best Practices
     description: Guidance for building a great Wikipedia classroom assignment
     modules:
       - slug: new-instructor-orientation
@@ -13,10 +13,10 @@ categories:
           should complete this module before creating their first course
           project.
       - slug: designing-a-writing-assignment
-        name: 'Designing a Wikipedia writing and research assignment'
+        name: 'Designing a Wikipedia Writing and Research Assignment'
         description: 'A case study of the "classic" Wikipedia assignment'
       - slug: assigning-medical-topics
-        name: Assigning medical and psychology topics
+        name: Assigning Medical and Psychology Topics
         description: |
           Special considerations for Wikipedia projects involving medicine- and
           health-related topics
