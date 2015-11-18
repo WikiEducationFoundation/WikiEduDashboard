@@ -119,6 +119,9 @@ essentials:
 
           ---
           Handouts: [Citing Sources](https://commons.wikimedia.org/wiki/File:Citing_your_sources.pdf) and [Avoiding Plagiarism](https://commons.wikimedia.org/wiki/File:Avoiding_plagiarism.pdf)
+
+          ---
+          Supplementary training: [Sources and Citations](../../../training/students/sources)
       -
         if: medical_topics
         kind: 1
@@ -148,14 +151,12 @@ essentials:
         if: explore_to_find_articles
         title: Choosing your article
         kind: 1
-        training_module_ids: [8] # Sources
         content: |
           * Research and list 3–5 articles on your Wikipedia user page that you will consider working on as your main project. Look at the talk page for existing topics for a sense of who else is working on it and what they're doing. Describe your choices to your instructor for feedback.
       -
         if: choose_articles_from_list
         title: Choosing your article
         kind: 1
-        training_module_ids: [8] # Sources
         content: |
           * Your instructor has created a list of potential topics for your main project. Choose the one you will work on.
           * Compile a bibliography of relevant, reliable sources and post it to the talk page of the article you are working on. Begin reading the sources. Make sure to check in on the talk page (or watchlist) to see if anyone has advice on your bibliography.
@@ -167,6 +168,9 @@ essentials:
         kind: 0
         content: |
           * Discuss the topics students will be working on, and determine strategies for researching and writing about them.
+
+          ---
+          Supplementary training: [Sandboxes and Mainspace](../../../training/students/sandboxes)
       -
         if: explore_to_find_articles
         title: Finalize your topic and start researching

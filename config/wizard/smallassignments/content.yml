@@ -72,7 +72,6 @@ add_to_article:
         kind: 1
         graded: true
         points: 10
-        training_module_ids: [8] # Sources
         content: |
           * Add 1–2 sentences of new information, backed up with a citation to an appropriate source, to a Wikipedia article related to the class.
 

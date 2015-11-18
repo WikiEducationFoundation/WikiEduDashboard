@@ -30,7 +30,7 @@ illustrate:
       - title: Learn the basics
         kind: 1
         graded: true
-        training_module_ids: [6] # Images and media
+        training_module_ids: [1,2,6] # Wikipedia essentials, Editing basics, Images and media
         content: |
           * Complete the training for contributing and adding images and multimedia.
 

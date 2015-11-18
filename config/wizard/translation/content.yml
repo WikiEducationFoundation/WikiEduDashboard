@@ -32,7 +32,7 @@ translation_essentials:
         if: ungraded_training
         title: Practicing the basics
         kind: 1
-        training_module_ids: [2,7,10] # Editing basics, Evaluate an article, Translating articles
+        training_module_ids: [1,2,7,10] # Wikipedia essentials, Editing basics, Evaluate an article, Translating articles
         content: |
           * Create an account and a user page on Wikipedia
           * Enroll in this course.
@@ -47,7 +47,7 @@ translation_essentials:
         kind: 1
         graded: true
         points: 5
-        training_module_ids: [2,7,10] # Editing basics, Evaluate an article, Translating articles
+        training_module_ids: [1,2,7,10] # Wikipedia essentials, Editing basics, Evaluate an article, Translating articles
         content: |
           * Create an account and a user page on Wikipedia
           * Enroll in this course.
@@ -84,10 +84,14 @@ translation_choose_articles_from_list:
         kind: 0
         content: |
           * Select an article from a list prepared by the instructor. Add it as your assigned article on the course page.
+
+          ---
+          Supplementary trainings:
+          * [Sources and Citations](../../../training/students/sources)
+          * [Sandboxes and Mainspace](../../../training/students/sandboxes)
       -
         title: Begin translating
         kind: 1
-        training_module_ids: [8,9] # Sources, Sandboxes
         content: |
           * Copy your article from the target-language Wikipedia into your sandbox.
           * Begin to translate your work.
