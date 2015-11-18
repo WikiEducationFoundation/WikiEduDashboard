@@ -32,17 +32,25 @@ describe TrainingModuleDueDateManager do
 
     context "module's parent block does not have due date" do
       let(:due_date) { nil }
-      let(:expected) { (1.month.ago).to_date.end_of_week(start_day = :sunday) }
-      it "uses the last day of the block's parent week" do
-        expect(subject).to eq(expected)
+      let(:expected) { (t_start).to_date.end_of_week(start_day = :sunday) }
+      context "block's parent week is not a blackout week" do
+        it "uses the last day of the block's parent week" do
+          expect(subject).to eq(expected)
+        end
+        it 'is a Saturday, since weeks run Sun-Sat' do
+          expect(subject.saturday?).to eq(true)
+        end
       end
-      it 'is a Saturday, since weeks run Sun-Sat' do
-        expect(subject.saturday?).to eq(true)
+      context "block's parent week is a blackout week" do
+        it 'uses the Saturday before the next non-blackout week' do
+        end
       end
     end
   end
 
   describe '#overdue?' do
+    before(:all) { Timecop.travel(Date.new(2015, 8, 25)) }
+    after(:all)  { Timecop.return }
     subject do
       described_class.new(course: course, training_module: t_module, user: user)
         .overdue?
@@ -77,7 +85,11 @@ describe TrainingModuleDueDateManager do
   end
 
   describe '#deadline_status' do
+    before(:all) { Timecop.travel(Date.new(2015, 8, 25)) }
+    after(:all)  { Timecop.return }
+
     let(:completed_at) { 1.day.ago }
+
     subject do
       described_class.new(course: course, training_module: t_module, user: user)
         .deadline_status
@@ -111,7 +123,11 @@ describe TrainingModuleDueDateManager do
   end
 
   describe '#overall_due_date' do
+    before(:all) { Timecop.travel(Date.new(2015, 8, 25)) }
+    after(:all)  { Timecop.return }
+
     let!(:cu) { create(:courses_user, user_id: user.try(:id), course_id: course.id) }
+
     subject do
       described_class.new(course: course, training_module: t_module, user: user)
         .overall_due_date
@@ -132,7 +148,8 @@ describe TrainingModuleDueDateManager do
         end
         context 'block has no due date' do
           let(:due_date) { nil }
-          let(:expected) { (1.month.ago).to_date.end_of_week(start_day = :sunday) }
+          # end of the first week of the course timeline
+          let(:expected) { course.timeline_start.end_of_week(:sunday) }
           it "uses the parent week's date" do
             expect(subject).to eq(expected)
           end
