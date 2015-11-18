@@ -9,6 +9,6 @@
       = render "shared/nav"
       %main
         - if flash[:notice]
-          .notice= flash[:notice]
+          .notification= flash[:notice]
         = yield
     = render "shared/foot"
