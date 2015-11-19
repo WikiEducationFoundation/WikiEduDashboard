@@ -67,6 +67,10 @@ class CourseMeetingsManager
     ((@course.timeline_end - beginning_of_first_week).to_f / 7).ceil
   end
 
+  def week_is_blackout?(week)
+    week_meetings[week.order - 1].gsub(/[(|)]/, '').empty?
+  end
+
   private
 
   def course_has_timeline_dates?
@@ -74,7 +78,7 @@ class CourseMeetingsManager
   end
 
   def date_is_between(date, min, max)
-    min < date && date < max
+    min <= date && date <= max
   end
 
   def beginning_of_first_week
@@ -82,6 +86,7 @@ class CourseMeetingsManager
   end
 
   def exceptions_as_dates
+    return [] unless @course.day_exceptions
     @course.day_exceptions.split(',').reject(&:empty?).map { |exc| Date.parse(exc) }
   end
 end

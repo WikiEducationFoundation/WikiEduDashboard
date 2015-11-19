@@ -1,8 +1,11 @@
 require 'rails_helper'
 
 describe TrainingModuleDueDateManager do
-  let(:course)       { create(:course, timeline_start: 1.month.ago.to_date,
-                               timeline_end: 1.month.from_now.to_date) }
+  let(:t_start)      { Date.new(2015, 8, 25) }
+  let(:day_exc)      { nil }
+  let(:course)       { create(:course, timeline_start: t_start,
+                               timeline_end: t_start + 2.weeks, day_exceptions: day_exc
+                               weekdays: '0010000') }
   let(:t_module)     { TrainingModule.all.first }
   let(:ids)          { [t_module.id] }
   let(:user)         { create(:user) }
@@ -13,7 +16,7 @@ describe TrainingModuleDueDateManager do
            user_id: user.try(:id),
            completed_at: completed_at)
   end
-  let(:due_date) { 1.week.from_now.to_date }
+  let(:due_date) { t_start + 1. week }
   let(:week)     { create(:week, course_id: course.id, order: 1) }
   let!(:block) do
     create(:block, week_id: week.id, training_module_ids: ids, due_date: due_date)
@@ -32,7 +35,7 @@ describe TrainingModuleDueDateManager do
 
     context "module's parent block does not have due date" do
       let(:due_date) { nil }
-      let(:expected) { (t_start).to_date.end_of_week(start_day = :sunday) }
+      let(:expected) { (t_start).end_of_week(:sunday) }
       context "block's parent week is not a blackout week" do
         it "uses the last day of the block's parent week" do
           expect(subject).to eq(expected)
@@ -42,6 +45,7 @@ describe TrainingModuleDueDateManager do
         end
       end
       context "block's parent week is a blackout week" do
+        let(:day_exc) { Date.new(2015, 8, 25).to_s.gsub('-', '') }
         it 'uses the Saturday before the next non-blackout week' do
         end
       end

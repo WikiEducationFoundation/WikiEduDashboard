@@ -92,4 +92,37 @@ describe CourseMeetingsManager do
     end
   end
 
+  describe '#week_is_blackout_week?' do
+    let(:t_start) { Date.new(2015, 8, 25) }
+    let(:t_end)   { t_start + 3.weeks }
+    let!(:course) do
+      create(:course,
+             timeline_start: t_start,
+             timeline_end: t_end,
+             day_exceptions: day_ex,
+             weekdays: '0010100'
+            )
+    end
+    let(:order) { 1 }
+    let!(:week) { create(:week, course_id: course.id, order: order) }
+    subject { described_class.new(course).week_is_blackout?(week) }
+    describe 'first week - class meets both days' do
+      let(:day_ex) { nil }
+      it 'returns false' do
+        expect(subject).to eq(false)
+      end
+    end
+    describe 'Thursday of first week is exception' do
+      let(:day_ex) { '20150827' }
+      it 'returns false' do
+        expect(subject).to eq(false)
+      end
+    end
+    describe 'both days of first week are exceptions' do
+      let(:day_ex) { ',20150825,20150827' }
+      it 'returns true' do
+        expect(subject).to eq(true)
+      end
+    end
+  end
 end
