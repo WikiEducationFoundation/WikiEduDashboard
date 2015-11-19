@@ -22,7 +22,7 @@ SlideMenu = React.createClass(
         # it is set enabled in the parent component,
         # or it's the current slide
         enabled = slide.enabled is true || @props.enabledSlides.indexOf(slide.id) >= 0 || (slide.id == @props.currentSlide.id)
-        <li key={slide.id} onClick={@props.onClick} className={liClass}>
+        <li key={[slide.id, loopIndex].join('-')} onClick={@props.onClick} className={liClass}>
           <Link to="slide" disabled={!enabled} params={newParams}>
             {loopIndex + 1}. {slide.title}
           </Link>
