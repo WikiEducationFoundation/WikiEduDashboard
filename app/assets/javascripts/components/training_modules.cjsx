@@ -49,7 +49,7 @@ TrainingModules = React.createClass(
           deadlineStatus = "(#{module.deadline_status}, due on #{module.due_date})"
 
         (
-          <tr className="training-module">
+          <tr key={module.id} className="training-module">
             <td>{module.name}</td>
             <td className={progressClass}>
               {module.module_progress}
