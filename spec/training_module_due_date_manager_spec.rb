@@ -4,7 +4,7 @@ describe TrainingModuleDueDateManager do
   let(:t_start)      { Date.new(2015, 8, 25) }
   let(:day_exc)      { nil }
   let(:course)       { create(:course, timeline_start: t_start,
-                               timeline_end: t_start + 2.weeks, day_exceptions: day_exc
+                               timeline_end: t_start + 3.weeks, day_exceptions: day_exc,
                                weekdays: '0010000') }
   let(:t_module)     { TrainingModule.all.first }
   let(:ids)          { [t_module.id] }
@@ -44,9 +44,15 @@ describe TrainingModuleDueDateManager do
           expect(subject.saturday?).to eq(true)
         end
       end
-      context "block's parent week is a blackout week" do
-        let(:day_exc) { Date.new(2015, 8, 25).to_s.gsub('-', '') }
-        it 'uses the Saturday before the next non-blackout week' do
+      context "week 2 is a blackout week; week in order 2 is actually calendar week 3" do
+        let(:week2)    { create(:week, course_id: course.id, order: 2) }
+        let(:day_exc)  { (t_start + 1.week).to_s.gsub('-', '') }
+        let(:expected) { (t_start + 2.weeks).end_of_week(:sunday) }
+        let(:t_module2){ TrainingModule.find(11) }
+        let(:ids2)     { [t_module2.id] }
+        let!(:block2)  { create(:block, week_id: week2.id, training_module_ids: ids2, due_date: nil) }
+        it 'uses the Saturday of the correct week' do
+          expect(described_class.new(course: course, training_module: t_module2, user: user).computed_due_date).to eq(expected)
         end
       end
     end

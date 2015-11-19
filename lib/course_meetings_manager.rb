@@ -71,6 +71,10 @@ class CourseMeetingsManager
     week_meetings[week.order - 1].gsub(/[(|)]/, '').empty?
   end
 
+  def blackout_weeks_prior_to(week)
+    week_meetings[0..week.order].count("()")
+  end
+
   private
 
   def course_has_timeline_dates?

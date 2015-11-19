@@ -92,7 +92,7 @@ describe CourseMeetingsManager do
     end
   end
 
-  describe '#week_is_blackout_week?' do
+  describe '#week_is_blackout?' do
     let(:t_start) { Date.new(2015, 8, 25) }
     let(:t_end)   { t_start + 3.weeks }
     let!(:course) do
