@@ -291,6 +291,9 @@ essentials:
         kind: 0
         content: |
           * As a group, offer suggestions for improving one or two other students' articles, based on your ideas of what makes a solid encyclopedia article.
+
+          ---
+          Supplementary training: [Peer Review](../../../training/students/peer-review)
       - # 1 peer review
         if: 1_peer_reviewers
         title: Peer review and copyedit
