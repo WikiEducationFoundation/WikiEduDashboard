@@ -10,15 +10,15 @@ class CourseMeetingsManager
       # Treat courses without meeting date data as having no blackout weeks
       manager = new(week.course)
       return 0 unless manager.send(:course_has_meeting_date_data?)
-      manager.instance_variable_get(:week_meetings, [0..week.order].count('()'))
+      manager.send(:week_meetings)[0..week.order].count('()')
     end
 
     def week_meetings(course)
-      new(course).week_meetings
+      new(course).send(:week_meetings)
     end
 
     def open_weeks(course)
-      new(course).open_weeks
+      new(course).send(:open_weeks)
     end
   end
 
@@ -99,6 +99,7 @@ class CourseMeetingsManager
   end
 
   def blackout_weeks_count
+    return 0 unless @week_meetings
     @week_meetings.count('()')
   end
 
