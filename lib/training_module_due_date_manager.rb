@@ -23,7 +23,7 @@ class TrainingModuleDueDateManager
     # (0 weeks from timeline start)
     week = block.week
     weeks_from_start = (week.order - 1).to_i
-    weeks_from_start += meeting_manager.blackout_weeks_prior_to(week)
+    weeks_from_start += CourseMeetingsManager.blackout_weeks_prior_to(week)
     (block.week.course.timeline_start + weeks_from_start.weeks)
       .to_date.end_of_week(:sunday)
   end
@@ -51,10 +51,6 @@ class TrainingModuleDueDateManager
   end
 
   private
-
-  def meeting_manager
-    CourseMeetingsManager.new(@course)
-  end
 
   def blocks_with_training_modules_for_user
     return [] unless @user.present?

@@ -16,6 +16,11 @@ describe CourseMeetingsManager do
           )
   end
 
+  before do
+    CourseMeetingsManager.send(:public, *CourseMeetingsManager.protected_instance_methods)
+    CourseMeetingsManager.send(:public, :week_meetings)
+  end
+
   let(:expected) do
     ["()", # August 23 - 29, 2015
      "(Tue, Thu)", "(Tue, Thu)", "(Tue, Thu)", "(Tue, Thu)", "(Tue, Thu)", "(Tue, Thu)", # August 30 - October 10
@@ -29,7 +34,7 @@ describe CourseMeetingsManager do
   end
 
   describe '#week_meetings' do
-    subject { described_class.new(course).week_meetings }
+    subject { described_class.week_meetings(course) }
     context 'course with timeline start and end' do
       it 'returns an array of day meetings for each week, factoring in blackout dates' do
         expect(subject).to eq(expected)
@@ -82,14 +87,14 @@ describe CourseMeetingsManager do
   end
 
   describe '#open_weeks' do
-    subject { described_class.new(course).open_weeks }
+    subject { described_class.open_weeks(course) }
     # an array with 12 elements
     let(:weeks) { %w(foo foo foo foo foo foo foo foo foo foo foo foo) }
     before { allow_any_instance_of(Course).to receive(:weeks).and_return(weeks) }
     context 'course has timeline start/end' do
       it 'returns an int representing the weeks the timeline can accomodate' do
-        # There are 15 weeks with meetings, so 3 open weeks.
-        expect(subject).to eq(3)
+        # There are 16 weeks with meetings, so 4 open weeks.
+        expect(subject).to eq(4)
       end
     end
 
