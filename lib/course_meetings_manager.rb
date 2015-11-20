@@ -7,7 +7,6 @@ class CourseMeetingsManager
 
   # Returns an arry of strings representing course meeting days,
   # e.g., ["(Tue, Thu)", "(Tue, Thu)", "()", "(Thu)"]
-  # rubocop:disable Metrics/MethodLength
   def week_meetings
     return unless course_has_timeline_dates?
     meetings = []
@@ -22,7 +21,6 @@ class CourseMeetingsManager
     end
     meetings
   end
-  # rubocop:enable Metrics/MethodLength
 
   # returns an int representing the difference between the number of timeline weeks
   # and the Weeks that belong_to the course
@@ -68,14 +66,21 @@ class CourseMeetingsManager
   end
 
   def week_is_blackout?(week)
+    # Treat courses without meeting date data as having no blackout weeks
+    return false if course_has_no_meeting_date_data?
     week_meetings[week.order - 1].gsub(/[(|)]/, '').empty?
   end
 
   def blackout_weeks_prior_to(week)
+    # Treat courses without meeting date data as having no blackout weeks
+    return 0 if course_has_no_meeting_date_data?
     week_meetings[0..week.order].count("()")
   end
 
   private
+  def course_has_no_meeting_date_data?
+    @course.weekdays == '0000000' && @course.day_exceptions == ''
+  end
 
   def course_has_timeline_dates?
     @course.timeline_start.present? && @course.timeline_end.present?
