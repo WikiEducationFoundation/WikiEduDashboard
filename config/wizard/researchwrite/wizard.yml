@@ -20,7 +20,7 @@
 
     <br>
 
-    **Will you ask students to complete this training as part of their grade? **
+    **Will you ask students to complete this training as part of their grade?**
   type: 1  # single choice
   minimum: 1
   options:
