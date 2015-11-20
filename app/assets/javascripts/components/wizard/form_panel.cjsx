@@ -72,6 +72,7 @@ FormPanel = React.createClass(
         <div className='wizard__form course-dates course-dates__step'>
           <Calendar course={@props.course}
             editable=true
+            save=true
             setAnyDatesSelected={@setAnyDatesSelected}
             setBlackoutDatesSelected={@setBlackoutDatesSelected}
             calendarInstructions= {I18n.t('wizard.calendar_instructions')}
