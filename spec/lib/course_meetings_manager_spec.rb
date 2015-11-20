@@ -2,10 +2,11 @@ require 'rails_helper'
 
 describe CourseMeetingsManager do
   # starts with a comma to mimic real data. will fix data later
-  let(:day_ex) { ",20151013,20151201,20151203,20151208,20151210,20151215,20151217,20151222,
-                  20151224,20151229,20151231,20160105,20160107" }
-  let(:t_start) { Date.new(2015, 8, 25) }
-  let(:t_end)   { Date.new(2016, 5, 01) }
+  let(:day_ex) { ",20151013,20151201,20151203,20151208,20151209,
+                  20151210,20151215,20151217,20151222,
+                  20151224,20151229,20151231,20160105" }
+  let(:t_start) { Date.new(2015, 8, 28) } # Friday
+  let(:t_end)   { Date.new(2016, 1, 13) } # Wednesday
   let!(:course) do
     create(:course,
            timeline_start: t_start,
@@ -16,7 +17,15 @@ describe CourseMeetingsManager do
   end
 
   let(:expected) do
-    ["(Tue, Thu)", "(Tue, Thu)", "(Tue, Thu)", "(Tue, Thu)", "(Tue, Thu)", "(Tue, Thu)", "(Tue, Thu)", "(Thu)", "(Tue, Thu)", "(Tue, Thu)", "(Tue, Thu)", "(Tue, Thu)", "(Tue, Thu)", "(Tue, Thu)", "()", "()", "()", "()", "()", "()", "(Tue, Thu)", "(Tue, Thu)", "(Tue, Thu)", "(Tue, Thu)", "(Tue, Thu)", "(Tue, Thu)", "(Tue, Thu)", "(Tue, Thu)", "(Tue, Thu)", "(Tue, Thu)", "(Tue, Thu)", "(Tue, Thu)", "(Tue, Thu)", "(Tue, Thu)", "(Tue, Thu)", "(Tue, Thu)"]
+    ["()", # August 23 - 29, 2015
+     "(Tue, Thu)", "(Tue, Thu)", "(Tue, Thu)", "(Tue, Thu)", "(Tue, Thu)", "(Tue, Thu)", # August 30 - October 10
+     "(Thu)", # October 11 - 17
+     "(Tue, Thu)", "(Tue, Thu)", "(Tue, Thu)", "(Tue, Thu)", "(Tue, Thu)", "(Tue, Thu)", # October 18 - November 28
+     "()", # November 29 - December 5
+     "(Wed)", # December 6 - 12, including exception not on a Tues/Thurs
+     "()", "()", "()", # December 13 - January 2
+     "(Thu)", # January 3 - 9
+     "(Tue)"] # January 10 - 16
   end
 
   describe '#week_meetings' do
@@ -47,7 +56,7 @@ describe CourseMeetingsManager do
     subject { described_class.new(course).timeline_week_count }
     context 'course has start and end dates' do
       it 'returns an integer representing the weeks in the timeline, irrespective of blackouts' do
-        expect(subject).to eq(36)
+        expect(subject).to eq(21)
       end
     end
 
@@ -74,12 +83,13 @@ describe CourseMeetingsManager do
 
   describe '#open_weeks' do
     subject { described_class.new(course).open_weeks }
-    # an array with 14 elements
-    let(:weeks) { %w(foo foo foo foo foo foo foo foo foo foo foo foo foo foo) }
+    # an array with 12 elements
+    let(:weeks) { %w(foo foo foo foo foo foo foo foo foo foo foo foo) }
     before { allow_any_instance_of(Course).to receive(:weeks).and_return(weeks) }
     context 'course has timeline start/end' do
       it 'returns an int representing the weeks the timeline can accomodate' do
-        expect(subject).to eq(22)
+        # There are 15 weeks with meetings, so 3 open weeks.
+        expect(subject).to eq(3)
       end
     end
 
