@@ -1,4 +1,6 @@
 class CourseMeetingsManager
+  attr_reader :week_meetings, :open_weeks
+
   def initialize(course)
     @course = course
     return if @course.nil?
@@ -16,14 +18,6 @@ class CourseMeetingsManager
     # Treat courses without meeting date data as having no blackout weeks
     return 0 unless course_has_meeting_date_data?
     @week_meetings[0..week.order].count('()')
-  end
-
-  def week_meetings
-    @week_meetings
-  end
-
-  def open_weeks
-    @open_weeks
   end
 
   DAYS_AS_SYM = %i(sunday monday tuesday wednesday thursday friday saturday)
