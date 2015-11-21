@@ -1,38 +1,46 @@
 class CourseMeetingsManager
   def initialize(course)
     @course = course
-    @week_meetings = week_meetings
+    return if @course.nil?
+    @beginning_of_first_week = calculate_beginning_of_first_week
+    @timeline_week_count = calculate_timeline_week_count
+    @week_meetings = calculate_week_meetings
+    @open_weeks = calculate_open_weeks
   end
 
-  # Public Interface
-  class << self
-    def blackout_weeks_prior_to(week)
-      # Treat courses without meeting date data as having no blackout weeks
-      manager = new(week.course)
-      return 0 unless manager.send(:course_has_meeting_date_data?)
-      manager.send(:week_meetings)[0..week.order].count('()')
-    end
+  ####################
+  # Instance methods #
+  ####################
 
-    def week_meetings(course)
-      new(course).send(:week_meetings)
-    end
+  def blackout_weeks_prior_to(week)
+    # Treat courses without meeting date data as having no blackout weeks
+    return 0 unless course_has_meeting_date_data?
+    @week_meetings[0..week.order].count('()')
+  end
 
-    def open_weeks(course)
-      new(course).send(:open_weeks)
-    end
+  def week_meetings
+    @week_meetings
+  end
+
+  def open_weeks
+    @open_weeks
   end
 
   DAYS_AS_SYM = %i(sunday monday tuesday wednesday thursday friday saturday)
 
-  protected
+  ###################
+  # Private methods #
+  ###################
+
+  private
 
   # returns an int representing the difference between the number of timeline weeks
   # and the Weeks that belong_to the course
   # (used on the client for calculating what type of assignment the user can
   # choose in the wizard based on the available time)
-  def open_weeks
+  def calculate_open_weeks
     return 0 unless course_has_timeline_dates?
-    timeline_week_count - blackout_weeks_count - @course.weeks.count
+    @timeline_week_count - blackout_weeks_count - @course.weeks.count
   end
 
   # Returns an array of Date objects representing all days
@@ -49,8 +57,8 @@ class CourseMeetingsManager
   def all_potential_meetings
     meetings = []
     day_meetings.each do |day|
-      timeline_week_count.times do |wk|
-        meetings << (beginning_of_first_week + wk.weeks).date_of_upcoming(day)
+      @timeline_week_count.times do |wk|
+        meetings << (@beginning_of_first_week + wk.weeks).date_of_upcoming(day)
       end
     end
     meetings.sort
@@ -67,9 +75,9 @@ class CourseMeetingsManager
   end
 
   # Returns an int representing number of weeks of timeline duration
-  def timeline_week_count
+  def calculate_timeline_week_count
     return unless course_has_timeline_dates?
-    ((@course.timeline_end - beginning_of_first_week).to_f / 7).ceil
+    ((@course.timeline_end - @beginning_of_first_week).to_f / 7).ceil
   end
 
   def week_is_blackout?(week)
@@ -78,15 +86,13 @@ class CourseMeetingsManager
     @week_meetings[week.order - 1].gsub(/[(|)]/, '').empty?
   end
 
-  private
-
   # Returns an arry of strings representing course meeting days,
   # e.g., ["(Tue, Thu)", "(Tue, Thu)", "()", "(Thu)"]
-  def week_meetings
+  def calculate_week_meetings
     return unless course_has_timeline_dates? && course_has_meeting_date_data?
     meetings = []
-    timeline_week_count.times do |wk|
-      week_start = beginning_of_first_week + wk.weeks
+    @timeline_week_count.times do |wk|
+      week_start = @beginning_of_first_week + wk.weeks
       week_end = week_start.end_of_week(:saturday)
       week_mtgs = []
       all_actual_meetings.each do |meeting|
@@ -115,7 +121,8 @@ class CourseMeetingsManager
     min <= date && date <= max
   end
 
-  def beginning_of_first_week
+  def calculate_beginning_of_first_week
+    return unless course_has_timeline_dates?
     @course.timeline_start.beginning_of_week(:sunday)
   end
 

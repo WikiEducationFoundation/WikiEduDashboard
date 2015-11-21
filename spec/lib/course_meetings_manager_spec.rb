@@ -16,11 +16,6 @@ describe CourseMeetingsManager do
           )
   end
 
-  before do
-    CourseMeetingsManager.send(:public, *CourseMeetingsManager.protected_instance_methods)
-    CourseMeetingsManager.send(:public, :week_meetings)
-  end
-
   let(:expected) do
     ["()", # August 23 - 29, 2015
      "(Tue, Thu)", "(Tue, Thu)", "(Tue, Thu)", "(Tue, Thu)", "(Tue, Thu)", "(Tue, Thu)", # August 30 - October 10
@@ -34,7 +29,7 @@ describe CourseMeetingsManager do
   end
 
   describe '#week_meetings' do
-    subject { described_class.week_meetings(course) }
+    subject { described_class.new(course).week_meetings }
     context 'course with timeline start and end' do
       it 'returns an array of day meetings for each week, factoring in blackout dates' do
         expect(subject).to eq(expected)
@@ -51,14 +46,14 @@ describe CourseMeetingsManager do
   end
 
   describe '#day_meetings' do
-    subject { described_class.new(course).day_meetings }
+    subject { described_class.new(course).send(:day_meetings) }
     it 'returns an array of symbols reprensenting the course meeting days' do
       expect(subject).to eq([:tuesday, :thursday])
     end
   end
 
-  describe '#timeline_week_count' do
-    subject { described_class.new(course).timeline_week_count }
+  describe '#calculate_timeline_week_count' do
+    subject { described_class.new(course).send(:calculate_timeline_week_count) }
     context 'course has start and end dates' do
       it 'returns an integer representing the weeks in the timeline, irrespective of blackouts' do
         expect(subject).to eq(21)
@@ -80,14 +75,14 @@ describe CourseMeetingsManager do
         Date.new(2015, 8, 27),
         Date.new(2015, 9, 01) ]
     end
-    subject { described_class.new(course).all_potential_meetings }
+    subject { described_class.new(course).send(:all_potential_meetings) }
     it 'returns an array of all days the course would have met, irrespective of blackouts' do
       expect(subject.first(3)).to eq(expected)
     end
   end
 
   describe '#open_weeks' do
-    subject { described_class.open_weeks(course) }
+    subject { described_class.new(course).open_weeks }
     # an array with 12 elements
     let(:weeks) { %w(foo foo foo foo foo foo foo foo foo foo foo foo) }
     before { allow_any_instance_of(Course).to receive(:weeks).and_return(weeks) }
@@ -120,7 +115,7 @@ describe CourseMeetingsManager do
     end
     let(:order) { 1 }
     let!(:week) { create(:week, course_id: course.id, order: order) }
-    subject { described_class.new(course).week_is_blackout?(week) }
+    subject { described_class.new(course).send(:week_is_blackout?, week) }
     describe 'first week - class meets both days' do
       let(:day_ex) { nil }
       it 'returns false' do
