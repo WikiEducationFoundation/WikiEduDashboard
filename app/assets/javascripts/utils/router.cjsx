@@ -1,4 +1,5 @@
 React               = require 'react'
+ReactDOM            = require 'react-dom'
 Router              = require 'react-router'
 Route               = Router.Route
 DefaultRoute        = Router.DefaultRoute
@@ -61,4 +62,4 @@ routes = (
 
 Router.run routes, Router.HistoryLocation, (Handler) ->
   react_root = document.getElementById('react_root')
-  React.render(<Handler/>, react_root) if $('#react_root').length
+  ReactDOM.render(<Handler/>, react_root) if $('#react_root').length

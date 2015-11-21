@@ -1,6 +1,6 @@
 React           = require 'react/addons'
 DND             = require 'react-dnd'
-HTML5DND        = require 'react-dnd/modules/backends/HTML5'
+HTML5DND        = require 'react-dnd-html5-backend'
 Block           = require './block'
 BlockActions    = require '../../actions/block_actions'
 WeekActions     = require '../../actions/week_actions'
