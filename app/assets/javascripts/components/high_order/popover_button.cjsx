@@ -1,4 +1,4 @@
-React         = require 'react/addons'
+React         = require 'react'
 Expandable    = require '../high_order/expandable'
 Popover       = require '../common/popover'
 Conditional   = require '../high_order/conditional'

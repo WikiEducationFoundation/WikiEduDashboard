@@ -1,6 +1,6 @@
-React     = require 'react/addons'
+React            = require 'react'
 ActivityTableRow = require './activity_table_row'
-TransitionGroup = require '../../utils/TransitionGroup'
+TransitionGroup  = require 'react-addons-css-transition-group'
 
 ActivityTable = React.createClass(
   displayName: 'ActivityTable'

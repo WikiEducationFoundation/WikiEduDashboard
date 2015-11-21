@@ -1,10 +1,9 @@
-React        = require 'react/addons'
-Router       = require 'react-router'
-RouteHandler = Router.RouteHandler
+React        = require 'react'
+ReactRouter  = require 'react-router'
+Router       = ReactRouter.Router
 Link         = Router.Link
 
 DidYouKnowHandler = require './did_you_know_handler'
-MainspaceHandler  = require './mainspace_handler'
 PlagiarismHandler = require './plagiarism_handler'
 RecentEditsHandler = require './recent_edits_handler'
 
@@ -23,7 +22,7 @@ RecentActivityHandler = React.createClass(
           <p><Link to="recent-edits">Recent Edits</Link></p>
         </div>
       </nav>
-      <RouteHandler {...@props} />
+      {@props.children}
     </div>
 )
 

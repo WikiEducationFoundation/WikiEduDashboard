@@ -1,6 +1,7 @@
-React     = require 'react/addons'
-Router    = require 'react-router'
-Link      = Router.Link
+React       = require 'react'
+ReactRouter = require 'react-router'
+Router      = ReactRouter.Router
+Link        = Router.Link
 
 CourseLink = React.createClass(
   displayname: 'CourseLink'

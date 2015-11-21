@@ -1,6 +1,6 @@
-React               = require 'react'
-TransitionGroup     = require '../../utils/TransitionGroup'
-UIActions           = require '../../actions/ui_actions'
+React           = require 'react'
+TransitionGroup = require 'react-addons-css-transition-group'
+UIActions       = require '../../actions/ui_actions'
 
 List = React.createClass(
   displayName: 'List'

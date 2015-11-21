@@ -1,4 +1,4 @@
-React     = require 'react/addons'
+React     = require 'react'
 UIStore   = require '../../stores/ui_store'
 UIActions = require '../../actions/ui_actions'
 

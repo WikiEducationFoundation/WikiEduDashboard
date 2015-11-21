@@ -1,5 +1,6 @@
-React           = require 'react/addons'
-Router          = require 'react-router'
+React           = require 'react'
+ReactRouter     = require 'react-router'
+Router          = ReactRouter.Router
 Link            = Router.Link
 AssignButton    = require './assign_button'
 UIActions       = require '../../actions/ui_actions'

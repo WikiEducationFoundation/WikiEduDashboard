@@ -1,9 +1,7 @@
-React             = require 'react/addons'
-Router            = require 'react-router'
+React             = require 'react'
 RevisionList      = require './revision_list'
 UIActions         = require '../../actions/ui_actions'
 ServerActions     = require '../../actions/server_actions'
-
 
 RevisionHandler = React.createClass(
   displayName: 'RevisionHandler'

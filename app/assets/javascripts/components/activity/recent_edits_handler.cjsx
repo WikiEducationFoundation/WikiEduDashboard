@@ -1,6 +1,4 @@
-React        = require 'react/addons'
-Router       = require 'react-router'
-RouteHandler = Router.RouteHandler
+React = require 'react'
 RecentEditsStore = require '../../stores/recent_edits_store'
 
 ActivityTable = require './activity_table'

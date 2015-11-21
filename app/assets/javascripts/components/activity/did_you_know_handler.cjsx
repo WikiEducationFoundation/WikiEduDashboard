@@ -1,10 +1,6 @@
-React           = require 'react/addons'
-Router          = require 'react-router'
-RouteHandler    = Router.RouteHandler
+React           = require 'react'
 DidYouKnowStore = require '../../stores/did_you_know_store'
-
-ActivityTable = require './activity_table'
-
+ActivityTable   = require './activity_table'
 ServerActions   = require '../../actions/server_actions'
 
 getState = ->

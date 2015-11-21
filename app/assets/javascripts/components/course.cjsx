@@ -1,7 +1,6 @@
 React             = require 'react'
 Router            = require 'react-router'
 Link              = Router.Link
-RouteHandler      = Router.RouteHandler
 CourseLink        = require './common/course_link'
 ServerActions     = require '../actions/server_actions'
 CourseActions     = require '../actions/course_actions'
@@ -189,12 +188,7 @@ Course = React.createClass(
         </nav>
       </div>
       <div className="course_main container">
-        <RouteHandler {...@props}
-          course_id={@getCourseID()}
-          current_user={@getCurrentUser()}
-          transitionTo={@transitionTo}
-          course={@state.course}
-        />
+        {React.cloneElement(@props.children, course_id: @getCourseID(), current_user: @getCurrentUser(), transitionTo: @transitionTo, course:  @state.course)}
       </div>
     </div>
 )

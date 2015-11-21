@@ -1,11 +1,7 @@
-React        = require 'react/addons'
-Router       = require 'react-router'
-RouteHandler = Router.RouteHandler
+React = require 'react'
 SuspectedPlagiarismStore = require '../../stores/suspected_plagiarism_store'
-
 ActivityTable = require './activity_table'
-
-ServerActions   = require '../../actions/server_actions'
+ServerActions = require '../../actions/server_actions'
 
 getState = ->
   revisions: SuspectedPlagiarismStore.getRevisions()

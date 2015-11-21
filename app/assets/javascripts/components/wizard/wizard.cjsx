@@ -1,5 +1,6 @@
 React         = require 'react'
-Router        = require 'react-router'
+ReactRouter   = require 'react-router'
+Router        = ReactRouter.Router
 Panel         = require './panel'
 FormPanel     = require './form_panel'
 TimelinePanel = require './timeline_panel'
@@ -10,7 +11,7 @@ Modal         = require '../common/modal'
 WizardActions = require '../../actions/wizard_actions'
 ServerActions = require '../../actions/server_actions'
 WizardStore   = require '../../stores/wizard_store'
-TransitionGroup   = require '../../utils/TransitionGroup'
+TransitionGroup   = require 'react-addons-css-transition-group'
 
 getState = ->
   summary: WizardStore.getSummary()

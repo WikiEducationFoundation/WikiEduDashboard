@@ -1,6 +1,6 @@
-React             = require 'react/addons'
-Router            = require 'react-router'
-RouteHandler      = Router.RouteHandler
+React             = require 'react'
+ReactRouter       = require 'react-router'
+Router            = ReactRouter.Router
 
 StudentList       = require './student_list'
 UIActions         = require '../../actions/ui_actions'
@@ -26,7 +26,7 @@ StudentsHandler = React.createClass(
         </div>
       </div>
       <StudentList {...@props} />
-      <RouteHandler {...@props} />
+      {@props.children}
     </div>
 )
 

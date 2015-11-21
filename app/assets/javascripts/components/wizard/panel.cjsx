@@ -1,4 +1,4 @@
-React           = require 'react/addons'
+React           = require 'react'
 md              = require('markdown-it')({ html: true, linkify: true })
 WizardActions   = require '../../actions/wizard_actions'
 WizardStore     = require '../../stores/wizard_store'

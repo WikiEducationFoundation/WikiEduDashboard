@@ -13,7 +13,7 @@ Modal           = require '../common/modal'
 TextInput       = require '../common/text_input'
 TextAreaInput   = require '../common/text_area_input'
 CourseUtils     = require '../../utils/course_utils'
-TransitionGroup = require '../../utils/TransitionGroup'
+TransitionGroup = require 'react-addons-css-transition-group'
 
 getState = ->
   course: CourseStore.getCourse()

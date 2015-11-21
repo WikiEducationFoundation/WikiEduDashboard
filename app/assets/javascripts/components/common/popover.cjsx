@@ -1,4 +1,4 @@
-React           = require 'react/addons'
+React = require 'react'
 
 Popover = React.createClass(
   displayname: 'Popover'

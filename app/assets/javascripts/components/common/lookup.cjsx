@@ -1,4 +1,4 @@
-React         = require 'react/addons'
+React         = require 'react'
 Typeahead     = require('react-typeahead').Typeahead
 LookupStore   = require '../../stores/lookup_store'
 TextInput     = require './text_input'

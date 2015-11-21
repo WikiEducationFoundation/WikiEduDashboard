@@ -1,9 +1,10 @@
 React               = require 'react'
 ReactDOM            = require 'react-dom'
-Router              = require 'react-router'
-Route               = Router.Route
-DefaultRoute        = Router.DefaultRoute
-Redirect            = Router.Redirect
+ReactRouter         = require 'react-router'
+Router              = ReactRouter.Router
+Route               = ReactRouter.Route
+DefaultRoute        = ReactRouter.DefaultRoute
+Redirect            = ReactRouter.Redirect
 
 App                 = require '../components/app'
 Course              = require '../components/course'
@@ -21,7 +22,6 @@ UploadsHandler      = require '../components/uploads/uploads_handler'
 
 RecentActivityHandler = require '../components/activity/recent_activity_handler'
 DidYouKnowHandler     = require '../components/activity/did_you_know_handler'
-MainspaceHandler      = require '../components/activity/mainspace_handler'
 PlagiarismHandler     = require '../components/activity/plagiarism_handler'
 RecentEditsHandler     = require '../components/activity/recent_edits_handler'
 
@@ -30,36 +30,34 @@ TrainingModuleHandler = require '../training/components/training_module_handler'
 TrainingSlideHandler  = require '../training/components/training_slide_handler'
 
 routes = (
-  <Route name='root' path='/' handler={App}>
-    <DefaultRoute handler={CourseCreatorButton} />
-    <Route path='recent-activity' name='recent-activity' handler={RecentActivityHandler}>
-      <DefaultRoute name='did-you-know' handler={DidYouKnowHandler} />
-      <Route path='mainspace' name='mainspace' handler={MainspaceHandler} />
-      <Route path='plagiarism' name='plagiarism' handler={PlagiarismHandler} />
-      <Route path='recent-edits' name='recent-edits' handler={RecentEditsHandler} />
+  <Route path='/' component={App}>
+    <Route path='/' component={CourseCreatorButton} />
+    <Route path='recent-activity' component={RecentActivityHandler}>
+      <Route path='did-you-know' component={DidYouKnowHandler} />
+      <Route path='plagiarism' component={PlagiarismHandler} />
+      <Route path='recent-edits' component={RecentEditsHandler} />
     </Route>
     <Route path='courses'>
-      <DefaultRoute handler={CourseCreatorButton} />
-      <Route name='course' path=':course_school/:course_title' handler={Course}>
-        <DefaultRoute name='overview' handler={OverviewHandler} />
-        <Route name='timeline' path='timeline' handler={TimelineHandler} >
-          <Route name='wizard' path='wizard' handler={Wizard} />
-          <Route name='dates' path='dates' handler={Dates} />
+      <Route path='/' component={CourseCreatorButton} />
+      <Route path=':course_school/:course_title' component={Course}>
+        <Route component={OverviewHandler} />
+        <Route path='timeline' component={TimelineHandler} >
+          <Route path='wizard' component={Wizard} />
+          <Route path='dates' component={Dates} />
         </Route>
-        <Route name='activity' path='activity' handler={RevisionsHandler}></Route>
-        <Route name='students' path='students' handler={StudentsHandler}></Route>
-        <Route name='articles' path='articles' handler={ArticlesHandler}></Route>
-        <Route name='uploads' path='uploads' handler={UploadsHandler}></Route>
+        <Route path='activity' component={RevisionsHandler}></Route>
+        <Route path='students' component={StudentsHandler}></Route>
+        <Route path='articles' component={ArticlesHandler}></Route>
+        <Route path='uploads' component={UploadsHandler}></Route>
       </Route>
     </Route>
-    <Route name='course_creator' path='course_creator' handler={CourseCreator} />
-    <Route path='training' handler={TrainingApp} >
-      <Route name='module' path=':library_id/:module_id' handler={TrainingModuleHandler} />
-      <Route name='slide' path='/training/:library_id/:module_id/:slide_id' handler={TrainingSlideHandler} />
+    <Route path='course_creator' component={CourseCreator} />
+    <Route path='training' component={TrainingApp} >
+      <Route path=':library_id/:module_id' component={TrainingModuleHandler} />
+      <Route path='/training/:library_id/:module_id/:slide_id' component={TrainingSlideHandler} />
     </Route>
   </Route>
 )
 
-Router.run routes, Router.HistoryLocation, (Handler) ->
-  react_root = document.getElementById('react_root')
-  ReactDOM.render(<Handler/>, react_root) if $('#react_root').length
+react_root = document.getElementById('react_root')
+ReactDOM.render(<Router>{routes}</Router>, react_root)

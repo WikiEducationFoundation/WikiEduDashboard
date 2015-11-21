@@ -1,4 +1,4 @@
-React             = require 'react/addons'
+React             = require 'react'
 ServerActions     = require '../../actions/server_actions'
 
 AssignCell      = require './assign_cell'

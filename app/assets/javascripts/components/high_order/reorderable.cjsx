@@ -1,4 +1,4 @@
-React             = require 'react/addons'
+React             = require 'react'
 RDnD              = require 'react-dnd'
 DragSource        = RDnD.DragSource
 DropTarget        = RDnD.DropTarget

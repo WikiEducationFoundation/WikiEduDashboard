@@ -1,9 +1,8 @@
-React             = require 'react/addons'
-Router            = require 'react-router'
-UploadList        = require './upload_list'
-AssignmentList    = require '../assignments/assignment_list'
-UIActions         = require '../../actions/ui_actions'
-ServerActions     = require '../../actions/server_actions'
+React          = require 'react'
+UploadList     = require './upload_list'
+AssignmentList = require '../assignments/assignment_list'
+UIActions      = require '../../actions/ui_actions'
+ServerActions  = require '../../actions/server_actions'
 
 
 UploadsHandler = React.createClass(

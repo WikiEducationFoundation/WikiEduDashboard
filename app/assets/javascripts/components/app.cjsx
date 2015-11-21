@@ -1,6 +1,6 @@
 React         = require 'react'
-Router        = require 'react-router'
-RouteHandler  = Router.RouteHandler
+ReactRouter   = require 'react-router'
+Router        = ReactRouter.Router
 Notifications = require './common/notifications'
 
 App = React.createClass(
@@ -8,7 +8,7 @@ App = React.createClass(
   render: ->
     <div>
       <Notifications />
-      <RouteHandler />
+      {@props.children}
     </div>
 )
 

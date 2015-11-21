@@ -1,5 +1,4 @@
-React             = require 'react/addons'
-
+React             = require 'react'
 TextInput         = require '../common/text_input'
 TextAreaInput     = require '../common/text_area_input'
 TrainingModules   = require '../training_modules'
