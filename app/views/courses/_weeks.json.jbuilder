@@ -1,3 +1,5 @@
+course_meetings_manager = CourseMeetingsManager.new(course)
+
 json.weeks course.weeks.eager_load(blocks: [:gradeable]) do |week|
   json.call(week, :id, :title, :order)
   json.blocks week.blocks do |block|
@@ -14,7 +16,8 @@ json.weeks course.weeks.eager_load(blocks: [:gradeable]) do |week|
         due_date_manager = TrainingModuleDueDateManager.new(
           course: course,
           training_module: tm,
-          user: current_user
+          user: current_user,
+          course_meetings_manager: course_meetings_manager
         )
         json.call(tm, :slug, :id, :name)
         json.module_progress progress_manager.module_progress

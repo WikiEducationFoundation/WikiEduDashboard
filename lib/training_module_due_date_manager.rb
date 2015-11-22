@@ -9,7 +9,7 @@ class TrainingModuleDueDateManager
       user_id: @user.id,
       training_module_id: @training_module.id
     ) if @user.present?
-    @meetings_manager = CourseMeetingsManager.new(@course)
+    @meetings_manager = opts[:course_meetings_manager] || CourseMeetingsManager.new(@course)
   end
 
   DEADLINE_STATUSES = {
