@@ -11,7 +11,6 @@ description: |
 estimated_ttc: 23 minutes
 slides:
   - slug: policies-and-guidelines-basic-overview # 101
-  - slug: what-to-expect # 102
   - slug: five-pillars # 103
   - slug: wikipedia-is-an-encyclopedia # 104
   - slug: neutral-point-of-view # 105
