@@ -73,8 +73,8 @@ ActivityTable = React.createClass(
       <TransitionGroup
         transitionName={'dyk'}
         component='tbody'
-        enterTimeout={500}
-        leaveTimeout={500}
+        transitionEnterTimeout={500}
+        transitionLeaveTimeout={500}
       >
         {elements}
       </TransitionGroup>

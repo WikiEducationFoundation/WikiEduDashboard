@@ -60,8 +60,8 @@ List = React.createClass(
       <TransitionGroup
         transitionName={@props.table_key}
         component='tbody'
-        enterTimeout={500}
-        leaveTimeout={500}
+        transitionEnterTimeout={500}
+        transitionLeaveTimeout={500}
       >
         {elements}
       </TransitionGroup>

@@ -34,8 +34,8 @@ TimelineHandler = React.createClass(
       <TransitionGroup
         transitionName="wizard"
         component='div'
-        enterTimeout={500}
-        leaveTimeout={500}
+        transitionEnterTimeout={500}
+        transitionLeaveTimeout={500}
       >
         {React.cloneElement(@props.children, key: 'wizard_handler', open_weeks: @props.course.open_weeks)}
       </TransitionGroup>

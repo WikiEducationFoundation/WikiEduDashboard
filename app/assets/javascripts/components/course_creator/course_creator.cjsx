@@ -99,8 +99,8 @@ CourseCreator = React.createClass(
     <TransitionGroup
       transitionName="wizard"
       component='div'
-      enterTimeout={500}
-      leaveTimeout={500}
+      transitionEnterTimeout={500}
+      transitionLeaveTimeout={500}
     >
       <Modal key="modal">
         <div className="wizard__panel active" style={form_style}>

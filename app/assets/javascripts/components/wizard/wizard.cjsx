@@ -80,8 +80,8 @@ Wizard = React.createClass(
       <TransitionGroup
         transitionName="wizard__panel"
         component='div'
-        enterTimeout={500}
-        leaveTimeout={500}
+        transitionEnterTimeout={500}
+        transitionLeaveTimeout={500}
       >
         {panels}
       </TransitionGroup>
