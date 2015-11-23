@@ -1,6 +1,8 @@
 React  = require 'react'
 TrainingStore = require '../stores/training_store'
 TrainingActions = require '../actions/training_actions'
+md              = require('../../utils/markdown_it')({ openLinksExternally: false })
+
 
 Quiz = React.createClass(
   setSelectedAnswer: (id) ->
@@ -28,6 +30,7 @@ Quiz = React.createClass(
       checked = if @state.selectedAnswerId? then parseInt(@state.selectedAnswerId) == answer.id else defaultChecked
       liClass = if @visibilityStatus(answer.id) == ' shown' then ' revealed'
       liClass += @correctStatus(answer.id)
+      raw_explanation_html = md.render(answer.explanation)
       <li className={liClass}>
         <label>
           <input
@@ -39,7 +42,7 @@ Quiz = React.createClass(
             name="answer" />
           {answer.text}
         </label>
-        <p className={explanationClass}>{answer.explanation}</p>
+        <div className={explanationClass} dangerouslySetInnerHTML={{__html: raw_explanation_html}}></div>
       </li>
 
     <form className="training__slide__quiz">
