@@ -1,12 +1,11 @@
 React           = require 'react'
 ReactRouter     = require 'react-router'
 Router          = ReactRouter.Router
-Link            = Router.Link
+Link            = ReactRouter.Link
 
 CourseCreatorButton = React.createClass(
   displayName: 'CourseCreatorButton'
   render: ->
-    console.log 'in render'
     style =
       marginLeft: 0
     <div>

@@ -1,6 +1,6 @@
 React         = require 'react'
-Router        = require 'react-router'
-Link          = Router.Link
+ReactRouter   = require 'react-router'
+Link          = ReactRouter.Link
 
 CourseStore        = require '../../stores/course_store'
 UserCoursesStore   = require '../../stores/user_courses_store'

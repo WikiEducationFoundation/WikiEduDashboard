@@ -3,6 +3,7 @@ ReactDOM            = require 'react-dom'
 ReactRouter         = require 'react-router'
 Router              = ReactRouter.Router
 Route               = ReactRouter.Route
+IndexRoute          = ReactRouter.IndexRoute
 DefaultRoute        = ReactRouter.DefaultRoute
 Redirect            = ReactRouter.Redirect
 
@@ -31,7 +32,7 @@ TrainingSlideHandler  = require '../training/components/training_slide_handler'
 
 routes = (
   <Route path='/' component={App}>
-    <Route path='/' component={CourseCreatorButton} />
+    <IndexRoute component={CourseCreatorButton} />
     <Route path='recent-activity' component={RecentActivityHandler}>
       <Route path='did-you-know' component={DidYouKnowHandler} />
       <Route path='plagiarism' component={PlagiarismHandler} />
@@ -59,5 +60,7 @@ routes = (
   </Route>
 )
 
-react_root = document.getElementById('react_root')
-ReactDOM.render(<Router>{routes}</Router>, react_root)
+$ ->
+  console.log routes
+  react_root =  document.getElementById('react_root')
+  ReactDOM.render((<Router>{routes}</Router>), react_root)

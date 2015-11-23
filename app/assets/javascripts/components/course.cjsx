@@ -1,6 +1,6 @@
 React             = require 'react'
-Router            = require 'react-router'
-Link              = Router.Link
+ReactRouter       = require 'react-router'
+Link              = ReactRouter.Link
 CourseLink        = require './common/course_link'
 ServerActions     = require '../actions/server_actions'
 CourseActions     = require '../actions/course_actions'

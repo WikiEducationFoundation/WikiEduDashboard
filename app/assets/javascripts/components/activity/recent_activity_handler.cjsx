@@ -1,7 +1,7 @@
 React        = require 'react'
 ReactRouter  = require 'react-router'
 Router       = ReactRouter.Router
-Link         = Router.Link
+Link         = ReactRouter.Link
 
 DidYouKnowHandler = require './did_you_know_handler'
 PlagiarismHandler = require './plagiarism_handler'

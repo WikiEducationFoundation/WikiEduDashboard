@@ -1,7 +1,7 @@
 React           = require 'react'
 ReactRouter     = require 'react-router'
 Router          = ReactRouter.Router
-Link            = Router.Link
+Link            = ReactRouter.Link
 AssignButton    = require './assign_button'
 UIActions       = require '../../actions/ui_actions'
 

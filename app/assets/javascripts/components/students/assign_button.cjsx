@@ -1,7 +1,7 @@
 React         = require 'react'
 ReactRouter   = require 'react-router'
 Router        = ReactRouter.Router
-Link          = Router.Link
+Link          = ReactRouter.Link
 Expandable    = require '../high_order/expandable'
 Popover       = require '../common/popover'
 Lookup        = require '../common/lookup'
