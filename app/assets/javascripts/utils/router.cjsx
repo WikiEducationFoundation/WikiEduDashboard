@@ -5,6 +5,7 @@ ReactRouter         = require 'react-router'
 Router              = ReactRouter.Router
 Route               = ReactRouter.Route
 IndexRoute          = ReactRouter.IndexRoute
+Redirect            = ReactRouter.Redirect
 
 App                 = require '../components/app'
 Course              = require '../components/course'
@@ -45,6 +46,7 @@ routes = (
     </Route>
     <Route path='courses'>
       <Route path=':course_school/:course_title' component={Course}>
+        <Redirect from="overview" to="/courses/:course_school/:course_title" />
         <IndexRoute component={OverviewHandler} />
         <Route path='timeline' component={TimelineHandler}>
           <Route path='wizard' component={Wizard} />
