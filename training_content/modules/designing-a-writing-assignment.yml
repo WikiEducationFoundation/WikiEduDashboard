@@ -4,7 +4,7 @@ description: |
   Explore a case study of the “classic” Wikipedia writing assignment: students
   work individually or in small teams to create or expand Wikipedia articles on
   a given topic.
-estimated_ttc: 10 minutes
+estimated_ttc: 15 minutes
 slides:
   - slug: most-intense # 9001
   - slug: wikipedia-writing-assignment # 401

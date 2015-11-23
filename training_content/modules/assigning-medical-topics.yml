@@ -6,7 +6,7 @@ description: |
   including psychology topics. Wikipedia has special sourcing rules for health
   content, and it's important to assignments with these rules in mind, if
   students will be working on anything health-related.
-estimated_ttc: 20 minutes
+estimated_ttc: 10 minutes
 slides:
   - slug: medical-assignments-introduction # 501
   - slug: who-should-edit-health-information # 502
