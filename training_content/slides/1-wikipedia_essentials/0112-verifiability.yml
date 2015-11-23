@@ -2,9 +2,17 @@ id: 112
 title: Verifiability
 summary:
 content: |
+  <figure class="alt-layout-40-right">
+    <img src="https://commons.wikimedia.org/wiki/File:Books_in_a_shopping_cart_in_a_library_-_8457.jpg" />
+    <figcaption class="image-credit">
+      <a href="https://commons.wikimedia.org/wiki/File:Books_in_a_shopping_cart_in_a_library_-_8457.jpg">Photo by Jorge Royan</a>,
+      CC-BY-SA
+    </figcaption>
+  </figure>
+
   **Verifiability: “Says who?”**
 
-  Behind every great Wikipedia article are a collection of great sources. It’s
+  Behind every great Wikipedia article is a collection of great sources. Finding good sources is
   one of the first things you should do, even before you choose a topic to write
   about.
 

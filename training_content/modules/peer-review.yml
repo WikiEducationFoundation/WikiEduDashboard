@@ -1,7 +1,7 @@
 name: 'Peer Review'
 id: 12
 description: |
-  PLACEHOLDER
+  How do you critique an article created by a peer or classmate? This tutorial will provide you with a framework to improve your classmates' articles.
 estimated_ttc: 10 minutes
 slides:
   - slug: policies-and-guidelines-basic-overview # 101

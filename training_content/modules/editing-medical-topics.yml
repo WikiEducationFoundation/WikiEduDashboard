@@ -1,7 +1,7 @@
 name: 'Editing Medical Topics'
 id: 11
 description: |
-  PLACEHOLDER
+  This tutorial will take you through the requirements for writing, and sourcing, medical and psychology articles on Wikipedia.
 estimated_ttc: 10 minutes
 slides:
   - slug: policies-and-guidelines-basic-overview # 101
