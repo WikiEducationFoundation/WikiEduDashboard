@@ -1,5 +1,4 @@
 React           = require 'react'
-Router          = require 'react-router'
 
 RDnD            = require 'react-dnd'
 HTML5Backend    = require 'react-dnd-html5-backend'

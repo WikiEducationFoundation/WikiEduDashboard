@@ -38,6 +38,8 @@ Course = React.createClass(
     to_pass = $.extend(true, {}, @state.course)
     to_pass['submitted'] = true
     CourseActions.updateCourse to_pass, true
+  _courseLinkParams: ->
+    "/courses/#{@props.params.course_school}/#{@props.params.course_title}"
   render: ->
     alerts = []
     route_params = @props.params
@@ -70,7 +72,7 @@ Course = React.createClass(
             <div className='notification' key='publish'>
               <div className='container'>
                 <p>This course has been submitted for approval by its creator. To approve it, add it to a cohort on the Overview page.</p>
-                <CourseLink to='overview' className="button">Overview</CourseLink>
+                <CourseLink to="#{@_courseLinkParams()}/overview" className="button">Overview</CourseLink>
               </div>
             </div>
           )
@@ -112,7 +114,7 @@ Course = React.createClass(
     unless @state.course.legacy
       timeline = (
         <div className="nav__item" id="timeline-link">
-          <p><Link params={route_params} to="timeline">Timeline</Link></p>
+          <p><Link to={"#{@_courseLinkParams()}/timeline"}>Timeline</Link></p>
         </div>
       )
 
@@ -161,20 +163,20 @@ Course = React.createClass(
       <div className="course_navigation">
         <nav className='container'>
           <div className="nav__item" id="overview-link">
-            <p><Link params={route_params} to="overview">Overview</Link></p>
+            <p><Link to="#{@_courseLinkParams()}/overview">Overview</Link></p>
           </div>
           {timeline}
           <div className="nav__item" id="students-link">
-            <p><Link params={route_params} to="students">Students</Link></p>
+            <p><Link to="#{@_courseLinkParams()}/students">Students</Link></p>
           </div>
           <div className="nav__item" id="articles-link">
-            <p><Link params={route_params} to="articles">Articles</Link></p>
+            <p><Link to="#{@_courseLinkParams()}/articles">Articles</Link></p>
           </div>
           <div className="nav__item" id="uploads-link">
-            <p><Link params={route_params} to="uploads">Uploads</Link></p>
+            <p><Link to="#{@_courseLinkParams()}/uploads">Uploads</Link></p>
           </div>
           <div className="nav__item" id="activity-link">
-            <p><Link params={route_params} to="activity">Activity</Link></p>
+            <p><Link to="#{@_courseLinkParams()}/activity">Activity</Link></p>
           </div>
         </nav>
       </div>

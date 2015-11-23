@@ -5,7 +5,6 @@ Panel         = require './panel'
 FormPanel     = require './form_panel'
 TimelinePanel = require './timeline_panel'
 SummaryPanel  = require './summary_panel'
-CourseLink    = require '../common/course_link'
 
 Modal         = require '../common/modal'
 WizardActions = require '../../actions/wizard_actions'
