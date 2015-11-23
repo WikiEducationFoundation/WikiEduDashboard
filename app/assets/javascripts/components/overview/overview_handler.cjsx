@@ -27,7 +27,7 @@ Overview = React.createClass(
   getInitialState: ->
     getState()
   render: ->
-    if @props.query.modal is 'true' && _.keysIn(@state.course).length > 0
+    if @props.location.query.modal is 'true' && _.keysIn(@state.course).length > 0
       return (
         <CourseClonedModal
           course={@state.course}

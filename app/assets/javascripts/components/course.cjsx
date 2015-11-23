@@ -19,8 +19,6 @@ getState = ->
 Course = React.createClass(
   displayName: 'Course'
   mixins: [CourseStore.mixin, UserStore.mixin]
-  contextTypes:
-    router: React.PropTypes.func.isRequired
   componentWillMount: ->
     ServerActions.fetch 'course', @getCourseID()
     ServerActions.fetch 'users', @getCourseID()
@@ -29,10 +27,8 @@ Course = React.createClass(
     getState()
   storeDidChange: ->
     @setState getState()
-  transitionTo: (to, params=null) ->
-    @context.router.transitionTo(to, params || @routeParams())
   getCourseID: ->
-    params = @context.router.getCurrentParams()
+    params = @props.params
     return params.course_school + '/' + params.course_title
   getCurrentUser: ->
     @state.current_user
@@ -42,12 +38,9 @@ Course = React.createClass(
     to_pass = $.extend(true, {}, @state.course)
     to_pass['submitted'] = true
     CourseActions.updateCourse to_pass, true
-  routeParams: ->
-    @context.router.getCurrentParams()
   render: ->
-    route_params = @context.router.getCurrentParams()
-
     alerts = []
+    route_params = @props.params
 
     if @getCurrentUser().id?
       user_obj = UserStore.getFiltered({ id: @getCurrentUser().id })[0]
@@ -115,8 +108,6 @@ Course = React.createClass(
           </div>
         </div>
       )
-
-    #################################################
 
     unless @state.course.legacy
       timeline = (
@@ -188,7 +179,7 @@ Course = React.createClass(
         </nav>
       </div>
       <div className="course_main container">
-        {React.cloneElement(@props.children, course_id: @getCourseID(), current_user: @getCurrentUser(), transitionTo: @transitionTo, course:  @state.course)}
+        {React.cloneElement(@props.children, course_id: @getCourseID(), current_user: @getCurrentUser(), course:  @state.course)}
       </div>
     </div>
 )
