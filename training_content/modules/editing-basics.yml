@@ -4,5 +4,26 @@ description: |
   PLACEHOLDER
 estimated_ttc: 10 minutes
 slides:
-  - slug: policies-and-guidelines-basic-overview # 101
-  - slug: what-to-expect # 102
+  - slug: broader-audience # 9002
+  - slug: welcome-students # 201
+  - slug: get-started-by-getting-started # 202
+  - slug: editing-basics-topics # 203
+  - slug: your-wikipedia-account # 204
+  - slug: edit-vs-edit-source # 205
+  - slug: about-sandboxes # 206
+  - slug: more-about-sandboxes # 207
+  - slug: take-control-of-the-text # 208
+  - slug: boldly-linking-where-no-one-has-linked-before # 209
+  - slug: using-visualeditor # 210
+  - slug: visualeditor-buttons # 211
+  - slug: visualeditor-formatting # 212
+  - slug: make-your-mark # 213
+  - slug: patrolled # 214
+  - slug: using-a-talk-page # 215
+  - slug: responding-on-a-talk-page # 216
+  - slug: talk-pages-video # 217
+  - slug: watchlists # 218
+  - slug: watchlists-video # 219
+  - slug: sandboxes-quiz # 220
+  - slug: preparing-to-edit-quiz # 221
+  - slug: editing-basics-complete # 222
