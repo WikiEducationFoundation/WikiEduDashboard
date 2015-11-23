@@ -29,6 +29,12 @@ TrainingApp           = require '../training/components/training_app'
 TrainingModuleHandler = require '../training/components/training_module_handler'
 TrainingSlideHandler  = require '../training/components/training_slide_handler'
 
+History             = require 'history'
+createHistory       = History.createHistory
+useBasename         = History.useBasename
+
+history = useBasename(createHistory)(basename: '/')
+
 routes = (
   <Route path='/' component={App}>
     <IndexRoute component={CourseCreatorButton} />
@@ -59,7 +65,7 @@ routes = (
 )
 
 render((
-  <Router>
+  <Router history={history}>
     {routes}
   </Router>
 ), document.getElementById('react_root'))

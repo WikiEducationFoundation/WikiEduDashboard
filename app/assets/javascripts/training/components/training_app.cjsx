@@ -1,11 +1,12 @@
 React = require 'react'
 
 Router          = require 'react-router'
-RouteHandler    = Router.RouteHandler
 
 TrainingApp = React.createClass(
   render: ->
-    <RouteHandler {...@props} />
+    <div>
+      {@props.children}
+    </div>
 )
 
 module.exports = TrainingApp
