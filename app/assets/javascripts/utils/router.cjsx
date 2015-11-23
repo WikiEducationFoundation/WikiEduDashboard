@@ -1,11 +1,10 @@
 React               = require 'react'
 ReactDOM            = require 'react-dom'
+render              = ReactDOM.render
 ReactRouter         = require 'react-router'
 Router              = ReactRouter.Router
 Route               = ReactRouter.Route
 IndexRoute          = ReactRouter.IndexRoute
-DefaultRoute        = ReactRouter.DefaultRoute
-Redirect            = ReactRouter.Redirect
 
 App                 = require '../components/app'
 Course              = require '../components/course'
@@ -34,15 +33,14 @@ routes = (
   <Route path='/' component={App}>
     <IndexRoute component={CourseCreatorButton} />
     <Route path='recent-activity' component={RecentActivityHandler}>
-      <Route path='did-you-know' component={DidYouKnowHandler} />
+      <IndexRoute component={DidYouKnowHandler} />
       <Route path='plagiarism' component={PlagiarismHandler} />
       <Route path='recent-edits' component={RecentEditsHandler} />
     </Route>
     <Route path='courses'>
-      <Route path='/' component={CourseCreatorButton} />
       <Route path=':course_school/:course_title' component={Course}>
-        <Route component={OverviewHandler} />
-        <Route path='timeline' component={TimelineHandler} >
+        <IndexRoute component={OverviewHandler} />
+        <Route path='timeline' component={TimelineHandler}>
           <Route path='wizard' component={Wizard} />
           <Route path='dates' component={Dates} />
         </Route>
@@ -60,7 +58,8 @@ routes = (
   </Route>
 )
 
-$ ->
-  console.log routes
-  react_root =  document.getElementById('react_root')
-  ReactDOM.render((<Router>{routes}</Router>), react_root)
+render((
+  <Router>
+    {routes}
+  </Router>
+), document.getElementById('react_root'))
