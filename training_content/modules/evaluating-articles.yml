@@ -1,7 +1,7 @@
 name: 'Evaluating Articles and Sources'
 id: 7
 description: |
-  In this tutorial, we'll explore how to read Wikipedia articles, and potential sources, with a critical eye. 
+  In this tutorial, we'll explore how to read Wikipedia articles, and potential sources, with a critical eye.
 estimated_ttc: 10 minutes
 slides:
   - slug: policies-and-guidelines-basic-overview # 101
