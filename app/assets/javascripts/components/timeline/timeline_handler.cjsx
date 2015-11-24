@@ -29,6 +29,8 @@ TimelineHandler = React.createClass(
   componentWillMount: ->
     ServerActions.fetch 'timeline', @props.course_id
     ServerActions.fetchAllTrainingModules()
+  componentWillReceiveProps: ->
+    @setState course: CourseStore.getCourse()
   render: ->
     outlet = React.cloneElement(@props.children, {key: 'wizard_handler', course: @props.course, weeks: @props.weeks, open_weeks: @props.course.open_weeks}) if @props.children
     <div>

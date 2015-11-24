@@ -73,7 +73,6 @@ Wizard = React.createClass(
           step={step}
           courseId={@props.course.slug}
           wizardId={@state.wizard_id}
-          transitionTo={@props.transitionTo}
         />
 
     <Modal>
