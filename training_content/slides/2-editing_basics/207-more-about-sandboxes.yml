@@ -1,0 +1,11 @@
+id: 207
+title: Sandboxes (continued)
+summary:
+content: |
+  If you're enrolled in a course on this dashboard, then your sandbox page was
+  automatically set up. Later on, you can use a sandbox (you can create as many
+  as you need) to work on content for Wikipedia.
+
+  It's also handy to leave the section at the top — a *template* — that says
+  "this is a user sandbox". In "Edit source" mode, you can see the wiki code for
+  that template, something like `{{student sandbox}}`.
