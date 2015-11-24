@@ -24,8 +24,6 @@ getState = ->
 CourseCreator = React.createClass(
   displayName: 'CourseCreator'
   mixins: [CourseStore.mixin, ValidationStore.mixin, UserCoursesStore.mixin]
-  contextTypes:
-    router: React.PropTypes.func.isRequired
   storeDidChange: ->
     @setState getState()
     @state.tempCourseId = CourseUtils.generateTempId(@state.course)

@@ -29,7 +29,7 @@ Wizard = React.createClass(
   storeDidChange: ->
     @setState getState()
   timelinePath: ->
-    routes = @context.router.getCurrentPath().split('/')
+    routes = @props.location.pathname.split('/')
     routes.pop()
     routes.join('/')
   render: ->
@@ -62,6 +62,7 @@ Wizard = React.createClass(
           step={step}
           summary={@state.summary}
           open_weeks={@props.open_weeks}
+          course={@props.course}
         />
       else
         <SummaryPanel panel={panel}
@@ -70,7 +71,7 @@ Wizard = React.createClass(
           key={panel.key}
           index={i}
           step={step}
-          courseId={@props.course_id}
+          courseId={@props.course.slug}
           wizardId={@state.wizard_id}
           transitionTo={@props.transitionTo}
         />

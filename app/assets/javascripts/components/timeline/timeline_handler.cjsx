@@ -30,7 +30,7 @@ TimelineHandler = React.createClass(
     ServerActions.fetch 'timeline', @props.course_id
     ServerActions.fetchAllTrainingModules()
   render: ->
-    outlet = React.cloneElement(@props.children, {key: 'wizard_handler', open_weeks: @props.course.open_weeks}) if @props.children
+    outlet = React.cloneElement(@props.children, {key: 'wizard_handler', course: @props.course, weeks: @props.weeks, open_weeks: @props.course.open_weeks}) if @props.children
     <div>
       <TransitionGroup
         transitionName="wizard"
@@ -40,7 +40,7 @@ TimelineHandler = React.createClass(
       >
         {outlet}
       </TransitionGroup>
-      <Timeline {...@props} week_meetings={@props.course.week_meetings} />
+      <Timeline {...@props} weeks={@props.weeks} week_meetings={@props.course.week_meetings} />
       <Grading {...@props} />
     </div>
 )

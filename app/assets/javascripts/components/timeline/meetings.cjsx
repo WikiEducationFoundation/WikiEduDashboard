@@ -114,7 +114,7 @@ Meetings = React.createClass(
         <div className='wizard__panel__controls'>
           <div className='left'></div>
           <div className='right'>
-            <CourseLink className="dark button #{if @saveDisabled() is true then 'disabled' else '' }" to="timeline" id='course_cancel'>Done</CourseLink>
+            <CourseLink className="dark button #{if @saveDisabled() is true then 'disabled' else '' }" to="/courses/#{@state.course.slug}/timeline" id='course_cancel'>Done</CourseLink>
           </div>
         </div>
       </div>
