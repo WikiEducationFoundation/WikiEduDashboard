@@ -46,8 +46,8 @@ routes = (
     </Route>
     <Route path='courses'>
       <Route path=':course_school/:course_title' component={Course}>
-        <Redirect from="overview" to="/courses/:course_school/:course_title" />
         <IndexRoute component={OverviewHandler} />
+        <Route path="overview" component={OverviewHandler} />
         <Route path='timeline' component={TimelineHandler}>
           <Route path='wizard' component={Wizard} />
           <Route path='dates' component={Dates} />

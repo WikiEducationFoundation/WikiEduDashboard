@@ -40,6 +40,8 @@ Course = React.createClass(
     CourseActions.updateCourse to_pass, true
   _courseLinkParams: ->
     "/courses/#{@props.params.course_school}/#{@props.params.course_title}"
+  _onCourseIndex: ->
+    @props.location.pathname.split('/').length is 3
   render: ->
     alerts = []
     route_params = @props.params
@@ -114,9 +116,11 @@ Course = React.createClass(
     unless @state.course.legacy
       timeline = (
         <div className="nav__item" id="timeline-link">
-          <p><Link to={"#{@_courseLinkParams()}/timeline"}>Timeline</Link></p>
+          <p><Link to={"#{@_courseLinkParams()}/timeline"} activeClassName='active'>Timeline</Link></p>
         </div>
       )
+
+    overviewLinkClassName = 'active' if @_onCourseIndex()
 
     <div>
       <header className='course-page'>
@@ -163,20 +167,20 @@ Course = React.createClass(
       <div className="course_navigation">
         <nav className='container'>
           <div className="nav__item" id="overview-link">
-            <p><Link to="#{@_courseLinkParams()}">Overview</Link></p>
+            <p><Link to="#{@_courseLinkParams()}/overview" className={overviewLinkClassName} activeClassName="active">Overview</Link></p>
           </div>
           {timeline}
           <div className="nav__item" id="students-link">
-            <p><Link to="#{@_courseLinkParams()}/students">Students</Link></p>
+            <p><Link to="#{@_courseLinkParams()}/students" activeClassName="active">Students</Link></p>
           </div>
           <div className="nav__item" id="articles-link">
-            <p><Link to="#{@_courseLinkParams()}/articles">Articles</Link></p>
+            <p><Link to="#{@_courseLinkParams()}/articles" activeClassName="active">Articles</Link></p>
           </div>
           <div className="nav__item" id="uploads-link">
-            <p><Link to="#{@_courseLinkParams()}/uploads">Uploads</Link></p>
+            <p><Link to="#{@_courseLinkParams()}/uploads" activeClassName="active">Uploads</Link></p>
           </div>
           <div className="nav__item" id="activity-link">
-            <p><Link to="#{@_courseLinkParams()}/activity">Activity</Link></p>
+            <p><Link to="#{@_courseLinkParams()}/activity" activeClassName="active">Activity</Link></p>
           </div>
         </nav>
       </div>
