@@ -4,7 +4,8 @@ require "#{Rails.root}/lib/revision_analytics_service"
 describe RevisionAnalyticsService do
   let!(:revision) do
     create(:revision, id: 1, user_id: 1, article_id: 1, date: 1.day.ago,
-                      wp10: 60, ithenticate_id: r1_id)
+                      wp10: RevisionAnalyticsService::DEFAULT_DYK_WP10_LIMIT + 1,
+                      ithenticate_id: r1_id)
   end
 
   let(:r1_id) { nil }

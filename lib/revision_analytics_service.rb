@@ -4,8 +4,9 @@ class RevisionAnalyticsService
   # Entry points #
   ################
 
-  DEFAULT_DYK_WP10_LIMIT = 30
+  DEFAULT_DYK_WP10_LIMIT = 60
   def self.dyk_eligible(opts={})
+    []
     new(opts).dyk_eligible
   end
 
@@ -13,7 +14,7 @@ class RevisionAnalyticsService
     new(opts).suspected_plagiarism
   end
 
-  DEFAULT_RECENT_EDITS_LIMIT = 200
+  DEFAULT_RECENT_EDITS_LIMIT = 30
   def self.recent_edits(opts={})
     new(opts).recent_edits
   end

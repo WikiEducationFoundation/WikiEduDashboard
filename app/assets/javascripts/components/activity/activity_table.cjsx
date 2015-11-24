@@ -1,6 +1,7 @@
 React            = require 'react'
 ActivityTableRow = require './activity_table_row'
 TransitionGroup  = require 'react-addons-css-transition-group'
+Loading          = require '../common/loading'
 
 ActivityTable = React.createClass(
   displayName: 'ActivityTable'
@@ -20,6 +21,9 @@ ActivityTable = React.createClass(
     @setState @state.activity = activities
 
   render: ->
+    if @props.loading
+      return <Loading />
+
     activity = @state.activity.map (revision) =>
       roundedRevisionScore = Math.round(revision.revision_score) or 'unknown'
       revisionDateTime = moment(revision.datetime).format('YYYY/MM/DD h:mm a')
@@ -40,9 +44,9 @@ ActivityTable = React.createClass(
 
     drawers = @state.activity.map (revision) ->
       courses = revision.courses.map (course) ->
-        <li><a href="/courses/#{course.slug}">{course.title}</a></li>
+        <li key={Math.random() * course.id}><a href="/courses/#{course.slug}">{course.title}</a></li>
 
-      <tr className='activity-table-drawer'>
+      <tr key={Math.random() * revision.key} className='activity-table-drawer'>
         <td colSpan=6>
           <span>
             <h5>Article is active in</h5>
@@ -56,10 +60,10 @@ ActivityTable = React.createClass(
     elements = _.flatten(_.zip(activity, drawers))
 
     unless elements.length
-      elements = <td colSpan=6>{@props.noActivityMessage}</td>
+      elements = <tr><td colSpan=6>{@props.noActivityMessage}</td></tr>
 
     ths = @props.headers.map (header) =>
-      <th onClick={@sortItems} className='sortable' data-sort-key={header.key}>
+      <th key={header.key} onClick={@sortItems} className='sortable' data-sort-key={header.key}>
         {header.title}
       </th>
 

@@ -5,6 +5,7 @@ ServerActions   = require '../../actions/server_actions'
 
 getState = ->
   articles: DidYouKnowStore.getArticles()
+  loading: true
 
 DidYouKnowHandler = React.createClass(
   displayName: 'DidYouKnowHandler'
@@ -12,7 +13,8 @@ DidYouKnowHandler = React.createClass(
   getInitialState: ->
     getState()
   storeDidChange: ->
-    @setState getState()
+    articles = getState().articles
+    @setState articles: articles, loading: false
   componentWillMount: ->
     ServerActions.fetchDYKArticles()
   setCourseScope: (e) ->
@@ -35,6 +37,7 @@ DidYouKnowHandler = React.createClass(
         Show My Courses Only
       </label>
       <ActivityTable
+        loading={@state.loading}
         activity={@state.articles}
         headers={headers}
         noActivityMessage={noActivityMessage}
