@@ -66,8 +66,9 @@ routes = (
   </Route>
 )
 
+el = document.getElementById('react_root')
 render((
   <Router history={history}>
     {routes}
   </Router>
-), document.getElementById('react_root'))
+), el) if el?
