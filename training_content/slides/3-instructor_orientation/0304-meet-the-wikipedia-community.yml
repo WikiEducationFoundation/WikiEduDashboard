@@ -16,7 +16,7 @@ content: >
   better.
 
 
-  <figure>
+  <figure style="width: 100%">
     <img align="middle" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Wikipedia_community_collage.png/800px-Wikipedia_community_collage.png" />
     <figcaption class="image-credit">
       <a href="https://commons.wikimedia.org/wiki/File:Wikipedia_community_collage.png">Wikipedia community collage</a>,
