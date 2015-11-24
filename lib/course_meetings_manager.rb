@@ -3,7 +3,7 @@ class CourseMeetingsManager
 
   def initialize(course)
     @course = course
-    return if @course.nil?
+    fail StandardError, 'nil course passed to CourseMeetingsManager' if @course.nil?
     @beginning_of_first_week = calculate_beginning_of_first_week
     @timeline_week_count = calculate_timeline_week_count
     @week_meetings = calculate_week_meetings

@@ -9,7 +9,7 @@ class TrainingModuleDueDateManager
       user_id: @user.id,
       training_module_id: @training_module.id
     ) if @user.present?
-    @meetings_manager = opts[:course_meetings_manager] || CourseMeetingsManager.new(@course)
+    @meetings_manager = opts[:course_meetings_manager]
   end
 
   DEADLINE_STATUSES = {
@@ -23,6 +23,7 @@ class TrainingModuleDueDateManager
     # is due the end of the week the timeline starts
     # (0 weeks from timeline start)
     week = block.week
+    @meetings_manager = CourseMeetingsManager.new(week.course) if @meetings_manager.nil?
     weeks_from_start = (week.order - 1).to_i
     weeks_from_start += @meetings_manager.blackout_weeks_prior_to(week)
     (block.week.course.timeline_start + weeks_from_start.weeks)
