@@ -168,7 +168,7 @@ def proceed_to_next_slide
 end
 
 def find_correct_answer_by_trial_and_error
-  (1..10).each do |current_answer|
+  (0..10).each do |current_answer|
     page.all('input')[current_answer].click
     click_button 'Check Answer'
     next_button = page.first('a.slide-nav.btn.btn-primary')
