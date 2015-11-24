@@ -127,6 +127,7 @@ describe 'Student users', type: :feature, js: true do
       visit "/courses/#{Course.first.slug}/students"
       sleep 1
       expect(first('tbody')).to have_content 'Ragesock'
+      fail 'this test passed — this time'
     end
 
     it 'should work even if a student has never logged in before' do
@@ -148,6 +149,7 @@ describe 'Student users', type: :feature, js: true do
       visit "/courses/#{Course.first.slug}/students"
       sleep 1
       expect(first('tbody')).to have_content 'Ragesoss'
+      fail 'this test passed — this time'
     end
 
     it 'should not work if user is not persisted' do
