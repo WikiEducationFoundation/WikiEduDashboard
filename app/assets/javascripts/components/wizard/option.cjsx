@@ -1,4 +1,5 @@
 React             = require 'react'
+ReactDOM          = require 'react-dom'
 md                = require('markdown-it')({ html: true, linkify: true })
 WizardActions     = require '../../actions/wizard_actions'
 
@@ -7,7 +8,7 @@ Option = React.createClass(
   select: ->
     WizardActions.toggleOptionSelected @props.panel_index, @props.index
   expand: ->
-    $(React.findDOMNode(@refs.expandable)).toggleHeight()
+    $(ReactDOM.findDOMNode(@refs.expandable)).toggleHeight()
     WizardActions.toggleOptionExpanded @props.panel_index, @props.index
   render: ->
     disabled = @props.option.min_weeks? && @props.option.min_weeks > @props.open_weeks

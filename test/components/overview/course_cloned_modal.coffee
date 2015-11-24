@@ -34,4 +34,4 @@ describe 'CourseClonedModal', ->
 
     warnings = ReactTestUtils.scryRenderedDOMComponentsWithClass(TestModal, 'warning')
     warnings.should.not.be.empty
-    React.findDOMNode(warnings[0]).textContent.should.equal 'test error message'
+    ReactDOM.findDOMNode(warnings[0]).textContent.should.equal 'test error message'

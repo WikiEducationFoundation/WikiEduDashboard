@@ -4,6 +4,7 @@
 global.jsdom = require 'mocha-jsdom'
 global.testdom = require('testdom')('<html><body></body></html>')
 global.React = require 'react/addons'
+global.ReactDOM = require 'react-dom'
 global.ReactTestUtils = React.addons.TestUtils
 global.Simulate = ReactTestUtils.Simulate
 global.$ = require 'jquery'

@@ -1,4 +1,5 @@
 React         = require 'react'
+ReactDOM      = require 'react-dom'
 Panel         = require './panel'
 TextInput     = require '../common/text_input'
 Calendar      = require '../common/calendar'
@@ -28,7 +29,7 @@ FormPanel = React.createClass(
   setBlackoutDatesSelected: (bool) ->
     @setState blackoutDatesSelected: bool
   setNoBlackoutDatesChecked: ->
-    checked = React.findDOMNode(@refs.noDates).checked
+    checked = ReactDOM.findDOMNode(@refs.noDates).checked
     @updateDetails 'no_day_exceptions', checked
   render: ->
     timeline_start_props =

@@ -1,4 +1,5 @@
 React         = require 'react'
+ReactDOM      = require 'react-dom'
 ReactRouter   = require 'react-router'
 Link          = ReactRouter.Link
 
@@ -73,7 +74,7 @@ CourseCreator = React.createClass(
   showCourseDropdown: ->
     @setState showCourseDropdown: true
   useThisClass: (e) ->
-    select = React.findDOMNode(@refs.courseSelect)
+    select = ReactDOM.findDOMNode(@refs.courseSelect)
     courseId = select.options[select.selectedIndex].getAttribute('data-id-key')
     ServerActions.cloneCourse(courseId)
     @setState isSubmitting: true, shouldRedirect: true
