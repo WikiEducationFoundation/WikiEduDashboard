@@ -20,8 +20,8 @@ content: |
   That link to the article [Bold](en.wikipedia.org/wiki/Bold) will redirect you
   to [Emphasis (typography)](https://en.wikipedia.org/wiki/Emphasis_%28typography%29).
   To link to an article with a different name than the text, put a `|` (a
-  "pipe", inserted with *shift + \\* on most keyboard) in between the code and the
-  word you want to appear on the page. Like this:
+  "pipe", inserted with *shift + \\* on most keyboards) in between the code and
+  the word you want to appear on the page. Like this:
 
   `[[boldness|bold]]` = [bold](en.wikipedia.org/wiki/Boldness) (with the link to
   [Boldness](en.wikipedia.org/wiki/Boldness))
