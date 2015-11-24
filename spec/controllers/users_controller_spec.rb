@@ -7,6 +7,7 @@ describe UsersController do
       { course_id: course.slug, passcode: course.passcode, titleterm: 'foobar' }
     end
     let(:user) { create(:user) }
+    let(:admin) { create(:admin) }
 
     before do
       allow(WikiEdits).to receive(:enroll_in_course)
@@ -36,7 +37,7 @@ describe UsersController do
       end
     end
 
-    context 'POST, when the user is the instructor' do
+    context 'POST with student role, when the user is the instructor' do
       let(:post_params) do
         { id: course.slug,
           user: { user_id: user.id, role: CoursesUsers::Roles::STUDENT_ROLE }.as_json }
@@ -52,6 +53,22 @@ describe UsersController do
       end
       it 'does not enroll the user' do
         expect(CoursesUsers.where(role: CoursesUsers::Roles::STUDENT_ROLE).count).to eq(0)
+      end
+    end
+
+    context 'POST with nonstudent role, when the user is an admin' do
+      let(:post_params) do
+        { id: course.slug,
+          user: { user_id: admin.id, role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE }.as_json }
+      end
+      before do
+        post 'enroll', post_params
+      end
+      it 'returns a 200' do
+        expect(subject).to eq(200)
+      end
+      it 'enrolls the user' do
+        expect(CoursesUsers.where(role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE).count).to eq(1)
       end
     end
 
