@@ -44,9 +44,9 @@ ActivityTable = React.createClass(
 
     drawers = @state.activity.map (revision) ->
       courses = revision.courses.map (course) ->
-        <li key={Math.random() * course.id}><a href="/courses/#{course.slug}">{course.title}</a></li>
+        <li key={"#{revision.id}-#{course.id}"}><a href="/courses/#{course.slug}">{course.title}</a></li>
 
-      <tr key={Math.random() * revision.key} className='activity-table-drawer'>
+      <tr key={revision.key} className='activity-table-drawer'>
         <td colSpan=6>
           <span>
             <h5>Article is active in</h5>
