@@ -37,7 +37,7 @@ class RevisionAnalyticsService
     wp10_limit = ENV['dyk_wp10_limit'] || DEFAULT_DYK_WP10_LIMIT
     good_student_revisions = Revision
                              .where(user_id: student_ids)
-                             .where('wp10 > ?', wp10_limit)
+                             .where('wp10 >= ?', wp10_limit)
                              .where('date > ?', 2.months.ago)
     good_article_ids = good_student_revisions.pluck(:article_id)
     good_user_space = Article.where(id: good_article_ids)
