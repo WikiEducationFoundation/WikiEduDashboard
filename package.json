@@ -54,6 +54,7 @@
     "mkdirp": "^0.5.1",
     "mocha": "https://registry.npmjs.org/mocha/-/mocha-2.3.3.tgz",
     "mocha-jsdom": "^1.0.0",
+    "react-addons-test-utils": "^0.14.3",
     "reactify": "1.1.1",
     "require-dir": "^0.1.0",
     "rev-del": "^1.0.5",
