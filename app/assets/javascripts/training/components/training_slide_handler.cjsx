@@ -34,7 +34,7 @@ TrainingSlideHandler = React.createClass(
   storeDidChange: ->
     @setState getState()
   setSlideCompleted: (slide_id) ->
-    user_id = document.getElementById('main').getAttribute('data-user-id')
+    user_id = document.getElementById('main')?.getAttribute('data-user-id')
     return unless user_id
     ServerActions.setSlideCompleted(
       slide_id: slide_id,

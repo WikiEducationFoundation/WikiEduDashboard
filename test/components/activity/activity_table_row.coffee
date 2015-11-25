@@ -2,6 +2,7 @@ require '../../testHelper'
 ActivityTableRow = require '../../../app/assets/javascripts/components/activity/activity_table_row'
 ActivityTable = require '../../../app/assets/javascripts/components/activity/activity_table'
 CustomUtils = require '../../customUtils'
+click = CustomUtils.click
 
 describe 'ActivtyTableRow', ->
   TestRow = ReactTestUtils.renderIntoDocument(
@@ -23,6 +24,7 @@ describe 'ActivtyTableRow', ->
       />
     </ActivityTable>
   )
+
   it 'renders a table row with activity-table-row class and closed class', ->
     rows = ReactTestUtils.scryRenderedDOMComponentsWithTag(TestRow, 'tr')
     # rows[0] is header row
@@ -31,5 +33,4 @@ describe 'ActivtyTableRow', ->
   it 'changes class open to class closed when state is_open', ->
     row = ReactTestUtils.scryRenderedDOMComponentsWithClass(TestRow, 'activity-table-row')[0]
     expect(row.className).to.eq('activity-table-row closed')
-    Simulate.click(row)
-    CustomUtils.then -> expect(row.className).to.eq('activity-table-row open')
+    click(row).then (row) -> expect(row.className).to.eq('activity-table-row open')

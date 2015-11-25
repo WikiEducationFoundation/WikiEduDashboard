@@ -15,7 +15,8 @@ SlideLink = React.createClass(
     linkClass = 'slide-nav'
     buttonClasses = ' btn btn-primary icon icon-rt_arrow'
     linkClass += if @props.button then buttonClasses else ''
-    <Link disabled={@props.disabled} className={linkClass} to={@_slideLink(linkParams)}>
+    href = @_slideLink(linkParams)
+    <Link data-href={href} disabled={@props.disabled} className={linkClass} to={href}>
       {@props.direction} Page
     </Link>
 )

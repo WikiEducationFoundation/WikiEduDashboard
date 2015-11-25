@@ -1,6 +1,9 @@
+require './testHelper'
+
 CustomUtils =
-  then: (callback, timeout) ->
-    timeout = if timeout > 0 then timeout else 0
-    setTimeout(callback, timeout)
+  click: (el) ->
+    new Promise (resolve, reject) ->
+      Simulate.click(el)
+      resolve el
 
 module.exports = CustomUtils
