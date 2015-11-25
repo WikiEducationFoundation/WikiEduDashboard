@@ -14,7 +14,8 @@ RecentEditsHandler = React.createClass(
   getInitialState: ->
     getState()
   storeDidChange: ->
-    @setState getState()
+    revisions = getState().revisions
+    @setState revisions: revisions, loading: false
   componentWillMount: ->
     ServerActions.fetchRecentEdits()
   setCourseScope: (e) ->
@@ -36,6 +37,7 @@ RecentEditsHandler = React.createClass(
         Show My Courses Only
       </label>
       <ActivityTable
+        loading={@state.loading}
         activity={@state.revisions}
         headers={headers}
         noActivityMessage={noActivityMessage}
