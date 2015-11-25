@@ -31,6 +31,7 @@ ActivityTable = React.createClass(
         articleUrl={revision.article_url}
         diffUrl={revision.diff_url}
         talkPageLink={talkPageLink}
+        reportUrl={revision.report_url}
         title={revision.title}
         revisionScore={roundedRevisionScore}
         author={revision.user_wiki_id}
