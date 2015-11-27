@@ -36,10 +36,19 @@ en:
     dashboard: Wiki Ed Dashboard
     help: Help!
     home: Home
-    log_out: Log Out
-    login_sign_up: Login / Sign Up
+    log_out: Log out
+    log_in: Log in
+    sign_up: Sign up
+    sign_up_log_in_extended: with Wikipedia
+    explore: Explore
+    my_dashboard: My Dashboard
     recent_activity: Recent Activity
     search: search ask.wikiedu.org
+
+  home:
+    log_in: Log in with Wikipedia
+    sign_up: Sign up with Wikipedia
+    explore: Explore
 
   activity:
     edited_by: Edited By
