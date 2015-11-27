@@ -14,7 +14,7 @@ gem 'activerecord-import'
 gem 'browser'
 
 gem 'devise'
-gem 'omniauth-mediawiki'
+gem 'omniauth-mediawiki', git: 'https://github.com/ragesoss/omniauth-mediawiki.git'
 
 gem 'deep_cloneable', '~> 2.1.1'
 

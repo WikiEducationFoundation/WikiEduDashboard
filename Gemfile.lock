@@ -24,6 +24,21 @@ GIT
   specs:
     hashugar (1.0.0)
 
+GIT
+  remote: https://github.com/onemedical/activerecord-import.git
+  revision: ce63b1f504200ae901b97193782f8f80fd263355
+  specs:
+    activerecord-import (0.7.0)
+      activerecord (>= 3.0)
+
+GIT
+  remote: https://github.com/ragesoss/omniauth-mediawiki.git
+  revision: 06b74e6b2e374ca56804e9a0de61e47991afb4ac
+  specs:
+    omniauth-mediawiki (0.0.2)
+      jwt (~> 1.0)
+      omniauth-oauth (~> 1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -245,9 +260,6 @@ GEM
     omniauth (1.2.2)
       hashie (>= 1.2, < 4)
       rack (~> 1.0)
-    omniauth-mediawiki (0.0.2)
-      jwt (~> 1.0)
-      omniauth-oauth (~> 1.0)
     omniauth-oauth (1.1.0)
       oauth
       omniauth (~> 1.0)
@@ -433,7 +445,7 @@ DEPENDENCIES
   mediawiki_api (= 0.5.0)
   mysql2
   newrelic_rpm
-  omniauth-mediawiki
+  omniauth-mediawiki!
   pandoc-ruby (~> 1.0.0)
   piwik_analytics!
   pry-rails
