@@ -60,7 +60,6 @@ aside
   .login
     flex 1
     text-align right
-    line-height $nav_height - 3
 
     i
       margin-right 4px
@@ -79,7 +78,18 @@ aside
       white-space nowrap
       text-align left
 
-    a:hover
+      +below(desktop)
+        display none
+
+    a
+      padding-top ($nav_height/2.5)
+      padding-bottom ($nav_height/2.5)
+      +below(desktop)
+        width 50%
+        float left
+        margin-left 0
+
+     &:hover
       .expand
         opacity 1
         width 110px
