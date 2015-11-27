@@ -4,11 +4,11 @@
 
     %a.button{href: user_omniauth_authorize_path(:mediawiki)}
       %i.icon.icon-wiki-logo
-      Log in with Wikipedia
+      = t('home.log_in')
 
     %a.button.button-ghost.button-inverse{href: user_omniauth_authorize_path(:mediawiki_signup)}
       %i.icon.icon-wiki-logo
-      Sign up with Wikipedia
+      = t('home.sign_up')
 
     %a.help{href: '/ask'} ?
 
@@ -18,7 +18,7 @@
 
     = render 'courses/header_stats', presenter: @presenter
 
-    %a.button.button-ghost{href: '/courses'} Explore
+    %a.button.button-ghost{href: '/courses'}= t('home.explore')
 
 %section.light
   .container

@@ -9,10 +9,19 @@ qqq:
     dashboard: Application name.
     help: 'Link to http://ask.wikiedu.org'
     home: Link to the main page
-    log_out: Button for logging out (for registered users)
-    login_sign_up: Button for logging in (for registered users) or signing up
     recent_activity: Link to recent activity (for registered users)
     search: Input box for search on ask.wikiedu.org
+    log_in: Button for logging in (for registered users)
+    log_out: Button for logging out (for registered users)
+    sign_up: Sign up (for new users)
+    sign_up_log_in_extended: Short text (< 14 characters) to make clear that authentication is via wikipedia
+    explore: Explore link
+    my_dashboard: My Dashboard link
+
+  home:
+    log_in: Log in with Wikipedia button
+    sign_up: Sign up with Wikipedia button
+    explore: Explore button
 
   activity:
     edited_by: Column label for username of user who made an edit

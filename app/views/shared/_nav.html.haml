@@ -4,9 +4,9 @@
       %a.logo__link{:href => "/"}= logo_tag
     .home
       - if user_signed_in?
-        = link_to 'My Dashboard', root_url
+        = link_to t('application.my_dashboard'), root_url
       - else
-        = link_to 'Explore', '/courses'
+        = link_to t('application.explore'), '/courses'
       - if current_user && current_user.admin?
         = link_to t('application.recent_activity'), '/recent-activity'
     - if user_signed_in?
@@ -17,13 +17,13 @@
     .login
       - if user_signed_in?
         %b>= link_to current_user.wiki_id, :root
-        = link_to I18n.t('application.log_out'), :destroy_user_session
+        = link_to t('application.log_out'), :destroy_user_session
       - else
         = link_to user_omniauth_authorize_path(:mediawiki_signup) do
           %i.icon.icon-wiki-logo
-          Sign up
-          %span.expand with Wikipedia
+          = t('application.sign_up')
+          %span.expand= t('application.sign_up_log_in_extended')
         = link_to user_omniauth_authorize_path(:mediawiki) do
           %i.icon.icon-wiki-logo
-          Log in
-          %span.expand with Wikipedia
+          = t('application.log_in')
+          %span.expand= t('application.sign_up_log_in_extended')
