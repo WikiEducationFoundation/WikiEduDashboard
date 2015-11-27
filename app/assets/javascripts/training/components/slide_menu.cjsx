@@ -16,16 +16,18 @@ SlideMenu = React.createClass(
       # need the slide index because overflow: hidden cuts off li numbering
       params = @linkParams(@props)
       slides = @props.slides.map (slide, loopIndex) =>
-        liClass = if @props.currentSlide.index == loopIndex + 1 then 'current' else ''
+        current = slide.id == @props.currentSlide.id
+        liClass = if current then 'current' else ''
         newParams = _.extend @linkParams(@props), slide_id: slide.slug
+        link = "/training/#{newParams.library_id}/#{newParams.module_id}/#{newParams.slide_id}"
         # a slide is enabled if it comes back from the API as such,
         # it is set enabled in the parent component,
         # or it's the current slide
-        enabled = slide.enabled is true || @props.enabledSlides.indexOf(slide.id) >= 0 || (slide.id == @props.currentSlide.id)
+        enabled = (slide.enabled is true || @props.enabledSlides.indexOf(slide.id) >= 0) && !current
         <li key={[slide.id, loopIndex].join('-')} onClick={@props.onClick} className={liClass}>
-          <Link to="slide" disabled={!enabled} params={newParams}>
+          <a disabled={!enabled} href={!enabled && 'javascript:void(0)' || link}>
             {loopIndex + 1}. {slide.title}
-          </Link>
+          </a>
         </li>
 
     menuClass = "slide__menu__nav__dropdown "

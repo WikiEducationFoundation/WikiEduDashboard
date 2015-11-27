@@ -144,7 +144,6 @@ a.slide-nav
     margin-bottom 15px
     padding 16px 16px 0
   li
-    @extends .truncated-text
     font-size 17px
     line-height 21px
     margin 10px 0
@@ -155,11 +154,13 @@ a.slide-nav
     font-weight 400
     &.current
       font-weight 600
-      pointer-events none
       color $training_primary
       a
+        opacity 1
         color $training_primary
     a
+      @extends .truncated-text
+      display block
       color $type_dark
       text-decoration none
       &:hover
