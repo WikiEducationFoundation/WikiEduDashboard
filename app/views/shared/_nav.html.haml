@@ -1,4 +1,4 @@
-%aside
+%aside{:class => [local_assigns.fetch(:fluid, false) ? 'fluid' : nil]}
   .container
     .logo
       %a.logo__link{:href => "/"}= logo_tag
