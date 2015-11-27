@@ -23,6 +23,11 @@ qqq:
     sign_up: Sign up with Wikipedia button
     explore: Explore button
 
+  home:
+    log_in: Log in with Wikipedia button
+    sign_up: Sign up with Wikipedia button
+    explore: Explore button
+
   activity:
     edited_by: Column label for username of user who made an edit
     all: '{{Identical|Activity}}'
