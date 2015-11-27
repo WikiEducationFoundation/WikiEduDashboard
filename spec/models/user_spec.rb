@@ -20,6 +20,7 @@
 #  permissions         :integer          default(0)
 #  real_name           :string(255)
 #  email               :string(255)
+#  onboarded           :boolean          default(FALSE)
 #
 
 require 'rails_helper'
