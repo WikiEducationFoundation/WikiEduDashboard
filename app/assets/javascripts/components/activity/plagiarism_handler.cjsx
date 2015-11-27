@@ -37,6 +37,7 @@ PlagiarismHandler = React.createClass(
         <input ref='myCourses' type='checkbox' onChange={@setCourseScope} />
         Show My Courses Only
       </label>
+      &nbsp; &nbsp; &nbsp;<a href="/recent-activity/plagiarism/refresh">Refresh plagiarism reports</a>
       <ActivityTable
         activity={@state.revisions}
         headers={headers}

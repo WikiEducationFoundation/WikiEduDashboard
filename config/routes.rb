@@ -96,6 +96,7 @@ Rails.application.routes.draw do
   post 'analytics(/*any)' => 'analytics#results'
 
   # Recent Activity
+  get 'recent-activity/plagiarism/refresh' => 'recent_activity#refresh_report_urls'
   get 'recent-activity(/*any)' => 'recent_activity#index'
 
   # Revision analytics JSON API for React
