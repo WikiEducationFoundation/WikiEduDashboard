@@ -43,6 +43,8 @@ aside
 
   .home
     flex 1
+    +below(desktop)
+      flex none
 
   .search
     flex 1
@@ -93,8 +95,6 @@ aside
       padding-top ($nav_height/2.5)
       padding-bottom ($nav_height/2.5)
       +below(desktop)
-        width 50%
-        float left
         margin-left 0
 
        &:hover
