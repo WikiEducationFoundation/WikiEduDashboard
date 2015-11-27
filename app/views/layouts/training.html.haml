@@ -8,7 +8,7 @@
     - if flash[:notice]
       .notice= flash[:notice]
     %div
-      = render "shared/nav", :fluid => true
+      = render "shared/nav", fluid: true
       %main#main{"data-user-id" => current_user.try(:id), :role => "main"}
         = yield
     = render "shared/foot"
