@@ -3,7 +3,10 @@
     .logo
       %a.logo__link{:href => "/"}= logo_tag
     .home
-      = link_to t('application.home'), root_url
+      - if user_signed_in?
+        = link_to 'My Dashboard', root_url
+      - else
+        = link_to 'Explore', '/courses'
       - if current_user && current_user.admin?
         = link_to t('application.recent_activity'), '/recent-activity'
     - if user_signed_in?
