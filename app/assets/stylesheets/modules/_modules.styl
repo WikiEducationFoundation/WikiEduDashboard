@@ -62,18 +62,15 @@
   background-color sprout
   padding global-margin
   color #fff
-  p
-    col(1)
-    float left
-    margin 0
-    +above(desktop)
-      col(3/4)
-  .button
-    float left
-    margin 10px 0 0
-    +above(desktop)
-      margin 0
-      float right
+  > .container
+    display flex
+    align-items center
+    p
+      flex 1
+      margin-bottom 0
+
+    .button
+      margin-left 20px
 
 .notice
   @extends .notification
@@ -84,11 +81,7 @@
   background-color warning
   color #fff
   > .container
-    display flex
-    align-items center
-    p
-      flex 1
-    svg
+   svg
       &:focus,
       &:hover
         cursor pointer
