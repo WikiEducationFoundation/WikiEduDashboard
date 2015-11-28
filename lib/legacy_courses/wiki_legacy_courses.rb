@@ -74,7 +74,7 @@ class WikiLegacyCourses
     rescue MediawikiApi::ApiError, MediawikiApi::HttpError => e
       # The message for invalid course ids looks like this:
       # "Invalid course id: 953"
-      if e.responds_to?(:info) && e.info[0..16] == 'Invalid course id'
+      if e.respond_to?(:info) && e.info[0..16] == 'Invalid course id'
         handle_invalid_course_id course_ids, e.info
       else
         handle_api_error e
