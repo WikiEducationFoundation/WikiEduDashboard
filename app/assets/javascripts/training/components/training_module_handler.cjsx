@@ -22,7 +22,7 @@ TrainingModuleHandler = React.createClass(
       link = "#{@state.training_module.slug}/#{slide.slug}"
       liClassName = 'disabled' if disabled
       <li className={liClassName} key={i}>
-        <a disabled={disabled} href={link}>
+        <a disabled={disabled} href={disabled && 'javascript:void(0)' || link}>
           <h3 className="h5">{slide.title}</h3>
           <div className="ui-text small sidebar-text">{slide.summary}</div>
         </a>
