@@ -9,6 +9,7 @@ Redirect            = ReactRouter.Redirect
 
 App                 = require '../components/app'
 Course              = require '../components/course'
+Onboarding          = require '../components/onboarding'
 Wizard              = require '../components/wizard/wizard'
 Dates               = require '../components/timeline/meetings'
 CourseCreator       = require '../components/course_creator/course_creator'
@@ -39,6 +40,9 @@ history = useBasename(createHistory)(basename: '/')
 routes = (
   <Route path='/' component={App}>
     <IndexRoute component={CourseCreatorButton} />
+    <Route path='onboarding'>
+      <IndexRoute handler={Onboarding} />
+    </Route>
     <Route path='recent-activity' component={RecentActivityHandler}>
       <IndexRoute component={DidYouKnowHandler} />
       <Route path='plagiarism' component={PlagiarismHandler} />

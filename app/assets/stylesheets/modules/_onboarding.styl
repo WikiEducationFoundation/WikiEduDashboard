@@ -1,0 +1,127 @@
+body.onboarding
+  background-color bayoux
+  background-image url("../images/waves.svg")
+  background-repeat no-repeat
+  background-position center 75%
+  background-size cover
+
+  h1
+    font-size 50px
+    font-weight 300
+
+  p
+    font-size 19px
+
+  button
+    .icon-rt_arrow
+      vertical-align middle
+      margin-left 20px
+
+  /* Minimal nav with only log out button */
+  aside
+    background transparent
+    box-shadow none
+
+    .login
+      b
+        display none
+      a
+        color #fff
+
+    .search,
+    .home
+      display none
+
+  /* Lead intro page */
+  .intro
+    padding-top 100px
+
+    h1, p
+      font-weight 300
+      margin-bottom 30px
+      color #fff
+      line-height 1
+
+    h1
+      font-size 50px
+
+    p
+      font-size 19px
+
+  /* TODO: Pull out form controls tyles */
+
+  .form
+    padding-top 100px
+
+    > h1
+      color #fff
+      margin-bottom 30px
+
+    .panel
+      padding 25px
+      background #fff
+      box-shadow 0px 1px 2px rgba(0,0,0,.2)
+      border-radius 3px
+      width 100%
+      max-width 400px
+      display inline-block
+
+    .form-control
+      width 100%
+
+    .form-group
+      padding-bottom 25px
+      margin-bottom 25px
+      border-bottom 2px solid $border_lt
+
+      label
+        display block
+        margin-bottom 8px
+        font-weight 600
+        color #2c2c2c
+
+      .help-text
+        margin-top 6px
+        font-size 13px
+
+    .radio-group
+      display flex
+      justify-content space-between
+      margin 0 -10px
+
+
+    .radio-wrapped
+      border-radius 2px
+      border 1px solid $border_lt
+      flex 1
+      margin 0 10px
+
+
+
+      label
+        margin-bottom 0
+        padding 8px 10px
+        font-weight 400
+        line-height 1
+
+        > input
+          vertical-align middle
+          margin-right 16px
+          position relative
+          top -1px
+
+        > span
+          vertical-align middle
+
+
+      &.checked
+        background bayoux
+        border-color bayoux
+
+        > label
+          color #fff
+
+
+
+
+

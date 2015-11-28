@@ -163,6 +163,12 @@ class User < ActiveRecord::Base
       .sum(:characters) || 0
   end
 
+  # Exclude tokens/secrets from json output
+  def to_json(options={})
+     options[:except] ||= [:wiki_token, :wiki_secret, :remember_token]
+     super(options)
+   end
+
   #################
   # Class methods #
   #################

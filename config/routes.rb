@@ -142,6 +142,9 @@ Rails.application.routes.draw do
     root to: "courses#index", as: :courses_dashboard
   end
 
+  # Onboarding (wildcard for react routing)
+  get 'onboarding(/*any)' => 'onboarding#index'
+
   # Unauthenticated users root to the home page
   root to: 'home#index'
 
