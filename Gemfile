@@ -9,6 +9,7 @@ gem 'crack'
 gem 'figaro'
 gem 'whenever'
 gem 'mysql2'
+gem 'activerecord-import'
 
 gem 'browser'
 
@@ -27,14 +28,10 @@ gem 'breadcrumbs_on_rails'
 # master branch contains Nick's patch that silences warnings on ruby >= 2.0.0
 gem 'hashugar', git: 'https://github.com/jsuchal/hashugar.git', branch: 'master'
 
-# This fork has a fix for enums not working
-# https://github.com/zdennis/activerecord-import/issues/139
-gem 'activerecord-import', git: 'https://github.com/onemedical/activerecord-import.git'
-
 # UNIVERSAL TEXT CONVERTER - FOR MARDOWN TO MEDIAWIKI TEXT
 gem 'pandoc-ruby', '~> 1.0.0'
 
-gem 'i18n-js', '>= 3.0.0.rc8'
+gem 'i18n-js', '>= 3.0.0.rc11'
 
 group :development do
   gem 'pry-rails'
@@ -77,7 +74,7 @@ group :test do
   gem 'capybara-screenshot'
   gem 'database_cleaner'
   gem 'webmock'
-  gem 'vcr', github: 'vcr/vcr'
+  gem 'vcr'
   gem 'simplecov', require: false
   gem 'codeclimate-test-reporter', require: nil
 end
