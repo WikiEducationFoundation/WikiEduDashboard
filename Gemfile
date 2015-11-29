@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 ruby '2.1.5'
-gem 'rails', '4.2.4'
+gem 'rails', '4.2.5'
 gem 'jbuilder', '~> 2.0'
 gem 'haml-rails'
 
@@ -8,7 +8,7 @@ gem 'mediawiki_api', '0.5.0'
 gem 'crack'
 gem 'figaro'
 gem 'whenever'
-gem 'mysql2', '~> 0.3.20'
+gem 'mysql2'
 
 gem 'browser'
 
