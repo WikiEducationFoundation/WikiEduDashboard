@@ -1,7 +1,8 @@
 require '../../testHelper'
 SlideLink = require '../../../app/assets/javascripts/training/components/slide_link'
 TrainingSlideHandler = require '../../../app/assets/javascripts/training/components/training_slide_handler'
-CustomUtils = require '../../customUtils'
+ServerActions = require '../../../app/assets/javascripts/actions/server_actions'
+sinon.stub(ServerActions, 'fetchTrainingModule')
 
 describe 'SlideLink', ->
   TestLink = ReactTestUtils.renderIntoDocument(

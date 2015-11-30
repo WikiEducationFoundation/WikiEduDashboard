@@ -19,7 +19,7 @@ TrainingSlideHandler = React.createClass(
   getInitialState: ->
     loading: true
   moduleId: ->
-    @props.params.module_id
+    @props.params?.module_id
   componentDidMount: ->
     getState(@props)
   componentWillReceiveProps: (newProps) ->
@@ -28,7 +28,7 @@ TrainingSlideHandler = React.createClass(
     @setSlideCompleted(slide_id)
     @setState getState(newProps)
   componentWillMount: ->
-    slide_id = @props.params.slide_id
+    slide_id = @props.params?.slide_id
     ServerActions.fetchTrainingModule(module_id: @moduleId(), current_slide_id: slide_id)
     @setSlideCompleted(slide_id)
   storeDidChange: ->

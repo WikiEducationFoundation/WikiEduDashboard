@@ -8,11 +8,11 @@ describe 'ActivtyTableRow', ->
   TestRow = ReactTestUtils.renderIntoDocument(
     <ActivityTable
       loading=false
-      activity={[{ key: '1', revision_score: 0, title: 'Foobar', courses: [{id: 1}, {id: 2}]}]}
+      activity={[{ key: '1', revision_score: 0, title: 'Foobar', courses: [{slug: 'cat'}, {slug: 'dog'}]}]}
       headers={[{key: '1' }]}
       noActivityMessage='Hello world'>
       <ActivityTableRow
-        key={Math.random() * 20}
+        key={23948}
         rowId=675818536
         title='Selfie'
         articleUrl='https://en.wikipedia.org/wiki/Selfie'

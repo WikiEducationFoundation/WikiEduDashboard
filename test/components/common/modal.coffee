@@ -11,8 +11,9 @@ describe 'Modal', ->
 
   it 'renders its children with the modalClass', ->
     modalContent = ReactTestUtils.findRenderedDOMComponentWithTag(TestModal, 'div')
-    modalContent.getDOMNode().textContent.should.equal 'bar'
-    modalContent.getDOMNode().className.should.equal 'wizard active foo'
+    content = ReactDOM.findDOMNode(modalContent)
+    content.textContent.should.equal 'bar'
+    content.className.should.equal 'wizard active foo'
 
   it 'adds modal-open class to the body', ->
     document.body.className.should.equal 'modal-open'
