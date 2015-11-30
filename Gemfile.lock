@@ -25,13 +25,6 @@ GIT
     hashugar (1.0.0)
 
 GIT
-  remote: https://github.com/onemedical/activerecord-import.git
-  revision: ce63b1f504200ae901b97193782f8f80fd263355
-  specs:
-    activerecord-import (0.7.0)
-      activerecord (>= 3.0)
-
-GIT
   remote: https://github.com/ragesoss/omniauth-mediawiki.git
   revision: 06b74e6b2e374ca56804e9a0de61e47991afb4ac
   specs:
