@@ -417,7 +417,7 @@ API =
     new Promise (res, rej) ->
       $.ajax
         type: 'PUT'
-        url: '/onboarding'
+        url: "/users/onboard"
         contentType: 'application/json'
         data: JSON.stringify data
         success: (data) ->

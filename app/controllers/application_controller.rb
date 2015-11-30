@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
            status: :unauthorized
   end
 
+  before_action :check_onboarded
   before_action :check_for_expired_oauth_credentials
   before_action :check_for_unsupported_browser
 
@@ -26,6 +27,14 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(_resource_or_scope)
     request.env['omniauth.origin'] || '/courses'
+  end
+
+  def check_onboarded
+    # Todo: private, test, path helpers
+    return unless current_user
+    return if current_user.onboarded == true
+    return if request.fullpath == '/onboarding'
+    redirect_to '/onboarding'
   end
 
   def require_permissions

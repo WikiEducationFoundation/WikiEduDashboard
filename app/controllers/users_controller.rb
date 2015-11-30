@@ -22,6 +22,17 @@ class UsersController < ApplicationController
     render 'users', formats: :json
   end
 
+  def onboard
+    [:real_name, :email].each_with_object(params) do |key, obj|
+      obj.require(key)
+    end
+
+    user = User.find(current_user.id)
+    user.update_attributes(real_name: p[:real_name], email: p[:email], onboarded: true)
+
+    render nothing: true, status: 204
+  end
+
   #########################
   # Enrollment management #
   #########################

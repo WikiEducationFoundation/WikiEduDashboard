@@ -1,7 +1,5 @@
 React         = require 'react'
-Router        = require 'react-router'
-RouteHandler  = Router.RouteHandler
-TransitionGroup = require '../../utils/TransitionGroup'
+TransitionGroup = require 'react-addons-css-transition-group'
 API     = require '../../utils/api'
 
 Onboarding = React.createClass(
@@ -33,33 +31,24 @@ Onboarding = React.createClass(
   _handleSubmit: (e) ->
     e.preventDefault()
 
-    @setState {
-      slide: 'finished'
-    }
+    @setState slide: 'finished'
 
-    API.onboard({
-      id: @state.user.id
+    API.onboard
       real_name: @state.name
       email: @state.email
-    })
-    .then((res) =>
-      setTimeout(() =>
+    .then (res) ->
+      setTimeout () ->
         document.location.href = "/"
-      , 750)
-    )
+      , 750
     .catch((err) =>
       console.log(err, arguments)
-      @setState {
-        slide: 'form'
-      }
+      @setState slide: 'form'
     )
 
 
   # Handle start button click, transition to form
   _handleStart: ->
-    @setState {
-      slide: 'form'
-    }
+    @setState slide: 'form'
 
 
   # Render finished slide
