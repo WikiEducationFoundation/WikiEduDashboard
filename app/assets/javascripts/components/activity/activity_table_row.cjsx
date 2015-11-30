@@ -29,7 +29,7 @@ ActivityTableRow = React.createClass
     if @props.reportUrl
       col2 = (
         <td>
-          <a href={@props.reportUrl}>Report</a>
+          <a href={@props.reportUrl} target="_blank">Report</a>
         </td>
       )
 
