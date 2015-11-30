@@ -5,6 +5,18 @@ body.onboarding
   background-position center 75%
   background-size cover
 
+  .fade-enter
+    position absolute
+    opacity 0.01
+    transition opacity 250ms ease-in-out
+    &.fade-enter-active
+      opacity 1
+  .fade-leave
+    opacity 1
+    transition opacity 250ms ease-in-out
+    &.fade-leave-active
+      opacity 0.01
+
   h1
     font-size 50px
     font-weight 300
@@ -17,7 +29,8 @@ body.onboarding
       vertical-align middle
       margin-left 20px
 
-  /* Minimal nav with only log out button */
+
+  // Minimal nav with only log out button
   aside
     background transparent
     box-shadow none
@@ -32,30 +45,35 @@ body.onboarding
     .home
       display none
 
-  /* Lead intro page */
+
+  // Lead intro page
   .intro
     padding-top 100px
 
-    h1, p
+    h1, h2, p
       font-weight 300
-      margin-bottom 30px
+      margin-bottom 40px
       color #fff
       line-height 1
 
     h1
       font-size 50px
 
+    h2
+      font-size 30px
+      opacity .6
+
     p
       font-size 19px
 
-  /* TODO: Pull out form controls tyles */
 
+  // TODO: Pull out form control styles
   .form
     padding-top 100px
 
     > h1
       color #fff
-      margin-bottom 30px
+      margin-bottom 40px
 
     .panel
       padding 25px
@@ -84,6 +102,9 @@ body.onboarding
         margin-top 6px
         font-size 13px
 
+    .form-required-indicator
+      color warning
+
     .radio-group
       display flex
       justify-content space-between
@@ -95,8 +116,6 @@ body.onboarding
       border 1px solid $border_lt
       flex 1
       margin 0 10px
-
-
 
       label
         margin-bottom 0
@@ -112,7 +131,6 @@ body.onboarding
 
         > span
           vertical-align middle
-
 
       &.checked
         background bayoux

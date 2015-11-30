@@ -144,6 +144,7 @@ Rails.application.routes.draw do
 
   # Onboarding (wildcard for react routing)
   get 'onboarding(/*any)' => 'onboarding#index'
+  put 'onboarding' => 'onboarding#onboard'
 
   # Unauthenticated users root to the home page
   root to: 'home#index'

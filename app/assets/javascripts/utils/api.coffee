@@ -413,4 +413,17 @@ API =
         alert getErrorMessage(obj)
         rej obj
 
+  onboard: (data) ->
+    new Promise (res, rej) ->
+      $.ajax
+        type: 'PUT'
+        url: '/onboarding'
+        contentType: 'application/json'
+        data: JSON.stringify data
+        success: (data) ->
+          res data
+      .fail (obj, status) ->
+        console.error 'Error: ' + getErrorMessage(obj)
+        rej obj
+
 module.exports = API
