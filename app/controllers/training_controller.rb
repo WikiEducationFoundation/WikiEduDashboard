@@ -3,7 +3,7 @@ class TrainingController < ApplicationController
   add_breadcrumb 'Training Library', :training_path, only: :slide_view
 
   def index
-    @libraries = TrainingLibrary.all
+    @libraries = TrainingLibrary.all.sort { |a, b| a.name <=> b.name }
   end
 
   def show
