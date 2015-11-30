@@ -201,6 +201,7 @@ GEM
       ruby_parser (~> 3.5)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
+    http_accept_language (2.0.5)
     http_parser.rb (0.6.0)
     i18n (0.7.0)
     i18n-js (3.0.0.rc11)
@@ -425,6 +426,7 @@ DEPENDENCIES
   guard-rspec
   haml-rails
   hashugar!
+  http_accept_language
   i18n-js (>= 3.0.0.rc11)
   jbuilder (~> 2.0)
   launchy

@@ -31,6 +31,7 @@ gem 'hashugar', git: 'https://github.com/jsuchal/hashugar.git', branch: 'master'
 # UNIVERSAL TEXT CONVERTER - FOR MARDOWN TO MEDIAWIKI TEXT
 gem 'pandoc-ruby', '~> 1.0.0'
 
+gem 'http_accept_language'
 gem 'i18n-js', '>= 3.0.0.rc11'
 
 group :development do

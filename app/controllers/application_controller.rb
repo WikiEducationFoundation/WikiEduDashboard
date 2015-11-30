@@ -12,11 +12,12 @@ class ApplicationController < ActionController::Base
            status: :unauthorized
   end
 
-  before_action :set_locale
   before_action :check_for_expired_oauth_credentials
   before_action :check_for_unsupported_browser
 
   force_ssl if: :ssl_configured?
+
+  include HttpAcceptLanguage::AutoLocale
 
   def after_sign_out_path_for(_resource_or_scope)
     request.referrer
@@ -62,18 +63,6 @@ class ApplicationController < ActionController::Base
     tag.language.in? %w(ar dv fa he ku ps sd ug ur yi)
   end
   helper_method :rtl?
-
-  def set_locale
-    I18n.locale = params[:locale] || I18n.default_locale
-  end
-
-  def default_url_options(options = {})
-    if I18n.locale != I18n.default_locale
-      { locale: I18n.locale }.merge options
-    else
-      options
-    end
-  end
 
   def new_session_path(_scope)
     new_user_session_path
