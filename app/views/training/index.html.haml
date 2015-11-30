@@ -3,7 +3,7 @@
   %ul.training-libraries.no-bullets.no-margin
     - @libraries.each do |library|
       %li.training-libraries__individual-library.no-left-margin
-        %a.action-card{href: "training/#{library.slug}"}
+        %a.action-card{href: "/training/#{library.slug}"}
           %header.action-card-header
             %h3.action-card-title
               = library.slug.humanize.titleize
