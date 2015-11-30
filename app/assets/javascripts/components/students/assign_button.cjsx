@@ -1,6 +1,7 @@
-React         = require 'react/addons'
-Router        = require 'react-router'
-Link          = Router.Link
+React         = require 'react'
+ReactRouter   = require 'react-router'
+Router        = ReactRouter.Router
+Link          = ReactRouter.Link
 Expandable    = require '../high_order/expandable'
 Popover       = require '../common/popover'
 Lookup        = require '../common/lookup'

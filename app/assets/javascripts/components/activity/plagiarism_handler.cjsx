@@ -1,11 +1,7 @@
-React        = require 'react/addons'
-Router       = require 'react-router'
-RouteHandler = Router.RouteHandler
+React = require 'react'
 SuspectedPlagiarismStore = require '../../stores/suspected_plagiarism_store'
-
 ActivityTable = require './activity_table'
-
-ServerActions   = require '../../actions/server_actions'
+ServerActions = require '../../actions/server_actions'
 
 getState = ->
   revisions: SuspectedPlagiarismStore.getRevisions()
@@ -16,7 +12,8 @@ PlagiarismHandler = React.createClass(
   getInitialState: ->
     getState()
   storeDidChange: ->
-    @setState getState()
+    revisions = getState().revisions
+    @setState revisions: revisions, loading: false
   componentWillMount: ->
     ServerActions.fetchSuspectedPlagiarism()
   setCourseScope: (e) ->
@@ -39,6 +36,7 @@ PlagiarismHandler = React.createClass(
       </label>
       &nbsp; &nbsp; &nbsp;<a href="/recent-activity/plagiarism/refresh">Refresh plagiarism reports</a>
       <ActivityTable
+        loading={@state.loading}
         activity={@state.revisions}
         headers={headers}
         noActivityMessage={noActivityMessage}

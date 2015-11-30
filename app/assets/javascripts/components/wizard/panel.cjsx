@@ -1,4 +1,4 @@
-React           = require 'react/addons'
+React           = require 'react'
 md              = require('markdown-it')({ html: true, linkify: true })
 WizardActions   = require '../../actions/wizard_actions'
 WizardStore     = require '../../stores/wizard_store'
@@ -70,7 +70,7 @@ Panel = React.createClass(
           {rewind_top}
         </div>
         <div className='right'>
-          <CourseLink to='timeline' onClick={@close}>Close</CourseLink>
+          <CourseLink to="/courses/#{@props.course.slug}/timeline" onClick={@close}>Close</CourseLink>
         </div>
       </div>
       <h3>{@props.panel.title}</h3>

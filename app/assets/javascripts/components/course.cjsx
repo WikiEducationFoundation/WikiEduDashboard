@@ -1,7 +1,6 @@
 React             = require 'react'
-Router            = require 'react-router'
-Link              = Router.Link
-RouteHandler      = Router.RouteHandler
+ReactRouter       = require 'react-router'
+Link              = ReactRouter.Link
 CourseLink        = require './common/course_link'
 ServerActions     = require '../actions/server_actions'
 CourseActions     = require '../actions/course_actions'
@@ -20,8 +19,6 @@ getState = ->
 Course = React.createClass(
   displayName: 'Course'
   mixins: [CourseStore.mixin, UserStore.mixin]
-  contextTypes:
-    router: React.PropTypes.func.isRequired
   componentWillMount: ->
     ServerActions.fetch 'course', @getCourseID()
     ServerActions.fetch 'users', @getCourseID()
@@ -30,10 +27,8 @@ Course = React.createClass(
     getState()
   storeDidChange: ->
     @setState getState()
-  transitionTo: (to, params=null) ->
-    @context.router.transitionTo(to, params || @routeParams())
   getCourseID: ->
-    params = @context.router.getCurrentParams()
+    params = @props.params
     return params.course_school + '/' + params.course_title
   getCurrentUser: ->
     @state.current_user
@@ -43,12 +38,13 @@ Course = React.createClass(
     to_pass = $.extend(true, {}, @state.course)
     to_pass['submitted'] = true
     CourseActions.updateCourse to_pass, true
-  routeParams: ->
-    @context.router.getCurrentParams()
+  _courseLinkParams: ->
+    "/courses/#{@props.params.course_school}/#{@props.params.course_title}"
+  _onCourseIndex: ->
+    @props.location.pathname.split('/').length is 3
   render: ->
-    route_params = @context.router.getCurrentParams()
-
     alerts = []
+    route_params = @props.params
 
     if @getCurrentUser().id?
       user_obj = UserStore.getFiltered({ id: @getCurrentUser().id })[0]
@@ -78,7 +74,7 @@ Course = React.createClass(
             <div className='notification' key='publish'>
               <div className='container'>
                 <p>This course has been submitted for approval by its creator. To approve it, add it to a cohort on the Overview page.</p>
-                <CourseLink to='overview' className="button">Overview</CourseLink>
+                <CourseLink to="#{@_courseLinkParams()}/overview" className="button">Overview</CourseLink>
               </div>
             </div>
           )
@@ -117,14 +113,14 @@ Course = React.createClass(
         </div>
       )
 
-    #################################################
-
     unless @state.course.legacy
       timeline = (
         <div className="nav__item" id="timeline-link">
-          <p><Link params={route_params} to="timeline">Timeline</Link></p>
+          <p><Link to={"#{@_courseLinkParams()}/timeline"} activeClassName='active'>Timeline</Link></p>
         </div>
       )
+
+    overviewLinkClassName = 'active' if @_onCourseIndex()
 
     <div>
       <header className='course-page'>
@@ -171,30 +167,25 @@ Course = React.createClass(
       <div className="course_navigation">
         <nav className='container'>
           <div className="nav__item" id="overview-link">
-            <p><Link params={route_params} to="overview">Overview</Link></p>
+            <p><Link to="#{@_courseLinkParams()}/overview" className={overviewLinkClassName} activeClassName="active">Overview</Link></p>
           </div>
           {timeline}
           <div className="nav__item" id="students-link">
-            <p><Link params={route_params} to="students">Students</Link></p>
+            <p><Link to="#{@_courseLinkParams()}/students" activeClassName="active">Students</Link></p>
           </div>
           <div className="nav__item" id="articles-link">
-            <p><Link params={route_params} to="articles">Articles</Link></p>
+            <p><Link to="#{@_courseLinkParams()}/articles" activeClassName="active">Articles</Link></p>
           </div>
           <div className="nav__item" id="uploads-link">
-            <p><Link params={route_params} to="uploads">Uploads</Link></p>
+            <p><Link to="#{@_courseLinkParams()}/uploads" activeClassName="active">Uploads</Link></p>
           </div>
           <div className="nav__item" id="activity-link">
-            <p><Link params={route_params} to="activity">Activity</Link></p>
+            <p><Link to="#{@_courseLinkParams()}/activity" activeClassName="active">Activity</Link></p>
           </div>
         </nav>
       </div>
       <div className="course_main container">
-        <RouteHandler {...@props}
-          course_id={@getCourseID()}
-          current_user={@getCurrentUser()}
-          transitionTo={@transitionTo}
-          course={@state.course}
-        />
+        {React.cloneElement(@props.children, course_id: @getCourseID(), current_user: @getCurrentUser(), course:  @state.course)}
       </div>
     </div>
 )

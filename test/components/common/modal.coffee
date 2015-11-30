@@ -11,12 +11,13 @@ describe 'Modal', ->
 
   it 'renders its children with the modalClass', ->
     modalContent = ReactTestUtils.findRenderedDOMComponentWithTag(TestModal, 'div')
-    modalContent.getDOMNode().textContent.should.equal 'bar'
-    modalContent.getDOMNode().className.should.equal 'wizard active foo'
+    content = ReactDOM.findDOMNode(modalContent)
+    expect(content.textContent).to.eq 'bar'
+    expect(content.className).to.eq 'wizard active foo'
 
   it 'adds modal-open class to the body', ->
-    document.body.className.should.equal 'modal-open'
+    expect(document.body.className).to.eq 'modal-open'
 
   it 'removes the modal-open when it unmounts', ->
     TestModal.componentWillUnmount()
-    document.body.className.should.equal ''
+    expect(document.body.className).to.eq ''

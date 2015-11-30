@@ -1,6 +1,6 @@
 React           = require 'react'
 RDnD            = require 'react-dnd'
-HTML5Backend    = require 'react-dnd/modules/backends/HTML5'
+HTML5Backend    = require 'react-dnd-html5-backend'
 DDContext       = RDnD.DragDropContext
 
 Week            = require '../timeline/week'

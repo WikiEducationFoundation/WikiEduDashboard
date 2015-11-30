@@ -1,4 +1,4 @@
-React             = require 'react/addons'
+React = require 'react'
 
 Revision = React.createClass(
   displayName: 'Revision'

@@ -1,7 +1,7 @@
-React           = require 'react/addons'
-Router          = require 'react-router'
-RouteHandler    = Router.RouteHandler
-TransitionGroup = require '../../utils/TransitionGroup'
+React           = require 'react'
+ReactRouter     = require 'react-router'
+Router          = ReactRouter.Router
+TransitionGroup = require 'react-addons-css-transition-group'
 
 Timeline        = require './timeline'
 Grading         = require './grading'
@@ -29,20 +29,20 @@ TimelineHandler = React.createClass(
   componentWillMount: ->
     ServerActions.fetch 'timeline', @props.course_id
     ServerActions.fetchAllTrainingModules()
+  componentWillReceiveProps: ->
+    @setState course: CourseStore.getCourse()
   render: ->
+    outlet = React.cloneElement(@props.children, {key: 'wizard_handler', course: @props.course, weeks: @props.weeks, open_weeks: @props.course.open_weeks}) if @props.children
     <div>
       <TransitionGroup
         transitionName="wizard"
         component='div'
-        enterTimeout={500}
-        leaveTimeout={500}
+        transitionEnterTimeout={500}
+        transitionLeaveTimeout={500}
       >
-        <RouteHandler {...@props}
-          key='wizard_handler'
-          open_weeks={@props.course.open_weeks}
-        />
+        {outlet}
       </TransitionGroup>
-      <Timeline {...@props} week_meetings={@props.course.week_meetings} />
+      <Timeline {...@props} weeks={@props.weeks} week_meetings={@props.course.week_meetings} />
       <Grading {...@props} />
     </div>
 )

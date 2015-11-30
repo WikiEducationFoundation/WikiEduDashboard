@@ -1,7 +1,7 @@
 React           = require 'react'
-Router          = require 'react-router'
-Link            = Router.Link
-RouteHandler    = Router.RouteHandler
+ReactRouter     = require 'react-router'
+Router          = ReactRouter.Router
+Link            = ReactRouter.Link
 
 CourseCreatorButton = React.createClass(
   displayName: 'CourseCreatorButton'

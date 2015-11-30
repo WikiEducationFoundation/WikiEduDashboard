@@ -1,4 +1,4 @@
-React             = require 'react/addons'
+React             = require 'react'
 Editable          = require '../high_order/editable'
 
 List              = require '../common/list'

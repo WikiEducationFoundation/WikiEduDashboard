@@ -13,7 +13,7 @@ describe 'Notifications', ->
       <Notifications />
     )
 
-    rendered.should.exist
+    expect(rendered).to.exist
 
   it 'updates via API_FAIL action and removes via close', (done) ->
 
@@ -26,21 +26,21 @@ describe 'Notifications', ->
         error: 'Test error'
 
     rows = ReactTestUtils.scryRenderedDOMComponentsWithClass rendered, 'notice'
-    rows.length.should.equal 0
+    expect(rows.length).to.eq 0
 
     dispatcher.dispatch
       actionType: 'API_FAIL'
       data: notification
 
     rows = ReactTestUtils.scryRenderedDOMComponentsWithClass rendered, 'notice'
-    rows.length.should.equal 1
+    expect(rows.length).to.eq 1
 
     close = ReactTestUtils.findRenderedDOMComponentWithTag rendered, 'svg'
     Simulate.click(close)
 
     setImmediate(() ->
       rows = ReactTestUtils.scryRenderedDOMComponentsWithClass rendered, 'notice'
-      rows.length.should.equal 0
+      expect(rows.length).to.eq 0
       done()
     )
 

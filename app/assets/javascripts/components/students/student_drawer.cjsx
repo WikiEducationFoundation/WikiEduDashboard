@@ -1,4 +1,4 @@
-React             = require 'react/addons'
+React             = require 'react'
 Expandable        = require '../high_order/expandable'
 RevisionStore     = require '../../stores/revision_store'
 

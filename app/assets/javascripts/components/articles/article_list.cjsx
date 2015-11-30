@@ -1,10 +1,10 @@
-React             = require 'react/addons'
-Editable          = require '../high_order/editable'
+React         = require 'react'
+Editable      = require '../high_order/editable'
 
-List              = require '../common/list'
-Article           = require './article'
-ArticleStore      = require '../../stores/article_store'
-ServerActions     = require '../../actions/server_actions'
+List          = require '../common/list'
+Article       = require './article'
+ArticleStore  = require '../../stores/article_store'
+ServerActions = require '../../actions/server_actions'
 
 getState = ->
   articles: ArticleStore.getModels()

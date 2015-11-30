@@ -1,4 +1,4 @@
-React             = require 'react/addons'
+React             = require 'react'
 TextInput         = require '../common/text_input'
 GradeableActions  = require '../../actions/gradeable_actions'
 

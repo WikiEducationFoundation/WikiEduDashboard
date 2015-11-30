@@ -1,4 +1,5 @@
 React         = require 'react'
+ReactDOM      = require 'react-dom'
 Modal         = require '../common/modal'
 
 CourseStore        = require '../../stores/course_store'
@@ -71,7 +72,7 @@ CourseClonedModal = React.createClass(
     @setState blackoutDatesSelected: bool
 
   setNoBlackoutDatesChecked: ->
-    checked = React.findDOMNode(@refs.noDates).checked
+    checked = ReactDOM.findDOMNode(@refs.noDates).checked
     @updateCourse 'no_day_exceptions', checked
 
   render: ->

@@ -1,8 +1,7 @@
 React           = require 'react'
-Router          = require 'react-router'
 
 RDnD            = require 'react-dnd'
-HTML5Backend    = require 'react-dnd/modules/backends/HTML5'
+HTML5Backend    = require 'react-dnd-html5-backend'
 DDContext       = RDnD.DragDropContext
 
 Week            = require './week'
@@ -101,12 +100,12 @@ Timeline = React.createClass(
     if timeline_full
       wizard_link = <div className='button dark disabled' title='You cannot use the assignment design wizard when your timeline is full. Delete at least one week to make room for a new assignment.'>Add Assignment</div>
     else
-      wizard_link = <CourseLink to='wizard' className='button dark'>Add Assignment</CourseLink>
+      wizard_link = <CourseLink to="/courses/#{@props.course.slug}/timeline/wizard" className='button dark'>Add Assignment</CourseLink>
 
     controls = (
       <span>
         {wizard_link}
-        <CourseLink to='dates' className='button dark'>Edit Course Dates</CourseLink>
+        <CourseLink to="/courses/#{@props.course.slug}/timeline/dates" className='button dark'>Edit Course Dates</CourseLink>
       </span>
     )
 

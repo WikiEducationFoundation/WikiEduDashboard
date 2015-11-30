@@ -1,6 +1,4 @@
-React        = require 'react/addons'
-Router       = require 'react-router'
-RouteHandler = Router.RouteHandler
+React = require 'react'
 RecentEditsStore = require '../../stores/recent_edits_store'
 
 ActivityTable = require './activity_table'
@@ -16,7 +14,8 @@ RecentEditsHandler = React.createClass(
   getInitialState: ->
     getState()
   storeDidChange: ->
-    @setState getState()
+    revisions = getState().revisions
+    @setState revisions: revisions, loading: false
   componentWillMount: ->
     ServerActions.fetchRecentEdits()
   setCourseScope: (e) ->
@@ -38,6 +37,7 @@ RecentEditsHandler = React.createClass(
         Show My Courses Only
       </label>
       <ActivityTable
+        loading={@state.loading}
         activity={@state.revisions}
         headers={headers}
         noActivityMessage={noActivityMessage}

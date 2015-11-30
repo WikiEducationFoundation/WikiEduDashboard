@@ -1,3 +1,4 @@
+require '../testHelper'
 CourseUtils = require '../../app/assets/javascripts/utils/course_utils'
 
 describe 'CourseUtils.generateTempId', ->
@@ -7,7 +8,7 @@ describe 'CourseUtils.generateTempId', ->
       school: 'University of Wikipedia'
       title: 'Introduction to Editing'
     slug = CourseUtils.generateTempId(course)
-    slug.should.equal 'University_of_Wikipedia/Introduction_to_Editing_(Fall_2015)'
+    expect(slug).to.eq 'University_of_Wikipedia/Introduction_to_Editing_(Fall_2015)'
 
   it 'trims unnecessary whitespace', ->
     course =
@@ -15,7 +16,7 @@ describe 'CourseUtils.generateTempId', ->
       school: '   University of Wikipedia '
       title: ' Introduction to Editing     '
     slug = CourseUtils.generateTempId(course)
-    slug.should.equal 'University_of_Wikipedia/Introduction_to_Editing_(Fall_2015)'
+    expect(slug).to.eq 'University_of_Wikipedia/Introduction_to_Editing_(Fall_2015)'
 
 describe 'CourseUtils.cleanupCourseSlugComponents', ->
   it 'trims whitespace from the slug-related fields of a course object', ->
@@ -24,6 +25,6 @@ describe 'CourseUtils.cleanupCourseSlugComponents', ->
       school: '   University of Wikipedia '
       title: ' Introduction to Editing     '
     updatedCourse = CourseUtils.cleanupCourseSlugComponents(course)
-    course.term.should.equal 'Fall 2015'
-    course.school.should.equal 'University of Wikipedia'
-    course.title.should.equal 'Introduction to Editing'
+    expect(course.term).to.eq 'Fall 2015'
+    expect(course.school).to.eq 'University of Wikipedia'
+    expect(course.title).to.eq 'Introduction to Editing'

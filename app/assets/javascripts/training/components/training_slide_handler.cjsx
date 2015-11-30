@@ -2,9 +2,9 @@ React = require 'react'
 TrainingStore = require '../stores/training_store'
 TrainingActions = require '../actions/training_actions'
 ServerActions = require '../../actions/server_actions'
-Router          = require 'react-router'
-Link            = Router.Link
-Navigation      = Router.Navigation
+ReactRouter     = require 'react-router'
+History         = ReactRouter.History
+Link            = ReactRouter.Link
 SlideLink       = require './slide_link'
 SlideMenu       = require './slide_menu'
 Quiz            = require './quiz'
@@ -15,11 +15,11 @@ getState = ->
 
 TrainingSlideHandler = React.createClass(
   displayName: 'TrainingSlideHandler'
-  mixins: [TrainingStore.mixin, Navigation]
+  mixins: [TrainingStore.mixin, History]
   getInitialState: ->
     loading: true
   moduleId: ->
-    @props.params.module_id
+    @props.params?.module_id
   componentDidMount: ->
     getState(@props)
   componentWillReceiveProps: (newProps) ->
@@ -28,13 +28,13 @@ TrainingSlideHandler = React.createClass(
     @setSlideCompleted(slide_id)
     @setState getState(newProps)
   componentWillMount: ->
-    slide_id = @props.params.slide_id
+    slide_id = @props.params?.slide_id
     ServerActions.fetchTrainingModule(module_id: @moduleId(), current_slide_id: slide_id)
     @setSlideCompleted(slide_id)
   storeDidChange: ->
     @setState getState()
   setSlideCompleted: (slide_id) ->
-    user_id = document.getElementById('main').getAttribute('data-user-id')
+    user_id = document.getElementById('main')?.getAttribute('data-user-id')
     return unless user_id
     ServerActions.setSlideCompleted(
       slide_id: slide_id,
@@ -54,16 +54,19 @@ TrainingSlideHandler = React.createClass(
   disableNext: ->
     @state.currentSlide.assessment? && !@state.currentSlide.answeredCorrectly
 
+  trainingUrl: (params) ->
+    "training/#{params.library_id}/#{params.module_id}/#{params.slide_id}"
+
   handleKeyPress: (e) ->
     navParams = library_id: @props.params.library_id, module_id: @props.params.module_id
     if e.which == @keys.leftKey && @state.previousSlide?
       params = _.extend navParams, slide_id: @state.previousSlide.slug
-      @transitionTo 'slide', params
+      @history.pushState(null, @trainingUrl(params))
     if e.which == @keys.rightKey && @state.nextSlide?
       return if @disableNext()
       @setSlideCompleted(@props.params.slide_id)
       params = _.extend navParams, slide_id: @state.nextSlide.slug
-      @transitionTo 'slide', params
+      @history.pushState(null, @trainingUrl(params))
 
   componentDidMount: ->
     window.addEventListener('keyup', @handleKeyPress)

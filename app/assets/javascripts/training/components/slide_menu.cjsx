@@ -1,6 +1,6 @@
-React  = require 'react'
-Router = require 'react-router'
-Link   = Router.Link
+React       = require 'react'
+ReactRouter = require 'react-router'
+Link        = ReactRouter.Link
 
 SlideMenu = React.createClass(
   displayName: 'SlideMenu'
@@ -11,6 +11,9 @@ SlideMenu = React.createClass(
     window.addEventListener 'click', @props.closeMenu, false
   componentWillUnmount: ->
     window.removeEventListener 'click', @props.closeMenu, false
+  _slideLink: (params) ->
+    "/training/#{params.library_id}/#{params.module_id}/#{params.slide_id}"
+
   render: ->
     if @props.slides
       # need the slide index because overflow: hidden cuts off li numbering

@@ -1,4 +1,4 @@
-React             = require 'react/addons'
+React             = require 'react'
 RDnD              = require 'react-dnd'
 DragSource        = RDnD.DragSource
 DropTarget        = RDnD.DropTarget
@@ -50,10 +50,14 @@ module.exports = (Component, Type, MoveFunction) ->
     render: ->
       if @props.editable
         _.flow(@props.connectDragSource, @props.connectDropTarget)(
-          <Component {...@props} />
+          <div>
+            <Component {...@props} />
+          </div>
         )
       else
-        <Component {...@props} />
+        <div>
+          <Component {...@props} />
+        </div>
   )
 
   # The lodash `flow` function is essentially a chain, passing the return

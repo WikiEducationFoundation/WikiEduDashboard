@@ -1,13 +1,13 @@
-React           = require 'react/addons'
+React           = require 'react'
 DND             = require 'react-dnd'
-HTML5DND        = require 'react-dnd/modules/backends/HTML5'
+HTML5DND        = require 'react-dnd-html5-backend'
 Block           = require './block'
 BlockActions    = require '../../actions/block_actions'
 WeekActions     = require '../../actions/week_actions'
 GradeableStore  = require '../../stores/gradeable_store'
 TextInput       = require '../common/text_input'
 
-ReactCSSTG      = React.addons.CSSTransitionGroup
+ReactCSSTG      = require 'react-addons-css-transition-group'
 
 Week = React.createClass(
   displayName: 'Week'

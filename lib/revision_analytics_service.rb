@@ -4,8 +4,9 @@ class RevisionAnalyticsService
   # Entry points #
   ################
 
-  DEFAULT_DYK_WP10_LIMIT = 30
+  DEFAULT_DYK_WP10_LIMIT = 60
   def self.dyk_eligible(opts={})
+    []
     new(opts).dyk_eligible
   end
 
@@ -13,7 +14,7 @@ class RevisionAnalyticsService
     new(opts).suspected_plagiarism
   end
 
-  DEFAULT_RECENT_EDITS_LIMIT = 200
+  DEFAULT_RECENT_EDITS_LIMIT = 30
   def self.recent_edits(opts={})
     new(opts).recent_edits
   end
@@ -36,7 +37,7 @@ class RevisionAnalyticsService
     wp10_limit = ENV['dyk_wp10_limit'] || DEFAULT_DYK_WP10_LIMIT
     good_student_revisions = Revision
                              .where(user_id: student_ids)
-                             .where('wp10 > ?', wp10_limit)
+                             .where('wp10 >= ?', wp10_limit)
                              .where('date > ?', 2.months.ago)
     good_article_ids = good_student_revisions.pluck(:article_id)
     good_user_space = Article.where(id: good_article_ids)

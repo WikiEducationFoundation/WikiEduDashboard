@@ -1,14 +1,11 @@
-React           = require 'react/addons'
-Router          = require 'react-router'
-RouteHandler    = Router.RouteHandler
+React           = require 'react'
 DidYouKnowStore = require '../../stores/did_you_know_store'
-
-ActivityTable = require './activity_table'
-
+ActivityTable   = require './activity_table'
 ServerActions   = require '../../actions/server_actions'
 
 getState = ->
   articles: DidYouKnowStore.getArticles()
+  loading: true
 
 DidYouKnowHandler = React.createClass(
   displayName: 'DidYouKnowHandler'
@@ -16,7 +13,8 @@ DidYouKnowHandler = React.createClass(
   getInitialState: ->
     getState()
   storeDidChange: ->
-    @setState getState()
+    articles = getState().articles
+    @setState articles: articles, loading: false
   componentWillMount: ->
     ServerActions.fetchDYKArticles()
   setCourseScope: (e) ->
@@ -39,6 +37,7 @@ DidYouKnowHandler = React.createClass(
         Show My Courses Only
       </label>
       <ActivityTable
+        loading={@state.loading}
         activity={@state.articles}
         headers={headers}
         noActivityMessage={noActivityMessage}

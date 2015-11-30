@@ -1,16 +1,16 @@
 React         = require 'react'
-Router        = require 'react-router'
+ReactRouter   = require 'react-router'
+Router        = ReactRouter.Router
 Panel         = require './panel'
 FormPanel     = require './form_panel'
 TimelinePanel = require './timeline_panel'
 SummaryPanel  = require './summary_panel'
-CourseLink    = require '../common/course_link'
 
 Modal         = require '../common/modal'
 WizardActions = require '../../actions/wizard_actions'
 ServerActions = require '../../actions/server_actions'
 WizardStore   = require '../../stores/wizard_store'
-TransitionGroup   = require '../../utils/TransitionGroup'
+TransitionGroup   = require 'react-addons-css-transition-group'
 
 getState = ->
   summary: WizardStore.getSummary()
@@ -29,7 +29,7 @@ Wizard = React.createClass(
   storeDidChange: ->
     @setState getState()
   timelinePath: ->
-    routes = @context.router.getCurrentPath().split('/')
+    routes = @props.location.pathname.split('/')
     routes.pop()
     routes.join('/')
   render: ->
@@ -62,6 +62,7 @@ Wizard = React.createClass(
           step={step}
           summary={@state.summary}
           open_weeks={@props.open_weeks}
+          course={@props.course}
         />
       else
         <SummaryPanel panel={panel}
@@ -70,17 +71,16 @@ Wizard = React.createClass(
           key={panel.key}
           index={i}
           step={step}
-          courseId={@props.course_id}
+          courseId={@props.course.slug}
           wizardId={@state.wizard_id}
-          transitionTo={@props.transitionTo}
         />
 
     <Modal>
       <TransitionGroup
         transitionName="wizard__panel"
         component='div'
-        enterTimeout={500}
-        leaveTimeout={500}
+        transitionEnterTimeout={500}
+        transitionLeaveTimeout={500}
       >
         {panels}
       </TransitionGroup>

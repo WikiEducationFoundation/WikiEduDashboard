@@ -37,7 +37,7 @@ ValidationStore = Flux.createStore
     else true
   firstMessage: ->
     if _errorQueue.length > 0
-      _validations[_errorQueue[0]]
+      _validations[_errorQueue[0]].message
     else
       null
 , (payload) ->

@@ -1,6 +1,7 @@
 React         = require 'react'
-Router        = require 'react-router'
-Link          = Router.Link
+ReactDOM      = require 'react-dom'
+ReactRouter   = require 'react-router'
+Link          = ReactRouter.Link
 
 CourseStore        = require '../../stores/course_store'
 UserCoursesStore   = require '../../stores/user_courses_store'
@@ -13,7 +14,7 @@ Modal           = require '../common/modal'
 TextInput       = require '../common/text_input'
 TextAreaInput   = require '../common/text_area_input'
 CourseUtils     = require '../../utils/course_utils'
-TransitionGroup = require '../../utils/TransitionGroup'
+TransitionGroup = require 'react-addons-css-transition-group'
 
 getState = ->
   course: CourseStore.getCourse()
@@ -23,8 +24,6 @@ getState = ->
 CourseCreator = React.createClass(
   displayName: 'CourseCreator'
   mixins: [CourseStore.mixin, ValidationStore.mixin, UserCoursesStore.mixin]
-  contextTypes:
-    router: React.PropTypes.func.isRequired
   storeDidChange: ->
     @setState getState()
     @state.tempCourseId = CourseUtils.generateTempId(@state.course)
@@ -73,7 +72,7 @@ CourseCreator = React.createClass(
   showCourseDropdown: ->
     @setState showCourseDropdown: true
   useThisClass: (e) ->
-    select = React.findDOMNode(@refs.courseSelect)
+    select = ReactDOM.findDOMNode(@refs.courseSelect)
     courseId = select.options[select.selectedIndex].getAttribute('data-id-key')
     ServerActions.cloneCourse(courseId)
     @setState isSubmitting: true, shouldRedirect: true
@@ -99,8 +98,8 @@ CourseCreator = React.createClass(
     <TransitionGroup
       transitionName="wizard"
       component='div'
-      enterTimeout={500}
-      leaveTimeout={500}
+      transitionEnterTimeout={500}
+      transitionLeaveTimeout={500}
     >
       <Modal key="modal">
         <div className="wizard__panel active" style={form_style}>
