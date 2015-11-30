@@ -6,14 +6,14 @@ describe 'main-utils', ->
     it 'shorterns a string to 15 characters plus ellipsis', ->
       testString = 'áBcdèfghijklmnopqrstuvwxyz'
       truncatedString = testString.trunc()
-      truncatedString.should.equal 'áBcdèfghijklmno…'
+      expect(truncatedString).to.eq 'áBcdèfghijklmno…'
 
   describe 'String.capitalize', ->
     it 'upcases the first letter of a string', ->
       testString = 'abCDE fg'
       truncatedString = testString.capitalize()
-      truncatedString.should.equal 'AbCDE fg'
+      expect(truncatedString).to.eq 'AbCDE fg'
     it 'handles unicode properly', ->
       testString = 'ábCDEfg'
       truncatedString = testString.capitalize()
-      truncatedString.should.equal 'ÁbCDEfg'
+      expect(truncatedString).to.eq 'ÁbCDEfg'

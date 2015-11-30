@@ -22,6 +22,5 @@ require 'jsx-require-extension'
 jsdom
   skipWindowCheck: true
 
-chai.should()
 global.expect = chai.expect
 global.assert = chai.assert
