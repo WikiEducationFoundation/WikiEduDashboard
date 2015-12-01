@@ -28,7 +28,7 @@ require "#{Rails.root}/lib/utils"
 #= User model
 class User < ActiveRecord::Base
   validates :permissions, inclusion: { in: [0, 1, 2] }
-​
+
   #############
   # Constants #
   #############
