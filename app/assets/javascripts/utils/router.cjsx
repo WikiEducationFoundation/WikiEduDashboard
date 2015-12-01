@@ -45,6 +45,7 @@ routes = (
       <Route path='recent-edits' component={RecentEditsHandler} />
     </Route>
     <Route path='courses'>
+      <IndexRoute component={CourseCreatorButton} />
       <Route path=':course_school/:course_title' component={Course}>
         <IndexRoute component={OverviewHandler} />
         <Route path="overview" component={OverviewHandler} />
