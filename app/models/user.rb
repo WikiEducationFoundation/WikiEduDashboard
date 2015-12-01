@@ -27,12 +27,15 @@ require "#{Rails.root}/lib/utils"
 
 #= User model
 class User < ActiveRecord::Base
+  validates :permissions, inclusion: { in: [0, 1, 2] }
+​
   #############
   # Constants #
   #############
   module Permissions
     NONE  = 0
     ADMIN = 1
+    INSTRUCTOR = 2
   end
 
   # Include default devise modules. Others available are:

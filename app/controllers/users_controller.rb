@@ -22,13 +22,24 @@ class UsersController < ApplicationController
     render 'users', formats: :json
   end
 
+  # Onboarding sets the user's real name, email address, and optionally instructor permissions
   def onboard
-    [:real_name, :email].each_with_object(params) do |key, obj|
+    # todo: test
+
+    [:real_name, :email, :instructor].each_with_object(params) do |key, obj|
       obj.require(key)
     end
 
     user = User.find(current_user.id)
-    user.update_attributes(real_name: params[:real_name], email: params[:email], onboarded: true)
+
+    permissions = user.permissions
+    if permissions != User::Permissions::ADMIN
+      if params[:instructor] == true
+        permissions = User::Permissions::INSTRUCTOR
+      end
+    end
+
+    user.update_attributes(real_name: params[:real_name], email: params[:email], permissions: permissions, onboarded: true)
 
     render nothing: true, status: 204
   end

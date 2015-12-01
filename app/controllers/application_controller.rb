@@ -30,7 +30,6 @@ class ApplicationController < ActionController::Base
   end
 
   def check_onboarded
-    # Todo: test, path helpers
     # return unless current_user
     # return if current_user.onboarded
     # return if request.fullpath == onboarding_path
