@@ -41,7 +41,7 @@ routes = (
   <Route path='/' component={App}>
     <IndexRoute component={CourseCreatorButton} />
     <Route path='onboarding'>
-      <IndexRoute handler={Onboarding} />
+      <IndexRoute component={Onboarding} />
     </Route>
     <Route path='recent-activity' component={RecentActivityHandler}>
       <IndexRoute component={DidYouKnowHandler} />

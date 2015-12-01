@@ -132,8 +132,8 @@ Onboarding = React.createClass(
         <TransitionGroup
           transitionName="fade"
           component='div'
-          enterTimeout={250}
-          leaveTimeout={250}
+          transitionEnterTimeout={250}
+          transitionLeaveTimeout={250}
         >
           {contents}
         </TransitionGroup>
