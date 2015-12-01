@@ -2,15 +2,15 @@
   .container
     %h1= ENV['dashboard_title']
 
-    %a.button{href: user_omniauth_authorize_path(:mediawiki)}
+    = link_to user_omniauth_authorize_path(:mediawiki), {class: 'button'} do
       %i.icon.icon-wiki-logo
       = t('home.log_in')
 
-    %a.button.button-ghost.button-inverse{href: user_omniauth_authorize_path(:mediawiki_signup)}
+    = link_to user_omniauth_authorize_path(:mediawiki_signup), {class: 'button button-ghost button-inverse'} do
       %i.icon.icon-wiki-logo
       = t('home.sign_up')
 
-    %a.help{href: '/ask'} ?
+    = link_to '?', '/ask', {class: 'help'}
 
 %section
   .container.text-center
@@ -18,7 +18,7 @@
 
     = render 'courses/header_stats', presenter: @presenter
 
-    %a.button.button-ghost{href: '/courses'}= t('home.explore')
+    = link_to t('home.explore'), '/courses', {class: 'button button-ghost'}
 
 %section.light
   .container
@@ -81,10 +81,10 @@
       across the United States and Canada, including:
 
     .logos
-      %img{:src => "/assets/images/university-logo-1.png", :alt => ""}
-      %img{:src => "/assets/images/university-logo-2.png", :alt => ""}
-      %img{:src => "/assets/images/university-logo-3.png", :alt => ""}
-      %img{:src => "/assets/images/university-logo-4.png", :alt => ""}
-      %img{:src => "/assets/images/university-logo-5.png", :alt => ""}
-      %img{:src => "/assets/images/university-logo-6.png", :alt => ""}
-      %img{:src => "/assets/images/university-logo-7.png", :alt => ""}
+      = image_tag "/assets/images/university-logo-1.png"
+      = image_tag "/assets/images/university-logo-2.png"
+      = image_tag "/assets/images/university-logo-3.png"
+      = image_tag "/assets/images/university-logo-4.png"
+      = image_tag "/assets/images/university-logo-5.png"
+      = image_tag "/assets/images/university-logo-6.png"
+      = image_tag "/assets/images/university-logo-7.png"
