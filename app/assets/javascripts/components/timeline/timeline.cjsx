@@ -5,6 +5,7 @@ HTML5Backend    = require 'react-dnd-html5-backend'
 DDContext       = RDnD.DragDropContext
 
 Week            = require './week'
+Loading           = require '../common/loading'
 CourseLink      = require '../common/course_link'
 
 WeekActions     = require '../../actions/week_actions'
@@ -33,8 +34,11 @@ Timeline = React.createClass(
       BlockActions.insertBlock block, after_block.week_id, after_block.order
   render: ->
     week_components = []
-    i = 0
-    @props.weeks.forEach (week) =>
+
+    unless @props.weeks.length > 0
+      return <Loading />
+
+    @props.weeks.map (week, i) =>
       unless week.deleted
         if @props.course.week_meetings?
           while @props.course.week_meetings[i] == '()'
@@ -44,39 +48,32 @@ Timeline = React.createClass(
                 week={title: null}
                 index={i + 1}
                 key={"noweek_#{i}"}
-                start={@props.course.timeline_start}
-                end={@props.course.timeline_end}
+                start_date={week.start_date}
+                end_date={week.end_date}
                 editable=false
                 meetings='(No meetings this week)'
                 all_training_modules={@props.all_training_modules}
               />
             )
-            i++
 
         week_components.push (
-          <Week
-            week={week}
-            index={i + 1}
-            key={week.id}
-            start={@props.course.timeline_start}
-            end={@props.course.timeline_end}
-            editable={@props.editable}
-            blocks={BlockStore.getBlocksInWeek(week.id)}
-            moveBlock={@moveBlock}
-            deleteWeek={@deleteWeek.bind(this, week.id)}
-            meetings={if @props.course.week_meetings? then @props.course.week_meetings[i] else ''}
-            all_training_modules={@props.all_training_modules}
-          />
+          <div key={week.id}>
+            <a className="timeline__anchor" name={"week-#{week.id}"} />
+            <Week
+              week={week}
+              index={i + 1}
+              editable={@props.editable}
+              blocks={BlockStore.getBlocksInWeek(week.id)}
+              moveBlock={@moveBlock}
+              deleteWeek={@deleteWeek.bind(this, week.id)}
+              meetings={if @props.course.week_meetings? then @props.course.week_meetings[i] else ''}
+              all_training_modules={@props.all_training_modules}
+            />
+          </div>
         )
-        i++
-
-    start = moment(@props.course.timeline_start)
-    end = moment(@props.course.timeline_end)
-
-    timeline_full = end.diff(start, 'weeks') - @props.weeks.length <= 0
 
     if @props.editable
-      add_week_button = if timeline_full then (
+      add_week_button = if @props.course.timeline_full then (
         <div className='button dark disabled' title='You cannot add new weeks when your timeline is full. Delete at least one week to make room for a new one.'>Add New Week</div>
       ) else (
         <button className='button dark' onClick={@addWeek}>Add New Week</button>
@@ -97,7 +94,7 @@ Timeline = React.createClass(
         </li>
       )
 
-    if timeline_full
+    if @props.course.timeline_full
       wizard_link = <div className='button dark disabled' title='You cannot use the assignment design wizard when your timeline is full. Delete at least one week to make room for a new assignment.'>Add Assignment</div>
     else
       wizard_link = <CourseLink to="/courses/#{@props.course.slug}/timeline/wizard" className='button dark'>Add Assignment</CourseLink>
@@ -109,6 +106,13 @@ Timeline = React.createClass(
       </span>
     )
 
+    week_nav = @props.weeks.map (week, i) => (
+      <li key={"week-#{week.id}"}>
+        <a href={"#week-#{week.id}"}>{week.title || "Week #{i + 1}"}</a>
+        <span className="pull-right">{week.start_date} - {week.end_date}</span>
+      </li>
+    )
+
     <div>
       <div className="section-header">
         <h3>Timeline</h3>
@@ -116,11 +120,18 @@ Timeline = React.createClass(
           {@props.controls(controls)}
         </div>
       </div>
-      <ul className="list-unstyled">
-        {week_components}
-        {no_weeks}
-        {add_week}
-      </ul>
+      <div className="timeline__content">
+        <ul className="list-unstyled timeline__weeks">
+          {week_components}
+          {no_weeks}
+          {add_week}
+        </ul>
+        <div className="timeline__week-nav">
+          <ol>
+            {week_nav}
+          </ol>
+        </div>
+      </div>
     </div>
 )
 

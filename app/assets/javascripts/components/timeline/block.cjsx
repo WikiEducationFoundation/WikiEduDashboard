@@ -144,7 +144,7 @@ Block = React.createClass(
           inline=true
           isClearable=true
           show={@props.editable && parseInt(@props.block.kind) == 1}
-          date_props={minDate: @props.week_start.clone().subtract(1, 'days')}
+          date_props={minDate: @props.week_start}
           onFocus={@props.toggleFocused}
           onBlur={@props.toggleFocused}
         />

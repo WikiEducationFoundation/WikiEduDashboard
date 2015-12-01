@@ -27,10 +27,6 @@ Week = React.createClass(
     else
       @setState focusedBlockId: block_id
   render: ->
-    # Start and end dates
-    start = moment(@props.start).startOf('week').add(7 * (@props.index - 1), 'day')
-    end = moment.min(start.clone().add(6, 'day'), moment(@props.end))
-
     blocks = @props.blocks.map (block, i) =>
       unless block.deleted
         <Block
@@ -43,7 +39,7 @@ Week = React.createClass(
           deleteBlock={@deleteBlock.bind(this, block.id)}
           moveBlock={@props.moveBlock}
           week_index={@props.index}
-          week_start={moment(@props.start).startOf('isoWeek').add(7 * (@props.index - 1), 'day')}
+          week_start={@props.start_date}
           all_training_modules={@props.all_training_modules}
         />
     blocks.sort (a, b) ->
@@ -65,7 +61,7 @@ Week = React.createClass(
         spacer = ' '
       week_label = 'Week ' + @props.index
       # Final label
-      week_label += " (#{start.format('MM/DD')} - #{end.format('MM/DD')}) #{@props.meetings}"
+      week_label += " (#{@props.week.start_date} - #{@props.week.end_date}) #{@props.meetings}"
       title = (
         <TextInput
           onChange={@updateWeek}

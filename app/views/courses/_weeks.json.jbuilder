@@ -1,7 +1,10 @@
 course_meetings_manager = CourseMeetingsManager.new(course)
 
 json.weeks course.weeks.eager_load(blocks: [:gradeable]) do |week|
+  start_date = course.timeline_start.beginning_of_week + (7 * week.order).days
   json.call(week, :id, :title, :order)
+  json.start_date start_date.strftime('%m/%d')
+  json.end_date start_date.end_of_week.strftime('%m/%d')
   json.blocks week.blocks do |block|
     json.call(block, :id, :kind, :content, :week_id,
               :gradeable_id, :title, :order, :due_date,

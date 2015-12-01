@@ -33,6 +33,7 @@ TimelineHandler = React.createClass(
     @setState course: CourseStore.getCourse()
   render: ->
     outlet = React.cloneElement(@props.children, {key: 'wizard_handler', course: @props.course, weeks: @props.weeks, open_weeks: @props.course.open_weeks}) if @props.children
+
     <div>
       <TransitionGroup
         transitionName="wizard"
@@ -42,7 +43,7 @@ TimelineHandler = React.createClass(
       >
         {outlet}
       </TransitionGroup>
-      <Timeline {...@props} weeks={@props.weeks} week_meetings={@props.course.week_meetings} />
+      <Timeline {...@props} loading={@props.loading} weeks={@props.weeks} week_meetings={@props.course.week_meetings} />
       <Grading {...@props} />
     </div>
 )

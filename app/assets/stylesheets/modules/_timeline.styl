@@ -135,3 +135,33 @@ input[type="checkbox"]
   color $success_text
   font-weight bold
 
+.timeline__content
+  col(12/12)
+
+.timeline__week-nav
+  col(3/12, offset: 1/12)
+
+.timeline__weeks, .timeline__grading-container
+  col(8/12)
+
+.timeline__anchor
+  display inline-block
+  padding-top 80px
+  margin-top -80px
+
+.timeline__week-nav ol
+  list-style none
+  padding 8px
+  background #FFF
+  li
+    border-bottom 1px solid $border_lt
+    margin-left 0
+    &:last-child
+      border-bottom none
+    padding 15px 8px
+  a
+    color $text
+    font-size 15px
+    text-decoration none
+  span
+    color $text_lt

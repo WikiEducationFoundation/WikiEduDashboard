@@ -27,11 +27,11 @@ Grading = React.createClass(
       )
 
     <div>
-      <div className="section-header">
+      <div className="section-header timeline__grading-container">
         <h3>Grading <span>(Total: {total}%)</span></h3>
         {@props.controls(null, @props.gradeables.length < 1)}
       </div>
-      <ul className="list-unstyled">
+      <ul className="list-unstyled timeline__grading-container">
         {gradeables}
         {no_gradeables}
       </ul>
