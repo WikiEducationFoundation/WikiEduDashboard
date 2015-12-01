@@ -94,9 +94,7 @@ Timeline = React.createClass(
         </li>
       )
 
-    if @props.course.timeline_full
-      wizard_link = <div className='button dark disabled' title='You cannot use the assignment design wizard when your timeline is full. Delete at least one week to make room for a new assignment.'>Add Assignment</div>
-    else
+    unless week_components.length > 0
       wizard_link = <CourseLink to="/courses/#{@props.course.slug}/timeline/wizard" className='button dark'>Add Assignment</CourseLink>
 
     controls = (
