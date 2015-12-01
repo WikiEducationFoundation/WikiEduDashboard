@@ -255,11 +255,6 @@ API =
         data: JSON.stringify(req_data)
         success: (data) ->
           console.log 'Saved timeline!'
-          RavenLogger['obj'] = @obj
-          RavenLogger['status'] = @status
-          Raven.captureMessage('saveTimeline successful',
-                               level: 'info',
-                               extra: RavenLogger)
           res data
       .fail (obj, status) ->
         @obj = obj
@@ -313,10 +308,6 @@ API =
         data: JSON.stringify(req_data)
         success: (data) ->
           console.log 'Saved course!'
-          RavenLogger['status'] = @status
-          Raven.captureMessage('saveCourse successful',
-                               level: 'info',
-                               extra: RavenLogger)
           res data
       .fail (obj, status) ->
         @obj = obj
