@@ -20,6 +20,11 @@ categories:
         description: |
           A case study of an assignment to translate article from French
           Wikipedia to English Wikipedia
+      - slug: illustration-assignment
+        name: Designing a Media Contribution Assignment
+        description: |
+          A case study of an assignment to illustrate Wikipedia with photos and
+          other media contributions
       - slug: assigning-medical-topics
         name: Assigning Medical and Psychology Topics
         description: |
