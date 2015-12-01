@@ -5,6 +5,7 @@ describe ApplicationController do
 
   controller do
     def index
+      render nothing: true, status: 200
     end
   end
 
@@ -23,6 +24,38 @@ describe ApplicationController do
       allow(controller).to receive(:check_for_unsupported_browser).and_raise(exception)
       get 'index'
       expect(response.status).to eq(401)
+    end
+  end
+
+  describe 'forced onboarding' do
+    let(:user) { create(:user, onboarded: onboarded) }
+
+    describe 'when authenticated and onboarded' do
+      let(:onboarded) { true }
+
+      it 'should not redirect' do
+        allow(controller).to receive(:current_user).and_return(user)
+        get 'index'
+        expect(response.status).to eq(200)
+      end
+    end
+
+    describe 'when authenticated and NOT onboarded' do
+      let(:onboarded) { false }
+
+      it 'should redirect to onboarding' do
+        allow(controller).to receive(:current_user).and_return(user)
+        get 'index'
+        expect(response).to redirect_to(:onboarding)
+      end
+    end
+
+    describe 'when not authenticated' do
+      it 'should not redirect' do
+        allow(controller).to receive(:current_user).and_return(nil)
+        get 'index'
+        expect(response.status).to eq(200)
+      end
     end
   end
 end
