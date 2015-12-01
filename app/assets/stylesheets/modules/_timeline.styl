@@ -153,12 +153,29 @@ input[type="checkbox"]
   list-style none
   padding 8px
   background #FFF
+  border 1px solid $border_med
   li
     border-bottom 1px solid $border_lt
     margin-left 0
+    padding 8px
     &:last-child
       border-bottom none
-    padding 8px
+    &.is-current
+      a
+        color $brand_primary
+        font-weight bold
+      span
+        color $text
+      &:before
+        content '► '
+        float left
+        width 0
+        position relative
+        right 17px
+        color $border_med
+        font-size 12px
+        top 2px
+        height 0px
   a
     color $text
     font-size 15px

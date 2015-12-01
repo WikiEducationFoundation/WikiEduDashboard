@@ -9,6 +9,8 @@ Loading         = require '../common/loading'
 CourseLink      = require '../common/course_link'
 Affix           = require '../common/affix'
 
+Waypoint        = require 'react-waypoint'
+
 WeekActions     = require '../../actions/week_actions'
 BlockActions    = require '../../actions/block_actions'
 
@@ -16,6 +18,9 @@ BlockStore      = require '../../stores/block_store'
 
 Timeline = React.createClass(
   displayName: 'Timeline'
+  getInitialState: ->
+    week_entered: 0
+    unscrolled: true
   addWeek: ->
     WeekActions.addWeek()
   deleteWeek: (week_id) ->
@@ -33,6 +38,19 @@ Timeline = React.createClass(
     else
       block.week_id = after_block.week_id
       BlockActions.insertBlock block, after_block.week_id, after_block.order
+
+  _setScrolled: ->
+    @setState unscrolled: false
+
+  _handleWaypointEnter: (week_id) ->
+    @setState week_entered: week_id
+
+  componentDidMount: ->
+    window.addEventListener 'scroll', @_setScrolled
+
+  componentDidUnMount: ->
+    window.removeEventListener 'scroll'
+
   render: ->
     week_components = []
 
@@ -70,6 +88,7 @@ Timeline = React.createClass(
               meetings={if @props.course.week_meetings? then @props.course.week_meetings[i] else ''}
               all_training_modules={@props.all_training_modules}
             />
+            <Waypoint onEnter={@_handleWaypointEnter.bind(@, week.id)} />
           </div>
         )
 
@@ -106,10 +125,15 @@ Timeline = React.createClass(
     )
 
     week_nav = @props.weeks.map (week, i) => (
-        <li key={"week-#{week.id}"}>
-          <a href={"#week-#{week.id}"}>{week.title || "Week #{i + 1}"}</a>
-          <span className="pull-right">{week.start_date} - {week.end_date}</span>
-        </li>
+      className = ''
+      if @state.unscrolled is true && i == 0
+        className += 'is-current '
+      if @state.unscrolled is false && @state.week_entered is week.id
+        className += 'is-current '
+      <li className={className} key={"week-#{week.id}"}>
+        <a href={"#week-#{week.id}"}>{week.title || "Week #{i + 1}"}</a>
+        <span className="pull-right">{week.start_date} - {week.end_date}</span>
+      </li>
     )
 
     <div>

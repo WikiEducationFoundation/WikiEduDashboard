@@ -85,6 +85,7 @@
     "react-router": "1.0.0",
     "react-select": "0.6.12",
     "react-typeahead": "1.1.5",
+    "react-waypoint": "^1.1.2",
     "react-weekday-picker": "1.0.6"
   },
   "scripts": {
