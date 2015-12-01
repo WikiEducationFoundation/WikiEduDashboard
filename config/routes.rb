@@ -146,7 +146,7 @@ Rails.application.routes.draw do
   root to: 'home#index'
 
   # Onboarding
-  get 'onboarding' => 'onboarding#index'
+  get 'onboarding' => 'onboarding#index', as: :onboarding
   put 'users/onboard' => 'users#onboard'
 
   # Route aliases for React frontend

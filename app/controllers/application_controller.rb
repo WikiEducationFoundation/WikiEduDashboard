@@ -12,9 +12,9 @@ class ApplicationController < ActionController::Base
            status: :unauthorized
   end
 
-  before_action :check_onboarded
   before_action :check_for_expired_oauth_credentials
   before_action :check_for_unsupported_browser
+  before_action :check_onboarded
 
   force_ssl if: :ssl_configured?
 
@@ -30,11 +30,11 @@ class ApplicationController < ActionController::Base
   end
 
   def check_onboarded
-    # Todo: private, test, path helpers
+    # Todo: test, path helpers
     return unless current_user
-    return if current_user.onboarded == true
-    return if request.fullpath == '/onboarding'
-    redirect_to '/onboarding'
+    return if current_user.onboarded
+    return if request.fullpath == onboarding_path
+    redirect_to onboarding_path
   end
 
   def require_permissions
@@ -85,10 +85,13 @@ class ApplicationController < ActionController::Base
     Rails.env.staging? || Rails.env.production?
   end
 
+<<<<<<< 8b7e6eefa234f9af43b3dec7503f4a52d32f1c1f
   def set_locale_override
     if params[:locale]
       # Param takes precedence over language preferences from HTTP headers.
       http_accept_language.user_preferred_languages.unshift(params[:locale])
     end
   end
+=======
+>>>>>>> Add onboarding redirects
 end

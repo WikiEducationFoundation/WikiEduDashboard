@@ -13,6 +13,7 @@ class OnboardingController < ApplicationController
     # Redirect to dashboard if they're already onboarded
     if current_user.onboarded
       redirect_to root_path
+      return
     end
 
   end

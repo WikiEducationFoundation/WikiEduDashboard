@@ -28,7 +28,7 @@ class UsersController < ApplicationController
     end
 
     user = User.find(current_user.id)
-    user.update_attributes(real_name: p[:real_name], email: p[:email], onboarded: true)
+    user.update_attributes(real_name: params[:real_name], email: params[:email], onboarded: true)
 
     render nothing: true, status: 204
   end
