@@ -15,6 +15,11 @@ categories:
       - slug: designing-a-writing-assignment
         name: 'Designing a Wikipedia Writing and Research Assignment'
         description: 'A case study of the "classic" Wikipedia assignment'
+      - slug: designing-a-translation-assignment
+        name: Designing a Translation Assignment
+        description: |
+          A case study of an assignment to translate article from French
+          Wikipedia to English Wikipedia
       - slug: assigning-medical-topics
         name: Assigning Medical and Psychology Topics
         description: |

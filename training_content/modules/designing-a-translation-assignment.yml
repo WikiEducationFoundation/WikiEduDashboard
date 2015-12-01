@@ -1,0 +1,12 @@
+name: Designing a Translation Assignment
+id: 13
+description: |
+  PLACEHOLDER
+estimated_ttc: 5 minutes
+slides:
+  - slug: translation-case-study # 1301
+  - slug: translation-week-1 # 1302
+  - slug: translation-week-2 # 1303
+  - slug: translation-week-3 # 1304
+  - slug: translation-week-4 # 1305
+  - slug: translation-week-5 # 1306
