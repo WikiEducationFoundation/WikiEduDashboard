@@ -57,5 +57,15 @@ describe ApplicationController do
         expect(response.status).to eq(200)
       end
     end
+
+    describe 'when already at onboarding route' do
+      let(:onboarded) { false }
+
+      it 'should not redirect' do
+        allow(controller).to receive(:current_user).and_return(user)
+        subject { get :onboarding }
+        expect(response.status).to eq(200)
+      end
+    end
   end
 end
