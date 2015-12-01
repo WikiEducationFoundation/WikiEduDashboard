@@ -31,10 +31,10 @@ class ApplicationController < ActionController::Base
 
   def check_onboarded
     # Todo: test, path helpers
-    return unless current_user
-    return if current_user.onboarded
-    return if request.fullpath == onboarding_path
-    redirect_to onboarding_path
+    # return unless current_user
+    # return if current_user.onboarded
+    # return if request.fullpath == onboarding_path
+    # redirect_to onboarding_path
   end
 
   def require_permissions
