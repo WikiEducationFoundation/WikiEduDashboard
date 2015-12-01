@@ -30,10 +30,10 @@ class ApplicationController < ActionController::Base
   end
 
   def check_onboarded
-    # return unless current_user
-    # return if current_user.onboarded
-    # return if request.fullpath == onboarding_path
-    # redirect_to onboarding_path
+    return unless current_user
+    return if current_user.onboarded
+    return if request.fullpath == onboarding_path
+    redirect_to onboarding_path
   end
 
   def require_permissions
