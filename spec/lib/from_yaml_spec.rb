@@ -4,13 +4,26 @@ require "#{Rails.root}/lib/training_module"
 
 describe FromYaml do
   describe '.load' do
-    let(:subject) do
-      FromYaml.load(path_to_yaml: "#{Rails.root}/spec/support/bad_yaml_file.yml",
-                    cache_key: 'test')
+    context 'when a file is misformatted' do
+      let(:subject) do
+        FromYaml.load(path_to_yaml: "#{Rails.root}/spec/support/bad_yaml_file.yml",
+                      cache_key: 'test')
+      end
+      it 'raises an error and outputs the filename the bad file' do
+        expect(STDOUT).to receive(:puts).with(/.*bad_yaml_file.*/)
+        expect { subject }.to raise_error(NoMethodError)
+      end
     end
-    it 'outputs the filename when loading a misformatted file causes an error' do
-      expect(STDOUT).to receive(:puts).with(/.*bad_yaml_file.*/)
-      expect { subject }.to raise_error(NoMethodError)
+
+    context 'when there are duplicate slugs' do
+      let(:subject) do
+        FromYaml.load(path_to_yaml: "#{Rails.root}/spec/support/duplicate_slugs/*.yml",
+                      cache_key: 'test',
+                      trim_id_from_filename: true)
+      end
+      it 'raises an error and outputs the filename the bad file' do
+        expect { subject }.to raise_error(FromYaml::DuplicateSlugError, /.*duplicate-yaml-slug.*/)
+      end
     end
   end
 

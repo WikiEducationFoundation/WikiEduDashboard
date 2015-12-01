@@ -27,6 +27,7 @@ class FromYaml
       collection << self.new(content, slug)
     end
     Rails.cache.write args[:cache_key], collection
+    check_for_duplicate_slugs
   end
 
   def self.all
@@ -38,6 +39,17 @@ class FromYaml
 
   def self.find_by(opts)
     self.all.detect { |obj| obj.slug == opts[:slug] }
+  end
+
+  def self.check_for_duplicate_slugs
+    all_slugs = self.all.map(&:slug)
+    duplicate_slug = all_slugs.detect { |slug| all_slugs.count(slug) > 1 }
+    return if duplicate_slug.nil?
+    type = self.all[0].class
+    fail DuplicateSlugError, "duplicate #{type} slug detected: #{duplicate_slug}"
+  end
+
+  class DuplicateSlugError < StandardError
   end
 
   ####################
