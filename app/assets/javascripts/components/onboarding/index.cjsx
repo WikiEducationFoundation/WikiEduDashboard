@@ -12,6 +12,7 @@ Onboarding = React.createClass(
       user: user
       name: user.real_name
       email: user.email
+      instructor: if user.permissions? then String(user.permission == 2) else null
     }
 
 
@@ -87,13 +88,13 @@ Onboarding = React.createClass(
             <div className="radio-group">
               <div className={"radio-wrapped " + (if @state.instructor == 'true' then 'checked' else '')}>
                 <label>
-                  <input required type="radio" name="instructor" value="true" onChange={@_handleFieldChange.bind(this, 'instructor')} />
+                  <input required type="radio" name="instructor" value="true" defaultChecked={@state.instructor == 'true'} onChange={@_handleFieldChange.bind(this, 'instructor')} />
                   Yes
                 </label>
               </div>
               <div className={"radio-wrapped " + (if @state.instructor == 'false' then 'checked' else '')}>
                 <label>
-                  <input required type="radio" name="instructor" value="false" onChange={@_handleFieldChange.bind(this, 'instructor')} />
+                  <input required type="radio" name="instructor" value="false" defaultChecked={@state.instructor == 'false'} onChange={@_handleFieldChange.bind(this, 'instructor')} />
                   No
                 </label>
               </div>
