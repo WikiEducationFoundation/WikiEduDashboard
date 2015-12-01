@@ -36,7 +36,7 @@ Onboarding = React.createClass(
     API.onboard
       real_name: @state.name
       email: @state.email
-      instructor: @state.instructor == true
+      instructor: @state.instructor == 'true'
     .then (res) ->
       setTimeout () ->
         document.location.href = "/"

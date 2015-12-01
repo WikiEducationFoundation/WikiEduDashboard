@@ -30,6 +30,7 @@ class UsersController < ApplicationController
       obj.require(key)
     end
 
+
     user = User.find(current_user.id)
 
     permissions = user.permissions

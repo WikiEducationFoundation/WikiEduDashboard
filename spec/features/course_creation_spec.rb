@@ -461,7 +461,7 @@ describe 'cloning a course', js: true do
   let!(:gradeable) do
     create(:gradeable, gradeable_item_type: 'block', gradeable_item_id: block.id, points: 10)
   end
-  let!(:user)      { create(:user, permissions: 1) }
+  let!(:user)      { create(:user, permissions: User::Permissions::ADMIN) }
   let!(:c_user)    { create(:courses_user, course_id: course.id, user_id: user.id) }
   let!(:term)      { 'Spring 2016' }
   let!(:desc)      { 'A new course' }

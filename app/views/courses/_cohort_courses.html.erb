@@ -18,7 +18,7 @@
             <option value="<%= c.slug %>"><%= c.title %></option>
           <% end %>
         <% end %>
-        <% if user_signed_in? && current_user.permissions > 0 && presenter.cohort.slug != 'none' %>
+        <% if user_signed_in? && current_user.permissions == User::Permissions::ADMIN && presenter.cohort.slug != 'none' %>
           <option value="none">None</option>
         <% end %>
       </select>
