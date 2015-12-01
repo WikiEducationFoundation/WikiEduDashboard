@@ -5,8 +5,9 @@ HTML5Backend    = require 'react-dnd-html5-backend'
 DDContext       = RDnD.DragDropContext
 
 Week            = require './week'
-Loading           = require '../common/loading'
+Loading         = require '../common/loading'
 CourseLink      = require '../common/course_link'
+Affix           = require '../common/affix'
 
 WeekActions     = require '../../actions/week_actions'
 BlockActions    = require '../../actions/block_actions'
@@ -105,10 +106,10 @@ Timeline = React.createClass(
     )
 
     week_nav = @props.weeks.map (week, i) => (
-      <li key={"week-#{week.id}"}>
-        <a href={"#week-#{week.id}"}>{week.title || "Week #{i + 1}"}</a>
-        <span className="pull-right">{week.start_date} - {week.end_date}</span>
-      </li>
+        <li key={"week-#{week.id}"}>
+          <a href={"#week-#{week.id}"}>{week.title || "Week #{i + 1}"}</a>
+          <span className="pull-right">{week.start_date} - {week.end_date}</span>
+        </li>
     )
 
     <div>
@@ -125,9 +126,11 @@ Timeline = React.createClass(
           {add_week}
         </ul>
         <div className="timeline__week-nav">
-          <ol>
-            {week_nav}
-          </ol>
+          <Affix offset={220}>
+            <ol>
+              {week_nav}
+            </ol>
+          </Affix>
         </div>
       </div>
     </div>
