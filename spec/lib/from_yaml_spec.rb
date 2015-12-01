@@ -21,7 +21,7 @@ describe FromYaml do
                       cache_key: 'test',
                       trim_id_from_filename: true)
       end
-      it 'raises an error and outputs the filename the bad file' do
+      it 'raises an error noting the duplicate slug name' do
         expect { subject }.to raise_error(FromYaml::DuplicateSlugError, /.*duplicate-yaml-slug.*/)
       end
     end
