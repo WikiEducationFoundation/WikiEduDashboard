@@ -48,8 +48,9 @@ class WizardTimelineManager
   private
 
   def build_timeline(content_groups)
-    total_weeks = ((@course.timeline_end - @course.timeline_start) / 7).ceil
-    available_weeks = total_weeks - @course.weeks.size
+    require "#{Rails.root}/lib/course_meetings_manager"
+    meeting_manager = CourseMeetingsManager.new(@course)
+    available_weeks = meeting_manager.open_weeks
 
     return [] if available_weeks <= 0
 
