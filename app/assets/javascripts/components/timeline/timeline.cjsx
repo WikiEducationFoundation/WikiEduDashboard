@@ -36,19 +36,27 @@ Timeline = React.createClass(
       block.week_id = after_block.week_id
       BlockActions.insertBlock block, after_block.week_id, after_block.order
 
+  _scrolledToBottom: ->
+    scrollTop = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop
+    scrollHeight = (document.documentElement && document.documentElement.scrollHeight) || document.body.scrollHeight
+    (scrollTop + window.innerHeight) >= scrollHeight
+
   _handleScroll: ->
     @setState unscrolled: false
     scrollTop = window.scrollTop || document.body.scrollTop
     bodyTop = document.body.getBoundingClientRect().top
     weekEls = document.getElementsByClassName('week')
     navItems = document.getElementsByClassName('week-nav__item')
-    Array.prototype.forEach.call weekEls, (el, i) ->
+    Array.prototype.forEach.call weekEls, (el, i) =>
       elTop = el.getBoundingClientRect().top - bodyTop
       headerHeight = 90
       if scrollTop >= elTop - headerHeight
-        Array.prototype.forEach.call navItems, (item) ->
+        Array.prototype.forEach.call navItems, (item) =>
           item.classList.remove('is-current')
-        navItems[i].classList.add('is-current')
+        if !@_scrolledToBottom()
+          navItems[i].classList.add('is-current')
+        else
+          navItems[navItems.length - 1].classList.add('is-current')
 
   componentDidMount: ->
     window.addEventListener 'scroll', @_handleScroll
