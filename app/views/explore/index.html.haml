@@ -1,0 +1,11 @@
+- content_for :after_title do
+  " - #{@presenter.cohort.title}"
+
+%header.main-page
+  .container
+    %h1= Figaro.env.dashboard_title
+    = render 'courses/header_stats', presenter: @presenter
+
+.container
+  = render 'courses/submitted_courses', presenter: @presenter
+  = render 'courses/cohort_courses', presenter: @presenter

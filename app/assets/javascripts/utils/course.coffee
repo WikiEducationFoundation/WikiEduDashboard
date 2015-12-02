@@ -14,7 +14,7 @@ $ ->
 
   $('select.cohorts').change (e) ->
     cohort = $('select.cohorts option:selected').val()
-    window.location = "/courses?cohort=" + encodeURIComponent(cohort)
+    window.location = "/explore?cohort=" + encodeURIComponent(cohort)
 
   $('select.sorts').change (e) ->
     list = switch($(this).attr('rel'))

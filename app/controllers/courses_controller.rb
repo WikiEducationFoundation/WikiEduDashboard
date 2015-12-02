@@ -7,16 +7,6 @@ class CoursesController < ApplicationController
   respond_to :html, :json
   before_action :require_permissions, only: [:create, :update, :destroy, :notify_untrained]
 
-  ###############
-  # Root method #
-  ###############
-  def index
-    cohort = params[:cohort] || ENV['default_cohort']
-    @presenter = CoursesPresenter.new(current_user, cohort)
-    fail ActionController::RoutingError
-      .new('Not Found'), 'Cohort does not exist' unless @presenter.cohort
-  end
-
   ################
   # CRUD methods #
   ################
@@ -94,6 +84,7 @@ class CoursesController < ApplicationController
       .new('Not Found'), 'Not permitted'
   end
 
+  # JSON method for listing/unlisting course
   def list
     @course = find_course_by_slug(params[:id])
     cohort = Cohort.find_by(title: cohort_params[:title])

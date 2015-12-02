@@ -8,7 +8,7 @@ module ResetLocale
   end
 end
 
-describe 'the courses page', type: :feature do
+describe 'the explore page', type: :feature do
   before do
     cohort = create(:cohort)
     cohort_two = create(:cohort_two)
@@ -68,7 +68,7 @@ describe 'the courses page', type: :feature do
 
   describe 'header' do
     it 'should display stats accurately' do
-      visit '/courses'
+      visit '/explore'
 
       # Number of courses
       course_count = Cohort.first.courses.count
@@ -102,7 +102,7 @@ describe 'the courses page', type: :feature do
 
   describe 'control bar' do
     it 'should allow sorting via dropdown and loading of cohorts', js: true do
-      visit '/courses'
+      visit '/explore'
 
       # sorting via dropdown
       find('select.sorts').find(:xpath, 'option[2]').select_option
@@ -125,7 +125,7 @@ describe 'the courses page', type: :feature do
 
   describe 'course list' do
     it 'should be sortable', js: true do
-      visit '/courses'
+      visit '/explore'
 
       # Sortable by title
       expect(page).to have_selector('.course-list__row__title.sort.asc')
@@ -154,7 +154,7 @@ describe 'the courses page', type: :feature do
 
   describe 'course rows' do
     it 'should allow navigation to a course page', js: true do
-      visit '/courses'
+      visit '/explore'
 
       within 'ul.list' do
         find('.course-list__row:first-child a').click
@@ -167,7 +167,7 @@ describe 'the courses page', type: :feature do
     # This will fail unless there are at least two cohorts in application.yml.
     it 'should load courses from the right cohorts' do
       pending 'fixing the intermittent failures on travis-ci'
-      visit '/courses'
+      visit '/explore'
 
       all('.course-list__row > a').each do |course_row_anchor|
         expect(course_row_anchor[:id].to_i).to be <= cohort_course_count
@@ -175,7 +175,7 @@ describe 'the courses page', type: :feature do
 
       # This will fail unless there are at least two cohorts in application.yml.
       # load courses from a different cohort
-      visit "/courses?cohort=#{Cohort.last.slug}"
+      visit "/explore?cohort=#{Cohort.last.slug}"
       all('.course-list__row > a').each do |course_row_anchor|
         expect(course_row_anchor[:id].to_i).to be > cohort_course_count
       end
@@ -187,7 +187,7 @@ describe 'the courses page', type: :feature do
     include ResetLocale
 
     it 'should switch languages' do
-      visit '/courses?locale=qqq'
+      visit '/explore?locale=qqq'
       expect(page.find('header')).to have_content 'Long label for the number'
     end
 

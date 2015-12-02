@@ -25,7 +25,7 @@ describe 'error pages' do
 
   describe 'for non-existent cohorts' do
     it 'should describe the 404 problem' do
-      visit '/courses?cohort=not_real'
+      visit '/explore?cohort=not_real'
       expect(page).to have_content 'Page not found'
     end
   end

@@ -13,7 +13,6 @@ Onboarding          = require '../components/onboarding'
 Wizard              = require '../components/wizard/wizard'
 Dates               = require '../components/timeline/meetings'
 CourseCreator       = require '../components/course_creator/course_creator'
-CourseCreatorButton = require '../components/course_creator/course_creator_button'
 
 OverviewHandler     = require '../components/overview/overview_handler'
 TimelineHandler     = require '../components/timeline/timeline_handler'
@@ -39,7 +38,6 @@ history = useBasename(createHistory)(basename: '/')
 
 routes = (
   <Route path='/' component={App}>
-    <IndexRoute component={CourseCreatorButton} />
     <Route path='onboarding'>
       <IndexRoute component={Onboarding} />
     </Route>
@@ -49,7 +47,6 @@ routes = (
       <Route path='recent-edits' component={RecentEditsHandler} />
     </Route>
     <Route path='courses'>
-      <IndexRoute component={CourseCreatorButton} />
       <Route path=':course_school/:course_title' component={Course}>
         <IndexRoute component={OverviewHandler} />
         <Route path="overview" component={OverviewHandler} />

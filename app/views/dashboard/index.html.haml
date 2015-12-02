@@ -1,0 +1,67 @@
+- content_for :after_title do
+  " - My dashboard"
+
+#react_root
+.container.dashboard
+  %header
+    %h1 My Dashboard
+    %div
+      = link_to 'Create Course', '/course_creator', class: 'button dark dashboard-cta'
+  - if !@submitted.empty?
+    %h2 Submitted & Pending Approval
+    - @submitted.each do |course|
+      = link_to course_slug_path(course.slug), {class: 'course course-past'} do
+        %h2.course-title
+          = course.title + " - " + course.term
+          %span.icon.icon-rt_arrow
+    %h2 Your Courses
+  - if @courses.empty?
+    %p
+      Looks like you don't have any courses.
+      %br
+      Click on Create Course to create your first course.
+    = link_to 'Explore Examples', '/explore'
+  - else
+    - @current.each do |course|
+      = link_to course_slug_path(course.slug), {class: 'course'} do
+        .course-title
+          = course.title
+          %span.icon.icon-rt_arrow
+        .course-details
+          .col
+            .course-details_title
+              Instructors
+            .course-details_value
+              - course.instructors.each do |user|
+                = user.wiki_id
+          .col
+            .course-details_title
+              School
+            .course-details_value
+              = course.school
+          .col
+            .course-details_title
+              Term
+            .course-details_value
+              = course.term
+          .col
+            .course-details_title
+              \# Students
+            .course-details_value
+              = course.students.length
+    - if !@past.empty?
+      %h2 Archived courses
+      - @past.each do |course|
+        = link_to course_slug_path(course.slug), {class: 'course course-past'} do
+          %h2.course-title
+            = course.title + " - " + course.term
+            %span.icon.icon-rt_arrow
+
+
+
+
+
+
+
+
+

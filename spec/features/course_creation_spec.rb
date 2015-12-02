@@ -104,7 +104,7 @@ describe 'New course creation and editing', type: :feature do
     user = create(:user,
                   id: 1)
     login_as(user, scope: :user)
-    visit '/courses'
+    visit root_path
   end
 
   describe 'course workflow', js: true do
@@ -116,7 +116,7 @@ describe 'New course creation and editing', type: :feature do
     it 'should allow the user to create a course' do
       stub_oauth_edit
 
-      click_link 'Create a Course'
+      click_link 'Create Course'
 
       expect(page).to have_content 'Create a New Course'
       find('#course_title').set('My awesome new course - Foo 101')
@@ -272,7 +272,7 @@ describe 'New course creation and editing', type: :feature do
       prompt.send_keys('My awesome new course - Foo 101')
       sleep 1
       prompt.accept
-      expect(page).to have_content 'You are not participating in any courses'
+      expect(page).to have_content 'Looks like you don\'t have any courses'
     end
 
     it 'should not allow a second course with the same slug' do
@@ -291,7 +291,7 @@ describe 'New course creation and editing', type: :feature do
              timeline_end: '2015-12-15'.to_date)
       stub_oauth_edit
 
-      click_link 'Create a Course'
+      click_link 'Create Course'
       expect(page).to have_content 'Create a New Course'
       find('#course_title').set('Course')
       find('#instructor_name').set(instructor_name)
@@ -415,7 +415,7 @@ describe 'New course creation and editing', type: :feature do
              user_id: 1,
              role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
 
-      click_link 'Create a Course'
+      click_link 'Create Course'
       click_button 'Create New Course'
       fill_out_course_creator_form
       sleep 1
@@ -470,9 +470,9 @@ describe 'cloning a course', js: true do
     pending 'fixing the intermittent failures on travis-ci'
     create(:cohort)
     login_as user, scope: :user, run_callbacks: false
-    visit '/courses'
+    visit root_path
 
-    click_link 'Create a Course'
+    click_link 'Create Course'
     click_button 'Clone Previous Course'
     select course.title, from: 'reuse-existing-course-select'
     click_button 'Clone This Course'

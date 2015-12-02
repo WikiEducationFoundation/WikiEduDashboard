@@ -247,10 +247,9 @@ describe 'Student users', type: :feature, js: true do
              user_id: 200,
              role: CoursesUsers::Roles::STUDENT_ROLE)
 
-      visit '/courses'
-      expect(page).to have_content 'Your Courses'
-      user_courses = find('#user_courses')
-      expect(user_courses).to have_content 'An Example Course'
+      visit '/'
+      expect(page).to have_content 'My Dashboard'
+      expect(page).to have_content 'An Example Course'
     end
   end
 

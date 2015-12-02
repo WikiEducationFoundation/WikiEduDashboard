@@ -9,7 +9,7 @@ describe 'a user with invalid oauth credentials', type: :feature do
 
   it 'should get logged out and see a message about the problem' do
     error_message = I18n.t('error.oauth_invalid')
-    visit '/courses'
+    visit root_path
     expect(page).to have_content error_message
     expect(page).to have_content 'Log in'
   end
