@@ -204,6 +204,9 @@ WizardStore = Flux.createStore
       break
     when 'WIZARD_RESET', 'WIZARD_SUBMITTED'
       restore()
+      loc = window.location.pathname.split('/')
+      # split off /wizard, go back to timeline and reload course
+      window.location = "/#{loc.splice(1, 4).join('/')}"
       break
   return true
 
