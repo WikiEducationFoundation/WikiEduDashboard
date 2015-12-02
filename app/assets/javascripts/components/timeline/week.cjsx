@@ -74,8 +74,8 @@ Week = React.createClass(
         />
       )
 
-    weekClassName = "week week-#{@props.index}"
-    <li className={weekClassName}>
+    weekClassName = "week week-id-#{@props.week.id} week-index-#{@props.index}"
+    <li id={@props.week.id} className={weekClassName}>
       <div style={overflow: 'hidden'}>
         {deleteWeek}
         {title}
