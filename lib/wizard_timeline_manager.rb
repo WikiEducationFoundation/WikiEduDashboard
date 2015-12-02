@@ -1,3 +1,5 @@
+require "#{Rails.root}/lib/course_meetings_manager"
+
 # Routines for building and saving a course timeline after submission of wizard data
 class WizardTimelineManager
   ###############
@@ -48,7 +50,6 @@ class WizardTimelineManager
   private
 
   def build_timeline(content_groups)
-    require "#{Rails.root}/lib/course_meetings_manager"
     meeting_manager = CourseMeetingsManager.new(@course)
     available_weeks = meeting_manager.open_weeks
 
