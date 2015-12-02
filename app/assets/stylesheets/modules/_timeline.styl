@@ -1,85 +1,78 @@
-#react_root
-  &.timeline
-    padding 10px
-    a
-      cursor pointer
-    > li
-      margin 0
-    .view-all
-      border-bottom 0
-      margin-top 20px
-  .week
-    display block
-    margin 0 0 30px
-    position relative
-    &:first-child
-      margin-top 20px
-    > div
-      p
-        border-bottom 1px solid dove
-        color dove
-        padding-bottom 5px
-        margin-bottom 15px
-      > .button
-        float right
-    .list
-      margin-top 15px
-  .week, .block
-    +.view-all
-      border-bottom 0
-  .block +.view-all
+&.timeline
+  padding 10px
+  a
+    cursor pointer
+  > li
+    margin 0
+  .view-all
+    border-bottom 0
     margin-top 20px
-  .block
-    background-color white
-    border 1px solid zircon
-    left 0
-    margin 0 0 15px 0
-    padding 18px 20px 20px
-    position relative
-    width 100%
-    transition all .25s ease-out
-    -moz-user-select none
-    &:first-child
-      border-width 1px
-    &:last-child
-      margin-bottom 0
-    &.editable
-      cursor move
-      &:hover
-        box-shadow 0 0 15px 0 rgba(0, 0, 0, .2)
-      .drag-handle
-        display block
-    &.dragging
-      opacity 0
-      // transform scale(1.05)
-    &.block-leave-active
-      opacity 0
-      transform scale(0.5)
-    textarea
-      width 100%
-    input[type='text'], input[type='date'], select
-      display inline-block
-      margin-right 10px
-      width 150px
-      &.title
-        width 200px
-    input[type='checkbox']
-      margin 20px 5px
-    .button
-      clear right
-      float right
-      margin 0
-    .block-title--editing
-      color inherit
-      letter-spacing inherit
-      line-height inherit
-      font-weight inherit
-      font-size inherit
-    .block-title
+.week
+  display block
+  margin 0 0 30px
+  position relative
+  &:first-child
+    margin-top 20px
+  > div
+    p
+      border-bottom 1px solid dove
       color dove
+      padding-bottom 5px
+      margin-bottom 15px
+    > .button
+      float right
+  .list
+    margin-top 15px
+.week, .block
+  +.view-all
+    border-bottom 0
+.block +.view-all
+  margin-top 20px
+.block
+  background-color white
+  border 1px solid zircon
+  left 0
+  margin 0 0 15px 0
+  padding 18px 20px 20px
+  position relative
+  width 100%
+  transition all .25s ease-out
+  -moz-user-select none
+  &:first-child
+    border-width 1px
+  &:last-child
+    margin-bottom 0
+  &.dragging
+    opacity 0
+    // transform scale(1.05)
+  &.block-leave-active
+    opacity 0
+    transform scale(0.5)
+  textarea
+    width 100%
+  input[type='text'], input[type='date'], select
+    display inline-block
+    margin-right 10px
+    width 150px
+    &.title
+      width 200px
+  input[type='checkbox']
+    margin 20px 5px
+  .button
+    clear right
+    float right
+    margin 0
+  .block-title--editing
+    color inherit
+    letter-spacing inherit
+    line-height inherit
+    font-weight inherit
+    font-size inherit
+  .block-title
+    color dove
 
-  .gradeable
-    overflow hidden
+.gradeable
+  overflow hidden
 
 .drag-handle
   display none
@@ -149,11 +142,13 @@ input[type="checkbox"]
   padding-top 80px
   margin-top -80px
 
-.timeline__week-nav ol
+.timeline__week-nav > div
   list-style none
   padding 8px
   background #FFF
   border 1px solid $border_med
+  ol
+    list-style none
   li
     border-bottom 1px solid $border_lt
     margin-left 0
@@ -183,9 +178,45 @@ input[type="checkbox"]
   span
     color $text_lt
 
+.week-nav__action.week-nav__link
+  color $brand_primary
+  display block
+  padding-left 8px
+
 .affix
   position fixed
 
 .timeline__week-nav .affix
   top 100px
   width 250px
+
+// Editing
+.delete-block-container
+  width 100%
+  border-top 1px solid $border_lt
+  padding 20px 0 0
+  text-align center
+  margin-top 20px
+  button
+    color $warning_text
+    background url("../images/trash-red.svg") left center no-repeat
+    padding-left 25px
+
+li.block.editable
+  margin-bottom 20px
+  cursor move
+  &:hover
+    box-shadow 0 0 15px 0 rgba(0, 0, 0, .2)
+  .drag-handle
+    display block
+  label
+    span
+      display block
+  input.editable
+    width 300px
+  h4
+    .input_wrapper
+      float left
+    .select_wrapper
+      float right
+

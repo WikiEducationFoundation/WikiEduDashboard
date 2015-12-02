@@ -104,21 +104,12 @@ Timeline = React.createClass(
           </div>
         )
 
-    if @props.editable
-      add_week_button = if @props.course.timeline_full then (
-        <div className='button dark disabled' title='You cannot add new weeks when your timeline is full. Delete at least one week to make room for a new one.'>Add New Week</div>
-      ) else (
-        <button className='button dark' onClick={@addWeek}>Add New Week</button>
-      )
-      add_week = (
-        <li className="row view-all">
-          <div>{add_week_button}</div>
-          <br />
-          <div>
-            {@props.controls(null, false, true)}
-          </div>
-        </li>
-      )
+    add_week_button = if @props.course.timeline_full then (
+      <a href="" className='week-nav__action week-nav__link disabled' title='You cannot add new weeks when your timeline is full. Delete at least one week to make room for a new one.'>Add New Week</a>
+    ) else (
+      <a href="" className='week-nav__action week-nav__link' onClick={@addWeek}>Add New Week</a>
+    )
+
     unless week_components.length
       no_weeks = (
         <li className="row view-all">
@@ -132,7 +123,6 @@ Timeline = React.createClass(
     controls = (
       <span>
         {wizard_link}
-        <CourseLink to="/courses/#{@props.course.slug}/timeline/dates" className='button dark'>Edit Course Dates</CourseLink>
       </span>
     )
 
@@ -156,13 +146,14 @@ Timeline = React.createClass(
         <ul className="list-unstyled timeline__weeks">
           {week_components}
           {no_weeks}
-          {add_week}
         </ul>
         <div className="timeline__week-nav">
           <Affix offset={220}>
             <ol>
               {week_nav}
             </ol>
+            <CourseLink className="week-nav__action week-nav__link" to="/courses/#{@props.course.slug}/timeline/dates">Edit Course Dates</CourseLink>
+            {add_week_button}
           </Affix>
         </div>
       </div>

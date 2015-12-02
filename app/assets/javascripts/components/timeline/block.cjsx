@@ -45,7 +45,7 @@ Block = React.createClass(
         />
       )
     if @props.editable
-      deleteBlock = <button className='button danger right' onClick={@deleteBlock}>Delete Block</button>
+      deleteBlock = (<div className='delete-block-container'><button className='danger' onClick={@deleteBlock}>Delete Block</button></div>)
       className += ' editable'
       className += ' dragging' if @props.isDragging
       graded = (
@@ -97,18 +97,6 @@ Block = React.createClass(
         <div className="drag-handle__bar"></div>
       </div>
       <h4 className={"block-title" + (if @props.editable then " block-title--editing" else "")}>
-        <Select
-          onChange={@updateBlock}
-          value={@props.block.kind}
-          value_key={'kind'}
-          editable={@props.editable}
-          options={['In Class', 'Assignment', 'Milestone', 'Custom']}
-          show={@props.block.kind < 3 || @props.editable}
-          label='Block type'
-          popover_text={I18n.t('timeline.block_type')}
-          inline=true
-        />
-        {spacer}
         <TextInput
           onChange={@updateBlock}
           value={@props.block.title}
@@ -116,10 +104,10 @@ Block = React.createClass(
           editable={@props.editable}
           placeholder='Block title'
           show={@props.block.title  && !@props.editable}
-          className='title'
+          className='title pull-left'
+          spacer=''
           onFocus={@props.toggleFocused}
           onBlur={@props.toggleFocused}
-          inline=true
         />
         <TextInput
           onChange={@updateBlock}
@@ -128,11 +116,24 @@ Block = React.createClass(
           editable={@props.editable}
           placeholder='Block title'
           label='Title'
+          className='pull-left'
+          spacer=''
           show={@props.editable}
           onFocus={@props.toggleFocused}
           onBlur={@props.toggleFocused}
-          inline=true
         />
+        <Select
+          onChange={@updateBlock}
+          value={@props.block.kind}
+          value_key={'kind'}
+          editable={@props.editable}
+          options={['In Class', 'Assignment', 'Milestone', 'Custom']}
+          show={@props.block.kind < 3 || @props.editable}
+          label='Block type'
+          spacer=''
+          popover_text={I18n.t('timeline.block_type')}
+        />
+        {spacer}
         <TextInput
           onChange={@updateBlock}
           value={@props.block.due_date}
@@ -140,19 +141,19 @@ Block = React.createClass(
           editable={@props.editable}
           type='date'
           label='Due date'
+          spacer=''
           placeholder='Due date'
-          inline=true
           isClearable=true
           show={@props.editable && parseInt(@props.block.kind) == 1}
           date_props={minDate: @props.week_start}
           onFocus={@props.toggleFocused}
           onBlur={@props.toggleFocused}
         />
-        {deleteBlock}
       </h4>
       {graded}
       {dueDateRead || (if is_graded then (<p>{I18n.t('timeline.due_default')}</p>) else '')}
       {content}
+      {deleteBlock}
     </li>
 )
 
