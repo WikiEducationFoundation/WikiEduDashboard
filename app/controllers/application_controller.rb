@@ -32,11 +32,11 @@ class ApplicationController < ActionController::Base
   def check_onboarded
     return unless current_user
     return if current_user.onboarded
-    return if request.fullpath == onboarding_path
-    return if request.fullpath == onboard_path
-    return if request.fullpath == new_user_session_path
-    return if request.fullpath == destroy_user_session_path
-    return if request.fullpath == true_destroy_user_session_path
+    return if request.fullpath.starts_with? onboarding_path
+    return if request.fullpath.starts_with? onboard_path
+    return if request.fullpath.starts_with? new_user_session_path
+    return if request.fullpath.starts_with? destroy_user_session_path
+    return if request.fullpath.starts_with? true_destroy_user_session_path
     redirect_to onboarding_path
   end
 
