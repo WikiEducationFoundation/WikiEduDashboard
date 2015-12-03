@@ -147,7 +147,7 @@ Rails.application.routes.draw do
 
   # Onboarding
   get 'onboarding' => 'onboarding#index', as: :onboarding
-  put 'users/onboard' => 'users#onboard'
+  put 'users/onboard' => 'users#onboard', as: :onboard
 
   # Route aliases for React frontend
   get '/course_creator(/*any)' => 'courses#index'

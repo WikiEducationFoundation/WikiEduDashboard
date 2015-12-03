@@ -33,6 +33,7 @@ class ApplicationController < ActionController::Base
     return unless current_user
     return if current_user.onboarded
     return if request.fullpath == onboarding_path
+    return if request.fullpath == onboard_path
     redirect_to onboarding_path
   end
 
