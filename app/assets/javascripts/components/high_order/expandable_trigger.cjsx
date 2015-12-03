@@ -11,7 +11,6 @@ ExpandableTrigger = (Component, Key) ->
     getInitialState: ->
       is_open: false
     stop: (e) ->
-      console.log("stop")
       e.stopPropagation()
     render: ->
       <Component {...@state} {...@props} @stop={@stop} />

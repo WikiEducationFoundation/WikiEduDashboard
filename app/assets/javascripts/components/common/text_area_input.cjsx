@@ -1,60 +1,28 @@
 React           = require 'react'
 md              = require('markdown-it')({ html: true, linkify: true })
 InputMixin      = require '../../mixins/input_mixin'
-WYSIWYG         = require './wysiwyg'
 
 TextAreaInput = React.createClass(
   displayName: 'TextAreaInput'
-
   mixins: [InputMixin],
-
-  propTypes:
-    onChange: React.PropTypes.func
-    onFocus: React.PropTypes.func
-    onBlur: React.PropTypes.func
-    value: React.PropTypes.string
-    value_key: React.PropTypes.string
-    editable: React.PropTypes.bool
-    id: React.PropTypes.string
-    focus: React.PropTypes.bool
-    label: React.PropTypes.string
-    placeholder: React.PropTypes.string
-    hr: React.PropTypes.bool
-    autoExpand: React.PropTypes.bool
-    wysiwyg: React.PropTypes.bool
-
   getInitialState: ->
     value: @props.value
-
   render: ->
     if @props.label
       label = @props.label + ':'
-    if @props.wysiwyg
-      input_element = (
-        <WYSIWYG
-          id={@props.id || @props.value_key || ''}
-          value={@state.value}
-          onChange={@onChange}
-          autoFocus={@props.focus}
-          onFocus={@focus}
-          onBlur={@blur}
-          placeholder={@props.label || @props.placeholder}
-        />
-      )
-    else
-      input_element = (
-        <textarea
-          ref='input'
-          id={@props.id || @props.value_key || ''}
-          rows={@props.rows || '8'}
-          value={@state.value}
-          onChange={@onChange}
-          autoFocus={@props.focus}
-          onFocus={@focus}
-          onBlur={@blur}
-          placeholder={@props.label || @props.placeholder}
-        />
-      )
+    input_element = (
+      <textarea
+        ref='input'
+        id={@props.id || @props.value_key || ''}
+        rows={@props.rows || '8'}
+        value={@state.value}
+        onChange={@onChange}
+        autoFocus={@props.focus}
+        onFocus={@focus}
+        onBlur={@blur}
+        placeholder={@props.label || @props.placeholder}
+      />
+    )
     if @props.editable
       if @props.hr and @props.autoExpand is false
         <label><hr />{label}

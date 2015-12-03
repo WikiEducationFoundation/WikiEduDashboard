@@ -2,17 +2,11 @@
   "name": "WikiEduDashboard",
   "version": "1.0.0",
   "dependencies": {
-    "ckeditor": "~4.5.4",
     "jquery": "~2.1.1",
     "jquery-ujs": "~1.0.3",
     "list.js": "wintr/list.js#76c5632d86e11711b965878d58e1f4c90f6bcb18",
     "lodash": "~3.9.0",
     "moment": "~2.10.3",
     "moment-recur": "~1.0.5"
-  },
-  "overrides": {
-    "ckeditor": {
-      "main": "ckeditor.js"
-    }
   }
 }
