@@ -1,4 +1,4 @@
-#= Controller for course functionality
+#= Controller for dashboard functionality
 class DashboardController < ApplicationController
   respond_to :html
 

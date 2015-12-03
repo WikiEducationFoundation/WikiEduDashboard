@@ -102,8 +102,11 @@ describe 'New course creation and editing', type: :feature do
   before :each do
     create(:cohort)
     user = create(:user,
-                  id: 1)
+                  id: 1,
+                  permissions: User::Permissions::INSTRUCTOR)
+    create(:training_modules_users, user_id: user.id, training_module_id: 3, completed_at: Time.now )
     login_as(user, scope: :user)
+
     visit root_path
   end
 

@@ -240,7 +240,7 @@ describe 'Student users', type: :feature, js: true do
     end
   end
 
-  describe 'visiting the courses page' do
+  describe 'visiting the dashboard page' do
     it 'should see their course' do
       create(:courses_user,
              course_id: 10001,
