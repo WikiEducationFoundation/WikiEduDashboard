@@ -24,8 +24,6 @@ class UsersController < ApplicationController
 
   # Onboarding sets the user's real name, email address, and optionally instructor permissions
   def onboard
-    # todo: test
-
     [:real_name, :email, :instructor].each_with_object(params) do |key, obj|
       obj.require(key)
     end
