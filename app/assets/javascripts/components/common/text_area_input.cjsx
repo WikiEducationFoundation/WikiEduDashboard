@@ -27,6 +27,7 @@ TextAreaInput = React.createClass(
     value: @props.value
 
   _handleChange: (e) ->
+    @onChange(e)
     @setState value: e.target.innerHTML
 
   render: ->
