@@ -85,6 +85,7 @@ Block = React.createClass(
           autoExpand=true
           onFocus={@props.toggleFocused}
           onBlur={@props.toggleFocused}
+          wysiwyg=true
         />
         {modules}
       </div>

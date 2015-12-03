@@ -84,6 +84,7 @@
     "react-dom": "0.14.3",
     "react-router": "1.0.0",
     "react-select": "0.6.12",
+    "react-trix": "^0.1.0",
     "react-typeahead": "1.1.5",
     "react-waypoint": "^1.1.2",
     "react-weekday-picker": "1.0.6"
