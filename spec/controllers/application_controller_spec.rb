@@ -26,46 +26,4 @@ describe ApplicationController do
       expect(response.status).to eq(401)
     end
   end
-
-  describe 'forced onboarding' do
-    let(:user) { create(:user, onboarded: onboarded) }
-
-    describe 'when authenticated and onboarded' do
-      let(:onboarded) { true }
-
-      it 'should not redirect' do
-        allow(controller).to receive(:current_user).and_return(user)
-        get 'index'
-        expect(response.status).to eq(200)
-      end
-    end
-
-    describe 'when authenticated and NOT onboarded' do
-      let(:onboarded) { false }
-
-      it 'should redirect to onboarding' do
-        allow(controller).to receive(:current_user).and_return(user)
-        get 'index'
-        expect(response).to redirect_to(:onboarding)
-      end
-    end
-
-    describe 'when not authenticated' do
-      it 'should not redirect' do
-        allow(controller).to receive(:current_user).and_return(nil)
-        get 'index'
-        expect(response.status).to eq(200)
-      end
-    end
-
-    describe 'when already at onboarding route' do
-      let(:onboarded) { false }
-
-      it 'should not redirect' do
-        allow(controller).to receive(:current_user).and_return(user)
-        subject { get :onboarding }
-        expect(response.status).to eq(200)
-      end
-    end
-  end
 end
