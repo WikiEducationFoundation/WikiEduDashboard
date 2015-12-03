@@ -25,7 +25,10 @@ class DashboardPresenter
   # Show the 'Your Courses' label if there are submitted courses
   # OR you're an instructor with existing courses but you still haven't completed orientation
   def show_your_courses_label?
-    @submitted.any? || @current.any? && is_instructor? && !instructor_has_completed_orientation?
+    return true if @submitted.any? && @current.any? # submitted with current courses
+    return false if @submitted.any? && @current.empty? && @past.any? # submitted with no current but there are past
+    return true if @submitted.any? && @courses.empty? # submitted but no courses
+    return true if @current.any? && is_instructor? && !instructor_has_completed_orientation?  # current but hasn't completed orientation
   end
 
   # Show 'Welcome' for people without any courses on the screen, otherwise 'My Dashboard'
