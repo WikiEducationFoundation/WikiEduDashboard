@@ -55,7 +55,7 @@ Course = React.createClass(
         alerts.push (
           <div className='notification' key='submit'>
             <div className='container'>
-              <p>Please review this timeline and make changes. Once you're satisfied with your timeline, submit it for approval by Wiki Ed staff. Once approved, you will be given an enrollment URL that students can use to join the course.</p>
+              <p>Please review this timeline and make changes. Once you're satisfied with your timeline, submit it for approval by Wiki Ed staff. Once approved, you will be given an enrollment URL that students can use to join the course. (You'll still be able to make edits later.)</p>
               <a href="#" onClick={@submit} className='button'>Submit</a>
             </div>
           </div>
