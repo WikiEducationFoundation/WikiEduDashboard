@@ -299,6 +299,6 @@ class Course < ActiveRecord::Base
   end
 
   def ensure_required_params
-    return false unless [title, school, term, slug].select(&:nil?).length.zero?
+    return false unless [title, school, term, slug].count(nil).zero?
   end
 end
