@@ -4,57 +4,67 @@
 #react_root
 .container.dashboard
   %header
-    %h1 My Dashboard
+    %h1= @pres.heading_message
     %div
-      = link_to 'Create Course', '/course_creator', class: 'button dark dashboard-cta'
-  - if !@submitted.empty?
+      - if @pres.can_create_course?
+        = link_to 'Create Course', course_creator_path, class: 'button dark dashboard-cta'
+      - elsif @pres.show_explore_button?
+        = link_to explore_path, class: 'button dark dashboard-cta' do
+          Find Your Course
+          %span.icon.icon-rt_arrow
+
+  - # Show submitted/pending courses (for admins)
+  - if @pres.submitted.any?
     %h2 Submitted & Pending Approval
-    - @submitted.each do |course|
-      = link_to course_slug_path(course.slug), {class: 'course course-past'} do
-        %h2.course-title
-          = course.title + " - " + course.term
-          %span.icon.icon-rt_arrow
-    %h2 Your Courses
-  - if @courses.empty?
-    %p
-      Looks like you don't have any courses.
+    - @pres.submitted.each do |course|
+      = render "course_row", course: course
+
+  - # Orientation block
+  - if @pres.show_orientation_block?
+    %p.empty-state
+      Before you create a course, lets go through orientation (1 hour to complete) to help you get started.
       %br
-      Click on Create Course to create your first course.
-    = link_to 'Explore Examples', '/explore'
+      = link_to @pres.orientation_path, class: 'button dark' do
+        Start Orientation
+        %i.icon.icon-rt_arrow
+      %br
+      = link_to 'Request to opt out of orientation', @pres.opt_out_path
+
+  - if @pres.show_your_courses_label?
+    %h2 Your Courses
+
+  - if @pres.courses.empty?
+    - # Empty courses state
+
+    - if @pres.can_create_course?
+      %p.empty-state
+        Looks like you don't have any courses.
+        %br
+        Click on Create Course to create your first course.
+        %br
+        = link_to 'Explore Examples', explore_path
+    - elsif @pres.show_explore_button?
+      %p.empty-state
+        Looks like you haven't joined a course yet.
+        %br
+        Once you recieve a passcode from your instructor, click on Find Your Course to find and join it.
+        %br
+        = link_to 'Explore the Course Pages', explore_path
+
   - else
-    - @current.each do |course|
-      = link_to course_slug_path(course.slug), {class: 'course'} do
-        .course-title
-          = course.title
-          %span.icon.icon-rt_arrow
-        .course-details
-          .col
-            .course-details_title
-              Instructors
-            .course-details_value
-              - course.instructors.each do |user|
-                = user.wiki_id
-          .col
-            .course-details_title
-              School
-            .course-details_value
-              = course.school
-          .col
-            .course-details_title
-              Term
-            .course-details_value
-              = course.term
-          .col
-            .course-details_title
-              \# Students
-            .course-details_value
-              = course.students.length
-    - if !@past.empty?
-      %h2 Archived courses
-      - @past.each do |course|
+
+    - # Courses list
+    - @pres.current.each do |course|
+      = render "course_row", course: course
+
+    - # Archived/past courses
+    - if @pres.past.any?
+      %h2 Archived Courses
+      - @pres.past.each do |course|
         = link_to course_slug_path(course.slug), {class: 'course course-past'} do
           %h2.course-title
-            = course.title + " - " + course.term
+            = course.title
+            %span.course-term= course.term
             %span.icon.icon-rt_arrow
 
 

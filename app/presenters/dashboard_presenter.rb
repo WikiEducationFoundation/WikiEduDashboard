@@ -1,0 +1,75 @@
+#= Presenter for dashboard
+class DashboardPresenter
+  include Rails.application.routes.url_helpers
+
+  attr_reader :courses, :current, :past, :submitted, :current_user
+
+  ORIENTATION_ID = 3
+
+  def initialize(courses, current, past, submitted, current_user)
+    @courses = courses
+    @current = current
+    @past = past
+    @submitted = submitted
+    @current_user = current_user
+  end
+
+  def is_instructor?
+    current_user.permissions == User::Permissions::INSTRUCTOR
+  end
+
+  def is_admin?
+    current_user.permissions == User::Permissions::ADMIN
+  end
+
+  # Show the 'Your Courses' label if there are submitted courses
+  # OR you're an instructor with existing courses but you still haven't completed orientation
+  def show_your_courses_label?
+    @submitted.any? || @current.any? && is_instructor? && !instructor_has_completed_orientation?
+  end
+
+  # Show 'Welcome' for people without any courses on the screen, otherwise 'My Dashboard'
+  def heading_message
+    if @courses.any? || @submitted.any?
+      return 'My Dashboard'
+    else
+      return 'Welcome!'
+    end
+  end
+
+  # Show the orientation block if you're an instructor who hasn't completed orientation
+  def show_orientation_block?
+    is_instructor? && !instructor_has_completed_orientation?
+  end
+
+  # Admins and instructors who have completed orientation can create courses
+  def can_create_course?
+    is_admin? || is_instructor? && instructor_has_completed_orientation?
+  end
+
+  # Show explore button for non instructors/admins
+  def show_explore_button?
+    current_user.permissions == User::Permissions::NONE
+  end
+
+  # Get the url path for orientation
+  def orientation_path
+    training_module_path('instructors', TrainingModule.find(ORIENTATION_ID).slug)
+  end
+
+  # Open mail client
+  def opt_out_path
+    "mailto:optout@wikedu.org"
+  end
+
+  private
+
+  # Determine if an instructor has completed orientation
+  def instructor_has_completed_orientation?
+    TrainingModulesUsers
+      .where(training_module_id: ORIENTATION_ID)
+      .where(user_id: current_user.id)
+      .where.not(completed_at: nil).any?
+  end
+
+end

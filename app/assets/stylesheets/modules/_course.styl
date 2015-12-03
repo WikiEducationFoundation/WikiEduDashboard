@@ -1,58 +1,43 @@
-.new_course
-  position absolute
-  right 0
-  top 20px
-
-#user_courses
-  .list
-    margin-bottom 20px
-
-  .notifications
-    z-index 100
-    position fixed
-    top 80px
-    left 0
-    width 100%
-
-.dashboard
-  > header
-    text-align left
-    display flex
-    align-items center
-    padding 60px 0
-
-    h1
-      color #A0A0A0
-      font-weight 300
-      font-size 50px
-      flex 1
-
-    .dashboard-cta
-      float right
-
-  h2
-    font-size 30px
-    font-weight 300
-    color #A0A0A0
-
 .course
   background #fff
-  box-shadow 0px 2px 4px rgba(0,0,0,.1)
   border 1px solid $border_lt
   padding 20px
   margin-bottom 20px
   display block
   text-decoration none
   color inherit
+  position relative
+
+  &:after
+    content ""
+    position absolute
+    left 0
+    right 0
+    top 0
+    bottom 0
+    box-shadow 0px 2px 4px rgba(0,0,0,1)
+    opacity .1
+    transition opacity 125ms ease-in-out
+
+  .icon
+    position relative
+    top 3px
+    left 0
+    transition all 125ms ease-in-out
+
+  &:hover
+    .icon
+      left 5px
+
+    &:after
+      opacity .15
 
   &.course-past
     .course-title
       color #A0A0A0
-      line-height 1
 
   + h2
     margin-top 60px
-    margin-bottom 30px
 
   .course-title
     font-weight 300
@@ -60,16 +45,19 @@
     margin-bottom 20px
     color bayoux
     line-height 1
+    display flex
+    align-items center
+
+    .course-term
+      color #A0A0A0
+      margin-left auto
+      margin-right 20px
+
+    .icon:nth-child(1)
+      margin-left auto
 
     &:only-child
       margin-bottom 0
-
-    > .icon
-      float right
-      font-size 24px
-      position relative
-      top 4px
-
 
   .course-details
     display flex

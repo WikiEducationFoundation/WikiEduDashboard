@@ -3,13 +3,18 @@ class DashboardController < ApplicationController
   respond_to :html
 
   def index
-    @courses = current_user.courses.current_and_future.listed
-    @current = @courses.select { |c| c.end >= Time.now }
-    @past = @courses.select { |c| c.end < Time.now }
-    @submitted = []
+    require 'pry'
+    binding.pry
 
-    if user_signed_in? && current_user.admin?
-      @submitted = Course.submitted_listed
+    courses = current_user.courses.current_and_future.listed
+    current = courses.select { |c| c.end >= Time.now }
+    past = courses.select { |c| c.end < Time.now }
+    submitted = []
+
+    if current_user.admin?
+      submitted = Course.submitted_listed
     end
+
+    @pres = DashboardPresenter.new(courses, current, past, submitted, current_user)
   end
 end

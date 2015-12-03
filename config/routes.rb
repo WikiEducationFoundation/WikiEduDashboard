@@ -151,7 +151,7 @@ Rails.application.routes.draw do
   put 'users/onboard' => 'users#onboard', as: :onboard
 
   # Route aliases for React frontend
-  get '/course_creator(/*any)' => 'dashboard#index'
+  get '/course_creator(/*any)' => 'dashboard#index', as: :course_creator
 
   # Errors
   match '/404', to: 'errors#file_not_found', via: :all
