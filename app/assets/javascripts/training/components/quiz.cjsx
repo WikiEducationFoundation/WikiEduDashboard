@@ -33,13 +33,15 @@ Quiz = React.createClass(
       raw_explanation_html = md.render(answer.explanation)
       <li className={liClass}>
         <label>
-          <input
-            onChange={@setAnswer}
-            data-answer-id={answer.id}
-            defaultChecked={defaultChecked}
-            checked={checked}
-            type="radio"
-            name="answer" />
+          <div>
+            <input
+              onChange={@setAnswer}
+              data-answer-id={answer.id}
+              defaultChecked={defaultChecked}
+              checked={checked}
+              type="radio"
+              name="answer" />
+          </div>
           {answer.text}
         </label>
         <div className={explanationClass} dangerouslySetInnerHTML={{__html: raw_explanation_html}}></div>
