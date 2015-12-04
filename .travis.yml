@@ -32,6 +32,9 @@ before_install:
   # Set the database.
   - export DB=test
 
+  # Set a dummy sentry url if none is set via environment variable
+  - export sentry_dsn=${sentry_dsn:=http://example.com}
+
   # Set up a headless display so capybara will work.
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
@@ -76,3 +79,4 @@ notifications:
   slack:
     rooms:
     - secure: OZcMEKx3prPJva4P6W0E55pSMWnTWdm7d6bBZ6B66LewU9Ge6parEJcaUAAH+sNbi0lvDvMG7Ivs9FKHDU3DoJXNmKG1ow4QpZ0EIMkaBxUWgQRELw2l375G+8vz/VpH3W4zTmVsYWmcaMSER+PmclnBMGQma8vR8JVLVuIDMHU=
+
