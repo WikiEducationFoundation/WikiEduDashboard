@@ -6,8 +6,7 @@ class DashboardPresenter
 
   ORIENTATION_ID = 3
 
-  def initialize(courses, current, past, submitted, current_user)
-    @courses = courses
+  def initialize(current, past, submitted, current_user)
     @current = current
     @past = past
     @submitted = submitted
@@ -27,13 +26,13 @@ class DashboardPresenter
   def show_your_courses_label?
     return true if @submitted.any? && @current.any? # submitted with current courses
     return false if @submitted.any? && @current.empty? && @past.any? # submitted with no current but there are past
-    return true if @submitted.any? && @courses.empty? # submitted but no courses
+    return true if @submitted.any? && @current.empty? && @past.empty?  # submitted but no courses
     return true if @current.any? && is_instructor? && !instructor_has_completed_orientation?  # current but hasn't completed orientation
   end
 
   # Show 'Welcome' for people without any courses on the screen, otherwise 'My Dashboard'
   def heading_message
-    if @courses.any? || @submitted.any?
+    if @current.any? && @past.any? || @submitted.any?
       return 'My Dashboard'
     else
       return 'Welcome!'
@@ -42,12 +41,12 @@ class DashboardPresenter
 
   # Show the orientation block if you're an instructor who hasn't completed orientation and you don't have any existing courses
   def show_orientation_block?
-    is_instructor? && !instructor_has_completed_orientation? && @courses.empty?
+    is_instructor? && !instructor_has_completed_orientation? && @current.empty? && @past.empty?
   end
 
   # Admins and instructors who have completed orientation (unless they've already created a course) can create courses
   def can_create_course?
-    is_admin? || (is_instructor? && (instructor_has_completed_orientation? || @courses.any?))
+    is_admin? || (is_instructor? && (instructor_has_completed_orientation? || @current.any? && @past.any?))
   end
 
   # Show explore button for non instructors/admins

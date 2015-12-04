@@ -103,6 +103,10 @@ class Course < ActiveRecord::Base
     where('end > ?', Time.zone.now - UPDATE_LENGTH)
   }
 
+  scope :archived, lambda {
+    where('end <= ?', Time.zone.now - UPDATE_LENGTH)
+  }
+
   ##################
   # Course content #
   ##################

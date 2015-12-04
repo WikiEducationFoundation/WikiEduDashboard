@@ -36,7 +36,7 @@
     %h2 Your Courses
 
   - # Empty courses state
-  - if @pres.courses.empty?
+  - if @pres.current.empty? && @pres.past.empty?
     - if @pres.can_create_course?
       %p.empty-state
         Looks like you don't have any courses.
