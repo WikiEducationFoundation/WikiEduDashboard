@@ -54,9 +54,9 @@ Timeline = React.createClass(
         Array.prototype.forEach.call navItems, (item) =>
           item.classList.remove('is-current')
         if !@_scrolledToBottom()
-          navItems[i].classList.add('is-current')
+          navItems[i]?.classList.add('is-current')
         else
-          navItems[navItems.length - 1].classList.add('is-current')
+          navItems[navItems.length - 1]?.classList.add('is-current')
 
   componentDidMount: ->
     window.addEventListener 'scroll', @_handleScroll
@@ -80,13 +80,12 @@ Timeline = React.createClass(
                 week={title: null}
                 index={i + 1}
                 key={"noweek_#{i}"}
-                start_date={week.start_date}
-                end_date={week.end_date}
                 editable=false
-                meetings='(No meetings this week)'
+                meetings=false
                 all_training_modules={@props.all_training_modules}
               />
             )
+            i++
 
         week_components.push (
           <div key={week.id}>
@@ -137,7 +136,6 @@ Timeline = React.createClass(
 
     <div>
       <div className="section-header">
-        <h3>Timeline</h3>
         <div className="timeline-ctas">
           {@props.controls(controls)}
         </div>

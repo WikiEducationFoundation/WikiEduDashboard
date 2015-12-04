@@ -15,10 +15,10 @@
     margin-top 20px
   > div
     p
-      border-bottom 1px solid dove
-      color dove
-      padding-bottom 5px
-      margin-bottom 15px
+      color $text
+      font-size 34px
+      font-weight 300
+      margin-bottom 12px
     > .button
       float right
   .list
@@ -32,11 +32,12 @@
   background-color white
   border 1px solid zircon
   left 0
-  margin 0 0 15px 0
+  margin 0 0 20px 0
   padding 18px 20px 20px
   position relative
   width 100%
   transition all .25s ease-out
+  box-shadow 0 3px 4px rgba(0,0,0,0.1)
   -moz-user-select none
   &:first-child
     border-width 1px
@@ -69,7 +70,23 @@
     font-weight inherit
     font-size inherit
   .block-title
-    color dove
+    color $brand_primary
+    font-weight 400
+
+.block__block-type
+  color $text_dk
+  font-size 18px
+  font-weight 300
+  position relative
+  bottom 4px
+
+.week__no-activity
+  text-align center
+  h1
+    padding 40px 0 30px 0
+    font-weight 300
+    font-size 24px
+    color $text_med
 
 .gradeable
   overflow hidden
@@ -157,7 +174,6 @@ input[type="checkbox"]
       border-bottom none
     &.is-current
       a
-        color $brand_primary
         font-weight bold
       span
         color $text
@@ -176,7 +192,7 @@ input[type="checkbox"]
     font-size 15px
     text-decoration none
   span
-    color $text_lt
+    color $text_med
 
 .week-nav__action.week-nav__link
   color $brand_primary

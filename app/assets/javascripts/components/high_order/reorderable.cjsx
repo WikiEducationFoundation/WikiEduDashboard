@@ -50,14 +50,10 @@ module.exports = (Component, Type, MoveFunction) ->
     render: ->
       if @props.editable
         _.flow(@props.connectDragSource, @props.connectDropTarget)(
-          <div>
-            <Component {...@props} />
-          </div>
+          <Component {...@props} />
         )
       else
-        <div>
-          <Component {...@props} />
-        </div>
+        <Component {...@props} />
   )
 
   # The lodash `flow` function is essentially a chain, passing the return

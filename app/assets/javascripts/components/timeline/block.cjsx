@@ -97,6 +97,19 @@ Block = React.createClass(
         <div className="drag-handle__bar"></div>
         <div className="drag-handle__bar"></div>
       </div>
+      <p className="block__block-type pull-right">
+        <Select
+          onChange={@updateBlock}
+          value={@props.block.kind}
+          value_key={'kind'}
+          editable={@props.editable}
+          options={['In Class', 'Assignment', 'Milestone', 'Custom']}
+          show={@props.block.kind < 3 || @props.editable}
+          label='Block type'
+          spacer=''
+          popover_text={I18n.t('timeline.block_type')}
+        />
+      </p>
       <h4 className={"block-title" + (if @props.editable then " block-title--editing" else "")}>
         <TextInput
           onChange={@updateBlock}
@@ -123,18 +136,8 @@ Block = React.createClass(
           onFocus={@props.toggleFocused}
           onBlur={@props.toggleFocused}
         />
-        <Select
-          onChange={@updateBlock}
-          value={@props.block.kind}
-          value_key={'kind'}
-          editable={@props.editable}
-          options={['In Class', 'Assignment', 'Milestone', 'Custom']}
-          show={@props.block.kind < 3 || @props.editable}
-          label='Block type'
-          spacer=''
-          popover_text={I18n.t('timeline.block_type')}
-        />
-        {spacer}
+      </h4>
+      <p>
         <TextInput
           onChange={@updateBlock}
           value={@props.block.due_date}
@@ -150,7 +153,7 @@ Block = React.createClass(
           onFocus={@props.toggleFocused}
           onBlur={@props.toggleFocused}
         />
-      </h4>
+      </p>
       {graded}
       {dueDateRead || (if is_graded then (<p>{I18n.t('timeline.due_default')}</p>) else '')}
       {content}

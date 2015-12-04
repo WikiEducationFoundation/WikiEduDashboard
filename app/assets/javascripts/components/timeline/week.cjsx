@@ -61,7 +61,8 @@ Week = React.createClass(
         spacer = ' '
       week_label = 'Week ' + @props.index
       # Final label
-      week_label += " (#{@props.week.start_date} - #{@props.week.end_date}) #{@props.meetings}"
+
+      week_label += " (#{@props.week.start_date} - #{@props.week.end_date}) #{@props.meetings if @props.meetings}"
       title = (
         <TextInput
           onChange={@updateWeek}
@@ -74,16 +75,24 @@ Week = React.createClass(
         />
       )
 
-    weekClassName = "week week-id-#{@props.week.id} week-index-#{@props.index}"
-    <li id={@props.week.id} className={weekClassName}>
+    week_content = if @props.meetings then (
+      <ul className="week__block-list list-unstyled">
+        {blocks}
+        {addBlock}
+      </ul>
+    ) else (
+      <div className="week__no-activity">
+        <h1 className="h3">No activity this week</h1>
+      </div>
+    )
+
+    weekClassName = "week week-#{@props.index}"
+    <li className={weekClassName}>
       <div style={overflow: 'hidden'}>
         {deleteWeek}
         {title}
       </div>
-      <ul className="list-unstyled">
-        {blocks}
-        {addBlock}
-      </ul>
+      {week_content}
     </li>
 )
 
