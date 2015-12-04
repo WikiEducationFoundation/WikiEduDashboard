@@ -30,28 +30,27 @@
         Start Orientation
         %i.icon.icon-rt_arrow
       %br
-      = link_to 'Request to opt out of orientation', @pres.opt_out_path
+      = link_to t('dashboard.opt_out'), @pres.opt_out_path
 
   - if @pres.show_your_courses_label?
     %h2 Your Courses
 
+  - # Empty courses state
   - if @pres.courses.empty?
-    - # Empty courses state
-
     - if @pres.can_create_course?
       %p.empty-state
         Looks like you don't have any courses.
         %br
         Click on Create Course to create your first course.
         %br
-        = link_to 'Explore Examples', explore_path
+        = link_to t('dashboard.explore_examples'), explore_path
     - elsif @pres.show_explore_button?
       %p.empty-state
         Looks like you haven't joined a course yet.
         %br
         Once you recieve a passcode from your instructor, click on Find Your Course to find and join it.
         %br
-        = link_to 'Explore the Course Pages', explore_path
+        = link_to t('dashboard.explore_course_pages'), explore_path
 
   - else
     - # Courses list

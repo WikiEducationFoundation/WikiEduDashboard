@@ -18,6 +18,11 @@ qqq:
     explore: Explore link
     my_dashboard: My Dashboard link
 
+  dashboard:
+    opt_out: Link to opt out
+    explore_examples: Link to explore example courses
+    explore_course_pages: Link to explore courses pages
+
   home:
     log_in: Log in with Wikipedia button
     sign_up: Sign up with Wikipedia button

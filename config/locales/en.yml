@@ -45,6 +45,11 @@ en:
     recent_activity: Recent Activity
     search: search ask.wikiedu.org
 
+  dashboard:
+    opt_out: Request to opt out of orientation
+    explore_examples: Explore Examples
+    explore_course_pages: Explore the Course Pages
+
   home:
     log_in: Log in with Wikipedia
     sign_up: Sign up with Wikipedia
