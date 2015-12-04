@@ -17,11 +17,11 @@ $.fn.extend
     return height
 
 # Prototype additions
-String.prototype.trunc = (length=15) ->
-  if @length > length + 3
-    return @substring(0, length) + '…'
+String.prototype.trunc = (truncation=15) ->
+  if @length > truncation + 3
+    return @substring(0, truncation) + '…'
   else
-    return @
+    return @.valueOf()
 
 String.prototype.capitalize = () ->
   this.charAt(0).toUpperCase() + this.slice(1)
