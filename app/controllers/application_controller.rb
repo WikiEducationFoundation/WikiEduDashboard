@@ -37,7 +37,7 @@ class ApplicationController < ActionController::Base
     return if request.fullpath.starts_with? new_user_session_path
     return if request.fullpath.starts_with? destroy_user_session_path
     return if request.fullpath.starts_with? true_destroy_user_session_path
-    redirect_to onboarding_path
+    redirect_to onboarding_path(return_to: request.fullpath)
   end
 
   def require_permissions

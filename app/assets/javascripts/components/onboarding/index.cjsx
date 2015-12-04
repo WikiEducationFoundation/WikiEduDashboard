@@ -40,7 +40,9 @@ Onboarding = React.createClass(
       instructor: @state.instructor == 'true'
     .then (res) ->
       setTimeout () ->
-        document.location.href = "/"
+        return_to = document.location.search.match(/return_to=([^&]*)/);
+        if return_to && return_to[1]
+          document.location.pathname = decodeURIComponent(return_to[1])
       , 750
     .catch((err) =>
       console.log(err, arguments)
