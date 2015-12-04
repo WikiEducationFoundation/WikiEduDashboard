@@ -7,7 +7,9 @@
     %h1= @pres.heading_message
     %div
       - if @pres.can_create_course?
-        = link_to 'Create Course', course_creator_path, class: 'button dark dashboard-cta'
+        = link_to course_creator_path, class: 'button dark dashboard-cta' do
+          Create Course
+          %i.icon.icon-plus
       - elsif @pres.show_explore_button?
         = link_to explore_path, class: 'button dark dashboard-cta' do
           Find Your Course
