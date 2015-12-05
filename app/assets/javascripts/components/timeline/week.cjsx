@@ -45,15 +45,17 @@ Week = React.createClass(
     blocks.sort (a, b) ->
       a.props.block.order - b.props.block.order
 
-    if @props.editable
-      addBlock = (
-        <li className="row view-all">
-          <div>
-            <button className='button' onClick={@addBlock}>Add New Block</button>
-          </div>
-        </li>
-      )
-      deleteWeek = <button onClick={@props.deleteWeek} className='button danger right'>Delete Week</button>
+    week_add_delete = if @props.meetings then (
+      <div className="week__week-add-delete pull-right">
+        <a className="pull-right" href="" onClick={@addBlock}>Add Block
+          <i className="icon icon-plus"></i>
+        </a>
+        <a className="pull-right" href="" onClick={@props.deleteWeek}>Delete Week
+          <i className="icon icon-trash_can"></i>
+        </a>
+      </div>
+    )
+
     if @props.showTitle == undefined || @props.showTitle
       week_label = 'Week ' + @props.index
       title = (
@@ -77,7 +79,6 @@ Week = React.createClass(
     week_content = if @props.meetings then (
       <ul className="week__block-list list-unstyled">
         {blocks}
-        {addBlock}
       </ul>
     ) else (
       <div className="week__no-activity">
@@ -88,7 +89,7 @@ Week = React.createClass(
     weekClassName = "week week-#{@props.index}"
     <li className={weekClassName}>
       <div className="week__week-header">
-        {deleteWeek}
+        {week_add_delete}
         {week_dates}
         {title}
       </div>
