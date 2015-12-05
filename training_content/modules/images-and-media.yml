@@ -1,8 +1,13 @@
 name: 'Contributing Images and Media Files'
 id: 6
 description: |
-  This tutorial shows you how to share media you've found or created, and add them to Wikipedia articles.
+  This tutorial shows you how to share media you've found or created, and add
+  them to Wikipedia articles.
 estimated_ttc: 10 minutes
 slides:
-  - slug: policies-and-guidelines-basic-overview # 101
-  - slug: what-to-expect # 102
+  - slug: using-media # 601
+  - slug: learn-the-rules # 602
+  - slug: what-is-a-free-license # 603
+  - slug: types-of-licenses # 604
+  - slug: what-can-you-share-on-commons # 605
+  - slug: what-is-public-domain # 606
