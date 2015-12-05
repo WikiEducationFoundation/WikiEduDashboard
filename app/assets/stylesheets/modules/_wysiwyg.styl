@@ -123,9 +123,9 @@ trix-toolbar
         background-image url("../images/trix/bullets.svg")
       &.numbers:before
         background-image url("../images/trix/numbers.svg")
-      &.block-level.decrase:before
+      &.block-level.decrease:before
         background-image url("../images/trix/block_level_decrease.svg")
-      &.block-level.incrase:before
+      &.block-level.increase:before
         background-image url("../images/trix/block_level_increase.svg")
       &.undo:before
         background-image url("../images/trix/undo.svg")
@@ -145,7 +145,7 @@ trix-toolbar
   .button_group
     display inline-block
     font-size 0
-    margin 0 8px 0px 0
+    margin 0
     overflow hidden
     &:last-of-type
       margin-right 0
@@ -156,7 +156,7 @@ trix-toolbar
       height 33px
       width 40px
       background transparent
-      border none
+      border-right 1px solid $border_lt
       &:before
         display inline-block
         position absolute
@@ -166,11 +166,11 @@ trix-toolbar
         left 0
         background-position center
         background-repeat no-repeat
-        opacity .6
+        opacity .5
         content ""
       &.active
-        background #ccc
-        &before
+        background $border_lt
+        &:before
           opacity 1
       &.disabled:before
         opacity .125
@@ -219,4 +219,10 @@ trix-toolbar
           float left
           width calc(100% - 120px)
 
+.block_tools
+  position relative
+  right 4px
 
+.history_tools
+  position relative
+  right 8px
