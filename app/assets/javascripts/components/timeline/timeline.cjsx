@@ -104,9 +104,9 @@ Timeline = React.createClass(
         )
 
     add_week_button = if @props.course.timeline_full then (
-      <a href="" className='week-nav__action week-nav__link disabled' title='You cannot add new weeks when your timeline is full. Delete at least one week to make room for a new one.'>Add New Week</a>
+      <span className='week-nav__action week-nav__link disabled' title='You cannot add new weeks when your timeline is full. Delete at least one week to make room for a new one.'>Add New Week</span>
     ) else (
-      <a href="" className='week-nav__action week-nav__link' onClick={@addWeek}>Add New Week</a>
+      <span className='week-nav__action week-nav__link' onClick={@addWeek}>Add New Week</span>
     )
 
     unless week_components.length
