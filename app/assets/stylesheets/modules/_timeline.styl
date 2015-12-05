@@ -79,6 +79,23 @@
   font-weight 300
   position relative
   bottom 4px
+  -webkit-font-smoothing auto
+
+.week__week-header
+  overflow hidden
+  .text-input-compontent__value
+    color $text_med
+    font-size 15px
+    position relative
+    bottom 6px
+    font-weight 400
+    margin-left 10px
+    -webkit-font-smoothing auto
+
+.week__week-dates
+  position relative
+  top 16px
+
 
 .week__no-activity
   text-align center
@@ -87,6 +104,10 @@
     font-weight 300
     font-size 24px
     color $text_med
+
+.text-input-compontent__label
+  font-family $header-font
+  -webkit-font-smoothing auto
 
 .gradeable
   overflow hidden
@@ -150,6 +171,10 @@ input[type="checkbox"]
 
 .timeline__week-nav
   col(3/12, offset: 1/12)
+
+.timeline__weeks
+  position relative
+  bottom 25px
 
 .timeline__weeks, .timeline__grading-container
   col(8/12)

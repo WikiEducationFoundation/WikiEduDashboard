@@ -35,7 +35,7 @@ Block = React.createClass(
       dueDateRead = (
         <TextInput
           onChange={@updateBlock}
-          value={moment(@props.block.due_date).format("YYYY-MM-DD")}
+          value={@props.block.due_date}
           value_key={'due_date'}
           editable={false}
           label='Due'
@@ -161,4 +161,6 @@ Block = React.createClass(
     </li>
 )
 
-module.exports = Reorderable(Block, 'block', 'moveBlock')
+
+module.exports = Block
+#module.exports = Reorderable(Block, 'block', 'moveBlock')

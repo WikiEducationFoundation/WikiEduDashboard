@@ -5,217 +5,218 @@
 
 .trix-content
   blockquote
-    margin: 0 0 0 5px
-    padding: 0 0 0 10px
-    border-left: 5px solid #ccc
+    margin 0 0 0 5px
+    padding 0 0 0 10px
+    border-left 5px solid #ccc
   pre
-    font-family: monospace
-    font-size: 12px
-    margin: 0
-    padding: 10px
-    white-space: pre-wrap
-    background-color: #eee
+    font-family monospace
+    font-size 12px
+    margin 0
+    padding 10px
+    white-space pre-wrap
+    background-color #eee
   ul, ol, li
-    margin: 0
-    padding: 0
+    margin 0
+    padding 0
     li
-      margin-left: 20px
+      margin-left 20px
   img
-    max-width: 100%
-    height: auto
+    max-width 100%
+    height auto
   a[data-trix-attachment]
-    color: inherit
-    text-decoration: none
+    color inherit
+    text-decoration none
     &:hover,
-    &:visited:hover
-      color: inherit
+    &:visited :hover
+      color inherit
   .attachment
-    position: relative
-    display: inline-block
-    max-width: 100%
-    margin: 0
-    padding: 0
-    color: #666
-    font-size: 13px
+    position relative
+    display inline-block
+    max-width 100%
+    margin 0
+    padding 0
+    color #666
+    font-size 13px
     &.attachment-file
-      color: #333
-      line-height: 30px
-      padding: 0 16px
-      border: 1px solid #bbb
+      color #333
+      line-height 30px
+      padding 0 16px
+      border 1px solid #bbb
     .caption
-      display: block
-      margin: 4px auto 0 auto
-      padding: 0
-      text-align: center
+      display block
+      margin 4px auto 0 auto
+      padding 0
+      text-align center
       .size
-        &:before
-          content: ' · '
+        &before
+          content ' · '
 trix-editor
   [data-trix-mutable=true]
-    -webkit-user-select: none
-    -moz-user-select: none
-    -ms-user-select: none
-    user-select: none
+    -webkit-user-select none
+    -moz-user-select none
+    -ms-user-select none
+    user-select none
     img
-      box-shadow: 0 0 0 2px highlight
+      box-shadow 0 0 0 2px highlight
   .attachment
     .remove
-      display: block
-      position: absolute
-      top: -12px
-      right: -12px
-      width: 24px
-      height: 24px
-      line-height: 22px
-      font-size: 0
-      color: black
-      text-align: center
-      text-decoration: none
-      background-color: #fff
-      border: 1px solid #bbb
-      box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1)
+      display block
+      position absolute
+      top -12px
+      right -12px
+      width 24px
+      height 24px
+      line-height 22px
+      font-size 0
+      color black
+      text-align center
+      text-decoration none
+      background-color #fff
+      border 1px solid #bbb
+      box-shadow 1px 1px 10px rgba(0, 0, 0, 0.1)
       &:after
-        content: '×'
-        font-size: 18px
-        font-weight: bold
-        opacity: 0.6
+        content '×'
+        font-size 18px
+        font-weight bold
+        opacity 0.6
       &:hover
         &:after
-          opacity: 1
+          opacity 1
     .caption
       &.caption-editing
         textarea
-          width: 100%
-          margin: 0
-          padding: 0
-          font-size: 13px
-          line-height: 13px
-          text-align: center
-          border: none
-          outline: none
-          -webkit-appearance: none
-          -moz-appearance: none
+          width 100%
+          margin 0
+          padding 0
+          font-size 13px
+          line-height 13px
+          text-align center
+          border none
+          outline none
+          -webkit-appearance none
+          -moz-appearance none
 trix-editor
-  color: #111
-  border: 1px solid #bbb
-  margin: 0
-  padding: 4px 8px
-  min-height: 54px
-  outline: none
+  color #111
+  border 1px solid $border_med_dk
+  margin 0
+  padding 8px
+  min-height 54px
+  outline none
+
 trix-toolbar
  .button_group
     display inline-block !important
     button
-      &.bold::before
-        background-image: url("../images/trix/bold.svg")
-      &.italic::before
-        background-image: url("../images/trix/italic.svg")
-      &.link::before
-        background-image: url("../images/trix/link.svg")
-      &.strike::before
-        background-image: url("../images/trix/strike.svg")
-      &.quote::before
-        background-image: url("../images/trix/quote.svg")
-      &.code::before
-        background-image: url("../images/trix/code.svg")
-      &.bullets::before
-        background-image: url("../images/trix/bullets.svg")
-      &.numbers::before
-        background-image: url("../images/trix/numbers.svg")
-      &.block-level.decrease::before
-        background-image: url("../images/trix/block_level_decrease.svg")
-      &.block-level.increase::before
-        background-image: url("../images/trix/block_level_increase.svg")
-      &.undo::before
-        background-image: url("../images/trix/undo.svg")
-      &.redo::before
-        background-image: url("../images/trix/redo.svg")
+      &.bold:before
+        background-image url("../images/trix/bold.svg")
+      &.italic:before
+        background-image url("../images/trix/italic.svg")
+      &.link:before
+        background-image url("../images/trix/link.svg")
+      &.strike:before
+        background-image url("../images/trix/strike.svg")
+      &.quote:before
+        background-image url("../images/trix/quote.svg")
+      &.code:before
+        background-image url("../images/trix/code.svg")
+      &.bullets:before
+        background-image url("../images/trix/bullets.svg")
+      &.numbers:before
+        background-image url("../images/trix/numbers.svg")
+      &.block-level.decrase:before
+        background-image url("../images/trix/block_level_decrease.svg")
+      &.block-level.incrase:before
+        background-image url("../images/trix/block_level_increase.svg")
+      &.undo:before
+        background-image url("../images/trix/undo.svg")
+      &.redo:before
+        background-image url("../images/trix/redo.svg")
       &.list
         margin-top 0
 trix-toolbar
   *
-    box-sizing: border-box
+    box-sizing border-box
+  .button_groups
+    background #f7f7f7
+    border 1px solid $border_med_dk
+    border-bottom none
+    border-collapse collapse
+    height 34px
   .button_group
-    display: inline-block
-    font-size: 0
-    margin: 0 8px 4px 0
-    border: 1px solid #bbb
-    border-top-color: #ccc
-    border-bottom-color: #888
-    overflow: hidden
+    display inline-block
+    font-size 0
+    margin 0 8px 0px 0
+    overflow hidden
     &:last-of-type
-      margin-right: 0
+      margin-right 0
     button, input[type=button]
-      position: relative
-      font-size: 0
-      margin: 0
-      height: 28px
-      width: 40px
-      background: #fff
-      border: none
-      border-bottom: 1px solid #ddd
-      &::before
-        display: inline-block
-        position: absolute
-        top: 0
-        right: 0
-        bottom: 0
-        left: 0
-        background-position: center
-        background-repeat: no-repeat
-        opacity: .6
-        content: ""
+      position relative
+      font-size 0
+      margin 0
+      height 33px
+      width 40px
+      background transparent
+      border none
+      &:before
+        display inline-block
+        position absolute
+        top 0
+        right 0
+        bottom 0
+        left 0
+        background-position center
+        background-repeat no-repeat
+        opacity .6
+        content ""
       &.active
-        background: #cbeefa
-        &::before
-          opacity: 1
-      &:disabled::before
-        opacity: .125
-      &:not(:first-child)
-        border-left: 1px solid #ccc
+        background #ccc
+        &before
+          opacity 1
+      &.disabled:before
+        opacity .125
   .dialogs
-    position: relative
+    position relative
     .dialog
-      position: absolute
-      top: 0
-      left: 0
-      right: 0
-      padding: 12px 8px
-      line-height: 12px
-      background: #fff
-      box-shadow: 0 0.3rem 1rem #ccc
-      border-top: 2px solid #888
-      z-index: 5
+      position absolute
+      top 0
+      left 0
+      right 0
+      padding 12px 8px
+      line-height 12px
+      background #fff
+      box-shadow 0 0.3rem 1rem #ccc
+      border-top 2px solid #888
+      z-index 5
       input[type=button]
-        font-size: 12px
-        height: 24px
-        width: 50px
-        padding: 1px 8px 0 8px
-        width: auto
-        opacity: .6
-        -webkit-appearance: none
-        -webkit-border-radius: 0
+        font-size 12px
+        height 24px
+        width 50px
+        padding 1px 8px 0 8px
+        width auto
+        opacity .6
+        -webkit-appearance none
+        -webkit-border-radius 0
       input[type=url], input[type=text]
-        display: inline-block
-        height: 26px
-        font-size: 12px
-        padding: 0 8px
-        margin: 0 8px 0 0
-        border: 1px solid #bbb
-        background-color: #fff
-        box-shadow: none
-        outline: none
-        -webkit-appearance: none
-        -moz-appearance: none
-        &.validate:invalid
-          box-shadow: #F00 0px 0px 1.5px 1px
+        display inline-block
+        height 26px
+        font-size 12px
+        padding 0 8px
+        margin 0 8px 0 0
+        border 1px solid #bbb
+        background-color #fff
+        box-shadow none
+        outline none
+        -webkit-appearance none
+        -moz-appearance none
+        &.validateinvalid
+          box-shadow #F00 0px 0px 1.5px 1px
       &.link_dialog
-        min-width: 300px
-        max-width: 600px
+        min-width 300px
+        max-width 600px
         .button_group
-          max-width: 110px
+          max-width 110px
         input[type=url]
-          float: left
-          width: calc(100% - 120px)
+          float left
+          width calc(100% - 120px)
 
 

@@ -55,14 +55,7 @@ Week = React.createClass(
       )
       deleteWeek = <button onClick={@props.deleteWeek} className='button danger right'>Delete Week</button>
     if @props.showTitle == undefined || @props.showTitle
-      if (@props.week.title? || @props.editable)
-        spacer = '  —  '
-      else
-        spacer = ' '
       week_label = 'Week ' + @props.index
-      # Final label
-
-      week_label += " (#{@props.week.start_date} - #{@props.week.end_date}) #{@props.meetings if @props.meetings}"
       title = (
         <TextInput
           onChange={@updateWeek}
@@ -70,9 +63,15 @@ Week = React.createClass(
           value_key={'title'}
           editable={@props.editable}
           label={week_label}
-          spacer={spacer}
+          spacer=' '
           placeholder='Title'
         />
+      )
+
+      week_dates = (
+        <span className='week__week-dates pull-right'>
+          {@props.week.start_date} - {@props.week.end_date} {@props.meetings if @props.meetings}
+        </span>
       )
 
     week_content = if @props.meetings then (
@@ -88,8 +87,9 @@ Week = React.createClass(
 
     weekClassName = "week week-#{@props.index}"
     <li className={weekClassName}>
-      <div style={overflow: 'hidden'}>
+      <div className="week__week-header">
         {deleteWeek}
+        {week_dates}
         {title}
       </div>
       {week_content}

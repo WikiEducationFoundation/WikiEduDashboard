@@ -78,7 +78,7 @@ TextInput = React.createClass(
     else if @props.label
       <p>
         <span className="text-input-compontent__label">{label}</span>
-        {spacer if (@props.value? or @props.editable) && !@props.label}
+        <span>{spacer if (@props.value? or @props.editable) && !@props.label}</span>
         <span className="text-input-compontent__value">{value}</span>
         {@props.append}
       </p>
