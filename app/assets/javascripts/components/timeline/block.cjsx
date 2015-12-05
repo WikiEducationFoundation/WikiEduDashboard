@@ -22,6 +22,8 @@ Block = React.createClass(
     BlockActions.updateBlock newBlock
   deleteBlock: ->
     BlockActions.deleteBlock @props.block.id
+  _setEditable: (block_id) ->
+    console.log "Block #{block_id}"
   updateGradeable: (value_key, value) ->
     if value == 'true'
       GradeableActions.addGradeable @props.block
@@ -92,6 +94,7 @@ Block = React.createClass(
     )
 
     <li className={className} draggable={@props.canDrag && @props.editable}>
+      <span className="pull-right button ghost-button block__edit-block" onClick={@_setEditable.bind(null, @props.block.id)}>Edit</span>
       <div className="drag-handle">
         <div className="drag-handle__bar"></div>
         <div className="drag-handle__bar"></div>
