@@ -68,7 +68,7 @@ routes = (
 
 el = document.getElementById('react_root')
 render((
-  <Router history={history}>
+  <Router onUpdate={() => window.scrollTo(0, 0)} history={history}>
     {routes}
   </Router>
 ), el) if el?
