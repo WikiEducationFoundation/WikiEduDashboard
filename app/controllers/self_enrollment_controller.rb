@@ -32,7 +32,7 @@ class SelfEnrollmentController < ApplicationController
       WikiEdits.update_course(@course, current_user)
     end
 
-    redirect_to course_slug_path(@course.slug, enrolled: true)
+    redirect_to course_slug_path(@course.slug)
   end
 
   private
