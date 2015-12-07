@@ -12,7 +12,6 @@ class CoursesController < ApplicationController
   ################
 
   def create
-    handle_instructor_info if should_update_instructor_info?
     slug_from_params if should_set_slug?
     @course =
       Course.create(course_params.merge('passcode' => Course.generate_passcode))
@@ -25,7 +24,6 @@ class CoursesController < ApplicationController
   def update
     validate
     handle_course_announcement(@course.instructors.first)
-    handle_instructor_info
     slug_from_params if should_set_slug?
     handle_timeline_dates
     @course.update course: course_params
@@ -126,22 +124,6 @@ class CoursesController < ApplicationController
     slug = params[:id].gsub(/\.json$/, '')
     @course = find_course_by_slug(slug)
     return unless user_signed_in? && current_user.instructor?(@course)
-  end
-
-  def should_update_instructor_info?
-    (%w(instructor_email instructor_name) & params[:course].keys).any?
-  end
-
-  def handle_instructor_info
-    return unless should_update_instructor_info?
-    c_params = params[:course]
-    current_user.real_name =
-      c_params['instructor_name'] if c_params.key?('instructor_name')
-    current_user.email =
-      c_params['instructor_email'] if c_params.key?('instructor_email')
-    current_user.save
-    c_params.delete('instructor_email')
-    c_params.delete('instructor_name')
   end
 
   def handle_timeline_dates

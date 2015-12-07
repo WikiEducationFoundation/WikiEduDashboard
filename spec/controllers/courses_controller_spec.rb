@@ -108,35 +108,6 @@ describe CoursesController do
       end
     end
 
-    context 'setting instructor info' do
-      let(:course_params) do
-        { title: 'New title',
-          description: 'New description',
-          # Don't use 2.months.ago; it'll return a datetime, not a date
-          start: Time.zone.today - 2.months,
-          end: Time.zone.today + 2.months,
-          term: 'pizza',
-          slug: 'food',
-          subject: 'cooking',
-          expected_students: 1,
-          submitted: submitted_2,
-          listed: false,
-          day_exceptions: '',
-          weekdays: '0001000',
-          no_day_exceptions: true,
-          instructor_name: 'pizza',
-          instructor_email: 'pizza@tacos.com' }
-      end
-      before do
-        user.update_attributes(real_name: 'fakename', email: 'fake@example.com')
-      end
-      it 'sets the instructor name and email if they are in the params' do
-        post :create, course: course_params, format: :json
-        expect(user.reload.real_name).to eq(course_params[:instructor_name])
-        expect(user.reload.email).to eq(course_params[:instructor_email])
-      end
-    end
-
     it 'raises if course is not found' do
       expect { put :update, id: 'peanut-butter', course: course_params, format: :json }
         .to raise_error(ActionController::RoutingError)
@@ -217,9 +188,7 @@ describe CoursesController do
             listed: false,
             day_exceptions: '',
             weekdays: '0001000',
-            no_day_exceptions: true,
-            instructor_name: 'pizza',
-            instructor_email: 'pizza@tacos.com' }
+            no_day_exceptions: true}
         end
         it 'sets timeline start/end to course start/end if not in params' do
           put :create, course: course_params, format: :json

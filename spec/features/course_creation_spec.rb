@@ -111,8 +111,6 @@ describe 'New course creation and editing', type: :feature do
   end
 
   describe 'course workflow', js: true do
-    let(:instructor_name)  { 'Mr. Capybara' }
-    let(:instructor_email) { 'capybara@wikiedu.org' }
     let(:expected_course_blocks) { 27 }
     let(:module_name) { 'Wikipedia Essentials' }
     let(:unassigned_module_name) { 'Orientation for New Instructors' }
@@ -132,8 +130,6 @@ describe 'New course creation and editing', type: :feature do
       expect(find('#course_term')['class']).to include('invalid term')
 
       # Now we fill out all the fields and continue.
-      find('#instructor_name').set(instructor_name)
-      find('#instructor_email').set(instructor_email)
       find('#course_school').set('University of Wikipedia, East Campus')
       find('#course_term').set('Fall 2015')
       find('#course_subject').set('Advanced Studies')
@@ -263,8 +259,6 @@ describe 'New course creation and editing', type: :feature do
 
       within('.sidebar') do
         expect(page).to have_content I18n.t('courses.instructor.other')
-        expect(page).to have_content instructor_name
-        expect(page).to have_content instructor_email
       end
 
       sleep 1
@@ -297,8 +291,6 @@ describe 'New course creation and editing', type: :feature do
       click_link 'Create Course'
       expect(page).to have_content 'Create a New Course'
       find('#course_title').set('Course')
-      find('#instructor_name').set(instructor_name)
-      find('#instructor_email').set(instructor_email)
       find('#course_school').set('University')
       find('#course_term').set('Term')
       find('#course_subject').set('Advanced Studies')
