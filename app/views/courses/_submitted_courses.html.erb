@@ -1,4 +1,4 @@
-<% if current_user.permissions > 0 && presenter.admin_courses.any? %>
+<% if current_user.admin? && presenter.admin_courses.any? %>
   <section id="admin_courses">
     <div class="section-header">
       <h3>Submitted Courses</h3>
