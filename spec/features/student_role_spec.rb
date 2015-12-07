@@ -49,16 +49,16 @@ describe 'Student users', type: :feature, js: true do
   describe 'logging out' do
     it 'should work' do
       visit "/courses/#{Course.first.slug}"
-      expect(page).to have_content 'Log Out'
-      expect(page).not_to have_content 'Login'
-      find('a', text: 'Log Out').click
-      expect(page).to have_content 'Login'
-      expect(page).not_to have_content 'Log Out'
+      expect(page).to have_content 'Log out'
+      expect(page).not_to have_content 'Log in'
+      find('a', text: 'Log out').click
+      expect(page).to have_content 'Log in'
+      expect(page).not_to have_content 'Log out'
     end
 
     it 'should not cause problems if done twice' do
       visit "/courses/#{Course.first.slug}"
-      find('a', text: 'Log Out').click
+      find('a', text: 'Log out').click
       sleep 1
       visit '/sign_out'
     end
@@ -240,14 +240,14 @@ describe 'Student users', type: :feature, js: true do
     end
   end
 
-  describe 'visiting the home page' do
+  describe 'visiting the courses page' do
     it 'should see their course' do
       create(:courses_user,
              course_id: 10001,
              user_id: 200,
              role: CoursesUsers::Roles::STUDENT_ROLE)
 
-      visit '/'
+      visit '/courses'
       expect(page).to have_content 'Your Courses'
       user_courses = find('#user_courses')
       expect(user_courses).to have_content 'An Example Course'

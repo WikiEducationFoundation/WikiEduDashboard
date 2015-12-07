@@ -1,0 +1,29 @@
+%aside{:class => [local_assigns.fetch(:fluid, false) ? 'fluid' : nil]}
+  .container
+    .logo
+      %a.logo__link{:href => "/"}= logo_tag
+    .home
+      - if user_signed_in?
+        = link_to t('application.my_dashboard'), root_url
+      - else
+        = link_to t('application.explore'), '/courses'
+      - if current_user && current_user.admin?
+        = link_to t('application.recent_activity'), '/recent-activity'
+    - if user_signed_in?
+      .search
+        = form_tag("/ask", method: "get", target: '_blank') do
+          = text_field_tag(:q, '', placeholder: t('application.search'))
+          = submit_tag(t('application.help'))
+    .login
+      - if user_signed_in?
+        %b>= link_to current_user.wiki_id, :root
+        = link_to t('application.log_out'), :destroy_user_session
+      - else
+        = link_to user_omniauth_authorize_path(:mediawiki_signup) do
+          %i.icon.icon-wiki-logo
+          = t('application.sign_up')
+          %span.expand= t('application.sign_up_log_in_extended')
+        = link_to user_omniauth_authorize_path(:mediawiki) do
+          %i.icon.icon-wiki-logo
+          = t('application.log_in')
+          %span.expand= t('application.sign_up_log_in_extended')

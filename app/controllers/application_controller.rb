@@ -19,11 +19,11 @@ class ApplicationController < ActionController::Base
   force_ssl if: :ssl_configured?
 
   def after_sign_out_path_for(_resource_or_scope)
-    request.referrer
+    '/'
   end
 
   def after_sign_in_path_for(_resource_or_scope)
-    request.env['omniauth.origin'] || '/'
+    request.env['omniauth.origin'] || '/courses'
   end
 
   def require_permissions

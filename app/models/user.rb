@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :rememberable, :omniauthable, omniauth_providers: [:mediawiki]
+  devise :rememberable, :omniauthable, omniauth_providers: [:mediawiki, :mediawiki_signup]
 
   has_many :courses_users, class_name: CoursesUsers
   has_many :courses, -> { uniq }, through: :courses_users

@@ -1,14 +1,14 @@
 - content_for :head do
-  = stylesheet_link_tag "/assets/stylesheets/training.css", media: 'all'
+  = stylesheet_link_tag fingerprinted("/assets/stylesheets/#{rtl? ? 'rtl/' : nil}", 'main.css'), media: 'all'
 
 !!!
 %html{ dir: rtl? ? "rtl" : nil }
   = render "shared/head"
-  %body.training
+  %body.fixed-nav
     - if flash[:notice]
       .notice= flash[:notice]
     %div
-      = render "shared/nav", fluid: true
+      = render "shared/nav"
       %main#main{"data-user-id" => current_user.try(:id), :role => "main"}
         = yield
     = render "shared/foot"

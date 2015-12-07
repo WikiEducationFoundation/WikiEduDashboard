@@ -1,0 +1,260 @@
+
+/* Variables for the home page. These should make their way into main.styl soon. */
+$brand-primary = #696BB1
+$body-color-dark = #2C2C2C
+$body_color = #6A6A6A
+$body_font = "Open Sans", "Source Sans Pro", sans-serif
+$heading_font = $body_font
+$h1_font = "Source Sans Pro", "Open Sans", sans-serif
+
+body.home
+  color $body_color
+  font-family $body_font
+
+  .notification
+    text-align center
+
+  /* Base button */
+  .button
+    background #fff
+    border none
+    border-radius 3px
+    color: $brand-primary
+    font-weight 600
+    margin-left 0
+
+    & + .button {
+      margin-left 20px
+    }
+
+    &:hover, &:focus
+      background-image linear-gradient(top, #fff, #e0e0e0)
+
+  /* Ghost button */
+  .button.button-ghost
+    background transparent
+    border 1px solid $brand-primary
+
+    &:hover, &:focus
+      color #fff
+      background $brand-primary
+
+  /* Ghost button for inverted backgrounds */
+  .button.button-ghost.button-inverse
+    border none
+    box-shadow inset 0 0 0 1px #fff
+    color #fff
+
+    &:hover, &:focus
+      color $brand-primary
+      background #fff
+
+  /* Help icon button */
+  .help
+    border 1px solid #fff
+    color #fff
+    border-radius: 50%
+    font-size 16px
+    font-weight 600
+    display inline-block
+    width 26px
+    height 26px
+    line-height 24px
+    text-decoration none
+    text-align center
+    transition all 62ms ease-in-out
+    padding-left 1px
+    margin-left 20px
+
+    &:hover, &:focus
+      background-color #fff
+      color $brand-primary
+
+
+  /* Home page hero */
+  .hero
+    .container
+      +above(desktop)
+        padding-bottom 100px
+        padding-top 80px
+
+    .button
+      +below(desktop)
+        margin 24px auto
+        display block
+        text-align center
+
+    .help
+      +below(desktop)
+        margin 0 auto
+        display block
+
+    .button i
+      color #7c7c77
+      font-size 28px
+      vertical-align middle
+      margin -6px 6px -4px -4px
+      line-height 0
+      display inline-block
+
+      &:before
+        vertical-align bottom
+
+    .button-ghost i
+      color inherit
+
+    h1
+      color #fff
+      margin-bottom 80px
+
+      +below(desktop)
+        margin-bottom 40px
+
+
+  /* Basic sections and variants */
+  section
+    .container
+      padding 60px 40px 60px 40px
+
+      +below(desktop)
+        padding 40px
+
+    &.light
+      background-color #fff
+
+    &.dark
+      background-color $brand-primary
+      background-image url("../images/waves.svg")
+      background-repeat no-repeat
+      background-position center 75%
+      background-size cover
+
+      &, h1, h2, h3
+        color #fff
+
+    h1, .h1
+      font-family $h1_font
+      font-size 32px
+      font-weight 300
+      line-height 1.4
+      color $brand-primary
+      max-width 100%
+
+      +above(desktop)
+        font-size 54px
+
+    h2, .h2
+      font-family $heading_font
+      font-size 24px
+      font-weight 300
+      color $body-color-dark
+      max-width 640px
+      margin 0 auto 20px auto
+
+      +above(desktop)
+        font-size 30px
+
+    h3, .h3
+      color $brand-primary
+      font-size 16px
+      font-family $heading_font
+
+      +above(desktop)
+        font-size 20px
+
+
+  /* 2 column grid */
+  .col
+    margin-top 40px
+
+    +above(desktop)
+      col(1/2)
+
+
+  /* Larger ul style */
+  ul
+    font-size 21px
+    margin-bottom 20px
+    li
+      margin-bottom 10px
+
+
+  /* Improve stat display */
+  .stat-display
+    display inline-block
+    width 100%
+    margin 20px 0 40px 0
+    display flex
+    justify-content space-between
+    flex-flow wrap
+
+    .stat-display__stat
+      float none
+      margin 0 0 20px 0
+
+      +above(desktop)
+        width (1/6*100)%
+
+    h1
+      font-family inherit
+      color $brand-primary
+      font-size 38px
+    small
+      color #aaa
+
+
+  /* Total stats */
+  .stats-total
+    .container
+      padding-bottom 80px
+    h2
+      margin-bottom 60px
+    h3
+      font-family: $h1_font
+      font-weight 300
+      -webkit-font-smoothing auto
+      font-size 22px
+      margin-bottom 0px
+      +above(desktop)
+        margin-bottom -10px
+        font-size 25px
+    h4
+      color #fff
+      font-weight 600
+      font-size 24px
+      +above(desktop)
+        font-size 130px
+
+    p
+      font-size 18px
+      line-height 1.3
+      +above(desktop)
+        font-size 21px
+
+    .container > div:last-child
+      .col
+        h4
+          +above(desktop)
+            margin-top 10px
+            font-size 75px
+
+  .universities
+    h2
+      text-align center
+      max-width 85%
+      margin-bottom 60px
+
+    .logos
+      display flex
+      flex-direction row
+      flex-wrap wrap
+      justify-content space-around
+      align-items center
+
+      > img
+        margin 30px 30px 0 30px
+
+        +below(desktop)
+          margin 15px 15px 0 15px
+          max-width 30%
+

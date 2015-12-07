@@ -1,0 +1,90 @@
+%section.dark.hero
+  .container
+    %h1= ENV['dashboard_title']
+
+    = link_to user_omniauth_authorize_path(:mediawiki), {class: 'button'} do
+      %i.icon.icon-wiki-logo
+      = t('home.log_in')
+
+    = link_to user_omniauth_authorize_path(:mediawiki_signup), {class: 'button button-ghost button-inverse'} do
+      %i.icon.icon-wiki-logo
+      = t('home.sign_up')
+
+    = link_to '?', '/ask', {class: 'help'}
+
+%section
+  .container.text-center
+    %h2= @presenter.cohort.title
+
+    = render 'courses/header_stats', presenter: @presenter
+
+    = link_to t('home.explore'), '/courses', {class: 'button button-ghost'}
+
+%section.light
+  .container
+    %h2.h1 We cultivate learning that enriches Wikipedia and universities, creating a world where any learner can contribute to open scholarship and education for all.
+
+%section
+  .container
+    %h2.text-center The dashboard provides easy to use tools for instructors and students
+
+    .col
+      %h3 Instructors
+      %h2 Create and Manage a Wikipedia Assignment
+      %ul
+        %li Learn how to edit Wikipedia, create, and manage a course with our interactice training
+        %li Create a course from our templates and refine the course to meet your needs.
+        %li A clean interface for tracking the class’s progress
+
+    .col
+      %h3 Students
+      %h2 Stay Informed and Learn How to Edit Wikipedia
+      %ul
+        %li Learn how to edit Wikipedia with our interactive training
+        %li A single location to stay up to date with your Wikipedia assignment
+        %li A clean interface for tracking your progress while editing Wikipedia
+
+%section.dark.stats-total
+  .container
+    %h2.h1 Impact since 2010:
+
+    %h3 Wiki Ed Courses
+    %h4= 640
+
+    %div
+      .col
+        %h3 Students
+        %h4 14,000
+
+      .col
+        %h3 Articles worked on
+        %h4 35,000
+
+    %div
+      .col
+        %h3 Characters added
+        %h4 20.5 Million
+        %p
+          The number of words students have donated to the world. That’s 28,000 pages – the equivalent of 28 volumes of a printed encyclopedia, shared with everyone, for free.
+
+      .col
+        %h3 Article views, in a single term
+        %h4 69.4 Million
+        %p
+          How many people have read the Wikipedia articles these students have edited? In a single term, 69.4 million – larger than the population of France.
+
+%section.universities
+  .container
+    %h2
+      Wiki Education Foundation staff have supported instructors and students in more than
+      %b 400 universities
+      across the United States and Canada, including:
+
+    .logos
+      = image_tag "/assets/images/university-logo-1.png"
+      = image_tag "/assets/images/university-logo-2.png"
+      = image_tag "/assets/images/university-logo-3.png"
+      = image_tag "/assets/images/university-logo-4.png"
+      = image_tag "/assets/images/university-logo-5.png"
+      = image_tag "/assets/images/university-logo-6.png"
+      = image_tag "/assets/images/university-logo-7.png"

@@ -1,5 +1,5 @@
-#= Presenter for main page / cohort view
-class HomePagePresenter
+#= Presenter for courses / cohort view
+class CoursesPresenter
   attr_reader :current_user, :cohort_param
 
   def initialize(current_user, cohort_param)
