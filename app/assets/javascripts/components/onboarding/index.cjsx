@@ -27,6 +27,9 @@ Onboarding = React.createClass(
       "#{field}": e.target.value
     }
 
+  _getReturnToParam: ->
+    return_to = window.location.search.match(/return_to=([^&]*)/);
+    return return_to && return_to[1]
 
   # Post updates to user API and transition out
   _handleSubmit: (e) ->
@@ -38,11 +41,11 @@ Onboarding = React.createClass(
       real_name: @state.name
       email: @state.email
       instructor: @state.instructor == 'true'
-    .then (res) ->
-      setTimeout () ->
-        return_to = document.location.search.match(/return_to=([^&]*)/);
-        if return_to && return_to[1]
-          document.location.pathname = decodeURIComponent(return_to[1])
+    .then (res) =>
+      setTimeout () =>
+        return_to = @_getReturnToParam()
+        if return_to
+          window.location = decodeURIComponent(return_to)
       , 750
     .catch((err) =>
       console.log(err, arguments)
@@ -60,7 +63,7 @@ Onboarding = React.createClass(
     return (
       <div key="finished" className="intro text--center">
         <h1>Thank you.</h1>
-        <h2>Loading dashboard...</h2>
+        <h2>Loading...</h2>
       </div>
     )
 
