@@ -87,12 +87,12 @@ describe 'dashboard', type: :feature, js: true do
       login_as(user, scope: :user)
     end
 
-    it 'should initially not show archived' do
+    it 'should not initially show archived' do
       visit root_path
       expect(page).not_to have_content 'Archived Courses'
     end
 
-    it 'should show archived' do
+    it 'should show archived courses when there are archived courses' do
       create(:course,
              id: 10001,
              title: 'Archived Title',
