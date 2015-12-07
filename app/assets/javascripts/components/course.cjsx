@@ -109,7 +109,7 @@ Course = React.createClass(
           <div className='container'>
             <div>
               <p>Your course has been published! Students may enroll in the course by visiting the following URL:</p>
-              <p>{@state.course.url + "?enroll=" + @state.course.passcode}</p>
+              <p>{@_courseLinkParams() + "?enroll=" + @state.course.passcode}</p>
             </div>
           </div>
         </div>
@@ -128,16 +128,20 @@ Course = React.createClass(
       if @getCurrentUser().id?
         enroll_card = (
           <div className="module enroll">
-            <svg className="close" tabIndex="0" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" style={{"fill":"currentcolor", "verticalAlign": "middle", "width":"32px", "height":"32px"}}><g><path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"></path></g></svg>
+            <a href={@_courseLinkParams()}>
+              <svg className="close" tabIndex="0" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" style={{"fill":"currentcolor", "verticalAlign": "middle", "width":"32px", "height":"32px"}}><g><path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"></path></g></svg>
+            </a>
             <h1>Join '{@state.course.title}'?</h1>
             <a className="button dark" href={@state.course.enroll_url + @props.location.query.enroll}>Join</a>
-            <a className="button border">Cancel</a>
+            <a className="button border" href={@_courseLinkParams()}>Cancel</a>
           </div>
         )
       else
         enroll_card = (
           <div className="module enroll">
-            <svg className="close" tabIndex="0" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" style={{"fill":"currentcolor", "verticalAlign": "middle", "width":"32px", "height":"32px"}}><g><path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"></path></g></svg>
+            <a href={@_courseLinkParams()}>
+              <svg className="close" tabIndex="0" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" style={{"fill":"currentcolor", "verticalAlign": "middle", "width":"32px", "height":"32px"}}><g><path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"></path></g></svg>
+            </a>
             <h1>Hello,</h1>
             <p>
               You’ve been invited to join {@state.course.title}. To join the course, you need to log in with a Wikipedia account.
@@ -152,7 +156,9 @@ Course = React.createClass(
     else if @props.location.query.enrolled
       enroll_card = (
         <div className="module enroll">
-          <svg className="close" tabIndex="0" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" style={{"fill":"currentcolor", "verticalAlign": "middle", "width":"32px", "height":"32px"}}><g><path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"></path></g></svg>
+          <a href={@_courseLinkParams()}>
+            <svg className="close" tabIndex="0" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" style={{"fill":"currentcolor", "verticalAlign": "middle", "width":"32px", "height":"32px"}}><g><path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"></path></g></svg>
+          </a>
           <h1>Welcome!</h1>
           <p>You’ve successfully joined {@state.course.title}.</p>
         </div>
