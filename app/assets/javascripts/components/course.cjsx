@@ -107,8 +107,10 @@ Course = React.createClass(
       alerts.push (
         <div className='notification' key='enroll'>
           <div className='container'>
-            <p>Your course has been published! Students may enroll in the course by visiting the following URL:</p>
-            <p>{@state.course.enroll_url + @state.course.passcode}</p>
+            <div>
+              <p>Your course has been published! Students may enroll in the course by visiting the following URL:</p>
+              <p>{@state.course.url + "?enroll=" + @state.course.passcode}</p>
+            </div>
           </div>
         </div>
       )
@@ -142,8 +144,8 @@ Course = React.createClass(
               <br/> If you don't have a Wikipedia account yet, sign up for one now.
             </p>
             <p>
-              <a href={"/users/auth/mediawiki?origin=" + window.location} className="button dark"><i className="icon icon-wiki-logo"></i> Log in with Wikipedia</a>
-              <a href={"/users/auth/mediawiki_signup?origin=" + window.loaction} className="button border"><i className="icon icon-wiki-logo"></i> Sign up with Wikipedia</a>
+              <a href={"/users/auth/mediawiki?origin=" + window.location} className="button auth dark"><i className="icon icon-wiki-logo"></i> Log in with Wikipedia</a>
+              <a href={"/users/auth/mediawiki_signup?origin=" + window.loaction} className="button auth signup border"><i className="icon icon-wiki-logo"></i> Sign up with Wikipedia</a>
             </p>
           </div>
         )

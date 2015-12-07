@@ -2,11 +2,11 @@
   .container
     %h1= ENV['dashboard_title']
 
-    = link_to user_omniauth_authorize_path(:mediawiki), {class: 'button'} do
+    = link_to user_omniauth_authorize_path(:mediawiki), {class: 'button auth'} do
       %i.icon.icon-wiki-logo
       = t('home.log_in')
 
-    = link_to user_omniauth_authorize_path(:mediawiki_signup), {class: 'button button-ghost button-inverse'} do
+    = link_to user_omniauth_authorize_path(:mediawiki_signup), {class: 'button button-ghost button-inverse auth signup'} do
       %i.icon.icon-wiki-logo
       = t('home.sign_up')
 
