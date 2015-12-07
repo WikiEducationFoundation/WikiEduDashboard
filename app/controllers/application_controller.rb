@@ -65,9 +65,9 @@ class ApplicationController < ActionController::Base
     flash[:notice] = t('error.unsupported_browser.explanation') unless supported
   end
 
-  def course_slug_path(slug)
+  def course_slug_path(slug, args={})
     slug_parts = slug.split('/')
-    show_path(school: slug_parts[0], titleterm: slug_parts[1])
+    show_path(args.merge(school: slug_parts[0], titleterm: slug_parts[1]))
   end
   helper_method :course_slug_path
 
