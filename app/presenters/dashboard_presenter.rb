@@ -46,7 +46,7 @@ class DashboardPresenter
 
   # Admins and instructors who have completed orientation (unless they've already created a course) can create courses
   def can_create_course?
-    is_admin? || (is_instructor? && (instructor_has_completed_orientation? || @current.any? && @past.any?))
+    is_admin? || (is_instructor? && (instructor_has_completed_orientation? || @current.any? || @past.any?))
   end
 
   # Show explore button for non instructors/admins
