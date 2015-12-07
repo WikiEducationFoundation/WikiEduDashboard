@@ -42,11 +42,12 @@ assessment:
         they're there!
     - id: 4
       text: |
-        Tell the Talk page that you're being graded, and to avoid editing the
-        article until your teacher sees it.
+        Tell the Talk page that you're being graded, and that others should avoid editing the
+        article until your teacher sees it. Write this message entirely in capital letters, 
+        to make sure other editors see it. 
       explanation: |
         INCORRECT! Remember, nobody "owns" articles on Wikipedia. Asking other
-        editors to stop working on an article comes across as incredibly
-        hostile. Your contributions are saved on Wikipedia. If other editors
-        remove or change them, you can still show your instructor what you've
-        done.
+        editors to stop working on an article comes across as incredibly hostile 
+        (AND SO DOES TYPING IN ALL CAPITAL LETTERS). Your contributions are always saved 
+        on Wikipedia. If other editors remove or change your work, your instructor 
+        can still see what you've contributed in the article history page. 
