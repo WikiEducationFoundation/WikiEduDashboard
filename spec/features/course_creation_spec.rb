@@ -8,8 +8,6 @@ end
 
 def fill_out_course_creator_form
   fill_in 'Course title:', with: 'My course'
-  fill_in 'Instructor name:', with: 'Sage'
-  fill_in 'Instructor email:', with: 'sage@example.edu'
   fill_in 'Course term:', with: 'Spring 2016'
   fill_in 'Course school:', with: 'University of Oklahoma'
   find('input[placeholder="Start date (YYYY-MM-DD)"]').set(Time.zone.today)
