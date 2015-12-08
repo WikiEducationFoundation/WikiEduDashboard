@@ -7,6 +7,7 @@ GradeableStore  = require './gradeable_store'
 # Data
 _weeks = {}
 _persisted = {}
+_editableWeekId = 0
 
 
 # Utilities
@@ -40,6 +41,9 @@ removeWeek = (week_id) ->
     week['deleted'] = true
   WeekStore.emitChange()
 
+setEditableWeekId = (week_id) ->
+  _editableWeekId = week_id
+  WeekStore.emitChange()
 
 # Store
 WeekStore = Flux.createStore
@@ -52,6 +56,11 @@ WeekStore = Flux.createStore
     return week_list
   restore: ->
     _weeks = $.extend(true, {}, _persisted)
+    WeekStore.emitChange()
+  getEditableWeekId: ->
+    return _editableWeekId
+  clearEditableWeekId: ->
+    setEditableWeekId(null)
     WeekStore.emitChange()
 , (payload) ->
   data = payload.data
@@ -69,6 +78,9 @@ WeekStore = Flux.createStore
       break
     when 'DELETE_WEEK'
       removeWeek data.week_id
+      break
+    when 'SET_WEEK_EDITABLE'
+      setEditableWeekId data.week_id
       break
   return true
 

@@ -107,7 +107,9 @@ Block = React.createClass(
 
     <li className={className} draggable={@props.canDrag && @_isEditable()}>
       {blockActions}
-      <span className="pull-right button ghost-button block__edit-block" onClick={@_setEditable}>Edit</span>
+      <div className="block__edit-button-container">
+        <span className="pull-right button ghost-button block__edit-block" onClick={@_setEditable}>Edit</span>
+      </div>
       <div className="drag-handle">
         <div className="drag-handle__bar"></div>
         <div className="drag-handle__bar"></div>

@@ -24,6 +24,7 @@ getState = ->
   gradeables: GradeableStore.getGradeables()
   all_training_modules: TrainingStore.getAllModules()
   editable_block_ids: BlockStore.getEditableBlockId()
+  editable_week_id: WeekStore.getEditableWeekId()
 
 TimelineHandler = React.createClass(
   displayName: 'TimelineHandler'
@@ -41,6 +42,7 @@ TimelineHandler = React.createClass(
   saveTimeline: (editable_block_id=0) ->
     toSave = $.extend(true, {}, @props)
     TimelineActions.persistTimeline(toSave, @props.course_id)
+    WeekStore.clearEditableWeekId()
     if editable_block_id > 0
       BlockStore.cancelBlockEditable(editable_block_id)
     else
@@ -64,7 +66,7 @@ TimelineHandler = React.createClass(
         weeks={@props?.weeks}
         week_meetings={@props?.course.week_meetings}
         editable_block_ids={@props?.editable_block_ids}
-        editable={@props?.editable_block_ids && @props.editable_block_ids.length > 0}
+        editable_week_id={@props.editable_week_id}
         controls={@props?.controls}
         saveGlobalChanges={@saveTimeline}
         saveBlockChanges={@saveTimeline}

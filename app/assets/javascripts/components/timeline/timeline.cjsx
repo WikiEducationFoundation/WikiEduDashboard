@@ -103,13 +103,14 @@ Timeline = React.createClass(
             )
             i++
 
+        isEditable = @props.editable_week_id == week.id
         week_components.push (
           <div key={week.id}>
             <a className="timeline__anchor" name={"week-#{week.id}"} />
             <Week
               week={week}
               index={i + 1}
-              editable={@props.editable}
+              editable={isEditable}
               blocks={BlockStore.getBlocksInWeek(week.id)}
               moveBlock={@moveBlock}
               deleteWeek={@deleteWeek.bind(this, week.id)}
@@ -118,6 +119,7 @@ Timeline = React.createClass(
               editable_block_ids={@props.editable_block_ids}
               saveBlockChanges={@props.saveBlockChanges}
               cancelBlockEditable={@props.cancelBlockEditable}
+              saveGlobalChanges={@props.saveGlobalChanges}
             />
           </div>
         )

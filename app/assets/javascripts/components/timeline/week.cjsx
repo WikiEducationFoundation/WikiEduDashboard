@@ -26,6 +26,8 @@ Week = React.createClass(
       @setState focusedBlockId: null
     else
       @setState focusedBlockId: block_id
+  _setWeekEditable: (week_id) ->
+    WeekActions.setWeekEditable(week_id)
   render: ->
     blocks = @props.blocks.map (block, i) =>
       unless block.deleted
@@ -61,15 +63,20 @@ Week = React.createClass(
 
     if @props.showTitle == undefined || @props.showTitle
       week_label = 'Week ' + @props.index
+      if !@props.week.title?
+        valueClass = 'title-placeholder'
       title = (
         <TextInput
           onChange={@updateWeek}
-          value={@props.week.title}
+          onClick={@_setWeekEditable.bind(null, @props.week.id)}
+          onBlur={@props.saveGlobalChanges}
+          value={@props.week.title || 'Add Week Title'}
           value_key={'title'}
           editable={@props.editable}
           label={week_label}
           spacer=' '
           placeholder='Title'
+          valueClass={valueClass}
         />
       )
 

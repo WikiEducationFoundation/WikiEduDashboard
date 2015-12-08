@@ -28,13 +28,19 @@
     border-bottom 0
 .block +.view-all
   margin-top 20px
+.block__edit-button-container
+  overflow hidden
+  position absolute
+  height 40px
+  width 100px
+  top 15px
+  right 15px
 .block__edit-block
   position absolute
-  top -40px
-  right 10px
-  transition top 300ms
+  right -80px
+  transition right 200ms
   z-index 9
-  box-shadow 0 0 0 13px rgba(255,255,255,0.8)
+  box-shadow 0 0 0 9px rgba(255,255,255,0.8)
 .block
   background-color white
   border 1px solid zircon
@@ -43,17 +49,16 @@
   padding 18px 20px 20px
   position relative
   width 100%
-  transition all .25s ease-out
+  //transition all .25s ease-out
   box-shadow 0 3px 4px rgba(0,0,0,0.1)
   -moz-user-select none
-  overflow hidden
   &:first-child
     border-width 1px
   &:last-child
     margin-bottom 0
   &:hover
     .block__edit-block
-      top 10px
+      right 0
   &.dragging
     opacity 0
     // transform scale(1.05)
@@ -92,9 +97,15 @@
   bottom 4px
   -webkit-font-smoothing auto
 
+.week__week-header .title-placeholder
+  display none
+
 .week__week-header
   overflow hidden
-  .text-input-compontent__value
+  &:hover
+    .title-placeholder
+      display inline-block
+  .text-input-component__value
     color $text_med
     font-size 15px
     position relative
@@ -102,6 +113,9 @@
     font-weight 400
     margin-left 10px
     -webkit-font-smoothing auto
+  input.title
+    position relative
+    bottom 5px
 
 .week__week-add-delete
   margin-top 16px
@@ -131,9 +145,15 @@
     font-size 24px
     color $text_med
 
-.text-input-compontent__label
+.week__week-header .text-input-component__label, .week__week-header .input_wrapper > span
   font-family $header-font
+  font-size 34px
+  font-weight 300
   -webkit-font-smoothing auto
+
+.week__week-header .text-input-component__value:hover
+  background url("../images/pencil.svg") right center no-repeat
+  padding-right 25px
 
 .gradeable
   overflow hidden
@@ -238,6 +258,11 @@ input[type="checkbox"]
     color $text
     font-size 15px
     text-decoration none
+    width 120px
+    overflow hidden
+    white-space nowrap
+    text-overflow ellipsis
+    display inline-block
   span
     color $text_med
 
@@ -305,3 +330,6 @@ li.block.editable
 .timeline-ctas__cancel
   position relative
   top 5px
+
+.Select-menu-outer
+  box-shadow 0px 3px 5px rgba(0,0,0,.35)

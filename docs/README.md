@@ -13,3 +13,4 @@
 - [Deployment](deploy.md)
 - [Tools & Integrations](tools.md)
 - [Model diagram](../erd.pdf)
+- [Miscellaneous Credits](miscellaneous_credits.md)

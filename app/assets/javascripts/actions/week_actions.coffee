@@ -12,5 +12,9 @@ WeekActions = Flux.createActions
     { actionType: 'DELETE_WEEK', data: {
       week_id: week_id
     }}
+  setWeekEditable: (week_id) ->
+    { actionType: 'SET_WEEK_EDITABLE', data: {
+      week_id: week_id
+    }}
 
 module.exports = WeekActions
