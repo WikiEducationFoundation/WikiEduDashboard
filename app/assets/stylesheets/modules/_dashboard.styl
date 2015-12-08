@@ -55,13 +55,20 @@
       opacity .1
       transition opacity 125ms ease-in-out
 
+    .sort.asc > p:after, .sort.desc > p:after
+      position absolute
+      margin-top 3px
+
+
     .row
       border 0
       border-top 1px solid lighten($border_lt, 50%)
 
       .row__wrapper
-        padding 0px 20px
-        min-height 50px
+        padding 14px 20px !important
+
+        > div
+          min-height 0
 
       .row__wrapper > div > p
         color #2c2c2c
