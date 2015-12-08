@@ -104,12 +104,13 @@ Course = React.createClass(
         )
 
     if (user_role > 0 || @getCurrentUser().admin) && @state.course.published && UserStore.isLoaded() && UserStore.getFiltered({ role: 0 }).length == 0 && !@state.course.legacy
+      url = window.location.href.replace(window.location.pathname, "") + @_courseLinkParams() + "?enroll=" + @state.course.passcode
       alerts.push (
         <div className='notification' key='enroll'>
           <div className='container'>
             <div>
               <p>Your course has been published! Students may enroll in the course by visiting the following URL:</p>
-              <p>{@_courseLinkParams() + "?enroll=" + @state.course.passcode}</p>
+              <a href={url}>{url}</a>
             </div>
           </div>
         </div>
