@@ -2,6 +2,12 @@ require 'rails_helper'
 
 cohort_course_count = 10
 
+module ResetLocale
+  RSpec.configuration.before do
+    I18n.locale = 'en'
+  end
+end
+
 describe 'the home page', type: :feature do
   before do
     cohort = create(:cohort)
@@ -178,9 +184,26 @@ describe 'the home page', type: :feature do
   end
 
   describe 'non-default locales' do
+    include ResetLocale
+
     it 'should switch languages' do
       visit '/courses?locale=qqq'
       expect(page.find('header')).to have_content 'Long label for the number'
     end
+
+    it 'falls back when locale is not available' do
+      visit '/courses?locale=aa'
+      expect(page.find('header')).to have_content '10 Students'
+    end
+
+=begin
+# TODO: Test somewhere that has access to the request.
+    it 'gets preferred language from header' do
+      request.env['HTTP_ACCEPT_LANGUAGE'] = 'es-MX,fr'
+      get ':index'
+      expect(response).to have_content '10 Estudiantes'
+    end
+=end
+
   end
 end
