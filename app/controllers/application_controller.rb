@@ -17,6 +17,7 @@ class ApplicationController < ActionController::Base
 
   force_ssl if: :ssl_configured?
 
+  before_filter :set_locale_override
   include HttpAcceptLanguage::AutoLocale
 
   def after_sign_out_path_for(_resource_or_scope)
@@ -73,5 +74,12 @@ class ApplicationController < ActionController::Base
 
   def ssl_configured?
     Rails.env.staging? || Rails.env.production?
+  end
+
+  def set_locale_override
+    if params[:locale]
+      # Override languages from HTTP headers.
+      http_accept_language.user_preferred_languages.unshift(params[:locale])
+    end
   end
 end
