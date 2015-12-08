@@ -1,13 +1,17 @@
 $ ->
   # Course sorting
   # only sort if there are uls to sort
-  if $('section#courses ul').length
+  if $('#admin_courses ul').length
     adminCourseList = new List('admin_courses', {
       valueNames: ['atitle']
     })
+
+  if $('#user_courses ul').length
     userCourseList = new List('user_courses', {
       valueNames: ['utitle','urevisions','ucharacters','uviews','ustudents']
     })
+
+  if $('#courses ul').length
     courseList = new List('courses', {
       valueNames: ['title','revisions','characters','views','students']
     })

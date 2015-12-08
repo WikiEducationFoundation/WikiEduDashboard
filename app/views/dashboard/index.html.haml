@@ -54,8 +54,11 @@
 
   - else
     - # Courses list
-    - @pres.current.each do |course|
-      = render "course_row", course: course
+    - if @pres.is_admin?
+      = render "courses/user_courses"
+    - else
+      - @pres.current.each do |course|
+        = render "course_row", course: course
 
     - # Archived/past courses
     - if @pres.past.any?
