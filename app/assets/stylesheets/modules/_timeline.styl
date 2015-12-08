@@ -295,7 +295,6 @@ input[type="checkbox"]
 
 li.block.editable
   margin-bottom 20px
-  cursor move
   &:hover
     box-shadow 0 0 15px 0 rgba(0, 0, 0, .2)
   .drag-handle
@@ -316,6 +315,8 @@ li.block.editable
 
 .block__block-actions
   margin-bottom 12px
+  position relative
+  z-index 10
   button.button
     margin-left 30px
     cursor pointer

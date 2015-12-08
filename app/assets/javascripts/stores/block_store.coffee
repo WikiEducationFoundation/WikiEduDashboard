@@ -44,11 +44,7 @@ addBlock = (week_id) ->
   }
 
 removeBlock = (block_id) ->
-  block = _blocks[block_id]
-  if block.is_new
-    delete _blocks[block_id]
-  else
-    block['deleted'] = true
+  delete _blocks[block_id]
   BlockStore.emitChange()
 
 insertBlock = (block, week_id, order) ->

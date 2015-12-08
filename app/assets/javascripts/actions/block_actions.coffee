@@ -1,5 +1,6 @@
 McFly       = require 'mcfly'
 Flux        = new McFly()
+API         = require '../utils/api'
 
 BlockActions = Flux.createActions
   addBlock: (week_id) ->
@@ -12,9 +13,12 @@ BlockActions = Flux.createActions
       quiet: quiet
     }}
   deleteBlock: (block_id) ->
-    { actionType: 'DELETE_BLOCK', data: {
-      block_id: block_id
-    }}
+    API.deleteBlock(block_id).then (data) ->
+      { actionType: 'DELETE_BLOCK', data: {
+        block_id: data.block_id
+      }}
+    .catch (data) ->
+      { actionType: 'API_FAIL', data: data }
   insertBlock: (block, week_id, order) ->
     { actionType: 'INSERT_BLOCK', data: {
       block: block,
