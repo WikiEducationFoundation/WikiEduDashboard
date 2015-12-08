@@ -12,11 +12,13 @@ class ApplicationController < ActionController::Base
            status: :unauthorized
   end
 
-  before_action :set_locale
   before_action :check_for_expired_oauth_credentials
   before_action :check_for_unsupported_browser
 
   force_ssl if: :ssl_configured?
+
+  before_filter :set_locale_override
+  include HttpAcceptLanguage::AutoLocale
 
   def after_sign_out_path_for(_resource_or_scope)
     request.referrer
@@ -63,18 +65,6 @@ class ApplicationController < ActionController::Base
   end
   helper_method :rtl?
 
-  def set_locale
-    I18n.locale = params[:locale] || I18n.default_locale
-  end
-
-  def default_url_options(options = {})
-    if I18n.locale != I18n.default_locale
-      { locale: I18n.locale }.merge options
-    else
-      options
-    end
-  end
-
   def new_session_path(_scope)
     new_user_session_path
   end
@@ -84,5 +74,12 @@ class ApplicationController < ActionController::Base
 
   def ssl_configured?
     Rails.env.staging? || Rails.env.production?
+  end
+
+  def set_locale_override
+    if params[:locale]
+      # Param takes precedence over language preferences from HTTP headers.
+      http_accept_language.user_preferred_languages.unshift(params[:locale])
+    end
   end
 end
