@@ -6,7 +6,7 @@ Flux            = new McFly()
 _blocks = {}
 _persisted = {}
 _trainingModule = {}
-
+_editableBlockIds = []
 
 # Utilities
 setBlocks = (data, persisted=false) ->
@@ -61,6 +61,11 @@ insertBlock = (block, week_id, order) ->
   block.week_id = week_id
   setBlock block
 
+setEditableBlockId = (blockId) ->
+  _editableBlockIds.push(blockId)
+  BlockStore.emitChange()
+
+
 # Store
 BlockStore = Flux.createStore
   getBlock: (block_id) ->
@@ -77,6 +82,14 @@ BlockStore = Flux.createStore
     BlockStore.emitChange()
   getTrainingModule: ->
     return _trainingModule
+  getEditableBlockId: ->
+    return _editableBlockIds
+  clearEditableBlockIds: ->
+    _editableBlockIds = []
+    BlockStore.emitChange()
+  cancelBlockEditable: (block_id) ->
+    _editableBlockIds.splice(_editableBlockIds.indexOf(block_id), 1)
+    BlockStore.emitChange()
 
 , (payload) ->
   data = payload.data
@@ -97,6 +110,8 @@ BlockStore = Flux.createStore
     when 'INSERT_BLOCK'
       insertBlock data.block, data.week_id, data.order
       break
+    when 'SET_BLOCK_EDITABLE'
+      setEditableBlockId data.block_id
   return true
 
 module.exports = BlockStore

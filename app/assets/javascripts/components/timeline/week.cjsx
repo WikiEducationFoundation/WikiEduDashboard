@@ -41,6 +41,9 @@ Week = React.createClass(
           week_index={@props.index}
           week_start={@props.start_date}
           all_training_modules={@props.all_training_modules}
+          editable_block_ids={@props.editable_block_ids}
+          saveBlockChanges={@props.saveBlockChanges}
+          cancelBlockEditable={@props.cancelBlockEditable}
         />
     blocks.sort (a, b) ->
       a.props.block.order - b.props.block.order

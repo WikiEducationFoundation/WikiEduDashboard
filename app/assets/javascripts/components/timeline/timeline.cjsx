@@ -16,6 +16,20 @@ BlockStore      = require '../../stores/block_store'
 
 Timeline = React.createClass(
   displayName: 'Timeline'
+
+  propTypes:
+    loading: React.PropTypes.bool
+    weeks: React.PropTypes.array
+    week_meetings: React.PropTypes.array
+    editable_block_ids: React.PropTypes.array
+    editable: React.PropTypes.bool
+    controls: React.PropTypes.func
+    saveGlobalChanges: React.PropTypes.func
+    cancelGlobalChanges: React.PropTypes.func
+    saveBlockChanges: React.PropTypes.func
+    cancelBlockEditable: React.PropTypes.func
+
+
   getInitialState: ->
     unscrolled: true
   addWeek: ->
@@ -67,13 +81,14 @@ Timeline = React.createClass(
   render: ->
     week_components = []
 
-    unless @props.weeks.length > 0
+
+    unless @props.course? || @props.weeks.length > 0
       return <Loading />
 
     @props.weeks.map (week, i) =>
       unless week.deleted
-        if @props.course.week_meetings?
-          while @props.course.week_meetings[i] == '()'
+        if @props?.week_meetings
+          while @props?.week_meetings[i] == '()'
             week_components.push (
               <Week
                 blocks={[]}
@@ -97,13 +112,16 @@ Timeline = React.createClass(
               blocks={BlockStore.getBlocksInWeek(week.id)}
               moveBlock={@moveBlock}
               deleteWeek={@deleteWeek.bind(this, week.id)}
-              meetings={if @props.course.week_meetings? then @props.course.week_meetings[i] else ''}
+              meetings={if @props?.week_meetings then @props.week_meetings[i] else ''}
               all_training_modules={@props.all_training_modules}
+              editable_block_ids={@props.editable_block_ids}
+              saveBlockChanges={@props.saveBlockChanges}
+              cancelBlockEditable={@props.cancelBlockEditable}
             />
           </div>
         )
 
-    add_week_button = if @props.course.timeline_full then (
+    add_week_button = if @props.course?.timeline_full then (
       <span className='week-nav__action week-nav__link disabled' title='You cannot add new weeks when your timeline is full. Delete at least one week to make room for a new one.'>Add New Week</span>
     ) else (
       <span className='week-nav__action week-nav__link' onClick={@addWeek}>Add New Week</span>
@@ -117,13 +135,27 @@ Timeline = React.createClass(
       )
 
     unless week_components.length > 0
-      wizard_link = <CourseLink to="/courses/#{@props.course.slug}/timeline/wizard" className='button dark'>Add Assignment</CourseLink>
+      wizard_link = <CourseLink to="/courses/#{@props.course?.slug}/timeline/wizard" className='button dark'>Add Assignment</CourseLink>
 
-    controls = (
-      <span>
-        {wizard_link}
-      </span>
+    controls = if @props?.editable && @props?.editable_block_ids.length > 1 then (
+      <div>
+        <span>
+          {wizard_link}
+        </span>
+        <button className="button dark pull-right" onClick={@props.saveGloablChanges}>
+          Save All
+        </button>
+        <button className="pull-right timeline-ctas__cancel" onClick={@props.cancelGlobalChanges}>
+          Discard All Changes
+        </button>
+      </div>
     )
+    else (
+        <span>
+          {wizard_link}
+        </span>
+    )
+
 
     week_nav = @props.weeks.map (week, i) => (
       className = 'week-nav__item'
@@ -135,22 +167,20 @@ Timeline = React.createClass(
     )
 
     <div>
-      <div className="section-header">
-        <div className="timeline-ctas">
-          {@props.controls(controls)}
-        </div>
-      </div>
       <div className="timeline__content">
         <ul className="list-unstyled timeline__weeks">
           {week_components}
           {no_weeks}
         </ul>
         <div className="timeline__week-nav">
+          <section className="timeline-ctas float-container">
+            {controls}
+          </section>
           <Affix offset={220}>
             <ol>
               {week_nav}
             </ol>
-            <CourseLink className="week-nav__action week-nav__link" to="/courses/#{@props.course.slug}/timeline/dates">Edit Course Dates</CourseLink>
+            <CourseLink className="week-nav__action week-nav__link" to="/courses/#{@props.course?.slug}/timeline/dates">Edit Course Dates</CourseLink>
             {add_week_button}
           </Affix>
         </div>

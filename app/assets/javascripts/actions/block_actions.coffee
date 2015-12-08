@@ -21,5 +21,9 @@ BlockActions = Flux.createActions
       week_id: week_id,
       order: order
     }}
+  setEditable: (block_id) ->
+    { actionType: 'SET_BLOCK_EDITABLE', data: {
+      block_id: block_id
+    }}
 
 module.exports = BlockActions

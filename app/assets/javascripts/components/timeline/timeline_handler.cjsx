@@ -23,6 +23,7 @@ getState = ->
   blocks: BlockStore.getBlocks()
   gradeables: GradeableStore.getGradeables()
   all_training_modules: TrainingStore.getAllModules()
+  editable_block_ids: BlockStore.getEditableBlockId()
 
 TimelineHandler = React.createClass(
   displayName: 'TimelineHandler'
@@ -31,6 +32,21 @@ TimelineHandler = React.createClass(
     ServerActions.fetchAllTrainingModules()
   componentWillReceiveProps: ->
     @setState course: CourseStore.getCourse()
+  _cancelBlockEditable: (block_id) ->
+    BlockStore.restore()
+    BlockStore.cancelBlockEditable(block_id)
+  _cancelGlobalChanges: ->
+    BlockStore.restore()
+    BlockStore.clearEditableBlockIds()
+  saveTimeline: (editable_block_id=0) ->
+    toSave = $.extend(true, {}, @props)
+    TimelineActions.persistTimeline(toSave, @props.course_id)
+    if editable_block_id > 0
+      BlockStore.cancelBlockEditable(editable_block_id)
+    else
+      BlockStore.clearEditableBlockIds()
+
+
   render: ->
     outlet = React.cloneElement(@props.children, {key: 'wizard_handler', course: @props.course, weeks: @props.weeks, open_weeks: @props.course.open_weeks}) if @props.children
 
@@ -43,7 +59,18 @@ TimelineHandler = React.createClass(
       >
         {outlet}
       </TransitionGroup>
-      <Timeline {...@props} loading={@props.loading} weeks={@props.weeks} week_meetings={@props.course.week_meetings} />
+      <Timeline
+        loading={@props?.loading}
+        weeks={@props?.weeks}
+        week_meetings={@props?.course.week_meetings}
+        editable_block_ids={@props?.editable_block_ids}
+        editable={@props?.editable_block_ids && @props.editable_block_ids.length > 0}
+        controls={@props?.controls}
+        saveGlobalChanges={@saveTimeline}
+        saveBlockChanges={@saveTimeline}
+        cancelBlockEditable={@_cancelBlockEditable}
+        cancelGlobalChanges={@_cancelGlobalChanges}
+      />
       <Grading {...@props} />
     </div>
 )

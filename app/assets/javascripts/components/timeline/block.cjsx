@@ -22,8 +22,10 @@ Block = React.createClass(
     BlockActions.updateBlock newBlock
   deleteBlock: ->
     BlockActions.deleteBlock @props.block.id
-  _setEditable: (block_id) ->
-    console.log "Block #{block_id}"
+  _setEditable: ->
+    BlockActions.setEditable @props.block.id
+  _isEditable: ->
+    @props.editable_block_ids?.indexOf(@props.block.id) >= 0
   updateGradeable: (value_key, value) ->
     if value == 'true'
       GradeableActions.addGradeable @props.block
@@ -33,6 +35,16 @@ Block = React.createClass(
     is_graded = @props.gradeable != undefined && !@props.gradeable.deleted
     className = 'block'
     className += " block-kind-#{@props.block.kind}"
+
+    if @_isEditable()
+      blockActions = (
+        <div className="float-container block__block-actions">
+          <button onClick={@props.saveBlockChanges.bind(null, @props.block.id)} className="button dark pull-right no-clear">Save</button>
+          <span onClick={@props.cancelBlockEditable.bind(null, @props.block.id)} className="span-link pull-right no-clear">Cancel</span>
+        </div>
+      )
+
+
     if @props.block.due_date?
       dueDateRead = (
         <TextInput
@@ -46,7 +58,7 @@ Block = React.createClass(
           onBlur={@props.toggleFocused}
         />
       )
-    if @props.editable
+    if @_isEditable()
       deleteBlock = (<div className='delete-block-container'><button className='danger' onClick={@deleteBlock}>Delete Block</button></div>)
       className += ' editable'
       className += ' dragging' if @props.isDragging
@@ -55,22 +67,22 @@ Block = React.createClass(
           value={is_graded}
           onChange={@updateGradeable}
           value_key={'gradeable'}
-          editable={@props.editable}
+          editable={@_isEditable()}
           label='Graded'
           container_class='graded'
         />
       )
-    if (@props.block.kind < 3 && !@props.editable)
+    if (@props.block.kind < 3 && !@_isEditable())
       spacer = <span>  —  </span>
 
     modules = undefined
-    if @props.block.training_modules || (parseInt(@props.block.kind) is 1 && @props.editable)
+    if @props.block.training_modules || (parseInt(@props.block.kind) is 1 && @_isEditable())
       modules = (
         <TrainingModules
           onChange={@passedUpdateBlock}
           all_modules={@props.all_training_modules}
           block_modules={@props.block.training_modules}
-          editable={@props.editable}
+          editable={@_isEditable()}
           block={@props.block}
         />
       )
@@ -81,7 +93,7 @@ Block = React.createClass(
           onChange={@updateBlock}
           value={@props.block.content}
           value_key='content'
-          editable={@props.editable}
+          editable={@_isEditable()}
           rows='4'
           placeholder='Block description'
           autoExpand=true
@@ -93,8 +105,9 @@ Block = React.createClass(
       </div>
     )
 
-    <li className={className} draggable={@props.canDrag && @props.editable}>
-      <span className="pull-right button ghost-button block__edit-block" onClick={@_setEditable.bind(null, @props.block.id)}>Edit</span>
+    <li className={className} draggable={@props.canDrag && @_isEditable()}>
+      {blockActions}
+      <span className="pull-right button ghost-button block__edit-block" onClick={@_setEditable}>Edit</span>
       <div className="drag-handle">
         <div className="drag-handle__bar"></div>
         <div className="drag-handle__bar"></div>
@@ -105,22 +118,22 @@ Block = React.createClass(
           onChange={@updateBlock}
           value={@props.block.kind}
           value_key={'kind'}
-          editable={@props.editable}
+          editable={@_isEditable()}
           options={['In Class', 'Assignment', 'Milestone', 'Custom']}
-          show={@props.block.kind < 3 || @props.editable}
+          show={@props.block.kind < 3 || @_isEditable()}
           label='Block type'
           spacer=''
           popover_text={I18n.t('timeline.block_type')}
         />
       </p>
-      <h4 className={"block-title" + (if @props.editable then " block-title--editing" else "")}>
+      <h4 className={"block-title" + (if @_isEditable() then " block-title--editing" else "")}>
         <TextInput
           onChange={@updateBlock}
           value={@props.block.title}
           value_key={'title'}
-          editable={@props.editable}
+          editable={@_isEditable()}
           placeholder='Block title'
-          show={@props.block.title  && !@props.editable}
+          show={@props.block.title  && !@_isEditable()}
           className='title pull-left'
           spacer=''
           onFocus={@props.toggleFocused}
@@ -130,12 +143,12 @@ Block = React.createClass(
           onChange={@updateBlock}
           value={@props.block.title}
           value_key={'title'}
-          editable={@props.editable}
+          editable={@_isEditable()}
           placeholder='Block title'
           label='Title'
           className='pull-left'
           spacer=''
-          show={@props.editable}
+          show={@_isEditable()}
           onFocus={@props.toggleFocused}
           onBlur={@props.toggleFocused}
         />
@@ -145,13 +158,13 @@ Block = React.createClass(
           onChange={@updateBlock}
           value={@props.block.due_date}
           value_key='due_date'
-          editable={@props.editable}
+          editable={@_isEditable()}
           type='date'
           label='Due date'
           spacer=''
           placeholder='Due date'
           isClearable=true
-          show={@props.editable && parseInt(@props.block.kind) == 1}
+          show={@_isEditable() && parseInt(@props.block.kind) == 1}
           date_props={minDate: @props.week_start}
           onFocus={@props.toggleFocused}
           onBlur={@props.toggleFocused}
