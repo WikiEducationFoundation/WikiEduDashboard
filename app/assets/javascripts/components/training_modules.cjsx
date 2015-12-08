@@ -19,7 +19,6 @@ TrainingModules = React.createClass(
       )
       content = (
         <div>
-          <h3>Training Modules:&nbsp;</h3>
           <Select
             multi={true}
             name='block-training-modules'
@@ -27,6 +26,7 @@ TrainingModules = React.createClass(
             options={options}
             onChange={@onChange}
             allowCreate={true}
+            placeholder="Add training module(s)…"
           />
         </div>
       )

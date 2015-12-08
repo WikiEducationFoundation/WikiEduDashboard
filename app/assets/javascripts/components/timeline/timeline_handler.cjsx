@@ -70,6 +70,7 @@ TimelineHandler = React.createClass(
         saveBlockChanges={@saveTimeline}
         cancelBlockEditable={@_cancelBlockEditable}
         cancelGlobalChanges={@_cancelGlobalChanges}
+        all_training_modules={@props.all_training_modules}
       />
       <Grading {...@props} />
     </div>

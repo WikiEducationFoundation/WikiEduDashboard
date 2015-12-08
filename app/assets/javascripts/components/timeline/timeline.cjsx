@@ -28,6 +28,7 @@ Timeline = React.createClass(
     cancelGlobalChanges: React.PropTypes.func
     saveBlockChanges: React.PropTypes.func
     cancelBlockEditable: React.PropTypes.func
+    all_training_modules: React.PropTypes.array
 
 
   getInitialState: ->
