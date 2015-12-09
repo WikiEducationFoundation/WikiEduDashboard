@@ -192,7 +192,7 @@ describe 'the explore page', type: :feature do
     end
 
     it 'falls back when locale is not available' do
-      visit '/courses?locale=aa'
+      visit '/explore?locale=aa'
       expect(page.find('header')).to have_content '10 Students'
     end
 
