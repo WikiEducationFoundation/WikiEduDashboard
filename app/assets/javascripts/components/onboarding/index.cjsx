@@ -1,12 +1,52 @@
-React         = require 'react'
-TransitionGroup = require 'react-addons-css-transition-group'
-API     = require '../../utils/api'
+React               = require 'react'
+TransitionGroup     = require 'react-addons-css-transition-group'
+API                 = require '../../utils/api'
+NotificationActions = require '../../actions/notification_actions'
+{ Link }            = require 'react-router'
 
-Onboarding = React.createClass(
-  displayName: 'Onboarding'
+getReturnToParam = ->
+  return_to = window.location.search.match(/return_to=([^&]*)/);
+  return return_to && return_to[1] || "/"
 
+getCurrentUser = ->
+  $('#react_root').data('current_user')
+
+# Router root
+Root = React.createClass(
+  render: ->
+    return (
+      <div className="container">
+        <TransitionGroup
+          transitionName="fade"
+          component='div'
+          transitionEnterTimeout={250}
+          transitionLeaveTimeout={250}
+        >
+          {React.cloneElement(@props.children, { key: @props.location.pathname })}
+        </TransitionGroup>
+      </div>
+    )
+)
+
+# Intro slide
+Intro = React.createClass(
   getInitialState: ->
-    user = @_getCurrentUser()
+    user: getCurrentUser()
+
+  render: ->
+    return (
+      <div className="intro text-center">
+        <h1>Hi {@state.user.real_name || @state.user.wiki_id}</h1>
+        <p>We’re excited that you’re here!</p>
+        <Link to={"/onboarding/form?return_to=" + getReturnToParam()}  className="button border inverse-border">Start <i className="icon icon-rt_arrow"></i></Link>
+      </div>
+    )
+)
+
+# Form slide
+Form = React.createClass(
+  getInitialState: ->
+    user = getCurrentUser()
     return {
       started: false
       user: user
@@ -15,63 +55,37 @@ Onboarding = React.createClass(
       instructor: if user.permissions? then String(user.permission == 2) else null
     }
 
-
-  # Pull user from react root
-  _getCurrentUser: ->
-    $('#react_root').data('current_user')
-
-
   # Update state when input fields change
   _handleFieldChange: (field, e) ->
     @setState {
       "#{field}": e.target.value
     }
 
-  _getReturnToParam: ->
-    return_to = window.location.search.match(/return_to=([^&]*)/);
-    return return_to && return_to[1]
-
-  # Post updates to user API and transition out
   _handleSubmit: (e) ->
     e.preventDefault()
-
-    @setState slide: 'finished'
+    @setState sending: true
+    @state.user.instructor = @state.instructor == 'true'
+    $('#react_root').data('current_user', @state.user)
 
     API.onboard
       real_name: @state.name
       email: @state.email
       instructor: @state.instructor == 'true'
-    .then (res) =>
-      setTimeout () =>
-        return_to = @_getReturnToParam()
-        if return_to
-          window.location = decodeURIComponent(return_to)
-      , 750
-    .catch((err) =>
+    .then () =>
+      @props.history.push('/onboarding/permissions?return_to=' + getReturnToParam())
+    .catch (err) =>
+      NotificationActions.addNotification
+        message: I18n.t('error_500.explanation')
+        closable: true
+        type: 'error'
+      @setState sending: false
       console.log(err, arguments)
-      @setState slide: 'form'
-    )
 
-
-  # Handle start button click, transition to form
-  _handleStart: ->
-    @setState slide: 'form'
-
-
-  # Render finished slide
-  _renderFinishedSlide: ->
+  render: ->
+    submitText = if @state.sending then 'Sending' else 'Submit'
+    disabled = @state.sending
     return (
-      <div key="finished" className="intro text--center">
-        <h1>Thank you.</h1>
-        <h2>Loading...</h2>
-      </div>
-    )
-
-
-  # Render form slide
-  _renderFormSlide: ->
-    return (
-      <div key="form" className="form">
+      <div className="form">
         <h1>Let’s get some business out of the way.</h1>
         <form className="panel" onSubmit={@_handleSubmit} ref="form">
           <div className="form-group">
@@ -105,48 +119,89 @@ Onboarding = React.createClass(
               </div>
             </div>
           </div>
-          <button type="submit" className="button dark right">
-            Submit <i className="icon icon-rt_arrow"></i>
+          <button disabled={disabled} type="submit" className="button dark right">
+            {submitText} <i className="icon icon-rt_arrow"></i>
           </button>
         </form>
       </div>
     )
-
-
-  # Render intro/welcome slide
-  _renderIntroSlide: ->
-    return (
-      <div key="intro" className="intro text-center">
-        <h1>Hi {@state.user.real_name || @state.user.wiki_id}</h1>
-        <p>We’re excited that you’re here!</p>
-        <button onClick={@_handleStart} className="button border inverse-border">Start <i className="icon icon-rt_arrow"></i></button>
-      </div>
-    )
-
-
-  # Render
-  render: ->
-    switch @state.slide
-      when 'finished'
-        contents = @_renderFinishedSlide()
-      when 'form'
-        contents = @_renderFormSlide()
-      else
-        contents = @_renderIntroSlide()
-
-    return (
-      <div className="container">
-        <TransitionGroup
-          transitionName="fade"
-          component='div'
-          transitionEnterTimeout={250}
-          transitionLeaveTimeout={250}
-        >
-          {contents}
-        </TransitionGroup>
-      </div>
-    )
-
 )
 
-module.exports = Onboarding
+# Permissions slide
+Permissions = React.createClass(
+  render: ->
+    instructor =
+
+    if getCurrentUser().instructor
+      slide = (
+        <div className="intro permissions">
+          <h1>Permissions</h1>
+          <p>
+            Once you've signed in, this website will make automatic edits using your Wikipedia account, reflecting actions you take here. Your account will be used to update wiki pages when:
+          </p>
+          <ul>
+            <li>you submit a Wikipedia classroom assignment or make edits to your course page</li>
+            <li>you add or remove someone from a course</li>
+            <li>you assign articles to students</li>
+            <li>you send public messages to students</li>
+          </ul>
+          <Link to={"/onboarding/finish?return_to=" + getReturnToParam()} className="button border inverse-border">
+            Finish <i className="icon icon-rt_arrow"></i>
+          </Link>
+        </div>
+      )
+    else
+      slide = (
+        <div className="intro permissions">
+          <h1>Permissions</h1>
+          <p>
+            Once you've signed in, this website will make automatic edits using your Wikipedia account, reflecting actions you take here. Your account will be used to update wiki pages when:
+          </p>
+          <ul>
+            <li>set up a sandbox page where you can practice editing</li>
+            <li>add a standard message on your userpage so that others know what course you are part of</li>
+            <li>add standard messages to the Talk pages of articles you're editing or reviewing</li>
+            <li>update your course's wiki page when you join the course or choose an assignment topic</li>
+          </ul>
+          <Link to={"/onboarding/finish?return_to=" + getReturnToParam()} className="button border inverse-border">
+            Finish <i className="icon icon-rt_arrow"></i>
+          </Link>
+        </div>
+      )
+
+    return slide
+)
+
+# Finished slide
+Finished = React.createClass(
+
+  getInitialState: ->
+    return {}
+
+  # When this route loads, wait a second then redirect out to the return_to param (or root)
+  componentDidMount: ->
+    @state.timeout = setTimeout(() =>
+      return_to = getReturnToParam()
+      window.location = decodeURIComponent(return_to)
+    , 750)
+
+  # clear the timeout just to be safe
+  componentWillUnmount: ->
+    clearTimeout(@state.timeout)
+
+  render: ->
+    return (
+      <div className="intro">
+        <h1>You're all set. Thank you.</h1>
+        <h2>Loading...</h2>
+      </div>
+    )
+)
+
+module.exports = {
+  Root,
+  Intro,
+  Form,
+  Permissions,
+  Finished
+}

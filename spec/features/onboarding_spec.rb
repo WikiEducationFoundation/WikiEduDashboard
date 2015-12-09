@@ -51,14 +51,14 @@ describe 'onboarding', type: :feature, js: true do
 
     it 'should pre-populate' do
       visit onboarding_path
-      find('.intro button').click
+      find('.intro .button').click
       expect(find('input[name=name]').value).to eq 'test'
       expect(find('input[name=email]').value).to eq 'email@email.com'
     end
 
     it 'should update user when submitted' do
       visit onboarding_path
-      find('.intro button').click
+      find('.intro .button').click
       find('input[type=radio][value=true]').click
       find('form button[type=submit]').click
       sleep 1

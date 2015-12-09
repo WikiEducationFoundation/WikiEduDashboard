@@ -38,8 +38,11 @@ history = useBasename(createHistory)(basename: '/')
 
 routes = (
   <Route path='/' component={App}>
-    <Route path='onboarding'>
-      <IndexRoute component={Onboarding} />
+    <Route path='onboarding' component={Onboarding.Root}>
+      <IndexRoute component={Onboarding.Intro} />
+      <Route path='form' component={Onboarding.Form} />
+      <Route path='permissions' component={Onboarding.Permissions} />
+      <Route path='finish' component={Onboarding.Finished} />
     </Route>
     <Route path='recent-activity' component={RecentActivityHandler}>
       <IndexRoute component={DidYouKnowHandler} />

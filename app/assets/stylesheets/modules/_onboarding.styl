@@ -1,9 +1,10 @@
 body.onboarding
-  background-color bayoux
+  background-color #7177C7
   background-image url("../images/waves.svg")
   background-repeat no-repeat
   background-position center 75%
   background-size cover
+  overflow-y scroll
 
   .fade-enter
     position absolute
@@ -24,7 +25,7 @@ body.onboarding
   p
     font-size 19px
 
-  button
+  .button
     .icon-rt_arrow
       vertical-align middle
       margin-left 20px
@@ -46,11 +47,12 @@ body.onboarding
       display none
 
 
-  // Lead intro page
-  .intro
-    padding-top 100px
+  // Intro and permissions pages
+  .intro, .permissions
+    padding-top 75px
+    width 100%
 
-    h1, h2, p
+    h1, h2
       font-weight 300
       margin-bottom 40px
       color #fff
@@ -63,13 +65,21 @@ body.onboarding
       font-size 30px
       opacity .6
 
-    p
+    p, ul
+      margin-bottom 40px
+      color #fff
       font-size 19px
+
+  .permissions
+    max-width 600px
+
+    li
+      margin-bottom 10px
 
 
   // TODO: Pull out form control styles
   .form
-    padding-top 100px
+    padding-top 75px
 
     > h1
       color #fff
