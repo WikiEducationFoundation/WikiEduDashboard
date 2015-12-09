@@ -155,7 +155,7 @@ Block = React.createClass(
           onBlur={@props.toggleFocused}
         />
       </h4>
-      <p>
+      <p className="block__block-due-date">
         <TextInput
           onChange={@updateBlock}
           value={@props.block.due_date}

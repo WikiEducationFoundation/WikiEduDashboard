@@ -71,6 +71,8 @@
     display inline-block
     margin-right 10px
     width 150px
+    border 1px solid $border_med_dk
+    height auto
     &.title
       width 200px
   input[type='checkbox']
@@ -96,6 +98,18 @@
   position relative
   bottom 4px
   -webkit-font-smoothing auto
+  .select_wrapper:after
+    margin-top 6px
+    background url('../images/downward_caret.svg') right center no-repeat
+    content ''
+    width 14px
+    height 10px
+
+.block.editable .block__block-type
+  bottom 0
+
+.block__block-due-date
+  clear both
 
 .week__week-header .title-placeholder
   display none
@@ -302,6 +316,11 @@ li.block.editable
   label
     span
       display block
+      font-size 15px
+      color $text
+      font-weight 300
+      -webkit-font-smoothing auto
+
   input.editable
     width 300px
   h4
