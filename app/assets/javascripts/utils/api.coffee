@@ -368,6 +368,16 @@ API =
           console.error 'Couldn\'t delete block'
           rej obj
 
+  deleteWeek: (week_id) ->
+    new Promise (res, rej) ->
+      $.ajax
+        type: 'DELETE'
+        url: '/weeks/' + week_id + '.json'
+        success: (data) ->
+          res week_id: week_id
+      .fail (obj, status) ->
+          console.error 'Couldn\'t delete week'
+          rej obj
 
   # TODO: This should add a task to a queue and return immediately
   manualUpdate: (course_id) ->

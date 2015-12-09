@@ -72,7 +72,7 @@ Rails.application.routes.draw do
     resources :weeks, only: [:index, :new, :create], constraints: { id: /.*/ }
     # get 'courses' => 'courses#index'
   end
-  resources :weeks, only: [:show, :edit, :update, :destroy]
+  resources :weeks, only: [:index, :show, :edit, :update, :destroy]
   resources :blocks, only: [:show, :edit, :update, :destroy]
   resources :gradeables, collection: { update_multiple: :put }
   post 'courses/:course_id/timeline' => 'timeline#update_timeline',
@@ -82,7 +82,6 @@ Rails.application.routes.draw do
 
   get 'revisions' => 'revisions#index'
 
-  resources :weeks, only: [:index]
   resources :courses_users, only: [:index]
 
   # Article Finder

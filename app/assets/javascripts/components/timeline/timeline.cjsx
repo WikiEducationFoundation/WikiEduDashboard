@@ -36,7 +36,8 @@ Timeline = React.createClass(
   addWeek: ->
     WeekActions.addWeek()
   deleteWeek: (week_id) ->
-    WeekActions.deleteWeek(week_id)
+    if confirm "Are you sure you want to delete this week? This will delete the week and all its associated blocks.\n\nThis cannot be undone."
+      WeekActions.deleteWeek(week_id)
   moveBlock: (block_id, after_block_id) ->
     return if block_id == after_block_id
     block = BlockStore.getBlock block_id
