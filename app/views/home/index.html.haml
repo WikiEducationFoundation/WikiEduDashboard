@@ -10,7 +10,8 @@
       %i.icon.icon-wiki-logo
       = t('home.sign_up')
 
-    = link_to '?', '/ask', {class: 'help'}
+    %span.help{data: { title: 'To use the dashboard, you\'ll need to sign in through Wikipiedia and give it permission to access your account. You can log in with an existing Wikipedia account, or create a new one.' } }
+      ?
 
 %section
   .container.text-center
