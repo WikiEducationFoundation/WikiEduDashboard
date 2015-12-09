@@ -19,6 +19,7 @@ Timeline = React.createClass(
 
   propTypes:
     loading: React.PropTypes.bool
+    course: React.PropTypes.object.isRequired
     weeks: React.PropTypes.array
     week_meetings: React.PropTypes.array
     editable_block_ids: React.PropTypes.array
@@ -125,10 +126,14 @@ Timeline = React.createClass(
           </div>
         )
 
-    add_week_button = if @props.course?.timeline_full then (
-      <span className='week-nav__action week-nav__link disabled' title='You cannot add new weeks when your timeline is full. Delete at least one week to make room for a new one.'>Add New Week</span>
+    add_week_link = if @props.course?.timeline_full then (
+      <li>
+        <span className='week-nav__action week-nav__link disabled' title='You cannot add new weeks when your timeline is full. Delete at least one week to make room for a new one.'>Add New Week</span>
+      </li>
     ) else (
-      <span className='week-nav__action week-nav__link' onClick={@addWeek}>Add New Week</span>
+      <li>
+        <span className="week-nav__add-week" onClick={@addWeek}>Add Week</span>
+      </li>
     )
 
     unless week_components.length
@@ -183,9 +188,10 @@ Timeline = React.createClass(
           <Affix offset={220}>
             <ol>
               {week_nav}
+              {add_week_link}
             </ol>
             <CourseLink className="week-nav__action week-nav__link" to="/courses/#{@props.course?.slug}/timeline/dates">Edit Course Dates</CourseLink>
-            {add_week_button}
+            <a className="week-nav__action week-nav__link" href="#grading">Grading</a>
           </Affix>
         </div>
       </div>

@@ -27,6 +27,7 @@ Grading = React.createClass(
       )
 
     <div>
+      <a name="grading"></a>
       <div className="section-header timeline__grading-container">
         <h3>Grading <span>(Total: {total}%)</span></h3>
         {@props.controls(null, @props.gradeables.length < 1)}

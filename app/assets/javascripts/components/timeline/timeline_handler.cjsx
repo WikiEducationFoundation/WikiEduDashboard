@@ -63,6 +63,7 @@ TimelineHandler = React.createClass(
       </TransitionGroup>
       <Timeline
         loading={@props?.loading}
+        course={@props?.course}
         weeks={@props?.weeks}
         week_meetings={@props?.course.week_meetings}
         editable_block_ids={@props?.editable_block_ids}

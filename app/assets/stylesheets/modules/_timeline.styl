@@ -251,8 +251,6 @@ input[type="checkbox"]
     border-bottom 1px solid $border_lt
     margin-left 0
     padding 8px
-    &:last-child
-      border-bottom none
     &.is-current
       a
         font-weight bold
@@ -285,8 +283,13 @@ input[type="checkbox"]
   display block
   padding-left 8px
   cursor pointer
+  width 100%
   &:hover
     text-decoration underline
+
+.timeline__week-nav li .week-nav__add-week
+  color $brand_primary
+  cursor pointer
 
 .affix
   position fixed

@@ -21,7 +21,9 @@ Block = React.createClass(
     newBlock.training_module_ids = selectedIds
     BlockActions.updateBlock newBlock
   deleteBlock: ->
-    BlockActions.deleteBlock @props.block.id
+    if confirm "Are you sure you want to delete this block? This will delete the block and all of its content.
+      \n\nThis cannot be undone."
+      BlockActions.deleteBlock @props.block.id
   _setEditable: ->
     BlockActions.setEditable @props.block.id
   _isEditable: ->
