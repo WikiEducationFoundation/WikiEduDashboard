@@ -54,11 +54,11 @@ describe 'Admin users', type: :feature, js: true do
     login_as(user, scope: :user)
   end
 
-  describe 'visiting the homepage' do
+  describe 'visiting the dashboard' do
     it 'should see submitted courses awaiting approval' do
       visit root_path
       sleep 1
-      expect(page).to have_content 'Submitted Courses'
+      expect(page).to have_content 'Submitted & Pending Approval'
       expect(page).to have_content 'My Submitted Course'
     end
   end
@@ -81,7 +81,7 @@ describe 'Admin users', type: :feature, js: true do
 
       visit root_path
       sleep 1
-      expect(page).not_to have_content 'Submitted Courses'
+      expect(page).not_to have_content 'Submitted & Pending Approval'
     end
   end
 
@@ -106,7 +106,7 @@ describe 'Admin users', type: :feature, js: true do
 
       visit root_path
       sleep 1
-      expect(page).to have_content 'Submitted Courses'
+      expect(page).to have_content 'Submitted & Pending Approval'
     end
   end
 
@@ -144,7 +144,7 @@ describe 'Admin users', type: :feature, js: true do
 
   describe 'visiting the None cohort' do
     it 'should see unsubmitted courses' do
-      visit '/courses?cohort=none'
+      visit '/explore?cohort=none'
       sleep 1
       expect(page).to have_content 'Unsubmitted Courses'
       expect(page).to have_content 'My Unsubmitted Course'

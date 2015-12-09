@@ -131,17 +131,27 @@ Rails.application.routes.draw do
 
 
   # Misc
-  get 'courses' => 'courses#index'
+  # get 'courses' => 'courses#index'
+  get 'explore' => 'explore#index'
   # get 'courses/*id' => 'courses#show', :as => :show, constraints: { id: /.*/ }
 
   # ask.wikiedu.org search box
   get 'ask' => 'ask#search'
 
-  # Root
-  root to: 'courses#index'
+  # Authenticated users root to the courses dashboard
+  authenticated :user do
+    root to: "dashboard#index", as: :courses_dashboard
+  end
+
+  # Unauthenticated users root to the home page
+  root to: 'home#index'
+
+  # Onboarding
+  get 'onboarding(/*any)' => 'onboarding#index', as: :onboarding
+  put 'users/onboard' => 'users#onboard', as: :onboard
 
   # Route aliases for React frontend
-  get '/course_creator(/*any)' => 'courses#index'
+  get '/course_creator(/*any)' => 'dashboard#index', as: :course_creator
 
   # Errors
   match '/404', to: 'errors#file_not_found', via: :all

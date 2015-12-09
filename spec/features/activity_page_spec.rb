@@ -11,7 +11,7 @@ describe 'activity page', type: :feature, js: true do
            title: 'Fall 2015')
 
     login_as(user, scope: :user)
-    visit root_path
+    visit '/'
   end
 
   describe 'non-admins' do
@@ -51,7 +51,7 @@ describe 'activity page', type: :feature, js: true do
 
     before do
       login_as(admin, scope: :user)
-      visit root_path
+      visit '/'
     end
 
     it 'should be viewable by admins' do

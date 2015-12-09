@@ -1,0 +1,26 @@
+= link_to course_slug_path(course.slug), class: 'course' do
+  .course-title
+    = course.title
+    %span.icon.icon-rt_arrow
+  .course-details
+    .col
+      .course-details_title
+        Instructors
+      .course-details_value
+        - course.instructors.each do |user|
+          = user.wiki_id
+    .col
+      .course-details_title
+        School
+      .course-details_value
+        = course.school
+    .col
+      .course-details_title
+        Term
+      .course-details_value
+        = course.term
+    .col
+      .course-details_title
+        \# Students
+      .course-details_value
+        = course.students.length

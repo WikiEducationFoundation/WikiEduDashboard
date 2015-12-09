@@ -1,0 +1,91 @@
+%section.dark.hero
+  .container
+    %h1= ENV['dashboard_title']
+
+    = link_to user_omniauth_authorize_path(:mediawiki), {class: 'button auth'} do
+      %i.icon.icon-wiki-logo
+      = t('home.log_in')
+
+    = link_to user_omniauth_authorize_path(:mediawiki_signup), {class: 'button button-ghost button-inverse auth signup'} do
+      %i.icon.icon-wiki-logo
+      = t('home.sign_up')
+
+    %span.help{data: { title: 'To use the dashboard, you\'ll need to sign in through Wikipiedia and give it permission to access your account. You can log in with an existing Wikipedia account, or create a new one.' } }
+      ?
+
+%section
+  .container.text-center
+    %h2= @presenter.cohort.title
+
+    = render 'courses/header_stats', presenter: @presenter
+
+    = link_to t('home.explore'), '/explore', {class: 'button button-ghost'}
+
+%section.light
+  .container
+    %h2.h1 Get ready to contribute to open scholarship and education for all
+
+%section
+  .container
+    %h2.text-center This Dashboard provides tools that help instructors and students share their knowledge and track their contributions.
+
+    .col
+      %h3 Instructors
+      %h2 Create and Manage a Wikipedia Assignment
+      %ul
+        %li Learn to understand Wikipedia
+        %li Create and manage your course using templates, and refine the course to meet your needs
+        %li Track the progress of your students
+
+    .col
+      %h3 Students
+      %h2 Stay Informed and Learn How to Edit Wikipedia
+      %ul
+        %li Learn how you can edit Wikipedia
+        %li Stay up-to-date with your Wikipedia assignment
+        %li Track your progress as you contribute to Wikipedia
+
+%section.dark.stats-total
+  .container
+    %h2.h1 Impact since 2010:
+
+    %h3 Wiki Ed Courses
+    %h4 640
+
+    %div
+      .col
+        %h3 Students
+        %h4 14,000
+
+      .col
+        %h3 Articles worked on
+        %h4 35,000
+
+    %div
+      .col
+        %h3 Characters added
+        %h4 20.5 Million
+        %p
+          The number of words students have donated to the world. That’s 28,000 pages – the equivalent of 28 volumes of a printed encyclopedia, shared with everyone, for free.
+
+      .col
+        %h3 Article views, in a single term
+        %h4 69.4 Million
+        %p
+          How many people have read the Wikipedia articles these students have edited? In a single term, 69.4 million – larger than the population of France.
+
+%section.universities
+  .container
+    %h2
+      Wiki Education Foundation staff have supported instructors and students in more than
+      %b 200 universities
+      across the United States and Canada
+
+    .logos
+      = image_tag "/assets/images/university-logo-1.png"
+      = image_tag "/assets/images/university-logo-2.png"
+      = image_tag "/assets/images/university-logo-3.png"
+      = image_tag "/assets/images/university-logo-4.png"
+      = image_tag "/assets/images/university-logo-5.png"
+      = image_tag "/assets/images/university-logo-6.png"
+      = image_tag "/assets/images/university-logo-7.png"

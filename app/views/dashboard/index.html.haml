@@ -1,0 +1,70 @@
+- content_for :after_title, " - My Dashboard"
+
+#react_root
+.container.dashboard
+  %header
+    %h1= @pres.heading_message
+    %div
+      - if @pres.can_create_course?
+        = link_to course_creator_path, class: 'button dark dashboard-cta' do
+          Create Course
+          %i.icon.icon-plus
+      - elsif @pres.show_explore_button?
+        = link_to explore_path, class: 'button dark dashboard-cta' do
+          Find Your Course
+          %span.icon.icon-rt_arrow
+
+  - # Show submitted/pending courses (for admins)
+  - if @pres.submitted.any?
+    %h2 Submitted & Pending Approval
+    - @pres.submitted.each do |course|
+      = render "course_row", course: course
+
+  - # Orientation block
+  - if @pres.show_orientation_block?
+    %p.empty-state
+      Before you create a course, let's go through orientation (1 hour to complete) to help you get started.
+      %br
+      = link_to @pres.orientation_path, class: 'button dark' do
+        Start Orientation
+        %i.icon.icon-rt_arrow
+      %br
+      = link_to t('dashboard.opt_out'), @pres.opt_out_path
+
+  - if @pres.show_your_courses_label?
+    %h2 Your Courses
+
+  - # Empty courses state
+  - if @pres.current.empty? && @pres.past.empty?
+    - if @pres.can_create_course?
+      %p.empty-state
+        Looks like you don't have any courses.
+        %br
+        Click on Create Course to create your first course.
+        %br
+        = link_to t('dashboard.explore_examples'), explore_path
+    - elsif @pres.show_explore_button?
+      %p.empty-state
+        Looks like you haven't joined a course yet.
+        %br
+        Once you receive a passcode from your instructor, click on Find Your Course to find and join it.
+        %br
+        = link_to t('dashboard.explore_course_pages'), explore_path
+
+  - else
+    - # Courses list
+    - if @pres.is_admin?
+      = render "courses/user_courses"
+    - else
+      - @pres.current.each do |course|
+        = render "course_row", course: course
+
+    - # Archived/past courses
+    - if @pres.past.any?
+      %h2 Archived Courses
+      - @pres.past.each do |course|
+        = link_to course_slug_path(course.slug), {class: 'course course-past'} do
+          %h2.course-title
+            = course.title
+            %span.course-term= course.term
+            %span.icon.icon-rt_arrow

@@ -29,9 +29,27 @@
   .week
     margin-bottom 0 !important
 
+.module.enroll
+  position relative
+  padding 30px 40px 40px 40px
+
+  h1
+    font-weight 300
+    margin-bottom 20px
+
+  .button
+    margin-left 0
+    margin-right 10px
+
+  .close
+    position absolute
+    top 20px
+    right 20px
+
 .module.course-details
   p
     margin 0 0 5px 0
+
   fieldset
     margin 0 0 5px 0
     > p
@@ -61,19 +79,19 @@
 .notification
   background-color sprout
   padding global-margin
-  p
-    col(1)
-    color black
-    float left
-    margin 0
-    +above(desktop)
-      col(3/4)
-  .button
-    float left
-    margin 10px 0 0
-    +above(desktop)
-      margin 0
-      float right
+  color #fff
+  > .container
+    display flex
+    align-items center
+    p
+      flex 1
+      margin-bottom 0
+
+    .button
+      margin-left 20px
+
+    a:not(.button)
+      color #fff
 
 .notice
   @extends .notification
@@ -82,13 +100,9 @@
   width 100%
   text-align left
   background-color warning
-  color black
+  color #fff
   > .container
-    display flex
-    align-items center
-    p
-      flex 1
-    svg
+   svg
       &:focus,
       &:hover
         cursor pointer

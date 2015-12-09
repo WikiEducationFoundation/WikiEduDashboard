@@ -244,6 +244,18 @@ Devise.setup do |config|
                     site: "https://#{Figaro.env.wiki_language}.wikipedia.org"
                   }
 
+
+  config.omniauth :mediawiki_signup,
+                  Figaro.env.wikipedia_token,
+                  Figaro.env.wikipedia_secret,
+                  name: 'mediawiki_signup',
+                  strategy_class: OmniAuth::Strategies::Mediawiki,
+                  client_options: {
+                    site: "https://#{Figaro.env.wiki_language}.wikipedia.org",
+                    signup: true
+                  }
+
+
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.

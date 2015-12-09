@@ -12,6 +12,7 @@
 #  thumburl    :string(2000)
 #  thumbwidth  :string(255)
 #  thumbheight :string(255)
+#  deleted     :boolean          default(FALSE)
 #
 
 require 'rails_helper'

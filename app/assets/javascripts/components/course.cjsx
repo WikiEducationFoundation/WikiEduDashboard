@@ -104,11 +104,14 @@ Course = React.createClass(
         )
 
     if (user_role > 0 || @getCurrentUser().admin) && @state.course.published && UserStore.isLoaded() && UserStore.getFiltered({ role: 0 }).length == 0 && !@state.course.legacy
+      url = window.location.href.replace(window.location.pathname, "") + @_courseLinkParams() + "?enroll=" + @state.course.passcode
       alerts.push (
         <div className='notification' key='enroll'>
           <div className='container'>
-            <p>Your course has been published! Students may enroll in the course by visiting the following URL:</p>
-            <p>{@state.course.enroll_url + @state.course.passcode}</p>
+            <div>
+              <p>Your course has been published! Students may enroll in the course by visiting the following URL:</p>
+              <a href={url}>{url}</a>
+            </div>
           </div>
         </div>
       )
@@ -121,6 +124,46 @@ Course = React.createClass(
       )
 
     overviewLinkClassName = 'active' if @_onCourseIndex()
+
+    if @props.location.query.enroll
+      if @getCurrentUser().id?
+        enroll_card = (
+          <div className="module enroll">
+            <a href={@_courseLinkParams()}>
+              <svg className="close" tabIndex="0" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" style={{"fill":"currentcolor", "verticalAlign": "middle", "width":"32px", "height":"32px"}}><g><path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"></path></g></svg>
+            </a>
+            <h1>Join '{@state.course.title}'?</h1>
+            <a className="button dark" href={@state.course.enroll_url + @props.location.query.enroll}>Join</a>
+            <a className="button border" href={@_courseLinkParams()}>Cancel</a>
+          </div>
+        )
+      else
+        enroll_card = (
+          <div className="module enroll">
+            <a href={@_courseLinkParams()}>
+              <svg className="close" tabIndex="0" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" style={{"fill":"currentcolor", "verticalAlign": "middle", "width":"32px", "height":"32px"}}><g><path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"></path></g></svg>
+            </a>
+            <h1>Hello,</h1>
+            <p>
+              You’ve been invited to join {@state.course.title}. To join the course, you need to log in with a Wikipedia account.
+              <br/> If you don't have a Wikipedia account yet, sign up for one now.
+            </p>
+            <p>
+              <a href={"/users/auth/mediawiki?origin=" + window.location} className="button auth dark"><i className="icon icon-wiki-logo"></i> Log in with Wikipedia</a>
+              <a href={"/users/auth/mediawiki_signup?origin=" + window.loaction} className="button auth signup border"><i className="icon icon-wiki-logo"></i> Sign up with Wikipedia</a>
+            </p>
+          </div>
+        )
+    else if @props.location.query.enrolled
+      enroll_card = (
+        <div className="module enroll">
+          <a href={@_courseLinkParams()}>
+            <svg className="close" tabIndex="0" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" style={{"fill":"currentcolor", "verticalAlign": "middle", "width":"32px", "height":"32px"}}><g><path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"></path></g></svg>
+          </a>
+          <h1>Welcome!</h1>
+          <p>You’ve successfully joined {@state.course.title}.</p>
+        </div>
+      )
 
     <div>
       <header className='course-page'>
@@ -185,6 +228,7 @@ Course = React.createClass(
         </nav>
       </div>
       <div className="course_main container">
+        {enroll_card}
         {React.cloneElement(@props.children, course_id: @getCourseID(), current_user: @getCurrentUser(), course:  @state.course)}
       </div>
     </div>

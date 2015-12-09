@@ -21,7 +21,7 @@ class SelfEnrollmentController < ApplicationController
 
     # Make sure the user isn't already enrolled.
     if user_already_enrolled?
-      redirect_to course_slug_path(@course.slug)
+      redirect_to course_slug_path(@course.slug, enrolled: true)
       return
     end
 
@@ -31,8 +31,8 @@ class SelfEnrollmentController < ApplicationController
       WikiEdits.enroll_in_course(@course, current_user)
       WikiEdits.update_course(@course, current_user)
     end
-    # Redirect to course
-    redirect_to course_slug_path(@course.slug)
+
+    redirect_to course_slug_path(@course.slug, enrolled: true)
   end
 
   private

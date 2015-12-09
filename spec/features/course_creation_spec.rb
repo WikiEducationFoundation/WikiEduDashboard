@@ -8,8 +8,6 @@ end
 
 def fill_out_course_creator_form
   fill_in 'Course title:', with: 'My course'
-  fill_in 'Instructor name:', with: 'Sage'
-  fill_in 'Instructor email:', with: 'sage@example.edu'
   fill_in 'Course term:', with: 'Spring 2016'
   fill_in 'Course school:', with: 'University of Oklahoma'
   find('input[placeholder="Start date (YYYY-MM-DD)"]').set(Time.zone.today)
@@ -102,21 +100,22 @@ describe 'New course creation and editing', type: :feature do
   before :each do
     create(:cohort)
     user = create(:user,
-                  id: 1)
+                  id: 1,
+                  permissions: User::Permissions::INSTRUCTOR)
+    create(:training_modules_users, user_id: user.id, training_module_id: 3, completed_at: Time.now )
     login_as(user, scope: :user)
+
     visit root_path
   end
 
   describe 'course workflow', js: true do
-    let(:instructor_name)  { 'Mr. Capybara' }
-    let(:instructor_email) { 'capybara@wikiedu.org' }
     let(:expected_course_blocks) { 27 }
     let(:module_name) { 'Wikipedia Essentials' }
     let(:unassigned_module_name) { 'Orientation for New Instructors' }
     it 'should allow the user to create a course' do
       stub_oauth_edit
 
-      click_link 'Create a Course'
+      click_link 'Create Course'
 
       expect(page).to have_content 'Create a New Course'
       find('#course_title').set('My awesome new course - Foo 101')
@@ -129,8 +128,6 @@ describe 'New course creation and editing', type: :feature do
       expect(find('#course_term')['class']).to include('invalid term')
 
       # Now we fill out all the fields and continue.
-      find('#instructor_name').set(instructor_name)
-      find('#instructor_email').set(instructor_email)
       find('#course_school').set('University of Wikipedia, East Campus')
       find('#course_term').set('Fall 2015')
       find('#course_subject').set('Advanced Studies')
@@ -260,8 +257,6 @@ describe 'New course creation and editing', type: :feature do
 
       within('.sidebar') do
         expect(page).to have_content I18n.t('courses.instructor.other')
-        expect(page).to have_content instructor_name
-        expect(page).to have_content instructor_email
       end
 
       sleep 1
@@ -272,7 +267,7 @@ describe 'New course creation and editing', type: :feature do
       prompt.send_keys('My awesome new course - Foo 101')
       sleep 1
       prompt.accept
-      expect(page).to have_content 'You are not participating in any courses'
+      expect(page).to have_content 'Looks like you don\'t have any courses'
     end
 
     it 'should not allow a second course with the same slug' do
@@ -291,11 +286,9 @@ describe 'New course creation and editing', type: :feature do
              timeline_end: '2015-12-15'.to_date)
       stub_oauth_edit
 
-      click_link 'Create a Course'
+      click_link 'Create Course'
       expect(page).to have_content 'Create a New Course'
       find('#course_title').set('Course')
-      find('#instructor_name').set(instructor_name)
-      find('#instructor_email').set(instructor_email)
       find('#course_school').set('University')
       find('#course_term').set('Term')
       find('#course_subject').set('Advanced Studies')
@@ -339,6 +332,8 @@ describe 'New course creation and editing', type: :feature do
       sleep 1
 
       go_through_researchwrite_wizard
+
+      sleep 1
 
       expect(page).to have_content 'Week 14'
 
@@ -413,7 +408,7 @@ describe 'New course creation and editing', type: :feature do
              user_id: 1,
              role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
 
-      click_link 'Create a Course'
+      click_link 'Create Course'
       click_button 'Create New Course'
       fill_out_course_creator_form
       sleep 1
@@ -459,7 +454,7 @@ describe 'cloning a course', js: true do
   let!(:gradeable) do
     create(:gradeable, gradeable_item_type: 'block', gradeable_item_id: block.id, points: 10)
   end
-  let!(:user)      { create(:user, permissions: 1) }
+  let!(:user)      { create(:user, permissions: User::Permissions::ADMIN) }
   let!(:c_user)    { create(:courses_user, course_id: course.id, user_id: user.id) }
   let!(:term)      { 'Spring 2016' }
   let!(:desc)      { 'A new course' }
@@ -470,7 +465,7 @@ describe 'cloning a course', js: true do
     login_as user, scope: :user, run_callbacks: false
     visit root_path
 
-    click_link 'Create a Course'
+    click_link 'Create Course'
     click_button 'Clone Previous Course'
     select course.title, from: 'reuse-existing-course-select'
     click_button 'Clone This Course'

@@ -169,7 +169,9 @@ end
 
 def find_correct_answer_by_trial_and_error
   (0..10).each do |current_answer|
-    page.all('input')[current_answer].click
+    within('.training__slide') do
+      all('input')[current_answer].click
+    end
     click_button 'Check Answer'
     next_button = page.first('a.slide-nav.btn.btn-primary')
     break unless next_button['disabled'] == 'true'

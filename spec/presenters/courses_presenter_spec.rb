@@ -1,8 +1,8 @@
 require 'rails_helper'
-require_relative '../../app/presenters/home_page_presenter'
+require_relative '../../app/presenters/courses_presenter'
 require 'ostruct'
 
-describe HomePagePresenter do
+describe CoursesPresenter do
   describe '#admin_courses' do
     let(:admin)  { OpenStruct.new(admin?: is_admin) }
     let(:user)   { user }

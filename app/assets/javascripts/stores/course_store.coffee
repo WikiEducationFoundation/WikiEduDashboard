@@ -33,7 +33,6 @@ addCourse = ->
   setCourse {
     title: ""
     description: ""
-    instructor_name: ""
     school: ""
     term: ""
     subject: ""

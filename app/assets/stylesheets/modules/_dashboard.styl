@@ -1,0 +1,85 @@
+.dashboard
+  > header
+    text-align left
+    display flex
+    align-items center
+    padding 60px 0 0 0
+
+    h1
+      color #A0A0A0
+      font-weight 300
+      font-size 50px
+      flex 1
+      margin-bottom 0
+
+    .dashboard-cta
+      float right
+
+    + .course,
+    + h2
+      margin-top 60px
+
+  h2
+    font-size 30px
+    font-weight 300
+    color #A0A0A0
+
+  .button
+    margin-left 0
+    .icon
+      vertical-align middle
+      margin-left 12px
+      font-size 15px
+
+  .empty-state
+    margin-top 18px
+
+    a
+      display inline-block
+      margin-top 18px
+
+  #user_courses
+    margin-bottom 60px
+    background #fff
+    border 1px solid $border_lt
+    box-shadow 0px 1px 2px rgba(0,0,0,.1)
+
+    &:before
+      content ""
+      position absolute
+      left 0
+      right 0
+      top 0
+      bottom 0
+      box-shadow 0px 2px 4px rgba(0,0,0,1)
+      opacity .1
+      transition opacity 125ms ease-in-out
+
+    .sort.asc > p:after, .sort.desc > p:after
+      position absolute
+      margin-top 3px
+
+
+    .row
+      border 0
+      border-top 1px solid lighten($border_lt, 50%)
+
+      .row__wrapper
+        padding 14px 20px !important
+
+        > div
+          min-height 0
+
+      .row__wrapper > div > p
+        color #2c2c2c
+
+      &.list__header > .row__wrapper
+        > div > p
+          color #808080
+          font-size 13px
+          font-weight 600
+
+
+
+
+

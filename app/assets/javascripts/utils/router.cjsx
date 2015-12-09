@@ -9,10 +9,10 @@ Redirect            = ReactRouter.Redirect
 
 App                 = require '../components/app'
 Course              = require '../components/course'
+Onboarding          = require '../components/onboarding'
 Wizard              = require '../components/wizard/wizard'
 Dates               = require '../components/timeline/meetings'
 CourseCreator       = require '../components/course_creator/course_creator'
-CourseCreatorButton = require '../components/course_creator/course_creator_button'
 
 OverviewHandler     = require '../components/overview/overview_handler'
 TimelineHandler     = require '../components/timeline/timeline_handler'
@@ -38,7 +38,12 @@ history = useBasename(createHistory)(basename: '/')
 
 routes = (
   <Route path='/' component={App}>
-    <IndexRoute component={CourseCreatorButton} />
+    <Route path='onboarding' component={Onboarding.Root}>
+      <IndexRoute component={Onboarding.Intro} />
+      <Route path='form' component={Onboarding.Form} />
+      <Route path='permissions' component={Onboarding.Permissions} />
+      <Route path='finish' component={Onboarding.Finished} />
+    </Route>
     <Route path='recent-activity' component={RecentActivityHandler}>
       <IndexRoute component={DidYouKnowHandler} />
       <Route path='plagiarism' component={PlagiarismHandler} />

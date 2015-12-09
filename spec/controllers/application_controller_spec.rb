@@ -5,6 +5,7 @@ describe ApplicationController do
 
   controller do
     def index
+      render nothing: true, status: 200
     end
   end
 

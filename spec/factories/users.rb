@@ -20,26 +20,31 @@
 #  permissions         :integer          default(0)
 #  real_name           :string(255)
 #  email               :string(255)
+#  onboarded           :boolean          default(FALSE)
 #
 
 FactoryGirl.define do
   factory :test_user, class: User do
     wiki_id 'Pizza'
+    onboarded true
   end
 
   factory :user do
     id '4543197'
     wiki_id 'Ragesock'
+    onboarded true
   end
 
   factory :trained, class: User do
     id '319203'
     wiki_id 'Ragesoss'
+    onboarded true
   end
 
   factory :admin, class: User do
     id '1'
     wiki_id 'Ragesauce'
     permissions '1'
+    onboarded true
   end
 end

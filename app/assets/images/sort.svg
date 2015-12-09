@@ -20,7 +20,7 @@
 				<use xlink:href="#SVGID_3_"  overflow="visible"/>
 			</clipPath>
 			<g clip-path="url(#SVGID_4_)">
-				<rect x="494.6" y="307.8" fill="#858DAA" width="12" height="26"/>
+				<rect x="494.6" y="307.8" fill="#696BB1" width="12" height="26"/>
 			</g>
 		</g>
 	</g>
@@ -50,7 +50,7 @@
 				<use xlink:href="#SVGID_9_"  overflow="visible"/>
 			</clipPath>
 			<g clip-path="url(#SVGID_10_)">
-				<rect x="503.6" y="307.8" fill="#858DAA" width="26" height="14"/>
+				<rect x="503.6" y="307.8" fill="#696BB1" width="26" height="14"/>
 			</g>
 		</g>
 	</g>
@@ -69,7 +69,7 @@
 				<use xlink:href="#SVGID_13_"  overflow="visible"/>
 			</clipPath>
 			<g clip-path="url(#SVGID_14_)">
-				<rect x="503.6" y="313.8" fill="#858DAA" width="22" height="14"/>
+				<rect x="503.6" y="313.8" fill="#696BB1" width="22" height="14"/>
 			</g>
 		</g>
 	</g>
@@ -88,17 +88,17 @@
 				<use xlink:href="#SVGID_17_"  overflow="visible"/>
 			</clipPath>
 			<g clip-path="url(#SVGID_18_)">
-				<rect x="503.6" y="319.8" fill="#858DAA" width="16" height="14"/>
+				<rect x="503.6" y="319.8" fill="#696BB1" width="16" height="14"/>
 			</g>
 		</g>
 	</g>
 </g>
 <g id="Layer_3">
 	<g>
-		<rect x="12.7" y="3.5" fill="#858DAA" width="16" height="4"/>
-		<rect x="12.7" y="9.5" fill="#858DAA" width="12" height="4"/>
-		<rect x="12.7" y="15.5" fill="#858DAA" width="6" height="4"/>
-		<polygon fill="#858DAA" points="8.5,17.6 4.7,20.5 1,17.6 1.8,16.5 3.8,18 3.8,3.5 5.8,3.5 5.8,17.9 7.7,16.5 		"/>
+		<rect x="12.7" y="3.5" fill="#696BB1" width="16" height="4"/>
+		<rect x="12.7" y="9.5" fill="#696BB1" width="12" height="4"/>
+		<rect x="12.7" y="15.5" fill="#696BB1" width="6" height="4"/>
+		<polygon fill="#696BB1" points="8.5,17.6 4.7,20.5 1,17.6 1.8,16.5 3.8,18 3.8,3.5 5.8,3.5 5.8,17.9 7.7,16.5 		"/>
 	</g>
 </g>
 </svg>

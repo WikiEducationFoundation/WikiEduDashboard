@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
 
   before_action :check_for_expired_oauth_credentials
   before_action :check_for_unsupported_browser
+  before_action :check_onboarded
 
   force_ssl if: :ssl_configured?
 
@@ -21,11 +22,22 @@ class ApplicationController < ActionController::Base
   include HttpAcceptLanguage::AutoLocale
 
   def after_sign_out_path_for(_resource_or_scope)
-    request.referrer
+    '/'
   end
 
   def after_sign_in_path_for(_resource_or_scope)
     request.env['omniauth.origin'] || '/'
+  end
+
+  def check_onboarded
+    return unless current_user
+    return if current_user.onboarded
+    return if request.fullpath.starts_with? onboarding_path
+    return if request.fullpath.starts_with? onboard_path
+    return if request.fullpath.starts_with? new_user_session_path
+    return if request.fullpath.starts_with? destroy_user_session_path
+    return if request.fullpath.starts_with? true_destroy_user_session_path
+    redirect_to onboarding_path(return_to: request.fullpath)
   end
 
   def require_permissions
@@ -53,9 +65,9 @@ class ApplicationController < ActionController::Base
     flash[:notice] = t('error.unsupported_browser.explanation') unless supported
   end
 
-  def course_slug_path(slug)
+  def course_slug_path(slug, args={})
     slug_parts = slug.split('/')
-    show_path(school: slug_parts[0], titleterm: slug_parts[1])
+    show_path(args.merge(school: slug_parts[0], titleterm: slug_parts[1]))
   end
   helper_method :course_slug_path
 

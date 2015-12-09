@@ -11,7 +11,7 @@
     </div>
     <ul class="list">
     <% presenter.admin_courses.each do |c| %>
-      <%= render 'unapproved_row', course: c, admin: true, user: false %>
+      <%= render 'courses/unapproved_row', course: c, admin: true, user: false %>
     <% end %>
     </ul>
   </section>

@@ -24,6 +24,14 @@ GIT
   specs:
     hashugar (1.0.0)
 
+GIT
+  remote: https://github.com/ragesoss/omniauth-mediawiki.git
+  revision: 14638fbd1914a41dc380d861cc5f6d78f8ae57f2
+  specs:
+    omniauth-mediawiki (0.0.2)
+      jwt (~> 1.0)
+      omniauth-oauth (~> 1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -245,9 +253,6 @@ GEM
     omniauth (1.2.2)
       hashie (>= 1.2, < 4)
       rack (~> 1.0)
-    omniauth-mediawiki (0.0.2)
-      jwt (~> 1.0)
-      omniauth-oauth (~> 1.0)
     omniauth-oauth (1.1.0)
       oauth
       omniauth (~> 1.0)
@@ -433,7 +438,7 @@ DEPENDENCIES
   mediawiki_api (= 0.5.0)
   mysql2
   newrelic_rpm
-  omniauth-mediawiki
+  omniauth-mediawiki!
   pandoc-ruby (~> 1.0.0)
   piwik_analytics!
   pry-rails

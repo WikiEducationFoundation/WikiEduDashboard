@@ -20,23 +20,27 @@
 #  permissions         :integer          default(0)
 #  real_name           :string(255)
 #  email               :string(255)
+#  onboarded           :boolean          default(FALSE)
 #
 
 require "#{Rails.root}/lib/utils"
 
 #= User model
 class User < ActiveRecord::Base
+  validates :permissions, inclusion: { in: [0, 1, 2] }
+
   #############
   # Constants #
   #############
   module Permissions
     NONE  = 0
     ADMIN = 1
+    INSTRUCTOR = 2
   end
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :rememberable, :omniauthable, omniauth_providers: [:mediawiki]
+  devise :rememberable, :omniauthable, omniauth_providers: [:mediawiki, :mediawiki_signup]
 
   has_many :courses_users, class_name: CoursesUsers
   has_many :courses, -> { uniq }, through: :courses_users
@@ -161,6 +165,12 @@ class User < ActiveRecord::Base
       .where('characters >= 0')
       .sum(:characters) || 0
   end
+
+  # Exclude tokens/secrets from json output
+  def to_json(options={})
+     options[:except] ||= [:wiki_token, :wiki_secret, :remember_token]
+     super(options)
+   end
 
   #################
   # Class methods #
