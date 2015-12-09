@@ -3,8 +3,6 @@ class DashboardController < ApplicationController
   respond_to :html
 
   def index
-    binding.pry
-
     current = current_user.courses.current_and_future.listed
     past = current_user.courses.archived.listed
     submitted = []
