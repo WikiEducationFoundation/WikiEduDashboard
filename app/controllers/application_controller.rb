@@ -88,13 +88,10 @@ class ApplicationController < ActionController::Base
     Rails.env.staging? || Rails.env.production?
   end
 
-<<<<<<< 8b7e6eefa234f9af43b3dec7503f4a52d32f1c1f
   def set_locale_override
     if params[:locale]
       # Param takes precedence over language preferences from HTTP headers.
       http_accept_language.user_preferred_languages.unshift(params[:locale])
     end
   end
-=======
->>>>>>> Add onboarding redirects
 end
