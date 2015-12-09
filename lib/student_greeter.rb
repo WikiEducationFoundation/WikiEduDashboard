@@ -1,5 +1,9 @@
 class StudentGreeter
-  def new
+  def self.greet_all_ungreeted_students
+    new.greet_all_ungreeted_students
+  end
+
+  def initialize
     @greeters = User.find_by(wiki_id: 'Ragesock') # User.where(greeter: true)
   end
 
@@ -18,29 +22,55 @@ class StudentGreeter
     end
   end
 
-  def self.greet_if_ungreeted(student, greeter)
-    return if student.greeted
+  def greet_if_ungreeted(student, greeter)
+    # return if student.greeted
     if talk_page_blank? student
-      greet student
+      greet(student, greeter)
       return
     end
-    # TODO: check whether any of the greeters have edited the talk page. return if so.
-    greet student
+    return if a_greeter_already_posted?(student)
+    greet(student, greeter)
   end
 
   def talk_page_blank?(student)
     Wiki.get_page_content(student.talk_page).nil?
   end
 
-  def welcome_message(greeter)
-    # TODO get first name from real name, add to subst template
+  def a_greeter_already_posted?(student)
+    contributor_ids = ids_of_contributors_to_page(student.talk_page)
+    return true unless (@greeters.pluck(:id) & contributor_ids).empty?
+    false
   end
 
-  def self.greet(student, greeter)
-    response_data = WikiEdits.notify_users(greeter, [student], welcome_message)
+  def ids_of_contributors_to_page(page_title)
+    contributors_response = Wiki.query contributors_query(page_title)
+    # TODO: exception handling for unexpected response data
+    pp contributors_response.data['pages'].values[0]
+    contributors = contributors_response.data['pages'].values[0]['contributors']
+    contributor_ids = contributors.map { |user| user['userid'] }
+    contributor_ids
+  end
 
-    return if response_data['edit'].nil
+  def contributors_query(page_title)
+    { prop: 'contributors',
+      titles: page_title,
+      pclimit: 500 }
+  end
+
+  def welcome_message(greeter)
+    # TODO get first name from real name, add to subst template
+
+    { sectiontitle: 'Ohai',
+      text: "#{greeter.real_name} says hi",
+      summary: 'kthxbai' }
+  end
+
+  def greet(student, greeter)
+    message = welcome_message(greeter)
+    response_data = WikiEdits.notify_user(greeter, student, message)
+    pp response_data
+    return if response_data['edit'].nil?
     return unless response_data['edit']['result'] == 'Success'
-    student.update_attributes(greeted: true) if result
+    student.update_attributes(greeted: true)
   end
 end
