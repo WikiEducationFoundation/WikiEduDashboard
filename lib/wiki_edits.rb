@@ -234,7 +234,7 @@ class WikiEdits
       token_response = JSON.parse(get_token.body)
       WikiResponse.capture(token_response, current_user: current_user,
                                            type: 'tokens')
-      return { status: 'failed' } unless token_response.key?('query')
+      return { 'result' => 'Failure' } unless token_response.key?('query')
       OpenStruct.new(
         csrf_token: token_response['query']['tokens']['csrftoken'],
         access_token: @access_token
