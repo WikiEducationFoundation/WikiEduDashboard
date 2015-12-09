@@ -1,7 +1,7 @@
 id: 304
 title: Meet Wikipedia’s community
 summary:
-content: >
+content: |
   The English Wikipedia has about 30,000 active editors, or
   "Wikipedians." 
   
@@ -13,14 +13,11 @@ content: >
   * administrators who clean up messes and block disruptive editors
   * policy wonks who analyze how Wikipedia works and discuss ways to improve it
   
-  
   And, finally: You and your students. Whenever you contribute to Wikipedia, you're a Wikipedian, too. 
-
 
   What we have in common is a passion for Wikipedia. Although we come from
   different perspectives (and often disagree!), we're here to make Wikipedia
   better.
-
 
   <figure style="width: 100%">
     <img align="middle" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Wikipedia_community_collage.png/800px-Wikipedia_community_collage.png" />
