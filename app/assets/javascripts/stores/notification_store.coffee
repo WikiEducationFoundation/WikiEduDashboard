@@ -32,6 +32,10 @@ NotificationStore = Flux.createStore
   switch(payload.actionType)
     when 'REMOVE_NOTIFICATION'
       removeNotification(payload.notification)
+      break
+    when 'ADD_NOTIFICATION'
+      addNotification(payload.notification)
+      break
     when 'API_FAIL'
       data = payload.data
       notification = {}
@@ -43,6 +47,7 @@ NotificationStore = Flux.createStore
         notification.message = data.statusText
       addNotification(notification)
       break
+
   return true
 
 
