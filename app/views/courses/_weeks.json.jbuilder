@@ -1,7 +1,9 @@
 course_meetings_manager = CourseMeetingsManager.new(course)
 
 json.weeks course.weeks.eager_load(blocks: [:gradeable]) do |week|
-  start_date = course.timeline_start.beginning_of_week + (7 * week.order).days
+  # 0 index the array and offset according to blackout weeks prior
+  week_array_index = week.order - 1 + course_meetings_manager.blackout_weeks_prior_to(week)
+  start_date = course.timeline_start.beginning_of_week + (7 * week_array_index).days
   json.call(week, :id, :title, :order)
   json.start_date start_date.strftime('%m/%d')
   json.end_date start_date.end_of_week.strftime('%m/%d')

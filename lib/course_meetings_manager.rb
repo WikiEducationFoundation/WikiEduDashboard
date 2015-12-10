@@ -17,7 +17,7 @@ class CourseMeetingsManager
   def blackout_weeks_prior_to(week)
     # Treat courses without meeting date data as having no blackout weeks
     return 0 unless course_has_meeting_date_data?
-    @week_meetings[0..week.order].count('()')
+    @week_meetings[0..(week.order-1)].count('()')
   end
 
   DAYS_AS_SYM = %i(sunday monday tuesday wednesday thursday friday saturday)

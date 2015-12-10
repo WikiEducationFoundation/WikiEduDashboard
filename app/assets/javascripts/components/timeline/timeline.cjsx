@@ -85,7 +85,7 @@ Timeline = React.createClass(
     week_components = []
 
 
-    unless @props.course? || @props.weeks.length > 0
+    unless @props.weeks?.length
       return <Loading />
 
     @props.weeks.map (week, i) =>
