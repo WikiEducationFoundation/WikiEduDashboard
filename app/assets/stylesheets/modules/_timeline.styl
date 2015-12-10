@@ -287,13 +287,15 @@ input[type="checkbox"]
   &:hover
     text-decoration underline
 
-.timeline__week-nav li:not(.week-nav__item) .week-nav__link
-  padding-left 0
-  &.disabled
-    opacity 0.6
-    cursor text
-    &:hover
-      text-decoration none
+.timeline__week-nav li:not(.week-nav__item)
+  padding-bottom 8px
+  .week-nav__link
+    padding-left 0
+    &.disabled
+      opacity 0.6
+      cursor text
+      &:hover
+        text-decoration none
 
 .timeline__week-nav li .week-nav__add-week
   color $brand_primary
