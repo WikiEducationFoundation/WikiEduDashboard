@@ -133,7 +133,10 @@ Timeline = React.createClass(
         )
         i++
 
-    add_week_link = if @props.course?.timeline_full then (
+    start = moment(@props.course.timeline_start)
+    end = moment(@props.course.timeline_end)
+    timeline_full = (moment(end - start).weeks()) - week_components.length <= 0
+    add_week_link = if timeline_full then (
       <li>
         <span className='week-nav__action week-nav__link disabled' title='You cannot add new weeks when your timeline is full. Delete at least one week to make room for a new one.'>Add New Week</span>
       </li>
