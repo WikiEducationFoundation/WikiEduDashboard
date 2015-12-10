@@ -9,6 +9,8 @@ TextInput       = require '../common/text_input'
 
 ReactCSSTG      = require 'react-addons-css-transition-group'
 
+DateCalculator  = require '../../utils/date_calculator'
+
 Week = React.createClass(
   displayName: 'Week'
   getInitialState: ->
@@ -29,6 +31,8 @@ Week = React.createClass(
   _setWeekEditable: (week_id) ->
     WeekActions.setWeekEditable(week_id)
   render: ->
+    # Start and end dates must be recalculated each render
+    # because of changing data
     blocks = @props.blocks.map (block, i) =>
       unless block.deleted
         <Block
@@ -41,7 +45,7 @@ Week = React.createClass(
           deleteBlock={@deleteBlock.bind(this, block.id)}
           moveBlock={@props.moveBlock}
           week_index={@props.index}
-          week_start={@props.start_date}
+          week_start={moment(@props.start).startOf('isoWeek').add(7 * (@props.index - 1), 'day')}
           all_training_modules={@props.all_training_modules}
           editable_block_ids={@props.editable_block_ids}
           saveBlockChanges={@props.saveBlockChanges}
@@ -62,7 +66,7 @@ Week = React.createClass(
     )
 
     if @props.showTitle == undefined || @props.showTitle
-      week_label = 'Week ' + @props.index
+      week_label = 'Week ' + (@props.index + 1)
       if !@props.week.title?
         valueClass = 'title-placeholder'
       title = (
@@ -80,9 +84,10 @@ Week = React.createClass(
         />
       )
 
+      dateCalc = new DateCalculator(@props.start, @props.end, @props.index)
       week_dates = (
         <span className='week__week-dates pull-right'>
-          {@props.week.start_date} - {@props.week.end_date} {@props.meetings if @props.meetings}
+          {dateCalc.start()} - {dateCalc.end()} {@props.meetings if @props.meetings}
         </span>
       )
 

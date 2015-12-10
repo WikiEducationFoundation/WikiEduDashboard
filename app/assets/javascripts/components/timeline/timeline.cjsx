@@ -14,6 +14,8 @@ BlockActions    = require '../../actions/block_actions'
 
 BlockStore      = require '../../stores/block_store'
 
+DateCalculator  = require '../../utils/date_calculator'
+
 Timeline = React.createClass(
   displayName: 'Timeline'
 
@@ -66,8 +68,8 @@ Timeline = React.createClass(
     navItems = document.getElementsByClassName('week-nav__item')
     Array.prototype.forEach.call weekEls, (el, i) =>
       elTop = el.getBoundingClientRect().top - bodyTop
-      headerHeight = 90
-      if scrollTop >= elTop - headerHeight
+      topOffset = 30
+      if scrollTop >= elTop - topOffset
         Array.prototype.forEach.call navItems, (item) =>
           item.classList.remove('is-current')
         if !@_scrolledToBottom()
@@ -96,8 +98,10 @@ Timeline = React.createClass(
               <Week
                 blocks={[]}
                 week={title: null}
-                index={i + 1}
+                index={i}
                 key={"noweek_#{i}"}
+                start={@props.course.timeline_start}
+                end={@props.course.timeline_end}
                 editable=false
                 meetings=false
                 all_training_modules={@props.all_training_modules}
@@ -111,12 +115,14 @@ Timeline = React.createClass(
             <a className="timeline__anchor" name={"week-#{week.id}"} />
             <Week
               week={week}
-              index={i + 1}
+              index={i}
               editable={isEditable}
               blocks={BlockStore.getBlocksInWeek(week.id)}
               moveBlock={@moveBlock}
               deleteWeek={@deleteWeek.bind(this, week.id)}
               meetings={if @props?.week_meetings then @props.week_meetings[i] else ''}
+              start={@props.course.timeline_start}
+              end={@props.course.timeline_end}
               all_training_modules={@props.all_training_modules}
               editable_block_ids={@props.editable_block_ids}
               saveBlockChanges={@props.saveBlockChanges}
@@ -169,9 +175,11 @@ Timeline = React.createClass(
     week_nav = @props.weeks.map (week, i) => (
       className = 'week-nav__item'
       className += ' is-current' if i == 0
+
+      dateCalc = new DateCalculator(@props.course.timeline_start, @props.course.timeline_end, i)
       <li className={className} key={"week-#{week.id}"}>
         <a href={"#week-#{week.id}"}>{week.title || "Week #{i + 1}"}</a>
-        <span className="pull-right">{week.start_date} - {week.end_date}</span>
+        <span className="pull-right">{dateCalc.start()} - {dateCalc.end()}</span>
       </li>
     )
 
