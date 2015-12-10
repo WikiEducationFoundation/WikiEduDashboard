@@ -34,11 +34,7 @@ addWeek = ->
   }
 
 removeWeek = (week_id) ->
-  week = _weeks[week_id]
-  if week.is_new
-    delete _weeks[week_id]
-  else
-    week['deleted'] = true
+  delete _weeks[week_id]
   WeekStore.emitChange()
 
 setEditableWeekId = (week_id) ->
