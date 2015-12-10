@@ -1,8 +1,9 @@
 class DateCalculator
-  constructor: (@beginning, @ending, @loopIndex) ->
+  constructor: (@beginning, @ending, @loopIndex, @opts) ->
 
   startDate: ->
-    moment(@beginning).startOf('week').add(7 * @loopIndex - 1, 'day')
+    index = if @opts.zeroIndexed is true then @loopIndex else @loopIndex - 1
+    moment(@beginning).startOf('week').add(7 * index, 'day')
 
   start: ->
     @startDate().format("MM/DD")

@@ -180,7 +180,7 @@ Timeline = React.createClass(
       className = 'week-nav__item'
       className += ' is-current' if i == 0
 
-      dateCalc = new DateCalculator(@props.course.timeline_start, @props.course.timeline_end, i)
+      dateCalc = new DateCalculator(@props.course.timeline_start, @props.course.timeline_end, i, zeroIndexed: true)
       <li className={className} key={"week-#{i}"}>
         <a href={"#week-#{week.id}"}>{week.title || "Week #{i + 1}"}</a>
         <span className="pull-right">{dateCalc.start()} - {dateCalc.end()}</span>
