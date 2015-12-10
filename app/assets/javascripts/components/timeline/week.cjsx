@@ -66,7 +66,7 @@ Week = React.createClass(
     )
 
     if @props.showTitle == undefined || @props.showTitle
-      week_label = 'Week ' + (@props.index + 1)
+      week_label = 'Week ' + @props.index
       if !@props.week.title?
         valueClass = 'title-placeholder'
       title = (

@@ -84,13 +84,13 @@ Timeline = React.createClass(
     window.removeEventListener 'scroll'
 
   render: ->
-    week_components = []
-
-
     unless @props.weeks?.length
       return <Loading />
 
-    @props.weeks.map (week, i) =>
+    week_components = []
+    i = 0
+
+    @props.weeks.forEach (week) =>
       unless week.deleted
         if @props?.week_meetings
           while @props?.week_meetings[i] == '()'
@@ -98,7 +98,7 @@ Timeline = React.createClass(
               <Week
                 blocks={[]}
                 week={title: null}
-                index={i}
+                index={i + 1}
                 key={"noweek_#{i}"}
                 start={@props.course.timeline_start}
                 end={@props.course.timeline_end}
@@ -115,7 +115,7 @@ Timeline = React.createClass(
             <a className="timeline__anchor" name={"week-#{week.id}"} />
             <Week
               week={week}
-              index={i}
+              index={i + 1}
               editable={isEditable}
               blocks={BlockStore.getBlocksInWeek(week.id)}
               moveBlock={@moveBlock}
@@ -131,6 +131,7 @@ Timeline = React.createClass(
             />
           </div>
         )
+        i++
 
     add_week_link = if @props.course?.timeline_full then (
       <li>
@@ -172,12 +173,12 @@ Timeline = React.createClass(
     )
 
 
-    week_nav = @props.weeks.map (week, i) => (
+    week_nav = week_components.map (week, i) => (
       className = 'week-nav__item'
       className += ' is-current' if i == 0
 
       dateCalc = new DateCalculator(@props.course.timeline_start, @props.course.timeline_end, i)
-      <li className={className} key={"week-#{week.id}"}>
+      <li className={className} key={"week-#{i}"}>
         <a href={"#week-#{week.id}"}>{week.title || "Week #{i + 1}"}</a>
         <span className="pull-right">{dateCalc.start()} - {dateCalc.end()}</span>
       </li>
