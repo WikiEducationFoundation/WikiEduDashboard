@@ -11,7 +11,6 @@ json.course do
   json.ended !current?(@course) && @course.start < Time.zone.now
   json.published CohortsCourses.exists?(course_id: @course.id)
   json.enroll_url "#{request.base_url}#{course_slug_path(@course.slug)}/enroll/"
-  json.timeline_full ((@course.timeline_end - @course.timeline_start).to_f / 7) - @course.weeks.count <= 0
 
   json.created_count number_to_human @course.new_article_count
   json.edited_count number_to_human @course.article_count
