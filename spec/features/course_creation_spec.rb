@@ -210,37 +210,25 @@ describe 'New course creation and editing', type: :feature do
       first('.button.dark').click
       sleep 1
 
-      # Click edit and then make a change and save it.
-      first('.section-header') { click_button('Edit') }
+      within('.week-1 .week__week-add-delete') do
+        find('.delete-week span').click
+      end
       sleep 1
-      first('button.dark').click
-      within('div.course_main') { first('input').set('The first week') }
-      sleep 1
-      first('input[type=checkbox]').set(true)
-      sleep 1
-      first('button.dark').click
-      sleep 1
-      expect(page).to have_content 'The first week'
+      prompt = page.driver.browser.switch_to.alert
+      prompt.accept
+      # There should now be 4 weeks
+      expect(page).not_to have_content "Week 5"
 
-      # Click edit, delete some stuff, and save it.
-      first('button.dark').click
-      sleep 1
-      page.all('button.danger')[1].click
-      sleep 1
-      page.all('button.danger')[0].click
-      sleep 1
-      page.all('button.danger')[1].click
-      sleep 1
-      first('button.dark').click
-      sleep 1
-      expect(page).not_to have_content 'The first week'
 
       # Click edit, mark a gradeable and save it.
-      first('button.dark').click
-      sleep 1
-      first('input[type=checkbox]').set(true)
-      sleep 1
-      first('button.dark').click
+      find('.week-1').hover
+      sleep 0.5
+      within('.week-1') do
+        find('.block__edit-block').click
+        find('p.graded input[type=checkbox]').set(true)
+        sleep 1
+        click_button 'Save'
+      end
       sleep 1
 
       # Edit the gradeable.

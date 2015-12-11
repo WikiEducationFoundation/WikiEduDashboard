@@ -56,10 +56,10 @@ Week = React.createClass(
 
     week_add_delete = if @props.meetings then (
       <div className="week__week-add-delete pull-right">
-        <span className="pull-right" href="" onClick={@addBlock}>Add Block
+        <span className="pull-right add-week" href="" onClick={@addBlock}>Add Block
           <i className="icon icon-plus"></i>
         </span>
-        <span className="pull-right" href="" onClick={@props.deleteWeek}>Delete Week
+        <span className="pull-right delete-week" href="" onClick={@props.deleteWeek}>Delete Week
           <i className="icon icon-trash_can"></i>
         </span>
       </div>
