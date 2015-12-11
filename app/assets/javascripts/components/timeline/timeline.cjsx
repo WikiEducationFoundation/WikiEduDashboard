@@ -60,7 +60,7 @@ Timeline = React.createClass(
     scrollHeight = (document.documentElement && document.documentElement.scrollHeight) || document.body.scrollHeight
     (scrollTop + window.innerHeight) >= scrollHeight
 
-  _handleScroll: ->
+  _handleScroll: _.throttle ->
     @setState unscrolled: false
     scrollTop = window.scrollTop || document.body.scrollTop
     bodyTop = document.body.getBoundingClientRect().top
@@ -76,12 +76,13 @@ Timeline = React.createClass(
           navItems[i]?.classList.add('is-current')
         else
           navItems[navItems.length - 1]?.classList.add('is-current')
+  , 150
 
   componentDidMount: ->
     window.addEventListener 'scroll', @_handleScroll
 
   componentDidUnMount: ->
-    window.removeEventListener 'scroll'
+    window.removeEventListener 'scroll', @_handleScroll
 
   render: ->
     unless @props.weeks?.length
