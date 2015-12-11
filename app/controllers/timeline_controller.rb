@@ -10,7 +10,7 @@ class TimelineController < ApplicationController
   # Week + Block Methods #
   ########################
   def timeline_params
-    params.permit(weeks: [
+    permitted = {weeks: [
       :id,
       :deleted,
       :title,
@@ -32,10 +32,26 @@ class TimelineController < ApplicationController
           :title,
           :points,
           :deleted
-        ] },
-        training_module_ids: [],
+        ] }
       ] }
-    ])
+    ] }
+    # If the API sends [] as training_module_ids (which it will when they're cleared)
+    # then permit :training_module_ids in a way that'll accept a nil value
+    # (if not, ActiveRecord converts it to nil, and it doesn't get whitelisted;
+    # see http://guides.rubyonrails.org/security.html#unsafe-query-generation and
+    # https://github.com/rails/rails/issues/13766#issuecomment-32730118).
+    weeks = params[:weeks]
+    weeks.each do |week|
+      week[:blocks].each do |block|
+        blocks_index = 3
+        if block[:training_module_ids].nil?
+          permitted[:weeks][blocks_index][:blocks] << :training_module_ids
+        else
+          permitted[:weeks][blocks_index][:blocks] << {training_module_ids: []}
+        end
+      end
+    end
+    params.permit(permitted)
   end
 
   def update_util(model, object)
