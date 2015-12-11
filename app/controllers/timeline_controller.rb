@@ -42,6 +42,7 @@ class TimelineController < ApplicationController
     # https://github.com/rails/rails/issues/13766#issuecomment-32730118).
     weeks = params[:weeks]
     weeks.each do |week|
+      next if week[:blocks].nil?
       week[:blocks].each do |block|
         blocks_index = 3
         if block[:training_module_ids].nil?
