@@ -41,13 +41,18 @@ weekMeetings = (recurrence) ->
     [0..6].forEach (i) =>
       added = moment(week_start).add(i, 'days')
       if recurrence.matches(added)
-        ms.push moment.localeData().weekdaysShort(added)
+        ms.push moment.localeData().weekdaysMin(added)[0]
     if ms.length == 0
       meetings.push '()'
     else
       meetings.push "(#{ms.join(', ')})"
   return meetings
 
+# Returns number of available weeks without anything scheduled
+# Available weeks are inside the timeline dates and have weekday meetings
+openWeeks = (recurrence, weeks) ->
+  return unless recurrence?
+  Math.ceil(recurrence.endDate().diff(recurrence.startDate(), 'weeks', true)) - weeks
 
 TimelineHandler = React.createClass(
   displayName: 'TimelineHandler'
@@ -70,8 +75,6 @@ TimelineHandler = React.createClass(
       BlockStore.clearEditableBlockIds()
 
   render: ->
-    outlet = React.cloneElement(@props.children, {key: 'wizard_handler', course: @props.course, weeks: @props.weeks, open_weeks: @props.course.open_weeks}) if @props.children
-
     if @props.course.weekdays?
       meetings = moment().recur(@props.course.timeline_start, @props.course.timeline_end)
       weekdays = []
@@ -82,6 +85,8 @@ TimelineHandler = React.createClass(
       meetings.every(weekdays).daysOfWeek()
       @props.course.day_exceptions.split(',').forEach (e) ->
         meetings.except(moment(e, 'YYYYMMDD')) if e.length > 0
+
+    outlet = React.cloneElement(@props.children, {key: 'wizard_handler', course: @props.course, weeks: @props.weeks, open_weeks: openWeeks(meetings, @props.weeks.length)}) if @props.children
 
     <div>
       <TransitionGroup

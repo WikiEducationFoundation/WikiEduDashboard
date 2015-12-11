@@ -162,7 +162,7 @@ Timeline = React.createClass(
         <span>
           {wizard_link}
         </span>
-        <button className="button dark pull-right" onClick={@props.saveGloablChanges}>
+        <button className="button dark pull-right" onClick={@props.saveGloabalChanges}>
           Save All
         </button>
         <button className="pull-right timeline-ctas__cancel" onClick={@props.cancelGlobalChanges}>
