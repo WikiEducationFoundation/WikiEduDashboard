@@ -85,7 +85,7 @@ Timeline = React.createClass(
     window.removeEventListener 'scroll', @_handleScroll
 
   render: ->
-    unless @props.weeks?.length
+    if @props.weeks?.length is undefined or @props.weeks?.length is null
       return <Loading />
 
     week_components = []

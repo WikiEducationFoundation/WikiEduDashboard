@@ -314,9 +314,7 @@ describe 'New course creation and editing', type: :feature do
       stub_oauth_edit
 
       # Visit timline and open wizard
-      visit "/courses/#{Course.first.slug}/timeline"
-      wizard_link = "/courses/#{Course.first.slug}/timeline/wizard"
-      find("a[href='#{wizard_link}']").click
+      visit "/courses/#{Course.first.slug}/timeline/wizard"
       sleep 1
 
       go_through_researchwrite_wizard
@@ -341,12 +339,17 @@ describe 'New course creation and editing', type: :feature do
         expect(page).to have_content module_name
       end
 
-      within('.timeline-ctas') { click_button 'Edit' }
+      find('.week-2').hover
+      sleep 0.5
+      within('.week-2') do
+        find('.block__edit-block').click
+      end
+      sleep 1
       within(".week-2 .block-kind-#{Block::KINDS['assignment']}") do
         find('.Select-control input').set(unassigned_module_name[0..5])
         find('.Select-menu-outer .Select-option', text: unassigned_module_name).click
       end
-      within('.timeline-ctas') { click_button 'Save' }
+      within('.block__block-actions') { click_button 'Save' }
 
       within ".week-2 .block-kind-#{Block::KINDS['assignment']}" do
         expect(page).to have_content unassigned_module_name
@@ -375,9 +378,7 @@ describe 'New course creation and editing', type: :feature do
       stub_oauth_edit
 
       # Visit timline and open wizard
-      visit "/courses/#{Course.first.slug}/timeline"
-      wizard_link = "/courses/#{Course.first.slug}/timeline/wizard"
-      find("a[href='#{wizard_link}']").click
+      visit "/courses/#{Course.first.slug}/timeline/wizard"
       sleep 1
 
       go_through_researchwrite_wizard
