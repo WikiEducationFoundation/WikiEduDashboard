@@ -26,7 +26,7 @@ describe CourseCloneManager do
            user_id: 2,
            course_id: 1,
            role: CoursesUsers::Roles::STUDENT_ROLE)
-    create(:week, id: 1, course_id: 1, title: 'Week 1')
+    create(:week, id: 1, course_id: 1, order: 1)
     create(:block,
            id: 1, week_id: 1, content: 'First Assignment',
            kind: 1, due_date: 10.months.ago, gradeable_id: 1)
@@ -55,7 +55,7 @@ describe CourseCloneManager do
     expect(clone.cohorts).to be_empty
 
     # The weeks and block content should carry over.
-    expect(clone.weeks.first.title).to eq('Week 1')
+    expect(clone.weeks.first.order).to eq(1)
     expect(clone.weeks.first.blocks.first.content).to eq('First Assignment')
 
     # Block due dates, which are stored relative to the assignment dates,
