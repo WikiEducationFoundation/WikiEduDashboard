@@ -111,14 +111,8 @@
 .block__block-due-date
   clear both
 
-.week__week-header .title-placeholder
-  display none
-
 .week__week-header
   overflow hidden
-  &:hover
-    .title-placeholder
-      display inline-block
   .text-input-component__value
     color $text_med
     font-size 15px
@@ -158,7 +152,7 @@
     font-size 24px
     color $text_med
 
-.week__week-header .text-input-component__label, .week__week-header .input_wrapper > span
+.week__week-header .week-index, .week__week-header .input_wrapper > span
   font-family $header-font
   font-size 34px
   font-weight 300

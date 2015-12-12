@@ -19,10 +19,6 @@ Week = React.createClass(
     BlockActions.addBlock @props.week.id
   deleteBlock: (block_id) ->
     BlockActions.deleteBlock block_id
-  updateWeek: (value_key, value) ->
-    to_pass = $.extend(true, {}, @props.week)
-    to_pass['title'] = value
-    WeekActions.updateWeek to_pass
   toggleFocused: (block_id) ->
     if @state.focusedBlockId == block_id
       @setState focusedBlockId: null
@@ -65,31 +61,13 @@ Week = React.createClass(
       </div>
     )
 
-    if @props.showTitle == undefined || @props.showTitle
-      week_label = 'Week ' + @props.index
-      if !@props.week.title?
-        valueClass = 'title-placeholder'
-      title = (
-        <TextInput
-          onChange={@updateWeek}
-          onClick={@_setWeekEditable.bind(null, @props.week.id)}
-          onBlur={@props.saveGlobalChanges}
-          value={@props.week.title || 'Add Week Title'}
-          value_key={'title'}
-          editable={@props.editable}
-          label={week_label}
-          spacer=' '
-          placeholder='Title'
-          valueClass={valueClass}
-        />
-      )
-
-      dateCalc = new DateCalculator(@props.start, @props.end, @props.index, zeroIndexed: false)
-      week_dates = (
-        <span className='week__week-dates pull-right'>
-          {dateCalc.start()} - {dateCalc.end()} {@props.meetings if @props.meetings}
-        </span>
-      )
+    week_label = "Week #{@props.index}"
+    dateCalc = new DateCalculator(@props.start, @props.end, @props.index, zeroIndexed: false)
+    week_dates = (
+      <span className='week__week-dates pull-right'>
+        {dateCalc.start()} - {dateCalc.end()} {@props.meetings if @props.meetings}
+      </span>
+    )
 
     week_content = if @props.meetings then (
       <ul className="week__block-list list-unstyled">
@@ -106,7 +84,7 @@ Week = React.createClass(
       <div className="week__week-header">
         {week_add_delete}
         {week_dates}
-        {title}
+        <p className="week-index">{week_label}</p>
       </div>
       {week_content}
     </li>
