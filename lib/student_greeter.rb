@@ -4,7 +4,7 @@ class StudentGreeter
   end
 
   def initialize
-    @greeters = User.find_by(wiki_id: 'Ragesock') # User.where(greeter: true)
+    @greeters = User.where(greeter: true)
   end
 
   private
@@ -58,11 +58,15 @@ class StudentGreeter
   end
 
   def welcome_message(greeter)
-    # TODO get first name from real name, add to subst template
+    name = first_name(greeter)
+    { sectiontitle: 'Welcome!',
+      text: "{{subst:#{ENV['dashboard_url']} welcome|name=#{name}}}",
+      summary: 'Welcome to Wikipedia' }
+  end
 
-    { sectiontitle: 'Ohai',
-      text: "#{greeter.real_name} says hi",
-      summary: 'kthxbai' }
+  def first_name(user)
+    name = user.real_name || user.wiki_id
+    name.split(/[\s_]/)[0]
   end
 
   def greet(student, greeter)
