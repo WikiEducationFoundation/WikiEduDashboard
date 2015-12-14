@@ -110,7 +110,7 @@ Week = React.createClass(
       <div className="week__week-header">
         {week_add_delete}
         {week_dates}
-        <p className='week-index'>{'Week' + @props.index}</p>
+        <p className='week-index'>{'Week ' + @props.index}</p>
       </div>
       {week_content}
     </li>
