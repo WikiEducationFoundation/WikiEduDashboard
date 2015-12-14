@@ -1,4 +1,4 @@
-dashboard_title: Wiki Ed Dashboard
+dashboard_title: Wiki Education Foundation Dashboard
 dashboard_url: dashboard.wikiedu.org
 wiki_language: en
 
@@ -15,7 +15,7 @@ sentry_public_dsn: <SECRET>
 
 course_id_list: "Wikipedia:Education_program/Dashboard/course_ids"
 
-cohorts: "Society_for_Marine_Mammalogy,American_Sociological_Association,National_Women's_Studies_Association,Association_for_Psychological_Science,Midwest_Political_Science_Association,American_Society_of_Plant_Biologists,Louisiana_State_University,spring_2016,fall_2014,visiting_scholars,summer_2015,Student_Groups_Pilot,spring_2015,fall_2015,2015_summer_seminar"
+cohorts: "Year_of_Science,New_York_City,Society_for_Marine_Mammalogy,American_Sociological_Association,National_Women's_Studies_Association,Association_for_Psychological_Science,Midwest_Political_Science_Association,American_Society_of_Plant_Biologists,Louisiana_State_University,spring_2016,fall_2014,visiting_scholars,summer_2015,Student_Groups_Pilot,spring_2015,fall_2015,2015_summer_seminar"
 
 cohort_summer_2015: "Wikipedia:Education_program/Dashboard/Summer_2015_course_ids"
 cohort_Student_Groups_Pilot: "Wikipedia:Education_program/Dashboard/Student_Groups_Pilot"
