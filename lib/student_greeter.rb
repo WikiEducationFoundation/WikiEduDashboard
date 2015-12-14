@@ -23,7 +23,7 @@ class StudentGreeter
   end
 
   def greet_if_ungreeted(student, greeter)
-    # return if student.greeted
+    return if student.greeted
     if talk_page_blank? student
       greet(student, greeter)
       return
