@@ -168,6 +168,7 @@ Timeline = React.createClass(
               end={@props.course.timeline_end}
               all_training_modules={@props.all_training_modules}
               editable_block_ids={@props.editable_block_ids}
+              edit_permissions={@props.edit_permissions}
               saveBlockChanges={@props.saveBlockChanges}
               cancelBlockEditable={@props.cancelBlockEditable}
               saveGlobalChanges={@props.saveGlobalChanges}

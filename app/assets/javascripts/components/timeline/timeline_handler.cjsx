@@ -121,6 +121,7 @@ TimelineHandler = React.createClass(
         cancelGlobalChanges={@_cancelGlobalChanges}
         enableReorderable={@_enableReorderable}
         all_training_modules={@props.all_training_modules}
+        edit_permissions={@props.current_user.admin || @props.current_user.role > 0}
       />
       <Grading {...@props} />
     </div>
