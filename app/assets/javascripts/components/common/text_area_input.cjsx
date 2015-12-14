@@ -79,7 +79,7 @@ TextAreaInput = React.createClass(
         </label>
     else if @props.value
       raw_html = md.render(@props.value)
-      <div dangerouslySetInnerHTML={{__html: raw_html}}></div>
+      <div className={@props.className} dangerouslySetInnerHTML={{__html: raw_html}}></div>
     else
       <p className="content"></p>
 )

@@ -102,6 +102,7 @@ Block = React.createClass(
           onFocus={@props.toggleFocused}
           onBlur={@props.toggleFocused}
           wysiwyg=true
+          className='block__block-content'
         />
         {modules}
       </div>
