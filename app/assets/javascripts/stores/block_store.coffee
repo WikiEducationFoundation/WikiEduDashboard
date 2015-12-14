@@ -47,15 +47,29 @@ removeBlock = (block_id) ->
   delete _blocks[block_id]
   BlockStore.emitChange()
 
-insertBlock = (block, week_id, order) ->
-  week_blocks = BlockStore.getBlocksInWeek week_id
-  for week_block in week_blocks
-    if week_block.order >= order
-      week_block.order += 1
-      setBlock week_block, true
-  block.order = order
-  block.week_id = week_id
-  setBlock block
+insertBlock = (block, toWeek, afterBlock) ->
+  WeekStore = require('./week_store')
+  fromWeekId = block.week_id
+  block.week_id = toWeek.id
+
+  if afterBlock
+    block.order = afterBlock.order + .5
+  else
+    block.order = -1
+
+  fromWeekBlocks = BlockStore.getBlocksInWeek(block.week_id)
+  fromWeekBlocks.forEach (b, i) ->
+    b.order = i
+    setBlock b, true
+
+  if fromWeekId != toWeek.id
+    toWeekBlocks = BlockStore.getBlocksInWeek(toWeek.id)
+    toWeekBlocks.forEach (b, i) ->
+      b.order = i
+      setBlock b, true
+
+  #TODO: Trigger update on weekstore?
+  BlockStore.emitChange()
 
 setEditableBlockId = (blockId) ->
   _editableBlockIds.push(blockId)
@@ -72,7 +86,8 @@ BlockStore = Flux.createStore
       block_list.push _blocks[block_id]
     return block_list
   getBlocksInWeek: (week_id) ->
-    _.filter(_blocks, (block) -> block.week_id == week_id).sort((a,b) -> a.order - b.order)
+    _.filter(_blocks, (block) -> block.week_id == week_id)
+      .sort((a,b) -> a.order - b.order)
   restore: ->
     _blocks = $.extend(true, {}, _persisted)
     BlockStore.emitChange()
@@ -104,7 +119,7 @@ BlockStore = Flux.createStore
       removeBlock data.block_id
       break
     when 'INSERT_BLOCK'
-      insertBlock data.block, data.week_id, data.order
+      insertBlock data.block, data.toWeek, data.afterBlock
       break
     when 'SET_BLOCK_EDITABLE'
       setEditableBlockId data.block_id

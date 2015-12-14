@@ -19,11 +19,11 @@ BlockActions = Flux.createActions
       }}
     .catch (data) ->
       { actionType: 'API_FAIL', data: data }
-  insertBlock: (block, week_id, order) ->
+  insertBlock: (block, toWeek, afterBlock) ->
     { actionType: 'INSERT_BLOCK', data: {
       block: block,
-      week_id: week_id,
-      order: order
+      toWeek: toWeek
+      afterBlock: afterBlock
     }}
   setEditable: (block_id) ->
     { actionType: 'SET_BLOCK_EDITABLE', data: {

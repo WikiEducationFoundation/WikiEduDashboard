@@ -13,6 +13,7 @@ WeekActions     = require '../../actions/week_actions'
 BlockActions    = require '../../actions/block_actions'
 
 BlockStore      = require '../../stores/block_store'
+WeekStore       = require '../../stores/week_store'
 
 DateCalculator  = require '../../utils/date_calculator'
 
@@ -43,38 +44,28 @@ Timeline = React.createClass(
       WeekActions.deleteWeek(week_id)
 
   _handleBlockDrag: (block, target) ->
-    afterBlock = target
-    fromWeek = _.find(@props.weeks, 'id', block.week_id)
-    toWeek = _.find(@props.weeks, 'id', target.week_id)
-    @_moveBlock(block, fromWeek, toWeek, target)
+    toWeek = WeekStore.getWeek(target.week_id)
+    @_moveBlock(block, toWeek, target)
 
-  _moveBlock: (block, fromWeek, toWeek, afterBlock) ->
-    fromWeek.blocks.splice(fromWeek.blocks.indexOf(block), 1) # remove block from fromWeek
-    afterBlockIndex = if afterBlock then toWeek.blocks.indexOf(afterBlock) + 1 else 0 # add block to toWeek after the afterBlock or at the beginning
-    toWeek.blocks.splice(afterBlockIndex, 0, block)
-    block.week_id = toWeek.id # update week_id
-    # clean up orders for the modified weeks
-    fromWeek.blocks.forEach (b, i) ->
-      b.order = i
-    if fromWeek != toWeek
-      toWeek.blocks.forEach (b, i) ->
-        b.order = i
-    BlockStore.emitChange()
+  _moveBlock: (block, toWeek, afterBlock) ->
+    BlockActions.insertBlock block, toWeek, afterBlock
 
   _handleMoveBlock: (moveUp, block_id) ->
     for week, i in @props.weeks
-      for block, j in week.blocks
+      blocks = BlockStore.getBlocksInWeek(week.id)
+      for block, j in blocks
         if block_id == block.id
-          if moveUp && j == 0 || !moveUp && j == week.blocks.length - 1
+          if moveUp && j == 0 || !moveUp && j == blocks.length - 1
             # Move to adjacent week
             toWeek = @props.weeks[if moveUp then i - 1 else i + 1]
             if moveUp
-              afterBlock = toWeek.blocks[toWeek.blocks.length - 1]
-            @_moveBlock(block, week, toWeek, afterBlock)
+              toWeekBlocks = BlockStore.getBlocksInWeek(toWeek.id)
+              afterBlock = toWeekBlocks[toWeekBlocks.length - 1]
+            @_moveBlock(block, toWeek, afterBlock)
           else
             # Swap places with the adjacent block
-            prevBlock = week.blocks[if moveUp then j - 2 else j + 1]
-            @_moveBlock(block, week, week, prevBlock)
+            prevBlock = blocks[if moveUp then j - 2 else j + 1]
+            @_moveBlock(block, week, prevBlock)
           return
 
   _canBlockMoveDown: (week, weekIndexInTimeline, block, blockIndexInWeek) ->
