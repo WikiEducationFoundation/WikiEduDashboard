@@ -1,5 +1,6 @@
 React             = require 'react'
 RDnD              = require 'react-dnd'
+{ findDOMNode }   = require 'react-dom'
 DragSource        = RDnD.DragSource
 DropTarget        = RDnD.DropTarget
 
@@ -31,6 +32,7 @@ module.exports = (Component, Type, MoveFunction) ->
   # Returns props to inject into the draggable component
   sourceConnect = (connect, monitor) ->
     connectDragSource: connect.dragSource()
+    connectDragPreview: connect.dragPreview()
     isDragging: monitor.isDragging()
 
   # These functions allow us to modify how the
@@ -38,7 +40,8 @@ module.exports = (Component, Type, MoveFunction) ->
   dragTargetSpec =
     hover: (props, monitor) ->
       item = monitor.getItem()
-      props[MoveFunction](item.id, props[Type].id)
+      return if item.id == props[Type].id
+      props[MoveFunction](item, props[Type])
 
   # Returns props to inject into the drag target component
   targetConnect =  (connect, monitor) ->
@@ -48,10 +51,12 @@ module.exports = (Component, Type, MoveFunction) ->
   Reorderable = React.createClass(
     displayName: 'Reorderable'
     render: ->
-      if @props.editable
-        _.flow(@props.connectDragSource, @props.connectDropTarget)(
-          <Component {...@props} />
-        )
+      if @props.canDrag
+        <Component {...@props} ref={(instance) =>
+          @props.connectDropTarget(findDOMNode(instance))
+          @props.connectDragSource(findDOMNode(instance), { dropEffect: 'move' })
+          @props.connectDragPreview(findDOMNode(instance))
+        } />
       else
         <Component {...@props} />
   )

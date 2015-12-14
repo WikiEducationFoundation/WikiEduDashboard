@@ -50,9 +50,9 @@ removeBlock = (block_id) ->
 insertBlock = (block, week_id, order) ->
   week_blocks = BlockStore.getBlocksInWeek week_id
   for week_block in week_blocks
-    return unless week_block.order >= order
-    week_block.order += 1
-    setBlock week_block, true
+    if week_block.order >= order
+      week_block.order += 1
+      setBlock week_block, true
   block.order = order
   block.week_id = week_id
   setBlock block
@@ -72,7 +72,9 @@ BlockStore = Flux.createStore
       block_list.push _blocks[block_id]
     return block_list
   getBlocksInWeek: (week_id) ->
-    _.filter(_blocks, (block) -> block.week_id == week_id)
+    sorted = _.filter(_blocks, (block) -> block.week_id == week_id).sort((a,b) -> a.order - b.order)
+    console.log sorted
+    return sorted
   restore: ->
     _blocks = $.extend(true, {}, _persisted)
     BlockStore.emitChange()

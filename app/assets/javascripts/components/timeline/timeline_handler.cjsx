@@ -63,9 +63,18 @@ TimelineHandler = React.createClass(
     BlockStore.restore()
     BlockStore.cancelBlockEditable(block_id)
   _cancelGlobalChanges: ->
+    @setState
+      reorderable: false
     BlockStore.restore()
     BlockStore.clearEditableBlockIds()
+
+  _enableReorderable: ->
+    @setState
+      reorderable: true
+
   saveTimeline: (editable_block_id=0) ->
+    @setState
+      reorderable: false
     toSave = $.extend(true, {}, @props)
     TimelineActions.persistTimeline(toSave, @props.course_id)
     WeekStore.clearEditableWeekId()
@@ -104,11 +113,13 @@ TimelineHandler = React.createClass(
         week_meetings={weekMeetings(meetings)}
         editable_block_ids={@props?.editable_block_ids}
         editable_week_id={@props.editable_week_id}
+        reorderable={@state?.reorderable}
         controls={@props?.controls}
         saveGlobalChanges={@saveTimeline}
         saveBlockChanges={@saveTimeline}
         cancelBlockEditable={@_cancelBlockEditable}
         cancelGlobalChanges={@_cancelGlobalChanges}
+        enableReorderable={@_enableReorderable}
         all_training_modules={@props.all_training_modules}
       />
       <Grading {...@props} />

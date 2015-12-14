@@ -1,7 +1,7 @@
 React           = require 'react'
 
 RDnD            = require 'react-dnd'
-HTML5Backend    = require 'react-dnd-html5-backend'
+Touch           = require('react-dnd-touch-backend').default
 DDContext       = RDnD.DragDropContext
 
 Week            = require './week'
@@ -41,19 +41,51 @@ Timeline = React.createClass(
   deleteWeek: (week_id) ->
     if confirm "Are you sure you want to delete this week? This will delete the week and all its associated blocks.\n\nThis cannot be undone."
       WeekActions.deleteWeek(week_id)
-  moveBlock: (block_id, after_block_id) ->
-    return if block_id == after_block_id
-    block = BlockStore.getBlock block_id
-    after_block = BlockStore.getBlock after_block_id
-    if block.week_id == after_block.week_id   # dragging within a week
-      old_order = block.order
-      block.order = after_block.order
-      after_block.order = old_order
-      BlockActions.updateBlock block, true
-      BlockActions.updateBlock after_block
-    else
-      block.week_id = after_block.week_id
-      BlockActions.insertBlock block, after_block.week_id, after_block.order
+
+  _handleBlockDrag: (block, target) ->
+    afterBlock = target
+    fromWeek = _.find(@props.weeks, 'id', block.week_id)
+    toWeek = _.find(@props.weeks, 'id', target.week_id)
+    @_moveBlock(block, fromWeek, toWeek, target)
+
+  _moveBlock: (block, fromWeek, toWeek, afterBlock) ->
+    fromWeek.blocks.splice(fromWeek.blocks.indexOf(block), 1) # remove block from fromWeek
+    afterBlockIndex = if afterBlock then toWeek.blocks.indexOf(afterBlock) + 1 else 0 # add block to toWeek after the afterBlock or at the beginning
+    toWeek.blocks.splice(afterBlockIndex, 0, block)
+    block.week_id = toWeek.id # update week_id
+    # clean up orders for the modified weeks
+    fromWeek.blocks.forEach (b, i) ->
+      b.order = i
+    if fromWeek != toWeek
+      toWeek.blocks.forEach (b, i) ->
+        b.order = i
+    BlockStore.emitChange()
+
+  _handleMoveBlock: (moveUp, block_id) ->
+    for week, i in @props.weeks
+      for block, j in week.blocks
+        if block_id == block.id
+          if moveUp && j == 0 || !moveUp && j == week.blocks.length - 1
+            # Move to adjacent week
+            toWeek = @props.weeks[if moveUp then i - 1 else i + 1]
+            if moveUp
+              afterBlock = toWeek.blocks[toWeek.blocks.length - 1]
+            @_moveBlock(block, week, toWeek, afterBlock)
+          else
+            # Swap places with the adjacent block
+            prevBlock = week.blocks[if moveUp then j - 2 else j + 1]
+            @_moveBlock(block, week, week, prevBlock)
+          return
+
+  _canBlockMoveDown: (week, weekIndexInTimeline, block, blockIndexInWeek) ->
+    return false if weekIndexInTimeline == @props.weeks.length - 1 && blockIndexInWeek == week.blocks.length - 1
+    # TODO: return false if it's the last block in the last non-blackout week
+    return true
+
+  _canBlockMoveUp: (week, weekIndexInTimeline, block, blockIndexInWeek) ->
+    return false if weekIndexInTimeline == 0 && blockIndexInWeek == 0
+    # TODO: return false if it's the first block in the first non-blackout week
+    return true
 
   _scrolledToBottom: ->
     scrollTop = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop
@@ -91,6 +123,13 @@ Timeline = React.createClass(
     week_components = []
     i = 0
 
+    @props.weeks.sort (a, b) ->
+      a.order - b.order
+
+    @props.weeks.forEach (w) ->
+      w.blocks.sort (a, b) ->
+        a.order - b.order
+
     @props.weeks.forEach (week) =>
       unless week.deleted
         if @props?.week_meetings
@@ -121,8 +160,8 @@ Timeline = React.createClass(
               week={week}
               index={i + 1}
               editable={isEditable}
-              blocks={BlockStore.getBlocksInWeek(week.id)}
-              moveBlock={@moveBlock}
+              reorderable={@props.reorderable}
+              blocks={week.blocks}
               deleteWeek={@deleteWeek.bind(this, week.id)}
               meetings={if @props?.week_meetings then @props.week_meetings[i] else ''}
               start={@props.course.timeline_start}
@@ -132,6 +171,11 @@ Timeline = React.createClass(
               saveBlockChanges={@props.saveBlockChanges}
               cancelBlockEditable={@props.cancelBlockEditable}
               saveGlobalChanges={@props.saveGlobalChanges}
+              canBlockMoveUp={@_canBlockMoveUp.bind(this, week, i)}
+              canBlockMoveDown={@_canBlockMoveDown.bind(this, week, i)}
+              onMoveBlockUp={@_handleMoveBlock.bind(this, true)}
+              onMoveBlockDown={@_handleMoveBlock.bind(this, false)}
+              onBlockDrag={@_handleBlockDrag}
             />
           </div>
         )
@@ -160,25 +204,30 @@ Timeline = React.createClass(
     unless week_components.length > 0
       wizard_link = <CourseLink to="/courses/#{@props.course?.slug}/timeline/wizard" className='button dark'>Add Assignment</CourseLink>
 
-    controls = if @props?.editable && @props?.editable_block_ids.length > 1 then (
+    controls = if @props.reorderable || @props?.editable_block_ids.length > 1 then (
       <div>
-        <span>
-          {wizard_link}
-        </span>
-        <button className="button dark pull-right" onClick={@props.saveGloabalChanges}>
+        <button className="button dark button--block" onClick={@props.saveGlobalChanges}>
           Save All
         </button>
-        <button className="pull-right timeline-ctas__cancel" onClick={@props.cancelGlobalChanges}>
+        <button className="button button--clear button--block" onClick={@props.cancelGlobalChanges}>
           Discard All Changes
         </button>
       </div>
     )
-    else (
-        <span>
-          {wizard_link}
-        </span>
-    )
 
+    if @props.reorderable
+      reorderable_controls = (
+        <div className="reorderable-controls">
+          <h5>Arrange blocks</h5>
+          <p className="muted">Arrange blocks by ‘dragging & dropping’ into the desired location/week, or reposition the blocks using the arrows on the card.</p>
+        </div>
+      )
+    else if @props.editable_block_ids.length == 0
+      reorderable_controls = (
+        <div className="reorderable-controls">
+          <button className="button border button--block" onClick={@props.enableReorderable}>Arrange blocks</button>
+        </div>
+      )
 
     week_nav = week_components.map (week, i) => (
       className = 'week-nav__item'
@@ -198,20 +247,24 @@ Timeline = React.createClass(
           {no_weeks}
         </ul>
         <div className="timeline__week-nav">
-          <section className="timeline-ctas float-container">
-            {controls}
-          </section>
-          <Affix offset={220}>
-            <ol>
-              {week_nav}
-              {add_week_link}
-            </ol>
-            <CourseLink className="week-nav__action week-nav__link" to="/courses/#{@props.course?.slug}/timeline/dates">Edit Course Dates</CourseLink>
-            <a className="week-nav__action week-nav__link" href="#grading">Grading</a>
+          <Affix offset={246}>
+            <section className="timeline-ctas float-container">
+              <span>{wizard_link}</span>
+              {reorderable_controls}
+              {controls}
+            </section>
+            <div className="panel">
+              <ol>
+                {week_nav}
+                {add_week_link}
+              </ol>
+              <CourseLink className="week-nav__action week-nav__link" to="/courses/#{@props.course?.slug}/timeline/dates">Edit Course Dates</CourseLink>
+              <a className="week-nav__action week-nav__link" href="#grading">Grading</a>
+            </div>
           </Affix>
         </div>
       </div>
     </div>
 )
 
-module.exports = DDContext(HTML5Backend)(Timeline)
+module.exports = DDContext(Touch({ enableMouseEvents: true }))(Timeline)

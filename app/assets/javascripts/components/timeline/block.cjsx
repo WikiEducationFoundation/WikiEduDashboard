@@ -107,7 +107,7 @@ Block = React.createClass(
       </div>
     )
 
-    <li className={className} draggable={@props.canDrag && @_isEditable()}>
+    <li className={className}>
       {blockActions}
       <div className="block__edit-button-container">
         <span className="pull-right button ghost-button block__edit-block" onClick={@_setEditable}>Edit</span>
@@ -183,4 +183,4 @@ Block = React.createClass(
 
 
 module.exports = Block
-#module.exports = Reorderable(Block, 'block', 'moveBlock')
+# module.exports = Reorderable(Block, 'block', 'moveBlock')

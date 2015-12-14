@@ -49,7 +49,8 @@
   padding 18px 20px 20px
   position relative
   width 100%
-  //transition all .25s ease-out
+  transform scale(1, 1)
+  transition transform 400ms ease-in-out
   box-shadow 0 3px 4px rgba(0,0,0,0.1)
   -moz-user-select none
   &:first-child
@@ -90,6 +91,46 @@
   .block-title
     color $brand_primary
     font-weight 400
+
+.block.block--orderable
+  display flex
+  align-items center
+  cursor move
+
+  > h4
+    margin-bottom 0
+    margin-right auto
+
+  > p
+    margin-bottom 0
+    margin-right 16px
+
+  > button
+    padding 0
+    margin-left 10px
+    line-height 1
+    border-radius 2px
+    overflow hidden
+    width 26px
+    height 26px
+    font-size 25px
+
+.shrink-enter
+  position absolute
+  opacity 0.01
+  transition all 250ms ease-in-out
+  transform scale(.8, .5)
+  &.shrink-enter-active
+    opacity 1
+    transform scale(1, 1)
+.shrink-leave
+  transform scale(1, 1)
+  opacity 1
+  transition all 250ms ease-in-out
+  &.shrink-leave-active
+    opacity 0.01
+    transform scale(.8, .5)
+
 
 .block__block-type
   color $text_dk
@@ -233,11 +274,21 @@ input[type="checkbox"]
   padding-top 60px
   margin-top -60px
 
-.timeline__week-nav > div
-  list-style none
-  padding 8px
-  background #FFF
-  border 1px solid $border_med
+.timeline__week-nav
+  h5
+    font-weight 400
+    margin-bottom 6px
+    line-height 1
+    font-size 16px
+  .muted
+    font-size 13px
+    line-height 1.4
+    margin-bottom 16px
+  .panel
+    list-style none
+    padding 8px
+    background #FFF
+    border 1px solid $border_med
   ol
     list-style none
   li
@@ -298,7 +349,7 @@ input[type="checkbox"]
   position fixed
 
 .timeline__week-nav .affix
-  top 100px
+  top $nav_height
   width 250px
 
 // Editing
