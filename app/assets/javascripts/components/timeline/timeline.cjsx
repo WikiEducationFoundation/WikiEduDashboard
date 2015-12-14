@@ -218,14 +218,14 @@ Timeline = React.createClass(
     if @props.reorderable
       reorderable_controls = (
         <div className="reorderable-controls">
-          <h5>Arrange blocks</h5>
+          <h5>Arrange Blocks</h5>
           <p className="muted">Arrange blocks by ‘dragging & dropping’ into the desired location/week, or reposition the blocks using the arrows on the card.</p>
         </div>
       )
     else if @props.editable_block_ids.length == 0
       reorderable_controls = (
         <div className="reorderable-controls">
-          <button className="button border button--block" onClick={@props.enableReorderable}>Arrange blocks</button>
+          <button className="button border button--block" onClick={@props.enableReorderable}>Arrange Blocks</button>
         </div>
       )
 
