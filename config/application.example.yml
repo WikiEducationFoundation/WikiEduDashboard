@@ -5,7 +5,7 @@
 # Values required for WikiEduDashboard include:
 
 # The name of the dashboard
-  dashboard_title: Wiki Ed Dashboard
+  dashboard_title: Wiki Education Foundation Dashboard
 # The root url of the dashboard
   dashboard_url: dashboard.wikiedu.org
 # description of the dashboard for the 'meta' html tag, which is used by search
