@@ -7,8 +7,6 @@ class StudentGreeter
     @greeters = User.where(greeter: true)
   end
 
-  private
-
   def greet_all_ungreeted_students
     courses = Course.strictly_current
     courses.each do |course|
@@ -21,6 +19,8 @@ class StudentGreeter
       end
     end
   end
+
+  private
 
   def greet_if_ungreeted(student, greeter)
     return if student.greeted
@@ -38,14 +38,17 @@ class StudentGreeter
 
   def a_greeter_already_posted?(student)
     contributor_ids = ids_of_contributors_to_page(student.talk_page)
-    return true unless (@greeters.pluck(:id) & contributor_ids).empty?
-    false
+    return false if (@greeters.pluck(:id) & contributor_ids).empty?
+    # Mark student as greeted if a greeter has already edited their talk page
+    student.update_attributes(greeted: true)
+    true
   end
 
   def ids_of_contributors_to_page(page_title)
     contributors_response = Wiki.query contributors_query(page_title)
     # TODO: exception handling for unexpected response data
-    pp contributors_response.data['pages'].values[0]
+    # currently, that will just cause a NoMethodError, which is okay but not
+    # optimal, because it will likely break a rake task.
     contributors = contributors_response.data['pages'].values[0]['contributors']
     contributor_ids = contributors.map { |user| user['userid'] }
     contributor_ids
@@ -66,13 +69,14 @@ class StudentGreeter
 
   def first_name(user)
     name = user.real_name || user.wiki_id
+    # Split on either whitespace or underscore, so that it works for usernames
+    # like Ian_(Wiki Ed) too.
     name.split(/[\s_]/)[0]
   end
 
   def greet(student, greeter)
     message = welcome_message(greeter)
     response_data = WikiEdits.notify_user(greeter, student, message)
-    pp response_data
     return if response_data['edit'].nil?
     return unless response_data['edit']['result'] == 'Success'
     student.update_attributes(greeted: true)
