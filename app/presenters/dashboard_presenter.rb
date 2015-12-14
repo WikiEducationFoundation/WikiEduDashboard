@@ -2,14 +2,15 @@
 class DashboardPresenter
   include Rails.application.routes.url_helpers
 
-  attr_reader :courses, :current, :past, :submitted, :current_user
+  attr_reader :courses, :current, :past, :submitted, :strictly_current, :current_user
 
   ORIENTATION_ID = 3
 
-  def initialize(current, past, submitted, current_user)
+  def initialize(current, past, submitted, strictly_current, current_user)
     @current = current
     @past = past
     @submitted = submitted
+    @strictly_current = strictly_current
     @current_user = current_user
   end
 
@@ -27,7 +28,7 @@ class DashboardPresenter
     return true if @submitted.any? && @current.any? # submitted with current courses
     return false if @submitted.any? && @current.empty? && @past.any? # submitted with no current but there are past
     return true if @submitted.any? && @current.empty? && @past.empty?  # submitted but no courses
-    return true if @current.any? && is_instructor? && !instructor_has_completed_orientation?  # current but hasn't completed orientation
+    return true if @current.any? && is_instructor? && !instructor_has_completed_orientation? # current but hasn't completed orientation
   end
 
   # Show 'Welcome' for people without any courses on the screen, otherwise 'My Dashboard'
@@ -39,14 +40,17 @@ class DashboardPresenter
     end
   end
 
-  # Show the orientation block if you're an instructor who hasn't completed orientation and you don't have any existing courses
+  # Show the orientation block if you're an instructor who hasn't completed
+  # orientation and you don't have any existing courses
   def show_orientation_block?
     is_instructor? && !instructor_has_completed_orientation? && @current.empty? && @past.empty?
   end
 
-  # Admins and instructors who have completed orientation (unless they've already created a course) can create courses
   def can_create_course?
-    is_admin? || (is_instructor? && (instructor_has_completed_orientation? || @current.any? || @past.any?))
+    return true if is_admin?
+    # Instructors who have completed orientation OR have
+    # already created a course are allowed to create new courses
+    is_instructor? && (instructor_has_completed_orientation? || @current.any? || @past.any?)
   end
 
   # Show explore button for non instructors/admins
@@ -61,7 +65,7 @@ class DashboardPresenter
 
   # Open mail client
   def opt_out_path
-    "mailto:optout@wikedu.org"
+    'mailto:contact@wikedu.org'
   end
 
   private
@@ -73,5 +77,4 @@ class DashboardPresenter
       .where(user_id: current_user.id)
       .where.not(completed_at: nil).any?
   end
-
 end

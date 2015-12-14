@@ -28,13 +28,13 @@
     </div>
   </div>
   <ul class="list">
-  <% if @pres.current.empty? %>
+  <% if @pres.strictly_current.empty? %>
     <li class="row view-all">
       <div><%= t("courses.nocourses") %></div>
     </li>
   <% else %>
-    <% @pres.current.each do |c| %>
-      <%= render 'courses/row', course: c, admin: false, user: true %>
+    <% @pres.strictly_current.each do |c| %>
+      <%= render 'courses/row', course: c, user: true %>
     <% end %>
   <% end %>
   </ul>
