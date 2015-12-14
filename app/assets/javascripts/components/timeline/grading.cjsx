@@ -26,7 +26,7 @@ Grading = React.createClass(
         </li>
       )
 
-    <div>
+    <div className='grading__grading-container'>
       <a name="grading"></a>
       <div className="section-header timeline__grading-container">
         <h3>Grading <span>(Total: {total}%)</span></h3>
