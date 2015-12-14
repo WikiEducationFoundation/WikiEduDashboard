@@ -113,11 +113,6 @@ Block = React.createClass(
       <div className="block__edit-button-container">
         <span className="pull-right button ghost-button block__edit-block" onClick={@_setEditable}>Edit</span>
       </div>
-      <div className="drag-handle">
-        <div className="drag-handle__bar"></div>
-        <div className="drag-handle__bar"></div>
-        <div className="drag-handle__bar"></div>
-      </div>
       <p className="block__block-type pull-right">
         <Select
           onChange={@updateBlock}
