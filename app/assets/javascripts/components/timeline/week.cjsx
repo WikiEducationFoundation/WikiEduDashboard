@@ -91,7 +91,12 @@ Week = React.createClass(
     )
 
     week_content = if @props.meetings then (
-      <ReactCSSTG transitionName="shrink" transitionEnterTimeout={250} transitionLeaveTimeout={250} component="ul" className="week__block-list list-unstyled" style={{position: 'relative', height: (if @props.reorderable then blocks.length * 75 else 'auto'), transition: 'height 500ms ease-in-out'}}>
+      if @props.reorderable
+        style =
+          position: 'relative'
+          height: blocks.length * 75
+          transition: 'height 500ms ease-in-out'
+      <ReactCSSTG transitionName="shrink" transitionEnterTimeout={250} transitionLeaveTimeout={250} component="ul" className="week__block-list list-unstyled" style={style}>
         {blocks}
       </ReactCSSTG>
     ) else (
