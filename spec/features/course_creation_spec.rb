@@ -197,11 +197,6 @@ describe 'New course creation and editing', type: :feature do
       expect(page).to have_content 'Week 1'
       expect(page).to have_content 'Week 2'
 
-      # Click edit and then cancel
-      first('button.dark').click
-      sleep 1
-      first('button').click
-
       # Edit course dates and save
       click_link 'Edit Course Dates'
       first('attr[title="Thursday"]').click
@@ -211,7 +206,7 @@ describe 'New course creation and editing', type: :feature do
       sleep 1
 
       within('.week-1 .week__week-add-delete') do
-        find('.delete-week span').click
+        find('.week__delete-week span').click
       end
       sleep 1
       prompt = page.driver.browser.switch_to.alert
@@ -232,13 +227,15 @@ describe 'New course creation and editing', type: :feature do
       sleep 1
 
       # Edit the gradeable.
-      page.all('button').last.click
-      sleep 1
-      page.all('input').last.set('50')
-      sleep 1
-      page.all('button.dark').last.click
-      sleep 1
-      expect(page).to have_content 'Value: 50%'
+      within('.grading__grading-container') do
+        click_button 'Edit'
+        sleep 1
+        all('input').last.set('50')
+        sleep 1
+        click_button 'Save'
+        sleep 1
+        expect(page).to have_content 'Value: 50%'
+      end
 
       # Navigate back to overview, check relevant data, then delete course
       visit "/courses/#{Course.first.slug}"
