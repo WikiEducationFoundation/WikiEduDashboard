@@ -111,6 +111,7 @@ Calendar = React.createClass(
             initialMonth={@state.initialMonth}
           />
           <div className='course-dates__calendar-key'>
+            <h3>Legend</h3>
             <ul>
               <li>
                 <div className='DayPicker-Day DayPicker-Day--highlighted DayPicker-Day--selected'>6</div>
