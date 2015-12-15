@@ -90,6 +90,7 @@
   .block-title
     color $brand_primary
     font-weight 400
+    flex 1
 
 .block__block-content
   color $text_dk
@@ -147,6 +148,8 @@
     content ''
     width 14px
     height 10px
+  select
+    margin-right 0
 
 .block.editable .block__block-type
   bottom 0
@@ -353,6 +356,8 @@ input[type="checkbox"]
   width 250px
 
 // Editing
+.block__title-kind-container
+  display flex
 .delete-block-container
   width 100%
   border-top 1px solid $border_lt

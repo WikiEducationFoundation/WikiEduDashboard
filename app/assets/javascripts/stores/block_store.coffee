@@ -31,7 +31,7 @@ setTrainingModule = (module) ->
 addBlock = (week_id) ->
   week_blocks = BlockStore.getBlocksInWeek week_id
   week_blocks = $.grep week_blocks, (block) -> !block.deleted
-  setBlock {
+  block = {
     id: Date.now(),
     is_new: true,
     kind: 0,
@@ -42,6 +42,8 @@ addBlock = (week_id) ->
     order: week_blocks.length,
     duration: null
   }
+  setBlock block
+  setEditableBlockId(block.id)
 
 removeBlock = (block_id) ->
   delete _blocks[block_id]
@@ -93,7 +95,7 @@ BlockStore = Flux.createStore
     BlockStore.emitChange()
   getTrainingModule: ->
     return _trainingModule
-  getEditableBlockId: ->
+  getEditableBlockIds: ->
     return _editableBlockIds
   clearEditableBlockIds: ->
     _editableBlockIds = []
