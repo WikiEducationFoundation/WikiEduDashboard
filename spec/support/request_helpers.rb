@@ -5,7 +5,7 @@ module RequestHelpers
   ##################
   def stub_token_request
     fake_tokens = "{\"query\":{\"tokens\":{\"csrftoken\":\"faketoken+\\\\\"}}}"
-    stub_request(:get, /.*wikipedia.*/)
+    stub_request(:get, "https://#{ENV['wiki_language']}.wikipedia.org/w/api.php?action=query&meta=tokens&format=json")
       .to_return(status: 200, body: fake_tokens, headers: {})
   end
 
@@ -75,6 +75,21 @@ module RequestHelpers
   ############################
   # MediaWiki query requests #
   ############################
+  def stub_contributors_query
+    response = '{"continue":{"pccontinue":"2169951|5094","continue":"||"},
+               "query":{"normalized":[{"from":"User_talk:Ragesoss","to":"User talk:Ragesoss"}],
+               "pages":{"2169951":{"pageid":2169951,"ns":3,"title":"User talk:Ragesoss",
+               "anoncontributors":17,"contributors":[{"userid":584,"name":"Danny"}]}}}}'
+
+    stub_request(:get, /.*wikipedia.*/)
+      .to_return(status: 200, body: response, headers: {})
+  end
+
+  def stub_raw_action
+    stub_request(:get, /.*wikipedia.*/)
+      .to_return(status: 200, body: '[[wikitext]]', headers: {})
+  end
+
   def stub_commons_503_error
     stub_request(:get, /.*commons.wikimedia.org.*/)
       .to_return(status: 503, body: '', headers: {})
