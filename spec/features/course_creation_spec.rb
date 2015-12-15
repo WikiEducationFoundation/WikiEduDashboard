@@ -466,6 +466,7 @@ describe 'cloning a course', js: true do
 
     new_course = Course.last
     expect(Week.count).to eq(2) # make sure the weeks are distinct
+    expect(new_course.weeks.first.title).to eq(course.weeks.first.title)
     expect(new_course.blocks.first.content).to eq(course.blocks.first.content)
     expect(new_course.blocks.first.due_date)
       .to be_nil
