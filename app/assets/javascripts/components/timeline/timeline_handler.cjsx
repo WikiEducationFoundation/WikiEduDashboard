@@ -123,7 +123,7 @@ TimelineHandler = React.createClass(
         all_training_modules={@props.all_training_modules}
         edit_permissions={@props.current_user.admin || @props.current_user.role > 0}
       />
-      <Grading {...@props} />
+      { if @state?.reorderable != true then <Grading {...@props} /> else null }
     </div>
 )
 
