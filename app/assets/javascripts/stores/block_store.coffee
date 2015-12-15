@@ -7,7 +7,6 @@ _blocks = {}
 _persisted = {}
 _trainingModule = {}
 _editableBlockIds = []
-_editingAddedBlock = false
 
 # Utilities
 setBlocks = (data, persisted=false) ->
@@ -32,7 +31,7 @@ setTrainingModule = (module) ->
 addBlock = (week_id) ->
   week_blocks = BlockStore.getBlocksInWeek week_id
   week_blocks = $.grep week_blocks, (block) -> !block.deleted
-  block = {
+  setBlock {
     id: Date.now(),
     is_new: true,
     kind: 0,
@@ -43,12 +42,9 @@ addBlock = (week_id) ->
     order: week_blocks.length,
     duration: null
   }
-  setBlock block
-  setEditableBlockId(block.id)
 
 removeBlock = (block_id) ->
   delete _blocks[block_id]
-  _editingAddedBlock = false
   BlockStore.emitChange()
 
 insertBlock = (block, toWeek, targetIndex) ->
@@ -75,18 +71,12 @@ insertBlock = (block, toWeek, targetIndex) ->
   if fromWeekId != toWeek.id
     toWeekBlocks = BlockStore.getBlocksInWeek(toWeek.id)
     toWeekBlocks.forEach (b, i) ->
-      if b == block
       b.order = i
       setBlock b, true
   BlockStore.emitChange()
 
-isAddedBlock = (blockId) ->
-  # new block ids are set to Date.now()
-  blockId > 1000000000
-
 setEditableBlockId = (blockId) ->
   _editableBlockIds.push(blockId)
-  _editingAddedBlock = true if isAddedBlock(blockId)
   BlockStore.emitChange()
 
 
@@ -104,21 +94,17 @@ BlockStore = Flux.createStore
       .sort((a,b) -> a.order - b.order)
   restore: ->
     _blocks = $.extend(true, {}, _persisted)
-    _editingAddedBlock = false
     BlockStore.emitChange()
   getTrainingModule: ->
     return _trainingModule
-  getEditableBlockIds: ->
+  getEditableBlockId: ->
     return _editableBlockIds
   clearEditableBlockIds: ->
     _editableBlockIds = []
     BlockStore.emitChange()
   cancelBlockEditable: (block_id) ->
     _editableBlockIds.splice(_editableBlockIds.indexOf(block_id), 1)
-    _editingAddedBlock = false
     BlockStore.emitChange()
-  editingAddedBlock: ->
-    return _editingAddedBlock
 
 , (payload) ->
   data = payload.data
@@ -141,7 +127,6 @@ BlockStore = Flux.createStore
       break
     when 'SET_BLOCK_EDITABLE'
       setEditableBlockId data.block_id
-      break
   return true
 
 module.exports = BlockStore
