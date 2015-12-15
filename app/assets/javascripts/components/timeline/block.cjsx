@@ -60,7 +60,7 @@ Block = React.createClass(
           onBlur={@props.toggleFocused}
         />
       )
-    if @_isEditable()
+    if @_isEditable() && !@props.block.is_new
       deleteBlock = (<div className='delete-block-container'><button className='danger' onClick={@deleteBlock}>Delete Block</button></div>)
       className += ' editable'
       className += ' dragging' if @props.isDragging

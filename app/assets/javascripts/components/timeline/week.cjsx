@@ -18,6 +18,7 @@ Week = React.createClass(
   getInitialState: ->
     focusedBlockId: null
   addBlock: ->
+    @_scrollToAddedWeek()
     BlockActions.addBlock @props.week.id
   deleteBlock: (block_id) ->
     BlockActions.deleteBlock block_id
@@ -33,6 +34,12 @@ Week = React.createClass(
       @setState focusedBlockId: block_id
   _setWeekEditable: (week_id) ->
     WeekActions.setWeekEditable(week_id)
+  _scrollToAddedWeek: ->
+    wk = document.getElementsByClassName("week-#{@props.index}")[0]
+    offset = wk.getBoundingClientRect().bottom
+    blockOffset = 284
+    offset -= blockOffset
+    window.scrollTo(0, offset)
   render: ->
     blocks = @props.blocks.map (block, i) =>
       unless block.deleted

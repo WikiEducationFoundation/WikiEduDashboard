@@ -97,6 +97,10 @@ TimelineHandler = React.createClass(
 
     outlet = React.cloneElement(@props.children, {key: 'wizard_handler', course: @props.course, weeks: @props.weeks, open_weeks: openWeeks(meetings, @props.weeks.length)}) if @props.children
 
+    editableBlockIds = @props?.editable_block_ids
+    @props.blocks.map (block) ->
+      editableBlockIds.push(block.id) if block.is_new
+
     <div>
       <TransitionGroup
         transitionName="wizard"
@@ -111,7 +115,7 @@ TimelineHandler = React.createClass(
         course={@props?.course}
         weeks={@props?.weeks}
         week_meetings={weekMeetings(meetings)}
-        editable_block_ids={@props?.editable_block_ids}
+        editable_block_ids={editableBlockIds}
         editable_week_id={@props.editable_week_id}
         reorderable={@state?.reorderable}
         controls={@props?.controls}
