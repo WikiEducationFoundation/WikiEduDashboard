@@ -8,9 +8,10 @@ class StudentGreeter
   end
 
   def greet_all_ungreeted_students
-    courses = Course.strictly_current
-    courses.each do |course|
+    Course.strictly_current.each do |course|
       nonstudents_in_course = course.nonstudents
+      # Only users who both have the greeter flag and are enrolled as nonstudents
+      # are possible greeters for a class.
       possible_greeters = @greeters & nonstudents_in_course
       next if possible_greeters.empty?
       greeter = possible_greeters[0]
@@ -46,9 +47,10 @@ class StudentGreeter
 
   def ids_of_contributors_to_page(page_title)
     contributors_response = Wiki.query contributors_query(page_title)
-    # TODO: exception handling for unexpected response data
-    # currently, that will just cause a NoMethodError, which is okay but not
-    # optimal, because it will likely break a rake task.
+    # TODO: Add exception handling for unexpected response data.
+    # Currently, that will just cause a NoMethodError, which is okay but not
+    # optimal, because it will likely break a rake task. But it's at the end
+    # of the rake batch anyway, so it's not a huge deal.
     contributors = contributors_response.data['pages'].values[0]['contributors']
     contributor_ids = contributors.map { |user| user['userid'] }
     contributor_ids
