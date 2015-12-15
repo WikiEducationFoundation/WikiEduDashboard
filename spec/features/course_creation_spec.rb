@@ -426,6 +426,85 @@ describe 'New course creation and editing', type: :feature do
   end
 end
 
+describe 'reordering blocks in a course', js: true do
+
+  let!(:course) do
+    create(:course, id: 10001, start: 1.year.from_now.to_date,
+                    end: 2.years.from_now.to_date, submitted: true,
+                    timeline_start: 1.year.from_now.to_date, timeline_end: 2.year.from_now.to_date,
+                    weekdays: '0111110' )
+  end
+  let!(:user)      { create(:user, permissions: User::Permissions::ADMIN) }
+  let!(:c_user)    { create(:courses_user, course_id: course.id, user_id: user.id) }
+
+  let!(:week)      { create(:week, course_id: course.id, order: 0) }
+  let!(:week2)      { create(:week, course_id: course.id, order: 1) }
+  let!(:block)     { create(:block, week_id: week.id, kind: Block::KINDS['in_class'], order: 0, title: 'Block 1') }
+  let!(:block2)     { create(:block, week_id: week.id, kind: Block::KINDS['in_class'], order: 1, title: 'Block 2') }
+  let!(:block3)     { create(:block, week_id: week.id, kind: Block::KINDS['in_class'], order: 2, title: 'Block 3') }
+  let!(:block4)     { create(:block, week_id: week2.id, kind: Block::KINDS['in_class'], order: 0, title: 'Block 4') }
+  let!(:block5)     { create(:block, week_id: week2.id, kind: Block::KINDS['in_class'], order: 1, title: 'Block 5') }
+  let!(:block6)     { create(:block, week_id: week2.id, kind: Block::KINDS['in_class'], order: 3, title: 'Block 6') }
+
+  before do
+    set_up_suite
+    create(:cohort)
+    login_as user, scope: :user, run_callbacks: false
+  end
+
+  it 'should disable reorder up/down buttons when it is the first or last block' do
+    visit "/courses/#{Course.last.slug}/timeline"
+    click_button 'Arrange Blocks'
+    expect(find('.week-1 .week__block-list > li:first-child button:first-of-type')['disabled']).to eq(nil)
+    expect(find('.week-1 .week__block-list > li:first-child button:last-of-type')['disabled']).to eq("true")
+    expect(find('.week-2 .week__block-list > li:last-child button:first-of-type')['disabled']).to eq("true")
+    expect(find('.week-2 .week__block-list > li:last-child button:last-of-type')['disabled']).to eq(nil)
+  end
+
+  it 'should allow swapping places with a block' do
+    visit "/courses/#{Course.last.slug}/timeline"
+    click_button 'Arrange Blocks'
+    find('.week-1 .week__block-list > li:nth-child(1) button:first-of-type').click # move down
+    sleep 0.5
+    find('.week-1 .week__block-list > li:nth-child(2) button:first-of-type').click # move down again
+    sleep 0.5
+    expect(find('.week-1 .week__block-list > li:nth-child(1)')).to have_content('Block 2')
+    expect(find('.week-1 .week__block-list > li:nth-child(2)')).to have_content('Block 3')
+    expect(find('.week-1 .week__block-list > li:nth-child(3)')).to have_content('Block 1')
+    find('.week-1 .week__block-list > li:nth-child(3) button:last-of-type').click # move up
+    sleep 0.5
+    find('.week-1 .week__block-list > li:nth-child(2) button:last-of-type').click # move up again
+    sleep 0.5
+    expect(find('.week-1 .week__block-list > li:nth-child(1)')).to have_content('Block 1')
+    expect(find('.week-1 .week__block-list > li:nth-child(2)')).to have_content('Block 2')
+    expect(find('.week-1 .week__block-list > li:nth-child(3)')).to have_content('Block 3')
+  end
+
+  it 'should allow moving blocks between weeks' do
+    visit "/courses/#{Course.last.slug}/timeline"
+    click_button 'Arrange Blocks'
+    find('.week-2 .week__block-list > li:nth-child(1) button:last-of-type').click # move up to week 1
+    sleep 0.5
+    expect(find('.week-1 .week__block-list > li:nth-child(4)')).to have_content 'Block 4'
+    find('.week-1 .week__block-list > li:nth-child(4) button:first-of-type').click # move back down to week 2
+    sleep 0.5
+    expect(find('.week-2 .week__block-list > li:nth-child(1)')).to have_content 'Block 4'
+  end
+
+  it 'should be able to save and discard changes' do
+    visit "/courses/#{Course.last.slug}/timeline"
+    click_button 'Arrange Blocks'
+    find('.week-2 .week__block-list > li:nth-child(1) button:last-of-type').click # move up to week 1
+    click_button 'Save All'
+    expect(find('.week-1 .week__block-list > li:nth-child(4)')).to have_content 'Block 4'
+    click_button 'Arrange Blocks'
+    find('.week-1 .week__block-list > li:nth-child(4) button:first-of-type').click # move down to week 2
+    click_button 'Discard All Changes'
+    expect(find('.week-1 .week__block-list > li:nth-child(4)')).to have_content 'Block 4' # still in week 1
+  end
+
+end
+
 describe 'cloning a course', js: true do
   before do
     set_up_suite
