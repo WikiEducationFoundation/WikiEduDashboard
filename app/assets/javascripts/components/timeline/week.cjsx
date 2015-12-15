@@ -18,7 +18,7 @@ Week = React.createClass(
   getInitialState: ->
     focusedBlockId: null
   addBlock: ->
-    @_scrollToAddedWeek()
+    @_scrollToAddedBlock()
     BlockActions.addBlock @props.week.id
   deleteBlock: (block_id) ->
     BlockActions.deleteBlock block_id
@@ -34,12 +34,12 @@ Week = React.createClass(
       @setState focusedBlockId: block_id
   _setWeekEditable: (week_id) ->
     WeekActions.setWeekEditable(week_id)
-  _scrollToAddedWeek: ->
+  _scrollToAddedBlock: ->
     wk = document.getElementsByClassName("week-#{@props.index}")[0]
-    offset = wk.getBoundingClientRect().bottom
-    blockOffset = 284
-    offset -= blockOffset
-    window.scrollTo(0, offset)
+    scrollTop = window.scrollTop || document.body.scrollTop
+    bottom = Math.abs(wk.getBoundingClientRect().bottom)
+    elBottom = bottom + scrollTop - 50
+    window.scrollTo(0, elBottom)
   render: ->
     blocks = @props.blocks.map (block, i) =>
       unless block.deleted
@@ -79,14 +79,18 @@ Week = React.createClass(
             cancelBlockEditable={@props.cancelBlockEditable}
           />
 
+    add_week = if !@props.editing_added_block then (
+      <span className="pull-right week__add-week" href="" onClick={@addBlock}>Add Block
+        <i className="icon icon-plus"></i>
+      </span>
+    )
+
     week_add_delete = if @props.meetings && @props.edit_permissions then (
       <div className="week__week-add-delete pull-right">
-        <span className="pull-right week__add-week" href="" onClick={@addBlock}>Add Block
-          <i className="icon icon-plus"></i>
-        </span>
         <span className="pull-right week__delete-week" href="" onClick={@props.deleteWeek}>Delete Week
           <i className="icon icon-trash_can"></i>
         </span>
+        {add_week}
       </div>
     )
 
