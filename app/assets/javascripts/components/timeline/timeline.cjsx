@@ -178,7 +178,12 @@ Timeline = React.createClass(
     timeline_full = (moment(end - start).weeks()) - week_components.length <= 0
     add_week_link = if timeline_full then (
       <li>
-        <span className='week-nav__action week-nav__link disabled' title='You cannot add new weeks when your timeline is full. Delete at least one week to make room for a new one.'>Add New Week</span>
+        <label className='week-nav__action week-nav__link disabled popover-trigger'>
+          Add Week
+          <div className="popover dark">
+            <p>{I18n.t('timeline.unable_to_add_week')}</p>
+          </div>
+        </label>
       </li>
     ) else (
       <li>
