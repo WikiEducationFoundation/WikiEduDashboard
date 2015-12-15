@@ -96,9 +96,13 @@ Week = React.createClass(
           position: 'relative'
           height: blocks.length * 75
           transition: 'height 500ms ease-in-out'
-      <ReactCSSTG transitionName="shrink" transitionEnterTimeout={250} transitionLeaveTimeout={250} component="ul" className="week__block-list list-unstyled" style={style}>
-        {blocks}
-      </ReactCSSTG>
+        <ReactCSSTG transitionName="shrink" transitionEnterTimeout={250} transitionLeaveTimeout={250} component="ul" className="week__block-list list-unstyled" style={style}>
+          {blocks}
+        </ReactCSSTG>
+      else
+        <ul className="week__block-list list-unstyled">
+          {blocks}
+        </ul>
     ) else (
       <div className="week__no-activity">
         <h1 className="h3">No activity this week</h1>
