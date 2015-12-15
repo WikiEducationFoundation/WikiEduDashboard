@@ -37,6 +37,9 @@ EnrollButton = React.createClass(
     e.stopPropagation()
   getKey: ->
     'add_user_role_' + @props.role
+  _courseLinkParams: ->
+    "/courses/#{@props.params.course_school}/#{@props.params.course_title}"
+
   render: ->
     users = @props.users.map (user) =>
       remove_button = (
@@ -46,7 +49,7 @@ EnrollButton = React.createClass(
         <td>{user.wiki_id}{remove_button}</td>
       </tr>
 
-    enroll_url = @props.course.enroll_url + @props.course.passcode
+    enroll_url = window.location.href.replace(window.location.pathname, "") + @_courseLinkParams() + "?enroll=" + @props.course.passcode
 
     edit_rows = []
     edit_rows.push (
