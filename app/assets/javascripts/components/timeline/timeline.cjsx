@@ -69,7 +69,7 @@ Timeline = React.createClass(
           return
 
   _canBlockMoveDown: (week, weekIndexInTimeline, block, blockIndexInWeek) ->
-    return false if weekIndexInTimeline == @props.weeks.length - 1 && blockIndexInWeek == week.blocks.length - 1
+    return false if weekIndexInTimeline == @props.weeks.length - 1 && blockIndexInWeek == BlockStore.getBlocksInWeek(week.id).length - 1
     # TODO: return false if it's the last block in the last non-blackout week
     return true
 
@@ -121,7 +121,7 @@ Timeline = React.createClass(
       w.blocks.sort (a, b) ->
         a.order - b.order
 
-    @props.weeks.forEach (week) =>
+    @props.weeks.forEach (week, weekIndex) =>
       unless week.deleted
         if @props?.week_meetings
           while @props?.week_meetings[i] == '()'
@@ -163,8 +163,8 @@ Timeline = React.createClass(
               saveBlockChanges={@props.saveBlockChanges}
               cancelBlockEditable={@props.cancelBlockEditable}
               saveGlobalChanges={@props.saveGlobalChanges}
-              canBlockMoveUp={@_canBlockMoveUp.bind(this, week, i)}
-              canBlockMoveDown={@_canBlockMoveDown.bind(this, week, i)}
+              canBlockMoveUp={@_canBlockMoveUp.bind(this, week, weekIndex)}
+              canBlockMoveDown={@_canBlockMoveDown.bind(this, week, weekIndex)}
               onMoveBlockUp={@_handleMoveBlock.bind(this, true)}
               onMoveBlockDown={@_handleMoveBlock.bind(this, false)}
               onBlockDrag={@_handleBlockDrag}
