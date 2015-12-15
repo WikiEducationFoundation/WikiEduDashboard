@@ -51,17 +51,23 @@ removeBlock = (block_id) ->
   _editingAddedBlock = false
   BlockStore.emitChange()
 
-insertBlock = (block, toWeek, afterBlock) ->
+insertBlock = (block, toWeek, targetIndex) ->
   WeekStore = require('./week_store')
   fromWeekId = block.week_id
   block.week_id = toWeek.id
 
-  if afterBlock
-    block.order = afterBlock.order + .5
+  if targetIndex?
+    if toWeek.id == fromWeekId
+      block.order = if block.order > targetIndex then targetIndex - .5 else targetIndex + .5
+    else
+      fromWeek = WeekStore.getWeek(fromWeekId)
+      block.order = if fromWeek.order > toWeek.order then targetIndex + 999 else targetIndex - .5
   else
     block.order = -1
 
-  fromWeekBlocks = BlockStore.getBlocksInWeek(block.week_id)
+  setBlock block, true
+
+  fromWeekBlocks = BlockStore.getBlocksInWeek(fromWeekId)
   fromWeekBlocks.forEach (b, i) ->
     b.order = i
     setBlock b, true
@@ -71,8 +77,6 @@ insertBlock = (block, toWeek, afterBlock) ->
     toWeekBlocks.forEach (b, i) ->
       b.order = i
       setBlock b, true
-
-  #TODO: Trigger update on weekstore?
   BlockStore.emitChange()
 
 isAddedBlock = (blockId) ->
