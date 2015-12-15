@@ -46,11 +46,22 @@ Week = React.createClass(
         if @props.reorderable
           <Motion key={block.id} defaultStyle={{y: i * 75}} style={{y: spring(i * 75, [220, 30])}}>
             {(value) =>
-              <li style={{top: Math.round(value.y), position: 'absolute', width: '100%', left: 0, marginLeft: 0}}>
+              rounded = Math.round(value.y)
+              animating = rounded != i * 75
+              willChange = if animating then 'top' else 'initial'
+              style = 
+                top: rounded
+                position: 'absolute'
+                width: '100%'
+                left: 0
+                willChange: willChange
+                marginLeft: 0
+              <li style={style}>
                 <OrderableBlock
                   block={block}
                   canDrag={true}
-                  onDrag={@props.onBlockDrag}
+                  animating={animating}
+                  onDrag={@props.onBlockDrag.bind(null, i)}
                   onMoveUp={@props.onMoveBlockUp.bind(null, block.id)}
                   onMoveDown={@props.onMoveBlockDown.bind(null, block.id)}
                   disableDown={!@props.canBlockMoveDown(block, i)}

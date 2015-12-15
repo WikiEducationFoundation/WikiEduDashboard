@@ -43,9 +43,11 @@ Timeline = React.createClass(
     if confirm "Are you sure you want to delete this week? This will delete the week and all its associated blocks.\n\nThis cannot be undone."
       WeekActions.deleteWeek(week_id)
 
-  _handleBlockDrag: (block, target) ->
-    toWeek = WeekStore.getWeek(target.week_id)
-    @_moveBlock(block, toWeek, target)
+  _handleBlockDrag: (targetIndex, block, target) ->
+    originalIndexCheck = BlockStore.getBlocksInWeek(block.week_id).indexOf(block)
+    if originalIndexCheck != targetIndex || block.week_id != target.week_id
+      toWeek = WeekStore.getWeek(target.week_id)
+      @_moveBlock(block, toWeek, targetIndex)
 
   _moveBlock: (block, toWeek, afterBlock) ->
     BlockActions.insertBlock block, toWeek, afterBlock
@@ -60,12 +62,12 @@ Timeline = React.createClass(
             toWeek = @props.weeks[if moveUp then i - 1 else i + 1]
             if moveUp
               toWeekBlocks = BlockStore.getBlocksInWeek(toWeek.id)
-              afterBlock = toWeekBlocks[toWeekBlocks.length - 1]
-            @_moveBlock(block, toWeek, afterBlock)
+              atIndex = toWeekBlocks.length - 1
+            @_moveBlock(block, toWeek, atIndex)
           else
             # Swap places with the adjacent block
-            prevBlock = blocks[if moveUp then j - 2 else j + 1]
-            @_moveBlock(block, week, prevBlock)
+            atIndex = if moveUp then j - 1 else j + 1
+            @_moveBlock(block, week, atIndex)
           return
 
   _canBlockMoveDown: (week, weekIndexInTimeline, block, blockIndexInWeek) ->

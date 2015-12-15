@@ -20,9 +20,11 @@ module.exports = (Component, Type, MoveFunction) ->
   # draggable component reacts to drag-and-drop events
   dragSourceSpec =
     beginDrag: (props) ->
-      props[Type]
+      props: props
+      item: props[Type],
+      originalIndex: props.index
     isDragging: (props, monitor) ->
-      props[Type].id == monitor.getItem().id
+      props[Type].id == monitor.getItem().item.id
     canDrag: (props, monitor) ->
       if props.canDrag?
         props.canDrag
@@ -39,12 +41,13 @@ module.exports = (Component, Type, MoveFunction) ->
   # drag target reacts to drag-and-drop events
   dragTargetSpec =
     hover: (props, monitor) ->
-      item = monitor.getItem()
-      return if item.id == props[Type].id
-      props[MoveFunction](item, props[Type])
+      item = monitor.getItem().item
+      adjacent = Math.abs(item.order - props[Type].order) <= 1
+      return if item.id == props[Type].id || props.animating && adjacent
+      props[MoveFunction](item, props[Type], monitor.getItem().originalIndex)
 
   # Returns props to inject into the drag target component
-  targetConnect =  (connect, monitor) ->
+  targetConnect = (connect, monitor) ->
     connectDropTarget: connect.dropTarget()
 
   # Simple wrapper for rendering the passed Component as draggable or not
