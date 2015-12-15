@@ -86,7 +86,7 @@ module RequestHelpers
   end
 
   def stub_raw_action
-    stub_request(:get, /.*wikipedia.*/)
+    stub_request(:get, /.*wikipedia.org\/w\/index.php\?action=raw.*/)
       .to_return(status: 200, body: '[[wikitext]]', headers: {})
   end
 
