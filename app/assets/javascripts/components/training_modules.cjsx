@@ -42,6 +42,7 @@ TrainingModules = React.createClass(
           linkText = 'Start'
           iconClassName += 'icon-rt_arrow'
 
+        progressClass += ' block__training-modules-table__module-progress '
         progressClass += ' overdue' if module.overdue is true
         progressClass += ' complete' if module.deadline_status is 'complete'
 
@@ -50,13 +51,13 @@ TrainingModules = React.createClass(
 
         (
           <tr key={module.id} className="training-module">
-            <td>{module.name}</td>
+            <td className='block__training-modules-table__module-name'>{module.name}</td>
             <td className={progressClass}>
               {module.module_progress}
               &nbsp;
               {deadlineStatus}
             </td>
-            <td className="training-module__link">
+            <td className="block__training-modules-table__module-link">
               <a className={module.module_progress} href={link}>
                 {linkText}
                 <i className={iconClassName}></i>
@@ -66,12 +67,12 @@ TrainingModules = React.createClass(
         )
       content = (
         <div>
-          <h3>Training</h3>
-          <table>
+          <h4>Training</h4>
+          <table className='block__training-modules-table'>
             <thead>
               <tr>
-                <td>Module Name</td>
-                <td>Status</td>
+                <td className='block__training-modules-table__module-name-header'>Module Name</td>
+                <td className='block__training-modules-table__status-header'>Status</td>
               </tr>
             </thead>
             <tbody>

@@ -227,11 +227,37 @@ input[type="checkbox"]
 .block__training-modules
   margin-top 1.5em
   padding-top 1em
-  table
-    border-bottom 1px solid border_lt
+
+.block__training-modules h4
+  font-weight 400
+
+.block__training-modules-table
+  border-bottom 1px solid border_lt
   thead
     border-bottom 1px solid border_lt
+    td
+      padding-bottom 0
+      margin-bottom -5px
+  td
+    display inline-block
+    overflow hidden
+    white-space nowrap
+    text-overflow ellipsis
+    padding 0
+    position relative
+    top 7px
 
+.block__training-modules-table__module-name
+  width 44%
+.block__training-modules-table__module-progress
+  width 40%
+.block__training-modules-table__module-link
+  width 13%
+
+.block__training-modules-table__module-name-header
+  width 44%
+.block__training-modules-table__status-header
+  width 40%
 
 .training-module
   border-bottom 1px solid border_lt
