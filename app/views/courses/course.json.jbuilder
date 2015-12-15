@@ -28,8 +28,4 @@ json.course do
   if user_signed_in? && current_user.role(@course) > 0
     json.passcode @course.passcode
   end
-
-  meeting_manager = CourseMeetingsManager.new(@course)
-  json.week_meetings meeting_manager.week_meetings
-  json.open_weeks meeting_manager.open_weeks
 end
