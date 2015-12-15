@@ -45,6 +45,7 @@ namespace :batch do
         .invoke unless Figaro.env.no_views
       Rake::Task['article:update_new_ratings'].invoke
       Rake::Task['cache:update_caches'].invoke
+      Rake::Task['greetings:welcome_students'].invoke
 
       total_time = distance_of_time_in_words(start, Time.zone.now)
       Rails.logger.info "Constant update finished in #{total_time}."
