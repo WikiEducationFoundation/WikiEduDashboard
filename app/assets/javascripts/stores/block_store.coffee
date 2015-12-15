@@ -75,7 +75,6 @@ insertBlock = (block, toWeek, targetIndex) ->
   if fromWeekId != toWeek.id
     toWeekBlocks = BlockStore.getBlocksInWeek(toWeek.id)
     toWeekBlocks.forEach (b, i) ->
-      if b == block
       b.order = i
       setBlock b, true
   BlockStore.emitChange()
