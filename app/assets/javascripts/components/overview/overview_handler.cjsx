@@ -41,6 +41,36 @@ Overview = React.createClass(
       this_week = <ThisWeek {...@props} timeline_start={@state.course.timeline_start} />
 
     <section className='overview container'>
+      <div className="stat-display">
+        <div className="stat-display__stat" id="articles-created">
+          <div className="stat-display__value">{@props.course.created_count}</div>
+          <small>Articles Created</small>
+        </div>
+        <div className="stat-display__stat" id="articles-edited">
+          <div className="stat-display__value">{@props.course.edited_count}</div>
+          <small>Articles Edited</small>
+        </div>
+        <div className="stat-display__stat" id="total-edits">
+          <div className="stat-display__value">{@props.course.edit_count}</div>
+          <small>Total Edits</small>
+        </div>
+        <div className="stat-display__stat popover-trigger" id="student-editors">
+          <div className="stat-display__value">{@props.course.student_count}</div>
+          <small>Student Editors</small>
+          <div className="popover dark" id="trained-count">
+            <h4 className="stat-display__value">{@props.course.trained_count}</h4>
+            <p>have completed training</p>
+          </div>
+        </div>
+        <div className="stat-display__stat" id="characters-added">
+          <div className="stat-display__value">{@props.course.character_count}</div>
+          <small>Chars Added</small>
+        </div>
+        <div className="stat-display__stat" id="view-count">
+          <div className="stat-display__value">{@props.course.view_count}</div>
+          <small>Article Views</small>
+        </div>
+      </div>
       <div className='primary'>
         <Description {...@props} />
         {this_week}

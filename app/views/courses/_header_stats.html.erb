@@ -1,10 +1,10 @@
 <div class="stat-display">
   <div class="stat-display__stat">
-    <h1><%= presenter.courses.count %></h1>
+    <div class="stat-display__value"><%= presenter.courses.count %></div>
     <small><%= t("courses.course_description") %></small>
     </div>
   <div class="stat-display__stat popover-trigger">
-    <h1><%= presenter.cohort.students_without_nonstudents.count %></h1>
+    <div class="stat-display__value"><%= presenter.cohort.students_without_nonstudents.count %></div>
     <small><%= t("courses.students") %></small>
     <div class="popover dark">
       <h4><%= presenter.cohort.trained_count %></h4>
@@ -12,19 +12,19 @@
     </div>
   </div>
   <div class="stat-display__stat">
-    <h1><%= number_to_human presenter.courses.sum(:character_sum) %></h1>
+    <div class="stat-display__value"><%= number_to_human presenter.courses.sum(:character_sum) %></div>
     <small><%= t("metrics.char_added") %></small>
   </div>
   <div class="stat-display__stat">
-    <h1><%= number_to_human presenter.courses.sum(:view_sum) %></h1>
+    <div class="stat-display__value"><%= number_to_human presenter.courses.sum(:view_sum) %></div>
     <small><%= t("metrics.view_count_description") %></small>
   </div>
   <div class="stat-display__stat">
-    <h1><%= number_to_human presenter.courses.sum(:article_count) %></h1>
+    <div class="stat-display__value"><%= number_to_human presenter.courses.sum(:article_count) %></div>
     <small><%= "Articles Edited" %></small>
   </div>
   <div class="stat-display__stat">
-    <h1><%= number_to_human presenter.courses.sum(:new_article_count) %></h1>
+    <div class="stat-display__value"><%= number_to_human presenter.courses.sum(:new_article_count) %></div>
     <small><%= "Articles Created" %></small>
   </div>
 </div>

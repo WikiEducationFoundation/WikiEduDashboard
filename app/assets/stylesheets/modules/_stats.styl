@@ -4,81 +4,28 @@
     margin-bottom 0
 
 .stat-display
-  padding 20px 0 0
+  display inline-block
+  width 100%
+  margin 40px 0 20px 0
+  display flex
+  justify-content space-between
+  flex-flow wrap
+
   .stat-display__stat
+    margin 0 0 20px 0
     text-align center
-    span(1/2)
-    &:first-child, &:nth-child(2), &:nth-child(3), &:nth-child(4)
-      margin-bottom 25px
+
     +above(desktop)
-      span(1/13, offset=1/13)
-      margin-bottom 0 !important
-    small
-      color bayoux
-      font-size 1em
-      line-height 1
-    h1
+      width (1/6*100)%
+
+    .stat-display__value
+      font-family inherit
+      color $brand_primary
+      font-size 38px
       margin 0
       font-weight 300
 
-.course-page
-  .title
-    span(1)
-    padding 27px 0
-    text-align left
-    +above(desktop)
-      span(1/2)
-      text-align left
-    h2
-      margin 0
-      font-size 21px
-      font-weight 300
-      letter-spacing .026em
-      text-align center
-      +above(desktop)
-        text-align left
-  .stat-display
-    cf()
-    span(1)
-    padding 0
-    equal-height(true)
-    flex-wrap wrap
-    +above(desktop)
-      span(1/2)
-    &:before, &:after
-      display block
-    .stat-display__stat
-      margin 0
-      border 1px solid border_lt
-      border-width 0
-      flex 1 0 33.333333333%
-      height 80px
-      padding 5px 5px 10px
-      +above(desktop)
-        border-width 0 1px
-        flex 1 0 16.6666665%
-        &:first-child
-          border-width 0 1px 0 2px
-        &:last-child
-          border-width 0 2px 0 1px
-      small
-        font-size 11px
-        font-weight 600
-        letter-spacing .025em
-        line-height 14px
-        padding 0 7px
-        text-transform uppercase
-        color bayoux
-      h3
-        font-weight 300
-        margin-bottom 0
-        font-size 24px
-        letter-spacing .03em
-        line-height normal
-        padding-bottom 4px
-        width 100%
-    &.half
-      span(3/10)
-      float right
-      .stat-display__stat
-        span(1/2)
+    small
+      color #aaa
+      font-size 1em
+      line-height 1

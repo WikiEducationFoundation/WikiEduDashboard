@@ -148,7 +148,7 @@ nav
       vertical-align middle
       padding 0
       +above(desktop)
-        line-height 78px
+        line-height 80px
         font-size 15px
 
     a
@@ -166,10 +166,25 @@ nav
       margin-left 10px
 
 .course_navigation
-  background-color white
-  height auto
-  padding 15px 0
-  +above(desktop)
-    padding 0
-  a
-    color #696971
+  background #fff
+  border-bottom 1px solid lighten($border_lt, 20%)
+  > .container
+    display flex
+    align-items center
+    > a
+      max-width 370px
+      display block
+      text-decoration none
+      margin-right 40px
+      padding-right 40px
+      border-right 1px solid lighten($border_lt, 20%)
+      > h2
+        font-size 22px
+        font-weight 300
+        margin-bottom 0
+        white-space nowrap
+        text-overflow ellipsis
+        line-height 80px
+        overflow hidden
+        -webkit-font-smoothing auto
+
