@@ -3,6 +3,7 @@ require "#{Rails.root}/lib/importers/category_importer"
 #= Controller for Article Finder tool
 class ArticleFinderController < ApplicationController
   DEFAULT_MAX_WP10_SCORE = 100
+  MAX_DEPTH = 2
 
   def index
     @depth ||= 0
@@ -15,7 +16,7 @@ class ArticleFinderController < ApplicationController
     return unless params[:category]
     @category = params[:category]
     cat_name = 'Category:' + @category
-    @depth = params[:depth].to_i
+    @depth = [params[:depth].to_i, 2].min
     @min_views = params[:minviews].to_i
     @max_wp10 = params[:maxwp10].to_i
     @articles = CategoryImporter.show_category(cat_name, depth: @depth,

@@ -80,14 +80,13 @@ class CategoryImporter
     missing_views = Article.where(id: article_ids, average_views: nil)
     import_average_views missing_views
 
-    existing_revisions = Revision
-                         .where(article_id: article_ids)
+    existing_revisions = Revision.where(article_id: article_ids)
     missing_revisions = article_ids - existing_revisions.pluck(:article_id)
 
-    return if missing_revisions.empty?
-    import_latest_revision missing_revisions
+    # Get the missing revisions and update existing_revisions afterwards
+    import_latest_revision missing_revisions unless missing_revisions.empty?
 
-    missing_revision_scores = existing_revisions.where(wp10: nil)
+    missing_revision_scores = Revision.where(article_id: article_ids, wp10: nil)
     RevisionScoreImporter.update_revision_scores missing_revision_scores
   end
 

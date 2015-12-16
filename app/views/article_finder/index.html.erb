@@ -11,7 +11,7 @@
   Put in a category name, excluding the prefix, like "Feminism"<br/><br/>
   <%= label_tag(:category, "category") %>
   <%= text_field_tag(:category, @category) %><br/>
-  <%= label_tag(:depth, "depth") %>
+  <%= label_tag(:depth, "subcategory depth (max 2)") %>
   <%= text_field_tag(:depth, @depth) %><br/>
   <%= label_tag(:minviews, "minimum views") %>
   <%= text_field_tag(:minviews, @min_views) %><br/>
@@ -23,7 +23,13 @@
 <% if @articles %>
 <div>
   <ul class="list">
-    <li class="row course-list__row">Title, Average Views, Completeness</li>
+    <li class="row course-list__row">
+      <div class="row__wrapper">
+        <div class="course-list__row__title"><p>TITLE</p></div>
+        <div class="course-list__row__revisions"><p>Views per day (recent average)</p></div>
+        <div class="course-list__row__revisions"><p>Completeness estimate (0-100)</p></div>
+      </div>
+    </li>
     <% @articles.each do |article| %>
       <%= render :partial => 'row', :locals => {:article => article} %>
     <% end %>
