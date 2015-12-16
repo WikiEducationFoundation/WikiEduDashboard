@@ -4,23 +4,25 @@ require "#{Rails.root}/lib/importers/view_importer"
 describe ViewImporter do
   describe '.update_views_for_article' do
     it 'should not fail if there are no revisions for an article' do
-      article = create(:article,
-                       id: 1,
-                       title: 'Selfie',
-                       views_updated_at: '2015-01-01')
+      VCR.use_cassette 'article/update_views_for_article' do
+        article = create(:article,
+                         id: 1,
+                         title: 'Selfie',
+                         views_updated_at: '2015-01-01')
 
-      # Course, article-course, and revision are also needed.
-      create(:course,
-             id: 1,
-             start: '2014-01-01'.to_date)
-      create(:articles_course,
-             id: 1,
-             course_id: 1,
-             article_id: 1)
-      create(:revision,
-             article_id: 1)
-      ViewImporter.update_views_for_article(article, true)
-      ViewImporter.update_views_for_article(article)
+        # Course, article-course, and revision are also needed.
+        create(:course,
+               id: 1,
+               start: '2014-01-01'.to_date)
+        create(:articles_course,
+               id: 1,
+               course_id: 1,
+               article_id: 1)
+        create(:revision,
+               article_id: 1)
+        ViewImporter.update_views_for_article(article, true)
+        ViewImporter.update_views_for_article(article)
+      end
     end
   end
 

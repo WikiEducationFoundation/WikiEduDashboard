@@ -8,8 +8,7 @@ class WikiPageviews
   # Given an article title and a date, return the number of page views for every
   # day from that date until today.
   #
-  # [title]  title of a Wikipedia page (including namespace, if applicable)
-  # [date]   a specific date
+  # [title]  title of a Wikipedia page (including namespace prefix, if applicable)
   def self.views_for_article(title, opts = {})
     language = opts[:language] || ENV['wiki_language']
     start_date = opts[:start_date] || 1.month.ago

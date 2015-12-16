@@ -46,7 +46,9 @@ class ViewImporter
         vua[article_id] = article.views_updated_at || start
         if vua[article_id] < Time.zone.yesterday
           since = all_time ? start : vua[article_id] + 1.day
-          views[article_id] = Grok.views_for_article article.title, since
+          views[article_id] = WikiPageviews.views_for_article(article.title,
+                                                              start_date: since,
+                                                              end_date: Time.zone.yesterday)
         end
       end
     end
@@ -93,13 +95,14 @@ class ViewImporter
   end
 
   def self.update_views_for_article(article, all_time=false, views=nil)
-    return unless article.views_updated_at < Time.zone.today
+    return unless article.views_updated_at < Time.zone.yesterday
 
     since = views_since_when(article, all_time)
 
     # Update views on all revisions and the article
-    views ||= Grok.views_for_article(article.title, since)
-
+    views ||= WikiPageviews.views_for_article(article.title, start_date: since,
+                                                             end_date: Time.zone.yesterday)
+    return if views.nil? # This will be the case if there are no views in the date range.
     add_views_to_revisions(article, views, all_time)
 
     last = views_last_updated(since, views)
@@ -126,6 +129,7 @@ class ViewImporter
   end
 
   def self.add_views_to_revisions(article, views, all_time)
+    pp views
     ActiveRecord::Base.transaction do
       article.revisions.each do |rev|
         rev.views = all_time ? 0 : rev.views
