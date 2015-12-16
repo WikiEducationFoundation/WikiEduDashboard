@@ -18,8 +18,8 @@ class RevisionScoreImporter
   # This should take up to 50 rev_ids per batch
   def self.get_and_save_scores(rev_batch)
     scores = {}
-    threads = rev_batch.in_groups_of(50).each_with_index.map do |fifty_revs, i|
-      rev_ids = rev_batch.map(&:id)
+    threads = rev_batch.in_groups_of(50, false).each_with_index.map do |fifty_revs, i|
+      rev_ids = fifty_revs.map(&:id)
       Thread.new(i) do
         thread_scores = get_revision_scores rev_ids
         scores.merge!(thread_scores)
