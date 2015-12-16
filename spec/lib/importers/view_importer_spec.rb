@@ -13,7 +13,7 @@ describe ViewImporter do
         # Course, article-course, and revision are also needed.
         create(:course,
                id: 1,
-               start: '2014-01-01'.to_date)
+               start: '2015-08-01'.to_date)
         create(:articles_course,
                id: 1,
                course_id: 1,

@@ -91,17 +91,9 @@ describe Course, type: :model do
       expect(course.users.role('instructor').first.instructor?(course))
         .to be true
 
-      # Check views
-      course_views = course.view_sum
-      expect(course_views).to be >= 46_200
-      # Run the update again, and expect view count to be the same
-      # FIXME: Sometimes the initial update does not save the last available day
-      # of view data, while the second update adds it. That situation can make
-      # the follow check fail.
-
-      # course.manual_update
-      # course.reload
-      # expect(course.view_sum).to eq(course_views)
+      # FIXME: This should be tested with a non-legacy course, with a check for
+      # pageviews included. Pageview import has been disabled for legacy courses
+      # for the switch to the new WikiPageviews API.
     end
   end
 

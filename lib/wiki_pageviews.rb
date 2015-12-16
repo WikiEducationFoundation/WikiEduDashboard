@@ -4,6 +4,7 @@ class WikiPageviews
   ################
   # Entry points #
   ################
+  EARLIEST_PAGEVIEWS_AVAILABLE = '2015-08-01'
 
   # Given an article title and a date, return the number of page views for every
   # day from that date until today.
@@ -16,7 +17,7 @@ class WikiPageviews
     # There shouldn't be any queries for older data, but just in case, this will
     # throw an error so we can figure out where such queries come from.
     # Eventually, this will be backfilled to 2015-05-01.
-    fail StandardError, 'invalid WikiPageviews start date' if start_date < '2015-08-01'.to_date
+    fail StandardError, "invalid WikiPageviews start date: #{start_date} for #{title}" if start_date < EARLIEST_PAGEVIEWS_AVAILABLE.to_date
 
     end_date = opts[:end_date] || Time.zone.today
     url = query_url(title, start_date, end_date, language)

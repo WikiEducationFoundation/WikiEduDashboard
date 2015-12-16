@@ -129,7 +129,6 @@ class ViewImporter
   end
 
   def self.add_views_to_revisions(article, views, all_time)
-    pp views
     ActiveRecord::Base.transaction do
       article.revisions.each do |rev|
         rev.views = all_time ? 0 : rev.views
