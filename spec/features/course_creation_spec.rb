@@ -495,11 +495,17 @@ describe 'reordering blocks in a course', js: true do
     visit "/courses/#{Course.last.slug}/timeline"
     click_button 'Arrange Blocks'
     find('.week-2 .week__block-list > li:nth-child(1) button:last-of-type').click # move up to week 1
+    sleep 0.5
     click_button 'Save All'
+    sleep 0.5
     expect(find('.week-1 .week__block-list > li:nth-child(4)')).to have_content 'Block 4'
+    sleep 0.5
     click_button 'Arrange Blocks'
+    sleep 0.5
     find('.week-1 .week__block-list > li:nth-child(4) button:first-of-type').click # move down to week 2
+    sleep 0.5
     click_button 'Discard All Changes'
+    sleep 0.5
     expect(find('.week-1 .week__block-list > li:nth-child(4)')).to have_content 'Block 4' # still in week 1
   end
 
