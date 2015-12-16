@@ -7,6 +7,8 @@ json.weeks course.weeks.eager_load(blocks: [:gradeable]) do |week|
     start_date = course.timeline_start.beginning_of_week(:sunday) + (7 * week_array_index).days
   end
   json.call(week, :id, :order)
+  json.start_date_raw start_date.present? ? start_date : nil
+  json.end_date_raw start_date.present? ? start_date.end_of_week(:sunday) : nil
   json.start_date start_date.present? ? start_date.strftime('%m/%d') : nil
   json.end_date start_date.present? ? start_date.end_of_week(:sunday).strftime('%m/%d') : nil
   json.blocks week.blocks do |block|

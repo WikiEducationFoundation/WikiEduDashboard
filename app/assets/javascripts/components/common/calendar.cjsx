@@ -26,6 +26,13 @@ Calendar = React.createClass(
       noMeetingsThisWeek = false if @_courseMeets(@props.course.weekdays, i, wkDay, exceptions)
     noMeetingsThisWeek
 
+  _weekContainsBlocks: (day) ->
+    day = moment(day)
+    parentWk = _.filter(@props.weeks, (wk) ->
+      moment(wk.start_date_raw).isBefore(day) && moment(wk.end_date_raw).isAfter(day)
+    )[0]
+    parentWk.blocks.length > 0
+
   selectDay: (e, day) ->
     return unless @inrange(day)
     course = @props.course
@@ -40,7 +47,7 @@ Calendar = React.createClass(
     else
       exceptions.push formatted
 
-    if @_isBlackoutWeek(exceptions, day)
+    if @_isBlackoutWeek(exceptions, day) && @_weekContainsBlocks(day)
       alert(I18n.t('timeline.blackout_week_created'))
       return false
 
