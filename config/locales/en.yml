@@ -323,3 +323,4 @@ en:
     due_default: Due next week
     block_type: The block type is used to communicate to your students about this item on their timeline and to build useful tools for you (such as the milestone outline on the Overview page)
     unable_to_add_week: You cannot add new weeks when your timeline is full. Delete at least one week or change your assignment dates to make room for a new one.
+    blackout_week_created: There are blocks scheduled for this week. Please move them to another week before you remove the last class meeting from this week.

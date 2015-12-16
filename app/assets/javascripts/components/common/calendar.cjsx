@@ -12,6 +12,20 @@ Calendar = React.createClass(
     if nextProps.course.start != moment(@state.initialMonth).format('YYYY-MM-DD')
       @setState
         initialMonth: moment(nextProps.course.start).toDate()
+
+  _courseMeets: (meetings, i, formatted, exceptions) ->
+    return true if meetings[i] == '1' && formatted not in exceptions
+    return true if meetings[i] == '0' && formatted in exceptions
+    false
+
+  _isBlackoutWeek: (exceptions, day) ->
+    selectedDay = moment(day)
+    noMeetingsThisWeek = true
+    [0..6].forEach (i) =>
+      wkDay = selectedDay.day(0).add(i, 'days').format('YYYYMMDD')
+      noMeetingsThisWeek = false if @_courseMeets(@props.course.weekdays, i, wkDay, exceptions)
+    noMeetingsThisWeek
+
   selectDay: (e, day) ->
     return unless @inrange(day)
     course = @props.course
@@ -25,6 +39,11 @@ Calendar = React.createClass(
       exceptions.splice(exceptions.indexOf(formatted), 1)
     else
       exceptions.push formatted
+
+    if @_isBlackoutWeek(exceptions, day)
+      alert(I18n.t('timeline.blackout_week_created'))
+      return false
+
     course['day_exceptions'] = exceptions.join(',')
     course['no_day_exceptions'] = (_.compact(exceptions).length is 0)
     CourseActions.updateCourse course, (@props.save? && @props.save)

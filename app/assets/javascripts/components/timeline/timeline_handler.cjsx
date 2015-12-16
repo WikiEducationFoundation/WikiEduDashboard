@@ -6,7 +6,6 @@ TransitionGroup = require 'react-addons-css-transition-group'
 Timeline        = require './timeline'
 Grading         = require './grading'
 Editable        = require '../high_order/editable'
-Meetings        = require './meetings'
 
 ServerActions   = require '../../actions/server_actions'
 TimelineActions   = require '../../actions/timeline_actions'
@@ -95,7 +94,7 @@ TimelineHandler = React.createClass(
       @props.course.day_exceptions.split(',').forEach (e) ->
         meetings.except(moment(e, 'YYYYMMDD')) if e.length > 0
 
-    outlet = React.cloneElement(@props.children, {key: 'wizard_handler', course: @props.course, weeks: @props.weeks, open_weeks: openWeeks(meetings, @props.weeks.length)}) if @props.children
+    outlet = React.cloneElement(@props.children, {key: 'wizard_handler', course: @props.course, weeks: @props.weeks, week_meetings: weekMeetings(meetings), meetings: meetings, open_weeks: openWeeks(meetings, @props.weeks.length)}) if @props.children
 
     <div>
       <TransitionGroup
