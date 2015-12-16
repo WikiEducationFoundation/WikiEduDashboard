@@ -2,6 +2,13 @@ id: 213
 title: Make your mark!
 summary:
 content: |
+  <figure class="alt-layout-40-right">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a8/Wikipedia_Edit_Summary_dialog_in_VisualEditor.png" />
+    <figcaption>
+      Edit summary dialog in VisualEditor
+    </figcaption>
+  </figure>
+
   Once you've made your edit, look for the blue "Save page" button in VisualEditor,
   or the gray "Save page" button in WikiCode.
 
@@ -11,6 +18,13 @@ content: |
   If you copyedited or fixed a grammatical mistake, you could write "c/e" for
   copyedit. (There's no real "official shorthand," just make sure you convey the
   intent of the action you took when you edited the page).
-  
+
+  <figure class="alt-layout-40-right">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/8/80/Wikipedia_Edit_Summary_input_field_in_Edit_Source_mode.png" />
+    <figcaption>
+      Edit summary input for WikiCode mode
+    </figcaption>
+  </figure>
+
   In VisualEditor, you'll be asked for your edit summary after you save your edit. In
-  WikiCode, you'll want to type your edit before you save. 
+  WikiCode, you'll want to type your edit before you save.
