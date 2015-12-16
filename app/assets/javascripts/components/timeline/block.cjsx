@@ -143,7 +143,7 @@ Block = React.createClass(
             onBlur={@props.toggleFocused}
           />
         </h4>
-        <p className="block__block-type">
+        <div className="block__block-type">
           <Select
             onChange={@updateBlock}
             value={@props.block.kind}
@@ -155,9 +155,9 @@ Block = React.createClass(
             spacer=''
             popover_text={I18n.t('timeline.block_type')}
           />
-        </p>
+        </div>
       </div>
-      <p className="block__block-due-date">
+      <div className="block__block-due-date">
         <TextInput
           onChange={@updateBlock}
           value={@props.block.due_date}
@@ -173,7 +173,7 @@ Block = React.createClass(
           onFocus={@props.toggleFocused}
           onBlur={@props.toggleFocused}
         />
-      </p>
+      </div>
       {graded}
       {dueDateRead || (if is_graded then (<p>{I18n.t('timeline.due_default')}</p>) else '')}
       {content}
