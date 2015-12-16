@@ -15,16 +15,17 @@ class StudentGreeter
       possible_greeters = @greeters & nonstudents_in_course
       next if possible_greeters.empty?
       greeter = possible_greeters[0]
-      course.students_without_nonstudents.each do |student|
-        greet_if_ungreeted(student, greeter)
+      course.students_without_nonstudents.ungreeted.each do |student|
+        greet_if_really_ungreeted(student, greeter)
       end
     end
   end
 
   private
 
-  def greet_if_ungreeted(student, greeter)
-    return if student.greeted
+  # Just because a user is not flagged as greeted doesn't mean they haven't
+  # actually been greeted.
+  def greet_if_really_ungreeted(student, greeter)
     if talk_page_blank? student
       greet(student, greeter)
       return
