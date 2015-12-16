@@ -96,11 +96,11 @@ trix-editor
           -webkit-appearance none
           -moz-appearance none
 trix-editor
-  color #111
+  color $text_dk
   border 1px solid $border_med_dk
   margin 0
-  padding 8px
-  min-height 54px
+  padding 20px
+  min-height 150px
   outline none
 
 trix-toolbar
@@ -139,26 +139,29 @@ trix-toolbar
   *
     box-sizing border-box
   .button_groups
-    background #f7f7f7
+    background #fcfcfc
     border 1px solid $border_med_dk
     border-bottom none
     border-collapse collapse
-    height 34px
+    height 35px
   .button_group
+    border-right 1px solid $border_lt
     display inline-block
     font-size 0
-    margin 0
+    margin 0 10px 0 0
+    padding-right 10px
     overflow hidden
     &:last-of-type
       margin-right 0
+      padding-right 0
+      border-right none
     button, input[type=button]
       position relative
       font-size 0
       margin 0
-      height 33px
+      height 35px
       width 40px
       background transparent
-      border-right 1px solid $border_lt
       &:before
         display inline-block
         position absolute
