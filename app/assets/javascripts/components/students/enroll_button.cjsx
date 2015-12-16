@@ -14,14 +14,14 @@ EnrollButton = React.createClass(
   mixins: [UserStore.mixin]
   storeDidChange: ->
     return unless @refs.wiki_id?
-    wiki_id = @refs.wiki_id.getDOMNode().value
+    wiki_id = @refs.wiki_id.value
     user_obj = { wiki_id: wiki_id }
     if UserStore.getFiltered({ wiki_id: wiki_id, role: @props.role }).length > 0
       alert (wiki_id + ' successfully enrolled!')
-      @refs.wiki_id.getDOMNode().value = ''
+      @refs.wiki_id.value = ''
   enroll: (e) ->
     e.preventDefault()
-    wiki_id = @refs.wiki_id.getDOMNode().value
+    wiki_id = @refs.wiki_id.value
     user_obj = { wiki_id: wiki_id, role: @props.role }
     if UserStore.getFiltered({ wiki_id: wiki_id, role: @props.role }).length == 0 &&
        confirm 'Are you sure you want to add ' + wiki_id + ' to this course?'
