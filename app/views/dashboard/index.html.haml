@@ -64,7 +64,7 @@
       %h2 Archived Courses
       - @pres.past.each do |course|
         = link_to course_slug_path(course.slug), {class: 'course course-past'} do
+          %span.button.border View Course Page
           %h2.course-title
             = course.title
             %span.course-term= course.term
-            %span.icon.icon-rt_arrow
