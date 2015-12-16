@@ -36,7 +36,7 @@ TextAreaInput = React.createClass(
     if @props.wysiwyg
       input_element = (
         <TrixEditor
-          value={@state.value}
+          value={@state.value || 'Block description…'}
           onChange={@_handleChange}
         />
       )
