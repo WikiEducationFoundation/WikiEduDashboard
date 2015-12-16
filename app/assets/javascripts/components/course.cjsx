@@ -166,8 +166,6 @@ Course = React.createClass(
       )
 
     <div>
-      {alerts}
-
       <div className="course_navigation">
         <div className="container">
           <a href={@state.course.url} target="_blank">
@@ -193,6 +191,7 @@ Course = React.createClass(
           </nav>
         </div>
       </div>
+      {alerts}
       <div className="course_main container">
         {enroll_card}
         {React.cloneElement(@props.children, course_id: @getCourseID(), current_user: @getCurrentUser(), course:  @state.course)}
