@@ -10,7 +10,7 @@ Affix = React.createClass(
   componentDidMount: ->
     window.addEventListener 'scroll', @_handleScroll
 
-  componentDidUnMount: ->
+  componentWillUnmount: ->
     window.removeEventListener 'scroll', @_handleScroll
 
   _handleScroll: ->
