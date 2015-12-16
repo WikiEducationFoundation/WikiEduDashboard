@@ -12,6 +12,12 @@ class WikiPageviews
   def self.views_for_article(title, opts = {})
     language = opts[:language] || ENV['wiki_language']
     start_date = opts[:start_date] || 1.month.ago
+    # As of 2015-12-16, data is only available back to 2015-08-01.
+    # There shouldn't be any queries for older data, but just in case, this will
+    # throw an error so we can figure out where such queries come from.
+    # Eventually, this will be backfilled to 2015-05-01.
+    fail StandardError, 'invalid WikiPageviews start date' if start_date < '2015-08-01'.to_date
+
     end_date = opts[:end_date] || Time.zone.today
     url = query_url(title, start_date, end_date, language)
     data = api_get url
