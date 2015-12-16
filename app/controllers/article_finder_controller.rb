@@ -9,12 +9,14 @@ class ArticleFinderController < ApplicationController
     @depth ||= 0
     @min_views ||= 0
     @max_wp10 ||= DEFAULT_MAX_WP10_SCORE
+    @title ||= 'Article Finder'
   end
 
   def results
     @articles = []
     return unless params[:category]
     @category = params[:category]
+    @title = "Category: #{@category}"
     cat_name = 'Category:' + @category
     @depth = [params[:depth].to_i, 2].min
     @min_views = params[:minviews].to_i
