@@ -117,6 +117,9 @@ body.fixed-nav
     z-index 100
 
 nav
+  text-align center
+  +above(desktop)
+    text-align left
   a.inline
     margin-left 8px
   .nav__item
@@ -169,15 +172,18 @@ nav
   background #fff
   border-bottom 1px solid lighten($border_lt, 20%)
   > .container
-    display flex
-    align-items center
+    +above(desktop)
+      display flex
     > a
-      max-width 370px
       display block
       text-decoration none
-      margin-right 40px
-      padding-right 40px
-      border-right 1px solid lighten($border_lt, 20%)
+      text-align center
+      +above(desktop)
+        max-width 370px
+        margin-right 40px
+        padding-right 40px
+        text-align left
+        border-right 1px solid lighten($border_lt, 20%)
       > h2
         font-size 22px
         font-weight 300

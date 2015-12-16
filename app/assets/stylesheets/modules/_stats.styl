@@ -8,14 +8,16 @@
   width 100%
   margin 40px 0 20px 0
   display flex
-  justify-content space-between
+  justify-content space
   flex-flow wrap
 
   .stat-display__stat
-    margin 0 0 20px 0
+    margin 0 20px 20px 20px
     text-align center
+    width calc(50% - 40px)
 
     +above(desktop)
+      margin 0 0 20px 0
       width (1/6*100)%
 
     .stat-display__value
