@@ -201,7 +201,7 @@ Timeline = React.createClass(
       )
 
     unless week_components.length > 0
-      wizard_link = <CourseLink to="/courses/#{@props.course?.slug}/timeline/wizard" className='button dark'>Add Assignment</CourseLink>
+      wizard_link = <CourseLink to="/courses/#{@props.course?.slug}/timeline/wizard" className='button dark button--block timeline__add-assignment'>Add Assignment</CourseLink>
 
     controls = if @props.reorderable || @props?.editable_block_ids.length > 1 then (
       <div>
