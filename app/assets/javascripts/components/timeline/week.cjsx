@@ -91,17 +91,13 @@ Week = React.createClass(
           />
 
     add_week = if !@props.editing_added_block then (
-      <span className="pull-right week__add-week" href="" onClick={@addBlock}>Add Block
-        <i className="icon icon-plus"></i>
-      </span>
+      <span className="pull-right week__add-block" href="" onClick={@addBlock}>Add Block</span>
     )
 
     week_add_delete = if @props.meetings && @props.edit_permissions then (
       <div className="week__week-add-delete pull-right">
-        <span className="pull-right week__delete-week" href="" onClick={@props.deleteWeek}>Delete Week
-          <i className="icon icon-trash_can"></i>
-        </span>
         {add_week}
+        <span className="pull-right week__delete-week" href="" onClick={@props.deleteWeek}>Delete Week</span>
       </div>
     )
 

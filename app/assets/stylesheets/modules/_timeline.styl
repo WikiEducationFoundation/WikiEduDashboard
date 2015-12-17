@@ -185,13 +185,26 @@
     top 2px
     margin-left 2px
 
-.week__delete-week:hover
-  span, i
+span.week__delete-week
+  &:after
+    content '\EA0C'
+    position relative
+    top 2px
+  &:hover
     color $warning_text
 
-.week__add-week:hover
-  span, i
-    color $brand_primary
+span.week__add-block
+  color $brand_primary
+  &:after
+    content '\EA08'
+    font-size 12px
+  &:hover
+    text-decoration underline
+
+.week__delete-week:after, .week__add-block:after
+  font-family 'icons'
+  font-size 14px
+  padding-left 2px
 
 .week__week-dates
   position relative
