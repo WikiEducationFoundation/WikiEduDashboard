@@ -7,6 +7,8 @@ Timeline        = require './timeline'
 Grading         = require './grading'
 Editable        = require '../high_order/editable'
 
+CourseDateUtils   = require '../../utils/course_date_utils'
+
 ServerActions   = require '../../actions/server_actions'
 TimelineActions   = require '../../actions/timeline_actions'
 
@@ -25,27 +27,6 @@ getState = ->
   editable_block_ids: BlockStore.getEditableBlockIds()
   editable_week_id: WeekStore.getEditableWeekId()
 
-# Returns string describing weekday meetings for each week
-# Ex: ["(Mon, Weds, Fri)", "(Mon, Weds)", "()", "(Mon, Weds, Fri)"]
-weekMeetings = (recurrence) ->
-  return unless recurrence?
-  course_weeks = Math.ceil(recurrence.endDate().diff(recurrence.startDate(), 'weeks', true))
-  unless recurrence.rules? && recurrence.rules[0].measure == 'daysOfWeek' && Object.keys(recurrence.rules[0].units).length > 0
-    return null
-
-  meetings = []
-  [0..(course_weeks - 1)].forEach (week) =>
-    week_start = moment(recurrence.startDate()).startOf('week').add(week, 'weeks')
-    ms = []
-    [0..6].forEach (i) =>
-      added = moment(week_start).add(i, 'days')
-      if recurrence.matches(added)
-        ms.push moment.localeData().weekdaysMin(added)[0]
-    if ms.length == 0
-      meetings.push '()'
-    else
-      meetings.push "(#{ms.join(', ')})"
-  return meetings
 
 # Returns number of available weeks without anything scheduled
 # Available weeks are inside the timeline dates and have weekday meetings
@@ -83,18 +64,10 @@ TimelineHandler = React.createClass(
       BlockStore.clearEditableBlockIds()
 
   render: ->
-    if @props.course.weekdays?
-      meetings = moment().recur(@props.course.timeline_start, @props.course.timeline_end)
-      weekdays = []
-      @props.course.weekdays.split('').forEach (wd, i) ->
-        return unless wd == '1'
-        day = moment().weekday(i)
-        weekdays.push(moment.localeData().weekdaysShort(day))
-      meetings.every(weekdays).daysOfWeek()
-      @props.course.day_exceptions.split(',').forEach (e) ->
-        meetings.except(moment(e, 'YYYYMMDD')) if e.length > 0
+    meetings = CourseDateUtils.meetings(@props.course)
+    weekMeetings = CourseDateUtils.weekMeetings(meetings, @props.course, @props.course.day_exceptions)
 
-    outlet = React.cloneElement(@props.children, {key: 'wizard_handler', course: @props.course, weeks: @props.weeks, week_meetings: weekMeetings(meetings), meetings: meetings, open_weeks: openWeeks(meetings, @props.weeks.length)}) if @props.children
+    outlet = React.cloneElement(@props.children, {key: 'wizard_handler', course: @props.course, weeks: @props.weeks, week_meetings: weekMeetings, meetings: meetings}) if @props.children
 
     <div>
       <TransitionGroup
@@ -109,7 +82,7 @@ TimelineHandler = React.createClass(
         loading={@props?.loading}
         course={@props?.course}
         weeks={@props?.weeks}
-        week_meetings={weekMeetings(meetings)}
+        week_meetings={weekMeetings}
         editable_block_ids={@props?.editable_block_ids}
         editable_week_id={@props?.editable_week_id}
         reorderable={@state?.reorderable}
