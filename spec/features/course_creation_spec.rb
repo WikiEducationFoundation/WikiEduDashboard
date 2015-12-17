@@ -429,9 +429,9 @@ end
 describe 'reordering blocks in a course', js: true do
 
   let!(:course) do
-    create(:course, id: 10001, start: 1.year.from_now.to_date,
-                    end: 2.years.from_now.to_date, submitted: true,
-                    timeline_start: 1.year.from_now.to_date, timeline_end: 2.year.from_now.to_date,
+    create(:course, id: 10001, start: Date.new(2015, 1, 1),
+                    end: Date.new(2015, 2, 1), submitted: true,
+                    timeline_start: Date.new(2015, 1, 1), timeline_end: Date.new(2015, 2, 1),
                     weekdays: '0111110' )
   end
   let!(:user)      { create(:user, permissions: User::Permissions::ADMIN) }

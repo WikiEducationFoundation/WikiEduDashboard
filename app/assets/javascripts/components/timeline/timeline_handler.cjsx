@@ -34,7 +34,7 @@ weekMeetings = (recurrence) ->
     return null
 
   meetings = []
-  [0..(course_weeks)].forEach (week) =>
+  [0..(course_weeks - 1)].forEach (week) =>
     week_start = moment(recurrence.startDate()).startOf('week').add(week, 'weeks')
     ms = []
     [0..6].forEach (i) =>
