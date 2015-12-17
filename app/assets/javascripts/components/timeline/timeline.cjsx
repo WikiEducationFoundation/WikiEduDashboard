@@ -175,23 +175,6 @@ Timeline = React.createClass(
         )
         i++
 
-    start = moment(@props.course.timeline_start)
-    end = moment(@props.course.timeline_end)
-    timeline_full = (moment(end - start).weeks()) - week_components.length <= 0
-    add_week_link = if timeline_full then (
-      <li>
-        <label className='week-nav__action week-nav__link disabled popover-trigger'>
-          Add Week
-          <div className="popover dark">
-            <p>{I18n.t('timeline.unable_to_add_week')}</p>
-          </div>
-        </label>
-      </li>
-    ) else (
-      <li>
-        <span className="week-nav__add-week" onClick={@addWeek}>Add Week</span>
-      </li>
-    )
 
     unless week_components.length
       no_weeks = (
@@ -229,6 +212,28 @@ Timeline = React.createClass(
           </div>
         )
 
+      edit_course_dates = (
+        <CourseLink className="week-nav__action week-nav__link" to="/courses/#{@props.course?.slug}/timeline/dates">Edit Course Dates</CourseLink>
+      )
+
+      start = moment(@props.course.timeline_start)
+      end = moment(@props.course.timeline_end)
+      timeline_full = (moment(end - start).weeks()) - week_components.length <= 0
+      add_week_link = if timeline_full then (
+        <li>
+          <label className='week-nav__action week-nav__link disabled popover-trigger'>
+            Add Week
+            <div className="popover dark">
+              <p>{I18n.t('timeline.unable_to_add_week')}</p>
+            </div>
+          </label>
+        </li>
+      ) else (
+        <li>
+          <span className="week-nav__add-week" onClick={@addWeek}>Add Week</span>
+        </li>
+      )
+
     week_nav = week_components.map (week, i) => (
       className = 'week-nav__item'
       className += ' is-current' if i == 0
@@ -239,6 +244,7 @@ Timeline = React.createClass(
         <span className="pull-right">{dateCalc.start()} - {dateCalc.end()}</span>
       </li>
     )
+
 
     <div>
       <div className="timeline__content">
@@ -258,7 +264,7 @@ Timeline = React.createClass(
                 {week_nav}
                 {add_week_link}
               </ol>
-              <CourseLink className="week-nav__action week-nav__link" to="/courses/#{@props.course?.slug}/timeline/dates">Edit Course Dates</CourseLink>
+              {edit_course_dates}
               <a className="week-nav__action week-nav__link" href="#grading">Grading</a>
             </div>
           </Affix>
