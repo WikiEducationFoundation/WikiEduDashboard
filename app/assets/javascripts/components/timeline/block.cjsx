@@ -110,11 +110,15 @@ Block = React.createClass(
       </div>
     )
 
-    <li className={className}>
-      {blockActions}
+    edit_button = if @props.edit_permissions then (
       <div className="block__edit-button-container">
         <span className="pull-right button ghost-button block__edit-block" onClick={@_setEditable}>Edit</span>
       </div>
+    )
+
+    <li className={className}>
+      {blockActions}
+      {edit_button}
       <div className='block__title-kind-container'>
         <h4 className={"block-title" + (if @_isEditable() then " block-title--editing" else "")}>
           <TextInput

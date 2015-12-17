@@ -49,7 +49,7 @@ Week = React.createClass(
               rounded = Math.round(value.y)
               animating = rounded != i * 75
               willChange = if animating then 'top' else 'initial'
-              style = 
+              style =
                 top: rounded
                 position: 'absolute'
                 width: '100%'
@@ -78,7 +78,7 @@ Week = React.createClass(
             toggleFocused={@toggleFocused.bind(this, block.id)}
             block={block}
             key={block.id}
-            editable={true}
+            edit_permissions={@props.edit_permissions}
             gradeable={GradeableStore.getGradeableByBlock(block.id)}
             deleteBlock={@deleteBlock.bind(this, block.id)}
             moveBlock={@props.moveBlock}
