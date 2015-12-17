@@ -206,7 +206,7 @@ describe 'New course creation and editing', type: :feature do
       sleep 1
 
       within('.week-1 .week__week-add-delete') do
-        find('.week__delete-week span').click
+        find('.week__delete-week').click
       end
       sleep 1
       prompt = page.driver.browser.switch_to.alert
