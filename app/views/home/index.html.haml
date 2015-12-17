@@ -15,7 +15,7 @@
 
 %section
   .container.text-center
-    %h2= @presenter.cohort.title
+    %h2= @presenter.cohort.try(:title)
 
     = render 'courses/header_stats', presenter: @presenter
 
