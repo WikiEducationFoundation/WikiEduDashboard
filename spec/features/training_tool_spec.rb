@@ -12,11 +12,11 @@ describe 'Training', type: :feature, js: true do
   end
 
   describe 'root library' do
-    library_names = TrainingLibrary.all.map(&:name)
+    library_names = TrainingLibrary.all.map(&:slug)
     it 'loads for a logged-in user' do
       visit '/training'
       library_names.each do |library_name|
-        expect(page).to have_content library_name
+        expect(page).to have_content library_name.humanize.titleize
       end
     end
 
@@ -24,7 +24,7 @@ describe 'Training', type: :feature, js: true do
       logout(:user)
       visit '/training'
       library_names.each do |library_name|
-        expect(page).to have_content library_name
+        expect(page).to have_content library_name.humanize.titleize
       end
     end
 
