@@ -1,15 +1,12 @@
 name: Student Training Modules
 introduction: |
-  This set of training modules is intended to help students get started with
-  Wikipedia, including general training modules that are appropriate for most
-  new Wikipedia editors as well as specialized modules for particular kinds of
-  classroom projects.
+  This set of modules helps students get started with Wikipedia. This page lists every module, including 
+  specialized modules for particular classes. Check your course timeline to see which modules you should take, 
+  and when!
 categories:
   - title: Basics
     description: |
-      These are the general getting-started modules, which cover the basic rules
-      of Wikipedia, the mechanics of editing, and best practices for getting
-      started as a student editor.
+      These modules cover the basic rules of Wikipedia.
     modules:
       - slug: wikipedia-essentials
         name: Wikipedia Essentials
@@ -22,8 +19,7 @@ categories:
         description: Advice for thinking critically about Wikipedia article quality
   - title: Special topics
     description: |
-      These modules are important for class projects that include particular
-      tasks or subject areas.
+      These modules are for special class projects. 
     modules:
       - slug: editing-medical-topics
         name: Editing Medical Topics
@@ -36,7 +32,7 @@ categories:
         description: How to translate an article from Wikipedia in another language into English
   - title: How-to refreshers
     description: |
-      These modules cover a specific topic, with how-to instructors for the task at hand.
+      These modules cover specific topics, in-depth, with how-to instructions.
     modules:
       - slug: sandboxes
         name: Sandboxes and Mainspace
