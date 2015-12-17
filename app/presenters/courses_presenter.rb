@@ -18,8 +18,7 @@ class CoursesPresenter
   end
 
   def cohort
-    return NullCohort.new if cohort_param == 'none'
-    return unless Cohort.exists?(slug: cohort_param)
+    return NullCohort.new if cohort_param == 'none' || !Cohort.exists?(slug: cohort_param)
     Cohort.find_by(slug: cohort_param)
   end
 

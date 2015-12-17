@@ -121,6 +121,34 @@ describe 'Training', type: :feature, js: true do
     end
   end
 
+  describe 'finish module button' do
+    context 'logged in user' do
+      it 'redirects to their dashboard' do
+        login_as(user, scope: :user)
+        sleep 1
+        visit "/training/students/#{module_2.slug}/#{module_2.slides.last.slug}"
+        sleep 1
+        within '.training__slide__footer' do
+          click_link 'Done!'
+        end
+        sleep 1
+        expect(current_path).to eq(root_path)
+      end
+    end
+
+    context 'logged out user' do
+      it 'redirects to library index page' do
+        logout(:user)
+        visit "/training/students/#{module_2.slug}/#{module_2.slides.last.slug}"
+        sleep 1
+        within '.training__slide__footer' do
+          click_link 'Done!'
+        end
+        expect(current_path).to eq("/training/students")
+      end
+    end
+  end
+
   module_ids = TrainingModule.all.map(&:id)
   module_ids.each do |module_id|
     training_module = TrainingModule.find(module_id)

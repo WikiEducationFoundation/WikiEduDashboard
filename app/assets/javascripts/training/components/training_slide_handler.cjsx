@@ -48,6 +48,8 @@ TrainingSlideHandler = React.createClass(
     if @state.menuIsOpen
       e.stopPropagation()
       TrainingActions.toggleMenuOpen(currently: true)
+  userLoggedIn: ->
+    typeof document.getElementById('main').getAttribute('data-user-id') is 'string'
 
   keys: { rightKey: 39, leftKey: 37 }
 
@@ -91,10 +93,8 @@ TrainingSlideHandler = React.createClass(
                    button=true
                    params={@props.params} />
     else
-      nextLink = <a href="/training/#{@props.params.library_id}"
-                  className='btn btn-primary pull-right'>
-                   Done!
-                  </a>
+      nextHref = if @userLoggedIn() then '/' else "/training/#{@props.params.library_id}"
+      nextLink = <a href={nextHref} className='btn btn-primary pull-right'>Done!</a>
 
     if @state.previousSlide?.slug
       previousLink = <SlideLink
