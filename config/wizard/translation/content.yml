@@ -21,26 +21,27 @@ translation_essentials:
         title: Wikipedia essentials
         kind: 0 # In class
         content: |
-          * Overview of the course
-          * Introduction to how Wikipedia will be used in the course
-          * Understanding Wikipedia as a community, we'll discuss its expectations and etiquette.
-          * The differences between English Wikipedia and other Wikipedias
-
-          ---
-          Handouts: [Editing Wikipedia](http://wikiedu.org/editingwikipedia) and [Using Talk Pages](https://commons.wikimedia.org/wiki/File:Using_talk_pages.pdf)
+          <ul>
+            <li>Overview of the course</li>
+            <li>Introduction to how Wikipedia will be used in the course</li>
+            <li>Understanding Wikipedia as a community, we'll discuss its expectations and etiquette.</li>
+          </ul>
+          <hr />
+          <p>Handout: <a href="http://wikiedu.org/editingwikipedia">Editing Wikipedia</a></p>
       -
         if: ungraded_training
         title: Practicing the basics
         kind: 1
         training_module_ids: [1,2,7,10] # Wikipedia essentials, Editing basics, Evaluate an article, Translating articles
         content: |
-          * Create an account and a user page on Wikipedia
-          * Enroll in this course.
-          * Complete the *Online Training for Language Students*.
-          * To practice editing and communicating on Wikipedia, introduce yourself to another student on their user talk page.
-
-          ---
-          Resources: [Online Training for Language Students](https://en.wikipedia.org/wiki/Wikipedia:Training/For_language_students)
+          <ul>
+            <li>Create an account and a user page on Wikipedia</li>
+            <li>Enroll in this course.</li>
+            <li>Complete the <em>Online Training for Language Students</em>.</li>
+            <li>To practice editing and communicating on Wikipedia, introduce yourself to another student on their user talk page.</li>
+          </ul>
+          <hr />
+          <p>Resources: <a href="https://en.wikipedia.org/wiki/Wikipedia:Training/For_language_students">Online Training for Language Students</a></p>
       -
         if: graded_training
         title: Practicing the basics
@@ -49,13 +50,14 @@ translation_essentials:
         points: 5
         training_module_ids: [1,2,7] # Wikipedia essentials, Editing basics, Evaluate an article
         content: |
-          * Create an account and a user page on Wikipedia
-          * Enroll in this course.
-          * Complete the *Online Training for Language Students*.
-          * To practice editing and communicating on Wikipedia, introduce yourself to another student on their user talk page.
-
-          ---
-          Resources: [Online Training for Language Students](https://en.wikipedia.org/wiki/Wikipedia:Training/For_language_students)
+          <ul>
+            <li>Create an account and a user page on Wikipedia</li>
+            <li>Enroll in this course.</li>
+            <li>Complete the <em>Online Training for Language Students</em>.</li>
+            <li>To practice editing and communicating on Wikipedia, introduce yourself to another student on their user talk page.</li>
+          </ul>
+          <hr />
+          <p>Resources: <a href="https://en.wikipedia.org/wiki/Wikipedia:Training/For_language_students">Online Training for Language Students</a></p>
 
 translation_explore_to_find_articles:
   - # Week two
@@ -65,19 +67,25 @@ translation_explore_to_find_articles:
         title: Choose an article
         kind: 0
         content: |
-          * Choose two articles (a first choice, and a backup) to translate into English. Post the article links on your talk page, and submit them to the instructor for review.
-          * Once your instructor has approved one or both of your choices, finalize your choice of which article to translate.
+          <ul>
+            <li>Choose two articles (a first choice, and a backup) to translate into English. Post the article links on your talk page, and submit them to the instructor for review.</li>
+            <li>Once your instructor has approved one or both of your choices, finalize your choice of which article to translate.</li>
+          </ul>
+
       -
         title: Begin translating
         kind: 1
         content: |
-          * Copy your article from the target-language Wikipedia into your sandbox.
-          * Begin to translate your work.
-
-          ---
-          Supplementary trainings:
-          * [Sources and Citations](../../../training/students/sources)
-          * [Sandboxes and Mainspace](../../../training/students/sandboxes)
+          <ul>
+            <li>Copy your article from the target-language Wikipedia into your sandbox.</li>
+            <li>Begin to translate your work.</li>
+          </ul>
+          <hr />
+          <p>Supplementary trainings:</p>
+          <ul>
+            <li><a href="../../../training/students/sources">Sources and Citations</a></li>
+            <li><a href="../../../training/students/sandboxes">Sandboxes and Mainspace</a></li>
+          </ul>
 
 translation_choose_articles_from_list:
   - # Week two
@@ -87,18 +95,23 @@ translation_choose_articles_from_list:
         title: Choose an article
         kind: 0
         content: |
-          * Select an article from a list prepared by the instructor. Add it as your assigned article on the course page.
-
-          ---
-          Supplementary trainings:
-          * [Sources and Citations](../../../training/students/sources)
-          * [Sandboxes and Mainspace](../../../training/students/sandboxes)
+          <ul>
+            <li>Select an article from a list prepared by the instructor. Add it as your assigned article on the course page.</li>
+          </ul>
+          <hr />
+          <p>Supplementary trainings:</p>
+          <ul>
+            <li><a href="../../../training/students/sources">Sources and Citations</a></li>
+            <li><a href="../../../training/students/sandboxes">Sandboxes and Mainspace</a></li>
+          </ul>
       -
         title: Begin translating
         kind: 1
         content: |
-          * Copy your article from the target-language Wikipedia into your sandbox.
-          * Begin to translate your work.
+          <ul>
+            <li>Copy your article from the target-language Wikipedia into your sandbox.</li>
+            <li>Begin to translate your work.</li>
+          </ul>
 
 translation_core:
   - # Week three
@@ -109,24 +122,30 @@ translation_core:
         title: Translation
         kind: 0
         content: |
-          * Be ready to discuss your progess translating your article.
+          <ul>
+            <li>Be ready to discuss your progess translating your article.</li>
+          </ul>
       - # Week three assignment WITHOUT fact-checking assignment
         unless: fact_checking
         title: Translation
         kind: 1
         content: |
-          * Continue to translate your work.
+          <ul>
+            <li>Continue to translate your work.</li>
+          </ul>
       - # Week three in-class WITH fact-checking assignment
         if: fact_checking
         title: Translation
         kind: 0
         content: |
-          * Be ready to discuss your progess translating your article.
-          * Carefully note the original citations for facts in your source article.
-            * If an original source doesn't seem reliable, feel free to omit it from your translation.
+          <ul>
+            <li>Be ready to discuss your progess translating your article.</li>
+            <li>Carefully note the original citations for facts in your source article.
+            <ul><li>If an original source doesn't seem reliable, feel free to omit it from your translation.</li></ul></li>
+          </ul>
+          <hr />
+          <p>Handouts: <a href="https://commons.wikimedia.org/wiki/File:Citing_your_sources.pdf">Citing Sources</a> and <a href="https://commons.wikimedia.org/wiki/File:Avoiding_plagiarism.pdf">Avoid Plagiarism</a></p>
 
-          ---
-          Handouts: [Citing Sources](https://commons.wikimedia.org/wiki/File:Citing_your_sources.pdf) and [Avoid Plagiarism](https://commons.wikimedia.org/wiki/File:Avoiding_plagiarism.pdf)
       - # Week three assignment WITH fact-checking assignment
         if: fact_checking
         title: Translation and fact-checking
@@ -134,9 +153,11 @@ translation_core:
         graded: true
         points: 20
         content: |
-          * Continue to translate your work.
-          * Introduce citations from English-language texts that support the facts stated in your translated article. Adjust your translation if necessary.
-          * For each sentence you translate, make a note of the sources used in the original article. Are they good sources? Do they really say what the Wikipedia article describes?
+          <ul>
+            <li>Continue to translate your work.</li>
+            <li>Introduce citations from English-language texts that support the facts stated in your translated article. Adjust your translation if necessary.</li>
+            <li>For each sentence you translate, make a note of the sources used in the original article. Are they good sources? Do they really say what the Wikipedia article describes?</li>
+          </ul>
   - # Week four
     weight: 6
     blocks:
@@ -144,19 +165,23 @@ translation_core:
         title: Publish your work
         kind: 0
         content: |
-          * Discussion of fact-checking translated work, finding English-language sources.
+          <ul>
+            <li>Discussion of fact-checking translated work, finding English-language sources.</li>
+          </ul>
       -
         title: Publish your work
         kind: 1
         content: |
-          * Move sandbox articles into main space.
-            * If you are expanding an ***existing*** article, it's time to add your revised translation (including English sources, when available). Copy your edit into the article. If you are making many small edits, save after each edit before you make the next one. Do **NOT** paste over the entire existing article, or large sections of the existing article. Be sure to check the article's talk page and respond to suggestions from Wikipedians. Don't panic if your edits are removed or changed! Discuss it civilly on the article's talk page, and make a note of it for your report or presentation about your editing experience.
-            * If you are creating a ***new*** article, *do **NOT** copy and paste* your text, or there will be no record of your work history. Follow instruction on the "Moving out of your sandbox" handout.
-          * In your first edit to the article namespace, include a link of the source article (i.e., the article you translated) in the "edit summary" before hitting "save."
-          * Copy the code ```{{Translated page|es|Page Title}}``` to the bottom of the Wikipedia article, replacing ```es``` with the language code of the language you a translating from and replacing ```Page Title``` with the title of the source page.
+          <ul>
+            <li>Move sandbox articles into main space.
+              <ul><li>If you are expanding an <strong><em>existing</em></strong> article, it's time to add your revised translation (including English sources, when available). Copy your edit into the article. If you are making many small edits, save after each edit before you make the next one. Do <strong>NOT</strong> paste over the entire existing article, or large sections of the existing article. Be sure to check the article's talk page and respond to suggestions from Wikipedians. Don't panic if your edits are removed or changed! Discuss it civilly on the article's talk page, and make a note of it for your report or presentation about your editing experience.</li>
+            <li>If you are creating a <strong><em>new</em></strong> article, <em>do <strong>NOT</strong> copy and paste</em> your text, or there will be no record of your work history. Follow instruction on the "Moving out of your sandbox" handout.</li></ul></li>
+            <li>In your first edit to the article namespace, include a link of the source article (i.e., the article you translated) in the "edit summary" before hitting "save."</li>
+            <li>Copy the code <code>{{Translated page|es|Page Title}}</code> to the bottom of the Wikipedia article, replacing <code>es</code> with the language code of the language you a translating from and replacing <code>Page Title</code> with the title of the source page.</li>
+          </ul>
+          <hr />
+          <p>Handout: <a href="https://commons.wikimedia.org/wiki/File:Moving_out_of_your_sandbox.pdf">Moving out of your sandbox</a></p>
 
-          ---
-          Handout: [Moving out of your sandbox](https://commons.wikimedia.org/wiki/File:Moving_out_of_your_sandbox.pdf)
   - # Week five
     weight: 1
     blocks:
@@ -164,11 +189,13 @@ translation_core:
         title: Revise and review
         kind: 0
         content: |
-          * Individual presentations about your translation process, how you selected your articles, and your observations about how this differs from a traditional translation assignment.
+          <ul>
+            <li>Individual presentations about your translation process, how you selected your articles, and your observations about how this differs from a traditional translation assignment.</li>
+          </ul>
       -
         title: Final translation
         kind: 2 # Milestone
         graded: true
         points: 80
         content: |
-          Students have finished all their work on Wikipedia that will be considered for grading.
+          <p>Students have finished all their work on Wikipedia that will be considered for grading.</p>

@@ -20,19 +20,22 @@ illustrate:
       - title: Wikipedia essentials
         kind: 0
         content: |
-          * Overview of the course
-          * Introduction to how Wikipedia will be used in the course
-          * Understanding Wikipedia as a community, we'll discuss its expectations and etiquette.
-
-          ---
-          Handouts: [Editing Wikipedia](http://wikiedu.org/editingwikipedia), [***Illustrating Wikipedia***](http://wikiedu.org/illustratingwikipedia)
+          <ul>
+            <li>Overview of the course</li>
+            <li>Introduction to how Wikipedia will be used in the course</li>
+            <li>Understanding Wikipedia as a community, we'll discuss its expectations and etiquette.</li>
+          </ul>
+          <hr>
+          <p>Handouts: <a href='http://wikiedu.org/editingwikipedia'>Editing Wikipedia</a>, <strong><a href='http://wikiedu.org/illustratingwikipedia'>Illustrating Wikipedia</a></strong>
 
       - title: Learn the basics
         kind: 1
         graded: true
         training_module_ids: [1,2,6] # Wikipedia essentials, Editing basics, Images and media
         content: |
-          * Complete the training for contributing and adding images and multimedia.
+          <ul>
+            <li>Complete the training for contributing and adding images and multimedia.</li>
+          </ul>
 
 
   - # ILLUSTRATE
@@ -44,6 +47,8 @@ illustrate:
         graded: true
         points: 20
         content: |
-          * Identify an article that would benefit from illustration, create or find an appropriate photo, illustration, or audio/video, and add it to the article.
-            * All media uploaded to Wikipedia must fall under a "free license," which means they can be used or shared by anyone. Examples of media you can use are photos that you take yourself, images and text in the public domain, and works created by someone else who has given permission for their work to be used by others. For more information about which types of media can be uploaded to Wikipedia, see [Commons:Help desk](https://commons.wikimedia.org/wiki/Commons:Help_desk).
-            * To add a media file to an article, you must first upload it to Wikimedia Commons. For instructions on how to upload files to Commons, refer to [***Illustrating Wikipedia***](http://wikiedu.org/illustratingwikipedia). This brochure will also provide you with detailed information about which files are acceptable to upload to Wikipedia and the value of contributing media to Wikipedia articles.
+          <ul>
+            <li>Identify an article that would benefit from illustration, create or find an appropriate photo, illustration, or audio/video, and add it to the article.
+            <ul><li>All media uploaded to Wikipedia must fall under a "free license," which means they can be used or shared by anyone. Examples of media you can use are photos that you take yourself, images and text in the public domain, and works created by someone else who has given permission for their work to be used by others. For more information about which types of media can be uploaded to Wikipedia, see <a href="https://commons.wikimedia.org/wiki/Commons:Help_desk">Commons:Help desk</a>.</li>
+            <li>To add a media file to an article, you must first upload it to Wikimedia Commons. For instructions on how to upload files to Commons, refer to <a href="http://wikiedu.org/illustratingwikipedia"><strong><em>Illustrating Wikipedia</em></strong></a>. This brochure will also provide you with detailed information about which files are acceptable to upload to Wikipedia and the value of contributing media to Wikipedia articles.</li></ul></li>
+          </ul>
