@@ -22,7 +22,7 @@ InlineUsers = React.createClass(
     allowed = @props.role != 4 || (@props.current_user.role == 4 || @props.current_user.admin)
     button = <EnrollButton {...@props} users={@props.users} role={@props.role} key={key} inline=true allowed={allowed} show={@props.editable && allowed} />
 
-    <p key={key}>{inline_list}{button}</p>
+    <div key={key}>{inline_list}{button}</div>
 )
 
 module.exports = InlineUsers

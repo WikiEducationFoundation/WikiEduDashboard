@@ -4,6 +4,8 @@ WeekdayPicker = require 'react-weekday-picker'
 
 CourseActions = require '../../actions/course_actions'
 
+CourseDateUtils   = require '../../utils/course_date_utils'
+
 Calendar = React.createClass(
   displayName: 'Calendar'
   getInitialState: ->
@@ -12,6 +14,7 @@ Calendar = React.createClass(
     if nextProps.course.start != moment(@state.initialMonth).format('YYYY-MM-DD')
       @setState
         initialMonth: moment(nextProps.course.start).toDate()
+
   selectDay: (e, day) ->
     return unless @inrange(day)
     course = @props.course
@@ -25,6 +28,12 @@ Calendar = React.createClass(
       exceptions.splice(exceptions.indexOf(formatted), 1)
     else
       exceptions.push formatted
+      utils = CourseDateUtils
+      console.log utils.wouldCreateBlackoutWeek(@props.course, day, exceptions)
+      if utils.wouldCreateBlackoutWeek(@props.course, day, exceptions) && utils.moreWeeksThanAvailable(@props.course, @props.weeks, exceptions)
+        alert(I18n.t('timeline.blackout_week_created'))
+        return false
+
     course['day_exceptions'] = exceptions.join(',')
     course['no_day_exceptions'] = (_.compact(exceptions).length is 0)
     CourseActions.updateCourse course, (@props.save? && @props.save)
@@ -111,6 +120,7 @@ Calendar = React.createClass(
             initialMonth={@state.initialMonth}
           />
           <div className='course-dates__calendar-key'>
+            <h3>Legend</h3>
             <ul>
               <li>
                 <div className='DayPicker-Day DayPicker-Day--highlighted DayPicker-Day--selected'>6</div>

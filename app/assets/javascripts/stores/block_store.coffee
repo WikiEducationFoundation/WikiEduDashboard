@@ -6,7 +6,8 @@ Flux            = new McFly()
 _blocks = {}
 _persisted = {}
 _trainingModule = {}
-
+_editableBlockIds = []
+_editingAddedBlock = false
 
 # Utilities
 setBlocks = (data, persisted=false) ->
@@ -31,7 +32,7 @@ setTrainingModule = (module) ->
 addBlock = (week_id) ->
   week_blocks = BlockStore.getBlocksInWeek week_id
   week_blocks = $.grep week_blocks, (block) -> !block.deleted
-  setBlock {
+  block = {
     id: Date.now(),
     is_new: true,
     kind: 0,
@@ -42,24 +43,51 @@ addBlock = (week_id) ->
     order: week_blocks.length,
     duration: null
   }
+  setBlock block
+  setEditableBlockId(block.id)
 
 removeBlock = (block_id) ->
-  block = _blocks[block_id]
-  if block.is_new
-    delete _blocks[block_id]
-  else
-    block['deleted'] = true
+  delete _blocks[block_id]
+  _editingAddedBlock = false
   BlockStore.emitChange()
 
-insertBlock = (block, week_id, order) ->
-  week_blocks = BlockStore.getBlocksInWeek week_id
-  for week_block in week_blocks
-    return unless week_block.order >= order
-    week_block.order += 1
-    setBlock week_block, true
-  block.order = order
-  block.week_id = week_id
-  setBlock block
+insertBlock = (block, toWeek, targetIndex) ->
+  WeekStore = require('./week_store')
+  fromWeekId = block.week_id
+  block.week_id = toWeek.id
+
+  if targetIndex?
+    if toWeek.id == fromWeekId
+      block.order = if block.order > targetIndex then targetIndex - .5 else targetIndex + .5
+    else
+      fromWeek = WeekStore.getWeek(fromWeekId)
+      block.order = if fromWeek.order > toWeek.order then targetIndex + 999 else targetIndex - .5
+  else
+    block.order = -1
+
+  setBlock block, true
+
+  fromWeekBlocks = BlockStore.getBlocksInWeek(fromWeekId)
+  fromWeekBlocks.forEach (b, i) ->
+    b.order = i
+    setBlock b, true
+
+  if fromWeekId != toWeek.id
+    toWeekBlocks = BlockStore.getBlocksInWeek(toWeek.id)
+    toWeekBlocks.forEach (b, i) ->
+      b.order = i
+      setBlock b, true
+  BlockStore.emitChange()
+
+isAddedBlock = (blockId) ->
+  # new block ids are set to Date.now()
+  blockId > 1000000000
+
+setEditableBlockId = (blockId) ->
+  _editableBlockIds.push(blockId)
+  _editingAddedBlock = true if isAddedBlock(blockId)
+  BlockStore.emitChange()
+
 
 # Store
 BlockStore = Flux.createStore
@@ -72,11 +100,24 @@ BlockStore = Flux.createStore
     return block_list
   getBlocksInWeek: (week_id) ->
     _.filter(_blocks, (block) -> block.week_id == week_id)
+      .sort((a,b) -> a.order - b.order)
   restore: ->
     _blocks = $.extend(true, {}, _persisted)
+    _editingAddedBlock = false
     BlockStore.emitChange()
   getTrainingModule: ->
     return _trainingModule
+  getEditableBlockIds: ->
+    return _editableBlockIds
+  clearEditableBlockIds: ->
+    _editableBlockIds = []
+    BlockStore.emitChange()
+  cancelBlockEditable: (block_id) ->
+    _editableBlockIds.splice(_editableBlockIds.indexOf(block_id), 1)
+    _editingAddedBlock = false
+    BlockStore.emitChange()
+  editingAddedBlock: ->
+    return _editingAddedBlock
 
 , (payload) ->
   data = payload.data
@@ -95,7 +136,10 @@ BlockStore = Flux.createStore
       removeBlock data.block_id
       break
     when 'INSERT_BLOCK'
-      insertBlock data.block, data.week_id, data.order
+      insertBlock data.block, data.toWeek, data.afterBlock
+      break
+    when 'SET_BLOCK_EDITABLE'
+      setEditableBlockId data.block_id
       break
   return true
 

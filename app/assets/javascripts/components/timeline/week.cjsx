@@ -1,19 +1,24 @@
-React           = require 'react'
-DND             = require 'react-dnd'
-HTML5DND        = require 'react-dnd-html5-backend'
-Block           = require './block'
-BlockActions    = require '../../actions/block_actions'
-WeekActions     = require '../../actions/week_actions'
-GradeableStore  = require '../../stores/gradeable_store'
-TextInput       = require '../common/text_input'
+React            = require 'react'
+DND              = require 'react-dnd'
+HTML5DND         = require 'react-dnd-html5-backend'
+Block            = require './block'
+OrderableBlock   = require './orderable_block'
+BlockActions     = require '../../actions/block_actions'
+WeekActions      = require '../../actions/week_actions'
+GradeableStore   = require '../../stores/gradeable_store'
+TextInput        = require '../common/text_input'
 
-ReactCSSTG      = require 'react-addons-css-transition-group'
+ReactCSSTG       = require 'react-addons-css-transition-group'
+{Motion, spring} = require 'react-motion'
+
+DateCalculator  = require '../../utils/date_calculator'
 
 Week = React.createClass(
   displayName: 'Week'
   getInitialState: ->
     focusedBlockId: null
   addBlock: ->
+    @_scrollToAddedBlock()
     BlockActions.addBlock @props.week.id
   deleteBlock: (block_id) ->
     BlockActions.deleteBlock block_id
@@ -22,72 +27,114 @@ Week = React.createClass(
     to_pass['title'] = value
     WeekActions.updateWeek to_pass
   toggleFocused: (block_id) ->
+    console.log "focused " + block_id
     if @state.focusedBlockId == block_id
       @setState focusedBlockId: null
     else
       @setState focusedBlockId: block_id
+  _setWeekEditable: (week_id) ->
+    WeekActions.setWeekEditable(week_id)
+  _scrollToAddedBlock: ->
+    wk = document.getElementsByClassName("week-#{@props.index}")[0]
+    scrollTop = window.scrollTop || document.body.scrollTop
+    bottom = Math.abs(wk.getBoundingClientRect().bottom)
+    elBottom = bottom + scrollTop - 50
+    window.scrollTo(0, elBottom)
   render: ->
-    # Start and end dates
-    start = moment(@props.start).startOf('week').add(7 * (@props.index - 1), 'day')
-    end = moment.min(start.clone().add(6, 'day'), moment(@props.end))
-
     blocks = @props.blocks.map (block, i) =>
       unless block.deleted
-        <Block
-          toggleFocused={@toggleFocused.bind(this, block.id)}
-          canDrag={@state.focusedBlockId != block.id}
-          block={block}
-          key={block.id}
-          editable={@props.editable}
-          gradeable={GradeableStore.getGradeableByBlock(block.id)}
-          deleteBlock={@deleteBlock.bind(this, block.id)}
-          moveBlock={@props.moveBlock}
-          week_index={@props.index}
-          week_start={moment(@props.start).startOf('isoWeek').add(7 * (@props.index - 1), 'day')}
-          all_training_modules={@props.all_training_modules}
-        />
-    blocks.sort (a, b) ->
-      a.props.block.order - b.props.block.order
+        if @props.reorderable
+          <Motion key={block.id} defaultStyle={{y: i * 75}} style={{y: spring(i * 75, [220, 30])}}>
+            {(value) =>
+              rounded = Math.round(value.y)
+              animating = rounded != i * 75
+              willChange = if animating then 'top' else 'initial'
+              style =
+                top: rounded
+                position: 'absolute'
+                width: '100%'
+                left: 0
+                willChange: willChange
+                marginLeft: 0
+              <li style={style}>
+                <OrderableBlock
+                  block={block}
+                  canDrag={true}
+                  animating={animating}
+                  onDrag={@props.onBlockDrag.bind(null, i)}
+                  onMoveUp={@props.onMoveBlockUp.bind(null, block.id)}
+                  onMoveDown={@props.onMoveBlockDown.bind(null, block.id)}
+                  disableDown={!@props.canBlockMoveDown(block, i)}
+                  disableUp={!@props.canBlockMoveUp(block, i)}
+                  index={i}
+                  title={block.title}
+                  kind={['In Class', 'Assignment', 'Milestone', 'Custom'][block.kind]}
+                />
+              </li>
+            }
+          </Motion>
+        else
+          <Block
+            toggleFocused={@toggleFocused.bind(this, block.id)}
+            block={block}
+            key={block.id}
+            edit_permissions={@props.edit_permissions}
+            gradeable={GradeableStore.getGradeableByBlock(block.id)}
+            deleteBlock={@deleteBlock.bind(this, block.id)}
+            moveBlock={@props.moveBlock}
+            week_index={@props.index}
+            week_start={@props.start_date}
+            all_training_modules={@props.all_training_modules}
+            editable_block_ids={@props.editable_block_ids}
+            saveBlockChanges={@props.saveBlockChanges}
+            cancelBlockEditable={@props.cancelBlockEditable}
+          />
 
-    if @props.editable
-      addBlock = (
-        <li className="row view-all">
-          <div>
-            <button className='button' onClick={@addBlock}>Add New Block</button>
-          </div>
-        </li>
-      )
-      deleteWeek = <button onClick={@props.deleteWeek} className='button danger right'>Delete Week</button>
-    if @props.showTitle == undefined || @props.showTitle
-      if (@props.week.title? || @props.editable)
-        spacer = '  —  '
+    add_block = if !@props.reorderable && !@props.editing_added_block then (
+      <span className="pull-right week__add-block" href="" onClick={@addBlock}>Add Block</span>
+    )
+
+    week_add_delete = if @props.meetings && @props.edit_permissions then (
+      <div className="week__week-add-delete pull-right">
+        {add_block}
+        <span className="pull-right week__delete-week" href="" onClick={@props.deleteWeek}>Delete Week</span>
+      </div>
+    )
+
+    dateCalc = new DateCalculator(@props.start, @props.end, @props.index, zeroIndexed: false)
+    week_dates = (
+      <span className='week__week-dates pull-right'>
+        {dateCalc.start()} - {dateCalc.end()} {@props.meetings if @props.meetings}
+      </span>
+    )
+
+    week_content = if @props.meetings then (
+      if @props.reorderable
+        style =
+          position: 'relative'
+          height: blocks.length * 75
+          transition: 'height 500ms ease-in-out'
+        <ReactCSSTG transitionName="shrink" transitionEnterTimeout={250} transitionLeaveTimeout={250} component="ul" className="week__block-list list-unstyled" style={style}>
+          {blocks}
+        </ReactCSSTG>
       else
-        spacer = ' '
-      week_label = 'Week ' + @props.index
-      # Final label
-      week_label += " (#{start.format('MM/DD')} - #{end.format('MM/DD')}) #{@props.meetings}"
-      title = (
-        <TextInput
-          onChange={@updateWeek}
-          value={@props.week.title}
-          value_key={'title'}
-          editable={@props.editable}
-          label={week_label}
-          spacer={spacer}
-          placeholder='Title'
-        />
-      )
+        <ul className="week__block-list list-unstyled">
+          {blocks}
+        </ul>
+    ) else (
+      <div className="week__no-activity">
+        <h1 className="h3">No activity this week</h1>
+      </div>
+    )
 
     weekClassName = "week week-#{@props.index}"
     <li className={weekClassName}>
-      <div style={overflow: 'hidden'}>
-        {deleteWeek}
-        {title}
+      <div className="week__week-header">
+        {week_add_delete}
+        {week_dates}
+        <p className='week-index'>{'Week ' + @props.index}</p>
       </div>
-      <ul className="list-unstyled">
-        {blocks}
-        {addBlock}
-      </ul>
+      {week_content}
     </li>
 )
 

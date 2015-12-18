@@ -93,8 +93,8 @@ class WizardTimelineManager
   def save_timeline(timeline)
     new_week = nil
     week_finished = false
-    timeline.each do |week|
-      week[:blocks].each_with_index do |block, i|
+    timeline.each_with_index do |week, week_index|
+      week[:blocks].each_with_index do |block, block_index|
         # Skip blocks with unmet 'if' or 'unless' dependencies
 
         next unless if_dependencies_met?(block)
@@ -103,10 +103,10 @@ class WizardTimelineManager
         # next unless unless_dependencies_met?(block)
 
         if new_week.nil? || (!new_week.blocks.blank? && week_finished)
-          new_week = Week.create(course_id: @course.id)
+          new_week = Week.create(course_id: @course.id, order: week_index + 1)
           week_finished = false
         end
-        save_block_and_gradeable(new_week, block, i)
+        save_block_and_gradeable(new_week, block, block_index + 1)
       end
       week_finished = true
     end

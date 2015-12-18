@@ -11,205 +11,205 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151115182730) do
+ActiveRecord::Schema.define(version: 20151217170112) do
 
-  create_table "articles", force: true do |t|
-    t.string   "title"
-    t.integer  "views",                    limit: 8,  default: 0
-    t.datetime "created_at"
+  create_table "articles", force: :cascade do |t|
+    t.string   "title",                    limit: 255
+    t.integer  "views",                    limit: 8,   default: 0
     t.datetime "updated_at"
-    t.integer  "character_sum",                       default: 0
-    t.integer  "revision_count",                      default: 0
+    t.datetime "created_at"
+    t.integer  "character_sum",            limit: 4,   default: 0
+    t.integer  "revision_count",           limit: 4,   default: 0
     t.date     "views_updated_at"
-    t.integer  "namespace"
-    t.string   "rating"
+    t.integer  "namespace",                limit: 4
+    t.string   "rating",                   limit: 255
     t.datetime "rating_updated_at"
-    t.boolean  "deleted",                             default: false
+    t.boolean  "deleted",                              default: false
     t.string   "language",                 limit: 10
     t.float    "average_views",            limit: 24
     t.date     "average_views_updated_at"
   end
 
-  create_table "articles_courses", force: true do |t|
+  create_table "articles_courses", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "article_id"
-    t.integer  "course_id"
+    t.integer  "article_id",    limit: 4
+    t.integer  "course_id",     limit: 4
     t.integer  "view_count",    limit: 8, default: 0
-    t.integer  "character_sum",           default: 0
+    t.integer  "character_sum", limit: 4, default: 0
     t.boolean  "new_article",             default: false
   end
 
-  create_table "assignments", force: true do |t|
+  create_table "assignments", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id"
-    t.integer  "course_id"
-    t.integer  "article_id"
-    t.string   "article_title"
-    t.integer  "role"
+    t.string   "article_title", limit: 255
+    t.integer  "user_id",       limit: 4
+    t.integer  "course_id",     limit: 4
+    t.integer  "article_id",    limit: 4
+    t.integer  "role",          limit: 4
   end
 
   add_index "assignments", ["course_id", "user_id", "article_title", "role"], name: "by_course_user_article_and_role", unique: true, using: :btree
 
-  create_table "blocks", force: true do |t|
-    t.integer  "kind"
-    t.text     "content"
-    t.integer  "week_id"
-    t.integer  "gradeable_id"
+  create_table "blocks", force: :cascade do |t|
+    t.integer  "kind",                limit: 4
+    t.text     "content",             limit: 65535
+    t.integer  "week_id",             limit: 4
+    t.integer  "gradeable_id",        limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "title"
-    t.integer  "order"
+    t.string   "title",               limit: 255
+    t.integer  "order",               limit: 4
     t.date     "due_date"
-    t.text     "training_module_ids"
+    t.text     "training_module_ids", limit: 65535
   end
 
-  create_table "cohorts", force: true do |t|
-    t.string   "title"
-    t.string   "slug"
-    t.string   "url"
+  create_table "cohorts", force: :cascade do |t|
+    t.string   "title",      limit: 255
+    t.string   "slug",       limit: 255
+    t.string   "url",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "cohorts_courses", force: true do |t|
-    t.integer  "cohort_id"
-    t.integer  "course_id"
+  create_table "cohorts_courses", force: :cascade do |t|
+    t.integer  "cohort_id",  limit: 4
+    t.integer  "course_id",  limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "commons_uploads", force: true do |t|
-    t.integer  "user_id"
-    t.string   "file_name"
+  create_table "commons_uploads", force: :cascade do |t|
+    t.integer  "user_id",     limit: 4
+    t.string   "file_name",   limit: 255
     t.datetime "uploaded_at"
-    t.integer  "usage_count"
+    t.integer  "usage_count", limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "thumburl",    limit: 2000
-    t.string   "thumbwidth"
-    t.string   "thumbheight"
-    t.boolean  'deleted', default: false
+    t.string   "thumbwidth",  limit: 255
+    t.string   "thumbheight", limit: 255
+    t.boolean  "deleted",                  default: false
   end
 
-  create_table "courses", force: true do |t|
-    t.string   "title"
+  create_table "courses", force: :cascade do |t|
+    t.string   "title",             limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.date     "start"
     t.date     "end"
-    t.string   "school"
-    t.string   "term"
-    t.integer  "character_sum",               default: 0
-    t.integer  "view_sum",          limit: 8, default: 0
-    t.integer  "user_count",                  default: 0
-    t.integer  "article_count",               default: 0
-    t.integer  "revision_count",              default: 0
-    t.string   "slug"
-    t.boolean  "listed",                      default: true
-    t.string   "signup_token"
-    t.string   "assignment_source"
-    t.string   "subject"
-    t.integer  "expected_students"
-    t.text     "description"
-    t.boolean  "submitted",                   default: false
-    t.string   "passcode"
+    t.string   "school",            limit: 255
+    t.string   "term",              limit: 255
+    t.integer  "character_sum",     limit: 4,     default: 0
+    t.integer  "view_sum",          limit: 8,     default: 0
+    t.integer  "user_count",        limit: 4,     default: 0
+    t.integer  "article_count",     limit: 4,     default: 0
+    t.integer  "revision_count",    limit: 4,     default: 0
+    t.string   "slug",              limit: 255
+    t.boolean  "listed",                          default: true
+    t.string   "signup_token",      limit: 255
+    t.string   "assignment_source", limit: 255
+    t.string   "subject",           limit: 255
+    t.integer  "expected_students", limit: 4
+    t.text     "description",       limit: 65535
+    t.boolean  "submitted",                       default: false
+    t.string   "passcode",          limit: 255
     t.date     "timeline_start"
     t.date     "timeline_end"
-    t.string   "day_exceptions",              default: ""
-    t.string   "weekdays",                    default: "0000000"
-    t.integer  "new_article_count"
-    t.boolean  "no_day_exceptions",           default: false
-    t.integer  "trained_count",               default: 0
-    t.integer  "cloned_status"
+    t.string   "day_exceptions",    limit: 255,   default: ""
+    t.string   "weekdays",          limit: 255,   default: "0000000"
+    t.integer  "new_article_count", limit: 4
+    t.boolean  "no_day_exceptions",               default: false
+    t.integer  "trained_count",     limit: 4,     default: 0
+    t.integer  "cloned_status",     limit: 4
   end
 
   add_index "courses", ["slug"], name: "index_courses_on_slug", using: :btree
 
-  create_table "courses_users", force: true do |t|
+  create_table "courses_users", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "course_id"
-    t.integer  "user_id"
-    t.integer  "character_sum_ms",       default: 0
-    t.integer  "character_sum_us",       default: 0
-    t.integer  "revision_count",         default: 0
-    t.string   "assigned_article_title"
-    t.integer  "role",                   default: 0
+    t.integer  "course_id",              limit: 4
+    t.integer  "user_id",                limit: 4
+    t.integer  "character_sum_ms",       limit: 4,   default: 0
+    t.integer  "character_sum_us",       limit: 4,   default: 0
+    t.integer  "revision_count",         limit: 4,   default: 0
+    t.string   "assigned_article_title", limit: 255
+    t.integer  "role",                   limit: 4,   default: 0
   end
 
-  create_table "gradeables", force: true do |t|
-    t.string   "title"
-    t.integer  "points"
-    t.integer  "gradeable_item_id"
+  create_table "gradeables", force: :cascade do |t|
+    t.string   "title",               limit: 255
+    t.integer  "points",              limit: 4
+    t.integer  "gradeable_item_id",   limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "gradeable_item_type"
+    t.string   "gradeable_item_type", limit: 255
   end
 
-  create_table "revisions", force: true do |t|
-    t.integer  "characters",                default: 0
+  create_table "revisions", force: :cascade do |t|
+    t.integer  "characters",     limit: 4,   default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id"
-    t.integer  "article_id"
-    t.integer  "views",          limit: 8,  default: 0
+    t.integer  "user_id",        limit: 4
+    t.integer  "article_id",     limit: 4
+    t.integer  "views",          limit: 8,   default: 0
     t.datetime "date"
-    t.boolean  "new_article",               default: false
-    t.boolean  "deleted",                   default: false
+    t.boolean  "new_article",                default: false
+    t.boolean  "deleted",                    default: false
+    t.boolean  "system",                     default: false
     t.float    "wp10",           limit: 24
     t.float    "wp10_previous",  limit: 24
-    t.boolean  "system",                    default: false
-    t.integer  "ithenticate_id"
-    t.string   "report_url"
+    t.integer  "ithenticate_id", limit: 4
+    t.string   "report_url",     limit: 255
   end
 
   add_index "revisions", ["article_id", "date"], name: "index_revisions_on_article_id_and_date", using: :btree
 
-  create_table "tags", force: true do |t|
-    t.integer  "course_id"
-    t.string   "tag"
-    t.string   "key"
+  create_table "tags", force: :cascade do |t|
+    t.integer  "course_id",  limit: 4
+    t.string   "tag",        limit: 255
+    t.string   "key",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "tags", ["course_id", "key"], name: "index_tags_on_course_id_and_key", unique: true, using: :btree
 
-  create_table "training_modules_users", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "training_module_id"
-    t.string   "last_slide_completed"
+  create_table "training_modules_users", force: :cascade do |t|
+    t.integer  "user_id",              limit: 4
+    t.integer  "training_module_id",   limit: 4
+    t.string   "last_slide_completed", limit: 255
     t.datetime "completed_at"
   end
 
-  create_table "users", force: true do |t|
-    t.string   "wiki_id"
+  create_table "users", force: :cascade do |t|
+    t.string   "wiki_id",             limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "character_sum",                 default: 0
-    t.integer  "view_sum",            limit: 8, default: 0
-    t.integer  "course_count",                  default: 0
-    t.integer  "article_count",                 default: 0
-    t.integer  "revision_count",                default: 0
-    t.boolean  "trained",                       default: false
-    t.integer  "global_id"
+    t.integer  "character_sum",       limit: 4,   default: 0
+    t.integer  "view_sum",            limit: 8,   default: 0
+    t.integer  "course_count",        limit: 4,   default: 0
+    t.integer  "article_count",       limit: 4,   default: 0
+    t.integer  "revision_count",      limit: 4,   default: 0
+    t.boolean  "trained",                         default: false
+    t.integer  "global_id",           limit: 4
     t.datetime "remember_created_at"
-    t.string   "remember_token"
-    t.string   "wiki_token"
-    t.string   "wiki_secret"
-    t.integer  "permissions",                   default: 0
-    t.string   "real_name"
-    t.string   "email"
+    t.string   "remember_token",      limit: 255
+    t.string   "wiki_token",          limit: 255
+    t.string   "wiki_secret",         limit: 255
+    t.integer  "permissions",         limit: 4,   default: 0
+    t.string   "real_name",           limit: 255
+    t.string   "email",               limit: 255
+    t.boolean  "onboarded",                       default: false
   end
 
-  create_table "weeks", force: true do |t|
-    t.string   "title"
-    t.integer  "course_id"
+  create_table "weeks", force: :cascade do |t|
+    t.integer  "course_id",  limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "order",      default: 1, null: false
+    t.integer  "order",      limit: 4, default: 1, null: false
   end
 
 end

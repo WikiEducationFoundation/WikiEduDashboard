@@ -1,5 +1,6 @@
-McFly       = require 'mcfly'
-Flux        = new McFly()
+McFly = require 'mcfly'
+Flux  = new McFly()
+API   = require '../utils/api'
 
 WeekActions = Flux.createActions
   addWeek: ->
@@ -9,7 +10,14 @@ WeekActions = Flux.createActions
       week: week
     }}
   deleteWeek: (week_id) ->
-    { actionType: 'DELETE_WEEK', data: {
+    API.deleteWeek(week_id).then (data) ->
+      { actionType: 'DELETE_WEEK', data: {
+        week_id: data.week_id
+      }}
+    .catch (data) ->
+      { actionType: 'API_FAIL', data: data }
+  setWeekEditable: (week_id) ->
+    { actionType: 'SET_WEEK_EDITABLE', data: {
       week_id: week_id
     }}
 

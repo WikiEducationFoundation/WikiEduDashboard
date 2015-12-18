@@ -197,11 +197,6 @@ describe 'New course creation and editing', type: :feature do
       expect(page).to have_content 'Week 1'
       expect(page).to have_content 'Week 2'
 
-      # Click edit and then cancel
-      first('button.dark').click
-      sleep 1
-      first('button').click
-
       # Edit course dates and save
       click_link 'Edit Course Dates'
       first('attr[title="Thursday"]').click
@@ -210,47 +205,37 @@ describe 'New course creation and editing', type: :feature do
       first('.button.dark').click
       sleep 1
 
-      # Click edit and then make a change and save it.
-      first('.section-header') { click_button('Edit') }
+      within('.week-1 .week__week-add-delete') do
+        find('.week__delete-week').click
+      end
       sleep 1
-      first('button.dark').click
-      within('div.course_main') { first('input').set('The first week') }
-      sleep 1
-      first('input[type=checkbox]').set(true)
-      sleep 1
-      first('button.dark').click
-      sleep 1
-      expect(page).to have_content 'The first week'
+      prompt = page.driver.browser.switch_to.alert
+      prompt.accept
+      # There should now be 4 weeks
+      expect(page).not_to have_content "Week 5"
 
-      # Click edit, delete some stuff, and save it.
-      first('button.dark').click
-      sleep 1
-      page.all('button.danger')[1].click
-      sleep 1
-      page.all('button.danger')[0].click
-      sleep 1
-      page.all('button.danger')[1].click
-      sleep 1
-      first('button.dark').click
-      sleep 1
-      expect(page).not_to have_content 'The first week'
 
       # Click edit, mark a gradeable and save it.
-      first('button.dark').click
-      sleep 1
-      first('input[type=checkbox]').set(true)
-      sleep 1
-      first('button.dark').click
+      find('.week-1').hover
+      sleep 0.5
+      within('.week-1') do
+        find('.block__edit-block').click
+        find('p.graded input[type=checkbox]').set(true)
+        sleep 1
+        click_button 'Save'
+      end
       sleep 1
 
       # Edit the gradeable.
-      page.all('button').last.click
-      sleep 1
-      page.all('input').last.set('50')
-      sleep 1
-      page.all('button.dark').last.click
-      sleep 1
-      expect(page).to have_content 'Value: 50%'
+      within('.grading__grading-container') do
+        click_button 'Edit'
+        sleep 1
+        all('input').last.set('50')
+        sleep 1
+        click_button 'Save'
+        sleep 1
+        expect(page).to have_content 'Value: 50%'
+      end
 
       # Navigate back to overview, check relevant data, then delete course
       visit "/courses/#{Course.first.slug}"
@@ -326,9 +311,7 @@ describe 'New course creation and editing', type: :feature do
       stub_oauth_edit
 
       # Visit timline and open wizard
-      visit "/courses/#{Course.first.slug}/timeline"
-      wizard_link = "/courses/#{Course.first.slug}/timeline/wizard"
-      find("a[href='#{wizard_link}']").click
+      visit "/courses/#{Course.first.slug}/timeline/wizard"
       sleep 1
 
       go_through_researchwrite_wizard
@@ -353,12 +336,17 @@ describe 'New course creation and editing', type: :feature do
         expect(page).to have_content module_name
       end
 
-      within('.timeline-ctas') { click_button 'Edit' }
+      find('.week-2').hover
+      sleep 0.5
+      within('.week-2') do
+        find('.block__edit-block').click
+      end
+      sleep 1
       within(".week-2 .block-kind-#{Block::KINDS['assignment']}") do
         find('.Select-control input').set(unassigned_module_name[0..5])
         find('.Select-menu-outer .Select-option', text: unassigned_module_name).click
       end
-      within('.timeline-ctas') { click_button 'Save' }
+      within('.block__block-actions') { click_button 'Save' }
 
       within ".week-2 .block-kind-#{Block::KINDS['assignment']}" do
         expect(page).to have_content unassigned_module_name
@@ -387,9 +375,7 @@ describe 'New course creation and editing', type: :feature do
       stub_oauth_edit
 
       # Visit timline and open wizard
-      visit "/courses/#{Course.first.slug}/timeline"
-      wizard_link = "/courses/#{Course.first.slug}/timeline/wizard"
-      find("a[href='#{wizard_link}']").click
+      visit "/courses/#{Course.first.slug}/timeline/wizard"
       sleep 1
 
       go_through_researchwrite_wizard
@@ -438,6 +424,86 @@ describe 'New course creation and editing', type: :feature do
     logout
     Capybara.use_default_driver
   end
+end
+
+describe 'reordering blocks in a course', js: true do
+
+  let!(:course) do
+    create(:course, id: 10001, start: Date.new(2015, 1, 1),
+                    end: Date.new(2015, 2, 1), submitted: true,
+                    timeline_start: Date.new(2015, 1, 1), timeline_end: Date.new(2015, 2, 1),
+                    weekdays: '0111110' )
+  end
+  let!(:user)      { create(:user, permissions: User::Permissions::ADMIN) }
+  let!(:c_user)    { create(:courses_user, course_id: course.id, user_id: user.id) }
+
+  let!(:week)      { create(:week, course_id: course.id, order: 0) }
+  let!(:week2)      { create(:week, course_id: course.id, order: 1) }
+  let!(:block)     { create(:block, week_id: week.id, kind: Block::KINDS['in_class'], order: 0, title: 'Block 1') }
+  let!(:block2)     { create(:block, week_id: week.id, kind: Block::KINDS['in_class'], order: 1, title: 'Block 2') }
+  let!(:block3)     { create(:block, week_id: week.id, kind: Block::KINDS['in_class'], order: 2, title: 'Block 3') }
+  let!(:block4)     { create(:block, week_id: week2.id, kind: Block::KINDS['in_class'], order: 0, title: 'Block 4') }
+  let!(:block5)     { create(:block, week_id: week2.id, kind: Block::KINDS['in_class'], order: 1, title: 'Block 5') }
+  let!(:block6)     { create(:block, week_id: week2.id, kind: Block::KINDS['in_class'], order: 3, title: 'Block 6') }
+
+  before do
+    set_up_suite
+    create(:cohort)
+    login_as user, scope: :user, run_callbacks: false
+    stub_oauth_edit
+  end
+
+  it 'should disable reorder up/down buttons when it is the first or last block' do
+    visit "/courses/#{Course.last.slug}/timeline"
+    click_button 'Arrange Blocks'
+    expect(find('.week-1 .week__block-list > li:first-child button:first-of-type')['disabled']).to eq(nil)
+    expect(find('.week-1 .week__block-list > li:first-child button:last-of-type')['disabled']).to eq("true")
+    expect(find('.week-2 .week__block-list > li:last-child button:first-of-type')['disabled']).to eq("true")
+    expect(find('.week-2 .week__block-list > li:last-child button:last-of-type')['disabled']).to eq(nil)
+  end
+
+  it 'should allow swapping places with a block' do
+    visit "/courses/#{Course.last.slug}/timeline"
+    click_button 'Arrange Blocks'
+    find('.week-1 .week__block-list > li:nth-child(1) button:first-of-type').click # move down
+    sleep 0.5
+    find('.week-1 .week__block-list > li:nth-child(2) button:first-of-type').click # move down again
+    sleep 0.5
+    expect(find('.week-1 .week__block-list > li:nth-child(1)')).to have_content('Block 2')
+    expect(find('.week-1 .week__block-list > li:nth-child(2)')).to have_content('Block 3')
+    expect(find('.week-1 .week__block-list > li:nth-child(3)')).to have_content('Block 1')
+    find('.week-1 .week__block-list > li:nth-child(3) button:last-of-type').click # move up
+    sleep 0.5
+    find('.week-1 .week__block-list > li:nth-child(2) button:last-of-type').click # move up again
+    sleep 0.5
+    expect(find('.week-1 .week__block-list > li:nth-child(1)')).to have_content('Block 1')
+    expect(find('.week-1 .week__block-list > li:nth-child(2)')).to have_content('Block 2')
+    expect(find('.week-1 .week__block-list > li:nth-child(3)')).to have_content('Block 3')
+  end
+
+  it 'should allow moving blocks between weeks' do
+    visit "/courses/#{Course.last.slug}/timeline"
+    click_button 'Arrange Blocks'
+    find('.week-2 .week__block-list > li:nth-child(1) button:last-of-type').click # move up to week 1
+    sleep 0.5
+    expect(find('.week-1 .week__block-list > li:nth-child(4)')).to have_content 'Block 4'
+    find('.week-1 .week__block-list > li:nth-child(4) button:first-of-type').click # move back down to week 2
+    sleep 0.5
+    expect(find('.week-2 .week__block-list > li:nth-child(1)')).to have_content 'Block 4'
+  end
+
+  it 'should be able to save and discard changes' do
+    visit "/courses/#{Course.last.slug}/timeline"
+    click_button 'Arrange Blocks'
+    find('.week-2 .week__block-list > li:nth-child(1) button:last-of-type').click # move up to week 1
+    click_button 'Save All'
+    expect(find('.week-1 .week__block-list > li:nth-child(4)')).to have_content 'Block 4'
+    click_button 'Arrange Blocks'
+    find('.week-1 .week__block-list > li:nth-child(4) button:first-of-type').click # move down to week 2
+    click_button 'Discard All Changes'
+    expect(find('.week-1 .week__block-list > li:nth-child(4)')).to have_content 'Block 4' # still in week 1
+  end
+
 end
 
 describe 'cloning a course', js: true do

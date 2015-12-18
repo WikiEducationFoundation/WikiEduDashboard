@@ -1,99 +1,235 @@
-#react_root
-  &.timeline
-    padding 10px
-    a
-      cursor pointer
-    > li
-      margin 0
-    .view-all
-      border-bottom 0
-      margin-top 20px
-  .week
-    display block
-    margin 0 0 30px
-    position relative
-    &:first-child
-      margin-top 20px
-    > div
-      p
-        border-bottom 1px solid dove
-        color dove
-        padding-bottom 5px
-        margin-bottom 15px
-      > .button
-        float right
-    .list
-      margin-top 15px
-  .week, .block
-    +.view-all
-      border-bottom 0
-  .block +.view-all
+&.timeline
+  padding 10px
+  a
+    cursor pointer
+  > li
+    margin 0
+  .view-all
+    border-bottom 0
     margin-top 20px
-  .block
-    background-color white
-    border 1px solid zircon
-    left 0
-    margin 0 0 15px 0
-    padding 18px 20px 20px
-    position relative
-    width 100%
-    transition all .25s ease-out
-    -moz-user-select none
-    &:first-child
-      border-width 1px
-    &:last-child
-      margin-bottom 0
-    &.editable
-      cursor move
-      &:hover
-        box-shadow 0 0 15px 0 rgba(0, 0, 0, .2)
-      .drag-handle
-        display block
-    &.dragging
-      opacity 0
-      // transform scale(1.05)
-    &.block-leave-active
-      opacity 0
-      transform scale(0.5)
-    textarea
-      width 100%
-    input[type='text'], input[type='date'], select
-      display inline-block
-      margin-right 10px
-      width 150px
-      &.title
-        width 200px
-    input[type='checkbox']
-      margin 20px 5px
-    .button
-      clear right
+.week
+  display block
+  margin 0 0 30px
+  position relative
+  &:first-child
+    margin-top 20px
+  > div
+    p
+      color $text
+      font-size 34px
+      font-weight 300
+      margin-bottom 12px
+    > .button
       float right
-      margin 0
-    .block-title--editing
-      color inherit
-      letter-spacing inherit
-      line-height inherit
-      font-weight inherit
-      font-size inherit
-    .block-title
-      color dove
-
-  .gradeable
-    overflow hidden
-
-.drag-handle
-  display none
-  left 0
+  .list
+    margin-top 15px
+.week, .block
+  +.view-all
+    border-bottom 0
+.block +.view-all
+  margin-top 20px
+.block__edit-button-container
+  overflow hidden
   position absolute
-  top 10px
-  width 15px
-  .drag-handle__bar
-    background-color mercury
-    height 3px
-    margin-bottom 2px
+  height 40px
+  width 100px
+  top 15px
+  right 15px
+.block__edit-block
+  position absolute
+  right -80px
+  transition right 200ms
+  z-index 9
+  box-shadow 0 0 0 9px rgba(255,255,255,0.8)
+.block
+  background-color white
+  border 1px solid zircon
+  left 0
+  margin 0 0 20px 0
+  padding 18px 20px 20px
+  position relative
+  width 100%
+  //transition all .25s ease-out
+  box-shadow 0 3px 4px rgba(0,0,0,0.1)
+  &:first-child
+    border-width 1px
+  &:last-child
+    margin-bottom 0
+  &:hover
+    .block__edit-block
+      right 0
+  &.dragging
+    opacity 0
+    // transform scale(1.05)
+  &.block-leave-active
+    opacity 0
+    transform scale(0.5)
+  textarea
     width 100%
-    &:last-child
-      margin-bottom 0
+  input[type='text'], input[type='date'], select
+    display inline-block
+    margin-right 10px
+    width 150px
+    border 1px solid $border_med_dk
+    height auto
+    &.title
+      width 200px
+  input[type='checkbox']
+    margin 20px 5px
+  .button
+    clear right
+    float right
+    margin 0
+  .block-title--editing
+    color inherit
+    letter-spacing inherit
+    line-height inherit
+    font-weight inherit
+    font-size inherit
+  .block-title
+    color $brand_primary
+    font-weight 400
+    flex 1
+
+.block__block-content
+  color $text_dk
+
+.block.block--orderable
+  display flex
+  align-items center
+  cursor move
+
+  > h4
+    margin-bottom 0
+    margin-right auto
+
+  > p
+    margin-bottom 0
+    margin-right 16px
+
+  > button
+    padding 0
+    margin-left 10px
+    line-height 1
+    border-radius 2px
+    overflow hidden
+    width 26px
+    height 26px
+    font-size 25px
+
+.shrink-enter
+  position absolute
+  opacity 0.01
+  transition all 250ms ease-in-out
+  transform scale(.8, .5)
+  &.shrink-enter-active
+    opacity 1
+    transform scale(1, 1)
+.shrink-leave
+  transform scale(1, 1)
+  opacity 1
+  transition all 250ms ease-in-out
+  &.shrink-leave-active
+    opacity 0.01
+    transform scale(.8, .5)
+
+
+.block__block-type
+  color $text_dk
+  font-size 18px
+  font-weight 300
+  position relative
+  bottom 4px
+  -webkit-font-smoothing auto
+  .select_wrapper:after
+    margin-top 6px
+    background url('../images/downward_caret.svg') right center no-repeat
+    content ''
+    width 14px
+    height 10px
+  select
+    margin-right 0
+
+.block.editable .block__block-type
+  bottom 0
+
+.block__block-due-date
+  clear both
+
+.week__week-header
+  overflow hidden
+  .text-input-component__value
+    color $text_med
+    font-size 15px
+    position relative
+    bottom 6px
+    font-weight 400
+    margin-left 10px
+    -webkit-font-smoothing auto
+  input.title
+    position relative
+    bottom 5px
+
+.week__week-add-delete
+  margin-top 16px
+  span
+    cursor pointer
+    margin-left 25px
+    text-decoration none
+    color $text_med
+    &:hover
+      color $brand_primary
+  i
+    position relative
+    top 2px
+    margin-left 2px
+
+span.week__delete-week
+  &:after
+    content '\EA0D'
+    position relative
+    top 2px
+  &:hover
+    color $warning_text
+
+span.week__add-block
+  color $brand_primary
+  &:after
+    content '\EA08'
+    font-size 12px
+  &:hover
+    text-decoration underline
+
+.week__delete-week:after, .week__add-block:after
+  font-family 'icons'
+  font-size 14px
+  padding-left 2px
+
+.week__week-dates
+  position relative
+  top 16px
+  color $text_med
+
+.week__no-activity
+  text-align center
+  h1
+    padding 40px 0 30px 0
+    font-weight 300
+    font-size 24px
+    color $text_med_header
+
+.week__week-header .week-index, .week__week-header .input_wrapper > span
+  font-family $header-font
+  font-size 34px
+  font-weight 300
+  -webkit-font-smoothing auto
+
+.week__week-header .text-input-component__value:hover
+  background url("../images/pencil.svg") right center no-repeat
+  padding-right 25px
+
+.gradeable
+  overflow hidden
 
 input[type="radio"]
   -webkit-appearance radio
@@ -103,11 +239,40 @@ input[type="checkbox"]
 .block__training-modules
   margin-top 1.5em
   padding-top 1em
-  table
-    border-bottom 1px solid border_lt
+
+.block__training-modules h4
+  font-weight 400
+  margin-bottom 0
+
+.block__training-modules-table
+  border-bottom 1px solid border_lt
   thead
     border-bottom 1px solid border_lt
+    td
+      padding-bottom 0
+      margin-bottom -5px
+  td
+    display inline-block
+    overflow hidden
+    white-space nowrap
+    text-overflow ellipsis
+    padding 0
+    position relative
+    top 7px
 
+.block__training-modules-table__module-name
+  width 44%
+.block__training-modules-table__module-progress
+  width 40%
+.block__training-modules-table__module-link
+  width 13%
+  i
+    font-size 13px
+
+.block__training-modules-table__module-name-header
+  width 44%
+.block__training-modules-table__status-header
+  width 40%
 
 .training-module
   border-bottom 1px solid border_lt
@@ -135,3 +300,178 @@ input[type="checkbox"]
   color $success_text
   font-weight bold
 
+.timeline__content
+  col(12/12)
+
+.timeline__week-nav
+  margin-top 16px
+  col(3/12, offset: 1/12)
+
+.timeline__weeks, .timeline__grading-container
+  col(8/12)
+
+.grading__grading-container
+  clear both
+  position relative
+
+.timeline__anchor
+  display inline-block
+  padding-top 60px
+  margin-top -60px
+
+.timeline__week-nav
+  h5
+    font-weight 400
+    margin-bottom 6px
+    line-height 1
+    font-size 16px
+  .muted
+    font-size 13px
+    line-height 1.4
+    margin-bottom 16px
+  .panel
+    list-style none
+    padding 8px
+    background #FFF
+    border 1px solid $border_med
+    height calc(100vh - 350px)
+    overflow-y auto
+  ol
+    list-style none
+  li
+    border-bottom 1px solid $border_lt
+    margin-left 0
+    padding 10px 8px 2px 8px
+    &.is-current
+      a
+        font-weight bold
+      span
+        color $text
+      &:before
+        content '► '
+        float left
+        width 0
+        position relative
+        right 17px
+        color $border_med
+        font-size 12px
+        top 3px
+        height 0px
+  a
+    color $text
+    font-size 15px
+    text-decoration none
+    width 108px
+    overflow hidden
+    white-space nowrap
+    text-overflow ellipsis
+    display inline-block
+  span
+    color $text_med
+
+.week-nav__action.week-nav__link
+  color $brand_primary
+  display block
+  padding-left 8px
+  cursor pointer
+  width 100%
+  &:hover
+    text-decoration underline
+
+.timeline__week-nav li:not(.week-nav__item)
+  padding-bottom 8px
+  .week-nav__link
+    padding-left 0
+    &.disabled
+      color rgba(30,30,30,0.4)
+      cursor text
+      &:hover
+        text-decoration none
+
+.timeline__week-nav li .week-nav__add-week
+  color $brand_primary
+  cursor pointer
+
+.affix
+  position fixed
+
+.timeline__week-nav .affix
+  top $nav_height
+  width 250px
+
+// Editing
+.block__title-kind-container
+  display flex
+.delete-block-container
+  width 100%
+  border-top 1px solid $border_lt
+  padding 20px 0 0
+  text-align center
+  margin-top 20px
+  button
+    color $warning_text
+    background url("../images/trash-red.svg") left center no-repeat
+    padding-left 25px
+
+li.block.editable
+  margin-bottom 20px
+  &:hover
+    box-shadow 0 0 15px 0 rgba(0, 0, 0, .2)
+  .drag-handle
+    display block
+  label
+    span
+      display block
+      font-size 15px
+      color $text
+      font-weight 300
+      -webkit-font-smoothing auto
+      margin-bottom 3px
+
+  input.editable
+    width 300px
+  h4
+    .input_wrapper
+      float left
+    .select_wrapper
+      float right
+
+  .block__edit-block
+    display none
+
+p.graded
+  margin 0
+  position relative
+  bottom 5px
+
+.block__block-actions
+  margin-bottom 12px
+  position relative
+  z-index 10
+  button.button
+    margin-left 30px
+    cursor pointer
+  span
+    margin-top 8px
+    cursor pointer
+    color $brand_primary
+
+.timeline-ctas
+  margin 1em 0
+
+  .button
+    margin-bottom 6px
+
+    &:last-child
+      margin-bottom 0
+
+  .button.timeline__add-assignment
+    display block
+    margin-bottom 1em
+
+.timeline-ctas__cancel
+  position relative
+  top 5px
+
+.Select-menu-outer
+  box-shadow 0px 3px 5px rgba(0,0,0,.35)

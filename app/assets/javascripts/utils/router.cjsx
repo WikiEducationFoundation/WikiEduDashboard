@@ -36,6 +36,21 @@ useBasename         = History.useBasename
 
 history = useBasename(createHistory)(basename: '/')
 
+# Handle scroll position for back button, hashes, and normal links
+history.listen (location) =>
+  setTimeout () =>
+    if location.action == 'POP'
+      return
+    hash = window.location.hash
+    if hash
+      element = document.querySelector(hash)
+      if element
+        element.scrollIntoView
+          block: 'start'
+          behavior: 'smooth'
+    else
+      window.scrollTo 0, 0
+
 routes = (
   <Route path='/' component={App}>
     <Route path='onboarding' component={Onboarding.Root}>
@@ -73,7 +88,7 @@ routes = (
 
 el = document.getElementById('react_root')
 render((
-  <Router onUpdate={() => window.scrollTo(0, 0)} history={history}>
+  <Router history={history}>
     {routes}
   </Router>
 ), el) if el?

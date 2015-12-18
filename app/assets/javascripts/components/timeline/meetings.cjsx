@@ -101,6 +101,7 @@ Meetings = React.createClass(
             save=true
             editable=true
             calendarInstructions={I18n.t('courses.course_dates_calendar_instructions')}
+            weeks={@props.weeks}
           />
           <label> I have no class holidays
             <input

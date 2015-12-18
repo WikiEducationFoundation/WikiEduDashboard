@@ -21,13 +21,13 @@ essentials:
         title: Wikipedia essentials
         kind: 0
         content: |
-          * Overview of the course
-          * Introduction to how Wikipedia will be used in the course
-          * Understanding Wikipedia as a community, we'll discuss its expectations and etiquette.
-
-          ---
-          Handout: [Editing Wikipedia](http://wikiedu.org/editingwikipedia)
-
+          <ul>
+            <li>Overview of the course</li>
+            <li>Introduction to how Wikipedia will be used in the course</li>
+            <li>Understanding Wikipedia as a community, we'll discuss its expectations and etiquette.</li>
+          </ul>
+          <hr />
+          <p>Handout: <a href="http://wikiedu.org/editingwikipedia">Editing Wikipedia</a></p>
       -
         title: Learn the basics
         kind: 1
@@ -35,9 +35,9 @@ essentials:
         points: 5
         training_module_ids: [1, 2] # Wikipedia essentials, Editing basics
         content: |
-          * Complete the online training for students. During this training,
-          you will make edits in a sandbox and learn the basic rules of Wikipedia.
-
+          <ul>
+            <li>Complete the online training for students. During this training, you will make edits in a sandbox and learn the basic rules of Wikipedia.</li>
+          </ul>
 critique:
   - # CRITIQUE
     weight: 1
@@ -49,19 +49,20 @@ critique:
         points: 10
         training_module_ids: [7] # Evaluate an article
         content: |
-          * Review pages 4-7 of the Evaluating Wikipedia brochure. This will give you a good, brief overview of what to look for in other articles, and what other people will look for in your own.
-          * Evaluate an existing Wikipedia article related to the class, and leave suggestions for improving it on the article's talk page.
-          * A few questions to consider (don't feel limited to these):
-            * Is each fact referenced with an appropriate, reliable reference?
-            * Is everything in the article relevant to the article topic? Is there anything that distracted you?
-            * Is the article neutral? Are there any claims, or frames, that appear heavily biased toward a particular position?
-            * Where does the information come from? Are these neutral sources? If biased, is that bias noted?
-            * Are there viewpoints that are overrepresented, or underrepresented?
-            * Check a few citations. Do the links work? Is there any close paraphrasing or plagiarism in the article?
-            * Is any information out of date? Is anything missing that could be added?
-
-          ---
-          Resources: [Evaluating Wikipedia](http://wikiedu.org/evaluatingwikipedia), [Using Talk Pages](https://commons.wikimedia.org/wiki/File:Using_talk_pages.pdf)
+          <ul>
+            <li>Review pages 4-7 of the Evaluating Wikipedia brochure. This will give you a good, brief overview of what to look for in other articles, and what other people will look for in your own.</li>
+            <li>Evaluate an existing Wikipedia article related to the class, and leave suggestions for improving it on the article's talk page.</li>
+            <li>A few questions to consider (don't feel limited to these):
+            <ul><li>Is each fact referenced with an appropriate, reliable reference?</li>
+            <li>Is everything in the article relevant to the article topic? Is there anything that distracted you?</li>
+            <li>Is the article neutral? Are there any claims, or frames, that appear heavily biased toward a particular position?</li>
+            <li>Where does the information come from? Are these neutral sources? If biased, is that bias noted?</li>
+            <li>Are there viewpoints that are overrepresented, or underrepresented?</li>
+            <li>Check a few citations. Do the links work? Is there any close paraphrasing or plagiarism in the article?</li>
+            <li>Is any information out of date? Is anything missing that could be added?</li></ul></li>
+          </ul>
+          <hr />
+          <p>Resources: <a href="http://wikiedu.org/evaluatingwikipedia">Evaluating Wikipedia</a>, <a href="https://commons.wikimedia.org/wiki/File:Using_talk_pages.pdf">Using Talk Pages</a></p>
 
 add_to_article:
   - # ADD TO AN ARTICLE
@@ -73,8 +74,9 @@ add_to_article:
         graded: true
         points: 10
         content: |
-          * Add 1–2 sentences of new information, backed up with a citation to an appropriate source, to a Wikipedia article related to the class.
-
+          <ul>
+            <li>Add 1–2 sentences of new information, backed up with a citation to an appropriate source, to a Wikipedia article related to the class.</li>
+          </ul>
 illustrate:
   - # ILLUSTRATE
     weight: 1
@@ -86,10 +88,11 @@ illustrate:
         points: 10
         training_module_ids: [6] # Images and multimedia
         content: |
-          * Identify an article that would benefit from illustration, create or find an appropriate photo, illustration, or audio/video, and add it to the article.
-            * All media uploaded to Wikipedia must fall under a "free license," which means they can be used or shared by anyone. Examples of media you can use are photos that you take yourself, images and text in the public domain, and works created by someone else who has given permission for their work to be used by others. For more information about which types of media can be uploaded to Wikipedia, see [Commons:Help desk](https://commons.wikimedia.org/wiki/Commons:Help_desk).
-            * To add a media file to an article, you must first upload it to Wikimedia Commons. For instructions on how to upload files to Commons, refer to [***Illustrating Wikipedia***](http://wikiedu.org/illustratingwikipedia). This brochure will also provide you with detailed information about which files are acceptable to upload to Wikipedia and the value of contributing media to Wikipedia articles.
-
+          <ul>
+            <li>Identify an article that would benefit from illustration, create or find an appropriate photo, illustration, or audio/video, and add it to the article.
+            <ul><li>All media uploaded to Wikipedia must fall under a "free license," which means they can be used or shared by anyone. Examples of media you can use are photos that you take yourself, images and text in the public domain, and works created by someone else who has given permission for their work to be used by others. For more information about which types of media can be uploaded to Wikipedia, see <a href="https://commons.wikimedia.org/wiki/Commons:Help_desk">Commons:Help desk</a>.</li>
+            <li>To add a media file to an article, you must first upload it to Wikimedia Commons. For instructions on how to upload files to Commons, refer to <a href="http://wikiedu.org/illustratingwikipedia"><strong><em>Illustrating Wikipedia</em></strong></a>. This brochure will also provide you with detailed information about which files are acceptable to upload to Wikipedia and the value of contributing media to Wikipedia articles.</li></ul></li>
+          </ul>
 copyedit:
   - # COPYEDIT
     weight: 1
@@ -100,4 +103,6 @@ copyedit:
         graded: true
         points: 10
         content: |
-          * Choose one article, identify ways in which you can improve and correct its language and grammar, and make the appropriate changes. (You do not need to alter the article's content.)
+          <ul>
+            <li>Choose one article, identify ways in which you can improve and correct its language and grammar, and make the appropriate changes. (You do not need to alter the article's content.)</li>
+          </ul>

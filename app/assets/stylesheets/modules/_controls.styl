@@ -26,6 +26,17 @@
   font-weight 600
   text-decoration none
 
+  &.ghost-button
+    background-color #fff
+    &:hover
+      background $border_lt
+
+  &.button--block
+    display block
+    width 100%
+    margin-left 0
+    text-align center
+
   &:focus
     outline none
   &:hover
@@ -54,13 +65,20 @@
     box-shadow inset 0 0 0 1px #fff
     color #fff
 
+  &.button--clear
+    border none
+    background transparent
+    &:hover
+      background-color rgba(0,0,0,.1)
+      color darken(body-color, 10%)
+
   &.dark
     background-color bayoux
     border-color bayoux
     color white
     &:hover
-      background-color manatee
-      border-color manatee
+      background-color saturate(lighten(bayoux, 25%), 20%)
+      border-color saturate(lighten(bayoux, 25%), 20%)
 
   &.danger:hover
     background-color warning

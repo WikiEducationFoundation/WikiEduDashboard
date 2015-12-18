@@ -1,3 +1,8 @@
+.course_main
+  .stat-display
+    margin-bottom 0px
+    margin-top 30px
+
 .course
   background #fff
   border 1px solid $border_lt
@@ -17,27 +22,35 @@
     bottom 0
     box-shadow 0px 2px 4px rgba(0,0,0,1)
     opacity .1
-    transition opacity 125ms ease-in-out
-
-  .icon
-    position relative
-    top 3px
-    left 0
     transition all 125ms ease-in-out
 
   &:hover
-    .icon
-      left 5px
-
     &:before
-      opacity .15
+      opacity .3
+      box-shadow 0px 2px 4px $brand_primary
 
   &.course-past
     .course-title
       color #A0A0A0
+      margin-bottom 0
+
+    .button
+      position relative
+      top -4px
+      border-color #A0A0A0
+      color #A0A0A0
 
   + h2
     margin-top 60px
+
+  .button
+    float right
+
+  &:hover
+    .button
+      background $brand_primary
+      border-color $brand_primary
+      color #fff
 
   .course-title
     font-weight 300
@@ -52,12 +65,6 @@
       color #A0A0A0
       margin-left auto
       margin-right 20px
-
-    .icon:nth-child(1)
-      margin-left auto
-
-    &:only-child
-      margin-bottom 0
 
   .course-details
     display flex

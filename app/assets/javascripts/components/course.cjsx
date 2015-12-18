@@ -166,67 +166,32 @@ Course = React.createClass(
       )
 
     <div>
-      <header className='course-page'>
-        <div className="container">
-          <div className="title">
-            <a href={@state.course.url} target="_blank">
-              <h2>{@state.course.title}</h2>
-            </a>
-          </div>
-          <div className="stat-display">
-            <div className="stat-display__stat" id="articles-created">
-              <h3>{@state.course.created_count}</h3>
-              <small>Articles Created</small>
-            </div>
-            <div className="stat-display__stat" id="articles-edited">
-              <h3>{@state.course.edited_count}</h3>
-              <small>Articles Edited</small>
-            </div>
-            <div className="stat-display__stat" id="total-edits">
-              <h3>{@state.course.edit_count}</h3>
-              <small>Total Edits</small>
-            </div>
-            <div className="stat-display__stat popover-trigger" id="student-editors">
-              <h3>{@state.course.student_count}</h3>
-              <small>Student Editors</small>
-              <div className="popover dark" id="trained-count">
-                <h4>{@state.course.trained_count}</h4>
-                <p>have completed training</p>
-              </div>
-            </div>
-            <div className="stat-display__stat" id="characters-added">
-              <h3>{@state.course.character_count}</h3>
-              <small>Chars Added</small>
-            </div>
-            <div className="stat-display__stat" id="view-count">
-              <h3>{@state.course.view_count}</h3>
-              <small>Article Views</small>
-            </div>
-          </div>
-        </div>
-      </header>
-      {alerts}
-
       <div className="course_navigation">
-        <nav className='container'>
-          <div className="nav__item" id="overview-link">
-            <p><Link to="#{@_courseLinkParams()}/overview" className={overviewLinkClassName} activeClassName="active">Overview</Link></p>
-          </div>
-          {timeline}
-          <div className="nav__item" id="students-link">
-            <p><Link to="#{@_courseLinkParams()}/students" activeClassName="active">Students</Link></p>
-          </div>
-          <div className="nav__item" id="articles-link">
-            <p><Link to="#{@_courseLinkParams()}/articles" activeClassName="active">Articles</Link></p>
-          </div>
-          <div className="nav__item" id="uploads-link">
-            <p><Link to="#{@_courseLinkParams()}/uploads" activeClassName="active">Uploads</Link></p>
-          </div>
-          <div className="nav__item" id="activity-link">
-            <p><Link to="#{@_courseLinkParams()}/activity" activeClassName="active">Activity</Link></p>
-          </div>
-        </nav>
+        <div className="container">
+          <a href={@state.course.url} target="_blank">
+            <h2 className="title">{@state.course.title}</h2>
+          </a>
+          <nav>
+            <div className="nav__item" id="overview-link">
+              <p><Link to="#{@_courseLinkParams()}/overview" className={overviewLinkClassName} activeClassName="active">Overview</Link></p>
+            </div>
+            {timeline}
+            <div className="nav__item" id="students-link">
+              <p><Link to="#{@_courseLinkParams()}/students" activeClassName="active">Students</Link></p>
+            </div>
+            <div className="nav__item" id="articles-link">
+              <p><Link to="#{@_courseLinkParams()}/articles" activeClassName="active">Articles</Link></p>
+            </div>
+            <div className="nav__item" id="uploads-link">
+              <p><Link to="#{@_courseLinkParams()}/uploads" activeClassName="active">Uploads</Link></p>
+            </div>
+            <div className="nav__item" id="activity-link">
+              <p><Link to="#{@_courseLinkParams()}/activity" activeClassName="active">Activity</Link></p>
+            </div>
+          </nav>
+        </div>
       </div>
+      {alerts}
       <div className="course_main container">
         {enroll_card}
         {React.cloneElement(@props.children, course_id: @getCourseID(), current_user: @getCurrentUser(), course:  @state.course)}
