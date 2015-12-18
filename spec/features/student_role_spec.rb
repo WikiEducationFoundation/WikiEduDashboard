@@ -71,7 +71,7 @@ describe 'Student users', type: :feature, js: true do
       # click enroll button
       visit "/courses/#{Course.first.slug}"
       sleep 1
-      first('button').click
+      click_button 'Join course'
 
       # enter passcode in alert popup to enroll
       prompt = page.driver.browser.switch_to.alert
