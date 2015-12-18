@@ -88,7 +88,7 @@ FormPanel = React.createClass(
     <Panel {...@props}
       raw_options={raw_options}
       nextEnabled={@nextEnabled}
-      helperText = 'Choose blackout dates to continue'
+      helperText = 'Select meeting days and holiday dates, then continue.'
     />
 )
 
