@@ -19,9 +19,7 @@ class CoursesPresenter
 
   def cohort
     return NullCohort.new if cohort_param == 'none'
-    unless Cohort.exists?(slug: cohort_param)
-      raise ActionController::RoutingError.new('Cohort not found')
-    end
+    return unless Cohort.exists?(slug: cohort_param)
     Cohort.find_by(slug: cohort_param)
   end
 
