@@ -90,13 +90,13 @@ Week = React.createClass(
             cancelBlockEditable={@props.cancelBlockEditable}
           />
 
-    add_week = if !@props.editing_added_block then (
+    add_block = if !@props.reorderable && !@props.editing_added_block then (
       <span className="pull-right week__add-block" href="" onClick={@addBlock}>Add Block</span>
     )
 
-    week_add_delete = if !@props.reorderable && @props.meetings && @props.edit_permissions then (
+    week_add_delete = if @props.meetings && @props.edit_permissions then (
       <div className="week__week-add-delete pull-right">
-        {add_week}
+        {add_block}
         <span className="pull-right week__delete-week" href="" onClick={@props.deleteWeek}>Delete Week</span>
       </div>
     )
