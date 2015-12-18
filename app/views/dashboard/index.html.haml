@@ -22,14 +22,15 @@
 
   - # Orientation block
   - if @pres.show_orientation_block?
-    %p.empty-state
-      Before you create a course, let's go through orientation (1 hour to complete) to help you get started.
-      %br
-      = link_to @pres.orientation_path, class: 'button dark' do
-        Start Orientation
-        %i.icon.icon-rt_arrow
-      %br
-      = link_to t('dashboard.opt_out'), @pres.opt_out_path
+    %div.empty-state
+      %p
+        Before you create a course, let's go through orientation to help you get started. (It takes about 30 minutes to complete.)
+      %p
+        = link_to @pres.orientation_path, class: 'button dark' do
+          Start Orientation
+          %i.icon.icon-rt_arrow
+      %p.small
+        = link_to t('dashboard.opt_out'), @pres.opt_out_path
 
   - if @pres.show_your_courses_label?
     %h2 Your Courses
@@ -37,19 +38,25 @@
   - # Empty courses state
   - if @pres.current.empty? && @pres.past.empty?
     - if @pres.can_create_course?
-      %p.empty-state
-        Looks like you don't have any courses.
-        %br
-        Click on Create Course to create your first course.
-        %br
-        = link_to t('dashboard.explore_examples'), explore_path
+      %div.empty-state
+        %p
+          Looks like you don't have any courses.
+        %p
+          Click on Create Course to create your first course.
+        %p.small
+          Be sure to have your academic calendar on hand before you begin; the assignment design tool will use the meeting dates of your class — including any school breaks and holidays — to fit your timeline into the date range you choose. Remember, you can always edit the timeline to fit your needs.
+        %p.small
+          = link_to t('dashboard.explore_examples'), explore_path
     - elsif @pres.show_explore_button?
-      %p.empty-state
-        Looks like you haven't joined a course yet.
-        %br
-        Once you receive a passcode from your instructor, click on Find Your Course to find and join it.
-        %br
-        = link_to t('dashboard.explore_course_pages'), explore_path
+      %div.empty-state
+        %p
+          Looks like you haven't joined a course yet.
+        %p
+          Once you receive a passcode from your instructor,
+          %br
+          click on Find Your Course to find and join it.
+        %p.small
+          = link_to t('dashboard.explore_course_pages'), explore_path
 
   - else
     - # Courses list
