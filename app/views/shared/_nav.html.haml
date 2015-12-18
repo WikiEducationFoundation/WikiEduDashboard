@@ -8,11 +8,13 @@
         = link_to t('application.my_dashboard'), root_url
       - if current_user && current_user.admin?
         = link_to t('application.recent_activity'), '/recent-activity'
+      = link_to t('application.training'), :training
+      = link_to t('application.help'), '/ask', target: '_blank'
     - if user_signed_in?
       .search
+        %i.icon.icon-search
         = form_tag("/ask", method: "get", target: '_blank') do
           = text_field_tag(:q, '', placeholder: t('application.search'))
-          = submit_tag(t('application.help'))
     .login
       - if user_signed_in?
         %b>= link_to current_user.wiki_id, :root

@@ -1,6 +1,6 @@
 aside
   background-color white
-  box-shadow 0px 1px 0 rgba(0,0,0,.1)
+  border-bottom 1px solid rgba(0,0,0,.1)
   position relative
   overflow hidden
   width 100%
@@ -47,17 +47,39 @@ aside
       flex none
 
   .search
-    flex 1
+    margin-left auto
     text-align center
+    border-left 1px solid lighten($border_lt, 40%)
+    > i
+      float left
+      color #A0A0A0
+      line-height $nav_height
+      width 16px
+      margin-left 8px
+      margin-right 4px
+    > form
+      float right
     input[type="text"]
-      width 190px
-      border 1px solid $border_lt
+      height $nav_height
+      width 200px
+      border none
       border-radius 0
       font-family inherit
-      font-size inherit
+      font-size 14px
       outline 0
       padding 10px
       -webkit-appearance none
+      -webkit-font-smoothing: antialiased;
+
+      &:-ms-input-placeholder
+        color $text_md
+        text-transform uppercase
+      &::-moz-placeholder
+        color $text_md
+        text-transform uppercase
+      &::-webkit-input-placeholder
+        color $text_md
+        text-transform uppercase
 
     input[type="submit"]
       @extend aside a
@@ -70,7 +92,6 @@ aside
       display none
 
   .login
-    flex 1
     text-align right
 
     b
