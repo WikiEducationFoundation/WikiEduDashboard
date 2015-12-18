@@ -259,7 +259,12 @@ en:
     assignment_dates: Assignment Dates
     assignment_type: Assignment Type
     confirm_dates: Choose the course dates, weekly meetings, and holidays for your course.
-    assignment_description: Choose the start and end dates of this assignment
+    assignment_description: >
+      Choose the start and end dates for your assignment timeline. For example,
+      if you want to start your Wikipedia project the second week of class, set
+      the assignment start date to one week after the course's start date. This
+      assignment design tool will create a draft timeline that fits within the
+      timeline dates you choose.
     min_weeks: >
       This assignment requires at least %{min_weeks} available
       weeks. Please adjust your assignment start and end dates if you want to
