@@ -10,7 +10,7 @@ class TimelineController < ApplicationController
   # Week + Block Methods #
   ########################
   def timeline_params
-    permitted = {weeks: [
+    permitted = { weeks: [
       :id,
       :deleted,
       :title,
@@ -48,7 +48,7 @@ class TimelineController < ApplicationController
         if block[:training_module_ids].nil?
           permitted[:weeks][blocks_index][:blocks] << :training_module_ids
         else
-          permitted[:weeks][blocks_index][:blocks] << {training_module_ids: []}
+          permitted[:weeks][blocks_index][:blocks] << { training_module_ids: [] }
         end
       end
     end

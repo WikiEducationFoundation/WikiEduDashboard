@@ -7,7 +7,7 @@ class TrainingModulesUsersController < ApplicationController
     slide = TrainingSlide.find_by(slug: params[:slide_id])
     pm = TrainingProgressManager.new(current_user, training_module, slide)
     complete_slide(tmu, slide) if should_set_slide_completed?(tmu, pm)
-    complete_module(tmu) if is_last_slide?(tmu, slide)
+    complete_module(tmu) if last_slide?(tmu, slide)
     render json: { slide: slide }
   end
 
@@ -23,14 +23,14 @@ class TrainingModulesUsersController < ApplicationController
   def complete_slide(tmu, slide)
     tmu.last_slide_completed = slide.slug
     tmu.save
-    complete_module(tmu) if is_last_slide?(tmu, slide)
+    complete_module(tmu) if last_slide?(tmu, slide)
   end
 
   def complete_module(tmu)
     tmu.update_attribute(:completed_at, Time.now)
   end
 
-  def is_last_slide?(tmu, slide)
+  def last_slide?(tmu, slide)
     tmu.training_module.slides.last.slug == slide.slug
   end
 

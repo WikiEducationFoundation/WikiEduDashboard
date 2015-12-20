@@ -31,13 +31,14 @@ class UsersController < ApplicationController
     user = User.find(current_user.id)
 
     permissions = user.permissions
-    if permissions != User::Permissions::ADMIN
-      if params[:instructor] == true
-        permissions = User::Permissions::INSTRUCTOR
-      end
+    if params[:instructor] == true
+      permissions = User::Permissions::INSTRUCTOR unless permissions == User::Permissions::ADMIN
     end
 
-    user.update_attributes(real_name: params[:real_name], email: params[:email], permissions: permissions, onboarded: true)
+    user.update_attributes(real_name: params[:real_name],
+                           email: params[:email],
+                           permissions: permissions,
+                           onboarded: true)
 
     render nothing: true, status: 204
   end
@@ -67,8 +68,6 @@ class UsersController < ApplicationController
       wiki_id = enroll_params[:wiki_id]
       @user = User.find_by(wiki_id: wiki_id)
       @user = UserImporter.new_from_wiki_id(wiki_id) if @user.nil?
-    else
-      return
     end
   end
 

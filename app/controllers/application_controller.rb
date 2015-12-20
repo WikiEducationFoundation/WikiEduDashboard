@@ -32,12 +32,14 @@ class ApplicationController < ActionController::Base
   def check_onboarded
     return unless current_user
     return if current_user.onboarded
-    return if request.fullpath.starts_with? onboarding_path
-    return if request.fullpath.starts_with? onboard_path
-    return if request.fullpath.starts_with? new_user_session_path
-    return if request.fullpath.starts_with? destroy_user_session_path
-    return if request.fullpath.starts_with? true_destroy_user_session_path
-    redirect_to onboarding_path(return_to: request.fullpath)
+    full_path = request.fullpath
+    non_redirect_paths = [onboarding_path,
+                          onboard_path,
+                          new_user_session_path,
+                          destroy_user_session_path,
+                          true_destroy_user_session_path]
+    return if non_redirect_paths.any? { |path| full_path.starts_with? path }
+    redirect_to onboarding_path(return_to: full_path)
   end
 
   def require_permissions
@@ -89,9 +91,8 @@ class ApplicationController < ActionController::Base
   end
 
   def set_locale_override
-    if params[:locale]
-      # Param takes precedence over language preferences from HTTP headers.
-      http_accept_language.user_preferred_languages.unshift(params[:locale])
-    end
+    return unless params[:locale]
+    # Param takes precedence over language preferences from HTTP headers.
+    http_accept_language.user_preferred_languages.unshift(params[:locale])
   end
 end

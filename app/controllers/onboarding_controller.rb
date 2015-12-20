@@ -5,10 +5,6 @@ class OnboardingController < ApplicationController
 
   def index
     # Require authentication
-    if !user_signed_in?
-      redirect_to root_path
-      return
-    end
+    redirect_to root_path unless user_signed_in?
   end
-
 end
