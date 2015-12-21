@@ -29,7 +29,7 @@ assessment:
       explanation: |
         Correct! Wikipedia articles should share neutral facts from reliable
         sources. When there’s a controversy, include only the facts that are
-        agreed to by all views of the controversy.
+        agreed on by all views of the controversy.
     - id: 4
       text: |
         Include interesting first-hand accounts about the author’s experiences

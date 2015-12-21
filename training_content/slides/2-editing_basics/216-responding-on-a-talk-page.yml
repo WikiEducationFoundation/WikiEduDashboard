@@ -9,5 +9,5 @@ content: |
   response deeper into the conversation. So if you respond to a response, use
   two colons, etc.
 
-  It is **crucial** that sign your messages with four tildes ( `~~~~` )  to
+  It is **crucial** that you sign your messages with four tildes ( `~~~~` )  to
   automatically mark it with your username and a timestamp.
