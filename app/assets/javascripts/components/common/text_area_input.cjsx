@@ -33,28 +33,29 @@ TextAreaInput = React.createClass(
   render: ->
     if @props.label
       label = @props.label + ':'
-    if @props.wysiwyg
-      input_element = (
-        <TrixEditor
-          value={@state.value || 'Block description…'}
-          onChange={@_handleChange}
-        />
-      )
-    else
-      input_element = (
-        <textarea
-          ref='input'
-          id={@props.id || @props.value_key || ''}
-          rows={@props.rows || '8'}
-          value={@state.value}
-          onChange={@onChange}
-          autoFocus={@props.focus}
-          onFocus={@focus}
-          onBlur={@blur}
-          placeholder={@props.label || @props.placeholder}
-        />
-      )
+
     if @props.editable
+      if @props.wysiwyg
+        input_element = (
+          <TrixEditor
+            value={@state.value || 'Block description…'}
+            onChange={@_handleChange}
+          />
+        )
+      else
+        input_element = (
+          <textarea
+            ref='input'
+            id={@props.id || @props.value_key || ''}
+            rows={@props.rows || '8'}
+            value={@state.value}
+            onChange={@onChange}
+            autoFocus={@props.focus}
+            onFocus={@focus}
+            onBlur={@blur}
+            placeholder={@props.label || @props.placeholder}
+          />
+        )
       if @props.hr and @props.autoExpand is false
         <label><hr />{label}
           {input_element}
