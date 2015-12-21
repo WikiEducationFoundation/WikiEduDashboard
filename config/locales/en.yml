@@ -44,6 +44,7 @@ en:
     my_dashboard: My Dashboard
     recent_activity: Recent Activity
     search: search ask.wikiedu.org
+    training: Training
 
   dashboard:
     opt_out: Request to opt out of orientation
