@@ -1,6 +1,8 @@
 require 'rails_helper'
 require "#{Rails.root}/lib/training_module"
 
+DESIRED_TRAINING_MODULE_IDS = [2]
+
 describe 'Training', type: :feature, js: true do
   let(:cohort) { create(:cohort) }
   let(:user)   { create(:user, id: 1) }
@@ -84,11 +86,11 @@ describe 'Training', type: :feature, js: true do
 
     it 'updates the last_slide_completed upon viewing a slide (not after clicking `next`)' do
       click_link 'Start'
-      sleep 1
+      sleep 1.5
       tmu = TrainingModulesUsers.find_by(user_id: user.id, training_module_id: module_2.id)
       expect(tmu.last_slide_completed).to eq(module_2.slides.first.slug)
       click_link 'Next Page'
-      sleep 1
+      sleep 1.5
       expect(tmu.reload.last_slide_completed).to eq(module_2.slides.second.slug)
     end
 
@@ -149,8 +151,7 @@ describe 'Training', type: :feature, js: true do
     end
   end
 
-  module_ids = [TrainingModule.all.first.id]
-  module_ids.each do |module_id|
+  DESIRED_TRAINING_MODULE_IDS.each do |module_id|
     training_module = TrainingModule.find(module_id)
     describe "'#{training_module.name}' module" do
       training_module = TrainingModule.find(module_id)
