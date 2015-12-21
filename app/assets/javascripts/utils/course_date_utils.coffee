@@ -1,5 +1,6 @@
 module.exports = {
   moreWeeksThanAvailable: (course, weeks, exceptions) ->
+    return false unless weeks?.length
     nonBlackoutWeeks = _.filter(@weekMeetings(@meetings(course), course, exceptions), (mtg) ->
       mtg != '()'
     )
