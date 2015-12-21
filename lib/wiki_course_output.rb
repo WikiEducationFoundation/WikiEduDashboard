@@ -54,7 +54,8 @@ class WikiCourseOutput
                    'assignment|Assignment - ',
                    'assignment milestones|',
                    'assignment|'] # TODO: get the custom value
-    week_output = "{{start of course week}}\r"
+    week_output = "=== Week #{week_number} ===\r"
+    week_output += "{{start of course week}}\r"
     ordered_blocks = week.blocks.order(:order)
     ordered_blocks.each do |block|
       block_type = block_types[block.kind]
