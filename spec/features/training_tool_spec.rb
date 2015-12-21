@@ -149,7 +149,7 @@ describe 'Training', type: :feature, js: true do
     end
   end
 
-  module_ids = TrainingModule.all.map(&:id)
+  module_ids = [TrainingModule.all.first.id]
   module_ids.each do |module_id|
     training_module = TrainingModule.find(module_id)
     describe "'#{training_module.name}' module" do

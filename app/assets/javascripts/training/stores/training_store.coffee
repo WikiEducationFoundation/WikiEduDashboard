@@ -72,6 +72,7 @@ TrainingStore = Flux.createStore
     return if !@getCurrentSlide() || @desiredSlideIsCurrentSlide(opts, @getCurrentSlide(), _module.slides)
     slideIndex = _.findIndex(_module.slides, (slide) => slide.slug == @getCurrentSlide().slug)
     newIndex = if opts.position is 'next' then slideIndex + 1 else slideIndex - 1
+    return unless _module.slides
     return _module.slides[newIndex]
   desiredSlideIsCurrentSlide: (opts, currentSlide, slides) ->
     return unless slides?.length
