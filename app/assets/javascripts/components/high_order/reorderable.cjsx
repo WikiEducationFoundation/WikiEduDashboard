@@ -20,6 +20,7 @@ module.exports = (Component, Type, MoveFunction) ->
   # draggable component reacts to drag-and-drop events
   dragSourceSpec =
     beginDrag: (props) ->
+      document.body.classList.add('unselectable')
       props: props
       item: props[Type],
       originalIndex: props.index
@@ -30,6 +31,8 @@ module.exports = (Component, Type, MoveFunction) ->
         props.canDrag
       else
         true
+    endDrag: ->
+      document.body.classList.remove('unselectable')
 
   # Returns props to inject into the draggable component
   sourceConnect = (connect, monitor) ->
