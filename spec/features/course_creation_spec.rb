@@ -417,6 +417,28 @@ describe 'New course creation and editing', type: :feature do
       # Finish the wizard
       first('button.dark').click
       expect(page).to have_content 'This course does not have a timeline yet'
+      sleep 1
+
+      # Add a week
+      within '.timeline__week-nav .panel' do
+        find('.week-nav__add-week').click
+      end
+      sleep 1
+      within '.timeline__weeks' do
+        expect(page).to have_content 'Week 1'
+        within '.week-1' do
+          find('.week__add-block').click
+          find('input.title').set('block title')
+          within('.block__block-actions') do
+            click_button 'Save'
+          end
+          sleep 1
+        end
+      end
+      # is it still there after reloading?
+      visit current_path
+      expect(page).to have_content 'Week 1'
+      expect(page).to have_content 'block title'
     end
   end
 
