@@ -10,7 +10,7 @@ Select = React.createClass(
   render: ->
     if @props.label
       label = @props.label
-      label += @props.spacer || ': '
+      label += @props.spacer || ':'
 
     options = @props.options.map (option, i) =>
       <option value={i} key={i}>{option}</option>
