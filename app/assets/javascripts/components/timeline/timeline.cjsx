@@ -87,7 +87,7 @@ Timeline = React.createClass(
 
   _handleScroll: _.throttle ->
     @setState unscrolled: false
-    scrollTop = window.scrollTop || document.body.scrollTop
+    scrollTop = window.scrollTop || document.body.scrollTop || window.pageYOffset
     bodyTop = document.body.getBoundingClientRect().top
     weekEls = document.getElementsByClassName('week')
     navItems = document.getElementsByClassName('week-nav__item')
