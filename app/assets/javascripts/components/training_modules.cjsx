@@ -49,13 +49,20 @@ TrainingModules = React.createClass(
         if module.deadline_status is 'overdue'
           deadlineStatus = "(#{module.deadline_status}, due on #{module.due_date})"
 
+        moduleStatus = if module.module_progress && module.deadline_status then (
+          <div>
+            {module.module_progress}
+            &nbsp;
+            {deadlineStatus}
+          </div>
+        ) else (
+          '--'
+        )
         (
           <tr key={module.id} className="training-module">
             <td className='block__training-modules-table__module-name'>{module.name}</td>
             <td className={progressClass}>
-              {module.module_progress}
-              &nbsp;
-              {deadlineStatus}
+              {moduleStatus}
             </td>
             <td className="block__training-modules-table__module-link">
               <a className={module.module_progress} href={link}>
