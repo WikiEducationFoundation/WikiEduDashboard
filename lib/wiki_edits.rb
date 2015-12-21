@@ -68,8 +68,8 @@ class WikiEdits
     # TODO: Do this more selectively, replacing the default template if
     # it is present.
     sandbox = user_page + '/sandbox'
-    sandbox_template = '{{student sandbox}}'
-    sandbox_summary = 'adding {{student sandbox}}'
+    sandbox_template = "{{#{ENV['dashboard_url']} sandbox}}"
+    sandbox_summary = "adding {{#{ENV['dashboard_url']} sandbox}}"
     add_to_page_top(sandbox, current_user, sandbox_template, sandbox_summary)
   end
 

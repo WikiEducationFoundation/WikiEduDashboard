@@ -27,9 +27,9 @@ class SelfEnrollmentController < ApplicationController
 
     # Check passcode, enroll if valid
     if passcode_valid?
-      add_student_to_course
-      WikiEdits.enroll_in_course(@course, current_user)
-      WikiEdits.update_course(@course, current_user)
+      add_student_to_course # Creates the CoursesUsers record
+      WikiEdits.enroll_in_course(@course, current_user) # Posts templates to userpage and sandbox
+      WikiEdits.update_course(@course, current_user) # Adds user to course page
     end
 
     redirect_to course_slug_path(@course.slug, enrolled: true)
