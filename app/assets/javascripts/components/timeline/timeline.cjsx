@@ -208,7 +208,7 @@ Timeline = React.createClass(
       else if @props.editable_block_ids.length == 0
         reorderable_controls = (
           <div className="reorderable-controls">
-            <button className="button border button--block" onClick={@props.enableReorderable}>Arrange Blocks</button>
+            <button className="button border button--block" onClick={@props.enableReorderable}>Arrange Timeline</button>
           </div>
         )
 
