@@ -70,8 +70,7 @@ body.home
     &:after
       transition all 125ms ease-in-out
       opacity 0
-      transform translate(10px, -50%) scale(.9, .9)
-      transform-origin left 50%
+      transform translate(-50%, 0) scale(.9, .9)
       content attr(data-title)
       visibility hidden
       font-size 13px
@@ -86,7 +85,9 @@ body.home
       position absolute
       z-index 98
       width 220px
-      top 50%
+      left 50%
+      top 100%
+      pointer-events none
 
     &:hover, &:focus
       background-color #fff
@@ -95,7 +96,7 @@ body.home
       &:after
         visibility visible
         opacity 1
-        transform translate(20px, -50%) scale(1,1)
+        transform translate(-50%, 5px) scale(1,1)
 
 
   /* Home page hero */
