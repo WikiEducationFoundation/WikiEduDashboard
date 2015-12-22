@@ -35,6 +35,9 @@ ThisWeek = React.createClass(
           showTitle=false
         />
       )
+      if moment().diff(@props.timeline_start, 'days') < 0
+        week_end = moment(@props.timeline_start).add(7, 'days')
+        title = "First Week (#{moment(@props.timeline_start).format('MM/DD')} - #{week_end.format('MM/DD')})"
     else
       no_weeks = (
         <li className="row view-all">
@@ -44,7 +47,7 @@ ThisWeek = React.createClass(
 
     <div className="module">
       <div className="section-header">
-        <h3>This Week</h3>
+        <h3>{title || 'This Week'}</h3>
       </div>
       <ul className="list-unstyled">
         {week_component}
