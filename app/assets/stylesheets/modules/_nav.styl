@@ -17,13 +17,15 @@ nav.top-nav
 
   ul
     list-style none
-    margin 0
+    margin-left 0
+    margin-bottom 0
     padding 0
 
   li > a
     text-decoration none
     color inherit
     padding 25px 0 15px 0
+    font-size 15px
     &:hover, &.active
       color $brand_primary
       border-bottom 3px solid $brand_primary
@@ -35,9 +37,10 @@ nav.top-nav
     align-items center
     justify-content space-around
 
-.top-nav__login-links
+ul.top-nav__login-links.login-links
   display flex
   justify-content flex-end
+  margin-left auto
   b
     +below(desktop)
       display none
@@ -61,12 +64,14 @@ nav.top-nav
     +below(desktop)
       display none
 
-  a
-    color $brand_primary
+  li > a
+    color $text
+    border-bottom 0
     +below(desktop)
       margin-left 0
 
     &:hover
+      color $brand_primary
       .expand
         opacity 1
         width 110px
@@ -131,6 +136,8 @@ nav.top-nav
 
 body.fixed-nav
   padding-top $nav_height
+  nav.top-nav
+    position fixed
 
 nav
   text-align center
