@@ -94,7 +94,7 @@ Week = React.createClass(
       <span className="pull-right week__add-block" href="" onClick={@addBlock}>Add Block</span>
     )
 
-    delete_week = if !@props.week.is_new then (
+    delete_week = if !@props.reorderable && !@props.week.is_new then (
       <span className="pull-right week__delete-week" href="" onClick={@props.deleteWeek}>Delete Week</span>
     )
 
