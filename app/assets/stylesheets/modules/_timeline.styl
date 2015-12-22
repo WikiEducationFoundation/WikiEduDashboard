@@ -154,9 +154,6 @@
   select
     margin-right 0
 
-.block.editable .block__block-type
-  bottom 2px
-
 
 .week__week-header
   overflow hidden
@@ -439,7 +436,6 @@ li.block.editable
       font-weight 300
       -webkit-font-smoothing auto
       margin-bottom 3px
-
   input.editable
     width 300px
   h4
@@ -447,13 +443,17 @@ li.block.editable
       float left
     .select_wrapper
       float right
-
   .block__edit-block
     visibility hidden
   .block__due-date-spacer
     display none
   .block__read__due-date
     display none
+  .block__block-type
+    bottom 2px
+    label span
+      margin-bottom 5px
+
 
 
 p.graded
