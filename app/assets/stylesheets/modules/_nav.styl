@@ -17,7 +17,6 @@ nav.top-nav
 
   ul
     list-style none
-    margin-left 0
     margin-bottom 0
     padding 0
 
@@ -30,14 +29,13 @@ nav.top-nav
       color $brand_primary
       border-bottom 3px solid $brand_primary
 
-
   .container
     height $nav_height
     display flex
     align-items center
     justify-content space-around
 
-ul.top-nav__login-links.login-links
+.top-nav__login-links
   display flex
   justify-content flex-end
   margin-left auto
@@ -132,6 +130,9 @@ ul.top-nav__login-links.login-links
   +below(desktop)
     display none
 
+
+.top-nav__faq-search ~ .top-nav__login-links
+  margin-left 0
 
 
 body.fixed-nav
