@@ -15,6 +15,6 @@ content: |
   To go to your default sandbox page, simply click the Sandbox link, which can
   be found at the top right whenever you are logged in.
 
-  <div style="text-align:center"><a target="_blank" class="btn btn-primary" href="https://en.wikipedia.org/wiki/Special:MyPage/sandbox">
+  <div class="training__button-container"><a target="_blank" class="btn btn-primary" href="https://en.wikipedia.org/wiki/Special:MyPage/sandbox">
     Open my sandbox
-  </a></div></br />
+  </a></div>

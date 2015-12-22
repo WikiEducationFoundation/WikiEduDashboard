@@ -13,6 +13,6 @@ content: >
 
   Would you like to start that now? Click below to open it in a new tab:
 
-  <div style="text-align:center"><a target="_blank" class="btn btn-primary" href="/training/instructors/assigning-medical-topics/medical-assignments-introduction">
+  <div class="training__button-container"><a target="_blank" class="btn btn-primary" href="/training/instructors/assigning-medical-topics/medical-assignments-introduction">
     Yes, I teach on health-related matters and would like to take the training.
-  </a></div></br />
+  </a></div>

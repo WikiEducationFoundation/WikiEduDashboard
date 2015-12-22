@@ -17,6 +17,6 @@ content: |
   If you came here from the **New Instructor Orientation** module, close this
   tab and continue where you left off, or click below:
 
-  <div style="text-align:center"><a class="btn btn-primary" href="/training/instructors/new-instructor-orientation/case-studies">
+  <div class="training__button-container"><a class="btn btn-primary" href="/training/instructors/new-instructor-orientation/case-studies">
     Return to New Instructor Orientation
   </a></div>

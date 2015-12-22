@@ -18,24 +18,24 @@ content: |
 
   This case study reviews an intensive, 12-week assignment to write or expand Wikipedia articles in a public policy course.
 
-  <div style="text-align:center"><a target="_blank" class="btn btn-primary" href="/training/instructors/designing-a-writing-assignment/most-intense">
+  <div class="training__button-container"><a target="_blank" class="btn btn-primary" href="/training/instructors/designing-a-writing-assignment/most-intense">
     Case Study: Wikipedia article writing assignment
-  </a></div><br />
+  </a></div>
 
   # Translation assignment
 
   This explores an assignment in which students translate articles from French Wikipedia and add
   them English Wikipedia. The process is applicable to most language courses.
 
-  <div style="text-align:center"><a target="_blank" class="btn btn-primary" href="/training/instructors/designing-a-translation-assignment/translation-case-study">
+  <div class="training__button-container"><a target="_blank" class="btn btn-primary" href="/training/instructors/designing-a-translation-assignment/translation-case-study">
     Case Study: Translation assignment
-  </a></div><br />
+  </a></div>
 
   # Illustration assignment
 
   This covers an assignment to contribute original media files to illustrate
   Wikipedia articles.
 
-  <div style="text-align:center"><a target="_blank" class="btn btn-primary" href="/training/instructors/illustration-assignment/images-illustrations-and-media-case-study">
+  <div class="training__button-container"><a target="_blank" class="btn btn-primary" href="/training/instructors/illustration-assignment/images-illustrations-and-media-case-study">
     Case Study: Illustration assignment
   </a></div>
