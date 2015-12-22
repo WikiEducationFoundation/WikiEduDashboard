@@ -63,8 +63,8 @@ Overview = React.createClass(
           </div>
         </div>
         <div className="stat-display__stat" id="characters-added">
-          <div className="stat-display__value">{@props.course.character_count}</div>
-          <small>Chars Added</small>
+          <div className="stat-display__value">{@props.course.word_count}</div>
+          <small>Words Added</small>
         </div>
         <div className="stat-display__stat" id="view-count">
           <div className="stat-display__value">{@props.course.view_count}</div>
