@@ -286,7 +286,7 @@ essentials:
           </ul>
       -
         if: DYK
-        title:
+        title: Did You Know
         kind: 1
         content: |
           <ul>
