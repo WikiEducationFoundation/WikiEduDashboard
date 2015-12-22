@@ -477,7 +477,7 @@ describe 'reordering blocks in a course', js: true do
 
   it 'should disable reorder up/down buttons when it is the first or last block' do
     visit "/courses/#{Course.last.slug}/timeline"
-    click_button 'Arrange Blocks'
+    click_button 'Arrange Timeline'
     expect(find('.week-1 .week__block-list > li:first-child button:first-of-type')['disabled']).to eq(nil)
     expect(find('.week-1 .week__block-list > li:first-child button:last-of-type')['disabled']).to eq("true")
     expect(find('.week-2 .week__block-list > li:last-child button:first-of-type')['disabled']).to eq("true")
@@ -486,7 +486,7 @@ describe 'reordering blocks in a course', js: true do
 
   it 'should allow swapping places with a block' do
     visit "/courses/#{Course.last.slug}/timeline"
-    click_button 'Arrange Blocks'
+    click_button 'Arrange Timeline'
     find('.week-1 .week__block-list > li:nth-child(1) button:first-of-type').click # move down
     sleep 0.5
     find('.week-1 .week__block-list > li:nth-child(2) button:first-of-type').click # move down again
@@ -505,7 +505,7 @@ describe 'reordering blocks in a course', js: true do
 
   it 'should allow moving blocks between weeks' do
     visit "/courses/#{Course.last.slug}/timeline"
-    click_button 'Arrange Blocks'
+    click_button 'Arrange Timeline'
     find('.week-2 .week__block-list > li:nth-child(1) button:last-of-type').click # move up to week 1
     sleep 0.5
     expect(find('.week-1 .week__block-list > li:nth-child(4)')).to have_content 'Block 4'
@@ -516,11 +516,11 @@ describe 'reordering blocks in a course', js: true do
 
   it 'should be able to save and discard changes' do
     visit "/courses/#{Course.last.slug}/timeline"
-    click_button 'Arrange Blocks'
+    click_button 'Arrange Timeline'
     find('.week-2 .week__block-list > li:nth-child(1) button:last-of-type').click # move up to week 1
     click_button 'Save All'
     expect(find('.week-1 .week__block-list > li:nth-child(4)')).to have_content 'Block 4'
-    click_button 'Arrange Blocks'
+    click_button 'Arrange Timeline'
     find('.week-1 .week__block-list > li:nth-child(4) button:first-of-type').click # move down to week 2
     click_button 'Discard All Changes'
     expect(find('.week-1 .week__block-list > li:nth-child(4)')).to have_content 'Block 4' # still in week 1
