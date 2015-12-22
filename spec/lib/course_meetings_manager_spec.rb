@@ -5,14 +5,14 @@ describe CourseMeetingsManager do
   let(:day_ex) { ",20151013,20151201,20151203,20151208,20151209,
                   20151210,20151215,20151217,20151222,
                   20151224,20151229,20151231,20160105" }
-  let(:t_start) { Date.new(2015, 8, 28) } # Friday
-  let(:t_end)   { Date.new(2016, 1, 13) } # Wednesday
+  let(:t_start) { '2015-08-28' } # Friday
+  let(:t_end)   { '2016-01-14' } # Thursday
   let!(:course) do
     create(:course,
            timeline_start: t_start,
            timeline_end: t_end,
            day_exceptions: day_ex,
-           weekdays: '0010100'
+           weekdays: '0010100' # Tuesdays and Thursdays
           )
   end
 
@@ -25,7 +25,7 @@ describe CourseMeetingsManager do
      "(Wed)", # December 6 - 12, including exception not on a Tues/Thurs
      "()", "()", "()", # December 13 - January 2
      "(Thu)", # January 3 - 9
-     "(Tue)"] # January 10 - 16
+     "(Tue, Thu)"] # January 10 - 16
   end
 
   describe '#week_meetings' do
@@ -71,9 +71,9 @@ describe CourseMeetingsManager do
 
   describe '#all_potential_meetings' do
     let(:expected) do
-      [ Date.new(2015, 8, 25),
-        Date.new(2015, 8, 27),
-        Date.new(2015, 9, 01) ]
+      [Date.new(2015, 8, 25),
+       Date.new(2015, 8, 27),
+       Date.new(2015, 9, 01)]
     end
     subject { described_class.new(course).send(:all_potential_meetings) }
     it 'returns an array of all days the course would have met, irrespective of blackouts' do
