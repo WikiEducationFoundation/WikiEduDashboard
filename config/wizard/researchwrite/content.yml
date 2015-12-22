@@ -75,7 +75,7 @@ essentials:
 
 
       -
-        title:
+        title: Everyone has a Wikipedia account
         kind: 2
         content: |
           All students have Wikipedia user accounts and are listed on the course page.
@@ -394,7 +394,7 @@ essentials:
             <li>Copy-edit the two reviewed articles.</li>
           </ul>
       -
-        title:
+        title: Peer reviews are complete
         kind: 2
         content: |
           <p>Every student has finished reviewing their assigned articles, making sure that every article has been reviewed.</p>
@@ -509,7 +509,7 @@ essentials:
     weight: 10
     blocks:
       -
-        title:
+        title: All article edits are complete
         kind: 2
         content: |
           <p>Students have finished all their work on Wikipedia that will be considered for grading.</p>
