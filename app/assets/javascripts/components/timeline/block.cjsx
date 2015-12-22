@@ -58,6 +58,7 @@ Block = React.createClass(
           show={@props.block.due_date?}
           onFocus={@props.toggleFocused}
           onBlur={@props.toggleFocused}
+          p_tag_classname='block__read__due-date'
         />
       )
 
@@ -92,7 +93,7 @@ Block = React.createClass(
       )
 
     content = (
-      <div>
+      <div className="block__editor-container">
         <TextAreaInput
           onChange={@updateBlock}
           value={@props.block.content}
@@ -119,7 +120,7 @@ Block = React.createClass(
     <li className={className}>
       {blockActions}
       {edit_button}
-      <div className='block__title-kind-container'>
+      <div className='block__edit-container'>
         <h4 className={"block-title" + (if @_isEditable() then " block-title--editing" else "")}>
           <TextInput
             onChange={@updateBlock}
@@ -159,27 +160,30 @@ Block = React.createClass(
             spacer=''
             popover_text={I18n.t('timeline.block_type')}
           />
+          <span className="block__due-date-spacer"> - </span>
+          {dueDateRead || (if is_graded then (<span className='block-read__due-date'>{I18n.t('timeline.due_default')}</span>) else '')}
         </div>
       </div>
-      <div className="block__block-due-date">
-        <TextInput
-          onChange={@updateBlock}
-          value={@props.block.due_date}
-          value_key='due_date'
-          editable={@_isEditable()}
-          type='date'
-          label='Due date'
-          spacer=''
-          placeholder='Due date'
-          isClearable=true
-          show={@_isEditable() && parseInt(@props.block.kind) == 1}
-          date_props={minDate: @props.week_start}
-          onFocus={@props.toggleFocused}
-          onBlur={@props.toggleFocused}
-        />
+      <div className='block__edit-container'>
+        <div className="block__block-due-date">
+          <TextInput
+            onChange={@updateBlock}
+            value={@props.block.due_date}
+            value_key='due_date'
+            editable={@_isEditable()}
+            type='date'
+            label='Due date'
+            spacer=''
+            placeholder='Due date'
+            isClearable=true
+            show={@_isEditable() && parseInt(@props.block.kind) == 1}
+            date_props={minDate: @props.week_start}
+            onFocus={@props.toggleFocused}
+            onBlur={@props.toggleFocused}
+          />
+        </div>
+        {graded}
       </div>
-      {graded}
-      {dueDateRead || (if is_graded then (<p>{I18n.t('timeline.due_default')}</p>) else '')}
       {content}
       {deleteBlock}
     </li>

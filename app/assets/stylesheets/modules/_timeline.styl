@@ -73,7 +73,8 @@
     border 1px solid $border_med_dk
     height auto
     &.title
-      width 200px
+      width 470px
+      margin-top 2px
   input[type='checkbox']
     margin 20px 5px
   .button
@@ -154,10 +155,8 @@
     margin-right 0
 
 .block.editable .block__block-type
-  bottom 0
+  bottom 2px
 
-.block__block-due-date
-  clear both
 
 .week__week-header
   overflow hidden
@@ -409,7 +408,7 @@ input[type="checkbox"]
   width 250px
 
 // Editing
-.block__title-kind-container
+.block__edit-container
   display flex
 .delete-block-container
   width 100%
@@ -421,6 +420,10 @@ input[type="checkbox"]
     color $warning_text
     background url("../images/trash-red.svg") left center no-repeat
     padding-left 25px
+
+.block__read__due-date
+  display inline
+  color $brand_primary
 
 li.block.editable
   margin-bottom 20px
@@ -447,11 +450,28 @@ li.block.editable
 
   .block__edit-block
     visibility hidden
+  .block__due-date-spacer
+    display none
+  .block__read__due-date
+    display none
+
 
 p.graded
   margin 0
   position relative
   bottom 5px
+
+// Assignment block type changes
+// layout slightly
+.block-kind-1
+  p.graded
+    bottom 0
+    top 21px
+  .block__editor-container
+    margin-top 35px
+  .block__block-due-date
+    clear both
+    margin-right 25px
 
 .block__block-actions
   margin-bottom 12px

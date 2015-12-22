@@ -79,7 +79,7 @@ TextInput = React.createClass(
         {input}
       </label>
     else if @props.label
-      <p>
+      <p className={@props.p_tag_classname}>
         <span className="text-input-component__label">{label}</span>
         <span>{spacer if (@props.value? or @props.editable) && !@props.label}</span>
         <span onBlur={@props.onBlur} onClick={@props.onClick} className={valueClass}>{value}</span>
