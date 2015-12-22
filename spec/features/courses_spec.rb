@@ -1,5 +1,4 @@
 require 'rails_helper'
-include CourseHelper
 
 cohort_course_count = 10
 
@@ -83,7 +82,7 @@ describe 'the explore page', type: :feature do
       expect(page.find('.stat-display')).to have_content stat_text
 
       # Words added
-      word_count = word_count_from_character_sum Course.all.sum(:character_sum)
+      word_count = WordCount.from_characters Course.all.sum(:character_sum)
       stat_text = "#{word_count} #{I18n.t('metrics.word_count')}"
       expect(page.find('.stat-display')).to have_content stat_text
 

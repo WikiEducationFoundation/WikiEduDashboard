@@ -1,3 +1,5 @@
+require "#{Rails.root}/lib/word_count"
+
 #= Presenter for courses / cohort view
 class CoursesPresenter
   attr_reader :current_user, :cohort_param
@@ -25,6 +27,10 @@ class CoursesPresenter
 
   def courses
     cohort.courses.listed.order(:title)
+  end
+
+  def word_count
+    WordCount.from_characters courses.sum(:character_sum)
   end
 end
 
