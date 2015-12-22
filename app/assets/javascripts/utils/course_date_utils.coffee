@@ -20,7 +20,11 @@ module.exports = {
   # Ex: ["(M, W, F)", "(M, W)", "()", "(W, T)", "(M, W, F)"]
   weekMeetings: (recurrence, course, exceptions) ->
     return unless recurrence?
-    course_weeks = Math.ceil(recurrence.endDate().diff(recurrence.startDate(), 'weeks', true))
+    week_end = recurrence.endDate()
+    week_end.day(6)
+    week_start = recurrence.startDate()
+    week_start.day(0)
+    course_weeks = Math.ceil(week_end.diff(week_start, 'weeks', true))
     unless recurrence.rules? && recurrence.rules[0].measure == 'daysOfWeek' && Object.keys(recurrence.rules[0].units).length > 0
       return null
 
