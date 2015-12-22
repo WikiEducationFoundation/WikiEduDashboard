@@ -24,6 +24,13 @@ describe WikiPageviews do
           expect(subject['20151001']).to eq(2164)
         end
       end
+
+      context 'beyond the allowed date range' do
+        let(:start_date) { '2015-01-01'.to_date }
+        it 'raises an error' do
+          expect{ subject }.to raise_error(/invalid WikiPageviews start date.*/)
+        end
+      end
     end
   end
 

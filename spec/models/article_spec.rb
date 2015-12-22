@@ -56,7 +56,7 @@ describe Article do
                         id: 1,
                         title: 'Wikipedia',
                         namespace: 0,
-                        views_updated_at: '2014-12-31'.to_date)
+                        views_updated_at: '2015-08-01'.to_date)
 
         # Add a revision so that update_views has something to run on.
         build(:revision,

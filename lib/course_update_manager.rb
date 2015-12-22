@@ -50,7 +50,7 @@ class CourseUpdateManager
     UserImporter.update_users users
     RevisionImporter.update_all_revisions course
     ViewImporter.update_views articles.namespace(0)
-      .find_in_batches(batch_size: 30)
+      .find_in_batches(batch_size: 30) unless course.legacy?
     RatingImporter.update_ratings articles.namespace(0)
       .find_in_batches(batch_size: 30)
   end

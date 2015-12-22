@@ -71,6 +71,7 @@ class ArticlesCourses < ActiveRecord::Base
     ActiveRecord::Base.transaction do
       mainspace_revisions.each do |revision|
         user = revision.user
+        next if user.nil?
         user.courses.each do |course|
           # Check whether the article is already associated with the course.
           next if course.articles.include?(revision.article)

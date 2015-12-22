@@ -4,15 +4,21 @@ class WikiPageviews
   ################
   # Entry points #
   ################
+  EARLIEST_PAGEVIEWS_AVAILABLE = '2015-08-01'
 
   # Given an article title and a date, return the number of page views for every
   # day from that date until today.
   #
-  # [title]  title of a Wikipedia page (including namespace, if applicable)
-  # [date]   a specific date
+  # [title]  title of a Wikipedia page (including namespace prefix, if applicable)
   def self.views_for_article(title, opts = {})
     language = opts[:language] || ENV['wiki_language']
     start_date = opts[:start_date] || 1.month.ago
+    # As of 2015-12-16, data is only available back to 2015-08-01.
+    # There shouldn't be any queries for older data, but just in case, this will
+    # throw an error so we can figure out where such queries come from.
+    # Eventually, this will be backfilled to 2015-05-01.
+    fail StandardError, "invalid WikiPageviews start date: #{start_date} for #{title}" if start_date < EARLIEST_PAGEVIEWS_AVAILABLE.to_date
+
     end_date = opts[:end_date] || Time.zone.today
     url = query_url(title, start_date, end_date, language)
     data = api_get url
