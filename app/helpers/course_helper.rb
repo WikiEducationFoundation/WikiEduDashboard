@@ -26,6 +26,6 @@ module CourseHelper
     # See graph with regression line here: https://commons.wikimedia.org/wiki/File:Bytes.content_length.scatter.correlation.enwiki.png
     # This is just a rough estimate, pending research on how bytes *added*
     # relates to changes in readable word count for work by student editors.
-    character_sum / 5.175
+    (character_sum / 5.175).to_i
   end
 end

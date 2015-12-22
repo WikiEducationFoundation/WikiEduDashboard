@@ -1,4 +1,5 @@
 require 'rails_helper'
+include CourseHelper
 
 MILESTONE_BLOCK_KIND = 2
 
@@ -134,7 +135,7 @@ describe 'the course page', type: :feature do
       find('#student-editors').click
       expect(page.find('#trained-count')).to have_content user_count / 2
       characters = revision_count * 2
-      expect(page.find('#characters-added')).to have_content characters
+      expect(page.find('#word-count')).to have_content word_count_from_character_sum characters
       expect(page.find('#view-count')).to have_content article_count * 10
     end
   end

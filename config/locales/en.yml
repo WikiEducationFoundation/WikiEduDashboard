@@ -179,6 +179,7 @@ en:
     student_editors: Student Editors
     view: Views
     view_count_description: Article Views
+    word_count: Words Added
 
   namespace:
     main: Mainspace
