@@ -17,7 +17,7 @@ describe 'activity page', type: :feature, js: true do
   describe 'non-admins' do
     let(:user) { create(:user, id: 2) }
     it 'shouldn\'t be viewable by non-admins' do
-      within '.container .home' do
+      within '.top-nav' do
         expect(page).not_to have_content 'Activity'
       end
     end
@@ -55,7 +55,7 @@ describe 'activity page', type: :feature, js: true do
     end
 
     it 'should be viewable by admins' do
-      within '.container .home' do
+      within '.top-nav' do
         expect(page).to have_content 'Activity'
       end
     end
