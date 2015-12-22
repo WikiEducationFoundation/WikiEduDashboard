@@ -1,27 +1,29 @@
-%aside{:class => [local_assigns.fetch(:fluid, false) ? 'fluid' : nil]}
+%nav.top-nav{class: local_assigns.fetch(:fluid, false) ? 'fluid' : nil}
   .container
-    .logo
-      %a.logo__link{:href => "/"}= logo_tag
-    .home
-      = link_to t('application.explore'), '/explore'
+    .top-nav__site-logo
+      %a.logo__link{href: root_path}= logo_tag
+    %ul.top-nav__main-links
+      %li= link_to t('application.explore'), explore_path, class: class_for_path(request, explore_path)
       - if user_signed_in?
-        = link_to t('application.my_dashboard'), root_url
+        %li= link_to t('application.my_dashboard'), root_path, class: class_for_path(request, root_path)
       - if current_user && current_user.admin?
-        = link_to t('application.recent_activity'), '/recent-activity'
-      = link_to t('application.training'), :training
-      = link_to t('application.help'), '/ask', target: '_blank'
+        %li= link_to t('application.recent_activity'), recent_activity_path, class: class_for_path(request, recent_activity_path)
+      %li= link_to t('application.training'), training_path, class: class_for_path(request, training_path)
+      %li= link_to t('application.help'), '/ask', target: '_blank'
     - if user_signed_in?
-      .search
+      .top-nav__faq-search
         = form_tag("/ask", method: "get", target: '_blank') do
           = text_field_tag(:q, '', placeholder: t('application.search'))
-          %button{:type => "submit"}
+          %button{type: 'submit'}
             %i.icon.icon-search
-    .login
+    %ul.top-nav__login-links
       - if user_signed_in?
-        %b>= link_to current_user.wiki_id, :root
-        = link_to t('application.log_out'), :destroy_user_session
+        %li
+          %b>= link_to current_user.wiki_id, root_path
+        %li= link_to t('application.log_out'), destroy_user_session_path
       - else
-        = link_to user_omniauth_authorize_path(:mediawiki) do
-          %i.icon.icon-wiki-logo
-          = t('application.log_in')
-          %span.expand= t('application.sign_up_log_in_extended')
+        %li
+          = link_to user_omniauth_authorize_path(:mediawiki) do
+            %i.icon.icon-wiki-logo
+            = t('application.log_in')
+            %span.expand= t('application.sign_up_log_in_extended')

@@ -1,7 +1,9 @@
-aside
+nav.top-nav
+  position fixed
+  top 0
+  z-index 100
   background-color white
   border-bottom 1px solid rgba(0,0,0,.1)
-  position relative
   overflow hidden
   width 100%
   font-size 15px
@@ -14,26 +16,19 @@ aside
       padding-left 15px
       padding-right 15px
 
+  ul
+    list-style none
+    margin 0
+    padding 0
 
-  a
+  li > a
     text-decoration none
-    margin-left 24px
-    display inline-block
     color inherit
+    padding 25px 0 15px 0
+    &:hover, &.active
+      color $brand_primary
+      border-bottom 3px solid $brand_primary
 
-    &:hover, &:active
-      color bayoux
-
-  .logo
-    line-height 0
-    a
-      display inline-block
-      margin 0
-      border none
-
-    img
-      width 35px
-      height 35px
 
   .container
     height $nav_height
@@ -41,91 +36,102 @@ aside
     align-items center
     justify-content space-around
 
-  .home
-    flex 1
+.top-nav__login-links
+  display flex
+  justify-content flex-end
+  b
     +below(desktop)
-      flex none
+      display none
+  i
+    margin-right 4px
+    margin-bottom: -1px;
+    display: inline-block;
+    font-size 16px
+    vertical-align middle
 
-  .search
-    margin-left auto
-    text-align center
-    border-left 1px solid lighten($border_lt, 40%)
-    border-right 1px solid lighten($border_lt, 40%)
-    > form > button
-      vertical-align middle
-      color #A0A0A0
-      line-height $nav_height
-      width 43px
-      padding-right 10px
-      margin-left -10px
-    input[type="text"]
-      vertical-align middle
-      height $nav_height
-      width 173px
-      border none
-      border-radius 0
-      font-family inherit
-      font-size 14px
-      outline 0
-      padding 10px
-      -webkit-appearance none
-      -webkit-font-smoothing: antialiased;
-
-      &:-ms-input-placeholder
-        color $text_md
-      &::-moz-placeholder
-        color $text_md
-      &::-webkit-input-placeholder
-        color $text_md
+  .expand
+    overflow hidden
+    display inline-block
+    width 0
+    transition all 250ms ease-in-out
+    opacity 0
+    vertical-align top
+    white-space nowrap
+    text-align left
 
     +below(desktop)
       display none
 
-  .login
-    text-align right
+  a
+    color $brand_primary
+    +below(desktop)
+      margin-left 0
 
-    b
-      +below(desktop)
-        display none
+    &:hover
+      .expand
+        opacity 1
+        width 110px
 
-    i
-      margin-right 4px
-      margin-bottom: -1px;
-      display: inline-block;
-      font-size 16px
-      vertical-align middle
+.top-nav__main-links
+  display flex
+  justify-content flex-start
+  margin 0
+  padding 0
+  li
+    margin-left 25px
+  a
+    margin 0
 
-    .expand
-      overflow hidden
-      display inline-block
-      width 0
-      transition all 250ms ease-in-out
-      opacity 0
-      vertical-align top
-      white-space nowrap
-      text-align left
+.top-nav__site-logo
+  line-height 0
+  a
+    display inline-block
+    margin 0
+    border none
 
-      +below(desktop)
-        display none
+  img
+    width 35px
+    height 35px
 
-    a
-      padding-top ($nav_height/2.5)
-      padding-bottom ($nav_height/2.5)
-      +below(desktop)
-        margin-left 0
+.top-nav__faq-search
+  margin-left auto
+  text-align center
+  border-left 1px solid lighten($border_lt, 40%)
+  border-right 1px solid lighten($border_lt, 40%)
+  > form > button
+    vertical-align middle
+    color #A0A0A0
+    line-height $nav_height
+    width 43px
+    padding-right 10px
+    margin-left -10px
+  input[type="text"]
+    vertical-align middle
+    height $nav_height
+    width 173px
+    border none
+    border-radius 0
+    font-family inherit
+    font-size 14px
+    outline 0
+    padding 10px
+    -webkit-appearance none
+    -webkit-font-smoothing: antialiased;
 
-       &:hover
-        .expand
-          opacity 1
-          width 110px
+    &:-ms-input-placeholder
+      color $text_md
+    &::-moz-placeholder
+      color $text_md
+    &::-webkit-input-placeholder
+      color $text_md
+
+  +below(desktop)
+    display none
+
 
 
 body.fixed-nav
   padding-top $nav_height
-  aside
-    position fixed
-    top 0
-    z-index 100
 
 nav
   text-align center
@@ -169,11 +175,11 @@ nav
       color $text
     a.active,
     a:hover
-      border-bottom 3px solid bayoux
+      border-bottom 3px solid $brand_primary
       cursor pointer
       padding-bottom 15px
     a.active
-      color bayoux
+      color $brand_primary
     &.bordered
       border-left 1px solid manatee
       padding-left 10px

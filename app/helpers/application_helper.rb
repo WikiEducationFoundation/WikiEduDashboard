@@ -20,4 +20,9 @@ module ApplicationHelper
     manifest = JSON.parse(File.read(File.expand_path(manifest_path, __FILE__)))
     "#{path}#{manifest[filename]}"
   end
+
+  def class_for_path(req, path)
+    return 'active' if req.path == '/' && path == '/'
+    req.path.split('/').reject(&:blank?).first == path.gsub('/', '') ? 'active' : nil
+  end
 end
