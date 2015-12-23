@@ -147,14 +147,18 @@ class WikiEdits
     summary = "Update [[#{course_page}|#{course_title}]] assignment details"
     post_whole_page(current_user, talk_title, page_content, summary)
   end
+
+  def self.notify_user(sender, recipient, message)
+    add_new_section(sender, recipient.talk_page, message)
+  end
+
   ###################
   # Helper methods #
   ###################
 
   def self.notify_users(current_user, recipient_users, message)
     recipient_users.each do |recipient|
-      user_talk_page = "User_talk:#{recipient.wiki_id}"
-      add_new_section(current_user, user_talk_page, message)
+      add_new_section(current_user, recipient.talk_page, message)
     end
   end
 
@@ -218,7 +222,6 @@ class WikiEdits
       WikiResponse.capture(response_data, current_user: current_user,
                                           post_data: data,
                                           type: 'edit')
-
       response_data
     end
 

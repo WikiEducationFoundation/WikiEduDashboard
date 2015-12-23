@@ -100,6 +100,7 @@ describe WikiEdits do
 
   describe '.update_assignments' do
     it 'should update talk pages and course page with assignment info' do
+      stub_raw_action
       stub_oauth_edit
       create(:assignment,
              user_id: 1,

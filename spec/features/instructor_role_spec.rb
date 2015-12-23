@@ -118,6 +118,7 @@ describe 'Instructor users', type: :feature, js: true do
 
     it 'should be able to assign articles' do
       stub_oauth_edit
+      stub_raw_action
       visit "/courses/#{Course.first.slug}/students"
       sleep 1
 

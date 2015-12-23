@@ -64,6 +64,7 @@ class User < ActiveRecord::Base
   }
 
   scope :trained, -> { where(trained: true) }
+  scope :ungreeted, -> { where(greeted: false) }
 
   ####################
   # Instance methods #
@@ -83,6 +84,10 @@ class User < ActiveRecord::Base
   def sandbox_url
     language = ENV['wiki_language']
     "https://#{language}.wikipedia.org/wiki/Special:PrefixIndex/User:#{wiki_id}"
+  end
+
+  def talk_page
+    "User_talk:#{wiki_id}"
   end
 
   def admin?

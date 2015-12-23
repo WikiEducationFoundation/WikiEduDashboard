@@ -174,6 +174,7 @@ describe 'Student users', type: :feature, js: true do
 
   describe 'adding an assigned article' do
     it 'should work' do
+      stub_raw_action
       stub_oauth_edit
       create(:courses_user,
              course_id: 10001,
@@ -197,6 +198,7 @@ describe 'Student users', type: :feature, js: true do
 
   describe 'adding a reviewed article' do
     it 'should work' do
+      stub_raw_action
       stub_oauth_edit
       create(:courses_user,
              course_id: 10001,
@@ -216,6 +218,7 @@ describe 'Student users', type: :feature, js: true do
 
   describe 'removing an assigned article' do
     it 'should work' do
+      stub_raw_action
       stub_oauth_edit
       create(:courses_user,
              course_id: 10001,
