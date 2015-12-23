@@ -69,6 +69,7 @@ TimelineHandler = React.createClass(
 
     outlet = React.cloneElement(@props.children, {key: 'wizard_handler', course: @props.course, weeks: @props.weeks, week_meetings: weekMeetings, meetings: meetings}) if @props.children
 
+    loading = if typeof @props?.course.title == 'string' then null else true
     <div>
       <TransitionGroup
         transitionName="wizard"
@@ -79,7 +80,7 @@ TimelineHandler = React.createClass(
         {outlet}
       </TransitionGroup>
       <Timeline
-        loading={@props?.loading}
+        loading={loading}
         course={@props?.course}
         weeks={@props?.weeks}
         week_meetings={weekMeetings}

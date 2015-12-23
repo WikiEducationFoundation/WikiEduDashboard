@@ -110,7 +110,7 @@ Timeline = React.createClass(
     window.removeEventListener 'scroll', @_handleScroll
 
   render: ->
-    if @props.weeks?.length is undefined or @props.weeks?.length is null
+    if @props.loading
       return <Loading />
 
     week_components = []
@@ -176,7 +176,7 @@ Timeline = React.createClass(
         i++
 
 
-    unless week_components.length
+    if !@props.loading && !@props.week_meetings.length
       no_weeks = (
         <li className="row view-all">
           <div><p>This course does not have a timeline yet</p></div>
