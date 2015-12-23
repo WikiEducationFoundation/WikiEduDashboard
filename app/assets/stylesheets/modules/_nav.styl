@@ -131,14 +131,20 @@ nav.top-nav
     display none
 
 
-.top-nav__faq-search ~ .top-nav__login-links
-  margin-left 0
-
 
 body.fixed-nav
   padding-top $nav_height
   nav.top-nav
     position fixed
+
+body.course-page nav.top-nav
+  position relative
+
+.course-nav__wrapper.affix
+  margin-top -57px
+  z-index 9999
+  width 100%
+  box-shadow 0 0 6px $text
 
 nav
   text-align center

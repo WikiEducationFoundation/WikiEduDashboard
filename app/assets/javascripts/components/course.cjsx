@@ -7,6 +7,7 @@ CourseActions     = require '../actions/course_actions'
 CourseStore       = require '../stores/course_store'
 UserStore         = require '../stores/user_store'
 CohortStore       = require '../stores/cohort_store'
+Affix             = require './common/affix'
 
 getState = ->
   current = $('#react_root').data('current_user')
@@ -166,31 +167,33 @@ Course = React.createClass(
       )
 
     <div>
-      <div className="course_navigation">
-        <div className="container">
-          <a href={@state.course.url} target="_blank">
-            <h2 className="title">{@state.course.title}</h2>
-          </a>
-          <nav>
-            <div className="nav__item" id="overview-link">
-              <p><Link to="#{@_courseLinkParams()}/overview" className={overviewLinkClassName} activeClassName="active">Overview</Link></p>
-            </div>
-            {timeline}
-            <div className="nav__item" id="students-link">
-              <p><Link to="#{@_courseLinkParams()}/students" activeClassName="active">Students</Link></p>
-            </div>
-            <div className="nav__item" id="articles-link">
-              <p><Link to="#{@_courseLinkParams()}/articles" activeClassName="active">Articles</Link></p>
-            </div>
-            <div className="nav__item" id="uploads-link">
-              <p><Link to="#{@_courseLinkParams()}/uploads" activeClassName="active">Uploads</Link></p>
-            </div>
-            <div className="nav__item" id="activity-link">
-              <p><Link to="#{@_courseLinkParams()}/activity" activeClassName="active">Activity</Link></p>
-            </div>
-          </nav>
+      <Affix className="course-nav__wrapper" offset=55>
+        <div className="course_navigation">
+          <div className="container">
+            <a href={@state.course.url} target="_blank">
+              <h2 className="title">{@state.course.title}</h2>
+            </a>
+            <nav>
+              <div className="nav__item" id="overview-link">
+                <p><Link to="#{@_courseLinkParams()}/overview" className={overviewLinkClassName} activeClassName="active">Overview</Link></p>
+              </div>
+              {timeline}
+              <div className="nav__item" id="students-link">
+                <p><Link to="#{@_courseLinkParams()}/students" activeClassName="active">Students</Link></p>
+              </div>
+              <div className="nav__item" id="articles-link">
+                <p><Link to="#{@_courseLinkParams()}/articles" activeClassName="active">Articles</Link></p>
+              </div>
+              <div className="nav__item" id="uploads-link">
+                <p><Link to="#{@_courseLinkParams()}/uploads" activeClassName="active">Uploads</Link></p>
+              </div>
+              <div className="nav__item" id="activity-link">
+                <p><Link to="#{@_courseLinkParams()}/activity" activeClassName="active">Activity</Link></p>
+              </div>
+            </nav>
+          </div>
         </div>
-      </div>
+      </Affix>
       {alerts}
       <div className="course_main container">
         {enroll_card}
