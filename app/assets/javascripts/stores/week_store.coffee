@@ -8,6 +8,7 @@ GradeableStore  = require './gradeable_store'
 _weeks = {}
 _persisted = {}
 _editableWeekId = 0
+_isLoading = true
 
 
 # Utilities
@@ -15,6 +16,7 @@ setWeeks = (data, persisted=false) ->
   for week, i in data
     _weeks[week.id] = week
     _persisted[week.id] = $.extend(true, {}, week) if persisted
+  _isLoading = false
   WeekStore.emitChange()
 
 updatePersisted = ->
@@ -42,6 +44,8 @@ setEditableWeekId = (week_id) ->
 
 # Store
 WeekStore = Flux.createStore
+  getLoadingStatus: ->
+    return _isLoading
   getWeek: (week_id) ->
     _weeks[week_id]
   getWeeks: ->

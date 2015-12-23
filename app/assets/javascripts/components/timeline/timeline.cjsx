@@ -176,11 +176,15 @@ Timeline = React.createClass(
         i++
 
 
-    if !@props.loading && !@props.week_meetings.length
+    if !@props.loading && @props.weeks.length is 0
       no_weeks = (
-        <li className="row view-all">
-          <div><p>This course does not have a timeline yet</p></div>
-        </li>
+        <Week
+          course={@props.course}
+          index={1}
+          week={{is_new: false}}
+          blocks=[]
+          empty_timeline=true
+        />
       )
 
     unless week_components.length > 0

@@ -7,6 +7,7 @@ BlockActions     = require '../../actions/block_actions'
 WeekActions      = require '../../actions/week_actions'
 GradeableStore   = require '../../stores/gradeable_store'
 TextInput        = require '../common/text_input'
+EmptyWeek        = require './empty_week'
 
 ReactCSSTG       = require 'react-addons-css-transition-group'
 {Motion, spring} = require 'react-motion'
@@ -17,6 +18,8 @@ Week = React.createClass(
   displayName: 'Week'
   getInitialState: ->
     focusedBlockId: null
+  addWeek: ->
+    WeekActions.addWeek()
   addBlock: ->
     @_scrollToAddedBlock()
     BlockActions.addBlock @props.week.id
@@ -126,9 +129,11 @@ Week = React.createClass(
           {blocks}
         </ul>
     ) else (
-      <div className="week__no-activity">
-        <h1 className="h3">No activity this week</h1>
-      </div>
+      <EmptyWeek
+        empty_timeline={@props.empty_timeline}
+        addWeek={@addWeek}
+        course={@props.course}
+      />
     )
 
     weekClassName = "week week-#{@props.index}"
