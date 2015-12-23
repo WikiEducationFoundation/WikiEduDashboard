@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151217170112) do
+ActiveRecord::Schema.define(version: 20151223004650) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title",                    limit: 255
@@ -203,6 +203,8 @@ ActiveRecord::Schema.define(version: 20151217170112) do
     t.string   "real_name",           limit: 255
     t.string   "email",               limit: 255
     t.boolean  "onboarded",                       default: false
+    t.boolean  "greeted",                         default: false
+    t.boolean  "greeter",                         default: false
   end
 
   create_table "weeks", force: :cascade do |t|
