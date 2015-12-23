@@ -344,6 +344,7 @@ describe 'New course creation and editing', type: :feature do
       sleep 1
       within(".week-2 .block-kind-#{Block::KINDS['assignment']}") do
         find('.Select-control input').set(unassigned_module_name[0..5])
+        page.execute_script('window.scrollBy(0,200)')
         find('.Select-menu-outer .Select-option', text: unassigned_module_name).click
       end
       within('.block__block-actions') { click_button 'Save' }
