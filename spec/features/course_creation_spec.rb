@@ -350,9 +350,9 @@ describe 'New course creation and editing', type: :feature do
       within('.block__block-actions') { click_button 'Save' }
 
       within ".week-2 .block-kind-#{Block::KINDS['assignment']}" do
+        page.execute_script('window.scrollBy(0,-200)')
         expect(page).to have_content unassigned_module_name
       end
-
     end
 
     it 'should squeeze assignments into the course dates' do
