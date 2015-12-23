@@ -177,7 +177,6 @@ CourseCreator = React.createClass(
                 value_key='description'
                 editable=true
                 label={I18n.t('course_creator.course_description')}
-                autoExpand=false
               />
               <TextInput
                 id='course_start'

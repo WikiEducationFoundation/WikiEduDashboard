@@ -28,6 +28,7 @@ Description = React.createClass(
           placeholder='Course description goes here'
           value_key={'description'}
           editable={@props.editable}
+          markdown=true
           autoExpand=true
         />
       </div>

@@ -54,7 +54,6 @@ Meetings = React.createClass(
               value_key='start'
               editable=true
               type='date'
-              autoExpand=true
               label='Course Start'
             />
             <TextInput
@@ -79,7 +78,6 @@ Meetings = React.createClass(
               value_key='timeline_start'
               editable=true
               type='date'
-              autoExpand=true
               label='Assignment Start'
               date_props={timeline_start_props}
             />

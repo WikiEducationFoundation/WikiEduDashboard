@@ -25,10 +25,10 @@ CourseClonedModal = React.createClass(
     @setState getState()
     @state.tempCourseId = CourseUtils.generateTempId(@props.course)
     @handleCourse()
-  
+
   getInitialState: ->
     getState()
-  
+
   updateCourse: (value_key, value) ->
     to_pass = $.extend(true, {}, @props.course)
     to_pass[value_key] = value
@@ -36,7 +36,7 @@ CourseClonedModal = React.createClass(
     if value_key in ['title', 'school', 'term']
       ValidationActions.setValid 'exists'
     @setState valuesUpdated: true
-  
+
   saveCourse: ->
     @updateCourse('cloned_status', @cloneCompletedStatus)
     if ValidationStore.isValid()
@@ -154,7 +154,6 @@ CourseClonedModal = React.createClass(
               value_key='description'
               editable=true
               label='Course description'
-              autoExpand=false
             />
             <TextInput
               id='course_start'

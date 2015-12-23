@@ -22,6 +22,7 @@ TextAreaInput = React.createClass(
     hr: React.PropTypes.bool
     autoExpand: React.PropTypes.bool
     wysiwyg: React.PropTypes.bool
+    markdown: React.PropTypes.bool
 
   getInitialState: ->
     value: @props.value
@@ -38,7 +39,7 @@ TextAreaInput = React.createClass(
       if @props.wysiwyg
         input_element = (
           <TrixEditor
-            value={@state.value || 'Block description…'}
+            value={@state.value}
             onChange={@_handleChange}
           />
         )
@@ -56,33 +57,42 @@ TextAreaInput = React.createClass(
             placeholder={@props.label || @props.placeholder}
           />
         )
-      if @props.hr and @props.autoExpand is false
-        <label><hr />{label}
-          {input_element}
-        </label>
-      else if @props.hr and @props.autoExpand is true
-        <label><hr />{label}
+
+      if @props.autoExpand
+        wrapped = (
           <div className="expandingArea active">
             <pre><span>{@state.value}</span><br/></pre>
             {input_element}
           </div>
-        </label>
-      else if @props.autoExpand is true
-        <label>{label}
-          <div className="expandingArea active">
-            <pre><span>{@state.value}</span><br/></pre>
-            {input_element}
-          </div>
-        </label>
+        )
       else
-        <label>{label}
-          {input_element}
-        </label>
-    else if @props.value
-      raw_html = md.render(@props.value)
-      <div className={@props.className} dangerouslySetInnerHTML={{__html: raw_html}}></div>
+        wrapped = input_element
+
+      if @props.hr
+        hr = <hr/>
+
+      if @props.label
+        return (
+          <label>
+            {hr}
+            {wrapped}
+          </label>
+        )
+      else
+        return (
+          <div>
+            {hr}
+            {wrapped}
+          </div>
+        )
     else
-      <p className="content"></p>
+      if @props.markdown
+        raw_html = md.render(@props.value || '')
+      else
+        raw_html = @props.value
+      return (
+        <div className={@props.className} dangerouslySetInnerHTML={{__html: raw_html}}></div>
+      )
 )
 
 module.exports = TextAreaInput

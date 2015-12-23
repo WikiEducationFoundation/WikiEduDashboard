@@ -54,7 +54,6 @@ FormPanel = React.createClass(
               value_key='start'
               editable=true
               type='date'
-              autoExpand=true
               label='Course Start'
             />
             <TextInput

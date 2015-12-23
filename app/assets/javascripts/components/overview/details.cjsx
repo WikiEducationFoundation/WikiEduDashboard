@@ -5,7 +5,6 @@ CohortButton      = require './cohort_button'
 TagButton         = require './tag_button'
 Editable          = require '../high_order/editable'
 TextInput         = require '../common/text_input'
-TextAreaInput     = require '../common/text_area_input'
 CourseActions     = require '../../actions/course_actions'
 ServerActions     = require '../../actions/server_actions'
 
@@ -46,7 +45,6 @@ Details = React.createClass(
             value_key='passcode'
             editable={@props.editable}
             type='text'
-            autoExpand=true
             label='Passcode'
             placeholder='Not set'
             required=true
@@ -99,7 +97,6 @@ Details = React.createClass(
             value_key='start'
             editable={@props.editable}
             type='date'
-            autoExpand=true
             label='Start'
             required=true
           />

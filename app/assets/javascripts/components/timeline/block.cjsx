@@ -96,12 +96,10 @@ Block = React.createClass(
       <div className="block__editor-container">
         <TextAreaInput
           onChange={@updateBlock}
-          value={@props.block.content}
+          value={@props.block.content || 'Block description…'}
           value_key='content'
           editable={@_isEditable()}
           rows='4'
-          placeholder='Block description'
-          autoExpand=true
           onFocus={@props.toggleFocused}
           onBlur={@props.toggleFocused}
           wysiwyg=true
