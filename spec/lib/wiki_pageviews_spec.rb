@@ -25,10 +25,22 @@ describe WikiPageviews do
         end
       end
 
+      it 'fails gracefully with expected network errors' do
+        stub_request(:any, /.*wikimedia.org.*/)
+          .to_raise(Errno::ETIMEDOUT)
+        expect(subject).to be_nil
+      end
+
+      it 're-raises unexpected errors' do
+        stub_request(:any, /.*wikimedia.org.*/)
+          .to_raise(StandardError)
+        expect { subject }.to raise_error(StandardError)
+      end
+
       context 'beyond the allowed date range' do
         let(:start_date) { '2015-01-01'.to_date }
         it 'raises an error' do
-          expect{ subject }.to raise_error(/invalid WikiPageviews start date.*/)
+          expect { subject }.to raise_error(/invalid WikiPageviews start date.*/)
         end
       end
     end
