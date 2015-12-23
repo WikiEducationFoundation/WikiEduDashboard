@@ -194,7 +194,9 @@ Course = React.createClass(
           </div>
         </div>
       </Affix>
-      {alerts}
+      <div className='course-alerts'>
+        {alerts}
+      </div>
       <div className="course_main container">
         {enroll_card}
         {React.cloneElement(@props.children, course_id: @getCourseID(), current_user: @getCurrentUser(), course:  @state.course)}
