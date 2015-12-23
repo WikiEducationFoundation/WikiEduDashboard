@@ -99,17 +99,16 @@ describe 'Student users', type: :feature, js: true do
     it 'should join a course' do
       stub_oauth_edit
 
-      visit "/courses/#{Course.first.slug}/enroll/passcode"
-      sleep 1
+      visit "/courses/#{Course.first.slug}?enroll=passcode"
+      click_link 'Join'
       visit "/courses/#{Course.first.slug}/students"
-      sleep 1
       expect(first('tbody')).to have_content User.last.wiki_id
       # Now try enrolling again, which shouldn't cause any errors
       visit "/courses/#{Course.first.slug}/enroll/passcode"
     end
 
     it 'should work even if a student is not logged in' do
-      pending 'fixing the intermittent failures on travis-ci'
+      # pending 'fixing the intermittent failures on travis-ci'
 
       OmniAuth.config.test_mode = true
       allow_any_instance_of(OmniAuth::Strategies::Mediawiki)
@@ -122,16 +121,17 @@ describe 'Student users', type: :feature, js: true do
       )
       stub_oauth_edit
       logout
-      visit "/courses/#{Course.first.slug}/students"
-      visit "/courses/#{Course.first.slug}/enroll/passcode"
+      visit "/courses/#{Course.first.slug}?enroll=passcode"
+      first(:link, 'Log in with Wikipedia').click
+      click_link 'Join'
       visit "/courses/#{Course.first.slug}/students"
       sleep 1
       expect(first('tbody')).to have_content 'Ragesock'
-      fail 'this test passed — this time'
+      # fail 'this test passed — this time'
     end
 
     it 'should work even if a student has never logged in before' do
-      pending 'fixing the intermittent failures on travis-ci'
+      # pending 'fixing the intermittent failures on travis-ci'
 
       OmniAuth.config.test_mode = true
       allow_any_instance_of(OmniAuth::Strategies::Mediawiki)
@@ -145,11 +145,19 @@ describe 'Student users', type: :feature, js: true do
       allow(Wiki).to receive(:get_user_id).and_return(234567)
       stub_oauth_edit
       logout
-      visit "/courses/#{Course.first.slug}/enroll/passcode"
-      visit "/courses/#{Course.first.slug}/students"
+      visit "/courses/#{Course.first.slug}?enroll=passcode"
+      first(:link, 'Log in with Wikipedia').click
+      expect(find('.intro')).to have_content 'Ragesoss'
+      click_link 'Start'
+      fill_in 'name', with: 'Sage Ross'
+      fill_in 'email', with: 'sage@example.com'
+      click_button 'Submit'
       sleep 1
+      click_link 'Finish'
+      click_link 'Join'
+      visit "/courses/#{Course.first.slug}/students"
       expect(first('tbody')).to have_content 'Ragesoss'
-      fail 'this test passed — this time'
+      # fail 'this test passed — this time'
     end
 
     it 'should not work if user is not persisted' do
