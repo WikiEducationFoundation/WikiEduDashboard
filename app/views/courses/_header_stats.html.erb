@@ -12,8 +12,8 @@
     </div>
   </div>
   <div class="stat-display__stat">
-    <div class="stat-display__value"><%= number_to_human presenter.courses.sum(:character_sum) %></div>
-    <small><%= t("metrics.char_added") %></small>
+    <div class="stat-display__value"><%= number_to_human presenter.word_count %></div>
+    <small><%= t("metrics.word_count") %></small>
   </div>
   <div class="stat-display__stat">
     <div class="stat-display__value"><%= number_to_human presenter.courses.sum(:view_sum) %></div>

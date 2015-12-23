@@ -191,6 +191,11 @@ class Course < ActiveRecord::Base
       .joins(:article).where('articles.namespace = 0')
   end
 
+  def word_count
+    require "#{Rails.root}/lib/word_count"
+    WordCount.from_characters(character_sum)
+  end
+
   #################
   # Cache methods #
   #################

@@ -134,7 +134,7 @@ describe 'the course page', type: :feature do
       find('#student-editors').click
       expect(page.find('#trained-count')).to have_content user_count / 2
       characters = revision_count * 2
-      expect(page.find('#characters-added')).to have_content characters
+      expect(page.find('#word-count')).to have_content WordCount.from_characters(characters)
       expect(page.find('#view-count')).to have_content article_count * 10
     end
   end

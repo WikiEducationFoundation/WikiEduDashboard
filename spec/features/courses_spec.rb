@@ -81,9 +81,9 @@ describe 'the explore page', type: :feature do
       stat_text = "#{student_count} #{I18n.t('courses.students')}"
       expect(page.find('.stat-display')).to have_content stat_text
 
-      # Characters added
-      character_count = Course.all.sum(:character_sum)
-      stat_text = "#{character_count} #{I18n.t('metrics.char_added')}"
+      # Words added
+      word_count = WordCount.from_characters Course.all.sum(:character_sum)
+      stat_text = "#{word_count} #{I18n.t('metrics.word_count')}"
       expect(page.find('.stat-display')).to have_content stat_text
 
       # Views
