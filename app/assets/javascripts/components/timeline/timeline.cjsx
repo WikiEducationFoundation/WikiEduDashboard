@@ -184,6 +184,8 @@ Timeline = React.createClass(
           week={{is_new: false}}
           blocks=[]
           empty_timeline=true
+          start={@props.course.timeline_start}
+          end={moment(@props.course.timeline_start).add(6, 'day')}
         />
       )
 
