@@ -417,7 +417,7 @@ describe 'New course creation and editing', type: :feature do
 
       # Finish the wizard
       first('button.dark').click
-      expect(page).to have_content 'This course does not have a timeline yet'
+      expect(page).to have_content 'Add Assignment'
       sleep 1
 
       # Add a week
@@ -440,6 +440,9 @@ describe 'New course creation and editing', type: :feature do
       visit current_path
       expect(page).to have_content 'Week 1'
       expect(page).to have_content 'block title'
+
+      # Add Assignment button should not appear once there is timeline content.
+      expect(page).not_to have_content 'Add Assignment'
     end
   end
 
@@ -461,13 +464,13 @@ describe 'reordering blocks in a course', js: true do
   let!(:c_user)    { create(:courses_user, course_id: course.id, user_id: user.id) }
 
   let!(:week)      { create(:week, course_id: course.id, order: 0) }
-  let!(:week2)      { create(:week, course_id: course.id, order: 1) }
+  let!(:week2)     { create(:week, course_id: course.id, order: 1) }
   let!(:block)     { create(:block, week_id: week.id, kind: Block::KINDS['in_class'], order: 0, title: 'Block 1') }
-  let!(:block2)     { create(:block, week_id: week.id, kind: Block::KINDS['in_class'], order: 1, title: 'Block 2') }
-  let!(:block3)     { create(:block, week_id: week.id, kind: Block::KINDS['in_class'], order: 2, title: 'Block 3') }
-  let!(:block4)     { create(:block, week_id: week2.id, kind: Block::KINDS['in_class'], order: 0, title: 'Block 4') }
-  let!(:block5)     { create(:block, week_id: week2.id, kind: Block::KINDS['in_class'], order: 1, title: 'Block 5') }
-  let!(:block6)     { create(:block, week_id: week2.id, kind: Block::KINDS['in_class'], order: 3, title: 'Block 6') }
+  let!(:block2)    { create(:block, week_id: week.id, kind: Block::KINDS['in_class'], order: 1, title: 'Block 2') }
+  let!(:block3)    { create(:block, week_id: week.id, kind: Block::KINDS['in_class'], order: 2, title: 'Block 3') }
+  let!(:block4)    { create(:block, week_id: week2.id, kind: Block::KINDS['in_class'], order: 0, title: 'Block 4') }
+  let!(:block5)    { create(:block, week_id: week2.id, kind: Block::KINDS['in_class'], order: 1, title: 'Block 5') }
+  let!(:block6)    { create(:block, week_id: week2.id, kind: Block::KINDS['in_class'], order: 3, title: 'Block 6') }
 
   before do
     set_up_suite
@@ -569,7 +572,6 @@ describe 'cloning a course', js: true do
 
     new_course = Course.last
     expect(Week.count).to eq(2) # make sure the weeks are distinct
-    expect(new_course.weeks.first.title).to eq(course.weeks.first.title)
     expect(new_course.blocks.first.content).to eq(course.blocks.first.content)
     expect(new_course.blocks.first.due_date)
       .to be_nil
