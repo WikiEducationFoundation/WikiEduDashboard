@@ -12,8 +12,7 @@ TextInput = React.createClass(
     unless @state.value?
       @setState value: nextProps.value
   dateChange: (date) ->
-    value = if date? then date.format('YYYY-MM-DD') else null
-    return unless value
+    value = if date? then date.format('YYYY-MM-DD') else ''
     @onChange({ target: { value: value } })
   render: ->
     spacer = @props.spacer || ': '

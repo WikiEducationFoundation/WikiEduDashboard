@@ -109,6 +109,10 @@ Block = React.createClass(
       </div>
     )
 
+    dueDateSpacer = if @props.block.due_date then (
+      <span className="block__due-date-spacer"> - </span>
+    )
+
     edit_button = if @props.edit_permissions then (
       <div className="block__edit-button-container">
         <span className="pull-right button ghost-button block__edit-block" onClick={@_setEditable}>Edit</span>
@@ -158,7 +162,7 @@ Block = React.createClass(
             spacer=''
             popover_text={I18n.t('timeline.block_type')}
           />
-          <span className="block__due-date-spacer"> - </span>
+          {dueDateSpacer}
           {dueDateRead || (if is_graded then (<span className='block-read__due-date'>{I18n.t('timeline.due_default')}</span>) else '')}
         </div>
       </div>
