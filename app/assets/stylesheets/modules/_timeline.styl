@@ -421,6 +421,12 @@ input[type="checkbox"]
   top $nav_height
   width 250px
 
+.block__default-due-date
+  color $brand_primary
+  &:before
+    content ' - '
+
+
 // Editing
 .block__edit-container
   display flex
@@ -434,6 +440,9 @@ input[type="checkbox"]
     color $warning_text
     background url("../images/trash-red.svg") left center no-repeat
     padding-left 25px
+
+.editable .block__default-due-date
+  display none
 
 .block__read__due-date
   display inline

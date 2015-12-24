@@ -163,7 +163,7 @@ Block = React.createClass(
             popover_text={I18n.t('timeline.block_type')}
           />
           {dueDateSpacer}
-          {dueDateRead || (if is_graded then (<span className='block-read__due-date'>{I18n.t('timeline.due_default')}</span>) else '')}
+          {dueDateRead || (if is_graded then (<span className='block__default-due-date'>{I18n.t('timeline.due_default')}</span>) else '')}
         </div>
       </div>
       <div className='block__edit-container'>
