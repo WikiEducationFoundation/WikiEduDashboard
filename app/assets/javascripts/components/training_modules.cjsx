@@ -47,7 +47,7 @@ TrainingModules = React.createClass(
         progressClass += ' complete' if module.deadline_status is 'complete'
 
         if module.deadline_status is 'overdue'
-          deadlineStatus = "(#{module.deadline_status}, due on #{module.due_date})"
+          deadlineStatus = "(due on #{module.due_date})"
 
         moduleStatus = if module.module_progress && module.deadline_status then (
           <div>
