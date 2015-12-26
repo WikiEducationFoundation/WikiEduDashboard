@@ -100,7 +100,9 @@ describe 'Student users', type: :feature, js: true do
       stub_oauth_edit
 
       visit "/courses/#{Course.first.slug}?enroll=passcode"
+      expect(page).to have_content User.last.wiki_id
       click_link 'Join'
+      sleep 1
       visit "/courses/#{Course.first.slug}/students"
       expect(first('tbody')).to have_content User.last.wiki_id
       # Now try enrolling again, which shouldn't cause any errors
@@ -123,9 +125,10 @@ describe 'Student users', type: :feature, js: true do
       logout
       visit "/courses/#{Course.first.slug}?enroll=passcode"
       first(:link, 'Log in with Wikipedia').click
+      expect(page).to have_content 'Ragesock'
       click_link 'Join'
-      visit "/courses/#{Course.first.slug}/students"
       sleep 1
+      visit "/courses/#{Course.first.slug}/students"
       expect(first('tbody')).to have_content 'Ragesock'
       # fail 'this test passed — this time'
     end
