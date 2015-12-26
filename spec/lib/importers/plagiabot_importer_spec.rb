@@ -38,4 +38,11 @@ describe PlagiabotImporter do
       expect(Revision.find(suspected_diff).ithenticate_id).not_to be_nil
     end
   end
+
+  describe 'error handling' do
+    it 'handles connectivity problems gracefully' do
+      stub_request(:any, /.*wmflabs.org.*/).and_raise(Errno::ETIMEDOUT)
+      expect(PlagiabotImporter.api_get('suspected_diffs')).to be_nil
+    end
+  end
 end
