@@ -111,7 +111,7 @@ describe 'New course creation and editing', type: :feature do
   describe 'course workflow', js: true do
     let(:expected_course_blocks) { 27 }
     let(:module_name) { 'Wikipedia Essentials' }
-    let(:unassigned_module_name) { 'Orientation for New Instructors' }
+
     it 'should allow the user to create a course' do
       stub_oauth_edit
 
@@ -212,8 +212,7 @@ describe 'New course creation and editing', type: :feature do
       prompt = page.driver.browser.switch_to.alert
       prompt.accept
       # There should now be 4 weeks
-      expect(page).not_to have_content "Week 5"
-
+      expect(page).not_to have_content 'Week 5'
 
       # Click edit, mark a gradeable and save it.
       find('.week-1').hover
@@ -330,29 +329,6 @@ describe 'New course creation and editing', type: :feature do
         expect(week.order).to eq(i + 1)
       end
       expect(Course.first.blocks.count).to eq(expected_course_blocks)
-
-      # Interact with training modules within a block
-      within ".week-2 .block-kind-#{Block::KINDS['assignment']}" do
-        expect(page).to have_content module_name
-      end
-
-      find('.week-2').hover
-      sleep 0.5
-      within('.week-2') do
-        find('.block__edit-block').click
-      end
-      sleep 1
-      within(".week-2 .block-kind-#{Block::KINDS['assignment']}") do
-        find('.Select-control input').set(unassigned_module_name[0..5])
-        page.execute_script('window.scrollBy(0,200)')
-        find('.Select-menu-outer .Select-option', text: unassigned_module_name).click
-      end
-      within('.block__block-actions') { click_button 'Save' }
-
-      within ".week-2 .block-kind-#{Block::KINDS['assignment']}" do
-        page.execute_script('window.scrollBy(0,-200)')
-        expect(page).to have_content unassigned_module_name
-      end
     end
 
     it 'should squeeze assignments into the course dates' do
@@ -384,6 +360,11 @@ describe 'New course creation and editing', type: :feature do
       expect(page).to have_content 'Week 6'
       expect(page).not_to have_content 'Week 7'
       expect(Course.first.blocks.count).to eq(expected_course_blocks)
+
+      within ".week-1 .block-kind-#{Block::KINDS['assignment']}" do
+        expect(page).to have_content module_name
+      end
+
     end
   end
 
@@ -452,7 +433,7 @@ describe 'New course creation and editing', type: :feature do
   end
 end
 
-describe 'reordering blocks in a course', js: true do
+describe 'timeline editing', js: true do
 
   let!(:course) do
     create(:course, id: 10001, start: Date.new(2015, 1, 1),
@@ -465,12 +446,14 @@ describe 'reordering blocks in a course', js: true do
 
   let!(:week)      { create(:week, course_id: course.id, order: 0) }
   let!(:week2)     { create(:week, course_id: course.id, order: 1) }
-  let!(:block)     { create(:block, week_id: week.id, kind: Block::KINDS['in_class'], order: 0, title: 'Block 1') }
+  let!(:block)     { create(:block, week_id: week.id, kind: Block::KINDS['assignment'], order: 0, title: 'Block 1') }
   let!(:block2)    { create(:block, week_id: week.id, kind: Block::KINDS['in_class'], order: 1, title: 'Block 2') }
   let!(:block3)    { create(:block, week_id: week.id, kind: Block::KINDS['in_class'], order: 2, title: 'Block 3') }
   let!(:block4)    { create(:block, week_id: week2.id, kind: Block::KINDS['in_class'], order: 0, title: 'Block 4') }
   let!(:block5)    { create(:block, week_id: week2.id, kind: Block::KINDS['in_class'], order: 1, title: 'Block 5') }
   let!(:block6)    { create(:block, week_id: week2.id, kind: Block::KINDS['in_class'], order: 3, title: 'Block 6') }
+
+  let(:unassigned_module_name) { 'Orientation for New Instructors' }
 
   before do
     set_up_suite
@@ -479,16 +462,20 @@ describe 'reordering blocks in a course', js: true do
     stub_oauth_edit
   end
 
-  it 'should disable reorder up/down buttons when it is the first or last block' do
+  it 'disables reorder up/down buttons when it is the first or last block' do
     visit "/courses/#{Course.last.slug}/timeline"
     click_button 'Arrange Timeline'
-    expect(find('.week-1 .week__block-list > li:first-child button:first-of-type')['disabled']).to eq(nil)
-    expect(find('.week-1 .week__block-list > li:first-child button:last-of-type')['disabled']).to eq("true")
-    expect(find('.week-2 .week__block-list > li:last-child button:first-of-type')['disabled']).to eq("true")
-    expect(find('.week-2 .week__block-list > li:last-child button:last-of-type')['disabled']).to eq(nil)
+    expect(find('.week-1 .week__block-list > li:first-child button:first-of-type')['disabled'])
+      .to eq(nil)
+    expect(find('.week-1 .week__block-list > li:first-child button:last-of-type')['disabled'])
+      .to eq('true')
+    expect(find('.week-2 .week__block-list > li:last-child button:first-of-type')['disabled'])
+      .to eq('true')
+    expect(find('.week-2 .week__block-list > li:last-child button:last-of-type')['disabled'])
+      .to eq(nil)
   end
 
-  it 'should allow swapping places with a block' do
+  it 'allows swapping places with a block' do
     visit "/courses/#{Course.last.slug}/timeline"
     click_button 'Arrange Timeline'
     find('.week-1 .week__block-list > li:nth-child(1) button:first-of-type').click # move down
@@ -507,29 +494,61 @@ describe 'reordering blocks in a course', js: true do
     expect(find('.week-1 .week__block-list > li:nth-child(3)')).to have_content('Block 3')
   end
 
-  it 'should allow moving blocks between weeks' do
+  it 'allows moving blocks between weeks' do
     visit "/courses/#{Course.last.slug}/timeline"
     click_button 'Arrange Timeline'
-    find('.week-2 .week__block-list > li:nth-child(1) button:last-of-type').click # move up to week 1
+
+    # move up to week 1
+    find('.week-2 .week__block-list > li:nth-child(1) button:last-of-type').click
     sleep 0.5
     expect(find('.week-1 .week__block-list > li:nth-child(4)')).to have_content 'Block 4'
-    find('.week-1 .week__block-list > li:nth-child(4) button:first-of-type').click # move back down to week 2
+
+    # move back down to week 2
+    find('.week-1 .week__block-list > li:nth-child(4) button:first-of-type').click
     sleep 0.5
     expect(find('.week-2 .week__block-list > li:nth-child(1)')).to have_content 'Block 4'
   end
 
-  it 'should be able to save and discard changes' do
+  it 'allows user to save and discard changes' do
     visit "/courses/#{Course.last.slug}/timeline"
     click_button 'Arrange Timeline'
-    find('.week-2 .week__block-list > li:nth-child(1) button:last-of-type').click # move up to week 1
+
+    # move up to week 1
+    find('.week-2 .week__block-list > li:nth-child(1) button:last-of-type').click
     click_button 'Save All'
     expect(find('.week-1 .week__block-list > li:nth-child(4)')).to have_content 'Block 4'
+
+    # move down to week 2 and discard Changes
     click_button 'Arrange Timeline'
-    find('.week-1 .week__block-list > li:nth-child(4) button:first-of-type').click # move down to week 2
+    find('.week-1 .week__block-list > li:nth-child(4) button:first-of-type').click
     click_button 'Discard All Changes'
-    expect(find('.week-1 .week__block-list > li:nth-child(4)')).to have_content 'Block 4' # still in week 1
+    # still in week 1
+    expect(find('.week-1 .week__block-list > li:nth-child(4)')).to have_content 'Block 4'
   end
 
+  it 'allows adding a training to an assignment block' do
+    # Remove the extra blocks that we don't want to interact with.
+    Block.where(kind: Block::KINDS['in_class']).destroy_all
+
+    visit "/courses/#{Course.last.slug}/timeline"
+
+    # Interact with training modules within a block
+    find('.week-1').hover
+    sleep 0.5
+    within('.week-1') do
+      find('.block__edit-block').click
+    end
+    sleep 1
+    within(".week-1 .block-kind-#{Block::KINDS['assignment']}") do
+      find('.Select-control input').set(unassigned_module_name[0..5])
+      find('.Select-menu-outer .Select-option', text: unassigned_module_name).click
+    end
+    within('.block__block-actions') { click_button 'Save' }
+
+    within ".week-1 .block-kind-#{Block::KINDS['assignment']}" do
+      expect(page).to have_content unassigned_module_name
+    end
+  end
 end
 
 describe 'cloning a course', js: true do
