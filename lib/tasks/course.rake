@@ -1,6 +1,6 @@
 require "#{Rails.root}/lib/legacy_courses/legacy_course_importer"
 
-namespace :course do
+namespace :legacy_course do
   desc 'Update courses and course users'
   task update_courses: 'batch:setup_logger' do
     Rails.logger.debug 'Updating all courses'
