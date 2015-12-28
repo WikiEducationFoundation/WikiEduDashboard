@@ -54,6 +54,8 @@ describe 'Instructor users', type: :feature, js: true do
            course_id: 10001)
 
     login_as(instructor, scope: :user)
+    stub_oauth_edit
+    stub_raw_action
   end
 
   describe 'visiting the students page' do
@@ -73,7 +75,6 @@ describe 'Instructor users', type: :feature, js: true do
     end
 
     it 'should be able to add students' do
-      stub_oauth_edit
       allow(Wiki).to receive(:get_user_id).and_return(123)
       visit "/courses/#{Course.first.slug}/students"
       sleep 1
@@ -98,7 +99,6 @@ describe 'Instructor users', type: :feature, js: true do
     end
 
     it 'should be able to remove students' do
-      stub_oauth_edit
       visit "/courses/#{Course.first.slug}/students"
       sleep 1
 
@@ -117,8 +117,6 @@ describe 'Instructor users', type: :feature, js: true do
     end
 
     it 'should be able to assign articles' do
-      stub_oauth_edit
-      stub_raw_action
       visit "/courses/#{Course.first.slug}/students"
       sleep 1
 
@@ -157,7 +155,6 @@ describe 'Instructor users', type: :feature, js: true do
     end
 
     it 'should be able to remove students from the course' do
-      stub_oauth_edit
       visit "/courses/#{Course.first.slug}/students"
 
       click_button 'Enrollment'
@@ -168,7 +165,6 @@ describe 'Instructor users', type: :feature, js: true do
     end
 
     it 'should be able to notify users with overdue training' do
-      stub_oauth_edit
       visit "/courses/#{Course.first.slug}/students"
 
       sleep 1
