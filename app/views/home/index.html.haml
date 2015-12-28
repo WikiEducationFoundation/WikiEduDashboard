@@ -45,45 +45,6 @@
         %li Stay up-to-date with your Wikipedia assignment
         %li Track your progress as you contribute to Wikipedia
 
-%section.dark.stats-total
-  .container
-    %h2.h1 Impact since 2010:
-
-    %h3 Wiki Ed Courses
-    %h4 640
-
-    %div
-      .col
-        %h3 Students
-        %h4 14,000
-
-      .col
-        %h3 Articles worked on
-        %h4 35,000
-
-    %div
-      .col
-        %h3 Characters added
-        %h4 20.5 Million
-        %p
-          The number of words students have donated to the world. That’s 28,000 pages – the equivalent of 28 volumes of a printed encyclopedia, shared with everyone, for free.
-
-      .col
-        %h3 Article views, in a single term
-        %h4 69.4 Million
-        %p
-          How many people have read the Wikipedia articles these students have edited? In a single term, 69.4 million – larger than the population of France.
-
-%section.universities
-  .container
-    %h2
-      Wiki Education Foundation staff have supported instructors and students in more than
-      %b 200 universities
-      across the United States and Canada
-
-    .logos
-      = image_tag "/assets/images/university-logo-1.png"
-      = image_tag "/assets/images/university-logo-3.png"
-      = image_tag "/assets/images/university-logo-5.png"
-      = image_tag "/assets/images/university-logo-6.png"
-      = image_tag "/assets/images/university-logo-7.png"
+#impact
+  - if ENV['dashboard_title'] == 'Wiki Education Foundation Dashboard'
+    = render :partial => "wiki_ed_impact"
