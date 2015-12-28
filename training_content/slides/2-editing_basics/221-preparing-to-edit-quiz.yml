@@ -5,7 +5,7 @@ content:
 assessment:
   correct_answer_id: 1
   question: |
-    What should you do before making an edit to an article?
+    What should you do before making a substantial change to an article? For example, adding a new paragraph.
   answers:
     - id: 1
       text: |

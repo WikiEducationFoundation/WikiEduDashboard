@@ -22,7 +22,7 @@ content: |
   1. Check that the bottom of the page has a "Notes" or "References" section. If
   not, type:  `==Notes==`.
   2. Check that the Notes section either has the text `{{reflist}}` or
-  `<references />`.If not, type: `{{reflist}}`. This determines where your
+  `<references />`. If not, type: `{{reflist}}`. This determines where your
   references will appear on the page.
 
   Adding this back in should auto-generate a list of references you've carried

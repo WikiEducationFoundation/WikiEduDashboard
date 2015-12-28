@@ -7,13 +7,14 @@ content: |
     <img src="https://upload.wikimedia.org/wikipedia/commons/d/d9/VisualEditor_citoid_Cite_button.png" />
   </figure>
 
-  You can also add citations through VisualEditor. Click "edit" above the
-  section or article you want to edit.
+  Let's try adding citations through VisualEditor. You may want to open up a sandbox page to follow along. 
+  
+  Click "edit" above the section or article you want to edit. 
 
   Within VisualEditor's toolbar, you'll find the "Cite" button. You can simply
   paste a URL, and the VisualEditor will try to sort out all of the fields you
   need. Be sure to review it, however, and apply missing fields manually (if you
-  know them). You can also add books, journals, news and websites manually. That
+  know them). You can also add books, journals, news, and websites manually. That
   opens up a quick guide for inputting your citations.
 
   <figure class="alt-layout-40-right">
@@ -28,7 +29,7 @@ content: |
 
   To edit an existing reference, use the "edit" button to open VisualEditor.
   Click on the bracketed number for the source you want to edit. You will see an
-  icon for the type of reference (book, web, news, etc) and an "Edit" button to
+  icon for the type of reference (book, web, news, etc.) and an "Edit" button to
   the right.
 
   Clicking on the "Edit" button will open a dialog where you can do exactly that.

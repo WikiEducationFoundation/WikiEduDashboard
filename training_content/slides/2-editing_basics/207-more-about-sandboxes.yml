@@ -8,4 +8,4 @@ content: |
 
   It's also handy to leave the section at the top — a *template* — that says
   "this is a user sandbox". In "Edit source" mode, you can see the wiki code for
-  that template, something like `{{student sandbox}}`.
+  that template, something like `{{dashboard.wikiedu.org sandbox}}`.
