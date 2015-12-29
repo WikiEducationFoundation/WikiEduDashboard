@@ -16,7 +16,7 @@ assessment:
         the source of those ideas.
     - id: 2
       text: |
-        Find clear, well-written and reliable sources, and quote them as closely
+        Find clear, well-written, and reliable sources, and quote them as closely
         as possible, while referencing the source of the information.
       explanation: |
         INCORRECT! You should write your contributions to Wikipedia in a wholly
@@ -31,7 +31,7 @@ assessment:
     - id: 4
       text: |
         Because anyone can copy and re-use Wikipedia's content, the more
-        information you copy directly from books, magazines and other sources of
+        information you copy directly from books, magazines, and other sources of
         knowledge, the better the world becomes.
       explanation: |
         INCORRECT! Because people can copy and re-use Wikipedia's content, it's
