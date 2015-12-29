@@ -2,8 +2,14 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Ochilov
+# Author: Robin van der Vliet
+# Author: 1490493253
 ---
 eo:
+  application:
+    help: Helpon!
+    home: Hejmo
+    log_out: Elsaluti
   articles:
     edited_mobile: Artikoloj
     rating: Klaso
@@ -19,6 +25,9 @@ eo:
     view: Vidoj
   namespace:
     user_ns: Uzanto
+  revisions:
+    class: Klaso
+    title: Titolo
   users:
     name: Nomo
 ...

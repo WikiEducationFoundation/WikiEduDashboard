@@ -2,8 +2,102 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Suyog
+# Author: V.narsikar
+# Author: अभय नातू
 ---
 mr:
+  application:
+    help: साहाय्य!
+    home: स्वगृह
+    log_out: सनोंद-निर्गम
+    recent_activity: अलीकडील क्रिया
+  activity:
+    edited_by: द्वारे संपादित
+    all: क्रिया
+  articles:
+    none: या अभासक्रमाने काहीच लेख संपदित केले नाहीत.
+    loading: लेखांचे प्रभारण करीत आहे...
+    assigned: सोपविलेले लेख
+    assigned_to: ला सोपविले
+    edited: संपादित लेख
+    edited_mobile: लेख
+    no_assignee: कोणत्याही सदस्यास सोपविलेले नाही
+    rating: वर्ग
+    title: शीर्षक
+    view: लेख बघा
+    view_all: सर्व बघा
   assignments:
     reviewers: तपासनीस
+  blocks:
+    milestones:
+      title: मैलाचे दगड
+  courses:
+    activity: क्रिया
+    articles: लेख
+    courses: अभासक्रम
+    yourcourses: आपले अभ्यासक्रम
+    nocourses: आपण कोणत्याच अभ्यासक्रमात सहभागी नाहीत.
+    current: सध्याचे अभ्यासक्रम
+    duration: अभ्यासक्रमाचा कालावधी
+    students: विद्यार्थी
+    students_none: या अभ्यासक्रमात काहीच विद्यार्थी नाहीत.
+    students_short: विद्यार्थी
+    timeline: गृहपाठाचा तपशिल
+    new_week: नविन आठवडा जोडा
+    title: शीर्षक
+    view: अभ्यासक्रम बघा
+  course_creator:
+    create_new: नविन अभ्यासक्रम तयार करा
+    course_title: अभ्यासक्रमाचे शीर्षक
+    course_subject: अभ्यासक्रम विषय
+    course_description: अभ्यासक्रमाचे वर्णन
+    expected_number: विद्यार्थ्यांची अपेक्षित संख्या
+    start_date: सुरूवात दिनांक
+    end_date: अंतिम दिनांक
+  metrics:
+    activity: अलीकडील क्रिया
+    articles_created: तयार केलेले लेख
+    articles_edited: संपादलेले लेख
+    characters: अक्षरे
+    char_changed: बदलविलेली अक्षरे
+    date_time: दिनांक/वेळ
+    edit_count_description: एकूण संपादने
+    revisions: अलीकडील संपादने
+    student_editors: विद्यार्थी संपादक
+  namespace:
+    user_ns: सदस्य
+  revisions:
+    date_time: दिनांक/वेळ
+    class: वर्ग
+    edited_by: ने संपादित केले
+    loading: आवृत्त्यांचे भारण करीत आहे...
+    title: शीर्षक
+  uploads:
+    loading: अपभारणांचे भारण करीत आहे...
+    usages: वापर
+  users:
+    already_enrolled: तो सदस्य पूर्वीच नामनोंदित आहे!
+    assigned: सोपविलेले लेख
+    contributions: सदस्य योगदान
+    contributions_more: अधिक योगदाने बघा
+    editors: विद्यार्थी संपादक
+    loading: सदस्यांचे प्रभारण करीत आहे...
+    name: नाव
+    none: या अभ्यासक्र्मात काहीच विद्यार्थी नाहीत.
+    recent_revisions: अलीकडील संपादने
+    revisions_doc: या संपादकाने मागील ७ दिवसात केलेली संपादने
+    reviewers: पुनरावलोकक
+    reviewing: पुनरावलोकन करणे
+  wizard:
+    course_dates: अभ्यासक्रमाच्या तारखा
+    read_more: अधिक वाचा
+    read_less: कमी वाचा
+    summary: सारांश
+  error:
+    unsupported_browser:
+      header: असाहाय्यीकृत न्याहाळक. :-(
+  error_401:
+    header: अनधिकृत.>:-(
+  error_404:
+    header: पान सापडले नाही.:-(
 ...

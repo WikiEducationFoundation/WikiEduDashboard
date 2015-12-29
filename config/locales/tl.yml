@@ -1,0 +1,24 @@
+# Messages for Tagalog (Tagalog)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Leeheonjin
+---
+tl:
+  application:
+    help: Tulong!
+    home: Unang pahina
+    log_out: Mag-logout
+    recent_activity: Kamakailang Aktibidad
+    search: hanapin ang ask.wikiedu.org
+  course_creator:
+    expected_number: Inaasahang bilang ng mga mag-aaral
+    start_date: Petsa ng pagsisimula
+    end_date: Petsa ng pagtatapos
+  revisions:
+    date_time: Petsa/Oras
+    edited_by: Inedit ni/ng
+    title: Pamagat
+  wiki_edits:
+    notify_overdue:
+      header: Mayroong kang takdang pangkasanayan na lumampas na sa panahon
+...

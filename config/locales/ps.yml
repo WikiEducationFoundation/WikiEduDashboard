@@ -4,6 +4,12 @@
 # Author: Ahmed-Najib-Biabani-Ibrahimkhel
 ---
 ps:
+  application:
+    dashboard: ويکي زده کړه ډشبورډ
+    help: لارښود!
+    home: کور
+    log_out: وتل
+    recent_activity: تازه فعاليتونه
   activity:
     edited_by: سمونگر
     all: فعاليت
@@ -27,17 +33,29 @@ ps:
     view_wiki: په ويکيپېډيا باندې کتل
   course_creator:
     create_new: يو نوی کورس جوړول
+    course_title: کورس سرليک
+    course_school: د کورس ښوونځی
+    course_subject: د کورس مضمون
+    course_description: د کورس څرگندونه
+    start_date: پيل نېټه
+    end_date: پای نېټه
   metrics:
     activity: تازه فعاليتونه
     articles_created: جوړې شوې ليکنې
     articles_edited: سمې شوې ليکنې
     date_time: نېټه/وخت
     edit_count_description: ټولټال سمونونه
+    revisions: وروستي سمونونه
     view: کتنې
     view_count_description: د ليکنې کتنې
   namespace:
     user: کارن تشيال
     user_ns: کارن
+  revisions:
+    date_time: نېټه/وخت
+    class: ټولگی
+    edited_by: سمونگر
+    title: سرليک
   uploads:
     usages: کارېدنې
   users:
@@ -45,6 +63,7 @@ ps:
     contributions_more: نورې ونډې کتل
     name: نوم
     none: دا کورس کوم زدکړيال نه لري.
+    recent_revisions: وروستني بدلونونه
   wizard:
     read_more: نور لوستل
     summary: لنډيز

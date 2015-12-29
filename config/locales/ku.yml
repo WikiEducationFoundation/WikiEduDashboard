@@ -27,10 +27,6 @@ ku:
   uploads:
     none: Pel nehatiye barkirin
     usages: Bikaranîn
-  wiki_edits:
-    notify_untrained:
-      header: Xwendekar rahênana xwe xilas nekirîye.
-      summary: rahênana xwedekarê netemame
   error_401:
     header: Bêdestûr. >:-(
   error_404:

@@ -1,14 +1,21 @@
 # Messages for French (français)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Appleuseryu
 # Author: Gomoko
 # Author: LudaOtaku
 # Author: Macofe
+# Author: PifyZ
 # Author: Wladek92
 ---
 fr:
   application:
     dashboard: Tableau de bord de modification du wiki
+    help: À l’aide !
+    home: Accueil
+    log_out: Déconnexion
+    recent_activity: Activité récente
+    search: rechercher sur ask.wikiedu.org
   activity:
     edited_by: Modifié par
     all: Activité
@@ -97,12 +104,29 @@ fr:
       exists: Ce cours existe déjà ! Veuillez réessayer avec un autre titre, école,
         ou échéance.
       user_exists: Désolé, %{username} n’existe pas.
+    course_dates_calendar_instructions: Sélectionner les dates à ajouter ou à supprimer
+      du calendrier (par ex., vacances, pas d’école). Cliquer sur la date pour basculer
+      entre non sélectionnée, sélectionnée, et en congé. Les dates des activités de
+      cours seront modifiées pour tenir compte des semaines sans rendez-vous planifié.
   course_creator:
     create_new: Créer un Nouveau cours
+    course_title: Titre du cours
+    course_school: École du cours
+    course_term: Condition du cours
+    course_subject: Sujet du cours
+    course_description: Description du cours
+    expected_number: Nombre attendu d’étudiants
+    start_date: Date de début
+    end_date: Date de fin
     intro: Le titre, l’école et l’échéance contribuent à la création de l’URL de la
       page de votre cours, et ne peuvent pas être modifiés. Vous pourrez modifier
       tout le reste ultérieurement. Cliquez sur « Créer mon cours ! » pour démarrer
       la construction du planning pour votre affectation Wikipédia.
+    cloned_course_calendar_instructions: Sélectionner les dates à ajouter ou supprimer
+      du calendrier (par ex., vacances, pas d’école). Cliquer sur la date pour basculer
+      entre non sélectionnée, sélectionnée, et en congé. Si vous n’avez pas de vacances,
+      cocher « Je n’ai pas de vacances scolaires ». Le planning copié sera automatiquement
+      ajusté pour tenir compte des semaines sans rendez-vous programmé.
   metrics:
     activity: Activité récente
     articles_created: Articles créés
@@ -124,9 +148,14 @@ fr:
     user_char_added: Caractères ajoutés à l’espace utilisateur
     user_ns: Utilisateur
   revisions:
+    date_time: Date/Heure
+    chars_added: Caractères ajoutés
+    class: Classe
+    edited_by: Modifié par
     loading: Chargement des révisions…
     none: Ce cours n’a pas d’activité récente de modification Wikipédia.
     time_doc: Le temps de chaque révision à votre heure locale.
+    title: Titre
   tasks:
     conseq: La tâche %{task} tourne déjà !
     constant: La tâche %{task} ne peut pas tourner tant que la tâche update_daily
@@ -170,17 +199,17 @@ fr:
       d’avis, il peut revenir à la fin du cours ici: https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete.'
     userspace_chars: Espace utilisateur<br />caractères ajoutés
   wiki_edits:
-    notify_untrained:
+    notify_overdue:
       confirm: Cela publiera un rappel sur les pages de discussion de tous les étudiants
-        qui n’ont pas achevé la formation. Êtes-vous sûr de vouloir le faire ?
-      header: Vous n’avez pas terminé la formation d’étudiant.
-      message: Veuillez terminer la [[WP:STUDENT|formation étudiant]]. Si vous l’avez
-        déjà faite, assurez-vous de bien cliquer sur le bouton à la fin pour enregistrer
-        que vous l’avez terminée. --~~~~
-      summary: formation étudiant non terminée
+        qui sont en retard dans leur formation. Êtes-vous sûr de vouloir faire cela ?
+      header: Vous avez une affectation de formation en retard.
+      message: Veuillez achever la [[WP:STUDENT|formation d’étudiant]]. Si vous l’avez
+        déjà faite, vérifiez que vous avez bien cliqué sur le bouton à la fin pour
+        enregistrer que vous l’avez terminée. --~~~~
+      summary: retard de formation d’étudiant
   wizard:
     course_dates: Dates du cours
-    assignment_dates: Type de tâche
+    assignment_dates: Dates de l'assignement
     assignment_type: Type de tâche
     confirm_dates: Choisir les dates du cours, les réunions hebdomadaires, et les
       vacances pour votre cours.
@@ -197,13 +226,18 @@ fr:
     select_assignment: Sélectionner le type de tâche que vous voulez ajouter à votre
       planning.
     summary: Résumé
+    calendar_instructions: Sélectionner les dates à ajouter ou supprimer du calendrier
+      (par ex., vacances, pas d’école). Cela aidera l’outil de création des cours
+      à répartir correctement vos affectations. Cliquer sur la date pour basculer
+      entre non sélectionnée, sélectionnée, et en vacances. Si vous n’avez pas de
+      vacances, cocher « Je n’ai pas de vacances scolaires » ci-dessous.
   error:
     oauth_invalid: Votre autorisation sur Wikipédia a expiré. Veuillez vous reconnecter.
     unsupported_browser:
       header: Navigateur non supporté. :-(
-      explanation: Vous utilisez un navigateur qui n’est pas compatible avec le tableau
-        de bord. Le site fonctionne bien sur Internet Explorer 10 ou plus, sur les
-        versions récentes de Chrome ou Firefox, et sur d’autres navigateurs modernes.
+      explanation: Vous utilisez un navigateur qui n'est pas compatible avec le tableau
+        de bord. Le site fonctionne bien sur Internet Explorer 11 ou plus, sur les
+        versions récentes de Chrome ou Firefox, et sur d'autres navigateurs modernes.
   error_401:
     header: Non autorisé. >:-(
     explanation: Vous n’êtes pas autorisé à exécuter cette requête. Si vous pensez

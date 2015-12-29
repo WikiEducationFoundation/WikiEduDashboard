@@ -2,17 +2,20 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Gorizon
+# Author: Mirzali
 ---
 diq:
   activity:
-    edited_by: Vurnayox
-    all: Aktivite
+    edited_by: Vurnayoğ
+    all: Fealiyet
   articles:
-    loading: Wesiqey bebé bar
-    edited_mobile: Wesiqey
-    no_assignee: Karbaré qeydini çıni
+    loading: Meqaleyi bar benê...
+    edited_mobile: Meqaleyi
+    no_assignee: Karberê qeydıni çıniyê
     rating: Sınıfe
     title: Sername
     view: Wesiqer bıvin
     view_all: Hemınan bıvin
+  uploads:
+    usages: Karidayışi
 ...

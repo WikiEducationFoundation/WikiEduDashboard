@@ -3,12 +3,19 @@
 # Export driver: phpyaml
 # Author: Alex00728
 # Author: Hwangjy9
+# Author: Priviet
 # Author: Revi
 # Author: Yearning
+# Author: 고솜
 ---
 ko:
   application:
     dashboard: 위키 에듀 대시보드
+    help: 도와주세요!
+    home: 대문
+    log_out: 로그아웃
+    recent_activity: 최근 활동
+    search: ask.wikiedu.org에서 검색
   activity:
     edited_by: '편집자 :'
     all: 활동
@@ -65,6 +72,13 @@ ko:
     wiki_staff: 위키 에듀 임원
   course_creator:
     create_new: 새 과정 만들기
+    course_school: 교과 학교
+    course_term: 교과 용어
+    course_subject: 교과 과목
+    course_description: 교과 설명
+    expected_number: 예상 학생 수
+    start_date: 개시일
+    end_date: 종료일
   metrics:
     activity: 최근 활동
     articles_created: 문서 생성됨
@@ -81,6 +95,12 @@ ko:
   namespace:
     user: 사용자 공간
     user_ns: 사용자
+  revisions:
+    date_time: 날짜/시간
+    chars_added: 글자가 추가됨
+    class: 클래스
+    edited_by: '편집자 :'
+    title: 제목
   tasks:
     conseq: '%{task} 작업이 아직도 돌아가고 있습니다!'
   uploads:
@@ -90,6 +110,9 @@ ko:
   users:
     name: 이름
     reviewers: 검토자
+  wiki_edits:
+    notify_overdue:
+      header: 제출 기간이 지난 교육 과제가 있습니다.
   wizard:
     assignment_dates: 과제 유형
     assignment_type: 과제 유형

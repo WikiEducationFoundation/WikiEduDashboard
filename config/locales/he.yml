@@ -141,6 +141,8 @@ he:
     mainspace_chars: תווים שנוספו<br />למרחב הראשי
     name: שם
     none: בקורס הזה אין תלמידים.
+    recent_revisions: עריכות אחרונות
+    revisions_doc: מספר העריכות שעשה העורך הזה בשבע הימים האחרונים
     reviewers: סוקרים
     reviewing: מתבצעת סקירה
     training_complete:
@@ -152,14 +154,6 @@ he:
       המשוב, הם יכולים לחזור לסוף ההכשרה כאן: https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete
       .'
     userspace_chars: תווים שנוספו<br />למרחב משתמש
-  wiki_edits:
-    notify_untrained:
-      confirm: זה ישלח תזכורת לדפי השיחה של כל הסטודנטים שלא השלימו את ההכשרה. האם
-        ברצונך באמת לעשות את זה?
-      header: לא השלמת את הכשרת התלמיד.
-      message: נא להשלים את [[WP:STUDENT|הכשרת התלמיד]]. אם כבר עברת אותה, נא ללחוץ
-        על הכפתור כדי לרשום שסיימת אותה. --~~~~
-      summary: הכשרת התלמיד לא הושלמה
   wizard:
     course_dates: תאריכי הקורס
     assignment_dates: סוג המטלה
@@ -180,7 +174,7 @@ he:
     unsupported_browser:
       header: דפדפן בלתי־נתמך. :-(
       explanation: אתם משתמשים בדפדפן שאינו תואם ללוח הבקרה. האתר הזה עובד טוב באינטרנט
-        אקספלורר מגרסה 10 ומעלה, בגרסאות אחרונות כרום ויירפוקס ובדפדפנים מודרניים
+        אקספלורר מגרסה 11 ומעלה, בגרסאות אחרונות כרום ויירפוקס ובדפדפנים מודרניים
         אחרים.
   error_401:
     header: לא מורשה. >:-(

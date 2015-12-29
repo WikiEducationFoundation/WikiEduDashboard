@@ -7,6 +7,25 @@
 de:
   application:
     dashboard: Wiki-Ed-Dashboard
+    help: Hilfe
+    home: Start
+    log_out: Abmelden
+    log_in: Anmelden
+    sign_up: Registrieren
+    sign_up_log_in_extended: mit Wikipedia
+    explore: Entdecken
+    my_dashboard: Meine Übersichtsseite
+    recent_activity: Letzte Aktivitäten
+    search: ask.wikiedu.org durchsuchen
+    training: Ausbildung
+  dashboard:
+    opt_out: Opt-Out der Einführung beantragen
+    explore_examples: Beispiele entdecken
+    explore_course_pages: Die Kursseiten entdecken
+  home:
+    log_in: Mit Wikipedia anmelden
+    sign_up: Mit Wikipedia registrieren
+    explore: Entdecken
   activity:
     edited_by: Bearbeitet von
     all: Aktivität
@@ -63,6 +82,8 @@ de:
     character_doc: Die Summe der durch die Kursstudenten während der Kursdauer zu
       Hauptnamensraum-Artikeln hinzugefügten Zeichen
     revisions_doc: Die Anzahl der Bearbeitungen in den letzten %{timeframe} Tagen
+    word_count_doc: Eine Schätzung der Anzahl der durch die Kursstudenten während
+      der Kursdauer hinzugefügten Wörter in Hauptnamensraum-Artikeln.
     course_description: Wiki-Ed-Kurse
     courses: Kurse
     yourcourses: Deine Kurse
@@ -93,11 +114,30 @@ de:
       exists: Dieser Kurs ist bereits vorhanden! Bitte versuche es erneut mit einem
         anderen Titel, einer anderen Schule oder Dauer.
       user_exists: Leider ist der Benutzer %{username} nicht vorhanden.
+    course_dates_calendar_instructions: Wähle Daten aus, um sie in dem Plan hinzuzufügen
+      oder zu entfernen (z.&nbsp;B. Feiertage oder schulfreie Tage). Klicke das Datum
+      an, um zwischen unausgewählt, ausgewählt und Feiertagsstatus zu wechseln. Die
+      Daten der Kursaktivitäten ändern das Konto für Wochen, die keine geplanten Treffen
+      haben.
   course_creator:
     create_new: Einen neuen Kurs erstellen
+    course_title: Kurstitel
+    course_school: Kursschule
+    course_term: Kursdauer
+    course_subject: Kursthema
+    course_description: Kursbeschreibung
+    expected_number: Erwartete Anzahl der Studenten
+    start_date: Startdatum
+    end_date: Enddatum
     intro: Der Titel, die Schule und die Dauer erstellen die URL deiner Kursseite
       und können nicht geändert werden. Alles andere kannst du später bearbeiten.
       Klicke auf „Meinen Kurs erstellen!“ zum Erstellen der Zeitleiste für deine Wikipedia-Zuweisung.
+    cloned_course_calendar_instructions: Wähle Daten aus, um sie in dem Plan hinzuzufügen
+      oder zu entfernen (z.&nbsp;B. Feiertage oder schulfreie Tage). Klicke das Datum
+      an, um zwischen unausgewählt, ausgewählt und Feiertagsstatus zu wechseln. Falls
+      du keine Feiertage hast, aktiviere das Kontrollkästchen „Ich habe keine Feiertage“.
+      Die geklonte Zeitleiste passt die Daten auf Kontowochen automatisch an, die
+      keine geplanten Treffen haben.
   metrics:
     activity: Letzte Aktivitäten
     articles_created: Erstellte Artikel
@@ -112,6 +152,7 @@ de:
     student_editors: Studentenautoren
     view: Aufrufe
     view_count_description: Artikelaufrufe
+    word_count: Hinzugefügte Wörter
   namespace:
     main: Hauptnamensraum
     main_char_added: Hauptnamensraum-Zeichen hinzugefügt
@@ -119,9 +160,14 @@ de:
     user_char_added: Benutzernamensraum-Zeichen hinzugefügt
     user_ns: Benutzer/in
   revisions:
+    date_time: Datum/Uhrzeit
+    chars_added: Hinzugefügte Zeichen
+    class: Klasse
+    edited_by: Bearbeitet von
     loading: Lade Versionen …
     none: Dieser Kurs hat keine kürzliche Wikipedia-Bearbeitungsaktivität.
     time_doc: Die Zeit jeder Version in deiner Ortszeit
+    title: Titel
   tasks:
     conseq: Die Aufgabe %{task} läuft bereits!
     constant: Die Aufgabe %{task} kann nicht ausgeführt werden, während die Aufgabe
@@ -166,22 +212,25 @@ de:
       hier zurückkehren: https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete.'
     userspace_chars: Benutzernamensraum<br />hinzugefügte Zeichen
   wiki_edits:
-    notify_untrained:
+    notify_overdue:
       confirm: Dies sendet eine Erinnerung an die Diskussionsseiten aller Studenten,
-        die die Ausbildung nicht abgeschlossen haben. Bist du sicher, dass du dies
-        tun möchtest?
-      header: Du hast die Studentenausbildung nicht abgeschlossen.
-      message: Bitte vervollständige die [[WP:STUDENT|Studentenausbildung]]. Falls
-        du sie bereits durchgegangen bist, stelle sicher, die Schaltfläche am Ende
-        anzuklicken, um zu protokollieren, dass du fertig bist. <nowiki>--~~~~</nowiki>
-      summary: Studentenausbildung unvollständig
+        die eine überfällige Ausbildung haben. Bist du sicher, dass du dies tun möchtest?
+      header: Du hast eine überfällige Ausbildungszuweisung.
+      message: Vervollständige bitte die [[WP:STUDENT|Studentenausbildung]]. Falls
+        du sie bereits absolviert hast, stelle sicher, dass du die Schaltfläche am
+        Ende anklickst, um anzuzeigen, dass du fertig bist. <nowiki>--~~~~</nowiki>
+      summary: Studentenausbildung überfällig
   wizard:
     course_dates: Kursdaten
-    assignment_dates: Zuweisungstyp
+    assignment_dates: Zuweisungsdaten
     assignment_type: Zuweisungstyp
     confirm_dates: Wähle die Kursdaten, wöchentlichen Treffen und Feiertage für deinen
       Kurs aus.
-    assignment_description: Wähle die Start- und Enddaten dieser Zuweisung aus
+    assignment_description: Wähle die Start- und Enddaten dieser Zuweisung aus. Falls
+      du beispielsweise dein Wikipedia-Projekt in der zweiten Woche der Klasse starten
+      möchtest, setze das Zuweisungsstartdatum auf eine Woche nach dem Kursstartdatum.
+      Dieses Zuweisungsgestaltungswerkzeug erstellt eine Entwurfszeitleiste, die sich
+      den ausgewählten Zeitleistendaten anpasst.
     min_weeks: Diese Zuweisung erfordert mindestens %{min_weeks} verfügbare Wochen.
       Bitte passe deine Start- und Enddaten deiner Zuweisung an, falls du diesen Zuweisungstyp
       verwenden möchtest.
@@ -194,6 +243,11 @@ de:
     select_assignment: Wähle die Art der Zuweisung aus, die du zu deiner Zeitleiste
       hinzufügen möchtest.
     summary: Zusammenfassung
+    calendar_instructions: Wähle Daten aus, um sie in dem Plan hinzuzufügen oder zu
+      entfernen (z.&nbsp;B. Feiertage oder schulfreie Tage). Dies hilft dem Kurserstellungswerkzeug,
+      deine Zuweisungen genau zu verteilen. Klicke das Datum an, um zwischen unausgewählt,
+      ausgewählt und Feiertagsstatus zu wechseln. Falls du keine Feiertage hast, aktiviere
+      unten das Kontrollkästchen „Ich habe keine Feiertage“.
   error:
     oauth_invalid: Deine Wikipedia-Autorisierung ist abgelaufen. Bitte erneut anmelden.
     unsupported_browser:
@@ -227,4 +281,10 @@ de:
     block_type: Der Sperrtyp wird verwendet, um mit anderen Studenten über dieses
       Objekt auf ihrer Zeitleiste zu kommunizieren und zum Erstellen nützlicher Werkzeuge
       für dich (wie der Meilensteinentwurf auf der Übersichtsseite).
+    unable_to_add_week: Du kannst keine neuen Wochen hinzufügen, wenn deine Zeitleiste
+      voll ist. Lösche mindestens eine Woche oder ändere deine Zuweisungsdaten ab,
+      um Platz für ein neues zu schaffen.
+    blackout_week_created: Es gibt für diese Woche geplante Sperren. Bitte verschiebe
+      sie auf eine andere Woche, bevor du das letzte Klassentreffen von dieser Woche
+      entfernst.
 ...

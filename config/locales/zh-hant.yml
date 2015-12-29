@@ -3,27 +3,61 @@
 # Export driver: phpyaml
 # Author: Cwlin0416
 # Author: LNDDYL
+# Author: Liuxinyu970226
 ---
 zh-hant:
+  application:
+    dashboard: Wiki Ed 儀表盤
+    help: 說明！
   activity:
+    edited_by: 編輯自
     all: 活動
   articles:
     loading: 讀取文章中...
+    edited: 編輯的條目
+    edited_mobile: 條目
     title: 標題
+    view: 檢視條目
+    view_all: 檢視全部
   blocks:
     milestones:
       title: 里程碑
+  courses:
+    articles: 條目
+    new_week: 新增新的一週
+    title: 標題
+    view_wiki: 在維基百科上檢視
   metrics:
     activity: 最近活動
+    articles_created: 建立的條目
+    articles_edited: 編輯的條目
+    char: 新增的字元
+    characters: 字元
+    char_added: 新增的字元
+    char_changed: 變更的字元
     date_time: 日期/時間
     edit_count_description: 總編輯數
+    revisions: 近期編輯
     view: 檢視數
     view_count_description: 文章檢視數
   namespace:
+    main: 主空間
+    user: 使用者空間
     user_ns: 使用者
   uploads:
+    loading: 上傳載入中...
     usages: 使用狀況
+  users:
+    contributions: 使用者貢獻
+    contributions_more: 檢視更多貢獻
+    loading: 使用者載入中...
+    mainspace_chars: 主空間<br />新增的字元
+    name: 名稱
+    recent_revisions: 近期編輯
+    userspace_chars: 使用者空間<br />新增的字元
   wizard:
+    read_more: 閱讀更多
+    read_less: 閱讀更少
     summary: 摘要
   error_404:
     header: 查無頁面。:-(

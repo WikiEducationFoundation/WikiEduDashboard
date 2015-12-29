@@ -6,6 +6,11 @@
 zh-hans:
   application:
     dashboard: Wiki Ed控制面板
+    help: 帮助！
+    home: 首页
+    log_out: 退出
+    recent_activity: 最近活动
+    search: 搜索ask.wikiedu.org
   activity:
     edited_by: 编辑自
     all: 活跃
@@ -56,6 +61,7 @@ zh-hans:
     yourcourses: 您的课程
     current: 当前课程
     duration: 课程持续时间
+    gradeables_none: 此课程没有可批改作业。
     instructor:
       other: 导师
     students: 学生
@@ -76,6 +82,14 @@ zh-hans:
       user_exists: 对不起，%{username}不是一位存在的用户。
   course_creator:
     create_new: 创建一个新课程
+    course_title: 课程标题
+    course_school: 课程学校
+    course_term: 课程学期
+    course_subject: 课程科目
+    course_description: 课程描述
+    expected_number: 预计学生人数
+    start_date: 开始日期
+    end_date: 结束日期
   metrics:
     activity: 最近活跃
     articles_created: 创建的条目
@@ -97,11 +111,17 @@ zh-hans:
     user_char_added: 添加的用户名字空间字符
     user_ns: 用户
   revisions:
+    date_time: 日期/时间
+    chars_added: 添加的字符
+    class: 等级
+    edited_by: 编辑者
     loading: 正在加载修订……
     none: 此课程最近没有活跃编辑维基百科。
     time_doc: 在您本地时间内，每个修订的时间
+    title: 标题
   tasks:
     conseq: 课程%{task}已在进行！
+    constant: 当update_daily运行时，任务%{task}不能运行。
   uploads:
     loading: 正在加载上传...
     none: 此班级没有贡献任何图片或其他媒体文件至维基共享资源。
@@ -127,21 +147,25 @@ zh-hans:
     training_complete_count: '%{count}完成了培训'
     userspace_chars: 用户空间<br />字符已添加
   wiki_edits:
-    notify_untrained:
-      header: 您没有完成学生培训。
+    notify_overdue:
+      header: 您有一个过期的培训任务。
       message: 请完成[[WP:STUDENT|学生培训]]。如果您已经完成了它，请确保点击页尾的按钮以记录您完成了它。--~~~~
-      summary: 学生培训未完成
+      summary: 学生培训迟到
   wizard:
     course_dates: 课程日期
+    assignment_dates: 分配日期
     assignment_type: 分配类型
+    confirm_dates: 为您的课程选择课程日期、每周例会和假日。
     minimum_options: 请至少选择%{minimum}个选项。
     read_more: 阅读更多
     read_less: 阅读更少
+    select_assignment: 选择您希望添加至您的时间轴的任务类型。
     summary: 摘要
   error:
     oauth_invalid: 您的维基百科授权已过期。请重新登录。
     unsupported_browser:
       header: 浏览器不受支持。:-(
+      explanation: 您正在使用与控制面板不兼容的浏览器。此网站在Internet Explorer 11或更高版本、Chrome和Firefox浏览器的最新版本以及其他现代浏览器上正常工作。
   error_401:
     header: 未获授权。>:-(
   error_404:

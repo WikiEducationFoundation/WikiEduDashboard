@@ -9,6 +9,10 @@
 pt:
   application:
     dashboard: Painel do Programa de Educação
+    help: Ajuda!
+    home: Início
+    log_out: Sair
+    recent_activity: Atividade recente
   activity:
     edited_by: Editado por
     all: Atividade
@@ -37,6 +41,14 @@ pt:
     volunteer:
       one: Voluntário
       other: Voluntários
+  course_creator:
+    course_title: Título do curso
+    course_school: Escola
+    course_subject: Tema do curso
+    course_description: Descrição do curso
+    expected_number: Número de alunos esperado
+    start_date: Data de início
+    end_date: Data de fim
   metrics:
     activity: Atividade recente
     articles_created: Artigos criados
@@ -53,6 +65,10 @@ pt:
     main: Domínio principal
     user: Domínio Utilizador
     user_ns: Utilizador(a)
+  revisions:
+    date_time: Data/Hora
+    edited_by: Editado por
+    title: Título
   uploads:
     none: Não foram carregados ficheiros
     usages: Usos

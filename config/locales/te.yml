@@ -2,8 +2,12 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Naidugari Jayanna
+# Author: Veeven
 ---
 te:
+  application:
+    help: సహాయం!
+    home: ముంగిలి
   activity:
     edited_by: సవరించినవారు
     all: కలాపం

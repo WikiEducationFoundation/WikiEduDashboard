@@ -7,31 +7,30 @@
 qqq:
   application:
     dashboard: Application name.
-    help: 'Link to http://ask.wikiedu.org'
+    help: |-
+      Link to http://ask.wikiedu.org
+      {{Identical|Help}}
     home: Link to the main page
-    recent_activity: Link to recent activity (for registered users)
-    search: Input box for search on ask.wikiedu.org
-    log_in: Button for logging in (for registered users)
     log_out: Button for logging out (for registered users)
+    log_in: Button for logging in (for registered users)
     sign_up: Sign up (for new users)
-    sign_up_log_in_extended: Short text (< 14 characters) to make clear that authentication is via wikipedia
+    sign_up_log_in_extended: Short text (< 14 characters) to make clear that authentication
+      is via wikipedia
     explore: Explore link
     my_dashboard: My Dashboard link
-
+    recent_activity: Link to recent activity (for registered users)
+    search: Input box for search on ask.wikiedu.org
   dashboard:
     opt_out: Link to opt out
     explore_examples: Link to explore example courses
     explore_course_pages: Link to explore courses pages
-
   home:
     log_in: Log in with Wikipedia button
     sign_up: Sign up with Wikipedia button
     explore: Explore button
-
   activity:
     edited_by: Column label for username of user who made an edit
     all: '{{Identical|Activity}}'
-
   articles:
     none: Message stating that no articles have been edited.
     loading: Placeholder message indicating that article data is still loading
@@ -63,7 +62,6 @@ qqq:
     view_doc: Documentation for the view count.
     views_added: Maintenance script message stating how many view counts have been
       added to an article.
-
   assignments:
     assignees: '{{Identical|Assignee}}'
     reviewers: '{{Identical|Reviewer}}'
@@ -72,18 +70,17 @@ qqq:
     confirm_addition: Confirmation dialog for adding a new assignment. %{title} is
       the Wikipedia page title. %{username} is the username of the assignee.
     confirm_deletion: Confirmation dialog for an assignment should be deleted
-
   blocks:
     milestones:
       title: Label for the Milestone section of a course page
       empty: Message indicating that there are no milestones for a course
-
   cohort:
     view_other: Command to view another cohort.
-
   courses:
     activity: Label for link to the 'recent activity' list for a course
-    articles: Label for link to list of articles worked on by a course
+    articles: |-
+      Label for link to list of articles worked on by a course
+      {{Identical|Article}}
     character_doc: Explanation of what 'characters added' means
     course_description: Label for the number of courses in a cohort
     courses: Label for the number of courses in a cohort
@@ -102,7 +99,9 @@ qqq:
     weeks_none: Message indicating that a course does not have a timeline
     new_week: Button text for adding a new week to the timeline
     overview: Label for link to the overview page for a course
-    title: Label for the title of each course
+    title: |-
+      Label for the title of each course
+      {{Identical|Title}}
     view: Label for link to a course page
     view_wiki: Label for link to the on-wiki version of a course page
     view_doc: Explanation of what 'article views' means
@@ -113,19 +112,17 @@ qqq:
     error:
       exists: Error message indicating that a course with the same title, school and
         term already exists.
-
   course_creator:
     create_new: Header of button for creating a new course
     course_title: Label for title of the course
     course_school: Label for name of school which organized the course
-    сourse_term: Label for term of the course
     course_subject: Label for subject of the course
     course_description: Label for description of the course
-    expected_number: Label for expected number of students who will enroll in the course
+    expected_number: Label for expected number of students who will enroll in the
+      course
     start_date: Label for date of the course start
     end_date: Label for date of the course end
     intro: Description of the course creator form
-
   metrics:
     activity: Label for activity feed.
     articles_created: Label for the number of articles created.
@@ -140,24 +137,25 @@ qqq:
     student_editors: Label for number of editors participating as students in a course
     view: Label for the number of article views.
     view_count_description: Long label for the number of article views.
-
   namespace:
     main: Long label for the Main namespace.
     main_char_added: Label for number of characters added to the Main namespace.
     user: Long label for the User namespace.
     user_char_added: Label for number of characters added to the User namespace.
     user_ns: Wiki title for the user namespace.
-
   revisions:
     date_time: Label for date and time of revision
     chars_added: Label for counter of added chars
-    class: Label for class of the article
+    class: |-
+      Label for class of the article
+      {{Identical|Class}}
     edited_by: Label for author of the last edition
     loading: Message about loading revisions
     none: Message stating there's no Wikipedia editing activity
-    time_doc: "Explanation of what 'time' means"
-    title: Label for title of the article
-
+    time_doc: Explanation of what 'time' means
+    title: |-
+      Label for title of the article
+      {{Identical|Title}}
   users:
     already_enrolled: Message indicating that a user is already enrolled in the course
       and cannot be enrolled again.
@@ -180,17 +178,6 @@ qqq:
     training_doc: Explanation of what it means to have completed training and how
       completion is measured. The entire message should be customized to describe
       the on-wiki training (if any) available in each language.
-
-  wiki_edits:
-    notify_untrained:
-      confirm: Confirmation dialog before talk page messages are sent
-      header: Section header for a talk page message indicating that the user has
-        not completed training. This is a wikitext message.
-      message: A new talk page message indicating that the user has not completed
-        training. This is a wikitext message.
-      summary: Edit summary for a talk page message indicating that the user has not
-        completed training. This is a wikitext message.
-
   wizard:
     assignment_dates: Header for the assignment dates section of the wizard
     assignment_type: Header for the assignment type section of the wizard
@@ -209,20 +196,16 @@ qqq:
     summary: |-
       Header for the summary section
       {{Identical|Summary}}
-
   error_404:
     header: Message indicating that a page doesn't exist.
     explanation: Message explaining why a user may have reached a page that doesn't
       exist.
-
   error_422:
     header: Message indicating a 422 unprocessable entity error.
     explanation: Explanation of what to do after encountering this error.
-
   error_500:
     header: Message indicating a 500 internal server error.
     explanation: Explanation of what to do after encountering this error.
-
   timeline:
     title: '{{Identical|Timeline}}'
 ...

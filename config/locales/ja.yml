@@ -5,6 +5,9 @@
 # Author: Sujiniku
 ---
 ja:
+  application:
+    help: ヘルプ
+    log_out: ログアウト
   activity:
     all: 活動
   articles:

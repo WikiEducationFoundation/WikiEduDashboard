@@ -1,16 +1,47 @@
 # Messages for Swedish (svenska)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Fader
+# Author: Jopparn
 # Author: Josve05a
 # Author: WikiPhoenix
 ---
 sv:
+  application:
+    help: Hjälp!
+    home: Huvudsida
+    log_out: Logga ut
+    recent_activity: Senaste aktivitet
+    search: sök på ask.wikiedu.org
   activity:
     edited_by: Redigerad av
     all: Aktivitet
+  articles:
+    none: Den här kursen har inte redigerat några artiklar.
+    loading: Laddar artiklar...
+    assigned: Tilldelade artiklar
+    assigned_to: Tilldelad till
+    character_doc: Summan av tecken som lagts till i artiklar av kursens studenter
+      under kursen
+    edited: Redigerade artiklar
+    edited_mobile: Artiklar
+    no_assignee: Inga användare tilldelade
+    rating: Klass
+    title: Titel
+    view: Visa artikel
+    view_all: Visa alla
+    view_doc: Summan av alla läsningar av varje artikel under kursen
+    views_added: Lade till %{count} nya läsningar %{title}
   blocks:
     milestones:
       title: Milstolpar
+  courses:
+    activity: Aktivitet
+    articles: Artiklar
+  course_creator:
+    course_title: Kursens titel
+    start_date: Startdatum
+    end_date: Slutdatum
   metrics:
     activity: Senaste aktivitet
     articles_created: Skapade artiklar
@@ -28,14 +59,14 @@ sv:
     main: Huvudnamnrymd
     user: Användarnamnrymd
     user_ns: Användare
+  revisions:
+    class: Klass
+    title: Titel
   uploads:
     none: Inga filer har laddats upp
     usages: Användning
   users:
     recent_revisions: Senaste redigeringar
-  wiki_edits:
-    notify_untrained:
-      header: Du har inte slutfört studentträningen.
   wizard:
     summary: Sammanfattning
   error:

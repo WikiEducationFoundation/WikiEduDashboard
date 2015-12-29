@@ -4,6 +4,10 @@
 # Author: Zygimantus
 ---
 lt:
+  application:
+    help: Pagalbos!
+    home: Pradžia
+    log_out: Atsijungti
   articles:
     rating: Klasė
   courses:
@@ -22,20 +26,32 @@ lt:
     title: Pavadinimas
   course_creator:
     create_new: Sukurti naują kursą
+    course_title: Kurso pavadinimas
+    course_subject: Kurso tema
+    course_description: Kurso aprašymas
+    start_date: Pradžios data
+    end_date: Pabaigos data
   metrics:
     articles_created: Sukurti straipsniai
     articles_edited: Redaguoti straipsniai
     characters: Simboliai
     date_time: Data/Laikas
     edit_count_description: Iš viso pakeitimų
+    revisions: Naujausi keitimai
     view: Peržiūros
   namespace:
     main: Pagrindinė sritis
     user_ns: Naudotojas
+  revisions:
+    date_time: Data/Laikas
+    class: Klasė
+    edited_by: Redagavo
+    title: Pavadinimas
   uploads:
     usages: Panaudojimai
   users:
     name: Pavadinimas
+    recent_revisions: Naujausi keitimai
   wizard:
     course_dates: Kurso datos
     assignment_type: Užduoties tipas

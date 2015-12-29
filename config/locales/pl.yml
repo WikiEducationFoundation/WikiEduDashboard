@@ -5,6 +5,9 @@
 # Author: The Polish
 ---
 pl:
+  application:
+    help: Pomocy!
+    log_out: Wyloguj
   articles:
     loading: Wczytywanie artykułów...
     edited_mobile: Artykuły
@@ -30,10 +33,17 @@ pl:
     view_wiki: Zobacz w Wikipedii
   course_creator:
     create_new: Utwórz Nowy Kurs
+    course_title: Tytuł kursu
+    course_description: Opis kursu
+    start_date: Data rozpoczęcia
+    end_date: Data zakończenia
   namespace:
     user_ns: Użytkownik
   revisions:
+    date_time: Data/Czas
+    class: Klasa
     loading: Wczytywanie wersji...
+    title: Tytuł
   users:
     contributions: Wkład użytkownika
     loading: Wczytywanie użytkowników...

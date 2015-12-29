@@ -6,6 +6,9 @@
 lb:
   application:
     dashboard: Iwwersiicht iwwer d'Ännerungen op der Wiki
+    help: Hëllef!
+    log_out: Ausloggen
+    recent_activity: Rezent Aktivitéit
   activity:
     edited_by: Geännert Vum
     all: Aktivitéit
@@ -67,6 +70,7 @@ lb:
       user_exists: Pardon, de Benotzer %{username} gëtt et net.
   course_creator:
     create_new: En neie Cours uleeën
+    course_description: Beschreiwung vum Cours
   metrics:
     activity: Rezent Aktivitéit
     articles_edited: Geännert Artikelen
@@ -79,9 +83,12 @@ lb:
     user: Benotzernummraum
     user_ns: Benotzer
   revisions:
+    date_time: Datum/Zäit
+    edited_by: Geännert vum
     loading: Versioune lueden...
     none: Dëse Cours huet keng rezent Wikipedia-Ännerungsaktivitéit.
     time_doc: D'Zäit vun all Versioun an Ärer lokaler Zäit
+    title: Titel
   uploads:
     none: Dës Klass huet keng Biller oder aner Mediefichiere zu Wikimedia Commons
       bäigedroe.

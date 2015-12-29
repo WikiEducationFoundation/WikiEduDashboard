@@ -1,10 +1,14 @@
 # Messages for Basque (euskara)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: An13sa
 # Author: Sator
 # Author: Subi
 ---
 eu:
+  application:
+    help: Laguntza!
+    log_out: Saioa itxi
   activity:
     all: Jarduera
   articles:
@@ -32,6 +36,9 @@ eu:
     overview: Ikuspegi orokorra
     title: Izenburua
     view_wiki: Wikipedia-n ikusi
+  course_creator:
+    start_date: Hasiera data
+    end_date: Amaiera data
   metrics:
     articles_created: Sortutako artikuluak
     articles_edited: Editatutako artikuluak
@@ -43,6 +50,9 @@ eu:
     edit_count_description: Aldaketak guztira
     view: Ikustaldiak
     view_count_description: Artikuluaren ikustaldiak
+  revisions:
+    date_time: Data/Ordua
+    title: Izenburua
   uploads:
     loading: Igoerak kargatzen...
     usages: Erabilerak
@@ -51,6 +61,9 @@ eu:
     loading: Erabiltzaileak kargatzen...
     name: Izena
     reviewers: Berrikuslea(k)
+  wizard:
+    read_more: Irakurri gehiago
+    read_less: Irakurri gutxiago
   error_401:
     header: Ez duzu baimenik. >:-(
   error_404:

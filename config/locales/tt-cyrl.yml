@@ -4,7 +4,13 @@
 # Author: Ильнар
 ---
 tt-cyrl:
+  application:
+    help: Ярдәм!
+    home: Баш
   courses:
     articles: Мәкаләләр
+    title: Башлам
+  revisions:
+    class: Сыйныф
     title: Башлам
 ...

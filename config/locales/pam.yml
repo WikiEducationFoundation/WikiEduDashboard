@@ -4,12 +4,21 @@
 # Author: Leeheonjin
 ---
 pam:
+  application:
+    help: Saup!
+    home: Pun bulung
+    log_out: Mag-logout
+    recent_activity: Tauling aktibidad
   articles:
     title: Titulu
     view_all: Lawen eganagana
   courses:
     courses: Deng kursu
     students: Deng estudyanti
+  revisions:
+    date_time: Petsa/Oras
+    edited_by: Miyalilan nang
+    title: Titulu
   users:
     name: Lagyu
 ...

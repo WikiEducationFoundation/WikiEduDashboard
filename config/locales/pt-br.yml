@@ -2,10 +2,16 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: AndroidOSUser
+# Author: Raphaelras
 ---
 pt-br:
   application:
     dashboard: Painel do Wiki Ed
+    help: Ajuda!
+    home: Início
+    log_out: Sair
+    recent_activity: Atividade recente
+    search: Buscar em ask.wikiedu.org
   activity:
     edited_by: Editado por
     all: Atividade
@@ -20,4 +26,104 @@ pt-br:
     edited_mobile: Artigos
     no_assignee: Nenhum usuário atribuído
     rating: Qualidade
+    title: Título
+    view: Ver artigo
+    view_all: Ver tudo
+  assignments:
+    assignees: Assinatura(s)
+    reviewers: Revisor(es)
+  courses:
+    activity: Atividade
+    articles: Artigos
+    course_description: Cursos do Wiki Ed
+    courses: Cursos
+    yourcourses: Seus cursos
+    nocourses: Você não está participando em nenhum curso
+    current: Cursos atuais
+    duration: Duração do curso
+    instructor:
+      one: Instructor
+      other: Instrutores
+    students: Estudantes
+    students_none: Este curso não tem estudantes
+    students_short: Estudantes
+    weeks_none: Este curso não tem um cronograma ainda.
+    new_week: Adicionar nova semana
+    overview: Visão geral
+    title: Título
+    view: Ver curso
+    view_wiki: Ver na Wikipedia
+    volunteer:
+      one: Volunteer
+      other: Voluntários
+    wiki_staff: Equipe Wiki Ed
+    error:
+      exists: Esse curso já existe! Por favor, tente novamente com um título, escola
+        ou termo diferente.
+      user_exists: Desculpe, %{username} não é um usuário existente.
+  course_creator:
+    create_new: Criar um novo curso
+    course_title: Título do curso
+    course_school: Escola do curso
+    course_term: Termo do curso
+    course_subject: Tema do curso
+    course_description: Descrição do curso
+    expected_number: Número experado de estudantes
+    start_date: Data de início
+    end_date: Data de término
+  metrics:
+    activity: Atividade recente
+    articles_created: Artigos criados
+    articles_edited: Artigos editados
+    char: Caracteres adicionados
+    characters: Caracteres
+    char_added: Caracteres adicionados
+    char_changed: Caracteres alterados
+    date_time: Data/Horário
+    edit_count_description: Total de edições
+    revisions: Edições recentes
+    student_editors: Editores estudantes
+    view: Visitas
+    view_count_description: Visualizações de artigo
+  namespace:
+    main: Domínio principal
+    main_char_added: Caracteres adicionados ao domínio principal
+    user: Espaço do usuário
+    user_ns: Usuário
+  revisions:
+    date_time: Data/Horário
+    chars_added: Caracteres adicionados
+    class: Classe
+    edited_by: Editado por
+    loading: Carregando revisões
+    title: Título
+  uploads:
+    usages: Usos
+  users:
+    contributions: Contribuições do usuário
+    contributions_more: Ver mais contribuições
+    editors: Editores estudantes
+    loading: Carregando usuários...
+    name: Nome
+    none: Este curso não tem estudantes
+    recent_revisions: Edições recentes
+    revisions_doc: O número de edições feitas por este usuário nos últimos 7 dias
+    reviewers: Revisor(es)
+    reviewing: Revisando
+    training_complete_count: '%{count} treino completo'
+  wizard:
+    read_more: Ler mais
+    read_less: Ler menos
+    summary: Sumário
+  error:
+    oauth_invalid: Sua sessão na Wikipedia se expirou. Por favor, entre novamente.
+    unsupported_browser:
+      header: Navegador sem suporte. :-(
+  error_401:
+    header: Não autorizado. >:-(
+  error_404:
+    header: Página não encontrada. :-(
+  timeline:
+    title: Linha do tempo
+    due_default: Previsto para a próxima semana
 ...

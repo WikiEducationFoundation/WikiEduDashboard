@@ -4,10 +4,12 @@
 # Author: Obaid Raza
 ---
 ur:
-  article:
-    edited_mobile: مضامین
-    view: مضمون دیکھیں
-    view_all: سب دیکھیں
-  course:
-    articles: مضامین
+  application:
+    help: معاونت!
+    home: صفحہ اول
+    log_out: خارج
+    recent_activity: حالیہ سرگرمی
+  activity:
+    edited_by: ترمیم از
+    all: سرگرمی
 ...

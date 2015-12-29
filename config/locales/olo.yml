@@ -1,15 +1,16 @@
 # Messages for Livvi-Karelian (Livvin-Karjalan)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Ilja.mos
 # Author: Mashoi7
 ---
 olo:
   activity:
-    edited_by: Edituinnuh
+    edited_by: Kohendelluh
     all: Aktiivizus
   articles:
-    edited: Edituitut stuat'at
-    edited_mobile: Stuat'at
+    edited: Kohendetut kirjutukset
+    edited_mobile: Kirjutukset
     no_assignee: Ei nimitettyy käyttäjiä
     rating: Kluassu
     title: Rubriekku

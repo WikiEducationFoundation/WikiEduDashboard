@@ -1,0 +1,15 @@
+# Messages for Belarusian (Taraškievica orthography) (беларуская (тарашкевіца)‎)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Red Winged Duck
+---
+be-tarask:
+  application:
+    dashboard: Панэль Wiki Ed
+    help: Дапамажыце!
+    home: Галоўная
+    log_out: Выйсьці
+    recent_activity: Нядаўняя актыўнасьць
+  activity:
+    edited_by: Рэдагавалася
+...

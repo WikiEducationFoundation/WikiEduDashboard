@@ -127,13 +127,6 @@ br:
       other: o deus echuet da c'hourdonnañ
     training_complete_count: '%{count}o deus/en deus echuet da c''houdonañ'
     userspace_chars: Egorenn an implijer<br/>arouezennoù ouzhpennet
-  wiki_edits:
-    notify_untrained:
-      header: N'ho peus ket echuet ar stummadur studierien
-      message: Echuit ar [[WP:STUDENT|stummadur studierienétudiant]], mar plij. M'ho
-        peus graet anezhi anezhañ dija, bezit sur ho peus kliket mat war ar bouton
-        er fin evit enrollañ ho peus echuet anezhañ. --~~~~
-      summary: Stummadur studierien diechu
   wizard:
     course_dates: Deizioù ar gentel
     assignment_dates: Seurt deverkadenn

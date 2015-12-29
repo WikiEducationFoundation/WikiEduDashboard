@@ -4,6 +4,8 @@
 # Author: Purodha
 ---
 ksh:
+  application:
+    help: Hölp!
   activity:
     edited_by: Jeändert Vum
     all: Aktivitäht
@@ -60,6 +62,16 @@ ksh:
     recent_revisions: Köözlesche Änderonge
   wizard:
     summary: Zosammejefaß
+  error:
+    unsupported_browser:
+      explanation: Do bes ene Brauser aam bruche, dä mem <i lang="en" xml:lang="en"
+        dir="ltr" title="„Enstromäntebrätt“">Dashboard</i> nit zosamme jeiht. Heh
+        di ẞait deihd et johd em <i lang="en" xml:lang="en" dir="ltr" title="„Et Internet
+        ußfochsche“ - ene Brauser vun Microsoft">Internet Explorer</i> en dä Väsjohn
+        11 udder schpähder, un neije Väsjohne vum <i lang="en" xml:lang="en" dir="ltr"
+        title="Google Chrome -- ene Brauser">Chrome</i> un <i lang="en" xml:lang="en"
+        dir="ltr" title="Mozilla Firefox - „der Führ-Fußß“ - ene Brauser">Firefox</i>,
+        un anndere neujere Brausere.
   error_401:
     header: Kei Berääschtejong.
   error_404:

@@ -1,0 +1,20 @@
+# Messages for Czech (čeština)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Aktron
+---
+cs:
+  application:
+    help: Nápověda
+    home: Domů
+    log_out: Odhlásit se
+    recent_activity: Nedávná aktivita
+    search: prohledat ask.wikiedu.org
+  activity:
+    all: Aktivita
+  articles:
+    assigned_to: Přiřazeno
+    edited_mobile: Články
+    no_assignee: Nebyl přiřazen žádný uživatel
+    rating: Třída
+...

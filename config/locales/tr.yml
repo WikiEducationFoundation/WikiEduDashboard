@@ -1,11 +1,16 @@
 # Messages for Turkish (Türkçe)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: HakanIST
 # Author: KorkmazO
+# Author: Sayginer
 # Author: Uğurkent
 # Author: Watermelon juice
 ---
 tr:
+  application:
+    help: Yardım!
+    log_out: Çıkış
   activity:
     edited_by: Düzenleyen
   blocks:
@@ -13,11 +18,23 @@ tr:
       title: Kilometre taşları
   courses:
     gradeables_none: Bu kursta notlandırılabilen ödev bulunmamaktadır
+  course_creator:
+    course_term: Ders dönemi
+    course_subject: Eğitim konusu
+    course_description: Ders içeriği
+    expected_number: Beklenen öğrenci sayısı
+    start_date: Başlangıç tarihi
+    end_date: Bitiş tarihi
   metrics:
     char_changed: Karakterler Değişti
     student_editors: Öğrenci Editörler
   namespace:
     user_ns: Kullanıcı
+  revisions:
+    date_time: Tariq/Saat
+    class: Sınıf
+    edited_by: Düzenleyen
+    title: Başlık
   wizard:
     course_dates: Kurs günleri
     summary: Özet

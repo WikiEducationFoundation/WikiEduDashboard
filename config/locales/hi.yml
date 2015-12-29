@@ -1,0 +1,13 @@
+# Messages for Hindi (हिन्दी)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Sfic
+---
+hi:
+  application:
+    help: सहायता!
+    log_out: प्रस्थान
+  revisions:
+    class: कक्षा
+    title: शीर्षक
+...

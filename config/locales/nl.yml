@@ -4,6 +4,7 @@
 # Author: Mbch331
 # Author: Milenej
 # Author: Siebrand
+# Author: Sjoerddebruin
 ---
 nl:
   application:
@@ -98,6 +99,7 @@ nl:
       user_exists: '%{username} is geen bestaande gebruiker.'
   course_creator:
     create_new: Nieuwe cursus maken
+    start_date: Begindatum
     intro: De naam, school en semester vormen de URL voor uw cursuspagina en dit kan
       niet gewijzigd worden. Al het andere kan later aangepast worden. Klik op "Cursus
       aanmaken" om te beginnen met het maken van de tijdlijn voor uw Wikipedia-opdracht.
@@ -168,16 +170,6 @@ nl:
       https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete.'
     training_incomplete: Training onvolledig
     userspace_chars: Gebruikersruimte<br />tekens toegevoegd
-  wiki_edits:
-    notify_untrained:
-      confirm: Hierdoor wordt een herinnering op de overlegpagina's van alle studenten
-        geplaatst die de training nog niet hebben afgerond. Weet u zeker dat u dit
-        wilt doen?
-      header: U hebt de studententraining niet voltooid.
-      message: Voltooi alstublieft de [[WP:STUDENT|studententraining]]. Als u deze
-        al hebt afgerond, zorg er dan voor dat u aan het einde op de knop klikt, zodat
-        er wordt opgeslagen dat u de training hebt voltooid. --~~~~
-      summary: studententraining incompleet
   wizard:
     course_dates: Cursusdatums
     assignment_dates: Opdrachttype

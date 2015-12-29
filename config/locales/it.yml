@@ -7,6 +7,22 @@
 # Author: Statix64
 ---
 it:
+  application:
+    help: Aiuto
+    home: Pagina principale
+    log_out: Esci
+    log_in: Accedi
+    sign_up: Registrati
+    sign_up_log_in_extended: con Wikipedia
+    explore: Esplora
+    recent_activity: Attività recente
+    training: Formazione
+  dashboard:
+    explore_examples: Esplora esempi
+    explore_course_pages: Esplora le pagine del corso
+  home:
+    sign_up: Registrati con Wikipedia
+    explore: Esplora
   activity:
     edited_by: Modificato da
     all: Attività
@@ -62,6 +78,11 @@ it:
       user_exists: Spiacenti, %{username} non è un utente esistente.
   course_creator:
     create_new: Crea un nuovo corso
+    course_title: Titolo del corso
+    course_description: Descrizione del corso
+    expected_number: Numero previsto di studenti
+    start_date: Data inizio
+    end_date: Data fine
   metrics:
     activity: Attività recente
     articles_created: Voci create
@@ -75,12 +96,18 @@ it:
     revisions: Modifiche recenti
     view: Visualizzazioni
     view_count_description: Visite alla voce
+    word_count: Parole aggiunte
   namespace:
     main: Ambiente principale
     main_char_added: Caratteri aggiunti namespace principale
     user_ns: Utente
   revisions:
+    date_time: Data/Ora
+    chars_added: Caratteri aggiunti
+    class: Classe
+    edited_by: Modificato da
     loading: Caricamento revisioni...
+    title: Titolo
   uploads:
     loading: Caricando gli upload...
     none: Questa classe non ha contribuito con alcuna immagine o altri file multimediali
@@ -99,12 +126,9 @@ it:
       ultimi 7 giorni
     reviewers: Revisori
     training_complete_count: '%{count} hanno completato l''allenamento'
-  wiki_edits:
-    notify_untrained:
-      header: Non hai completato la formazione degli studenti.
   wizard:
     course_dates: Date del corso
-    assignment_dates: Tipo di assegnazione
+    assignment_dates: Date di assegnazione
     assignment_type: Tipo di assegnazione
     confirm_dates: Scegli le date dei corsi, incontri settimanali e le festività per
       il tuo corso.

@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Bikarhêner
+# Author: George Animal
 ---
 ku-latn:
   application:
@@ -9,8 +10,31 @@ ku-latn:
   activity:
     edited_by: Hat Sererastkirin Ji Alî
     all: Çalakî
+  articles:
+    loading: Gotar tên barkirin...
+    edited_mobile: Gotar
+    title: Sernav
+    view: Gotarê Bibîne
+    view_all: Hemûyan Bibîne
   cohort:
     view_other: Komên din bibîne
+  courses:
+    activity: Çalakî
+    articles: Gotar
+    course_description: Kursên Wîkî Ed'ê
+    courses: Kurs
+    yourcourses: Kursên Te
+    nocourses: Te beşdarî ti kursekê ne bû.
+    current: Kursên Nûjen
+    duration: Maweya Kursê
+    students: Xwendekar
+    students_short: Xwendekar
+    new_week: Hefteyeke nû lê zêde bike
+    title: Sernav
+    view: Kursê Bibîne
+    view_wiki: Li ser Wîkîpediyayê bibîne
+  course_creator:
+    create_new: Kursek Nû Çêbike
   metrics:
     activity: Aktîvîteyên Dawî
     articles_created: Gotar Hate Çêkirin
@@ -26,16 +50,28 @@ ku-latn:
   namespace:
     user_ns: Bikarhêner
   uploads:
+    loading: Barkirin tên bar kirin...
     none: Pel nehatiye barkirin
     usages: Bikaranîn
   users:
+    contributions: Beşdariyên Bikarhênerê
+    contributions_more: Zêdetir Beşdariyan Bibîne
+    editors: Edîtorên Xwendekaran
+    loading: Bikarhêner tên barkirin...
+    name: Nav
     recent_revisions: Guhertinên Dawî
-  wiki_edits:
-    notify_untrained:
-      header: Xwendekar rahênana xwe xilas nekirîye.
-      summary: rahênana xwedekarê netemame
+  wizard:
+    course_dates: Dîroka Kursê
+    read_more: Zêdetir Bixwîne
+    summary: Kurte
+  error:
+    oauth_invalid: Wextê te yê bidestûrbûnê tije bû. Ji kerema xwe dîsa têkeve.
+    unsupported_browser:
+      header: Geroka bêpiştgir. :-(
   error_401:
     header: Bêdestûr. >:-(
   error_404:
     header: Rûpel nehate dîtin. :-(
+  timeline:
+    title: Demname
 ...

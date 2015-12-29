@@ -6,6 +6,11 @@
 ast:
   application:
     dashboard: Tableru de Wiki Ed
+    help: ¡Ayuda!
+    home: Entamu
+    log_out: Salir
+    recent_activity: Actividá recién
+    search: buscar en ask.wikiedu.org
   activity:
     edited_by: Editáu por
     all: Actividá
@@ -93,11 +98,29 @@ ast:
       exists: Esi cursu yá esiste. Inténtalo otra vuelta con un títulu, escuela o
         periodu diferentes.
       user_exists: Sentímoslo, nun esiste l'usuariu %{username}.
+    course_dates_calendar_instructions: Escueye feches p'añadir o quitar del calendariu
+      (por casu, vacaciones, cuando nun hai clases). Fai clic na fecha pa camudar
+      l'estáu ente ensin escoyer, escoyíu y vacaciones. Les feches de les actividaes
+      del cursu camudarán pa tener en cuenta les selmanes que nun tienen aconceyamientos
+      programaos.
   course_creator:
     create_new: Crear un nuevu cursu
+    course_title: Títulu del cursu
+    course_school: Escuela del cursu
+    course_term: Periodu del cursu
+    course_subject: Tema del cursu
+    course_description: Descripción del cursu
+    expected_number: Númberu d'alumnos esperáu
+    start_date: Fecha d'entamu
+    end_date: Fecha de fin
     intro: El títulu, escuela y periodu crearán la url de la páxina del cursu, y nun
       puen cambiase. Tolo demás pué editase más alantre. Fai click en «Crear el cursu»
       pa principiar a crear el cronograma de les xeres de Wikipedia.
+    cloned_course_calendar_instructions: Escueye feches p'añadir o quitar del calendariu
+      (por casu, vacaciones, cuando nun hai clases). Fai clic na fecha pa camudar
+      l'estáu ente ensin escoyer, escoyíu y vacaciones. Si nun tienes vacaciones,
+      marca «Nun tengo vacaciones de clases». El cronograma clonáu va afaer automáticamente
+      les feches pa tener en cuenta les selmanes que nun tienen aconceyamientos programaos.
   metrics:
     activity: Actividá reciente
     articles_created: Artículos creaos
@@ -119,9 +142,14 @@ ast:
     user_char_added: Caráuteres añadíos nel espaciu d'usuariu
     user_ns: Usuariu
   revisions:
+    date_time: Fecha/hora
+    chars_added: Caráuteres añadíos
+    class: Clase
+    edited_by: Editáu por
     loading: Cargando revisiones...
     none: Esti cursu nun tien actividá editorial reciente en Wikipedia.
     time_doc: La hora de cada revisión n'hora llocal
+    title: Títulu
   tasks:
     conseq: La xera %{task} yá ta n'execución
     constant: Nun pué executase la xera %{task} mentanto tea executándose la xera
@@ -164,17 +192,17 @@ ast:
       el pasu del comentariu, puen volver al final del entrenamientu equí: https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete.'
     userspace_chars: Caráuteres añadíos<br />nel espaciu d'usuariu
   wiki_edits:
-    notify_untrained:
+    notify_overdue:
       confirm: Esto va publicar un recordatoriu nes páxines d'alderique de tolos estudiantes
-        que nun completaren la preparación. ¿Tas seguro de que quies faer esto?
-      header: Nun completasti l'entrenamientu d'estudiante.
+        que tienen la preparación atrasada. ¿Tas seguru de que quies faer esto?
+      header: Tienes una xera d'entrenamientu atrasada.
       message: Completa l'[[WP:STUDENT|entrenamientu d'estudiante]]. Si yá pasasti
         per ehí, asegúrate de facer clic nel botón del final pa rexistrar que yá lu
         acabasti. --~~~~
-      summary: entrenamientu d'estudiante incompletu
+      summary: retrasu nel entrenamientu d'estudiante
   wizard:
     course_dates: Feches del cursu
-    assignment_dates: Tipu de xera
+    assignment_dates: Feches de la xera
     assignment_type: Tipu de xera
     confirm_dates: Escueye les feches, les xuntes selmanales y les vacaciones pal
       to cursu.
@@ -188,12 +216,17 @@ ast:
       En acabando, fai clic en "Unviar" pa rematar l'asistente y crear el cronograma.
     select_assignment: Escueye'l tipu de xera que quies añadir al cronograma.
     summary: Resume
+    calendar_instructions: Escueye feches p'añadir o quitar del calendariu (por casu,
+      vacaciones, cuando nun hai clases). Esto ayuda a la ferramienta de creación
+      de cursos a espaciar con precisión les tos xeres. Fai clic na fecha pa camudar
+      l'estáu ente ensin escoyer, escoyíu y vacaciones. Si nun tienes vacaciones,
+      marca «Nun tengo vacaciones de clase» más abaxo.
   error:
     oauth_invalid: Caducó la autorización de Wikipedia. Anicia sesión otra vuelta.
     unsupported_browser:
       header: Navegador ensin encontu. :-(
       explanation: Tas usando un navegador que nun ye compatible col tableru. Esti
-        sitiu funciona bien con Internet Explorer versión 10 o mayor, en versiones
+        sitiu funciona bien con Internet Explorer versión 11 o mayor, en versiones
         nueves de Chrome y Firefox, y n'otros navegadores modernos.
   error_401:
     header: Non autorizáu. >:-(

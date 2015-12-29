@@ -7,6 +7,11 @@
 es:
   application:
     dashboard: Panel de Wiki Ed
+    help: ¡Ayuda!
+    home: Inicio
+    log_out: Cerrar sesión
+    recent_activity: Actividad reciente
+    search: buscar en ask.wikiedu.org
   activity:
     edited_by: Editado por
     all: Actividad
@@ -26,10 +31,11 @@ es:
       por lo que son sólo un indicador aproximado de la madurez del artículo.
     rating_docs:
       fa: 'Artículo destacado: la calificación más alta de Wikipedia, probablemente
-        sea un artículo muy maduro como para ser el proyecto principal de un estudiante'
+        sea un artículo demasiado maduro como para ser el proyecto principal de un
+        editor estudiantil'
       fl: 'Lista destacada: la calificación más alta de Wikipedia para las listas'
-      a: 'Clase A: un artículo muy desarrollado que puede ser demasiado maduro para
-        el proyecto principal de un editor estudiantil'
+      a: 'Clase A: un artículo bastante desarrollado que puede ser demasiado maduro
+        para el proyecto principal de un editor estudiantil'
       ga: 'Artículo bueno: un artículo bien desarrollado que puede ser demasiado maduro
         para el proyecto principal de un editor estudiantil'
       b: 'Clase B: un artículo moderadamente desarrollado'
@@ -70,10 +76,10 @@ es:
     nocourses: No participas de ningún curso.
     current: Cursos actuales
     duration: Duración del curso
-    gradeables_none: Este curso no tiene tareas calificable.
+    gradeables_none: Este curso no tiene tareas calificables.
     instructor:
-      one: Instructor
-      other: Instructores
+      one: Docente
+      other: Docentes
     students: Estudiantes
     students_none: Este curso no tiene estudiantes.
     students_short: Estudiantes
@@ -91,15 +97,34 @@ es:
       other: Voluntarios
     wiki_staff: Personal de Wiki Ed
     error:
-      exists: Ese curso ya existe. Intenta de nuevo con un título, escuela o término
+      exists: Ese curso ya existe. Intenta de nuevo con un título, escuela o período
         diferentes.
       user_exists: Lo siento, %{username} no es un usuario existente.
+    course_dates_calendar_instructions: Selecciona fechas para añadirlas o quitarlas
+      del calendario (por ejemplo, vacaciones, cuando no hay clases). Haz clic en
+      la fecha para cambiar entre los estados «no seleccionado», «seleccionado» y
+      «vacaciones». Las fechas de las actividades del curso van a cambiar para dar
+      cuenta de las semanas que no tienen reuniones programadas.
   course_creator:
     create_new: Crear un curso nuevo
+    course_title: Título del curso
+    course_school: Escuela del curso
+    course_term: Período del curso
+    course_subject: Tema del curso
+    course_description: Descripción del curso
+    expected_number: Número de estudiantes esperado
+    start_date: Fecha de inicio
+    end_date: Fecha de finalización
     intro: El título, la escuela y el plazo crean la dirección URL de la página del
       curso, y no pueden cambiarse. Todo lo demás puede editarse luego. Haz clic en
       "Crear mi curso" para iniciar la construcción del cronograma para tu tarea en
       Wikipedia.
+    cloned_course_calendar_instructions: Selecciona fechas para añadirlas o quitarlas
+      del calendario (por ejemplo, vacaciones, cuando no hay clases). Haz clic en
+      la fecha para cambiar entre los estados «no seleccionado», «seleccionado» y
+      «vacaciones». Si no tienes vacaciones, marca «No tengo vacaciones de clases».
+      El cronograma copiado ajustará automáticamente las fechas para dar cuenta de
+      las semanas que no tienen reuniones programadas.
   metrics:
     activity: Actividad reciente
     articles_created: Artículos creados
@@ -121,18 +146,23 @@ es:
     user_char_added: Caracteres añadidos en el espacio de usuarios
     user_ns: Usuario
   revisions:
+    date_time: Fecha/hora
+    chars_added: Caracteres añadidos
+    class: Clase
+    edited_by: Editado por
     loading: Cargando revisiones...
     none: Este curso no tiene ediciones recientes en Wikipedia.
     time_doc: El tiempo de cada revisión en tu hora local
+    title: Título
   tasks:
     conseq: La tarea %{task} ya se está ejecutando.
     constant: La tarea %{task} no se puede ejecutar mientras la tarea update_daily
-      se está ejecutando.
+      esté ejecutándose.
     paused: La tarea %{task} no se puede ejecutar porque se han pausado las actualizaciones
       programadas. Ejecuta 'rake batch:resume' para reanudar las actualizaciones.
   uploads:
     loading: Cargando subidas...
-    none: Esta clase no ha contribuido ninguna imagen o archivo multimedia a Wikimedia
+    none: Esta clase no ha contribuido con ninguna imagen o archivo multimedia a Wikimedia
       Commons.
     usages: Usos
     time_doc: El tiempo de cada subida en tu hora local
@@ -161,30 +191,31 @@ es:
       one: ha completado el entrenamiento
       other: han completado el entrenamiento
     training_complete_count: '%{count} han completado el entrenamiento'
-    training_doc: 'Los editores estudiantiles quiénes hayan completado el ''entrenamiento
+    training_doc: 'Los editores estudiantiles quienes hayan completado el ''entrenamiento
       para estudiantes'' tendrían que haber hecho una edición a la página de comentarios
-      cuándo finalizaron. Si los editores estudiantiles pasaron por el entrenamiento
+      cuando finalizaron. Si los editores estudiantiles pasaron por el entrenamiento
       pero no completaron el paso de comentario, pueden regresar al final del entrenamiento
-      aquí: https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete.'
+      aquí: https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete
+      .'
     userspace_chars: Caracteres añadidos<br />en el espacio de usuarios
   wiki_edits:
-    notify_untrained:
+    notify_overdue:
       confirm: Esto publicará un recordatorio en las páginas de discusión de todos
         los estudiantes que no hayan completado el entrenamiento. ¿Estás seguro de
         que quieres hacer esto?
-      header: No has completado el entrenamiento estudiantil.
+      header: Tienes una tarea de entrenamiento atrasada.
       message: Completa el [[WP:STUDENT|entrenamiento para estudiantes]]. Si ya lo
         has hecho, asegúrate de pulsar el botón al final para registrar que lo has
         completado. --~~~~
-      summary: entrenamiento estudiantil incompleto
+      summary: retraso en el entrenamiento de estudiantes
   wizard:
     course_dates: Fechas del curso
-    assignment_dates: Tipo de tarea
+    assignment_dates: Fechas de la tarea
     assignment_type: Tipo de tarea
     confirm_dates: Elige las fechas, las reuniones semanales y las vacaciones para
       tu curso.
-    assignment_description: Elija las fechas de inicio y finalización de esta tarea
-    min_weeks: Esta tarea requiere al menos de %{min_weeks} disponible semanas. Ajusta
+    assignment_description: Elige las fechas de inicio y finalización de esta tarea
+    min_weeks: Esta tarea requiere al menos de %{min_weeks} semanas disponibles. Ajusta
       tus fechas de inicio y finalización de tarea, si quieres usar este tipo de tarea.
     minimum_options: Selecciona al menos %{minimum} opción/opciones.
     read_more: Leer más
@@ -194,6 +225,11 @@ es:
       tu cronograma.
     select_assignment: Selecciona el tipo de tarea que quieres añadir a tu cronograma.
     summary: Resumen
+    calendar_instructions: Selecciona fechas para añadirlas o quitarlas del calendario
+      (por ejemplo, vacaciones, cuando no hay clases). Esto ayuda a la herramienta
+      de creación de cursos a espaciar con precisión tus tareas. Haz clic en la fecha
+      para cambiar entre los estados «no seleccionado», «seleccionado» y «vacaciones».
+      Si no tienes vacaciones, marca «No tengo vacaciones de clases».
   error:
     oauth_invalid: Tu sesión de Wikipedia ha caducado. Inicia sesión de nuevo.
     unsupported_browser:
@@ -213,11 +249,11 @@ es:
       recientemente, puede tomar un poco de tiempo hasta que el sistema lo añada.
   error_422:
     header: 422 — entidad no procesable.  :-(
-    explanation: Algo salió mal. Pónte en contacto con los responsables del mantenimiento
+    explanation: Algo salió mal. Ponte en contacto con los responsables del mantenimiento
       de este panel para informarles sobre el problema.
   error_500:
     header: 500 — error interno del servidor. :-(
-    explanation: Algo salió mal. Pónte en contacto con los responsables del mantenimiento
+    explanation: Algo salió mal. Ponte en contacto con los responsables del mantenimiento
       de este panel para informarles sobre el problema.
   timeline:
     title: Cronograma
