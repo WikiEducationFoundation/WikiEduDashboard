@@ -22,6 +22,14 @@ describe StudentGreeter do
       expect(User.find(2).greeted).to eq(true)
     end
 
+    it 'greets students with blank talk pages' do
+      expect(Wiki).to receive(:get_page_content).and_return(nil)
+      stub_oauth_edit
+
+      subject
+      expect(User.find(2).greeted).to eq(true)
+    end
+
     it 'skips students who are already greeted' do
       User.find(2).update_attributes(greeted: true)
       allow(WikiEdits).to receive(:get_tokens)
