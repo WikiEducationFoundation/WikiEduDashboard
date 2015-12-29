@@ -5,7 +5,9 @@ module RequestHelpers
   ##################
   def stub_token_request
     fake_tokens = "{\"query\":{\"tokens\":{\"csrftoken\":\"faketoken+\\\\\"}}}"
-    stub_request(:get, "https://#{ENV['wiki_language']}.wikipedia.org/w/api.php?action=query&meta=tokens&format=json")
+    lang = ENV['wiki_language']
+    url = "https://#{lang}.wikipedia.org/w/api.php?action=query&meta=tokens&format=json"
+    stub_request(:get, url)
       .to_return(status: 200, body: fake_tokens, headers: {})
   end
 
@@ -86,7 +88,7 @@ module RequestHelpers
   end
 
   def stub_raw_action
-    stub_request(:get, /.*wikipedia.org\/w\/index.php\?action=raw.*/)
+    stub_request(:get, %r{.*wikipedia.org/w/index.php\?action=raw.*})
       .to_return(status: 200, body: '[[wikitext]]', headers: {})
   end
 
