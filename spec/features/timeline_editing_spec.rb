@@ -17,7 +17,18 @@ def create_course
          week_id: 1,
          kind: Block::KINDS['assignment'],
          title: 'Block Title',
-         order: 0)
+         order: 0,
+         gradeable_id: 1)
+  create(:gradeable,
+         id: 1,
+         gradeable_item_id: 1,
+         gradeable_item_type: 'block')
+  create(:block,
+         id: 2,
+         week_id: 1,
+         kind: Block::KINDS['in_class'],
+         title: 'Another Title',
+         order: 1)
 end
 
 describe 'timeline editing', type: :feature, js: true do
@@ -49,7 +60,7 @@ describe 'timeline editing', type: :feature, js: true do
     find('.week-1').hover
     sleep 0.5
     within('.week-1') do
-      find('.block__edit-block').click
+      first('.block__edit-block').click
       click_button 'Delete Block'
     end
 
@@ -65,7 +76,7 @@ describe 'timeline editing', type: :feature, js: true do
     find('.week-1').hover
     sleep 0.5
     within('.week-1') do
-      find('.block__edit-block').click
+      first('.block__edit-block').click
     end
     sleep 1
     within(".week-1 .block-kind-#{Block::KINDS['assignment']}") do
@@ -77,5 +88,47 @@ describe 'timeline editing', type: :feature, js: true do
     within ".week-1 .block-kind-#{Block::KINDS['assignment']}" do
       expect(page).to have_content unassigned_module_name
     end
+  end
+
+  it 'handles cases of "save all" after blocks have been deleted' do
+    visit "/courses/#{Course.last.slug}/timeline"
+
+    # Open edit mode for the first block
+    find(".week-1 .block-kind-#{Block::KINDS['assignment']}").hover
+    sleep 0.5
+    within ".week-1 .block-kind-#{Block::KINDS['assignment']}" do
+      first('.block__edit-block').click
+    end
+
+    # Open edit mode for the second block and delete it
+    find(".week-1 .block-kind-#{Block::KINDS['in_class']}").hover
+    sleep 0.5
+    within ".week-1 .block-kind-#{Block::KINDS['in_class']}" do
+      first('.block__edit-block').click
+      click_button 'Delete Block'
+    end
+    prompt = page.driver.browser.switch_to.alert
+    prompt.accept
+
+    # click Save All
+    click_button 'Save All'
+    expect(page).to have_content 'Block Title'
+    expect(page).not_to have_content 'Another Title'
+  end
+
+  it 'lets users remove grading from a block' do
+    visit "/courses/#{Course.last.slug}/timeline"
+    # Open edit mode for the first block
+    find(".week-1 .block-kind-#{Block::KINDS['assignment']}").hover
+    sleep 0.5
+    within ".week-1 .block-kind-#{Block::KINDS['assignment']}" do
+      first('.block__edit-block').click
+    end
+    within 'p.graded' do
+      find('input').click
+    end
+    click_button 'Save'
+    sleep 1
+    expect(Gradeable.all).to be_empty
   end
 end
