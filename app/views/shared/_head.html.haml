@@ -1,9 +1,9 @@
 %meta{content: "width=device-width, initial-scale=1.0", name: "viewport"}
 - before = content_for?(:before_title) ? yield(:before_title) : ''
 - after = content_for?(:after_title) ? yield(:after_title) : ''
-%title= "#{before}#{Figaro.env.dashboard_title}#{after}"
+%title= "#{before}#{ENV['dashboard_title']}#{after}"
 = logo_favicon_tag
-%meta{content: content_for?(:description) ? yield(:description) : "Myapp", name: "description"}
+%meta{content: ENV['meta_description'] || 'Wiki Dashboard', name: "description"}
 = stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600', media: 'all'
 = stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700', media: 'all'
 
