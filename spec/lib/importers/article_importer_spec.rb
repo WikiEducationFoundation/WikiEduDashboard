@@ -167,6 +167,21 @@ describe ArticleImporter do
       expect(new_article.id).to eq(46349871)
       expect(new_article.revisions.count).to eq(1)
     end
+
+    it 'does not delete articles by mistake if Replica is down' do
+      create(:article,
+             id: 848,
+             title: 'Audi',
+             namespace: 0)
+      create(:article,
+             id: 1,
+             title: 'Noarticle',
+             namespace: 0)
+      allow(Replica).to receive(:get_existing_articles_by_id).and_return(nil)
+      ArticleImporter.update_article_status
+      expect(Article.find(848).deleted).to eq(false)
+      expect(Article.find(1).deleted).to eq(false)
+    end
   end
 
   describe '.import_articles' do

@@ -48,11 +48,23 @@ class ArticleImporter
     # TODO: Narrow this down even more. Current courses, maybe?
     local_articles = articles || Article.all
 
+    failed_request_count = 0
     synced_articles = Utils.chunk_requests(local_articles, 100) do |block|
-      Replica.get_existing_articles_by_id block
+      request_results = Replica.get_existing_articles_by_id block
+      failed_request_count += 1 if request_results.nil?
+      request_results
     end
     synced_ids = synced_articles.map { |a| a['page_id'].to_i }
-    deleted_ids = local_articles.pluck(:id) - synced_ids
+
+    # If any Replica requests failed, we don't want to assume that missing
+    # articles are deleted.
+    # FIXME: A better approach would be to look for deletion logs, and only mark
+    # an article as deleted if there is a corresponding deletion log.
+    if failed_request_count == 0
+      deleted_ids = local_articles.pluck(:id) - synced_ids
+    else
+      deleted_ids = []
+    end
 
     # First we find any pages that just moved, and update title and namespace.
     update_title_and_namespace synced_articles
