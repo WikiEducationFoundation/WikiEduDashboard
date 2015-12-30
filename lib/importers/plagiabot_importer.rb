@@ -76,6 +76,7 @@ class PlagiabotImporter
     JSON.parse(response)
   rescue Errno::ETIMEDOUT => e
     Raven.capture_exception e, level: 'warning'
+    return nil
   end
 
   def self.api_get_url(opts = {})

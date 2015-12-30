@@ -111,6 +111,7 @@ class Wiki
       if typical_errors.include?(e.class)
         retry if tries >= 0
         Raven.capture_exception e, level: 'warning'
+        return nil
       else
         raise e
       end

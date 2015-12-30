@@ -354,7 +354,7 @@ GEM
       multi_json (~> 1.0)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
-    sentry-raven (0.13.3)
+    sentry-raven (0.15.2)
       faraday (>= 0.7.6)
     sexp_processor (4.6.0)
     shellany (0.0.1)
@@ -454,7 +454,7 @@ DEPENDENCIES
   rspec-rails
   rubocop
   selenium-webdriver
-  sentry-raven (~> 0.13.3)
+  sentry-raven
   simplecov
   squeel!
   timecop
