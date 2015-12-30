@@ -29,18 +29,21 @@ class WikiCourseOutput
   # Output components #
   #####################
   def self.course_details_and_description(course)
-    # TODO: add support for multiple instructors
+    # TODO: add support for multiple instructors, multiple content experts.
+    # TODO: switch this to a new template specifically for dashboard courses.
     instructor = course.instructors.first
-    course_prefix = Figaro.env.course_prefix
-    dashboard_url = Figaro.env.dashboard_url
+    support_staff = course.nonstudents.where(greeter: true).first
+    course_prefix = ENV['course_prefix']
+    dashboard_url = ENV['dashboard_url']
     course_details = "{{course details
      | course_name = #{course.title}
      | instructor_username = #{instructor.wiki_id unless instructor.nil?}
-     | instructor_realname = #{instructor.wiki_id unless instructor.nil?}
+     | instructor_realname = #{instructor.real_name unless instructor.nil?}
+     | support_staff = #{support_staff.wiki_id unless support_staff.nil?}
      | subject = #{course.subject}
      | start_date = #{course.start}
      | end_date = #{course.end}
-     | institution =  #{course.school}
+     | institution = #{course.school}
      | expected_students = #{course.expected_students}
      | assignment_page = #{course_prefix}/#{course.slug}
      | #{dashboard_url} = yes
