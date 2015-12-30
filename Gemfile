@@ -24,9 +24,7 @@ gem 'newrelic_rpm'
 
 gem 'redcarpet'
 gem 'breadcrumbs_on_rails'
-
-# master branch contains Nick's patch that silences warnings on ruby >= 2.0.0
-gem 'hashugar', git: 'https://github.com/jsuchal/hashugar.git', branch: 'master'
+gem 'hashugar'
 
 # UNIVERSAL TEXT CONVERTER - FOR MARDOWN TO MEDIAWIKI TEXT
 gem 'pandoc-ruby', '~> 1.0.0'
