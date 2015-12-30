@@ -14,13 +14,12 @@ class Cleaners
 
   def self.rebuild_articles_courses(courses=nil)
     courses ||= Course.current
-    user_ids = []
     courses.each do |course|
-      user_ids += course.students.pluck(:id)
+      user_ids = course.students.pluck(:id)
+      revisions = Revision.where(user_id: user_ids)
+      ArticlesCourses.update_from_revisions revisions
+      puts( "Updated ArticlesCourses for #{user_ids.count} users in #{course.title}")
     end
-    user_ids.uniq!
-    revisions = Revision.where(user_id: user_ids)
-    ArticlesCourses.update_from_revisions revisions
   end
 
   ############

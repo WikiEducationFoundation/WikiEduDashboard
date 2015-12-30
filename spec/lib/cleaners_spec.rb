@@ -91,6 +91,10 @@ describe Cleaners do
              id: 1,
              start: 1.month.ago,
              end: Time.zone.today + 1.year)
+      create(:course,
+             id: 2,
+             start: 1.month.ago,
+             end: Time.zone.today + 1.year)
       create(:revision,
              id: 661324615,
              article_id: 46640378,
