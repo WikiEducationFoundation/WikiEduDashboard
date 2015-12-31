@@ -1,13 +1,12 @@
 require '../testHelper'
-require '../../app/assets/javascripts/main-utils'
 
 describe 'main-utils', ->
   describe 'String.trunc', ->
-    it 'shorterns a string to 15 characters plus ellipsis', ->
+    it 'shortens a string to 15 characters plus ellipsis', ->
       testString = 'áBcdèfghijklmnopqrstuvwxyz'
       truncatedString = testString.trunc()
       expect(truncatedString).to.eq 'áBcdèfghijklmno…'
-    it 'returns a string (not a string object) if it\'s less than truncation limit', ->
+    it 'returns a string (not a string object) if it is less than truncation limit', ->
       testString = 'hello'
       truncatedString = testString.trunc()
       expect(truncatedString).to.eq 'hello'

@@ -15,6 +15,7 @@ global.I18n = require 'i18n-js'
 global.chai = require 'chai'
 
 require 'jsx-require-extension'
+require '../app/assets/javascripts/main-utils'
 
 #----------------------------------------
 # Global Config
