@@ -3,15 +3,29 @@
 # Export driver: phpyaml
 # Author: Macofe
 # Author: Themasterriot
+# Author: Yllelder
 ---
 es:
   application:
     dashboard: Panel de Wiki Ed
-    help: ¡Ayuda!
+    help: Ayuda
     home: Inicio
     log_out: Cerrar sesión
+    log_in: Iniciar sesión
+    sign_up: Registrarse
+    sign_up_log_in_extended: con Wikipedia
+    explore: Explorar
+    my_dashboard: Panel de control
     recent_activity: Actividad reciente
     search: buscar en ask.wikiedu.org
+    training: Entrenamiento
+  dashboard:
+    explore_examples: Explorar ejemplos
+    explore_course_pages: Explorar las páginas del curso
+  home:
+    log_in: Iniciar sesión con Wikipedia
+    sign_up: Regístrate con Wikipedia
+    explore: Explorar
   activity:
     edited_by: Editado por
     all: Actividad
@@ -139,6 +153,7 @@ es:
     student_editors: Editores estudiantiles
     view: Visualizaciones
     view_count_description: Visualizaciones del artículo
+    word_count: Palabras añadidas
   namespace:
     main: Espacio principal
     main_char_added: Caracteres añadidos en el espacio principal

@@ -6,11 +6,21 @@
 zh-hans:
   application:
     dashboard: Wiki Ed控制面板
-    help: 帮助！
+    help: 帮助
     home: 首页
     log_out: 退出
+    log_in: 登录
+    sign_up: 注册
+    sign_up_log_in_extended: 与维基百科
+    explore: 浏览
+    my_dashboard: 我的控制面板
     recent_activity: 最近活动
     search: 搜索ask.wikiedu.org
+    training: 培训
+  home:
+    log_in: 登录维基百科
+    sign_up: 注册维基百科
+    explore: 探索
   activity:
     edited_by: 编辑自
     all: 活跃
@@ -104,6 +114,7 @@ zh-hans:
     student_editors: 学生编辑者
     view: 查看
     view_count_description: 条目查阅
+    word_count: 添加的文字
   namespace:
     main: 主名字空间
     main_char_added: 主名字空间字符已添加

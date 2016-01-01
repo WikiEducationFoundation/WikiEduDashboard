@@ -12,14 +12,19 @@ qqq:
       {{Identical|Help}}
     home: Link to the main page
     log_out: Button for logging out (for registered users)
-    log_in: Button for logging in (for registered users)
+    log_in: |-
+      Button for logging in (for registered users)
+      {{Identical|Log in}}
     sign_up: Sign up (for new users)
     sign_up_log_in_extended: Short text (< 14 characters) to make clear that authentication
       is via wikipedia
-    explore: Explore link
+    explore: |-
+      Explore link
+      {{Identical|Explore}}
     my_dashboard: My Dashboard link
     recent_activity: Link to recent activity (for registered users)
     search: Input box for search on ask.wikiedu.org
+    training: '{{Identical|Training}}'
   dashboard:
     opt_out: Link to opt out
     explore_examples: Link to explore example courses
@@ -27,7 +32,9 @@ qqq:
   home:
     log_in: Log in with Wikipedia button
     sign_up: Sign up with Wikipedia button
-    explore: Explore button
+    explore: |-
+      Explore button
+      {{Identical|Explore}}
   activity:
     edited_by: Column label for username of user who made an edit
     all: '{{Identical|Activity}}'

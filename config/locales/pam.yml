@@ -1,13 +1,14 @@
 # Messages for Pampanga (Kapampangan)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Amiel Guanlao
 # Author: Leeheonjin
 ---
 pam:
   application:
     help: Saup!
     home: Pun bulung
-    log_out: Mag-logout
+    log_out: Lumual
     recent_activity: Tauling aktibidad
   articles:
     title: Titulu

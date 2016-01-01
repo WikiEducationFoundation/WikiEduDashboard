@@ -6,9 +6,14 @@
 lb:
   application:
     dashboard: Iwwersiicht iwwer d'Ännerungen op der Wiki
-    help: Hëllef!
+    help: Hëllef
     log_out: Ausloggen
+    log_in: Aloggen
+    sign_up_log_in_extended: mat Wikipedia
     recent_activity: Rezent Aktivitéit
+    training: Formatioun
+  home:
+    sign_up: Mat Wikipedia umellen
   activity:
     edited_by: Geännert Vum
     all: Aktivitéit

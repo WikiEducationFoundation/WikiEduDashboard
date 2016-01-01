@@ -2,15 +2,41 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Chrumps
+# Author: Halibutt
 # Author: The Polish
 ---
 pl:
   application:
-    help: Pomocy!
+    help: Pomoc
+    home: Strona główna
     log_out: Wyloguj
+    log_in: Zaloguj się
+    sign_up: Zarejestruj się
+    explore: Odkryj
+    my_dashboard: Mój panel
+    recent_activity: Ostatnia aktywność
+    search: przeszukaj ask.wikiedu.org
+    training: Szkolenie
+  dashboard:
+    opt_out: Poproś o wypisanie z listy
+    explore_examples: Odkryj przykłady
+    explore_course_pages: Odkryj strony kursów
+  home:
+    log_in: Zaloguj się za pomocą Wikipedii
+    sign_up: Zarejestruj się w Wikipedii
+    explore: Odkrywaj
+  activity:
+    edited_by: Zmienił(a)
+    all: Aktywność
   articles:
     loading: Wczytywanie artykułów...
+    assigned: Przypisane artykuły
+    assigned_to: Przypisany do
+    character_doc: Ilość znaków dodanych do artykułów przez uczestników kursu w czasie
+      jego trwania
+    edited: Edytowane artykuły
     edited_mobile: Artykuły
+    no_assignee: Żaden użytkownik nie jest przypisany
     rating: Klasa
     title: Tytuł
     view: Zobacz artykuł
@@ -28,6 +54,7 @@ pl:
       other: Instruktorzy
     students: Studenci
     students_short: Studenci
+    overview: Przegląd
     title: Tytuł
     view: Zobacz Kursy
     view_wiki: Zobacz w Wikipedii
@@ -37,7 +64,10 @@ pl:
     course_description: Opis kursu
     start_date: Data rozpoczęcia
     end_date: Data zakończenia
+  metrics:
+    date_time: Data/Czas
   namespace:
+    user: Przestrzeń użytkownika
     user_ns: Użytkownik
   revisions:
     date_time: Data/Czas

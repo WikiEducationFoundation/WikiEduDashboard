@@ -8,6 +8,8 @@ ja:
   application:
     help: ヘルプ
     log_out: ログアウト
+    log_in: ログイン
+    my_dashboard: 私のダッシュボード
   activity:
     all: 活動
   articles:

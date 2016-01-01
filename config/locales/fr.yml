@@ -11,11 +11,25 @@
 fr:
   application:
     dashboard: Tableau de bord de modification du wiki
-    help: À l’aide !
+    help: Aide
     home: Accueil
     log_out: Déconnexion
+    log_in: Connexion
+    sign_up: S’inscrire
+    sign_up_log_in_extended: avec Wikipédia
+    explore: Explorer
+    my_dashboard: Mon tableau de bord
     recent_activity: Activité récente
     search: rechercher sur ask.wikiedu.org
+    training: Formation
+  dashboard:
+    opt_out: Demande de retrait de l’orientation
+    explore_examples: Explorer les exemples
+    explore_course_pages: Explorer les pages de cours
+  home:
+    log_in: Se connecter avec Wikipédia
+    sign_up: S’inscrire à Wikipédia
+    explore: Explorer
   activity:
     edited_by: Modifié par
     all: Activité
@@ -74,6 +88,8 @@ fr:
     character_doc: Le nombre total de caractères ajoutés aux articles de l’espace
       de nom principal par les étudiants du cours durant son déroulement
     revisions_doc: Le nombre de modifications dans les %{timeframe} jours passés
+    word_count_doc: Une estimation du nombre de mots ajoutés aux articles de l’espace
+      principal par les étudiants du cours pendant son déroulement
     course_description: Cours d’édition de wiki
     courses: Cours
     yourcourses: Vos cours
@@ -141,6 +157,7 @@ fr:
     student_editors: Étudiants éditeur
     view: Vues
     view_count_description: Articles vus
+    word_count: Mots ajoutés
   namespace:
     main: Espace principal
     main_char_added: Caractères ajoutés à l’espace principal
@@ -213,7 +230,11 @@ fr:
     assignment_type: Type de tâche
     confirm_dates: Choisir les dates du cours, les réunions hebdomadaires, et les
       vacances pour votre cours.
-    assignment_description: Choisir les dates de début et de fin de cette tâche
+    assignment_description: Choisir les dates de début et de fin de votre planning
+      d’affectation. Par exemple, si vous voulez commencer votre projet Wikipédia
+      la deuxième semaine du cours, mettez la date de début d’affectation une semaine
+      après celle de début du cours. L’outil de conception des affectations créera
+      un brouillon de planning qui correspondra aux dates que vous aurez choisies.
     min_weeks: Cette tâche nécessite au moins %{min_weeks} semaines disponibles. Veuillez
       ajuster vos dates de début et de fin de tâche si vous voulez utiliser ce type
       de tâche.
@@ -263,4 +284,10 @@ fr:
     block_type: Le type de bloc est utilisé pour communiquer à vos étudiants sur cet
       élément dans leur planning et pour construire des outils utiles pour vous (comme
       la visualisation des jalons sur la page Vue d’ensemble)
+    unable_to_add_week: Vous ne pouvez pas ajouter de nouvelles semaines quand votre
+      planning est plein. Supprimez au moins une semaine ou modifiez vos dates d’affectation
+      pour faire de la place pour une nouvelle semaine.
+    blackout_week_created: Il y a des blocs prévus dans cette semaine. Veuillez les
+      déplacer à une autre semaine avant de supprimer la dernière réunion de classe
+      de cette semaine.
 ...
