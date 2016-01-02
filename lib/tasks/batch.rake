@@ -19,12 +19,12 @@ namespace :batch do
     pause_file = 'tmp/batch_pause.pid'
     if File.exist? pid_file     # Do not run while another instance is running
       Rails.logger.warn I18n.t('tasks.conseq', task: 'batch_update_constantly')
-      Kernel.exit
+      Kernel.exit if pid_file_process_running?(pid_file)
     end
     if File.exist? daily_file   # Do not run while update_daily is running
       Rails.logger
         .warn I18n.t('tasks.constant', task: 'batch_update_constantly')
-      Kernel.exit
+        Kernel.exit if pid_file_process_running?(daily_file)
     end
     if File.exist? pause_file   # Do not run while updates are paused
       Rails.logger.warn I18n.t('tasks.paused', task: 'batch_update_constantly')
@@ -63,10 +63,11 @@ namespace :batch do
     pid_file = 'tmp/batch_update_daily.pid'
     constant_file = 'tmp/batch_update_constantly.pid'
     pause_file = 'tmp/batch_pause.pid'
+    sleep_file = 'tmp/batch_sleep_10.pid'
 
     if File.exist? pid_file     # Do not run while another instance is running
       Rails.logger.warn I18n.t('tasks.conseq', task: 'batch_update_daily')
-      Kernel.exit
+      Kernel.exit if pid_file_process_running?(pid_file)
     end
     if File.exist? pause_file   # Do not run while updates are paused
       Rails.logger.warn I18n.t('tasks.paused', task: 'batch_update_daily')
@@ -77,13 +78,13 @@ namespace :batch do
     if File.exist? constant_file
       # Prevent update_constantly from starting again
       begin
-        File.open(pause_file, 'w') { |f| f.puts Process.pid }
+        File.open(sleep_file, 'w') { |f| f.puts Process.pid }
         while File.exist? constant_file
           Rails.logger.info 'Delaying update_daily task for ten minutes...'
           sleep(10.minutes)
         end
       ensure
-        File.delete pause_file if File.exist? pause_file
+        File.delete sleep_file if File.exist? sleep_file
       end
     end
 
