@@ -6,7 +6,7 @@ require File.expand_path('../config/application', __FILE__)
 # Given a pid file that contains the pid of a process, check whether it is
 # running. If not, delete the file and return false.
 def pid_file_process_running?(pid_file)
-  pid = pid_file.read.to_i
+  pid = File.read(pid_file).to_i
   return true if Process.kill 0, pid
 rescue Errno::ESRCH
   Rails.logger.warn ("Process #{pid} not found. Deleting #{pid_file}")
