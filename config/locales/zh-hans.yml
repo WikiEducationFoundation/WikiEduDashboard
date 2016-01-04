@@ -17,6 +17,9 @@ zh-hans:
     recent_activity: 最近活动
     search: 搜索ask.wikiedu.org
     training: 培训
+  dashboard:
+    explore_examples: 浏览示例
+    explore_course_pages: 浏览课程页面
   home:
     log_in: 登录维基百科
     sign_up: 注册维基百科

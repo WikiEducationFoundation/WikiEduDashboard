@@ -1,9 +1,27 @@
 # Messages for Indonesian (Bahasa Indonesia)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Arief
 # Author: Mirws
 ---
 id:
+  application:
+    help: Bantuan
+    log_out: Keluar
+    log_in: Masuk
+    sign_up: Daftar
+    sign_up_log_in_extended: dengan Wikipedia
+    explore: Jelajah
+    my_dashboard: Papan instrumen saya
+    training: latihan
+  dashboard:
+    opt_out: Permintaan untuk memilih keluar dari orientasi
+    explore_examples: Contoh penjelajahan
+    explore_course_pages: Jelajahi Course Pages
+  home:
+    log_in: Masuk dengan Wikipedia
+    sign_up: Masuk dengan Wikipedia
+    explore: Jelajah
   articles:
     loading: Memuat artikel...
     rating_docs:
@@ -13,12 +31,16 @@ id:
     loading: Memuat tugas...
     confirm_addition: Apakah Anda yakin Anda ingin menetapkan%{title} ke %{username}%?
   courses:
+    word_count_doc: Perkiraan jumlah kata ditambahkan ke artikel mainspace oleh siswa
+      kursus selama jangka kursus
     course_description: Wiki Ed Courses
   course_creator:
     intro: Judul, sekolah dan jangka waktu akan menjadi bagian dari url halaman kursus,
       dan tidak dapat diubah. informasi kursus lainnya dapat diedit nanti. Setelah
       Anda membuat kursus Anda, wizard akan memandu Anda melalui pembuatan timeline
       penugasan.
+  metrics:
+    word_count: Kata ditambahkan
   revisions:
     time_doc: Waktu setiap revisi dalam waktu lokal Anda
   uploads:
@@ -29,4 +51,16 @@ id:
     training_complete:
       one: has completed training
       other: have completed training
+  wizard:
+    assignment_description: Pilih tanggal mulai dan akhir untuk waktu tugas Anda.
+      Sebagai contoh, jika Anda ingin memulai proyek Wikipedia Anda minggu kedua kelas,
+      mengatur tanggal mulai tugas untuk satu minggu setelah tanggal mulai kursus
+      ini. Desain alat tugas ini akan membuat rancangan waktu yang pas timeline tanggal
+      yang Anda pilih.
+  timeline:
+    unable_to_add_week: Anda tidak dapat menambahkan minggu baru ketika waktu Anda
+      penuh. Hapus setidaknya satu minggu atau mengubah tanggal tugas Anda untuk memberikan
+      ruang bagi yang baru.
+    blackout_week_created: Ada blok dijadwalkan minggu ini. Silakan pindahkan ke seminggu
+      lagi sebelum Anda menghapus pertemuan kelas terakhir dari minggu ini.
 ...

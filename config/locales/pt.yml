@@ -9,10 +9,14 @@
 pt:
   application:
     dashboard: Painel do Programa de Educação
-    help: Ajuda!
+    help: Ajuda
     home: Início
     log_out: Sair
+    log_in: Entrar
+    sign_up_log_in_extended: através da Wikipédia
     recent_activity: Atividade recente
+  home:
+    log_in: Iniciar sessão através da Wikipédia
   activity:
     edited_by: Editado por
     all: Atividade

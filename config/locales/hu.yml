@@ -1,0 +1,24 @@
+# Messages for Hungarian (magyar)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Uno20001
+---
+hu:
+  application:
+    dashboard: Wiki Ed Műszerfal
+    help: Súgó
+    home: Kezdőlap
+    log_out: Kijelentkezés
+    log_in: Bejelentkezés
+    sign_up: Regisztráció
+    sign_up_log_in_extended: Wikipédiával
+    recent_activity: Legutóbbi tevékenységek
+    search: keresés az ask.wikiedu.org oldalon
+  home:
+    log_in: Bejelentkezés Wikipédiával
+    sign_up: Regisztráció Wikipédiával
+  activity:
+    all: Tevékenység
+  articles:
+    edited_mobile: Szócikkek
+...

@@ -9,10 +9,12 @@ lb:
     help: Hëllef
     log_out: Ausloggen
     log_in: Aloggen
+    sign_up: Schreift Iech an
     sign_up_log_in_extended: mat Wikipedia
     recent_activity: Rezent Aktivitéit
     training: Formatioun
   home:
+    log_in: Mat Wikipedia aloggen
     sign_up: Mat Wikipedia umellen
   activity:
     edited_by: Geännert Vum
@@ -84,6 +86,7 @@ lb:
     date_time: Datum/Zäit
     edit_count_description: Total vun den Ännerungen
     revisions: Rezent Ännerungen
+    word_count: Wierder derbäigesat
   namespace:
     user: Benotzernummraum
     user_ns: Benotzer

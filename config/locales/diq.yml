@@ -5,6 +5,12 @@
 # Author: Mirzali
 ---
 diq:
+  application:
+    help: Peşti
+    home: Keye
+    log_out: Bıveciye
+    log_in: Cı kewe
+    sign_up: Qeyd be
   activity:
     edited_by: Vurnayoğ
     all: Fealiyet

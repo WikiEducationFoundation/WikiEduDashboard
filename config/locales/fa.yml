@@ -1,9 +1,19 @@
 # Messages for Persian (فارسی)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: GMozafarian
 # Author: Reza1615
 ---
 fa:
+  application:
+    log_out: خروج
+    log_in: ورود
+    sign_up: ثبت نام
+    sign_up_log_in_extended: با ویکی پدیا
+    my_dashboard: داشبورد من
+  home:
+    sign_up: ورود با ویکی پدیا
+    explore: کاوش
   activity:
     all: فعالیت
   articles:
