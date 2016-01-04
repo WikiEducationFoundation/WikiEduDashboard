@@ -85,6 +85,9 @@ TrainingSlideHandler = React.createClass(
         </div>
       )
 
+    if @state.loading is false && @state.currentSlide.id is null
+      window.location = '/errors/file_not_found'
+
     if @state.nextSlide?.slug
       nextLink = <SlideLink
                    slideId={@state.nextSlide.slug}

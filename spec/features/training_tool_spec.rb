@@ -118,6 +118,11 @@ describe 'Training', type: :feature, js: true do
       expect(page).to have_content module_2.slides[-1].title
     end
 
+    it 'shows a 404 page for non-existent slides' do
+      visit "/training/students/#{module_2.slug}/lol-not-a-real-slide"
+      expect(page).to have_content 'Page not found'
+    end
+
     after do
       login_as(user, scope: :user)
     end
