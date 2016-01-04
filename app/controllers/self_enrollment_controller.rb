@@ -49,10 +49,12 @@ class SelfEnrollmentController < ApplicationController
     redirect_to path
   end
 
+  # A user with any CoursesUsers record for the course is considered to be
+  # enrolled already, even if they are not enrolled in the STUDENT role.
+  # Instructors should not be enrolled as students.
   def user_already_enrolled?
     CoursesUsers.exists?(user_id: current_user.id,
-                         course_id: @course.id,
-                         role: CoursesUsers::Roles::STUDENT_ROLE)
+                         course_id: @course.id)
   end
 
   def passcode_valid?
