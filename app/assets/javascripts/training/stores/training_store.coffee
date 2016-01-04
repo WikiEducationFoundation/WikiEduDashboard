@@ -10,6 +10,7 @@ _currentSlide = {
   title: '',
   content: ''
 }
+_isLoading = true
 
 setModule = (trainingModule) ->
   _module = trainingModule
@@ -34,6 +35,7 @@ setCurrentSlide = (slide_id) ->
   return _currentSlide unless _module.slides
   slideIndex = _.findIndex(_module.slides, (slide) -> slide.slug == slide_id)
   _currentSlide = _module.slides[slideIndex]
+  _isLoading = false
   TrainingStore.emitChange()
 
 setEnabledSlides = (slide) ->
@@ -51,11 +53,13 @@ TrainingStore = Flux.createStore
     nextSlide:     @getNextSlide()
     menuIsOpen:    _menuState
     enabledSlides: _enabledSlides
-    loading: false
+    loading: @getLoadingStatus()
     isFirstSlide: @isFirstSlide()
 
+  getLoadingStatus: ->
+    return _isLoading
   isFirstSlide: ->
-    _currentSlide.index is 1
+    _currentSlide?.index is 1
   getTrainingModule: ->
     return _module
   getAllModules: ->

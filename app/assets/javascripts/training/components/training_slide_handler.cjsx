@@ -17,7 +17,14 @@ TrainingSlideHandler = React.createClass(
   displayName: 'TrainingSlideHandler'
   mixins: [TrainingStore.mixin, History]
   getInitialState: ->
+    slide: {}
+    menuIsOpen: false
+    currentSlide: {}
+    nextSlide: {}
+    previousSlide: {}
+    slides: []
     loading: true
+    enabledSlides: []
   moduleId: ->
     @props.params?.module_id
   componentDidMount: ->
@@ -85,8 +92,8 @@ TrainingSlideHandler = React.createClass(
         </div>
       )
 
-    if @state.loading is false && @state.currentSlide.id is null
-      window.location = '/errors/file_not_found'
+    if @state.loading is false && !@state.currentSlide?.id
+      return window.location = '/errors/file_not_found'
 
     if @state.nextSlide?.slug
       nextLink = <SlideLink
