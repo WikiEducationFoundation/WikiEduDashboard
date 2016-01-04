@@ -8,7 +8,7 @@ In order to use and develop the authenticated features of the application (cours
 
 [Log in to a Wikimedia site](https://www.mediawiki.org/w/index.php?title=Special:UserLogin&returnto=Special%3AUserLogout&returntoquery=noreturnto%3D) with your username and password. Once you're logged in, click on "Preferences" in the upper right-hand corner. In the "User profile" tab under "Preferences" (selected by default), set your email address if you haven't already. You'll need this to confirm your account and get your token and secret key in the next step.
 
-To register an OAuth consumer, your account must be "confirmed". This happens automatically after a certain number of edits, but if your account is new, you can request your account to be manually confirmed (here)[https://meta.wikimedia.org/wiki/Steward_requests/Permissions#Using_this_page]. 
+To register an OAuth consumer, your account must be "confirmed". This happens automatically after a certain number of edits, but if your account is new, you can request your account to be manually confirmed [here](https://meta.wikimedia.org/wiki/Steward_requests/Permissions#Using_this_page). 
 
 You'll now [propose an OAuth consumer](https://meta.wikimedia.org/wiki/Special:OAuthConsumerRegistration/propose). Fill out the form with the following values:
 
