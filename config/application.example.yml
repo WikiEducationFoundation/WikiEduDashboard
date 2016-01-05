@@ -67,14 +67,6 @@
 #  cohort_fall_2014: "Wikipedia:Education_program/Dashboard/Fall_2014_course_ids"
 #  cohort_spring_2015: "Wikipedia:Education_program/Dashboard/course_ids"
 
-## Tests are written with specific cohorts in mind. Uncomment these lines
-## to allow tests to run as expected.
-# test:
-#   default_cohort: "spring_2015"
-#   cohorts: "fall_2014,spring_2015"
-#   cohort_fall_2014: "Wikipedia:Education_program/Dashboard/Fall_2014_course_ids"
-#   cohort_spring_2015: "Wikipedia:Education_program/Dashboard/course_ids"
-
 # The slug for the default cohort
   default_cohort: "fall_2014"
 
