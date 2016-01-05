@@ -3,12 +3,14 @@ class TrainingModulesUsersController < ApplicationController
 
   def create_or_update
     training_module = TrainingModule.find_by(slug: params[:module_id])
-    tmu = find_or_create_tmu(params, training_module.id)
     slide = TrainingSlide.find_by(slug: params[:slide_id])
+    render json: { slide: slide }
+    return if slide.nil?
+
+    tmu = find_or_create_tmu(params, training_module.id)
     pm = TrainingProgressManager.new(current_user, training_module, slide)
     complete_slide(tmu, slide) if should_set_slide_completed?(tmu, pm)
     complete_module(tmu) if last_slide?(tmu, slide)
-    render json: { slide: slide }
   end
 
   private
