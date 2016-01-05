@@ -93,7 +93,7 @@ TrainingSlideHandler = React.createClass(
       )
 
     if @state.loading is false && !@state.currentSlide?.id
-      return window.location = '/errors/file_not_found'
+      window.location = '/errors/file_not_found'
 
     if @state.nextSlide?.slug
       nextLink = <SlideLink
