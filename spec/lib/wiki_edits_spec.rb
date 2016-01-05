@@ -117,16 +117,16 @@ describe WikiEdits do
     end
   end
 
-  describe '.verify_oauth_credentials' do
-    it 'should return true if credentials are valid' do
-      stub_oauth_edit
-      response = WikiEdits.verify_oauth_credentials(User.first)
+  describe '.oauth_credentials_valid?' do
+    it 'return true if credentials are valid' do
+      stub_token_request
+      response = WikiEdits.oauth_credentials_valid?(User.first)
       expect(response).to eq(true)
     end
 
-    it 'should return false if credentials are invalid' do
+    it 'returns false if credentials are invalid' do
       stub_token_request_failure
-      response = WikiEdits.verify_oauth_credentials(User.first)
+      response = WikiEdits.oauth_credentials_valid?(User.first)
       expect(response).to eq(false)
     end
   end

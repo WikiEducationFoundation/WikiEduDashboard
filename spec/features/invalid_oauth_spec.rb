@@ -14,3 +14,20 @@ describe 'a user with invalid oauth credentials', type: :feature do
     expect(page).to have_content 'Log in'
   end
 end
+
+describe 'a user whose oauth credentials expire', type: :feature do
+  let(:admin)  { create(:admin) }
+  let(:course) { create(:course, end: 1.year.from_now, submitted: true) }
+  before do
+    create(:cohort)
+  end
+
+  it 'is logged out upon visiting a course' do
+    stub_token_request_failure
+
+    login_as admin
+    visit "/courses/#{course.slug}"
+    expect(page.current_path).to eq('/')
+    expect(page).to have_content 'Your Wikipedia authorization has expired'
+  end
+end

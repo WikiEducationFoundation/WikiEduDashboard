@@ -49,6 +49,16 @@ class CoursesController < ApplicationController
   def show
     @course = find_course_by_slug("#{params[:school]}/#{params[:titleterm]}")
     check_permission_to_show_course
+
+    # If the user could make an edit to the course, then verify that
+    # their tokens are working.
+    if current_user && current_user.can_edit?(@course)
+      unless WikiEdits.oauth_credentials_valid?(current_user)
+        redirect_to '/'
+        return
+      end
+    end
+
     respond_to do |format|
       format.html { render }
       format.json { render params[:endpoint] }

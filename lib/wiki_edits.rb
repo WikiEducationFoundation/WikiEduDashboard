@@ -5,9 +5,9 @@ class WikiEdits
   ################
   # Entry points #
   ################
-  def self.verify_oauth_credentials(current_user)
-    tokens = get_tokens(current_user)
-    tokens['csrf_token'] ? true : false
+  def self.oauth_credentials_valid?(current_user)
+    get_tokens(current_user)
+    current_user.wiki_token != 'invalid'
   end
 
   def self.notify_untrained(course_id, current_user)
