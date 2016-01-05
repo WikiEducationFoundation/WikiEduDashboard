@@ -118,7 +118,7 @@ describe WikiEdits do
   end
 
   describe '.oauth_credentials_valid?' do
-    it 'return true if credentials are valid' do
+    it 'returns true if credentials are valid' do
       stub_token_request
       response = WikiEdits.oauth_credentials_valid?(User.first)
       expect(response).to eq(true)
@@ -128,6 +128,15 @@ describe WikiEdits do
       stub_token_request_failure
       response = WikiEdits.oauth_credentials_valid?(User.first)
       expect(response).to eq(false)
+    end
+
+    # By default, if a user is logged in, they are assumed to have valid tokens.
+    # If there is a network problem, or other issue besides MediaWiki saying
+    # that the auth is invalid, then we carry on.
+    it 'returns true if Wikipedia API returns no tokens' do
+      stub_request(:any, /.*/).to_return(status: 200, body: '{}', headers: {})
+      response = WikiEdits.oauth_credentials_valid?(User.first)
+      expect(response).to eq(true)
     end
   end
 

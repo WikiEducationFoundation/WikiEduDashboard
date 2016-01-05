@@ -54,7 +54,7 @@ class CoursesController < ApplicationController
     # their tokens are working.
     if current_user && current_user.can_edit?(@course)
       unless WikiEdits.oauth_credentials_valid?(current_user)
-        redirect_to '/'
+        redirect_to root_path
         return
       end
     end
