@@ -4,6 +4,7 @@ def set_up_suite
   include Devise::TestHelpers, type: :feature
   Capybara.current_driver = :selenium
   page.driver.browser.manage.window.resize_to(1920, 1080)
+  stub_oauth_edit
 end
 
 def fill_out_course_creator_form
@@ -113,8 +114,6 @@ describe 'New course creation and editing', type: :feature do
     let(:module_name) { 'Wikipedia Essentials' }
 
     it 'should allow the user to create a course' do
-      stub_oauth_edit
-
       click_link 'Create Course'
 
       expect(page).to have_content 'Create a New Course'
@@ -268,7 +267,6 @@ describe 'New course creation and editing', type: :feature do
              end: '2015-12-15'.to_date,
              timeline_start: '2015-08-31'.to_date,
              timeline_end: '2015-12-15'.to_date)
-      stub_oauth_edit
 
       click_link 'Create Course'
       expect(page).to have_content 'Create a New Course'
@@ -307,7 +305,6 @@ describe 'New course creation and editing', type: :feature do
              user_id: 1,
              course_id: 10001,
              role: 1)
-      stub_oauth_edit
 
       # Visit timline and open wizard
       visit "/courses/#{Course.first.slug}/timeline/wizard"
@@ -349,7 +346,6 @@ describe 'New course creation and editing', type: :feature do
              user_id: 1,
              course_id: 10001,
              role: 1)
-      stub_oauth_edit
 
       # Visit timline and open wizard
       visit "/courses/#{Course.first.slug}/timeline/wizard"
@@ -434,7 +430,6 @@ describe 'New course creation and editing', type: :feature do
 end
 
 describe 'timeline editing', js: true do
-
   let!(:course) do
     create(:course, id: 10001, start: Date.new(2015, 1, 1),
                     end: Date.new(2015, 2, 1), submitted: true,
@@ -457,7 +452,6 @@ describe 'timeline editing', js: true do
     set_up_suite
     create(:cohort)
     login_as user, scope: :user, run_callbacks: false
-    stub_oauth_edit
   end
 
   it 'disables reorder up/down buttons when it is the first or last block' do

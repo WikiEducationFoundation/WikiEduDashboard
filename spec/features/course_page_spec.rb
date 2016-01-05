@@ -229,6 +229,7 @@ describe 'the course page', type: :feature do
     end
 
     it "doesn't allow null values for course start/end" do
+      stub_token_request
       admin = create(:admin, id: User.last.id + 1)
       login_as(admin)
       js_visit "/courses/#{slug}"
@@ -244,6 +245,7 @@ describe 'the course page', type: :feature do
     end
 
     it "doesn't allow null values for passcode" do
+      stub_token_request
       admin = create(:admin, id: User.last.id + 1)
       previous_passcode = Course.last.passcode
       login_as(admin)

@@ -112,6 +112,7 @@ describe 'Admin users', type: :feature, js: true do
 
   describe 'adding a tag to a course' do
     it 'should work' do
+      stub_token_request
       visit "/courses/#{Course.first.slug}"
       sleep 1
 
