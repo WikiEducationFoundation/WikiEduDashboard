@@ -11,26 +11,30 @@ def js_visit(path)
 end
 
 describe 'the course page', type: :feature do
-    let(:user_count)     { 10 }
-    let(:article_count)  { 19 }
-    let(:revision_count) { 214 }
-    # Dots in course titles will cause errors if routes.rb is misconfigured.
-    let(:slug) { 'This_university.foo/This.course_(term_2015)' }
-    let(:course_start) { '2015-01-01' }
-    let(:course_end)   { '2015-12-31' }
+  let(:user_count)     { 10 }
+  let(:article_count)  { 19 }
+  let(:revision_count) { 214 }
+  # Dots in course titles will cause errors if routes.rb is misconfigured.
+  let(:slug) { 'This_university.foo/This.course_(term_2015)' }
+  let(:course_start) { '2015-01-01' }
+  let(:course_end)   { '2015-12-31' }
 
-    let(:course) { create(:course,
-                    id: 10001,
-                    title: 'This.course',
-                    slug: slug,
-                    start: course_start.to_date,
-                    end: course_end.to_date,
-                    timeline_start: course_start.to_date,
-                    timeline_end: course_end.to_date,
-                    school: 'This university.foo',
-                    term: 'term 2015',
-                    listed: 1,
-                    description: 'This is a great course')
+  let(:course) do
+    create(:course,
+           id: 10001,
+           title: 'This.course',
+           slug: slug,
+           start: course_start.to_date,
+           end: course_end.to_date,
+           timeline_start: course_start.to_date,
+           timeline_end: course_end.to_date,
+           school: 'This university.foo',
+           term: 'term 2015',
+           listed: 1,
+           description: 'This is a great course')
+  end
+
+  before do
     cohort = create(:cohort)
     course.cohorts << cohort
 
