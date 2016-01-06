@@ -30,7 +30,7 @@ Note: batch updates can take a while, so you probably don't want to do them live
 	
 ## Set up a new production server
 
-For detailed instructions on setting up a production server — specifically on a wmflabs virtual server, but the process will be similar for other infrastructure as well — see [WMFLABS_DEPLOYMENT](../WMFLABS_DEPLOYMENT.md).
+For detailed instructions on setting up a production server — specifically on a wmflabs virtual server, but the process will be similar for other infrastructure as well — see [WMFLABS_DEPLOYMENT](./WMFLABS_DEPLOYMENT.md).
 
 ## Recovery procedure
 
