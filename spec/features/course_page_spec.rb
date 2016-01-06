@@ -10,31 +10,32 @@ def js_visit(path)
   sleep 1
 end
 
+user_count = 10
+article_count = 19
+revision_count = 214
+# Dots in course titles will cause errors if routes.rb is misconfigured.
+slug = 'This_university.foo/This.course_(term_2015)'
+course_start = '2015-01-01'
+course_end = '2015-12-31'
+
 describe 'the course page', type: :feature do
-  let(:user_count)     { 10 }
-  let(:article_count)  { 19 }
-  let(:revision_count) { 214 }
-  # Dots in course titles will cause errors if routes.rb is misconfigured.
-  let(:slug) { 'This_university.foo/This.course_(term_2015)' }
-  let(:course_start) { '2015-01-01' }
-  let(:course_end)   { '2015-12-31' }
-
-  let(:course) do
-    create(:course,
-           id: 10001,
-           title: 'This.course',
-           slug: slug,
-           start: course_start.to_date,
-           end: course_end.to_date,
-           timeline_start: course_start.to_date,
-           timeline_end: course_end.to_date,
-           school: 'This university.foo',
-           term: 'term 2015',
-           listed: 1,
-           description: 'This is a great course')
-  end
-
   before do
+    include Devise::TestHelpers, type: :feature
+    Capybara.current_driver = :selenium
+    page.driver.browser.manage.window.resize_to(1920, 1080)
+
+    course = create(:course,
+                    id: 10001,
+                    title: 'This.course',
+                    slug: slug,
+                    start: course_start.to_date,
+                    end: course_end.to_date,
+                    timeline_start: course_start.to_date,
+                    timeline_end: course_end.to_date,
+                    school: 'This university.foo',
+                    term: 'term 2015',
+                    listed: 1,
+                    description: 'This is a great course')
     cohort = create(:cohort)
     course.cohorts << cohort
 
