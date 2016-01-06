@@ -4,40 +4,41 @@ HTML5Backend    = require 'react-dnd-html5-backend'
 DDContext       = RDnD.DragDropContext
 
 Week            = require '../timeline/week'
+Loading         = require '../common/loading'
 
-CourseStore     = require '../../stores/course_store'
-WeekStore       = require '../../stores/week_store'
-BlockStore      = require '../../stores/block_store'
-
-getState = ->
-  weeks: WeekStore.getWeeks()
-  current: CourseStore.getCurrentWeek()
+DateUtils       = require '../../utils/course_date_utils'
 
 ThisWeek = React.createClass(
+  propTypes:
+    course:  React.PropTypes.object
+    weeks:   React.PropTypes.array
+    current: React.PropTypes.number
   displayName: 'ThisWeek'
-  mixins: [CourseStore.mixin, WeekStore.mixin, BlockStore.mixin]
-  getInitialState: ->
-    getState()
-  storeDidChange: ->
-    @setState getState()
+
   render: ->
-    week = @state.weeks[@state.current]
+    week = @props.weeks[@props.current]
     if week?
+      course = @props.course
+      meetings = DateUtils.meetings(course)
+      weekMeetings = DateUtils.weekMeetings(meetings, course, course.day_exceptions)
       week_component = (
         <Week
           week={week}
-          index={@state.current + 1}
+          timeline_start={@props.course.timeline_start}
+          timeline_end={@props.course.timeline_end}
+          index={@props.current + 1}
           key={week.id}
           editable=false
-          blocks={BlockStore.getBlocksInWeek(week.id)}
+          blocks={week.blocks}
           moveBlock={null}
           deleteWeek={null}
           showTitle=false
+          meetings={weekMeetings[0]}
         />
       )
-      if moment().diff(@props.timeline_start, 'days') < 0
-        week_end = moment(@props.timeline_start).add(7, 'days')
-        title = "First Week (#{moment(@props.timeline_start).format('MM/DD')} - #{week_end.format('MM/DD')})"
+      if moment().diff(@props.course.timeline_start, 'days') < 0
+        week_end = moment(@props.course.timeline_start).add(6, 'days')
+        title = "First Week (#{moment(@props.course.timeline_start).format('MM/DD')} - #{week_end.format('MM/DD')})"
     else
       no_weeks = (
         <li className="row view-all">
@@ -45,7 +46,7 @@ ThisWeek = React.createClass(
         </li>
       )
 
-    <div className="module">
+    <div className="module course__this-week">
       <div className="section-header">
         <h3>{title || 'This Week'}</h3>
       </div>

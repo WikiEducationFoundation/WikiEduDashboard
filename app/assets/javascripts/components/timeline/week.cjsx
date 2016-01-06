@@ -108,7 +108,7 @@ Week = React.createClass(
       </div>
     )
 
-    dateCalc = new DateCalculator(@props.start, @props.end, @props.index, zeroIndexed: false)
+    dateCalc = new DateCalculator(@props.timeline_start, @props.timeline_end, @props.index, zeroIndexed: false)
     week_dates = (
       <span className='week__week-dates pull-right'>
         {dateCalc.start()} - {dateCalc.end()} {@props.meetings if @props.meetings}

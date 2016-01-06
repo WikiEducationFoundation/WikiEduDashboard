@@ -135,8 +135,8 @@ Timeline = React.createClass(
                   week={title: null}
                   index={i + 1}
                   key={"noweek_#{i}"}
-                  start={@props.course.timeline_start}
-                  end={@props.course.timeline_end}
+                  timeline_start={@props.course.timeline_start}
+                  timeline_end={@props.course.timeline_end}
                   editable=false
                   meetings=false
                   all_training_modules={@props.all_training_modules}
@@ -157,8 +157,8 @@ Timeline = React.createClass(
               blocks={BlockStore.getBlocksInWeek(week.id)}
               deleteWeek={@deleteWeek.bind(this, week.id)}
               meetings={if @props?.week_meetings then @props.week_meetings[i] else ''}
-              start={@props.course.timeline_start}
-              end={@props.course.timeline_end}
+              timeline_start={@props.course.timeline_start}
+              timeline_end={@props.course.timeline_end}
               all_training_modules={@props.all_training_modules}
               editable_block_ids={@props.editable_block_ids}
               edit_permissions={@props.edit_permissions}
@@ -184,8 +184,8 @@ Timeline = React.createClass(
           week={{is_new: false}}
           blocks=[]
           empty_timeline=true
-          start={@props.course.timeline_start}
-          end={moment(@props.course.timeline_start).add(6, 'day')}
+          timeline_start={@props.course.timeline_start}
+          timeline_end={moment(@props.course.timeline_start).add(6, 'day')}
         />
       )
 

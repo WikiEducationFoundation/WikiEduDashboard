@@ -49,10 +49,7 @@ CourseStore = Flux.createStore
   getCourse: ->
     return _course
   getCurrentWeek: ->
-    course_start = new Date(_course.timeline_start)
-    now = new Date()
-    time_diff = now.getTime() - course_start.getTime()
-    Math.max(Math.ceil(time_diff / (1000 * 3600 * 24 * 7)) - 1, 0)
+    Math.max(moment().startOf('week').diff(moment(_course.timeline_start).startOf('week'), 'weeks'), 0)
   restore: ->
     _course = $.extend(true, {}, _persisted)
     CourseStore.emitChange()

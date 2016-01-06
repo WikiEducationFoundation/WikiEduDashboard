@@ -8,12 +8,15 @@ ThisWeek      = require './this_week'
 CourseStore   = require '../../stores/course_store'
 WeekStore     = require '../../stores/week_store'
 ServerActions = require '../../actions/server_actions'
+Loading       = require '../common/loading'
 CourseClonedModal  = require './course_cloned_modal'
 
 
 getState = ->
   course: CourseStore.getCourse()
+  loading: WeekStore.getLoadingStatus()
   weeks: WeekStore.getWeeks()
+  current: CourseStore.getCurrentWeek()
 
 Overview = React.createClass(
   displayName: 'Overview'
@@ -38,7 +41,22 @@ Overview = React.createClass(
 
     no_weeks = !@state.weeks? || @state.weeks.length  == 0
     unless @state.course.legacy || no_weeks
-      this_week = <ThisWeek {...@props} timeline_start={@state.course.timeline_start} />
+      this_week = (
+        <ThisWeek
+          course={@state.course}
+          weeks={@state.weeks}
+          current={@state.current}
+        />
+      )
+
+    primaryContent = if @state.loading then (
+      <Loading />
+    ) else (
+      <div>
+        <Description {...@props} />
+        {this_week}
+      </div>
+    )
 
     <section className='overview container'>
       <div className="stat-display">
@@ -72,8 +90,7 @@ Overview = React.createClass(
         </div>
       </div>
       <div className='primary'>
-        <Description {...@props} />
-        {this_week}
+        {primaryContent}
       </div>
       <div className='sidebar'>
         <Details {...@props} />
