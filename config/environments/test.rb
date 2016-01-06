@@ -1,3 +1,16 @@
+ENV['disable_wiki_output'] = 'false'
+ENV['wiki_language'] = 'en'
+ENV['enable_article_finder'] = 'true'
+ENV['oauth_ids'] = '252,212'
+ENV['training_page_id'] = '36892501'
+ENV['default_cohort'] = 'spring_2015'
+ENV['cohorts'] = 'fall_2014,spring_2015'
+ENV['cohort_fall_2014'] = 'Wikipedia:Education_program/Dashboard/Fall_2014_course_ids'
+ENV['cohort_spring_2015'] = 'Wikipedia:Education_program/Dashboard/course_ids'
+ENV['sentry_dsn'] = 'http://somelongkey:anotherlongkey@sentry.myserver.com/1'
+ENV['sentry_public_dsn'] = 'http://anotherlongkey@sentry.myserver.com/1'
+ENV['no_views'] = 'false'
+
 Rails.application.configure do
   # Settings specified here will take
   # precedence over those in config/application.rb.
