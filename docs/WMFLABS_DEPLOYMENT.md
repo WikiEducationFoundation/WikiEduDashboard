@@ -4,7 +4,7 @@ ON WIKITECH
 - On wikitech, join or create a project. Create a web security group, with ports 80 and 443 open.
 
 - Create an instance on wikitech:
-  - ubuntu 14.04 trusty
+  - ubuntu or debian should work fine
   - Security groups: default, web
 
 - Create a web proxy for this new instance. This will determine the url of your dashboard (something like educationdashboard.wmflabs.org)
@@ -26,7 +26,7 @@ ON THE SERVER
   - ->`DEFAULT COLLATE utf8_general_ci;`
   - mysql> `exit;`
 
-- Assign ownership to yourself for the web directory /var/www 
+- Assign ownership to yourself for the web directory /var/www
   - $ `sudo chown <username> /var/www`
 
 - Install RVM (Ruby Version Manager) and configure Ruby 2.1.5
@@ -88,7 +88,7 @@ ON YOUR MACHINE
 - Update '/config/deploy/production.rb' (and '/config/deploy/staging.rb') to point to your new wmflabs instance, commit the changes and push to github
 - Start the Capistrano deployment (on production). Enter the app's directory, then:
   - $ `cap production deploy`
-  - This is expected to fail because configuration files are not yet in place — in particular, application.yml, database.yml, and secrets.yml
+  - This is expected to fail because configuration files are not yet in place — in particular, application.yml, database.yml, secrets.yml, and newrelic.yml
    - If it fails but you do't get a message about one of those files, try it again.
 
 
@@ -103,7 +103,8 @@ ON THE SERVER
   - Paste and edit the example file, then save.
   - $ `nano /var/www/dashboard/shared/config/secrets.yml`
   - Paste the standard file, then save.
-
+  - $ `touch /var/www/dashboard/shared/config/newrelic.yml`
+  - (No file content is necessary unless you're using New Relic monitoring.)
 
 ON YOUR MACHINE
 -------------
@@ -132,4 +133,6 @@ ON YOUR MACHINE
 
 - Run the capistrano deployment one last time from the app's directory:
   - $ `cap production deploy`
+- Create the cohorts:
+  - $ `cap production sake task=cohort:add_cohorts`
 - Visit your new dashboard!
