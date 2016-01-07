@@ -32,15 +32,15 @@ def interact_with_clone_form
 end
 
 def go_through_course_dates_and_timeline_dates
-  first('attr[title="Wednesday"]').click
+  find('attr[title="Wednesday"]', match: :first).click
   within('.wizard__panel.active') do
     expect(page).to have_css('button.dark[disabled=""]')
   end
-  first('.wizard__form.course-dates input[type=checkbox]').set(true)
+  find('.wizard__form.course-dates input[type=checkbox]', match: :first).set(true)
   within('.wizard__panel.active') do
     expect(page).not_to have_css('button.dark[disabled=disabled]')
   end
-  first('button.dark').click
+  click_button 'Next'
   sleep 1
 end
 
@@ -48,48 +48,49 @@ def go_through_researchwrite_wizard
   go_through_course_dates_and_timeline_dates
 
   # Advance past the timeline date panel
-  first('button.dark').click
+  click_button 'Next'
   sleep 1
 
   # Choose researchwrite option
-  first('.wizard__option').first('button').click
-  first('button.dark').click
+  find('.wizard__option', match: :first).find('button', match: :first).click
+  click_button 'Next'
   sleep 1
 
   # Click through the offered choices
-  first('.wizard__option').first('button').click # Training not graded
-  first('button.dark').click # Next
+  find('.wizard__option', match: :first).find('button', match: :first).click # Training not graded
+  click_button 'Next'
   sleep 1
 
-  first('button.dark').click # Next (default getting started options)
+  click_button 'Next' # Default getting started options
   sleep 1
 
-  first('.wizard__option').first('button').click # Instructor prepares list
-  first('button.dark').click # Next
+  # Instructor prepares list
+  find('.wizard__option', match: :first).find('button', match: :first).click
+  click_button 'Next'
   sleep 1
 
-  first('.wizard__option').first('button').click # Traditional outline
-  first('button.dark').click # Next
+  find('.wizard__option', match: :first).find('button', match: :first).click # Traditional outline
+  click_button 'Next'
   sleep 1
 
-  first('.wizard__option').first('button').click # Yes, medical articles
-  first('button.dark').click # Next
+  find('.wizard__option', match: :first).find('button', match: :first).click # Yes, medical articles
+  click_button 'Next'
   sleep 1
 
-  first('.wizard__option').first('button').click # Work live from start
-  first('button.dark').click # Next
+  find('.wizard__option', match: :first).find('button', match: :first).click # Work live from start
+  click_button 'Next'
   sleep 1
 
-  first('button.dark').click # Next (default 2 peer reviews)
+  click_button 'Next' # Default 2 peer reviews
   sleep 1
 
-  first('button.dark').click # Next (no supplementary assignments)
+  click_button 'Next' # No supplementary assignments
   sleep 1
 
-  first('button.dark').click # Next (no DYK/GA)
+  click_button 'Next' # No DYK/GA
   sleep 1
 
-  first('button.dark').click # Submit
+  click_button 'Submit'
   sleep 1
 end
 
@@ -123,7 +124,7 @@ describe 'New course creation and editing', type: :feature do
 
       # If we click before filling out all require fields, only the invalid
       # fields get restyled to indicate the problem.
-      find('button.dark').click
+      click_button 'Create my Course!'
       expect(find('#course_title')['class']).not_to include('invalid title')
       expect(find('#course_school')['class']).to include('invalid school')
       expect(find('#course_term')['class']).to include('invalid term')
@@ -143,7 +144,7 @@ describe 'New course creation and editing', type: :feature do
       sleep 1
 
       # This click should create the course and start the wizard
-      find('button.dark').click
+      click_button 'Create my Course!'
 
       # Go through the wizard, checking necessary options.
 
@@ -152,7 +153,7 @@ describe 'New course creation and editing', type: :feature do
       # validate either blackout date chosen
       # or "no blackout dates" checkbox checked
       expect(page).to have_css('button.dark[disabled=""]')
-      start_input = first('input.start').value
+      start_input = find('input.start', match: :first).value
       expect(start_input).to eq(start_date)
 
       # capybara doesn't like trying to click the calendar
@@ -163,7 +164,7 @@ describe 'New course creation and editing', type: :feature do
       # This is the timeline datepicker
       find('input.timeline_start').set(start_date)
       find('input.timeline_end').set(end_date)
-      first('button.dark').click
+      click_button 'Next'
 
       sleep 1
 
@@ -172,13 +173,13 @@ describe 'New course creation and editing', type: :feature do
       # pick and choose
       page.all('.wizard__option')[1].first('button').click
       sleep 1
-      first('button.dark').click
+      click_button 'Next'
       sleep 1
       # pick 2 types of assignments
       page.all('div.wizard__option__checkbox')[1].click
       page.all('div.wizard__option__checkbox')[3].click
       sleep 1
-      first('button.dark').click
+      click_button 'Next'
 
       # on the summary
       sleep 1
@@ -189,9 +190,9 @@ describe 'New course creation and editing', type: :feature do
       page.all('div.wizard__option__checkbox')[2].click
       page.all('div.wizard__option__checkbox')[4].click
       sleep 1
-      first('button.dark').click
+      click_button 'Summary'
       sleep 1
-      first('button.dark').click
+      click_button 'Submit'
 
       # Now we're back at the timeline, having completed the wizard.
       sleep 1
@@ -200,18 +201,18 @@ describe 'New course creation and editing', type: :feature do
 
       # Edit course dates and save
       click_link 'Edit Course Dates'
-      first('attr[title="Thursday"]').click
+      find('attr[title="Thursday"]', match: :first).click
       sleep 1
       expect(Course.last.weekdays).to eq('0001100')
-      first('.button.dark').click
+      click_link 'Done'
       sleep 1
 
       within('.week-1 .week__week-add-delete') do
-        find('.week__delete-week').click
+        accept_confirm do
+          find('.week__delete-week').click
+        end
       end
-      sleep 1
-      prompt = page.driver.browser.switch_to.alert
-      prompt.accept
+
       # There should now be 4 weeks
       expect(page).not_to have_content 'Week 5'
 
@@ -244,8 +245,7 @@ describe 'New course creation and editing', type: :feature do
         expect(page).to have_content I18n.t('courses.instructor.other')
       end
 
-      sleep 1
-      first('button.danger').click
+      find('button.danger', match: :first).click
 
       # Follow the alert popup instructions to complete the deletion
       prompt = page.driver.browser.switch_to.alert
