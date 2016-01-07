@@ -76,8 +76,7 @@ describe 'Student users', type: :feature, js: true do
       end
 
       visit "/courses/#{Course.first.slug}/students"
-      sleep 1
-      expect(first('tbody')).to have_content User.last.wiki_id
+      expect(find('tbody', match: :first)).to have_content User.last.wiki_id
 
       # now unenroll
       visit "/courses/#{Course.first.slug}"
@@ -88,8 +87,7 @@ describe 'Student users', type: :feature, js: true do
       sleep 1
 
       visit "/courses/#{Course.first.slug}/students"
-      sleep 1
-      expect(first('tbody')).not_to have_content User.last.wiki_id
+      expect(find('tbody', match: :first)).not_to have_content User.last.wiki_id
     end
   end
 
@@ -102,7 +100,7 @@ describe 'Student users', type: :feature, js: true do
       click_link 'Join'
       sleep 1
       visit "/courses/#{Course.first.slug}/students"
-      expect(first('tbody')).to have_content User.last.wiki_id
+      expect(find('tbody', match: :first)).to have_content User.last.wiki_id
       # Now try enrolling again, which shouldn't cause any errors
       visit "/courses/#{Course.first.slug}/enroll/passcode"
     end
@@ -127,7 +125,7 @@ describe 'Student users', type: :feature, js: true do
       click_link 'Join'
       sleep 1
       visit "/courses/#{Course.first.slug}/students"
-      expect(first('tbody')).to have_content 'Ragesock'
+      expect(find('tbody', match: :first)).to have_content 'Ragesock'
       # fail 'this test passed — this time'
     end
 
@@ -157,7 +155,7 @@ describe 'Student users', type: :feature, js: true do
       click_link 'Finish'
       click_link 'Join'
       visit "/courses/#{Course.first.slug}/students"
-      expect(first('tbody')).to have_content 'Ragesoss'
+      expect(find('tbody', match: :first)).to have_content 'Ragesoss'
       # fail 'this test passed — this time'
     end
 
@@ -190,11 +188,11 @@ describe 'Student users', type: :feature, js: true do
              user_id: 200,
              role: CoursesUsers::Roles::STUDENT_ROLE)
       visit "/courses/#{Course.first.slug}/students"
-      sleep 3
+      sleep 2
 
       # Add an assigned article
-      first('button.border').click
-      within('#users') { first('input').set('Selfie') }
+      find('button.border', match: :first).click
+      within('#users') { find('input', match: :first).set('Selfie') }
       accept_confirm do
         page.all('button.border')[1].click
       end
@@ -202,7 +200,7 @@ describe 'Student users', type: :feature, js: true do
       page.all('button.border')[0].click
       sleep 1
       expect(page.all('tr.students')[1]).to have_content 'Selfie'
-      expect(first('tr.students')).not_to have_content 'Selfie'
+      expect(find('tr.students', match: :first)).not_to have_content 'Selfie'
     end
   end
 
@@ -218,7 +216,7 @@ describe 'Student users', type: :feature, js: true do
       sleep 3
 
       page.all('button.border')[1].click
-      within('#users') { first('input').set('Self-portrait') }
+      within('#users') { find('input', match: :first).set('Self-portrait') }
       accept_confirm do
         page.all('button.border')[2].click
       end
