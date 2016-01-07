@@ -8,7 +8,6 @@ describe 'onboarding', type: :feature, js: true do
   end
 
   describe 'onboarding redirect checks' do
-
     describe 'when not logged in' do
       let(:onboarded) { false }
       it 'should not be able to access onboarding' do
@@ -39,7 +38,6 @@ describe 'onboarding', type: :feature, js: true do
         expect(page.current_path).to eq root_path
       end
     end
-
   end
 
   describe 'onboarding forms' do
@@ -65,7 +63,5 @@ describe 'onboarding', type: :feature, js: true do
       expect(user.reload.onboarded).to eq true
       expect(user.permissions).to eq User::Permissions::INSTRUCTOR
     end
-
   end
-
 end

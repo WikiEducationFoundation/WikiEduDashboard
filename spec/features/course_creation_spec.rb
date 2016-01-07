@@ -3,7 +3,7 @@ require 'rails_helper'
 def set_up_suite
   include Devise::TestHelpers, type: :feature
   Capybara.current_driver = :selenium
-  page.driver.browser.manage.window.resize_to(1920, 1080)
+  page.current_window.resize_to(1920, 1080)
   stub_oauth_edit
 end
 
@@ -103,7 +103,9 @@ describe 'New course creation and editing', type: :feature do
     user = create(:user,
                   id: 1,
                   permissions: User::Permissions::INSTRUCTOR)
-    create(:training_modules_users, user_id: user.id, training_module_id: 3, completed_at: Time.now )
+    create(:training_modules_users, user_id: user.id,
+                                    training_module_id: 3,
+                                    completed_at: Time.now)
     login_as(user, scope: :user)
 
     visit root_path
@@ -360,7 +362,6 @@ describe 'New course creation and editing', type: :feature do
       within ".week-1 .block-kind-#{Block::KINDS['assignment']}" do
         expect(page).to have_content module_name
       end
-
     end
   end
 
@@ -434,7 +435,7 @@ describe 'timeline editing', js: true do
     create(:course, id: 10001, start: Date.new(2015, 1, 1),
                     end: Date.new(2015, 2, 1), submitted: true,
                     timeline_start: Date.new(2015, 1, 1), timeline_end: Date.new(2015, 2, 1),
-                    weekdays: '0111110' )
+                    weekdays: '0111110')
   end
   let!(:user)      { create(:user, permissions: User::Permissions::ADMIN) }
   let!(:c_user)    { create(:courses_user, course_id: course.id, user_id: user.id) }

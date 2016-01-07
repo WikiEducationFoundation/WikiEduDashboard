@@ -204,6 +204,5 @@ describe 'the explore page', type: :feature do
       expect(response).to have_content '10 Estudiantes'
     end
 =end
-
   end
 end

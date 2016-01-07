@@ -6,25 +6,25 @@ describe 'course overview page', type: :feature, js: true do
   let(:course_end)   { 6.months.from_now.to_date }
   let(:course) do
     create(:course,
-      id: 10001,
-      title: 'This.course',
-      slug: slug,
-      start: course_start.to_date,
-      end: course_end.to_date,
-      timeline_start: course_start.to_date,
-      timeline_end: course_end.to_date,
-      school: 'This university.foo',
-      term: 'term 2015',
-      listed: 1,
-      description: 'This is a great course',
-      weekdays: '0001000')
+           id: 10001,
+           title: 'This.course',
+           slug: slug,
+           start: course_start.to_date,
+           end: course_end.to_date,
+           timeline_start: course_start.to_date,
+           timeline_end: course_end.to_date,
+           school: 'This university.foo',
+           term: 'term 2015',
+           listed: 1,
+           description: 'This is a great course',
+           weekdays: '0001000')
   end
   let(:cohort) { create(:cohort) }
   let!(:cohorts_course) { create(:cohorts_course, cohort_id: cohort.id, course_id: course.id) }
-  let(:week)   { create(:week, course_id: course.id) }
-  let(:content){ 'Edit Wikipedia' }
-  let!(:block) { create(:block, week_id: week.id, content: content) }
-  let(:admin)  { create(:admin) }
+  let(:week) { create(:week, course_id: course.id) }
+  let(:content) { 'Edit Wikipedia' }
+  let!(:block)  { create(:block, week_id: week.id, content: content) }
+  let(:admin)   { create(:admin) }
 
   before :each do
     stub_token_request
@@ -57,7 +57,7 @@ describe 'course overview page', type: :feature, js: true do
       end
       within '.week__week-dates' do
         expect(page).to have_content(2.weeks.from_now.beginning_of_week(:sunday).strftime('%m/%d'))
-        expect(page).to have_content("(W)")
+        expect(page).to have_content('(W)')
       end
       within '.week-index' do
         expect(page).to have_content 'Week 1'

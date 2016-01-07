@@ -11,7 +11,7 @@ end
 describe 'Students Page', type: :feature, js: true do
   before do
     include Devise::TestHelpers, type: :feature
-    Capybara.current_driver = :selenium
+
     course = create(:course,
                     id: 10001,
                     title: 'This.course',

@@ -151,7 +151,7 @@ describe 'Training', type: :feature, js: true do
         within '.training__slide__footer' do
           click_link 'Done!'
         end
-        expect(current_path).to eq("/training/students")
+        expect(current_path).to eq('/training/students')
       end
     end
   end

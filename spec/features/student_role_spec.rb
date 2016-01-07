@@ -4,7 +4,7 @@ describe 'Student users', type: :feature, js: true do
   before do
     include Devise::TestHelpers, type: :feature
     Capybara.current_driver = :selenium
-    page.driver.browser.manage.window.resize_to(1920, 1080)
+    page.current_window.resize_to(1920, 1080)
   end
 
   before :each do
@@ -46,8 +46,8 @@ describe 'Student users', type: :feature, js: true do
     login_as(user, scope: :user)
   end
 
-  describe 'logging out' do
-    it 'should work' do
+  describe 'clicking log out' do
+    it 'logs them out' do
       visit "/courses/#{Course.first.slug}"
       expect(page).to have_content 'Log out'
       expect(page).not_to have_content 'Log in'
@@ -56,7 +56,7 @@ describe 'Student users', type: :feature, js: true do
       expect(page).not_to have_content 'Log out'
     end
 
-    it 'should not cause problems if done twice' do
+    it 'does not cause problems if done twice' do
       visit "/courses/#{Course.first.slug}"
       find('a', text: 'Log out').click
       sleep 1
@@ -65,18 +65,15 @@ describe 'Student users', type: :feature, js: true do
   end
 
   describe 'enrolling and unenrolling by button' do
-    it 'should join and leave a course' do
+    it 'joins and leaves a course' do
       stub_oauth_edit
 
-      # click enroll button
+      # click enroll button, enter passcode in alert popup to enroll
       visit "/courses/#{Course.first.slug}"
       sleep 1
-      click_button 'Join course'
-
-      # enter passcode in alert popup to enroll
-      prompt = page.driver.browser.switch_to.alert
-      prompt.send_keys('passcode')
-      prompt.accept
+      accept_prompt(with: 'passcode') do
+        click_button 'Join course'
+      end
 
       visit "/courses/#{Course.first.slug}/students"
       sleep 1
@@ -85,8 +82,9 @@ describe 'Student users', type: :feature, js: true do
       # now unenroll
       visit "/courses/#{Course.first.slug}"
       sleep 1
-      click_button 'Leave course'
-      page.driver.browser.switch_to.alert.accept
+      accept_confirm do
+        click_button 'Leave course'
+      end
       sleep 1
 
       visit "/courses/#{Course.first.slug}/students"
@@ -95,8 +93,8 @@ describe 'Student users', type: :feature, js: true do
     end
   end
 
-  describe 'enrolling by url' do
-    it 'should join a course' do
+  describe 'visiting the ?enroll=passcode url' do
+    it 'joins a course' do
       stub_oauth_edit
 
       visit "/courses/#{Course.first.slug}?enroll=passcode"
@@ -109,7 +107,7 @@ describe 'Student users', type: :feature, js: true do
       visit "/courses/#{Course.first.slug}/enroll/passcode"
     end
 
-    it 'should work even if a student is not logged in' do
+    it 'works even if a student is not logged in' do
       # pending 'fixing the intermittent failures on travis-ci'
 
       OmniAuth.config.test_mode = true
@@ -133,7 +131,7 @@ describe 'Student users', type: :feature, js: true do
       # fail 'this test passed — this time'
     end
 
-    it 'should work even if a student has never logged in before' do
+    it 'works even if a student has never logged in before' do
       # pending 'fixing the intermittent failures on travis-ci'
 
       OmniAuth.config.test_mode = true
@@ -163,7 +161,7 @@ describe 'Student users', type: :feature, js: true do
       # fail 'this test passed — this time'
     end
 
-    it 'should not work if user is not persisted' do
+    it 'does not work if user is not persisted' do
       OmniAuth.config.test_mode = true
       allow_any_instance_of(OmniAuth::Strategies::Mediawiki)
         .to receive(:callback_url).and_return('/users/auth/mediawiki/callback')
@@ -183,8 +181,8 @@ describe 'Student users', type: :feature, js: true do
     end
   end
 
-  describe 'adding an assigned article' do
-    it 'should work' do
+  describe 'inputing an assigned article' do
+    it 'assigns the article' do
       stub_raw_action
       stub_oauth_edit
       create(:courses_user,
@@ -197,8 +195,9 @@ describe 'Student users', type: :feature, js: true do
       # Add an assigned article
       first('button.border').click
       within('#users') { first('input').set('Selfie') }
-      page.all('button.border')[1].click
-      page.driver.browser.switch_to.alert.accept
+      accept_confirm do
+        page.all('button.border')[1].click
+      end
       sleep 1
       page.all('button.border')[0].click
       sleep 1
@@ -207,8 +206,8 @@ describe 'Student users', type: :feature, js: true do
     end
   end
 
-  describe 'adding a reviewed article' do
-    it 'should work' do
+  describe 'inputing a reviewed article' do
+    it 'assigns the review' do
       stub_raw_action
       stub_oauth_edit
       create(:courses_user,
@@ -220,15 +219,16 @@ describe 'Student users', type: :feature, js: true do
 
       page.all('button.border')[1].click
       within('#users') { first('input').set('Self-portrait') }
-      page.all('button.border')[2].click
-      page.driver.browser.switch_to.alert.accept
+      accept_confirm do
+        page.all('button.border')[2].click
+      end
       page.all('button.border')[1].click
       expect(page).to have_content 'Self-portrait'
     end
   end
 
-  describe 'removing an assigned article' do
-    it 'should work' do
+  describe 'clicking remove for an assigned article' do
+    it 'removes the assignment' do
       stub_raw_action
       stub_oauth_edit
       create(:courses_user,
@@ -245,8 +245,9 @@ describe 'Student users', type: :feature, js: true do
 
       # Remove the assignment
       page.all('button.border')[0].click
-      page.all('button.border')[2].click
-      page.driver.browser.switch_to.alert.accept
+      accept_confirm do
+        page.all('button.border')[2].click
+      end
       page.all('button.border')[0].click
       visit "/courses/#{Course.first.slug}/students"
       sleep 1
@@ -254,14 +255,14 @@ describe 'Student users', type: :feature, js: true do
     end
   end
 
-  describe 'visiting the dashboard page' do
-    it 'should see their course' do
+  describe 'visiting the dashboard homepage' do
+    it 'sees their course' do
       create(:courses_user,
              course_id: 10001,
              user_id: 200,
              role: CoursesUsers::Roles::STUDENT_ROLE)
 
-      visit '/'
+      visit root_path
       expect(page).to have_content 'My Dashboard'
       expect(page).to have_content 'An Example Course'
     end
