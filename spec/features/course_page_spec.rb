@@ -18,7 +18,7 @@ slug = 'This_university.foo/This.course_(term_2015)'
 course_start = '2015-01-01'
 course_end = '2015-12-31'
 
-describe 'the course page', type: :feature do
+describe 'the course page', type: :feature, js: true do
   before do
     include Devise::TestHelpers, type: :feature
     Capybara.current_driver = :selenium
@@ -112,14 +112,10 @@ describe 'the course page', type: :feature do
     ArticlesCourses.update_all_caches
     CoursesUsers.update_all_caches
     Course.update_all_caches
-  end
-
-  before :each do
     js_visit "/courses/#{slug}"
-    sleep 1 # Try to avoid issue where this test fails with 0 rows found.
   end
 
-  describe 'header', js: true do
+  describe 'header' do
     it 'should display the course title' do
       title_text = 'This.course'
       expect(page.find('.title')).to have_content title_text
@@ -139,7 +135,7 @@ describe 'the course page', type: :feature do
     end
   end
 
-  describe 'overview', js: true do
+  describe 'overview' do
     it 'should display title' do
       title = 'This.course'
       expect(page.find('.primary')).to have_content title
@@ -168,7 +164,7 @@ describe 'the course page', type: :feature do
     end
   end
 
-  describe 'navigation bar', js: true do
+  describe 'navigation bar' do
     it 'should link to overview' do
       link = "/courses/#{slug}/overview"
       expect(page.has_link?('', href: link)).to be true
@@ -214,7 +210,7 @@ describe 'the course page', type: :feature do
   #   end
   # end
 
-  describe 'overview view', js: true do
+  describe 'overview view' do
     it 'should be the same as the root view' do
       root_content = page
       js_visit "/courses/#{slug}"
@@ -259,7 +255,7 @@ describe 'the course page', type: :feature do
     end
   end
 
-  describe 'articles edited view', js: true do
+  describe 'articles edited view' do
     it 'should display a list of articles' do
       js_visit "/courses/#{slug}/articles"
       rows = page.all('tr.article').count
@@ -282,7 +278,7 @@ describe 'the course page', type: :feature do
     end
   end
 
-  describe 'students view', js: true do
+  describe 'students view' do
     before do
       Revision.last.update_attributes(date: 2.days.ago, user_id: User.first.id)
       CoursesUsers.last.update_attributes(
@@ -304,7 +300,7 @@ describe 'the course page', type: :feature do
     end
   end
 
-  describe 'uploads view', js: true do
+  describe 'uploads view' do
     it 'should display a list of uploads' do
       # First, visit it no uploads
       visit "/courses/#{slug}/uploads"
@@ -318,14 +314,14 @@ describe 'the course page', type: :feature do
     end
   end
 
-  describe 'activity view', js: true do
+  describe 'activity view' do
     it 'should display a list of edits' do
       js_visit "/courses/#{slug}/activity"
       expect(page).to have_content 'Article 1'
     end
   end
 
-  describe '/manual_update', js: true do
+  describe '/manual_update' do
     it 'should update the course cache' do
       user = create(:user, id: user_count + 100)
       course = Course.find(10001)
@@ -349,7 +345,7 @@ describe 'the course page', type: :feature do
     end
   end
 
-  describe 'timeline', js: true do
+  describe 'timeline' do
     it 'does not show authenticated links to a logged out user' do
       js_visit "/courses/#{Course.last.slug}/timeline"
 
