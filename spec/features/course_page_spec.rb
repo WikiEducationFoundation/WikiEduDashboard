@@ -8,12 +8,6 @@ MILESTONE_BLOCK_KIND = 2
 def js_visit(path)
   visit path
   expect(page).to have_content 'Explore'
-  sleep 1
-  return unless page.body.include? 'Loading'
-  sleep 2
-  return unless page.body.include? 'Loading'
-  visit path
-  sleep 1
 end
 
 user_count = 10
