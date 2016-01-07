@@ -27,8 +27,7 @@ course_end = '2015-12-31'
 describe 'the course page', type: :feature, js: true do
   before do
     include Devise::TestHelpers, type: :feature
-    Capybara.current_driver = :selenium
-    page.driver.browser.manage.window.resize_to(1920, 1080)
+    page.current_window.resize_to(1920, 1080)
 
     course = create(:course,
                     id: 10001,
