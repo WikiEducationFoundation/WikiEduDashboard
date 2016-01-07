@@ -33,7 +33,7 @@ ThisWeek = React.createClass(
           moveBlock={null}
           deleteWeek={null}
           showTitle=false
-          meetings={weekMeetings[0]}
+          meetings={if weekMeetings then weekMeetings[0] else false}
         />
       )
       if moment().diff(@props.course.timeline_start, 'days') < 0
