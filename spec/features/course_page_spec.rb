@@ -7,6 +7,7 @@ MILESTONE_BLOCK_KIND = 2
 # Remove this after implementing server-side rendering
 def js_visit(path)
   visit path
+  expect(page).to have_content 'Explore'
   sleep 1
   return unless page.body.include? 'Loading'
   sleep 2
@@ -317,7 +318,8 @@ describe 'the course page', type: :feature, js: true do
       allow(ViewImporter).to receive(:update_views)
       allow(RatingImporter).to receive(:update_ratings)
 
-      js_visit "/courses/#{slug}/manual_update"
+      visit "/courses/#{slug}/manual_update"
+      sleep 3
       js_visit "/courses/#{slug}"
       updated_user_count = user_count + 1
       expect(page.find('#student-editors')).to have_content updated_user_count
