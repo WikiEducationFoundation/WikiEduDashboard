@@ -322,7 +322,9 @@ describe 'the course page', type: :feature, js: true do
       sleep 3
       js_visit "/courses/#{slug}"
       updated_user_count = user_count + 1
-      expect(page.find('#student-editors')).to have_content updated_user_count
+      within '#student-editors' do
+        expect(page).to have_content updated_user_count
+      end
     end
   end
 
