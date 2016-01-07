@@ -126,7 +126,7 @@ describe 'the course page', type: :feature, js: true do
 
       # Title in the header
       title_text = 'This.course'
-      expect(page.find('.title')).to have_content title_text
+      expect(page).to have_content title_text
 
       # Stats
       new_articles = (article_count / 2.to_f).ceil.to_s
@@ -322,9 +322,7 @@ describe 'the course page', type: :feature, js: true do
       sleep 3
       js_visit "/courses/#{slug}"
       updated_user_count = user_count + 1
-      within '#student-editors' do
-        expect(page).to have_content updated_user_count
-      end
+      expect(page).to have_content "#{updated_user_count} Student Editors"
     end
   end
 
