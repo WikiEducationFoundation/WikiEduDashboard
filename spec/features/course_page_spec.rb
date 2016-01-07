@@ -112,16 +112,17 @@ describe 'the course page', type: :feature, js: true do
     ArticlesCourses.update_all_caches
     CoursesUsers.update_all_caches
     Course.update_all_caches
-    js_visit "/courses/#{slug}"
   end
 
-  describe 'header' do
-    it 'should display the course title' do
+  describe 'overview' do
+    it 'displays title, tab links, stats, description, school, term, dates, milestones' do
+      js_visit "/courses/#{slug}"
+
+      # Title in the header
       title_text = 'This.course'
       expect(page.find('.title')).to have_content title_text
-    end
 
-    it 'should display course-wide statistics' do
+      # Stats
       new_articles = (article_count / 2.to_f).ceil.to_s
       expect(page.find('#articles-created')).to have_content new_articles
       expect(page.find('#total-edits')).to have_content revision_count
@@ -132,62 +133,50 @@ describe 'the course page', type: :feature, js: true do
       characters = revision_count * 2
       expect(page.find('#word-count')).to have_content WordCount.from_characters(characters)
       expect(page.find('#view-count')).to have_content article_count * 10
-    end
-  end
 
-  describe 'overview' do
-    it 'should display title' do
+      # Title in the primary overview section
       title = 'This.course'
       expect(page.find('.primary')).to have_content title
-    end
 
-    it 'should display description' do
+      # Description
       description = 'This is a great course'
       expect(page.find('.primary')).to have_content description
-    end
 
-    it 'should display school' do
+      # School
       school = 'This university'
       expect(page.find('.sidebar')).to have_content school
-    end
 
-    it 'should display term' do
+      # Term
       term = 'term 2015'
       expect(page.find('.sidebar')).to have_content term
-    end
 
-    it 'should show the course dates' do
+      # Course dates
       startf = course_start.to_date.strftime('%Y-%m-%d')
       endf = course_end.to_date.strftime('%Y-%m-%d')
       expect(page.find('.sidebar')).to have_content startf
       expect(page.find('.sidebar')).to have_content endf
-    end
-  end
 
-  describe 'navigation bar' do
-    it 'should link to overview' do
+      # Links
       link = "/courses/#{slug}/overview"
       expect(page.has_link?('', href: link)).to be true
-    end
 
-    it 'should link to timeline' do
       link = "/courses/#{slug}/timeline"
       expect(page.has_link?('', href: link)).to be true
-    end
 
-    it 'should link to activity' do
       link = "/courses/#{slug}/activity"
       expect(page.has_link?('', href: link)).to be true
-    end
 
-    it 'should link to students' do
       link = "/courses/#{slug}/students"
       expect(page.has_link?('', href: link)).to be true
-    end
 
-    it 'should link to articles' do
       link = "/courses/#{slug}/articles"
       expect(page.has_link?('', href: link)).to be true
+
+      # Milestones
+      within '.milestones' do
+        expect(page).to have_content 'Milestones'
+        expect(page).to have_content 'blocky block'
+      end
     end
   end
 
@@ -210,20 +199,7 @@ describe 'the course page', type: :feature, js: true do
   #   end
   # end
 
-  describe 'overview view' do
-    it 'should be the same as the root view' do
-      root_content = page
-      js_visit "/courses/#{slug}"
-      expect(root_content).to eq(page)
-    end
-
-    it 'displays a list of milestone blocks' do
-      within '.milestones' do
-        expect(page).to have_content 'Milestones'
-        expect(page).to have_content 'blocky block'
-      end
-    end
-
+  describe 'overview details editing' do
     it "doesn't allow null values for course start/end" do
       stub_token_request
       admin = create(:admin, id: User.last.id + 1)
@@ -256,15 +232,13 @@ describe 'the course page', type: :feature, js: true do
   end
 
   describe 'articles edited view' do
-    it 'should display a list of articles' do
+    it 'should display a list of articles, and sort articles by class' do
       js_visit "/courses/#{slug}/articles"
+      # List of articles
       rows = page.all('tr.article').count
       expect(rows).to eq(article_count)
-    end
 
-    it 'should sort article by class' do
-      js_visit "/courses/#{slug}/articles"
-      sleep 1 # Try to avoid intermittent test failures
+      # Sorting
       # first click on the Class sorting should sort high to low
       find('th.sortable', text: 'Class').click
       first_rating = page.find(:css, 'table.articles').first('td .rating p')
