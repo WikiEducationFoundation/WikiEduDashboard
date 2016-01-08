@@ -351,6 +351,9 @@ GEM
       faraday (>= 0.7.6)
     sexp_processor (4.6.0)
     shellany (0.0.1)
+    simple_form (3.1.0)
+      actionpack (~> 4.0)
+      activemodel (~> 4.0)
     simplecov (0.10.0)
       docile (~> 1.1.0)
       json (~> 1.8)
@@ -447,6 +450,7 @@ DEPENDENCIES
   rubocop
   selenium-webdriver
   sentry-raven
+  simple_form
   simplecov
   squeel!
   timecop

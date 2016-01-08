@@ -26,6 +26,8 @@ gem 'redcarpet'
 gem 'breadcrumbs_on_rails'
 gem 'hashugar'
 
+gem 'simple_form'
+
 # UNIVERSAL TEXT CONVERTER - FOR MARDOWN TO MEDIAWIKI TEXT
 gem 'pandoc-ruby', '~> 1.0.0'
 

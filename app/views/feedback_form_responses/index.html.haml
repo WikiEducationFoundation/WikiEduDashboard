@@ -1,0 +1,12 @@
+%h1 Feedback Form Responses
+
+%table
+  %tr
+    %td User id
+    %td Referrer/Subject
+    %td Body (preview)
+  - @responses.each do |response|
+    %tr
+      %td= response.user_id
+      %td= response.subject
+      %td= response.body.truncate(100)
