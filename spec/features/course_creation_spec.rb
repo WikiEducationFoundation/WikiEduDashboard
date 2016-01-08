@@ -245,13 +245,10 @@ describe 'New course creation and editing', type: :feature do
         expect(page).to have_content I18n.t('courses.instructor.other')
       end
 
-      find('button.danger', match: :first).click
+      accept_prompt(with: 'My awesome new course - Foo 101') do
+        find('button.danger', match: :first).click
+      end
 
-      # Follow the alert popup instructions to complete the deletion
-      prompt = page.driver.browser.switch_to.alert
-      prompt.send_keys('My awesome new course - Foo 101')
-      sleep 1
-      prompt.accept
       expect(page).to have_content 'Looks like you don\'t have any courses'
     end
 
