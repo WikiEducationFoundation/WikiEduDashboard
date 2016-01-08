@@ -58,6 +58,7 @@ describe 'timeline editing', type: :feature, js: true do
     visit "/courses/#{Course.first.slug}/timeline"
     expect(page).to have_content 'Block Title'
     find('.week-1').hover
+    sleep 0.5
     within('.week-1') do
       find('.block__edit-block', match: :first).click
       accept_confirm do
@@ -73,6 +74,7 @@ describe 'timeline editing', type: :feature, js: true do
 
     # Interact with training modules within a block
     find('.week-1').hover
+    sleep 0.5
     within('.week-1') do
       find('.block__edit-block', match: :first).click
     end
@@ -93,12 +95,14 @@ describe 'timeline editing', type: :feature, js: true do
 
     # Open edit mode for the first block
     find(".week-1 .block-kind-#{Block::KINDS['assignment']}").hover
+    sleep 0.5
     within ".week-1 .block-kind-#{Block::KINDS['assignment']}" do
       find('.block__edit-block', match: :first).click
     end
 
     # Open edit mode for the second block and delete it
     find(".week-1 .block-kind-#{Block::KINDS['in_class']}").hover
+    sleep 0.5
     within ".week-1 .block-kind-#{Block::KINDS['in_class']}" do
       find('.block__edit-block', match: :first).click
       accept_confirm do
@@ -116,6 +120,7 @@ describe 'timeline editing', type: :feature, js: true do
     visit "/courses/#{Course.last.slug}/timeline"
     # Open edit mode for the first block
     find(".week-1 .block-kind-#{Block::KINDS['assignment']}").hover
+    sleep 0.5
     within ".week-1 .block-kind-#{Block::KINDS['assignment']}" do
       find('.block__edit-block', match: :first).click
     end
