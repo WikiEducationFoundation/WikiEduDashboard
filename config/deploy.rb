@@ -40,8 +40,14 @@ set :linked_dirs, fetch(:linked_dirs, []).push('bin', 'log', 'tmp')
 # set :keep_releases, 5
 
 set :whenever_identifier, -> { "#{fetch(:application)}_#{fetch(:stage)}" }
+skip_assets = false
 
 namespace :deploy do
+  desc 'Disable building and upload of compiled assets'
+  task :do_not_update_assets do
+    skip_assets = true
+  end
+
   desc 'Run gulp to compile the assets'
   task :local_gulp_build do
     run_locally do
@@ -69,8 +75,9 @@ namespace :deploy do
     end
   end
 
-  before :deploy, 'deploy:local_gulp_build' unless ENV['skip_gulp']
-  before 'deploy:restart', 'deploy:upload_compiled_assets'
+  before 'deploy:rollback', 'deploy:do_not_update_assets'
+  before :deploy, 'deploy:local_gulp_build' unless ENV['skip_gulp'] || skip_assets
+  before 'deploy:restart', 'deploy:upload_compiled_assets' unless skip_assets
   before 'deploy:restart', 'deploy:ensure_tmp_permissions'
 
 end
