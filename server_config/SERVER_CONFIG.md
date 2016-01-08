@@ -6,6 +6,7 @@ and would need to be configured for any new production server.
 
 These files are the main web server configuration files:
 * `apache2.conf`
+* `passenger.load` # apache passenger module in `etc/apache2/mods-available`
 * `dashboard.conf` # apache config for dashboard.wikiedu.org (ie, production)
 * `dashboard-testing.conf` # apache config for dashboard-testing.wikiedu.org (ie, staging)
 
