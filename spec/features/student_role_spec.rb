@@ -154,6 +154,7 @@ describe 'Student users', type: :feature, js: true do
       sleep 1
       click_link 'Finish'
       click_link 'Join'
+      sleep 1
       visit "/courses/#{Course.first.slug}/students"
       expect(find('tbody', match: :first)).to have_content 'Ragesoss'
       # fail 'this test passed — this time'
