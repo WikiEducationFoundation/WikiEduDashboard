@@ -1,4 +1,5 @@
 require "#{Rails.root}/lib/wiki_edits"
+require "#{Rails.root}/lib/wiki_course_edits"
 require "#{Rails.root}/lib/utils"
 
 # Handles assignment data submitted by users
@@ -29,7 +30,7 @@ class AssignmentsManager
     end
 
     WikiEdits.update_assignments(current_user, course)
-    WikiEdits.update_course(course, current_user)
+    WikiCourseEdits.new(action: :update_course, course: course, current_user: current_user)
   end
 
   def self.update_assignment(assignment_object)

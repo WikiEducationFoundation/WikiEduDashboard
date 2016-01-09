@@ -33,7 +33,10 @@ class SelfEnrollmentController < ApplicationController
       WikiCourseEdits.new(action: :enroll_in_course,
                           course: @course,
                           current_user: current_user)
-      WikiEdits.update_course(@course, current_user) # Adds user to course page
+      # Adds user to course page by updating course page with latest course info
+      WikiCourseEdits.new(action: :update_course,
+                          course: @course,
+                          current_user: current_user)
     end
 
     redirect_to course_slug_path(@course.slug, enrolled: true)

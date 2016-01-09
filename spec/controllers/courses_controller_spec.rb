@@ -25,15 +25,15 @@ describe CoursesController do
       controller.instance_variable_set(:@course, course)
     end
 
-    it 'calls update methods on WikiEdits' do
-      expect(WikiEdits).to receive(:update_course)
+    it 'calls update methods via WikiCourseEdits' do
+      expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
       delete :destroy, id: "#{course.slug}.json", format: :json
     end
 
     context 'destroy callbacks' do
       before do
         allow(WikiEdits).to receive(:update_assignments)
-        allow(WikiEdits).to receive(:update_course)
+        allow_any_instance_of(WikiCourseEdits).to receive(:update_course)
       end
 
       it 'destroys associated models' do
@@ -90,7 +90,7 @@ describe CoursesController do
     before do
       allow(controller).to receive(:current_user).and_return(user)
       allow(controller).to receive(:user_signed_in?).and_return(true)
-      allow(WikiEdits).to receive(:update_course)
+      allow_any_instance_of(WikiCourseEdits).to receive(:update_course)
     end
     it 'updates all values' do
       put :update, id: course.slug, course: course_params, format: :json
@@ -188,7 +188,7 @@ describe CoursesController do
             listed: false,
             day_exceptions: '',
             weekdays: '0001000',
-            no_day_exceptions: true}
+            no_day_exceptions: true }
         end
         it 'sets timeline start/end to course start/end if not in params' do
           put :create, course: course_params, format: :json

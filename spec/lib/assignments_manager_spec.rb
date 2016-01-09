@@ -13,7 +13,7 @@ describe AssignmentsManager do
                                      'article_title' => 'existing article',
                                      'role' => 0 }] }
       expect(WikiEdits).to receive(:update_assignments)
-      expect(WikiEdits).to receive(:update_course)
+      expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
 
       AssignmentsManager.update_assignments(course, params, user)
       expect(Assignment.last.article_title).to eq('Existing_article')
@@ -26,7 +26,7 @@ describe AssignmentsManager do
                                      'article_title' => 'existing article',
                                      'role' => 0 }] }
       expect(WikiEdits).to receive(:update_assignments)
-      expect(WikiEdits).to receive(:update_course)
+      expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
 
       AssignmentsManager.update_assignments(course, params, user)
       expect(Assignment.last.article_title).to eq('Existing_article')
@@ -49,7 +49,7 @@ describe AssignmentsManager do
                                      'deleted' => 'true' }] }
       expect(WikiEdits).to receive(:remove_assignment)
       expect(WikiEdits).to receive(:update_assignments)
-      expect(WikiEdits).to receive(:update_course)
+      expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
       AssignmentsManager.update_assignments(course, params, user)
       expect(Assignment.all).to be_empty
     end
@@ -62,7 +62,7 @@ describe AssignmentsManager do
                                      'role' => 0,
                                      'deleted' => 'true' }] }
       expect(WikiEdits).to receive(:update_assignments)
-      expect(WikiEdits).to receive(:update_course)
+      expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
 
       AssignmentsManager.update_assignments(course, params, user)
       expect(Assignment.all).to be_empty
@@ -81,7 +81,7 @@ describe AssignmentsManager do
                                      'article_title' => 'existing article',
                                      'role' => 0 }] }
       expect(WikiEdits).to receive(:update_assignments)
-      expect(WikiEdits).to receive(:update_course)
+      expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
       expect(Raven).to receive(:capture_exception)
 
       AssignmentsManager.update_assignments(course, params, user)

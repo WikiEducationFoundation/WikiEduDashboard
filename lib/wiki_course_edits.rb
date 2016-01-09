@@ -8,6 +8,37 @@ class WikiCourseEdits
     send(action, opts)
   end
 
+  def update_course(delete: false)
+    require './lib/wiki_course_output'
+
+    return unless @current_user && @course.submitted && @course.slug
+
+    if delete == true
+      wiki_text = ''
+    else
+      wiki_text = WikiCourseOutput.translate_course(@course)
+    end
+
+    course_prefix = ENV['course_prefix']
+    wiki_title = "#{course_prefix}/#{@course.slug}"
+
+    dashboard_url = ENV['dashboard_url']
+    summary = "Updating course from #{dashboard_url}"
+
+    # Post the update
+    response = WikiEdits.post_whole_page(@current_user, wiki_title, wiki_text, summary)
+
+    # If it hit the spam blacklist, replace the offending links and try again.
+    if response['edit']
+      bad_links = response['edit']['spamblacklist']
+      return response if bad_links.nil?
+      bad_links = bad_links.split('|')
+      safe_wiki_text = WikiCourseOutput
+                       .substitute_bad_links(wiki_text, bad_links)
+      WikiEdits.post_whole_page(@current_user, wiki_title, safe_wiki_text, summary)
+    end
+  end
+
   # This method both posts to the instructor's userpage and also makes a public
   # announcement of a newly submitted course at the course announcement page.
   def announce_course(instructor: nil)

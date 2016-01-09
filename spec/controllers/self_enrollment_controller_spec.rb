@@ -9,7 +9,7 @@ describe SelfEnrollmentController do
     let(:user) { create(:user) }
 
     before do
-      allow(WikiEdits).to receive(:update_course)
+      allow_any_instance_of(WikiCourseEdits).to receive(:update_course)
       allow(WikiEdits).to receive(:update_assignments)
       allow(controller).to receive(:current_user).and_return(user)
     end

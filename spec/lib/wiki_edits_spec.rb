@@ -61,19 +61,6 @@ describe WikiEdits do
     end
   end
 
-  describe '.update_course' do
-    it 'should edit a Wikipedia page representing a course' do
-      stub_oauth_edit
-      WikiEdits.update_course(Course.first, User.first)
-      WikiEdits.update_course(Course.first, User.first, true)
-    end
-
-    it 'should repost a clean version after hitting the spamblacklist' do
-      stub_oauth_edit_spamblacklist
-      WikiEdits.update_course(Course.first, User.first)
-    end
-  end
-
   describe '.notify_users' do
     it 'should post talk page messages on Wikipedia' do
       stub_oauth_edit
