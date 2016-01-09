@@ -33,4 +33,21 @@ class WikiCourseEdits
 
     WikiEdits.add_new_section(@current_user, announcement_page, message)
   end
+
+  def enroll_in_course(*)
+    # Add a template to the user page
+    course_title = @course.wiki_title
+    template = "{{student editor|course = [[#{course_title}]] }}\n"
+    user_page = "User:#{@current_user.wiki_id}"
+    summary = "I am enrolled in [[#{course_title}]]."
+    WikiEdits.add_to_page_top(user_page, @current_user, template, summary)
+
+    # Pre-create the user's sandbox
+    # TODO: Do this more selectively, replacing the default template if
+    # it is present.
+    sandbox = user_page + '/sandbox'
+    sandbox_template = "{{#{ENV['dashboard_url']} sandbox}}"
+    sandbox_summary = "adding {{#{ENV['dashboard_url']} sandbox}}"
+    WikiEdits.add_to_page_top(sandbox, @current_user, sandbox_template, sandbox_summary)
+  end
 end

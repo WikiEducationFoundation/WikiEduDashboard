@@ -61,13 +61,6 @@ describe WikiEdits do
     end
   end
 
-  describe '.enroll_in_course' do
-    it 'should post to the userpage of the enrolling student' do
-      stub_oauth_edit
-      WikiEdits.enroll_in_course(Course.first, User.first)
-    end
-  end
-
   describe '.update_course' do
     it 'should edit a Wikipedia page representing a course' do
       stub_oauth_edit

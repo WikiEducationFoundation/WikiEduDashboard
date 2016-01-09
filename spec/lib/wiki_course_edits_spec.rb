@@ -16,4 +16,14 @@ describe WikiCourseEdits do
                           instructor: nil) # defaults to current user
     end
   end
+
+  describe '#enroll_in_course' do
+    it 'should post to the userpage of the enrolling student and their sandbox' do
+      stub_oauth_edit
+      expect(WikiEdits).to receive(:add_to_page_top).twice
+      WikiCourseEdits.new(action: :enroll_in_course,
+                          course: course,
+                          current_user: user)
+    end
+  end
 end
