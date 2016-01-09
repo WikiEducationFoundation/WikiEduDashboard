@@ -1,8 +1,10 @@
 .container.form-container
-  %h1 Feedback
-  %p Thank you for submitting feedback. Your feedback is helpful for us in the process of improving your experience.
+  %h1 Training module feedback
+  %p How was the training module you just completed? What did you like? What didn't you like?
+  %p Was there something you wanted to know about that was missing? Did anything feel unnecessary?
+  %p Any feedback you have will be very helpful!
 
   = simple_form_for @feedback_form_response do |f|
     = f.input :subject,  as: :hidden, input_html: { value: @subject }
-    = f.input :body, label: 'Feedback:'
+    = f.input :body, label: false
     = f.submit 'Submit', class: 'button dark'
