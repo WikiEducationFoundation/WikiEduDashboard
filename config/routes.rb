@@ -152,6 +152,12 @@ Rails.application.routes.draw do
   # Route aliases for React frontend
   get '/course_creator(/*any)' => 'dashboard#index', as: :course_creator
 
+  get '/feedback' => 'feedback_form_responses#new', as: :feedback
+  get '/feedback_form_responses' => 'feedback_form_responses#index'
+  get '/feedback_form_responses/:id' => 'feedback_form_responses#show', as: :feedback_form_response
+  post '/feedback_form_responses' => 'feedback_form_responses#create'
+  get '/feedback/confirmation' => 'feedback_form_responses#confirmation'
+
   # Errors
   match '/404', to: 'errors#file_not_found', via: :all
   match '/422', to: 'errors#unprocessable', via: :all

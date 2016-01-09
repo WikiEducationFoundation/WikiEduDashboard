@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151223004650) do
+ActiveRecord::Schema.define(version: 20160108180703) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title",                    limit: 255
@@ -137,6 +137,12 @@ ActiveRecord::Schema.define(version: 20151223004650) do
     t.integer  "revision_count",         limit: 4,   default: 0
     t.string   "assigned_article_title", limit: 255
     t.integer  "role",                   limit: 4,   default: 0
+  end
+
+  create_table "feedback_form_responses", force: :cascade do |t|
+    t.string  "subject", limit: 255
+    t.text    "body",    limit: 65535
+    t.integer "user_id", limit: 4
   end
 
   create_table "gradeables", force: :cascade do |t|
