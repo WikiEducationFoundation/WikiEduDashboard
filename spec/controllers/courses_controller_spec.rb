@@ -125,7 +125,7 @@ describe CoursesController do
       let(:submitted_1) { true }
       let(:submitted_2) { true }
       it 'does not announce course' do
-        expect(WikiEdits).not_to receive(:announce_course)
+        expect_any_instance_of(WikiCourseEdits).not_to receive(:announce_course)
         put :update, id: course.slug, course: course_params, format: :json
       end
     end
@@ -133,7 +133,7 @@ describe CoursesController do
     context 'course is new' do
       let(:submitted_2) { true }
       it 'announces course' do
-        expect(WikiEdits).to receive(:announce_course)
+        expect_any_instance_of(WikiCourseEdits).to receive(:announce_course)
         put :update, id: course.slug, course: course_params, format: :json
       end
     end

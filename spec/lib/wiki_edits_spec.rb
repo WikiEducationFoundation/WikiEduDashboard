@@ -61,13 +61,6 @@ describe WikiEdits do
     end
   end
 
-  describe '.announce_course' do
-    it 'should post to the userpage of the instructor and a noticeboard' do
-      stub_oauth_edit
-      WikiEdits.announce_course(Course.first, User.first)
-    end
-  end
-
   describe '.enroll_in_course' do
     it 'should post to the userpage of the enrolling student' do
       stub_oauth_edit
