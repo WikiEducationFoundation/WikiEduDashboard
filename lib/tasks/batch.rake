@@ -17,14 +17,21 @@ namespace :batch do
     daily_file = 'tmp/batch_update_daily.pid'
     pid_file = 'tmp/batch_update_constantly.pid'
     pause_file = 'tmp/batch_pause.pid'
-    if File.exist? pid_file     # Do not run while another instance is running
+    sleep_file = 'tmp/batch_sleep_10.pid'
+
+    if File.exist? pid_file # Do not run while another instance is running
       Rails.logger.warn I18n.t('tasks.conseq', task: 'batch_update_constantly')
       Kernel.exit if pid_file_process_running?(pid_file)
     end
-    if File.exist? daily_file   # Do not run while update_daily is running
-      Rails.logger
-        .warn I18n.t('tasks.constant', task: 'batch_update_constantly')
-        Kernel.exit if pid_file_process_running?(daily_file)
+
+    if File.exist? sleep_file # Do not run while daily update is waiting to run.
+      Rails.logger.warn I18n.t('tasks.conseq', task: 'batch_update_constantly')
+      Kernel.exit if pid_file_process_running?(sleep_file)
+    end
+
+    if File.exist? daily_file # Do not run while update_daily is running
+      Rails.logger.warn I18n.t('tasks.constant', task: 'batch_update_constantly')
+      Kernel.exit if pid_file_process_running?(daily_file)
     end
     if File.exist? pause_file   # Do not run while updates are paused
       Rails.logger.warn I18n.t('tasks.paused', task: 'batch_update_constantly')
