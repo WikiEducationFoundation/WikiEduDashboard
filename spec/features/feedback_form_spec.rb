@@ -35,7 +35,7 @@ describe 'feedback form' do
       end
       form = FeedbackFormResponse.last
       expect(form.body).to eq(body)
-      expect(form.user_id).to eq(user.id)
+      expect(form.user_id).to eq(nil)
       expect(form.subject).to match(url)
     end
   end
