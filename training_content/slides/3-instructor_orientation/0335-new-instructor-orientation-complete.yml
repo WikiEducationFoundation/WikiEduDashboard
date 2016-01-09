@@ -7,4 +7,11 @@ content: >
   started proceed to the course dashboard, login with your Wikipedia username,
   and click "Create New Course."
 
-  <a href='/feedback' target='_blank'>Submit feedback on this module</a>
+
+  We would also appreciate any feedback you have on this orientation module.
+  Click below to tell us what you liked and didn't like about it, and any
+  suggestions you have for improving the new instructor orientation.
+
+  <div class="training__button-container"><a target="_blank" class="btn btn-primary" href='/feedback'>
+    Submit feedback
+  </a></div>

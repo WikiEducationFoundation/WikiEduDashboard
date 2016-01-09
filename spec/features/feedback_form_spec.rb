@@ -1,17 +1,19 @@
 require 'rails_helper'
 
-NEW_INSTRUCTOR_ORIENTATION_ID = 3
-
 describe 'feedback form' do
+  let(:slide_with_feedback_link) do
+    '/training/instructors/new-instructor-orientation/new-instructor-orientation-complete'
+  end
+
+  let(:feedback_link_text) { 'Submit feedback' }
+
   context 'from a training module', type: :feature, js: true do
     let(:body) { 'It was great' }
     let(:user) { create(:user) }
-    it 'submits successfullyfor a logged in user' do
+    it 'submits successfully for a logged in user' do
       login_as user
-      mod = TrainingModule.find(NEW_INSTRUCTOR_ORIENTATION_ID)
-      url = "/training/instructors/#{mod.slug}/#{mod.slides.last.slug}"
-      visit url
-      click_link 'Submit feedback on this module'
+      visit slide_with_feedback_link
+      click_link feedback_link_text
       within_window(page.driver.window_handles.last) do
         fill_in 'feedback_form_response_body', with: body
         click_button 'Submit'
@@ -20,14 +22,12 @@ describe 'feedback form' do
       form = FeedbackFormResponse.last
       expect(form.body).to eq(body)
       expect(form.user_id).to eq(user.id)
-      expect(form.subject).to match(url)
+      expect(form.subject).to match(slide_with_feedback_link)
     end
 
-    it 'submits successfullyfor a logged out user' do
-      mod = TrainingModule.find(NEW_INSTRUCTOR_ORIENTATION_ID)
-      url = "/training/instructors/#{mod.slug}/#{mod.slides.last.slug}"
-      visit url
-      click_link 'Submit feedback on this module'
+    it 'submits successfully for a logged out user' do
+      visit slide_with_feedback_link
+      click_link feedback_link_text
       within_window(page.driver.window_handles.last) do
         fill_in 'feedback_form_response_body', with: body
         click_button 'Submit'
@@ -36,7 +36,7 @@ describe 'feedback form' do
       form = FeedbackFormResponse.last
       expect(form.body).to eq(body)
       expect(form.user_id).to eq(nil)
-      expect(form.subject).to match(url)
+      expect(form.subject).to match(slide_with_feedback_link)
     end
   end
 
