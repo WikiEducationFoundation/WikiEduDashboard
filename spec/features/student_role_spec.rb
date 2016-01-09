@@ -106,7 +106,7 @@ describe 'Student users', type: :feature, js: true do
     end
 
     it 'works even if a student is not logged in' do
-      # pending 'fixing the intermittent failures on travis-ci'
+      pending 'fixing the intermittent failures on travis-ci'
 
       OmniAuth.config.test_mode = true
       allow_any_instance_of(OmniAuth::Strategies::Mediawiki)
@@ -126,11 +126,13 @@ describe 'Student users', type: :feature, js: true do
       sleep 1
       visit "/courses/#{Course.first.slug}/students"
       expect(find('tbody', match: :first)).to have_content 'Ragesock'
-      # fail 'this test passed — this time'
+
+      puts 'PASSED'
+      fail 'this test passed — this time'
     end
 
     it 'works even if a student has never logged in before' do
-      # pending 'fixing the intermittent failures on travis-ci'
+      pending 'fixing the intermittent failures on travis-ci'
 
       OmniAuth.config.test_mode = true
       allow_any_instance_of(OmniAuth::Strategies::Mediawiki)
@@ -157,7 +159,9 @@ describe 'Student users', type: :feature, js: true do
       sleep 1
       visit "/courses/#{Course.first.slug}/students"
       expect(find('tbody', match: :first)).to have_content 'Ragesoss'
-      # fail 'this test passed — this time'
+
+      puts 'PASSED'
+      fail 'this test passed — this time'
     end
 
     it 'does not work if user is not persisted' do
