@@ -3,12 +3,27 @@ require 'rails_helper'
 NEW_INSTRUCTOR_ORIENTATION_ID = 3
 
 describe 'feedback form' do
-
-  context 'from a training module', js: true do
+  context 'from a training module', type: :feature, js: true do
     let(:body) { 'It was great' }
     let(:user) { create(:user) }
-    it 'submits successfully' do
+    it 'submits successfullyfor a logged in user' do
       login_as user
+      mod = TrainingModule.find(NEW_INSTRUCTOR_ORIENTATION_ID)
+      url = "/training/instructors/#{mod.slug}/#{mod.slides.last.slug}"
+      visit url
+      click_link 'Submit feedback on this module'
+      within_window(page.driver.window_handles.last) do
+        fill_in 'feedback_form_response_body', with: body
+        click_button 'Submit'
+        expect(page).to have_content 'Thank you.'
+      end
+      form = FeedbackFormResponse.last
+      expect(form.body).to eq(body)
+      expect(form.user_id).to eq(user.id)
+      expect(form.subject).to match(url)
+    end
+
+    it 'submits successfullyfor a logged out user' do
       mod = TrainingModule.find(NEW_INSTRUCTOR_ORIENTATION_ID)
       url = "/training/instructors/#{mod.slug}/#{mod.slides.last.slug}"
       visit url
@@ -42,7 +57,7 @@ describe 'feedback form' do
     end
   end
 
-  meths = ['#index' , '#show']
+  meths = ['#index', '#show']
 
   meths.each do |meth|
     context meth do

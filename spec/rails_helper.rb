@@ -12,7 +12,7 @@ require 'capybara-screenshot/rspec'
 
 Capybara.configure do |config|
   config.javascript_driver = :webkit
-  config.default_max_wait_time = 20
+  config.default_max_wait_time = 3
 end
 
 Capybara::Webkit.configure do |config|
