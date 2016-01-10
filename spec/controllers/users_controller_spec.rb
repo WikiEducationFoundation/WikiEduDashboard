@@ -10,10 +10,10 @@ describe UsersController do
     let(:admin) { create(:admin) }
 
     before do
-      allow(WikiEdits).to receive(:enroll_in_course)
-      allow(WikiEdits).to receive(:update_course)
-      allow(WikiEdits).to receive(:remove_assignment)
-      allow(WikiEdits).to receive(:update_assignments)
+      allow_any_instance_of(WikiCourseEdits).to receive(:enroll_in_course)
+      allow_any_instance_of(WikiCourseEdits).to receive(:update_course)
+      allow_any_instance_of(WikiCourseEdits).to receive(:remove_assignment)
+      allow_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
       allow(controller).to receive(:current_user).and_return(user)
       allow(controller).to receive(:require_participating_user)
     end

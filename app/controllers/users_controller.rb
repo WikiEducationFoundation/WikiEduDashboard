@@ -1,4 +1,4 @@
-require "#{Rails.root}/lib/wiki_edits"
+require "#{Rails.root}/lib/wiki_course_edits"
 
 #= Controller for user functionality
 class UsersController < ApplicationController
@@ -87,7 +87,7 @@ class UsersController < ApplicationController
         role: enroll_params[:role]
       )
 
-      WikiEdits.update_course(@course, current_user)
+      WikiCourseEdits.new(action: :update_course, course: @course, current_user: current_user)
       render 'users', formats: :json
     else
       username = enroll_params[:user_id] || enroll_params[:wiki_id]
@@ -108,11 +108,16 @@ class UsersController < ApplicationController
     )
     return if course_user.nil? # This will happen if the user was already removed.
     assignments = course_user.assignments
-    assignments.each { |assignment| WikiEdits.remove_assignment(current_user, assignment) }
+    assignments.each do |assignment|
+      WikiCourseEdits.new(action: :remove_assignment,
+                          course: @course,
+                          current_user: current_user,
+                          assignment: assignment)
+    end
 
     course_user.destroy # destroying the course_user also destroys associated Assignments.
     render 'users', formats: :json
-    WikiEdits.update_course(@course, current_user)
+    WikiCourseEdits.new(action: :update_course, course: @course, current_user: current_user)
   end
 
   private

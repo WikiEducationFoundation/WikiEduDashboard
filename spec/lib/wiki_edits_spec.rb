@@ -61,33 +61,6 @@ describe WikiEdits do
     end
   end
 
-  describe '.announce_course' do
-    it 'should post to the userpage of the instructor and a noticeboard' do
-      stub_oauth_edit
-      WikiEdits.announce_course(Course.first, User.first)
-    end
-  end
-
-  describe '.enroll_in_course' do
-    it 'should post to the userpage of the enrolling student' do
-      stub_oauth_edit
-      WikiEdits.enroll_in_course(Course.first, User.first)
-    end
-  end
-
-  describe '.update_course' do
-    it 'should edit a Wikipedia page representing a course' do
-      stub_oauth_edit
-      WikiEdits.update_course(Course.first, User.first)
-      WikiEdits.update_course(Course.first, User.first, true)
-    end
-
-    it 'should repost a clean version after hitting the spamblacklist' do
-      stub_oauth_edit_spamblacklist
-      WikiEdits.update_course(Course.first, User.first)
-    end
-  end
-
   describe '.notify_users' do
     it 'should post talk page messages on Wikipedia' do
       stub_oauth_edit
@@ -95,25 +68,6 @@ describe WikiEdits do
                  text: 'My message to you',
                  summary: 'My edit summary' }
       WikiEdits.notify_users(User.first, User.all, params)
-    end
-  end
-
-  describe '.update_assignments' do
-    it 'should update talk pages and course page with assignment info' do
-      stub_raw_action
-      stub_oauth_edit
-      create(:assignment,
-             user_id: 1,
-             course_id: 1,
-             article_title: 'Selfie',
-             role: Assignment::Roles::ASSIGNED_ROLE)
-      create(:assignment,
-             id: 2,
-             user_id: 1,
-             course_id: 1,
-             article_title: 'Talk:Selfie',
-             role: Assignment::Roles::REVIEWING_ROLE)
-      WikiEdits.update_assignments(User.first, Course.first)
     end
   end
 

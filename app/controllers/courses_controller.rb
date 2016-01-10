@@ -1,5 +1,6 @@
 require 'oauth'
 require "#{Rails.root}/lib/wiki_edits"
+require "#{Rails.root}/lib/wiki_course_edits"
 
 #= Controller for course functionality
 class CoursesController < ApplicationController
@@ -31,14 +32,19 @@ class CoursesController < ApplicationController
       :passcode, Course.generate_passcode
     ) if course_params[:passcode].nil?
 
-    WikiEdits.update_course(@course, current_user)
+    WikiCourseEdits.new(action: :update_course,
+                        course: @course,
+                        current_user: current_user)
     render json: { course: @course }
   end
 
   def destroy
     validate
     @course.destroy
-    WikiEdits.update_course(@course, current_user, true)
+    WikiCourseEdits.new(action: :update_course,
+                        course: @course,
+                        current_user: current_user,
+                        delete: true)
     render json: { success: true }
   end
 
@@ -145,7 +151,10 @@ class CoursesController < ApplicationController
   def handle_course_announcement(instructor)
     newly_submitted = !@course.submitted? && course_params[:submitted] == true
     return unless newly_submitted
-    WikiEdits.announce_course(@course, current_user, instructor)
+    WikiCourseEdits.new(action: 'announce_course',
+                        course: @course,
+                        current_user: current_user,
+                        instructor: instructor)
   end
 
   def should_set_slug?

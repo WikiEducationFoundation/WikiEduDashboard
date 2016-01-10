@@ -1,4 +1,4 @@
-require "#{Rails.root}/lib/wiki_edits"
+require "#{Rails.root}/lib/wiki_course_edits"
 
 #= Controller for timeline functionality
 class TimelineController < ApplicationController
@@ -71,7 +71,7 @@ class TimelineController < ApplicationController
     Array.wrap(timeline_params['weeks']).each do |week|
       update_week week
     end
-    WikiEdits.update_course(@course, current_user)
+    WikiCourseEdits.new(action: :update_course, course: @course, current_user: current_user)
     render 'timeline'
   end
 

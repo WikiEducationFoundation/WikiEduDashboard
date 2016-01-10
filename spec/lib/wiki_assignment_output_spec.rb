@@ -37,7 +37,7 @@ describe WikiAssignmentOutput do
         selfie_talk = Wiki.get_page_content(talk_title)
         course = Course.find(10001)
         course_page = course.wiki_title
-        assignment_titles = WikiEdits.assignments_grouped_by_article_title(course)
+        assignment_titles = course.assignments.group_by(&:article_title)
         title_assignments = assignment_titles['Selfie']
         assignment_tag = WikiAssignmentOutput.assignments_tag(course_page,
                                                               title_assignments)
@@ -102,7 +102,7 @@ describe WikiAssignmentOutput do
         missing_talk_title = 'Talk:THIS PAGE DOES NOT EXIST'
         course = Course.find(10001)
         course_page = course.wiki_title
-        assignment_titles = WikiEdits.assignments_grouped_by_article_title(course)
+        assignment_titles = course.assignments.group_by(&:article_title)
         title_assignments = assignment_titles['Selfie']
 
         # Try the case of where the article exists
