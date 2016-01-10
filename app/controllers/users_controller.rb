@@ -109,7 +109,12 @@ class UsersController < ApplicationController
     )
     return if course_user.nil? # This will happen if the user was already removed.
     assignments = course_user.assignments
-    assignments.each { |assignment| WikiEdits.remove_assignment(current_user, assignment) }
+    assignments.each do |assignment|
+      WikiCourseEdits.new(action: :remove_assignment,
+                          course: @course,
+                          current_user: current_user,
+                          assignment: assignment)
+    end
 
     course_user.destroy # destroying the course_user also destroys associated Assignments.
     render 'users', formats: :json

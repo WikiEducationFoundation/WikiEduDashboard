@@ -2,7 +2,7 @@ require 'rails_helper'
 require "#{Rails.root}/lib/wiki_course_edits"
 
 describe WikiCourseEdits do
-  let(:course) { create(:course, submitted: true) }
+  let(:course) { create(:course, id: 1, submitted: true) }
   let(:user) { create(:user) }
 
   describe '#update_course' do
@@ -44,6 +44,28 @@ describe WikiCourseEdits do
       stub_oauth_edit
       expect(WikiEdits).to receive(:add_to_page_top).twice
       WikiCourseEdits.new(action: :enroll_in_course,
+                          course: course,
+                          current_user: user)
+    end
+  end
+
+  describe '#update_assignments' do
+    it 'should update talk pages and course page with assignment info' do
+      stub_raw_action
+      stub_oauth_edit
+      expect(WikiEdits).to receive(:post_whole_page).at_least(:once)
+      create(:assignment,
+             user_id: 1,
+             course_id: 1,
+             article_title: 'Selfie',
+             role: Assignment::Roles::ASSIGNED_ROLE)
+      create(:assignment,
+             id: 2,
+             user_id: 1,
+             course_id: 1,
+             article_title: 'Talk:Selfie',
+             role: Assignment::Roles::REVIEWING_ROLE)
+      WikiCourseEdits.new(action: :update_assignments,
                           course: course,
                           current_user: user)
     end

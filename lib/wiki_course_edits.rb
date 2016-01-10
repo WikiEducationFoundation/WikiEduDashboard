@@ -8,6 +8,9 @@ class WikiCourseEdits
     send(action, opts)
   end
 
+  # Updates the on-wiki version of a course to reflect the latest
+  # set of participants, articles, timeline, and other details.
+  # It simply overwrites the previous version.
   def update_course(delete: false)
     require './lib/wiki_course_output'
 
@@ -39,7 +42,7 @@ class WikiCourseEdits
     end
   end
 
-  # This method both posts to the instructor's userpage and also makes a public
+  # Posts to the instructor's userpage, and also makes a public
   # announcement of a newly submitted course at the course announcement page.
   def announce_course(instructor: nil)
     instructor ||= @current_user
@@ -65,6 +68,9 @@ class WikiCourseEdits
     WikiEdits.add_new_section(@current_user, announcement_page, message)
   end
 
+  # Adds a template to the enrolling student's userpage, and also
+  # adds a template to their /sandbox page — creating it if it does not
+  # already exist.
   def enroll_in_course(*)
     # Add a template to the user page
     course_title = @course.wiki_title
@@ -81,4 +87,59 @@ class WikiCourseEdits
     sandbox_summary = "adding {{#{ENV['dashboard_url']} sandbox}}"
     WikiEdits.add_to_page_top(sandbox, @current_user, sandbox_template, sandbox_summary)
   end
+
+  # Updates the assignment template for every Assignment for the course.
+  # Usually, this is done incrementally so that a call to this method will only
+  # update the assignments that were changed in the action that triggered it.
+  # However, if some previous edits failed, or some assignment templates got
+  # removed or edited in the meantime, then this will also result in updates
+  # that are not directly related to whatever triggered this update. The idea
+  # is to use this for each assignment update to ensure that on-wiki assignment
+  # templates remain accurate and up-to-date.
+  def update_assignments(*)
+    assignments_grouped_by_article_title.each do |title, assignments_for_same_title|
+      update_assignments_for_title(
+        title: title,
+        assignments_for_same_title: assignments_for_same_title)
+    end
+  end
+
+  def remove_assignment(assignment:)
+    article_title = assignment.article_title
+    other_assignments_for_same_course_and_title = assignment.sibling_assignments
+
+    update_assignments_for_title(
+      title: article_title,
+      assignments_for_same_title: other_assignments_for_same_course_and_title)
+  end
+
+  private
+
+  def assignments_grouped_by_article_title
+    @course.assignments.group_by(&:article_title)
+  end
+
+  def update_assignments_for_title(title:, assignments_for_same_title:)
+    require './lib/wiki_assignment_output'
+
+    # TODO: i18n of talk namespace
+    if title[0..4] == 'Talk:'
+      talk_title = title
+    else
+      talk_title = "Talk:#{title.tr(' ', '_')}"
+    end
+
+    course_page = @course.wiki_title
+    page_content = WikiAssignmentOutput
+                   .build_talk_page_update(title,
+                                           talk_title,
+                                           assignments_for_same_title,
+                                           course_page)
+
+    return if page_content.nil?
+    course_title = @course.title
+    summary = "Update [[#{course_page}|#{course_title}]] assignment details"
+    WikiEdits.post_whole_page(@current_user, talk_title, page_content, summary)
+  end
+
 end

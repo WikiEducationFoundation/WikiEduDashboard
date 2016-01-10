@@ -71,25 +71,6 @@ describe WikiEdits do
     end
   end
 
-  describe '.update_assignments' do
-    it 'should update talk pages and course page with assignment info' do
-      stub_raw_action
-      stub_oauth_edit
-      create(:assignment,
-             user_id: 1,
-             course_id: 1,
-             article_title: 'Selfie',
-             role: Assignment::Roles::ASSIGNED_ROLE)
-      create(:assignment,
-             id: 2,
-             user_id: 1,
-             course_id: 1,
-             article_title: 'Talk:Selfie',
-             role: Assignment::Roles::REVIEWING_ROLE)
-      WikiEdits.update_assignments(User.first, Course.first)
-    end
-  end
-
   describe '.oauth_credentials_valid?' do
     it 'returns true if credentials are valid' do
       stub_token_request

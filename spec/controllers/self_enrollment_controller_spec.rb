@@ -10,7 +10,7 @@ describe SelfEnrollmentController do
 
     before do
       allow_any_instance_of(WikiCourseEdits).to receive(:update_course)
-      allow(WikiEdits).to receive(:update_assignments)
+      allow_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
       allow(controller).to receive(:current_user).and_return(user)
     end
 

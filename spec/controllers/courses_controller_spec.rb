@@ -32,7 +32,7 @@ describe CoursesController do
 
     context 'destroy callbacks' do
       before do
-        allow(WikiEdits).to receive(:update_assignments)
+        allow_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
         allow_any_instance_of(WikiCourseEdits).to receive(:update_course)
       end
 
