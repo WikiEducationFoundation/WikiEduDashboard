@@ -2,9 +2,9 @@ require "#{Rails.root}/lib/wiki_response"
 
 #= Class for making edits to Wikipedia via OAuth, using a user's credentials
 class WikiEdits
-  ################
-  # Entry points #
-  ################
+  #######################
+  # Direct entry points #
+  #######################
   def self.oauth_credentials_valid?(current_user)
     get_tokens(current_user)
     current_user.wiki_token != 'invalid'
@@ -34,19 +34,10 @@ class WikiEdits
     add_new_section(sender, recipient.talk_page, message)
   end
 
-  ###################
-  # Helper methods #
-  ###################
-
-  def self.notify_users(current_user, recipient_users, message)
-    recipient_users.each do |recipient|
-      add_new_section(current_user, recipient.talk_page, message)
-    end
-  end
-
   ####################
   # Basic edit types #
   ####################
+  # These are also entry points.
 
   def self.post_whole_page(current_user, page_title, content, summary = nil)
     params = { action: 'edit',
@@ -78,6 +69,16 @@ class WikiEdits
                format: 'json' }
 
     api_post params, current_user
+  end
+
+  ###################
+  # Helper methods #
+  ###################
+
+  def self.notify_users(current_user, recipient_users, message)
+    recipient_users.each do |recipient|
+      add_new_section(current_user, recipient.talk_page, message)
+    end
   end
 
   ###############

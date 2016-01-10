@@ -1,4 +1,3 @@
-require "#{Rails.root}/lib/wiki_edits"
 require "#{Rails.root}/lib/wiki_course_edits"
 
 #= Controller for user functionality

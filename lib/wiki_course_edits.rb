@@ -30,16 +30,15 @@ class WikiCourseEdits
 
     # Post the update
     response = WikiEdits.post_whole_page(@current_user, wiki_title, wiki_text, summary)
+    return response unless response['edit']
 
     # If it hit the spam blacklist, replace the offending links and try again.
-    if response['edit']
-      bad_links = response['edit']['spamblacklist']
-      return response if bad_links.nil?
-      bad_links = bad_links.split('|')
-      safe_wiki_text = WikiCourseOutput
-                       .substitute_bad_links(wiki_text, bad_links)
-      WikiEdits.post_whole_page(@current_user, wiki_title, safe_wiki_text, summary)
-    end
+    bad_links = response['edit']['spamblacklist']
+    return response if bad_links.nil?
+    bad_links = bad_links.split('|')
+    safe_wiki_text = WikiCourseOutput
+                     .substitute_bad_links(wiki_text, bad_links)
+    WikiEdits.post_whole_page(@current_user, wiki_title, safe_wiki_text, summary)
   end
 
   # Posts to the instructor's userpage, and also makes a public
@@ -141,5 +140,4 @@ class WikiCourseEdits
     summary = "Update [[#{course_page}|#{course_title}]] assignment details"
     WikiEdits.post_whole_page(@current_user, talk_title, page_content, summary)
   end
-
 end
