@@ -64,12 +64,8 @@ StudentList = React.createClass(
         'desktop_only': true
         'sortable': true
         'info_key': 'users.revisions_doc'
-      'character_sum_ms':
-        'label': I18n.t('users.mainspace_chars')
-        'desktop_only': true
-        'info_key': 'users.character_doc'
-      'character_sum_us':
-        'label': I18n.t('users.userspace_chars')
+      'chars_added':
+        'label': I18n.t('users.chars_added')
         'desktop_only': true
         'info_key': 'users.character_doc'
 

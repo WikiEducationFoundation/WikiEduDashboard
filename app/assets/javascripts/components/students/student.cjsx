@@ -23,24 +23,44 @@ Student = React.createClass(
   buttonClick: (e) ->
     e.stopPropagation()
     @openDrawer()
+  _studentRole: 0
+  _shouldShowRealName: ->
+    return false unless @props.student.real_name?
+    @props.current_user? && (@props.current_user.admin? || @props.current_user.role > @_studentRole())
+
 
   render: ->
     className = 'students'
     className += if @state.is_open then ' open' else ''
-    unless @props.student.trained
+    if @props.student.course_training_progress?
       separator = <span className='tablet-only-ib'>&nbsp;|&nbsp;</span>
     chars = 'MS: ' + @props.student.character_sum_us + ', US: ' + @props.student.character_sum_us
 
+    user_name = if @_shouldShowRealName() then (
+      <span>
+        <strong>{@props.student.real_name.trunc()}</strong>
+        &nbsp;
+        (<a onClick={@stop} href={@props.student.contribution_url} target="_blank" className="inline">
+          {@props.student.wiki_id.trunc()}
+        </a>)
+      </span>
+    ) else (
+      <span><a onClick={@stop} href={@props.student.contribution_url} target="_blank" className="inline">
+        {@props.student.wiki_id.trunc()}
+      </a></span>
+    )
+
+    training_progress = if @props.student.course_training_progress then (
+      <span className='red'>{@props.student.course_training_progress}</span>
+    )
+
     <tr onClick={@openDrawer} className={className}>
       <td>
-        <div className="avatar">
-          <img alt="User" src="/assets/images/user.svg" />
-        </div>
         <p className="name">
-          <span><a onClick={@stop} href={@props.student.contribution_url} target="_blank" className="inline">{@props.student.wiki_id.trunc()}</a></span>
+          {user_name}
           <br />
           <small>
-            <span className='red'>{@props.student.course_training_progress}</span>
+            {training_progress}
             {separator}
             <span className='tablet-only-ib'>{chars}</span>
           </small>
@@ -63,8 +83,7 @@ Student = React.createClass(
         />
       </td>
       <td className='desktop-only-tc'>{@props.student.recent_revisions}</td>
-      <td className='desktop-only-tc'>{@props.student.character_sum_ms}</td>
-      <td className='desktop-only-tc'>{@props.student.character_sum_us}</td>
+      <td className='desktop-only-tc'>{@props.student.character_sum_ms} | {@props.student.character_sum_us}</td>
       <td style={{borderRight: '1px solid #ced1dd'}}><button onClick={@buttonClick} className="icon icon-arrow" ></button></td>
     </tr>
 )

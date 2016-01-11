@@ -222,11 +222,12 @@ en:
       increased page size. This number doesn't necessarily reflect the
       amount of new content the user added. Restoring removed content
       will also increase this total.
+    chars_added:
+      Characters Added<br>(mainspace | userspace)
     contributions: User Contributions
     contributions_more: View More Contributions
     editors: Student Editors
     loading: Loading users...
-    mainspace_chars: Mainspace<br />chars added
     name: Name
     none: This course has no students.
     recent_revisions: Recent Edits
@@ -245,7 +246,6 @@ en:
       https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete .
     training_incomplete:
       one: Training Incomplete
-    userspace_chars: Userspace<br />chars added
 
   wiki_edits:
     notify_overdue:
