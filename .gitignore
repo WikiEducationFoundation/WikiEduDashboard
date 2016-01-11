@@ -3,6 +3,7 @@
 /config/newrelic.yml
 /fixtures
 /node_modules
+/js_coverage
 /vendor
 
 *.rbc

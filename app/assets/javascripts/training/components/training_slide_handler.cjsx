@@ -5,9 +5,9 @@ ServerActions = require '../../actions/server_actions'
 ReactRouter     = require 'react-router'
 History         = ReactRouter.History
 Link            = ReactRouter.Link
-SlideLink       = require './slide_link'
-SlideMenu       = require './slide_menu'
-Quiz            = require './quiz'
+SlideLink       = require './slide_link.cjsx'
+SlideMenu       = require './slide_menu.cjsx'
+Quiz            = require './quiz.cjsx'
 md              = require('../../utils/markdown_it')({ openLinksExternally: true })
 
 getState = ->

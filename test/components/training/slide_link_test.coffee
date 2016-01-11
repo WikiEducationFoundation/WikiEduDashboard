@@ -1,7 +1,7 @@
 require '../../testHelper'
-SlideLink = require '../../../app/assets/javascripts/training/components/slide_link'
-TrainingSlideHandler = require '../../../app/assets/javascripts/training/components/training_slide_handler'
-ServerActions = require '../../../app/assets/javascripts/actions/server_actions'
+SlideLink = require '../../../app/assets/javascripts/training/components/slide_link.cjsx'
+TrainingSlideHandler = require '../../../app/assets/javascripts/training/components/training_slide_handler.cjsx'
+ServerActions = require '../../../app/assets/javascripts/actions/server_actions.coffee'
 sinon.stub(ServerActions, 'fetchTrainingModule')
 
 describe 'SlideLink', ->

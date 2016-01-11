@@ -1,0 +1,3 @@
+#!/bin/bash
+
+gulp js_coverage && cd js_coverage/lcov-report && open index.html
