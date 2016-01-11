@@ -118,6 +118,13 @@ class Course < ActiveRecord::Base
   before_save :order_weeks
   validates :passcode, presence: true, unless: :legacy?
 
+  COURSE_TYPES = %w(
+    ClassroomProgramCourse
+    VisitingScholarship
+    Editathon
+  )
+  validates_inclusion_of :type, in: COURSE_TYPES
+
   ####################
   # Callbacks        #
   ####################
