@@ -2,12 +2,24 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Naidugari Jayanna
+# Author: Ravichandra
 # Author: Veeven
 ---
 te:
   application:
-    help: సహాయం!
+    help: సహాయం
     home: ముంగిలి
+    log_out: నిష్క్రమించండి
+    log_in: ప్రవేశించండి
+    sign_up: నమోదు
+    explore: అన్వేషించండి
+    training: శిక్షణ
+  dashboard:
+    explore_examples: ఉదాహరణల కోసం అన్వేషించండి
+  home:
+    log_in: వికీపీడియాతో ప్రవేశించండి
+    sign_up: వికీపీడియాతో నమోదవండి
+    explore: అన్వేషించండి
   activity:
     edited_by: సవరించినవారు
     all: కలాపం
@@ -29,4 +41,5 @@ te:
     characters: పాత్రలు
     date_time: తేదీ/సమయం
     edit_count_description: మొత్తం దిద్దుబాట్లు
+    word_count: చేర్చిన పదాలు
 ...

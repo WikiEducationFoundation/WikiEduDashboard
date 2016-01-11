@@ -6,11 +6,25 @@
 ast:
   application:
     dashboard: Tableru de Wiki Ed
-    help: ¡Ayuda!
+    help: Ayuda
     home: Entamu
     log_out: Salir
+    log_in: Aniciar sesión
+    sign_up: Date d'alta
+    sign_up_log_in_extended: con Wikipedia
+    explore: Esplorar
+    my_dashboard: El mio tableru
     recent_activity: Actividá recién
     search: buscar en ask.wikiedu.org
+    training: Prauticar
+  dashboard:
+    opt_out: Solicitar dar de baxa la orientación
+    explore_examples: Esplorar exemplos
+    explore_course_pages: Esplorar les Páxines del cursu
+  home:
+    log_in: Aniciar sesión con Wikipedia
+    sign_up: Rexístrate con Wikipedia
+    explore: Esplorar
   activity:
     edited_by: Editáu por
     all: Actividá
@@ -68,6 +82,8 @@ ast:
     character_doc: La suma de caráuteres amestaos a los artículos del espaciu principal
       polos estudiantes nel periodu del cursu
     revisions_doc: El númberu d'ediciones nos pasaos %{timeframe} díes
+    word_count_doc: Una estimación del númberu de palabres amestaes polos estudiantes
+      a los artículos del espaciu principal nel periodu del cursu
     course_description: Cursos de Wiki Ed
     courses: Cursos
     yourcourses: Los tos cursos
@@ -135,6 +151,7 @@ ast:
     student_editors: Editores estudiantes
     view: Visites
     view_count_description: Visites del artículu
+    word_count: Palabres amestaes
   namespace:
     main: Espaciu principal
     main_char_added: Caráuteres añadíos nel espaciu principal
@@ -206,7 +223,11 @@ ast:
     assignment_type: Tipu de xera
     confirm_dates: Escueye les feches, les xuntes selmanales y les vacaciones pal
       to cursu.
-    assignment_description: Escueye les feches d'entamu y final d'esta xera
+    assignment_description: Escueye les feches d'entamu y final del programa d'esta
+      xera. Por exemplu, si quies principiar el proyeutu de Wikipedia la segunda selmana
+      del cursu, conseña la data de principiu de la xera una selmana después de la
+      data de principiu del cursu. Esta ferramienta de diseñu de xeres creará un borrador
+      de cronograma que case coles dates del cronograma qu'escueyas.
     min_weeks: Esta xera rique siquier de %{min_weeks} selmanes disponibles. Afai
       les tos feches d'entamu y final si quies usar esti tipu de xera.
     minimum_options: Escueye polo menos %{minimum} opción(es).
@@ -252,4 +273,9 @@ ast:
     block_type: El tipu bloque úsase pa comunicar a los estudiantes sobro esti elementu
       nel so cronograma y pa construyir ferramientes útiles pa ti (tales como'l resume
       de finxos de la páxina de resume)
+    unable_to_add_week: Nun pues amestar nueves selmanes cuando'l to cronograma ta
+      completu. Desanicia polo menos una selmana o cambia les dates de la xera pa
+      facer sitiu pa la nueva.
+    blackout_week_created: Hai bloques programaos pa esta selmana. Muévelos a otra
+      selmana antes de desaniciar l'últimu aconceyamientu de clase d'esta selmana.
 ...

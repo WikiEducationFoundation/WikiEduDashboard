@@ -1,0 +1,13 @@
+# Messages for Burmese (မြန်မာဘာသာ)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Ninjastrikers
+---
+my:
+  application:
+    help: အကူအညီ
+    log_out: ထွက်ရန်
+    log_in: အကောင့်ဝင်ရန်
+  home:
+    sign_up: ဝီကီပီးဒီးယားနှင့် မှတ်ပုံတင်ရန်
+...

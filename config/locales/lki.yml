@@ -8,7 +8,7 @@ lki:
   application:
     help: راهنما!
     home: سةر وةڵگ/صفحه اصلی
-    log_out: دةرچئن/خروج
+    log_out: دەرچێن|خروج
     recent_activity: فعالیت اخیر
   activity:
     all: کار-فعالیت

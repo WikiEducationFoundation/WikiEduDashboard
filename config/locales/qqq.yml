@@ -11,7 +11,9 @@ qqq:
       Link to http://ask.wikiedu.org
       {{Identical|Help}}
     home: Link to the main page
-    log_out: Button for logging out (for registered users)
+    log_out: |-
+      Button for logging out (for registered users)
+      {{Identical|Log out}}
     log_in: |-
       Button for logging in (for registered users)
       {{Identical|Log in}}

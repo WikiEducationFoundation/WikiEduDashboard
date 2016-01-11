@@ -72,6 +72,7 @@ zh-hans:
     course_description: Wiki Ed课程
     courses: 课程
     yourcourses: 您的课程
+    nocourses: 您未参加任何课程。
     current: 当前课程
     duration: 课程持续时间
     gradeables_none: 此课程没有可批改作业。

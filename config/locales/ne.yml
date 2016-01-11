@@ -1,0 +1,12 @@
+# Messages for Nepali (नेपाली)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: जनक राज भट्ट
+---
+ne:
+  application:
+    help: सहायता
+    sign_up: साइन अप
+    sign_up_log_in_extended: विकिपेडिया संग
+    training: तालिम
+...

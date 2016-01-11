@@ -6,9 +6,11 @@
 ps:
   application:
     dashboard: ويکي زده کړه ډشبورډ
-    help: لارښود!
+    help: لارښود
     home: کور
     log_out: وتل
+    log_in: ننوتل
+    sign_up: نومليکل
     recent_activity: تازه فعاليتونه
   activity:
     edited_by: سمونگر

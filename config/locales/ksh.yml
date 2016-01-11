@@ -6,6 +6,7 @@
 ksh:
   application:
     help: Hölp!
+    log_out: Ußlogge
   activity:
     edited_by: Jeändert Vum
     all: Aktivitäht

@@ -5,12 +5,14 @@
 # Author: Nzeemin
 # Author: Okras
 # Author: SmartNart12
+# Author: Ядерный Трамвай
 ---
 ru:
   application:
     help: Справка
     home: Главная
     log_out: Выйти
+    log_in: Представиться системе
     recent_activity: Недавние действия
     search: искать на ask.wikiedu.org
   activity:

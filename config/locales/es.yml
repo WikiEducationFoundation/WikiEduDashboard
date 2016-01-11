@@ -20,6 +20,7 @@ es:
     search: buscar en ask.wikiedu.org
     training: Entrenamiento
   dashboard:
+    opt_out: Solicita la exclusión de la orientación
     explore_examples: Explorar ejemplos
     explore_course_pages: Explorar las páginas del curso
   home:
@@ -84,6 +85,8 @@ es:
     character_doc: La suma de caracteres agregados a los artículos del espacio principal
       por parte de los estudiantes durante el período del curso
     revisions_doc: El número de ediciones en los últimos %{timeframe} días
+    word_count_doc: Una estimación del número de palabras agregadas a los artículos
+      del espacio principal por parte de los estudiantes durante el período del curso
     course_description: Cursos de Wiki Ed
     courses: Cursos
     yourcourses: Tus cursos
@@ -229,7 +232,11 @@ es:
     assignment_type: Tipo de tarea
     confirm_dates: Elige las fechas, las reuniones semanales y las vacaciones para
       tu curso.
-    assignment_description: Elige las fechas de inicio y finalización de esta tarea
+    assignment_description: Elige las fechas de inicio y finalización de tu cronograma
+      de tareas. Por ejemplo, si quieres iniciar tu proyecto Wikipedia la segunda
+      semana de clases, establece la fecha de inicio de la tarea a una semana luego
+      de la fecha de inicio del curso. Esta herramienta de diseño de tareas creará
+      un borrador del cronograma que encaja con las fechas del cronograma que tu elijas.
     min_weeks: Esta tarea requiere al menos de %{min_weeks} semanas disponibles. Ajusta
       tus fechas de inicio y finalización de tarea, si quieres usar este tipo de tarea.
     minimum_options: Selecciona al menos %{minimum} opción/opciones.
@@ -276,4 +283,9 @@ es:
     block_type: El tipo de bloque se usa para comunicarse con tus estudiantes acerca
       de este tema en su cronograma y para construir herramientas útiles para tí (tales
       como el hito descripto en la página de información general)
+    unable_to_add_week: No puedes agregar semanas nuevas cuando tu cronograma está
+      completo. Elimina al menos una semana o cambia las fechas de tareas para hacer
+      espacio para una nueva.
+    blackout_week_created: Hay bloques programados para esta semana. Muévelos a otra
+      semana antes de quitar la última reunión de la clase de esta semana.
 ...

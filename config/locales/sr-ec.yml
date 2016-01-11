@@ -1,11 +1,13 @@
 # Messages for Serbian (Cyrillic script) (српски (ћирилица)‎)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Milicevic01
 # Author: Srdjan m
 ---
 sr-ec:
   application:
     dashboard: Контролна табла Вики Ед-а
+    log_in: Пријави ме
   activity:
     edited_by: Уредио корисник
     all: Активност

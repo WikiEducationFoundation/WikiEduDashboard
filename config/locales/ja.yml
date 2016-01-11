@@ -9,6 +9,7 @@ ja:
     help: ヘルプ
     log_out: ログアウト
     log_in: ログイン
+    sign_up: サインアップ
     my_dashboard: 私のダッシュボード
   activity:
     all: 活動

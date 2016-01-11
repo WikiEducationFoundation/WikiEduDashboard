@@ -2,8 +2,11 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Nayvik
+# Author: Vikashegde
 ---
 kn:
+  application:
+    log_in: ಲಾಗಿನ್
   courses:
     students: ವಿದ್ಯಾರ್ಥಿಗಳು
     students_none: ಈ ಪಠ್ಯದಲ್ಲಿ ಯಾವುದೇ ವಿದ್ಯಾರ್ಥಿಗಳಿಲ್ಲ.
