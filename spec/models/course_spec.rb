@@ -528,4 +528,32 @@ describe Course, type: :model do
       end
     end
   end
+
+  describe 'typing and validation' do
+    let(:course) { create(:course) }
+    it 'creates ClassroomProgramCourse type by default' do
+      expect(course.class).to eq(ClassroomProgramCourse)
+    end
+
+    it 'allows VisitingScholarship type' do
+      course.update_attributes(type: 'VisitingScholarship')
+      expect(Course.last.class).to eq(VisitingScholarship)
+    end
+
+    it 'allows Editathon type' do
+      course.update_attributes(type: 'Editathon')
+      expect(Course.last.class).to eq(Editathon)
+    end
+
+    let(:arbitrary_course_type) { create(:course, type: 'Foo') }
+    it 'does not allow creation of arbitrary types' do
+      expect { arbitrary_course_type }.to raise_error(ActiveRecord::RecordInvalid)
+    end
+
+    it 'does not allow updating to arbitrary types' do
+      invalid_update = course.update_attributes(type: 'Bar')
+      expect(invalid_update).to eq(false)
+      expect(Course.last.class).to eq(ClassroomProgramCourse)
+    end
+  end
 end
