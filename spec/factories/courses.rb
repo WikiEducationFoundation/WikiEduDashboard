@@ -36,7 +36,7 @@
 #
 
 FactoryGirl.define do
-  factory :course do
+  factory :course, class: 'ClassroomProgramCourse' do
     start Date.new(2015, 01, 01)
     # end is a reserved keyword, set that in the let(:course) calls
     title 'Underwater basket-weaving'
@@ -44,6 +44,28 @@ FactoryGirl.define do
     school 'WINTR'
     term 'spring 2015'
     slug 'WINTR/Underwater_basket-weaving_(spring_2015)'
+    passcode 'pizza'
+  end
+
+  factory :visiting_scholarship, class: 'VisitingScholarship' do
+    start Date.new(2015, 01, 01)
+    # end is a reserved keyword, set that in the let(:course) calls
+    title 'Basket-weaving scholarship'
+    listed true
+    school 'UNR'
+    term 'spring 2015'
+    slug 'UNR/Basket-weaving_scholarship_(spring_2015)'
+    passcode 'pizza'
+  end
+
+  factory :editathon, class: 'Editathon' do
+    start Date.new(2015, 01, 01)
+    # end is a reserved keyword, set that in the let(:course) calls
+    title 'Basket-weaving edit-a-thon'
+    listed true
+    school 'NARA'
+    term 'spring 2015'
+    slug 'NARA/Basket-weaving_edit-a-thon_(spring_2015)'
     passcode 'pizza'
   end
 end

@@ -3,6 +3,7 @@ require "#{Rails.root}/lib/wiki_edits"
 #= Class for making wiki edits for a particular course
 class WikiCourseEdits
   def initialize(action:, course:, current_user:, **opts)
+    return unless course.wiki_edits_enabled?
     @course = course
     @current_user = current_user
     send(action, opts)
