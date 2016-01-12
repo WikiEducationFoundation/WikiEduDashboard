@@ -1,11 +1,14 @@
 .container
   %h1 Feedback
 
-  %h3 User id
+  %h3 Timestamp
+  %p= @response.created_at
+
+  %h3 User ID
   %p= @response.user_id
 
-  %h3 Referrer/subject
-  %p= @response.subject
+  %h3 Subject
+  %p= link_to @response.module, @response.subject
 
   %h3 Body
   %p= @response.body
