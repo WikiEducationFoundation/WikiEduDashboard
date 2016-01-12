@@ -1,13 +1,14 @@
 .container
   %h1 Feedback Form Responses
 
-  %table
+  %table.list
     %tr
       %td User id
       %td Referrer/Subject
-      %td Body (preview)
+      %td Body
     - @responses.each do |response|
       %tr
         %td= response.user_id
-        %td= response.subject
-        %td= response.body.truncate(100)
+        %td= link_to response.module, response.subject
+        %td
+          %p= response.body
