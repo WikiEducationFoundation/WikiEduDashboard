@@ -2,7 +2,7 @@
 
 ## Contributing
 
-Testing is very important to the health of the Wikiedu Dashboard as a whole. As part of a wholistic testing strategy, the project utilizes the following testing stack:
+Testing is very important to the health of the Wiki Ed Dashboard as a whole. As part of a wholistic testing strategy, the project utilizes the following testing stack:
 
 * [RSpec](https://github.com/rspec/rspec) for unit tests (model and controller specs)
 * [Capybara](https://github.com/jnicklas/capybara), [Capybara-webkit](https://github.com/thoughtbot/capybara-webkit), and [Selenium](https://github.com/SeleniumHQ/selenium) for end-to-end integration testing.
