@@ -94,6 +94,6 @@
     "react-weekday-picker": "1.0.6"
   },
   "scripts": {
-    "test": "./jscoverage"
+    "test": "gulp js_coverage"
   }
 }
