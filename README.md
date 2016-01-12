@@ -28,6 +28,7 @@ The Dashboard allows instructors to create a course page, which students can joi
 ### Technology
 - [Front end](docs/frontend.md)
 - [Analytics Pipeline](docs/importers.md)
+- [Testing](docs/testing.md)
 
 ### Other
 - [Contributing](docs/contributing.md)

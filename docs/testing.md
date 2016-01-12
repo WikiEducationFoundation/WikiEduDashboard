@@ -1,0 +1,29 @@
+[Back to README](../README.md)
+
+## Contributing
+
+Testing is very important to the health of the Wikiedu Dashboard as a whole. As part of a wholistic testing strategy, the project utilizes the following testing stack:
+
+* [RSpec](https://github.com/rspec/rspec) for unit tests (model and controller specs)
+* [Capybara](https://github.com/jnicklas/capybara), [Capybara-webkit](https://github.com/thoughtbot/capybara-webkit), and [Selenium](https://github.com/SeleniumHQ/selenium) for end-to-end integration testing.
+* [Mocha](https://mochajs.org/) for testing front-end utilities and React.js components
+
+The tests are run on Travis for continuous integration purposes. Upon a successful test run on the `production` branch, Travis will deploy the `production` branch to the production environment.
+
+Write tests for the applicable parts of your contribution wherever possible.
+
+### Test setup
+Integration tests require [qt5](https://www.qt.io/). On OSX you will need to uninstall qt4, install qt5, and add a symlink. [This wiki section](https://github.com/thoughtbot/capybara-webkit/wiki/Installing-Qt-and-compiling-capybara-webkit#video-playback-mp4-on-osx-requires-qt-5) is a useful reference.
+
+If you are on a Linux environment, you can install test dependencies with `apt-get install pandoc`.
+
+### Running tests
+
+#### Server-side tests
+Running `rspec` will run all model, controller, and integration tests (found in `spec/features`), as well as any other specs in the `spec` directory (such as classes in `lib` and `presenters`). Running `rspec spec/features` will run just the integration tests. You can pass any directory to `rspec` to run specs in just that directory, such as `rspec spec/models`.
+
+#### Client-side tests
+Running `mocha` will run the entire client-side test suite. In order to generate a coverage report, run `./jscoverage` from the app root. This will run the client-side tests and open an interactive HTML report that shows the code coverage for the front-end.
+
+### Server and client tests together
+* `rspec && ./jscoverage` will run the entire test suite and generate and open a HTML report of the coverage of the front-end tests. You can achieve this without the code coverage report by running `rspec && npm run test`.
