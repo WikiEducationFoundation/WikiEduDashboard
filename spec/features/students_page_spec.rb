@@ -12,7 +12,9 @@ describe 'Students Page', type: :feature, js: true do
   before do
     include Devise::TestHelpers, type: :feature
 
-    course = create(:course,
+    allow(WikiEdits).to receive(:oauth_credentials_valid?).and_return(true)
+
+    @course = create(:course,
                     id: 10001,
                     title: 'This.course',
                     slug: 'This_university.foo/This.course_(term_2015)',
@@ -23,16 +25,20 @@ describe 'Students Page', type: :feature, js: true do
                     listed: 1,
                     description: 'This is a great course')
     cohort = create(:cohort)
-    course.cohorts << cohort
+    @course.cohorts << cohort
 
     @user = create(:user,
-                   id: 1,
+                   # avoid mysql duplicate key
+                   # why is there an `id` in the user factory
+                   # anyway?
+                   id: rand(534384389),
                    wiki_id: 'Mr_Tester',
+                   real_name: 'Mr. Tester',
                    trained: true)
 
     create(:courses_user,
            id: 1,
-           course_id: course.id,
+           course_id: @course.id,
            user_id: @user.id)
 
     article = create(:article,
@@ -44,7 +50,7 @@ describe 'Students Page', type: :feature, js: true do
 
     create(:articles_course,
            article_id: article.id,
-           course_id: course.id)
+           course_id: @course.id)
 
     create(:revision,
            id: 1,
@@ -55,21 +61,70 @@ describe 'Students Page', type: :feature, js: true do
            views: 10,
            new_article: false)
 
-    js_visit "/courses/#{course.slug}/students"
-    sleep 1 # Try to avoid issue where this test fails with 0 rows found.
   end
 
   it 'should display a list of students' do
+    js_visit "/courses/#{@course.slug}/students"
+    sleep 1 # Try to avoid issue where this test fails with 0 rows found.
     expect(page).to have_content @user.wiki_id
   end
 
   it 'should open a list of individual student revisions' do
+    js_visit "/courses/#{@course.slug}/students"
+    sleep 1 # Try to avoid issue where this test fails with 0 rows found.
     expect(page).not_to have_content 'Article Title'
     page.first('tr.students').click
     sleep 1
     within 'table.users' do
       expect(page).to have_content 'User Contributions'
       expect(page).to have_content 'Article Title'
+    end
+  end
+
+  describe 'display of user name' do
+    let(:user) { create(:user) }
+    context 'logged out' do
+      it 'does not display real name' do
+        js_visit "/courses/#{@course.slug}/students"
+        sleep 1 # Try to avoid issue where this test fails with 0 rows found.
+        within 'table.users' do
+          expect(page).not_to have_content @user.real_name
+        end
+      end
+    end
+    context 'logged in' do
+      before do
+        login_as user
+        js_visit "/courses/#{@course.slug}/students"
+        sleep 1 # Try to avoid issue where this test fails with 0 rows found.
+      end
+      after do
+        logout user
+      end
+      context 'non-admin' do
+        it 'does not display real name' do
+          within 'table.users' do
+            expect(page).not_to have_content @user.real_name
+          end
+        end
+      end
+      context 'admin' do
+        let(:user) { create(:admin) }
+        it 'displays real name' do
+          within 'table.users' do
+            expect(page).to have_content @user.real_name
+          end
+        end
+      end
+      context 'instructor' do
+        let(:user) { create(:user, permissions: 1) }
+        let!(:courses_user) { create(:courses_user, course_id: @course.id, user_id: user.id, role: 1) }
+        it 'displays real name' do
+          within 'table.users' do
+            expect(page).to have_content @user.real_name
+          end
+        end
+      end
     end
   end
 end
