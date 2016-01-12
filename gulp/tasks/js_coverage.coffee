@@ -11,7 +11,20 @@ plugins   = require('gulp-load-plugins')()
 
 gulp.task("js_coverage", require('gulp-jsx-coverage').createTask(
   src: [
-    'test/components/training/slide_link_test.coffee'
+    'test/components/**/*.coffee',
+
+    'app/assets/javascripts/*.coffee',
+    'app/assets/javascripts/utils/*.coffee',
+
+    'app/assets/javascripts/components/*.cjsx',
+    'app/assets/javascripts/components/**/*.cjsx',
+
+    'app/assets/javascripts/stores/*.coffee',
+    'app/assets/javascripts/actions/*.coffee',
+
+    'app/assets/javascripts/training/components/*.cjsx',
+    'app/assets/javascripts/training/actions/*.coffee',
+    'app/assets/javascripts/training/stores/*.coffee',
   ]
   isparta: false
   istanbul:
@@ -19,8 +32,9 @@ gulp.task("js_coverage", require('gulp-jsx-coverage').createTask(
     coverageVariable: '__MY_TEST_COVERAGE__',
     exclude: /node_modules|test[0-9]/
   transpile:
-    cjsx: /\.cjsx$/
-    omitExt: ['.cjsx']
+    cjsx:
+      include: /\.cjsx$/
+      omitExt: ['.cjsx']
   coverage:
     reporters: ['text-summary', 'json', 'lcov']
     directory: 'js_coverage'
