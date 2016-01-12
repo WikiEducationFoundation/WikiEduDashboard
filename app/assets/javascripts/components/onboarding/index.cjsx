@@ -2,7 +2,10 @@ React               = require 'react'
 TransitionGroup     = require 'react-addons-css-transition-group'
 API                 = require '../../utils/api'
 NotificationActions = require '../../actions/notification_actions'
-{ Link }            = require 'react-router'
+ReactRouter     = require 'react-router'
+History         = ReactRouter.History
+Link            = ReactRouter.Link
+browserHistory  = ReactRouter.browserHistory
 
 getReturnToParam = ->
   return_to = window.location.search.match(/return_to=([^&]*)/);
@@ -38,7 +41,7 @@ Intro = React.createClass(
       <div className="intro text-center">
         <h1>Hi {@state.user.real_name || @state.user.wiki_id}</h1>
         <p>We’re excited that you’re here!</p>
-        <Link to={"/onboarding/form?return_to=" + getReturnToParam()}  className="button border inverse-border">Start <i className="icon icon-rt_arrow"></i></Link>
+        <Link to={{ pathname: '/onboarding/form', query: { return_to: getReturnToParam() } }}  className="button border inverse-border">Start <i className="icon icon-rt_arrow"></i></Link>
       </div>
     )
 )
@@ -72,7 +75,7 @@ Form = React.createClass(
       email: @state.email
       instructor: @state.instructor == 'true'
     .then () =>
-      @props.history.push('/onboarding/permissions?return_to=' + getReturnToParam())
+      browserHistory.push('/onboarding/permissions?return_to=' + getReturnToParam())
     .catch (err) =>
       NotificationActions.addNotification
         message: I18n.t('error_500.explanation')
@@ -145,7 +148,7 @@ Permissions = React.createClass(
             <li>you assign articles to students</li>
             <li>you send public messages to students</li>
           </ul>
-          <Link to={"/onboarding/finish?return_to=" + getReturnToParam()} className="button border inverse-border">
+          <Link to={{ pathname: '/onboarding/finish', query: { return_to: getReturnToParam() } }} className="button border inverse-border">
             Finish <i className="icon icon-rt_arrow"></i>
           </Link>
         </div>
@@ -163,7 +166,7 @@ Permissions = React.createClass(
             <li>add standard messages to the Talk pages of articles you're editing or reviewing</li>
             <li>update your course's wiki page when you join the course or choose an assignment topic</li>
           </ul>
-          <Link to={"/onboarding/finish?return_to=" + getReturnToParam()} className="button border inverse-border">
+          <Link to={{ pathname: '/onboarding/finish', query: { return_to: + getReturnToParam() } }} className="button border inverse-border">
             Finish <i className="icon icon-rt_arrow"></i>
           </Link>
         </div>

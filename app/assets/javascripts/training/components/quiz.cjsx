@@ -31,7 +31,7 @@ Quiz = React.createClass(
       liClass = if @visibilityStatus(answer.id) == ' shown' then ' revealed'
       liClass += @correctStatus(answer.id)
       raw_explanation_html = md.render(answer.explanation)
-      <li className={liClass}>
+      <li key={i} className={liClass}>
         <label>
           <div>
             <input

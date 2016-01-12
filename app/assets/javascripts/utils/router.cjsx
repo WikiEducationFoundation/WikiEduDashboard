@@ -30,14 +30,10 @@ TrainingApp           = require '../training/components/training_app'
 TrainingModuleHandler = require '../training/components/training_module_handler'
 TrainingSlideHandler  = require '../training/components/training_slide_handler'
 
-History             = require 'history'
-createHistory       = History.createHistory
-useBasename         = History.useBasename
-
-history = useBasename(createHistory)(basename: '/')
+browserHistory = ReactRouter.browserHistory
 
 # Handle scroll position for back button, hashes, and normal links
-history.listen (location) =>
+browserHistory.listen (location) =>
   setTimeout () =>
     if location.action == 'POP'
       return
@@ -88,7 +84,7 @@ routes = (
 
 el = document.getElementById('react_root')
 render((
-  <Router history={history}>
+  <Router history={browserHistory}>
     {routes}
   </Router>
 ), el) if el?
