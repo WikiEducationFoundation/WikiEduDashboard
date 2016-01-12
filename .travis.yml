@@ -64,7 +64,7 @@ before_script:
 script: gulp build && npm test && bundle exec rspec --color --profile --format documentation --tag $TEST_SUITE
 
 after_script:
-  - codeclimate-test-reporter < coverage/lcov.info
+  - codeclimate-test-reporter < js_coverage/lcov.info
   - bundle exec rubocop -R
 
 after_failure:

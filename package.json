@@ -94,6 +94,6 @@
     "react-weekday-picker": "1.0.6"
   },
   "scripts": {
-    "test": "mocha && istanbul report text-summary lcov"
+    "test": "./jscoverage"
   }
 }
