@@ -45,7 +45,7 @@ class NullCohort
   end
 
   def courses
-    Course.unsubmitted_listed
+    Course.unsubmitted_listed.order(created_at: :desc)
   end
 
   def students_without_nonstudents
