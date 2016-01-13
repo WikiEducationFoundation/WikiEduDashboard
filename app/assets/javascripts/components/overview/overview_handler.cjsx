@@ -77,7 +77,7 @@ Overview = React.createClass(
           <small>Student Editors</small>
           <div className="popover dark" id="trained-count">
             <h4 className="stat-display__value">{@props.course.trained_count}</h4>
-            <p>have completed training</p>
+            <p>are up-to-date with training</p>
           </div>
         </div>
         <div className="stat-display__stat" id="word-count">

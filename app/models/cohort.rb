@@ -27,7 +27,7 @@ class Cohort < ActiveRecord::Base
   end
 
   def trained_count
-    students_without_nonstudents.trained.count
+    courses.sum(:trained_count)
   end
   #################
   # Class methods #

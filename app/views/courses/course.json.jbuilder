@@ -16,7 +16,7 @@ json.course do
   json.edited_count number_to_human @course.article_count
   json.edit_count number_to_human @course.revisions.count
   json.student_count @course.user_count
-  json.trained_count @course.students_without_nonstudents.trained.count
+  json.trained_count @course.trained_count
   json.word_count number_to_human @course.word_count
   json.view_count number_to_human @course.view_sum
 
