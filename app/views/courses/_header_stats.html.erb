@@ -7,8 +7,8 @@
     <div class="stat-display__value"><%= presenter.cohort.students_without_nonstudents.count %></div>
     <small><%= t("courses.students") %></small>
     <div class="popover dark">
-      <h4><%= presenter.cohort.trained_count %></h4>
-      <p><%= t("users.training_complete", count: presenter.cohort.trained_count) %></p>
+      <h4><%= number_to_human presenter.cohort.trained_percent %>%</h4>
+      <p><%= t("users.up_to_date_with_training") %></p>
     </div>
   </div>
   <div class="stat-display__stat">

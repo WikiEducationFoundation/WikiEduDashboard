@@ -55,4 +55,8 @@ class NullCohort
   def trained_count
     0
   end
+
+  def trained_percent
+    0
+  end
 end

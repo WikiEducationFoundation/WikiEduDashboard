@@ -235,9 +235,9 @@ en:
     reviewers: Reviewer(s)
     reviewing: Reviewing
     training_complete:
-      one: "has completed training"
-      other: "have completed training"
-    training_complete_count: "%{count} completed training"
+      one: "is up-to-date with training"
+      other: "are up-to-date with training"
+    training_complete_count: "%{count} training up-to-date"
     training_doc: >
       Student editors who have completed the 'training for students' should
       have made an edit to the feedback page when they finished. If any
@@ -246,6 +246,7 @@ en:
       https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete .
     training_incomplete:
       one: Training Incomplete
+    up_to_date_with_training: 'up-to-date with training'
 
   wiki_edits:
     notify_overdue:
