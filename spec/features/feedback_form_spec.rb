@@ -91,7 +91,7 @@ describe 'feedback form' do
         let(:user) { create(:admin) }
         it 'permits' do
           expect(page).to have_content text
-          expect(page).to have_content resp.subject
+          expect(page).to have_content resp.module
         end
       end
     end

@@ -6,7 +6,7 @@ class FeedbackFormResponsesController < ApplicationController
 
   def index
     check_user_auth
-    @responses = FeedbackFormResponse.all
+    @responses = FeedbackFormResponse.order(id: :desc).last(50)
   end
 
   def show

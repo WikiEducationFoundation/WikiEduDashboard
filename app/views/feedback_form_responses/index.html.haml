@@ -1,13 +1,13 @@
 .container
   %h1 Feedback Form Responses
 
-  %table
+  %table.list
     %tr
-      %td User id
-      %td Referrer/Subject
-      %td Body (preview)
+      %td Date/Time
+      %td Subject
+      %td Body
     - @responses.each do |response|
       %tr
-        %td= response.user_id
-        %td= response.subject
-        %td= response.body.truncate(100)
+        %td= response.created_at
+        %td= response.module
+        %td= link_to response.body.truncate(100), "/feedback_form_responses/#{response.id}"
