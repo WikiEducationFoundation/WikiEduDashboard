@@ -115,7 +115,7 @@ Block = React.createClass(
 
     edit_button = if @props.edit_permissions then (
       <div className="block__edit-button-container">
-        <span className="pull-right button ghost-button block__edit-block" onClick={@_setEditable}>Edit</span>
+        <button className="pull-right button ghost-button block__edit-block" onClick={@_setEditable}>Edit</button>
       </div>
     )
 
