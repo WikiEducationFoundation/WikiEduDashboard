@@ -78,9 +78,8 @@ class Course < ActiveRecord::Base
 
   # Legacy courses are ones that are imported from the EducationProgram
   # MediaWiki extension, not created within the dashboard via the wizard.
-  LEGACY_COURSE_MAX_ID = 9999
-  scope :legacy, -> { where('courses.id <= ?', LEGACY_COURSE_MAX_ID) }
-  scope :not_legacy, -> { where('courses.id > ?', LEGACY_COURSE_MAX_ID) }
+  scope :legacy, -> { where(type: 'LegacyCourse') }
+  scope :not_legacy, -> { where.not(type: 'LegacyCourse') }
 
   scope(:unsubmitted_listed, lambda do
     where(submitted: false).where(listed: true).merge(Course.not_legacy)
@@ -119,6 +118,7 @@ class Course < ActiveRecord::Base
   validates :passcode, presence: true, unless: :legacy?
 
   COURSE_TYPES = %w(
+    LegacyCourse
     ClassroomProgramCourse
     VisitingScholarship
     Editathon
@@ -142,10 +142,7 @@ class Course < ActiveRecord::Base
   end
 
   def legacy?
-    # If a course doesn't have an id yet, it's a new, unsaved course, and
-    # therefore not a legacy course. Legacy courses get their ids from the wiki.
-    return false if id.nil?
-    id <= LEGACY_COURSE_MAX_ID
+    type == 'LegacyCourse'
   end
 
   def current?
@@ -159,10 +156,9 @@ class Course < ActiveRecord::Base
     TrainingModule.all.select { |tm| ids.include?(tm.id) }
   end
 
+  # LegacyCourse overrides this.
   def wiki_title
-    # Legacy courses using the EducationProgram extension have wiki pages
-    # in a different namespace on Wikipedia.
-    prefix = legacy? ? 'Education_Program:' : ENV['course_prefix'] + '/'
+    prefix = ENV['course_prefix'] + '/'
     escaped_slug = slug.tr(' ', '_')
     "#{prefix}#{escaped_slug}"
   end
@@ -177,16 +173,10 @@ class Course < ActiveRecord::Base
     save
   end
 
+  # LegacyCourse overrides this.
   def update(data={}, should_save=true)
-    # For legacy courses, the update may involve pulling data from MediaWiki
-    if legacy?
-      require "#{Rails.root}/lib/course_update_manager"
-      CourseUpdateManager.update_from_wiki(self, data, should_save)
-    # For non-legacy courses, update simply means saving posted attributes.
-    else
-      self.attributes = data[:course]
-      save if should_save
-    end
+    self.attributes = data[:course]
+    save if should_save
   end
 
   def students_without_nonstudents

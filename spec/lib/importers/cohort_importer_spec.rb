@@ -5,7 +5,7 @@ describe CohortImporter do
   describe '.update_cohorts' do
     it 'should add and remove courses from cohorts' do
       (1..6).each do |i|
-        create(:course, id: i)
+        create(:legacy_course, id: i)
       end
       cohort_data = {
         'cohort_1' => [1, 2, 3],

@@ -56,6 +56,7 @@ FactoryGirl.define do
     term 'spring 2015'
     slug 'UNR/Basket-weaving_scholarship_(spring_2015)'
     passcode 'pizza'
+    type 'VisitingScholarship'
   end
 
   factory :editathon, class: 'Editathon' do
@@ -67,5 +68,18 @@ FactoryGirl.define do
     term 'spring 2015'
     slug 'NARA/Basket-weaving_edit-a-thon_(spring_2015)'
     passcode 'pizza'
+    type 'Editathon'
+  end
+
+  factory :legacy_course, class: 'LegacyCourse' do
+    start Date.new(2013, 01, 01)
+    # end is a reserved keyword, set that in the let(:course) calls
+    title 'Legacy basket-weaving'
+    listed true
+    school 'PBR'
+    term 'spring 2013'
+    slug 'PRB/Legacy_basket-weaving_edit-a-thon_(spring_2013)'
+    passcode 'pizza'
+    type 'LegacyCourse'
   end
 end
