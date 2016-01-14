@@ -255,7 +255,7 @@ en:
         overdue training. Are you sure you want to do this?
       # header, message and summary are wikitext output that gets posted on user talk pages.
       header: You have an overdue training assignment.
-      message: Please complete the [[WP:STUDENT|student training]]. If you have already gone through it, be sure to click the button at the end to record that you finished it. --~~~~
+      message: Please complete the assigned [https://dashboard.wikiedu.org/training/students training modules]. --~~~~
       summary: student training overdue
 
   wizard:
