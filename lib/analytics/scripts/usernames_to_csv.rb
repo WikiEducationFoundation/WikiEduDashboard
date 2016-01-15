@@ -30,3 +30,13 @@ Cohort.all.each do |cohort|
     end
   end
 end
+
+# courses, instructor usernames and ids
+CSV.open("/root/course_instructors.csv", 'wb') do |csv|
+  csv << ['course', 'instructor_user_id', 'instructor username']
+  Course.all.each do |course|
+    course.instructors.each do |instructor|
+      csv << [course.slug, instructor.id, instructor.wiki_id]
+    end
+  end
+end
