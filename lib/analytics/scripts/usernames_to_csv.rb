@@ -19,3 +19,14 @@ Cohort.all.each do |cohort|
     end
   end
 end
+
+# student usernames and courses, by cohort
+Cohort.all.each do |cohort|
+  CSV.open("/root/#{cohort.slug}_students.csv", 'wb') do |csv|
+    cohort.courses.each do |course|
+      course.students.each do |student|
+        csv << [student.wiki_id, course.slug]
+      end
+    end
+  end
+end
