@@ -15,9 +15,7 @@ class Cleaners
   def self.rebuild_articles_courses(courses=nil)
     courses ||= Course.current
     courses.each do |course|
-      user_ids = course.students.pluck(:id)
-      revisions = Revision.where(user_id: user_ids)
-      ArticlesCourses.update_from_revisions revisions
+      ArticlesCourses.update_from_course(course)
     end
   end
 
@@ -85,7 +83,14 @@ class Cleaners
     revs = RevisionImporter.get_revisions_from_import_data(revision_data)
     Rails.logger.info "Imported articles for #{revs.count} revisions"
 
-    ArticlesCourses.update_from_revisions revs unless revs.blank?
+    return if revs.blank?
+    new_rev_user_ids = revs.map(&:user_id)
+    course_ids = CoursesUsers
+                 .where(user_id: new_rev_user_ids, role: CoursesUsers::Roles::STUDENT_ROLE)
+                 .pluck(:course_id).uniq
+    course_ids.each do |course_id|
+      ArticlesCourses.update_from_course(Course.find(course_id))
+    end
   end
 
   def self.find_orphan_revisions

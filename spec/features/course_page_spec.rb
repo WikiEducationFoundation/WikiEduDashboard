@@ -107,7 +107,7 @@ describe 'the course page', type: :feature, js: true do
            week_id: week.id,
            content: 'blocky block')
 
-    ArticlesCourses.update_from_revisions
+    ArticlesCourses.update_from_course(Course.last)
     ArticlesCourses.update_all_caches
     CoursesUsers.update_all_caches
     Course.update_all_caches

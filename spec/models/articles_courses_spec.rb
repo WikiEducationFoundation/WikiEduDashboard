@@ -79,4 +79,22 @@ describe ArticlesCourses, type: :model do
       expect(article_course.character_sum).to eq(9000)
     end
   end
+
+  describe '.update_from_course' do
+    it 'should create new ArticlesCourses records from course revisions' do
+      create(:course, id: 1, start: 1.year.ago, end: 1.day.ago)
+      create(:user, id: 1)
+      create(:courses_user, user_id: 1, course_id: 1,
+                            role: CoursesUsers::Roles::STUDENT_ROLE)
+      create(:article, id: 1, namespace: 0)
+      create(:revision, article_id: 1, user_id: 1, date: 1.week.ago)
+      create(:article, id: 2, namespace: 0)
+      create(:revision, article_id: 1, user_id: 1, date: 2.years.ago)
+      create(:article, id: 3, namespace: 1)
+      create(:revision, article_id: 3, user_id: 1, date: 1.week.ago)
+
+      ArticlesCourses.update_from_course(Course.last)
+      expect(ArticlesCourses.count).to eq(1)
+    end
+  end
 end

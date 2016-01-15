@@ -64,23 +64,14 @@ class ArticlesCourses < ActiveRecord::Base
     Utils.run_on_all(ArticlesCourses, :update_cache, articles_courses)
   end
 
-  def self.update_from_revisions(revisions=nil)
-    revisions ||= Revision.all
-    revisions = revisions.where(system: false)
-    mainspace_revisions = get_mainspace_revisions(revisions)
+  def self.update_from_course(course)
+    mainspace_revisions = get_mainspace_revisions(course.revisions)
+    course_article_ids = course.articles.pluck(:id)
+    revision_article_ids = mainspace_revisions.pluck(:article_id).uniq
     ActiveRecord::Base.transaction do
-      mainspace_revisions.each do |revision|
-        user = revision.user
-        next if user.nil?
-        user.courses.each do |course|
-          # Check whether the article is already associated with the course.
-          next if course.articles.include?(revision.article)
-          # Check whether the revision happened during the course.
-          next unless revision.happened_during_course?(course)
-          # Check whether the user is a student in the course.
-          next unless user.student?(course)
-          course.articles << revision.article
-        end
+      revision_article_ids.each do |article_id|
+        next if course_article_ids.include?(article_id)
+        course.articles << Article.find(article_id)
       end
     end
   end

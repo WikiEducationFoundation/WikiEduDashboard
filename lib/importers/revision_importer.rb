@@ -12,17 +12,13 @@ class RevisionImporter
   # API Access #
   ##############
   def self.update_all_revisions(courses=nil, all_time=false)
-    results = []
     courses = [courses] if courses.is_a? Course
     courses ||= all_time ? Course.all : Course.current
-    courses.each do |c|
-      results += get_revisions_for_course(c)
+    courses.each do |course|
+      results = get_revisions_for_course(course)
+      import_revisions(results)
+      ArticlesCourses.update_from_course(course)
     end
-
-    import_revisions(results)
-
-    result_revs = get_revisions_from_import_data(results)
-    ArticlesCourses.update_from_revisions result_revs
   end
 
   # Given a Course, get new revisions for the users in that course.
