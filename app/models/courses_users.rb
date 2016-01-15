@@ -65,10 +65,8 @@ class CoursesUsers < ActiveRecord::Base
   end
 
   def update_cache
-    revisions = Revision.joins(:article)
+    revisions = course.revisions.joins(:article)
                 .where(user_id: user.id)
-                .where('date >= ?', course.start)
-                .where('date <= ?', course.end)
     self.character_sum_ms = character_sum(revisions, Article::Namespaces::MAINSPACE)
     self.character_sum_us = character_sum(revisions, Article::Namespaces::USER)
     self.revision_count = revisions
