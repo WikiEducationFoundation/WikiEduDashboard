@@ -239,11 +239,8 @@ en:
       other: "are up-to-date with training"
     training_complete_count: "%{count} training up-to-date"
     training_doc: >
-      Student editors who have completed the 'training for students' should
-      have made an edit to the feedback page when they finished. If any
-      student editors went through the training but did not complete the
-      feedback step, they can return to the end of the training here:
-      https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete .
+      Student editors who have completed the all assigned training modules that
+      have come due are counted as up-to-date with their training.
     training_incomplete:
       one: Training Incomplete
     up_to_date_with_training: 'up-to-date with training'
