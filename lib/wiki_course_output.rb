@@ -63,7 +63,7 @@ class WikiCourseOutput
     ordered_blocks.each do |block|
       block_type = block_types[block.kind]
       week_output += "{{#{block_type}#{block.title}}}\r"
-      week_output += markdown_to_mediawiki("#{block.content}")
+      week_output += html_to_mediawiki("#{block.content}")
     end
     week_output += "{{end of course week}}\r"
     week_output
@@ -97,6 +97,15 @@ class WikiCourseOutput
     wikitext
   end
 
+  def self.html_to_mediawiki(item)
+    wikitext = PandocRuby.convert(item, from: :html, to: :mediawiki)
+    wikitext = replace_code_with_nowiki(wikitext)
+    wikitext = reformat_image_links(wikitext)
+    wikitext = replace_at_sign_with_template(wikitext)
+    wikitext = reformat_links(wikitext)
+    wikitext
+  end
+
   # Replace instances of <code></code> with <nowiki></nowiki>
   # This lets us use backticks to format blocks of mediawiki code that we don't
   # want to be parsed in the on-wiki version of a course page.
@@ -119,6 +128,13 @@ class WikiCourseOutput
     return '' if titles.blank?
     wikitext = '[[' + titles.join(']], [[') + ']]'
     wikitext
+  end
+
+  # Fix full urls that have been formatted like wikilinks.
+  # [["https://foo.com"|Foo]] -> [https://foo.com Foo]
+  def self.reformat_links(text)
+    text = text.gsub(/\[\["(http.*?)"\|(.*?)\]\]/, '[\1 \2]')
+    text
   end
 
   # Take file links that come out of Pandoc and attempt to create valid wiki

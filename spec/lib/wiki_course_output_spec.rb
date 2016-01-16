@@ -54,12 +54,12 @@ describe WikiCourseOutput do
                       title: 'Block 1 title',
                       kind: 0,
                       content: 'block 1 content')
-      markdown_with_image = 'block 2 content with ![image](https://upload.wikimedia.org/wikipedia/commons/6/6b/View_from_Imperia_Tower_Moscow_04-2014_img12.jpg)'
+      html_with_link = '<ul>\n  <li>Overview of the course</li>\n  <li>Introduction to how Wikipedia will be used in the course</li>\n  <li>Understanding Wikipedia as a community, we\'ll discuss its expectations and etiquette.</li>\n</ul>\n<hr />\n<p>Handout: <a href="http://wikiedu.org/editingwikipedia">Editing Wikipedia</a></p>\n'
       block2 = create(:block,
                       id: 5,
                       title: nil,
                       kind: 1,
-                      content: markdown_with_image)
+                      content: html_with_link)
       week1.blocks = [block1]
       week2.blocks = [block2]
       create(:user,
@@ -89,8 +89,8 @@ describe WikiCourseOutput do
       response = WikiCourseOutput.translate_course(course)
       expect(response).to include('The course description')
       expect(response).to include('Block 1 title')
-      expect(response).to include('block 2 content')
-      expect(response).to match(/[Image|File]:View_from_Imperia_Tower_Moscow_04-2014_img12\.jpg/)
+      expect(response).to include('* Overview of the course')
+      expect(response).to include('[http://wikiedu.org/editingwikipedia Editing Wikipedia]')
       expect(response).to include('[[My article]]')
       expect(response).to include('[[Your article]]')
     end
