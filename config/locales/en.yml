@@ -241,8 +241,7 @@ en:
     training_doc: >
       Student editors who have completed the all assigned training modules that
       have come due are counted as up-to-date with their training.
-    training_incomplete:
-      one: Training Incomplete
+    training_incomplete: Training Incomplete
     up_to_date_with_training: 'up-to-date with training'
 
   wiki_edits:

@@ -185,8 +185,9 @@ qqq:
     training_complete_count: Message indicating how many students completed training.
       %{count} is the number of students.
     training_doc: Explanation of what it means to have completed training and how
-      completion is measured. The entire message should be customized to describe
-      the on-wiki training (if any) available in each language.
+      completion is measured.
+    training_incomplete: Label that appears for a student who has not completed
+      on-wiki training
   wizard:
     assignment_dates: Header for the assignment dates section of the wizard
     assignment_type: Header for the assignment type section of the wizard
