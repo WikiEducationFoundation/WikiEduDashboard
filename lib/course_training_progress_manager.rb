@@ -10,7 +10,7 @@ class CourseTrainingProgressManager
 
   def course_training_progress
     if @course.start < TRAINING_BOOLEAN_CUTOFF_DATE
-      return @user.trained? ? nil : I18n.t('user.training_incomplete')
+      return @user.trained? ? nil : I18n.t('users.training_incomplete')
     end
     numerator = completed_modules_for_user_and_course
     denominator = total_modules_for_course
