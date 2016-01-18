@@ -380,9 +380,9 @@ describe 'New course creation and editing', type: :feature do
       first('button.dark').click
       sleep 1
 
-      # First option for returning instructor is 'build your own'
+      # Last option for returning instructor is 'build your own'
       expect(page).to have_content 'Start from scratch'
-      first('.wizard__option').first('button').click
+      all('.wizard__option')[4].first('button').click
       first('button.dark').click
       sleep 1
 
