@@ -13,10 +13,17 @@ pt:
     home: Início
     log_out: Sair
     log_in: Entrar
+    sign_up: Registar-se
     sign_up_log_in_extended: através da Wikipédia
+    explore: Explorar
+    my_dashboard: Painel de controlo
     recent_activity: Atividade recente
+  dashboard:
+    explore_course_pages: Explorar as páginas do curso
   home:
     log_in: Iniciar sessão através da Wikipédia
+    sign_up: Iniciar sessão através da Wikipédia
+    explore: Explorar
   activity:
     edited_by: Editado por
     all: Atividade
@@ -79,7 +86,6 @@ pt:
   users:
     contributions: Contribuições de utilizador
     contributions_more: Ver mais contribuições
-    mainspace_chars: Mainspace<br />caracteres adicionados
     name: Nome
     revisions_doc: O número de edições feitas por este editor nos últimos 7 dias
     training_doc: 'Os editores estudantes quem tenham completado o ''curso para estudantes''

@@ -191,7 +191,6 @@ uk:
     contributions_more: Переглянути більше внесків
     editors: Студентів-редакторів
     loading: Завантаження користувачів…
-    mainspace_chars: Додано символів<br />в основному просторі
     name: Ім'я
     none: У цьому курсі немає студентів.
     recent_revisions: Останні зміни
@@ -207,7 +206,6 @@ uk:
       що пройшли через тренування не виконали крок з відгуком, вони можуть повернутись
       до останнього кінця тренування тут: https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete
       .'
-    userspace_chars: Додано символів<br />в просторі користувача
   wiki_edits:
     notify_overdue:
       confirm: Цим на сторінки обговорення всіх студентів, які мають протерміноване

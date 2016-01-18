@@ -51,10 +51,8 @@ zh-hant:
     contributions: 使用者貢獻
     contributions_more: 檢視更多貢獻
     loading: 使用者載入中...
-    mainspace_chars: 主空間<br />新增的字元
     name: 名稱
     recent_revisions: 近期編輯
-    userspace_chars: 使用者空間<br />新增的字元
   wizard:
     read_more: 閱讀更多
     read_less: 閱讀更少

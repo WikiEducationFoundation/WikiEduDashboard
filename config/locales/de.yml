@@ -193,7 +193,6 @@ de:
     contributions_more: Weitere Beiträge ansehen
     editors: Studentenautoren
     loading: Lade Benutzer …
-    mainspace_chars: Hauptnamensraum<br />hinzugefügte Zeichen
     name: Name
     none: Dieser Kurs hat keine Studenten.
     recent_revisions: Letzte Bearbeitungen
@@ -210,7 +209,6 @@ de:
       sie fertig sind. Studentenautoren, die durch die Ausbildung gegangen sind, aber
       nicht den Rückmeldungsschritt vervollständigen, können am Ende der Ausbildung
       hier zurückkehren: https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete.'
-    userspace_chars: Benutzernamensraum<br />hinzugefügte Zeichen
   wiki_edits:
     notify_overdue:
       confirm: Dies sendet eine Erinnerung an die Diskussionsseiten aller Studenten,

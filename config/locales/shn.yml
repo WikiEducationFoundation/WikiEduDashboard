@@ -89,6 +89,4 @@ shn:
       one: ၽိုၵ်းလိုမ်ႉတဵမ်ထူၼ်ႈယဝ်ႉ
       other: ၽိုၵ်းလိုမ်ႉတဵမ်ထူၼ်ႈယဝ်ႉ
     training_complete_count: '%{count} ၽိုၵ်းယဝ်ႉတူဝ်ႈ'
-    training_incomplete:
-      other: ၼိုင်ႈ=လွင်ႈၽိုၵ်းယဝ်ႉတူဝ်ႈ
 ...

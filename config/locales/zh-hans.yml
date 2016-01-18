@@ -150,7 +150,6 @@ zh-hans:
     contributions_more: 查看更多贡献
     editors: 学生编辑者
     loading: 正在加载用户...
-    mainspace_chars: 主空间<br />字符已添加
     name: 名字
     none: 此课程没有学生。
     recent_revisions: 最近编辑
@@ -158,13 +157,13 @@ zh-hans:
     reviewers: 复核员
     reviewing: 正在复核
     training_complete:
-      other: 完成了培训
-    training_complete_count: '%{count}完成了培训'
-    userspace_chars: 用户空间<br />字符已添加
+      other: 最新的培训
+    training_complete_count: '%{count}最近的培训'
+    training_incomplete: 培训未完成
   wiki_edits:
     notify_overdue:
       header: 您有一个过期的培训任务。
-      message: 请完成[[WP:STUDENT|学生培训]]。如果您已经完成了它，请确保点击页尾的按钮以记录您完成了它。--~~~~
+      message: 请完成分配的[https://dashboard.wikiedu.org/training/students 培训模块]。--~~~~
       summary: 学生培训迟到
   wizard:
     course_dates: 课程日期

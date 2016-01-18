@@ -198,7 +198,6 @@ fr:
     contributions_more: Afficher plus de contributions
     editors: Editeurs étudiants
     loading: Chargement des utilisateurs…
-    mainspace_chars: Espace principal<br />caractères ajoutés
     name: Nom
     none: Ce cours n’a aucun étudiant.
     recent_revisions: Modifications récentes
@@ -214,7 +213,6 @@ fr:
       devraient avoir fait une modification sur la page d’avis une fois qu’ils ont
       terminé. Si un étudiant éditeur effectue le cours mais ne termine pas la tâche
       d’avis, il peut revenir à la fin du cours ici: https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete.'
-    userspace_chars: Espace utilisateur<br />caractères ajoutés
   wiki_edits:
     notify_overdue:
       confirm: Cela publiera un rappel sur les pages de discussion de tous les étudiants

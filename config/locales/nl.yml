@@ -9,6 +9,16 @@
 nl:
   application:
     dashboard: Wiki Ed Dashboard
+    help: Help
+    log_out: Afmelden
+    log_in: Aanmelden
+    sign_up: Registreren
+    sign_up_log_in_extended: met Wikipedia
+    explore: Ontdek
+    my_dashboard: Mijn dashboard
+  home:
+    sign_up: Aanmelden met Wikipedia
+    explore: Ontdek
   activity:
     edited_by: Bewerkt door
     all: Activiteit
@@ -151,7 +161,6 @@ nl:
     contributions_more: Meer bijdragen bekijken
     editors: Studentbewerkers
     loading: Bezig met het laden van gebruikers...
-    mainspace_chars: Hoofdnaamruimte<br />tekens toegevoegd
     name: Naam
     none: Deze cursus heeft geen studenten.
     recent_revisions: Recente bewerkingen
@@ -169,7 +178,6 @@ nl:
       niet hebben uitgevoerd, dan kunnen ze aan het einde van de training hier terugkeren:
       https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete.'
     training_incomplete: Training onvolledig
-    userspace_chars: Gebruikersruimte<br />tekens toegevoegd
   wizard:
     course_dates: Cursusdatums
     assignment_dates: Opdrachttype

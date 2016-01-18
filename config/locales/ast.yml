@@ -192,7 +192,6 @@ ast:
     contributions_more: Ver más contribuciones
     editors: Editores estudiantes
     loading: Cargando usuarios...
-    mainspace_chars: Caráuteres añadíos<br />nel espaciu principal
     name: Nome
     none: Esti cursu nun tien estudiantes.
     recent_revisions: Ediciones recién
@@ -207,7 +206,6 @@ ast:
       pa estudiantes'' habríen tener fecha una edición na páxina de comentarios al
       acabar. Los editores estudiantes que pasaron pel entrenamientu pero nun completaron
       el pasu del comentariu, puen volver al final del entrenamientu equí: https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete.'
-    userspace_chars: Caráuteres añadíos<br />nel espaciu d'usuariu
   wiki_edits:
     notify_overdue:
       confirm: Esto va publicar un recordatoriu nes páxines d'alderique de tolos estudiantes

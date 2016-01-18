@@ -127,7 +127,6 @@ sd:
     contributions_more: وڌيڪ ڀاڱيداريون ڏسو
     editors: شاگرد سنواريندڙ
     loading: يوزرس اتاري رهيا آهيون...
-    mainspace_chars: مُک پولار<br /> شامل ڪيل اکرن جو تعداد
     name: نالو
     none: هن ڪورس جا ڪي بہ شاگرد نہ آهن.
     recent_revisions: تازيون تبديليون
@@ -135,7 +134,6 @@ sd:
     reviewers: نظرثاني ڪندڙ
     reviewing: جائزي هيٺ
     training_complete_count: '%{count} يُوزرس مڪمل تربيت حاصل ڪئي'
-    userspace_chars: يُوزرپولار<br />شامل ڪيل اکرن جو تعداد
   wizard:
     course_dates: ڪورس جون تاريخون
     assignment_dates: مشقن جون تاريخون

@@ -197,7 +197,6 @@ es:
     contributions_more: Ver más contribuciones
     editors: Editores estudiantiles
     loading: Cargando usuarios...
-    mainspace_chars: Caracteres añadidos<br />en el espacio principal
     name: Nombre
     none: Este curso no tiene estudiantes.
     recent_revisions: Ediciones recientes
@@ -215,7 +214,6 @@ es:
       pero no completaron el paso de comentario, pueden regresar al final del entrenamiento
       aquí: https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete
       .'
-    userspace_chars: Caracteres añadidos<br />en el espacio de usuarios
   wiki_edits:
     notify_overdue:
       confirm: Esto publicará un recordatorio en las páginas de discusión de todos
@@ -281,7 +279,7 @@ es:
     title: Cronograma
     due_default: Previsto la semana próxima
     block_type: El tipo de bloque se usa para comunicarse con tus estudiantes acerca
-      de este tema en su cronograma y para construir herramientas útiles para tí (tales
+      de este tema en su cronograma y para construir herramientas útiles para ti (tales
       como el hito descripto en la página de información general)
     unable_to_add_week: No puedes agregar semanas nuevas cuando tu cronograma está
       completo. Elimina al menos una semana o cambia las fechas de tareas para hacer

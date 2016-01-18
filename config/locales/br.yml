@@ -117,7 +117,6 @@ br:
     contributions_more: Diskwel muioc'h a zegasadennoù
     editors: Studierien embannerien
     loading: Pellgargadenn an implijerien...
-    mainspace_chars: Egorenn<br/>arouezennoù ouzhpennet
     name: Nom
     none: N'eus studier ebet er gentel-mañ.
     reviewers: Reizher(ien)
@@ -126,7 +125,6 @@ br:
       one: en deus echuet da c'hourdonañ
       other: o deus echuet da c'hourdonnañ
     training_complete_count: '%{count}o deus/en deus echuet da c''houdonañ'
-    userspace_chars: Egorenn an implijer<br/>arouezennoù ouzhpennet
   wizard:
     course_dates: Deizioù ar gentel
     assignment_dates: Seurt deverkadenn

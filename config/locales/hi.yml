@@ -2,11 +2,15 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Sfic
+# Author: जनक राज भट्ट
 ---
 hi:
   application:
     help: सहायता!
     log_out: प्रस्थान
+  home:
+    sign_up: विकिपीडिया के साथ साइन अप
+    explore: अन्वेषण
   revisions:
     class: कक्षा
     title: शीर्षक

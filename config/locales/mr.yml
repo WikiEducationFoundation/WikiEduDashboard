@@ -10,7 +10,13 @@ mr:
     help: साहाय्य
     home: स्वगृह
     log_out: सनोंद-निर्गम
+    log_in: सनोंद प्रवेश करा
+    sign_up_log_in_extended: विकिपिडियासह
     recent_activity: अलीकडील क्रिया
+    training: प्रशिक्षण
+  home:
+    log_in: विकिपीडियात सनोंद प्रवेश करा
+    explore: शोध करा
   activity:
     edited_by: द्वारे संपादित
     all: क्रिया
@@ -64,6 +70,7 @@ mr:
     edit_count_description: एकूण संपादने
     revisions: अलीकडील संपादने
     student_editors: विद्यार्थी संपादक
+    word_count: जोडलेले शब्द
   namespace:
     user_ns: सदस्य
   revisions:

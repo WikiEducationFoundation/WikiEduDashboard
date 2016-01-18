@@ -138,7 +138,6 @@ he:
     contributions_more: הצגת תרומות נוספות
     editors: תלמידים עורכים
     loading: טעינת משתמשים...
-    mainspace_chars: תווים שנוספו<br />למרחב הראשי
     name: שם
     none: בקורס הזה אין תלמידים.
     recent_revisions: עריכות אחרונות
@@ -153,7 +152,6 @@ he:
       דף המשוב כשסיימו. אם עורכים תלמידים כלשהם עברו את ההכשרה, אבל לא עשו את צעד
       המשוב, הם יכולים לחזור לסוף ההכשרה כאן: https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete
       .'
-    userspace_chars: תווים שנוספו<br />למרחב משתמש
   wizard:
     course_dates: תאריכי הקורס
     assignment_dates: סוג המטלה
