@@ -16,7 +16,7 @@ describe 'error pages' do
   end
 
   describe 'for non-existent courses' do
-    it 'should describe the 404 problem' do
+    it 'describes the 404 problem' do
       visit '/courses/this/course_is_not_(real)'
       expect(page).to have_content 'Page not found'
       expect(page.status_code).to eq(404)
@@ -24,18 +24,27 @@ describe 'error pages' do
   end
 
   describe 'for non-existent cohorts' do
-    it 'should describe the 404 problem' do
+    it 'describes the 404 problem' do
       visit '/explore?cohort=not_real'
       expect(page).to have_content 'Page not found'
+      expect(page.status_code).to eq(404)
     end
   end
 
   describe 'for server errors' do
-    it 'should say there was a server error' do
+    it 'says there was a server error' do
       allow(CoursesPresenter).to receive(:new).and_raise(StandardError)
       visit '/'
       expect(page).to have_content 'internal server error'
       expect(page.status_code).to eq(500)
+    end
+  end
+
+  describe 'for incorrect passcode' do
+    it 'describes the passcode problem' do
+      visit '/errors/incorrect_passcode'
+      expect(page).to have_content 'Incorrect passcode'
+      expect(page.status_code).to eq(401)
     end
   end
 end

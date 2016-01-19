@@ -89,6 +89,16 @@ describe 'Student users', type: :feature, js: true do
       visit "/courses/#{Course.first.slug}/students"
       expect(find('tbody', match: :first)).not_to have_content User.last.wiki_id
     end
+
+    it 'redirects to an error page if passcode is incorrect' do
+      visit "/courses/#{Course.first.slug}"
+      sleep 1
+      accept_prompt(with: 'wrong_passcode') do
+        click_button 'Join course'
+      end
+      expect(page).to have_content 'Incorrect passcode'
+      sleep 5
+    end
   end
 
   describe 'visiting the ?enroll=passcode url' do

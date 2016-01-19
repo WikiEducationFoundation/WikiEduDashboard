@@ -13,4 +13,8 @@ class ErrorsController < ApplicationController
   def internal_server_error
     render status: 500
   end
+
+  def incorrect_passcode
+    render status: 401
+  end
 end

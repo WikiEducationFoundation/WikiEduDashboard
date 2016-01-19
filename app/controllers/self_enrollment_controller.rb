@@ -37,9 +37,10 @@ class SelfEnrollmentController < ApplicationController
       WikiCourseEdits.new(action: :update_course,
                           course: @course,
                           current_user: current_user)
+      redirect_to course_slug_path(@course.slug, enrolled: true)
+    else
+      redirect_to '/errors/incorrect_passcode'
     end
-
-    redirect_to course_slug_path(@course.slug, enrolled: true)
   end
 
   private

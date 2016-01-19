@@ -300,6 +300,12 @@ en:
       reached this notice in error, please contact the maintainers of this
       dashboard to let them know about the problem.
 
+  error_incorrect_passcode:
+    header: "Incorrect passcode.  :-("
+    explanation: >
+      The passcode for enrolling in this course in incorrect. Please ask the
+      instructor for the current passcode to enroll in this course.
+
   error_404:
     header: "Page not found. :-("
     explanation: >

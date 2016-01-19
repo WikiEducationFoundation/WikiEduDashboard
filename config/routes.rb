@@ -2,10 +2,9 @@
 
 Rails.application.routes.draw do
   get 'errors/file_not_found'
-
   get 'errors/unprocessable'
-
   get 'errors/internal_server_error'
+  get 'errors/incorrect_passcode'
 
   # Sessions
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
