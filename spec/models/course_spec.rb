@@ -74,7 +74,7 @@ describe Course, type: :model do
 
   it 'should update data for single courses' do
     VCR.use_cassette 'wiki/manual_course_data' do
-      course = create(:course, id: 519)
+      course = create(:legacy_course, id: 519)
 
       course.manual_update
 
@@ -110,7 +110,7 @@ describe Course, type: :model do
 
   it 'should perform ad-hoc course updates' do
     VCR.use_cassette 'wiki/course_data' do
-      build(:course, id: '351').save
+      create(:legacy_course, id: '351')
 
       course = Course.all.first
       course.update
@@ -124,7 +124,7 @@ describe Course, type: :model do
 
   it 'should unlist courses that have been delisted' do
     VCR.use_cassette 'wiki/course_list_delisted' do
-      create(:course,
+      create(:legacy_course,
              id: 589,
              start: Time.zone.today - 1.month,
              end: Time.zone.today + 1.month,
@@ -140,7 +140,7 @@ describe Course, type: :model do
 
   it 'should unlist courses that have been deleted from Wikipedia' do
     VCR.use_cassette 'wiki/course_list_deleted' do
-      create(:course,
+      create(:legacy_course,
              id: 9999,
              start: Time.zone.today - 1.month,
              end: Time.zone.today + 1.month,
@@ -155,7 +155,7 @@ describe Course, type: :model do
   end
 
   it 'should remove users who have been unenrolled from a course' do
-    build(:course,
+    build(:legacy_course,
           id: 1,
           start: Time.zone.today - 1.month,
           end: Time.zone.today + 1.month,
@@ -279,7 +279,7 @@ describe Course, type: :model do
       # A legacy course
       lang = Figaro.env.wiki_language
       prefix = Figaro.env.course_prefix
-      course = build(:course,
+      course = build(:legacy_course,
                      id: 618,
                      slug: 'UW Bothell/Conservation Biology (Winter 2015)')
       url = course.url
@@ -299,11 +299,12 @@ describe Course, type: :model do
   end
 
   describe 'validation' do
-    let(:id)     { Course::LEGACY_COURSE_MAX_ID + 1000 }
-    let(:course) { Course.new(passcode: passcode, id: id) }
+    let(:course) { Course.new(passcode: passcode, type: type) }
     subject { course.valid? }
 
     context 'non-legacy course' do
+      let(:type) { 'ClassroomProgramCourse' }
+
       context 'passcode nil' do
         let(:passcode) { nil }
         it "doesn't save" do
@@ -326,10 +327,8 @@ describe Course, type: :model do
 
     context 'legacy course' do
       it 'saves nil passcode' do
-        id = Course::LEGACY_COURSE_MAX_ID - 1
         passcode = nil
-        course = build(:course,
-                       id: id,
+        course = build(:legacy_course,
                        passcode: passcode)
         expect(course.valid?).to eq(true)
       end
