@@ -381,8 +381,7 @@ describe 'New course creation and editing', type: :feature do
       sleep 1
 
       # Last option for returning instructor is 'build your own'
-      expect(page).to have_content 'Start from scratch'
-      all('.wizard__option')[4].first('button').click
+      find('button', text: 'Build your own timeline').click
       first('button.dark').click
       sleep 1
 
@@ -567,6 +566,8 @@ describe 'cloning a course', js: true do
     expect(new_course.submitted).to eq(false)
     expect(new_course.user_count).to be_zero
     expect(new_course.article_count).to be_zero
+
+    puts 'PASSED'
     fail 'this test passed — this time'
   end
 
