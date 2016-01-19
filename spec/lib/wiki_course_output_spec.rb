@@ -69,6 +69,11 @@ describe WikiCourseOutput do
                       id: 1,
                       title: '# Title #',
                       description: 'The course description',
+                      weekdays: '0101010',
+                      start: '2016-01-11',
+                      end: '2016-04-24',
+                      timeline_start: '2016-01-11',
+                      timeline_end: '2016-04-24',
                       weeks: [week1, week2])
       create(:courses_user,
              user_id: 1,
@@ -93,6 +98,7 @@ describe WikiCourseOutput do
       expect(response).to include('[http://wikiedu.org/editingwikipedia Editing Wikipedia]')
       expect(response).to include('[[My article]]')
       expect(response).to include('[[Your article]]')
+      expect(response).to include('{{start of course week|2016-01-11|2016-01-13|2016-01-15}}')
     end
   end
 end

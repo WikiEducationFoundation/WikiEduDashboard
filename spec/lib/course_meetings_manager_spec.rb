@@ -2,13 +2,16 @@ require 'rails_helper'
 
 describe CourseMeetingsManager do
   # starts with a comma to mimic real data. will fix data later
-  let(:day_ex) { ",20151013,20151201,20151203,20151208,20151209,
-                  20151210,20151215,20151217,20151222,
-                  20151224,20151229,20151231,20160105" }
+  let(:day_ex) do
+    ",20151013,20151201,20151203,20151208,20151209,
+    20151210,20151215,20151217,20151222,
+    20151224,20151229,20151231,20160105"
+  end
   let(:t_start) { '2015-08-28' } # Friday
   let(:t_end)   { '2016-01-14' } # Thursday
   let!(:course) do
     create(:course,
+           id: 1,
            timeline_start: t_start,
            timeline_end: t_end,
            day_exceptions: day_ex,
@@ -16,23 +19,63 @@ describe CourseMeetingsManager do
           )
   end
 
-  let(:expected) do
-    ["()", # August 23 - 29, 2015
-     "(Tue, Thu)", "(Tue, Thu)", "(Tue, Thu)", "(Tue, Thu)", "(Tue, Thu)", "(Tue, Thu)", # August 30 - October 10
-     "(Thu)", # October 11 - 17
-     "(Tue, Thu)", "(Tue, Thu)", "(Tue, Thu)", "(Tue, Thu)", "(Tue, Thu)", "(Tue, Thu)", # October 18 - November 28
-     "()", # November 29 - December 5
-     "(Wed)", # December 6 - 12, including exception not on a Tues/Thurs
-     "()", "()", "()", # December 13 - January 2
-     "(Thu)", # January 3 - 9
-     "(Tue, Thu)"] # January 10 - 16
+  before do
+    (1..8).each do |week_number|
+      create(:week, course_id: 1, order: week_number)
+    end
+  end
+
+  let(:expected_week_meeting_dates) do
+    [[], # August 23 - 29, 2015
+     ['2015-09-01'.to_date, '2015-09-03'.to_date],
+     ['2015-09-08'.to_date, '2015-09-10'.to_date],
+     ['2015-09-15'.to_date, '2015-09-17'.to_date],
+     ['2015-09-22'.to_date, '2015-09-24'.to_date],
+     ['2015-09-29'.to_date, '2015-10-01'.to_date],
+     ['2015-10-06'.to_date, '2015-10-08'.to_date],
+     ['2015-10-15'.to_date],
+     ['2015-10-20'.to_date, '2015-10-22'.to_date],
+     ['2015-10-27'.to_date, '2015-10-29'.to_date],
+     ['2015-11-03'.to_date, '2015-11-05'.to_date],
+     ['2015-11-10'.to_date, '2015-11-12'.to_date],
+     ['2015-11-17'.to_date, '2015-11-19'.to_date],
+     ['2015-11-24'.to_date, '2015-11-26'.to_date],
+     [], # November 29 - December 5
+     ['2015-12-09'.to_date], # December 6 - 12, including exception not on a Tues/Thurs
+     [], [], [], # December 13 - January 2
+     ['2016-01-07'.to_date], # January 3 - 9
+     ['2016-01-12'.to_date, '2016-01-14'.to_date]
+    ]
+  end
+
+  describe '#week_meeting_dates' do
+    subject { described_class.new(course).instance_variable_get(:@week_meeting_dates) }
+    context 'course with timeline start and end' do
+      it 'returns an array of meetings dates for each week, factoring in blackout dates' do
+        expect(subject).to eq(expected_week_meeting_dates)
+      end
+    end
+  end
+
+  let(:expected_week_meetings) do
+    ['()', # August 23 - 29, 2015
+     # August 30 - October 10
+     '(Tue, Thu)', '(Tue, Thu)', '(Tue, Thu)', '(Tue, Thu)', '(Tue, Thu)', '(Tue, Thu)',
+     '(Thu)', # October 11 - 17
+     # October 18 - November 28
+     '(Tue, Thu)', '(Tue, Thu)', '(Tue, Thu)', '(Tue, Thu)', '(Tue, Thu)', '(Tue, Thu)',
+     '()', # November 29 - December 5
+     '(Wed)', # December 6 - 12, including exception not on a Tues/Thurs
+     '()', '()', '()', # December 13 - January 2
+     '(Thu)', # January 3 - 9
+     '(Tue, Thu)'] # January 10 - 16
   end
 
   describe '#week_meetings' do
     subject { described_class.new(course).week_meetings }
     context 'course with timeline start and end' do
       it 'returns an array of day meetings for each week, factoring in blackout dates' do
-        expect(subject).to eq(expected)
+        expect(subject).to eq(expected_week_meetings)
       end
     end
 
@@ -53,7 +96,7 @@ describe CourseMeetingsManager do
   end
 
   describe '#calculate_timeline_week_count' do
-    subject { described_class.new(course).send(:calculate_timeline_week_count) }
+    subject { described_class.new(course).instance_variable_get(:@timeline_week_count) }
     context 'course has start and end dates' do
       it 'returns an integer representing the weeks in the timeline, irrespective of blackouts' do
         expect(subject).to eq(21)
@@ -102,37 +145,13 @@ describe CourseMeetingsManager do
     end
   end
 
-  describe '#week_is_blackout?' do
-    let(:t_start) { Date.new(2015, 8, 25) }
-    let(:t_end)   { t_start + 3.weeks }
-    let!(:course) do
-      create(:course,
-             timeline_start: t_start,
-             timeline_end: t_end,
-             day_exceptions: day_ex,
-             weekdays: '0010100'
-            )
-    end
-    let(:order) { 1 }
-    let!(:week) { create(:week, course_id: course.id, order: order) }
-    subject { described_class.new(course).send(:week_is_blackout?, week) }
-    describe 'first week - class meets both days' do
-      let(:day_ex) { nil }
-      it 'returns false' do
-        expect(subject).to eq(false)
-      end
-    end
-    describe 'Thursday of first week is exception' do
-      let(:day_ex) { '20150827' }
-      it 'returns false' do
-        expect(subject).to eq(false)
-      end
-    end
-    describe 'both days of first week are exceptions' do
-      let(:day_ex) { ',20150825,20150827' }
-      it 'returns true' do
-        expect(subject).to eq(true)
-      end
+  describe '#meeting_dates_of' do
+    let(:week_2) { Week.find_by(order: 2) }
+    let(:expected_dates) { ['2015-09-08'.to_date, '2015-09-10'.to_date] }
+    subject { described_class.new(course).meeting_dates_of(week_2) }
+
+    it 'returns the dates of meetings in a week' do
+      expect(subject).to eq(expected_dates)
     end
   end
 end

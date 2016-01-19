@@ -1,4 +1,5 @@
 require 'pandoc-ruby'
+require "#{Rails.root}/lib/course_meetings_manager"
 
 #= Class for generating wikitext from course information.
 class WikiCourseOutput
@@ -6,6 +7,8 @@ class WikiCourseOutput
   # Entry points #
   ################
   def self.translate_course(course)
+    course_meetings_manager = CourseMeetingsManager.new(course)
+
     # Course description and details
     output = course_details_and_description(course)
 
@@ -18,7 +21,7 @@ class WikiCourseOutput
     course.weeks.each do |week|
       week_count += 1
       week_number = week_count
-      output += course_week(week, week_number)
+      output += course_week(week, week_number, course_meetings_manager)
     end
 
     # TODO: grading
@@ -52,13 +55,22 @@ class WikiCourseOutput
     course_details + "\r" + description
   end
 
-  def self.course_week(week, week_number)
+  def self.course_week(week, week_number, course_meetings_manager)
     block_types = ['in class|In class - ',
                    'assignment|Assignment - ',
                    'assignment milestones|',
                    'assignment|'] # TODO: get the custom value
     week_output = "=== Week #{week_number} ===\r"
-    week_output += "{{start of course week}}\r"
+
+    meeting_dates = course_meetings_manager.meeting_dates_of(week).map(&:to_s)
+    meeting_dates = meeting_dates
+
+    if meeting_dates.blank?
+      week_output += "{{start of course week}}\r"
+    else
+      week_output += '{{start of course week|' + meeting_dates.join('|') + "}}\r"
+    end
+
     ordered_blocks = week.blocks.order(:order)
     ordered_blocks.each do |block|
       block_type = block_types[block.kind]
