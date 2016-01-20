@@ -1,5 +1,4 @@
 require "#{Rails.root}/lib/replica"
-require "#{Rails.root}/lib/importers/revision_importer"
 
 #= Imports articles from Wikipedia into the dashboard database
 class ArticleImporter
