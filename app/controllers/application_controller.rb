@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
            status: :unauthorized
   end
 
+  before_action :check_for_sitenotice
   before_action :check_for_expired_oauth_credentials
   before_action :check_for_unsupported_browser
   before_action :check_onboarded
@@ -27,6 +28,11 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(_resource_or_scope)
     request.env['omniauth.origin'] || '/'
+  end
+
+  def check_for_sitenotice
+    return if ENV['sitenotice'].blank?
+    flash[:notice] = ENV['sitenotice']
   end
 
   def check_onboarded
