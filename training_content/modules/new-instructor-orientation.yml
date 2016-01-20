@@ -2,7 +2,10 @@ name: Orientation for New Instructors
 id: 3
 description: |
   This orientation explores Wikipedia as it relates to classrooms and learning
-  across academic institutions. 
+  across academic institutions.
+
+  If you're preparing for a Wikipedia assignment in your class, be sure to log
+  in before you begin this orientation.
 estimated_ttc: 30 minutes
 slides:
   - slug: welcome-new-instructors # 301
