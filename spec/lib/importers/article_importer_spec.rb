@@ -102,24 +102,6 @@ describe ArticleImporter do
       expect(Article.find_by(title: 'Audi').namespace).to eq(0)
     end
 
-    it 'should handle cases where there are two ids for one page' do
-      first = create(:article,
-                     id: 2262715,
-                     title: 'Kostanay',
-                     namespace: 0)
-      second = create(:article,
-                      id: 46349871,
-                      title: 'Kostanay',
-                      namespace: 0)
-      ArticleImporter.resolve_duplicate_articles([first])
-      undeleted = Article.where(
-        title: 'Kostanay',
-        namespace: 0,
-        deleted: false)
-      expect(undeleted.count).to eq(1)
-      expect(undeleted.first.id).to eq(second.id)
-    end
-
     it 'should handle cases of space vs. underscore' do
       # This page was first moved from a sandbox to "Yōji Sakate", then
       # moved again to "Yōji Sakate (playwright)". It ended up in our database

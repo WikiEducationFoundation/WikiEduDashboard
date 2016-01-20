@@ -1,4 +1,5 @@
 require "#{Rails.root}/lib/replica"
+require "#{Rails.root}/lib/duplicate_article_deleter"
 require "#{Rails.root}/lib/importers/article_importer"
 require "#{Rails.root}/lib/importers/assignment_importer"
 
@@ -110,7 +111,7 @@ class RevisionImporter
 
     Article.import articles
     AssignmentImporter.update_article_ids(articles)
-    ArticleImporter.resolve_duplicate_articles(articles)
+    DuplicateArticleDeleter.resolve_duplicates(articles)
     Revision.import revisions
   end
 
