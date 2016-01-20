@@ -62,7 +62,11 @@ describe 'feedback form' do
   meths.each do |meth|
     context meth do
       let(:user) { create(:user) }
-      let!(:resp) { FeedbackFormResponse.create(body: 'bananas', subject: 'wikipedia.org') }
+      let!(:resp) do
+        FeedbackFormResponse.create(body: 'bananas',
+                                    subject: 'wikipedia.org',
+                                    user_id: user.id)
+      end
       let(:text) { 'Feedback' }
 
       before do

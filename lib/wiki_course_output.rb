@@ -62,14 +62,10 @@ class WikiCourseOutput
                    'assignment|'] # TODO: get the custom value
     week_output = "=== Week #{week_number} ===\r"
 
+    week_output += '{{start of course week'
     meeting_dates = course_meetings_manager.meeting_dates_of(week).map(&:to_s)
-    meeting_dates = meeting_dates
-
-    if meeting_dates.blank?
-      week_output += "{{start of course week}}\r"
-    else
-      week_output += '{{start of course week|' + meeting_dates.join('|') + "}}\r"
-    end
+    week_output += '|' + meeting_dates.join('|') unless meeting_dates.blank?
+    week_output += "}}\r"
 
     ordered_blocks = week.blocks.order(:order)
     ordered_blocks.each do |block|
@@ -112,7 +108,6 @@ class WikiCourseOutput
   def self.html_to_mediawiki(item)
     wikitext = PandocRuby.convert(item, from: :html, to: :mediawiki)
     wikitext = replace_code_with_nowiki(wikitext)
-    wikitext = reformat_image_links(wikitext)
     wikitext = replace_at_sign_with_template(wikitext)
     wikitext = reformat_links(wikitext)
     wikitext

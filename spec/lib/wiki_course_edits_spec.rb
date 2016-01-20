@@ -71,9 +71,10 @@ describe WikiCourseEdits do
     end
   end
 
-  context 'for a visiting scholarship or editathon' do
+  context 'for a visiting scholarship, editathon, or legacy course' do
     let(:visiting_scholarship) { create(:visiting_scholarship, submitted: true) }
     let(:editathon) { create(:editathon, submitted: true) }
+    let(:legacy_course) { create(:legacy_course) }
 
     it 'should return immediately without making edits' do
       expect(WikiEdits).not_to receive(:post_whole_page)
@@ -82,6 +83,9 @@ describe WikiCourseEdits do
                           current_user: user)
       WikiCourseEdits.new(action: :update_course,
                           course: editathon,
+                          current_user: user)
+      WikiCourseEdits.new(action: :update_assignments,
+                          course: legacy_course,
                           current_user: user)
     end
   end

@@ -47,8 +47,4 @@ class Revision < ActiveRecord::Base
     return [] if user.blank?
     user.courses.where('start <= ?', date).where('end >= ?', date)
   end
-
-  def happened_during_course?(course)
-    date >= course.start && date <= course.end
-  end
 end

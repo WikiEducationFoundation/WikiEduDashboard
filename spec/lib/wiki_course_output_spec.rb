@@ -65,10 +65,11 @@ describe WikiCourseOutput do
       create(:user,
              id: 1,
              wiki_id: 'Ragesock')
+      markdown_with_image = 'The course description with ![image](https://upload.wikimedia.org/wikipedia/commons/6/6b/View_from_Imperia_Tower_Moscow_04-2014_img12.jpg)'
       course = create(:course,
                       id: 1,
                       title: '# Title #',
-                      description: 'The course description',
+                      description: markdown_with_image,
                       weekdays: '0101010',
                       start: '2016-01-11',
                       end: '2016-04-24',

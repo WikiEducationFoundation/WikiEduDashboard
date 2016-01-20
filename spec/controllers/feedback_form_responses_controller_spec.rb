@@ -70,7 +70,7 @@ describe FeedbackFormResponsesController do
 
     describe 'ivars' do
       it 'sets responses' do
-        get :show, { id: form.id }
+        get :show, id: form.id
         expect(assigns(:response)).to be_a FeedbackFormResponse
       end
     end
