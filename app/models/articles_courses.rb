@@ -49,9 +49,8 @@ class ArticlesCourses < ActiveRecord::Base
       self.view_count = 0
       self.character_sum = 0
     else
-      characters = revisions.where('characters >= 0').sum(:characters) || 0
       self.view_count = revisions.order('date ASC').first.views || 0
-      self.character_sum = characters
+      self.character_sum = revisions.where('characters >= 0').sum(:characters) || 0
       self.new_article = revisions.where(new_article: true).count > 0
     end
     save

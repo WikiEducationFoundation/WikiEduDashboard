@@ -1,10 +1,12 @@
 require "#{Rails.root}/lib/wiki_edits"
+require './lib/wiki_course_output'
 
 #= Class for making wiki edits for a particular course
 class WikiCourseEdits
   def initialize(action:, course:, current_user:, **opts)
     return unless course.wiki_edits_enabled?
     @course = course
+    @dashboard_url = ENV['dashboard_url']
     @current_user = current_user
     send(action, opts)
   end
@@ -13,21 +15,14 @@ class WikiCourseEdits
   # set of participants, articles, timeline, and other details.
   # It simply overwrites the previous version.
   def update_course(delete: false)
-    require './lib/wiki_course_output'
+    return unless @course.submitted && @course.slug
 
-    return unless @current_user && @course.submitted && @course.slug
-
-    if delete == true
-      wiki_text = ''
-    else
-      wiki_text = WikiCourseOutput.translate_course(@course)
-    end
+    wiki_text = delete ? '' : WikiCourseOutput.translate_course(@course)
 
     course_prefix = ENV['course_prefix']
     wiki_title = "#{course_prefix}/#{@course.slug}"
 
-    dashboard_url = ENV['dashboard_url']
-    summary = "Updating course from #{dashboard_url}"
+    summary = "Updating course from #{@dashboard_url}"
 
     # Post the update
     response = WikiEdits.post_whole_page(@current_user, wiki_title, wiki_text, summary)
@@ -56,9 +51,8 @@ class WikiCourseEdits
 
     # Announce the course on the Education Noticeboard or equivalent.
     announcement_page = ENV['course_announcement_page']
-    dashboard_url = ENV['dashboard_url']
     # rubocop:disable Metrics/LineLength
-    announcement = "I have created a new course — #{@course.title} — at #{dashboard_url}/courses/#{@course.slug}. If you'd like to see more details about my course, check out my course page.--~~~~"
+    announcement = "I have created a new course — #{@course.title} — at #{@dashboard_url}/courses/#{@course.slug}. If you'd like to see more details about my course, check out my course page.--~~~~"
     section_title = "New course announcement: [[#{course_title}]] (instructor: [[User:#{instructor.wiki_id}]])"
     # rubocop:enable Metrics/LineLength
     message = { sectiontitle: section_title,
@@ -83,8 +77,8 @@ class WikiCourseEdits
     # TODO: Do this more selectively, replacing the default template if
     # it is present.
     sandbox = user_page + '/sandbox'
-    sandbox_template = "{{#{ENV['dashboard_url']} sandbox}}"
-    sandbox_summary = "adding {{#{ENV['dashboard_url']} sandbox}}"
+    sandbox_template = "{{#{@dashboard_url} sandbox}}"
+    sandbox_summary = "adding {{#{@dashboard_url} sandbox}}"
     WikiEdits.add_to_page_top(sandbox, @current_user, sandbox_template, sandbox_summary)
   end
 

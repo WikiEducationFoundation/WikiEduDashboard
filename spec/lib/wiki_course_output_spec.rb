@@ -54,7 +54,11 @@ describe WikiCourseOutput do
                       title: 'Block 1 title',
                       kind: 0,
                       content: 'block 1 content')
-      html_with_link = '<ul>\n  <li>Overview of the course</li>\n  <li>Introduction to how Wikipedia will be used in the course</li>\n  <li>Understanding Wikipedia as a community, we\'ll discuss its expectations and etiquette.</li>\n</ul>\n<hr />\n<p>Handout: <a href="http://wikiedu.org/editingwikipedia">Editing Wikipedia</a></p>\n'
+      html_with_link = '<ul>\n  <li>Overview of the course</li>\n  <li>Introduction'\
+        ' to how Wikipedia will be used in the course</li>\n  <li>Understanding'\
+        ' Wikipedia as a community, we\'ll discuss its expectations and etiquette.'\
+        '</li>\n</ul>\n<hr />\n<p>Handout: <a href="http://wikiedu.org/editingwikipedia">'\
+        'Editing Wikipedia</a></p>\n'
       block2 = create(:block,
                       id: 5,
                       title: nil,
@@ -65,7 +69,9 @@ describe WikiCourseOutput do
       create(:user,
              id: 1,
              wiki_id: 'Ragesock')
-      markdown_with_image = 'The course description with ![image](https://upload.wikimedia.org/wikipedia/commons/6/6b/View_from_Imperia_Tower_Moscow_04-2014_img12.jpg)'
+      markdown_with_image = 'The course description with ![image]'\
+      '(https://upload.wikimedia.org/wikipedia/commons/6/6b/View_from_Imperia_Tower'\
+      '_Moscow_04-2014_img12.jpg)'
       course = create(:course,
                       id: 1,
                       title: '# Title #',
