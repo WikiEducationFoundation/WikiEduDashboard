@@ -118,15 +118,14 @@ en:
     current: Current Courses
     duration: Course Duration
     expected_students: Expected Students
-    expected_editors: Expected Editors
     gradeables_none: This course has no gradeable assignments.
     instructor:
       one: Instructor
       other: Instructors
     students: Students
+    student_editors: Student Editors
     students_none: This course has no students.
     students_short: Students
-    editors: Editors
     timeline: Assignment Details
     weeks_none: This course does not have a timeline yet.
     new_week: Add New Week
@@ -147,6 +146,13 @@ en:
       school). Click the date to change between unselected, selected, and
       holiday state. The dates of course activities will change to account for
       weeks that have no scheduled meetings.
+
+  # These are strings that are not specific to education/classroom contexts
+  courses_generic:
+    expected_students: Expected Editors
+    students: Editors
+    students_short: Editors
+    student_editors: Editors
 
   course_creator:
     create_new: Create a New Course
@@ -180,7 +186,6 @@ en:
     date_time: Date/Time
     edit_count_description: Total Edits
     revisions: Recent Edits
-    student_editors: Student Editors
     view: Views
     view_count_description: Article Views
     word_count: Words Added
@@ -230,7 +235,6 @@ en:
     contributions: User Contributions
     contributions_more: View More Contributions
     student_editors: Student Editors
-    editors: Editors
     loading: Loading users...
     name: Name
     none: This course has no students.
@@ -243,7 +247,7 @@ en:
       other: "are up-to-date with training"
     training_complete_count: "%{count} training up-to-date"
     training_doc: >
-      Student editors who have completed the all assigned training modules that
+      Editors who have completed the all assigned training modules that
       have come due are counted as up-to-date with their training.
     training_incomplete: Training Incomplete
     up_to_date_with_training: 'up-to-date with training'

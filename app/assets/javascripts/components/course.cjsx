@@ -17,6 +17,9 @@ getState = ->
     current_user: cu || current
   }
 
+usersTabLabel = (string_prefix = 'courses') ->
+  I18n.t("#{string_prefix}.students_short")
+
 Course = React.createClass(
   displayName: 'Course'
   mixins: [CourseStore.mixin, UserStore.mixin]
@@ -54,12 +57,6 @@ Course = React.createClass(
         </a>)
       else
         (<a><h2 className="title">{@state.course.title}</h2></a>)
-
-    # Set interface strings based on course type
-    if @state.course.type == 'ClassroomProgramCourse'
-      usersTabLabel = I18n.t('courses.students_short')
-    else
-      usersTabLabel = I18n.t('courses.editors')
 
     if @getCurrentUser().id?
       user_obj = UserStore.getFiltered({ id: @getCurrentUser().id })[0]
@@ -201,7 +198,7 @@ Course = React.createClass(
               </div>
               {timeline}
               <div className="nav__item" id="students-link">
-                <p><Link to="#{@_courseLinkParams()}/students" activeClassName="active">{usersTabLabel}</Link></p>
+                <p><Link to="#{@_courseLinkParams()}/students" activeClassName="active">{usersTabLabel(@state.course.string_prefix)}</Link></p>
               </div>
               <div className="nav__item" id="articles-link">
                 <p><Link to="#{@_courseLinkParams()}/articles" activeClassName="active">Articles</Link></p>

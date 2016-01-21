@@ -156,7 +156,11 @@ class Course < ActiveRecord::Base
     TrainingModule.all.select { |tm| ids.include?(tm.id) }
   end
 
+  # The url for the on-wiki version of the course.
   def url
+    # wiki_title is implemented by the specific course type.
+    # Some types do not have corresponding on-wiki pages, so they have no
+    # wiki_title or url.
     return unless wiki_title
     language = ENV['wiki_language']
     "https://#{language}.wikipedia.org/wiki/#{wiki_title}"

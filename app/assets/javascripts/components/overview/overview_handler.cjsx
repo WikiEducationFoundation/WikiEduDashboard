@@ -18,6 +18,9 @@ getState = ->
   weeks: WeekStore.getWeeks()
   current: CourseStore.getCurrentWeek()
 
+userLabel = (string_prefix = 'courses')->
+  I18n.t("#{string_prefix}.student_editors")
+
 Overview = React.createClass(
   displayName: 'Overview'
   mixins: [WeekStore.mixin, CourseStore.mixin]
@@ -30,12 +33,6 @@ Overview = React.createClass(
   getInitialState: ->
     getState()
   render: ->
-    # Set interface strings based on course type
-    if @props.course.type == 'ClassroomProgramCourse'
-      userLabel = I18n.t('users.student_editors')
-    else
-      userLabel = I18n.t('users.editors')
-
     if @props.location.query.modal is 'true' && @state.course.id
       return (
         <CourseClonedModal
@@ -80,7 +77,7 @@ Overview = React.createClass(
         </div>
         <div className="stat-display__stat popover-trigger" id="student-editors">
           <div className="stat-display__value">{@props.course.student_count}</div>
-          <small>{userLabel}</small>
+          <small>{userLabel(@props.course.string_prefix)}</small>
           <div className="popover dark" id="trained-count">
             <h4 className="stat-display__value">{@props.course.trained_count}</h4>
             <p>are up-to-date with training</p>

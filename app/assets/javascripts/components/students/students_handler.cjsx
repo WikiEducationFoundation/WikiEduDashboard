@@ -7,6 +7,9 @@ UIActions         = require '../../actions/ui_actions'
 ServerActions     = require '../../actions/server_actions'
 
 
+usersLabel = (string_prefix = 'courses') ->
+  I18n.t("#{string_prefix}.students")
+
 StudentsHandler = React.createClass(
   displayName: 'StudentsHandler'
   componentWillMount: ->
@@ -14,15 +17,9 @@ StudentsHandler = React.createClass(
   sortSelect: (e) ->
     UIActions.sort 'users', e.target.value
   render: ->
-    # Set interface strings based on course type
-    if @props.course.type == 'ClassroomProgramCourse'
-      userLabel = I18n.t('courses.students')
-    else
-      userLabel = I18n.t('courses.editors')
-
     <div id='users'>
       <div className='section-header'>
-        <h3>{userLabel}</h3>
+        <h3>{usersLabel(@props.course.string_prefix)}</h3>
         <div className='sort-select'>
           <select className='sorts' name='sorts' onChange={@sortSelect}>
             <option value='wiki_id'>Name</option>

@@ -8,4 +8,8 @@ class ClassroomProgramCourse < Course
     escaped_slug = slug.tr(' ', '_')
     "#{prefix}#{escaped_slug}"
   end
+
+  def string_prefix
+    'courses'
+  end
 end

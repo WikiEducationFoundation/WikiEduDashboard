@@ -12,4 +12,8 @@ class VisitingScholarship < Course
   def wiki_title
     nil
   end
+
+  def string_prefix
+    'courses_generic'
+  end
 end
