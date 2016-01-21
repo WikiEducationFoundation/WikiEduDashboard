@@ -30,6 +30,12 @@ Overview = React.createClass(
   getInitialState: ->
     getState()
   render: ->
+    # Set interface strings based on course type
+    if @props.course.type == 'ClassroomProgramCourse'
+      userLabel = I18n.t('users.student_editors')
+    else
+      userLabel = I18n.t('users.editors')
+
     if @props.location.query.modal is 'true' && @state.course.id
       return (
         <CourseClonedModal
@@ -74,7 +80,7 @@ Overview = React.createClass(
         </div>
         <div className="stat-display__stat popover-trigger" id="student-editors">
           <div className="stat-display__value">{@props.course.student_count}</div>
-          <small>Student Editors</small>
+          <small>{userLabel}</small>
           <div className="popover dark" id="trained-count">
             <h4 className="stat-display__value">{@props.course.trained_count}</h4>
             <p>are up-to-date with training</p>

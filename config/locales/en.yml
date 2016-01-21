@@ -117,6 +117,8 @@ en:
     nocourses: You are not participating in any courses.
     current: Current Courses
     duration: Course Duration
+    expected_students: Expected Students
+    expected_editors: Expected Editors
     gradeables_none: This course has no gradeable assignments.
     instructor:
       one: Instructor
@@ -124,6 +126,7 @@ en:
     students: Students
     students_none: This course has no students.
     students_short: Students
+    editors: Editors
     timeline: Assignment Details
     weeks_none: This course does not have a timeline yet.
     new_week: Add New Week
@@ -226,7 +229,8 @@ en:
       Characters Added<br>(mainspace | userspace)
     contributions: User Contributions
     contributions_more: View More Contributions
-    editors: Student Editors
+    student_editors: Student Editors
+    editors: Editors
     loading: Loading users...
     name: Name
     none: This course has no students.

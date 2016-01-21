@@ -47,6 +47,20 @@ Course = React.createClass(
     alerts = []
     route_params = @props.params
 
+    courseLink =
+      if @state.course.url?
+        (<a href={@state.course.url} target="_blank">
+          <h2 className="title">{@state.course.title}</h2>
+        </a>)
+      else
+        (<a><h2 className="title">{@state.course.title}</h2></a>)
+
+    # Set interface strings based on course type
+    if @state.course.type == 'ClassroomProgramCourse'
+      usersTabLabel = I18n.t('courses.students_short')
+    else
+      usersTabLabel = I18n.t('courses.editors')
+
     if @getCurrentUser().id?
       user_obj = UserStore.getFiltered({ id: @getCurrentUser().id })[0]
     user_role = if user_obj? then user_obj.role else -1
@@ -180,16 +194,14 @@ Course = React.createClass(
       <Affix className="course-nav__wrapper" offset=55>
         <div className="course_navigation">
           <div className="container">
-            <a href={@state.course.url} target="_blank">
-              <h2 className="title">{@state.course.title}</h2>
-            </a>
+            {courseLink}
             <nav>
               <div className="nav__item" id="overview-link">
                 <p><Link to="#{@_courseLinkParams()}/overview" className={overviewLinkClassName} activeClassName="active">Overview</Link></p>
               </div>
               {timeline}
               <div className="nav__item" id="students-link">
-                <p><Link to="#{@_courseLinkParams()}/students" activeClassName="active">Students</Link></p>
+                <p><Link to="#{@_courseLinkParams()}/students" activeClassName="active">{usersTabLabel}</Link></p>
               </div>
               <div className="nav__item" id="articles-link">
                 <p><Link to="#{@_courseLinkParams()}/articles" activeClassName="active">Articles</Link></p>

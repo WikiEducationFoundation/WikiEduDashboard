@@ -156,14 +156,8 @@ class Course < ActiveRecord::Base
     TrainingModule.all.select { |tm| ids.include?(tm.id) }
   end
 
-  # LegacyCourse overrides this.
-  def wiki_title
-    prefix = ENV['course_prefix'] + '/'
-    escaped_slug = slug.tr(' ', '_')
-    "#{prefix}#{escaped_slug}"
-  end
-
   def url
+    return unless wiki_title
     language = ENV['wiki_language']
     "https://#{language}.wikipedia.org/wiki/#{wiki_title}"
   end

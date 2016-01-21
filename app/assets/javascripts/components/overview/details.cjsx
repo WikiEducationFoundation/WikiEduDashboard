@@ -31,6 +31,12 @@ Details = React.createClass(
     to_pass[value_key] = value
     CourseActions.updateCourse to_pass
   render: ->
+    if @props.course.type == 'ClassroomProgramCourse'
+      expectedLabel = I18n.t('courses.expected_students')
+    else
+      expectedLabel = I18n.t('courses.expected_editors')
+
+
     instructors = <InlineUsers {...@props} users={@props.instructors} role={1} title='Instructors' />
     online = <InlineUsers {...@props} users={@props.online} role={2} title='Online Volunteers' />
     campus = <InlineUsers {...@props} users={@props.campus} role={3} title='Campus Volunteers' />
@@ -87,7 +93,7 @@ Details = React.createClass(
             value_key='expected_students'
             editable={@props.editable}
             type='number'
-            label='Expected Students'
+            label={expectedLabel}
           />
         </fieldset>
         <fieldset>

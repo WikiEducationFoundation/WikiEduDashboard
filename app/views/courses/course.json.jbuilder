@@ -4,7 +4,7 @@ json.course do
   json.call(@course, :id, :title, :description, :start, :end, :school,
             :subject, :slug, :url, :listed, :submitted, :listed,
             :expected_students, :timeline_start, :timeline_end, :day_exceptions,
-            :weekdays, :no_day_exceptions, :updated_at)
+            :weekdays, :no_day_exceptions, :updated_at, :type)
 
   json.term @course.cloned_status == 1 ? '' : @course.term
   json.legacy @course.id < 10000
