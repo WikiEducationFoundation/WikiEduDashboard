@@ -22,6 +22,8 @@ class CourseCloneManager
     @clone.slug = course_slug(@clone)
     @clone.passcode = Course.generate_passcode
     @clone.submitted = false
+    # If a legacy course is cloned, switch the type to ClassroomProgramCourse.
+    @clone.type = 'ClassroomProgramCourse' if @clone.legacy?
 
     # The datepickers require an ititial date, so we set these to today's date
     today = Time.zone.today
