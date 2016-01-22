@@ -5,10 +5,7 @@ Router            = ReactRouter.Router
 StudentList       = require './student_list'
 UIActions         = require '../../actions/ui_actions'
 ServerActions     = require '../../actions/server_actions'
-
-
-usersLabel = (string_prefix = 'courses') ->
-  I18n.t("#{string_prefix}.students")
+CourseUtils       = require '../../utils/course_utils'
 
 StudentsHandler = React.createClass(
   displayName: 'StudentsHandler'
@@ -19,7 +16,7 @@ StudentsHandler = React.createClass(
   render: ->
     <div id='users'>
       <div className='section-header'>
-        <h3>{usersLabel(@props.course.string_prefix)}</h3>
+        <h3>{CourseUtils.i18n('students', @props.course.string_prefix)}</h3>
         <div className='sort-select'>
           <select className='sorts' name='sorts' onChange={@sortSelect}>
             <option value='wiki_id'>Name</option>

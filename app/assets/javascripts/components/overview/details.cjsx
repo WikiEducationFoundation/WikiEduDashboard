@@ -13,6 +13,8 @@ TagStore          = require '../../stores/tag_store'
 UserStore         = require '../../stores/user_store'
 CohortStore       = require '../../stores/cohort_store'
 
+CourseUtils       = require '../../utils/course_utils'
+
 # For some reason getState is not being triggered when CohortStore gets updated
 
 getState = (course_id) ->
@@ -23,9 +25,6 @@ getState = (course_id) ->
   campus: UserStore.getFiltered({ role: 3 })
   staff: UserStore.getFiltered({ role: 4 })
   tags: TagStore.getModels()
-
-expectedLabel = (string_prefix = 'courses') ->
-  I18n.t("#{string_prefix}.expected_students")
 
 Details = React.createClass(
   displayName: 'Details'
@@ -90,7 +89,7 @@ Details = React.createClass(
             value_key='expected_students'
             editable={@props.editable}
             type='number'
-            label={expectedLabel(@props.course.string_prefix)}
+            label={CourseUtils.i18n('expected_students', @props.course.string_prefix)}
           />
         </fieldset>
         <fieldset>

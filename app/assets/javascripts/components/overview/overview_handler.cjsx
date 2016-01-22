@@ -10,6 +10,7 @@ WeekStore     = require '../../stores/week_store'
 ServerActions = require '../../actions/server_actions'
 Loading       = require '../common/loading'
 CourseClonedModal  = require './course_cloned_modal'
+CourseUtils   = require '../../utils/course_utils'
 
 
 getState = ->
@@ -17,9 +18,6 @@ getState = ->
   loading: WeekStore.getLoadingStatus()
   weeks: WeekStore.getWeeks()
   current: CourseStore.getCurrentWeek()
-
-userLabel = (string_prefix = 'courses')->
-  I18n.t("#{string_prefix}.student_editors")
 
 Overview = React.createClass(
   displayName: 'Overview'
@@ -77,7 +75,7 @@ Overview = React.createClass(
         </div>
         <div className="stat-display__stat popover-trigger" id="student-editors">
           <div className="stat-display__value">{@props.course.student_count}</div>
-          <small>{userLabel(@props.course.string_prefix)}</small>
+          <small>{CourseUtils.i18n('student_editors', @props.course.string_prefix)}</small>
           <div className="popover dark" id="trained-count">
             <h4 className="stat-display__value">{@props.course.trained_count}</h4>
             <p>are up-to-date with training</p>

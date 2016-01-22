@@ -8,6 +8,7 @@ CourseStore       = require '../stores/course_store'
 UserStore         = require '../stores/user_store'
 CohortStore       = require '../stores/cohort_store'
 Affix             = require './common/affix'
+CourseUtils       = require '../utils/course_utils'
 
 getState = ->
   current = $('#react_root').data('current_user')
@@ -16,9 +17,6 @@ getState = ->
     course: CourseStore.getCourse()
     current_user: cu || current
   }
-
-usersTabLabel = (string_prefix = 'courses') ->
-  I18n.t("#{string_prefix}.students_short")
 
 Course = React.createClass(
   displayName: 'Course'
@@ -198,7 +196,7 @@ Course = React.createClass(
               </div>
               {timeline}
               <div className="nav__item" id="students-link">
-                <p><Link to="#{@_courseLinkParams()}/students" activeClassName="active">{usersTabLabel(@state.course.string_prefix)}</Link></p>
+                <p><Link to="#{@_courseLinkParams()}/students" activeClassName="active">{CourseUtils.i18n('students_short',@state.course.string_prefix)}</Link></p>
               </div>
               <div className="nav__item" id="articles-link">
                 <p><Link to="#{@_courseLinkParams()}/articles" activeClassName="active">Articles</Link></p>
