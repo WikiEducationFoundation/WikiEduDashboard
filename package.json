@@ -80,7 +80,7 @@
     "react": "0.14.6",
     "react-addons-css-transition-group": "0.14.6",
     "react-datepicker": "0.15.2",
-    "react-day-picker": "1.1.5",
+    "react-day-picker": "1.2.0",
     "react-dnd": "2.0.2",
     "react-dnd-html5-backend": "^2.0.2",
     "react-dnd-touch-backend": "^0.2.4",
