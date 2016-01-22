@@ -23,16 +23,25 @@ module.exports = {
     week_end = recurrence.endDate()
     week_end.day(6)
     week_start = recurrence.startDate()
+    first_week_start = recurrence.startDate().day()
     week_start.day(0)
     course_weeks = Math.ceil(week_end.diff(week_start, 'weeks', true))
     unless recurrence.rules? && recurrence.rules[0].measure == 'daysOfWeek' && Object.keys(recurrence.rules[0].units).length > 0
       return null
 
     meetings = []
+
     [0..(course_weeks - 1)].forEach (week) =>
       week_start = moment(recurrence.startDate()).startOf('week').add(week, 'weeks')
+
+      # Account for the first partial week, which may not have 7 days.
+      if week == 0
+        first_day_of_week = first_week_start
+      else
+        first_day_of_week = 0
+
       ms = []
-      [0..6].forEach (i) =>
+      [first_day_of_week..6].forEach (i) =>
         day = moment(week_start).add(i, 'days')
         if course && @courseMeets(course.weekdays, i, day.format('YYYYMMDD'), exceptions)
           ms.push day.format('dd')[0]
