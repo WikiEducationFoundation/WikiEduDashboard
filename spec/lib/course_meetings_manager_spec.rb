@@ -9,13 +9,14 @@ describe CourseMeetingsManager do
   end
   let(:t_start) { '2015-08-28' } # Friday
   let(:t_end)   { '2016-01-14' } # Thursday
+  let(:weekdays) { '0010100' } # Tuesdays and Thursdays
   let!(:course) do
     create(:course,
            id: 1,
            timeline_start: t_start,
            timeline_end: t_end,
            day_exceptions: day_ex,
-           weekdays: '0010100' # Tuesdays and Thursdays
+           weekdays: weekdays
           )
   end
 
@@ -84,6 +85,14 @@ describe CourseMeetingsManager do
       let(:t_end)   { nil }
       it 'returns nil' do
         expect(subject).to be_nil
+      end
+    end
+
+    context 'course with no week days, but with day exceptions' do
+      let(:weekdays) { '0000000' }
+      it 'returns the day exceptions, week by week' do
+        # December 6 - 12, with exceptions for three days
+        expect(subject).to include('(Tue, Wed, Thu)')
       end
     end
   end

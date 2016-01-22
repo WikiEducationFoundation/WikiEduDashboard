@@ -27,7 +27,12 @@ class CourseMeetingsManager
 
   def meeting_dates_of(week)
     return [] unless course_has_meeting_date_data?
-    @week_meeting_dates.reject(&:empty?)[week.order - 1]
+    dates = @week_meeting_dates.reject(&:empty?)[week.order - 1]
+    if dates.nil?
+      return []
+    else
+      return dates
+    end
   end
 
   DAYS_AS_SYM = %i(sunday monday tuesday wednesday thursday friday saturday)
