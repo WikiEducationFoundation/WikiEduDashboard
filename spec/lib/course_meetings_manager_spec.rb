@@ -21,7 +21,9 @@ describe CourseMeetingsManager do
   end
 
   before do
-    (1..8).each do |week_number|
+    # There 21 calendar weeks and 16 non-blackout weeks. This creates weeks
+    # that extend beyond the timeline.
+    (1..24).each do |week_number|
       create(:week, course_id: 1, order: week_number)
     end
   end
@@ -155,12 +157,23 @@ describe CourseMeetingsManager do
   end
 
   describe '#meeting_dates_of' do
-    let(:week_2) { Week.find_by(order: 2) }
-    let(:expected_dates) { ['2015-09-08'.to_date, '2015-09-10'.to_date] }
-    subject { described_class.new(course).meeting_dates_of(week_2) }
+    subject { described_class.new(course).meeting_dates_of(week) }
 
-    it 'returns the dates of meetings in a week' do
-      expect(subject).to eq(expected_dates)
+    context 'for a week with meetings' do
+      let(:week) { Week.find_by(order: 2) }
+      let(:expected_week_dates) { ['2015-09-08'.to_date, '2015-09-10'.to_date] }
+
+      it 'returns the dates of meetings that week' do
+        expect(subject).to eq(expected_week_dates)
+      end
+    end
+
+    context 'for a week outside the timeline range' do
+      let(:week) { Week.find_by(order: 20) }
+
+      it 'returns an empty array' do
+        expect(subject).to eq([])
+      end
     end
   end
 end
