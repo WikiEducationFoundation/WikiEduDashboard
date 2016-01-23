@@ -34,7 +34,7 @@ class TrainingModulePresenter
   end
 
   def should_show_ttc?
-    training_modules_user.nil?
+    training_modules_user.nil? || @progress_manager.module_completed?
   end
 
   private

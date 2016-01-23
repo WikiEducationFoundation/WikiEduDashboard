@@ -7,6 +7,7 @@ class TrainingProgressManager
       user_id: @user.id,
       training_module_id: @training_module.try(:id)
     ) if @user.present?
+    @due_date_manager = due_date_manager
   end
 
   def slide_completed?
@@ -34,9 +35,11 @@ class TrainingProgressManager
   alias_method :assignment_deadline_status, :assignment_status_css_class
 
   def assignment_status
-    return unless due_date_manager.blocks_with_module_assigned(@training_module).any?
-    parenthetical = "due #{overall_due_date}"
-    "Training Assignment (#{module_completed? ? 'completed' : parenthetical})"
+    if @due_date_manager.blocks_with_module_assigned(@training_module).any?
+      parenthetical = "due #{overall_due_date}"
+      return "Training Assignment (#{module_completed? ? 'completed' : parenthetical})"
+    end
+    return 'Completed' if module_completed?
   end
 
   def current_slide_further_than_previous?(previous_slug)
@@ -54,7 +57,7 @@ class TrainingProgressManager
   private
 
   def overall_due_date
-    due_date_manager.overall_due_date
+    @due_date_manager.overall_due_date
   end
 
   def due_date_manager
