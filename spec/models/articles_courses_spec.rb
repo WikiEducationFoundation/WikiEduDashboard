@@ -81,7 +81,7 @@ describe ArticlesCourses, type: :model do
   end
 
   describe '.update_from_course' do
-    it 'should create new ArticlesCourses records from course revisions' do
+    before do
       create(:course, id: 1, start: 1.year.ago, end: 1.day.ago)
       create(:user, id: 1)
       create(:courses_user, user_id: 1, course_id: 1,
@@ -92,9 +92,19 @@ describe ArticlesCourses, type: :model do
       create(:revision, article_id: 1, user_id: 1, date: 2.years.ago)
       create(:article, id: 3, namespace: 1)
       create(:revision, article_id: 3, user_id: 1, date: 1.week.ago)
+    end
 
+    it 'creates new ArticlesCourses records from course revisions' do
       ArticlesCourses.update_from_course(Course.last)
       expect(ArticlesCourses.count).to eq(1)
+    end
+
+    it 'destroys ArticlesCourses that do not correspond to course revisions' do
+      create(:articles_course, id: 500, article_id: 2, course_id: 1)
+      create(:articles_course, id: 501, article_id: 2, course_id: 2)
+      ArticlesCourses.update_from_course(Course.last)
+      expect(ArticlesCourses.exists?(500)).to eq(false)
+      expect(ArticlesCourses.exists?(501)).to eq(true)
     end
   end
 end

@@ -67,6 +67,13 @@ class ArticlesCourses < ActiveRecord::Base
     mainspace_revisions = get_mainspace_revisions(course.revisions)
     course_article_ids = course.articles.pluck(:id)
     revision_article_ids = mainspace_revisions.pluck(:article_id).uniq
+
+    # Remove all the ArticlesCourses that do not correspond to course revisions.
+    # That may happen if the course dates changed, so some revisions are no
+    # longer part of the course.
+    course.articles_courses.where.not(article_id: revision_article_ids).destroy_all
+
+    # Add new ArticlesCourses
     ActiveRecord::Base.transaction do
       revision_article_ids.each do |article_id|
         next if course_article_ids.include?(article_id)
