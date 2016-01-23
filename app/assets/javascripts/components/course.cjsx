@@ -128,16 +128,26 @@ Course = React.createClass(
 
     if @props.location.query.enroll
       if @getCurrentUser().id?
-        enroll_card = (
-          <div className="module enroll">
-            <a href={@_courseLinkParams()}>
-              <svg className="close" tabIndex="0" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" style={{"fill":"currentcolor", "verticalAlign": "middle", "width":"32px", "height":"32px"}}><g><path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"></path></g></svg>
-            </a>
-            <h1>Join '{@state.course.title}'?</h1>
-            <a className="button dark" href={@state.course.enroll_url + @props.location.query.enroll}>Join</a>
-            <a className="button border" href={@_courseLinkParams()}>Cancel</a>
-          </div>
-        )
+        if user_role == -1
+          enroll_card = (
+            <div className="module enroll">
+              <a href={@_courseLinkParams()}>
+                <svg className="close" tabIndex="0" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" style={{"fill":"currentcolor", "verticalAlign": "middle", "width":"32px", "height":"32px"}}><g><path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"></path></g></svg>
+              </a>
+              <h1>Join '{@state.course.title}'?</h1>
+              <a className="button dark" href={@state.course.enroll_url + @props.location.query.enroll}>Join</a>
+              <a className="button border" href={@_courseLinkParams()}>Cancel</a>
+            </div>
+          )
+        else
+          enroll_card = (
+            <div className="module enroll">
+              <a href={@_courseLinkParams()}>
+                <svg className="close" tabIndex="0" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" style={{"fill":"currentcolor", "verticalAlign": "middle", "width":"32px", "height":"32px"}}><g><path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"></path></g></svg>
+              </a>
+              <h1>You are already part '{@state.course.title}'!</h1>
+            </div>
+          )
       else
         enroll_card = (
           <div className="module enroll">
@@ -147,7 +157,7 @@ Course = React.createClass(
             <h1>Hello,</h1>
             <p>
               You’ve been invited to join {@state.course.title}. To join the course, you need to log in with a Wikipedia account.
-              <br/> If you don't have a Wikipedia account yet, sign up for one now.
+              <br/> If you don’t have a Wikipedia account yet, sign up for one now.
             </p>
             <p>
               <a href={"/users/auth/mediawiki?origin=" + window.location} className="button auth dark"><i className="icon icon-wiki-logo"></i> Log in with Wikipedia</a>
