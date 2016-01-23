@@ -99,8 +99,8 @@ describe TrainingModulePresenter do
           last_slide_completed: mod.slides.last.slug
         )
       end
-      it 'returns false' do
-        expect(subject).to eq(false)
+      it 'returns true' do
+        expect(subject).to eq(true)
       end
     end
 
