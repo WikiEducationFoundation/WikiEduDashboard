@@ -17,9 +17,6 @@ emptyWeeksAtBeginning = (weekMeetings) ->
     return count unless week == '()'
     count += 1
 
-hasWeekMeetings = (week_meetings_string) ->
-  week_meetings_string != '()'
-
 ThisWeek = React.createClass(
   propTypes:
     course:  React.PropTypes.object
