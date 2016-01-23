@@ -28,7 +28,6 @@ getState = ->
   editable_week_id: WeekStore.getEditableWeekId()
   course: CourseStore.getCourse()
 
-
 # Returns number of available weeks without anything scheduled
 # Available weeks are inside the timeline dates and have weekday meetings
 openWeeks = (recurrence, weeks) ->

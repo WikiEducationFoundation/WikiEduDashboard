@@ -31,7 +31,7 @@ Meetings = React.createClass(
     @updateCourse 'no_day_exceptions', e.target.checked
     @updateCourse 'day_exceptions', ''
   saveDisabled: ->
-    enable = @state.anyDatesSelected && (@state.blackoutDatesSelected || @state.course.no_day_exceptions)
+    enable = @state.blackoutDatesSelected || (@state.anyDatesSelected && @state.course.no_day_exceptions)
 
     if enable then false else true
   render: ->

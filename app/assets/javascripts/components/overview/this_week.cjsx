@@ -7,6 +7,18 @@ Week            = require '../timeline/week'
 Loading         = require '../common/loading'
 
 DateUtils       = require '../../utils/course_date_utils'
+DateCalculator  = require '../../utils/date_calculator'
+
+
+
+emptyWeeksAtBeginning = (weekMeetings) ->
+  count = 0
+  for week in weekMeetings
+    return count unless week == '()'
+    count += 1
+
+hasWeekMeetings = (week_meetings_string) ->
+  week_meetings_string != '()'
 
 ThisWeek = React.createClass(
   propTypes:
@@ -19,26 +31,35 @@ ThisWeek = React.createClass(
     week = @props.weeks[@props.current]
     if week?
       course = @props.course
+      week_index = @props.current + 1
+
       meetings = DateUtils.meetings(course)
       weekMeetings = DateUtils.weekMeetings(meetings, course, course.day_exceptions)
+      is_first_week = moment().diff(@props.course.timeline_start, 'days') < 0
+      if is_first_week
+        week_meetings_index = emptyWeeksAtBeginning(weekMeetings)
+        thisWeekMeetings = weekMeetings[week_meetings_index]
+        week_index = week_meetings_index + 1
+      else
+        thisWeekMeetings = weekMeetings[@props.current]
+
       week_component = (
         <Week
           week={week}
           timeline_start={@props.course.timeline_start}
           timeline_end={@props.course.timeline_end}
-          index={@props.current + 1}
+          index={week_index}
           key={week.id}
           editable=false
           blocks={week.blocks}
           moveBlock={null}
           deleteWeek={null}
           showTitle=false
-          meetings={if weekMeetings then weekMeetings[0] else false}
+          meetings={if weekMeetings then thisWeekMeetings else false}
         />
       )
-      if moment().diff(@props.course.timeline_start, 'days') < 0
-        week_end = moment(@props.course.timeline_start).add(6, 'days')
-        title = "First Week (#{moment(@props.course.timeline_start).format('MM/DD')} - #{week_end.format('MM/DD')})"
+      if is_first_week
+        title = "First Active Week"
     else
       no_weeks = (
         <li className="row view-all">

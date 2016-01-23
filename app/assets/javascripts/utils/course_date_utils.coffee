@@ -26,7 +26,7 @@ module.exports = {
     first_week_start = recurrence.startDate().day()
     week_start.day(0)
     course_weeks = Math.ceil(week_end.diff(week_start, 'weeks', true))
-    unless recurrence.rules? && recurrence.rules[0].measure == 'daysOfWeek' && Object.keys(recurrence.rules[0].units).length > 0
+    unless recurrence.rules? && recurrence.rules[0].measure == 'daysOfWeek'
       return null
 
     meetings = []
