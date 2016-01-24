@@ -2,6 +2,7 @@ require "#{Rails.root}/lib/importers/article_importer"
 require "#{Rails.root}/lib/importers/view_importer"
 require "#{Rails.root}/lib/importers/rating_importer"
 require "#{Rails.root}/lib/cleaners"
+require "#{Rails.root}/lib/revisions_cleaner"
 require "#{Rails.root}/lib/importers/assigned_article_importer"
 
 namespace :article do
@@ -58,7 +59,7 @@ namespace :article do
   desc 'Find articles for orphaned revisions'
   task repair_orphan_revisions: 'batch:setup_logger' do
     Rails.logger.debug 'Repairing orphaned revisions'
-    Cleaners.repair_orphan_revisions
+    RevisionsCleaner.repair_orphan_revisions
   end
 
   desc 'Import assigned articles'
