@@ -6,9 +6,5 @@ class HomeController < ApplicationController
   def index
     cohort = ENV['default_cohort']
     @presenter = CoursesPresenter.new(current_user, cohort)
-    if Rails.env.test?
-      render :test and return
-    end
   end
-
 end
