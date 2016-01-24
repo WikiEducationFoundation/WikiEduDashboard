@@ -5,6 +5,7 @@ AllCops:
     - 'Gemfile'
     - 'Guardfile'
     - 'Rakefile'
+    - 'db/*'
     - 'db/**/*'
     - 'node_modules/**/*'
     - 'config/**/*'
