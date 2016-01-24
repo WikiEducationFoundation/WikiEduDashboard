@@ -28,6 +28,6 @@ ratings:
 
 exclude_paths:
 - public/*
-- db/migrate/*
+- db/*
 - fixtures/*
 - vendor/*
