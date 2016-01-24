@@ -110,13 +110,16 @@ class User < ActiveRecord::Base
   end
 
   def role(course)
-    return 1 if course.nil? # If this is a new course, grant permissions.
-    return CoursesUsers::Roles::INSTRUCTOR_ROLE if admin? # Give admins the instructor permissions.
+    # If this is a new course, grant permissions.
+    return CoursesUsers::Roles::INSTRUCTOR_ROLE if course.nil?
+    # Give admins the instructor permissions.
+    return CoursesUsers::Roles::INSTRUCTOR_ROLE if admin?
 
     course_user = course.courses_users.where(user_id: id).order('role DESC').first
     return course_user.role unless course_user.nil?
 
-    CoursesUsers::Roles::VISITOR_ROLE # User is in visitor role, if no other role found.
+    # User is in visitor role, if no other role found.
+    CoursesUsers::Roles::VISITOR_ROLE
   end
 
   def can_edit?(course)
@@ -173,9 +176,9 @@ class User < ActiveRecord::Base
 
   # Exclude tokens/secrets from json output
   def to_json(options={})
-     options[:except] ||= [:wiki_token, :wiki_secret, :remember_token]
-     super(options)
-   end
+    options[:except] ||= [:wiki_token, :wiki_secret, :remember_token]
+    super(options)
+  end
 
   #################
   # Class methods #
