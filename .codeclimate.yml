@@ -31,3 +31,4 @@ exclude_paths:
 - db/*
 - fixtures/*
 - vendor/*
+- spec/*
