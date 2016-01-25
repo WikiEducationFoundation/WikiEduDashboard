@@ -9,8 +9,6 @@ Loading         = require '../common/loading'
 DateUtils       = require '../../utils/course_date_utils'
 DateCalculator  = require '../../utils/date_calculator'
 
-BlockStore      = require '../../stores/block_store'
-
 emptyWeeksAtBeginning = (weekMeetings) ->
   count = 0
   for week in weekMeetings
@@ -48,7 +46,7 @@ ThisWeek = React.createClass(
           index={week_index}
           key={week.id}
           editable=false
-          blocks={BlockStore.getBlocksInWeek(week.id)}
+          blocks= {_.sortBy week.blocks, (block) -> block.order}
           moveBlock={null}
           deleteWeek={null}
           showTitle=false
