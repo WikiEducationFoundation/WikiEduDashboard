@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Geopoet
+# Author: Macofe
 ---
 bcl:
   activity:
@@ -85,6 +86,7 @@ bcl:
       one: nakapagkumpleto na nin pagsanay
       other: nakakumpleto na nin pagsanay
     training_complete_count: '%{count} nakapagkumpleto nin pagsanay'
+    training_incomplete: Pagsanay Bakong Kumpleto
   error_422:
     header: 422 — dae maprosesong entidad.  :-(
     explanation: May bagay na nangyaring sala. Tabi man pakikontak an mga paramantiner

@@ -92,6 +92,7 @@ pt:
       teriam que ter feito uma edição na página de comentários quando finalizaram.
       Se os editores estudantes passaram pelo curso mas não completaram o passo de
       comentário, podem regressar ao final do curso aqui: https://en.wikipedia.org/wiki/wikipedia:Training/For_students/Training_complete.'
+    training_incomplete: Formação incompleta
   wizard:
     assignment_type: Tipo de atribuição
     read_more: Ler mais

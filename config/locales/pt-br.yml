@@ -2,16 +2,32 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: AndroidOSUser
+# Author: HenriqueCrang
+# Author: Macofe
 # Author: Raphaelras
 ---
 pt-br:
   application:
     dashboard: Painel do Wiki Ed
-    help: Ajuda!
+    help: Ajuda
     home: Início
     log_out: Sair
+    log_in: Entrar
+    sign_up: Criar conta
+    sign_up_log_in_extended: pela Wikipédia
+    explore: Explorar
+    my_dashboard: Meu painel
     recent_activity: Atividade recente
     search: Buscar em ask.wikiedu.org
+    training: Treinamento
+  dashboard:
+    opt_out: Requisitar sair da orientação
+    explore_examples: Explorar Exemplos
+    explore_course_pages: Explorar Páginas de Cursos
+  home:
+    log_in: Entrar pela Wikipédia
+    sign_up: Criar conta pela Wikipédia
+    explore: Explorar
   activity:
     edited_by: Editado por
     all: Atividade
@@ -26,6 +42,9 @@ pt-br:
     edited_mobile: Artigos
     no_assignee: Nenhum usuário atribuído
     rating: Qualidade
+    rating_doc: A avaliação que um artigo recebeu por um WikiProjeto na Wikipédia.
+      Essas avaliações podem corresponder a versões muito antigas, então elas são
+      apenas um indicador raso da maturidade de um artigo.
     title: Título
     view: Ver artigo
     view_all: Ver tudo
@@ -85,10 +104,12 @@ pt-br:
     student_editors: Editores estudantes
     view: Visitas
     view_count_description: Visualizações de artigo
+    word_count: Palavras Adicionadas
   namespace:
     main: Domínio principal
     main_char_added: Caracteres adicionados ao domínio principal
     user: Espaço do usuário
+    user_char_added: Caracteres adicionados ao domínio Usuário
     user_ns: Usuário
   revisions:
     date_time: Data/Horário
@@ -96,10 +117,16 @@ pt-br:
     class: Classe
     edited_by: Editado por
     loading: Carregando revisões
+    none: Esse curso não tem nenhuma atividade recente de edição na Wikipédia.
+    time_doc: Horário de cada revisão em seu horário local
     title: Título
   uploads:
+    loading: Carregando atualizações...
     usages: Usos
+    time_doc: Horário de cada envio em seu horário local
   users:
+    already_enrolled: Aquele usuário já está inscrito!
+    assigned: Artigos Atribuídos
     contributions: Contribuições do usuário
     contributions_more: Ver mais contribuições
     editors: Editores estudantes
@@ -110,8 +137,17 @@ pt-br:
     revisions_doc: O número de edições feitas por este usuário nos últimos 7 dias
     reviewers: Revisor(es)
     reviewing: Revisando
-    training_complete_count: '%{count} treino completo'
+    training_complete_count: '%{count} treinamento em dia'
+    training_incomplete: Treinamento incompleto
+    up_to_date_with_training: em dia com o treinamento
+  wiki_edits:
+    notify_overdue:
+      header: Você tem uma tarefa do treinamento atrasada.
+      message: Por favor completo os  [https://dashboard.wikiedu.org/training/students
+        módulos de treinamento] designados. --~~~~
+      summary: treinamento do estudante atrasado
   wizard:
+    course_dates: Datas do Curso
     read_more: Ler mais
     read_less: Ler menos
     summary: Sumário
@@ -123,6 +159,10 @@ pt-br:
     header: Não autorizado. >:-(
   error_404:
     header: Página não encontrada. :-(
+  error_422:
+    header: 422 - entidade improcessável. :-(
+  error_500:
+    header: 500 - Erro interno do servidor. :-(
   timeline:
     title: Linha do tempo
     due_default: Previsto para a próxima semana

@@ -113,6 +113,7 @@ lb:
     training_complete:
       one: huet d'Formatioun ofgeschloss
       other: hunn d'Formatioun ofgeschloss
+    training_incomplete: Formatioun net komplett
   wizard:
     course_dates: Datume vun de Coursen
     minimum_options: Sicht w.e.g. mindestens %{minimum} Optioun(en).

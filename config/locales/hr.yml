@@ -1,0 +1,9 @@
+# Messages for Croatian (hrvatski)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Vrhnje
+---
+hr:
+  users:
+    training_incomplete: Nepotpun trening
+...

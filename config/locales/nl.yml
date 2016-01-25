@@ -10,13 +10,16 @@ nl:
   application:
     dashboard: Wiki Ed Dashboard
     help: Help
+    home: Startpagina
     log_out: Afmelden
     log_in: Aanmelden
     sign_up: Registreren
     sign_up_log_in_extended: met Wikipedia
     explore: Ontdek
     my_dashboard: Mijn dashboard
+    recent_activity: Recente activiteit
   home:
+    log_in: Aanmelden met Wikipedia
     sign_up: Aanmelden met Wikipedia
     explore: Ontdek
   activity:
@@ -134,9 +137,11 @@ nl:
     user_char_added: Tekens toegevoegd aan de gebruikersruimte
     user_ns: Gebruiker
   revisions:
+    edited_by: Bewerkt door
     loading: Bezig met het laden van versies...
     none: Deze cursus heeft geen recente bijbehorende Wikipediabewerkingen.
     time_doc: De tijd van iedere versie in uw lokale tijd
+    title: Titel
   tasks:
     conseq: Taak %{task} is al actief!
     constant: Taak %{task} kan niet actief zijn terwijl update_daily wordt uitgevoerd.

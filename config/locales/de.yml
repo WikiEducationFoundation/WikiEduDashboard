@@ -189,6 +189,7 @@ de:
       für alle Bearbeitungen, die die Seitengröße erhöht haben. Diese Anzahl muss
       nicht unbedingt die Menge des hinzugefügten Inhalts widerspiegeln. Das Wiederherstellen
       entfernten Inhalts erhöht ebenfalls diese Summe.
+    chars_added: Hinzugefügte Zeichen<br>(Hauptnamensraum | Benutzernamensraum)
     contributions: Benutzerbeiträge
     contributions_more: Weitere Beiträge ansehen
     editors: Studentenautoren
@@ -201,22 +202,20 @@ de:
     reviewers: Überprüfer
     reviewing: Überprüft
     training_complete:
-      one: hat die Ausbildung abgeschlossen
-      other: haben die Ausbildung abgeschlossen
-    training_complete_count: '%{count} haben die Ausbildung abgeschlossen'
-    training_doc: 'Studentenautoren, die die „Ausbildung für Studenten“ abgeschlossen
-      haben, sollten eine Bearbeitung auf der Rückmeldungsseite durchführen, wenn
-      sie fertig sind. Studentenautoren, die durch die Ausbildung gegangen sind, aber
-      nicht den Rückmeldungsschritt vervollständigen, können am Ende der Ausbildung
-      hier zurückkehren: https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete.'
+      one: ist mit der Ausbildung auf dem Laufenden
+      other: sind mit der Ausbildung auf dem Laufenden
+    training_complete_count: '%{count} Ausbildungen auf dem Laufenden'
+    training_doc: Studentenautoren, die alle zugewiesenen fälligen Ausbildungsmodule
+      vervollständigt haben, werden mit ihrer Ausbildung als „auf dem Laufenden“ gezählt.
+    training_incomplete: Ausbildung unvollständig
+    up_to_date_with_training: mit der Ausbildung auf dem Laufenden
   wiki_edits:
     notify_overdue:
       confirm: Dies sendet eine Erinnerung an die Diskussionsseiten aller Studenten,
         die eine überfällige Ausbildung haben. Bist du sicher, dass du dies tun möchtest?
       header: Du hast eine überfällige Ausbildungszuweisung.
-      message: Vervollständige bitte die [[WP:STUDENT|Studentenausbildung]]. Falls
-        du sie bereits absolviert hast, stelle sicher, dass du die Schaltfläche am
-        Ende anklickst, um anzuzeigen, dass du fertig bist. <nowiki>--~~~~</nowiki>
+      message: Vervollständige bitte die zugewiesenen [https://dashboard.wikiedu.org/training/students
+        Ausbildungsmodule]. <nowiki>--~~~~</nowiki>
       summary: Studentenausbildung überfällig
   wizard:
     course_dates: Kursdaten

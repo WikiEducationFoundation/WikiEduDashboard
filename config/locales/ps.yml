@@ -63,10 +63,12 @@ ps:
   users:
     contributions: د کارن ونډې
     contributions_more: نورې ونډې کتل
+    editors: زده کوونکي سمونگران
     name: نوم
     none: دا کورس کوم زدکړيال نه لري.
     recent_revisions: وروستني بدلونونه
   wizard:
+    course_dates: کورس نېټې
     read_more: نور لوستل
     summary: لنډيز
   error_404:

@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Andriykopanytsia
 # Author: Base
+# Author: Macofe
 ---
 uk:
   application:
@@ -206,6 +207,7 @@ uk:
       що пройшли через тренування не виконали крок з відгуком, вони можуть повернутись
       до останнього кінця тренування тут: https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete
       .'
+    training_incomplete: Навчання не завершене
   wiki_edits:
     notify_overdue:
       confirm: Цим на сторінки обговорення всіх студентів, які мають протерміноване

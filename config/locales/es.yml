@@ -193,6 +193,7 @@ es:
       que aumentaron el tamaño de la página. Este número no refleja necesariamente
       la cantidad de contenido nuevo agregado por el usuario. Restaurar el contenido
       eliminado también aumentará este total.
+    chars_added: Caracteres añadidos<br>(espacio principal | espacio de usuarios)
     contributions: Contribuciones del usuario
     contributions_more: Ver más contribuciones
     editors: Editores estudiantiles
@@ -214,15 +215,15 @@ es:
       pero no completaron el paso de comentario, pueden regresar al final del entrenamiento
       aquí: https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete
       .'
+    training_incomplete: Entranamiento incompleto
   wiki_edits:
     notify_overdue:
       confirm: Esto publicará un recordatorio en las páginas de discusión de todos
         los estudiantes que no hayan completado el entrenamiento. ¿Estás seguro de
         que quieres hacer esto?
       header: Tienes una tarea de entrenamiento atrasada.
-      message: Completa el [[WP:STUDENT|entrenamiento para estudiantes]]. Si ya lo
-        has hecho, asegúrate de pulsar el botón al final para registrar que lo has
-        completado. --~~~~
+      message: Completa los [https://dashboard.wikiedu.org/training/students módulos
+        de entrenamiento] asignados. --~~~~
       summary: retraso en el entrenamiento de estudiantes
   wizard:
     course_dates: Fechas del curso

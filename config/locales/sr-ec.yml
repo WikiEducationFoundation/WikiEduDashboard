@@ -1,6 +1,7 @@
 # Messages for Serbian (Cyrillic script) (српски (ћирилица)‎)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Macofe
 # Author: Milicevic01
 # Author: Srdjan m
 ---
@@ -147,6 +148,7 @@ sr-ec:
       су да уреде страницу за повратне информације након што су завршили. Ако постоји
       студената који су прошли кроз тренинг, али нису послали повратне информације,
       могу се вратити на крај тренинга овде: https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete.'
+    training_incomplete: Незавршен тренинг
   error_401:
     header: Неовлашћено. >:-(
     explanation: Нисте овлашћени да извршите овај захтев. Ако сматрате да сте овде

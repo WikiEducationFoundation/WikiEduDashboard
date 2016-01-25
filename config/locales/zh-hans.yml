@@ -18,6 +18,7 @@ zh-hans:
     search: 搜索ask.wikiedu.org
     training: 培训
   dashboard:
+    opt_out: 请求退出定向
     explore_examples: 浏览示例
     explore_course_pages: 浏览课程页面
   home:
@@ -146,6 +147,7 @@ zh-hans:
     already_enrolled: 那位用户已经登记了！
     assigned: 分配的条目
     assignees: 委托人
+    chars_added: 添加的字符<br>（主名字空间 | 用户名字空间）
     contributions: 用户贡献
     contributions_more: 查看更多贡献
     editors: 学生编辑者
@@ -160,6 +162,7 @@ zh-hans:
       other: 最新的培训
     training_complete_count: '%{count}最近的培训'
     training_incomplete: 培训未完成
+    up_to_date_with_training: 最近培训
   wiki_edits:
     notify_overdue:
       header: 您有一个过期的培训任务。

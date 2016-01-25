@@ -183,6 +183,7 @@ mk:
       calculated by adding up the added characters for all edits that increased page
       size. This number doesn't necessarily reflect the amount of new content the
       user added. Restoring removed content will also increase this total.
+    chars_added: Додадени знаци<br>(главен прост. | кориснички прост.)
     contributions: Кориснички придонеси
     contributions_more: Погл. уште придонеси
     editors: Ученици што уредуваат
@@ -194,21 +195,20 @@ mk:
     reviewers: Оценувач(и)
     reviewing: Оценување
     training_complete:
-      one: ја заврши обуката
-      other: ја завршија обуката
-    training_complete_count: '%{count} завршиле со обуката'
-    training_doc: 'Учениците што уредуваат кои ја имаат завршено „ученичката обука“
-      треба да имаат направено уредување на страницата за мислења на крајот од обуката.
-      Доколку ученикот ја завршил обуката без да го направи ова уредување, може да
-      се наврати на крајот од обуката тука: https://mk.wikipedia.org/wiki/Википедија:Обука/ученици/Обуката_заврши.'
+      one: е во тек со обуката
+      other: се во тек со обуката
+    training_complete_count: '%{count} се во тек со обуката'
+    training_doc: Учениците што уредуваат кои ги имаат звршено сите зададени модули
+      за обука се смета дека се во тек со обуката.
+    training_incomplete: Обуката е недовршена
+    up_to_date_with_training: во тек со обуката
   wiki_edits:
     notify_overdue:
       confirm: Ова ќе им испрати потсетник на страниците за разговор на сите ученици
         што имаат заостаната обука. Дали сте сигурни дека сакате да го испратите?
       header: Имате заостаната задача за обука.
-      message: Завршете ја [[ВП:УЧЕНИК|ученичката обука]]. Ако веќе ја имате поминато,
-        ќе мора да стиснете на копчето на крајот, за да се заведе дека сте завршиле.
-        --~~~~
+      message: Ве молиме, завршете ги зададените [https://dashboard.wikiedu.org/training/students
+        модули за обука]. --~~~~
       summary: ученичката обука заостанува
   wizard:
     course_dates: Датуми на курсот

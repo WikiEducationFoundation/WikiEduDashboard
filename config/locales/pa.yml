@@ -1,0 +1,9 @@
+# Messages for Punjabi (ਪੰਜਾਬੀ)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: ਪ੍ਰਚਾਰਕ
+---
+pa:
+  users:
+    training_incomplete: ਅਧੂਰਾ ਅਭਿਆਸ
+...

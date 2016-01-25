@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Aursani
+# Author: Macofe
 # Author: Mehtab ahmed
 ---
 sd:
@@ -134,6 +135,7 @@ sd:
     reviewers: نظرثاني ڪندڙ
     reviewing: جائزي هيٺ
     training_complete_count: '%{count} يُوزرس مڪمل تربيت حاصل ڪئي'
+    training_incomplete: تربيت نامڪمل
   wizard:
     course_dates: ڪورس جون تاريخون
     assignment_dates: مشقن جون تاريخون

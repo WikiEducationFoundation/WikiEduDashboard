@@ -194,6 +194,7 @@ fr:
       ayant augmenté la taille de la page. Ce nombre ne reflète pas nécessairement
       la quantité de nouveau contenu ajouté par l’utilisateur. Restaurer un contenu
       supprimé augmentera également ce total.
+    chars_added: Caractères ajoutés<br>(espace principal | espace utilisateur)
     contributions: Contributions de l’utilisateur
     contributions_more: Afficher plus de contributions
     editors: Editeurs étudiants
@@ -206,21 +207,20 @@ fr:
     reviewers: Relecteur(s)
     reviewing: Relecture
     training_complete:
-      one: a terminé l'entrainement
-      other: ont terminé l'entrainement
-    training_complete_count: '%{count} ont/a terminé l''entrainement'
-    training_doc: 'Les étudiants éditeur qui ont terminé l’''entraînement pour étudiants''
-      devraient avoir fait une modification sur la page d’avis une fois qu’ils ont
-      terminé. Si un étudiant éditeur effectue le cours mais ne termine pas la tâche
-      d’avis, il peut revenir à la fin du cours ici: https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete.'
+      one: est à jour avec la formation
+      other: sont à jour avec la formation
+    training_complete_count: '%{count} formation à jour'
+    training_doc: Les étudiants éditeur qui ont terminé tous les modules de formation
+      échus qui leur ont été affectés sont comptabilisés comme à jour de leur formation.
+    training_incomplete: Formation non terminée
+    up_to_date_with_training: formation à jour
   wiki_edits:
     notify_overdue:
       confirm: Cela publiera un rappel sur les pages de discussion de tous les étudiants
         qui sont en retard dans leur formation. Êtes-vous sûr de vouloir faire cela ?
       header: Vous avez une affectation de formation en retard.
-      message: Veuillez achever la [[WP:STUDENT|formation d’étudiant]]. Si vous l’avez
-        déjà faite, vérifiez que vous avez bien cliqué sur le bouton à la fin pour
-        enregistrer que vous l’avez terminée. --~~~~
+      message: Veuillez terminer les [https://dashboard.wikiedu.org/training/students
+        modules de formation] qui vous ont été affectés. --~~~~
       summary: retard de formation d’étudiant
   wizard:
     course_dates: Dates du cours

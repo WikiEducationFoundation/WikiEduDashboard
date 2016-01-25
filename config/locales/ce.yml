@@ -1,0 +1,12 @@
+# Messages for Chechen (нохчийн)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Умар
+---
+ce:
+  application:
+    help: ГӀо
+    log_out: Болх дӀаберзор
+    log_in: Системин довзийтар
+    sign_up: ДӀаяздар кхоллар
+...

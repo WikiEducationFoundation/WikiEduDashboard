@@ -1,6 +1,7 @@
 # Messages for Shan (လိၵ်ႈတႆး)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Macofe
 # Author: Saosukham
 ---
 shn:
@@ -89,4 +90,5 @@ shn:
       one: ၽိုၵ်းလိုမ်ႉတဵမ်ထူၼ်ႈယဝ်ႉ
       other: ၽိုၵ်းလိုမ်ႉတဵမ်ထူၼ်ႈယဝ်ႉ
     training_complete_count: '%{count} ၽိုၵ်းယဝ်ႉတူဝ်ႈ'
+    training_incomplete: လွင်ႈၽိုၵ်းယဝ်ႉတူဝ်ႈ
 ...

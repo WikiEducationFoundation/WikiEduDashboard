@@ -188,6 +188,7 @@ ast:
       el tamañu de la páxina. Esti númberu nun espeya necesariamente la cantidá de
       conteníu nuevu amestáu pol usuariu. Restaurar conteníu desaniciáu tamién aumentará
       esti total.
+    chars_added: Caráuteres añadíos<br>(espaciu principal | espaciu d'usuariu)
     contributions: Contribuciones del usuariu
     contributions_more: Ver más contribuciones
     editors: Editores estudiantes
@@ -199,21 +200,20 @@ ast:
     reviewers: Revisor(es)
     reviewing: Revisando
     training_complete:
-      one: completó l'entrenamientu
-      other: completaron l'entrenamientu
-    training_complete_count: '%{count} completaron l''entrenamientu'
-    training_doc: 'Los editores estudiantes que tengan completáu el ''entrenamientu
-      pa estudiantes'' habríen tener fecha una edición na páxina de comentarios al
-      acabar. Los editores estudiantes que pasaron pel entrenamientu pero nun completaron
-      el pasu del comentariu, puen volver al final del entrenamientu equí: https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete.'
+      one: ta al día col entrenamientu
+      other: tán al día col entrenamientu
+    training_complete_count: '%{count} entrenamientu al día'
+    training_doc: Los editores estudiantes que completaron tolos módulos d'entrenamientu
+      designaos que tean vencíos cuéntense como al día col entrenamientu.
+    training_incomplete: Entrenamientu incompletu
+    up_to_date_with_training: al día col entrenamientu
   wiki_edits:
     notify_overdue:
       confirm: Esto va publicar un recordatoriu nes páxines d'alderique de tolos estudiantes
         que tienen la preparación atrasada. ¿Tas seguru de que quies faer esto?
       header: Tienes una xera d'entrenamientu atrasada.
-      message: Completa l'[[WP:STUDENT|entrenamientu d'estudiante]]. Si yá pasasti
-        per ehí, asegúrate de facer clic nel botón del final pa rexistrar que yá lu
-        acabasti. --~~~~
+      message: Completa los [https://dashboard.wikiedu.org/training/students módulos
+        d'entrenamientu] designaos. --~~~~
       summary: retrasu nel entrenamientu d'estudiante
   wizard:
     course_dates: Feches del cursu

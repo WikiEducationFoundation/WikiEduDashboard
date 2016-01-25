@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Gwenn-Ael
+# Author: Macofe
 ---
 br:
   application:
@@ -125,6 +126,7 @@ br:
       one: en deus echuet da c'hourdonañ
       other: o deus echuet da c'hourdonnañ
     training_complete_count: '%{count}o deus/en deus echuet da c''houdonañ'
+    training_incomplete: Stummadur diechu
   wizard:
     course_dates: Deizioù ar gentel
     assignment_dates: Seurt deverkadenn
