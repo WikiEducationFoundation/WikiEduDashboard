@@ -27,7 +27,7 @@ class DashboardPresenter
   def show_your_courses_label?
     return true if @submitted.any? && @current.any? # submitted with current courses
     return false if @submitted.any? && @current.empty? && @past.any? # submitted with no current but there are past
-    return true if @submitted.any? && @current.empty? && @past.empty?  # submitted but no courses
+    return true if @submitted.any? && @current.empty? && @past.empty? # submitted but no courses
     return true if @current.any? && is_instructor? && !instructor_has_completed_orientation? # current but hasn't completed orientation
   end
 
@@ -65,7 +65,7 @@ class DashboardPresenter
 
   # Open mail client
   def opt_out_path
-    'mailto:contact@wikedu.org'
+    "mailto:#{ENV['contact_email']}"
   end
 
   private

@@ -12,6 +12,8 @@
 # engines
   meta_description: Wiki Education Foundation dashboard for Wikipedia editing projects
 
+  contact_email: 'contact@wikedu.org'
+
 # a message to display to all users at the top of each page
 # sitenotice: "NOTICE: The system will go down for maintenance soon."
 
