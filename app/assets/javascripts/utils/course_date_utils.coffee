@@ -19,7 +19,7 @@ module.exports = {
   # Returns string describing weekday meetings for each week
   # Ex: ["(M, W, F)", "(M, W)", "()", "(W, T)", "(M, W, F)"]
   weekMeetings: (recurrence, course, exceptions) ->
-    return unless recurrence?
+    return [] unless recurrence?
     week_end = recurrence.endDate()
     week_end.day(6)
     week_start = recurrence.startDate()
@@ -27,7 +27,7 @@ module.exports = {
     week_start.day(0)
     course_weeks = Math.ceil(week_end.diff(week_start, 'weeks', true))
     unless recurrence.rules? && recurrence.rules[0].measure == 'daysOfWeek'
-      return null
+      return []
 
     meetings = []
 
