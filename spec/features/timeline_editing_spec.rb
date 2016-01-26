@@ -1,12 +1,13 @@
 require 'rails_helper'
 
 def create_course
+  start_date = '2025-02-10'.to_date # a Monday
   create(:course,
          id: 10001,
-         start: Date.today - 1.month,
-         end: Date.today + 1.month,
-         timeline_start: Date.today - 1.month,
-         timeline_end: Date.today + 1.month,
+         start: start_date,
+         end: start_date + 2.months,
+         timeline_start: start_date,
+         timeline_end: start_date + 2.months,
          weekdays: '0101010',
          submitted: true)
   create(:week,
