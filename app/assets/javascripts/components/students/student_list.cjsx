@@ -10,6 +10,7 @@ UserStore         = require '../../stores/user_store'
 AssignmentStore   = require '../../stores/assignment_store'
 UIActions         = require '../../actions/ui_actions'
 ServerActions     = require '../../actions/server_actions'
+CourseUtils     = require '../../utils/course_utils'
 
 getState = ->
   users: UserStore.getFiltered({ role: 0 })
@@ -75,6 +76,7 @@ StudentList = React.createClass(
         elements={elements}
         keys={keys}
         table_key='users'
+        none_message={CourseUtils.i18n('students_none', @props.course.string_prefix)}
         store={UserStore}
         editable={@props.editable}
       />

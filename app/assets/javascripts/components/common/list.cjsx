@@ -37,7 +37,8 @@ List = React.createClass(
     elements = @props.elements
     if elements.length == 0
       if @props.store.isLoaded()
-        text = I18n.t(@props.table_key + '.none')
+        text = @props.none_message
+        text ||= I18n.t(@props.table_key + '.none')
         text ||= 'This course has no ' + @props.table_key
       else
         text = I18n.t(@props.table_key + '.loading')

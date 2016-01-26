@@ -119,7 +119,7 @@ Course = React.createClass(
         <div className='notification' key='enroll'>
           <div className='container'>
             <div>
-              <p>Your course has been published! Students may enroll in the course by visiting the following URL:</p>
+              <p>{CourseUtils.i18n('published', @state.course.string_prefix)}</p>
               <a href={url}>{url}</a>
             </div>
           </div>

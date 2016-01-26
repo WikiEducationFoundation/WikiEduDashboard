@@ -5,6 +5,7 @@ List          = require '../common/list'
 Article       = require './article'
 ArticleStore  = require '../../stores/article_store'
 ServerActions = require '../../actions/server_actions'
+CourseUtils   = require '../../utils/course_utils'
 
 getState = ->
   articles: ArticleStore.getModels()
@@ -36,6 +37,7 @@ ArticleList = React.createClass(
       elements={elements}
       keys={keys}
       table_key='articles'
+      none_message={CourseUtils.i18n('articles_none', @props.course.string_prefix)}
       store={ArticleStore}
     />
 )

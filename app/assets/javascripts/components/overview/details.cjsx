@@ -33,7 +33,7 @@ Details = React.createClass(
     to_pass[value_key] = value
     CourseActions.updateCourse to_pass
   render: ->
-    instructors = <InlineUsers {...@props} users={@props.instructors} role={1} title='Instructors' />
+    instructors = <InlineUsers {...@props} users={@props.instructors} role={1} title={CourseUtils.i18n('instructors', @props.course.string_prefix)} />
     online = <InlineUsers {...@props} users={@props.online} role={2} title='Online Volunteers' />
     campus = <InlineUsers {...@props} users={@props.campus} role={3} title='Campus Volunteers' />
     staff = <InlineUsers {...@props} users={@props.staff} role={4} title='Wiki Ed Staff' />
@@ -79,8 +79,8 @@ Details = React.createClass(
         {online}
         {campus}
         {staff}
-        <p>School: {@props.course.school}</p>
-        <p>Term: {@props.course.term}</p>
+        <p>{CourseUtils.i18n('school', @props.course.string_prefix)}: {@props.course.school}</p>
+        <p>{CourseUtils.i18n('term', @props.course.string_prefix)}: {@props.course.term}</p>
         {passcode}
         <fieldset>
           <TextInput
@@ -123,7 +123,7 @@ Details = React.createClass(
             value_key='timeline_start'
             editable={@props.editable}
             type='date'
-            label='Assignment Start'
+            label={CourseUtils.i18n('assignment_start', @props.course.string_prefix)}
             date_props={timeline_start_props}
             required=true
           />
@@ -135,7 +135,7 @@ Details = React.createClass(
             value_key='timeline_end'
             editable={@props.editable}
             type='date'
-            label='Assignment End'
+            label={CourseUtils.i18n('assignment_end', @props.course.string_prefix)}
             date_props={timeline_end_props}
             required=true
           />

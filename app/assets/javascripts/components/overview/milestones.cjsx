@@ -3,6 +3,7 @@ BlockStore     = require '../../stores/block_store'
 WeekStore      = require '../../stores/week_store'
 CourseStore    = require '../../stores/course_store'
 md             = require('markdown-it')({ html: true, linkify: true })
+CourseUtils   = require '../../utils/course_utils'
 
 getState = ->
   weeks: WeekStore.getWeeks()
@@ -35,7 +36,7 @@ Milestones = React.createClass(
             </div>
           </div>
         )
-    @emptyMessage = if !blocks.length then I18n.t('blocks.milestones.empty') else ''
+    @emptyMessage = if !blocks.length then CourseUtils.i18n('milestones_none', @props.course.string_prefix) else ''
 
     <div className='module milestones'>
       <div className="section-header">
@@ -47,4 +48,3 @@ Milestones = React.createClass(
 )
 
 module.exports = Milestones
-
