@@ -17,4 +17,10 @@ class ErrorsController < ApplicationController
   def incorrect_passcode
     render status: 401
   end
+
+  def login_error
+    # a status in the 500 range will automatically bypass this and
+    # render internal_server_error
+    render status: 200
+  end
 end

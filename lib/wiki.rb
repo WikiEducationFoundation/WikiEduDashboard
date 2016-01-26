@@ -21,6 +21,7 @@ class Wiki
     user_query = { list: 'users',
                    ususers: username }
     user_data = wikipedia('query', user_query, language: language)
+    return unless user_data.data['users'].any?
     user_id = user_data.data['users'][0]['userid']
     user_id
   end

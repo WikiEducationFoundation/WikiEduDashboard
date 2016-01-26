@@ -326,6 +326,11 @@ en:
       Something went wrong. Please contact the maintainers of this dashboard
       to let them know about the problem.
 
+  login_error:
+    header: "Login Error"
+    explanation: >
+      It looks like there was an problem with the sign in process. (Sorry about that! It happens occasionally.) Please try logging in or enrolling again.
+
   # This is a maintenance script message.
   timeout: "A request to the %{api} API has timed out and will retried %{tries} times."
 

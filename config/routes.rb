@@ -3,6 +3,7 @@
 Rails.application.routes.draw do
   get 'errors/file_not_found'
   get 'errors/unprocessable'
+  get 'errors/login_error'
   get 'errors/internal_server_error'
   get 'errors/incorrect_passcode'
 
@@ -160,5 +161,6 @@ Rails.application.routes.draw do
   # Errors
   match '/404', to: 'errors#file_not_found', via: :all
   match '/422', to: 'errors#unprocessable', via: :all
+  match '/599', to: 'errors#login_error', via: :all
   match '/500', to: 'errors#internal_server_error', via: :all
 end
