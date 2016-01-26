@@ -20,7 +20,8 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   protected
 
   def handle_jwt_error
-    Raven.capture_message "\nJWT Decoding failed: #{request.env['JWT_DATA'].body}\n"
+    Raven.capture_message 'OAuth login failed',
+                          extra: { jwt_data: request.env['JWT_DATA'].body }
     return redirect_to errors_login_error_path
   end
 end
