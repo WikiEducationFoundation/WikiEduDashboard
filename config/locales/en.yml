@@ -111,7 +111,7 @@ en:
     character_doc: The sum of characters added to mainspace articles by the course's students during the course term
     revisions_doc: The number of edits in the past %{timeframe} days
     word_count_doc: An estimate of the number of words added to mainspace articles by the course's students during the course term
-    course_description: Wiki Ed Courses
+    course_description: Courses
     courses: Courses
     yourcourses: Your Courses
     nocourses: You are not participating in any courses.
