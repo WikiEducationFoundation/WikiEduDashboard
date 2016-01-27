@@ -26,7 +26,7 @@
 #  passcode          :string(255)
 #  timeline_start    :date
 #  timeline_end      :date
-#  day_exceptions    :string(255)      default("")
+#  day_exceptions    :string(2000)      default("")
 #  weekdays          :string(255)      default("0000000")
 #  new_article_count :integer
 #  order             :integer          default(1), not null

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160114203143) do
+ActiveRecord::Schema.define(version: 20160127184155) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title",                    limit: 255
@@ -117,7 +117,7 @@ ActiveRecord::Schema.define(version: 20160114203143) do
     t.string   "passcode",          limit: 255
     t.date     "timeline_start"
     t.date     "timeline_end"
-    t.string   "day_exceptions",    limit: 255,   default: ""
+    t.string   "day_exceptions",    limit: 2000,   default: ""
     t.string   "weekdays",          limit: 255,   default: "0000000"
     t.integer  "new_article_count", limit: 4
     t.boolean  "no_day_exceptions",               default: false
