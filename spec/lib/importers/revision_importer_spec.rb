@@ -24,7 +24,6 @@ describe RevisionImporter do
 
         # Update the revision counts, then try update_all_revisions again
         # to test how it handles old users.
-        User.update_all_caches(Course.find(351).users)
         RevisionImporter.update_all_revisions nil, true
         expect(Revision.all.count).to eq(519)
         expect(ArticlesCourses.all.count).to eq(10)
@@ -47,7 +46,6 @@ describe RevisionImporter do
                course_id: 1,
                user_id: 319203,
                role: 0)
-        User.update_all_caches(Course.find(1).users)
         RevisionImporter.update_all_revisions nil, true
         expect(Revision.all.count > 1).to be true
       end

@@ -20,7 +20,6 @@ describe VisitingScholarship, type: :model do
     create(:revision, id: 2, user_id: scholar.id,
                       article_id: assigned_article.id, date: 1.day.ago)
     Article.update_all_caches
-    User.update_all_caches
     ArticlesCourses.update_from_course(vs)
     ArticlesCourses.update_all_caches
     CoursesUsers.update_all_caches

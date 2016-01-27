@@ -65,7 +65,9 @@ class RevisionImporter
   end
 
   def self.users_with_no_revisions(course)
-    course.users.role('student').where(revision_count: 0)
+    course.users.role('student')
+      .joins(:courses_users)
+      .where('courses_users.revision_count = 0')
   end
 
   def self.first_revision(course)

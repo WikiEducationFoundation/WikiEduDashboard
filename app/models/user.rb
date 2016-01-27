@@ -179,11 +179,4 @@ class User < ActiveRecord::Base
     options[:except] ||= [:wiki_token, :wiki_secret, :remember_token]
     super(options)
   end
-
-  #################
-  # Class methods #
-  #################
-  def self.update_all_caches(users=nil)
-    Utils.run_on_all(User, :update_cache, users)
-  end
 end

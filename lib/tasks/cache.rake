@@ -3,8 +3,6 @@ namespace :cache do
   task update_caches: 'batch:setup_logger' do
     Rails.logger.debug 'Updating Article cache'
     Article.update_all_caches
-    Rails.logger.debug 'Updating User cache'
-    User.update_all_caches
     Rails.logger.debug 'Updating ArticlesCourses cache'
     ArticlesCourses.update_all_caches
     Rails.logger.debug 'Updating CoursesUsers cache'
