@@ -39,8 +39,9 @@ describe WikiPageviews do
 
       context 'beyond the allowed date range' do
         let(:start_date) { '2015-01-01'.to_date }
-        it 'raises an error' do
-          expect { subject }.to raise_error(/invalid WikiPageviews start date.*/)
+        it 'does not raise an error' do
+          stub_request(:any, /.*wikimedia.org.*/)
+          expect { subject }.not_to raise_error
         end
       end
     end
