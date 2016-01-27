@@ -65,17 +65,17 @@ en:
     loading: Loading articles...
     assigned: Assigned Articles
     assigned_to: Assigned To
-    character_doc: The sum of characters added to articles by the course's students during the course term
+    character_doc: The sum of characters added to articles by enrolled editors betweent the start and end dates
     edited: Articles Edited
     edited_mobile: Articles
     no_assignee: No user assigned
     rating: Class
     rating_doc: The rating an article has been assigned by WikiProjects on Wikipedia. These ratings may corresponds to much older versions, so they are just a rough indicator of article maturity.
     rating_docs:
-      fa: Featured article — Wikipedia's highest rating, probably too mature an article for a student editor's main project
+      fa: Featured article — Wikipedia's highest rating, probably too mature an article for a new editor's main project
       fl: Featured list — Wikipedia's highest rating for lists
-      a: A-class — very developed article that may be too mature an article for a student editor's main project
-      ga: Good article — a well-developed article that may be too mature an article for a student editor's main project
+      a: A-class — very developed article that may be too mature an article for a new editor's main project
+      ga: Good article — a well-developed article that may be too mature an article for a new editor's main project
       b: B-class — a moderately developed article
       c: C-class — an intermediate article with room for improvement
       start: Start-class — a preliminary article with plenty of room for improvement
@@ -144,7 +144,7 @@ en:
     title: Title
     view: View Course
     view_wiki: View on Wikipedia
-    view_doc: The sum of all views to articles edited by students since the students made their first edit to each article
+    view_doc: The sum of all views to articles edited by enrolled editors since the editor made their first edit to each article
     volunteer:
       one: Volunteer
       other: Volunteers
