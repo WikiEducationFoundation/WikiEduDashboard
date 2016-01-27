@@ -131,59 +131,9 @@ class User < ActiveRecord::Base
     editing_roles.include? role(course)
   end
 
-  #################
-  # Cache methods #
-  #################
-  def view_sum
-    self[:view_sum] || articles.map(&:views).inject(:+) || 0
-  end
-
-  def course_count
-    self[:course_count] || courses.size
-  end
-
-  def revision_count(after_date=nil)
-    if after_date.nil?
-      self[:revision_count] || revisions.size
-    else
-      revisions.after_date(after_date).size
-    end
-  end
-
-  def article_count
-    self[:article_count] || article.size
-  end
-
-  def update_cache
-    # TODO: Remove character sum and view sum? We use these for CoursesUsers
-    # and for Courses, but not for Users.
-    self.character_sum = get_character_sum(0)
-    self.view_sum = articles.map { |a| a.views || 0 }.inject(:+) || 0
-    self.revision_count = revisions.size
-    self.article_count = articles.size
-    self.course_count = courses.size
-    save
-  end
-
-  def get_character_sum(namespace)
-    # Do not consider revisions with negative byte changes
-    Revision.joins(:article)
-      .where(articles: { namespace: namespace })
-      .where(user_id: id)
-      .where('characters >= 0')
-      .sum(:characters) || 0
-  end
-
   # Exclude tokens/secrets from json output
   def to_json(options={})
     options[:except] ||= [:wiki_token, :wiki_secret, :remember_token]
     super(options)
-  end
-
-  #################
-  # Class methods #
-  #################
-  def self.update_all_caches(users=nil)
-    Utils.run_on_all(User, :update_cache, users)
   end
 end

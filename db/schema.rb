@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160127184155) do
+ActiveRecord::Schema.define(version: 20160127203440) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title",                    limit: 255
@@ -196,11 +196,6 @@ ActiveRecord::Schema.define(version: 20160127184155) do
     t.string   "wiki_id",             limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "character_sum",       limit: 4,   default: 0
-    t.integer  "view_sum",            limit: 8,   default: 0
-    t.integer  "course_count",        limit: 4,   default: 0
-    t.integer  "article_count",       limit: 4,   default: 0
-    t.integer  "revision_count",      limit: 4,   default: 0
     t.boolean  "trained",                         default: false
     t.integer  "global_id",           limit: 4
     t.datetime "remember_created_at"

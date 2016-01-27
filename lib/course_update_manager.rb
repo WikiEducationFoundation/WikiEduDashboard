@@ -35,7 +35,7 @@ class CourseUpdateManager
     courses_users = course.courses_users
 
     import_course_data(course, users, articles)
-    update_caches(articles, users, articles_courses, courses_users)
+    update_caches(articles, articles_courses, courses_users)
 
     course.update_cache
   end
@@ -55,9 +55,8 @@ class CourseUpdateManager
       .find_in_batches(batch_size: 30)
   end
 
-  def self.update_caches(articles, users, articles_courses, courses_users)
+  def self.update_caches(articles, articles_courses, courses_users)
     Article.update_all_caches articles
-    User.update_all_caches users
     ArticlesCourses.update_all_caches articles_courses
     CoursesUsers.update_all_caches courses_users
   end
