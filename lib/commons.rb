@@ -149,7 +149,8 @@ class Commons
       save_placeholder_thumbnail bad_file
       Rails.logger.debug "Caught iiurlparamnormal error: #{bad_file_name}"
       query[:pageids] -= [bad_file.id]
-      api_get(query) unless query[:pageids].empty?
+      return [] if query[:pageids].empty?
+      api_get(query)
     end
   end
 end

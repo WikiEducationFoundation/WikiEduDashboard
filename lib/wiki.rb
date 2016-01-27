@@ -103,7 +103,7 @@ class Wiki
       @mediawiki = api_client(opts)
       @mediawiki.send(action, query)
     rescue MediawikiApi::ApiError => e
-      handle_api_error e
+      handle_api_error e, action, query, opts
     rescue StandardError => e
       tries -= 1
       typical_errors = [Faraday::TimeoutError,
@@ -130,9 +130,12 @@ class Wiki
       MediawikiApi::Client.new url
     end
 
-    def handle_api_error(e)
-      Rails.logger.warn 'Caught #{e}'
-      Raven.capture_exception e, level: 'warning'
+    def handle_api_error(e, action, query, opts)
+      Rails.logger.warn "Caught #{e}"
+      Raven.capture_exception e, level: 'warning',
+                                 extra: { action: action,
+                                          query: query,
+                                          opts: opts }
       fail e if e.code == 'iiurlparamnormal' # handled by Commons.rb
     end
   end
