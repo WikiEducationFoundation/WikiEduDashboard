@@ -263,6 +263,11 @@ es:
     explanation: No tienes autorización para ejecutar esta solicitud. Si crees que
       has llegado a este aviso por error, pónte en contacto con los responsables del
       mantenimiento de este panel para informarles sobre el problema.
+  error_incorrect_passcode:
+    header: Código de acceso incorrecto. :-(
+    explanation: El código de acceso para matricularse en este curso, es incorrecta.
+      Pregunta al instructor por el código de acceso actual para inscribirse en este
+      curso.
   error_404:
     header: No se encontró la página. :-(
     explanation: Esta página no existe. Si estás intentando acceder al panel de un

@@ -1,6 +1,7 @@
 # Messages for Turkish (Türkçe)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Elftrkn
 # Author: HakanIST
 # Author: KorkmazO
 # Author: Sayginer
@@ -38,6 +39,10 @@ tr:
   wizard:
     course_dates: Kurs günleri
     summary: Özet
+  error_incorrect_passcode:
+    header: Yanlış parola. :-(
+    explanation: Derse kayıt şifresi yanlıştır. Lütfen, sorumlu eğitimciye derse kayıt
+      için gerekli mevcut şifreyi sorunuz.
   error_404:
     header: Sayfa bulunamadı. :-(
 ...

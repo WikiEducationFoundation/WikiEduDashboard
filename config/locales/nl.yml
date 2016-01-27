@@ -211,6 +211,8 @@ nl:
     explanation: U kunt dit verzoek niet uitvoeren. Als u denk dat deze foutmelding
       onterecht is, neem dan contact op met de beheerders van dit dashboard en stel
       ze op de hoogte van het probleem.
+  error_incorrect_passcode:
+    header: Onjuist wachtwoord. :-(
   error_404:
     header: Pagina niet gevonden.
     explanation: Deze pagina bestaat niet. Als u probeerde het dashboard van een cursus

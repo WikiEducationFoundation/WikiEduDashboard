@@ -54,7 +54,7 @@ it:
     articles: Voci
     character_doc: La somma dei caratteri aggiunti alle voci nel namespace principale
       dagli studenti del corso durante il periodo del corso
-    course_description: Corsi Wiki Educazionali
+    course_description: Corsi
     courses: Corsi
     yourcourses: Tuoi corsi
     nocourses: Non stai partecipando ad alcun corso.
@@ -145,6 +145,10 @@ it:
     summary: Sommario
   error_401:
     header: Non autorizzato. >:-(
+  error_incorrect_passcode:
+    header: Codice non corretto. :-(
+    explanation: Il codice per iscriversi a questo corso non è corretto. Chiedi all'insegnate
+      il codice attuale per iscriversi a questo corso.
   error_404:
     header: Pagina non trovata. :-(
   error_500:

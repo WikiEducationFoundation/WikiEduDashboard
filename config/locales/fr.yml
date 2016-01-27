@@ -262,6 +262,10 @@ fr:
     explanation: Vous n’êtes pas autorisé à exécuter cette requête. Si vous pensez
       avoir eu cet avertissement par erreur, veuillez contacter les mainteneurs de
       ce tableau de bord pour les informer du problème.
+  error_incorrect_passcode:
+    header: Mot de passe erroné. :-(
+    explanation: Le mot de passe pour s’inscrire à ce cours n’est pas correct. Veuillez
+      demander au formateur le mot de passe actuel pour s’inscrire à ce cours.
   error_404:
     header: Page non trouvée. :-(
     explanation: Cette page n’existe pas. Si vous essayez d’atteindre le tableau de

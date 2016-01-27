@@ -17,4 +17,43 @@ cs:
     edited_mobile: Články
     no_assignee: Nebyl přiřazen žádný uživatel
     rating: Třída
+    title: Název
+    view: Zobrazit článek
+    view_all: Zobrazit vše
+    view_doc: Souhrn všech zobrazení každého článku během průběhu kurzu
+  assignments:
+    none: Tento kurz nemá žádné přidělené články na Wikipedii.
+  blocks:
+    milestones:
+      title: Milníky
+      empty: Tento kurz nemá v současné době žádné milníky.
+  courses:
+    articles: Články
+    character_doc: Počet znaků, které byly přidány do hlavního jmenného prostoru studenty
+      během průběhu kurzu
+    revisions_doc: Počet editací během uplynulých %{timeframe} dní.
+    word_count_doc: Odhadovaný počet slov, které byly přidány do hlavního jmenného
+      prostoru studenty kurzu během jeho průběhu
+    courses: Kurzy
+    yourcourses: Vaše kurzy
+    nocourses: Neúčastníte se žádných kurzů.
+    current: Aktuální kurzy
+    duration: Průběh kurzů
+    students: Studenti
+    students_none: Tento kurz nemá žádné studenty.
+    students_short: Studenti
+    new_week: Přidat nový týden
+    overview: Přehled
+    title: Název
+    view: Zobrazit kurz
+    view_wiki: Zobrazit na Wikipedii
+    error:
+      exists: Tento kurz již existujeǃ Zkuste prosím zadat jiný název kurzu, školu,
+        nebo semestr.
+      user_exists: Uživatel %{username} neexistuje.
+  course_creator:
+    create_new: Vytvořit nový kurz
+    course_title: Název kurzu
+    course_description: Popis kurzu
+    expected_number: Předpokládaný počet studentů
 ...

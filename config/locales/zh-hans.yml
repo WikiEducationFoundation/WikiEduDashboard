@@ -185,6 +185,8 @@ zh-hans:
       explanation: 您正在使用与控制面板不兼容的浏览器。此网站在Internet Explorer 11或更高版本、Chrome和Firefox浏览器的最新版本以及其他现代浏览器上正常工作。
   error_401:
     header: 未获授权。>:-(
+  error_incorrect_passcode:
+    header: 密码不正确。:-(
   error_404:
     header: 找不到页面。:-(
   error_422:

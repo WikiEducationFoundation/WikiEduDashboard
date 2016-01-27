@@ -258,6 +258,10 @@ de:
     explanation: Du bist nicht berechtigt, diese Anfrage auszuführen. Falls du denkst,
       dass diese Meldung ein Fehler ist, kontaktiere bitte die Instandhalter dieses
       Dashboards, damit sie über das Problem Bescheid wissen.
+  error_incorrect_passcode:
+    header: Falscher Passcode. :-(
+    explanation: Der Passcode für die Einschreibung in diesen Kurs ist falsch. Bitte
+      den Kursleiter um den aktuellen Passcode, um sich in diesen Kurs einzuschreiben.
   error_404:
     header: Seite nicht gefunden. :-(
     explanation: Diese Seite ist nicht vorhanden. Falls du versucht hast, das Dashboard
