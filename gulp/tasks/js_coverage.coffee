@@ -32,11 +32,11 @@ gulp.task("js_coverage", require('gulp-jsx-coverage').createTask(
   istanbul:
     preserveComments: true
     coverageVariable: '__MY_TEST_COVERAGE__',
-    exclude: /node_modules|test[0-9]/
+    exclude: /node_modules|test|public/
   transpile:
-#    coffee:
-#      include: /\.coffee$/
-#      omitExt: ['.coffee']
+    coffee:
+      include: /\.coffee$/
+      omitExt: ['.coffee']
     cjsx:
       include: /\.cjsx$/
       omitExt: ['.cjsx']
