@@ -12,6 +12,8 @@ plugins   = require('gulp-load-plugins')()
 gulp.task("js_coverage", require('gulp-jsx-coverage').createTask(
   src: [
     'test/components/**/*.coffee',
+    'test/main/**/*.coffee',
+    'test/utils/**/*.coffee'
 
     'app/assets/javascripts/*.coffee',
     'app/assets/javascripts/utils/*.coffee',
@@ -32,6 +34,9 @@ gulp.task("js_coverage", require('gulp-jsx-coverage').createTask(
     coverageVariable: '__MY_TEST_COVERAGE__',
     exclude: /node_modules|test[0-9]/
   transpile:
+#    coffee:
+#      include: /\.coffee$/
+#      omitExt: ['.coffee']
     cjsx:
       include: /\.cjsx$/
       omitExt: ['.cjsx']
