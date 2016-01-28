@@ -1,12 +1,9 @@
-class LoginError < StandardError; end
-
 class CustomStrategy < OmniAuth::Strategies::Mediawiki
   def parse_info(jwt_data)
-    begin
-      super
-    rescue JWT::DecodeError
-      request.env['JWT_ERROR'] = true
-      request.env['JWT_DATA'] = jwt_data
-    end
+    super
+  rescue JWT::DecodeError
+    fail!(:login_error)
+    return { login_failed: true,
+             jwt_data: jwt_data.body }
   end
 end

@@ -192,6 +192,18 @@ describe 'Student users', type: :feature, js: true do
       sleep 1
       expect(first('tbody')).not_to have_content 'Ragesoss'
     end
+
+    it 'redirects to a login error page if login fails' do
+      logout
+      OmniAuth.config.test_mode = true
+      allow_any_instance_of(OmniAuth::Strategies::Mediawiki)
+        .to receive(:callback_url).and_return('/users/auth/mediawiki/callback')
+      OmniAuth.config.mock_auth[:mediawiki] = OmniAuth::AuthHash.new(
+        extra: { raw_info: { login_failed: true } }
+      )
+      visit "/courses/#{Course.first.slug}/enroll/passcode"
+      expect(page).to have_content 'Login Error'
+    end
   end
 
   describe 'inputing an assigned article' do
