@@ -137,4 +137,11 @@ describe 'timeline editing', type: :feature, js: true do
     sleep 1
     expect(Gradeable.all).to be_empty
   end
+
+  it 'lets users add a block' do
+    visit "/courses/#{Course.first.slug}/timeline"
+    find('span.week__add-block').click
+    click_button 'Save'
+    expect(page).to have_content 'Block description'
+  end
 end
