@@ -81,7 +81,7 @@ Block = React.createClass(
       spacer = <span>  —  </span>
 
     modules = undefined
-    if @props.block.training_modules || (parseInt(@props.block.kind) is 1 && @_isEditable())
+    if @props.block.training_modules || @_isEditable()
       modules = (
         <TrainingModules
           onChange={@passedUpdateBlock}
