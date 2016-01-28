@@ -5,7 +5,7 @@ require "#{Rails.root}/lib/cleaners"
 
 describe RevisionImporter do
   describe '.update_all_revisions' do
-    it 'should fetch revisions for existing courses' do
+    it 'fetches revisions for existing courses' do
       VCR.use_cassette 'revisions/update_all_revisions' do
         # Try it with no courses.
         RevisionImporter.update_all_revisions
@@ -30,13 +30,21 @@ describe RevisionImporter do
       end
     end
 
-    it 'should not fail with returning students' do
+    it 'handles returning users with earlier revisions' do
       VCR.use_cassette 'revisions/returning_students' do
         # Create a user who has a revision from long ago
         create(:trained) # This is user 319203, with edits since 2015.
         create(:revision,
                user_id: 319203,
-               date: '2003-03-01'.to_date)
+               article_id: 1,
+               date: '2013-01-01'.to_date)
+        # Also a revision from during the course.
+        create(:revision,
+               user_id: 319203,
+               article_id: 2,
+               date: '2015-02-01'.to_date)
+        create(:article, id: 1)
+        create(:article, id: 2)
         # Create a recent course and add the user to it.
         create(:course,
                id: 1,
@@ -46,6 +54,7 @@ describe RevisionImporter do
                course_id: 1,
                user_id: 319203,
                role: 0)
+        CoursesUsers.update_all_caches
         RevisionImporter.update_all_revisions nil, true
         expect(Revision.all.count > 1).to be true
       end
@@ -81,7 +90,7 @@ describe RevisionImporter do
   end
 
   describe '.update_assignment_article_ids' do
-    it 'should add article ids to assignments after importing revisions' do
+    it 'adds article ids to assignments after importing revisions' do
       VCR.use_cassette 'revisions/update_all_revisions' do
         VCR.use_cassette 'wiki/course_data' do
           LegacyCourseImporter.update_all_courses(false, cohort: [351])
@@ -96,7 +105,7 @@ describe RevisionImporter do
       end
     end
 
-    it 'should only update article_ids for mainspace titles' do
+    it 'only updates article_ids for mainspace titles' do
       create(:assignment,
              id: 1,
              article_title: 'Foo',
@@ -120,7 +129,7 @@ describe RevisionImporter do
   end
 
   describe '.move_or_delete_revisions' do
-    it 'should update the article_id for a moved revision' do
+    it 'updates the article_id for a moved revision' do
       # https://en.wikipedia.org/w/index.php?title=Selfie&oldid=547645475
       create(:revision,
              id: 547645475,
