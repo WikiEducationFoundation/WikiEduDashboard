@@ -6,7 +6,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def mediawiki
     auth_hash = request.env['omniauth.auth']
-    return handle_login_failure(auth_hash) if auth_hash[:extra][:raw_info][:login_failed]
+    return handle_login_failure(auth_hash) if login_failed?(auth_hash)
 
     @user = UserImporter.from_omniauth(auth_hash)
 
@@ -25,5 +25,9 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     Raven.capture_message 'OAuth login failed',
                           extra: auth_hash
     return redirect_to errors_login_error_path
+  end
+
+  def login_failed?(auth_hash)
+    auth_hash[:extra].try(:[], :raw_info).try(:[], :login_failed)
   end
 end

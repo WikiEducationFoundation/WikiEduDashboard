@@ -1,5 +1,3 @@
-require_relative '../../lib/custom_strategy'
-
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
@@ -242,7 +240,6 @@ Devise.setup do |config|
   config.omniauth :mediawiki,
                   Figaro.env.wikipedia_token,
                   Figaro.env.wikipedia_secret,
-                  strategy_class: CustomStrategy,
                   client_options: {
                     site: "https://#{Figaro.env.wiki_language}.wikipedia.org"
                   }
@@ -252,7 +249,7 @@ Devise.setup do |config|
                   Figaro.env.wikipedia_token,
                   Figaro.env.wikipedia_secret,
                   name: 'mediawiki_signup',
-                  strategy_class: CustomStrategy,
+                  strategy_class: OmniAuth::Strategies::Mediawiki,
                   client_options: {
                     site: "https://#{Figaro.env.wiki_language}.wikipedia.org",
                     signup: true
