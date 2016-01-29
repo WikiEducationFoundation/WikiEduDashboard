@@ -11,6 +11,7 @@ global.Simulate = ReactTestUtils.Simulate
 global.$ = require 'jquery'
 global._ = require 'lodash'
 global.moment = require 'moment'
+global.moment-recur = require 'moment-recur'
 global.I18n = require 'i18n-js'
 global.chai = require 'chai'
 
