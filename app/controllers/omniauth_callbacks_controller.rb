@@ -5,9 +5,10 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   include Devise::Controllers::Rememberable
 
   def mediawiki
-    @user = UserImporter.from_omniauth(request.env['omniauth.auth'])
+    auth_hash = request.env['omniauth.auth']
+    return handle_login_failure(auth_hash) if login_failed?(auth_hash)
 
-    return handle_jwt_error if request.env['JWT_ERROR']
+    @user = UserImporter.from_omniauth(auth_hash)
 
     if @user.persisted?
       remember_me @user
@@ -19,10 +20,14 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   protected
 
-  def handle_jwt_error
-    Rails.logger.warn "OAuth login failed with jwt_data: #{request.env['JWT_DATA'].body}"
+  def handle_login_failure(auth_hash)
+    Rails.logger.warn "OAuth login failed with jwt_data: #{auth_hash[:extra][:raw_info][:jwt_data]}"
     Raven.capture_message 'OAuth login failed',
-                          extra: { jwt_data: request.env['JWT_DATA'].body }
+                          extra: auth_hash
     return redirect_to errors_login_error_path
+  end
+
+  def login_failed?(auth_hash)
+    auth_hash[:extra].try(:[], :raw_info).try(:[], :login_failed)
   end
 end
