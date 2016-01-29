@@ -69,6 +69,16 @@ TimelineHandler = React.createClass(
 
     outlet = React.cloneElement(@props.children, {key: 'wizard_handler', course: @props.course, weeks: @props.weeks, week_meetings: weekMeetings, meetings: meetings}) if @props.children
 
+    show_grading =
+      if @state?.reorderable == true
+        false
+      else if @props.current_user.admin || @props.current_user.role > 0
+        true
+      else if @props.gradeables.length == 0
+        false
+      else
+        true
+
     <div>
       <TransitionGroup
         transitionName="wizard"
@@ -95,7 +105,7 @@ TimelineHandler = React.createClass(
         all_training_modules={@props.all_training_modules}
         edit_permissions={@props.current_user.admin || @props.current_user.role > 0}
       />
-      { if @state?.reorderable != true then <Grading {...@props} /> else null }
+      { if show_grading then <Grading {...@props} /> else null }
     </div>
 )
 
