@@ -6,6 +6,7 @@ Assignment        = require './assignment'
 AssignmentStore   = require '../../stores/assignment_store'
 ArticleStore      = require '../../stores/article_store'
 ServerActions     = require '../../actions/server_actions'
+CourseUtils       = require '../../utils/course_utils'
 
 getState = ->
   assignments: AssignmentStore.getModels()
@@ -43,6 +44,7 @@ AssignmentList = React.createClass(
       elements={elements}
       keys={keys}
       table_key='assignments'
+      none_message={CourseUtils.i18n('assignments_none', @props.course.string_prefix)}
       store={AssignmentStore}
       sortable=false
     />

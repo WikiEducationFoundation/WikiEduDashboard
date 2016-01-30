@@ -16,6 +16,7 @@ BlockStore      = require '../../stores/block_store'
 WeekStore       = require '../../stores/week_store'
 
 DateCalculator  = require '../../utils/date_calculator'
+CourseUtils     = require '../../utils/course_utils'
 
 Timeline = React.createClass(
   displayName: 'Timeline'
@@ -33,7 +34,6 @@ Timeline = React.createClass(
     saveBlockChanges: React.PropTypes.func
     cancelBlockEditable: React.PropTypes.func
     all_training_modules: React.PropTypes.array
-
 
   getInitialState: ->
     unscrolled: true
@@ -219,7 +219,7 @@ Timeline = React.createClass(
         )
 
       edit_course_dates = (
-        <CourseLink className="week-nav__action week-nav__link" to="/courses/#{@props.course?.slug}/timeline/dates">Edit Course Dates</CourseLink>
+        <CourseLink className="week-nav__action week-nav__link" to="/courses/#{@props.course?.slug}/timeline/dates">{CourseUtils.i18n('edit_course_dates', @props.course.string_prefix)}</CourseLink>
       )
 
       start = moment(@props.course.timeline_start)

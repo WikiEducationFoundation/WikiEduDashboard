@@ -5,6 +5,7 @@ List              = require '../common/list'
 Revision          = require './revision'
 RevisionStore     = require '../../stores/revision_store'
 ServerActions     = require '../../actions/server_actions'
+CourseUtils       = require '../../utils/course_utils'
 
 getState = ->
   revisions: RevisionStore.getModels()
@@ -37,6 +38,7 @@ RevisionList = React.createClass(
       elements={elements}
       keys={keys}
       table_key='revisions'
+      none_message={CourseUtils.i18n('revisions_none', @props.course.string_prefix)}
       store={RevisionStore}
     />
 )

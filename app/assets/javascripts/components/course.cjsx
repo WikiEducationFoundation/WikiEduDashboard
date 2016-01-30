@@ -8,6 +8,7 @@ CourseStore       = require '../stores/course_store'
 UserStore         = require '../stores/user_store'
 CohortStore       = require '../stores/cohort_store'
 Affix             = require './common/affix'
+CourseUtils       = require '../utils/course_utils'
 
 getState = ->
   current = $('#react_root').data('current_user')
@@ -46,6 +47,14 @@ Course = React.createClass(
   render: ->
     alerts = []
     route_params = @props.params
+
+    courseLink =
+      if @state.course.url?
+        (<a href={@state.course.url} target="_blank">
+          <h2 className="title">{@state.course.title}</h2>
+        </a>)
+      else
+        (<a><h2 className="title">{@state.course.title}</h2></a>)
 
     if @getCurrentUser().id?
       user_obj = UserStore.getFiltered({ id: @getCurrentUser().id })[0]
@@ -110,7 +119,7 @@ Course = React.createClass(
         <div className='notification' key='enroll'>
           <div className='container'>
             <div>
-              <p>Your course has been published! Students may enroll in the course by visiting the following URL:</p>
+              <p>{CourseUtils.i18n('published', @state.course.string_prefix)}</p>
               <a href={url}>{url}</a>
             </div>
           </div>
@@ -180,16 +189,14 @@ Course = React.createClass(
       <Affix className="course-nav__wrapper" offset=55>
         <div className="course_navigation">
           <div className="container">
-            <a href={@state.course.url} target="_blank">
-              <h2 className="title">{@state.course.title}</h2>
-            </a>
+            {courseLink}
             <nav>
               <div className="nav__item" id="overview-link">
                 <p><Link to="#{@_courseLinkParams()}/overview" className={overviewLinkClassName} activeClassName="active">Overview</Link></p>
               </div>
               {timeline}
               <div className="nav__item" id="students-link">
-                <p><Link to="#{@_courseLinkParams()}/students" activeClassName="active">Students</Link></p>
+                <p><Link to="#{@_courseLinkParams()}/students" activeClassName="active">{CourseUtils.i18n('students_short',@state.course.string_prefix)}</Link></p>
               </div>
               <div className="nav__item" id="articles-link">
                 <p><Link to="#{@_courseLinkParams()}/articles" activeClassName="active">Articles</Link></p>

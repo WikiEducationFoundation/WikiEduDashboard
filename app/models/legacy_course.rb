@@ -16,4 +16,8 @@ class LegacyCourse < Course
   def update(data={}, should_save=true)
     CourseUpdateManager.update_from_wiki(self, data, should_save)
   end
+
+  def string_prefix
+    'courses'
+  end
 end

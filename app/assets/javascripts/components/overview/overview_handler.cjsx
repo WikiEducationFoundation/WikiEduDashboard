@@ -10,6 +10,7 @@ WeekStore     = require '../../stores/week_store'
 ServerActions = require '../../actions/server_actions'
 Loading       = require '../common/loading'
 CourseClonedModal  = require './course_cloned_modal'
+CourseUtils   = require '../../utils/course_utils'
 
 
 getState = ->
@@ -74,7 +75,7 @@ Overview = React.createClass(
         </div>
         <div className="stat-display__stat popover-trigger" id="student-editors">
           <div className="stat-display__value">{@props.course.student_count}</div>
-          <small>Student Editors</small>
+          <small>{CourseUtils.i18n('student_editors', @props.course.string_prefix)}</small>
           <div className="popover dark" id="trained-count">
             <h4 className="stat-display__value">{@props.course.trained_count}</h4>
             <p>are up-to-date with training</p>

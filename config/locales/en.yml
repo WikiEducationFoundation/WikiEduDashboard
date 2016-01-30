@@ -65,17 +65,17 @@ en:
     loading: Loading articles...
     assigned: Assigned Articles
     assigned_to: Assigned To
-    character_doc: The sum of characters added to articles by the course's students during the course term
+    character_doc: The sum of characters added to articles by enrolled editors between the start and end dates
     edited: Articles Edited
     edited_mobile: Articles
     no_assignee: No user assigned
     rating: Class
     rating_doc: The rating an article has been assigned by WikiProjects on Wikipedia. These ratings may corresponds to much older versions, so they are just a rough indicator of article maturity.
     rating_docs:
-      fa: Featured article — Wikipedia's highest rating, probably too mature an article for a student editor's main project
+      fa: Featured article — Wikipedia's highest rating, probably too mature an article for a new editor's main project
       fl: Featured list — Wikipedia's highest rating for lists
-      a: A-class — very developed article that may be too mature an article for a student editor's main project
-      ga: Good article — a well-developed article that may be too mature an article for a student editor's main project
+      a: A-class — very developed article that may be too mature an article for a new editor's main project
+      ga: Good article — a well-developed article that may be too mature an article for a new editor's main project
       b: B-class — a moderately developed article
       c: C-class — an intermediate article with room for improvement
       start: Start-class — a preliminary article with plenty of room for improvement
@@ -100,7 +100,6 @@ en:
   blocks:
     milestones:
       title: Milestones
-      empty: This course does not currently have any milestones.
 
   cohort:
     view_other: View other cohorts
@@ -108,7 +107,12 @@ en:
   courses:
     activity: Activity
     articles: Articles
+    articles_none: This course has not edited any articles.
+    assignment_end: Assignment End
+    assignment_start: Assignment Start
+    assignments_none: This course has no assigned Wikipedia articles.
     character_doc: The sum of characters added to mainspace articles by the course's students during the course term
+    edit_course_dates: Edit Course Dates
     revisions_doc: The number of edits in the past %{timeframe} days
     word_count_doc: An estimate of the number of words added to mainspace articles by the course's students during the course term
     course_description: Courses
@@ -117,21 +121,30 @@ en:
     nocourses: You are not participating in any courses.
     current: Current Courses
     duration: Course Duration
+    expected_students: Expected Students
     gradeables_none: This course has no gradeable assignments.
     instructor:
       one: Instructor
       other: Instructors
+    instructors: Instructors
+    milestones_none: This course does not currently have any milestones.
+    published: "Your course has been published! Students may enroll in the course by visiting the following URL:"
+    revisions_none: This course has no recent Wikipedia editing activity.
+    school: School
     students: Students
+    student_editors: Student Editors
     students_none: This course has no students.
     students_short: Students
+    term: Term
     timeline: Assignment Details
+    uploads_none: This class has not contributed any images or other media files to Wikimedia Commons.
     weeks_none: This course does not have a timeline yet.
     new_week: Add New Week
     overview: Overview
     title: Title
     view: View Course
     view_wiki: View on Wikipedia
-    view_doc: The sum of all views to articles edited by students since the students made their first edit to each article
+    view_doc: The sum of all views to articles edited by enrolled editors since the editor made their first edit to each article
     volunteer:
       one: Volunteer
       other: Volunteers
@@ -144,6 +157,26 @@ en:
       school). Click the date to change between unselected, selected, and
       holiday state. The dates of course activities will change to account for
       weeks that have no scheduled meetings.
+
+  # These are strings that are not specific to education/classroom contexts
+  courses_generic:
+    articles_none: There are no edited articles for this project yet.
+    assignment_end: Timeline End
+    assignment_start: Timeline Start
+    assignments_none: This project has no assigned Wikipedia articles.
+    edit_course_dates: Edit Project Dates
+    expected_students: Expected Editors
+    instructors: Facilitators
+    published: "This project has been published! Editors may enroll by visiting the following URL:"
+    revisions_none: This project has no recent Wikipedia editing activity.
+    school: Institution
+    students: Editors
+    students_short: Editors
+    student_editors: Editors
+    students_none: This project has no editors enrolled.
+    term: When
+    uploads_none: This project has not contributed any images or other media files to Wikimedia Commons.
+    milestones_none: This project does not currently have any milestones.
 
   course_creator:
     create_new: Create a New Course
@@ -177,7 +210,6 @@ en:
     date_time: Date/Time
     edit_count_description: Total Edits
     revisions: Recent Edits
-    student_editors: Student Editors
     view: Views
     view_count_description: Article Views
     word_count: Words Added
@@ -226,7 +258,7 @@ en:
       Characters Added<br>(mainspace | userspace)
     contributions: User Contributions
     contributions_more: View More Contributions
-    editors: Student Editors
+    student_editors: Student Editors
     loading: Loading users...
     name: Name
     none: This course has no students.
@@ -239,7 +271,7 @@ en:
       other: "are up-to-date with training"
     training_complete_count: "%{count} training up-to-date"
     training_doc: >
-      Student editors who have completed the all assigned training modules that
+      Editors who have completed the all assigned training modules that
       have come due are counted as up-to-date with their training.
     training_incomplete: Training Incomplete
     up_to_date_with_training: 'up-to-date with training'

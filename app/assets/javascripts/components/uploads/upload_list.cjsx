@@ -5,6 +5,7 @@ List          = require '../common/list'
 Upload        = require './upload'
 UploadStore   = require '../../stores/upload_store'
 ServerActions = require '../../actions/server_actions'
+CourseUtils   = require '../../utils/course_utils'
 
 getState = ->
   uploads: UploadStore.getModels()
@@ -37,6 +38,7 @@ UploadList = React.createClass(
       elements={elements}
       keys={keys}
       table_key='uploads'
+      none_message={CourseUtils.i18n('uploads_none', @props.course.string_prefix)}
       store={UploadStore}
     />
 )
