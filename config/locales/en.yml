@@ -65,7 +65,7 @@ en:
     loading: Loading articles...
     assigned: Assigned Articles
     assigned_to: Assigned To
-    character_doc: The sum of characters added to articles by enrolled editors betweent the start and end dates
+    character_doc: The sum of characters added to articles by enrolled editors between the start and end dates
     edited: Articles Edited
     edited_mobile: Articles
     no_assignee: No user assigned
