@@ -73,7 +73,6 @@ de:
   blocks:
     milestones:
       title: Meilensteine
-      empty: Dieser Kurs hat derzeit keine Meilensteine.
   cohort:
     view_other: Andere Jahrgänge ansehen
   courses:
@@ -84,7 +83,7 @@ de:
     revisions_doc: Die Anzahl der Bearbeitungen in den letzten %{timeframe} Tagen
     word_count_doc: Eine Schätzung der Anzahl der durch die Kursstudenten während
       der Kursdauer hinzugefügten Wörter in Hauptnamensraum-Artikeln.
-    course_description: Wiki-Ed-Kurse
+    course_description: Kurse
     courses: Kurse
     yourcourses: Deine Kurse
     nocourses: Du nimmst an keinen Kursen teil.
@@ -149,7 +148,6 @@ de:
     date_time: Datum/Uhrzeit
     edit_count_description: Gesamte Bearbeitungen
     revisions: Letzte Bearbeitungen
-    student_editors: Studentenautoren
     view: Aufrufe
     view_count_description: Artikelaufrufe
     word_count: Hinzugefügte Wörter
@@ -192,7 +190,6 @@ de:
     chars_added: Hinzugefügte Zeichen<br>(Hauptnamensraum | Benutzernamensraum)
     contributions: Benutzerbeiträge
     contributions_more: Weitere Beiträge ansehen
-    editors: Studentenautoren
     loading: Lade Benutzer …
     name: Name
     none: Dieser Kurs hat keine Studenten.
@@ -276,6 +273,11 @@ de:
     header: 500 – Interner Serverfehler. :-(
     explanation: Etwas ist schief gelaufen. Bitte kontaktiere die Instandhalter dieses
       Dashboards, damit sie über dieses Problem Bescheid wissen.
+  login_error:
+    header: Anmeldefehler
+    explanation: Es scheint so, als ob es ein Problem mit dem Anmeldeprozess gäbe.
+      Entschuldigung! Dies tritt gelegentlich auf. Bitte versuche die Anmeldung oder
+      Einschreibung erneut.
   timeline:
     title: Zeitleiste
     due_default: Während nächster Woche

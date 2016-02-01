@@ -93,7 +93,6 @@ br:
     char_changed: Arouezennoù kemmet
     date_time: Deiz/Eur
     edit_count_description: Hollad ar c'hemmoù
-    student_editors: Studierien embannerien
     view: Gweladennoù
     view_count_description: Pennadoù gwelet
   namespace:
@@ -116,7 +115,6 @@ br:
     assignees: Deverkadenn(où)
     contributions: Degasadennoù an implijer
     contributions_more: Diskwel muioc'h a zegasadennoù
-    editors: Studierien embannerien
     loading: Pellgargadenn an implijerien...
     name: Nom
     none: N'eus studier ebet er gentel-mañ.

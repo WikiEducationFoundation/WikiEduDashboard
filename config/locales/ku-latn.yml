@@ -44,7 +44,6 @@ ku-latn:
     date_time: Dîrok/Katjimêr
     edit_count_description: Hemû Guherandin
     revisions: Guhertinên Dawî
-    student_editors: Edîtorên Xwendekara
     view: Dîtin
     view_count_description: Dîtinên Gotara
   namespace:
@@ -56,7 +55,6 @@ ku-latn:
   users:
     contributions: Beşdariyên Bikarhênerê
     contributions_more: Zêdetir Beşdariyan Bibîne
-    editors: Edîtorên Xwendekaran
     loading: Bikarhêner tên barkirin...
     name: Nav
     recent_revisions: Guhertinên Dawî

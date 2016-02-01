@@ -79,4 +79,6 @@ ksh:
     header: Di Sigg wohd nit jefonge.
   error_500:
     header: Ene entärne Fähler em ẞööver.
+  login_error:
+    header: Fähler beim Enlogge
 ...

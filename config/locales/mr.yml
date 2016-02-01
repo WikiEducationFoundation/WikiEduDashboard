@@ -69,7 +69,6 @@ mr:
     date_time: दिनांक/वेळ
     edit_count_description: एकूण संपादने
     revisions: अलीकडील संपादने
-    student_editors: विद्यार्थी संपादक
     word_count: जोडलेले शब्द
   namespace:
     user_ns: सदस्य
@@ -87,7 +86,6 @@ mr:
     assigned: सोपविलेले लेख
     contributions: सदस्य योगदान
     contributions_more: अधिक योगदाने बघा
-    editors: विद्यार्थी संपादक
     loading: सदस्यांचे प्रभारण करीत आहे...
     name: नाव
     none: या अभ्यासक्रमात काहीच विद्यार्थी नाहीत.

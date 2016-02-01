@@ -38,6 +38,7 @@ sv:
   courses:
     activity: Aktivitet
     articles: Artiklar
+    course_description: Kurser
   course_creator:
     course_title: Kursens titel
     start_date: Startdatum
@@ -52,7 +53,6 @@ sv:
     char_changed: Ändrade tecken
     date_time: Datum/Tid
     revisions: Senaste redigeringar
-    student_editors: Studentredigerare
     view: Visningar
     view_count_description: Artikelvisningar
   namespace:
@@ -74,8 +74,12 @@ sv:
       header: Webbläsaren stöds inte. :-(
   error_401:
     header: Obehörig. >:-(
+  error_incorrect_passcode:
+    header: Felaktigt lösenord. :-(
   error_404:
     header: Sidan kunde inte hittas. :-(
   error_500:
     header: 500 — internt serverfel.  :-(
+  login_error:
+    header: Inloggningsproblem
 ...

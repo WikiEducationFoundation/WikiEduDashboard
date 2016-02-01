@@ -76,7 +76,6 @@ es:
   blocks:
     milestones:
       title: Hitos
-      empty: Este curso actualmente no tiene ningún hito.
   cohort:
     view_other: Ver otras cohortes
   courses:
@@ -153,7 +152,6 @@ es:
     date_time: Fecha/hora
     edit_count_description: Ediciones totales
     revisions: Ediciones recientes
-    student_editors: Editores estudiantiles
     view: Visualizaciones
     view_count_description: Visualizaciones del artículo
     word_count: Palabras añadidas
@@ -196,7 +194,6 @@ es:
     chars_added: Caracteres añadidos<br>(espacio principal | espacio de usuarios)
     contributions: Contribuciones del usuario
     contributions_more: Ver más contribuciones
-    editors: Editores estudiantiles
     loading: Cargando usuarios...
     name: Nombre
     none: Este curso no tiene estudiantes.

@@ -1,0 +1,9 @@
+# Messages for Mingrelian (მარგალური)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Silovan
+---
+xmf:
+  login_error:
+    header: ჩილათა მიშულას
+...

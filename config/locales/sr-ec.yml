@@ -103,7 +103,6 @@ sr-ec:
     char_changed: Промењено слова
     date_time: Датум/време
     edit_count_description: Укупно измена
-    student_editors: Студенски уређивачи
     view: Прегледа
     view_count_description: Прегледа чланка
   namespace:
@@ -135,7 +134,6 @@ sr-ec:
       је корисник допринео. Враћање уклоњеног садржаја ће такође повећати укупан број.
     contributions: Кориснички доприноси
     contributions_more: Види још доприноса
-    editors: Студенски уређивачи
     loading: Учитавам кориснике...
     name: Име
     none: Овај курс нема студената

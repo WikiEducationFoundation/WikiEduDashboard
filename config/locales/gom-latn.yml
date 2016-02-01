@@ -21,7 +21,6 @@ gom-latn:
     articles_edited: Sompadit Lekh
     date_time: Tarikh/Vell
     edit_count_description: Melloun Sompadon
-    student_editors: Vidyarthi Sompadok
   namespace:
     user_ns: Vapurpi
   revisions:
@@ -29,6 +28,5 @@ gom-latn:
   users:
     contributions: Vapurpi Yogdanam
     contributions_more: Anik Yogdanam Polloi
-    editors: Vidyarthi Sompadok
     name: Nanv
 ...

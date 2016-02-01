@@ -101,7 +101,6 @@ pt-br:
     date_time: Data/Horário
     edit_count_description: Total de edições
     revisions: Edições recentes
-    student_editors: Editores estudantes
     view: Visitas
     view_count_description: Visualizações de artigo
     word_count: Palavras Adicionadas
@@ -129,7 +128,6 @@ pt-br:
     assigned: Artigos Atribuídos
     contributions: Contribuições do usuário
     contributions_more: Ver mais contribuições
-    editors: Editores estudantes
     loading: Carregando usuários...
     name: Nome
     none: Este curso não tem estudantes

@@ -90,7 +90,6 @@ ko:
     date_time: 날짜/시간
     edit_count_description: 총 편집
     revisions: 최신판
-    student_editors: 학생 편집자
     view: 보기
   namespace:
     user: 사용자 공간

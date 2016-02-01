@@ -73,7 +73,6 @@ ast:
   blocks:
     milestones:
       title: Finxos
-      empty: Esti cursu anguaño nun tien nengún finxu.
   cohort:
     view_other: Ver otres cohortes
   courses:
@@ -84,7 +83,7 @@ ast:
     revisions_doc: El númberu d'ediciones nos pasaos %{timeframe} díes
     word_count_doc: Una estimación del númberu de palabres amestaes polos estudiantes
       a los artículos del espaciu principal nel periodu del cursu
-    course_description: Cursos de Wiki Ed
+    course_description: Cursos
     courses: Cursos
     yourcourses: Los tos cursos
     nocourses: Nun participes en nengún cursu.
@@ -148,7 +147,6 @@ ast:
     date_time: Data/Hora
     edit_count_description: Total d'ediciones
     revisions: Ediciones recién
-    student_editors: Editores estudiantes
     view: Visites
     view_count_description: Visites del artículu
     word_count: Palabres amestaes
@@ -191,7 +189,6 @@ ast:
     chars_added: Caráuteres añadíos<br>(espaciu principal | espaciu d'usuariu)
     contributions: Contribuciones del usuariu
     contributions_more: Ver más contribuciones
-    editors: Editores estudiantes
     loading: Cargando usuarios...
     name: Nome
     none: Esti cursu nun tien estudiantes.
@@ -252,6 +249,10 @@ ast:
     explanation: Nun tas autorizáu a executar esta solicitú. Si crees que llegasti
       a esti avisu por error, comunícate colos responsables del mantenimientu d'esti
       tableru pa informa-yos del problema.
+  error_incorrect_passcode:
+    header: Códigu d'accesu incorreutu. :-(
+    explanation: El códigu d'accesu pa matriculase nesti cursu, ye incorreutu. Entruga
+      al monitor pol códigu d'accesu actual pa inscribise nesti cursu.
   error_404:
     header: Nun s'alcontró la páxina. :-(
     explanation: Esta páxina nun esiste. Si intentabes entrar al tableru por un cursu,
@@ -265,6 +266,10 @@ ast:
     header: 500 — error internu del sirvidor. :-(
     explanation: Daqué salió mal. Comunícate colos encargaos del mantenimientu de
       esti tableru pa informa-yos del problema.
+  login_error:
+    header: Error d'aniciu de sesión
+    explanation: Paez qu'hai un problema col procesu d'aniciu de sesión (pasa dacuando;
+      sentímoslo muncho). Intenta volver a aniciar sesión o volver a inscribite.
   timeline:
     title: Cronograma
     due_default: Previstu pa la selmana viniente

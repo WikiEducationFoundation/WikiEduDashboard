@@ -13,6 +13,8 @@ ru:
     home: Главная
     log_out: Выйти
     log_in: Представиться системе
+    sign_up: Зарегистрироваться
+    sign_up_log_in_extended: через Википедию
     recent_activity: Недавние действия
     search: искать на ask.wikiedu.org
   activity:
@@ -60,7 +62,6 @@ ru:
   blocks:
     milestones:
       title: Этапы
-      empty: Этот курс ещё не разбит на этапы.
   cohort:
     view_other: Посмотреть другие группы.
   courses:
@@ -69,6 +70,7 @@ ru:
     character_doc: Сумма символов, добавленных к статьям основного пространства студентами
       курса в течение семестра
     revisions_doc: Число правок за последние %{timeframe} дней
+    course_description: Курсы
     courses: Курсы
     yourcourses: Ваши курсы
     nocourses: Вы не участвуете ни в одном курсе.
@@ -78,6 +80,8 @@ ru:
     instructor:
       one: Инструктор
       other: Инструкторы
+    instructors: Инструкторы
+    school: Школа
     students: Студенты
     students_none: У этого курса пока нет студентов.
     students_short: Студенты
@@ -96,6 +100,11 @@ ru:
       exists: Такой курс уже существует! Пожалуйста, попробуйте ещё раз с другим заголовком,
         школой или семестром.
       user_exists: К сожалению, участника %{username} не существует.
+  courses_generic:
+    students: Редакторы
+    students_short: Редакторы
+    student_editors: Редакторы
+    term: Когда
   course_creator:
     create_new: Создать новый курс
     start_date: Дата начала
@@ -111,7 +120,6 @@ ru:
     date_time: Дата/время
     edit_count_description: Всего правок
     revisions: Последние правки
-    student_editors: Студенты, работавшие над статьёй
     view: Просмотров
     view_count_description: Просмотров статей
   namespace:
@@ -147,7 +155,6 @@ ru:
     assignees: Назначение(я)
     contributions: Вклад участника
     contributions_more: Просмотреть вклад подробнее
-    editors: Редакторы (студенты)
     loading: Загрузка участников...
     name: Имя
     none: Ещё никто не проходит этот курс.
@@ -159,6 +166,7 @@ ru:
       one: завершил тренинг
       other: завершили тренинг
     training_complete_count: '%{count} завершили тренинг'
+    training_incomplete: Тренинг не завершён
   wizard:
     course_dates: Даты проведения курса
     assignment_dates: Даты назначения

@@ -53,7 +53,7 @@ lb:
     activity: Aktivitéit
     articles: Artikelen
     revisions_doc: D'Zuel vun den ännerungen an de leschten %{timeframe}-Deeg
-    course_description: Wiki-Ed-Coursen
+    course_description: Coursen
     courses: Coursen
     yourcourses: Är Coursen
     nocourses: Dir maacht bei kengem Cours mat.
@@ -126,6 +126,8 @@ lb:
     header: Säit net fonnt. :-(
   error_500:
     header: 500 - Interne Feeler vum Server. :-(
+  login_error:
+    header: Feeler beim Aloggen
   timeline:
     title: Chronologie
     due_default: Nächst Woch fälleg

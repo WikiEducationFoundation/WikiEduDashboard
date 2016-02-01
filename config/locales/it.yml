@@ -155,6 +155,10 @@ it:
     header: 500 — errore interno del server. :-(
     explanation: Qualcosa è andato storto. Si prega di contattare i responsabili di
       questo quadro per informarli del problema.
+  login_error:
+    header: Errore durante l'accesso
+    explanation: Sembra che ci sia un problema con il processo di accesso. (Ci dispiace!
+      Succede di tanto in tanto.) Riprova la registrazione o l'iscrizione.
   timeline:
     unable_to_add_week: Non puoi aggiungere nuove settimane quando la tua timeline
       è piena. Cancella almeno una settimana o cambia le date di assegnazione per

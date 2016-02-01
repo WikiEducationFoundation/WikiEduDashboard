@@ -60,7 +60,6 @@ bcl:
   metrics:
     characters: Mga Letra
     char_changed: Mga karakter pinagliwat
-    student_editors: Mga Estudyanteng Paraliwat
     view: Mga tanawon
   namespace:
     user_char_added: Espasyo-nin-paragamit na mga tsar pinagdugang
@@ -78,7 +77,6 @@ bcl:
     already_enrolled: An paragamit na yan nakapagpatala na!
     assigned: Pinagtokang Artikulo
     contributions_more: Tanawon an iba pang mga Karambagan
-    editors: Mga Estudyanteng Paraliwat
     loading: Ikinakarga ang mga paragamit...
     name: Pangaran
     reviewers: Tagapagrepaso

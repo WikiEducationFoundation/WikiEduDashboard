@@ -23,11 +23,27 @@ fa:
   courses:
     activity: فعالیت
     articles: مقالات
+    assignment_end: تکلیف پایانی
+    edit_course_dates: ویرایش تاریخ دوره
     courses: دوره‌ها
+    instructors: اساتید
+    school: مدرسه
     students: دانشجویان
+    student_editors: ویراستاران دانشجویی
     students_short: دانشجویان
+    term: ترم
     overview: چشم‌انداز
     title: عنوان
+  courses_generic:
+    assignment_end: پایان جدول زمانی
+    assignment_start: شروع جدول زمانی
+    edit_course_dates: تغییر تاریخ پروژه
+    instructors: تسهیلات
+    school: نهاد
+    students: ویراستاران
+    students_short: ویراستاران
+    student_editors: ویراستاران
+    term: زمان
   metrics:
     characters: کاراکترها
     date_time: تاریخ/ساعت
@@ -35,6 +51,7 @@ fa:
   namespace:
     user_ns: کاربر
   users:
+    student_editors: ویراستاران دانشجویی
     name: نام
   wizard:
     summary: خلاصه

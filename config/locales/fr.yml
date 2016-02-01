@@ -38,8 +38,8 @@ fr:
     loading: Chargement des articles...
     assigned: Articles affectés
     assigned_to: Assigné à
-    character_doc: Le total du nombre de caractères ajoutés aux articles par les étudiants
-      du cours durant son déroulement
+    character_doc: Le total du nombre de caractères ajoutés aux articles par les éditeurs
+      inscrits entre les dates de début et de fin
     edited: Articles modifiés
     edited_mobile: Articles
     no_assignee: Aucun utilisateur affecté
@@ -48,13 +48,13 @@ fr:
       Ces notes peuvent correspondre à des versions plus anciennes ; elles sont donc
       simplement un indicateur approximatif de la maturité de l’article.
     rating_docs:
-      fa: Article en vedette — Plus haute notation de WIkipédia, probablement un article
-        trop mature pour être le projet principal d’un étudiant éditeur
+      fa: Article en vedette — Plus haute notation de Wikipédia, probablement un article
+        trop mature pour être le projet principal d’un nouvel éditeur
       fl: Liste en vedette — Plus haute notation de Wikipédia pour les listes
       a: Classe A — article très développé qui pourrait être trop mature pour être
-        le projet principal d’un étudiant éditeur
+        le projet principal d’un nouvel éditeur
       ga: Bon article — un article bien développé qui pourrait être trop mature pour
-        être le projet principal d’un étudiant éditeur
+        être le projet principal d’un nouvel éditeur
       b: Classe B — un article modérément développé
       c: Classe C — un article intermédiaire, avec des possibilités d’amélioration
       start: Classe démarrage — un article préliminaire avec beaucoup de possibilités
@@ -79,39 +79,54 @@ fr:
   blocks:
     milestones:
       title: Jalons
-      empty: Ce cours n’a encore aucun jalon.
   cohort:
     view_other: Afficher les autres cohortes
   courses:
     activity: Activité
     articles: Articles
+    articles_none: Ce cours n’a modifié aucun article.
+    assignment_end: Fin d’affectation
+    assignment_start: Début d’affectation
+    assignments_none: Ce cours n’a aucun article Wikipédia affecté.
     character_doc: Le nombre total de caractères ajoutés aux articles de l’espace
       de nom principal par les étudiants du cours durant son déroulement
+    edit_course_dates: Modifier les dates du cours
     revisions_doc: Le nombre de modifications dans les %{timeframe} jours passés
     word_count_doc: Une estimation du nombre de mots ajoutés aux articles de l’espace
       principal par les étudiants du cours pendant son déroulement
-    course_description: Cours d’édition de wiki
+    course_description: Cours
     courses: Cours
     yourcourses: Vos cours
     nocourses: Vous ne participez à aucun cours.
     current: Cours actuels
     duration: Durée du cours
+    expected_students: Étudiants attendus
     gradeables_none: Ce cours n’a aucune affectation notable.
     instructor:
       one: Instructeur
       other: Instructeurs
+    instructors: Formateurs
+    milestones_none: Ce cours n’a actuellement aucun jalon.
+    published: 'Votre cours a été publié ! Les étudiants peuvent s’inscrire au cours
+      via l’URL suivante :'
+    revisions_none: Ce cours n’a pas d’activité récente de modification de Wikipédia.
+    school: École
     students: Étudiants
+    student_editors: Éditeurs étudiants
     students_none: Ce cours n’a aucun étudiant.
     students_short: Étudiants
+    term: Période
     timeline: Détails d'assignement
+    uploads_none: Cette classe n’a contribué à Wikimédia Communs par aucune image
+      ni autre fichier de média
     weeks_none: Ce cours n’a pas encore de planning.
     new_week: Ajouter une nouvelle semaine
     overview: Vue d'ensemble
     title: Titre
     view: Afficher le cours
     view_wiki: Afficher sur Wikipédia
-    view_doc: La somme de toutes les vues des articles édités par des étudiants depuis
-      que ces derniers ont édité pour la première fois chacun des articles.
+    view_doc: La somme de toutes les vues des articles modifiés par des éditeurs inscrits
+      depuis que ces derniers ont édité pour la première fois chacun des articles.
     volunteer:
       one: Bénévole
       other: Bénévoles
@@ -124,6 +139,26 @@ fr:
       du calendrier (par ex., vacances, pas d’école). Cliquer sur la date pour basculer
       entre non sélectionnée, sélectionnée, et en congé. Les dates des activités de
       cours seront modifiées pour tenir compte des semaines sans rendez-vous planifié.
+  courses_generic:
+    articles_none: Il n’y a encore aucun article modifié pour ce projet.
+    assignment_end: Fin de la chronologie
+    assignment_start: Début de la chronologie
+    assignments_none: Ce projet n’a pas d’articles de Wikipédia affectés.
+    edit_course_dates: Modifier les dates du projet
+    expected_students: Éditeurs attendus
+    instructors: Animateurs
+    published: 'Ce projet a été publié ! Les éditeurs peuvent s’inscrire en allant
+      sur l’URL suivante :'
+    revisions_none: Ce projet n’a pas d’activité récente de modification de Wikipédia.
+    school: Institution
+    students: Éditeurs
+    students_short: Éditeurs
+    student_editors: Éditeurs
+    students_none: Ce projet n’a pas d’éditeurs inscrits.
+    term: Quand
+    uploads_none: Ce projet n’a contribué à Wikimédia Communs par aucune image ou
+      autre fichier média.
+    milestones_none: Ce projet n’a actuellement aucun jalon.
   course_creator:
     create_new: Créer un Nouveau cours
     course_title: Titre du cours
@@ -154,7 +189,6 @@ fr:
     date_time: Date/Heure
     edit_count_description: Total des modifications
     revisions: Modifications récentes
-    student_editors: Étudiants éditeur
     view: Vues
     view_count_description: Articles vus
     word_count: Mots ajoutés
@@ -197,7 +231,7 @@ fr:
     chars_added: Caractères ajoutés<br>(espace principal | espace utilisateur)
     contributions: Contributions de l’utilisateur
     contributions_more: Afficher plus de contributions
-    editors: Editeurs étudiants
+    student_editors: Éditeurs étudiants
     loading: Chargement des utilisateurs…
     name: Nom
     none: Ce cours n’a aucun étudiant.
@@ -210,8 +244,8 @@ fr:
       one: est à jour avec la formation
       other: sont à jour avec la formation
     training_complete_count: '%{count} formation à jour'
-    training_doc: Les étudiants éditeur qui ont terminé tous les modules de formation
-      échus qui leur ont été affectés sont comptabilisés comme à jour de leur formation.
+    training_doc: Les éditeurs qui ont terminé tous les modules de formation échus
+      qui leur ont été affectés sont comptabilisés comme à jour de leur formation.
     training_incomplete: Formation non terminée
     up_to_date_with_training: formation à jour
   wiki_edits:
@@ -280,6 +314,11 @@ fr:
     header: 500 — erreur interne du serveur.  :-(
     explanation: Quelque chose s’est mal passé. Veuillez contacter les mainteneurs
       de ce tableau de bord pour les informer du problème.
+  login_error:
+    header: Erreur de connexion
+    explanation: Il semble qu'il y ait un problème avec le processus en cours. (Désolé
+      à ce sujet! Cela arrive de temps en temps.) S'il vous plaît essayez de vous
+      reconnecter, ou réinscrivez-vous à nouveau.
   timeline:
     title: Planning
     due_default: Attendu de la semaine prochaine

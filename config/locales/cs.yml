@@ -26,7 +26,6 @@ cs:
   blocks:
     milestones:
       title: Milníky
-      empty: Tento kurz nemá v současné době žádné milníky.
   courses:
     articles: Články
     character_doc: Počet znaků, které byly přidány do hlavního jmenného prostoru studenty

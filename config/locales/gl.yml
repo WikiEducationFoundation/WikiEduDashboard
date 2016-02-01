@@ -35,7 +35,6 @@ gl:
   blocks:
     milestones:
       title: Fitos
-      empty: Este curso actualmente non ten fitos.
   cohort:
     view_other: Ver outras cohortes
   courses:
@@ -78,7 +77,6 @@ gl:
     date_time: Data/Hora
     edit_count_description: Total de edicións
     revisions: Revisións recentes
-    student_editors: Editores estudantes
     view: Vistas
     view_count_description: Visualizacións do artigo
   namespace:

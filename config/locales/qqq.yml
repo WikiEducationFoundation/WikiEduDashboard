@@ -82,7 +82,6 @@ qqq:
   blocks:
     milestones:
       title: Label for the Milestone section of a course page
-      empty: Message indicating that there are no milestones for a course
   cohort:
     view_other: Command to view another cohort.
   courses:
@@ -91,7 +90,9 @@ qqq:
       Label for link to list of articles worked on by a course
       {{Identical|Article}}
     character_doc: Explanation of what 'characters added' means
-    course_description: Label for the number of courses in a cohort
+    course_description: |-
+      Label for the number of courses in a cohort
+      {{Identical|Course}}
     courses: Label for the number of courses in a cohort
     yourcourses: Label for the list of courses associated with the logged in user
     nocourses: Message indicating that the logged in user is not part of any courses
@@ -143,7 +144,6 @@ qqq:
     date_time: Label for a revision or activity timestamp.
     edit_count_description: Label for the number of edits made.
     revisions: Label for the number of recent edits/revisions.
-    student_editors: Label for number of editors participating as students in a course
     view: Label for the number of article views.
     view_count_description: Long label for the number of article views.
   namespace:
@@ -173,7 +173,6 @@ qqq:
     character_doc: Explanation of the characters added for a user
     contributions: Label for list of contributions by a user
     contributions_more: Label for a link that loads more of a user's contributions
-    editors: Label for the number of students enrolled in a course
     loading: Message indicating that information about users is still loading
     name: Label for usernames of students
     none: Message indicating that a course has no students enrolled

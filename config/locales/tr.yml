@@ -28,7 +28,6 @@ tr:
     end_date: Bitiş tarihi
   metrics:
     char_changed: Karakterler Değişti
-    student_editors: Öğrenci Editörler
   namespace:
     user_ns: Kullanıcı
   revisions:

@@ -51,7 +51,6 @@ he:
   blocks:
     milestones:
       title: אבני דרך
-      empty: לקורס הזה אין כרגע אבני דרך.
   cohort:
     view_other: להציג הקבצות אחרות
   courses:
@@ -105,7 +104,6 @@ he:
     date_time: תאריך/שעה
     edit_count_description: עריכות סה"כ
     revisions: עריכות אחרונות
-    student_editors: תלמידים עורכים
     view: צפיות
     view_count_description: צפיות בערכים
   namespace:
@@ -137,7 +135,6 @@ he:
       הוסיף. שחזור תוכן שהוסר יגדיל את הסך הזה.
     contributions: תרומות המשתמש
     contributions_more: הצגת תרומות נוספות
-    editors: תלמידים עורכים
     loading: טעינת משתמשים...
     name: שם
     none: בקורס הזה אין תלמידים.

@@ -63,14 +63,13 @@ zh-hans:
   blocks:
     milestones:
       title: 里程碑
-      empty: 此课程目前没有任何里程碑。
   cohort:
     view_other: 查看其它同班同学
   courses:
     activity: 活动
     articles: 条目
     revisions_doc: 过去%{timeframe}天内的编辑数
-    course_description: Wiki Ed课程
+    course_description: 课程
     courses: 课程
     yourcourses: 您的课程
     nocourses: 您未参加任何课程。
@@ -116,7 +115,6 @@ zh-hans:
     date_time: 日期/时间
     edit_count_description: 总计编辑
     revisions: 最近编辑
-    student_editors: 学生编辑者
     view: 查看
     view_count_description: 条目查阅
     word_count: 添加的文字
@@ -150,7 +148,6 @@ zh-hans:
     chars_added: 添加的字符<br>（主名字空间 | 用户名字空间）
     contributions: 用户贡献
     contributions_more: 查看更多贡献
-    editors: 学生编辑者
     loading: 正在加载用户...
     name: 名字
     none: 此课程没有学生。
@@ -195,6 +192,8 @@ zh-hans:
   error_500:
     header: 500 — 内部服务器错误。:-(
     explanation: 出现一些错误。请联络此控制面板的维护人员以让他们得知有关问题。
+  login_error:
+    header: 登录错误
   timeline:
     title: 时间轴
     due_default: 预计下周

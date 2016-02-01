@@ -74,7 +74,6 @@ uk:
   blocks:
     milestones:
       title: Досягнення
-      empty: У цьому курсі наразі немає жодних досягнень.
   cohort:
     view_other: Переглянути інші когорти.
   courses:
@@ -149,7 +148,6 @@ uk:
     date_time: Дата/час
     edit_count_description: Всього редагувань
     revisions: Недавні редагування
-    student_editors: Студентів-редакторів
     view: Переглядів
     view_count_description: Переглядів статей
     word_count: Слів додано
@@ -190,7 +188,6 @@ uk:
       цю суму.
     contributions: Внесок користувача
     contributions_more: Переглянути більше внесків
-    editors: Студентів-редакторів
     loading: Завантаження користувачів…
     name: Ім'я
     none: У цьому курсі немає студентів.

@@ -71,7 +71,6 @@ nl:
   blocks:
     milestones:
       title: Mijlpalen
-      empty: Deze cursus heeft nog geen mijlpalen.
   cohort:
     view_other: Andere cohorten bekijken
   courses:
@@ -80,7 +79,7 @@ nl:
     character_doc: Het aantal tekens dat tijdens de cursus is toegevoegd aan pagina's
       in de hoofdnaamruimte door studenten van de cursus
     revisions_doc: Het aantal bewerkingen in de afgelopen %{timeframe} dagen
-    course_description: Wiki Edcursussen
+    course_description: Cursussen
     courses: Cursussen
     yourcourses: Uw cursussen
     nocourses: U neemt niet deel aan een cursus.
@@ -112,6 +111,7 @@ nl:
       user_exists: '%{username} is geen bestaande gebruiker.'
   course_creator:
     create_new: Nieuwe cursus maken
+    course_title: Cursustitel
     start_date: Begindatum
     intro: De naam, school en semester vormen de URL voor uw cursuspagina en dit kan
       niet gewijzigd worden. Al het andere kan later aangepast worden. Klik op "Cursus
@@ -127,7 +127,6 @@ nl:
     date_time: Datum- en tijd
     edit_count_description: Totaal bewerkingen
     revisions: Recente bewerkingen
-    student_editors: Studentbewerkers
     view: Weergaven
     view_count_description: Paginaweergaven
   namespace:
@@ -164,7 +163,6 @@ nl:
       van verwijderde inhoud verhoogt dit getal ook.
     contributions: Gebruikersbijdragen
     contributions_more: Meer bijdragen bekijken
-    editors: Studentbewerkers
     loading: Bezig met het laden van gebruikers...
     name: Naam
     none: Deze cursus heeft geen studenten.

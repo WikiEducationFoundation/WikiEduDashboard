@@ -106,6 +106,8 @@ pt:
     header: Página não encontrada. :-(
   error_500:
     header: 500 — erro interno do servidor.  :-(
+  login_error:
+    header: Erro ao iniciar sessão
   timeline:
     title: Linha do tempo
 ...

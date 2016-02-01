@@ -47,6 +47,7 @@ pl:
   courses:
     activity: Aktywność
     articles: Artykuły
+    course_description: Kursy
     courses: Kursy
     yourcourses: Twoje Kursy
     nocourses: Nie bierzesz udziału w żadnych kursach.

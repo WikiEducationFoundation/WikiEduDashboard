@@ -49,12 +49,11 @@ sd:
   blocks:
     milestones:
       title: سنگ ميل
-      empty: في الحال هن ڪورس کي ڪي بہ سنگ ميل نہ آهن.
   courses:
     activity: سرگرمي
     articles: مضمون
     revisions_doc: پوين %{timeframe} ڏينهن ۾ ڪيل ترميمُن جو تعداد
-    course_description: وڪي ايڊيٽر ڪورسز
+    course_description: ' ڪورسز'
     courses: ڪورسز
     yourcourses: توهان جا ڪورسز
     nocourses: توهان ڪنهن بہ ڪورس ۾ حصو نہ وٺي رهيا آهيو.
@@ -98,7 +97,6 @@ sd:
     date_time: تاريخ/وقت
     edit_count_description: ڪل ترميمون
     revisions: تازيون تبديليون
-    student_editors: شاگرد سنواريندڙ
     view: ڏيٺون
     view_count_description: مضمون جون ڏيٿون
   namespace:
@@ -126,7 +124,6 @@ sd:
     assignees: تخصيصدار
     contributions: يُوزر جون ڀاڱيداريون
     contributions_more: وڌيڪ ڀاڱيداريون ڏسو
-    editors: شاگرد سنواريندڙ
     loading: يوزرس اتاري رهيا آهيون...
     name: نالو
     none: هن ڪورس جا ڪي بہ شاگرد نہ آهن.
@@ -163,6 +160,8 @@ sd:
   error_500:
     explanation: ڪا خرابي ٿي وئي. هن ڊيشبورڊ جو رک رکاءُ ڪندڙن سان رابطو ڪريو ۽ کين
       اهڙي آگاهي ڏيو.
+  login_error:
+    header: لاگ ان چڪ
   timeline:
     title: اوقاتي خط
     due_default: مٿين هفتي واجب
