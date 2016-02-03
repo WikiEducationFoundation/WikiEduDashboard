@@ -18,6 +18,8 @@ Please see the more complete document on [testing](testing.md).
 #### Translations
 Copy translations live at /config/locales and the fallback for missing strings is `en`. [i18n.js](https://github.com/fnando/i18n-js) is used to make these translations available on the frontend. The JS files providing the translations to the front end must be regenerated whenever a change is made by running `rake i18n:js:export`.
 
+To help translate the interface, please visit [translatewiki.net](https://translatewiki.net/wiki/Translating:Wiki_Ed_Dashboard).
+
 ## Pre-push checklist
 - If you have added any external libraries via a package manager please ensure that you have updated the proper dependency list (`bower.json`, `package.json`, or `Gemfile`).
 
