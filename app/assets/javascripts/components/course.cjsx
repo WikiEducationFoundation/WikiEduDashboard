@@ -36,7 +36,7 @@ Course = React.createClass(
     @state.current_user
   submit: (e) ->
     e.preventDefault()
-    return unless confirm "Upon submission, this course will be automatically posted to Wikipedia with your user account. After that, new edits to the timeline will be mirrored to Wikipedia.\n\nAre you sure you want to do this?"
+    return unless confirm I18n.t("courses.warn_mirrored")
     to_pass = $.extend(true, {}, @state.course)
     to_pass['submitted'] = true
     CourseActions.updateCourse to_pass, true
@@ -65,8 +65,8 @@ Course = React.createClass(
         alerts.push (
           <div className='notification' key='submit'>
             <div className='container'>
-              <p>Please review this timeline and make changes. Once you're satisfied with your timeline, submit it for approval by Wiki Ed staff. Once approved, you will be given an enrollment URL that students can use to join the course. (You'll still be able to make edits later.)</p>
-              <a href="#" onClick={@submit} className='button'>Submit</a>
+              <p>{I18n.t("courses.review_timeline")}</p>
+              <a href="#" onClick={@submit} className='button'>{I18n.t("application.submit")}</a>
             </div>
           </div>
         )
@@ -75,7 +75,7 @@ Course = React.createClass(
           alerts.push (
             <div className='notification' key='submit'>
               <div className='container'>
-                <p>Your course has been submitted. Wiki Ed staff will review it and get in touch with any questions.</p>
+                <p>{I18n.t("courses.submitted_note")}</p>
               </div>
             </div>
           )
@@ -83,8 +83,8 @@ Course = React.createClass(
           alerts.push (
             <div className='notification' key='publish'>
               <div className='container'>
-                <p>This course has been submitted for approval by its creator. To approve it, add it to a cohort on the Overview page.</p>
-                <CourseLink to="#{@_courseLinkParams()}/overview" className="button">Overview</CourseLink>
+                <p>{I18n.t("courses.submitted_admin")}</p>
+                <CourseLink to="#{@_courseLinkParams()}/overview" className="button">{I18n.t("courses.overview")}</CourseLink>
               </div>
             </div>
           )
@@ -95,8 +95,8 @@ Course = React.createClass(
         alerts.push(
           <div className='notification' key='upcoming_module'>
             <div className='container'>
-              <p>The training module "{module.title}" is assigned for this course, and is due on {module.due_date}.</p>
-              <a href={module.link} className="button pull-right">Go to training</a>
+              <p>{I18n.t("courses.training_due", title: module.title, date: module.due_date)}.</p>
+              <a href={module.link} className="button pull-right">{I18n.t("courses.training_nav")}</a>
             </div>
           </div>
         )
@@ -107,8 +107,8 @@ Course = React.createClass(
         alerts.push(
           <div className='notification' key='upcoming_module'>
             <div className='container'>
-              <p>The training module "{module.title}" is assigned for this course, and was due on {module.due_date}.</p>
-              <a href={module.link} className="button pull-right">Go to training</a>
+              <p>{I18n.t("courses.training_overdue", title: module.title, date: module.due_date)}.</p>
+              <a href={module.link} className="button pull-right">{I18n.t("courses.training_nav")}</a>
             </div>
           </div>
         )
@@ -129,7 +129,7 @@ Course = React.createClass(
     unless @state.course.legacy
       timeline = (
         <div className="nav__item" id="timeline-link">
-          <p><Link to={"#{@_courseLinkParams()}/timeline"} activeClassName='active'>Timeline</Link></p>
+          <p><Link to={"#{@_courseLinkParams()}/timeline"} activeClassName='active'>{I18n.t("courses.timeline_link")}</Link></p>
         </div>
       )
 
@@ -143,9 +143,9 @@ Course = React.createClass(
               <a href={@_courseLinkParams()}>
                 <svg className="close" tabIndex="0" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" style={{"fill":"currentcolor", "verticalAlign": "middle", "width":"32px", "height":"32px"}}><g><path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"></path></g></svg>
               </a>
-              <h1>Join '{@state.course.title}'?</h1>
-              <a className="button dark" href={@state.course.enroll_url + @props.location.query.enroll}>Join</a>
-              <a className="button border" href={@_courseLinkParams()}>Cancel</a>
+              <h1>{I18n.t("courses.join_prompt", title: @state.course.title)}</h1>
+              <a className="button dark" href={@state.course.enroll_url + @props.location.query.enroll}>{I18n.t("courses.join")}</a>
+              <a className="button border" href={@_courseLinkParams()}>{I18n.t("application.cancel")}</a>
             </div>
           )
         else
@@ -154,7 +154,7 @@ Course = React.createClass(
               <a href={@_courseLinkParams()}>
                 <svg className="close" tabIndex="0" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" style={{"fill":"currentcolor", "verticalAlign": "middle", "width":"32px", "height":"32px"}}><g><path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"></path></g></svg>
               </a>
-              <h1>You are already part '{@state.course.title}'!</h1>
+              <h1>{I18n.t("courses.already_enrolled", title: @state.course.title)}</h1>
             </div>
           )
       else
@@ -163,14 +163,11 @@ Course = React.createClass(
             <a href={@_courseLinkParams()}>
               <svg className="close" tabIndex="0" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" style={{"fill":"currentcolor", "verticalAlign": "middle", "width":"32px", "height":"32px"}}><g><path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"></path></g></svg>
             </a>
-            <h1>Hello,</h1>
+            <h1>{I18n.t("application.greeting")},</h1>
+            <p>{I18n.t("courses.invitation", title: @state.course.title)}</p>
             <p>
-              You’ve been invited to join {@state.course.title}. To join the course, you need to log in with a Wikipedia account.
-              <br/> If you don’t have a Wikipedia account yet, sign up for one now.
-            </p>
-            <p>
-              <a href={"/users/auth/mediawiki?origin=" + window.location} className="button auth dark"><i className="icon icon-wiki-logo"></i> Log in with Wikipedia</a>
-              <a href={"/users/auth/mediawiki_signup?origin=" + window.loaction} className="button auth signup border"><i className="icon icon-wiki-logo"></i> Sign up with Wikipedia</a>
+              <a href={"/users/auth/mediawiki?origin=" + window.location} className="button auth dark"><i className="icon icon-wiki-logo"></i> {I18n.t("application.log_in_extended")}</a>
+              <a href={"/users/auth/mediawiki_signup?origin=" + window.loaction} className="button auth signup border"><i className="icon icon-wiki-logo"></i> {I18n.t("application.sign_up_extended")}</a>
             </p>
           </div>
         )
@@ -180,8 +177,8 @@ Course = React.createClass(
           <a href={@_courseLinkParams()}>
             <svg className="close" tabIndex="0" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" style={{"fill":"currentcolor", "verticalAlign": "middle", "width":"32px", "height":"32px"}}><g><path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"></path></g></svg>
           </a>
-          <h1>Welcome!</h1>
-          <p>You’ve successfully joined {@state.course.title}.</p>
+          <h1>{I18n.t("application.greeting2")}</h1>
+          <p>{I18n.t("courses.join_successful", title: @state.course.title)}</p>
         </div>
       )
 
@@ -192,20 +189,20 @@ Course = React.createClass(
             {courseLink}
             <nav>
               <div className="nav__item" id="overview-link">
-                <p><Link to="#{@_courseLinkParams()}/overview" className={overviewLinkClassName} activeClassName="active">Overview</Link></p>
+                <p><Link to="#{@_courseLinkParams()}/overview" className={overviewLinkClassName} activeClassName="active">{I18n.t("courses.overview")}</Link></p>
               </div>
               {timeline}
               <div className="nav__item" id="students-link">
                 <p><Link to="#{@_courseLinkParams()}/students" activeClassName="active">{CourseUtils.i18n('students_short',@state.course.string_prefix)}</Link></p>
               </div>
               <div className="nav__item" id="articles-link">
-                <p><Link to="#{@_courseLinkParams()}/articles" activeClassName="active">Articles</Link></p>
+                <p><Link to="#{@_courseLinkParams()}/articles" activeClassName="active">{I18n.t("articles.label")}</Link></p>
               </div>
               <div className="nav__item" id="uploads-link">
-                <p><Link to="#{@_courseLinkParams()}/uploads" activeClassName="active">Uploads</Link></p>
+                <p><Link to="#{@_courseLinkParams()}/uploads" activeClassName="active">{I18n.t("uploads.label")}</Link></p>
               </div>
               <div className="nav__item" id="activity-link">
-                <p><Link to="#{@_courseLinkParams()}/activity" activeClassName="active">Activity</Link></p>
+                <p><Link to="#{@_courseLinkParams()}/activity" activeClassName="active">{I18n.t("activity.label")}</Link></p>
               </div>
             </nav>
           </div>

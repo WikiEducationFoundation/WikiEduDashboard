@@ -6,7 +6,12 @@
 ---
 qqq:
   application:
+    cancel: |-
+      Button to cancel an action
+      {{Identical|Cancel}}
     dashboard: Application name.
+    greeting: Casual greeting
+    greeting2: Enthusiastic greeting
     help: |-
       Link to http://ask.wikiedu.org
       {{Identical|Help}}
@@ -17,8 +22,12 @@ qqq:
     log_in: |-
       Button for logging in (for registered users)
       {{Identical|Log in}}
+    log_in_extended: Short text (< 14 characters) to make clear that authentication
+      is via wikipedia
     sign_up: Sign up (for new users)
-    sign_up_log_in_extended: Short text (< 14 characters) to make clear that authentication
+    sign_up_extended: Short text (< 14 characters) to make clear that authentication
+      is via wikipedia
+    sign_up_log_in_extended: Short (lego) text (< 14 characters) to make clear that authentication
       is via wikipedia
     explore: |-
       Explore link
@@ -26,6 +35,9 @@ qqq:
     my_dashboard: My Dashboard link
     recent_activity: Link to recent activity (for registered users)
     search: Input box for search on ask.wikiedu.org
+    submit: |-
+      Submit link
+      {{Identical|Submit}}
     training: '{{Identical|Training}}'
   dashboard:
     opt_out: Link to opt out
@@ -38,9 +50,11 @@ qqq:
       Explore button
       {{Identical|Explore}}
   activity:
+    label: Short name for activities
     edited_by: Column label for username of user who made an edit
     all: '{{Identical|Activity}}'
   articles:
+    label: Short name for articles
     none: Message stating that no articles have been edited.
     loading: Placeholder message indicating that article data is still loading
     assigned: Label for a list of assigned articles
@@ -86,6 +100,8 @@ qqq:
     view_other: Command to view another cohort.
   courses:
     activity: Label for link to the 'recent activity' list for a course
+    already_enrolled: Message displayed when the user attempts to enroll
+      in a course they have already joined.
     articles: |-
       Label for link to list of articles worked on by a course
       {{Identical|Article}}
@@ -103,6 +119,10 @@ qqq:
     instructor:
       one: Label for a single instructor of a course
       other: Label for plural instructors of a course
+    overview: Link to course overview page
+    join: Button to join a course
+    join_prompt: Do you want to join this course?
+    join_successful: Message that join was successful
     students: Label for link to the list of students for a course
     students_none: This course has no students.
     students_short: Label for the number of students in a course, in the mobile layout
@@ -122,6 +142,15 @@ qqq:
     error:
       exists: Error message indicating that a course with the same title, school and
         term already exists.
+    warn_mirrored: Message to alert instructor that their new course will be
+      uploaded to Wikipedia on their behalf
+    review_timeline: Message prompting user to review the timeline
+    submitted_note: Message that your course has been successfully submitted
+    submitted_admin: Admin-only notice that a course is ready for approval
+    training_due: Training is due for this course
+    training_nav: Link to go to the training page
+    training_overdue: Training due date has passed for this course
+    invitation: Message that you have been invited to a course
   course_creator:
     create_new: Header of button for creating a new course
     course_title: Label for title of the course
@@ -217,4 +246,7 @@ qqq:
     explanation: Explanation of what to do after encountering this error.
   timeline:
     title: '{{Identical|Timeline}}'
+  timeline_link: Button to timeline page
+uploads:
+  label: Short name for uploads
 ...
