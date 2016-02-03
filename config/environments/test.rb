@@ -1,3 +1,4 @@
+ENV['dashboard_url'] = 'dashboard.wikiedu.org'
 ENV['disable_wiki_output'] = 'false'
 ENV['wiki_language'] = 'en'
 ENV['enable_article_finder'] = 'true'

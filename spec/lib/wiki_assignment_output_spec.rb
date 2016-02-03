@@ -84,7 +84,7 @@ describe WikiAssignmentOutput do
 
   it 'returns nil if the assignment template is already present' do
     course_page = Course.find(10001).wiki_title
-    assignment_tag = "{{#{ENV['dashboard_url']} assignment | course = #{course_page}"
+    assignment_tag = "{{dashboard.wikiedu.org assignment | course = #{course_page}"
     talk_page_templates = "{{some template}}\n{{some other template}}\n"
     additional_talk_content = "This is a comment\n"
     initial_talk_page_content = talk_page_templates + assignment_tag + additional_talk_content
