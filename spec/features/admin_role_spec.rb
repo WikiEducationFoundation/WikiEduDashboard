@@ -117,7 +117,7 @@ describe 'Admin users', type: :feature, js: true do
       sleep 1
 
       click_button('Edit Details')
-      within 'p.tags' do
+      within '.tags' do
         page.find('.button.border.plus').click
         page.find('input').set 'My Tag'
         find('.pop button', visible: true).click

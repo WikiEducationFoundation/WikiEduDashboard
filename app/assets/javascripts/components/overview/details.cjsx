@@ -145,11 +145,11 @@ Details = React.createClass(
         <div>
           <span>Cohorts: {cohorts}</span>
           <CohortButton {...@props} show={@props.editable && @props.current_user.admin && (@props.course.submitted || @props.course.legacy) } />
-        </p>
-        <p className='tags'>
+        </div>
+        <div className='tags'>
           <span>Tags: {tags}</span>
           <TagButton {...@props} show={@props.editable && @props.current_user.admin} />
-        </p>
+        </div>
       </div>
     </div>
 )
