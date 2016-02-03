@@ -81,66 +81,68 @@ Details = React.createClass(
         {staff}
         <p>{CourseUtils.i18n('school', @props.course.string_prefix)}: {@props.course.school}</p>
         <p>{CourseUtils.i18n('term', @props.course.string_prefix)}: {@props.course.term}</p>
-        {passcode}
-        <fieldset>
-          <TextInput
-            onChange={@updateDetails}
-            value={@props.course.expected_students}
-            value_key='expected_students'
-            editable={@props.editable}
-            type='number'
-            label={CourseUtils.i18n('expected_students', @props.course.string_prefix)}
-          />
-        </fieldset>
-        <fieldset>
-          <TextInput
-            onChange={@updateDetails}
-            value={@props.course.start}
-            value_key='start'
-            editable={@props.editable}
-            type='date'
-            label='Start'
-            required=true
-          />
-        </fieldset>
-        <fieldset>
-          <TextInput
-            onChange={@updateDetails}
-            value={@props.course.end}
-            value_key='end'
-            editable={@props.editable}
-            type='date'
-            label='End'
-            date_props={minDate: moment(@props.course.start).add(1, 'week')}
-            enabled={@props.course.start?}
-            required=true
-          />
-        </fieldset>
-        <fieldset>
-          <TextInput
-            onChange={@updateDetails}
-            value={@props.course.timeline_start}
-            value_key='timeline_start'
-            editable={@props.editable}
-            type='date'
-            label={CourseUtils.i18n('assignment_start', @props.course.string_prefix)}
-            date_props={timeline_start_props}
-            required=true
-          />
-        </fieldset>
-        <fieldset>
-          <TextInput
-            onChange={@updateDetails}
-            value={@props.course.timeline_end}
-            value_key='timeline_end'
-            editable={@props.editable}
-            type='date'
-            label={CourseUtils.i18n('assignment_end', @props.course.string_prefix)}
-            date_props={timeline_end_props}
-            required=true
-          />
-        </fieldset>
-        <p>
+        <form>
+          {passcode}
+          <fieldset>
+            <TextInput
+              onChange={@updateDetails}
+              value={@props.course.expected_students}
+              value_key='expected_students'
+              editable={@props.editable}
+              type='number'
+              label={CourseUtils.i18n('expected_students', @props.course.string_prefix)}
+            />
+          </fieldset>
+          <fieldset>
+            <TextInput
+              onChange={@updateDetails}
+              value={@props.course.start}
+              value_key='start'
+              editable={@props.editable}
+              type='date'
+              label='Start'
+              required=true
+            />
+          </fieldset>
+          <fieldset>
+            <TextInput
+              onChange={@updateDetails}
+              value={@props.course.end}
+              value_key='end'
+              editable={@props.editable}
+              type='date'
+              label='End'
+              date_props={minDate: moment(@props.course.start).add(1, 'week')}
+              enabled={@props.course.start?}
+              required=true
+            />
+          </fieldset>
+          <fieldset>
+            <TextInput
+              onChange={@updateDetails}
+              value={@props.course.timeline_start}
+              value_key='timeline_start'
+              editable={@props.editable}
+              type='date'
+              label={CourseUtils.i18n('assignment_start', @props.course.string_prefix)}
+              date_props={timeline_start_props}
+              required=true
+            />
+          </fieldset>
+          <fieldset>
+            <TextInput
+              onChange={@updateDetails}
+              value={@props.course.timeline_end}
+              value_key='timeline_end'
+              editable={@props.editable}
+              type='date'
+              label={CourseUtils.i18n('assignment_end', @props.course.string_prefix)}
+              date_props={timeline_end_props}
+              required=true
+            />
+          </fieldset>
+        </form>
+        <div>
           <span>Cohorts: {cohorts}</span>
           <CohortButton {...@props} show={@props.editable && @props.current_user.admin && (@props.course.submitted || @props.course.legacy) } />
         </p>
