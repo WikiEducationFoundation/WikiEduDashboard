@@ -6,8 +6,6 @@ GradeableActions = Flux.createActions
     { actionType: 'ADD_GRADEABLE', data: {
       block: block
     }}
-  addGradeableToCourse: ->
-    { actionType: 'ADD_GRADEABLE_TO_COURSE' }
   updateGradeable: (gradeable) ->
     { actionType: 'UPDATE_GRADEABLE', data: {
       gradeable: gradeable
