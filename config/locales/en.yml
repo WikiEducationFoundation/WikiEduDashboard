@@ -33,17 +33,24 @@ en:
           quadrillion: Q
 
   application:
+    cancel: Cancel
     dashboard: Wiki Ed Dashboard
+    greeting: Hello,
+    greeting2: Welcome!
     help: Help
     home: Home
     log_out: Log out
     log_in: Log in
+    log_in_extended: Log in with Wikipedia
     sign_up: Sign up
+    sign_up_extended: Sign up with Wikipedia
+    # FIXME: deprecate lego message
     sign_up_log_in_extended: with Wikipedia
     explore: Explore
     my_dashboard: My Dashboard
     recent_activity: Recent Activity
     search: search ask.wikiedu.org
+    submit: Submit
     training: Training
 
   dashboard:
@@ -57,11 +64,13 @@ en:
     explore: Explore
 
   activity:
+    label: Activities
     edited_by: Edited By
     all: Activity
 
   articles:
     none: This course has not edited any articles.
+    label: Articles
     loading: Loading articles...
     assigned: Assigned Articles
     assigned_to: Assigned To
@@ -106,6 +115,7 @@ en:
 
   courses:
     activity: Activity
+    already_enrolled: You are already a part of '%{title}'!
     articles: Articles
     articles_none: This course has not edited any articles.
     assignment_end: Assignment End
@@ -113,6 +123,9 @@ en:
     assignments_none: This course has no assigned Wikipedia articles.
     character_doc: The sum of characters added to mainspace articles by the course's students during the course term
     edit_course_dates: Edit Course Dates
+    join: Join
+    join_prompt: Join '%{title}'?
+    join_successful: You’ve successfully joined %{title}.
     revisions_doc: The number of edits in the past %{timeframe} days
     word_count_doc: An estimate of the number of words added to mainspace articles by the course's students during the course term
     course_description: Courses
@@ -128,6 +141,7 @@ en:
       other: Instructors
     instructors: Instructors
     milestones_none: This course does not currently have any milestones.
+    overview: Overview
     published: "Your course has been published! Students may enroll in the course by visiting the following URL:"
     revisions_none: This course has no recent Wikipedia editing activity.
     school: School
@@ -137,6 +151,7 @@ en:
     students_short: Students
     term: Term
     timeline: Assignment Details
+    timeline_link: Timeline
     uploads_none: This class has not contributed any images or other media files to Wikimedia Commons.
     weeks_none: This course does not have a timeline yet.
     new_week: Add New Week
@@ -157,6 +172,31 @@ en:
       school). Click the date to change between unselected, selected, and
       holiday state. The dates of course activities will change to account for
       weeks that have no scheduled meetings.
+    warn_mirrored: >
+      Upon submission, this course will be automatically posted to Wikipedia with your user account.
+      After that, new edits to the timeline will be mirrored to Wikipedia.
+      
+      Are you sure you want to do this?
+    review_timeline: >
+      Please review this timeline and make changes. Once you're satisfied with
+      your timeline, submit it for approval by Wiki Ed staff. Once approved, you
+      will be given an enrollment URL that students can use to join the course.
+      (You'll still be able to make edits later.)
+    submitted_note: >
+      Your course has been submitted. Wiki Ed staff will review it and get in
+      touch with any questions.
+    submitted_admin: >
+      This course has been submitted for approval by its creator. To approve it,
+      add it to a cohort on the Overview page.
+    training_due:
+      The training module "%{title}" is assigned for this course, and is due on %{date}.
+    training_overdue:
+      The training module "%{title}" is assigned for this course, and was due on %{date}.
+    training_nav: Go to training
+    invitation: >
+      You’ve been invited to join %{title}. To join the course, you need to log in with a Wikipedia account.
+
+      If you don’t have a Wikipedia account yet, sign up for one now.
 
   # These are strings that are not specific to education/classroom contexts
   courses_generic:
@@ -238,6 +278,7 @@ en:
     paused: "Task %{task} cannot run because scheduled updates have been paused. Run 'rake batch:resume' to resume updates."
 
   uploads:
+    label: Uploads
     loading: Loading uploads...
     none: This class has not contributed any images or other media files to Wikimedia Commons.
     usages: Usages

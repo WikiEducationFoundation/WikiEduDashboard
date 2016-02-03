@@ -26,4 +26,5 @@
           = link_to user_omniauth_authorize_path(:mediawiki) do
             %i.icon.icon-wiki-logo
             = t('application.log_in')
+            -# FIXME: without the lego message
             %span.expand= t('application.sign_up_log_in_extended')
