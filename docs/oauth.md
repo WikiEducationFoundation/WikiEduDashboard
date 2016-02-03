@@ -25,7 +25,11 @@ Clicking on the 'Propose consumer' button should return a token and secret, whic
 
 ## Admin permissions
 
-Give users admin privileges in the app, e.g. to approve submitted courses, by setting the users.permissions field to 1 (Users::Permissions::ADMIN).
+Give users admin privileges in the app, e.g. to approve submitted courses, by setting the users.permissions field to "1".  For example, if your wiki username is "RageSock",
+```
+rails runner "User.find_by(wiki_id: 'RageSock').update_attributes(permissions: User::Permissions::ADMIN)"
+```
+or via mysql,
 ```
 mysql -e "update users set permissions = 1 where wiki_id='RageSock'" dashboard
 ```
