@@ -56,8 +56,21 @@ en:
 
   dashboard:
     opt_out: Request to opt out of orientation
+    orientation_notice: >
+      Before you create a course, let's go through orientation to help you get
+      started. (It takes about 30 minutes to complete.)
+    start_orientation: Start Orientation
     explore_examples: Explore Examples
     explore_course_pages: Explore the Course Pages
+    no_courses_instructor:
+      Looks like you don't have any courses.
+    no_courses_student:
+      Looks like you haven't joined a course yet.
+    create_note:
+      Click on Create Course to create your first course.
+    join_note:
+      Once you receive a passcode from your instructor, click on Find Your
+      Course to find and join it.
 
   home:
     log_in: Log in with Wikipedia
@@ -120,11 +133,13 @@ en:
       title: Milestones
 
   cohort:
+    none: None
     view_other: View other cohorts
 
   courses:
     activity: Activity
     already_enrolled: You are already a part of '%{title}'!
+    archived: Archived Courses
     articles: Articles
     articles_none: This course has not edited any articles.
     assignment_end: Assignment End
@@ -155,9 +170,12 @@ en:
     revisions_none: This course has no recent Wikipedia editing activity.
     school: School
     students: Students
+    students_count: "# Students"
     student_editors: Student Editors
     students_none: This course has no students.
     students_short: Students
+    submitted_heading: Submitted Courses
+    submitted_and_pending_heading: Submitted & Pending Approval
     term: Term
     timeline: Assignment Details
     timeline_link: Timeline
@@ -168,6 +186,7 @@ en:
     overview: Overview
     title: Title
     view: View Course
+    view_page: View Course Page
     view_wiki: View on Wikipedia
     view_doc: The sum of all views to articles edited by enrolled editors since the editor made their first edit to each article
     volunteer:
@@ -230,12 +249,15 @@ en:
 
   course_creator:
     create_new: Create a New Course
+    create_label: Create New Course
+    create_short: Create Course
     course_title: Course title
     course_school: Course school
     course_term: Course term
     course_subject: Course subject
     course_description: Course description
     expected_number: Expected number of students
+    find: Find Your Course
     start_date: Start date
     end_date: End date
     intro: >

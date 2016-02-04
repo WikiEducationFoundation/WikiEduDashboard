@@ -1,4 +1,4 @@
-<% content_for :after_title do " - Create New Course" end %>
+<% content_for :after_title do " - " + t("course_creator.create_label") end %>
 
 <header class="main-page">
   <h1><%= Figaro.env.dashboard_title %></h1>
@@ -9,7 +9,7 @@
     <% if flash[:notice] %>
       <div class="alert"><p><%= flash[:notice] %></p></div>
     <% end %>
-    <h3>Create New Course</h3>
+    <h3><%= t("course_creator.create_label") %></h3>
     <%= form_for :course, url: courses_path do |f| %>
       <fieldset>
         <%= f.label :title %>

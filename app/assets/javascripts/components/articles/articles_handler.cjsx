@@ -23,7 +23,7 @@ ArticlesHandler = React.createClass(
 
       <div id='articles'>
         <div className='section-header'>
-          <h3>{I18n.t('articles.edited')}</h3>
+          <h3>{I18n.t('metrics.articles_edited')}</h3>
           <div className='sort-select'>
             <select className='sorts' name='sorts' onChange={@sortSelect}>
               <option value='rating_num'>{I18n.t('articles.rating')}</option>
