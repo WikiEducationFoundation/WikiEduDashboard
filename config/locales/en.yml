@@ -152,6 +152,7 @@ en:
     term: Term
     timeline: Assignment Details
     timeline_link: Timeline
+    unsubmitted: Unsubmitted Courses
     uploads_none: This class has not contributed any images or other media files to Wikimedia Commons.
     weeks_none: This course does not have a timeline yet.
     new_week: Add New Week
@@ -276,6 +277,11 @@ en:
     conseq: "Task %{task} is already running!"
     constant: "Task %{task} can not run while task update_daily is running."
     paused: "Task %{task} cannot run because scheduled updates have been paused. Run 'rake batch:resume' to resume updates."
+
+  training:
+    continue: Continue (%{progress})
+    start: Start
+    view: View
 
   uploads:
     label: Uploads

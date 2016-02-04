@@ -39,6 +39,9 @@ qqq:
       Submit link
       {{Identical|Submit}}
     training: '{{Identical|Training}}'
+    timeline:
+      title: '{{Identical|Timeline}}'
+    timeline_link: Button to timeline page
   dashboard:
     opt_out: Link to opt out
     explore_examples: Link to explore example courses
@@ -126,6 +129,7 @@ qqq:
     students: Label for link to the list of students for a course
     students_none: This course has no students.
     students_short: Label for the number of students in a course, in the mobile layout
+    unsubmitted: Name for pseudo-cohort of unsubmitted courses
     weeks_none: Message indicating that a course does not have a timeline
     new_week: Button text for adding a new week to the timeline
     overview: Label for link to the overview page for a course
@@ -244,9 +248,12 @@ qqq:
   error_500:
     header: Message indicating a 500 internal server error.
     explanation: Explanation of what to do after encountering this error.
-  timeline:
-    title: '{{Identical|Timeline}}'
-  timeline_link: Button to timeline page
-uploads:
-  label: Short name for uploads
+
+  uploads:
+    label: Short name for uploads
+
+  training:
+    continue: Button label for continuing the training (plus percent completion)
+    start: Button label for starting training
+    view: Button label for viewing training progress
 ...

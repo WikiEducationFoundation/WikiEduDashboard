@@ -37,7 +37,7 @@ end
 #= Pseudo-Cohort that displays all unsubmitted, non-deleted courses
 class NullCohort
   def title
-    'Unsubmitted Courses'
+    I18n.t("courses.unsubmitted")
   end
 
   def slug
