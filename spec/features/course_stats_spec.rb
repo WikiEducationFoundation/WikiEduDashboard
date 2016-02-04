@@ -1,0 +1,38 @@
+require 'rails_helper'
+
+describe 'course stats', type: :feature, js: true do
+  let(:trained)    { 1 }
+  let(:course)     { create(:course, trained_count: trained,
+                      start: CourseTrainingProgressManager::TRAINING_BOOLEAN_CUTOFF_DATE + 1.day,
+                      end: 1.year.from_now.to_date) }
+  let(:views)      { 10 }
+  let(:chars)      { 10 }
+  let(:student)    { 0 }
+  let(:article)    { create(:article, namespace: 0, views: views) }
+  let!(:ac)        { create(:articles_course, course_id: course.id, article_id: article.id,
+                            new_article: true, view_count: views) }
+  let(:revision)   { create(:revision, article_id: article.id, characters: chars,
+                            date: course.start + 1.day, user_id: user.id) }
+  let(:revision2)  { create(:revision, article_id: article.id, new_article: true,
+                            characters: chars, date: course.start + 1.day, user_id: user.id) }
+  let(:user)       { create(:user) }
+  let!(:cu)        { create(:courses_user, course_id: course.id, user_id: user.id, role: student) }
+
+  let!(:revisions)  { [revision, revision2] }
+  let(:articles)   { [article] }
+  let(:users)      { [user] }
+
+  it 'displays statistics about the course' do
+    visit "/courses/#{course.slug}"; sleep 1
+
+    expect(page.find('#articles-created')).to have_content articles.count
+    expect(page.find('#total-edits')).to have_content revisions.count
+    expect(page.find('#articles-edited')).to have_content articles.count
+    expect(page.find('#student-editors')).to have_content users.count
+    find('#student-editors').click
+    expect(page.find('#trained-count')).to have_content trained
+    expect(page.find('#word-count')).to have_content
+      WordCount.from_characters(chars * revisions.count)
+    expect(page.find('#view-count')).to have_content views.to_s
+  end
+end

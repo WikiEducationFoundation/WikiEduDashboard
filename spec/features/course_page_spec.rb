@@ -121,18 +121,6 @@ describe 'the course page', type: :feature, js: true do
       title_text = 'This.course'
       expect(page).to have_content title_text
 
-      # Stats
-      new_articles = (article_count / 2.to_f).ceil.to_s
-      expect(page.find('#articles-created')).to have_content new_articles
-      expect(page.find('#total-edits')).to have_content revision_count
-      expect(page.find('#articles-edited')).to have_content article_count
-      expect(page.find('#student-editors')).to have_content user_count
-      find('#student-editors').click
-      expect(page.find('#trained-count')).to have_content user_count / 2
-      characters = revision_count * 2
-      expect(page.find('#word-count')).to have_content WordCount.from_characters(characters)
-      expect(page.find('#view-count')).to have_content article_count * 10
-
       # Title in the primary overview section
       title = 'This.course'
       expect(page.find('.primary')).to have_content title
@@ -234,6 +222,7 @@ describe 'the course page', type: :feature, js: true do
     it 'should display a list of articles, and sort articles by class' do
       js_visit "/courses/#{slug}/articles"
       # List of articles
+      sleep 1
       rows = page.all('tr.article').count
       expect(rows).to eq(article_count)
 
