@@ -12,6 +12,7 @@ qqq:
     dashboard: Application name.
     greeting: Casual greeting
     greeting2: Enthusiastic greeting
+    greeting_extended: Welcome the user to Wikipedia, one line
     help: |-
       Link to http://ask.wikiedu.org
       {{Identical|Help}}
@@ -81,6 +82,7 @@ qqq:
     title: |-
       Label for an article title.
       {{Identical|Title}}
+    title_example: Placeholder for article title
     view: Command to view an article.
     view_all: |-
       Command to view all articles.
@@ -89,10 +91,17 @@ qqq:
     views_added: Maintenance script message stating how many view counts have been
       added to an article.
   assignments:
+    already_exists: Message displayed when trying to create a duplicate assignment
+    assign_other: Button to assign an article to a student
+    assign_self: Button to assign an article to self
     assignees: '{{Identical|Assignee}}'
+    label: Button to assign an article
+    review_other: Button to assign an article to a student for review
+    review_self: Button to assign an article to self for review
     reviewers: '{{Identical|Reviewer}}'
     loading: Placeholder message indicating that assignment data is still loading
     none: Label for an empty list of assignments
+    none_short: Short label for an empty list of assignments
     confirm_addition: Confirmation dialog for adding a new assignment. %{title} is
       the Wikipedia page title. %{username} is the username of the assignee.
     confirm_deletion: Confirmation dialog for an assignment should be deleted

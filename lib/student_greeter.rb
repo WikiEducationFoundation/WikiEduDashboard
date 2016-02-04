@@ -65,9 +65,9 @@ class StudentGreeter
 
   def welcome_message(greeter)
     name = first_name(greeter)
-    { sectiontitle: 'Welcome!',
+    { sectiontitle: I18n.t("application.greeting2"),
       text: "{{subst:#{ENV['dashboard_url']} welcome|name=#{name}}}",
-      summary: 'Welcome to Wikipedia' }
+      summary: I18n.t("application.greeting_extended") }
   end
 
   def first_name(user)
