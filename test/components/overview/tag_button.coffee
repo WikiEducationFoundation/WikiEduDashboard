@@ -15,3 +15,6 @@ describe 'TagButton', ->
       />
     )
     renderedButton = ReactTestUtils.findRenderedDOMComponentWithClass(TestButton, 'plus')
+    expect(renderedButton.className).to.eq('button border plus')
+    expect(renderedButton.innerHTML).to.eq('+')
+    expect(renderedButton.tagName.toLowerCase()).to.eq('button')
