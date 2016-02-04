@@ -41,7 +41,7 @@ AssignButton = React.createClass(
       user_id: @props.student.id,
       role: @props.role
     }).length != 0
-      alert 'This assignment already exists!'
+      alert I18n.t("assignments.already_exists")
       return
 
     # Confirm
@@ -68,11 +68,11 @@ AssignButton = React.createClass(
       show_button = <button className={className + ' plus'} onClick={@props.open}>+</button>
     else if @props.permitted
       if @props.current_user.id == @props.student.id
-        assign_text = 'Assign myself an article'
-        review_text = 'Review an article'
+        assign_text = I18n.t("assignments.assign_self")
+        review_text = I18n.t("assignments.review_self")
       else if @props.current_user.role > 0 || @props.current_user.admin
-        assign_text = 'Assign an article'
-        review_text = 'Assign a review'
+        assign_text = I18n.t("assignments.assign_other")
+        review_text = I18n.t("assignments.review_other")
       final_text = if @props.role == 0 then assign_text else review_text
       edit_button = (
         <button className={className} onClick={@props.open}>{final_text}</button>
@@ -88,7 +88,7 @@ AssignButton = React.createClass(
         <td>{link}{remove_button}</td>
       </tr>
     if @props.assignments.length == 0
-      assignments = <tr><td>No articles assigned</td></tr>
+      assignments = <tr><td>{I18n.t("assignments.none_short")}</td></tr>
 
     if @props.permitted
       edit_row = (
@@ -96,12 +96,12 @@ AssignButton = React.createClass(
           <td>
             <form onSubmit={@assign}>
               <Lookup model='article'
-                placeholder='Article title'
+                placeholder={I18n.t("articles.title_example")}
                 ref='lookup'
                 onSubmit={@assign}
                 disabled=true
               />
-              <button className='button border' type="submit">Assign</button>
+              <button className='button border' type="submit">{I18n.t("assignments.label")}</button>
             </form>
           </td>
         </tr>

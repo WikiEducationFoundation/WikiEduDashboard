@@ -37,6 +37,7 @@ en:
     dashboard: Wiki Ed Dashboard
     greeting: Hello,
     greeting2: Welcome!
+    greeting_extended: Welcome to Wikipedia
     help: Help
     home: Home
     log_out: Log out
@@ -92,6 +93,7 @@ en:
       list: List-class — a list rather than a conventional article
       ?: Unrated — an article that hasn't yet been rated on Wikipedia's quality scale
     title: Title
+    title_example: Article title
     view: View Article
     view_all: View All
     view_doc: The sum of all views to each article during the course term
@@ -99,12 +101,19 @@ en:
     views_added: "Added %{count} new views for %{title}"
 
   assignments:
+    assign_other: Assign an article
+    assign_self: Assign myself an article
     assignees: Assignee(s)
+    already_exists: This assignment already exists!
     reviewers: Reviewer(s)
+    label: Assign
     loading: Loading assignments...
     none: This course has no assigned Wikipedia articles.
-    confirm_addition: "Are you sure you want to assign %{title} to %{username}?"
+    none_short: No articles assigned
+    confirm_addition: Are you sure you want to assign %{title} to %{username}?
     confirm_deletion: Are you sure you want to delete this assignment?
+    review_self: Review an article
+    review_other: Assign a review
 
   blocks:
     milestones:
