@@ -21,10 +21,10 @@
   </div>
   <div class="stat-display__stat">
     <div class="stat-display__value"><%= number_to_human presenter.courses.sum(:article_count) %></div>
-    <small><%= "Articles Edited" %></small>
+    <small><%= t("metrics.articles_edited") %></small>
   </div>
   <div class="stat-display__stat">
     <div class="stat-display__value"><%= number_to_human presenter.courses.sum(:new_article_count) %></div>
-    <small><%= "Articles Created" %></small>
+    <small><%= t("metrics.articles_created") %></small>
   </div>
 </div>

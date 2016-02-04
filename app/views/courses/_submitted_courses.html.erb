@@ -1,7 +1,7 @@
 <% if current_user.admin? && presenter.admin_courses.any? %>
   <section id="admin_courses">
     <div class="section-header">
-      <h3>Submitted Courses</h3>
+      <h3><%= t("courses.submitted_heading") %></h3>
     </div>
     <div class="row course-list__row list__header">
       <div class="row__wrapper desktop-only-flex">

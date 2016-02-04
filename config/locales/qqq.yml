@@ -44,9 +44,15 @@ qqq:
       title: '{{Identical|Timeline}}'
     timeline_link: Button to timeline page
   dashboard:
+    create_note: Instructions on how to create a course
+    join_note: Instructions on how to join a course
     opt_out: Link to opt out
     explore_examples: Link to explore example courses
     explore_course_pages: Link to explore courses pages
+    no_courses_instructor: Note that you can create courses
+    no_courses_student: Note that you can join courses
+    orientation_notice: Note suggesting an orientation
+    start_orientation: Link to start orientation
   home:
     log_in: Log in with Wikipedia button
     sign_up: Sign up with Wikipedia button
@@ -109,11 +115,13 @@ qqq:
     milestones:
       title: Label for the Milestone section of a course page
   cohort:
+    none: Option for a course with no cohort
     view_other: Command to view another cohort.
   courses:
     activity: Label for link to the 'recent activity' list for a course
     already_enrolled: Message displayed when the user attempts to enroll
       in a course they have already joined.
+    archived: Section heading for archived courses
     articles: |-
       Label for link to list of articles worked on by a course
       {{Identical|Article}}
@@ -136,6 +144,7 @@ qqq:
     join_prompt: Do you want to join this course?
     join_successful: Message that join was successful
     students: Label for link to the list of students for a course
+    students_count: Column label for number of students in a course
     students_none: This course has no students.
     students_short: Label for the number of students in a course, in the mobile layout
     unsubmitted: Name for pseudo-cohort of unsubmitted courses
@@ -148,6 +157,7 @@ qqq:
     view: Label for link to a course page
     view_wiki: Label for link to the on-wiki version of a course page
     view_doc: Explanation of what 'article views' means
+    view_page: Label for link to the course page
     volunteer:
       one: Label for a single course volunteer
       other: Label for multiple course volunteers
@@ -165,14 +175,18 @@ qqq:
     training_overdue: Training due date has passed for this course
     invitation: Message that you have been invited to a course
   course_creator:
+    create_label: Header for new course creation
     create_new: Header of button for creating a new course
+    create_short: Short label for link to create a course
     course_title: Label for title of the course
     course_school: Label for name of school which organized the course
     course_subject: Label for subject of the course
     course_description: Label for description of the course
+    find: Label for link to explore courses
     expected_number: Label for expected number of students who will enroll in the
       course
     start_date: Label for date of the course start
+    submitted_and_pending_heading: Section heading for submitted and pending courses
     end_date: Label for date of the course end
     intro: Description of the course creator form
   metrics:
