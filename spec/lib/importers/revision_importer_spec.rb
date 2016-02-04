@@ -62,30 +62,24 @@ describe RevisionImporter do
   end
 
   describe '.users_with_no_revisions' do
-    let(:user) { create(:user) }
-    let!(:course_1) { create(:course, id: 1, start: '2015-01-01', end: '2015-12-31') }
-    let!(:course_2) { create(:course, id: 2, start: '2016-01-01', end: '2016-12-31') }
+    let(:user)      { create(:user) }
+    let(:course_1)  { create(:course, start: '2015-01-01', end: '2015-12-31') }
+    let(:course_2)  { create(:course, start: '2016-01-01', end: '2016-12-31') }
 
-    before do
-      create(:user, id: 1)
-      # User is in a course during 2015
-      create(:courses_user, course_id: 1, user_id: user.id, role: CoursesUsers::Roles::STUDENT_ROLE)
+    let!(:cu)       { create(:courses_user, course_id: course_1.id, user_id: user.id, role: CoursesUsers::Roles::STUDENT_ROLE) }
+    let!(:cu2)      { create(:courses_user, course_id: course_2.id, user_id: user.id, role: CoursesUsers::Roles::STUDENT_ROLE) }
 
-      # User is in another course during 2016
-      create(:courses_user, course_id: 2, user_id: user.id, role: CoursesUsers::Roles::STUDENT_ROLE)
+    let(:article)   { create(:article) }
+    let!(:revision) { create(:revision, user_id: user.id, article_id: article.id, date: course_1.start + 1.month) }
 
-      # User has a revision during 2015
-      create(:revision, user_id: user.id, article_id: 1, date: '2015-02-01')
-      create(:article, id: 1)
-      CoursesUsers.update_all_caches
-    end
+    before { CoursesUsers.all.collect(&:update_cache) }
 
     it 'returns users who have no revisions for the given course' do
-      expect(described_class.users_with_no_revisions(course_2)).to include user
+      expect(described_class.users_with_no_revisions(course_2)).to include(user)
     end
 
     it 'does not return users who have revisions for the course' do
-      expect(described_class.users_with_no_revisions(course_1)).to be_empty
+      expect(described_class.users_with_no_revisions(course_1)).not_to include(user)
     end
   end
 
