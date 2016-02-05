@@ -1,4 +1,4 @@
-- content_for :after_title, " - My Dashboard"
+- content_for :after_title, " - " + t("application.my_dashboard")
 
 #react_root
 .container.dashboard
@@ -7,16 +7,17 @@
     %div
       - if @pres.can_create_course?
         = link_to course_creator_path, class: 'button dark dashboard-cta' do
-          Create Course
+          = t("course_creator.create_short")
           %i.icon.icon-plus
       - elsif @pres.show_explore_button?
         = link_to explore_path, class: 'button dark dashboard-cta' do
-          Find Your Course
+          = t("course_creator.find")
           %span.icon.icon-rt_arrow
 
   - # Show submitted/pending courses (for admins)
   - if @pres.submitted.any?
-    %h2 Submitted & Pending Approval
+    %h2
+      = t("courses.submitted_and_pending_heading")
     - @pres.submitted.each do |course|
       = render "course_row", course: course
 
@@ -24,25 +25,26 @@
   - if @pres.show_orientation_block?
     %div.empty-state
       %p
-        Before you create a course, let's go through orientation to help you get started. (It takes about 30 minutes to complete.)
+        = t("dashboard.orientation_notice")
       %p
         = link_to @pres.orientation_path, class: 'button dark' do
-          Start Orientation
+          = t("dashboard.start_orientation")
           %i.icon.icon-rt_arrow
       %p.small
         = link_to t('dashboard.opt_out'), @pres.opt_out_path
 
   - if @pres.show_your_courses_label?
-    %h2 Your Courses
+    %h2
+      = t("courses.yourcourses")
 
   - # Empty courses state
   - if @pres.current.empty? && @pres.past.empty?
     - if @pres.can_create_course?
       %div.empty-state
         %p
-          Looks like you don't have any courses.
+          = t("dashboard.no_courses_instructor")
         %p
-          Click on Create Course to create your first course.
+          = t("dashboard.create_note")
         %p.small
           Be sure to have your academic calendar on hand before you begin; the assignment design tool will use the meeting dates of your class — including any school breaks and holidays — to fit your timeline into the date range you choose. Remember, you can always edit the timeline to fit your needs.
         %p.small
@@ -50,11 +52,9 @@
     - elsif @pres.show_explore_button?
       %div.empty-state
         %p
-          Looks like you haven't joined a course yet.
+          = t("dashboard.no_courses_student")
         %p
-          Once you receive a passcode from your instructor,
-          %br
-          click on Find Your Course to find and join it.
+          = t("dashboard.join_note")
         %p.small
           = link_to t('dashboard.explore_course_pages'), explore_path
 
@@ -68,10 +68,12 @@
 
     - # Archived/past courses
     - if @pres.past.any?
-      %h2 Archived Courses
+      %h2
+        = t("courses.archived")
       - @pres.past.each do |course|
         = link_to course_slug_path(course.slug), {class: 'course course-past'} do
-          %span.button.border View Course Page
+          %span.button.border
+            = t("courses.view_page")
           %h2.course-title
             = course.title
             %span.course-term= course.term

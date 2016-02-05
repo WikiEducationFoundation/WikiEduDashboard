@@ -34,9 +34,9 @@ class DashboardPresenter
   # Show 'Welcome' for people without any courses on the screen, otherwise 'My Dashboard'
   def heading_message
     if @current.any? && @past.any? || @submitted.any?
-      return 'My Dashboard'
+      return I18n.t("application.my_dashboard")
     else
-      return 'Welcome!'
+      return I18n.t("application.greeting2")
     end
   end
 

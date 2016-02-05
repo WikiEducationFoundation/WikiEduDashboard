@@ -33,42 +33,65 @@ en:
           quadrillion: Q
 
   application:
+    cancel: Cancel
     dashboard: Wiki Ed Dashboard
+    explore: Explore
+    greeting2: Welcome!
+    greeting_extended: Welcome to Wikipedia
+    greeting: Hello,
     help: Help
     home: Home
-    log_out: Log out
+    log_in_extended: Log in with Wikipedia
     log_in: Log in
-    sign_up: Sign up
-    sign_up_log_in_extended: with Wikipedia
-    explore: Explore
+    log_out: Log out
     my_dashboard: My Dashboard
     recent_activity: Recent Activity
     search: search ask.wikiedu.org
+    sign_up_extended: Sign up with Wikipedia
+    # FIXME: deprecate lego message
+    sign_up_log_in_extended: with Wikipedia
+    sign_up: Sign up
+    submit: Submit
     training: Training
 
   dashboard:
-    opt_out: Request to opt out of orientation
-    explore_examples: Explore Examples
+    create_note:
+      Click on Create Course to create your first course.
     explore_course_pages: Explore the Course Pages
+    explore_examples: Explore Examples
+    join_note:
+      Once you receive a passcode from your instructor, click on Find Your
+      Course to find and join it.
+    no_courses_instructor:
+      Looks like you don't have any courses.
+    no_courses_student:
+      Looks like you haven't joined a course yet.
+    opt_out: Request to opt out of orientation
+    orientation_notice: >
+      Before you create a course, let's go through orientation to help you get
+      started. (It takes about 30 minutes to complete.)
+    start_orientation: Start Orientation
 
   home:
+    explore: Explore
     log_in: Log in with Wikipedia
     sign_up: Sign up with Wikipedia
-    explore: Explore
 
   activity:
-    edited_by: Edited By
     all: Activity
+    edited_by: Edited By
+    label: Activities
 
   articles:
-    none: This course has not edited any articles.
-    loading: Loading articles...
     assigned: Assigned Articles
     assigned_to: Assigned To
     character_doc: The sum of characters added to articles by enrolled editors between the start and end dates
     edited: Articles Edited
     edited_mobile: Articles
+    label: Articles
+    loading: Loading articles...
     no_assignee: No user assigned
+    none: This course has not edited any articles.
     rating: Class
     rating_doc: The rating an article has been assigned by WikiProjects on Wikipedia. These ratings may corresponds to much older versions, so they are just a rough indicator of article maturity.
     rating_docs:
@@ -83,6 +106,7 @@ en:
       list: List-class — a list rather than a conventional article
       ?: Unrated — an article that hasn't yet been rated on Wikipedia's quality scale
     title: Title
+    title_example: Article title
     view: View Article
     view_all: View All
     view_doc: The sum of all views to each article during the course term
@@ -90,128 +114,175 @@ en:
     views_added: "Added %{count} new views for %{title}"
 
   assignments:
+    already_exists: This assignment already exists!
     assignees: Assignee(s)
-    reviewers: Reviewer(s)
-    loading: Loading assignments...
-    none: This course has no assigned Wikipedia articles.
-    confirm_addition: "Are you sure you want to assign %{title} to %{username}?"
+    assign_other: Assign an article
+    assign_self: Assign myself an article
+    confirm_addition: Are you sure you want to assign %{title} to %{username}?
     confirm_deletion: Are you sure you want to delete this assignment?
+    label: Assign
+    loading: Loading assignments...
+    none_short: No articles assigned
+    none: This course has no assigned Wikipedia articles.
+    reviewers: Reviewer(s)
+    review_other: Assign a review
+    review_self: Review an article
 
   blocks:
     milestones:
       title: Milestones
 
   cohort:
+    none: None
     view_other: View other cohorts
 
   courses:
     activity: Activity
+    already_enrolled: You are already a part of '%{title}'!
+    archived: Archived Courses
     articles: Articles
     articles_none: This course has not edited any articles.
     assignment_end: Assignment End
-    assignment_start: Assignment Start
     assignments_none: This course has no assigned Wikipedia articles.
+    assignment_start: Assignment Start
     character_doc: The sum of characters added to mainspace articles by the course's students during the course term
-    edit_course_dates: Edit Course Dates
-    revisions_doc: The number of edits in the past %{timeframe} days
-    word_count_doc: An estimate of the number of words added to mainspace articles by the course's students during the course term
+    course_dates_calendar_instructions: >
+      Select dates to add or remove them from the schedule (e.g., holidays, no
+      school). Click the date to change between unselected, selected, and
+      holiday state. The dates of course activities will change to account for
+      weeks that have no scheduled meetings.
     course_description: Courses
     courses: Courses
-    yourcourses: Your Courses
-    nocourses: You are not participating in any courses.
     current: Current Courses
     duration: Course Duration
+    edit_course_dates: Edit Course Dates
+    error:
+      exists: That course already exists! Please try again with a different title, school, or term.
+      user_exists: "Sorry, %{username} is not an existing user."
     expected_students: Expected Students
     gradeables_none: This course has no gradeable assignments.
     instructor:
       one: Instructor
       other: Instructors
     instructors: Instructors
+    invitation: >
+      You’ve been invited to join %{title}. To join the course, you need to log in with a Wikipedia account.
+
+      If you don’t have a Wikipedia account yet, sign up for one now.
+    join: Join
+    join_prompt: Join '%{title}'?
+    join_successful: You’ve successfully joined %{title}.
     milestones_none: This course does not currently have any milestones.
+    new_week: Add New Week
+    nocourses: You are not participating in any courses.
+    overview: Overview
     published: "Your course has been published! Students may enroll in the course by visiting the following URL:"
+    review_timeline: >
+      Please review this timeline and make changes. Once you're satisfied with
+      your timeline, submit it for approval by Wiki Ed staff. Once approved, you
+      will be given an enrollment URL that students can use to join the course.
+      (You'll still be able to make edits later.)
+    revisions_doc: The number of edits in the past %{timeframe} days
     revisions_none: This course has no recent Wikipedia editing activity.
     school: School
     students: Students
+    students_count: "# Students"
     student_editors: Student Editors
     students_none: This course has no students.
     students_short: Students
+    submitted_admin: >
+      This course has been submitted for approval by its creator. To approve it,
+      add it to a cohort on the Overview page.
+    submitted_and_pending_heading: Submitted & Pending Approval
+    submitted_heading: Submitted Courses
+    submitted_note: >
+      Your course has been submitted. Wiki Ed staff will review it and get in
+      touch with any questions.
     term: Term
     timeline: Assignment Details
+    timeline_link: Timeline
+    title: Title
+    training_due:
+      The training module "%{title}" is assigned for this course, and is due on %{date}.
+    training_nav: Go to training
+    training_overdue:
+      The training module "%{title}" is assigned for this course, and was due on %{date}.
+    unsubmitted: Unsubmitted Courses
     uploads_none: This class has not contributed any images or other media files to Wikimedia Commons.
     weeks_none: This course does not have a timeline yet.
-    new_week: Add New Week
-    overview: Overview
-    title: Title
     view: View Course
-    view_wiki: View on Wikipedia
     view_doc: The sum of all views to articles edited by enrolled editors since the editor made their first edit to each article
+    view_page: View Course Page
+    view_wiki: View on Wikipedia
     volunteer:
       one: Volunteer
       other: Volunteers
+    warn_mirrored: >
+      Upon submission, this course will be automatically posted to Wikipedia with your user account.
+      After that, new edits to the timeline will be mirrored to Wikipedia.
+      
+      Are you sure you want to do this?
     wiki_staff: Wiki Ed Staff
-    error:
-      exists: That course already exists! Please try again with a different title, school, or term.
-      user_exists: "Sorry, %{username} is not an existing user."
-    course_dates_calendar_instructions: >
-      Select dates to add or remove them from the schedule (e.g., holidays, no
-      school). Click the date to change between unselected, selected, and
-      holiday state. The dates of course activities will change to account for
-      weeks that have no scheduled meetings.
+    word_count_doc: An estimate of the number of words added to mainspace articles by the course's students during the course term
+    yourcourses: Your Courses
 
   # These are strings that are not specific to education/classroom contexts
   courses_generic:
     articles_none: There are no edited articles for this project yet.
     assignment_end: Timeline End
-    assignment_start: Timeline Start
     assignments_none: This project has no assigned Wikipedia articles.
+    assignment_start: Timeline Start
     edit_course_dates: Edit Project Dates
     expected_students: Expected Editors
     instructors: Facilitators
+    milestones_none: This project does not currently have any milestones.
     published: "This project has been published! Editors may enroll by visiting the following URL:"
     revisions_none: This project has no recent Wikipedia editing activity.
     school: Institution
-    students: Editors
-    students_short: Editors
     student_editors: Editors
+    students: Editors
     students_none: This project has no editors enrolled.
+    students_short: Editors
     term: When
     uploads_none: This project has not contributed any images or other media files to Wikimedia Commons.
-    milestones_none: This project does not currently have any milestones.
 
   course_creator:
-    create_new: Create a New Course
-    course_title: Course title
-    course_school: Course school
-    course_term: Course term
-    course_subject: Course subject
-    course_description: Course description
-    expected_number: Expected number of students
-    start_date: Start date
-    end_date: End date
-    intro: >
-      The title, school, and term create your course page’s URL, and can't be
-      changed. Everything else, you can edit later. Click “Create my Course!” to
-      start building the timeline for your Wikipedia assignment.
     cloned_course_calendar_instructions: >
       Select dates to add or remove them from the schedule (e.g., holidays, no
       school). Click the date to change between unselected, selected, and
       holiday state. If you have no holidays, check "I have no class holidays".
       The cloned timeline will automatically adjust the dates to account for
       weeks that have no scheduled meetings.
+    course_description: Course description
+    course_school: Course school
+    course_subject: Course subject
+    course_term: Course term
+    course_title: Course title
+    create_label: Create New Course
+    create_new: Create a New Course
+    create_short: Create Course
+    end_date: End date
+    expected_number: Expected number of students
+    find: Find Your Course
+    intro: >
+      The title, school, and term create your course page’s URL, and can't be
+      changed. Everything else, you can edit later. Click “Create my Course!” to
+      start building the timeline for your Wikipedia assignment.
+    start_date: Start date
 
   metrics:
     activity: Recent Activity
     articles_created: Articles Created
     articles_edited: Articles Edited
-    char: Chars Added
     characters: Characters
     char_added: Chars Added
     char_changed: Characters Changed
+    char: Chars Added
     date_time: Date/Time
     edit_count_description: Total Edits
     revisions: Recent Edits
-    view: Views
     view_count_description: Article Views
+    view: Views
     word_count: Words Added
 
   namespace:
@@ -222,9 +293,9 @@ en:
     user_ns: User
 
   revisions:
-    date_time: Date/Time
     chars_added: Chars added
     class: Class
+    date_time: Date/Time
     edited_by: Edited by
     loading: Loading revisions...
     none: This course has no recent Wikipedia editing activity.
@@ -237,12 +308,17 @@ en:
     constant: "Task %{task} can not run while task update_daily is running."
     paused: "Task %{task} cannot run because scheduled updates have been paused. Run 'rake batch:resume' to resume updates."
 
+  training:
+    continue: Continue (%{progress})
+    start: Start
+    view: View
+
   uploads:
+    label: Uploads
     loading: Loading uploads...
     none: This class has not contributed any images or other media files to Wikimedia Commons.
-    usages: Usages
     time_doc: The time of each upload in your local time
-
+    usages: Usages
 
   users:
     already_enrolled: That user is already enrolled!
@@ -258,7 +334,6 @@ en:
       Characters Added<br>(mainspace | userspace)
     contributions: User Contributions
     contributions_more: View More Contributions
-    student_editors: Student Editors
     loading: Loading users...
     name: Name
     none: This course has no students.
@@ -266,6 +341,7 @@ en:
     revisions_doc: The number of edits made by this editor in the past 7 days
     reviewers: Reviewer(s)
     reviewing: Reviewing
+    student_editors: Student Editors
     training_complete:
       one: "is up-to-date with training"
       other: "are up-to-date with training"
@@ -287,34 +363,34 @@ en:
       summary: student training overdue
 
   wizard:
-    course_dates: Course Dates
     assignment_dates: Assignment Dates
-    assignment_type: Assignment Type
-    confirm_dates: Choose the course dates, weekly meetings, and holidays for your course.
     assignment_description: >
       Choose the start and end dates for your assignment timeline. For example,
       if you want to start your Wikipedia project the second week of class, set
       the assignment start date to one week after the course's start date. This
       assignment design tool will create a draft timeline that fits within the
       timeline dates you choose.
-    min_weeks: >
-      This assignment requires at least %{min_weeks} available
-      weeks. Please adjust your assignment start and end dates if you want to
-      use this type of assignment.
-    minimum_options: Please select at least %{minimum} option(s).
-    read_more: Read More
-    read_less: Read Less
-    review_selections: >
-      Please review your selections below. Click to edit a selection. When
-      finished, click 'Submit' to finish the wizard and build your timeline.
-    select_assignment: Select the kind of assignment you want to add to your timeline.
-    summary: Summary
+    assignment_type: Assignment Type
     calendar_instructions: >
       Select dates to add or remove them from the schedule (e.g., holidays, no
       school). This helps the course creation tool accurately space out your
       assignments. Click the date to change between unselected, selected, and
       holiday state. If you have no holidays, check "I have no class holidays"
       below.
+    confirm_dates: Choose the course dates, weekly meetings, and holidays for your course.
+    course_dates: Course Dates
+    min_weeks: >
+      This assignment requires at least %{min_weeks} available
+      weeks. Please adjust your assignment start and end dates if you want to
+      use this type of assignment.
+    minimum_options: Please select at least %{minimum} option(s).
+    read_less: Read Less
+    read_more: Read More
+    review_selections: >
+      Please review your selections below. Click to edit a selection. When
+      finished, click 'Submit' to finish the wizard and build your timeline.
+    select_assignment: Select the kind of assignment you want to add to your timeline.
+    summary: Summary
 
   error:
     oauth_invalid: Your Wikipedia authorization has expired. Please log in again.
@@ -367,8 +443,15 @@ en:
   timeout: "A request to the %{api} API has timed out and will retried %{tries} times."
 
   timeline:
-    title: Timeline
+    blackout_week_created: >
+      There are blocks scheduled for this week. Please move them to another
+      week before you remove the last class meeting from this week.
+    block_type: >
+      The block type is used to communicate to your students about this item on
+      their timeline and to build useful tools for you (such as the milestone
+      outline on the Overview page)
     due_default: Due next week
-    block_type: The block type is used to communicate to your students about this item on their timeline and to build useful tools for you (such as the milestone outline on the Overview page)
-    unable_to_add_week: You cannot add new weeks when your timeline is full. Delete at least one week or change your assignment dates to make room for a new one.
-    blackout_week_created: There are blocks scheduled for this week. Please move them to another week before you remove the last class meeting from this week.
+    title: Timeline
+    unable_to_add_week: >
+      You cannot add new weeks when your timeline is full. Delete at least one
+      week or change your assignment dates to make room for a new one.

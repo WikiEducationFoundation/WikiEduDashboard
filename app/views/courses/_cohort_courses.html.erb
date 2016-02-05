@@ -19,7 +19,7 @@
           <% end %>
         <% end %>
         <% if user_signed_in? && current_user.permissions == 1 && presenter.cohort.slug != 'none' %>
-          <option value="none">None</option>
+          <option value="none"><%= t("cohort.none") %></option>
         <% end %>
       </select>
     </div>

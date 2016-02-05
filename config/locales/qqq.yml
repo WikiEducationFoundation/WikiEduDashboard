@@ -6,7 +6,13 @@
 ---
 qqq:
   application:
+    cancel: |-
+      Button to cancel an action
+      {{Identical|Cancel}}
     dashboard: Application name.
+    greeting: Casual greeting
+    greeting2: Enthusiastic greeting
+    greeting_extended: Welcome the user to Wikipedia, one line
     help: |-
       Link to http://ask.wikiedu.org
       {{Identical|Help}}
@@ -17,8 +23,12 @@ qqq:
     log_in: |-
       Button for logging in (for registered users)
       {{Identical|Log in}}
+    log_in_extended: Short text (< 14 characters) to make clear that authentication
+      is via wikipedia
     sign_up: Sign up (for new users)
-    sign_up_log_in_extended: Short text (< 14 characters) to make clear that authentication
+    sign_up_extended: Short text (< 14 characters) to make clear that authentication
+      is via wikipedia
+    sign_up_log_in_extended: Short (lego) text (< 14 characters) to make clear that authentication
       is via wikipedia
     explore: |-
       Explore link
@@ -26,11 +36,23 @@ qqq:
     my_dashboard: My Dashboard link
     recent_activity: Link to recent activity (for registered users)
     search: Input box for search on ask.wikiedu.org
+    submit: |-
+      Submit link
+      {{Identical|Submit}}
     training: '{{Identical|Training}}'
+    timeline:
+      title: '{{Identical|Timeline}}'
+    timeline_link: Button to timeline page
   dashboard:
+    create_note: Instructions on how to create a course
+    join_note: Instructions on how to join a course
     opt_out: Link to opt out
     explore_examples: Link to explore example courses
     explore_course_pages: Link to explore courses pages
+    no_courses_instructor: Note that you can create courses
+    no_courses_student: Note that you can join courses
+    orientation_notice: Note suggesting an orientation
+    start_orientation: Link to start orientation
   home:
     log_in: Log in with Wikipedia button
     sign_up: Sign up with Wikipedia button
@@ -38,9 +60,11 @@ qqq:
       Explore button
       {{Identical|Explore}}
   activity:
+    label: Short name for activities
     edited_by: Column label for username of user who made an edit
     all: '{{Identical|Activity}}'
   articles:
+    label: Short name for articles
     none: Message stating that no articles have been edited.
     loading: Placeholder message indicating that article data is still loading
     assigned: Label for a list of assigned articles
@@ -64,6 +88,7 @@ qqq:
     title: |-
       Label for an article title.
       {{Identical|Title}}
+    title_example: Placeholder for article title
     view: Command to view an article.
     view_all: |-
       Command to view all articles.
@@ -72,10 +97,17 @@ qqq:
     views_added: Maintenance script message stating how many view counts have been
       added to an article.
   assignments:
+    already_exists: Message displayed when trying to create a duplicate assignment
+    assign_other: Button to assign an article to a student
+    assign_self: Button to assign an article to self
     assignees: '{{Identical|Assignee}}'
+    label: Button to assign an article
+    review_other: Button to assign an article to a student for review
+    review_self: Button to assign an article to self for review
     reviewers: '{{Identical|Reviewer}}'
     loading: Placeholder message indicating that assignment data is still loading
     none: Label for an empty list of assignments
+    none_short: Short label for an empty list of assignments
     confirm_addition: Confirmation dialog for adding a new assignment. %{title} is
       the Wikipedia page title. %{username} is the username of the assignee.
     confirm_deletion: Confirmation dialog for an assignment should be deleted
@@ -83,9 +115,13 @@ qqq:
     milestones:
       title: Label for the Milestone section of a course page
   cohort:
+    none: Option for a course with no cohort
     view_other: Command to view another cohort.
   courses:
     activity: Label for link to the 'recent activity' list for a course
+    already_enrolled: Message displayed when the user attempts to enroll
+      in a course they have already joined.
+    archived: Section heading for archived courses
     articles: |-
       Label for link to list of articles worked on by a course
       {{Identical|Article}}
@@ -103,9 +139,15 @@ qqq:
     instructor:
       one: Label for a single instructor of a course
       other: Label for plural instructors of a course
+    overview: Link to course overview page
+    join: Button to join a course
+    join_prompt: Do you want to join this course?
+    join_successful: Message that join was successful
     students: Label for link to the list of students for a course
+    students_count: Column label for number of students in a course
     students_none: This course has no students.
     students_short: Label for the number of students in a course, in the mobile layout
+    unsubmitted: Name for pseudo-cohort of unsubmitted courses
     weeks_none: Message indicating that a course does not have a timeline
     new_week: Button text for adding a new week to the timeline
     overview: Label for link to the overview page for a course
@@ -115,6 +157,7 @@ qqq:
     view: Label for link to a course page
     view_wiki: Label for link to the on-wiki version of a course page
     view_doc: Explanation of what 'article views' means
+    view_page: Label for link to the course page
     volunteer:
       one: Label for a single course volunteer
       other: Label for multiple course volunteers
@@ -122,15 +165,28 @@ qqq:
     error:
       exists: Error message indicating that a course with the same title, school and
         term already exists.
+    warn_mirrored: Message to alert instructor that their new course will be
+      uploaded to Wikipedia on their behalf
+    review_timeline: Message prompting user to review the timeline
+    submitted_note: Message that your course has been successfully submitted
+    submitted_admin: Admin-only notice that a course is ready for approval
+    training_due: Training is due for this course
+    training_nav: Link to go to the training page
+    training_overdue: Training due date has passed for this course
+    invitation: Message that you have been invited to a course
   course_creator:
+    create_label: Header for new course creation
     create_new: Header of button for creating a new course
+    create_short: Short label for link to create a course
     course_title: Label for title of the course
     course_school: Label for name of school which organized the course
     course_subject: Label for subject of the course
     course_description: Label for description of the course
+    find: Label for link to explore courses
     expected_number: Label for expected number of students who will enroll in the
       course
     start_date: Label for date of the course start
+    submitted_and_pending_heading: Section heading for submitted and pending courses
     end_date: Label for date of the course end
     intro: Description of the course creator form
   metrics:
@@ -215,6 +271,12 @@ qqq:
   error_500:
     header: Message indicating a 500 internal server error.
     explanation: Explanation of what to do after encountering this error.
-  timeline:
-    title: '{{Identical|Timeline}}'
+
+  uploads:
+    label: Short name for uploads
+
+  training:
+    continue: Button label for continuing the training (plus percent completion)
+    start: Button label for starting training
+    view: Button label for viewing training progress
 ...

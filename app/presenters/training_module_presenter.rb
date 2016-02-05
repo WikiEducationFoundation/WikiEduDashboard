@@ -11,11 +11,11 @@ class TrainingModulePresenter
   end
 
   def cta_button_text
-    return 'Start' unless progress_manager.module_progress.present?
+    return I18n.t("training.start") unless progress_manager.module_progress.present?
     if progress_manager.module_completed?
-      'View'
+      I18n.t("training.view")
     else
-      "Continue (#{progress_manager.module_progress})"
+      I18n.t("training.continue", progress: progress_manager.module_progress)
     end
   end
 
