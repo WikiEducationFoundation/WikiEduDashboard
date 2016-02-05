@@ -36,7 +36,7 @@ essentials:
         training_module_ids: [1, 2] # Wikipedia essentials, Editing basics
         content: |
           <ul>
-            <li>Complete the online training for students. During this training, you will make edits in a sandbox and learn the basic rules of Wikipedia.</li>
+            <li>Begin the training modules assigned for your course. During this training, you will make edits in a sandbox and learn the basic rules of Wikipedia.</li>
           </ul>
 critique:
   - # CRITIQUE
