@@ -1,4 +1,4 @@
-class FreeformCourse < Course
+class BasicCourse < Course
   def wiki_edits_enabled?
     false
   end
