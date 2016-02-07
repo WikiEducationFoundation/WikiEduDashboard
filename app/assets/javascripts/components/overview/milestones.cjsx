@@ -10,7 +10,7 @@ getState = ->
   currentWeek: CourseStore.getCurrentWeek()
 
 Milestones = React.createClass(
-  displayName: 'Milestones'
+  displayName: I18n.t('blocks.milestones.title')
   mixins: [BlockStore.mixin, WeekStore.mixin, CourseStore.mixin]
   storeDidChange: ->
     @setState getState()
@@ -36,13 +36,14 @@ Milestones = React.createClass(
             </div>
           </div>
         )
-    @emptyMessage = if !blocks.length then CourseUtils.i18n('milestones_none', @props.course.string_prefix) else ''
+
+    if !blocks.length
+      return null
 
     <div className='module milestones'>
       <div className="section-header">
         <h3>{I18n.t('blocks.milestones.title')}</h3>
       </div>
-      <p>{@emptyMessage}</p>
       {blocks}
     </div>
 )
