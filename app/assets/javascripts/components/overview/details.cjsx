@@ -43,12 +43,17 @@ Details = React.createClass(
     if @props.course.term
       term = <p>{CourseUtils.i18n('term', @props.course.string_prefix)}: {@props.course.term}</p>
 
-    if @props.current_user.role > 0 || @props.current_user.admin
+    if @props.course.passcode
+      if @props.current_user.role > 0 || @props.current_user.admin
+        display_code = @props.course.passcode
+      else
+        display_code = '*****'
+
       passcode = (
         <fieldset>
           <TextInput
             onChange={@updateDetails}
-            value={@props.course.passcode}
+            value={display_code}
             value_key='passcode'
             editable={@props.editable}
             type='text'
