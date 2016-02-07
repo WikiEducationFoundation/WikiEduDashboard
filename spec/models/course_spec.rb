@@ -534,6 +534,11 @@ describe Course, type: :model do
       expect(course.class).to eq(ClassroomProgramCourse)
     end
 
+    it 'allows BasicCourse type' do
+      course.update_attributes(type: 'BasicCourse')
+      expect(Course.last.class).to eq(BasicCourse)
+    end
+
     it 'allows VisitingScholarship type' do
       course.update_attributes(type: 'VisitingScholarship')
       expect(Course.last.class).to eq(VisitingScholarship)
