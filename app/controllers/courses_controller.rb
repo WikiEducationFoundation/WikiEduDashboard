@@ -14,10 +14,11 @@ class CoursesController < ApplicationController
 
   def create
     slug_from_params if should_set_slug?
+    # FIXME: Don't hardcode default here.
     @course =
       Course.create(course_params.merge(
         passcode: Course.generate_passcode,
-        type: ENV['default_course_type']))
+        type: ENV['default_course_type'] || 'ClassroomProgramCourse'))
     handle_timeline_dates
     CoursesUsers.create(user: current_user,
                         course: @course,
