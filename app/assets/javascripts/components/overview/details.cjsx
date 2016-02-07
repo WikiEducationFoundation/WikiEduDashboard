@@ -37,6 +37,11 @@ Details = React.createClass(
     online = <InlineUsers {...@props} users={@props.online} role={2} title='Online Volunteers' />
     campus = <InlineUsers {...@props} users={@props.campus} role={3} title='Campus Volunteers' />
     staff = <InlineUsers {...@props} users={@props.staff} role={4} title='Wiki Ed Staff' />
+    if @props.course.school
+      # FIXME: Convert lego to parameterized messages.
+      school = <p>{CourseUtils.i18n('school', @props.course.string_prefix)}: {@props.course.school}</p>
+    if @props.course.term
+      term = <p>{CourseUtils.i18n('term', @props.course.string_prefix)}: {@props.course.term}</p>
 
     if @props.current_user.role > 0 || @props.current_user.admin
       passcode = (
@@ -54,6 +59,58 @@ Details = React.createClass(
         </fieldset>
       )
 
+    if @props.course.expected_students
+      expected_students = (
+        <fieldset>
+          <TextInput
+            onChange={@updateDetails}
+            value={@props.course.expected_students}
+            value_key='expected_students'
+            editable={@props.editable}
+            type='number'
+            label={CourseUtils.i18n('expected_students', @props.course.string_prefix)}
+          />
+        </fieldset>
+      )
+
+    # TODO: course.timeline?
+    if @props.course.timeline_start || @props.course.timeline_end
+      timeline_start_props =
+        minDate: moment(@props.course.start)
+        maxDate: moment(@props.course.timeline_end).subtract(1, 'week')
+      timeline_end_props =
+        minDate: moment(@props.course.timeline_start).add(1, 'week')
+        maxDate: moment(@props.course.end)
+
+      timeline_start = (
+        <fieldset>
+          <TextInput
+            onChange={@updateDetails}
+            value={@props.course.timeline_start}
+            value_key='timeline_start'
+            editable={@props.editable}
+            type='date'
+            label={CourseUtils.i18n('assignment_start', @props.course.string_prefix)}
+            date_props={timeline_start_props}
+            required=true
+          />
+        </fieldset>
+      )
+      timeline_end = (
+        <fieldset>
+          <TextInput
+            onChange={@updateDetails}
+            value={@props.course.timeline_end}
+            value_key='timeline_end'
+            editable={@props.editable}
+            type='date'
+            label={CourseUtils.i18n('assignment_end', @props.course.string_prefix)}
+            date_props={timeline_end_props}
+            required=true
+          />
+        </fieldset>
+      )
+
     cohorts = if @props.cohorts.length > 0
       _.pluck(@props.cohorts, 'title').join(', ')
     else 'None'
@@ -61,13 +118,6 @@ Details = React.createClass(
     tags = if @props.tags.length > 0
       _.pluck(@props.tags, 'tag').join(', ').replace(/_/g, ' ')
     else 'None'
-
-    timeline_start_props =
-      minDate: moment(@props.course.start)
-      maxDate: moment(@props.course.timeline_end).subtract(1, 'week')
-    timeline_end_props =
-      minDate: moment(@props.course.timeline_start).add(1, 'week')
-      maxDate: moment(@props.course.end)
 
     <div className='module course-details'>
       <div className="section-header">
@@ -79,20 +129,11 @@ Details = React.createClass(
         {online}
         {campus}
         {staff}
-        <p>{CourseUtils.i18n('school', @props.course.string_prefix)}: {@props.course.school}</p>
-        <p>{CourseUtils.i18n('term', @props.course.string_prefix)}: {@props.course.term}</p>
+        {school}
+        {term}
         <form>
           {passcode}
-          <fieldset>
-            <TextInput
-              onChange={@updateDetails}
-              value={@props.course.expected_students}
-              value_key='expected_students'
-              editable={@props.editable}
-              type='number'
-              label={CourseUtils.i18n('expected_students', @props.course.string_prefix)}
-            />
-          </fieldset>
+          {expected_students}
           <fieldset>
             <TextInput
               onChange={@updateDetails}
@@ -117,30 +158,8 @@ Details = React.createClass(
               required=true
             />
           </fieldset>
-          <fieldset>
-            <TextInput
-              onChange={@updateDetails}
-              value={@props.course.timeline_start}
-              value_key='timeline_start'
-              editable={@props.editable}
-              type='date'
-              label={CourseUtils.i18n('assignment_start', @props.course.string_prefix)}
-              date_props={timeline_start_props}
-              required=true
-            />
-          </fieldset>
-          <fieldset>
-            <TextInput
-              onChange={@updateDetails}
-              value={@props.course.timeline_end}
-              value_key='timeline_end'
-              editable={@props.editable}
-              type='date'
-              label={CourseUtils.i18n('assignment_end', @props.course.string_prefix)}
-              date_props={timeline_end_props}
-              required=true
-            />
-          </fieldset>
+          {timeline_start}
+          {timeline_end}
         </form>
         <div>
           <span>Cohorts: {cohorts}</span>
