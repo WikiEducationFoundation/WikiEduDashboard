@@ -554,5 +554,12 @@ describe Course, type: :model do
       expect(invalid_update).to eq(false)
       expect(Course.last.class).to eq(ClassroomProgramCourse)
     end
+
+    it 'implements #string_prefix for every course type' do
+      Course::COURSE_TYPES.each do |type|
+        create(:course, type: type)
+        expect(Course.last.string_prefix).to be_a(String)
+      end
+    end
   end
 end
