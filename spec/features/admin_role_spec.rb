@@ -131,7 +131,7 @@ describe 'Admin users', type: :feature, js: true do
       # Add the same tag again
       click_button('Edit Details')
       page.all('.button.border.plus')[5].click
-      within('section.overview') { all('input')[6].set 'My Tag' }
+      page.find('section.overview input[placeholder="Tag"]').set 'My Tag'
       page.all('.pop button', visible: true)[1].click
 
       # Delete the tag
