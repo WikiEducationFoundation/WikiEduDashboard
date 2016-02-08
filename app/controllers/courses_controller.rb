@@ -161,12 +161,16 @@ class CoursesController < ApplicationController
   end
 
   def should_set_slug?
-    %i(title school term).all? { |key| params[:course].key?(key) }
+    %i(title school).all? { |key| params[:course].key?(key) }
   end
 
   def slug_from_params(course = params[:course])
-    course[:slug] = "#{course[:school]}/#{course[:title]}_(#{course[:term]})"
-                    .tr(' ', '_')
+    slug = "#{course[:school]}/#{course[:title]}"
+    if !course[:term].blank?
+      slug << "_(#{course[:term]})"
+    end
+
+    course[:slug] = slug.tr(' ', '_')
   end
 
   def course_params

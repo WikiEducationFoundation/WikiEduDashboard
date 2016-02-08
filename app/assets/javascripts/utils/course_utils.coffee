@@ -2,8 +2,11 @@ class CourseUtils
   generateTempId: (course) ->
     title = @slugify course.title.trim()
     school = @slugify course.school.trim()
-    term = @slugify course.term.trim()
-    return "#{school}/#{title}_(#{term})"
+    slug = "#{school}/#{title}"
+    if course.term
+      term = @slugify course.term.trim()
+      slug = "#{slug}_(#{term})"
+    return slug
 
   slugify: (text) ->
     text?.split(" ").join("_")
