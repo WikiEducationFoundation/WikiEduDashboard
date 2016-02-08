@@ -9,32 +9,32 @@
 nl:
   application:
     dashboard: Wiki Ed Dashboard
+    explore: Ontdek
     help: Help
     home: Startpagina
-    log_out: Afmelden
     log_in: Aanmelden
-    sign_up: Registreren
-    sign_up_log_in_extended: met Wikipedia
-    explore: Ontdek
+    log_out: Afmelden
     my_dashboard: Mijn dashboard
     recent_activity: Recente activiteit
+    sign_up_log_in_extended: met Wikipedia
+    sign_up: Registreren
   home:
+    explore: Ontdek
     log_in: Aanmelden met Wikipedia
     sign_up: Aanmelden met Wikipedia
-    explore: Ontdek
   activity:
-    edited_by: Bewerkt door
     all: Activiteit
+    edited_by: Bewerkt door
   articles:
-    none: Deze cursus heeft geen bewerkte pagina's.
-    loading: Bezig met pagina's laden...
     assigned: Toegewezen pagina's
     assigned_to: Toegewezen aan
     character_doc: Het totale aantal tekens dat door de studenten van de cursus tijdens
       de cursustermijn is toegevoegd
     edited: Pagina's bewerkt
     edited_mobile: Pagina's
+    loading: Bezig met pagina's laden...
     no_assignee: Geen gebruiker toegewezen
+    none: Deze cursus heeft geen bewerkte pagina's.
     rating: Klasse
     rating_doc: De waardering van een pagina is toegewezen door WikiProjecten op Wikipedia.
       Deze waarderingen kunnen gebaseerd zijn op veel oudere versies, dus ze zijn
@@ -63,11 +63,11 @@ nl:
     views_added: '%{count} nieuwe weergaven toegevoegd voor %{title}'
   assignments:
     assignees: Toegewezen aan
-    reviewers: Controleur(s)
-    loading: Bezig met het laden van opdrachten...
-    none: Deze cursus heeft geen toegewezen Wikipediapagina's.
     confirm_addition: Weet u zeker dat u %{title} wilt toewijzen aan %{username}?
     confirm_deletion: Weet u zeker dat u deze opdracht wilt verwijderen?
+    loading: Bezig met het laden van opdrachten...
+    none: Deze cursus heeft geen toegewezen Wikipediapagina's.
+    reviewers: Controleur(s)
   blocks:
     milestones:
       title: Mijlpalen
@@ -78,57 +78,57 @@ nl:
     articles: Pagina's
     character_doc: Het aantal tekens dat tijdens de cursus is toegevoegd aan pagina's
       in de hoofdnaamruimte door studenten van de cursus
-    revisions_doc: Het aantal bewerkingen in de afgelopen %{timeframe} dagen
     course_description: Cursussen
     courses: Cursussen
-    yourcourses: Uw cursussen
-    nocourses: U neemt niet deel aan een cursus.
     current: Huidige cursussen
     duration: Duur van de cursus
-    gradeables_none: Deze cursus heeft nog geen te beoordelen opdrachten.
-    instructor:
-      one: Instructeur
-      other: Instructeurs
-    students: Studenten
-    students_none: Deze cursus heeft nog geen geregistreerde studenten.
-    students_short: Studenten
-    timeline: Opdrachtdetails
-    weeks_none: Deze cursus heeft nog geen tijdlijn.
-    new_week: Nieuwe week toevoegen
-    overview: Overzicht
-    title: Naam
-    view: Cursus weergeven
-    view_wiki: Op Wikipedia bekijken
-    view_doc: Het aantal weergaven van pagina's die door studenten zijn bewerkt sinds
-      de studenten hun eerste bewerking hebben gemaakt aan iedere pagina
-    volunteer:
-      one: Vrijwilliger
-      other: Vrijwilligers
-    wiki_staff: Medewerkers van Wiki Ed
     error:
       exists: Die cursus bestaat al. Probeer het opnieuw met een andere naam, school
         of termijn.
       user_exists: '%{username} is geen bestaande gebruiker.'
+    gradeables_none: Deze cursus heeft nog geen te beoordelen opdrachten.
+    instructor:
+      one: Instructeur
+      other: Instructeurs
+    new_week: Nieuwe week toevoegen
+    nocourses: U neemt niet deel aan een cursus.
+    overview: Overzicht
+    revisions_doc: Het aantal bewerkingen in de afgelopen %{timeframe} dagen
+    students: Studenten
+    students_none: Deze cursus heeft nog geen geregistreerde studenten.
+    students_short: Studenten
+    timeline: Opdrachtdetails
+    title: Naam
+    weeks_none: Deze cursus heeft nog geen tijdlijn.
+    view: Cursus weergeven
+    view_doc: Het aantal weergaven van pagina's die door studenten zijn bewerkt sinds
+      de studenten hun eerste bewerking hebben gemaakt aan iedere pagina
+    view_wiki: Op Wikipedia bekijken
+    volunteer:
+      one: Vrijwilliger
+      other: Vrijwilligers
+    wiki_staff: Medewerkers van Wiki Ed
+    yourcourses: Uw cursussen
   course_creator:
-    create_new: Nieuwe cursus maken
     course_title: Cursustitel
-    start_date: Begindatum
+    create_new: Nieuwe cursus maken
     intro: De naam, school en semester vormen de URL voor uw cursuspagina en dit kan
       niet gewijzigd worden. Al het andere kan later aangepast worden. Klik op "Cursus
       aanmaken" om te beginnen met het maken van de tijdlijn voor uw Wikipedia-opdracht.
+    start_date: Begindatum
   metrics:
     activity: Recente activiteit
     articles_created: Pagina's aangemaakt
     articles_edited: Pagina's bewerkt
-    char: Tekens toegevoegd
     characters: Tekens
     char_added: Tekens toegevoegd
     char_changed: Tekens gewijzigd
+    char: Tekens toegevoegd
     date_time: Datum- en tijd
     edit_count_description: Totaal bewerkingen
     revisions: Recente bewerkingen
-    view: Weergaven
     view_count_description: Paginaweergaven
+    view: Weergaven
   namespace:
     main: Hoofdnaamruimte
     main_char_added: Tekens toegevoegd aan de hoofdnaamruimte
@@ -150,8 +150,8 @@ nl:
     loading: Bezig met het laden van uploads...
     none: Voor deze klasse zijn geen afbeeldingen of andere mediabestanden bijgedragen
       aan Wikimedia Commons.
-    usages: Gebruik
     time_doc: De tijd van iedere upload in uw lokale tijd
+    usages: Gebruik
   users:
     already_enrolled: Deze gebruiker is al ingeschreven!
     assigned: Toegewezen pagina's
@@ -182,17 +182,17 @@ nl:
       https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete.'
     training_incomplete: Training onvolledig
   wizard:
-    course_dates: Cursusdatums
     assignment_dates: Opdrachttype
+    assignment_description: Kies de begin- en einddatums voor deze opdracht
     assignment_type: Opdrachttype
     confirm_dates: Kies de cursusdatums, wekelijkse oplevermomenten en vakanties voor
       uw cursus.
-    assignment_description: Kies de begin- en einddatums voor deze opdracht
+    course_dates: Cursusdatums
     min_weeks: Voor deze opdracht zijn tenminste %{min_weeks} beschikbare weken nodig.
       Pas de begin- en einddatum aan als u dit type opdracht wilt gebruiken.
     minimum_options: Selecteer tenminste %{minimum} optie(s).
-    read_more: Meer lezen
     read_less: Minder lezen
+    read_more: Meer lezen
     review_selections: Controleer uw keuzes. Klik om een keuze te bewerken. Klik op
       "Opslaan" als u klaar bent om uw tijdlijn op te bouwen.
     select_assignment: Selecteer het soort opdracht dat u wilt toevoegen aan uw tijdlijn.
@@ -226,9 +226,9 @@ nl:
     explanation: Er is iets fout gegaan. Neem contact op met de beheerders van dit
       dashboard en geef ze details over het probleem.
   timeline:
-    title: Tijdlijn
-    due_default: Volgende week af te ronden
     block_type: Het type blok wordt gebruikt om te communiceren met uw studenten over
       dit item op hun tijdlijn en om handige hulpmiddelen voor u te bouwen (zoals
       het mijlpaaloverzicht op de pagina Overzicht)
+    due_default: Volgende week af te ronden
+    title: Tijdlijn
 ...

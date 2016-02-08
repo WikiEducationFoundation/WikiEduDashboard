@@ -6,7 +6,7 @@
 ce:
   application:
     help: ГӀо
-    log_out: Болх дӀаберзор
     log_in: Системин довзийтар
+    log_out: Болх дӀаберзор
     sign_up: ДӀаяздар кхоллар
 ...

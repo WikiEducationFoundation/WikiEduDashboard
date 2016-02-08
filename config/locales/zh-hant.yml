@@ -10,12 +10,12 @@ zh-hant:
     dashboard: Wiki Ed 儀表盤
     help: 說明！
   activity:
-    edited_by: 編輯自
     all: 活動
+    edited_by: 編輯自
   articles:
-    loading: 讀取文章中...
     edited: 編輯的條目
     edited_mobile: 條目
+    loading: 讀取文章中...
     title: 標題
     view: 檢視條目
     view_all: 檢視全部
@@ -31,15 +31,15 @@ zh-hant:
     activity: 最近活動
     articles_created: 建立的條目
     articles_edited: 編輯的條目
-    char: 新增的字元
     characters: 字元
     char_added: 新增的字元
     char_changed: 變更的字元
+    char: 新增的字元
     date_time: 日期/時間
     edit_count_description: 總編輯數
     revisions: 近期編輯
-    view: 檢視數
     view_count_description: 文章檢視數
+    view: 檢視數
   namespace:
     main: 主空間
     user: 使用者空間
@@ -54,8 +54,8 @@ zh-hant:
     name: 名稱
     recent_revisions: 近期編輯
   wizard:
-    read_more: 閱讀更多
     read_less: 閱讀更少
+    read_more: 閱讀更多
     summary: 摘要
   error_404:
     header: 查無頁面。:-(

@@ -14,17 +14,17 @@ sd:
     recent_activity: تازي سرگرمي
     search: ask.wikiedu.org منجھہ ڳوليو
   activity:
-    edited_by: سنواريندڙ
     all: سرگرمي
+    edited_by: سنواريندڙ
   articles:
-    none: هن ڪورس ڪي بہ مضمون نہ سنواريا آهن.
-    loading: مضمون اتارجي رهيا آهن...
     assigned: تخصيصيل مضمون
     assigned_to: تخصيصدار
     character_doc: ڪورس دوران شاگردن طرفان مضمونن ۾ داخل ڪيل اکرن جو ڪُل تعداد
     edited: سنواريل مضمون
     edited_mobile: مضمون
+    loading: مضمون اتارجي رهيا آهن...
     no_assignee: ڪنهن بہ يوزر لاءِ مختص نہ ٿيو آهي.
+    none: هن ڪورس ڪي بہ مضمون نہ سنواريا آهن.
     rating: درجو
     rating_docs:
       a: درجو الف — تفصيلي ۽ ڀرپور مضمون، جيڪو ڪنهن سيکڙاٽ ايڊيٽر جي مکيہ رٿا لاءِ
@@ -42,71 +42,71 @@ sd:
     view_all: سڀ ڏسو
   assignments:
     assignees: تخصيصدار
-    reviewers: تجزيو ڪندڙ
+    confirm_deletion: پڪ سان توهان هيءَ مشق ڊاهڻ گھرو ٿا؟
     loading: مشقون اتاري رهيا آهيون...
     none: هن ڪورس لاءِ وڪيپيڊيا جو ڪو بہ مضمون تخصيصيل نہ آهي.
-    confirm_deletion: پڪ سان توهان هيءَ مشق ڊاهڻ گھرو ٿا؟
+    reviewers: تجزيو ڪندڙ
   blocks:
     milestones:
       title: سنگ ميل
   courses:
     activity: سرگرمي
     articles: مضمون
-    revisions_doc: پوين %{timeframe} ڏينهن ۾ ڪيل ترميمُن جو تعداد
     course_description: ' ڪورسز'
     courses: ڪورسز
-    yourcourses: توهان جا ڪورسز
-    nocourses: توهان ڪنهن بہ ڪورس ۾ حصو نہ وٺي رهيا آهيو.
     current: حاليہ ڪورسز
     duration: ڪورس جو دورانيو
+    error:
+      exists: ان نالي سان ڪورس اڳ ۾ ئي موجود آهي! ڪو ٻيو عنوان، اسڪول، يا ششماهي آزمايو.
+      user_exists: معاف ڪندا، %{username} نالي يُوزر حالي وجود نہ ٿو رکي.
     instructor:
       one: استادُ
       other: استادَ
+    new_week: نئون هفتو شامل ڪريو
+    nocourses: توهان ڪنهن بہ ڪورس ۾ حصو نہ وٺي رهيا آهيو.
+    overview: جائزو
+    revisions_doc: پوين %{timeframe} ڏينهن ۾ ڪيل ترميمُن جو تعداد
     students: شاگرد
     students_none: هن ڪورس ۾ ڪي بہ شاگرد نہ آهن.
     students_short: شاگرد
     timeline: مشق جا تفصيل
-    weeks_none: اڃان هن ڪورس کي اوقاتي خط نہ آهي.
-    new_week: نئون هفتو شامل ڪريو
-    overview: جائزو
     title: عنوان
+    weeks_none: اڃان هن ڪورس کي اوقاتي خط نہ آهي.
     view: ڪورس ڏسو
     view_wiki: وڪي‌پيڊيا تي ڏسو
     wiki_staff: وڪي ايڊيٽر عملو
-    error:
-      exists: ان نالي سان ڪورس اڳ ۾ ئي موجود آهي! ڪو ٻيو عنوان، اسڪول، يا ششماهي آزمايو.
-      user_exists: معاف ڪندا، %{username} نالي يُوزر حالي وجود نہ ٿو رکي.
+    yourcourses: توهان جا ڪورسز
   course_creator:
-    create_new: ڪو نئون ڪورس تخليق ڪريو
-    course_title: ڪورس جو عنوان
-    course_school: ڪورس جو اسڪول
-    course_term: ڪورس ششماهي
-    course_subject: ڪورس جو مضمون
     course_description: ڪورس جي تشريح
+    course_school: ڪورس جو اسڪول
+    course_subject: ڪورس جو مضمون
+    course_term: ڪورس ششماهي
+    course_title: ڪورس جو عنوان
+    create_new: ڪو نئون ڪورس تخليق ڪريو
+    end_date: تاريخ انجام
     expected_number: شاگردن جو معوقع تعداد
     start_date: تاريخ آغاز
-    end_date: تاريخ انجام
   metrics:
     activity: تازي سرگرمي
     articles_created: تخليقيل مضمون
     articles_edited: سنواريل مضمون
-    char: شامل ڪيل اکرن جو تعداد
     characters: اکرَ
     char_added: شامل ڪيل اکرن جو تعداد
     char_changed: تبديل ڪيل اکرن جو تعداد
+    char: شامل ڪيل اکرن جو تعداد
     date_time: تاريخ/وقت
     edit_count_description: ڪل ترميمون
     revisions: تازيون تبديليون
-    view: ڏيٺون
     view_count_description: مضمون جون ڏيٿون
+    view: ڏيٺون
   namespace:
     main: مک پولار
     user: يُوزرپولار
     user_ns: يُوزر
   revisions:
-    date_time: تاريخ / وقت
     chars_added: شامل ڪيل اکرن جو تعداد
     class: درجو
+    date_time: تاريخ / وقت
     edited_by: سنواريندڙ
     loading: ڀيرا اتاريندي ...
     none: هن ڪورس ۾ وڪيپيڊيا سنوارڻ جي ڪا بہ تازي سرگرمي عمل ۾ نہ آئي آهي.
@@ -116,8 +116,8 @@ sd:
     loading: چاڙھون چڙهي رهيون آهن...
     none: هن ڪلاس وڪي‌ذريعات اشتراڪ ۾ ڪي بہ عڪس يا ٻي ذريعات شامل ڪرڻ واري ڀاڱيداري
       نہ نڀائي آهي.
-    usages: استعمال
     time_doc: توهان جي مقامي وقت مطابق هر هڪ چاڙهہ جو وقت
+    usages: استعمال
   users:
     already_enrolled: اهو يوزر اڳ ئي داخل ٿيل آهي!
     assigned: تخصيصيل مضمون
@@ -134,12 +134,12 @@ sd:
     training_complete_count: '%{count} يُوزرس مڪمل تربيت حاصل ڪئي'
     training_incomplete: تربيت نامڪمل
   wizard:
-    course_dates: ڪورس جون تاريخون
     assignment_dates: مشقن جون تاريخون
-    assignment_type: مشق جو قسم
     assignment_description: هن مشق جون آغازي ۽ انجامي تاريخون چونڊيو
-    read_more: وڌيڪ پڙهو
+    assignment_type: مشق جو قسم
+    course_dates: ڪورس جون تاريخون
     read_less: گھٽ پڙهو
+    read_more: وڌيڪ پڙهو
     select_assignment: پنهنجي اوقاتي خط ۾ شامل ڪرڻ لاءِ مشقن جو قسم چونڊيو.
     summary: تَتُ
   error:
@@ -163,6 +163,6 @@ sd:
   login_error:
     header: لاگ ان چڪ
   timeline:
-    title: اوقاتي خط
     due_default: مٿين هفتي واجب
+    title: اوقاتي خط
 ...

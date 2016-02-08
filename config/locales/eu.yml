@@ -12,10 +12,10 @@ eu:
   activity:
     all: Jarduera
   articles:
-    loading: Artikuluak kargatzen...
     assigned_to: 'Nori Esleitua:'
     edited: Editatutako artikuluak
     edited_mobile: Artikuluak
+    loading: Artikuluak kargatzen...
     rating: Klasea
     title: Izenburua
     view_all: Denak ikusi
@@ -30,26 +30,26 @@ eu:
     activity: Jarduera
     articles: Artikuluak
     courses: Ikastaroak
-    yourcourses: Zure ikastaroak
+    overview: Ikuspegi orokorra
     students: Ikasleak
     students_short: Ikasleak
-    overview: Ikuspegi orokorra
     title: Izenburua
     view_wiki: Wikipedia-n ikusi
+    yourcourses: Zure ikastaroak
   course_creator:
-    start_date: Hasiera data
     end_date: Amaiera data
+    start_date: Hasiera data
   metrics:
     articles_created: Sortutako artikuluak
     articles_edited: Editatutako artikuluak
-    char: Gehitutako karaktereak
     characters: Karaktereak
     char_added: Gehitutako karaktereak
     char_changed: Aldatutako karaktereak
+    char: Gehitutako karaktereak
     date_time: Data/Ordua
     edit_count_description: Aldaketak guztira
-    view: Ikustaldiak
     view_count_description: Artikuluaren ikustaldiak
+    view: Ikustaldiak
   revisions:
     date_time: Data/Ordua
     title: Izenburua
@@ -62,8 +62,8 @@ eu:
     name: Izena
     reviewers: Berrikuslea(k)
   wizard:
-    read_more: Irakurri gehiago
     read_less: Irakurri gutxiago
+    read_more: Irakurri gehiago
   error_401:
     header: Ez duzu baimenik. >:-(
   error_404:

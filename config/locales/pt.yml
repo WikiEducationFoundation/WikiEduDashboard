@@ -9,28 +9,28 @@
 pt:
   application:
     dashboard: Painel do Programa de Educação
+    explore: Explorar
     help: Ajuda
     home: Início
-    log_out: Sair
     log_in: Entrar
-    sign_up: Registar-se
-    sign_up_log_in_extended: através da Wikipédia
-    explore: Explorar
+    log_out: Sair
     my_dashboard: Painel de controlo
     recent_activity: Atividade recente
+    sign_up_log_in_extended: através da Wikipédia
+    sign_up: Registar-se
   dashboard:
     explore_course_pages: Explorar as páginas do curso
   home:
+    explore: Explorar
     log_in: Iniciar sessão através da Wikipédia
     sign_up: Iniciar sessão através da Wikipédia
-    explore: Explorar
   activity:
-    edited_by: Editado por
     all: Atividade
+    edited_by: Editado por
   articles:
-    loading: A carregar artigos...
     edited: Artigos editados
     edited_mobile: Artigos
+    loading: A carregar artigos...
     rating: Qualidade
     title: Título
     view_all: Ver todos
@@ -41,37 +41,44 @@ pt:
     activity: Atividade
     articles: Artigos
     courses: Cursos
-    yourcourses: Os seus cursos
-    nocourses: Não está inscrito em nenhum curso.
     duration: Duração do curso
+    nocourses: Não está inscrito em nenhum curso.
+    school: Escola
     students: Estudantes
     students_none: Este curso não tem estudantes.
     students_short: Estudantes
+    term: Período
     title: Título
     view_wiki: Ver na Wikipédia
     volunteer:
       one: Voluntário
       other: Voluntários
+    yourcourses: Os seus cursos
+  courses_generic:
+    student_editors: Editores
+    students: Editores
+    students_short: Editores
+    term: Quando
   course_creator:
-    course_title: Título do curso
+    course_description: Descrição do curso
     course_school: Escola
     course_subject: Tema do curso
-    course_description: Descrição do curso
+    course_title: Título do curso
+    end_date: Data de fim
     expected_number: Número de alunos esperado
     start_date: Data de início
-    end_date: Data de fim
   metrics:
     activity: Atividade recente
     articles_created: Artigos criados
     articles_edited: Artigos editados
-    char: Caracteres adicionados
     characters: Caracteres
     char_added: Caracteres adicionados
     char_changed: Caracteres modificados
+    char: Caracteres adicionados
     date_time: Data/Hora
     edit_count_description: Total de edições
-    view: Visualizações
     view_count_description: Visualizações de artigo
+    view: Visualizações
   namespace:
     main: Domínio principal
     user: Domínio Utilizador

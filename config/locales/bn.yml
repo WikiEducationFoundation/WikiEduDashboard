@@ -5,8 +5,8 @@
 ---
 bn:
   articles:
-    loading: নিবন্ধ লোড হচ্ছে...
     edited_mobile: নিবন্ধ
+    loading: নিবন্ধ লোড হচ্ছে...
     rating: শ্রেণী
   assignments:
     reviewers: নিরীক্ষক(গণ)

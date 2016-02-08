@@ -11,23 +11,23 @@ ru:
   application:
     help: Справка
     home: Главная
-    log_out: Выйти
     log_in: Представиться системе
-    sign_up: Зарегистрироваться
-    sign_up_log_in_extended: через Википедию
+    log_out: Выйти
     recent_activity: Недавние действия
     search: искать на ask.wikiedu.org
+    sign_up_log_in_extended: через Википедию
+    sign_up: Зарегистрироваться
   activity:
-    edited_by: Изменил(а)
     all: Активность
+    edited_by: Изменил(а)
   articles:
-    loading: Загрузка статей...
     assigned: Назначенные статьи
     assigned_to: Назначен
     character_doc: Сумма символов, добавленных к статьям студентами курса в течение
       семестра
     edited: Статей отредактировано
     edited_mobile: Статьи
+    loading: Загрузка статей...
     no_assignee: Нет назначенного участника
     rating: Класс
     rating_doc: Рейтинг статьи был назначен Википедии ВикиПроектом. Эти рейтинги могут
@@ -54,11 +54,11 @@ ru:
     views_added: '%{count} новых просмотров статьи %{title}'
   assignments:
     assignees: Назначенный(е)
-    reviewers: Проверяющий(е)
-    loading: Загрузка назначений...
-    none: Этому курсу не назначена ни одна статья Википедии.
     confirm_addition: Вы уверены, что хотите назначить %{username} для работы с %{title}?
     confirm_deletion: Вы уверены, что хотите удалить это назначение?
+    loading: Загрузка назначений...
+    none: Этому курсу не назначена ни одна статья Википедии.
+    reviewers: Проверяющий(е)
   blocks:
     milestones:
       title: Этапы
@@ -69,59 +69,62 @@ ru:
     articles: Статьи
     character_doc: Сумма символов, добавленных к статьям основного пространства студентами
       курса в течение семестра
-    revisions_doc: Число правок за последние %{timeframe} дней
     course_description: Курсы
     courses: Курсы
-    yourcourses: Ваши курсы
-    nocourses: Вы не участвуете ни в одном курсе.
     current: Текущие курсы
     duration: Продолжительность курса
+    error:
+      exists: Такой курс уже существует! Пожалуйста, попробуйте ещё раз с другим заголовком,
+        школой или семестром.
+      user_exists: К сожалению, участника %{username} не существует.
     gradeables_none: У этого курса нет оцениваемых назначений.
     instructor:
       one: Инструктор
       other: Инструкторы
     instructors: Инструкторы
+    new_week: Добавить новую неделю
+    nocourses: Вы не участвуете ни в одном курсе.
+    overview: Обзор
+    revisions_doc: Число правок за последние %{timeframe} дней
     school: Школа
     students: Студенты
     students_none: У этого курса пока нет студентов.
     students_short: Студенты
-    weeks_none: '%{title} не имеет назначений'
-    new_week: Добавить новую неделю
-    overview: Обзор
     title: Заголовок
+    weeks_none: '%{title} не имеет назначений'
     view: Просмотр курса
-    view_wiki: Посмотреть на Википедии
     view_doc: Сумма всех просмотров статей, изменённых студентами с момента их первой
       правки каждой статьи.
+    view_wiki: Посмотреть на Википедии
     volunteer:
       one: Доброволец
       other: Добровольцы
-    error:
-      exists: Такой курс уже существует! Пожалуйста, попробуйте ещё раз с другим заголовком,
-        школой или семестром.
-      user_exists: К сожалению, участника %{username} не существует.
+    yourcourses: Ваши курсы
   courses_generic:
+    student_editors: Редакторы
     students: Редакторы
     students_short: Редакторы
-    student_editors: Редакторы
     term: Когда
   course_creator:
+    course_description: Описание курса
+    course_title: Название курса
     create_new: Создать новый курс
-    start_date: Дата начала
     end_date: Дата окончания
+    expected_number: Ожидаемое количество студентов
+    start_date: Дата начала
   metrics:
     activity: Недавние действия
     articles_created: Статей создано
     articles_edited: Статей отредактировано
-    char: Символов добавлено
     characters: Символов
     char_added: Символов добавлено
     char_changed: Символов изменено
+    char: Символов добавлено
     date_time: Дата/время
     edit_count_description: Всего правок
     revisions: Последние правки
-    view: Просмотров
     view_count_description: Просмотров статей
+    view: Просмотров
   namespace:
     main: Основное пространство
     main_char_added: Добавлено символов в основном пространстве
@@ -129,9 +132,9 @@ ru:
     user_char_added: Добавлено символов в пространстве участника
     user_ns: Участник
   revisions:
-    date_time: Дата/Время
     chars_added: Символов добавлено
     class: Класс
+    date_time: Дата/Время
     edited_by: Автор ревизии
     loading: Загрузка версий...
     none: Этот курс ещё не дополнил Википедию.
@@ -147,8 +150,8 @@ ru:
     loading: Загрузка приложений...
     none: Этот класс не дополнил WikiMedia Commons никакими изображениями или иными
       медиа-файлами.
-    usages: Использование
     time_doc: Время загрузки каждого дополнения по вашему местному времени.
+    usages: Использование
   users:
     already_enrolled: Этот участник уже подписан на курс.
     assigned: Назначенные статьи
@@ -168,15 +171,15 @@ ru:
     training_complete_count: '%{count} завершили тренинг'
     training_incomplete: Тренинг не завершён
   wizard:
-    course_dates: Даты проведения курса
     assignment_dates: Даты назначения
+    assignment_description: Выберите даты начала и завершения этого назначения.
     assignment_type: Тип назначения
     confirm_dates: Выберите даты проведения, еженедельных обсуждений и каникул для
       вашего курса.
-    assignment_description: Выберите даты начала и завершения этого назначения.
+    course_dates: Даты проведения курса
     minimum_options: Пожалуйста, выберите не менее %{minimum} опции(й).
-    read_more: Подробнее
     read_less: Кратко
+    read_more: Подробнее
     review_selections: Пожалуйста, просмотрите выбранные вами опции ниже. Нажмите
       на опцию, чтобы изменить. После завершения нажмите 'Submit', чтобы завершить
       выбор и построить ваш список назначений.

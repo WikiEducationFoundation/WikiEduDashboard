@@ -8,15 +8,15 @@ diq:
   application:
     help: Peşti
     home: Keye
-    log_out: Bıveciye
     log_in: Cı kewe
+    log_out: Bıveciye
     sign_up: Qeyd be
   activity:
-    edited_by: Vurnayoğ
     all: Fealiyet
+    edited_by: Vurnayoğ
   articles:
-    loading: Meqaleyi bar benê...
     edited_mobile: Meqaleyi
+    loading: Meqaleyi bar benê...
     no_assignee: Karberê qeydıni çıniyê
     rating: Sınıfe
     title: Sername

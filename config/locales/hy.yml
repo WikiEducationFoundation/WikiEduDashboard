@@ -12,8 +12,8 @@ hy:
     articles_edited: Խմբագրված հոդվածներ
     date_time: Ամսաթիվ/Ժամ
     edit_count_description: Ընդհանուր խմբագրումներ
-    view: Դիտումներ
     view_count_description: Հոդվածի դիտումներ
+    view: Դիտումներ
   namespace:
     user_ns: Մասնակից
 ...

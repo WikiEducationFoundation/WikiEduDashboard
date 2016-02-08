@@ -5,8 +5,8 @@
 ---
 oc:
   activity:
-    edited_by: Modificat per
     all: Activitat
+    edited_by: Modificat per
   metrics:
     date_time: Data/Ora
     view: Vistas

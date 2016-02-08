@@ -8,17 +8,17 @@ he:
   application:
     dashboard: לוח בקרה של ויקי השכלה
   activity:
-    edited_by: נערך על־ידי
     all: פעילות
+    edited_by: נערך על־ידי
   articles:
-    none: הקורס לא ערך שום ערך.
-    loading: טעינת ערכים...
     assigned: ערכים מוקצים
     assigned_to: 'מוקצה ל־:'
     character_doc: סך התווים שנוספו לערכים על־ידי התלמידים בקורס במהלך תקופת הקורס
     edited: ערכים שנערכו
     edited_mobile: ערכים
+    loading: טעינת ערכים...
     no_assignee: לא הוקצה משתמש
+    none: הקורס לא ערך שום ערך.
     rating: דירוג
     rating_doc: הדירוג שניתן לערך על ויקיפרויקט בוויקיפדיה. הדירוגים האלה יכולים להתייחס
       לגרסאות ישנות בהרבה, אז הם רק סימן גס לבגרות של הערך.
@@ -43,11 +43,11 @@ he:
     views_added: נוספו %{count} הצגות חדשות לדף %{title}
   assignments:
     assignees: משויכים
-    reviewers: סוקרים
-    loading: טעינת מטלות...
-    none: לקורס הזה לא הוקצו ערכים בוויקיפדיה.
     confirm_addition: האם ברצונך באמת להקצות את %{title} למשתמש %{username}?
     confirm_deletion: באמת למחוק את המטלה הזאת?
+    loading: טעינת מטלות...
+    none: לקורס הזה לא הוקצו ערכים בוויקיפדיה.
+    reviewers: סוקרים
   blocks:
     milestones:
       title: אבני דרך
@@ -58,36 +58,36 @@ he:
     articles: ערכים
     character_doc: סך התווים שנוספו לערכים במרחב הראשי על־ידי התלמידים בקורס במהלך
       תקופת הקורס
-    revisions_doc: מספר העריכת ב־%{timeframe} הימים האחרונים
     course_description: קורסים של ויקי השכלה
     courses: קורסים
-    yourcourses: הקורסים שלך
-    nocourses: אינך משתתף בשום קורס.
     current: קורסים נוכחיים
     duration: משך הקורס
+    error:
+      exists: הקורס הזה כבר קיים! נא לנסות שוב עם שם אחר, מוסד אחר או תקופה אחרת.
+      user_exists: סליחה, %{username} הוא לא משתמש קיים.
     gradeables_none: לקורס הזה אין משימות שאפשר לתת להן ציונים.
     instructor:
       one: מורה
       other: מורים
+    new_week: הוספת שבוע חדש
+    nocourses: אינך משתתף בשום קורס.
+    overview: סקירה כללית
+    revisions_doc: מספר העריכת ב־%{timeframe} הימים האחרונים
     students: תלמידים
     students_none: בקורס הזה אין סטודנטים.
     students_short: תלמידים
     timeline: פרטי מטלה
-    weeks_none: בקורס הזה אין ציר זמן.
-    new_week: הוספת שבוע חדש
-    overview: סקירה כללית
     title: כותרת
+    weeks_none: בקורס הזה אין ציר זמן.
     view: הצגת קורס
-    view_wiki: הצגה בוויקיפדיה
     view_doc: סך כל הצפיות בערכים שערכו סטודנטים מאז שהתלמידים עשו את העריכה הראשונה
       שלהם לכל ערך
+    view_wiki: הצגה בוויקיפדיה
     volunteer:
       one: מתנדב
       other: מתנדבים
     wiki_staff: סגל ויקי השכלה
-    error:
-      exists: הקורס הזה כבר קיים! נא לנסות שוב עם שם אחר, מוסד אחר או תקופה אחרת.
-      user_exists: סליחה, %{username} הוא לא משתמש קיים.
+    yourcourses: הקורסים שלך
   course_creator:
     create_new: יצירת קורס חדש
     intro: השם, המוסד והתקופה יוצרים את ה־URL של דף הקורס שלך ולא ניתן לשנות אותם.
@@ -97,15 +97,15 @@ he:
     activity: פעילות לאחרונה
     articles_created: ערכים נוצרו
     articles_edited: ערכים נערכו
-    char: תווים נוספו
     characters: תווים
     char_added: תווים נוספו
     char_changed: תווים שונו
+    char: תווים נוספו
     date_time: תאריך/שעה
     edit_count_description: עריכות סה"כ
     revisions: עריכות אחרונות
-    view: צפיות
     view_count_description: צפיות בערכים
+    view: צפיות
   namespace:
     main: המרחב הראשי
     main_char_added: תווים נוספו במרחב הראשי
@@ -124,8 +124,8 @@ he:
   uploads:
     loading: טעינת העלאות...
     none: הכיתה הזאת לא תרמה שום תמונות או קובצי מדיה אחרים לוויקישיתוף.
-    usages: שימושים
     time_doc: הזמן של כל העלאה לפי השעון המקומי שלך
+    usages: שימושים
   users:
     already_enrolled: המשתמש הזה כבר רשום!
     assigned: ערכים מוקצים
@@ -152,16 +152,16 @@ he:
       .'
     training_incomplete: ההכשרה לא הושלמה
   wizard:
-    course_dates: תאריכי הקורס
     assignment_dates: סוג המטלה
+    assignment_description: יש לבחור את תאריכי ההתחלה והסיום של המטלה הזאת
     assignment_type: סוג המטלה
     confirm_dates: יש לבחור את תאריכי הקורס, הפגישות השבועיות, והחגים עבור הקורס שלך.
-    assignment_description: יש לבחור את תאריכי ההתחלה והסיום של המטלה הזאת
+    course_dates: תאריכי הקורס
     min_weeks: המטלה הזאת דורשת לפחות %{min_weeks} שבועות זמינים. נא לתקן את תאריכי
       ההתחלה והסיום אם ברצונך להוסיף סוג כזה של מטלה.
     minimum_options: נא לבחור לפחות %{minimum} אפשרויות.
-    read_more: לקרוא יותר
     read_less: לקרוא פחות
+    read_more: לקרוא יותר
     review_selections: נא לסקור את הבחירות שלך להלן. יש ללחוץ כדי לערוך בחירה. בסיום
       יש ללחוץ "שליחה" כדי לסיים את האשף ולבנות את ציר הזמן שלך.
     select_assignment: נא לבחור את סוג המטלה שברצונך להוסיף לציר הזמן שלך.
@@ -188,8 +188,8 @@ he:
     header: 500 – שיאת שרת פנימית. :-(
     explanation: משהו השתבש. נא ליצר קשר עם המתחזקים של לוח הבקרה ולספר להם על הבעיה.
   timeline:
-    title: ציר זמן
-    due_default: חובה להגיש בשבוע הבא
     block_type: סוג הגוש משמש לשליחת מידע לתלמידים שלך על הפריט הזה בציר הזמן שלהם
       ולבניית כלים שימושיים עבורך (כגון תקציר אבן דרך בדף הסקירה הכללית).
+    due_default: חובה להגיש בשבוע הבא
+    title: ציר זמן
 ...

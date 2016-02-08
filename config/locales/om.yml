@@ -1,0 +1,10 @@
+# Messages for Oromo (Oromoo)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Tumsaa
+---
+om:
+  courses_generic:
+    students_short: Gulaaltota
+    term: Yoom
+...

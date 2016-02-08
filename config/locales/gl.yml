@@ -8,18 +8,18 @@ gl:
   application:
     dashboard: Panel de Wiki Ed
   activity:
-    edited_by: Modificado por
     all: Actividade
+    edited_by: Modificado por
   articles:
-    none: Este curso non editou ningún artigo.
-    loading: Cargando artigos...
     assigned: Artigos asignados
     assigned_to: Asignado a
     character_doc: A suma de caracteres engadidos a artigos polos estudiantes durante
       a realización do curso
     edited: Artigos editados
     edited_mobile: Artigos
+    loading: Cargando artigos...
     no_assignee: Sen usuario asignado
+    none: Este curso non editou ningún artigo.
     rating: Clase
     rating_docs:
       fl: Lista destacada - a maior calificación para unha lista na Wikipedia
@@ -28,10 +28,10 @@ gl:
     view_all: Ver todos
     view_doc: Suma de todas as vistas a cada artigo durante o curso
   assignments:
-    loading: Cargando asignacións...
-    none: Este curso non ten artigos de Wikipedia asignados.
     confirm_addition: Está seguro de que quere asignar %{title} a %{username}?
     confirm_deletion: Está seguro de que quere borrar esta asignación?
+    loading: Cargando asignacións...
+    none: Este curso non ten artigos de Wikipedia asignados.
   blocks:
     milestones:
       title: Fitos
@@ -40,45 +40,45 @@ gl:
   courses:
     activity: Actividade
     articles: Artigos
-    revisions_doc: Número de edicións nos pasados %{timeframe} días
     courses: Cursos
-    yourcourses: Os seus cursos
-    nocourses: Non está a participar en ningún curso.
     current: Cursos actuais
     duration: Duración do curso
+    error:
+      exists: Este curso xa existe! Por favor, inténteo de novo cun título diferente,
+        escola, ou termo.
+      user_exists: Sentímolo, o usuario %{username} non existe.
     instructor:
       one: Monitor
       other: Monitores
+    new_week: Engadir nova semana
+    nocourses: Non está a participar en ningún curso.
+    revisions_doc: Número de edicións nos pasados %{timeframe} días
     students: Estudantes
     students_none: Este curso non ten estudantes.
     students_short: Estudantes
     timeline: Detalles de asignación
-    new_week: Engadir nova semana
     title: Título
     view: Ver curso
     view_wiki: Ver en Wikipedia
     volunteer:
       one: Voluntario
       other: Voluntarios
-    error:
-      exists: Este curso xa existe! Por favor, inténteo de novo cun título diferente,
-        escola, ou termo.
-      user_exists: Sentímolo, o usuario %{username} non existe.
+    yourcourses: Os seus cursos
   course_creator:
     create_new: Crear un novo curso
   metrics:
     activity: Actividade recente
     articles_created: Artigos creados
     articles_edited: Artigos editados
-    char: Caracteres engadidos
     characters: Caracteres
     char_added: Caracteres engadidos
     char_changed: Caracteres cambiados
+    char: Caracteres engadidos
     date_time: Data/Hora
     edit_count_description: Total de edicións
     revisions: Revisións recentes
-    view: Vistas
     view_count_description: Visualizacións do artigo
+    view: Vistas
   namespace:
     main: Espazo principal
     main_char_added: Caracteres engadidos ó espazo principal
@@ -92,8 +92,8 @@ gl:
   tasks:
     conseq: A tarefa %{task} está en execución!
   wizard:
-    read_more: Ler máis
     read_less: Ler menos
+    read_more: Ler máis
     summary: Resumo
   error_401:
     header: Sen permiso. >:-(

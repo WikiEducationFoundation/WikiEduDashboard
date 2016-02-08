@@ -10,67 +10,72 @@ qqq:
       Button to cancel an action
       {{Identical|Cancel}}
     dashboard: Application name.
-    greeting: Casual greeting
-    greeting2: Enthusiastic greeting
+    explore: |-
+      Explore link
+      {{Identical|Explore}}
+    greeting2: |-
+      Enthusiastic greeting
+      {{Identical|Welcome}}
     greeting_extended: Welcome the user to Wikipedia, one line
+    greeting: |-
+      Casual greeting
+      {{Identical|Hello}}
     help: |-
       Link to http://ask.wikiedu.org
       {{Identical|Help}}
     home: Link to the main page
-    log_out: |-
-      Button for logging out (for registered users)
-      {{Identical|Log out}}
+    log_in_extended: Short text (< 14 characters) to make clear that authentication
+      is via wikipedia
     log_in: |-
       Button for logging in (for registered users)
       {{Identical|Log in}}
-    log_in_extended: Short text (< 14 characters) to make clear that authentication
-      is via wikipedia
-    sign_up: Sign up (for new users)
-    sign_up_extended: Short text (< 14 characters) to make clear that authentication
-      is via wikipedia
-    sign_up_log_in_extended: Short (lego) text (< 14 characters) to make clear that authentication
-      is via wikipedia
-    explore: |-
-      Explore link
-      {{Identical|Explore}}
+    log_out: |-
+      Button for logging out (for registered users)
+      {{Identical|Log out}}
     my_dashboard: My Dashboard link
     recent_activity: Link to recent activity (for registered users)
     search: Input box for search on ask.wikiedu.org
+    sign_up_extended: Short text (< 14 characters) to make clear that authentication
+      is via wikipedia
+    sign_up_log_in_extended: Short (lego) text (< 14 characters) to make clear that
+      authentication is via wikipedia
+    sign_up: Sign up (for new users)
     submit: |-
       Submit link
       {{Identical|Submit}}
     training: '{{Identical|Training}}'
-    timeline:
-      title: '{{Identical|Timeline}}'
-    timeline_link: Button to timeline page
   dashboard:
     create_note: Instructions on how to create a course
-    join_note: Instructions on how to join a course
-    opt_out: Link to opt out
-    explore_examples: Link to explore example courses
     explore_course_pages: Link to explore courses pages
+    explore_examples: Link to explore example courses
+    join_note: Instructions on how to join a course
     no_courses_instructor: Note that you can create courses
     no_courses_student: Note that you can join courses
+    opt_out: Link to opt out
     orientation_notice: Note suggesting an orientation
     start_orientation: Link to start orientation
   home:
-    log_in: Log in with Wikipedia button
-    sign_up: Sign up with Wikipedia button
     explore: |-
       Explore button
       {{Identical|Explore}}
+    log_in: Log in with Wikipedia button
+    sign_up: Sign up with Wikipedia button
   activity:
-    label: Short name for activities
-    edited_by: Column label for username of user who made an edit
     all: '{{Identical|Activity}}'
+    edited_by: Column label for username of user who made an edit
+    label: |-
+      Short name for activities
+      {{Identical|Activity}}
   articles:
-    label: Short name for articles
-    none: Message stating that no articles have been edited.
-    loading: Placeholder message indicating that article data is still loading
     assigned: Label for a list of assigned articles
     character_doc: Documentation for an article's character total add and remove count.
     edited: Label for a list of articles edited.
     edited_mobile: '{{Identical|Article}}'
+    label: |-
+      Short name for articles
+      {{Identical|Article}}
+    loading: Placeholder message indicating that article data is still loading
+    none: Message stating that no articles have been edited.
     rating: Label for an article's quality rating on the Wikipedia 1.0 scale
     rating_doc: Explanation of where an article's quality rating comes from and what
       it means
@@ -98,19 +103,21 @@ qqq:
       added to an article.
   assignments:
     already_exists: Message displayed when trying to create a duplicate assignment
+    assignees: '{{Identical|Assignee}}'
     assign_other: Button to assign an article to a student
     assign_self: Button to assign an article to self
-    assignees: '{{Identical|Assignee}}'
-    label: Button to assign an article
-    review_other: Button to assign an article to a student for review
-    review_self: Button to assign an article to self for review
-    reviewers: '{{Identical|Reviewer}}'
-    loading: Placeholder message indicating that assignment data is still loading
-    none: Label for an empty list of assignments
-    none_short: Short label for an empty list of assignments
     confirm_addition: Confirmation dialog for adding a new assignment. %{title} is
       the Wikipedia page title. %{username} is the username of the assignee.
     confirm_deletion: Confirmation dialog for an assignment should be deleted
+    label: |-
+      Button to assign an article
+      {{Identical|Assign}}
+    loading: Placeholder message indicating that assignment data is still loading
+    none_short: Short label for an empty list of assignments
+    none: Label for an empty list of assignments
+    reviewers: '{{Identical|Reviewer}}'
+    review_other: Button to assign an article to a student for review
+    review_self: Button to assign an article to self for review
   blocks:
     milestones:
       title: Label for the Milestone section of a course page
@@ -119,8 +126,8 @@ qqq:
     view_other: Command to view another cohort.
   courses:
     activity: Label for link to the 'recent activity' list for a course
-    already_enrolled: Message displayed when the user attempts to enroll
-      in a course they have already joined.
+    already_enrolled: Message displayed when the user attempts to enroll in a course
+      they have already joined.
     archived: Section heading for archived courses
     articles: |-
       Label for link to list of articles worked on by a course
@@ -130,78 +137,87 @@ qqq:
       Label for the number of courses in a cohort
       {{Identical|Course}}
     courses: Label for the number of courses in a cohort
-    yourcourses: Label for the list of courses associated with the logged in user
-    nocourses: Message indicating that the logged in user is not part of any courses
     current: Label for the list of current courses
     duration: Label for duration of a course
+    error:
+      exists: Error message indicating that a course with the same title, school and
+        term already exists.
     gradeables_none: Message indicating that the course has no gradeable items in
       the timeline
     instructor:
       one: Label for a single instructor of a course
       other: Label for plural instructors of a course
-    overview: Link to course overview page
-    join: Button to join a course
-    join_prompt: Do you want to join this course?
+    invitation: Message that you have been invited to a course
+    join: |-
+      Button to join a course
+      {{Identical|Join}}
+    join_prompt: |-
+      Do you want to join this course?
+      {{Identical|Join}}
     join_successful: Message that join was successful
+    new_week: Button text for adding a new week to the timeline
+    nocourses: Message indicating that the logged in user is not part of any courses
+    overview: Label for link to the overview page for a course
+    review_timeline: Message prompting user to review the timeline
     students: Label for link to the list of students for a course
-    students_count: Column label for number of students in a course
+    students_count: |-
+      Column label for number of students in a course
+      {{Identical|Student}}
     students_none: This course has no students.
     students_short: Label for the number of students in a course, in the mobile layout
-    unsubmitted: Name for pseudo-cohort of unsubmitted courses
-    weeks_none: Message indicating that a course does not have a timeline
-    new_week: Button text for adding a new week to the timeline
-    overview: Label for link to the overview page for a course
+    submitted_admin: Admin-only notice that a course is ready for approval
+    submitted_note: Message that your course has been successfully submitted
+    timeline_link: '{{Identical|Timeline}}'
     title: |-
       Label for the title of each course
       {{Identical|Title}}
-    view: Label for link to a course page
-    view_wiki: Label for link to the on-wiki version of a course page
-    view_doc: Explanation of what 'article views' means
-    view_page: Label for link to the course page
-    volunteer:
-      one: Label for a single course volunteer
-      other: Label for multiple course volunteers
-    wiki_staff: Label for staff members supporting the course
-    error:
-      exists: Error message indicating that a course with the same title, school and
-        term already exists.
-    warn_mirrored: Message to alert instructor that their new course will be
-      uploaded to Wikipedia on their behalf
-    review_timeline: Message prompting user to review the timeline
-    submitted_note: Message that your course has been successfully submitted
-    submitted_admin: Admin-only notice that a course is ready for approval
     training_due: Training is due for this course
     training_nav: Link to go to the training page
     training_overdue: Training due date has passed for this course
-    invitation: Message that you have been invited to a course
+    unsubmitted: Name for pseudo-cohort of unsubmitted courses
+    weeks_none: Message indicating that a course does not have a timeline
+    view: Label for link to a course page
+    view_doc: Explanation of what 'article views' means
+    view_page: Label for link to the course page
+    view_wiki: Label for link to the on-wiki version of a course page
+    volunteer:
+      one: Label for a single course volunteer
+      other: Label for multiple course volunteers
+    warn_mirrored: Message to alert instructor that their new course will be uploaded
+      to Wikipedia on their behalf
+    wiki_staff: Label for staff members supporting the course
+    yourcourses: Label for the list of courses associated with the logged in user
+  courses_generic:
+    student_editors: '{{Identical|Editor}}'
+    students: '{{Identical|Editor}}'
+    students_short: '{{Identical|Editor}}'
   course_creator:
+    course_description: Label for description of the course
+    course_school: Label for name of school which organized the course
+    course_subject: Label for subject of the course
+    course_title: Label for title of the course
     create_label: Header for new course creation
     create_new: Header of button for creating a new course
     create_short: Short label for link to create a course
-    course_title: Label for title of the course
-    course_school: Label for name of school which organized the course
-    course_subject: Label for subject of the course
-    course_description: Label for description of the course
-    find: Label for link to explore courses
+    end_date: Label for date of the course end
     expected_number: Label for expected number of students who will enroll in the
       course
-    start_date: Label for date of the course start
-    submitted_and_pending_heading: Section heading for submitted and pending courses
-    end_date: Label for date of the course end
+    find: Label for link to explore courses
     intro: Description of the course creator form
+    start_date: Label for date of the course start
   metrics:
     activity: Label for activity feed.
     articles_created: Label for the number of articles created.
     articles_edited: Label for the number of articles edited.
-    char: Label for number of characters added and removed.
     characters: Label for the number of characters metric.
     char_added: Laber for the number of characters added.
     char_changed: Laber for the number of characters changed.
+    char: Label for number of characters added and removed.
     date_time: Label for a revision or activity timestamp.
     edit_count_description: Label for the number of edits made.
     revisions: Label for the number of recent edits/revisions.
-    view: Label for the number of article views.
     view_count_description: Long label for the number of article views.
+    view: Label for the number of article views.
   namespace:
     main: Long label for the Main namespace.
     main_char_added: Label for number of characters added to the Main namespace.
@@ -209,11 +225,11 @@ qqq:
     user_char_added: Label for number of characters added to the User namespace.
     user_ns: Wiki title for the user namespace.
   revisions:
-    date_time: Label for date and time of revision
     chars_added: Label for counter of added chars
     class: |-
       Label for class of the article
       {{Identical|Class}}
+    date_time: Label for date and time of revision
     edited_by: Label for author of the last edition
     loading: Message about loading revisions
     none: Message stating there's no Wikipedia editing activity
@@ -221,6 +237,18 @@ qqq:
     title: |-
       Label for title of the article
       {{Identical|Title}}
+  training:
+    continue: Button label for continuing the training (plus percent completion)
+    start: |-
+      Button label for starting training
+      {{Identical|Start}}
+    view: |-
+      Button label for viewing training progress
+      {{Identical|View}}
+  uploads:
+    label: |-
+      Short name for uploads
+      {{Identical|Upload}}
   users:
     already_enrolled: Message indicating that a user is already enrolled in the course
       and cannot be enrolled again.
@@ -252,10 +280,10 @@ qqq:
       assignment type.
     minimum_options: Message indicating that more options must be selected. %{minimum}
       is the required number of options.
+    read_less: Button label to collapse an expanded section of addition information
     read_more: |-
       Button label to expand a section with additional information
       {{Identical|Read more}}
-    read_less: Button label to collapse an expanded section of addition information
     review_selections: Instructions for the summary section
     select_assignment: Instructions for the assignment type section
     summary: |-
@@ -271,12 +299,6 @@ qqq:
   error_500:
     header: Message indicating a 500 internal server error.
     explanation: Explanation of what to do after encountering this error.
-
-  uploads:
-    label: Short name for uploads
-
-  training:
-    continue: Button label for continuing the training (plus percent completion)
-    start: Button label for starting training
-    view: Button label for viewing training progress
+  timeline:
+    title: '{{Identical|Timeline}}'
 ...

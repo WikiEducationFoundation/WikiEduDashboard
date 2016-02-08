@@ -17,16 +17,16 @@ ko:
     recent_activity: 최근 활동
     search: ask.wikiedu.org에서 검색
   activity:
-    edited_by: '편집자 :'
     all: 활동
+    edited_by: '편집자 :'
   articles:
-    none: 이 코스는 어느 문서도 편집하지 않았습니다.
-    loading: 문서 불러오는 중...
     assigned: 할당된 문서
     assigned_to: 할당됨
     edited: 문서 편집됨
     edited_mobile: 문서
+    loading: 문서 불러오는 중...
     no_assignee: 할당된 사용자 없음
+    none: 이 코스는 어느 문서도 편집하지 않았습니다.
     rating: 클래스
     rating_docs:
       fa: 알찬 글 &mdash; 위키백과의 최고품질의 글로써, 학생 편집자가 프로젝트로 편집하기에는 지나치게 복잡할 수 있습니다
@@ -52,41 +52,41 @@ ko:
     articles: 문서
     course_description: 위키 에듀 코스
     courses: 과정
-    yourcourses: 내 과정
-    nocourses: 어떤 과정에도 참여하고 있지 않습니다.
     current: 현재 과정
     duration: 과정 기간
     gradeables_none: 등급을 매길 수 있는 과제가 없습니다.
     instructor:
       other: 지도자
+    nocourses: 어떤 과정에도 참여하고 있지 않습니다.
+    overview: 둘러보기
     students: 학생
     students_none: 이 과정에는 학생이 없습니다.
     students_short: 학생
     timeline: 숙제 상세사항
-    overview: 둘러보기
     title: 제목
     view: 과정 보기
     view_wiki: 위키백과에서 보기
     volunteer:
       other: 자원봉사자
     wiki_staff: 위키 에듀 임원
+    yourcourses: 내 과정
   course_creator:
-    create_new: 새 과정 만들기
-    course_school: 교과 학교
-    course_term: 교과 용어
-    course_subject: 교과 과목
     course_description: 교과 설명
+    course_school: 교과 학교
+    course_subject: 교과 과목
+    course_term: 교과 용어
+    create_new: 새 과정 만들기
+    end_date: 종료일
     expected_number: 예상 학생 수
     start_date: 개시일
-    end_date: 종료일
   metrics:
     activity: 최근 활동
     articles_created: 문서 생성됨
     articles_edited: 문서 편집됨
-    char: 글자가 추가됨
     characters: 글자
     char_added: 글자가 추가됨
     char_changed: 글자가 바뀜
+    char: 글자가 추가됨
     date_time: 날짜/시간
     edit_count_description: 총 편집
     revisions: 최신판
@@ -95,9 +95,9 @@ ko:
     user: 사용자 공간
     user_ns: 사용자
   revisions:
-    date_time: 날짜/시간
     chars_added: 글자가 추가됨
     class: 클래스
+    date_time: 날짜/시간
     edited_by: '편집자 :'
     title: 제목
   tasks:

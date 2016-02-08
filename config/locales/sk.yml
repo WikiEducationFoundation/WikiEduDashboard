@@ -8,11 +8,11 @@ sk:
     dashboard: Wiki Ed Dashboard
     help: Pomocník
     home: Domov
-    log_out: Odhlásiť sa
     log_in: Prihlásiť sa
-    sign_up: Zaregistrovať sa
+    log_out: Odhlásiť sa
     my_dashboard: Moja nástenka
     recent_activity: Nedávna činnosť
+    sign_up: Zaregistrovať sa
   home:
     log_in: Prihláste sa pomocou Wikipédie
     sign_up: Zaregistrovať sa pomocou Wikipédie

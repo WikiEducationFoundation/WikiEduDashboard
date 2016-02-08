@@ -7,33 +7,33 @@ lb:
   application:
     dashboard: Iwwersiicht iwwer d'Ännerungen op der Wiki
     help: Hëllef
-    log_out: Ausloggen
     log_in: Aloggen
-    sign_up: Schreift Iech an
-    sign_up_log_in_extended: mat Wikipedia
+    log_out: Ausloggen
     recent_activity: Rezent Aktivitéit
+    sign_up_log_in_extended: mat Wikipedia
+    sign_up: Schreift Iech an
     training: Formatioun
   home:
     log_in: Mat Wikipedia aloggen
     sign_up: Mat Wikipedia umellen
   activity:
-    edited_by: Geännert Vum
     all: Aktivitéit
+    edited_by: Geännert Vum
   articles:
-    none: An dësem Cours goufe keng Artikele geännert.
-    loading: Artikele lueden...
     assigned: Assignéiert Artikelen
     edited: Geännert Artikelen
     edited_mobile: Artikelen
+    loading: Artikele lueden...
     no_assignee: Kengem Benotzer assignéiert.
+    none: An dësem Cours goufe keng Artikele geännert.
     rating: Klass
     rating_doc: D'Bewäertung vum Artikel gouf vun de Wikiprojeten op wikipedia zougedeelt.
       Dës Bewäertunge kënne sech op vill méi al Versioune bezéien, dofir si si just
       e graffen Indikator fir d'Maturitéit vun engem Artikel.
     rating_docs:
       fl: Exzellent Lëscht - Déi bescht Bewäertung op Wikipedia fir Lëschten
-      ga: Gudden Artikel - e gutt-developpéierten Artikel dee fir engem Student säin
-        Haaptprojet eventuell ze räif ass.
+      ga: Gudden Artikel - e gutt-developpéierten Artikel dee fir engem neien Editeur
+        säin Haaptprojet eventuell ze räif ass.
       b: B-Klass - e moderat entwéckelten Artikel
       c: C-Klass - En duerchschnëttlechen Artikel mat Méiglechkeete fir en ze verbesseren
       start: Start-Klass - E provisoreschen Artikel wou nach vill kann dru verbessert
@@ -52,32 +52,37 @@ lb:
   courses:
     activity: Aktivitéit
     articles: Artikelen
-    revisions_doc: D'Zuel vun den ännerungen an de leschten %{timeframe}-Deeg
     course_description: Coursen
     courses: Coursen
-    yourcourses: Är Coursen
-    nocourses: Dir maacht bei kengem Cours mat.
     current: Aktuell Coursen
     duration: Dauer vum Cours
+    error:
+      exists: Dee Cours gëtt et schonn! Probéiert et w.e.g. nach eng Kéier mat engem
+        aneren Titel, enger anerer Schoul oder enger anerer Dauer.
+      user_exists: Pardon, de Benotzer %{username} gëtt et net.
+    new_week: Nei Woch debäisetzen
+    nocourses: Dir maacht bei kengem Cours mat.
+    overview: Iwwersiicht
+    revisions_doc: D'Zuel vun den ännerungen an de leschten %{timeframe}-Deeg
+    school: Schoul
     students: Studenten
     students_none: An dësem Cours si keng Studenten ageschriwwen.
     students_short: Studenten
-    weeks_none: Dëse Cours huet nach keen Zäitplang.
-    new_week: Nei Woch debäisetzen
-    overview: Iwwersiicht
     title: Titel
+    weeks_none: Dëse Cours huet nach keen Zäitplang.
     view: Cours weisen
     view_wiki: Op Wikipedia kucken
     volunteer:
       one: Fräiwëllegen
       other: Fräiwëlleger
-    error:
-      exists: Dee Cours gëtt et schonn! Probéiert et w.e.g. nach eng Kéier mat engem
-        aneren Titel, enger anerer Schoul oder enger anerer Dauer.
-      user_exists: Pardon, de Benotzer %{username} gëtt et net.
+    yourcourses: Är Coursen
+  courses_generic:
+    school: Institutioun
+    students_short: Auteuren
+    term: Wéini
   course_creator:
-    create_new: En neie Cours uleeën
     course_description: Beschreiwung vum Cours
+    create_new: En neie Cours uleeën
   metrics:
     activity: Rezent Aktivitéit
     articles_edited: Geännert Artikelen
@@ -117,8 +122,8 @@ lb:
   wizard:
     course_dates: Datume vun de Coursen
     minimum_options: Sicht w.e.g. mindestens %{minimum} Optioun(en).
-    read_more: Liest méi
     read_less: Manner liesen
+    read_more: Liest méi
     summary: Resumé
   error_401:
     header: Net autoriséiert.>:-(
@@ -129,6 +134,6 @@ lb:
   login_error:
     header: Feeler beim Aloggen
   timeline:
-    title: Chronologie
     due_default: Nächst Woch fälleg
+    title: Chronologie
 ...

@@ -6,34 +6,34 @@
 ---
 id:
   application:
-    help: Bantuan
-    log_out: Keluar
-    log_in: Masuk
-    sign_up: Daftar
-    sign_up_log_in_extended: dengan Wikipedia
     explore: Jelajah
+    help: Bantuan
+    log_in: Masuk
+    log_out: Keluar
     my_dashboard: Papan instrumen saya
+    sign_up_log_in_extended: dengan Wikipedia
+    sign_up: Daftar
     training: latihan
   dashboard:
-    opt_out: Permintaan untuk memilih keluar dari orientasi
-    explore_examples: Contoh penjelajahan
     explore_course_pages: Jelajahi Course Pages
+    explore_examples: Contoh penjelajahan
+    opt_out: Permintaan untuk memilih keluar dari orientasi
   home:
+    explore: Jelajah
     log_in: Masuk dengan Wikipedia
     sign_up: Masuk dengan Wikipedia
-    explore: Jelajah
   articles:
     loading: Memuat artikel...
     rating_docs:
       start: Mulai kelas - artikel awal dengan banyak ruang untuk perbaikan
   assignments:
-    reviewers: Peninjau
-    loading: Memuat tugas...
     confirm_addition: Apakah Anda yakin Anda ingin menetapkan%{title} ke %{username}%?
+    loading: Memuat tugas...
+    reviewers: Peninjau
   courses:
+    course_description: Wiki Ed Courses
     word_count_doc: Perkiraan jumlah kata ditambahkan ke artikel mainspace oleh siswa
       kursus selama jangka kursus
-    course_description: Wiki Ed Courses
   course_creator:
     intro: Judul, sekolah dan jangka waktu akan menjadi bagian dari url halaman kursus,
       dan tidak dapat diubah. informasi kursus lainnya dapat diedit nanti. Setelah
@@ -58,9 +58,9 @@ id:
       ini. Desain alat tugas ini akan membuat rancangan waktu yang pas timeline tanggal
       yang Anda pilih.
   timeline:
+    blackout_week_created: Ada blok dijadwalkan minggu ini. Silakan pindahkan ke seminggu
+      lagi sebelum Anda menghapus pertemuan kelas terakhir dari minggu ini.
     unable_to_add_week: Anda tidak dapat menambahkan minggu baru ketika waktu Anda
       penuh. Hapus setidaknya satu minggu atau mengubah tanggal tugas Anda untuk memberikan
       ruang bagi yang baru.
-    blackout_week_created: Ada blok dijadwalkan minggu ini. Silakan pindahkan ke seminggu
-      lagi sebelum Anda menghapus pertemuan kelas terakhir dari minggu ini.
 ...

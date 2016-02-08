@@ -1,0 +1,9 @@
+# Messages for Serbian (Latin script) (srpski (latinica)‎)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Milicevic01
+---
+sr-el:
+  application:
+    log_in: Prijavi me
+...

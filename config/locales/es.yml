@@ -1,45 +1,47 @@
 # Messages for Spanish (español)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Alebecerrasj
 # Author: Macofe
 # Author: Themasterriot
 # Author: Yllelder
+# Author: YoViajo
 ---
 es:
   application:
     dashboard: Panel de Wiki Ed
+    explore: Explorar
     help: Ayuda
     home: Inicio
-    log_out: Cerrar sesión
     log_in: Iniciar sesión
-    sign_up: Registrarse
-    sign_up_log_in_extended: con Wikipedia
-    explore: Explorar
+    log_out: Cerrar sesión
     my_dashboard: Panel de control
     recent_activity: Actividad reciente
     search: buscar en ask.wikiedu.org
+    sign_up_log_in_extended: con Wikipedia
+    sign_up: Registrarse
     training: Entrenamiento
   dashboard:
-    opt_out: Solicita la exclusión de la orientación
-    explore_examples: Explorar ejemplos
     explore_course_pages: Explorar las páginas del curso
+    explore_examples: Explorar ejemplos
+    opt_out: Solicita la exclusión de la orientación
   home:
+    explore: Explorar
     log_in: Iniciar sesión con Wikipedia
     sign_up: Regístrate con Wikipedia
-    explore: Explorar
   activity:
-    edited_by: Editado por
     all: Actividad
+    edited_by: Editado por
   articles:
-    none: Este curso no ha editado ningún artículo.
-    loading: Cargando artículos...
     assigned: Artículos asignados
     assigned_to: Asignado a
-    character_doc: La suma de caracteres agregados a los artículos durante el período
-      del curso
+    character_doc: La suma de caracteres agregados a los artículos por los editores
+      matriculados entre las fechas de inicio y fin
     edited: Artículos editados
     edited_mobile: Artículos
+    loading: Cargando artículos...
     no_assignee: Sin usuario asignado
+    none: Este curso no ha editado ningún artículo.
     rating: Clase
     rating_doc: La calificación que ha recibido un artículo de Wikiproyectos en la
       Wikipedia. Estas calificaciones pueden corresponder a versiones mucho más antiguas,
@@ -47,7 +49,7 @@ es:
     rating_docs:
       fa: 'Artículo destacado: la calificación más alta de Wikipedia, probablemente
         sea un artículo demasiado maduro como para ser el proyecto principal de un
-        editor estudiantil'
+        editor nuevo'
       fl: 'Lista destacada: la calificación más alta de Wikipedia para las listas'
       a: 'Clase A: un artículo bastante desarrollado que puede ser demasiado maduro
         para el proyecto principal de un editor estudiantil'
@@ -68,11 +70,11 @@ es:
     views_added: Se añadieron %{count} visitas nuevas para %{title}
   assignments:
     assignees: Asignado(s)
-    reviewers: Revisor(es)
-    loading: Cargando tareas...
-    none: Este curso no tiene artículos de Wikipedia asignados.
     confirm_addition: ¿Estás seguro de que quieres asignar %{title} a %{username}?
     confirm_deletion: ¿Estás seguro de que quieres eliminar esta tarea?
+    loading: Cargando tareas...
+    none: Este curso no tiene artículos de Wikipedia asignados.
+    reviewers: Revisor(es)
   blocks:
     milestones:
       title: Hitos
@@ -81,79 +83,102 @@ es:
   courses:
     activity: Actividad
     articles: Artículos
+    articles_none: Este curso no ha editado ningún artículo.
+    assignments_none: Este curso no tiene artículos de Wikipedia asignados.
     character_doc: La suma de caracteres agregados a los artículos del espacio principal
       por parte de los estudiantes durante el período del curso
-    revisions_doc: El número de ediciones en los últimos %{timeframe} días
-    word_count_doc: Una estimación del número de palabras agregadas a los artículos
-      del espacio principal por parte de los estudiantes durante el período del curso
-    course_description: Cursos de Wiki Ed
-    courses: Cursos
-    yourcourses: Tus cursos
-    nocourses: No participas de ningún curso.
-    current: Cursos actuales
-    duration: Duración del curso
-    gradeables_none: Este curso no tiene tareas calificables.
-    instructor:
-      one: Docente
-      other: Docentes
-    students: Estudiantes
-    students_none: Este curso no tiene estudiantes.
-    students_short: Estudiantes
-    timeline: Detalles de la tarea
-    weeks_none: Este curso aún no tiene un cronograma.
-    new_week: Agregar una semana nueva
-    overview: Resumen
-    title: Título
-    view: Ver curso
-    view_wiki: Ver en Wikipedia
-    view_doc: La suma de todas las visitas a artículos editados por estudiantes desde
-      que ellos hicieron su primera edición en cada artículo
-    volunteer:
-      one: Voluntario
-      other: Voluntarios
-    wiki_staff: Personal de Wiki Ed
-    error:
-      exists: Ese curso ya existe. Intenta de nuevo con un título, escuela o período
-        diferentes.
-      user_exists: Lo siento, %{username} no es un usuario existente.
     course_dates_calendar_instructions: Selecciona fechas para añadirlas o quitarlas
       del calendario (por ejemplo, vacaciones, cuando no hay clases). Haz clic en
       la fecha para cambiar entre los estados «no seleccionado», «seleccionado» y
       «vacaciones». Las fechas de las actividades del curso van a cambiar para dar
       cuenta de las semanas que no tienen reuniones programadas.
+    course_description: Cursos
+    courses: Cursos
+    current: Cursos actuales
+    duration: Duración del curso
+    error:
+      exists: Ese curso ya existe. Intenta de nuevo con un título, escuela o período
+        diferentes.
+      user_exists: Lo siento, %{username} no es un usuario existente.
+    expected_students: Estudiantes Esperados
+    gradeables_none: Este curso no tiene tareas calificables.
+    instructor:
+      one: Docente
+      other: Docentes
+    instructors: Instructores
+    milestones_none: Este curso actualmente no tiene ningún hito.
+    new_week: Agregar una semana nueva
+    nocourses: No participas de ningún curso.
+    overview: Resumen
+    published: '¡Tu curso ha sido publicado! Los estudiantes pueden matricularse en
+      el curso visitando la siguiente URL:'
+    revisions_doc: El número de ediciones en los últimos %{timeframe} días
+    revisions_none: Este curso no tiene ediciones recientes en Wikipedia.
+    school: Escuela
+    students: Estudiantes
+    student_editors: Editores estudiantiles
+    students_none: Este curso no tiene estudiantes.
+    students_short: Estudiantes
+    term: Término
+    timeline: Detalles de la tarea
+    title: Título
+    weeks_none: Este curso aún no tiene un cronograma.
+    view: Ver curso
+    view_doc: La suma de todas las visitas a artículos editados por estudiantes desde
+      que ellos hicieron su primera edición en cada artículo
+    view_wiki: Ver en Wikipedia
+    volunteer:
+      one: Voluntario
+      other: Voluntarios
+    wiki_staff: Personal de Wiki Ed
+    word_count_doc: Una estimación del número de palabras agregadas a los artículos
+      del espacio principal por parte de los estudiantes durante el período del curso
+    yourcourses: Tus cursos
+  courses_generic:
+    assignment_end: Final de la linea de tiempo
+    assignments_none: Este curso no tiene artículos de Wikipedia asignados.
+    assignment_start: Línea de Tiempo Inicio
+    instructors: Facilitadores
+    milestones_none: Este curso actualmente no tiene ningún hito.
+    revisions_none: Este curso no tiene ediciones recientes en Wikipedia.
+    school: Institución
+    student_editors: Editores
+    students_none: Este proyecto no tiene editores inscriptos.
+    students_short: Editores
+    term: Cuando
   course_creator:
-    create_new: Crear un curso nuevo
-    course_title: Título del curso
-    course_school: Escuela del curso
-    course_term: Período del curso
-    course_subject: Tema del curso
-    course_description: Descripción del curso
-    expected_number: Número de estudiantes esperado
-    start_date: Fecha de inicio
-    end_date: Fecha de finalización
-    intro: El título, la escuela y el plazo crean la dirección URL de la página del
-      curso, y no pueden cambiarse. Todo lo demás puede editarse luego. Haz clic en
-      "Crear mi curso" para iniciar la construcción del cronograma para tu tarea en
-      Wikipedia.
     cloned_course_calendar_instructions: Selecciona fechas para añadirlas o quitarlas
       del calendario (por ejemplo, vacaciones, cuando no hay clases). Haz clic en
       la fecha para cambiar entre los estados «no seleccionado», «seleccionado» y
       «vacaciones». Si no tienes vacaciones, marca «No tengo vacaciones de clases».
       El cronograma copiado ajustará automáticamente las fechas para dar cuenta de
       las semanas que no tienen reuniones programadas.
+    course_description: Descripción del curso
+    course_school: Escuela del curso
+    course_subject: Tema del curso
+    course_term: Período del curso
+    course_title: Título del curso
+    create_new: Crear un curso nuevo
+    end_date: Fecha de finalización
+    expected_number: Número de estudiantes esperado
+    intro: El título, la escuela y el plazo crean la dirección URL de la página del
+      curso, y no pueden cambiarse. Todo lo demás puede editarse luego. Haz clic en
+      "Crear mi curso" para iniciar la construcción del cronograma para tu tarea en
+      Wikipedia.
+    start_date: Fecha de inicio
   metrics:
     activity: Actividad reciente
     articles_created: Artículos creados
     articles_edited: Artículos editados
-    char: Caracteres añadidos
     characters: Caracteres
     char_added: Caracteres añadidos
     char_changed: Caracteres cambiados
+    char: Caracteres añadidos
     date_time: Fecha/hora
     edit_count_description: Ediciones totales
     revisions: Ediciones recientes
-    view: Visualizaciones
     view_count_description: Visualizaciones del artículo
+    view: Visualizaciones
     word_count: Palabras añadidas
   namespace:
     main: Espacio principal
@@ -162,9 +187,9 @@ es:
     user_char_added: Caracteres añadidos en el espacio de usuarios
     user_ns: Usuario
   revisions:
-    date_time: Fecha/hora
     chars_added: Caracteres añadidos
     class: Clase
+    date_time: Fecha/hora
     edited_by: Editado por
     loading: Cargando revisiones...
     none: Este curso no tiene ediciones recientes en Wikipedia.
@@ -180,8 +205,8 @@ es:
     loading: Cargando subidas...
     none: Esta clase no ha contribuido con ninguna imagen o archivo multimedia a Wikimedia
       Commons.
-    usages: Usos
     time_doc: El tiempo de cada subida en tu hora local
+    usages: Usos
   users:
     already_enrolled: Ese usuario ya está inscrito.
     assigned: Artículos asignados
@@ -223,31 +248,31 @@ es:
         de entrenamiento] asignados. --~~~~
       summary: retraso en el entrenamiento de estudiantes
   wizard:
-    course_dates: Fechas del curso
     assignment_dates: Fechas de la tarea
-    assignment_type: Tipo de tarea
-    confirm_dates: Elige las fechas, las reuniones semanales y las vacaciones para
-      tu curso.
     assignment_description: Elige las fechas de inicio y finalización de tu cronograma
       de tareas. Por ejemplo, si quieres iniciar tu proyecto Wikipedia la segunda
       semana de clases, establece la fecha de inicio de la tarea a una semana luego
       de la fecha de inicio del curso. Esta herramienta de diseño de tareas creará
       un borrador del cronograma que encaja con las fechas del cronograma que tu elijas.
-    min_weeks: Esta tarea requiere al menos de %{min_weeks} semanas disponibles. Ajusta
-      tus fechas de inicio y finalización de tarea, si quieres usar este tipo de tarea.
-    minimum_options: Selecciona al menos %{minimum} opción/opciones.
-    read_more: Leer más
-    read_less: Leer menos
-    review_selections: Revisa las opciones de abajo. Haz clic para modificar una selección.
-      Cuando hayas terminado, haz clic en "Enviar" para finalizar el asistente y crear
-      tu cronograma.
-    select_assignment: Selecciona el tipo de tarea que quieres añadir a tu cronograma.
-    summary: Resumen
+    assignment_type: Tipo de tarea
     calendar_instructions: Selecciona fechas para añadirlas o quitarlas del calendario
       (por ejemplo, vacaciones, cuando no hay clases). Esto ayuda a la herramienta
       de creación de cursos a espaciar con precisión tus tareas. Haz clic en la fecha
       para cambiar entre los estados «no seleccionado», «seleccionado» y «vacaciones».
       Si no tienes vacaciones, marca «No tengo vacaciones de clases».
+    confirm_dates: Elige las fechas, las reuniones semanales y las vacaciones para
+      tu curso.
+    course_dates: Fechas del curso
+    min_weeks: Esta tarea requiere al menos de %{min_weeks} semanas disponibles. Ajusta
+      tus fechas de inicio y finalización de tarea, si quieres usar este tipo de tarea.
+    minimum_options: Selecciona al menos %{minimum} opción/opciones.
+    read_less: Leer menos
+    read_more: Leer más
+    review_selections: Revisa las opciones de abajo. Haz clic para modificar una selección.
+      Cuando hayas terminado, haz clic en "Enviar" para finalizar el asistente y crear
+      tu cronograma.
+    select_assignment: Selecciona el tipo de tarea que quieres añadir a tu cronograma.
+    summary: Resumen
   error:
     oauth_invalid: Tu sesión de Wikipedia ha caducado. Inicia sesión de nuevo.
     unsupported_browser:
@@ -278,15 +303,17 @@ es:
     header: 500 — error interno del servidor. :-(
     explanation: Algo salió mal. Ponte en contacto con los responsables del mantenimiento
       de este panel para informarles sobre el problema.
+  login_error:
+    header: Error de inicio de sesión
   timeline:
-    title: Cronograma
-    due_default: Previsto la semana próxima
+    blackout_week_created: Hay bloques programados para esta semana. Muévelos a otra
+      semana antes de quitar la última reunión de la clase de esta semana.
     block_type: El tipo de bloque se usa para comunicarse con tus estudiantes acerca
       de este tema en su cronograma y para construir herramientas útiles para ti (tales
       como el hito descripto en la página de información general)
+    due_default: Previsto la semana próxima
+    title: Cronograma
     unable_to_add_week: No puedes agregar semanas nuevas cuando tu cronograma está
       completo. Elimina al menos una semana o cambia las fechas de tareas para hacer
       espacio para una nueva.
-    blackout_week_created: Hay bloques programados para esta semana. Muévelos a otra
-      semana antes de quitar la última reunión de la clase de esta semana.
 ...

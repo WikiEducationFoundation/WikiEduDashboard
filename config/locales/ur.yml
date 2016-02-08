@@ -10,6 +10,6 @@ ur:
     log_out: خارج
     recent_activity: حالیہ سرگرمی
   activity:
-    edited_by: ترمیم از
     all: سرگرمی
+    edited_by: ترمیم از
 ...

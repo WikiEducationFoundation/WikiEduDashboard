@@ -14,23 +14,23 @@ lt:
     activity: Veikla
     articles: Straipsniai
     courses: Kursai
-    yourcourses: Jūsų kursai
     current: Dabartiniai kursai
     duration: Kurso trukmė
+    new_week: Pridėti naują savaitę
+    overview: Apžvalga
     students: Studentai
     students_none: Šis kursas neturi studentų.
     students_short: Studentai
     timeline: Užduoties detalės
-    new_week: Pridėti naują savaitę
-    overview: Apžvalga
     title: Pavadinimas
+    yourcourses: Jūsų kursai
   course_creator:
-    create_new: Sukurti naują kursą
-    course_title: Kurso pavadinimas
-    course_subject: Kurso tema
     course_description: Kurso aprašymas
-    start_date: Pradžios data
+    course_subject: Kurso tema
+    course_title: Kurso pavadinimas
+    create_new: Sukurti naują kursą
     end_date: Pabaigos data
+    start_date: Pradžios data
   metrics:
     articles_created: Sukurti straipsniai
     articles_edited: Redaguoti straipsniai
@@ -43,8 +43,8 @@ lt:
     main: Pagrindinė sritis
     user_ns: Naudotojas
   revisions:
-    date_time: Data/Laikas
     class: Klasė
+    date_time: Data/Laikas
     edited_by: Redagavo
     title: Pavadinimas
   uploads:
@@ -53,8 +53,8 @@ lt:
     name: Pavadinimas
     recent_revisions: Naujausi keitimai
   wizard:
-    course_dates: Kurso datos
     assignment_type: Užduoties tipas
+    course_dates: Kurso datos
     summary: Apibendrinimas
   error:
     unsupported_browser:

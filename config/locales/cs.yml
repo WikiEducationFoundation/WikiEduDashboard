@@ -30,29 +30,29 @@ cs:
     articles: Články
     character_doc: Počet znaků, které byly přidány do hlavního jmenného prostoru studenty
       během průběhu kurzu
-    revisions_doc: Počet editací během uplynulých %{timeframe} dní.
-    word_count_doc: Odhadovaný počet slov, které byly přidány do hlavního jmenného
-      prostoru studenty kurzu během jeho průběhu
     courses: Kurzy
-    yourcourses: Vaše kurzy
-    nocourses: Neúčastníte se žádných kurzů.
     current: Aktuální kurzy
     duration: Průběh kurzů
-    students: Studenti
-    students_none: Tento kurz nemá žádné studenty.
-    students_short: Studenti
-    new_week: Přidat nový týden
-    overview: Přehled
-    title: Název
-    view: Zobrazit kurz
-    view_wiki: Zobrazit na Wikipedii
     error:
       exists: Tento kurz již existujeǃ Zkuste prosím zadat jiný název kurzu, školu,
         nebo semestr.
       user_exists: Uživatel %{username} neexistuje.
+    new_week: Přidat nový týden
+    nocourses: Neúčastníte se žádných kurzů.
+    overview: Přehled
+    revisions_doc: Počet editací během uplynulých %{timeframe} dní.
+    students: Studenti
+    students_none: Tento kurz nemá žádné studenty.
+    students_short: Studenti
+    title: Název
+    view: Zobrazit kurz
+    view_wiki: Zobrazit na Wikipedii
+    word_count_doc: Odhadovaný počet slov, které byly přidány do hlavního jmenného
+      prostoru studenty kurzu během jeho průběhu
+    yourcourses: Vaše kurzy
   course_creator:
-    create_new: Vytvořit nový kurz
-    course_title: Název kurzu
     course_description: Popis kurzu
+    course_title: Název kurzu
+    create_new: Vytvořit nový kurz
     expected_number: Předpokládaný počet studentů
 ...

@@ -6,9 +6,9 @@
 ---
 fi:
   articles:
-    none: Tämän kurssin osallistujat eivät ole muokanneet yhtään artikkelia.
-    loading: Ladataan artikkeleita...
     edited: Muokattuja artikkeleita
+    loading: Ladataan artikkeleita...
+    none: Tämän kurssin osallistujat eivät ole muokanneet yhtään artikkelia.
     rating_docs:
       fa: Suositeltu artikkeli — Wikipedian korkein luokittelu, todennäköisesti liian
         valmis opiskelijamuokkaajan pääprojektiksi
@@ -17,11 +17,10 @@ fi:
     view: Näytä artikkeli
     view_all: Näytä kaikki
   assignments:
-    loading: Ladataan tehtäviä...
     confirm_deletion: Haluatko varmasti poistaa tämän tehtävän?
+    loading: Ladataan tehtäviä...
   courses:
     courses: Kurssit
-    yourcourses: Omat kurssisi
     duration: Kurssin kesto
     instructor:
       one: ohjaaja
@@ -31,9 +30,10 @@ fi:
     timeline: Tehtävän tiedot
     title: Otsikko
     view: Näytä kurssi
-    view_wiki: Näytä Wikipediassa
     view_doc: Yhteenlaskettu latausmäärä kaikille oppilaitten muokkaamille artikkeleille
       alkaen ensimmäisistä heidän tekemistään muokkauksista per artikkeli.
+    view_wiki: Näytä Wikipediassa
+    yourcourses: Omat kurssisi
   course_creator:
     create_new: Luo uusi kurssi
   revisions:

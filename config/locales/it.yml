@@ -5,111 +5,180 @@
 # Author: Beta16
 # Author: Macofe
 # Author: Statix64
+# Author: Wikitoni
 ---
 it:
   application:
+    cancel: Annulla
+    explore: Esplora
+    greeting2: Benvenuto/a!
+    greeting_extended: Benvenuto su Wikipedia
+    greeting: Ciao,
     help: Aiuto
     home: Pagina principale
-    log_out: Esci
+    log_in_extended: Accedi con Wikipedia
     log_in: Accedi
-    sign_up: Registrati
-    sign_up_log_in_extended: con Wikipedia
-    explore: Esplora
+    log_out: Esci
     recent_activity: Attività recente
+    sign_up_extended: Registrati con Wikipedia
+    sign_up_log_in_extended: con Wikipedia
+    sign_up: Registrati
+    submit: Invia
     training: Formazione
   dashboard:
-    explore_examples: Esplora esempi
     explore_course_pages: Esplora le pagine del corso
+    explore_examples: Esplora esempi
   home:
+    explore: Esplora
     log_in: Accedi con Wikipedia
     sign_up: Registrati con Wikipedia
-    explore: Esplora
   activity:
-    edited_by: Modificato da
     all: Attività
+    edited_by: Modificato da
+    label: Attività
   articles:
-    none: Questo corso non ha modificato alcuna voce.
-    loading: Caricamento articoli...
     assigned: Voci assegnate
     assigned_to: Assegnato a
-    character_doc: La somma dei caratteri aggiunti alle voci dagli studenti del corso
-      durante il periodo del corso
+    character_doc: La somma dei caratteri aggiunti alle voci dagli editori iscritti
+      tra le date di inizio e fine
     edited: Articoli modificati
     edited_mobile: Voci
+    label: Voci
+    loading: Caricamento articoli...
+    none: Questo corso non ha modificato alcuna voce.
     rating: Classe
     rating_docs:
+      fa: Voce in vetrina — la più alta valutazione di Wikipedia, probabilmente una
+        voce troppo matura per un nuovo editor del progetto principale
+      a: Prima classe — una voce molto sviluppata che potrebbe essere  troppo matura
+        per un nuovo editor del progetto principale
+      ga: Voce di qualità — una voce ben sviluppata che potrebbe essere  troppo matura
+        per un nuovo editor del progetto principale
       stub: Abbozzo di classe — un breve inizio di una voce che necessita di più contenuto
       list: Elenco di classe — un elenco piuttosto che una voce tradizionale
     title: Titolo
+    title_example: Titolo della voce
     view: Visualizza voce
     view_all: Mostra tutto
     view_doc: La somma di tutte le visite ad ogni voce durante il periodo del corso
   assignments:
-    reviewers: Revisori
+    already_exists: Questa assegnazione esiste già!
+    assign_other: Assegna una voce
+    confirm_addition: Sei sicuro di voler assegnare %{title} a %{username}?
+    label: Assegna
     loading: Caricando gli incarichi...
     none: Questo corso non ha assegnato voci di Wikipedia.
-    confirm_addition: Sei sicuro di voler assegnare %{title} a %{username}?
+    reviewers: Revisori
+  cohort:
+    none: Nessuno
   courses:
     activity: Attività
+    archived: Corsi archiviati
     articles: Voci
+    articles_none: Questo corso non ha modificato alcuna voce.
+    assignment_end: Fine assegnazione
+    assignments_none: Questo corso non ha assegnato voci di Wikipedia.
+    assignment_start: Inizio assegnazione
     character_doc: La somma dei caratteri aggiunti alle voci nel namespace principale
       dagli studenti del corso durante il periodo del corso
     course_description: Corsi
     courses: Corsi
-    yourcourses: Tuoi corsi
-    nocourses: Non stai partecipando ad alcun corso.
     current: Corsi attuali
     duration: Durata del corso
-    students: Studenti
-    students_none: Questo corso non ha studenti.
-    students_short: Studenti
-    timeline: Dettagli dell'incarico
-    weeks_none: Questo corso non ha ancora una linea temporale.
-    new_week: Aggiungi nuova settimana
-    overview: Panoramica
-    title: Titolo
-    view: Visualizza corso
-    view_wiki: Mostra su Wikipedia
-    view_doc: La somma di tutte le visite alle voci modificate dagli studenti da quando
-      gli studenti hanno fatto la loro prima modifica ad ogni voce
-    volunteer:
-      other: =Volontario
+    edit_course_dates: Modifica date del corso
     error:
       exists: Quel corso esiste già! Riprova con un differente titolo, scuola o termine.
       user_exists: Spiacenti, %{username} non è un utente esistente.
+    expected_students: Studenti previsti
+    instructors: Insegnanti
+    join: Unisciti
+    milestones_none: Questo corso attualmente non ha pietre miliari.
+    new_week: Aggiungi nuova settimana
+    nocourses: Non stai partecipando ad alcun corso.
+    overview: Panoramica
+    published: 'Il tuo corso è stato pubblicato! Gli studenti possono iscriversi al
+      corso, visitando il seguente URL:'
+    revisions_none: Questo corso non ha attività di modifica recente su Wikipedia.
+    school: Scuola
+    students: Studenti
+    student_editors: Editori studenti
+    students_none: Questo corso non ha studenti.
+    students_short: Studenti
+    term: Termine
+    timeline: Dettagli dell'incarico
+    timeline_link: Timeline
+    title: Titolo
+    uploads_none: Questa classe non ha contribuito con alcuna immagine o altri file
+      multimediali su Wikimedia Commons.
+    weeks_none: Questo corso non ha ancora una linea temporale.
+    view: Visualizza corso
+    view_doc: La somma di tutte le visite alle voci modificate dagli editori iscritti
+      da quando gli editori hanno fatto la loro prima modifica ad ogni voce
+    view_wiki: Mostra su Wikipedia
+    volunteer:
+      other: =Volontario
+    yourcourses: Tuoi corsi
+  courses_generic:
+    articles_none: Non ci sono voci modificate per questo progetto ancora.
+    assignment_end: Fine timeline
+    assignments_none: Questo progetto non ha assegnato voci di Wikipedia.
+    assignment_start: Inizio timeline
+    edit_course_dates: Modifica date del progetto
+    expected_students: Editori previsti
+    instructors: Facilitatori
+    milestones_none: Questo progetto attualmente non ha pietre miliari.
+    published: 'Questo progetto è stato pubblicato! Gli editori possono iscriversi,
+      visitando il seguente URL:'
+    revisions_none: Questo progetto non ha attività di modifica recente su Wikipedia.
+    school: Istituto
+    student_editors: Editori
+    students: Editori
+    students_none: Questo progetto non ha editori iscritti.
+    students_short: Editori
+    term: Quando
+    uploads_none: Questo progetto non ha contribuito con alcuna immagine o altri file
+      multimediali su Wikimedia Commons.
   course_creator:
-    create_new: Crea un nuovo corso
-    course_title: Titolo del corso
     course_description: Descrizione del corso
-    expected_number: Numero previsto di studenti
-    start_date: Data inizio
+    course_title: Titolo del corso
+    create_label: Crea nuovo corso
+    create_new: Crea un nuovo corso
+    create_short: Crea corso
     end_date: Data fine
+    expected_number: Numero previsto di studenti
+    find: Trova il tuo corso
+    start_date: Data inizio
   metrics:
     activity: Attività recente
     articles_created: Voci create
     articles_edited: Articoli modificati
-    char: Caratteri aggiunti
     characters: Caratteri
     char_added: Caratteri aggiunti
     char_changed: Caratteri Modificati
+    char: Caratteri aggiunti
     date_time: Data/Ora
     edit_count_description: Modifiche totali
     revisions: Modifiche recenti
-    view: Visualizzazioni
     view_count_description: Visite alla voce
+    view: Visualizzazioni
     word_count: Parole aggiunte
   namespace:
     main: Ambiente principale
     main_char_added: Caratteri aggiunti namespace principale
     user_ns: Utente
   revisions:
-    date_time: Data/Ora
     chars_added: Caratteri aggiunti
     class: Classe
+    date_time: Data/Ora
     edited_by: Modificato da
     loading: Caricamento revisioni...
     title: Titolo
+  training:
+    continue: Continua (%{progress})
+    start: Inizio
+    view: Visualizza
   uploads:
+    label: Caricamenti
     loading: Caricando gli upload...
     none: Questa classe non ha contribuito con alcuna immagine o altri file multimediali
       su Wikimedia Commons.
@@ -127,21 +196,24 @@ it:
     revisions_doc: Il numero di modifiche effettuate da questo contributore negli
       ultimi 7 giorni
     reviewers: Revisori
+    student_editors: Editori studenti
     training_complete:
       one: è aggiornato con la formazione
       other: sono aggiornati con la formazione
     training_complete_count: '%{count} allenamento aggiornato'
+    training_doc: Gli utenti che hanno completato tutti i moduli di formazione da
+      fare sono considerati come utenti aggiornati  per quanto riguarda la loro formazione.
     training_incomplete: Formazione incompleta
     up_to_date_with_training: aggiornato con la formazione
   wizard:
-    course_dates: Date del corso
     assignment_dates: Date di assegnazione
     assignment_type: Tipo di assegnazione
     confirm_dates: Scegli le date dei corsi, incontri settimanali e le festività per
       il tuo corso.
+    course_dates: Date del corso
     minimum_options: Seleziona almeno %{minimum} opzioni.
-    read_more: Leggi di più
     read_less: Leggi di meno
+    read_more: Leggi di più
     summary: Sommario
   error_401:
     header: Non autorizzato. >:-(

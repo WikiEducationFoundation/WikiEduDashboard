@@ -20,19 +20,19 @@ tr:
   courses:
     gradeables_none: Bu kursta notlandırılabilen ödev bulunmamaktadır
   course_creator:
-    course_term: Ders dönemi
-    course_subject: Eğitim konusu
     course_description: Ders içeriği
+    course_subject: Eğitim konusu
+    course_term: Ders dönemi
+    end_date: Bitiş tarihi
     expected_number: Beklenen öğrenci sayısı
     start_date: Başlangıç tarihi
-    end_date: Bitiş tarihi
   metrics:
     char_changed: Karakterler Değişti
   namespace:
     user_ns: Kullanıcı
   revisions:
-    date_time: Tariq/Saat
     class: Sınıf
+    date_time: Tariq/Saat
     edited_by: Düzenleyen
     title: Başlık
   wizard:

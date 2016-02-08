@@ -7,24 +7,55 @@
 ---
 ja:
   application:
+    dashboard: Wiki Ed ダッシュボード
     help: ヘルプ
-    log_out: ログアウト
+    home: ホーム
     log_in: ログイン
-    sign_up: サインアップ
+    log_out: ログアウト
     my_dashboard: 私のダッシュボード
+    recent_activity: 最近の活動
+    search: ask.wikiedu.org で検索
+    sign_up_log_in_extended: ウィキペディアでログイン
+    sign_up: サインアップ
+  home:
+    log_in: ウィキペディアでログイン
+    sign_up: ウィキペディアで登録
   activity:
     all: 活動
   articles:
+    edited_mobile: 記事
+    loading: 記事を読み込んでいます...
+    rating: クラス
+    rating_docs:
+      a: A クラス — これからの編集者の主なプロジェクトとなるであろう、非常に成長している記事
+      b: B クラス — ある程度成長している記事
+      c: C クラス — 改善の余地のある記事
+      start: 初期クラス — 改善の余地のある、予備的な記事
+      stub: スタブクラス — 内容の加筆が必要な短い記事
+      list: リストクラス — 記事というより辞書に近い記事
+      '?': クラスなし — ウィキペディアで品質基準の評価がされていない記事
+    title: 記事名
+    view: 記事を閲覧
     view_all: すべてを表示
   blocks:
     milestones:
       title: マイルストーン
   courses:
-    students: 学生
-    students_short: 学生
+    activity: 活動
+    articles: 記事
+    instructors: 講師
     new_week: 新しい週の追加
     overview: 概要
+    school: 学校
+    students: 学生
+    student_editors: 学生の編集者
+    students_short: 学生
     title: タイトル
+  courses_generic:
+    school: 施設
+    student_editors: 編集者
+    students: 編集者
+    students_short: 編集者
   metrics:
     activity: 最近の活動
     date_time: 日付/時刻

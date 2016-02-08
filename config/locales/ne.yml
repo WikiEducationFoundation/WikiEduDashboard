@@ -6,7 +6,7 @@
 ne:
   application:
     help: सहायता
-    sign_up: साइन अप
     sign_up_log_in_extended: विकिपेडिया संग
+    sign_up: साइन अप
     training: तालिम
 ...

@@ -8,11 +8,13 @@ kn:
   application:
     log_in: ಲಾಗಿನ್
   courses:
+    error:
+      user_exists: ಕ್ಷಮಿಸಿ, %{username} ಅಸ್ತಿತ್ವದಲ್ಲಿರುವ ಬಳಕೆದಾರರಲ್ಲ.
+    new_week: ಹೊಸ ವಾರ ಸೇರಿಸಿ
+    overview: ಅವಲೋಕನ
     students: ವಿದ್ಯಾರ್ಥಿಗಳು
     students_none: ಈ ಪಠ್ಯದಲ್ಲಿ ಯಾವುದೇ ವಿದ್ಯಾರ್ಥಿಗಳಿಲ್ಲ.
     students_short: ವಿದ್ಯಾರ್ಥಿಗಳು
-    new_week: ಹೊಸ ವಾರ ಸೇರಿಸಿ
-    overview: ಅವಲೋಕನ
     title: ಶೀರ್ಷಿಕೆ
     view: ಪಠ್ಯ ವೀಕ್ಷಿಸು
     view_wiki: ವಿಕಿಪೀಡಿಯದಲ್ಲಿ ವೀಕ್ಷಿಸು
@@ -20,8 +22,6 @@ kn:
       one: ಸ್ವಯಂಸೇವಕ
       other: ಸ್ವಯಂಸೇವಕರು
     wiki_staff: ವಿಕಿ ಎಡ್ ಸಿಬ್ಬಂದಿ
-    error:
-      user_exists: ಕ್ಷಮಿಸಿ, %{username} ಅಸ್ತಿತ್ವದಲ್ಲಿರುವ ಬಳಕೆದಾರರಲ್ಲ.
   course_creator:
     create_new: ಹೊಸ ಪಠ್ಯವನ್ನು ರಚಿಸಿ
   metrics:

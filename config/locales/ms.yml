@@ -6,7 +6,18 @@
 ms:
   application:
     dashboard: Papan Pemuka Wiki Ed
+    explore: Jelajah
+    help: Bantuan
+    home: Laman Utama
+    log_in: Log masuk
+    log_out: Log keluar
+    my_dashboard: Papan Pemuka Saya
+    recent_activity: Kegiatan Terbaru
+    search: cari di ask.wikiedu.org
+    sign_up_log_in_extended: dengan Wikipedia
+    sign_up: Daftar
+    training: Latihan
   activity:
-    edited_by: Disunting oleh
     all: Kegiatan
+    edited_by: Disunting oleh
 ...

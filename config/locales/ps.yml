@@ -8,15 +8,23 @@ ps:
     dashboard: ويکي زده کړه ډشبورډ
     help: لارښود
     home: کور
-    log_out: وتل
     log_in: ننوتل
-    sign_up: نومليکل
+    log_out: وتل
+    my_dashboard: زما ډشبورډ
     recent_activity: تازه فعاليتونه
+    search: ask.wikiedu.org پلټل
+    sign_up_log_in_extended: د ويکيپېډيا سره
+    sign_up: نومليکل
+    training: تمرين
+  home:
+    log_in: د ويکيپېډيا له لارې ورننوتل
+    sign_up: د ويکيپېډيا له لارې نومليکنه
   activity:
-    edited_by: سمونگر
     all: فعاليت
+    edited_by: سمونگر
   articles:
     edited_mobile: ليکنې
+    loading: ليکنې برسېرېږي...
     rating: ټولگی
     title: سرليک
     view: ليکنه کتل
@@ -24,38 +32,52 @@ ps:
   courses:
     activity: فعاليت
     articles: ليکنې
+    course_description: کورسونه
     courses: کورسونه
-    yourcourses: ستاسې کورس
     current: اوسني کورسونه
     duration: کورس موده
+    edit_course_dates: کورس نېټې سمول
+    instructors: ښوونکي
+    school: ښوونځی
     students: زده کړيالان
+    student_editors: زده کوونکي سمونگران
+    students_none: دا کورس کوم زدکړيال نه لري.
     students_short: زده کړيالان
     title: سرليک
     view: کورس کتل
     view_wiki: په ويکيپېډيا باندې کتل
+    yourcourses: ستاسې کورس
+  courses_generic:
+    school: انستيتيوت
+    student_editors: سمونگران
+    students: سمونگران
+    students_short: سمونگران
+    term: کله
   course_creator:
-    create_new: يو نوی کورس جوړول
-    course_title: کورس سرليک
+    course_description: د کورس څرگندونه
     course_school: د کورس ښوونځی
     course_subject: د کورس مضمون
-    course_description: د کورس څرگندونه
-    start_date: پيل نېټه
+    course_term: کورس موده
+    course_title: کورس سرليک
+    create_new: يو نوی کورس جوړول
     end_date: پای نېټه
+    start_date: پيل نېټه
   metrics:
     activity: تازه فعاليتونه
     articles_created: جوړې شوې ليکنې
     articles_edited: سمې شوې ليکنې
+    characters: لوښې
     date_time: نېټه/وخت
     edit_count_description: ټولټال سمونونه
     revisions: وروستي سمونونه
-    view: کتنې
     view_count_description: د ليکنې کتنې
+    view: کتنې
   namespace:
     user: کارن تشيال
     user_ns: کارن
   revisions:
-    date_time: نېټه/وخت
     class: ټولگی
+    date_time: نېټه/وخت
     edited_by: سمونگر
     title: سرليک
   uploads:
@@ -63,15 +85,20 @@ ps:
   users:
     contributions: د کارن ونډې
     contributions_more: نورې ونډې کتل
+    loading: کارنان برسېرېږي...
     name: نوم
     none: دا کورس کوم زدکړيال نه لري.
     recent_revisions: وروستني بدلونونه
+    student_editors: زده کوونکي سمونگران
   wizard:
     course_dates: کورس نېټې
+    read_less: لږ لوستل
     read_more: نور لوستل
     summary: لنډيز
   error_404:
     header: مخ و نه موندل شو. :-(
+  login_error:
+    header: د ننوتلو ستونزه
   timeline:
     title: وختکرښه
 ...

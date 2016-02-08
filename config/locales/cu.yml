@@ -9,8 +9,8 @@ cu:
     loading: Загрузка статей
     title: Заголовок
   assignments:
-    reviewers: Рѣдактор(ы)
     loading: Загрузка...
+    reviewers: Рѣдактор(ы)
   courses:
     articles: Статьи
     students: Студѣнты

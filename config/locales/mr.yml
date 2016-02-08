@@ -9,25 +9,25 @@ mr:
   application:
     help: साहाय्य
     home: स्वगृह
-    log_out: सनोंद-निर्गम
     log_in: सनोंद प्रवेश करा
-    sign_up_log_in_extended: विकिपिडियासह
+    log_out: सनोंद-निर्गम
     recent_activity: अलीकडील क्रिया
+    sign_up_log_in_extended: विकिपिडियासह
     training: प्रशिक्षण
   home:
-    log_in: विकिपीडियात सनोंद प्रवेश करा
     explore: शोध करा
+    log_in: विकिपीडियात सनोंद प्रवेश करा
   activity:
-    edited_by: द्वारे संपादित
     all: क्रिया
+    edited_by: द्वारे संपादित
   articles:
-    none: या अभासक्रमाने काहीच लेख संपदित केले नाहीत.
-    loading: लेखांचे प्रभारण करीत आहे...
     assigned: सोपविलेले लेख
     assigned_to: ला सोपविले
     edited: संपादित लेख
     edited_mobile: लेख
+    loading: लेखांचे प्रभारण करीत आहे...
     no_assignee: कोणत्याही सदस्यास सोपविलेले नाही
+    none: या अभासक्रमाने काहीच लेख संपदित केले नाहीत.
     rating: वर्ग
     title: शीर्षक
     view: लेख बघा
@@ -41,25 +41,25 @@ mr:
     activity: क्रिया
     articles: लेख
     courses: अभासक्रम
-    yourcourses: आपले अभ्यासक्रम
-    nocourses: आपण कोणत्याच अभ्यासक्रमात सहभागी नाहीत.
     current: सध्याचे अभ्यासक्रम
     duration: अभ्यासक्रमाचा कालावधी
+    new_week: नविन आठवडा जोडा
+    nocourses: आपण कोणत्याच अभ्यासक्रमात सहभागी नाहीत.
     students: विद्यार्थी
     students_none: या अभ्यासक्रमात काहीच विद्यार्थी नाहीत.
     students_short: विद्यार्थी
     timeline: गृहपाठाचा तपशिल
-    new_week: नविन आठवडा जोडा
     title: शीर्षक
     view: अभ्यासक्रम बघा
+    yourcourses: आपले अभ्यासक्रम
   course_creator:
-    create_new: नविन अभ्यासक्रम तयार करा
-    course_title: अभ्यासक्रमाचे शीर्षक
-    course_subject: अभ्यासक्रम विषय
     course_description: अभ्यासक्रमाचे वर्णन
+    course_subject: अभ्यासक्रम विषय
+    course_title: अभ्यासक्रमाचे शीर्षक
+    create_new: नविन अभ्यासक्रम तयार करा
+    end_date: अंतिम दिनांक
     expected_number: विद्यार्थ्यांची अपेक्षित संख्या
     start_date: सुरूवात दिनांक
-    end_date: अंतिम दिनांक
   metrics:
     activity: अलीकडील क्रिया
     articles_created: तयार केलेले लेख
@@ -73,8 +73,8 @@ mr:
   namespace:
     user_ns: सदस्य
   revisions:
-    date_time: दिनांक/वेळ
     class: वर्ग
+    date_time: दिनांक/वेळ
     edited_by: ने संपादित केले
     loading: आवृत्त्यांचे भारण करीत आहे...
     title: शीर्षक
@@ -95,8 +95,8 @@ mr:
     reviewing: पुनरावलोकन करणे
   wizard:
     course_dates: अभ्यासक्रमाच्या तारखा
-    read_more: अधिक वाचा
     read_less: कमी वाचा
+    read_more: अधिक वाचा
     summary: सारांश
   error:
     unsupported_browser:

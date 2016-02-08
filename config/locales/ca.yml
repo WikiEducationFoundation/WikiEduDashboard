@@ -18,9 +18,9 @@ ca:
   courses:
     activity: Activitat
     articles: Articles
-    yourcourses: El teus cursos
     students: Estudiants
     students_short: Estudiants
+    yourcourses: El teus cursos
   metrics:
     view: Vistes
   namespace:

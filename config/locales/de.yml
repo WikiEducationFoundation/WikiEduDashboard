@@ -7,50 +7,50 @@
 de:
   application:
     dashboard: Wiki-Ed-Dashboard
+    explore: Entdecken
     help: Hilfe
     home: Start
-    log_out: Abmelden
     log_in: Anmelden
-    sign_up: Registrieren
-    sign_up_log_in_extended: mit Wikipedia
-    explore: Entdecken
+    log_out: Abmelden
     my_dashboard: Meine Übersichtsseite
     recent_activity: Letzte Aktivitäten
     search: ask.wikiedu.org durchsuchen
+    sign_up_log_in_extended: mit Wikipedia
+    sign_up: Registrieren
     training: Ausbildung
   dashboard:
-    opt_out: Opt-Out der Einführung beantragen
-    explore_examples: Beispiele entdecken
     explore_course_pages: Die Kursseiten entdecken
+    explore_examples: Beispiele entdecken
+    opt_out: Opt-Out der Einführung beantragen
   home:
+    explore: Entdecken
     log_in: Mit Wikipedia anmelden
     sign_up: Mit Wikipedia registrieren
-    explore: Entdecken
   activity:
-    edited_by: Bearbeitet von
     all: Aktivität
+    edited_by: Bearbeitet von
   articles:
-    none: Dieser Kurs hat keine Artikel bearbeitet.
-    loading: Lade Artikel …
     assigned: Zugeordnete Artikel
     assigned_to: Zuordnung zu
-    character_doc: Die Summe aller durch die Kursstudenten während der Kursdauer zu
-      Artikeln hinzugefügten Zeichen
+    character_doc: Die Summe der durch eingeschriebene Autoren an Artikeln hinzugefügten
+      Zeichen zwischen den Start- und Enddaten.
     edited: Bearbeitete Artikel
     edited_mobile: Artikel
+    loading: Lade Artikel …
     no_assignee: Keinem Benutzer zugeordnet
+    none: Dieser Kurs hat keine Artikel bearbeitet.
     rating: Klasse
     rating_doc: Die Bewertung eines Artikels, die von den Wikiprojekten vergeben wurde.
       Diese Bewertungen entsprechen zu stark älteren Versionen, so dass sie nur ein
       grobes Anzeichen der Artikelreife sind.
     rating_docs:
       fa: Exzellenter Artikel – Wikipedias höchste Bewertung, vermutlich zu gewagt
-        für ein Hauptprojekt eines Studentenautoren.
+        für ein Hauptprojekt eines neuen Autoren.
       fl: Exzellente Liste – Wikipedias höchste Bewertung für Listen.
       a: A-Klasse – Ein sehr entwickelter Artikel, der vermutlich zu gewagt ist für
-        ein Hauptprojekt eines Studentenautoren.
+        ein Hauptprojekt eines neuen Autoren.
       ga: Guter Artikel – Ein gut entwickelter Artikel, der vermutlich zu gewagt ist
-        für ein Hauptprojekt eines Studentenautoren.
+        für ein Hauptprojekt eines neuen Autoren.
       b: B-Klasse – Ein mäßig entwickelter Artikel.
       c: C-Klasse – Ein dazwischenliegender Artikel mit Raum für Verbesserungen.
       start: Start-Klasse – Ein vorläufiger Artikel mit Spielraum für Verbesserungen.
@@ -65,11 +65,11 @@ de:
     views_added: '%{count} neue Aufrufe für %{title} hinzugefügt'
   assignments:
     assignees: Zugeordnete/r Benutzer/in(nen)
-    reviewers: Prüfer/in(nen)
-    loading: Lade Zuordnungen…
-    none: Dieser Kurs hat keine zugeordnete Wikipedia-Artikel.
     confirm_addition: Möchtest du %{title} wirklich zu %{username} zuordnen?
     confirm_deletion: Möchtest du diese Zuordnung wirklich löschen?
+    loading: Lade Zuordnungen…
+    none: Dieser Kurs hat keine zugeordnete Wikipedia-Artikel.
+    reviewers: Prüfer/in(nen)
   blocks:
     milestones:
       title: Meilensteine
@@ -78,78 +78,115 @@ de:
   courses:
     activity: Aktivität
     articles: Artikel
+    articles_none: Dieser Kurs hat keine Artikel bearbeitet.
+    assignment_end: Zuweisungs-Ende
+    assignments_none: Dieser Kurs hat keine zugewiesenen Wikipedia-Artikel.
+    assignment_start: Zuweisungs-Beginn
     character_doc: Die Summe der durch die Kursstudenten während der Kursdauer zu
       Hauptnamensraum-Artikeln hinzugefügten Zeichen
-    revisions_doc: Die Anzahl der Bearbeitungen in den letzten %{timeframe} Tagen
-    word_count_doc: Eine Schätzung der Anzahl der durch die Kursstudenten während
-      der Kursdauer hinzugefügten Wörter in Hauptnamensraum-Artikeln.
-    course_description: Kurse
-    courses: Kurse
-    yourcourses: Deine Kurse
-    nocourses: Du nimmst an keinen Kursen teil.
-    current: Aktuelle Kurse
-    duration: Kursdauer
-    gradeables_none: Dieser Kurs hat keine steigerbaren Zuweisungen.
-    instructor:
-      one: Leiter
-      other: Leiter
-    students: Studenten
-    students_none: Dieser Kurs hat keine Studenten.
-    students_short: Studenten
-    timeline: Einzelheiten zur Zuweisung
-    weeks_none: Dieser Kurs hat noch keine Zeitleiste.
-    new_week: Neue Woche hinzufügen
-    overview: Übersicht
-    title: Titel
-    view: Kurs anzeigen
-    view_wiki: Auf Wikipedia anzeigen
-    view_doc: Die Summe aller Aufrufe von Artikeln, die von Studenten bearbeitet wurden,
-      seit sie ihre erste Bearbeitung an jedem Artikel gemacht haben.
-    volunteer:
-      one: Freiwilliger
-      other: Freiwillige
-    wiki_staff: Wiki-Ed-Mitarbeiter
-    error:
-      exists: Dieser Kurs ist bereits vorhanden! Bitte versuche es erneut mit einem
-        anderen Titel, einer anderen Schule oder Dauer.
-      user_exists: Leider ist der Benutzer %{username} nicht vorhanden.
     course_dates_calendar_instructions: Wähle Daten aus, um sie in dem Plan hinzuzufügen
       oder zu entfernen (z.&nbsp;B. Feiertage oder schulfreie Tage). Klicke das Datum
       an, um zwischen unausgewählt, ausgewählt und Feiertagsstatus zu wechseln. Die
       Daten der Kursaktivitäten ändern das Konto für Wochen, die keine geplanten Treffen
       haben.
+    course_description: Kurse
+    courses: Kurse
+    current: Aktuelle Kurse
+    duration: Kursdauer
+    edit_course_dates: Kursdaten bearbeiten
+    error:
+      exists: Dieser Kurs ist bereits vorhanden! Bitte versuche es erneut mit einem
+        anderen Titel, einer anderen Schule oder Dauer.
+      user_exists: Leider ist der Benutzer %{username} nicht vorhanden.
+    expected_students: Erwartete Studenten
+    gradeables_none: Dieser Kurs hat keine steigerbaren Zuweisungen.
+    instructor:
+      one: Leiter
+      other: Leiter
+    instructors: Leiter
+    milestones_none: Dieser Kurs hat derzeit keine Meilensteine.
+    new_week: Neue Woche hinzufügen
+    nocourses: Du nimmst an keinen Kursen teil.
+    overview: Übersicht
+    published: 'Dein Kurs wurde veröffentlicht! Studenten können sich beim Aufrufen
+      der folgenden URL in den Kurs einschreiben:'
+    revisions_doc: Die Anzahl der Bearbeitungen in den letzten %{timeframe} Tagen
+    revisions_none: Dieser Kurs hat keine letzte Wikipedia-Bearbeitungsaktivität.
+    school: Schule
+    students: Studenten
+    student_editors: Studentenautoren
+    students_none: Dieser Kurs hat keine Studenten.
+    students_short: Studenten
+    term: Dauer
+    timeline: Einzelheiten zur Zuweisung
+    title: Titel
+    uploads_none: Diese Klasse hat keine Bilder oder andere Mediendateien für Wikimedia
+      Commons beigetragen.
+    weeks_none: Dieser Kurs hat noch keine Zeitleiste.
+    view: Kurs anzeigen
+    view_doc: Die Summe aller Aufrufe von Artikeln, die von eingeschriebenen Autoren
+      bearbeitet wurden, seit der Autor seine erste Bearbeitung an jedem Artikel gemacht
+      hat.
+    view_wiki: Auf Wikipedia anzeigen
+    volunteer:
+      one: Freiwilliger
+      other: Freiwillige
+    wiki_staff: Wiki-Ed-Mitarbeiter
+    word_count_doc: Eine Schätzung der Anzahl der durch die Kursstudenten während
+      der Kursdauer hinzugefügten Wörter in Hauptnamensraum-Artikeln.
+    yourcourses: Deine Kurse
+  courses_generic:
+    articles_none: Es gibt noch keine bearbeiteten Artikel für dieses Projekt.
+    assignment_end: Zeitleisten-Ende
+    assignments_none: Dieses Projekt hat keine zugewiesenen Wikipedia-Artikel.
+    assignment_start: Zeitleisten-Beginn
+    edit_course_dates: Projektdaten bearbeiten
+    expected_students: Erwartete Autoren
+    instructors: Vermittler
+    milestones_none: Dieses Projekt hat derzeit keine Meilensteine.
+    published: 'Dieses Projekt wurde veröffentlicht! Autoren können sich beim Aufrufen
+      der folgenden URL einschreiben:'
+    revisions_none: Dieses Projekt hat keine letzte Wikipedia-Bearbeitungsaktivität.
+    school: Einrichtung
+    student_editors: Autoren
+    students: Autoren
+    students_none: Dieses Projekt hat keine eingeschriebenen Autoren.
+    students_short: Autoren
+    term: Wann
+    uploads_none: Dieses Projekt hat keine Bilder oder andere Mediendateien für Wikimedia
+      Commons beigetragen.
   course_creator:
-    create_new: Einen neuen Kurs erstellen
-    course_title: Kurstitel
-    course_school: Kursschule
-    course_term: Kursdauer
-    course_subject: Kursthema
-    course_description: Kursbeschreibung
-    expected_number: Erwartete Anzahl der Studenten
-    start_date: Startdatum
-    end_date: Enddatum
-    intro: Der Titel, die Schule und die Dauer erstellen die URL deiner Kursseite
-      und können nicht geändert werden. Alles andere kannst du später bearbeiten.
-      Klicke auf „Meinen Kurs erstellen!“ zum Erstellen der Zeitleiste für deine Wikipedia-Zuweisung.
     cloned_course_calendar_instructions: Wähle Daten aus, um sie in dem Plan hinzuzufügen
       oder zu entfernen (z.&nbsp;B. Feiertage oder schulfreie Tage). Klicke das Datum
       an, um zwischen unausgewählt, ausgewählt und Feiertagsstatus zu wechseln. Falls
       du keine Feiertage hast, aktiviere das Kontrollkästchen „Ich habe keine Feiertage“.
       Die geklonte Zeitleiste passt die Daten auf Kontowochen automatisch an, die
       keine geplanten Treffen haben.
+    course_description: Kursbeschreibung
+    course_school: Kursschule
+    course_subject: Kursthema
+    course_term: Kursdauer
+    course_title: Kurstitel
+    create_new: Einen neuen Kurs erstellen
+    end_date: Enddatum
+    expected_number: Erwartete Anzahl der Studenten
+    intro: Der Titel, die Schule und die Dauer erstellen die URL deiner Kursseite
+      und können nicht geändert werden. Alles andere kannst du später bearbeiten.
+      Klicke auf „Meinen Kurs erstellen!“ zum Erstellen der Zeitleiste für deine Wikipedia-Zuweisung.
+    start_date: Startdatum
   metrics:
     activity: Letzte Aktivitäten
     articles_created: Erstellte Artikel
     articles_edited: Bearbeitete Artikel
-    char: Zeichen hinzugefügt
     characters: Zeichen
     char_added: Zeichen hinzugefügt
     char_changed: Zeichen geändert
+    char: Zeichen hinzugefügt
     date_time: Datum/Uhrzeit
     edit_count_description: Gesamte Bearbeitungen
     revisions: Letzte Bearbeitungen
-    view: Aufrufe
     view_count_description: Artikelaufrufe
+    view: Aufrufe
     word_count: Hinzugefügte Wörter
   namespace:
     main: Hauptnamensraum
@@ -158,9 +195,9 @@ de:
     user_char_added: Benutzernamensraum-Zeichen hinzugefügt
     user_ns: Benutzer/in
   revisions:
-    date_time: Datum/Uhrzeit
     chars_added: Hinzugefügte Zeichen
     class: Klasse
+    date_time: Datum/Uhrzeit
     edited_by: Bearbeitet von
     loading: Lade Versionen …
     none: Dieser Kurs hat keine kürzliche Wikipedia-Bearbeitungsaktivität.
@@ -176,8 +213,8 @@ de:
     loading: Lade Uploads …
     none: Diese Klasse hat keine Bilder oder andere Mediendateien für Wikimedia Commons
       beigetragen.
-    usages: Verwendungen
     time_doc: Die Zeit jedes Uploads in deiner Ortszeit
+    usages: Verwendungen
   users:
     already_enrolled: Dieser Benutzer ist bereits eingeschrieben!
     assigned: Zugewiesene Artikel
@@ -198,12 +235,13 @@ de:
       7 Tagen gemacht wurden.
     reviewers: Überprüfer
     reviewing: Überprüft
+    student_editors: Studentenautoren
     training_complete:
       one: ist mit der Ausbildung auf dem Laufenden
       other: sind mit der Ausbildung auf dem Laufenden
     training_complete_count: '%{count} Ausbildungen auf dem Laufenden'
-    training_doc: Studentenautoren, die alle zugewiesenen fälligen Ausbildungsmodule
-      vervollständigt haben, werden mit ihrer Ausbildung als „auf dem Laufenden“ gezählt.
+    training_doc: Autoren, die alle zugewiesenen fälligen Ausbildungsmodule vervollständigt
+      haben, werden mit ihrer Ausbildung als „auf dem Laufenden“ gezählt.
     training_incomplete: Ausbildung unvollständig
     up_to_date_with_training: mit der Ausbildung auf dem Laufenden
   wiki_edits:
@@ -215,33 +253,33 @@ de:
         Ausbildungsmodule]. <nowiki>--~~~~</nowiki>
       summary: Studentenausbildung überfällig
   wizard:
-    course_dates: Kursdaten
     assignment_dates: Zuweisungsdaten
-    assignment_type: Zuweisungstyp
-    confirm_dates: Wähle die Kursdaten, wöchentlichen Treffen und Feiertage für deinen
-      Kurs aus.
     assignment_description: Wähle die Start- und Enddaten dieser Zuweisung aus. Falls
       du beispielsweise dein Wikipedia-Projekt in der zweiten Woche der Klasse starten
       möchtest, setze das Zuweisungsstartdatum auf eine Woche nach dem Kursstartdatum.
       Dieses Zuweisungsgestaltungswerkzeug erstellt eine Entwurfszeitleiste, die sich
       den ausgewählten Zeitleistendaten anpasst.
+    assignment_type: Zuweisungstyp
+    calendar_instructions: Wähle Daten aus, um sie in dem Plan hinzuzufügen oder zu
+      entfernen (z.&nbsp;B. Feiertage oder schulfreie Tage). Dies hilft dem Kurserstellungswerkzeug,
+      deine Zuweisungen genau zu verteilen. Klicke das Datum an, um zwischen unausgewählt,
+      ausgewählt und Feiertagsstatus zu wechseln. Falls du keine Feiertage hast, aktiviere
+      unten das Kontrollkästchen „Ich habe keine Feiertage“.
+    confirm_dates: Wähle die Kursdaten, wöchentlichen Treffen und Feiertage für deinen
+      Kurs aus.
+    course_dates: Kursdaten
     min_weeks: Diese Zuweisung erfordert mindestens %{min_weeks} verfügbare Wochen.
       Bitte passe deine Start- und Enddaten deiner Zuweisung an, falls du diesen Zuweisungstyp
       verwenden möchtest.
     minimum_options: Bitte wähle mindestens %{minimum} Option(en) aus.
-    read_more: Mehr lesen
     read_less: Weniger lesen
+    read_more: Mehr lesen
     review_selections: Bitte überprüfe unten deine Auswahl. Klicke zum Bearbeiten
       einer Auswahl. Wenn du fertig bist, klicke auf „Übermitteln“, um den Assistenten
       zu schließen und deine Zeitleiste zu erstellen.
     select_assignment: Wähle die Art der Zuweisung aus, die du zu deiner Zeitleiste
       hinzufügen möchtest.
     summary: Zusammenfassung
-    calendar_instructions: Wähle Daten aus, um sie in dem Plan hinzuzufügen oder zu
-      entfernen (z.&nbsp;B. Feiertage oder schulfreie Tage). Dies hilft dem Kurserstellungswerkzeug,
-      deine Zuweisungen genau zu verteilen. Klicke das Datum an, um zwischen unausgewählt,
-      ausgewählt und Feiertagsstatus zu wechseln. Falls du keine Feiertage hast, aktiviere
-      unten das Kontrollkästchen „Ich habe keine Feiertage“.
   error:
     oauth_invalid: Deine Wikipedia-Autorisierung ist abgelaufen. Bitte erneut anmelden.
     unsupported_browser:
@@ -279,15 +317,15 @@ de:
       Entschuldigung! Dies tritt gelegentlich auf. Bitte versuche die Anmeldung oder
       Einschreibung erneut.
   timeline:
-    title: Zeitleiste
-    due_default: Während nächster Woche
-    block_type: Der Sperrtyp wird verwendet, um mit anderen Studenten über dieses
-      Objekt auf ihrer Zeitleiste zu kommunizieren und zum Erstellen nützlicher Werkzeuge
-      für dich (wie der Meilensteinentwurf auf der Übersichtsseite).
-    unable_to_add_week: Du kannst keine neuen Wochen hinzufügen, wenn deine Zeitleiste
-      voll ist. Lösche mindestens eine Woche oder ändere deine Zuweisungsdaten ab,
-      um Platz für ein neues zu schaffen.
     blackout_week_created: Es gibt für diese Woche geplante Sperren. Bitte verschiebe
       sie auf eine andere Woche, bevor du das letzte Klassentreffen von dieser Woche
       entfernst.
+    block_type: Der Sperrtyp wird verwendet, um mit anderen Studenten über dieses
+      Objekt auf ihrer Zeitleiste zu kommunizieren und zum Erstellen nützlicher Werkzeuge
+      für dich (wie der Meilensteinentwurf auf der Übersichtsseite).
+    due_default: Während nächster Woche
+    title: Zeitleiste
+    unable_to_add_week: Du kannst keine neuen Wochen hinzufügen, wenn deine Zeitleiste
+      voll ist. Lösche mindestens eine Woche oder ändere deine Zuweisungsdaten ab,
+      um Platz für ein neues zu schaffen.
 ...

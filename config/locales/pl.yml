@@ -7,36 +7,36 @@
 ---
 pl:
   application:
+    explore: Odkryj
     help: Pomoc
     home: Strona główna
-    log_out: Wyloguj
     log_in: Zaloguj się
-    sign_up: Zarejestruj się
-    sign_up_log_in_extended: z Wikipedią
-    explore: Odkryj
+    log_out: Wyloguj
     my_dashboard: Mój panel
     recent_activity: Ostatnia aktywność
     search: przeszukaj ask.wikiedu.org
+    sign_up_log_in_extended: z Wikipedią
+    sign_up: Zarejestruj się
     training: Szkolenie
   dashboard:
-    opt_out: Poproś o wypisanie z listy
-    explore_examples: Odkryj przykłady
     explore_course_pages: Odkryj strony kursów
+    explore_examples: Odkryj przykłady
+    opt_out: Poproś o wypisanie z listy
   home:
+    explore: Odkrywaj
     log_in: Zaloguj się za pomocą Wikipedii
     sign_up: Zarejestruj się w Wikipedii
-    explore: Odkrywaj
   activity:
-    edited_by: Zmienił(a)
     all: Aktywność
+    edited_by: Zmienił(a)
   articles:
-    loading: Wczytywanie artykułów...
     assigned: Przypisane artykuły
     assigned_to: Przypisany do
     character_doc: Liczba znaków dodanych do artykułów przez uczestników kursu w czasie
       jego trwania
     edited: Edytowane artykuły
     edited_mobile: Artykuły
+    loading: Wczytywanie artykułów...
     no_assignee: Żaden użytkownik nie jest przypisany
     rating: Klasa
     title: Tytuł
@@ -49,31 +49,33 @@ pl:
     articles: Artykuły
     course_description: Kursy
     courses: Kursy
-    yourcourses: Twoje Kursy
-    nocourses: Nie bierzesz udziału w żadnych kursach.
     instructor:
       one: Instruktor
       other: Instruktorzy
+    nocourses: Nie bierzesz udziału w żadnych kursach.
+    overview: Przegląd
     students: Studenci
     students_short: Studenci
-    overview: Przegląd
     title: Tytuł
     view: Zobacz Kursy
     view_wiki: Zobacz w Wikipedii
+    yourcourses: Twoje Kursy
+  courses_generic:
+    school: Instytucja
   course_creator:
-    create_new: Utwórz Nowy Kurs
-    course_title: Tytuł kursu
     course_description: Opis kursu
-    start_date: Data rozpoczęcia
+    course_title: Tytuł kursu
+    create_new: Utwórz Nowy Kurs
     end_date: Data zakończenia
+    start_date: Data rozpoczęcia
   metrics:
     date_time: Data/Czas
   namespace:
     user: Przestrzeń użytkownika
     user_ns: Użytkownik
   revisions:
-    date_time: Data/Czas
     class: Klasa
+    date_time: Data/Czas
     loading: Wczytywanie wersji...
     title: Tytuł
   users:

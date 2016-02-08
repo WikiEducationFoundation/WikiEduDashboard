@@ -14,18 +14,18 @@ sv:
     recent_activity: Senaste aktivitet
     search: sök på ask.wikiedu.org
   activity:
-    edited_by: Redigerad av
     all: Aktivitet
+    edited_by: Redigerad av
   articles:
-    none: Den här kursen har inte redigerat några artiklar.
-    loading: Laddar artiklar...
     assigned: Tilldelade artiklar
     assigned_to: Tilldelad till
     character_doc: Summan av tecken som lagts till i artiklar av kursens studenter
       under kursen
     edited: Redigerade artiklar
     edited_mobile: Artiklar
+    loading: Laddar artiklar...
     no_assignee: Inga användare tilldelade
+    none: Den här kursen har inte redigerat några artiklar.
     rating: Klass
     title: Titel
     view: Visa artikel
@@ -38,23 +38,28 @@ sv:
   courses:
     activity: Aktivitet
     articles: Artiklar
+    articles_none: Den här kursen har inte redigerat några artiklar.
     course_description: Kurser
+    school: Skola
+  courses_generic:
+    edit_course_dates: Redigera projektdatum
+    term: När
   course_creator:
     course_title: Kursens titel
-    start_date: Startdatum
     end_date: Slutdatum
+    start_date: Startdatum
   metrics:
     activity: Senaste aktivitet
     articles_created: Skapade artiklar
     articles_edited: Redigerade artiklar
-    char: Tillagda tecken
     characters: Tecken
     char_added: Tillagda tecken
     char_changed: Ändrade tecken
+    char: Tillagda tecken
     date_time: Datum/Tid
     revisions: Senaste redigeringar
-    view: Visningar
     view_count_description: Artikelvisningar
+    view: Visningar
   namespace:
     main: Huvudnamnrymd
     user: Användarnamnrymd

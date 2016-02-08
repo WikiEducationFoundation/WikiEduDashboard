@@ -7,32 +7,32 @@
 ---
 te:
   application:
+    explore: అన్వేషించండి
     help: సహాయం
     home: ముంగిలి
-    log_out: నిష్క్రమించండి
     log_in: ప్రవేశించండి
-    sign_up: నమోదు
-    sign_up_log_in_extended: వికీపీడియా తో
-    explore: అన్వేషించండి
+    log_out: నిష్క్రమించండి
     my_dashboard: నా డాష్ బోర్డు
+    sign_up_log_in_extended: వికీపీడియా తో
+    sign_up: నమోదు
     training: శిక్షణ
   dashboard:
     explore_examples: ఉదాహరణల కోసం అన్వేషించండి
   home:
+    explore: అన్వేషించండి
     log_in: వికీపీడియాతో ప్రవేశించండి
     sign_up: వికీపీడియాతో నమోదవండి
-    explore: అన్వేషించండి
   activity:
-    edited_by: సవరించినవారు
     all: కలాపం
+    edited_by: సవరించినవారు
   articles:
     edited_mobile: వ్యాసాలు
     rating: తరగతి
   courses:
     duration: కోర్సు కాలపరిమితి
+    overview: అవలోకనం
     students: విద్యార్థులు
     students_short: విద్యార్థులు
-    overview: అవలోకనం
     title: శీర్షిక
     view: కోర్సును చూపించు
   course_creator:

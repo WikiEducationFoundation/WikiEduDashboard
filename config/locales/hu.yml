@@ -8,12 +8,12 @@ hu:
     dashboard: Wiki Ed Műszerfal
     help: Súgó
     home: Kezdőlap
-    log_out: Kijelentkezés
     log_in: Bejelentkezés
-    sign_up: Regisztráció
-    sign_up_log_in_extended: Wikipédiával
+    log_out: Kijelentkezés
     recent_activity: Legutóbbi tevékenységek
     search: keresés az ask.wikiedu.org oldalon
+    sign_up_log_in_extended: Wikipédiával
+    sign_up: Regisztráció
   home:
     log_in: Bejelentkezés Wikipédiával
     sign_up: Regisztráció Wikipédiával

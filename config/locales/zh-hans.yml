@@ -1,48 +1,59 @@
 # Messages for Simplified Chinese (中文（简体）‎)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Camilali0609
 # Author: Liuxinyu970226
 ---
 zh-hans:
   application:
+    cancel: 取消
     dashboard: Wiki Ed控制面板
+    explore: 浏览
+    greeting2: 欢迎！
+    greeting_extended: 欢迎来到维基百科
+    greeting: 您好，
     help: 帮助
     home: 首页
-    log_out: 退出
+    log_in_extended: 登录维基百科
     log_in: 登录
-    sign_up: 注册
-    sign_up_log_in_extended: 与维基百科
-    explore: 浏览
+    log_out: 退出
     my_dashboard: 我的控制面板
     recent_activity: 最近活动
     search: 搜索ask.wikiedu.org
+    sign_up_extended: 注册维基百科
+    sign_up_log_in_extended: 与维基百科
+    sign_up: 注册
+    submit: 提交
     training: 培训
   dashboard:
-    opt_out: 请求退出定向
-    explore_examples: 浏览示例
     explore_course_pages: 浏览课程页面
+    explore_examples: 浏览示例
+    opt_out: 请求不参加迎新活动
   home:
+    explore: 探索
     log_in: 登录维基百科
     sign_up: 注册维基百科
-    explore: 探索
   activity:
-    edited_by: 编辑自
     all: 活跃
+    edited_by: 编辑自
+    label: 活跃
   articles:
-    none: 此课程没有编辑任何条目。
-    loading: 正在加载条目...
     assigned: 分配的条目
     assigned_to: 分配给
+    character_doc: 由登记编辑者在开始和结束日期之间，添加至条目的字符总和
     edited: 编辑的条目
     edited_mobile: 条目
+    label: 条目
+    loading: 正在加载条目...
     no_assignee: 没有分配用户
+    none: 此课程没有编辑任何条目。
     rating: 等级
     rating_doc: 条目的等级由维基百科的对应专题分配。这些等级可能与旧有版本相对应，因此这些评级只是粗略的条目成熟度指标。
     rating_docs:
-      fa: 特色条目 — 维基百科的最高评级，可能过于成熟而不适合作为学生编辑的主要项目目标
+      fa: 特色条目 — 维基百科的最高评级，可能过于成熟而不适合作为新编辑者的主要项目目标
       fl: 特色列表 — 维基百科用于列表的最高评级
-      a: 甲级 — 十分完善的条目，可能过于成熟而不适合作为学生编辑的主要项目目标
-      ga: 优良条目 — 一个组织良好的条目，可能过于成熟而不适合作为学生编辑的主要项目目标
+      a: 甲级 — 十分完善的条目，可能过于成熟而不适合作为新编辑者的主要项目目标
+      ga: 优良条目 — 一个组织良好的条目，可能过于成熟而不适合作为新编辑者的主要项目目标
       b: 乙级 — 一个适度发展的条目
       c: 丙级 — 一个有改进空间的中等条目
       start: 初级 — 一个有很大改进空间的初等条目
@@ -50,73 +61,125 @@ zh-hans:
       list: 列表级 — 一个列表，而不是一篇传统条目
       '?': 未评级 — 一篇未被维基百科质量等级体系评级的条目
     title: 标题
+    title_example: 条目标题
     view: 查看条目
     view_all: 查看全部
+    view_doc: 在课程学期期间每个条目的访问量总数
     views_added: 已为%{title}添加%{count}次新查看
   assignments:
     assignees: 委托人
-    reviewers: 复核员
-    loading: 正在加载作业...
-    none: 此课程没有被维基百科条目所分配。
+    assign_other: 分配一个条目
+    assign_self: 给我自己分配一个条目
     confirm_addition: 您确定要分配%{title}至%{username}？
     confirm_deletion: 您确定要删除此分配吗？
+    label: 分配
+    loading: 正在加载作业...
+    none_short: 没有分配的条目
+    none: 此课程没有被维基百科条目所分配。
+    reviewers: 复核员
   blocks:
     milestones:
       title: 里程碑
   cohort:
+    none: 无
     view_other: 查看其它同班同学
   courses:
     activity: 活动
+    already_enrolled: 您已经是“%{title}”的一部分！
     articles: 条目
-    revisions_doc: 过去%{timeframe}天内的编辑数
+    articles_none: 此课程没有编辑任何条目。
+    assignment_end: 任务结束
+    assignments_none: 此课程没有分配的维基百科条目。
+    assignment_start: 任务开始
     course_description: 课程
     courses: 课程
-    yourcourses: 您的课程
-    nocourses: 您未参加任何课程。
     current: 当前课程
     duration: 课程持续时间
+    edit_course_dates: 编辑课程日期
+    error:
+      exists: 那个课程已存在！请使用不同的标题、学校或学期再试。
+      user_exists: 对不起，%{username}不是一位存在的用户。
+    expected_students: 预期学生
     gradeables_none: 此课程没有可批改作业。
     instructor:
       other: 导师
+    instructors: 导师
+    join: 加入
+    join_prompt: 加入“%{title}”么？
+    join_successful: 您已成功加入%{title}。
+    milestones_none: 此课程目前没有任何里程碑。
+    new_week: 添加新的一周
+    nocourses: 您未参加任何课程。
+    overview: 概述
+    published: 您的课程已发布！学生们可以通过下面的URL报名课程：
+    revisions_doc: 过去%{timeframe}天内的编辑数
+    revisions_none: 此课程最近没有活跃编辑维基百科。
+    school: 学校
     students: 学生
+    students_count: '# 学生'
+    student_editors: 学生编辑者
     students_none: 此课程没有学生。
     students_short: 学生
+    submitted_heading: 提交的课程
+    term: 学期
     timeline: 分配详细信息
-    weeks_none: 此课程尚无时间线。
-    new_week: 添加新的一周
-    overview: 概述
+    timeline_link: 时间轴
     title: 标题
+    training_nav: 前往培训
+    unsubmitted: 未提交的课程
+    uploads_none: 此班级没有贡献任何图片或其他媒体文件至维基共享资源。
+    weeks_none: 此课程尚无时间线。
     view: 查看课程
+    view_page: 查看课程页面
     view_wiki: 在维基百科上查看
     volunteer:
       other: 志愿者
     wiki_staff: Wiki Ed职员
-    error:
-      exists: 那个课程已存在！请使用不同的标题、学校或学期再试。
-      user_exists: 对不起，%{username}不是一位存在的用户。
+    yourcourses: 您的课程
+  courses_generic:
+    articles_none: 目前此项目尚无编辑的条目。
+    assignment_end: 时间轴终点
+    assignments_none: 此项目没有分配的维基百科条目。
+    assignment_start: 时间轴起点
+    edit_course_dates: 编辑项目日期
+    expected_students: 预期编辑者
+    instructors: 促进者
+    milestones_none: 此课程目前没有任何里程碑。
+    published: 此项目已经发布！编辑者可以通过访问下面的URL登记：
+    revisions_none: 此课程最近没有活跃编辑维基百科。
+    school: 机构
+    student_editors: 编辑者
+    students: 编辑者
+    students_none: 此项目没有编辑者登记。
+    students_short: 编辑者
+    term: 何时
+    uploads_none: 此项目没有贡献任何图片或其他媒体文件至维基共享资源。
   course_creator:
-    create_new: 创建一个新课程
-    course_title: 课程标题
-    course_school: 课程学校
-    course_term: 课程学期
-    course_subject: 课程科目
     course_description: 课程描述
-    expected_number: 预计学生人数
-    start_date: 开始日期
+    course_school: 课程学校
+    course_subject: 课程科目
+    course_term: 课程学期
+    course_title: 课程标题
+    create_label: 创建新的课程
+    create_new: 创建一个新课程
+    create_short: 创建课程
     end_date: 结束日期
+    expected_number: 预计学生人数
+    find: 找到您的课程
+    start_date: 开始日期
   metrics:
     activity: 最近活跃
     articles_created: 创建的条目
     articles_edited: 编辑的条目
-    char: 添加的字符
     characters: 字符
     char_added: 添加的字符
     char_changed: 更改的字符
+    char: 添加的字符
     date_time: 日期/时间
     edit_count_description: 总计编辑
     revisions: 最近编辑
-    view: 查看
     view_count_description: 条目查阅
+    view: 查看
     word_count: 添加的文字
   namespace:
     main: 主名字空间
@@ -125,9 +188,9 @@ zh-hans:
     user_char_added: 添加的用户名字空间字符
     user_ns: 用户
   revisions:
-    date_time: 日期/时间
     chars_added: 添加的字符
     class: 等级
+    date_time: 日期/时间
     edited_by: 编辑者
     loading: 正在加载修订……
     none: 此课程最近没有活跃编辑维基百科。
@@ -136,11 +199,16 @@ zh-hans:
   tasks:
     conseq: 课程%{task}已在进行！
     constant: 当update_daily运行时，任务%{task}不能运行。
+  training:
+    continue: 继续（%{progress}）
+    start: 开始
+    view: 查看
   uploads:
+    label: 上传
     loading: 正在加载上传...
     none: 此班级没有贡献任何图片或其他媒体文件至维基共享资源。
-    usages: 用法
     time_doc: 您本地时间的每次上传时间
+    usages: 用法
   users:
     already_enrolled: 那位用户已经登记了！
     assigned: 分配的条目
@@ -155,6 +223,7 @@ zh-hans:
     revisions_doc: 此编辑者在过去7天内的编辑次数
     reviewers: 复核员
     reviewing: 正在复核
+    student_editors: 学生编辑者
     training_complete:
       other: 最新的培训
     training_complete_count: '%{count}最近的培训'
@@ -166,13 +235,13 @@ zh-hans:
       message: 请完成分配的[https://dashboard.wikiedu.org/training/students 培训模块]。--~~~~
       summary: 学生培训迟到
   wizard:
-    course_dates: 课程日期
     assignment_dates: 分配日期
     assignment_type: 分配类型
     confirm_dates: 为您的课程选择课程日期、每周例会和假日。
+    course_dates: 课程日期
     minimum_options: 请至少选择%{minimum}个选项。
-    read_more: 阅读更多
     read_less: 阅读更少
+    read_more: 阅读更多
     select_assignment: 选择您希望添加至您的时间轴的任务类型。
     summary: 摘要
   error:
@@ -195,6 +264,6 @@ zh-hans:
   login_error:
     header: 登录错误
   timeline:
-    title: 时间轴
     due_default: 预计下周
+    title: 时间轴
 ...

@@ -6,51 +6,51 @@
 ast:
   application:
     dashboard: Tableru de Wiki Ed
+    explore: Esplorar
     help: Ayuda
     home: Entamu
-    log_out: Salir
     log_in: Aniciar sesión
-    sign_up: Date d'alta
-    sign_up_log_in_extended: con Wikipedia
-    explore: Esplorar
+    log_out: Salir
     my_dashboard: El mio tableru
     recent_activity: Actividá recién
     search: buscar en ask.wikiedu.org
+    sign_up_log_in_extended: con Wikipedia
+    sign_up: Date d'alta
     training: Prauticar
   dashboard:
-    opt_out: Solicitar dar de baxa la orientación
-    explore_examples: Esplorar exemplos
     explore_course_pages: Esplorar les Páxines del cursu
+    explore_examples: Esplorar exemplos
+    opt_out: Solicitar dar de baxa la orientación
   home:
+    explore: Esplorar
     log_in: Aniciar sesión con Wikipedia
     sign_up: Rexístrate con Wikipedia
-    explore: Esplorar
   activity:
-    edited_by: Editáu por
     all: Actividá
+    edited_by: Editáu por
   articles:
-    none: Esti cursu nun editó nengún artículu.
-    loading: Cargando artículos...
     assigned: Artículos axudicaos
     assigned_to: Axudicáu a
-    character_doc: La suma de caráuteres amestaos a los artículos polos estudiantes
-      nel periodu del cursu
+    character_doc: La suma de caráuteres amestaos a los artículos polos editores apuntaos
+      ente la data de principiu y la final
     edited: Artículos editaos
     edited_mobile: Artículos
+    loading: Cargando artículos...
     no_assignee: Sin usuariu axudicáu
+    none: Esti cursu nun editó nengún artículu.
     rating: Clase
     rating_doc: La calificación qu'un artículu recibió de Wikiproyeutos en Wikipedia.
       Estes calificaciones puen corresponder a versiones muncho más antigues, de mou
       que son sólo un indicador aproximáu de la madurez del artículu.
     rating_docs:
       fa: Artículu destacáu — Calificación más alta de Wikipedia, probablemente ye
-        un artículu demasiao maduru como para ser el proyeutu principal como editor
-        d'un estudiante
+        un artículu demasiao maduru como para ser el proyeutu principal d'un editor
+        nuevu
       fl: Llista destacada — Calificación más alta de Wikipedia pa les llistes
       a: Clase A — artículu desendolcáu enforma que pué ser demasiao maduru como para
-        ser el proyeutu principal como editor d'un estudiante
+        ser el proyeutu principal d'un editor nuevu
       ga: Artículu bonu — artículu bien desendolcáu que pué ser demasiao maduru como
-        para ser el proyeutu principal como editor d'un estudiante
+        para ser el proyeutu principal d'un editor nuevu
       b: Clase B — un artículu moderadamente desendolcáu
       c: Clase C — un artículu intermediu con espaciu pal ameyoramientu
       start: Clase principiu — un artículu preliminar con munchu espaciu pal ameyoramientu
@@ -65,11 +65,11 @@ ast:
     views_added: Amestáronse %{count} visites nueves a %{title}
   assignments:
     assignees: Encargáu(os)
-    reviewers: Revisor(es)
-    loading: Cargando xeres...
-    none: Esti cursu nun tien artículos de Wikipedia designaos.
     confirm_addition: ¿Tas seguru de que quies encargar de %{title} a %{username}?
     confirm_deletion: ¿Tas seguru de que quies desaniciar esta designación?
+    loading: Cargando xeres...
+    none: Esti cursu nun tien artículos de Wikipedia designaos.
+    reviewers: Revisor(es)
   blocks:
     milestones:
       title: Finxos
@@ -78,77 +78,84 @@ ast:
   courses:
     activity: Actividá
     articles: Artículos
+    articles_none: Esti cursu nun editó nengún artículu.
     character_doc: La suma de caráuteres amestaos a los artículos del espaciu principal
       polos estudiantes nel periodu del cursu
-    revisions_doc: El númberu d'ediciones nos pasaos %{timeframe} díes
-    word_count_doc: Una estimación del númberu de palabres amestaes polos estudiantes
-      a los artículos del espaciu principal nel periodu del cursu
-    course_description: Cursos
-    courses: Cursos
-    yourcourses: Los tos cursos
-    nocourses: Nun participes en nengún cursu.
-    current: Cursos actuales
-    duration: Duración del cursu
-    gradeables_none: Esti cursu nun tien xeres calificables.
-    instructor:
-      one: Profesor
-      other: Profesores
-    students: Estudiantes
-    students_none: Esti cursu nun tien estudiantes.
-    students_short: Estudiantes
-    timeline: Detalles de la xera
-    weeks_none: Esti cursu entá nun tien un cronograma.
-    new_week: Amestar una selmana más
-    overview: Resume
-    title: Títulu
-    view: Ver el cursu
-    view_wiki: Ver en Wikipedia
-    view_doc: La suma de toles visites a los artículos editaos polos estudiantes desque
-      ficieron la primera edición en cada artículu
-    volunteer:
-      one: Voluntariu
-      other: Voluntarios
-    wiki_staff: Personal de Wiki Ed
-    error:
-      exists: Esi cursu yá esiste. Inténtalo otra vuelta con un títulu, escuela o
-        periodu diferentes.
-      user_exists: Sentímoslo, nun esiste l'usuariu %{username}.
     course_dates_calendar_instructions: Escueye feches p'añadir o quitar del calendariu
       (por casu, vacaciones, cuando nun hai clases). Fai clic na fecha pa camudar
       l'estáu ente ensin escoyer, escoyíu y vacaciones. Les feches de les actividaes
       del cursu camudarán pa tener en cuenta les selmanes que nun tienen aconceyamientos
       programaos.
+    course_description: Cursos
+    courses: Cursos
+    current: Cursos actuales
+    duration: Duración del cursu
+    error:
+      exists: Esi cursu yá esiste. Inténtalo otra vuelta con un títulu, escuela o
+        periodu diferentes.
+      user_exists: Sentímoslo, nun esiste l'usuariu %{username}.
+    gradeables_none: Esti cursu nun tien xeres calificables.
+    instructor:
+      one: Profesor
+      other: Profesores
+    new_week: Amestar una selmana más
+    nocourses: Nun participes en nengún cursu.
+    overview: Resume
+    revisions_doc: El númberu d'ediciones nos pasaos %{timeframe} díes
+    students: Estudiantes
+    students_none: Esti cursu nun tien estudiantes.
+    students_short: Estudiantes
+    timeline: Detalles de la xera
+    title: Títulu
+    weeks_none: Esti cursu entá nun tien un cronograma.
+    view: Ver el cursu
+    view_doc: La suma de toles visites a los artículos editaos polos editores apuntaos
+      desque ficieron la primera edición en cada artículu
+    view_wiki: Ver en Wikipedia
+    volunteer:
+      one: Voluntariu
+      other: Voluntarios
+    wiki_staff: Personal de Wiki Ed
+    word_count_doc: Una estimación del númberu de palabres amestaes polos estudiantes
+      a los artículos del espaciu principal nel periodu del cursu
+    yourcourses: Los tos cursos
+  courses_generic:
+    articles_none: Inda nun hai artículos editaos nesti proyeutu.
+    assignment_end: Fin de la llinia temporal
+    assignments_none: Esti proyeutu nun tien artículos de Wikipedia designaos.
+    assignment_start: Principiu de la llinia temporal
+    edit_course_dates: Editar les dates de los proyeutos
   course_creator:
-    create_new: Crear un nuevu cursu
-    course_title: Títulu del cursu
-    course_school: Escuela del cursu
-    course_term: Periodu del cursu
-    course_subject: Tema del cursu
-    course_description: Descripción del cursu
-    expected_number: Númberu d'alumnos esperáu
-    start_date: Fecha d'entamu
-    end_date: Fecha de fin
-    intro: El títulu, escuela y periodu crearán la url de la páxina del cursu, y nun
-      puen cambiase. Tolo demás pué editase más alantre. Fai click en «Crear el cursu»
-      pa principiar a crear el cronograma de les xeres de Wikipedia.
     cloned_course_calendar_instructions: Escueye feches p'añadir o quitar del calendariu
       (por casu, vacaciones, cuando nun hai clases). Fai clic na fecha pa camudar
       l'estáu ente ensin escoyer, escoyíu y vacaciones. Si nun tienes vacaciones,
       marca «Nun tengo vacaciones de clases». El cronograma clonáu va afaer automáticamente
       les feches pa tener en cuenta les selmanes que nun tienen aconceyamientos programaos.
+    course_description: Descripción del cursu
+    course_school: Escuela del cursu
+    course_subject: Tema del cursu
+    course_term: Periodu del cursu
+    course_title: Títulu del cursu
+    create_new: Crear un nuevu cursu
+    end_date: Fecha de fin
+    expected_number: Númberu d'alumnos esperáu
+    intro: El títulu, escuela y periodu crearán la url de la páxina del cursu, y nun
+      puen cambiase. Tolo demás pué editase más alantre. Fai click en «Crear el cursu»
+      pa principiar a crear el cronograma de les xeres de Wikipedia.
+    start_date: Fecha d'entamu
   metrics:
     activity: Actividá reciente
     articles_created: Artículos creaos
     articles_edited: Artículos editaos
-    char: Caráuteres añadíos
     characters: Caráuteres
     char_added: Caráuteres añadíos
     char_changed: Caráuteres camudaos
+    char: Caráuteres añadíos
     date_time: Data/Hora
     edit_count_description: Total d'ediciones
     revisions: Ediciones recién
-    view: Visites
     view_count_description: Visites del artículu
+    view: Visites
     word_count: Palabres amestaes
   namespace:
     main: Espaciu principal
@@ -157,9 +164,9 @@ ast:
     user_char_added: Caráuteres añadíos nel espaciu d'usuariu
     user_ns: Usuariu
   revisions:
-    date_time: Fecha/hora
     chars_added: Caráuteres añadíos
     class: Clase
+    date_time: Fecha/hora
     edited_by: Editáu por
     loading: Cargando revisiones...
     none: Esti cursu nun tien actividá editorial reciente en Wikipedia.
@@ -175,8 +182,8 @@ ast:
     loading: Cargando xubes...
     none: Esta clase nun contribuyó con nenguna imaxe o ficheru multimedia a Wikimedia
       Commons.
-    usages: Usos
     time_doc: La hora de cada xuba n'hora llocal
+    usages: Usos
   users:
     already_enrolled: Esi usuario yá ta apuntáu.
     assigned: Artículos axudicaos
@@ -213,30 +220,30 @@ ast:
         d'entrenamientu] designaos. --~~~~
       summary: retrasu nel entrenamientu d'estudiante
   wizard:
-    course_dates: Feches del cursu
     assignment_dates: Feches de la xera
-    assignment_type: Tipu de xera
-    confirm_dates: Escueye les feches, les xuntes selmanales y les vacaciones pal
-      to cursu.
     assignment_description: Escueye les feches d'entamu y final del programa d'esta
       xera. Por exemplu, si quies principiar el proyeutu de Wikipedia la segunda selmana
       del cursu, conseña la data de principiu de la xera una selmana después de la
       data de principiu del cursu. Esta ferramienta de diseñu de xeres creará un borrador
       de cronograma que case coles dates del cronograma qu'escueyas.
-    min_weeks: Esta xera rique siquier de %{min_weeks} selmanes disponibles. Afai
-      les tos feches d'entamu y final si quies usar esti tipu de xera.
-    minimum_options: Escueye polo menos %{minimum} opción(es).
-    read_more: Lleer más
-    read_less: Lleer menos
-    review_selections: Revisa la to esbilla más abaxo. Fai clic pa editar una selección.
-      En acabando, fai clic en "Unviar" pa rematar l'asistente y crear el cronograma.
-    select_assignment: Escueye'l tipu de xera que quies añadir al cronograma.
-    summary: Resume
+    assignment_type: Tipu de xera
     calendar_instructions: Escueye feches p'añadir o quitar del calendariu (por casu,
       vacaciones, cuando nun hai clases). Esto ayuda a la ferramienta de creación
       de cursos a espaciar con precisión les tos xeres. Fai clic na fecha pa camudar
       l'estáu ente ensin escoyer, escoyíu y vacaciones. Si nun tienes vacaciones,
       marca «Nun tengo vacaciones de clase» más abaxo.
+    confirm_dates: Escueye les feches, les xuntes selmanales y les vacaciones pal
+      to cursu.
+    course_dates: Feches del cursu
+    min_weeks: Esta xera rique siquier de %{min_weeks} selmanes disponibles. Afai
+      les tos feches d'entamu y final si quies usar esti tipu de xera.
+    minimum_options: Escueye polo menos %{minimum} opción(es).
+    read_less: Lleer menos
+    read_more: Lleer más
+    review_selections: Revisa la to esbilla más abaxo. Fai clic pa editar una selección.
+      En acabando, fai clic en "Unviar" pa rematar l'asistente y crear el cronograma.
+    select_assignment: Escueye'l tipu de xera que quies añadir al cronograma.
+    summary: Resume
   error:
     oauth_invalid: Caducó la autorización de Wikipedia. Anicia sesión otra vuelta.
     unsupported_browser:
@@ -271,14 +278,14 @@ ast:
     explanation: Paez qu'hai un problema col procesu d'aniciu de sesión (pasa dacuando;
       sentímoslo muncho). Intenta volver a aniciar sesión o volver a inscribite.
   timeline:
-    title: Cronograma
-    due_default: Previstu pa la selmana viniente
+    blackout_week_created: Hai bloques programaos pa esta selmana. Muévelos a otra
+      selmana antes de desaniciar l'últimu aconceyamientu de clase d'esta selmana.
     block_type: El tipu bloque úsase pa comunicar a los estudiantes sobro esti elementu
       nel so cronograma y pa construyir ferramientes útiles pa ti (tales como'l resume
       de finxos de la páxina de resume)
+    due_default: Previstu pa la selmana viniente
+    title: Cronograma
     unable_to_add_week: Nun pues amestar nueves selmanes cuando'l to cronograma ta
       completu. Desanicia polo menos una selmana o cambia les dates de la xera pa
       facer sitiu pa la nueva.
-    blackout_week_created: Hai bloques programaos pa esta selmana. Muévelos a otra
-      selmana antes de desaniciar l'últimu aconceyamientu de clase d'esta selmana.
 ...

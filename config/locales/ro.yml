@@ -6,21 +6,21 @@
 ---
 ro:
   articles:
-    loading: Se încarcă articole...
     edited: Articole modificate
     edited_mobile: Articole
+    loading: Se încarcă articole...
     rating: Clasă
     title: Titlu
   courses:
     activity: Activitate
     articles: Articole
-    yourcourses: Cursurile dumneavoastră
     duration: Durata cursului
-    students: Studenți
-    title: Titlu
     error:
       exists: Acest curs există deja! Vă rugăm să încercați din nou cu un titlu, școală
         sau termen diferit.
+    students: Studenți
+    title: Titlu
+    yourcourses: Cursurile dumneavoastră
   users:
     contributions: Contribuții utilizator
     contributions_more: Vezi mai multe contribuții

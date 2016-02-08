@@ -8,11 +8,11 @@ ku-latn:
   application:
     dashboard: Panela Wiki Ed'ê
   activity:
-    edited_by: Hat Sererastkirin Ji Alî
     all: Çalakî
+    edited_by: Hat Sererastkirin Ji Alî
   articles:
-    loading: Gotar tên barkirin...
     edited_mobile: Gotar
+    loading: Gotar tên barkirin...
     title: Sernav
     view: Gotarê Bibîne
     view_all: Hemûyan Bibîne
@@ -21,18 +21,19 @@ ku-latn:
   courses:
     activity: Çalakî
     articles: Gotar
-    course_description: Kursên Wîkî Ed'ê
+    course_description: Qurs
     courses: Kurs
-    yourcourses: Kursên Te
-    nocourses: Te beşdarî ti kursekê ne bû.
     current: Kursên Nûjen
     duration: Maweya Kursê
+    new_week: Hefteyeke nû lê zêde bike
+    nocourses: Te beşdarî ti kursekê ne bû.
+    school: Dibistan
     students: Xwendekar
     students_short: Xwendekar
-    new_week: Hefteyeke nû lê zêde bike
     title: Sernav
     view: Kursê Bibîne
     view_wiki: Li ser Wîkîpediyayê bibîne
+    yourcourses: Kursên Te
   course_creator:
     create_new: Kursek Nû Çêbike
   metrics:
@@ -44,8 +45,8 @@ ku-latn:
     date_time: Dîrok/Katjimêr
     edit_count_description: Hemû Guherandin
     revisions: Guhertinên Dawî
-    view: Dîtin
     view_count_description: Dîtinên Gotara
+    view: Dîtin
   namespace:
     user_ns: Bikarhêner
   uploads:

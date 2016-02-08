@@ -8,12 +8,12 @@ bcl:
   activity:
     edited_by: Pinagliwat ni
   articles:
-    none: An kursong ini dae nakapagliwat nin arinman na mga artikulo.
-    loading: Ikinakarga an mga artikulo...
     assigned: Pinagtokang mga Artikulo
     assigned_to: Naitoka ki
     edited_mobile: Mga Artikulo
+    loading: Ikinakarga an mga artikulo...
     no_assignee: Mayong paragamit na pinagtokahan
+    none: An kursong ini dae nakapagliwat nin arinman na mga artikulo.
     rating: Klase
     rating_docs:
       start: Poon-sa-klase — sarong preliminaryong artikulo na igwa nin kadakol na
@@ -26,31 +26,31 @@ bcl:
     views_added: Pinagdugang %{count} baguhong mga pagtanaw para sa %{title}
   assignments:
     assignees: Tinokahan
-    reviewers: Pararepaso
-    loading: Ikinakarga an mga katokahan...
-    none: An kursong ini mayo nin pinagtokang mga artikulo sa Wikipidya
     confirm_addition: Segurado ka na muya mong magtoka nin %{title} sa %{username}?
     confirm_deletion: Segurado ka na muya mong puraon ining katokahan?
+    loading: Ikinakarga an mga katokahan...
+    none: An kursong ini mayo nin pinagtokang mga artikulo sa Wikipidya
+    reviewers: Pararepaso
   courses:
     activity: Aktibidad
     articles: Mga Artikulo
     course_description: Mga kurso sa Pagliwat sa Wiki
     courses: Mga Kurso
-    yourcourses: An saimong mga Kurso
-    nocourses: Ika dae nagpapartisipar sa arinman na mga kurso.
     current: Presenteng mga Kurso
+    nocourses: Ika dae nagpapartisipar sa arinman na mga kurso.
+    overview: Mahiwason na patanaw
     students: Mga Estudyante
     students_none: '%{title} mayo nin siisay man na nakapagpatalang mga estudyante.'
     students_short: Mga Estudyante
     timeline: Katokahang mga Detalye
-    weeks_none: '%{title} mayo nin mga katokahan'
-    overview: Mahiwason na patanaw
     title: Titulo
+    weeks_none: '%{title} mayo nin mga katokahan'
     view: Tanawon an Kurso
-    view_wiki: Tanawon sa Wikipedia
     view_doc: An kabilogan kan gabos na mga hiniling sa mga artikulong pinagliwat
       nin mga estudyante magpoon na an mga estudyante naghimo kan saindang enot na
       pagliwat sa lambang artikulo
+    view_wiki: Tanawon sa Wikipedia
+    yourcourses: An saimong mga Kurso
   course_creator:
     create_new: Magmukna nin Baguhong Kurso
     intro: An titulo, eskuwelahan asin termino magigin parte kan pahina nin kursong

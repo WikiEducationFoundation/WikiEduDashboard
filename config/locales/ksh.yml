@@ -8,20 +8,20 @@ ksh:
     help: Hölp!
     log_out: Ußlogge
   activity:
-    edited_by: Jeändert Vum
     all: Aktivitäht
+    edited_by: Jeändert Vum
   articles:
-    loading: Ben Atikelle aam Lahde&nbsp;&hellip;
     assigned_to: Zohjedeijlt aan
     edited: Jeännderte Atikelle
     edited_mobile: Atikele
+    loading: Ben Atikelle aam Lahde&nbsp;&hellip;
     title: Övverschreff
     view: Atikel belohre
     view_all: Alle belohre
   assignments:
-    loading: Ben de Aufjahbe aam Lahde&nbsp;&hellip;
     confirm_addition: Wells De verhaftesch %{title} aan der Metmaacher %{username}
       zohwihse?
+    loading: Ben de Aufjahbe aam Lahde&nbsp;&hellip;
   blocks:
     milestones:
       title: Meijleschtein
@@ -35,15 +35,15 @@ ksh:
     activity: Zeläz jedonn
     articles_created: Aanjelahte Atikelle
     articles_edited: Jeännderte Atikelle
-    char: Zeijsche derbei jedonn
     characters: Zeijsche
     char_added: Zeijsche derbei jedonn
     char_changed: Zeijsche jetusch
+    char: Zeijsche derbei jedonn
     date_time: Dattum un Zigg
     edit_count_description: Änderonge ensjesamp
     revisions: Köözlesche Änderonge
-    view: Aanzahl Affrohfe
     view_count_description: Aanzahl Affrohfe vun Atikelle
+    view: Aanzahl Affrohfe
   namespace:
     main: Houp_Appachemang
     main_char_added: Zeijsche em Houp_Appachemang derbei jedonn

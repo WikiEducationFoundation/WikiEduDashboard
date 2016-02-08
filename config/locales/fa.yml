@@ -6,14 +6,14 @@
 ---
 fa:
   application:
-    log_out: خروج
     log_in: ورود
-    sign_up: ثبت نام
-    sign_up_log_in_extended: با ویکی پدیا
+    log_out: خروج
     my_dashboard: داشبورد من
+    sign_up_log_in_extended: با ویکی پدیا
+    sign_up: ثبت نام
   home:
-    sign_up: ورود با ویکی پدیا
     explore: کاوش
+    sign_up: ورود با ویکی پدیا
   activity:
     all: فعالیت
   articles:
@@ -24,15 +24,15 @@ fa:
     activity: فعالیت
     articles: مقالات
     assignment_end: تکلیف پایانی
-    edit_course_dates: ویرایش تاریخ دوره
     courses: دوره‌ها
+    edit_course_dates: ویرایش تاریخ دوره
     instructors: اساتید
+    overview: چشم‌انداز
     school: مدرسه
     students: دانشجویان
     student_editors: ویراستاران دانشجویی
     students_short: دانشجویان
     term: ترم
-    overview: چشم‌انداز
     title: عنوان
   courses_generic:
     assignment_end: پایان جدول زمانی
@@ -40,9 +40,9 @@ fa:
     edit_course_dates: تغییر تاریخ پروژه
     instructors: تسهیلات
     school: نهاد
+    student_editors: ویراستاران
     students: ویراستاران
     students_short: ویراستاران
-    student_editors: ویراستاران
     term: زمان
   metrics:
     characters: کاراکترها
@@ -51,8 +51,8 @@ fa:
   namespace:
     user_ns: کاربر
   users:
-    student_editors: ویراستاران دانشجویی
     name: نام
+    student_editors: ویراستاران دانشجویی
   wizard:
     summary: خلاصه
   timeline:

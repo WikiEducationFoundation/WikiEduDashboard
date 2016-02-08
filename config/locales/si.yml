@@ -8,16 +8,16 @@ si:
   application:
     dashboard: විකි එඩ් උපකරණ පුවරුව
   activity:
-    edited_by: විසින් සංස්කරණය
     all: ක්‍රියාකාරකම්
+    edited_by: විසින් සංස්කරණය
   articles:
-    none: මෙම පාඨමාලාව කිසිදු ලිපියක් සංස්කරණය කර නැත.
-    loading: ලිපි පූරණය වෙමින්...
     assigned: අනුයුක්ත ලිපි
     assigned_to: සදහා අනුයුක්ත
     edited: සංස්කරණය කළ ලිපි
     edited_mobile: ලිපි
+    loading: ලිපි පූරණය වෙමින්...
     no_assignee: කිසිදු පරිශීලකයෙක් අනුයුක්ත කර නැත
+    none: මෙම පාඨමාලාව කිසිදු ලිපියක් සංස්කරණය කර නැත.
     rating: පංතිය
     title: මාතෘකාව
     view: ලිපිය පෙන්වන්න
@@ -33,14 +33,14 @@ si:
     articles: ලිපි
     course_description: විකි එඩ් පාඨමාලා
     courses: පාඨමාලාවන්
-    yourcourses: ඔබේ පාඨමාලාවන්
     current: වත්මන් පාඨමාලා
     duration: පාඨමාලා කාලය
+    overview: දළ විශ්ලේෂණය
     students: ශිෂ්‍යයන්
     students_short: ශිෂ්‍යයන්
-    overview: දළ විශ්ලේෂණය
     title: මාතෘකාව
     view_wiki: විකිපීඩියා මත පෙන්වන්න
+    yourcourses: ඔබේ පාඨමාලාවන්
   metrics:
     activity: මෑත ක්‍රියාකාරකම්
     articles_created: නිර්මිත ලිපි
@@ -49,8 +49,8 @@ si:
     date_time: දිනය/වේලාව
     edit_count_description: සම්පූර්ණ සංස්කරණ ගණන
     revisions: මෑත සංස්කරණයන්
-    view: නැරඹුම්
     view_count_description: ලිපිය නැරඹූ වාර ගණන
+    view: නැරඹුම්
   namespace:
     main: ප්‍රධාන නාමාවකාශය
     user: පරිශීලක නාමාවකාශය
@@ -69,8 +69,8 @@ si:
     reviewers: විචාරකයා(යන්)
     reviewing: විචාරය කරමින්
   wizard:
-    read_more: තවදුරටත් කියවන්න
     read_less: අඩුවෙන් කියවන්න
+    read_more: තවදුරටත් කියවන්න
     summary: සාරාංශය
   error:
     unsupported_browser:
@@ -78,6 +78,6 @@ si:
   error_404:
     header: පිටුව සොයාගත නොහැකි විය. :-(
   timeline:
-    title: කාල රේඛාව
     due_default: ලබන සතියේ හේතුවෙන්
+    title: කාල රේඛාව
 ...

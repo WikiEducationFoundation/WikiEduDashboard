@@ -5,10 +5,10 @@
 ---
 lv:
   articles:
-    loading: Ielādē rakstus...
     assigned: Piešķirtie raksti
     edited: Labotie raksti
     edited_mobile: Raksti
+    loading: Ielādē rakstus...
     title: Nosaukums
     view_all: Skatīt visus
   courses:
@@ -16,10 +16,10 @@ lv:
     articles: Raksti
     courses: Kursi
     duration: Kursa ilgums
+    overview: Pārskats
     students: Studenti
     students_none: Šim kursam nav studentu.
     students_short: Studenti
-    overview: Pārskats
     title: Nosaukums
     view: Apskatīt kursu
   course_creator:

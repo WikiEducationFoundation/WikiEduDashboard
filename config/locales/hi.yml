@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Rajat11
 # Author: Sfic
+# Author: Upendradutt93
 # Author: जनक राज भट्ट
 ---
 hi:
@@ -10,8 +11,19 @@ hi:
     help: सहायता!
     log_out: प्रस्थान
   home:
-    sign_up: विकिपीडिया के साथ जुड़ें
     explore: अन्वेषण
+    sign_up: विकिपीडिया के साथ जुड़ें
+  courses:
+    course_description: पाठ्यक्रम
+    expected_students: अपेक्षित छात्र
+    instructors: शिक्षक
+    school: विद्यालय
+    student_editors: छात्र संपादक
+    term: अवधि
+  courses_generic:
+    school: संस्थान
+    student_editors: सम्पादक
+    students_short: संपादक
   revisions:
     class: कक्षा
     title: शीर्षक

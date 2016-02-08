@@ -7,8 +7,8 @@ ku:
   application:
     dashboard: Panela Wiki Ed'ê
   activity:
-    edited_by: Hat Sererastkirin Ji Alî
     all: Çalakî
+    edited_by: Hat Sererastkirin Ji Alî
   cohort:
     view_other: Komên din bibîne
   metrics:
@@ -19,8 +19,8 @@ ku:
     char_changed: Karakter Hate Guhertin
     date_time: Dîrok/Katjimêr
     edit_count_description: Hemû Guherandin
-    view: Dîtin
     view_count_description: Dîtinên Gotara
+    view: Dîtin
   namespace:
     user_ns: Bikarhêner
   uploads:

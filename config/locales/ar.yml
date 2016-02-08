@@ -2,15 +2,25 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Haytham morsy
+# Author: Shbib Al-Subaie
+# Author: محمد أحمد عبد الفتاح
 ---
 ar:
+  application:
+    cancel: ألغ
+    explore: استكشف
+    log_in: تسجيل الدخول
+    log_out: تسجيل الخروج
+    sign_up: أنشئ حسابًا
   activity:
-    edited_by: عدل بواسطة
     all: النشاط
+    edited_by: عدل بواسطة
   articles:
-    loading: تحميل المقالات ...
     assigned: المقالات المخصصة
     edited: المقالات التي تم تعديلها
     edited_mobile: المقالات
+    loading: تحميل المقالات ...
     no_assignee: لا مستخدم تم تعيينه
+  courses_generic:
+    edit_course_dates: عدل مواعيد المشروع
 ...

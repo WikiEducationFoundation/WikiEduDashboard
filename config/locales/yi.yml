@@ -1,0 +1,13 @@
+# Messages for Yiddish (ייִדיש)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: פוילישער
+---
+yi:
+  courses:
+    school: שולע
+  courses_generic:
+    school: אנשטאלט
+    student_editors: רעדאקטארן
+    students_short: רעדאקטארן
+...

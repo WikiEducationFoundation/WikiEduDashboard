@@ -6,8 +6,8 @@
 ---
 olo:
   activity:
-    edited_by: Kohendelluh
     all: Aktiivizus
+    edited_by: Kohendelluh
   articles:
     edited: Kohendetut kirjutukset
     edited_mobile: Kirjutukset
@@ -22,16 +22,16 @@ olo:
     articles: Stuat'at
     course_description: Wiki Ed -kursat
     courses: Kursat
-    yourcourses: Sinun kursat
-    nocourses: Et ole yhtynyh ni yhteh kursah.
     current: Nygöizet kursat
     duration: Kursan piduhus
+    nocourses: Et ole yhtynyh ni yhteh kursah.
     students: Opastujat
     students_none: Täl kursal ei ole opastujii.
     students_short: Opastujat
     view: Ozuta kursu
     view_wiki: Kačo Wikipedies
     wiki_staff: Wiki Ed -ruadajat
+    yourcourses: Sinun kursat
   course_creator:
     create_new: Luaji uuzi kursu
   metrics:
@@ -39,8 +39,8 @@ olo:
     articles_created: Luajitut stuat'at
     date_time: Päivymiäry/Aigu
     edit_count_description: Edituičendat kaikkiedah
-    view: Kaččokerrat
     view_count_description: Stuat'oin kaččokerrat
+    view: Kaččokerrat
   namespace:
     user_ns: Käyttäi
   tasks:

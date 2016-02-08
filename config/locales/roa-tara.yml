@@ -7,13 +7,13 @@ roa-tara:
   application:
     dashboard: Wiki Ed Dashboard
   activity:
-    edited_by: Cangiate da
     all: Attività
+    edited_by: Cangiate da
   articles:
-    none: Stu corse non ge tène nemmanghe 'n'articole cangiate.
-    loading: Stoche a careche le vôsce...
     assigned: Vôsce assegnate
     assigned_to: Assegnate a
+    loading: Stoche a careche le vôsce...
+    none: Stu corse non ge tène nemmanghe 'n'articole cangiate.
     title: Titole
     view: '''Ndruche ''a vôsce'
     view_all: '''Ndruche tutte'
