@@ -8,11 +8,11 @@
     %div
       - if @pres.can_create_course?
         = link_to course_creator_path, class: 'button dark dashboard-cta' do
-          = t("course_creator.create_short")
+          = t("courses.creator.create_short")
           %i.icon.icon-plus
       - elsif @pres.show_explore_button?
         = link_to explore_path, class: 'button dark dashboard-cta' do
-          = t("course_creator.find")
+          = t("courses.creator.find")
           %span.icon.icon-rt_arrow
 
   - # Show submitted/pending courses (for admins)
