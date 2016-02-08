@@ -17,8 +17,8 @@ class CourseUtils
 
   # This builds i18n interface strings that vary based on state/props.
   i18n: (message_key, prefix, default_prefix = 'courses') ->
-    key_prefix = prefix
-    key_prefix ||= default_prefix
-    I18n.t("#{key_prefix}.#{message_key}")
+    I18n.t("#{prefix}.#{message_key}", {
+      defaults: [{scope: "#{default_prefix}.#{message_key}"}]
+    })
 
 module.exports = new CourseUtils()

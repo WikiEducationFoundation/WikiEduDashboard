@@ -68,6 +68,15 @@ class DashboardPresenter
     "mailto:#{ENV['contact_email']}"
   end
 
+  def default_course_type
+    ENV['default_course_type'] || 'ClassroomProgramCourse'
+  end
+
+  # FIXME: Horrible hack.
+  def default_course_string_prefix
+    default_course_type.constantize.new.string_prefix
+  end
+
   private
 
   # Determine if an instructor has completed orientation
