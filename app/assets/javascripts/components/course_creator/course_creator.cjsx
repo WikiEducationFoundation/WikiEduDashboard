@@ -66,6 +66,8 @@ CourseCreator = React.createClass(
       isSubmitting: false
       shouldShowForm: false
       shouldShowCourseDropdown: false
+      default_course_type: $('#react_root').data('default-course-type')
+      course_string_prefix: $('#react_root').data('course-string-prefix')
     $.extend(true, inits, getState())
   showForm: ->
     @setState shouldShowForm: true

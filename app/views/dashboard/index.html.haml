@@ -1,6 +1,7 @@
 - content_for :after_title, " - " + t("application.my_dashboard")
 
-#react_root
+#react_root{data: {default_course_type: ENV["default_course_type"],
+                   course_string_prefix: ENV["default_course_type"].constantize.new.string_prefix}}
 .container.dashboard
   %header
     %h1= @pres.heading_message
