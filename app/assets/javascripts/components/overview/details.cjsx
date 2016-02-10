@@ -73,8 +73,7 @@ Details = React.createClass(
         </fieldset>
       )
 
-    # TODO: course.timeline?
-    if @props.course.timeline_start || @props.course.timeline_end
+    if @props.course.timeline_start && @props.course.timeline_end
       timeline_start_props =
         minDate: moment(@props.course.start)
         maxDate: moment(@props.course.timeline_end).subtract(1, 'week')
