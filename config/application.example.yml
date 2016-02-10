@@ -17,6 +17,12 @@
 # a message to display to all users at the top of each page
 # sitenotice: "NOTICE: The system will go down for maintenance soon."
 
+# Set to true to disable mandatory onboarding.
+  disable_onboarding: 'false'
+
+# Set to true to disable mandatory training.
+  disable_training: 'false'
+
 # Wikimedia OAuth consumer details. Register a consumer at:
 # https://meta.wikimedia.org/wiki/Special:OAuthConsumerRegistration/propose
 # No one but the user who registers the consumer will be able to log in until
