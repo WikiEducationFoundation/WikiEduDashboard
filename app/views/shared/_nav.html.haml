@@ -8,7 +8,7 @@
         %li= link_to t('application.my_dashboard'), root_path, class: class_for_path(request, root_path)
       - if current_user && current_user.admin?
         %li= link_to t('application.recent_activity'), recent_activity_path, class: class_for_path(request, recent_activity_path)
-      - if !ENV['disable_training']
+      - if ENV['disable_training'] != 'true'
         %li= link_to t('application.training'), training_path, class: class_for_path(request, training_path)
       %li= link_to t('application.help'), '/ask', target: '_blank'
     - if user_signed_in?
