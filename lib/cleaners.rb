@@ -112,12 +112,12 @@ class Cleaners
   end
 
   def self.first_article_search_result(search_term)
-    require "#{Rails.root}/lib/wiki"
+    require "#{Rails.root}/lib/wiki_api"
     query = { list: 'search',
               srsearch: search_term,
               srnamespace: 0,
               srlimit: 1 }
-    response = Wiki.query(query)
+    response = WikiApi.query(query)
     return '' if response.nil?
     results = response.data['search']
     return '' if results.empty?

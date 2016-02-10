@@ -1,7 +1,7 @@
 #= Imports and updates cohorts
 class CohortImporter
   # Take a hash of cohorts and corresponding course_ids, and update the cohorts.
-  # raw_ids is the output of Wiki.course_list, and looks like this:
+  # raw_ids is the output of WikiApi.course_list, and looks like this:
   # { "cohort_slug" => [31, 554, 1234], "cohort_slug_2" => [31, 999, 2345] }
   def self.update_cohorts(raw_ids)
     Course.transaction do

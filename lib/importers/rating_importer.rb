@@ -21,10 +21,10 @@ class RatingImporter
   # API Access #
   ##############
   def self.update_ratings(article_groups)
-    require './lib/wiki'
+    require './lib/wiki_api'
     article_groups.with_index do |articles, _batch|
       titles = articles.map(&:title)
-      ratings = Wiki.get_article_rating(titles).inject(&:merge)
+      ratings = WikiApi.get_article_rating(titles).inject(&:merge)
       next if ratings.blank?
       update_article_ratings(articles, ratings)
     end

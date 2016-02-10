@@ -2,7 +2,7 @@ require "#{Rails.root}/lib/replica"
 require "#{Rails.root}/lib/importers/revision_score_importer"
 require "#{Rails.root}/lib/importers/article_importer"
 require "#{Rails.root}/lib/importers/view_importer"
-require "#{Rails.root}/lib/wiki"
+require "#{Rails.root}/lib/wiki_api"
 
 #= Imports articles for a category, along with view data and revision scores
 class CategoryImporter
@@ -114,7 +114,7 @@ class CategoryImporter
     property_values = []
     continue = true
     until continue.nil?
-      cat_response = Wiki.query query
+      cat_response = WikiApi.query query
       page_data = cat_response.data['categorymembers']
       page_data.each do |page|
         property_values << page[property]
@@ -167,7 +167,7 @@ class CategoryImporter
     latest_revisions = {}
     article_ids.each_slice(50) do |fifty_ids|
       rev_query = revisions_query(fifty_ids)
-      rev_response = Wiki.query rev_query
+      rev_response = WikiApi.query rev_query
       latest_revisions.merge! rev_response.data['pages']
     end
     latest_revisions

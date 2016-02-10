@@ -69,11 +69,11 @@ class RevisionScoreImporter
   end
 
   def self.get_parent_id(revision)
-    require "#{Rails.root}/lib/wiki"
+    require "#{Rails.root}/lib/wiki_api"
 
     rev_id = revision.id
     rev_query = revision_query(rev_id)
-    response = Wiki.query rev_query
+    response = WikiApi.query rev_query
     prev_id = response.data['pages'].values[0]['revisions'][0]['parentid']
     prev_id
   end

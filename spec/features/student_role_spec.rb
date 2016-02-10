@@ -153,7 +153,7 @@ describe 'Student users', type: :feature, js: true do
         info: { name: 'Ragesoss' },
         credentials: { token: 'foo', secret: 'bar' }
       )
-      allow(Wiki).to receive(:get_user_id).and_return(234567)
+      allow(WikiApi).to receive(:get_user_id).and_return(234567)
       stub_oauth_edit
       logout
       visit "/courses/#{Course.first.slug}?enroll=passcode"

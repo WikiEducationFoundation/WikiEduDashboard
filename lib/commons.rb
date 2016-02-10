@@ -129,7 +129,7 @@ class Commons
     private
 
     def api_get(query)
-      Wiki.query(query, site: 'commons.wikimedia.org')
+      WikiApi.query(query, site: 'commons.wikimedia.org')
     rescue MediawikiApi::ApiError => e
       handle_api_error e, query
     end
