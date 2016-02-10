@@ -24,5 +24,6 @@ FactoryGirl.define do
     title 'History of biology'
     namespace 0
     language 'en'
+    wiki
   end
 end
