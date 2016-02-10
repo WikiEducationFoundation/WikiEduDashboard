@@ -15,9 +15,8 @@ class CoursesController < ApplicationController
   def create
     slug_from_params if should_set_slug?
 
-    overrides = {
-      passcode: Course.generate_passcode,
-    }
+    overrides = {}
+    overrides[:passcode] = Course.generate_passcode
     overrides[:type] = ENV['default_course_type'] if ENV['default_course_type']
     @course = Course.create(course_params.merge(overrides))
     handle_timeline_dates
