@@ -48,11 +48,11 @@ Details = React.createClass(
         <fieldset>
           <TextInput
             onChange={@updateDetails}
-            value={display_code}
+            value={@props.course.passcode}
             value_key='passcode'
             editable={@props.editable}
             type='text'
-            label={I18n.t('courses.passcode')}
+            label='Passcode'
             placeholder='Not set'
             required=true
           />
