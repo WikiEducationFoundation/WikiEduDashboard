@@ -1,12 +1,12 @@
 require 'rails_helper'
-require "#{Rails.root}/lib/wiki"
+require "#{Rails.root}/lib/wiki_api"
 
-describe Wiki do
+describe WikiApi do
   describe 'API requests' do
     it 'should return the content of a page' do
       VCR.use_cassette 'wiki/course_list' do
         title = 'Wikipedia:Education program/Dashboard/test_ids'
-        response = Wiki.get_page_content(title)
+        response = WikiApi.get_page_content(title)
         expect(response).to eq("439\n456\n351")
       end
     end
@@ -16,7 +16,7 @@ describe Wiki do
     it 'should return the list of courses' do
       VCR.use_cassette 'wiki/course_list' do
         create(:cohort)
-        response = Wiki.course_list
+        response = WikiApi.course_list
         expect(response.count).to be >= 1
       end
     end
@@ -26,11 +26,11 @@ describe Wiki do
     it 'should return the ratings of articles' do
       VCR.use_cassette 'wiki/article_ratings' do
         # A single article
-        response = Wiki.get_article_rating('History_of_biology')
+        response = WikiApi.get_article_rating('History_of_biology')
         expect(response[0]['History_of_biology']).to eq('fa')
 
         # A single non-existant article
-        response = Wiki.get_article_rating('THIS_IS_NOT_A_REAL_ARTICLE_TITLE')
+        response = WikiApi.get_article_rating('THIS_IS_NOT_A_REAL_ARTICLE_TITLE')
         expect(response[0]['THIS_IS_NOT_A_REAL_ARTICLE_TITLE']).to eq(nil)
 
         # A mix of existing and non-existant, including ones with niche ratings.
@@ -58,7 +58,7 @@ describe Wiki do
           'Sex_trafficking' # blank talk page
         ]
 
-        response = Wiki.get_article_rating(articles)
+        response = WikiApi.get_article_rating(articles)
         expect(response).to include('History_of_biology' => 'fa')
         expect(response).to include('THIS_IS_NOT_A_REAL_ARTICLE_TITLE' => nil)
         expect(response.count).to eq(20)
@@ -73,7 +73,7 @@ describe Wiki do
           'Talk:THIS_PAGE_WILL_NEVER_EXIST,_RIGHT?', # definitely doesn't exist
           'Talk:List_of_Canadian_plants_by_family_S' # exists
         ]
-        response = Wiki.get_raw_page_content(articles)
+        response = WikiApi.get_raw_page_content(articles)
         expect(response.count).to eq(4)
       end
     end
@@ -83,15 +83,15 @@ describe Wiki do
     it 'should take a username and return the user_id' do
       VCR.use_cassette 'wiki/get_user_id' do
         username = 'Ragesoss'
-        user_id_enwiki = Wiki.get_user_id(username)
+        user_id_enwiki = WikiApi.get_user_id(username)
         expect(user_id_enwiki).to eq(319203)
-        user_id_eswiki = Wiki.get_user_id(username, 'es')
+        user_id_eswiki = WikiApi.get_user_id(username, 'es')
         expect(user_id_eswiki).to eq(772153)
         # make sure usernames with spaces get handled correctly
-        user_with_spaces = Wiki.get_user_id('LiAnna (Wiki Ed)')
+        user_with_spaces = WikiApi.get_user_id('LiAnna (Wiki Ed)')
         expect(user_with_spaces).to eq(21102089)
         # make sure unicode works
-        unicode_name = Wiki.get_user_id('ערן')
+        unicode_name = WikiApi.get_user_id('ערן')
         expect(unicode_name).to eq(7201119)
       end
     end
@@ -99,7 +99,7 @@ describe Wiki do
     it 'should return nil for usernames that do not exist' do
       VCR.use_cassette 'wiki/get_user_id_nonexistent' do
         username = 'RagesossRagesossRagesoss'
-        user_id = Wiki.get_user_id(username)
+        user_id = WikiApi.get_user_id(username)
         expect(user_id).to be_nil
       end
     end

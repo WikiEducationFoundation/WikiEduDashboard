@@ -34,7 +34,7 @@ describe WikiAssignmentOutput do
     it 'should add an assignment tag to the wikitext of a page' do
       VCR.use_cassette 'wiki_edits/assignments' do
         talk_title = 'Talk:Selfie'
-        selfie_talk = Wiki.get_page_content(talk_title)
+        selfie_talk = WikiApi.get_page_content(talk_title)
         course = Course.find(10001)
         course_page = course.wiki_title
         assignment_titles = course.assignments.group_by(&:article_title)

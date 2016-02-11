@@ -17,9 +17,9 @@ class UserImporter
   end
 
   def self.new_from_omniauth(auth)
-    require "#{Rails.root}/lib/wiki"
+    require "#{Rails.root}/lib/wiki_api"
 
-    id = Wiki.get_user_id(auth.info.name)
+    id = WikiApi.get_user_id(auth.info.name)
     user = User.create(
       id: id,
       wiki_id: auth.info.name,
@@ -31,8 +31,8 @@ class UserImporter
   end
 
   def self.new_from_wiki_id(wiki_id)
-    require "#{Rails.root}/lib/wiki"
-    id = Wiki.get_user_id(wiki_id)
+    require "#{Rails.root}/lib/wiki_api"
+    id = WikiApi.get_user_id(wiki_id)
     return unless id
 
     if User.exists?(id)

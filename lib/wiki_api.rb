@@ -2,7 +2,7 @@ require 'mediawiki_api'
 require 'json'
 
 #= This class is for getting data directly from the Wikipedia API.
-class Wiki
+class WikiApi
   ################
   # Entry points #
   ################

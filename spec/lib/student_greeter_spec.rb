@@ -23,7 +23,7 @@ describe StudentGreeter do
     end
 
     it 'greets students with blank talk pages' do
-      expect(Wiki).to receive(:get_page_content).and_return(nil)
+      expect(WikiApi).to receive(:get_page_content).and_return(nil)
       stub_oauth_edit
 
       subject
