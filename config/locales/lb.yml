@@ -5,11 +5,17 @@
 ---
 lb:
   application:
+    cancel: Ofbriechen
     dashboard: Iwwersiicht iwwer d'Ännerungen op der Wiki
+    greeting2: Wëllkomm!
+    greeting_extended: Wëllkomm op Wikipedia
+    greeting: Salut,
     help: Hëllef
+    log_in_extended: Mat Wikipedia aloggen
     log_in: Aloggen
     log_out: Ausloggen
     recent_activity: Rezent Aktivitéit
+    sign_up_extended: Mat Wikipedia umellen
     sign_up_log_in_extended: mat Wikipedia
     sign_up: Schreift Iech an
     training: Formatioun
@@ -19,10 +25,12 @@ lb:
   activity:
     all: Aktivitéit
     edited_by: Geännert Vum
+    label: Aktivitéiten
   articles:
     assigned: Assignéiert Artikelen
     edited: Geännert Artikelen
     edited_mobile: Artikelen
+    label: Artikelen
     loading: Artikele lueden...
     no_assignee: Kengem Benotzer assignéiert.
     none: An dësem Cours goufe keng Artikele geännert.
@@ -42,20 +50,25 @@ lb:
       '?': Net bewäert - En Artikel deen nach net no der Wikipedia-Qualitéitsskala
         bewäert gouf
     title: Titel
+    title_example: Titel vum Artikel
     view: Artikel weisen
     view_all: All weisen
     view_doc: D'Zomme vun de Kéiere wou all Artikel während der Dauer vum Cours gewise
       gouf
+  assignments:
+    review_self: En Artikel nokucken
   blocks:
     milestones:
       title: Kilometersténg
   courses:
     activity: Aktivitéit
+    archived: Archivéiert Coursen
     articles: Artikelen
     course_description: Coursen
     courses: Coursen
     current: Aktuell Coursen
     duration: Dauer vum Cours
+    edit_course_dates: Datume vum Cours änneren
     error:
       exists: Dee Cours gëtt et schonn! Probéiert et w.e.g. nach eng Kéier mat engem
         aneren Titel, enger anerer Schoul oder enger anerer Dauer.
@@ -66,8 +79,10 @@ lb:
     revisions_doc: D'Zuel vun den ännerungen an de leschten %{timeframe}-Deeg
     school: Schoul
     students: Studenten
+    students_count: '# Studenten'
     students_none: An dësem Cours si keng Studenten ageschriwwen.
     students_short: Studenten
+    timeline_link: Chronologie
     title: Titel
     weeks_none: Dëse Cours huet nach keen Zäitplang.
     view: Cours weisen
@@ -83,6 +98,7 @@ lb:
   course_creator:
     course_description: Beschreiwung vum Cours
     create_new: En neie Cours uleeën
+    find: Äre Cours fannen
   metrics:
     activity: Rezent Aktivitéit
     articles_edited: Geännert Artikelen
@@ -102,7 +118,11 @@ lb:
     none: Dëse Cours huet keng rezent Wikipedia-Ännerungsaktivitéit.
     time_doc: D'Zäit vun all Versioun an Ärer lokaler Zäit
     title: Titel
+  training:
+    start: Ufank
+    view: Weisen
   uploads:
+    label: Eropgeluede Fichieren
     none: Dës Klass huet keng Biller oder aner Mediefichiere zu Wikimedia Commons
       bäigedroe.
     time_doc: D'Zäit vun all Eroplueden an Ärer lokaler Zäit

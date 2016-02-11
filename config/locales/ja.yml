@@ -7,16 +7,24 @@
 ---
 ja:
   application:
+    cancel: 中止
     dashboard: Wiki Ed ダッシュボード
+    greeting2: ようこそ!
+    greeting_extended: ウィキペディアへようこそ
     help: ヘルプ
     home: ホーム
+    log_in_extended: ウィキペディアでログイン
     log_in: ログイン
     log_out: ログアウト
     my_dashboard: 私のダッシュボード
     recent_activity: 最近の活動
     search: ask.wikiedu.org で検索
+    sign_up_extended: ウィキペディアで登録
     sign_up_log_in_extended: ウィキペディアでログイン
     sign_up: サインアップ
+    submit: 送信
+  dashboard:
+    create_note: 「コースを作成」をクリックすることで、最初のコースを作成できます。
   home:
     log_in: ウィキペディアでログイン
     sign_up: ウィキペディアで登録
@@ -24,6 +32,7 @@ ja:
     all: 活動
   articles:
     edited_mobile: 記事
+    label: 記事
     loading: 記事を読み込んでいます...
     rating: クラス
     rating_docs:
@@ -35,15 +44,21 @@ ja:
       list: リストクラス — 記事というより辞書に近い記事
       '?': クラスなし — ウィキペディアで品質基準の評価がされていない記事
     title: 記事名
+    title_example: 記事名
     view: 記事を閲覧
     view_all: すべてを表示
   blocks:
     milestones:
       title: マイルストーン
+  cohort:
+    none: なし
   courses:
     activity: 活動
     articles: 記事
     instructors: 講師
+    join: 参加
+    join_prompt: 「%{title}」に参加しますか?
+    join_successful: 「%{title}」に参加しました。
     new_week: 新しい週の追加
     overview: 概要
     school: 学校
@@ -51,11 +66,15 @@ ja:
     student_editors: 学生の編集者
     students_short: 学生
     title: タイトル
+    view_page: コースのページを見る
   courses_generic:
     school: 施設
     student_editors: 編集者
     students: 編集者
     students_short: 編集者
+  course_creator:
+    create_label: 新しいコースを作成
+    create_short: コースを作成
   metrics:
     activity: 最近の活動
     date_time: 日付/時刻
@@ -66,7 +85,11 @@ ja:
     user_ns: ユーザー
   revisions:
     loading: 版を読み込み中...
+  training:
+    start: 開始
+    view: 表示
   uploads:
+    label: アップロード
     usages: 使用法
   users:
     assignees: 譲り受け人

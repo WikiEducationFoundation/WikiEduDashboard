@@ -10,22 +10,37 @@
 ---
 fr:
   application:
+    cancel: Annuler
     dashboard: Tableau de bord de modification du wiki
     explore: Explorer
+    greeting2: Bienvenue !
+    greeting_extended: Bienvenue dans Wikipédia
+    greeting: Bonjour,
     help: Aide
     home: Accueil
+    log_in_extended: Se connecter à Wikipédia
     log_in: Connexion
     log_out: Déconnexion
     my_dashboard: Mon tableau de bord
     recent_activity: Activité récente
     search: rechercher sur ask.wikiedu.org
+    sign_up_extended: S’inscrire avec Wikipédia
     sign_up_log_in_extended: avec Wikipédia
     sign_up: S’inscrire
+    submit: Soumettre
     training: Formation
   dashboard:
+    create_note: Cliquer sur Créer un cours pour créer votre premier cours
     explore_course_pages: Explorer les pages de cours
     explore_examples: Explorer les exemples
+    join_note: Une fois que vous aurez reçu un code d’accès de la part de votre formateur,
+      cliquez sur Trouver votre cours pour le trouver et le rejoindre.
+    no_courses_instructor: Il semble que vous n’avez pas de cours.
+    no_courses_student: Il semble que vous n’êtes encore inscrit à aucun cours.
     opt_out: Demande de retrait de l’orientation
+    orientation_notice: Avant de créer un cours, passez par l’orientation pour vous
+      aider à commencer (cela prendra 30 minutes pour le terminer).
+    start_orientation: Orientation au départ
   home:
     explore: Explorer
     log_in: Se connecter avec Wikipédia
@@ -33,6 +48,7 @@ fr:
   activity:
     all: Activité
     edited_by: Modifié par
+    label: Activités
   articles:
     assigned: Articles affectés
     assigned_to: Assigné à
@@ -40,6 +56,7 @@ fr:
       inscrits entre les dates de début et de fin
     edited: Articles modifiés
     edited_mobile: Articles
+    label: Articles
     loading: Chargement des articles...
     no_assignee: Aucun utilisateur affecté
     none: Ce cours n’a modifié aucun article.
@@ -64,25 +81,36 @@ fr:
       '?': Non classé — un article qui n’a pas encore été noté sur l’échelle de qualité
         de Wikipédia
     title: Titre
+    title_example: Titre de l’article
     view: Afficher l’article
     view_all: Tout afficher
     view_doc: Le total de toutes les vues sur chaque article durant le déroulement
       du cours
     views_added: '%{count} nouvelles vues ajoutées pour %{title}'
   assignments:
+    already_exists: Cette affectation existe déjà !
     assignees: Affectation(s)
+    assign_other: Affecter un article
+    assign_self: M’affecter un article
     confirm_addition: Êtes-vous sûr de vouloir assigner %{title} à %{username}?
     confirm_deletion: Êtes-vous sûr de vouloir supprimer cette affectation ?
+    label: Assigner
     loading: Chargement des affectations…
+    none_short: Aucun article affecté
     none: Ce cours n'a aucun article wikipedié assigné.
     reviewers: Relecteur(s)
+    review_other: Attribuer une révision
+    review_self: Relire un article
   blocks:
     milestones:
       title: Jalons
   cohort:
+    none: Aucun
     view_other: Afficher les autres cohortes
   courses:
     activity: Activité
+    already_enrolled: Vous faites déjà partie de '%{title}' !
+    archived: Cours archivés
     articles: Articles
     articles_none: Ce cours n’a modifié aucun article.
     assignment_end: Fin d’affectation
@@ -109,32 +137,61 @@ fr:
       one: Instructeur
       other: Instructeurs
     instructors: Formateurs
+    invitation: |-
+      Vous avez été invité à rejoindre %{title}. Pour rejoindre le cours, vous devez vous connecter avec un compte Wikipédia.
+      Si vous n’en avez pas encore, inscrivez-vous pour en avoir un.
+    join: Rejoindre
+    join_prompt: Rejoindre '%{title}' ?
+    join_successful: Vous avez bien rejoint %{title}.
     milestones_none: Ce cours n’a actuellement aucun jalon.
     new_week: Ajouter une nouvelle semaine
     nocourses: Vous ne participez à aucun cours.
     overview: Vue d'ensemble
     published: 'Votre cours a été publié ! Les étudiants peuvent s’inscrire au cours
       via l’URL suivante :'
+    review_timeline: Veuillez consulter ce calendrier et faire les modifications.
+      Une fois satisfait de votre calendrier, soumettez-le pour approbation par l’équipe
+      Wiki Ed. Une fois approuvé, une URL d’inscription vous sera fournie afin que
+      les étudiants puissent rejoindre le cours (vous pourrez toujours faire des modifications
+      ultérieurement).
     revisions_doc: Le nombre de modifications dans les %{timeframe} jours passés
     revisions_none: Ce cours n’a pas d’activité récente de modification de Wikipédia.
     school: École
     students: Étudiants
+    students_count: Nombre d’étudiants
     student_editors: Éditeurs étudiants
     students_none: Ce cours n’a aucun étudiant.
     students_short: Étudiants
+    submitted_admin: Ce cours a été soumis à approbation par son créateur. Pour l’approuver,
+      l’ajouter à une cohorte sur la page de Présentation.
+    submitted_and_pending_heading: Soumis et en attente d’approbation
+    submitted_heading: Cours soumis
+    submitted_note: Votre cours a été soumis. L’équipe Wiki Ed l’examinera et vous
+      contactera pour toute question.
     term: Période
     timeline: Détails d'assignement
+    timeline_link: Calendrier
     title: Titre
+    training_due: Le module de formation « %{title} » est affecté pour ce cours, et
+      est attendu le %{date}.
+    training_nav: Aller à la formation
+    training_overdue: Le module de formation « %{title} » est affecté pour ce cours,
+      et était attendu le %{date}.
+    unsubmitted: Cours non soumis
     uploads_none: Cette classe n’a contribué à Wikimédia Communs par aucune image
       ni autre fichier de média
     weeks_none: Ce cours n’a pas encore de planning.
     view: Afficher le cours
     view_doc: La somme de toutes les vues des articles modifiés par des éditeurs inscrits
       depuis que ces derniers ont édité pour la première fois chacun des articles.
+    view_page: Afficher la page du cours
     view_wiki: Afficher sur Wikipédia
     volunteer:
       one: Bénévole
       other: Bénévoles
+    warn_mirrored: |-
+      Lors de la soumission, le cours sera automatiquement publié sur Wikipédia avec votre compte utilisateur. Après cela, les nouvelles modifications au calendrier seront répercutées sur Wikipédia.
+      Êtes-vous sûr de vouloir faire cela ?
     wiki_staff: Équipe d’édition de wiki
     word_count_doc: Une estimation du nombre de mots ajoutés aux articles de l’espace
       principal par les étudiants du cours pendant son déroulement
@@ -170,9 +227,12 @@ fr:
     course_subject: Sujet du cours
     course_term: Condition du cours
     course_title: Titre du cours
+    create_label: Créer un nouveau cours
     create_new: Créer un Nouveau cours
+    create_short: Créer un cours
     end_date: Date de fin
     expected_number: Nombre attendu d’étudiants
+    find: Trouvez votre cours
     intro: Le titre, l’école et l’échéance contribuent à la création de l’URL de la
       page de votre cours, et ne peuvent pas être modifiés. Vous pourrez modifier
       tout le reste ultérieurement. Cliquez sur « Créer mon cours ! » pour démarrer
@@ -213,7 +273,12 @@ fr:
       fonctionne.
     paused: La tâche %{task} ne peut pas tourner car les mises à jour de l’ordonnanceur
       ont été suspendues. Lancez 'rake batch:resume' pour reprendre les mises à jour.
+  training:
+    continue: Continuer (%{progress})
+    start: Démarrer
+    view: Afficher
   uploads:
+    label: Téléversements
     loading: Chargement des téléchargements…
     none: Cette classe n'a contribué avec aucune image ou autre fichier média à Wikimedia
       Commons.

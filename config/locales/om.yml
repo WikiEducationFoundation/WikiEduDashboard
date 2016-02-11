@@ -4,7 +4,36 @@
 # Author: Tumsaa
 ---
 om:
+  application:
+    cancel: Dhiisi
+    greeting2: Anaa dhufu!
+    greeting: Akkam jirtan,
+    submit: Ergi
+  activity:
+    label: Hojiiwwan
+  articles:
+    label: Barruulee
+    title_example: Mataduree barruu
+  assignments:
+    assign_other: Barruu ramadi
+    label: Ramadi
+    none_short: Barruun wayiituu hinramadamne
+    review_other: Keeddeebii ramadi
+    review_self: Barruu keeddeebi'i
+  cohort:
+    none: Homaa
+  courses:
+    expected_students: Barattoota eeggaman
+    instructors: Barsiisota
+    student_editors: Gulaaltota barattoota
+    training_nav: Gara leenjii deemi
   courses_generic:
+    edit_course_dates: Guyyaa pirojeektii gulaali
+    student_editors: Gulaaltota
+    students: Gulaaltota
     students_short: Gulaaltota
     term: Yoom
+  training:
+    start: Jalqabi
+    view: Ilaali
 ...

@@ -10,6 +10,7 @@
 it:
   application:
     cancel: Annulla
+    dashboard: Cruscotto Wiki Ed
     explore: Esplora
     greeting2: Benvenuto/a!
     greeting_extended: Benvenuto su Wikipedia
@@ -19,15 +20,20 @@ it:
     log_in_extended: Accedi con Wikipedia
     log_in: Accedi
     log_out: Esci
+    my_dashboard: Il mio cruscotto
     recent_activity: Attività recente
+    search: cerca in ask.wikiedu.org
     sign_up_extended: Registrati con Wikipedia
     sign_up_log_in_extended: con Wikipedia
     sign_up: Registrati
     submit: Invia
     training: Formazione
   dashboard:
+    create_note: Clicca su "Crea corso" per creare il tuo primo corso.
     explore_course_pages: Esplora le pagine del corso
     explore_examples: Esplora esempi
+    no_courses_instructor: Sembra che tu non abbia alcun corso.
+    start_orientation: Inizia orientamento
   home:
     explore: Esplora
     log_in: Accedi con Wikipedia
@@ -64,9 +70,11 @@ it:
   assignments:
     already_exists: Questa assegnazione esiste già!
     assign_other: Assegna una voce
+    assign_self: Assegnami una voce
     confirm_addition: Sei sicuro di voler assegnare %{title} a %{username}?
     label: Assegna
     loading: Caricando gli incarichi...
+    none_short: Nessuna voce assegnata
     none: Questo corso non ha assegnato voci di Wikipedia.
     reviewers: Revisori
   cohort:
@@ -101,6 +109,7 @@ it:
     revisions_none: Questo corso non ha attività di modifica recente su Wikipedia.
     school: Scuola
     students: Studenti
+    students_count: Numero studenti
     student_editors: Editori studenti
     students_none: Questo corso non ha studenti.
     students_short: Studenti
@@ -114,9 +123,13 @@ it:
     view: Visualizza corso
     view_doc: La somma di tutte le visite alle voci modificate dagli editori iscritti
       da quando gli editori hanno fatto la loro prima modifica ad ogni voce
+    view_page: Vedi pagina del corso
     view_wiki: Mostra su Wikipedia
     volunteer:
       other: =Volontario
+    wiki_staff: Staff Wiki Ed
+    word_count_doc: Una stima del numero di parole aggiunte alle voci nel namespace
+      principale dagli studenti del corso durante il periodo del corso
     yourcourses: Tuoi corsi
   courses_generic:
     articles_none: Non ci sono voci modificate per questo progetto ancora.
@@ -232,6 +245,8 @@ it:
     explanation: Sembra che ci sia un problema con il processo di accesso. (Ci dispiace!
       Succede di tanto in tanto.) Riprova la registrazione o l'iscrizione.
   timeline:
+    due_default: Previsto per la prossima settimana
+    title: Timeline
     unable_to_add_week: Non puoi aggiungere nuove settimane quando la tua timeline
       è piena. Cancella almeno una settimana o cambia le date di assegnazione per
       fare spazio a una nuova.

@@ -1,18 +1,24 @@
 # Messages for Romanian (română)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Alaskian
 # Author: Minisarm
 # Author: Wintereu
 ---
 ro:
+  application:
+    sign_up_extended: Inregistreaza-te cu Wikipedia
+    submit: Trimitere
   articles:
     edited: Articole modificate
     edited_mobile: Articole
+    label: Articole
     loading: Se încarcă articole...
     rating: Clasă
     title: Titlu
   courses:
     activity: Activitate
+    already_enrolled: Faci deja parte din %{title}
     articles: Articole
     duration: Durata cursului
     error:

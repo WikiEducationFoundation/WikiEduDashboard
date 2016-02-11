@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: INS Pirat
+# Author: Iniquity
 # Author: Nzeemin
 # Author: Okras
 # Author: SmartNart12
@@ -15,6 +16,7 @@ ru:
     log_out: Выйти
     recent_activity: Недавние действия
     search: искать на ask.wikiedu.org
+    sign_up_extended: Зарегистрируйтесь в Википедии
     sign_up_log_in_extended: через Википедию
     sign_up: Зарегистрироваться
   activity:
@@ -27,6 +29,7 @@ ru:
       семестра
     edited: Статей отредактировано
     edited_mobile: Статьи
+    label: Статьи
     loading: Загрузка статей...
     no_assignee: Нет назначенного участника
     rating: Класс
@@ -35,7 +38,7 @@ ru:
       индикатором проработанности статьи.
     rating_docs:
       fa: Избранная статья — высший рейтинг для статей в Википедии, вероятно, она
-        не требует дополнения.
+        слишком развита для основного проекта новых участников
       fl: Избранный список — высший рейтинг для списков в Википедии.
       a: А-класс — очень развитая статья, уже достаточно проработанная для дополнения
         её студентами.

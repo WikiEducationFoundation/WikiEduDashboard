@@ -5,7 +5,11 @@
 ---
 ps:
   application:
+    cancel: ناگارل
     dashboard: ويکي زده کړه ډشبورډ
+    greeting2: ښه راغلئ!
+    greeting_extended: ويکيپېډيا ته ښه راغلئ
+    greeting: سلامونه،
     help: لارښود
     home: کور
     log_in: ننوتل
@@ -13,8 +17,10 @@ ps:
     my_dashboard: زما ډشبورډ
     recent_activity: تازه فعاليتونه
     search: ask.wikiedu.org پلټل
+    sign_up_extended: د ويکيپېډيا له لارې نومليکنه
     sign_up_log_in_extended: د ويکيپېډيا سره
     sign_up: نومليکل
+    submit: سپارل
     training: تمرين
   home:
     log_in: د ويکيپېډيا له لارې ورننوتل
@@ -22,13 +28,20 @@ ps:
   activity:
     all: فعاليت
     edited_by: سمونگر
+    label: فعاليتونه
   articles:
     edited_mobile: ليکنې
+    label: ليکنې
     loading: ليکنې برسېرېږي...
     rating: ټولگی
     title: سرليک
+    title_example: د ليکنې سرليک
     view: ليکنه کتل
     view_all: ټول کتل
+  assignments:
+    review_self: يوه ليکنه بياکتل
+  cohort:
+    none: هېڅ
   courses:
     activity: فعاليت
     articles: ليکنې
@@ -38,16 +51,24 @@ ps:
     duration: کورس موده
     edit_course_dates: کورس نېټې سمول
     instructors: ښوونکي
+    join: يوځای کېدل
     school: ښوونځی
     students: زده کړيالان
+    students_count: '# زده کړيالان'
     student_editors: زده کوونکي سمونگران
     students_none: دا کورس کوم زدکړيال نه لري.
     students_short: زده کړيالان
+    timeline_link: وختکرښه
     title: سرليک
     view: کورس کتل
+    view_page: د کورس مخ کتل
     view_wiki: په ويکيپېډيا باندې کتل
     yourcourses: ستاسې کورس
   courses_generic:
+    assignment_end: د وختکرښې پای
+    assignment_start: د وختکرښې پيل
+    edit_course_dates: د پروژې نېټې سمول
+    instructors: اسانتياگران
     school: انستيتيوت
     student_editors: سمونگران
     students: سمونگران
@@ -59,7 +80,9 @@ ps:
     course_subject: د کورس مضمون
     course_term: کورس موده
     course_title: کورس سرليک
+    create_label: يو نوی کورس جوړول
     create_new: يو نوی کورس جوړول
+    create_short: کورس جوړول
     end_date: پای نېټه
     start_date: پيل نېټه
   metrics:
@@ -80,7 +103,11 @@ ps:
     date_time: نېټه/وخت
     edited_by: سمونگر
     title: سرليک
+  training:
+    start: پيلول
+    view: کتل
   uploads:
+    label: پورته کېدنې
     usages: کارېدنې
   users:
     contributions: د کارن ونډې

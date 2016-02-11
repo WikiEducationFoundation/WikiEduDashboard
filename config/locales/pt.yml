@@ -8,16 +8,23 @@
 ---
 pt:
   application:
+    cancel: Cancelar
     dashboard: Painel do Programa de Educação
     explore: Explorar
+    greeting2: Bem-vindo(a)!
+    greeting_extended: Bem-vindo(a) à Wikipédia
+    greeting: Olá,
     help: Ajuda
     home: Início
+    log_in_extended: Iniciar sessão através da Wikipédia
     log_in: Entrar
     log_out: Sair
     my_dashboard: Painel de controlo
     recent_activity: Atividade recente
+    sign_up_extended: Registar-se através da Wikipédia
     sign_up_log_in_extended: através da Wikipédia
     sign_up: Registar-se
+    submit: Submeter
   dashboard:
     explore_course_pages: Explorar as páginas do curso
   home:
@@ -30,9 +37,11 @@ pt:
   articles:
     edited: Artigos editados
     edited_mobile: Artigos
+    label: Artigos
     loading: A carregar artigos...
     rating: Qualidade
     title: Título
+    title_example: Título do artigo
     view_all: Ver todos
   blocks:
     milestones:
@@ -87,7 +96,10 @@ pt:
     date_time: Data/Hora
     edited_by: Editado por
     title: Título
+  training:
+    view: Ver
   uploads:
+    label: Carregamentos
     none: Não foram carregados ficheiros
     usages: Usos
   users:

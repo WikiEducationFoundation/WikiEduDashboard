@@ -6,22 +6,37 @@
 ---
 de:
   application:
+    cancel: Abbrechen
     dashboard: Wiki-Ed-Dashboard
     explore: Entdecken
+    greeting2: Willkommen!
+    greeting_extended: Willkommen bei Wikipedia
+    greeting: Hallo,
     help: Hilfe
     home: Start
+    log_in_extended: Mit Wikipedia anmelden
     log_in: Anmelden
     log_out: Abmelden
     my_dashboard: Meine Übersichtsseite
     recent_activity: Letzte Aktivitäten
     search: ask.wikiedu.org durchsuchen
+    sign_up_extended: Mit Wikipedia registrieren
     sign_up_log_in_extended: mit Wikipedia
     sign_up: Registrieren
+    submit: Absenden
     training: Ausbildung
   dashboard:
+    create_note: Klicke auf „Kurs erstellen“, um deinen ersten Kurs zu erstellen.
     explore_course_pages: Die Kursseiten entdecken
     explore_examples: Beispiele entdecken
+    join_note: Sobald du von deinem Kursleiter einen Passcode erhalten hast, klicke
+      auf „Finde deinen Kurs“, um ihn zu finden und ihm beizutreten.
+    no_courses_instructor: Es sieht aus, als ob du keine Kurse hast.
+    no_courses_student: Es sieht aus, als ob du noch keinem Kurs beigetreten bist.
     opt_out: Opt-Out der Einführung beantragen
+    orientation_notice: Bevor du einen Kurs erstellst, sehe dir die Einführung an,
+      um dir beim Anfangen zu helfen. Die Vervollständigung dauert ungefähr 30 Minuten.
+    start_orientation: Einführung beginnen
   home:
     explore: Entdecken
     log_in: Mit Wikipedia anmelden
@@ -29,6 +44,7 @@ de:
   activity:
     all: Aktivität
     edited_by: Bearbeitet von
+    label: Aktivitäten
   articles:
     assigned: Zugeordnete Artikel
     assigned_to: Zuordnung zu
@@ -36,6 +52,7 @@ de:
       Zeichen zwischen den Start- und Enddaten.
     edited: Bearbeitete Artikel
     edited_mobile: Artikel
+    label: Artikel
     loading: Lade Artikel …
     no_assignee: Keinem Benutzer zugeordnet
     none: Dieser Kurs hat keine Artikel bearbeitet.
@@ -59,24 +76,35 @@ de:
       '?': Nicht bewertet – Ein Artikel, der noch nicht auf einer Wikipedia-Qualitätsskala
         bewertet wurde.
     title: Titel
+    title_example: Artikelname
     view: Artikel anzeigen
     view_all: Alles anzeigen
     view_doc: Die Summe aller Aufrufe für jeden Artikel während der Kursdauer
     views_added: '%{count} neue Aufrufe für %{title} hinzugefügt'
   assignments:
+    already_exists: Diese Zuweisung ist bereits vorhanden!
     assignees: Zugeordnete/r Benutzer/in(nen)
+    assign_other: Einen Artikel zuweisen
+    assign_self: Einen Artikel selbst zuweisen
     confirm_addition: Möchtest du %{title} wirklich zu %{username} zuordnen?
     confirm_deletion: Möchtest du diese Zuordnung wirklich löschen?
+    label: Zuweisen
     loading: Lade Zuordnungen…
+    none_short: Keine zugewiesenen Artikel
     none: Dieser Kurs hat keine zugeordnete Wikipedia-Artikel.
     reviewers: Prüfer/in(nen)
+    review_other: Eine Überprüfung zuweisen
+    review_self: Einen Artikel überprüfen
   blocks:
     milestones:
       title: Meilensteine
   cohort:
+    none: Keine
     view_other: Andere Jahrgänge ansehen
   courses:
     activity: Aktivität
+    already_enrolled: Du bist bereits ein Teil von „%{title}“!
+    archived: Archivierte Kurse
     articles: Artikel
     articles_none: Dieser Kurs hat keine Artikel bearbeitet.
     assignment_end: Zuweisungs-Ende
@@ -104,22 +132,47 @@ de:
       one: Leiter
       other: Leiter
     instructors: Leiter
+    invitation: |-
+      Du wurdest eingeladen, %{title} beizutreten. Um dem Kurs beizutreten, musst du dich mit einem Wikipedia-Benutzerkonto anmelden.
+      Falls du noch kein Wikipedia-Benutzerkonto hast, registriere dich jetzt.
+    join: Beitreten
+    join_prompt: „%{title}“ beitreten?
+    join_successful: Du bist %{title} erfolgreich beigetreten.
     milestones_none: Dieser Kurs hat derzeit keine Meilensteine.
     new_week: Neue Woche hinzufügen
     nocourses: Du nimmst an keinen Kursen teil.
     overview: Übersicht
     published: 'Dein Kurs wurde veröffentlicht! Studenten können sich beim Aufrufen
       der folgenden URL in den Kurs einschreiben:'
+    review_timeline: Bitte überprüfe diese Zeitleiste und führe Änderungen durch.
+      Wenn du mit deiner Zeitleiste zufrieden bist, reiche sie zur Zulassung durch
+      die Mitarbeiter von Wiki Ed ein. Wenn sie zugelassen wurde, erhältst du eine
+      Einschreibungs-URL, die Studenten verwenden können, um dem Kurs beizutreten.
+      Du kannst später Bearbeitungen durchführen.
     revisions_doc: Die Anzahl der Bearbeitungen in den letzten %{timeframe} Tagen
     revisions_none: Dieser Kurs hat keine letzte Wikipedia-Bearbeitungsaktivität.
     school: Schule
     students: Studenten
+    students_count: Anzahl der Studenten
     student_editors: Studentenautoren
     students_none: Dieser Kurs hat keine Studenten.
     students_short: Studenten
+    submitted_admin: Dieser Kurs wurde von seinem Ersteller zur Zulassung eingereicht.
+      Um ihn zuzulassen, füge ihn auf der Übersichtsseite zum Jahrgang hinzu.
+    submitted_and_pending_heading: Eingereicht & Zulassung ausstehend
+    submitted_heading: Eingereichte Kurse
+    submitted_note: Dein Kurs wurde eingereicht. Mitarbeiter von Wiki Ed werden ihn
+      überprüfen und sich mit dir und einigen Fragen in Verbindung setzen.
     term: Dauer
     timeline: Einzelheiten zur Zuweisung
+    timeline_link: Zeitleiste
     title: Titel
+    training_due: Das Ausbildungsmodul „%{title}“ ist diesem Kurs zugewiesen und ist
+      fällig am %{date}.
+    training_nav: Zur Ausbildung gehen
+    training_overdue: Das Ausbildungsmodul „%{title}“ ist diesem Kurs zugewiesen und
+      war fällig am %{date}.
+    unsubmitted: Nicht eingereichte Kurse
     uploads_none: Diese Klasse hat keine Bilder oder andere Mediendateien für Wikimedia
       Commons beigetragen.
     weeks_none: Dieser Kurs hat noch keine Zeitleiste.
@@ -127,10 +180,14 @@ de:
     view_doc: Die Summe aller Aufrufe von Artikeln, die von eingeschriebenen Autoren
       bearbeitet wurden, seit der Autor seine erste Bearbeitung an jedem Artikel gemacht
       hat.
+    view_page: Kursseite ansehen
     view_wiki: Auf Wikipedia anzeigen
     volunteer:
       one: Freiwilliger
       other: Freiwillige
+    warn_mirrored: |-
+      Mit der Einreichung wird dieser Kurs mit deinem Benutzerkonto automatisch auf Wikipedia gepostet. Danach werden neue Bearbeitungen auf der Wikipedia-Zeitleiste gespiegelt.
+      Möchtest du fortfahren?
     wiki_staff: Wiki-Ed-Mitarbeiter
     word_count_doc: Eine Schätzung der Anzahl der durch die Kursstudenten während
       der Kursdauer hinzugefügten Wörter in Hauptnamensraum-Artikeln.
@@ -167,9 +224,12 @@ de:
     course_subject: Kursthema
     course_term: Kursdauer
     course_title: Kurstitel
+    create_label: Neuen Kurs erstellen
     create_new: Einen neuen Kurs erstellen
+    create_short: Kurs erstellen
     end_date: Enddatum
     expected_number: Erwartete Anzahl der Studenten
+    find: Finde deinen Kurs
     intro: Der Titel, die Schule und die Dauer erstellen die URL deiner Kursseite
       und können nicht geändert werden. Alles andere kannst du später bearbeiten.
       Klicke auf „Meinen Kurs erstellen!“ zum Erstellen der Zeitleiste für deine Wikipedia-Zuweisung.
@@ -209,7 +269,12 @@ de:
       update_daily läuft.
     paused: Die Aufgabe %{task} kann nicht ausgeführt werden, da geplante Aktualisierungen
       angehalten wurden. Führe „rake batch:resume“ aus, um die Aktualisierungen fortzusetzen.
+  training:
+    continue: Fortfahren (%{progress})
+    start: Beginnen
+    view: Ansehen
   uploads:
+    label: Hochgeladene Dateien
     loading: Lade Uploads …
     none: Diese Klasse hat keine Bilder oder andere Mediendateien für Wikimedia Commons
       beigetragen.

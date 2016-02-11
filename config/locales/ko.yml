@@ -7,23 +7,35 @@
 # Author: Revi
 # Author: Yearning
 # Author: 고솜
+# Author: 밥풀떼기
 ---
 ko:
   application:
+    cancel: 취소
     dashboard: 위키 에듀 대시보드
+    greeting2: 환영합니다!
+    greeting_extended: 위키백과에 오신 것을 환영합니다
+    greeting: 안녕하세요,
     help: 도와주세요!
     home: 대문
+    log_in_extended: 위키백과에 로그인하기
     log_out: 로그아웃
     recent_activity: 최근 활동
     search: ask.wikiedu.org에서 검색
+    sign_up_extended: 위키백과에 로그인하기
+    submit: 보내기
+  dashboard:
+    no_courses_student: 아직 코스에 가입하지 않으셨네요.
   activity:
     all: 활동
     edited_by: '편집자 :'
+    label: 활동 내역
   articles:
     assigned: 할당된 문서
     assigned_to: 할당됨
     edited: 문서 편집됨
     edited_mobile: 문서
+    label: 문서
     loading: 문서 불러오는 중...
     no_assignee: 할당된 사용자 없음
     none: 이 코스는 어느 문서도 편집하지 않았습니다.
@@ -31,7 +43,8 @@ ko:
     rating_docs:
       fa: 알찬 글 &mdash; 위키백과의 최고품질의 글로써, 학생 편집자가 프로젝트로 편집하기에는 지나치게 복잡할 수 있습니다
       fl: 알찬 목록 &mdash; 위키백과의 최고품질 리스트
-      ga: 좋은 글 &mdash; 잘 쓰여진 글로써 학생 편집자가 프로젝트로써 편집하기에는 지나치게 복잡할 수 있습니다
+      a: A급 문서 &mdash; 잘 쓰여진 글로, 신입 편집자가 주요 프로젝트의 문서로 편집하기에는 좀 부족할 수 있습니다
+      ga: 좋은 글 &mdash; 잘 쓰여진 글로, 신입 편집자가 주요 프로젝트의 문서로 편집하기에는 좀 부족할 수 있습니다
       b: B 클래스 &mdash; 적절하게 쓰여진 글
       c: C 클래스 &mdash; 발전의 여지가 있는 중간 정도의 글
       start: 시작 등급 &mdash; 발전의 여지가 충분한 준비 단계의 글
@@ -39,45 +52,77 @@ ko:
       list: 목록 &mdash; 일반 글이 아닌 목록
       '?': 등급 없음 &mdash; 아직 위키백과의 품질 등급에 따라 분류되지 않은 글
     title: 제목
+    title_example: 문서 제목
     view: 문서 보기
     view_all: 모두 보기
   assignments:
     assignees: 담당자
     reviewers: 검토자
+    review_self: 문서 미리보기
   blocks:
     milestones:
       title: 이정표
+  cohort:
+    none: 없음
   courses:
     activity: 활동
+    already_enrolled: 이미 %{title}에 참여하고 계세요!
     articles: 문서
+    articles_none: 본 코스는 어떠한 문서도 편집한 적이 없습니다.
     course_description: 위키 에듀 코스
     courses: 과정
     current: 현재 과정
     duration: 과정 기간
+    edit_course_dates: 코스 날짜 편집하기
     gradeables_none: 등급을 매길 수 있는 과제가 없습니다.
     instructor:
       other: 지도자
+    instructors: 지침
+    join: 가입하기
+    join_prompt: '''%{title}''에 가입할까요?'
+    join_successful: '%{title}에 들어가는 데 성공했습니다.'
     nocourses: 어떤 과정에도 참여하고 있지 않습니다.
     overview: 둘러보기
+    school: 학교
     students: 학생
     students_none: 이 과정에는 학생이 없습니다.
     students_short: 학생
+    submitted_heading: 보낸 코스
+    term: 기간
     timeline: 숙제 상세사항
+    timeline_link: 타임라인
     title: 제목
+    training_nav: 연습해 보기
+    unsubmitted: 보내지 않은 코스
     view: 과정 보기
+    view_page: 코스 문서 보기
     view_wiki: 위키백과에서 보기
     volunteer:
       other: 자원봉사자
     wiki_staff: 위키 에듀 임원
     yourcourses: 내 과정
+  courses_generic:
+    articles_none: 본 프로젝트에서 편집된 문서는 아직 없습니다.
+    assignment_end: 타임라인 끝
+    assignment_start: 타임라인 시작하기
+    edit_course_dates: 프로젝트 날짜 편집하기
+    revisions_none: 본 프로젝트는 최근에 위키백과 편집 활동이 없습니다.
+    school: 기관
+    student_editors: 편집자
+    students: 편집자
+    students_short: 편집자
+    term: 날짜
   course_creator:
     course_description: 교과 설명
     course_school: 교과 학교
     course_subject: 교과 과목
     course_term: 교과 용어
+    create_label: 새 코스 만들기
     create_new: 새 과정 만들기
+    create_short: 원본 만들기
     end_date: 종료일
     expected_number: 예상 학생 수
+    find: 코스 선택하기
     start_date: 개시일
   metrics:
     activity: 최근 활동
@@ -102,13 +147,18 @@ ko:
     title: 제목
   tasks:
     conseq: '%{task} 작업이 아직도 돌아가고 있습니다!'
+  training:
+    start: 시작하기
+    view: 보기
   uploads:
+    label: 파일 올리기
     loading: 업로드 불러오는 중
     none: 이 과정에서는 위키미디어 공용에 기여한 이미지 또는 미디어 파일이 없습니다.
     usages: 사용
   users:
     name: 이름
     reviewers: 검토자
+    student_editors: 배우미 편집자
   wiki_edits:
     notify_overdue:
       header: 제출 기간이 지난 교육 과제가 있습니다.

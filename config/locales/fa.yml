@@ -1,32 +1,62 @@
 # Messages for Persian (فارسی)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Arian Ar
 # Author: GMozafarian
 # Author: Reza1615
 ---
 fa:
   application:
+    cancel: انصراف
+    dashboard: داشبورد ویکی‌اد
+    explore: کاوش
+    greeting2: خوش‌آمدید!
+    greeting_extended: به ویکی‌پدیا خوش‌آمدید
+    greeting: سلام،
+    help: راهنما
+    home: صفحهٔ اصلی
+    log_in_extended: ورود با ویکی‌پدیا
     log_in: ورود
     log_out: خروج
     my_dashboard: داشبورد من
+    recent_activity: فعالیت‌های اخیر
+    sign_up_extended: ثبت‌ نام با ویکی‌پدیا
     sign_up_log_in_extended: با ویکی پدیا
     sign_up: ثبت نام
+    submit: ثبت
+    training: آموزش
+  dashboard:
+    explore_course_pages: در صفحات دوره‌ها کاوش کنید
+    explore_examples: کاوش در مثال‌ها
+    no_courses_instructor: گویا شما در هیچ دوره‌ای حضور ندارید.
+    no_courses_student: گویا شما به هیچ دوره‌ای نپیوسته‌اید.
+    start_orientation: شروع آشناسازی
   home:
     explore: کاوش
+    log_in: ورود با ویکی‌پدیا
     sign_up: ورود با ویکی پدیا
   activity:
     all: فعالیت
+    edited_by: ویرایش‌ شده توسط
+    label: فعالیت ها
   articles:
     edited_mobile: مقالات
+    label: مقاله‌ها
+    loading: در حال بارگذاری مقاله‌ها
     rating: کلاس
     title: عنوان
+    title_example: عنوان مقاله
   courses:
     activity: فعالیت
     articles: مقالات
     assignment_end: تکلیف پایانی
+    course_description: دوره‌ها
     courses: دوره‌ها
+    current: دوره‌های فعلی
+    duration: مدت دوره‌ها
     edit_course_dates: ویرایش تاریخ دوره
     instructors: اساتید
+    join: عضویت
     overview: چشم‌انداز
     school: مدرسه
     students: دانشجویان

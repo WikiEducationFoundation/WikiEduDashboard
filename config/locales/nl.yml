@@ -8,16 +8,21 @@
 ---
 nl:
   application:
+    cancel: Annuleren
     dashboard: Wiki Ed Dashboard
     explore: Ontdek
+    greeting2: Welkom!
+    greeting: Hallo,
     help: Help
     home: Startpagina
+    log_in_extended: Aanmelden met Wikipedia
     log_in: Aanmelden
     log_out: Afmelden
     my_dashboard: Mijn dashboard
     recent_activity: Recente activiteit
     sign_up_log_in_extended: met Wikipedia
     sign_up: Registreren
+    submit: Verzenden
   home:
     explore: Ontdek
     log_in: Aanmelden met Wikipedia
@@ -32,6 +37,7 @@ nl:
       de cursustermijn is toegevoegd
     edited: Pagina's bewerkt
     edited_mobile: Pagina's
+    label: Artikelen
     loading: Bezig met pagina's laden...
     no_assignee: Geen gebruiker toegewezen
     none: Deze cursus heeft geen bewerkte pagina's.
@@ -65,6 +71,7 @@ nl:
     assignees: Toegewezen aan
     confirm_addition: Weet u zeker dat u %{title} wilt toewijzen aan %{username}?
     confirm_deletion: Weet u zeker dat u deze opdracht wilt verwijderen?
+    label: Toewijzen
     loading: Bezig met het laden van opdrachten...
     none: Deze cursus heeft geen toegewezen Wikipediapagina's.
     reviewers: Controleur(s)
@@ -72,6 +79,7 @@ nl:
     milestones:
       title: Mijlpalen
   cohort:
+    none: Geen
     view_other: Andere cohorten bekijken
   courses:
     activity: Activiteit
@@ -98,6 +106,7 @@ nl:
     students_none: Deze cursus heeft nog geen geregistreerde studenten.
     students_short: Studenten
     timeline: Opdrachtdetails
+    timeline_link: Tijdlijn
     title: Naam
     weeks_none: Deze cursus heeft nog geen tijdlijn.
     view: Cursus weergeven
@@ -146,6 +155,8 @@ nl:
     constant: Taak %{task} kan niet actief zijn terwijl update_daily wordt uitgevoerd.
     paused: 'De taak %{task} kan niet uitgevoerd worden omdat geplande taken gepauzeerd
       zijn. Voer het volgende commando uit om bijwerken te hervatten: ''rake batch:resume''.'
+  training:
+    view: Bekijken
   uploads:
     loading: Bezig met het laden van uploads...
     none: Voor deze klasse zijn geen afbeeldingen of andere mediabestanden bijgedragen

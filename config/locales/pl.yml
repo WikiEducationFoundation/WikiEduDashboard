@@ -7,6 +7,7 @@
 ---
 pl:
   application:
+    cancel: Anuluj
     explore: Odkryj
     help: Pomoc
     home: Strona główna
@@ -17,6 +18,7 @@ pl:
     search: przeszukaj ask.wikiedu.org
     sign_up_log_in_extended: z Wikipedią
     sign_up: Zarejestruj się
+    submit: Wyślij
     training: Szkolenie
   dashboard:
     explore_course_pages: Odkryj strony kursów
@@ -36,10 +38,12 @@ pl:
       jego trwania
     edited: Edytowane artykuły
     edited_mobile: Artykuły
+    label: Artykuły
     loading: Wczytywanie artykułów...
     no_assignee: Żaden użytkownik nie jest przypisany
     rating: Klasa
     title: Tytuł
+    title_example: Tytuł artykułu
     view: Zobacz artykuł
     view_all: Zobacz wszystkie
   assignments:
@@ -78,6 +82,8 @@ pl:
     date_time: Data/Czas
     loading: Wczytywanie wersji...
     title: Tytuł
+  training:
+    start: Start
   users:
     contributions: Wkład użytkownika
     loading: Wczytywanie użytkowników...

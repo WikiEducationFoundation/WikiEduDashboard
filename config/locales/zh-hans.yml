@@ -28,7 +28,10 @@ zh-hans:
   dashboard:
     explore_course_pages: 浏览课程页面
     explore_examples: 浏览示例
+    no_courses_instructor: 看起来您没有任何课程。
+    no_courses_student: 看起来您还没有加入一个课程。
     opt_out: 请求不参加迎新活动
+    start_orientation: 开始迎新
   home:
     explore: 探索
     log_in: 登录维基百科
@@ -67,6 +70,7 @@ zh-hans:
     view_doc: 在课程学期期间每个条目的访问量总数
     views_added: 已为%{title}添加%{count}次新查看
   assignments:
+    already_exists: 此分配已存在！
     assignees: 委托人
     assign_other: 分配一个条目
     assign_self: 给我自己分配一个条目
@@ -77,6 +81,8 @@ zh-hans:
     none_short: 没有分配的条目
     none: 此课程没有被维基百科条目所分配。
     reviewers: 复核员
+    review_other: 分配一次复核
+    review_self: 复核一个条目
   blocks:
     milestones:
       title: 里程碑
@@ -86,6 +92,7 @@ zh-hans:
   courses:
     activity: 活动
     already_enrolled: 您已经是“%{title}”的一部分！
+    archived: 已存档的课程
     articles: 条目
     articles_none: 此课程没有编辑任何条目。
     assignment_end: 任务结束
@@ -104,6 +111,9 @@ zh-hans:
     instructor:
       other: 导师
     instructors: 导师
+    invitation: |-
+      您已被邀请加入%{title}。要加入课程，您需要使用维基百科账户登录。
+      如果您尚未拥有维基百科账户，现在注册一个。
     join: 加入
     join_prompt: 加入“%{title}”么？
     join_successful: 您已成功加入%{title}。
@@ -120,6 +130,7 @@ zh-hans:
     student_editors: 学生编辑者
     students_none: 此课程没有学生。
     students_short: 学生
+    submitted_and_pending_heading: 已提交并等待批准
     submitted_heading: 提交的课程
     term: 学期
     timeline: 分配详细信息
