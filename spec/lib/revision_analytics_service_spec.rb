@@ -43,6 +43,10 @@ describe RevisionAnalyticsService do
                       date: 1.year.ago, wp10: 80, ithenticate_id: 5)
   end
 
+  let!(:revision5) do
+    create(:revision, id: 5, user_id: 1, article_id: 1, date: 2.weeks.ago, system: true)
+  end
+
   describe '#dyk_eligible' do
     subject { described_class.dyk_eligible(opts) }
 
@@ -116,21 +120,30 @@ describe RevisionAnalyticsService do
   describe '.recent_edits' do
     context 'not scoped to current user' do
       subject { described_class.recent_edits }
-      it 'should return recent edits' do
+      it 'returns recent edits' do
         expect(subject).to include(revision)
         expect(subject).to include(revision2)
         expect(subject).to include(revision3)
       end
+
+      it 'excludes automatic dashboard edits' do
+        expect(subject).not_to include(revision5)
+      end
     end
 
-    context 'not scoped to current user' do
+    context 'scoped to current user' do
       subject { described_class.recent_edits(scoped: 'true', current_user: user) }
-      it 'should return recent edits from their course' do
+      it 'returns recent edits from their course' do
         expect(subject).to include(revision)
       end
-      it 'should exlude a edits from outside their course' do
+
+      it 'excludes edits from outside their course' do
         expect(subject).not_to include(revision2)
         expect(subject).not_to include(revision3)
+      end
+
+      it 'excludes automatic dashboard edits' do
+        expect(subject).not_to include(revision5)
       end
     end
   end

@@ -65,9 +65,9 @@ class RevisionAnalyticsService
 
   def recent_edits
     if @course_ids
-      recent_revisions = Revision.where(user_id: student_ids).last(DEFAULT_RECENT_EDITS_LIMIT)
+      recent_revisions = Revision.user.where(user_id: student_ids).last(DEFAULT_RECENT_EDITS_LIMIT)
     else
-      recent_revisions = Revision.last(DEFAULT_RECENT_EDITS_LIMIT)
+      recent_revisions = Revision.user.last(DEFAULT_RECENT_EDITS_LIMIT)
     end
     recent_revisions
   end
