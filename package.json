@@ -73,7 +73,6 @@
     "watchify": "^3.3.1"
   },
   "dependencies": {
-    "history": "1.17.0",
     "i18n-js": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc8.tar.gz",
     "markdown-it": "5.0.0",
     "mcfly": "0.0.10",
@@ -87,7 +86,7 @@
     "react-dnd-touch-backend": "^0.2.4",
     "react-dom": "0.14.6",
     "react-motion": "^0.3.1",
-    "react-router": "1.0.3",
+    "react-router": "2.0.0",
     "react-select": "0.6.12",
     "react-trix": "^0.1.0",
     "react-typeahead": "1.1.5",

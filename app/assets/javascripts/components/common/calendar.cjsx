@@ -29,7 +29,6 @@ Calendar = React.createClass(
     else
       exceptions.push formatted
       utils = CourseDateUtils
-      console.log utils.wouldCreateBlackoutWeek(@props.course, day, exceptions)
       if utils.wouldCreateBlackoutWeek(@props.course, day, exceptions) && utils.moreWeeksThanAvailable(@props.course, @props.weeks, exceptions)
         alert(I18n.t('timeline.blackout_week_created'))
         return false

@@ -9,13 +9,14 @@ SlideLink       = require './slide_link'
 SlideMenu       = require './slide_menu'
 Quiz            = require './quiz'
 md              = require('../../utils/markdown_it')({ openLinksExternally: true })
+browserHistory = ReactRouter.browserHistory
 
 getState = ->
   return TrainingStore.getState()
 
 TrainingSlideHandler = React.createClass(
   displayName: 'TrainingSlideHandler'
-  mixins: [TrainingStore.mixin, History]
+  mixins: [TrainingStore.mixin]
   getInitialState: ->
     slide: {}
     menuIsOpen: false
@@ -64,18 +65,18 @@ TrainingSlideHandler = React.createClass(
     @state.currentSlide.assessment? && !@state.currentSlide.answeredCorrectly
 
   trainingUrl: (params) ->
-    "training/#{params.library_id}/#{params.module_id}/#{params.slide_id}"
+    "/training/#{params.library_id}/#{params.module_id}/#{params.slide_id}"
 
   handleKeyPress: (e) ->
     navParams = library_id: @props.params.library_id, module_id: @props.params.module_id
     if e.which == @keys.leftKey && @state.previousSlide?
       params = _.extend navParams, slide_id: @state.previousSlide.slug
-      @history.pushState(null, @trainingUrl(params))
+      browserHistory.push(@trainingUrl(params))
     if e.which == @keys.rightKey && @state.nextSlide?
       return if @disableNext()
       @setSlideCompleted(@props.params.slide_id)
       params = _.extend navParams, slide_id: @state.nextSlide.slug
-      @history.pushState(null, @trainingUrl(params))
+      browserHistory.push(@trainingUrl(params))
 
   componentDidMount: ->
     window.addEventListener('keyup', @handleKeyPress)

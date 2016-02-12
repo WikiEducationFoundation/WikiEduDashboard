@@ -6,14 +6,13 @@ WizardStore   = require '../../stores/wizard_store'
 Panel         = require './panel'
 
 ReactRouter   = require 'react-router'
-History       = ReactRouter.History
+browserHistory = ReactRouter.browserHistory
 
 SummaryPanel = React.createClass(
   displayName: 'SummaryPanel'
-  mixins: [History]
   submit: ->
     ServerActions.submitWizard @props.courseId, @props.wizardId, WizardStore.getOutput()
-    @history.pushState(null, "/courses/#{@props.courseId}/timeline")
+    browserHistory.push("/courses/#{@props.courseId}/timeline")
   rewind: (to_index) ->
     WizardActions.rewindWizard(to_index)
   render: ->
