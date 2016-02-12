@@ -52,8 +52,11 @@ FactoryGirl.define do
     # end is a reserved keyword, set that in the let(:course) calls
     title 'Black life matters'
     listed true
+    school 'none'
+    term 'none'
     slug 'Black_life_matters'
     type 'BasicCourse'
+    passcode 'pizzå'
   end
 
   factory :visiting_scholarship, class: 'VisitingScholarship' do
