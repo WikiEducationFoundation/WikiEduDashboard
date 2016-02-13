@@ -41,7 +41,7 @@ Intro = React.createClass(
       <div className="intro text-center">
         <h1>Hi {@state.user.real_name || @state.user.wiki_id}</h1>
         <p>We’re excited that you’re here!</p>
-        <Link to={{ pathname: '/onboarding/form', query: { return_to: getReturnToParam() } }}  className="button border inverse-border">Start <i className="icon icon-rt_arrow"></i></Link>
+        <Link to={{ pathname: '/onboarding/form', query: { return_to: decodeURIComponent(getReturnToParam()) } }}  className="button border inverse-border">Start <i className="icon icon-rt_arrow"></i></Link>
       </div>
     )
 )
@@ -75,7 +75,7 @@ Form = React.createClass(
       email: @state.email
       instructor: @state.instructor == 'true'
     .then () =>
-      browserHistory.push('/onboarding/permissions?return_to=' + getReturnToParam())
+      browserHistory.push('/onboarding/permissions?return_to=' + decodeURIComponent(getReturnToParam()))
     .catch (err) =>
       NotificationActions.addNotification
         message: I18n.t('error_500.explanation')
@@ -140,7 +140,7 @@ Permissions = React.createClass(
         <div className="intro permissions">
           <h1>Permissions</h1>
           <p>
-            Once you've signed in, this website will make automatic edits using your Wikipedia account, reflecting actions you take here. Your account will be used to update wiki pages when:
+            Once you´ve signed in, this website will make automatic edits using your Wikipedia account, reflecting actions you take here. Your account will be used to update wiki pages when:
           </p>
           <ul>
             <li>you submit a Wikipedia classroom assignment or make edits to your course page</li>
@@ -158,15 +158,15 @@ Permissions = React.createClass(
         <div className="intro permissions">
           <h1>Permissions</h1>
           <p>
-            Once you've signed in, this website will make automatic edits using your Wikipedia account, reflecting actions you take here. Your account will be used to update wiki pages when:
+            Once you´ve signed in, this website will make automatic edits using your Wikipedia account, reflecting actions you take here. Your account will be used to update wiki pages when:
           </p>
           <ul>
             <li>set up a sandbox page where you can practice editing</li>
             <li>add a standard message on your userpage so that others know what course you are part of</li>
-            <li>add standard messages to the Talk pages of articles you're editing or reviewing</li>
-            <li>update your course's wiki page when you join the course or choose an assignment topic</li>
+            <li>add standard messages to the Talk pages of articles you´re editing or reviewing</li>
+            <li>update your course´s wiki page when you join the course or choose an assignment topic</li>
           </ul>
-          <Link to={{ pathname: '/onboarding/finish', query: { return_to: + getReturnToParam() } }} className="button border inverse-border">
+          <Link to={{ pathname: '/onboarding/finish', query: { return_to: getReturnToParam() } }} className="button border inverse-border">
             Finish <i className="icon icon-rt_arrow"></i>
           </Link>
         </div>
@@ -195,7 +195,7 @@ Finished = React.createClass(
   render: ->
     return (
       <div className="intro">
-        <h1>You're all set. Thank you.</h1>
+        <h1>You´re all set. Thank you.</h1>
         <h2>Loading...</h2>
       </div>
     )
