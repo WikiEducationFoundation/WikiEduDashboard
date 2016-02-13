@@ -11,8 +11,8 @@ def fill_out_course_creator_form
   fill_in 'Course title:', with: 'My course'
   fill_in 'Course term:', with: 'Spring 2016'
   fill_in 'Course school:', with: 'University of Oklahoma'
-  find('input[placeholder="Start date (YYYY-MM-DD)"]').set(Time.zone.today)
-  find('input[placeholder="End date (YYYY-MM-DD)"]').set(Time.zone.tomorrow)
+  find('input[placeholder="Start date (YYYY-MM-DD)"]').set(Date.new(2015, 1, 4))
+  find('input[placeholder="End date (YYYY-MM-DD)"]').set(Date.new(2015, 2, 1))
   click_button 'Create my Course!'
 end
 
