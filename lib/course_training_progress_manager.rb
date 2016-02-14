@@ -1,6 +1,8 @@
 require 'ostruct'
 
 class CourseTrainingProgressManager
+  # Courses before Spring 2016 used the old on-wiki training
+  # instead of the dashboard-based training modules.
   TRAINING_BOOLEAN_CUTOFF_DATE = Date.new(2015, 12, 01)
 
   def initialize(user, course)
@@ -9,12 +11,15 @@ class CourseTrainingProgressManager
   end
 
   def course_training_progress
+    # For old courses, on-wiki training completion is tracked with User#trained?
     if @course.start < TRAINING_BOOLEAN_CUTOFF_DATE
       return @user.trained? ? nil : I18n.t('users.training_incomplete')
     end
-    numerator = completed_modules_for_user_and_course
-    denominator = total_modules_for_course
-    "#{numerator}/#{denominator} training modules completed"
+    assigned_count = total_modules_for_course
+    return if assigned_count == 0
+    completed_count = completed_modules_for_user_and_course
+    I18n.t('users.training_modules_completed', completed_count: completed_count,
+                                               assigned_count: assigned_count)
   end
 
   def next_upcoming_assigned_module
