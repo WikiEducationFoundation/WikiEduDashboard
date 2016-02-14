@@ -38,7 +38,7 @@ Details = React.createClass(
     campus = <InlineUsers {...@props} users={@props.campus} role={3} title='Campus Volunteers' />
     staff = <InlineUsers {...@props} users={@props.staff} role={4} title='Wiki Ed Staff' />
 
-    if @props.current_user.role > 0 || @props.current_user.admin
+    if @props.course.passcode
       passcode = (
         <fieldset>
           <TextInput
@@ -47,7 +47,7 @@ Details = React.createClass(
             value_key='passcode'
             editable={@props.editable}
             type='text'
-            label='Passcode'
+            label={I18n.t('courses.passcode')}
             placeholder='Not set'
             required=true
           />

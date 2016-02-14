@@ -162,6 +162,7 @@ qqq:
     new_week: Button text for adding a new week to the timeline
     nocourses: Message indicating that the logged in user is not part of any courses
     overview: Label for link to the overview page for a course
+    passcode: Label for course passcode field
     review_timeline: Message prompting user to review the timeline
     students: Label for link to the list of students for a course
     students_count: |-
