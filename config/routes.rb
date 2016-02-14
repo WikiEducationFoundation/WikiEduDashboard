@@ -38,10 +38,6 @@ Rails.application.routes.draw do
         :as => :manual_update, constraints: { id: /.*/ }
     get 'courses/*id/notify_untrained' => 'courses#notify_untrained',
         :as => :notify_untrained, constraints: { id: /.*/ }
-    get 'courses/*id/notify_students(/:type)' => 'courses#notify_students',
-        :as => :notify_students, constraints: { id: /.*/ }
-    get 'courses/*id/update_course_talk' => 'courses#update_course_talk',
-        :as => :update_course_talk, constraints: { id: /.*/ }
 
     get 'courses/*id/check' => 'courses#check',
         :as => :check, constraints: { id: /.*/ }
