@@ -38,7 +38,7 @@ en:
     explore: Explore
     greeting2: Welcome!
     greeting_extended: Welcome to Wikipedia
-    greeting: Hello,
+    greeting: Hello!
     help: Help
     home: Home
     log_in_extended: Log in with Wikipedia
@@ -220,7 +220,7 @@ en:
     warn_mirrored: >
       Upon submission, this course will be automatically posted to Wikipedia with your user account.
       After that, new edits to the timeline will be mirrored to Wikipedia.
-      
+
       Are you sure you want to do this?
     wiki_staff: Wiki Ed Staff
     word_count_doc: An estimate of the number of words added to mainspace articles by the course's students during the course term
