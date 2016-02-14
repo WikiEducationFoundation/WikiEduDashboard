@@ -20,9 +20,6 @@ describe 'Milestones', ->
     milestones = ReactTestUtils.findRenderedDOMComponentWithClass(TestMilestones, 'milestones')
     expect(milestones.innerHTML).to.include('<p>Tacos are great</p>')
 
-  it 'renders an empty message if there are no blocks', ->
+  it 'does not render block if empty', ->
     TestMilestones.setState(weeks: [week2])
-    milestones = ReactTestUtils.findRenderedDOMComponentWithClass(TestMilestones, 'milestones')
-    # fails  when run in isolation with the `mocha` bin,
-    # but passes with `gulp js_coverage` because of I18n issues
-    expect(milestones.innerHTML).to.include('This course does not currently have any milestones.')
+    expect(TestMilestones.render()).to.equal(null)

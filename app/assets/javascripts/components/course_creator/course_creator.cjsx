@@ -48,7 +48,10 @@ CourseCreator = React.createClass(
     if ValidationStore.isValid()
       if @state.course.slug?
         # This has to be a window.location set due to our limited ReactJS scope
-        window.location = '/courses/' + @state.course.slug + '/timeline/wizard'
+        if @state.default_course_type == "ClassroomProgramCourse"
+          window.location = '/courses/' + @state.course.slug + '/timeline/wizard'
+        else
+          window.location = '/courses/' + @state.course.slug
       else
         @setState course: CourseUtils.cleanupCourseSlugComponents(@state.course)
         ServerActions.saveCourse $.extend(true, {}, { course: @state.course })
@@ -66,6 +69,8 @@ CourseCreator = React.createClass(
       isSubmitting: false
       shouldShowForm: false
       shouldShowCourseDropdown: false
+      default_course_type: $('#react_root').data('default-course-type')
+      course_string_prefix: $('#react_root').data('course-string-prefix')
     $.extend(true, inits, getState())
   showForm: ->
     @setState shouldShowForm: true
@@ -95,6 +100,44 @@ CourseCreator = React.createClass(
       <option key={i} data-id-key={course.id}>{course.title}</option>
     )
 
+    if @state.default_course_type == "ClassroomProgramCourse"
+      term = (
+        <TextInput
+          id='course_term'
+          onChange={@updateCourse}
+          value={@state.course.term}
+          value_key='term'
+          required=true
+          validation={/^[\w\-\s\,\']+$/}
+          editable=true
+          label={CourseUtils.i18n('creator.course_term', @state.course_string_prefix)}
+          placeholder='Term'
+        />
+      )
+      subject = (
+        <TextInput
+          id='course_subject'
+          onChange={@updateCourse}
+          value={@state.course.subject}
+          value_key='subject'
+          editable=true
+          label={CourseUtils.i18n('creator.course_subject', @state.course_string_prefix)}
+          placeholder='Subject'
+        />
+      )
+      expected_students = (
+        <TextInput
+          id='course_expected_students'
+          onChange={@updateCourse}
+          value={@state.course.expected_students}
+          value_key='expected_students'
+          editable=true
+          type='number'
+          label={CourseUtils.i18n('creator.expected_number', @state.course_string_prefix)}
+          placeholder='Expected number of students'
+        />
+      )
+
     <TransitionGroup
       transitionName="wizard"
       component='div'
@@ -103,10 +146,10 @@ CourseCreator = React.createClass(
     >
       <Modal key="modal">
         <div className="wizard__panel active" style={form_style}>
-          <h3>{I18n.t('course_creator.create_new')}</h3>
-          <p>{I18n.t('course_creator.intro')}</p>
+          <h3>{CourseUtils.i18n('creator.create_new', @state.course_string_prefix)}</h3>
+          <p>{CourseUtils.i18n('creator.intro', @state.course_string_prefix)}</p>
           <div className={cloneOptions}>
-            <button className='button dark' onClick={@showForm}>Create New Course</button>
+            <button className='button dark' onClick={@showForm}>{CourseUtils.i18n("creator.create_label", @state.course_string_prefix)}</button>
             <button className='button dark' onClick={@showCourseDropdown}>Clone Previous Course</button>
           </div>
           <div className={selectClass}>
@@ -124,8 +167,8 @@ CourseCreator = React.createClass(
                 required=true
                 validation={/^[\w\-\s\,\']+$/}
                 editable=true
-                label={I18n.t('course_creator.course_title')}
-                placeholder='Title'
+                label={CourseUtils.i18n('creator.course_title', @state.course_string_prefix)}
+                placeholder={CourseUtils.i18n('creator.course_title', @state.course_string_prefix)}
               />
               <TextInput
                 id='course_school'
@@ -135,39 +178,12 @@ CourseCreator = React.createClass(
                 required=true
                 validation={/^[\w\-\s\,\']+$/}
                 editable=true
-                label={I18n.t('course_creator.course_school')}
-                placeholder='School'
+                label={CourseUtils.i18n('creator.course_school', @state.course_string_prefix)}
+                placeholder={CourseUtils.i18n('creator.course_school', @state.course_string_prefix)}
               />
-              <TextInput
-                id='course_term'
-                onChange={@updateCourse}
-                value={@state.course.term}
-                value_key='term'
-                required=true
-                validation={/^[\w\-\s\,\']+$/}
-                editable=true
-                label={I18n.t('course_creator.course_term')}
-                placeholder='Term'
-              />
-              <TextInput
-                id='course_subject'
-                onChange={@updateCourse}
-                value={@state.course.subject}
-                value_key='subject'
-                editable=true
-                label={I18n.t('course_creator.course_subject')}
-                placeholder='Subject'
-              />
-              <TextInput
-                id='course_expected_students'
-                onChange={@updateCourse}
-                value={@state.course.expected_students}
-                value_key='expected_students'
-                editable=true
-                type='number'
-                label={I18n.t('course_creator.expected_number')}
-                placeholder='Expected number of students'
-              />
+              {term}
+              {subject}
+              {expected_students}
             </div>
             <div className='column'>
               <TextAreaInput
@@ -176,7 +192,7 @@ CourseCreator = React.createClass(
                 value={@state.course.description}
                 value_key='description'
                 editable=true
-                label={I18n.t('course_creator.course_description')}
+                label={CourseUtils.i18n('creator.course_description', @state.course_string_prefix)}
               />
               <TextInput
                 id='course_start'
@@ -186,7 +202,7 @@ CourseCreator = React.createClass(
                 required=true
                 editable=true
                 type='date'
-                label={I18n.t('course_creator.start_date')}
+                label={CourseUtils.i18n('creator.start_date', @state.course_string_prefix)}
                 placeholder='Start date (YYYY-MM-DD)'
                 blank=true
                 isClearable=false
@@ -199,7 +215,7 @@ CourseCreator = React.createClass(
                 required=true
                 editable=true
                 type='date'
-                label={I18n.t('course_creator.end_date')}
+                label={CourseUtils.i18n('creator.end_date', @state.course_string_prefix)}
                 placeholder='End date (YYYY-MM-DD)'
                 blank=true
                 date_props={minDate: moment(@state.course.start).add(1, 'week')}
@@ -212,8 +228,8 @@ CourseCreator = React.createClass(
             <div className='left'><p>{@state.tempCourseId}</p></div>
             <div className='right'>
               <div><p className='red'>{@state.error_message}</p></div>
-              <Link className="button" to="/" id='course_cancel'>Cancel</Link>
-              <button onClick={@saveCourse} className='dark button'>Create my Course!</button>
+              <Link className="button" to="/" id='course_cancel'>{I18n.t("application.cancel")}</Link>
+              <button onClick={@saveCourse} className='dark button'>{CourseUtils.i18n('creator.create_button', @state.course_string_prefix)}</button>
             </div>
           </div>
         </div>

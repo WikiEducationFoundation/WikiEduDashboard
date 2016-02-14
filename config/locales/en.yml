@@ -153,6 +153,30 @@ en:
       weeks that have no scheduled meetings.
     course_description: Courses
     courses: Courses
+    creator:
+      cloned_course_calendar_instructions: >
+        Select dates to add or remove them from the schedule (e.g., holidays, no
+        school). Click the date to change between unselected, selected, and
+        holiday state. If you have no holidays, check "I have no class holidays".
+        The cloned timeline will automatically adjust the dates to account for
+        weeks that have no scheduled meetings.
+      course_description: Course description
+      course_school: Course school
+      course_subject: Course subject
+      course_term: Course term
+      course_title: Course title
+      create_button: Create my Course!
+      create_label: Create New Course
+      create_new: Create a New Course
+      create_short: Create Course
+      end_date: End date
+      expected_number: Expected number of students
+      find: Find Your Course
+      intro: >
+        The title, school, and term create your course page’s URL, and can't be
+        changed. Everything else, you can edit later. Click “Create my Course!” to
+        start building the timeline for your Wikipedia assignment.
+      start_date: Start date
     current: Current Courses
     duration: Course Duration
     edit_course_dates: Edit Course Dates
@@ -232,6 +256,18 @@ en:
     assignment_end: Timeline End
     assignments_none: This project has no assigned Wikipedia articles.
     assignment_start: Timeline Start
+    creator:
+      course_description: Program description
+      course_school: Institution
+      course_title: Program title
+      create_button: Create my Program!
+      create_label: Create New Program
+      create_new: Create a New Program
+      create_short: Create Program
+      find: Find Your Program
+      intro: >
+        The program title is required, everything else can be filled in later.
+        Click "Create my Program!" to start building the page for your wiki program.
     edit_course_dates: Edit Project Dates
     expected_students: Expected Editors
     instructors: Facilitators
@@ -245,30 +281,6 @@ en:
     students_short: Editors
     term: When
     uploads_none: This project has not contributed any images or other media files to Wikimedia Commons.
-
-  course_creator:
-    cloned_course_calendar_instructions: >
-      Select dates to add or remove them from the schedule (e.g., holidays, no
-      school). Click the date to change between unselected, selected, and
-      holiday state. If you have no holidays, check "I have no class holidays".
-      The cloned timeline will automatically adjust the dates to account for
-      weeks that have no scheduled meetings.
-    course_description: Course description
-    course_school: Course school
-    course_subject: Course subject
-    course_term: Course term
-    course_title: Course title
-    create_label: Create New Course
-    create_new: Create a New Course
-    create_short: Create Course
-    end_date: End date
-    expected_number: Expected number of students
-    find: Find Your Course
-    intro: >
-      The title, school, and term create your course page’s URL, and can't be
-      changed. Everything else, you can edit later. Click “Create my Course!” to
-      start building the timeline for your Wikipedia assignment.
-    start_date: Start date
 
   metrics:
     activity: Recent Activity

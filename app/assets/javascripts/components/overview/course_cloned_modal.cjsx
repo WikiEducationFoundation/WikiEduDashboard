@@ -222,7 +222,7 @@ CourseClonedModal = React.createClass(
               setAnyDatesSelected={@setAnyDatesSelected}
               setBlackoutDatesSelected={@setBlackoutDatesSelected}
               shouldShowSteps=false
-              calendarInstructions={I18n.t('course_creator.cloned_course_calendar_instructions')}
+              calendarInstructions={I18n.t('courses.creator.cloned_course_calendar_instructions')}
             />
             <label> I have no class holidays
               <input type='checkbox' onChange={@setNoBlackoutDatesChecked} ref='noDates' />

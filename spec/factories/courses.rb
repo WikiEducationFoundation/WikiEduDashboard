@@ -47,6 +47,15 @@ FactoryGirl.define do
     passcode 'pizza'
   end
 
+  factory :basic_course, class: 'BasicCourse' do
+    start Date.new(2015, 01, 01)
+    # end is a reserved keyword, set that in the let(:course) calls
+    title 'Black life matters'
+    listed true
+    slug 'Black_life_matters'
+    type 'BasicCourse'
+  end
+
   factory :visiting_scholarship, class: 'VisitingScholarship' do
     start Date.new(2015, 01, 01)
     # end is a reserved keyword, set that in the let(:course) calls

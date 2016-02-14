@@ -1,4 +1,5 @@
 ENV['dashboard_url'] = 'dashboard.wikiedu.org'
+ENV['default_course_type'] = 'ClassroomProgramCourse'
 ENV['disable_wiki_output'] = 'false'
 ENV['wiki_language'] = 'en'
 ENV['enable_article_finder'] = 'true'
