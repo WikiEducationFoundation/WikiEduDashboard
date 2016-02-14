@@ -27,5 +27,7 @@ json.course do
 
   if user_signed_in? && current_user.role(@course) > 0
     json.passcode @course.passcode
+  elsif @course.passcode
+    json.passcode '****'
   end
 end
