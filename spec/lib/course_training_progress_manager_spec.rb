@@ -10,7 +10,7 @@ describe CourseTrainingProgressManager do
   let(:week)     { create(:week, course_id: course.id) }
   let(:due_date) { 1.week.from_now }
   let(:tm_ids)   { [1, 2] }
-  let!(:block)  do
+  let!(:block) do
     create(:block, week_id: week.id, training_module_ids: tm_ids, due_date: due_date)
   end
 
@@ -36,8 +36,8 @@ describe CourseTrainingProgressManager do
     context 'course begins after December 1, 2015' do
       context '0 training modules assigned, 0 completed' do
         let(:tm_ids) { [] }
-        it 'returns "0/0 training modules completed"' do
-          expect(subject).to eq("0/0 training modules completed")
+        it 'returns nil' do
+          expect(subject).to be_nil
         end
       end
 
@@ -46,13 +46,13 @@ describe CourseTrainingProgressManager do
         before do
           tm_ids.each do |tm_id|
             create(:training_modules_users,
-              training_module_id: tm_id,
-              user_id: user.id)
+                   training_module_id: tm_id,
+                   user_id: user.id)
           end
           TrainingModulesUsers.last.update_attribute(:completed_at, 1.hour.ago)
         end
         it 'returns "1/1 training modules completed"' do
-          expect(subject).to eq("1/1 training modules completed")
+          expect(subject).to eq('1/1 training modules completed')
         end
       end
 
@@ -61,13 +61,13 @@ describe CourseTrainingProgressManager do
         before do
           tm_ids.each do |tm_id|
             create(:training_modules_users,
-              training_module_id: tm_id,
-              user_id: user.id)
+                   training_module_id: tm_id,
+                   user_id: user.id)
           end
           TrainingModulesUsers.last.update_attribute(:completed_at, 1.hour.ago)
         end
         it 'returns "1/2 training modules completed"' do
-          expect(subject).to eq("1/2 training modules completed")
+          expect(subject).to eq('1/2 training modules completed')
         end
       end
     end
@@ -93,10 +93,11 @@ describe CourseTrainingProgressManager do
         end
 
         context 'module is completed' do
-          let!(:tmu) do create(:training_modules_users,
-            training_module_id: tm_ids.first,
-            user_id: user.id,
-            completed_at: 2.days.ago)
+          let!(:tmu) do
+            create(:training_modules_users,
+                   training_module_id: tm_ids.first,
+                   user_id: user.id,
+                   completed_at: 2.days.ago)
           end
           it 'returns nil' do
             expect(subject).to be_nil
@@ -106,7 +107,7 @@ describe CourseTrainingProgressManager do
       context '2 blocks, each with a module, different due dates' do
         let(:tm_ids)  { [3] }
         let(:tm_ids2) { [2] }
-        let!(:block2)  do
+        let!(:block2) do
           create(:block, week_id: week.id, training_module_ids: tm_ids2, due_date: 2.days.from_now)
         end
         it 'returns the first module by due date' do

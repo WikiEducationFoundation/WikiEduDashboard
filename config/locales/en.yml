@@ -350,6 +350,7 @@ en:
       Editors who have completed the all assigned training modules that
       have come due are counted as up-to-date with their training.
     training_incomplete: Training Incomplete
+    training_modules_completed: "%{completed_count}/%{assigned_count} training modules completed"
     up_to_date_with_training: 'up-to-date with training'
 
   wiki_edits:
