@@ -5,6 +5,7 @@
 # Author: Hwangjy9
 # Author: Priviet
 # Author: Revi
+# Author: SeoJeongHo
 # Author: Yearning
 # Author: 고솜
 # Author: 밥풀떼기
@@ -25,6 +26,7 @@ ko:
     sign_up_extended: 위키백과에 로그인하기
     submit: 보내기
   dashboard:
+    no_courses_instructor: 당신은 아무 코스도 가지고 있지 않습니다.
     no_courses_student: 아직 코스에 가입하지 않으셨네요.
   activity:
     all: 활동
@@ -85,6 +87,7 @@ ko:
     overview: 둘러보기
     school: 학교
     students: 학생
+    students_count: '# 학생'
     students_none: 이 과정에는 학생이 없습니다.
     students_short: 학생
     submitted_heading: 보낸 코스
@@ -119,10 +122,10 @@ ko:
     course_term: 교과 용어
     create_label: 새 코스 만들기
     create_new: 새 과정 만들기
-    create_short: 원본 만들기
+    create_short: 코스 만들기
     end_date: 종료일
     expected_number: 예상 학생 수
-    find: 코스 선택하기
+    find: 코스 찾기
     start_date: 개시일
   metrics:
     activity: 최근 활동
@@ -158,7 +161,7 @@ ko:
   users:
     name: 이름
     reviewers: 검토자
-    student_editors: 배우미 편집자
+    student_editors: 학생 편집자
   wiki_edits:
     notify_overdue:
       header: 제출 기간이 지난 교육 과제가 있습니다.
@@ -181,4 +184,6 @@ ko:
   error_500:
     header: 500 — 내부 서버 에러  :-(
     explanation: 무언가 문제가 생겼습니다. 이 게시판의 유지자에게 연락해서 문제를 알도록 하세요.
+  login_error:
+    header: 로그인 오류
 ...

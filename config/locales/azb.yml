@@ -1,0 +1,20 @@
+# Messages for تۆرکجه (تۆرکجه)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Alp Er Tunqa
+---
+azb:
+  application:
+    cancel: وازگئچ
+    greeting2: خوش گلدینیز!
+    home: ائو
+    log_in: گیریش
+    log_out: چیخیش
+    my_dashboard: داشبوردوم
+  articles:
+    title: باشلیق
+  courses:
+    title: باشلیق
+  namespace:
+    user_ns: ایشلدن
+...

@@ -1,0 +1,46 @@
+# Messages for Azerbaijani (azərbaycanca)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: AZISS
+---
+az:
+  application:
+    cancel: İmtina
+    greeting2: Xoş gəldiniz!
+    greeting_extended: Vikipediyaya xoş gəldiniz
+    greeting: Salam,
+    help: Kömək
+    home: Ana səhifə
+    log_in: Daxil ol
+    log_out: Sistemdən çıx
+    sign_up: Qeydiyyatdan keç
+  activity:
+    edited_by: tərəfindən dəyişdirildi
+  articles:
+    edited: məqalə redaktə edilib
+    edited_mobile: Məqalələr
+    label: Məqalələr
+    title: Başlıq
+    view_all: Hamısını görüntülə
+  blocks:
+    milestones:
+      title: Mərhələ
+  courses:
+    course_description: Kurslar
+    courses: Kurslar
+    current: Cari kurslar
+    duration: Kursun müddəti
+    new_week: Yeni həftə əlavə et
+    school: Məktəb
+    students: Tələbələr
+    students_short: Tələbələr
+    title: Başlıq
+  course_creator:
+    end_date: Bitmə tarixi
+  metrics:
+    date_time: Tarix/Vaxt
+  namespace:
+    user_ns: İstifadəçi
+  revisions:
+    date_time: Tarix/Vaxt
+...

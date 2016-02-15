@@ -7,6 +7,8 @@ ksh:
   application:
     help: Hölp!
     log_out: Ußlogge
+  dashboard:
+    opt_out: Donn noh_m Affschallde vun dä Ennföhrog frohre
   activity:
     all: Aktivitäht
     edited_by: Jeändert Vum

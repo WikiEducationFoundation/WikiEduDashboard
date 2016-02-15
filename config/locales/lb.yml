@@ -119,6 +119,7 @@ lb:
     time_doc: D'Zäit vun all Versioun an Ärer lokaler Zäit
     title: Titel
   training:
+    continue: Virufueren (%{progress})
     start: Ufank
     view: Weisen
   uploads:

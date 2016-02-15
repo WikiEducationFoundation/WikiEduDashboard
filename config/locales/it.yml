@@ -32,6 +32,8 @@ it:
     create_note: Clicca su "Crea corso" per creare il tuo primo corso.
     explore_course_pages: Esplora le pagine del corso
     explore_examples: Esplora esempi
+    join_note: Una volta che si riceve un codice di accesso dal tuo istruttore, fare
+      clic su Trova il Tuo Corso per trovare e unirsi a esso.
     no_courses_instructor: Sembra che tu non abbia alcun corso.
     start_orientation: Inizia orientamento
   home:
@@ -77,6 +79,7 @@ it:
     none_short: Nessuna voce assegnata
     none: Questo corso non ha assegnato voci di Wikipedia.
     reviewers: Revisori
+    review_self: La revisione di un articolo
   cohort:
     none: Nessuno
   courses:
@@ -100,6 +103,7 @@ it:
     expected_students: Studenti previsti
     instructors: Insegnanti
     join: Unisciti
+    join_successful: hai partecipato con successo
     milestones_none: Questo corso attualmente non ha pietre miliari.
     new_week: Aggiungi nuova settimana
     nocourses: Non stai partecipando ad alcun corso.
@@ -113,10 +117,15 @@ it:
     student_editors: Editori studenti
     students_none: Questo corso non ha studenti.
     students_short: Studenti
+    submitted_admin: Questo corso è stato presentato per l'approvazione da parte del
+      suo creatore. Per approvarlo, aggiungerlo a un gruppo nella pagina panoramica.
+    submitted_note: Il corso è stato presentato. il personale di Wiki Ed lo controllerà
+      e si metterà in contatto per tutte le domande.
     term: Termine
     timeline: Dettagli dell'incarico
     timeline_link: Timeline
     title: Titolo
+    training_nav: vai al corso
     uploads_none: Questa classe non ha contribuito con alcuna immagine o altri file
       multimediali su Wikimedia Commons.
     weeks_none: Questo corso non ha ancora una linea temporale.

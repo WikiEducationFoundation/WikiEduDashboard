@@ -26,11 +26,14 @@ zh-hans:
     submit: 提交
     training: 培训
   dashboard:
+    create_note: 点击创建课程以创建您的第一次课程。
     explore_course_pages: 浏览课程页面
     explore_examples: 浏览示例
+    join_note: 一旦您从您的导师接收到一段密码，点击查找您的课程以寻找并加入。
     no_courses_instructor: 看起来您没有任何课程。
     no_courses_student: 看起来您还没有加入一个课程。
     opt_out: 请求不参加迎新活动
+    orientation_notice: 在您创建课程之前，让我们通过定位以帮助您了解如何入门。（这需要约30分钟完成。）
     start_orientation: 开始迎新
   home:
     explore: 探索
@@ -122,6 +125,7 @@ zh-hans:
     nocourses: 您未参加任何课程。
     overview: 概述
     published: 您的课程已发布！学生们可以通过下面的URL报名课程：
+    review_timeline: 请检查该时间表，并作出更改。一旦您对您的时间表感到满意，将其提交给Wiki Ed职员以待批准。一旦获得批准，您将得到一个登记URL，学生可以使用它加入课程。（您仍然可以稍后编辑。）
     revisions_doc: 过去%{timeframe}天内的编辑数
     revisions_none: 此课程最近没有活跃编辑维基百科。
     school: 学校
@@ -132,11 +136,14 @@ zh-hans:
     students_short: 学生
     submitted_and_pending_heading: 已提交并等待批准
     submitted_heading: 提交的课程
+    submitted_note: 您的课程已提交。Wiki Ed职员将复核它，并与您在任何问题上取得联系。
     term: 学期
     timeline: 分配详细信息
     timeline_link: 时间轴
     title: 标题
+    training_due: 培训模块“%{title}”已分配给该课程，并将于%{date}到期。
     training_nav: 前往培训
+    training_overdue: 培训模块“%{title}”已分配给该课程，并已于%{date}到期。
     unsubmitted: 未提交的课程
     uploads_none: 此班级没有贡献任何图片或其他媒体文件至维基共享资源。
     weeks_none: 此课程尚无时间线。
@@ -274,6 +281,7 @@ zh-hans:
     explanation: 出现一些错误。请联络此控制面板的维护人员以让他们得知有关问题。
   login_error:
     header: 登录错误
+    explanation: 看起来登录过程中遇到了问题。（很抱歉！它偶尔发生。）请尝试重新登录或登记。
   timeline:
     due_default: 预计下周
     title: 时间轴

@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Beta16
 # Author: Liuxinyu970226
+# Author: Macofe
 # Author: Robby
 ---
 qqq:
@@ -52,7 +53,10 @@ qqq:
       See: {{msg-wm|Wikiedudashboard-course creator.create short}}
     explore_course_pages: Link to explore courses pages
     explore_examples: Link to explore example courses
-    join_note: Instructions on how to join a course
+    join_note: |-
+      Instructions on how to join a course.
+
+      See: {{msg-wm|Wikiedudashboard-course creator.find}}
     no_courses_instructor: Note that you can create courses
     no_courses_student: Note that you can join courses
     opt_out: Link to opt out

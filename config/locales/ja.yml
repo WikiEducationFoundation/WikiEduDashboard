@@ -11,6 +11,7 @@ ja:
     dashboard: Wiki Ed ダッシュボード
     greeting2: ようこそ!
     greeting_extended: ウィキペディアへようこそ
+    greeting: こんにちは,
     help: ヘルプ
     home: ホーム
     log_in_extended: ウィキペディアでログイン
@@ -30,6 +31,7 @@ ja:
     sign_up: ウィキペディアで登録
   activity:
     all: 活動
+    label: 活動
   articles:
     edited_mobile: 記事
     label: 記事
@@ -65,6 +67,7 @@ ja:
     students: 学生
     student_editors: 学生の編集者
     students_short: 学生
+    timeline_link: タイムライン
     title: タイトル
     view_page: コースのページを見る
   courses_generic:

@@ -9,22 +9,37 @@
 ---
 es:
   application:
+    cancel: Cancelar
     dashboard: Panel de Wiki Ed
     explore: Explorar
+    greeting2: ¡Bienvenidos!
+    greeting_extended: Bienvenido a Wikipedia
+    greeting: Hola,
     help: Ayuda
     home: Inicio
+    log_in_extended: Inicia sesión con Wikipedia
     log_in: Iniciar sesión
     log_out: Cerrar sesión
     my_dashboard: Panel de control
     recent_activity: Actividad reciente
     search: buscar en ask.wikiedu.org
+    sign_up_extended: Regístrate con Wikipedia
     sign_up_log_in_extended: con Wikipedia
     sign_up: Registrarse
+    submit: Enviar
     training: Entrenamiento
   dashboard:
+    create_note: Haz clic en Crear curso para crear tu primer curso.
     explore_course_pages: Explorar las páginas del curso
     explore_examples: Explorar ejemplos
+    join_note: Una vez que recibes un código de acceso de tu instructor, haz clic
+      en Encuentra tu curso para encontrarlo y unirtele.
+    no_courses_instructor: Parece no tienes ningún curso.
+    no_courses_student: Parece que aún no te has unido a un curso.
     opt_out: Solicita la exclusión de la orientación
+    orientation_notice: Antes de crear un curso, pasemos a la orientación para ayudarte
+      a empezar. (Se tarda unos 30 minutos en completar.)
+    start_orientation: Comenzar la orientación
   home:
     explore: Explorar
     log_in: Iniciar sesión con Wikipedia
@@ -32,13 +47,15 @@ es:
   activity:
     all: Actividad
     edited_by: Editado por
+    label: Actividades
   articles:
     assigned: Artículos asignados
     assigned_to: Asignado a
     character_doc: La suma de caracteres agregados a los artículos por los editores
-      matriculados entre las fechas de inicio y fin
+      inscriptos entre las fechas de inicio y fin
     edited: Artículos editados
     edited_mobile: Artículos
+    label: Artículos
     loading: Cargando artículos...
     no_assignee: Sin usuario asignado
     none: Este curso no ha editado ningún artículo.
@@ -52,9 +69,9 @@ es:
         editor nuevo'
       fl: 'Lista destacada: la calificación más alta de Wikipedia para las listas'
       a: 'Clase A: un artículo bastante desarrollado que puede ser demasiado maduro
-        para el proyecto principal de un editor estudiantil'
+        para el proyecto principal de un editor nuevo'
       ga: 'Artículo bueno: un artículo bien desarrollado que puede ser demasiado maduro
-        para el proyecto principal de un editor estudiantil'
+        para el proyecto principal de un editor nuevo'
       b: 'Clase B: un artículo moderadamente desarrollado'
       c: 'Clase C: un artículo intermedio con posibilidades de mejoras'
       start: 'Clase inicial: un artículo preliminar con muchas posibilidades de mejoras'
@@ -63,28 +80,41 @@ es:
       '?': 'Sin clasificación: un artículo que aún no ha sido clasificado en la escala
         de calidad de Wikipedia'
     title: Título
+    title_example: Título del artículo
     view: Ver artículo
     view_all: Ver todos
     view_doc: La suma de todas las visitas a cada artículo durante el período del
       curso
     views_added: Se añadieron %{count} visitas nuevas para %{title}
   assignments:
+    already_exists: ¡Esta tarea ya existe!
     assignees: Asignado(s)
+    assign_other: Asignar un artículo
+    assign_self: Asignarme un artículo
     confirm_addition: ¿Estás seguro de que quieres asignar %{title} a %{username}?
     confirm_deletion: ¿Estás seguro de que quieres eliminar esta tarea?
+    label: Asignar
     loading: Cargando tareas...
+    none_short: No hay artículos asignados
     none: Este curso no tiene artículos de Wikipedia asignados.
     reviewers: Revisor(es)
+    review_other: Asignar una revisión
+    review_self: Revisar un artículo
   blocks:
     milestones:
       title: Hitos
   cohort:
+    none: Ninguno
     view_other: Ver otras cohortes
   courses:
     activity: Actividad
+    already_enrolled: Ya eres parte de '%{title}'.
+    archived: Cursos archivados
     articles: Artículos
     articles_none: Este curso no ha editado ningún artículo.
+    assignment_end: Fin de la tarea
     assignments_none: Este curso no tiene artículos de Wikipedia asignados.
+    assignment_start: Inicio de la tarea
     character_doc: La suma de caracteres agregados a los artículos del espacio principal
       por parte de los estudiantes durante el período del curso
     course_dates_calendar_instructions: Selecciona fechas para añadirlas o quitarlas
@@ -96,56 +126,95 @@ es:
     courses: Cursos
     current: Cursos actuales
     duration: Duración del curso
+    edit_course_dates: Editar las fechas del curso
     error:
       exists: Ese curso ya existe. Intenta de nuevo con un título, escuela o período
         diferentes.
       user_exists: Lo siento, %{username} no es un usuario existente.
-    expected_students: Estudiantes Esperados
+    expected_students: Estudiantes esperados
     gradeables_none: Este curso no tiene tareas calificables.
     instructor:
       one: Docente
       other: Docentes
     instructors: Instructores
+    invitation: |-
+      Te han invitado a unirte a %{title}. Para participar en el curso, debes iniciar sesión con una cuenta de Wikipedia.
+      Si no tienes una cuenta de Wikipedia, regístrate ahora.
+    join: Unirse
+    join_prompt: ¿Unirse a '%{title}'?
+    join_successful: Te has unido con éxito a %{title}.
     milestones_none: Este curso actualmente no tiene ningún hito.
     new_week: Agregar una semana nueva
     nocourses: No participas de ningún curso.
     overview: Resumen
-    published: '¡Tu curso ha sido publicado! Los estudiantes pueden matricularse en
+    published: '¡Tu curso ha sido publicado! Los estudiantes pueden inscribirse en
       el curso visitando la siguiente URL:'
+    review_timeline: Revisa este cronograma y haz cambios. Una vez que estés satisfecho
+      con tu cronograma, preséntalo para que lo apruebe el personal de Wiki Ed. Una
+      vez aprobado, recibirás un URL de inscripción que los estudiantes pueden utilizar
+      para unirse al curso. (Todavía podrás hacer cambios más adelante.)
     revisions_doc: El número de ediciones en los últimos %{timeframe} días
     revisions_none: Este curso no tiene ediciones recientes en Wikipedia.
     school: Escuela
     students: Estudiantes
+    students_count: '# Estudiantes'
     student_editors: Editores estudiantiles
     students_none: Este curso no tiene estudiantes.
     students_short: Estudiantes
+    submitted_admin: Este curso se ha presentado para su aprobación por parte de su
+      creador. Para aprobarlo, añádelo a una cohorte en la página de información general.
+    submitted_and_pending_heading: Presentado y pendiente de aprobación
+    submitted_heading: Cursos presentados
+    submitted_note: Tu curso se ha presentado. Personal de Wiki Ed lo revisará y se
+      pondrá en contacto ante cualquier pregunta.
     term: Término
     timeline: Detalles de la tarea
+    timeline_link: Cronograma
     title: Título
+    training_due: El módulo de entrenamiento "%{title}" está asignado para este curso,
+      y se espera el %{date}.
+    training_nav: Ir al entrenamiento
+    training_overdue: El módulo de entrenamiento "%{title}" está asignado para este
+      curso, y se esperaba el %{date}.
+    unsubmitted: Cursos no presentados
+    uploads_none: Esta clase no ha contribuido con ninguna imagen o archivo multimedia
+      a Wikimedia Commons.
     weeks_none: Este curso aún no tiene un cronograma.
     view: Ver curso
-    view_doc: La suma de todas las visitas a artículos editados por estudiantes desde
-      que ellos hicieron su primera edición en cada artículo
+    view_doc: La suma de todas las visitas a artículos editados por editores inscriptos
+      desde que el editor hizo su primera edición en cada artículo
+    view_page: Ver la página del curso
     view_wiki: Ver en Wikipedia
     volunteer:
       one: Voluntario
       other: Voluntarios
+    warn_mirrored: |-
+      Tras la presentación, este curso se enviará automáticamente a Wikipedia con tu cuenta de usuario. Después de eso, las ediciones nuevas al cronograma se reflejarán en Wikipedia.
+      ¿Estás seguro de que quieres hacer esto?
     wiki_staff: Personal de Wiki Ed
     word_count_doc: Una estimación del número de palabras agregadas a los artículos
       del espacio principal por parte de los estudiantes durante el período del curso
     yourcourses: Tus cursos
   courses_generic:
-    assignment_end: Final de la linea de tiempo
+    articles_none: No hay artículos editados para este proyecto aún.
+    assignment_end: Final del cronograma
     assignments_none: Este curso no tiene artículos de Wikipedia asignados.
-    assignment_start: Línea de Tiempo Inicio
+    assignment_start: Inicio del cronograma
+    edit_course_dates: Editar las fechas del proyecto
+    expected_students: Editores esperados
     instructors: Facilitadores
-    milestones_none: Este curso actualmente no tiene ningún hito.
-    revisions_none: Este curso no tiene ediciones recientes en Wikipedia.
+    milestones_none: Este proyecto actualmente no tiene ningún hito.
+    published: '¡Este proyecto ha sido publicado! Los editores pueden inscribirse
+      visitando el siguiente URL:'
+    revisions_none: Este proyecto no tiene ediciones recientes en Wikipedia.
     school: Institución
     student_editors: Editores
+    students: Editores
     students_none: Este proyecto no tiene editores inscriptos.
     students_short: Editores
     term: Cuando
+    uploads_none: Este proyecto no ha contribuido con ninguna imagen o archivo multimedia
+      a Wikimedia Commons.
   course_creator:
     cloned_course_calendar_instructions: Selecciona fechas para añadirlas o quitarlas
       del calendario (por ejemplo, vacaciones, cuando no hay clases). Haz clic en
@@ -158,9 +227,12 @@ es:
     course_subject: Tema del curso
     course_term: Período del curso
     course_title: Título del curso
+    create_label: Crear curso nuevo
     create_new: Crear un curso nuevo
+    create_short: Crear curso
     end_date: Fecha de finalización
     expected_number: Número de estudiantes esperado
+    find: Encuentra tu curso
     intro: El título, la escuela y el plazo crean la dirección URL de la página del
       curso, y no pueden cambiarse. Todo lo demás puede editarse luego. Haz clic en
       "Crear mi curso" para iniciar la construcción del cronograma para tu tarea en
@@ -201,7 +273,12 @@ es:
       esté ejecutándose.
     paused: La tarea %{task} no se puede ejecutar porque se han pausado las actualizaciones
       programadas. Ejecuta 'rake batch:resume' para reanudar las actualizaciones.
+  training:
+    continue: Continuar (%{progress})
+    start: Iniciar
+    view: Ver
   uploads:
+    label: Subidas
     loading: Cargando subidas...
     none: Esta clase no ha contribuido con ninguna imagen o archivo multimedia a Wikimedia
       Commons.
@@ -227,6 +304,7 @@ es:
       7 días
     reviewers: Revisor(es)
     reviewing: Revisando
+    student_editors: Editores estudiantiles
     training_complete:
       one: ha completado el entrenamiento
       other: han completado el entrenamiento
@@ -287,8 +365,8 @@ es:
       mantenimiento de este panel para informarles sobre el problema.
   error_incorrect_passcode:
     header: Código de acceso incorrecto. :-(
-    explanation: El código de acceso para matricularse en este curso, es incorrecta.
-      Pregunta al instructor por el código de acceso actual para inscribirse en este
+    explanation: El código de acceso para inscribirse en este curso es incorrecta.
+      Pregunta al instructor por el código de acceso actual para inscribirte en este
       curso.
   error_404:
     header: No se encontró la página. :-(
@@ -305,6 +383,8 @@ es:
       de este panel para informarles sobre el problema.
   login_error:
     header: Error de inicio de sesión
+    explanation: Parece que hubo un problema con el proceso de registro. (Lo sentimos.
+      Esto sucede ocasionalmente.) Intenta iniciar sesión o inscribirte de nuevo.
   timeline:
     blackout_week_created: Hay bloques programados para esta semana. Muévelos a otra
       semana antes de quitar la última reunión de la clase de esta semana.
