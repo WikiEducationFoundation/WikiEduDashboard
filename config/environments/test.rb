@@ -11,6 +11,8 @@ ENV['cohort_spring_2015'] = 'Wikipedia:Education_program/Dashboard/course_ids'
 ENV['sentry_dsn'] = 'http://somelongkey:anotherlongkey@sentry.myserver.com/1'
 ENV['sentry_public_dsn'] = 'http://anotherlongkey@sentry.myserver.com/1'
 ENV['no_views'] = 'false'
+ENV['disable_onboarding'] = 'false'
+ENV['disable_training'] = 'false'
 
 Rails.application.configure do
   # Settings specified here will take
