@@ -13,6 +13,12 @@ class SelfEnrollmentController < ApplicationController
 
     set_course
 
+    # Don't allow users to self-enroll if the course has already ended.
+    if course_ended?
+      redirect_to course_slug_path(@course.slug)
+      return
+    end
+
     # Redirect to sign in (with callback leading back to this method)
     if current_user.nil?
       handle_logged_out_user
@@ -49,6 +55,10 @@ class SelfEnrollmentController < ApplicationController
     @course = Course.find_by_slug(params[:course_id])
     # Check if the course exists
     fail ActionController::RoutingError, 'Course not found' if @course.nil?
+  end
+
+  def course_ended?
+    @course.end < Time.zone.now
   end
 
   def handle_logged_out_user
