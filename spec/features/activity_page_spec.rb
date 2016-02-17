@@ -6,10 +6,6 @@ describe 'activity page', type: :feature, js: true do
   end
 
   before :each do
-    create(:cohort,
-           id: 1,
-           title: 'Fall 2015')
-
     login_as(user, scope: :user)
     visit '/'
   end

@@ -1,10 +1,6 @@
 require 'rails_helper'
 
 describe 'sitenotice', type: :feature do
-  before do
-    create(:cohort)
-  end
-
   before :each do
     ENV['sitenotice'] = notice
   end

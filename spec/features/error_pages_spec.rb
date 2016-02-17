@@ -11,8 +11,6 @@ describe 'error pages' do
         'action_dispatch.show_detailed_exceptions' => false
       )
     end
-
-    create(:cohort)
   end
 
   describe 'for non-existent courses' do
