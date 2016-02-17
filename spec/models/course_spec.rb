@@ -534,6 +534,11 @@ describe Course, type: :model do
       expect(course.class).to eq(ClassroomProgramCourse)
     end
 
+    it 'allows BasicCourse type' do
+      course.update_attributes(type: 'BasicCourse')
+      expect(Course.last.class).to eq(BasicCourse)
+    end
+
     it 'allows VisitingScholarship type' do
       course.update_attributes(type: 'VisitingScholarship')
       expect(Course.last.class).to eq(VisitingScholarship)
@@ -555,10 +560,13 @@ describe Course, type: :model do
       expect(Course.last.class).to eq(ClassroomProgramCourse)
     end
 
-    it 'implements #string_prefix for every course type' do
+    it 'implements #string_prefix and #wiki_edits_enabled? for every course type' do
       Course::COURSE_TYPES.each do |type|
         create(:course, type: type)
-        expect(Course.last.string_prefix).to be_a(String)
+        course = Course.last
+        expect(course.type).to eq(type)
+        expect(course.string_prefix).to be_a(String)
+        expect(course.wiki_edits_enabled?).to be_in([true, false])
       end
     end
   end

@@ -50,6 +50,9 @@
 # EducationProgram extension (DEPRECATED).
   enable_legacy_courses: 'false'
 
+# Set the default course type for newly created courses.
+# default_course_type: ClassroomProgramCourse
+
 # Setting enable_article_finder to 'true' enables the prototype article_finder
 # tool. Large queries can make the app unresponsive, so it's not ready for
 # production yet.

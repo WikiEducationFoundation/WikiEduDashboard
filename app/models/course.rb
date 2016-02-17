@@ -122,6 +122,7 @@ class Course < ActiveRecord::Base
     ClassroomProgramCourse
     VisitingScholarship
     Editathon
+    BasicCourse
   )
   validates_inclusion_of :type, in: COURSE_TYPES
 
