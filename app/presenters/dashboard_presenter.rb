@@ -72,6 +72,7 @@ class DashboardPresenter
 
   # Determine if an instructor has completed orientation
   def instructor_has_completed_orientation?
+    return true if ENV['disable_onboarding'] == 'true'
     TrainingModulesUsers
       .where(training_module_id: ORIENTATION_ID)
       .where(user_id: current_user.id)
