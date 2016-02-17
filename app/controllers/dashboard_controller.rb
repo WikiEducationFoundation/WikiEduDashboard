@@ -3,6 +3,11 @@ class DashboardController < ApplicationController
   respond_to :html
 
   def index
+    unless current_user
+      redirect_to root_path
+      return
+    end
+
     current = current_user.courses.current_and_future.listed
     past = current_user.courses.archived.listed
     submitted = []

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe SelfEnrollmentController do
   describe '#enroll_self' do
-    let!(:course) { create(:course) }
+    let(:course) { create(:course, end: Time.zone.today + 1.week) }
     let(:request_params) do
       { course_id: course.slug, passcode: course.passcode, titleterm: 'foobar' }
     end
@@ -33,6 +33,17 @@ describe SelfEnrollmentController do
                  user_id: user.id,
                  role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
         end
+
+        it 'redirects without enrolling the user' do
+          expect_any_instance_of(WikiCourseEdits).not_to receive(:enroll_in_course)
+          get 'enroll_self', request_params
+          expect(subject).to eq(302)
+          expect(course.students.count).to eq(0)
+        end
+      end
+
+      context 'when the course has already ended' do
+        let(:course) { create(:course, end: 1.day.ago) }
 
         it 'redirects without enrolling the user' do
           expect_any_instance_of(WikiCourseEdits).not_to receive(:enroll_in_course)

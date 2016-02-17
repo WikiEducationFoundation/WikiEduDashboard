@@ -10,7 +10,10 @@ Rails.application.routes.draw do
   # Sessions
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
   devise_scope :user do
-    get 'sign_in', to: 'devise/sessions#new', as: :new_user_session
+    # OmniAuth may fall back to :new_user_session when the OAuth flow fails.
+    # So, we treat it as a login error.
+    get 'sign_in', to: 'errors#login_error', as: :new_user_session
+
     get 'sign_out', to: 'users#signout', as: :destroy_user_session
     get 'sign_out_oauth', to: 'devise/sessions#destroy',
                           as: :true_destroy_user_session
