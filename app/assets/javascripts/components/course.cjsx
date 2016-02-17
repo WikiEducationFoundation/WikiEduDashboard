@@ -167,7 +167,7 @@ Course = React.createClass(
             <p>{I18n.t("courses.invitation", title: @state.course.title)}</p>
             <p>
               <a href={"/users/auth/mediawiki?origin=" + window.location} className="button auth dark"><i className="icon icon-wiki-logo"></i> {I18n.t("application.log_in_extended")}</a>
-              <a href={"/users/auth/mediawiki_signup?origin=" + window.loaction} className="button auth signup border"><i className="icon icon-wiki-logo"></i> {I18n.t("application.sign_up_extended")}</a>
+              <a href={"/users/auth/mediawiki_signup?origin=" + window.location} className="button auth signup border"><i className="icon icon-wiki-logo"></i> {I18n.t("application.sign_up_extended")}</a>
             </p>
           </div>
         )
