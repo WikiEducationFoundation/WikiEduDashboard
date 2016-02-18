@@ -158,7 +158,7 @@ Permissions = React.createClass(
         <div className="intro permissions">
           <h1>Permissions</h1>
           <p>
-            Once you´ve signed in, this website will make automatic edits using your Wikipedia account, reflecting actions you take here. Your account will be used to update wiki pages when:
+            Once you´ve signed in, this website will make automatic edits using your Wikipedia account, reflecting actions you take here. Your account will be used to update wiki pages to:
           </p>
           <ul>
             <li>set up a sandbox page where you can practice editing</li>
