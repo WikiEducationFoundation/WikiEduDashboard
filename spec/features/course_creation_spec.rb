@@ -100,7 +100,6 @@ describe 'New course creation and editing', type: :feature do
   end
 
   before :each do
-    create(:cohort)
     user = create(:user,
                   id: 1,
                   permissions: User::Permissions::INSTRUCTOR)
@@ -452,7 +451,6 @@ describe 'timeline editing', js: true do
 
   before do
     set_up_suite
-    create(:cohort)
     login_as user, scope: :user, run_callbacks: false
   end
 
@@ -542,7 +540,6 @@ describe 'cloning a course', js: true do
 
   it 'copies relevant attributes of an existing course' do
     pending 'fixing the intermittent failures on travis-ci'
-    create(:cohort)
     login_as user, scope: :user, run_callbacks: false
     visit root_path
 

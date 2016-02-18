@@ -201,7 +201,7 @@ describe CoursesController do
 
   describe '#list' do
     let(:course) { create(:course) }
-    let(:cohort) { create(:cohort) }
+    let(:cohort) { Cohort.last }
     let(:user)   { create(:admin) }
 
     before do

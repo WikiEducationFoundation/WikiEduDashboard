@@ -70,15 +70,15 @@ describe CoursesPresenter do
 
     context 'cohorts' do
       context 'default cohort' do
-        let!(:cohort)      { create(:cohort, slug: default) }
-        let(:default)      { Figaro.env.default_cohort }
+        let(:cohort) { Cohort.find_by(slug: ENV['default_cohort']) }
+        let(:default) { ENV['default_cohort'] }
         let(:cohort_param) { default }
         it 'returns default cohort' do
           expect(subject).to eq(cohort)
         end
       end
       context 'valid cohort' do
-        let!(:cohort) { create(:cohort) }
+        let!(:cohort) { create(:cohort, slug: 'foo') }
         let(:cohort_param) { cohort.slug }
         it 'returns that cohort' do
           expect(subject).to eq(cohort)

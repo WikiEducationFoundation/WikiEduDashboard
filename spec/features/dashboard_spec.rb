@@ -7,10 +7,6 @@ describe 'dashboard', type: :feature, js: true do
            email: 'email@email.com', permissions: permissions)
   end
 
-  before do
-    create(:cohort)
-  end
-
   context 'with no courses' do
     describe 'for students' do
       let(:permissions) { User::Permissions::NONE }

@@ -10,7 +10,7 @@ end
 
 describe 'the explore page', type: :feature do
   before do
-    cohort = create(:cohort)
+    cohort = Cohort.first
     cohort_two = create(:cohort_two)
 
     (1..cohort_course_count).each do |i|

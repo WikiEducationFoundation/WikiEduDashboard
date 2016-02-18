@@ -40,7 +40,6 @@ describe 'timeline editing', type: :feature, js: true do
     Capybara.current_driver = :selenium
     page.current_window.resize_to(1920, 1080)
 
-    create(:cohort)
     create_course
     login_as create(:admin)
     stub_oauth_edit

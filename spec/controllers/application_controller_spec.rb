@@ -18,7 +18,6 @@ describe ApplicationController do
 
   describe 'invalid authenticity tokens' do
     it 'should return a 401' do
-      create(:cohort)
       exception = ActionController::InvalidAuthenticityToken.new('Unauthorized')
       allow(controller).to receive(:current_user).and_return(user)
       allow(controller).to receive(:check_for_unsupported_browser).and_raise(exception)

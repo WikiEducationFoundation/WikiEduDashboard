@@ -4,7 +4,6 @@ require "#{Rails.root}/lib/training_module"
 DESIRED_TRAINING_MODULE_IDS = [2]
 
 describe 'Training', type: :feature, js: true do
-  let(:cohort) { create(:cohort) }
   let(:user)   { create(:user, id: 1) }
   let(:module_2) { TrainingModule.find(2) } # Policies and Guidelines module
 
