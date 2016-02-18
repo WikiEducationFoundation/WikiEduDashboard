@@ -80,7 +80,7 @@ en:
   activity:
     all: Activity
     edited_by: Edited By
-    label: Activities
+    label: Activity
 
   articles:
     assigned: Assigned Articles
