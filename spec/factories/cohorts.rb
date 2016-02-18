@@ -12,9 +12,8 @@
 
 FactoryGirl.define do
   factory :cohort do
-    title 'Spring 2015'
-    slug 'spring_2015'
-    url 'Wikipedia:Education_program/Dashboard/course_ids'
+    title 'Spring 2016'
+    slug 'spring_2016'
   end
 
   factory :cohort_two, class: Cohort do
