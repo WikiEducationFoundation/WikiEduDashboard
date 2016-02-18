@@ -10,6 +10,7 @@
 #  article_id    :integer
 #  article_title :string(255)
 #  role          :integer
+#  wiki_id       :integer
 #
 
 FactoryGirl.define do
@@ -22,6 +23,7 @@ FactoryGirl.define do
     course_id 481
     article_id 124_884_99
     article_title 'Siderocalin'
+    wiki
   end
 
   # article that does not exist
@@ -33,5 +35,6 @@ FactoryGirl.define do
     course_id 481
     article_id nil
     article_title 'Faecal calprotectin'
+    wiki
   end
 end
