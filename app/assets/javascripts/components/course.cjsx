@@ -143,7 +143,7 @@ Course = React.createClass(
               <a href={@_courseLinkParams()}>
                 <svg className="close" tabIndex="0" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" style={{"fill":"currentcolor", "verticalAlign": "middle", "width":"32px", "height":"32px"}}><g><path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"></path></g></svg>
               </a>
-              <h1>{I18n.t("courses.join_prompt", title: @state.course.title)}</h1>
+              <h1>{I18n.t("courses.join_prompt", title: @state.course.title) if @state.course.title?}</h1>
               <a className="button dark" href={@state.course.enroll_url + @props.location.query.enroll}>{I18n.t("courses.join")}</a>
               <a className="button border" href={@_courseLinkParams()}>{I18n.t("application.cancel")}</a>
             </div>
