@@ -186,6 +186,7 @@ Timeline = React.createClass(
           empty_timeline=true
           timeline_start={@props.course.timeline_start}
           timeline_end={moment(@props.course.timeline_start).add(6, 'day')}
+          edit_permissions={@props.edit_permissions}
         />
       )
 

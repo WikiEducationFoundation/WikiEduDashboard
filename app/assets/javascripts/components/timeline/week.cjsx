@@ -133,6 +133,7 @@ Week = React.createClass(
         empty_timeline={@props.empty_timeline}
         addWeek={@addWeek}
         course={@props.course}
+        edit_permissions={@props.edit_permissions}
       />
     )
 
