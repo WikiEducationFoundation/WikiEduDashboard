@@ -89,57 +89,52 @@ class WikiEdits
   ###############
   # API methods #
   ###############
-  class << self
-    private
+  private
 
-    def api_post(data, current_user)
-      return {} if ENV['disable_wiki_output'] == 'true'
-      tokens = get_tokens(current_user)
-      return tokens unless tokens['csrf_token']
-      data.merge! token: tokens.csrf_token
-      language = ENV['wiki_language']
-      url = "https://#{language}.wikipedia.org/w/api.php"
+  def api_post(data, current_user)
+    return {} if ENV['disable_wiki_output'] == 'true'
+    tokens = get_tokens(current_user)
+    return tokens unless tokens['csrf_token']
+    data.merge! token: tokens.csrf_token
 
-      # Make the request
-      response = tokens.access_token.post(url, data)
-      response_data = JSON.parse(response.body)
-      WikiResponse.capture(response_data, current_user: current_user,
-                                          post_data: data,
-                                          type: 'edit')
-      response_data
-    end
+    # Make the request
+    response = tokens.access_token.post(@wiki.api_url, data)
+    response_data = JSON.parse(response.body)
+    WikiResponse.capture(response_data, current_user: current_user,
+                                        post_data: data,
+                                        type: 'edit')
+    response_data
+  end
 
-    def get_tokens(current_user)
-      return { status: 'no current user' } unless current_user
-      lang = ENV['wiki_language']
-      @consumer = oauth_consumer(lang)
-      @access_token = oauth_access_token(@consumer, current_user)
-      # rubocop:disable Metrics/LineLength
-      get_token = @access_token.get("https://#{lang}.wikipedia.org/w/api.php?action=query&meta=tokens&format=json")
-      # rubocop:enable Metrics/LineLength
+  def get_tokens(current_user)
+    return { status: 'no current user' } unless current_user
+    @consumer = oauth_consumer()
+    @access_token = oauth_access_token(@consumer, current_user)
+    # rubocop:disable Metrics/LineLength
+    get_token = @access_token.get("#{@wiki.api_url}?action=query&meta=tokens&format=json")
+    # rubocop:enable Metrics/LineLength
 
-      token_response = JSON.parse(get_token.body)
-      WikiResponse.capture(token_response, current_user: current_user,
-                                           type: 'tokens')
-      return { status: 'failed' } unless token_response.key?('query')
-      OpenStruct.new(
-        csrf_token: token_response['query']['tokens']['csrftoken'],
-        access_token: @access_token
-      )
-    end
+    token_response = JSON.parse(get_token.body)
+    WikiResponse.capture(token_response, current_user: current_user,
+                                         type: 'tokens')
+    return { status: 'failed' } unless token_response.key?('query')
+    OpenStruct.new(
+      csrf_token: token_response['query']['tokens']['csrftoken'],
+      access_token: @access_token
+    )
+  end
 
-    def oauth_consumer(lang)
-      OAuth::Consumer.new ENV['wikipedia_token'],
-                          ENV['wikipedia_secret'],
-                          client_options: {
-                            site: "https://#{lang}.wikipedia.org"
-                          }
-    end
+  def oauth_consumer
+    OAuth::Consumer.new ENV['wikipedia_token'],
+                        ENV['wikipedia_secret'],
+                        client_options: {
+                          site: @wiki.base_url.gsub('/$', '')
+                        }
+  end
 
-    def oauth_access_token(consumer, current_user)
-      OAuth::AccessToken.new consumer,
-                             current_user.wiki_token,
-                             current_user.wiki_secret
-    end
+  def oauth_access_token(consumer, current_user)
+    OAuth::AccessToken.new consumer,
+                           current_user.wiki_token,
+                           current_user.wiki_secret
   end
 end
