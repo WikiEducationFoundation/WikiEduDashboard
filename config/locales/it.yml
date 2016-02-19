@@ -14,7 +14,7 @@ it:
     explore: Esplora
     greeting2: Benvenuto/a!
     greeting_extended: Benvenuto su Wikipedia
-    greeting: Ciao,
+    greeting: Ciao!
     help: Aiuto
     home: Pagina principale
     log_in_extended: Accedi con Wikipedia
@@ -32,9 +32,10 @@ it:
     create_note: Clicca su "Crea corso" per creare il tuo primo corso.
     explore_course_pages: Esplora le pagine del corso
     explore_examples: Esplora esempi
-    join_note: Una volta che si riceve un codice di accesso dal tuo istruttore, fare
-      clic su Trova il Tuo Corso per trovare e unirsi a esso.
+    join_note: Una volta che ricevi il codice di accesso dal tuo insegnante, clicca
+      su "Trova il tuo corso" per trovarlo e unirti ad esso.
     no_courses_instructor: Sembra che tu non abbia alcun corso.
+    no_courses_student: Sembra che non ti si è ancora iscritto a un corso.
     start_orientation: Inizia orientamento
   home:
     explore: Esplora
@@ -53,6 +54,7 @@ it:
     edited_mobile: Voci
     label: Voci
     loading: Caricamento articoli...
+    no_assignee: Nessun utente assegnato
     none: Questo corso non ha modificato alcuna voce.
     rating: Classe
     rating_docs:
@@ -79,11 +81,12 @@ it:
     none_short: Nessuna voce assegnata
     none: Questo corso non ha assegnato voci di Wikipedia.
     reviewers: Revisori
-    review_self: La revisione di un articolo
+    review_self: Revisiona una voce
   cohort:
     none: Nessuno
   courses:
     activity: Attività
+    already_enrolled: Fai già parte di '%{title}'!
     archived: Corsi archiviati
     articles: Voci
     articles_none: Questo corso non ha modificato alcuna voce.
@@ -101,13 +104,18 @@ it:
       exists: Quel corso esiste già! Riprova con un differente titolo, scuola o termine.
       user_exists: Spiacenti, %{username} non è un utente esistente.
     expected_students: Studenti previsti
+    instructor:
+      one: Insegnante
+      other: Insegnanti
     instructors: Insegnanti
     join: Unisciti
-    join_successful: hai partecipato con successo
+    join_prompt: Unirsi a '%{title}'?
+    join_successful: Hai aderito con successo a %{title}.
     milestones_none: Questo corso attualmente non ha pietre miliari.
     new_week: Aggiungi nuova settimana
     nocourses: Non stai partecipando ad alcun corso.
     overview: Panoramica
+    passcode: Codice di accesso
     published: 'Il tuo corso è stato pubblicato! Gli studenti possono iscriversi al
       corso, visitando il seguente URL:'
     revisions_none: Questo corso non ha attività di modifica recente su Wikipedia.
@@ -119,13 +127,20 @@ it:
     students_short: Studenti
     submitted_admin: Questo corso è stato presentato per l'approvazione da parte del
       suo creatore. Per approvarlo, aggiungerlo a un gruppo nella pagina panoramica.
-    submitted_note: Il corso è stato presentato. il personale di Wiki Ed lo controllerà
+    submitted_and_pending_heading: Presentato e in attesa di approvazione
+    submitted_heading: Corsi presentati
+    submitted_note: Il tuo corso è stato presentato. Il personale di Wiki Ed lo controllerà
       e si metterà in contatto per tutte le domande.
     term: Termine
     timeline: Dettagli dell'incarico
     timeline_link: Timeline
     title: Titolo
-    training_nav: vai al corso
+    training_due: Il modulo di formazione "%{title}" è stato assegnato per questo
+      corso, ed è previsto per il %{date}.
+    training_nav: Vai alla formazione
+    training_overdue: Il modulo di formazione "%{title}" è stato assegnato per questo
+      corso, ed era previsto per il %{date}.
+    unsubmitted: Corsi non presentati
     uploads_none: Questa classe non ha contribuito con alcuna immagine o altri file
       multimediali su Wikimedia Commons.
     weeks_none: Questo corso non ha ancora una linea temporale.
@@ -226,6 +241,8 @@ it:
     training_doc: Gli utenti che hanno completato tutti i moduli di formazione da
       fare sono considerati come utenti aggiornati  per quanto riguarda la loro formazione.
     training_incomplete: Formazione incompleta
+    training_modules_completed: '%{completed_count}/%{assigned_count} moduli formativi
+      completati'
     up_to_date_with_training: aggiornato con la formazione
   wizard:
     assignment_dates: Date di assegnazione
@@ -240,7 +257,7 @@ it:
   error_401:
     header: Non autorizzato. >:-(
   error_incorrect_passcode:
-    header: Codice non corretto. :-(
+    header: Codice di accesso non corretto. :-(
     explanation: Il codice per iscriversi a questo corso non è corretto. Chiedi all'insegnate
       il codice attuale per iscriversi a questo corso.
   error_404:

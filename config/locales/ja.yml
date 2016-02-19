@@ -11,7 +11,7 @@ ja:
     dashboard: Wiki Ed ダッシュボード
     greeting2: ようこそ!
     greeting_extended: ウィキペディアへようこそ
-    greeting: こんにちは,
+    greeting: こんにちは!
     help: ヘルプ
     home: ホーム
     log_in_extended: ウィキペディアでログイン
@@ -63,6 +63,7 @@ ja:
     join_successful: 「%{title}」に参加しました。
     new_week: 新しい週の追加
     overview: 概要
+    passcode: パスコード
     school: 学校
     students: 学生
     student_editors: 学生の編集者

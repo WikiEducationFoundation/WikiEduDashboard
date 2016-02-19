@@ -1,6 +1,7 @@
 # Messages for Russian (русский)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Aram1985
 # Author: INS Pirat
 # Author: Iniquity
 # Author: Nzeemin
@@ -116,7 +117,7 @@ ru:
   courses_generic:
     student_editors: Редакторы
     students: Редакторы
-    students_short: Редакторы
+    students_short: Խմբագիրներ
     term: Когда
   course_creator:
     course_description: Описание курса

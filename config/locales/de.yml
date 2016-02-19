@@ -11,7 +11,7 @@ de:
     explore: Entdecken
     greeting2: Willkommen!
     greeting_extended: Willkommen bei Wikipedia
-    greeting: Hallo,
+    greeting: Hallo!
     help: Hilfe
     home: Start
     log_in_extended: Mit Wikipedia anmelden
@@ -142,6 +142,7 @@ de:
     new_week: Neue Woche hinzufügen
     nocourses: Du nimmst an keinen Kursen teil.
     overview: Übersicht
+    passcode: Passcode
     published: 'Dein Kurs wurde veröffentlicht! Studenten können sich beim Aufrufen
       der folgenden URL in den Kurs einschreiben:'
     review_timeline: Bitte überprüfe diese Zeitleiste und führe Änderungen durch.
@@ -308,6 +309,8 @@ de:
     training_doc: Autoren, die alle zugewiesenen fälligen Ausbildungsmodule vervollständigt
       haben, werden mit ihrer Ausbildung als „auf dem Laufenden“ gezählt.
     training_incomplete: Ausbildung unvollständig
+    training_modules_completed: '%{completed_count} von %{assigned_count} Ausbildungsmodulen
+      abgeschlossen'
     up_to_date_with_training: mit der Ausbildung auf dem Laufenden
   wiki_edits:
     notify_overdue:

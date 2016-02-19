@@ -14,7 +14,7 @@ es:
     explore: Explorar
     greeting2: ¡Bienvenidos!
     greeting_extended: Bienvenido a Wikipedia
-    greeting: Hola,
+    greeting: ¡Hola!
     help: Ayuda
     home: Inicio
     log_in_extended: Inicia sesión con Wikipedia
@@ -147,6 +147,7 @@ es:
     new_week: Agregar una semana nueva
     nocourses: No participas de ningún curso.
     overview: Resumen
+    passcode: Código de acceso
     published: '¡Tu curso ha sido publicado! Los estudiantes pueden inscribirse en
       el curso visitando la siguiente URL:'
     review_timeline: Revisa este cronograma y haz cambios. Una vez que estés satisfecho

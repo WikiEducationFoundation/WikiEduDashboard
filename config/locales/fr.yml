@@ -15,7 +15,7 @@ fr:
     explore: Explorer
     greeting2: Bienvenue !
     greeting_extended: Bienvenue dans Wikipédia
-    greeting: Bonjour,
+    greeting: Bonjour !
     help: Aide
     home: Accueil
     log_in_extended: Se connecter à Wikipédia
@@ -147,6 +147,7 @@ fr:
     new_week: Ajouter une nouvelle semaine
     nocourses: Vous ne participez à aucun cours.
     overview: Vue d'ensemble
+    passcode: Mot de passe
     published: 'Votre cours a été publié ! Les étudiants peuvent s’inscrire au cours
       via l’URL suivante :'
     review_timeline: Veuillez consulter ce calendrier et faire les modifications.
@@ -312,6 +313,8 @@ fr:
     training_doc: Les éditeurs qui ont terminé tous les modules de formation échus
       qui leur ont été affectés sont comptabilisés comme à jour de leur formation.
     training_incomplete: Formation non terminée
+    training_modules_completed: '%{completed_count}/%{assigned_count} modules de formation
+      terminés'
     up_to_date_with_training: formation à jour
   wiki_edits:
     notify_overdue:

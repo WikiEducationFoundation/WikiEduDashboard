@@ -9,6 +9,7 @@ pl:
   application:
     cancel: Anuluj
     explore: Odkryj
+    greeting: Witaj!
     help: Pomoc
     home: Strona główna
     log_in: Zaloguj się

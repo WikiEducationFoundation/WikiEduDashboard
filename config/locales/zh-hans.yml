@@ -11,7 +11,7 @@ zh-hans:
     explore: 浏览
     greeting2: 欢迎！
     greeting_extended: 欢迎来到维基百科
-    greeting: 您好，
+    greeting: 您好！
     help: 帮助
     home: 首页
     log_in_extended: 登录维基百科
@@ -124,6 +124,7 @@ zh-hans:
     new_week: 添加新的一周
     nocourses: 您未参加任何课程。
     overview: 概述
+    passcode: 密码
     published: 您的课程已发布！学生们可以通过下面的URL报名课程：
     review_timeline: 请检查该时间表，并作出更改。一旦您对您的时间表感到满意，将其提交给Wiki Ed职员以待批准。一旦获得批准，您将得到一个登记URL，学生可以使用它加入课程。（您仍然可以稍后编辑。）
     revisions_doc: 过去%{timeframe}天内的编辑数
@@ -134,6 +135,7 @@ zh-hans:
     student_editors: 学生编辑者
     students_none: 此课程没有学生。
     students_short: 学生
+    submitted_admin: 该课程已由创建者提交待通过。要通过它，将其添加至概述页面的同期群中。
     submitted_and_pending_heading: 已提交并等待批准
     submitted_heading: 提交的课程
     submitted_note: 您的课程已提交。Wiki Ed职员将复核它，并与您在任何问题上取得联系。
@@ -246,6 +248,7 @@ zh-hans:
       other: 最新的培训
     training_complete_count: '%{count}最近的培训'
     training_incomplete: 培训未完成
+    training_modules_completed: '%{completed_count}/%{assigned_count}培训模块已完成'
     up_to_date_with_training: 最近培训
   wiki_edits:
     notify_overdue:

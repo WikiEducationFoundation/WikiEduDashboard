@@ -15,7 +15,7 @@ nl:
     greeting: Hallo,
     help: Help
     home: Startpagina
-    log_in_extended: Aanmelden met Wikipedia
+    log_in_extended: Aanmelden bij Wikipedia
     log_in: Aanmelden
     log_out: Afmelden
     my_dashboard: Mijn dashboard
@@ -37,7 +37,7 @@ nl:
       de cursustermijn is toegevoegd
     edited: Pagina's bewerkt
     edited_mobile: Pagina's
-    label: Artikelen
+    label: Pagina's
     loading: Bezig met pagina's laden...
     no_assignee: Geen gebruiker toegewezen
     none: Deze cursus heeft geen bewerkte pagina's.
@@ -199,9 +199,9 @@ nl:
     confirm_dates: Kies de cursusdatums, wekelijkse oplevermomenten en vakanties voor
       uw cursus.
     course_dates: Cursusdatums
-    min_weeks: Voor deze opdracht zijn tenminste %{min_weeks} beschikbare weken nodig.
+    min_weeks: Voor deze opdracht zijn ten minste %{min_weeks} beschikbare weken nodig.
       Pas de begin- en einddatum aan als u dit type opdracht wilt gebruiken.
-    minimum_options: Selecteer tenminste %{minimum} optie(s).
+    minimum_options: Selecteer ten minste %{minimum} optie(s).
     read_less: Minder lezen
     read_more: Meer lezen
     review_selections: Controleer uw keuzes. Klik om een keuze te bewerken. Klik op

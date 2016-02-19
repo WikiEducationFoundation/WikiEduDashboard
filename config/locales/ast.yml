@@ -5,21 +5,33 @@
 ---
 ast:
   application:
+    cancel: Encaboxar
     dashboard: Tableru de Wiki Ed
     explore: Esplorar
+    greeting2: ¡Bienveníu!
+    greeting_extended: Bienveníu a Wikipedia
+    greeting: Bones
     help: Ayuda
     home: Entamu
+    log_in_extended: Aniciar sesión con Wikipedia
     log_in: Aniciar sesión
     log_out: Salir
     my_dashboard: El mio tableru
     recent_activity: Actividá recién
     search: buscar en ask.wikiedu.org
+    sign_up_extended: Rexístrate con Wikipedia
     sign_up_log_in_extended: con Wikipedia
     sign_up: Date d'alta
+    submit: Unviar
     training: Prauticar
   dashboard:
+    create_note: Fai click en Crear cursu pa crear el to primer cursu.
     explore_course_pages: Esplorar les Páxines del cursu
     explore_examples: Esplorar exemplos
+    join_note: En recibiendo un códigu d'accesu del to monitor, fai click en Alcuentra'l
+      to cursu p'alcontralu y xunite.
+    no_courses_instructor: Paez que nun tienes nengún cursu.
+    no_courses_student: Paez qu'inda nun te xunisti a un cursu.
     opt_out: Solicitar dar de baxa la orientación
   home:
     explore: Esplorar
@@ -207,8 +219,8 @@ ast:
       one: ta al día col entrenamientu
       other: tán al día col entrenamientu
     training_complete_count: '%{count} entrenamientu al día'
-    training_doc: Los editores estudiantes que completaron tolos módulos d'entrenamientu
-      designaos que tean vencíos cuéntense como al día col entrenamientu.
+    training_doc: Los editores que completaron tolos módulos d'entrenamientu designaos
+      que tean vencíos cuéntense como al día col entrenamientu.
     training_incomplete: Entrenamientu incompletu
     up_to_date_with_training: al día col entrenamientu
   wiki_edits:

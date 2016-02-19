@@ -7,7 +7,7 @@ om:
   application:
     cancel: Dhiisi
     greeting2: Anaa dhufu!
-    greeting: Akkam jirtan,
+    greeting: Akkam jirtan!
     submit: Ergi
   activity:
     label: Hojiiwwan

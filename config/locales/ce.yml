@@ -5,6 +5,7 @@
 ---
 ce:
   application:
+    greeting: Маршалла!
     help: ГӀо
     log_in: Системин довзийтар
     log_out: Болх дӀаберзор
