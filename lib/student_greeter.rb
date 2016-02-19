@@ -46,8 +46,8 @@ class StudentGreeter
     true
   end
 
-  def ids_of_contributors_to_page(page_title)
-    contributors_response = WikiApi.new(user.home_wiki).query contributors_query(page_title)
+  def ids_of_contributors_to_talk_page(user)
+    contributors_response = WikiApi.new(user.home_wiki).query contributors_query(user.talk_page)
     # TODO: Add exception handling for unexpected response data.
     # Currently, that will just cause a NoMethodError, which is okay but not
     # optimal, because it will likely break a rake task. But it's at the end
