@@ -39,8 +39,9 @@ class StudentGreeter
   end
 
   def a_greeter_already_posted?(student)
-    contributor_ids = ids_of_contributors_to_page(student.talk_page)
-    return false if (@greeters.pluck(:id) & contributor_ids).empty?
+    contributor_ids = ids_of_contributors_to_talk_page(student)
+    # TODO: Fix greeter wiki ID assumption
+    return false if (@greeters.ids & contributor_ids).empty?
     # Mark student as greeted if a greeter has already edited their talk page
     student.update_attributes(greeted: true)
     true

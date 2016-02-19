@@ -23,7 +23,7 @@ describe StudentGreeter do
     end
 
     it 'greets students with blank talk pages' do
-      expect(WikiApi).to receive(:get_page_content).and_return(nil)
+      expect_any_instance_of(WikiApi).to receive(:get_page_content).and_return(nil)
       stub_oauth_edit
 
       subject
@@ -33,9 +33,9 @@ describe StudentGreeter do
     it 'skips students who are already greeted' do
       User.find(2).update_attributes(greeted: true)
       allow_any_instance_of(WikiEdits).to receive(:get_tokens)
+      expect_any_instance_of(WikiEdits).not_to receive(:get_tokens)
       subject
       expect(User.find(2).greeted).to eq(true)
-      expect_any_instance_of(WikiEdits).not_to have_received(:get_tokens)
     end
 
     it 'skips students whose talk pages have been edited by greeters, and marks them' do
@@ -44,9 +44,9 @@ describe StudentGreeter do
       stub_raw_action
 
       allow_any_instance_of(WikiEdits).to receive(:get_tokens)
+      expect_any_instance_of(WikiEdits).not_to receive(:get_tokens)
       subject
       expect(User.find(2).greeted).to eq(true)
-      expect_any_instance_of(WikiEdits).not_to have_received(:get_tokens)
     end
 
     it 'does nothing if no Wiki Ed staff are part of the course' do
