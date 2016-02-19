@@ -12,6 +12,7 @@ class RevisionsCleaner
     start = before_earliest_revision(orphan_revisions)
     end_date = after_latest_revision(orphan_revisions)
 
+    # TODO: Can we use orphan_revisions.users directly?
     user_ids = orphan_revisions.pluck(:user_id).uniq
     users = User.where(id: user_ids)
 

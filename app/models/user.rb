@@ -3,6 +3,7 @@
 # Table name: users
 #
 #  id                  :integer          not null, primary key
+# FIXME: rename to username
 #  wiki_id             :string(255)
 #  created_at          :datetime
 #  updated_at          :datetime
@@ -12,6 +13,7 @@
 #  article_count       :integer          default(0)
 #  revision_count      :integer          default(0)
 #  trained             :boolean          default(FALSE)
+# TODO: Use global_name instead
 #  global_id           :integer
 #  remember_created_at :datetime
 #  remember_token      :string(255)
@@ -57,6 +59,7 @@ class User < ActiveRecord::Base
   scope :role, lambda { |role|
     roles = { 'student' => CoursesUsers::Roles::STUDENT_ROLE,
               'instructor' => CoursesUsers::Roles::INSTRUCTOR_ROLE,
+              # TODO: Eliminate or consolidate volunteer roles?
               'online_volunteer' => CoursesUsers::Roles::ONLINE_VOLUNTEER_ROLE,
               'campus_volunteer' => CoursesUsers::Roles::CAMPUS_VOLUNTEER_ROLE,
               'wiki_ed_staff' => CoursesUsers::Roles::WIKI_ED_STAFF_ROLE }

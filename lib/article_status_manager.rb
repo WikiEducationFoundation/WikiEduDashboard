@@ -1,4 +1,5 @@
 #= Updates articles to reflect deletion and page moves on Wikipedia
+# Work is broken up by wiki.
 class ArticleStatusManager
   ###############
   # Entry point #

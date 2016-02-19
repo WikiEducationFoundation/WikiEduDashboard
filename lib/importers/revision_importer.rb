@@ -60,6 +60,7 @@ class RevisionImporter
     course.start.strftime('%Y%m%d')
   end
 
+  # TODO: metrics_end_date, optionally never end
   def self.course_end_date(course)
     course.end.strftime('%Y%m%d')
   end

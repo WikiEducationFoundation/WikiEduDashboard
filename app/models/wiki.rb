@@ -47,6 +47,7 @@ class Wiki < ActiveRecord::Base
   # Is this useful?: has_many :article_wiki, :course_wiki, :user_wiki
 
   def base_url
+    # FIXME: trailing slash turns out to be confusing
     "https://#{language}.#{project}.org/"
   end
 
