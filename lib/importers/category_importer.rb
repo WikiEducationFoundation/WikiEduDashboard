@@ -18,17 +18,17 @@ class CategoryImporter
   # in that category. Optionally, also recursively imports subcategories of
   # the specified depth.
   def import_category(category, depth=0)
-    article_ids = article_ids_for_category(category, depth)
-    import_articles_with_scores_and_views article_ids
+    page_ids = page_ids_for_category(category, depth)
+    import_articles_with_scores_and_views page_ids
   end
 
   def show_category(category, opts={})
     depth = opts[:depth] || 0
     min_views = opts[:min_views] || 0
     max_wp10 = opts[:max_wp10] || 100
-    article_ids = article_ids_for_category(category, depth)
-    import_missing_scores_and_views article_ids
-    articles = Article.where(id: article_ids).order(average_views: :desc)
+    page_ids = page_ids_for_category(category, depth)
+    import_missing_scores_and_views page_ids
+    articles = Article.where(native_id: page_ids, wiki_id: @wiki.id).order(average_views: :desc)
                .where('average_views > ?', min_views)
     articles.select do |article|
       wp10 = article.revisions.last.wp10 || 0
@@ -40,9 +40,9 @@ class CategoryImporter
     depth = opts[:depth] || 0
     min_views = opts[:min_views] || 0
     max_wp10 = opts[:max_wp10] || 100
-    article_ids = article_ids_for_category(category, depth)
-    import_missing_scores_and_views article_ids
-    views_and_scores_output(article_ids, min_views, max_wp10)
+    page_ids = page_ids_for_category(category, depth)
+    import_missing_scores_and_views page_ids
+    views_and_scores_output(page_ids, min_views, max_wp10)
   end
 
   ##################
@@ -50,7 +50,7 @@ class CategoryImporter
   ##################
   def views_and_scores_output(page_ids, min_views, max_wp10)
     output = "title,average_views,completeness,views/completeness\n"
-    articles = Article.where(id: article_ids)
+    articles = Article.where(native_id: page_ids, wiki_id: @wiki.id)
                .where('average_views > ?', min_views)
     articles.each do |article|
       title = article.title
@@ -69,56 +69,56 @@ class CategoryImporter
   # Helper methods #
   ##################
   def import_missing_scores_and_views(page_ids)
-    existing_article_ids = Article.where(id: article_ids).pluck(:id)
-    import_missing_info existing_article_ids
-    missing_article_ids = article_ids - existing_article_ids
-    import_articles_with_scores_and_views missing_article_ids
+    existing_page_ids = Article.where(native_id: page_ids, wiki_id: @wiki.id).pluck(:native_id)
+    import_missing_info existing_page_ids
+    missing_page_ids = page_ids - existing_page_ids
+    import_articles_with_scores_and_views missing_page_ids
   end
 
   def import_missing_info(page_ids)
     outdated_views = Article
-                     .where(id: article_ids)
+                     .where(native_id: page_ids, wiki_id: @wiki.id)
                      .where('average_views_updated_at < ?', 1.year.ago)
-                     .pluck(:id)
+                     .pluck(:native_id)
     import_average_views outdated_views
-    missing_views = Article.where(id: article_ids, average_views: nil)
+    missing_views = Article.where(native_id: page_ids, wiki_id: @wiki.id, average_views: nil)
     import_average_views missing_views
 
-    existing_revisions = Revision.where(article_id: article_ids)
-    missing_revisions = article_ids - existing_revisions.pluck(:article_id)
+    existing_revisions = Revision.where(page_id: page_ids, wiki_id: @wiki.id)
+    missing_revisions = page_ids - existing_revisions.pluck(:page_id)
 
     # Get the missing revisions and update existing_revisions afterwards
     import_latest_revision missing_revisions unless missing_revisions.empty?
 
-    missing_revision_scores = Revision.where(article_id: article_ids, wp10: nil)
+    missing_revision_scores = Revision.where(page_id: page_ids, wiki_id: @wiki.id, wp10: nil)
     RevisionScoreImporter.update_revision_scores missing_revision_scores
   end
 
   def import_articles_with_scores_and_views(page_ids)
-    ArticleImporter.new(@wiki).import_articles article_ids
-    import_latest_revision article_ids
-    import_scores_for_latest_revision article_ids
-    import_average_views article_ids
+    ArticleImporter.new(@wiki).import_articles page_ids
+    import_latest_revision page_ids
+    import_scores_for_latest_revision page_ids
+    import_average_views page_ids
   end
 
   def page_ids_for_category(category, depth=0)
     cat_query = category_query category
-    article_ids = get_category_member_properties(cat_query, 'pageid')
+    page_ids = get_category_member_properties(cat_query, 'pageid')
     if depth > 0
       depth -= 1
       subcats = subcategories_of(category)
       subcats.each do |subcat|
-        article_ids += article_ids_for_category(subcat, depth)
+        page_ids += page_ids_for_category(subcat, depth)
       end
     end
-    article_ids
+    page_ids
   end
 
   def get_category_member_properties(query, property)
     property_values = []
     continue = true
     until continue.nil?
-      cat_response = WikiApi.new(@wiki).query query
+      cat_response = WikiApi.new(wiki: @wiki).query query
       page_data = cat_response.data['categorymembers']
       page_data.each do |page|
         property_values << page[property]
@@ -157,11 +157,14 @@ class CategoryImporter
     page_ids.each do |page_id|
       rev_data = latest_revisions[page_id.to_s]['revisions'][0]
       new_article = (rev_data['parentid'] == 0)
-      new_revision = Revision.new(id: rev_data['revid'],
-                                  article_id: id,
+      new_revision = Revision.new(id: rev_data['revid'], # TODO: Don't set id
+                                  native_id: rev_data['revid'],
+                                  page_id: page_id,
+                                  # TODO: article_id
                                   date: rev_data['timestamp'].to_datetime,
                                   user_id: rev_data['userid'],
-                                  new_article: new_article)
+                                  new_article: new_article,
+                                  wiki_id: @wiki.id)
       revisions_to_import << new_revision
     end
     Revision.import revisions_to_import
@@ -171,7 +174,7 @@ class CategoryImporter
     latest_revisions = {}
     page_ids.each_slice(50) do |fifty_ids|
       rev_query = revisions_query(fifty_ids)
-      rev_response = WikiApi.new(@wiki).query rev_query
+      rev_response = WikiApi.new(wiki: @wiki).query rev_query
       latest_revisions.merge! rev_response.data['pages']
     end
     latest_revisions
@@ -180,15 +183,16 @@ class CategoryImporter
   def import_scores_for_latest_revision(page_ids)
     revisions_to_update = []
     page_ids.each do |page_id|
-      next unless Article.exists?(id)
-      revision = Article.find(id).revisions.last
+      matching_articles = Article.where(native_id: page_id, wiki_id: @wiki.id)
+      next unless matching_articles.any?
+      revision = matching_articles.revisions.last
       revisions_to_update << revision if revision.wp10.nil?
     end
     RevisionScoreImporter.update_revision_scores revisions_to_update
   end
 
-  def import_average_views(article_ids)
-    articles = Article.where(id: article_ids)
+  def import_average_views(page_ids)
+    articles = Article.where(native_id: page_ids, wiki_id: @wiki.id)
     articles = articles.select do |a|
       a.average_views.nil? || a.average_views_updated_at < 1.month.ago
     end
