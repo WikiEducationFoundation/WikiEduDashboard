@@ -22,7 +22,7 @@ class LegacyCourseAssignments
 
       (0...assignment_count).each do |a|
         raw = user[a.to_s]
-        article = Article.find_by(title: raw['title'])
+        article = Article.find_by(title: raw['title'], wiki_id: @wiki.id)
         # role 0 is for assignee
         assignment = assignment_hash(user, raw, article, 0)
         new_assignment = Assignment.new(assignment)
@@ -52,7 +52,8 @@ class LegacyCourseAssignments
       'course_id' => @course_id,
       'article_title' => raw['title'],
       'article_id' => article.nil? ? nil : article.id,
-      'role' => role
+      'role' => role,
+      'wiki_id' => @wiki.id,
     }
   end
 end

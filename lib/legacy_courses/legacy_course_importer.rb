@@ -12,9 +12,11 @@ class LegacyCourseImporter
     # FIXME: Only works for the default wiki
     raw_ids = WikiApi.new(Wiki.default_wiki).course_list if raw_ids.empty?
     listed_ids = raw_ids.values.flatten
+    # FIXME: native id assumption will break for any new legacy courses
     course_ids = listed_ids | Course.legacy.where(listed: true).pluck(:id)
 
     if initial
+      # FIXME: unused variable?
       _minimum = course_ids.min
       maximum = course_ids.max
       course_ids = (1..maximum).to_a
@@ -68,10 +70,10 @@ class LegacyCourseImporter
     participants.each do |_course_id, groups|
       groups.each_with_index do |(r, _p), i|
         # Students
-        users = UserImporter.add_users(groups[r], i, nil, false) | users
+        users |= UserImporter.add_users(groups[r], i, nil, false)
         # Assignment reviewers
         reviewers = reviewers(groups[r])
-        users = UserImporter.add_users(reviewers, nil, nil, false) | users
+        users |= UserImporter.add_users(reviewers, nil, nil, false)
       end
     end
     User.import users
