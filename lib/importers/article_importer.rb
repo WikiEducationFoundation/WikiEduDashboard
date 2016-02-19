@@ -12,12 +12,12 @@ class ArticleImporter
     articles_data = Utils.chunk_requests(page_ids) do |block|
       Replica.new(@wiki).get_existing_articles_by_id block
     end
-    return if articles_data.empty?
-    articles = []
-    articles_data.each do |article_data|
-      articles << Article.new(id: article_data['page_id'],
-                              title: article_data['page_title'],
-                              namespace: article_data['page_namespace'])
+    articles = articles_data.map do |a|
+      Article.new(id: a['page_id'], # TODO: Stop writing ID
+                  native_id: a['page_id'],
+                  title: a['page_title'],
+                  namespace: a['page_namespace'],
+                  wiki_id: @wiki.id)
     end
     Article.import articles
   end
@@ -34,9 +34,11 @@ class ArticleImporter
       articles = []
       results.each do |_id, page_data|
         next if page_data['missing']
-        articles << Article.new(id: page_data['pageid'].to_i,
+        articles << Article.new(id: page_data['pageid'].to_i, # TODO: Stop writing to ID
+                                native_id: page_data['pageid'].to_i,
                                 title: page_data['title'].tr(' ', '_'),
-                                namespace: page_data['ns'].to_i)
+                                namespace: page_data['ns'].to_i,
+                                wiki_id: @wiki.id)
       end
       Article.import articles
     end
