@@ -11,7 +11,8 @@ class Replica
   end
 
   def self.connect_to_tool
-    new(Wiki.default_wiki).api_get('')
+    # TODO: Explicitly index.php?
+    new(Wiki.default_wiki).ping()
   end
 
   ###################
@@ -26,13 +27,13 @@ class Replica
     return data unless raw.is_a?(Enumerable)
     raw.each do |revision|
       parsed = parse_revision(revision)
-      article_id = parsed['article']['id']
-      unless data.include?(article_id)
-        data[article_id] = {}
-        data[article_id]['article'] = parsed['article']
-        data[article_id]['revisions'] = []
+      page_id = parsed['article']['page_id']
+      unless data.include?(page_id)
+        data[page_id] = {}
+        data[page_id]['article'] = parsed['article']
+        data[page_id]['revisions'] = []
       end
-      data[article_id]['revisions'].push parsed['revision']
+      data[page_id]['revisions'].push parsed['revision']
     end
     data
   end
@@ -58,15 +59,16 @@ class Replica
   #   }
   def parse_revision(revision)
     article_data = {}
-    article_data['id'] = revision['page_id']
+    article_data['page_id'] = revision['page_id']
     article_data['title'] = revision['page_title']
     article_data['namespace'] = revision['page_namespace']
+    article_data['wiki_id'] = @wiki.id
 
     revision_data = {}
-    revision_data['id'] = revision['rev_id']
+    revision_data['rev_id'] = revision['rev_id']
     revision_data['date'] = revision['rev_timestamp'].to_datetime
     revision_data['characters'] = revision['byte_change']
-    revision_data['article_id'] = revision['page_id']
+    revision_data['page_id'] = revision['page_id']
     revision_data['user_id'] = revision['rev_user']
     revision_data['new_article'] = revision['new_article']
     revision_data['system'] = revision['system']
@@ -84,6 +86,8 @@ class Replica
   #   0 ([mainspace])
   #   2 (User:)
   def get_revisions_raw(users, rev_start, rev_end)
+    # TODO: waiting for the backend change
+    # user_list = compile_usernames_string(users)
     user_list = compile_user_ids_string(users)
     oauth_tags = compile_oauth_tags
     oauth_tags = oauth_tags.blank? ? oauth_tags : "&#{oauth_tags}"
@@ -96,6 +100,7 @@ class Replica
   # to a specific page on Wikipedia:
   # [[Wikipedia:Training/For students/Training feedback]]
   def get_user_info(users)
+    # TODO: usernames, see above
     query = compile_user_ids_string(users)
     if ENV['training_page_id']
       query = "#{query}&training_page_id=#{ENV['training_page_id']}"
@@ -126,6 +131,10 @@ class Replica
     existing_revisions unless existing_revisions.nil?
   end
 
+  def ping()
+    api_get('')
+  end
+
   ###################
   # Private methods #
   ###################
@@ -142,7 +151,7 @@ class Replica
   #  {"id"=>"6789", "wiki_id"=>"User_B", "global_id"=>"9035768", trained: 0}]
   #
   # Example revisions.php query:
-  #   http://tools.wmflabs.org/wikiedudashboard/revisions.php?user_ids[0]=%27Example_User%27&user_ids[1]=%27Ragesoss%27&user_ids[2]=%27Sage%20(Wiki%20Ed)%27&start=20150105&end=20150108
+  #   http://tools.wmflabs.org/wikiedudashboard/revisions.php?usernames_User%27&usernames_ids[2]=%27Sage%20(Wiki%20Ed)%27&start=20150105&end=20150108
   #
   # Example revisions.php parsed response:
   # [{"page_id"=>"44962463",
@@ -186,76 +195,86 @@ class Replica
     URI.encode(raw_url)
   end
 
-    # Compile a user list to send to the replica endpoint, which might look
-    # something like this:
-    # "user_ids[0]='Ragesoss'&user_ids[1]='Sage (Wiki Ed)'"
-    def compile_user_ids_string(users)
-      user_list = ''
-      users.each_with_index do |user, i|
-        fail unless user.id
-        user_list += '&' if i > 0
-        user_list += "user_ids[#{i}]='#{user.id}'"
-      end
-      user_list
-    end
+  # Compile a user list to send to the replica endpoint, which might look
+  # something like this:
+  # "usernames[]='Ragesoss'&usernames[]='Sage+%28Wiki+Ed%29'"
+  def compile_usernames_string(users)
+    { usernames: users.map(&:wiki_id) }.to_query
+  end
 
-    def compile_oauth_tags
-      tag_list = ''
-      oauth_ids = ENV['oauth_ids']
-      return '' if oauth_ids.nil?
-      oauth_ids.split(',').each_with_index do |id, i|
-        tag_list += '&' if i > 0
-        tag_list += "oauth_tags[#{i}]='OAuth CID: #{id}'"
-      end
-      tag_list
+  # Compile a user list to send to the replica endpoint, which might look
+  # something like this:
+  # "user_ids[0]='Ragesoss'&user_ids[1]='Sage (Wiki Ed)'"
+  # FIXME: deprecated
+  def compile_user_ids_string(users)
+    user_list = ''
+    users.each_with_index do |user, i|
+      fail unless user.id
+      user_list += '&' if i > 0
+      user_list += "user_ids[#{i}]='#{user.id}'"
     end
+    user_list
+  end
 
-    # Compile an article list to send to the replica endpoint, which might look
-    # something like this:
-    # "article_ids[0]='Artist'&article_ids[1]='Microsoft_Research'"
-    def compile_article_title_string(articles)
-      article_list = ''
-      articles.each_with_index do |a, i|
-        article_list += '&' if i > 0
-        title = CGI.escape(a['title'].tr(' ', '_'))
-        article_list += "article_titles[#{i}]='#{title}'"
-      end
-      article_list
+  def compile_oauth_tags
+    tag_list = ''
+    oauth_ids = ENV['oauth_ids']
+    return '' if oauth_ids.nil?
+    oauth_ids.split(',').each_with_index do |id, i|
+      tag_list += '&' if i > 0
+      tag_list += "oauth_tags[#{i}]='OAuth CID: #{id}'"
     end
+    tag_list
+  end
 
-    # Compile an article list to send to the replica endpoint, which might look
-    # something like this:
-    # "article_ids[0]='100'&article_ids[1]='300'"
-    def compile_article_id_string(articles)
-      compile_id_string(articles, 'article_ids')
+  # Compile an article list to send to the replica endpoint, which might look
+  # something like this:
+  # "article_ids[0]='Artist'&article_ids[1]='Microsoft_Research'"
+  def compile_article_title_string(articles)
+    article_list = ''
+    articles.each_with_index do |a, i|
+      article_list += '&' if i > 0
+      title = CGI.escape(a['title'].tr(' ', '_'))
+      article_list += "article_titles[#{i}]='#{title}'"
     end
+    article_list
+  end
 
-    def compile_revision_id_string(revisions)
-      compile_id_string(revisions, 'revision_ids')
-    end
+  # Compile an article list to send to the replica endpoint, which might look
+  # something like this:
+  # "article_ids[0]='100'&article_ids[1]='300'"
+  def compile_article_id_string(page_ids)
+    # TODO: These are 'page_ids'
+    compile_id_string(page_ids, 'article_ids')
+  end
 
-    def compile_id_string(ids, prefix)
-      id_list = ''
-      ids.each_with_index do |id, index|
-        id_list += '&' if index > 0
-        id_list += "#{prefix}[#{index}]='#{id['id']}'"
-      end
-      id_list
-    end
+  def compile_revision_id_string(revisions)
+    # FIXME: wat.  just pass the ids
+    rev_ids = revisions.map { |r| { id: r.native_id } }
+    compile_id_string(rev_ids, 'revision_ids')
+  end
 
-    def report_exception(error, endpoint, query, level='error')
-      Rails.logger
-        .error "replica.rb #{endpoint} query failed after 3 tries: #{error}"
-      # These are typical network errors that we expect to encounter.
-      typical_errors = [Errno::ETIMEDOUT,
-                        Net::ReadTimeout,
-                        Errno::ECONNREFUSED,
-                        JSON::ParserError]
-      level = 'warning' if typical_errors.include?(error.class)
-      Raven.capture_exception error,
-                              level: level,
-                              extras: { query: query, endpoint: endpoint }
-      return nil
+  def compile_id_string(ids, prefix)
+    id_list = ''
+    ids.each_with_index do |id, index|
+      id_list += '&' if index > 0
+      id_list += "#{prefix}[#{index}]='#{id['id']}'"
     end
+    id_list
+  end
+
+  def report_exception(error, endpoint, query, level='error')
+    Rails.logger
+      .error "replica.rb #{endpoint} query failed after 3 tries: #{error}"
+    # These are typical network errors that we expect to encounter.
+    typical_errors = [Errno::ETIMEDOUT,
+                      Net::ReadTimeout,
+                      Errno::ECONNREFUSED,
+                      JSON::ParserError]
+    level = 'warning' if typical_errors.include?(error.class)
+    Raven.capture_exception error,
+                            level: level,
+                            extras: { query: query, endpoint: endpoint }
+    return nil
   end
 end
