@@ -7,11 +7,11 @@
 set :branch, ENV["TRAVIS_COMMIT"] || 'production'
 set :rails_env, 'production'
 
-role :app, %w(root@dashboard.wikiedu.org)
-role :web, %w(root@dashboard.wikiedu.org)
-role :db,  %w(root@dashboard.wikiedu.org)
+role :app, %w(deploy@dashboard.wikiedu.org)
+role :web, %w(deploy@dashboard.wikiedu.org)
+role :db,  %w(deploy@dashboard.wikiedu.org)
 
-set :user, 'root'
+set :user, 'deploy'
 set :address, 'dashboard.wikiedu.org'
 
 set :deploy_to, '/var/www/dashboard'
