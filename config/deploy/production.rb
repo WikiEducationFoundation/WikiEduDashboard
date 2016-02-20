@@ -15,6 +15,7 @@ set :user, 'deploy'
 set :address, 'dashboard.wikiedu.org'
 
 set :deploy_to, '/var/www/dashboard'
+set :rvm_type, :system
 
 # Extended Server Syntax
 # ======================
