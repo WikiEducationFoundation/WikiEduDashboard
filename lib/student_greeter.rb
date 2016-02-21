@@ -53,6 +53,9 @@ class StudentGreeter
     # optimal, because it will likely break a rake task. But it's at the end
     # of the rake batch anyway, so it's not a huge deal.
     contributors = contributors_response.data['pages'].values[0]['contributors']
+    # If there are no non-anonymous contributors, the page exists but will
+    # return no 'contributors' data.
+    return [] if contributors.nil?
     contributor_ids = contributors.map { |user| user['userid'] }
     contributor_ids
   end
