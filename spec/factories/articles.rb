@@ -23,7 +23,7 @@
 
 FactoryGirl.define do
   factory :article do
-    title 'History of biology'
+    title 'History_of_biology'
     namespace 0
     language 'en'
   end

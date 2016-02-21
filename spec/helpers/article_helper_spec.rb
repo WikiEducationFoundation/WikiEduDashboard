@@ -9,7 +9,7 @@ describe ArticleHelper, type: :helper do
                      namespace: 0,
                      views_updated_at: '2014-12-31'.to_date)
     @sandbox = build(:article, namespace: 2, title: 'Ragesoss/sandbox')
-    @draft = build(:article, namespace: 118, title: 'My Awesome Draft!!!')
+    @draft = build(:article, namespace: 118, title: 'My_Awesome_Draft!!!')
   end
 
   describe '.article_url' do
