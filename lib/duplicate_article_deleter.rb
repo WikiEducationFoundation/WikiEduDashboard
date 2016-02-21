@@ -9,6 +9,7 @@ class DuplicateArticleDeleter
     articles ||= Article.where(deleted: false)
     articles.group_by(&:wiki).each do |wiki, local_articles|
       titles = local_articles.map(&:title)
+      # TODO: Relation group_by would eliminate array math
       grouped = Article.where(title: titles, wiki_id: wiki.id).group(%w(title namespace)).count
       page_ids = []
       grouped.each do |article|
