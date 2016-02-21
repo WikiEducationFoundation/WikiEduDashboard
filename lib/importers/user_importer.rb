@@ -19,10 +19,7 @@ class UserImporter
   def self.new_from_omniauth(auth)
     require "#{Rails.root}/lib/wiki_api"
 
-    # TODO: Which wiki?
-    native_id = WikiApi.new(Wiki.default_wiki).get_user_id(auth.info.name)
     user = User.create(
-      id: native_id, # TODO: Stop writing primary ID
       wiki_id: auth.info.name,
       global_id: auth.uid,
       wiki_token: auth.credentials.token,
@@ -32,14 +29,16 @@ class UserImporter
   end
 
   def self.new_from_wiki_id(wiki_id)
-    require "#{Rails.root}/lib/wiki_api"
-    # TODO: Which wiki?  Stop using native_id
-    native_id = WikiApi.new(Wiki.default_wiki).get_user_id(wiki_id)
-    return unless native_id
+    return unless user_exists?(wiki_id)
 
-    User.create_with(
-      id: native_id # FIXME: don't update ID
-    ).find_or_create_by(wiki_id: wiki_id)
+    User.find_or_create_by(wiki_id: wiki_id)
+  end
+
+  def self.user_exists?(wiki_id)
+    require "#{Rails.root}/lib/wiki_api"
+
+    # TODO: Which wiki?  Should use CentralAuth, either way
+    true unless WikiApi.new(Wiki.default_wiki).get_user_id(wiki_id).nil?
   end
 
   def self.add_users(data, role, course, save=true)
@@ -49,13 +48,11 @@ class UserImporter
   end
 
   def self.add_user(params, role, course, save=true)
-    # FIXME: fetch and use global_id instead
     if save
-      user = User.find_or_create_by(id: params['global_id'])
+      user = User.find_or_create_by(wiki_id: params['username'])
     else
-      user = User.new(id: params['global_id'])
+      user = User.new(wiki_id: params['username'])
     end
-    user.wiki_id = params['username']
 
     if save
       unless role.nil? || course.nil?

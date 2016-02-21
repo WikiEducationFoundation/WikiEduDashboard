@@ -89,7 +89,7 @@ class LegacyCourseImporter
     assignments = []
     ActiveRecord::Base.transaction do
       participants.each do |course_id, group|
-        assignments += get_assignments_for_group(course_id, group)
+        assignments |= get_assignments_for_group(course_id, group)
       end
     end
     Assignment.import assignments
@@ -100,7 +100,7 @@ class LegacyCourseImporter
       users = [users] unless users.instance_of? Array
       users.empty? ? nil : users.each { |u| u.merge! 'role' => role }
     end
-    group_flat = group_flat.compact.flatten.sort_by { |user| user['id'] }
+    group_flat = group_flat.compact.flatten.sort_by { |user| user['username'] }
     group_flat = update_enrollment course_id, group_flat
     all_assignments = build_assignments course_id, group_flat
     all_assignments
@@ -108,8 +108,8 @@ class LegacyCourseImporter
 
   def self.update_enrollment(course_id, group_flat)
     # Update enrollment (add/remove students)
-    user_ids = group_flat.map { |user| user['id'] }
-    return [] if user_ids.empty?
+    usernames = group_flat.map { |user| user['username'] }
+    return [] if usernames.empty?
 
     course = Course.find_by(id: course_id)
 
@@ -121,24 +121,24 @@ class LegacyCourseImporter
     unenroll_removed_users(course, existing_flat, new_flat)
 
     # Enroll new users
-    enrolled = (new_flat - existing_flat).map { |u| u['id'] }
+    enrolled = (new_flat - existing_flat).map { |u| u['username'] }
     return group_flat unless enrolled.count > 0
     enroll_users(group_flat, enrolled, course)
   end
 
   def self.enroll_users(users, enrolled, course)
     users.each do |u|
-      next() unless enrolled.include? u['id']
+      next() unless enrolled.include? u['username']
       role = role_index.index(u['role'])
       role = 4 if u['username'].include? '(Wiki Ed)'
-      CoursesUsers.new(user_id: u['id'], course: course, role: role).save
+      existing_user = User.find_by(wiki_id: u['username'])
+      CoursesUsers.new(user: existing_user, course: course, role: role).save
     end
   end
 
   def self.build_assignments(course_id, group_flat)
     require "#{Rails.root}/lib/legacy_courses/legacy_course_assignments"
     # Add assigned articles
-    # TODO: Don't assume wiki
     assignments = LegacyCourseAssignments
                   .build_assignments_from_group_flat(course_id, group_flat, Wiki.default_wiki)
     assignments
@@ -157,8 +157,8 @@ class LegacyCourseImporter
 
   def self.unenroll_removed_users(course, existing_flat, new_flat)
     unless course.users.empty?
-      unenrolled = (existing_flat - new_flat).map { |u| u['id'] }
-      course.users.delete(course.users.find(unenrolled))
+      unenrolled = (existing_flat - new_flat).map { |u| u['username'] }
+      course.users.delete(course.users.where(wiki_id: unenrolled))
     end
   end
 
@@ -180,14 +180,14 @@ class LegacyCourseImporter
 
   def self.existing_enrollment_flat(course)
     course.courses_users.map do |cu|
-      { 'id' => cu.user_id, 'role' => role_index[cu.role] }
+      { 'username' => cu.user.wiki_id, 'role' => role_index[cu.role] }
     end
   end
 
   def self.new_enrollment_flat(group_flat)
     group_flat.map do |u|
       role = u['username'].include?('(Wiki Ed)') ? role_index[4] : u['role']
-      { 'id' => u['id'], 'role' => role }
+      { 'username' => u['username'], 'role' => role }
     end
   end
 end

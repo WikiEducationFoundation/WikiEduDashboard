@@ -18,6 +18,7 @@ class LegacyCourseAssignments
       next unless user.key? '0'
 
       # Each user has username, id, & role. Extra keys are assigned articles.
+      # FIXME: don't be so flat
       assignment_count = user.keys.count - 3
 
       (0...assignment_count).each do |a|
@@ -48,7 +49,7 @@ class LegacyCourseAssignments
 
   def assignment_hash(user, raw, article, role)
     {
-      'user_id' => user['id'],
+      'user_id' => User.find_by(wiki_id: user['username']).id,
       'course_id' => @course_id,
       'article_title' => raw['title'],
       'article_id' => article.nil? ? nil : article.id,
