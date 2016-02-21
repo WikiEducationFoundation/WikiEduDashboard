@@ -31,7 +31,9 @@ class CategoryImporter
     articles = Article.where(native_id: page_ids, wiki_id: @wiki.id).order(average_views: :desc)
                .where('average_views > ?', min_views)
     articles.select do |article|
-      wp10 = article.revisions.last.wp10 || 0
+      last_revision = article.revisions.last
+      next if last_revision.nil?
+      wp10 = last_revision.wp10 || 0
       wp10 < max_wp10
     end
   end
@@ -181,12 +183,15 @@ class CategoryImporter
   end
 
   def import_scores_for_latest_revision(page_ids)
-    revisions_to_update = []
+    revisions_to_update = Revision.none
     page_ids.each do |page_id|
       matching_articles = Article.where(native_id: page_id, wiki_id: @wiki.id)
       next unless matching_articles.any?
-      revision = matching_articles.revisions.last
-      revisions_to_update << revision if revision.wp10.nil?
+      matching_articles.each do |article|
+        revision = article.revisions.last
+        next if revision.nil?
+        revisions_to_update << revision if revision.wp10.nil?
+      end
     end
     RevisionScoreImporter.update_revision_scores revisions_to_update
   end
