@@ -181,7 +181,7 @@ class LegacyCourseImporter
   def self.existing_enrollment_flat(course)
     course.courses_users.map do |cu|
       { 'username' => cu.user.wiki_id, 'role' => role_index[cu.role] }
-    end
+    end || []
   end
 
   def self.new_enrollment_flat(group_flat)
