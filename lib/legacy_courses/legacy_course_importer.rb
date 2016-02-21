@@ -13,7 +13,7 @@ class LegacyCourseImporter
     raw_ids = WikiApi.new(Wiki.default_wiki).course_list if raw_ids.empty?
     listed_ids = raw_ids.values.flatten
     # FIXME: native id assumption will break for any new legacy courses
-    course_ids = listed_ids | Course.legacy.where(listed: true).pluck(:id)
+    course_ids = listed_ids | Course.legacy.listed.pluck(:id)
 
     if initial
       # FIXME: unused variable?
