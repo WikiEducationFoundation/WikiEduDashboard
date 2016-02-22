@@ -24,7 +24,7 @@ class RatingImporter
     require './lib/wiki_api'
     article_groups.with_index do |articles, _batch|
       titles = articles.map(&:title)
-      ratings = WikiApi.get_article_rating(titles).inject(&:merge)
+      ratings = WikiApi.new(wiki).get_article_rating(titles).inject(&:merge)
       next if ratings.blank?
       update_article_ratings(articles, ratings)
     end

@@ -9,7 +9,8 @@ class LegacyCourseImporter
   # Entry points #
   ################
   def self.update_all_courses(initial=false, raw_ids={})
-    raw_ids = WikiApi.course_list if raw_ids.empty?
+    # FIXME: Only works for the default wiki
+    raw_ids = WikiApi.new(Wiki.default_wiki).course_list if raw_ids.empty?
     listed_ids = raw_ids.values.flatten
     course_ids = listed_ids | Course.legacy.where(listed: true).pluck(:id)
 
@@ -135,8 +136,9 @@ class LegacyCourseImporter
   def self.build_assignments(course_id, group_flat)
     require "#{Rails.root}/lib/legacy_courses/legacy_course_assignments"
     # Add assigned articles
+    # TODO: Don't assume wiki
     assignments = LegacyCourseAssignments
-                  .build_assignments_from_group_flat(course_id, group_flat)
+                  .build_assignments_from_group_flat(course_id, group_flat, Wiki.default_wiki)
     assignments
   end
 

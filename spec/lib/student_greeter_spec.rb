@@ -32,21 +32,21 @@ describe StudentGreeter do
 
     it 'skips students who are already greeted' do
       User.find(2).update_attributes(greeted: true)
-      allow(WikiEdits).to receive(:get_tokens)
+      allow_any_instance_of(WikiEdits).to receive(:get_tokens)
       subject
       expect(User.find(2).greeted).to eq(true)
-      expect(WikiEdits).not_to have_received(:get_tokens)
+      expect_any_instance_of(WikiEdits).not_to have_received(:get_tokens)
     end
 
     it 'skips students whose talk pages have been edited by greeters, and marks them' do
-      allow_any_instance_of(StudentGreeter).to receive(:ids_of_contributors_to_page)
+      allow_any_instance_of(StudentGreeter).to receive(:ids_of_contributors_to_talk_page)
         .and_return([1])
       stub_raw_action
 
-      allow(WikiEdits).to receive(:get_tokens)
+      allow_any_instance_of(WikiEdits).to receive(:get_tokens)
       subject
       expect(User.find(2).greeted).to eq(true)
-      expect(WikiEdits).not_to have_received(:get_tokens)
+      expect_any_instance_of(WikiEdits).not_to have_received(:get_tokens)
     end
 
     it 'does nothing if no Wiki Ed staff are part of the course' do

@@ -19,7 +19,8 @@ class UserImporter
   def self.new_from_omniauth(auth)
     require "#{Rails.root}/lib/wiki_api"
 
-    id = WikiApi.get_user_id(auth.info.name)
+    # TODO: Which wiki?
+    id = WikiApi.new(wiki: Wiki.default_wiki).get_user_id(auth.info.name)
     user = User.create(
       id: id,
       wiki_id: auth.info.name,
@@ -32,7 +33,8 @@ class UserImporter
 
   def self.new_from_wiki_id(wiki_id)
     require "#{Rails.root}/lib/wiki_api"
-    id = WikiApi.get_user_id(wiki_id)
+    # TODO: Which wiki?
+    id = WikiApi.new(wiki: Wiki.default_wiki).get_user_id(wiki_id)
     return unless id
 
     if User.exists?(id)
@@ -78,8 +80,7 @@ class UserImporter
   end
 
   def self.update_users(users=nil)
-    u_users = Utils.chunk_requests(users || User.all) do |block|
-      Replica.get_user_info block
+      Replica.new(Wiki.default_wiki).get_user_info block
     end
 
     User.transaction do

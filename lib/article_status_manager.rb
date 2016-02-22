@@ -1,6 +1,10 @@
 #= Updates articles to reflect deletion and page moves on Wikipedia
 # Work is broken up by wiki.
 class ArticleStatusManager
+  def initialize(wiki)
+    @wiki = wiki
+  end
+
   ###############
   # Entry point #
   ###############
@@ -12,7 +16,7 @@ class ArticleStatusManager
 
     failed_request_count = 0
     synced_articles = Utils.chunk_requests(local_articles, 100) do |block|
-      request_results = Replica.get_existing_articles_by_id block
+      request_results = Replica.new(@wiki).get_existing_articles_by_id block
       failed_request_count += 1 if request_results.nil?
       request_results
     end
@@ -65,12 +69,12 @@ class ArticleStatusManager
 
   # Check whether any deleted pages still exist with a different article_id.
   # If so, update the Article to use the new id.
-  def self.update_article_ids(deleted_ids)
+  def update_article_ids(wiki, deleted_ids)
     maybe_deleted = Article.where(id: deleted_ids)
 
     # These pages have titles that match Articles in our DB with deleted ids
     same_title_pages = Utils.chunk_requests(maybe_deleted, 100) do |block|
-      Replica.get_existing_articles_by_title block
+      Replica.new(@wiki).get_existing_articles_by_title block
     end
 
     # Update articles whose IDs have changed (keyed on title and namespace)

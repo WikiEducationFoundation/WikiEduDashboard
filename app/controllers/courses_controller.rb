@@ -62,7 +62,7 @@ class CoursesController < ApplicationController
     # If the user could make an edit to the course, then verify that
     # their tokens are working.
     if current_user && current_user.can_edit?(@course)
-      unless WikiEdits.oauth_credentials_valid?(current_user)
+      unless WikiEdits.new(current_user.home_wiki).oauth_credentials_valid?(current_user)
         redirect_to root_path
         return
       end
@@ -128,7 +128,7 @@ class CoursesController < ApplicationController
 
   def notify_untrained
     @course = find_course_by_slug(params[:id])
-    WikiEdits.notify_untrained(@course.id, current_user)
+    WikiEdits.new(@course.home_wiki).notify_untrained(@course.id, current_user)
     render nothing: true, status: :ok
   end
   helper_method :notify_untrained

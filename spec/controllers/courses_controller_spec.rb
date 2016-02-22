@@ -291,7 +291,7 @@ describe CoursesController do
       end
 
       it 'triggers WikiEdits.notify_untrained' do
-        expect(WikiEdits).to receive(:notify_untrained)
+        expect_any_instance_of(WikiEdits).to receive(:notify_untrained)
         expect(subject.status).to eq(200)
       end
     end
@@ -302,7 +302,7 @@ describe CoursesController do
       end
 
       it 'triggers WikiEdits.notify_untrained' do
-        expect(WikiEdits).to receive(:notify_untrained)
+        expect_any_instance_of(WikiEdits).to receive(:notify_untrained)
         expect(subject.status).to eq(200)
       end
     end
@@ -313,7 +313,7 @@ describe CoursesController do
       end
 
       it 'returns a 401' do
-        expect(WikiEdits).not_to receive(:notify_untrained)
+        expect_any_instance_of(WikiEdits).to receive(:notify_untrained)
         expect(subject.status).to eq(401)
       end
     end

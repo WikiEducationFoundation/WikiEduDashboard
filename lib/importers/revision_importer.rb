@@ -5,6 +5,10 @@ require "#{Rails.root}/lib/importers/assignment_importer"
 
 #= Imports and updates revisions from Wikipedia into the dashboard database
 class RevisionImporter
+  # FIXME: Too many static methods remaining.
+  def initialize(wiki)
+    @wiki = wiki
+  end
   ################
   # Entry points #
   ################
@@ -32,9 +36,13 @@ class RevisionImporter
 
     old_users = course.students - new_users
 
+    # TODO: Make a better educated guess about which wikis to search for edits.
+    # Such as, course.assignments.map(&:wiki).uniq
+    wikis = [Wiki.default_wiki]
+
     # rubocop:disable Style/IfUnlessModifier
     unless new_users.empty?
-      results += get_revisions(new_users, start, end_date)
+      results += get_revisions(new_users, start, end_date, wikis)
     end
     # rubocop:enable Style/IfUnlessModifier
 
@@ -47,10 +55,13 @@ class RevisionImporter
   end
 
   # Get revisions made by a set of users between two dates.
-  def self.get_revisions(users, start, end_date)
-    Utils.chunk_requests(users, 40) do |block|
-      Replica.get_revisions block, start, end_date
+  def self.get_revisions(users, start, end_date, wikis)
+    result_sets = wikis.map do |wiki|
+      Utils.chunk_requests(users, 40) do |block|
+        Replica.new(wiki).get_revisions block, start, end_date
+      end
     end
+    result_sets.reduce(:|)
   end
 
   ###########
@@ -123,7 +134,7 @@ class RevisionImporter
     return if revisions.empty?
 
     synced_revisions = Utils.chunk_requests(revisions, 100) do |block|
-      Replica.get_existing_revisions_by_id block
+      Replica.new(wiki).get_existing_revisions_by_id block
     end
     synced_ids = synced_revisions.map { |r| r['rev_id'].to_i }
 

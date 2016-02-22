@@ -2,11 +2,15 @@ require "#{Rails.root}/lib/replica"
 
 #= Imports articles from Wikipedia into the dashboard database
 class ArticleImporter
-  def self.import_articles(ids)
-    article_ids = ids.map { |id| { 'id' => id } }
-    articles_data = []
-    article_ids.each_slice(40) do |some_article_ids|
-      articles_data += Replica.get_existing_articles_by_id some_article_ids
+  def initialize(wiki)
+    @wiki = wiki
+  end
+
+  def import_articles(ids)
+    # TODO: pass the ids directly
+    page_ids = ids.map { |id| { 'id' => id } }
+    articles_data = Utils.chunk_requests(page_ids) do |block|
+      Replica.new(@wiki).get_existing_articles_by_id block
     end
     return if articles_data.empty?
     articles = []
@@ -18,11 +22,11 @@ class ArticleImporter
     Article.import articles
   end
 
-  def self.import_articles_by_title(titles)
+  def import_articles_by_title(titles)
     titles.each_slice(40) do |some_article_titles|
       query = { prop: 'info',
                 titles: some_article_titles }
-      response = WikiApi.query(query)
+      response = WikiApi.new(@wiki).query(query)
       next if response.nil?
       results = response.data
       next if results.empty?

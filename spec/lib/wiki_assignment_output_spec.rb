@@ -34,20 +34,20 @@ describe WikiAssignmentOutput do
     it 'should add an assignment tag to the wikitext of a page' do
       VCR.use_cassette 'wiki_edits/assignments' do
         talk_title = 'Talk:Selfie'
-        selfie_talk = WikiApi.get_page_content(talk_title)
+        selfie_talk = WikiApi.new(Wiki.default_wiki).get_page_content(talk_title)
         course = Course.find(10001)
         course_page = course.wiki_title
         assignment_titles = course.assignments.group_by(&:article_title)
         title_assignments = assignment_titles['Selfie']
-        assignment_tag = WikiAssignmentOutput.assignments_tag(course_page,
-                                                              title_assignments)
-        page_content = WikiAssignmentOutput
+        assignment_tag = WikiAssignmentOutput.new(Wiki.default_wiki).assignments_tag(course_page,
+                                                                                     title_assignments)
+        page_content = WikiAssignmentOutput.new(Wiki.default_wiki)
                        .build_assignment_page_content(assignment_tag,
                                                       course_page,
                                                       selfie_talk)
         expect(page_content)
           .to include('{{dashboard.wikiedu.org assignment | course = ')
-        page_content = WikiAssignmentOutput
+        page_content = WikiAssignmentOutput.new(Wiki.default_wiki)
                        .build_assignment_page_content(assignment_tag,
                                                       course_page,
                                                       '')
@@ -60,7 +60,7 @@ describe WikiAssignmentOutput do
       assignment_tag = '{{template|foo=bar}}'
       initial_talk_page_content = "{{ping|Johnjes6}} Greetings! Good start on an article! I had some concrete feedback.\n"
 
-      output = WikiAssignmentOutput
+      output = WikiAssignmentOutput.new(Wiki.default_wiki)
                .build_assignment_page_content(assignment_tag,
                                               'Talk:TRX System',
                                               initial_talk_page_content)
@@ -73,7 +73,7 @@ describe WikiAssignmentOutput do
       talk_page_templates = "{{some template}}\n{{some other template}}\n"
       additional_talk_content = "This is a comment\n"
       initial_talk_page_content = talk_page_templates + additional_talk_content
-      output = WikiAssignmentOutput
+      output = WikiAssignmentOutput.new(Wiki.default_wiki)
                .build_assignment_page_content(assignment_tag,
                                               'Talk:An_article',
                                               initial_talk_page_content)
@@ -88,7 +88,7 @@ describe WikiAssignmentOutput do
     talk_page_templates = "{{some template}}\n{{some other template}}\n"
     additional_talk_content = "This is a comment\n"
     initial_talk_page_content = talk_page_templates + assignment_tag + additional_talk_content
-    output = WikiAssignmentOutput
+    output = WikiAssignmentOutput.new(Wiki.default_wiki)
              .build_assignment_page_content(assignment_tag,
                                             course_page,
                                             initial_talk_page_content)
@@ -106,7 +106,7 @@ describe WikiAssignmentOutput do
         title_assignments = assignment_titles['Selfie']
 
         # Try the case of where the article exists
-        page_content = WikiAssignmentOutput
+        page_content = WikiAssignmentOutput.new(course.home_wiki)
                        .build_talk_page_update(existing_title,
                                                missing_talk_title,
                                                title_assignments,
@@ -116,7 +116,7 @@ describe WikiAssignmentOutput do
 
         # Try the case where the article does not exist.
         missing_title = 'THIS PAGE DOES NOT EXIST'
-        page_content = WikiAssignmentOutput
+        page_content = WikiAssignmentOutput.new(course.home_wiki)
                        .build_talk_page_update(missing_title,
                                                missing_talk_title,
                                                title_assignments,

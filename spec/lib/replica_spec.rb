@@ -21,7 +21,7 @@ describe Replica do
       rev_start = 2014_01_01_003430
       rev_end = 2014_12_31_003430
 
-      response = Replica.get_revisions(all_users, rev_start, rev_end)
+      response = Replica.new(Wiki.default_wiki).get_revisions(all_users, rev_start, rev_end)
       expect(response).to be_empty
     end
 
@@ -34,7 +34,7 @@ describe Replica do
         build(:user, wiki_id: 'Mrbauer1234', id: 23011474)
       ]
 
-      response = Replica.get_user_info(all_users)
+      response = Replica.new(Wiki.default_wiki).get_user_info(all_users)
       expect(response).to be_nil
     end
 
@@ -48,7 +48,7 @@ describe Replica do
         rev_start = 2014_01_01_003430
         rev_end = 2014_12_31_003430
 
-        response = Replica.get_revisions(all_users, rev_start, rev_end)
+        response = Replica.new(Wiki.default_wiki).get_revisions(all_users, rev_start, rev_end)
 
         # This count represents the number of pages in a subset of namespaces
         # edited by the users, not the number of revisions. Revisions are child
@@ -58,13 +58,13 @@ describe Replica do
         # Make sure we handle the case of zero revisions.
         rev_start = 2015_05_05
         rev_end = 2015_05_06
-        response = Replica.get_revisions(all_users, rev_start, rev_end)
+        response = Replica.new(Wiki.default_wiki).get_revisions(all_users, rev_start, rev_end)
         expect(response.count).to eq(0)
 
         # Make sure we handle the case of one revision.
         rev_start = 2015_05_08
         rev_end = 2015_05_09
-        response = Replica.get_revisions(all_users, rev_start, rev_end)
+        response = Replica.new(Wiki.default_wiki).get_revisions(all_users, rev_start, rev_end)
         expect(response.count).to eq(1)
       end
     end
@@ -76,19 +76,19 @@ describe Replica do
                            wiki_id: 'JRicker,PhD')
         rev_start = 2015_01_01
         rev_end = 2016_01_01
-        response = Replica.get_revisions([comma_user], rev_start, rev_end)
+        response = Replica.new(Wiki.default_wiki).get_revisions([comma_user], rev_start, rev_end)
         expect(response.count).to be > 1
 
         ampersand_user = build(:user,
                                id: 22403865,
                                wiki_id: 'Evol&Glass')
-        response = Replica.get_revisions([ampersand_user], rev_start, rev_end)
+        response = Replica.new(Wiki.default_wiki).get_revisions([ampersand_user], rev_start, rev_end)
         expect(response.count).to be > 1
 
         apostrophe_user = build(:user,
                                 id: 26211578,
                                 wiki_id: "Jack's nomadic mind")
-        response = Replica.get_revisions([apostrophe_user], rev_start, rev_end)
+        response = Replica.new(Wiki.default_wiki).get_revisions([apostrophe_user], rev_start, rev_end)
         expect(response.count).to be > 1
 
         rev_start = 2008_01_01
@@ -96,7 +96,7 @@ describe Replica do
         exclamation_user = build(:user,
                                  id: 11274650,
                                  wiki_id: '!!Aaapplesauce')
-        response = Replica.get_revisions([exclamation_user], rev_start, rev_end)
+        response = Replica.new(Wiki.default_wiki).get_revisions([exclamation_user], rev_start, rev_end)
         expect(response.count).to be > 1
       end
     end
@@ -113,7 +113,7 @@ describe Replica do
         all_users.each_with_index do |u, i|
           all_users[i] = OpenStruct.new u
         end
-        response = Replica.get_user_info(all_users)
+        response = Replica.new(Wiki.default_wiki).get_user_info(all_users)
         trained = response.reduce(0) { |a, e| a + e['trained'].to_i }
         expect(trained).to eq(3)
       end
@@ -128,7 +128,7 @@ describe Replica do
         all_users.each_with_index do |u, i|
           all_users[i] = OpenStruct.new u
         end
-        response = Replica.get_user_info(all_users)
+        response = Replica.new(Wiki.default_wiki).get_user_info(all_users)
         expect(response[0]['global_id']).to eq('827')
         expect(response[1]['global_id']).to eq('14093230')
       end
@@ -138,7 +138,7 @@ describe Replica do
       VCR.use_cassette 'replica/training' do
         create(:user, wiki_id: 'old_username')
         expect(User.all.first.wiki_id).to eq('old_username')
-        response = Replica.get_user_info User.all
+        response = Replica.new(Wiki.default_wiki).get_user_info User.all
         expect(response[0]['wiki_id']).to eq('Ragesock')
       end
     end
@@ -156,7 +156,7 @@ describe Replica do
           { 'title' => 'Mmilldev/sandbox' }, # exists in namespace 2
           { 'title' => 'THIS ARTICLE_DOES NOT_EXIST' }
         ]
-        response = Replica.get_existing_articles_by_title(article_titles)
+        response = Replica.new(Wiki.default_wiki).get_existing_articles_by_title(article_titles)
         expect(response.size).to eq(15)
       end
     end

@@ -103,7 +103,7 @@ class Cleaners
     assignments.each do |assignment|
       possibly_bad_title = assignment.article_title
       next unless possibly_bad_title == Utils.format_article_title(possibly_bad_title.downcase)
-      title_search_result = first_article_search_result(possibly_bad_title)
+      title_search_result = first_article_search_result(assignment.wiki, possibly_bad_title)
       next if possibly_bad_title == title_search_result
       next unless title_search_result.downcase == possibly_bad_title.downcase.tr(' ', '_')
       assignment.article_title = title_search_result
@@ -111,13 +111,13 @@ class Cleaners
     end
   end
 
-  def self.first_article_search_result(search_term)
+  def self.first_article_search_result(wiki, search_term)
     require "#{Rails.root}/lib/wiki_api"
     query = { list: 'search',
               srsearch: search_term,
               srnamespace: 0,
               srlimit: 1 }
-    response = WikiApi.query(query)
+    response = WikiApi.new(wiki).query(query)
     return '' if response.nil?
     results = response.data['search']
     return '' if results.empty?

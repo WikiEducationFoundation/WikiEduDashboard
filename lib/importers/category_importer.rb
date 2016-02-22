@@ -6,6 +6,10 @@ require "#{Rails.root}/lib/wiki_api"
 
 #= Imports articles for a category, along with view data and revision scores
 class CategoryImporter
+  def initialize(wiki)
+    @wiki = wiki
+  end
+
   ################
   # Entry points #
   ################
@@ -13,12 +17,12 @@ class CategoryImporter
   # Takes a category name of the form 'Category:Foo' and imports all articles
   # in that category. Optionally, also recursively imports subcategories of
   # the specified depth.
-  def self.import_category(category, depth=0)
+  def import_category(category, depth=0)
     article_ids = article_ids_for_category(category, depth)
     import_articles_with_scores_and_views article_ids
   end
 
-  def self.show_category(category, opts={})
+  def show_category(category, opts={})
     depth = opts[:depth] || 0
     min_views = opts[:min_views] || 0
     max_wp10 = opts[:max_wp10] || 100
@@ -32,7 +36,7 @@ class CategoryImporter
     end
   end
 
-  def self.report_on_category(category, opts={})
+  def report_on_category(category, opts={})
     depth = opts[:depth] || 0
     min_views = opts[:min_views] || 0
     max_wp10 = opts[:max_wp10] || 100
@@ -44,7 +48,7 @@ class CategoryImporter
   ##################
   # Output methods #
   ##################
-  def self.views_and_scores_output(article_ids, min_views, max_wp10)
+  def views_and_scores_output(page_ids, min_views, max_wp10)
     output = "title,average_views,completeness,views/completeness\n"
     articles = Article.where(id: article_ids)
                .where('average_views > ?', min_views)
@@ -64,14 +68,14 @@ class CategoryImporter
   ##################
   # Helper methods #
   ##################
-  def self.import_missing_scores_and_views(article_ids)
+  def import_missing_scores_and_views(page_ids)
     existing_article_ids = Article.where(id: article_ids).pluck(:id)
     import_missing_info existing_article_ids
     missing_article_ids = article_ids - existing_article_ids
     import_articles_with_scores_and_views missing_article_ids
   end
 
-  def self.import_missing_info(article_ids)
+  def import_missing_info(page_ids)
     outdated_views = Article
                      .where(id: article_ids)
                      .where('average_views_updated_at < ?', 1.year.ago)
@@ -90,14 +94,14 @@ class CategoryImporter
     RevisionScoreImporter.update_revision_scores missing_revision_scores
   end
 
-  def self.import_articles_with_scores_and_views(article_ids)
-    ArticleImporter.import_articles article_ids
+  def import_articles_with_scores_and_views(page_ids)
+    ArticleImporter.new(@wiki).import_articles article_ids
     import_latest_revision article_ids
     import_scores_for_latest_revision article_ids
     import_average_views article_ids
   end
 
-  def self.article_ids_for_category(category, depth=0)
+  def page_ids_for_category(category, depth=0)
     cat_query = category_query category
     article_ids = get_category_member_properties(cat_query, 'pageid')
     if depth > 0
@@ -110,11 +114,11 @@ class CategoryImporter
     article_ids
   end
 
-  def self.get_category_member_properties(query, property)
+  def get_category_member_properties(query, property)
     property_values = []
     continue = true
     until continue.nil?
-      cat_response = WikiApi.query query
+      cat_response = WikiApi.new(@wiki).query query
       page_data = cat_response.data['categorymembers']
       page_data.each do |page|
         property_values << page[property]
@@ -125,13 +129,13 @@ class CategoryImporter
     property_values
   end
 
-  def self.subcategories_of(category)
+  def subcategories_of(category)
     subcat_query = category_query(category, 14) # 14 is the Category namespace
     subcats = get_category_member_properties(subcat_query, 'title')
     subcats
   end
 
-  def self.category_query(category, namespace=0)
+  def category_query(category, namespace=0)
     { list: 'categorymembers',
       cmtitle: category,
       cmlimit: 500,
@@ -140,18 +144,18 @@ class CategoryImporter
     }
   end
 
-  def self.revisions_query(article_ids)
+  def revisions_query(page_ids)
     { prop: 'revisions',
-      pageids: article_ids,
+      pageids: page_ids,
       rvprop: 'userid|ids|timestamp'
     }
   end
 
-  def self.import_latest_revision(article_ids)
-    latest_revisions = get_revision_data article_ids
+  def import_latest_revision(page_ids)
+    latest_revisions = get_revision_data page_ids
     revisions_to_import = []
-    article_ids.each do |id|
-      rev_data = latest_revisions[id.to_s]['revisions'][0]
+    page_ids.each do |page_id|
+      rev_data = latest_revisions[page_id.to_s]['revisions'][0]
       new_article = (rev_data['parentid'] == 0)
       new_revision = Revision.new(id: rev_data['revid'],
                                   article_id: id,
@@ -163,19 +167,19 @@ class CategoryImporter
     Revision.import revisions_to_import
   end
 
-  def self.get_revision_data(article_ids)
+  def get_revision_data(page_ids)
     latest_revisions = {}
-    article_ids.each_slice(50) do |fifty_ids|
+    page_ids.each_slice(50) do |fifty_ids|
       rev_query = revisions_query(fifty_ids)
-      rev_response = WikiApi.query rev_query
+      rev_response = WikiApi.new(@wiki).query rev_query
       latest_revisions.merge! rev_response.data['pages']
     end
     latest_revisions
   end
 
-  def self.import_scores_for_latest_revision(article_ids)
+  def import_scores_for_latest_revision(page_ids)
     revisions_to_update = []
-    article_ids.each do |id|
+    page_ids.each do |page_id|
       next unless Article.exists?(id)
       revision = Article.find(id).revisions.last
       revisions_to_update << revision if revision.wp10.nil?
@@ -183,7 +187,7 @@ class CategoryImporter
     RevisionScoreImporter.update_revision_scores revisions_to_update
   end
 
-  def self.import_average_views(article_ids)
+  def import_average_views(article_ids)
     articles = Article.where(id: article_ids)
     articles = articles.select do |a|
       a.average_views.nil? || a.average_views_updated_at < 1.month.ago
