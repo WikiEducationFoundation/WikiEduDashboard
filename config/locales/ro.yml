@@ -7,8 +7,8 @@
 ---
 ro:
   application:
-    sign_up_extended: Inregistreaza-te cu Wikipedia
-    submit: Trimitere
+    sign_up_extended: Înregistrare prin Wikipedia
+    submit: Trimite
   articles:
     edited: Articole modificate
     edited_mobile: Articole
@@ -18,7 +18,7 @@ ro:
     title: Titlu
   courses:
     activity: Activitate
-    already_enrolled: Faci deja parte din %{title}
+    already_enrolled: Faceți deja parte din „%{title}”!
     articles: Articole
     duration: Durata cursului
     error:

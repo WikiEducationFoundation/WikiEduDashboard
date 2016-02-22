@@ -2,11 +2,36 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Cedric31
+# Author: Jfblanc
 ---
 oc:
+  application:
+    cancel: Anullar
+    explore: Explorar
+    greeting2: Benvenguda!
+    greeting_extended: Benvenguda dins Wikipèdia
+    greeting: Bonjorn!
+    help: Ajuda
+    home: Acuèlh
+    log_in_extended: Se connectar a Wikipèdia
+    log_in: Connexion
+    log_out: Desconnexion
+    my_dashboard: Mon tablèu de bòrd
+    recent_activity: Activitat recenta
+    sign_up_log_in_extended: amb Wikipèdia
+    sign_up: S'inscriure
+    submit: Sometre
+    training: Formacion
+  home:
+    explore: Explorar
   activity:
     all: Activitat
     edited_by: Modificat per
+  articles:
+    edited_mobile: Articles
+    label: Articles
+    rating: Classa
+    title: Títol
   metrics:
     date_time: Data/Ora
     view: Vistas

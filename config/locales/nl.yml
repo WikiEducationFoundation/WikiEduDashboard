@@ -10,9 +10,10 @@ nl:
   application:
     cancel: Annuleren
     dashboard: Wiki Ed Dashboard
-    explore: Ontdek
+    explore: Verkennen
     greeting2: Welkom!
-    greeting: Hallo,
+    greeting_extended: Welkom op Wikipedia
+    greeting: Hallo!
     help: Help
     home: Startpagina
     log_in_extended: Aanmelden bij Wikipedia
@@ -20,21 +21,37 @@ nl:
     log_out: Afmelden
     my_dashboard: Mijn dashboard
     recent_activity: Recente activiteit
+    search: zoeken in ask.wikiedu.org
+    sign_up_extended: Registreren via Wikipedia
     sign_up_log_in_extended: met Wikipedia
     sign_up: Registreren
     submit: Verzenden
+    training: Opleiding
+  dashboard:
+    create_note: Klik op "Cursus aanmaken" om uw eerste cursus aan te maken.
+    explore_course_pages: Verken de cursuspagina's
+    explore_examples: Verken voorbeelden
+    join_note: Als u een wachtwoord van uw instructeur krijgt, klik dan op "Uw cursus
+      vinden" om deze te vinden en er lid van te worden.
+    no_courses_instructor: U hebt nog geen cursussen.
+    no_courses_student: U bent nog geen lid geworden van een cursus.
+    opt_out: Verzoek af te zien van de training
+    orientation_notice: Voordat u een cursus aanmaakt, ga door een traiming om u te
+      helpen de slag te gaan. Dit duurt ongeveer 30 minuten om te voltooien.
+    start_orientation: Training beginnen
   home:
-    explore: Ontdek
+    explore: Verkennen
     log_in: Aanmelden met Wikipedia
-    sign_up: Aanmelden met Wikipedia
+    sign_up: Registreren via Wikipedia
   activity:
     all: Activiteit
     edited_by: Bewerkt door
+    label: Activiteiten
   articles:
     assigned: Toegewezen pagina's
     assigned_to: Toegewezen aan
-    character_doc: Het totale aantal tekens dat door de studenten van de cursus tijdens
-      de cursustermijn is toegevoegd
+    character_doc: Het totale aantal tekens dat is toegevoegd aan pagina's door de
+      ingeschreven studenten tussen de begin- en einddatum
     edited: Pagina's bewerkt
     edited_mobile: Pagina's
     label: Pagina's
@@ -47,12 +64,12 @@ nl:
       een ruwe indicator van de volwassenheid van een pagina.
     rating_docs:
       fa: Uitgelichte pagina - De hoogste waardering in Wikipedia, waarschijnlijk
-        een te volwassen pagina voor het hoofdproject van een student
+        een te volwassen pagina voor het hoofdproject van een nieuwe bewerker
       fl: Uitgelichte lijst - De hoogste waardering van lijsten in Wikipedia
       a: Klasse A - zeer ontwikkelde pagina, waarschijnlijk een te volwassen pagina
-        voor het hoofdproject van een student
+        voor het hoofdproject van een nieuwe bewerker
       ga: Goede pagina - een prima ontwikkelde pagina, mogelijk een te volwassen pagina
-        voor het hoofdproject van een student
+        voor het hoofdproject van een nieuwe bewerker
       b: Klasse B - een matig ontwikkelde pagina
       c: Klasse C - een redelijk ontwikkelde pagina met ruimte voor verbetering
       start: Startklasse - een pagina in het beginstadium met ruim voldoende ruimte
@@ -63,18 +80,25 @@ nl:
       '?': Zonder beoordeling — een pagina die nog niet is beoordeeld op de kwaliteitsschaal
         van Wikipedia
     title: Naam
+    title_example: Paginanaam
     view: Pagina bekijken
     view_all: Alle bekijken
     view_doc: Het aantal paginaweergaven van iedere pagina tijdens te cursustermijn
     views_added: '%{count} nieuwe weergaven toegevoegd voor %{title}'
   assignments:
+    already_exists: Deze opdracht bestaat al!
     assignees: Toegewezen aan
+    assign_other: Wijs een pagina toe
+    assign_self: Wijs een pagina aan mezelf toe
     confirm_addition: Weet u zeker dat u %{title} wilt toewijzen aan %{username}?
     confirm_deletion: Weet u zeker dat u deze opdracht wilt verwijderen?
     label: Toewijzen
     loading: Bezig met het laden van opdrachten...
+    none_short: Geen pagina's toegewezen
     none: Deze cursus heeft geen toegewezen Wikipediapagina's.
     reviewers: Controleur(s)
+    review_other: Wijs een controle toe
+    review_self: Controleer een pagina
   blocks:
     milestones:
       title: Mijlpalen
@@ -83,26 +107,59 @@ nl:
     view_other: Andere cohorten bekijken
   courses:
     activity: Activiteit
+    already_enrolled: U bent onderdeel van "%{title}"!
+    archived: Gearchiveerde cursussen
     articles: Pagina's
+    articles_none: In deze cursus zijn geen pagina's bewerkt.
+    assignment_end: Einde opdracht
+    assignments_none: Deze cursus heeft geen toegewezen Wikipediapagina's.
+    assignment_start: Begin opdracht
     character_doc: Het aantal tekens dat tijdens de cursus is toegevoegd aan pagina's
       in de hoofdnaamruimte door studenten van de cursus
+    course_dates_calendar_instructions: Selecteer datums om ze toe te voegen of te
+      verwijderen uit het schema, bijvoorbeeld vakantie of geen onderwijs. Klik op
+      de datum om te wisselen tussen niet geselecteerd, geselecteerd en vakantiestatus.
+      De datums van de cursusactiviteiten veranderen om weken weer te geven zonder
+      deadlines.
     course_description: Cursussen
     courses: Cursussen
     current: Huidige cursussen
     duration: Duur van de cursus
+    edit_course_dates: Cursusdatums bewerken
     error:
       exists: Die cursus bestaat al. Probeer het opnieuw met een andere naam, school
         of termijn.
       user_exists: '%{username} is geen bestaande gebruiker.'
+    expected_students: Verwachte studenten
     gradeables_none: Deze cursus heeft nog geen te beoordelen opdrachten.
     instructor:
       one: Instructeur
       other: Instructeurs
+    instructors: Instructeurs
+    invitation: |-
+      U hebt uitgenodigd lid te worden van %{title}. Om deel te nemen aan de cursus, dient u in te loggen met een Wikipedia-account.
+      Als u niet beschikt over een Wikipedia-account, meld u daar van nu voor aan.
+    join: Lid worden
+    join_prompt: Lid worden van "%{title}"?
+    join_successful: U bent lid geworden van %{title}.
+    milestones_none: Deze cursus heeft nog geen mijlpalen.
     new_week: Nieuwe week toevoegen
     nocourses: U neemt niet deel aan een cursus.
     overview: Overzicht
+    passcode: Wachtwoord
+    published: 'Uw cursus is gepubliceerd! Studenten kunnen zich inschrijven voor
+      de cursus door een bezoek aan de volgende URL:'
+    review_timeline: Controleer deze tijdlijn en maak wijzigingen. Zodra u tevreden
+      bent met uw tijdlijn, dien deze dan in voor goedkeuring door medewerkers van
+      Wiki Ed. Eenmaal goedgekeurd, krijgt u een inschrijvings-URL die studenten kunnen
+      gebruiken om het deel te nemen aan de cursus. U kunt op een later moment nog
+      steeds bewerkingen maken.
     revisions_doc: Het aantal bewerkingen in de afgelopen %{timeframe} dagen
+    revisions_none: Deze cursus heeft geen recente bijbehorende Wikipediabewerkingen.
+    school: School
     students: Studenten
+    students_count: '# Studenten'
+    student_editors: Studentbewerkers
     students_none: Deze cursus heeft nog geen geregistreerde studenten.
     students_short: Studenten
     timeline: Opdrachtdetails
@@ -119,7 +176,7 @@ nl:
     wiki_staff: Medewerkers van Wiki Ed
     yourcourses: Uw cursussen
   course_creator:
-    course_title: Cursustitel
+    course_title: Cursusnaam
     create_new: Nieuwe cursus maken
     intro: De naam, school en semester vormen de URL voor uw cursuspagina en dit kan
       niet gewijzigd worden. Al het andere kan later aangepast worden. Klik op "Cursus
@@ -149,7 +206,7 @@ nl:
     loading: Bezig met het laden van versies...
     none: Deze cursus heeft geen recente bijbehorende Wikipediabewerkingen.
     time_doc: De tijd van iedere versie in uw lokale tijd
-    title: Titel
+    title: Naam
   tasks:
     conseq: Taak %{task} is al actief!
     constant: Taak %{task} kan niet actief zijn terwijl update_daily wordt uitgevoerd.
