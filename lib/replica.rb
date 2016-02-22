@@ -130,63 +130,61 @@ class Replica
   # Private methods #
   ###################
 
-  class << self
-    private
+  private
 
-    # Given an endpoint (either 'users.php' or 'revisions.php') and a
-    # query appropriate to that endpoint, return the parsed json response.
-    #
-    # Example users.php query with 2 users:
-    #   http://tools.wmflabs.org/wikiedudashboard/users.php?user_ids[0]=012345&user_ids[1]=678910
-    # Example users.php parsed response with 2 users:
-    # [{"id"=>"123", "wiki_id"=>"User_A", "global_id"=>"8675309", trained: 1},
-    #  {"id"=>"6789", "wiki_id"=>"User_B", "global_id"=>"9035768", trained: 0}]
-    #
-    # Example revisions.php query:
-    #   http://tools.wmflabs.org/wikiedudashboard/revisions.php?user_ids[0]=%27Example_User%27&user_ids[1]=%27Ragesoss%27&user_ids[2]=%27Sage%20(Wiki%20Ed)%27&start=20150105&end=20150108
-    #
-    # Example revisions.php parsed response:
-    # [{"page_id"=>"44962463",
-    #   "page_title"=>"Swarfe/ENGL-122-2014",
-    #   "page_namespace"=>"2",
-    #   "rev_id"=>"641297913",
-    #   "rev_timestamp"=>"20150106205746",
-    #   "rev_user_text"=>"Sage (Wiki Ed)",
-    #   "rev_user"=>"21515199",
-    #   "new_article"=>"false",
-    #   "byte_change"=>"38"},
-    #  {"page_id"=>"44962463",
-    #   "page_title"=>"Swarfe/ENGL-122-2014",
-    #   "page_namespace"=>"2",
-    #   "rev_id"=>"641298113",
-    #   "rev_timestamp"=>"20150106205902",
-    #   "rev_user_text"=>"Sage (Wiki Ed)",
-    #   "rev_user"=>"21515199",
-    #   "new_article"=>"false",
-    #   "byte_change"=>"-50"
-    #  }]
-    def api_get(endpoint, query='', language=nil)
-      tries ||= 3
-      url = compile_query_url(endpoint, query, language)
-      response = Net::HTTP::get(URI.parse(url))
-      return unless response.length > 0
-      parsed = JSON.parse response.to_s
-      parsed['data']
-    rescue StandardError => e
-      tries -= 1
-      unless tries.zero?
-        sleep 2
-        retry
-      end
-      report_exception e, endpoint, query
+  # Given an endpoint (either 'users.php' or 'revisions.php') and a
+  # query appropriate to that endpoint, return the parsed json response.
+  #
+  # Example users.php query with 2 users:
+  #   http://tools.wmflabs.org/wikiedudashboard/users.php?user_ids[0]=012345&user_ids[1]=678910
+  # Example users.php parsed response with 2 users:
+  # [{"id"=>"123", "wiki_id"=>"User_A", "global_id"=>"8675309", trained: 1},
+  #  {"id"=>"6789", "wiki_id"=>"User_B", "global_id"=>"9035768", trained: 0}]
+  #
+  # Example revisions.php query:
+  #   http://tools.wmflabs.org/wikiedudashboard/revisions.php?user_ids[0]=%27Example_User%27&user_ids[1]=%27Ragesoss%27&user_ids[2]=%27Sage%20(Wiki%20Ed)%27&start=20150105&end=20150108
+  #
+  # Example revisions.php parsed response:
+  # [{"page_id"=>"44962463",
+  #   "page_title"=>"Swarfe/ENGL-122-2014",
+  #   "page_namespace"=>"2",
+  #   "rev_id"=>"641297913",
+  #   "rev_timestamp"=>"20150106205746",
+  #   "rev_user_text"=>"Sage (Wiki Ed)",
+  #   "rev_user"=>"21515199",
+  #   "new_article"=>"false",
+  #   "byte_change"=>"38"},
+  #  {"page_id"=>"44962463",
+  #   "page_title"=>"Swarfe/ENGL-122-2014",
+  #   "page_namespace"=>"2",
+  #   "rev_id"=>"641298113",
+  #   "rev_timestamp"=>"20150106205902",
+  #   "rev_user_text"=>"Sage (Wiki Ed)",
+  #   "rev_user"=>"21515199",
+  #   "new_article"=>"false",
+  #   "byte_change"=>"-50"
+  #  }]
+  def api_get(endpoint, query='')
+    tries ||= 3
+    url = compile_query_url(endpoint, query)
+    response = Net::HTTP::get(URI.parse(url))
+    return unless response.length > 0
+    parsed = JSON.parse response.to_s
+    parsed['data']
+  rescue StandardError => e
+    tries -= 1
+    unless tries.zero?
+      sleep 2
+      retry
     end
+    report_exception e, endpoint, query
+  end
 
-    def compile_query_url(endpoint, query, language=nil)
-      language ||= ENV['wiki_language']
-      base_url = 'http://tools.wmflabs.org/wikiedudashboard/'
-      raw_url = "#{base_url}#{endpoint}?lang=#{language}&#{query}"
-      URI.encode(raw_url)
-    end
+  def compile_query_url(endpoint, query)
+    base_url = 'http://tools.wmflabs.org/wikiedudashboard/'
+    raw_url = "#{base_url}#{endpoint}?lang=#{@wiki.language}&project=#{@wiki.project}&#{query}"
+    URI.encode(raw_url)
+  end
 
     # Compile a user list to send to the replica endpoint, which might look
     # something like this:

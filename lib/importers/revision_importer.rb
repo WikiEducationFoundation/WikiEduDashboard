@@ -37,8 +37,7 @@ class RevisionImporter
     old_users = course.students - new_users
 
     # TODO: Make a better educated guess about which wikis to search for edits.
-    # Such as, course.assignments.map(&:wiki).uniq
-    wikis = [Wiki.default_wiki]
+    wikis = course.assignments.map(&:wiki).uniq
 
     # rubocop:disable Style/IfUnlessModifier
     unless new_users.empty?

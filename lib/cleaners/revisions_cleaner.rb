@@ -16,8 +16,9 @@ class RevisionsCleaner
     user_ids = orphan_revisions.pluck(:user_id).uniq
     users = User.where(id: user_ids)
 
-    # TODO: Make a smarter guess, e.g. courses.assignments.wikis.uniq
-    wikis = [Wiki.default_wiki]
+    # TODO: Make a smarter guess than this.
+    # FIXME: Also, why can't I: wikis = users.courses.assignments.wikis.uniq
+    wikis = users.map(&:courses).reduce(:|).map(&:assignments).reduce(:|).map(&:wikis).reduce(:|).uniq
 
     revision_data = RevisionImporter.get_revisions(users, start, end_date, wikis)
     RevisionImporter.import_revisions(revision_data)

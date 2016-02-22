@@ -80,7 +80,13 @@ class UserImporter
   end
 
   def self.update_users(users=nil)
-      Replica.new(Wiki.default_wiki).get_user_info block
+    # FIXME: We're blindly guessing which wiki to query for each user.
+    users ||= User.all
+    u_users = []
+    users.group_by(&:home_wiki).each do |wiki, local_users|
+      u_users << Utils.chunk_requests(local_users) do |block|
+        Replica.new(wiki).get_user_info block
+      end
     end
 
     User.transaction do
