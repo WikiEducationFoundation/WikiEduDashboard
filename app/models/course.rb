@@ -163,8 +163,7 @@ class Course < ActiveRecord::Base
     # Some types do not have corresponding on-wiki pages, so they have no
     # wiki_title or url.
     return unless wiki_title
-    language = ENV['wiki_language']
-    "https://#{language}.wikipedia.org/wiki/#{wiki_title}"
+    "#{home_wiki.base_url}wiki/#{wiki_title}"
   end
 
   def delist

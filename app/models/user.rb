@@ -77,13 +77,11 @@ class User < ActiveRecord::Base
   end
 
   def contribution_url
-    language = ENV['wiki_language']
-    "https://#{language}.wikipedia.org/wiki/Special:Contributions/#{wiki_id}"
+    "#{home_wiki.base_url}wiki/Special:Contributions/#{wiki_id}"
   end
 
   def sandbox_url
-    language = ENV['wiki_language']
-    "https://#{language}.wikipedia.org/wiki/Special:PrefixIndex/User:#{wiki_id}"
+    "#{home_wiki.base_url}wiki/Special:PrefixIndex/User:#{wiki_id}"
   end
 
   def talk_page

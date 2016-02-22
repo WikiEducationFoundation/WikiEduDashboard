@@ -13,12 +13,12 @@ module ArticleHelper
     Article::Namespaces::DRAFT_TALK => 'Draft_talk:'
   }
 
+  # TODO: Move to Article#url ?
   def article_url(article)
     return nil if article.nil?
-    language = Figaro.env.wiki_language
+    # TODO: i18n namespace lookup
     prefix = NS[article.namespace]
-    escaped_title = article.title.tr(' ', '_')
-    "https://#{language}.wikipedia.org/wiki/#{prefix}#{escaped_title}"
+    "#{article.wiki.base_url}wiki/#{prefix}#{article.title}"
   end
 
   def full_title(article)
