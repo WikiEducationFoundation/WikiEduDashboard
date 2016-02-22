@@ -90,6 +90,13 @@ class User < ActiveRecord::Base
     "User_talk:#{wiki_id}"
   end
 
+  def home_wiki
+    # FIXME: This is wild guess.
+    return assignments.first.wiki unless assignments.empty?
+    return courses.first.home_wiki unless courses.empty?
+    Wiki.default_wiki
+  end
+
   def admin?
     permissions == Permissions::ADMIN
   end

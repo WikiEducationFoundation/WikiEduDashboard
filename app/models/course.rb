@@ -292,6 +292,12 @@ class Course < ActiveRecord::Base
     order_weeks
   end
 
+  def home_wiki
+    # TODO: Prompt, don't guess.
+    return assignments.first.wiki unless assignments.empty?
+    return Wiki.default_wiki
+  end
+
   private
 
   def trained_students_manager
