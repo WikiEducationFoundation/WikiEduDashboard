@@ -192,14 +192,14 @@ class Replica
   def compile_query_url(endpoint, query)
     base_url = 'http://tools.wmflabs.org/wikiedudashboard/'
     raw_url = "#{base_url}#{endpoint}?lang=#{@wiki.language}&project=#{@wiki.project}&#{query}"
-    URI.encode(raw_url)
   end
 
   # Compile a user list to send to the replica endpoint, which might look
   # something like this:
   # "usernames[]='Ragesoss'&usernames[]='Sage+%28Wiki+Ed%29'"
   def compile_usernames_string(users)
-    { usernames: users.map(&:wiki_id) }.to_query
+    # FIXME: don't quote
+    { usernames: users.map(&:wiki_id).map {|s| "'#{s}'"} }.to_query
   end
 
   # Compile a user list to send to the replica endpoint, which might look
@@ -207,37 +207,25 @@ class Replica
   # "user_ids[0]='Ragesoss'&user_ids[1]='Sage (Wiki Ed)'"
   # FIXME: deprecated
   def compile_user_ids_string(users)
-    user_list = ''
-    users.each_with_index do |user, i|
-      fail unless user.id
-      user_list += '&' if i > 0
-      user_list += "user_ids[#{i}]='#{user.id}'"
-    end
-    user_list
+    { user_ids: users.map(&:id) }.to_query
   end
 
   def compile_oauth_tags
-    tag_list = ''
     oauth_ids = ENV['oauth_ids']
-    return '' if oauth_ids.nil?
-    oauth_ids.split(',').each_with_index do |id, i|
-      tag_list += '&' if i > 0
-      tag_list += "oauth_tags[#{i}]='OAuth CID: #{id}'"
-    end
-    tag_list
+    return '' if oauth_ids.blank?
+    {
+      # FIXME: This text should be added on the backend?
+      oauth_tags: oauth_ids.split(',').map do |id|
+                    "OAuth CID: #{id}"
+                  end.map {|s| "'#{s}'"}
+    }.to_query
   end
 
   # Compile an article list to send to the replica endpoint, which might look
   # something like this:
   # "article_ids[0]='Artist'&article_ids[1]='Microsoft_Research'"
   def compile_article_title_string(articles)
-    article_list = ''
-    articles.each_with_index do |a, i|
-      article_list += '&' if i > 0
-      title = CGI.escape(a['title'].tr(' ', '_'))
-      article_list += "article_titles[#{i}]='#{title}'"
-    end
-    article_list
+    { article_titles: articles.map { |a| a['title'].tr(' ', '_') }.map {|s| "'#{s}'"} }.to_query
   end
 
   # Compile an article list to send to the replica endpoint, which might look
@@ -255,12 +243,9 @@ class Replica
   end
 
   def compile_id_string(ids, prefix)
-    id_list = ''
-    ids.each_with_index do |id, index|
-      id_list += '&' if index > 0
-      id_list += "#{prefix}[#{index}]='#{id['id']}'"
-    end
-    id_list
+    # FIXME does the backend really expect single-quotes?
+    id_strings = ids.map {|i| i['id']}
+    Hash[prefix, id_strings].to_query
   end
 
   def report_exception(error, endpoint, query, level='error')
