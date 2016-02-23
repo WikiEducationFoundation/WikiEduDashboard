@@ -16,8 +16,8 @@ ActiveRecord::Schema.define(version: 20160303010838) do
   create_table "articles", force: :cascade do |t|
     t.string   "title",                    limit: 255
     t.integer  "views",                    limit: 8,   default: 0
-    t.datetime "updated_at"
     t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "character_sum",            limit: 4,   default: 0
     t.integer  "revision_count",           limit: 4,   default: 0
     t.date     "views_updated_at"
@@ -45,10 +45,10 @@ ActiveRecord::Schema.define(version: 20160303010838) do
   create_table "assignments", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "article_title", limit: 255
     t.integer  "user_id",       limit: 4
     t.integer  "course_id",     limit: 4
     t.integer  "article_id",    limit: 4
+    t.string   "article_title", limit: 255
     t.integer  "role",          limit: 4
     t.integer  "wiki_id",       limit: 4
   end
@@ -120,7 +120,7 @@ ActiveRecord::Schema.define(version: 20160303010838) do
     t.string   "passcode",          limit: 255
     t.date     "timeline_start"
     t.date     "timeline_end"
-    t.string   "day_exceptions",    limit: 2000,   default: ""
+    t.string   "day_exceptions",    limit: 2000,  default: ""
     t.string   "weekdays",          limit: 255,   default: "0000000"
     t.integer  "new_article_count", limit: 4
     t.boolean  "no_day_exceptions",               default: false
@@ -144,9 +144,9 @@ ActiveRecord::Schema.define(version: 20160303010838) do
   end
 
   create_table "feedback_form_responses", force: :cascade do |t|
-    t.string  "subject", limit: 255
-    t.text    "body",    limit: 65535
-    t.integer "user_id", limit: 4
+    t.string   "subject",    limit: 255
+    t.text     "body",       limit: 65535
+    t.integer  "user_id",    limit: 4
     t.datetime "created_at"
   end
 
@@ -169,9 +169,9 @@ ActiveRecord::Schema.define(version: 20160303010838) do
     t.datetime "date"
     t.boolean  "new_article",                default: false
     t.boolean  "deleted",                    default: false
-    t.boolean  "system",                     default: false
     t.float    "wp10",           limit: 24
     t.float    "wp10_previous",  limit: 24
+    t.boolean  "system",                     default: false
     t.integer  "ithenticate_id", limit: 4
     t.string   "report_url",     limit: 255
     t.integer  "wiki_id",        limit: 4
@@ -217,10 +217,11 @@ ActiveRecord::Schema.define(version: 20160303010838) do
   end
 
   create_table "weeks", force: :cascade do |t|
+    t.string   "title",      limit: 255
     t.integer  "course_id",  limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "order",      limit: 4, default: 1, null: false
+    t.integer  "order",      limit: 4,   default: 1, null: false
   end
 
   create_table "wikis", force: :cascade do |t|
