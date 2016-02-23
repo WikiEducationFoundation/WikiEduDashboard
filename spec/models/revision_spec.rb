@@ -17,6 +17,9 @@
 #  wp10_previous  :float(24)
 #  ithenticate_id :integer
 #  report_url     :string(255)
+#  wiki_id        :integer
+#  native_id      :integer
+#  page_id        :integer
 #
 
 require 'rails_helper'
