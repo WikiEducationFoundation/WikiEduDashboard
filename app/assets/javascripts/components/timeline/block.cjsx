@@ -78,7 +78,7 @@ Block = React.createClass(
         />
       )
     if (@props.block.kind < 3 && !@_isEditable())
-      spacer = <span>  —  </span>
+      spacer = <span> &mdash; </span>
 
     modules = undefined
     if @props.block.training_modules || @_isEditable()
