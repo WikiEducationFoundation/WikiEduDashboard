@@ -18,6 +18,7 @@ class CoursesController < ApplicationController
     overrides = {}
     overrides[:passcode] = Course.generate_passcode
     overrides[:type] = ENV['default_course_type'] if ENV['default_course_type']
+    overrides[:cohorts] = [Cohort.default_cohort] if ENV['open_course_creation']
     @course = Course.create(course_params.merge(overrides))
     handle_timeline_dates
     CoursesUsers.create(user: current_user,
