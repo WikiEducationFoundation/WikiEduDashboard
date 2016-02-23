@@ -31,6 +31,9 @@ class Revision < ActiveRecord::Base
   scope :live, -> { where(deleted: false) }
   scope :user, -> { where(system: false) }
 
+  # Helps with importing data
+  alias_attribute :rev_id, :native_id
+
   before_validation :set_defaults
 
   ####################
