@@ -19,7 +19,7 @@ SummaryPanel = React.createClass(
     raw_options = WizardStore.getAnswers().map (answer, i) =>
       if i == 0
         details = [
-          <p key={'assignment_summary'}>{@props.course.timeline_start} — {@props.course.timeline_end}</p>
+          <p key={'assignment_summary'}>{@props.course.timeline_start} &mdash; {@props.course.timeline_end}</p>
         ]
       else
         details = answer.selections.map (selection, j) ->
