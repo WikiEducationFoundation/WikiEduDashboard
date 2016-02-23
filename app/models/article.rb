@@ -34,6 +34,9 @@ class Article < ActiveRecord::Base
   has_many :assignments
   belongs_to :wiki
 
+  # Allows us to directly #update from the Tools response
+  alias_attribute :page_id, :native_id
+
   scope :live, -> { where(deleted: false) }
   scope :current, -> { joins(:courses).merge(Course.current).uniq }
   scope :namespace, -> ns { where(namespace: ns) }
