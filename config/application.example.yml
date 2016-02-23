@@ -18,8 +18,8 @@
 # a message to display to all users at the top of each page
 # sitenotice: "NOTICE: The system will go down for maintenance soon."
 
-# Set to true to disable mandatory onboarding.
-  disable_onboarding: 'false'
+# Set to 'true' to disable help links to ask.wikiedu.org.
+  disable_help: 'true'
 
 # Set to true to disable mandatory training.
   disable_training: 'false'

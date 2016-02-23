@@ -11,14 +11,15 @@
         %li= link_to 'Surveys', surveys_path, class: class_for_path(request, surveys_path)
       - unless ENV['disable_training'] == 'true'
         %li= link_to t('application.training'), training_path, class: class_for_path(request, training_path)
-      %li= link_to t('application.help'), '/ask', target: '_blank'
-
+      - unless ENV['disable_help'] == 'true'
+        %li= link_to t('application.help'), '/ask', target: '_blank'
     - if user_signed_in?
-      .top-nav__faq-search
-        = form_tag("/ask", method: "get", target: '_blank') do
-          = text_field_tag(:q, '', placeholder: t('application.search'))
-          %button{type: 'submit'}
-            %i.icon.icon-search
+      - unless ENV['disable_help'] == 'true'
+        .top-nav__faq-search
+          = form_tag("/ask", method: "get", target: '_blank') do
+            = text_field_tag(:q, '', placeholder: t('application.search'))
+            %button{type: 'submit'}
+              %i.icon.icon-search
     %ul.top-nav__login-links
       - if user_signed_in?
         %li
