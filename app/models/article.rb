@@ -17,6 +17,8 @@
 #  language                 :string(10)
 #  average_views            :float(24)
 #  average_views_updated_at :date
+#  wiki_id                  :integer
+#  native_id                :integer
 #
 
 require "#{Rails.root}/lib/utils"
@@ -30,6 +32,7 @@ class Article < ActiveRecord::Base
   has_many :articles_courses, class_name: ArticlesCourses
   has_many :courses, -> { uniq }, through: :articles_courses
   has_many :assignments
+  belongs_to :wiki
 
   scope :live, -> { where(deleted: false) }
   scope :current, -> { joins(:courses).merge(Course.current).uniq }
@@ -38,9 +41,8 @@ class Article < ActiveRecord::Base
   # Always save titles with underscores instead of spaces, since that's the way
   # they are in the MediaWiki database.
   validates :title, presence: true
-  before_validation do
-    self.title = title.tr(' ', '_')
-  end
+
+  before_validation :set_defaults_and_normalize
 
   ####################
   # CONSTANTS        #
@@ -95,5 +97,14 @@ class Article < ActiveRecord::Base
   #################
   def self.update_all_caches(articles=nil)
     Utils.run_on_all(Article, :update_cache, articles)
+  end
+
+  private
+
+  def set_defaults_and_normalize
+    self.title = title.tr(' ', '_') unless title.nil?
+    # FIXME: transitional only
+    self.wiki_id ||= Wiki.default_wiki.id
+    self.native_id ||= self.id
   end
 end

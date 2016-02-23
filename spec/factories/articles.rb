@@ -17,6 +17,8 @@
 #  language                 :string(10)
 #  average_views            :float(24)
 #  average_views_updated_at :date
+#  wiki_id                  :integer
+#  native_id                :integer
 #
 
 FactoryGirl.define do
