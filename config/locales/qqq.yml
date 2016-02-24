@@ -145,6 +145,21 @@ qqq:
       Label for the number of courses in a cohort
       {{Identical|Course}}
     courses: Label for the number of courses in a cohort
+    course_creator:
+      course_description: Label for description of the course
+      course_school: Label for name of school which organized the course
+      course_subject: Label for subject of the course
+      course_title: Label for title of the course
+      create_label: Header for new course creation
+      create_new: Header of button for creating a new course
+      create_short: Short label for link to create a course
+      end_date: Label for date of the course end
+      expected_number: Label for expected number of students who will enroll in the
+        course
+      find: Label for link to explore courses
+      intro: Description of the course creator form
+      start_date: Label for date of the course start
+      submitted_and_pending_heading: Section heading for submitted and pending courses
     current: Label for the list of current courses
     duration: Label for duration of a course
     error:
@@ -202,20 +217,6 @@ qqq:
     student_editors: '{{Identical|Editor}}'
     students: '{{Identical|Editor}}'
     students_short: '{{Identical|Editor}}'
-  course_creator:
-    course_description: Label for description of the course
-    course_school: Label for name of school which organized the course
-    course_subject: Label for subject of the course
-    course_title: Label for title of the course
-    create_label: Header for new course creation
-    create_new: Header of button for creating a new course
-    create_short: Short label for link to create a course
-    end_date: Label for date of the course end
-    expected_number: Label for expected number of students who will enroll in the
-      course
-    find: Label for link to explore courses
-    intro: Description of the course creator form
-    start_date: Label for date of the course start
   metrics:
     activity: Label for activity feed.
     articles_created: Label for the number of articles created.

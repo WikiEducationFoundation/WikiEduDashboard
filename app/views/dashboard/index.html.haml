@@ -1,17 +1,18 @@
 - content_for :after_title, " - " + t("application.my_dashboard")
 
-#react_root
+#react_root{data: {default_course_type: @pres.default_course_type,
+                   course_string_prefix: @pres.default_course_string_prefix}}
 .container.dashboard
   %header
     %h1= @pres.heading_message
     %div
       - if @pres.can_create_course?
         = link_to course_creator_path, class: 'button dark dashboard-cta' do
-          = t("course_creator.create_short")
+          = t("courses.creator.create_short")
           %i.icon.icon-plus
       - elsif @pres.show_explore_button?
         = link_to explore_path, class: 'button dark dashboard-cta' do
-          = t("course_creator.find")
+          = t("courses.creator.find")
           %span.icon.icon-rt_arrow
 
   - # Show submitted/pending courses (for admins)

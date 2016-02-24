@@ -61,7 +61,7 @@ Course = React.createClass(
     user_role = if user_obj? then user_obj.role else -1
 
     if (user_role > 0 || @getCurrentUser().admin) && !@state.course.legacy && !@state.course.published
-      if CourseStore.isLoaded() && !(@state.course.submitted || @state.published)
+      if CourseStore.isLoaded() && !(@state.course.submitted || @state.published) && @state.course.type == 'ClassroomProgramCourse'
         alerts.push (
           <div className='notification' key='submit'>
             <div className='container'>
@@ -126,7 +126,7 @@ Course = React.createClass(
         </div>
       )
 
-    unless @state.course.legacy
+    if @state.course.type == 'ClassroomProgramCourse'
       timeline = (
         <div className="nav__item" id="timeline-link">
           <p><Link to={"#{@_courseLinkParams()}/timeline"} activeClassName='active'>{I18n.t("courses.timeline_link")}</Link></p>
