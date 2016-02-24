@@ -103,13 +103,6 @@ describe Cleaners do
       expect(Assignment.find(4).article_title).to eq('Áombus_hortorum')
     end
   end
-  it 'removes duplicate assignments that differ by underscores' do
-    create(:assignment, id: 1, article_id: 1, article_title: 'Bombus_hortorum', user_id: 1, role: 0)
-    create(:assignment, id: 2, article_id: 1, article_title: 'Bombus hortorum', user_id: 1, role: 0)
-    create(:article, id: 1, title: 'Bombus_hortorum')
-    Cleaners.repair_case_variant_assignment_titles
-    expect(Article.exists?(2)).to eq(false)
-  end
 
   describe '.match_assignment_titles_with_case_variant_articles_that_exist' do
     it 'updates assignment article titles when it should' do
