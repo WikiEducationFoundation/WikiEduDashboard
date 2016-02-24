@@ -51,6 +51,8 @@ class Assignment < ActiveRecord::Base
       .where.not(user: user_id)
   end
 
+  private
+
   def set_defaults_and_normalize
     self.article_title = article_title.tr(' ', '_') unless article_title.nil?
     # FIXME: transitional only
