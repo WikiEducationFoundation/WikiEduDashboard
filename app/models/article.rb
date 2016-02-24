@@ -41,8 +41,6 @@ class Article < ActiveRecord::Base
   scope :current, -> { joins(:courses).merge(Course.current).uniq }
   scope :namespace, -> ns { where(namespace: ns) }
 
-  # Always save titles with underscores instead of spaces, since that's the way
-  # they are in the MediaWiki database.
   validates :title, presence: true
 
   before_validation :set_defaults_and_normalize
@@ -105,6 +103,8 @@ class Article < ActiveRecord::Base
   private
 
   def set_defaults_and_normalize
+    # Always save titles with underscores instead of spaces, since that's the way
+    # they are in the MediaWiki database.
     self.title = title.tr(' ', '_') unless title.nil?
     # FIXME: transitional only
     self.wiki_id ||= Wiki.default_wiki.id
