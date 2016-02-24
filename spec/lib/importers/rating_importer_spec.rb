@@ -14,7 +14,7 @@ describe RatingImporter do
              namespace: 0,
              rating: 'fa')
 
-      article = Article.all.find_in_batches(batch_size: 30)
+      article = Article.all
       RatingImporter.update_ratings(article)
       expect(Article.first.rating).to eq('fa')
     end
