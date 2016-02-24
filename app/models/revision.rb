@@ -57,6 +57,8 @@ class Revision < ActiveRecord::Base
     user.courses.where('start <= ?', date).where('end >= ?', date)
   end
 
+  private
+
   def set_defaults
     self.wiki_id ||= Wiki.default_wiki.id
     self.native_id ||= self.id
