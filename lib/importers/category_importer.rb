@@ -120,7 +120,7 @@ class CategoryImporter
     property_values = []
     continue = true
     until continue.nil?
-      cat_response = WikiApi.new(wiki: @wiki).query query
+      cat_response = WikiApi.new(@wiki).query query
       page_data = cat_response.data['categorymembers']
       page_data.each do |page|
         property_values << page[property]
@@ -176,7 +176,7 @@ class CategoryImporter
     latest_revisions = {}
     page_ids.each_slice(50) do |fifty_ids|
       rev_query = revisions_query(fifty_ids)
-      rev_response = WikiApi.new(wiki: @wiki).query rev_query
+      rev_response = WikiApi.new(@wiki).query rev_query
       latest_revisions.merge! rev_response.data['pages']
     end
     latest_revisions
