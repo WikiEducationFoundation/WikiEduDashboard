@@ -76,16 +76,6 @@ sd:
     view_wiki: وڪي‌پيڊيا تي ڏسو
     wiki_staff: وڪي ايڊيٽر عملو
     yourcourses: توهان جا ڪورسز
-  course_creator:
-    course_description: ڪورس جي تشريح
-    course_school: ڪورس جو اسڪول
-    course_subject: ڪورس جو مضمون
-    course_term: ڪورس ششماهي
-    course_title: ڪورس جو عنوان
-    create_new: ڪو نئون ڪورس تخليق ڪريو
-    end_date: تاريخ انجام
-    expected_number: شاگردن جو معوقع تعداد
-    start_date: تاريخ آغاز
   metrics:
     activity: تازي سرگرمي
     articles_created: تخليقيل مضمون

@@ -52,14 +52,6 @@ mr:
     title: शीर्षक
     view: अभ्यासक्रम बघा
     yourcourses: आपले अभ्यासक्रम
-  course_creator:
-    course_description: अभ्यासक्रमाचे वर्णन
-    course_subject: अभ्यासक्रम विषय
-    course_title: अभ्यासक्रमाचे शीर्षक
-    create_new: नविन अभ्यासक्रम तयार करा
-    end_date: अंतिम दिनांक
-    expected_number: विद्यार्थ्यांची अपेक्षित संख्या
-    start_date: सुरूवात दिनांक
   metrics:
     activity: अलीकडील क्रिया
     articles_created: तयार केलेले लेख

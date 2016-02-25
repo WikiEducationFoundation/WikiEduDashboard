@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Alex00728
 # Author: Hwangjy9
+# Author: Mooozi
 # Author: Priviet
 # Author: Revi
 # Author: SeoJeongHo
@@ -16,7 +17,7 @@ ko:
     dashboard: 위키 에듀 대시보드
     greeting2: 환영합니다!
     greeting_extended: 위키백과에 오신 것을 환영합니다
-    greeting: 안녕하세요,
+    greeting: 안녕하세요!
     help: 도와주세요!
     home: 대문
     log_in_extended: 위키백과에 로그인하기
@@ -115,18 +116,6 @@ ko:
     students: 편집자
     students_short: 편집자
     term: 날짜
-  course_creator:
-    course_description: 교과 설명
-    course_school: 교과 학교
-    course_subject: 교과 과목
-    course_term: 교과 용어
-    create_label: 새 코스 만들기
-    create_new: 새 과정 만들기
-    create_short: 코스 만들기
-    end_date: 종료일
-    expected_number: 예상 학생 수
-    find: 코스 찾기
-    start_date: 개시일
   metrics:
     activity: 최근 활동
     articles_created: 문서 생성됨

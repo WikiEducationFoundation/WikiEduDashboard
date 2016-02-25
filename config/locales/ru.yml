@@ -119,13 +119,6 @@ ru:
     students: Редакторы
     students_short: Խմբագիրներ
     term: Когда
-  course_creator:
-    course_description: Описание курса
-    course_title: Название курса
-    create_new: Создать новый курс
-    end_date: Дата окончания
-    expected_number: Ожидаемое количество студентов
-    start_date: Дата начала
   metrics:
     activity: Недавние действия
     articles_created: Статей создано

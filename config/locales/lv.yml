@@ -22,8 +22,6 @@ lv:
     students_short: Studenti
     title: Nosaukums
     view: Apskatīt kursu
-  course_creator:
-    create_new: Izveidot jaunu kursu
   revisions:
     loading: Ielādē versijas...
   uploads:

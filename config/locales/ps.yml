@@ -74,17 +74,6 @@ ps:
     students: سمونگران
     students_short: سمونگران
     term: کله
-  course_creator:
-    course_description: د کورس څرگندونه
-    course_school: د کورس ښوونځی
-    course_subject: د کورس مضمون
-    course_term: کورس موده
-    course_title: کورس سرليک
-    create_label: يو نوی کورس جوړول
-    create_new: يو نوی کورس جوړول
-    create_short: کورس جوړول
-    end_date: پای نېټه
-    start_date: پيل نېټه
   metrics:
     activity: تازه فعاليتونه
     articles_created: جوړې شوې ليکنې

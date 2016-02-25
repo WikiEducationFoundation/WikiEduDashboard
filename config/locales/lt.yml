@@ -24,13 +24,6 @@ lt:
     timeline: Užduoties detalės
     title: Pavadinimas
     yourcourses: Jūsų kursai
-  course_creator:
-    course_description: Kurso aprašymas
-    course_subject: Kurso tema
-    course_title: Kurso pavadinimas
-    create_new: Sukurti naują kursą
-    end_date: Pabaigos data
-    start_date: Pradžios data
   metrics:
     articles_created: Sukurti straipsniai
     articles_edited: Redaguoti straipsniai

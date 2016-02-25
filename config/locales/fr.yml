@@ -48,7 +48,7 @@ fr:
   activity:
     all: Activité
     edited_by: Modifié par
-    label: Activités
+    label: Activité
   articles:
     assigned: Articles affectés
     assigned_to: Assigné à
@@ -124,6 +124,30 @@ fr:
       cours seront modifiées pour tenir compte des semaines sans rendez-vous planifié.
     course_description: Cours
     courses: Cours
+    creator:
+      cloned_course_calendar_instructions: Sélectionner les dates à ajouter ou à supprimer
+        du calendrier (par ex. les jours fériés, les vacances). Cliquer sur la date
+        pour la faire basculer entre non sélectionnée, sélectionnée, et état d’absence.
+        Si vous n’avez pas de congés, cliquez sur « Je n’ai pas de vacances scolaires ».
+        Le planning cloné ajustera automatiquement les dates pour tenir compte des
+        semaines sans réunions programmées.
+      course_description: Description du cours
+      course_school: École du cours
+      course_subject: Sujet du cours
+      course_term: Période du cours
+      course_title: Titre du cours
+      create_button: Créer mon cours !
+      create_label: Créer un nouveau cours
+      create_new: Créer un nouveau cours
+      create_short: Créer un cours
+      end_date: Date de fin
+      expected_number: Nombre d’étudiants attendus
+      find: Trouver votre cours
+      intro: Le titre, l’école et la période créent l’URL de la page de cotre cours,
+        et ne peuvent pas être modifiés. Tout le reste, vous pourrez le changer ultérieurement.
+        Cliquez sur « Créer mon cours ! » pour commencer à construire le planning
+        de votre affectation à Wikipédia.
+      start_date: Date de début
     current: Cours actuels
     duration: Durée du cours
     edit_course_dates: Modifier les dates du cours
@@ -202,6 +226,18 @@ fr:
     assignment_end: Fin de la chronologie
     assignments_none: Ce projet n’a pas d’articles de Wikipédia affectés.
     assignment_start: Début de la chronologie
+    creator:
+      course_description: Description du programme
+      course_school: Institution
+      course_title: Titre du programme
+      create_button: Créer mon programme !
+      create_label: Créer un nouveau programme
+      create_new: Créer un nouveau programme
+      create_short: Créer un programme
+      find: Trouver votre programme
+      intro: Le titre du programme est obligatoire, tout le reste pourra être rempli
+        plus tard. Cliquez sur « Créer mon programme ! » pour commencer à construire
+        la page de votre programme wiki.
     edit_course_dates: Modifier les dates du projet
     expected_students: Éditeurs attendus
     instructors: Animateurs
@@ -217,28 +253,6 @@ fr:
     term: Quand
     uploads_none: Ce projet n’a contribué à Wikimédia Communs par aucune image ou
       autre fichier média.
-  course_creator:
-    cloned_course_calendar_instructions: Sélectionner les dates à ajouter ou supprimer
-      du calendrier (par ex., vacances, pas d’école). Cliquer sur la date pour basculer
-      entre non sélectionnée, sélectionnée, et en congé. Si vous n’avez pas de vacances,
-      cocher « Je n’ai pas de vacances scolaires ». Le planning copié sera automatiquement
-      ajusté pour tenir compte des semaines sans rendez-vous programmé.
-    course_description: Description du cours
-    course_school: École du cours
-    course_subject: Sujet du cours
-    course_term: Condition du cours
-    course_title: Titre du cours
-    create_label: Créer un nouveau cours
-    create_new: Créer un Nouveau cours
-    create_short: Créer un cours
-    end_date: Date de fin
-    expected_number: Nombre attendu d’étudiants
-    find: Trouvez votre cours
-    intro: Le titre, l’école et l’échéance contribuent à la création de l’URL de la
-      page de votre cours, et ne peuvent pas être modifiés. Vous pourrez modifier
-      tout le reste ultérieurement. Cliquez sur « Créer mon cours ! » pour démarrer
-      la construction du planning pour votre affectation Wikipédia.
-    start_date: Date de début
   metrics:
     activity: Activité récente
     articles_created: Articles créés

@@ -64,8 +64,6 @@ gl:
       one: Voluntario
       other: Voluntarios
     yourcourses: Os seus cursos
-  course_creator:
-    create_new: Crear un novo curso
   metrics:
     activity: Actividade recente
     articles_created: Artigos creados

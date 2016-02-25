@@ -32,8 +32,6 @@ olo:
     view_wiki: Kačo Wikipedies
     wiki_staff: Wiki Ed -ruadajat
     yourcourses: Sinun kursat
-  course_creator:
-    create_new: Luaji uuzi kursu
   metrics:
     activity: Jälgimäzin toimindu
     articles_created: Luajitut stuat'at

@@ -47,7 +47,7 @@ es:
   activity:
     all: Actividad
     edited_by: Editado por
-    label: Actividades
+    label: Actividad
   articles:
     assigned: Artículos asignados
     assigned_to: Asignado a
@@ -216,29 +216,6 @@ es:
     term: Cuando
     uploads_none: Este proyecto no ha contribuido con ninguna imagen o archivo multimedia
       a Wikimedia Commons.
-  course_creator:
-    cloned_course_calendar_instructions: Selecciona fechas para añadirlas o quitarlas
-      del calendario (por ejemplo, vacaciones, cuando no hay clases). Haz clic en
-      la fecha para cambiar entre los estados «no seleccionado», «seleccionado» y
-      «vacaciones». Si no tienes vacaciones, marca «No tengo vacaciones de clases».
-      El cronograma copiado ajustará automáticamente las fechas para dar cuenta de
-      las semanas que no tienen reuniones programadas.
-    course_description: Descripción del curso
-    course_school: Escuela del curso
-    course_subject: Tema del curso
-    course_term: Período del curso
-    course_title: Título del curso
-    create_label: Crear curso nuevo
-    create_new: Crear un curso nuevo
-    create_short: Crear curso
-    end_date: Fecha de finalización
-    expected_number: Número de estudiantes esperado
-    find: Encuentra tu curso
-    intro: El título, la escuela y el plazo crean la dirección URL de la página del
-      curso, y no pueden cambiarse. Todo lo demás puede editarse luego. Haz clic en
-      "Crear mi curso" para iniciar la construcción del cronograma para tu tarea en
-      Wikipedia.
-    start_date: Fecha de inicio
   metrics:
     activity: Actividad reciente
     articles_created: Artículos creados

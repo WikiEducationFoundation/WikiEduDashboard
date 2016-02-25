@@ -34,11 +34,6 @@ id:
     course_description: Wiki Ed Courses
     word_count_doc: Perkiraan jumlah kata ditambahkan ke artikel mainspace oleh siswa
       kursus selama jangka kursus
-  course_creator:
-    intro: Judul, sekolah dan jangka waktu akan menjadi bagian dari url halaman kursus,
-      dan tidak dapat diubah. informasi kursus lainnya dapat diedit nanti. Setelah
-      Anda membuat kursus Anda, wizard akan memandu Anda melalui pembuatan timeline
-      penugasan.
   metrics:
     word_count: Kata ditambahkan
   revisions:

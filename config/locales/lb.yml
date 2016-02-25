@@ -25,7 +25,7 @@ lb:
   activity:
     all: Aktivitéit
     edited_by: Geännert Vum
-    label: Aktivitéiten
+    label: Aktivitéit
   articles:
     assigned: Assignéiert Artikelen
     edited: Geännert Artikelen
@@ -95,10 +95,6 @@ lb:
     school: Institutioun
     students_short: Auteuren
     term: Wéini
-  course_creator:
-    course_description: Beschreiwung vum Cours
-    create_new: En neie Cours uleeën
-    find: Äre Cours fannen
   metrics:
     activity: Rezent Aktivitéit
     articles_edited: Geännert Artikelen

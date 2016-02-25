@@ -80,16 +80,6 @@ pt-br:
       other: Voluntários
     wiki_staff: Equipe Wiki Ed
     yourcourses: Seus cursos
-  course_creator:
-    course_description: Descrição do curso
-    course_school: Escola do curso
-    course_subject: Tema do curso
-    course_term: Termo do curso
-    course_title: Título do curso
-    create_new: Criar um novo curso
-    end_date: Data de término
-    expected_number: Número experado de estudantes
-    start_date: Data de início
   metrics:
     activity: Atividade recente
     articles_created: Artigos criados

@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Elftrkn
 # Author: HakanIST
+# Author: JackUKElliott
 # Author: KorkmazO
 # Author: Sayginer
 # Author: Uğurkent
@@ -14,18 +15,12 @@ tr:
     log_out: Çıkış
   activity:
     edited_by: Düzenleyen
+    label: Etkinlik
   blocks:
     milestones:
       title: Kilometre taşları
   courses:
     gradeables_none: Bu kursta notlandırılabilen ödev bulunmamaktadır
-  course_creator:
-    course_description: Ders içeriği
-    course_subject: Eğitim konusu
-    course_term: Ders dönemi
-    end_date: Bitiş tarihi
-    expected_number: Beklenen öğrenci sayısı
-    start_date: Başlangıç tarihi
   metrics:
     char_changed: Karakterler Değişti
   namespace:

@@ -7,10 +7,11 @@
 oc:
   application:
     cancel: Anullar
+    dashboard: Tablèu de bòrd de modificacion del wiki
     explore: Explorar
-    greeting2: Benvenguda!
+    greeting2: Benvenguda !
     greeting_extended: Benvenguda dins Wikipèdia
-    greeting: Bonjorn!
+    greeting: Bonjorn !
     help: Ajuda
     home: Acuèlh
     log_in_extended: Se connectar a Wikipèdia
@@ -18,27 +19,146 @@ oc:
     log_out: Desconnexion
     my_dashboard: Mon tablèu de bòrd
     recent_activity: Activitat recenta
+    search: recercar sus ask.wikiedu.org
+    sign_up_extended: S’inscriure sus Wikipèdia
     sign_up_log_in_extended: amb Wikipèdia
     sign_up: S'inscriure
     submit: Sometre
     training: Formacion
+  dashboard:
+    explore_course_pages: Explorar las paginas de cors
+    explore_examples: Explorar los exemples
+    start_orientation: Orientacion al despart
   home:
     explore: Explorar
+    log_in: Se connectar amb Wikipèdia
+    sign_up: S’inscriure a Wikipèdia
   activity:
     all: Activitat
     edited_by: Modificat per
+    label: Activitat
   articles:
+    assigned: Articles afectats
+    assigned_to: Assignat a
+    edited: Articles modificats
     edited_mobile: Articles
     label: Articles
+    loading: Cargament dels articles...
+    no_assignee: Cap d'utilizaire pas afectat
     rating: Classa
     title: Títol
+    title_example: Títol de l’article
+    view: Afichar l’article
+    view_all: Afichar tot
+  assignments:
+    assignees: Afectacion(s)
+    assign_other: Afectar un article
+    assign_self: M’afectar un article
+    label: Assignar
+    loading: Cargament de las afectacions…
+    none_short: Cap d'article pas afectat
+    reviewers: Relector(s)
+    review_other: Atribuir una revision
+    review_self: Repassar un article
+  cohort:
+    none: Pas cap
+  courses:
+    activity: Activitat
+    articles: Articles
+    assignment_end: Fin d’afectacion
+    assignment_start: Començament d’afectacion
+    course_description: Corses
+    courses: Corses
+    current: Corses actuals
+    duration: Durada del cors
+    edit_course_dates: Modificar las datas del cors
+    instructors: Formators
+    join: Rejónher
+    join_prompt: Rejónher '%{title}' ?
+    new_week: Apondre una novèla setmana
+    overview: Vista d'ensemble
+    passcode: Senhal
+    school: Escòla
+    students: Estudiants
+    students_count: '# Estudiants'
+    student_editors: Editors estudiants
+    students_short: Estudiants
+    term: Periòde
+    timeline_link: Calendièr
+    title: Títol
+    training_nav: Anar a la formacion
+    unsubmitted: Corses pas someses
+    view: Afichar lo cors
+    view_page: Afichar la pagina del cors
+    view_wiki: Afichar sus Wikipèdia
+    wiki_staff: Equipa d’edicion de wiki
+    yourcourses: Vòstres corses
+  courses_generic:
+    assignment_end: Fin de la cronologia
+    assignment_start: Començament de la cronologia
+    expected_students: Editors esperats
+    instructors: Animators
+    school: Institucion
+    student_editors: Editors
+    students: Editors
+    students_short: Editors
+    term: Quand
   metrics:
+    activity: Activitat recenta
+    articles_created: Articles creats
+    articles_edited: Articles modificats
+    characters: Caractèrs
+    char_added: Caractèrs aponduts
+    char_changed: Caractèrs modificats
+    char: Caractèrs aponduts
     date_time: Data/Ora
+    edit_count_description: Total de las modificacions
+    revisions: Darrièrs cambiaments
+    view_count_description: Articles vistes
     view: Vistas
+    word_count: Mots aponduts
   namespace:
     main: Espaci principal
     user: Espaci utilizaire
     user_ns: Utilizaire
+  revisions:
+    chars_added: Caractèrs aponduts
+    class: Classa
+    date_time: Data/Ora
+    edited_by: Modificat per
+    loading: Cargament de las revisions...
+    title: Títol
+  training:
+    start: Aviar
+    view: Afichar
   uploads:
+    label: Telecargaments
     usages: Utilizacions
+  users:
+    assignees: Afectat(s)
+    contributions: Contribucions de l’utilizaire
+    name: Nom
+    recent_revisions: Darrièrs cambiaments
+    reviewers: Relector(s)
+    reviewing: Relectura
+    student_editors: Editors estudiants
+  wizard:
+    read_less: Legir mens
+    read_more: Legir mai
+    summary: Resumit
+  error:
+    unsupported_browser:
+      header: Navegador pas suportat. :-(
+  error_401:
+    header: Pas autorizat. >:-(
+  error_incorrect_passcode:
+    header: Senhal erronèu. :-(
+  error_404:
+    header: Pagina pas trobada. :-(
+  error_500:
+    header: 500 — error intèrna del servidor.  :-(
+  login_error:
+    header: Error de connexion
+  timeline:
+    title: Planning
 ...

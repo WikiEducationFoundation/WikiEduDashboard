@@ -137,24 +137,6 @@ ast:
     assignments_none: Esti proyeutu nun tien artículos de Wikipedia designaos.
     assignment_start: Principiu de la llinia temporal
     edit_course_dates: Editar les dates de los proyeutos
-  course_creator:
-    cloned_course_calendar_instructions: Escueye feches p'añadir o quitar del calendariu
-      (por casu, vacaciones, cuando nun hai clases). Fai clic na fecha pa camudar
-      l'estáu ente ensin escoyer, escoyíu y vacaciones. Si nun tienes vacaciones,
-      marca «Nun tengo vacaciones de clases». El cronograma clonáu va afaer automáticamente
-      les feches pa tener en cuenta les selmanes que nun tienen aconceyamientos programaos.
-    course_description: Descripción del cursu
-    course_school: Escuela del cursu
-    course_subject: Tema del cursu
-    course_term: Periodu del cursu
-    course_title: Títulu del cursu
-    create_new: Crear un nuevu cursu
-    end_date: Fecha de fin
-    expected_number: Númberu d'alumnos esperáu
-    intro: El títulu, escuela y periodu crearán la url de la páxina del cursu, y nun
-      puen cambiase. Tolo demás pué editase más alantre. Fai click en «Crear el cursu»
-      pa principiar a crear el cronograma de les xeres de Wikipedia.
-    start_date: Fecha d'entamu
   metrics:
     activity: Actividá reciente
     articles_created: Artículos creaos

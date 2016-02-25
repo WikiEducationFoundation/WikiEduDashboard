@@ -50,9 +50,4 @@ cs:
     word_count_doc: Odhadovaný počet slov, které byly přidány do hlavního jmenného
       prostoru studenty kurzu během jeho průběhu
     yourcourses: Vaše kurzy
-  course_creator:
-    course_description: Popis kurzu
-    course_title: Název kurzu
-    create_new: Vytvořit nový kurz
-    expected_number: Předpokládaný počet studentů
 ...

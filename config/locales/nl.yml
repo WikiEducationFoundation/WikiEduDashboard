@@ -175,13 +175,6 @@ nl:
       other: Vrijwilligers
     wiki_staff: Medewerkers van Wiki Ed
     yourcourses: Uw cursussen
-  course_creator:
-    course_title: Cursusnaam
-    create_new: Nieuwe cursus maken
-    intro: De naam, school en semester vormen de URL voor uw cursuspagina en dit kan
-      niet gewijzigd worden. Al het andere kan later aangepast worden. Klik op "Cursus
-      aanmaken" om te beginnen met het maken van de tijdlijn voor uw Wikipedia-opdracht.
-    start_date: Begindatum
   metrics:
     activity: Recente activiteit
     articles_created: Pagina's aangemaakt

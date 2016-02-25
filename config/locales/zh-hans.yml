@@ -174,19 +174,6 @@ zh-hans:
     students_short: 编辑者
     term: 何时
     uploads_none: 此项目没有贡献任何图片或其他媒体文件至维基共享资源。
-  course_creator:
-    course_description: 课程描述
-    course_school: 课程学校
-    course_subject: 课程科目
-    course_term: 课程学期
-    course_title: 课程标题
-    create_label: 创建新的课程
-    create_new: 创建一个新课程
-    create_short: 创建课程
-    end_date: 结束日期
-    expected_number: 预计学生人数
-    find: 找到您的课程
-    start_date: 开始日期
   metrics:
     activity: 最近活跃
     articles_created: 创建的条目

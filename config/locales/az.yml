@@ -35,8 +35,6 @@ az:
     students: Tələbələr
     students_short: Tələbələr
     title: Başlıq
-  course_creator:
-    end_date: Bitmə tarixi
   metrics:
     date_time: Tarix/Vaxt
   namespace:

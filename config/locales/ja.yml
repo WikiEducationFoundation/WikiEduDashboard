@@ -76,9 +76,6 @@ ja:
     student_editors: 編集者
     students: 編集者
     students_short: 編集者
-  course_creator:
-    create_label: 新しいコースを作成
-    create_short: コースを作成
   metrics:
     activity: 最近の活動
     date_time: 日付/時刻

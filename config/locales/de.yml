@@ -44,7 +44,7 @@ de:
   activity:
     all: Aktivität
     edited_by: Bearbeitet von
-    label: Aktivitäten
+    label: Aktivität
   articles:
     assigned: Zugeordnete Artikel
     assigned_to: Zuordnung zu
@@ -213,28 +213,6 @@ de:
     term: Wann
     uploads_none: Dieses Projekt hat keine Bilder oder andere Mediendateien für Wikimedia
       Commons beigetragen.
-  course_creator:
-    cloned_course_calendar_instructions: Wähle Daten aus, um sie in dem Plan hinzuzufügen
-      oder zu entfernen (z.&nbsp;B. Feiertage oder schulfreie Tage). Klicke das Datum
-      an, um zwischen unausgewählt, ausgewählt und Feiertagsstatus zu wechseln. Falls
-      du keine Feiertage hast, aktiviere das Kontrollkästchen „Ich habe keine Feiertage“.
-      Die geklonte Zeitleiste passt die Daten auf Kontowochen automatisch an, die
-      keine geplanten Treffen haben.
-    course_description: Kursbeschreibung
-    course_school: Kursschule
-    course_subject: Kursthema
-    course_term: Kursdauer
-    course_title: Kurstitel
-    create_label: Neuen Kurs erstellen
-    create_new: Einen neuen Kurs erstellen
-    create_short: Kurs erstellen
-    end_date: Enddatum
-    expected_number: Erwartete Anzahl der Studenten
-    find: Finde deinen Kurs
-    intro: Der Titel, die Schule und die Dauer erstellen die URL deiner Kursseite
-      und können nicht geändert werden. Alles andere kannst du später bearbeiten.
-      Klicke auf „Meinen Kurs erstellen!“ zum Erstellen der Zeitleiste für deine Wikipedia-Zuweisung.
-    start_date: Startdatum
   metrics:
     activity: Letzte Aktivitäten
     articles_created: Erstellte Artikel

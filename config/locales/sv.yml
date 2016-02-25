@@ -44,10 +44,6 @@ sv:
   courses_generic:
     edit_course_dates: Redigera projektdatum
     term: När
-  course_creator:
-    course_title: Kursens titel
-    end_date: Slutdatum
-    start_date: Startdatum
   metrics:
     activity: Senaste aktivitet
     articles_created: Skapade artiklar

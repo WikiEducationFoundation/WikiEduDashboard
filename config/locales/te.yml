@@ -35,8 +35,6 @@ te:
     students_short: విద్యార్థులు
     title: శీర్షిక
     view: కోర్సును చూపించు
-  course_creator:
-    create_new: ఒక కొత్త కోర్సును సృష్టించు
   metrics:
     activity: ఇటీవలి కార్యకలాపం
     articles_edited: సవరించబడిన వ్యాసాలు

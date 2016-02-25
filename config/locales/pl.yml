@@ -67,12 +67,6 @@ pl:
     yourcourses: Twoje Kursy
   courses_generic:
     school: Instytucja
-  course_creator:
-    course_description: Opis kursu
-    course_title: Tytuł kursu
-    create_new: Utwórz Nowy Kurs
-    end_date: Data zakończenia
-    start_date: Data rozpoczęcia
   metrics:
     date_time: Data/Czas
   namespace:

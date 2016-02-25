@@ -10,10 +10,6 @@ tl:
     log_out: Mag-logout
     recent_activity: Kamakailang Aktibidad
     search: hanapin ang ask.wikiedu.org
-  course_creator:
-    end_date: Petsa ng pagtatapos
-    expected_number: Inaasahang bilang ng mga mag-aaral
-    start_date: Petsa ng pagsisimula
   revisions:
     date_time: Petsa/Oras
     edited_by: Inedit ni/ng

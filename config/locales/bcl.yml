@@ -51,12 +51,6 @@ bcl:
       pagliwat sa lambang artikulo
     view_wiki: Tanawon sa Wikipedia
     yourcourses: An saimong mga Kurso
-  course_creator:
-    create_new: Magmukna nin Baguhong Kurso
-    intro: An titulo, eskuwelahan asin termino magigin parte kan pahina nin kursong
-      estada, asin dae na mababago. An katadaan kan impormasyon nin kuso mapuwedeng
-      pagliliwaton sa dae mahaloy. Matapos mong muknaon an saimong kurso, an tagapagtukdo
-      magpapasyar saimo sa pagmumukna nin linya sa panahon na katokahan.
   metrics:
     characters: Mga Letra
     char_changed: Mga karakter pinagliwat

@@ -175,16 +175,6 @@ it:
     term: Quando
     uploads_none: Questo progetto non ha contribuito con alcuna immagine o altri file
       multimediali su Wikimedia Commons.
-  course_creator:
-    course_description: Descrizione del corso
-    course_title: Titolo del corso
-    create_label: Crea nuovo corso
-    create_new: Crea un nuovo corso
-    create_short: Crea corso
-    end_date: Data fine
-    expected_number: Numero previsto di studenti
-    find: Trova il tuo corso
-    start_date: Data inizio
   metrics:
     activity: Attività recente
     articles_created: Voci create

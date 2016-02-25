@@ -37,9 +37,6 @@ eu:
     title: Izenburua
     view_wiki: Wikipedia-n ikusi
     yourcourses: Zure ikastaroak
-  course_creator:
-    end_date: Amaiera data
-    start_date: Hasiera data
   metrics:
     articles_created: Sortutako artikuluak
     articles_edited: Editatutako artikuluak
