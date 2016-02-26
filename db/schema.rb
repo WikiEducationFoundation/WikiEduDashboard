@@ -228,4 +228,6 @@ ActiveRecord::Schema.define(version: 20160211004659) do
     t.string "project",  limit: 16
   end
 
+  add_index "wikis", ["language", "project"], name: "index_wikis_on_language_and_project", unique: true, using: :btree
+
 end

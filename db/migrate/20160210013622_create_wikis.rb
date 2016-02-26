@@ -4,6 +4,7 @@ class CreateWikis < ActiveRecord::Migration
       t.string :language, limit: 16
       t.string :project, limit: 16
     end
+    add_index :wikis, [:language, :project], unique: true
 
     default_wiki = Wiki.find_or_create_by(
       language: ENV['wiki_language'],
