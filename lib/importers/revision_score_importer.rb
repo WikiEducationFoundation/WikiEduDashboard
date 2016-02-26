@@ -18,7 +18,7 @@ class RevisionScoreImporter
     # FIXME: double batching
     revisions.group_by(&:wiki).each do |wiki, local_revisions|
       Utils.chunk_requests(local_revisions, batch_size) do |rev_batch|
-        Rails.logger.debug "Pulling revisions: batch #{batch_no} of #{batches}"
+        Rails.logger.debug "Pulling revisions for #{wiki.db_name}: batch #{batch_no} of #{batches}"
         new(wiki).get_and_save_scores rev_batch
         batch_no += 1
       end
@@ -44,7 +44,7 @@ class RevisionScoreImporter
     # TODO: group by wiki (pending above fixme)
     page_ids ||= Article.namespace(0).pluck(:native_id)
     revisions = Revision.where(page_id: page_ids)
-    update_revision_scores revisions
+    RevisionScoreImporter.update_revision_scores revisions
 
     first_revisions = []
     page_ids.each do |page_id|
@@ -65,10 +65,9 @@ class RevisionScoreImporter
   # Helper methods #
   ##################
 
-  def unscored_mainspace_userspace_and_draft_revisions
+  def self.unscored_mainspace_userspace_and_draft_revisions
     Revision.joins(:article)
       .where(wp10: nil)
-      .where(wiki_id: @wiki.id)
       .where(articles: { namespace: [0, 2, 118] })
   end
 
