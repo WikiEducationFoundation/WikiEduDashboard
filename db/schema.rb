@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160226223305) do
+ActiveRecord::Schema.define(version: 20160227020140) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title",                    limit: 255
@@ -179,9 +179,11 @@ ActiveRecord::Schema.define(version: 20160226223305) do
   add_index "rapidfire_answers", ["question_id"], name: "index_rapidfire_answers_on_question_id", using: :btree
 
   create_table "rapidfire_question_groups", force: :cascade do |t|
-    t.string   "name",       limit: 255
+    t.string   "name",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "intro_slide", limit: 255
+    t.string   "final_slide", limit: 255
   end
 
   create_table "rapidfire_questions", force: :cascade do |t|
