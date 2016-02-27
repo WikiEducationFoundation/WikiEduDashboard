@@ -1,10 +1,11 @@
 var webpack = require('webpack');
+var source = __dirname + "/../../app/assets/javascripts/";
 
 module.exports = {
 
     entry: {
-        survey: "./app/assets/javascripts/survey.coffee",
-        survey_admin: "./app/assets/javascripts/survey-admin.coffee",
+        main : source + "surveys/main.coffee",
+        survey: source + "surveys/survey.coffee",
     },
     output: {
         filename: "[name].js",

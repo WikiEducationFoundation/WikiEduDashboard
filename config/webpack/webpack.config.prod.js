@@ -6,8 +6,8 @@ module.exports = {
 
     entry: {
         main : source + "main.coffee",
-        survey: source + "survey.coffee",
-        survey_admin: source + "survey-admin.coffee",
+        survey: source + "surveys/survey.coffee",
+        survey_admin: source + "surveys/survey-admin.coffee",
     },
     output: {
         path: "./public/assets/javascripts",
