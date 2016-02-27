@@ -1,6 +1,6 @@
 React     = require 'react'
-UIStore   = require '../../stores/ui_store'
-UIActions = require '../../actions/ui_actions'
+UIStore   = require '../../stores/ui_store.coffee'
+UIActions = require '../../actions/ui_actions.coffee'
 
 ActivityTableRow = React.createClass
   mixins: [UIStore.mixin]

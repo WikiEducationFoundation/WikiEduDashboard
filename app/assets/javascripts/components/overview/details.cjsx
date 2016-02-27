@@ -1,19 +1,19 @@
 React             = require 'react'
 
-InlineUsers       = require './inline_users'
-CohortButton      = require './cohort_button'
-TagButton         = require './tag_button'
-Editable          = require '../high_order/editable'
-TextInput         = require '../common/text_input'
-CourseActions     = require '../../actions/course_actions'
-ServerActions     = require '../../actions/server_actions'
+InlineUsers       = require './inline_users.cjsx'
+CohortButton      = require './cohort_button.cjsx'
+TagButton         = require './tag_button.cjsx'
+Editable          = require '../high_order/editable.cjsx'
+TextInput         = require '../common/text_input.cjsx'
+CourseActions     = require '../../actions/course_actions.coffee'
+ServerActions     = require '../../actions/server_actions.coffee'
 
-CourseStore       = require '../../stores/course_store'
-TagStore          = require '../../stores/tag_store'
-UserStore         = require '../../stores/user_store'
-CohortStore       = require '../../stores/cohort_store'
+CourseStore       = require '../../stores/course_store.coffee'
+TagStore          = require '../../stores/tag_store.coffee'
+UserStore         = require '../../stores/user_store.coffee'
+CohortStore       = require '../../stores/cohort_store.coffee'
 
-CourseUtils       = require '../../utils/course_utils'
+CourseUtils       = require '../../utils/course_utils.coffee'
 
 # For some reason getState is not being triggered when CohortStore gets updated
 

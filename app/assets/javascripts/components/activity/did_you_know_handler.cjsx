@@ -1,7 +1,7 @@
 React           = require 'react'
-DidYouKnowStore = require '../../stores/did_you_know_store'
-ActivityTable   = require './activity_table'
-ServerActions   = require '../../actions/server_actions'
+DidYouKnowStore = require '../../stores/did_you_know_store.coffee'
+ActivityTable   = require './activity_table.cjsx'
+ServerActions   = require '../../actions/server_actions.coffee'
 
 getState = ->
   articles: DidYouKnowStore.getArticles()

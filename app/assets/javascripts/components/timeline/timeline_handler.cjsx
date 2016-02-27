@@ -3,20 +3,20 @@ ReactRouter     = require 'react-router'
 Router          = ReactRouter.Router
 TransitionGroup = require 'react-addons-css-transition-group'
 
-Timeline        = require './timeline'
-Grading         = require './grading'
-Editable        = require '../high_order/editable'
+Timeline        = require './timeline.cjsx'
+Grading         = require './grading.cjsx'
+Editable        = require '../high_order/editable.cjsx'
 
-CourseDateUtils   = require '../../utils/course_date_utils'
+CourseDateUtils   = require '../../utils/course_date_utils.coffee'
 
-ServerActions   = require '../../actions/server_actions'
-TimelineActions   = require '../../actions/timeline_actions'
+ServerActions   = require '../../actions/server_actions.coffee'
+TimelineActions   = require '../../actions/timeline_actions.coffee'
 
-CourseStore     = require '../../stores/course_store'
-WeekStore       = require '../../stores/week_store'
-BlockStore      = require '../../stores/block_store'
-GradeableStore  = require '../../stores/gradeable_store'
-TrainingStore   = require '../../training/stores/training_store'
+CourseStore     = require '../../stores/course_store.coffee'
+WeekStore       = require '../../stores/week_store.coffee'
+BlockStore      = require '../../stores/block_store.coffee'
+GradeableStore  = require '../../stores/gradeable_store.coffee'
+TrainingStore   = require '../../training/stores/training_store.coffee'
 
 getState = ->
   loading: WeekStore.getLoadingStatus()

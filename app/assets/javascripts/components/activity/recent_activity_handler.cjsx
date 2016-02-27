@@ -3,9 +3,9 @@ ReactRouter  = require 'react-router'
 Router       = ReactRouter.Router
 Link         = ReactRouter.Link
 
-DidYouKnowHandler = require './did_you_know_handler'
-PlagiarismHandler = require './plagiarism_handler'
-RecentEditsHandler = require './recent_edits_handler'
+DidYouKnowHandler = require './did_you_know_handler.cjsx'
+PlagiarismHandler = require './plagiarism_handler.cjsx'
+RecentEditsHandler = require './recent_edits_handler.cjsx'
 
 RecentActivityHandler = React.createClass(
   displayName: 'RecentActivityHandler'

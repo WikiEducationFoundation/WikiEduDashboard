@@ -4,7 +4,7 @@
 !!!
 %html{ dir: rtl? ? "rtl" : nil }
   = render "shared/head"
-  %body{class: request.path.split('/')[1] == 'courses' ? 'course-page' : 'fixed-nav'}
+  %body{class: body_class(request)}
     - if flash[:notice]
       .notice= flash[:notice]
     %div

@@ -1,0 +1,14 @@
+<div class='container'>
+<div class='section-header'>
+<h2>
+  <%= @question_group.name %> Questions
+</h2>
+<%= link_to "New Question", new_question_group_question_path(@question_group), :class => 'button button--no-margin' %>
+</div>
+<hr/>
+
+<ul class='list list--survey'>
+  <%= render partial: "question", collection: @questions %>
+</ul>
+
+</div>

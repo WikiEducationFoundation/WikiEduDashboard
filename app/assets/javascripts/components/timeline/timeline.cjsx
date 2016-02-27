@@ -4,19 +4,19 @@ RDnD            = require 'react-dnd'
 Touch           = require('react-dnd-touch-backend').default
 DDContext       = RDnD.DragDropContext
 
-Week            = require './week'
-Loading         = require '../common/loading'
-CourseLink      = require '../common/course_link'
-Affix           = require '../common/affix'
+Week            = require './week.cjsx'
+Loading         = require '../common/loading.cjsx'
+CourseLink      = require '../common/course_link.cjsx'
+Affix           = require '../common/affix.cjsx'
 
-WeekActions     = require '../../actions/week_actions'
-BlockActions    = require '../../actions/block_actions'
+WeekActions     = require '../../actions/week_actions.coffee'
+BlockActions    = require '../../actions/block_actions.coffee'
 
-BlockStore      = require '../../stores/block_store'
-WeekStore       = require '../../stores/week_store'
+BlockStore      = require '../../stores/block_store.coffee'
+WeekStore       = require '../../stores/week_store.coffee'
 
-DateCalculator  = require '../../utils/date_calculator'
-CourseUtils     = require '../../utils/course_utils'
+DateCalculator  = require '../../utils/date_calculator.coffee'
+CourseUtils     = require '../../utils/course_utils.coffee'
 
 Timeline = React.createClass(
   displayName: 'Timeline'

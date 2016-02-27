@@ -1,4 +1,4 @@
-StockStore = require './stock_store'
+StockStore = require './stock_store.coffee'
 
 ArticleStore = new StockStore(
   sortKey: 'title'

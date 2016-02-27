@@ -1,6 +1,6 @@
 React = require 'react'
-TrainingStore = require '../stores/training_store'
-ServerActions = require '../../actions/server_actions'
+TrainingStore = require '../stores/training_store.coffee'
+ServerActions = require '../../actions/server_actions.coffee'
 
 getState = ->
   training_module: TrainingStore.getTrainingModule()

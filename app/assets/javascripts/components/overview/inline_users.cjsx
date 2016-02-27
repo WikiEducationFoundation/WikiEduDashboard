@@ -1,5 +1,5 @@
 React             = require 'react'
-EnrollButton      = require '../students/enroll_button'
+EnrollButton      = require '../students/enroll_button.cjsx'
 
 InlineUsers = React.createClass(
   displayName: 'InlineUsers'

@@ -1,15 +1,15 @@
 React         = require 'react'
 ReactRouter   = require 'react-router'
 Router        = ReactRouter.Router
-Panel         = require './panel'
-FormPanel     = require './form_panel'
-TimelinePanel = require './timeline_panel'
-SummaryPanel  = require './summary_panel'
+Panel         = require './panel.cjsx'
+FormPanel     = require './form_panel.cjsx'
+TimelinePanel = require './timeline_panel.cjsx'
+SummaryPanel  = require './summary_panel.cjsx'
 
-Modal         = require '../common/modal'
-WizardActions = require '../../actions/wizard_actions'
-ServerActions = require '../../actions/server_actions'
-WizardStore   = require '../../stores/wizard_store'
+Modal         = require '../common/modal.cjsx'
+WizardActions = require '../../actions/wizard_actions.coffee'
+ServerActions = require '../../actions/server_actions.coffee'
+WizardStore   = require '../../stores/wizard_store.coffee'
 TransitionGroup   = require 'react-addons-css-transition-group'
 
 getState = ->

@@ -1,6 +1,6 @@
 React           = require 'react'
 TransitionGroup = require 'react-addons-css-transition-group'
-UIActions       = require '../../actions/ui_actions'
+UIActions       = require '../../actions/ui_actions.coffee'
 
 List = React.createClass(
   displayName: 'List'

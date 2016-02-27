@@ -1,9 +1,9 @@
 # use WizardStore.getPanels() for answers
 React         = require 'react'
-ServerActions = require '../../actions/server_actions'
-WizardActions = require '../../actions/wizard_actions'
-WizardStore   = require '../../stores/wizard_store'
-Panel         = require './panel'
+ServerActions = require '../../actions/server_actions.coffee'
+WizardActions = require '../../actions/wizard_actions.coffee'
+WizardStore   = require '../../stores/wizard_store.coffee'
+Panel         = require './panel.cjsx'
 
 ReactRouter   = require 'react-router'
 browserHistory = ReactRouter.browserHistory

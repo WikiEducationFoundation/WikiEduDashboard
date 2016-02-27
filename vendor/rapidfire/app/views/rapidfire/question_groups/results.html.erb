@@ -1,0 +1,32 @@
+<h1>Results</h1>
+
+<%- @question_group_results.each do |result| %>
+  <div>
+    <h4><%= result.question.question_text %></h4>
+    <p>
+      <%- if result.results.is_a?(Array) %>
+        <ol>
+          <%- result.results.each do |answer| %>
+            <li><%= answer %></li>
+          <% end %>
+        </ol>
+      <% elsif result.results.is_a?(Hash) %>
+        <table>
+          <thead>
+            <tr>
+              <th>Option</th>
+              <th>Count</th>
+            </tr>
+          </thead>
+          <tbody>
+            <%- result.results.each do |option, count| %>
+              <tr>
+                <td><%= option %></td>
+                <td><%= count %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% end %>
+  </div>
+<% end %>

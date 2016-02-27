@@ -1,4 +1,4 @@
-StockStore = require './stock_store'
+StockStore = require './stock_store.coffee'
 
 UploadStore = new StockStore(
   sortKey: 'file_name'

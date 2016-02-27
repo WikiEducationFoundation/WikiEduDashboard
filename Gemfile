@@ -28,6 +28,8 @@ gem 'hashugar'
 
 gem 'simple_form'
 
+gem 'rapidfire', :path => './vendor/rapidfire'
+
 # UNIVERSAL TEXT CONVERTER - FOR MARDOWN TO MEDIAWIKI TEXT
 gem 'pandoc-ruby', '~> 1.0.0'
 
@@ -78,4 +80,8 @@ group :test do
   gem 'vcr'
   gem 'simplecov', require: false
   gem 'codeclimate-test-reporter', require: nil
+end
+
+group :production do
+  gem 'uglifier'
 end

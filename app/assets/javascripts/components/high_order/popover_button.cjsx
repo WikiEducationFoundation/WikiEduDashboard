@@ -1,10 +1,10 @@
 React         = require 'react'
-Expandable    = require '../high_order/expandable'
-Popover       = require '../common/popover'
-Conditional   = require '../high_order/conditional'
-ServerActions = require '../../actions/server_actions'
-Lookup        = require '../common/lookup'
-LookupSelect  = require '../common/lookup_select'
+Expandable    = require '../high_order/expandable.cjsx'
+Popover       = require '../common/popover.cjsx'
+Conditional   = require '../high_order/conditional.cjsx'
+ServerActions = require '../../actions/server_actions.coffee'
+Lookup        = require '../common/lookup.cjsx'
+LookupSelect  = require '../common/lookup_select.cjsx'
 
 PopoverButton = (Key, ValueKey, Store, New, Items, IsSelect=false) ->
   getState = ->

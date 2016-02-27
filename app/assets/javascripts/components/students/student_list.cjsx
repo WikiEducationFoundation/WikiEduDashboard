@@ -1,16 +1,16 @@
 React             = require 'react'
-Editable          = require '../high_order/editable'
+Editable          = require '../high_order/editable.cjsx'
 
-List              = require '../common/list'
-Student           = require './student'
-StudentDrawer     = require './student_drawer'
-EnrollButton      = require './enroll_button'
+List              = require '../common/list.cjsx'
+Student           = require './student.cjsx'
+StudentDrawer     = require './student_drawer.cjsx'
+EnrollButton      = require './enroll_button.cjsx'
 
-UserStore         = require '../../stores/user_store'
-AssignmentStore   = require '../../stores/assignment_store'
-UIActions         = require '../../actions/ui_actions'
-ServerActions     = require '../../actions/server_actions'
-CourseUtils     = require '../../utils/course_utils'
+UserStore         = require '../../stores/user_store.coffee'
+AssignmentStore   = require '../../stores/assignment_store.coffee'
+UIActions         = require '../../actions/ui_actions.coffee'
+ServerActions     = require '../../actions/server_actions.coffee'
+CourseUtils     = require '../../utils/course_utils.coffee'
 
 getState = ->
   users: UserStore.getFiltered({ role: 0 })

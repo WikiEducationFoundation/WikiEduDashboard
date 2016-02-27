@@ -1,5 +1,5 @@
 React        = require 'react'
-ArticleStore = require '../../stores/article_store'
+ArticleStore = require '../../stores/article_store.coffee'
 
 userLink = (wiki_id) ->
   <a key={wiki_id} href="https://en.wikipedia.org/wiki/User:#{wiki_id}">{wiki_id}</a>

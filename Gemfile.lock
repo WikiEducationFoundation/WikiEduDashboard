@@ -25,6 +25,13 @@ GIT
       jwt (~> 1.0)
       omniauth-oauth (~> 1.0)
 
+PATH
+  remote: ./vendor/rapidfire
+  specs:
+    rapidfire (2.1.0)
+      active_model_serializers (~> 0.8.1)
+      rails (>= 3.2.13)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -47,6 +54,8 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
+    active_model_serializers (0.8.3)
+      activemodel (>= 3.0)
     activejob (4.2.5)
       activesupport (= 4.2.5)
       globalid (>= 0.3.0)
@@ -140,6 +149,7 @@ GEM
       http_parser.rb (~> 0.6.0)
     erubis (2.7.0)
     eventmachine (1.0.8)
+    execjs (2.6.0)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.5.0)
@@ -376,6 +386,9 @@ GEM
     tins (1.6.0)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    uglifier (2.7.2)
+      execjs (>= 0.3.0)
+      json (>= 1.8.0)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.1)
@@ -442,6 +455,7 @@ DEPENDENCIES
   rails (= 4.2.5)
   rails-erd
   rake
+  rapidfire!
   rb-fchange
   rb-fsevent
   rb-inotify
@@ -454,10 +468,8 @@ DEPENDENCIES
   simplecov
   squeel!
   timecop
+  uglifier
   vcr
   webmock
   whenever
   zeus
-
-BUNDLED WITH
-   1.10.6

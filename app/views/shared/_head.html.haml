@@ -19,5 +19,11 @@
 %script{src: "//cdn.ravenjs.com/1.1.19/jquery,native/raven.min.js"}
 :javascript
   Raven.config("#{ENV['sentry_public_dsn']}").install();
-= javascript_include_tag fingerprinted('/assets/javascripts/', 'main.js')
+- if survey_page(request)
+  - if Rails.env == "production"
+    = javascript_include_tag fingerprinted('/assets/javascripts/', 'survey.js')
+  - else 
+    = javascript_include_tag 'http://localhost:8080/static/survey.js'
+- else
+  = javascript_include_tag fingerprinted('/assets/javascripts/', 'main.js')
 = csrf_meta_tags

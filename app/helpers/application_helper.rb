@@ -25,4 +25,20 @@ module ApplicationHelper
     return 'active' if req.path == '/' && path == '/'
     req.path.split('/').reject(&:blank?).first == path.gsub('/', '') ? 'active' : nil
   end
+
+  def body_class(request)
+    case request.path.split('/')[1]
+    when 'courses'
+      return 'course-page'
+    when 'surveys'
+      return 'survey-page'
+    else
+      return 'fixed-nav'
+    end
+  end
+
+  def survey_page(request)
+    root_path = request.path.split('/')[1] 
+    root_path == 'surveys' || root_path == 'survey'
+  end
 end

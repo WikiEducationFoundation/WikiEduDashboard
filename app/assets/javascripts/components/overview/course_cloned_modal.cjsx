@@ -1,17 +1,17 @@
 React         = require 'react'
 ReactDOM      = require 'react-dom'
-Modal         = require '../common/modal'
+Modal         = require '../common/modal.cjsx'
 
-CourseStore        = require '../../stores/course_store'
-ValidationStore    = require '../../stores/validation_store'
-ValidationActions  = require '../../actions/validation_actions'
+CourseStore        = require '../../stores/course_store.coffee'
+ValidationStore    = require '../../stores/validation_store.coffee'
+ValidationActions  = require '../../actions/validation_actions.coffee'
 
-CourseActions = require '../../actions/course_actions'
+CourseActions = require '../../actions/course_actions.coffee'
 
-TextInput     = require '../common/text_input'
-TextAreaInput = require '../common/text_area_input'
-Calendar      = require '../common/calendar'
-CourseUtils   = require '../../utils/course_utils'
+TextInput     = require '../common/text_input.cjsx'
+TextAreaInput = require '../common/text_area_input.cjsx'
+Calendar      = require '../common/calendar.cjsx'
+CourseUtils   = require '../../utils/course_utils.coffee'
 
 getState = ->
   error_message: ValidationStore.firstMessage()

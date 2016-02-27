@@ -7,28 +7,28 @@ Route               = ReactRouter.Route
 IndexRoute          = ReactRouter.IndexRoute
 Redirect            = ReactRouter.Redirect
 
-App                 = require '../components/app'
-Course              = require '../components/course'
-Onboarding          = require '../components/onboarding'
-Wizard              = require '../components/wizard/wizard'
-Dates               = require '../components/timeline/meetings'
-CourseCreator       = require '../components/course_creator/course_creator'
+App                 = require '../components/app.cjsx'
+Course              = require '../components/course.cjsx'
+Onboarding          = require '../components/onboarding/index.cjsx'
+Wizard              = require '../components/wizard/wizard.cjsx'
+Dates               = require '../components/timeline/meetings.cjsx'
+CourseCreator       = require '../components/course_creator/course_creator.cjsx'
 
-OverviewHandler     = require '../components/overview/overview_handler'
-TimelineHandler     = require '../components/timeline/timeline_handler'
-RevisionsHandler    = require '../components/revisions/revisions_handler'
-StudentsHandler     = require '../components/students/students_handler'
-ArticlesHandler     = require '../components/articles/articles_handler'
-UploadsHandler      = require '../components/uploads/uploads_handler'
+OverviewHandler     = require '../components/overview/overview_handler.cjsx'
+TimelineHandler     = require '../components/timeline/timeline_handler.cjsx'
+RevisionsHandler    = require '../components/revisions/revisions_handler.cjsx'
+StudentsHandler     = require '../components/students/students_handler.cjsx'
+ArticlesHandler     = require '../components/articles/articles_handler.cjsx'
+UploadsHandler      = require '../components/uploads/uploads_handler.cjsx'
 
-RecentActivityHandler = require '../components/activity/recent_activity_handler'
-DidYouKnowHandler     = require '../components/activity/did_you_know_handler'
-PlagiarismHandler     = require '../components/activity/plagiarism_handler'
-RecentEditsHandler     = require '../components/activity/recent_edits_handler'
+RecentActivityHandler = require '../components/activity/recent_activity_handler.cjsx'
+DidYouKnowHandler     = require '../components/activity/did_you_know_handler.cjsx'
+PlagiarismHandler     = require '../components/activity/plagiarism_handler.cjsx'
+RecentEditsHandler     = require '../components/activity/recent_edits_handler.cjsx'
 
-TrainingApp           = require '../training/components/training_app'
-TrainingModuleHandler = require '../training/components/training_module_handler'
-TrainingSlideHandler  = require '../training/components/training_slide_handler'
+TrainingApp           = require '../training/components/training_app.cjsx'
+TrainingModuleHandler = require '../training/components/training_module_handler.cjsx'
+TrainingSlideHandler  = require '../training/components/training_slide_handler.cjsx'
 
 browserHistory = ReactRouter.browserHistory
 

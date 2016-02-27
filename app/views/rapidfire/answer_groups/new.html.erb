@@ -1,0 +1,32 @@
+<div class='container'>
+<div class='section-header'></div>
+
+<div>
+
+<%= form_for([@question_group, @answer_group_builder]) do |f| %>
+  <div>
+  <%- @answer_group_builder.answers.each_with_index do |answer, index| %>
+    <%= f.fields_for("#{answer.question.id}", answer) do |answer_form| %>
+      <div class='block disabled question-type--<%= question_type(answer) %>' data-survey-block>
+        <%= render_answer_form_helper(answer, answer_form) %>
+        <div class='survey__block-nav'>
+          <% if index != 0 %>
+          <button class='button' data-prev-survey-block>Prev</button>
+          <% else %>
+          <div></div>
+          <% end %>
+          <button class='button dark' data-next-survey-block>Next</button>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+  </div>
+  <div class='block disabled survey__submit-block' data-survey-block>
+    <%= f.submit "Submit Survey", :class => 'button button--no-margin dark' %>
+  </div>
+  <div class='block'>
+    <div class='survey__progress'><div class='survey__progress-bar' data-survey-progress></div></div>
+  </div>
+<% end %>
+</div>
+</div>

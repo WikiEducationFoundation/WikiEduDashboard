@@ -1,10 +1,10 @@
 React           = require 'react'
 md              = require('markdown-it')({ html: true, linkify: true })
-WizardActions   = require '../../actions/wizard_actions'
-WizardStore     = require '../../stores/wizard_store'
+WizardActions   = require '../../actions/wizard_actions.coffee'
+WizardStore     = require '../../stores/wizard_store.coffee'
 
-CourseLink      = require '../common/course_link'
-Option          = require './option'
+CourseLink      = require '../common/course_link.cjsx'
+Option          = require './option.cjsx'
 
 Panel = React.createClass(
   displayName: 'Panel'

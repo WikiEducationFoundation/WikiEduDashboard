@@ -1,0 +1,108 @@
+$spacer = 10px
+
+body.survey-page
+  background-color #7177C7
+  background-image url("../images/waves.svg")
+  background-repeat no-repeat
+  background-position center 75%
+  background-size cover
+  overflow-y scroll
+  
+  .section-header h1,
+  .section-header h2
+    color white
+  
+  .block
+    max-width 700px
+    margin 100px auto
+    
+    &.survey__form
+      margin-top 2em
+    
+    & > label
+      display block
+      margin-bottom $spacer
+      font-weight bold
+  
+  footer,
+  footer a
+    color white
+  
+  .block.disabled
+    opacity .5
+  
+  .survey__block-nav
+    overflow hidden
+    display flex
+    justify-content space-between
+    padding-top $spacer
+    
+    .button
+      float none
+
+.list--survey
+  .course-list__col
+    padding 0 1em
+
+.row.row--survey-question .row__wrapper,
+.row.row--survey-question div:not(.drawer):last-child
+  display flex
+  justify-content space-between
+  
+  & > div
+    flex 1
+
+.block.survey__submit-block
+  overflow hidden
+  text-align center
+  .button
+    float none
+
+.survey__multiple-choice-field
+  display block
+  background athens
+  border 1px solid mercury
+  border-radius 3px
+  padding $spacer * .5
+  margin-bottom $spacer
+  cursor pointer
+  position relative
+  
+  &:hover
+    background darken(athens, 3%)
+  
+  input, span
+    display inline-block
+    padding 0
+    vertical-align middle
+  
+  input
+    margin 10px
+    background-color darken(mercury, 10%)
+    border 1px solid mercury
+    
+  
+  .check
+    position absolute
+    top 0
+    left 0
+    width 30px
+    height 100%
+
+.survey__progress
+  background darken(manatee, 10%)
+  position relative
+  width 400px
+  height 40px
+  margin auto
+  border-radius 5px
+  overflow hidden
+  &-bar
+    position absolute
+    left 0
+    top 0
+    height 40px
+    background manatee
+    border-radius 5px
+    
+    

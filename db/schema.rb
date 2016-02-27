@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160127203440) do
+ActiveRecord::Schema.define(version: 20160226223305) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title",                    limit: 255
@@ -117,7 +117,7 @@ ActiveRecord::Schema.define(version: 20160127203440) do
     t.string   "passcode",          limit: 255
     t.date     "timeline_start"
     t.date     "timeline_end"
-    t.string   "day_exceptions",    limit: 2000,   default: ""
+    t.string   "day_exceptions",    limit: 2000,  default: ""
     t.string   "weekdays",          limit: 255,   default: "0000000"
     t.integer  "new_article_count", limit: 4
     t.boolean  "no_day_exceptions",               default: false
@@ -141,9 +141,9 @@ ActiveRecord::Schema.define(version: 20160127203440) do
   end
 
   create_table "feedback_form_responses", force: :cascade do |t|
-    t.string  "subject", limit: 255
-    t.text    "body",    limit: 65535
-    t.integer "user_id", limit: 4
+    t.string   "subject",    limit: 255
+    t.text     "body",       limit: 65535
+    t.integer  "user_id",    limit: 4
     t.datetime "created_at"
   end
 
@@ -155,6 +155,47 @@ ActiveRecord::Schema.define(version: 20160127203440) do
     t.datetime "updated_at"
     t.string   "gradeable_item_type", limit: 255
   end
+
+  create_table "rapidfire_answer_groups", force: :cascade do |t|
+    t.integer  "question_group_id", limit: 4
+    t.integer  "user_id",           limit: 4
+    t.string   "user_type",         limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "rapidfire_answer_groups", ["question_group_id"], name: "index_rapidfire_answer_groups_on_question_group_id", using: :btree
+  add_index "rapidfire_answer_groups", ["user_id", "user_type"], name: "index_rapidfire_answer_groups_on_user_id_and_user_type", using: :btree
+
+  create_table "rapidfire_answers", force: :cascade do |t|
+    t.integer  "answer_group_id", limit: 4
+    t.integer  "question_id",     limit: 4
+    t.text     "answer_text",     limit: 65535
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "rapidfire_answers", ["answer_group_id"], name: "index_rapidfire_answers_on_answer_group_id", using: :btree
+  add_index "rapidfire_answers", ["question_id"], name: "index_rapidfire_answers_on_question_id", using: :btree
+
+  create_table "rapidfire_question_groups", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "rapidfire_questions", force: :cascade do |t|
+    t.integer  "question_group_id", limit: 4
+    t.string   "type",              limit: 255
+    t.string   "question_text",     limit: 255
+    t.integer  "position",          limit: 4
+    t.text     "answer_options",    limit: 65535
+    t.text     "validation_rules",  limit: 65535
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "rapidfire_questions", ["question_group_id"], name: "index_rapidfire_questions_on_question_group_id", using: :btree
 
   create_table "revisions", force: :cascade do |t|
     t.integer  "characters",     limit: 4,   default: 0

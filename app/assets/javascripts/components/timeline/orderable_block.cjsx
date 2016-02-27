@@ -1,5 +1,5 @@
 React           = require 'react'
-Reorderable     = require '../high_order/reorderable'
+Reorderable     = require '../high_order/reorderable.cjsx'
 
 OrderableBlock = React.createClass(
   displayName: 'OrderableBlock'

@@ -2,8 +2,8 @@ React           = require 'react'
 ReactRouter     = require 'react-router'
 Router          = ReactRouter.Router
 Link            = ReactRouter.Link
-AssignButton    = require './assign_button'
-UIActions       = require '../../actions/ui_actions'
+AssignButton    = require './assign_button.cjsx'
+UIActions       = require '../../actions/ui_actions.coffee'
 
 AssignCell = React.createClass(
   displayname: 'AssignCell'

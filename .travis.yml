@@ -78,3 +78,11 @@ notifications:
   slack:
     rooms:
     - secure: OZcMEKx3prPJva4P6W0E55pSMWnTWdm7d6bBZ6B66LewU9Ge6parEJcaUAAH+sNbi0lvDvMG7Ivs9FKHDU3DoJXNmKG1ow4QpZ0EIMkaBxUWgQRELw2l375G+8vz/VpH3W4zTmVsYWmcaMSER+PmclnBMGQma8vR8JVLVuIDMHU=
+
+before_deploy:  'echo "$(grep -v "public" .gitignore)" > .gitignore'
+deploy:
+  provider: heroku
+  on: surveys
+  skip_cleanup: true
+  api_key:
+    secure: ILWw4pFbaSOhtAn9pPY3O9K8U4bGRiOYRwwF8V+xzS2sC09slnEiC+0DC8amQJN7tS2H1mZEAAQl4xUrWjCQmT0o7x06V2Kt7Ktp0G2t7kzi/DeQbIoI9y7JUnJR8fL31xLz1NwCBd/D4BuAR1aZXbZyd5P//2WkJUSdY9Zhxbc=

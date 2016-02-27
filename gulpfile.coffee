@@ -10,6 +10,7 @@
 gulp           = require 'gulp'
 requireDir     = require 'require-dir'
 runSequence    = require 'run-sequence'
+plugins         = require('gulp-load-plugins')()
 
 # Require individual tasks
 requireDir './gulp/tasks', { recurse: true }
@@ -27,12 +28,13 @@ gulp.task "dev", ->
     "stylesheets"
   ], "watch"
 
+gulp.task "webpack-build", plugins.shell.task ["npm run build"]
+
 gulp.task "build", (cb) ->
   runSequence "clean", [
     "i18n"
     "copy-static"
     "bower"
-    "javascripts-fingerprint"
     "stylesheets-fingerprint"
-  ], "minify", cb
+  ], "webpack-build", "minify", cb
 

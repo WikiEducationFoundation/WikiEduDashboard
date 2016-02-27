@@ -1,10 +1,10 @@
 React         = require 'react'
 ReactDOM      = require 'react-dom'
-Panel         = require './panel'
-TextInput     = require '../common/text_input'
-Calendar      = require '../common/calendar'
-CourseActions = require '../../actions/course_actions'
-ServerActions = require '../../actions/server_actions'
+Panel         = require './panel.cjsx'
+TextInput     = require '../common/text_input.cjsx'
+Calendar      = require '../common/calendar.cjsx'
+CourseActions = require '../../actions/course_actions.coffee'
+ServerActions = require '../../actions/server_actions.coffee'
 
 
 getState = (course_id) ->

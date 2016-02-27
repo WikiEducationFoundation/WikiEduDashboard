@@ -52,7 +52,7 @@ removeBlock = (block_id) ->
   BlockStore.emitChange()
 
 insertBlock = (block, toWeek, targetIndex) ->
-  WeekStore = require('./week_store')
+  WeekStore = require('./week_store.coffee')
   fromWeekId = block.week_id
   block.week_id = toWeek.id
 

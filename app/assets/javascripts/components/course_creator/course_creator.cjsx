@@ -3,17 +3,17 @@ ReactDOM      = require 'react-dom'
 ReactRouter   = require 'react-router'
 Link          = ReactRouter.Link
 
-CourseStore        = require '../../stores/course_store'
-UserCoursesStore   = require '../../stores/user_courses_store'
-CourseActions      = require '../../actions/course_actions'
-ValidationStore    = require '../../stores/validation_store'
-ValidationActions  = require '../../actions/validation_actions'
-ServerActions      = require '../../actions/server_actions'
+CourseStore        = require '../../stores/course_store.coffee'
+UserCoursesStore   = require '../../stores/user_courses_store.coffee'
+CourseActions      = require '../../actions/course_actions.coffee'
+ValidationStore    = require '../../stores/validation_store.coffee'
+ValidationActions  = require '../../actions/validation_actions.coffee'
+ServerActions      = require '../../actions/server_actions.coffee'
 
-Modal           = require '../common/modal'
-TextInput       = require '../common/text_input'
-TextAreaInput   = require '../common/text_area_input'
-CourseUtils     = require '../../utils/course_utils'
+Modal           = require '../common/modal.cjsx'
+TextInput       = require '../common/text_input.cjsx'
+TextAreaInput   = require '../common/text_area_input.cjsx'
+CourseUtils     = require '../../utils/course_utils.coffee'
 TransitionGroup = require 'react-addons-css-transition-group'
 
 getState = ->

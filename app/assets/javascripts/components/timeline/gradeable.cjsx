@@ -1,6 +1,6 @@
 React             = require 'react'
-TextInput         = require '../common/text_input'
-GradeableActions  = require '../../actions/gradeable_actions'
+TextInput         = require '../common/text_input.cjsx'
+GradeableActions  = require '../../actions/gradeable_actions.coffee'
 
 Gradeable = React.createClass(
   displayName: 'Gradeable'
