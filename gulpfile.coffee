@@ -24,11 +24,13 @@ gulp.task "dev", ->
     "i18n"
     "copy-static"
     "bower"
+    "webpack-hotdev"
     "javascripts"
     "stylesheets"
   ], "watch"
 
 gulp.task "webpack-build", plugins.shell.task ["npm run build"]
+gulp.task "webpack-hotdev", plugins.shell.task ["npm run hotdev"]
 
 gulp.task "build", (cb) ->
   runSequence "clean", [

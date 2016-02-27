@@ -41,6 +41,8 @@ module.exports = {
     },
 
     plugins: [
-        new ManifestPlugin()
+        new ManifestPlugin({
+            fileName: 'rev-manifest'
+        })
     ]
 };

@@ -4,8 +4,8 @@ var source = __dirname + "/../../app/assets/javascripts/";
 module.exports = {
 
     entry: {
-        main : source + "surveys/main.coffee",
         survey: source + "surveys/survey.coffee",
+        survey_admin: source + "surveys/survey-admin.coffee"
     },
     output: {
         filename: "[name].js",
