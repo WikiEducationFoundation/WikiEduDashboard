@@ -54,6 +54,7 @@ notifications:
 before_deploy: echo "$(grep -v "public" .gitignore)" > .gitignore
 deploy:
   provider: heroku
+  app: wiki-dashboard-surveys
   on: surveys
   skip_cleanup: true
   api_key:
