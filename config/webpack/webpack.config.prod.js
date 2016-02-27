@@ -42,7 +42,7 @@ module.exports = {
 
     plugins: [
         new ManifestPlugin({
-            fileName: 'rev-manifest'
+            fileName: 'rev-manifest.json'
         })
     ]
 };
