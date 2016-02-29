@@ -25,6 +25,11 @@ module Rapidfire
       end
     end
 
+    def update
+      @question_group = QuestionGroup.find(params[:id])
+      @question_group.update_attributes(params[:question_group])
+    end
+
     def destroy
       @question_group = QuestionGroup.find(params[:id])
       @question_group.destroy

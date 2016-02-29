@@ -8,8 +8,7 @@ module.exports = {
     entry: {
         main : source + "main.coffee",
         survey: source + "surveys/survey.coffee",
-        survey_admin: source + "surveys/survey-admin.coffee",
-        vendor: output + "/vendor.js"
+        survey_admin: source + "surveys/survey-admin.coffee"
     },
     output: {
         path: output,

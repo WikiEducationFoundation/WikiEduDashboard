@@ -14,10 +14,7 @@
 :javascript
   I18n.defaultLocale = "#{I18n.default_locale}";
   I18n.locale = "#{I18n.locale}";
-- if Rails.env == "production"
-  = javascript_include_tag fingerprinted('/assets/javascripts/', 'vendor.js')
-- else
-  = javascript_include_tag '/assets/javascripts/vendor.js'
+= javascript_include_tag '/assets/javascripts/vendor.js'
 / Temporary Raven logging
 %script{src: "//cdn.ravenjs.com/1.1.19/jquery,native/raven.min.js"}
 :javascript
