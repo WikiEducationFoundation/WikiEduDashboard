@@ -4,8 +4,8 @@
 /fixtures
 /node_modules
 /js_coverage
-vendor/*
-!vendor/rapidfire
+/vendor/*
+!/vendor/rapidfire
 
 *.rbc
 capybara-*.html
