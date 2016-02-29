@@ -1,6 +1,7 @@
 var webpack = require('webpack');
 var ManifestPlugin = require('webpack-manifest-plugin');
 var source = __dirname + "/../../app/assets/javascripts/";
+var BowerWebpackPlugin = require("bower-webpack-plugin");
 
 module.exports = {
 
