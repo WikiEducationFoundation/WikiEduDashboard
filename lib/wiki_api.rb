@@ -136,7 +136,6 @@ class WikiApi
                                  extra: { action: action,
                                           query: query,
                                           opts: opts }
-      fail e if e.code == 'iiurlparamnormal' # handled by Commons.rb
     end
   end
 end
