@@ -54,8 +54,9 @@ notifications:
 before_deploy: echo "$(grep -v "public" .gitignore)" > .gitignore
 deploy:
   provider: heroku
-  app: wiki-dashboard-surveys
-  on: surveys
-  skip_cleanup: true
   api_key:
-    secure: LrxrvqZykRoKoXse4uKEBoGL8mXDgMDp3QnSZdk4qa+4y/4cxBlT9J4Z/IldhG8VqCyHq2gUDI/NmGbyXxtne/LmmcdT8m2u5BaSSnJfTgQQX/e+uEZEshpnLRJvVC/a0PkKW2LPWD+nV6K5f9x3eq4UYkLTU95m9zlnKgJNbbM=
+    secure: jVnSDN5ndsIMasaCUyves/Z59IlrpCDQE0crU5gAEsB9Y71VX9NMYJKn0ubo7M1SiDLlDZb/HfhskU8Jm5Kkyhz0BpyDVO4TnD8xwxYv8T6qF+TVv6BaiOtCpU6orpVNzIwMoAgXvil8gvHXSZUoZFnoSphcZZQJkutfWIrJ3BM=
+  app: wiki-dashboard-surveys
+  on:
+    repo: WikiEducationFoundation/WikiEduDashboard
+    branch: surveys
