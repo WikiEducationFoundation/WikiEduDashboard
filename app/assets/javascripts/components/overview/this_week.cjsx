@@ -15,6 +15,12 @@ emptyWeeksAtBeginning = (weekMeetings) ->
     return count unless week == '()'
     count += 1
 
+emptyWeeksUntil = (weekMeetings, week_index) ->
+  count = 0
+  for week in weekMeetings[0...week_index]
+    count += 1 if week == '()'
+  return count
+
 ThisWeek = React.createClass(
   propTypes:
     course:  React.PropTypes.object
@@ -23,21 +29,27 @@ ThisWeek = React.createClass(
   displayName: 'ThisWeek'
 
   render: ->
-    week = @props.weeks[@props.current]
-    if week?
+    if @props.weeks?
       course = @props.course
       week_index = @props.current + 1
 
       meetings = DateUtils.meetings(course)
       weekMeetings = DateUtils.weekMeetings(meetings, course, course.day_exceptions)
-      is_first_week = moment().diff(@props.course.timeline_start, 'days') < 0
+      empty_weeks_at_beginning = emptyWeeksAtBeginning(weekMeetings)
+      days_until_beginning = empty_weeks_at_beginning * 7
+      is_first_week = moment().diff(@props.course.timeline_start, 'days') <= days_until_beginning
       if is_first_week
-        week_meetings_index = emptyWeeksAtBeginning(weekMeetings)
+        week_meetings_index = empty_weeks_at_beginning
         thisWeekMeetings = weekMeetings[week_meetings_index]
         week_index = week_meetings_index + 1
+        week = @props.weeks[0]
+        title = "First Active Week"
       else
         thisWeekMeetings = weekMeetings[@props.current]
+        emptyWeeksSoFar = emptyWeeksUntil(weekMeetings, @props.current)
+        week = @props.weeks[@props.current - emptyWeeksSoFar]
 
+    if week?
       week_component = (
         <Week
           week={week}
@@ -53,8 +65,7 @@ ThisWeek = React.createClass(
           meetings={if weekMeetings then thisWeekMeetings else false}
         />
       )
-      if is_first_week
-        title = "First Active Week"
+
     else
       no_weeks = (
         <li className="row view-all">
