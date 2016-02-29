@@ -29,7 +29,7 @@ gulp.task "dev", ->
     "stylesheets"
   ], "watch"
 
-gulp.task "webpack-build", plugins.shell.task ["npm run build"]
+gulp.task "webpack-build", ["bower"], plugins.shell.task ["npm run build"]
 gulp.task "webpack-hotdev", plugins.shell.task ["npm run hotdev"]
 
 gulp.task "build", (cb) ->

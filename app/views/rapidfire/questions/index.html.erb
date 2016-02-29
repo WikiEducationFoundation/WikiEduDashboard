@@ -1,24 +1,24 @@
 <div class='container'>
 <div class='section-header'>
 
-<%= form_for question_group do |f| %>
-  <%- if question_group.errors.any? %>
+<h2>
+  <%= @question_group.name %> Questions
+</h2>
+
+<%= form_for @question_group do |f| %>
+  <%- if @question_group.errors.any? %>
     <ul>
-      <%- question_group.errors.full_messages.each do |message| %>
+      <%- @question_group.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
     </ul>
   <% end %>
 
   <div><%= f.label :intro_slide %></div>
-  <div><%= f.text_field :intro_slide %>
-  <%= f.submit 'Create', :class => 'button button--no-margin'%></div>
+  <div><%= f.text_area :intro_slide %>
+  <%= f.submit 'Save', :class => 'button button--no-margin'%></div>
 <% end %>
 
-
-<h2>
-  <%= @question_group.name %> Questions
-</h2>
 <%= link_to "New Question", new_question_group_question_path(@question_group), :class => 'button button--no-margin' %>
 </div>
 <hr/>
