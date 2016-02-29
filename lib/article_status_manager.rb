@@ -30,7 +30,7 @@ class ArticleStatusManager
     end
     # Build a list of articles covered by this sync.
     synced_page_ids = synced_article_data.map { |a| a['page_id'] }
-    synced_articles = Article.where(native_id: synced_page_ids, wiki_id: @wiki.id)
+    synced_articles = Article.where(mw_page_id: synced_page_ids, wiki_id: @wiki.id)
 
     # If any Replica requests failed, we don't want to assume that missing
     # articles are deleted.
@@ -68,7 +68,7 @@ class ArticleStatusManager
   def update_title_and_namespace(articles, synced_article_data)
     synced_article_data.each do |sa|
       # Note that articles must be from the same wiki.
-      articles.where(native_id: sa['page_id']).update_all({
+      articles.where(mw_page_id: sa['page_id']).update_all({
         title: sa['page_title'],
         namespace: sa['page_namespace'],
         deleted: false # Accounts for the case of undeleted articles
@@ -86,7 +86,7 @@ class ArticleStatusManager
 
     # Update articles whose IDs have changed (keyed on title and namespace)
     same_title_pages.each do |stp|
-      update_page_id(stp, deleted_articles.map(&:native_id))
+      update_page_id(stp, deleted_articles.map(&:mw_page_id))
     end
   end
 
@@ -103,22 +103,22 @@ class ArticleStatusManager
       deleted: false
     )
     return if article.nil?
-    return unless deleted_page_ids.include?(article.native_id)
+    return unless deleted_page_ids.include?(article.mw_page_id)
     # This catches false positives when the query for page_title matches
     # a case variant.
     return unless article.title == title
 
-    if Article.where(native_id: page_id, wiki_id: @wiki.id).any?
+    if Article.where(mw_page_id: page_id, wiki_id: @wiki.id).any?
       # Catches case where update_constantly has
       # already added this article under a new ID
 
-      same_page_article = Article.find_by(native_id: page_id, wiki_id: @wiki.id)
+      same_page_article = Article.find_by(mw_page_id: page_id, wiki_id: @wiki.id)
       ArticlesCourses.where(article_id: article.id)
         .update_all(article_id: same_page_article.id)
 
       article.update(deleted: true)
     else
-      article.update(native_id: page_id)
+      article.update(mw_page_id: page_id)
     end
   end
 end

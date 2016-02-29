@@ -14,7 +14,7 @@ class ArticleImporter
     end
     articles = articles_data.map do |a|
       Article.new(id: a['page_id'], # TODO: Stop writing ID
-                  native_id: a['page_id'],
+                  mw_page_id: a['page_id'],
                   title: a['page_title'],
                   namespace: a['page_namespace'],
                   wiki_id: @wiki.id)
@@ -35,7 +35,7 @@ class ArticleImporter
       results.each do |_id, page_data|
         next if page_data['missing']
         articles << Article.new(id: page_data['pageid'].to_i, # TODO: Stop writing to ID
-                                native_id: page_data['pageid'].to_i,
+                                mw_page_id: page_data['pageid'].to_i,
                                 title: page_data['title'].tr(' ', '_'),
                                 namespace: page_data['ns'].to_i,
                                 wiki_id: @wiki.id)

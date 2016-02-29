@@ -35,8 +35,8 @@ class DuplicateArticleDeleter
   # and namespace except for the most recently created
   def self.delete_duplicates(wiki, title, ns)
     articles = Article.where(title: title, namespace: ns, wiki_id: wiki.id).order(:created_at, :id)
-    deleted = articles.where.not(native_id: articles.last.native_id)
+    deleted = articles.where.not(mw_page_id: articles.last.mw_page_id)
     deleted.update_all(deleted: true)
-    deleted.map(&:native_id)
+    deleted.map(&:mw_page_id)
   end
 end

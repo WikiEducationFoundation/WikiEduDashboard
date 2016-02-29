@@ -238,7 +238,7 @@ class Replica
 
   def compile_revision_id_string(revisions)
     # FIXME: wat.  just pass the ids
-    rev_ids = revisions.map { |r| { id: r.native_id } }
+    rev_ids = revisions.map { |r| { id: r.mw_page_id } }
     compile_id_string(rev_ids, 'revision_ids')
   end
 

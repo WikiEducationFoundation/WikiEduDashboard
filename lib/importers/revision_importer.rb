@@ -93,7 +93,7 @@ class RevisionImporter
       articles.each do |a|
         rev_ids |= a['revisions'].map { |r| r['rev_id'] }
       end
-      revisions |= Revision.where(native_id: rev_ids, wiki_id: wiki_id)
+      revisions |= Revision.where(mw_rev_id: rev_ids, wiki_id: wiki_id)
     end
     revisions
   end
@@ -104,7 +104,7 @@ class RevisionImporter
     sub_data.each do |_a_id, a|
       article = Article.new(
         id: a['article']['page_id'], # TODO: Stop setting id
-        native_id: a['article']['page_id'],
+        mw_page_id: a['article']['page_id'],
         wiki_id: a['article']['wiki_id']
       )
       article.update(a['article'], false)
@@ -113,7 +113,7 @@ class RevisionImporter
       a['revisions'].each do |r|
         revision = Revision.new(
           article_id: article.id,
-          native_id: r['rev_id'],
+          mw_rev_id: r['rev_id'],
           wiki_id: a['article']['wiki_id']
         )
         # FIXME: rev_id will be ignored, hopefully?  Need to set article_id?
@@ -137,7 +137,7 @@ class RevisionImporter
       end
 
       synced_revisions = synced_revision_data.map do |r|
-        Revision.find_by(native_id: r['rev_id'], wiki_id: wiki.id).update(page_id: page_id)
+        Revision.find_by(mw_rev_id: r['rev_id'], wiki_id: wiki.id).update(page_id: page_id)
       end
 
       deleted_revisions = local_revisions - synced_revisions
@@ -155,9 +155,9 @@ class RevisionImporter
 
   def self.handle_moved_revision(moved)
     page_id = moved.page_id
-    Revision.find(native_id: moved.native_id, wiki_id: moved.wiki_id).update(page_id: page_id)
+    Revision.find(mw_rev_id: moved.mw_rev_id, wiki_id: moved.wiki_id).update(page_id: page_id)
 
-    article_exists = Article.where(native_id: page_id, wiki_id: moved.wiki_id).any?
+    article_exists = Article.where(mw_page_id: page_id, wiki_id: moved.wiki_id).any?
     ArticleImporter.new(moved.wiki_id)
       .import_articles([page_id]) unless article_exists
   end

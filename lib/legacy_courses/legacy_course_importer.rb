@@ -3,7 +3,7 @@ require "#{Rails.root}/lib/importers/user_importer"
 require "#{Rails.root}/lib/importers/cohort_importer"
 
 #= Imports and updates courses from Wikipedia into the dashboard database
-# TODO: This file might do unsafe things with User.id and confuse it with .native_id
+# TODO: This file might do multiwiki-unsafe things with User.id
 class LegacyCourseImporter
   ################
   # Entry points #

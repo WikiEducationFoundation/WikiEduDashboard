@@ -42,7 +42,7 @@ class RevisionScoreImporter
   # FIXME: Only used in a test?
   def update_all_revision_scores_for_articles(page_ids = nil)
     # TODO: group by wiki (pending above fixme)
-    page_ids ||= Article.namespace(0).pluck(:native_id)
+    page_ids ||= Article.namespace(0).pluck(:mw_page_id)
     revisions = Revision.where(page_id: page_ids)
     RevisionScoreImporter.update_revision_scores revisions
 
@@ -74,7 +74,7 @@ class RevisionScoreImporter
   def save_scores(scores)
     scores.each do |rev_id, score|
       next unless score.key?('probability')
-      revision = Revision.find_by(native_id: rev_id.to_i, wiki_id: @wiki.id)
+      revision = Revision.find_by(mw_rev_id: rev_id.to_i, wiki_id: @wiki.id)
       revision.wp10 = weighted_mean_score score['probability']
       revision.save
     end
@@ -84,7 +84,7 @@ class RevisionScoreImporter
     # FIXME: Why not autoloaded?
     require "#{Rails.root}/lib/wiki_api"
 
-    rev_id = revision.native_id
+    rev_id = revision.mw_rev_id
     rev_query = revision_query(rev_id)
     response = WikiApi.new(revision.wiki).query rev_query
     prev_id = response.data['pages'].values[0]['revisions'][0]['parentid']
