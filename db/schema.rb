@@ -182,8 +182,8 @@ ActiveRecord::Schema.define(version: 20160227020140) do
     t.string   "name",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "intro_slide", limit: 255
-    t.string   "final_slide", limit: 255
+    t.text     "intro_slide", limit: 65535
+    t.text     "final_slide", limit: 65535
   end
 
   create_table "rapidfire_questions", force: :cascade do |t|
