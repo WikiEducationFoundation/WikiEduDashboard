@@ -105,6 +105,6 @@
     "dev": "webpack --config config/webpack/webpack.config.dev.js",
     "hotdev": "webpack-dev-server --inline --config ./config/webpack/webpack.config.dev.js",
     "build": "webpack -p --config config/webpack/webpack.config.prod.js",
-    "postinstall": "gulp build"
+    "postinstall": "rvm use 2.1.5 && gulp build"
   }
 }

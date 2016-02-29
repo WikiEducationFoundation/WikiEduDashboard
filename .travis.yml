@@ -52,7 +52,7 @@ notifications:
   slack:
     rooms:
     - secure: OZcMEKx3prPJva4P6W0E55pSMWnTWdm7d6bBZ6B66LewU9Ge6parEJcaUAAH+sNbi0lvDvMG7Ivs9FKHDU3DoJXNmKG1ow4QpZ0EIMkaBxUWgQRELw2l375G+8vz/VpH3W4zTmVsYWmcaMSER+PmclnBMGQma8vR8JVLVuIDMHU=
-before_deploy: echo "$(grep -v "public" .gitignore)" > .gitignore
+
 deploy:
   provider: heroku
   api_key:
