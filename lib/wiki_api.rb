@@ -136,6 +136,7 @@ class WikiApi
                                  extra: { action: action,
                                           query: query,
                                           opts: opts }
+      return nil # Do not return a Raven object
     end
   end
 end
