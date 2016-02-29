@@ -18,8 +18,8 @@
 #  ithenticate_id :integer
 #  report_url     :string(255)
 #  wiki_id        :integer
-#  native_id      :integer
-#  page_id        :integer
+#  mw_rev_id      :integer
+#  mw_page_id     :integer
 #
 
 require 'rails_helper'

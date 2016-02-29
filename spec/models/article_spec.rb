@@ -18,7 +18,7 @@
 #  average_views            :float(24)
 #  average_views_updated_at :date
 #  wiki_id                  :integer
-#  native_id                :integer
+#  mw_page_id               :integer
 #
 
 require 'rails_helper'

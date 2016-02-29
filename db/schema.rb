@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160211004659) do
+ActiveRecord::Schema.define(version: 20160229215635) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title",                    limit: 255
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20160211004659) do
     t.float    "average_views",            limit: 24
     t.date     "average_views_updated_at"
     t.integer  "wiki_id",                  limit: 4
-    t.integer  "native_id",                limit: 4
+    t.integer  "mw_page_id",               limit: 4
   end
 
   create_table "articles_courses", force: :cascade do |t|
@@ -175,8 +175,8 @@ ActiveRecord::Schema.define(version: 20160211004659) do
     t.integer  "ithenticate_id", limit: 4
     t.string   "report_url",     limit: 255
     t.integer  "wiki_id",        limit: 4
-    t.integer  "native_id",      limit: 4
-    t.integer  "page_id",        limit: 4
+    t.integer  "mw_rev_id",      limit: 4
+    t.integer  "mw_page_id",     limit: 4
   end
 
   add_index "revisions", ["article_id", "date"], name: "index_revisions_on_article_id_and_date", using: :btree

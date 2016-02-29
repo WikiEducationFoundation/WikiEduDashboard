@@ -18,8 +18,8 @@
 #  ithenticate_id :integer
 #  report_url     :string(255)
 #  wiki_id        :integer
-#  native_id      :integer
-#  page_id        :integer
+#  mw_rev_id      :integer
+#  mw_page_id     :integer
 #
 
 #= Revision model
@@ -32,7 +32,7 @@ class Revision < ActiveRecord::Base
   scope :user, -> { where(system: false) }
 
   # Helps with importing data
-  alias_attribute :rev_id, :native_id
+  alias_attribute :rev_id, :mw_rev_id
 
   before_validation :set_defaults
 
@@ -61,7 +61,7 @@ class Revision < ActiveRecord::Base
 
   def set_defaults
     self.wiki_id ||= Wiki.default_wiki.id
-    self.native_id ||= self.id
-    self.page_id ||= self.article_id
+    self.mw_rev_id ||= self.id
+    self.mw_page_id ||= self.article_id
   end
 end
