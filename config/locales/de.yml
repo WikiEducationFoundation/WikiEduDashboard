@@ -119,6 +119,30 @@ de:
       haben.
     course_description: Kurse
     courses: Kurse
+    creator:
+      cloned_course_calendar_instructions: Wähle Daten aus, um sie dem Plan hinzuzufügen
+        oder aus ihm zu entfernen (z.&nbsp;B. Feiertage, schulfrei). Klicke das Datum
+        an, um zwischen nicht ausgewählt, ausgewählt und Feiertagsstatus auszuwählen.
+        Falls du keine Feiertage hast, klicke „Ich habe keine Feiertage“ an. Die geklonte
+        Zeitleiste passt sich automatisch den Daten im Benutzerkonto für Wochen, die
+        keine geplanten Treffen haben, an.
+      course_description: Kursbeschreibung
+      course_school: Kursschule
+      course_subject: Kursthema
+      course_term: Kursdauer
+      course_title: Kurstitel
+      create_button: Meinen Kurs erstellen!
+      create_label: Neuen Kurs erstellen
+      create_new: Einen neuen Kurs erstellen
+      create_short: Kurs erstellen
+      end_date: Enddatum
+      expected_number: Erwartete Anzahl der Studenten
+      find: Finde deinen Kurs
+      intro: Der Titel, die Schule und Kursdauer erstellen die URL für deine Kursseite
+        und können nicht geändert werden. Alles andere kannst du später bearbeiten.
+        Klicke auf „Meinen Kurs erstellen!“, um mit dem Erstellen der Zeitleiste für
+        deine Wikipedia-Zuweisung anzufangen.
+      start_date: Startdatum
     current: Aktuelle Kurse
     duration: Kursdauer
     edit_course_dates: Kursdaten bearbeiten
@@ -198,6 +222,18 @@ de:
     assignment_end: Zeitleisten-Ende
     assignments_none: Dieses Projekt hat keine zugewiesenen Wikipedia-Artikel.
     assignment_start: Zeitleisten-Beginn
+    creator:
+      course_description: Programmbeschreibung
+      course_school: Einrichtung
+      course_title: Programmtitel
+      create_button: Mein Programm erstellen!
+      create_label: Neues Programm erstellen
+      create_new: Ein neues Programm erstellen
+      create_short: Programm erstellen
+      find: Finde dein Programm
+      intro: Der Programmtitel ist erforderlich. Alles andere kannst du später ausfüllen.
+        Klicke auf „Mein Programm erstellen!“, um mit dem Erstellen der Seite für
+        dein Wikiprogramm anzufangen.
     edit_course_dates: Projektdaten bearbeiten
     expected_students: Erwartete Autoren
     instructors: Vermittler

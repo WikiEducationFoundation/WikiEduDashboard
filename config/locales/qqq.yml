@@ -145,6 +145,9 @@ qqq:
       Label for the number of courses in a cohort
       {{Identical|Course}}
     courses: Label for the number of courses in a cohort
+    creator:
+      end_date: '{{Identical|End date}}'
+      start_date: '{{Identical|Start date}}'
     current: Label for the list of current courses
     duration: Label for duration of a course
     error:
@@ -199,6 +202,8 @@ qqq:
     wiki_staff: Label for staff members supporting the course
     yourcourses: Label for the list of courses associated with the logged in user
   courses_generic:
+    creator:
+      course_school: '{{Identical|Institution}}'
     student_editors: '{{Identical|Editor}}'
     students: '{{Identical|Editor}}'
     students_short: '{{Identical|Editor}}'

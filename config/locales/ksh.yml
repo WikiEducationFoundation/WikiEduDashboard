@@ -32,6 +32,8 @@ ksh:
     activity: Aktivitäht
     articles: Atikele
     course_description: Korse för em Wikki ze liehre.
+    creator:
+      start_date: Et Dattom vum Aanfang
     overview: Övverblek
     title: Övverschreff
   metrics:

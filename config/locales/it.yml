@@ -97,6 +97,29 @@ it:
       dagli studenti del corso durante il periodo del corso
     course_description: Corsi
     courses: Corsi
+    creator:
+      cloned_course_calendar_instructions: 'Seleziona le date per aggiungerle o rimuoverle
+        dalla pianificazione (ad esempio: vacanze, niente scuola). Clicca su una data
+        per cambiare stato tra deselezionato, selezionato e vacanza. Se non si hanno
+        vacanze, seleziona "Non ho vacanze". La linea temporale clonata regolerà automaticamente
+        le date per tenere conto di settimane che non hanno incontri programmati.'
+      course_description: Descrizione del corso
+      course_school: Scuola del corso
+      course_subject: Oggetto del corso
+      course_term: Termine del corso
+      course_title: Titolo del corso
+      create_button: Crea il mio corso!
+      create_label: Crea nuovo corso
+      create_new: Crea un nuovo corso
+      create_short: Crea corso
+      end_date: Data di fine
+      expected_number: Numero previsto di studenti
+      find: Trova il tuo corso
+      intro: Il titolo, la scuola, e la durata creano l'URL della pagina del tuo corso,
+        e non possono essere modificati. Tutto il resto puoi modificarli in seguito.
+        Clicca su "Crea il mio corso!" per iniziare a costruire la linea temporale
+        per la tua assegnazione Wikipedia.
+      start_date: Data di inizio
     current: Corsi attuali
     duration: Durata del corso
     edit_course_dates: Modifica date del corso
@@ -160,6 +183,18 @@ it:
     assignment_end: Fine timeline
     assignments_none: Questo progetto non ha assegnato voci di Wikipedia.
     assignment_start: Inizio timeline
+    creator:
+      course_description: Descrizione del programma
+      course_school: Istituto
+      course_title: Titolo del programma
+      create_button: Crea il mio programma!
+      create_label: Crea nuovo programma
+      create_new: Creare un nuovo programma
+      create_short: Crea programma
+      find: Trova il tuo programma
+      intro: Il titolo del programma è obbligatorio, tutto il resto può essere riempito
+        in seguito. Clicca su "Crea il mio programma!" per iniziare a costruire la
+        pagina wiki del programma.
     edit_course_dates: Modifica date del progetto
     expected_students: Editori previsti
     instructors: Facilitatori

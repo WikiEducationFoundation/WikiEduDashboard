@@ -103,6 +103,21 @@ zh-hans:
     assignment_start: 任务开始
     course_description: 课程
     courses: 课程
+    creator:
+      course_description: 课程描述
+      course_school: 课程学校
+      course_subject: 课程科目
+      course_term: 课程学期
+      course_title: 课程标题
+      create_button: 创建我的课程！
+      create_label: 创建新的课程
+      create_new: 创建一个新课程
+      create_short: 创建课程
+      end_date: 结束日期
+      expected_number: 预计学生人数
+      find: 找到您的课程
+      intro: 标题、学校和学期会创建您课程页面的URL，并且不能更改。除这些以外，您可以日后编辑。点击“创建我的课程！”以开始构造用于您维基百科任务分配的时间轴。
+      start_date: 开始日期
     current: 当前课程
     duration: 课程持续时间
     edit_course_dates: 编辑课程日期
@@ -161,6 +176,15 @@ zh-hans:
     assignment_end: 时间轴终点
     assignments_none: 此项目没有分配的维基百科条目。
     assignment_start: 时间轴起点
+    creator:
+      course_description: 项目描述
+      course_school: 机构
+      course_title: 项目标题
+      create_button: 创建我的项目！
+      create_label: 创建新项目
+      create_new: 创建一个新项目
+      create_short: 创建项目
+      find: 找到您的项目
     edit_course_dates: 编辑项目日期
     expected_students: 预期编辑者
     instructors: 促进者

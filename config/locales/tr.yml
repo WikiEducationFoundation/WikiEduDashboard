@@ -5,6 +5,7 @@
 # Author: HakanIST
 # Author: JackUKElliott
 # Author: KorkmazO
+# Author: Mavrikant
 # Author: Sayginer
 # Author: Uğurkent
 # Author: Watermelon juice
@@ -20,7 +21,13 @@ tr:
     milestones:
       title: Kilometre taşları
   courses:
+    creator:
+      end_date: Bitiş tarihi
+      start_date: Başlangıç tarihi
     gradeables_none: Bu kursta notlandırılabilen ödev bulunmamaktadır
+  courses_generic:
+    creator:
+      course_title: Program adı
   metrics:
     char_changed: Karakterler Değişti
   namespace:

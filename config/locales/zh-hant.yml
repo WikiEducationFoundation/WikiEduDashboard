@@ -24,6 +24,8 @@ zh-hant:
       title: 里程碑
   courses:
     articles: 條目
+    creator:
+      start_date: 開始日期
     new_week: 新增新的一週
     title: 標題
     view_wiki: 在維基百科上檢視

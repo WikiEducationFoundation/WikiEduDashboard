@@ -5,8 +5,16 @@
 ---
 yi:
   courses:
+    creator:
+      end_date: סוף דאַטע
+      find: טרעפט אייער קורס
+      start_date: אָנהייב דאַטע
     school: שולע
   courses_generic:
+    creator:
+      course_school: אַנשטאַלט
+      course_title: פראגראם־טיטל
+      find: טרעפט אייער פראגראם
     school: אנשטאלט
     student_editors: רעדאקטארן
     students_short: רעדאקטארן

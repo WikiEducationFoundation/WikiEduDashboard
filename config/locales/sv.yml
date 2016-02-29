@@ -16,6 +16,7 @@ sv:
   activity:
     all: Aktivitet
     edited_by: Redigerad av
+    label: Aktivitet
   articles:
     assigned: Tilldelade artiklar
     assigned_to: Tilldelad till
@@ -40,6 +41,12 @@ sv:
     articles: Artiklar
     articles_none: Den här kursen har inte redigerat några artiklar.
     course_description: Kurser
+    creator:
+      create_label: Skapa ny kurs
+      create_new: Skapa en ny kurs
+      end_date: Slutdatum
+      find: Hitta din kurs
+      start_date: Startdatum
     school: Skola
   courses_generic:
     edit_course_dates: Redigera projektdatum

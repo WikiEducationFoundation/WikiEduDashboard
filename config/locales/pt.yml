@@ -50,6 +50,9 @@ pt:
     activity: Atividade
     articles: Artigos
     courses: Cursos
+    creator:
+      end_date: Data de término
+      start_date: Data de início
     duration: Duração do curso
     nocourses: Não está inscrito em nenhum curso.
     school: Escola

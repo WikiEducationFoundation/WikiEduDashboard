@@ -11,8 +11,15 @@ bn:
   assignments:
     reviewers: নিরীক্ষক(গণ)
   courses:
+    creator:
+      end_date: শেষের তারিখ
+      start_date: শুরুর তারিখ
     title: শিরোনাম
     view_wiki: উইকিপিডিয়ায় দেখুন
+  courses_generic:
+    creator:
+      course_title: প্রোগ্রামের শিরোনাম
+      find: আপনার প্রোগ্রাম খুঁজুন
   users:
     name: নাম
 ...
