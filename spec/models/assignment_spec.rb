@@ -10,6 +10,7 @@
 #  article_id    :integer
 #  article_title :string(255)
 #  role          :integer
+#  wiki_id       :integer
 #
 
 require 'rails_helper'
