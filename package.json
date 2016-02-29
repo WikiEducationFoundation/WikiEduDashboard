@@ -1,6 +1,6 @@
 {
   "name": "WikiEduDashboard",
-  "devDependencies": {
+  "dependencies": {
     "babel": "^5.8.23",
     "browserify": "^11.0.1",
     "chai": "^1.10.0",
@@ -79,9 +79,7 @@
     "watchify": "^3.3.1",
     "waypoints": "^4.0.0",
     "webpack": "^1.12.14",
-    "webpack-manifest-plugin": "^1.0.0"
-  },
-  "dependencies": {
+    "webpack-manifest-plugin": "^1.0.0",
     "i18n-js": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc8.tar.gz",
     "markdown-it": "5.0.0",
     "mcfly": "0.0.10",
