@@ -106,5 +106,8 @@
     "hotdev": "webpack-dev-server --inline --config ./config/webpack/webpack.config.dev.js",
     "build": "webpack -p --config config/webpack/webpack.config.prod.js",
     "postinstall": "gulp build"
+  },
+  "devDependencies": {
+    "trix": "^0.9.5"
   }
 }
