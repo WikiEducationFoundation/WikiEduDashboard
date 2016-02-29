@@ -1,6 +1,7 @@
 var webpack = require('webpack');
 var ManifestPlugin = require('webpack-manifest-plugin');
 var source = __dirname + "/../../app/assets/javascripts/";
+var output = "./public/assets/javascripts";
 
 module.exports = {
 
@@ -8,9 +9,10 @@ module.exports = {
         main : source + "main.coffee",
         survey: source + "surveys/survey.coffee",
         survey_admin: source + "surveys/survey-admin.coffee",
+        vendor: output + "/vendor.js"
     },
     output: {
-        path: "./public/assets/javascripts",
+        path: output,
         filename: "[name].[hash].js",
     },
     resolve: {
