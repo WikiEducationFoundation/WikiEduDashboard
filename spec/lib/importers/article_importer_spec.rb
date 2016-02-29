@@ -5,7 +5,7 @@ describe ArticleImporter do
   describe '.import_articles' do
     it 'should create an Article from a Wikipedia page_id' do
       ArticleImporter.new(Wiki.default_wiki).import_articles [46349871]
-      article = Article.find(46349871)
+      article = Article.find_by(mw_page_id: 46349871)
       expect(article.title).to eq('Kostanay')
     end
   end

@@ -13,8 +13,7 @@ class ArticleImporter
       Replica.new(@wiki).get_existing_articles_by_id block
     end
     articles = articles_data.map do |a|
-      Article.new(id: a['page_id'], # TODO: Stop writing ID
-                  mw_page_id: a['page_id'],
+      Article.new(mw_page_id: a['page_id'],
                   title: a['page_title'],
                   namespace: a['page_namespace'],
                   wiki_id: @wiki.id)
@@ -34,8 +33,7 @@ class ArticleImporter
       articles = []
       results.each do |_id, page_data|
         next if page_data['missing']
-        articles << Article.new(id: page_data['pageid'].to_i, # TODO: Stop writing to ID
-                                mw_page_id: page_data['pageid'].to_i,
+        articles << Article.new(mw_page_id: page_data['pageid'].to_i,
                                 title: page_data['title'].tr(' ', '_'),
                                 namespace: page_data['ns'].to_i,
                                 wiki_id: @wiki.id)

@@ -34,8 +34,6 @@ class Article < ActiveRecord::Base
   has_many :assignments
   belongs_to :wiki
 
-  alias_attribute :page_id, :mw_page_id
-
   scope :live, -> { where(deleted: false) }
   scope :current, -> { joins(:courses).merge(Course.current).uniq }
   scope :namespace, -> ns { where(namespace: ns) }

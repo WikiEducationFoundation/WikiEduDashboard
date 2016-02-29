@@ -27,7 +27,7 @@ class Replica
     return data unless raw.is_a?(Enumerable)
     raw.each do |revision|
       parsed = parse_revision(revision)
-      page_id = parsed['article']['page_id']
+      page_id = parsed['article']['mw_page_id']
       unless data.include?(page_id)
         data[page_id] = {}
         data[page_id]['article'] = parsed['article']
@@ -59,16 +59,16 @@ class Replica
   #   }
   def parse_revision(revision)
     article_data = {}
-    article_data['page_id'] = revision['page_id']
+    article_data['mw_page_id'] = revision['page_id']
     article_data['title'] = revision['page_title']
     article_data['namespace'] = revision['page_namespace']
     article_data['wiki_id'] = @wiki.id
 
     revision_data = {}
-    revision_data['rev_id'] = revision['rev_id']
+    revision_data['mw_rev_id'] = revision['rev_id']
     revision_data['date'] = revision['rev_timestamp'].to_datetime
     revision_data['characters'] = revision['byte_change']
-    revision_data['page_id'] = revision['page_id']
+    revision_data['mw_page_id'] = revision['page_id']
     revision_data['user_id'] = revision['rev_user']
     revision_data['new_article'] = revision['new_article']
     revision_data['system'] = revision['system']
