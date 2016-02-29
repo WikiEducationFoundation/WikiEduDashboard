@@ -7,6 +7,7 @@
 ---
 eo:
   application:
+    greeting: Saluton!
     help: Helpon!
     home: Hejmo
     log_out: Elsaluti
@@ -17,9 +18,29 @@ eo:
   courses:
     activity: Aktiveco
     articles: Artikoloj
+    creator:
+      course_description: Priskribo de kurso
+      course_subject: Temo de kurso
+      course_title: Titolo de kurso
+      create_button: Krei mian kurson!
+      create_label: Krei novan kurson
+      create_new: Krei novan kurson
+      create_short: Krei kurson
+      end_date: Fina dato
+      find: Trovi vian kurson
+      start_date: Komenca dato
     students: Lernantoj
     title: Titolo
     view_wiki: Legi en Vikipedio
+  courses_generic:
+    creator:
+      course_description: Priskribo de programo
+      course_school: Lernejo
+      create_button: Krei mian programon!
+      create_label: Krei novan programon
+      create_new: Krei novan programon
+      create_short: Krei programon
+      find: Trovi vian programon
   metrics:
     date_time: Dato/Tempo
     view: Vidoj

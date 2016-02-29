@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Arian Ar
 # Author: GMozafarian
+# Author: Ladsgroup
 # Author: Reza1615
 ---
 fa:
@@ -52,6 +53,10 @@ fa:
     assignment_end: تکلیف پایانی
     course_description: دوره‌ها
     courses: دوره‌ها
+    creator:
+      course_subject: موضوع درس
+      end_date: تاریخ پایان
+      start_date: تاریخ شروع
     current: دوره‌های فعلی
     duration: مدت دوره‌ها
     edit_course_dates: ویرایش تاریخ دوره
@@ -67,6 +72,11 @@ fa:
   courses_generic:
     assignment_end: پایان جدول زمانی
     assignment_start: شروع جدول زمانی
+    creator:
+      course_school: نهاد
+      course_title: عنوان برنامه
+      create_short: ایجاد برنامه
+      find: برنامه خودتان را پیدا کنید
     edit_course_dates: تغییر تاریخ پروژه
     instructors: تسهیلات
     school: نهاد

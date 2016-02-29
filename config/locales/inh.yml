@@ -1,0 +1,10 @@
+# Messages for Ingush (ГӀалгӀай)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Adam-Yourist
+---
+inh:
+  courses:
+    creator:
+      start_date: Доладалара таьрахь
+...

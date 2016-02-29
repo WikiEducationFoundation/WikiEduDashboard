@@ -112,16 +112,6 @@ class Commons
     url_query
   end
 
-  ####################
-  # Database methods #
-  ####################
-  def self.save_placeholder_thumbnail(file)
-    file.thumburl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/No_image_3x4.svg/200px-No_image_3x4.svg.png'
-    file.thumbwidth = 200
-    file.thumbheight = 150
-    file.save
-  end
-
   ###################
   # Private methods #
   ###################
@@ -130,27 +120,6 @@ class Commons
 
     def api_get(query)
       WikiApi.query(query, site: 'commons.wikimedia.org')
-    rescue MediawikiApi::ApiError => e
-      handle_api_error e, query
-    end
-
-    def handle_api_error(e, query)
-      # This handles iiurlparamnormal, which means the file is not an image,
-      # so it has no thumbnail.
-      fail e unless e.code == 'iiurlparamnormal'
-
-      # We need to extract the filename from an info value that looks like:
-      # "Could not normalise image parameters
-      # for Jewish_Encyclopedia_Volume_6.pdf"
-      info = e.info
-      info['Could not normalise image parameters for '] = ''
-      bad_file_name = ('File:' + info).tr('_', ' ')
-      bad_file = CommonsUpload.find_by(file_name: bad_file_name)
-      save_placeholder_thumbnail bad_file
-      Rails.logger.debug "Caught iiurlparamnormal error: #{bad_file_name}"
-      query[:pageids] -= [bad_file.id]
-      return [] if query[:pageids].empty?
-      api_get(query)
     end
   end
 end

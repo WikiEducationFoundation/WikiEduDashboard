@@ -54,6 +54,9 @@ pl:
     articles: Artykuły
     course_description: Kursy
     courses: Kursy
+    creator:
+      end_date: Data zakończenia
+      start_date: Data rozpoczęcia
     instructor:
       one: Instruktor
       other: Instruktorzy
@@ -66,6 +69,8 @@ pl:
     view_wiki: Zobacz w Wikipedii
     yourcourses: Twoje Kursy
   courses_generic:
+    creator:
+      course_school: Instytucja
     school: Instytucja
   metrics:
     date_time: Data/Czas

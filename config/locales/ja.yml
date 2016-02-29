@@ -57,6 +57,9 @@ ja:
   courses:
     activity: 活動
     articles: 記事
+    creator:
+      end_date: 終了日
+      start_date: 開始日
     instructors: 講師
     join: 参加
     join_prompt: 「%{title}」に参加しますか?

@@ -136,7 +136,7 @@ class WikiApi
                                  extra: { action: action,
                                           query: query,
                                           opts: opts }
-      fail e if e.code == 'iiurlparamnormal' # handled by Commons.rb
+      return nil # Do not return a Raven object
     end
   end
 end

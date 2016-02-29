@@ -66,6 +66,14 @@ lb:
     articles: Artikelen
     course_description: Coursen
     courses: Coursen
+    creator:
+      course_description: Beschreiwung vum Cours
+      course_subject: Sujet vum Cours
+      course_title: Titel vum Cours
+      end_date: Schlussdatum
+      expected_number: Erwaart Zuel vu Studenten
+      find: Äre Cours fannen
+      start_date: Ufanksdatum
     current: Aktuell Coursen
     duration: Dauer vum Cours
     edit_course_dates: Datume vum Cours änneren
@@ -92,6 +100,10 @@ lb:
       other: Fräiwëlleger
     yourcourses: Är Coursen
   courses_generic:
+    creator:
+      course_description: Beschreiwung vum Programm
+      course_school: Institutioun
+      course_title: Titel vum Programm
     school: Institutioun
     students_short: Auteuren
     term: Wéini

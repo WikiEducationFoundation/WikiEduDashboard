@@ -21,6 +21,25 @@ ar:
     edited_mobile: المقالات
     loading: تحميل المقالات ...
     no_assignee: لا مستخدم تم تعيينه
+  courses:
+    creator:
+      course_description: وصف المساق
+      course_school: مدرسة المساق
+      course_subject: موضوع المساق
+      course_title: عنوان المساق
+      create_button: أنشئ مساقي
+      create_label: لإنشاء مساق جديد
+      create_new: أنشئ مساقًا جديدًا
+      create_short: أنشئ المساق
+      end_date: تاريخ الانتهاء
+      expected_number: عدد الطلاب المتوقع
+      start_date: تاريخ البدء
   courses_generic:
+    creator:
+      course_description: وصف البرنامج
+      course_school: المؤسسة
+      course_title: اسم البرنامج
+      create_button: أنشأ برنامجي!
+      create_short: أنشئ البرنامج
     edit_course_dates: عدل مواعيد المشروع
 ...

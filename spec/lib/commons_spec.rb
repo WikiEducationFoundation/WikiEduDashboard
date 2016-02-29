@@ -126,24 +126,17 @@ describe Commons do
       end
     end
 
-    it 'should not fail for files that throw api errors' do
-      VCR.use_cassette 'commons/get_urls_with_errors' do
+    it 'should not fail for files that have placeholder thumbnails' do
+      VCR.use_cassette 'commons/get_urls_with_placeholder_thumbnails' do
+        # MediaWiki can't generate a real thumbnail of this file.
+        # It used to cause a 'iiurlparamnormal' error, but since late February
+        # 2016, it fails gracefully with a placeholder image.
         create(:commons_upload,
                id: 28591020,
                file_name: 'File:Jewish Encyclopedia Volume 6.pdf',
                thumburl: nil)
         response = Commons.get_urls(CommonsUpload.all)
-        expect(response).to be_empty
-        # It should add a placeholder url so that we don't request it again.
-        file = CommonsUpload.find(28591020)
-        expect(file.thumburl).not_to be_nil
-        # Now add a legitimate file.
-        create(:commons_upload,
-               id: 541408,
-               file_name: 'File:Haeckel Stephoidea.jpg')
-        response = Commons.get_urls(CommonsUpload.all)
-        id = response[0]['pageid']
-        expect(id).to eq(541408)
+        expect(response).not_to be_empty
       end
     end
   end

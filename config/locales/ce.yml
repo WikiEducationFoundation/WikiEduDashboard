@@ -10,4 +10,10 @@ ce:
     log_in: Системин довзийтар
     log_out: Болх дӀаберзор
     sign_up: ДӀаяздар кхоллар
+  courses:
+    creator:
+      start_date: Долина терахь
+  courses_generic:
+    creator:
+      course_school: Институт
 ...
