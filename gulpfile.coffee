@@ -33,10 +33,10 @@ gulp.task "webpack-build", plugins.shell.task ["npm run build"]
 gulp.task "webpack-hotdev", plugins.shell.task ["npm run hotdev"]
 
 gulp.task "build", (cb) ->
-  runSequence "clean", [
-    "i18n"
-    "copy-static"
-    "bower"
-    "stylesheets-fingerprint"
-  ], "webpack-build", "minify", cb
+  runSequence "clean",
+    "i18n",
+    "copy-static",
+    "bower",
+    "stylesheets-fingerprint",
+    "webpack-build", "minify", cb
 
