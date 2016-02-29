@@ -18,7 +18,7 @@
 #  average_views            :float(24)
 #  average_views_updated_at :date
 #  wiki_id                  :integer
-#  native_id                :integer
+#  mw_page_id               :integer
 #
 
 require "#{Rails.root}/lib/utils"
@@ -34,8 +34,7 @@ class Article < ActiveRecord::Base
   has_many :assignments
   belongs_to :wiki
 
-  # Allows us to directly #update from the Tools response
-  alias_attribute :page_id, :native_id
+  alias_attribute :page_id, :mw_page_id
 
   scope :live, -> { where(deleted: false) }
   scope :current, -> { joins(:courses).merge(Course.current).uniq }
@@ -108,6 +107,6 @@ class Article < ActiveRecord::Base
     self.title = title.tr(' ', '_') unless title.nil?
     # FIXME: transitional only
     self.wiki_id ||= Wiki.default_wiki.id
-    self.native_id ||= self.id
+    self.mw_page_id ||= self.id
   end
 end
