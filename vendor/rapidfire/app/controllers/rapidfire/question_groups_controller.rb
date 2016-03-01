@@ -27,7 +27,19 @@ module Rapidfire
 
     def update
       @question_group = QuestionGroup.find(params[:id])
-      @question_group.update_attributes(params[:question_group])
+      @question_group.update_attributes(question_group_params)
+      @question_group.save
+      if @question_group.errors.empty?
+        respond_to do |format|
+          format.html { redirect_to question_groups_path }
+          format.js
+        end
+      else
+        respond_to do |format|
+          format.html { render on_error_key.to_sym }
+          format.js
+        end
+      end
     end
 
     def destroy
@@ -56,10 +68,11 @@ module Rapidfire
 
     def question_group_params
       if Rails::VERSION::MAJOR == 4
-        params.require(:question_group).permit(:name)
+        params.require(:question_group).permit(:name, :intro_slide, :final_slide)
       else
         params[:question_group]
       end
     end
   end
 end
+
