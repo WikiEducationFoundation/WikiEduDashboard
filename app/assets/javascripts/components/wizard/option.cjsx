@@ -41,7 +41,7 @@ Option = React.createClass(
         min_weeks: @props.option.min_weeks })}</h3>
 
     <div className={className}>
-      <button onClick={@select unless disabled} aria-selected={@props.option.selected || false}>
+      <button onClick={@select unless disabled} role='checkbox' aria-checked={@props.option.selected || false}>
         {checkbox}
         {notice}
         <h3>{"#{@props.option.title}#{if @props.option.recommended then ' (recommended)' else ''}"}</h3>
