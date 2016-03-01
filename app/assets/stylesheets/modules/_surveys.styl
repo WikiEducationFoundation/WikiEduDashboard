@@ -1,4 +1,5 @@
 $spacer = 10px
+$survey_max_width = 700px
 
 body.survey-page
   background-color #7177C7
@@ -11,9 +12,9 @@ body.survey-page
   .section-header h1,
   .section-header h2
     color white
-  
+
   .block
-    max-width 700px
+    max-width $survey_max_width
     margin 100px auto
     
     &.survey__form
@@ -23,6 +24,14 @@ body.survey-page
       display block
       margin-bottom $spacer
       font-weight bold
+  
+  .survey__questions-list,
+  .survey__slide-form
+    max-width $survey_max_width
+    margin 0 auto
+  
+  .survey__slide-form
+    margin 2em auto
   
   footer,
   footer a
@@ -40,7 +49,8 @@ body.survey-page
     .button
       float none
 
-.list--survey
+ul.list--survey
+  padding 1em 0
   .course-list__col
     padding 0 1em
 
@@ -104,5 +114,6 @@ body.survey-page
     height 40px
     background manatee
     border-radius 5px
-    
-    
+
+.block.survey__slide-form
+  overflow hidden

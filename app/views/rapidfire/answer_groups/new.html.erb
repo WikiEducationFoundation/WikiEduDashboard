@@ -1,7 +1,9 @@
 <div class='container'>
-<div class='section-header'></div>
-
-<div>
+<div class='block disabled' data-survey-block>
+  <h1><%= @question_group.name %></h1>
+  <%= @question_group.intro_slide %>
+  <%= render partial: "question_block_nav" %>
+</div>
 
 <%= form_for([@question_group, @answer_group_builder]) do |f| %>
   <div>
@@ -9,14 +11,7 @@
     <%= f.fields_for("#{answer.question.id}", answer) do |answer_form| %>
       <div class='block disabled question-type--<%= question_type(answer) %>' data-survey-block>
         <%= render_answer_form_helper(answer, answer_form) %>
-        <div class='survey__block-nav'>
-          <% if index != 0 %>
-          <button class='button' data-prev-survey-block>Prev</button>
-          <% else %>
-          <div></div>
-          <% end %>
-          <button class='button dark' data-next-survey-block>Next</button>
-        </div>
+        <%= render partial: "question_block_nav" %>
       </div>
     <% end %>
   <% end %>
@@ -24,9 +19,17 @@
   <div class='block disabled survey__submit-block' data-survey-block>
     <%= f.submit "Submit Survey", :class => 'button button--no-margin dark' %>
   </div>
-  <div class='block'>
+  <div class='block disabled' data-survey-block>
+    <%= @question_group.final_slide %>
+  </div>
+  
+<% end %>
+
+</div>
+</div>
+
+<div class='survey__footer'>
+  <div class='container'>
     <div class='survey__progress'><div class='survey__progress-bar' data-survey-progress></div></div>
   </div>
-<% end %>
-</div>
 </div>

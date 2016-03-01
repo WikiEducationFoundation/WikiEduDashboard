@@ -1,0 +1,15 @@
+<div class='block survey__slide-form'>
+<%= form_for @question_group do |f| %>
+  <%- if @question_group.errors.any? %>
+    <ul>
+      <%- @question_group.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <div><%= f.label :intro_slide, "Survey Introduction" %></div>
+  <div><%= f.text_area :intro_slide %><br/>
+  <%= f.submit 'Save Intro', :class => 'button button--no-margin'%></div>
+<% end %>
+</div>

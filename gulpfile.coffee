@@ -24,7 +24,6 @@ gulp.task "dev", ->
     "i18n"
     "copy-static"
     "bower"
-    "webpack-hotdev"
     "javascripts"
     "stylesheets"
   ], "watch"
