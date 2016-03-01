@@ -15,5 +15,13 @@ module Rapidfire
       answers = answer.answer_text.to_s.split(answers_delimiter)
       answers.include?(option)
     end
+
+    def question_text(question)
+      if question.validation_rules[:presence]
+        "#{question.question_text} <span>*required</span>"
+      else
+        "#{question.question_text}"
+      end
+    end
   end
 end

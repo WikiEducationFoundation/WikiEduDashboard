@@ -1,7 +1,7 @@
 require 'velocity-animate'
 throttle = require 'lodash.throttle'
 
-scroll_duration = 1000
+scroll_duration = 500
 scroll_easing = [0.19, 1, 0.22, 1]
 
 Survey =
@@ -10,6 +10,7 @@ Survey =
 
   init: ->
     @$window = $(window)
+    window.scrollTo(0,0)
     @survey_blocks = $('[data-survey-block]')
     @survey_progress = $('[data-survey-progress]')
     @listeners()
@@ -36,25 +37,38 @@ Survey =
         $block.addClass 'disabled'
 
   initBlocks: ->
-    $(@survey_blocks[@current_block]).removeClass 'disabled'
+    $(@survey_blocks[@current_block]).removeClass 'disabled not-seen'
 
   nextBlock: (e) ->
     e.preventDefault()
     return if @animating
     toIndex = @current_block + 1
-    $(@survey_blocks[toIndex]).velocity 'scroll', 
-      duration: scroll_duration
-      easing: scroll_easing
-      offset: -200
-      begin: =>
-        @animating = true
-        $(@survey_blocks[toIndex]).removeClass 'disabled' 
-        $(@survey_blocks[@current_block]).addClass 'disabled'
-      complete: =>
-        @animating = false
-        @current_block = toIndex
-        @focusField()
-        @updateProgress()
+    $block = $(@survey_blocks[toIndex])
+
+    passedValidation = @validateCurrentQuestion()
+
+    if passedValidation
+      $($block).velocity 'scroll', 
+        duration: scroll_duration
+        easing: scroll_easing
+        offset: -200
+        begin: =>
+          $(@survey_blocks[@current_block]).removeClass 'highlight' 
+          $(@survey_blocks[@current_block]).addClass 'disabled'
+          @updateProgress(toIndex)
+        complete: =>
+          @animating = false
+          @current_block = toIndex
+          @focusField()
+
+      $block.velocity {opacity: [1, 0], translateY: ['0%', '100%']},
+        queue: false
+        complete: =>
+          $block.removeClass 'disabled not-seen' 
+    else
+      @handleRequiredQuestion()
+      return
+        
 
   prevBlock: (e) ->
     e.preventDefault()
@@ -72,15 +86,22 @@ Survey =
         @animating = false
         @current_block = toIndex
         @focusField()
-        @updateProgress()
+
+  validateCurrentQuestion: ->
+    $block = $(@survey_blocks[@current_block])
+    isRequired = $block.hasClass 'required'
+    console.log $block.find('input').val()
+    !isRequired
+
+  handleRequiredQuestion: ->
+    $(@survey_blocks[@current_block]).addClass 'highlight'
 
   focusField: ->
     $(@survey_blocks[@current_block]).find('input, textarea').first().focus()
 
-  updateProgress: ->
-    width = 0
-    if @current_block > 0
-      width = "#{(@current_block / (@survey_blocks.length - 1)) * 100}%"
+  updateProgress: (index) ->
+    # width = 0
+    width = "#{(index / (@survey_blocks.length - 1)) * 100}%"
     @survey_progress.css 'width', width
 
   handleBlockClick: (e) ->

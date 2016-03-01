@@ -17,8 +17,10 @@ body.survey-page
     color white
 
   .block
+    transition 300ms opacity easeOutExpo
     max-width $survey_max_width
     margin 100px auto
+    
     
     &.survey__form
       margin-top 2em
@@ -30,6 +32,18 @@ body.survey-page
     
     &--clear
       overflow hidden
+      
+  .block.disabled
+    opacity .5
+  
+  .block.not-seen
+    opacity 0
+  
+  .block.block--errors
+    opacity 1
+  
+  .block.highlight
+    border 1px solid $warning_text
   
   .survey__questions-list,
   .survey__slide-form
@@ -42,18 +56,9 @@ body.survey-page
   footer,
   footer a
     color white
-  
-  .block
-    transition 300ms opacity easeOutExpo
-  
-  .block.disabled
-    opacity .5
-  
-  .block.block--errors
-    opacity 1
-  
+
   .errors
-    color tomato
+    color $warning_text
   
   .survey__block-nav
     overflow hidden
@@ -109,7 +114,6 @@ ul.list--survey
     margin 10px
     background-color darken(mercury, 10%)
     border 1px solid mercury
-    
   
   .check
     position absolute
@@ -118,21 +122,11 @@ ul.list--survey
     width 30px
     height 100%
 
-.survey__progress
-  background darken(manatee, 10%)
-  position relative
-  width 400px
-  height 40px
-  margin auto
-  border-radius 5px
-  overflow hidden
-  &-bar
-    position absolute
-    left 0
-    top 0
-    height 40px
-    background manatee
-    border-radius 5px
+.highlight label.survey__multiple-choice-field
+  border-color $warning_text
+
+.survey__question-required
+  color $warning_text
 
 .block.survey__slide-form
   overflow hidden
@@ -164,3 +158,28 @@ ul.list--survey
 .survey__title-form
   input[type='text']
     width 400px
+
+.survey__footer
+  position fixed
+  z-index 10
+  bottom 0
+  left 0
+  right 0
+  width 100%
+  background white
+  padding 1rem 0
+
+.survey__progress
+  background darken(manatee, 10%)
+  position relative
+  width 400px
+  height 30px
+  margin auto
+  border-radius 5px
+  overflow hidden
+  &-bar
+    position absolute
+    left 0
+    top 0
+    height 30px
+    background manatee

@@ -1,0 +1,4 @@
+<div class='survey__question-text'>
+<%= f.label :answer_text, answer.question.question_text.html_safe %>
+<% if answer.question.validation_rules[:presence] %><span class="survey__question-required">* required</span><% end %>
+</div>

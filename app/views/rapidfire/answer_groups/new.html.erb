@@ -8,7 +8,7 @@
 
 <div class='container'>
 <% if @question_group.intro_slide %>
-<div class='block disabled' data-survey-block='0'>
+<div class='block disabled not-seen' data-survey-block='0'>
   <h1 class='survey__title'><%= @question_group.name %></h1>
   <%= @question_group.intro_slide.html_safe %>
   <div class='survey__block-nav'>
@@ -22,7 +22,7 @@
   <div>
   <%- @answer_group_builder.answers.each_with_index do |answer, index| %>
     <%= f.fields_for("#{answer.question.id}", answer) do |answer_form| %>
-      <div class='block disabled question-type--<%= question_type(answer) %> <% if answer.errors.any? %>block--errors<% end %>' data-survey-block='<%= index + 1 %>'>
+      <div class='block disabled not-seen question-type--<%= question_type(answer) %> <% if answer.errors.any? %>block--errors<% end %> <% if answer.question.validation_rules[:presence].to_i == 1 %>required<% end %>' data-survey-block='<%= index + 1 %>'>
         <%= render_answer_form_helper(answer, answer_form) %>
         <div class='survey__block-nav'>
           <button class='button' data-prev-survey-block>Prev</button>
@@ -34,7 +34,7 @@
   </div>
   
   
-  <div class='block disabled block--clear' data-survey-block='<%= @answer_group_builder.answers.length + 1 %>'>
+  <div class='block disabled not-seen block--clear' data-survey-block='<%= @answer_group_builder.answers.length + 1 %>'>
     <% if @question_group.intro_slide %><%= @question_group.final_slide.html_safe %><% end %>
     <%= f.submit "Submit Survey", :class => 'button button--no-margin dark' %>
   </div>
