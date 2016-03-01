@@ -82,7 +82,8 @@ Survey =
 
   handleBlockClick: (e) ->
     $block = $($(e.target).closest('[data-survey-block]'))
-    index = $block.index()
+    index = $block.data 'survey-block'
+    console.log index, $block
     return if index is @current_block
     $(@survey_blocks[index]).removeClass 'disabled'    
     $(@survey_blocks[@current_block]).addClass 'disabled'

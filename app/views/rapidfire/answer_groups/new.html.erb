@@ -1,26 +1,32 @@
 <div class='container'>
-<div class='block disabled' data-survey-block>
-  <h1><%= @question_group.name %></h1>
-  <%= @question_group.intro_slide %>
-  <%= render partial: "question_block_nav" %>
+<div class='block disabled' data-survey-block='0'>
+  <% if can_administer? %><%= link_to "Edit this Survey", question_group_questions_path(@question_group) %><% end %>
+  <h1 class='survey__title'><%= @question_group.name %></h1>
+  <%= @question_group.intro_slide.html_safe %>
+  <div class='survey__block-nav'>
+    <div></div>
+    <button class='button survey__start dark' data-next-survey-block><span>Start</span> <span class='icon icon-rt_arrow'></span></button>
+  </div>
 </div>
 
 <%= form_for([@question_group, @answer_group_builder]) do |f| %>
   <div>
   <%- @answer_group_builder.answers.each_with_index do |answer, index| %>
     <%= f.fields_for("#{answer.question.id}", answer) do |answer_form| %>
-      <div class='block disabled question-type--<%= question_type(answer) %>' data-survey-block>
+      <div class='block disabled question-type--<%= question_type(answer) %> <% if answer.errors.any? %>block--errors<% end %>' data-survey-block='<%= index + 1 %>'>
         <%= render_answer_form_helper(answer, answer_form) %>
-        <%= render partial: "question_block_nav" %>
+        <div class='survey__block-nav'>
+          <button class='button' data-prev-survey-block>Prev</button>
+          <button class='button dark' data-next-survey-block>Next</button>
+        </div>
       </div>
     <% end %>
   <% end %>
   </div>
-  <div class='block disabled survey__submit-block' data-survey-block>
+  
+  <div class='block disabled block--clear' data-survey-block='<%= @answer_group_builder.answers.length + 1 %>'>
+    <%= @question_group.final_slide.html_safe %>
     <%= f.submit "Submit Survey", :class => 'button button--no-margin dark' %>
-  </div>
-  <div class='block disabled' data-survey-block>
-    <%= @question_group.final_slide %>
   </div>
   
 <% end %>

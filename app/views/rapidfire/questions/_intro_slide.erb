@@ -9,7 +9,9 @@
   <% end %>
 
   <div><%= f.label :intro_slide, "Survey Introduction" %></div>
-  <div><%= f.text_area :intro_slide %><br/>
+  <div>
+  <div><%= f.hidden_field :intro_slide , id: 'intro_slide', value: @question_group.intro_slide %>
+  <trix-editor input="intro_slide"></trix-editor>
   <%= f.submit 'Save Intro', :class => 'button button--no-margin'%></div>
 <% end %>
 </div>

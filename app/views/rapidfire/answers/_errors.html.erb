@@ -1,5 +1,5 @@
 <%- if answer.errors.any? %>
-  <ul>
+  <ul class='errors'>
     <%- answer.errors.full_messages.each do |message| %>
       <li><%= message %></li>
     <% end %>

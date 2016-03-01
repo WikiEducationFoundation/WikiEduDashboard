@@ -24,6 +24,9 @@ body.survey-page
       display block
       margin-bottom $spacer
       font-weight bold
+    
+    &--clear
+      overflow hidden
   
   .survey__questions-list,
   .survey__slide-form
@@ -39,6 +42,12 @@ body.survey-page
   
   .block.disabled
     opacity .5
+  
+  .block.block--errors
+    opacity 1
+  
+  .errors
+    color tomato
   
   .survey__block-nav
     overflow hidden
@@ -117,3 +126,19 @@ ul.list--survey
 
 .block.survey__slide-form
   overflow hidden
+
+.survey__title
+  font-size 21px
+  color $text_dk
+
+.survey__start span
+  display inline-block
+  vertical-align middle
+  &:first-child
+    margin-right 10px
+    position relative
+    top -1px
+
+.survey__multiple-choice-field
+  .field_with_errors
+    display inline-block
