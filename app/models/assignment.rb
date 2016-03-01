@@ -13,6 +13,8 @@
 #  wiki_id       :integer
 #
 
+require "#{Rails.root}/lib/utils"
+
 #= Assignment model
 class Assignment < ActiveRecord::Base
   belongs_to :user
@@ -54,7 +56,7 @@ class Assignment < ActiveRecord::Base
   private
 
   def set_defaults_and_normalize
-    self.article_title = article_title.tr(' ', '_') unless article_title.nil?
+    self.article_title = Utils.format_article_title(article_title) unless article_title.nil?
     # FIXME: transitional only
     self.wiki_id ||= Wiki.default_wiki.id
   end
