@@ -41,4 +41,9 @@ module ApplicationHelper
     root_path = request.path.split('/')[1] 
     root_path == 'surveys' || root_path == 'survey'
   end
+
+  def can_administer?
+    current_user && current_user.admin?
+  end
+  
 end
