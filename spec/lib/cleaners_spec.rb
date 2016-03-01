@@ -78,39 +78,6 @@ describe Cleaners do
     end
   end
 
-  describe '.repair_case_variant_assignment_titles' do
-    it 'updates titles for assignments to match the corresponding article' do
-      create(:assignment, id: 1, article_id: 1,
-                          article_title: 'Bombus_hortorum', user_id: 1, role: 0)
-      create(:assignment, id: 2, article_id: 1,
-                          article_title: 'bombus hortorum', user_id: 2, role: 0)
-      create(:article, id: 1, title: 'Bombus_hortorum')
-      Cleaners.repair_case_variant_assignment_titles
-
-      expect(Assignment.find(1).article_title).to eq('Bombus_hortorum')
-      expect(Assignment.find(2).article_title).to eq('Bombus_hortorum')
-    end
-    it 'capitalizes the first letter of titles if there is no article_id' do
-      create(:assignment, id: 1, article_id: nil, article_title: 'bombus_hortorum')
-      create(:assignment, id: 2, article_id: nil, article_title: 'Bombus_hortorum')
-      create(:assignment, id: 3, article_id: nil, article_title: 'Áombus_hortorum')
-      create(:assignment, id: 4, article_id: nil, article_title: 'áombus_hortorum')
-
-      Cleaners.repair_case_variant_assignment_titles
-      expect(Assignment.find(1).article_title).to eq('Bombus_hortorum')
-      expect(Assignment.find(2).article_title).to eq('Bombus_hortorum')
-      expect(Assignment.find(3).article_title).to eq('Áombus_hortorum')
-      expect(Assignment.find(4).article_title).to eq('Áombus_hortorum')
-    end
-  end
-  it 'removes duplicate assignments that differ by underscores' do
-    create(:assignment, id: 1, article_id: 1, article_title: 'Bombus_hortorum', user_id: 1, role: 0)
-    create(:assignment, id: 2, article_id: 1, article_title: 'Bombus hortorum', user_id: 1, role: 0)
-    create(:article, id: 1, title: 'Bombus_hortorum')
-    Cleaners.repair_case_variant_assignment_titles
-    expect(Article.exists?(2)).to eq(false)
-  end
-
   describe '.match_assignment_titles_with_case_variant_articles_that_exist' do
     it 'updates assignment article titles when it should' do
       VCR.use_cassette 'cleaners/assignment_title_cleanup' do
