@@ -1,3 +1,4 @@
+<div class='survey__title-form'>
 <%= form_for @question_group do |f| %>
   <%- if @question_group.errors.any? %>
     <ul>
@@ -10,3 +11,4 @@
   <div><%= f.text_field :name %>
   <%= f.submit 'Save Survey Name', :class => 'button button--no-margin'%></div>
 <% end %>
+</div>

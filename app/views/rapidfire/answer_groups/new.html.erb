@@ -1,6 +1,14 @@
+
+<% if can_administer? %>
+  <div class='survey__admin-tools'>
+    <%= link_to "Edit this Survey", question_group_questions_path(@question_group) %>
+  </div>
+<% end %>
+
+
 <div class='container'>
+<% if @question_group.intro_slide %>
 <div class='block disabled' data-survey-block='0'>
-  <% if can_administer? %><%= link_to "Edit this Survey", question_group_questions_path(@question_group) %><% end %>
   <h1 class='survey__title'><%= @question_group.name %></h1>
   <%= @question_group.intro_slide.html_safe %>
   <div class='survey__block-nav'>
@@ -8,6 +16,7 @@
     <button class='button survey__start dark' data-next-survey-block><span>Start</span> <span class='icon icon-rt_arrow'></span></button>
   </div>
 </div>
+<% end %>
 
 <%= form_for([@question_group, @answer_group_builder]) do |f| %>
   <div>
@@ -24,10 +33,13 @@
   <% end %>
   </div>
   
+  
   <div class='block disabled block--clear' data-survey-block='<%= @answer_group_builder.answers.length + 1 %>'>
-    <%= @question_group.final_slide.html_safe %>
+    <% if @question_group.intro_slide %><%= @question_group.final_slide.html_safe %><% end %>
     <%= f.submit "Submit Survey", :class => 'button button--no-margin dark' %>
   </div>
+  
+  
   
 <% end %>
 

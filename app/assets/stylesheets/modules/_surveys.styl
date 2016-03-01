@@ -1,5 +1,5 @@
 $spacer = 10px
-$survey_max_width = 700px
+$survey_max_width = 665px
 
 body.survey-page
   background-color #7177C7
@@ -8,6 +8,9 @@ body.survey-page
   background-position center 75%
   background-size cover
   overflow-y scroll
+  
+  #main
+    overflow-y scroll
   
   .section-header h1,
   .section-header h2
@@ -40,6 +43,9 @@ body.survey-page
   footer a
     color white
   
+  .block
+    transition 300ms opacity easeOutExpo
+  
   .block.disabled
     opacity .5
   
@@ -66,10 +72,14 @@ ul.list--survey
 .row.row--survey-question .row__wrapper,
 .row.row--survey-question div:not(.drawer):last-child
   display flex
-  justify-content space-between
-  
-  & > div
+
+  & > div:first-child
     flex 1
+    padding-right 1rem
+  
+  a
+    display inline-block
+    margin-right 1rem
 
 .block.survey__submit-block
   overflow hidden
@@ -142,3 +152,15 @@ ul.list--survey
 .survey__multiple-choice-field
   .field_with_errors
     display inline-block
+
+.survey__admin-tools
+  max-width $survey_max_width
+  margin 1rem auto
+  text-align right
+  
+  a
+    color white
+    
+.survey__title-form
+  input[type='text']
+    width 400px

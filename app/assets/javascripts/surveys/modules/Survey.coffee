@@ -1,6 +1,5 @@
-require 'waypoints/lib/jquery.waypoints'
-require 'waypoints/lib/shortcuts/inview'
 require 'velocity-animate'
+throttle = require 'lodash.throttle'
 
 scroll_duration = 1000
 scroll_easing = [0.19, 1, 0.22, 1]
@@ -10,6 +9,7 @@ Survey =
   waypoints: []
 
   init: ->
+    @$window = $(window)
     @survey_blocks = $('[data-survey-block]')
     @survey_progress = $('[data-survey-progress]')
     @listeners()
@@ -20,17 +20,20 @@ Survey =
     $('[data-next-survey-block]').on 'click', @nextBlock.bind(@)
     $('[data-prev-survey-block]').on 'click', @prevBlock.bind(@)
     $('[data-survey-block] input[type=checkbox], [data-survey-block] input[type=radio]').on 'change', @nextBlock.bind(@)
-    # @survey_blocks.each (i, block) =>
-    #   $el = $(block)
-    #   @waypoints.push new Waypoint.Inview
-    #     element: block
-    #     entered: (dir) =>
-    #       index = $el.index()
-    #       console.log index
-    #       return if index is @current_block
-    #       $(@survey_blocks[@current_block]).addClass 'disabled'    
-    #       $(@survey_blocks[index]).removeClass 'disabled'    
-    #       @current_block = index
+    @$window.scroll( throttle( @handleScroll.bind(@), 250) );
+
+  handleScroll: ->
+    docHeight = @$window.innerHeight()
+    toTop = @$window.scrollTop()
+    wH = @$window.innerHeight()
+    threshold =  (@$window.scrollTop() + wH) - wH * .3
+    @survey_blocks.each (i, block) =>
+      $block = $(block)
+      blockOffset = $block.offset().top
+      if blockOffset > toTop && blockOffset < threshold
+        $block.removeClass 'disabled'
+      else
+        $block.addClass 'disabled'
 
   initBlocks: ->
     $(@survey_blocks[@current_block]).removeClass 'disabled'
@@ -83,9 +86,8 @@ Survey =
   handleBlockClick: (e) ->
     $block = $($(e.target).closest('[data-survey-block]'))
     index = $block.data 'survey-block'
-    console.log index, $block
+    $block.removeClass 'disabled'
     return if index is @current_block
-    $(@survey_blocks[index]).removeClass 'disabled'    
     $(@survey_blocks[@current_block]).addClass 'disabled'
     @current_block = index
 
