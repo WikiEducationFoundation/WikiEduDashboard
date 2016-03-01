@@ -23,7 +23,7 @@ describe ArticleStatusManager do
              namespace: 0)
 
       described_class.update_article_status
-      expect(Article.find_by(title: 'Audi').id).to eq(848)
+      expect(Article.find_by(title: 'Audi').mw_page_id).to eq(848)
     end
 
     it 'should delete articles when id changed but new one already exists' do
@@ -78,8 +78,8 @@ describe ArticleStatusManager do
                         deleted: false,
                         namespace: 1)
       described_class.update_article_status
-      expect(article1.id).to eq(3914927)
-      expect(article2.id).to eq(46394760)
+      expect(article1.mw_page_id).to eq(3914927)
+      expect(article2.mw_page_id).to eq(46394760)
     end
 
     it 'should update the article_id for revisions when article_id changes' do
@@ -93,7 +93,7 @@ describe ArticleStatusManager do
       described_class.update_article_status
 
       new_article = Article.find_by(title: 'Kostanay')
-      expect(new_article.id).to eq(46349871)
+      expect(new_article.mw_page_id).to eq(46349871)
       expect(new_article.revisions.count).to eq(1)
     end
 
@@ -106,7 +106,7 @@ describe ArticleStatusManager do
              id: 1,
              title: 'Noarticle',
              namespace: 0)
-      allow(Replica).to receive(:get_existing_articles_by_id).and_return(nil)
+      allow_any_instance_of(Replica).to receive(:get_existing_articles_by_id).and_return(nil)
       described_class.update_article_status
       expect(Article.find(848).deleted).to eq(false)
       expect(Article.find(1).deleted).to eq(false)

@@ -10,6 +10,7 @@
 #  article_id    :integer
 #  article_title :string(255)
 #  role          :integer
+#  wiki_id       :integer
 #
 
 #= Assignment model
@@ -17,9 +18,12 @@ class Assignment < ActiveRecord::Base
   belongs_to :user
   belongs_to :course
   belongs_to :article
+  belongs_to :wiki
 
   scope :assigned, -> { where(role: 0) }
   scope :reviewing, -> { where(role: 1) }
+
+  before_validation :set_defaults_and_normalize
 
   #############
   # CONSTANTS #
@@ -33,9 +37,7 @@ class Assignment < ActiveRecord::Base
   # Instance methods #
   ####################
   def page_url
-    language = ENV['wiki_language']
-    escaped_title = article_title.tr(' ', '_')
-    "https://#{language}.wikipedia.org/wiki/#{escaped_title}"
+    "#{wiki.base_url}wiki/#{article_title}"
   end
 
   # A sibling assignment is an assignment for a different user,
@@ -45,5 +47,13 @@ class Assignment < ActiveRecord::Base
       .where(course_id: course_id, article_id: article_id)
       .where.not(id: id)
       .where.not(user: user_id)
+  end
+
+  private
+
+  def set_defaults_and_normalize
+    self.article_title = article_title.tr(' ', '_') unless article_title.nil?
+    # FIXME: transitional only
+    self.wiki_id ||= Wiki.default_wiki.id
   end
 end

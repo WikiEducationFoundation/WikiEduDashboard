@@ -17,11 +17,13 @@
 #  language                 :string(10)
 #  average_views            :float(24)
 #  average_views_updated_at :date
+#  wiki_id                  :integer
+#  mw_page_id               :integer
 #
 
 FactoryGirl.define do
   factory :article do
-    title 'History of biology'
+    title 'History_of_biology'
     namespace 0
     language 'en'
   end

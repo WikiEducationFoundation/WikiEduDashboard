@@ -12,7 +12,7 @@ describe 'Students Page', type: :feature, js: true do
   before do
     include Devise::TestHelpers, type: :feature
 
-    allow(WikiEdits).to receive(:oauth_credentials_valid?).and_return(true)
+    allow_any_instance_of(WikiEdits).to receive(:oauth_credentials_valid?).and_return(true)
 
     @course = create(:course,
                     id: 10001,

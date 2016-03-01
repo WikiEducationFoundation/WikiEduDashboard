@@ -12,7 +12,7 @@ describe UserImporter do
                               info: info,
                               credentials: credentials)
         auth = UserImporter.from_omniauth(hash)
-        expect(auth.id).to eq(4_543_197)
+        expect(auth.global_id).to eq(14_093_230)
       end
     end
 
@@ -33,7 +33,7 @@ describe UserImporter do
       VCR.use_cassette 'user/new_from_wiki_id' do
         username = 'Ragesoss'
         user = UserImporter.new_from_wiki_id(username)
-        expect(user.id).to eq(319203)
+        expect(user.wiki_id).to eq('Ragesoss')
       end
     end
 

@@ -35,7 +35,7 @@ class CourseStatistics
   end
 
   def articles_edited
-    Article.where(namespace: 0, id: @page_ids)
+    Article.where(namespace: 0, id: @article_ids)
   end
 
   ################
@@ -46,20 +46,19 @@ class CourseStatistics
 
   def find_contribution_ids
     revision_ids = []
-    page_ids = []
+    article_ids = []
     upload_ids = []
 
     @course_ids.each do |course_id|
       course = Course.find(course_id)
       revisions = course.revisions
       revision_ids << revisions.pluck(:id)
-      page_ids << revisions.pluck(:article_id)
+      article_ids << revisions.pluck(:article_id)
       upload_ids << course.uploads.pluck(:id)
     end
     @revision_ids = revision_ids.flatten.uniq
-    @page_ids = page_ids.flatten.uniq
+    @article_ids = article_ids.flatten.uniq
     @upload_ids = upload_ids.flatten.uniq
-    @article_ids = Article.where(namespace: 0, id: @page_ids).pluck(:id)
   end
 
   def find_upload_usage
@@ -81,8 +80,8 @@ class CourseStatistics
 
   def find_article_counts
     new_revisions = Revision.where(id: @revision_ids, new_article: true)
-    new_page_ids = new_revisions.pluck(:article_id).uniq
-    created_articles = Article.where(namespace: 0, id: new_page_ids)
+    new_article_ids = new_revisions.pluck(:article_id).uniq
+    created_articles = Article.where(namespace: 0, id: new_article_ids)
 
     @surviving_article_ids = created_articles.where(deleted: false).pluck(:id)
     @deleted_article_ids = created_articles.where(deleted: true).pluck(:id)

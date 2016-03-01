@@ -5,6 +5,10 @@ require "#{Rails.root}/lib/importers/assignment_importer"
 
 #= Imports and updates revisions from Wikipedia into the dashboard database
 class RevisionImporter
+  # FIXME: Too many static methods remaining.
+  def initialize(wiki)
+    @wiki = wiki
+  end
   ################
   # Entry points #
   ################
@@ -24,33 +28,22 @@ class RevisionImporter
 
   # Given a Course, get new revisions for the users in that course.
   def self.get_revisions_for_course(course)
-    results = []
-    return results if course.students.empty?
-    start = course_start_date(course)
+    return [] if course.students.empty?
+    start_date = course_start_date(course)
     end_date = course_end_date(course)
-    new_users = users_with_no_revisions(course)
 
-    old_users = course.students - new_users
-
-    # rubocop:disable Style/IfUnlessModifier
-    unless new_users.empty?
-      results += get_revisions(new_users, start, end_date)
-    end
-    # rubocop:enable Style/IfUnlessModifier
-
-    unless old_users.empty?
-      first_rev = first_revision(course)
-      start = first_rev.date.strftime('%Y%m%d') unless first_rev.blank?
-      results += get_revisions(old_users, start, end_date)
-    end
-    results
+    # TODO: Make a better educated guess about which wikis to search for edits.
+    get_revisions(course.students, start_date, end_date, [course.home_wiki])
   end
 
   # Get revisions made by a set of users between two dates.
-  def self.get_revisions(users, start, end_date)
-    Utils.chunk_requests(users, 40) do |block|
-      Replica.get_revisions block, start, end_date
+  def self.get_revisions(users, start, end_date, wikis)
+    result_sets = wikis.map do |wiki|
+      Utils.chunk_requests(users, 40) do |block|
+        Replica.new(wiki).get_revisions block, start, end_date
+      end
     end
+    result_sets.reduce(:|)
   end
 
   ###########
@@ -60,18 +53,23 @@ class RevisionImporter
     course.start.strftime('%Y%m%d')
   end
 
+  # TODO: metrics_end_date, optionally never end
   def self.course_end_date(course)
     course.end.strftime('%Y%m%d')
   end
 
+  # FIXME: Only used by tests
   def self.users_with_no_revisions(course)
     course.users.role('student')
       .joins(:courses_users)
       .where({ courses_users: { revision_count: 0 }})
   end
 
-  def self.first_revision(course)
-    course.revisions.order('date DESC').first
+  def self.first_revision_date(course)
+    # FIXME: Don't we want "date ASC"?
+    first_revision = course.revisions.order('date DESC').first
+    date = first_revision.date.strftime('%Y%m%d') unless first_revision.blank?
+    date
   end
 
   def self.import_revisions(data)
@@ -89,23 +87,35 @@ class RevisionImporter
   end
 
   def self.get_revisions_from_import_data(data)
-    rev_ids = data.map do |_a_id, a|
-      a['revisions'].map { |r| r['id'] }
+    revisions = []
+    data.group_by { |a| a['article']['wiki_id'] }.each do |wiki_id, articles|
+      rev_ids = []
+      articles.each do |a|
+        rev_ids |= a['revisions'].map { |r| r['rev_id'] }
+      end
+      revisions |= Revision.where(mw_rev_id: rev_ids, wiki_id: wiki_id)
     end
-    rev_ids = rev_ids.flatten
-    Revision.where(id: rev_ids)
+    revisions
   end
 
   def self.import_revisions_slice(sub_data)
     articles, revisions = [], []
 
     sub_data.each do |_a_id, a|
-      article = Article.new(id: a['article']['id'])
+      article = Article.new(
+        mw_page_id: a['article']['mw_page_id'],
+        wiki_id: a['article']['wiki_id']
+      )
       article.update(a['article'], false)
       articles.push article
 
       a['revisions'].each do |r|
-        revision = Revision.new(id: r['id'])
+        revision = Revision.new(
+          article_id: article.id,
+          mw_rev_id: r['mw_rev_id'],
+          wiki_id: a['article']['wiki_id']
+        )
+        # FIXME: rev_id will be ignored, hopefully?  Need to set article_id?
         revision.update(r, false)
         revisions.push revision
       end
@@ -119,30 +129,35 @@ class RevisionImporter
 
   def self.move_or_delete_revisions(revisions=nil)
     revisions ||= Revision.all
-    return if revisions.empty?
 
-    synced_revisions = Utils.chunk_requests(revisions, 100) do |block|
-      Replica.get_existing_revisions_by_id block
-    end
-    synced_ids = synced_revisions.map { |r| r['rev_id'].to_i }
+    revisions.group_by(&:wiki).each do |wiki, local_revisions|
+      synced_revision_data = Utils.chunk_requests(local_revisions, 100) do |block|
+        Replica.new(wiki).get_existing_revisions_by_id block
+      end
 
-    deleted_ids = revisions.pluck(:id) - synced_ids
-    Revision.where(id: deleted_ids).update_all(deleted: true)
-    Revision.where(id: synced_ids).update_all(deleted: false)
+      synced_revisions = synced_revision_data.map do |r|
+        Revision.find_by(mw_rev_id: r['mw_rev_id'], wiki_id: wiki.id).update(mw_page_id: page_id)
+      end
 
-    moved_ids = synced_ids - deleted_ids
-    moved_revisions = synced_revisions.reduce([]) do |moved, rev|
-      moved.push rev if moved_ids.include? rev['rev_id'].to_i
-    end
-    moved_revisions.each do |moved|
-      handle_moved_revision moved
+      deleted_revisions = local_revisions - synced_revisions
+      # TODO: update_all
+      deleted_revisions.each { |r| r.update(deleted: true) }
+      synced_revisions.each { |r| r.update(deleted: false) }
+
+      # FIXME: I broke this?
+      moved_revisions = synced_revisions - deleted_revisions
+      moved_revisions.each do |moved|
+        handle_moved_revision moved
+      end
     end
   end
 
   def self.handle_moved_revision(moved)
-    article_id = moved['rev_page']
-    Revision.find(moved['rev_id']).update(article_id: article_id)
-    ArticleImporter
-      .import_articles([article_id]) unless Article.exists?(article_id)
+    page_id = moved.page_id
+    Revision.find(mw_rev_id: moved.mw_rev_id, wiki_id: moved.wiki_id).update(mw_page_id: page_id)
+
+    article_exists = Article.where(mw_page_id: page_id, wiki_id: moved.wiki_id).any?
+    ArticleImporter.new(moved.wiki_id)
+      .import_articles([page_id]) unless article_exists
   end
 end

@@ -8,7 +8,6 @@ class ViewImporter
   def self.update_all_views(all_time=false)
     articles = Article.current
                .where(articles: { namespace: 0 })
-               .find_in_batches(batch_size: 30)
     update_views(articles, all_time)
   end
 
@@ -16,7 +15,6 @@ class ViewImporter
     articles = Article.current
                .where(articles: { namespace: 0 })
                .where('views_updated_at IS NULL')
-               .find_in_batches(batch_size: 30)
     update_views(articles, true)
   end
 
@@ -31,7 +29,7 @@ class ViewImporter
   # API Access #
   ##############
   def self.update_views(articles, all_time=false)
-    articles.with_index do |group, _batch|
+    Utils.chunk_requests(articles) do |group|
       update_views_for_batch(group, all_time)
     end
   end

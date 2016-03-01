@@ -39,7 +39,7 @@ describe RevisionScoreImporter do
   it 'should save wp10 scores by article' do
     VCR.use_cassette 'revision_scores/by_article' do
       article_ids = [45010238, 1538038]
-      RevisionScoreImporter
+      RevisionScoreImporter.new(Wiki.default_wiki)
         .update_all_revision_scores_for_articles(article_ids)
       early_score = Revision.find(46745264).wp10.to_f
       later_score = Revision.find(662106477).wp10.to_f

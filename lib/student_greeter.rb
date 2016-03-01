@@ -35,19 +35,20 @@ class StudentGreeter
   end
 
   def talk_page_blank?(student)
-    WikiApi.get_page_content(student.talk_page).nil?
+    WikiApi.new(student.home_wiki).get_page_content(student.talk_page).nil?
   end
 
   def a_greeter_already_posted?(student)
-    contributor_ids = ids_of_contributors_to_page(student.talk_page)
-    return false if (@greeters.pluck(:id) & contributor_ids).empty?
+    contributor_ids = ids_of_contributors_to_talk_page(student)
+    # TODO: Fix greeter wiki ID assumption
+    return false if (@greeters.ids & contributor_ids).empty?
     # Mark student as greeted if a greeter has already edited their talk page
     student.update_attributes(greeted: true)
     true
   end
 
-  def ids_of_contributors_to_page(page_title)
-    contributors_response = WikiApi.query contributors_query(page_title)
+  def ids_of_contributors_to_talk_page(user)
+    contributors_response = WikiApi.new(user.home_wiki).query contributors_query(user.talk_page)
     # TODO: Add exception handling for unexpected response data.
     # Currently, that will just cause a NoMethodError, which is okay but not
     # optimal, because it will likely break a rake task. But it's at the end
@@ -82,7 +83,7 @@ class StudentGreeter
 
   def greet(student, greeter)
     message = welcome_message(greeter)
-    response_data = WikiEdits.notify_user(greeter, student, message)
+    response_data = WikiEdits.new(student.home_wiki).notify_user(greeter, student, message)
     return if response_data['edit'].nil?
     return unless response_data['edit']['result'] == 'Success'
     student.update_attributes(greeted: true)

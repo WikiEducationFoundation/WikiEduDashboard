@@ -31,7 +31,6 @@ class LegacyCourseReviewers
   def add_reviewer(user, a_index, r_index)
     @reviewers.push(
       'username' => user[a_index.to_s][r_index.to_s]['username'],
-      'id' => user[a_index.to_s][r_index.to_s]['id']
     )
   end
 end

@@ -8,9 +8,8 @@ class CourseUpdateManager
     require "#{Rails.root}/lib/legacy_courses/legacy_course_importer"
     require "#{Rails.root}/lib/importers/user_importer"
 
-    id = course.id
     if data.blank?
-      data = LegacyCourseImporter.get_course_info id
+      data = LegacyCourseImporter.get_course_info course
       return if data.blank? || data[0].nil?
       data = data[0]
     end
@@ -49,10 +48,8 @@ class CourseUpdateManager
 
     UserImporter.update_users users
     RevisionImporter.update_all_revisions course
-    ViewImporter.update_views articles.namespace(0)
-      .find_in_batches(batch_size: 30) unless course.legacy?
+    ViewImporter.update_views articles.namespace(0) unless course.legacy?
     RatingImporter.update_ratings articles.namespace(0)
-      .find_in_batches(batch_size: 30)
   end
 
   def self.update_caches(articles, articles_courses, courses_users)

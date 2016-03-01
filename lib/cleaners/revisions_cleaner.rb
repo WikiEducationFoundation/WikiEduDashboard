@@ -12,10 +12,15 @@ class RevisionsCleaner
     start = before_earliest_revision(orphan_revisions)
     end_date = after_latest_revision(orphan_revisions)
 
+    # TODO: Can we use orphan_revisions.users directly?
     user_ids = orphan_revisions.pluck(:user_id).uniq
     users = User.where(id: user_ids)
 
-    revision_data = RevisionImporter.get_revisions(users, start, end_date)
+    # TODO: Make a smarter guess than this.
+    # FIXME: Also, why can't I: wikis = users.courses.assignments.wikis.uniq
+    wikis = users.map(&:courses).reduce(:|).map(&:assignments).reduce(:|).map(&:wikis).reduce(:|).uniq
+
+    revision_data = RevisionImporter.get_revisions(users, start, end_date, wikis)
     RevisionImporter.import_revisions(revision_data)
 
     revs = RevisionImporter.get_revisions_from_import_data(revision_data)

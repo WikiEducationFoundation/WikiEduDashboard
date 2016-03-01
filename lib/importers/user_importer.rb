@@ -19,9 +19,7 @@ class UserImporter
   def self.new_from_omniauth(auth)
     require "#{Rails.root}/lib/wiki_api"
 
-    id = WikiApi.get_user_id(auth.info.name)
     user = User.create(
-      id: id,
       wiki_id: auth.info.name,
       global_id: auth.uid,
       wiki_token: auth.credentials.token,
@@ -31,20 +29,16 @@ class UserImporter
   end
 
   def self.new_from_wiki_id(wiki_id)
+    return unless user_exists?(wiki_id)
+
+    User.find_or_create_by(wiki_id: wiki_id)
+  end
+
+  def self.user_exists?(wiki_id)
     require "#{Rails.root}/lib/wiki_api"
-    id = WikiApi.get_user_id(wiki_id)
-    return unless id
 
-    if User.exists?(id)
-      user = User.find(id)
-    else
-      user = User.create(
-        id: id,
-        wiki_id: wiki_id
-      )
-    end
-
-    user
+    # TODO: Which wiki?  Should use CentralAuth, either way
+    true unless WikiApi.new(Wiki.default_wiki).get_user_id(wiki_id).nil?
   end
 
   def self.add_users(data, role, course, save=true)
@@ -53,39 +47,48 @@ class UserImporter
     end
   end
 
-  def self.add_user(user, role, course, save=true)
-    empty_user = User.new(id: user['id'])
-    new_user = save ? User.find_or_create_by(id: user['id']) : empty_user
-    new_user.wiki_id = user['username']
+  def self.add_user(params, role, course, save=true)
     if save
-      if !role.nil? && !course.nil?
+      user = User.find_or_create_by(wiki_id: params['username'])
+    else
+      user = User.new(wiki_id: params['username'])
+    end
+
+    if save
+      unless role.nil? || course.nil?
         role_index = %w(student instructor online_volunteer
                         campus_volunteer wiki_ed_staff)
-        has_user = course.users.role(role_index[role]).include? new_user
+        has_user = course.users.role(role_index[role]).include? user
         unless has_user
           role = get_wiki_ed_role(user, role)
-          CoursesUsers.new(user: new_user, course: course, role: role).save
+          CoursesUsers.new(user: user, course: course, role: role).save
         end
       end
-      new_user.save
+      user.save
     end
-    new_user
+    user
   end
 
   # If a user has (Wiki Ed) in their name, assign them to the staff role
+  # FIXME: Don't do that.  Manage staff user IDs in the database or something.
   def self.get_wiki_ed_role(user, role)
-    (user['username'].include? '(Wiki Ed)') ? 4 : role
+    (user.wiki_id.include? '(Wiki Ed)') ? 4 : role
   end
 
   def self.update_users(users=nil)
-    u_users = Utils.chunk_requests(users || User.all) do |block|
-      Replica.get_user_info block
+    # FIXME: We're blindly guessing which wiki to query for each user.
+    users ||= User.all
+    u_users = []
+    users.group_by(&:home_wiki).each do |wiki, local_users|
+      u_users |= Utils.chunk_requests(local_users) do |block|
+        Replica.new(wiki).get_user_info block
+      end
     end
 
     User.transaction do
       u_users.each do |u|
         begin
-          User.find(u['id']).update(u.except('id'))
+          User.find_by!(wiki_id: u['wiki_id']).update(u.except('id'))
         rescue ActiveRecord::RecordNotFound => e
           Rails.logger.warn e
         end
