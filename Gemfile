@@ -84,4 +84,5 @@ end
 
 group :production do
   gem 'uglifier'
+  gem 'rails_12factor'
 end
