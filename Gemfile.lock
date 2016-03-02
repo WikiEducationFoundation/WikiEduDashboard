@@ -30,8 +30,8 @@ PATH
   specs:
     rapidfire (2.1.0)
       active_model_serializers (~> 0.8.1)
+      acts_as_list (~> 0.7.2)
       rails (>= 3.2.13)
-      ranked-model (~> 0.4.0)
 
 GEM
   remote: https://rubygems.org/
@@ -318,8 +318,6 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rainbow (2.1.0)
     rake (10.5.0)
-    ranked-model (0.4.0)
-      activerecord (>= 3.1.12)
     rb-fchange (0.0.6)
       ffi
     rb-fsevent (0.9.7)
