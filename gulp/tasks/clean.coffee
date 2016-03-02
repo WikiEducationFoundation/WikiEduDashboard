@@ -19,7 +19,4 @@ gulp.task "clean", ->
       "#{config.outputPath}/stylesheets/*", 
       "#{config.outputPath}/javascripts/*", 
       "!#{config.outputPath}/javascripts/vendor.js"
-    ]).then (paths) =>
-      console.log 'Deleted files and folders:\n', paths.join '\n'
-  # return gulp.src "#{config.outputPath}", read: false
-  #   .pipe plugins.clean()
+    ])

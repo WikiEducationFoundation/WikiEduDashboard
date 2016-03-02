@@ -1,6 +1,9 @@
 - content_for :head do
   = stylesheet_link_tag fingerprinted("/assets/stylesheets/#{rtl? ? 'rtl/' : nil}", 'main.css'), media: 'all'
 
+- content_for :javascripts do
+  = javascript_include_tag fingerprinted('/assets/javascripts/', 'main.js')
+
 !!!
 %html{ dir: rtl? ? "rtl" : nil }
   = render "shared/head"

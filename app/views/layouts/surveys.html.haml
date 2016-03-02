@@ -1,0 +1,25 @@
+- content_for :head do
+  = stylesheet_link_tag fingerprinted("/assets/stylesheets/#{rtl? ? 'rtl/' : nil}", 'main.css'), media: 'all'
+  = stylesheet_link_tag fingerprinted("/assets/stylesheets/#{rtl? ? 'rtl/' : nil}", 'surveys.css'), media: 'all'
+
+- content_for :javascripts do
+  - if Rails.env == "production"
+    = javascript_include_tag fingerprinted('/assets/javascripts/', 'survey.js')
+    - if can_administer?
+      = javascript_include_tag fingerprinted('/assets/javascripts/', 'survey_admin.js')
+  - else 
+    = javascript_include_tag 'http://localhost:8080/static/survey.js'
+    - if can_administer?
+      = javascript_include_tag 'http://localhost:8080/static/survey_admin.js'  
+
+!!!
+%html{ dir: rtl? ? "rtl" : nil, class: body_class(request)}
+  = render "shared/head"
+  %body{class: body_class(request)}
+    - if flash[:notice]
+      .notice= flash[:notice]
+    %div
+      = render "shared/nav"
+      %main#main{"data-user-id" => current_user.try(:id), :role => "main"}
+        = yield
+    = render "shared/foot"
