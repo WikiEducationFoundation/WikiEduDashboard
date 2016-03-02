@@ -52,6 +52,7 @@
     "istanbul": "^0.4.0",
     "jeet": "^6.1.2",
     "jquery": "^2.1.4",
+    "jquery-ui": "^1.10.5",
     "jsdom": "^7.0.1",
     "json-loader": "^0.5.4",
     "jsx-require-extension": "^0.2.0",

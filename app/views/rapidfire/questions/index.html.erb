@@ -16,7 +16,7 @@
 <div class='survey__questions-list'>
 
 
-<ul class='list list--survey'>
+<ul class='list list--survey' data-sortable='<%= @question_group.id %>'>
   <%= render partial: "question", collection: @questions %>
 </ul>
 <%= link_to "Add New Question", new_question_group_question_path(@question_group), :class => 'button button--no-margin' %>

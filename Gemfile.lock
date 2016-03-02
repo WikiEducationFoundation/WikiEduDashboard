@@ -31,6 +31,7 @@ PATH
     rapidfire (2.1.0)
       active_model_serializers (~> 0.8.1)
       rails (>= 3.2.13)
+      ranked-model (~> 0.4.0)
 
 GEM
   remote: https://rubygems.org/
@@ -74,6 +75,8 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    acts_as_list (0.7.2)
+      activerecord (>= 3.0)
     addressable (2.4.0)
     annotate (2.6.10)
       activerecord (>= 3.2, <= 4.3)
@@ -315,6 +318,8 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rainbow (2.1.0)
     rake (10.5.0)
+    ranked-model (0.4.0)
+      activerecord (>= 3.1.12)
     rb-fchange (0.0.6)
       ffi
     rb-fsevent (0.9.7)
@@ -417,6 +422,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-import
+  acts_as_list
   annotate (~> 2.6.6)
   better_errors
   binding_of_caller

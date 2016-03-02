@@ -20,21 +20,22 @@ Survey =
     @initBlocks()
 
   listeners: ->
-    # $('[data-survey-block]').on 'click', @handleBlockClick.bind(@)
     $('[data-next-survey-block]').on 'click', @nextBlock.bind(@)
     $('[data-prev-survey-block]').on 'click', @prevBlock.bind(@)
-    $('[data-survey-block] input[type=checkbox], [data-survey-block] input[type=radio]').on 'change', @nextBlock.bind(@)
     @$window.scroll( throttle( @handleScroll.bind(@), 250) );
 
   handleScroll: ->
+    return if @animating
     docHeight = @$window.innerHeight()
-    toTop = @$window.scrollTop()
-    wH = @$window.innerHeight()
-    threshold =  (@$window.scrollTop() + wH) - wH * .3
+    distanceToTop = @$window.scrollTop()
+    windowHeight = @$window.innerHeight()
+    threshold =  (distanceToTop + windowHeight) - windowHeight * .5
+
     @survey_blocks.each (i, block) =>
       $block = $(block)
+      return if $block.hasClass 'not-seen'
       blockOffset = $block.offset().top
-      if blockOffset > toTop && blockOffset < threshold
+      if blockOffset > distanceToTop && blockOffset < threshold
         $block.removeClass 'disabled'
       else
         $block.addClass 'disabled'
@@ -48,7 +49,6 @@ Survey =
     return if @animating
     toIndex = @current_block + 1
     $block = $(@survey_blocks[toIndex])
-
     passedValidation = @validateCurrentQuestion()
 
     if passedValidation
@@ -57,18 +57,20 @@ Survey =
         easing: scroll_easing
         offset: -200
         begin: =>
-          $(@survey_blocks[@current_block]).removeClass 'highlight' 
-          $(@survey_blocks[@current_block]).addClass 'disabled'
+          $(@survey_blocks[@current_block])
+            .removeClass 'highlight' 
+            .attr 'style', ''
           @updateProgress(toIndex)
         complete: =>
           @animating = false
           @current_block = toIndex
           @focusField()
+      if $block.hasClass 'not-seen'
+        $block.velocity {opacity: [1, 0], translateY: ['0%', '100%']},
+          queue: false
+          complete: =>
+            $block.removeClass 'not-seen'
 
-      $block.velocity {opacity: [1, 0], translateY: ['0%', '100%']},
-        queue: false
-        complete: =>
-          $block.removeClass 'disabled not-seen' 
     else
       @handleRequiredQuestion()
       return
@@ -84,8 +86,6 @@ Survey =
       offset: -200
       begin: =>
         @animating = true
-        $(@survey_blocks[toIndex]).removeClass 'disabled' 
-        $(@survey_blocks[@current_block]).addClass 'disabled' 
       complete: =>  
         @animating = false
         @current_block = toIndex
@@ -118,13 +118,5 @@ Survey =
   updateProgress: (index) ->
     width = "#{(index / (@survey_blocks.length - 1)) * 100}%"
     @survey_progress.css 'width', width
-
-  handleBlockClick: (e) ->
-    $block = $($(e.target).closest('[data-survey-block]'))
-    index = $block.data 'survey-block'
-    $block.removeClass 'disabled'
-    return if index is @current_block
-    $(@survey_blocks[@current_block]).addClass 'disabled'
-    @current_block = index
 
 module.exports = Survey 
