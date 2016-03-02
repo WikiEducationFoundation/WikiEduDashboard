@@ -15,6 +15,7 @@ class Commons
     continue = true
     until continue.nil?
       response = api_get(upload_query)
+      return uploads unless response # fall back gracefully if the query fails
       uploads += response.data['usercontribs']
       continue = response['continue'] # nil if there is no continue
       upload_query['uccontinue'] = continue['uccontinue'] if continue
