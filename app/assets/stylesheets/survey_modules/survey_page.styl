@@ -1,0 +1,182 @@
+body.survey-page
+  background-color #7177C7
+  background-image url("../images/waves.svg")
+  background-repeat no-repeat
+  background-position center 75%
+  background-size cover
+  overflow-y scroll
+  
+  .section-header h1,
+  .section-header h2
+    color white
+
+  .block
+    position relative
+    transition 300ms opacity easeOutExpo
+    max-width $survey_max_width
+    margin 100px auto
+    
+    
+    &.survey__form
+      margin-top 2em
+    
+    & > label
+      display block
+      margin-bottom $spacer
+      font-weight bold
+    
+    &--clear
+      overflow hidden
+      
+  .block.disabled
+    opacity .5
+  
+  .block.not-seen
+    opacity 0
+  
+  .block.block--errors
+    opacity 1
+  
+  .block.highlight
+    textarea
+      border-color $warning_text
+  
+  .survey__questions-list,
+  .survey__slide-form
+    max-width $survey_max_width
+    margin 0 auto
+  
+  .survey__slide-form
+    margin 2em auto
+  
+  footer,
+  footer a
+    color white
+
+  .errors
+    color $warning_text
+  
+  .survey__block-nav
+    overflow hidden
+    display flex
+    justify-content space-between
+    padding-top $spacer
+    
+    .button
+      float none
+      
+ul.list--survey
+  padding 1em 0
+  .course-list__col
+    padding 0 1em
+
+.row.row--survey-question .row__wrapper,
+.row.row--survey-question div:not(.drawer):last-child
+  display flex
+
+  & > div:first-child
+    flex 1
+    padding-right 1rem
+  
+  a
+    display inline-block
+    margin-right 1rem
+
+.block.survey__submit-block
+  overflow hidden
+  text-align center
+  .button
+    float none
+
+.survey__multiple-choice-field
+  display block
+  background athens
+  border 1px solid mercury
+  border-radius 3px
+  padding $spacer * .5
+  margin-bottom $spacer
+  cursor pointer
+  position relative
+  
+  &:hover
+    background darken(athens, 3%)
+  
+  input, span
+    display inline-block
+    padding 0
+    vertical-align middle
+  
+  input
+    margin 10px
+    background-color darken(mercury, 10%)
+    border 1px solid mercury
+  
+  .check
+    position absolute
+    top 0
+    left 0
+    width 30px
+    height 100%
+
+.highlight label.survey__multiple-choice-field
+  border-color $warning_text
+
+.survey__question-required
+  color $warning_text
+
+.block.survey__slide-form
+  overflow hidden
+
+.survey__title
+  font-size 21px
+  color $text_dk
+
+.survey__start span
+  display inline-block
+  vertical-align middle
+  &:first-child
+    margin-right 10px
+    position relative
+    top -1px
+
+.survey__multiple-choice-field
+  .field_with_errors
+    display inline-block
+
+.survey__admin-tools
+  max-width $survey_max_width
+  margin 1rem auto
+  text-align right
+  color white
+  
+  a
+    color white
+    
+.survey__title-form
+  input[type='text']
+    width 400px
+
+.survey__footer
+  position fixed
+  z-index 10
+  bottom 0
+  left 0
+  right 0
+  width 100%
+  background white
+  padding 1rem 0
+
+.survey__progress
+  background darken(manatee, 20%)
+  position relative
+  width 400px
+  height 30px
+  margin auto
+  border-radius 5px
+  overflow hidden
+  &-bar
+    position absolute
+    left 0
+    top 0
+    height 30px
+    background manatee

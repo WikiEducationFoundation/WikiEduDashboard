@@ -51,7 +51,7 @@ module ApplicationHelper
   end
 
   def is_required_question?(answer)
-    answer.question.validation_rules[:presence]
+    answer.question.validation_rules[:presence].to_i == 1
   end
   
 end

@@ -1,6 +1,6 @@
 <li class='row course-list__row row--survey-question' data-item-id="<%= question.id %>">
   <div class='row__wrapper'>
-    <div><strong><%= question.question_text %></strong><%= question.position %></div>
+    <div><strong><%= question.question_text %></strong></div>
     <div>
       <%= link_to "Edit", [:edit, question.question_group, question] %>
       <%= link_to "Delete", [question.question_group, question], method: :delete %>
