@@ -7,16 +7,17 @@
 
 
 <div class='container'>
-<% if @question_group.intro_slide %>
+
 <div class='block disabled not-seen' data-survey-block='0'>
   <h1 class='survey__title'><%= @question_group.name %></h1>
-  <%= @question_group.intro_slide.html_safe %>
+  <% if @intro_slide.present? %>
+    <%= @intro_slide %>
+  <% end %>
   <div class='survey__block-nav'>
     <div></div>
     <button class='button survey__start dark' data-next-survey-block><span>Start</span> <span class='icon icon-rt_arrow'></span></button>
   </div>
 </div>
-<% end %>
 
 <%= form_for([@question_group, @answer_group_builder], :html => {'data-survey-form' => true}) do |f| %>
   <div>
@@ -36,7 +37,7 @@
   
   
   <div class='block disabled not-seen block--clear' data-survey-block='<%= @answer_group_builder.answers.length + 1 %>'>
-    <% if @question_group.intro_slide %><%= @question_group.final_slide.html_safe %><% end %>
+    <% if @final_slide.present? %><%= @final_slide %><% end %>
     <%= f.submit "Submit Survey", :class => 'button button--no-margin dark' %>
   </div>
   
