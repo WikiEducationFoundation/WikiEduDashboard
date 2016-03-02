@@ -28,7 +28,7 @@ gem 'hashugar'
 
 gem 'simple_form'
 
-gem 'rapidfire', :path => './vendor/rapidfire'
+gem 'rapidfire', :path => './vendor/__rapidfire'
 
 # UNIVERSAL TEXT CONVERTER - FOR MARDOWN TO MEDIAWIKI TEXT
 gem 'pandoc-ruby', '~> 1.0.0'

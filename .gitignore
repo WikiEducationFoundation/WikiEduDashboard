@@ -5,7 +5,7 @@
 /node_modules
 /js_coverage
 /vendor/*
-!/vendor/_rapidfire
+!/vendor/__rapidfire
 
 *.rbc
 capybara-*.html

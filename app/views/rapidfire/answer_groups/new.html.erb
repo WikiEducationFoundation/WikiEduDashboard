@@ -18,10 +18,11 @@
 </div>
 <% end %>
 
-<%= form_for([@question_group, @answer_group_builder]) do |f| %>
+<%= form_for([@question_group, @answer_group_builder], :html => {'data-survey-form' => true}) do |f| %>
   <div>
   <%- @answer_group_builder.answers.each_with_index do |answer, index| %>
     <%= f.fields_for("#{answer.question.id}", answer) do |answer_form| %>
+      
       <div class='block disabled not-seen question-type--<%= question_type(answer) %> <% if answer.errors.any? %>block--errors<% end %> <% if answer.question.validation_rules[:presence].to_i == 1 %>required<% end %>' data-survey-block='<%= index + 1 %>'>
         <%= render_answer_form_helper(answer, answer_form) %>
         <div data-errors></div>

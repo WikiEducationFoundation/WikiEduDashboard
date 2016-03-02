@@ -1,5 +1,5 @@
 SurveyAdmin =
   init: ->
-    console.log 'survey admin'
+    # console.log 'survey admin'
 
 module.exports = SurveyAdmin

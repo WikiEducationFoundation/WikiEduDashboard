@@ -1,3 +1,6 @@
 [submodule "vendor/_rapidfire"]
 	path = vendor/_rapidfire
 	url = git@github.com:code-mancers/rapidfire.git
+[submodule "vendor/__rapidfire"]
+	path = vendor/__rapidfire
+	url = git@github.com:WikiEducationFoundation/rapidfire.git

@@ -11,6 +11,8 @@ Survey =
 
   init: ->
     @$window = $(window)
+    scroll(0,0)
+    @$survey_form = $('[data-survey-form]')
     @survey_blocks = $('[data-survey-block]')
     @setFormValidationSections()
     @survey_progress = $('[data-survey-progress]')
@@ -18,7 +20,7 @@ Survey =
     @initBlocks()
 
   listeners: ->
-    $('[data-survey-block]').on 'click', @handleBlockClick.bind(@)
+    # $('[data-survey-block]').on 'click', @handleBlockClick.bind(@)
     $('[data-next-survey-block]').on 'click', @nextBlock.bind(@)
     $('[data-prev-survey-block]').on 'click', @prevBlock.bind(@)
     $('[data-survey-block] input[type=checkbox], [data-survey-block] input[type=radio]').on 'change', @nextBlock.bind(@)
@@ -92,8 +94,7 @@ Survey =
   validateCurrentQuestion: ->
     $block = $(@survey_blocks[@current_block])
     $errorsEl = $block.find('[data-errors]')
-    validation = $block.parsley({uiEnabled: false}).validate group: "#{$block.data 'parsley-group'}"
-    console.log validation
+    validation = @$survey_form.parsley({uiEnabled: false}).validate group: "#{$block.data 'parsley-group'}"
     if validation is true
       $errorsEl.empty()
       return true
