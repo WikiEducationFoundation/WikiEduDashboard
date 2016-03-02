@@ -2,10 +2,10 @@
 <%= render partial: "rapidfire/answers/question_text", locals: {f: f, answer: answer} %>
 
 <br/>
-<%- answer.question.options.each do |option| %>
+<%- answer.question.options.each_with_index do |option, index| %>
   
   <label class='survey__multiple-choice-field'>
-    <%= f.radio_button :answer_text, option %>
+    <%= f.radio_button :answer_text, option, :required => is_required_question?(answer) %>
     <span><%= option %></span>
   </label>
   

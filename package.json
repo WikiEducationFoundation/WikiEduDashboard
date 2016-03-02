@@ -66,6 +66,7 @@
     "mocha-jsdom": "^1.0.0",
     "moment": "2.10.3",
     "moment-recur": "^1.0.5",
+    "parsleyjs": "^2.3.5",
     "react": "0.14.6",
     "react-addons-css-transition-group": "0.14.6",
     "react-addons-test-utils": "0.14.6",

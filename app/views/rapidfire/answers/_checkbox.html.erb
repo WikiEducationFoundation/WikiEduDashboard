@@ -6,7 +6,7 @@
   <%- answer.question.options.each do |option| %>
     <%= af.label option do %>
       <span class='checkbox-field'>
-      <%= af.check_box nil, { id: nil, checked: checkbox_checked?(answer, option) }, option %>
+      <%= af.check_box nil, { id: nil, checked: checkbox_checked?(answer, option) }, option, :required => is_required_question?(answer) %>
       <%= option %>
       </span>
     <% end %>

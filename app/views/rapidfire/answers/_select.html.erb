@@ -2,4 +2,4 @@
 
 <%= render partial: "rapidfire/answers/question_text", locals: {f: f, answer: answer} %>
 
-<%= f.select :answer_text, answer.question.options, include_blank: true %>
+<%= f.select :answer_text, answer.question.options, include_blank: true, :required => is_required_question?(answer) %>

@@ -1,4 +1,5 @@
 require 'velocity-animate'
+require 'parsleyjs'
 throttle = require 'lodash.throttle'
 
 scroll_duration = 500
@@ -10,8 +11,8 @@ Survey =
 
   init: ->
     @$window = $(window)
-    window.scrollTo(0,0)
     @survey_blocks = $('[data-survey-block]')
+    @setFormValidationSections()
     @survey_progress = $('[data-survey-progress]')
     @listeners()
     @initBlocks()
@@ -37,6 +38,7 @@ Survey =
         $block.addClass 'disabled'
 
   initBlocks: ->
+    window.scrollTo(0,0)
     $(@survey_blocks[@current_block]).removeClass 'disabled not-seen'
 
   nextBlock: (e) ->
@@ -89,9 +91,22 @@ Survey =
 
   validateCurrentQuestion: ->
     $block = $(@survey_blocks[@current_block])
-    isRequired = $block.hasClass 'required'
-    console.log $block.find('input').val()
-    !isRequired
+    $errorsEl = $block.find('[data-errors]')
+    validation = $block.parsley({uiEnabled: false}).validate group: "#{$block.data 'parsley-group'}"
+    console.log validation
+    if validation is true
+      $errorsEl.empty()
+      return true
+    else
+      console.log(validation)
+      validation
+      return false
+
+  setFormValidationSections: ->
+    @survey_blocks.each (i, block) => 
+      $block = $(block)
+      $block.attr 'data-parsley-group', "block#{i}"
+      $block.find(':input').attr 'data-parsley-group', "block#{i}"
 
   handleRequiredQuestion: ->
     $(@survey_blocks[@current_block]).addClass 'highlight'
@@ -100,7 +115,6 @@ Survey =
     $(@survey_blocks[@current_block]).find('input, textarea').first().focus()
 
   updateProgress: (index) ->
-    # width = 0
     width = "#{(index / (@survey_blocks.length - 1)) * 100}%"
     @survey_progress.css 'width', width
 
@@ -111,16 +125,5 @@ Survey =
     return if index is @current_block
     $(@survey_blocks[@current_block]).addClass 'disabled'
     @current_block = index
-
-  handleInView: (e, isInView, topOrBottomOrBoth) ->
-    $el = $(e.target)
-    index = $el.index()
-    return if index is @current_block
-    if isInView
-      $(@survey_blocks[@current_block]).addClass 'disabled' 
-      $(@survey_blocks[index]).removeClass 'disabled' 
-      @current_block = index
-
-    console.log e, isInView, $(e.target).index(), topOrBottomOrBoth
 
 module.exports = Survey 

@@ -24,6 +24,7 @@
     <%= f.fields_for("#{answer.question.id}", answer) do |answer_form| %>
       <div class='block disabled not-seen question-type--<%= question_type(answer) %> <% if answer.errors.any? %>block--errors<% end %> <% if answer.question.validation_rules[:presence].to_i == 1 %>required<% end %>' data-survey-block='<%= index + 1 %>'>
         <%= render_answer_form_helper(answer, answer_form) %>
+        <div data-errors></div>
         <div class='survey__block-nav'>
           <button class='button' data-prev-survey-block>Prev</button>
           <button class='button dark' data-next-survey-block>Next</button>
