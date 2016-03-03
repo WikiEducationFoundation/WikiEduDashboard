@@ -2,19 +2,111 @@
   display block
   width 100%
 
+.question-type--radio
+  position relative
+
 .question-type--radio input[type=radio]
   visibility hidden
+  position relative
+  z-index 3
 
 .question-type--radio span
   position relative
+  margin-left 10px
 
-.question-type--radio span:before
+.survey__multiple-choice-field .label
+  display block
+  position absolute
+  z-index 2
+  top 0
+  left 0
+  right 0
+  bottom 0
+  width 100%
+  padding 10px 5px 5px 60px
+  border-radius 3px
+
+.survey__multiple-choice-field .label:before
+.survey__multiple-choice-field .label:after
   content ''
   display block
-  width 15px
-  height 15px
+  width 10px
+  height 10px
   border-radius 50%
-  border 1px solid green
+  border 1px solid darken(mercury, 25%)
   position absolute
-  left -20px
+  left 15px
+  top 50%
+  transform translateY(-50%)
+
+.survey__multiple-choice-field .label:after
+  width 6px
+  height 6px
+  left 17px
+  border-color transparent
+
+.survey__multiple-choice-field input[type=radio]:checked ~ .label
+  background $brand_primary
+  color white
+  
+  &:before,
+  &:after
+    border-color white 
+  
+  &:after
+    background white 
+
+.survey__multiple-choice-field:before
+  content ""
+  display block
+  position absolute
+  left 0
   top 0
+  bottom 0
+  width 40px
+  background darken(athens, 5%)
+  border-right 1px solid darken(mercury, 5%)
+  border-top-left-radius 3px
+  border-bottom-left-radius 3px
+
+.survey__multiple-choice-field
+  display block
+  background athens
+  border 1px solid mercury
+  border-radius 3px
+  padding $spacer * .5
+  margin-bottom $spacer
+  cursor pointer
+  position relative
+  transition 100ms easeOutExpo
+  
+  &:hover
+    background darken(athens, 5%)
+
+  // &:hover span:before
+  //   border-color white
+  
+  // &:hover,
+  // &:hover:before
+  //   background $brand_primary
+  //   color white
+  
+  // &:hover:before
+  //   border-color transparent
+  
+  input, span
+    display inline-block
+    padding 0
+    vertical-align middle
+  
+  input
+    margin 10px
+    background-color darken(mercury, 10%)
+    border 1px solid mercury
+  
+  .check
+    position absolute
+    top 0
+    left 0
+    width 30px
+    height 100%

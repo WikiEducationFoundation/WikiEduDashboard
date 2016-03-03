@@ -27,21 +27,6 @@ gulp.task "stylesheets", ->
     .pipe plugins.sourcemaps.write()
     .pipe gulp.dest style_dir
 
-
-gulp.task "stylesheets-dev-rtl", ->
-  style_dir = "#{config.outputPath}/#{config.cssDirectory}"
-
-  stream = gulp.src ["#{config.sourcePath}/#{config.cssDirectory}/#{config.cssMainFiles}.styl"]
-    .pipe plugins.plumber()
-    .pipe plugins.stylus
-      sourcemap:
-        inline: config.development
-    .pipe plugins.sourcemaps.init
-      loadMaps: true
-    .pipe plugins.autoprefixer()
-    .pipe plugins.sourcemaps.write()
-    .pipe gulp.dest style_dir
-
   stream.on 'end', =>
     # Flip for RTL
     rtl_dir = "#{config.outputPath}/#{config.cssDirectory}/rtl"
@@ -60,6 +45,20 @@ gulp.task "stylesheets-dev-rtl", ->
         .pipe plugins.rev.manifest()
         .pipe revDel({ dest: style_dir })
         .pipe gulp.dest style_dir
+
+gulp.task "stylesheets-livereload", ->
+  style_dir = "#{config.outputPath}/#{config.cssDirectory}"
+
+  stream = gulp.src ["#{config.sourcePath}/#{config.cssDirectory}/#{config.cssMainFiles}.styl"]
+    .pipe plugins.plumber()
+    .pipe plugins.stylus
+      sourcemap:
+        inline: config.development
+    .pipe plugins.sourcemaps.init
+      loadMaps: true
+    .pipe plugins.autoprefixer()
+    .pipe plugins.sourcemaps.write()
+    .pipe gulp.dest style_dir
 
 gulp.task "stylesheets-fingerprint", ->
   style_dir = "#{config.outputPath}/#{config.cssDirectory}"

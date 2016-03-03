@@ -28,6 +28,15 @@ gulp.task "dev", ->
     "stylesheets"
   ], "watch"
 
+gulp.task "dev-livereload", ->
+  runSequence "clean", "set-development", [
+    "i18n"
+    "copy-static"
+    "bower"
+    "javascripts"
+    "stylesheets-livereload"
+  ], "watch-livereload"
+
 gulp.task "webpack-build", ["bower"], plugins.shell.task ["npm run build"]
 gulp.task "webpack-hotdev", plugins.shell.task ["npm run hotdev"]
 

@@ -22,8 +22,21 @@ gulp.task "watch", ->
   plugins.watch "bower.json", ->
     gulp.start "bower"
 
+  return
+
+gulp.task "watch-livereload", ->
+
+  plugins.watch "#{config.sourcePath}/#{config.cssDirectory}/**/*.{styl,sass,scss,css}", ->
+    gulp.start "stylesheets-livereload"
+
+  plugins.watch "#{config.sourcePath}/#{config.imagesDirectory}/**/*", ->
+    gulp.start "copy-images"
+
+  plugins.watch "bower.json", ->
+    gulp.start "bower"
+
   plugins.livereload.listen()
-  gulp.watch "#{config.outputPath}/**/*", (e) ->
+  gulp.watch "#{config.outputPath}/**/**/*", (e) ->
     plugins.livereload.changed(e.path)
 
   return

@@ -5,7 +5,7 @@
   
   <label class='survey__multiple-choice-field'>
     <%= f.radio_button :answer_text, option, :required => is_required_question?(answer) %>
-    <span><%= option %></span>
+    <div class='label'><%= option %></div>
   </label>
   
 <% end %>
