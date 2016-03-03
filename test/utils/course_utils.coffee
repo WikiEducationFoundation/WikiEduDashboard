@@ -1,4 +1,5 @@
 require '../testHelper'
+require 'i18n-js'
 require '../../public/assets/javascripts/i18n/en'
 CourseUtils = require '../../app/assets/javascripts/utils/course_utils'
 
