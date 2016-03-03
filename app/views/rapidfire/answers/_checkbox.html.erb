@@ -5,7 +5,7 @@
 <%= f.fields_for :answer_text do |af| %>
   <%- answer.question.options.each do |option| %>
     <label class='survey__multiple-choice-field'>
-      <%= f.check_box nil, { id: nil, checked: checkbox_checked?(answer, option) }, option, :required => is_required_question?(answer)%>
+      <%= f.check_box nil, { id: nil, checked: checkbox_checked?(answer, option), :required => is_required_question?(answer) }, option%>
       <div class='label'><%= option %></div>
     </label>
   <% end %>
