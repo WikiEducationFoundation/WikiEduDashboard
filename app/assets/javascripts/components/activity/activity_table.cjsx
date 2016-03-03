@@ -27,7 +27,7 @@ ActivityTable = React.createClass(
     activity = @state.activity.map (revision) =>
       roundedRevisionScore = Math.round(revision.revision_score) or 'unknown'
       revisionDateTime = moment(revision.datetime).format('YYYY/MM/DD h:mm a')
-      talkPageLink = "https://en.wikipedia.org/wiki/User_talk:#{revision.user_wiki_id}"
+      talkPageLink = "https://en.wikipedia.org/wiki/User_talk:#{revision.username}"
 
       <ActivityTableRow
         key={revision.key}
@@ -38,7 +38,7 @@ ActivityTable = React.createClass(
         reportUrl={revision.report_url}
         title={revision.title}
         revisionScore={roundedRevisionScore}
-        author={revision.user_wiki_id}
+        author={revision.username}
         revisionDateTime={revisionDateTime}
       />
 
@@ -46,7 +46,7 @@ ActivityTable = React.createClass(
       courses = revision.courses.map (course) ->
         <li key={"#{revision.key}-#{course.slug}"}><a href="/courses/#{course.slug}">{course.title}</a></li>
 
-      <tr key={"#{revision.key}-#{revision.user_wiki_id}"} className='activity-table-drawer'>
+      <tr key={"#{revision.key}-#{revision.username}"} className='activity-table-drawer'>
         <td colSpan=6>
           <span>
             <h5>Article is active in</h5>

@@ -68,7 +68,7 @@ describe WikiCourseOutput do
       week2.blocks = [block2]
       create(:user,
              id: 1,
-             wiki_id: 'Ragesock')
+             username: 'Ragesock')
       markdown_with_image = 'The course description with ![image]'\
       '(https://upload.wikimedia.org/wikipedia/commons/6/6b/View_from_Imperia_Tower'\
       '_Moscow_04-2014_img12.jpg)'

@@ -25,7 +25,7 @@ DidYouKnowHandler = React.createClass(
     headers = [
       { title: 'Article Title',      key: 'title' },
       { title: 'Revision Score',     key: 'revision_score' },
-      { title: 'Revision Author',    key: 'user_wiki_id' },
+      { title: 'Revision Author',    key: 'username' },
       { title: 'Revision Date/Time', key: 'revision_datetime' },
     ]
 

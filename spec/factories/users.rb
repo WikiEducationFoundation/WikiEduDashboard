@@ -3,7 +3,7 @@
 # Table name: users
 #
 #  id                  :integer          not null, primary key
-#  wiki_id             :string(255)
+#  username            :string(255)
 #  created_at          :datetime
 #  updated_at          :datetime
 #  character_sum       :integer          default(0)
@@ -25,25 +25,25 @@
 
 FactoryGirl.define do
   factory :test_user, class: User do
-    wiki_id 'Pizza'
+    username 'Pizza'
     onboarded true
   end
 
   factory :user do
     id '4543197'
-    wiki_id 'Ragesock'
+    username 'Ragesock'
     onboarded true
   end
 
   factory :trained, class: User do
     id '319203'
-    wiki_id 'Ragesoss'
+    username 'Ragesoss'
     onboarded true
   end
 
   factory :admin, class: User do
     id '1'
-    wiki_id 'Ragesauce'
+    username 'Ragesauce'
     permissions '1'
     onboarded true
   end

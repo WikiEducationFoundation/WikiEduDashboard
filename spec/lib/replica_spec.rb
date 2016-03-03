@@ -14,9 +14,9 @@ describe Replica do
       stub_request(:any, %r{http://tools.wmflabs.org/.*})
         .to_raise(Errno::ETIMEDOUT)
       all_users = [
-        build(:user, wiki_id: 'ELE427', id: 22905965),
-        build(:user, wiki_id: 'Ragesoss', id: 319203),
-        build(:user, wiki_id: 'Mrbauer1234', id: 23011474)
+        build(:user, username: 'ELE427', id: 22905965),
+        build(:user, username: 'Ragesoss', id: 319203),
+        build(:user, username: 'Mrbauer1234', id: 23011474)
       ]
       rev_start = 2014_01_01_003430
       rev_end = 2014_12_31_003430
@@ -29,9 +29,9 @@ describe Replica do
       stub_request(:any, %r{http://tools.wmflabs.org/.*})
         .to_raise(Errno::ECONNREFUSED)
       all_users = [
-        build(:user, wiki_id: 'ELE427', id: 22905965),
-        build(:user, wiki_id: 'Ragesoss', id: 319203),
-        build(:user, wiki_id: 'Mrbauer1234', id: 23011474)
+        build(:user, username: 'ELE427', id: 22905965),
+        build(:user, username: 'Ragesoss', id: 319203),
+        build(:user, username: 'Mrbauer1234', id: 23011474)
       ]
 
       response = Replica.get_user_info(all_users)
@@ -41,9 +41,9 @@ describe Replica do
     it 'should return revisions from this term' do
       VCR.use_cassette 'replica/revisions' do
         all_users = [
-          build(:user, wiki_id: 'ELE427', id: 22905965),
-          build(:user, wiki_id: 'Ragesoss', id: 319203),
-          build(:user, wiki_id: 'Mrbauer1234', id: 23011474)
+          build(:user, username: 'ELE427', id: 22905965),
+          build(:user, username: 'Ragesoss', id: 319203),
+          build(:user, username: 'Mrbauer1234', id: 23011474)
         ]
         rev_start = 2014_01_01_003430
         rev_end = 2014_12_31_003430
@@ -73,7 +73,7 @@ describe Replica do
       VCR.use_cassette 'replica/comma' do
         comma_user = build(:user,
                            id: 17137867,
-                           wiki_id: 'JRicker,PhD')
+                           username: 'JRicker,PhD')
         rev_start = 2015_01_01
         rev_end = 2016_01_01
         response = Replica.get_revisions([comma_user], rev_start, rev_end)
@@ -81,13 +81,13 @@ describe Replica do
 
         ampersand_user = build(:user,
                                id: 22403865,
-                               wiki_id: 'Evol&Glass')
+                               username: 'Evol&Glass')
         response = Replica.get_revisions([ampersand_user], rev_start, rev_end)
         expect(response.count).to be > 1
 
         apostrophe_user = build(:user,
                                 id: 26211578,
-                                wiki_id: "Jack's nomadic mind")
+                                username: "Jack's nomadic mind")
         response = Replica.get_revisions([apostrophe_user], rev_start, rev_end)
         expect(response.count).to be > 1
 
@@ -95,7 +95,7 @@ describe Replica do
         rev_end = 2010_01_01
         exclamation_user = build(:user,
                                  id: 11274650,
-                                 wiki_id: '!!Aaapplesauce')
+                                 username: '!!Aaapplesauce')
         response = Replica.get_revisions([exclamation_user], rev_start, rev_end)
         expect(response.count).to be > 1
       end
@@ -136,8 +136,8 @@ describe Replica do
 
     it 'should update usernames after name changes' do
       VCR.use_cassette 'replica/training' do
-        create(:user, wiki_id: 'old_username')
-        expect(User.all.first.wiki_id).to eq('old_username')
+        create(:user, username: 'old_username')
+        expect(User.all.first.username).to eq('old_username')
         response = Replica.get_user_info User.all
         expect(response[0]['wiki_id']).to eq('Ragesock')
       end
@@ -164,9 +164,9 @@ describe Replica do
     it 'should function identically on non-English wikis' do
       VCR.use_cassette 'replica/es_revisions' do
         all_users = [
-          build(:user, wiki_id: 'AndresAlvarezGalina95', id: 3556537),
-          build(:user, wiki_id: 'Patyelena25', id: 3471984),
-          build(:user, wiki_id: 'Lizmich91', id: 3558536)
+          build(:user, username: 'AndresAlvarezGalina95', id: 3556537),
+          build(:user, username: 'Patyelena25', id: 3471984),
+          build(:user, username: 'Lizmich91', id: 3558536)
         ]
 
         rev_start = 2015_02_12_003430

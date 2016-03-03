@@ -103,7 +103,7 @@ describe Course, type: :model do
 
       expect(Assignment.where(role: Assignment::Roles::ASSIGNED_ROLE).count).to eq(81)
       # Check that users with multiple assignments are handled properly.
-      user = User.where(wiki_id: 'AndrewHamsha').first
+      user = User.where(username: 'AndrewHamsha').first
       expect(user.assignments.assigned.count).to eq(2)
     end
   end
@@ -164,10 +164,10 @@ describe Course, type: :model do
 
     build(:user,
           id: 1,
-          wiki_id: 'Ragesoss').save
+          username: 'Ragesoss').save
     build(:user,
           id: 2,
-          wiki_id: 'Ntdb').save
+          username: 'Ntdb').save
 
     build(:courses_user,
           id: 1,
@@ -211,7 +211,7 @@ describe Course, type: :model do
   it 'should cache revision data for students' do
     build(:user,
           id: 1,
-          wiki_id: 'Ragesoss').save
+          username: 'Ragesoss').save
 
     build(:course,
           id: 1,

@@ -39,7 +39,7 @@ Intro = React.createClass(
   render: ->
     return (
       <div className="intro text-center">
-        <h1>Hi {@state.user.real_name || @state.user.wiki_id}</h1>
+        <h1>Hi {@state.user.real_name || @state.user.username}</h1>
         <p>We’re excited that you’re here!</p>
         <Link to={{ pathname: '/onboarding/form', query: { return_to: decodeURIComponent(getReturnToParam()) } }}  className="button border inverse-border">Start <i className="icon icon-rt_arrow"></i></Link>
       </div>

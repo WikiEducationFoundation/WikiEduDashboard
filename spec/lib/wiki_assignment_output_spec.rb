@@ -18,7 +18,7 @@ describe WikiAssignmentOutput do
            role: Assignment::Roles::REVIEWING_ROLE)
     create(:user,
            id: 3,
-           wiki_id: 'Ragesock')
+           username: 'Ragesock')
     create(:courses_user,
            user_id: 3,
            course_id: 10001)

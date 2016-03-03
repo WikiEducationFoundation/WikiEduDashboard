@@ -40,9 +40,9 @@ class WikiCourseOutput
     dashboard_url = ENV['dashboard_url']
     course_details = "{{course details
      | course_name = #{course.title}
-     | instructor_username = #{instructor.wiki_id unless instructor.nil?}
+     | instructor_username = #{instructor.username unless instructor.nil?}
      | instructor_realname = #{instructor.real_name unless instructor.nil?}
-     | support_staff = #{support_staff.wiki_id unless support_staff.nil?}
+     | support_staff = #{support_staff.username unless support_staff.nil?}
      | subject = #{course.subject}
      | start_date = #{course.start}
      | end_date = #{course.end}
@@ -82,7 +82,7 @@ class WikiCourseOutput
     return '' if students.blank?
     table = "{{students table}}\r"
     students.each do |student|
-      username = student.wiki_id
+      username = student.username
       assignments = student.assignments.where(course_id: course.id)
       assigned_titles = assignments.assigned.pluck(:article_title)
       assigned = titles_to_wikilinks assigned_titles

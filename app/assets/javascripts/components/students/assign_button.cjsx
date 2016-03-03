@@ -47,7 +47,7 @@ AssignButton = React.createClass(
     # Confirm
     return unless confirm I18n.t('assignments.confirm_addition', {
       title: article_title,
-      username: @props.student.wiki_id
+      username: @props.student.username
     })
 
     # Send

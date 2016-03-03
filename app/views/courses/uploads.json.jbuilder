@@ -3,6 +3,6 @@ json.course do
     json.call(upload, :id, :uploaded_at, :usage_count, :url, :thumburl)
     json.url upload.url
     json.file_name pretty_filename(upload)
-    json.uploader upload.user.wiki_id
+    json.uploader upload.user.username
   end
 end

@@ -3,7 +3,7 @@
 # Table name: users
 #
 #  id                  :integer          not null, primary key
-#  wiki_id             :string(255)
+#  username            :string(255)
 #  created_at          :datetime
 #  updated_at          :datetime
 #  character_sum       :integer          default(0)
@@ -31,7 +31,7 @@ describe User do
       ragesock = build(:user)
       ragesoss = build(:trained)
       ragesauce = build(:admin)
-      expect(ragesock.wiki_id).to eq('Ragesock')
+      expect(ragesock.username).to eq('Ragesock')
       # rubocop:disable Metrics/LineLength
       expect(ragesoss.contribution_url).to eq("https://#{Figaro.env.wiki_language}.wikipedia.org/wiki/Special:Contributions/Ragesoss")
       # rubocop:enable Metrics/LineLength

@@ -11,7 +11,7 @@ class WikiResponse
     sorting_info = parse_api_response(response_data, type, current_user)
     Raven.capture_message sorting_info[:title],
                           level: sorting_info[:level],
-                          tags: { username: current_user[:wiki_id],
+                          tags: { username: current_user[:username],
                                   action_type: type },
                           extra: { response_data: response_data,
                                    post_data: post_data,
