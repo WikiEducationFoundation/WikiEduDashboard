@@ -2,7 +2,6 @@ require('jquery-ui/sortable');
 
 SurveyAdmin =
   init: ->
-    console.log 'hi'
     @initSortable()
 
   initSortable: ->
@@ -11,6 +10,8 @@ SurveyAdmin =
     $sortable.sortable
       axis: 'y'
       items: '.row--survey-question'
+      containment: 'parent'
+      scroll: false
       cursor: 'move'
       sort: (e, ui) ->
         ui.item.addClass 'active-item-shadow'

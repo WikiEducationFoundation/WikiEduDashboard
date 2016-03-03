@@ -4,11 +4,9 @@
 
 <%= f.fields_for :answer_text do |af| %>
   <%- answer.question.options.each do |option| %>
-    <%= af.label option do %>
-      <span class='checkbox-field'>
-      <%= af.check_box nil, { id: nil, checked: checkbox_checked?(answer, option) }, option, :required => is_required_question?(answer) %>
-      <%= option %>
-      </span>
-    <% end %>
+    <label class='survey__multiple-choice-field'>
+      <%= f.check_box nil, { id: nil, checked: checkbox_checked?(answer, option) }, option, :required => is_required_question?(answer)%>
+      <div class='label'><%= option %></div>
+    </label>
   <% end %>
 <% end %>

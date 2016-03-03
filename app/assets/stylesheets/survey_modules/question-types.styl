@@ -5,10 +5,14 @@
 .question-type--radio
   position relative
 
-.question-type--radio input[type=radio]
+.question-type--radio input[type=radio],
+.question-type--radio input[type=checkbox]
   visibility hidden
   position relative
   z-index 3
+
+body.survey-page input[type=checkbox]
+  margin 0
 
 .question-type--radio span
   position relative
@@ -23,7 +27,7 @@
   right 0
   bottom 0
   width 100%
-  padding 10px 5px 5px 60px
+  padding 10px 5px 10px 60px
   border-radius 3px
 
 .survey__multiple-choice-field .label:before
