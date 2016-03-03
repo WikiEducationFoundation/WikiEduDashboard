@@ -11,6 +11,10 @@
   <% end %>
   <% if can_administer? %>
     <div class='course-list__col'>
+      <%= link_to "Clone Survey", "/surveys/clone/#{question_group.id}", method: :post %>
+    </div>
+
+    <div class='course-list__col'>
       <%= link_to "Add Question", new_question_group_question_path(question_group) %>
     </div>
     <div class='course-list__col'>

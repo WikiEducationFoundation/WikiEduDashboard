@@ -144,7 +144,9 @@ Rails.application.routes.draw do
   # Unauthenticated users root to the home page
   root to: 'home#index'
 
+  post '/surveys/clone/:id' => 'surveys#clone'
   mount Rapidfire::Engine => "/surveys", :as => 'rapidfire'
+  
 
   # Onboarding
   get 'onboarding(/*any)' => 'onboarding#index', as: :onboarding
