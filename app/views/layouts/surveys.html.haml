@@ -1,6 +1,10 @@
 - content_for :head do
-  = stylesheet_link_tag fingerprinted("/assets/stylesheets/#{rtl? ? 'rtl/' : nil}", 'main.css'), media: 'all'
-  = stylesheet_link_tag fingerprinted("/assets/stylesheets/#{rtl? ? 'rtl/' : nil}", 'surveys.css'), media: 'all'
+  - if Rails.env == "production"
+    = stylesheet_link_tag fingerprinted("/assets/stylesheets/#{rtl? ? 'rtl/' : nil}", 'main.css'), media: 'all'
+    = stylesheet_link_tag fingerprinted("/assets/stylesheets/#{rtl? ? 'rtl/' : nil}", 'surveys.css'), media: 'all'
+  - else
+    = stylesheet_link_tag "/assets/stylesheets/main.css"
+    = stylesheet_link_tag "/assets/stylesheets/surveys.css"
 
 - content_for :javascripts do
   - if Rails.env == "production"

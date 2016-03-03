@@ -1,3 +1,20 @@
 .block.question-type--short input[type='text']
   display block
   width 100%
+
+.question-type--radio input[type=radio]
+  visibility hidden
+
+.question-type--radio span
+  position relative
+
+.question-type--radio span:before
+  content ''
+  display block
+  width 15px
+  height 15px
+  border-radius 50%
+  border 1px solid green
+  position absolute
+  left -20px
+  top 0
