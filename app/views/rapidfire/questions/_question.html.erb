@@ -1,6 +1,6 @@
 <li class='row course-list__row row--survey-question' data-item-id="<%= question.id %>">
   <div class='row__wrapper'>
-    <div><strong><%= question.question_text %></strong></div>
+    <div><strong><%= strip_tags(question.question_text.truncate(100, omission: '...')) %></strong></div>
 
     <div>
       <%= question.type.to_s.split("::").last.downcase %>&nbsp;

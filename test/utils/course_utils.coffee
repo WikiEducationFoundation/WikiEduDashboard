@@ -1,5 +1,5 @@
 require '../testHelper'
-# require '../../public/assets/javascripts/i18n/en'
+require '../../public/assets/javascripts/i18n/en'
 CourseUtils = require '../../app/assets/javascripts/utils/course_utils'
 
 describe 'CourseUtils.generateTempId', ->
@@ -30,13 +30,13 @@ describe 'CourseUtils.cleanupCourseSlugComponents', ->
     expect(course.school).to.eq 'University of Wikipedia'
     expect(course.title).to.eq 'Introduction to Editing'
 
-# describe 'CourseUtils.i18n', ->
-#   it 'outputs an interface message based on a message key and prefix', ->
-#     message = CourseUtils.i18n('students', 'courses_generic')
-#     expect(message).to.eq 'Editors'
-#   it 'defaults to the "courses" prefix if prefix is null', ->
-#     message = CourseUtils.i18n('students', null)
-#     expect(message).to.eq 'Students'
-#   it 'takes an optional fallback prefix for if prefix is null', ->
-#     message = CourseUtils.i18n('class', null, 'revisions')
-#     expect(message).to.eq 'Class'
+describe 'CourseUtils.i18n', ->
+  it 'outputs an interface message based on a message key and prefix', ->
+    message = CourseUtils.i18n('students', 'courses_generic')
+    expect(message).to.eq 'Editors'
+  it 'defaults to the "courses" prefix if prefix is null', ->
+    message = CourseUtils.i18n('students', null)
+    expect(message).to.eq 'Students'
+  it 'takes an optional fallback prefix for if prefix is null', ->
+    message = CourseUtils.i18n('class', null, 'revisions')
+    expect(message).to.eq 'Class'
