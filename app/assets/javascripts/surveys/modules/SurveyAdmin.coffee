@@ -2,7 +2,13 @@ require('jquery-ui/sortable');
 
 SurveyAdmin =
   init: ->
+    @$question_type_select = $('#question_type')
+    @$question_form_options = $('[data-question-options]')
     @initSortable()
+    @listeners()
+
+  listeners: ->
+    @$question_type_select.on 'change', $.proxy(@, 'handleQuestionType')
 
   initSortable: ->
     $sortable = $('[data-sortable]')
@@ -26,5 +32,8 @@ SurveyAdmin =
           url: "/surveys/question_groups/#{question_group_id}/questions/update_position"
           dataType: 'json'
           data: { question_group_id: question_group_id, id: item_id, position: position }
+
+  handleQuestionType: ({target}) ->
+    console.log target.value
 
 module.exports = SurveyAdmin
