@@ -2,7 +2,7 @@ require '../../testHelper'
 
 describe 'Modal', ->
 
-  Modal = require '../../../app/assets/javascripts/components/common/modal'
+  Modal = require '../../../app/assets/javascripts/components/common/modal.cjsx'
   TestModal = ReactTestUtils.renderIntoDocument(
     <Modal modalClass='foo'>
       <h3>bar</h3>

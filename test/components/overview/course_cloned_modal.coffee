@@ -4,7 +4,7 @@ Flux = new McFly()
 rewire = require 'rewire'
 
 describe 'CourseClonedModal', ->
-  CourseClonedModal = rewire '../../../app/assets/javascripts/components/overview/course_cloned_modal'
+  CourseClonedModal = rewire '../../../app/assets/javascripts/components/overview/course_cloned_modal.cjsx'
   course =
     slug: 'foo/bar_(baz)'
     school: 'foo'

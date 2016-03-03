@@ -16,6 +16,8 @@ global.moment-recur = require 'moment-recur'
 global.I18n = require 'i18n-js'
 global.chai = require 'chai'
 
+console.log global.I18n
+
 require 'jsx-require-extension'
 require '../app/assets/javascripts/main-utils'
 
