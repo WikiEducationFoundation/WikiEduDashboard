@@ -8,6 +8,6 @@ json.course do
     json.rating_num rating_priority(rev.article.rating)
     json.pretty_rating rating_display(rev.article.rating)
 
-    json.revisor rev.user.wiki_id
+    json.revisor rev.user.username
   end
 end

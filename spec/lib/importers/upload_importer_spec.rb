@@ -5,7 +5,7 @@ describe UploadImporter do
   describe '.import_all_uploads' do
     it 'should find and record files uploaded to Commons' do
       create(:user,
-             wiki_id: 'Guettarda')
+             username: 'Guettarda')
       VCR.use_cassette 'commons/import_all_uploads' do
         UploadImporter.import_all_uploads(User.all)
         expect(CommonsUpload.all.count).to be > 50
@@ -16,7 +16,7 @@ describe UploadImporter do
   describe '.update_usage_count' do
     it 'should count and record how many times files are used' do
       create(:user,
-             wiki_id: 'Guettarda')
+             username: 'Guettarda')
       VCR.use_cassette 'commons/import_all_uploads' do
         UploadImporter.import_all_uploads(User.all)
       end
@@ -51,7 +51,7 @@ describe UploadImporter do
   describe '.import_urls_in_batches' do
     it 'should find and record Commons thumbnail urls' do
       create(:user,
-             wiki_id: 'Guettarda')
+             username: 'Guettarda')
       VCR.use_cassette 'commons/import_all_uploads' do
         UploadImporter.import_all_uploads(User.all)
       end

@@ -22,7 +22,7 @@ describe CoursesUsers, type: :model do
       # Add a user, a course, an article, and a revision.
       create(:user,
              id: 1,
-             wiki_id: 'Ragesoss')
+             username: 'Ragesoss')
 
       create(:course,
              id: 1,

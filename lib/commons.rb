@@ -70,7 +70,7 @@ class Commons
   end
 
   def self.build_upload_query(users)
-    usernames = users.map(&:wiki_id)
+    usernames = users.map(&:username)
     upload_query = { list: 'usercontribs',
                      ucuser: usernames,
                      ucnamespace: 6, # File: namespace

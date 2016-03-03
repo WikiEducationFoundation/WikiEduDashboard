@@ -4,7 +4,7 @@
 require 'csv'
 
 # all the usernames
-usernames = User.joins(:courses_users).uniq.pluck(:wiki_id)
+usernames = User.joins(:courses_users).uniq.pluck(:username)
 CSV.open('/root/all_course_participants.csv', 'wb') do |csv|
   usernames.each do |username|
     csv << [username]
@@ -15,7 +15,7 @@ end
 Cohort.all.each do |cohort|
   CSV.open("/root/#{cohort.slug}_students.csv", 'wb') do |csv|
     cohort.students.each do |student|
-      csv << [student.wiki_id]
+      csv << [student.username]
     end
   end
 end
@@ -25,7 +25,7 @@ Cohort.all.each do |cohort|
   CSV.open("/root/#{cohort.slug}_students.csv", 'wb') do |csv|
     cohort.courses.each do |course|
       course.students.each do |student|
-        csv << [student.wiki_id, course.slug]
+        csv << [student.username, course.slug]
       end
     end
   end
@@ -36,7 +36,7 @@ CSV.open("/root/course_instructors.csv", 'wb') do |csv|
   csv << ['course', 'instructor_user_id', 'instructor username']
   Course.all.each do |course|
     course.instructors.each do |instructor|
-      csv << [course.slug, instructor.id, instructor.wiki_id]
+      csv << [course.slug, instructor.id, instructor.username]
     end
   end
 end

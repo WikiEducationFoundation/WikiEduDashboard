@@ -32,7 +32,7 @@ describe 'Students Page', type: :feature, js: true do
                    # why is there an `id` in the user factory
                    # anyway?
                    id: rand(534384389),
-                   wiki_id: 'Mr_Tester',
+                   username: 'Mr_Tester',
                    real_name: 'Mr. Tester',
                    trained: true)
 
@@ -66,7 +66,7 @@ describe 'Students Page', type: :feature, js: true do
   it 'should display a list of students' do
     js_visit "/courses/#{@course.slug}/students"
     sleep 1 # Try to avoid issue where this test fails with 0 rows found.
-    expect(page).to have_content @user.wiki_id
+    expect(page).to have_content @user.username
   end
 
   it 'should open a list of individual student revisions' do

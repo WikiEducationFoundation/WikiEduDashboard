@@ -28,28 +28,28 @@ describe UserImporter do
     end
   end
 
-  describe '.new_from_wiki_id' do
+  describe '.new_from_username' do
     it 'should create a new user' do
-      VCR.use_cassette 'user/new_from_wiki_id' do
+      VCR.use_cassette 'user/new_from_username' do
         username = 'Ragesoss'
-        user = UserImporter.new_from_wiki_id(username)
+        user = UserImporter.new_from_username(username)
         expect(user.id).to eq(319203)
       end
     end
 
     it 'should return an existing user' do
-      VCR.use_cassette 'user/new_from_wiki_id' do
-        create(:user, id: 319203, wiki_id: 'Ragesoss')
+      VCR.use_cassette 'user/new_from_username' do
+        create(:user, id: 319203, username: 'Ragesoss')
         username = 'Ragesoss'
-        user = UserImporter.new_from_wiki_id(username)
+        user = UserImporter.new_from_username(username)
         expect(user.id).to eq(319203)
       end
     end
 
     it 'should not create a user if the username is not registered' do
-      VCR.use_cassette 'user/new_from_wiki_id_nonexistent' do
+      VCR.use_cassette 'user/new_from_username_nonexistent' do
         username = 'RagesossRagesossRagesoss'
-        user = UserImporter.new_from_wiki_id(username)
+        user = UserImporter.new_from_username(username)
         expect(user).to be_nil
       end
     end

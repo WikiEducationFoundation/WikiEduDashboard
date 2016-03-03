@@ -74,7 +74,7 @@ class StudentGreeter
   end
 
   def first_name(user)
-    name = user.real_name || user.wiki_id
+    name = user.real_name || user.username
     # Split on either whitespace or underscore, so that it works for usernames
     # like Ian_(Wiki Ed) too.
     name.split(/[\s_]/)[0]

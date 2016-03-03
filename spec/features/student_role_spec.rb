@@ -23,7 +23,7 @@ describe 'Student users', type: :feature, js: true do
            end: '2020-01-01'.to_date)
     create(:user,
            id: 100,
-           wiki_id: 'Professor Sage')
+           username: 'Professor Sage')
     create(:courses_user,
            user_id: 100,
            course_id: 10001,
@@ -33,7 +33,7 @@ describe 'Student users', type: :feature, js: true do
            course_id: 10001)
     create(:user,
            id: 101,
-           wiki_id: 'Classmate')
+           username: 'Classmate')
     create(:courses_user,
            id: 2,
            user_id: 101,
@@ -76,7 +76,7 @@ describe 'Student users', type: :feature, js: true do
       end
 
       visit "/courses/#{Course.first.slug}/students"
-      expect(find('tbody', match: :first)).to have_content User.last.wiki_id
+      expect(find('tbody', match: :first)).to have_content User.last.username
 
       # now unenroll
       visit "/courses/#{Course.first.slug}"
@@ -87,7 +87,7 @@ describe 'Student users', type: :feature, js: true do
       sleep 1
 
       visit "/courses/#{Course.first.slug}/students"
-      expect(find('tbody', match: :first)).not_to have_content User.last.wiki_id
+      expect(find('tbody', match: :first)).not_to have_content User.last.username
     end
 
     it 'redirects to an error page if passcode is incorrect' do
@@ -106,11 +106,11 @@ describe 'Student users', type: :feature, js: true do
       stub_oauth_edit
 
       visit "/courses/#{Course.first.slug}?enroll=passcode"
-      expect(page).to have_content User.last.wiki_id
+      expect(page).to have_content User.last.username
       click_link 'Join'
       sleep 1
       visit "/courses/#{Course.first.slug}/students"
-      expect(find('tbody', match: :first)).to have_content User.last.wiki_id
+      expect(find('tbody', match: :first)).to have_content User.last.username
       # Now try enrolling again, which shouldn't cause any errors
       visit "/courses/#{Course.first.slug}/enroll/passcode"
     end

@@ -49,7 +49,7 @@ StudentList = React.createClass(
       notify_overdue = <button className='notify_overdue' onClick={@notify} key='notify'></button>
 
     keys =
-      'wiki_id':
+      'username':
         'label': I18n.t('users.name')
         'desktop_only': false
       'assignment_title':

@@ -8,7 +8,7 @@ describe AssignmentsManager do
 
     it 'creates new assignments for existing articles' do
       create(:article, id: 1, namespace: 0, title: 'Existing_article')
-      params = { 'users' => [{ 'id' => 1, 'wiki_id' => 'Ragesock' }],
+      params = { 'users' => [{ 'id' => 1, 'username' => 'Ragesock' }],
                  'assignments' => [{ 'user_id' => 1,
                                      'article_title' => 'existing article',
                                      'role' => 0 }] }
@@ -21,7 +21,7 @@ describe AssignmentsManager do
     end
 
     it 'creates new assignments for non-existent articles' do
-      params = { 'users' => [{ 'id' => 1, 'wiki_id' => 'Ragesock' }],
+      params = { 'users' => [{ 'id' => 1, 'username' => 'Ragesock' }],
                  'assignments' => [{ 'user_id' => 1,
                                      'article_title' => 'existing article',
                                      'role' => 0 }] }
@@ -41,7 +41,7 @@ describe AssignmentsManager do
              article_title: 'Existing_article',
              course_id: 1,
              role: 0)
-      params = { 'users' => [{ 'id' => 1, 'wiki_id' => 'Ragesock' }],
+      params = { 'users' => [{ 'id' => 1, 'username' => 'Ragesock' }],
                  'assignments' => [{ 'user_id' => 1,
                                      'id' => 1,
                                      'article_title' => 'existing article',
@@ -55,7 +55,7 @@ describe AssignmentsManager do
     end
 
     it 'handles deletion of already-deleted assignments gracefully' do
-      params = { 'users' => [{ 'id' => 1, 'wiki_id' => 'Ragesock' }],
+      params = { 'users' => [{ 'id' => 1, 'username' => 'Ragesock' }],
                  'assignments' => [{ 'user_id' => 1,
                                      'id' => 1,
                                      'article_title' => 'existing article',
@@ -76,7 +76,7 @@ describe AssignmentsManager do
              course_id: 1,
              role: 0)
       create(:article, id: 1, namespace: 0, title: 'Existing_article')
-      params = { 'users' => [{ 'id' => 1, 'wiki_id' => 'Ragesock' }],
+      params = { 'users' => [{ 'id' => 1, 'username' => 'Ragesock' }],
                  'assignments' => [{ 'user_id' => 1,
                                      'article_title' => 'existing article',
                                      'role' => 0 }] }

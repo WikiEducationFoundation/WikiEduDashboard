@@ -3,7 +3,7 @@
 # Table name: users
 #
 #  id                  :integer          not null, primary key
-#  wiki_id             :string(255)
+#  username             :string(255)
 #  created_at          :datetime
 #  updated_at          :datetime
 #  character_sum       :integer          default(0)
@@ -27,6 +27,8 @@ require "#{Rails.root}/lib/utils"
 
 #= User model
 class User < ActiveRecord::Base
+  alias_attribute :wiki_id, :username
+
   validates :permissions, inclusion: { in: [0, 1, 2] }
 
   #############
@@ -78,16 +80,16 @@ class User < ActiveRecord::Base
 
   def contribution_url
     language = ENV['wiki_language']
-    "https://#{language}.wikipedia.org/wiki/Special:Contributions/#{wiki_id}"
+    "https://#{language}.wikipedia.org/wiki/Special:Contributions/#{username}"
   end
 
   def sandbox_url
     language = ENV['wiki_language']
-    "https://#{language}.wikipedia.org/wiki/Special:PrefixIndex/User:#{wiki_id}"
+    "https://#{language}.wikipedia.org/wiki/Special:PrefixIndex/User:#{username}"
   end
 
   def talk_page
-    "User_talk:#{wiki_id}"
+    "User_talk:#{username}"
   end
 
   def admin?

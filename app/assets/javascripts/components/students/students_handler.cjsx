@@ -19,7 +19,7 @@ StudentsHandler = React.createClass(
         <h3>{CourseUtils.i18n('students', @props.course.string_prefix)}</h3>
         <div className='sort-select'>
           <select className='sorts' name='sorts' onChange={@sortSelect}>
-            <option value='wiki_id'>Name</option>
+            <option value='username'>Name</option>
             <option value='character_sum_ms'>MS Chars Added</option>
             <option value='character_sum_us'>US Chars Added</option>
           </select>
