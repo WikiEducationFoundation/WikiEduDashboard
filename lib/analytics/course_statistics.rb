@@ -59,7 +59,7 @@ class CourseStatistics
     @revision_ids = revision_ids.flatten.uniq
     @page_ids = page_ids.flatten.uniq
     @upload_ids = upload_ids.flatten.uniq
-    @article_ids = Article.where(namespace: 0, id: @page_ids).pluck(:id)
+    @article_ids = Article.where(namespace: 0, id: @page_ids, deleted: false).pluck(:id)
   end
 
   def find_upload_usage

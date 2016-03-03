@@ -35,6 +35,10 @@
 #  cloned_status     :integer
 #
 
+require "#{Rails.root}/lib/course_cleanup_manager"
+require "#{Rails.root}/lib/course_update_manager"
+require "#{Rails.root}/lib/course_training_progress_manager"
+
 #= Course model
 class Course < ActiveRecord::Base
   ######################
@@ -256,7 +260,6 @@ class Course < ActiveRecord::Base
   end
 
   def manual_update
-    require "#{Rails.root}/lib/course_update_manager"
     CourseUpdateManager.manual_update self
   end
 
@@ -264,7 +267,6 @@ class Course < ActiveRecord::Base
   # Callback methods #
   ####################
   def cleanup_articles(user)
-    require "#{Rails.root}/lib/course_cleanup_manager"
     CourseCleanupManager.cleanup_articles(self, user)
   end
 
