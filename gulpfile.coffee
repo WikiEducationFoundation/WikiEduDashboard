@@ -33,6 +33,6 @@ gulp.task "build", (cb) ->
     "copy-static"
     "bower"
     "javascripts-fingerprint"
-    "stylesheets-fingerprint"
+    "stylesheets"
   ], "minify", cb
 
