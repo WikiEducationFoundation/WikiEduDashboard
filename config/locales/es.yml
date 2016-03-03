@@ -124,6 +124,29 @@ es:
       cuenta de las semanas que no tienen reuniones programadas.
     course_description: Cursos
     courses: Cursos
+    creator:
+      cloned_course_calendar_instructions: Selecciona fechas para añadirlas o quitarlas
+        del calendario (por ejemplo, vacaciones, cuando no hay clases). Haz clic en
+        la fecha para cambiar entre los estados «no seleccionado», «seleccionado»
+        y «vacaciones». Si no tienes vacaciones, marca «No tengo vacaciones de clases».
+        El cronograma copiado ajustará automáticamente las fechas para dar cuenta
+        de las semanas que no tienen reuniones programadas.
+      course_description: Descripción del curso
+      course_school: Escuela del curso
+      course_subject: Tema del curso
+      course_title: Título del curso
+      create_button: ¡Crear mi curso!
+      create_label: Crear curso nuevo
+      create_new: Crear un curso nuevo
+      create_short: Crear curso
+      end_date: Fecha de finalización
+      expected_number: Número de estudiantes esperado
+      find: Encuentra tu curso
+      intro: El título, la escuela y el plazo crean la dirección URL de la página
+        del curso, y no pueden cambiarse. Todo lo demás puede editarse luego. Haz
+        clic en "Crear mi curso" para iniciar la construcción del cronograma para
+        tu tarea en Wikipedia.
+      start_date: Fecha de inicio
     current: Cursos actuales
     duration: Duración del curso
     edit_course_dates: Editar las fechas del curso
@@ -201,6 +224,18 @@ es:
     assignment_end: Final del cronograma
     assignments_none: Este curso no tiene artículos de Wikipedia asignados.
     assignment_start: Inicio del cronograma
+    creator:
+      course_description: Descripción del programa
+      course_school: Institución
+      course_title: Título del programa
+      create_button: ¡Crear mi programa!
+      create_label: Crear programa nuevo
+      create_new: Crear un programa nuevo
+      create_short: Crear programa
+      find: Encuentra tu programa
+      intro: El título del programa es necesario, todo lo demás puede completarse
+        más tarde. Haz clic en "¡Crear mi programa!" para empezar a crear la página
+        de tu programa wiki.
     edit_course_dates: Editar las fechas del proyecto
     expected_students: Editores esperados
     instructors: Facilitadores
