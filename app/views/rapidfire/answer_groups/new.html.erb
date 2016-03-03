@@ -15,7 +15,7 @@
   <% end %>
   <div class='survey__block-nav'>
     <div></div>
-    <button class='button survey__start dark' data-next-survey-block><span>Start</span> <span class='icon icon-rt_arrow'></span></button>
+    <button class='button survey__next dark' data-next-survey-block><span>Start</span> <span class='icon icon-rt_arrow'></span></button>
   </div>
 </div>
 
@@ -27,8 +27,8 @@
         <%= render_answer_form_helper(answer, answer_form) %>
         <div data-errors></div>
         <div class='survey__block-nav'>
-          <button class='button' data-prev-survey-block>Prev</button>
-          <button class='button dark' data-next-survey-block>Next</button>
+          <button class='button survey__prev border' data-prev-survey-block>Previous</button>
+          <button class='button survey__next dark' data-next-survey-block>Next <span class='icon icon-rt_arrow'></span></button>
         </div>
       </div>
     <% end %>

@@ -18,7 +18,6 @@ body.survey-page
     max-width $survey_max_width
     margin 100px auto
     
-    
     &.survey__form
       margin-top 2em
     
@@ -29,6 +28,20 @@ body.survey-page
     
     &--clear
       overflow hidden
+  
+  .question-type--radio,
+  .question-type--checkbox
+    a[target='_blank']
+      margin-right 4px
+    a[target='_blank']:after
+      font-family "icons"
+      content "\EA10"
+      display inline-block
+      position relative
+      margin-left 4px
+      top -3px
+      z-index 5
+      font-size 8px
       
   .block.disabled
     opacity .5
@@ -104,13 +117,19 @@ ul.list--survey
   font-size 21px
   color $text_dk
 
-.survey__start span
+.survey__next span
   display inline-block
   vertical-align middle
+  position relative
   &:first-child
     margin-right 10px
-    position relative
     top -1px
+  
+  &.icon
+    top 1px
+
+.button.survey__prev.border
+  color $text_dk
 
 .survey__multiple-choice-field
   .field_with_errors

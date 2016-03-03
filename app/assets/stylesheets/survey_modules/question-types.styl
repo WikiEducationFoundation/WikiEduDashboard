@@ -8,27 +8,21 @@
 .question-type--radio input[type=radio],
 .question-type--radio input[type=checkbox]
   visibility hidden
-  position relative
+  position absolute
   z-index 3
-
-body.survey-page input[type=checkbox]
-  margin 0
 
 .question-type--radio span
   position relative
   margin-left 10px
 
 .survey__multiple-choice-field .label
+  position relative
   display block
-  position absolute
-  z-index 2
-  top 0
-  left 0
-  right 0
-  bottom 0
-  width 100%
+  margin 0
   padding 10px 5px 10px 60px
   border-radius 3px
+  font-weight 400
+  color $text_dk
 
 .survey__multiple-choice-field .label:before
 .survey__multiple-choice-field .label:after
@@ -49,9 +43,13 @@ body.survey-page input[type=checkbox]
   left 17px
   border-color transparent
 
-.survey__multiple-choice-field input[type=radio]:checked ~ .label
+.survey__multiple-choice-field input[type=radio]:checked ~ .label,
+.survey__multiple-choice-field input[type=checkbox]:checked ~ .label
   background $brand_primary
   color white
+  
+  a
+    color white 
   
   &:before,
   &:after
@@ -68,7 +66,7 @@ body.survey-page input[type=checkbox]
   top 0
   bottom 0
   width 40px
-  background darken(athens, 5%)
+  background darken(athens, 2.5%)
   border-right 1px solid darken(mercury, 5%)
   border-top-left-radius 3px
   border-bottom-left-radius 3px
@@ -78,7 +76,7 @@ body.survey-page input[type=checkbox]
   background athens
   border 1px solid mercury
   border-radius 3px
-  padding $spacer * .5
+  // padding $spacer * .5
   margin-bottom $spacer
   cursor pointer
   position relative
@@ -103,14 +101,14 @@ body.survey-page input[type=checkbox]
     padding 0
     vertical-align middle
   
-  input
-    margin 10px
-    background-color darken(mercury, 10%)
-    border 1px solid mercury
-  
   .check
     position absolute
     top 0
     left 0
     width 30px
     height 100%
+
+// Allow html links to be clickable
+.survey__multiple-choice-field__option
+  position relative
+  z-index 5
