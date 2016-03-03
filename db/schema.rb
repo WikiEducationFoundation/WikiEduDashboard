@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160227020140) do
+ActiveRecord::Schema.define(version: 20160303235552) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title",                    limit: 255
@@ -189,7 +189,7 @@ ActiveRecord::Schema.define(version: 20160227020140) do
   create_table "rapidfire_questions", force: :cascade do |t|
     t.integer  "question_group_id", limit: 4
     t.string   "type",              limit: 255
-    t.string   "question_text",     limit: 255
+    t.text     "question_text",     limit: 65535
     t.integer  "position",          limit: 4
     t.text     "answer_options",    limit: 65535
     t.text     "validation_rules",  limit: 65535

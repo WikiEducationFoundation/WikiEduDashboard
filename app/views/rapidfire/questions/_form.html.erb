@@ -33,21 +33,30 @@
 
   <h4>Other options</h4>
   <hr/>
-  
-  <%= f.label :answer_minimum_length %>
-  <%= f.text_field :answer_minimum_length %>
+  <div class="survey__question__option-row">
+    <%= f.label :answer_minimum_length %>
+    <%= f.number_field :answer_minimum_length %>
+  </div>
 
-  <br/>
-  <%= f.label :answer_maximum_length %>
-  <%= f.text_field :answer_maximum_length %>
+  <div class="survey__question__option-row">
+    <%= f.label :answer_maximum_length %>
+    <%= f.number_field :answer_maximum_length %>
+  </div>
 
-  <br/>
-  <%= f.label :answer_greater_than_or_equal_to %>
-  <%= f.text_field :answer_greater_than_or_equal_to %>
+  <div class="survey__question__option-row">
+    <%= f.label :answer_increment %>
+    <%= f.number_field :answer_increment %>
+  </div>
 
-  <br/>
-  <%= f.label :answer_less_than_or_equal_to %>
-  <%= f.text_field :answer_less_than_or_equal_to %>
+  <div class="survey__question__option-row">
+    <%= f.label :answer_greater_than_or_equal_to %>
+    <%= f.number_field :answer_greater_than_or_equal_to %>
+  </div>
+
+  <div class="survey__question__option-row">
+    <%= f.label :answer_less_than_or_equal_to %>
+    <%= f.number_field :answer_less_than_or_equal_to %>
+  </div>
 
   </div>
   <%= f.submit submit_text, :class => 'button button--no-margin' %>
