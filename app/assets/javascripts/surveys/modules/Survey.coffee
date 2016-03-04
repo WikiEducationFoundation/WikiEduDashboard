@@ -52,6 +52,7 @@ Survey =
     passedValidation = @validateCurrentQuestion()
 
     if passedValidation
+      @removeNextButton(e)
       $($block).velocity 'scroll', 
         duration: scroll_duration
         easing: scroll_easing
@@ -74,7 +75,6 @@ Survey =
     else
       @handleRequiredQuestion()
       return
-        
 
   prevBlock: (e) ->
     e.preventDefault()
@@ -118,5 +118,11 @@ Survey =
   updateProgress: (index) ->
     width = "#{(index / (@survey_blocks.length - 1)) * 100}%"
     @survey_progress.css 'width', width
+
+  removeNextButton: ({target}) ->
+    return unless target?
+    $el = $(target).closest '.button'
+    if $el.hasClass 'button'
+      $el.addClass 'hidden'
 
 module.exports = Survey 
