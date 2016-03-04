@@ -19,7 +19,7 @@ SurveyAdmin =
     $sortable.sortable
       axis: 'y'
       items: '.row--survey-question'
-      containment: 'parent'
+      # containment: 'parent'
       scroll: false
       cursor: 'move'
       sort: (e, ui) ->
