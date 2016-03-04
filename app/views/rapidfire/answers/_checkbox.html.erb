@@ -1,11 +1,11 @@
 <%= render partial: "rapidfire/answers/errors", locals: {answer: answer} %>
 <%= render partial: "rapidfire/answers/question_text", locals: {f: f, answer: answer} %>
 
-<div class='survey__question__assistive-text'><em>Select all that apply.</em></div>
+<div class='survey__question__assistive-text' data-required-checkbox="<%= is_required_question?(answer) %>"><em>Select all that apply.</em></div>
 <%= f.fields_for :answer_text do |af| %>
   <%- answer.question.options.each do |option| %>
     <label class='survey__multiple-choice-field'>
-      <%= f.check_box nil, { id: nil, checked: checkbox_checked?(answer, option), :required => is_required_question?(answer) }, option%>
+      <%= af.check_box nil, { id: nil, checked: checkbox_checked?(answer, option) }, option%>
       <div class='label'><%= option.html_safe %></div>
     </label>
   <% end %>

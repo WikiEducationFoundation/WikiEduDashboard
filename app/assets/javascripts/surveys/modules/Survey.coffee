@@ -95,6 +95,10 @@ Survey =
     $block = $(@survey_blocks[@current_block])
     $errorsEl = $block.find('[data-errors]')
     validation = @$survey_form.parsley({uiEnabled: false}).validate group: "#{$block.data 'parsley-group'}"
+    if $block.find("[data-required-checkbox='true']").length
+      if $block.find('input[type="checkbox"]:checked').length is 0
+        validation = false
+
     if validation is true
       $errorsEl.empty()
       return true
@@ -124,5 +128,10 @@ Survey =
     $el = $(target).closest '.button'
     if $el.hasClass 'button'
       $el.addClass 'hidden'
+
+  # addRequiredAttributes: ->
+  #   $('[data-required-checkbox="true"]').each (i, checkbox) ->
+  #     $checkbox = $(checkbox).find 'input[type=checkbox]'
+  #     $checkbox.attr 'required', 'required'
 
 module.exports = Survey 
