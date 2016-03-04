@@ -6,7 +6,7 @@
   <%- answer.question.options.each do |option| %>
     <label class='survey__multiple-choice-field'>
       <%= f.check_box nil, { id: nil, checked: checkbox_checked?(answer, option), :required => is_required_question?(answer) }, option%>
-      <div class='label'><%= option %></div>
+      <div class='label'><%= option.html_safe %></div>
     </label>
   <% end %>
 <% end %>
