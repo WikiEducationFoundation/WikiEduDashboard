@@ -17,15 +17,24 @@
 #  wp10_previous  :float(24)
 #  ithenticate_id :integer
 #  report_url     :string(255)
+#  wiki_id        :integer
+#  mw_rev_id      :integer
+#  mw_page_id     :integer
 #
 
 #= Revision model
 class Revision < ActiveRecord::Base
   belongs_to :user
   belongs_to :article
+  belongs_to :wiki
   scope :after_date, -> (date) { where('date > ?', date) }
   scope :live, -> { where(deleted: false) }
   scope :user, -> { where(system: false) }
+
+  # Helps with importing data
+  alias_attribute :rev_id, :mw_rev_id
+
+  before_validation :set_defaults
 
   ####################
   # Instance methods #
@@ -46,5 +55,13 @@ class Revision < ActiveRecord::Base
   def infer_courses_from_user
     return [] if user.blank?
     user.courses.where('start <= ?', date).where('end >= ?', date)
+  end
+
+  private
+
+  def set_defaults
+    self.wiki_id ||= Wiki.default_wiki.id
+    self.mw_rev_id ||= self.id
+    self.mw_page_id ||= self.article_id
   end
 end

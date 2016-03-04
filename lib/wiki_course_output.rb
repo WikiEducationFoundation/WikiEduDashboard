@@ -133,7 +133,8 @@ class WikiCourseOutput
 
   def self.titles_to_wikilinks(titles)
     return '' if titles.blank?
-    wikitext = '[[' + titles.join(']], [[') + ']]'
+    titles_with_spaces = titles.map { |t| t.tr('_', ' ') }
+    wikitext = '[[' + titles_with_spaces.join(']], [[') + ']]'
     wikitext
   end
 

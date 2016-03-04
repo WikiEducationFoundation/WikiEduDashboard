@@ -10,16 +10,22 @@
 #  article_id    :integer
 #  article_title :string(255)
 #  role          :integer
+#  wiki_id       :integer
 #
+
+require "#{Rails.root}/lib/utils"
 
 #= Assignment model
 class Assignment < ActiveRecord::Base
   belongs_to :user
   belongs_to :course
   belongs_to :article
+  belongs_to :wiki
 
   scope :assigned, -> { where(role: 0) }
   scope :reviewing, -> { where(role: 1) }
+
+  before_validation :set_defaults_and_normalize
 
   #############
   # CONSTANTS #
@@ -45,5 +51,13 @@ class Assignment < ActiveRecord::Base
       .where(course_id: course_id, article_id: article_id)
       .where.not(id: id)
       .where.not(user: user_id)
+  end
+
+  private
+
+  def set_defaults_and_normalize
+    self.article_title = Utils.format_article_title(article_title) unless article_title.nil?
+    # FIXME: transitional only
+    self.wiki_id ||= Wiki.default_wiki.id
   end
 end
