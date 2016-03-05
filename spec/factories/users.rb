@@ -6,11 +6,6 @@
 #  username            :string(255)
 #  created_at          :datetime
 #  updated_at          :datetime
-#  character_sum       :integer          default(0)
-#  view_sum            :integer          default(0)
-#  course_count        :integer          default(0)
-#  article_count       :integer          default(0)
-#  revision_count      :integer          default(0)
 #  trained             :boolean          default(FALSE)
 #  global_id           :integer
 #  remember_created_at :datetime
@@ -21,6 +16,8 @@
 #  real_name           :string(255)
 #  email               :string(255)
 #  onboarded           :boolean          default(FALSE)
+#  greeted             :boolean          default(FALSE)
+#  greeter             :boolean          default(FALSE)
 #
 
 FactoryGirl.define do
