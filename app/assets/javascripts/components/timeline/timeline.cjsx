@@ -260,7 +260,7 @@ Timeline = React.createClass(
           {no_weeks}
         </ul>
         <div className="timeline__week-nav">
-          <Affix offset={246}>
+          <Affix offset={100}>
             <section className="timeline-ctas float-container">
               <span>{wizard_link}</span>
               {reorderable_controls}
