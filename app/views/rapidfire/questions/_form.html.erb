@@ -31,6 +31,13 @@
   <%= f.label :answer_presence, "Question is Required" %>
   <%= f.check_box :answer_presence %>
 
+  <br/>
+  <%= f.label :answer_qrouped, "Group this question as a matrix" %>
+  <%= f.check_box :answer_grouped %>
+  <br/>
+  <%= f.label :answer_qrouped, "Grouped question" %>
+  <%= f.text_area :answer_grouped_question %>
+
   <h4>Other options</h4>
   <hr/>
   <div class="survey__question__option-row">

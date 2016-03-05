@@ -1,4 +1,5 @@
 require('jquery-ui/sortable');
+require('jquery.repeater');
 
 SurveyAdmin =
   init: ->
@@ -7,6 +8,7 @@ SurveyAdmin =
     @$question_text_input = $('[data-question-text]')
     @$question_text_editor = $('[data-question-text-editor]')
     @initSortable()
+    @initRepeaters()
     @listeners()
 
   listeners: ->
@@ -59,6 +61,22 @@ SurveyAdmin =
     @$question_text_input.removeClass 'hidden'
     @$question_form_options.removeClass 'hidden'
     @$question_text_editor.empty()
+
+  initRepeaters: ->
+    $('[data-repeater]').repeater
+       defaultValues: 'text-input': 'foo'
+       show: ->
+         $(this).slideDown()
+         return
+       hide: (deleteElement) ->
+         if confirm('Are you sure you want to delete this element?')
+           $(this).slideUp deleteElement
+         return
+       ready: (setIndexes) ->
+         # $dragAndDrop.on 'drop', setIndexes
+         return
+       isFirstItemUndeletable: true
+
 
 
 module.exports = SurveyAdmin

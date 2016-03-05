@@ -33,7 +33,7 @@ gulp.task "dev-livereload", ->
     "i18n"
     "copy-static"
     "bower"
-    "javascripts"
+    "javascripts",
     "stylesheets-livereload"
   ], "watch-livereload"
 

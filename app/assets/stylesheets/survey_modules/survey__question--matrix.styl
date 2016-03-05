@@ -1,0 +1,75 @@
+.block.survey__question--matrix
+  
+  .survey__question-required
+    display none
+  
+  .survey__question-text,
+  .survey__multiple-choice-field
+    display inline-block
+  
+  .survey__question-text--matrix
+    font-weight bold
+    display none
+    &:first-child
+      display block
+      margin-bottom 40px
+  
+  .survey__question-text
+    width 200px
+  
+  .survey__question-row
+    display flex
+  
+  .survey__multiple-choice-field
+    flex 1
+    text-align center
+    background none
+    border none
+    
+    .label
+      top -50px
+    
+    .label:before
+      width 15px
+      height 15px
+      position absolute
+      left 50%
+      transform translate(-50%, 30px)
+      margin-left -7px
+
+    .label:after
+      display none
+    
+    .label:before
+      border-color $text_dk
+    
+    input[type=radio]
+      display none
+    
+    input[type=radio]:checked + .label
+      background none
+      color $text_dk  
+      color white
+    
+    input[type=radio]:checked + .label:before
+      border-color $brand_primary
+      background $brand_primary
+    
+  .survey__multiple-choice-field:before
+    display none
+
+  .survey__multiple-choice-field .label
+    padding-left 0
+    background none
+  
+  .survey__question-row .survey__multiple-choice-field .label
+    // color white
+  
+  // .survey__question-row:first-child .survey__multiple-choice-field .label
+  //   color $text_dk
+
+  
+  
+
+.survey__question--matrix__options > div
+  display inline-block
