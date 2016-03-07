@@ -22,7 +22,9 @@
   <div>
   <%- @answer_group_builder.answers.each_with_index do |answer, index| %>
 
-    <% if start_of_group(answers:@answer_group_builder.answers, index: index) %>
+    <% start_of_group = start_of_group(answers:@answer_group_builder.answers, index: index) %>
+    <% last_of_group = is_grouped_question(answer) && index + 1 == @answer_group_builder.answers.length %>
+    <% if start_of_group %>
       <div class="block not-seen disabled survey__question--matrix" data-survey-block='<%= index + 1 %>'>
     <% end %>
 
@@ -33,9 +35,9 @@
       <% if !is_grouped_question(answer) %>
         <div class='block disabled not-seen question-type--<%= question_type(answer) %> <% if answer.errors.any? %>block--errors<% end %> <% if answer.question.validation_rules[:presence].to_i == 1 %>required<% end %>' data-survey-block='<%= index + 1 %>'>
       <% end %>
-        <div class='survey__question-row'><%= render_answer_form_helper(answer, answer_form) %></div>
+        <div class='survey__question-row <%= start_of_group ? "first" : "" %> <%= last_of_group ? "last" : "" %>'><%= render_answer_form_helper(answer, answer_form) %></div>
         <div data-errors></div>
-        <% if !is_grouped_question(answer) || is_grouped_question(answer) && index + 1 == @answer_group_builder.answers.length  || is_grouped_question(answer) && !is_grouped_question(@answer_group_builder.answers[index + 1]) %>
+        <% if !is_grouped_question(answer) || last_of_group  || is_grouped_question(answer) && !is_grouped_question(@answer_group_builder.answers[index + 1]) %>
         <div class='survey__block-nav'>
           <div></div>
           <!-- <button class='button survey__prev border' data-prev-survey-block>Previous</button> -->

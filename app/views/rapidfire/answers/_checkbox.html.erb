@@ -7,6 +7,7 @@
     <label class='survey__multiple-choice-field'>
       <%= af.check_box nil, { id: nil, checked: checkbox_checked?(answer, option) }, option%>
       <div class='label'><%= option.html_safe %></div>
+      <div class='survey__multiple-choice-field__checkbox'></div>
     </label>
   <% end %>
 <% end %>

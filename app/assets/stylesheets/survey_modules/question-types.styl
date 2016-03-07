@@ -24,18 +24,21 @@
   font-weight 400
   color $text_dk
 
-.survey__multiple-choice-field .label:before
-.survey__multiple-choice-field .label:after
-  content ''
-  display block
+.survey__multiple-choice-field__radio-circle
+.survey__multiple-choice-field__checkbox
   width 10px
   height 10px
   border-radius 50%
   border 1px solid darken(mercury, 25%)
   position absolute
-  left 15px
+  left 14px
   top 50%
   transform translateY(-50%)
+  width 12px
+  height 12px
+
+.survey__multiple-choice-field__checkbox
+  border-radius 2px
 
 .survey__multiple-choice-field .label:after
   width 6px
@@ -56,7 +59,20 @@
     border-color white 
   
   &:after
-    background white 
+    background white
+
+.survey__multiple-choice-field 
+  input[type=radio]:checked ~ .survey__multiple-choice-field__radio-circle
+  input[type=checkbox]:checked ~ .survey__multiple-choice-field__checkbox
+    background $brand_primary
+    border-color $brand_primary
+  
+  input[type=checkbox]:checked ~ .survey__multiple-choice-field__checkbox:after
+    content  "\2713 "
+    position absolute
+    top -3px
+    color white
+    font-size 12px
 
 .survey__multiple-choice-field:before
   content ""
