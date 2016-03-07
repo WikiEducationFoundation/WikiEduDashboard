@@ -61,11 +61,7 @@
     &.first .label
       color $text_dk
       left 50%
-      transform translate(-50%, -45px)
-      
-      &:before
-        left 50%
-        transform translate(-50%, 34px)
+      transform translate(-50%, -130%)
   
   .survey__multiple-choice-field
     flex 1
@@ -95,8 +91,8 @@
       background $brand_primary
   
   .survey__multiple-choice-field__option
-    font-size 19px
-    line-height 27px
+    line-height 1.2
+    width 100%
   
   .survey__multiple-choice-field__radio-circle
     left 50%
@@ -114,6 +110,7 @@
   
   .survey__question-row .survey__multiple-choice-field .label
     color transparent
+    width 100%
   
   .survey__question-row.first .survey__multiple-choice-field .label,
   .survey__question-row:first-child .survey__multiple-choice-field .label
