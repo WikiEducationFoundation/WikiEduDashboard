@@ -18,6 +18,10 @@ body.survey-page
     max-width $survey_max_width
     margin 40px auto
     
+    +above(tablet)
+      font-size 19px
+      line-height 24px
+    
     &.survey__form
       margin-top 2em
     
@@ -28,6 +32,12 @@ body.survey-page
     
     &--clear
       overflow hidden
+  
+  input[type=text], 
+  textarea,
+  .block div
+    font-size 19px
+    line-height 28px
   
   .question-type--radio,
   .question-type--checkbox
@@ -65,15 +75,6 @@ body.survey-page
 
   .errors
     color $warning_text
-  
-  .survey__block-nav
-    overflow hidden
-    display flex
-    justify-content space-between
-    padding-top $spacer
-    
-    .button
-      float none
       
 ul.list--survey
   position relative
