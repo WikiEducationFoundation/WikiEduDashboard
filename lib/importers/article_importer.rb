@@ -22,7 +22,7 @@ class ArticleImporter
     titles.each_slice(40) do |some_article_titles|
       query = { prop: 'info',
                 titles: some_article_titles }
-      response = WikiApi.query(query)
+      response = WikiApi.new.query(query)
       next if response.nil?
       results = response.data
       next if results.empty?

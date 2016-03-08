@@ -1,6 +1,6 @@
 require "#{Rails.root}/lib/wiki_api"
 require "#{Rails.root}/lib/importers/user_importer"
-require "#{Rails.root}/lib/importers/cohort_importer"
+require "#{Rails.root}/lib/legacy_courses/legacy_cohort_importer"
 
 #= Imports and updates courses from Wikipedia into the dashboard database
 class LegacyCourseImporter
@@ -8,7 +8,7 @@ class LegacyCourseImporter
   # Entry points #
   ################
   def self.update_all_courses(initial=false, raw_ids={})
-    raw_ids = WikiApi.course_list if raw_ids.empty?
+    raw_ids = WikiApi.new.course_list if raw_ids.empty?
     listed_ids = raw_ids.values.flatten
     course_ids = listed_ids | Course.legacy.where(listed: true).pluck(:id)
 
@@ -55,7 +55,7 @@ class LegacyCourseImporter
     Course.import courses, on_duplicate_key_update: [:start, :end, :listed]
 
     # Update cohort membership
-    CohortImporter.update_cohorts raw_ids
+    LegacyCohortImporter.update_cohorts raw_ids
 
     import_users participants
     import_assignments participants

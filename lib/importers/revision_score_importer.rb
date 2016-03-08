@@ -73,7 +73,7 @@ class RevisionScoreImporter
 
     rev_id = revision.id
     rev_query = revision_query(rev_id)
-    response = WikiApi.query rev_query
+    response = WikiApi.new(revision.wiki).query rev_query
     prev_id = response.data['pages'].values[0]['revisions'][0]['parentid']
     prev_id
   end

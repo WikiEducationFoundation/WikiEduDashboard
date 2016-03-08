@@ -87,7 +87,7 @@ class Cleaners
               srsearch: search_term,
               srnamespace: 0,
               srlimit: 1 }
-    response = WikiApi.query(query)
+    response = WikiApi.new.query(query)
     return '' if response.nil?
     results = response.data['search']
     return '' if results.empty?

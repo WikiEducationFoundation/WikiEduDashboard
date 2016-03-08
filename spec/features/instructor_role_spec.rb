@@ -75,7 +75,7 @@ describe 'Instructor users', type: :feature, js: true do
     end
 
     it 'should be able to add students' do
-      allow(WikiApi).to receive(:get_user_id).and_return(123)
+      allow_any_instance_of(WikiApi).to receive(:get_user_id).and_return(123)
       visit "/courses/#{Course.first.slug}/students"
       sleep 1
       click_button 'Enrollment'
@@ -89,7 +89,7 @@ describe 'Instructor users', type: :feature, js: true do
     end
 
     it 'should not be able to add nonexistent users as students' do
-      allow(WikiApi).to receive(:get_user_id).and_return(nil)
+      allow_any_instance_of(WikiApi).to receive(:get_user_id).and_return(nil)
       visit "/courses/#{Course.first.slug}/students"
       sleep 1
       click_button 'Enrollment'

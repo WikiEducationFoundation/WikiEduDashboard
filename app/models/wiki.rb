@@ -51,7 +51,7 @@ class Wiki < ActiveRecord::Base
   end
 
   def api_url
-    "#{base_url}w/api.php"
+    "#{base_url}/w/api.php"
   end
 
   # Return the database name for a Wikimedia project wiki.

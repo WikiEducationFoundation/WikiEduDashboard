@@ -5,13 +5,13 @@ class WikiAssignmentOutput
   # Entry points #
   ################
   def self.build_talk_page_update(title, talk_title, assignments, course_page)
-    initial_page_content = WikiApi.get_page_content talk_title
+    initial_page_content = WikiApi.new.get_page_content talk_title
     # We only want to add assignment tags to non-existant talk pages if the
     # article page actually exists. This also servces to make sure that we
     # only post to talk pages of mainspace articles, as we assume that pages
     # like Talk:Template:Citation or Talk:Wikipedia:Notability do not exist.
     if initial_page_content.nil?
-      return nil if WikiApi.get_page_content(title).nil?
+      return nil if WikiApi.new.get_page_content(title).nil?
       initial_page_content = ''
     end
 
