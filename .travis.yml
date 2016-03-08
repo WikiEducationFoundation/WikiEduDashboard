@@ -60,4 +60,4 @@ deploy:
   app: wiki-dashboard-surveys
   on:
     repo: WikiEducationFoundation/WikiEduDashboard
-    branch: surveys
+    branch: surveys:master
