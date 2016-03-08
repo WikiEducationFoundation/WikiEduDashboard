@@ -83,5 +83,30 @@ module ApplicationHelper
   def next_question_is_start_of_group(index, answer, answers)
     !is_grouped_question(answer) && is_grouped_question(answers[index + 1])
   end
+
+  def method_missing method, *args, &block
+    # puts "LOOKING FOR ROUTES #{method}"
+    if method.to_s.end_with?('_path') or method.to_s.end_with?('_url')
+      if main_app.respond_to?(method)
+        main_app.send(method, *args)
+      else
+        super
+      end
+    else
+      super
+    end
+  end
+
+  def respond_to?(method)
+    if method.to_s.end_with?('_path') or method.to_s.end_with?('_url')
+      if main_app.respond_to?(method)
+        true
+      else
+        super
+      end
+    else
+      super
+    end
+  end
   
 end
