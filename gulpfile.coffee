@@ -45,6 +45,6 @@ gulp.task "build", (cb) ->
     ["i18n",
     "copy-static",
     "bower",
-    "stylesheets-fingerprint"],
+    "stylesheets"],
     "webpack-build", "minify", cb
 
