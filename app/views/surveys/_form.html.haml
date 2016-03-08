@@ -6,7 +6,8 @@
     = f.input :name
 
   .form-input
-    = f.association :rapidfire_question_groups,   as: :check_boxes
+    / = binding.pry
+    = f.association :rapidfire_question_groups,   as: :check_boxes, :checked => params[:preset_id]
 
   .form-actions
     = f.button :submit, :class => 'button'
