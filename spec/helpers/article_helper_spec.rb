@@ -3,13 +3,13 @@ require 'rails_helper'
 describe ArticleHelper, type: :helper do
   before(:all) do
     # Create some articles in different namespaces
-    @article = build(:article,
-                     id: 1,
-                     title: 'Selfie',
-                     namespace: 0,
-                     views_updated_at: '2014-12-31'.to_date)
-    @sandbox = build(:article, namespace: 2, title: 'Ragesoss/sandbox')
-    @draft = build(:article, namespace: 118, title: 'My Awesome Draft!!!')
+    @article = create(:article,
+                      id: 1,
+                      title: 'Selfie',
+                      namespace: 0,
+                      views_updated_at: '2014-12-31'.to_date)
+    @sandbox = create(:article, namespace: 2, title: 'Ragesoss/sandbox')
+    @draft = create(:article, namespace: 118, title: 'My Awesome Draft!!!')
   end
 
   describe '.article_url' do

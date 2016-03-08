@@ -44,7 +44,7 @@ class Revision < ActiveRecord::Base
     return if article.nil?
     escaped_title = article.title.tr(' ', '_')
     language = Figaro.env.wiki_language
-    "https://#{language}.wikipedia.org/w/index.php?title=#{escaped_title}&diff=prev&oldid=#{id}"
+    "#{wiki.base_url}/w/index.php?title=#{escaped_title}&diff=prev&oldid=#{id}"
   end
 
   def update(data={}, save=true)

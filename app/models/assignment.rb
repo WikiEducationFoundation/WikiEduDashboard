@@ -39,9 +39,7 @@ class Assignment < ActiveRecord::Base
   # Instance methods #
   ####################
   def page_url
-    language = ENV['wiki_language']
-    escaped_title = article_title.tr(' ', '_')
-    "https://#{language}.wikipedia.org/wiki/#{escaped_title}"
+    "#{wiki.base_url}/wiki/#{article_title}"
   end
 
   # A sibling assignment is an assignment for a different user,
