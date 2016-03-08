@@ -1,5 +1,6 @@
 class SurveysController < ApplicationController
   before_action :set_survey, only: [:show, :edit, :update, :destroy]
+  before_action :set_question_groups
 
   # GET /surveys
   # GET /surveys.json
@@ -79,6 +80,10 @@ class SurveysController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_survey
       @survey = Survey.find(params[:id])
+    end
+
+    def set_question_groups
+      @question_groups = Rapidfire::QuestionGroup.all
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

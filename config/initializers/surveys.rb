@@ -2,6 +2,11 @@ require 'active_support'
 require 'rapidfire'
 
 Rails.application.config.to_prepare do
+
+  Rapidfire::QuestionGroup.class_eval do
+    belongs_to :survey
+  end
+
   Rapidfire::ApplicationController.class_eval do
     layout 'surveys'
   end

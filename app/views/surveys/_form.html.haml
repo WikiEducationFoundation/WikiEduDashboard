@@ -1,8 +1,13 @@
+
 = simple_form_for(@survey) do |f|
   = f.error_notification
 
   .form-inputs
     = f.input :name
 
+  .form-input
+    = f.select :rapidfire_question_groups_id, options_from_collection_for_select(@question_groups, 'id', 'name'), {}, {:multiple => true}
+
+
   .form-actions
-    = f.button :submit
+    = f.button :submit, :class => 'button'
