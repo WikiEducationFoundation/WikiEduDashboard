@@ -47,7 +47,7 @@ class Wiki < ActiveRecord::Base
   # Is this useful?: has_many :article_wiki, :course_wiki, :user_wiki
 
   def base_url
-    "https://#{language}.#{project}.org/"
+    "https://#{language}.#{project}.org"
   end
 
   def api_url
