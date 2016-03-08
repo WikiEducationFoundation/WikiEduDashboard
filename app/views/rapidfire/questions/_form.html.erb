@@ -32,14 +32,36 @@
   <%= f.check_box :answer_presence %>
 
   <br/>
-  <%= f.label :answer_qrouped, "Group this question as a matrix" %>
-  <%= f.check_box :answer_grouped %>
-  <br/>
-  <%= f.label :answer_qrouped, "Grouped question" %>
-  <%= f.text_area :answer_grouped_question %>
+  <h4>Matrix Options</h4>
+  <hr/>
+  <div class="survey__question__option-row">
+    <%= f.label :answer_qrouped, "Group this question as a matrix" %>
+    <%= f.check_box :answer_grouped %><br/>
+    <%= f.label :answer_qrouped, "Grouped question" %>
+    <%= f.text_area :answer_grouped_question %>
+  </div>
+
+  <h4>Range Input Options</h4>
+  <hr/>
+
+  <div class="survey__question__option-row">
+    <%= f.label :answer_range_minimum %>
+    <%= f.number_field :answer_range_minimum %>
+  </div>
+
+  <div class="survey__question__option-row">
+    <%= f.label :answer_range_maximum %>
+    <%= f.number_field :answer_range_maximum %>
+  </div>
+
+  <div class="survey__question__option-row">
+    <%= f.label :answer_range_increment %>
+    <%= f.number_field :answer_range_increment %>
+  </div>
 
   <h4>Other options</h4>
   <hr/>
+
   <div class="survey__question__option-row">
     <%= f.label :answer_minimum_length %>
     <%= f.number_field :answer_minimum_length %>
@@ -48,11 +70,6 @@
   <div class="survey__question__option-row">
     <%= f.label :answer_maximum_length %>
     <%= f.number_field :answer_maximum_length %>
-  </div>
-
-  <div class="survey__question__option-row">
-    <%= f.label :answer_increment %>
-    <%= f.number_field :answer_increment %>
   </div>
 
   <div class="survey__question__option-row">
