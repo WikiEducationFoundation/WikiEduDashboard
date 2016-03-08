@@ -2,8 +2,11 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Aftabuzzaman
+# Author: Kayser Ahmad
 ---
 bn:
+  activity:
+    label: কর্মকান্ড
   articles:
     edited_mobile: নিবন্ধ
     loading: নিবন্ধ লোড হচ্ছে...
@@ -12,13 +15,27 @@ bn:
     reviewers: নিরীক্ষক(গণ)
   courses:
     creator:
+      course_school: কোর্স বিদ্যালয়
+      course_subject: কোর্সের বিষয়
+      course_title: কোর্স শিরোনাম
+      create_button: আমার কোর্স তৈরি করুন
+      create_label: নতুন কোর্স তৈরি করুন
+      create_new: একটি নতুন কোর্স তৈরি করুন
+      create_short: কোর্স তৈরি
       end_date: শেষের তারিখ
+      expected_number: শিক্ষার্থীদের প্রত্যাশিত সংখ্যা
+      find: আপনার কোর্স খুজুন
       start_date: শুরুর তারিখ
     title: শিরোনাম
     view_wiki: উইকিপিডিয়ায় দেখুন
   courses_generic:
     creator:
+      course_description: প্রকল্পের বর্ণনা
+      course_school: প্রতিষ্ঠান
       course_title: প্রোগ্রামের শিরোনাম
+      create_label: নতুন প্রকল্প তৈরি করুন
+      create_new: নতুন প্রকল্প তৈরি করুন
+      create_short: প্রোগ্রাম তৈরি করুন
       find: আপনার প্রোগ্রাম খুঁজুন
   users:
     name: নাম

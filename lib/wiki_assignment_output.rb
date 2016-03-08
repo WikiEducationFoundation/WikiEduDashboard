@@ -101,7 +101,7 @@ class WikiAssignmentOutput
   def self.build_wikitext_user_list(assignments, role)
     user_ids = assignments.select { |assignment| assignment.role == role }
                .map(&:user_id)
-    User.where(id: user_ids).pluck(:wiki_id)
-      .map { |wiki_id| "[[User:#{wiki_id}|#{wiki_id}]]" }.join(', ')
+    User.where(id: user_ids).pluck(:username)
+      .map { |username| "[[User:#{username}|#{username}]]" }.join(', ')
   end
 end

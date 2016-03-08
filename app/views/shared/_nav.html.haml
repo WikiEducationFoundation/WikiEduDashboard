@@ -22,8 +22,9 @@
     %ul.top-nav__login-links
       - if user_signed_in?
         %li
-          %b>= link_to current_user.wiki_id, root_path, class: 'current-user'
-        %li= link_to t('application.log_out'), main_app.destroy_user_session_path
+          %b>= link_to current_user.username, root_path, class: 'current-user'
+        %li= link_to t('application.log_out'), destroy_user_session_path
+
       - else
         %li
           = link_to main_app.user_omniauth_authorize_path(:mediawiki) do

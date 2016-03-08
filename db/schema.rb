@@ -28,6 +28,8 @@ ActiveRecord::Schema.define(version: 20160303235552) do
     t.string   "language",                 limit: 10
     t.float    "average_views",            limit: 24
     t.date     "average_views_updated_at"
+    t.integer  "wiki_id",                  limit: 4
+    t.integer  "mw_page_id",               limit: 4
   end
 
   create_table "articles_courses", force: :cascade do |t|
@@ -48,6 +50,7 @@ ActiveRecord::Schema.define(version: 20160303235552) do
     t.integer  "course_id",     limit: 4
     t.integer  "article_id",    limit: 4
     t.integer  "role",          limit: 4
+    t.integer  "wiki_id",       limit: 4
   end
 
   add_index "assignments", ["course_id", "user_id", "article_title", "role"], name: "by_course_user_article_and_role", unique: true, using: :btree
@@ -214,6 +217,9 @@ ActiveRecord::Schema.define(version: 20160303235552) do
     t.float    "wp10_previous",  limit: 24
     t.integer  "ithenticate_id", limit: 4
     t.string   "report_url",     limit: 255
+    t.integer  "wiki_id",        limit: 4
+    t.integer  "mw_rev_id",      limit: 4
+    t.integer  "mw_page_id",     limit: 4
   end
 
   add_index "revisions", ["article_id", "date"], name: "index_revisions_on_article_id_and_date", using: :btree
@@ -236,7 +242,7 @@ ActiveRecord::Schema.define(version: 20160303235552) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "wiki_id",             limit: 255
+    t.string   "username",            limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "trained",                         default: false
@@ -259,5 +265,12 @@ ActiveRecord::Schema.define(version: 20160303235552) do
     t.datetime "updated_at"
     t.integer  "order",      limit: 4, default: 1, null: false
   end
+
+  create_table "wikis", force: :cascade do |t|
+    t.string "language", limit: 16
+    t.string "project",  limit: 16
+  end
+
+  add_index "wikis", ["language", "project"], name: "index_wikis_on_language_and_project", unique: true, using: :btree
 
 end

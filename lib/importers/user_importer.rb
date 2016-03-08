@@ -3,7 +3,7 @@ require "#{Rails.root}/lib/replica"
 #= Imports and updates users from Wikipedia into the dashboard database
 class UserImporter
   def self.from_omniauth(auth)
-    user = User.find_by(wiki_id: auth.info.name)
+    user = User.find_by(username: auth.info.name)
     if user.nil?
       user = new_from_omniauth(auth)
     else
@@ -22,7 +22,7 @@ class UserImporter
     id = WikiApi.get_user_id(auth.info.name)
     user = User.create(
       id: id,
-      wiki_id: auth.info.name,
+      username: auth.info.name,
       global_id: auth.uid,
       wiki_token: auth.credentials.token,
       wiki_secret: auth.credentials.secret
@@ -30,9 +30,9 @@ class UserImporter
     user
   end
 
-  def self.new_from_wiki_id(wiki_id)
+  def self.new_from_username(username)
     require "#{Rails.root}/lib/wiki_api"
-    id = WikiApi.get_user_id(wiki_id)
+    id = WikiApi.get_user_id(username)
     return unless id
 
     if User.exists?(id)
@@ -40,7 +40,7 @@ class UserImporter
     else
       user = User.create(
         id: id,
-        wiki_id: wiki_id
+        username: username
       )
     end
 
@@ -56,7 +56,7 @@ class UserImporter
   def self.add_user(user, role, course, save=true)
     empty_user = User.new(id: user['id'])
     new_user = save ? User.find_or_create_by(id: user['id']) : empty_user
-    new_user.wiki_id = user['username']
+    new_user.username = user['username']
     if save
       if !role.nil? && !course.nil?
         role_index = %w(student instructor online_volunteer

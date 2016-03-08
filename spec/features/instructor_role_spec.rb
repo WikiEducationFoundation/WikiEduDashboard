@@ -10,16 +10,16 @@ describe 'Instructor users', type: :feature, js: true do
   before :each do
     instructor = create(:user,
                         id: 100,
-                        wiki_id: 'Professor Sage',
+                        username: 'Professor Sage',
                         wiki_token: 'foo',
                         wiki_secret: 'bar')
 
     create(:user,
            id: 101,
-           wiki_id: 'Student A')
+           username: 'Student A')
     create(:user,
            id: 102,
-           wiki_id: 'Student B')
+           username: 'Student B')
     create(:course,
            id: 10001,
            title: 'My Active Course',

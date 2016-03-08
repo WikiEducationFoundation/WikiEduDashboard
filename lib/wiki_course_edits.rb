@@ -42,7 +42,7 @@ class WikiCourseEdits
   def announce_course(instructor: nil)
     instructor ||= @current_user
     course_title = @course.wiki_title
-    user_page = "User:#{instructor.wiki_id}"
+    user_page = "User:#{instructor.username}"
     template = "{{course instructor|course = [[#{course_title}]] }}\n"
     summary = "New course announcement: [[#{course_title}]]."
 
@@ -53,7 +53,7 @@ class WikiCourseEdits
     announcement_page = ENV['course_announcement_page']
     # rubocop:disable Metrics/LineLength
     announcement = "I have created a new course — #{@course.title} — at #{@dashboard_url}/courses/#{@course.slug}. If you'd like to see more details about my course, check out my course page.--~~~~"
-    section_title = "New course announcement: [[#{course_title}]] (instructor: [[User:#{instructor.wiki_id}]])"
+    section_title = "New course announcement: [[#{course_title}]] (instructor: [[User:#{instructor.username}]])"
     # rubocop:enable Metrics/LineLength
     message = { sectiontitle: section_title,
                 text: announcement,
@@ -69,7 +69,7 @@ class WikiCourseEdits
     # Add a template to the user page
     course_title = @course.wiki_title
     template = "{{student editor|course = [[#{course_title}]] }}\n"
-    user_page = "User:#{@current_user.wiki_id}"
+    user_page = "User:#{@current_user.username}"
     summary = "I am enrolled in [[#{course_title}]]."
     WikiEdits.add_to_page_top(user_page, @current_user, template, summary)
 

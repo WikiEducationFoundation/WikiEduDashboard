@@ -1,6 +1,7 @@
 # Messages for Galician (galego)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Banjo
 # Author: Elisardojm
 # Author: Macofe
 ---
@@ -41,6 +42,9 @@ gl:
     activity: Actividade
     articles: Artigos
     courses: Cursos
+    creator:
+      end_date: Data de fin
+      start_date: Data de inicio
     current: Cursos actuais
     duration: Duración do curso
     error:
@@ -64,6 +68,9 @@ gl:
       one: Voluntario
       other: Voluntarios
     yourcourses: Os seus cursos
+  courses_generic:
+    creator:
+      course_school: Institución
   metrics:
     activity: Actividade recente
     articles_created: Artigos creados

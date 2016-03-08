@@ -45,7 +45,7 @@ class UploadImporter
         uploaded_at = file['timestamp']
         file_name = file['title']
         username = file['user']
-        user_id = User.find_by(wiki_id: username).id
+        user_id = User.find_by(username: username).id
         id = file['pageid']
         upload = CommonsUpload.new(id: id,
                                    uploaded_at: uploaded_at,

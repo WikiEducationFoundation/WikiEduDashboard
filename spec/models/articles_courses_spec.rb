@@ -28,7 +28,7 @@ describe ArticlesCourses, type: :model do
       # Add a user, a course, and an article.
       create(:user,
              id: 1,
-             wiki_id: 'Ragesoss')
+             username: 'Ragesoss')
 
       create(:course,
              id: 1,

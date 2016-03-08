@@ -17,6 +17,9 @@
 #  wp10_previous  :float(24)
 #  ithenticate_id :integer
 #  report_url     :string(255)
+#  wiki_id        :integer
+#  mw_rev_id      :integer
+#  mw_page_id     :integer
 #
 
 FactoryGirl.define do

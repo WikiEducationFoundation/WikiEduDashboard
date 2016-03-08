@@ -68,7 +68,7 @@ describe Cleaners do
              namespace: 0)
       create(:user,
              id: 24593901,
-             wiki_id: 'Rothscak')
+             username: 'Rothscak')
       create(:courses_user,
              course_id: 1,
              user_id: 24593901)

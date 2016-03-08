@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: cohorts
+#
+#  id         :integer          not null, primary key
+#  title      :string(255)
+#  slug       :string(255)
+#  url        :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 default:
   title: 'Spring 2015'
   slug: 'spring_2015'

@@ -1,14 +1,14 @@
 StockStore = require './stock_store.coffee'
 
 UserStore = new StockStore(
-  sortKey: 'wiki_id'
+  sortKey: 'username'
   sortAsc: true
   descKeys:
     character_sum_ms: true
     character_sum_us: true
   modelKey: 'user'
   defaultModel:
-    wiki_id: ""
+    username: ""
   uniqueKeys: ['id', 'role']
 )
 

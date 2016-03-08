@@ -41,12 +41,12 @@ Student = React.createClass(
         <strong>{@props.student.real_name.trunc()}</strong>
         &nbsp;
         (<a onClick={@stop} href={@props.student.contribution_url} target="_blank" className="inline">
-          {@props.student.wiki_id.trunc()}
+          {@props.student.username.trunc()}
         </a>)
       </span>
     ) else (
       <span><a onClick={@stop} href={@props.student.contribution_url} target="_blank" className="inline">
-        {@props.student.wiki_id.trunc()}
+        {@props.student.username.trunc()}
       </a></span>
     )
 

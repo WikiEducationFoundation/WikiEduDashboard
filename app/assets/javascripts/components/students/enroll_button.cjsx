@@ -13,25 +13,25 @@ EnrollButton = React.createClass(
   displayname: 'EnrollButton'
   mixins: [UserStore.mixin]
   storeDidChange: ->
-    return unless @refs.wiki_id?
-    wiki_id = @refs.wiki_id.value
-    user_obj = { wiki_id: wiki_id }
-    if UserStore.getFiltered({ wiki_id: wiki_id, role: @props.role }).length > 0
-      alert (wiki_id + ' successfully enrolled!')
-      @refs.wiki_id.value = ''
+    return unless @refs.username?
+    username = @refs.username.value
+    user_obj = { username: username }
+    if UserStore.getFiltered({ username: username, role: @props.role }).length > 0
+      alert (username + ' successfully enrolled!')
+      @refs.username.value = ''
   enroll: (e) ->
     e.preventDefault()
-    wiki_id = @refs.wiki_id.value
-    user_obj = { wiki_id: wiki_id, role: @props.role }
-    if UserStore.getFiltered({ wiki_id: wiki_id, role: @props.role }).length == 0 &&
-       confirm 'Are you sure you want to add ' + wiki_id + ' to this course?'
+    username = @refs.username.value
+    user_obj = { username: username, role: @props.role }
+    if UserStore.getFiltered({ username: username, role: @props.role }).length == 0 &&
+       confirm 'Are you sure you want to add ' + username + ' to this course?'
         ServerActions.add 'user', @props.course_id, { user: user_obj }
     else
       alert I18n.t('users.already_enrolled')
   unenroll: (user_id) ->
     user = UserStore.getFiltered({ id: user_id, role: @props.role })[0]
     user_obj = { user_id: user_id, role: @props.role }
-    if confirm 'Are you sure you want to remove ' + user.wiki_id + ' from this course?'
+    if confirm 'Are you sure you want to remove ' + user.username + ' from this course?'
       ServerActions.remove 'user', @props.course_id, { user: user_obj }
   stop: (e) ->
     e.stopPropagation()
@@ -46,7 +46,7 @@ EnrollButton = React.createClass(
         <button className='button border plus' onClick={@unenroll.bind(@, user.id)}>-</button>
       ) unless @props.role == 1 && @props.users.length < 2
       <tr key={user.id + '_enrollment'}>
-        <td>{user.wiki_id}{remove_button}</td>
+        <td>{user.username}{remove_button}</td>
       </tr>
 
     enroll_url = window.location.href.replace(window.location.pathname, "") + @_courseLinkParams() + "?enroll=" + @props.course.passcode
@@ -62,14 +62,14 @@ EnrollButton = React.createClass(
       </tr>
     ) if @props.role == 0
 
-    # This row allows permitted users to add usrs to the course by wiki_id
+    # This row allows permitted users to add usrs to the course by username
     # @props.role controls its presence in the Enrollment popup on /students
     # @props.allowed controls its presence in Edit Details mode on Overview
     edit_rows.push (
       <tr className='edit' key='add_students'>
         <td>
           <form onSubmit={@enroll}>
-            <input type="text" ref='wiki_id' placeholder='Username' />
+            <input type="text" ref='username' placeholder='Username' />
             <button className='button border' type='submit'>Enroll</button>
           </form>
         </td>
@@ -80,7 +80,7 @@ EnrollButton = React.createClass(
     button_class += if @props.inline then ' border plus' else ' dark'
     button_text = if @props.inline then '+' else 'Enrollment'
 
-    # Remove this check when we re-enable adding users by wiki_id
+    # Remove this check when we re-enable adding users by username
     button = <button className={button_class} onClick={@props.open}>{button_text}</button>
 
     <div className='pop__container' onClick={@stop}>

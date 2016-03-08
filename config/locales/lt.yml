@@ -14,6 +14,19 @@ lt:
     activity: Veikla
     articles: Straipsniai
     courses: Kursai
+    creator:
+      course_description: Kurso aprašymas
+      course_subject: Kurso tema
+      course_term: Kurso terminas
+      course_title: Kurso pavadinimas
+      create_button: Sukurti mano kursąǃ
+      create_label: Sukurti naują kursą
+      create_new: Sukurti naują kursą
+      create_short: Sukurti kursą
+      end_date: Pabaigos data
+      expected_number: Numatomas studentų skaičius
+      find: Rasti savo kursą
+      start_date: Pradžios data
     current: Dabartiniai kursai
     duration: Kurso trukmė
     new_week: Pridėti naują savaitę
@@ -24,6 +37,16 @@ lt:
     timeline: Užduoties detalės
     title: Pavadinimas
     yourcourses: Jūsų kursai
+  courses_generic:
+    creator:
+      course_description: Programos aprašymas
+      course_school: Institucija
+      course_title: Programos pavadinimas
+      create_button: Sukurti mano programąǃ
+      create_label: Sukurti naują programą
+      create_new: Sukurti naują programą
+      create_short: Sukurti programą
+      find: Rasti savo programą
   metrics:
     articles_created: Sukurti straipsniai
     articles_edited: Redaguoti straipsniai

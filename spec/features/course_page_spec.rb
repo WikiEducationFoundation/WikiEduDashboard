@@ -41,7 +41,7 @@ describe 'the course page', type: :feature, js: true do
     (1..user_count).each do |i|
       create(:user,
              id: i.to_s,
-             wiki_id: "Student #{i}",
+             username: "Student #{i}",
              trained: i % 2)
       create(:courses_user,
              id: i.to_s,
@@ -251,10 +251,10 @@ describe 'the course page', type: :feature, js: true do
     it 'shows a number of most recent revisions for a student' do
       js_visit "/courses/#{slug}/students"
       sleep 1
-      expect(page).to have_content(User.last.wiki_id)
+      expect(page).to have_content(User.last.username)
       student_row = 'table.users tbody tr.students:first-child'
       within(student_row) do
-        expect(page).to have_content User.first.wiki_id
+        expect(page).to have_content User.first.username
         within 'td:nth-of-type(4)' do
           expect(page.text).to eq('1')
         end
