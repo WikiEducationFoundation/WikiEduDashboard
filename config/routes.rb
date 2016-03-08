@@ -147,7 +147,7 @@ Rails.application.routes.draw do
 
   post '/surveys/clone/:id' => 'surveys#clone'
   post '/surveys/question/clone/:id' => 'surveys#clone_question'
-  mount Rapidfire::Engine => "/surveys/question_groups", :as => 'rapidfire'
+  mount Rapidfire::Engine => "/rapidfire", :as => 'rapidfire'
   
 
   # Onboarding

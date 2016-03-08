@@ -5,10 +5,10 @@
     %ul.top-nav__main-links
       %li= link_to t('application.explore'), explore_path, class: class_for_path(request, explore_path)
       - if user_signed_in?
-        %li= link_to t('application.my_dashboard'), root_path, class: class_for_path(request, main_app.root_path)
+        %li= link_to t('application.my_dashboard'), root_path, class: class_for_path(request, root_path)
       - if current_user && current_user.admin?
         %li= link_to t('application.recent_activity'), recent_activity_path, class: class_for_path(request, recent_activity_path)
-        %li= link_to 'Surveys', rapidfire.question_groups_path, class: class_for_path(request, 'surveys')
+        %li= link_to 'Surveys', surveys_path, class: class_for_path(request, surveys_path)
       - unless ENV['disable_training'] == 'true'
         %li= link_to t('application.training'), training_path, class: class_for_path(request, training_path)
       %li= link_to t('application.help'), '/ask', target: '_blank'

@@ -6,8 +6,7 @@
     = f.input :name
 
   .form-input
-    = f.select :rapidfire_question_groups_id, options_from_collection_for_select(@question_groups, 'id', 'name'), {}, {:multiple => true}
-
+    = f.association :rapidfire_question_groups,   as: :check_boxes
 
   .form-actions
     = f.button :submit, :class => 'button'
