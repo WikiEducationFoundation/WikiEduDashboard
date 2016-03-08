@@ -53,11 +53,11 @@ notifications:
     rooms:
     - secure: OZcMEKx3prPJva4P6W0E55pSMWnTWdm7d6bBZ6B66LewU9Ge6parEJcaUAAH+sNbi0lvDvMG7Ivs9FKHDU3DoJXNmKG1ow4QpZ0EIMkaBxUWgQRELw2l375G+8vz/VpH3W4zTmVsYWmcaMSER+PmclnBMGQma8vR8JVLVuIDMHU=
 
-# deploy:
-#   provider: heroku
-#   api_key:
-#     secure: jVnSDN5ndsIMasaCUyves/Z59IlrpCDQE0crU5gAEsB9Y71VX9NMYJKn0ubo7M1SiDLlDZb/HfhskU8Jm5Kkyhz0BpyDVO4TnD8xwxYv8T6qF+TVv6BaiOtCpU6orpVNzIwMoAgXvil8gvHXSZUoZFnoSphcZZQJkutfWIrJ3BM=
-#   app: wiki-dashboard-surveys
-#   on:
-#     repo: WikiEducationFoundation/WikiEduDashboard
-#     branch: surveys
+deploy:
+  provider: heroku
+  api_key:
+    secure: jVnSDN5ndsIMasaCUyves/Z59IlrpCDQE0crU5gAEsB9Y71VX9NMYJKn0ubo7M1SiDLlDZb/HfhskU8Jm5Kkyhz0BpyDVO4TnD8xwxYv8T6qF+TVv6BaiOtCpU6orpVNzIwMoAgXvil8gvHXSZUoZFnoSphcZZQJkutfWIrJ3BM=
+  app: wiki-dashboard-surveys
+  on:
+    repo: WikiEducationFoundation/WikiEduDashboard
+    branch: surveys
