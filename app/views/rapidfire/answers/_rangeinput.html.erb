@@ -1,3 +1,9 @@
 <%= render partial: "rapidfire/answers/errors", locals: {answer: answer} %>
 <%= render partial: "rapidfire/answers/question_text", locals: {f: f, answer: answer} %>
-<%= f.range_field :answer_text, :in => 0...100, :step => '.1', :required => is_required_question?(answer) %>
+<% min = answer.question.validation_rules[:minimum].to_i %>
+<% max = answer.question.validation_rules[:maximum].to_i %>
+<% inc = answer.question.validation_rules[:increment].to_i %>
+<% range = min..max %>
+<div class='range-input'>
+<%= f.range_field :answer_text, :min => min, :max => max, :step => inc, :required => is_required_question?(answer), :data => {:range_slider => true} %>
+</div>

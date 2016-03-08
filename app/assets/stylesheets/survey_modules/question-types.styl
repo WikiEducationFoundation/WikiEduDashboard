@@ -91,17 +91,6 @@
   
   &:hover
     background darken(athens, 5%)
-
-  // &:hover span:before
-  //   border-color white
-  
-  // &:hover,
-  // &:hover:before
-  //   background $brand_primary
-  //   color white
-  
-  // &:hover:before
-  //   border-color transparent
   
   span
     display inline-block
@@ -120,9 +109,42 @@
   position relative
   z-index 5
 
+
 // Range Inputs
 
+@import './range-slider.css'
 
-input[type=range]
+.range-input
+  margin-bottom 40px
+
+.rangeslider__ruler
+  cursor pointer
+  font-size .7em
+  margin 20px 3px 0 3px
+  position relative
+  top 130%
+  text-align justify
+
+.rangeslider__ruler:after
+  content ""
+  display inline-block
   width 100%
-  padding 0
+
+.rangeslider
+  background athens
+
+.rangeslider__handle
+  background $brand_primary
+  border-color $brand_primary
+  width 30px
+  height 30px
+  box-shadow: 0 0 8px rgba($brand_primary, 0.5);
+
+.rangeslider--horizontal .rangeslider__handle
+  top -5px
+
+.rangeslider__fill
+  background rgba($brand_primary, .5)
+
+.input[type="range"]:focus + .rangeslider .rangeslider__handle
+  box-shadow none

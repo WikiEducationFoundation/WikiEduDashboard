@@ -1,5 +1,6 @@
 require 'velocity-animate'
 require 'parsleyjs'
+rangeslider = require 'rangeslider.js'
 throttle = require 'lodash.throttle'
 
 scroll_duration = 500
@@ -18,6 +19,7 @@ Survey =
     @survey_progress = $('[data-survey-progress]')
     @listeners()
     @initBlocks()
+    @initRangeSliders()
 
   listeners: ->
     $('[data-next-survey-block]').on 'click', @nextBlock.bind(@)
@@ -128,6 +130,33 @@ Survey =
     $el = $(target).closest '.button'
     if $el.hasClass 'button'
       $el.addClass 'hidden'
+
+  initRangeSliders: ->
+    # console.log $.rangeslider
+    
+    getRulerRange = (min, max, step) ->
+      range = ''
+      i = 0
+      while i <= max
+        range += i + ' '
+        i = i + step
+      range
+
+    $('input[type="range"]').each (i, slider) ->
+      $ruler = $('<div class="rangeslider__ruler" />')
+      $(slider).rangeslider
+        polyfill: false
+        rangeClass: 'rangeslider'
+        disabledClass: 'rangeslider--disabled'
+        horizontalClass: 'rangeslider--horizontal'
+        verticalClass: 'rangeslider--vertical'
+        fillClass: 'rangeslider__fill'
+        handleClass: 'rangeslider__handle'
+        onInit: ->
+          $ruler[0].innerHTML = getRulerRange(this.min, this.max, this.step)
+          this.$range.prepend $ruler
+        onSlide: (position, value) ->
+        onSlideEnd: (position, value) ->
 
   # addRequiredAttributes: ->
   #   $('[data-required-checkbox="true"]').each (i, checkbox) ->

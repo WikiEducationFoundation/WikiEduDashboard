@@ -19,6 +19,7 @@ gulp.task "stylesheets", ->
   stream = gulp.src ["#{config.sourcePath}/#{config.cssDirectory}/#{config.cssMainFiles}.styl"]
     .pipe plugins.plumber()
     .pipe plugins.stylus
+      'include css': true
       sourcemap:
         inline: config.development
     .pipe plugins.sourcemaps.init
@@ -52,6 +53,7 @@ gulp.task "stylesheets-livereload", ->
   stream = gulp.src ["#{config.sourcePath}/#{config.cssDirectory}/#{config.cssMainFiles}.styl"]
     .pipe plugins.plumber()
     .pipe plugins.stylus
+      'include css': true
       sourcemap:
         inline: config.development
     .pipe plugins.sourcemaps.init

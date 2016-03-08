@@ -25,7 +25,7 @@
     <% start_of_group = start_of_group(answers:@answer_group_builder.answers, index: index) %>
     <% last_of_group = is_grouped_question(answer) && index + 1 == @answer_group_builder.answers.length %>
     <% if start_of_group %>
-      <div class="block not-seen disabled survey__question--matrix" data-survey-block='<%= index + 1 %>'>
+      <div class="block not-seen disabled survey__question--matrix <%= question_type(answer) %>" data-survey-block='<%= index + 1 %>'>
     <% end %>
 
     <%= f.fields_for("#{answer.question.id}", answer) do |answer_form| %>
