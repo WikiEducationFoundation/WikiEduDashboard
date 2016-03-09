@@ -26,4 +26,8 @@
       = render "shared/nav"
       %main#main{"data-user-id" => current_user.try(:id), :role => "main"}
         = yield
+    - if can_administer?
+      %ul.container.survey__admin__nav
+        %li= link_to 'Create New Survey', new_survey_path
+        %li= link_to 'Question Groups', rapidfire.question_groups_path
     = render "shared/foot"

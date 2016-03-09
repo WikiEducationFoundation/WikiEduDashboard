@@ -5,19 +5,20 @@
   <%= link_to "Preview Survey", new_question_group_answer_group_path(@question_group) %>
 </div>
 
-<h2 class='text-center'>
-  <%= render partial: "survey_title_form" %>
-  <!-- <%= @question_group.name %> Questions -->
-</h2>
+<%= render partial: "survey_title_form" %> 
 
-<%= render partial: "intro_slide" %>
+<!-- <%= render partial: "intro_slide" %>-->
 </div>
-
+<h2>Questions</h2>
 <div class='survey__questions-list'>
-<h2>Survey Questions</h2>
+
+
+<% if @questions.length > 1 %>
 <div class='survey__admin-tools'>
   <span>Drag to reorder questions. (Changes will be saved automatically.)</span>
 </div>
+<% end %>
+
 <ul class='list list--survey' data-sortable='<%= @question_group.id %>'>
   <%= render partial: "question", collection: @questions %>
 </ul>
@@ -25,6 +26,6 @@
 
 </div>
 
-<%= render partial: "final_slide" %>
+<!-- <%= render partial: "final_slide" %> -->
 
 </div>

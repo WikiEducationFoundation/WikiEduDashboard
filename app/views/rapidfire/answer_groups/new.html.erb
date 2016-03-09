@@ -3,6 +3,8 @@
   <%= link_to "Edit this Survey", question_group_questions_path(@question_group) %>
 </div>
 <% end %>
+
+
 <div class='container'>
   <div class='block block--text disabled not-seen' data-survey-block='0'>
     <h1 class='survey__title'><%= @question_group.name %></h1>
@@ -14,45 +16,9 @@
       <button class='button survey__next dark' data-next-survey-block><span>Start</span> <span class='icon icon-rt_arrow'></span></button>
     </div>
   </div>
-  <%= form_for([@question_group, @answer_group_builder], :html => {'data-survey-form' => true}) do |f| %>
 
-  <div>
-    <%- @answer_group_builder.answers.each_with_index do |answer, index| %>
-    <% start_of_group = start_of_group(answers:@answer_group_builder.answers, index: index) %>
-    <% last_of_group = is_grouped_question(answer) && index + 1 == @answer_group_builder.answers.length %>
-    <% if start_of_group %>
-    <div class="block not-seen disabled survey__question--matrix <%= question_type(answer) %>" data-survey-block='<%= index + 1 %>'>
-      <% end %>
-      <%= f.fields_for("#{answer.question.id}", answer) do |answer_form| %>
-      <%= render partial: "rapidfire/answers/matrix_question_text", locals: {f: f, answer: answer} %>
-      <% if !is_grouped_question(answer) %>
-      <div class='block disabled not-seen question-type--<%= question_type(answer) %> <% if answer.errors.any? %>block--errors<% end %> <% if answer.question.validation_rules[:presence].to_i == 1 %>required<% end %>' data-survey-block='<%= index + 1 %>'>
-        <% end %>
-        <div class='survey__question-row <%= start_of_group ? "first" : "" %> <%= last_of_group ? "last" : "" %>'><%= render_answer_form_helper(answer, answer_form) %></div>
-        <div data-errors></div>
-        <% if !is_grouped_question(answer) || last_of_group  || is_grouped_question(answer) && !is_grouped_question(@answer_group_builder.answers[index + 1]) %>
-        <div class='survey__block-nav'>
-          <button class='button survey__next dark' data-next-survey-block>Next <span class='icon icon-rt_arrow'></span></button>
-        </div>
-        <% end %>
-        <% if !is_grouped_question(answer) %>
-      </div>
-      <% end %>
-      <% end %>
-      
-    <% if is_grouped_question(answer) && index + 1 == @answer_group_builder.answers.length || is_grouped_question(answer) && !is_grouped_question(@answer_group_builder.answers[index + 1]) %></div><% end %>
-    
-    <% end %>
-  </div>
-  
-  <div class='block block--text disabled not-seen block--clear' data-survey-block='<%= @answer_group_builder.answers.length + 1 %>'>
-    <% if @final_slide.present? %><%= @final_slide %><% end %>
-    <div class='survey__block-nav submit'>
-      <%= f.submit "Submit Survey", :class => 'button button--no-margin dark' %>
-    </div>
-  </div>
+  <%= render partial: "surveys/question_group" %>
 
-  <% end %>
 </div>
 </div>
 <div class='survey__footer'>

@@ -5,7 +5,8 @@
   %p
     %b Name:
     = @survey.name
+
+  - @survey.rapidfire_question_groups.each do |question_group|
+    = render partial: "surveys/question_group", locals: question_group_locals(question_group)
   
   = link_to 'Edit', edit_survey_path(@survey)
-  \|
-  = link_to 'Back', surveys_path
