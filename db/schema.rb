@@ -187,10 +187,7 @@ ActiveRecord::Schema.define(version: 20160308192915) do
     t.datetime "updated_at"
     t.text     "intro_slide", limit: 65535
     t.text     "final_slide", limit: 65535
-    t.integer  "surveys_id",  limit: 4
   end
-
-  add_index "rapidfire_question_groups", ["surveys_id"], name: "index_rapidfire_question_groups_on_surveys_id", using: :btree
 
   create_table "rapidfire_questions", force: :cascade do |t|
     t.integer  "question_group_id", limit: 4
