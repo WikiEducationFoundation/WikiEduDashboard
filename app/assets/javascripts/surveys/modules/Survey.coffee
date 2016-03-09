@@ -22,7 +22,8 @@ Survey =
     @initRangeSliders()
 
   listeners: ->
-    $('[data-next-survey-block]').on 'click', @nextBlock.bind(@)
+    $('[data-next-survey]').on 'click', @nextSurvey.bind(@)
+    $('[data-next-survey-block]').on 'click', @validateCurrentQuestion.bind(@)
     $('[data-prev-survey-block]').on 'click', @prevBlock.bind(@)
     @$window.scroll( throttle( @handleScroll.bind(@), 250) );
 
@@ -46,37 +47,41 @@ Survey =
     window.scrollTo(0,0)
     $(@survey_blocks[@current_block]).removeClass 'disabled not-seen'
 
-  nextBlock: (e) ->
-    e.preventDefault()
-    return if @animating
+  nextSurvey: (e) ->
+    e.preventDefault();
+    question_group_index = @currentQuestionGroupIndex()
+    # TODO submit question_group form via ajax
+    $(e.target).parents('.block').addClass 'hidden'
+    @nextBlock()
+
+  validateBlock: (e, cb) ->
     toIndex = @current_block + 1
     $block = $(@survey_blocks[toIndex])
     passedValidation = @validateCurrentQuestion()
 
-    if passedValidation
-      @removeNextButton(e)
-      $($block).velocity 'scroll', 
-        duration: scroll_duration
-        easing: scroll_easing
-        offset: -200
-        begin: =>
-          $(@survey_blocks[@current_block])
-            .removeClass 'highlight' 
-            .attr 'style', ''
-          @updateProgress(toIndex)
+  nextBlock: ->
+    return if @animating
+    toIndex = @current_block + 1
+    $block = $(@survey_blocks[toIndex])
+    
+    $($block).velocity 'scroll', 
+      duration: scroll_duration
+      easing: scroll_easing
+      offset: -200
+      begin: =>
+        $(@survey_blocks[@current_block])
+          .removeClass 'highlight' 
+          .attr 'style', ''
+        @updateProgress(toIndex)
+      complete: =>
+        @animating = false
+        @current_block = toIndex
+        @focusField()
+    if $block.hasClass 'not-seen'
+      $block.velocity {opacity: [1, 0], translateY: ['0%', '100%']},
+        queue: false
         complete: =>
-          @animating = false
-          @current_block = toIndex
-          @focusField()
-      if $block.hasClass 'not-seen'
-        $block.velocity {opacity: [1, 0], translateY: ['0%', '100%']},
-          queue: false
-          complete: =>
-            $block.removeClass 'not-seen'
-
-    else
-      @handleRequiredQuestion()
-      return
+          $block.removeClass 'not-seen'
 
   prevBlock: (e) ->
     e.preventDefault()
@@ -93,12 +98,12 @@ Survey =
         @current_block = toIndex
         @focusField()
 
-  validateCurrentQuestion: ->
+  validateCurrentQuestion: (e) ->
+    e.preventDefault()
     $block = $(@survey_blocks[@current_block])
     $errorsEl = $block.find('[data-errors]')
-    question_group_index = $(@survey_blocks[@current_block]).find('[data-question-group]').first().data 'question-group'
+    question_group_index = @currentQuestionGroupIndex()
     $form = if question_group_index? then $(@$survey_form[question_group_index]) else @$survey_form
-    console.log $form
     validation = $form.parsley({uiEnabled: false}).validate group: "#{$block.data 'parsley-group'}"
     if $block.find("[data-required-checkbox='true']").length
       if $block.find('input[type="checkbox"]:checked').length is 0
@@ -106,11 +111,13 @@ Survey =
 
     if validation is true
       $errorsEl.empty()
-      return true
+      @removeNextButton(e)
+      @nextBlock(e)
     else
-      console.log(validation)
-      validation
-      return false
+      @handleRequiredQuestion()
+
+  currentQuestionGroupIndex: ->
+    $(@survey_blocks[@current_block]).find('[data-question-group]').first().data 'question-group'
 
   setFormValidationSections: ->
     @survey_blocks.each (i, block) => 

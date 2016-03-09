@@ -33,8 +33,8 @@
   </div>
   
   <div class='block block--text disabled not-seen block--clear' data-survey-block='<%= @answer_group_builder.answers.length + 1 %>'>
-    <div class='survey__block-nav submit'>
-      <%= f.submit "Submit Survey", :class => 'button button--no-margin dark' %>
+    <div class='survey__block-nav submit' data-question-group="<%= question_group_index %>">
+      <button class='button survey__next dark' data-next-survey>Next <span class='icon icon-rt_arrow'></span></button>
     </div>
   </div>
 

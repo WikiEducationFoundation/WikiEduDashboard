@@ -1,4 +1,6 @@
 class SurveysController < ApplicationController
+  helper Rapidfire::ApplicationHelper
+
   before_action :set_survey, only: [:show, :edit, :update, :destroy]
   before_action :set_question_groups
 
