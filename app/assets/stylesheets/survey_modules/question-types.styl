@@ -1,0 +1,150 @@
+.block.question-type--short input[type='text']
+  display block
+  width 100%
+
+.question-type--radio
+  position relative
+
+.question-type--radio input[type=radio],
+.question-type--checkbox input[type=checkbox]
+  visibility hidden
+  position absolute
+  z-index 3
+
+.question-type--radio span
+  position relative
+  margin-left 10px
+
+.survey__multiple-choice-field .label
+  position relative
+  display block
+  margin 0
+  padding 10px 5px 10px 60px
+  border-radius 3px
+  font-weight 400
+  color $text_dk
+
+.survey__multiple-choice-field__radio-circle
+.survey__multiple-choice-field__checkbox
+  width 10px
+  height 10px
+  border-radius 50%
+  border 1px solid darken(mercury, 25%)
+  position absolute
+  left 14px
+  top 50%
+  transform translateY(-50%)
+  width 12px
+  height 12px
+
+.survey__multiple-choice-field__checkbox
+  border-radius 2px
+
+.survey__multiple-choice-field input[type=radio]:checked + .label,
+.survey__multiple-choice-field input[type=checkbox]:checked + .label
+  background $brand_primary
+  color white
+  
+  a
+    color white
+
+.survey__multiple-choice-field 
+  input[type=radio]:checked ~ .survey__multiple-choice-field__radio-circle
+  input[type=checkbox]:checked ~ .survey__multiple-choice-field__checkbox
+    background $brand_primary
+    border-color $brand_primary
+  
+  input[type=radio]:checked ~ .survey__multiple-choice-field__radio-circle
+    background darken($brand_primary, 10%)
+    border-color darken($brand_primary, 20%)
+  
+  input[type=checkbox]:checked ~ .survey__multiple-choice-field__checkbox:after
+    content  "\2713 "
+    position absolute
+    top -3px
+    color white
+    font-size 12px
+
+.survey__multiple-choice-field:before
+  content ""
+  display block
+  position absolute
+  left 0
+  top 0
+  bottom 0
+  width 40px
+  background darken(athens, 2.5%)
+  border-right 1px solid darken(mercury, 5%)
+  border-top-left-radius 3px
+  border-bottom-left-radius 3px
+
+.survey__multiple-choice-field
+  display block
+  background athens
+  border 1px solid mercury
+  border-radius 3px
+  // padding $spacer * .5
+  margin-bottom $spacer
+  cursor pointer
+  position relative
+  transition 100ms easeOutExpo
+  
+  &:hover
+    background darken(athens, 5%)
+  
+  span
+    display inline-block
+    padding 0
+    vertical-align middle
+  
+  .check
+    position absolute
+    top 0
+    left 0
+    width 30px
+    height 100%
+
+// Allow html links to be clickable
+.survey__multiple-choice-field__option
+  position relative
+  z-index 5
+
+
+// Range Inputs
+
+@import './range-slider.css'
+
+.range-input
+  margin-bottom 40px
+
+.rangeslider__ruler
+  cursor pointer
+  font-size .7em
+  margin 20px 3px 0 3px
+  position relative
+  top 130%
+  text-align justify
+
+.rangeslider__ruler:after
+  content ""
+  display inline-block
+  width 100%
+
+.rangeslider
+  background athens
+
+.rangeslider__handle
+  background $brand_primary
+  border-color $brand_primary
+  width 30px
+  height 30px
+  box-shadow: 0 0 8px rgba($brand_primary, 0.5);
+
+.rangeslider--horizontal .rangeslider__handle
+  top -5px
+
+.rangeslider__fill
+  background rgba($brand_primary, .5)
+
+.input[type="range"]:focus + .rangeslider .rangeslider__handle
+  box-shadow none

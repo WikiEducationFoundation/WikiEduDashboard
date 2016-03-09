@@ -6,7 +6,7 @@ describe Commons do
     it 'should get upload data for a user with many uploads' do
       VCR.use_cassette 'commons/get_uploads_many' do
         user = create(:user,
-                      wiki_id: 'Ragesoss')
+                      username: 'Ragesoss')
         response = Commons.get_uploads [user]
         expect(response.count).to satisfy { |x| x > 3000 }
         expect(response[0]['timestamp']).not_to be_nil
@@ -19,7 +19,7 @@ describe Commons do
     it 'should handle a user with no uploads' do
       VCR.use_cassette 'commons/get_uploads_none' do
         user = create(:user,
-                      wiki_id: 'Ragetest 7')
+                      username: 'Ragetest 7')
         response = Commons.get_uploads [user]
         expect(response).to eq([])
       end
@@ -28,7 +28,7 @@ describe Commons do
     it 'should handle a user with one upload' do
       VCR.use_cassette 'commons/get_uploads_one' do
         user = create(:user,
-                      wiki_id: 'Ameily radke')
+                      username: 'Ameily radke')
         response = Commons.get_uploads [user]
         expect(response.count).to eq(1)
       end

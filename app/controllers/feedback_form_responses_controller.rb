@@ -13,7 +13,7 @@ class FeedbackFormResponsesController < ApplicationController
     check_user_auth
     @response = FeedbackFormResponse.find(params[:id])
     if @response.user_id
-      @username = User.find(@response.user_id).wiki_id
+      @username = User.find(@response.user_id).username
     else
       @username = nil
     end

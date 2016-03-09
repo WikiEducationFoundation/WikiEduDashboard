@@ -1,20 +1,28 @@
-<div class='container'>
+<div class='container survey__edit'>
 <div class='section-header'>
 
+<div class='survey__admin-tools'>
+  <%= link_to "Preview Survey", new_question_group_answer_group_path(@question_group) %>
+</div>
+
 <h2 class='text-center'>
-  <%= @question_group.name %> Questions
+  <%= render partial: "survey_title_form" %>
+  <!-- <%= @question_group.name %> Questions -->
 </h2>
 
 <%= render partial: "intro_slide" %>
 </div>
 
 <div class='survey__questions-list'>
-<hr/>
-<%= link_to "Add New Question", new_question_group_question_path(@question_group), :class => 'button button--no-margin' %>
-
-<ul class='list list--survey'>
+<h2>Survey Questions</h2>
+<div class='survey__admin-tools'>
+  <span>Drag to reorder questions</span>
+</div>
+<ul class='list list--survey' data-sortable='<%= @question_group.id %>'>
   <%= render partial: "question", collection: @questions %>
 </ul>
+<%= link_to "Add New Question", new_question_group_question_path(@question_group), :class => 'button button--no-margin' %>
+
 </div>
 
 <%= render partial: "final_slide" %>

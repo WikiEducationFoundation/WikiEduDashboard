@@ -65,36 +65,6 @@ class Cleaners
   ###############
   # Assignments #
   ###############
-  def self.repair_case_variant_assignment_titles
-    require "#{Rails.root}/lib/utils"
-    assignments = Assignment.all
-    assignments.each do |assignment|
-      article_title = assignment.article_title
-      article_id = assignment.article_id
-      if article_id && Article.exists?(article_id)
-        canonical_title = Article.find(article_id).title
-        next if article_title == canonical_title
-        update_assignment_title_to_match_article(assignment, canonical_title)
-      elsif title_improperly_formatted?(article_title)
-        assignment.article_title = Utils.format_article_title(article_title)
-        assignment.save
-      end
-    end
-  end
-
-  def self.update_assignment_title_to_match_article(assignment, canonical_title)
-    assignment.article_title = canonical_title
-    assignment.save
-  rescue ActiveRecord::RecordNotUnique
-    # This may happen if one assignment has spaces instead of underscores for the title.
-    # In that case, we can just remove the duplicate assignment.
-    assignment.destroy
-  end
-
-  def self.title_improperly_formatted?(article_title)
-    article_title != Utils.format_article_title(article_title)
-  end
-
   def self.match_assignment_titles_with_case_variant_articles_that_exist(count=nil)
     require "#{Rails.root}/lib/utils"
 

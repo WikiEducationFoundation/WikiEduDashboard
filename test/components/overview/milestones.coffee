@@ -1,7 +1,7 @@
 require '../../testHelper'
 rewire = require 'rewire'
 
-Milestones  = rewire '../../../app/assets/javascripts/components/overview/milestones'
+Milestones  = rewire '../../../app/assets/javascripts/components/overview/milestones.cjsx'
 
 describe 'Milestones', ->
   course = { string_prefix: 'courses' }

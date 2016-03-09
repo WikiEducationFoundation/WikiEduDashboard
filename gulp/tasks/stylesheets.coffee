@@ -19,6 +19,7 @@ gulp.task "stylesheets", ->
   stream = gulp.src ["#{config.sourcePath}/#{config.cssDirectory}/#{config.cssMainFiles}.styl"]
     .pipe plugins.plumber()
     .pipe plugins.stylus
+      'include css': true
       sourcemap:
         inline: config.development
     .pipe plugins.sourcemaps.init
@@ -28,29 +29,31 @@ gulp.task "stylesheets", ->
     .pipe gulp.dest style_dir
 
   stream.on 'end', =>
-    # Flip for RTL
-    rtl_dir = "#{config.outputPath}/#{config.cssDirectory}/rtl"
-    rtl_stream = gulp.src ["#{config.outputPath}/#{config.cssDirectory}/#{config.cssMainFiles}.css"]
-      .pipe flipper()
+    versioned_stream = gulp.src ["#{config.outputPath}/#{config.cssDirectory}/#{config.cssMainFiles}.css"]
       .pipe plugins.rev()
-      .pipe gulp.dest rtl_dir
+      .pipe gulp.dest style_dir
       .pipe plugins.rev.manifest()
-      .pipe revDel({ dest: rtl_dir })
-      .pipe gulp.dest rtl_dir
+      .pipe revDel({ dest: style_dir })
+      .pipe gulp.dest style_dir
 
-    rtl_stream.on 'end', =>
+    # Flip for RTL
+    versioned_stream.on 'end', =>
+      rtl_dir = "#{config.outputPath}/#{config.cssDirectory}/rtl"
       gulp.src ["#{config.outputPath}/#{config.cssDirectory}/#{config.cssMainFiles}.css"]
+        .pipe flipper()
         .pipe plugins.rev()
-        .pipe gulp.dest style_dir
+        .pipe gulp.dest rtl_dir
         .pipe plugins.rev.manifest()
-        .pipe revDel({ dest: style_dir })
-        .pipe gulp.dest style_dir
+        .pipe revDel({ dest: rtl_dir })
+        .pipe gulp.dest rtl_dir
 
-gulp.task "stylesheets-fingerprint", ->
+gulp.task "stylesheets-livereload", ->
   style_dir = "#{config.outputPath}/#{config.cssDirectory}"
+
   stream = gulp.src ["#{config.sourcePath}/#{config.cssDirectory}/#{config.cssMainFiles}.styl"]
     .pipe plugins.plumber()
     .pipe plugins.stylus
+      'include css': true
       sourcemap:
         inline: config.development
     .pipe plugins.sourcemaps.init
@@ -58,22 +61,3 @@ gulp.task "stylesheets-fingerprint", ->
     .pipe plugins.autoprefixer()
     .pipe plugins.sourcemaps.write()
     .pipe gulp.dest style_dir
-
-  stream.on 'end', =>
-    # Flip for RTL
-    rtl_dir = "#{config.outputPath}/#{config.cssDirectory}/rtl"
-    rtl_stream = gulp.src ["#{config.outputPath}/#{config.cssDirectory}/#{config.cssMainFiles}.css"]
-      .pipe flipper()
-      .pipe plugins.rev()
-      .pipe gulp.dest rtl_dir
-      .pipe plugins.rev.manifest()
-      .pipe revDel({ dest: rtl_dir })
-      .pipe gulp.dest rtl_dir
-
-    rtl_stream.on 'end', =>
-      gulp.src ["#{config.outputPath}/#{config.cssDirectory}/#{config.cssMainFiles}.css"]
-        .pipe plugins.rev()
-        .pipe gulp.dest style_dir
-        .pipe plugins.rev.manifest()
-        .pipe revDel({ dest: style_dir })
-        .pipe gulp.dest style_dir

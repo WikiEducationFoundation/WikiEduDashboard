@@ -1,0 +1,170 @@
+html.survey-page
+  overflow-y scroll
+  
+body.survey-page
+  background-color #7177C7
+  background-image url("../images/waves.svg")
+  background-repeat no-repeat
+  background-position center 75%
+  background-size cover
+  
+  .section-header h1,
+  .section-header h2
+    color white
+
+  .block
+    position relative
+    transition 300ms opacity easeOutExpo
+    max-width $survey_max_width
+    margin 40px auto
+    
+    +above(tablet)
+      font-size 19px
+      line-height 24px
+    
+    &.survey__form
+      margin-top 2em
+    
+    & > label
+      display block
+      margin-bottom $spacer
+      font-weight bold
+    
+    &--clear
+      overflow hidden
+  
+  .block input[type=text], 
+  .block textarea,
+  .block > div
+    font-size 19px
+    line-height 28px
+  
+  .question-type--radio,
+  .question-type--checkbox
+    a[target='_blank']
+      margin-right 4px
+    a[target='_blank']:after
+      font-family "icons"
+      content "\EA10"
+      display inline-block
+      position relative
+      margin-left 4px
+      top -3px
+      z-index 5
+      font-size 8px
+      
+  .block.disabled
+    opacity .5
+  
+  .block.not-seen
+    opacity 0
+  
+  .block.block--errors
+    opacity 1
+  
+  .block.highlight
+    textarea
+      border-color $warning_text
+  
+  .survey__slide-form
+    margin 2em auto
+  
+  footer,
+  footer a
+    color white
+
+  .errors
+    color $warning_text
+      
+ul.list--survey
+  position relative
+  padding 1em 0
+  .course-list__col
+    padding 0 1em
+
+.row.row--survey-question .row__wrapper,
+.row.row--survey-question div:not(.drawer):last-child
+  display flex
+
+  & > div:first-child
+    flex 1
+    padding-right 1rem
+  
+  a
+    display inline-block
+    margin-right 1rem
+
+.block.survey__submit-block
+  overflow hidden
+  text-align center
+  .button
+    float none
+
+.highlight label.survey__multiple-choice-field
+  border-color $warning_text
+
+.block.survey__slide-form
+  overflow hidden
+
+.survey__title
+  font-size 21px
+  color $text_dk
+
+.survey__next span
+  display inline-block
+  vertical-align middle
+  position relative
+  &:first-child
+    margin-right 10px
+    top -1px
+  
+  &.icon
+    top 1px
+
+.button.survey__prev.border
+  color $text_dk
+  border-color $text_dk
+  &:hover
+    background athens
+
+.survey__multiple-choice-field
+  .field_with_errors
+    display inline-block
+
+.survey__admin-tools
+  max-width $survey_max_width
+  margin 1rem auto
+  text-align right
+  color white
+  
+  a
+    color white
+    
+.survey__title-form
+  input[type='text']
+    width 400px
+
+.survey__footer
+  position fixed
+  z-index 10
+  bottom 0
+  left 0
+  right 0
+  width 100%
+  background white
+  padding 1rem 0
+
+.survey__progress
+  background darken(manatee, 20%)
+  position relative
+  width 400px
+  height 30px
+  margin auto
+  border-radius 5px
+  overflow hidden
+  &-bar
+    position absolute
+    left 0
+    top 0
+    height 30px
+    background manatee

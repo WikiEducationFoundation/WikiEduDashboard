@@ -70,4 +70,12 @@ module.exports = {
     return true if weekdays[i] == '1' && formatted not in exceptions
     return true if weekdays[i] == '0' && formatted in exceptions
     false
+
+  # Takes a week weekMeetings array and returns the count of non-empty weeks
+  openWeeks: (week_meetings) ->
+    open_week_count = 0
+    week_meetings.forEach (meeting_string) ->
+      open_week_count += 1 unless meeting_string == '()'
+    return open_week_count
+
 }

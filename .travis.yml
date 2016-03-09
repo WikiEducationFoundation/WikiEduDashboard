@@ -32,7 +32,7 @@ install:
 - npm install gulp -g
 - npm install bower -g
 - npm install codeclimate-test-reporter -g
-- npm install
+- npm install --ignore-scripts
 - bower install
 - bundle install --jobs=3 --retry=3 --deployment
 before_script:
@@ -60,4 +60,4 @@ deploy:
   app: wiki-dashboard-surveys
   on:
     repo: WikiEducationFoundation/WikiEduDashboard
-    branch: surveys
+    branch: surveys:master

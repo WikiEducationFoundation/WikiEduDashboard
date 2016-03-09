@@ -24,7 +24,7 @@ PlagiarismHandler = React.createClass(
     headers = [
       { title: 'Article Title',      key: 'title' },
       { title: 'Plagiarism Report',  key: 'report_url' },
-      { title: 'Revision Author',    key: 'user_wiki_id' },
+      { title: 'Revision Author',    key: 'username' },
       { title: 'Revision Date/Time', key: 'revision_datetime' },
     ]
     noActivityMessage = 'There are not currently any recent revisions suspected of plagiarism.'

@@ -68,5 +68,4 @@ gulp.task "javascripts-fingerprint", ->
   return bundle initBrowserify()
     .pipe gulp.dest outputPath
     .pipe plugins.rev()
-    .pipe revDel(dest: outputPath)
     .pipe gulp.dest outputPath

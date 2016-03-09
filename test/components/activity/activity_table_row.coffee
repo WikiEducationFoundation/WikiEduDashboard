@@ -1,7 +1,7 @@
 require '../../testHelper'
-ActivityTableRow = require '../../../app/assets/javascripts/components/activity/activity_table_row'
-ActivityTable = require '../../../app/assets/javascripts/components/activity/activity_table'
-CustomUtils = require '../../customUtils'
+ActivityTableRow = require '../../../app/assets/javascripts/components/activity/activity_table_row.cjsx'
+ActivityTable = require '../../../app/assets/javascripts/components/activity/activity_table.cjsx'
+CustomUtils = require '../../customUtils.coffee'
 click = CustomUtils.click
 
 describe 'ActivtyTableRow', ->

@@ -10,7 +10,7 @@ describe 'Admin users', type: :feature, js: true do
   before :each do
     create(:user,
            id: 100,
-           wiki_id: 'Professor Sage')
+           username: 'Professor Sage')
 
     create(:course,
            id: 10001,

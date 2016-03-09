@@ -6,10 +6,14 @@
   <div>
   <% if question_group.questions.length > 0 %>
   <div class='course-list__col'>
-    <%= link_to "Take Survey", new_question_group_answer_group_path(question_group) %>
+    <%= link_to "Preview Survey", new_question_group_answer_group_path(question_group) %>
   </div>
   <% end %>
   <% if can_administer? %>
+    <div class='course-list__col'>
+      <%= link_to "Clone Survey", "/surveys/clone/#{question_group.id}", method: :post %>
+    </div>
+
     <div class='course-list__col'>
       <%= link_to "Add Question", new_question_group_question_path(question_group) %>
     </div>
@@ -20,7 +24,7 @@
       <%= link_to "Results", [:results, question_group] %>
     </div>
     <div class='course-list__col'>
-      <%= link_to "Delete", [question_group], method: :delete %>
+      <%= link_to "Delete", [question_group], method: :delete, :data => {confirm: "Are you sure you want to delete #{question_group.name} survey?"} %>
     </div>
   <% end %>
   </div>

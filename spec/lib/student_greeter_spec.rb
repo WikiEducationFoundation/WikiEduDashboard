@@ -7,9 +7,9 @@ describe StudentGreeter do
 
     before do
       create(:course, id: 1, start: 2.weeks.ago, end: Date.today + 2.weeks)
-      create(:user, id: 1, wiki_id: 'Greeter', greeter: true)
+      create(:user, id: 1, username: 'Greeter', greeter: true)
       create(:courses_user, id: 1, course_id: 1, user_id: 1, role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE)
-      create(:user, id: 2, wiki_id: 'Ungreeted Student')
+      create(:user, id: 2, username: 'Ungreeted Student')
       create(:courses_user, id: 2, course_id: 1, user_id: 2, role: CoursesUsers::Roles::STUDENT_ROLE)
     end
 

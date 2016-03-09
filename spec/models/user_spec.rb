@@ -3,14 +3,9 @@
 # Table name: users
 #
 #  id                  :integer          not null, primary key
-#  wiki_id             :string(255)
+#  username            :string(255)
 #  created_at          :datetime
 #  updated_at          :datetime
-#  character_sum       :integer          default(0)
-#  view_sum            :integer          default(0)
-#  course_count        :integer          default(0)
-#  article_count       :integer          default(0)
-#  revision_count      :integer          default(0)
 #  trained             :boolean          default(FALSE)
 #  global_id           :integer
 #  remember_created_at :datetime
@@ -21,6 +16,8 @@
 #  real_name           :string(255)
 #  email               :string(255)
 #  onboarded           :boolean          default(FALSE)
+#  greeted             :boolean          default(FALSE)
+#  greeter             :boolean          default(FALSE)
 #
 
 require 'rails_helper'
@@ -31,7 +28,7 @@ describe User do
       ragesock = build(:user)
       ragesoss = build(:trained)
       ragesauce = build(:admin)
-      expect(ragesock.wiki_id).to eq('Ragesock')
+      expect(ragesock.username).to eq('Ragesock')
       # rubocop:disable Metrics/LineLength
       expect(ragesoss.contribution_url).to eq("https://#{Figaro.env.wiki_language}.wikipedia.org/wiki/Special:Contributions/Ragesoss")
       # rubocop:enable Metrics/LineLength

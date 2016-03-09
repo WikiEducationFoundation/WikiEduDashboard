@@ -1,6 +1,6 @@
 require '../../testHelper'
-Checkbox = require '../../../app/assets/javascripts/components/common/checkbox'
-CustomUtils = require '../../customUtils'
+Checkbox = require '../../../app/assets/javascripts/components/common/checkbox.cjsx'
+CustomUtils = require '../../customUtils.coffee'
 click = CustomUtils.click
 
 describe 'Checkbox', ->

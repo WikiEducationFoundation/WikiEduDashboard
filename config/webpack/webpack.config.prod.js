@@ -38,7 +38,8 @@ module.exports = {
     },
      externals: {
         "jquery": "jQuery",
-        "jquery": "$"
+        "jquery": "$",
+        "i18n-js": 'I18n'
     },
 
     plugins: [

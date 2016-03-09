@@ -26,14 +26,18 @@
 #  passcode          :string(255)
 #  timeline_start    :date
 #  timeline_end      :date
-#  day_exceptions    :string(2000)      default("")
+#  day_exceptions    :string(2000)     default("")
 #  weekdays          :string(255)      default("0000000")
 #  new_article_count :integer
-#  order             :integer          default(1), not null
 #  no_day_exceptions :boolean          default(FALSE)
 #  trained_count     :integer          default(0)
 #  cloned_status     :integer
+#  type              :string(255)      default("ClassroomProgramCourse")
 #
+
+require "#{Rails.root}/lib/course_cleanup_manager"
+require "#{Rails.root}/lib/course_update_manager"
+require "#{Rails.root}/lib/course_training_progress_manager"
 
 #= Course model
 class Course < ActiveRecord::Base
@@ -256,7 +260,6 @@ class Course < ActiveRecord::Base
   end
 
   def manual_update
-    require "#{Rails.root}/lib/course_update_manager"
     CourseUpdateManager.manual_update self
   end
 
@@ -264,7 +267,6 @@ class Course < ActiveRecord::Base
   # Callback methods #
   ####################
   def cleanup_articles(user)
-    require "#{Rails.root}/lib/course_cleanup_manager"
     CourseCleanupManager.cleanup_articles(self, user)
   end
 

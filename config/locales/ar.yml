@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Haytham morsy
+# Author: Maroen1990
 # Author: Shbib Al-Subaie
 # Author: محمد أحمد عبد الفتاح
 ---
@@ -15,6 +16,7 @@ ar:
   activity:
     all: النشاط
     edited_by: عدل بواسطة
+    label: النشاط
   articles:
     assigned: المقالات المخصصة
     edited: المقالات التي تم تعديلها
@@ -40,6 +42,8 @@ ar:
       course_school: المؤسسة
       course_title: اسم البرنامج
       create_button: أنشأ برنامجي!
+      create_label: أنشئ برنامج جديد
+      create_new: انشئ برنامج جديد
       create_short: أنشئ البرنامج
     edit_course_dates: عدل مواعيد المشروع
 ...

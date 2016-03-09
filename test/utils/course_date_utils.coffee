@@ -25,10 +25,26 @@ describe 'CourseDateUtils.moreWeeksThanAvailable', ->
     result = CourseDateUtils.moreWeeksThanAvailable(typical_course, same_weeks, exceptions)
     expect(result).to.eq false
 
-  it 'returns true when there are fewer Weeks than non-empty calendar weeks', ->
+  it 'returns false when there are fewer Weeks than non-empty calendar weeks', ->
     fewer_weeks = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
     result = CourseDateUtils.moreWeeksThanAvailable(typical_course, fewer_weeks, exceptions)
     expect(result).to.eq false
+
+describe 'CourseDateUtils.openWeeks', ->
+  it 'returns the count of weeks with meetings from a weekMeetings array', ->
+    week_meetings = ["(M, W, F)", "(M, W)", "()", "(W, T)", "(M, W, F)"]
+    result = CourseDateUtils.openWeeks(week_meetings)
+    expect(result).to.eq 4
+
+  it 'handles empty arrays', ->
+    week_meetings = []
+    result = CourseDateUtils.openWeeks(week_meetings)
+    expect(result).to.eq 0
+
+  it 'handles arrays of all empty weeks', ->
+    week_meetings = ["()", "()", "()", "()", "()"]
+    result = CourseDateUtils.openWeeks(week_meetings)
+    expect(result).to.eq 0
 
 # describe 'CourseDateUtils.wouldCreateBlackoutWeek', ->
 #   one_of_two_meetings = '2015-11-24'

@@ -15,33 +15,74 @@
   <br/>
   <%= f.label :question_text %>
   <br/>
-  <%= f.text_area :question_text %>
+  <div>
+
+  <%= f.text_area :question_text, data: { question_text: true }, id: 'question_text', value: @question? @question.question_text : nil %>
+
+  <div data-question-text-editor></div>
+  
   <br/>
+  <div data-question-options>
+
   <%= f.label :answer_options %>&nbsp;(Separate options with new line)<br/>
   <%= f.text_area :answer_options, rows: 5 %>
-  <br/>
-  <h4>Other options</h4>
-  <hr/>
 
-  <%= f.label :answer_presence %>
+  <br/>
+  <%= f.label :answer_presence, "Question is Required" %>
   <%= f.check_box :answer_presence %>
 
   <br/>
-  <%= f.label :answer_minimum_length %>
-  <%= f.text_field :answer_minimum_length %>
+  <h4>Matrix Options</h4>
+  <hr/>
+  <div class="survey__question__option-row">
+    <%= f.label :answer_qrouped, "Group this question as a matrix" %>
+    <%= f.check_box :answer_grouped %><br/>
+    <%= f.label :answer_qrouped, "Grouped question" %>
+    <%= f.text_area :answer_grouped_question %>
+  </div>
 
-  <br/>
-  <%= f.label :answer_maximum_length %>
-  <%= f.text_field :answer_maximum_length %>
+  <h4>Range Input Options</h4>
+  <hr/>
 
-  <br/>
-  <%= f.label :answer_greater_than_or_equal_to %>
-  <%= f.text_field :answer_greater_than_or_equal_to %>
+  <div class="survey__question__option-row">
+    <%= f.label :answer_range_minimum %>
+    <%= f.number_field :answer_range_minimum %>
+  </div>
 
-  <br/>
-  <%= f.label :answer_less_than_or_equal_to %>
-  <%= f.text_field :answer_less_than_or_equal_to %>
-  <br/>
+  <div class="survey__question__option-row">
+    <%= f.label :answer_range_maximum %>
+    <%= f.number_field :answer_range_maximum %>
+  </div>
+
+  <div class="survey__question__option-row">
+    <%= f.label :answer_range_increment %>
+    <%= f.number_field :answer_range_increment %>
+  </div>
+
+  <h4>Other options</h4>
+  <hr/>
+
+  <div class="survey__question__option-row">
+    <%= f.label :answer_minimum_length %>
+    <%= f.number_field :answer_minimum_length %>
+  </div>
+
+  <div class="survey__question__option-row">
+    <%= f.label :answer_maximum_length %>
+    <%= f.number_field :answer_maximum_length %>
+  </div>
+
+  <div class="survey__question__option-row">
+    <%= f.label :answer_greater_than_or_equal_to %>
+    <%= f.number_field :answer_greater_than_or_equal_to %>
+  </div>
+
+  <div class="survey__question__option-row">
+    <%= f.label :answer_less_than_or_equal_to %>
+    <%= f.number_field :answer_less_than_or_equal_to %>
+  </div>
+
+  </div>
   <%= f.submit submit_text, :class => 'button button--no-margin' %>
 <% end %>
 </div>

@@ -28,7 +28,8 @@ gem 'hashugar'
 
 gem 'simple_form'
 
-gem 'rapidfire', :path => './vendor/rapidfire'
+gem 'rapidfire', :path => './vendor/__rapidfire'
+gem 'acts_as_list'
 
 # UNIVERSAL TEXT CONVERTER - FOR MARDOWN TO MEDIAWIKI TEXT
 gem 'pandoc-ruby', '~> 1.0.0'
@@ -37,7 +38,6 @@ gem 'http_accept_language'
 gem 'i18n-js', '>= 3.0.0.rc11'
 
 group :development do
-  gem 'pry-rails'
   gem 'better_errors'
   gem 'binding_of_caller', platforms: [:mri_21]
   gem 'guard-bundler'
@@ -59,6 +59,7 @@ group :development do
 end
 
 group :development, :test do
+  gem 'pry-rails'
   gem 'byebug'
   gem 'factory_girl_rails'
   gem 'faker'
@@ -84,4 +85,5 @@ end
 
 group :production do
   gem 'uglifier'
+  gem 'rails_12factor'
 end

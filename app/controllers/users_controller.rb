@@ -55,7 +55,7 @@ class UsersController < ApplicationController
   end
 
   def enroll_params
-    params.require(:user).permit(:user_id, :wiki_id, :role)
+    params.require(:user).permit(:user_id, :username, :role)
   end
 
   def fetch_enroll_records
@@ -64,10 +64,10 @@ class UsersController < ApplicationController
     @course = Course.find_by_slug(params[:id])
     if enroll_params.key? :user_id
       @user = User.find(enroll_params[:user_id])
-    elsif enroll_params.key? :wiki_id
-      wiki_id = enroll_params[:wiki_id]
-      @user = User.find_by(wiki_id: wiki_id)
-      @user = UserImporter.new_from_wiki_id(wiki_id) if @user.nil?
+    elsif enroll_params.key? :username
+      username = enroll_params[:username]
+      @user = User.find_by(username: username)
+      @user = UserImporter.new_from_username(username) if @user.nil?
     end
   end
 
@@ -90,7 +90,7 @@ class UsersController < ApplicationController
       WikiCourseEdits.new(action: :update_course, course: @course, current_user: current_user)
       render 'users', formats: :json
     else
-      username = enroll_params[:user_id] || enroll_params[:wiki_id]
+      username = enroll_params[:user_id] || enroll_params[:username]
       render json: { message: I18n.t('courses.error.user_exists',
                                      username: username) },
              status: 404
@@ -124,7 +124,7 @@ class UsersController < ApplicationController
 
   def user_params
     params.permit(
-      users: [:id, :wiki_id, :deleted, :email],
+      users: [:id, :username, :deleted, :email],
       assignments: [:id, :user_id, :article_title, :role, :course_id, :deleted]
     )
   end

@@ -12,7 +12,7 @@ describe RevisionAnalyticsService do
 
   let(:opts)       { {} }
   let(:course)     { create(:course, id: 10001, start: 1.month.ago, end: 1.month.from_now) }
-  let(:user)       { create(:user, id: 1, wiki_id: 'Student_1') }
+  let(:user)       { create(:user, id: 1, username: 'Student_1') }
   let!(:c_user)    { create(:courses_user, user_id: user.id, course_id: course.id, role: 0) }
   let!(:article)   { create(:article, id: 1, title: 'Student_1/A_great_draft', namespace: 2) }
   let!(:revision5) do
@@ -20,7 +20,7 @@ describe RevisionAnalyticsService do
   end
 
   let(:course2)    { create(:course, id: 10002, start: 1.month.ago, end: 1.month.from_now) }
-  let(:user2)      { create(:user, id: 2, wiki_id: 'Student_2') }
+  let(:user2)      { create(:user, id: 2, username: 'Student_2') }
   let!(:c_user2)   { create(:courses_user, user_id: user2.id, course_id: course2.id, role: 0) }
   let!(:article4)  { create(:article, id: 4, title: 'Student_2/Another_good_draft', namespace: 2) }
   let!(:revision4) do
@@ -29,7 +29,7 @@ describe RevisionAnalyticsService do
 
   # Articles/Revisions that should not show up
   let(:course3)    { create(:course, id: 10003, start: 1.month.ago, end: 1.month.from_now) }
-  let(:user3)      { create(:user, id: 3, wiki_id: 'Student_3') }
+  let(:user3)      { create(:user, id: 3, username: 'Student_3') }
   let!(:c_user3)   { create(:courses_user, user_id: user3.id, course_id: course3.id, role: 0) }
 
   let!(:article2)  { create(:article, id: 2, title: 'Student_3/A_poor_draft', namespace: 2) }

@@ -28,12 +28,6 @@ getState = ->
   editable_week_id: WeekStore.getEditableWeekId()
   course: CourseStore.getCourse()
 
-# Returns number of available weeks without anything scheduled
-# Available weeks are inside the timeline dates and have weekday meetings
-openWeeks = (recurrence, weeks) ->
-  return unless recurrence?
-  Math.ceil(recurrence.endDate().diff(recurrence.startDate(), 'weeks', true)) - weeks
-
 TimelineHandler = React.createClass(
   displayName: 'TimelineHandler'
   componentWillMount: ->
@@ -66,8 +60,17 @@ TimelineHandler = React.createClass(
   render: ->
     meetings = CourseDateUtils.meetings(@props.course)
     weekMeetings = CourseDateUtils.weekMeetings(meetings, @props.course, @props.course.day_exceptions)
+    openWeeks = CourseDateUtils.openWeeks(weekMeetings)
 
-    outlet = React.cloneElement(@props.children, {key: 'wizard_handler', course: @props.course, weeks: @props.weeks, week_meetings: weekMeetings, meetings: meetings}) if @props.children
+    outlet = React.cloneElement(
+      @props.children,
+        key: 'wizard_handler',
+        course: @props.course,
+        weeks: @props.weeks,
+        week_meetings: weekMeetings,
+        meetings: meetings,
+        open_weeks: openWeeks
+    ) if @props.children
 
     show_grading =
       if @state?.reorderable == true
