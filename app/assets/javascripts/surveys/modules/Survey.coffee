@@ -49,10 +49,49 @@ Survey =
 
   nextSurvey: (e) ->
     e.preventDefault();
-    question_group_index = @currentQuestionGroupIndex()
     # TODO submit question_group form via ajax
+    @submitQuestionGroup @currentQuestionGroupIndex()
     $(e.target).parents('.block').addClass 'hidden'
     @nextBlock()
+
+  submitQuestionGroup: (index) ->
+    $form = $("form[data-question-group='#{index}']")
+    url = $form.attr 'action'
+    method = $form.attr 'method'
+    _context = @
+    
+    $form.on 'submit', (e) ->
+      e.preventDefault()
+      data = _context.processQuestionGroupData $(this).serializeArray()
+      $.ajax
+        url: url
+        method: method
+        data: JSON.stringify(data)
+        dataType: 'json'
+        contentType: 'application/json'
+        success: (e) -> console.log 'success', e
+        error: (e) -> console.log 'error', e
+
+    $form.submit()
+
+  processQuestionGroupData: (data) ->
+    _postData = {}
+    answer_group = {}
+    data.map (field) ->
+      name = field.name
+      value = field.value
+      if name.indexOf('answer_group') isnt -1
+        fielddata = name.replace('answer_group', '').split '['
+        answer_id = fielddata[1].replace ']', ''
+        answer_key = fielddata[2].replace ']', ''
+        val = {}
+        val[answer_key] = value
+        answer_group[answer_id] = val
+      else
+        _postData[name] = value
+        
+    _postData['answer_group'] = answer_group
+    _postData
 
   validateBlock: (e, cb) ->
     toIndex = @current_block + 1
