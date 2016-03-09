@@ -45,9 +45,9 @@ class ViewImporter
         vua[article_id] = article.views_updated_at || start
         if vua[article_id] < Time.zone.yesterday
           since = all_time ? start : vua[article_id] + 1.day
-          views[article_id] = WikiPageviews.views_for_article(article.title,
-                                                              start_date: since,
-                                                              end_date: Time.zone.yesterday)
+          views[article_id] = WikiPageviews.new(article)
+                                           .views_for_article(
+                                             start_date: since, end_date: Time.zone.yesterday)
         end
       end
     end
@@ -60,7 +60,7 @@ class ViewImporter
     average_views = {}
     threads = articles.each_with_index.map do |article, i|
       Thread.new(i) do
-        average_views[article.id] = WikiPageviews.average_views_for_article(article.title)
+        average_views[article.id] = WikiPageviews.new(article).average_views
       end
     end
     threads.each(&:join)
@@ -99,8 +99,8 @@ class ViewImporter
     since = views_since_when(article, all_time)
 
     # Update views on all revisions and the article
-    views ||= WikiPageviews.views_for_article(article.title, start_date: since,
-                                                             end_date: Time.zone.yesterday)
+    views ||= WikiPageviews.new(article).views_for_article(start_date: since,
+                                                           end_date: Time.zone.yesterday)
     return if views.nil? # This will be the case if there are no views in the date range.
     add_views_to_revisions(article, views, all_time)
 
