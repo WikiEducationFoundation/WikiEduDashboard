@@ -28,6 +28,7 @@ gulp.task "dev", ->
     "stylesheets"
   ], "watch"
 
+# Set livereload: 'true' in config/application.yml to use
 gulp.task "dev-livereload", ->
   runSequence "clean", "set-development", [
     "i18n"

@@ -2,7 +2,7 @@ module SurveysHelper
   
   def survey_page(request)
     root_path = request.path.split('/')[1] 
-    root_path == 'surveys' || root_path == 'survey'
+    ["surveys", "rapidfire"].include? rootpath
   end
 
   def can_administer?

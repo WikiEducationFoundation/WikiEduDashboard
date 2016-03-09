@@ -11,8 +11,7 @@
 %html{ dir: rtl? ? "rtl" : nil }
   = render "shared/head"
   %body.training
-    - if flash[:notice]
-      .notice= flash[:notice]
+    = render "shared/flash"
     %div
       = render "shared/nav", fluid: true
       %main#main{"data-user-id" => current_user.try(:id), :role => "main"}
