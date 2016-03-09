@@ -47,8 +47,7 @@ module SurveysHelper
     !is_grouped_question(answer) && is_grouped_question(answers[index + 1])
   end
 
-  def question_group_locals(question_group)
-    
+  def question_group_locals(question_group, index)
     @question_group = question_group
     @answer_group_builder = Rapidfire::AnswerGroupBuilder.new({
       params: {},
@@ -57,8 +56,14 @@ module SurveysHelper
     })
     return {
       question_group: @question_group,
-      answer_group_builder: @answer_group_builder
+      answer_group_builder: @answer_group_builder,
+      question_group_index: index
     }
+  end
+
+  def render_answer_form_helper(answer, form)
+    partial = answer.question.type.to_s.split("::").last.downcase
+    render partial: "rapidfire/answers/#{partial}", locals: { f: form, answer: answer }
   end
   
 end

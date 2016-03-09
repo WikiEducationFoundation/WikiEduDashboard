@@ -1,12 +1,6 @@
-.block
+%p#notice= notice
 
-  %p#notice= notice
-  
-  %p
-    %b Name:
-    = @survey.name
+- @survey.rapidfire_question_groups.each_with_index do |question_group, index|
+  = render partial: "question_group", locals: question_group_locals(question_group, index)
 
-  - @survey.rapidfire_question_groups.each do |question_group|
-    = render partial: "surveys/question_group", locals: question_group_locals(question_group)
-  
-  = link_to 'Edit', edit_survey_path(@survey)
+= link_to 'Edit', edit_survey_path(@survey)

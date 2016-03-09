@@ -96,7 +96,10 @@ Survey =
   validateCurrentQuestion: ->
     $block = $(@survey_blocks[@current_block])
     $errorsEl = $block.find('[data-errors]')
-    validation = @$survey_form.parsley({uiEnabled: false}).validate group: "#{$block.data 'parsley-group'}"
+    question_group_index = $(@survey_blocks[@current_block]).find('[data-question-group]').first().data 'question-group'
+    $form = if question_group_index? then $(@$survey_form[question_group_index]) else @$survey_form
+    console.log $form
+    validation = $form.parsley({uiEnabled: false}).validate group: "#{$block.data 'parsley-group'}"
     if $block.find("[data-required-checkbox='true']").length
       if $block.find('input[type="checkbox"]:checked').length is 0
         validation = false
