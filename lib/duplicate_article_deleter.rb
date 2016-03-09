@@ -2,13 +2,18 @@ require "#{Rails.root}/lib/importers/revision_importer"
 
 #= Deletes duplicate Article records that differ by ID but match by title and namespace
 class DuplicateArticleDeleter
+  def initialize(wiki = nil)
+    wiki ||= Wiki.default_wiki
+    @wiki = wiki
+  end
+
   ###############
   # Entry point #
   ###############
-  def self.resolve_duplicates(articles = nil)
-    articles ||= Article.where(deleted: false)
+  def resolve_duplicates(articles = nil)
+    articles ||= Article.where(deleted: false, wiki_id: @wiki.id)
     titles = articles.map(&:title)
-    grouped = Article.where(title: titles).group(%w(title namespace)).count
+    grouped = Article.where(title: titles, wiki_id: @wiki.id).group(%w(title namespace)).count
     deleted_ids = []
     grouped.each do |article|
       next unless article[1] > 1
@@ -27,11 +32,12 @@ class DuplicateArticleDeleter
   #################
   # Helper method #
   #################
+  private
 
   # Delete all articles with the given title
   # and namespace except for the most recently created
-  def self.delete_duplicates(title, ns)
-    articles = Article.where(title: title, namespace: ns).order(:created_at)
+  def delete_duplicates(title, ns)
+    articles = Article.where(title: title, namespace: ns, wiki_id: @wiki.id).order(:created_at)
     deleted = articles.where.not(id: articles.last.id)
     deleted.update_all(deleted: true)
     deleted.map(&:id)

@@ -12,7 +12,7 @@ describe DuplicateArticleDeleter do
                       id: 46349871,
                       title: 'Kostanay',
                       namespace: 0)
-      DuplicateArticleDeleter.resolve_duplicates([first])
+      DuplicateArticleDeleter.new.resolve_duplicates([first])
       undeleted = Article.where(
         title: 'Kostanay',
         namespace: 0,

@@ -113,7 +113,7 @@ class RevisionImporter
 
     Article.import articles
     AssignmentImporter.update_article_ids(articles)
-    DuplicateArticleDeleter.resolve_duplicates(articles)
+    DuplicateArticleDeleter.new.resolve_duplicates(articles)
     Revision.import revisions
   end
 
