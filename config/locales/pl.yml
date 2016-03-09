@@ -32,6 +32,7 @@ pl:
   activity:
     all: Aktywność
     edited_by: Zmienił(a)
+    label: Aktywność
   articles:
     assigned: Przypisane artykuły
     assigned_to: Przypisany do

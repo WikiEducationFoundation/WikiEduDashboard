@@ -8,6 +8,8 @@ lt:
     help: Pagalbos!
     home: Pradžia
     log_out: Atsijungti
+  activity:
+    label: Veikla
   articles:
     rating: Klasė
   courses:

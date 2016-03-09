@@ -2,52 +2,205 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Aktron
+# Author: Dominikmatus
+# Author: Vojtěch Dostál
 ---
 cs:
   application:
+    cancel: Zrušit
+    explore: Prozkoumat
+    greeting2: Vítejte!
+    greeting_extended: Vítejte na Wikipedii
+    greeting: Dobrý den!
     help: Nápověda
     home: Domů
+    log_in_extended: Přihlásit se skrze Wikipedii
+    log_in: Přihlásit se
     log_out: Odhlásit se
+    my_dashboard: Nástěnka
     recent_activity: Nedávná aktivita
     search: prohledat ask.wikiedu.org
+    sign_up_extended: Zaregistrovat se skrze Wikipedii
+    sign_up_log_in_extended: s Wikipedií
+    sign_up: Registrace
+    submit: Potvrdit
+    training: Školení
+  dashboard:
+    create_note: Zvolte tlačítko "Vytvořit kurz" a vytvořte si svůj první kurz.
+    explore_course_pages: Prozkoumat kurzové stránky
+    explore_examples: Prozkoumat příklady
+    join_note: Jakmile obdržíte heslo od svého instruktora, klikněte na "Najít váš
+      kurz" a přidejte se k němu.
+    no_courses_instructor: Vypadá to, že nemáte žádné kurzy.
+    no_courses_student: Vypadá to, že jste se ještě nepřipojil(a) ke kurzu.
+    opt_out: Požádejte o přeskočení úvodního průvodce
+    orientation_notice: Předtím, než si vytvořit kurz, projděte si průvodce, který
+      vám pomůže začít (trvá asi 30 minut).
+    start_orientation: Spustit průvodce
+  home:
+    explore: Prozkoumat
+    log_in: Přihlásit se skrze Wikipedii
+    sign_up: Zaregistrovat se skrze Wikipedii
   activity:
     all: Aktivita
+    edited_by: Editoval(a)
+    label: Aktivita
   articles:
+    assigned: Přiřazené články
     assigned_to: Přiřazeno
+    character_doc: Součet znaků přidaných do článků editory zapsanými do článku v
+      období mezi začátkem a koncem kurzu
+    edited: Editované články
     edited_mobile: Články
+    label: Články
+    loading: Načítání článků...
     no_assignee: Nebyl přiřazen žádný uživatel
+    none: V tomto kurzu nebyly editovány žádné články.
     rating: Třída
+    rating_doc: Hodnocení článku bylo přiřazeoa WikiProjekty na Wikipedii. Tato hodnocení
+      mohou patřit k mnohem starší verzi článku, takže jsou jen hrubým ukazatelem
+      kvality článku.
+    rating_docs:
+      fa: Nejlepší článek — nejvyšší hodnocení Wikipedie, přiřazené k článkům, které
+        pravděpodobně nejsou nejlepším námětem na první editovaný článek pro nové
+        editory
+      fl: Nejlepší seznam — nejvyšší hodnocení seznamů na Wikipedii
+      a: Článek 1. třídy — velmi propracovaný článek, jehož další vylepšování by pro
+        nové editory mohlo být velmi komplikované
+      ga: Dobrý článek — propracovaný článek, jehož další vylepšování by pro nové
+        editory mohlo být komplikované
+      b: Článek 2. třídy — středně propracovaný článek
+      c: Článek 3. třídy — středně rozvinutý článek s značným prostorem pro rozšiřování
+      start: Stručný článek — základní článek s velkým prostorem pro vylepšování
+      stub: Příliš stručný článek — krátký úvod k tématu vyžadující rozpracování
+      list: Článek seznamového typu
+      '?': Neohodnocený článek — článek, jehož kvalita ještě nebyla ohodnocena
     title: Název
+    title_example: Název článku
     view: Zobrazit článek
     view_all: Zobrazit vše
     view_doc: Souhrn všech zobrazení každého článku během průběhu kurzu
   assignments:
+    already_exists: Tento článek už byl zadán!
+    assign_other: Zadat článek
+    assign_self: Zadat článek sobě
+    confirm_addition: Chcete skutečně zadat článek %{title} uživateli %{username}?
+    confirm_deletion: Chcete skutečně odstranit tento zadaný článek?
+    label: Zadat
+    loading: Načítání zadaných článků...
+    none_short: Žádné zadané články
     none: Tento kurz nemá žádné přidělené články na Wikipedii.
+    reviewers: Recenzent(i)
+    review_other: Zadat recenzi
+    review_self: Recenzovat článek
   blocks:
     milestones:
       title: Milníky
+  cohort:
+    none: Žádné
+    view_other: Zobrazit další kohorty
   courses:
+    activity: Aktivita
+    already_enrolled: Již jste součástí kurzu '%{title}'!
+    archived: Archivované kurzy
     articles: Články
+    articles_none: V tomto kurzu nebyly editovány žádné články.
+    assignment_end: Konec kurzu
+    assignments_none: Tento kurz nemá žádné zadané články na Wikipedii.
+    assignment_start: Začátek kurzu
     character_doc: Počet znaků, které byly přidány do hlavního jmenného prostoru studenty
       během průběhu kurzu
+    course_dates_calendar_instructions: Vyberte data, která chcete přidat či odstranit
+      z časového plánu (např. prázdniny, období bez výuky). Kliknutím na datum můžete
+      nastavovat neoznačený, označený a prázdninový stav. Délka kurzu se tím změní,
+      aby odrážela týdny, během nichž výuka neprobíhá.
+    course_description: Kurzy
     courses: Kurzy
+    creator:
+      cloned_course_calendar_instructions: Vyberte data, která chcete přidat či odstranit
+        z časového plánu (např. prázdniny, období bez výuky). Kliknutím na datum můžete
+        nastavovat neoznačený, označený a prázdninový stav. Pokud nemáte žádné období
+        volna, prosím vyberte možnost "Bez volna ve výuce". Časový plán automaticky
+        upraví délku podle období, kdy výuka neprobíhá.
+      course_description: Popis kurzu
+      course_school: Kurzová instituce
+      course_subject: Předmět kurzu
+      course_term: Termín kurzu
+      course_title: Název kurzu
+      create_button: Vytvořit vlastní kurzǃ
+      create_label: Vytvořit nový kurz
+      create_new: Vytvořit nějaký nový kurz
+      create_short: Vytvořit kurz
+      end_date: Konečné datum
+      expected_number: Předpokládaný počet studentů
+      find: Najít váš kurz
+      intro: Název, instituce a termín kurzu mění URL stránky, a proto nemohou být
+        později změněny. Všechno ostatní můžete později ještě upravit. Po stisknutí
+        tlačítka "Vytvořit kurz!" budete moci začít vytvářet svůj časový plán svého
+        úkolu.
+      start_date: Datum zahájení
     current: Aktuální kurzy
     duration: Průběh kurzů
+    edit_course_dates: Upravit termíny kurzů
     error:
       exists: Tento kurz již existujeǃ Zkuste prosím zadat jiný název kurzu, školu,
         nebo semestr.
       user_exists: Uživatel %{username} neexistuje.
+    expected_students: Očekávaný počet studentů
+    gradeables_none: V tomto kurzu nejsou žádné známkovatelné úkoly.
+    instructor:
+      one: instruktur
+      other: instruktoři
+    instructors: Instruktoři
+    invitation: |-
+      Byli jste pozváni k připojení se ke kurzu %{title}. Aby to bylo možné, musíte se nejprve vytvořit pomocí svého účtu na Wikipedii.
+      Pokud nemáte účet na Wkipedii, zaregistrujte se nyní.
+    join: Zapsat se
+    join_prompt: Zapsat se do '%{title}'?
+    join_successful: Úspěšně jste se zapsali do %{title}
+    milestones_none: Tento kurz nemá v současné době žádné milníky.
     new_week: Přidat nový týden
     nocourses: Neúčastníte se žádných kurzů.
     overview: Přehled
+    passcode: Heslo
+    published: 'Váš kurz byl zveřejněn! Studenti se mohou zapsat do kurzu tím, že
+      navštíví následující adresu URL:'
+    review_timeline: Prosím zkontrolujte časový plán a provádějte v něm úpravy podle
+      svých představ. Až budete spokojeni, podejte ho ke schválení. Až bude schválen,
+      dostanete URL adresu, přes níž se budou studenti moci zapsat do kurzu. Změny
+      v kurzu budete moci dělat i potom.
     revisions_doc: Počet editací během uplynulých %{timeframe} dní.
+    revisions_none: V tomto kurzu v poslední době neprobíhala žádná editační aktivita.
+    school: Škola
     students: Studenti
+    students_count: Počet studentů
+    student_editors: Studenti - editoři
     students_none: Tento kurz nemá žádné studenty.
     students_short: Studenti
+    submitted_admin: Tento kurz byl svým autorem podán ke schválení. Schvalte ho tím,
+      že ho přidáte do kohorty na stránce "Přehled".
+    submitted_and_pending_heading: Podáno ke schválení
+    submitted_heading: Kurzy podané ke schválení
+    submitted_note: Kurz byl podán ke schválení. Brzy ho zkontrolujeme a případně
+      vás zkontaktujeme s dotazy.
+    term: Semestr
+    timeline: Detaily zadání
+    timeline_link: Časová osa
     title: Název
+    training_due: Výukový modul "%{title}" je přiřazen k tomuto kurzu; termín splnění
+      %{datum}.
+    training_nav: Přejít k výukovému modulu
+    training_overdue: Výukový modul "%{title}" byl přiřazen k tomuto kurzu; termín
+      splnění %{datum}.
+    unsubmitted: Kurzy nepodané ke schválení
+    uploads_none: Účastníci nepřispěli žádnými obrázky či jinými médii na Wikimedia
+      Commons.
+    weeks_none: Tento kurz ještě nemá žádný časový plán.
     view: Zobrazit kurz
     view_wiki: Zobrazit na Wikipedii
     word_count_doc: Odhadovaný počet slov, které byly přidány do hlavního jmenného
       prostoru studenty kurzu během jeho průběhu
     yourcourses: Vaše kurzy
+  metrics:
+    articles_created: Vytvořené články
 ...

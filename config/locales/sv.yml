@@ -4,6 +4,7 @@
 # Author: Fader
 # Author: Jopparn
 # Author: Josve05a
+# Author: Rockyfelle
 # Author: WikiPhoenix
 ---
 sv:
@@ -42,13 +43,32 @@ sv:
     articles_none: Den här kursen har inte redigerat några artiklar.
     course_description: Kurser
     creator:
+      course_description: Kursbeskrivning
+      course_school: Kursskola
+      course_subject: Kursämne
+      course_title: Kurs titel
+      create_button: Skapa min Kurs!
       create_label: Skapa ny kurs
       create_new: Skapa en ny kurs
+      create_short: Skapa Kurs
       end_date: Slutdatum
+      expected_number: Förväntat antal elever
       find: Hitta din kurs
+      intro: Namnet, skolan, och termninen skapar din kurs sidas URL, och kan inte
+        bli ändrad, allt annat kan du ändra senare. Klicka på "Skapa min kurs!" för
+        att börja bygga tidslinjen för din Wikipedia uppgift.
       start_date: Startdatum
     school: Skola
   courses_generic:
+    creator:
+      course_description: Program beskrivning
+      course_title: Program namn
+      create_button: Skapa mitt program!
+      create_label: Skapa Nytt Program
+      create_short: Skapa Program
+      find: Hitta Ditt Program
+      intro: Program titeln behövs, allt annat kan bli infyllt senare. Klicka på "Skapa
+        mitt Program!" för att börja bygga sidan för ditt wiki program.
     edit_course_dates: Redigera projektdatum
     term: När
   metrics:

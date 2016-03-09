@@ -185,6 +185,7 @@ zh-hans:
       create_new: 创建一个新项目
       create_short: 创建项目
       find: 找到您的项目
+      intro: 需要项目标题，其他的可以日后再填写。点击“创建我的项目！”以开始构造用于您wiki项目的页面。
     edit_course_dates: 编辑项目日期
     expected_students: 预期编辑者
     instructors: 促进者
@@ -274,6 +275,7 @@ zh-hans:
     minimum_options: 请至少选择%{minimum}个选项。
     read_less: 阅读更少
     read_more: 阅读更多
+    review_selections: 请在下方复核您的选项。点击以编辑一个选项。当结束时，点击“提交”以结束向导，并构建您的时间轴。
     select_assignment: 选择您希望添加至您的时间轴的任务类型。
     summary: 摘要
   error:

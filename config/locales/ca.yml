@@ -2,10 +2,31 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Eduardo Martinez
+# Author: Kippelboy
 # Author: Macofe
 # Author: Vriullop
 ---
 ca:
+  application:
+    cancel: Cancel·lar
+    dashboard: Wiki Ed Tauler De Control
+    explore: Exploreu!
+    greeting2: Benvinguts!
+    greeting_extended: Benvinguts a la Viquipèdia
+    greeting: Hola
+    help: Ajuda
+    home: Inici
+    log_in_extended: Inicia la sessió a la Viquipèdia
+    log_in: Iniciar sessió
+    log_out: Finalitza la sessió
+    my_dashboard: Tauler de control
+    recent_activity: Activitat recent
+    search: cerca ask.wikiedu.org
+    sign_up_extended: Inicia la sessió a la Viquipèdia
+    sign_up_log_in_extended: amb la Viquipèdia
+    sign_up: Registreu-vos
+    submit: Envia
+    training: Formació
   activity:
     all: Activitat
   articles:

@@ -10,9 +10,18 @@ ar:
   application:
     cancel: ألغ
     explore: استكشف
+    greeting2: مرحبا!
+    greeting: أهلاّ بك!
+    help: مساعدة
+    home: الرئيسية
+    log_in_extended: تسجيل الدخول إلى ويكيبيديا
     log_in: تسجيل الدخول
     log_out: تسجيل الخروج
+    recent_activity: النشاطات الحديثة
+    sign_up_log_in_extended: مع ويكبيديا
     sign_up: أنشئ حسابًا
+    submit: إرسال
+    training: تدريب
   activity:
     all: النشاط
     edited_by: عدل بواسطة
@@ -21,9 +30,18 @@ ar:
     assigned: المقالات المخصصة
     edited: المقالات التي تم تعديلها
     edited_mobile: المقالات
+    label: المقالات
     loading: تحميل المقالات ...
     no_assignee: لا مستخدم تم تعيينه
+    rating: رتبة
+    title: العنوان
+    title_example: عنوان المقال
+    view_all: عرض الكل
+  cohort:
+    none: لا شيء
   courses:
+    activity: النشاط
+    articles: المقالات
     creator:
       course_description: وصف المساق
       course_school: مدرسة المساق
@@ -36,6 +54,14 @@ ar:
       end_date: تاريخ الانتهاء
       expected_number: عدد الطلاب المتوقع
       start_date: تاريخ البدء
+    join: انضم
+    school: مدرسة
+    students: الطلاب
+    students_short: الطلاب
+    term: المصطلح
+    timeline_link: خط زمني
+    title: العنوان
+    training_nav: اذهب للتدريب
   courses_generic:
     creator:
       course_description: وصف البرنامج
@@ -46,4 +72,25 @@ ar:
       create_new: انشئ برنامج جديد
       create_short: أنشئ البرنامج
     edit_course_dates: عدل مواعيد المشروع
+  metrics:
+    edit_count_description: إجمالي التعديلات
+  namespace:
+    user_ns: مستخدم
+  revisions:
+    class: رتبة
+    title: عنوان
+  training:
+    start: بداية
+    view: اعرض
+  uploads:
+    label: المرفوعات
+  users:
+    name: الاسم
+  wizard:
+    read_more: اقرأ المزيد
+    summary: ملخص
+  login_error:
+    header: خطأ في الدخول
+  timeline:
+    title: خط زمني
 ...

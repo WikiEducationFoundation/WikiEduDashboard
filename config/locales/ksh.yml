@@ -33,9 +33,22 @@ ksh:
     articles: Atikele
     course_description: Korse för em Wikki ze liehre.
     creator:
+      course_subject: Et Tehma vum Kochs
+      course_title: Övverschreff vum Kochs
+      create_label: Lääsch ene neuje Kochs aan
+      create_new: Lääsch ene neuje Kochs aan
+      create_short: Lääsch ene Kochs aan
+      end_date: Et Dattum vum Engk
+      find: Fengk Dinge Kochs
       start_date: Et Dattom vum Aanfang
     overview: Övverblek
     title: Övverschreff
+  courses_generic:
+    creator:
+      course_school: Ennschtetuzjohn
+      course_title: Övverschreff vum Projramm
+      create_short: Lääsch e Projramm aan
+      find: Fengk Di Projramm
   metrics:
     activity: Zeläz jedonn
     articles_created: Aanjelahte Atikelle

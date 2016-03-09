@@ -2,18 +2,42 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Aftabuzzaman
+# Author: Bodhisattwa
 # Author: Kayser Ahmad
 ---
 bn:
+  application:
+    greeting2: স্বাগতম!
+    greeting_extended: উইকিপিডিয়ায় স্বাগতম
+    greeting: নমস্কার!
+    help: সাহায্য
+    home: প্রধান পাতা
+    log_in: প্রবেশ করুন
+    log_out: প্রস্থান করুন
+    recent_activity: সাম্প্রতিক কার্যকালাপ
+    sign_up_extended: উইকিপিডিয়ায় নিবন্ধন করুন
+    sign_up: নিবন্ধন
+  home:
+    log_in: উইকিপিডিয়াতে প্রবেশ করুন
+    sign_up: উইকিপিডিয়ায় নিবন্ধন করুন
   activity:
-    label: কর্মকান্ড
+    all: কর্মকাণ্ড
+    label: কর্মকাণ্ড
   articles:
     edited_mobile: নিবন্ধ
+    label: নিবন্ধসমূহ
     loading: নিবন্ধ লোড হচ্ছে...
     rating: শ্রেণী
+    title: শিরোনাম
+    title_example: নিবন্ধের শিরোনাম
+    view: নিবন্ধ দেখুন
+    view_all: সব দেখুন
   assignments:
     reviewers: নিরীক্ষক(গণ)
+  cohort:
+    none: কোনটিই নয়
   courses:
+    articles: নিবন্ধসমূহ
     creator:
       course_school: কোর্স বিদ্যালয়
       course_subject: কোর্সের বিষয়
@@ -24,8 +48,12 @@ bn:
       create_short: কোর্স তৈরি
       end_date: শেষের তারিখ
       expected_number: শিক্ষার্থীদের প্রত্যাশিত সংখ্যা
-      find: আপনার কোর্স খুজুন
+      find: আপনার কোর্স খুঁজুন
       start_date: শুরুর তারিখ
+    students: ছাত্রগণ
+    students_count: '# ছাত্রগণ'
+    student_editors: '# ছাত্র সম্পাদকগণ'
+    students_short: ছাত্রগণ
     title: শিরোনাম
     view_wiki: উইকিপিডিয়ায় দেখুন
   courses_generic:
@@ -34,9 +62,37 @@ bn:
       course_school: প্রতিষ্ঠান
       course_title: প্রোগ্রামের শিরোনাম
       create_label: নতুন প্রকল্প তৈরি করুন
-      create_new: নতুন প্রকল্প তৈরি করুন
+      create_new: একটি নতুন প্রকল্প তৈরি করুন
       create_short: প্রোগ্রাম তৈরি করুন
       find: আপনার প্রোগ্রাম খুঁজুন
+    school: প্রতিষ্ঠান
+    student_editors: সম্পাদকগণ
+    students: সম্পাদকগণ
+    students_short: সম্পাদকগণ
+  metrics:
+    date_time: তারিখ/সময়
+    edit_count_description: মোট সম্পাদনাসমূহ
+    revisions: সাম্প্রতিক সম্পাদনাসমূহ
+    word_count: যুক্ত শব্দসমূহ
+  namespace:
+    main: নামস্থান
+    user: ব্যবহারকারীস্থান
+    user_ns: ব্যবহারকারী
+  revisions:
+    date_time: তারিখ/সময়
+    title: শিরোনাম
+  training:
+    start: শুরু করুন
+    view: দেখুন
+  uploads:
+    label: আপলোডসমূহ
   users:
+    contributions: ব্যবহারকারী অবদানসমূহ
     name: নাম
+    recent_revisions: সাম্প্রতিক সম্পাদনাসমূহ
+    reviewers: নিরীক্ষক(গণ)
+    reviewing: নিরীক্ষণ চলছে
+    student_editors: ছাত্র সম্পাদকগণ
+  wizard:
+    summary: সারাংশ
 ...
