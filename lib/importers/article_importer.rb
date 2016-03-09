@@ -13,7 +13,8 @@ class ArticleImporter
     articles_data.each do |article_data|
       articles << Article.new(id: article_data['page_id'],
                               title: article_data['page_title'],
-                              namespace: article_data['page_namespace'])
+                              namespace: article_data['page_namespace'],
+                              wiki_id: Wiki.default_wiki.id)
     end
     Article.import articles
   end
