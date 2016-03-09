@@ -11,7 +11,7 @@
   <% end %>
   <% if can_administer? %>
     <div class='course-list__col'>
-      <%= link_to "Clone Survey", "/surveys/clone/#{question_group.id}", method: :post %>
+      <%= link_to "Clone Survey", "/surveys/question_group/clone/#{question_group.id}", method: :post %>
     </div>
 
     <div class='course-list__col'>

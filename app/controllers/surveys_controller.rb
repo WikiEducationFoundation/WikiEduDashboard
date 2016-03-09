@@ -65,6 +65,13 @@ class SurveysController < ApplicationController
   end
 
   def clone
+    clone = Survey.find(params[:id]).deep_clone include: [:rapidfire_question_groups]
+    clone.name = "#{clone.name} (Copy)"
+    clone.save
+    redirect_to surveys_path
+  end
+
+  def clone_question_group
     clone = Rapidfire::QuestionGroup.find(params[:id]).deep_clone include: [:questions]
     clone.name = "#{clone.name} (Copy)"
     clone.save

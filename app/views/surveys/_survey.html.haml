@@ -1,4 +1,14 @@
-%div= survey.name
-%div= link_to 'Show', survey
-%div= link_to 'Edit', edit_survey_path(survey)
-%div= link_to 'Destroy', survey, :method => :delete, :data => { :confirm => 'Are you sure?' }
+%li.row.course-list__row
+  .row__wrapper
+    .course-list__row__title
+      %strong= survey.name
+    %div
+      - if survey.rapidfire_question_groups.length > 0
+        .course-list__col= link_to 'View Survey', survey
+      - if can_administer?
+        .course-list__col
+          = link_to "Clone Survey", "/surveys/clone/#{survey.id}", method: :post
+        .course-list__col
+          = link_to 'Edit', edit_survey_path(survey)
+        .course-list__col
+          = link_to 'Delete', survey, :method => :delete, :data => { :confirm => 'Are you sure?' }

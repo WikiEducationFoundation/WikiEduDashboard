@@ -2,7 +2,7 @@
 <div class='container'>
 <div class='section-header'>
 <h2>
-  Surveys
+  Question Groups
 </h2>
 
 <div id='app'></div>
@@ -18,7 +18,7 @@
       <%= render partial: "question_group", collection: @question_groups %>
   </ul>
 <% else %>
-  <p>No Surveys. <%= link_to "Create One", new_question_group_path%></p>
+  <p>No Question Groups. <%= link_to "Create One", new_question_group_path%></p>
 <% end %>
 
 

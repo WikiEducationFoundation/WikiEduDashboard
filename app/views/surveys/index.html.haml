@@ -1,6 +1,15 @@
-.block
-  %h1 Surveys
-  %div
-    = link_to 'Question Groups', rapidfire.question_groups_path
-  = link_to 'New Survey', new_survey_path, :class => 'button'
-  = render partial: "survey", collection: @surveys
+.container
+  .section-header
+    %h1
+      Surveys
+    #app
+    - if can_administer?
+      = link_to "New Survey", new_survey_path, :class => 'button button--no-margin'
+  %hr/
+  - if @question_groups.length > 0
+    %ul.list.list--survey= render partial: "survey", collection: @surveys
+  - else
+    %p
+      No Surveys. #{link_to "Create One", new_survey_path}
+
+  
