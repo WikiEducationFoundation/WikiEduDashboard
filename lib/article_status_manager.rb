@@ -1,3 +1,5 @@
+require "#{Rails.root}/lib/importers/revision_importer"
+
 #= Updates articles to reflect deletion and page moves on Wikipedia
 class ArticleStatusManager
   ###############
@@ -11,7 +13,7 @@ class ArticleStatusManager
 
     failed_request_count = 0
     synced_articles = Utils.chunk_requests(local_articles, 100) do |block|
-      request_results = Replica.get_existing_articles_by_id block
+      request_results = Replica.new.get_existing_articles_by_id block
       failed_request_count += 1 if request_results.nil?
       request_results
     end
@@ -69,7 +71,7 @@ class ArticleStatusManager
 
     # These pages have titles that match Articles in our DB with deleted ids
     same_title_pages = Utils.chunk_requests(maybe_deleted, 100) do |block|
-      Replica.get_existing_articles_by_title block
+      Replica.new.get_existing_articles_by_title block
     end
 
     # Update articles whose IDs have changed (keyed on title and namespace)

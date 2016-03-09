@@ -49,7 +49,7 @@ class RevisionImporter
   # Get revisions made by a set of users between two dates.
   def self.get_revisions(users, start, end_date)
     Utils.chunk_requests(users, 40) do |block|
-      Replica.get_revisions block, start, end_date
+      Replica.new.get_revisions block, start, end_date
     end
   end
 
@@ -122,7 +122,7 @@ class RevisionImporter
     return if revisions.empty?
 
     synced_revisions = Utils.chunk_requests(revisions, 100) do |block|
-      Replica.get_existing_revisions_by_id block
+      Replica.new.get_existing_revisions_by_id block
     end
     synced_ids = synced_revisions.map { |r| r['rev_id'].to_i }
 

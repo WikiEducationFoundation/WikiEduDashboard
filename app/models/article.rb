@@ -107,6 +107,6 @@ class Article < ActiveRecord::Base
     self.title = title.tr(' ', '_') unless title.nil?
     # FIXME: transitional only
     self.wiki_id ||= Wiki.default_wiki.id
-    self.mw_page_id ||= self.id
+    self.mw_page_id ||= id
   end
 end

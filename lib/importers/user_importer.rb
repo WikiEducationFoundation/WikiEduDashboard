@@ -79,7 +79,7 @@ class UserImporter
 
   def self.update_users(users=nil)
     u_users = Utils.chunk_requests(users || User.all) do |block|
-      Replica.get_user_info block
+      Replica.new.get_user_info block
     end
 
     User.transaction do

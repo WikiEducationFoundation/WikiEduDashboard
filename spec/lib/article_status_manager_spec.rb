@@ -106,7 +106,7 @@ describe ArticleStatusManager do
              id: 1,
              title: 'Noarticle',
              namespace: 0)
-      allow(Replica).to receive(:get_existing_articles_by_id).and_return(nil)
+      allow_any_instance_of(Replica).to receive(:get_existing_articles_by_id).and_return(nil)
       described_class.update_article_status
       expect(Article.find(848).deleted).to eq(false)
       expect(Article.find(1).deleted).to eq(false)
