@@ -1,6 +1,11 @@
 %p#notice= notice
 
 - @survey.rapidfire_question_groups.each_with_index do |question_group, index|
-  = render partial: "question_group", locals: question_group_locals(question_group, index)
+  = render partial: "question_group", locals: question_group_locals(question_group, index, @survey.rapidfire_question_groups.length)
+
+.block.block--text.block--clear.block--thank-you.disabled.not-seen{"data-thank-you" => true}
+  .block--thank-you__container
+    %h2.big-title Thank You!
+    %p Rebar rifle boat urban voodoo god vinyl grenade dead artisanal physical. Kowloon katana refrigerator media disposable sunglasses car fluidity digital.
 
 = link_to 'Edit', edit_survey_path(@survey)

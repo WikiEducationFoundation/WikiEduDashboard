@@ -15,6 +15,7 @@ Survey =
     scroll(0,0)
     @$survey_form = $('[data-survey-form]')
     @survey_blocks = $('[data-survey-block]')
+    @$thank_you = $('[data-thank-you]')
     @setFormValidationSections()
     @survey_progress = $('[data-survey-progress]')
     @listeners()
@@ -49,7 +50,8 @@ Survey =
 
   nextSurvey: (e) ->
     e.preventDefault();
-    # TODO submit question_group form via ajax
+    if $(e.target).data('next-survey') # Last Survey
+      @showThankYou()
     @submitQuestionGroup @currentQuestionGroupIndex()
     $(e.target).parents('.block').addClass 'hidden'
     @nextBlock()
@@ -206,6 +208,20 @@ Survey =
           this.$range.prepend $ruler
         onSlide: (position, value) ->
         onSlideEnd: (position, value) ->
+
+  showThankYou: ->
+    @$survey_form.addClass 'hidden'
+    @$thank_you.velocity 'scroll', 
+      duration: scroll_duration
+      easing: scroll_easing
+      offset: -200
+      complete: =>
+        @animating = false
+
+    @$thank_you.velocity {opacity: [1, 0], translateY: ['0%', '20%']},
+      queue: false
+      complete: =>
+        $block.removeClass 'not-seen'
 
   # addRequiredAttributes: ->
   #   $('[data-required-checkbox="true"]').each (i, checkbox) ->
