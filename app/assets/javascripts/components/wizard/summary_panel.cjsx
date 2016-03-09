@@ -17,9 +17,15 @@ SummaryPanel = React.createClass(
     WizardActions.rewindWizard(to_index)
   render: ->
     raw_options = WizardStore.getAnswers().map (answer, i) =>
+      # summary of the Course Dates panel
       if i == 0
         details = [
-          <p key={'assignment_summary'}>{@props.course.timeline_start} &mdash; {@props.course.timeline_end}</p>
+          <p key={'course_dates_summary'}>{@props.course.start} &mdash; {@props.course.end}</p>
+        ]
+      # summary of the Assignment Dates panel
+      else if i == 1
+        details = [
+          <p key={'timeline_dates_summary'}>{@props.course.timeline_start} &mdash; {@props.course.timeline_end}</p>
         ]
       else
         details = answer.selections.map (selection, j) ->
