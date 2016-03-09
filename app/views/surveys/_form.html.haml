@@ -1,0 +1,12 @@
+
+= simple_form_for(@survey) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name
+
+  .form-input
+    = f.association :rapidfire_question_groups,   as: :check_boxes
+
+  .form-actions
+    = f.button :submit, :class => 'button'

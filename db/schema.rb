@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160303235552) do
+ActiveRecord::Schema.define(version: 20160308192915) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title",                    limit: 255
@@ -187,7 +187,10 @@ ActiveRecord::Schema.define(version: 20160303235552) do
     t.datetime "updated_at"
     t.text     "intro_slide", limit: 65535
     t.text     "final_slide", limit: 65535
+    t.integer  "surveys_id",  limit: 4
   end
+
+  add_index "rapidfire_question_groups", ["surveys_id"], name: "index_rapidfire_question_groups_on_surveys_id", using: :btree
 
   create_table "rapidfire_questions", force: :cascade do |t|
     t.integer  "question_group_id", limit: 4
@@ -223,6 +226,20 @@ ActiveRecord::Schema.define(version: 20160303235552) do
   end
 
   add_index "revisions", ["article_id", "date"], name: "index_revisions_on_article_id_and_date", using: :btree
+
+  create_table "surveys", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "surveys_question_groups", id: false, force: :cascade do |t|
+    t.integer "survey_id",                   limit: 4
+    t.integer "rapidfire_question_group_id", limit: 4
+  end
+
+  add_index "surveys_question_groups", ["rapidfire_question_group_id"], name: "index_surveys_question_groups_on_rapidfire_question_group_id", using: :btree
+  add_index "surveys_question_groups", ["survey_id"], name: "index_surveys_question_groups_on_survey_id", using: :btree
 
   create_table "tags", force: :cascade do |t|
     t.integer  "course_id",  limit: 4

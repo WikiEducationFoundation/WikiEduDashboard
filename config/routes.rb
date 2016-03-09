@@ -1,6 +1,7 @@
 # Page titles on Wikipedia may include dots, so this constraint is needed.
 
 Rails.application.routes.draw do
+  resources :surveys
   get 'errors/file_not_found'
   get 'errors/unprocessable'
   get 'errors/login_error'
@@ -146,7 +147,7 @@ Rails.application.routes.draw do
 
   post '/surveys/clone/:id' => 'surveys#clone'
   post '/surveys/question/clone/:id' => 'surveys#clone_question'
-  mount Rapidfire::Engine => "/surveys", :as => 'rapidfire'
+  mount Rapidfire::Engine => "/rapidfire", :as => 'rapidfire'
   
 
   # Onboarding

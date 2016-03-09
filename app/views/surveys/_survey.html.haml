@@ -1,0 +1,4 @@
+%div= survey.name
+%div= link_to 'Show', survey
+%div= link_to 'Edit', edit_survey_path(survey)
+%div= link_to 'Destroy', survey, :method => :delete, :data => { :confirm => 'Are you sure?' }

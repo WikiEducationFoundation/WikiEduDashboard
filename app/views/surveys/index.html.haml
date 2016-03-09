@@ -1,0 +1,6 @@
+.block
+  %h1 Surveys
+  %div
+    = link_to 'Question Groups', rapidfire.question_groups_path
+  = link_to 'New Survey', new_survey_path, :class => 'button'
+  = render partial: "survey", collection: @surveys
