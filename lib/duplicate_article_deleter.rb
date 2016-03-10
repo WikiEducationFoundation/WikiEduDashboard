@@ -26,7 +26,7 @@ class DuplicateArticleDeleter
     # At this stage check to see if the deleted articles' revisions still exist
     # if so, move them to their new article ID
     limbo_revisions = Revision.where(article_id: deleted_ids)
-    RevisionImporter.move_or_delete_revisions limbo_revisions
+    RevisionImporter.new(@wiki).move_or_delete_revisions limbo_revisions
   end
 
   #################

@@ -43,7 +43,7 @@ class ArticleStatusManager
     local_articles.where(id: synced_ids).update_all(deleted: false)
     ArticlesCourses.where(article_id: deleted_ids).destroy_all
     limbo_revisions = Revision.where(article_id: deleted_ids)
-    RevisionImporter.move_or_delete_revisions limbo_revisions
+    RevisionImporter.new.move_or_delete_revisions limbo_revisions
   end
 
   ##################

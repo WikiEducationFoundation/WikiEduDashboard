@@ -15,10 +15,7 @@ class RevisionsCleaner
     user_ids = orphan_revisions.pluck(:user_id).uniq
     users = User.where(id: user_ids)
 
-    revision_data = RevisionImporter.get_revisions(users, start, end_date)
-    RevisionImporter.import_revisions(revision_data)
-
-    revs = RevisionImporter.get_revisions_from_import_data(revision_data)
+    revs = RevisionImporter.new.get_revisions_for_users(users, start, end_date)
     Rails.logger.info "Imported articles for #{revs.count} revisions"
 
     return if revs.blank?

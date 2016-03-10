@@ -62,6 +62,7 @@ describe RevisionImporter do
   end
 
   describe '.users_with_no_revisions' do
+    let(:subject)   { RevisionImporter.new }
     let(:user)      { create(:user) }
     let(:course_1)  { create(:course, start: '2015-01-01', end: '2015-12-31') }
     let(:course_2)  { create(:course, start: '2016-01-01', end: '2016-12-31') }
@@ -75,11 +76,11 @@ describe RevisionImporter do
     before { CoursesUsers.all.collect(&:update_cache) }
 
     it 'returns users who have no revisions for the given course' do
-      expect(described_class.users_with_no_revisions(course_2)).to include(user)
+      expect(subject.send(:users_with_no_revisions, course_2)).to include(user)
     end
 
     it 'does not return users who have revisions for the course' do
-      expect(described_class.users_with_no_revisions(course_1)).not_to include(user)
+      expect(subject.send(:users_with_no_revisions, course_1)).not_to include(user)
     end
   end
 
@@ -129,7 +130,7 @@ describe RevisionImporter do
              id: 547645475,
              article_id: 1) # Not the actual article_id
       revision = Revision.all
-      RevisionImporter.move_or_delete_revisions(revision)
+      RevisionImporter.new.move_or_delete_revisions(revision)
       article_id = Revision.find(547645475).article_id
       expect(article_id).to eq(38956275)
       expect(Article.exists?(38956275)).to be true
