@@ -1,5 +1,6 @@
-.block
-  %h1 Editing survey
-  = link_to 'Show', @survey
-  
-  = render 'form'
+.container.survey__edit
+  .section-header
+    %h1 Editing #{@survey.name} survey
+    = link_to 'Show', @survey
+  .survey__questions-list
+    = render 'form'

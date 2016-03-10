@@ -31,15 +31,13 @@
     
     <% end %>
   </div>
-  
+
+  <% if question_group_index + 1 == total %>
   <div class='block block--text disabled not-seen block--clear' data-survey-block='<%= @answer_group_builder.answers.length + 1 %>'>
     <div class='survey__block-nav submit' data-question-group="<%= question_group_index %>">
-      <% if question_group_index + 1 == total %>
-        <button class='button survey__next dark' data-next-survey="true">Submit Survey<span class='icon icon-rt_arrow'></span></button>
-      <% else %>
-        <button class='button survey__next dark' data-next-survey="false">Next <span class='icon icon-rt_arrow'></span></button>
-      <% end %>
+      <button class='button survey__next dark' data-next-survey="true">Submit Survey<span class='icon icon-rt_arrow'></span></button>
     </div>
   </div>
+  <% end %>
 
   <% end %>

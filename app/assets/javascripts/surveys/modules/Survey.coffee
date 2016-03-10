@@ -8,7 +8,7 @@ scroll_easing = [0.19, 1, 0.22, 1]
 
 Survey =
   current_block: 0
-  waypoints: []
+  submitted: []
 
   init: ->
     @$window = $(window)
@@ -51,12 +51,18 @@ Survey =
   nextSurvey: (e) ->
     e.preventDefault();
     if $(e.target).data('next-survey') # Last Survey
+      @submitAllQuestionGroups()
       @showThankYou()
-    @submitQuestionGroup @currentQuestionGroupIndex()
-    $(e.target).parents('.block').addClass 'hidden'
-    @nextBlock()
+    else
+      $(e.target).parents('.block').addClass 'hidden'
+      @nextBlock()
+
+  submitAllQuestionGroups: ->
+    @$survey_form.each @submitQuestionGroup.bind(@)
 
   submitQuestionGroup: (index) ->
+    return if @submitted.indexOf(index) isnt -1
+    @submitted.push index
     $form = $("form[data-question-group='#{index}']")
     url = $form.attr 'action'
     method = $form.attr 'method'
@@ -65,6 +71,7 @@ Survey =
     $form.on 'submit', (e) ->
       e.preventDefault()
       data = _context.processQuestionGroupData $(this).serializeArray()
+      console.log data
       $.ajax
         url: url
         method: method
@@ -77,6 +84,7 @@ Survey =
     $form.submit()
 
   processQuestionGroupData: (data) ->
+    console.log data
     _postData = {}
     answer_group = {}
     data.map (field) ->
@@ -86,12 +94,27 @@ Survey =
         fielddata = name.replace('answer_group', '').split '['
         answer_id = fielddata[1].replace ']', ''
         answer_key = fielddata[2].replace ']', ''
-        val = {}
-        val[answer_key] = value
-        answer_group[answer_id] = val
+        if name.indexOf('[]') is -1 #Single Answer Question
+          val = {}
+          val[answer_key] = value
+          answer_group[answer_id] = val
+        else #Multi-Select (Checkbox)
+          console.log 'multi select', name, value
+          if value isnt "0"
+            if answer_group[answer_id]?
+              answer_group[answer_id][answer_key].push "0"
+              answer_group[answer_id][answer_key].push value
+            else
+              answer_text = {}
+              values = []
+              values.push "0"
+              values.push value
+              answer_text[answer_key] = values
+              answer_group[answer_id] = answer_text
+
       else
         _postData[name] = value
-        
+
     _postData['answer_group'] = answer_group
     _postData
 
@@ -220,8 +243,6 @@ Survey =
 
     @$thank_you.velocity {opacity: [1, 0], translateY: ['0%', '20%']},
       queue: false
-      complete: =>
-        $block.removeClass 'not-seen'
 
   # addRequiredAttributes: ->
   #   $('[data-required-checkbox="true"]').each (i, checkbox) ->

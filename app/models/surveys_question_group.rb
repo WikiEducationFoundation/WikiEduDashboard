@@ -8,5 +8,4 @@ class SurveysQuestionGroup < ActiveRecord::Base
     null_pos = where("position is null").order('created_at asc')
     return has_pos+null_pos
   end
-
 end
