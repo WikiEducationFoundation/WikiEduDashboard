@@ -1,6 +1,12 @@
-.block
-  %h1 New survey
-  
-  = render 'form'
-  
-  = link_to 'Back', surveys_path
+.container.survey__edit
+  .section-header
+    %h1 New Survey
+  .block.block--clear
+    = simple_form_for(@survey) do |f|
+      = f.error_notification
+    
+      .form-inputs
+        = f.input :name
+    
+        .form-actions
+          = f.button :submit, :class => 'button dark'

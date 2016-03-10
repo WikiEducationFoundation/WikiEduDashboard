@@ -1,8 +1,8 @@
 class SurveysController < ApplicationController
   helper Rapidfire::ApplicationHelper
 
-  before_action :set_survey, only: [:show, :edit, :update, :destroy, :add_question_group]
-  before_action :set_question_groups
+  before_action :set_survey, only: [:show, :edit, :update, :destroy, :edit_question_groups]
+  before_action :set_question_groups, only: [:show, :edit, :edit_question_groups]
 
   # GET /surveys
   # GET /surveys.json
@@ -25,7 +25,7 @@ class SurveysController < ApplicationController
   end
 
   # GET /surveys/1/question_group
-  def add_question_group
+  def edit_question_groups
   end
 
   # POST /surveys

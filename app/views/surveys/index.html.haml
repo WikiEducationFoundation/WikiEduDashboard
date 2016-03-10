@@ -1,4 +1,4 @@
-.container
+.container.survey__edit
   .section-header
     %h1
       Surveys
@@ -6,7 +6,7 @@
     - if can_administer?
       = link_to "New Survey", new_survey_path, :class => 'button button--no-margin'
   %hr/
-  - if @question_groups.length > 0
+  - if @surveys.length
     %ul.list.list--survey= render partial: "survey", collection: @surveys
   - else
     %p
