@@ -4,6 +4,11 @@
   .form-inputs.light-text
     = f.input :name
 
+  %div.light-text
+    = f.label :intro, "Survey Introduction"
+    = f.hidden_field :intro , id: 'intro', value: @survey.intro
+    %trix-editor{'input' => "intro"}
+
   .light-text
     %h3 Survey Question Groups
     %div.py= link_to "Edit Question Groups", edit_question_groups_path(@survey.id)
@@ -22,6 +27,10 @@
         %li.survey__admin-tools
           %span Drag to reorder questions. (Changes will be saved automatically.)
 
+  %div.light-text
+    = f.label :thanks, "Survey Thank You"
+    = f.hidden_field :thanks , id: 'thanks', value: @survey.thanks
+    %trix-editor{'input' => "thanks"}
 
   .form-actions
     = f.button :submit, :class => 'button dark'

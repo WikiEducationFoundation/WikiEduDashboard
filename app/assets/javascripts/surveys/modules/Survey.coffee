@@ -15,6 +15,7 @@ Survey =
     scroll(0,0)
     @$survey_form = $('[data-survey-form]')
     @survey_blocks = $('[data-survey-block]')
+    @$intro = $('[data-intro]')
     @$thank_you = $('[data-thank-you]')
     @setFormValidationSections()
     @survey_progress = $('[data-survey-progress]')
@@ -162,6 +163,12 @@ Survey =
 
   validateCurrentQuestion: (e) ->
     e.preventDefault()
+
+    if $(e.target).closest('.button').data('no-validate')?
+      console.log 'skip validation'
+      @nextBlock(e)
+      return
+
     $block = $(@survey_blocks[@current_block])
     $errorsEl = $block.find('[data-errors]')
     question_group_index = @currentQuestionGroupIndex()
@@ -232,6 +239,7 @@ Survey =
 
   showThankYou: ->
     @$survey_form.addClass 'hidden'
+    @$intro.addClass 'hidden'
     @$thank_you.velocity 'scroll', 
       duration: scroll_duration
       easing: scroll_easing

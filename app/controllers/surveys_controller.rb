@@ -108,7 +108,6 @@ class SurveysController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def survey_params
-      # binding.pry
-      params.require(:survey).permit(:name, :rapidfire_question_group_ids => [])
+      params.require(:survey).permit(:name, :intro, :thanks, :rapidfire_question_group_ids => [])
     end
 end
