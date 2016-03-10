@@ -20,13 +20,15 @@
             <tr>
               <th><strong>Option</strong></th>
               <th><strong>Count</strong></th>
+              <th><strong>Follow Up Question: <%= result.question.follow_up_question_text %></strong></th>
             </tr>
           </thead>
           <tbody>
-            <%- result.results.each do |option, count| %>
+            <%- result.results.each_with_index do |opt, index| %>
               <tr>
-                <td><strong><%= option %></strong></td>
-                <td><strong><%= count %></strong></td>
+                <td><strong><%= opt[0] %></strong></td>
+                <td><strong><%= opt[1] %></strong></td>
+                <td><%= result.follow_up_results[index] %></td>
               </tr>
             <% end %>
           </tbody>
