@@ -148,6 +148,7 @@ Rails.application.routes.draw do
   post '/surveys/clone/:id' => 'surveys#clone'
   post '/surveys/question_group/clone/:id' => 'surveys#clone_question_group'
   post '/surveys/question/clone/:id' => 'surveys#clone_question'
+  post '/surveys/update_question_group_position' => 'surveys#update_question_group_position'
   mount Rapidfire::Engine => "/rapidfire", :as => 'rapidfire'
   
 

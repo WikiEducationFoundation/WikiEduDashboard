@@ -5,6 +5,13 @@
   .form-inputs
     = f.input :name
 
+  %h3 Order Question Groups
+  %ul.list.list--survey{'data-sortable-question-groups' => @survey.id}
+    - @surveys_question_groups.each do |group|
+      - question_group = group.rapidfire_question_group
+      %li.question-group-row{'data-item-id' => question_group.id}
+        %strong= question_group.name
+
   .form-input
     = f.association :rapidfire_question_groups,   as: :check_boxes
 

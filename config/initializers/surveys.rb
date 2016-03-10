@@ -4,6 +4,7 @@ require 'rapidfire'
 Rails.application.config.to_prepare do
 
   Rapidfire::QuestionGroup.class_eval do
+    acts_as_list scope: :survey
     has_and_belongs_to_many :surveys, :join_table => "surveys_question_groups", :foreign_key => "rapidfire_question_group"
   end
 

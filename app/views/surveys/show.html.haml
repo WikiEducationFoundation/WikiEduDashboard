@@ -1,7 +1,7 @@
 %p#notice= notice
 
-- @survey.rapidfire_question_groups.each_with_index do |question_group, index|
-  = render partial: "question_group", locals: question_group_locals(question_group, index, @survey.rapidfire_question_groups.length)
+- @surveys_question_groups.each_with_index do |group, index|
+  = render partial: "question_group", locals: question_group_locals(question_group_by_join(group), index, @surveys_question_groups.length)
 
 .block.block--text.block--clear.block--thank-you.disabled.not-seen{"data-thank-you" => true}
   .block--thank-you__container

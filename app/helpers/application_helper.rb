@@ -1,5 +1,6 @@
 #= Root-level helpers
 module ApplicationHelper
+  
   def logo_tag
     logo_path = "/assets/images/#{Figaro.env.logo_file}"
     image_tag logo_path

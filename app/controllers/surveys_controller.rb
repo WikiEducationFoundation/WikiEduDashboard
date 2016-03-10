@@ -31,7 +31,7 @@ class SurveysController < ApplicationController
 
     respond_to do |format|
       if @survey.save
-        format.html { redirect_to @survey, notice: 'Survey was successfully created.' }
+        format.html { redirect_to surveys_path, notice: 'Survey was successfully created.' }
         format.json { render :show, status: :created, location: @survey }
       else
         format.html { render :new }
@@ -45,7 +45,7 @@ class SurveysController < ApplicationController
   def update
     respond_to do |format|
       if @survey.update(survey_params)
-        format.html { redirect_to @survey, notice: 'Survey was successfully updated.' }
+        format.html { redirect_to surveys_path, notice: 'Survey was successfully updated.' }
         format.json { render :show, status: :ok, location: @survey }
       else
         format.html { render :edit }
@@ -85,6 +85,12 @@ class SurveysController < ApplicationController
     redirect_to rapidfire.question_group_questions_url(clone.question_group_id)
   end
 
+  def update_question_group_position
+    question_group = SurveysQuestionGroup.where(survey_id: params[:survey_id], rapidfire_question_group_id: params[:question_group_id]).first
+    question_group.insert_at(params[:position].to_i)
+    render nothing: true
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_survey
@@ -93,6 +99,7 @@ class SurveysController < ApplicationController
 
     def set_question_groups
       @question_groups = Rapidfire::QuestionGroup.all
+      @surveys_question_groups = SurveysQuestionGroup.by_position(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
