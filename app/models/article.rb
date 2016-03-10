@@ -42,6 +42,7 @@ class Article < ActiveRecord::Base
 
   validates :title, presence: true
 
+  after_initialize :set_defaults_and_normalize
   before_validation :set_defaults_and_normalize
 
   ####################
