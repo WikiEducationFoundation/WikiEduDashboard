@@ -30,4 +30,7 @@
       %ul.container.survey__admin__nav
         %li= link_to 'Create New Survey', new_survey_path
         %li= link_to 'Question Groups', rapidfire.question_groups_path
+        / %li= current_page?(survey_path)
+        - if current_page?(survey_path)
+          %li= link_to 'Edit this Survey', edit_survey_path(@survey)
     = render "shared/foot"

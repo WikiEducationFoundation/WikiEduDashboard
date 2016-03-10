@@ -17,7 +17,3 @@
   .block--thank-you__container
     %h2.big-title Thank You!
     = @survey.thanks.html_safe
-
-- if can_administer?
-  .light-text.container
-    = link_to 'Edit', edit_survey_path(@survey)
