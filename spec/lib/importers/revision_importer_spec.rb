@@ -101,14 +101,17 @@ describe RevisionImporter do
     end
 
     it 'only updates article_ids for mainspace titles' do
+      create(:course, id: 1)
       create(:assignment,
              id: 1,
              article_title: 'Foo',
-             article_id: nil)
+             article_id: nil,
+             course_id: 1)
       create(:assignment,
              id: 2,
              article_title: 'Bar',
-             article_id: nil)
+             article_id: nil,
+             course_id: 1)
       create(:article,
              id: 123,
              title: 'Foo',

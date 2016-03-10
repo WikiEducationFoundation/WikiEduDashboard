@@ -2,7 +2,7 @@ require 'rails_helper'
 require "#{Rails.root}/lib/wiki_course_edits"
 
 describe WikiCourseEdits do
-  let(:course) { create(:course, id: 1, submitted: true) }
+  let!(:course) { create(:course, id: 1, submitted: true) }
   let(:user) { create(:user) }
 
   describe '#update_course' do
@@ -63,7 +63,7 @@ describe WikiCourseEdits do
              user_id: 1,
              course_id: 1,
              article_title: 'Selfie',
-             role: Assignment::Roles::ASSIGNED_ROLE)
+             role: Assignment::Roles::ASSIGNED_ROLE,)
       create(:assignment,
              id: 2,
              user_id: 1,
