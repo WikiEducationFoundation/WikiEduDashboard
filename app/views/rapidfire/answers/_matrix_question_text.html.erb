@@ -1,5 +1,6 @@
 <% if is_grouped_question(answer) %>
 <div class='survey__question-text--matrix'>
+<% if show_title %><h3 class='survey__question__group-title'><%= name %></h3><% end %>
 <%= grouped_question(answer) %>&nbsp;<span class="survey__question-required">* required</span>
 </div>
 <% end %>

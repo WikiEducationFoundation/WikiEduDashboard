@@ -6,15 +6,15 @@
     <% is_start_of_group = start_of_group(answers:@answer_group_builder.answers, index: index) %>
     <% is_last_of_group = is_grouped_question(answer) && index + 1 == @answer_group_builder.answers.length %>
     <% if is_start_of_group %>
-    <div class="block not-seen disabled survey__question--matrix <%= question_type(answer) %>" data-survey-block='<%= index + 1 %>'>
-      <% end %>
+      <div class="block not-seen disabled survey__question--matrix <%= question_type(answer) %>" data-survey-block='<%= index + 1 %>'>
+    <% end %>
 
       <%= f.fields_for("#{answer.question.id}", answer) do |answer_form| %>
-      <%= render partial: "rapidfire/answers/matrix_question_text", locals: {f: f, answer: answer} %>
+      <%= render partial: "rapidfire/answers/matrix_question_text", locals: {f: f, answer: answer, show_title: surveys_question_group.show_title, name: question_group.name} %>
       <% if !is_grouped_question(answer) %>
       <div class='block disabled not-seen question-type--<%= question_type(answer) %> <% if answer.errors.any? %>block--errors<% end %> <% if answer.question.validation_rules[:presence].to_i == 1 %>required<% end %>' data-survey-block='<%= index + 1 %>'>
         <% end %>
-        <% if surveys_question_group.show_title %>
+        <% if surveys_question_group.show_title && !is_grouped_question(answer) %>
           <h3 class='survey__question__group-title'><%= question_group.name %></h3>
         <% end %>
         <div data-question-group="<%= question_group_index %>" class='survey__question-row <%= is_start_of_group ? "first" : "" %> <%= is_last_of_group ? "last" : "" %>'>

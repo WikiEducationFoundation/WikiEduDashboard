@@ -3,7 +3,8 @@
 - if @survey.intro?
   .block.block--text.disabled.not-seen{"data-survey-block" => "0", "data-intro" => true}
     %h1.survey__title= @survey.name
-    = @survey.intro.html_safe
+    - if @survey.intro?
+      = @survey.intro.html_safe
     .survey__block-nav
       %div
       %button.button.survey__next.dark{"data-next-survey-block" => "", "data-no-validate" => true}
@@ -16,4 +17,5 @@
 .block.block--text.block--clear.block--thank-you.disabled.not-seen{"data-thank-you" => true}
   .block--thank-you__container
     %h2.big-title Thank You!
-    = @survey.thanks.html_safe
+    - if @survey.thanks?
+      = @survey.thanks.html_safe

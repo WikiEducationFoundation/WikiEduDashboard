@@ -6,12 +6,12 @@
   <div>
   <% if question_group.questions.length > 0 %>
   <div class='course-list__col'>
-    <%= link_to "Preview Survey", new_question_group_answer_group_path(question_group) %>
+    <%= link_to "Preview", new_question_group_answer_group_path(question_group) %>
   </div>
   <% end %>
   <% if can_administer? %>
     <div class='course-list__col'>
-      <%= link_to "Clone Survey", "/surveys/question_group/clone/#{question_group.id}", method: :post %>
+      <%= link_to "Clone", "/surveys/question_group/clone/#{question_group.id}", method: :post %>
     </div>
 
     <div class='course-list__col'>
