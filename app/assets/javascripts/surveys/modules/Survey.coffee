@@ -71,7 +71,6 @@ Survey =
     $form.on 'submit', (e) ->
       e.preventDefault()
       data = _context.processQuestionGroupData $(this).serializeArray()
-      console.log data
       $.ajax
         url: url
         method: method
@@ -99,7 +98,6 @@ Survey =
           val[answer_key] = value
           answer_group[answer_id] = val
         else #Multi-Select (Checkbox)
-          console.log 'multi select', name, value
           if value isnt "0"
             if answer_group[answer_id]?
               answer_group[answer_id][answer_key].push "0"
