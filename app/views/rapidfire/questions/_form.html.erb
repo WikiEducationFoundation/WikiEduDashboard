@@ -18,8 +18,6 @@
   <div>
 
   <%= f.text_area :question_text, data: { question_text: true }, id: 'question_text', value: @question? @question.question_text : nil %>
-
-  <div data-question-text-editor></div>
   
   <br/>
   <div data-question-options>
@@ -31,6 +29,12 @@
   <%= f.label :answer_presence, "Question is Required" %>
   <%= f.check_box :answer_presence %>
 
+  <h4>Follow Up Question</h4>
+  <div class="survey__question__option-row">
+  <%= f.label :follow_up_question_text %>
+  <%= f.text_area :follow_up_question_text %>
+  </div>
+  
   <br/>
   <h4>Matrix Options</h4>
   <hr/>

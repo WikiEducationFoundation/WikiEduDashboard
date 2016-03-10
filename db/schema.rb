@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160310165753) do
+ActiveRecord::Schema.define(version: 20160310190215) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title",                    limit: 255
@@ -171,11 +171,12 @@ ActiveRecord::Schema.define(version: 20160310165753) do
   add_index "rapidfire_answer_groups", ["user_id", "user_type"], name: "index_rapidfire_answer_groups_on_user_id_and_user_type", using: :btree
 
   create_table "rapidfire_answers", force: :cascade do |t|
-    t.integer  "answer_group_id", limit: 4
-    t.integer  "question_id",     limit: 4
-    t.text     "answer_text",     limit: 65535
+    t.integer  "answer_group_id",       limit: 4
+    t.integer  "question_id",           limit: 4
+    t.text     "answer_text",           limit: 65535
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "follow_up_answer_text", limit: 65535
   end
 
   add_index "rapidfire_answers", ["answer_group_id"], name: "index_rapidfire_answers_on_answer_group_id", using: :btree
@@ -191,14 +192,15 @@ ActiveRecord::Schema.define(version: 20160310165753) do
   add_index "rapidfire_question_groups", ["surveys_id"], name: "index_rapidfire_question_groups_on_surveys_id", using: :btree
 
   create_table "rapidfire_questions", force: :cascade do |t|
-    t.integer  "question_group_id", limit: 4
-    t.string   "type",              limit: 255
-    t.text     "question_text",     limit: 65535
-    t.integer  "position",          limit: 4
-    t.text     "answer_options",    limit: 65535
-    t.text     "validation_rules",  limit: 65535
+    t.integer  "question_group_id",       limit: 4
+    t.string   "type",                    limit: 255
+    t.text     "question_text",           limit: 65535
+    t.integer  "position",                limit: 4
+    t.text     "answer_options",          limit: 65535
+    t.text     "validation_rules",        limit: 65535
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "follow_up_question_text", limit: 65535
   end
 
   add_index "rapidfire_questions", ["question_group_id"], name: "index_rapidfire_questions_on_question_group_id", using: :btree

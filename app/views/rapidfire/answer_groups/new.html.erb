@@ -5,23 +5,7 @@
 <% end %>
 
 <div class='container'>
-  <div class='block block--text disabled not-seen' data-survey-block='0'>
-    <h1 class='survey__title'><%= @question_group.name %></h1>
-    <% if @intro_slide.present? %>
-    <%= @intro_slide %>
-    <% end %>
-    <div class='survey__block-nav'>
-      <div></div>
-      <button class='button survey__next dark' data-next-survey-block><span>Start</span> <span class='icon icon-rt_arrow'></span></button>
-    </div>
-  </div>
-
+  
   <%= render partial: "question_group" %>
 
-</div>
-</div>
-<div class='survey__footer'>
-<div class='container'>
-  <div class='survey__progress'><div class='survey__progress-bar' data-survey-progress></div></div>
-</div>
 </div>

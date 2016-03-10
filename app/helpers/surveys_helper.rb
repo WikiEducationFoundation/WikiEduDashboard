@@ -29,6 +29,10 @@ module SurveysHelper
     answer.question.validation_rules[:grouped_question]
   end
 
+  def has_follow_up_question(answer)
+    !answer.question.follow_up_question_text.empty?
+  end
+
   def start_of_group(options = {})
     answers = options[:answers]
     index = options[:index]
