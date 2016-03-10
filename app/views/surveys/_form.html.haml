@@ -22,6 +22,10 @@
             .course-list__row__title
               %strong= question_group.name
             %div
+              %div
+                %label Show Title
+                = check_box_tag 'show_title', 'yes', group.show_title, :data => { 'show-title' => group.id}
+
               = link_to "Edit", rapidfire.question_group_questions_path(question_group)
       - if @surveys_question_groups.length > 1
         %li.survey__admin-tools
@@ -34,3 +38,5 @@
 
   .form-actions
     = f.button :submit, :class => 'button dark'
+    = link_to "View Survey", @survey, :class => 'button'
+

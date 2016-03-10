@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160310162410) do
+ActiveRecord::Schema.define(version: 20160310165753) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title",                    limit: 255
@@ -239,6 +239,7 @@ ActiveRecord::Schema.define(version: 20160310162410) do
     t.integer  "position",                    limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "show_title",                            default: false
   end
 
   add_index "surveys_question_groups", ["rapidfire_question_group_id"], name: "index_surveys_question_groups_on_rapidfire_question_group_id", using: :btree

@@ -47,17 +47,18 @@ module SurveysHelper
     !is_grouped_question(answer) && is_grouped_question(answers[index + 1])
   end
 
-  def question_group_locals(question_group, index, total)
-    @question_group = question_group
+  def question_group_locals(surveys_question_group, index, total)
+    @question_group = surveys_question_group.rapidfire_question_group
     @answer_group_builder = Rapidfire::AnswerGroupBuilder.new({
       params: {},
-      user: current_user, 
-      question_group: question_group
+      user: current_user,
+      question_group: @question_group
     })
     return {
       question_group: @question_group,
       answer_group_builder: @answer_group_builder,
       question_group_index: index,
+      surveys_question_group: surveys_question_group,
       total: total
     }
   end

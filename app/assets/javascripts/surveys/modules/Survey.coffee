@@ -27,6 +27,7 @@ Survey =
     $('[data-next-survey]').on 'click', @nextSurvey.bind(@)
     $('[data-next-survey-block]').on 'click', @validateCurrentQuestion.bind(@)
     $('[data-prev-survey-block]').on 'click', @prevBlock.bind(@)
+    $('[data-show-title]').on 'change', @toggleShowQuestionGroupTitle.bind(@)
     @$window.scroll( throttle( @handleScroll.bind(@), 250) );
 
   handleScroll: ->
@@ -250,9 +251,19 @@ Survey =
     @$thank_you.velocity {opacity: [1, 0], translateY: ['0%', '20%']},
       queue: false
 
-  # addRequiredAttributes: ->
-  #   $('[data-required-checkbox="true"]').each (i, checkbox) ->
-  #     $checkbox = $(checkbox).find 'input[type=checkbox]'
-  #     $checkbox.attr 'required', 'required'
+  toggleShowQuestionGroupTitle: ({target}) ->
+    id = $(target).data 'show-title'
+    checked = target.checked
+    $.ajax
+      url: "/surveys_question_group"
+      method: "put"
+      data: JSON.stringify({id: id, value: checked})
+      dataType: 'json'
+      contentType: 'application/json'
+      success: (e) -> console.log 'success', e
+      error: (e) -> console.log 'error', e
+
+
+
 
 module.exports = Survey 
