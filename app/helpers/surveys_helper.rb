@@ -30,7 +30,7 @@ module SurveysHelper
   end
 
   def has_follow_up_question(answer)
-    !answer.question.follow_up_question_text.empty?
+    answer.question.follow_up_question_text? && !answer.question.follow_up_question_text.empty?
   end
 
   def start_of_group(options = {})
