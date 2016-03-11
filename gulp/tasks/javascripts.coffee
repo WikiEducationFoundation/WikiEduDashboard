@@ -26,6 +26,9 @@ outputPath = "#{config.outputPath}/#{config.jsDirectory}"
 sourcePath = "#{config.sourcePath}/#{config.jsDirectory}"
 
 
+gulp.task "webpack-build", ["bower"], plugins.shell.task ["npm run build"]
+gulp.task "webpack-hotdev", plugins.shell.task ["npm run hotdev"]
+
 # Setup browserify bundler
 initBrowserify = ->
   browserifyOpts =
