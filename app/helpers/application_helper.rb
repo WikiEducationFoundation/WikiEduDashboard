@@ -16,6 +16,22 @@ module ApplicationHelper
     favicon_link_tag favicon_path
   end
 
+  def dashboard_stylesheet_tag(filename)
+    if Rails.env == "development"
+      stylesheet_link_tag "/assets/stylesheets/#{filename}.css"
+    else
+      stylesheet_link_tag fingerprinted("/assets/stylesheets/#{rtl? ? 'rtl/' : nil}", "#{filename}.css"), media: 'all'
+    end
+  end
+
+  def hot_javascript_tag(filename)
+    if Rails.env == "development"
+      javascript_include_tag "http://localhost:8080/static/#{filename}.js" 
+    else
+      javascript_include_tag fingerprinted('/assets/javascripts/', "#{filename}.js")
+    end
+  end
+
   def fingerprinted(path, filename)
     manifest_path = "#{Rails.root}/public/#{path}/rev-manifest.json"
     manifest = JSON.parse(File.read(File.expand_path(manifest_path, __FILE__)))
