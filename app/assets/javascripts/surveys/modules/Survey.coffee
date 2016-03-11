@@ -9,6 +9,7 @@ scroll_easing = [0.19, 1, 0.22, 1]
 Survey =
   current_block: 0
   submitted: []
+  survey_conditionals: {}
 
   init: ->
     @$window = $(window)
@@ -19,6 +20,7 @@ Survey =
     @$thank_you = $('[data-thank-you]')
     @setFormValidationSections()
     @survey_progress = $('[data-survey-progress]')
+    @initConditionals()
     @listeners()
     @initBlocks()
     @initRangeSliders()
@@ -47,8 +49,14 @@ Survey =
         $block.addClass 'disabled'
 
   initBlocks: ->
+    @indexBlocks()
     window.scrollTo(0,0)
     $(@survey_blocks[@current_block]).removeClass 'disabled not-seen'
+
+  indexBlocks: ->
+    $('[data-survey-block].hidden').removeAttr 'data-survey-block'
+    $('[data-survey-block]:not(.hidden)').each (i, block) ->
+      $(block).attr 'data-survey-block', i
 
   nextSurvey: (e) ->
     e.preventDefault();
@@ -123,10 +131,30 @@ Survey =
     $block = $(@survey_blocks[toIndex])
     passedValidation = @validateCurrentQuestion()
 
+  updateCurrentBlock: ->
+    return if @animating
+    $block = $("[data-survey-block='#{@current_block}']")
+    $($block).velocity 'scroll', 
+      duration: scroll_duration
+      easing: scroll_easing
+      offset: -200
+      begin: =>
+        $(@survey_blocks[@current_block])
+          .removeClass 'highlight' 
+          .attr 'style', ''
+      complete: =>
+        @animating = false
+        @focusField()
+    if $block.hasClass 'not-seen'
+      $block.velocity {opacity: [1, 0], translateY: ['0%', '100%']},
+        queue: false
+        complete: =>
+          $block.removeClass 'not-seen disabled'
+
   nextBlock: ->
     return if @animating
     toIndex = @current_block + 1
-    $block = $(@survey_blocks[toIndex])
+    $block = $("[data-survey-block='#{toIndex}']")
     
     $($block).velocity 'scroll', 
       duration: scroll_duration
@@ -263,6 +291,41 @@ Survey =
       success: (e) -> console.log 'success', e
       error: (e) -> console.log 'error', e
 
+  initConditionals: ->
+    $('[data-conditional-question]').each (i, question) =>
+      $(question).addClass 'hidden'
+      conditional_string = $(question).data 'conditional-question'
+      conditional_params = conditional_string.split '|'
+      parent_question_id = conditional_params[0]
+      conditional_operator = conditional_params[1]
+      conditional_value = conditional_params[2]
+
+      if @survey_conditionals[parent_question_id]?
+        @survey_conditionals[parent_question_id].children.push question
+      else
+        @survey_conditionals[parent_question_id] = {}
+        @survey_conditionals[parent_question_id].children = [question]
+
+      @survey_conditionals[parent_question_id].operator = conditional_operator
+      @survey_conditionals[parent_question_id][conditional_value] = question
+
+      $("##{parent_question_id} input").on 'change', ({target}) =>
+        value = target.value.trim()
+        @handleParentConditionalChange value, @survey_conditionals[parent_question_id]
+
+  handleParentConditionalChange: (value, conditional_group) ->
+    console.log 'handleParentConditionalChange', value, conditional_group
+    conditional_group.current_value = value
+    conditional_group.children.map (question) ->
+      console.log question
+      $(question)
+        .removeAttr 'style'
+        .addClass 'hidden not-seen disabled'
+    $(conditional_group[value])
+      .removeClass 'hidden'
+      .attr 'data-survey-block', ''
+    @indexBlocks()
+    @updateCurrentBlock()
 
 
 

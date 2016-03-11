@@ -10,9 +10,9 @@
       <%= f.fields_for("#{answer.question.id}", answer) do |answer_form| %>
       <%= render partial: "rapidfire/answers/matrix_question_text", locals: {f: f, answer: answer} %>
       <% if !is_grouped_question(answer) %>
-      <div class='block disabled not-seen question-type--<%= question_type(answer) %> <% if answer.errors.any? %>block--errors<% end %> <% if answer.question.validation_rules[:presence].to_i == 1 %>required<% end %> <% if has_follow_up_question(answer) %>has-follow-up<% end %>' data-survey-block='<%= index + 1 %>'>
+      <div class='block disabled not-seen question-type--<%= question_type(answer) %> <% if answer.errors.any? %>block--errors<% end %> <% if answer.question.validation_rules[:presence].to_i == 1 %>required<% end %> <% if has_follow_up_question(answer) %>has-follow-up<% end %> <% if answer.question.conditionals? %>hidden<% end %>' data-survey-block='<%= index + 1 %>' <% if answer.question.conditionals? %>data-conditional-question="<%= answer.question.conditionals %>"<% end %> >
         <% end %>
-        <div class='survey__question-row <%= is_start_of_group ? "first" : "" %> <%= is_last_of_group ? "last" : "" %>'><%= render_answer_form_helper(answer, answer_form) %></div>
+        <div id="<%= answer.question.id %>" class='survey__question-row <%= is_start_of_group ? "first" : "" %> <%= is_last_of_group ? "last" : "" %>'><%= render_answer_form_helper(answer, answer_form) %></div>
         <div data-errors></div>
         <% if !is_grouped_question(answer) || is_last_of_group  || is_grouped_question(answer) && !is_grouped_question(@answer_group_builder.answers[index + 1]) %>
         <% if has_follow_up_question(answer) %>

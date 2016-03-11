@@ -7,6 +7,10 @@ SurveyAdmin =
     @$question_form_options = $('[data-question-options]')
     @$question_text_input = $('[data-question-text]')
     @$question_text_editor = $('[data-question-text-editor]')
+    @$conditional_operator = $('[data-conditional-operator]')
+    @$add_conditional_button = $('[data-add-conditional]')
+    @$conditional_value_select = $('[data-conditional-value-select]')
+    @$conditional_input_field = $('[data-conditional-field-input]')
     @initSortableQuestions()
     @initSortableQuestionGroups()
     @initRepeaters()
@@ -14,7 +18,10 @@ SurveyAdmin =
 
   listeners: ->
     @handleQuestionType()
+    $('[data-conditional-select]').on 'change', $.proxy(@, 'handleConditionalSelect')
+    @$conditional_value_select.on 'change', $.proxy(@, 'handleConditionalAnswerSelect')
     @$question_type_select.on 'change', $.proxy(@, 'handleQuestionType')
+    @$add_conditional_button.on 'click', $.proxy(@, 'addConditional')
 
   initSortableQuestions: ->
     $sortable = $('[data-sortable-questions]')
@@ -100,6 +107,44 @@ SurveyAdmin =
          return
        isFirstItemUndeletable: true
 
+  handleConditionalSelect: (e) ->
+    id = e.target.value
+    if id isnt ""
+      @conditional = {}
+      @conditional.question_id = id
+      @getQuestion(id)
+
+  getQuestion: (id) ->
+    $.ajax
+      url: "/surveys/question_group_question/#{id}"
+      method: 'get'
+      dataType: 'json'
+      contentType: 'application/json'
+      success: (e) => 
+        console.log 'success', e
+        @$conditional_operator.text "="
+        @conditional.operator = "="
+        answers = e.question.answer_options.split('\n')
+        @$conditional_value_select.append "<option value='nil' slelected>Select an Answer</option>"
+        answers.map (answer, i) =>
+          answer_value = answer.trim()
+          @$conditional_value_select.append "<option value='#{answer_value}'>#{answer_value}</option>"
+        @$conditional_value_select.removeClass 'hidden'
+        
+      error: (e) -> console.log 'error', e
+
+  handleConditionalAnswerSelect: ({target}) ->
+    if target.value isnt 'nil'
+      @$add_conditional_button.removeClass 'hidden'
+      @conditional.answer_value =  target.value
+      console.log "conditional", @conditional
+
+  addConditional: (e) ->
+    e.preventDefault()
+    conditional_string = ""
+    for k,v of @conditional
+      conditional_string += "#{v}|"
+    @$conditional_input_field.val conditional_string.substr(0, conditional_string.length - 1)
 
 
 module.exports = SurveyAdmin

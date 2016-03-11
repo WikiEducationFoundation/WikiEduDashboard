@@ -34,6 +34,19 @@
   <%= f.label :follow_up_question_text %>
   <%= f.text_area :follow_up_question_text %>
   </div>
+
+  <% if @question_group.questions.length > 1 %>
+  <h4>Conditionals</h4>
+  <div class="survey__question__option-row">
+    <div class='survey__question__conditional-row'>
+      Show if <%= select_tag "", options_from_collection_for_select(@question_group.questions.where{id != nil}, "id", "question_text"), :include_blank => "Select a question", :data => {:conditional_select => true}%>
+      <span data-conditional-operator></span>
+      <select class='hidden' data-conditional-value-select></select>
+      <button class='hidden button' data-add-conditional>Add Conditional</button>
+      <%= f.hidden_field :conditionals, :data => {:conditional_field_input => true} %>
+    </div>
+  </div>
+  <% end %>
   
   <br/>
   <h4>Matrix Options</h4>
