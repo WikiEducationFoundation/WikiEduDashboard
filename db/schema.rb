@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160310190215) do
+ActiveRecord::Schema.define(version: 20160311005058) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title",                    limit: 255
@@ -201,6 +201,7 @@ ActiveRecord::Schema.define(version: 20160310190215) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "follow_up_question_text", limit: 65535
+    t.text     "conditionals",            limit: 65535
   end
 
   add_index "rapidfire_questions", ["question_group_id"], name: "index_rapidfire_questions_on_question_group_id", using: :btree

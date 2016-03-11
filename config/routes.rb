@@ -146,6 +146,8 @@ Rails.application.routes.draw do
   root to: 'home#index'
 
   post '/surveys/clone/:id' => 'surveys#clone'
+  get '/surveys/question_group_question/:id' => 'questions#get_question'
+  # put '/surveys/question/:id' => 'questions#get_question'
   get '/surveys/:id/question_group' => 'surveys#edit_question_groups', :as => "edit_question_groups"
   post '/surveys/question_group/clone/:id' => 'surveys#clone_question_group'
   post '/surveys/question/clone/:id' => 'surveys#clone_question'
