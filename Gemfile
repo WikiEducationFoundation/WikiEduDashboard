@@ -28,7 +28,6 @@ gem 'hashugar'
 
 gem 'simple_form'
 
-gem 'rapidfire', :path => './vendor/__rapidfire'
 gem 'acts_as_list'
 
 # UNIVERSAL TEXT CONVERTER - FOR MARDOWN TO MEDIAWIKI TEXT
@@ -36,6 +35,14 @@ gem 'pandoc-ruby', '~> 1.0.0'
 
 gem 'http_accept_language'
 gem 'i18n-js', '>= 3.0.0.rc11'
+
+# If you want to be able to hack locally on rapidfire,
+# run `export RAPIDFIREHACKINGMODE=true` in your terminal.
+if ENV['RAPIDFIREHACKINGMODE'] == 'true'
+  gem 'rapidfire', path: './vendor/__rapidfire'
+else
+  gem 'rapidfire', git: 'https://github.com/WikiEducationFoundation/rapidfire', branch: 'master'
+end
 
 group :development do
   gem 'better_errors'
