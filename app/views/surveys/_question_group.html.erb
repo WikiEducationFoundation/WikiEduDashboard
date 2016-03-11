@@ -18,6 +18,7 @@
       
       <% if !is_grouped_question(answer) %>
         <div class='block disabled not-seen question-type--<%= question_type(answer) %> <% if answer.errors.any? %>block--errors<% end %> <% if answer.question.validation_rules[:presence].to_i == 1 %>required<% end %>' data-survey-block='<%= index + 1 %>'>
+        <%= answer.question.conditionals %>
       <% end %>
 
         <% if surveys_question_group.show_title && !is_grouped_question(answer) %>
