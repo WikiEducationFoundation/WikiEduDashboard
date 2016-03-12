@@ -26,7 +26,7 @@ module ApplicationHelper
 
   def hot_javascript_tag(filename)
     if Rails.env == "development"
-      javascript_include_tag "http://localhost:8080/static/#{filename}.js" 
+      javascript_include_tag "http://localhost:8080/#{filename}.js" 
     else
       javascript_include_tag fingerprinted('/assets/javascripts/', "#{filename}.js")
     end

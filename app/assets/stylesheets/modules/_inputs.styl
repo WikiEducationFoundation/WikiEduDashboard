@@ -13,12 +13,18 @@ input, textarea, select, .expandingArea > pre
   padding 10px
   -webkit-appearance none
   -moz-appearance none
+  // 
 
   &:focus
     border-color dove
 
   &::-ms-expand
     display none
+
+.default-form
+  select
+    -webkit-appeance select
+    -moz-appeance select
 
 input.invalid, label.invalid input
   border 2px solid warning !important

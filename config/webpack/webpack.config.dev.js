@@ -8,8 +8,9 @@ module.exports = {
         survey_admin: source + "surveys/survey-admin.coffee"
     },
     output: {
+        path: __dirname + "/",
         filename: "[name].js",
-        publicPath: '/static/'
+        publicPath: '/'
     },
     resolve: {
         extension: ['', '.js', '.jsx', '.coffee'],
