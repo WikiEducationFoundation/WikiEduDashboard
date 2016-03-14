@@ -4,11 +4,7 @@ class WikiAssignmentOutput
   ################
   # Entry points #
   ################
-  def self.build_talk_page_update(title,
-                                  talk_title,
-                                  assignments,
-                                  course_page)
-
+  def self.build_talk_page_update(title, talk_title, assignments, course_page)
     initial_page_content = WikiApi.get_page_content talk_title
     # We only want to add assignment tags to non-existant talk pages if the
     # article page actually exists. This also servces to make sure that we
@@ -57,13 +53,13 @@ class WikiAssignmentOutput
   # that the user who updates the assignments for a course only introduces data
   # for that course. We also want to make as minimal a change as possible, and
   # to make sure that we're not disrupting the format of existing content.
-  def self.build_assignment_page_content(new_tag,
-                                         course_page,
-                                         page_content)
-
+  def self.build_assignment_page_content(new_tag, course_page, page_content)
     dashboard_url = ENV['dashboard_url']
-    # Return if tag already exists on page
-    return nil if page_content.include? new_tag unless new_tag.blank?
+    # Return if tag already exists on page.
+    # However, if the tag is empty, that means to blank the prior tag (if any).
+    unless new_tag.blank?
+      return nil if page_content.force_encoding('utf-8').include? new_tag
+    end
 
     # Check for existing tags and replace
     old_tag_ex = "{{course assignment | course = #{course_page}"
@@ -100,8 +96,8 @@ class WikiAssignmentOutput
 
   def self.build_wikitext_user_list(assignments, role)
     user_ids = assignments.select { |assignment| assignment.role == role }
-               .map(&:user_id)
+                          .map(&:user_id)
     User.where(id: user_ids).pluck(:username)
-      .map { |username| "[[User:#{username}|#{username}]]" }.join(', ')
+        .map { |username| "[[User:#{username}|#{username}]]" }.join(', ')
   end
 end

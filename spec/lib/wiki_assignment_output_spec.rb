@@ -16,12 +16,9 @@ describe WikiAssignmentOutput do
            course_id: 10001,
            article_title: 'Selfie',
            role: Assignment::Roles::REVIEWING_ROLE)
-    create(:user,
-           id: 3,
-           username: 'Ragesock')
-    create(:courses_user,
-           user_id: 3,
-           course_id: 10001)
+    # This UTF-8 username ensures that encoding compatibility issues are handled.
+    create(:user, id: 3, username: 'Keï')
+    create(:courses_user, user_id: 3, course_id: 10001)
     create(:course,
            id: 10001,
            title: 'Course Title',
@@ -31,7 +28,7 @@ describe WikiAssignmentOutput do
   end
 
   describe '.build_assignment_page_content' do
-    it 'should add an assignment tag to the wikitext of a page' do
+    it 'adds an assignment tag to the wikitext of a page' do
       VCR.use_cassette 'wiki_edits/assignments' do
         talk_title = 'Talk:Selfie'
         selfie_talk = WikiApi.get_page_content(talk_title)
@@ -80,23 +77,23 @@ describe WikiAssignmentOutput do
       expected_output = talk_page_templates + assignment_tag + "\n" + additional_talk_content
       expect(output).to eq(expected_output)
     end
-  end
 
-  it 'returns nil if the assignment template is already present' do
-    course_page = Course.find(10001).wiki_title
-    assignment_tag = "{{dashboard.wikiedu.org assignment | course = #{course_page}"
-    talk_page_templates = "{{some template}}\n{{some other template}}\n"
-    additional_talk_content = "This is a comment\n"
-    initial_talk_page_content = talk_page_templates + assignment_tag + additional_talk_content
-    output = WikiAssignmentOutput
-             .build_assignment_page_content(assignment_tag,
-                                            course_page,
-                                            initial_talk_page_content)
-    expect(output).to be_nil
+    it 'returns nil if the assignment template is already present' do
+      course_page = Course.find(10001).wiki_title
+      assignment_tag = "{{dashboard.wikiedu.org assignment | course = #{course_page}"
+      talk_page_templates = "{{some template}}\n{{some other template}}\n"
+      additional_talk_content = "This is a comment\n"
+      initial_talk_page_content = talk_page_templates + assignment_tag + additional_talk_content
+      output = WikiAssignmentOutput
+               .build_assignment_page_content(assignment_tag,
+                                              course_page,
+                                              initial_talk_page_content)
+      expect(output).to be_nil
+    end
   end
 
   describe '.build_talk_page_update' do
-    it 'should return content even if the talk page does not yet exist' do
+    it 'returns content even if the talk page does not yet exist' do
       VCR.use_cassette 'wiki_edits/talk_page_update' do
         existing_title = 'Selfie'
         missing_talk_title = 'Talk:THIS PAGE DOES NOT EXIST'
