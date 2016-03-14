@@ -171,6 +171,7 @@ SurveyAdmin =
     @$conditional_value_select.prop 'selectedIndex', 0
     @$conditional_question_select.prop 'selectedIndex', 0
     @$clear_conditional_button.addClass 'hidden'
+    @$conditional_input_field.val ""
 
 
 
