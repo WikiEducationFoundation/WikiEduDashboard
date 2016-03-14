@@ -35,7 +35,7 @@
   <%= f.text_area :follow_up_question_text %>
   </div>
 
-  <% if !@question.new_record? && @question_group.questions.length > 1 %>
+  <% if !@question.nil? && @question_group.questions.length > 1 %>
   <h4>Conditionals</h4>
   <div class="survey__question__option-row">
     <div class='survey__question__conditional-row' data-conditional="<%=  @question.conditionals %>">
