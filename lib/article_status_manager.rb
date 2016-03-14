@@ -38,9 +38,9 @@ class ArticleStatusManager
     # FIXME: A better approach would be to look for deletion logs, and only mark
     # an article as deleted if there is a corresponding deletion log.
     if failed_request_count == 0
-      deleted_ids = articles.map(&:mw_page_id) - synced_ids
+      deleted_page_ids = articles.map(&:mw_page_id) - synced_ids
     else
-      deleted_ids = []
+      deleted_page_ids = []
     end
 
     # First we find any pages that just moved, and update title and namespace.
@@ -50,13 +50,13 @@ class ArticleStatusManager
     # This happens in situations such as history merges.
     # If articles move in between title/namespace updates and id updates,
     # then it's possible to have an article id collision.
-    update_article_ids deleted_ids
+    update_article_ids deleted_page_ids
 
     # Delete articles as appropriate
-    articles.where(mw_page_id: deleted_ids).update_all(deleted: true)
+    articles.where(mw_page_id: deleted_page_ids).update_all(deleted: true)
     articles.where(mw_page_id: synced_ids).update_all(deleted: false)
-    ArticlesCourses.where(article_id: deleted_ids).destroy_all
-    limbo_revisions = Revision.where(mw_page_id: deleted_ids)
+    ArticlesCourses.where(article_id: deleted_page_ids).destroy_all
+    limbo_revisions = Revision.where(mw_page_id: deleted_page_ids)
     RevisionImporter.new(@wiki).move_or_delete_revisions limbo_revisions
   end
 
@@ -83,8 +83,8 @@ class ArticleStatusManager
 
   # Check whether any deleted pages still exist with a different article_id.
   # If so, update the Article to use the new id.
-  def update_article_ids(deleted_ids)
-    maybe_deleted = Article.where(mw_page_id: deleted_ids, wiki_id: @wiki.id)
+  def update_article_ids(deleted_page_ids)
+    maybe_deleted = Article.where(mw_page_id: deleted_page_ids, wiki_id: @wiki.id)
 
     # These pages have titles that match Articles in our DB with deleted ids
     same_title_pages = Utils.chunk_requests(maybe_deleted, 100) do |block|
@@ -93,11 +93,11 @@ class ArticleStatusManager
 
     # Update articles whose IDs have changed (keyed on title and namespace)
     same_title_pages.each do |stp|
-      resolve_article_id(stp, deleted_ids)
+      resolve_page_id(stp, deleted_page_ids)
     end
   end
 
-  def resolve_article_id(same_title_page, deleted_ids)
+  def resolve_page_id(same_title_page, deleted_page_ids)
     title = same_title_page['page_title']
     id = same_title_page['page_id']
     namespace = same_title_page['page_namespace']
@@ -109,7 +109,7 @@ class ArticleStatusManager
       deleted: false
     )
     return if article.nil?
-    return unless deleted_ids.include?(article.mw_page_id)
+    return unless deleted_page_ids.include?(article.mw_page_id)
     # This catches false positives when the query for page_title matches
     # a case variant.
     return unless article.title == title

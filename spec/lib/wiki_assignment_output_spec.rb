@@ -25,12 +25,6 @@ describe WikiAssignmentOutput do
     # This UTF-8 username ensures that encoding compatibility issues are handled.
     create(:user, id: 3, username: 'Keï')
     create(:courses_user, user_id: 3, course_id: 10001)
-    create(:course,
-           id: 10001,
-           title: 'Course Title',
-           school: 'School',
-           term: 'Term',
-           slug: 'School/Course_Title_(Term)')
   end
 
   describe '.build_assignment_page_content' do
