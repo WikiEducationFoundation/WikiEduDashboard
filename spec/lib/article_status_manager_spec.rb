@@ -17,13 +17,26 @@ describe ArticleStatusManager do
     end
 
     it 'should update the ids of articles' do
+      # en.wikipedia - article 100 does not exist
       create(:article,
              id: 100,
+             mw_page_id: 100,
              title: 'Audi',
              namespace: 0)
 
+      # es.wikipedia
+      create(:wiki, id: 2, language: 'es', project: 'wikipedia')
+      create(:article,
+             id: 100000001,
+             mw_page_id: 100000001,
+             title: 'Audi',
+             namespace: 0,
+             wiki_id: 2)
+
       described_class.update_article_status
-      expect(Article.find_by(title: 'Audi').id).to eq(848)
+
+      expect(Article.find_by(title: 'Audi', wiki_id: 1).mw_page_id).to eq(848)
+      expect(Article.find_by(title: 'Audi', wiki_id: 2).mw_page_id).to eq(4976786)
     end
 
     it 'should delete articles when id changed but new one already exists' do
