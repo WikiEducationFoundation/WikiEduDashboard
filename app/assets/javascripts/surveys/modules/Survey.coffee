@@ -5,6 +5,7 @@ throttle = require 'lodash.throttle'
 
 scroll_duration = 500
 scroll_easing = [0.19, 1, 0.22, 1]
+Utils = require './SurveyUtils.coffee'
 
 Survey =
   current_block: 0
@@ -294,7 +295,7 @@ Survey =
   initConditionals: ->
     $('[data-conditional-question]').each (i, question) =>
       $(question).addClass 'hidden'
-      { question_id, operator, value } = @parseConditionalString $(question).data 'conditional-question'
+      { question_id, operator, value } = Utils.parseConditionalString $(question).data 'conditional-question'
 
       if @survey_conditionals[question_id]?
         @survey_conditionals[question_id].children.push question
@@ -309,12 +310,12 @@ Survey =
         value = target.value.trim()
         @handleParentConditionalChange value, @survey_conditionals[question_id]
 
-  parseConditionalString: (string) ->
-    params = string.split '|'
-    return {} =
-      question_id : params[0]
-      operator : params[1]
-      value : params[2]
+  # parseConditionalString: (string) ->
+  #   params = string.split '|'
+  #   return {} =
+  #     question_id : params[0]
+  #     operator : params[1]
+  #     value : params[2]
 
   handleParentConditionalChange: (value, conditional_group) ->
     conditional_group.current_value = value
