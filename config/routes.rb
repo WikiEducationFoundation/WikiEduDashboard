@@ -1,7 +1,6 @@
 # Page titles on Wikipedia may include dots, so this constraint is needed.
 
 Rails.application.routes.draw do
-  resources :surveys
   get 'errors/file_not_found'
   get 'errors/unprocessable'
   get 'errors/login_error'
@@ -146,13 +145,14 @@ Rails.application.routes.draw do
   root to: 'home#index'
 
   post '/surveys/clone/:id' => 'surveys#clone'
+  put '/surveys/question_position' => 'questions#update_position'
   get '/surveys/question_group_question/:id' => 'questions#get_question'
-  # put '/surveys/question/:id' => 'questions#get_question'
   get '/surveys/:id/question_group' => 'surveys#edit_question_groups', :as => "edit_question_groups"
   post '/surveys/question_group/clone/:id' => 'surveys#clone_question_group'
   post '/surveys/question/clone/:id' => 'surveys#clone_question'
   post '/surveys/update_question_group_position' => 'surveys#update_question_group_position'
   put '/surveys_question_group' => 'surveys_question_groups#update'
+  resources :surveys
   mount Rapidfire::Engine => "/rapidfire", :as => 'rapidfire'
   
 

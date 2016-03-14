@@ -56,8 +56,11 @@ Survey =
 
   indexBlocks: (cb = null) ->
     $('[data-survey-block].hidden').removeAttr 'data-survey-block'
-    $('[data-survey-block]:not(.hidden)').each (i, block) ->
-      $(block).attr 'data-survey-block', i
+    $survey_blocks = $('[data-survey-block]:not(.hidden)')
+    $survey_blocks.each (i, block) ->
+      $block = $(block)
+      $block.attr 'data-survey-block', i
+
     cb() if cb
 
   nextSurvey: (e) ->
@@ -130,7 +133,7 @@ Survey =
   validateBlock: (e, cb) ->
     toIndex = @current_block + 1
     $block = $(@survey_blocks[toIndex])
-    passedValidation = @validateCurrentQuestion()
+    @validateCurrentQuestion()
 
   updateCurrentBlock: ->
     return if @animating
@@ -195,7 +198,6 @@ Survey =
     e.preventDefault()
 
     if $(e.target).closest('.button').data('no-validate')?
-      console.log 'skip validation'
       @nextBlock(e)
       return
 
@@ -210,6 +212,7 @@ Survey =
 
     if validation is true
       $errorsEl.empty()
+      console.log 'ay', @current_block
       @removeNextButton(e)
       @nextBlock(e)
     else
@@ -303,19 +306,19 @@ Survey =
         @survey_conditionals[question_id] = {}
         @survey_conditionals[question_id].children = [question]
 
-      @survey_conditionals[question_id].operator = operator
-      @survey_conditionals[question_id][value] = question
+      @survey_conditionals[question_id][value] = question if value?
 
-      $("##{question_id} input").on 'change', ({target}) =>
-        value = target.value.trim()
-        @handleParentConditionalChange value, @survey_conditionals[question_id]
+      if operator is '*presence'
+        @survey_conditionals[question_id].present = false
+        @survey_conditionals[question_id].question = question
+        $("#question_#{question_id} textarea").on 'keyup', ({target}) =>
+          @handleParentPresenceConditionalChange target.value.length, @survey_conditionals[question_id], $("#question_#{question_id}").parents('.block')
+      else
+        @survey_conditionals[question_id].operator = operator
 
-  # parseConditionalString: (string) ->
-  #   params = string.split '|'
-  #   return {} =
-  #     question_id : params[0]
-  #     operator : params[1]
-  #     value : params[2]
+        $("#question_#{question_id} input").on 'change', ({target}) =>
+          value = target.value.trim()
+          @handleParentConditionalChange value, @survey_conditionals[question_id]
 
   handleParentConditionalChange: (value, conditional_group) ->
     conditional_group.current_value = value
@@ -331,6 +334,34 @@ Survey =
     @indexBlocks =>
       @current_block = $(conditional_group[value]).data 'survey-block'
     @updateCurrentBlock()
+
+  handleParentPresenceConditionalChange: (present, conditional_group, $parent) ->
+    $question = $(conditional_group.question)
+    console.log $question
+    if present and !conditional_group.present
+      console.log 'has a value', conditional_group, $question
+      conditional_group.present = true
+      $question
+        .removeClass 'hidden'
+        .attr 'data-survey-block', ''
+
+    else if !present and conditional_group.present
+      conditional_group.present = false
+      $question
+        .removeAttr 'style'
+        .addClass 'hidden not-seen disabled'
+        .find('textarea').val ''
+    else
+      console.log @current_block
+
+    $parent.find('.survey__next.hidden').removeClass 'hidden'
+
+    @indexBlocks()
+    @current_block = $parent.data 'survey-block'
+    @updateCurrentBlock()
+
+
+
 
 
 module.exports = Survey 

@@ -45,11 +45,10 @@ SurveyAdmin =
         ui.item.removeClass 'active-item-shadow'
       update: (e, ui) ->
         item_id = ui.item.data 'item-id'
-        console.log item_id
         position = ui.item.index()
         $.ajax
-          type: 'POST'
-          url: "/surveys/question_groups/#{question_group_id}/questions/update_position"
+          type: 'PUT'
+          url: "/surveys/question_position"
           dataType: 'json'
           data: { question_group_id: question_group_id, id: item_id, position: position }
 
@@ -125,24 +124,39 @@ SurveyAdmin =
       method: 'get'
       dataType: 'json'
       contentType: 'application/json'
-      success: (e) => 
-        @$conditional_operator.text "="
-        @conditional.operator = "="
-        @$clear_conditional_button.removeClass 'hidden'
-        answers = e.question.answer_options.split('\n')
-        @$conditional_value_select.append "<option value='nil' slelected>Select an Answer</option>"
-        answers.map (answer, i) =>
-          answer_value = answer.trim()
-          @$conditional_value_select.append "<option value='#{answer_value}'>#{answer_value}</option>"
-        @$conditional_value_select.removeClass 'hidden'
-        @$document.trigger CONDITIONAL_ANSWERS_CHANGED
-        
+      success: $.proxy @, 'handleConditionalQuestionSelect'
       error: (e) -> console.log 'error', e
+
+  handleConditionalQuestionSelect: (e) ->
+    console.log e.question_type
+    @clearConditionalOperatorAndValue()
+    switch e.question_type
+      when 'long', 'short'
+        @textConditional(e.question)
+      else
+        @multipleChoiceConditional e.question
+
+  textConditional: (question) ->
+    console.log 'TEXT CONDITIONAL', question
+    @$conditional_operator.text 'is present'
+    @addPresenceConditional()
+
+  multipleChoiceConditional: (question)->
+    @$conditional_operator.text "="
+    @conditional.operator = "="
+    @$clear_conditional_button.removeClass 'hidden'
+    answers = question.answer_options.split('\n')
+    @$conditional_value_select.append "<option value='nil' slelected>Select an Answer</option>"
+    answers.map (answer, i) =>
+      answer_value = answer.trim()
+      @$conditional_value_select.append "<option value='#{answer_value}'>#{answer_value}</option>"
+    @$conditional_value_select.removeClass 'hidden'
+    @$document.trigger CONDITIONAL_ANSWERS_CHANGED
 
   handleConditionalAnswerSelect: ({target}) ->
     if target.value isnt 'nil'
       @conditional.answer_value =  target.value
-      @addConditional()
+      @addMultiConditional()
 
   initConditionals: ->
     $('[data-conditional]').each (i, conditional_row) =>
@@ -156,7 +170,10 @@ SurveyAdmin =
         @$conditional_value_select.val(value).trigger 'change'
         @$document.off CONDITIONAL_ANSWERS_CHANGED
 
-  addConditional: (e) ->
+  addPresenceConditional: ->
+    @$conditional_input_field.val "#{@$conditional_question_select.val()}|*presence"
+
+  addMultiConditional: (e) ->
     e.preventDefault() if e?
     conditional_string = ""
     conditional_string += "#{@$conditional_question_select.val()}|"
@@ -165,12 +182,16 @@ SurveyAdmin =
     @$conditional_input_field.val conditional_string
   
   clearConditional: (e) ->
-    e.preventDefault()
+    e.preventDefault() if e?
     @$conditional_operator.text ''
-    @$conditional_value_select.prop 'selectedIndex', 0
     @$conditional_question_select.prop 'selectedIndex', 0
+    @clearConditionalOperatorAndValue()
+    @$conditional_input_field.val null
+
+  clearConditionalOperatorAndValue: ->
+    @$conditional_value_select.addClass('hidden').prop 'selectedIndex', 0
     @$clear_conditional_button.addClass 'hidden'
-    @$conditional_input_field.val ""
+
 
 
 

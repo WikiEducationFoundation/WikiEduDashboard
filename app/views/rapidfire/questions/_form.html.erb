@@ -35,13 +35,14 @@
   <%= f.text_area :follow_up_question_text %>
   </div>
 
-  <% if !@question.nil? && @question_group.questions.length > 1 %>
+  <% if @question_group.questions.length > 1 %>
   <h4>Conditionals</h4>
   <div class="survey__question__option-row">
-    <div class='survey__question__conditional-row' data-conditional="<%=  @question.conditionals %>">
+    <div class='survey__question__conditional-row' data-conditional="<%= question_conditional_string(@question) %>">
+    
       Show if 
       <%= select_tag "", 
-          options_from_collection_for_select(@question_group.questions.for_conditionals(@question_group.id), "id", "question_text"), 
+          options_from_collection_for_select(@question_group.questions.for_conditionals, "id", "question_text"), 
           :include_blank => "Select a question", 
           :data => {:conditional_select => true}%>
       <span data-conditional-operator></span>

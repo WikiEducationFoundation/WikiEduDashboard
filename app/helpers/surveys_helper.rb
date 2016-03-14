@@ -66,5 +66,10 @@ module SurveysHelper
       total: total
     }
   end
+
+  def question_conditional_string(question)
+    return "" if question.nil?
+    return question.conditionals
+  end
   
 end
