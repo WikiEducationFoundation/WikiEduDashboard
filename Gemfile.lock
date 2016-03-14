@@ -1,4 +1,14 @@
 GIT
+  remote: https://github.com/WikiEducationFoundation/rapidfire
+  revision: 625f5e7185774e7377e0c974c4b92e0a98d47e55
+  branch: master
+  specs:
+    rapidfire (2.1.0)
+      active_model_serializers (~> 0.8.1)
+      acts_as_list (~> 0.7.2)
+      rails (>= 3.2.13)
+
+GIT
   remote: https://github.com/activerecord-hackery/squeel.git
   revision: 5542266d502db8022e14105f9dfb455a79d6fc4a
   branch: master
@@ -24,14 +34,6 @@ GIT
     omniauth-mediawiki (0.0.2)
       jwt (~> 1.0)
       omniauth-oauth (~> 1.0)
-
-PATH
-  remote: ./vendor/__rapidfire
-  specs:
-    rapidfire (2.1.0)
-      active_model_serializers (~> 0.8.1)
-      acts_as_list (~> 0.7.2)
-      rails (>= 3.2.13)
 
 GEM
   remote: https://rubygems.org/
