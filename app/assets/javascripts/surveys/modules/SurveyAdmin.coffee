@@ -86,7 +86,6 @@ SurveyAdmin =
   setQuestionTextEditor: ->
     if @question_html_backup?
       @$question_text_input.val @question_html_backup
-
     @$question_text_input.addClass 'hidden'
     @$question_form_options.addClass 'hidden'
     @$question_text_editor.html "<trix-editor input='question_text'></trix-editor>"
