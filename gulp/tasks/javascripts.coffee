@@ -34,9 +34,7 @@ gulp.task "webpack-build", ["bower"], plugins.shell.task ["npm run build"]
 # Development Webpack Task
 gulp.task "webpack-hotdev", (cb) ->
   config = require("../../config/webpack/webpack.config.dev.js")
-  new WebpackDevServer(webpack(config) ,{
-    inline: true
-  }).listen(8080, "localhost", (err)->
+  new WebpackDevServer(webpack(config) ,{}).listen(8080, "localhost", (err)->
     throw new plugins.util.PluginError("webpack-dev-server", err) if err 
     plugins.util.log "[webpack-dev-server] Running"
   )

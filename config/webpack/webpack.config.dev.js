@@ -1,11 +1,18 @@
 var webpack = require('webpack');
 var source = __dirname + "/../../app/assets/javascripts/";
 
-module.exports = {
+function hotEntry(entry) {
+    return [
+        'webpack-dev-server/client?http://localhost:8080',
+        'webpack/hot/only-dev-server',
+        entry
+    ]
+}
 
+module.exports = {
     entry: {
-        survey: source + "surveys/survey.coffee",
-        survey_admin: source + "surveys/survey-admin.coffee"
+        survey: hotEntry(source + "surveys/survey.coffee"),
+        survey_admin: hotEntry(source + "surveys/survey-admin.coffee")
     },
     output: {
         path: __dirname + "/",

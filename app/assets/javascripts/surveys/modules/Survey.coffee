@@ -53,10 +53,11 @@ Survey =
     window.scrollTo(0,0)
     $(@survey_blocks[@current_block]).removeClass 'disabled not-seen'
 
-  indexBlocks: ->
+  indexBlocks: (cb = null) ->
     $('[data-survey-block].hidden').removeAttr 'data-survey-block'
     $('[data-survey-block]:not(.hidden)').each (i, block) ->
       $(block).attr 'data-survey-block', i
+    cb() if cb
 
   nextSurvey: (e) ->
     e.preventDefault();
@@ -93,7 +94,6 @@ Survey =
     $form.submit()
 
   processQuestionGroupData: (data) ->
-    console.log data
     _postData = {}
     answer_group = {}
     data.map (field) ->
@@ -294,39 +294,42 @@ Survey =
   initConditionals: ->
     $('[data-conditional-question]').each (i, question) =>
       $(question).addClass 'hidden'
-      conditional_string = $(question).data 'conditional-question'
-      conditional_params = conditional_string.split '|'
-      parent_question_id = conditional_params[0]
-      conditional_operator = conditional_params[1]
-      conditional_value = conditional_params[2]
+      { question_id, operator, value } = @parseConditionalString $(question).data 'conditional-question'
 
-      if @survey_conditionals[parent_question_id]?
-        @survey_conditionals[parent_question_id].children.push question
+      if @survey_conditionals[question_id]?
+        @survey_conditionals[question_id].children.push question
       else
-        @survey_conditionals[parent_question_id] = {}
-        @survey_conditionals[parent_question_id].children = [question]
+        @survey_conditionals[question_id] = {}
+        @survey_conditionals[question_id].children = [question]
 
-      @survey_conditionals[parent_question_id].operator = conditional_operator
-      @survey_conditionals[parent_question_id][conditional_value] = question
+      @survey_conditionals[question_id].operator = operator
+      @survey_conditionals[question_id][value] = question
 
-      $("##{parent_question_id} input").on 'change', ({target}) =>
+      $("##{question_id} input").on 'change', ({target}) =>
         value = target.value.trim()
-        @handleParentConditionalChange value, @survey_conditionals[parent_question_id]
+        @handleParentConditionalChange value, @survey_conditionals[question_id]
+
+  parseConditionalString: (string) ->
+    params = string.split '|'
+    return {} =
+      question_id : params[0]
+      operator : params[1]
+      value : params[2]
 
   handleParentConditionalChange: (value, conditional_group) ->
-    console.log 'handleParentConditionalChange', value, conditional_group
     conditional_group.current_value = value
+    # Reset all conditional question blocks
     conditional_group.children.map (question) ->
-      console.log question
       $(question)
         .removeAttr 'style'
         .addClass 'hidden not-seen disabled'
+    
     $(conditional_group[value])
       .removeClass 'hidden'
       .attr 'data-survey-block', ''
-    @indexBlocks()
+    @indexBlocks =>
+      @current_block = $(conditional_group[value]).data 'survey-block'
     @updateCurrentBlock()
-
 
 
 module.exports = Survey 
