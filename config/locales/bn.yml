@@ -7,19 +7,28 @@
 ---
 bn:
   application:
+    cancel: বাতিল
+    dashboard: উইকি ইডি ড্যাশবোর্ড
+    explore: অন্বেষণ করুন
     greeting2: স্বাগতম!
     greeting_extended: উইকিপিডিয়ায় স্বাগতম
     greeting: নমস্কার!
     help: সাহায্য
     home: প্রধান পাতা
+    log_in_extended: উইকিপিডিয়া দিয়ে প্রবেশ করুন
     log_in: প্রবেশ করুন
     log_out: প্রস্থান করুন
+    my_dashboard: আমার ড্যাশবোর্ড
     recent_activity: সাম্প্রতিক কার্যকালাপ
-    sign_up_extended: উইকিপিডিয়ায় নিবন্ধন করুন
+    search: ask.wikiedu.org তে অনুসন্ধান করুন
+    sign_up_extended: উইকিপিডিয়া দিয়ে নিবন্ধন করুন
+    sign_up_log_in_extended: উইকিপিডিয়া দিয়ে
     sign_up: নিবন্ধন
+    submit: জমা দিন
+    training: প্রশিক্ষণ
   home:
-    log_in: উইকিপিডিয়াতে প্রবেশ করুন
-    sign_up: উইকিপিডিয়ায় নিবন্ধন করুন
+    log_in: উইকিপিডিয়া দিয়ে প্রবেশ করুন
+    sign_up: উইকিপিডিয়া দিয়ে নিবন্ধন করুন
   activity:
     all: কর্মকাণ্ড
     label: কর্মকাণ্ড
@@ -50,12 +59,20 @@ bn:
       expected_number: শিক্ষার্থীদের প্রত্যাশিত সংখ্যা
       find: আপনার কোর্স খুঁজুন
       start_date: শুরুর তারিখ
+    join: যোগ দিন
+    join_prompt: '''%{title}''-এ যোগ দিবেন?'
+    join_successful: আপনি সফলভাবে %{title}-এ যোগ দিয়েছেন।
+    school: বিদ্যালয়
     students: ছাত্রগণ
     students_count: '# ছাত্রগণ'
     student_editors: '# ছাত্র সম্পাদকগণ'
     students_short: ছাত্রগণ
+    timeline_link: সময়ক্রম
     title: শিরোনাম
     view_wiki: উইকিপিডিয়ায় দেখুন
+    volunteer:
+      one: স্বেচ্ছাসেবক
+      other: স্বেচ্ছাসেবক
   courses_generic:
     creator:
       course_description: প্রকল্পের বর্ণনা
@@ -71,7 +88,7 @@ bn:
     students_short: সম্পাদকগণ
   metrics:
     date_time: তারিখ/সময়
-    edit_count_description: মোট সম্পাদনাসমূহ
+    edit_count_description: মোট সম্পাদনা
     revisions: সাম্প্রতিক সম্পাদনাসমূহ
     word_count: যুক্ত শব্দসমূহ
   namespace:
@@ -87,7 +104,7 @@ bn:
   uploads:
     label: আপলোডসমূহ
   users:
-    contributions: ব্যবহারকারী অবদানসমূহ
+    contributions: ব্যবহারকারীর অবদানসমূহ
     name: নাম
     recent_revisions: সাম্প্রতিক সম্পাদনাসমূহ
     reviewers: নিরীক্ষক(গণ)

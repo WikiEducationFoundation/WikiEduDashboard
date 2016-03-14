@@ -4,7 +4,9 @@
 # Author: Beta16
 # Author: Liuxinyu970226
 # Author: Macofe
+# Author: MojoMann
 # Author: Robby
+# Author: Vojtěch Dostál
 ---
 qqq:
   application:
@@ -108,7 +110,9 @@ qqq:
       {{Identical|View all}}
     view_doc: Documentation for the view count.
     views_added: Maintenance script message stating how many view counts have been
-      added to an article.
+      added to an article. It just goes into the log files on the server, but no users
+      would see that. (It's there to indicate progress during the update process,
+      when page view data is being imported.)
   assignments:
     already_exists: Message displayed when trying to create a duplicate assignment
     assignees: '{{Identical|Assignee}}'
@@ -140,6 +144,8 @@ qqq:
     articles: |-
       Label for link to list of articles worked on by a course
       {{Identical|Article}}
+    assignment_end: Related to specifying the date of the end of an assignment (not
+      so clear to understand in Hebrew)
     character_doc: Explanation of what 'characters added' means
     course_description: |-
       Label for the number of courses in a cohort

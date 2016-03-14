@@ -2,33 +2,126 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Cwlin0416
+# Author: Ffaarr
 # Author: LNDDYL
 # Author: Liuxinyu970226
+# Author: Shangkuanlc
 ---
 zh-hant:
   application:
+    cancel: 取消
     dashboard: Wiki Ed 儀表盤
-    help: 說明！
+    explore: 探索
+    greeting2: 歡迎
+    greeting_extended: 歡迎來到維基百科
+    greeting: 您好！
+    help: 說明
+    home: 首頁
+    log_in_extended: 登入至維基百科
+    log_in: 登入
+    log_out: 登出
+    my_dashboard: 我的計分板
+    recent_activity: 最近活動
+    search: 搜索ask.wikiedu.org
+    sign_up_extended: 登入至維基百科
+    sign_up_log_in_extended: 參與維基百科
+    sign_up: 登入
+    submit: 送出
+    training: 培訓
+  dashboard:
+    create_note: 點擊創建課程以創建您的第一次課程
+    explore_course_pages: 瀏覽課程頁面
+    explore_examples: 瀏覽例子
+    join_note: 一旦您從您的老師那獲得密碼，點擊尋找您的課程來搜尋並加入
+    no_courses_instructor: 您似乎沒有任何課程
+    no_courses_student: 您似乎尚未加入課程
+    opt_out: 請求不參加新手導覽
+    orientation_notice: 在創建課程之前，讓我們順過新手導覽以幫助你開頭。（約需30分鐘來完成此項導覽。）
+    start_orientation: 開始新手導覽
+  home:
+    explore: 探索
+    log_in: 登入至維基百科
+    sign_up: 登入至維基百科
   activity:
     all: 活動
     edited_by: 編輯自
+    label: 活動
   articles:
+    assigned: 分配的條目
+    assigned_to: 分配給
     edited: 編輯的條目
     edited_mobile: 條目
+    label: 條目
     loading: 讀取文章中...
+    no_assignee: 未指定使用者
+    none: 此課程沒有編輯任何條目
+    rating: 等級
+    rating_docs:
+      fa: 特色條目— 維基百科的最高評級，但可能過於優秀而不適合作為新編輯者的主要目標。
+      fl: 特色列表— 維基百科中用於列表的最高評級
     title: 標題
+    title_example: 條目標題
     view: 檢視條目
     view_all: 檢視全部
+  assignments:
+    assign_other: 指定一個條目
+    assign_self: 指定自己一個條目
+    label: 分配
+    reviewers: 審查者
+    review_other: 指定一個審查
+    review_self: 審閱一個條目
   blocks:
     milestones:
       title: 里程碑
+  cohort:
+    none: 無
+    view_other: 查看其他同學
   courses:
+    archived: 存檔的課程
     articles: 條目
+    articles_none: 此課程沒有編輯任何條目
+    assignment_end: 作業結束
+    assignments_none: 此課程沒有分配的維基百科條目
+    assignment_start: 作業開始
+    course_description: 課程
+    courses: 課程
     creator:
+      course_description: 課程說明
+      course_school: 課程學校
+      course_subject: 課程科目
+      course_term: 課程學期
+      course_title: 課程名稱
+      create_button: 創建我的課程！
+      create_label: 創建新的課程
+      create_new: 創建一個新的課程
+      create_short: 創建課程
+      end_date: 結束日期
+      expected_number: 預計學生人數
+      find: 找到您的課程
       start_date: 開始日期
+    current: 目前的課程
+    duration: 課程時間
+    edit_course_dates: 編輯課程日期
+    expected_students: 預計學生
+    join: 加入
+    join_prompt: 加入“%{title}”麼？
+    join_successful: 您已成功加入%{title}。
     new_week: 新增新的一週
+    overview: 概述
+    passcode: 密碼
+    students: 學生
+    student_editors: 學生編輯者
+    students_short: 學生
+    term: 學期
     title: 標題
+    training_nav: 前往培訓
+    view: 查看課程
     view_wiki: 在維基百科上檢視
+    yourcourses: 您的課程
+  courses_generic:
+    student_editors: 編輯者
+    students: 編輯者
+    students_short: 編輯者
   metrics:
     activity: 最近活動
     articles_created: 建立的條目
@@ -46,7 +139,19 @@ zh-hant:
     main: 主空間
     user: 使用者空間
     user_ns: 使用者
+  revisions:
+    class: 班
+    date_time: 日期/時間
+    edited_by: 編輯者為
+    loading: 正在載入修訂⋯⋯
+    none: 本課程最近沒有維基百科的編輯活動。
+    time_doc: 每個修訂版本的時間（顯示為您使用的本地時間）
+    title: 標題
+  training:
+    start: 開始
+    view: 檢視
   uploads:
+    label: 上傳
     loading: 上傳載入中...
     usages: 使用狀況
   users:
@@ -55,12 +160,27 @@ zh-hant:
     loading: 使用者載入中...
     name: 名稱
     recent_revisions: 近期編輯
+    student_editors: 學生編輯者
+    training_incomplete: 未完成的培訓
   wizard:
+    course_dates: 課程日期
+    minimum_options: 請至少選擇%{minimum}個選項。
     read_less: 閱讀更少
     read_more: 閱讀更多
+    select_assignment: 選擇您希望加到您的時間表的任務類型
     summary: 摘要
+  error:
+    oauth_invalid: 您已登出維基百科。請重新登入。
+    unsupported_browser:
+      header: 未受支援的瀏覽器。  :-(
   error_404:
     header: 查無頁面。:-(
+  error_500:
+    header: 500 ——內部伺服器錯誤 :-(
+  login_error:
+    header: 登入錯誤
   timeline:
+    due_default: 下週到期
     title: 時間線
+    unable_to_add_week: 在時間線已滿的狀況下，您無法新增週數。刪除至少一週或修改您的作業日期來為新一週挪出空間。
 ...

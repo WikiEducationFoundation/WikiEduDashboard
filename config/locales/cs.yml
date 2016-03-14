@@ -80,6 +80,7 @@ cs:
     view: Zobrazit článek
     view_all: Zobrazit vše
     view_doc: Souhrn všech zobrazení každého článku během průběhu kurzu
+    views_added: Přidáno %{count} nových zobrazení pro %{title}
   assignments:
     already_exists: Tento článek už byl zadán!
     assign_other: Zadat článek
@@ -147,7 +148,7 @@ cs:
         nebo semestr.
       user_exists: Uživatel %{username} neexistuje.
     expected_students: Očekávaný počet studentů
-    gradeables_none: V tomto kurzu nejsou žádné známkovatelné úkoly.
+    gradeables_none: V tomto kurzu nejsou žádné zadané úkoly, jež by šlo oznámkovat.
     instructor:
       one: instruktur
       other: instruktoři
@@ -188,16 +189,22 @@ cs:
     timeline_link: Časová osa
     title: Název
     training_due: Výukový modul "%{title}" je přiřazen k tomuto kurzu; termín splnění
-      %{datum}.
+      %{date}.
     training_nav: Přejít k výukovému modulu
     training_overdue: Výukový modul "%{title}" byl přiřazen k tomuto kurzu; termín
-      splnění %{datum}.
+      splnění %{date}.
     unsubmitted: Kurzy nepodané ke schválení
     uploads_none: Účastníci nepřispěli žádnými obrázky či jinými médii na Wikimedia
       Commons.
     weeks_none: Tento kurz ještě nemá žádný časový plán.
     view: Zobrazit kurz
+    view_doc: Součet všech návštěv článků editovaných účastníky tohoto kurzu (počítáno
+      od doby, kdy účastník provedl v článku první editaci).
+    view_page: Zobrazit stránku kurzu
     view_wiki: Zobrazit na Wikipedii
+    volunteer:
+      one: Dobrovolník
+      other: Dobrovolníci
     word_count_doc: Odhadovaný počet slov, které byly přidány do hlavního jmenného
       prostoru studenty kurzu během jeho průběhu
     yourcourses: Vaše kurzy

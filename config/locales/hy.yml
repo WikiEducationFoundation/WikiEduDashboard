@@ -1,19 +1,145 @@
 # Messages for Armenian (Հայերեն)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: KeepingCalm
+# Author: Lilitik22
 # Author: Vahe Gharakhanyan
 ---
 hy:
+  application:
+    cancel: Չեղարկել
+    dashboard: Վիկի Ղեկավարման Վահանակ
+    explore: Բացահայտել
+    greeting2: Բարի գալուստ
+    greeting_extended: Բարի գալուստ Վիքիպեդիա
+    greeting: Ողջո՜ւյն
+    help: Օգնություն
+    home: Գլխավոր էջ
+    log_in_extended: Համակարգ մտնել Վիքիպեդիայով
+    log_in: Համակարգ մտնել
+    log_out: Դուրս գալ համակարգից
+    my_dashboard: Իմ կառավարման էջ
+    recent_activity: Վերջին ակտիվություն
+    search: փնտրել ask.wikiedu.org
+    sign_up_extended: Գրանցվել Վիքիպեդիայով
+    sign_up_log_in_extended: Վիքիպեդիայով
+    sign_up: Գրանցվել
+    submit: Հաստատել
+    training: Ուսուցում
+  dashboard:
+    create_note: Սեղմեք Ստեղծել Դասընթաց, որպեսզի ստեղծեք ձեր առաջին դասընթացը։
+    explore_course_pages: Ուսումնասիրել դասընթացների էջերը
+    explore_examples: Ուսումնասիրել նմուշները
   activity:
     all: Ակտիվություն
+    edited_by: Խմբագրված
+    label: Ակտիվություն
+  articles:
+    assigned: Հանձնարարված հոդվածներ
+    assigned_to: Հանձնարարված
+    edited: Խմբագրված հոդվածներ
+    edited_mobile: Հոդվածներ
+    label: Հոդվածներ
+    loading: Բեռնվում են հոդվածները
+    title: Վերնագիր
+    title_example: Հոդվածի անվանումը
+    view: Դիտել հոդվածը
+    view_all: Դիտել բոլորը
+  assignments:
+    already_exists: Այս անվանումով հանձնարարություն արդեն գոյություն ունի։
+    assignees: Կատարողներ
+    assign_other: Հանձնարարել հոդված
+    assign_self: Ինձ հոդված հանձնարարել
+    confirm_deletion: Վստա՞հ ես, որ ցանկանում ես ջնջել այս հանձնարարությունը։
+    label: Հանձնարարել
+    loading: Բեռնել հանձնարարությունները
+    none_short: Հանձնարարված հոդվածներ չկան
+    reviewers: Վերանայող(ներ)
+    review_other: Հանձնարարել վերանայել
+    review_self: Վերանայել հոդված
+  courses:
+    creator:
+      end_date: Ավարտելու ամսաթիվ
+      expected_number: Ուսանողների ակնկալվող քանակ
+      start_date: Սկսելու ամսաթիվ
+    expected_students: Ակնկալվող ուսանողներ
+    instructors: Ուսուցիչներ
+    join: Միանալ
+    new_week: Ավելացնել Նոր շաբաթ
+    school: Դպրոց
+    students: Ուսանողներ
+    students_count: '# Ուսանողներ'
+    student_editors: Ուսանող խմբագիրներ
+    students_short: Ուսանողներ
+    term: Կիսամյակ
+    timeline: Հանձնարարության մանրամասներ
+    title: Վերնագիր
+    view_wiki: Դիտել Վիքպեդիայում
+  courses_generic:
+    articles_none: Այս նախագծի համար դեռ չկան խմբագրված հոդվածներ։
+    assignments_none: Այս նախագծում չկան հանձնարարված հոդվածներ Վիքիպեդիայից։
+    creator:
+      course_description: Նախագծի նկարագրություն
+      course_title: Նախագծի անվանում
+      create_button: Ստեղծի՛ր իմ նախագիծը։
+      create_label: Ստեղծել նոր նախագիծ
+      create_new: Ստեղծել նոր նախագիծ
+      create_short: Ստեղծել նախագիծ
+      find: Գտի՛ր քո նախագիծը
+    edit_course_dates: Խմբագրել նախագծի ամսաթվերը
+    expected_students: Ակնկալվող խմբագիրներ
+    student_editors: Խմբագիրներ
+    students: Խմբագիրներ
+    students_short: Խմբագիրներ
+    term: Երբ
+    uploads_none: Այս նախագծի շրջանակներում ոչ մի պատկեր կամ մեդիա նիշք չի բեռնվել
+      Վիքիպահեստ։
   metrics:
     activity: Վերջին փոփոխություններ
     articles_created: Ստեղծված հոդվածներ
     articles_edited: Խմբագրված հոդվածներ
     date_time: Ամսաթիվ/Ժամ
     edit_count_description: Ընդհանուր խմբագրումներ
+    revisions: Վերջին խմբագրումներ
     view_count_description: Հոդվածի դիտումներ
     view: Դիտումներ
+    word_count: Ավելացված բառեր
   namespace:
+    main: Գլխավոր անվանատարածք
+    user: Մասնակցի անվանատարածք
     user_ns: Մասնակից
+  revisions:
+    edited_by: Խմբագրված
+    loading: Բեռնել վերանայումները․․․
+    time_doc: Յուրաքանչյուր վերանայման ժամանակը տեղական ժամանակով
+    title: Վերնագիր
+  training:
+    start: Սկսել
+    view: Դիտել
+  uploads:
+    label: Բեռնումներ
+    loading: Բեռնել բեռնումները․․․
+    none: Այս նախագծի շրջանակներում ոչ մի պատկեր կամ մեդիա նիշք չի բեռնվել Վիքիպահեստ։
+    time_doc: Յուրաքանչյուր բեռնման ժամանակը տեղական ժամանակով
+    usages: Գործածումներ
+  users:
+    assigned: Հանձնարարված հոդվածներ
+    assignees: Կատարող(ներ)
+    contributions: Մասնակցի ներդրումներ
+    contributions_more: Դիտել ավելի շատ ներդրումներ
+    loading: Մասնակիցների բեռնում․․․
+    name: Անուն
+    recent_revisions: Վերջին խմբագրումներ
+    revisions_doc: Այս մասնակցի կատարած խմբագրումները վերջին 7 օրերին
+    reviewers: Վերանայող(ներ)
+    reviewing: Վերանայում
+    student_editors: Ուսանող խմբագիրներ
+  wizard:
+    assignment_dates: Հանձնարարության ժամկետներ
+    assignment_type: Հանձնարարության տեսակ
+    read_more: Կարդալ ավելին
+  error_404:
+    header: Էջը չի գտնվել :-(
+  login_error:
+    header: Մուտքի սխալ
 ...

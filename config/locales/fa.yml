@@ -4,6 +4,7 @@
 # Author: Arian Ar
 # Author: GMozafarian
 # Author: Ladsgroup
+# Author: Mardetanha
 # Author: Reza1615
 ---
 fa:
@@ -13,7 +14,7 @@ fa:
     explore: کاوش
     greeting2: خوش‌آمدید!
     greeting_extended: به ویکی‌پدیا خوش‌آمدید
-    greeting: سلام،
+    greeting: سلام!
     help: راهنما
     home: صفحهٔ اصلی
     log_in_extended: ورود با ویکی‌پدیا
@@ -27,6 +28,7 @@ fa:
     submit: ثبت
     training: آموزش
   dashboard:
+    create_note: بر روی ایجاد درس برای ایجاد اولین درس خود کلیک کنید.
     explore_course_pages: در صفحات دوره‌ها کاوش کنید
     explore_examples: کاوش در مثال‌ها
     no_courses_instructor: گویا شما در هیچ دوره‌ای حضور ندارید.
