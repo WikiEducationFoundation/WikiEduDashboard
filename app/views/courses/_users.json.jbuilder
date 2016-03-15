@@ -1,3 +1,5 @@
+show_email_and_real_name = user_signed_in? && current_user.role(course) > 0
+
 json.users course.courses_users.eager_load(:user) do |cu|
   json.call(cu, :character_sum_ms, :character_sum_us, :role)
   json.call(cu.user, :id, :username, :contribution_url, :sandbox_url)
@@ -12,7 +14,8 @@ json.users course.courses_users.eager_load(:user) do |cu|
 
   # Email and real names of participants are only shown to admins or
   # an instructor of the course.
-  if user_signed_in? && current_user.role(course) > 0
+  # Emails and names of greeters are shown to all users
+  if show_email_and_real_name || cu.user.greeter
     json.real_name cu.user.real_name
     json.email cu.user.email
   end
