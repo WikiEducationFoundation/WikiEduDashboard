@@ -35,16 +35,7 @@ class UserImporter
     id = WikiApi.new.get_user_id(username)
     return unless id
 
-    if User.exists?(id)
-      user = User.find(id)
-    else
-      user = User.create(
-        id: id,
-        username: username
-      )
-    end
-
-    user
+    User.find_or_create_by(username: username, id: id)
   end
 
   def self.add_users(data, role, course, save=true)
