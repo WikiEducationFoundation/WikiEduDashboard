@@ -1,10 +1,12 @@
 #= Routines to create Assignments from legacy course API data
 class LegacyCourseAssignments
   def self.build_assignments_from_group_flat(course_id, group_flat)
-    new(course_id, group_flat).build_assignments_from_group_flat
+    wiki = Wiki.default_wiki
+    new(course_id, group_flat, wiki).build_assignments_from_group_flat
   end
 
-  def initialize(course_id, group_flat)
+  def initialize(course_id, group_flat, wiki)
+    @wiki = wiki
     @course_id = course_id
     @group_flat = group_flat
     @assignments = []
@@ -21,7 +23,7 @@ class LegacyCourseAssignments
 
       (0...assignment_count).each do |a|
         raw = user[a.to_s]
-        article = Article.find_by(title: raw['title'])
+        article = Article.find_by(title: raw['title'], wiki_id: @wiki.id)
         # role 0 is for assignee
         assignment = assignment_hash(user, raw, article, 0)
         new_assignment = Assignment.new(assignment)
@@ -50,6 +52,7 @@ class LegacyCourseAssignments
       'user_id' => user['id'],
       'course_id' => @course_id,
       'article_title' => raw['title'],
+      'wiki_id' => @wiki.id,
       'article_id' => article.nil? ? nil : article.id,
       'role' => role
     }

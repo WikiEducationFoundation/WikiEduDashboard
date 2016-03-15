@@ -82,9 +82,7 @@ class WikiLegacyCourses
     end
 
     def api_client
-      language = ENV['wiki_language']
-      url = "https://#{language}.wikipedia.org/w/api.php"
-      MediawikiApi::Client.new url
+      MediawikiApi::Client.new Wiki.default_wiki.api_url
     end
 
     def handle_invalid_course_id(course_ids, error_info)

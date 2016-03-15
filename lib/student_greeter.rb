@@ -25,7 +25,7 @@ class StudentGreeter
   end
 end
 
-# Issues a greeting to a single greeter, if they are actually ungreeted.
+# Issues a greeting to a single student, if they are actually ungreeted.
 class StudentGreeting
   def initialize(student, greeter, wiki, greeters)
     @student = student
@@ -82,9 +82,9 @@ class StudentGreeting
 
   def welcome_message
     name = first_name(@greeter)
-    { sectiontitle: I18n.t("application.greeting2"),
+    { sectiontitle: I18n.t('application.greeting2'),
       text: "{{subst:#{ENV['dashboard_url']} welcome|name=#{name}}}",
-      summary: I18n.t("application.greeting_extended") }
+      summary: I18n.t('application.greeting_extended') }
   end
 
   def first_name(user)

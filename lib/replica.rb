@@ -195,14 +195,6 @@ class Replica
     raw_url
   end
 
-  # Compile a username list to send to the replica endpoint, which might look
-  # something like this:
-  # "usernames[]='Ragesoss'&usernames[]='Sage+%28Wiki+Ed%29'"
-  def compile_usernames_query(users)
-    quoted_usernames = users.map { |user| "'#{user.username}'" }
-    { usernames: quoted_usernames }.to_query
-  end
-
   # Compile a user id list to send to the replica endpoint, which might look
   # something like this:
   # "user_ids[]=572345&user_ids[]=102256"
