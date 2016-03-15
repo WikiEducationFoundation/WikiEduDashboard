@@ -4,6 +4,7 @@
     "babel": "^5.8.23",
     "browserify": "^11.0.1",
     "chai": "^1.10.0",
+    "chosen-npm": "^1.4.2",
     "cjsx-loader": "^2.1.0",
     "coffee-coverage": "^0.6.3",
     "coffee-loader": "^0.7.2",

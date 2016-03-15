@@ -7,6 +7,10 @@ scroll_duration = 500
 scroll_easing = [0.19, 1, 0.22, 1]
 Utils = require './SurveyUtils.coffee'
 
+chosen_options =
+  disable_search_threshold: 10
+  width: '75%'
+
 Survey =
   current_block: 0
   submitted: []
@@ -31,6 +35,7 @@ Survey =
     $('[data-next-survey-block]').on 'click', @validateCurrentQuestion.bind(@)
     $('[data-prev-survey-block]').on 'click', @prevBlock.bind(@)
     $('[data-show-title]').on 'change', @toggleShowQuestionGroupTitle.bind(@)
+    $('[data-chosen-select]').chosen chosen_options
     @$window.scroll( throttle( @handleScroll.bind(@), 250) );
 
   handleScroll: ->
