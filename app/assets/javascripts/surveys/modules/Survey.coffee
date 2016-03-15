@@ -162,6 +162,7 @@ Survey =
 
   nextBlock: ->
     return if @animating
+    console.log 'next block'
     toIndex = @current_block + 1
     $block = $("[data-survey-block='#{toIndex}']")
     
@@ -321,30 +322,30 @@ Survey =
       else
         @survey_conditionals[question_id].operator = operator
 
-        $("#question_#{question_id} input").on 'change', ({target}) =>
+        $("#question_#{question_id} input, #question_#{question_id} select").on 'change', ({target}) =>
           value = target.value.trim()
           @handleParentConditionalChange value, @survey_conditionals[question_id]
 
   handleParentConditionalChange: (value, conditional_group) ->
     conditional_group.current_value = value
+    
     # Reset all conditional question blocks
     conditional_group.children.map (question) ->
       $(question)
         .removeAttr 'style'
         .addClass 'hidden not-seen disabled'
     
-    $(conditional_group[value])
-      .removeClass 'hidden'
-      .attr 'data-survey-block', ''
-    @indexBlocks =>
-      @current_block = $(conditional_group[value]).data 'survey-block'
-    @updateCurrentBlock()
+    if conditional_group[value]?
+      $(conditional_group[value])
+        .removeClass 'hidden'
+        .attr 'data-survey-block', ''
+      @indexBlocks =>
+        @current_block = $(conditional_group[value]).data 'survey-block'
+      @updateCurrentBlock()
 
   handleParentPresenceConditionalChange: (present, conditional_group, $parent) ->
     $question = $(conditional_group.question)
-    console.log $question
     if present and !conditional_group.present
-      console.log 'has a value', conditional_group, $question
       conditional_group.present = true
       $question
         .removeClass 'hidden'

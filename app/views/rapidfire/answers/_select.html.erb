@@ -1,4 +1,3 @@
-<div class='default-form'>
 <%= render partial: "rapidfire/answers/errors", locals: {answer: answer} %>
 
 <%= render partial: "rapidfire/answers/question_text", locals: {f: f, answer: answer} %>
@@ -10,4 +9,3 @@
     :multiple => answer.question.multiple,
     :data => {:chosen_select => true}
      %>
-</div>

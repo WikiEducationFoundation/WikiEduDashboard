@@ -11,11 +11,13 @@ SurveyAdmin =
     @$question_text_input = $('[data-question-text]')
     @$question_text_editor = $('[data-question-text-editor]')
     @$conditional_operator = $('[data-conditional-operator]')
+    @$conditional_operator_select = $('[data-conditional-operator-select]')
     @$add_conditional_button = $('[data-add-conditional]')
     @$clear_conditional_button = $('[data-clear-conditional]')
     @$conditional_question_select = $('[data-conditional-select]')
     @$conditional_value_select = $('[data-conditional-value-select]')
     @$conditional_input_field = $('[data-conditional-field-input]')
+    @$conditional_value_number_field = $('[data-conditional-value-number]')
     @initSortableQuestions()
     @initSortableQuestionGroups()
     @initRepeaters()
@@ -133,6 +135,8 @@ SurveyAdmin =
     switch e.question_type
       when 'long', 'short'
         @textConditional(e.question)
+      when 'rangeinput'
+        @comparisonConditional(e.question)
       else
         @multipleChoiceConditional e.question
 
@@ -140,6 +144,19 @@ SurveyAdmin =
     console.log 'TEXT CONDITIONAL', question
     @$conditional_operator.text 'is present'
     @addPresenceConditional()
+
+  comparisonConditional: (question) ->
+    console.log 'COMPARISON CONDITIONAL', question
+    @$conditional_operator_select.append("<option>></option><option><</option>").removeClass 'hidden'
+    @$conditional_value_number_field.removeClass 'hidden'
+    @$conditional_value_number_field.on 'blur', (e) =>
+      conditional_string = ""
+      conditional_string += "#{@$conditional_question_select.val()}|"
+      conditional_string += "#{@$conditional_operator_select.val()}|"
+      conditional_string += e.target.value
+      console.log conditional_string
+      @$conditional_input_field.val conditional_string
+
 
   multipleChoiceConditional: (question)->
     @$conditional_operator.text "="
@@ -180,6 +197,9 @@ SurveyAdmin =
     conditional_string += "#{@$conditional_operator.text()}|"
     conditional_string += @$conditional_value_select.val()
     @$conditional_input_field.val conditional_string
+
+  addComparisonConditional: (e) ->
+    # 
   
   clearConditional: (e) ->
     e.preventDefault() if e?
@@ -191,8 +211,8 @@ SurveyAdmin =
   clearConditionalOperatorAndValue: ->
     @$conditional_value_select.addClass('hidden').prop 'selectedIndex', 0
     @$clear_conditional_button.addClass 'hidden'
-
-
+    @$conditional_value_number_field.val('').addClass 'hidden'
+    @$conditional_operator_select.off('blur').empty().addClass 'hidden'
 
 
 module.exports = SurveyAdmin

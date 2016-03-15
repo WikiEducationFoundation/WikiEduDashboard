@@ -49,7 +49,9 @@
           :include_blank => "Select a question", 
           :data => {:conditional_select => true}%>
       <span data-conditional-operator></span>
+      <select class='hidden' data-conditional-operator-select></select>
       <select class='hidden' data-conditional-value-select></select>
+      <input class='hidden' data-conditional-value-number type='number' />
       <button class='hidden' data-clear-conditional>Reset</button>
       <%= f.hidden_field :conditionals, :data => {:conditional_field_input => true} %>
     </div>
