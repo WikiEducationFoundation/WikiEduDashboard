@@ -91,7 +91,7 @@ class CategoryImporter
   end
 
   def self.import_articles_with_scores_and_views(article_ids)
-    ArticleImporter.import_articles article_ids
+    ArticleImporter.new(Wiki.default_wiki).import_articles article_ids
     import_latest_revision article_ids
     import_scores_for_latest_revision article_ids
     import_average_views article_ids

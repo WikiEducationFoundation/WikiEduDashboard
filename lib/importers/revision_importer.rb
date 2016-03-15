@@ -64,13 +64,15 @@ class RevisionImporter
     synced_revisions = Utils.chunk_requests(revisions, 100) do |block|
       Replica.new(@wiki).get_existing_revisions_by_id block
     end
-    synced_ids = synced_revisions.map { |r| r['rev_id'].to_i }
+    synced_rev_ids = synced_revisions.map { |r| r['rev_id'].to_i }
 
-    deleted_ids = revisions.pluck(:id) - synced_ids
-    Revision.where(id: deleted_ids).update_all(deleted: true)
-    Revision.where(id: synced_ids).update_all(deleted: false)
+    deleted_rev_ids = revisions.pluck(:mw_rev_id) - synced_rev_ids
+    Revision.where(wiki_id: @wiki.id, mw_rev_id: deleted_rev_ids)
+            .update_all(deleted: true)
+    Revision.where(wiki_id: @wiki.id, mw_rev_id: synced_rev_ids)
+            .update_all(deleted: false)
 
-    moved_ids = synced_ids - deleted_ids
+    moved_ids = synced_rev_ids - deleted_rev_ids
     moved_revisions = synced_revisions.reduce([]) do |moved, rev|
       moved.push rev if moved_ids.include? rev['rev_id'].to_i
     end
@@ -115,8 +117,8 @@ class RevisionImporter
 
   def users_with_no_revisions(course)
     course.users.role('student')
-      .joins(:courses_users)
-      .where({ courses_users: { revision_count: 0 }})
+          .joins(:courses_users)
+          .where(courses_users: { revision_count: 0 })
   end
 
   def first_revision(course)
@@ -153,9 +155,11 @@ class RevisionImporter
   end
 
   def handle_moved_revision(moved)
-    article_id = moved['rev_page']
-    Revision.find(moved['rev_id']).update(article_id: article_id)
-    ArticleImporter
-      .import_articles([article_id]) unless Article.exists?(article_id)
+    mw_page_id = moved['rev_page']
+    Revision.find_by(wiki_id: @wiki.id, mw_rev_id: moved['rev_id'])
+            .update(article_id: mw_page_id, mw_page_id: mw_page_id)
+
+    return if Article.exists?(wiki_id: @wiki.id, mw_page_id: mw_page_id)
+    ArticleImporter.new(@wiki).import_articles([mw_page_id])
   end
 end

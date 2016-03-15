@@ -20,7 +20,7 @@ class AssignedArticleImporter
   #########################
   def import_articles(assignments)
     missing_titles = assignments.map(&:article_title).uniq
-    ArticleImporter.import_articles_by_title(missing_titles)
+    ArticleImporter.new(@wiki).import_articles_by_title(missing_titles)
     newly_imported_article_titles = Article.where(namespace: 0,
                                                   title: missing_titles,
                                                   wiki_id: @wiki.id).pluck(:title)
