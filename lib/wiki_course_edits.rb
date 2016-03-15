@@ -123,6 +123,8 @@ class WikiCourseEdits
   def update_assignments_for_title(title:, assignments_for_same_title:)
     require './lib/wiki_assignment_output'
 
+    course_page = @course.wiki_title
+
     # TODO: i18n of talk namespace
     if title[0..4] == 'Talk:'
       talk_title = title
@@ -130,12 +132,10 @@ class WikiCourseEdits
       talk_title = "Talk:#{title.tr(' ', '_')}"
     end
 
-    course_page = @course.wiki_title
-    page_content = WikiAssignmentOutput
-                   .build_talk_page_update(title,
-                                           talk_title,
-                                           assignments_for_same_title,
-                                           course_page)
+    page_content = WikiAssignmentOutput.wikitext(course: @course,
+                                                 title: title,
+                                                 talk_title: talk_title,
+                                                 assignments: assignments_for_same_title)
 
     return if page_content.nil?
     course_title = @course.title
