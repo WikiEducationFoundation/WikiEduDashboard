@@ -302,7 +302,7 @@ Survey =
   initConditionals: ->
     $('[data-conditional-question]').each (i, question) =>
       $(question).addClass 'hidden'
-      { question_id, operator, value } = Utils.parseConditionalString $(question).data 'conditional-question'
+      { question_id, operator, value, multi } = Utils.parseConditionalString $(question).data 'conditional-question'
 
       if @survey_conditionals[question_id]?
         @survey_conditionals[question_id].children.push question
@@ -311,24 +311,94 @@ Survey =
         @survey_conditionals[question_id].children = [question]
 
       @survey_conditionals[question_id][value] = question if value?
+      @survey_conditionals[question_id].current_answers = []
 
       switch operator
         when '*presence'
           @conditionalPresenceListeners(question_id, question)
         when '<', '>'
-          @conditionalComparisonListeners(question_id, operator, question)
+          @conditionalComparisonListeners(question_id, operator, value, question)
         else
-          @conditionalAnswerListeners(question_id, question)
+          @conditionalAnswerListeners(question_id, multi)
 
-  conditionalAnswerListeners: (id, operator) ->
+  conditionalAnswerListeners: (id, multi) ->
     # @survey_conditionals[id].operator = operator
     $("#question_#{id} input, #question_#{id} select").on 'change', ({target}) =>
       value = $(target).val()
-      @handleParentConditionalChange value, @survey_conditionals[id], $("#question_#{id}").parents('.block')
+      $parent = $("#question_#{id}").parents('.block')
+      if multi
+        value = []
+        $parent.find('input:checked').each (i, input) ->
+         value.push $(input).val()
+      @handleParentConditionalChange value, @survey_conditionals[id], $parent, multi
 
-  conditionalComparisonListeners: (id, operator) ->
+  conditionalComparisonListeners: (id, operator, value) ->
+    # http://stackoverflow.com/questions/13077923/how-can-i-convert-a-string-into-a-math-operator-in-javascript#answer-13077966
+    validate_expression =
+      '>' : (a,b) -> a > b
+      '>=' : (a,b) -> a >= b
+      '<' : (a,b) -> a < b
+      '<=' : (a,b) -> a <= b
+    $parent = $("#question_#{id}").parents('.block')
+    conditional_group = @survey_conditionals[id]
+    $question_block = $(conditional_group[value])
+
     $("#question_#{id} input").on 'change', ({target}) =>
-      console.log target.value, operator
+      @setToCurrentBlock $parent
+      $parent.find('.survey__next.hidden').removeClass 'hidden'
+      if validate_expression[operator](parseInt(target.value), parseInt(value))
+        @resetConditionalGroupChildren conditional_group
+        @activateConditionalQuestion $question_block
+      else
+        @resetConditionalQuestion $question_block 
+      @indexBlocks()
+
+  handleParentConditionalChange: (value, conditional_group, $parent, multi = false) ->
+    current_answers = conditional_group.current_answers
+    reset_questions = false
+    conditional = undefined
+
+    if Array.isArray value
+
+      # Check if empty
+      if value.length is 0 and current_answers
+        console.log value, @current_block
+        conditional_group.current_answers = []
+        reset_questions = true
+
+      # Check if conditional was present and is no longer
+      current_answers.map (a) =>
+        if value.indexOf a is -1
+          reset_questions = true
+          index = current_answers.indexOf(a)
+          if current_answers.length is 1
+            current_answers = []
+          else
+            current_answers = current_answers.slice(index, index + 1)
+
+      # Check if value matches a conditional question
+      value.map (v) => 
+        if conditional_group[v]?
+          conditional = conditional_group[v]
+          current_answers.push v
+          conditional_group.current_answers = current_answers
+
+      if current_answers.length is 0
+        conditional_group.current_answers = []
+      
+    else
+      conditional = conditional_group[value]
+      reset_questions = true
+
+    @resetConditionalGroupChildren conditional_group
+
+    if conditional?
+      @activateConditionalQuestion $(conditional)
+    
+    @indexBlocks()
+    @setToCurrentBlock $parent
+
+    $parent.find('.survey__next.hidden').removeClass 'hidden'
 
   conditionalPresenceListeners: (id, question) ->
     @survey_conditionals[id].present = false
@@ -339,53 +409,56 @@ Survey =
         conditional_group: @survey_conditionals[id]
         $parent: $("#question_#{id}").parents('.block')
 
-  handleParentConditionalChange: (value, conditional_group, $parent) ->
-    console.log value
-    # Reset all conditional question blocks
-    conditional_group.children.map (question) ->
-      $(question)
-        .removeAttr 'style'
-        .addClass 'hidden not-seen disabled'
-
-    conditional = undefined
-    if Array.isArray value
-      value.map (v) => 
-        if conditional_group[v]?
-          conditional = conditional_group[v]
-    else
-      conditional = conditional_group[value]
-
-    if conditional?
-      $(conditional)
-        .removeClass 'hidden'
-        .attr 'data-survey-block', ''
-      @indexBlocks =>
-        @current_block = parseInt $parent.data 'survey-block'
-      $parent.find('.survey__next.hidden').removeClass 'hidden'
-
   handleParentPresenceConditionalChange: (params) ->
     { present, conditional_group, $parent } = params;
     $question = $(conditional_group.question)
+    @setToCurrentBlock $parent
+
     if present and !conditional_group.present
       conditional_group.present = true
-      $question
-        .removeClass 'hidden'
-        .attr 'data-survey-block', ''
+      @activateConditionalQuestion $question
 
     else if !present and conditional_group.present
       conditional_group.present = false
-      $question
-        .removeAttr 'style'
-        .addClass 'hidden not-seen disabled'
-        .find('textarea').val ''
-    else
-      # console.log @current_block
+      @resetConditionalQuestion $question
 
     $parent.find('.survey__next.hidden').removeClass 'hidden'
 
     @indexBlocks()
-    @current_block = $parent.data 'survey-block'
+    @setToCurrentBlock $parent
     @updateCurrentBlock()
+  
+  resetConditionalGroupChildren: (conditional_group) ->
+    { children, current_answers } = conditional_group
+    if current_answers? and current_answers.length
+      console.log current_answers
+      exclude_from_reset = []
+      current_answers.map (a) => exclude_from_reset.push a
+      children.map (question) =>
+        { value } = Utils.parseConditionalString $(question).data 'conditional-question'
+        if exclude_from_reset.indexOf(value) is -1
+          @resetConditionalQuestion $(question)
+    else
+      children.map (question) =>
+        console.log 'clearing all', question
+        @resetConditionalQuestion $(question)
+
+  resetConditionalQuestion: ($question) ->
+    $question
+      .removeAttr 'style'
+      .addClass 'hidden not-seen disabled'
+    $question.find('input, textarea').val('')
+    $question.find('input:checked').removeAttr 'checked'
+    $question.find('select').prop 'selectedIndex', 0
+    $question.find('.survey__next.hidden').removeClass 'hidden'
+
+  activateConditionalQuestion: ($question) ->
+    $question
+      .removeClass 'hidden'
+      .attr 'data-survey-block', ''
+  
+  setToCurrentBlock: ($block) ->
+    @current_block = $block.data 'survey-block'
 
 
 module.exports = Survey 

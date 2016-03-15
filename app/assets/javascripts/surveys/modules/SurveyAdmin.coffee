@@ -157,7 +157,6 @@ SurveyAdmin =
       console.log conditional_string
       @$conditional_input_field.val conditional_string
 
-
   multipleChoiceConditional: (question)->
     @$conditional_operator.text "="
     @conditional.operator = "="
@@ -195,7 +194,7 @@ SurveyAdmin =
     conditional_string = ""
     conditional_string += "#{@$conditional_question_select.val()}|"
     conditional_string += "#{@$conditional_operator.text()}|"
-    conditional_string += @$conditional_value_select.val()
+    conditional_string += "#{@$conditional_value_select.val()}|multi"
     @$conditional_input_field.val conditional_string
 
   addComparisonConditional: (e) ->
