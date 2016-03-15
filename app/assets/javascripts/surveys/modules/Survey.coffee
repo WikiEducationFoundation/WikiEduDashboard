@@ -326,10 +326,13 @@ Survey =
     $("#question_#{id} input, #question_#{id} select").on 'change', ({target}) =>
       value = $(target).val()
       $parent = $("#question_#{id}").parents('.block')
-      if multi
+      $checked_inputs = $parent.find('input:checked')
+      if multi and $checked_inputs.length
         value = []
-        $parent.find('input:checked').each (i, input) ->
-         value.push $(input).val()
+        $checked_inputs.each (i, input) -> value.push $(input).val()
+      else if multi and value is null
+        value = []
+
       @handleParentConditionalChange value, @survey_conditionals[id], $parent, multi
 
   conditionalComparisonListeners: (id, operator, value) ->
@@ -362,7 +365,6 @@ Survey =
 
       # Check if empty
       if value.length is 0 and current_answers
-        console.log value, @current_block
         conditional_group.current_answers = []
         reset_questions = true
 
@@ -431,7 +433,6 @@ Survey =
   resetConditionalGroupChildren: (conditional_group) ->
     { children, current_answers } = conditional_group
     if current_answers? and current_answers.length
-      console.log current_answers
       exclude_from_reset = []
       current_answers.map (a) => exclude_from_reset.push a
       children.map (question) =>
@@ -439,9 +440,7 @@ Survey =
         if exclude_from_reset.indexOf(value) is -1
           @resetConditionalQuestion $(question)
     else
-      children.map (question) =>
-        console.log 'clearing all', question
-        @resetConditionalQuestion $(question)
+      children.map (question) => @resetConditionalQuestion $(question)
 
   resetConditionalQuestion: ($question) ->
     $question
