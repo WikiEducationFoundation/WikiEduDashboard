@@ -1,5 +1,6 @@
 require 'velocity-animate'
 require 'parsleyjs'
+require 'core-js/modules/es6.array.is-array'
 rangeslider = require 'rangeslider.js'
 throttle = require 'lodash.throttle'
 
@@ -162,7 +163,6 @@ Survey =
 
   nextBlock: ->
     return if @animating
-    console.log 'next block'
     toIndex = @current_block + 1
     $block = $("[data-survey-block='#{toIndex}']")
     
@@ -218,7 +218,6 @@ Survey =
 
     if validation is true
       $errorsEl.empty()
-      console.log 'ay', @current_block
       @removeNextButton(e)
       @nextBlock(e)
     else
@@ -250,7 +249,6 @@ Survey =
       $el.addClass 'hidden'
 
   initRangeSliders: ->
-    # console.log $.rangeslider
     
     getRulerRange = (min, max, step) ->
       range = ''
@@ -314,36 +312,59 @@ Survey =
 
       @survey_conditionals[question_id][value] = question if value?
 
-      if operator is '*presence'
-        @survey_conditionals[question_id].present = false
-        @survey_conditionals[question_id].question = question
-        $("#question_#{question_id} textarea").on 'keyup', ({target}) =>
-          @handleParentPresenceConditionalChange target.value.length, @survey_conditionals[question_id], $("#question_#{question_id}").parents('.block')
-      else
-        @survey_conditionals[question_id].operator = operator
+      switch operator
+        when '*presence'
+          @conditionalPresenceListeners(question_id, question)
+        when '<', '>'
+          @conditionalComparisonListeners(question_id, operator, question)
+        else
+          @conditionalAnswerListeners(question_id, question)
 
-        $("#question_#{question_id} input, #question_#{question_id} select").on 'change', ({target}) =>
-          value = target.value.trim()
-          @handleParentConditionalChange value, @survey_conditionals[question_id]
+  conditionalAnswerListeners: (id, operator) ->
+    # @survey_conditionals[id].operator = operator
+    $("#question_#{id} input, #question_#{id} select").on 'change', ({target}) =>
+      value = $(target).val()
+      @handleParentConditionalChange value, @survey_conditionals[id], $("#question_#{id}").parents('.block')
 
-  handleParentConditionalChange: (value, conditional_group) ->
-    conditional_group.current_value = value
-    
+  conditionalComparisonListeners: (id, operator) ->
+    $("#question_#{id} input").on 'change', ({target}) =>
+      console.log target.value, operator
+
+  conditionalPresenceListeners: (id, question) ->
+    @survey_conditionals[id].present = false
+    @survey_conditionals[id].question = question
+    $("#question_#{id} textarea").on 'keyup', ({target}) =>
+      @handleParentPresenceConditionalChange 
+        present: target.value.length
+        conditional_group: @survey_conditionals[id]
+        $parent: $("#question_#{id}").parents('.block')
+
+  handleParentConditionalChange: (value, conditional_group, $parent) ->
+    console.log value
     # Reset all conditional question blocks
     conditional_group.children.map (question) ->
       $(question)
         .removeAttr 'style'
         .addClass 'hidden not-seen disabled'
-    
-    if conditional_group[value]?
-      $(conditional_group[value])
+
+    conditional = undefined
+    if Array.isArray value
+      value.map (v) => 
+        if conditional_group[v]?
+          conditional = conditional_group[v]
+    else
+      conditional = conditional_group[value]
+
+    if conditional?
+      $(conditional)
         .removeClass 'hidden'
         .attr 'data-survey-block', ''
       @indexBlocks =>
-        @current_block = $(conditional_group[value]).data 'survey-block'
-      @updateCurrentBlock()
+        @current_block = parseInt $parent.data 'survey-block'
+      $parent.find('.survey__next.hidden').removeClass 'hidden'
 
-  handleParentPresenceConditionalChange: (present, conditional_group, $parent) ->
+  handleParentPresenceConditionalChange: (params) ->
+    { present, conditional_group, $parent } = params;
     $question = $(conditional_group.question)
     if present and !conditional_group.present
       conditional_group.present = true
@@ -358,16 +379,13 @@ Survey =
         .addClass 'hidden not-seen disabled'
         .find('textarea').val ''
     else
-      console.log @current_block
+      # console.log @current_block
 
     $parent.find('.survey__next.hidden').removeClass 'hidden'
 
     @indexBlocks()
     @current_block = $parent.data 'survey-block'
     @updateCurrentBlock()
-
-
-
 
 
 module.exports = Survey 
