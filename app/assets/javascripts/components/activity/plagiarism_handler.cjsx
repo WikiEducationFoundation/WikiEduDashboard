@@ -5,6 +5,7 @@ ServerActions = require '../../actions/server_actions'
 
 getState = ->
   revisions: SuspectedPlagiarismStore.getRevisions()
+  loading: true
 
 PlagiarismHandler = React.createClass(
   displayName: 'PlagiarismHandler'
@@ -27,6 +28,7 @@ PlagiarismHandler = React.createClass(
       { title: 'Revision Author',    key: 'username' },
       { title: 'Revision Date/Time', key: 'revision_datetime' },
     ]
+
     noActivityMessage = 'There are not currently any recent revisions suspected of plagiarism.'
 
     <div>
