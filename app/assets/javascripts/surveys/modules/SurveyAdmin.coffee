@@ -1,4 +1,3 @@
-
 require('jquery-ui/sortable');
 require('jquery.repeater');
 Utils = require './SurveyUtils.coffee'
@@ -197,9 +196,6 @@ SurveyAdmin =
     conditional_string += "#{@$conditional_operator.text()}|"
     conditional_string += "#{@$conditional_value_select.val()}|multi"
     @$conditional_input_field.val conditional_string
-
-  addComparisonConditional: (e) ->
-    # 
   
   clearConditional: (e) ->
     e.preventDefault() if e?

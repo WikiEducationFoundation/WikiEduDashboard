@@ -24,6 +24,13 @@ module.exports = {
         root: ["vendor", "node_modules"]
     },
     module: {
+        preLoaders: [
+            {
+                test: /\.coffee$/,
+                loader:"coffee-lint-loader",
+                exclude: [/vendor/, /node_modules/]
+            }
+        ],
         loaders: [
             { 
                 test: /\.jsx?$/, 
@@ -42,5 +49,8 @@ module.exports = {
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin()
-    ]
+    ],
+    coffeelint: {
+        configFile: __dirname + "/coffeelint.json"
+    }
 };

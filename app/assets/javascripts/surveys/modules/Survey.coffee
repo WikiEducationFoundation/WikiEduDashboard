@@ -210,8 +210,15 @@ Survey =
     $block = $(@survey_blocks[@current_block])
     $errorsEl = $block.find('[data-errors]')
     question_group_index = @currentQuestionGroupIndex()
-    $form = if question_group_index? then $(@$survey_form[question_group_index]) else @$survey_form
-    validation = $form.parsley({uiEnabled: false}).validate group: "#{$block.data 'parsley-group'}"
+    if question_group_index?
+      $form =  $(@$survey_form[question_group_index])
+    else
+      $form = @$survey_form
+    
+    validation = $form
+      .parsley({uiEnabled: false})
+      .validate group: "#{$block.data 'parsley-group'}"
+
     if $block.find("[data-required-checkbox='true']").length
       if $block.find('input[type="checkbox"]:checked').length is 0
         validation = false
@@ -224,7 +231,9 @@ Survey =
       @handleRequiredQuestion()
 
   currentQuestionGroupIndex: ->
-    $(@survey_blocks[@current_block]).find('[data-question-group]').first().data 'question-group'
+    $(@survey_blocks[@current_block])
+      .find('[data-question-group]')
+      .first().data 'question-group'
 
   setFormValidationSections: ->
     @survey_blocks.each (i, block) ->
@@ -302,7 +311,13 @@ Survey =
   initConditionals: ->
     $('[data-conditional-question]').each (i, question) =>
       $(question).addClass 'hidden'
-      { question_id, operator, value, multi } = Utils.parseConditionalString $(question).data 'conditional-question'
+      conditiona_string = $(question).data 'conditional-question'
+      {
+        question_id
+        operator
+        value
+        multi
+      } = Utils.parseConditionalString conditional_string
 
       if @survey_conditionals[question_id]?
         @survey_conditionals[question_id].children.push question
@@ -354,7 +369,7 @@ Survey =
         @resetConditionalGroupChildren conditional_group
         @activateConditionalQuestion $question_block
       else
-        @resetConditionalQuestion $question_block 
+        @resetConditionalQuestion $question_block
       @indexBlocks()
 
   handleParentConditionalChange: (value, conditional_group, $parent, multi = false) ->
@@ -370,7 +385,7 @@ Survey =
         reset_questions = true
 
       # Check if conditional was present and is no longer
-      current_answers.map (a) =>
+      current_answers.map (a) ->
         if value.indexOf a is -1
           reset_questions = true
           index = current_answers.indexOf(a)
@@ -380,7 +395,7 @@ Survey =
             current_answers = current_answers.slice(index, index + 1)
 
       # Check if value matches a conditional question
-      value.map (v) => 
+      value.map (v) ->
         if conditional_group[v]?
           conditional = conditional_group[v]
           current_answers.push v
@@ -407,13 +422,13 @@ Survey =
     @survey_conditionals[id].present = false
     @survey_conditionals[id].question = question
     $("#question_#{id} textarea").on 'keyup', ({target}) =>
-      @handleParentPresenceConditionalChange 
+      @handleParentPresenceConditionalChange
         present: target.value.length
         conditional_group: @survey_conditionals[id]
         $parent: $("#question_#{id}").parents('.block')
 
   handleParentPresenceConditionalChange: (params) ->
-    { present, conditional_group, $parent } = params;
+    { present, conditional_group, $parent } = params
     $question = $(conditional_group.question)
     @setToCurrentBlock $parent
 
@@ -435,7 +450,7 @@ Survey =
     { children, current_answers } = conditional_group
     if current_answers? and current_answers.length
       exclude_from_reset = []
-      current_answers.map (a) => exclude_from_reset.push a
+      current_answers.map (a) -> exclude_from_reset.push a
       children.map (question) =>
         { value } = Utils.parseConditionalString $(question).data 'conditional-question'
         if exclude_from_reset.indexOf(value) is -1
