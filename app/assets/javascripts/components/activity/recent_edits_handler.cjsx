@@ -28,12 +28,14 @@ RecentEditsHandler = React.createClass(
       { title: 'Revision Author',    key: 'username' },
       { title: 'Revision Date/Time', key: 'revision_datetime' },
     ]
-    noActivityMessage = 'There are no recent edits.'
+
+    noActivityMessage = I18n.t('recent_activity.no_edits')
+    showCourses = I18n.t('recent_activity.show_courses')
 
     <div>
       <label>
         <input ref='myCourses' type='checkbox' onChange={@setCourseScope} />
-        Show My Courses Only
+        {showCourses}
       </label>
       <ActivityTable
         loading={@state.loading}
