@@ -1,9 +1,5 @@
 FactoryGirl.define do
 
-  factory :question_group, class: 'Rapidfire::QuestionGroup' do
-    name "Question Group 1"
-  end
-
   factory :matrix_question, class: 'Rapidfire::Question' do
     id 23
     question_text "Question?"

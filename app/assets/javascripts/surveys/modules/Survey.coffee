@@ -342,6 +342,7 @@ Survey =
       '>=' : (a,b) -> a >= b
       '<' : (a,b) -> a < b
       '<=' : (a,b) -> a <= b
+      
     $parent = $("#question_#{id}").parents('.block')
     conditional_group = @survey_conditionals[id]
     $question_block = $(conditional_group[value])

@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/WikiEducationFoundation/rapidfire
-  revision: 3e535dd571c46ff8b07a4d5824e00b7d4639648d
+  revision: 00052b030df1109c3180d2d6604766aa6108aaec
   branch: master
   specs:
     rapidfire (2.1.0)
