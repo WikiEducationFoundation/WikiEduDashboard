@@ -5,7 +5,15 @@
 <% end %>
 
 <div class='container'>
-  
-  <%= render partial: "question_group" %>
+
+  <%= render partial: "surveys/question_group", locals: {
+      question_group: @question_group,
+      answer_group_builder: @answer_group_builder,
+      question_group_index: 0,
+      total: 1,
+      :surveys_question_group => {
+        show_title: false
+      }
+    } %>
 
 </div>
