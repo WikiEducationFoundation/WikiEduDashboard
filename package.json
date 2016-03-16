@@ -108,7 +108,8 @@
     "waypoints": "^4.0.0",
     "webpack": "^1.12.14",
     "webpack-dev-server": "^1.14.1",
-    "webpack-manifest-plugin": "^1.0.0"
+    "webpack-manifest-plugin": "^1.0.0",
+    "wnumb": "^1.0.2"
   },
   "scripts": {
     "test": "gulp js_coverage",

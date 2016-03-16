@@ -2,6 +2,7 @@ require 'velocity-animate'
 require 'parsleyjs'
 require 'core-js/modules/es6.array.is-array'
 rangeslider = require 'nouislider'
+wNum = require 'wnumb'
 throttle = require 'lodash.throttle'
 
 scroll_duration = 500
@@ -263,7 +264,19 @@ Survey =
       min  = parseInt $(slider).data 'min'
       max  = parseInt $(slider).data 'max'
       step = parseInt $(slider).data 'step'
-      step = parseInt $(slider).data 'step'
+      divisions = $(slider).data 'divisions'
+      format = $(slider).data 'format'
+
+      numberFormatting = switch format
+        when '%'
+          decimals: 0
+          postfix: '%'
+        when '$'
+          decimals: 0
+          prefix: '$'
+        else
+          {}
+      
       rangeslider.create slider,
         start: 0
         range:
@@ -273,7 +286,9 @@ Survey =
         pips:
           mode: 'count'
           values: 5
-          density: step
+          density: if divisions? then parseInt(divisions) else 4
+          format: wNumb numberFormatting
+            
         connect: 'lower'
       slider.noUiSlider.on 'change', (value) ->
         $input.val value[0]

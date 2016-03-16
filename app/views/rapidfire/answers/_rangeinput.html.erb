@@ -3,8 +3,10 @@
 <% min = answer.question.validation_rules[:range_minimum].to_i %>
 <% max = answer.question.validation_rules[:range_maximum].to_i %>
 <% inc = answer.question.validation_rules[:range_increment].to_i %>
+<% divisions = answer.question.validation_rules[:range_divisions] %>
+<% format = answer.question.validation_rules[:range_format] %>
 <% range = min..max %>
 <div class='range-input'>
-<div data-min="<%= min %>" data-max="<%= max %>" data-step="<%= inc %>" data-range></div>
+<div data-min="<%= min %>" data-max="<%= max %>" data-step="<%= inc %>" data-divisions="<%= divisions %>" data-format="<%= format %>" data-range></div>
 <%= f.number_field :answer_text, :required => is_required_question?(answer), :data => {:range_field => true} %>
 </div>
