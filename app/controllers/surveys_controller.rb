@@ -13,6 +13,7 @@ class SurveysController < ApplicationController
   # GET /surveys/1
   # GET /surveys/1.json
   def show
+    @courses = Course.all
   end
 
   # GET /surveys/new
@@ -108,6 +109,6 @@ class SurveysController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def survey_params
-      params.require(:survey).permit(:name, :intro, :thanks, :rapidfire_question_group_ids => [])
+      params.require(:survey).permit(:name, :intro, :thanks, :show_courses, :rapidfire_question_group_ids => [])
     end
 end

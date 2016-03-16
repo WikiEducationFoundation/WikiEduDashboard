@@ -5,6 +5,8 @@
     %h1.survey__title= @survey.name
     - if @survey.intro?
       = @survey.intro.html_safe
+    - if @survey.show_courses
+      = select_tag("course", options_from_collection_for_select(@courses, 'id', 'title'), :required => true, :data => {:chosen_select => true})
     .survey__block-nav
       %div
       %button.button.survey__next.dark{"data-next-survey-block" => "", "data-no-validate" => true}

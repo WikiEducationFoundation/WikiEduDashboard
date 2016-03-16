@@ -1,8 +1,11 @@
 = simple_form_for(@survey) do |f|
   = f.error_notification
 
-  .form-inputs.light-text
+  .form-inputs.light-text.survey__title-input
     = f.input :name
+
+  .form-inputs.light-text
+    = f.input :show_courses
 
   %div.light-text
     = f.label :intro, "Survey Introduction"
