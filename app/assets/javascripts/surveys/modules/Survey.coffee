@@ -26,7 +26,7 @@ Survey =
     @$thank_you = $('[data-thank-you]')
     @setFormValidationSections()
     @survey_progress = $('[data-survey-progress]')
-    # @initConditionals()
+    @initConditionals()
     @listeners()
     @initBlocks()
     @initRangeSliders()
