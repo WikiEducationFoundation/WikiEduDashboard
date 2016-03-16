@@ -311,13 +311,12 @@ Survey =
   initConditionals: ->
     $('[data-conditional-question]').each (i, question) =>
       $(question).addClass 'hidden'
-      conditiona_string = $(question).data 'conditional-question'
       {
         question_id
         operator
         value
         multi
-      } = Utils.parseConditionalString conditional_string
+      } = Utils.parseConditionalString $(question).data 'conditional-question'
 
       if @survey_conditionals[question_id]?
         @survey_conditionals[question_id].children.push question
