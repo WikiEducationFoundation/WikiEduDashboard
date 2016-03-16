@@ -30,12 +30,11 @@ RecentEditsHandler = React.createClass(
     ]
 
     noActivityMessage = I18n.t('recent_activity.no_edits')
-    showCourses = I18n.t('recent_activity.show_courses')
 
     <div>
       <label>
         <input ref='myCourses' type='checkbox' onChange={@setCourseScope} />
-        {showCourses}
+        {I18n.t('recent_activity.show_courses')}
       </label>
       <ActivityTable
         loading={@state.loading}

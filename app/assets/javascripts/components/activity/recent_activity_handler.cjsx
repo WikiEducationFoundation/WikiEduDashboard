@@ -11,20 +11,16 @@ RecentActivityHandler = React.createClass(
   displayName: 'RecentActivityHandler'
   render: ->
 
-    dIYEligible = I18n.t('recent_activity.did_you_know_eligible')
-    plagiarism = I18n.t('recent_activity.possible_plagiarism')
-    recentEdits = I18n.t('recent_activity.recent_edits')
-
     <div className='container recent-activity__container'>
       <nav className='container'>
         <div className="nav__item" id="dyk-link">
-          <p><Link to="/recent-activity">{dIYEligible}</Link></p>
+          <p><Link to="/recent-activity">{I18n.t('recent_activity.did_you_know_eligible')}</Link></p>
         </div>
         <div className="nav__item" id="plagiarism-link">
-          <p><Link to="/recent-activity/plagiarism">{plagiarism}</Link></p>
+          <p><Link to="/recent-activity/plagiarism">{I18n.t('recent_activity.possible_plagiarism')}</Link></p>
         </div>
         <div className="nav__item" id="recent-edits-link">
-          <p><Link to="/recent-activity/recent-edits">{recentEdits}</Link></p>
+          <p><Link to="/recent-activity/recent-edits">{I18n.t('recent_activity.recent_edits')}</Link></p>
         </div>
       </nav>
       {@props.children}

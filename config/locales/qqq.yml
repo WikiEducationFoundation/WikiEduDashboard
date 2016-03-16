@@ -234,7 +234,7 @@ qqq:
     user_ns: Wiki title for the user namespace.
   recent_activity:
     show_courses: Checkbox for option to show user courses only
-    no_eligible: Message stating there are no "Did You Know" eligible articles.
+    no_dyk_eligible: Message stating there are no "Did You Know" eligible articles.
     no_plagiarism: Message stating there are no recent revisions suspected of plagiarism.
     no_edits: Message stating there are no recent edits.
     refresh_plagiarism: Action to reload plagiarism report

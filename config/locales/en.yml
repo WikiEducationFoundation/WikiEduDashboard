@@ -307,7 +307,7 @@ en:
 
   recent_activity:
     show_courses: Show My Courses Only
-    no_eligible: There are not currently any DYK-eligible articles.
+    no_dyk_eligible: There are not currently any DYK-eligible articles.
     no_plagiarism: There are not currently any recent revisions suspected of plagiarism.
     no_edits: There are no recent edits.
     refresh_plagiarism: Refresh plagiarism reports
