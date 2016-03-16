@@ -5,5 +5,6 @@
 <% inc = answer.question.validation_rules[:range_increment].to_i %>
 <% range = min..max %>
 <div class='range-input'>
-<%= f.range_field :answer_text, :min => min, :max => max, :step => inc, :required => is_required_question?(answer), :data => {:range_slider => true} %>
+<div data-min="<%= min %>" data-max="<%= max %>" data-step="<%= inc %>" data-range></div>
+<%= f.number_field :answer_text, :required => is_required_question?(answer), :data => {:range_field => true} %>
 </div>

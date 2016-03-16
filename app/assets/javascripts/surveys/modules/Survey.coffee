@@ -1,7 +1,7 @@
 require 'velocity-animate'
 require 'parsleyjs'
 require 'core-js/modules/es6.array.is-array'
-rangeslider = require 'rangeslider.js'
+rangeslider = require 'nouislider'
 throttle = require 'lodash.throttle'
 
 scroll_duration = 500
@@ -258,30 +258,25 @@ Survey =
       $el.addClass 'hidden'
 
   initRangeSliders: ->
-    
-    getRulerRange = (min, max, step) ->
-      range = ''
-      i = 0
-      while i <= max
-        range += i + ' '
-        i = i + step
-      range
-
-    $('input[type="range"]').each (i, slider) ->
-      $ruler = $('<div class="rangeslider__ruler" />')
-      $(slider).rangeslider
-        polyfill: false
-        rangeClass: 'rangeslider'
-        disabledClass: 'rangeslider--disabled'
-        horizontalClass: 'rangeslider--horizontal'
-        verticalClass: 'rangeslider--vertical'
-        fillClass: 'rangeslider__fill'
-        handleClass: 'rangeslider__handle'
-        onInit: ->
-          $ruler[0].innerHTML = getRulerRange(this.min, this.max, this.step)
-          this.$range.prepend $ruler
-        onSlide: (position, value) ->
-        onSlideEnd: (position, value) ->
+    $('[data-range]').each (i, slider) ->
+      $input = $(slider).next('[data-range-field]')
+      min  = parseInt $(slider).data 'min'
+      max  = parseInt $(slider).data 'max'
+      step = parseInt $(slider).data 'step'
+      step = parseInt $(slider).data 'step'
+      rangeslider.create slider,
+        start: 0
+        range:
+          'min': min
+          'max': max
+        step: step
+        pips:
+          mode: 'count'
+          values: 5
+          density: step
+        connect: 'lower'
+      slider.noUiSlider.on 'change', (value) ->
+        $input.val value[0]
 
   showThankYou: ->
     @$survey_form.addClass 'hidden'
