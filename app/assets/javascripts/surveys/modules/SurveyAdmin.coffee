@@ -1,3 +1,4 @@
+
 require('jquery-ui/sortable');
 require('jquery.repeater');
 Utils = require './SurveyUtils.coffee'
@@ -100,18 +101,18 @@ SurveyAdmin =
 
   initRepeaters: ->
     $('[data-repeater]').repeater
-       defaultValues: 'text-input': 'foo'
-       show: ->
-         $(this).slideDown()
-         return
-       hide: (deleteElement) ->
-         if confirm('Are you sure you want to delete this element?')
-           $(this).slideUp deleteElement
-         return
-       ready: (setIndexes) ->
-         # $dragAndDrop.on 'drop', setIndexes
-         return
-       isFirstItemUndeletable: true
+      defaultValues: 'text-input': 'foo'
+      show: ->
+        $(this).slideDown()
+        return
+      hide: (deleteElement) ->
+        if confirm('Are you sure you want to delete this element?')
+          $(this).slideUp deleteElement
+        return
+      ready: (setIndexes) ->
+        # $dragAndDrop.on 'drop', setIndexes
+        return
+      isFirstItemUndeletable: true
 
   handleConditionalSelect: (e) ->
     id = e.target.value

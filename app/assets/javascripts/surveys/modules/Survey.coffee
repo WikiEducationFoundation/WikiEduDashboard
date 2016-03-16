@@ -26,7 +26,7 @@ Survey =
     @$thank_you = $('[data-thank-you]')
     @setFormValidationSections()
     @survey_progress = $('[data-survey-progress]')
-    @initConditionals()
+    # @initConditionals()
     @listeners()
     @initBlocks()
     @initRangeSliders()
@@ -37,7 +37,7 @@ Survey =
     $('[data-prev-survey-block]').on 'click', @prevBlock.bind(@)
     $('[data-show-title]').on 'change', @toggleShowQuestionGroupTitle.bind(@)
     $('[data-chosen-select]').chosen chosen_options
-    @$window.scroll( throttle( @handleScroll.bind(@), 250) );
+    @$window.scroll( throttle( @handleScroll.bind(@), 250) )
 
   handleScroll: ->
     return if @animating
@@ -46,7 +46,7 @@ Survey =
     windowHeight = @$window.innerHeight()
     threshold =  (distanceToTop + windowHeight) - windowHeight * .5
 
-    @survey_blocks.each (i, block) =>
+    @survey_blocks.each (i, block) ->
       $block = $(block)
       return if $block.hasClass 'not-seen'
       blockOffset = $block.offset().top
@@ -70,7 +70,7 @@ Survey =
     cb() if cb
 
   nextSurvey: (e) ->
-    e.preventDefault();
+    e.preventDefault()
     if $(e.target).data('next-survey') # Last Survey
       @submitAllQuestionGroups()
       @showThankYou()
@@ -144,13 +144,13 @@ Survey =
   updateCurrentBlock: ->
     return if @animating
     $block = $("[data-survey-block='#{@current_block}']")
-    $($block).velocity 'scroll', 
+    $($block).velocity 'scroll',
       duration: scroll_duration
       easing: scroll_easing
       offset: -200
       begin: =>
         $(@survey_blocks[@current_block])
-          .removeClass 'highlight' 
+          .removeClass 'highlight'
           .attr 'style', ''
       complete: =>
         @animating = false
@@ -158,7 +158,7 @@ Survey =
     if $block.hasClass 'not-seen'
       $block.velocity {opacity: [1, 0], translateY: ['0%', '100%']},
         queue: false
-        complete: =>
+        complete: ->
           $block.removeClass 'not-seen disabled'
 
   nextBlock: ->
@@ -166,13 +166,13 @@ Survey =
     toIndex = @current_block + 1
     $block = $("[data-survey-block='#{toIndex}']")
     
-    $($block).velocity 'scroll', 
+    $($block).velocity 'scroll',
       duration: scroll_duration
       easing: scroll_easing
       offset: -200
       begin: =>
         $(@survey_blocks[@current_block])
-          .removeClass 'highlight' 
+          .removeClass 'highlight'
           .attr 'style', ''
         @updateProgress(toIndex)
       complete: =>
@@ -182,20 +182,20 @@ Survey =
     if $block.hasClass 'not-seen'
       $block.velocity {opacity: [1, 0], translateY: ['0%', '100%']},
         queue: false
-        complete: =>
+        complete: ->
           $block.removeClass 'not-seen'
 
   prevBlock: (e) ->
     e.preventDefault()
     return if @animating
     toIndex = @current_block - 1
-    $(@survey_blocks[toIndex]).velocity 'scroll', 
+    $(@survey_blocks[toIndex]).velocity 'scroll',
       duration: scroll_duration
       easing: scroll_easing
       offset: -200
       begin: =>
         @animating = true
-      complete: =>  
+      complete: =>
         @animating = false
         @current_block = toIndex
         @focusField()
@@ -227,7 +227,7 @@ Survey =
     $(@survey_blocks[@current_block]).find('[data-question-group]').first().data 'question-group'
 
   setFormValidationSections: ->
-    @survey_blocks.each (i, block) => 
+    @survey_blocks.each (i, block) ->
       $block = $(block)
       $block.attr 'data-parsley-group', "block#{i}"
       $block.find(':input').attr 'data-parsley-group', "block#{i}"
@@ -277,7 +277,7 @@ Survey =
   showThankYou: ->
     @$survey_form.addClass 'hidden'
     @$intro.addClass 'hidden'
-    @$thank_you.velocity 'scroll', 
+    @$thank_you.velocity 'scroll',
       duration: scroll_duration
       easing: scroll_easing
       offset: -200
@@ -461,4 +461,4 @@ Survey =
     @current_block = $block.data 'survey-block'
 
 
-module.exports = Survey 
+module.exports = Survey
