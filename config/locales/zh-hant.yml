@@ -1,6 +1,7 @@
 # Messages for Traditional Chinese (中文（繁體）‎)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Aa10240tw
 # Author: Cwlin0416
 # Author: Ffaarr
 # Author: LNDDYL
@@ -49,6 +50,7 @@ zh-hant:
   articles:
     assigned: 分配的條目
     assigned_to: 分配給
+    character_doc: 從開始到結束日，由登記編輯在條目中增加的字元數總和。
     edited: 編輯的條目
     edited_mobile: 條目
     label: 條目
@@ -59,13 +61,21 @@ zh-hant:
     rating_docs:
       fa: 特色條目— 維基百科的最高評級，但可能過於優秀而不適合作為新編輯者的主要目標。
       fl: 特色列表— 維基百科中用於列表的最高評級
+      stub: 小作品等級 — 剛開始、還需要更多內容的短小文章。
+      list: 列表等級 — 並非傳統條目的一個列表
+      '?': 未評級 — 未在維基百科的品質等級評量的條目。
     title: 標題
     title_example: 條目標題
     view: 檢視條目
     view_all: 檢視全部
+    view_doc: 在課程學期中每個條目的訪問量總數
+    views_added: 為%{title} 增加 %{count} 個新的瀏覽量
   assignments:
+    already_exists: 這個任務已存在！
+    assignees: 被分配者
     assign_other: 指定一個條目
     assign_self: 指定自己一個條目
+    confirm_deletion: 您確定要刪除此項作業嗎？
     label: 分配
     reviewers: 審查者
     review_other: 指定一個審查
@@ -107,8 +117,12 @@ zh-hant:
     join_prompt: 加入“%{title}”麼？
     join_successful: 您已成功加入%{title}。
     new_week: 新增新的一週
+    nocourses: 您尚未參加任何課程。
     overview: 概述
     passcode: 密碼
+    published: |-
+      您的課程已經發布！
+      學生可透過此URL參與課程：
     students: 學生
     student_editors: 學生編輯者
     students_short: 學生
@@ -116,6 +130,7 @@ zh-hant:
     title: 標題
     training_nav: 前往培訓
     view: 查看課程
+    view_page: 查看課程頁面
     view_wiki: 在維基百科上檢視
     yourcourses: 您的課程
   courses_generic:

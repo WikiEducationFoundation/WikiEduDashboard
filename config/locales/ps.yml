@@ -47,6 +47,10 @@ ps:
     articles: ليکنې
     course_description: کورسونه
     courses: کورسونه
+    creator:
+      course_title: کورس سرليک
+      create_short: کورس جوړول
+      end_date: پای نېټه
     current: اوسني کورسونه
     duration: کورس موده
     edit_course_dates: کورس نېټې سمول

@@ -5,16 +5,47 @@
 ---
 lt:
   application:
-    help: Pagalbos!
+    cancel: Atšaukti
+    explore: Tyrinėti
+    greeting2: Sveiki atvykę!
+    greeting_extended: Sveiki atvykę į Vikipediją
+    greeting: Sveiki!
+    help: Pagalba
     home: Pradžia
+    log_in_extended: Prisijungti su Vikipedija
+    log_in: Prisijungti
     log_out: Atsijungti
+    my_dashboard: Mano prietaisų skydelis
+    recent_activity: Pastaroji veikla
+    search: ieškoti ask.wikiedu.org
+    sign_up_extended: Prisijungti su Vikipedija
+    sign_up_log_in_extended: su Vikipedija
+    sign_up: Sukurti paskyrą
+    submit: Pateikti
+    training: Mokymas
+  home:
+    log_in: Prisijungti su Vikipedija
+    sign_up: Registruotis su Vikipedija
   activity:
+    all: Veikla
+    edited_by: Redagavo
     label: Veikla
   articles:
+    assigned_to: Priskirta
+    edited: Redaguoti straipsniai
+    edited_mobile: Straipsniai
+    label: Straipsniai
     rating: Klasė
+    title: Pavadinimas
+    title_example: Straipsnio pavadinimas
+    view: Peržiūrėti straipsnį
+    view_all: Rodyti visus
+  cohort:
+    none: Nėra
   courses:
     activity: Veikla
     articles: Straipsniai
+    course_description: Kursai
     courses: Kursai
     creator:
       course_description: Kurso aprašymas
@@ -31,12 +62,18 @@ lt:
       start_date: Pradžios data
     current: Dabartiniai kursai
     duration: Kurso trukmė
+    instructors: Instruktoriai
+    join: Prisijungti
     new_week: Pridėti naują savaitę
     overview: Apžvalga
+    school: Mokykla
     students: Studentai
+    students_count: '# Studentai'
     students_none: Šis kursas neturi studentų.
     students_short: Studentai
+    term: Terminas
     timeline: Užduoties detalės
+    timeline_link: Laiko juosta
     title: Pavadinimas
     yourcourses: Jūsų kursai
   courses_generic:
@@ -60,6 +97,9 @@ lt:
   namespace:
     main: Pagrindinė sritis
     user_ns: Naudotojas
+  recent_activity:
+    possible_plagiarism: Galimas plagijavimas
+    recent_edits: Naujausi keitimai
   revisions:
     class: Klasė
     date_time: Data/Laikas
