@@ -10,7 +10,7 @@
 
   <%= f.label :type %>
   <div class='custom-select'>
-  <%= f.select :type, ::Rapidfire::QuestionForm::QUESTION_TYPES, {}, id: "question_type", :class => "default-form-input" %>
+  <%= f.select :type, ::Rapidfire::QuestionForm::SURVEY_QUESTION_TYPES, {}, id: "question_type", :class => "default-form-input" %>
   </div>
   <br/>
   <%= f.label :question_text %>
@@ -32,6 +32,11 @@
   <br/>
   <%= f.label :answer_presence, "Question is Required" %>
   <%= f.check_box :answer_presence %>
+
+  <h4>Course Data Answers Options</h4>
+  <div class="survey__question__option-row">
+  <%= f.select :course_data_type, ::Rapidfire::QuestionForm::COURSE_DATA_ANSWER_TYPES, :data => {:chosen_select => true} %>
+  </div>
 
   <h4>Follow Up Question</h4>
   <div class="survey__question__option-row">
