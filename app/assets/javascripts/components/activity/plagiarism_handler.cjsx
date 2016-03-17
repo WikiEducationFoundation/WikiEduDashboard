@@ -29,14 +29,14 @@ PlagiarismHandler = React.createClass(
       { title: 'Revision Date/Time', key: 'revision_datetime' },
     ]
 
-    noActivityMessage = 'There are not currently any recent revisions suspected of plagiarism.'
+    noActivityMessage = I18n.t('recent_activity.no_plagiarism')
 
     <div>
       <label>
         <input ref='myCourses' type='checkbox' onChange={@setCourseScope} />
-        Show My Courses Only
+        {I18n.t('recent_activity.show_courses')}
       </label>
-      &nbsp; &nbsp; &nbsp;<a href="/recent-activity/plagiarism/refresh">Refresh plagiarism reports</a>
+      &nbsp; &nbsp; &nbsp;<a href="/recent-activity/plagiarism/refresh">{I18n.t('recent_activity.refresh_plagiarism')}</a>
       <ActivityTable
         loading={@state.loading}
         activity={@state.revisions}

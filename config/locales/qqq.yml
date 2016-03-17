@@ -111,7 +111,7 @@ qqq:
     view_doc: Documentation for the view count.
     views_added: Maintenance script message stating how many view counts have been
       added to an article. It just goes into the log files on the server, but no users
-      would see that. (It's there to indicate progress during the update process,
+      would see that. (It is there to indicate progress during the update process,
       when page view data is being imported.)
   assignments:
     already_exists: Message displayed when trying to create a duplicate assignment
@@ -218,8 +218,8 @@ qqq:
     articles_created: Label for the number of articles created.
     articles_edited: Label for the number of articles edited.
     characters: Label for the number of characters metric.
-    char_added: Laber for the number of characters added.
-    char_changed: Laber for the number of characters changed.
+    char_added: Label for the number of characters added.
+    char_changed: Label for the number of characters changed.
     char: Label for number of characters added and removed.
     date_time: Label for a revision or activity timestamp.
     edit_count_description: Label for the number of edits made.
@@ -232,6 +232,15 @@ qqq:
     user: Long label for the User namespace.
     user_char_added: Label for number of characters added to the User namespace.
     user_ns: Wiki title for the user namespace.
+  recent_activity:
+    show_courses: Checkbox for option to show user courses only
+    no_dyk_eligible: Message stating there are no "Did You Know" eligible articles.
+    no_plagiarism: Message stating there are no recent revisions suspected of plagiarism.
+    no_edits: Message stating there are no recent edits.
+    refresh_plagiarism: Action to reload plagiarism report
+    did_you_know_eligible: Label for "Did You Know" Eligible tab
+    possible_plagiarism: Label for Possible Plagiarism tab
+    recent_edits: Label for Recent Edits tab
   revisions:
     chars_added: Label for counter of added chars
     class: |-

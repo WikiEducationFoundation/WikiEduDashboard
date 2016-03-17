@@ -29,12 +29,12 @@ DidYouKnowHandler = React.createClass(
       { title: 'Revision Date/Time', key: 'revision_datetime' },
     ]
 
-    noActivityMessage = 'There are not currently any DYK-eligible articles.'
+    noActivityMessage = I18n.t('recent_activity.no_dyk_eligible')
 
     <div>
       <label>
         <input ref='myCourses' type='checkbox' onChange={@setCourseScope} />
-        Show My Courses Only
+        {I18n.t('recent_activity.show_courses')}
       </label>
       <ActivityTable
         loading={@state.loading}

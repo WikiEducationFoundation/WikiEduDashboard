@@ -305,6 +305,16 @@ en:
     user_char_added: Userspace chars added
     user_ns: User
 
+  recent_activity:
+    show_courses: Show My Courses Only
+    no_dyk_eligible: There are not currently any DYK-eligible articles.
+    no_plagiarism: There are not currently any recent revisions suspected of plagiarism.
+    no_edits: There are no recent edits.
+    refresh_plagiarism: Refresh plagiarism reports
+    did_you_know_eligible: Did You Know Eligible
+    possible_plagiarism: Possible Plagiarism
+    recent_edits: Recent Edits
+
   revisions:
     chars_added: Chars added
     class: Class
