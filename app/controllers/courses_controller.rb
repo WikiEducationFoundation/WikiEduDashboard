@@ -7,6 +7,7 @@ class CoursesController < ApplicationController
   include CourseHelper
   respond_to :html, :json
   before_action :require_permissions, only: [:create, :update, :destroy, :notify_untrained]
+  before_action :get_course, only: [:students, :articles, :staff]
 
   ################
   # CRUD methods #
@@ -78,6 +79,25 @@ class CoursesController < ApplicationController
     course = Course.find(params[:id])
     new_course = CourseCloneManager.new(course, current_user).clone!
     render json: { course: new_course.as_json }
+  end
+
+  def students
+    @students = @course.courses_students
+    respond_to do |format|
+      if @course?
+        format.json { render json: { students: @students } }
+      else
+        format.json { render json: { status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def articles
+    binding.pry
+  end
+
+  def staff
+    binding.pry
   end
 
   ##################
@@ -162,6 +182,10 @@ class CoursesController < ApplicationController
 
   def should_set_slug?
     %i(title school).all? { |key| params[:course].key?(key) }
+  end
+
+  def get_course
+    @course = Course.find(params[:id])
   end
 
   def slug_from_params(course = params[:course])

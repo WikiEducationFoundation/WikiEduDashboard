@@ -51,6 +51,10 @@ Rails.application.routes.draw do
     match 'courses/*id/user' => 'users#enroll',
           constraints: { id: /.*/ }, via: [:post, :delete]
 
+    match 'course/students/:id' => 'courses#students'
+    match 'course/articles/:id' => 'courses#articles'
+    match 'course/staff/:id' => 'courses#staff'
+
     get 'courses/:school/:titleterm(/:endpoint(/*any))' => 'courses#show',
         defaults: { endpoint: 'overview' }, :as => 'show',
         constraints: {
@@ -144,6 +148,7 @@ Rails.application.routes.draw do
   # Unauthenticated users root to the home page
   root to: 'home#index'
 
+  # Surveys
   post '/surveys/clone/:id' => 'surveys#clone'
   put '/surveys/question_position' => 'questions#update_position'
   get '/surveys/question_group_question/:id' => 'questions#get_question'
