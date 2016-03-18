@@ -1,6 +1,12 @@
 require('jquery-ui/sortable')
 Utils = require './SurveyUtils.coffee'
 CONDITIONAL_ANSWERS_CHANGED = 'ConditionalAnswersChanged'
+CONDITIONAL_COMPARISON_OPERATORS = """
+  <option>></option>
+  <option>>=</option>
+  <option><</option>
+  <option><=</option>
+"""
 
 SurveyAdmin =
   init: ->
@@ -21,6 +27,7 @@ SurveyAdmin =
     @initSortableQuestionGroups()
     @listeners()
     @initConditionals()
+    
 
   listeners: ->
     @handleQuestionType()
@@ -130,7 +137,7 @@ SurveyAdmin =
 
   comparisonConditional: (question) ->
     console.log 'COMPARISON CONDITIONAL', question
-    @$conditional_operator_select.append("<option>></option><option><</option>").removeClass 'hidden'
+    @$conditional_operator_select.append(CONDITIONAL_COMPARISON_OPERATORS).removeClass 'hidden'
     @$conditional_value_number_field.removeClass 'hidden'
     @$conditional_value_number_field.on 'blur', (e) =>
       conditional_string = ""
@@ -163,11 +170,20 @@ SurveyAdmin =
       string = $row.data 'conditional'
       return if string is ''
       { question_id, operator, value } = Utils.parseConditionalString string
-      $row.find('select').val("#{question_id}").trigger 'change'
-      @$conditional_operator.text operator
-      @$document.on CONDITIONAL_ANSWERS_CHANGED, =>
-        @$conditional_value_select.val(value).trigger 'change'
-        @$document.off CONDITIONAL_ANSWERS_CHANGED
+      console.log operator
+      switch operator
+        when ">", "<=", ">", ">="
+          $row.find('select').val("#{question_id}")
+          @$conditional_operator_select.append(CONDITIONAL_COMPARISON_OPERATORS).removeClass 'hidden'
+          @$conditional_operator_select.val(operator).trigger('change').removeClass 'hidden'
+          @$conditional_value_number_field.val(value).removeClass 'hidden'
+        else
+          @$conditional_operator.text operator
+          @$document.on CONDITIONAL_ANSWERS_CHANGED, =>
+            @$conditional_value_select.val(value).trigger 'change'
+            @$document.off CONDITIONAL_ANSWERS_CHANGED
+          $row.find('select').val("#{question_id}").trigger 'change'
+      
 
   addPresenceConditional: ->
     @$conditional_input_field.val "#{@$conditional_question_select.val()}|*presence"

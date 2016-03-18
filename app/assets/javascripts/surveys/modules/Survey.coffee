@@ -401,7 +401,7 @@ Survey =
     $question_block = $(conditional_group[value])
 
     
-    $("#question_#{id} input").on 'change', ({target}) =>      
+    $("#question_#{id} input").on 'change', ({target}) =>
       $parent.find('.survey__next.hidden').removeClass 'hidden'
       if validate_expression[operator](parseInt(target.value), parseInt(value))
         @resetConditionalGroupChildren conditional_group
