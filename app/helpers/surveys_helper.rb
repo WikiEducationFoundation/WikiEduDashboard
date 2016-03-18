@@ -5,6 +5,47 @@ module SurveysHelper
     ["surveys", "rapidfire"].include? rootpath
   end
 
+  def render_answer_form_helper(answer, form)
+    partial = answer.question.type.to_s.split("::").last.downcase
+    render partial: "rapidfire/answers/#{partial}", locals: { f: form, answer: answer, course: @course }
+  end
+
+  def survey_select(f, answer, course)
+    options = answer_options(answer, course).collect do |o|
+        if o.is_a?(Array)
+          content_tag(:option, o[1], value: o[0])
+        else
+          content_tag(:option, o, value: o)
+        end
+    end
+    select_tag(:answer_text, "#{options}", { 
+          :include_blank => "#{answer.question.multiple ? 'Select all that apply' : 'Select an option'}",
+          :required => is_required_question?(answer), 
+          :multiple => answer.question.multiple, 
+          :data => {:chosen_select => true}
+        })
+  end
+
+  def answer_options(answer, course)
+    question = answer.question
+    if question.options.length > 0
+      question.options
+    elsif course != nil 
+      course_answer_options(question.course_data_type, course)
+    end
+  end
+
+  def course_answer_options(type, course)
+    case type
+    when COURSE_DATA_ANSWER_TYPES[0] #Students
+      course.users.role('student').pluck(:id, :username)
+    when COURSE_DATA_ANSWER_TYPES[1] #Articles
+      course.articles.pluck(:id, :title)
+    when COURSE_DATA_ANSWER_TYPES[2] #WikiEdu Staff
+      course.users.role('wiki_ed_staff').pluck(:id, :username)
+    end
+  end
+
   def can_administer?
     current_user && current_user.admin?
   end

@@ -16,6 +16,11 @@ class SurveysController < ApplicationController
   # GET /surveys/1.json
   def show
     @courses = Course.all
+    if @survey.show_courses && !has_course_slug
+      render "course_select"
+    else
+      render "show"
+    end
   end
 
   def course_select
@@ -108,8 +113,12 @@ class SurveysController < ApplicationController
       @survey = Survey.find(params[:id])
     end
 
+    def has_course_slug
+      params.key?("course_slug")
+    end
+
     def set_survey_course
-      if params.key?("course_slug")
+      if has_course_slug
         @course = find_course_by_slug(params[:course_slug]) 
       end
     end
