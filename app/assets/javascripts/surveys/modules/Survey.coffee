@@ -1,3 +1,7 @@
+#--------------------------------------------------------
+# Vendor Requirements
+#--------------------------------------------------------
+
 require 'velocity-animate'
 require 'parsleyjs'
 require 'core-js/modules/es6.array.is-array'
@@ -5,13 +9,31 @@ rangeslider = require 'nouislider'
 wNum = require 'wnumb'
 throttle = require 'lodash.throttle'
 
+
+#--------------------------------------------------------
+# Required Internal Modules
+#--------------------------------------------------------
+
+Utils = require './SurveyUtils.coffee'
+
+
+#--------------------------------------------------------
+# Survey Module Misc Options
+#--------------------------------------------------------
+
+# Scroll Animation
 scroll_duration = 500
 scroll_easing = [0.19, 1, 0.22, 1]
-Utils = require './SurveyUtils.coffee'
+
 
 chosen_options =
   disable_search_threshold: 10
   width: '75%'
+
+
+#--------------------------------------------------------
+# Survey Module
+#--------------------------------------------------------
 
 Survey =
   current_block: 0
@@ -31,6 +53,7 @@ Survey =
     @listeners()
     @initBlocks()
     @initRangeSliders()
+    
 
   listeners: ->
     $('[data-next-survey]').on 'click', @nextSurvey.bind(@)
@@ -222,6 +245,11 @@ Survey =
 
     if $block.find("[data-required-checkbox='true']").length
       if $block.find('input[type="checkbox"]:checked').length is 0
+        validation = false
+
+    # Ensure Course Select has a valid value (See CourseDataQuestions)
+    if $(e.target).closest('.button').data('next-survey-block') is "course"
+      if $("#course").val() is ""
         validation = false
 
     if validation is true

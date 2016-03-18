@@ -25,6 +25,9 @@
   <%= f.label :answer_options %>&nbsp;(Separate options with new line)<br/>
   <%= f.text_area :answer_options, rows: 5 %>
 
+  <%= f.label :placeholder_text %><br/>
+  <%= f.text_area :placeholder_text, rows: 1 %>
+
   <div id='multi-select-option'>
     <%= f.label :multiple, "Allow Multi Select?" %>
     <%= f.check_box :multiple %>

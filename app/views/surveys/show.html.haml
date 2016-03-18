@@ -6,12 +6,17 @@
     - if @survey.intro?
       = @survey.intro.html_safe
     - if @survey.show_courses
-      = select_tag("course", options_from_collection_for_select(@courses, 'id', 'title'), :required => true, :data => {:chosen_select => true, :survey_course_select => true})
+      = select_tag("course", options_from_collection_for_select(@courses, 'slug', 'title'), :required => true, :include_blank => true, :data => {:chosen_select => true, :survey_course_select => true, :placeholder => "Select your course"})
     .survey__block-nav
       %div
-      %button.button.survey__next.dark{"data-next-survey-block" => "", "data-no-validate" => true}
-        %span Start
-        %span.icon.icon-rt_arrow
+      - if @survey.show_courses
+        %button.button.survey__next.dark{"data-next-survey-block" => "course" }
+          %span Start
+          %span.icon.icon-rt_arrow
+      - else
+        %button.button.survey__next.dark{"data-next-survey-block" => "", "data-no-validate" => true}
+          %span Start
+          %span.icon.icon-rt_arrow
 
 - @surveys_question_groups.each_with_index do |group, index|
   = render partial: "question_group", locals: question_group_locals(group, index, @surveys_question_groups.length)

@@ -17,22 +17,6 @@ Rails.application.config.to_prepare do
     layout 'surveys'
   end
 
-  module Rapidfire
-    module Questions
-      class CourseData < Rapidfire::Question
-        def validate_answer(answer)
-          super(answer)
-          if rules[:presence] == "1" || answer.answer_text.present?
-            begin  ::Date.parse(answer.answer_text.to_s)
-            rescue ArgumentError => e
-              answer.errors.add(:answer_text, :invalid)
-            end
-          end
-        end
-      end
-    end
-  end
-
   Rapidfire::QuestionForm.class_eval do
 
     COURSE_DATA_ANSWER_TYPES =
@@ -67,7 +51,7 @@ Rails.application.config.to_prepare do
       :answer_greater_than_or_equal_to, :answer_less_than_or_equal_to, :answer_grouped, 
       :answer_grouped_question, :answer_range_minimum, :answer_range_maximum, 
       :answer_range_increment, :answer_range_divisions, :answer_range_format, 
-      :follow_up_question_text, :conditionals, :course_data_type
+      :follow_up_question_text, :conditionals, :course_data_type, :placeholder_text
 
     private
     def create_question
@@ -92,6 +76,7 @@ Rails.application.config.to_prepare do
         :conditionals => conditionals,
         :multiple => multiple,
         :course_data_type => course_data_type,
+        :placeholder_text => placeholder_text,
         :validation_rules => {
           :presence => answer_presence,
           :grouped => answer_grouped,
@@ -118,6 +103,7 @@ Rails.application.config.to_prepare do
       self.conditionals = question.conditionals
       self.multiple = question.multiple
       self.course_data_type = question.course_data_type
+      self.placeholder_text = placeholder_text
       self.answer_presence = question.rules[:presence]
       self.answer_grouped = question.rules[:grouped]
       self.answer_grouped_question = question.rules[:grouped_question]

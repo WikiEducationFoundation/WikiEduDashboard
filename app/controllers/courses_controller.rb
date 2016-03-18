@@ -81,25 +81,6 @@ class CoursesController < ApplicationController
     render json: { course: new_course.as_json }
   end
 
-  def students
-    @students = @course.courses_students
-    respond_to do |format|
-      if @course?
-        format.json { render json: { students: @students } }
-      else
-        format.json { render json: { status: :unprocessable_entity }
-      end
-    end
-  end
-
-  def articles
-    binding.pry
-  end
-
-  def staff
-    binding.pry
-  end
-
   ##################
   # Helper methods #
   ##################

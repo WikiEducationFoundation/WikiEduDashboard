@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160317000628) do
+ActiveRecord::Schema.define(version: 20160317225947) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title",                    limit: 255
@@ -186,10 +186,7 @@ ActiveRecord::Schema.define(version: 20160317000628) do
     t.string   "name",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "surveys_id", limit: 4
   end
-
-  add_index "rapidfire_question_groups", ["surveys_id"], name: "index_rapidfire_question_groups_on_surveys_id", using: :btree
 
   create_table "rapidfire_questions", force: :cascade do |t|
     t.integer  "question_group_id",       limit: 4
@@ -204,6 +201,7 @@ ActiveRecord::Schema.define(version: 20160317000628) do
     t.text     "conditionals",            limit: 65535
     t.boolean  "multiple",                              default: false
     t.string   "course_data_type",        limit: 255
+    t.string   "placeholder_text",        limit: 255
   end
 
   add_index "rapidfire_questions", ["question_group_id"], name: "index_rapidfire_questions_on_question_group_id", using: :btree
@@ -270,6 +268,8 @@ ActiveRecord::Schema.define(version: 20160317000628) do
 
   create_table "users", force: :cascade do |t|
     t.string   "username",            limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "trained",                         default: false
     t.integer  "global_id",           limit: 4
     t.datetime "remember_created_at"
@@ -285,10 +285,11 @@ ActiveRecord::Schema.define(version: 20160317000628) do
   end
 
   create_table "weeks", force: :cascade do |t|
+    t.string   "title",      limit: 255
     t.integer  "course_id",  limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "order",      limit: 4, default: 1, null: false
+    t.integer  "order",      limit: 4,   default: 1, null: false
   end
 
   create_table "wikis", force: :cascade do |t|

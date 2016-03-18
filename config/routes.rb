@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   # Self-enrollment: joining a course by entering a passcode or visiting a url
   get 'courses/:course_id/enroll/:passcode' => 'self_enrollment#enroll_self',
       constraints: { course_id: /.*/ }
-
+      
   # Courses
   controller :courses do
     get 'courses/*id/get_wiki_top_section' => 'courses#get_wiki_top_section',
@@ -50,10 +50,6 @@ Rails.application.routes.draw do
           constraints: { id: /.*/ }, via: [:post, :delete]
     match 'courses/*id/user' => 'users#enroll',
           constraints: { id: /.*/ }, via: [:post, :delete]
-
-    match 'course/students/:id' => 'courses#students'
-    match 'course/articles/:id' => 'courses#articles'
-    match 'course/staff/:id' => 'courses#staff'
 
     get 'courses/:school/:titleterm(/:endpoint(/*any))' => 'courses#show',
         defaults: { endpoint: 'overview' }, :as => 'show',
