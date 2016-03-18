@@ -144,7 +144,6 @@ Rails.application.routes.draw do
   # Unauthenticated users root to the home page
   root to: 'home#index'
 
-  # Surveys
   post '/surveys/clone/:id' => 'surveys#clone'
   put '/surveys/question_position' => 'questions#update_position'
   get '/surveys/question_group_question/:id' => 'questions#get_question'

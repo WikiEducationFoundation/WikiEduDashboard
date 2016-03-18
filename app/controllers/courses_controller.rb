@@ -7,7 +7,6 @@ class CoursesController < ApplicationController
   include CourseHelper
   respond_to :html, :json
   before_action :require_permissions, only: [:create, :update, :destroy, :notify_untrained]
-  before_action :get_course, only: [:students, :articles, :staff]
 
   ################
   # CRUD methods #
@@ -163,10 +162,6 @@ class CoursesController < ApplicationController
 
   def should_set_slug?
     %i(title school).all? { |key| params[:course].key?(key) }
-  end
-
-  def get_course
-    @course = Course.find(params[:id])
   end
 
   def slug_from_params(course = params[:course])
