@@ -319,7 +319,8 @@ Survey =
             
         connect: 'lower'
       slider.noUiSlider.on 'change', (value) ->
-        $input.val value[0]
+        console.log value, $input
+        $input.val(parseInt(value[0])).trigger "change"
 
   showThankYou: ->
     @$survey_form.addClass 'hidden'
@@ -399,8 +400,8 @@ Survey =
     conditional_group = @survey_conditionals[id]
     $question_block = $(conditional_group[value])
 
-    $("#question_#{id} input").on 'change', ({target}) =>
-      @setToCurrentBlock $parent
+    
+    $("#question_#{id} input").on 'change', ({target}) =>      
       $parent.find('.survey__next.hidden').removeClass 'hidden'
       if validate_expression[operator](parseInt(target.value), parseInt(value))
         @resetConditionalGroupChildren conditional_group

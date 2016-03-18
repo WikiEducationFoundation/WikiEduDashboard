@@ -38,11 +38,13 @@ module SurveysHelper
   def course_answer_options(type, course)
     case type
     when COURSE_DATA_ANSWER_TYPES[0] #Students
-      course.users.role('student').pluck(:id, :username)
+      students = course.users.role('student')
+      students.collect { |s| [s.id, s.username, "#{contribution_link(s)}"]}
     when COURSE_DATA_ANSWER_TYPES[1] #Articles
-      course.articles.pluck(:id, :title)
+      course.articles.collect { |a| [a.id, a.title, "<a href='#{article_url(a)}' target='_blank'>#{a.title}</a>"]}
     when COURSE_DATA_ANSWER_TYPES[2] #WikiEdu Staff
-      course.users.role('wiki_ed_staff').pluck(:id, :username)
+      staff = course.users.role('wiki_ed_staff')
+      staff.collect { |s| [s.id, s.username, "#{contribution_link(s)}"]}
     end
   end
 
