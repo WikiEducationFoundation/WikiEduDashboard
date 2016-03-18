@@ -1,8 +1,10 @@
 class SurveysController < ApplicationController
   helper Rapidfire::ApplicationHelper
+  include CourseHelper
 
-  before_action :set_survey, only: [:show, :edit, :update, :destroy, :edit_question_groups]
-  before_action :set_question_groups, only: [:show, :edit, :edit_question_groups]
+  before_action :set_survey, only: [:show, :edit, :update, :destroy, :edit_question_groups, :course_select, :show_with_course]
+  before_action :set_question_groups, only: [:show, :edit, :edit_question_groups, :show_with_course]
+  before_action :set_survey_course, only: [:show]
 
   # GET /surveys
   # GET /surveys.json
@@ -13,6 +15,10 @@ class SurveysController < ApplicationController
   # GET /surveys/1
   # GET /surveys/1.json
   def show
+    @courses = Course.all
+  end
+
+  def course_select
     @courses = Course.all
   end
 
@@ -100,6 +106,12 @@ class SurveysController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_survey
       @survey = Survey.find(params[:id])
+    end
+
+    def set_survey_course
+      if params.key?("course_slug")
+        @course = find_course_by_slug(params[:course_slug]) 
+      end
     end
 
     def set_question_groups

@@ -153,6 +153,7 @@ Rails.application.routes.draw do
   post '/surveys/update_question_group_position' => 'surveys#update_question_group_position'
   put '/surveys_question_group' => 'surveys_question_groups#update'
   resources :surveys
+  get '/surveys/select_course/:id' => 'surveys#course_select'
   mount Rapidfire::Engine => "/rapidfire", :as => 'rapidfire'
   
 
