@@ -116,21 +116,21 @@
   position relative
   margin-bottom 40px
 
-.rangeslider__ruler
-  cursor pointer
-  font-size .7em
-  margin 20px 3px 0 3px
-  position relative
-  margin-bottom 40px
-
-[data-range-field]
-  visibility hidden
-
 [data-range-field]
   visibility hidden
 
 .rangeslider__fill
   background rgba($brand_primary, .5)
+
+.noUi-connect
+  background $brand_primary
+
+.input[type="range"]:focus + .rangeslider .rangeslider__handle
+  box-shadow none
+
+.noUi-target {
+  width: 100%;
+}
 
 .noUi-connect
   background $brand_primary
