@@ -1,12 +1,12 @@
 React             = require 'react'
-Editable          = require '../high_order/editable'
+Editable          = require '../high_order/editable.cjsx'
 
-List              = require '../common/list'
-Assignment        = require './assignment'
-AssignmentStore   = require '../../stores/assignment_store'
-ArticleStore      = require '../../stores/article_store'
-ServerActions     = require '../../actions/server_actions'
-CourseUtils       = require '../../utils/course_utils'
+List              = require '../common/list.cjsx'
+Assignment        = require './assignment.cjsx'
+AssignmentStore   = require '../../stores/assignment_store.coffee'
+ArticleStore      = require '../../stores/article_store.coffee'
+ServerActions     = require '../../actions/server_actions.coffee'
+CourseUtils       = require '../../utils/course_utils.coffee'
 
 getState = ->
   assignments: AssignmentStore.getModels()

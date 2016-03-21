@@ -24,15 +24,13 @@ gulp.task "dev", ->
     "copy-static"
     "bower"
     "javascripts"
-    "stylesheets"
-  ], "watch"
+    "stylesheets-livereload"
+  ], "webpack-hotdev", "watch"
 
 gulp.task "build", (cb) ->
   runSequence "clean", [
-    "i18n"
-    "copy-static"
-    "bower"
-    "javascripts-fingerprint"
+    "i18n",
+    "copy-static",
+    "bower",
     "stylesheets"
-  ], "minify", cb
-
+  ], "webpack-build", "minify", cb

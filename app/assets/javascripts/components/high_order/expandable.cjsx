@@ -1,6 +1,6 @@
 React     = require 'react'
-UIActions = require '../../actions/ui_actions'
-UIStore   = require '../../stores/ui_store'
+UIActions = require '../../actions/ui_actions.coffee'
+UIStore   = require '../../stores/ui_store.coffee'
 
 Expandable = (Component) ->
   React.createClass(

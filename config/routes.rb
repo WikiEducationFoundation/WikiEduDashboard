@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   # Self-enrollment: joining a course by entering a passcode or visiting a url
   get 'courses/:course_id/enroll/:passcode' => 'self_enrollment#enroll_self',
       constraints: { course_id: /.*/ }
-
+      
   # Courses
   controller :courses do
     get 'courses/*id/get_wiki_top_section' => 'courses#get_wiki_top_section',
@@ -143,6 +143,19 @@ Rails.application.routes.draw do
 
   # Unauthenticated users root to the home page
   root to: 'home#index'
+
+  post '/surveys/clone/:id' => 'surveys#clone'
+  put '/surveys/question_position' => 'questions#update_position'
+  get '/surveys/question_group_question/:id' => 'questions#get_question'
+  get '/surveys/:id/question_group' => 'surveys#edit_question_groups', :as => "edit_question_groups"
+  post '/surveys/question_group/clone/:id' => 'surveys#clone_question_group'
+  post '/surveys/question/clone/:id' => 'surveys#clone_question'
+  post '/surveys/update_question_group_position' => 'surveys#update_question_group_position'
+  put '/surveys_question_group' => 'surveys_question_groups#update'
+  resources :surveys
+  get '/surveys/select_course/:id' => 'surveys#course_select'
+  mount Rapidfire::Engine => "/rapidfire", :as => 'rapidfire'
+  
 
   # Onboarding
   get 'onboarding(/*any)' => 'onboarding#index', as: :onboarding

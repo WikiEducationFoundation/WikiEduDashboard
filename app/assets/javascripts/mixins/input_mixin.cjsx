@@ -1,5 +1,5 @@
-ValidationStore = require '../stores/validation_store'
-ValidationActions = require '../actions/validation_actions'
+ValidationStore = require '../stores/validation_store.coffee'
+ValidationActions = require '../actions/validation_actions.coffee'
 
 # This needs to be implemented as a mixin for state reasons.
 # If there's a good way for high-order components to set state on

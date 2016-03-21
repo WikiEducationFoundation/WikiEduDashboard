@@ -1,7 +1,11 @@
 React = require 'react'
-RecentEditsStore = require '../../stores/recent_edits_store'
-ActivityTable = require './activity_table'
-ServerActions   = require '../../actions/server_actions'
+
+RecentEditsStore = require '../../stores/recent_edits_store.coffee'
+
+ActivityTable = require './activity_table.cjsx'
+
+ServerActions   = require '../../actions/server_actions.coffee'
+
 
 getState = ->
   revisions: RecentEditsStore.getRevisions()

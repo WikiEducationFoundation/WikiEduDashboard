@@ -1,0 +1,24 @@
+<% if can_administer? %>
+<div class='survey__admin-tools'>
+  <%= link_to "Edit this Question Group", question_group_questions_path(@question_group) %>
+</div>
+<% end %>
+
+<div class='container'>
+
+  <%= render partial: "surveys/question_group", locals: {
+      question_group: @question_group,
+      answer_group_builder: @answer_group_builder,
+      question_group_index: 0,
+      total: 1,
+      :surveys_question_group => {
+        show_title: false
+      }
+    } %>
+
+  <div class='block block--text block--clear block--thank-you disabled not-seen' data-thank-you>
+  <div class='block--thank-you__container'>
+    <h2 class='big-title'> Thank You!</h2>
+    <p class='text-center'><%= @question_group.name %> Question Group submitted</p>
+  </div>
+</div>

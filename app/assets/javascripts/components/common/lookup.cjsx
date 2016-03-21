@@ -1,8 +1,8 @@
 React         = require 'react'
 Typeahead     = require('react-typeahead').Typeahead
-LookupStore   = require '../../stores/lookup_store'
-TextInput     = require './text_input'
-LookupWrapper = require '../high_order/lookup_wrapper'
+LookupStore   = require '../../stores/lookup_store.coffee'
+TextInput     = require './text_input.cjsx'
+LookupWrapper = require '../high_order/lookup_wrapper.cjsx'
 
 Lookup = React.createClass(
   displayname: 'Lookup'

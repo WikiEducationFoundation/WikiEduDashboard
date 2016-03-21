@@ -1,0 +1,133 @@
+<div class='container container--pad-y block survey__form default-form'>
+<%= form_for form, as: :question, url: url, method: method do |f| %>
+  <%- unless form.errors.empty? %>
+    <ul class='form__errors'>
+      <%- form.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <%= f.label :type %>
+  <div class='custom-select'>
+  <%= f.select :type, ::Rapidfire::QuestionForm::SURVEY_QUESTION_TYPES, {}, id: "question_type", :class => "default-form-input" %>
+  </div>
+  <br/>
+  <%= f.label :question_text %>
+  <br/>
+  <div>
+
+  <%= f.text_area :question_text, data: { question_text: true }, id: 'question_text', value: @question? @question.question_text : nil %>
+  <div data-question-text-editor></div>
+  <br/>
+  <div data-question-options>
+
+  <%= f.label :answer_options %>&nbsp;(Separate options with new line)<br/>
+  <%= f.text_area :answer_options, rows: 5 %>
+
+  <h4>Populate Answers Options with course data</h4>
+  <div class="survey__question__option-row">
+  <%= f.select :course_data_type, ::Rapidfire::QuestionForm::COURSE_DATA_ANSWER_TYPES, :data => {:chosen_select => true}, :prompt => "Select type of course data" %>
+  </div>
+
+  <%= f.label :placeholder_text %><br/>
+  <%= f.text_area :placeholder_text, rows: 1 %>
+
+  <div id='multi-select-option'>
+    <%= f.label :multiple, "Allow Multi Select?" %>
+    <%= f.check_box :multiple %>
+  </div>
+  <br/>
+  <%= f.label :answer_presence, "Question is Required" %>
+  <%= f.check_box :answer_presence %>
+
+  <h4>Follow Up Question</h4>
+  <div class="survey__question__option-row">
+  <%= f.label :follow_up_question_text %>
+  <%= f.text_area :follow_up_question_text %>
+  </div>
+
+  <% if @question_group.questions.length > 1 %>
+  <h4>Conditionals</h4>
+  <div class="survey__question__option-row">
+    <div class='survey__question__conditional-row' data-conditional="<%= question_conditional_string(@question) %>">
+      Show if 
+      <%= select_tag "", 
+          options_from_collection_for_select(@question_group.questions.for_conditionals, "id", "question_text"), 
+          :include_blank => "Select a question", 
+          :data => {:conditional_select => true}%>
+      <span data-conditional-operator></span>
+      <select class='hidden' data-conditional-operator-select></select>
+      <select class='hidden' data-conditional-value-select></select>
+      <input class='hidden' data-conditional-value-number type='number' />
+      <button class='hidden' data-clear-conditional>Reset</button>
+      <%= f.hidden_field :conditionals, :data => {:conditional_field_input => true} %>
+    </div>
+  </div>
+  <% end %>
+  
+  <br/>
+  <h4>Matrix Options</h4>
+  <hr/>
+  <div class="survey__question__option-row">
+    <%= f.label :answer_qrouped, "Group this question as a matrix" %>
+    <%= f.check_box :answer_grouped %><br/>
+    <%= f.label :answer_qrouped, "Grouped question" %>
+    <%= f.text_area :answer_grouped_question %>
+  </div>
+
+  <h4>Range Input Options</h4>
+  <hr/>
+
+  <div class="survey__question__option-row">
+    <%= f.label :answer_range_minimum %>
+    <%= f.number_field :answer_range_minimum %>
+  </div>
+
+  <div class="survey__question__option-row">
+    <%= f.label :answer_range_maximum %>
+    <%= f.number_field :answer_range_maximum %>
+  </div>
+
+  <div class="survey__question__option-row">
+    <%= f.label :answer_range_increment %>
+    <%= f.number_field :answer_range_increment %>
+  </div>
+
+  <div class="survey__question__option-row">
+    <%= f.label :answer_range_divisions %>
+    <%= f.number_field :answer_range_divisions %>
+  </div>
+
+  <div class="survey__question__option-row">
+    <%= f.label :answer_range_format %>
+    <%= f.text_field :answer_range_format %>
+  </div>
+
+  <h4>Other options</h4>
+  <hr/>
+
+  <div class="survey__question__option-row">
+    <%= f.label :answer_minimum_length %>
+    <%= f.number_field :answer_minimum_length %>
+  </div>
+
+  <div class="survey__question__option-row">
+    <%= f.label :answer_maximum_length %>
+    <%= f.number_field :answer_maximum_length %>
+  </div>
+
+  <div class="survey__question__option-row">
+    <%= f.label :answer_greater_than_or_equal_to %>
+    <%= f.number_field :answer_greater_than_or_equal_to %>
+  </div>
+
+  <div class="survey__question__option-row">
+    <%= f.label :answer_less_than_or_equal_to %>
+    <%= f.number_field :answer_less_than_or_equal_to %>
+  </div>
+
+  </div>
+  <%= f.submit submit_text, :class => 'button button--no-margin' %>
+<% end %>
+</div>

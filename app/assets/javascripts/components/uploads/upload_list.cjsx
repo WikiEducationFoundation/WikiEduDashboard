@@ -1,11 +1,11 @@
 React         = require 'react'
-Editable      = require '../high_order/editable'
+Editable      = require '../high_order/editable.cjsx'
 
-List          = require '../common/list'
-Upload        = require './upload'
-UploadStore   = require '../../stores/upload_store'
-ServerActions = require '../../actions/server_actions'
-CourseUtils   = require '../../utils/course_utils'
+List          = require '../common/list.cjsx'
+Upload        = require './upload.cjsx'
+UploadStore   = require '../../stores/upload_store.coffee'
+ServerActions = require '../../actions/server_actions.coffee'
+CourseUtils   = require '../../utils/course_utils.coffee'
 
 getState = ->
   uploads: UploadStore.getModels()

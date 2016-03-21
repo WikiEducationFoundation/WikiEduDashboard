@@ -1,10 +1,10 @@
 React             = require 'react'
-Editable          = require '../high_order/editable'
-TextInput         = require '../common/text_input'
-TextAreaInput     = require '../common/text_area_input'
-CourseStore       = require '../../stores/course_store'
-CourseActions     = require '../../actions/course_actions'
-ServerActions     = require '../../actions/server_actions'
+Editable          = require '../high_order/editable.cjsx'
+TextInput         = require '../common/text_input.cjsx'
+TextAreaInput     = require '../common/text_area_input.cjsx'
+CourseStore       = require '../../stores/course_store.coffee'
+CourseActions     = require '../../actions/course_actions.coffee'
+ServerActions     = require '../../actions/server_actions.coffee'
 
 getState = (course_id) ->
   course: CourseStore.getCourse()

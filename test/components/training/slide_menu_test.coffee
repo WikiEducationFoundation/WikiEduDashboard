@@ -1,6 +1,6 @@
 require '../../testHelper'
-TrainingSlideHandler = require '../../../app/assets/javascripts/training/components/training_slide_handler'
-SlideMenu = require '../../../app/assets/javascripts/training/components/slide_menu'
+TrainingSlideHandler = require '../../../app/assets/javascripts/training/components/training_slide_handler.cjsx'
+SlideMenu = require '../../../app/assets/javascripts/training/components/slide_menu.cjsx'
 
 
 describe 'SlideMenu', ->

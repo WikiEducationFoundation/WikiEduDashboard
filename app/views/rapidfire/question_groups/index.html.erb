@@ -1,0 +1,25 @@
+
+<div class='container survey__edit'>
+<div class='section-header'>
+<h2>
+  Question Groups
+</h2>
+
+<div id='app'></div>
+
+<% if can_administer? %>
+  <%= link_to "New Question Group", new_question_group_path, :class => 'button button--no-margin' %>
+<% end %>
+</div>
+<hr/>
+
+<% if @question_groups.length > 0 %>
+  <ul class='list list--survey'>
+      <%= render partial: "question_group", collection: @question_groups %>
+  </ul>
+<% else %>
+  <p>No Question Groups. <%= link_to "Create One", new_question_group_path%></p>
+<% end %>
+
+
+</div>

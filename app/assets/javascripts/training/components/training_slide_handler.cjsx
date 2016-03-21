@@ -1,14 +1,14 @@
 React = require 'react'
-TrainingStore = require '../stores/training_store'
-TrainingActions = require '../actions/training_actions'
-ServerActions = require '../../actions/server_actions'
+TrainingStore = require '../stores/training_store.coffee'
+TrainingActions = require '../actions/training_actions.coffee'
+ServerActions = require '../../actions/server_actions.coffee'
 ReactRouter     = require 'react-router'
 History         = ReactRouter.History
 Link            = ReactRouter.Link
-SlideLink       = require './slide_link'
-SlideMenu       = require './slide_menu'
-Quiz            = require './quiz'
-md              = require('../../utils/markdown_it')({ openLinksExternally: true })
+SlideLink       = require './slide_link.cjsx'
+SlideMenu       = require './slide_menu.cjsx'
+Quiz            = require './quiz.cjsx'
+md              = require('../../utils/markdown_it.coffee')({ openLinksExternally: true })
 browserHistory = ReactRouter.browserHistory
 
 getState = ->

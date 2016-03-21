@@ -1,0 +1,28 @@
+- content_for :head do
+  = dashboard_stylesheet_tag("main")
+  = dashboard_stylesheet_tag("surveys")
+    
+
+- content_for :javascripts do
+  / 
+
+!!!
+%html{ dir: rtl? ? "rtl" : nil, class: body_class(request)}
+  = render "shared/head"
+  %body{class: body_class(request)}
+    = render "shared/flash"
+    %div
+      = render "shared/nav"
+      %main#main{"data-user-id" => current_user.try(:id), :role => "main"}
+        = yield
+    - if can_administer?
+      %ul.container.survey__admin__nav
+        %li= link_to 'Create New Survey', new_survey_path
+        %li= link_to 'Question Groups', rapidfire.question_groups_path
+        / %li= current_page?(survey_path)
+        / - if current_page?(survey_path)
+        /   %li= link_to 'Edit this Survey', edit_survey_path(@survey)
+    = render "shared/foot"
+    = hot_javascript_tag("survey")
+    - if can_administer?
+      = hot_javascript_tag("survey_admin")

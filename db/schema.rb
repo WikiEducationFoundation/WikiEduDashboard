@@ -11,13 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160303010838) do
+ActiveRecord::Schema.define(version: 20160317225947) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title",                    limit: 255
     t.integer  "views",                    limit: 8,   default: 0
-    t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "created_at"
     t.integer  "character_sum",            limit: 4,   default: 0
     t.integer  "revision_count",           limit: 4,   default: 0
     t.date     "views_updated_at"
@@ -45,10 +45,10 @@ ActiveRecord::Schema.define(version: 20160303010838) do
   create_table "assignments", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "article_title", limit: 255
     t.integer  "user_id",       limit: 4
     t.integer  "course_id",     limit: 4
     t.integer  "article_id",    limit: 4
-    t.string   "article_title", limit: 255
     t.integer  "role",          limit: 4
     t.integer  "wiki_id",       limit: 4
   end
@@ -159,6 +159,53 @@ ActiveRecord::Schema.define(version: 20160303010838) do
     t.string   "gradeable_item_type", limit: 255
   end
 
+  create_table "rapidfire_answer_groups", force: :cascade do |t|
+    t.integer  "question_group_id", limit: 4
+    t.integer  "user_id",           limit: 4
+    t.string   "user_type",         limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "rapidfire_answer_groups", ["question_group_id"], name: "index_rapidfire_answer_groups_on_question_group_id", using: :btree
+  add_index "rapidfire_answer_groups", ["user_id", "user_type"], name: "index_rapidfire_answer_groups_on_user_id_and_user_type", using: :btree
+
+  create_table "rapidfire_answers", force: :cascade do |t|
+    t.integer  "answer_group_id",       limit: 4
+    t.integer  "question_id",           limit: 4
+    t.text     "answer_text",           limit: 65535
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "follow_up_answer_text", limit: 65535
+  end
+
+  add_index "rapidfire_answers", ["answer_group_id"], name: "index_rapidfire_answers_on_answer_group_id", using: :btree
+  add_index "rapidfire_answers", ["question_id"], name: "index_rapidfire_answers_on_question_id", using: :btree
+
+  create_table "rapidfire_question_groups", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "rapidfire_questions", force: :cascade do |t|
+    t.integer  "question_group_id",       limit: 4
+    t.string   "type",                    limit: 255
+    t.text     "question_text",           limit: 65535
+    t.integer  "position",                limit: 4
+    t.text     "answer_options",          limit: 65535
+    t.text     "validation_rules",        limit: 65535
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "follow_up_question_text", limit: 65535
+    t.text     "conditionals",            limit: 65535
+    t.boolean  "multiple",                              default: false
+    t.string   "course_data_type",        limit: 255
+    t.string   "placeholder_text",        limit: 255
+  end
+
+  add_index "rapidfire_questions", ["question_group_id"], name: "index_rapidfire_questions_on_question_group_id", using: :btree
+
   create_table "revisions", force: :cascade do |t|
     t.integer  "characters",     limit: 4,   default: 0
     t.datetime "created_at"
@@ -169,9 +216,9 @@ ActiveRecord::Schema.define(version: 20160303010838) do
     t.datetime "date"
     t.boolean  "new_article",                default: false
     t.boolean  "deleted",                    default: false
+    t.boolean  "system",                     default: false
     t.float    "wp10",           limit: 24
     t.float    "wp10_previous",  limit: 24
-    t.boolean  "system",                     default: false
     t.integer  "ithenticate_id", limit: 4
     t.string   "report_url",     limit: 255
     t.integer  "wiki_id",        limit: 4
@@ -180,6 +227,27 @@ ActiveRecord::Schema.define(version: 20160303010838) do
   end
 
   add_index "revisions", ["article_id", "date"], name: "index_revisions_on_article_id_and_date", using: :btree
+
+  create_table "surveys", force: :cascade do |t|
+    t.string   "name",         limit: 255
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+    t.text     "intro",        limit: 65535
+    t.text     "thanks",       limit: 65535
+    t.boolean  "show_courses",               default: false
+  end
+
+  create_table "surveys_question_groups", force: :cascade do |t|
+    t.integer  "survey_id",                   limit: 4
+    t.integer  "rapidfire_question_group_id", limit: 4
+    t.integer  "position",                    limit: 4
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "show_title",                            default: false
+  end
+
+  add_index "surveys_question_groups", ["rapidfire_question_group_id"], name: "index_surveys_question_groups_on_rapidfire_question_group_id", using: :btree
+  add_index "surveys_question_groups", ["survey_id"], name: "index_surveys_question_groups_on_survey_id", using: :btree
 
   create_table "tags", force: :cascade do |t|
     t.integer  "course_id",  limit: 4
@@ -199,7 +267,7 @@ ActiveRecord::Schema.define(version: 20160303010838) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "username",             limit: 255
+    t.string   "username",            limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "trained",                         default: false

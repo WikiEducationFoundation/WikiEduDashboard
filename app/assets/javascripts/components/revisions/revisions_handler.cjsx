@@ -1,7 +1,7 @@
 React             = require 'react'
-RevisionList      = require './revision_list'
-UIActions         = require '../../actions/ui_actions'
-ServerActions     = require '../../actions/server_actions'
+RevisionList      = require './revision_list.cjsx'
+UIActions         = require '../../actions/ui_actions.coffee'
+ServerActions     = require '../../actions/server_actions.coffee'
 
 RevisionHandler = React.createClass(
   displayName: 'RevisionHandler'

@@ -1,6 +1,6 @@
 React             = require 'react'
-Expandable        = require '../high_order/expandable'
-RevisionStore     = require '../../stores/revision_store'
+Expandable        = require '../high_order/expandable.cjsx'
+RevisionStore     = require '../../stores/revision_store.coffee'
 
 getRevisions = (student_id) ->
   RevisionStore.getFiltered({ user_id: student_id })

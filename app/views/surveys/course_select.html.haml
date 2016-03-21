@@ -1,0 +1,7 @@
+.block.block--text.disabled.not-seen{"data-survey-block" => "0", "data-intro" => true}
+  %h1.survey__title= @survey.name
+  %p Select a Course for Survey
+  = form_tag(survey_path(@survey), :method => "get") do
+    = select_tag("course_slug", options_from_collection_for_select(@courses, 'slug', 'title'), :required => true, :include_blank => true, :data => {:chosen_select => true, :survey_course_select => true, :placeholder => "Select your course"})
+    = submit_tag("Start Survey", :class => 'button dark')
+    

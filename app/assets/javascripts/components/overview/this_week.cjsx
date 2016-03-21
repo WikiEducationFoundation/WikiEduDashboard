@@ -3,11 +3,11 @@ RDnD            = require 'react-dnd'
 HTML5Backend    = require 'react-dnd-html5-backend'
 DDContext       = RDnD.DragDropContext
 
-Week            = require '../timeline/week'
-Loading         = require '../common/loading'
+Week            = require '../timeline/week.cjsx'
+Loading         = require '../common/loading.cjsx'
 
-DateUtils       = require '../../utils/course_date_utils'
-DateCalculator  = require '../../utils/date_calculator'
+DateUtils       = require '../../utils/course_date_utils.coffee'
+DateCalculator  = require '../../utils/date_calculator.coffee'
 
 emptyWeeksAtBeginning = (weekMeetings) ->
   count = 0

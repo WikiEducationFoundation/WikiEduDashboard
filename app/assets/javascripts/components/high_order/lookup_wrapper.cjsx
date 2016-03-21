@@ -1,5 +1,5 @@
 React         = require 'react'
-LookupStore   = require '../../stores/lookup_store'
+LookupStore   = require '../../stores/lookup_store.coffee'
 
 LookupWrapper = (Component) ->
   getState = (model, exclude) ->

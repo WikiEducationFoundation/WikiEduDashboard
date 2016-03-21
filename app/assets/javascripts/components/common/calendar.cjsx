@@ -2,9 +2,9 @@ React         = require 'react'
 DayPicker     = require 'react-day-picker'
 WeekdayPicker = require 'react-weekday-picker'
 
-CourseActions = require '../../actions/course_actions'
+CourseActions = require '../../actions/course_actions.coffee'
 
-CourseDateUtils   = require '../../utils/course_date_utils'
+CourseDateUtils   = require '../../utils/course_date_utils.coffee'
 
 Calendar = React.createClass(
   displayName: 'Calendar'

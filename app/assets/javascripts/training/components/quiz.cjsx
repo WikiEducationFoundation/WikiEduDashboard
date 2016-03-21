@@ -1,7 +1,7 @@
 React  = require 'react'
-TrainingStore = require '../stores/training_store'
-TrainingActions = require '../actions/training_actions'
-md              = require('../../utils/markdown_it')({ openLinksExternally: false })
+TrainingStore = require '../stores/training_store.coffee'
+TrainingActions = require '../actions/training_actions.coffee'
+md              = require('../../utils/markdown_it.coffee')({ openLinksExternally: false })
 
 
 Quiz = React.createClass(
