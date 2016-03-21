@@ -18,11 +18,15 @@
 # a message to display to all users at the top of each page
 # sitenotice: "NOTICE: The system will go down for maintenance soon."
 
-# Set to true to disable mandatory onboarding.
+# Set to 'true' to disable mandatory onboarding.
   disable_onboarding: 'false'
 
-# Set to true to disable mandatory training.
+# Set to 'true' to disable mandatory training.
   disable_training: 'false'
+
+# Set to 'true' to allow anyone to create and approve their own course.  Otherwise,
+# only instructors can create a course.
+  open_course_creation: 'false'
 
 # Wikimedia OAuth consumer details. Register a consumer at:
 # https://meta.wikimedia.org/wiki/Special:OAuthConsumerRegistration/propose
