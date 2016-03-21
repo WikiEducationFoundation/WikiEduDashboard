@@ -5,11 +5,11 @@
     %h1.survey__title= @survey.name
     - if @survey.intro?
       = @survey.intro.html_safe
-    - if @survey.show_courses
-      = select_tag("course", options_from_collection_for_select(@courses, 'slug', 'title'), :required => true, :include_blank => true, :data => {:chosen_select => true, :survey_course_select => true, :placeholder => "Select your course"})
     .survey__block-nav
       %div
       - if @survey.show_courses
+        %p
+          %strong Current Selected Course: #{@course.title}
         %button.button.survey__next.dark{"data-next-survey-block" => "course" }
           %span Start
           %span.icon.icon-rt_arrow

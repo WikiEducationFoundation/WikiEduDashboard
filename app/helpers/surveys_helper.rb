@@ -11,7 +11,7 @@ module SurveysHelper
   end
 
   def survey_select(f, answer, course)
-    options = answer_options(answer, course).collect { |o| o.is_a?(Array) ? [o[1], o[0]] : o }
+    options = answer_options(answer, course).collect { |o| o.is_a?(Array) ? [ "#{o[1].tr('_', ' ')}", o[0]] : o }
     select_tag(:answer_text, options_for_select(options), { 
           :include_blank => "#{answer.question.multiple ? 'Select all that apply' : 'Select an option'}",
           :required => is_required_question?(answer), 
