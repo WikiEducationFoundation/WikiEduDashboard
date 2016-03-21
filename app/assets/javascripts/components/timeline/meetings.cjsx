@@ -1,12 +1,12 @@
 React             = require 'react'
-CourseLink        = require '../common/course_link'
-Editable          = require '../high_order/editable'
-Calendar          = require '../common/calendar'
-Modal             = require '../common/modal'
-TextInput         = require '../common/text_input'
-CourseStore       = require '../../stores/course_store'
-CourseActions     = require '../../actions/course_actions'
-ServerActions     = require '../../actions/server_actions'
+CourseLink        = require '../common/course_link.cjsx'
+Editable          = require '../high_order/editable.cjsx'
+Calendar          = require '../common/calendar.cjsx'
+Modal             = require '../common/modal.cjsx'
+TextInput         = require '../common/text_input.cjsx'
+CourseStore       = require '../../stores/course_store.coffee'
+CourseActions     = require '../../actions/course_actions.coffee'
+ServerActions     = require '../../actions/server_actions.coffee'
 
 getState = (course_id) ->
   course = CourseStore.getCourse()

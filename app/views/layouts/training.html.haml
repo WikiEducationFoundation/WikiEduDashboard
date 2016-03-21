@@ -1,12 +1,14 @@
 - content_for :head do
-  = stylesheet_link_tag "/assets/stylesheets/training.css", media: 'all'
+  = dashboard_stylesheet_tag("training")
+
+- content_for :javascripts do
+  = javascript_include_tag fingerprinted('/assets/javascripts/', 'main.js')
 
 !!!
 %html{ dir: rtl? ? "rtl" : nil }
   = render "shared/head"
   %body.training
-    - if flash[:notice]
-      .notice= flash[:notice]
+    = render "shared/flash"
     %div
       = render "shared/nav", fluid: true
       %main#main{"data-user-id" => current_user.try(:id), :role => "main"}

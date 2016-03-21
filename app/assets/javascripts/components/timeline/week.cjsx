@@ -1,18 +1,18 @@
 React            = require 'react'
 DND              = require 'react-dnd'
 HTML5DND         = require 'react-dnd-html5-backend'
-Block            = require './block'
-OrderableBlock   = require './orderable_block'
-BlockActions     = require '../../actions/block_actions'
-WeekActions      = require '../../actions/week_actions'
-GradeableStore   = require '../../stores/gradeable_store'
-TextInput        = require '../common/text_input'
-EmptyWeek        = require './empty_week'
+Block            = require './block.cjsx'
+OrderableBlock   = require './orderable_block.cjsx'
+BlockActions     = require '../../actions/block_actions.coffee'
+WeekActions      = require '../../actions/week_actions.coffee'
+GradeableStore   = require '../../stores/gradeable_store.coffee'
+TextInput        = require '../common/text_input.cjsx'
+EmptyWeek        = require './empty_week.cjsx'
 
 ReactCSSTG       = require 'react-addons-css-transition-group'
 {Motion, spring} = require 'react-motion'
 
-DateCalculator  = require '../../utils/date_calculator'
+DateCalculator  = require '../../utils/date_calculator.coffee'
 
 Week = React.createClass(
   displayName: 'Week'

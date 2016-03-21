@@ -5,7 +5,7 @@ dispatcher = Flux.dispatcher
 rewire = require 'rewire'
 
 describe 'Notifications', ->
-  Notifications = rewire '../../../app/assets/javascripts/components/common/notifications'
+  Notifications = rewire '../../../app/assets/javascripts/components/common/notifications.cjsx'
 
   it 'renders', ->
 

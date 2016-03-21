@@ -1,6 +1,6 @@
 McFly       = require 'mcfly'
 Flux        = new McFly()
-API         = require '../utils/api'
+API         = require '../utils/api.coffee'
 
 CourseActions = Flux.createActions
   persistCourse: (data, course_id=null) ->

@@ -1,0 +1,13 @@
+<li class='row course-list__row row--survey-question' data-item-id="<%= question.id %>">
+  <div class='row__wrapper'>
+    <div>
+    <strong><%= strip_tags(question.question_text.truncate(100, omission: '...')) %></strong></div>
+    <div>
+      <%= question.type.to_s.split("::").last.downcase %>&nbsp;<%= question.validation_rules[:grouped].to_i == 1 ? "matrix" : "" %>&nbsp;
+      <%= question.conditionals? ? 'conditional' : '' %>&nbsp;
+      <%= link_to "Clone", "/surveys/question/clone/#{question.id}", method: :post %>
+      <%= link_to "Edit", [:edit, question.question_group, question] %>
+      <%= link_to "Delete", [question.question_group, question], method: :delete %>
+    </div>
+  </div>
+</li>

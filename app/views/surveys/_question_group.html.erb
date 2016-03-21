@@ -1,0 +1,57 @@
+<!-- rapidfire/question_groups/2/answer_groups/new -->
+<%= form_for(Rapidfire::AnswerGroup.new, 
+    :url => rapidfire.question_group_answer_groups_path(question_group), 
+    :html => {'data-survey-form' => true, 'data-question-group' => question_group_index }) do |f| %>
+  <div>
+    <%- @answer_group_builder.answers.each_with_index do |answer, index| %>
+    
+    <% is_start_of_group = start_of_group(answers:@answer_group_builder.answers, index: index) %>
+    <% is_last_of_group = is_grouped_question(answer) && index + 1 == @answer_group_builder.answers.length %>
+    
+    <% if is_start_of_group %>
+      <div class="block not-seen disabled survey__question--matrix <%= question_type(answer) %>" data-survey-block='<%= index + 1 %>'>
+    <% end %>
+
+      <%= f.fields_for("#{answer.question.id}", answer) do |answer_form| %>
+
+      <%= render partial: "rapidfire/answers/matrix_question_text", locals: {f: f, answer: answer, show_title: surveys_question_group.show_title, name: question_group.name} %>
+      
+      <% if !is_grouped_question(answer) %>
+        <div class='block disabled not-seen question-type--<%= question_type(answer) %> <% if answer.errors.any? %>block--errors<% end %> <% if answer.question.validation_rules[:presence].to_i == 1 %>required<% end %>' data-survey-block='<%= index + 1 %>' <% if answer.question.conditionals? %>data-conditional-question="<%= answer.question.conditionals %>"<% end %>>
+      <% end %>
+
+        <% if surveys_question_group.show_title && !is_grouped_question(answer) %>
+          <h3 class='survey__question__group-title'><%= question_group.name %></h3>
+        <% end %>
+          <div id="question_<%= answer.question.id %>" data-question-group="<%= question_group_index %>" class='survey__question-row <%= is_start_of_group ? "first" : "" %> <%= is_last_of_group ? "last" : "" %>'>
+            <%= render_answer_form_helper(answer, answer_form) %>
+          </div>
+          <div data-errors></div>
+          <% if !is_grouped_question(answer) || is_last_of_group  || is_grouped_question(answer) && !is_grouped_question(@answer_group_builder.answers[index + 1]) %>
+            <% if has_follow_up_question(answer) %>
+              <%= render partial: "rapidfire/answers/follow_up_question", locals: {f: answer_form, answer: answer} %>
+            <% end %>
+            
+            <div class='survey__block-nav'>
+              <button class='button survey__next dark' data-next-survey-block>Next <span class='icon icon-rt_arrow'></span></button>
+            </div>
+          <% end %>
+        <% if !is_grouped_question(answer) %>
+        </div>
+        <% end %>
+      <% end %><!-- End of  fields_for -->
+      
+    <% if is_grouped_question(answer) && index + 1 == @answer_group_builder.answers.length || is_grouped_question(answer) && !is_grouped_question(@answer_group_builder.answers[index + 1]) %></div><% end %>
+    
+    <% end %><!-- End of  @answer_group_builder.answers.each_with_index -->
+  </div>
+
+  <% if question_group_index + 1 == total %>
+  <div class='block block--text disabled not-seen block--clear' data-survey-block='<%= @answer_group_builder.answers.length + 1 %>'>
+    <div class='survey__block-nav submit' data-question-group="<%= question_group_index %>">
+      <button class='button survey__next dark' data-next-survey="true">Submit Survey<span class='icon icon-rt_arrow'></span></button>
+    </div>
+  </div>
+  <% end %>
+
+<% end %>

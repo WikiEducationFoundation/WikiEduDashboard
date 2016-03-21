@@ -90,6 +90,10 @@ class ApplicationController < ActionController::Base
   end
   helper_method :new_session_path
 
+  def can_administer?
+    current_user.try(:admin?)
+  end
+
   private
 
   def ssl_configured?

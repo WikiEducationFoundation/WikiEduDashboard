@@ -1,0 +1,15 @@
+<div class='block'>
+<%= form_for question_group do |f| %>
+  <%- if question_group.errors.any? %>
+    <ul>
+      <%- question_group.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <div><%= f.label :name %></div>
+  <div><%= f.text_field :name %>
+  <%= f.submit 'Create', :class => 'button button--no-margin'%></div>
+<% end %>
+</div>

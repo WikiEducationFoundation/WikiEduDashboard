@@ -1,0 +1,21 @@
+%p#notice= notice
+
+- if @survey.intro?
+  .block.block--text.disabled.not-seen{"data-survey-block" => "0", "data-intro" => true}
+    %h1.survey__title= @survey.name
+    - if @survey.intro?
+      = @survey.intro.html_safe
+    .survey__block-nav
+      %div
+      %button.button.survey__next.dark{"data-next-survey-block" => "", "data-no-validate" => true}
+        %span Start
+        %span.icon.icon-rt_arrow
+
+- @surveys_question_groups.each_with_index do |group, index|
+  = render partial: "question_group", locals: question_group_locals(group, index, @surveys_question_groups.length)
+
+.block.block--text.block--clear.block--thank-you.disabled.not-seen{"data-thank-you" => true}
+  .block--thank-you__container
+    %h2.big-title Thank You!
+    - if @survey.thanks?
+      = @survey.thanks.html_safe

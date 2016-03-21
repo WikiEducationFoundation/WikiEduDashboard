@@ -13,12 +13,18 @@ input, textarea, select, .expandingArea > pre
   padding 10px
   -webkit-appearance none
   -moz-appearance none
+  // 
 
   &:focus
     border-color dove
 
   &::-ms-expand
     display none
+
+.default-form
+  select
+    -webkit-appearance menulist
+    -moz-appearance menulist
 
 input.invalid, label.invalid input
   border 2px solid warning !important
@@ -88,8 +94,6 @@ input[type=text], input[type=date], select
     > .popover-trigger > span
       display inline-block
       margin-right 5px
-
-
 
 .select_wrapper
   display inline-block

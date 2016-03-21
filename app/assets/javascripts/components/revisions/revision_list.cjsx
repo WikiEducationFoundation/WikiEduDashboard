@@ -1,11 +1,11 @@
 React             = require 'react'
-Editable          = require '../high_order/editable'
+Editable          = require '../high_order/editable.cjsx'
 
-List              = require '../common/list'
-Revision          = require './revision'
-RevisionStore     = require '../../stores/revision_store'
-ServerActions     = require '../../actions/server_actions'
-CourseUtils       = require '../../utils/course_utils'
+List              = require '../common/list.cjsx'
+Revision          = require './revision.cjsx'
+RevisionStore     = require '../../stores/revision_store.coffee'
+ServerActions     = require '../../actions/server_actions.coffee'
+CourseUtils       = require '../../utils/course_utils.coffee'
 
 getState = ->
   revisions: RevisionStore.getModels()

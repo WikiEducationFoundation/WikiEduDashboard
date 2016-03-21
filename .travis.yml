@@ -1,12 +1,6 @@
-# Run feature specs in a parallel build from the rest, to speed up the process.
-# Only run the deployment script on the faster non-feature branch.
-# We should only be pushing healthy builds to staging or production anyway.
 env:
-  - TEST_SUITE='~type:feature'
-    AFTER_SUCCESS='./travis-deploy.sh'
-  - TEST_SUITE=type:feature
-    AFTER_SUCCESS=''
-
+- TEST_SUITE='~type:feature' AFTER_SUCCESS='./travis-deploy.sh'
+- TEST_SUITE=type:feature AFTER_SUCCESS=''
 language: ruby
 rvm: 2.1.5
 sudo: false
@@ -23,58 +17,47 @@ addons:
     - libqt5webkit5-dev
     - qtdeclarative5-dev
     - pandoc
-
-
 before_install:
-  # Export QMAKE for libqt5webkit5-dev
-  - export QMAKE=/usr/lib/x86_64-linux-gnu/qt5/bin/qmake
-
-  # Set the database.
-  - export DB=test
-
-  # Set a dummy sentry url if none is set via environment variable
-  - export sentry_dsn=${sentry_dsn:=http://example.com}
-
-  # Set up a headless display so capybara will work.
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
-
-  # Use specific node versions
-  - nvm install v4.2.1
-  - nvm use v4.2.1
-  - node --version
-  - npm --version
-
-
+- rvm --default use 2.1.5
+- export QMAKE=/usr/lib/x86_64-linux-gnu/qt5/bin/qmake
+- export DB=test
+- export sentry_dsn=${sentry_dsn:=http://example.com}
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
+- nvm install v4.2.1
+- nvm use v4.2.1
+- node --version
+- npm --version
 install:
-  - npm install gulp -g
-  - npm install bower -g
-  - npm install codeclimate-test-reporter -g
-  - npm install
-  - bower install
-  - bundle install --jobs=3 --retry=3 --deployment
-
-
+- npm install gulp -g
+- npm install bower -g
+- npm install codeclimate-test-reporter -g
+- npm install --ignore-scripts
+- bower install
+- bundle install --jobs=3 --retry=3 --deployment
 before_script:
-  # Set up our database.
-  - cp config/database.travis.yml config/database.yml
-  - mysql -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
-  - bundle exec rake db:migrate RAILS_ENV=test
-
-script: gulp build && npm test && bundle exec rspec --color --profile --format documentation --tag $TEST_SUITE
-
+- cp config/database.travis.yml config/database.yml
+- mysql -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
+- bundle exec rake db:migrate RAILS_ENV=test
+script: gulp build && npm test && bundle exec rspec --color --profile --format documentation
+  --tag $TEST_SUITE
 after_script:
-  - codeclimate-test-reporter < js_coverage/lcov.info
-
+- codeclimate-test-reporter < js_coverage/lcov.info
 after_failure:
-  - npm install imgur-uploader-cli -g
-  - find $TRAVIS_BUILD_DIR/tmp/screenshots -name "*.png" -print0 | xargs -n 1 -0 imgur-uploader
-
-
+- npm install imgur-uploader-cli -g
+- find $TRAVIS_BUILD_DIR/tmp/screenshots -name "*.png" -print0 | xargs -n 1 -0 imgur-uploader
 after_success:
-  - $AFTER_SUCCESS
-
+- "$AFTER_SUCCESS"
 notifications:
   slack:
     rooms:
     - secure: OZcMEKx3prPJva4P6W0E55pSMWnTWdm7d6bBZ6B66LewU9Ge6parEJcaUAAH+sNbi0lvDvMG7Ivs9FKHDU3DoJXNmKG1ow4QpZ0EIMkaBxUWgQRELw2l375G+8vz/VpH3W4zTmVsYWmcaMSER+PmclnBMGQma8vR8JVLVuIDMHU=
+
+deploy:
+  provider: heroku
+  api_key:
+    secure: jVnSDN5ndsIMasaCUyves/Z59IlrpCDQE0crU5gAEsB9Y71VX9NMYJKn0ubo7M1SiDLlDZb/HfhskU8Jm5Kkyhz0BpyDVO4TnD8xwxYv8T6qF+TVv6BaiOtCpU6orpVNzIwMoAgXvil8gvHXSZUoZFnoSphcZZQJkutfWIrJ3BM=
+  app: wiki-dashboard-surveys
+  on:
+    repo: WikiEducationFoundation/WikiEduDashboard
+    branch: surveys:master

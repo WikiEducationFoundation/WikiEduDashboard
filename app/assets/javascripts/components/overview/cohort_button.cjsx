@@ -1,6 +1,6 @@
 React         = require 'react'
-PopoverButton = require '../high_order/popover_button'
-CohortStore   = require '../../stores/cohort_store'
+PopoverButton = require '../high_order/popover_button.cjsx'
+CohortStore   = require '../../stores/cohort_store.coffee'
 
 cohortIsNew = (cohort) ->
   CohortStore.getFiltered({ title: cohort }).length == 0

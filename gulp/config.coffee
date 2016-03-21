@@ -44,7 +44,7 @@ Config = ->
   @jsMainFile = "main"
 
   # Name of main CSS file
-  @cssMainFiles = "+(main|training)"
+  @cssMainFiles = "+(main|training|surveys)"
 
 
 module.exports = new Config()

@@ -22,4 +22,8 @@ gulp.task "watch", ->
   plugins.watch "bower.json", ->
     gulp.start "bower"
 
+  plugins.livereload.listen()
+  gulp.watch "#{config.outputPath}/#{config.cssDirectory}/*.css", (e) ->
+    plugins.livereload.changed(e.path)
+
   return

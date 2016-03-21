@@ -1,7 +1,7 @@
 React = require 'react'
-SuspectedPlagiarismStore = require '../../stores/suspected_plagiarism_store'
-ActivityTable = require './activity_table'
-ServerActions = require '../../actions/server_actions'
+SuspectedPlagiarismStore = require '../../stores/suspected_plagiarism_store.coffee'
+ActivityTable = require './activity_table.cjsx'
+ServerActions = require '../../actions/server_actions.coffee'
 
 getState = ->
   revisions: SuspectedPlagiarismStore.getRevisions()

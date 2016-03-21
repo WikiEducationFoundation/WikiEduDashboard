@@ -1,0 +1,12 @@
+.container.survey__admin
+  .section-header
+    %h1 New Survey
+  .block.block--clear
+    = simple_form_for(@survey) do |f|
+      = f.error_notification
+    
+      .form-inputs
+        = f.input :name
+    
+        .form-actions
+          = f.button :submit, :class => 'button dark'

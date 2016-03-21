@@ -144,6 +144,18 @@ Rails.application.routes.draw do
   # Unauthenticated users root to the home page
   root to: 'home#index'
 
+  post '/surveys/clone/:id' => 'surveys#clone'
+  put '/surveys/question_position' => 'questions#update_position'
+  get '/surveys/question_group_question/:id' => 'questions#get_question'
+  get '/surveys/:id/question_group' => 'surveys#edit_question_groups', :as => "edit_question_groups"
+  post '/surveys/question_group/clone/:id' => 'surveys#clone_question_group'
+  post '/surveys/question/clone/:id' => 'surveys#clone_question'
+  post '/surveys/update_question_group_position' => 'surveys#update_question_group_position'
+  put '/surveys_question_group' => 'surveys_question_groups#update'
+  resources :surveys
+  mount Rapidfire::Engine => "/rapidfire", :as => 'rapidfire'
+  
+
   # Onboarding
   get 'onboarding(/*any)' => 'onboarding#index', as: :onboarding
   put 'users/onboard' => 'users#onboard', as: :onboard

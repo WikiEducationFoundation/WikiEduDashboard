@@ -1,12 +1,14 @@
 - content_for :head do
-  = stylesheet_link_tag fingerprinted("/assets/stylesheets/#{rtl? ? 'rtl/' : nil}", 'main.css'), media: 'all'
+  = dashboard_stylesheet_tag("main")
 
+- content_for :javascripts do
+  = javascript_include_tag fingerprinted('/assets/javascripts/', 'main.js')
+  
 !!!
-%html{ dir: rtl? ? "rtl" : nil }
+%html{ dir: rtl? ? "rtl" : nil}
   = render "shared/head"
-  %body{class: request.path.split('/')[1] == 'courses' ? 'course-page' : 'fixed-nav'}
-    - if flash[:notice]
-      .notice= flash[:notice]
+  %body{class: body_class(request)}
+    = render "shared/flash"
     %div
       = render "shared/nav"
       %main#main{"data-user-id" => current_user.try(:id), :role => "main"}

@@ -19,6 +19,7 @@ gulp.task "stylesheets", ->
   stream = gulp.src ["#{config.sourcePath}/#{config.cssDirectory}/#{config.cssMainFiles}.styl"]
     .pipe plugins.plumber()
     .pipe plugins.stylus
+      'include css': true
       sourcemap:
         inline: config.development
     .pipe plugins.sourcemaps.init
@@ -45,3 +46,18 @@ gulp.task "stylesheets", ->
         .pipe plugins.rev.manifest()
         .pipe revDel({ dest: rtl_dir })
         .pipe gulp.dest rtl_dir
+
+gulp.task "stylesheets-livereload", ->
+  style_dir = "#{config.outputPath}/#{config.cssDirectory}"
+
+  stream = gulp.src ["#{config.sourcePath}/#{config.cssDirectory}/#{config.cssMainFiles}.styl"]
+    .pipe plugins.plumber()
+    .pipe plugins.stylus
+      'include css': true
+      sourcemap:
+        inline: config.development
+    .pipe plugins.sourcemaps.init
+      loadMaps: true
+    .pipe plugins.autoprefixer()
+    .pipe plugins.sourcemaps.write()
+    .pipe gulp.dest style_dir

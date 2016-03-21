@@ -1,5 +1,5 @@
 React = require 'react'
-LookupWrapper = require '../high_order/lookup_wrapper'
+LookupWrapper = require '../high_order/lookup_wrapper.cjsx'
 
 LookupSelect = React.createClass(
   displayName: 'LookupSelect'

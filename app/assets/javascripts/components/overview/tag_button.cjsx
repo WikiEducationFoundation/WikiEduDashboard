@@ -1,6 +1,6 @@
 React         = require 'react'
-PopoverButton = require '../high_order/popover_button'
-TagStore      = require '../../stores/tag_store'
+PopoverButton = require '../high_order/popover_button.cjsx'
+TagStore      = require '../../stores/tag_store.coffee'
 
 tagIsNew = (tag) ->
   TagStore.getFiltered({ tag: tag }).length == 0

@@ -1,6 +1,6 @@
 React           = require 'react'
-ServerActions   = require '../../actions/server_actions'
-CourseStore     = require '../../stores/course_store'
+ServerActions   = require '../../actions/server_actions.coffee'
+CourseStore     = require '../../stores/course_store.coffee'
 
 getState = (course_id) ->
   course: CourseStore.getCourse()

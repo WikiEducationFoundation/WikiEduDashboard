@@ -1,9 +1,9 @@
 React          = require 'react'
 ReactRouter    = require 'react-router'
-ArticleList    = require './article_list'
-UIActions      = require '../../actions/ui_actions'
-AssignmentList = require '../assignments/assignment_list'
-ServerActions  = require '../../actions/server_actions'
+ArticleList    = require './article_list.cjsx'
+UIActions      = require '../../actions/ui_actions.coffee'
+AssignmentList = require '../assignments/assignment_list.cjsx'
+ServerActions  = require '../../actions/server_actions.coffee'
 
 ArticlesHandler = React.createClass(
   displayName: 'ArticlesHandler'

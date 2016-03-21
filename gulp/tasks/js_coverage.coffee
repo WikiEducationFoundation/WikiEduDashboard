@@ -36,10 +36,10 @@ gulp.task("js_coverage", require('gulp-jsx-coverage').createTask(
   transpile:
     coffee:
       include: /\.coffee$/
-      omitExt: ['.coffee']
+      # omitExt: ['.coffee']
     cjsx:
       include: /\.cjsx$/
-      omitExt: ['.cjsx']
+      # omitExt: ['.cjsx']
   coverage:
     reporters: ['text-summary', 'json', 'lcov']
     directory: 'js_coverage'

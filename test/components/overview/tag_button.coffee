@@ -4,8 +4,8 @@ Flux = new McFly()
 rewire = require 'rewire'
 
 describe 'TagButton', ->
-  TagButton = rewire '../../../app/assets/javascripts/components/overview/tag_button'
-  TagStore = rewire '../../../app/assets/javascripts/stores/tag_store'
+  TagButton = rewire '../../../app/assets/javascripts/components/overview/tag_button.cjsx'
+  TagStore = rewire '../../../app/assets/javascripts/stores/tag_store.coffee'
 
   it 'renders a plus button', ->
     TestButton = ReactTestUtils.renderIntoDocument(

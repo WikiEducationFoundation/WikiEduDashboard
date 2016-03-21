@@ -1,4 +1,4 @@
-StockStore = require './stock_store'
+StockStore = require './stock_store.coffee'
 
 AssignmentStore = new StockStore(
   modelKey: 'assignment'

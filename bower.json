@@ -8,11 +8,15 @@
     "lodash": "~3.9.0",
     "moment": "~2.10.3",
     "moment-recur": "~1.0.5",
-    "trix": "~0.9.5"
+    "trix": "~0.9.5",
+    "chosen": "~1.5.1"
   },
   "overrides": {
     "trix": {
       "main": "dist/trix.js"
+    },
+    "chosen": {
+      "main": "chosen.jquery.js"
     }
   }
 }

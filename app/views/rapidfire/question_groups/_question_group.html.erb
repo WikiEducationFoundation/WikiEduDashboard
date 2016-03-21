@@ -1,0 +1,33 @@
+<li class='row course-list__row'>
+<div id= "question_group_<%= question_group.id %>" class='row__wrapper'>
+  <div class='course-list__row__title'>
+    <strong><%= question_group.name %></strong>
+  </div>
+  <div>
+  <% if question_group.questions.length > 0 %>
+  <div class='course-list__col'>
+    <%= link_to "Preview", new_question_group_answer_group_path(question_group) %>
+  </div>
+  <% end %>
+  <% if can_administer? %>
+    <div class='course-list__col'>
+      <%= link_to "Clone", "/surveys/question_group/clone/#{question_group.id}", method: :post %>
+    </div>
+
+    <div class='course-list__col'>
+      <%= link_to "Add Question", new_question_group_question_path(question_group) %>
+    </div>
+    <div class='course-list__col'>
+      <%= link_to "Edit", question_group_questions_path(question_group) %>
+    </div>
+    <div class='course-list__col'>
+      <%= link_to "Results", [:results, question_group] %>
+    </div>
+    <div class='course-list__col'>
+      <%= link_to "Delete", [question_group], method: :delete, :data => {confirm: "Are you sure you want to delete #{question_group.name} survey?"} %>
+    </div>
+  <% end %>
+  </div>
+</div>
+</li>
+

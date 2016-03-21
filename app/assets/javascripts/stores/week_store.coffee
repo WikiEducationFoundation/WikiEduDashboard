@@ -1,7 +1,7 @@
 McFly           = require 'mcfly'
 Flux            = new McFly()
-BlockStore      = require './block_store'
-GradeableStore  = require './gradeable_store'
+BlockStore      = require './block_store.coffee'
+GradeableStore  = require './gradeable_store.coffee'
 
 
 # Data

@@ -2,8 +2,8 @@
 #----------------------------------------
 
 React             = require 'react'
-NotificationStore = require '../../stores/notification_store'
-NotificationActions = require '../../actions/notification_actions'
+NotificationStore = require '../../stores/notification_store.coffee'
+NotificationActions = require '../../actions/notification_actions.coffee'
 
 
 # Component
