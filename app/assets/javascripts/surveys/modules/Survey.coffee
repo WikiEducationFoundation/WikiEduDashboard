@@ -53,7 +53,6 @@ Survey =
     @listeners()
     @initBlocks()
     @initRangeSliders()
-    
 
   listeners: ->
     $('[data-next-survey]').on 'click', @nextSurvey.bind(@)
@@ -408,7 +407,9 @@ Survey =
         @activateConditionalQuestion $question_block
       else
         @resetConditionalQuestion $question_block
+
       @indexBlocks()
+      @setToCurrentBlock $parent
 
   handleParentConditionalChange: (value, conditional_group, $parent, multi = false) ->
     current_answers = conditional_group.current_answers
