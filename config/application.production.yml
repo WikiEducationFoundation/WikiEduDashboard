@@ -2,16 +2,16 @@ dashboard_title: Wiki Education Foundation Dashboard
 dashboard_url: dashboard.wikiedu.org
 wiki_language: en
 
-wikipedia_token: c8d71767a8a3463bb421f9a67b9e1410
-wikipedia_secret: e020ade9f11170869f121586a8cdaf84817cc378
+wikipedia_token: <SECRET>
+wikipedia_secret: <SECRET>
 oauth_ids: '218,306'
 
 course_prefix: "Wikipedia:Wiki_Ed"
 course_announcement_page: 'Wikipedia:Education_noticeboard'
 
 
-sentry_dsn: 'https://6ba168c8d90342f99e6a36a6c0e3e21f:b427238d3282406382db7dff4eb6af52@app.getsentry.com/68584'
-sentry_public_dsn: 'https://6ba168c8d90342f99e6a36a6c0e3e21f@app.getsentry.com/68584'
+sentry_dsn: <SECRET>
+sentry_public_dsn: <SECRET>
 
 course_id_list: "Wikipedia:Education_program/Dashboard/course_ids"
 
