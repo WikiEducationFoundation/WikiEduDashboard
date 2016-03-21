@@ -2,22 +2,47 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Anakmalaysia
+# Author: Yusozim
 ---
 ms:
   application:
+    cancel: Batal
     dashboard: Papan Pemuka Wiki Ed
     explore: Jelajah
+    greeting2: Selma datang!
+    greeting_extended: Selamat datang ke Wikipedia
+    greeting: Helo!
     help: Bantuan
     home: Laman Utama
+    log_in_extended: Log masuk dengan Wikipedia
     log_in: Log masuk
     log_out: Log keluar
     my_dashboard: Papan Pemuka Saya
     recent_activity: Kegiatan Terbaru
     search: cari di ask.wikiedu.org
+    sign_up_extended: Daftar masuk dengan Wikipedia
     sign_up_log_in_extended: dengan Wikipedia
     sign_up: Daftar
+    submit: Hantar
     training: Latihan
+  dashboard:
+    create_note: Klik Cipta Kursus untuk mencipta kursus pertama anda.
+    explore_course_pages: Jelajah Laman Kursus
+    explore_examples: Jelajah Contoh Kursus
+    join_note: Sesudah anda menerima kod laluan dari pengajar, klik Cari Kursus Anda
+      untuk mencari dan menyertainya.
+    no_courses_instructor: Nampaknya anda tidak mempunyai kursus.
+    no_courses_student: Nampaknya anda belum menyertai kursus.
+    opt_out: Permintaan untuk tidak menyertai orientasi
+    orientation_notice: Sebelum anda mencipta kursus, mari melalui proses orientasi
+      untuk membantu anda mula. (Lebih kurang 30 minit untuk disiapkan)
+    start_orientation: Mula Orientasi
+  home:
+    explore: Jelajah
+    log_in: Log masuk dengan Wikipedia
+    sign_up: Daftar masuk dengan Wikipedia
   activity:
     all: Kegiatan
     edited_by: Disunting oleh
+    label: Aktiviti
 ...

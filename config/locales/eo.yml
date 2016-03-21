@@ -7,6 +7,7 @@
 ---
 eo:
   application:
+    cancel: Nuligi
     greeting: Saluton!
     help: Helpon!
     home: Hejmo

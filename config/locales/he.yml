@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Amire80
+# Author: IKhitron
 # Author: Macofe
 # Author: MojoMann
 ---
@@ -247,6 +248,10 @@ he:
     user: מרחב משתמש
     user_char_added: תווים נוספו במרחב משתמש
     user_ns: משתמש
+  recent_activity:
+    show_courses: הצגת קורסים שלי בלבד
+    no_edits: אין שינויים אחרונים
+    recent_edits: שינויים אחרונים
   revisions:
     chars_added: תווים שנוספו
     class: שיעור

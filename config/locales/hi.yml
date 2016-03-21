@@ -4,6 +4,7 @@
 # Author: Rajat11
 # Author: Sfic
 # Author: Upendradutt93
+# Author: चक्रपाणी
 # Author: जनक राज भट्ट
 ---
 hi:
@@ -24,6 +25,15 @@ hi:
     school: संस्थान
     student_editors: सम्पादक
     students_short: संपादक
+  recent_activity:
+    show_courses: केवल मेरा ही कोर्स दिखाएँ
+    no_dyk_eligible: अभी कोई डीवाईके योग्य आर्टिकल नहीं है।
+    no_plagiarism: साहित्य चोरी के वर्तमान में कोई हाल के रिवीज़न सस्पेक्टस नहीं हैं।
+    no_edits: हाल के कोई संपादन नहीं हैं।
+    refresh_plagiarism: साहित्य चोरी की रिपोर्टों को रिफ्रेश करें।
+    did_you_know_eligible: क्या आप एलिजिबल को जानते हैं
+    possible_plagiarism: संभव साहित्य चोरी
+    recent_edits: हाल के संपादन
   revisions:
     class: कक्षा
     title: शीर्षक

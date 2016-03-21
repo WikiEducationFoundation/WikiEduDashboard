@@ -87,6 +87,8 @@ ja:
   namespace:
     user: ユーザー空間
     user_ns: ユーザー
+  recent_activity:
+    recent_edits: 最近の編集
   revisions:
     loading: 版を読み込み中...
   training:

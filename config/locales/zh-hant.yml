@@ -77,6 +77,7 @@ zh-hant:
     assign_self: 指定自己一個條目
     confirm_deletion: 您確定要刪除此項作業嗎？
     label: 分配
+    loading: 載入作業中...
     reviewers: 審查者
     review_other: 指定一個審查
     review_self: 審閱一個條目
@@ -123,10 +124,14 @@ zh-hant:
     published: |-
       您的課程已經發布！
       學生可透過此URL參與課程：
+    school: 學校
     students: 學生
     student_editors: 學生編輯者
+    students_none: 此課程尚未有學生。
     students_short: 學生
+    submitted_and_pending_heading: 已提交，待批閱
     term: 學期
+    timeline: 作業細節
     title: 標題
     training_nav: 前往培訓
     view: 查看課程
@@ -154,6 +159,9 @@ zh-hant:
     main: 主空間
     user: 使用者空間
     user_ns: 使用者
+  recent_activity:
+    no_edits: 無編輯紀錄。
+    recent_edits: 近期編輯紀錄
   revisions:
     class: 班
     date_time: 日期/時間
@@ -188,6 +196,7 @@ zh-hant:
     oauth_invalid: 您已登出維基百科。請重新登入。
     unsupported_browser:
       header: 未受支援的瀏覽器。  :-(
+      explanation: 您使用的瀏覽器與此面板不相容。請使用Internet Explorer11或更高版本、Chrome和Firefox等瀏覽器的最新版本。
   error_404:
     header: 查無頁面。:-(
   error_500:

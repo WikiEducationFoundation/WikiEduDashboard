@@ -68,6 +68,18 @@ ksh:
     user: Appachtemang för de Metmaacher
     user_char_added: Zeijsche em Appachtemang för de Metmaacher derbei jedonn
     user_ns: Metmaacher
+  recent_activity:
+    show_courses: Zeijsch blohß ming Korse aan
+    no_dyk_eligible: Mer han kein Atikelle, di för „Had_Er ald jewoß?“ ußjewählt wähde
+      künnte.
+    no_plagiarism: Mer han em mmang kein älldere Väsjohne, di em Verdaach schtonn
+      künnte, dat se jekleut wöhre.
+    no_edits: Mer han kein köözlesche Änderonge
+    refresh_plagiarism: donn de Övverseesch övver jekleute Täxte ob em neuje Schtand
+      zeije
+    did_you_know_eligible: Ußwählbaa för „Had_Er ald jewoß?“
+    possible_plagiarism: Velleijsch jekleut?
+    recent_edits: Köözlesche Änderonge
   revisions:
     time_doc: De Zigg vun jehde Väsjohn en Dinge Ziggzohn
   uploads:

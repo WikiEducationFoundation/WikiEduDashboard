@@ -119,6 +119,10 @@ lb:
   namespace:
     user: Benotzernummraum
     user_ns: Benotzer
+  recent_activity:
+    show_courses: Nëmme meng Course weisen
+    no_edits: Et gouf keng rezent Ännerungen.
+    recent_edits: Rezent Ännerungen
   revisions:
     date_time: Datum/Zäit
     edited_by: Geännert vum

@@ -87,6 +87,9 @@ pt:
     main: Domínio principal
     user: Domínio Utilizador
     user_ns: Utilizador(a)
+  recent_activity:
+    no_edits: Não existem edições recentes.
+    recent_edits: Edições recentes
   revisions:
     date_time: Data/Hora
     edited_by: Editado por

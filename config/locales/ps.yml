@@ -91,6 +91,8 @@ ps:
   namespace:
     user: کارن تشيال
     user_ns: کارن
+  recent_activity:
+    recent_edits: وروستي سمونونه
   revisions:
     class: ټولگی
     date_time: نېټه/وخت

@@ -228,6 +228,14 @@ it:
     main: Ambiente principale
     main_char_added: Caratteri aggiunti namespace principale
     user_ns: Utente
+  recent_activity:
+    show_courses: Mostra solo i miei corsi
+    no_plagiarism: Attualmente non c'è alcuna versione recente sospetta di plagio.
+    no_edits: Non ci sono modifiche recenti.
+    refresh_plagiarism: Aggiorna report sul plagio
+    did_you_know_eligible: Ammissibile "Lo sapevi che"
+    possible_plagiarism: Possibile plagio
+    recent_edits: Modifiche recenti
   revisions:
     chars_added: Caratteri aggiunti
     class: Classe

@@ -273,6 +273,15 @@ fr:
     user: Espace utilisateur
     user_char_added: Caractères ajoutés à l’espace utilisateur
     user_ns: Utilisateur
+  recent_activity:
+    show_courses: Afficher uniquement mes cours
+    no_dyk_eligible: Il n’y a aucun article éligible pour « Le savez-vous » actuellement.
+    no_plagiarism: Il n’y a aucune révision récente soupçonnée de plagiat, actuellement.
+    no_edits: Il n’y a aucune modification récente.
+    refresh_plagiarism: Rafraîchir les rapports de plagiat
+    did_you_know_eligible: Éligible à « Le savez-vous »
+    possible_plagiarism: Plagiat possible
+    recent_edits: Modifications récentes
   revisions:
     chars_added: Caractères ajoutés
     class: Classe

@@ -98,6 +98,7 @@ lt:
     main: Pagrindinė sritis
     user_ns: Naudotojas
   recent_activity:
+    show_courses: Rodyti tik mano kursus
     possible_plagiarism: Galimas plagijavimas
     recent_edits: Naujausi keitimai
   revisions:

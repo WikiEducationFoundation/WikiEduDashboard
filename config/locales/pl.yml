@@ -78,6 +78,8 @@ pl:
   namespace:
     user: Przestrzeń użytkownika
     user_ns: Użytkownik
+  recent_activity:
+    recent_edits: Ostatnie edycje
   revisions:
     class: Klasa
     date_time: Data/Czas

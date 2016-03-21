@@ -269,6 +269,16 @@ de:
     user: Benutzernamensraum
     user_char_added: Benutzernamensraum-Zeichen hinzugefügt
     user_ns: Benutzer/in
+  recent_activity:
+    show_courses: Nur meine Kurse anzeigen
+    no_dyk_eligible: Es gibt derzeit keine SG-berechtigten Artikel.
+    no_plagiarism: Es gibt derzeit keine letzten Versionen, die auf Plagiate verdächtigt
+      werden.
+    no_edits: Es gibt keine letzten Bearbeitungen.
+    refresh_plagiarism: Plagiatsberichte aktualisieren
+    did_you_know_eligible: „Schon gewusst?“-berechtigt
+    possible_plagiarism: Mögliches Plagiat
+    recent_edits: Letzte Bearbeitungen
   revisions:
     chars_added: Hinzugefügte Zeichen
     class: Klasse

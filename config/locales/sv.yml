@@ -87,6 +87,8 @@ sv:
     main: Huvudnamnrymd
     user: Användarnamnrymd
     user_ns: Användare
+  recent_activity:
+    recent_edits: Senaste redigeringar
   revisions:
     class: Klass
     title: Titel
