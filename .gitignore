@@ -1,4 +1,5 @@
 /config/application.yml
+/config/application.production.yml
 /config/database.yml
 /config/newrelic.yml
 /fixtures

@@ -36,8 +36,7 @@ Rails.application.config.to_prepare do
        Rapidfire::Questions::Select,
        Rapidfire::Questions::Short,
        Rapidfire::Questions::Text,
-       Rapidfire::Questions::RangeInput,
-       Rapidfire::Questions::CourseData
+       Rapidfire::Questions::RangeInput
       ]
     SURVEY_QUESTION_TYPES = AVAILABLE_SURVEY_QUESTIONS.inject({}) do |result, question|
       question_name = question.to_s.split("::").last

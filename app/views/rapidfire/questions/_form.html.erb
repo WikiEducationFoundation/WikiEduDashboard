@@ -12,6 +12,12 @@
   <div class='custom-select'>
   <%= f.select :type, ::Rapidfire::QuestionForm::SURVEY_QUESTION_TYPES, {}, id: "question_type", :class => "default-form-input" %>
   </div>
+
+  <div class='survey__question__option-row'>
+    <%= f.label :answer_presence, "Question is Required" %>
+    <%= f.check_box :answer_presence %>
+  </div>
+
   <br/>
   <%= f.label :question_text %>
   <br/>
@@ -22,60 +28,7 @@
   <br/>
   <div data-question-options>
 
-  <%= f.label :answer_options %>&nbsp;(Separate options with new line)<br/>
-  <%= f.text_area :answer_options, rows: 5 %>
-
-  <h4>Populate Answers Options with course data</h4>
-  <div class="survey__question__option-row">
-  <%= f.select :course_data_type, ::Rapidfire::QuestionForm::COURSE_DATA_ANSWER_TYPES, :data => {:chosen_select => true}, :prompt => "Select type of course data" %>
-  </div>
-
-  <%= f.label :placeholder_text %><br/>
-  <%= f.text_area :placeholder_text, rows: 1 %>
-
-  <div id='multi-select-option'>
-    <%= f.label :multiple, "Allow Multi Select?" %>
-    <%= f.check_box :multiple %>
-  </div>
-  <br/>
-  <%= f.label :answer_presence, "Question is Required" %>
-  <%= f.check_box :answer_presence %>
-
-  <h4>Follow Up Question</h4>
-  <div class="survey__question__option-row">
-  <%= f.label :follow_up_question_text %>
-  <%= f.text_area :follow_up_question_text %>
-  </div>
-
-  <% if @question_group.questions.length > 1 %>
-  <h4>Conditionals</h4>
-  <div class="survey__question__option-row">
-    <div class='survey__question__conditional-row' data-conditional="<%= question_conditional_string(@question) %>">
-      Show if 
-      <%= select_tag "", 
-          options_from_collection_for_select(@question_group.questions.for_conditionals, "id", "question_text"), 
-          :include_blank => "Select a question", 
-          :data => {:conditional_select => true}%>
-      <span data-conditional-operator></span>
-      <select class='hidden' data-conditional-operator-select></select>
-      <select class='hidden' data-conditional-value-select></select>
-      <input class='hidden' data-conditional-value-number type='number' />
-      <button class='hidden' data-clear-conditional>Reset</button>
-      <%= f.hidden_field :conditionals, :data => {:conditional_field_input => true} %>
-    </div>
-  </div>
-  <% end %>
-  
-  <br/>
-  <h4>Matrix Options</h4>
-  <hr/>
-  <div class="survey__question__option-row">
-    <%= f.label :answer_qrouped, "Group this question as a matrix" %>
-    <%= f.check_box :answer_grouped %><br/>
-    <%= f.label :answer_qrouped, "Grouped question" %>
-    <%= f.text_area :answer_grouped_question %>
-  </div>
-
+  <div class="hidden" data-question-type-options="RangeInput">
   <h4>Range Input Options</h4>
   <hr/>
 
@@ -104,6 +57,69 @@
     <%= f.text_field :answer_range_format %>
   </div>
 
+  </div>
+
+  <div data-answer-options data-question-type-options-hide-if="course_data,RangeInput" data-question-type-options="Select,Radio,Checkbox" class="<%= @question_form.course_data_type.nil? ? '' : 'hidden' %>">
+    <%= f.label :answer_options %>&nbsp;(Separate options with new line)<br/>
+    <%= f.text_area :answer_options, rows: 5 %>
+  </div>
+
+  <div id='multi-select-option' data-question-type-options="Select">
+    <%= f.label :multiple, "Allow Multi Select?" %>
+    <%= f.check_box :multiple %>
+  </div>
+
+  <div data-question-type-options="Radio,Checkbox,Select">
+    <label>
+    <input type='checkbox' <%= @question_form.course_data_type != nil ? "checked" : "" %> data-course-data-populate-checkbox />
+    Populate Answer Options with Course Data
+    </label>
+  </div>
+
+  <div data-question-type-field="course_data" class="<%= @question_form.course_data_type.nil? ? 'hidden' : '' %>">
+  <div class="survey__question__option-row">
+    <%= f.select :course_data_type, ::Rapidfire::QuestionForm::COURSE_DATA_ANSWER_TYPES, :data => {:chosen_select => true}, :prompt => "Select type of course data" %>
+  </div>
+  <div class="survey__question__option-row" data-question-type-options="Select">
+    <%= f.label :placeholder_text, "Placeholder text for dropdown input" %><br/>
+    <%= f.text_area :placeholder_text, rows: 1 %>
+  </div>
+  </div>
+
+  <div>
+    <label>
+    <input type='checkbox' <%= @question_form.follow_up_question_text != nil ? "checked" : "" %> data-follow-up-question-checkbox />
+    Add follow up question
+    </label>
+  </div>
+
+  <div class="<%= @question_form.follow_up_question_text.nil? ? 'hidden' : '' %>" data-question-type-field="follow_up_question">
+    <h4>Follow Up Question</h4>
+    <div class="survey__question__option-row">
+    <%= f.label :follow_up_question_text %>
+    <%= f.text_area :follow_up_question_text %>
+    </div>
+  </div>
+
+  <div data-question-type-options="Radio,Checkbox,RangeInput">
+    <label>
+    <input type='checkbox' <%= @question_form.answer_grouped ? "checked" : "" %> data-matrix-checkbox />
+    Group as matrix
+    </label>
+  </div>
+
+  <div class="<%= @question_form.answer_grouped ? '' : 'hidden' %>" data-question-type-field="matrix">
+    <h4>Matrix Options</h4>
+    <hr/>
+    <div class="survey__question__option-row">
+      <%= f.label :answer_qrouped, "Group this question as a matrix" %>
+      <%= f.check_box :answer_grouped %><br/>
+      <%= f.label :answer_qrouped, "Grouped question" %>
+      <%= f.text_area :answer_grouped_question %>
+    </div>
+  </div>
+
+  <div data-question-type-options="Numeric">
   <h4>Other options</h4>
   <hr/>
 
@@ -126,6 +142,36 @@
     <%= f.label :answer_less_than_or_equal_to %>
     <%= f.number_field :answer_less_than_or_equal_to %>
   </div>
+  </div>
+
+  <% if @question_group.questions.length > 1 %>
+  <div>
+    <label>
+    <input type='checkbox' <%= @question_form.answer_grouped ? "checked" : "" %> data-conditional-option-checkbox />
+    Conditionally show this question
+    </label>
+  </div>
+
+  <div class="<%= @question_form.conditionals.nil? ? 'hidden' : '' %>" data-conditional-options>
+    <h4>Conditional</h4>
+    <p>Question will only display if conditional returns true</p>
+    <div class="survey__question__option-row">
+      <div class='survey__question__conditional-row' data-conditional="<%= question_conditional_string(@question) %>">
+        Show if 
+        <%= select_tag "", 
+            options_from_collection_for_select(@question_group.questions.for_conditionals, "id", "question_text"), 
+            :include_blank => "Select a question", 
+            :data => {:conditional_select => true}%>
+        <span data-conditional-operator></span>
+        <select class='hidden' data-conditional-operator-select></select>
+        <select class='hidden' data-conditional-value-select></select>
+        <input class='hidden' data-conditional-value-number type='number' />
+        <button class='hidden' data-clear-conditional>Reset</button>
+        <%= f.hidden_field :conditionals, :data => {:conditional_field_input => true} %>
+      </div>
+    </div>
+  </div>
+  <% end %>
 
   </div>
   <%= f.submit submit_text, :class => 'button button--no-margin' %>

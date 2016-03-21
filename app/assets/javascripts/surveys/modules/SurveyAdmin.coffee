@@ -23,6 +23,15 @@ SurveyAdmin =
     @$conditional_value_select = $('[data-conditional-value-select]')
     @$conditional_input_field = $('[data-conditional-field-input]')
     @$conditional_value_number_field = $('[data-conditional-value-number]')
+    @$question_type_options = $('[data-question-type-options]')
+    @$question_type_options_hide_if = $('[question-type-options-hide-if]')
+    @$question_type_fields = $('[data-question-type-field]')
+    @$course_data_populate_checkbox = $('[data-course-data-populate-checkbox]')
+    @$follow_up_question_checkbox = $('[data-follow-up-question-checkbox]')
+    @$conditional_option_checkbox = $('[data-conditional-option-checkbox]')
+    @$matrix_options_checkbox = $('[data-matrix-checkbox]')
+    @$course_data_type_select = $('#question_course_data_type')
+    @$answer_options = $('[data-answer-options]')
     @initSortableQuestions()
     @initSortableQuestionGroups()
     @listeners()
@@ -36,6 +45,10 @@ SurveyAdmin =
     @$conditional_value_select.on 'change', $.proxy(@, 'handleConditionalAnswerSelect')
     @$question_type_select.on 'change', $.proxy(@, 'handleQuestionType')
     @$add_conditional_button.on 'click', $.proxy(@, 'addConditional')
+    @$course_data_populate_checkbox.on 'change', $.proxy @, 'handleCourseDataCheckboxChange'
+    @$follow_up_question_checkbox.on 'change', $.proxy @, 'handleFollowUpCheckboxChange'
+    @$matrix_options_checkbox.on 'change', $.proxy @, 'handleMatrixCheckboxChange'
+    @$conditional_option_checkbox.on 'change', $.proxy @, 'handleConditionalCheckboxChange'
 
   initSortableQuestions: ->
     $sortable = $('[data-sortable-questions]')
@@ -83,11 +96,32 @@ SurveyAdmin =
 
   handleQuestionType: ->
     return unless @$question_type_select.length
-    switch @$question_type_select.val().split('::').pop()
+    type = @$question_type_select.val().split('::').pop()
+    @$question_type_options.addClass 'hidden'
+    switch type
       when 'Text'
         @setQuestionTextEditor()
-      else
+      when 'RangeInput'
+        @hideQuestionTypes 'RangeInput'
+        @showQuestionTypes 'RangeInput'
         @resetQuestionText()
+      else
+        @hideQuestionTypes type
+        @showQuestionTypes type
+        @resetQuestionText()
+
+  hideQuestionTypes: (string) ->
+    $("[data-question-type-options-hide-if*='#{string}']").addClass 'hidden'
+
+  showQuestionTypes: (string) ->
+    $("[data-question-type-options*='#{string}']").removeClass 'hidden'
+    @$answer_options.addClass 'hidden' if @course_data
+    
+    switch string
+      when 'Select', 'Checkbox', 'Radio'
+        @$answer_options.removeClass 'hidden' if !@course_data
+      when 'Long', 'Short'
+        @$answer_options.addClass 'hidden'
 
   setQuestionTextEditor: ->
     if @question_html_backup?
@@ -120,7 +154,6 @@ SurveyAdmin =
       error: (e) -> console.log 'error', e
 
   handleConditionalQuestionSelect: (e) ->
-    console.log e.question_type
     @clearConditionalOperatorAndValue()
     switch e.question_type
       when 'long', 'short'
@@ -129,6 +162,39 @@ SurveyAdmin =
         @comparisonConditional(e.question)
       else
         @multipleChoiceConditional e.question
+
+  handleCourseDataCheckboxChange: ({target}) ->
+    $course_data = $('[data-question-type-field="course_data"]')
+    if target.checked
+      @course_data = true
+      $course_data.removeClass 'hidden'
+      @$answer_options.addClass 'hidden'
+    else
+      @course_data = false
+      @$course_data_type_select.prop 'selectedIndex', 0
+      $course_data.addClass 'hidden'
+      @$answer_options.removeClass 'hidden'
+
+  handleFollowUpCheckboxChange: ({target}) ->
+    $option = $('[data-question-type-field="follow_up_question"]')
+    if target.checked
+      $option.removeClass 'hidden'
+    else
+      $option.addClass 'hidden'
+
+  handleMatrixCheckboxChange: ({target}) ->
+    $option = $('[data-question-type-field="matrix"]')
+    if target.checked
+      $option.removeClass 'hidden'
+    else
+      $option.addClass 'hidden'
+
+  handleConditionalCheckboxChange: ({target}) ->
+    $option = $('[data-conditional-options]')
+    if target.checked
+      $option.removeClass 'hidden'
+    else
+      $option.addClass 'hidden'
 
   textConditional: (question) ->
     console.log 'TEXT CONDITIONAL', question
