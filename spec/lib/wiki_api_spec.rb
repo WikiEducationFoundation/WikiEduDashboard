@@ -6,7 +6,7 @@ describe WikiApi do
     it 'should return the content of a page' do
       VCR.use_cassette 'wiki/course_list' do
         title = 'Wikipedia:Education program/Dashboard/test_ids'
-        response = WikiApi.get_page_content(title)
+        response = WikiApi.new.get_page_content(title)
         expect(response).to eq("439\n456\n351")
       end
     end
@@ -16,7 +16,7 @@ describe WikiApi do
     it 'should return the list of courses' do
       VCR.use_cassette 'wiki/course_list' do
         create(:cohort)
-        response = WikiApi.course_list
+        response = WikiApi.new.course_list
         expect(response.count).to be >= 1
       end
     end
@@ -26,11 +26,11 @@ describe WikiApi do
     it 'should return the ratings of articles' do
       VCR.use_cassette 'wiki/article_ratings' do
         # A single article
-        response = WikiApi.get_article_rating('History_of_biology')
+        response = WikiApi.new.get_article_rating('History_of_biology')
         expect(response[0]['History_of_biology']).to eq('fa')
 
         # A single non-existant article
-        response = WikiApi.get_article_rating('THIS_IS_NOT_A_REAL_ARTICLE_TITLE')
+        response = WikiApi.new.get_article_rating('THIS_IS_NOT_A_REAL_ARTICLE_TITLE')
         expect(response[0]['THIS_IS_NOT_A_REAL_ARTICLE_TITLE']).to eq(nil)
 
         # A mix of existing and non-existant, including ones with niche ratings.
@@ -58,7 +58,7 @@ describe WikiApi do
           'Sex_trafficking' # blank talk page
         ]
 
-        response = WikiApi.get_article_rating(articles)
+        response = WikiApi.new.get_article_rating(articles)
         expect(response).to include('History_of_biology' => 'fa')
         expect(response).to include('THIS_IS_NOT_A_REAL_ARTICLE_TITLE' => nil)
         expect(response.count).to eq(20)
@@ -73,33 +73,50 @@ describe WikiApi do
           'Talk:THIS_PAGE_WILL_NEVER_EXIST,_RIGHT?', # definitely doesn't exist
           'Talk:List_of_Canadian_plants_by_family_S' # exists
         ]
-        response = WikiApi.get_raw_page_content(articles)
+        response = WikiApi.new.get_raw_page_content(articles)
         expect(response.count).to eq(4)
       end
     end
   end
 
   describe '.get_user_id' do
-    it 'should take a username and return the user_id' do
-      VCR.use_cassette 'wiki/get_user_id' do
-        username = 'Ragesoss'
-        user_id_enwiki = WikiApi.get_user_id(username)
-        expect(user_id_enwiki).to eq(319203)
-        user_id_eswiki = WikiApi.get_user_id(username, 'es')
-        expect(user_id_eswiki).to eq(772153)
-        # make sure usernames with spaces get handled correctly
-        user_with_spaces = WikiApi.get_user_id('LiAnna (Wiki Ed)')
-        expect(user_with_spaces).to eq(21102089)
-        # make sure unicode works
-        unicode_name = WikiApi.get_user_id('ערן')
-        expect(unicode_name).to eq(7201119)
+    context 'for an English Wikipedia users' do
+      let(:wiki) { Wiki.new(language: 'en', project: 'wikipedia') }
+
+      it 'returns the correct user_id for all types of usernames' do
+        usernames = { 'Ragesoss' => 319203,
+                      'LiAnna (Wiki Ed)' => 21102089, # spaces and parens
+                      'ערן' => 7201119, # Hebrew characters
+                      'JRicker,PhD' => 17137867, # comma
+                      'Evol&Glass' => 22403865, # ampersand
+                      "Jack's nomadic mind" => 26211578, # apostrophe
+                      '!!Aaapplesauce' => 11274650 } # exclamation
+
+        VCR.use_cassette 'wiki/get_user_id_en_wiki' do
+          usernames.each do |username, id|
+            result = WikiApi.new(wiki).get_user_id(username)
+            expect(result).to eq(id)
+          end
+        end
+      end
+    end
+
+    context 'for a Spanish Wikipedia user' do
+      let(:wiki) { Wiki.new(language: 'es', project: 'wikipedia') }
+      let(:username) { 'Ragesoss' }
+
+      it 'returns the correct user_id' do
+        VCR.use_cassette 'wiki/get_user_id_es_wiki' do
+          result = WikiApi.new(wiki).get_user_id(username)
+          expect(result).to eq(772153)
+        end
       end
     end
 
     it 'should return nil for usernames that do not exist' do
       VCR.use_cassette 'wiki/get_user_id_nonexistent' do
         username = 'RagesossRagesossRagesoss'
-        user_id = WikiApi.get_user_id(username)
+        user_id = WikiApi.new.get_user_id(username)
         expect(user_id).to be_nil
       end
     end

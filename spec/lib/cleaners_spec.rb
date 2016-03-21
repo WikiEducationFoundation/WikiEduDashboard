@@ -81,10 +81,15 @@ describe Cleaners do
   describe '.match_assignment_titles_with_case_variant_articles_that_exist' do
     it 'updates assignment article titles when it should' do
       VCR.use_cassette 'cleaners/assignment_title_cleanup' do
-        create(:assignment, id: 1, article_id: nil, article_title: 'Robert_montgomery_(artist)')
+        create(:course, id: 1)
+        create(:assignment, id: 1,
+                            article_id: nil,
+                            article_title: 'Robert_montgomery_(artist)',
+                            course_id: 1)
         create(:assignment, id: 2,
                             article_id: nil,
-                            article_title: 'American_institute_of_wine_&_food')
+                            article_title: 'American_institute_of_wine_&_food',
+                            course_id: 1)
 
         Cleaners.match_assignment_titles_with_case_variant_articles_that_exist(2)
         expect(Assignment.find(1).article_title).to eq('Robert_Montgomery_(artist)')
@@ -97,7 +102,11 @@ describe Cleaners do
     # We don't want to query the Wikipedia API for assignment that were not affected
     # by this bug, or that have already been repaired.
     it 'should not try to update titles that are mostly downcased' do
-      create(:assignment, id: 1, article_id: nil, article_title: 'Robert_Montgomery_(artist)')
+      create(:course, id: 1)
+      create(:assignment, id: 1,
+                          article_id: nil,
+                          article_title: 'Robert_Montgomery_(artist)',
+                          course_id: 1)
       # No VCR cassete is in place, so this will fail if it attempts to query Wikipedia.
       Cleaners.match_assignment_titles_with_case_variant_articles_that_exist(1)
       expect(Assignment.find(1).article_title).to eq('Robert_Montgomery_(artist)')

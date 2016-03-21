@@ -167,8 +167,7 @@ class Course < ActiveRecord::Base
     # Some types do not have corresponding on-wiki pages, so they have no
     # wiki_title or url.
     return unless wiki_title
-    language = ENV['wiki_language']
-    "https://#{language}.wikipedia.org/wiki/#{wiki_title}"
+    "#{home_wiki.base_url}/wiki/#{wiki_title}"
   end
 
   def delist
@@ -194,6 +193,14 @@ class Course < ActiveRecord::Base
   def word_count
     require "#{Rails.root}/lib/word_count"
     WordCount.from_characters(character_sum)
+  end
+
+  def home_wiki
+    # TODO: as part of the i18n project, we'll allow for choosing the home_wiki
+    # at the time of course creation (if dashboard is configured to allow that).
+    # For now, we just use the default wiki in all cases, to preserve default
+    # behavior.
+    Wiki.default_wiki
   end
 
   #################

@@ -1,13 +1,14 @@
 require 'rails_helper'
 
 describe AssignmentsController do
+  let!(:course) { create(:course, id: 1) }
   let!(:user) { create(:user) }
   before do
     allow(controller).to receive(:current_user).and_return(user)
   end
 
   describe 'GET index' do
-    let!(:assignment) { create(:assignment) }
+    let!(:assignment) { create(:assignment, course_id: 1) }
 
     before do
       allow(Course).to receive(:find_by_slug).and_return(OpenStruct.new(id: 1))
@@ -23,7 +24,7 @@ describe AssignmentsController do
   end
 
   describe 'DELETE destroy' do
-    let!(:assignment) { create(:assignment) }
+    let!(:assignment) { create(:assignment, course_id: 1) }
     before do
       allow(Assignment).to receive(:find).and_return(assignment)
       delete :destroy, id: assignment.id

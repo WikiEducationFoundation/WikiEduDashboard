@@ -4,12 +4,12 @@ require "#{Rails.root}/lib/wiki_pageviews"
 describe WikiPageviews do
   describe '.views_for_article' do
     context 'for a popular article' do
-      let(:title) { 'Selfie' }
+      let(:article) { create(:article, title: 'Selfie') }
       let(:start_date) { '2015-10-01'.to_date }
       let(:end_date) { '2015-11-01'.to_date }
       let(:subject) do
-        WikiPageviews.views_for_article(title, start_date: start_date,
-                                               end_date: end_date)
+        WikiPageviews.new(article).views_for_article(start_date: start_date,
+                                                     end_date: end_date)
       end
 
       it 'returns a hash of daily views for all the requested dates' do
@@ -48,7 +48,8 @@ describe WikiPageviews do
   end
 
   describe '.average_views_for_article' do
-    let(:subject) { WikiPageviews.average_views_for_article(title) }
+    let(:subject) { WikiPageviews.new(article).average_views }
+    let(:article) { create(:article, title: title) }
 
     context 'for a popular article' do
       let(:title) { 'Selfie' }

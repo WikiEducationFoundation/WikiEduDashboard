@@ -3,7 +3,7 @@ require "#{Rails.root}/lib/assignments_manager"
 
 describe AssignmentsManager do
   describe '.update_assignments' do
-    let(:course) { create(:course, id: 1) }
+    let!(:course) { create(:course, id: 1) }
     let(:user) { create(:user, id: 1) }
 
     it 'creates new assignments for existing articles' do

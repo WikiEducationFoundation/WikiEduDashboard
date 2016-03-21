@@ -91,7 +91,7 @@ class CategoryImporter
   end
 
   def self.import_articles_with_scores_and_views(article_ids)
-    ArticleImporter.import_articles article_ids
+    ArticleImporter.new(Wiki.default_wiki).import_articles article_ids
     import_latest_revision article_ids
     import_scores_for_latest_revision article_ids
     import_average_views article_ids
@@ -114,7 +114,7 @@ class CategoryImporter
     property_values = []
     continue = true
     until continue.nil?
-      cat_response = WikiApi.query query
+      cat_response = WikiApi.new.query query
       page_data = cat_response.data['categorymembers']
       page_data.each do |page|
         property_values << page[property]
@@ -167,7 +167,7 @@ class CategoryImporter
     latest_revisions = {}
     article_ids.each_slice(50) do |fifty_ids|
       rev_query = revisions_query(fifty_ids)
-      rev_response = WikiApi.query rev_query
+      rev_response = WikiApi.new.query rev_query
       latest_revisions.merge! rev_response.data['pages']
     end
     latest_revisions

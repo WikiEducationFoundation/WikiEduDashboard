@@ -6,6 +6,9 @@ class WikiCourseEdits
   def initialize(action:, course:, current_user:, **opts)
     return unless course.wiki_edits_enabled?
     @course = course
+    # Edits can only be made to the course's home wiki through WikiCourseEdits
+    @home_wiki = course.home_wiki
+    @wiki_editor = WikiEdits.new(@home_wiki)
     @dashboard_url = ENV['dashboard_url']
     @current_user = current_user
     send(action, opts)
@@ -25,7 +28,7 @@ class WikiCourseEdits
     summary = "Updating course from #{@dashboard_url}"
 
     # Post the update
-    response = WikiEdits.post_whole_page(@current_user, wiki_title, wiki_text, summary)
+    response = @wiki_editor.post_whole_page(@current_user, wiki_title, wiki_text, summary)
     return response unless response['edit']
 
     # If it hit the spam blacklist, replace the offending links and try again.
@@ -34,7 +37,7 @@ class WikiCourseEdits
     bad_links = bad_links.split('|')
     safe_wiki_text = WikiCourseOutput
                      .substitute_bad_links(wiki_text, bad_links)
-    WikiEdits.post_whole_page(@current_user, wiki_title, safe_wiki_text, summary)
+    @wiki_editor.post_whole_page(@current_user, wiki_title, safe_wiki_text, summary)
   end
 
   # Posts to the instructor's userpage, and also makes a public
@@ -47,7 +50,7 @@ class WikiCourseEdits
     summary = "New course announcement: [[#{course_title}]]."
 
     # Add template to userpage to indicate instructor role.
-    WikiEdits.add_to_page_top(user_page, @current_user, template, summary)
+    @wiki_editor.add_to_page_top(user_page, @current_user, template, summary)
 
     # Announce the course on the Education Noticeboard or equivalent.
     announcement_page = ENV['course_announcement_page']
@@ -59,7 +62,7 @@ class WikiCourseEdits
                 text: announcement,
                 summary: summary }
 
-    WikiEdits.add_new_section(@current_user, announcement_page, message)
+    @wiki_editor.add_new_section(@current_user, announcement_page, message)
   end
 
   # Adds a template to the enrolling student's userpage, and also
@@ -71,7 +74,7 @@ class WikiCourseEdits
     template = "{{student editor|course = [[#{course_title}]] }}\n"
     user_page = "User:#{@current_user.username}"
     summary = "I am enrolled in [[#{course_title}]]."
-    WikiEdits.add_to_page_top(user_page, @current_user, template, summary)
+    @wiki_editor.add_to_page_top(user_page, @current_user, template, summary)
 
     # Pre-create the user's sandbox
     # TODO: Do this more selectively, replacing the default template if
@@ -79,7 +82,7 @@ class WikiCourseEdits
     sandbox = user_page + '/sandbox'
     sandbox_template = "{{#{@dashboard_url} sandbox}}"
     sandbox_summary = "adding {{#{@dashboard_url} sandbox}}"
-    WikiEdits.add_to_page_top(sandbox, @current_user, sandbox_template, sandbox_summary)
+    @wiki_editor.add_to_page_top(sandbox, @current_user, sandbox_template, sandbox_summary)
   end
 
   # Updates the assignment template for every Assignment for the course.
@@ -91,7 +94,7 @@ class WikiCourseEdits
   # is to use this for each assignment update to ensure that on-wiki assignment
   # templates remain accurate and up-to-date.
   def update_assignments(*)
-    assignments_grouped_by_article_title.each do |title, assignments_for_same_title|
+    homewiki_assignments_grouped_by_article_title.each do |title, assignments_for_same_title|
       update_assignments_for_title(
         title: title,
         assignments_for_same_title: assignments_for_same_title)
@@ -99,6 +102,9 @@ class WikiCourseEdits
   end
 
   def remove_assignment(assignment:)
+    # This is only relevant if the removed assignment is on the home wiki.
+    return unless assignment.wiki_id == @home_wiki.id
+
     article_title = assignment.article_title
     other_assignments_for_same_course_and_title = assignment.sibling_assignments
 
@@ -109,12 +115,15 @@ class WikiCourseEdits
 
   private
 
-  def assignments_grouped_by_article_title
-    @course.assignments.group_by(&:article_title)
+  def homewiki_assignments_grouped_by_article_title
+    # Only do on-wiki updates for articles that are on the course's home wiki.
+    @course.assignments.where(wiki_id: @home_wiki.id).group_by(&:article_title)
   end
 
   def update_assignments_for_title(title:, assignments_for_same_title:)
     require './lib/wiki_assignment_output'
+
+    course_page = @course.wiki_title
 
     # TODO: i18n of talk namespace
     if title[0..4] == 'Talk:'
@@ -123,16 +132,14 @@ class WikiCourseEdits
       talk_title = "Talk:#{title.tr(' ', '_')}"
     end
 
-    course_page = @course.wiki_title
-    page_content = WikiAssignmentOutput
-                   .build_talk_page_update(title,
-                                           talk_title,
-                                           assignments_for_same_title,
-                                           course_page)
+    page_content = WikiAssignmentOutput.wikitext(course: @course,
+                                                 title: title,
+                                                 talk_title: talk_title,
+                                                 assignments: assignments_for_same_title)
 
     return if page_content.nil?
     course_title = @course.title
     summary = "Update [[#{course_page}|#{course_title}]] assignment details"
-    WikiEdits.post_whole_page(@current_user, talk_title, page_content, summary)
+    @wiki_editor.post_whole_page(@current_user, talk_title, page_content, summary)
   end
 end

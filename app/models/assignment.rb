@@ -39,9 +39,7 @@ class Assignment < ActiveRecord::Base
   # Instance methods #
   ####################
   def page_url
-    language = ENV['wiki_language']
-    escaped_title = article_title.tr(' ', '_')
-    "https://#{language}.wikipedia.org/wiki/#{escaped_title}"
+    "#{wiki.base_url}/wiki/#{article_title}"
   end
 
   # A sibling assignment is an assignment for a different user,
@@ -58,6 +56,6 @@ class Assignment < ActiveRecord::Base
   def set_defaults_and_normalize
     self.article_title = Utils.format_article_title(article_title) unless article_title.nil?
     # FIXME: transitional only
-    self.wiki_id ||= Wiki.default_wiki.id
+    self.wiki_id ||= course.home_wiki.id
   end
 end

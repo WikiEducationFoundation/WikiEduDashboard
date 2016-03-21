@@ -1,23 +1,38 @@
 require './lib/wiki_api'
 #= Class for generating wikitext for updating assignment details on talk pages
 class WikiAssignmentOutput
+  def initialize(course, title, talk_title, assignments)
+    @course = course
+    @course_page = course.wiki_title
+    @wiki = course.home_wiki
+    @dashboard_url = ENV['dashboard_url']
+    @assignments = assignments
+    @title = title
+    @talk_title = talk_title
+  end
+
+  ###############
+  # Entry point #
+  ###############
+  def self.wikitext(course:, title:, talk_title:, assignments:)
+    new(course, title, talk_title, assignments).build_talk_page_update
+  end
+
   ################
-  # Entry points #
+  # Main routine #
   ################
-  def self.build_talk_page_update(title, talk_title, assignments, course_page)
-    initial_page_content = WikiApi.get_page_content talk_title
+  def build_talk_page_update
+    initial_page_content = WikiApi.new(@wiki).get_page_content @talk_title
     # We only want to add assignment tags to non-existant talk pages if the
     # article page actually exists. This also servces to make sure that we
     # only post to talk pages of mainspace articles, as we assume that pages
     # like Talk:Template:Citation or Talk:Wikipedia:Notability do not exist.
     if initial_page_content.nil?
-      return nil if WikiApi.get_page_content(title).nil?
+      return nil if WikiApi.new(@wiki).get_page_content(@title).nil?
       initial_page_content = ''
     end
 
-    course_assignments_tag = assignments_tag(course_page, assignments)
-    page_content = build_assignment_page_content(course_assignments_tag,
-                                                 course_page,
+    page_content = build_assignment_page_content(assignments_tag,
                                                  initial_page_content)
     page_content
   end
@@ -25,21 +40,20 @@ class WikiAssignmentOutput
   ###################
   # Helper methods #
   ###################
-  def self.assignments_tag(course_page, assignments)
-    return '' if assignments.empty?
+  def assignments_tag
+    return '' if @assignments.empty?
 
     # Make a list of the assignees, role 0
-    tag_assigned = build_wikitext_user_list(assignments, Assignment::Roles::ASSIGNED_ROLE)
+    tag_assigned = build_wikitext_user_list(Assignment::Roles::ASSIGNED_ROLE)
     # Make a list of the reviwers, role 1
-    tag_reviewing = build_wikitext_user_list(assignments, Assignment::Roles::REVIEWING_ROLE)
+    tag_reviewing = build_wikitext_user_list(Assignment::Roles::REVIEWING_ROLE)
 
     # Build new tag
     # NOTE: If the format of this tag gets changed, then the dashboard may
     # post duplicate tags for the same page, unless we update the way that
     # we check for the presense of existging tags to account for both the new
     # and old formats.
-    dashboard_url = ENV['dashboard_url']
-    tag = "{{#{dashboard_url} assignment | course = #{course_page}"
+    tag = "{{#{@dashboard_url} assignment | course = #{@course_page}"
     tag += " | assignments = #{tag_assigned}" unless tag_assigned.blank?
     tag += " | reviewers = #{tag_reviewing}" unless tag_reviewing.blank?
     tag += ' }}'
@@ -53,8 +67,7 @@ class WikiAssignmentOutput
   # that the user who updates the assignments for a course only introduces data
   # for that course. We also want to make as minimal a change as possible, and
   # to make sure that we're not disrupting the format of existing content.
-  def self.build_assignment_page_content(new_tag, course_page, page_content)
-    dashboard_url = ENV['dashboard_url']
+  def build_assignment_page_content(new_tag, page_content)
     # Return if tag already exists on page.
     # However, if the tag is empty, that means to blank the prior tag (if any).
     unless new_tag.blank?
@@ -62,8 +75,8 @@ class WikiAssignmentOutput
     end
 
     # Check for existing tags and replace
-    old_tag_ex = "{{course assignment | course = #{course_page}"
-    new_tag_ex = "{{#{dashboard_url} assignment | course = #{course_page}"
+    old_tag_ex = "{{course assignment | course = #{@course_page}"
+    new_tag_ex = "{{#{@dashboard_url} assignment | course = #{@course_page}"
     page_content.gsub!(/#{Regexp.quote(old_tag_ex)}[^\}]*\}\}/, new_tag)
     page_content.gsub!(/#{Regexp.quote(new_tag_ex)}[^\}]*\}\}/, new_tag)
 
@@ -86,16 +99,16 @@ class WikiAssignmentOutput
     page_content
   end
 
-  def self.starts_with_template?(page_content)
+  def starts_with_template?(page_content)
     page_content[0..1] == '{{'
   end
 
-  def self.end_of_template_is_end_of_line?(page_content)
+  def end_of_template_is_end_of_line?(page_content)
     /\}\}\n(?!\{\{)/.match(page_content)
   end
 
-  def self.build_wikitext_user_list(assignments, role)
-    user_ids = assignments.select { |assignment| assignment.role == role }
+  def build_wikitext_user_list(role)
+    user_ids = @assignments.select { |assignment| assignment.role == role }
                           .map(&:user_id)
     User.where(id: user_ids).pluck(:username)
         .map { |username| "[[User:#{username}|#{username}]]" }.join(', ')

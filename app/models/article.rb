@@ -42,6 +42,7 @@ class Article < ActiveRecord::Base
 
   validates :title, presence: true
 
+  after_initialize :set_defaults_and_normalize
   before_validation :set_defaults_and_normalize
 
   ####################
@@ -105,8 +106,8 @@ class Article < ActiveRecord::Base
     # Always save titles with underscores instead of spaces, since that's the way
     # they are in the MediaWiki database.
     self.title = title.tr(' ', '_') unless title.nil?
-    # FIXME: transitional only
+    # FIXME: transitional only, until id and mw_page_id are uncoupled.
     self.wiki_id ||= Wiki.default_wiki.id
-    self.mw_page_id ||= self.id
+    self.mw_page_id = id
   end
 end

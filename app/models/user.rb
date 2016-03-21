@@ -76,17 +76,22 @@ class User < ActiveRecord::Base
   end
 
   def contribution_url
-    language = ENV['wiki_language']
-    "https://#{language}.wikipedia.org/wiki/Special:Contributions/#{username}"
+    "#{home_wiki.base_url}/wiki/Special:Contributions/#{wiki_id}"
   end
 
+  # Provides a link to the list of all of a user's subpages, ie, sandboxes.
   def sandbox_url
-    language = ENV['wiki_language']
-    "https://#{language}.wikipedia.org/wiki/Special:PrefixIndex/User:#{username}"
+    "#{home_wiki.base_url}/wiki/Special:PrefixIndex/User:#{wiki_id}"
   end
 
   def talk_page
     "User_talk:#{username}"
+  end
+
+  def home_wiki
+    # TODO: Let the user select their home_wiki in preferences, and set initial
+    # home_wiki to that of the first course the user joins.
+    Wiki.default_wiki
   end
 
   def admin?

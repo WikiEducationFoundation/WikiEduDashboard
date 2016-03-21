@@ -1,6 +1,11 @@
 # Fetches pageview data from the Wikimedia pageviews REST API
 # Documentation: https://wikimedia.org/api/rest_v1/?doc#!/Pageviews_data/get_metrics_pageviews_per_article_project_access_agent_article_granularity_start_end
 class WikiPageviews
+  def initialize(article)
+    @article = article
+    @title = article.title
+    @wiki = article.wiki
+  end
   ################
   # Entry points #
   ################
@@ -17,12 +22,11 @@ class WikiPageviews
   # day from that date until today.
   #
   # [title]  title of a Wikipedia page (including namespace prefix, if applicable)
-  def self.views_for_article(title, opts = {})
-    language = opts[:language] || ENV['wiki_language']
+  def views_for_article(opts = {})
     start_date = opts[:start_date] || 1.month.ago
 
     end_date = opts[:end_date] || Time.zone.today
-    url = query_url(title, start_date, end_date, language)
+    url = query_url(start_date: start_date, end_date: end_date)
     data = api_get url
     return unless data
     data = Utils.parse_json(data)
@@ -36,9 +40,8 @@ class WikiPageviews
     views
   end
 
-  def self.average_views_for_article(title, opts = {})
-    language = opts[:language] || ENV['wiki_language']
-    data = recent_views(title, language)
+  def average_views
+    data = recent_views
     # TODO: better handling of unexpected or empty responses, including logging
     return unless data
     data = Utils.parse_json(data)
@@ -57,17 +60,17 @@ class WikiPageviews
   ##################
   # Helper methods #
   ##################
-  def self.recent_views(title, language)
+  def recent_views
     start_date = 50.days.ago
     end_date = 1.day.ago
-    url = query_url(title, start_date, end_date, language)
+    url = query_url(start_date: start_date, end_date: end_date)
     api_get url
   end
 
-  def self.query_url(title, start_date, end_date, language)
-    title = CGI.escape(title)
+  def query_url(start_date:, end_date:)
+    title = CGI.escape(@title)
     base_url = 'https://wikimedia.org/api/rest_v1/metrics/pageviews/'
-    configuration_params = "per-article/#{language}.wikipedia/all-access/user/"
+    configuration_params = "per-article/#{@wiki.language}.#{@wiki.project}/all-access/user/"
     start_param = start_date.strftime('%Y%m%d')
     end_param = end_date.strftime('%Y%m%d')
     title_and_date_params = "#{title}/daily/#{start_param}00/#{end_param}00"
@@ -78,19 +81,17 @@ class WikiPageviews
   ###################
   # Private methods #
   ###################
-  class << self
-    private
+  private
 
-    def api_get(url)
-      tries ||= 3
-      response = Net::HTTP::get(URI.parse(url))
-      response
-    rescue Errno::ETIMEDOUT, Errno::ENETUNREACH, SocketError
-      Rails.logger.error I18n.t('timeout', api: 'wikimedia.org/api/rest_v1', tries: (tries -= 1))
-      retry unless tries.zero?
-    rescue StandardError => e
-      Rails.logger.error "Wikimedia REST API error: #{e}"
-      raise e
-    end
+  def api_get(url)
+    tries ||= 3
+    response = Net::HTTP::get(URI.parse(url))
+    response
+  rescue Errno::ETIMEDOUT, Errno::ENETUNREACH, SocketError
+    Rails.logger.error I18n.t('timeout', api: 'wikimedia.org/api/rest_v1', tries: (tries -= 1))
+    retry unless tries.zero?
+  rescue StandardError => e
+    Rails.logger.error "Wikimedia REST API error: #{e}"
+    raise e
   end
 end

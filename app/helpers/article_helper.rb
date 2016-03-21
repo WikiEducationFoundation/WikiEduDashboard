@@ -15,10 +15,8 @@ module ArticleHelper
 
   def article_url(article)
     return nil if article.nil?
-    language = Figaro.env.wiki_language
     prefix = NS[article.namespace]
-    escaped_title = article.title.tr(' ', '_')
-    "https://#{language}.wikipedia.org/wiki/#{prefix}#{escaped_title}"
+    "#{article.wiki.base_url}/wiki/#{prefix}#{article.title}"
   end
 
   def full_title(article)

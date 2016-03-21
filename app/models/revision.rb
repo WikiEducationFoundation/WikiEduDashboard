@@ -43,8 +43,7 @@ class Revision < ActiveRecord::Base
     # https://en.wikipedia.org/w/index.php?title=Eva_Hesse&diff=prev&oldid=655980945
     return if article.nil?
     escaped_title = article.title.tr(' ', '_')
-    language = Figaro.env.wiki_language
-    "https://#{language}.wikipedia.org/w/index.php?title=#{escaped_title}&diff=prev&oldid=#{id}"
+    "#{wiki.base_url}/w/index.php?title=#{escaped_title}&diff=prev&oldid=#{id}"
   end
 
   def update(data={}, save=true)
@@ -61,7 +60,9 @@ class Revision < ActiveRecord::Base
 
   def set_defaults
     self.wiki_id ||= Wiki.default_wiki.id
-    self.mw_rev_id ||= self.id
-    self.mw_page_id ||= self.article_id
+    # FIXME: until all the import and update routines are configured to use
+    # mw_rev_id and mw_page_id where appropriate, these should be kept in sync.
+    self.mw_rev_id = id
+    self.mw_page_id = article_id
   end
 end

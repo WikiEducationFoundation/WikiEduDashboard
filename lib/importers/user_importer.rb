@@ -19,7 +19,7 @@ class UserImporter
   def self.new_from_omniauth(auth)
     require "#{Rails.root}/lib/wiki_api"
 
-    id = WikiApi.get_user_id(auth.info.name)
+    id = WikiApi.new.get_user_id(auth.info.name)
     user = User.create(
       id: id,
       username: auth.info.name,
@@ -32,19 +32,10 @@ class UserImporter
 
   def self.new_from_username(username)
     require "#{Rails.root}/lib/wiki_api"
-    id = WikiApi.get_user_id(username)
+    id = WikiApi.new.get_user_id(username)
     return unless id
 
-    if User.exists?(id)
-      user = User.find(id)
-    else
-      user = User.create(
-        id: id,
-        username: username
-      )
-    end
-
-    user
+    User.find_or_create_by(username: username, id: id)
   end
 
   def self.add_users(data, role, course, save=true)
@@ -79,7 +70,7 @@ class UserImporter
 
   def self.update_users(users=nil)
     u_users = Utils.chunk_requests(users || User.all) do |block|
-      Replica.get_user_info block
+      Replica.new.get_user_info block
     end
 
     User.transaction do
