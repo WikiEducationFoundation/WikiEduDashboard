@@ -3,7 +3,7 @@ require "#{Rails.root}/lib/replica"
 
 describe Replica do
   describe 'API requests' do
-    it 'should return revisions from this term' do
+    it 'returns revisions from this term' do
       VCR.use_cassette 'replica/revisions' do
         all_users = [
           build(:user, username: 'ELE427', id: 22905965),
@@ -34,7 +34,7 @@ describe Replica do
       end
     end
 
-    it 'should work for users with a reserved url characters in the name' do
+    it 'works for users with a reserved url characters in the name' do
       VCR.use_cassette 'replica/comma' do
         comma_user = build(:user,
                            id: 17137867,
@@ -66,7 +66,7 @@ describe Replica do
       end
     end
 
-    it 'should return training status' do
+    it 'returns training status' do
       VCR.use_cassette 'replica/training' do
         all_users = [
           { 'id' => '22905965' }, # has not completed
@@ -84,7 +84,7 @@ describe Replica do
       end
     end
 
-    it 'should return global ids' do
+    it 'returns global ids' do
       VCR.use_cassette 'replica/training' do
         all_users = [
           { 'id' => '319203' },
@@ -99,7 +99,7 @@ describe Replica do
       end
     end
 
-    it 'should update usernames after name changes' do
+    it 'updates usernames after name changes' do
       VCR.use_cassette 'replica/training' do
         create(:user, username: 'old_username')
         expect(User.all.first.username).to eq('old_username')
@@ -108,7 +108,7 @@ describe Replica do
       end
     end
 
-    it 'should return a list of existing articles' do
+    it 'returns a list of existing articles' do
       VCR.use_cassette 'replica/articles' do
         article_titles = [
           { 'title' => 'Autism' }, # exists in namespace 0, 1
@@ -126,7 +126,7 @@ describe Replica do
       end
     end
 
-    it 'should function identically on non-English wikis' do
+    it 'functions identically on non-English wikis' do
       VCR.use_cassette 'replica/es_revisions' do
         all_users = [
           build(:user, username: 'AndresAlvarezGalina95', id: 3556537),
@@ -142,15 +142,18 @@ describe Replica do
         expect(response.count).to eq(24)
       end
     end
+  end
+
+  describe 'error handling' do
+    let(:all_users) do
+      [ build(:user, username: 'ELE427', id: 22905965),
+        build(:user, username: 'Ragesoss', id: 319203),
+        build(:user, username: 'Mrbauer1234', id: 23011474) ]
+    end
 
     it 'handles timeout errors' do
       stub_request(:any, %r{http://tools.wmflabs.org/.*})
         .to_raise(Errno::ETIMEDOUT)
-      all_users = [
-        build(:user, username: 'ELE427', id: 22905965),
-        build(:user, username: 'Ragesoss', id: 319203),
-        build(:user, username: 'Mrbauer1234', id: 23011474)
-      ]
       rev_start = 2014_01_01_003430
       rev_end = 2014_12_31_003430
 
@@ -161,14 +164,23 @@ describe Replica do
     it 'handles connection refused errors' do
       stub_request(:any, %r{http://tools.wmflabs.org/.*})
         .to_raise(Errno::ECONNREFUSED)
-      all_users = [
-        build(:user, username: 'ELE427', id: 22905965),
-        build(:user, username: 'Ragesoss', id: 319203),
-        build(:user, username: 'Mrbauer1234', id: 23011474)
-      ]
 
       response = Replica.new.get_user_info(all_users)
       expect(response).to be_nil
+    end
+
+    it 'handles failed queries' do
+      stub_request(:any, %r{http://tools.wmflabs.org/.*})
+        .to_return(status: 200, body: '{ "success": false, "data": [] }', headers: {})
+      response = Replica.new.get_user_info(all_users)
+      expect(response).to be_nil
+    end
+
+    it 'handles successful empty responses' do
+      stub_request(:any, %r{http://tools.wmflabs.org/.*})
+        .to_return(status: 200, body: '{ "success": true, "data": [] }', headers: {})
+      response = Replica.new.get_user_info(all_users)
+      expect(response).to eq([])
     end
   end
 end

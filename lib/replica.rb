@@ -179,6 +179,7 @@ class Replica
     response = Net::HTTP::get(URI.parse(url))
     return unless response.length > 0
     parsed = JSON.parse response.to_s
+    return unless parsed['success']
     parsed['data']
   rescue StandardError => e
     tries -= 1
