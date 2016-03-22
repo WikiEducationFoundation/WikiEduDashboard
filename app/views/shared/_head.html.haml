@@ -15,10 +15,12 @@
   I18n.defaultLocale = "#{I18n.default_locale}";
   I18n.locale = "#{I18n.locale}";
 = javascript_include_tag '/assets/javascripts/vendor.js'
-/ Temporary Raven logging
-%script{src: "//cdn.ravenjs.com/1.1.19/jquery,native/raven.min.js"}
-:javascript
-  Raven.config("#{ENV['sentry_public_dsn']}").install();
+
+- unless ENV['DISABLE_SENTRY']
+  / Temporary Raven logging
+  %script{src: "//cdn.ravenjs.com/1.1.19/jquery,native/raven.min.js"}
+  :javascript
+    Raven.config("#{ENV['sentry_public_dsn']}").install();
 
 = content_for :javascripts
 

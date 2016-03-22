@@ -84,8 +84,8 @@ Survey =
     $(@survey_blocks[@current_block]).removeClass 'disabled not-seen'
 
   indexBlocks: (cb = null) ->
-    $('[data-survey-block].hidden').removeAttr 'data-survey-block'
-    $survey_blocks = $('[data-survey-block]:not(.hidden)')
+    $('.block[data-survey-block].hidden').removeAttr 'data-survey-block'
+    $survey_blocks = $('.block[data-survey-block]:not(.hidden)')
     $survey_blocks.each (i, block) ->
       $block = $(block)
       $block.attr 'data-survey-block', i
@@ -237,6 +237,8 @@ Survey =
       $form =  $(@$survey_form[question_group_index])
     else
       $form = @$survey_form
+
+    console.log $block, @current_block
     
     validation = $form
       .parsley({uiEnabled: false})
@@ -348,28 +350,35 @@ Survey =
 
   initConditionals: ->
     $('[data-conditional-question]').each (i, question) =>
-      $(question).addClass 'hidden'
+      $conditional_question = $(question)
+      $question = $($(question).parents('.block'))
+      if @isMatrixBlock $question
+        $question = $conditional_question
+      
+      console.log $conditional_question.data 'conditional-question'
+
+      $question.addClass 'hidden'
       {
         question_id
         operator
         value
         multi
-      } = Utils.parseConditionalString $(question).data 'conditional-question'
+      } = Utils.parseConditionalString $conditional_question.data 'conditional-question'
 
       if @survey_conditionals[question_id]?
-        @survey_conditionals[question_id].children.push question
+        @survey_conditionals[question_id].children.push $question[0]
       else
         @survey_conditionals[question_id] = {}
-        @survey_conditionals[question_id].children = [question]
+        @survey_conditionals[question_id].children = [$question[0]]
 
-      @survey_conditionals[question_id][value] = question if value?
+      @survey_conditionals[question_id][value] = $question if value?
       @survey_conditionals[question_id].current_answers = []
 
       switch operator
         when '*presence'
-          @conditionalPresenceListeners(question_id, question)
+          @conditionalPresenceListeners(question_id, $question)
         when '<', '>'
-          @conditionalComparisonListeners(question_id, operator, value, question)
+          @conditionalComparisonListeners(question_id, operator, value, $question)
         else
           @conditionalAnswerListeners(question_id, multi)
 
@@ -377,7 +386,7 @@ Survey =
     # @survey_conditionals[id].operator = operator
     $("#question_#{id} input, #question_#{id} select").on 'change', ({target}) =>
       value = $(target).val()
-      $parent = $("#question_#{id}").parents('.block')
+      $parent = $("#question_#{id}")
       $checked_inputs = $parent.find('input:checked')
       if multi and $checked_inputs.length
         value = []
@@ -395,7 +404,7 @@ Survey =
       '<' : (a,b) -> a < b
       '<=' : (a,b) -> a <= b
       
-    $parent = $("#question_#{id}").parents('.block')
+    $parent = $("#question_#{id}")
     conditional_group = @survey_conditionals[id]
     $question_block = $(conditional_group[value])
 
@@ -412,6 +421,7 @@ Survey =
       @setToCurrentBlock $parent
 
   handleParentConditionalChange: (value, conditional_group, $parent, multi = false) ->
+
     current_answers = conditional_group.current_answers
     reset_questions = false
     conditional = undefined
@@ -464,7 +474,7 @@ Survey =
       @handleParentPresenceConditionalChange
         present: target.value.length
         conditional_group: @survey_conditionals[id]
-        $parent: $("#question_#{id}").parents('.block')
+        $parent: $("#question_#{id}")
 
   handleParentPresenceConditionalChange: (params) ->
     { present, conditional_group, $parent } = params
@@ -491,7 +501,9 @@ Survey =
       exclude_from_reset = []
       current_answers.map (a) -> exclude_from_reset.push a
       children.map (question) =>
-        { value } = Utils.parseConditionalString $(question).data 'conditional-question'
+        string = $(question).find('[data-conditional-question]').data 'conditional-question'
+        console.log string
+        { value } = Utils.parseConditionalString string
         if exclude_from_reset.indexOf(value) is -1
           @resetConditionalQuestion $(question)
     else
@@ -509,10 +521,14 @@ Survey =
   activateConditionalQuestion: ($question) ->
     $question
       .removeClass 'hidden'
-      .attr 'data-survey-block', ''
+    if $question.hasClass 'block'
+      $question.attr 'data-survey-block', ''
   
   setToCurrentBlock: ($block) ->
     @current_block = $block.data 'survey-block'
+
+  isMatrixBlock: ($block) ->
+    $block.hasClass 'survey__question--matrix'
 
 
 module.exports = Survey

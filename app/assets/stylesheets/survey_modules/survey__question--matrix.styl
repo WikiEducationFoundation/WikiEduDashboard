@@ -21,7 +21,7 @@
       
     &:first-child
       display block
-      margin-bottom 40px
+      margin-bottom 60px
   
   .survey__block-nav
     padding-top 40px
@@ -61,7 +61,10 @@
     &.first .label
       color $text_dk
       left 50%
-      transform translate(-50%, -130%)
+      transform translate(-50%, 0%)
+    
+    &.first .survey__question-text
+      visibility hidden
   
   .survey__multiple-choice-field
     flex 1

@@ -6,8 +6,12 @@ module SurveysHelper
   end
 
   def render_answer_form_helper(answer, form)
-    partial = answer.question.type.to_s.split("::").last.downcase
+    partial = question_type(answer)
     render partial: "rapidfire/answers/#{partial}", locals: { f: form, answer: answer, course: @course }
+  end
+
+  def render_matrix_answer_labels(answer)
+    render partial: "rapidfire/answers/matrix_answer_labels", locals: { answer: answer, course: @course }
   end
 
   def survey_select(f, answer, course)
@@ -105,7 +109,9 @@ module SurveysHelper
     next_question = answer_group_builder.answers[index + 1]
     next_is_same_group = next_question_in_same_group(answer, next_question)
     next_isnt_grouped = !next_question.nil? && next_question.question.validation_rules[:grouped].to_i != 1
-    if is_last_question
+    if !grouped
+      return false
+    elsif is_last_question
       return true
     elsif !next_is_same_group
       return true
@@ -151,6 +157,16 @@ module SurveysHelper
 
   def is_matrix_question(question_form)
     !question_form.follow_up_question_text.nil? && !question_form.follow_up_question_text.empty?
+  end
+
+  def conditional_string(answer)
+    if answer.question.conditionals?
+      "data-conditional-question=#{answer.question.conditionals}"
+    end
+  end
+
+  def is_radio_type(answer)
+    question_type(answer) == 'radio'
   end
   
 end
