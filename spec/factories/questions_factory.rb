@@ -26,5 +26,8 @@ FactoryGirl.define do
 
     factory :q_short, :class => "Rapidfire::Questions::Short" do
     end
+
+    factory :q_rangeinput, :class => "Rapidfire::Questions::RangeInput" do
+    end
   end
 end

@@ -7,7 +7,7 @@
       <%= question.conditionals? ? 'conditional' : '' %>&nbsp;
       <%= link_to "Clone", "/surveys/question/clone/#{question.id}", method: :post %>
       <%= link_to "Edit", [:edit, question.question_group, question] %>
-      <%= link_to "Delete", [question.question_group, question], method: :delete %>
+      <%= link_to "Delete", [question.question_group, question], method: :delete, :data => {confirm: "Are you sure you want to delete this question?"}  %>
     </div>
   </div>
 </li>

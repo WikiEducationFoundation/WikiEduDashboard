@@ -108,5 +108,17 @@ module SurveysHelper
     return "" if question.nil?
     return question.conditionals
   end
+
+  def has_course_data(question_form)
+    question_form.course_data_type != nil && !question_form.course_data_type.empty?
+  end
+
+  def question_form_has_follow_up_question(question_form)
+    !question_form.follow_up_question_text.nil? && !question_form.follow_up_question_text.empty?
+  end
+
+  def is_matrix_question(question_form)
+    !question_form.follow_up_question_text.nil? && !question_form.follow_up_question_text.empty?
+  end
   
 end
