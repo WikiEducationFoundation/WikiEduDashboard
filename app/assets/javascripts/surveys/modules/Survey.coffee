@@ -237,8 +237,6 @@ Survey =
       $form =  $(@$survey_form[question_group_index])
     else
       $form = @$survey_form
-
-    console.log $block, @current_block
     
     validation = $form
       .parsley({uiEnabled: false})
@@ -320,7 +318,6 @@ Survey =
             
         connect: 'lower'
       slider.noUiSlider.on 'change', (value) ->
-        console.log value, $input
         $input.val(parseInt(value[0])).trigger "change"
 
   showThankYou: ->
@@ -354,8 +351,6 @@ Survey =
       $question = $($(question).parents('.block'))
       if @isMatrixBlock $question
         $question = $conditional_question
-      
-      console.log $conditional_question.data 'conditional-question'
 
       $question.addClass 'hidden'
       {
@@ -391,7 +386,7 @@ Survey =
       if multi and $checked_inputs.length
         value = []
         $checked_inputs.each (i, input) -> value.push $(input).val()
-      else if multi and value is null
+      else if multi
         value = []
 
       @handleParentConditionalChange value, @survey_conditionals[id], $parent, multi
@@ -501,13 +496,22 @@ Survey =
       exclude_from_reset = []
       current_answers.map (a) -> exclude_from_reset.push a
       children.map (question) =>
-        string = $(question).find('[data-conditional-question]').data 'conditional-question'
-        console.log string
+        if $(question).hasClass 'survey__question-row'
+          @activateConditionalQuestion $(question).parents('.block')
+        if $(question).data 'conditional-question'
+          string = $(question).data 'conditional-question'
+        else
+          string = $(question).find('[data-conditional-question]').data 'conditional-question'
         { value } = Utils.parseConditionalString string
         if exclude_from_reset.indexOf(value) is -1
           @resetConditionalQuestion $(question)
     else
-      children.map (question) => @resetConditionalQuestion $(question)
+      children.map (question) =>
+        @resetConditionalQuestion $(question)
+        if $(question).hasClass 'survey__question-row'
+          $parent_block = $(question).parents('.block')
+          unless $parent_block.find('.survey__question-row:not([data-conditional-question])').length > 1
+            @resetConditionalQuestion $parent_block
 
   resetConditionalQuestion: ($question) ->
     $question
