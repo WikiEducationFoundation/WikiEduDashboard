@@ -15,7 +15,7 @@ ON THE SERVER
 - ssh into this new instance from your machine
 
 - install some additional packages needed by the app and web server
-  - $ `sudo apt-get install libmysqlclient-dev build-essential apache2 apache2-threaded-dev libapr1-dev libaprutil1-dev mysql-server libssl-dev libyaml-dev libreadline-dev openssl curl git-core zlib1g-dev bison libxml2-dev libxslt1-dev libcurl4-openssl-dev libsqlite3-dev sqlite3 pandoc`
+  - $ `sudo apt-get install libmysqlclient-dev build-essential apache2 apache2-threaded-dev libapr1-dev libaprutil1-dev mysql-server libssl-dev libyaml-dev libreadline-dev openssl curl git-core zlib1g-dev bison libxml2-dev libxslt1-dev libcurl4-openssl-dev libsqlite3-dev sqlite3 pandoc nodejs`
   - Set the mysql server password and record this password. (You'll need it shortly.)
 
 - Create a database for the app
