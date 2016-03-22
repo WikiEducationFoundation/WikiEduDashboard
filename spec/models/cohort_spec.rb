@@ -14,7 +14,7 @@ require 'rails_helper'
 
 describe Cohort do
   describe '.initialize_cohorts' do
-    it 'should create cohorts from application.yml' do
+    it 'create cohorts from application.yml' do
       Cohort.destroy_all
       cohorts = Cohort.all
       expect(cohorts).to be_empty
@@ -27,6 +27,12 @@ describe Cohort do
 
       # Make sure it still works if all the cohorts already exist
       Cohort.initialize_cohorts
+    end
+  end
+
+  describe '.default_cohort' do
+    it 'returns a cohort' do
+      expect(Cohort.default_cohort).to be_a(Cohort)
     end
   end
 end
