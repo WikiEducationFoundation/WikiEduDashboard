@@ -1,4 +1,4 @@
-<li class='row course-list__row row--survey-question' data-item-id="<%= question.id %>">
+<li class='row course-list__row row--survey-question' data-item-id="<%= question.id %>"><!-- Current Position: <%= question.position %> -->
   <div class='row__wrapper'>
     <div>
     <strong><%= strip_tags(question.question_text.truncate(100, omission: '...')) %></strong></div>

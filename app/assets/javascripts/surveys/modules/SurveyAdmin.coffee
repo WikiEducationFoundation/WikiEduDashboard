@@ -68,7 +68,7 @@ SurveyAdmin =
         ui.item.removeClass 'active-item-shadow'
       update: (e, ui) ->
         item_id = ui.item.data 'item-id'
-        position = ui.item.index()
+        position = ui.item.index() + 1 #acts_as_list defaults to start at 1
         $.ajax
           type: 'PUT'
           url: "/surveys/question_position"
@@ -90,7 +90,7 @@ SurveyAdmin =
       update: (e, ui) ->
         item_id = ui.item.data 'item-id'
         console.log item_id
-        position = ui.item.index()
+        position = ui.item.index() + 1 #acts_as_list defaults to start at 1
         $.ajax
           type: 'POST'
           url: "/surveys/update_question_group_position"
