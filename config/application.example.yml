@@ -24,6 +24,15 @@
 # Set to true to disable mandatory training.
   disable_training: 'false'
 
+# Setting disable_wiki_output to 'true' means course pages will not be mirrored
+# to the wiki.
+  disable_wiki_output: 'true'
+
+# Setting 'open_course_creation' to 'true' means that any use can create a
+# course, and it will be automatically added to the default cohort and be ready
+# for use.
+  open_course_creation: 'false'
+
 # Wikimedia OAuth consumer details. Register a consumer at:
 # https://meta.wikimedia.org/wiki/Special:OAuthConsumerRegistration/propose
 # No one but the user who registers the consumer will be able to log in until
@@ -42,10 +51,6 @@
 
 # This is the community discussion page where new courses should be announced.
   course_announcement_page: 'User:Ragesock'
-
-# Setting disable_wiki_output to 'true' means course pages will not be mirrored
-# to the wiki.
-  disable_wiki_output: 'true'
 
 # Setting to enable pulling data for legacy courses from the MediaWiki
 # EducationProgram extension (DEPRECATED).

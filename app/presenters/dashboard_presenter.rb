@@ -47,6 +47,7 @@ class DashboardPresenter
   end
 
   def can_create_course?
+    return true if ENV['open_course_creation'] == 'true'
     return true if is_admin?
     # Instructors who have completed orientation OR have
     # already created a course are allowed to create new courses
