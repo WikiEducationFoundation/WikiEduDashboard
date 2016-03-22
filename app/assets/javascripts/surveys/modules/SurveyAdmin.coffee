@@ -10,6 +10,25 @@ CONDITIONAL_COMPARISON_OPERATORS = """
 
 SurveyAdmin =
   init: ->
+    @cacheSelectors()
+    @initSortableQuestions()
+    @initSortableQuestionGroups()
+    @listeners()
+    @initConditionals()
+
+  listeners: ->
+    @handleQuestionType()
+    @$clear_conditional_button.on 'click', $.proxy(@, 'clearConditional')
+    @$conditional_question_select.on 'change', $.proxy(@, 'handleConditionalSelect')
+    @$conditional_value_select.on 'change', $.proxy(@, 'handleConditionalAnswerSelect')
+    @$question_type_select.on 'change', $.proxy(@, 'handleQuestionType')
+    @$add_conditional_button.on 'click', $.proxy(@, 'addConditional')
+    @$course_data_populate_checkbox.on 'change', $.proxy @, 'handleCourseDataCheckboxChange'
+    @$follow_up_question_checkbox.on 'change', $.proxy @, 'handleFollowUpCheckboxChange'
+    @$matrix_options_checkbox.on 'change', $.proxy @, 'handleMatrixCheckboxChange'
+    @$conditional_option_checkbox.on 'change', $.proxy @, 'handleConditionalCheckboxChange'
+
+  cacheSelectors: ->
     @$document = $(document)
     @$question_type_select = $('#question_type')
     @$question_form_options = $('[data-question-options]')
@@ -32,23 +51,7 @@ SurveyAdmin =
     @$matrix_options_checkbox = $('[data-matrix-checkbox]')
     @$course_data_type_select = $('#question_course_data_type')
     @$answer_options = $('[data-answer-options]')
-    @initSortableQuestions()
-    @initSortableQuestionGroups()
-    @listeners()
-    @initConditionals()
-    
-
-  listeners: ->
-    @handleQuestionType()
-    @$clear_conditional_button.on 'click', $.proxy(@, 'clearConditional')
-    @$conditional_question_select.on 'change', $.proxy(@, 'handleConditionalSelect')
-    @$conditional_value_select.on 'change', $.proxy(@, 'handleConditionalAnswerSelect')
-    @$question_type_select.on 'change', $.proxy(@, 'handleQuestionType')
-    @$add_conditional_button.on 'click', $.proxy(@, 'addConditional')
-    @$course_data_populate_checkbox.on 'change', $.proxy @, 'handleCourseDataCheckboxChange'
-    @$follow_up_question_checkbox.on 'change', $.proxy @, 'handleFollowUpCheckboxChange'
-    @$matrix_options_checkbox.on 'change', $.proxy @, 'handleMatrixCheckboxChange'
-    @$conditional_option_checkbox.on 'change', $.proxy @, 'handleConditionalCheckboxChange'
+    @$range_input_options = $('[data-question-type-options="RangeInput"')
 
   initSortableQuestions: ->
     $sortable = $('[data-sortable-questions]')
@@ -101,6 +104,7 @@ SurveyAdmin =
     switch type
       when 'Text'
         @setQuestionTextEditor()
+        @clearRangeInputOptions()
       when 'RangeInput'
         @hideQuestionTypes 'RangeInput'
         @showQuestionTypes 'RangeInput'
@@ -109,6 +113,7 @@ SurveyAdmin =
         @hideQuestionTypes type
         @showQuestionTypes type
         @resetQuestionText()
+        @clearRangeInputOptions()
 
   hideQuestionTypes: (string) ->
     $("[data-question-type-options-hide-if*='#{string}']").addClass 'hidden'
@@ -143,6 +148,9 @@ SurveyAdmin =
       @conditional = {}
       @conditional.question_id = id
       @getQuestion(id)
+
+  clearRangeInputOptions: ->
+    @$range_input_options.find('input').val ''
 
   getQuestion: (id) ->
     $.ajax
