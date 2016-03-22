@@ -145,7 +145,7 @@
   <% if @question_group.questions.length > 1 %>
   <div>
     <label>
-    <input type='checkbox' <%= @question_form.answer_grouped ? "checked" : "" %> data-conditional-option-checkbox />
+    <input type='checkbox' <%= @question_form.conditionals ? "checked" : "" %> data-conditional-option-checkbox />
     Conditionally show this question
     </label>
   </div>

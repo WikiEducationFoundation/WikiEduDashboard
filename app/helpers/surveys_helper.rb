@@ -74,13 +74,45 @@ module SurveysHelper
     answers = options[:answers]
     index = options[:index]
     answer = answers[index]
-    last_answer = answers[index - 1]
+    answer_group_question = answer.question.validation_rules[:grouped_question]
+    previous_answer = answers[index - 1]
+    previous_grouped_question = previous_answer.question.validation_rules[:grouped_question]
     if index == 0 && is_grouped_question(answer)
       return true
-    elsif is_grouped_question(answer) && !is_grouped_question(last_answer)
+    elsif is_grouped_question(answer) && !is_grouped_question(previous_answer)
+      return true
+    elsif is_grouped_question(answer) && !previous_question_in_same_group(answer, previous_answer)
       return true
     else
       return false
+    end
+
+  end
+
+  def previous_question_in_same_group(current, previous)
+    current.question.validation_rules[:grouped_question] == previous.question.validation_rules[:grouped_question]
+  end
+
+  def next_question_in_same_group(current, next_question)
+    return false if next_question.nil?
+    current.question.validation_rules[:grouped_question] == next_question.question.validation_rules[:grouped_question]
+  end
+
+  def end_of_group(answer, answer_group_builder, index)
+    total_questions = answer_group_builder.answers.length
+    grouped = is_grouped_question(answer)
+    is_last_question = grouped && index + 1 == total_questions
+    next_question = answer_group_builder.answers[index + 1]
+    next_is_same_group = next_question_in_same_group(answer, next_question)
+    next_isnt_grouped = !next_question.nil? && next_question.question.validation_rules[:grouped].to_i != 1
+    if is_last_question
+      return true
+    elsif !next_is_same_group
+      return true
+    elsif next_isnt_grouped
+      return true
+    else
+      false
     end
   end
 

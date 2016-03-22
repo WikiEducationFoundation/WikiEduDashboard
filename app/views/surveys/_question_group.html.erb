@@ -6,7 +6,7 @@
     <%- @answer_group_builder.answers.each_with_index do |answer, index| %>
     
     <% is_start_of_group = start_of_group(answers:@answer_group_builder.answers, index: index) %>
-    <% is_last_of_group = is_grouped_question(answer) && index + 1 == @answer_group_builder.answers.length %>
+    <% is_end_of_group = end_of_group(answer, @answer_group_builder, index) %>
     
     <% if is_start_of_group %>
       <div class="block not-seen disabled survey__question--matrix <%= question_type(answer) %>" data-survey-block='<%= index + 1 %>'>
@@ -25,13 +25,13 @@
         <% end %>
 
 
-          <div data-question-group="<%= question_group_index %>" class='survey__question-row <%= is_start_of_group ? "first" : "" %> <%= is_last_of_group ? "last" : "" %>'>
+          <div data-question-group="<%= question_group_index %>" class='survey__question-row <%= is_start_of_group ? "first" : "" %> <%= is_end_of_group ? "last" : "" %>'>
 
             <%= render_answer_form_helper(answer, answer_form) %>
           </div>
           
           <div data-errors></div>
-          <% if !is_grouped_question(answer) || is_last_of_group  || is_grouped_question(answer) && !is_grouped_question(@answer_group_builder.answers[index + 1]) %>
+          <% if !is_grouped_question(answer) || is_end_of_group  || is_grouped_question(answer) && !is_grouped_question(@answer_group_builder.answers[index + 1]) %>
             <% if has_follow_up_question(answer) %>
               <%= render partial: "rapidfire/answers/follow_up_question", locals: {f: answer_form, answer: answer} %>
             <% end %>
@@ -45,7 +45,7 @@
         <% end %>
       <% end %><!-- End of  fields_for -->
       
-    <% if is_grouped_question(answer) && index + 1 == @answer_group_builder.answers.length || is_grouped_question(answer) && !is_grouped_question(@answer_group_builder.answers[index + 1]) %></div><% end %>
+    <% if is_end_of_group %></div><% end %>
     
     <% end %><!-- End of  @answer_group_builder.answers.each_with_index -->
   </div>
