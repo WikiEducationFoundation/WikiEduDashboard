@@ -114,9 +114,18 @@ Details = React.createClass(
       _.pluck(@props.cohorts, 'title').join(', ')
     else 'None'
 
-    tags = if @props.tags.length > 0
-      _.pluck(@props.tags, 'tag').join(', ').replace(/_/g, ' ')
-    else 'None'
+
+    if @props.current_user.admin
+      tags_list = if @props.tags.length > 0
+        _.pluck(@props.tags, 'tag').join(', ').replace(/_/g, ' ')
+      else 'None'
+
+      tags = (
+        <div className='tags'>
+          <span>Tags: {tags_list}</span>
+          <TagButton {...@props} show={@props.editable} />
+        </div>
+      )
 
     <div className='module course-details'>
       <div className="section-header">
@@ -164,10 +173,7 @@ Details = React.createClass(
           <span>Cohorts: {cohorts}</span>
           <CohortButton {...@props} show={@props.editable && @props.current_user.admin && (@props.course.submitted || @props.course.legacy) } />
         </div>
-        <div className='tags'>
-          <span>Tags: {tags}</span>
-          <TagButton {...@props} show={@props.editable && @props.current_user.admin} />
-        </div>
+        {tags}
       </div>
     </div>
 )
