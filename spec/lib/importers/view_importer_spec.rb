@@ -49,7 +49,7 @@ describe ViewImporter do
                          views_updated_at: Date.today - 2.days)
 
         # Update again with this article.
-        expect(WikiPageviews).to receive(:new).and_call_original
+        allow(WikiPageviews).to receive(:new).and_call_original
         ViewImporter.update_all_views
       end
     end
