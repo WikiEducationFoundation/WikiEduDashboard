@@ -10,7 +10,9 @@ class ArticleImporter
     article_ids = ids.map { |id| { 'mw_page_id' => id } }
     articles_data = []
     article_ids.each_slice(40) do |some_article_ids|
-      articles_data += Replica.new(@wiki).get_existing_articles_by_id some_article_ids
+      some_article_data = Replica.new(@wiki).get_existing_articles_by_id some_article_ids
+      next if some_article_data.nil?
+      articles_data += some_article_data
     end
     return if articles_data.empty?
     articles = []
