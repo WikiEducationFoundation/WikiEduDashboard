@@ -1,16 +1,22 @@
 #= Adds and removes tags to/from courses
 class TagManager
-  # tested via courses_controller
-
-  def initialize(course, request)
+  def initialize(course)
     @course = course
+  end
+
+  def manage(request)
     @request = request
     @params = request.request_parameters
     @tag_params = @params[:tag]
+    send("handle_#{@request.request_method.downcase}")
   end
 
-  def manage
-    send("handle_#{@request.request_method.downcase}")
+  def initial_tags(creator:)
+    tag = creator.returning_instructor? ? 'returning_instructor' : 'first_time_instructor'
+    create_attrs = { course_id: @course.id,
+                     tag: tag,
+                     key: 'course_creator' }
+    Tag.create(create_attrs)
   end
 
   private
