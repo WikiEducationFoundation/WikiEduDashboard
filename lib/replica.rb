@@ -96,7 +96,7 @@ class Replica
     oauth_tags = compile_oauth_tags
     oauth_tags = oauth_tags.blank? ? oauth_tags : "&#{oauth_tags}"
     query = user_list + oauth_tags + "&start=#{rev_start}&end=#{rev_end}"
-    api_get('revisions_by_user_id.php', query)
+    api_get('revisions.php', query)
   end
 
   # Given a list of users, fetch their global_id and trained status. Completion
