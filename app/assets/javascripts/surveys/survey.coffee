@@ -1,4 +1,4 @@
-Survey              = require './modules/Survey.coffee'
+Survey = require './modules/Survey.coffee'
 
 $ ->
   Survey.init()

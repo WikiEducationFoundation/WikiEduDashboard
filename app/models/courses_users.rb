@@ -32,6 +32,7 @@ class CoursesUsers < ActiveRecord::Base
   ####################
   # CONSTANTS        #
   ####################
+
   module Roles
     VISITOR_ROLE          = -1
     STUDENT_ROLE          = 0

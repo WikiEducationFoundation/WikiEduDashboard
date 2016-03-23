@@ -17,6 +17,7 @@ class Cohort < ActiveRecord::Base
   has_many :students, -> { uniq }, through: :courses
   has_many :instructors, -> { uniq }, through: :courses
   has_many :nonstudents, -> { uniq }, through: :courses
+  has_and_belongs_to_many :survey_assignments
 
   ####################
   # Instance methods #

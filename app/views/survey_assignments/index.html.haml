@@ -1,0 +1,19 @@
+%h1 Listing survey_assignments
+
+%table
+  %thead
+    %tr
+      %th
+      %th
+      %th
+
+  %tbody
+    - @survey_assignments.each do |survey_assignment|
+      %tr
+        %td= link_to 'Show', survey_assignment
+        %td= link_to 'Edit', edit_survey_assignment_path(survey_assignment)
+        %td= link_to 'Destroy', survey_assignment, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Survey assignment', new_survey_assignment_path

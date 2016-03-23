@@ -11,13 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160317225947) do
+ActiveRecord::Schema.define(version: 20160323164356) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title",                    limit: 255
     t.integer  "views",                    limit: 8,   default: 0
-    t.datetime "updated_at"
     t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "character_sum",            limit: 4,   default: 0
     t.integer  "revision_count",           limit: 4,   default: 0
     t.date     "views_updated_at"
@@ -45,10 +45,10 @@ ActiveRecord::Schema.define(version: 20160317225947) do
   create_table "assignments", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "article_title", limit: 255
     t.integer  "user_id",       limit: 4
     t.integer  "course_id",     limit: 4
     t.integer  "article_id",    limit: 4
+    t.string   "article_title", limit: 255
     t.integer  "role",          limit: 4
     t.integer  "wiki_id",       limit: 4
   end
@@ -82,6 +82,14 @@ ActiveRecord::Schema.define(version: 20160317225947) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "cohorts_survey_assignments", id: false, force: :cascade do |t|
+    t.integer "survey_assignment_id", limit: 4
+    t.integer "cohort_id",            limit: 4
+  end
+
+  add_index "cohorts_survey_assignments", ["cohort_id"], name: "index_cohorts_survey_assignments_on_cohort_id", using: :btree
+  add_index "cohorts_survey_assignments", ["survey_assignment_id"], name: "index_cohorts_survey_assignments_on_survey_assignment_id", using: :btree
 
   create_table "commons_uploads", force: :cascade do |t|
     t.integer  "user_id",     limit: 4
@@ -216,9 +224,9 @@ ActiveRecord::Schema.define(version: 20160317225947) do
     t.datetime "date"
     t.boolean  "new_article",                default: false
     t.boolean  "deleted",                    default: false
-    t.boolean  "system",                     default: false
     t.float    "wp10",           limit: 24
     t.float    "wp10_previous",  limit: 24
+    t.boolean  "system",                     default: false
     t.integer  "ithenticate_id", limit: 4
     t.string   "report_url",     limit: 255
     t.integer  "wiki_id",        limit: 4
@@ -227,6 +235,23 @@ ActiveRecord::Schema.define(version: 20160317225947) do
   end
 
   add_index "revisions", ["article_id", "date"], name: "index_revisions_on_article_id_and_date", using: :btree
+
+  create_table "survey_assignments", force: :cascade do |t|
+    t.integer  "courses_user_role",     limit: 4
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
+    t.integer  "send_date_days",        limit: 4
+    t.boolean  "send_before",                       default: true
+    t.string   "send_date_relative_to", limit: 255
+  end
+
+  create_table "survey_assignments_surveys", id: false, force: :cascade do |t|
+    t.integer "survey_assignment_id", limit: 4
+    t.integer "survey_id",            limit: 4
+  end
+
+  add_index "survey_assignments_surveys", ["survey_assignment_id"], name: "index_survey_assignments_surveys_on_survey_assignment_id", using: :btree
+  add_index "survey_assignments_surveys", ["survey_id"], name: "index_survey_assignments_surveys_on_survey_id", using: :btree
 
   create_table "surveys", force: :cascade do |t|
     t.string   "name",         limit: 255
