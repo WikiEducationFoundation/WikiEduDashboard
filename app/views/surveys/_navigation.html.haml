@@ -1,0 +1,6 @@
+- if can_administer?
+  .survey__admin__nav
+    %ul.container
+      %li= link_to 'Create New Survey', new_survey_path, class: class_for_path(request, new_survey_path)
+      %li= link_to 'Question Groups', rapidfire.question_groups_path, class: class_for_path(request, rapidfire.question_groups_path)
+      %li= link_to 'Assignment', survey_assignments_path, class: class_for_path(request, survey_assignments_path)

@@ -1,7 +1,7 @@
 body.survey-page
   .survey__edit,
   .survey__admin
-    max-width 800px
+    // max-width 800px
     .block
       max-width 100%
     
@@ -12,12 +12,25 @@ body.survey-page
     margin-bottom $spacer * 4
 
 .survey__admin__nav
-  list-style none
-  text-align center
+  overflow hidden
+  background darken(manatee, 10%)
+  
+  ul
+    list-style none
+
   li
-    display inline-block
+    float left
+    margin 0
+    border-right darken(manatee, 25%) 1px solid
+    
   a
     color white
+    padding $spacer
+    display block
+    text-decoration none
+    &.active
+      background darken(manatee, 25%)
+    
 
 .survey__admin
   trix-editor

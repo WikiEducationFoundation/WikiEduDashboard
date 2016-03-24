@@ -9,6 +9,7 @@ describe ApplicationHelper, type: :helper do
   end
 
   describe '#class_for_path' do
+    # class_for_path(req, path)
     let(:req) { OpenStruct.new(path: req_path) }
     let(:link_path) { '/explore' }
     subject { class_for_path(req, link_path) }
@@ -29,6 +30,13 @@ describe ApplicationHelper, type: :helper do
       context 'sub path' do
         let(:req_path) { '/explore/sub-link' }
         it 'returns `active`' do
+          expect(subject).to eq('active')
+        end
+      end
+      context 'add active to sub path link' do
+        let(:req_path) { '/explore/sub-link' }
+        let(:link_path) { '/explore/sub-link' }
+        it 'returns `active` for subpath link' do
           expect(subject).to eq('active')
         end
       end

@@ -2,7 +2,7 @@ module SurveysHelper
   
   def survey_page(request)
     root_path = request.path.split('/')[1] 
-    ["surveys", "rapidfire"].include? rootpath
+    ["surveys", "rapidfire", "survey_assignments"].include? rootpath
   end
 
   def render_answer_form_helper(answer, form)
