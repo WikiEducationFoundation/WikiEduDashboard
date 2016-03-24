@@ -2,6 +2,8 @@
   = f.error_notification
 
   .form-inputs
+    = f.association :cohorts, as: :radio_buttons
+    = f.association :surveys, as: :radio_buttons
 
   .form-actions
-    = f.button :submit
+    = f.button :submit, :class => "button dark"

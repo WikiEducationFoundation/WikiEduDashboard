@@ -1,6 +1,6 @@
 class SurveyAssignmentsController < ApplicationController
   before_action :set_survey_assignment, only: [:show, :edit, :update, :destroy]
-
+  layout 'surveys'
   # GET /survey_assignments
   # GET /survey_assignments.json
   def index
@@ -69,6 +69,6 @@ class SurveyAssignmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def survey_assignment_params
-      params.fetch(:survey_assignment, {})
+      params.require(:survey_assignment).permit(:survey_ids, :cohort_ids)
     end
 end

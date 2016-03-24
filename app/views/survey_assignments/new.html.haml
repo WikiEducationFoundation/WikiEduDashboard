@@ -1,5 +1,6 @@
-%h1 New survey_assignment
+.container.survey__admin
+  .section-header
+    %h1 New Survey Assignment
 
-= render 'form'
-
-= link_to 'Back', survey_assignments_path
+  .survey__questions-list
+    = render 'form'
