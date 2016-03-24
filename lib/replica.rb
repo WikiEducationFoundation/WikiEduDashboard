@@ -92,7 +92,7 @@ class Replica
     # TODO: query by username instead of (local home wiki) user_id, or query by
     # global id. This will be necessary to pull revision data for a user on
     # any wiki except their home wiki where we have their local user_id.
-    user_list = compile_user_ids_query(users)
+    user_list = compile_usernames_query(users)
     oauth_tags = compile_oauth_tags
     oauth_tags = oauth_tags.blank? ? oauth_tags : "&#{oauth_tags}"
     query = user_list + oauth_tags + "&start=#{rev_start}&end=#{rev_end}"
@@ -105,7 +105,7 @@ class Replica
   # [[Wikipedia:Training/For students/Training feedback]]
   def get_user_info(users)
     # TODO: switch to usernames to make queries wiki-agnostic.
-    query = compile_user_ids_query(users)
+    query = compile_usernames_query(users)
     if ENV['training_page_id']
       query = "#{query}&training_page_id=#{ENV['training_page_id']}"
     end
@@ -196,11 +196,8 @@ class Replica
     raw_url
   end
 
-  # Compile a user id list to send to the replica endpoint, which might look
-  # something like this:
-  # "user_ids[]=572345&user_ids[]=102256"
-  def compile_user_ids_query(users)
-    { user_ids: users.map(&:id) }.to_query
+  def compile_usernames_query(users)
+    { usernames: users.map(&:username) }.to_query
   end
 
   def compile_oauth_tags

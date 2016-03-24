@@ -69,11 +69,11 @@ describe Replica do
     it 'returns training status' do
       VCR.use_cassette 'replica/training' do
         all_users = [
-          { 'id' => '22905965' }, # has not completed
-          { 'id' => '319203' }, # has completed
-          { 'id' => '23011474' }, # has not completed
-          { 'id' => '4543197' }, # has completed
-          { 'id' => '21515199' } # has completed
+          { 'username' => 'ELE427' }, # has not completed
+          { 'username' => 'Ragesoss' }, # has completed
+          { 'username' => 'Mrbauer1234' }, # has not completed
+          { 'username' => "Jack's nomadic mind" }, # has completed
+          { 'username' => 'Sage (Wiki Ed)' } # has completed
         ]
         all_users.each_with_index do |u, i|
           all_users[i] = OpenStruct.new u
@@ -87,24 +87,15 @@ describe Replica do
     it 'returns global ids' do
       VCR.use_cassette 'replica/training' do
         all_users = [
-          { 'id' => '319203' },
-          { 'id' => '4543197' }
+          { 'username' => 'Ragesoss' },
+          { 'username' => 'Ragesock' }
         ]
         all_users.each_with_index do |u, i|
           all_users[i] = OpenStruct.new u
         end
         response = Replica.new.get_user_info(all_users)
-        expect(response[0]['global_id']).to eq('827')
-        expect(response[1]['global_id']).to eq('14093230')
-      end
-    end
-
-    it 'updates usernames after name changes' do
-      VCR.use_cassette 'replica/training' do
-        create(:user, username: 'old_username')
-        expect(User.all.first.username).to eq('old_username')
-        response = Replica.new.get_user_info User.all
-        expect(response[0]['wiki_id']).to eq('Ragesock')
+        expect(response[1]['global_id']).to eq('827')
+        expect(response[0]['global_id']).to eq('14093230')
       end
     end
 
