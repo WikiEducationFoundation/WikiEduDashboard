@@ -117,7 +117,8 @@ class RevisionScoreImporter
     typical_errors = [Errno::ETIMEDOUT,
                       Net::ReadTimeout,
                       Errno::ECONNREFUSED,
-                      JSON::ParserError]
+                      JSON::ParserError,
+                      Errno::EHOSTUNREACH]
     raise error unless typical_errors.include?(error.class)
     return {}
   end
