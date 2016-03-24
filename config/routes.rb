@@ -90,6 +90,7 @@ Rails.application.routes.draw do
   end
 
   # Reports and analytics
+  get 'analytics/training_completion' => 'analytics#training_completion'
   get 'analytics(/*any)' => 'analytics#index'
   post 'analytics(/*any)' => 'analytics#results'
 
