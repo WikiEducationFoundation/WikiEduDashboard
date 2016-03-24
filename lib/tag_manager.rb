@@ -8,6 +8,7 @@ class TagManager
     @request = request
     @params = request.request_parameters
     @tag_params = @params[:tag]
+    @tag_params[:course_id] = @course.id
     send("handle_#{@request.request_method.downcase}")
   end
 
@@ -23,8 +24,7 @@ class TagManager
 
   def handle_post
     return if Tag.find_by(@tag_params).present?
-    create_attrs = { course_id: @course.id }.merge(@tag_params)
-    Tag.create(create_attrs)
+    Tag.create(@tag_params)
   end
 
   def handle_delete
