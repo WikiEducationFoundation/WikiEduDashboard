@@ -22,7 +22,7 @@ class AnalyticsController < ApplicationController
 
   def training_completion
     @courses = Course.current.where('user_count > ?', 0)
-                     .sort_by { |course| course.trained_count.to_f / course.user_count }
+                     .sort_by { |course| [course.trained_count - course.user_count, course.trained_count] }
   end
 
   ###################
