@@ -33,7 +33,7 @@ describe ApplicationHelper, type: :helper do
           expect(subject).to eq('active')
         end
       end
-      context 'add active to sub path link' do
+      context 'two sub path links' do
         let(:req_path) { '/explore/sub-link' }
         let(:link_path) { '/explore/sub-link' }
         it 'returns `active` for subpath link' do

@@ -2,7 +2,9 @@ require 'rails_helper'
 
 RSpec.describe SurveyAssignment, type: :model do
   before(:each) do
-    @survey_assignment = create(:survey_assignment)
+    @survey_assignment = create(:survey_assignment, )
+    @survey_assignment.surveys << create(:survey)
+    @survey_assignment.cohorts << create(:cohort)
   end
 
   it "has one Survey" do

@@ -27,7 +27,14 @@ FactoryGirl.define do
     factory :q_short, :class => "Rapidfire::Questions::Short" do
     end
 
+    rangeinput_params = {
+      :range_minimum  => "0",
+      :range_maximum  => "100",
+      :range_increment    => "5",
+      :range_format    => "%"
+    }
     factory :q_rangeinput, :class => "Rapidfire::Questions::RangeInput" do
+      validation_rules rangeinput_params
     end
   end
 end
