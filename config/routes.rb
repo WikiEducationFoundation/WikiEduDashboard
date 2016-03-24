@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   # Self-enrollment: joining a course by entering a passcode or visiting a url
   get 'courses/:course_id/enroll/:passcode' => 'self_enrollment#enroll_self',
       constraints: { course_id: /.*/ }
-      
+
   # Courses
   controller :courses do
     get 'courses/*id/get_wiki_top_section' => 'courses#get_wiki_top_section',
@@ -84,7 +84,7 @@ Rails.application.routes.draw do
   resources :courses_users, only: [:index]
 
   # Article Finder
-  if ENV['enable_article_finder'] == 'true'
+  if Features.enable_article_finder?
     get 'article_finder(/*any)' => 'article_finder#index'
     post 'article_finder(/*any)' => 'article_finder#results'
   end
@@ -155,7 +155,7 @@ Rails.application.routes.draw do
   resources :surveys
   get '/surveys/select_course/:id' => 'surveys#course_select'
   mount Rapidfire::Engine => "/rapidfire", :as => 'rapidfire'
-  
+
 
   # Onboarding
   get 'onboarding(/*any)' => 'onboarding#index', as: :onboarding

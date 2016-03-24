@@ -43,7 +43,7 @@ namespace :batch do
       start = Time.zone.now
       Rails.logger.info 'Constant update tasks are beginning.'
 
-      Rake::Task['legacy_course:update_courses'].invoke if ENV['enable_legacy_courses'] == 'true'
+      Rake::Task['legacy_course:update_courses'].invoke if Features.enable_legacy_courses?
       Rake::Task['user:update_users'].invoke
       Rake::Task['revision:update_revisions'].invoke
       Rake::Task['revision:update_revision_scores'].invoke

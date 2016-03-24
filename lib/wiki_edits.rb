@@ -91,7 +91,7 @@ class WikiEdits
   private
 
   def api_post(data, current_user)
-    return {} if ENV['disable_wiki_output'] == 'true'
+    return {} if Features.disable_wiki_output?
     tokens = get_tokens(current_user)
     return tokens unless tokens['csrf_token']
     data.merge! token: tokens.csrf_token

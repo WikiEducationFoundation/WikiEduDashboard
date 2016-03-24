@@ -9,12 +9,12 @@
       - if current_user && current_user.admin?
         %li= link_to t('application.recent_activity'), recent_activity_path, class: class_for_path(request, recent_activity_path)
         %li= link_to 'Surveys', surveys_path, class: class_for_path(request, surveys_path)
-      - unless ENV['disable_training'] == 'true'
+      - unless Features.disable_training?
         %li= link_to t('application.training'), training_path, class: class_for_path(request, training_path)
-      - unless ENV['disable_help'] == 'true'
+      - unless Features.disable_help?
         %li= link_to t('application.help'), '/ask', target: '_blank'
     - if user_signed_in?
-      - unless ENV['disable_help'] == 'true'
+      - unless Features.disable_help?
         .top-nav__faq-search
           = form_tag("/ask", method: "get", target: '_blank') do
             = text_field_tag(:q, '', placeholder: t('application.search'))

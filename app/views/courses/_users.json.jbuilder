@@ -6,7 +6,7 @@ json.users course.courses_users.eager_load(:user) do |cu|
   json.admin cu.user.permissions == User::Permissions::ADMIN
   json.recent_revisions RevisionStat.recent_revisions_for_user_and_course(cu.user, cu.course).count
 
-  unless ENV['disable_training'] == 'true'
+  unless Features.disable_training?
     ctp_manager = CourseTrainingProgressManager.new(cu.user, cu.course)
     json.course_training_progress ctp_manager.course_training_progress
     json.modules_overdue ctp_manager.first_overdue_module.present?
