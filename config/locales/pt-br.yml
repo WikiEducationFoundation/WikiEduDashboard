@@ -4,27 +4,40 @@
 # Author: AndroidOSUser
 # Author: Caçador de Palavras
 # Author: HenriqueCrang
+# Author: Luk3
 # Author: Macofe
 # Author: Raphaelras
 ---
 pt-br:
   application:
+    cancel: Cancelar
     dashboard: Painel do Wiki Ed
     explore: Explorar
+    greeting2: Bem-vindo(a)!
+    greeting_extended: Bem-vindo à Wikipédia
+    greeting: Olá!
     help: Ajuda
     home: Início
+    log_in_extended: Entrar na Wikipédia
     log_in: Entrar
     log_out: Sair
     my_dashboard: Meu painel
     recent_activity: Atividade recente
     search: Buscar em ask.wikiedu.org
+    sign_up_extended: Registrar-se na Wikipédia
     sign_up_log_in_extended: pela Wikipédia
     sign_up: Criar conta
+    submit: Enviar
     training: Treinamento
   dashboard:
+    create_note: Clique em Criar Curso para criar seu primeiro curso.
     explore_course_pages: Explorar Páginas de Cursos
     explore_examples: Explorar Exemplos
+    no_courses_instructor: Parece que você não tem nenhum curso.
     opt_out: Requisitar sair da orientação
+    orientation_notice: Antes de criar um curso, vamos passar pela orientação para
+      ajudá-lo a começar (Leva aproximadamente 30 minutos para completar.)
+    start_orientation: Começar Orientação
   home:
     explore: Explorar
     log_in: Entrar pela Wikipédia
@@ -32,13 +45,15 @@ pt-br:
   activity:
     all: Atividade
     edited_by: Editado por
+    label: Atividade
   articles:
     assigned: Artigos atribuídos
     assigned_to: Atribuído a
-    character_doc: A soma de caracteres adicionados a artigos por os alunos do curso
-      durante a vigência do curso.
+    character_doc: A soma de caracteres adicionados a artigos por editores inscritos
+      durante as datas de começo e fim
     edited: Artigos editados
     edited_mobile: Artigos
+    label: Artigos
     loading: Carregando artigos...
     no_assignee: Nenhum usuário atribuído
     none: Este curso não editou nenhum artigo.
@@ -55,7 +70,7 @@ pt-br:
   courses:
     activity: Atividade
     articles: Artigos
-    course_description: Cursos do Wiki Ed
+    course_description: Cursos
     courses: Cursos
     current: Cursos atuais
     duration: Duração do curso

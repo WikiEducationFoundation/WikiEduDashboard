@@ -271,6 +271,13 @@ es:
     user: Espacio de usuarios
     user_char_added: Caracteres añadidos en el espacio de usuarios
     user_ns: Usuario
+  recent_activity:
+    show_courses: Mostrar sólo mis cursos
+    no_plagiarism: Actualmente no hay ninguna revisión reciente sospechada de plagio.
+    no_edits: No hay ninguna edición reciente.
+    refresh_plagiarism: Actualizar informes de plagios
+    possible_plagiarism: Posible plagio
+    recent_edits: Ediciones recientes
   revisions:
     chars_added: Caracteres añadidos
     class: Clase

@@ -4,7 +4,43 @@
 # Author: פוילישער
 ---
 yi:
+  application:
+    cancel: אַנולירן
+    explore: אנטדעקן
+    greeting2: ברוך הבא!
+    greeting_extended: ברוך הבא צו וויקיפעדיע
+    greeting: האלא!
+    help: הילף
+    home: היים
+    log_in_extended: אַרײַנלאגירן צו וויקיפעדיע
+    log_in: אַרײנלאגירן
+    log_out: אַרויסלאָגירן
+    my_dashboard: מיין איבערזיכט־טאוול
+    recent_activity: לעצטיקע אקטיוויטעטן
+    search: זוכן ask.wikiedu.org
+    sign_up_extended: אַרײַנלאגירן צו וויקיפעדיע
+    sign_up_log_in_extended: מיט וויקיפעדיע
+    sign_up: אײַנשרייבן
+    submit: איינגעבן
+  home:
+    explore: אויספארשן
+    log_in: אַרײנלאגירן צו וויקיפעדיע
+    sign_up: אַרײנלאגירן צו וויקיפעדיע
+  activity:
+    all: אקטיוויטעט
+    edited_by: רעדאקטירט דורך
+    label: אקטיוויטעט
+  articles:
+    edited_mobile: אַרטיקלען
+    label: אַרטיקלען
+    loading: אנלאדן ארטיקלען…
+    rating: קלאס
+    title: טיטל
+    title_example: ארטיקל־טיטל
+  cohort:
+    none: קיין
   courses:
+    articles: אַרטיקלען
     creator:
       end_date: סוף דאַטע
       find: טרעפט אייער קורס
