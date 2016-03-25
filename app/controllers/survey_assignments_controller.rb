@@ -24,12 +24,13 @@ class SurveyAssignmentsController < ApplicationController
   # POST /survey_assignments
   # POST /survey_assignments.json
   def create
+    binding.pry
     @survey_assignment = SurveyAssignment.new(survey_assignment_params)
 
     respond_to do |format|
       if @survey_assignment.save
-        format.html { redirect_to @survey_assignment, notice: 'Survey assignment was successfully created.' }
-        format.json { render :show, status: :created, location: @survey_assignment }
+        format.html { redirect_to survey_assignments_path, notice: 'Survey assignment was successfully created.' }
+        format.json { render :show, status: :created, location: @survey_assignments }
       else
         format.html { render :new }
         format.json { render json: @survey_assignment.errors, status: :unprocessable_entity }
@@ -42,8 +43,8 @@ class SurveyAssignmentsController < ApplicationController
   def update
     respond_to do |format|
       if @survey_assignment.update(survey_assignment_params)
-        format.html { redirect_to @survey_assignment, notice: 'Survey assignment was successfully updated.' }
-        format.json { render :show, status: :ok, location: @survey_assignment }
+        format.html { redirect_to survey_assignments_path, notice: 'Survey assignment was successfully updated.' }
+        format.json { render :show, status: :ok, location: @survey_assignments }
       else
         format.html { render :edit }
         format.json { render json: @survey_assignment.errors, status: :unprocessable_entity }
@@ -69,6 +70,6 @@ class SurveyAssignmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def survey_assignment_params
-      params.require(:survey_assignment).permit(:survey_ids, :cohort_ids)
+      params.require(:survey_assignment).permit(:survey_id,:cohort_ids)
     end
 end

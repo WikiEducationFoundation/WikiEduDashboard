@@ -1,6 +1,7 @@
 .sort
   cursor pointer
-  &.asc > p:after, &.desc > p:after
+  &.asc > p:after, 
+  &.desc > p:after
     display inline-block
     content '\EA01'
     vertical-align middle
@@ -13,6 +14,7 @@
     transform rotate(180deg)
   &.desc p:after
     transform rotate(0deg)
+    
 .list__header
   background-color transparent !important
   border 0 !important

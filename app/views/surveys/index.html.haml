@@ -6,10 +6,10 @@
     - if can_administer?
       = link_to "New Survey", new_survey_path, :class => 'button button--no-margin'
   %hr/
-  - if @surveys.length
+  - if @surveys.length > 0
     %ul.list.list--survey= render partial: "survey", collection: @surveys
   - else
-    %p
+    %p.light-text
       No Surveys. #{link_to "Create One", new_survey_path}
 
   

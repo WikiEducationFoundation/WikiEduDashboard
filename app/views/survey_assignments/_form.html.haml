@@ -1,9 +1,6 @@
 = simple_form_for(@survey_assignment) do |f|
-  = f.error_notification
-
-  .form-inputs
-    = f.association :cohorts, as: :radio_buttons
-    = f.association :surveys, as: :radio_buttons
-
-  .form-actions
+  .block.survey-assignments.block--clear
+    = f.error_notification
+    = f.association :cohorts, as: :check_boxes
+    = f.association :survey, as: :radio_buttons
     = f.button :submit, :class => "button dark"

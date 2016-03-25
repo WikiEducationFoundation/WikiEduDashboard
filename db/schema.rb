@@ -241,17 +241,12 @@ ActiveRecord::Schema.define(version: 20160323164356) do
     t.datetime "created_at",                                       null: false
     t.datetime "updated_at",                                       null: false
     t.integer  "send_date_days",        limit: 4
+    t.integer  "survey_id",             limit: 4
     t.boolean  "send_before",                       default: true
     t.string   "send_date_relative_to", limit: 255
   end
 
-  create_table "survey_assignments_surveys", id: false, force: :cascade do |t|
-    t.integer "survey_assignment_id", limit: 4
-    t.integer "survey_id",            limit: 4
-  end
-
-  add_index "survey_assignments_surveys", ["survey_assignment_id"], name: "index_survey_assignments_surveys_on_survey_assignment_id", using: :btree
-  add_index "survey_assignments_surveys", ["survey_id"], name: "index_survey_assignments_surveys_on_survey_id", using: :btree
+  add_index "survey_assignments", ["survey_id"], name: "index_survey_assignments_on_survey_id", using: :btree
 
   create_table "surveys", force: :cascade do |t|
     t.string   "name",         limit: 255

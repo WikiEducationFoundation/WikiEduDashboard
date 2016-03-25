@@ -1,15 +1,30 @@
-%li.row.course-list__row
-  .row__wrapper
-    %div
-      %div
-        %strong Survey Assigment #{survey_assignment_counter + 1}
-      %div
-        %strong Survey: 
-        %span= survey_assignment.surveys.first.name
-      %div
-        %strong Cohort: 
-        %span= survey_assignment.cohorts.first.title
-    %div
-      .course-list__col= link_to 'Show', survey_assignment
-      .course-list__col= link_to 'Edit', edit_survey_assignment_path(survey_assignment)
-      .course-list__col= link_to 'Destroy', survey_assignment, :method => :delete, :data => { :confirm => 'Are you sure?' }
+%li.block.survey-assignment__row
+
+  %div
+    %strong Survey Assigment #{survey_assignment_counter + 1}
+  %div
+    %strong Survey:
+    %span= survey_assignment.survey.name
+  %div
+    %strong Cohort: 
+    %span= survey_assignment.cohorts.first.title
+  %div
+    = link_to 'Show', survey_assignment
+    = link_to 'Edit', edit_survey_assignment_path(survey_assignment)
+    = link_to 'Destroy', survey_assignment, :method => :delete, :data => { :confirm => 'Are you sure?' }
+  %div{:data => {:sortable_courses => true}}
+    
+    %table.survey-assignment__courses
+      %thead
+        %tr
+          %th
+            %button{:class => 'sort', :data => {:sort => 'title'}} Title
+          %th
+            %button{:class => 'sort', :data => {:sort => 'id'}} Id
+            
+      %tbody.list
+        - survey_assignment.cohorts.each do |cohort|
+          - cohort.courses.each do |course|
+            %tr
+              %td{ :class => 'title' }= pretty_course_title(course)
+              %td{ :class => 'id' }= course.id
