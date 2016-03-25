@@ -7,7 +7,10 @@
 
     .form__row
       %h4 Distribution Target
-      = f.association :cohorts
+      = f.select(:cohorts, options_from_collection_for_select(Cohort.all, 'id', 'title'), :include_blank => "Select Cohorts", :required => true, :multiple => true,  :data => { :chosen_select => true} 
+      / # = select_tag :cohort, options_from_collection_for_select(), :multiple => true, :required => true, :data => {:chosen_select => true, :placeholder => "Select Cohorts"})
+      / = f.select_tag :cohorts, Cohort.all.map {|c| [c.title, c.id]}, :data => {:chosen_select => true}
+      / = f.association :cohorts, :data => {:chosen_select => true}
       = f.label :courses_user_role
       = user_role_select(f)
 

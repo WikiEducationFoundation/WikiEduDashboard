@@ -37,7 +37,7 @@ class ApplicationController < ActionController::Base
 
   def check_onboarded
     return unless current_user
-    return if ENV['disable_onboarding'] == 'true' || current_user.onboarded
+    return if Features.disable_onboarding? || current_user.onboarded
     full_path = request.fullpath
     non_redirect_paths = [onboarding_path,
                           onboard_path,

@@ -54,17 +54,6 @@ class Wiki < ActiveRecord::Base
     "#{base_url}/w/api.php"
   end
 
-  # Return the database name for a Wikimedia project wiki.
-  # FIXME: Only vaguely correct for most languages.
-  def db_name
-    short_project = project
-    if project == 'wikipedia'
-      short_project = 'wiki'
-    end
-    encoded_language = language.tr('-', '_')
-    "#{encoded_language}#{short_project}"
-  end
-
   def self.default_wiki
     # FIXME: Deprecate immediately--this is just a transitional method that allows
     # us to leave some multiwiki support undone in the UI, and the User and Course models.

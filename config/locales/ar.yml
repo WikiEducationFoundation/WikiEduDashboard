@@ -1,6 +1,7 @@
 # Messages for Arabic (العربية)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Ayatun
 # Author: Haytham morsy
 # Author: Maroen1990
 # Author: Shbib Al-Subaie
@@ -79,6 +80,7 @@ ar:
   recent_activity:
     show_courses: أظهر مساقاتي فقط
     no_edits: لا توجد تعديلات حديثة.
+    did_you_know_eligible: هل تعلم مؤهَّل
     recent_edits: تعديلات حديثة
   revisions:
     class: رتبة

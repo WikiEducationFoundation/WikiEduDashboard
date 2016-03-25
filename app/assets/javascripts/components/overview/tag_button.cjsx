@@ -9,7 +9,7 @@ tags = (props, remove) ->
   props.tags.map (tag) =>
     remove_button = (
       <button className='button border plus' onClick={remove.bind(null, tag.id)}>-</button>
-    ) unless tag.key?
+    )
     <tr key={tag.id + '_tag'}>
       <td>{tag.tag}{remove_button}</td>
     </tr>

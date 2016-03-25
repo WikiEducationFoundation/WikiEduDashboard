@@ -18,11 +18,13 @@ class CoursesController < ApplicationController
     overrides = {}
     overrides[:passcode] = Course.generate_passcode
     overrides[:type] = ENV['default_course_type'] if ENV['default_course_type']
+    overrides[:cohorts] = [Cohort.default_cohort] if Features.open_course_creation?
     @course = Course.create(course_params.merge(overrides))
     handle_timeline_dates
     CoursesUsers.create(user: current_user,
                         course: @course,
                         role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+    tag_new_course
   end
 
   def update
@@ -116,7 +118,7 @@ class CoursesController < ApplicationController
 
   def tag
     @course = find_course_by_slug(params[:id])
-    TagManager.new(@course, request).manage
+    TagManager.new(@course).manage(request)
   end
 
   def manual_update
@@ -166,11 +168,13 @@ class CoursesController < ApplicationController
 
   def slug_from_params(course = params[:course])
     slug = "#{course[:school]}/#{course[:title]}"
-    if !course[:term].blank?
-      slug << "_(#{course[:term]})"
-    end
+    slug << "_(#{course[:term]})" unless course[:term].blank?
 
     course[:slug] = slug.tr(' ', '_')
+  end
+
+  def tag_new_course
+    TagManager.new(@course).initial_tags(creator: current_user)
   end
 
   def course_params

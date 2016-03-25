@@ -52,4 +52,8 @@ class Cohort < ActiveRecord::Base
       Rails.logger.info "Created cohort #{cohort}."
     end
   end
+
+  def self.default_cohort
+    find_by(slug: ENV['default_cohort'])
+  end
 end

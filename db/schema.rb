@@ -248,6 +248,14 @@ ActiveRecord::Schema.define(version: 20160323164356) do
 
   add_index "survey_assignments", ["survey_id"], name: "index_survey_assignments_on_survey_id", using: :btree
 
+  create_table "survey_assignments_surveys", id: false, force: :cascade do |t|
+    t.integer "survey_assignment_id", limit: 4
+    t.integer "survey_id",            limit: 4
+  end
+
+  add_index "survey_assignments_surveys", ["survey_assignment_id"], name: "index_survey_assignments_surveys_on_survey_assignment_id", using: :btree
+  add_index "survey_assignments_surveys", ["survey_id"], name: "index_survey_assignments_surveys_on_survey_id", using: :btree
+
   create_table "surveys", force: :cascade do |t|
     t.string   "name",         limit: 255
     t.datetime "created_at",                                 null: false

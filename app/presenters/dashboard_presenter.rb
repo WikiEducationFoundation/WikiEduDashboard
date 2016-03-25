@@ -47,6 +47,7 @@ class DashboardPresenter
   end
 
   def can_create_course?
+    return true if Features.open_course_creation?
     return true if is_admin?
     # Instructors who have completed orientation OR have
     # already created a course are allowed to create new courses
@@ -81,7 +82,7 @@ class DashboardPresenter
 
   # Determine if an instructor has completed orientation
   def instructor_has_completed_orientation?
-    return true if ENV['disable_onboarding'] == 'true'
+    return true if Features.disable_onboarding?
     TrainingModulesUsers
       .where(training_module_id: ORIENTATION_ID)
       .where(user_id: current_user.id)
