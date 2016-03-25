@@ -12,6 +12,13 @@ class TagManager
     send("handle_#{@request.request_method.downcase}")
   end
 
+  def add(tag:, key: nil)
+    create_attrs = { course_id: @course.id,
+                     tag: tag,
+                     key: key }
+    Tag.create(create_attrs)
+  end
+
   def initial_tags(creator:)
     tag = creator.returning_instructor? ? 'returning_instructor' : 'first_time_instructor'
     create_attrs = { course_id: @course.id,
