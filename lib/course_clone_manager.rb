@@ -19,7 +19,7 @@ class CourseCloneManager
 
   def sanitize_clone_info
     @clone.term = "CLONED FROM #{@course.term}"
-    @clone.cloned_status = 1
+    @clone.cloned_status = Course::ClonedStatus::PENDING
     @clone.slug = course_slug(@clone)
     @clone.passcode = Course.generate_passcode
     @clone.submitted = false

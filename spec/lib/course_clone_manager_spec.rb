@@ -85,10 +85,14 @@ describe CourseCloneManager do
       expect(clone.weeks.first.blocks.first.gradeable.points).to eq(15)
     end
 
-    it 'adds tags new/returning and for cloned status' do
+    it 'adds tags new/returning and for cloned' do
       tags = clone.tags.pluck(:tag)
       expect(tags).to include('cloned')
       expect(tags).to include('returning_instructor')
+    end
+
+    it 'marks the cloned status as PENDING' do
+      expect(clone.cloned_status).to eq(Course::ClonedStatus::PENDING)
     end
   end
 
