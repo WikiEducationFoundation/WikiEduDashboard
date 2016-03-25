@@ -24,7 +24,6 @@ class SurveyAssignmentsController < ApplicationController
   # POST /survey_assignments
   # POST /survey_assignments.json
   def create
-    binding.pry
     @survey_assignment = SurveyAssignment.new(survey_assignment_params)
 
     respond_to do |format|
@@ -70,6 +69,6 @@ class SurveyAssignmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def survey_assignment_params
-      params.require(:survey_assignment).permit(:survey_id,:cohort_ids)
+      params.require(:survey_assignment).permit(:survey_id,:cohort_ids, :send_before, :send_date_relative_to, :send_date_days, :courses_user_role)
     end
 end

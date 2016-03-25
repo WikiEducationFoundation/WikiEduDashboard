@@ -37,3 +37,12 @@ table.survey-assignment__courses
     transform rotate(180deg)
   .sort.desc:after
     transform rotate(0deg)
+
+[data-sortable-courses]
+  max-height 0
+  transition 300ms linear
+  overflow hidden
+  
+  &.active
+    max-height 9999px
+    overflow-y auto

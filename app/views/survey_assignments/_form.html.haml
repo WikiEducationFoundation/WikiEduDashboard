@@ -1,6 +1,21 @@
 = simple_form_for(@survey_assignment) do |f|
-  .block.survey-assignments.block--clear
+  .block.survey-assignments.block--clear.default-form
     = f.error_notification
-    = f.association :cohorts, as: :check_boxes
-    = f.association :survey, as: :radio_buttons
+    .form__row
+      %h4 Survey
+      = f.association :survey, as: :radio_buttons
+
+    .form__row
+      %h4 Distribution Target
+      = f.association :cohorts
+      = f.label :courses_user_role
+      = user_role_select(f)
+
+    .form__row
+      %h4 Notification Schedule
+      = f.number_field :send_date_days, value: 7
+      = f.label :send_date_days, "Days", class: 'inline-label'
+      = f.select :send_before, options_for_select([['Before', true], ['After', false]])
+      = f.select :send_date_relative_to, options_for_select(['Course End', 'Course Start', 'Timeline End'])
+
     = f.button :submit, :class => "button dark"

@@ -1,7 +1,4 @@
 %li.block.survey-assignment__row
-
-  %div
-    %strong Survey Assigment #{survey_assignment_counter + 1}
   %div
     %strong Survey:
     %span= survey_assignment.survey.name
@@ -9,11 +6,22 @@
     %strong Cohort: 
     %span= survey_assignment.cohorts.first.title
   %div
+    %strong Notification Schedule:
+    %span= notification_schedule_summary(survey_assignment)
+  %div
+    %strong Target User:
+    %span= user_role(survey_assignment)
+
+  %div
     = link_to 'Show', survey_assignment
     = link_to 'Edit', edit_survey_assignment_path(survey_assignment)
     = link_to 'Destroy', survey_assignment, :method => :delete, :data => { :confirm => 'Are you sure?' }
+  
+  %div.clearfix
+    %button{:data => {:toggle_courses_table => true}, :class => 'button'}
+      %span View Courses in Scope
+      %span.icon.icon-arrow-down
   %div{:data => {:sortable_courses => true}}
-    
     %table.survey-assignment__courses
       %thead
         %tr
