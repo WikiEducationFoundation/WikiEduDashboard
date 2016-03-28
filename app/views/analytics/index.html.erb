@@ -23,11 +23,6 @@
 <% end %><br/>
 
 <%= form_tag(method: 'get') do %>
-  <input name="cohort_stats" type="hidden" value="true" />
-  <button class="button dark"><%= submit_tag("Cohort Stats") %></button>
-<% end %><br/>
-
-<%= form_tag(method: 'get') do %>
   <input name="cohort_intersection" type="hidden" value="true" />
   <%= label_tag(:cohort_1, "cohort 1") %>
   <%= collection_select(:cohort_1, :id, Cohort.all, :id, :title, prompt: true) %><br/>
@@ -38,14 +33,9 @@
 
 </h3>
 
-
 <h3>
 <% if params[:monthly_report] %>
   <%= render :partial => 'monthly_report', :locals => { :monthly_report => @monthly_report } %>
-<% end %>
-
-<% if params[:cohort_stats] %>
-  <%= render :partial => 'cohort_stats', :locals => { :cohort_stats => @cohort_stats } %>
 <% end %>
 
 <% if params[:cohort_intersection] %>
