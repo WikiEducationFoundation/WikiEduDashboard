@@ -20,4 +20,8 @@
       = f.select :send_before, options_for_select([['Before', true], ['After', false]])
       = f.select :send_date_relative_to, options_for_select(['Course End', 'Course Start', 'Timeline End'])
 
+    .form__row
+      = f.check_box :published
+      = f.label :published, "Publish this assignment", class: "inline-label"
+
     = f.button :submit, :class => "button dark"

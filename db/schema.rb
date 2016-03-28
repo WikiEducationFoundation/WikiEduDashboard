@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160328202414) do
+ActiveRecord::Schema.define(version: 20160328221346) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title",                    limit: 255
@@ -238,12 +238,13 @@ ActiveRecord::Schema.define(version: 20160328202414) do
 
   create_table "survey_assignments", force: :cascade do |t|
     t.integer  "courses_user_role",     limit: 4
-    t.datetime "created_at",                                       null: false
-    t.datetime "updated_at",                                       null: false
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
     t.integer  "send_date_days",        limit: 4
     t.integer  "survey_id",             limit: 4
     t.boolean  "send_before",                       default: true
     t.string   "send_date_relative_to", limit: 255
+    t.boolean  "published",                         default: false
   end
 
   add_index "survey_assignments", ["survey_id"], name: "index_survey_assignments_on_survey_id", using: :btree

@@ -22,7 +22,7 @@ namespace :surveys do
   desc 'Find CoursesUsers ready to receive surveys and send them notifications'
   task send_notifications: :environment do
     include SurveyAssignmentsHelper
-    SurveyAssignment.all.each do |survey_assignment|
+    SurveyAssignment.published.each do |survey_assignment|
       survey_assignment.courses_users_ready_for_survey.each do |courses_user|
         course = Course.find(courses_user.course_id)
         notification = SurveyNotification.new(

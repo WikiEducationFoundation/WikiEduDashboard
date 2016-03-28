@@ -9,16 +9,24 @@ describe "surveys:send_notifications" do
     @cohort1 = create(:cohort, :title => "Test", :slug => 'test')
 
     # Survey Assignment for Instructors in Courses which end 3 days from today.
-    @survey_assignment1 = create(:survey_assignment, 
+    survey_assignment_params = {
+      :published => true,
       :courses_user_role => 1,
       :survey_id => @survey1.id, 
       :send_date_days => 3, 
       :send_before => true, 
-      :send_date_relative_to => 'end')
+      :send_date_relative_to => 'end'
+    }
+    @survey_assignment1 = create(:survey_assignment, survey_assignment_params)
 
     # Add the Cohort to our survey assignment
     @survey_assignment1.cohorts << @cohort1
     @survey_assignment1.save
+
+    # Un-published Survey Assignment
+    @survey_assignment2 = create(:survey_assignment, survey_assignment_params.merge(:published => false))
+    @survey_assignment2.cohorts << @cohort1
+    @survey_assignment2.save
 
     # Course with end date that matches Today for the SurveyAssignment
     course_params = {

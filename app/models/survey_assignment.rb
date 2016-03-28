@@ -3,6 +3,8 @@ class SurveyAssignment < ActiveRecord::Base
   has_and_belongs_to_many :cohorts
   has_many :survey_notifications
 
+  scope :published, -> { where(published:true)}
+
   def send_at
     {
       :days => send_date_days,
