@@ -1,6 +1,7 @@
 # Messages for Finnish (suomi)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Mikahama
 # Author: Nike
 # Author: Pitke
 ---
@@ -34,6 +35,8 @@ fi:
       alkaen ensimmäisistä heidän tekemistään muokkauksista per artikkeli.
     view_wiki: Näytä Wikipediassa
     yourcourses: Omat kurssisi
+  recent_activity:
+    possible_plagiarism: Mahdollinen plagiaatti
   revisions:
     loading: Ladataan versioita...
     none: Tämän kurssin osallistujat eivät ole muokanneet Wikipediaa viime aikoina.

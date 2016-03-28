@@ -239,6 +239,7 @@ zh-hans:
   tasks:
     conseq: 课程%{task}已在进行！
     constant: 当update_daily运行时，任务%{task}不能运行。
+    paused: 任务%{task}不能运行，因为计划更新已暂停。运行“rake batch:resume”以恢复更新。
   training:
     continue: 继续（%{progress}）
     start: 开始

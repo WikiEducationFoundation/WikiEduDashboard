@@ -79,6 +79,7 @@ pl:
     user: Przestrzeń użytkownika
     user_ns: Użytkownik
   recent_activity:
+    no_edits: Brak ostatnich edycji.
     recent_edits: Ostatnie edycje
   revisions:
     class: Klasa
