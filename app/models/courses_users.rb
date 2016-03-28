@@ -25,6 +25,8 @@ class CoursesUsers < ActiveRecord::Base
   has_many :assignments, -> (ac) { where(course_id: ac.course_id) },
            through: :user
 
+  has_many :survey_notifications
+
   validates :course_id, uniqueness: { scope: [:user_id, :role] }
 
   scope :current, -> { joins(:course).merge(Course.current).uniq }

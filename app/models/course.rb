@@ -55,6 +55,7 @@ class Course < ActiveRecord::Base
            through: :courses_users, source: :user
   has_many :volunteers, -> { where('courses_users.role > 1') },
            through: :courses_users, source: :user
+  has_many :survey_notifications
 
   #########################
   # Activity by the users #

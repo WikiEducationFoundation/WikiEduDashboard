@@ -16,11 +16,7 @@ RSpec.describe SurveyAssignment, type: :model do
     expect(@survey_assignment.cohorts.length).to eq(1)
   end
 
-  it "knows about CoursesUsers Roles" do
-    expect(CoursesUsers::Roles::INSTRUCTOR_ROLE).to eq(1)
-  end
-
-  describe "send_at" do
+  describe "#send_at" do
     it "returns a hash for finding courses ready for surveys" do
       @survey_assignment.update({
         send_date_days: 7,

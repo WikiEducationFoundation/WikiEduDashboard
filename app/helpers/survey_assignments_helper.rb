@@ -5,7 +5,7 @@ module SurveyAssignmentsHelper
       role: CoursesUsers::Roles::INSTRUCTOR_ROLE
     },
     {
-      name: 'Students', 
+      name: 'Students',
       role: CoursesUsers::Roles::STUDENT_ROLE
     }
   ]
@@ -24,4 +24,9 @@ module SurveyAssignmentsHelper
   def user_role(survey_assignment)
     ROLES.select { |r| r[:role] == survey_assignment.courses_user_role }.first[:name]
   end
+
+  def role_name_by_id(id)
+    ROLES.select { |r| r[:role] == id }.first[:name].downcase.singularize
+  end
+
 end
