@@ -20,6 +20,21 @@ RSpec.describe SurveyAssignment, type: :model do
     expect(CoursesUsers::Roles::INSTRUCTOR_ROLE).to eq(1)
   end
 
+  describe "send_at" do
+    it "returns a hash for finding courses ready for surveys" do
+      @survey_assignment.update({
+        send_date_days: 7,
+        send_before: true,
+        send_date_relative_to: 'end'
+      })
+      send = @survey_assignment.send_at
+      expect(send[:days]).to eq(7)
+      expect(send[:before]).to be(true)
+      expect(send[:relative_to]).to eq('end')
+
+    end
+  end
+
   describe "Course Model: ready_for_survey scope" do
 
     it 'returns Courses where `n` days before their course end is Today' do
