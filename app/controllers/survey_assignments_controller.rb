@@ -1,6 +1,9 @@
 class SurveyAssignmentsController < ApplicationController
   before_action :set_survey_assignment, only: [:show, :edit, :update, :destroy]
+  before_action :set_survey_assignment_options, only: [:edit, :update]
   layout 'surveys'
+  include SurveyAssignmentsHelper
+
   # GET /survey_assignments
   # GET /survey_assignments.json
   def index
@@ -67,8 +70,12 @@ class SurveyAssignmentsController < ApplicationController
       @survey_assignment = SurveyAssignment.find(params[:id])
     end
 
+    def set_survey_assignment_options
+      @send_relative_to_options = SEND_RELATIVE_TO_OPTIONS
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def survey_assignment_params
-      params.require(:survey_assignment).permit(:survey_id,:cohort_ids, :send_before, :send_date_relative_to, :send_date_days, :courses_user_role)
+      params.require(:survey_assignment).permit(:survey_id, :send_before, :send_date_relative_to, :send_date_days, :courses_user_role, :published, :cohort_ids =>[])
     end
 end
