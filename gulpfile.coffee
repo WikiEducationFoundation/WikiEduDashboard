@@ -33,5 +33,5 @@ gulp.task "build", (cb) ->
     "copy-static",
     "bower",
     "stylesheets",
-    "cached-lintjs"
+    "lintjs"
   ], "webpack-build", "minify", cb

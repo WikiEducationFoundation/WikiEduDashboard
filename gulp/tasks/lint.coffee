@@ -16,23 +16,14 @@ gulp = require('gulp')
 path = require('path')
 plugins = require('gulp-load-plugins')()
 
-gulp.task('lintjs-watch', () =>
-  # Lint only files that change after this watch starts
-  lintAndPrint = plugins.eslint()
-  # format results with each file, since this stream won't end.
-  lintAndPrint.pipe(plugins.eslint.formatEach())
-
-  return gulp.watch(jsPath, (event) =>
-    if (event.type != 'deleted')
-      gulp.src(event.path)
-        .pipe(lintAndPrint, {end: false})
-  )
+gulp.task('lintjs', () =>
+  return gulp.src(jsPath)
+    .pipe(plugins.eslint())
+    .pipe(plugins.eslint.format())
+    .pipe(plugins.eslint.failAfterError())
 )
 
-
-
 gulp.task('cached-lintjs', () =>
-  # Read all js files within test/fixtures
   return gulp.src(jsPath)
     .pipe(plugins.cached('eslint'))
     # Only uncached and changed files past this point
