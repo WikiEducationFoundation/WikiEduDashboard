@@ -1,5 +1,5 @@
 React            = require 'react'
-ActivityTableRow = require './activity_table_row.cjsx'
+ActivityTableRow = require('./activity_table_row.jsx').default
 TransitionGroup  = require 'react-addons-css-transition-group'
 Loading          = require '../common/loading.cjsx'
 

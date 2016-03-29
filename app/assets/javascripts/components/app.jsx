@@ -8,8 +8,8 @@ let App = React.createClass({
       <div>
         <Notifications />
         {this.props.children}
-      </div>;
-    )
+      </div>
+    );
   }
 });
 

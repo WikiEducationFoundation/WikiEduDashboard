@@ -10,6 +10,7 @@
 gulp           = require 'gulp'
 requireDir     = require 'require-dir'
 runSequence    = require 'run-sequence'
+require('babel-core/register');
 
 # Require individual tasks
 requireDir './gulp/tasks', { recurse: true }

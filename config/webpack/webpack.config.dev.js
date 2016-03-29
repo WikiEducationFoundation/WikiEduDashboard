@@ -32,8 +32,7 @@ module.exports = {
                 exclude: [/vendor/, /node_modules/],
                 loader: 'babel',
                 query: {
-                    cacheDirectory: true,
-                    presets: ['react', 'es2015']
+                    cacheDirectory: true
                 }
             },
             {
@@ -59,7 +58,8 @@ module.exports = {
     ],
     coffeelint: {
         configFile: __dirname + "/coffeelint.json"
-    }
+    },
+    devtool: 'inline-source-map'
 };
 
 
