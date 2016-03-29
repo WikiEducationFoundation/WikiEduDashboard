@@ -11,7 +11,9 @@
     "no-return-assign": 0,
     "no-extend-native": 0,
     "react/prefer-es6-class": 0,
-    "react/prefer-stateless-function": 0
+    "react/prefer-stateless-function": 0,
+    "arrow-body-style": 0,
+    "max-len": 0
   },
   "globals": {
     "$": true

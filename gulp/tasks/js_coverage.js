@@ -1,25 +1,17 @@
-#--------------------------------------------------------
-# Requirements
-#--------------------------------------------------------
+import gulp from 'gulp';
+import jsxCoverage from 'gulp-jsx-coverage';
 
-gulp      = require 'gulp'
-plugins   = require('gulp-load-plugins')()
-
-#--------------------------------------------------------
-# Coverage
-#--------------------------------------------------------
-
-gulp.task("js_coverage", require('gulp-jsx-coverage').createTask(
+gulp.task('js_coverage', jsxCoverage.createTask({
   src: [
     'test/components/**/*.coffee',
     'test/main/**/*.coffee',
-    'test/utils/**/*.coffee'
+    'test/utils/**/*.coffee',
     'test/components/**/*.js',
     'test/main/**/*.js',
-    'test/utils/**/*.js'
+    'test/utils/**/*.js',
     'test/components/**/*.jsx',
     'test/main/**/*.jsx',
-    'test/utils/**/*.jsx'
+    'test/utils/**/*.jsx',
 
     'app/assets/javascripts/*.coffee',
     'app/assets/javascripts/utils/*.coffee',
@@ -42,24 +34,32 @@ gulp.task("js_coverage", require('gulp-jsx-coverage').createTask(
     'app/assets/javascripts/training/components/*.jsx',
     'app/assets/javascripts/training/actions/*.js',
     'app/assets/javascripts/training/stores/*.js',
-  ]
-  isparta: false
-  istanbul:
-    preserveComments: true
+  ],
+  isparta: false,
+  istanbul: {
+    preserveComments: true,
     coverageVariable: '__MY_TEST_COVERAGE__',
     exclude: /node_modules|test|public/
-  transpile:
-    babel:
+  },
+  transpile: {
+    babel: {
       include: /\.jsx?$/,
-    coffee:
+    },
+    coffee: {
       include: /\.coffee$/
-    cjsx:
+    },
+    cjsx: {
       include: /\.cjsx$/
-  coverage:
-    reporters: ['text-summary', 'json', 'lcov']
+    }
+  },
+  coverage: {
+    reporters: ['text-summary', 'json', 'lcov'],
     directory: 'js_coverage'
-  mocha:
+  },
+  mocha: {
     reporter: 'spec'
-  coffee:
+  },
+  coffee: {
     sourceMap: true
-))
+  }
+}));
