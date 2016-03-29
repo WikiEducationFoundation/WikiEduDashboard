@@ -17,4 +17,8 @@ class SurveyAssignment < ActiveRecord::Base
     courses = self.cohorts.collect { |cohort| cohort.courses.ready_for_survey(send_at) }.flatten
     courses.collect {|course| course.courses_users.where({ role: courses_user_role})}.flatten
   end
+
+  def survey
+    Survey.find(survey_id)
+  end
 end
