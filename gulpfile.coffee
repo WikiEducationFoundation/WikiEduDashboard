@@ -23,9 +23,9 @@ gulp.task "dev", ->
     "i18n"
     "copy-static"
     "bower"
-    "javascripts"
-    "stylesheets-livereload"
-  ], "webpack-hotdev", "watch"
+    "stylesheets-livereload",
+    "webpack-dev"
+  ], "watch"
 
 gulp.task "build", (cb) ->
   runSequence "clean", [

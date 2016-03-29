@@ -1,16 +1,11 @@
 var webpack = require('webpack');
 var source = __dirname + "/../../app/assets/javascripts/";
 
-function hotEntry(entry) {
-    return [
-        'webpack-dev-server/client?http://localhost:8080',
-        'webpack/hot/only-dev-server',
-        entry
-    ]
-}
+
 
 module.exports = {
     entry: {
+        main: hotEntry(source + "main.js"),
         survey: hotEntry(source + "surveys/survey.coffee"),
         survey_admin: hotEntry(source + "surveys/survey-admin.coffee")
     },
@@ -32,14 +27,26 @@ module.exports = {
             }
         ],
         loaders: [
-            { 
-                test: /\.jsx?$/, 
+            {
+                test: /\.jsx?$/,
                 exclude: [/vendor/, /node_modules/],
-                loaders:['babel'] 
+                loader: 'babel',
+                query: {
+                    cacheDirectory: true,
+                    presets: ['react', 'es2015']
+                }
             },
             {
                 test: /\.coffee$/,
                 loaders: ["coffee-loader"]
+            },
+            {
+                test: /\.cjsx$/,
+                loaders: ['coffee', 'cjsx']
+            },
+            ,
+            {   test: /\.json$/,
+                loader: "json-loader"
             }
         ]
     },
@@ -54,3 +61,13 @@ module.exports = {
         configFile: __dirname + "/coffeelint.json"
     }
 };
+
+
+
+function hotEntry(entry) {
+    return [
+        'webpack-dev-server/client?http://localhost:8080',
+        'webpack/hot/only-dev-server',
+        entry
+    ]
+}
