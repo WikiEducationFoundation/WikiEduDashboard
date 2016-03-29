@@ -11,6 +11,7 @@ function hotEntry(entry) {
 
 module.exports = {
     entry: {
+        main: hotEntry(source + "main.coffee"),
         survey: hotEntry(source + "surveys/survey.coffee"),
         survey_admin: hotEntry(source + "surveys/survey-admin.coffee")
     },
@@ -20,17 +21,10 @@ module.exports = {
         publicPath: '/'
     },
     resolve: {
-        extension: ['', '.js', '.jsx', '.coffee'],
-        root: ["vendor", "node_modules"]
+        extension: ['', '.js', '.jsx', '.coffee', '.cjsx'],
+        root: [__dirname + "vendor", __dirname + "node_modules"]
     },
     module: {
-        preLoaders: [
-            {
-                test: /\.coffee$/,
-                loader:"coffee-lint-loader",
-                exclude: [/vendor/, /node_modules/]
-            }
-        ],
         loaders: [
             { 
                 test: /\.jsx?$/, 
@@ -40,12 +34,21 @@ module.exports = {
             {
                 test: /\.coffee$/,
                 loaders: ["coffee-loader"]
+            },
+            {   
+                test: /\.cjsx$/, 
+                loaders: ['coffee', 'cjsx']
+            },
+            ,
+            {   test: /\.json$/, 
+                loader: "json-loader" 
             }
         ]
     },
      externals: {
         "jquery": "jQuery",
-        "jquery": "$"
+        "jquery": "$",
+        "i18n-js": 'I18n'
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin()

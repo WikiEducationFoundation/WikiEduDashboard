@@ -2,7 +2,7 @@
   = dashboard_stylesheet_tag("main")
 
 - content_for :javascripts do
-  = javascript_include_tag fingerprinted('/assets/javascripts/', 'main.js')
+  = hot_javascript_tag("main")
   
 !!!
 %html{ dir: rtl? ? "rtl" : nil}
