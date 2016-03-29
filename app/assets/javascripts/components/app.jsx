@@ -4,10 +4,12 @@ import Notifications from './common/notifications.cjsx';
 let App = React.createClass({
   displayName: 'App',
   render() {
-    return <div>
-      <Notifications />
-      {this.props.children}
-    </div>;
+    return (
+      <div>
+        <Notifications />
+        {this.props.children}
+      </div>;
+    )
   }
 });
 
