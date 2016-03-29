@@ -41,7 +41,7 @@ gem 'mailgun_rails'
 # If you want to be able to hack locally on rapidfire,
 # run `export RAPIDFIREHACKINGMODE=true` in your terminal.
 if ENV['RAPIDFIREHACKINGMODE'] == 'true'
-  gem 'rapidfire', path: './vendor/__rapidfire'
+  gem 'rapidfire', path: './vendor/rapidfire'
 else
   gem 'rapidfire', git: 'https://github.com/WikiEducationFoundation/rapidfire', branch: 'master'
 end
