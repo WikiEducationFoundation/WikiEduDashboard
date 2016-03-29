@@ -19,8 +19,8 @@ namespace :surveys do
     create(:q_rangeinput, question_group_id: test_group.id)
   end
 
-  desc 'Find CoursesUsers ready to receive surveys and send them notifications'
-  task send_notifications: :environment do
+  desc 'Find CoursesUsers ready to receive surveys and create a SurveyNotification for each'
+  task create_notifications: :environment do
     include SurveyAssignmentsHelper
     SurveyAssignment.published.each do |survey_assignment|
       survey_assignment.courses_users_ready_for_survey.each do |courses_user|
@@ -32,6 +32,13 @@ namespace :surveys do
         )
         notification.save
       end
+    end
+  end
+
+  desc 'Find SurveyNotifications that haven\'t been sent and send them'
+  task send_notifications: :environment do
+    SurveyNotifications.all.each do |notification|
+      notification.send_emails_and_create_notifications
     end
   end
 end
