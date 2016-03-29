@@ -120,7 +120,7 @@ class Course < ActiveRecord::Base
     today = Time.zone.today
     send_survey_time = today
     send_survey_time = today + days_offset.days if before
-    where("#{relative_to} <= ?", send_survey_time)
+    where("#{relative_to} <= '#{send_survey_time}'")
   end
 
   ##################
