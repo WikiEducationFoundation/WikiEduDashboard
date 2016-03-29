@@ -11,6 +11,7 @@ class CourseCloneManager
     update_title_and_slug
     clear_dates
     set_instructor
+    tag_course
     return @clone
   end
 
@@ -18,7 +19,7 @@ class CourseCloneManager
 
   def sanitize_clone_info
     @clone.term = "CLONED FROM #{@course.term}"
-    @clone.cloned_status = 1
+    @clone.cloned_status = Course::ClonedStatus::PENDING
     @clone.slug = course_slug(@clone)
     @clone.passcode = Course.generate_passcode
     @clone.submitted = false
@@ -33,12 +34,12 @@ class CourseCloneManager
     @clone.timeline_end = today
 
     @clone.save
+    @clone = Course.find(@clone.id) # Re-load the course to ensure correct course type
     @clone.update_cache
   end
 
   def update_title_and_slug
-    new_course = Course.last
-    new_course.update_attributes(
+    @clone.update_attributes(
       title: @clone.title,
       slug: @clone.slug
     )
@@ -54,6 +55,12 @@ class CourseCloneManager
 
   def set_instructor
     CoursesUsers.create!(course_id: @clone.id, user_id: @user.id, role: 1)
+  end
+
+  def tag_course
+    tag_manager = TagManager.new(@clone)
+    tag_manager.initial_tags(creator: @user)
+    tag_manager.add(tag: 'cloned')
   end
 
   def course_slug(course)

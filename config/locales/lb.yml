@@ -122,6 +122,7 @@ lb:
   recent_activity:
     show_courses: Nëmme meng Course weisen
     no_edits: Et gouf keng rezent Ännerungen.
+    possible_plagiarism: Méiglecht Plagiat
     recent_edits: Rezent Ännerungen
   revisions:
     date_time: Datum/Zäit
@@ -158,6 +159,9 @@ lb:
     read_less: Manner liesen
     read_more: Liest méi
     summary: Resumé
+  error:
+    unsupported_browser:
+      header: Net ënnerstëtzte Browser. :-(
   error_401:
     header: Net autoriséiert.>:-(
   error_404:

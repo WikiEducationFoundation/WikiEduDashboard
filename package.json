@@ -118,7 +118,6 @@
     "test": "gulp js_coverage",
     "dev": "webpack --config config/webpack/webpack.config.dev.js",
     "hotdev": "webpack-dev-server --inline --config ./config/webpack/webpack.config.dev.js",
-    "build": "webpack -p --config config/webpack/webpack.config.prod.js",
-    "postinstall": "gulp build"
+    "build": "webpack -p --config config/webpack/webpack.config.prod.js"
   }
 }

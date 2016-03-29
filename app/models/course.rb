@@ -92,10 +92,13 @@ class Course < ActiveRecord::Base
 
   scope :listed, -> { where(listed: true) }
 
-  CLONED_STATUSES = {
-    'PENDING' => 1,
-    'COMPLETED' => 2
-  }
+  module ClonedStatus
+    NOT_A_CLONE = 0
+    # PENDING is the initial cloned record, where the cloning process was
+    # initiated, but not completed.
+    PENDING = 1
+    COMPLETED = 2
+  end
 
   scope :strictly_current, -> { where('? BETWEEN start AND end', Time.zone.now) }
   scope :current, -> { current_and_future.where('start < ?', Time.zone.now) }

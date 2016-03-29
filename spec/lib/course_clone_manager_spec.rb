@@ -33,36 +33,77 @@ describe CourseCloneManager do
     create(:gradeable,
            id: 1, gradeable_item_type: 'block',
            gradeable_item_id: 1, points: 15)
+
+
   end
 
-  it 'should create a new course based on an old one' do
-    original = Course.find(1)
-    instructor = User.find(1)
-    clone = CourseCloneManager.new(original, instructor).clone!
-    # The creating instructor should carry over.
-    expect(clone.instructors.first).to eq(instructor)
-    # The students should not carry over.
-    expect(clone.students).to be_empty
-    # A new passcode should be created.
-    expect(clone.passcode).not_to eq(original.passcode)
-    # Course dates should not carry over.
-    expect(clone.start).not_to eq(original.start)
-    expect(clone.end).not_to eq(original.end)
-    expect(clone.timeline_start).not_to eq(original.timeline_start)
-    expect(clone.timeline_end).not_to eq(original.timeline_end)
+  let(:clone) { Course.last }
+  let(:original) { Course.find(1) }
+  let(:instructor) { User.find(1) }
 
-    # Cohorts should not carry over.
-    expect(clone.cohorts).to be_empty
+  context 'newly cloned course' do
+    before do
+      CourseCloneManager.new(Course.find(1), User.find(1)).clone!
+    end
 
-    # The weeks and block content should carry over.
-    expect(clone.weeks.first.order).to eq(1)
-    expect(clone.weeks.first.blocks.first.content).to eq('First Assignment')
+    it 'has creating instructor carried over' do
+      expect(clone.instructors.first).to eq(instructor)
+    end
 
-    # Block due dates, which are stored relative to the assignment dates,
-    # should be unset.
-    expect(clone.weeks.first.blocks.first.due_date).to be_nil
+    it 'does not carry over students' do
+      expect(clone.students).to be_empty
+    end
 
-    # Gradeables should carry over.
-    expect(clone.weeks.first.blocks.first.gradeable.points).to eq(15)
+    it 'has a new passcode' do
+      expect(clone.passcode).not_to eq(original.passcode)
+    end
+
+    it 'does not carry over course dates' do
+      expect(clone.start).not_to eq(original.start)
+      expect(clone.end).not_to eq(original.end)
+      expect(clone.timeline_start).not_to eq(original.timeline_start)
+      expect(clone.timeline_end).not_to eq(original.timeline_end)
+    end
+
+    it 'does not carry over cohorts' do
+      expect(clone.cohorts).to be_empty
+    end
+
+    it 'has weeks and block content from original' do
+      expect(clone.weeks.first.order).to eq(1)
+      expect(clone.weeks.first.blocks.first.content).to eq('First Assignment')
+    end
+
+    it 'unsets block due dates' do
+      # Block due dates, which are stored relative to the assignment dates,
+      # should be unset.
+      expect(clone.weeks.first.blocks.first.due_date).to be_nil
+    end
+
+    it 'carries over gradeables' do
+      # Gradeables should carry over.
+      expect(clone.weeks.first.blocks.first.gradeable.points).to eq(15)
+    end
+
+    it 'adds tags new/returning and for cloned' do
+      tags = clone.tags.pluck(:tag)
+      expect(tags).to include('cloned')
+      expect(tags).to include('returning_instructor')
+    end
+
+    it 'marks the cloned status as PENDING' do
+      expect(clone.cloned_status).to eq(Course::ClonedStatus::PENDING)
+    end
+  end
+
+  context 'cloned LegacyCourse' do
+    before do
+      Course.find(1).update_attributes(type: 'LegacyCourse')
+      CourseCloneManager.new(Course.find(1), User.find(1)).clone!
+    end
+
+    it 'sets the new course type to ClassroomProgramCourse' do
+      expect(clone.type).to eq('ClassroomProgramCourse')
+    end
   end
 end

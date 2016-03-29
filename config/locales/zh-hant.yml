@@ -88,6 +88,8 @@ zh-hant:
     none: 無
     view_other: 查看其他同學
   courses:
+    activity: 活躍度
+    already_enrolled: 你已經成為  '%{title}' 課程的一份子！
     archived: 存檔的課程
     articles: 條目
     articles_none: 此課程沒有編輯任何條目
@@ -113,7 +115,16 @@ zh-hant:
     current: 目前的課程
     duration: 課程時間
     edit_course_dates: 編輯課程日期
+    error:
+      exists: 此項課程已經存在！請嘗試使用其他不同的標題、學校名稱或學期。
+      user_exists: 抱歉，%{username} 並非存在的用戶。
     expected_students: 預計學生
+    gradeables_none: 此項課程沒有可批閱的作業。
+    instructors: 導師
+    invitation: |-
+      您已被邀請參與 %{title} 課程。
+      若要參加此課程，您需要先以維基百科帳號登入。
+      若您尚無維基百科帳號，可以現在註冊。
     join: 加入
     join_prompt: 加入“%{title}”麼？
     join_successful: 您已成功加入%{title}。
@@ -124,19 +135,28 @@ zh-hant:
     published: |-
       您的課程已經發布！
       學生可透過此URL參與課程：
+    revisions_doc: 最近 %{timeframe} 天內的編輯數量。%{timeframe}
+    revisions_none: 此課程最近沒有編輯。
     school: 學校
     students: 學生
     student_editors: 學生編輯者
     students_none: 此課程尚未有學生。
     students_short: 學生
     submitted_and_pending_heading: 已提交，待批閱
+    submitted_heading: 已提交的課程。
+    submitted_note: |-
+      您的課程已提交。
+      Wiki ED的工作人員將審核此課程，若有任何問題會與您聯繫。
     term: 學期
     timeline: 作業細節
     title: 標題
     training_nav: 前往培訓
+    unsubmitted: 尚未提交的課程。
+    uploads_none: 此班級未上傳任何圖片或媒體文件至維基共享資源。
     view: 查看課程
     view_page: 查看課程頁面
     view_wiki: 在維基百科上檢視
+    wiki_staff: Wiki ED 工作人員
     yourcourses: 您的課程
   courses_generic:
     student_editors: 編輯者
@@ -197,12 +217,33 @@ zh-hant:
     unsupported_browser:
       header: 未受支援的瀏覽器。  :-(
       explanation: 您使用的瀏覽器與此面板不相容。請使用Internet Explorer11或更高版本、Chrome和Firefox等瀏覽器的最新版本。
+  error_401:
+    header: 未授權。 :-(
+  error_incorrect_passcode:
+    header: 密碼錯誤。 :-(
+    explanation: |-
+      密碼錯誤，無法註冊此課程。
+      請向導師索取正確密碼後再註冊此課程。
   error_404:
     header: 查無頁面。:-(
+    explanation: |-
+      頁面不存在。
+      若您正試圖造訪某項課程，可能此課程尚未註冊。
+      若此課程最近才註冊，則系統可能需要一些時間新增此課程。
+  error_422:
+    explanation: |-
+      發生錯誤。
+      請將問題回報給網站維護人員。
   error_500:
     header: 500 ——內部伺服器錯誤 :-(
+    explanation: |-
+      發生錯誤。
+      請將問題回報給網站維護人員。
   login_error:
     header: 登入錯誤
+    explanation: |-
+      登錄過程似乎發生了一些問題（抱歉，這種事情偶而會發生！）
+      請嘗試再次登錄或註冊。
   timeline:
     due_default: 下週到期
     title: 時間線
