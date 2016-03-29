@@ -23,14 +23,15 @@ gulp.task "dev", ->
     "i18n"
     "copy-static"
     "bower"
-    "stylesheets-livereload",
-    "webpack-dev"
-  ], "watch"
+    "stylesheets-livereload"
+    "cached-lintjs-watch"
+  ], "webpack-dev", "watch"
 
 gulp.task "build", (cb) ->
   runSequence "clean", [
     "i18n",
     "copy-static",
     "bower",
-    "stylesheets"
+    "stylesheets",
+    "cached-lintjs"
   ], "webpack-build", "minify", cb

@@ -3,9 +3,11 @@ import Notifications from './common/notifications.cjsx';
 
 const App = React.createClass({
   displayName: 'App',
+
   propTypes: {
     children: React.PropTypes.node
   },
+
   render() {
     return (
       <div>
