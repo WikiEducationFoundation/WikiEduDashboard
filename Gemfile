@@ -36,6 +36,8 @@ gem 'pandoc-ruby', '~> 1.0.0'
 gem 'http_accept_language'
 gem 'i18n-js', '>= 3.0.0.rc11'
 
+gem 'mailgun_rails'
+
 # If you want to be able to hack locally on rapidfire,
 # run `export RAPIDFIREHACKINGMODE=true` in your terminal.
 if ENV['RAPIDFIREHACKINGMODE'] == 'true'
