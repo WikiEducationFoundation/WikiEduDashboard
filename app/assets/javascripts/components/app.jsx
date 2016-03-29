@@ -1,8 +1,11 @@
 import React from 'react';
 import Notifications from './common/notifications.cjsx';
 
-let App = React.createClass({
+const App = React.createClass({
   displayName: 'App',
+  propTypes: {
+    children: React.PropTypes.node
+  },
   render() {
     return (
       <div>

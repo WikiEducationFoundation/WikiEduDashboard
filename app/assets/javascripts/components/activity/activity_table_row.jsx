@@ -2,15 +2,29 @@ import React from 'react';
 import UIStore from '../../stores/ui_store.coffee';
 import UIActions from '../../actions/ui_actions.coffee';
 
-let ActivityTableRow = React.createClass({
-  mixins: [UIStore.mixin],
+const ActivityTableRow = React.createClass({
 
-  storeDidChange() {
-    return this.setState({is_open: UIStore.getOpenKey() === (`drawer_${this.props.rowId}`)});
+  propTypes: {
+    rowId: React.PropTypes.number,
+    diffUrl: React.PropTypes.string,
+    revisionDateTime: React.PropTypes.string,
+    reportUrl: React.PropTypes.string,
+    revisionScore: React.PropTypes.number,
+    articleUrl: React.PropTypes.string,
+    talkPageLink: React.PropTypes.string,
+    author: React.PropTypes.string,
+    title: React.PropTypes.string,
+    key: React.PropTypes.number
   },
 
+  mixins: [UIStore.mixin],
+
   getInitialState() {
-    return {is_open: false};
+    return { is_open: false };
+  },
+
+  storeDidChange() {
+    return this.setState({ is_open: UIStore.getOpenKey() === `drawer_${this.props.rowId}` });
   },
 
   openDrawer() {
@@ -19,24 +33,26 @@ let ActivityTableRow = React.createClass({
 
   render() {
     let className = 'activity-table-row';
+    let revisionDateTime;
+    let col2;
     className += this.state.is_open ? ' open' : ' closed';
+
     if (this.props.diffUrl) {
-      var revisionDateTime = (
+      revisionDateTime = (
         <a href={this.props.diffUrl}>{this.props.revisionDateTime}</a>
       );
-    } else {
-      let revisionLink = this.props.revisionDateTime;
     }
 
     if (this.props.revisionScore) {
-      var col2 = (
+      col2 = (
         <td>
           {this.props.revisionScore}
         </td>
       );
     }
+
     if (this.props.reportUrl) {
-      var col2 = (
+      col2 = (
         <td>
           <a href={this.props.reportUrl} target="_blank">Report</a>
         </td>
@@ -56,7 +72,7 @@ let ActivityTableRow = React.createClass({
           {revisionDateTime}
         </td>
         <td>
-          <button className='icon icon-arrow'></button>
+          <button className="icon icon-arrow"></button>
         </td>
       </tr>
     );

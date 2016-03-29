@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, IndexRoute, Redirect, browserHistory } from 'react-router';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 import App from '../components/app.jsx';
 import Course from '../components/course.cjsx';
@@ -31,9 +31,9 @@ browserHistory.listen(location => {
     if (location.action === 'POP') {
       return;
     }
-    let hash = window.location.hash;
+    const hash = window.location.hash;
     if (hash) {
-      let element = document.querySelector(hash);
+      const element = document.querySelector(hash);
       if (element) {
         element.scrollIntoView({
           block: 'start',
@@ -47,42 +47,42 @@ browserHistory.listen(location => {
 });
 
 let routes = (
-  <Route path='/' component={App}>
-    <Route path='onboarding' component={Onboarding.Root}>
+  <Route path="/" component={App}>
+    <Route path="onboarding" component={Onboarding.Root}>
       <IndexRoute component={Onboarding.Intro} />
-      <Route path='form' component={Onboarding.Form} />
-      <Route path='permissions' component={Onboarding.Permissions} />
-      <Route path='finish' component={Onboarding.Finished} />
+      <Route path="form" component={Onboarding.Form} />
+      <Route path="permissions" component={Onboarding.Permissions} />
+      <Route path="finish" component={Onboarding.Finished} />
     </Route>
-    <Route path='recent-activity' component={RecentActivityHandler}>
+    <Route path="recent-activity" component={RecentActivityHandler}>
       <IndexRoute component={DidYouKnowHandler} />
-      <Route path='plagiarism' component={PlagiarismHandler} />
-      <Route path='recent-edits' component={RecentEditsHandler} />
+      <Route path="plagiarism" component={PlagiarismHandler} />
+      <Route path="recent-edits" component={RecentEditsHandler} />
     </Route>
-    <Route path='courses'>
-      <Route path=':course_school/:course_title' component={Course}>
+    <Route path="courses">
+      <Route path=":course_school/:course_title" component={Course}>
         <IndexRoute component={OverviewHandler} />
         <Route path="overview" component={OverviewHandler} />
-        <Route path='timeline' component={TimelineHandler}>
-          <Route path='wizard' component={Wizard} />
-          <Route path='dates' component={Dates} />
+        <Route path="timeline" component={TimelineHandler}>
+          <Route path="wizard" component={Wizard} />
+          <Route path="dates" component={Dates} />
         </Route>
-        <Route path='activity' component={RevisionsHandler}></Route>
-        <Route path='students' component={StudentsHandler}></Route>
-        <Route path='articles' component={ArticlesHandler}></Route>
-        <Route path='uploads' component={UploadsHandler}></Route>
+        <Route path="activity" component={RevisionsHandler} />
+        <Route path="students" component={StudentsHandler} />
+        <Route path="articles" component={ArticlesHandler} />
+        <Route path="uploads" component={UploadsHandler} />
       </Route>
     </Route>
-    <Route path='course_creator' component={CourseCreator} />
-    <Route path='training' component={TrainingApp} >
-      <Route path=':library_id/:module_id' component={TrainingModuleHandler} />
-      <Route path='/training/:library_id/:module_id/:slide_id' component={TrainingSlideHandler} />
+    <Route path="course_creator" component={CourseCreator} />
+    <Route path="training" component={TrainingApp} >
+      <Route path=":library_id/:module_id" component={TrainingModuleHandler} />
+      <Route path="/training/:library_id/:module_id/:slide_id" component={TrainingSlideHandler} />
     </Route>
   </Route>
 );
 
-let el = document.getElementById('react_root');
-if (el != null) {
+const el = document.getElementById('react_root');
+if (el) {
   ReactDOM.render((
     <Router history={browserHistory}>
       {routes}
