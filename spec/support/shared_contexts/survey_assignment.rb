@@ -1,6 +1,11 @@
 shared_context "survey_assignment" do
   before do
-    @user = create(:user)
+    
+    ActionMailer::Base.delivery_method = :test
+    ActionMailer::Base.perform_deliveries = true
+    ActionMailer::Base.deliveries = []
+
+    @user = create(:user, username: 'Jonathan', email: 'jonathan@wintr.us')
     @survey1 = create(:survey)
     @cohort1 = create(:cohort, :title => "Test", :slug => 'test')
 

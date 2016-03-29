@@ -37,8 +37,8 @@ namespace :surveys do
 
   desc 'Find SurveyNotifications that haven\'t been sent and send them'
   task send_notifications: :environment do
-    SurveyNotifications.all.each do |notification|
-      notification.send_emails_and_create_notifications
+    SurveyNotification.all.each do |notification|
+      notification.send_email
     end
   end
 end
