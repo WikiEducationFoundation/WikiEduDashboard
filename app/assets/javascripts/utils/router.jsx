@@ -27,21 +27,21 @@ import TrainingSlideHandler from '../training/components/training_slide_handler.
 
 // Handle scroll position for back button, hashes, and normal links
 browserHistory.listen(location => {
-  return setTimeout(() => {
+  setTimeout(() => {
     if (location.action === 'POP') {
       return;
     }
-    let { hash } = window.location;
+    let hash = window.location.hash;
     if (hash) {
       let element = document.querySelector(hash);
       if (element) {
-        return element.scrollIntoView({
+        element.scrollIntoView({
           block: 'start',
           behavior: 'smooth'
         });
       }
     } else {
-      return window.scrollTo(0, 0);
+      window.scrollTo(0, 0);
     }
   });
 });
@@ -82,8 +82,10 @@ let routes = (
 );
 
 let el = document.getElementById('react_root');
-if (el != null) { ReactDOM.render((
-  <Router history={browserHistory}>
-    {routes}
-  </Router>
-), el); }
+if (el != null) {
+  ReactDOM.render((
+    <Router history={browserHistory}>
+      {routes}
+    </Router>
+  ), el);
+}
