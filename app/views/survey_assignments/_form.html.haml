@@ -15,7 +15,7 @@
 
     .form__row
       %h4 Notification Schedule
-      = f.number_field :send_date_days, value: 7
+      = f.number_field :send_date_days
       = f.label :send_date_days, "Days", class: 'inline-label'
       = f.select :send_before, options_for_select([['Before', true], ['After', false]])
       = f.select :send_date_relative_to, options_for_select(@send_relative_to_options)

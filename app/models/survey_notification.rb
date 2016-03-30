@@ -4,8 +4,14 @@ class SurveyNotification < ActiveRecord::Base
   belongs_to :course
 
   def send_email
-    return if Rails.env['development'] && user.email != ENV['survey_test_email']
-    SurveyMailer.notification(user).deliver_now unless email_sent
+    if Rails.env['production']
+      SurveyMailer.notification(user).deliver_now unless email_sent
+    end
+
+    if Rails.env['development'] && user.email == ENV['survey_test_email']
+      SurveyMailer.notification(user).deliver_now unless email_sent
+    end
+    
     self.update_attribute('email_sent', true)
   end
 
