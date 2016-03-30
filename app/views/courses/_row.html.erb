@@ -6,7 +6,7 @@
       </div>
 
       <div class="course-list__row__revisions">
-        <% revisions = RevisionStat.get_records(course.id) %>
+        <% revisions = course.recent_edit_count %>
         <p><span class="tablet-only-flex"><%= t("metrics.revisions") %>: </span><%= revisions %></p>
         <p class="<%= user ? 'u' : '' %>revisions hidden"><%= revisions %></p>
       </div>

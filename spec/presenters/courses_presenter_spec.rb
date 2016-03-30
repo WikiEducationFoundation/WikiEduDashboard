@@ -106,7 +106,7 @@ describe CoursesPresenter do
     end
 
     context 'cohort is a valid cohort' do
-      let(:course2) { create(:course, listed: true, submitted: false, id: 10002) }
+      let!(:course2) { create(:course, listed: true, submitted: false, id: 10002) }
       let(:cohort_param)    { Figaro.env.default_cohort }
       let(:cohort)          { create(:cohort, slug: cohort_param) }
       let!(:cohorts_course) { create(:cohorts_course, cohort_id: cohort.id, course_id: course.id) }

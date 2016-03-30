@@ -15,7 +15,7 @@ describe RevisionStat do
   let(:date) { 7.days.ago.to_date }
 
   describe '#get_records' do
-    subject { RevisionStat.get_records(date, course.id) }
+    subject { RevisionStat.get_records(date: date, course_id: course.id) }
 
     context 'date' do
       context 'older than 7 days' do
