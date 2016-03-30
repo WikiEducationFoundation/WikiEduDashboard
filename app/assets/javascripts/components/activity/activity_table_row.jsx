@@ -9,12 +9,12 @@ const ActivityTableRow = React.createClass({
     diffUrl: React.PropTypes.string,
     revisionDateTime: React.PropTypes.string,
     reportUrl: React.PropTypes.string,
-    revisionScore: React.PropTypes.number,
+    revisionScore: React.PropTypes.string,
     articleUrl: React.PropTypes.string,
     talkPageLink: React.PropTypes.string,
     author: React.PropTypes.string,
     title: React.PropTypes.string,
-    key: React.PropTypes.number
+    key: React.PropTypes.string
   },
 
   mixins: [UIStore.mixin],

@@ -7,7 +7,8 @@ import path from 'path';
 const jsPath = [
   `${config.sourcePath}/${config.jsDirectory}/**/*.{jsx,js}`,
   'gulp/**/*.js',
-  'gulpfile.babel.js'
+  'gulpfile.babel.js',
+  'test/**/*.{jsx,js}'
 ];
 
 gulp.task('lintjs', () => {

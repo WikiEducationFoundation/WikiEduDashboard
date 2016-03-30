@@ -16,6 +16,9 @@
     "max-len": 0
   },
   "globals": {
-    "$": true
+    "$": true,
+    "describe": true,
+    "it": true,
+    "expect": true
   }
 }

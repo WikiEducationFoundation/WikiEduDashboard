@@ -16,7 +16,7 @@ global.moment-recur = require 'moment-recur'
 global.I18n = require '../public/assets/javascripts/i18n.js'
 global.chai = require 'chai'
 
-require '../app/assets/javascripts/main-utils'
+require '../app/assets/javascripts/main-utils.js'
 
 #----------------------------------------
 # Global Config
