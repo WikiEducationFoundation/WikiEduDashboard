@@ -133,8 +133,8 @@ Course = React.createClass(
           <div className='notification' key='upcoming_module'>
             <div className='container'>
               <div>
-                <p>A survey is available for this course </p>
-                <a href={notification.survey_url}>Take Survey</a>
+                <p>{CourseUtils.i18n('survey.notification_message',@state.course.string_prefix)}</p>
+                <a href={notification.survey_url}>{CourseUtils.i18n('survey.link',@state.course.string_prefix)}</a>
               </div>
             </div>
           </div>
