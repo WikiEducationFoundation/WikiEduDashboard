@@ -38,6 +38,7 @@
 require "#{Rails.root}/lib/course_cleanup_manager"
 require "#{Rails.root}/lib/course_update_manager"
 require "#{Rails.root}/lib/course_training_progress_manager"
+require "#{Rails.root}/lib/revision_stat"
 
 #= Course model
 class Course < ActiveRecord::Base
@@ -280,6 +281,10 @@ class Course < ActiveRecord::Base
 
   def manual_update
     CourseUpdateManager.manual_update self
+  end
+
+  def recent_edit_count
+    RevisionStat.get_records(course_id: id)
   end
 
   ####################

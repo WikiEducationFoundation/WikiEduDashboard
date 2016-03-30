@@ -26,7 +26,12 @@ class CoursesPresenter
   end
 
   def courses
-    cohort.courses.listed.order(:title)
+    cohort.courses.listed
+  end
+
+  def courses_by_recent_edits
+    # Sort first by recent edit count, and then by course title
+    courses.sort_by { |course| [-course.recent_edit_count, course.title] }
   end
 
   def word_count

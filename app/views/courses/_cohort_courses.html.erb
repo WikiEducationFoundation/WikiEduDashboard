@@ -51,7 +51,7 @@
     </div>
   </div>
   <ul class="list">
-  <% presenter.courses.each do |c| %>
+  <% presenter.courses_by_recent_edits.each do |c| %>
     <%= render 'courses/row', course: c, admin: false, user: false %>
   <% end %>
   </ul>
