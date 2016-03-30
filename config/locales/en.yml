@@ -233,6 +233,7 @@ en:
     training_overdue:
       The training module "%{title}" is assigned for this course, and was due on %{date}.
     unsubmitted: Unsubmitted Courses
+    untrained: Untrained
     uploads_none: This class has not contributed any images or other media files to Wikimedia Commons.
     weeks_none: This course does not have a timeline yet.
     view: View Course
