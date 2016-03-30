@@ -40,6 +40,5 @@ namespace :surveys do
     SurveyNotification.all.each do |notification|
       notification.send_email
     end
-    puts "#{SurveyNotification.all.count} email notifications sent."
   end
 end
