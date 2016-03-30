@@ -20,6 +20,10 @@ json.course do
   json.word_count number_to_human @course.word_count
   json.view_count number_to_human @course.view_sum
 
+  json.survey_notifications(@course.survey_notifications.where(notification_dismissed: false)) do |notification| 
+    json.survey_url survey_url(notification.survey)
+  end
+
   if current_user
     json.next_upcoming_assigned_module ctpm.next_upcoming_assigned_module
     json.first_overdue_module ctpm.first_overdue_module

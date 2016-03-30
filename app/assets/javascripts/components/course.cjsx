@@ -70,6 +70,7 @@ Course = React.createClass(
             </div>
           </div>
         )
+
       if @state.course.submitted
         if !@getCurrentUser().admin
           alerts.push (
@@ -125,6 +126,19 @@ Course = React.createClass(
           </div>
         </div>
       )
+
+    if @state.course.survey_notifications? && @state.course.survey_notifications.length
+      @state.course.survey_notifications.map (notification) =>
+        alerts.push(
+          <div className='notification' key='upcoming_module'>
+            <div className='container'>
+              <div>
+                <p>A survey is available for this course </p>
+                <a href={notification.survey_url}>Take Survey</a>
+              </div>
+            </div>
+          </div>
+        )
 
     if @state.course.type == 'ClassroomProgramCourse'
       timeline = (
