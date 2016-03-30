@@ -6,4 +6,7 @@
     %h1
       Hello, #{@user.username}
     %p
-      You have a survey available.
+      A survey is available for: #{@course.title}
+    
+    %div
+      = link_to "Take Survey", survey_url(@survey), :target => '_blank'
