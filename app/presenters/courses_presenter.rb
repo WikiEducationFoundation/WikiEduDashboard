@@ -30,7 +30,7 @@ class CoursesPresenter
   end
 
   def courses_by_recent_edits
-    courses.sort_by(&:recent_edit_count)
+    courses.sort_by(&:recent_edit_count).reverse
   end
 
   def word_count
