@@ -4,9 +4,8 @@ var source = __dirname + "/../../app/assets/javascripts/";
 var output = "./public/assets/javascripts";
 
 module.exports = {
-
     entry: {
-        main : source + "main.coffee",
+        main : source + "main.js",
         survey: source + "surveys/survey.coffee",
         survey_admin: source + "surveys/survey-admin.coffee"
     },
@@ -20,20 +19,26 @@ module.exports = {
     },
     module: {
         loaders: [
-            { 
-                test: /\.jsx?$/, 
+            {
+                test: /\.jsx?$/,
                 exclude: [/vendor/, /node_modules/],
-                loaders:['babel'] 
+                loader: 'babel',
+                query: {
+                    cacheDirectory: true
+                }
             },
-            {   
-                test: /\.cjsx$/, 
+            {
+                test: /\.cjsx$/,
                 loaders: ['coffee', 'cjsx']
             },
             {
                 test: /\.coffee$/,
                 loaders: ["coffee-loader"]
             },
-            { test: /\.json$/, loader: "json-loader" }
+            {
+                test: /\.json$/,
+                loader: "json-loader"
+            }
         ]
     },
      externals: {
