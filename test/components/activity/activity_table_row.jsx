@@ -16,8 +16,8 @@ describe('ActivtyTableRow', () => {
       noActivityMessage="Hello world"
     >
       <ActivityTableRow
-        key={23948}
-        rowId={675818536}
+        key={'23948'}
+        rowId={'675818536'}
         title="Selfie"
         articleUrl="https://en.wikipedia.org/wiki/Selfie"
         author="Wavelength"

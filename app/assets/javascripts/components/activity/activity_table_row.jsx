@@ -5,16 +5,19 @@ import UIActions from '../../actions/ui_actions.coffee';
 const ActivityTableRow = React.createClass({
 
   propTypes: {
-    rowId: React.PropTypes.number,
+    key: React.PropTypes.string,
+    rowId: React.PropTypes.string,
     diffUrl: React.PropTypes.string,
     revisionDateTime: React.PropTypes.string,
     reportUrl: React.PropTypes.string,
-    revisionScore: React.PropTypes.string,
+    revisionScore: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.number
+    ]),
     articleUrl: React.PropTypes.string,
     talkPageLink: React.PropTypes.string,
     author: React.PropTypes.string,
-    title: React.PropTypes.string,
-    key: React.PropTypes.string
+    title: React.PropTypes.string
   },
 
   mixins: [UIStore.mixin],
