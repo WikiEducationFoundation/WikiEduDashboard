@@ -30,7 +30,8 @@ class CoursesPresenter
   end
 
   def courses_by_recent_edits
-    courses.sort_by(&:recent_edit_count).reverse
+    # Sort first by recent edit count, and then by course title
+    courses.sort_by { |course| [-course.recent_edit_count, course.title] }
   end
 
   def word_count
