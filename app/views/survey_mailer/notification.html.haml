@@ -3,10 +3,6 @@
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
   %body
-    %h1
-      Hello, #{@user.username}
-    %p
-      A survey is available for: #{@course.title}
-    
-    %div
-      = link_to "Take Survey", survey_url(@survey), :target => '_blank'
+    %h1= t('survey.email.headline', username: @user.username)
+    %p= t('survey.email.message', course_title: @course.title)
+    %div= link_to "#{t('survey.email.link')}", survey_url(@survey), :target => '_blank'

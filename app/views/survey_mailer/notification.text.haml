@@ -1,5 +1,5 @@
-Hello, #{@user.username}
+= t('survey.email.headline', username: @user.username)
 
-A survey is available for: #{@course.title}
+= t('survey.email.message', course_title: @course.title)
 
-Take survey: #{survey_url(@survey)}
+= survey_url(@survey)

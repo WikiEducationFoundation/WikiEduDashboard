@@ -483,3 +483,9 @@ en:
     unable_to_add_week: >
       You cannot add new weeks when your timeline is full. Delete at least one
       week or change your assignment dates to make room for a new one.
+
+  survey:
+    email:
+      headline: "Hello, %{username}"
+      message: "A survey is available for: %{course_title}"
+      link: "Take Survey"
