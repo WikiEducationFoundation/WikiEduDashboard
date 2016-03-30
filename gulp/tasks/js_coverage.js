@@ -46,7 +46,8 @@ gulp.task('js_coverage', jsxCoverage.createTask({
       include: /\.jsx?$/,
     },
     coffee: {
-      include: /\.coffee$/
+      include: /\.coffee$/,
+      omitExt: ['.coffee']
     },
     cjsx: {
       include: /\.cjsx$/
