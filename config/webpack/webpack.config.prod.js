@@ -48,8 +48,8 @@ module.exports = {
     },
 
     plugins: [
-        new ManifestPlugin({
-            fileName: 'rev-manifest.json'
-        })
+      new ManifestPlugin({
+        fileName: 'rev-manifest.json'
+      })
     ]
 };

@@ -448,4 +448,18 @@ API =
         console.error 'Error: ' + getErrorMessage(obj)
         rej obj
 
+  dismissNotification: (id) ->
+    new Promise (res, rej) ->
+      $.ajax
+        type: 'PUT'
+        url: '/survey_notification'
+        dataType: 'json'
+        data: { survey_notification: { id: id, notification_dismissed: true }  }
+        success: (data) ->
+          res data
+      .fail (obj, status) ->
+        console.error 'Error: ' + getErrorMessage(obj)
+        rej obj
+
+
 module.exports = API

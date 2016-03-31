@@ -6,7 +6,7 @@ require('velocity-animate');
 require('parsleyjs');
 require('core-js/modules/es6.array.is-array');
 const rangeslider = require('nouislider');
-const wNumb = require('wnumb');
+require('wnumb');
 const throttle = require('lodash.throttle');
 
 
@@ -238,12 +238,12 @@ const Survey = {
   },
 
   validateCurrentQuestion(e) {
-    let $form;
+    e.preventDefault();
+    let $form = this.$surveyForm;
     const $block = $(this.surveyBlocks[this.currentBlock]);
     const $errorsEl = $block.find('[data-errors]');
     const questionGroupIndex = this.currentQuestionGroupIndex();
     let validation = $form.parsley({ uiEnabled: false }).validate({ group: `${$block.data('parsley-group')}` });
-    e.preventDefault();
 
     if (($(e.target).closest('.button').data('no-validate') !== null)) {
       this.nextBlock(e);
@@ -252,8 +252,6 @@ const Survey = {
 
     if ((typeof questionGroupIndex !== 'undefined' && questionGroupIndex !== null)) {
       $form = $(this.$surveyForm[questionGroupIndex]);
-    } else {
-      $form = this.$surveyForm;
     }
 
     if ($block.find("[data-required-checkbox='true']").length) {
@@ -599,4 +597,4 @@ const Survey = {
 };
 
 
-module.exports = Survey;
+export default Survey;

@@ -157,6 +157,7 @@ Rails.application.routes.draw do
   put '/surveys_question_group' => 'surveys_question_groups#update'
   resources :surveys
   get '/surveys/select_course/:id' => 'surveys#course_select'
+  put '/survey_notification' => 'survey_notifications#update'
 
   # Onboarding
   get 'onboarding(/*any)' => 'onboarding#index', as: :onboarding

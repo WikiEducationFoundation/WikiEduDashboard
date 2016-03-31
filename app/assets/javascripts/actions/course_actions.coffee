@@ -32,16 +32,24 @@ CourseActions = Flux.createActions
     API.fetch(temp_id, 'check')
       .then (response) ->
         # Invalidate if course name taken
-        if response.course_exists 
-          message = 'This course already exists. Consider changing the name, school, or term to make it unique.' 
+        if response.course_exists
+          message = 'This course already exists. Consider changing the name, school, or term to make it unique.'
           { actionType: 'CHECK_SERVER', data: {
             key: 'exists'
             message: message
           }}
         else
           # Course name is all good... save it
-          CourseActions.persistCourse(data, course_id)        
+          CourseActions.persistCourse(data, course_id)
       .catch (data) ->
         { actionType: 'API_FAIL', data: data }
+
+  dismissNotification: (id) ->
+    API.dismissNotification(id)
+    .then (data) ->
+      console.log data
+      { actionType: 'DISMISS_SURVEY_NOTIFICATION', data: id: id }
+    .catch (data) ->
+      { actionType: 'API_FAIL', data: data }
 
 module.exports = CourseActions

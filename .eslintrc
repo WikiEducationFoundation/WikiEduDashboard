@@ -21,7 +21,8 @@
     "$": true,
     "describe": true,
     "it": true,
-    "expect": true
+    "expect": true,
+    "wNumb": true
   },
   "env": {
     "browser": "true"

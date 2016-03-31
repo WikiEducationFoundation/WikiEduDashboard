@@ -1,3 +1,4 @@
+_      = require('lodash')
 McFly       = require 'mcfly'
 Flux        = new McFly()
 API         = require '../utils/api.coffee'
@@ -12,6 +13,7 @@ _loaded = false
 
 # Utilities
 setCourse = (data, persisted=false, quiet=false) ->
+  console.log 'setCourse', data
   _loaded = true
   $.extend(true, _course, data)
   delete _course['weeks']
@@ -43,6 +45,12 @@ addCourse = ->
     weekdays: "0000000"
   }
 
+_dismissNotification = (payload) ->
+  notifications = _course.survey_notifications
+  id = payload.data.id
+  index = _.indexOf(notifications, _.where(notifications, { id: id })[0])
+  delete _course.survey_notifications[index]
+  CourseStore.emitChange()
 
 # Store
 CourseStore = Flux.createStore
@@ -59,6 +67,9 @@ CourseStore = Flux.createStore
   data = payload.data
   clearError()
   switch(payload.actionType)
+    when 'DISMISS_SURVEY_NOTIFICATION'
+      _dismissNotification payload
+      break
     when 'RECEIVE_COURSE', 'CREATED_COURSE', 'COHORT_MODIFIED', 'SAVED_COURSE', 'CHECK_COURSE', 'PERSISTED_COURSE'
       setCourse data.course, true
       break
