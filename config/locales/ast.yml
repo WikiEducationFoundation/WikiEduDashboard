@@ -190,6 +190,7 @@ ast:
     chars_added: Caráuteres añadíos<br>(espaciu principal | espaciu d'usuariu)
     contributions: Contribuciones del usuariu
     contributions_more: Ver más contribuciones
+    editors: Editores estudiantes
     loading: Cargando usuarios...
     name: Nome
     none: Esti cursu nun tien estudiantes.

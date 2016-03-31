@@ -34,11 +34,4 @@ describe AnalyticsController do
       expect(response.status).to eq(200)
     end
   end
-
-  describe '#training_completion' do
-    it 'renders' do
-      post 'training_completion'
-      expect(response.status).to eq(200)
-    end
-  end
 end

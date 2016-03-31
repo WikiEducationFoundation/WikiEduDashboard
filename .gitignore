@@ -36,6 +36,7 @@ config/secrets.yml
 developmentcp.rb
 
 .ruby-version
+.*.sw?
 .*.*.sw?
 npm-debug.log
 .DS_Store

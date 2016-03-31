@@ -274,6 +274,7 @@ qqq:
     character_doc: Explanation of the characters added for a user
     contributions: Label for list of contributions by a user
     contributions_more: Label for a link that loads more of a user's contributions
+    editors: Label for the number of students enrolled in a course
     loading: Message indicating that information about users is still loading
     name: Label for usernames of students
     none: Message indicating that a course has no students enrolled

@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Amire80
 # Author: IKhitron
+# Author: LaG roiL
 # Author: Macofe
 # Author: MojoMann
 ---
@@ -250,7 +251,12 @@ he:
     user_ns: משתמש
   recent_activity:
     show_courses: הצגת קורסים שלי בלבד
+    no_dyk_eligible: כעת אין ערכים כלשהם הראויים ל-"הידעת?".
+    no_plagiarism: כעת אין גרסאות חדשות כלשהן החשודות בגניבה ספרותית.
     no_edits: אין שינויים אחרונים
+    refresh_plagiarism: רענון דיווחי גניבה ספרותית
+    did_you_know_eligible: ראויים ל-"הידעת?"
+    possible_plagiarism: חשד לגניבה ספרותית
     recent_edits: שינויים אחרונים
   revisions:
     chars_added: תווים שנוספו
@@ -285,6 +291,7 @@ he:
       הוסיף. שחזור תוכן שהוסר יגדיל את הסך הזה.
     contributions: תרומות המשתמש
     contributions_more: הצגת תרומות נוספות
+    editors: תלמידים עורכים
     loading: טעינת משתמשים...
     name: שם
     none: בקורס הזה אין תלמידים.

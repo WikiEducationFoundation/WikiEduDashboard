@@ -2,8 +2,8 @@
 # Global Requirements
 
 global.jsdom = require 'mocha-jsdom'
-# global.testdom = require('testdom')('<html><body><div id="react_root" data-current_user="id: 1"></div></body></html>')
-global.testdom = require('testdom')('<html><body></div></body></html>')
+#global.testdom = require('testdom')('<html><body><div id="react_root" data-current_user="id: 1"></div></body></html>')
+global.testdom = require('testdom')('<html><body><div></div></body></html>')
 global.sinon = require 'sinon'
 global.React = require 'react'
 global.ReactDOM = require 'react-dom'
