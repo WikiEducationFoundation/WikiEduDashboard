@@ -18,7 +18,7 @@ namespace :revision do
   desc 'Update deleted status for all revisions'
   task update_deleted_revisions: 'batch:setup_logger' do
     Rails.logger.debug 'Updating deleted status of all revisions'
-    RevisionImporter.move_or_delete_revisions
+    RevisionImporter.new.move_or_delete_revisions
   end
 
   desc 'Import recent plagiabot data for revisions'

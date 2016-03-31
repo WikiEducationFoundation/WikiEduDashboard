@@ -57,7 +57,7 @@ class RevisionImporter
   end
 
   def move_or_delete_revisions(revisions=nil)
-    # NOTE: All revisions pased to this method should be from the same @wiki.
+    # NOTE: All revisions passed to this method should be from the same @wiki.
     revisions ||= Revision.where(wiki_id: @wiki.id)
     return if revisions.empty?
 
