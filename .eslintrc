@@ -15,7 +15,9 @@
     "arrow-body-style": 0,
     "max-len": 0,
     "radix": ["error", "as-needed"],
-    "no-param-reassign": 0
+    "no-param-reassign": 0,
+    "react/jsx-no-bind": 0,
+    "no-alert": 0
   },
   "globals": {
     "$": true,
