@@ -59,7 +59,7 @@ describe RevisionScoreImporter do
   end
 
   it 'should handle network errors gracefully' do
-    stub_request(:any, %r{http://ores.wmflabs.org/.*})
+    stub_request(:any, %r{https://ores.wmflabs.org/.*})
       .to_raise(Errno::ECONNREFUSED)
     RevisionScoreImporter.update_revision_scores(Revision.all)
     expect(Revision.find(662106477).wp10).to be_nil
