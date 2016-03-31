@@ -8,7 +8,7 @@ Option = React.createClass(
   select: ->
     WizardActions.toggleOptionSelected @props.panel_index, @props.index
   expand: ->
-    $(ReactDOM.findDOMNode(@refs.expandable)).toggleHeight()
+    $(ReactDOM.findDOMNode(@refs.expandable)).slideToggle()
     WizardActions.toggleOptionExpanded @props.panel_index, @props.index
   render: ->
     disabled = @props.option.min_weeks? && @props.option.min_weeks > @props.open_weeks

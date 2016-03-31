@@ -1,3 +1,5 @@
+{ capitalize } = require './strings'
+
 getErrorMessage = (obj) ->
   obj.responseJSON?.message || obj.statusText
 
@@ -428,10 +430,10 @@ API =
         contentType: 'application/json',
         data: JSON.stringify data
         success: (data) ->
-          console.log (verb.capitalize() + ' ' + model)
+          console.log (capitalize(verb) + ' ' + model)
           res data
       .fail (obj, status) ->
-        console.error "#{model.capitalize()} not #{verb}: #{getErrorMessage(obj)}"
+        console.error "#{capitalize(model)} not #{verb}: #{getErrorMessage(obj)}"
         alert getErrorMessage(obj)
         rej obj
 
