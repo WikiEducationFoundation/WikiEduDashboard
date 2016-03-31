@@ -1,6 +1,6 @@
 class SurveyAssignmentsController < ApplicationController
   before_action :set_survey_assignment, only: [:show, :edit, :update, :destroy]
-  before_action :set_survey_assignment_options, only: [:edit, :update]
+  before_action :set_survey_assignment_options, only: [:new, :edit, :update]
   layout 'surveys'
   include SurveyAssignmentsHelper
 
