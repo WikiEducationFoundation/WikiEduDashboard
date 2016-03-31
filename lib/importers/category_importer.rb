@@ -9,40 +9,37 @@ class CategoryImporter
   ################
   # Entry points #
   ################
-  def initialize(wiki)
+  def initialize(wiki, opts={})
     @wiki = wiki
+    @depth = opts[:depth] || 0
+    @min_views = opts[:min_views] || 0
+    @max_wp10 = opts[:max_wp10] || 100
   end
 
   # Takes a category name of the form 'Category:Foo' and imports all articles
   # in that category. Optionally, also recursively imports subcategories of
   # the specified depth.
-  def import_category(category, depth: 0)
-    article_ids = article_ids_for_category(category, depth)
+  def import_category(category)
+    article_ids = article_ids_for_category(category, @depth)
     import_articles_with_scores_and_views article_ids
   end
 
-  def show_category(category, opts={})
-    depth = opts[:depth] || 0
-    min_views = opts[:min_views] || 0
-    max_wp10 = opts[:max_wp10] || 100
-    article_ids = article_ids_for_category(category, depth)
+  def show_category(category)
+    article_ids = article_ids_for_category(category, @depth)
     import_missing_scores_and_views article_ids
     articles = Article.where(id: article_ids, wiki_id: @wiki.id)
                       .order(average_views: :desc)
-                      .where('average_views > ?', min_views)
+                      .where('average_views > ?', @min_views)
     articles.select do |article|
       wp10 = article.revisions.last.wp10 || 0
-      wp10 < max_wp10
+      wp10 < @max_wp10
     end
   end
 
-  def report_on_category(category, opts={})
-    depth = opts[:depth] || 0
-    min_views = opts[:min_views] || 0
-    max_wp10 = opts[:max_wp10] || 100
-    article_ids = article_ids_for_category(category, depth)
+  def report_on_category(category)
+    article_ids = article_ids_for_category(category, @depth)
     import_missing_scores_and_views article_ids
-    views_and_scores_output(article_ids, min_views, max_wp10)
+    views_and_scores_output(article_ids)
   end
 
   private
@@ -50,14 +47,14 @@ class CategoryImporter
   ##################
   # Output methods #
   ##################
-  def views_and_scores_output(article_ids, min_views, max_wp10)
+  def views_and_scores_output(article_ids)
     output = "title,average_views,completeness,views/completeness\n"
     articles = Article.where(mw_page_id: article_ids, wiki_id: @wiki.id)
-                      .where('average_views > ?', min_views)
+                      .where('average_views > ?', @min_views)
     articles.each do |article|
       title = article.title
       completeness = article.revisions.last.wp10.to_f
-      next unless completeness < max_wp10
+      next unless completeness < @max_wp10
       average_views = article.average_views
       output += "\"#{title}\"," \
                 "#{average_views}," \

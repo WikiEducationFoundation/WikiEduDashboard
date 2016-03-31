@@ -20,8 +20,8 @@ describe CategoryImporter do
 
   it 'imports subcategories recursively' do
     VCR.use_cassette 'category_importer/import' do
-      CategoryImporter.new(wiki)
-                      .import_category(category, depth: 1)
+      CategoryImporter.new(wiki, depth: 1)
+                      .import_category(category)
       expect(Article.exists?(title: article_in_cat))
         .to be true # depth 0
       expect(Article.exists?(title: article_in_subcat))
@@ -31,8 +31,8 @@ describe CategoryImporter do
 
   it 'outputs filtered data about a category' do
     VCR.use_cassette 'category_importer/import' do
-      CategoryImporter.new(wiki)
-                      .import_category(category, depth: 1)
+      CategoryImporter.new(wiki, depth: 1)
+                      .import_category(category)
     end
     VCR.use_cassette 'category_importer/report_on_category' do
       output = CategoryImporter.new(wiki)
@@ -57,8 +57,8 @@ describe CategoryImporter do
              id: 10670306,
              title: 'Michael_"Crocodile"_Dundee')
       VCR.use_cassette 'category_importer/import' do
-        results = CategoryImporter.new(wiki)
-                                  .show_category(category, depth: 1)
+        results = CategoryImporter.new(wiki, depth: 1)
+                                  .show_category(category)
         article = Article.find_by(title: article_in_cat)
         expect(results).to include article
       end
