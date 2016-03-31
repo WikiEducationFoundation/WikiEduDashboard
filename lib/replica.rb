@@ -19,19 +19,22 @@ class Replica
   # array of revisions made by those users between those dates.
   def get_revisions(users, rev_start, rev_end)
     raw = get_revisions_raw(users, rev_start, rev_end)
-    data = {}
-    return data unless raw.is_a?(Enumerable)
-    raw.each do |revision|
-      parsed = parse_revision(revision)
-      page_id = parsed['article']['mw_page_id']
-      unless data.include?(page_id)
-        data[page_id] = {}
-        data[page_id]['article'] = parsed['article']
-        data[page_id]['revisions'] = []
-      end
-      data[page_id]['revisions'].push parsed['revision']
+    @data = {}
+    return @data unless raw.is_a?(Enumerable)
+    raw.each { |revision| extract_revision_data(revision) }
+
+    @data
+  end
+
+  def extract_revision_data(revision)
+    parsed = parse_revision(revision)
+    page_id = parsed['article']['mw_page_id']
+    unless @data.include?(page_id)
+      @data[page_id] = {}
+      @data[page_id]['article'] = parsed['article']
+      @data[page_id]['revisions'] = []
     end
-    data
+    @data[page_id]['revisions'].push parsed['revision']
   end
 
   # Given a single raw json revision, parse it into a more useful format.
