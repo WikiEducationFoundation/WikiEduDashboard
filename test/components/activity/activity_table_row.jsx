@@ -32,12 +32,15 @@ describe('ActivtyTableRow', () => {
   it('renders a table row with activity-table-row class and closed class', () => {
     const rows = ReactTestUtils.scryRenderedDOMComponentsWithTag(TestRow, 'tr');
     // rows[0] is header row
-    return expect(rows[1].className).to.eq('activity-table-row closed');
+    expect(rows[1].className).to.eq('activity-table-row closed');
   });
 
-  return it('changes class open to class closed when state is_open', () => {
+  it('changes class open to class closed when state is_open', (done) => {
     const row = ReactTestUtils.scryRenderedDOMComponentsWithClass(TestRow, 'activity-table-row')[0];
     expect(row.className).to.eq('activity-table-row closed');
-    return click(row).then(r => expect(r.className).to.eq('activity-table-row open'));
+    click(row).then(r => {
+      expect(r.className).to.eq('activity-table-row open');
+      done();
+    });
   });
 });
