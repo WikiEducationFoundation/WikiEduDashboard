@@ -6,7 +6,7 @@
   <div>
   <% if question_group.questions.length > 0 %>
   <div class='course-list__col'>
-    <%= link_to "Preview", new_question_group_answer_group_path(question_group) %>
+    <%= link_to "Preview", "#{new_question_group_answer_group_path(question_group)}?preview" %>
   </div>
   <% end %>
   <% if can_administer? %>
@@ -30,4 +30,3 @@
   </div>
 </div>
 </li>
-

@@ -40,6 +40,7 @@ const Survey = {
   currentBlock: 0,
   submitted: [],
   surveyConditionals: {},
+  previewMode: false,
 
   init() {
     this.$window = $(window);
@@ -50,6 +51,7 @@ const Survey = {
     this.$thankYou = $('[data-thank-you]');
     this.setFormValidationSections();
     this.surveyProgress = $('[data-survey-progress]');
+    this.getUrlParam();
     this.initConditionals();
     this.listeners();
     this.initBlocks();
@@ -110,7 +112,10 @@ const Survey = {
   },
 
   submitAllQuestionGroups() {
-    this.$surveyForm.each(this.submitQuestionGroup.bind(this));
+    if (!this.previewMode) {
+      this.dismissSurvey();
+      this.$surveyForm.each(this.submitQuestionGroup.bind(this));
+    }
   },
 
   submitQuestionGroup(index) {
@@ -136,6 +141,43 @@ const Survey = {
     });
 
     $form.submit();
+  },
+
+  getUrlParam() {
+    if (location.search.length) {
+      const params = location.search.replace('?', '').split('=');
+      const paramHandler = {
+        notification: () => {
+          this.surveyNotificationId = params[1];
+        },
+        preview: () => {
+          this.previewMode = true;
+          console.log(this.previewMode);
+        }
+      };
+      if (typeof paramHandler[params[0]] !== 'undefined') {
+        paramHandler[params[0]]();
+      }
+    }
+    return null;
+  },
+
+  dismissSurvey() {
+    if (this.surveyNotificationId === undefined) { return; }
+    $.ajax({
+      type: 'PUT',
+      url: '/survey_notification',
+      dataType: 'json',
+      data: {
+        survey_notification: {
+          id: this.surveyNotificationId,
+          notification_dismissed: true
+        }
+      },
+      success(data) {
+        console.log(data);
+      }
+    });
   },
 
   processQuestionGroupData(data) {
@@ -172,11 +214,6 @@ const Survey = {
     _postData.answer_group = answerGroup;
     return _postData;
   },
-
-  // validateBlock() {
-  //   const toIndex = this.currentBlock + 1
-  //   return this.validateCurrentQuestion();
-  // },
 
   updateCurrentBlock() {
     const $block = $(`[data-survey-block='${this.currentBlock}']`);

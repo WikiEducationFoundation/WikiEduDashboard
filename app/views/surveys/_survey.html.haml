@@ -4,7 +4,8 @@
       %strong= survey.name
     %div
       - if survey.rapidfire_question_groups.length > 0
-        .course-list__col= link_to 'View Survey', survey
+        .course-list__col= link_to 'Preview', "#{survey_url(survey)}?preview"
+        .course-list__col= link_to 'Take Survey', "#{survey_url(survey)}"
       - if can_administer?
         .course-list__col
           = link_to "Clone Survey", "/surveys/clone/#{survey.id}", method: :post
