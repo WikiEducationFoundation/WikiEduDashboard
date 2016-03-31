@@ -29,13 +29,10 @@
     - $ `bower install`
 
 - Install Pandoc
-    - See the Pandoc [installation guide](http://pandoc.org/installing.html) for your environment's specifics. 
+    - See the Pandoc [installation guide](http://pandoc.org/installing.html) for your environment's specifics.
 
 - Add config files:
     - Save `application.example.yml` and `database.example.yml` as `application.yml` and `database.yml`, respectively, in the `config` directory. Fill in your Wikipedia account login details in `application.yml` (for API access). The default settings in `database.yml` will suffice for a development environment.
-
-- Install Git Submodule
-    - `git submodule update --init --recursive`
 
 - Create mysql development and test database:
     - Install mysql-server and start a mysql command line
@@ -48,10 +45,10 @@
 ## Initialize
 1. **Migrate the database**
       $ `rake db:migrate`
-      
+
 ## Seed data (optional; this could take a very long time)
 
-1. **Uncomment or add cohort URLs in `application.yml`** 
+1. **Uncomment or add cohort URLs in `application.yml`**
 
 	`cohort_fall_2014: "Wikipedia:Education_program/Dashboard/Fall_2014_course_ids"`
 	`cohort_spring_2015: "Wikipedia:Education_program/Dashboard/course_ids"`
