@@ -11,6 +11,7 @@ CONDITIONAL_COMPARISON_OPERATORS = """
 SurveyAdmin =
   init: ->
     @cacheSelectors()
+    @course_data = @$course_data_populate_checkbox.attr('checked')?
     @initSortableQuestions()
     @initSortableQuestionGroups()
     @listeners()
@@ -121,7 +122,7 @@ SurveyAdmin =
   showQuestionTypes: (string) ->
     $("[data-question-type-options*='#{string}']").removeClass 'hidden'
     @$answer_options.addClass 'hidden' if @course_data
-    
+
     switch string
       when 'Select', 'Checkbox', 'Radio'
         @$answer_options.removeClass 'hidden' if !@course_data
@@ -134,7 +135,7 @@ SurveyAdmin =
     @$question_text_input.addClass 'hidden'
     @$question_form_options.addClass 'hidden'
     @$question_text_editor.html "<trix-editor input='question_text'></trix-editor>"
-  
+
   resetQuestionText: ->
     @question_html_backup = @$question_text_input.val()
     @$question_text_input.val @question_html_backup.replace(/(<([^>]+)>)/ig,"").replace('&nbsp;', ' ')
@@ -257,7 +258,7 @@ SurveyAdmin =
             @$conditional_value_select.val(value).trigger 'change'
             @$document.off CONDITIONAL_ANSWERS_CHANGED
           $row.find('select').val("#{question_id}").trigger 'change'
-      
+
 
   addPresenceConditional: ->
     @$conditional_input_field.val "#{@$conditional_question_select.val()}|*presence"
@@ -269,7 +270,7 @@ SurveyAdmin =
     conditional_string += "#{@$conditional_operator.text()}|"
     conditional_string += "#{@$conditional_value_select.val()}|multi"
     @$conditional_input_field.val conditional_string
-  
+
   clearConditional: (e) ->
     e.preventDefault() if e?
     @$conditional_operator.text ''
