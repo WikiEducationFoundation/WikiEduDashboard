@@ -4,6 +4,7 @@ Router          = ReactRouter.Router
 Link            = ReactRouter.Link
 AssignButton    = require './assign_button.cjsx'
 UIActions       = require '../../actions/ui_actions.coffee'
+{ trunc }       = require '../../utils/strings'
 
 AssignCell = React.createClass(
   displayname: 'AssignCell'
@@ -17,7 +18,7 @@ AssignCell = React.createClass(
       if @props.assignments.length > 1
         link = <span onClick={@open}>{@props.assignments.length + ' articles'}</span>
       else
-        title_text = raw_a.article_title.trunc()
+        title_text = trunc(raw_a.article_title)
         if raw_a.article_url?
           link = (
             <a onClick={@stop} href={raw_a.article_url} target="_blank" className="inline">{title_text}</a>
