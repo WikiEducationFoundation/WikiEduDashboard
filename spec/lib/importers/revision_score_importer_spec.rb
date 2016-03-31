@@ -30,7 +30,7 @@ describe RevisionScoreImporter do
     VCR.use_cassette 'revision_scores/by_revisions' do
       pending 'This should pass unless ORES is down or overloaded.'
 
-      RevisionScoreImporter.update_revision_scores
+      RevisionScoreImporter.new.update_revision_scores
       early_score = Revision.find(641962088).wp10.to_f
       later_score = Revision.find(675892696).wp10.to_f
       expect(early_score).to be > 0
@@ -45,9 +45,9 @@ describe RevisionScoreImporter do
     VCR.use_cassette 'revision_scores/by_article' do
       pending 'This should pass unless ORES is down or overloaded.'
 
-      article_ids = [45010238, 1538038]
-      RevisionScoreImporter
-        .update_all_revision_scores_for_articles(article_ids)
+      articles = Article.all
+      RevisionScoreImporter.new
+                           .update_all_revision_scores_for_articles(articles)
       early_score = Revision.find(46745264).wp10.to_f
       later_score = Revision.find(662106477).wp10.to_f
       expect(early_score).to be > 0
@@ -61,7 +61,7 @@ describe RevisionScoreImporter do
   it 'should handle network errors gracefully' do
     stub_request(:any, %r{https://ores.wmflabs.org/.*})
       .to_raise(Errno::ECONNREFUSED)
-    RevisionScoreImporter.update_revision_scores(Revision.all)
+    RevisionScoreImporter.new.update_revision_scores(Revision.all)
     expect(Revision.find(662106477).wp10).to be_nil
   end
 end

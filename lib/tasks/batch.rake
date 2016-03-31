@@ -160,12 +160,4 @@ namespace :batch do
     File.delete pid_file if File.exist? pid_file
     Raven.capture_message 'Updates resumed.', level: 'warn'
   end
-
-  namespace :revision_scores do
-    desc 'Import revision scores'
-    task import: 'batch:setup_logger' do
-      Rails.logger.debug 'Importing revision scores'
-      RevisionScoreImporter.update_revision_scores
-    end
-  end
 end

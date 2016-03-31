@@ -9,10 +9,10 @@ namespace :revision do
     RevisionImporter.update_all_revisions
   end
 
-  desc 'Import wp10 scores for all revisions'
+  desc 'Import wp10 scores for all en.wiki revisions'
   task update_revision_scores: 'batch:setup_logger' do
-    Rails.logger.debug 'Importing wp10 scores for all revisions'
-    RevisionScoreImporter.update_revision_scores
+    Rails.logger.debug 'Importing wp10 scores for all en.wiki revisions'
+    RevisionScoreImporter.new.update_revision_scores
   end
 
   desc 'Update deleted status for all revisions'

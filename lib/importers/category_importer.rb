@@ -45,6 +45,8 @@ class CategoryImporter
     views_and_scores_output(article_ids, min_views, max_wp10)
   end
 
+  private
+
   ##################
   # Output methods #
   ##################
@@ -92,7 +94,7 @@ class CategoryImporter
     import_latest_revision missing_revisions unless missing_revisions.empty?
 
     missing_revision_scores = Revision.where(mw_page_id: article_ids, wiki_id: @wiki.id, wp10: nil)
-    RevisionScoreImporter.update_revision_scores missing_revision_scores
+    RevisionScoreImporter.new.update_revision_scores missing_revision_scores
   end
 
   def import_articles_with_scores_and_views(article_ids)
@@ -158,7 +160,7 @@ class CategoryImporter
     article_ids.each do |id|
       rev_data = latest_revision_data[id.to_s]['revisions'][0]
       new_article = (rev_data['parentid'] == 0)
-      new_revision = Revision.new(id: rev_data['revid'],
+      new_revision = Revision.new(mw_rev_id: rev_data['revid'],
                                   article_id: Article.find_by(wiki_id: @wiki.id, mw_page_id: id).id,
                                   mw_page_id: id,
                                   date: rev_data['timestamp'].to_datetime,
@@ -187,7 +189,7 @@ class CategoryImporter
       revision = Article.find_by(wiki_id: @wiki.id, mw_page_id: id).revisions.last
       revisions_to_update << revision if revision.wp10.nil?
     end
-    RevisionScoreImporter.update_revision_scores revisions_to_update
+    RevisionScoreImporter.new.update_revision_scores revisions_to_update
   end
 
   def import_average_views(article_ids)
