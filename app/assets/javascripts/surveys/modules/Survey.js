@@ -385,7 +385,7 @@ const Survey = {
 
       $question.addClass('hidden');
 
-      if ((this.surveyConditionals[question_id] !== null)) {
+      if (typeof this.surveyConditionals[question_id] !== 'undefined') {
         this.surveyConditionals[question_id].children.push($question[0]);
       } else {
         this.surveyConditionals[question_id] = {};
@@ -398,7 +398,7 @@ const Survey = {
       switch (operator) {
         case '*presence':
           return this.conditionalPresenceListeners(question_id, $question);
-        case '<': case '>':
+        case '<': case '>':case '<=': case '>=':
           return this.conditionalComparisonListeners(question_id, operator, value, $question);
         default:
           return this.conditionalAnswerListeners(question_id, multi);
