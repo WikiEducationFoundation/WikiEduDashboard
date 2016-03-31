@@ -22,22 +22,19 @@ class DashboardPresenter
     current_user.permissions == User::Permissions::ADMIN
   end
 
-  # Show the 'Your Courses' label if there are submitted courses
+  # Show the 'Your Courses' label if there are current, submitted courses
   # OR you're an instructor with existing courses but you still haven't completed orientation
   def show_your_courses_label?
-    return true if @submitted.any? && @current.any? # submitted with current courses
-    return false if @submitted.any? && @current.empty? && @past.any? # submitted with no current but there are past
-    return true if @submitted.any? && @current.empty? && @past.empty? # submitted but no courses
-    return true if @current.any? && is_instructor? && !instructor_has_completed_orientation? # current but hasn't completed orientation
+    return true if submitted_and_current_courses?
+    return false if only_past_submitted_courses?
+    return true if submitted_but_no_current_or_past_courses?
+    return true if current_courses_but_incomplete_instructor_training?
   end
 
   # Show 'Welcome' for people without any courses on the screen, otherwise 'My Dashboard'
   def heading_message
-    if @current.any? && @past.any? || @submitted.any?
-      return I18n.t("application.my_dashboard")
-    else
-      return I18n.t("application.greeting2")
-    end
+    return I18n.t('application.my_dashboard') if @current.any? && @past.any? || @submitted.any?
+    return I18n.t('application.greeting2')
   end
 
   # Show the orientation block if you're an instructor who hasn't completed
@@ -87,5 +84,21 @@ class DashboardPresenter
       .where(training_module_id: ORIENTATION_ID)
       .where(user_id: current_user.id)
       .where.not(completed_at: nil).any?
+  end
+
+  def submitted_and_current_courses?
+    @submitted.any? && @current.any?
+  end
+
+  def only_past_submitted_courses?
+    @submitted.any? && @current.empty? && @past.any?
+  end
+
+  def submitted_but_no_current_or_past_courses?
+    @submitted.any? && @current.empty? && @past.empty?
+  end
+
+  def current_courses_but_incomplete_instructor_training?
+    @current.any? && is_instructor? && !instructor_has_completed_orientation?
   end
 end
