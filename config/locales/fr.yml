@@ -320,6 +320,7 @@ fr:
     chars_added: Caractères ajoutés<br>(espace principal | espace utilisateur)
     contributions: Contributions de l’utilisateur
     contributions_more: Afficher plus de contributions
+    editors: Editeurs étudiants
     loading: Chargement des utilisateurs…
     name: Nom
     none: Ce cours n’a aucun étudiant.

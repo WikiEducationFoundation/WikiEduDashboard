@@ -257,6 +257,7 @@ zh-hans:
     chars_added: 添加的字符<br>（主名字空间 | 用户名字空间）
     contributions: 用户贡献
     contributions_more: 查看更多贡献
+    editors: 学生编辑者
     loading: 正在加载用户...
     name: 名字
     none: 此课程没有学生。
