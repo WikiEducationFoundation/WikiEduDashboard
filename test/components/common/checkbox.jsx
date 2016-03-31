@@ -1,5 +1,5 @@
 import '../../testHelper';
-import Checkbox from '../../../app/assets/javascripts/components/common/checkbox.cjsx';
+import Checkbox from '../../../app/assets/javascripts/components/common/checkbox.jsx';
 import React from 'react';
 import ReactTestUtils from 'react-addons-test-utils';
 
