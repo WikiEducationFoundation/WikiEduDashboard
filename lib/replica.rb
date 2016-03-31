@@ -54,6 +54,13 @@ class Replica
   #     }
   #   }
   def parse_revision(revision)
+    article_data = parse_article_data(revision)
+    revision_data = parse_revision_data(revision)
+
+    { 'article' => article_data, 'revision' => revision_data }
+  end
+
+  def parse_article_data(revision)
     article_data = {}
     # TODO: decouple id from mw_page_id
     article_data['id'] = revision['page_id']
@@ -61,7 +68,10 @@ class Replica
     article_data['title'] = revision['page_title']
     article_data['namespace'] = revision['page_namespace']
     article_data['wiki_id'] = @wiki.id
+    article_data
+  end
 
+  def parse_revision_data(revision)
     revision_data = {}
     # TODO: decouple id from mw_rev_id
     revision_data['id'] = revision['rev_id']
@@ -75,8 +85,7 @@ class Replica
     revision_data['new_article'] = revision['new_article']
     revision_data['system'] = revision['system']
     revision_data['wiki_id'] = @wiki.id
-
-    { 'article' => article_data, 'revision' => revision_data }
+    revision_data
   end
 
   ###################
@@ -177,7 +186,7 @@ class Replica
     tries ||= 3
     url = compile_query_url(endpoint, query)
     response = Net::HTTP::get(URI.parse(url))
-    return unless response.length > 0
+    return if response.empty?
     parsed = JSON.parse response.to_s
     return unless parsed['success']
     parsed['data']
@@ -228,13 +237,7 @@ class Replica
   end
 
   def report_exception(error, endpoint, query, level='error')
-    Rails.logger
-      .error "replica.rb #{endpoint} query failed after 3 tries: #{error}"
-    # These are typical network errors that we expect to encounter.
-    typical_errors = [Errno::ETIMEDOUT,
-                      Net::ReadTimeout,
-                      Errno::ECONNREFUSED,
-                      JSON::ParserError]
+    Rails.logger.error "replica.rb #{endpoint} query failed after 3 tries: #{error}"
     level = 'warning' if typical_errors.include?(error.class)
     Raven.capture_exception error,
                             level: level,
@@ -243,5 +246,13 @@ class Replica
                                       language: @wiki.language,
                                       project: @wiki.project }
     return nil
+  end
+
+  # These are typical network errors that we expect to encounter.
+  def typical_errors
+    [Errno::ETIMEDOUT,
+     Net::ReadTimeout,
+     Errno::ECONNREFUSED,
+     JSON::ParserError]
   end
 end
