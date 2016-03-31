@@ -11,13 +11,13 @@ describe ArticleFinderController do
   describe 'results' do
     it 'handles empty submissions' do
       post :results
-      expect(CategoryImporter).not_to receive(:show_category)
+      expect(CategoryImporter).not_to receive(:new)
       expect(response.status).to eq(200)
     end
 
     it 'invokes CategoryImporter' do
       params = { category: 'Feminism' }
-      expect(CategoryImporter).to receive(:show_category)
+      expect_any_instance_of(CategoryImporter).to receive(:show_category)
       post :results, params
       expect(response.status).to eq(200)
     end

@@ -1,6 +1,9 @@
 require 'mediawiki_api'
 
 #= Imports revision scoring data from ores.wmflabs.org
+# Currently, this only applies to English Wikipedia.
+# French Wikipedia also has a wp10 model for ores, but it that wiki has a different
+# scale.
 class RevisionScoreImporter
   ################
   # Entry points #
@@ -8,6 +11,10 @@ class RevisionScoreImporter
   def self.update_revision_scores(revisions=nil)
     # Unscored mainspace, userspace, and Draft revisions, by default
     revisions ||= unscored_mainspace_userspace_and_draft_revisions
+    # Filter out any revisions from wikis other than English Wikipedia.
+    en_wiki_id = Wiki.find_by(language: 'en', project: 'wikipedia').id
+    revisions = revisions.select { |rev| rev.wiki_id == en_wiki_id }
+
     batches = revisions.count / 1000 + 1
     revisions.each_slice(1000).with_index do |rev_batch, i|
       Rails.logger.debug "Pulling revisions: batch #{i + 1} of #{batches}"
@@ -44,7 +51,7 @@ class RevisionScoreImporter
       score = get_revision_scores [parent_id]
       next unless score[parent_id.to_s].key?('probability')
       probability = score[parent_id.to_s]['probability']
-      revision.wp10_previous = weighted_mean_score probability
+      revision.wp10_previous = en_wiki_weighted_mean_score probability
       revision.save
     end
   end
@@ -54,16 +61,17 @@ class RevisionScoreImporter
   ##################
 
   def self.unscored_mainspace_userspace_and_draft_revisions
+    en_wiki = Wiki.find_by(language: 'en', project: 'wikipedia')
     Revision.joins(:article)
-      .where(wp10: nil)
-      .where(articles: { namespace: [0, 2, 118] })
+            .where(wp10: nil, wiki_id: en_wiki.id)
+            .where(articles: { namespace: [0, 2, 118] })
   end
 
   def self.save_scores(scores)
     scores.each do |rev_id, score|
       next unless score.key?('probability')
       revision = Revision.find(rev_id.to_i)
-      revision.wp10 = weighted_mean_score score['probability']
+      revision.wp10 = en_wiki_weighted_mean_score score['probability']
       revision.save
     end
   end
@@ -86,7 +94,7 @@ class RevisionScoreImporter
     rev_query
   end
 
-  def self.weighted_mean_score(probability)
+  def self.en_wiki_weighted_mean_score(probability)
     mean = probability['FA'] * 100
     mean += probability['GA'] * 80
     mean += probability['B'] * 60
