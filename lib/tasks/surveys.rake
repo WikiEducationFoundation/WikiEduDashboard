@@ -49,6 +49,25 @@ namespace :surveys do
     create(:q_long, question_params.merge(conditionals: "#{comparison_parent.id}|>=|50"))
   end
 
+  desc 'Create Survey with Matrix (Grouped) Questions for Testing'
+  task build_matrix_survey: :environment do
+    group_name = "Matrix Questions"
+    # Rapidfire::QuestionGroup.destroy(Rapidfire::QuestionGroup.find_by(:name => group_name).id)
+    test_group = create(:question_group, name: group_name)
+    test_survey = create(:survey, name: "Matrix Question Survey")
+    test_survey.rapidfire_question_groups << test_group
+    test_survey.save
+    question_params = {
+      question_group_id: test_group.id,
+      answer_options:  "Unlikely\r\nPossibly\r\nVery Likely\r\nDefinitely",
+      validation_rules: { :grouped  => "1", :grouped_question => "How likely are you to do these things?" }
+    }
+    create(:q_radio, question_params.merge({question_text: "Sky Diving"}))
+    create(:q_radio, question_params.merge({question_text: "Rob a bank"}))
+    create(:q_radio, question_params.merge({question_text: "Write a computer virus"}))
+    create(:q_radio, question_params.merge({question_text: "Walk across the US"}))
+  end
+
   desc 'Find CoursesUsers ready to receive surveys and create a SurveyNotification for each'
   task create_notifications: :environment do
     include SurveyAssignmentsHelper
