@@ -6,7 +6,6 @@ namespace :surveys do
   desc 'Create Survey with Basic Questions for Testing'
   task build_basic_survey: :environment do
     group_name = "Basic Question Types"
-    Rapidfire::QuestionGroup.destroy(Rapidfire::QuestionGroup.find_by(:name => group_name).id)
     test_group = create(:question_group, name: group_name)
     test_survey = create(:survey)
     test_survey.rapidfire_question_groups << test_group
@@ -22,7 +21,6 @@ namespace :surveys do
   desc 'Create Survey with Conditional Questions for Testing'
   task build_conditional_survey: :environment do
     group_name = "Conditional Question Types"
-    # Rapidfire::QuestionGroup.destroy(Rapidfire::QuestionGroup.find_by(:name => group_name).id)
     test_group = create(:question_group, name: group_name)
     test_survey = create(:survey, name: "Conditional Question Survey")
     test_survey.rapidfire_question_groups << test_group
@@ -52,7 +50,6 @@ namespace :surveys do
   desc 'Create Survey with Matrix (Grouped) Questions for Testing'
   task build_matrix_survey: :environment do
     group_name = "Matrix Questions"
-    # Rapidfire::QuestionGroup.destroy(Rapidfire::QuestionGroup.find_by(:name => group_name).id)
     test_group = create(:question_group, name: group_name)
     test_survey = create(:survey, name: "Matrix Question Survey")
     test_survey.rapidfire_question_groups << test_group
@@ -66,6 +63,18 @@ namespace :surveys do
     create(:q_radio, question_params.merge({question_text: "Rob a bank"}))
     create(:q_radio, question_params.merge({question_text: "Write a computer virus"}))
     create(:q_radio, question_params.merge({question_text: "Walk across the US"}))
+  end
+
+  desc 'Create Course-Specific Questions for Testing'
+  task build_course_data_survey: :environment do
+    group_name = "Course Data Questions"
+    test_group = create(:question_group, name: group_name)
+    test_survey = create(:survey, name: "Course Data Question Survey")
+    test_survey.rapidfire_question_groups << test_group
+    question_params = { question_group_id: test_group.id, answer_options: '' }
+    create(:q_select, question_params.merge({question_text: "Select a student", course_data_type: "Students"}))
+    create(:q_radio, question_params.merge({question_text: "Select a WikiEdu Staff Member", course_data_type: "WikiEdu Staff"}))
+    create(:q_checkbox, question_params.merge({question_text: "Select an Article", course_data_type: "Articles"}))
   end
 
   desc 'Find CoursesUsers ready to receive surveys and create a SurveyNotification for each'
