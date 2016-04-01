@@ -8,6 +8,7 @@ Rails.application.config.to_prepare do
   end
 
   Rapidfire::Question.class_eval do
+    scope :course_data_questions, ->{where("course_data_type <> ''")}
     def self.for_conditionals
       where("conditionals IS NULL OR conditionals = ''")
     end
@@ -15,6 +16,11 @@ Rails.application.config.to_prepare do
 
   Rapidfire::ApplicationController.class_eval do
     layout 'surveys'
+  end
+
+  Rapidfire::AnswerGroupsController.class_eval do
+    include SurveysHelper
+    before_action :set_course_if_course_questions, only: [:new]
   end
 
   Rapidfire::QuestionForm.class_eval do
@@ -47,9 +53,9 @@ Rails.application.config.to_prepare do
     attr_accessor :question_group, :question,
       :type, :question_text, :answer_options, :answer_presence,
       :answer_minimum_length, :answer_maximum_length, :multiple,
-      :answer_greater_than_or_equal_to, :answer_less_than_or_equal_to, :answer_grouped, 
-      :answer_grouped_question, :answer_range_minimum, :answer_range_maximum, 
-      :answer_range_increment, :answer_range_divisions, :answer_range_format, 
+      :answer_greater_than_or_equal_to, :answer_less_than_or_equal_to, :answer_grouped,
+      :answer_grouped_question, :answer_range_minimum, :answer_range_maximum,
+      :answer_range_increment, :answer_range_divisions, :answer_range_format,
       :follow_up_question_text, :conditionals, :course_data_type, :placeholder_text
 
     private

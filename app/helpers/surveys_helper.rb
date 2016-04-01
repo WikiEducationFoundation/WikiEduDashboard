@@ -1,7 +1,7 @@
 module SurveysHelper
-  
+  include CourseHelper
   def survey_page(request)
-    root_path = request.path.split('/')[1] 
+    root_path = request.path.split('/')[1]
     ["surveys", "rapidfire", "survey_assignments"].include? rootpath
   end
 
@@ -16,19 +16,23 @@ module SurveysHelper
 
   def survey_select(f, answer, course)
     options = answer_options(answer, course).collect { |o| o.is_a?(Array) ? [ "#{o[1].tr('_', ' ')}", o[0]] : o }
-    select_tag(:answer_text, options_for_select(options), { 
+    if options.length == 0
+      content_tag(:div, :data => { :remove_me => true })
+    else
+      select_tag(:answer_text, options_for_select(options), {
           :include_blank => "#{answer.question.multiple ? 'Select all that apply' : 'Select an option'}",
-          :required => is_required_question?(answer), 
-          :multiple => answer.question.multiple, 
+          :required => is_required_question?(answer),
+          :multiple => answer.question.multiple,
           :data => {:chosen_select => true}
         })
+    end
   end
 
   def answer_options(answer, course)
     question = answer.question
     if question.options.length > 0
       question.options
-    elsif course != nil 
+    elsif course != nil
       course_answer_options(question.course_data_type, course)
     end
   end
@@ -168,5 +172,30 @@ module SurveysHelper
   def is_radio_type(answer)
     question_type(answer) == 'radio'
   end
-  
+
+  private
+
+  def has_course_slug
+    params.key?("course_slug")
+  end
+
+  def set_course
+    if has_course_slug
+      @course = find_course_by_slug(params[:course_slug])
+    end
+  end
+
+  def has_course_questions
+    @question_group.questions.course_data_questions.length > 0
+  end
+
+  def set_course_if_course_questions
+    if has_course_questions && !has_course_slug
+      @courses = Course.all
+      render "course_select"
+    else
+      set_course
+    end
+  end
+
 end
