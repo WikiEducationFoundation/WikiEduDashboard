@@ -3,12 +3,12 @@
     = f.error_notification
     .form__row
       %h4 Survey
-      = f.select :survey_id, options_from_collection_for_select(Survey.all, 'id', 'name', {:selected => (@survey_assignment.survey.nil? ? nil : @survey_assignment.survey.id)} ), {}, { :data => { :chosen_select => true}} 
+      = f.select :survey_id, options_from_collection_for_select(Survey.all, 'id', 'name', {:selected => (@survey_assignment.survey_id.nil? ? nil : @survey_assignment.survey_id)} ), {}, { :data => { :chosen_select => true}}
 
     .form__row
       %h4 Distribution Target
-      = f.select :cohort_ids, options_from_collection_for_select(Cohort.all, 'id', 'title', {:selected => @survey_assignment.cohorts.pluck(:id) }), {}, { :multiple => true,  :data => { :chosen_select => true}} 
-    
+      = f.select :cohort_ids, options_from_collection_for_select(Cohort.all, 'id', 'title', {:selected => @survey_assignment.cohorts.pluck(:id) }), {}, { :multiple => true,  :data => { :chosen_select => true}}
+
     .form__row
       = f.label :courses_user_role
       = user_role_select(f)
