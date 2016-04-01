@@ -8,6 +8,7 @@ Rails.application.config.to_prepare do
   end
 
   Rapidfire::Question.class_eval do
+
     scope :course_data_questions, ->{where("course_data_type <> ''")}
     def self.for_conditionals
       where("conditionals IS NULL OR conditionals = ''")
@@ -58,6 +59,10 @@ Rails.application.config.to_prepare do
       :answer_range_increment, :answer_range_divisions, :answer_range_format,
       :follow_up_question_text, :conditionals, :course_data_type, :placeholder_text
 
+    def save
+      @question.new_record? ? create_question : update_question
+    end
+
     private
     def create_question
       klass = nil
@@ -67,7 +72,6 @@ Rails.application.config.to_prepare do
         errors.add(:type, :invalid)
         return false
       end
-
       @question = klass.create(to_question_params)
     end
 
@@ -83,7 +87,7 @@ Rails.application.config.to_prepare do
         :course_data_type => course_data_type,
         :placeholder_text => placeholder_text,
         :validation_rules => {
-          :presence => answer_presence,
+          :presence => !conditionals.empty? ? "0" : answer_presence,
           :grouped => answer_grouped,
           :grouped_question => answer_grouped_question,
           :minimum  => answer_minimum_length,
@@ -109,7 +113,7 @@ Rails.application.config.to_prepare do
       self.multiple = question.multiple
       self.course_data_type = question.course_data_type
       self.placeholder_text = placeholder_text
-      self.answer_presence = question.rules[:presence]
+      self.answer_presence =  question.rules[:presence]
       self.answer_grouped = question.rules[:grouped]
       self.answer_grouped_question = question.rules[:grouped_question]
       self.answer_minimum_length = question.rules[:minimum]

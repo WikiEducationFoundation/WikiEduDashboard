@@ -15,7 +15,7 @@
 
   <div class='survey__question__option-row'>
     <%= f.label :answer_presence, "Question is Required" %>
-    <%= f.check_box :answer_presence, :checked => true %>
+    <%= f.check_box :answer_presence, :checked => form.question.rules[:presence] == "1" %>
   </div>
 
   <br/>
