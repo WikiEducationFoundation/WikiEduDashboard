@@ -6,7 +6,6 @@ import Checkbox from '../common/checkbox.cjsx';
 import Select from '../common/select.cjsx';
 import BlockActions from '../../actions/block_actions.coffee';
 import GradeableActions from '../../actions/gradeable_actions.coffee';
-import I18n from 'I18n';
 
 const Block = React.createClass({
   displayName: 'Block',

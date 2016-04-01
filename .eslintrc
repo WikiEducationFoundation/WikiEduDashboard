@@ -23,6 +23,7 @@
     "$": true,
     "describe": true,
     "it": true,
-    "expect": true
+    "expect": true,
+    "I18n": true
   }
 }
