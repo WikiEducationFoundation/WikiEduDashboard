@@ -110,14 +110,12 @@ const ActivityTable = React.createClass({
 
     const activity = this._renderActivites();
     const drawers = this._renderDrawers();
+    const ths = this._renderHeaders();
 
     let elements = _.flatten(_.zip(activity, drawers));
-
     if (!elements.length) {
       elements = <tr><td colSpan="6">{this.props.noActivityMessage}</td></tr>;
     }
-
-    const ths = this._renderHeaders();
 
     return (
       <table className="activity-table list">
