@@ -6,7 +6,8 @@ require('velocity-animate');
 require('parsleyjs');
 require('core-js/modules/es6.array.is-array');
 const rangeslider = require('nouislider');
-const wNumb = require('wnumb');
+require('wnumb');
+const wNumb = window.wNumb;
 const throttle = require('lodash.throttle');
 import UrlParse from 'url-parse';
 
