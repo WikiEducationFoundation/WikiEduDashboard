@@ -24,8 +24,8 @@ before_install:
 - export sentry_dsn=${sentry_dsn:=http://example.com}
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
-- nvm install v4.2.1
-- nvm use v4.2.1
+- nvm install v5.8.0
+- nvm use v5.8.0
 - node --version
 - npm --version
 install:
