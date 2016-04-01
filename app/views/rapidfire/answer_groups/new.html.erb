@@ -1,3 +1,7 @@
+<% if params.key?("preview") %>
+<div class="notice text-center">Preview Mode On</div>
+<% end %>
+
 <% if can_administer? %>
 <div class='survey__admin-tools'>
   <%= link_to "Edit this Question Group", question_group_questions_path(@question_group) %>
