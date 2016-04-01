@@ -16,7 +16,9 @@ const ActivityTable = React.createClass({
   },
 
   getInitialState() {
-    return { activity: this.props.activity };
+    return {
+      activity: this.props.activity
+    };
   },
 
   clearAllSortableClassNames() {
@@ -27,23 +29,24 @@ const ActivityTable = React.createClass({
   },
 
   sortItems(e) {
-    const sortOrder = e.target.classList.contains('asc') ? 'desc' : 'asc';
     this.clearAllSortableClassNames();
-    e.target.classList.add(sortOrder);
+
+    const nextSortOrder = e.target.classList.contains('asc') ? 'desc' : 'asc';
+    e.target.classList.add(nextSortOrder);
+
     const key = e.target.getAttribute('data-sort-key');
     let activities = _.sortByOrder(this.state.activity, [key]);
-    if (sortOrder === 'desc') {
+    if (nextSortOrder === 'desc') {
       activities = activities.reverse();
     }
-    return this.setState(this.state.activity = activities);
+
+    this.setState({
+      activity: activities
+    });
   },
 
-  render() {
-    if (this.props.loading) {
-      return <Loading />;
-    }
-
-    const activity = this.state.activity.map((revision) => {
+  _renderActivites() {
+    return this.state.activity.map((revision) => {
       const roundedRevisionScore = Math.round(revision.revision_score) || 'unknown';
       const revisionDateTime = moment(revision.datetime).format('YYYY/MM/DD h:mm a');
       const talkPageLink = `https://en.wikipedia.org/wiki/User_talk:${revision.username}`;
@@ -63,9 +66,10 @@ const ActivityTable = React.createClass({
         />
       );
     });
+  },
 
-
-    const drawers = this.state.activity.map((revision) => {
+  _renderDrawers() {
+    return this.state.activity.map((revision) => {
       const courses = revision.courses.map((course) => {
         return (
           <li key={`${revision.key}-${course.slug}`}>
@@ -87,6 +91,25 @@ const ActivityTable = React.createClass({
         </tr>
       );
     });
+  },
+
+  _renderHeaders() {
+    return this.props.headers.map((header) => {
+      return (
+        <th key={header.key} onClick={this.sortItems} className="sortable" data-sort-key={header.key}>
+          {header.title}
+        </th>
+      );
+    });
+  },
+
+  render() {
+    if (this.props.loading) {
+      return <Loading />;
+    }
+
+    const activity = this._renderActivites();
+    const drawers = this._renderDrawers();
 
     let elements = _.flatten(_.zip(activity, drawers));
 
@@ -94,13 +117,7 @@ const ActivityTable = React.createClass({
       elements = <tr><td colSpan="6">{this.props.noActivityMessage}</td></tr>;
     }
 
-    const ths = this.props.headers.map((header) => {
-      return (
-        <th key={header.key} onClick={this.sortItems} className="sortable" data-sort-key={header.key}>
-          {header.title}
-        </th>
-      );
-    });
+    const ths = this._renderHeaders();
 
     return (
       <table className="activity-table list">
