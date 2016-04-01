@@ -92,19 +92,21 @@ namespace :surveys do
     SurveyAssignment.published.each do |survey_assignment|
       survey_assignment.courses_users_ready_for_survey.each do |courses_user|
         course = Course.find(courses_user.course_id)
-        notification = SurveyNotification.new(
-          :courses_user_id => courses_user.id,
-          :survey_assignment_id => survey_assignment.id,
-          :course_id => course.id
-        )
-        notification.save
+        if SurveyNotification.where(courses_user_id: courses_user.id).length == 0
+          notification = SurveyNotification.new(
+            :courses_user_id => courses_user.id,
+            :survey_assignment_id => survey_assignment.id,
+            :course_id => course.id
+          )
+          notification.save
+        end
       end
     end
   end
 
   desc 'Find SurveyNotifications that haven\'t been sent and send them'
   task send_notifications: :environment do
-    SurveyNotification.all.each do |notification|
+    SurveyNotification.active.each do |notification|
       notification.send_email
     end
   end
