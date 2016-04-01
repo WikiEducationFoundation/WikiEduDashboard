@@ -19,7 +19,7 @@ const Block = React.createClass({
     isDragging: React.PropTypes.bool,
     allTrainingModules: React.PropTypes.array,
     editPermissions: React.PropTypes.bool,
-    weekStart: React.PropTypes.date
+    weekStart: React.PropTypes.string
   },
   updateBlock(valueKey, value) {
     const toPass = $.extend(true, {}, this.props.block);
