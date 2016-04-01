@@ -61,7 +61,7 @@ CourseCreator = React.createClass(
     to_pass = $.extend(true, {}, @state.course)
     to_pass[value_key] = value
     CourseActions.updateCourse to_pass
-    if value_key in ['title', 'school', 'term']
+    if value_key in ['title', 'term']
       ValidationActions.setValid 'exists'
   getInitialState: ->
     inits =
@@ -175,8 +175,7 @@ CourseCreator = React.createClass(
                 onChange={@updateCourse}
                 value={@state.course.school}
                 value_key='school'
-                required=true
-                validation={/^[\w\-\s\,\']+$/}
+                required=false
                 editable=true
                 label={CourseUtils.i18n('creator.course_school', @state.course_string_prefix)}
                 placeholder={CourseUtils.i18n('creator.course_school', @state.course_string_prefix)}
