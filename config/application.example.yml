@@ -112,3 +112,7 @@
 
 # Development-mode favicon filename, under /images
   favicon_dev_file: "favicon_dev.png"
+
+# Enable hot-loading development features. This may only work properly while
+# `gulp` is running.
+  hot_loading: 'false'
