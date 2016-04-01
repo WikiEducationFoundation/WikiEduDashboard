@@ -34,7 +34,7 @@
     "gulp-eslint": "^2.0.0",
     "gulp-htmlhint": "0.0.9",
     "gulp-iconfont": "^5.0.0",
-    "gulp-imagemin": "^0.5.1",
+    "gulp-imagemin": "^2.4.0",
     "gulp-jshint": "^1.8.0",
     "gulp-jsx-coverage": "0.3.8",
     "gulp-livereload": "^2.1.1",
