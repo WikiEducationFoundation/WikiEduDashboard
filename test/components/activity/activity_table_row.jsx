@@ -5,7 +5,7 @@ import '../../testHelper';
 
 import ActivityTableRow from '../../../app/assets/javascripts/components/activity/activity_table_row.jsx';
 import ActivityTable from '../../../app/assets/javascripts/components/activity/activity_table.cjsx';
-import { click } from '../../customUtils.coffee';
+import { click } from '../../customUtils';
 
 describe('ActivtyTableRow', () => {
   const TestRow = ReactTestUtils.renderIntoDocument(
