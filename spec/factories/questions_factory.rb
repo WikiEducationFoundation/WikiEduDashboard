@@ -2,6 +2,7 @@ FactoryGirl.define do
   factory :question do
 
     validation_rules = {
+      :presence => "1",
       :grouped => "0",
       :grouped_question => "",
       :minimum  => "",
