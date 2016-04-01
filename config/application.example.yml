@@ -37,8 +37,9 @@
 # https://meta.wikimedia.org/wiki/Special:OAuthConsumerRegistration/propose
 # No one but the user who registers the consumer will be able to log in until
 # the consumer gets approved by Wikimedia Foundation staff.
-  wikipedia_token: <consumer token>
-  wikipedia_secret: <secret token>
+# The example keys are for an auth-only consumer that can be used for development.
+  wikipedia_token: 6e171fe7c5fc549ecce52471d22a6b0a
+  wikipedia_secret: 7f345a52566194a19d2adba5fcbb802e8c79f7ef
 
 # The language version of Wikipedia: <wiki_language>.wikipedia.org
   wiki_language: en
