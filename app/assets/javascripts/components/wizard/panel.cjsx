@@ -1,5 +1,5 @@
 React           = require 'react'
-md              = require('markdown-it')({ html: true, linkify: true })
+md              = require('../../utils/markdown_it.js').default()
 WizardActions   = require '../../actions/wizard_actions.coffee'
 WizardStore     = require '../../stores/wizard_store.coffee'
 

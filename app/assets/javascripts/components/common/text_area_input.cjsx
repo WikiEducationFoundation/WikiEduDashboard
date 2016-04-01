@@ -1,5 +1,5 @@
 React           = require 'react'
-md              = require('markdown-it')({ html: true, linkify: true })
+md              = require('../../utils/markdown_it.js').default()
 InputMixin      = require '../../mixins/input_mixin.cjsx'
 TrixEditor      = require 'react-trix'
 
