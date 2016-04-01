@@ -120,5 +120,8 @@
     "dev": "webpack --config config/webpack/webpack.config.dev.js",
     "hotdev": "webpack-dev-server --inline --config ./config/webpack/webpack.config.dev.js",
     "build": "webpack -p --config config/webpack/webpack.config.prod.js"
+  },
+  "devDependencies": {
+    "url-parse": "^1.1.1"
   }
 }

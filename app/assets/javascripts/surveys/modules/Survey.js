@@ -8,6 +8,8 @@ require('core-js/modules/es6.array.is-array');
 const rangeslider = require('nouislider');
 require('wnumb');
 const throttle = require('lodash.throttle');
+import UrlParse from 'url-parse';
+
 
 
 //--------------------------------------------------------
@@ -52,6 +54,7 @@ const Survey = {
     this.setFormValidationSections();
     this.surveyProgress = $('[data-survey-progress]');
     this.getUrlParam();
+    this.removeUnneededBlocks();
     this.initConditionals();
     this.listeners();
     this.initBlocks();
@@ -144,19 +147,21 @@ const Survey = {
   },
 
   getUrlParam() {
+    let key;
     if (location.search.length) {
-      const params = location.search.replace('?', '').split('=');
+      const params = new UrlParse(location.href, true).query;
       const paramHandler = {
-        notification: () => {
-          this.surveyNotificationId = params[1];
+        notification: (val) => {
+          this.surveyNotificationId = val;
         },
         preview: () => {
           this.previewMode = true;
-          console.log(this.previewMode);
         }
       };
-      if (typeof paramHandler[params[0]] !== 'undefined') {
-        paramHandler[params[0]]();
+      for (key in params) {
+        if (typeof paramHandler[key] !== 'undefined') {
+          paramHandler[key](params[key]);
+        }
       }
     }
     return null;
@@ -630,6 +635,10 @@ const Survey = {
 
   isMatrixBlock($block) {
     $block.hasClass('survey__question--matrix');
+  },
+
+  removeUnneededBlocks() {
+    $('[data-remove-me]').parents('.block').remove();
   }
 };
 
