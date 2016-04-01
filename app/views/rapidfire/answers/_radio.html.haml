@@ -1,7 +1,10 @@
 = render partial: "rapidfire/answers/errors", locals: {answer: answer}
 = render partial: "rapidfire/answers/question_text", locals: {f: f, answer: answer}
 
-- answer_options(answer, @course).each_with_index do |option, index|
+- options = answer_options(answer, @course)
+- if options.length == 0
+  %div{'data-remove-me' => true}
+- options.each_with_index do |option, index|
   %label.survey__multiple-choice-field
     - if option.is_a?(Array)
       = f.radio_button :answer_text, option[0], :required => is_required_question?(answer)

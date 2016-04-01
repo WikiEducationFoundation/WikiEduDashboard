@@ -59,7 +59,7 @@
 
   </div>
 
-  <div data-answer-options data-question-type-options-hide-if="course_data,RangeInput" data-question-type-options="Select,Radio,Checkbox" class="<%= @question_form.course_data_type.nil? ? '' : 'hidden' %>">
+  <div data-answer-options data-question-type-options-hide-if="course_data,RangeInput" data-question-type-options="Select,Radio,Checkbox" class="<%= (has_course_data(@question_form) ? 'hidden' : '') %>">
     <%= f.label :answer_options %>&nbsp;(Separate options with new line)<br/>
     <%= f.text_area :answer_options, rows: 5 %>
   </div>
@@ -71,7 +71,6 @@
 
   <div data-question-type-options="Radio,Checkbox,Select">
     <label>
-    <%= @question_form.course_data_type %>
     <input type='checkbox' <%= has_course_data(@question_form) ? "checked" : "" %> data-course-data-populate-checkbox />
     Populate Answer Options with Course Data
     </label>
@@ -104,7 +103,7 @@
 
 
   <div data-question-type-options="Radio,RangeInput">
-    
+
     <div class="survey__question__option-row">
       <label>
         <%= f.check_box :answer_grouped, :data => {:matrix_checkbox => true} %>
@@ -155,10 +154,10 @@
     <p>Question will only display if conditional returns true</p>
     <div class="survey__question__option-row">
       <div class='survey__question__conditional-row' data-conditional="<%= question_conditional_string(@question) %>">
-        Show if 
-        <%= select_tag "", 
-            options_from_collection_for_select(@question_group.questions.for_conditionals, "id", "question_text"), 
-            :include_blank => "Select a question", 
+        Show if
+        <%= select_tag "",
+            options_from_collection_for_select(@question_group.questions.for_conditionals, "id", "question_text"),
+            :include_blank => "Select a question",
             :data => {:conditional_select => true}%>
         <span data-conditional-operator></span>
         <select class='hidden' data-conditional-operator-select></select>
