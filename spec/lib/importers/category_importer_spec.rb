@@ -2,45 +2,50 @@ require 'rails_helper'
 require "#{Rails.root}/lib/importers/category_importer"
 
 describe CategoryImporter do
-  it 'should import data for articles in a category' do
+  let(:category) { 'Category:"Crocodile" Dundee' }
+  let(:article_in_cat) { 'Michael_"Crocodile"_Dundee' }
+  let(:article_in_subcat) { 'Crocodile_Dundee_in_Los_Angeles' }
+  let(:wiki) { Wiki.default_wiki }
+
+  it 'imports data for articles in a category' do
     VCR.use_cassette 'category_importer/import' do
-      CategoryImporter
-        .import_category('Category:"Crocodile" Dundee')
-      expect(Article.exists?(title: 'Michael_"Crocodile"_Dundee'))
+      CategoryImporter.new(wiki)
+                      .import_category(category)
+      expect(Article.exists?(title: article_in_cat))
         .to be true # depth 0
-      expect(Article.exists?(title: 'Crocodile_Dundee_in_Los_Angeles'))
+      expect(Article.exists?(title: article_in_subcat))
         .to be false # depth 1
     end
   end
 
-  it 'should import subcategories recursively' do
+  it 'imports subcategories recursively' do
     VCR.use_cassette 'category_importer/import' do
-      CategoryImporter
-        .import_category('Category:"Crocodile" Dundee', 1)
-      expect(Article.exists?(title: 'Michael_"Crocodile"_Dundee'))
+      CategoryImporter.new(wiki, depth: 1)
+                      .import_category(category)
+      expect(Article.exists?(title: article_in_cat))
         .to be true # depth 0
-      expect(Article.exists?(title: 'Crocodile_Dundee_in_Los_Angeles'))
+      expect(Article.exists?(title: article_in_subcat))
         .to be true # depth 1
     end
   end
 
-  it 'should output filtered data about a category' do
+  it 'outputs filtered data about a category' do
     VCR.use_cassette 'category_importer/import' do
-      CategoryImporter
-        .import_category('Category:"Crocodile" Dundee', 1)
+      CategoryImporter.new(wiki, depth: 1)
+                      .import_category(category)
     end
     VCR.use_cassette 'category_importer/report_on_category' do
-      output = CategoryImporter
-               .report_on_category('Category:"Crocodile" Dundee')
-      expect(output).to include 'Michael_"Crocodile"_Dundee'
+      output = CategoryImporter.new(wiki)
+                               .report_on_category(category)
+      expect(output).to include article_in_cat
     end
   end
 
-  it 'should import missing data for category' do
+  it 'imports missing data for category' do
     VCR.use_cassette 'category_importer/report_on_category_incomplete' do
-      output = CategoryImporter
-               .report_on_category('Category:"Crocodile" Dundee')
-      expect(output).to include 'Michael_"Crocodile"_Dundee'
+      output = CategoryImporter.new(wiki)
+                               .report_on_category(category)
+      expect(output).to include article_in_cat
     end
   end
 
@@ -52,9 +57,9 @@ describe CategoryImporter do
              id: 10670306,
              title: 'Michael_"Crocodile"_Dundee')
       VCR.use_cassette 'category_importer/import' do
-        results = CategoryImporter
-                  .show_category('Category:"Crocodile" Dundee', depth: 1)
-        article = Article.find_by(title: 'Michael_"Crocodile"_Dundee')
+        results = CategoryImporter.new(wiki, depth: 1)
+                                  .show_category(category)
+        article = Article.find_by(title: article_in_cat)
         expect(results).to include article
       end
     end

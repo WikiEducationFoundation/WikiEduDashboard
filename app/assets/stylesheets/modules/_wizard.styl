@@ -121,7 +121,7 @@ wizard-width = 860px
         +above(desktop)
           col(1/2, cycle: 2)
       > button
-        padding 20px
+        padding 20px 20px 55px 20px
         width 100%
       &.summary
         border-top-width 0
@@ -160,16 +160,13 @@ wizard-width = 860px
       .wizard__option__description
         border-top 1px solid transparent
         box-sizing content-box
-        height 0
-        margin-top 15px
         overflow hidden
-        padding-bottom 18px
-        transition all 0.2s ease-in-out
+        display none
+        margin-top 18px
+        padding 15px 0 0
         width 100%
         &.open
           border-color mischka
-          height auto
-          padding 15px 0 33px
       .wizard__option__more
         background athens
         border-top 1px solid mischka

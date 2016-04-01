@@ -26,4 +26,8 @@ class Features
   def self.enable_article_finder?
     ENV['enable_article_finder'] == 'true'
   end
+
+  def self.hot_loading?
+    ENV['hot_loading'] == 'true'
+  end
 end

@@ -1,6 +1,6 @@
 #= Root-level helpers
 module ApplicationHelper
-  
+
   def logo_tag
     logo_path = "/assets/images/#{Figaro.env.logo_file}"
     image_tag logo_path
@@ -17,7 +17,7 @@ module ApplicationHelper
   end
 
   def dashboard_stylesheet_tag(filename)
-    if Rails.env == "development"
+    if Features.hot_loading?
       stylesheet_link_tag "/assets/stylesheets/#{filename}.css"
     else
       stylesheet_link_tag fingerprinted("/assets/stylesheets/#{rtl? ? 'rtl/' : nil}", "#{filename}.css"), media: 'all'
@@ -25,8 +25,8 @@ module ApplicationHelper
   end
 
   def hot_javascript_tag(filename)
-    if Rails.env == "development"
-      javascript_include_tag "http://localhost:8080/#{filename}.js" 
+    if Features.hot_loading?
+      javascript_include_tag "http://localhost:8080/#{filename}.js"
     else
       javascript_include_tag fingerprinted('/assets/javascripts/', "#{filename}.js")
     end

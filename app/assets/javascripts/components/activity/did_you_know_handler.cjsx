@@ -1,6 +1,6 @@
 React           = require 'react'
 DidYouKnowStore = require '../../stores/did_you_know_store.coffee'
-ActivityTable   = require './activity_table.cjsx'
+ActivityTable   = require('./activity_table.jsx').default
 ServerActions   = require '../../actions/server_actions.coffee'
 
 getState = ->

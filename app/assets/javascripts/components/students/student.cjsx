@@ -6,6 +6,7 @@ AssignCell      = require './assign_cell.cjsx'
 RevisionStore   = require '../../stores/revision_store.coffee'
 UIStore         = require '../../stores/ui_store.coffee'
 UIActions       = require '../../actions/ui_actions.coffee'
+{ trunc }       = require '../../utils/strings'
 
 Student = React.createClass(
   displayName: 'Student'
@@ -38,15 +39,15 @@ Student = React.createClass(
 
     user_name = if @_shouldShowRealName() then (
       <span>
-        <strong>{@props.student.real_name.trunc()}</strong>
+        <strong>{trunc(@props.student.real_name)}</strong>
         &nbsp;
         (<a onClick={@stop} href={@props.student.contribution_url} target="_blank" className="inline">
-          {@props.student.username.trunc()}
+          {trunc(@props.student.username)}
         </a>)
       </span>
     ) else (
       <span><a onClick={@stop} href={@props.student.contribution_url} target="_blank" className="inline">
-        {@props.student.username.trunc()}
+        {trunc(@props.student.username)}
       </a></span>
     )
 

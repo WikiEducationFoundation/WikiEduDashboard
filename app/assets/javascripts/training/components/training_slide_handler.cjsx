@@ -8,7 +8,7 @@ Link            = ReactRouter.Link
 SlideLink       = require './slide_link.cjsx'
 SlideMenu       = require './slide_menu.cjsx'
 Quiz            = require './quiz.cjsx'
-md              = require('../../utils/markdown_it.coffee')({ openLinksExternally: true })
+md              = require('../../utils/markdown_it.js').default({ openLinksExternally: true })
 browserHistory = ReactRouter.browserHistory
 
 getState = ->

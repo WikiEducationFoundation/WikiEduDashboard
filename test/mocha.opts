@@ -1,4 +1,3 @@
---debug
 --compilers coffee:coffee-react/register,js:babel-core/register
 --require coffee-coverage/register-istanbul
 --recursive

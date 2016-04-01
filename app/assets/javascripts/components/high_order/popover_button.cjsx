@@ -5,6 +5,7 @@ Conditional   = require '../high_order/conditional.cjsx'
 ServerActions = require '../../actions/server_actions.coffee'
 Lookup        = require '../common/lookup.cjsx'
 LookupSelect  = require '../common/lookup_select.cjsx'
+{ capitalize } = require('../../utils/strings.js')
 
 PopoverButton = (Key, ValueKey, Store, New, Items, IsSelect=false) ->
   getState = ->
@@ -15,7 +16,7 @@ PopoverButton = (Key, ValueKey, Store, New, Items, IsSelect=false) ->
     data[Key][ValueKey] = value
     return data
   component = React.createClass(
-    displayname: Key.capitalize() + 'Button'
+    displayname: capitalize(Key) + 'Button'
     mixins: [Store.mixin]
     storeDidChange: ->
       if @refs.entry?
@@ -40,7 +41,7 @@ PopoverButton = (Key, ValueKey, Store, New, Items, IsSelect=false) ->
     getKey: ->
       Key + '_button'
     render: ->
-      placeholder = Key.capitalize()
+      placeholder = capitalize(Key)
       if IsSelect
         lookup = (
           <LookupSelect model={Key}

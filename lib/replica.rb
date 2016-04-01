@@ -19,19 +19,22 @@ class Replica
   # array of revisions made by those users between those dates.
   def get_revisions(users, rev_start, rev_end)
     raw = get_revisions_raw(users, rev_start, rev_end)
-    data = {}
-    return data unless raw.is_a?(Enumerable)
-    raw.each do |revision|
-      parsed = parse_revision(revision)
-      page_id = parsed['article']['mw_page_id']
-      unless data.include?(page_id)
-        data[page_id] = {}
-        data[page_id]['article'] = parsed['article']
-        data[page_id]['revisions'] = []
-      end
-      data[page_id]['revisions'].push parsed['revision']
+    @data = {}
+    return @data unless raw.is_a?(Enumerable)
+    raw.each { |revision| extract_revision_data(revision) }
+
+    @data
+  end
+
+  def extract_revision_data(revision)
+    parsed = parse_revision(revision)
+    page_id = parsed['article']['mw_page_id']
+    unless @data.include?(page_id)
+      @data[page_id] = {}
+      @data[page_id]['article'] = parsed['article']
+      @data[page_id]['revisions'] = []
     end
-    data
+    @data[page_id]['revisions'].push parsed['revision']
   end
 
   # Given a single raw json revision, parse it into a more useful format.
@@ -54,6 +57,13 @@ class Replica
   #     }
   #   }
   def parse_revision(revision)
+    article_data = parse_article_data(revision)
+    revision_data = parse_revision_data(revision)
+
+    { 'article' => article_data, 'revision' => revision_data }
+  end
+
+  def parse_article_data(revision)
     article_data = {}
     # TODO: decouple id from mw_page_id
     article_data['id'] = revision['page_id']
@@ -61,7 +71,10 @@ class Replica
     article_data['title'] = revision['page_title']
     article_data['namespace'] = revision['page_namespace']
     article_data['wiki_id'] = @wiki.id
+    article_data
+  end
 
+  def parse_revision_data(revision)
     revision_data = {}
     # TODO: decouple id from mw_rev_id
     revision_data['id'] = revision['rev_id']
@@ -75,8 +88,7 @@ class Replica
     revision_data['new_article'] = revision['new_article']
     revision_data['system'] = revision['system']
     revision_data['wiki_id'] = @wiki.id
-
-    { 'article' => article_data, 'revision' => revision_data }
+    revision_data
   end
 
   ###################
@@ -177,7 +189,7 @@ class Replica
     tries ||= 3
     url = compile_query_url(endpoint, query)
     response = Net::HTTP::get(URI.parse(url))
-    return unless response.length > 0
+    return if response.empty?
     parsed = JSON.parse response.to_s
     return unless parsed['success']
     parsed['data']
@@ -228,13 +240,7 @@ class Replica
   end
 
   def report_exception(error, endpoint, query, level='error')
-    Rails.logger
-      .error "replica.rb #{endpoint} query failed after 3 tries: #{error}"
-    # These are typical network errors that we expect to encounter.
-    typical_errors = [Errno::ETIMEDOUT,
-                      Net::ReadTimeout,
-                      Errno::ECONNREFUSED,
-                      JSON::ParserError]
+    Rails.logger.error "replica.rb #{endpoint} query failed after 3 tries: #{error}"
     level = 'warning' if typical_errors.include?(error.class)
     Raven.capture_exception error,
                             level: level,
@@ -243,5 +249,13 @@ class Replica
                                       language: @wiki.language,
                                       project: @wiki.project }
     return nil
+  end
+
+  # These are typical network errors that we expect to encounter.
+  def typical_errors
+    [Errno::ETIMEDOUT,
+     Net::ReadTimeout,
+     Errno::ECONNREFUSED,
+     JSON::ParserError]
   end
 end

@@ -2,8 +2,8 @@ React          = require 'react'
 BlockStore     = require '../../stores/block_store.coffee'
 WeekStore      = require '../../stores/week_store.coffee'
 CourseStore    = require '../../stores/course_store.coffee'
-md             = require('markdown-it')({ html: true, linkify: true })
-CourseUtils   = require '../../utils/course_utils.coffee'
+md             = require('../../utils/markdown_it.js').default()
+CourseUtils    = require '../../utils/course_utils.coffee'
 
 getState = ->
   weeks: WeekStore.getWeeks()
