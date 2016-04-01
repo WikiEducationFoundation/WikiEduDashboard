@@ -6,7 +6,7 @@ require('velocity-animate');
 require('parsleyjs');
 require('core-js/modules/es6.array.is-array');
 const rangeslider = require('nouislider');
-require('wnumb');
+const wNumb = require('wnumb');
 const throttle = require('lodash.throttle');
 import UrlParse from 'url-parse';
 
@@ -179,8 +179,8 @@ const Survey = {
           notification_dismissed: true
         }
       },
-      success(data) {
-        console.log(data);
+      success() {
+        // console.log(data);
       }
     });
   },
