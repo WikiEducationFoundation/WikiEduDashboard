@@ -2,7 +2,7 @@ React = require 'react'
 
 RecentEditsStore = require '../../stores/recent_edits_store.coffee'
 
-ActivityTable = require './activity_table.cjsx'
+ActivityTable   = require('./activity_table.jsx').default
 
 ServerActions   = require '../../actions/server_actions.coffee'
 
