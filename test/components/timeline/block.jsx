@@ -11,6 +11,25 @@ import Block from '../../../app/assets/javascripts/components/timeline/block.jsx
   // }
 // }));
 
+const createBlock = (opts) => {
+  const noOp = () => {};
+  const block = { id: 1, title: 'Bananas' };
+  return ReactTestUtils.renderIntoDocument(
+    <Block
+      toggleFocused={noOp}
+      cancelBlockEditable={noOp}
+      block={block}
+      key={block.id}
+      editPermissions={opts.editPermissions || false }
+      moveBlock={noOp}
+      week_index={1}
+      allTrainingModules={[]}
+      saveBlockChanges={noOp}
+      weekStart={noOp}
+    />
+  );
+};
+
 describe('Block', () => {
   const block = { id: 1, title: 'Bananas' };
   const noOp = () => {};
@@ -38,20 +57,8 @@ describe('Block', () => {
       expect(result.type).to.eq('li');
     });
     describe('title', () => {
-      const TestBlock = ReactTestUtils.renderIntoDocument(
-        <Block
-          toggleFocused={noOp}
-          cancelBlockEditable={noOp}
-          block={block}
-          key={block.id}
-          moveBlock={noOp}
-          week_index={1}
-          allTrainingModules={[]}
-          saveBlockChanges={noOp}
-          weekStart={noOp}
-        />
-      );
       it('Has a title', () => {
+        const TestBlock = createBlock({ editPermissions: false });
         const headline = ReactTestUtils.scryRenderedDOMComponentsWithTag(TestBlock, 'h4')[0];
         const h4 = ReactDOM.findDOMNode(headline);
         const title = h4.getElementsByTagName('span')[0].textContent;
@@ -61,40 +68,16 @@ describe('Block', () => {
 
     describe('edit button', () => {
       describe('edit permissions', () => {
-        const TestBlock = ReactTestUtils.renderIntoDocument(
-          <Block
-            toggleFocused={noOp}
-            cancelBlockEditable={noOp}
-            block={block}
-            key={block.id}
-            editPermissions
-            moveBlock={noOp}
-            week_index={1}
-            allTrainingModules={[]}
-            saveBlockChanges={noOp}
-          />
-        );
         it('shows with edit permissions', () => {
+          const TestBlock = createBlock({ editPermissions: true });
           const button = ReactTestUtils.scryRenderedDOMComponentsWithTag(TestBlock, 'button')[0];
           const buttonNode = ReactDOM.findDOMNode(button);
           expect(buttonNode.textContent).to.eq('Edit');
         });
       });
       describe('no edit permissions', () => {
-        const TestBlock = ReactTestUtils.renderIntoDocument(
-          <Block
-            toggleFocused={noOp}
-            cancelBlockEditable={noOp}
-            block={block}
-            key={block.id}
-            editPermissions={false}
-            moveBlock={noOp}
-            week_index={1}
-            allTrainingModules={[]}
-            saveBlockChanges={noOp}
-          />
-        );
         it('does not show without edit permissions', () => {
+          const TestBlock = createBlock({ editPermissions: false });
           const button = ReactTestUtils.scryRenderedDOMComponentsWithTag(TestBlock, 'button')[0];
           const buttonNode = ReactDOM.findDOMNode(button);
           expect(buttonNode).to.be.null();
