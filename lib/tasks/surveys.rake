@@ -3,6 +3,15 @@ require 'factory_girl'
 namespace :surveys do
   Dir["/spec/factories/*.rb"].each {|file| require file }
   include FactoryGirl::Syntax::Methods
+
+  desc 'Create All Testing Surveys'
+  task batch_build: :environment do
+    Rake::Task["surveys:build_basic_survey"].invoke
+    Rake::Task["surveys:build_conditional_survey"].invoke
+    Rake::Task["surveys:build_matrix_survey"].invoke
+    Rake::Task["surveys:build_course_data_survey"].invoke
+  end
+
   desc 'Create Survey with Basic Questions for Testing'
   task build_basic_survey: :environment do
     group_name = "Basic Question Types"
@@ -69,7 +78,7 @@ namespace :surveys do
   task build_course_data_survey: :environment do
     group_name = "Course Data Questions"
     test_group = create(:question_group, name: group_name)
-    test_survey = create(:survey, name: "Course Data Question Survey")
+    test_survey = create(:survey, name: "Course Data Question Survey", show_courses: true )
     test_survey.rapidfire_question_groups << test_group
     question_params = { question_group_id: test_group.id, answer_options: '' }
     create(:q_select, question_params.merge({question_text: "Select a student", course_data_type: "Students"}))
