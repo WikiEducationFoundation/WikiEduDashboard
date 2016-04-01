@@ -118,8 +118,7 @@
   },
   "scripts": {
     "test": "gulp js_coverage",
-    "dev": "webpack --config config/webpack/webpack.config.dev.js",
-    "hotdev": "webpack-dev-server --inline --config ./config/webpack/webpack.config.dev.js",
+    "start": "gulp hot-dev",
     "build": "webpack -p --config config/webpack/webpack.config.prod.js"
   },
   "devDependencies": {

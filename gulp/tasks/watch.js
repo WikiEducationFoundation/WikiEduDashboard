@@ -21,6 +21,11 @@ gulp.task('watch', () => {
   gulp.watch(`${config.outputPath}/${config.cssDirectory}/*.css`, (e) => {
     return plugins.livereload.changed(e.path);
   });
+  plugins.livereload.listen();
+
+  if (config.watch_js) {
+    gulp.watch(`${config.outputPath}/${config.jsDirectory}/**/**/*.{js,jsx,coffee,cjsx}`, ['webpack-build']);
+  }
 
   return;
 });

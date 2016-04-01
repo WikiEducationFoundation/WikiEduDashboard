@@ -8,6 +8,17 @@ requireDir('./gulp/tasks', { recurse: true });
 gulp.task('default', ['dev']);
 
 gulp.task('dev', () =>
+  runSequence('clean', 'set-development', 'set-watch-js', [
+    'i18n',
+    'copy-static',
+    'bower',
+    'stylesheets',
+    'webpack-build',
+    'cached-lintjs-watch'
+  ], 'watch')
+);
+
+gulp.task('hot-dev', () =>
   runSequence('clean', 'set-development', [
     'i18n',
     'copy-static',
