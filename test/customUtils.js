@@ -6,4 +6,4 @@ export function click(el) {
     Simulate.click(el);
     return resolve(el);
   });
-};
+}
