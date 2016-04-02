@@ -11,7 +11,7 @@ module ArticleHelper
     Article::Namespaces::TEMPLATE_TALK => 'Template_talk:',
     Article::Namespaces::DRAFT => 'Draft:',
     Article::Namespaces::DRAFT_TALK => 'Draft_talk:'
-  }
+  }.freeze
 
   def article_url(article)
     return nil if article.nil?
@@ -58,38 +58,41 @@ module ArticleHelper
   # We simplify this parser by folding the nonstandard ratings
   # into the corresponding standard ones. We don't want to deal with edge cases
   # like bplus and a/ga.
+
+  # rubocop:disable Metrics/MethodLength
   def find_article_class(wikitext)
     # Handle empty talk page
     return nil if wikitext.is_a? Hash
     # rubocop:disable Metrics/LineLength
-    if wikitext.match(/\|\s*(class|currentstatus)\s*=\s*fa\b/i)
+    if wikitext =~ /\|\s*(class|currentstatus)\s*=\s*fa\b/i
       'fa'
-    elsif wikitext.match(/\|\s*(class|currentstatus)\s*=\s*fl\b/i)
+    elsif wikitext =~ /\|\s*(class|currentstatus)\s*=\s*fl\b/i
       'fl'
-    elsif wikitext.match(/\|\s*class\s*=\s*a\b/i)
+    elsif wikitext =~ /\|\s*class\s*=\s*a\b/i
       'a' # Treat all forms of A, including A/GA, as simple A.
     # rubocop:disable Style/RegexpLiteral
     elsif wikitext.match(/\|\s*class\s*=\s*ga\b|\|\s*currentstatus\s*=\s*(ffa\/)?ga\b|\{\{\s*ga\s*\|/i) && !wikitext.match(/\|\s*currentstatus\s*=\s*dga\b/i)
       'ga'
     # rubocop:enable Style/RegexpLiteral
-    elsif wikitext.match(/\|\s*class\s*=\s*b\b/i)
+    elsif wikitext =~ /\|\s*class\s*=\s*b\b/i
       'b'
-    elsif wikitext.match(/\|\s*class\s*=\s*bplus\b/i)
+    elsif wikitext =~ /\|\s*class\s*=\s*bplus\b/i
       'b' # Treat B-plus as regular B.
-    elsif wikitext.match(/\|\s*class\s*=\s*c\b/i)
+    elsif wikitext =~ /\|\s*class\s*=\s*c\b/i
       'c'
-    elsif wikitext.match(/\|\s*class\s*=\s*start/i)
+    elsif wikitext =~ /\|\s*class\s*=\s*start/i
       'start'
-    elsif wikitext.match(/\|\s*class\s*=\s*stub/i)
+    elsif wikitext =~ /\|\s*class\s*=\s*stub/i
       'stub'
-    elsif wikitext.match(/\|\s*class\s*=\s*list/i)
+    elsif wikitext =~ /\|\s*class\s*=\s*list/i
       'list'
-    elsif wikitext.match(/\|\s*class\s*=\s*sl/i)
+    elsif wikitext =~ /\|\s*class\s*=\s*sl/i
       'list' # Treat sl as regular list.
     end
     # For other niche ratings like "cur" and "future", count them as unrated.
     # rubocop:enable Metrics/LineLength
   end
+  # rubocop:enable Metrics/MethodLength
 
   def rating_display(rating)
     return nil if rating.nil?
