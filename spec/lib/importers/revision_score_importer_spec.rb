@@ -64,4 +64,19 @@ describe RevisionScoreImporter do
     RevisionScoreImporter.new.update_revision_scores(Revision.all)
     expect(Revision.find(662106477).wp10).to be_nil
   end
+
+  # This probably represents buggy behavior from ores.
+  it 'handles revisions that return an array' do
+    VCR.use_cassette 'revision_scores/array_bug' do
+      create(:article,
+             id: 1,
+             title: 'Foo',
+             namespace: 2)
+      create(:revision,
+             article_id: 1,
+             id: 712439107)
+      # see https://ores.wmflabs.org/v1/scores/enwiki/wp10/?revids=712439107
+      RevisionScoreImporter.new.update_revision_scores
+    end
+  end
 end
