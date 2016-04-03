@@ -15,7 +15,7 @@ class TrainingModuleDueDateManager
   DEADLINE_STATUSES = {
     complete: 'complete',
     overdue: 'overdue'
-  }
+  }.freeze
 
   def computed_due_date(block = course_block_for_module)
     return block.due_date if block.due_date.present?
@@ -57,18 +57,18 @@ class TrainingModuleDueDateManager
   def blocks_with_training_modules_for_user
     return [] unless @user.present?
     Block.joins(week: { course: :courses_users })
-      .where(courses_users: { user_id: @user.id })
-      .where.not('training_module_ids = ?', [].to_yaml)
+         .where(courses_users: { user_id: @user.id })
+         .where.not('training_module_ids = ?', [].to_yaml)
   end
 
-
   def progress_manager
-    pm = TrainingProgressManager.new(@user, @training_module)
+    @pm ||= TrainingProgressManager.new(@user, @training_module)
+    @pm
   end
 
   def course_block_for_module
     Block.joins(week: :course)
-      .where(weeks: { course_id: @course.id })
-      .find { |block| block.training_module_ids.include?(@training_module.id) }
+         .where(weeks: { course_id: @course.id })
+         .find { |block| block.training_module_ids.include?(@training_module.id) }
   end
 end
