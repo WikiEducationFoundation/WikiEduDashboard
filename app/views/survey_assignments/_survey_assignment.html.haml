@@ -2,8 +2,10 @@
   %div
     %strong Survey:
     %span= survey_assignment.survey.name
+    - if survey_assignment.active?
+      %span.survey-assignment__active *Active
   %div
-    %strong Cohort: 
+    %strong Cohort:
     %span= survey_assignment.cohorts.first.title
   %div
     %strong Notification Schedule:
@@ -13,10 +15,14 @@
     %span= user_role(survey_assignment)
 
   %div
+    %strong Notes:
+    %span= survey_assignment.notes
+
+  %div
     = link_to 'Show', survey_assignment
     = link_to 'Edit', edit_survey_assignment_path(survey_assignment)
     = link_to 'Destroy', survey_assignment, :method => :delete, :data => { :confirm => 'Are you sure?' }
-  
+
   %div.clearfix
     %button{:data => {:toggle_courses_table => true}, :class => 'button'}
       %span View Courses in Scope
@@ -29,7 +35,7 @@
             %button{:class => 'sort', :data => {:sort => 'title'}} Title
           %th
             %button{:class => 'sort', :data => {:sort => 'id'}} Id
-            
+
       %tbody.list
         - survey_assignment.cohorts.each do |cohort|
           - cohort.courses.each do |course|

@@ -24,4 +24,8 @@
       = f.check_box :published
       = f.label :published, "Publish this assignment", class: "inline-label"
 
+    .form__row
+      = f.label :notes
+      = f.text_area :notes
+
     = f.button :submit, :class => "button dark"

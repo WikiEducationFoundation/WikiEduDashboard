@@ -76,6 +76,6 @@ class SurveyAssignmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def survey_assignment_params
-      params.require(:survey_assignment).permit(:survey_id, :send_before, :send_date_relative_to, :send_date_days, :courses_user_role, :published, :cohort_ids =>[])
+      params.require(:survey_assignment).permit(:survey_id, :send_before, :send_date_relative_to, :send_date_days, :courses_user_role, :published, :notes, :cohort_ids =>[])
     end
 end
