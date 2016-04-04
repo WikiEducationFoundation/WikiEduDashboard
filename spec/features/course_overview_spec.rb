@@ -26,8 +26,11 @@ describe 'course overview page', type: :feature, js: true do
   let!(:block)  { create(:block, week_id: week.id, content: content) }
   let(:admin)   { create(:admin) }
 
-  before :each do
+  before do
     stub_token_request
+  end
+
+  before :each do
     login_as(admin, scope: :user)
   end
 
