@@ -39,7 +39,6 @@ RSpec.describe SurveyAssignment, type: :model do
         end: Time.zone.today + 1.month,
         passcode: 'pizza',
         title: 'Underwater basket-weaving')
-
       course.cohorts << @cohort
       course.save
       @survey_assignment.update(
@@ -49,6 +48,34 @@ RSpec.describe SurveyAssignment, type: :model do
       )
 
       expect(@survey_assignment.active?).to be(true)
+    end
+  end
+
+  describe "#total_notifications" do
+    it 'returns the total number of users who will receive a notification' do
+      course = create(:course,
+                      id: 1,
+                      start: Time.zone.today - 1.month,
+                      end: Time.zone.today + 1.month,
+                      passcode: 'pizza',
+                      title: 'Underwater basket-weaving')
+      course.cohorts << @cohort
+      course.save
+
+      create(:user, id: 1)
+      create(:courses_user,
+             user_id: 1,
+             course_id: 1,
+             role: 1)
+
+      @survey_assignment.update(
+        courses_user_role: 1,
+        send_date_days: 7,
+        send_before: true,
+        send_date_relative_to: 'end'
+      )
+
+      expect(@survey_assignment.total_notifications).to eq(1)
     end
   end
 

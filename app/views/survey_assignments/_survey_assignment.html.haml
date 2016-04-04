@@ -19,6 +19,17 @@
     %span= survey_assignment.notes
 
   %div
+    %strong Status:
+    %span= survey_assignment.status
+    %span /
+    %span= survey_assignment.survey_notifications.completed.length
+    %span Completed /
+    %span= survey_assignment.survey_notifications.length
+    %span Notified /
+    %span= survey_assignment.total_notifications
+    %span Total
+
+  %div
     = link_to 'Show', survey_assignment
     = link_to 'Edit', edit_survey_assignment_path(survey_assignment)
     = link_to 'Destroy', survey_assignment, :method => :delete, :data => { :confirm => 'Are you sure?' }

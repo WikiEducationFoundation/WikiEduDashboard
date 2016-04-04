@@ -3,19 +3,30 @@ class SurveyAssignment < ActiveRecord::Base
   has_and_belongs_to_many :cohorts
   has_many :survey_notifications
 
-  scope :published, -> { where(published:true)}
+  scope :published, -> { where(published: true) }
 
   def send_at
     {
-      :days => send_date_days,
-      :before => send_before,
-      :relative_to => send_date_relative_to
+      days: send_date_days,
+      before: send_before,
+      relative_to: send_date_relative_to
     }
   end
 
+  def total_notifications
+    users = cohorts.collect do |c|
+      c.courses.collect do |course|
+        course.courses_users.where(role: courses_user_role)
+      end
+    end
+    users.flatten.length
+  end
+
   def courses_users_ready_for_survey
-    courses = courses_with_pending_notifications
-    courses.collect {|course| course.courses_users.where({ role: courses_user_role})}.flatten
+    courses = courses_with_pending_notifications.collect do |course|
+      course.courses_users.where(role: courses_user_role)
+    end
+    courses.flatten
   end
 
   def survey
@@ -28,5 +39,13 @@ class SurveyAssignment < ActiveRecord::Base
 
   def courses_with_pending_notifications
     cohorts.collect { |cohort| cohort.courses.will_be_ready_for_survey(send_at) }.flatten
+  end
+
+  def status
+    return 'Draft' unless published
+    return 'Nil' if total_notifications == 0
+    return 'Pending' if total_notifications == 0
+    return 'Active' if total_notifications > 0
+    return 'Closed' if survey.closed
   end
 end
