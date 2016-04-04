@@ -16,7 +16,7 @@ import StudentsHandler from '../components/students/students_handler.cjsx';
 import ArticlesHandler from '../components/articles/articles_handler.cjsx';
 import UploadsHandler from '../components/uploads/uploads_handler.cjsx';
 
-import RecentActivityHandler from '../components/activity/recent_activity_handler.cjsx';
+import RecentActivityHandler from '../components/activity/recent_activity_handler.jsx';
 import DidYouKnowHandler from '../components/activity/did_you_know_handler.cjsx';
 import PlagiarismHandler from '../components/activity/plagiarism_handler.cjsx';
 import RecentEditsHandler from '../components/activity/recent_edits_handler.cjsx';
