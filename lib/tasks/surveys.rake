@@ -1,5 +1,3 @@
-require 'factory_girl'
-
 namespace :surveys do
   Dir["/spec/factories/*.rb"].each {|file| require file }
   include FactoryGirl::Syntax::Methods
