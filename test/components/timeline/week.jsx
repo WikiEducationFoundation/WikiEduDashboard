@@ -5,13 +5,15 @@ import { findDOMNode } from 'react-dom';
 import TestUtils from 'react-addons-test-utils';
 import Week from '../../../app/assets/javascripts/components/timeline/week.cjsx';
 
-const createWeek = (opts) => {
+const createWeek = (opts = {}) => {
   return TestUtils.renderIntoDocument(
     <Week
       index={1}
       blocks={[]}
       meetings={opts.meetings || null}
       edit_permissions={opts.edit_permissions || false}
+      reorderable={opts.reorderable || false }
+      editing_added_block={opts.editing_added_block || false }
       week={{ is_new: false }}
     />
   );
@@ -60,6 +62,37 @@ describe('Week', () => {
         const container = TestUtils.scryRenderedDOMComponentsWithClass(TestWeek, 'week__week-add-delete')[0];
         const containerNode = findDOMNode(container);
         expect(containerNode).to.be.null();
+      });
+    });
+  });
+
+  describe('add block button', () => {
+    const permissionsOpts = { meetings: true, edit_permissions: true };
+    describe('not reorderable, not editing added block failing', () => {
+      it('displays', () => {
+        const opts = { reorderable: false, editing_added_block: false };
+        const TestWeek = createWeek(Object.assign(opts, permissionsOpts));
+        const span = TestUtils.scryRenderedDOMComponentsWithClass(TestWeek, 'week__add-block')[0];
+        const spanNode = findDOMNode(span);
+        expect(spanNode.textContent).to.eq('Add Block');
+      });
+    });
+    describe('reorderable, not editing added block', () => {
+      it('does not display', () => {
+        const opts = { reorderable: true, editing_added_block: false };
+        const TestWeek = createWeek(Object.assign(opts, permissionsOpts));
+        const span = TestUtils.scryRenderedDOMComponentsWithClass(TestWeek, 'week__add-block')[0];
+        const spanNode = findDOMNode(span);
+        expect(spanNode).to.be.null();
+      });
+    });
+    describe('not reorderable, editing added block', () => {
+      it('does not display', () => {
+        const opts = { reorderable: false, editing_added_block: true };
+        const TestWeek = createWeek(Object.assign(opts, permissionsOpts));
+        const span = TestUtils.scryRenderedDOMComponentsWithClass(TestWeek, 'week__add-block')[0];
+        const spanNode = findDOMNode(span);
+        expect(spanNode).to.be.null();
       });
     });
   });
