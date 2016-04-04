@@ -14,6 +14,7 @@ ENV['sentry_public_dsn'] = 'http://anotherlongkey@sentry.myserver.com/1'
 ENV['no_views'] = 'false'
 ENV['disable_onboarding'] = 'false'
 ENV['disable_training'] = 'false'
+ENV['hot_loading'] = 'false'
 
 Rails.application.configure do
   # Settings specified here will take

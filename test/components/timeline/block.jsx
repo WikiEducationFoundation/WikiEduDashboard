@@ -24,6 +24,7 @@ const createBlock = (opts) => {
       moveBlock={noOp}
       week_index={1}
       allTrainingModules={[]}
+      training_modules={opts.training_modules || []}
       saveBlockChanges={noOp}
       editableBlockIds={opts.editableBlockIds || []}
     />
@@ -118,6 +119,40 @@ describe('Block', () => {
         });
       });
     });
+
+    describe('training modules', () => {
+      describe('block has training modules, edit permissions present', () => {
+        const TestBlock = createBlock({
+          editableBlockIds: [1],
+          block: { id: 1, training_modules: [{ name: 'apples' }] }
+        });
+        it('shows modules', () => {
+          const blkHTML = findDOMNode(TestBlock).innerHTML;
+          expect(blkHTML.match('block__training-modules').index).not.to.be.null();
+        });
+      });
+      describe('block has no training modules, but edit permissions present', () => {
+        const TestBlock = createBlock({
+          editableBlockIds: [],
+          block: { id: 1, training_modules: [] }
+        });
+        it('does not show modules', () => {
+          const modules = TestUtils.scryRenderedDOMComponentsWithClass(TestBlock, 'block__training-modules')[0];
+          const modulesNode = findDOMNode(modules);
+          expect(modulesNode).to.be.null();
+        });
+      });
+      describe('block has no training modules, no edit permissions', () => {
+        const TestBlock = createBlock({
+          editableBlockIds: [],
+          block: { id: 1, training_modules: [] }
+        });
+        it('does not show modules', () => {
+          const modules = TestUtils.scryRenderedDOMComponentsWithClass(TestBlock, 'block__training-modules')[0];
+          const modulesNode = findDOMNode(modules);
+          expect(modulesNode).to.be.null();
+        });
+      });
+    });
   });
 });
-

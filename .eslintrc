@@ -14,7 +14,7 @@
     "react/jsx-boolean-value": 0,
     "arrow-body-style": 0,
     "max-len": 0,
-    "radix": ["error", "as-needed"],
+    "radix": [2, "as-needed"],
     "no-param-reassign": 0,
     "react/jsx-no-bind": 0,
     "no-alert": 0

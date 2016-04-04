@@ -57,7 +57,7 @@ TrainingSlideHandler = React.createClass(
       e.stopPropagation()
       TrainingActions.toggleMenuOpen(currently: true)
   userLoggedIn: ->
-    typeof document.getElementById('main').getAttribute('data-user-id') is 'string'
+    typeof document.getElementById('main')?.getAttribute('data-user-id') is 'string'
 
   keys: { rightKey: 39, leftKey: 37 }
 
@@ -107,6 +107,15 @@ TrainingSlideHandler = React.createClass(
       nextHref = if @userLoggedIn() then '/' else "/training/#{@props.params.library_id}"
       nextLink = <a href={nextHref} className='btn btn-primary pull-right'>Done!</a>
 
+    if !@userLoggedIn()
+      loginWarning = (
+        <div className='training__slide__notification' key='not_logged_in'>
+          <div className='container'>
+            <p>{I18n.t("training.logged_out")}</p>
+          </div>
+        </div>
+      )
+
     if @state.previousSlide?.slug
       previousLink = <SlideLink
                        slideId={@state.previousSlide.slug}
@@ -132,6 +141,7 @@ TrainingSlideHandler = React.createClass(
       )
 
     <div>
+      {loginWarning}
       <header>
         <div className="pull-right training__slide__nav" onClick={@toggleMenuOpen}>
           <div className="pull-right hamburger">

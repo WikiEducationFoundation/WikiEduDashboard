@@ -3,7 +3,7 @@ module CourseHelper
   def find_course_by_slug(slug)
     course = Course.find_by_slug(slug)
     if course.nil?
-      fail ActionController::RoutingError.new('Not Found'), 'Course not found'
+      fail ActionController::RoutingError.new('Not Found'), "Course #{slug} not found"
     end
     return course
   end
