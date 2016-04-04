@@ -9,6 +9,6 @@ class SurveyNotificationsController < ApplicationController
   end
 
   def notification_params
-    params.require(:survey_notification).permit(:id, :notification_dismissed)
+    params.require(:survey_notification).permit(:id, :dismissed, :completed)
   end
 end

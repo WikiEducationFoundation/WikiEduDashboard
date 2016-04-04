@@ -117,7 +117,7 @@ const Survey = {
 
   submitAllQuestionGroups() {
     if (!this.previewMode) {
-      this.dismissSurvey();
+      this.updateSurveyNotification();
       this.$surveyForm.each(this.submitQuestionGroup.bind(this));
     }
   },
@@ -168,7 +168,7 @@ const Survey = {
     return null;
   },
 
-  dismissSurvey() {
+  updateSurveyNotification() {
     if (this.surveyNotificationId === undefined) { return; }
     $.ajax({
       type: 'PUT',
@@ -177,7 +177,8 @@ const Survey = {
       data: {
         survey_notification: {
           id: this.surveyNotificationId,
-          notification_dismissed: true
+          dismissed: true,
+          completed: true
         }
       },
       success() {

@@ -456,7 +456,7 @@ API =
         type: 'PUT'
         url: '/survey_notification'
         dataType: 'json'
-        data: { survey_notification: { id: id, notification_dismissed: true }  }
+        data: { survey_notification: { id: id, dismissed: true }  }
         success: (data) ->
           res data
       .fail (obj, status) ->
