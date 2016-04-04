@@ -122,7 +122,6 @@
     "build": "webpack -p --config config/webpack/webpack.config.prod.js"
   },
   "devDependencies": {
-    "babel-template": "^6.7.0",
     "url-parse": "^1.1.1"
   }
 }
