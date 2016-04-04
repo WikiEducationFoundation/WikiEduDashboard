@@ -9,7 +9,7 @@ const createWeek = (opts = {}) => {
   return TestUtils.renderIntoDocument(
     <Week
       index={1}
-      blocks={[]}
+      blocks={opts.blocks || []}
       meetings={opts.meetings || null}
       edit_permissions={opts.edit_permissions || false}
       reorderable={opts.reorderable || false }
@@ -124,6 +124,25 @@ describe('Week', () => {
         const span = TestUtils.scryRenderedDOMComponentsWithClass(TestWeek, 'week__delete-week')[0];
         const spanNode = findDOMNode(span);
         expect(spanNode).to.be.null();
+      });
+    });
+  });
+
+  describe('week content', () => {
+    describe('week has meetings', () => {
+      const TestWeek = createWeek({ meetings: '(W)', blocks: [{ id: 1 }] });
+      it('shows a week ul with meetings', () => {
+        const ul = TestUtils.scryRenderedDOMComponentsWithClass(TestWeek, 'week__block-list')[0];
+        const ulNode = findDOMNode(ul);
+        expect(ulNode.tagName.toLowerCase()).to.eq('ul');
+        expect(ulNode.children[0].tagName.toLowerCase()).to.eq('li');
+      });
+    });
+    describe('week has no meetings', () => {
+      const TestWeek = createWeek();
+      it('shows an empty week component', () => {
+        const week = findDOMNode(TestWeek);
+        expect(week.innerHTML).to.contain('No activity this week');
       });
     });
   });
