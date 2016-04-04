@@ -14,7 +14,7 @@ const createWeek = (opts = {}) => {
       edit_permissions={opts.edit_permissions || false}
       reorderable={opts.reorderable || false }
       editing_added_block={opts.editing_added_block || false }
-      week={{ is_new: false }}
+      week={{ is_new: opts.is_new || false }}
     />
   );
 };
@@ -91,6 +91,37 @@ describe('Week', () => {
         const opts = { reorderable: false, editing_added_block: true };
         const TestWeek = createWeek(Object.assign(opts, permissionsOpts));
         const span = TestUtils.scryRenderedDOMComponentsWithClass(TestWeek, 'week__add-block')[0];
+        const spanNode = findDOMNode(span);
+        expect(spanNode).to.be.null();
+      });
+    });
+  });
+
+  describe('delete week button', () => {
+    const permissionsOpts = { meetings: true, edit_permissions: true };
+    describe('not reorderable, week is not new', () => {
+      it('displays', () => {
+        const opts = { reorderable: false, is_new: false };
+        const TestWeek = createWeek(Object.assign(opts, permissionsOpts));
+        const span = TestUtils.scryRenderedDOMComponentsWithClass(TestWeek, 'week__delete-week')[0];
+        const spanNode = findDOMNode(span);
+        expect(spanNode.textContent).to.eq('Delete Week');
+      });
+    });
+    describe('reorderable, week is not new', () => {
+      it('does not display', () => {
+        const opts = { reorderable: true, is_new: false };
+        const TestWeek = createWeek(Object.assign(opts, permissionsOpts));
+        const span = TestUtils.scryRenderedDOMComponentsWithClass(TestWeek, 'week__delete-week')[0];
+        const spanNode = findDOMNode(span);
+        expect(spanNode).to.be.null();
+      });
+    });
+    describe('not reorderable, week is new', () => {
+      it('does not display', () => {
+        const opts = { reorderable: false, is_new: true };
+        const TestWeek = createWeek(Object.assign(opts, permissionsOpts));
+        const span = TestUtils.scryRenderedDOMComponentsWithClass(TestWeek, 'week__delete-week')[0];
         const spanNode = findDOMNode(span);
         expect(spanNode).to.be.null();
       });
