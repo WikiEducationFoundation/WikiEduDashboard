@@ -2,9 +2,12 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Азат Хәлилов
+# Author: Вильданова Гюзель
 # Author: Янмурза Баки
 ---
 ba:
+  courses:
+    untrained: Өйрәнсек
   recent_activity:
     show_courses: Минең генә курстарҙы күрһәтергә
     no_dyk_eligible: Бөгөнгө көндә күпселек "Һеҙ Беләһегеҙме"-хоҡуҡ статьялары юҡ.
@@ -14,4 +17,6 @@ ba:
     did_you_know_eligible: Һеҙ Хоҡуҡтарығыҙҙы Беләһеҙме
     possible_plagiarism: Плагиат була
     recent_edits: Һуңғы Үҙгәртеүҙәр
+  users:
+    editors: Мөхәррирҙәр
 ...

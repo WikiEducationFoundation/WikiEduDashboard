@@ -63,6 +63,7 @@ ar:
     timeline_link: خط زمني
     title: العنوان
     training_nav: اذهب للتدريب
+    untrained: غير مدرب
   courses_generic:
     creator:
       course_description: وصف البرنامج
@@ -91,6 +92,7 @@ ar:
   uploads:
     label: المرفوعات
   users:
+    editors: محررون
     name: الاسم
   wizard:
     read_more: اقرأ المزيد

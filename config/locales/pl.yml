@@ -90,6 +90,7 @@ pl:
     start: Start
   users:
     contributions: Wkład użytkownika
+    editors: Edytorzy
     loading: Wczytywanie użytkowników...
     name: Nazwa
     revisions_doc: Liczba edycji dokonanych przez tego edytora w ciągu ostatnich 7

@@ -61,7 +61,7 @@ class RevisionScoreImporter
   def update_wp10_previous(revision)
     parent_id = get_parent_id revision
     score = get_revision_scores [parent_id]
-    return unless score[parent_id.to_s].key?('probability')
+    return unless score[parent_id.to_s].try(:key?, 'probability')
     probability = score[parent_id.to_s]['probability']
     revision.wp10_previous = en_wiki_weighted_mean_score probability
     revision.save
@@ -75,7 +75,7 @@ class RevisionScoreImporter
 
   def save_scores(scores)
     scores.each do |rev_id, score|
-      next unless score.key?('probability')
+      next unless score.try(:key?, 'probability')
       revision = Revision.find_by(mw_rev_id: rev_id.to_i, wiki_id: @wiki.id)
       revision.wp10 = en_wiki_weighted_mean_score score['probability']
       revision.save

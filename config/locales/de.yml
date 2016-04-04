@@ -198,6 +198,7 @@ de:
     training_overdue: Das Ausbildungsmodul „%{title}“ ist diesem Kurs zugewiesen und
       war fällig am %{date}.
     unsubmitted: Nicht eingereichte Kurse
+    untrained: Unausgebildet
     uploads_none: Diese Klasse hat keine Bilder oder andere Mediendateien für Wikimedia
       Commons beigetragen.
     weeks_none: Dieser Kurs hat noch keine Zeitleiste.
@@ -317,7 +318,7 @@ de:
     chars_added: Hinzugefügte Zeichen<br>(Hauptnamensraum | Benutzernamensraum)
     contributions: Benutzerbeiträge
     contributions_more: Weitere Beiträge ansehen
-    editors: Studentenautoren
+    editors: Autoren
     loading: Lade Benutzer …
     name: Name
     none: Dieser Kurs hat keine Studenten.
