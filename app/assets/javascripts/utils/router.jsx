@@ -18,7 +18,7 @@ import UploadsHandler from '../components/uploads/uploads_handler.cjsx';
 
 import RecentActivityHandler from '../components/activity/recent_activity_handler.jsx';
 import DidYouKnowHandler from '../components/activity/did_you_know_handler.jsx';
-import PlagiarismHandler from '../components/activity/plagiarism_handler.cjsx';
+import PlagiarismHandler from '../components/activity/plagiarism_handler.jsx';
 import RecentEditsHandler from '../components/activity/recent_edits_handler.cjsx';
 
 import TrainingApp from '../training/components/training_app.cjsx';
