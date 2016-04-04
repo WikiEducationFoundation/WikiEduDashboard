@@ -6,7 +6,7 @@ import '../../testHelper';
 import RecentActivityHandler from '../../../app/assets/javascripts/components/activity/recent_activity_handler.jsx';
 
 describe('RecentActivityHandler', () => {
-  const TestRow = ReactTestUtils.renderIntoDocument(
+  const TestDom = ReactTestUtils.renderIntoDocument(
     <div>
       <RecentActivityHandler>
         <h1>Child</h1>
@@ -15,10 +15,10 @@ describe('RecentActivityHandler', () => {
   );
 
   it('renders children', () => {
-    expect(TestRow.querySelector('h1')).to.exist();
+    expect(TestDom.querySelector('h1')).to.exist();
   });
 
   it('renders links', () => {
-    expect(TestRow.querySelectorAll('a').length).to.eq(3);
+    expect(TestDom.querySelectorAll('a').length).to.eq(3);
   });
 });
