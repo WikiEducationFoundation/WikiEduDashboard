@@ -3,7 +3,7 @@ class SurveyNotification < ActiveRecord::Base
   belongs_to :survey_assignment
   belongs_to :course
 
-  scope :active, -> { where(notification_dismissed:false)}
+  scope :active, -> { where(dismissed:false)}
 
   def send_email
     SurveyMailer.notification(self).deliver_now unless email_sent
