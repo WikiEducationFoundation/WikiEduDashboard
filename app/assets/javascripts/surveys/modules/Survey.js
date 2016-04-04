@@ -9,7 +9,6 @@ const rangeslider = require('nouislider');
 require('wnumb');
 const wNumb = window.wNumb;
 const throttle = require('lodash.throttle');
-import UrlParse from 'url-parse';
 
 
 
@@ -148,24 +147,9 @@ const Survey = {
   },
 
   getUrlParam() {
-    let key;
-    if (location.search.length) {
-      const params = new UrlParse(location.href, true).query;
-      const paramHandler = {
-        notification: (val) => {
-          this.surveyNotificationId = val;
-        },
-        preview: () => {
-          this.previewMode = true;
-        }
-      };
-      for (key in params) {
-        if (typeof paramHandler[key] !== 'undefined') {
-          paramHandler[key](params[key]);
-        }
-      }
+    if (location.search.length && location.search.replace('?', '') === 'preview') {
+      this.previewMode = true;
     }
-    return null;
   },
 
   updateSurveyNotification() {

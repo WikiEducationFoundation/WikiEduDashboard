@@ -7,6 +7,10 @@ Rails.application.config.to_prepare do
     has_and_belongs_to_many :surveys, :join_table => "surveys_question_groups", :foreign_key => "rapidfire_question_group_id"
   end
 
+  Rapidfire::QuestionGroupsController.class_eval do
+
+  end
+
   Rapidfire::Question.class_eval do
 
     scope :course_data_questions, ->{where("course_data_type <> ''")}

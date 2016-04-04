@@ -18,6 +18,7 @@ class SurveysController < ApplicationController
     :edit_question_groups,
     :show_with_course
   ]
+  before_action :check_if_closed, only: [:show]
   before_action :set_course, only: [:show]
 
   # GET /surveys
@@ -145,6 +146,8 @@ class SurveysController < ApplicationController
                                    :intro,
                                    :thanks,
                                    :show_courses,
+                                   :closed,
+                                   :open,
                                    rapidfire_question_group_ids: [])
   end
 
@@ -157,11 +160,17 @@ class SurveysController < ApplicationController
 
   def user_is_assigned_to_survey
     users = CoursesUsers.where(user_id: current_user.id)
-    return false if users.length == 0
+    return false if users.empty?
     users.where(user_id: current_user.id).each do |cu|
       notification = SurveyNotification.find_by(courses_user_id: cu.id)
       return false unless notification && notification.survey.id == @survey.id
       return true
+    end
+  end
+
+  def check_if_closed
+    if @survey.closed
+      redirect_to(main_app.root_path, flash: { notice: 'Sorry, this survey has been closed.' })
     end
   end
 end

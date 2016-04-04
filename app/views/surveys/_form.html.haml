@@ -4,8 +4,10 @@
   .form-inputs.light-text.survey__title-input
     = f.input :name
 
-  .form-inputs.light-text
-    = f.input :show_courses
+  .form-inputs.light-text.survey__title-input
+    = f.input :open, label: "Survey Open (Anyone may take it)"
+    = f.input :closed, label: "Close Survey"
+    = f.input :show_courses, label: "Show Courses to preview Course Data Questions"
 
   %div.light-text
     = f.label :intro, "Survey Introduction"
@@ -42,4 +44,3 @@
   .form-actions
     = f.button :submit, :class => 'button dark'
     = link_to "View Survey", @survey, :class => 'button'
-
