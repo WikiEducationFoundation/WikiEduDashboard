@@ -336,6 +336,7 @@ en:
     continue: Continue (%{progress})
     start: Start
     view: View
+    logged_out: 'You are logged out. You will not receive credit for completing this module unless you log in.'
 
   uploads:
     label: Uploads
