@@ -3,8 +3,21 @@ class SurveysController < ApplicationController
   include CourseHelper
   include SurveysHelper
 
-  before_action :set_survey, only: [:show, :edit, :update, :destroy, :edit_question_groups, :course_select, :show_with_course]
-  before_action :set_question_groups, only: [:show, :edit, :edit_question_groups, :show_with_course]
+  before_action :set_survey, only: [
+    :show,
+    :edit,
+    :update,
+    :destroy,
+    :edit_question_groups,
+    :course_select,
+    :show_with_course
+  ]
+  before_action :set_question_groups, only: [
+    :show,
+    :edit,
+    :edit_question_groups,
+    :show_with_course
+  ]
   before_action :set_course, only: [:show]
 
   # GET /surveys
@@ -17,10 +30,14 @@ class SurveysController < ApplicationController
   # GET /surveys/1.json
   def show
     @courses = Course.all
+    unless validate_user_for_survey
+      redirect_to(main_app.root_path, flash: { notice: 'Sorry, You do not have access to this survey' })
+      return
+    end
     if @survey.show_courses && !has_course_slug
-      render "course_select"
+      render 'course_select'
     else
-      render "show"
+      render 'show'
     end
   end
 
@@ -103,24 +120,48 @@ class SurveysController < ApplicationController
   end
 
   def update_question_group_position
-    question_group = SurveysQuestionGroup.where(survey_id: params[:survey_id], rapidfire_question_group_id: params[:question_group_id]).first
+    question_group = SurveysQuestionGroup.where(
+      survey_id: params[:survey_id],
+      rapidfire_question_group_id: params[:question_group_id]).first
     question_group.insert_at(params[:position].to_i)
     render nothing: true
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_survey
-      @survey = Survey.find(params[:id])
-    end
 
-    def set_question_groups
-      @question_groups = Rapidfire::QuestionGroup.all
-      @surveys_question_groups = SurveysQuestionGroup.by_position(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_survey
+    @survey = Survey.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def survey_params
-      params.require(:survey).permit(:name, :intro, :thanks, :show_courses, :rapidfire_question_group_ids => [])
+  def set_question_groups
+    @question_groups = Rapidfire::QuestionGroup.all
+    @surveys_question_groups = SurveysQuestionGroup.by_position(params[:id])
+  end
+  # Never trust parameters from the scary internet, only allow the white list through.
+
+  def survey_params
+    params.require(:survey).permit(:name,
+                                   :intro,
+                                   :thanks,
+                                   :show_courses,
+                                   rapidfire_question_group_ids: [])
+  end
+
+  def validate_user_for_survey
+    return true if @survey.open
+    return true if can_administer?
+    return true if !current_user.nil? && user_is_assigned_to_survey
+    return false
+  end
+
+  def user_is_assigned_to_survey
+    users = CoursesUsers.where(user_id: current_user.id)
+    return false if users.length == 0
+    users.where(user_id: current_user.id).each do |cu|
+      notification = SurveyNotification.find_by(courses_user_id: cu.id)
+      return false unless notification && notification.survey.id == @survey.id
+      return true
     end
+  end
 end

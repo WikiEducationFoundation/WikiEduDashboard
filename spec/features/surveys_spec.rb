@@ -10,16 +10,13 @@ describe 'Surveys', type: :feature, js: true do
     page.current_window.resize_to(1920, 1080)
   end
 
-  before :each do
-    user = create(:admin,
-                  id: 200,
-                  wiki_token: 'foo',
-                  wiki_secret: 'bar')
-    login_as(user, scope: :user)
-  end
-
   describe 'The Survey index' do
     before :each do
+      user = create(:admin,
+                    id: 200,
+                    wiki_token: 'foo',
+                    wiki_secret: 'bar')
+      login_as(user, scope: :user)
       visit '/surveys'
     end
 
@@ -42,10 +39,10 @@ describe 'Surveys', type: :feature, js: true do
   end
 
   describe 'Editing a Survey' do
-    
+
     # let!(:question_group)  { FactoryGirl.create(:question_group, name: "Survey Section 1") }
     # let!(:survey)  { create(:survey, name: "Dumb Survey", :rapidfire_question_groups => [question_group]) }
- 
+
     # before :each do
     #   create_questions(question_group)
     #   @intro_text = "My introduction"
@@ -66,6 +63,78 @@ describe 'Surveys', type: :feature, js: true do
     #     expect(page.find("[data-survey-block='0']")).to have_content(@intro_text)
     #   end
     # end
+  end
+
+  describe 'Taking a Survey' do
+    before(:each) do
+      @user = create(:user)
+      @admin = create(:admin,
+                      id: 200,
+                      wiki_token: 'foo',
+                      wiki_secret: 'bar')
+
+      @instructor = create(:user,
+                           id: 100,
+                           username: 'Professor Sage',
+                           wiki_token: 'foo',
+                           wiki_secret: 'bar')
+      create(:course,
+             id: 10001,
+             title: 'My Active Course',
+             school: 'University',
+             term: 'Term',
+             slug: 'University/Course_(Term)',
+             submitted: 1,
+             listed: true,
+             passcode: 'passcode',
+             start: '2015-01-01'.to_date,
+             end: '2020-01-01'.to_date)
+
+      @courses_user = create(
+        :courses_user,
+        id: 1,
+        user_id: @instructor.id,
+        course_id: 10001,
+        role: 1)
+
+      @open_survey = create(:survey, open: true)
+
+      @survey = create(:survey)
+
+      survey_assignment = create(
+        :survey_assignment,
+        survey_id: @survey.id)
+      create(:survey_notification,
+             survey_assignment_id: survey_assignment.id,
+             courses_user_id: @courses_user.id)
+    end
+
+    it 'can view survey if the survey notification id is associated with current user' do
+      login_as(@instructor, scope: :user)
+      visit survey_path(@survey)
+      expect(current_path).to eq(survey_path(@survey))
+    end
+
+    it 'can view survey if it is open' do
+      login_as(@user, scope: :user)
+      visit survey_path(@open_survey)
+      expect(current_path).to eq(survey_path(@open_survey))
+    end
+
+    it 'can view survey if user is an admin' do
+      login_as(@admin, scope: :user)
+      visit survey_path(@survey)
+      expect(current_path).to eq(survey_path(@survey))
+      login_as(@admin, scope: :user)
+      visit survey_path(@open_survey)
+      expect(current_path).to eq(survey_path(@open_survey))
+    end
+
+    it 'redirects a user if not logged in or survey notification id isnt associated with them' do
+      login_as(@user, scope: :user)
+      visit survey_path(@survey)
+      expect(current_path).to eq(root_path)
+    end
   end
 
   after do
