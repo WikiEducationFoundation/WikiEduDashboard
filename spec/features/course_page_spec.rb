@@ -5,9 +5,16 @@ MILESTONE_BLOCK_KIND = 2
 # Wait one second after loading a path
 # Allows React to properly load the page
 # Remove this after implementing server-side rendering
-def js_visit(path)
+def js_visit(path, count=3)
   visit path
   expect(page).to have_content 'Explore'
+
+# This is a workaround for some of the intermittent errors that occur when
+# running capybara with xvfb, which we do on travis-ci and in vagrant.
+rescue ActionController::RoutingError => e
+  raise e if count < 1
+  count -= 1
+  js_visit(path, count)
 end
 
 user_count = 10
@@ -111,6 +118,8 @@ describe 'the course page', type: :feature, js: true do
     ArticlesCourses.update_all_caches
     CoursesUsers.update_all_caches
     Course.update_all_caches
+
+    stub_token_request
   end
 
   describe 'overview' do
@@ -188,7 +197,6 @@ describe 'the course page', type: :feature, js: true do
 
   describe 'overview details editing' do
     it "doesn't allow null values for course start/end" do
-      stub_token_request
       admin = create(:admin, id: User.last.id + 1)
       login_as(admin)
       js_visit "/courses/#{slug}"
@@ -204,10 +212,10 @@ describe 'the course page', type: :feature, js: true do
     end
 
     it "doesn't allow null values for passcode" do
-      stub_token_request
       admin = create(:admin, id: User.last.id + 1)
       previous_passcode = Course.last.passcode
       login_as(admin)
+      sleep 5
       js_visit "/courses/#{slug}"
       within '.sidebar' do
         click_button 'Edit Details'
@@ -266,7 +274,7 @@ describe 'the course page', type: :feature, js: true do
     it 'should display a list of uploads' do
       # First, visit it no uploads
       visit "/courses/#{slug}/uploads"
-      expect(page).to have_content "#{I18n.t('uploads.none')}"
+      expect(page).to have_content I18n.t('uploads.none')
       create(:commons_upload,
              user_id: 1,
              file_name: 'File:Example.jpg',
