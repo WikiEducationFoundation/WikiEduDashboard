@@ -57,7 +57,7 @@ TrainingSlideHandler = React.createClass(
       e.stopPropagation()
       TrainingActions.toggleMenuOpen(currently: true)
   userLoggedIn: ->
-    typeof document.getElementById('main').getAttribute('data-user-id') is 'string'
+    typeof document.getElementById('main')?.getAttribute('data-user-id') is 'string'
 
   keys: { rightKey: 39, leftKey: 37 }
 
