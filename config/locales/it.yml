@@ -164,6 +164,7 @@ it:
     training_overdue: Il modulo di formazione "%{title}" è stato assegnato per questo
       corso, ed era previsto per il %{date}.
     unsubmitted: Corsi non presentati
+    untrained: Inesperto
     uploads_none: Questa classe non ha contribuito con alcuna immagine o altri file
       multimediali su Wikimedia Commons.
     weeks_none: Questo corso non ha ancora una linea temporale.
@@ -259,6 +260,7 @@ it:
     chars_added: Caratteri aggiunti<br>(namespace principale | utente)
     contributions: Contributi dell'utente
     contributions_more: Visualizza Ulteriori Contributi
+    editors: Editori
     loading: Caricamento utenti...
     name: Nome
     none: Questo corso non ha studenti.

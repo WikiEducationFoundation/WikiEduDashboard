@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Aktron
 # Author: Dominikmatus
+# Author: Urbanecm
 # Author: Vojtěch Dostál
 ---
 cs:
@@ -14,7 +15,7 @@ cs:
     greeting: Dobrý den!
     help: Nápověda
     home: Domů
-    log_in_extended: Přihlásit se skrze Wikipedii
+    log_in_extended: Přihlásit se účtem na Wikipedii
     log_in: Přihlásit se
     log_out: Odhlásit se
     my_dashboard: Nástěnka
@@ -24,7 +25,7 @@ cs:
     sign_up_log_in_extended: s Wikipedií
     sign_up: Registrace
     submit: Potvrdit
-    training: Školení
+    training: Průvodce
   dashboard:
     create_note: Zvolte tlačítko "Vytvořit kurz" a vytvořte si svůj první kurz.
     explore_course_pages: Prozkoumat kurzové stránky
@@ -39,7 +40,7 @@ cs:
     start_orientation: Spustit průvodce
   home:
     explore: Prozkoumat
-    log_in: Přihlásit se skrze Wikipedii
+    log_in: Přihlásit se účtem na Wikipedii
     sign_up: Zaregistrovat se skrze Wikipedii
   activity:
     all: Aktivita
@@ -208,6 +209,23 @@ cs:
     word_count_doc: Odhadovaný počet slov, které byly přidány do hlavního jmenného
       prostoru studenty kurzu během jeho průběhu
     yourcourses: Vaše kurzy
+  courses_generic:
+    creator:
+      course_school: Instituce
+    student_editors: Editoři
+    students: Editoři
+    students_none: Tento projekt nemá žádné zapsané studenty.
+    students_short: Editoři
+    uploads_none: Účastníci tohoto projektu nepřispěli žádnými obrázky anebo jinými
+      mediálními soubory do Wikimedia Commons.
   metrics:
+    activity: Nedávná aktivita
     articles_created: Vytvořené články
+  namespace:
+    user_ns: Uživatel
+  recent_activity:
+    show_courses: Ukázat pouze mé kurzy
+    recent_edits: Poslední editace
+  revisions:
+    chars_added: Přidáno znaků
 ...

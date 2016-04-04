@@ -203,6 +203,7 @@ fr:
     training_overdue: Le module de formation « %{title} » est affecté pour ce cours,
       et était attendu le %{date}.
     unsubmitted: Cours non soumis
+    untrained: Sans formation
     uploads_none: Cette classe n’a contribué à Wikimédia Communs par aucune image
       ni autre fichier de média
     weeks_none: Ce cours n’a pas encore de planning.

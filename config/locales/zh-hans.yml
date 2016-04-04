@@ -162,9 +162,11 @@ zh-hans:
     training_nav: 前往培训
     training_overdue: 培训模块“%{title}”已分配给该课程，并已于%{date}到期。
     unsubmitted: 未提交的课程
+    untrained: 未经训练
     uploads_none: 此班级没有贡献任何图片或其他媒体文件至维基共享资源。
     weeks_none: 此课程尚无时间线。
     view: 查看课程
+    view_doc: 所有由登记编辑者编辑的条目，自从他们对每个条目的第一次编辑以来的查看量之和
     view_page: 查看课程页面
     view_wiki: 在维基百科上查看
     volunteer:
@@ -269,6 +271,7 @@ zh-hans:
     training_complete:
       other: 最新的培训
     training_complete_count: '%{count}最近的培训'
+    training_doc: 已完成所有分配的已到期培训模块的编辑者可算作是最近完成训练的。
     training_incomplete: 培训未完成
     training_modules_completed: '%{completed_count}/%{assigned_count}培训模块已完成'
     up_to_date_with_training: 最近培训
@@ -279,6 +282,7 @@ zh-hans:
       summary: 学生培训迟到
   wizard:
     assignment_dates: 分配日期
+    assignment_description: 选择您的分配时间轴的开始和结束日期。例如，如果您希望在班级的第二周开始您的维基百科项目，将分配开始时间设置为课程开始时间之后的一周。此分配设计工具将创建适合您选择的时间轴日期的草稿时间轴。
     assignment_type: 分配类型
     confirm_dates: 为您的课程选择课程日期、每周例会和假日。
     course_dates: 课程日期
@@ -297,8 +301,10 @@ zh-hans:
     header: 未获授权。>:-(
   error_incorrect_passcode:
     header: 密码不正确。:-(
+    explanation: 登记此课程的密码不正确。请向导师询问当前密码以登记此课程。
   error_404:
     header: 找不到页面。:-(
+    explanation: 此页面不存在。如果您曾尝试到达一个课程的控制面板。那个课程可能没有为此控制面板注册。如果它刚刚注册，它可能需要一段时间以让系统添加它。
   error_422:
     header: 422 — 错误实体。:-(
     explanation: 出现一些错误。请联络此控制面板的维护人员以让他们得知有关问题。
@@ -311,4 +317,5 @@ zh-hans:
   timeline:
     due_default: 预计下周
     title: 时间轴
+    unable_to_add_week: 当您的时间轴充满时，您不能添加新周。删除至少一周或更改您的分配日期以为新的一周腾出地方。
 ...

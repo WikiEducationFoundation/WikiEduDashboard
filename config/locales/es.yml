@@ -201,6 +201,7 @@ es:
     training_overdue: El módulo de entrenamiento "%{title}" está asignado para este
       curso, y se esperaba el %{date}.
     unsubmitted: Cursos no presentados
+    untrained: Sin entrenamiento
     uploads_none: Esta clase no ha contribuido con ninguna imagen o archivo multimedia
       a Wikimedia Commons.
     weeks_none: Este curso aún no tiene un cronograma.

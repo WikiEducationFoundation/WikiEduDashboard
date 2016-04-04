@@ -195,6 +195,7 @@ qqq:
     training_nav: Link to go to the training page
     training_overdue: Training due date has passed for this course
     unsubmitted: Name for pseudo-cohort of unsubmitted courses
+    untrained: '{{Identical|Untrained}}'
     weeks_none: Message indicating that a course does not have a timeline
     view: Label for link to a course page
     view_doc: Explanation of what 'article views' means

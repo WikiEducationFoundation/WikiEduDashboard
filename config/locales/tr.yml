@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Elftrkn
 # Author: HakanIST
+# Author: Hbseren
 # Author: JackUKElliott
 # Author: KorkmazO
 # Author: Mavrikant
@@ -25,6 +26,7 @@ tr:
       end_date: Bitiş tarihi
       start_date: Başlangıç tarihi
     gradeables_none: Bu kursta notlandırılabilen ödev bulunmamaktadır
+    untrained: Eğitimsiz
   courses_generic:
     creator:
       course_title: Program adı
@@ -37,6 +39,8 @@ tr:
     date_time: Tariq/Saat
     edited_by: Düzenleyen
     title: Başlık
+  users:
+    editors: Editörler
   wizard:
     course_dates: Kurs günleri
     summary: Özet
