@@ -86,14 +86,27 @@ describe('Block', () => {
 
     describe('delete button', () => {
       describe('edit permissions', () => {
-        it('shows with edit permissions', () => {
-          const TestBlock = createBlock({
-            editPermissions: true,
-            editableBlockIds: [block.id]
+        describe('edit permissions, but editable block ids do not contain this block', () => {
+          it("doesn't show button", () => {
+            const TestBlock = createBlock({
+              editPermissions: true,
+              editableBlockIds: []
+            });
+            const button = TestUtils.scryRenderedDOMComponentsWithClass(TestBlock, 'danger')[0];
+            const buttonNode = findDOMNode(button);
+            expect(buttonNode).to.be.null();
           });
-          const button = TestUtils.scryRenderedDOMComponentsWithClass(TestBlock, 'danger')[0];
-          const buttonNode = findDOMNode(button);
-          expect(buttonNode.textContent).to.eq('Delete Block');
+        });
+        describe('edit permissions, editable block ids do contain this block', () => {
+          it('shows button', () => {
+            const TestBlock = createBlock({
+              editPermissions: true,
+              editableBlockIds: [block.id]
+            });
+            const button = TestUtils.scryRenderedDOMComponentsWithClass(TestBlock, 'danger')[0];
+            const buttonNode = findDOMNode(button);
+            expect(buttonNode.textContent).to.eq('Delete Block');
+          });
         });
       });
       describe('no edit permissions', () => {
