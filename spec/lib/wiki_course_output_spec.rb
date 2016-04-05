@@ -2,10 +2,13 @@ require 'rails_helper'
 require "#{Rails.root}/lib/wiki_course_output"
 
 describe WikiCourseOutput do
+  let(:course) { create(:course) }
+  let(:subject) { described_class.new(course) }
+
   describe '.markdown_to_mediawiki' do
     it 'should return a wikitext formatted version of the markdown input' do
-      title = WikiCourseOutput.markdown_to_mediawiki('# Title #')
-      text = WikiCourseOutput.markdown_to_mediawiki('This is some plain text')
+      title = subject.markdown_to_mediawiki('# Title #')
+      text = subject.markdown_to_mediawiki('This is some plain text')
       response = title + text
       expect(response).to eq("= Title =\n\nThis is some plain text\n\n")
     end
@@ -14,13 +17,13 @@ describe WikiCourseOutput do
   describe '.replace_code_with_nowiki' do
     it 'should convert code formatting syntax from html to wikitext' do
       code_snippet = '<code></code>'
-      response = WikiCourseOutput.replace_code_with_nowiki(code_snippet)
+      response = subject.replace_code_with_nowiki(code_snippet)
       expect(response).to eq('<nowiki></nowiki>')
     end
 
     it 'should not return nil if there are no code snippet' do
       code_snippet = 'no code snippet here'
-      response = WikiCourseOutput.replace_code_with_nowiki(code_snippet)
+      response = subject.replace_code_with_nowiki(code_snippet)
       expect(response).to eq('no code snippet here')
     end
   end
@@ -28,7 +31,7 @@ describe WikiCourseOutput do
   describe '.replace_at_sign_with_template' do
     it 'should reformat email addresses' do
       code_snippet = 'My email is email@example.com.'
-      response = WikiCourseOutput.replace_at_sign_with_template(code_snippet)
+      response = subject.replace_at_sign_with_template(code_snippet)
       expect(response).to eq('My email is email{{@}}example.com.')
     end
   end
@@ -37,7 +40,7 @@ describe WikiCourseOutput do
     it 'should find links and munge them into readable non-urls' do
       code_snippet = 'My bad links are bit.ly/foo and http://ur1.ca/bar'
       bad_links = ['bit.ly/foo', 'ur1.ca/bar']
-      response = WikiCourseOutput.substitute_bad_links(code_snippet, bad_links)
+      response = subject.substitute_bad_links(code_snippet, bad_links)
       expect(response).to include 'bit(.)ly/foo'
       expect(response).to include 'ur1(.)ca/bar'
       expect(response).not_to include 'bit.ly/foo'
@@ -98,7 +101,7 @@ describe WikiCourseOutput do
              course_id: 1,
              role: 1,
              article_title: 'Your article')
-      response = WikiCourseOutput.translate_course(course)
+      response = WikiCourseOutput.new(Course.find(1)).translate_course_to_wikitext
       expect(response).to include('The course description')
       expect(response).to include('Block 1 title')
       expect(response).to include('* Overview of the course')
