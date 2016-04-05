@@ -6,6 +6,8 @@ class WikiCourseOutput
   def initialize(course)
     @course = course
     @course_meetings_manager = CourseMeetingsManager.new(@course)
+    @first_instructor = @course.instructors.first
+    @first_support_staff = @course.nonstudents.where(greeter: true).first
     @output = ''
   end
 
@@ -37,17 +39,18 @@ class WikiCourseOutput
   #####################
 
   def course_details_and_description
+    description = Wikitext.markdown_to_mediawiki(@course.description)
+    course_details + "\r" + description
+  end
+
+  def course_details
     # TODO: add support for multiple instructors, multiple content experts.
     # TODO: switch this to a new template specifically for dashboard courses.
-    instructor = @course.instructors.first
-    support_staff = @course.nonstudents.where(greeter: true).first
-    course_prefix = ENV['course_prefix']
-    dashboard_url = ENV['dashboard_url']
-    course_details = "{{course details
+    "{{course details
      | course_name = #{@course.title}
-     | instructor_username = #{instructor.username unless instructor.nil?}
-     | instructor_realname = #{instructor.real_name unless instructor.nil?}
-     | support_staff = #{support_staff.username unless support_staff.nil?}
+     | instructor_username = #{instructor_username}
+     | instructor_realname = #{instructor_realname}
+     | support_staff = #{support_staff_username}
      | subject = #{@course.subject}
      | start_date = #{@course.start}
      | end_date = #{@course.end}
@@ -56,30 +59,59 @@ class WikiCourseOutput
      | assignment_page = #{course_prefix}/#{@course.slug}
      | #{dashboard_url} = yes
     }}"
-    description = Wikitext.markdown_to_mediawiki("#{@course.description}")
-    course_details + "\r" + description
+  end
+
+  def instructor_username
+    @first_instructor.username unless @first_instructor.nil?
+  end
+
+  def instructor_realname
+    @first_instructor.real_name unless @first_instructor.nil?
+  end
+
+  def support_staff_username
+    @first_support_staff.username unless @first_support_staff.nil?
+  end
+
+  def course_prefix
+    ENV['course_prefix']
+  end
+
+  def dashboard_url
+    ENV['dashboard_url']
   end
 
   def course_week(week, week_number)
+    week_output = week_header(week, week_number)
+
+    ordered_blocks = week.blocks.order(:order)
+    ordered_blocks.each do |block|
+      week_output += content_block(block)
+    end
+
+    week_output += "{{end of course week}}\r"
+    week_output
+  end
+
+  def week_header(week, week_number)
+    header_output = "=== Week #{week_number} ===\r"
+
+    header_output += '{{start of course week'
+    meeting_dates = @course_meetings_manager.meeting_dates_of(week).map(&:to_s)
+    header_output += '|' + meeting_dates.join('|') unless meeting_dates.blank?
+    header_output += "}}\r"
+    header_output
+  end
+
+  def content_block(block)
     block_types = ['in class|In class - ',
                    'assignment|Assignment - ',
                    'assignment milestones|',
                    'assignment|'] # TODO: get the custom value
-    week_output = "=== Week #{week_number} ===\r"
-
-    week_output += '{{start of course week'
-    meeting_dates = @course_meetings_manager.meeting_dates_of(week).map(&:to_s)
-    week_output += '|' + meeting_dates.join('|') unless meeting_dates.blank?
-    week_output += "}}\r"
-
-    ordered_blocks = week.blocks.order(:order)
-    ordered_blocks.each do |block|
-      block_type = block_types[block.kind]
-      week_output += "{{#{block_type}#{block.title}}}\r"
-      week_output += Wikitext.html_to_mediawiki("#{block.content}")
-    end
-    week_output += "{{end of course week}}\r"
-    week_output
+    block_type = block_types[block.kind]
+    block_output = "{{#{block_type}#{block.title}}}\r"
+    block_output += Wikitext.html_to_mediawiki(block.content)
+    block_output
   end
 
   def students_table

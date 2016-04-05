@@ -55,7 +55,7 @@ describe WikiCourseOutput do
              course_id: 1,
              role: 1,
              article_title: 'Your article')
-      response = WikiCourseOutput.new(Course.find(1)).translate_course_to_wikitext
+      response = WikiCourseOutput.new(course).translate_course_to_wikitext
       expect(response).to include('The course description')
       expect(response).to include('Block 1 title')
       expect(response).to include('* Overview of the course')
