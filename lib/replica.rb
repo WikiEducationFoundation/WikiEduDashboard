@@ -187,19 +187,21 @@ class Replica
   #  }]
   def api_get(endpoint, query='')
     tries ||= 3
-    url = compile_query_url(endpoint, query)
-    response = Net::HTTP::get(URI.parse(url))
+    response = do_query(endpoint, query)
     return if response.empty?
     parsed = JSON.parse response.to_s
     return unless parsed['success']
     parsed['data']
   rescue StandardError => e
     tries -= 1
-    unless tries.zero?
-      sleep 2
-      retry
-    end
+    sleep 2 && retry unless tries.zero?
+
     report_exception e, endpoint, query
+  end
+
+  def do_query(endpoint, query)
+    url = compile_query_url(endpoint, query)
+    Net::HTTP::get(URI.parse(url))
   end
 
   def compile_query_url(endpoint, query)
