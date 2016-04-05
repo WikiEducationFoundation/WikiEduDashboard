@@ -1,5 +1,7 @@
 {
   "name": "WikiEduDashboard",
+  "repository": "https://github.com/WikiEducationFoundation/WikiEduDashboard",
+  "license": "MIT",
   "dependencies": {
     "babel-core": "^6.7.4",
     "babel-loader": "^6.2.4",
