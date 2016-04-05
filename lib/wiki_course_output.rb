@@ -1,4 +1,4 @@
-require 'pandoc-ruby'
+require "#{Rails.root}/lib/wikitext"
 require "#{Rails.root}/lib/course_meetings_manager"
 
 #= Class for generating wikitext from course information.
@@ -56,7 +56,7 @@ class WikiCourseOutput
      | assignment_page = #{course_prefix}/#{@course.slug}
      | #{dashboard_url} = yes
     }}"
-    description = markdown_to_mediawiki("#{@course.description}")
+    description = Wikitext.markdown_to_mediawiki("#{@course.description}")
     course_details + "\r" + description
   end
 
@@ -76,7 +76,7 @@ class WikiCourseOutput
     ordered_blocks.each do |block|
       block_type = block_types[block.kind]
       week_output += "{{#{block_type}#{block.title}}}\r"
-      week_output += html_to_mediawiki("#{block.content}")
+      week_output += Wikitext.html_to_mediawiki("#{block.content}")
     end
     week_output += "{{end of course week}}\r"
     week_output
@@ -97,86 +97,10 @@ class WikiCourseOutput
     username = student.username
     assignments = student.assignments.where(course_id: @course.id)
     assigned_titles = assignments.assigned.pluck(:article_title)
-    assigned = titles_to_wikilinks assigned_titles
+    assigned = Wikitext.titles_to_wikilinks(assigned_titles)
     reviewing_titles = assignments.reviewing.pluck(:article_title)
-    reviewing = titles_to_wikilinks reviewing_titles
+    reviewing = Wikitext.titles_to_wikilinks(reviewing_titles)
 
     "{{student table row|#{username}|#{assigned}|#{reviewing}}}\r"
-  end
-
-  ################################
-  # wikitext formatting methods #
-  ################################
-  def markdown_to_mediawiki(item)
-    wikitext = PandocRuby.convert(item, from: :markdown, to: :mediawiki)
-    wikitext = replace_code_with_nowiki(wikitext)
-    wikitext = reformat_image_links(wikitext)
-    wikitext = replace_at_sign_with_template(wikitext)
-    wikitext
-  end
-
-  def html_to_mediawiki(item)
-    wikitext = PandocRuby.convert(item, from: :html, to: :mediawiki)
-    wikitext = replace_code_with_nowiki(wikitext)
-    wikitext = replace_at_sign_with_template(wikitext)
-    wikitext = reformat_links(wikitext)
-    wikitext
-  end
-
-  # Replace instances of <code></code> with <nowiki></nowiki>
-  # This lets us use backticks to format blocks of mediawiki code that we don't
-  # want to be parsed in the on-wiki version of a course page.
-  def replace_code_with_nowiki(text)
-    if text.include? '<code>'
-      text = text.gsub('<code>', '<nowiki>')
-      text = text.gsub('</code>', '</nowiki>')
-    end
-    text
-  end
-
-  # Replace instances of @ with an image-based template equivalent.
-  # This prevents email addresses from triggering a spam warning.
-  def replace_at_sign_with_template(text)
-    text = text.gsub('@', '{{@}}')
-    text
-  end
-
-  def titles_to_wikilinks(titles)
-    return '' if titles.blank?
-    titles_with_spaces = titles.map { |t| t.tr('_', ' ') }
-    wikitext = '[[' + titles_with_spaces.join(']], [[') + ']]'
-    wikitext
-  end
-
-  # Fix full urls that have been formatted like wikilinks.
-  # [["https://foo.com"|Foo]] -> [https://foo.com Foo]
-  def reformat_links(text)
-    text = text.gsub(/\[\["(http.*?)"\|(.*?)\]\]/, '[\1 \2]')
-    text
-  end
-
-  # Take file links that come out of Pandoc and attempt to create valid wiki
-  # image code for them. This method assumes a recent version of Pandoc that
-  # uses "File:" rather than "Image:" as the MediaWiki file prefix.
-  def reformat_image_links(text)
-    # Clean up file URLS
-    # TODO: Fence this, ensure usage of wikimedia commons?
-
-    # Get an array of [[File: ...]] and [[Image: ...]] tags from the content
-    file_tags = text.scan(/\[\[[File:|Image:][^\]]*\]\]/)
-    file_tags.each do |file_tag|
-      # Remove the absolute portion of the file's URL
-      fixed_tag = file_tag.gsub(%r{(?<=File:|Image:)[^\]]*/}, '')
-      text.gsub! file_tag, fixed_tag
-    end
-    text
-  end
-
-  def substitute_bad_links(text, links)
-    links.each do |link|
-      safe_link = link.gsub('.', '(.)')
-      text = text.gsub(link, safe_link)
-    end
-    text
   end
 end
