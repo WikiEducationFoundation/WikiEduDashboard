@@ -142,7 +142,7 @@ describe('Week', () => {
         expect(spanNode).to.be.null();
       });
     });
-    describe('click handler foobar', () => {
+    describe('click handler', () => {
       const spy = sinon.spy();
       const opts = { reorderable: false, is_new: false, deleteWeek: spy };
       const TestWeek = createWeek(Object.assign(opts, permissionsOpts));
