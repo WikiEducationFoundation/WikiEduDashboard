@@ -4,8 +4,8 @@ TextAreaInput     = require '../common/text_area_input.cjsx'
 TrainingModules   = require '../training_modules.cjsx'
 Checkbox          = require('../common/checkbox.jsx').default
 Select            = require '../common/select.cjsx'
-BlockActions      = require('../../actions/block_actions.js').default
-GradeableActions  = require('../../actions/gradeable_actions.js').default
+BlockActions      = require '../../actions/block_actions.coffee'
+GradeableActions  = require '../../actions/gradeable_actions.coffee'
 Reorderable       = require '../high_order/reorderable.cjsx'
 
 Block = React.createClass(

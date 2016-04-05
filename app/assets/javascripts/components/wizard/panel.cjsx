@@ -1,6 +1,6 @@
 React           = require 'react'
 md              = require('../../utils/markdown_it.js').default()
-WizardActions   = require('../../actions/wizard_actions.js').default
+WizardActions   = require '../../actions/wizard_actions.coffee'
 WizardStore     = require '../../stores/wizard_store.coffee'
 
 CourseLink      = require '../common/course_link.cjsx'

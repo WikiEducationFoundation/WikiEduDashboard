@@ -1,5 +1,7 @@
 McFly       = require 'mcfly'
 Flux        = new McFly()
+ServerActions = '../actions/server_actions.coffee'
+
 
 _revisions = []
 

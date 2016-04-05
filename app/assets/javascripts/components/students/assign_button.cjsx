@@ -5,8 +5,8 @@ Link          = ReactRouter.Link
 Expandable    = require '../high_order/expandable.cjsx'
 Popover       = require '../common/popover.cjsx'
 Lookup        = require '../common/lookup.cjsx'
-ServerActions = require('../../actions/server_actions.js').default
-AssignmentActions = require('../../actions/assignment_actions.js').default
+ServerActions = require '../../actions/server_actions.coffee'
+AssignmentActions = require '../../actions/assignment_actions.coffee'
 AssignmentStore = require '../../stores/assignment_store.coffee'
 
 urlToTitle = (article_url) ->

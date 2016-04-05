@@ -1,6 +1,6 @@
 import React from 'react';
 import UIStore from '../../stores/ui_store.coffee';
-import UIActions from '../../actions/ui_actions.js';
+import UIActions from '../../actions/ui_actions.coffee';
 
 const ActivityTableRow = React.createClass({
 

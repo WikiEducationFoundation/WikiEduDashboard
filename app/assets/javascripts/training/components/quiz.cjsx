@@ -1,6 +1,6 @@
 React  = require 'react'
 TrainingStore = require '../stores/training_store.coffee'
-TrainingActions = require('../actions/training_actions.js').default
+TrainingActions = require '../actions/training_actions.coffee'
 md              = require('../../utils/markdown_it.js').default()
 
 

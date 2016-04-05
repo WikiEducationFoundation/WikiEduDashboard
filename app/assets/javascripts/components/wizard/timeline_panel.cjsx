@@ -1,8 +1,8 @@
 React         = require 'react'
 Panel         = require './panel.cjsx'
 TextInput     = require '../common/text_input.cjsx'
-CourseActions = require('../../actions/course_actions.js').default
-ServerActions = require('../../actions/server_actions.js').default
+CourseActions = require '../../actions/course_actions.coffee'
+ServerActions = require '../../actions/server_actions.coffee'
 
 TimelinePanel = React.createClass(
   displayName: 'TimelinePanel'

@@ -1,8 +1,8 @@
 React          = require 'react'
 UploadList     = require './upload_list.cjsx'
 AssignmentList = require '../assignments/assignment_list.cjsx'
-UIActions      = require('../../actions/ui_actions.js').default
-ServerActions  = require('../../actions/server_actions.js').default
+UIActions      = require '../../actions/ui_actions.coffee'
+ServerActions  = require '../../actions/server_actions.coffee'
 
 
 UploadsHandler = React.createClass(

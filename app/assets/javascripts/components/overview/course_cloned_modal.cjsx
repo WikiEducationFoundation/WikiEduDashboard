@@ -4,9 +4,9 @@ Modal         = require '../common/modal.cjsx'
 
 CourseStore        = require '../../stores/course_store.coffee'
 ValidationStore    = require '../../stores/validation_store.coffee'
-ValidationActions  = require('../../actions/validation_actions.js').default
+ValidationActions  = require '../../actions/validation_actions.coffee'
 
-CourseActions = require('../../actions/course_actions.js').default
+CourseActions = require '../../actions/course_actions.coffee'
 
 TextInput     = require '../common/text_input.cjsx'
 TextAreaInput = require '../common/text_area_input.cjsx'

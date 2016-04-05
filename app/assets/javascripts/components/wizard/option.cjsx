@@ -1,7 +1,7 @@
 React             = require 'react'
 ReactDOM          = require 'react-dom'
 md                = require('../../utils/markdown_it.js').default()
-WizardActions     = require('../../actions/wizard_actions.js').default
+WizardActions     = require '../../actions/wizard_actions.coffee'
 
 Option = React.createClass(
   displayName: 'Option'

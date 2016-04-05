@@ -1,7 +1,7 @@
 React               = require 'react'
 TransitionGroup     = require 'react-addons-css-transition-group'
 API                 = require '../../utils/api.coffee'
-NotificationActions = require('../../actions/notification_actions.js').default
+NotificationActions = require '../../actions/notification_actions.coffee'
 ReactRouter     = require 'react-router'
 History         = ReactRouter.History
 Link            = ReactRouter.Link

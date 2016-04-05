@@ -3,8 +3,8 @@ ReactRouter       = require 'react-router'
 Router            = ReactRouter.Router
 
 StudentList       = require './student_list.cjsx'
-UIActions         = require('../../actions/ui_actions.js').default
-ServerActions     = require('../../actions/server_actions.js').default
+UIActions         = require '../../actions/ui_actions.coffee'
+ServerActions     = require '../../actions/server_actions.coffee'
 CourseUtils       = require '../../utils/course_utils.coffee'
 
 StudentsHandler = React.createClass(

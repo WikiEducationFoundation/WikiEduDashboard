@@ -4,9 +4,9 @@ Router        = ReactRouter.Router
 Link          = ReactRouter.Link
 Expandable    = require '../high_order/expandable.cjsx'
 Popover       = require '../common/popover.cjsx'
-ServerActions = require('../../actions/server_actions.js').default
+ServerActions = require '../../actions/server_actions.coffee'
 UserStore      = require '../../stores/user_store.coffee'
-AssignmentActions = require('../../actions/assignment_actions.js').default
+AssignmentActions = require '../../actions/assignment_actions.coffee'
 Conditional   = require '../high_order/conditional.cjsx'
 
 EnrollButton = React.createClass(

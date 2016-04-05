@@ -1,6 +1,6 @@
 McFly           = require 'mcfly'
 Flux            = new McFly()
-ServerActions   = require('../actions/server_actions.js').default
+ServerActions   = require '../actions/server_actions.coffee'
 
 
 # Data

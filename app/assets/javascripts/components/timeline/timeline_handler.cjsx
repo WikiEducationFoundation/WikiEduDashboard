@@ -9,8 +9,8 @@ Editable        = require '../high_order/editable.cjsx'
 
 CourseDateUtils   = require '../../utils/course_date_utils.coffee'
 
-ServerActions   = require('../../actions/server_actions.js').default
-TimelineActions   = require('../../actions/timeline_actions.js').default
+ServerActions   = require '../../actions/server_actions.coffee'
+TimelineActions   = require '../../actions/timeline_actions.coffee'
 
 CourseStore     = require '../../stores/course_store.coffee'
 WeekStore       = require '../../stores/week_store.coffee'

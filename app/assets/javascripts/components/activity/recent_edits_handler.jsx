@@ -1,7 +1,7 @@
 import React from 'react';
 import RecentEditsStore from '../../stores/recent_edits_store.coffee';
 import ActivityTable from './activity_table.jsx';
-import ServerActions from '../../actions/server_actions.js';
+import ServerActions from '../../actions/server_actions.coffee';
 
 const getState = () => {
   return {
