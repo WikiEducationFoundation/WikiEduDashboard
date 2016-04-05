@@ -48,10 +48,12 @@ gulp.task('js_coverage', jsxCoverage.createTask({
     },
     coffee: {
       include: /\.coffee$/,
-      omitExt: ['.coffee']
+      omitExt: ['.coffee'],
+      exclude: /node_modules|public/,
     },
     cjsx: {
-      include: /\.cjsx$/
+      include: /\.cjsx$/,
+      exclude: /node_modules|public/,
     }
   },
   coverage: {
