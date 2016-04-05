@@ -43,9 +43,3 @@ describe 'Notifications', ->
       expect(rows.length).to.eq 0
       done()
     )
-
-
-
-
-
-
