@@ -1,7 +1,7 @@
 McFly           = require 'mcfly'
 Flux            = new McFly()
 
-ServerActions   = require '../actions/server_actions.coffee'
+ServerActions   = require('../actions/server_actions.js').default
 
 _active_index = 0
 _summary = false

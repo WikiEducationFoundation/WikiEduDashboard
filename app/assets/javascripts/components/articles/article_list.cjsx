@@ -4,7 +4,7 @@ Editable      = require '../high_order/editable.cjsx'
 List          = require '../common/list.cjsx'
 Article       = require './article.cjsx'
 ArticleStore  = require '../../stores/article_store.coffee'
-ServerActions = require '../../actions/server_actions.coffee'
+ServerActions = require('../../actions/server_actions.js').default
 CourseUtils   = require '../../utils/course_utils.coffee'
 
 getState = ->

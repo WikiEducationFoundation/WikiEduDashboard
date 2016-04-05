@@ -9,8 +9,8 @@ Loading         = require '../common/loading.cjsx'
 CourseLink      = require '../common/course_link.cjsx'
 Affix           = require '../common/affix.cjsx'
 
-WeekActions     = require '../../actions/week_actions.coffee'
-BlockActions    = require '../../actions/block_actions.coffee'
+WeekActions     = require('../../actions/week_actions.js').default
+BlockActions    = require('../../actions/block_actions.js').default
 
 BlockStore      = require '../../stores/block_store.coffee'
 WeekStore       = require '../../stores/week_store.coffee'

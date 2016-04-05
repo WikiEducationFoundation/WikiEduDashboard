@@ -1,5 +1,5 @@
 React     = require 'react'
-UIActions = require '../../actions/ui_actions.coffee'
+UIActions = require('../../actions/ui_actions.js').default
 UIStore   = require '../../stores/ui_store.coffee'
 
 Expandable = (Component) ->

@@ -7,8 +7,8 @@ TimelinePanel = require './timeline_panel.cjsx'
 SummaryPanel  = require './summary_panel.cjsx'
 
 Modal         = require '../common/modal.cjsx'
-WizardActions = require '../../actions/wizard_actions.coffee'
-ServerActions = require '../../actions/server_actions.coffee'
+WizardActions = require('../../actions/wizard_actions.js').default
+ServerActions = require('../../actions/server_actions.js').default
 WizardStore   = require '../../stores/wizard_store.coffee'
 TransitionGroup   = require 'react-addons-css-transition-group'
 

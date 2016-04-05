@@ -1,5 +1,5 @@
 React           = require 'react'
-ServerActions   = require '../../actions/server_actions.coffee'
+ServerActions   = require('../../actions/server_actions.js').default
 CourseStore     = require '../../stores/course_store.coffee'
 
 getState = (course_id) ->

@@ -1,7 +1,7 @@
 # use WizardStore.getPanels() for answers
 React         = require 'react'
-ServerActions = require '../../actions/server_actions.coffee'
-WizardActions = require '../../actions/wizard_actions.coffee'
+ServerActions = require('../../actions/server_actions.js').default
+WizardActions = require('../../actions/wizard_actions.js').default
 WizardStore   = require '../../stores/wizard_store.coffee'
 Panel         = require './panel.cjsx'
 

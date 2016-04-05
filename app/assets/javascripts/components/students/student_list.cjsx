@@ -8,8 +8,8 @@ EnrollButton      = require './enroll_button.cjsx'
 
 UserStore         = require '../../stores/user_store.coffee'
 AssignmentStore   = require '../../stores/assignment_store.coffee'
-UIActions         = require '../../actions/ui_actions.coffee'
-ServerActions     = require '../../actions/server_actions.coffee'
+UIActions         = require('../../actions/ui_actions.js').default
+ServerActions     = require('../../actions/server_actions.js').default
 CourseUtils     = require '../../utils/course_utils.coffee'
 
 getState = ->
