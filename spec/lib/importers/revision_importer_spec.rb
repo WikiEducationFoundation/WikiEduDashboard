@@ -30,6 +30,27 @@ describe RevisionImporter do
       end
     end
 
+    it 'includes revisions on the final day of a course' do
+      create(:course, id: 1, start: '2016-03-20', end: '2016-03-31')
+      create(:user, id: 27860490, username: 'Tedholtby')
+      create(:courses_user, course_id: 1, user_id: 27860490, role: CoursesUsers::Roles::STUDENT_ROLE)
+
+      RevisionImporter.update_all_revisions nil, true
+
+      expect(User.find(27860490).revisions.count).to eq(3)
+      expect(Course.find(1).revisions.count).to eq(3)
+    end
+
+    it 'excludes revisions after the final day of the course' do
+      create(:course, id: 1, start: '2016-03-20', end: '2016-03-30')
+      create(:user, id: 27860490, username: 'Tedholtby')
+      create(:courses_user, course_id: 1, user_id: 27860490, role: CoursesUsers::Roles::STUDENT_ROLE)
+
+      RevisionImporter.update_all_revisions nil, true
+
+      expect(User.find(27860490).revisions.count).to eq(0)
+    end
+
     it 'handles returning users with earlier revisions' do
       VCR.use_cassette 'revisions/returning_students' do
         # Create a user who has a revision from long ago

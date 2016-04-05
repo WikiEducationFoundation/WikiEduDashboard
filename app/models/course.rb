@@ -61,11 +61,11 @@ class Course < ActiveRecord::Base
   # Activity by the users #
   #########################
   has_many(:revisions, lambda do |course|
-    where('date >= ?', course.start).where('date <= ?', course.end)
+    where('date >= ?', course.start).where('date <= ?', course.end.end_of_day)
   end, through: :students)
 
   has_many(:uploads, lambda do |course|
-    where('uploaded_at >= ?', course.start).where('uploaded_at <= ?', course.end)
+    where('uploaded_at >= ?', course.start).where('uploaded_at <= ?', course.end.end_of_day)
   end, through: :students)
 
   has_many :articles_courses, class_name: ArticlesCourses, dependent: :destroy

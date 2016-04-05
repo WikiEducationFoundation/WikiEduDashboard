@@ -112,7 +112,8 @@ class RevisionImporter
   end
 
   def course_end_date(course)
-    course.end.strftime('%Y%m%d')
+    # Add one day so that the query does not end at the beginning of the last day.
+    (course.end + 1.day).strftime('%Y%m%d')
   end
 
   def users_with_no_revisions(course)

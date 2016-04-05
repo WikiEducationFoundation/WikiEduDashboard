@@ -58,7 +58,7 @@ describe Course, type: :model do
       .to_raise(error)
     LegacyCourseImporter.update_all_courses(false, cohort: [798, 800])
 
-    course = create(:course, id: 519)
+    course = create(:legacy_course, id: 519, end: '2014-01-01')
     course.manual_update
   end
 
@@ -74,7 +74,7 @@ describe Course, type: :model do
 
   it 'should update data for single courses' do
     VCR.use_cassette 'wiki/manual_course_data' do
-      course = create(:legacy_course, id: 519)
+      course = create(:legacy_course, id: 519, end: '2014-01-01')
 
       course.manual_update
 
@@ -82,7 +82,7 @@ describe Course, type: :model do
       expect(course.term).to eq('January 2015')
 
       # Check articles
-      expect(course.articles.count).to eq(3)
+      expect(course.articles.count).to eq(4)
       expect(Article.all.where(namespace: 0).count).to eq(course.articles.count)
 
       # Check users
@@ -336,7 +336,7 @@ describe Course, type: :model do
   end
 
   describe '#user_count' do
-    let!(:course) { create(:course) }
+    let!(:course) { create(:course, end: '2015-01-01') }
     let!(:user1)  { create(:test_user) }
     let!(:user2)  { create(:test_user) }
     let!(:cu1)    { create(:courses_user, course_id: course.id, user_id: user1.id, role: role1) }
@@ -368,8 +368,9 @@ describe Course, type: :model do
   end
 
   describe '#article_count' do
+    let(:course) { create(:course, end: '2015-01-01') }
+
     it 'should count mainspace articles edited by students' do
-      course = create(:course)
       student = create(:user)
       create(:courses_user, course_id: course.id, user_id: student.id,
                             role: CoursesUsers::Roles::STUDENT_ROLE)
@@ -388,8 +389,9 @@ describe Course, type: :model do
   end
 
   describe '#new_article_count' do
+    let(:course) { create(:course, end: '2015-01-01') }
+
     it 'should count newly created mainspace articles' do
-      course = create(:course)
       student = create(:user)
       create(:courses_user, course_id: course.id, user_id: student.id,
                             role: CoursesUsers::Roles::STUDENT_ROLE)
