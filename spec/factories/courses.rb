@@ -38,7 +38,7 @@
 FactoryGirl.define do
   factory :course, class: 'ClassroomProgramCourse' do
     start Date.new(2015, 01, 01)
-    # end is a reserved keyword, set that in the let(:course) calls
+    self.end Date.new(2015, 06, 01)
     title 'Underwater basket-weaving'
     listed true
     school 'WINTR'
@@ -49,7 +49,7 @@ FactoryGirl.define do
 
   factory :basic_course, class: 'BasicCourse' do
     start Date.new(2015, 01, 01)
-    # end is a reserved keyword, set that in the let(:course) calls
+    self.end Date.new(2015, 06, 01)
     title 'Black life matters'
     listed true
     school 'none'
@@ -61,7 +61,7 @@ FactoryGirl.define do
 
   factory :visiting_scholarship, class: 'VisitingScholarship' do
     start Date.new(2015, 01, 01)
-    # end is a reserved keyword, set that in the let(:course) calls
+    self.end Date.new(2015, 06, 01)
     title 'Basket-weaving scholarship'
     listed true
     school 'UNR'
@@ -73,7 +73,7 @@ FactoryGirl.define do
 
   factory :editathon, class: 'Editathon' do
     start Date.new(2015, 01, 01)
-    # end is a reserved keyword, set that in the let(:course) calls
+    self.end Date.new(2015, 06, 01)
     title 'Basket-weaving edit-a-thon'
     listed true
     school 'NARA'
@@ -85,7 +85,7 @@ FactoryGirl.define do
 
   factory :legacy_course, class: 'LegacyCourse' do
     start Date.new(2013, 01, 01)
-    # end is a reserved keyword, set that in the let(:course) calls
+    self.end Date.new(2013, 06, 01)
     title 'Legacy basket-weaving'
     listed true
     school 'PBR'

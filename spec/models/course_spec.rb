@@ -58,7 +58,7 @@ describe Course, type: :model do
       .to_raise(error)
     LegacyCourseImporter.update_all_courses(false, cohort: [798, 800])
 
-    course = create(:legacy_course, id: 519, end: '2014-01-01')
+    course = create(:legacy_course, id: 519)
     course.manual_update
   end
 
@@ -74,7 +74,7 @@ describe Course, type: :model do
 
   it 'should update data for single courses' do
     VCR.use_cassette 'wiki/manual_course_data' do
-      course = create(:legacy_course, id: 519, end: '2014-01-01')
+      course = create(:legacy_course, id: 519)
 
       course.manual_update
 
@@ -336,7 +336,7 @@ describe Course, type: :model do
   end
 
   describe '#user_count' do
-    let!(:course) { create(:course, end: '2015-01-01') }
+    let!(:course) { create(:course) }
     let!(:user1)  { create(:test_user) }
     let!(:user2)  { create(:test_user) }
     let!(:cu1)    { create(:courses_user, course_id: course.id, user_id: user1.id, role: role1) }
@@ -368,7 +368,7 @@ describe Course, type: :model do
   end
 
   describe '#article_count' do
-    let(:course) { create(:course, end: '2015-01-01') }
+    let(:course) { create(:course) }
 
     it 'should count mainspace articles edited by students' do
       student = create(:user)
