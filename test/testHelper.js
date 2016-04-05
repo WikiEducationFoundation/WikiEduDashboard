@@ -4,7 +4,7 @@ global.document = jsdom.jsdom('<!doctype html><html><body><div></div></body></ht
   url: 'http://localhost'
 });
 global.window = document.defaultView;
-global.navigator = global.window.navigator
+global.navigator = global.window.navigator;
 
 const sinon = require('sinon');
 const React = require('react');
