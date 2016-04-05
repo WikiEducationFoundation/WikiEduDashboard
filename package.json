@@ -108,6 +108,7 @@
     "rupture": "^0.1.0",
     "should": "^7.1.0",
     "sinon": "^1.17.3",
+    "sinon-chai": "^2.8.0",
     "stylus": "0.49.2",
     "testdom": "^2.0.0",
     "velocity-animate": "^1.2.3",
@@ -123,8 +124,5 @@
     "test": "gulp js_coverage",
     "start": "gulp hot-dev",
     "build": "webpack -p --config config/webpack/webpack.config.prod.js"
-  },
-  "devDependencies": {
-    "sinon-chai": "^2.8.0"
   }
 }
