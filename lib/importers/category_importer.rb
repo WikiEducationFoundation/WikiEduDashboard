@@ -1,7 +1,7 @@
 require "#{Rails.root}/lib/replica"
 require "#{Rails.root}/lib/importers/revision_score_importer"
 require "#{Rails.root}/lib/importers/article_importer"
-require "#{Rails.root}/lib/importers/view_importer"
+require "#{Rails.root}/lib/importers/average_views_importer"
 require "#{Rails.root}/lib/wiki_api"
 
 #= Imports articles for a category, along with view data and revision scores
@@ -194,6 +194,6 @@ class CategoryImporter
     articles = articles.select do |a|
       a.average_views.nil? || a.average_views_updated_at < 1.month.ago
     end
-    ViewImporter.update_average_views articles
+    AverageViewsImporter.update_average_views articles
   end
 end
