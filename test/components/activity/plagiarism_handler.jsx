@@ -65,6 +65,6 @@ describe('PlagiarismHandler', () => {
     setTimeout(() => {
       expect(TestDom.querySelectorAll('a[href=reportUrl2]').length).to.eq(1);
       done();
-    }, 20);
+    }, 100);
   });
 });
