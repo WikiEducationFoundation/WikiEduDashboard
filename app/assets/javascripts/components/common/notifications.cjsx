@@ -3,7 +3,7 @@
 
 React             = require 'react'
 NotificationStore = require '../../stores/notification_store.coffee'
-NotificationActions = require '../../actions/notification_actions.coffee'
+NotificationActions = require('../../actions/notification_actions.js').default
 
 
 # Component

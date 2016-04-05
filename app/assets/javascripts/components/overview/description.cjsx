@@ -3,8 +3,8 @@ Editable          = require '../high_order/editable.cjsx'
 TextInput         = require '../common/text_input.cjsx'
 TextAreaInput     = require '../common/text_area_input.cjsx'
 CourseStore       = require '../../stores/course_store.coffee'
-CourseActions     = require '../../actions/course_actions.coffee'
-ServerActions     = require '../../actions/server_actions.coffee'
+CourseActions     = require('../../actions/course_actions.js').default
+ServerActions     = require('../../actions/server_actions.js').default
 
 getState = (course_id) ->
   course: CourseStore.getCourse()

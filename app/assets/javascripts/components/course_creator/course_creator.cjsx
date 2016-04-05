@@ -5,10 +5,10 @@ Link          = ReactRouter.Link
 
 CourseStore        = require '../../stores/course_store.coffee'
 UserCoursesStore   = require '../../stores/user_courses_store.coffee'
-CourseActions      = require '../../actions/course_actions.coffee'
+CourseActions      = require('../../actions/course_actions.js').default
 ValidationStore    = require '../../stores/validation_store.coffee'
-ValidationActions  = require '../../actions/validation_actions.coffee'
-ServerActions      = require '../../actions/server_actions.coffee'
+ValidationActions  = require('../../actions/validation_actions.js').default
+ServerActions      = require('../../actions/server_actions.js').default
 
 Modal           = require '../common/modal.cjsx'
 TextInput       = require '../common/text_input.cjsx'

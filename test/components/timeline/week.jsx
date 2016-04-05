@@ -5,7 +5,7 @@ import { findDOMNode } from 'react-dom';
 import sinon from 'sinon';
 import TestUtils, { Simulate } from 'react-addons-test-utils';
 import Week from '../../../app/assets/javascripts/components/timeline/week.cjsx';
-import BlockActions from '../../../app/assets/javascripts/actions/block_actions.coffee';
+import BlockActions from '../../../app/assets/javascripts/actions/block_actions.js';
 
 const noOp = () => {};
 const createWeek = (opts = {}) => {

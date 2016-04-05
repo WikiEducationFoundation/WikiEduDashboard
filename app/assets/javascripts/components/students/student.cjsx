@@ -1,11 +1,11 @@
 React             = require 'react'
-ServerActions     = require '../../actions/server_actions.coffee'
+ServerActions     = require('../../actions/server_actions.js').default
 
 AssignCell      = require './assign_cell.cjsx'
 
 RevisionStore   = require '../../stores/revision_store.coffee'
 UIStore         = require '../../stores/ui_store.coffee'
-UIActions       = require '../../actions/ui_actions.coffee'
+UIActions       = require('../../actions/ui_actions.js').default
 { trunc }       = require '../../utils/strings'
 
 Student = React.createClass(

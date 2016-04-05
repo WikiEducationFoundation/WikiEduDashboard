@@ -4,8 +4,8 @@ import TextAreaInput from '../common/text_area_input.cjsx';
 import TrainingModules from '../training_modules.cjsx';
 import Checkbox from '../common/checkbox.jsx';
 import Select from '../common/select.cjsx';
-import BlockActions from '../../actions/block_actions.coffee';
-import GradeableActions from '../../actions/gradeable_actions.coffee';
+import BlockActions from '../../actions/block_actions.js';
+import GradeableActions from '../../actions/gradeable_actions.js';
 
 const Block = React.createClass({
   displayName: 'Block',

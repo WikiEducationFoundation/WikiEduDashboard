@@ -5,8 +5,8 @@ CohortButton      = require './cohort_button.cjsx'
 TagButton         = require './tag_button.cjsx'
 Editable          = require '../high_order/editable.cjsx'
 TextInput         = require '../common/text_input.cjsx'
-CourseActions     = require '../../actions/course_actions.coffee'
-ServerActions     = require '../../actions/server_actions.coffee'
+CourseActions     = require('../../actions/course_actions.js').default
+ServerActions     = require('../../actions/server_actions.js').default
 
 CourseStore       = require '../../stores/course_store.coffee'
 TagStore          = require '../../stores/tag_store.coffee'

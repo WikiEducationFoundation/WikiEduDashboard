@@ -1,7 +1,7 @@
 # Used by any component that requires "Edit", "Save", and "Cancel" buttons
 
 React = require 'react'
-UIActions = require '../../actions/ui_actions.coffee'
+UIActions = require('../../actions/ui_actions.js').default
 
 Editable = (Component, Stores, Save, GetState, Label) ->
   React.createClass(

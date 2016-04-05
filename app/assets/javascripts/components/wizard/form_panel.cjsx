@@ -3,8 +3,8 @@ ReactDOM      = require 'react-dom'
 Panel         = require './panel.cjsx'
 TextInput     = require '../common/text_input.cjsx'
 Calendar      = require '../common/calendar.cjsx'
-CourseActions = require '../../actions/course_actions.coffee'
-ServerActions = require '../../actions/server_actions.coffee'
+CourseActions = require('../../actions/course_actions.js').default
+ServerActions = require('../../actions/server_actions.js').default
 
 
 getState = (course_id) ->

@@ -1,7 +1,7 @@
 import React from 'react';
 import SuspectedPlagiarismStore from '../../stores/suspected_plagiarism_store.coffee';
 import ActivityTable from './activity_table.jsx';
-import ServerActions from '../../actions/server_actions.coffee';
+import ServerActions from '../../actions/server_actions.js';
 
 const getState = () => {
   return {
