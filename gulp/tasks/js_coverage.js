@@ -44,6 +44,7 @@ gulp.task('js_coverage', jsxCoverage.createTask({
   transpile: {
     babel: {
       include: /\.jsx?$/,
+      exclude: /node_modules|public/,
     },
     coffee: {
       include: /\.coffee$/,
