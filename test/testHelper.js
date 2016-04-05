@@ -1,7 +1,8 @@
 const jsdom = require('jsdom');
 
 global.document = jsdom.jsdom('<!doctype html><html><body><div></div></body></html>', {
-  url: 'http://localhost'
+  url: 'http://localhost',
+  skipWindowCheck: true
 });
 global.window = document.defaultView;
 global.navigator = global.window.navigator;
@@ -31,7 +32,5 @@ global.I18n = I18n;
 global.chai = chai;
 global.expect = chai.expect;
 global.assert = chai.assert;
-
-jsdom({ skipWindowCheck: true });
 
 chai.use(sinonChai);
