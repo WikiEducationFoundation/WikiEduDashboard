@@ -4,11 +4,34 @@ require 'rapidfire'
 Rails.application.config.to_prepare do
 
   Rapidfire::QuestionGroup.class_eval do
-    has_and_belongs_to_many :surveys, :join_table => "surveys_question_groups", :foreign_key => "rapidfire_question_group_id"
+    has_many :question_group_conditionals, foreign_key: 'rapidfire_question_group_id'
+    has_many :cohorts, through: :question_group_conditionals
+    has_and_belongs_to_many :surveys, join_table: 'surveys_question_groups', foreign_key: 'rapidfire_question_group_id'
   end
 
   Rapidfire::QuestionGroupsController.class_eval do
+    before_action :set_tags, only: [:new, :edit]
 
+    def new
+      @question_group = Rapidfire::QuestionGroup.new
+      @question_group_tags = []
+    end
+
+    def edit
+      @question_group = Rapidfire::QuestionGroup.find(params[:id])
+      @question_group_tags = @question_group.tags.split(',')
+    end
+
+    private
+
+    def question_group_params
+      params[:question_group][:tags] = params[:question_group][:tags].join(',')
+      params.require(:question_group).permit(:name, :tags, cohort_ids: [])
+    end
+
+    def set_tags
+      @available_tags = Tag.uniq.pluck(:tag)
+    end
   end
 
   Rapidfire::Question.class_eval do

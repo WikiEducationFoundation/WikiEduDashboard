@@ -35,4 +35,9 @@ describe Cohort do
       expect(Cohort.default_cohort).to be_a(Cohort)
     end
   end
+
+  describe 'association' do
+    it { should have_many(:question_group_conditionals) }
+    it { should have_many(:rapidfire_question_groups).through(:question_group_conditionals) }
+  end
 end

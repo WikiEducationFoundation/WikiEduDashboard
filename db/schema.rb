@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160404230034) do
+ActiveRecord::Schema.define(version: 20160404235251) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title",                    limit: 255
@@ -167,6 +167,16 @@ ActiveRecord::Schema.define(version: 20160404230034) do
     t.string   "gradeable_item_type", limit: 255
   end
 
+  create_table "question_group_conditionals", force: :cascade do |t|
+    t.integer  "rapidfire_question_group_id", limit: 4
+    t.integer  "cohort_id",                   limit: 4
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+  end
+
+  add_index "question_group_conditionals", ["cohort_id"], name: "index_question_group_conditionals_on_cohort_id", using: :btree
+  add_index "question_group_conditionals", ["rapidfire_question_group_id"], name: "index_question_group_conditionals_on_rapidfire_question_group_id", using: :btree
+
   create_table "rapidfire_answer_groups", force: :cascade do |t|
     t.integer  "question_group_id", limit: 4
     t.integer  "user_id",           limit: 4
@@ -194,6 +204,7 @@ ActiveRecord::Schema.define(version: 20160404230034) do
     t.string   "name",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "tags",       limit: 255
   end
 
   create_table "rapidfire_questions", force: :cascade do |t|

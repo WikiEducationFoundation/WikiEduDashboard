@@ -91,6 +91,7 @@ group :test do
   gem 'vcr'
   gem 'simplecov', require: false
   gem 'codeclimate-test-reporter', require: nil
+  gem 'shoulda-matchers', '~> 3.1'
 end
 
 group :production do

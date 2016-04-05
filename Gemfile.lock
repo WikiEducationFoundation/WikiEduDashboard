@@ -379,6 +379,8 @@ GEM
       faraday (>= 0.7.6)
     sexp_processor (4.7.0)
     shellany (0.0.1)
+    shoulda-matchers (3.1.1)
+      activesupport (>= 4.0.0)
     simple_form (3.2.1)
       actionpack (> 4, < 5.1)
       activemodel (> 4, < 5.1)
@@ -486,6 +488,7 @@ DEPENDENCIES
   rubocop
   selenium-webdriver
   sentry-raven
+  shoulda-matchers (~> 3.1)
   simple_form
   simplecov
   squeel!
@@ -495,3 +498,6 @@ DEPENDENCIES
   webmock
   whenever
   zeus
+
+BUNDLED WITH
+   1.11.2
