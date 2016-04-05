@@ -78,6 +78,7 @@
     "mocha-jsdom": "^1.0.0",
     "moment": "2.10.3",
     "moment-recur": "^1.0.5",
+    "nock": "^7.7.3",
     "nouislider": "^8.3.0",
     "parsleyjs": "^2.3.5",
     "rangeslider.js": "^2.1.1",
