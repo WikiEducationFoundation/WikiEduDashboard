@@ -3,32 +3,23 @@ const Flux = new McFly();
 
 const WizardActions = Flux.createActions({
   toggleOptionSelected(panelIndex, optionIndex) {
-    return {
-      actionType: 'SELECT_OPTION',
-      data: {
-        panel_index: panelIndex,
-        option_index: optionIndex
-      }
-    };
+    return { actionType: 'SELECT_OPTION', data: {
+      panel_index: panelIndex,
+      option_index: optionIndex
+    } };
   },
 
   toggleOptionExpanded(panelIndex, optionIndex) {
-    return {
-      actionType: 'EXPAND_OPTION',
-      data: {
-        panel_index: panelIndex,
-        option_index: optionIndex
-      }
-    };
+    return { actionType: 'EXPAND_OPTION', data: {
+      panel_index: panelIndex,
+      option_index: optionIndex
+    } };
   },
 
   rewindWizard(toIndex = null) {
-    return {
-      actionType: 'WIZARD_REWIND',
-      data: {
-        to_index: toIndex
-      }
-    };
+    return { actionType: 'WIZARD_REWIND', data: {
+      to_index: toIndex
+    } };
   },
 
   advanceWizard() {
