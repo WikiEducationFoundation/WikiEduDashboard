@@ -38,6 +38,8 @@ gem 'i18n-js', '>= 3.0.0.rc11'
 
 gem 'mailgun_rails'
 
+gem 'factory_girl_rails'
+
 # If you want to be able to hack locally on rapidfire,
 # run `export RAPIDFIREHACKINGMODE=true` in your terminal.
 if ENV['RAPIDFIREHACKINGMODE'] == 'true'
@@ -70,7 +72,6 @@ end
 group :development, :test do
   gem 'pry-rails'
   gem 'byebug'
-  gem 'factory_girl_rails'
   gem 'faker'
   gem 'rspec-rails'
   gem 'rubocop', require: false
