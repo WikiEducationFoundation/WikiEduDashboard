@@ -7,6 +7,7 @@ import TestUtils, { Simulate } from 'react-addons-test-utils';
 import Week from '../../../app/assets/javascripts/components/timeline/week.cjsx';
 import BlockActions from '../../../app/assets/javascripts/actions/block_actions.coffee';
 
+const noOp = () => {};
 const createWeek = (opts = {}) => {
   return TestUtils.renderIntoDocument(
     <Week
@@ -17,6 +18,7 @@ const createWeek = (opts = {}) => {
       reorderable={opts.reorderable || false }
       editing_added_block={opts.editing_added_block || false }
       week={{ is_new: opts.is_new || false }}
+      deleteWeek={opts.deleteWeek || noOp}
     />
   );
 };
@@ -138,6 +140,17 @@ describe('Week', () => {
         const span = TestUtils.scryRenderedDOMComponentsWithClass(TestWeek, 'week__delete-week')[0];
         const spanNode = findDOMNode(span);
         expect(spanNode).to.be.null();
+      });
+    });
+    describe('click handler foobar', () => {
+      const spy = sinon.spy();
+      const opts = { reorderable: false, is_new: false, deleteWeek: spy };
+      const TestWeek = createWeek(Object.assign(opts, permissionsOpts));
+      const span = TestUtils.scryRenderedDOMComponentsWithClass(TestWeek, 'week__delete-week')[0];
+      const spanNode = findDOMNode(span);
+      it('calls delete week', () => {
+        Simulate.click(spanNode);
+        expect(spy).to.have.been.calledOnce;
       });
     });
   });
