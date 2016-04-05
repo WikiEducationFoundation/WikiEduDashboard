@@ -1,8 +1,8 @@
+import '../../testHelper';
+
 import React from 'react';
 import ReactTestUtils, { Simulate } from 'react-addons-test-utils';
 import sinon from 'sinon';
-
-import '../../testHelper';
 
 import DidYouKnowHandler from '../../../app/assets/javascripts/components/activity/did_you_know_handler.jsx';
 
