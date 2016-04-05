@@ -16,6 +16,7 @@ const moment = require('moment');
 const momentRecur = require('moment-recur');
 const I18n = require('../public/assets/javascripts/i18n.js');
 const chai = require('chai');
+const sinonChai = require('sinon-chai');
 
 global.$ = $;
 global._ = _;
@@ -30,3 +31,7 @@ global.I18n = I18n;
 global.chai = chai;
 global.expect = chai.expect;
 global.assert = chai.assert;
+
+jsdom({ skipWindowCheck: true });
+
+chai.use(sinonChai);

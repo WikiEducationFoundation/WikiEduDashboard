@@ -17,7 +17,8 @@
     "radix": [2, "as-needed"],
     "no-param-reassign": 0,
     "react/jsx-no-bind": 0,
-    "no-alert": 0
+    "no-alert": 0,
+    "no-unused-expressions": 0
   },
   "globals": {
     "$": true,

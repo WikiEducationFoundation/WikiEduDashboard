@@ -40,7 +40,7 @@ Week = React.createClass(
   _scrollToAddedBlock: ->
     wk = document.getElementsByClassName("week-#{@props.index}")[0]
     scrollTop = window.scrollTop || document.body.scrollTop
-    bottom = Math.abs(wk.getBoundingClientRect().bottom)
+    bottom = Math.abs(wk?.getBoundingClientRect().bottom)
     elBottom = bottom + scrollTop - 50
     window.scrollTo(0, elBottom)
   render: ->

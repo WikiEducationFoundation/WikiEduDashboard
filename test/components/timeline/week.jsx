@@ -2,8 +2,10 @@ import '../../testHelper';
 
 import React from 'react';
 import { findDOMNode } from 'react-dom';
-import TestUtils from 'react-addons-test-utils';
+import sinon from 'sinon';
+import TestUtils, { Simulate } from 'react-addons-test-utils';
 import Week from '../../../app/assets/javascripts/components/timeline/week.cjsx';
+import BlockActions from '../../../app/assets/javascripts/actions/block_actions.coffee';
 
 const createWeek = (opts = {}) => {
   return TestUtils.renderIntoDocument(
@@ -93,6 +95,18 @@ describe('Week', () => {
         const span = TestUtils.scryRenderedDOMComponentsWithClass(TestWeek, 'week__add-block')[0];
         const spanNode = findDOMNode(span);
         expect(spanNode).to.be.null();
+      });
+    });
+    describe('click handler', () => {
+      const opts = { reorderable: false, editing_added_block: false };
+      const TestWeek = createWeek(Object.assign(opts, permissionsOpts));
+      const method = sinon.spy(TestWeek, '_scrollToAddedBlock');
+      const action = sinon.spy(BlockActions, 'addBlock');
+      const span = TestUtils.scryRenderedDOMComponentsWithClass(TestWeek, 'week__add-block')[0];
+      it('calls the appropriate functions', () => {
+        Simulate.click(span);
+        expect(method).to.have.been.calledOnce;
+        expect(action).to.have.been.calledOnce;
       });
     });
   });
