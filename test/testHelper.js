@@ -1,7 +1,10 @@
-const jsdom = require('mocha-jsdom');
-const testdom = require('testdom');
-global.testdom = testdom('<html><body><div></div></body></html>');
+const jsdom = require('jsdom');
 
+global.document = jsdom.jsdom('<!doctype html><html><body><div></div></body></html>', {
+  url: 'http://localhost'
+});
+global.window = document.defaultView;
+global.navigator = global.window.navigator
 
 const sinon = require('sinon');
 const React = require('react');
@@ -27,5 +30,3 @@ global.I18n = I18n;
 global.chai = chai;
 global.expect = chai.expect;
 global.assert = chai.assert;
-
-jsdom({ skipWindowCheck: true });
