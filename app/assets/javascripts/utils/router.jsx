@@ -19,7 +19,7 @@ import UploadsHandler from '../components/uploads/uploads_handler.cjsx';
 import RecentActivityHandler from '../components/activity/recent_activity_handler.jsx';
 import DidYouKnowHandler from '../components/activity/did_you_know_handler.jsx';
 import PlagiarismHandler from '../components/activity/plagiarism_handler.jsx';
-import RecentEditsHandler from '../components/activity/recent_edits_handler.cjsx';
+import RecentEditsHandler from '../components/activity/recent_edits_handler.jsx';
 
 import TrainingApp from '../training/components/training_app.cjsx';
 import TrainingModuleHandler from '../training/components/training_module_handler.cjsx';
