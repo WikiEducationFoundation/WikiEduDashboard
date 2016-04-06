@@ -7,16 +7,8 @@ Popover       = require '../common/popover.cjsx'
 Lookup        = require '../common/lookup.cjsx'
 ServerActions = require('../../actions/server_actions.js').default
 AssignmentActions = require('../../actions/assignment_actions.js').default
-AssignmentStore = require '../../stores/assignment_store.coffee'
-
-urlToTitle = (article_url) ->
-  article_url = article_url.trim()
-  unless /http/.test(article_url)
-    return article_url.replace(/_/g, ' ')
-
-  url_parts = /\/wiki\/(.*)/.exec(article_url)
-  return unescape(url_parts[1]).replace(/_/g, ' ') if url_parts.length > 1
-  return null
+AssignmentStore   = require '../../stores/assignment_store.coffee'
+CourseUtils       = require '../../utils/course_utils.coffee'
 
 AssignButton = React.createClass(
   displayname: 'AssignButton'
@@ -33,7 +25,7 @@ AssignButton = React.createClass(
     tag + @props.student.id
   assign: (e) ->
     e.preventDefault()
-    article_title = urlToTitle @refs.lookup.getValue()
+    article_title = CourseUtils.formatArticleTitle @refs.lookup.getValue()
 
     # Check if the assignment exists
     if AssignmentStore.getFiltered({

@@ -24,4 +24,13 @@ class CourseUtils
       defaults: [{scope: "#{default_prefix}.#{message_key}"}]
     })
 
+  formatArticleTitle: (article_title_input) ->
+    article_title = article_title_input.trim()
+    unless /http/.test(article_title)
+      return article_title.replace(/_/g, ' ')
+
+    url_parts = /\/wiki\/(.*)/.exec(article_title)
+    return decodeURIComponent(url_parts[1]).replace(/_/g, ' ') if url_parts.length > 1
+    return null
+
 module.exports = new CourseUtils()
