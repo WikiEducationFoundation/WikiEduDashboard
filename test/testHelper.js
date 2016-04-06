@@ -33,4 +33,6 @@ global.chai = chai;
 global.expect = chai.expect;
 global.assert = chai.assert;
 
+require('../public/assets/javascripts/i18n/en');
+
 chai.use(sinonChai);

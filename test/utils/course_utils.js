@@ -1,5 +1,4 @@
 import '../testHelper';
-import '../../public/assets/javascripts/i18n/en';
 import CourseUtils from '../../app/assets/javascripts/utils/course_utils';
 
 describe('CourseUtils.generateTempId', () => {
