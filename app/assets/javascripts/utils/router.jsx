@@ -46,7 +46,7 @@ browserHistory.listen(location => {
   });
 });
 
-let routes = (
+const routes = (
   <Route path="/" component={App}>
     <Route path="onboarding" component={Onboarding.Root}>
       <IndexRoute component={Onboarding.Intro} />
