@@ -2,6 +2,7 @@ class SurveysController < ApplicationController
   helper Rapidfire::ApplicationHelper
   include CourseHelper
   include SurveysHelper
+  include QuestionGroupHelper
 
   before_action :set_survey, only: [
     :show,
@@ -19,7 +20,7 @@ class SurveysController < ApplicationController
     :show_with_course
   ]
   before_action :check_if_closed, only: [:show]
-  before_action :set_course, only: [:show]
+  before_action :set_notification, only: [:show]
 
   # GET /surveys
   # GET /surveys.json
@@ -130,7 +131,6 @@ class SurveysController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_survey
     @survey = Survey.find(params[:id])
   end
@@ -139,8 +139,8 @@ class SurveysController < ApplicationController
     @question_groups = Rapidfire::QuestionGroup.all
     @surveys_question_groups = SurveysQuestionGroup.by_position(params[:id])
   end
-  # Never trust parameters from the scary internet, only allow the white list through.
 
+  # Never trust parameters from the scary internet, only allow the white list through.
   def survey_params
     params.require(:survey).permit(:name,
                                    :intro,
@@ -158,19 +158,32 @@ class SurveysController < ApplicationController
     return false
   end
 
-  def user_is_assigned_to_survey
-    users = CoursesUsers.where(user_id: current_user.id)
+  def user_is_assigned_to_survey(return_notification = false)
+    users = courses_users
     return false if users.empty?
-    users.where(user_id: current_user.id).each do |cu|
-      notification = SurveyNotification.find_by(courses_user_id: cu.id)
+    users.each do |cu|
+      notification = survey_notification(cu.id)
       return false unless notification && notification.survey.id == @survey.id
-      return true
+      return true unless return_notification
+      return notification if return_notification
     end
+  end
+
+  def courses_users
+    CoursesUsers.where(user_id: current_user.id)
+  end
+
+  def survey_notification(id)
+    SurveyNotification.find_by(courses_user_id: id)
   end
 
   def check_if_closed
     if @survey.closed
       redirect_to(main_app.root_path, flash: { notice: 'Sorry, this survey has been closed.' })
     end
+  end
+
+  def set_notification
+    @notification = user_is_assigned_to_survey(true)
   end
 end
