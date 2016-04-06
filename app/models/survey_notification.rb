@@ -12,8 +12,12 @@ class SurveyNotification < ActiveRecord::Base
     update_attribute('email_sent', true)
   end
 
+  def survey_assignment
+    SurveyAssignment.find(survey_assignment_id)
+  end
+
   def survey
-    SurveyAssignment.find(survey_assignment_id).survey
+    survey_assignment.survey
   end
 
   def user
