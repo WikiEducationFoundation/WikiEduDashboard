@@ -8,4 +8,8 @@ class SurveysQuestionGroup < ActiveRecord::Base
     null_pos = where("position is null AND survey_id = #{survey_id}").order('created_at asc')
     return has_pos+null_pos
   end
+
+  def question_group
+    Rapidfire::QuestionGroup.find(rapidfire_question_group_id)
+  end
 end
