@@ -3,7 +3,7 @@
     = f.error_notification
     .form__row
       %h4 Survey
-      = f.select :survey_id, options_from_collection_for_select(Survey.all, 'id', 'name', {:selected => (@survey_assignment.survey_id.nil? ? nil : @survey_assignment.survey_id)} ), {}, { :data => { :chosen_select => true}}
+      = f.select :survey_id, options_from_collection_for_select(Survey.all, 'id', 'name', {:selected => @survey_assignment.survey_id } ), {}, { :data => { :chosen_select => true}}
 
     .form__row
       %h4 Distribution Target
