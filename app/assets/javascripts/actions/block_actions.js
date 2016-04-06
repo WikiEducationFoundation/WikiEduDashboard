@@ -23,18 +23,16 @@ const BlockActions = Flux.createActions({
   },
 
   deleteBlock(blockId) {
-    return API.deleteBlock(blockId).then(data =>
-        ({
+    return API.deleteBlock(blockId)
+      .then(data => {
+        return {
           actionType: 'DELETE_BLOCK',
           data: {
             block_id: data.block_id
           }
-        })
-      )
-      .catch(data => ({
-        actionType: 'API_FAIL',
-        data
-      }));
+        };
+      })
+      .catch(data => ({ actionType: 'API_FAIL', data }));
   },
 
   insertBlock(block, toWeek, afterBlock) {
