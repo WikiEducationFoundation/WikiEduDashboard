@@ -56,20 +56,20 @@ describe('CourseUtils.i18n', () => {
 
 describe('CourseUtils.formatArticleTitle', () => {
   it('trims whitespace and replaces underscores', () => {
-    const input = ' Robot_selfie  '
-    const output = CourseUtils.formatArticleTitle(input)
-    expect(output).to.eq('Robot selfie')
+    const input = ' Robot_selfie  ';
+    const output = CourseUtils.formatArticleTitle(input);
+    expect(output).to.eq('Robot selfie');
   });
 
   it('converts Wikipedia urls into titles', () => {
-    const input = 'https://en.wikipedia.org/wiki/Robot_selfie'
-    const output = CourseUtils.formatArticleTitle(input)
-    expect(output).to.eq('Robot selfie')
+    const input = 'https://en.wikipedia.org/wiki/Robot_selfie';
+    const output = CourseUtils.formatArticleTitle(input);
+    expect(output).to.eq('Robot selfie');
   });
 
   it('handles url-encoded characters in Wikipedia urls', () => {
-    const input = 'https://en.wikipedia.org/wiki/Jalape%C3%B1o'
-    const output = CourseUtils.formatArticleTitle(input)
-    expect(output).to.eq('Jalapeño')
+    const input = 'https://en.wikipedia.org/wiki/Jalape%C3%B1o';
+    const output = CourseUtils.formatArticleTitle(input);
+    expect(output).to.eq('Jalapeño');
   });
 });
