@@ -271,9 +271,10 @@ const Survey = {
     const $block = $(this.surveyBlocks[this.currentBlock]);
     const $errorsEl = $block.find('[data-errors]');
     const questionGroupIndex = this.currentQuestionGroupIndex();
+
     let validation = $form.parsley({ uiEnabled: false }).validate({ group: `${$block.data('parsley-group')}` });
 
-    if (($(e.target).closest('.button').data('no-validate') !== null)) {
+    if (($(e.target).closest('.button').data('no-validate') !== undefined)) {
       this.nextBlock(e);
       return;
     }
@@ -282,7 +283,7 @@ const Survey = {
       $form = $(this.$surveyForm[questionGroupIndex]);
     }
 
-    if ($block.find("[data-required-checkbox='true']").length) {
+    if ($block.find('[data-required-checkbox]').length) {
       if ($block.find('input[type="checkbox"]:checked').length === 0) {
         validation = false;
       }

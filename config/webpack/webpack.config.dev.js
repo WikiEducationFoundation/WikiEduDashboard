@@ -43,9 +43,6 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin()
   ],
-  coffeelint: {
-    configFile: __dirname + "/coffeelint.json"
-  },
   devtool: 'inline-source-map'
 };
 
