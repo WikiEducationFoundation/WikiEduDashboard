@@ -50,25 +50,6 @@ describe Article do
     end
   end
 
-  describe '#update_views' do
-    it 'should fetch new views for an article' do
-      VCR.use_cassette 'article/update_views' do
-        # Add an article
-        article = build(:article,
-                        id: 1,
-                        title: 'Wikipedia',
-                        namespace: 0,
-                        views_updated_at: '2015-08-01'.to_date)
-
-        # Add a revision so that update_views has something to run on.
-        build(:revision,
-              article_id: 1).save
-        ViewImporter.update_views_for_article article
-        expect(article.views).to be > 0
-      end
-    end
-  end
-
   describe 'cache methods' do
     it 'should update article cache data' do
       # Add an article
