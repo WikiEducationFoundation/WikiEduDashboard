@@ -1,4 +1,4 @@
-require 'crack'
+require "#{Rails.root}/lib/revision_data_parser"
 
 #= Fetches wiki revision data from an endpoint that provides SQL query
 #= results from a replica wiki database on wmflabs:
@@ -11,9 +11,9 @@ class Replica
     @wiki = wiki
   end
 
-  ###################
-  # Parsing methods #
-  ###################
+  ################
+  # Entry points #
+  ################
 
   # Given a list of users and a start and end date, return a nicely formatted
   # array of revisions made by those users between those dates.
@@ -25,75 +25,6 @@ class Replica
 
     @data
   end
-
-  def extract_revision_data(revision)
-    parsed = parse_revision(revision)
-    page_id = parsed['article']['mw_page_id']
-    unless @data.include?(page_id)
-      @data[page_id] = {}
-      @data[page_id]['article'] = parsed['article']
-      @data[page_id]['revisions'] = []
-    end
-    @data[page_id]['revisions'].push parsed['revision']
-  end
-
-  # Given a single raw json revision, parse it into a more useful format.
-  #
-  # Example raw revision input:
-  #   {
-  #     "page_id"=>"418355", "page_title"=>"Babbling", "page_namespace"=>"0",
-  #     "rev_id"=>"641327984", "rev_timestamp"=>"20150107003430",
-  #     "rev_user_text"=>"Ragesoss", "rev_user"=>"319203",
-  #     "new_article"=>"false", "byte_change"=>"121"
-  #   }
-  #
-  # Example parsed revision output:
-  #  {
-  #     "revision"=>{
-  #       "id"=>"641327984", "date"=>Wed, 07 Jan 2015 00:34:30 +0000,
-  #       "characters"=>"121", "article_id"=>"418355", "user_id"=>"319203",
-  #       "new_article"=>"false"}, "article"=>{"id"=>"418355",
-  #       "title"=>"Babbling", "namespace"=>"0"
-  #     }
-  #   }
-  def parse_revision(revision)
-    article_data = parse_article_data(revision)
-    revision_data = parse_revision_data(revision)
-
-    { 'article' => article_data, 'revision' => revision_data }
-  end
-
-  def parse_article_data(revision)
-    article_data = {}
-    # TODO: decouple id from mw_page_id
-    article_data['id'] = revision['page_id']
-    article_data['mw_page_id'] = revision['page_id']
-    article_data['title'] = revision['page_title']
-    article_data['namespace'] = revision['page_namespace']
-    article_data['wiki_id'] = @wiki.id
-    article_data
-  end
-
-  def parse_revision_data(revision)
-    revision_data = {}
-    # TODO: decouple id from mw_rev_id
-    revision_data['id'] = revision['rev_id']
-    revision_data['mw_rev_id'] = revision['rev_id']
-    revision_data['date'] = revision['rev_timestamp'].to_datetime
-    revision_data['characters'] = revision['byte_change']
-    # TODO: decouple article_id from mw_page_id
-    revision_data['article_id'] = revision['page_id']
-    revision_data['mw_page_id'] = revision['page_id']
-    revision_data['user_id'] = revision['rev_user']
-    revision_data['new_article'] = revision['new_article']
-    revision_data['system'] = revision['system']
-    revision_data['wiki_id'] = @wiki.id
-    revision_data
-  end
-
-  ###################
-  # Request methods #
-  ###################
 
   # Given a list of users and a start and end date, get data about revisions
   # those users made between those dates.
@@ -118,9 +49,7 @@ class Replica
   def get_user_info(users)
     # TODO: switch to usernames to make queries wiki-agnostic.
     query = compile_usernames_query(users)
-    if ENV['training_page_id']
-      query = "#{query}&training_page_id=#{ENV['training_page_id']}"
-    end
+    query = "#{query}&training_page_id=#{ENV['training_page_id']}" if ENV['training_page_id']
     api_get('users.php', query)
   end
 
@@ -128,23 +57,20 @@ class Replica
   # see which ones have not been deleted.
   def get_existing_articles_by_id(articles)
     article_list = compile_article_ids_query(articles)
-    existing_articles = api_get('articles.php', article_list)
-    existing_articles
+    api_get('articles.php', article_list)
   end
 
   # Given a list of articles *or* hashes of the form { 'title' => 'Something' },
   # see which ones have not been deleted.
   def get_existing_articles_by_title(articles)
     article_list = compile_article_titles_query(articles)
-    existing_articles = api_get('articles.php', article_list)
-    existing_articles
+    api_get('articles.php', article_list)
   end
 
   # Given a list of revisions, see which ones have not been deleted
   def get_existing_revisions_by_id(revisions)
     revision_list = compile_revision_ids_query(revisions)
-    existing_revisions = api_get('revisions.php', revision_list)
-    existing_revisions
+    api_get('revisions.php', revision_list)
   end
 
   ###################
@@ -152,6 +78,25 @@ class Replica
   ###################
 
   private
+
+  ###################
+  # Parsing methods #
+  ###################
+
+  def extract_revision_data(revision)
+    parsed = RevisionDataParser.new(@wiki).parse_revision(revision)
+    page_id = parsed['article']['mw_page_id']
+    unless @data.include?(page_id)
+      @data[page_id] = {}
+      @data[page_id]['article'] = parsed['article']
+      @data[page_id]['revisions'] = []
+    end
+    @data[page_id]['revisions'].push parsed['revision']
+  end
+
+  ###############
+  # API methods #
+  ###############
 
   # Given an endpoint (either 'users.php' or 'revisions.php') and a
   # query appropriate to that endpoint, return the parsed json response.
@@ -206,8 +151,7 @@ class Replica
 
   def compile_query_url(endpoint, query)
     base_url = 'http://tools.wmflabs.org/wikiedudashboard/'
-    raw_url = "#{base_url}#{endpoint}?lang=#{@wiki.language}&project=#{@wiki.project}&#{query}"
-    raw_url
+    "#{base_url}#{endpoint}?lang=#{@wiki.language}&project=#{@wiki.project}&#{query}"
   end
 
   def compile_usernames_query(users)
@@ -244,12 +188,8 @@ class Replica
   def report_exception(error, endpoint, query, level='error')
     Rails.logger.error "replica.rb #{endpoint} query failed after 3 tries: #{error}"
     level = 'warning' if typical_errors.include?(error.class)
-    Raven.capture_exception error,
-                            level: level,
-                            extras: { query: query,
-                                      endpoint: endpoint,
-                                      language: @wiki.language,
-                                      project: @wiki.project }
+    Raven.capture_exception error, level: level, extras: {
+      query: query, endpoint: endpoint, language: @wiki.language, project: @wiki.project }
     return nil
   end
 
