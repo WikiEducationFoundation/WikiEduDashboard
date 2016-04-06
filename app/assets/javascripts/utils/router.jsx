@@ -13,7 +13,7 @@ import OverviewHandler from '../components/overview/overview_handler.cjsx';
 import TimelineHandler from '../components/timeline/timeline_handler.cjsx';
 import RevisionsHandler from '../components/revisions/revisions_handler.cjsx';
 import StudentsHandler from '../components/students/students_handler.cjsx';
-import ArticlesHandler from '../components/articles/articles_handler.cjsx';
+import ArticlesHandler from '../components/articles/articles_handler.jsx';
 import UploadsHandler from '../components/uploads/uploads_handler.cjsx';
 
 import RecentActivityHandler from '../components/activity/recent_activity_handler.jsx';
