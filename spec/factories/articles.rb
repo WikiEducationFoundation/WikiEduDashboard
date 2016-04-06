@@ -27,5 +27,6 @@ FactoryGirl.define do
     namespace 0
     language 'en'
     wiki_id 1
+    sequence(:mw_page_id)
   end
 end
