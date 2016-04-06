@@ -22,7 +22,8 @@
           %span.icon.icon-rt_arrow
 
 - @surveys_question_groups.each_with_index do |group, index|
-  = render partial: "question_group", locals: question_group_locals(group, index, @surveys_question_groups.length)
+  - if check_conditionals(group.question_group)
+    = render partial: "question_group", locals: question_group_locals(group, index, @surveys_question_groups.length)
 
 .block.block--text.block--clear.block--thank-you.disabled.not-seen{"data-thank-you" => true}
   .block--thank-you__container

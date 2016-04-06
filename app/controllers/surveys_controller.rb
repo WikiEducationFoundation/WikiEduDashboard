@@ -2,7 +2,7 @@ class SurveysController < ApplicationController
   helper Rapidfire::ApplicationHelper
   include CourseHelper
   include SurveysHelper
-  # include QuestionGroupHelper
+  include QuestionGroupsHelper
 
   before_action :set_survey, only: [
     :show,

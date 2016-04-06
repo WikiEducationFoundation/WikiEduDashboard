@@ -1,4 +1,4 @@
-module QuestionGroupHelper
+module QuestionGroupsHelper
   def check_conditionals(question_group)
     return true if @notification == false
     @question_group_cohorts = question_group.cohorts.pluck(:id)
