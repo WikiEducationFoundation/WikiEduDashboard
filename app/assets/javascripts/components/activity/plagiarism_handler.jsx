@@ -34,14 +34,14 @@ const PlagiarismHandler = React.createClass({
   },
 
   render() {
-    let headers = [
+    const headers = [
       { title: 'Article Title', key: 'title' },
       { title: 'Plagiarism Report', key: 'report_url' },
       { title: 'Revision Author', key: 'username' },
       { title: 'Revision Date/Time', key: 'revision_datetime' },
     ];
 
-    let noActivityMessage = I18n.t('recent_activity.no_plagiarism');
+    const noActivityMessage = I18n.t('recent_activity.no_plagiarism');
 
     return (
       <div>

@@ -34,14 +34,14 @@ const DidYouKnowHandler = React.createClass({
   },
 
   render() {
-    let headers = [
+    const headers = [
       { title: 'Article Title', key: 'title' },
       { title: 'Revision Score', key: 'revision_score' },
       { title: 'Revision Author', key: 'username' },
       { title: 'Revision Date/Time', key: 'revision_datetime' },
     ];
 
-    let noActivityMessage = I18n.t('recent_activity.no_dyk_eligible');
+    const noActivityMessage = I18n.t('recent_activity.no_dyk_eligible');
 
     return (
       <div>
