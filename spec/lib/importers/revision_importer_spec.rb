@@ -33,12 +33,26 @@ describe RevisionImporter do
     it 'includes revisions on the final day of a course' do
       create(:course, id: 1, start: '2016-03-20', end: '2016-03-31')
       create(:user, id: 27860490, username: 'Tedholtby')
-      create(:courses_user, course_id: 1, user_id: 27860490, role: CoursesUsers::Roles::STUDENT_ROLE)
+      create(:courses_user, course_id: 1,
+                            user_id: 27860490,
+                            role: CoursesUsers::Roles::STUDENT_ROLE)
 
       RevisionImporter.update_all_revisions nil, true
 
       expect(User.find(27860490).revisions.count).to eq(3)
       expect(Course.find(1).revisions.count).to eq(3)
+
+      expected_user_id = User.find_by(username: 'Tedholtby').id
+      expected_article_id = Article.find_by(wiki_id: 1,
+                                            title: '1978_Revelation_on_Priesthood',
+                                            mw_page_id: 15124285).id
+      expected_rev = Revision.find_by(mw_rev_id: 712907095,
+                                      user_id: expected_user_id,
+                                      wiki_id: 1,
+                                      mw_page_id: 15124285,
+                                      characters: 579,
+                                      article_id: expected_article_id)
+      expect(expected_rev).to be_a(Revision)
     end
 
     it 'excludes revisions after the final day of the course' do
