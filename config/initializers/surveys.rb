@@ -19,14 +19,19 @@ Rails.application.config.to_prepare do
 
     def edit
       @question_group = Rapidfire::QuestionGroup.find(params[:id])
-      @question_group_tags = @question_group.tags.split(',')
+      @question_group_tags = @question_group.tags.nil? ? [] : @question_group.tags.split(',')
     end
 
     private
 
     def question_group_params
-      params[:question_group][:tags] = params[:question_group][:tags].join(',')
+      join_tags
       params.require(:question_group).permit(:name, :tags, cohort_ids: [])
+    end
+
+    def join_tags
+      tags = params[:question_group][:tags]
+      params[:question_group][:tags] = tags.nil? ? "" : tags.join(',')
     end
 
     def set_tags
