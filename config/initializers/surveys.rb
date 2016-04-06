@@ -119,7 +119,7 @@ Rails.application.config.to_prepare do
         :course_data_type => course_data_type,
         :placeholder_text => placeholder_text,
         :validation_rules => {
-          :presence => !conditionals.empty? ? "0" : answer_presence,
+          :presence => !conditionals.nil? && !conditionals.empty? ? "0" : answer_presence,
           :grouped => answer_grouped,
           :grouped_question => answer_grouped_question,
           :minimum  => answer_minimum_length,
