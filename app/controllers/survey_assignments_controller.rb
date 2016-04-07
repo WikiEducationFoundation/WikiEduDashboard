@@ -1,4 +1,8 @@
+require 'rake'
+WikiEduDashboard::Application.load_tasks
+
 class SurveyAssignmentsController < ApplicationController
+  before_action :require_admin_permissions
   before_action :set_survey_assignment, only: [:show, :edit, :update, :destroy]
   before_action :set_survey_assignment_options, only: [:new, :edit, :update]
   layout 'surveys'
@@ -62,6 +66,22 @@ class SurveyAssignmentsController < ApplicationController
       format.html { redirect_to survey_assignments_url, notice: 'Survey assignment was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def create_notifications
+    call_rake 'surveys:create_notifications'
+    flash[:notice] = 'Creating Survey Notifications'
+    redirect_to survey_assignments_path
+  end
+
+  def send_notifications
+    Rake::Task['surveys:send_notifications'].invoke
+    flash[:notice] = 'Sending Email Survey Notifications'
+    redirect_to survey_assignments_path
+  end
+
+  def call_rake(task_name)
+    Rake::Task[task_name].invoke
   end
 
   private

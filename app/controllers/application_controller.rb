@@ -54,6 +54,10 @@ class ApplicationController < ActionController::Base
     fail exception unless user_signed_in? && current_user.can_edit?(course)
   end
 
+  def require_admin_permissions
+    fail exception unless user_signed_in? && current_user.admin?
+  end
+
   def require_participating_user
     course = Course.find_by_slug(params[:id])
     exception = ActionController::InvalidAuthenticityToken.new('Unauthorized')
