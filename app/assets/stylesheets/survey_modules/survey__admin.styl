@@ -4,33 +4,33 @@ body.survey-page
     // max-width 800px
     .block
       max-width 100%
-    
+
     & > h2
       color white
-  
+
   .form-inputs.survey__title-input
     margin-bottom $spacer * 4
 
 .survey__admin__nav
   overflow hidden
-  background darken(manatee, 10%)
-  
+  background white
+
   ul
     list-style none
 
   li
     float left
     margin 0
-    border-right darken(manatee, 25%) 1px solid
-    
+    border-right rgba($contextual, .25) 1px solid
+
   a
-    color white
     padding $spacer
     display block
     text-decoration none
+    color $text
     &.active
-      background darken(manatee, 25%)
-    
+      background rgba($contextual, .25)
+
 
 .survey__admin
   trix-editor
@@ -38,7 +38,7 @@ body.survey-page
     margin-bottom $spacer * 2
 
 
-  
+
 .survey__title-input input[type=text]
   width 100%
   max-width 500px

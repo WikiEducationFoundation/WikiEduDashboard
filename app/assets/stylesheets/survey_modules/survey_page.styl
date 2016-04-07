@@ -1,50 +1,36 @@
 html.survey-page
   overflow-y scroll
-  
+
 body.survey-page
-  background-color #7177C7
-  background-image url("../images/waves.svg")
-  background-repeat no-repeat
-  background-position center 75%
+  background-color $survey_background
   background-size cover
-  
+
+  h1, h3
+    color $text_dk
+
   .notice
     background-color sprout
-  
-  .section-header h1,
-  .section-header h2
-    color white
-  
-  .light-text
-    
-    color athens
-    
-    a
-      color white
-    
-    h1, h2, h3
-      color athens
-  
+
   .p
     padding $spacer
-    
+
   .py
     padding-top $spacer
     padding-bottom $spacer
-  
+
   .px
     padding-left $spacer
     padding-right $spacer
-  
+
   .form-inputs
     margin-bottom $spacer
-  
-  .block input[type=text], 
+
+  .block input[type=text],
   .block textarea,
   .block > div
     font-size 19px
     line-height 28px
-  
+
   .question-type--radio,
   .question-type--checkbox
     a[target='_blank']
@@ -58,31 +44,31 @@ body.survey-page
       top -3px
       z-index 5
       font-size 8px
-      
+
   .block.disabled
     opacity .5
     z-index 1
-  
+
   .block.not-seen
     opacity 0
-  
+
   .block.block--errors
     opacity 1
-  
+
   .block.highlight
     textarea, .chosen-single
       border-color $warning_text
-  
+
   .survey__slide-form
     margin 2em auto
-  
+
   footer,
   footer a
     color white
 
   .errors
     color $warning_text
-      
+
 ul.list--survey
   position relative
   padding 1em 0
@@ -96,7 +82,7 @@ ul.list--survey
   & > div:first-child
     flex 1
     padding-right 1rem
-  
+
   a
     display inline-block
     margin-right 1rem
@@ -124,7 +110,7 @@ ul.list--survey
   &:first-child
     margin-right 10px
     top -1px
-  
+
   &.icon
     top 1px
 
@@ -143,10 +129,10 @@ ul.list--survey
   margin 1rem auto
   text-align right
   color white
-  
+
   a
     color white
-    
+
 .survey__title-form
   input[type='text']
     width 400px

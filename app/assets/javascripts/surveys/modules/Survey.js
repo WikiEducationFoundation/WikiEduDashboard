@@ -193,7 +193,7 @@ const Survey = {
               answerGroup[answerId][answerKey].push(value);
             } else {
               answerText[answerKey] = ['0', value];
-              return answerGroup[answerId] = answerText;
+              answerGroup[answerId] = answerText;
             }
           }
         }
@@ -201,7 +201,6 @@ const Survey = {
         _postData[name] = value;
       }
     });
-
     _postData.answer_group = answerGroup;
     return _postData;
   },
@@ -285,13 +284,6 @@ const Survey = {
 
     if ($block.find('[data-required-checkbox]').length) {
       if ($block.find('input[type="checkbox"]:checked').length === 0) {
-        validation = false;
-      }
-    }
-
-    // Ensure Course Select has a valid value (See CourseDataQuestions)
-    if ($(e.target).closest('.button').data('next-survey-block') === 'course') {
-      if ($('#course').val() === '') {
         validation = false;
       }
     }
