@@ -30,11 +30,15 @@ class UserImporter
     user
   end
 
-  def self.new_from_username(username)
+  def self.new_from_username(username, wiki: nil)
     require "#{Rails.root}/lib/wiki_api"
-    id = WikiApi.new.get_user_id(username)
+    user = User.find_by(username: username)
+    return user if user
+
+    id = WikiApi.new(wiki).get_user_id(username)
     return unless id
 
+    # TODO: remove id once it is decouple from mediaiki ids.
     User.find_or_create_by(username: username, id: id)
   end
 
