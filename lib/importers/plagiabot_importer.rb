@@ -20,9 +20,11 @@ class PlagiabotImporter
   # revisions in our database
   def self.find_recent_plagiarism
     suspected_diffs = api_get('suspected_diffs')
-    suspected_diffs.select! { |rev| Revision.exists?(rev['diff']) }
     suspected_diffs.each do |rev|
-      revision = Revision.find(rev['diff'])
+      wiki = Wiki.find_by(language: rev['lang'], project: rev['project'])
+      next unless wiki
+      revision = Revision.find_by(mw_rev_id: rev['diff'], wiki_id: wiki.id)
+      next unless revision
       revision.ithenticate_id = rev['ithenticate_id']
       revision.save
     end
@@ -45,7 +47,7 @@ class PlagiabotImporter
   # Helper methods #
   ##################
   def self.check_revision(revision)
-    response = api_get('suspected_diffs', revision_id: revision.id)
+    response = api_get('suspected_diffs', revision_id: revision.mw_rev_id)
     return if response.empty?
     ithenticate_id = response[0]['ithenticate_id']
     revision.ithenticate_id = ithenticate_id
