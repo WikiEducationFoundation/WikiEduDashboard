@@ -1,7 +1,7 @@
 require "#{Rails.root}/lib/replica"
 require "#{Rails.root}/lib/importers/revision_score_importer"
 require "#{Rails.root}/lib/importers/article_importer"
-require "#{Rails.root}/lib/importers/view_importer"
+require "#{Rails.root}/lib/importers/average_views_importer"
 require "#{Rails.root}/lib/wiki_api"
 
 #= Imports articles for a category, along with view data and revision scores
@@ -48,20 +48,26 @@ class CategoryImporter
   # Output methods #
   ##################
   def views_and_scores_output(article_ids)
-    output = "title,average_views,completeness,views/completeness\n"
+    @output = "title,average_views,completeness,views/completeness\n"
     articles = Article.where(mw_page_id: article_ids, wiki_id: @wiki.id)
                       .where('average_views > ?', @min_views)
+
     articles.each do |article|
-      title = article.title
-      completeness = article.revisions.last.wp10.to_f
-      next unless completeness < @max_wp10
-      average_views = article.average_views
-      output += "\"#{title}\"," \
-                "#{average_views}," \
-                "#{completeness}," \
-                "#{average_views / completeness}\n"
+      article_output_line(article)
     end
-    output
+
+    @output
+  end
+
+  def article_output_line(article)
+    title = article.title
+    completeness = article.revisions.last.wp10.to_f
+    return unless completeness < @max_wp10
+    average_views = article.average_views
+    @output += "\"#{title}\"," \
+              "#{average_views}," \
+              "#{completeness}," \
+              "#{average_views / completeness}\n"
   end
 
   ##################
@@ -76,11 +82,7 @@ class CategoryImporter
   end
 
   def import_missing_info(article_ids)
-    outdated_views = Article
-                     .where(mw_page_id: article_ids, wiki_id: @wiki.id)
-                     .where('average_views_updated_at < ?', 1.year.ago)
-                     .pluck(:mw_page_id)
-    import_average_views outdated_views
+    import_average_views articles_with_outdated_views(article_ids)
     missing_views = Article.where(mw_page_id: article_ids, average_views: nil)
     import_average_views missing_views
 
@@ -92,6 +94,12 @@ class CategoryImporter
 
     missing_revision_scores = Revision.where(mw_page_id: article_ids, wiki_id: @wiki.id, wp10: nil)
     RevisionScoreImporter.new.update_revision_scores missing_revision_scores
+  end
+
+  def articles_with_outdated_views(article_ids)
+    Article.where(mw_page_id: article_ids, wiki_id: @wiki.id)
+           .where('average_views_updated_at < ?', 1.year.ago)
+           .pluck(:mw_page_id)
   end
 
   def import_articles_with_scores_and_views(article_ids)
@@ -120,9 +128,8 @@ class CategoryImporter
     until continue.nil?
       cat_response = WikiApi.new(@wiki).query query
       page_data = cat_response.data['categorymembers']
-      page_data.each do |page|
-        property_values << page[property]
-      end
+      page_data.each { |page| property_values << page[property] }
+
       continue = cat_response['continue']
       query['cmcontinue'] = continue['cmcontinue'] if continue
     end
@@ -154,19 +161,22 @@ class CategoryImporter
   def import_latest_revision(article_ids)
     latest_revision_data = get_revision_data article_ids
     revisions_to_import = []
-    article_ids.each do |id|
-      rev_data = latest_revision_data[id.to_s]['revisions'][0]
+    article_ids.each do |mw_page_id|
+      rev_data = latest_revision_data[mw_page_id.to_s]['revisions'][0]
       new_article = (rev_data['parentid'] == 0)
-      new_revision = Revision.new(mw_rev_id: rev_data['revid'],
-                                  article_id: Article.find_by(wiki_id: @wiki.id, mw_page_id: id).id,
-                                  mw_page_id: id,
-                                  date: rev_data['timestamp'].to_datetime,
-                                  user_id: rev_data['userid'],
-                                  wiki_id: @wiki.id,
-                                  new_article: new_article)
-      revisions_to_import << new_revision
+      revisions_to_import << new_revision_from_rev_data(rev_data, mw_page_id, new_article)
     end
     Revision.import revisions_to_import
+  end
+
+  def new_revision_from_rev_data(rev_data, mw_page_id, new_article)
+    Revision.new(mw_rev_id: rev_data['revid'],
+                 article_id: Article.find_by(wiki_id: @wiki.id, mw_page_id: mw_page_id).id,
+                 mw_page_id: mw_page_id,
+                 date: rev_data['timestamp'].to_datetime,
+                 user_id: rev_data['userid'],
+                 wiki_id: @wiki.id,
+                 new_article: new_article)
   end
 
   def get_revision_data(article_ids)
@@ -194,6 +204,6 @@ class CategoryImporter
     articles = articles.select do |a|
       a.average_views.nil? || a.average_views_updated_at < 1.month.ago
     end
-    ViewImporter.update_average_views articles
+    AverageViewsImporter.update_average_views articles
   end
 end

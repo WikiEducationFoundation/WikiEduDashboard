@@ -1,5 +1,5 @@
 import React from 'react';
-import Notifications from './common/notifications.cjsx';
+import Notifications from './common/notifications.jsx';
 
 const App = React.createClass({
   displayName: 'App',

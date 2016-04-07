@@ -298,6 +298,8 @@ es:
     continue: Continuar (%{progress})
     start: Iniciar
     view: Ver
+    logged_out: Tu sesión se ha cerrado. No recibirás crédito por completar este módulo,
+      a menos que inicies sesión.
   uploads:
     label: Subidas
     loading: Cargando subidas...

@@ -1,5 +1,6 @@
 require "#{Rails.root}/lib/wiki_edits"
 require './lib/wiki_course_output'
+require './lib/wikitext'
 
 #= Class for making wiki edits for a particular course
 class WikiCourseEdits
@@ -20,7 +21,7 @@ class WikiCourseEdits
   def update_course(delete: false)
     return unless @course.submitted && @course.slug
 
-    wiki_text = delete ? '' : WikiCourseOutput.translate_course(@course)
+    wiki_text = delete ? '' : WikiCourseOutput.new(@course).translate_course_to_wikitext
 
     course_prefix = ENV['course_prefix']
     wiki_title = "#{course_prefix}/#{@course.slug}"
@@ -35,8 +36,7 @@ class WikiCourseEdits
     bad_links = response['edit']['spamblacklist']
     return response if bad_links.nil?
     bad_links = bad_links.split('|')
-    safe_wiki_text = WikiCourseOutput
-                     .substitute_bad_links(wiki_text, bad_links)
+    safe_wiki_text = Wikitext.substitute_bad_links(wiki_text, bad_links)
     @wiki_editor.post_whole_page(@current_user, wiki_title, safe_wiki_text, summary)
   end
 

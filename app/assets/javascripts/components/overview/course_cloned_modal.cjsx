@@ -4,14 +4,14 @@ Modal         = require '../common/modal.cjsx'
 
 CourseStore        = require '../../stores/course_store.coffee'
 ValidationStore    = require '../../stores/validation_store.coffee'
-ValidationActions  = require '../../actions/validation_actions.coffee'
+ValidationActions  = require('../../actions/validation_actions.js').default
 
-CourseActions = require '../../actions/course_actions.coffee'
+CourseActions = require('../../actions/course_actions.js').default
 
 TextInput     = require '../common/text_input.cjsx'
 TextAreaInput = require '../common/text_area_input.cjsx'
 Calendar      = require '../common/calendar.cjsx'
-CourseUtils   = require '../../utils/course_utils.coffee'
+CourseUtils   = require('../../utils/course_utils.js').default
 
 getState = ->
   error_message: ValidationStore.firstMessage()

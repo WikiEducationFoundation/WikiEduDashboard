@@ -2,17 +2,23 @@ import '../../testHelper';
 
 import React from 'react';
 import { findDOMNode } from 'react-dom';
-import TestUtils from 'react-addons-test-utils';
+import sinon from 'sinon';
+import TestUtils, { Simulate } from 'react-addons-test-utils';
 import Week from '../../../app/assets/javascripts/components/timeline/week.cjsx';
+import BlockActions from '../../../app/assets/javascripts/actions/block_actions.js';
 
-const createWeek = (opts) => {
+const noOp = () => {};
+const createWeek = (opts = {}) => {
   return TestUtils.renderIntoDocument(
     <Week
       index={1}
-      blocks={[]}
+      blocks={opts.blocks || []}
       meetings={opts.meetings || null}
       edit_permissions={opts.edit_permissions || false}
-      week={{ is_new: false }}
+      reorderable={opts.reorderable || false }
+      editing_added_block={opts.editing_added_block || false }
+      week={{ is_new: opts.is_new || false }}
+      deleteWeek={opts.deleteWeek || noOp}
     />
   );
 };
@@ -60,6 +66,110 @@ describe('Week', () => {
         const container = TestUtils.scryRenderedDOMComponentsWithClass(TestWeek, 'week__week-add-delete')[0];
         const containerNode = findDOMNode(container);
         expect(containerNode).to.be.null();
+      });
+    });
+  });
+
+  describe('add block button', () => {
+    const permissionsOpts = { meetings: true, edit_permissions: true };
+    describe('not reorderable, not editing added block failing', () => {
+      it('displays', () => {
+        const opts = { reorderable: false, editing_added_block: false };
+        const TestWeek = createWeek(Object.assign(opts, permissionsOpts));
+        const span = TestUtils.scryRenderedDOMComponentsWithClass(TestWeek, 'week__add-block')[0];
+        const spanNode = findDOMNode(span);
+        expect(spanNode.textContent).to.eq('Add Block');
+      });
+    });
+    describe('reorderable, not editing added block', () => {
+      it('does not display', () => {
+        const opts = { reorderable: true, editing_added_block: false };
+        const TestWeek = createWeek(Object.assign(opts, permissionsOpts));
+        const span = TestUtils.scryRenderedDOMComponentsWithClass(TestWeek, 'week__add-block')[0];
+        const spanNode = findDOMNode(span);
+        expect(spanNode).to.be.null();
+      });
+    });
+    describe('not reorderable, editing added block', () => {
+      it('does not display', () => {
+        const opts = { reorderable: false, editing_added_block: true };
+        const TestWeek = createWeek(Object.assign(opts, permissionsOpts));
+        const span = TestUtils.scryRenderedDOMComponentsWithClass(TestWeek, 'week__add-block')[0];
+        const spanNode = findDOMNode(span);
+        expect(spanNode).to.be.null();
+      });
+    });
+    describe('click handler', () => {
+      const opts = { reorderable: false, editing_added_block: false };
+      const TestWeek = createWeek(Object.assign(opts, permissionsOpts));
+      const method = sinon.spy(TestWeek, '_scrollToAddedBlock');
+      const action = sinon.spy(BlockActions, 'addBlock');
+      const span = TestUtils.scryRenderedDOMComponentsWithClass(TestWeek, 'week__add-block')[0];
+      it('calls the appropriate functions', () => {
+        Simulate.click(span);
+        expect(method).to.have.been.calledOnce;
+        expect(action).to.have.been.calledOnce;
+      });
+    });
+  });
+
+  describe('delete week button', () => {
+    const permissionsOpts = { meetings: true, edit_permissions: true };
+    describe('not reorderable, week is not new', () => {
+      it('displays', () => {
+        const opts = { reorderable: false, is_new: false };
+        const TestWeek = createWeek(Object.assign(opts, permissionsOpts));
+        const span = TestUtils.scryRenderedDOMComponentsWithClass(TestWeek, 'week__delete-week')[0];
+        const spanNode = findDOMNode(span);
+        expect(spanNode.textContent).to.eq('Delete Week');
+      });
+    });
+    describe('reorderable, week is not new', () => {
+      it('does not display', () => {
+        const opts = { reorderable: true, is_new: false };
+        const TestWeek = createWeek(Object.assign(opts, permissionsOpts));
+        const span = TestUtils.scryRenderedDOMComponentsWithClass(TestWeek, 'week__delete-week')[0];
+        const spanNode = findDOMNode(span);
+        expect(spanNode).to.be.null();
+      });
+    });
+    describe('not reorderable, week is new', () => {
+      it('does not display', () => {
+        const opts = { reorderable: false, is_new: true };
+        const TestWeek = createWeek(Object.assign(opts, permissionsOpts));
+        const span = TestUtils.scryRenderedDOMComponentsWithClass(TestWeek, 'week__delete-week')[0];
+        const spanNode = findDOMNode(span);
+        expect(spanNode).to.be.null();
+      });
+    });
+    describe('click handler', () => {
+      const spy = sinon.spy();
+      const opts = { reorderable: false, is_new: false, deleteWeek: spy };
+      const TestWeek = createWeek(Object.assign(opts, permissionsOpts));
+      const span = TestUtils.scryRenderedDOMComponentsWithClass(TestWeek, 'week__delete-week')[0];
+      const spanNode = findDOMNode(span);
+      it('calls delete week', () => {
+        Simulate.click(spanNode);
+        expect(spy).to.have.been.calledOnce;
+      });
+    });
+  });
+
+  describe('week content', () => {
+    describe('week has meetings', () => {
+      const TestWeek = createWeek({ meetings: '(W)', blocks: [{ id: 1 }] });
+      it('shows a week ul with meetings', () => {
+        const ul = TestUtils.scryRenderedDOMComponentsWithClass(TestWeek, 'week__block-list')[0];
+        const ulNode = findDOMNode(ul);
+        expect(ulNode.tagName.toLowerCase()).to.eq('ul');
+        expect(ulNode.children[0].tagName.toLowerCase()).to.eq('li');
+      });
+    });
+    describe('week has no meetings', () => {
+      const TestWeek = createWeek();
+      it('shows an empty week component', () => {
+        const week = findDOMNode(TestWeek);
+        expect(week.innerHTML).to.contain('No activity this week');
       });
     });
   });

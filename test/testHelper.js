@@ -1,7 +1,11 @@
-const jsdom = require('mocha-jsdom');
-const testdom = require('testdom');
-global.testdom = testdom('<html><body><div></div></body></html>');
+const jsdom = require('jsdom');
 
+global.document = jsdom.jsdom('<!doctype html><html><body><div></div></body></html>', {
+  url: 'http://localhost',
+  skipWindowCheck: true
+});
+global.window = document.defaultView;
+global.navigator = global.window.navigator;
 
 const sinon = require('sinon');
 const React = require('react');
@@ -13,6 +17,7 @@ const moment = require('moment');
 const momentRecur = require('moment-recur');
 const I18n = require('../public/assets/javascripts/i18n.js');
 const chai = require('chai');
+const sinonChai = require('sinon-chai');
 
 global.$ = $;
 global._ = _;
@@ -28,4 +33,6 @@ global.chai = chai;
 global.expect = chai.expect;
 global.assert = chai.assert;
 
-jsdom({ skipWindowCheck: true });
+require('../public/assets/javascripts/i18n/en');
+
+chai.use(sinonChai);

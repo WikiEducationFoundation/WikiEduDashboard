@@ -1,6 +1,6 @@
 React             = require 'react'
 Gradeable         = require './gradeable.cjsx'
-GradeableActions  = require '../../actions/gradeable_actions.coffee'
+GradeableActions  = require('../../actions/gradeable_actions.js').default
 BlockStore        = require '../../stores/block_store.coffee'
 
 Grading = React.createClass(

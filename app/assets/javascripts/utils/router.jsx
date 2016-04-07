@@ -7,19 +7,19 @@ import Course from '../components/course.cjsx';
 import Onboarding from '../components/onboarding/index.cjsx';
 import Wizard from '../components/wizard/wizard.cjsx';
 import Dates from '../components/timeline/meetings.cjsx';
-import CourseCreator from '../components/course_creator/course_creator.cjsx';
+import CourseCreator from '../components/course_creator/course_creator.jsx';
 
 import OverviewHandler from '../components/overview/overview_handler.cjsx';
 import TimelineHandler from '../components/timeline/timeline_handler.cjsx';
 import RevisionsHandler from '../components/revisions/revisions_handler.cjsx';
 import StudentsHandler from '../components/students/students_handler.cjsx';
-import ArticlesHandler from '../components/articles/articles_handler.cjsx';
+import ArticlesHandler from '../components/articles/articles_handler.jsx';
 import UploadsHandler from '../components/uploads/uploads_handler.cjsx';
 
 import RecentActivityHandler from '../components/activity/recent_activity_handler.jsx';
 import DidYouKnowHandler from '../components/activity/did_you_know_handler.jsx';
-import PlagiarismHandler from '../components/activity/plagiarism_handler.cjsx';
-import RecentEditsHandler from '../components/activity/recent_edits_handler.cjsx';
+import PlagiarismHandler from '../components/activity/plagiarism_handler.jsx';
+import RecentEditsHandler from '../components/activity/recent_edits_handler.jsx';
 
 import TrainingApp from '../training/components/training_app.cjsx';
 import TrainingModuleHandler from '../training/components/training_module_handler.cjsx';
@@ -46,7 +46,7 @@ browserHistory.listen(location => {
   });
 });
 
-let routes = (
+const routes = (
   <Route path="/" component={App}>
     <Route path="onboarding" component={Onboarding.Root}>
       <IndexRoute component={Onboarding.Intro} />

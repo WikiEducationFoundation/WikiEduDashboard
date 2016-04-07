@@ -1,6 +1,6 @@
 React = require 'react'
 TrainingStore = require '../stores/training_store.coffee'
-ServerActions = require '../../actions/server_actions.coffee'
+ServerActions = require('../../actions/server_actions.js').default
 
 getState = ->
   training_module: TrainingStore.getTrainingModule()
@@ -37,4 +37,3 @@ TrainingModuleHandler = React.createClass(
 )
 
 module.exports = TrainingModuleHandler
-

@@ -1,15 +1,14 @@
 import '../testHelper';
-import '../../public/assets/javascripts/i18n/en';
-import CourseUtils from '../../app/assets/javascripts/utils/course_utils';
+import courseUtils from '../../app/assets/javascripts/utils/course_utils.js';
 
-describe('CourseUtils.generateTempId', () => {
+describe('courseUtils.generateTempId', () => {
   it('creates a slug from term, title and school', () => {
     const course = {
       term: 'Fall 2015',
       school: 'University of Wikipedia',
       title: 'Introduction to Editing'
     };
-    const slug = CourseUtils.generateTempId(course);
+    const slug = courseUtils.generateTempId(course);
     expect(slug).to.eq('University_of_Wikipedia/Introduction_to_Editing_(Fall_2015)');
   });
 
@@ -19,38 +18,58 @@ describe('CourseUtils.generateTempId', () => {
       school: '   University of Wikipedia ',
       title: ' Introduction to Editing     '
     };
-    const slug = CourseUtils.generateTempId(course);
+    const slug = courseUtils.generateTempId(course);
     expect(slug).to.eq('University_of_Wikipedia/Introduction_to_Editing_(Fall_2015)');
   });
 });
 
-describe('CourseUtils.cleanupCourseSlugComponents', () =>
+describe('courseUtils.cleanupCourseSlugComponents', () =>
   it('trims whitespace from the slug-related fields of a course object', () => {
     const course = {
       term: ' Fall 2015',
       school: '   University of Wikipedia ',
       title: ' Introduction to Editing     '
     };
-    CourseUtils.cleanupCourseSlugComponents(course);
+    courseUtils.cleanupCourseSlugComponents(course);
     expect(course.term).to.eq('Fall 2015');
     expect(course.school).to.eq('University of Wikipedia');
     expect(course.title).to.eq('Introduction to Editing');
   })
 );
 
-describe('CourseUtils.i18n', () => {
+describe('courseUtils.i18n', () => {
   it('outputs an interface message based on a message key and prefix', () => {
-    const message = CourseUtils.i18n('students', 'courses_generic');
+    const message = courseUtils.i18n('students', 'courses_generic');
     expect(message).to.eq('Editors');
   });
 
   it('defaults to the "courses" prefix if prefix is null', () => {
-    const message = CourseUtils.i18n('students', null);
+    const message = courseUtils.i18n('students', null);
     expect(message).to.eq('Students');
   });
 
   it('takes an optional fallback prefix for if prefix is null', () => {
-    const message = CourseUtils.i18n('class', null, 'revisions');
+    const message = courseUtils.i18n('class', null, 'revisions');
     expect(message).to.eq('Class');
+  });
+});
+
+describe('courseUtils.formatArticleTitle', () => {
+  it('trims whitespace and replaces underscores', () => {
+    const input = ' Robot_selfie  ';
+    const output = courseUtils.formatArticleTitle(input);
+    expect(output).to.eq('Robot selfie');
+  });
+
+  it('converts Wikipedia urls into titles', () => {
+    const input = 'https://en.wikipedia.org/wiki/Robot_selfie';
+    const output = courseUtils.formatArticleTitle(input);
+    expect(output).to.eq('Robot selfie');
+  });
+
+  it('handles url-encoded characters in Wikipedia urls', () => {
+    const input = 'https://en.wikipedia.org/wiki/Jalape%C3%B1o';
+    const output = courseUtils.formatArticleTitle(input);
+    expect(output).to.eq('Jalapeño');
   });
 });

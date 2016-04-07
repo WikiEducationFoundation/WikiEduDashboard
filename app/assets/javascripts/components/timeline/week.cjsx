@@ -3,8 +3,8 @@ DND              = require 'react-dnd'
 HTML5DND         = require 'react-dnd-html5-backend'
 Block            = require './block.cjsx'
 OrderableBlock   = require './orderable_block.cjsx'
-BlockActions     = require '../../actions/block_actions.coffee'
-WeekActions      = require '../../actions/week_actions.coffee'
+BlockActions     = require('../../actions/block_actions.js').default
+WeekActions      = require('../../actions/week_actions.js').default
 GradeableStore   = require '../../stores/gradeable_store.coffee'
 TextInput        = require '../common/text_input.cjsx'
 EmptyWeek        = require './empty_week.cjsx'
@@ -40,7 +40,7 @@ Week = React.createClass(
   _scrollToAddedBlock: ->
     wk = document.getElementsByClassName("week-#{@props.index}")[0]
     scrollTop = window.scrollTop || document.body.scrollTop
-    bottom = Math.abs(wk.getBoundingClientRect().bottom)
+    bottom = Math.abs(wk?.getBoundingClientRect().bottom)
     elBottom = bottom + scrollTop - 50
     window.scrollTo(0, elBottom)
   render: ->

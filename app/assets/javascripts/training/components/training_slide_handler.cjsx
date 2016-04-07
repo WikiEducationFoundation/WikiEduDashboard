@@ -1,7 +1,7 @@
 React = require 'react'
 TrainingStore = require '../stores/training_store.coffee'
-TrainingActions = require '../actions/training_actions.coffee'
-ServerActions = require '../../actions/server_actions.coffee'
+TrainingActions = require('../actions/training_actions.js').default
+ServerActions = require('../../actions/server_actions.js').default
 ReactRouter     = require 'react-router'
 History         = ReactRouter.History
 Link            = ReactRouter.Link

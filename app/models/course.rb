@@ -62,11 +62,11 @@ class Course < ActiveRecord::Base
   # Activity by the users #
   #########################
   has_many(:revisions, lambda do |course|
-    where('date >= ?', course.start).where('date <= ?', course.end)
+    where('date >= ?', course.start).where('date <= ?', course.end.end_of_day)
   end, through: :students)
 
   has_many(:uploads, lambda do |course|
-    where('uploaded_at >= ?', course.start).where('uploaded_at <= ?', course.end)
+    where('uploaded_at >= ?', course.start).where('uploaded_at <= ?', course.end.end_of_day)
   end, through: :students)
 
   has_many :articles_courses, class_name: ArticlesCourses, dependent: :destroy
@@ -145,7 +145,7 @@ class Course < ActiveRecord::Base
     VisitingScholarship
     Editathon
     BasicCourse
-  )
+  ).freeze
   validates_inclusion_of :type, in: COURSE_TYPES
 
   ####################
@@ -174,8 +174,8 @@ class Course < ActiveRecord::Base
 
   def training_modules
     ids = Block.joins(:week).where(weeks: { course_id: id })
-          .where.not('training_module_ids = ?', [].to_yaml)
-          .collect(&:training_module_ids).flatten
+               .where.not('training_module_ids = ?', [].to_yaml)
+               .collect(&:training_module_ids).flatten
     TrainingModule.all.select { |tm| ids.include?(tm.id) }
   end
 
@@ -204,8 +204,7 @@ class Course < ActiveRecord::Base
   end
 
   def new_articles
-    articles_courses.live.new_article
-      .joins(:article).where('articles.namespace = 0')
+    articles_courses.live.new_article.joins(:article).where('articles.namespace = 0')
   end
 
   def word_count
@@ -260,8 +259,8 @@ class Course < ActiveRecord::Base
   def update_cache
     # Do not consider revisions with negative byte changes
     self.character_sum = courses_users
-      .where(role: CoursesUsers::Roles::STUDENT_ROLE)
-      .sum(:character_sum_ms)
+                         .where(role: CoursesUsers::Roles::STUDENT_ROLE)
+                         .sum(:character_sum_ms)
     self.view_sum = articles_courses.live.sum(:view_count)
     self.user_count = students_without_nonstudents.size
     self.trained_count = calculate_trained_count
@@ -310,8 +309,8 @@ class Course < ActiveRecord::Base
 
   def self.submitted_listed
     Course.includes(:cohorts).where('cohorts.id IS NULL')
-      .where(listed: true).where(submitted: true)
-      .references(:cohorts)
+          .where(listed: true).where(submitted: true)
+          .references(:cohorts)
   end
 
   RANDOM_PASSCODE_LENGTH = 8

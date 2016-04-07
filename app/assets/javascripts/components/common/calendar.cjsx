@@ -2,7 +2,7 @@ React         = require 'react'
 DayPicker     = require 'react-day-picker'
 WeekdayPicker = require 'react-weekday-picker'
 
-CourseActions = require '../../actions/course_actions.coffee'
+CourseActions = require('../../actions/course_actions.js').default
 
 CourseDateUtils   = require '../../utils/course_date_utils.coffee'
 

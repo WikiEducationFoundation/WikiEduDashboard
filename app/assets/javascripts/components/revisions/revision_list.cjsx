@@ -4,8 +4,8 @@ Editable          = require '../high_order/editable.cjsx'
 List              = require '../common/list.cjsx'
 Revision          = require './revision.cjsx'
 RevisionStore     = require '../../stores/revision_store.coffee'
-ServerActions     = require '../../actions/server_actions.coffee'
-CourseUtils       = require '../../utils/course_utils.coffee'
+ServerActions     = require('../../actions/server_actions.js').default
+CourseUtils       = require('../../utils/course_utils.js').default
 
 getState = ->
   revisions: RevisionStore.getModels()

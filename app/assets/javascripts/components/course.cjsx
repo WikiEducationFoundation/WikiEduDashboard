@@ -2,13 +2,13 @@ React             = require 'react'
 ReactRouter       = require 'react-router'
 Link              = ReactRouter.Link
 CourseLink        = require './common/course_link.cjsx'
-ServerActions     = require '../actions/server_actions.coffee'
-CourseActions     = require '../actions/course_actions.coffee'
+ServerActions     = require('../actions/server_actions.js').default
+CourseActions     = require('../actions/course_actions.js').default
 CourseStore       = require '../stores/course_store.coffee'
 UserStore         = require '../stores/user_store.coffee'
 CohortStore       = require '../stores/cohort_store.coffee'
 Affix             = require './common/affix.cjsx'
-CourseUtils       = require '../utils/course_utils.coffee'
+CourseUtils       = require('../utils/course_utils.js').default
 
 getState = ->
   current = $('#react_root').data('current_user')

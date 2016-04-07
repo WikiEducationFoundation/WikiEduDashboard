@@ -299,6 +299,8 @@ de:
     continue: Fortfahren (%{progress})
     start: Beginnen
     view: Ansehen
+    logged_out: Du bist abgemeldet. Du erhältst keine Anerkennung für das Vervollständigen
+      dieses Moduls, sofern du dich nicht anmeldest.
   uploads:
     label: Hochgeladene Dateien
     loading: Lade Uploads …

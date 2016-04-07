@@ -41,6 +41,7 @@ class Article < ActiveRecord::Base
   scope :namespace, -> ns { where(namespace: ns) }
 
   validates :title, presence: true
+  validates :wiki_id, presence: true
 
   after_initialize :set_defaults_and_normalize
   before_validation :set_defaults_and_normalize
@@ -107,7 +108,6 @@ class Article < ActiveRecord::Base
     # they are in the MediaWiki database.
     self.title = title.tr(' ', '_') unless title.nil?
     # FIXME: transitional only, until id and mw_page_id are uncoupled.
-    self.wiki_id ||= Wiki.default_wiki.id
     self.mw_page_id = id
   end
 end

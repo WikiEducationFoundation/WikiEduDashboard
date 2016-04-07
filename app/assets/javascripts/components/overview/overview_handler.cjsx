@@ -7,10 +7,10 @@ Grading       = require './grading.cjsx'
 ThisWeek      = require './this_week.cjsx'
 CourseStore   = require '../../stores/course_store.coffee'
 WeekStore     = require '../../stores/week_store.coffee'
-ServerActions = require '../../actions/server_actions.coffee'
+ServerActions = require('../../actions/server_actions.js').default
 Loading       = require '../common/loading.cjsx'
 CourseClonedModal  = require './course_cloned_modal.cjsx'
-CourseUtils   = require '../../utils/course_utils.coffee'
+CourseUtils   = require('../../utils/course_utils.js').default
 
 
 getState = ->

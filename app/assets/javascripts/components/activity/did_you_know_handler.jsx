@@ -1,7 +1,7 @@
 import React from 'react';
 import DidYouKnowStore from '../../stores/did_you_know_store.coffee';
 import ActivityTable from './activity_table.jsx';
-import ServerActions from '../../actions/server_actions.coffee';
+import ServerActions from '../../actions/server_actions.js';
 
 const getState = () => {
   return {
@@ -34,14 +34,14 @@ const DidYouKnowHandler = React.createClass({
   },
 
   render() {
-    let headers = [
+    const headers = [
       { title: 'Article Title', key: 'title' },
       { title: 'Revision Score', key: 'revision_score' },
       { title: 'Revision Author', key: 'username' },
       { title: 'Revision Date/Time', key: 'revision_datetime' },
     ];
 
-    let noActivityMessage = I18n.t('recent_activity.no_dyk_eligible');
+    const noActivityMessage = I18n.t('recent_activity.no_dyk_eligible');
 
     return (
       <div>

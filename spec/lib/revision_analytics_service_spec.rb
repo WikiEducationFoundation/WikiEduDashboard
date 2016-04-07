@@ -51,19 +51,19 @@ describe RevisionAnalyticsService do
     subject { described_class.dyk_eligible(opts) }
 
     context 'revisions with sufficient wp10' do
-      it 'should be returned' do
+      it 'are returned' do
         expect(subject[0]).to eq(article)
       end
     end
 
     context 'revisions with insufficient wp10' do
-      it 'should not be returned' do
+      it 'are not returned' do
         expect(subject).not_to include(article2)
       end
     end
 
     context 'revisions that are too old' do
-      it 'should not be returned' do
+      it 'are not returned' do
         expect(subject).not_to include(article3)
       end
     end
@@ -90,14 +90,14 @@ describe RevisionAnalyticsService do
       subject { described_class.suspected_plagiarism }
       context 'revision with no ithenticate_id' do
         let(:r1_id) { nil }
-        it 'should not be included' do
+        it 'are not included' do
           expect(subject).not_to include(revision)
         end
       end
 
       context 'revision with ithenticate_id' do
         let(:r1_id) { 5 }
-        it 'should be included' do
+        it 'are included' do
           expect(subject).to include(revision)
           expect(subject).to include(revision3)
         end
@@ -107,11 +107,11 @@ describe RevisionAnalyticsService do
     context 'scoped to courses of current user' do
       subject { described_class.suspected_plagiarism(scoped: 'true', current_user: user) }
       let(:r1_id) { 5 }
-      it 'should include a revision from their course' do
+      it 'includes a revision from their course' do
         expect(subject).to include(revision)
       end
 
-      it 'should exlude a revision from outside their course' do
+      it 'exludes a revision from outside their course' do
         expect(subject).not_to include(revision3)
       end
     end

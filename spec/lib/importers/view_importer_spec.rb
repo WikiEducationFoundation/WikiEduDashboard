@@ -21,8 +21,8 @@ describe ViewImporter do
                course_id: 10001,
                article_id: 1)
 
-        ViewImporter.update_views_for_article(article, true)
-        ViewImporter.update_views_for_article(article)
+        ViewImporter.new([article], true)
+        ViewImporter.new([article], false)
       end
     end
   end
@@ -90,6 +90,7 @@ describe ViewImporter do
         # Update again with this article.
         ViewImporter.update_new_views
         ViewImporter.update_all_views
+        pp Article.last.views
       end
     end
   end

@@ -1,7 +1,7 @@
+import '../../testHelper';
+
 import React from 'react';
 import ReactTestUtils from 'react-addons-test-utils';
-
-import '../../testHelper';
 
 import RecentActivityHandler from '../../../app/assets/javascripts/components/activity/recent_activity_handler.jsx';
 

@@ -246,6 +246,7 @@ zh-hans:
     continue: 继续（%{progress}）
     start: 开始
     view: 查看
+    logged_out: 您已退出。除非您登录，您将不会收到完成此模块的学分。
   uploads:
     label: 上传
     loading: 正在加载上传...
