@@ -22,6 +22,7 @@ class SurveysController < ApplicationController
   ]
   before_action :check_if_closed, only: [:show]
   before_action :set_notification, only: [:show]
+  before_action :set_course, only: [:show]
 
   # GET /surveys
   # GET /surveys.json
@@ -37,7 +38,7 @@ class SurveysController < ApplicationController
       redirect_to(main_app.root_path, flash: { notice: 'Sorry, You do not have access to this survey' })
       return
     end
-    if @survey.show_courses && !has_course_slug
+    if @survey.show_courses && !course?
       render 'course_select'
     else
       render 'show'
@@ -186,5 +187,18 @@ class SurveysController < ApplicationController
 
   def set_notification
     @notification = user_is_assigned_to_survey(true)
+  end
+
+  def set_course
+    @course = find_course_by_slug(params[:course_slug]) if course_slug?
+    @course = @notification.course if @notification.instance_of?(SurveyNotification)
+  end
+
+  def course_slug?
+    params.key?(:course_slug)
+  end
+
+  def course?
+    !@course.nil?
   end
 end
