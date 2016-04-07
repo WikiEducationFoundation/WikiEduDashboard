@@ -57,10 +57,6 @@ const CourseCreator = React.createClass({
     return this.handleCourse();
   },
 
-  currentUserId() {
-    return document.getElementById('main').getAttribute('data-user-id');
-  },
-
   saveCourse() {
     if (ValidationStore.isValid()) {
       this.setState({ isSubmitting: true });
@@ -117,7 +113,7 @@ const CourseCreator = React.createClass({
   },
 
   render() {
-    let formStyle = { };
+    const formStyle = {};
     if (this.state.isSubmitting === true) { formStyle.opacity = 0.5; }
     if (this.state.isSubmitting === true) { formStyle.pointerEvents = 'none'; }
 
@@ -137,7 +133,6 @@ const CourseCreator = React.createClass({
     let term;
     let subject;
     let expectedStudents;
-
     if (this.state.default_course_type === 'ClassroomProgramCourse') {
       term = (
         <TextInput
@@ -145,9 +140,9 @@ const CourseCreator = React.createClass({
           onChange={this.updateCourse}
           value={this.state.course.term}
           value_key="term"
-          required={true}
+          required
           validation={/^[\w\-\s\,\']+$/}
-          editable={true}
+          editable
           label={CourseUtils.i18n('creator.course_term', this.state.course_string_prefix)}
           placeholder="Term"
         />
@@ -158,7 +153,7 @@ const CourseCreator = React.createClass({
           onChange={this.updateCourse}
           value={this.state.course.subject}
           value_key="subject"
-          editable={true}
+          editable
           label={CourseUtils.i18n('creator.course_subject', this.state.course_string_prefix)}
           placeholder="Subject"
         />
@@ -169,7 +164,7 @@ const CourseCreator = React.createClass({
           onChange={this.updateCourse}
           value={this.state.course.expected_students}
           value_key="expected_students"
-          editable={true}
+          editable
           type="number"
           label={CourseUtils.i18n('creator.expected_number', this.state.course_string_prefix)}
           placeholder="Expected number of students"
@@ -204,9 +199,9 @@ const CourseCreator = React.createClass({
                   onChange={this.updateCourse}
                   value={this.state.course.title}
                   value_key="title"
-                  required={true}
+                  required
                   validation={/^[\w\-\s\,\']+$/}
-                  editable={true}
+                  editable
                   label={CourseUtils.i18n('creator.course_title', this.state.course_string_prefix)}
                   placeholder={CourseUtils.i18n('creator.course_title', this.state.course_string_prefix)}
                 />
@@ -215,9 +210,9 @@ const CourseCreator = React.createClass({
                   onChange={this.updateCourse}
                   value={this.state.course.school}
                   value_key="school"
-                  required={true}
+                  required
                   validation={/^[\w\-\s\,\']+$/}
-                  editable={true}
+                  editable
                   label={CourseUtils.i18n('creator.course_school', this.state.course_string_prefix)}
                   placeholder={CourseUtils.i18n('creator.course_school', this.state.course_string_prefix)}
                 />
@@ -231,7 +226,7 @@ const CourseCreator = React.createClass({
                   onChange={this.updateCourse}
                   value={this.state.course.description}
                   value_key="description"
-                  editable={true}
+                  editable
                   label={CourseUtils.i18n('creator.course_description', this.state.course_string_prefix)}
                 />
                 <TextInput
@@ -239,12 +234,12 @@ const CourseCreator = React.createClass({
                   onChange={this.updateCourse}
                   value={this.state.course.start}
                   value_key="start"
-                  required={true}
-                  editable={true}
+                  required
+                  editable
                   type="date"
                   label={CourseUtils.i18n('creator.start_date', this.state.course_string_prefix)}
                   placeholder="Start date (YYYY-MM-DD)"
-                  blank={true}
+                  blank
                   isClearable={false}
                 />
                 <TextInput
@@ -252,12 +247,12 @@ const CourseCreator = React.createClass({
                   onChange={this.updateCourse}
                   value={this.state.course.end}
                   value_key="end"
-                  required={true}
-                  editable={true}
+                  required
+                  editable
                   type="date"
                   label={CourseUtils.i18n('creator.end_date', this.state.course_string_prefix)}
                   placeholder="End date (YYYY-MM-DD)"
-                  blank={true}
+                  blank
                   date_props={{ minDate: moment(this.state.course.start).add(1, 'week') }}
                   enabled={!!this.state.course.start}
                   isClearable={false}
