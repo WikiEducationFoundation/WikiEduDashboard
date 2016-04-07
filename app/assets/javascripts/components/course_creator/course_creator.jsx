@@ -121,14 +121,14 @@ const CourseCreator = React.createClass({
 
     formClass += ((this.state.shouldShowForm === true || this.state.user_courses.length === 0) ? '' : ' hidden');
 
-    let cloneOptions = formClass.match(/hidden/) && !this.state.showCourseDropdown ? '' : ' hidden';
+    const cloneOptions = formClass.match(/hidden/) && !this.state.showCourseDropdown ? '' : ' hidden';
 
     let controlClass = 'wizard__panel__controls';
     controlClass += ` ${formClass}`;
 
-    let selectClass = this.state.showCourseDropdown === true ? '' : ' hidden';
+    const selectClass = this.state.showCourseDropdown === true ? '' : ' hidden';
 
-    let options = this.state.user_courses.map((course, i) => <option key={i} data-id-key={course.id}>{course.title}</option>);
+    const options = this.state.user_courses.map((course, i) => <option key={i} data-id-key={course.id}>{course.title}</option>);
 
     let term;
     let subject;
