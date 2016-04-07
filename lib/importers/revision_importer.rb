@@ -138,9 +138,10 @@ class RevisionImporter
     articles, revisions = [], []
 
     sub_data.each do |_a_id, a|
-      article = Article.find_or_initialize_by(mw_page_id: a['article']['id'], wiki_id: @wiki.id)
+      article = Article.find_by(mw_page_id: a['article']['id'], wiki_id: @wiki.id)
+      article ||= Article.new(mw_page_id: a['article']['id'], wiki_id: @wiki.id)
       article.update(a['article'], false)
-      articles.push article
+      article.save
 
       a['revisions'].each do |r|
         revision = Revision.new(id: r['id'], # TODO: remove id when it gets decoupled from mw_rev_id
@@ -157,7 +158,6 @@ class RevisionImporter
       end
     end
 
-    Article.import articles
     AssignmentImporter.update_article_ids(articles)
     DuplicateArticleDeleter.new(@wiki).resolve_duplicates(articles)
     Revision.import revisions
