@@ -72,7 +72,7 @@ const CourseCreator = React.createClass({
     if (!this.state.isSubmitting) { return; }
 
     if (ValidationStore.isValid()) {
-      if (this.state.course.slug !== null) {
+      if (this.state.course.slug) {
         // This has to be a window.location set due to our limited ReactJS scope
         if (this.state.default_course_type === 'ClassroomProgramCourse') {
           window.location = `/courses/${this.state.course.slug}/timeline/wizard`;
