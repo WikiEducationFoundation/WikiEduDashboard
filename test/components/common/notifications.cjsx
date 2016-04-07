@@ -18,28 +18,32 @@ describe 'Notifications', ->
   it 'updates via API_FAIL action and removes via close', (done) ->
 
     rendered = ReactTestUtils.renderIntoDocument(
-      <Notifications />
+      <div>
+        <Notifications />
+      </div>
     )
+
+    console.log rendered.innerHTML
+
+    rows = rendered.querySelectorAll '.notice'
+    expect(rows.length).to.eq 0
 
     notification =
       responseJSON:
         error: 'Test error'
 
-    rows = ReactTestUtils.scryRenderedDOMComponentsWithClass rendered, 'notice'
-    expect(rows.length).to.eq 0
-
     dispatcher.dispatch
       actionType: 'API_FAIL'
       data: notification
 
-    rows = ReactTestUtils.scryRenderedDOMComponentsWithClass rendered, 'notice'
+    rows = rendered.querySelectorAll '.notice'
     expect(rows.length).to.eq 1
 
-    close = ReactTestUtils.findRenderedDOMComponentWithTag rendered, 'svg'
+    close = rendered.querySelector 'svg'
     Simulate.click(close)
 
-    setTimeout(() ->
-      rows = ReactTestUtils.scryRenderedDOMComponentsWithClass rendered, 'notice'
+    setImmediate(() ->
+      rows = rendered.querySelectorAll '.notice'
       expect(rows.length).to.eq 0
       done()
-    , 100)
+    )
