@@ -262,7 +262,7 @@ const CourseCreator = React.createClass({
               <div className="right">
                 <div><p className="red">{this.state.error_message}</p></div>
                 <Link className="button" to="/" id="course_cancel">{I18n.t('application.cancel')}</Link>
-                <button onClick={this.saveCourse} className="dark button">{CourseUtils.i18n('creator.create_button', this.state.course_string_prefix)}</button>
+                <button onClick={this.saveCourse} className="dark button button__submit">{CourseUtils.i18n('creator.create_button', this.state.course_string_prefix)}</button>
               </div>
             </div>
           </div>

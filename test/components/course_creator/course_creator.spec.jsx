@@ -8,6 +8,12 @@ import ReactTestUtils, { Simulate } from 'react-addons-test-utils';
 import CourseCreator from '../../../app/assets/javascripts/components/course_creator/course_creator.jsx';
 import CourseActions from '../../../app/assets/javascripts/actions/course_actions.js';
 import ValidationActions from '../../../app/assets/javascripts/actions/validation_actions.js';
+import ServerActions from '../../../app/assets/javascripts/actions/server_actions.js';
+
+CourseCreator.__Rewire__('ValidationStore', {
+  isValid() { return true; },
+  firstMessage() { }
+});
 
 describe('CourseCreator', () => {
   describe('render', () => {
@@ -74,6 +80,17 @@ describe('CourseCreator', () => {
           expect(updateCourse).to.have.been.called;
           expect(setValid).to.have.been.called;
         });
+      });
+    });
+    describe('save course', () => {
+      const checkCourse = sinon.spy(ServerActions, 'checkCourse');
+      const setInvalid = sinon.spy(ValidationActions, 'setInvalid');
+      it('calls the appropriate methods on the actions', () => {
+        const button = ReactTestUtils.findRenderedDOMComponentWithClass(TestCourseCreator, 'button__submit');
+        const buttonNode = ReactDOM.findDOMNode(button);
+        Simulate.click(buttonNode);
+        expect(checkCourse).to.have.been.called;
+        expect(setInvalid).to.have.been.called;
       });
     });
   });
