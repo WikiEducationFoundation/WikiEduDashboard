@@ -4,7 +4,7 @@ import React from 'react';
 import ReactTestUtils from 'react-addons-test-utils';
 
 import ActivityTable from '../../../app/assets/javascripts/components/activity/activity_table.jsx';
-import { click } from '../../customUtils';
+import { click } from '../../customUtils.js';
 
 describe('ActivtyTable', () => {
   const activities = [{

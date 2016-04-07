@@ -4,7 +4,7 @@ import React from 'react';
 import ReactTestUtils from 'react-addons-test-utils';
 
 import ActivityTableRow from '../../../app/assets/javascripts/components/activity/activity_table_row.jsx';
-import { click } from '../../customUtils';
+import { click } from '../../customUtils.js';
 
 describe('ActivtyTableRow', () => {
   const TestRow = ReactTestUtils.renderIntoDocument(
