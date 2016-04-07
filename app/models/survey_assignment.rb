@@ -3,6 +3,8 @@ class SurveyAssignment < ActiveRecord::Base
   has_and_belongs_to_many :cohorts
   has_many :survey_notifications
 
+  before_destroy :remove_notifications
+
   scope :published, -> { where(published: true) }
 
   def send_at
@@ -47,5 +49,11 @@ class SurveyAssignment < ActiveRecord::Base
     return 'Pending' if total_notifications == 0
     return 'Active' if total_notifications > 0
     return 'Closed' if survey.closed
+  end
+
+  private
+
+  def remove_notifications
+    SurveyNotification.where(survey_assignment_id: id).destroy_all
   end
 end
