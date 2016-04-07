@@ -302,6 +302,8 @@ fr:
     continue: Continuer (%{progress})
     start: Démarrer
     view: Afficher
+    logged_out: Vous êtes déconnecté. Vous ne recevrez pas de crédit pour l'achèvement
+      de ce module, sauf si vous vous reconnectez.
   uploads:
     label: Téléversements
     loading: Chargement des téléchargements…

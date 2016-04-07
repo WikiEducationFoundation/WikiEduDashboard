@@ -248,6 +248,8 @@ it:
     continue: Continua (%{progress})
     start: Inizio
     view: Visualizza
+    logged_out: Sei disconnesso. Non riceverai crediti per il completamento di questo
+      modulo a meno che non accedi.
   uploads:
     label: Caricamenti
     loading: Caricando gli upload...
