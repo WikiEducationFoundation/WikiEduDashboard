@@ -78,7 +78,7 @@ describe 'Surveys', type: :feature, js: true do
                            username: 'Professor Sage',
                            wiki_token: 'foo',
                            wiki_secret: 'bar')
-      create(:course,
+      course = create(:course,
              id: 10001,
              title: 'My Active Course',
              school: 'University',
@@ -105,6 +105,7 @@ describe 'Surveys', type: :feature, js: true do
         :survey_assignment,
         survey_id: @survey.id)
       create(:survey_notification,
+             course_id: course.id,
              survey_assignment_id: survey_assignment.id,
              courses_user_id: @courses_user.id)
     end
