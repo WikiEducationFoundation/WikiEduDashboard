@@ -84,26 +84,26 @@ describe RevisionImporter do
 
     it 'excludes revisions after the final day of the course' do
       create(:course, id: 1, start: '2016-03-20', end: '2016-03-30')
-      create(:user, id: 27860490, username: 'Tedholtby')
-      create(:courses_user, course_id: 1, user_id: 27860490,
+      create(:user, id: 15, username: 'Tedholtby')
+      create(:courses_user, course_id: 1, user_id: 15,
                             role: CoursesUsers::Roles::STUDENT_ROLE)
 
       RevisionImporter.update_all_revisions nil, true
 
-      expect(User.find(27860490).revisions.count).to eq(0)
+      expect(User.find(15).revisions.count).to eq(0)
     end
 
     it 'handles returning users with earlier revisions' do
       VCR.use_cassette 'revisions/returning_students' do
         # Create a user who has a revision from long ago
-        create(:trained) # This is user 319203, with edits since 2015.
+        create(:trained, id: 5) # This is user Ragesoss, with edits since 2015.
         create(:revision,
-               user_id: 319203,
+               user_id: 5,
                article_id: 1,
                date: '2013-01-01'.to_date)
         # Also a revision from during the course.
         create(:revision,
-               user_id: 319203,
+               user_id: 5,
                article_id: 2,
                date: '2015-02-01'.to_date)
         create(:article, id: 1)
@@ -115,7 +115,7 @@ describe RevisionImporter do
                end: '2030-01-01'.to_date)
         create(:courses_user,
                course_id: 1,
-               user_id: 319203,
+               user_id: 5,
                role: 0)
         CoursesUsers.update_all_caches
         RevisionImporter.update_all_revisions nil, true

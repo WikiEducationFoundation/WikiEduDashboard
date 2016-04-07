@@ -59,19 +59,19 @@ describe Cleaners do
              start: 1.month.ago,
              end: Time.zone.today + 1.year)
       create(:revision,
-             id: 661324615,
+             mw_rev_id: 661324615,
              article_id: 46640378,
-             user_id: 24593901,
+             user_id: 1,
              date: 1.day.ago)
       create(:article,
              id: 46640378,
              namespace: 0)
       create(:user,
-             id: 24593901,
+             id: 1,
              username: 'Rothscak')
       create(:courses_user,
              course_id: 1,
-             user_id: 24593901)
+             user_id: 1)
       Cleaners.rebuild_articles_courses
       articles_for_course = ArticlesCourses.where(course_id: 1)
       expect(articles_for_course.count).to eq(1)
