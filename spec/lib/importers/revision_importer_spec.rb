@@ -201,13 +201,11 @@ describe RevisionImporter do
     it 'updates the article_id for a moved revision' do
       # https://en.wikipedia.org/w/index.php?title=Selfie&oldid=547645475
       create(:revision,
-             id: 547645475,
              mw_rev_id: 547645475,
              mw_page_id: 1,
              article_id: 1) # Not the actual article_id
       revision = Revision.all
       RevisionImporter.new.move_or_delete_revisions(revision)
-      pp Article.all
       article = Revision.find_by(mw_rev_id: 547645475).article
       expect(article.mw_page_id).to eq(38956275)
       expect(Article.exists?(mw_page_id: 38956275)).to be true
