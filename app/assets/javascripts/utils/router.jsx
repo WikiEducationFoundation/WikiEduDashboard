@@ -7,7 +7,7 @@ import Course from '../components/course.cjsx';
 import Onboarding from '../components/onboarding/index.cjsx';
 import Wizard from '../components/wizard/wizard.cjsx';
 import Dates from '../components/timeline/meetings.cjsx';
-import CourseCreator from '../components/course_creator/course_creator.cjsx';
+import CourseCreator from '../components/course_creator/course_creator.jsx';
 
 import OverviewHandler from '../components/overview/overview_handler.cjsx';
 import TimelineHandler from '../components/timeline/timeline_handler.cjsx';

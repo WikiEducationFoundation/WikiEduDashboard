@@ -54,22 +54,22 @@ describe('courseUtils.i18n', () => {
   });
 });
 
-describe('CourseUtils.formatArticleTitle', () => {
+describe('courseUtils.formatArticleTitle', () => {
   it('trims whitespace and replaces underscores', () => {
     const input = ' Robot_selfie  ';
-    const output = CourseUtils.formatArticleTitle(input);
+    const output = courseUtils.formatArticleTitle(input);
     expect(output).to.eq('Robot selfie');
   });
 
   it('converts Wikipedia urls into titles', () => {
     const input = 'https://en.wikipedia.org/wiki/Robot_selfie';
-    const output = CourseUtils.formatArticleTitle(input);
+    const output = courseUtils.formatArticleTitle(input);
     expect(output).to.eq('Robot selfie');
   });
 
   it('handles url-encoded characters in Wikipedia urls', () => {
     const input = 'https://en.wikipedia.org/wiki/Jalape%C3%B1o';
-    const output = CourseUtils.formatArticleTitle(input);
+    const output = courseUtils.formatArticleTitle(input);
     expect(output).to.eq('Jalapeño');
   });
 });

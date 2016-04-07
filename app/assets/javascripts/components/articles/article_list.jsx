@@ -5,7 +5,7 @@ import List from '../common/list.cjsx';
 import Article from './article.jsx';
 import ArticleStore from '../../stores/article_store.coffee';
 import ServerActions from '../../actions/server_actions.js';
-import CourseUtils from '../../utils/course_utils.coffee';
+import CourseUtils from '../../utils/course_utils.js';
 
 const getState = () => {
   return {

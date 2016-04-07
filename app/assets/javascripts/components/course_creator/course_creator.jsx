@@ -1,5 +1,3 @@
-import moment from 'moment';
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router';
@@ -14,24 +12,28 @@ import ServerActions from '../../actions/server_actions.js';
 import Modal from '../common/modal.cjsx';
 import TextInput from '../common/text_input.cjsx';
 import TextAreaInput from '../common/text_area_input.cjsx';
-import CourseUtils from '../../utils/course_utils.coffee';
+import CourseUtils from '../../utils/course_utils.js';
 import TransitionGroup from 'react-addons-css-transition-group';
 
-import { getUserId } from '../../stores/user_id_store.js';
-import { getDefaultCourseType } from '../../stores/course_attributes_store';
-import { getCourseStringPrefix } from '../../stores/course_attributes_store';
+import moment from 'moment';
+import _ from 'lodash';
 
-const getState = () =>
-  ({
+import { getUserId } from '../../stores/user_id_store.js';
+import { getDefaultCourseType, getCourseStringPrefix } from '../../stores/course_attributes_store';
+
+const getState = () => {
+  return {
     course: CourseStore.getCourse(),
     error_message: ValidationStore.firstMessage(),
     user_courses: UserCoursesStore.getUserCourses()
-  })
-;
+  };
+};
 
 const CourseCreator = React.createClass({
   displayName: 'CourseCreator',
+
   mixins: [CourseStore.mixin, ValidationStore.mixin, UserCoursesStore.mixin],
+
   getInitialState() {
     const inits = {
       tempCourseId: '',
@@ -41,17 +43,24 @@ const CourseCreator = React.createClass({
       default_course_type: getDefaultCourseType(),
       course_string_prefix: getCourseStringPrefix()
     };
-    return $.extend(true, inits, getState());
+    return $.extend({}, inits, getState());
   },
+
   componentWillMount() {
     CourseActions.addCourse();
     return ServerActions.fetchCoursesForUser(getUserId());
   },
+
   storeDidChange() {
     this.setState(getState());
     this.state.tempCourseId = CourseUtils.generateTempId(this.state.course);
     return this.handleCourse();
   },
+
+  currentUserId() {
+    return document.getElementById('main').getAttribute('data-user-id');
+  },
+
   saveCourse() {
     if (ValidationStore.isValid()) {
       this.setState({ isSubmitting: true });
@@ -59,6 +68,7 @@ const CourseCreator = React.createClass({
       return ServerActions.checkCourse('exists', CourseUtils.generateTempId(this.state.course));
     }
   },
+
   handleCourse() {
     if (this.state.shouldRedirect === true) {
       window.location = `/courses/${this.state.course.slug}?modal=true`;
@@ -69,59 +79,65 @@ const CourseCreator = React.createClass({
       if (this.state.course.slug !== null) {
         // This has to be a window.location set due to our limited ReactJS scope
         if (this.state.default_course_type === 'ClassroomProgramCourse') {
-          return window.location = `/courses/${this.state.course.slug}/timeline/wizard`;
+          window.location = `/courses/${this.state.course.slug}/timeline/wizard`;
+        } else {
+          window.location = `/courses/${this.state.course.slug}`;
         }
-        return window.location = `/courses/${this.state.course.slug}`;
+      } else {
+        this.setState({ course: CourseUtils.cleanupCourseSlugComponents(this.state.course) });
+        ServerActions.saveCourse($.extend(true, {}, { course: this.state.course }));
       }
-      this.setState({ course: CourseUtils.cleanupCourseSlugComponents(this.state.course) });
-      return ServerActions.saveCourse($.extend(true, {}, { course: this.state.course }));
-    }
-    if (!ValidationStore.getValidation('exists').valid) {
-      return this.setState({ isSubmitting: false });
+    } else if (!ValidationStore.getValidation('exists').valid) {
+      this.setState({ isSubmitting: false });
     }
   },
+
   updateCourse(valueKey, value) {
     const toPass = $.extend(true, {}, this.state.course);
     toPass[valueKey] = value;
     CourseActions.updateCourse(toPass);
-    if (['title', 'school', 'term'].includes(valueKey)) {
+    if (_.includes(['title', 'school', 'term'], valueKey)) {
       return ValidationActions.setValid('exists');
     }
   },
+
   showForm() {
     return this.setState({ shouldShowForm: true });
   },
+
   showCourseDropdown() {
     return this.setState({ showCourseDropdown: true });
   },
+
   useThisClass() {
     const select = ReactDOM.findDOMNode(this.refs.courseSelect);
     const courseId = select.options[select.selectedIndex].getAttribute('data-id-key');
     ServerActions.cloneCourse(courseId);
     return this.setState({ isSubmitting: true, shouldRedirect: true });
   },
+
   render() {
-    const formStyle = {};
+    let formStyle = { };
     if (this.state.isSubmitting === true) { formStyle.opacity = 0.5; }
     if (this.state.isSubmitting === true) { formStyle.pointerEvents = 'none'; }
 
     let formClass = 'wizard__form';
-    if (this.state.shouldShowForm === true || this.state.user_courses.length === 0) {
-      formClass += ' hidden';
-    }
 
-    const cloneOptions = formClass.match(/hidden/) && !this.state.showCourseDropdown ? '' : ' hidden';
+    formClass += ((this.state.shouldShowForm === true || this.state.user_courses.length === 0) ? '' : ' hidden');
+
+    let cloneOptions = formClass.match(/hidden/) && !this.state.showCourseDropdown ? '' : ' hidden';
 
     let controlClass = 'wizard__panel__controls';
     controlClass += ` ${formClass}`;
 
-    const selectClass = this.state.showCourseDropdown === true ? '' : ' hidden';
+    let selectClass = this.state.showCourseDropdown === true ? '' : ' hidden';
 
-    const options = this.state.user_courses.map((course, i) => <option key={i} data-id-key={course.id}>{course.title}</option>);
+    let options = this.state.user_courses.map((course, i) => <option key={i} data-id-key={course.id}>{course.title}</option>);
 
-    let term = '';
-    let subject = '';
-    let expectedStudents = '';
+    let term;
+    let subject;
+    let expectedStudents;
+
     if (this.state.default_course_type === 'ClassroomProgramCourse') {
       term = (
         <TextInput
@@ -129,9 +145,9 @@ const CourseCreator = React.createClass({
           onChange={this.updateCourse}
           value={this.state.course.term}
           value_key="term"
-          required
+          required={true}
           validation={/^[\w\-\s\,\']+$/}
-          editable
+          editable={true}
           label={CourseUtils.i18n('creator.course_term', this.state.course_string_prefix)}
           placeholder="Term"
         />
@@ -142,7 +158,7 @@ const CourseCreator = React.createClass({
           onChange={this.updateCourse}
           value={this.state.course.subject}
           value_key="subject"
-          editable
+          editable={true}
           label={CourseUtils.i18n('creator.course_subject', this.state.course_string_prefix)}
           placeholder="Subject"
         />
@@ -153,15 +169,14 @@ const CourseCreator = React.createClass({
           onChange={this.updateCourse}
           value={this.state.course.expected_students}
           value_key="expected_students"
-          editable
+          editable={true}
           type="number"
           label={CourseUtils.i18n('creator.expected_number', this.state.course_string_prefix)}
           placeholder="Expected number of students"
         />
       );
     }
-    const start = moment(this.state.course.start).add(1, 'week');
-    const dateProps = { minDate: start };
+
     return (
       <TransitionGroup
         transitionName="wizard"
@@ -169,96 +184,97 @@ const CourseCreator = React.createClass({
         transitionEnterTimeout={500}
         transitionLeaveTimeout={500}
       >
-      <Modal key="modal">
-        <div className="wizard__panel active" style={formStyle}>
-          <h3>{CourseUtils.i18n('creator.create_new', this.state.course_string_prefix)}</h3>
-          <p>{CourseUtils.i18n('creator.intro', this.state.course_string_prefix)}</p>
-          <div className={cloneOptions}>
-            <button className="button dark" onClick={this.showForm}>{CourseUtils.i18n('creator.create_label', this.state.course_string_prefix)}</button>
-            <button className="button dark" onClick={this.showCourseDropdown}>Clone Previous Course</button>
-          </div>
-          <div className={selectClass}>
-            <select id="reuse-existing-course-select" ref="courseSelect">{options}</select>
-            <button className="button dark" onClick={this.useThisClass}>Clone This Course</button>
-          </div>
-          <div className={formClass}>
-            <div className="column">
+        <Modal key="modal">
+          <div className="wizard__panel active" style={formStyle}>
+            <h3>{CourseUtils.i18n('creator.create_new', this.state.course_string_prefix)}</h3>
+            <p>{CourseUtils.i18n('creator.intro', this.state.course_string_prefix)}</p>
+            <div className={cloneOptions}>
+              <button className="button dark" onClick={this.showForm}>{CourseUtils.i18n('creator.create_label', this.state.course_string_prefix)}</button>
+              <button className="button dark" onClick={this.showCourseDropdown}>Clone Previous Course</button>
+            </div>
+            <div className={selectClass}>
+              <select id="reuse-existing-course-select" ref="courseSelect">{options}</select>
+              <button className="button dark" onClick={this.useThisClass}>Clone This Course</button>
+            </div>
+            <div className={formClass}>
+              <div className="column">
 
-              <TextInput
-                id="course_title"
-                onChange={this.updateCourse}
-                value={this.state.course.title}
-                value_key="title"
-                required
-                validation={/^[\w\-\s\,\']+$/}
-                editable
-                label={CourseUtils.i18n('creator.course_title', this.state.course_string_prefix)}
-                placeholder={CourseUtils.i18n('creator.course_title', this.state.course_string_prefix)}
-              />
-              <TextInput
-                id="course_school"
-                onChange={this.updateCourse}
-                value={this.state.course.school}
-                value_key="school"
-                required
-                validation={/^[\w\-\s\,\']+$/}
-                editable
-                label={CourseUtils.i18n('creator.course_school', this.state.course_string_prefix)}
-                placeholder={CourseUtils.i18n('creator.course_school', this.state.course_string_prefix)}
-              />
-              {term}
-              {subject}
-              {expectedStudents}
+                <TextInput
+                  id="course_title"
+                  onChange={this.updateCourse}
+                  value={this.state.course.title}
+                  value_key="title"
+                  required={true}
+                  validation={/^[\w\-\s\,\']+$/}
+                  editable={true}
+                  label={CourseUtils.i18n('creator.course_title', this.state.course_string_prefix)}
+                  placeholder={CourseUtils.i18n('creator.course_title', this.state.course_string_prefix)}
+                />
+                <TextInput
+                  id="course_school"
+                  onChange={this.updateCourse}
+                  value={this.state.course.school}
+                  value_key="school"
+                  required={true}
+                  validation={/^[\w\-\s\,\']+$/}
+                  editable={true}
+                  label={CourseUtils.i18n('creator.course_school', this.state.course_string_prefix)}
+                  placeholder={CourseUtils.i18n('creator.course_school', this.state.course_string_prefix)}
+                />
+                {term}
+                {subject}
+                {expectedStudents}
+              </div>
+              <div className="column">
+                <TextAreaInput
+                  id="course_description"
+                  onChange={this.updateCourse}
+                  value={this.state.course.description}
+                  value_key="description"
+                  editable={true}
+                  label={CourseUtils.i18n('creator.course_description', this.state.course_string_prefix)}
+                />
+                <TextInput
+                  id="course_start"
+                  onChange={this.updateCourse}
+                  value={this.state.course.start}
+                  value_key="start"
+                  required={true}
+                  editable={true}
+                  type="date"
+                  label={CourseUtils.i18n('creator.start_date', this.state.course_string_prefix)}
+                  placeholder="Start date (YYYY-MM-DD)"
+                  blank={true}
+                  isClearable={false}
+                />
+                <TextInput
+                  id="course_end"
+                  onChange={this.updateCourse}
+                  value={this.state.course.end}
+                  value_key="end"
+                  required={true}
+                  editable={true}
+                  type="date"
+                  label={CourseUtils.i18n('creator.end_date', this.state.course_string_prefix)}
+                  placeholder="End date (YYYY-MM-DD)"
+                  blank={true}
+                  date_props={{ minDate: moment(this.state.course.start).add(1, 'week') }}
+                  enabled={!!this.state.course.start}
+                  isClearable={false}
+                />
+              </div>
             </div>
-            <div className="column">
-              <TextAreaInput
-                id="course_description"
-                onChange={this.updateCourse}
-                value={this.state.course.description}
-                value_key="description"
-                editable
-                label={CourseUtils.i18n('creator.course_description', this.state.course_string_prefix)}
-              />
-              <TextInput
-                id="course_start"
-                onChange={this.updateCourse}
-                value={this.state.course.start}
-                value_key="start"
-                required
-                editable
-                blank
-                type="date"
-                label={CourseUtils.i18n('creator.start_date', this.state.course_string_prefix)}
-                placeholder="Start date (YYYY-MM-DD)"
-                isClearable={false}
-              />
-              <TextInput
-                id="course_end"
-                onChange={this.updateCourse}
-                value={this.state.course.end}
-                value_key="end"
-                required
-                editable
-                blank
-                type="date"
-                label={CourseUtils.i18n('creator.end_date', this.state.course_string_prefix)}
-                placeholder="End date (YYYY-MM-DD)"
-                date_props={ dateProps }
-                enabled={typeof this.state.course.start !== 'undefined' && this.state.course.start !== null}
-              />
+            <div className={controlClass}>
+              <div className="left"><p>{this.state.tempCourseId}</p></div>
+              <div className="right">
+                <div><p className="red">{this.state.error_message}</p></div>
+                <Link className="button" to="/" id="course_cancel">{I18n.t('application.cancel')}</Link>
+                <button onClick={this.saveCourse} className="dark button">{CourseUtils.i18n('creator.create_button', this.state.course_string_prefix)}</button>
+              </div>
             </div>
           </div>
-          <div className={controlClass}>
-            <div className="left"><p>{this.state.tempCourseId}</p></div>
-            <div className="right">
-              <div><p className="red">{this.state.error_message}</p></div>
-              <Link className="button" to="/" id="course_cancel">{I18n.t('application.cancel')}</Link>
-              <button onClick={this.saveCourse} className="dark button">{CourseUtils.i18n('creator.create_button', this.state.course_string_prefix)}</button>
-            </div>
-          </div>
-        </div>
-      </Modal>
-    </TransitionGroup>
+        </Modal>
+      </TransitionGroup>
     );
   }
 });

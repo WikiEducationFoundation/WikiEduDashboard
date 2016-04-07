@@ -5,7 +5,7 @@ Router            = ReactRouter.Router
 StudentList       = require './student_list.cjsx'
 UIActions         = require('../../actions/ui_actions.js').default
 ServerActions     = require('../../actions/server_actions.js').default
-CourseUtils       = require '../../utils/course_utils.coffee'
+CourseUtils       = require('../../utils/course_utils.js').default
 
 StudentsHandler = React.createClass(
   displayName: 'StudentsHandler'

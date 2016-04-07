@@ -8,7 +8,7 @@ Lookup        = require '../common/lookup.cjsx'
 ServerActions = require('../../actions/server_actions.js').default
 AssignmentActions = require('../../actions/assignment_actions.js').default
 AssignmentStore   = require '../../stores/assignment_store.coffee'
-CourseUtils       = require '../../utils/course_utils.coffee'
+CourseUtils       = require('../../utils/course_utils.js').default
 
 AssignButton = React.createClass(
   displayname: 'AssignButton'

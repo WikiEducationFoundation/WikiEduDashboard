@@ -5,7 +5,7 @@ List          = require '../common/list.cjsx'
 Upload        = require './upload.cjsx'
 UploadStore   = require '../../stores/upload_store.coffee'
 ServerActions = require('../../actions/server_actions.js').default
-CourseUtils   = require '../../utils/course_utils.coffee'
+CourseUtils   = require('../../utils/course_utils.js').default
 
 getState = ->
   uploads: UploadStore.getModels()

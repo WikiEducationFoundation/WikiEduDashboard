@@ -11,7 +11,7 @@ CourseActions = require('../../actions/course_actions.js').default
 TextInput     = require '../common/text_input.cjsx'
 TextAreaInput = require '../common/text_area_input.cjsx'
 Calendar      = require '../common/calendar.cjsx'
-CourseUtils   = require '../../utils/course_utils.coffee'
+CourseUtils   = require('../../utils/course_utils.js').default
 
 getState = ->
   error_message: ValidationStore.firstMessage()

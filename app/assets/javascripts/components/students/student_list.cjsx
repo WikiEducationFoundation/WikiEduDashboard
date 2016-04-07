@@ -10,7 +10,7 @@ UserStore         = require '../../stores/user_store.coffee'
 AssignmentStore   = require '../../stores/assignment_store.coffee'
 UIActions         = require('../../actions/ui_actions.js').default
 ServerActions     = require('../../actions/server_actions.js').default
-CourseUtils     = require '../../utils/course_utils.coffee'
+CourseUtils     = require('../../utils/course_utils.js').default
 
 getState = ->
   users: UserStore.getFiltered({ role: 0 })

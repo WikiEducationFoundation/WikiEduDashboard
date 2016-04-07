@@ -31,6 +31,20 @@ const CourseUtils = class {
       defaults: [{ scope: `${defaultPrefix}.${messageKey}` }]
     });
   }
+
+  formatArticleTitle(articleTitleInput) {
+    const articleTitle = articleTitleInput.trim();
+    if (!/http/.test(articleTitle)) {
+      return articleTitle.replace(/_/g, ' ');
+    }
+
+    const urlParts = /\/wiki\/(.*)/.exec(articleTitle);
+    if (urlParts.length > 1) {
+      return decodeURIComponent(urlParts[1]).replace(/_/g, ' ');
+    }
+
+    return null;
+  }
 };
 
 export default new CourseUtils();

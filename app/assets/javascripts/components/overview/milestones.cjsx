@@ -3,7 +3,7 @@ BlockStore     = require '../../stores/block_store.coffee'
 WeekStore      = require '../../stores/week_store.coffee'
 CourseStore    = require '../../stores/course_store.coffee'
 md             = require('../../utils/markdown_it.js').default()
-CourseUtils    = require '../../utils/course_utils.coffee'
+CourseUtils    = require('../../utils/course_utils.js').default
 
 getState = ->
   weeks: WeekStore.getWeeks()
