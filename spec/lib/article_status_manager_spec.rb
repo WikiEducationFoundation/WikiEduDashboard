@@ -98,16 +98,20 @@ describe ArticleStatusManager do
     it 'should update the article_id for revisions when article_id changes' do
       create(:article,
              id: 2262715,
+             mw_page_id: 2262715,
              title: 'Kostanay',
              namespace: 0)
       create(:revision,
-             id: 648515801,
-             article_id: 2262715)
+             article_id: 2262715,
+             mw_page_id: 2262715,
+             mw_rev_id: 648515801)
       described_class.update_article_status
 
       new_article = Article.find_by(title: 'Kostanay')
-      expect(new_article.id).to eq(46349871)
+      expect(new_article.mw_page_id).to eq(46349871)
       expect(new_article.revisions.count).to eq(1)
+      expect(Revision.find_by(mw_rev_id: 648515801).article_id).to eq(new_article.id)
+      expect(Revision.find_by(mw_rev_id: 648515801).mw_page_id).to eq(new_article.mw_page_id)
     end
 
     it 'does not delete articles by mistake if Replica is down' do

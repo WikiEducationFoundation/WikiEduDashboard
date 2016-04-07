@@ -165,10 +165,15 @@ class RevisionImporter
 
   def handle_moved_revision(moved)
     mw_page_id = moved['rev_page']
-    Revision.find_by(wiki_id: @wiki.id, mw_rev_id: moved['rev_id'])
-            .update(article_id: mw_page_id, mw_page_id: mw_page_id)
 
-    return if Article.exists?(wiki_id: @wiki.id, mw_page_id: mw_page_id)
-    ArticleImporter.new(@wiki).import_articles([mw_page_id])
+    unless Article.exists?(wiki_id: @wiki.id, mw_page_id: mw_page_id)
+      ArticleImporter.new(@wiki).import_articles([mw_page_id])
+    end
+
+    article = Article.find_by(wiki_id: @wiki.id, mw_page_id: mw_page_id)
+    article_id = article.try(:id)
+
+    Revision.find_by(wiki_id: @wiki.id, mw_rev_id: moved['rev_id'])
+            .update(article_id: article_id, mw_page_id: mw_page_id)
   end
 end
