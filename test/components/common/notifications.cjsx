@@ -38,8 +38,8 @@ describe 'Notifications', ->
     close = ReactTestUtils.findRenderedDOMComponentWithTag rendered, 'svg'
     Simulate.click(close)
 
-    setImmediate(() ->
+    setTimeout(() ->
       rows = ReactTestUtils.scryRenderedDOMComponentsWithClass rendered, 'notice'
       expect(rows.length).to.eq 0
       done()
-    )
+    , 100)
