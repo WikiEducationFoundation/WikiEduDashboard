@@ -7,6 +7,7 @@ import ReactDOM from 'react-dom';
 import ReactTestUtils, { Simulate } from 'react-addons-test-utils';
 import CourseCreator from '../../../app/assets/javascripts/components/course_creator/course_creator.jsx';
 import CourseActions from '../../../app/assets/javascripts/actions/course_actions.js';
+import ValidationActions from '../../../app/assets/javascripts/actions/validation_actions.js';
 
 describe('CourseCreator', () => {
   describe('render', () => {
@@ -48,16 +49,31 @@ describe('CourseCreator', () => {
         });
       });
     });
-    describe('term input', () => {
-      it('tells the actions to update the course', () => {
-        const updateCourse = sinon.spy(CourseActions, 'updateCourse');
-        TestCourseCreator.setState({ default_course_type: 'ClassroomProgramCourse' });
-        const inputs = ReactTestUtils.scryRenderedDOMComponentsWithTag(TestCourseCreator, 'input');
-        const input = _.find(inputs, (ipt) => ipt.getAttribute('id') === 'course_term');
-        const inputNode = ReactDOM.findDOMNode(input);
-        inputNode.value = 'foobar';
-        Simulate.change(inputNode);
-        expect(updateCourse).to.have.been.calledOnce;
+    describe('text inputs', () => {
+      TestCourseCreator.setState({ default_course_type: 'ClassroomProgramCourse' });
+      const updateCourse = sinon.spy(CourseActions, 'updateCourse');
+      const setValid = sinon.spy(ValidationActions, 'setValid');
+      const inputs = ReactTestUtils.scryRenderedDOMComponentsWithTag(TestCourseCreator, 'input');
+      describe('subject', () => {
+        it('updates courseActions', () => {
+          const input = _.find(inputs, (ipt) => ipt.getAttribute('id') === 'course_subject');
+          const inputNode = ReactDOM.findDOMNode(input);
+          inputNode.value = 'foobar';
+          Simulate.change(inputNode);
+          expect(updateCourse).to.have.been.called;
+          expect(setValid).not.to.have.been.called;
+        });
+      });
+      describe('term', () => {
+        it('updates courseActions and validationActions', () => {
+          TestCourseCreator.setState({ default_course_type: 'ClassroomProgramCourse' });
+          const input = _.find(inputs, (ipt) => ipt.getAttribute('id') === 'course_term');
+          const inputNode = ReactDOM.findDOMNode(input);
+          inputNode.value = 'foobar';
+          Simulate.change(inputNode);
+          expect(updateCourse).to.have.been.called;
+          expect(setValid).to.have.been.called;
+        });
       });
     });
   });
