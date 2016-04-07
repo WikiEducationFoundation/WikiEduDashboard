@@ -26,6 +26,8 @@ removeNotification = (notification) ->
 #----------------------------------------
 
 NotificationStore = Flux.createStore
+  clearNotifications: ->
+    _notifications.length = 0
   getNotifications: ->
     return _notifications
 , (payload) ->
