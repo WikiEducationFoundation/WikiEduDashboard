@@ -158,7 +158,7 @@ class RevisionImporter
       end
     end
 
-    AssignmentImporter.update_article_ids(articles)
+    AssignmentImporter.update_article_ids(articles, @wiki)
     DuplicateArticleDeleter.new(@wiki).resolve_duplicates(articles)
     Revision.import revisions
   end
