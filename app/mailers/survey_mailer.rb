@@ -1,6 +1,5 @@
 class SurveyMailer < ApplicationMailer
   def notification(notification)
-    
     @user = notification.user
     @survey = notification.survey
     @course = notification.course
