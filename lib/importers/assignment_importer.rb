@@ -6,7 +6,7 @@ class AssignmentImporter
     ActiveRecord::Base.transaction do
       Assignment.where(article_id: nil).each do |ass|
         title = ass.article_title.tr(' ', '_')
-        article = Article.where(namespace: 0, wiki_id: ass.wiki.id).find_by(title: title)
+        article = Article.where(namespace: 0, wiki_id: ass.wiki_id).find_by(title: title)
         ass.article_id = article.nil? ? nil : article.id
         ass.save
       end
