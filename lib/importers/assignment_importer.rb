@@ -4,11 +4,11 @@ class AssignmentImporter
   # same title exists in mainspace.
   def self.update_assignment_article_ids
     ActiveRecord::Base.transaction do
-      Assignment.where(article_id: nil).each do |ass|
-        title = ass.article_title.tr(' ', '_')
-        article = Article.where(namespace: 0, wiki_id: ass.wiki_id).find_by(title: title)
-        ass.article_id = article.nil? ? nil : article.id
-        ass.save
+      Assignment.where(article_id: nil).each do |assignment|
+        title = assignment.article_title.tr(' ', '_')
+        article = Article.where(namespace: 0, wiki_id: assignment.wiki_id).find_by(title: title)
+        assignment.article_id = article.nil? ? nil : article.id
+        assignment.save
       end
     end
   end
