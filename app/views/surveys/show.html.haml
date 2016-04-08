@@ -21,7 +21,7 @@
           %span Start
           %span.icon.icon-rt_arrow
 
-%div{data: {survey_form_container: true}}
+%div{data: {survey_form_container: true}, class: 'loading'}
   - @surveys_question_groups.each_with_index do |group, index|
     - if check_conditionals(group.question_group)
       = render partial: "question_group", locals: question_group_locals(group, index, @surveys_question_groups.length)

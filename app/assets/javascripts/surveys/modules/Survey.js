@@ -112,6 +112,7 @@ const Survey = {
       });
       this.groupSliders.push(slider);
     });
+    $(this.parentSlider).removeClass('loading');
   },
 
   prevQuestionGroup() {
@@ -249,7 +250,7 @@ const Survey = {
     const $errorsEl = $block.find('[data-errors]');
     const questionGroupIndex = this.currentQuestionGroupIndex();
 
-    if (($(e.target).closest('.button').data('no-validate') !== undefined)) {
+    if ($(e.target).closest('.button').data('no-validate') !== undefined) {
       this.nextBlock(e);
       return;
     }
@@ -592,7 +593,7 @@ const Survey = {
   },
 
   removeUnneededBlocks() {
-    $('[data-remove-me]').parents('.block').remove();
+    $('[data-remove-me]').parents('.block__container').remove();
   }
 };
 

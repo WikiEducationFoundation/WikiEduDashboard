@@ -13,6 +13,13 @@
   p
     line-height 1.35
 
+[data-survey-form-container]
+  opacity 1
+  transition opacity 300ms linear
+  &.loading
+    opacity 0
+
+
 [data-question-group="0"] .block__container:first-child .survey__block-nav .button:first-child
   visibility hidden
   pointer-events none
