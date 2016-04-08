@@ -42,19 +42,22 @@ describe ArticleStatusManager do
     it 'should delete articles when id changed but new one already exists' do
       create(:article,
              id: 100,
+             mw_page_id: 100,
              title: 'Audi',
              namespace: 0)
       create(:article,
              id: 848,
+             mw_page_id: 848,
              title: 'Audi',
              namespace: 0)
       described_class.update_article_status
-      expect(Article.find(100).deleted).to eq(true)
+      expect(Article.find_by(mw_page_id: 100).deleted).to eq(true)
     end
 
     it 'should update the namespace are moved articles' do
       create(:article,
              id: 848,
+             mw_page_id: 848,
              title: 'Audi',
              namespace: 2)
 

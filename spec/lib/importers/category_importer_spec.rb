@@ -55,6 +55,7 @@ describe CategoryImporter do
       # that we already have and ones we don't.
       create(:article,
              id: 10670306,
+             mw_page_id: 10670306,
              title: 'Michael_"Crocodile"_Dundee')
       VCR.use_cassette 'category_importer/import' do
         results = CategoryImporter.new(wiki, depth: 1)
