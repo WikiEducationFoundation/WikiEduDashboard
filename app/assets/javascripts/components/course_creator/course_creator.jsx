@@ -88,11 +88,11 @@ const CourseCreator = React.createClass({
     }
   },
 
-  updateCourse(valueKey, value) {
-    const toPass = $.extend(true, {}, this.state.course);
-    toPass[valueKey] = value;
-    CourseActions.updateCourse(toPass);
-    if (_.includes(['title', 'school', 'term'], valueKey)) {
+  updateCourse(key, value) {
+    const courseAttrs = $.extend(true, {}, this.state.course);
+    courseAttrs[key] = value;
+    CourseActions.updateCourse(courseAttrs);
+    if (_.includes(['title', 'school', 'term'], key)) {
       return ValidationActions.setValid('exists');
     }
   },
@@ -113,22 +113,20 @@ const CourseCreator = React.createClass({
   },
 
   render() {
-    const formStyle = {};
-    if (this.state.isSubmitting === true) { formStyle.opacity = 0.5; }
-    if (this.state.isSubmitting === true) { formStyle.pointerEvents = 'none'; }
+    let formStyle;
+    if (this.state.isSubmitting === true) {
+      formStyle = { pointerEvents: 'none', opacity: 0.5 };
+    }
 
     let formClass = 'wizard__form';
 
     formClass += ((this.state.shouldShowForm === true || this.state.user_courses.length === 0) ? '' : ' hidden');
 
     const cloneOptions = formClass.match(/hidden/) && !this.state.showCourseDropdown ? '' : ' hidden';
-
-    let controlClass = 'wizard__panel__controls';
-    controlClass += ` ${formClass}`;
-
+    const controlClass = `wizard__panel__controls ${formClass}`;
     const selectClass = this.state.showCourseDropdown === true ? '' : ' hidden';
-
     const options = this.state.user_courses.map((course, i) => <option key={i} data-id-key={course.id}>{course.title}</option>);
+    const selectClassName = `select-container ${selectClass}`;
 
     let term;
     let subject;
@@ -187,7 +185,7 @@ const CourseCreator = React.createClass({
               <button className="button dark" onClick={this.showForm}>{CourseUtils.i18n('creator.create_label', this.state.course_string_prefix)}</button>
               <button className="button dark" onClick={this.showCourseDropdown}>Clone Previous Course</button>
             </div>
-            <div className={selectClass}>
+            <div className={selectClassName}>
               <select id="reuse-existing-course-select" ref="courseSelect">{options}</select>
               <button className="button dark" onClick={this.useThisClass}>Clone This Course</button>
             </div>
@@ -264,7 +262,7 @@ const CourseCreator = React.createClass({
               <div className="right">
                 <div><p className="red">{this.state.error_message}</p></div>
                 <Link className="button" to="/" id="course_cancel">{I18n.t('application.cancel')}</Link>
-                <button onClick={this.saveCourse} className="dark button">{CourseUtils.i18n('creator.create_button', this.state.course_string_prefix)}</button>
+                <button onClick={this.saveCourse} className="dark button button__submit">{CourseUtils.i18n('creator.create_button', this.state.course_string_prefix)}</button>
               </div>
             </div>
           </div>

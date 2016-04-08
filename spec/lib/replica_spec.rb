@@ -6,9 +6,9 @@ describe Replica do
     it 'returns revisions from this term' do
       VCR.use_cassette 'replica/revisions' do
         all_users = [
-          build(:user, username: 'ELE427', id: 22905965),
-          build(:user, username: 'Ragesoss', id: 319203),
-          build(:user, username: 'Mrbauer1234', id: 23011474)
+          build(:user, username: 'ELE427'),
+          build(:user, username: 'Ragesoss'),
+          build(:user, username: 'Mrbauer1234')
         ]
         rev_start = 2014_01_01_003430
         rev_end = 2014_12_31_003430
@@ -137,9 +137,9 @@ describe Replica do
 
   describe 'error handling' do
     let(:all_users) do
-      [ build(:user, username: 'ELE427', id: 22905965),
-        build(:user, username: 'Ragesoss', id: 319203),
-        build(:user, username: 'Mrbauer1234', id: 23011474) ]
+      [build(:user, username: 'ELE427'),
+       build(:user, username: 'Ragesoss'),
+       build(:user, username: 'Mrbauer1234')]
     end
 
     it 'handles timeout errors' do

@@ -3,15 +3,10 @@ import jsxCoverage from 'gulp-jsx-coverage';
 
 gulp.task('js_coverage', jsxCoverage.createTask({
   src: [
-    'test/components/**/*.cjsx',
-    'test/main/**/*.coffee',
-    'test/utils/**/*.coffee',
-    'test/components/**/*.js',
-    'test/main/**/*.js',
-    'test/utils/**/*.js',
-    'test/components/**/*.jsx',
-    'test/main/**/*.jsx',
-    'test/utils/**/*.jsx',
+    'test/*.spec.js',
+    'test/**/*.spec.js',
+    'test/**/*.spec.jsx',
+    'test/**/*.spec.coffee',
 
     'app/assets/javascripts/*.coffee',
     'app/assets/javascripts/utils/*.coffee',

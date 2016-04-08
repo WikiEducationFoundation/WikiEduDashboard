@@ -26,5 +26,8 @@ FactoryGirl.define do
   factory :revision do
     date '2014-12-17'
     characters 1
+    wiki_id 1
+    sequence(:mw_rev_id)
+    sequence(:mw_page_id)
   end
 end

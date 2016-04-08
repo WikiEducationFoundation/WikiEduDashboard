@@ -7,14 +7,14 @@ describe PlagiabotImporter do
       # This is a revision in the plagiabot database, although the date is not
       # 1.day.ago
       create(:revision,
-             id: 678763820,
+             mw_rev_id: 678763820,
              article_id: 123321,
              date: 1.day.ago)
       create(:article,
              id: 123321,
              namespace: 0)
       PlagiabotImporter.check_recent_revisions
-      rev = Revision.find(678763820)
+      rev = Revision.find_by(mw_rev_id: 678763820)
       expect(rev.ithenticate_id).to eq(19201081)
 
       url_match = rev.report_url.include?('https://api.ithenticate.com/')
@@ -37,14 +37,14 @@ describe PlagiabotImporter do
                        .api_get('suspected_diffs')[0]['diff'].to_i
       expect(suspected_diff.class).to eq(Fixnum)
       create(:revision,
-             id: suspected_diff,
+             mw_rev_id: suspected_diff,
              article_id: 1123322,
              date: 1.day.ago)
       create(:article,
              id: 123332,
              namespace: 0)
       PlagiabotImporter.find_recent_plagiarism
-      expect(Revision.find(suspected_diff).ithenticate_id).not_to be_nil
+      expect(Revision.find_by(mw_rev_id: suspected_diff).ithenticate_id).not_to be_nil
     end
   end
 

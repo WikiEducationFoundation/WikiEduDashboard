@@ -53,6 +53,7 @@ class RevisionDataParser
     revision_data['article_id'] = revision['page_id']
     revision_data['mw_page_id'] = revision['page_id']
     revision_data['user_id'] = revision['rev_user']
+    revision_data['username'] = revision['rev_user_text']
     revision_data['new_article'] = revision['new_article']
     revision_data['system'] = revision['system']
     revision_data['wiki_id'] = @wiki.id

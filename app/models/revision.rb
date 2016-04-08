@@ -62,7 +62,7 @@ class Revision < ActiveRecord::Base
     self.wiki_id ||= Wiki.default_wiki.id
     # FIXME: until all the import and update routines are configured to use
     # mw_rev_id and mw_page_id where appropriate, these should be kept in sync.
-    self.mw_rev_id = id
+    self.mw_rev_id ||= id
     self.mw_page_id = article_id
   end
 end

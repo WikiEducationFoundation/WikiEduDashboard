@@ -6,19 +6,19 @@ describe RevisionsCleaner do
     it 'should import articles for orphaned revisions' do
       # We start with revision and article
       create(:revision,
-             id: 661324615,
+             mw_rev_id: 661324615,
              article_id: 46640378,
-             user_id: 24593901,
+             user_id: 25,
              date: '2015-05-07 23:22:33')
       create(:article,
              id: 46640378,
              namespace: 0)
       create(:user,
-             id: 24593901,
+             id: 25,
              username: 'Rothscak')
       create(:courses_user,
              course_id: 1,
-             user_id: 24593901)
+             user_id: 25)
       create(:course,
              id: 1,
              start: '2015-01-01',

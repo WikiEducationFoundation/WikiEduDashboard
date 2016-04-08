@@ -131,25 +131,33 @@ class RevisionImporter
       a['revisions'].map { |r| r['id'] }
     end
     rev_ids = rev_ids.flatten
-    Revision.where(id: rev_ids)
+    Revision.where(wiki_id: @wiki.id, mw_rev_id: rev_ids)
   end
 
   def import_revisions_slice(sub_data)
     articles, revisions = [], []
 
     sub_data.each do |_a_id, a|
-      article = Article.new(id: a['article']['id'])
+      article = Article.find_by(mw_page_id: a['article']['id'], wiki_id: @wiki.id)
+      article ||= Article.new(mw_page_id: a['article']['id'], wiki_id: @wiki.id)
       article.update(a['article'], false)
-      articles.push article
+      article.save
 
       a['revisions'].each do |r|
-        revision = Revision.new(id: r['id'])
-        revision.update(r, false)
+        revision = Revision.new(id: r['id'], # TODO: remove id when it gets decoupled from mw_rev_id
+                                mw_rev_id: r['mw_rev_id'],
+                                date: r['date'],
+                                characters: r['characters'],
+                                article_id: article.id,
+                                mw_page_id: r['mw_page_id'],
+                                user_id: User.find_by(username: r['username']).try(:id),
+                                new_article: r['new_article'],
+                                system: r['system'],
+                                wiki_id: r['wiki_id'])
         revisions.push revision
       end
     end
 
-    Article.import articles
     AssignmentImporter.update_article_ids(articles)
     DuplicateArticleDeleter.new(@wiki).resolve_duplicates(articles)
     Revision.import revisions
@@ -157,10 +165,15 @@ class RevisionImporter
 
   def handle_moved_revision(moved)
     mw_page_id = moved['rev_page']
-    Revision.find_by(wiki_id: @wiki.id, mw_rev_id: moved['rev_id'])
-            .update(article_id: mw_page_id, mw_page_id: mw_page_id)
 
-    return if Article.exists?(wiki_id: @wiki.id, mw_page_id: mw_page_id)
-    ArticleImporter.new(@wiki).import_articles([mw_page_id])
+    unless Article.exists?(wiki_id: @wiki.id, mw_page_id: mw_page_id)
+      ArticleImporter.new(@wiki).import_articles([mw_page_id])
+    end
+
+    article = Article.find_by(wiki_id: @wiki.id, mw_page_id: mw_page_id)
+    article_id = article.try(:id)
+
+    Revision.find_by(wiki_id: @wiki.id, mw_rev_id: moved['rev_id'])
+            .update(article_id: article_id, mw_page_id: mw_page_id)
   end
 end

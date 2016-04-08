@@ -33,16 +33,17 @@ describe UserImporter do
       VCR.use_cassette 'user/new_from_username' do
         username = 'Ragesoss'
         user = UserImporter.new_from_username(username)
-        expect(user.id).to eq(319203)
+        expect(user).to be_a(User)
+        expect(user.username).to eq(username)
       end
     end
 
     it 'should return an existing user' do
       VCR.use_cassette 'user/new_from_username' do
-        create(:user, id: 319203, username: 'Ragesoss')
+        create(:user, id: 500, username: 'Ragesoss')
         username = 'Ragesoss'
         user = UserImporter.new_from_username(username)
-        expect(user.id).to eq(319203)
+        expect(user.id).to eq(500)
       end
     end
 
