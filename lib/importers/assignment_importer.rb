@@ -13,13 +13,14 @@ class AssignmentImporter
     end
   end
 
-  def self.update_article_ids(raw_articles)
+  def self.update_article_ids(raw_articles, wiki)
     articles = Article
                .where(title: raw_articles.map(&:title))
-               .where(namespace: 0)
+               .where(namespace: 0, wiki_id: wiki.id)
     Assignment.where(
       article_title: articles.pluck(:title),
-      article_id: nil
+      article_id: nil,
+      wiki_id: wiki.id
     ).each do |assignment|
       article = articles.find_by(title: assignment.article_title)
       assignment.update(article_id: article.id)
