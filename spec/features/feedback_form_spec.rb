@@ -14,7 +14,7 @@ describe 'feedback form' do
       login_as user
       visit slide_with_feedback_link
       click_link feedback_link_text
-      within_window(page.driver.window_handles.last) do
+      within_window(page.windows.last) do
         fill_in 'feedback_form_response_body', with: body
         click_button 'Submit'
         expect(page).to have_content 'Thank you.'
@@ -28,7 +28,7 @@ describe 'feedback form' do
     it 'submits successfully for a logged out user' do
       visit slide_with_feedback_link
       click_link feedback_link_text
-      within_window(page.driver.window_handles.last) do
+      within_window(page.windows.last) do
         fill_in 'feedback_form_response_body', with: body
         click_button 'Submit'
         expect(page).to have_content 'Thank you.'
