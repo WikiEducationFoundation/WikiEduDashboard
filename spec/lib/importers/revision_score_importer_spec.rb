@@ -9,10 +9,12 @@ describe RevisionScoreImporter do
            namespace: 0)
     create(:revision,
            mw_rev_id: 675892696, # latest revision as of 2015-08-19
-           article_id: 45010238)
+           article_id: 45010238,
+           mw_page_id: 45010238)
     create(:revision,
            mw_rev_id: 641962088, # first revision, barely a stub
-           article_id: 45010238)
+           article_id: 45010238,
+           mw_page_id: 45010238)
 
     create(:article,
            id: 1538038,
@@ -20,10 +22,12 @@ describe RevisionScoreImporter do
            namespace: 0)
     create(:revision,
            mw_rev_id: 662106477, # revision from 2015-05-13
-           article_id: 1538038)
+           article_id: 1538038,
+           mw_page_id: 1538038)
     create(:revision,
            mw_rev_id: 46745264, # revision from 2006-04-03
-           article_id: 1538038)
+           article_id: 1538038,
+           mw_page_id: 1538038)
   end
 
   it 'should save wp10 scores for revisions' do
