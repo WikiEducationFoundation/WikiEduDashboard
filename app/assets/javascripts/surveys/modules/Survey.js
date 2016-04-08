@@ -434,7 +434,7 @@ const Survey = {
       ['<='](a, b) { return a <= b; }
     };
 
-    const $parent = $(`#question_${id}`);
+    const $parent = $(`#question_${id}`).parent('.block__container');
     const conditionalGroup = this.surveyConditionals[id];
     const $questionBlock = $(conditionalGroup[value]);
 
@@ -443,7 +443,7 @@ const Survey = {
       $parent.find('.survey__next.hidden').removeClass('hidden');
       if (validateExpression[operator](parseInt(target.value), parseInt(value))) {
         this.resetConditionalGroupChildren(conditionalGroup);
-        this.activateConditionalQuestion($questionBlock);
+        this.activateConditionalQuestion($questionBlock, $parent);
       } else {
         this.resetConditionalQuestion($questionBlock);
       }
