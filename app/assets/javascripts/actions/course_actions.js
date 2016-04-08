@@ -85,6 +85,22 @@ const CourseActions = Flux.createActions({
           data: resp
         };
       });
+  },
+
+  dismissNotification(id) {
+    return API.dismissNotification(id)
+      .then(() => {
+        return {
+          actionType: 'DISMISS_SURVEY_NOTIFICATION',
+          data: { id }
+        };
+      })
+      .catch(resp => {
+        return {
+          actionType: 'API_FAIL',
+          data: resp
+        };
+      });
   }
 });
 
