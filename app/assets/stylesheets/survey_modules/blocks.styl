@@ -2,35 +2,47 @@
   font-family $header-font
 
 .survey__block-nav
-  align-items flex-end
+  display flex
+  justify-content space-between
   overflow hidden
   padding-top $spacer
+
+  .button
+    float none
 
 .block .survey__block-nav.submit
   text-align center
   .button
     float none
-    
 
-.survey-page .block
-  position relative
-  z-index 10
-  transition 300ms opacity easeOutExpo
-  max-width $survey_max_width
-  margin 40px auto
-  
-  +above(tablet)
-    font-size 19px
-    line-height 24px
-  
-  &.survey__form
+// .block--thank-you
+//   visibility hidden
+//   display none
+
+
+.survey-page
+  .block
+    position relative
+    z-index 10
+    transition 300ms opacity easeOutExpo
+    max-width $survey_max_width
+    margin 40px auto
+
+    +above(tablet)
+      font-size 19px
+      line-height 24px
+
+  .block.survey__form
     margin-top 2em
-  
-  & > label
+
+  .block > label
     display block
     margin-bottom $spacer
     font-weight bold
-  
-  &--clear
+
+  .block--clear
     overflow hidden
-  
+
+  .block.highlight
+    textarea, .chosen-single
+      border-color $warning_text
