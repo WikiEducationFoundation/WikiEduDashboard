@@ -8,8 +8,7 @@ require('core-js/modules/es6.array.is-array');
 const rangeslider = require('nouislider');
 require('wnumb');
 const wNumb = window.wNumb;
-const throttle = require('lodash.throttle');
-
+require('slick-carousel');
 
 
 //--------------------------------------------------------
@@ -23,8 +22,8 @@ const Utils = require('./SurveyUtils.coffee');
 //--------------------------------------------------------
 
 // Scroll Animation
-const scrollDuration = 500;
-const scrollEasing = [0.19, 1, 0.22, 1];
+// const scrollDuration = 500;
+// const scrollEasing = [0.19, 1, 0.22, 1];
 
 
 const chosenOptions = {
@@ -32,6 +31,13 @@ const chosenOptions = {
   width: '75%'
 };
 
+const slickOptions = {
+  infinite: false,
+  arrows: false,
+  draggable: false,
+  touchMove: false,
+  cssEase: 'cubic-bezier(1, 0, 0, 1)',
+};
 
 //--------------------------------------------------------
 // Survey Module
@@ -45,73 +51,100 @@ const Survey = {
   previewMode: false,
 
   init() {
-    this.$window = $(window);
-    scroll(0, 0);
-    this.$surveyForm = $('[data-survey-form]');
-    this.surveyBlocks = $('[data-survey-block]');
-    this.$intro = $('[data-intro]');
-    this.$thankYou = $('[data-thank-you]');
-    this.setFormValidationSections();
-    this.surveyProgress = $('[data-survey-progress]');
+    this.cacheSelectors();
     this.getUrlParam();
     this.removeUnneededBlocks();
     this.initConditionals();
     this.listeners();
     this.initBlocks();
     this.initRangeSliders();
+    this.setFormValidationSections();
+  },
+
+  cacheSelectors() {
+    this.$window = $(window);
+    this.$surveyForm = $('[data-survey-form]');
+    this.surveyBlocks = $('[data-survey-block]');
+    this.$intro = $('[data-intro]');
+    this.$thankYou = $('[data-thank-you]');
+    this.surveyProgress = $('[data-survey-progress]');
+    this.$main = $('#main');
   },
 
   listeners() {
     $('[data-next-survey]').on('click', this.nextSurvey.bind(this));
-    $('[data-next-survey-block]').on('click', this.validateCurrentQuestion.bind(this));
+    this.$main.on('click', '[data-next-survey-block]', this.validateCurrentQuestion.bind(this));
+    this.$main.on('click', '[data-prev-survey-block]', this.previousBlock.bind(this));
+    $('[data-submit-survey]').on('click', this.submitAllQuestionGroups.bind(this));
     $('[data-chosen-select]').chosen(chosenOptions);
-    this.$window.scroll(throttle(this.handleScroll.bind(this), 250));
-  },
-
-  handleScroll() {
-    if (this.animating) { return; }
-    const distanceToTop = this.$window.scrollTop();
-    const windowHeight = this.$window.innerHeight();
-    const threshold = (distanceToTop + windowHeight) - (windowHeight * 0.5);
-
-    return this.surveyBlocks.each((i, block) => {
-      const $block = $(block);
-      if ($block.hasClass('not-seen')) { return; }
-      const blockOffset = $block.offset().top;
-      if (blockOffset > distanceToTop && blockOffset < threshold) {
-        $block.removeClass('disabled');
-      } else {
-        $block.addClass('disabled');
-      }
-    });
   },
 
   initBlocks() {
     this.indexBlocks();
+    this.initSlider();
     window.scrollTo(0, 0);
     $(this.surveyBlocks[this.currentBlock]).removeClass('disabled not-seen');
   },
 
   indexBlocks(cb = null) {
-    $('.block[data-survey-block].hidden').removeAttr('data-survey-block');
-    const $surveyBlocks = $('.block[data-survey-block]:not(.hidden)');
-    $surveyBlocks.each((i, block) => {
-      const $block = $(block);
-      $block.attr('data-survey-block', i);
-    });
+    // $('.block[data-survey-block].hidden').removeAttr('data-survey-block');
+    // const $surveyBlocks = $('.block[data-survey-block]:not(.hidden)');
+    // $surveyBlocks.each((i, block) => {
+    //   const $block = $(block);
+    //   $block.attr('data-survey-block', i);
+    // });
+    //
+    // this.$questionBlocks = $surveyBlocks;
 
     if (cb) { return cb(); }
   },
 
+  initSlider() {
+    this.parentSlider = $('[data-survey-form-container]').slick(slickOptions);
+    $(this.parentSlider).on('afterChange', (e, slick, currentSlide) => {
+      this.currentBlock = currentSlide;
+    });
+    this.groupSliders = [];
+    $('[data-question-group-blocks]').each((i, questionGroup) => {
+      const slider = $(questionGroup).slick(slickOptions);
+      $(slider).on('afterChange', (e, slick, currentSlide) => {
+        this.currentBlock = currentSlide;
+      });
+      this.groupSliders.push(slider);
+    });
+  },
+
+  prevQuestionGroup() {
+    $(this.parentSlider).slick('slickPrev');
+  },
+
+  nextQuestionGroup() {
+    $(this.parentSlider).slick('slickNext');
+  },
+
+  nextBlock() {
+    const $slider = $(this.$currentSlider);
+    const $slick = $slider.slick('getSlick');
+    if (($slick.currentSlide + 1) === $slick.slideCount) {
+      this.nextQuestionGroup();
+    } else {
+      $slider.slick('slickNext');
+    }
+  },
+
+  previousBlock(e) {
+    e.preventDefault();
+    const $slider = $(this.$currentSlider);
+    const $slick = $slider.slick('getSlick');
+    if (($slick.currentSlide - 1) === -1) {
+      this.prevQuestionGroup();
+    } else {
+      $slider.slick('slickPrev');
+    }
+  },
+
   nextSurvey(e) {
     e.preventDefault();
-    if ($(e.target).data('next-survey')) { // Last Survey
-      this.submitAllQuestionGroups();
-      this.showThankYou();
-    } else {
-      $(e.target).parents('.block').addClass('hidden');
-      this.nextBlock();
-    }
   },
 
   submitAllQuestionGroups() {
@@ -206,68 +239,13 @@ const Survey = {
   },
 
   updateCurrentBlock() {
-    const $block = $(`[data-survey-block='${this.currentBlock}']`);
-    if (this.animating) { return; }
-    $($block).velocity('scroll', {
-      duration: scrollDuration,
-      easing: scrollEasing,
-      offset: -200,
-      begin: () => {
-        return $(this.surveyBlocks[this.currentBlock]).removeClass('highlight').attr('style', '');
-      },
-      complete: () => {
-        this.animating = false;
-        return this.focusField();
-      }
-    });
-    if ($block.hasClass('not-seen')) {
-      $block.velocity({
-        opacity: [1, 0],
-        translateY: ['0%', '100%']
-      }, {
-        queue: false,
-        complete() {
-          $block.removeClass('not-seen disabled');
-        }
-      });
-    }
-  },
 
-  nextBlock() {
-    const toIndex = this.currentBlock + 1;
-    const $block = $(`[data-survey-block='${toIndex}']`);
-    if (this.animating) { return; }
-    $($block).velocity('scroll', {
-      duration: scrollDuration,
-      easing: scrollEasing,
-      offset: -200,
-      begin: () => {
-        $(this.surveyBlocks[this.currentBlock]).removeClass('highlight').attr('style', '');
-        this.updateProgress(toIndex);
-      },
-      complete: () => {
-        this.animating = false;
-        this.currentBlock = toIndex;
-        return this.focusField();
-      }
-    });
-    if ($block.hasClass('not-seen')) {
-      $block.velocity({
-        opacity: [1, 0],
-        translateY: ['0%', '100%']
-      }, {
-        queue: false,
-        complete() {
-          return $block.removeClass('not-seen');
-        }
-      });
-    }
   },
-
   validateCurrentQuestion(e) {
     e.preventDefault();
-    let $form = this.$surveyForm;
     const $block = $(this.surveyBlocks[this.currentBlock]);
+    let $form = $block.parents('[data-survey-form]');
+    this.$currentSlider = $form.find('[data-question-group-blocks]');
     const $errorsEl = $block.find('[data-errors]');
     const questionGroupIndex = this.currentQuestionGroupIndex();
 
@@ -289,8 +267,8 @@ const Survey = {
     }
 
     if (validation === true) {
+      $block.removeClass('highlight');
       $errorsEl.empty();
-      this.removeNextButton(e);
       this.nextBlock(e);
     } else {
       this.handleRequiredQuestion();
@@ -376,35 +354,35 @@ const Survey = {
   },
 
   showThankYou() {
-    this.$surveyForm.addClass('hidden');
-    this.$intro.addClass('hidden');
-    this.$thankYou.velocity('scroll', {
-      duration: scrollDuration,
-      easing: scrollEasing,
-      offset: -200,
-      complete: () => {
-        return this.animating = false;
-      }
-    });
-
-    this.$thankYou.velocity({
-      opacity: [1, 0],
-      translateY: ['0%', '20%']
-    }, {
-      queue: false
-    });
+    // this.$surveyForm.addClass('hidden');
+    // this.$intro.addClass('hidden');
+    // this.$thankYou.velocity('scroll', {
+    //   duration: scrollDuration,
+    //   easing: scrollEasing,
+    //   offset: -200,
+    //   complete: () => {
+    //     return this.animating = false;
+    //   }
+    // });
+    //
+    // this.$thankYou.velocity({
+    //   opacity: [1, 0],
+    //   translateY: ['0%', '20%']
+    // }, {
+    //   queue: false
+    // });
   },
 
   initConditionals() {
     $('[data-conditional-question]').each((i, question) => {
       const $conditionalQuestion = $(question);
-      let $question = $($(question).parents('.block'));
+      let $question = $($(question).parents('.block__container'));
       const { question_id, operator, value, multi } = Utils.parseConditionalString($conditionalQuestion.data('conditional-question'));
       if (this.isMatrixBlock($question)) {
         $question = $conditionalQuestion;
       }
 
-      $question.addClass('hidden');
+      $question.detach();
 
       if (typeof this.surveyConditionals[question_id] !== 'undefined') {
         this.surveyConditionals[question_id].children.push($question[0]);
@@ -412,6 +390,8 @@ const Survey = {
         this.surveyConditionals[question_id] = {};
         this.surveyConditionals[question_id].children = [$question[0]];
       }
+
+      $question.remove();
 
       if ((typeof value !== 'undefined' && value !== null)) { this.surveyConditionals[question_id][value] = $question; }
       this.surveyConditionals[question_id].currentAnswers = [];
@@ -431,7 +411,7 @@ const Survey = {
     // @surveyConditionals[id].operator = operator
     $(`#question_${id} input, #question_${id} select`).on('change', ({ target }) => {
       let value = $(target).val();
-      const $parent = $(`#question_${id}`);
+      const $parent = $(`#question_${id}`).parent('.block__container');
       const $checkedInputs = $parent.find('input:checked');
       if (multi && $checkedInputs.length) {
         value = [];
@@ -469,7 +449,6 @@ const Survey = {
       }
 
       this.indexBlocks();
-      this.setToCurrentBlock($parent);
     });
   },
 
@@ -518,11 +497,10 @@ const Survey = {
     this.resetConditionalGroupChildren(conditionalGroup);
 
     if ((typeof conditional !== 'undefined' && conditional !== null)) {
-      this.activateConditionalQuestion($(conditional));
+      this.activateConditionalQuestion($(conditional), $parent);
     }
 
     this.indexBlocks();
-    this.setToCurrentBlock($parent);
 
     $parent.find('.survey__next.hidden').removeClass('hidden');
   },
@@ -534,7 +512,7 @@ const Survey = {
       this.handleParentPresenceConditionalChange({
         present: target.value.length,
         conditionalGroup: this.surveyConditionals[id],
-        $parent: $(`#question_${id}`)
+        $parent: $(`#question_${id}`).parents('.block__container')
       });
     });
   },
@@ -542,21 +520,14 @@ const Survey = {
   handleParentPresenceConditionalChange(params) {
     const { present, conditionalGroup, $parent } = params;
     const $question = $(conditionalGroup.question);
-    this.setToCurrentBlock($parent);
 
     if (present && !conditionalGroup.present) {
       conditionalGroup.present = true;
-      this.activateConditionalQuestion($question);
+      this.activateConditionalQuestion($question, $parent);
     } else if (!present && conditionalGroup.present) {
       conditionalGroup.present = false;
       this.resetConditionalQuestion($question);
     }
-
-    $parent.find('.survey__next.hidden').removeClass('hidden');
-
-    this.indexBlocks();
-    this.setToCurrentBlock($parent);
-    this.updateCurrentBlock();
   },
 
   resetConditionalGroupChildren(conditionalGroup) {
@@ -601,15 +572,15 @@ const Survey = {
     $question.find('.survey__next.hidden').removeClass('hidden');
   },
 
-  activateConditionalQuestion($question) {
+  activateConditionalQuestion($question, $parent) {
     $question.removeClass('hidden');
+    const parentIndex = $parent.data('slick-index');
+    const questionGroupIndex = $parent.parents('[data-question-group-blocks]').data('question-group-blocks');
+    const $slider = this.groupSliders[questionGroupIndex];
+    $slider.slick('slickAdd', $question, parentIndex);
     if ($question.hasClass('block')) {
       $question.attr('data-survey-block', '');
     }
-  },
-
-  setToCurrentBlock($block) {
-    this.currentBlock = $block.data('survey-block');
   },
 
   isMatrixBlock($block) {
