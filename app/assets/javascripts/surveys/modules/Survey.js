@@ -125,7 +125,7 @@ const Survey = {
   nextBlock() {
     const $slider = $(this.$currentSlider);
     const $slick = $slider.slick('getSlick');
-    if (($slick.currentSlide + 1) === $slick.slideCount) {
+    if ($slick.currentSlide === undefined || ($slick.currentSlide + 1) === $slick.slideCount) {
       this.nextQuestionGroup();
     } else {
       $slider.slick('slickNext');
@@ -249,12 +249,13 @@ const Survey = {
     const $errorsEl = $block.find('[data-errors]');
     const questionGroupIndex = this.currentQuestionGroupIndex();
 
-    let validation = $form.parsley({ uiEnabled: false }).validate({ group: `${$block.data('parsley-group')}` });
-
     if (($(e.target).closest('.button').data('no-validate') !== undefined)) {
       this.nextBlock(e);
       return;
     }
+
+    let validation = $form.parsley({ uiEnabled: false }).validate({ group: `${$block.data('parsley-group')}` });
+
 
     if ((typeof questionGroupIndex !== 'undefined' && questionGroupIndex !== null)) {
       $form = $(this.$surveyForm[questionGroupIndex]);
@@ -378,11 +379,12 @@ const Survey = {
       const $conditionalQuestion = $(question);
       let $question = $($(question).parents('.block__container'));
       const { question_id, operator, value, multi } = Utils.parseConditionalString($conditionalQuestion.data('conditional-question'));
-      if (this.isMatrixBlock($question)) {
+      if ($question.find('.survey__question--matrix ').length) {
         $question = $conditionalQuestion;
+        $question.addClass('hidden');
+      } else {
+        $question.detach();
       }
-
-      $question.detach();
 
       if (typeof this.surveyConditionals[question_id] !== 'undefined') {
         this.surveyConditionals[question_id].children.push($question[0]);
@@ -390,8 +392,6 @@ const Survey = {
         this.surveyConditionals[question_id] = {};
         this.surveyConditionals[question_id].children = [$question[0]];
       }
-
-      $question.remove();
 
       if ((typeof value !== 'undefined' && value !== null)) { this.surveyConditionals[question_id][value] = $question; }
       this.surveyConditionals[question_id].currentAnswers = [];
@@ -496,13 +496,13 @@ const Survey = {
 
     this.resetConditionalGroupChildren(conditionalGroup);
 
-    if ((typeof conditional !== 'undefined' && conditional !== null)) {
+    if (typeof conditional !== 'undefined' && conditional !== null) {
       this.activateConditionalQuestion($(conditional), $parent);
     }
 
-    this.indexBlocks();
+    // this.indexBlocks();
 
-    $parent.find('.survey__next.hidden').removeClass('hidden');
+    // $parent.find('.survey__next.hidden').removeClass('hidden');
   },
 
   conditionalPresenceListeners(id, question) {
@@ -538,9 +538,10 @@ const Survey = {
       currentAnswers.map((a) => { return excludeFromReset.push(a); });
       children.forEach((question) => {
         let string;
-        if ($(question).hasClass('survey__question-row')) {
-          this.activateConditionalQuestion($(question).parents('.block'));
-        }
+        // if ($(question).hasClass('survey__question-row')) {
+        //   console.log('resetConditionalGroupChildren');
+        //   this.activateConditionalQuestion($(question).parents('.block'), $(question).parents('.block__container'));
+        // }
         if ($(question).data('conditional-question')) {
           string = $(question).data('conditional-question');
         } else {
@@ -574,10 +575,13 @@ const Survey = {
 
   activateConditionalQuestion($question, $parent) {
     $question.removeClass('hidden');
-    const parentIndex = $parent.data('slick-index');
-    const questionGroupIndex = $parent.parents('[data-question-group-blocks]').data('question-group-blocks');
-    const $slider = this.groupSliders[questionGroupIndex];
-    $slider.slick('slickAdd', $question, parentIndex);
+    if ($parent.next('.block__container').find('.block.survey__question--matrix').length === 0) {
+      const parentIndex = $parent.data('slick-index');
+      const questionGroupIndex = $parent.parents('[data-question-group-blocks]').data('question-group-blocks');
+      const $slider = this.groupSliders[questionGroupIndex];
+      $slider.slick('slickAdd', $question, parentIndex);
+    }
+
     if ($question.hasClass('block')) {
       $question.attr('data-survey-block', '');
     }
