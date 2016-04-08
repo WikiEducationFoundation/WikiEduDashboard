@@ -140,8 +140,8 @@ class RevisionImporter
     sub_data.each do |_a_id, a|
       article = Article.find_by(mw_page_id: a['article']['id'], wiki_id: @wiki.id)
       article ||= Article.new(mw_page_id: a['article']['id'], wiki_id: @wiki.id)
-      article.update(a['article'], false)
-      article.save
+      article.update!(a['article'])
+      articles.push article
 
       a['revisions'].each do |r|
         revision = Revision.new(id: r['id'], # TODO: remove id when it gets decoupled from mw_rev_id
