@@ -5,6 +5,7 @@ describe RevisionScoreImporter do
   before do
     create(:article,
            id: 45010238,
+           mw_page_id: 45010238,
            title: 'Manspreading',
            namespace: 0)
     create(:revision,
@@ -18,6 +19,7 @@ describe RevisionScoreImporter do
 
     create(:article,
            id: 1538038,
+           mw_page_id: 1538038,
            title: 'Performativity',
            namespace: 0)
     create(:revision,
@@ -74,6 +76,7 @@ describe RevisionScoreImporter do
     VCR.use_cassette 'revision_scores/array_bug' do
       create(:article,
              id: 1,
+             mw_page_id: 1,
              title: 'Foo',
              namespace: 2)
       create(:revision,
