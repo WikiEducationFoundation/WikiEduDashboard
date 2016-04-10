@@ -18,14 +18,18 @@ class FromYaml
     self.path_to_yaml = args[:path_to_yaml]
 
     Dir.glob(path_to_yaml) do |yaml_file|
-      slug = File.basename(yaml_file, '.yml')
-      slug.gsub!(/^[0-9]+-/, '') if args[:trim_id_from_filename]
-
-      content = YAML.load_file(yaml_file).to_hashugar
-      collection << new(content, slug)
+      collection << new_from_file(yaml_file, args[:trim_id_from_filename])
     end
     Rails.cache.write args[:cache_key], collection
     check_for_duplicate_slugs
+  end
+
+  def self.new_from_file(yaml_file, trim_id)
+    slug = File.basename(yaml_file, '.yml')
+    slug.gsub!(/^[0-9]+-/, '') if trim_id
+
+    content = YAML.load_file(yaml_file).to_hashugar
+    new(content, slug)
   end
 
   def self.all
@@ -44,7 +48,7 @@ class FromYaml
     duplicate_slug = all_slugs.detect { |slug| all_slugs.count(slug) > 1 }
     return if duplicate_slug.nil?
     type = all[0].class
-    fail DuplicateSlugError, "duplicate #{type} slug detected: #{duplicate_slug}"
+    raise DuplicateSlugError, "duplicate #{type} slug detected: #{duplicate_slug}"
   end
 
   class DuplicateSlugError < StandardError
