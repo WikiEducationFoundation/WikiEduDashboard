@@ -9,6 +9,10 @@ class WikiResponse
     message.send_to_sentry
   end
 
+  #################
+  # Main routines #
+  #################
+
   def initialize(response_data, opts={})
     @response_data = response_data
     @edit_data = response_data['edit']
@@ -17,19 +21,6 @@ class WikiResponse
     @type = opts[:type]
   end
 
-  def send_to_sentry
-    Raven.capture_message @title,
-                          level: @level,
-                          tags: { username: @current_user[:username],
-                                  action_type: @type },
-                          extra: { response_data: @response_data,
-                                   post_data: @post_data,
-                                   current_user: @current_user }
-  end
-
-  ###################
-  # Parsing methods #
-  ###################
   def parse_api_response
     # A successful edit will have response data like this:
     # {"edit"=>
@@ -64,6 +55,22 @@ class WikiResponse
       parse_api_unknown_response
     end
   end
+
+  def send_to_sentry
+    Raven.capture_message @title,
+                          level: @level,
+                          tags: { username: @current_user[:username],
+                                  action_type: @type },
+                          extra: { response_data: @response_data,
+                                   post_data: @post_data,
+                                   current_user: @current_user }
+  end
+
+  ###################
+  # Parsing methods #
+  ###################
+
+  private
 
   def parse_api_edit_response
     if @edit_data['result'] == 'Success'
