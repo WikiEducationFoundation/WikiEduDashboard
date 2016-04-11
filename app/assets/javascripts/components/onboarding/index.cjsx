@@ -148,6 +148,7 @@ Permissions = React.createClass(
             <li>you assign articles to students</li>
             <li>you send public messages to students</li>
           </ul>
+          <p>All course content you contribute to to this website will be freely available under the <a href="http://creativecommons.org/licenses/by-sa/3.0/" target="_blank">Creative Commons Attribution-ShareAlike license</a> (the same one used by Wikipedia).</p>
           <Link to={{ pathname: '/onboarding/finish', query: { return_to: getReturnToParam() } }} className="button border inverse-border">
             Finish <i className="icon icon-rt_arrow"></i>
           </Link>
@@ -166,6 +167,7 @@ Permissions = React.createClass(
             <li>add standard messages to the Talk pages of articles you´re editing or reviewing</li>
             <li>update your course´s wiki page when you join the course or choose an assignment topic</li>
           </ul>
+          <p>All course content you contribute to to this website will be freely available under the <a href="http://creativecommons.org/licenses/by-sa/3.0/" target="_blank">Creative Commons Attribution-ShareAlike license</a> (the same one used by Wikipedia).</p>
           <Link to={{ pathname: '/onboarding/finish', query: { return_to: getReturnToParam() } }} className="button border inverse-border">
             Finish <i className="icon icon-rt_arrow"></i>
           </Link>
