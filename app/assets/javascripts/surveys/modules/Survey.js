@@ -578,6 +578,7 @@ const Survey = {
 
   activateConditionalQuestion($question, $parent) {
     $question.removeClass('hidden');
+    this.activateConditionalQuestionParent($parent);
     const $grandParents = $parent.parents('[data-question-group-blocks]');
     const parentIndex = $parent.data('slick-index');
     const questionGroupIndex = $grandParents.data('question-group-blocks');
@@ -585,6 +586,10 @@ const Survey = {
       const $slider = this.groupSliders[questionGroupIndex];
       $slider.slick('slickAdd', $question, parentIndex);
     }
+  },
+
+  activateConditionalQuestionParent($parent) {
+    $parent.find('.block').removeClass('hidden');
   },
 
   isMatrixBlock($block) {
