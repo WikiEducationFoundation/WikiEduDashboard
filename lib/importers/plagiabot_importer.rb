@@ -76,9 +76,16 @@ class PlagiabotImporter
     response = response.tr("'", '"') # convert to double quotes per json standard
 
     JSON.parse(response)
-  rescue Errno::ETIMEDOUT => e
+  rescue StandardError => e
+    raise e unless typical_errors.include?(e.class)
     Raven.capture_exception e, level: 'warning'
     return nil
+  end
+
+  def self.typical_errors
+    [Errno::ETIMEDOUT,
+     Net::ReadTimeout,
+     JSON::ParserError]
   end
 
   def self.api_get_url(opts = {})
