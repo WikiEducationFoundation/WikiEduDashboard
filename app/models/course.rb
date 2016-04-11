@@ -232,15 +232,6 @@ class Course < ActiveRecord::Base
   # Cache methods #
   #################
 
-  def new_article_count
-    return_or_calculate :new_article_count
-  end
-
-  def return_or_calculate(attribute)
-    update_cache unless self[attribute]
-    self[attribute]
-  end
-
   def update_cache
     CourseCacheManager.new(self).update_cache
   end
