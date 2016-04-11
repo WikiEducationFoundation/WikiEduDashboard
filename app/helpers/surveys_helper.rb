@@ -166,7 +166,7 @@ module SurveysHelper
 
   def conditional_string(answer)
     if answer.question.conditionals?
-      "data-conditional-question=#{answer.question.conditionals}"
+      "data-conditional-question=#{strip_tags(answer.question.conditionals)}"
     end
   end
 

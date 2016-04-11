@@ -9,6 +9,7 @@ const rangeslider = require('nouislider');
 require('wnumb');
 const wNumb = window.wNumb;
 require('slick-carousel');
+import striptags from 'striptags';
 
 
 //--------------------------------------------------------
@@ -101,16 +102,10 @@ const Survey = {
 
   initSlider() {
     this.parentSlider = $('[data-survey-form-container]').slick(slickOptions);
-    $(this.parentSlider).on('afterChange', (e, slick, currentSlide) => {
-      // this.currentBlock = currentSlide;
-      console.log('Parent: currentBlock:', currentSlide);
-      // this.currentBlock = 0;
-    });
     this.groupSliders = [];
     $('[data-question-group-blocks]').each((i, questionGroup) => {
       const slider = $(questionGroup).slick(slickOptions);
       $(slider).on('afterChange', (e, slick, currentSlide) => {
-        console.log('QuestionGroup: currentBlock:', this.currentBlock);
         this.currentBlock = currentSlide;
       });
       this.groupSliders.push(slider);
@@ -248,6 +243,7 @@ const Survey = {
   validateCurrentQuestion(e) {
     e.preventDefault();
     const $block = $(e.target).parents('.block');
+    this.$currentBlock = $block;
     let $form = $block.parents('[data-survey-form]');
     this.$currentSlider = $form.find('[data-question-group-blocks]');
     const $errorsEl = $block.find('[data-errors]');
@@ -259,7 +255,6 @@ const Survey = {
     }
 
     let validation = $form.parsley({ uiEnabled: false }).validate({ group: `${$block.data('parsley-group')}` });
-    console.log(validation);
 
     if ((typeof questionGroupIndex !== 'undefined' && questionGroupIndex !== null)) {
       $form = $(this.$surveyForm[questionGroupIndex]);
@@ -293,7 +288,7 @@ const Survey = {
   },
 
   handleRequiredQuestion() {
-    return $(this.surveyBlocks[this.currentBlock]).addClass('highlight');
+    return this.$currentBlock.addClass('highlight');
   },
 
   focusField() {
@@ -387,7 +382,7 @@ const Survey = {
       const $conditionalQuestion = $(question);
       let $question = $($(question).parents('.block__container'));
       const { question_id, operator, value, multi } = Utils.parseConditionalString($conditionalQuestion.data('conditional-question'));
-      if ($question.find('.survey__question--matrix ').length) {
+      if ($question.find('.survey__question--matrix').length) {
         $question = $conditionalQuestion;
         $question.addClass('hidden');
       } else {
@@ -418,13 +413,14 @@ const Survey = {
   conditionalAnswerListeners(id, multi) {
     // @surveyConditionals[id].operator = operator
     $(`#question_${id} input, #question_${id} select`).on('change', ({ target }) => {
-      let value = $(target).val();
+      let value = striptags($(target).val());
+
       const $parent = $(`#question_${id}`).parent('.block__container');
       const $checkedInputs = $parent.find('input:checked');
       if (multi && $checkedInputs.length) {
         value = [];
         $checkedInputs.each((i, input) => {
-          return value.push($(input).val());
+          value.push(striptags($(input).val()));
         });
       } else if (multi) {
         value = [];
@@ -490,7 +486,7 @@ const Survey = {
         if ((conditionalGroup[v] !== null)) {
           conditional = conditionalGroup[v];
           currentAnswers.push(v);
-          return conditionalGroup.currentAnswers = currentAnswers;
+          conditionalGroup.currentAnswers = currentAnswers;
         }
       });
 
@@ -543,21 +539,20 @@ const Survey = {
 
     if ((typeof currentAnswers !== 'undefined' && currentAnswers !== null) && currentAnswers.length) {
       const excludeFromReset = [];
-      currentAnswers.map((a) => { return excludeFromReset.push(a); });
+      currentAnswers.forEach((a) => { excludeFromReset.push(a); });
       children.forEach((question) => {
+        const $question = $(question);
         let string;
-        // if ($(question).hasClass('survey__question-row')) {
-        //   console.log('resetConditionalGroupChildren');
-        //   this.activateConditionalQuestion($(question).parents('.block'), $(question).parents('.block__container'));
-        // }
-        if ($(question).data('conditional-question')) {
-          string = $(question).data('conditional-question');
+        if ($question.data('conditional-question')) {
+          string = $question.data('conditional-question');
         } else {
-          string = $(question).find('[data-conditional-question]').data('conditional-question');
+          string = $question.find('[data-conditional-question]').data('conditional-question');
         }
         const { value } = Utils.parseConditionalString(string);
         if (excludeFromReset.indexOf(value) === -1) {
-          this.resetConditionalQuestion($(question));
+          this.resetConditionalQuestion($question);
+        } else {
+          $question.removeClass('hidden');
         }
       });
     } else {
@@ -583,15 +578,12 @@ const Survey = {
 
   activateConditionalQuestion($question, $parent) {
     $question.removeClass('hidden');
+    const $grandParents = $parent.parents('[data-question-group-blocks]');
+    const parentIndex = $parent.data('slick-index');
+    const questionGroupIndex = $grandParents.data('question-group-blocks');
     if ($parent.next('.block__container').find('.block.survey__question--matrix').length === 0) {
-      const parentIndex = $parent.data('slick-index');
-      const questionGroupIndex = $parent.parents('[data-question-group-blocks]').data('question-group-blocks');
       const $slider = this.groupSliders[questionGroupIndex];
       $slider.slick('slickAdd', $question, parentIndex);
-    }
-
-    if ($question.hasClass('block')) {
-      $question.attr('data-survey-block', '');
     }
   },
 

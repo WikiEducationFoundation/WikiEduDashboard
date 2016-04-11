@@ -128,6 +128,7 @@
   "devDependencies": {
     "lodash.assign": "^4.0.7",
     "slick-carousel": "^1.5.9",
+    "striptags": "^2.1.1",
     "url-parse": "^1.1.1"
   }
 }
