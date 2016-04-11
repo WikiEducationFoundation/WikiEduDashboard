@@ -7,10 +7,18 @@
 ---
 gl:
   application:
+    cancel: Cancelar
     dashboard: Panel de Wiki Ed
+    explore: Explorar
+    help: Axuda
+    recent_activity: Actividade recente
+    submit: Enviar
+  home:
+    explore: Explorar
   activity:
     all: Actividade
     edited_by: Modificado por
+    label: Actividade
   articles:
     assigned: Artigos asignados
     assigned_to: Asignado a
@@ -31,6 +39,7 @@ gl:
   assignments:
     confirm_addition: Está seguro de que quere asignar %{title} a %{username}?
     confirm_deletion: Está seguro de que quere borrar esta asignación?
+    label: Asignar
     loading: Cargando asignacións...
     none: Este curso non ten artigos de Wikipedia asignados.
   blocks:
@@ -71,6 +80,11 @@ gl:
   courses_generic:
     creator:
       course_school: Institución
+    school: Institución
+    student_editors: Editores
+    students: Editores
+    students_short: Editores
+    term: Cando
   metrics:
     activity: Actividade recente
     articles_created: Artigos creados
@@ -94,8 +108,16 @@ gl:
     loading: Cargando revisións...
     none: Este curso non ten actividade recente de edición na Wikipedia.
     time_doc: A hora de cada revisión no seu tempo local
+    title: Título
   tasks:
     conseq: A tarefa %{task} está en execución!
+  training:
+    view: Ver
+  uploads:
+    label: Cargas
+  users:
+    editors: Editores
+    name: Nome
   wizard:
     read_less: Ler menos
     read_more: Ler máis

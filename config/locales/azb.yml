@@ -7,14 +7,39 @@ azb:
   application:
     cancel: وازگئچ
     greeting2: خوش گلدینیز!
+    greeting_extended: ویکی‌پدیایا خوش گلدینیز
+    greeting: سلام!
+    help: کؤمک
     home: ائو
     log_in: گیریش
     log_out: چیخیش
     my_dashboard: داشبوردوم
+    sign_up: آد یازدیر
+    training: اؤیرتیم
+  activity:
+    label: چالیشما
   articles:
+    edited_mobile: مقاله‌لر
+    label: مقاله‌لر
     title: باشلیق
+  cohort:
+    none: هئچ بیری
   courses:
+    activity: چالیشما
+    articles: مقاله‌لر
+    join: قوْشول
+    school: مدرسه
+    term: ترم
     title: باشلیق
+  courses_generic:
+    term: هاچان
   namespace:
     user_ns: ایشلدن
+  revisions:
+    title: باشلیق
+  training:
+    start: باشلا
+    view: باخ
+  users:
+    name: آد
 ...
