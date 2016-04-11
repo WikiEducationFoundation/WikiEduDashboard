@@ -102,12 +102,15 @@ const Survey = {
   initSlider() {
     this.parentSlider = $('[data-survey-form-container]').slick(slickOptions);
     $(this.parentSlider).on('afterChange', (e, slick, currentSlide) => {
-      this.currentBlock = currentSlide;
+      // this.currentBlock = currentSlide;
+      console.log('Parent: currentBlock:', currentSlide);
+      // this.currentBlock = 0;
     });
     this.groupSliders = [];
     $('[data-question-group-blocks]').each((i, questionGroup) => {
       const slider = $(questionGroup).slick(slickOptions);
       $(slider).on('afterChange', (e, slick, currentSlide) => {
+        console.log('QuestionGroup: currentBlock:', this.currentBlock);
         this.currentBlock = currentSlide;
       });
       this.groupSliders.push(slider);
@@ -244,7 +247,7 @@ const Survey = {
   },
   validateCurrentQuestion(e) {
     e.preventDefault();
-    const $block = $(this.surveyBlocks[this.currentBlock]);
+    const $block = $(e.target).parents('.block');
     let $form = $block.parents('[data-survey-form]');
     this.$currentSlider = $form.find('[data-question-group-blocks]');
     const $errorsEl = $block.find('[data-errors]');
@@ -256,7 +259,7 @@ const Survey = {
     }
 
     let validation = $form.parsley({ uiEnabled: false }).validate({ group: `${$block.data('parsley-group')}` });
-
+    console.log(validation);
 
     if ((typeof questionGroupIndex !== 'undefined' && questionGroupIndex !== null)) {
       $form = $(this.$surveyForm[questionGroupIndex]);
@@ -351,6 +354,10 @@ const Survey = {
 
       slider.noUiSlider.on('change', (value) => {
         $input.val(parseInt(value[0])).trigger('change');
+      });
+
+      $input.on('change', ({ target }) => {
+        slider.noUiSlider.set(target.value);
       });
     });
   },
