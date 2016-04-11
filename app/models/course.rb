@@ -36,6 +36,7 @@
 #
 
 require "#{Rails.root}/lib/course_cleanup_manager"
+require "#{Rails.root}/lib/course_cache_manager"
 require "#{Rails.root}/lib/course_update_manager"
 require "#{Rails.root}/lib/course_training_progress_manager"
 require "#{Rails.root}/lib/revision_stat"
@@ -257,30 +258,7 @@ class Course < ActiveRecord::Base
   end
 
   def update_cache
-    # Do not consider revisions with negative byte changes
-    self.character_sum = courses_users
-                         .where(role: CoursesUsers::Roles::STUDENT_ROLE)
-                         .sum(:character_sum_ms)
-    self.view_sum = articles_courses.live.sum(:view_count)
-    self.user_count = students_without_nonstudents.size
-    self.trained_count = calculate_trained_count
-    self.revision_count = revisions.size
-    self.article_count = articles.namespace(0).live.size
-    self.new_article_count = new_articles.count
-    save
-  end
-
-  def calculate_trained_count
-    # The cutoff date represents the switch from on-wiki training, indicated by
-    # the 'trained' attribute of a User, to the in-dashboard training module
-    # system introduced for the beginning of 2016. For courses after the cutoff
-    # date, 'trained_count' is represents the count of students who don't have
-    # assigned training modules that are overdue.
-    if start > CourseTrainingProgressManager::TRAINING_BOOLEAN_CUTOFF_DATE
-      students_without_overdue_training
-    else
-      students_without_nonstudents.trained.size
-    end
+    CourseCacheManager.new(self).update_cache
   end
 
   def manual_update
