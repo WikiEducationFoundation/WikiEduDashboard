@@ -211,6 +211,10 @@ class Course < ActiveRecord::Base
     articles_courses.live.new_article.joins(:article).where('articles.namespace = 0')
   end
 
+  def uploads_in_use
+    uploads.where('usage_count > 0')
+  end
+
   def word_count
     require "#{Rails.root}/lib/word_count"
     WordCount.from_characters(character_sum)
@@ -227,29 +231,6 @@ class Course < ActiveRecord::Base
   #################
   # Cache methods #
   #################
-  def character_sum
-    return_or_calculate :character_sum
-  end
-
-  def view_sum
-    return_or_calculate :view_sum
-  end
-
-  def user_count
-    return_or_calculate :user_count
-  end
-
-  def trained_count
-    return_or_calculate :trained_count
-  end
-
-  def revision_count
-    return_or_calculate :revision_count
-  end
-
-  def article_count
-    return_or_calculate :article_count
-  end
 
   def new_article_count
     return_or_calculate :new_article_count

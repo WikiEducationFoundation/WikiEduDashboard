@@ -11,6 +11,9 @@ class CourseCacheManager
     update_revision_count
     update_article_count
     update_new_article_count
+    update_upload_count
+    update_uploads_in_use_count
+    update_upload_usages_count
     @course.save
   end
 
@@ -59,6 +62,18 @@ class CourseCacheManager
 
   def update_new_article_count
     @course.new_article_count = @course.new_articles.count
+  end
+
+  def update_upload_count
+    @course.upload_count = @course.uploads.count
+  end
+
+  def update_uploads_in_use_count
+    @course.uploads_in_use_count = @course.uploads_in_use.count
+  end
+
+  def update_upload_usages_count
+    @course.upload_usages_count = @course.uploads_in_use.sum(:usage_count)
   end
 
   ############
