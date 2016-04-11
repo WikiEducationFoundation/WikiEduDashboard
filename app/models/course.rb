@@ -31,7 +31,7 @@
 #  timeline_end      :date
 #  day_exceptions    :string(2000)     default("")
 #  weekdays          :string(255)      default("0000000")
-#  new_article_count :integer
+#  new_article_count :integer          default(0)
 #  no_day_exceptions :boolean          default(FALSE)
 #  trained_count     :integer          default(0)
 #  cloned_status     :integer
