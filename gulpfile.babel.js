@@ -19,7 +19,7 @@ gulp.task('dev', () =>
 );
 
 gulp.task('hot-dev', () =>
-  runSequence('clean', 'set-development', [
+  runSequence('set-development', [
     'i18n',
     'copy-static',
     'bower',
