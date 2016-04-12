@@ -92,14 +92,16 @@ namespace :surveys do
     SurveyAssignment.published.each do |survey_assignment|
       survey_assignment.courses_users_ready_for_survey.each do |courses_user|
         course = Course.find(courses_user.course_id)
-        if SurveyNotification.where(courses_user_id: courses_user.id).length == 0
-          notification = SurveyNotification.new(
-            :courses_user_id => courses_user.id,
-            :survey_assignment_id => survey_assignment.id,
-            :course_id => course.id
-          )
-          notification.save
-        end
+        next if SurveyAssignment.by_courses_user_and_survey(
+          courses_user_id: courses_user.id,
+          survey_id: survey_assignment.survey_id
+        ).any?
+        notification = SurveyNotification.new(
+          :courses_user_id => courses_user.id,
+          :survey_assignment_id => survey_assignment.id,
+          :course_id => course.id
+        )
+        notification.save
       end
     end
   end
