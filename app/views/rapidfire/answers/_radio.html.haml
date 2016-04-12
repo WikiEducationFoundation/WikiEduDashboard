@@ -7,11 +7,11 @@
 - options.each_with_index do |option, index|
   %label.survey__multiple-choice-field
     - if option.is_a?(Array)
-      = f.radio_button :answer_text, option[0], :required => is_required_question?(answer)
+      = f.radio_button :answer_text, strip_tags(option[0]), :required => is_required_question?(answer)
       .label
         %span.survey__multiple-choice-field__option= option[2].html_safe
     - else
-      = f.radio_button :answer_text, option, :required => is_required_question?(answer)
+      = f.radio_button :answer_text, strip_tags(option), :required => is_required_question?(answer)
       .label
         %span.survey__multiple-choice-field__option= option.html_safe
 

@@ -37,7 +37,7 @@
           <div data-errors></div>
           <% if !is_grouped_question(answer) || is_end_of_group  || is_grouped_question(answer) && !is_grouped_question(@answer_group_builder.answers[index + 1]) %>
             <% if has_follow_up_question(answer) %>
-              <%= render partial: "rapidfire/answers/follow_up_question", locals: {f: answer_form, answer: answer} %>
+              <%= render partial: "rapidfire/answers/follow_up_question", locals: {f: answer_form, answer: answer } %>
             <% end %>
 
             <div class='survey__block-nav'>

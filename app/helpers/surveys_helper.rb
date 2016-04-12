@@ -15,16 +15,27 @@ module SurveysHelper
     render partial: "rapidfire/answers/matrix_answer_labels", locals: { answer: answer, course: @course }
   end
 
+  def question_answer_field_name(form, multiple)
+    name = "answer_group[#{form.object.question_id}][answer_text]"
+    if multiple
+      name + '[]'
+    else
+      name
+    end
+  end
+
   def survey_select(f, answer, course)
+    multiple = answer.question.multiple
+    field_name = question_answer_field_name(f, multiple)
     options = answer_options(answer, course).collect { |o| o.is_a?(Array) ? [ "#{o[1].tr('_', ' ')}", o[0]] : o }
     if options.length == 0
-      content_tag(:div, :data => { :remove_me => true })
+      content_tag(:div, data: { remove_me: true })
     else
-      select_tag(:answer_text, options_for_select(options), {
-          :include_blank => "#{answer.question.multiple ? 'Select all that apply' : 'Select an option'}",
-          :required => is_required_question?(answer),
-          :multiple => answer.question.multiple,
-          :data => {:chosen_select => true}
+      select_tag(field_name, options_for_select(options), {
+          include_blank: "#{answer.question.multiple ? 'Select all that apply' : 'Select an option'}",
+          required: is_required_question?(answer),
+          multiple: answer.question.multiple,
+          data: { chosen_select: true }
         })
     end
   end
@@ -32,7 +43,7 @@ module SurveysHelper
   def answer_options(answer, course)
     question = answer.question
     if question.options.length > 0
-      question.options
+      question.options.collect {|q| [strip_tags(q), q, q]}
     elsif course != nil
       course_answer_options(question.course_data_type, course)
     end
@@ -166,7 +177,7 @@ module SurveysHelper
 
   def conditional_string(answer)
     if answer.question.conditionals?
-      "data-conditional-question=#{strip_tags(answer.question.conditionals)}"
+      "data-conditional-question=#{strip_tags(answer.question.conditionals).tr(' ', '_')}"
     end
   end
 
