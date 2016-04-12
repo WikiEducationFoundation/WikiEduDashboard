@@ -18,12 +18,15 @@ describe 'course stats', type: :feature, js: true do
   let(:user)       { create(:user) }
   let!(:cu)        { create(:courses_user, course_id: course.id, user_id: user.id, role: student) }
 
-  let!(:revisions)  { [revision, revision2] }
+  let!(:revisions) { [revision, revision2] }
   let(:articles)   { [article] }
   let(:users)      { [user] }
 
   it 'displays statistics about the course' do
-    visit "/courses/#{course.slug}"; sleep 1
+    cu.update_cache
+    course.update_cache
+    visit "/courses/#{course.slug}"
+    sleep 1
 
     expect(page.find('#articles-created')).to have_content articles.count
     expect(page.find('#total-edits')).to have_content revisions.count
@@ -31,8 +34,8 @@ describe 'course stats', type: :feature, js: true do
     expect(page.find('#student-editors')).to have_content users.count
     find('#student-editors').click
     expect(page.find('#trained-count')).to have_content trained
-    expect(page.find('#word-count')).to have_content
-      WordCount.from_characters(chars * revisions.count)
+    word_count = WordCount.from_characters(chars * revisions.count)
+    expect(page.find('#word-count')).to have_content word_count
     expect(page.find('#view-count')).to have_content views.to_s
   end
 end
