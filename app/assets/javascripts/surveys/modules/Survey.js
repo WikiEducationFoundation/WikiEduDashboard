@@ -9,7 +9,6 @@ const rangeslider = require('nouislider');
 require('wnumb');
 const wNumb = window.wNumb;
 require('slick-carousel');
-import striptags from 'striptags';
 
 
 //--------------------------------------------------------
@@ -174,7 +173,6 @@ const Survey = {
         // error(er) { return console.log('error', er); }
       });
     });
-
     $form.submit();
   },
 
@@ -413,14 +411,14 @@ const Survey = {
   conditionalAnswerListeners(id, multi) {
     // @surveyConditionals[id].operator = operator
     $(`#question_${id} input, #question_${id} select`).on('change', ({ target }) => {
-      let value = striptags($(target).val());
+      let value = $(target).val().split(' ').join('_');
 
       const $parent = $(`#question_${id}`).parent('.block__container');
       const $checkedInputs = $parent.find('input:checked');
       if (multi && $checkedInputs.length) {
         value = [];
         $checkedInputs.each((i, input) => {
-          value.push(striptags($(input).val()));
+          value.push($(input).val().split(' ').join('_'));
         });
       } else if (multi) {
         value = [];
@@ -480,7 +478,6 @@ const Survey = {
           }
         }
       });
-
       // Check if value matches a conditional question
       value.forEach((v) => {
         if ((conditionalGroup[v] !== null)) {
@@ -569,7 +566,9 @@ const Survey = {
   },
 
   resetConditionalQuestion($question) {
-    $question.removeAttr('style').addClass('hidden not-seen disabled');
+    if ($question.hasClass('survey__question-row')) {
+      $question.removeAttr('style').addClass('hidden not-seen disabled');
+    }
     $question.find('input, textarea').val('');
     $question.find('input:checked').removeAttr('checked');
     $question.find('select').prop('selectedIndex', 0);
