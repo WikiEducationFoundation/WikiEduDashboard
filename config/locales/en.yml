@@ -299,6 +299,9 @@ en:
     date_time: Date/Time
     edit_count_description: Total Edits
     revisions: Recent Edits
+    upload_count: Commons Uploads
+    uploads_in_use_count: files used in articles
+    upload_usages_count: total usages across languages
     view_count_description: Article Views
     view: Views
     word_count: Words Added

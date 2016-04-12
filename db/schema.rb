@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160404235251) do
+ActiveRecord::Schema.define(version: 20160411235244) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title",                    limit: 255
@@ -130,11 +130,14 @@ ActiveRecord::Schema.define(version: 20160404235251) do
     t.date     "timeline_end"
     t.string   "day_exceptions",    limit: 2000,  default: ""
     t.string   "weekdays",          limit: 255,   default: "0000000"
-    t.integer  "new_article_count", limit: 4
+    t.integer  "new_article_count",    limit: 4,     default: 0
     t.boolean  "no_day_exceptions",               default: false
     t.integer  "trained_count",     limit: 4,     default: 0
     t.integer  "cloned_status",     limit: 4
     t.string   "type",              limit: 255,   default: "ClassroomProgramCourse"
+    t.integer  "upload_count",         limit: 4,     default: 0
+    t.integer  "uploads_in_use_count", limit: 4,     default: 0
+    t.integer  "upload_usages_count",  limit: 4,     default: 0
   end
 
   add_index "courses", ["slug"], name: "index_courses_on_slug", using: :btree
