@@ -27,4 +27,14 @@
     <div class="stat-display__value"><%= number_to_human presenter.courses.sum(:new_article_count) %></div>
     <small><%= t("metrics.articles_created") %></small>
   </div>
+  <div class="stat-display__stat popover-trigger">
+    <div class="stat-display__value"><%= number_to_human presenter.courses.sum(:upload_count) %></div>
+    <small><%= t("metrics.upload_count") %></small>
+    <div class="popover dark">
+      <h4><%= number_to_human presenter.courses.sum(:uploads_in_use_count) %></h4>
+      <p><%= t("metrics.uploads_in_use_count") %></p>
+      <h4><%= number_to_human presenter.courses.sum(:upload_usages_count) %></h4>
+      <p><%= t("metrics.upload_usages_count") %></p>
+    </div>
+  </div>
 </div>
