@@ -204,7 +204,6 @@ const Survey = {
   processQuestionGroupData(data) {
     const _postData = {};
     const answerGroup = {};
-    console.log(data);
     data.forEach((field) => {
       const name = field.name;
       const value = field.value;
@@ -218,7 +217,6 @@ const Survey = {
           val[answerKey] = value;
           answerGroup[answerId] = val;
         } else { // Multi-Select (Checkbox)
-          console.log(answerId, answerKey);
           if (value !== '0') {
             if (typeof answerGroup[answerId] !== 'undefined') {
               answerGroup[answerId][answerKey].push('0');
@@ -234,7 +232,6 @@ const Survey = {
       }
     });
     _postData.answer_group = answerGroup;
-    console.log('questiongroupdata', _postData);
     return _postData;
   },
 
