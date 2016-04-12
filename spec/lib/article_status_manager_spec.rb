@@ -9,6 +9,7 @@ describe ArticleStatusManager do
       course.users << create(:user)
       create(:article,
              id: 1,
+             mw_page_id: 1,
              title: 'Noarticle',
              namespace: 0)
 
@@ -42,19 +43,22 @@ describe ArticleStatusManager do
     it 'should delete articles when id changed but new one already exists' do
       create(:article,
              id: 100,
+             mw_page_id: 100,
              title: 'Audi',
              namespace: 0)
       create(:article,
              id: 848,
+             mw_page_id: 848,
              title: 'Audi',
              namespace: 0)
       described_class.update_article_status
-      expect(Article.find(100).deleted).to eq(true)
+      expect(Article.find_by(mw_page_id: 100).deleted).to eq(true)
     end
 
     it 'should update the namespace are moved articles' do
       create(:article,
              id: 848,
+             mw_page_id: 848,
              title: 'Audi',
              namespace: 2)
 
@@ -68,11 +72,13 @@ describe ArticleStatusManager do
       # like this.
       create(:article,
              id: 46745170,
+             mw_page_id: 46745170,
              # Currently this is a redirect to the other title.
              title: 'Yōji Sakate',
              namespace: 0)
       create(:article,
              id: 46364485,
+             mw_page_id: 46364485,
              # Current title is "Yōji Sakate (playwright)".
              title: 'Yōji_Sakate',
              namespace: 0)
@@ -82,11 +88,13 @@ describe ArticleStatusManager do
     it 'should handle case-variant titles' do
       article1 = create(:article,
                         id: 3914927,
+                        mw_page_id: 3914927,
                         title: 'Cyber-ethnography',
                         deleted: true,
                         namespace: 1)
       article2 = create(:article,
                         id: 46394760,
+                        mw_page_id: 46394760,
                         title: 'Cyber-Ethnography',
                         deleted: false,
                         namespace: 1)
@@ -117,10 +125,12 @@ describe ArticleStatusManager do
     it 'does not delete articles by mistake if Replica is down' do
       create(:article,
              id: 848,
+             mw_page_id: 848,
              title: 'Audi',
              namespace: 0)
       create(:article,
              id: 1,
+             mw_page_id: 1,
              title: 'Noarticle',
              namespace: 0)
       allow_any_instance_of(Replica).to receive(:get_existing_articles_by_id).and_return(nil)

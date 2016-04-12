@@ -19,6 +19,7 @@ describe 'CourseClonedModal', ->
     )
 
     renderedModal = ReactTestUtils.findRenderedDOMComponentWithClass(TestModal, 'cloned-course')
+    TestModal.setState( { error_message: null })
     warnings = ReactTestUtils.scryRenderedDOMComponentsWithClass(TestModal, 'warning')
     expect(warnings).to.be.empty
 

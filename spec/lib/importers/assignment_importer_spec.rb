@@ -24,7 +24,7 @@ describe ArticleImporter do
                                      article_title: 'Scuba_Diving')
       article = create(:article, title: 'Deep_Sea_Fishing')
       article_two = create(:article, title: 'Fly_Fishing')
-      AssignmentImporter.update_article_ids([article, article_two])
+      AssignmentImporter.update_article_ids([article, article_two], article.wiki)
 
       expect(Assignment.find(assignment.id).article_id).to eq(article.id)
       expect(assignment_no_article.article_id).to eq(nil)

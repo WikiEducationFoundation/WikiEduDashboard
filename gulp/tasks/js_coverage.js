@@ -6,6 +6,7 @@ gulp.task('js_coverage', jsxCoverage.createTask({
     'test/*.spec.js',
     'test/**/*.spec.js',
     'test/**/*.spec.jsx',
+    'test/**/*.spec.cjsx',
     'test/**/*.spec.coffee',
 
     'app/assets/javascripts/*.coffee',

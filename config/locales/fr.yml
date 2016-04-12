@@ -6,6 +6,7 @@
 # Author: LudaOtaku
 # Author: Macofe
 # Author: PifyZ
+# Author: Verdy p
 # Author: Wladek92
 ---
 fr:
@@ -302,7 +303,7 @@ fr:
     continue: Continuer (%{progress})
     start: Démarrer
     view: Afficher
-    logged_out: Vous êtes déconnecté. Vous ne recevrez pas de crédit pour l'achèvement
+    logged_out: Vous êtes déconnecté. Vous ne recevrez pas de crédit pour l’achèvement
       de ce module, sauf si vous vous reconnectez.
   uploads:
     label: Téléversements

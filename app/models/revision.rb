@@ -34,7 +34,9 @@ class Revision < ActiveRecord::Base
   # Helps with importing data
   alias_attribute :rev_id, :mw_rev_id
 
-  before_validation :set_defaults
+  validates :mw_page_id, presence: true
+  validates :mw_rev_id, presence: true
+  validates :wiki_id, presence: true
 
   ####################
   # Instance methods #
@@ -54,15 +56,5 @@ class Revision < ActiveRecord::Base
   def infer_courses_from_user
     return [] if user.blank?
     user.courses.where('start <= ?', date).where('end >= ?', date)
-  end
-
-  private
-
-  def set_defaults
-    self.wiki_id ||= Wiki.default_wiki.id
-    # FIXME: until all the import and update routines are configured to use
-    # mw_rev_id and mw_page_id where appropriate, these should be kept in sync.
-    self.mw_rev_id ||= id
-    self.mw_page_id = article_id
   end
 end

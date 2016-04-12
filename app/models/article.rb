@@ -42,8 +42,8 @@ class Article < ActiveRecord::Base
 
   validates :title, presence: true
   validates :wiki_id, presence: true
+  validates :mw_page_id, presence: true
 
-  after_initialize :set_defaults_and_normalize
   before_validation :set_defaults_and_normalize
 
   ####################
@@ -108,6 +108,6 @@ class Article < ActiveRecord::Base
     # they are in the MediaWiki database.
     self.title = title.tr(' ', '_') unless title.nil?
     # FIXME: transitional only, until id and mw_page_id are uncoupled.
-    self.mw_page_id = id
+    self.mw_page_id ||= id
   end
 end
