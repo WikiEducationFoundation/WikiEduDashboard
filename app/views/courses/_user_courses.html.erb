@@ -29,8 +29,8 @@
   </div>
   <ul class="list">
   <% if @pres.strictly_current.empty? %>
-    <li class="row view-all">
-      <div><%= t("courses.nocourses") %></div>
+    <li class="row view-all empty">
+      <div><p><%= t("courses.nocourses") %></p></div>
     </li>
   <% else %>
     <% @pres.strictly_current.each do |c| %>
