@@ -204,12 +204,13 @@ const Survey = {
   processQuestionGroupData(data) {
     const _postData = {};
     const answerGroup = {};
+    console.log(data);
     data.forEach((field) => {
       const name = field.name;
       const value = field.value;
       const val = {};
       const answerText = {};
-      if (name.indexOf('answerGroup') !== -1) {
+      if (name.indexOf('answer_group') !== -1) {
         const fielddata = name.replace('answerGroup', '').split('[');
         const answerId = fielddata[1].replace(']', '');
         const answerKey = fielddata[2].replace(']', '');
@@ -217,8 +218,9 @@ const Survey = {
           val[answerKey] = value;
           answerGroup[answerId] = val;
         } else { // Multi-Select (Checkbox)
+          console.log(answerId, answerKey);
           if (value !== '0') {
-            if ((answerGroup[answerId] !== null)) {
+            if (typeof answerGroup[answerId] !== 'undefined') {
               answerGroup[answerId][answerKey].push('0');
               answerGroup[answerId][answerKey].push(value);
             } else {
@@ -232,6 +234,7 @@ const Survey = {
       }
     });
     _postData.answer_group = answerGroup;
+    console.log('questiongroupdata', _postData);
     return _postData;
   },
 
