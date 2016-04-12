@@ -5,6 +5,7 @@ class WikiEdits
   def initialize(wiki = nil)
     wiki ||= Wiki.default_wiki
     @wiki = wiki
+    @api_url = "https://#{@wiki.language}.#{@wiki.project}.org/w/api.php"
   end
 
   #######################
@@ -94,12 +95,10 @@ class WikiEdits
     return {} if Features.disable_wiki_output?
     tokens = get_tokens(current_user)
     return tokens unless tokens['csrf_token']
-    data.merge! token: tokens.csrf_token
-    language = ENV['wiki_language']
-    url = "https://#{language}.wikipedia.org/w/api.php"
+    data[:token] = tokens.csrf_token
 
     # Make the request
-    response = tokens.access_token.post(url, data)
+    response = tokens.access_token.post(@api_url, data)
     response_data = JSON.parse(response.body)
     WikiResponse.capture(response_data, current_user: current_user,
                                         post_data: data,
@@ -109,12 +108,8 @@ class WikiEdits
 
   def get_tokens(current_user)
     return { status: 'no current user' } unless current_user
-    lang = ENV['wiki_language']
-    @consumer = oauth_consumer(lang)
-    @access_token = oauth_access_token(@consumer, current_user)
-    # rubocop:disable Metrics/LineLength
-    get_token = @access_token.get("https://#{lang}.wikipedia.org/w/api.php?action=query&meta=tokens&format=json")
-    # rubocop:enable Metrics/LineLength
+    @access_token = oauth_access_token(current_user)
+    get_token = @access_token.get("#{@api_url}?action=query&meta=tokens&format=json")
 
     token_response = JSON.parse(get_token.body)
     WikiResponse.capture(token_response, current_user: current_user,
@@ -126,16 +121,16 @@ class WikiEdits
     )
   end
 
-  def oauth_consumer(lang)
+  def oauth_consumer
     OAuth::Consumer.new ENV['wikipedia_token'],
                         ENV['wikipedia_secret'],
                         client_options: {
-                          site: "https://#{lang}.wikipedia.org"
+                          site: "https://#{@wiki.language}.#{@wiki.project}.org"
                         }
   end
 
-  def oauth_access_token(consumer, current_user)
-    OAuth::AccessToken.new consumer,
+  def oauth_access_token(current_user)
+    OAuth::AccessToken.new oauth_consumer,
                            current_user.wiki_token,
                            current_user.wiki_secret
   end
