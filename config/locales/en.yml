@@ -491,6 +491,7 @@ en:
       week or change your assignment dates to make room for a new one.
 
   survey:
+    login_message: 'Thank you for your time. Please log in to your Wiki Ed dashboard to take the survey.'
     email:
       headline: "Hello, %{username}"
       message: "A survey is available for: %{course_title}"

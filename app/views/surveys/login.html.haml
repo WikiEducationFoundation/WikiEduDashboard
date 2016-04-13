@@ -1,0 +1,7 @@
+.block.text-center.survey__login
+  %h1= @survey.name
+  %p.lead= t('survey.login_message')
+  = link_to user_omniauth_authorize_path(:mediawiki), class: 'button dark' do
+    %i.icon.icon-wiki-logo
+    %span= t('application.log_in')
+    %span= t('application.sign_up_log_in_extended')
