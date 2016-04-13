@@ -17,5 +17,9 @@
           = af.check_box nil, { id: nil, checked: checkbox_checked?(answer, option) }, option
           .label= option.html_safe
         .survey__multiple-choice-field__checkbox
+    %label.survey__multiple-choice-field
+      = af.check_box nil, { id: nil, checked: false, data: { void_checkboxes: true } }, 'None'
+      .label None of the above
+      .survey__multiple-choice-field__checkbox
 - else
   %p No data available for #{answer.question.course_data_type}

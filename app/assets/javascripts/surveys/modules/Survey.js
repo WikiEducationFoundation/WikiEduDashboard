@@ -39,6 +39,13 @@ const slickOptions = {
   cssEase: 'cubic-bezier(1, 0, 0, 1)',
 };
 
+
+//--------------------------------------------------------
+// Constants
+//--------------------------------------------------------
+
+const BLOCK_CONTAINER_SELECTOR = '.block__container';
+
 //--------------------------------------------------------
 // Survey Module
 //--------------------------------------------------------
@@ -78,6 +85,8 @@ const Survey = {
     this.$main.on('click', '[data-prev-survey-block]', this.previousBlock.bind(this));
     $('[data-submit-survey]').on('click', this.submitAllQuestionGroups.bind(this));
     $('[data-chosen-select]').chosen(chosenOptions);
+    $('[data-void-checkboxes]').on('click', this.voidCheckboxSelections.bind(this));
+    $('.survey__multiple-choice-field input[type=checkbox]').on('change', this.uncheckVoid.bind(this));
   },
 
   initBlocks() {
@@ -379,7 +388,7 @@ const Survey = {
   initConditionals() {
     $('[data-conditional-question]').each((i, question) => {
       const $conditionalQuestion = $(question);
-      let $question = $($(question).parents('.block__container'));
+      let $question = $($(question).parents(BLOCK_CONTAINER_SELECTOR));
       const { question_id, operator, value, multi } = Utils.parseConditionalString($conditionalQuestion.data('conditional-question'));
 
       if ($question.find('.survey__question--matrix').length) {
@@ -512,7 +521,7 @@ const Survey = {
       this.handleParentPresenceConditionalChange({
         present: target.value.length,
         conditionalGroup: this.surveyConditionals[id],
-        $parent: $(`#question_${id}`).parents('.block__container')
+        $parent: $(`#question_${id}`).parents(BLOCK_CONTAINER_SELECTOR)
       });
     });
   },
@@ -555,7 +564,7 @@ const Survey = {
       children.forEach((question) => {
         this.resetConditionalQuestion($(question));
         if ($(question).hasClass('survey__question-row')) {
-          const $parentBlock = $(question).parents('.block__container');
+          const $parentBlock = $(question).parents(BLOCK_CONTAINER_SELECTOR);
           const blockIndex = $(question).data('block-index');
           if (!($parentBlock.find('.survey__question-row:not([data-conditional-question])').length > 1)) {
             this.resetConditionalQuestion($parentBlock);
@@ -596,7 +605,7 @@ const Survey = {
   },
 
   attachMatrixParentBlock($question, questionGroupIndex) {
-    const $parent = $question.parents('.block__container');
+    const $parent = $question.parents(BLOCK_CONTAINER_SELECTOR);
     const $parentBlock = this.detachedParentBlocks[$question.data('block-index')];
     // If parent node is currently detached, re-add it to the question_group slider
     if (!$.contains(document, $parentBlock)) {
@@ -615,7 +624,21 @@ const Survey = {
   },
 
   removeUnneededBlocks() {
-    $('[data-remove-me]').parents('.block__container').remove();
+    $('[data-remove-me]').parents(BLOCK_CONTAINER_SELECTOR).remove();
+  },
+
+  voidCheckboxSelections(e) {
+    const $target = $(e.target);
+    $target.parents(BLOCK_CONTAINER_SELECTOR).find('input[type=checkbox]:checked').each((i, input) => {
+      $(input).prop('checked', false);
+    });
+    $target.closest('input[type=checkbox]').prop('checked', true);
+  },
+
+  uncheckVoid(e) {
+    const $target = $(e.target);
+    if ($target.data('void-checkboxes')) { return; }
+    $target.parents(BLOCK_CONTAINER_SELECTOR).find('input[data-void-checkboxes]').prop('checked', false);
   }
 };
 
