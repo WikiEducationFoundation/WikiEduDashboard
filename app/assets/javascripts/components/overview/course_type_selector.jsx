@@ -1,9 +1,17 @@
 import React from 'react';
+import CourseActions from '../../actions/course_actions.js';
 
 const CourseTypeSelector = React.createClass({
   propTypes: {
     course: React.PropTypes.object,
     editable: React.PropTypes.bool
+  },
+
+  handleChange(e) {
+    const course = this.props.course;
+    const courseType = e.target.value;
+    course.type = courseType;
+    CourseActions.updateCourse(course);
   },
 
   render() {
@@ -12,11 +20,15 @@ const CourseTypeSelector = React.createClass({
     if (this.props.editable && currentType !== 'LegacyCourse') {
       selector = (
         <div className="select_wrapper">
-          <select name="course_type" defaultValue={this.props.course.type}>
-            <option value="ClassroomProgramCourse" key="ClassroomProgramCourse">Classroom Program</option>
-            <option value="VisitingScholarship" key="VisitingScholarship">Visiting Scholarship</option>
-            <option value="Editathon" key="Editathon">Edit-a-thon</option>
-            <option value="BasicCourse" key="BasicCourse">Generic Course</option>
+          <select
+            name="course_type"
+            value={this.props.course.type}
+            onChange={this.handleChange}
+          >
+            <option value="ClassroomProgramCourse">Classroom Program</option>
+            <option value="VisitingScholarship">Visiting Scholarship</option>
+            <option value="Editathon">Edit-a-thon</option>
+            <option value="BasicCourse">Generic Course</option>
           </select>
         </div>
       );
