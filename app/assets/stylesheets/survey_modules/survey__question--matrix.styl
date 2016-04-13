@@ -1,16 +1,16 @@
 .block.survey__question--matrix
-  
-  &.highlight 
+
+  &.highlight
     .survey__multiple-choice-field__radio-circle,
     .survey__multiple-choice-field__checkbox
       border-color $warning_text
     .survey__question-row
       border-color $warning_text
-  
+
   .survey__question-text,
   .survey__multiple-choice-field
     display inline-block
-  
+
   .survey__question-text--matrix
     font-weight 600
     display none
@@ -18,31 +18,31 @@
     +above(tablet)
       font-size 21px
       line-height 28px
-      
+
     &:first-child
       display block
       margin-bottom 60px
-  
+
   .survey__block-nav
     padding-top 40px
-  
+
   .survey__question-text
     width 200px
     font-weight 600
     font-size 19px
     line-height 27px
-  
+
   .survey__question-row
     display flex
     padding 10px 0 0px 15px
     border-bottom $border_med 1px solid
-    
+
     .survey__question-required
       display none
-    
+
     &.last
       border-bottom none
-    
+
     &:nth-child(odd)
       background rgba(athens, .3)
 
@@ -57,15 +57,15 @@
       &:before
         left 50%
         transform translate(-50%, -10px)
-    
+
     &.first .label
       color $text_dk
       left 50%
       transform translate(-50%, 0%)
-    
+
     &.first .survey__question-text
       visibility hidden
-  
+
   .survey__multiple-choice-field
     flex 1
     text-align center
@@ -77,44 +77,46 @@
 
     .label:after
       display none
-    
+
     .label:before
       width 15px
       height 15px
       border-color $text_dk
-    
+
     input[type=radio]
       display none
-    
+
     input[type=radio]:checked + .label
       background none
-    
+
     input[type=radio]:checked + .label:before
       border-color $brand_primary
       background $brand_primary
-  
+
   .survey__multiple-choice-field__option
     line-height 1.2
     width 100%
-  
+    white-space pre-wrap
+    font-size 16px
+
   .survey__multiple-choice-field__radio-circle
     left 50%
     border-color $text_dk
     transform translate(-50%, -50%)
     width 17px
     height 17px
-    
+
   .survey__multiple-choice-field:before
     display none
 
   .survey__multiple-choice-field .label
     padding-left 0
     background none
-  
+
   .survey__question-row .survey__multiple-choice-field .label
     color transparent
     width 100%
-  
+
   .survey__question-row.first .survey__multiple-choice-field .label,
   .survey__question-row:first-child .survey__multiple-choice-field .label
     color $text_dk
