@@ -2,17 +2,18 @@
 = render partial: "rapidfire/answers/question_text", locals: {f: f, answer: answer}
 
 - options = answer_options(answer, @course)
-- if options.length == 0
+- if options.nil? || options.length == 0
   %div{'data-remove-me' => true}
-- options.each_with_index do |option, index|
-  %label.survey__multiple-choice-field
-    - if option.is_a?(Array)
-      = f.radio_button :answer_text, strip_tags(option[0]), :required => is_required_question?(answer)
-      .label
-        %span.survey__multiple-choice-field__option= option[2].html_safe
-    - else
-      = f.radio_button :answer_text, strip_tags(option), :required => is_required_question?(answer)
-      .label
-        %span.survey__multiple-choice-field__option= option.html_safe
+- else
+  - options.each_with_index do |option, index|
+    %label.survey__multiple-choice-field
+      - if option.is_a?(Array)
+        = f.radio_button :answer_text, option[0], :required => is_required_question?(answer)
+        .label
+          %span.survey__multiple-choice-field__option= option[2].html_safe
+      - else
+        = f.radio_button :answer_text, strip_tags(option), :required => is_required_question?(answer)
+        .label
+          %span.survey__multiple-choice-field__option= option.html_safe
 
-    .survey__multiple-choice-field__radio-circle
+      .survey__multiple-choice-field__radio-circle

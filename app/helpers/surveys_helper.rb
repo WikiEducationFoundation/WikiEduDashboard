@@ -29,7 +29,7 @@ module SurveysHelper
     field_name = question_answer_field_name(f, multiple)
     options = answer_options(answer, course).collect { |o| o.is_a?(Array) ? [ "#{o[1].tr('_', ' ')}", o[0]] : o }
     if options.length == 0
-      content_tag(:div, data: { remove_me: true })
+      content_tag :div, 'remove me', data: { remove_me: true }
     else
       select_tag(field_name, options_for_select(options), {
           include_blank: "#{answer.question.multiple ? 'Select all that apply' : 'Select an option'}",
