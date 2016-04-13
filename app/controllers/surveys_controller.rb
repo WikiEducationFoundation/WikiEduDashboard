@@ -14,6 +14,7 @@ class SurveysController < ApplicationController
     :course_select,
     :show_with_course
   ]
+  before_action :ensure_logged_in
   before_action :set_question_groups, only: [
     :show,
     :edit,
@@ -169,6 +170,11 @@ class SurveysController < ApplicationController
       return true unless return_notification
       return notification if return_notification
     end
+  end
+
+  def ensure_logged_in
+    return true if current_user
+    render 'login'
   end
 
   def courses_users

@@ -2,7 +2,7 @@
 <div class='section-header'>
 <h1> Editing Questions in <%= @question_group.name %></h1>
 <div class='survey__admin-tools'>
-  <%= link_to "Preview Question Group", new_question_group_answer_group_path(@question_group) %>
+  <%= link_to "Preview Question Group", new_question_group_answer_group_path(@question_group) + '?preview' %>
 </div>
 </div>
 <div class='survey__questions-list'>
