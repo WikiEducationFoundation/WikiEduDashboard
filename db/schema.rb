@@ -105,36 +105,36 @@ ActiveRecord::Schema.define(version: 20160411235244) do
   end
 
   create_table "courses", force: :cascade do |t|
-    t.string   "title",             limit: 255
+    t.string   "title",                limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.date     "start"
     t.date     "end"
-    t.string   "school",            limit: 255
-    t.string   "term",              limit: 255
-    t.integer  "character_sum",     limit: 4,     default: 0
-    t.integer  "view_sum",          limit: 8,     default: 0
-    t.integer  "user_count",        limit: 4,     default: 0
-    t.integer  "article_count",     limit: 4,     default: 0
-    t.integer  "revision_count",    limit: 4,     default: 0
-    t.string   "slug",              limit: 255
-    t.boolean  "listed",                          default: true
-    t.string   "signup_token",      limit: 255
-    t.string   "assignment_source", limit: 255
-    t.string   "subject",           limit: 255
-    t.integer  "expected_students", limit: 4
-    t.text     "description",       limit: 65535
-    t.boolean  "submitted",                       default: false
-    t.string   "passcode",          limit: 255
+    t.string   "school",               limit: 255
+    t.string   "term",                 limit: 255
+    t.integer  "character_sum",        limit: 4,     default: 0
+    t.integer  "view_sum",             limit: 8,     default: 0
+    t.integer  "user_count",           limit: 4,     default: 0
+    t.integer  "article_count",        limit: 4,     default: 0
+    t.integer  "revision_count",       limit: 4,     default: 0
+    t.string   "slug",                 limit: 255
+    t.boolean  "listed",                             default: true
+    t.string   "signup_token",         limit: 255
+    t.string   "assignment_source",    limit: 255
+    t.string   "subject",              limit: 255
+    t.integer  "expected_students",    limit: 4
+    t.text     "description",          limit: 65535
+    t.boolean  "submitted",                          default: false
+    t.string   "passcode",             limit: 255
     t.date     "timeline_start"
     t.date     "timeline_end"
-    t.string   "day_exceptions",    limit: 2000,  default: ""
-    t.string   "weekdays",          limit: 255,   default: "0000000"
+    t.string   "day_exceptions",       limit: 2000,  default: ""
+    t.string   "weekdays",             limit: 255,   default: "0000000"
     t.integer  "new_article_count",    limit: 4,     default: 0
-    t.boolean  "no_day_exceptions",               default: false
-    t.integer  "trained_count",     limit: 4,     default: 0
-    t.integer  "cloned_status",     limit: 4
-    t.string   "type",              limit: 255,   default: "ClassroomProgramCourse"
+    t.boolean  "no_day_exceptions",                  default: false
+    t.integer  "trained_count",        limit: 4,     default: 0
+    t.integer  "cloned_status",        limit: 4
+    t.string   "type",                 limit: 255,   default: "ClassroomProgramCourse"
     t.integer  "upload_count",         limit: 4,     default: 0
     t.integer  "uploads_in_use_count", limit: 4,     default: 0
     t.integer  "upload_usages_count",  limit: 4,     default: 0
