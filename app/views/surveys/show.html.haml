@@ -15,7 +15,7 @@
             - if @survey.show_courses
               %p
                 %strong Current Selected Course: #{@course.title}
-              %button.button.survey__next.dark{"data-next-survey-block" => "course" }
+              %button.button.survey__next.dark{"data-next-survey-block" => "", "data-no-validate" => true}
                 %span Start
                 %span.icon.icon-rt_arrow
             - else
