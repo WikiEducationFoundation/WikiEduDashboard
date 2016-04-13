@@ -50,18 +50,22 @@ class ApplicationController < ActionController::Base
 
   def require_permissions
     course = Course.find_by_slug(params[:id])
+    return if user_signed_in? && current_user.can_edit?(course)
     exception = ActionController::InvalidAuthenticityToken.new('Unauthorized')
-    fail exception unless user_signed_in? && current_user.can_edit?(course)
+    raise exception
   end
 
   def require_admin_permissions
-    fail exception unless user_signed_in? && current_user.admin?
+    return if user_signed_in? && current_user.admin?
+    exception = ActionController::InvalidAuthenticityToken.new('Unauthorized')
+    raise exception
   end
 
   def require_participating_user
     course = Course.find_by_slug(params[:id])
+    return if user_signed_in? && current_user.role(course) >= 0
     exception = ActionController::InvalidAuthenticityToken.new('Unauthorized')
-    fail exception unless user_signed_in? && current_user.role(course) >= 0
+    raise exception
   end
 
   def check_for_expired_oauth_credentials
