@@ -230,9 +230,12 @@ SurveyAdmin =
     @$conditional_value_select.append "<option value='nil' slelected>Select an Answer</option>"
     answers.map (answer, i) =>
       answer_value = answer.trim()
-      @$conditional_value_select.append "<option value='#{answer_value}'>#{answer_value}</option>"
+      @$conditional_value_select.append "<option value='#{@sanitizeAnswerValue(answer_value)}'>#{answer_value}</option>"
     @$conditional_value_select.removeClass 'hidden'
     @$document.trigger CONDITIONAL_ANSWERS_CHANGED
+
+  sanitizeAnswerValue: (string) ->
+    string.replace('\'', '&#39;').replace('\"', '&#34;')
 
   handleConditionalAnswerSelect: ({target}) ->
     if target.value isnt 'nil'
@@ -269,6 +272,7 @@ SurveyAdmin =
     conditional_string += "#{@$conditional_question_select.val()}|"
     conditional_string += "#{@$conditional_operator.text()}|"
     conditional_string += "#{@$conditional_value_select.val()}|multi"
+    console.log(@$conditional_value_select.val())
     @$conditional_input_field.val conditional_string
 
   clearConditional: (e) ->

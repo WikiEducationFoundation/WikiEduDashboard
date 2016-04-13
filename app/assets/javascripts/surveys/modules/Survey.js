@@ -380,6 +380,7 @@ const Survey = {
       const $conditionalQuestion = $(question);
       let $question = $($(question).parents('.block__container'));
       const { question_id, operator, value, multi } = Utils.parseConditionalString($conditionalQuestion.data('conditional-question'));
+
       if ($question.find('.survey__question--matrix').length) {
         $question = $conditionalQuestion;
         $question.addClass('hidden');
@@ -418,7 +419,7 @@ const Survey = {
       if (multi && $checkedInputs.length) {
         value = [];
         $checkedInputs.each((i, input) => {
-          value.push($(input).val().split(' ').join('_'));
+          value.push($(input).val().trim().split(' ').join('_'));
         });
       } else if (multi) {
         value = [];
@@ -463,13 +464,11 @@ const Survey = {
       // Check if empty
       if (value.length === 0 && currentAnswers) {
         conditionalGroup.currentAnswers = [];
-        // resetQuestions = true;
       }
 
       // Check if conditional was present and is no longer
       currentAnswers.forEach((a) => {
         if (value.indexOf(a === -1)) {
-          // resetQuestions = true;
           const index = currentAnswers.indexOf(a);
           if (currentAnswers.length === 1) {
             currentAnswers = [];
@@ -480,7 +479,7 @@ const Survey = {
       });
       // Check if value matches a conditional question
       value.forEach((v) => {
-        if ((conditionalGroup[v] !== null)) {
+        if (conditionalGroup[v] !== undefined) {
           conditional = conditionalGroup[v];
           currentAnswers.push(v);
           conditionalGroup.currentAnswers = currentAnswers;
@@ -492,7 +491,6 @@ const Survey = {
       }
     } else {
       conditional = conditionalGroup[value];
-      // resetQuestions = true;
     }
 
     this.resetConditionalGroupChildren(conditionalGroup);
@@ -568,6 +566,8 @@ const Survey = {
   resetConditionalQuestion($question) {
     if ($question.hasClass('survey__question-row')) {
       $question.removeAttr('style').addClass('hidden not-seen disabled');
+    } else {
+      $question.detach();
     }
     $question.find('input, textarea').val('');
     $question.find('input:checked').removeAttr('checked');

@@ -177,7 +177,8 @@ module SurveysHelper
 
   def conditional_string(answer)
     if answer.question.conditionals?
-      "data-conditional-question=#{strip_tags(answer.question.conditionals).tr(' ', '_')}"
+      string = strip_tags(answer.question.conditionals).tr(' ', '_').tr("'", "\\'")
+      "data-conditional-question=#{string}"
     end
   end
 
