@@ -1,4 +1,5 @@
 require('jquery-ui/sortable')
+striptags = require('striptags')
 Utils = require './SurveyUtils.coffee'
 CONDITIONAL_ANSWERS_CHANGED = 'ConditionalAnswersChanged'
 CONDITIONAL_COMPARISON_OPERATORS = """
@@ -90,7 +91,6 @@ SurveyAdmin =
         ui.item.removeClass 'active-item-shadow'
       update: (e, ui) ->
         item_id = ui.item.data 'item-id'
-        console.log item_id
         position = ui.item.index() + 1 #acts_as_list defaults to start at 1
         $.ajax
           type: 'POST'
@@ -160,7 +160,7 @@ SurveyAdmin =
       dataType: 'json'
       contentType: 'application/json'
       success: $.proxy @, 'handleConditionalQuestionSelect'
-      error: (e) -> console.log 'error', e
+    
 
   handleConditionalQuestionSelect: (e) ->
     @clearConditionalOperatorAndValue()
@@ -206,12 +206,10 @@ SurveyAdmin =
       $option.addClass 'hidden'
 
   textConditional: (question) ->
-    console.log 'TEXT CONDITIONAL', question
     @$conditional_operator.text 'is present'
     @addPresenceConditional()
 
   comparisonConditional: (question) ->
-    console.log 'COMPARISON CONDITIONAL', question
     @$conditional_operator_select.append(CONDITIONAL_COMPARISON_OPERATORS).removeClass 'hidden'
     @$conditional_value_number_field.removeClass 'hidden'
     @$conditional_value_number_field.on 'blur', (e) =>
@@ -219,7 +217,6 @@ SurveyAdmin =
       conditional_string += "#{@$conditional_question_select.val()}|"
       conditional_string += "#{@$conditional_operator_select.val()}|"
       conditional_string += e.target.value
-      console.log conditional_string
       @$conditional_input_field.val conditional_string
 
   multipleChoiceConditional: (question)->
@@ -235,7 +232,9 @@ SurveyAdmin =
     @$document.trigger CONDITIONAL_ANSWERS_CHANGED
 
   sanitizeAnswerValue: (string) ->
-    string.replace('\'', '&#39;').replace('\"', '&#34;')
+    striptags(string).replace('\'', '&#39;').replace('\"', '&#34;').split(' ').join('_')
+    # string.replace('\'', '&#39;').replace('\"', '&#34;')
+
 
   handleConditionalAnswerSelect: ({target}) ->
     if target.value isnt 'nil'
@@ -248,7 +247,6 @@ SurveyAdmin =
       string = $row.data 'conditional'
       return if string is ''
       { question_id, operator, value } = Utils.parseConditionalString string
-      console.log operator
       switch operator
         when ">", "<=", ">", ">="
           $row.find('select').val("#{question_id}")
@@ -262,7 +260,6 @@ SurveyAdmin =
             @$document.off CONDITIONAL_ANSWERS_CHANGED
           $row.find('select').val("#{question_id}").trigger 'change'
 
-
   addPresenceConditional: ->
     @$conditional_input_field.val "#{@$conditional_question_select.val()}|*presence"
 
@@ -272,7 +269,6 @@ SurveyAdmin =
     conditional_string += "#{@$conditional_question_select.val()}|"
     conditional_string += "#{@$conditional_operator.text()}|"
     conditional_string += "#{@$conditional_value_select.val()}|multi"
-    console.log(@$conditional_value_select.val())
     @$conditional_input_field.val conditional_string
 
   clearConditional: (e) ->
