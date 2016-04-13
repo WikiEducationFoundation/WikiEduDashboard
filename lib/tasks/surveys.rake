@@ -89,17 +89,19 @@ namespace :surveys do
   desc 'Find CoursesUsers ready to receive surveys and create a SurveyNotification for each'
   task create_notifications: :environment do
     include SurveyAssignmentsHelper
-    SurveyAssignment.published.each do |survey_assignment|
+    puts 'create_notifications'
+    SurveyAssignment.published.each_with_index do |survey_assignment, index|
       survey_assignment.courses_users_ready_for_survey.each do |courses_user|
         course = Course.find(courses_user.course_id)
-        next if SurveyAssignment.by_courses_user_and_survey(
+        notifications = SurveyAssignment.by_courses_user_and_survey(
           courses_user_id: courses_user.id,
           survey_id: survey_assignment.survey_id
-        ).any?
+        )
+        next if notifications.any?
         notification = SurveyNotification.new(
-          :courses_user_id => courses_user.id,
-          :survey_assignment_id => survey_assignment.id,
-          :course_id => course.id
+          courses_user_id: courses_user.id,
+          survey_assignment_id: survey_assignment.id,
+          course_id: course.id
         )
         notification.save
       end
