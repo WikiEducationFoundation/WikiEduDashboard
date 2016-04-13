@@ -1,6 +1,11 @@
 import React from 'react';
 
 const CourseTypeSelector = React.createClass({
+  propTypes: {
+    course: React.PropTypes.object,
+    editable: React.PropTypes.bool
+  },
+
   render() {
     const currentType = this.props.course.type;
     let selector = currentType;
