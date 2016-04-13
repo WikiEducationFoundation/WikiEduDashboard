@@ -4,9 +4,9 @@
   %em Select all that apply.
 
 - options = answer_options(answer, @course)
-- if options.length == 0
+- if options.nil? || options.length == 0
   %div{'data-remove-me' => true}
-- if options.length > 0
+- elsif options.length > 0
   = f.fields_for :answer_text do |af|
     - options.each do |option|
       %label.survey__multiple-choice-field

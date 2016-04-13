@@ -25,7 +25,7 @@
         <% end %>
 
           <% if is_grouped_question(answer) && is_start_of_group && is_radio_type(answer) %>
-            <div class='survey__question-row first'>
+            <div class='survey__question-row first' data-block-index='<%= index %>'>
               <%= render_matrix_answer_labels(answer) %>
             </div>
           <% end %>

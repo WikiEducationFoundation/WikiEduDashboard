@@ -49,6 +49,7 @@ const Survey = {
   submitted: [],
   surveyConditionals: {},
   previewMode: false,
+  detachedParentBlocks: {},
 
   init() {
     this.cacheSelectors();
@@ -554,9 +555,14 @@ const Survey = {
       children.forEach((question) => {
         this.resetConditionalQuestion($(question));
         if ($(question).hasClass('survey__question-row')) {
-          const $parentBlock = $(question).parents('.block');
+          const $parentBlock = $(question).parents('.block__container');
+          const blockIndex = $(question).data('block-index');
           if (!($parentBlock.find('.survey__question-row:not([data-conditional-question])').length > 1)) {
             this.resetConditionalQuestion($parentBlock);
+            if (this.detachedParentBlocks[blockIndex] === undefined) {
+              this.detachedParentBlocks[blockIndex] = $parentBlock;
+            }
+            $parentBlock.detach();
           }
         }
       });
@@ -584,6 +590,19 @@ const Survey = {
     if ($parent.next('.block__container').find('.block.survey__question--matrix').length === 0) {
       const $slider = this.groupSliders[questionGroupIndex];
       $slider.slick('slickAdd', $question, parentIndex);
+    } else {
+      this.attachMatrixParentBlock($question, questionGroupIndex);
+    }
+  },
+
+  attachMatrixParentBlock($question, questionGroupIndex) {
+    const $parent = $question.parents('.block__container');
+    const $parentBlock = this.detachedParentBlocks[$question.data('block-index')];
+    // If parent node is currently detached, re-add it to the question_group slider
+    if (!$.contains(document, $parentBlock)) {
+      const parentIndex = $parent.data('slick-index');
+      const $slider = this.groupSliders[questionGroupIndex];
+      $slider.slick('slickAdd', $parentBlock, (parentIndex - 1));
     }
   },
 
