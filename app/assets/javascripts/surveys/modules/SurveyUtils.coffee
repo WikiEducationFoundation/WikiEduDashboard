@@ -4,7 +4,7 @@ Utils =
     return {} =
       question_id : params[0]
       operator : params[1]
-      value : params[2].replace(' ', '_')
+      value : params[2].trim().replace(' ', '_')
       multi : if params[3]? and params[3] is 'multi' then true else false
 
   toTitleCase: (str) ->
