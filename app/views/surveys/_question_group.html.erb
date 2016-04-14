@@ -9,7 +9,8 @@
     <% is_end_of_group = end_of_group(answer, @answer_group_builder, index) %>
 
     <% if is_start_of_group %>
-      <div class='block__container'><div class="block not-seen disabled survey__question--matrix <%= question_type(answer) %>" data-survey-block='<%= index + 1 %>'>
+      <div class='block__container' data-block-index='<%= index %>'>
+        <div class="block not-seen disabled survey__question--matrix <%= question_type(answer) %>" data-survey-block='<%= index + 1 %>'>
     <% end %>
 
       <%= f.fields_for("#{answer.question.id}", answer) do |answer_form| %>
@@ -25,12 +26,12 @@
         <% end %>
 
           <% if is_grouped_question(answer) && is_start_of_group && is_radio_type(answer) %>
-            <div class='survey__question-row first' data-block-index='<%= index %>'>
+            <div class='survey__question-row first matrix-row' data-block-index='<%= index %>'>
               <%= render_matrix_answer_labels(answer) %>
             </div>
           <% end %>
 
-          <div <% if is_grouped_question(answer) %>id="question_<%= answer.question.id %>"<% end %> data-question-group="<%= question_group_index %>" class='survey__question-row <%= index.even? ? '' : 'odd' %>  <%= is_end_of_group ? "last" : "" %> <% if is_required_question?(answer) %>required<% end %>' <%= conditional_string(answer) %>>
+          <div <% if is_grouped_question(answer) %>id="question_<%= answer.question.id %>"<% end %> data-question-group="<%= question_group_index %>" class='survey__question-row matrix-row <%= index.even? ? '' : 'odd' %>  <%= is_end_of_group ? "last" : "" %> <% if is_required_question?(answer) %>required<% end %>' <%= conditional_string(answer) %>>
             <%= render_answer_form_helper(answer, answer_form) %>
           </div>
 

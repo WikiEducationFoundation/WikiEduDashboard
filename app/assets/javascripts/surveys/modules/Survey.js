@@ -424,6 +424,8 @@ const Survey = {
       const { question_id, operator, value, multi } = Utils.parseConditionalString($conditionalQuestion.data('conditional-question'));
 
       if ($question.find('.survey__question--matrix').length) {
+        this.detachedParentBlocks[$question.data('block-index')] = $question;
+        $question.detach();
         $question = $conditionalQuestion;
         $question.addClass('hidden');
       } else {
@@ -602,12 +604,18 @@ const Survey = {
             this.resetConditionalQuestion($parentBlock);
             if (this.detachedParentBlocks[blockIndex] === undefined) {
               this.detachedParentBlocks[blockIndex] = $parentBlock;
+              this.removeSlide($parentBlock);
+              $parentBlock.detach();
             }
-            $parentBlock.detach();
           }
         }
       });
     }
+  },
+
+  removeSlide($block) {
+    const $slider = $(this.$currentSlider);
+    $slider.slick('slickRemove', $block.data('slick-index') + 1);
   },
 
   resetConditionalQuestion($question) {
@@ -628,20 +636,20 @@ const Survey = {
     const $grandParents = $parent.parents('[data-question-group-blocks]');
     const parentIndex = $parent.data('slick-index');
     const questionGroupIndex = $grandParents.data('question-group-blocks');
-    if ($parent.next('.block__container').find('.block.survey__question--matrix').length === 0) {
+    if ($question.hasClass('matrix-row')) {
+      this.attachMatrixParentBlock($question, questionGroupIndex);
+    } else {
       const $slider = this.groupSliders[questionGroupIndex];
       $slider.slick('slickAdd', $question, parentIndex);
-    } else {
-      this.attachMatrixParentBlock($question, questionGroupIndex);
     }
   },
 
   attachMatrixParentBlock($question, questionGroupIndex) {
     const $parent = $question.parents(BLOCK_CONTAINER_SELECTOR);
-    const $parentBlock = this.detachedParentBlocks[$question.data('block-index')];
+    const $parentBlock = this.detachedParentBlocks[$parent.data('block-index')];
     // If parent node is currently detached, re-add it to the question_group slider
     if (!$.contains(document, $parentBlock)) {
-      const parentIndex = $parent.data('slick-index');
+      const parentIndex = $parentBlock[0].dataset.blockIndex;
       const $slider = this.groupSliders[questionGroupIndex];
       $slider.slick('slickAdd', $parentBlock, (parentIndex - 1));
     }
