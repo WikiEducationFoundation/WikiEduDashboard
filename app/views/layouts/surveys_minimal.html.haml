@@ -10,6 +10,7 @@
   = render "shared/head"
   %body{class: body_class(request)}
     = render "shared/flash"
+    = render "shared/nav"
     = render "header"
     %div
       %main#main{"data-user-id" => current_user.try(:id), :role => "main"}

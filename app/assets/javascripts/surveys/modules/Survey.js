@@ -135,7 +135,7 @@ const Survey = {
         this.currentBlock = currentSlide;
         this.currentBlockValidated = false;
         this.updateProgress();
-        $('.survey-nav').velocity('scroll', {
+        $('.top-nav').velocity('scroll', {
           easing: scrollEasing
         });
       });
