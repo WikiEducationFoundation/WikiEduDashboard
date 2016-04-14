@@ -288,12 +288,11 @@ const Survey = {
       $errorsEl.empty();
       this.nextBlock(e);
     } else {
-      this.handleRequiredQuestion();
+      this.handleRequiredQuestion($errorsEl);
     }
   },
 
   validateMatrixBlock($block, cb) {
-
     if (!$block.hasClass('survey__question--matrix')) {
       cb(true);
       return;
@@ -327,8 +326,9 @@ const Survey = {
     });
   },
 
-  handleRequiredQuestion() {
-    return this.$currentBlock.addClass('highlight');
+  handleRequiredQuestion($errorsEl) {
+    $errorsEl.append('<span>Question Required</span>');
+    this.$currentBlock.addClass('highlight');
   },
 
   focusField() {
@@ -678,6 +678,7 @@ const Survey = {
     if ($block.hasClass('highlight')) {
       $block.removeClass('highlight');
       $block.find('.survey__question-row.required.highlight').removeClass('highlight');
+      $block.find('[data-errors]').empty();
     }
   }
 };

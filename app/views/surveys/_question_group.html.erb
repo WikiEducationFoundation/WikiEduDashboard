@@ -30,11 +30,11 @@
             </div>
           <% end %>
 
-          <div <% if is_grouped_question(answer) %>id="question_<%= answer.question.id %>"<% end %> data-question-group="<%= question_group_index %>" class='survey__question-row  <%= is_end_of_group ? "last" : "" %> <% if is_required_question?(answer) %>required<% end %>' <%= conditional_string(answer) %>>
+          <div <% if is_grouped_question(answer) %>id="question_<%= answer.question.id %>"<% end %> data-question-group="<%= question_group_index %>" class='survey__question-row <%= index.even? ? '' : 'odd' %>  <%= is_end_of_group ? "last" : "" %> <% if is_required_question?(answer) %>required<% end %>' <%= conditional_string(answer) %>>
             <%= render_answer_form_helper(answer, answer_form) %>
           </div>
 
-          <div data-errors></div>
+
           <% if !is_grouped_question(answer) || is_end_of_group  || is_grouped_question(answer) && !is_grouped_question(@answer_group_builder.answers[index + 1]) %>
             <% if has_follow_up_question(answer) %>
               <%= render partial: "rapidfire/answers/follow_up_question", locals: {f: answer_form, answer: answer } %>
@@ -42,7 +42,10 @@
 
             <div class='survey__block-nav'>
               <button class='button survey__prev border' data-prev-survey-block>Previous</button>
-              <button class='button survey__next dark' data-next-survey-block>Next <span class='icon icon-rt_arrow'></span></button>
+              <div class='survey__block-nav__next-container'>
+                <div data-errors></div>
+                <button class='button survey__next dark' data-next-survey-block>Next <span class='icon icon-rt_arrow'></span></button>
+              </div>
             </div>
           <% end %>
         <% if !is_grouped_question(answer) %>
