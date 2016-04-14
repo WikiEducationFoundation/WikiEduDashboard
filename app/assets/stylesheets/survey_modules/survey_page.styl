@@ -92,7 +92,11 @@ ul.list--survey
     float none
 
 .highlight label.survey__multiple-choice-field
-  border-color $warning_text
+  background $warning-background
+  border-color $warning_border
+
+  &:before
+    background $warning-background
 
 .block.survey__slide-form
   overflow hidden

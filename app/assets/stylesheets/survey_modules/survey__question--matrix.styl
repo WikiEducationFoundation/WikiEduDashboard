@@ -1,11 +1,10 @@
 .block.survey__question--matrix
 
   &.highlight
-    .survey__multiple-choice-field__radio-circle,
-    .survey__multiple-choice-field__checkbox
-      border-color $warning_text
-    .survey__question-row
-      border-color $warning_text
+    .survey__question-row.required.highlight
+      background $warning-background
+      .survey__multiple-choice-field__radio-circle
+        border-color warning
 
   .survey__question-text,
   .survey__multiple-choice-field

@@ -17,7 +17,7 @@
       <%= render partial: "rapidfire/answers/matrix_question_text", locals: {f: f, answer: answer, show_title: surveys_question_group[:show_title], name: question_group.name} %>
 
       <% if !is_grouped_question(answer) %>
-        <div class='block__container'><div id="question_<%= answer.question.id %>" class='block disabled not-seen question-type--<%= question_type(answer) %> <% if answer.errors.any? %>block--errors<% end %> <% if answer.question.validation_rules[:presence].to_i == 1 %>required<% end %>' data-survey-block='<%= index + 1 %>'>
+        <div class='block__container'><div id="question_<%= answer.question.id %>" class='block disabled not-seen question-type--<%= question_type(answer) %> <% if answer.errors.any? %>block--errors<% end %> <% if is_required_question?(answer) %>required<% end %>' data-survey-block='<%= index + 1 %>'>
       <% end %>
 
         <% if surveys_question_group[:show_title] && !is_grouped_question(answer) %>
@@ -30,7 +30,7 @@
             </div>
           <% end %>
 
-          <div <% if is_grouped_question(answer) %>id="question_<%= answer.question.id %>"<% end %> data-question-group="<%= question_group_index %>" class='survey__question-row  <%= is_end_of_group ? "last" : "" %>' <%= conditional_string(answer) %>>
+          <div <% if is_grouped_question(answer) %>id="question_<%= answer.question.id %>"<% end %> data-question-group="<%= question_group_index %>" class='survey__question-row  <%= is_end_of_group ? "last" : "" %> <% if is_required_question?(answer) %>required<% end %>' <%= conditional_string(answer) %>>
             <%= render_answer_form_helper(answer, answer_form) %>
           </div>
 

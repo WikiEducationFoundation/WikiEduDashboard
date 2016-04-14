@@ -87,6 +87,7 @@ const Survey = {
     $('[data-chosen-select]').chosen(chosenOptions);
     $('[data-void-checkboxes]').on('click', this.voidCheckboxSelections.bind(this));
     $('.survey__multiple-choice-field input[type=checkbox]').on('change', this.uncheckVoid.bind(this));
+    $('.block input').on('change', this.removeErrorState.bind(this));
   },
 
   initBlocks() {
@@ -250,29 +251,37 @@ const Survey = {
   },
   validateCurrentQuestion(e) {
     e.preventDefault();
-    const $block = $(e.target).parents('.block');
+    const $target = $(e.target);
+    const $block = $target.parents('.block');
     this.$currentBlock = $block;
     let $form = $block.parents('[data-survey-form]');
     this.$currentSlider = $form.find('[data-question-group-blocks]');
     const $errorsEl = $block.find('[data-errors]');
     const questionGroupIndex = this.currentQuestionGroupIndex();
 
-    if ($(e.target).closest('.button').data('no-validate') !== undefined) {
+    if ($target.closest('.button').data('no-validate') !== undefined) {
       this.nextBlock(e);
       return;
     }
 
-    let validation = $form.parsley({ uiEnabled: false }).validate({ group: `${$block.data('parsley-group')}` });
+    let validation = $form.parsley({ uiEnabled: false })
+                          .validate({ group: `${$block.data('parsley-group')}` });
 
     if ((typeof questionGroupIndex !== 'undefined' && questionGroupIndex !== null)) {
       $form = $(this.$surveyForm[questionGroupIndex]);
     }
 
+    // Validate Checkbox
     if ($block.find('[data-required-checkbox]').length) {
       if ($block.find('input[type="checkbox"]:checked').length === 0) {
         validation = false;
       }
     }
+
+    // Validate Required Matrix Question Rows
+    this.validateMatrixBlock($block, (bool) => {
+      validation = bool;
+    });
 
     if (validation === true) {
       $block.removeClass('highlight');
@@ -280,6 +289,29 @@ const Survey = {
       this.nextBlock(e);
     } else {
       this.handleRequiredQuestion();
+    }
+  },
+
+  validateMatrixBlock($block, cb) {
+
+    if (!$block.hasClass('survey__question--matrix')) {
+      cb(true);
+      return;
+    }
+
+    let valid = true;
+    $block.find('.survey__question-row.required').each((i, row) => {
+      const $row = $(row);
+      if ($row.find('input:checked').length === 0) {
+        $row.addClass('highlight');
+        valid = false;
+      }
+    });
+
+    if (valid) {
+      cb(true);
+    } else {
+      cb(false);
     }
   },
 
@@ -639,6 +671,14 @@ const Survey = {
     const $target = $(e.target);
     if ($target.data('void-checkboxes')) { return; }
     $target.parents(BLOCK_CONTAINER_SELECTOR).find('input[data-void-checkboxes]').prop('checked', false);
+  },
+
+  removeErrorState(e) {
+    const $block = $(e.target).parents('.block');
+    if ($block.hasClass('highlight')) {
+      $block.removeClass('highlight');
+      $block.find('.survey__question-row.required.highlight').removeClass('highlight');
+    }
   }
 };
 
