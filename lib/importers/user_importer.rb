@@ -1,4 +1,5 @@
 require "#{Rails.root}/lib/replica"
+require "#{Rails.root}/lib/wiki_api"
 
 #= Imports and updates users from Wikipedia into the dashboard database
 class UserImporter
@@ -7,11 +8,9 @@ class UserImporter
     if user.nil?
       user = new_from_omniauth(auth)
     else
-      user.update(
-        global_id: auth.uid,
-        wiki_token: auth.credentials.token,
-        wiki_secret: auth.credentials.secret
-      )
+      user.update(global_id: auth.uid,
+                  wiki_token: auth.credentials.token,
+                  wiki_secret: auth.credentials.secret)
     end
     user
   end
@@ -31,7 +30,9 @@ class UserImporter
   end
 
   def self.new_from_username(username, wiki: nil)
-    require "#{Rails.root}/lib/wiki_api"
+    # All mediawiki usernames have the first letter capitalized, although
+    # the API returns data if you replace it with lower case.
+    username[0] = username[0].mb_chars.capitalize.to_s
     user = User.find_by(username: username)
     return user if user
 
