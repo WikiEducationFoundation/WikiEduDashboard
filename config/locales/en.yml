@@ -46,7 +46,7 @@ en:
     log_out: Log out
     my_dashboard: My Dashboard
     recent_activity: Recent Activity
-    search: search ask.wikiedu.org
+    search: ask a question
     sign_up_extended: Sign up with Wikipedia
     # FIXME: deprecate lego message
     sign_up_log_in_extended: with Wikipedia
