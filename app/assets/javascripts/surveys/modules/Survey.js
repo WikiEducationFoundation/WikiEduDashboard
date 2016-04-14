@@ -8,7 +8,7 @@ require('core-js/modules/es6.array.is-array');
 const rangeslider = require('nouislider');
 require('wnumb');
 const wNumb = window.wNumb;
-require('./slick');
+require('slick-carousel');
 require('velocity-animate');
 
 //--------------------------------------------------------
