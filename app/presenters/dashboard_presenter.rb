@@ -43,6 +43,11 @@ class DashboardPresenter
     is_instructor? && !instructor_has_completed_orientation? && @current.empty? && @past.empty?
   end
 
+  def show_orientation_review?
+    return false if Features.disable_onboarding?
+    is_instructor? && instructor_has_completed_orientation?
+  end
+
   def can_create_course?
     return true if Features.open_course_creation?
     return true if is_admin?

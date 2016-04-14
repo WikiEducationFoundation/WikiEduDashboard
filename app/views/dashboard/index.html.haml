@@ -6,6 +6,7 @@
   %header
     %h1= @pres.heading_message
     %div
+
       - if @pres.can_create_course?
         = link_to course_creator_path, class: 'button dark dashboard-cta' do
           = t("courses.creator.create_short")
@@ -15,6 +16,12 @@
           = t("courses.creator.find")
           %span.icon.icon-rt_arrow
 
+
+    - if @pres.show_orientation_review?
+      %div
+        = link_to @pres.orientation_path, class: 'button' do
+          = t("dashboard.review_orientation")
+          %i.icon.icon-rt_arrow
   - # Show submitted/pending courses (for admins)
   - if @pres.submitted.any?
     %h2
