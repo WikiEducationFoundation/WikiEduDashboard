@@ -226,10 +226,10 @@ qqq:
     edit_count_description: Label for the number of edits made.
     revisions: Label for the number of recent edits/revisions.
     upload_count: Label for the number of files uploaded to Wikimedia Commons
-    uploads_in_use_count: Label for the number of Wikimedia Commons files being
-      used in articles
-    upload_usages_count: Label for the number of times Wikimedia Commons files
-      are used across all languages and projects
+    uploads_in_use_count: Label for the number of Wikimedia Commons files being used
+      in articles
+    upload_usages_count: Label for the number of times Wikimedia Commons files are
+      used across all languages and projects
     view_count_description: Long label for the number of article views.
     view: Label for the number of article views.
   namespace:
@@ -325,4 +325,7 @@ qqq:
     explanation: Explanation of what to do after encountering this error.
   timeline:
     title: '{{Identical|Timeline}}'
+  survey:
+    email:
+      headline: '{{Identical|Hello}}'
 ...

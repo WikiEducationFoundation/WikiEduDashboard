@@ -99,4 +99,7 @@ pl:
     summary: Podsumowanie
   timeline:
     title: Oś czasu
+  survey:
+    email:
+      headline: Witaj, %{username}
 ...

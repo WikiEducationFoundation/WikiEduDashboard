@@ -220,6 +220,9 @@ es:
     word_count_doc: Una estimación del número de palabras agregadas a los artículos
       del espacio principal por parte de los estudiantes durante el período del curso
     yourcourses: Tus cursos
+    survey:
+      notification_message: Está disponible una encuesta para este curso
+      link: Completar la encuesta
   courses_generic:
     articles_none: No hay artículos editados para este proyecto aún.
     assignment_end: Final del cronograma
@@ -263,6 +266,9 @@ es:
     date_time: Fecha/hora
     edit_count_description: Ediciones totales
     revisions: Ediciones recientes
+    upload_count: Subidas a Commons
+    uploads_in_use_count: archivos utilizados en artículos
+    upload_usages_count: total de usos entre todos los idiomas
     view_count_description: Visualizaciones del artículo
     view: Visualizaciones
     word_count: Palabras añadidas
@@ -420,4 +426,9 @@ es:
     unable_to_add_week: No puedes agregar semanas nuevas cuando tu cronograma está
       completo. Elimina al menos una semana o cambia las fechas de tareas para hacer
       espacio para una nueva.
+  survey:
+    email:
+      headline: Hola, %{username}
+      message: 'Está disponible una encuesta para: %{course_title}'
+      link: Completar la encuesta
 ...

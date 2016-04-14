@@ -218,6 +218,9 @@ de:
     word_count_doc: Eine Schätzung der Anzahl der durch die Kursstudenten während
       der Kursdauer hinzugefügten Wörter in Hauptnamensraum-Artikeln.
     yourcourses: Deine Kurse
+    survey:
+      notification_message: Für diesen Kurs ist eine Umfrage verfügbar
+      link: An der Umfrage teilnehmen
   courses_generic:
     articles_none: Es gibt noch keine bearbeiteten Artikel für dieses Projekt.
     assignment_end: Zeitleisten-Ende
@@ -261,6 +264,9 @@ de:
     date_time: Datum/Uhrzeit
     edit_count_description: Gesamte Bearbeitungen
     revisions: Letzte Bearbeitungen
+    upload_count: Auf Commons hochgeladene Dateien
+    uploads_in_use_count: in Artikeln verwendete Dateien
+    upload_usages_count: Gesamte Verwendungen auf allen Sprachen
     view_count_description: Artikelaufrufe
     view: Aufrufe
     word_count: Hinzugefügte Wörter
@@ -424,4 +430,11 @@ de:
     unable_to_add_week: Du kannst keine neuen Wochen hinzufügen, wenn deine Zeitleiste
       voll ist. Lösche mindestens eine Woche oder ändere deine Zuweisungsdaten ab,
       um Platz für ein neues zu schaffen.
+  survey:
+    login_message: Vielen Dank für deine Zeit. Bitte melde dich beim Wiki Ed Dashboard
+      an, um an der Umfrage teilzunehmen.
+    email:
+      headline: Hallo %{username}
+      message: Für %{course_title} ist eine Umfrage verfügbar
+      link: An der Umfrage teilnehmen
 ...

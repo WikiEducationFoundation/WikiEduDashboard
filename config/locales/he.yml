@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Amire80
+# Author: Guycn2
 # Author: IKhitron
 # Author: LaG roiL
 # Author: Macofe
@@ -188,6 +189,7 @@ he:
     training_nav: יציאה לאימונים
     training_overdue: מודול האימונים "%{title}" שוייך לקורס זה, לתאריך %{date}.
     unsubmitted: קורסים שלא הוגשו
+    untrained: לא עבר הכשרה
     uploads_none: לשיעור זה לא מצורפות תמונות או קבצי מדיה אחרים לויקימדיה קומונס.
     weeks_none: בקורס הזה אין ציר זמן.
     view: הצגת קורס
@@ -205,6 +207,9 @@ he:
     word_count_doc: מספר המלים, בקירוב, שנוספו לערכים במרחב הראשי ע"י תלמידי הקורס
       במשך הקורס.
     yourcourses: הקורסים שלך
+    survey:
+      notification_message: סקר זמין עבור הקורס הזה
+      link: השתתפות בסקר
   courses_generic:
     articles_none: אין, עדיין, דפים ערוכים לפרוייקט זה.
     assignment_end: סוף ציר זמן
@@ -223,12 +228,17 @@ he:
         התוכנית שלי!" כדי להתחיל לבנות את הדפים לתוכנית הוויקי שלך.
     edit_course_dates: עריכת תאריכי הפרויקט
     expected_students: עורכים מצופים
+    instructors: עוזרים
     milestones_none: לקורס הזה אין כרגע אבני דרך.
+    published: 'המיזם הזה פורסם! עורכים יכולים להירשם דרך הכתובת הבאה:'
+    revisions_none: במיזם הזה אין פעילות עריכת ויקיפדיה לאחרונה.
+    school: מוסד
     student_editors: עורכים
     students: עורכים
     students_none: לפרויקט זה אין עורכים מורשים.
     students_short: עורכים
     term: מתי
+    uploads_none: המיזם הזה לא תרם תמונות או קובצי מדיה אחרים לוויקישיתוף.
   metrics:
     activity: פעילות לאחרונה
     articles_created: ערכים נוצרו
@@ -240,6 +250,9 @@ he:
     date_time: תאריך/שעה
     edit_count_description: עריכות סה"כ
     revisions: עריכות אחרונות
+    upload_count: העלאות לוויקישיתוף
+    uploads_in_use_count: קבצים הנמצאים בשימוש בערכים
+    upload_usages_count: כל השימושים בכל השפות
     view_count_description: צפיות בערכים
     view: צפיות
     word_count: מלים שנוספו
@@ -276,6 +289,7 @@ he:
     continue: המשך (%{progress})
     start: התחלה
     view: צפייה
+    logged_out: יצאת מהחשבון. לא יינתן לך קרדיט על השלמת המודול הזה ללא כניסה לחשבון.
   uploads:
     label: העלאות
     loading: טעינת העלאות...
@@ -354,4 +368,9 @@ he:
       ולבניית כלים שימושיים עבורך (כגון תקציר אבן דרך בדף הסקירה הכללית).
     due_default: חובה להגיש בשבוע הבא
     title: ציר זמן
+  survey:
+    email:
+      headline: שלום, %{username}
+      message: 'סקר זמין עבור: %{course_title}'
+      link: השתתפות בסקר
 ...
