@@ -9,7 +9,7 @@ const rangeslider = require('nouislider');
 require('wnumb');
 const wNumb = window.wNumb;
 require('slick-carousel');
-
+require('velocity-animate');
 
 //--------------------------------------------------------
 // Required Internal Modules
@@ -23,7 +23,7 @@ const Utils = require('./SurveyUtils.coffee');
 
 // Scroll Animation
 // const scrollDuration = 500;
-// const scrollEasing = [0.19, 1, 0.22, 1];
+const scrollEasing = [0.19, 1, 0.22, 1];
 
 
 const chosenOptions = {
@@ -117,6 +117,9 @@ const Survey = {
       const slider = $(questionGroup).slick(slickOptions);
       $(slider).on('afterChange', (e, slick, currentSlide) => {
         this.currentBlock = currentSlide;
+        $('.block__container.slick-active').velocity('scroll', {
+          easing: scrollEasing
+        });
       });
       this.groupSliders.push(slider);
     });
