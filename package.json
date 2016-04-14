@@ -109,7 +109,7 @@
     "should": "^7.1.0",
     "sinon": "^1.17.3",
     "sinon-chai": "^2.8.0",
-    "slick-carousel": "git+ssh://git@github.com/cfoehrdes/slick.git#a4d85536c42951933e1d887bcc013615e25b03e7",
+    "slick-carousel": "git+https://github.com/cfoehrdes/slick.git#a4d85536c42951933e1d887bcc013615e25b03e7",
     "striptags": "^2.1.1",
     "stylus": "0.49.2",
     "testdom": "^2.0.0",

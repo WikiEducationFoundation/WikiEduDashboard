@@ -7234,8 +7234,8 @@
     },
     "slick-carousel": {
       "version": "1.5.10",
-      "from": "git+ssh://git@github.com/cfoehrdes/slick.git#a4d85536c42951933e1d887bcc013615e25b03e7",
-      "resolved": "git+ssh://git@github.com/cfoehrdes/slick.git#a4d85536c42951933e1d887bcc013615e25b03e7"
+      "from": "git+https://github.com/cfoehrdes/slick.git#a4d85536c42951933e1d887bcc013615e25b03e7",
+      "resolved": "git+https://github.com/cfoehrdes/slick.git#a4d85536c42951933e1d887bcc013615e25b03e7"
     },
     "sntp": {
       "version": "1.0.9",
