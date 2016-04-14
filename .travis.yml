@@ -22,6 +22,7 @@ before_install:
 - export DB=test
 - export sentry_dsn=${sentry_dsn:=http://example.com}
 - export DISPLAY=:99.0
+- export SENDER_EMAIL_ADDRESS='sender@wikiedu.org'
 - sh -e /etc/init.d/xvfb start
 - nvm install v5.8.0
 - nvm use v5.8.0
