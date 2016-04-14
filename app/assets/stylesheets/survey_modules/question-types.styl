@@ -23,6 +23,27 @@
   position relative
   margin-left 10px
 
+.question-type--select select
+  background: linear-gradient(-180deg, rgba(255,255,255,0.12) 0%, rgba(0,0,0,0.08) 100%)
+  border: 1px solid #aaa;
+  border-radius 5px
+  box-shadow: 0 0 3px white inset, 0 1px 1px rgba(0, 0, 0, 0.1);
+
+.question-type--select .survey__question-text
+  position relative
+
+.question-type--select .survey__question-text:after
+  content ''
+  background url('/assets/images/chosen-sprite.png') no-repeat
+  position absolute
+  display block
+  right 5px
+  bottom -52px
+  width 20px
+  height 20px
+  background-size 56px 41px
+
+
 .survey__multiple-choice-field .label
   position relative
   display block

@@ -35,7 +35,8 @@ module SurveysHelper
           include_blank: "#{answer.question.multiple ? 'Select all that apply' : 'Select an option'}",
           required: is_required_question?(answer),
           multiple: answer.question.multiple,
-          data: { chosen_select: true }
+          data: { chosen_select: true },
+          class: 'chosen-container'
         })
     end
   end
