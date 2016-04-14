@@ -3,6 +3,7 @@ React             = require 'react'
 InlineUsers       = require './inline_users.cjsx'
 CohortButton      = require './cohort_button.cjsx'
 TagButton         = require './tag_button.cjsx'
+CourseTypeSelector= require('./course_type_selector.jsx').default
 Editable          = require '../high_order/editable.cjsx'
 TextInput         = require '../common/text_input.cjsx'
 CourseActions     = require('../../actions/course_actions.js').default
@@ -126,6 +127,12 @@ Details = React.createClass(
           <TagButton {...@props} show={@props.editable} />
         </div>
       )
+      course_type_selector = (
+        <CourseTypeSelector
+          course={@props.course}
+          editable={@props.editable}
+        />
+      )
 
     <div className='module course-details'>
       <div className="section-header">
@@ -174,6 +181,7 @@ Details = React.createClass(
           <CohortButton {...@props} show={@props.editable && @props.current_user.admin && (@props.course.submitted || @props.course.legacy) } />
         </div>
         {tags}
+        {course_type_selector}
       </div>
     </div>
 )
