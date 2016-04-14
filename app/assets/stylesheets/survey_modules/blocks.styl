@@ -47,5 +47,10 @@
     overflow hidden
 
   .block.highlight
-    textarea, .chosen-single
+    textarea,
+    input[type=text],
+    .noUi-background
+      border-color $warning_border
+      background $warning-background
+    .chosen-single
       border-color $warning_text

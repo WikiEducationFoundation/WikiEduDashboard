@@ -19,11 +19,11 @@ namespace :surveys do
     test_survey = create(:survey)
     test_survey.rapidfire_question_groups << test_group
     test_survey.save
-    create(:q_checkbox, question_group_id: test_group.id)
-    create(:q_long, question_group_id: test_group.id)
-    create(:q_radio, question_group_id: test_group.id)
-    create(:q_select, question_group_id: test_group.id)
-    create(:q_short, question_group_id: test_group.id)
+    create(:q_checkbox, question_group_id: test_group.id, validation_rules: { :presence  => "1" })
+    create(:q_long, question_group_id: test_group.id, validation_rules: { :presence  => "1" })
+    create(:q_radio, question_group_id: test_group.id, validation_rules: { :presence  => "1" })
+    create(:q_select, question_group_id: test_group.id, validation_rules: { :presence  => "1" })
+    create(:q_short, question_group_id: test_group.id, validation_rules: { :presence  => "1" })
     create(:q_rangeinput, question_group_id: test_group.id)
   end
 

@@ -87,7 +87,7 @@ const Survey = {
     $('[data-chosen-select]').chosen(chosenOptions);
     $('[data-void-checkboxes]').on('click', this.voidCheckboxSelections.bind(this));
     $('.survey__multiple-choice-field input[type=checkbox]').on('change', this.uncheckVoid.bind(this));
-    $('.block input').on('change', this.removeErrorState.bind(this));
+    $('.block input, .block textarea, .block select').on('change keydown', this.removeErrorState.bind(this));
   },
 
   initBlocks() {
@@ -272,16 +272,17 @@ const Survey = {
     }
 
     // Validate Checkbox
-    if ($block.find('[data-required-checkbox]').length) {
-      if ($block.find('input[type="checkbox"]:checked').length === 0) {
-        validation = false;
-      }
+    if ($block.find('[data-required-checkbox]').length &&
+        $block.find('input[type="checkbox"]:checked').length === 0) {
+      validation = false;
     }
 
     // Validate Required Matrix Question Rows
-    this.validateMatrixBlock($block, (bool) => {
-      validation = bool;
-    });
+    if ($block.hasClass('survey__question--matrix')) {
+      this.validateMatrixBlock($block, (bool) => {
+        validation = bool;
+      });
+    }
 
     if (validation === true) {
       $block.removeClass('highlight');
@@ -293,11 +294,6 @@ const Survey = {
   },
 
   validateMatrixBlock($block, cb) {
-    if (!$block.hasClass('survey__question--matrix')) {
-      cb(true);
-      return;
-    }
-
     let valid = true;
     $block.find('.survey__question-row.required').each((i, row) => {
       const $row = $(row);

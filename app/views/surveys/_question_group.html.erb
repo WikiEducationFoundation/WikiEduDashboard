@@ -31,7 +31,7 @@
             </div>
           <% end %>
 
-          <div <% if is_grouped_question(answer) %>id="question_<%= answer.question.id %>"<% end %> data-question-group="<%= question_group_index %>" class='survey__question-row matrix-row <%= index.even? ? '' : 'odd' %>  <%= is_end_of_group ? "last" : "" %> <% if is_required_question?(answer) %>required<% end %>' <%= conditional_string(answer) %>>
+          <div <% if is_grouped_question(answer) %>id="question_<%= answer.question.id %>"<% end %> data-question-group="<%= question_group_index %>" class='survey__question-row <%= is_grouped_question(answer) ? 'matrix-row' : '' %> <%= index.even? ? '' : 'odd' %>  <%= is_end_of_group ? "last" : "" %> <% if is_required_question?(answer) %>required<% end %>' <%= conditional_string(answer) %>>
             <%= render_answer_form_helper(answer, answer_form) %>
           </div>
 
