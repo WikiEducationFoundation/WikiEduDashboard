@@ -173,6 +173,9 @@ zh-hans:
       other: 志愿者
     wiki_staff: Wiki Ed职员
     yourcourses: 您的课程
+    survey:
+      notification_message: 现有用于此课程的调查可用
+      link: 接受调查
   courses_generic:
     articles_none: 目前此项目尚无编辑的条目。
     assignment_end: 时间轴终点
@@ -212,6 +215,9 @@ zh-hans:
     date_time: 日期/时间
     edit_count_description: 总计编辑
     revisions: 最近编辑
+    upload_count: 共享资源上传
+    uploads_in_use_count: 条目中使用的文件
+    upload_usages_count: 跨语言使用总计
     view_count_description: 条目查阅
     view: 查看
     word_count: 添加的文字
@@ -319,4 +325,10 @@ zh-hans:
     due_default: 预计下周
     title: 时间轴
     unable_to_add_week: 当您的时间轴充满时，您不能添加新周。删除至少一周或更改您的分配日期以为新的一周腾出地方。
+  survey:
+    login_message: 感谢您抽出时间。请登录您的Wiki Ed控制面板以接受调查。
+    email:
+      headline: 您好，%{username}
+      message: 用于此课程的调查可用：%{course_title}
+      link: 接受调查
 ...

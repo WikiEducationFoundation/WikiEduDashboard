@@ -179,6 +179,9 @@ it:
     word_count_doc: Una stima del numero di parole aggiunte alle voci nel namespace
       principale dagli studenti del corso durante il periodo del corso
     yourcourses: Tuoi corsi
+    survey:
+      notification_message: Un sondaggio è disponibile per questo corso
+      link: Rispondi sondaggio
   courses_generic:
     articles_none: Non ci sono voci modificate per questo progetto ancora.
     assignment_end: Fine timeline
@@ -222,6 +225,9 @@ it:
     date_time: Data/Ora
     edit_count_description: Modifiche totali
     revisions: Modifiche recenti
+    upload_count: Caricamenti Commons
+    uploads_in_use_count: file usati nelle voci
+    upload_usages_count: totale usi nelle varie lingue
     view_count_description: Visite alla voce
     view: Visualizzazioni
     word_count: Parole aggiunte
@@ -313,4 +319,11 @@ it:
     unable_to_add_week: Non puoi aggiungere nuove settimane quando la tua timeline
       è piena. Cancella almeno una settimana o cambia le date di assegnazione per
       fare spazio a una nuova.
+  survey:
+    login_message: Grazie per il tuo tempo. Accedi al tuo cruscotto Wiki Ed per partecipare
+      al sondaggio.
+    email:
+      headline: Ciao, %{username}
+      message: 'Un sondaggio è disponibile per: %{course_title}'
+      link: Rispondi sondaggio
 ...

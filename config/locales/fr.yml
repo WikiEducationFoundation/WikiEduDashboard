@@ -223,6 +223,9 @@ fr:
     word_count_doc: Une estimation du nombre de mots ajoutés aux articles de l’espace
       principal par les étudiants du cours pendant son déroulement
     yourcourses: Vos cours
+    survey:
+      notification_message: Un sondage est disponible pour ce cours
+      link: Participer au sondage
   courses_generic:
     articles_none: Il n’y a encore aucun article modifié pour ce projet.
     assignment_end: Fin de la chronologie
@@ -266,6 +269,9 @@ fr:
     date_time: Date/Heure
     edit_count_description: Total des modifications
     revisions: Modifications récentes
+    upload_count: Téléchargements de Communs
+    uploads_in_use_count: fichiers utilisés dans des articles
+    upload_usages_count: nombre total d’utilisations dans les langues
     view_count_description: Articles vus
     view: Vues
     word_count: Mots ajoutés
@@ -427,4 +433,11 @@ fr:
     unable_to_add_week: Vous ne pouvez pas ajouter de nouvelles semaines quand votre
       planning est plein. Supprimez au moins une semaine ou modifiez vos dates d’affectation
       pour faire de la place pour une nouvelle semaine.
+  survey:
+    login_message: Merci pour votre temps. Veuillez vous connecter à notre tableau
+      de bord Wiki Ed pour participer au sondage.
+    email:
+      headline: Bonjour, %{username}
+      message: 'Un sondage est disponible pour : %{course_title}'
+      link: Participer au sondage
 ...

@@ -45,21 +45,26 @@ class CourseStatistics
   private
 
   def find_contribution_ids
-    revision_ids = []
-    page_ids = []
-    upload_ids = []
+    @revision_ids = []
+    @page_ids = []
+    @upload_ids = []
 
     @course_ids.each do |course_id|
-      course = Course.find(course_id)
-      revisions = course.revisions
-      revision_ids << revisions.pluck(:id)
-      page_ids << revisions.pluck(:article_id)
-      upload_ids << course.uploads.pluck(:id)
+      gather_contribution_ids_for_course(course_id)
     end
-    @revision_ids = revision_ids.flatten.uniq
-    @page_ids = page_ids.flatten.uniq
-    @upload_ids = upload_ids.flatten.uniq
+
+    @revision_ids = @revision_ids.flatten.uniq
+    @page_ids = @page_ids.flatten.uniq
+    @upload_ids = @upload_ids.flatten.uniq
     @article_ids = Article.where(namespace: 0, id: @page_ids, deleted: false).pluck(:id)
+  end
+
+  def gather_contribution_ids_for_course(course_id)
+    course = Course.find(course_id)
+    course_revisions = course.revisions
+    @revision_ids << course_revisions.pluck(:id)
+    @page_ids << course_revisions.pluck(:article_id)
+    @upload_ids << course.uploads.pluck(:id)
   end
 
   def find_upload_usage
