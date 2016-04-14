@@ -6,6 +6,12 @@
       .survey__multiple-choice-field__radio-circle
         border-color warning
 
+  &.rangeinput.highlight .survey__question-row.required.highlight
+    background none
+    .noUi-background
+      border-color $warning_border
+      background $warning-background
+
   .survey__question-text,
   .survey__multiple-choice-field
     display inline-block
@@ -23,6 +29,8 @@
     line-height 1.3
     margin-bottom 10px
     margin-left 20px
+    +above(tablet)
+      margin-left 0
 
     label
       font-weight 600

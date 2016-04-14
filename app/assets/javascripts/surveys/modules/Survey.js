@@ -298,11 +298,21 @@ const Survey = {
 
   validateMatrixBlock($block, cb) {
     let valid = true;
+
     $block.find('.survey__question-row.required').each((i, row) => {
       const $row = $(row);
-      if ($row.find('input:checked').length === 0) {
-        $row.addClass('highlight');
-        valid = false;
+
+      if ($block.hasClass('radio')) {
+        if ($row.find('input:checked').length === 0) {
+          $row.addClass('highlight');
+          valid = false;
+        }
+      }
+      if ($block.hasClass('rangeinput')) {
+        if ($row.find('input[type=number]').val() === '') {
+          $row.addClass('highlight');
+          valid = false;
+        }
       }
     });
 
@@ -386,34 +396,19 @@ const Survey = {
         connect: 'lower'
       });
 
+      const $slider = $(slider);
+      const $handle = $($slider.find('.noUi-handle'));
+      // $handle.text(0);
       slider.noUiSlider.on('change', (value) => {
-        $input.val(parseInt(value[0])).trigger('change');
+        const val = parseInt(value[0]);
+        $handle.text(val);
+        $input.val(val).trigger('change');
       });
 
       $input.on('change', ({ target }) => {
         slider.noUiSlider.set(target.value);
       });
     });
-  },
-
-  showThankYou() {
-    // this.$surveyForm.addClass('hidden');
-    // this.$intro.addClass('hidden');
-    // this.$thankYou.velocity('scroll', {
-    //   duration: scrollDuration,
-    //   easing: scrollEasing,
-    //   offset: -200,
-    //   complete: () => {
-    //     return this.animating = false;
-    //   }
-    // });
-    //
-    // this.$thankYou.velocity({
-    //   opacity: [1, 0],
-    //   translateY: ['0%', '20%']
-    // }, {
-    //   queue: false
-    // });
   },
 
   initConditionals() {
