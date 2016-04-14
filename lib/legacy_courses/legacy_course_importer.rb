@@ -1,5 +1,5 @@
 require "#{Rails.root}/lib/wiki_api"
-require "#{Rails.root}/lib/importers/user_importer"
+require "#{Rails.root}/lib/legacy_courses/legacy_course_user_importer"
 require "#{Rails.root}/lib/legacy_courses/legacy_cohort_importer"
 
 #= Imports and updates courses from Wikipedia into the dashboard database
@@ -66,10 +66,10 @@ class LegacyCourseImporter
     participants.each do |_course_id, groups|
       groups.each_with_index do |(r, _p), i|
         # Students
-        users = UserImporter.add_users(groups[r], i, nil, false) | users
+        users = LegacyCourseUserImporter.add_users(groups[r], i, nil, false) | users
         # Assignment reviewers
         reviewers = reviewers(groups[r])
-        users = UserImporter.add_users(reviewers, nil, nil, false) | users
+        users = LegacyCourseUserImporter.add_users(reviewers, nil, nil, false) | users
       end
     end
     User.import users

@@ -1,33 +1,13 @@
+require "#{Rails.root}/lib/legacy_courses/legacy_course_updater"
+
 #= Class for performing updates on data related to an individual Course
 class CourseUpdateManager
   ################
   # Entry points #
   ################
 
-  def self.update_from_wiki(course, data={}, save=true)
-    require "#{Rails.root}/lib/legacy_courses/legacy_course_importer"
-    require "#{Rails.root}/lib/importers/user_importer"
-
-    id = course.id
-    if data.blank?
-      data = LegacyCourseImporter.get_course_info id
-      return if data.blank? || data[0].nil?
-      data = data[0]
-    end
-    # Symbol if coming from controller, string if from course importer
-    course.attributes = data[:course] || data['course']
-
-    return unless save
-    if data['participants']
-      data['participants'].each_with_index do |(r, _p), i|
-        UserImporter.add_users(data['participants'][r], i, course)
-      end
-    end
-    course.save
-  end
-
   def self.manual_update(course)
-    update_from_wiki(course) if course.legacy?
+    LegacyCourseUpdater.update_from_wiki(course) if course.legacy?
 
     users = course.users
     articles = course.articles

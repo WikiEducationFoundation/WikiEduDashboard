@@ -35,7 +35,7 @@
 #  type              :string(255)      default("ClassroomProgramCourse")
 #
 
-require "#{Rails.root}/lib/course_update_manager"
+require "#{Rails.root}/lib/legacy_courses/legacy_course_updater"
 
 # Course type for courses imported from the MediaWiki EducationProgram extension
 class LegacyCourse < Course
@@ -51,7 +51,7 @@ class LegacyCourse < Course
 
   # Pulls new data from the MediaWiki ListStudents API
   def update(data={}, should_save=true)
-    CourseUpdateManager.update_from_wiki(self, data, should_save)
+    LegacyCourseUpdater.update_from_wiki(self, data, should_save)
   end
 
   def string_prefix
