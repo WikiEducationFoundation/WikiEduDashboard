@@ -29,7 +29,7 @@ describe UserImporter do
   end
 
   describe '.new_from_username' do
-    it 'should create a new user' do
+    it 'creates a new user' do
       VCR.use_cassette 'user/new_from_username' do
         username = 'Ragesoss'
         user = UserImporter.new_from_username(username)
@@ -38,7 +38,7 @@ describe UserImporter do
       end
     end
 
-    it 'should return an existing user' do
+    it 'returns an existing user' do
       VCR.use_cassette 'user/new_from_username' do
         create(:user, id: 500, username: 'Ragesoss')
         username = 'Ragesoss'
@@ -47,11 +47,25 @@ describe UserImporter do
       end
     end
 
-    it 'should not create a user if the username is not registered' do
+    it 'does not create a user if the username is not registered' do
       VCR.use_cassette 'user/new_from_username_nonexistent' do
         username = 'RagesossRagesossRagesoss'
         user = UserImporter.new_from_username(username)
         expect(user).to be_nil
+      end
+    end
+
+    it 'creates a user with the correct username capitalization' do
+      VCR.use_cassette 'user/new_from_username' do
+        # Basic lower case letter at the beginning
+        username = 'zimmer1048'
+        user = UserImporter.new_from_username(username)
+        expect(user.username).to eq('Zimmer1048')
+
+        # Unicode lower case letter at the beginning
+        username = 'áragetest'
+        user = UserImporter.new_from_username(username)
+        expect(user.username).to eq('Áragetest')
       end
     end
   end
