@@ -153,16 +153,19 @@ ul.list--survey
   padding 1rem 0
 
 .survey__progress
-  background darken(manatee, 20%)
+  background sprout-dark
   position relative
-  width 400px
-  height 30px
-  margin auto
+  float right
+  width 200px
+  height 20px
   border-radius 5px
   overflow hidden
   &-bar
     position absolute
     left 0
     top 0
+    width 0%
     height 30px
-    background manatee
+    background sprout
+    transition width 500ms cubic-bezier(0.19, 1, 0.22, 1)
+    border-right 2px solid darken(sprout-dark, 10%)

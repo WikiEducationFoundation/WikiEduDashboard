@@ -36,6 +36,7 @@ const slickOptions = {
   arrows: false,
   draggable: false,
   touchMove: false,
+  speed: 400,
   cssEase: 'cubic-bezier(1, 0, 0, 1)',
 };
 
@@ -57,6 +58,7 @@ const Survey = {
   surveyConditionals: {},
   previewMode: false,
   detachedParentBlocks: {},
+  currentBlockValidated: false,
 
   init() {
     this.cacheSelectors();
@@ -112,12 +114,28 @@ const Survey = {
 
   initSlider() {
     this.parentSlider = $('[data-survey-form-container]').slick(slickOptions);
+    this.parentSlider.on('beforeChange', (e) => {
+      if (!this.currentBlockValidated) {
+        e.preventDefault();
+      }
+    });
+    this.parentSlider.on('afterChange', () => {
+      this.updateProgress();
+    });
+
     this.groupSliders = [];
     $('[data-question-group-blocks]').each((i, questionGroup) => {
       const slider = $(questionGroup).slick(slickOptions);
+      $(slider).on('beforeChange', (e) => {
+        if (!this.currentBlockValidated) {
+          e.preventDefault();
+        }
+      });
       $(slider).on('afterChange', (e, slick, currentSlide) => {
         this.currentBlock = currentSlide;
-        $('.block__container.slick-active').velocity('scroll', {
+        this.currentBlockValidated = false;
+        this.updateProgress();
+        $('.survey-nav').velocity('scroll', {
           easing: scrollEasing
         });
       });
@@ -146,6 +164,7 @@ const Survey = {
 
   previousBlock(e) {
     e.preventDefault();
+    this.currentBlockValidated = true;
     const $slider = $(this.$currentSlider);
     const $slick = $slider.slick('getSlick');
     if (($slick.currentSlide - 1) === -1) {
@@ -263,6 +282,7 @@ const Survey = {
     const questionGroupIndex = this.currentQuestionGroupIndex();
 
     if ($target.closest('.button').data('no-validate') !== undefined) {
+      this.currentBlockValidated = true;
       this.nextBlock(e);
       return;
     }
@@ -290,6 +310,7 @@ const Survey = {
     if (validation === true) {
       $block.removeClass('highlight');
       $errorsEl.empty();
+      this.currentBlockValidated = true;
       this.nextBlock(e);
     } else {
       this.handleRequiredQuestion($errorsEl);
@@ -336,7 +357,8 @@ const Survey = {
   },
 
   handleRequiredQuestion($errorsEl) {
-    $errorsEl.append('<span>Question Required</span>');
+    this.currentBlockValidated = false;
+    $errorsEl.empty().append('<span>Question Required</span>');
     this.$currentBlock.addClass('highlight');
   },
 
@@ -344,8 +366,17 @@ const Survey = {
     return $(this.surveyBlocks[this.currentBlock]).find('input, textarea').first().focus();
   },
 
-  updateProgress(index) {
-    const width = `${(index / (this.surveyBlocks.length - 1)) * 100}%`;
+  updateProgress() {
+    const $blocks = $('.block__container');
+    const $currentBlock = $('.block__container.slick-active');
+    const currentIndex = $currentBlock.index();
+    let progressWidth;
+    if ($currentBlock.find('.block[data-thank-you]').length) {
+      progressWidth = 100;
+    } else {
+      progressWidth = (currentIndex / ($blocks.length - 1)) * 100;
+    }
+    const width = `${progressWidth}%`;
     this.surveyProgress.css('width', width);
   },
 

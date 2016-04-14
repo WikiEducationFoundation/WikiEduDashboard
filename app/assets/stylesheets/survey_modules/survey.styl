@@ -13,13 +13,28 @@
   p
     line-height 1.35
 
+.survey-nav
+  padding $spacer
+  display flex
+  justify-content space-between
+  align-items center
+
 [data-survey-form-container]
   opacity 1
   transition opacity 300ms linear
   &.loading
     opacity 0
 
-
 [data-question-group="0"] .block__container:first-child .survey__block-nav .button:first-child
   visibility hidden
   pointer-events none
+
+.survey-previewing
+  position fixed
+  bottom 0
+  left 0
+  right 0
+  text-align center
+  color sprout
+  font-weight 600
+  padding 5px

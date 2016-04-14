@@ -126,7 +126,7 @@
   },
   "devDependencies": {
     "lodash.assign": "^4.0.7",
-    "slick-carousel": "^1.5.9",
+    "slick-carousel": "https://github.com/cfoehrdes/slick.git",
     "striptags": "^2.1.1",
     "url-parse": "^1.1.1"
   }

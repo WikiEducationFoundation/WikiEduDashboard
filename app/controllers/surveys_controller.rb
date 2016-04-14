@@ -1,4 +1,5 @@
 class SurveysController < ApplicationController
+  layout 'surveys_minimal', only: [:show]
   helper Rapidfire::ApplicationHelper
   include CourseHelper
   include SurveysHelper
