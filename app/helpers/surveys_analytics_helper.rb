@@ -1,7 +1,8 @@
 module SurveysAnalyticsHelper
 
   def survey_status(survey)
-    return 'In Use' if !SurveyAssignment.published.where(survey_id: survey.id).empty?
+    assignments = SurveyAssignment.published.where(survey_id: survey.id)
+    return "In Use (#{assignments.count})" if !assignments.empty?
     return '--'
   end
 
@@ -11,5 +12,11 @@ module SurveysAnalyticsHelper
     question_total = 0
     question_groups.collect { |qg| question_total += qg.questions.count }
     "#{qg_count} | #{question_total}"
+  end
+
+  def survey_author(model)
+    return "--" if model.versions.empty?
+    user = User.find(model.versions.last.whodunnit)
+    return user.username if !user.nil?
   end
 end

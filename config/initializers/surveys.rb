@@ -4,6 +4,7 @@ require 'rapidfire'
 Rails.application.config.to_prepare do
 
   Rapidfire::QuestionGroup.class_eval do
+    has_paper_trail
     has_many :question_group_conditionals, foreign_key: 'rapidfire_question_group_id'
     has_many :cohorts, through: :question_group_conditionals
     has_and_belongs_to_many :surveys, join_table: 'surveys_question_groups', foreign_key: 'rapidfire_question_group_id'
@@ -40,7 +41,7 @@ Rails.application.config.to_prepare do
   end
 
   Rapidfire::Question.class_eval do
-
+    has_paper_trail
     scope :course_data_questions, ->{where("course_data_type <> ''")}
     def self.for_conditionals
       where("conditionals IS NULL OR conditionals = ''")

@@ -40,6 +40,8 @@ gem 'mailgun_rails'
 
 gem 'factory_girl_rails'
 
+gem 'paper_trail'
+
 # If you want to be able to hack locally on rapidfire,
 # run `export RAPIDFIREHACKINGMODE=true` in your terminal.
 if ENV['RAPIDFIREHACKINGMODE'] == 'true'

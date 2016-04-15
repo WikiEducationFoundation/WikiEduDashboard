@@ -22,6 +22,8 @@ class ApplicationController < ActionController::Base
   before_filter :set_locale_override
   include HttpAcceptLanguage::AutoLocale
 
+  before_filter :set_paper_trail_whodunnit
+
   def after_sign_out_path_for(_resource_or_scope)
     '/'
   end
