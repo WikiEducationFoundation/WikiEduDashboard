@@ -210,7 +210,8 @@ essentials:
         kind: 1
         content: |
           <ul>
-            <li>Select an article to work on, removing the rest from your user page. Add your topic on the course page.</li>
+            <li>Finalize your topic selection and assign it to yourself on the course page.</li>
+            <li>Create a one-paragraph to one-page description of what you plan to contribute to the topic. You may wish to post that to the article's talk page.</li>
             <li>Compile a bibliography of relevant, reliable sources and post it to the talk page of the article you are working on. Begin reading the sources. Make sure to check in on the talk page (or watchlist) to see if anyone has advice on your bibliography.</li>
           </ul>
 
