@@ -2,6 +2,18 @@
   .course-list__row__title
     %strong= survey.name
   %div
+    .contextual Status
+    %strong.survey-color= survey_status(survey)
+  %div
+    .contextual Question Groups | Questions
+    %strong= survey_question_stats(survey)
+  %div
+    .contextual Created
+    %span= survey.created_at.strftime("%B %d, %Y")
+  %div
+    .contextual Updated
+    %span= survey.updated_at.strftime("%B %d, %Y")
+  %div
     - if survey.rapidfire_question_groups.length > 0
       = link_to 'Preview', "#{survey_url(survey)}?preview"
     = link_to "Clone Survey", "/surveys/clone/#{survey.id}", method: :post
