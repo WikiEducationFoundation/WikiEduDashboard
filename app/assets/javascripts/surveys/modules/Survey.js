@@ -446,7 +446,8 @@ const Survey = {
     $('[data-conditional-question]').each((i, question) => {
       const $conditionalQuestion = $(question);
       let $question = $($(question).parents(BLOCK_CONTAINER_SELECTOR));
-      const { question_id, operator, value, multi } = Utils.parseConditionalString($conditionalQuestion.data('conditional-question'));
+      const conditionalOptions = Utils.parseConditionalString($conditionalQuestion.data('conditional-question'));
+      const { question_id, value } = conditionalOptions;
 
       if ($question.find('.survey__question--matrix').length) {
         this.detachedParentBlocks[$question.data('block-index')] = $question;
@@ -457,29 +458,39 @@ const Survey = {
         $question.detach();
       }
 
-      if (typeof this.surveyConditionals[question_id] !== 'undefined') {
-        this.surveyConditionals[question_id].children.push($question[0]);
-      } else {
-        this.surveyConditionals[question_id] = {};
-        this.surveyConditionals[question_id].children = [$question[0]];
-      }
+      this.addConditionalQuestionToStore(question_id, $question);
 
       if ((typeof value !== 'undefined' && value !== null)) { this.surveyConditionals[question_id][value] = $question; }
       this.surveyConditionals[question_id].currentAnswers = [];
 
-      switch (operator) {
-        case '*presence':
-          return this.conditionalPresenceListeners(question_id, $question);
-        case '<': case '>':case '<=': case '>=':
-          return this.conditionalComparisonListeners(question_id, operator, value, $question);
-        default:
-          return this.conditionalAnswerListeners(question_id, multi);
-      }
+      this.addListenersToConditional($question, conditionalOptions);
     });
+  },
+
+  addConditionalQuestionToStore(questionId, $question) {
+    if (typeof this.surveyConditionals[questionId] !== 'undefined') {
+      this.surveyConditionals[questionId].children.push($question[0]);
+    } else {
+      this.surveyConditionals[questionId] = {};
+      this.surveyConditionals[questionId].children = [$question[0]];
+    }
+  },
+
+  addListenersToConditional($question, conditionalOptions) {
+    const { question_id, operator, value, multi } = conditionalOptions;
+    switch (operator) {
+      case '*presence':
+        return this.conditionalPresenceListeners(question_id, $question);
+      case '<': case '>':case '<=': case '>=':
+        return this.conditionalComparisonListeners(question_id, operator, value, $question);
+      default:
+        return this.conditionalAnswerListeners(question_id, multi);
+    }
   },
 
   conditionalAnswerListeners(id, multi) {
     // @surveyConditionals[id].operator = operator
+    console.log(id, $(`#question_${id}`));
     $(`#question_${id} input, #question_${id} select`).on('change', ({ target }) => {
       let value = $(target).val().split(' ').join('_');
 
@@ -666,6 +677,8 @@ const Survey = {
     } else {
       const $slider = this.groupSliders[questionGroupIndex];
       $slider.slick('slickAdd', $question, parentIndex);
+      console.log('re-add conditional listerns here', $question);
+      // conditionalAnswerListeners();
     }
   },
 
