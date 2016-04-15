@@ -10,33 +10,33 @@ describe 'Surveys', type: :feature, js: true do
     page.current_window.resize_to(1920, 1080)
   end
 
-  describe 'The Survey index' do
-    before :each do
-      user = create(:admin,
-                    id: 200,
-                    wiki_token: 'foo',
-                    wiki_secret: 'bar')
-      login_as(user, scope: :user)
-      visit '/surveys'
-    end
+  # describe 'The Survey index' do
+  #   before :each do
+  #     user = create(:admin,
+  #                   id: 200,
+  #                   wiki_token: 'foo',
+  #                   wiki_secret: 'bar')
+  #     login_as(user, scope: :user)
+  #     visit '/surveys'
+  #   end
 
-    it 'Lists all surveys and allows an admin to create a new one.' do
-      click_link('New Survey')
-      expect(page.find("h1")).to have_content("New Survey")
-      fill_in('survey[name]', :with => 'My New Awesome Survey')
-      click_button('Create Survey')
-      expect(page.find(".course-list__row")).to have_content("My New Awesome Survey")
-      click_link('Delete')
-      prompt = page.driver.browser.switch_to.alert
-      prompt.accept
-      expect(page).not_to have_select('.course-list__row')
-    end
+    # it 'Lists all surveys and allows an admin to create a new one.' do
+    #   click_link('New Survey')
+    #   expect(page.find("h1")).to have_content("New Survey")
+    #   fill_in('survey[name]', :with => 'My New Awesome Survey')
+    #   click_button('Create Survey')
+    #   expect(page.find(".course-list__row")).to have_content("My New Awesome Survey")
+    #   click_link('Delete')
+    #   prompt = page.driver.browser.switch_to.alert
+    #   prompt.accept
+    #   expect(page).not_to have_select('.course-list__row')
+    # end
 
-    it 'Has a link to Question Groups' do
-      click_link('Question Groups')
-      expect(page).to have_content("Question Groups")
-    end
-  end
+    # it 'Has a link to Question Groups' do
+    #   click_link('Question Groups')
+    #   expect(page).to have_content("Question Groups")
+    # end
+  # end
 
   describe 'Editing a Survey' do
 

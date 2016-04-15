@@ -1,26 +1,19 @@
-%li.block.survey-assignment__row
-  %div
-    %strong Survey:
-    %span= survey_assignment.survey.name
-  %div
+.survey__admin-row.survey__admin-row--assignment
+  .survey__admin-row__title
+    .contextual Target Cohort#{survey_assignment.cohorts.count > 1 ? 's' : ''}:
+    %strong= survey_assignment.cohorts.pluck(:title).join(', ')
+    .contextual Target User:
+    %span.emphasis= user_role(survey_assignment)
+    .contextual Survey:
+    %span.emphasis= survey_assignment.survey.name
+
+  .survey__admin-row__col.border
     %strong Status:
     %strong.survey-assignment-color= survey_assignment.status
-  %div
-    %strong Cohort:
-    %span= survey_assignment.cohorts.first.title
-  %div
-    %strong Notification Schedule:
+
+    .contextual Notification Schedule:
     %span= notification_schedule_summary(survey_assignment)
-  %div
-    %strong Target User:
-    %span= user_role(survey_assignment)
 
-  %div
-    %strong Notes:
-    %span= survey_assignment.notes
-    %span= user_role(survey_assignment)
-
-  %div
     .contextual Assignment #:
     %span ##{survey_assignment.id}
 
@@ -35,40 +28,43 @@
     -# %span= survey_assignment.total_notifications
     -# %span Total
 
-  %div
+  .survey__admin-row__col
     .contextual Number of Courses
     %span= survey_assignment.courses_with_pending_notifications.count
 
-  %div
     .contextual Estimated Recipients
     %span= survey_assignment.total_notifications
     %span= user_role(survey_assignment).pluralize
 
-  %div
     .contextual Responses
     %span= assignment_response(survey_assignment)
 
-  %div
+  .survey__admin-row__col.survey__admin-row__col--actions
     = link_to 'Show', survey_assignment
     = link_to 'Edit', edit_survey_assignment_path(survey_assignment)
     = link_to 'Destroy', survey_assignment, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
-  %div.clearfix
-    %button{:data => {:toggle_courses_table => true}, :class => 'button'}
-      %span View Courses in Scope
-      %span.icon.icon-arrow-down
-  %div{:data => {:sortable_courses => true}}
-    %table.survey-assignment__courses
-      %thead
-        %tr
-          %th
-            %button{:class => 'sort', :data => {:sort => 'title'}} Title
-          %th
-            %button{:class => 'sort', :data => {:sort => 'id'}} Id
+    -# %div.clearfix
+    -#   %button{:data => {:toggle_courses_table => true}}
+    -#     %span Expand
+    -#     %span.icon.icon-arrow-down
 
-      %tbody.list
-        - survey_assignment.cohorts.each do |cohort|
-          - cohort.courses.each do |course|
-            %tr
-              %td{ :class => 'title' }= pretty_course_title(course)
-              %td{ :class => 'id' }= course.id
+  -# .survey__admin-row__col
+  -#   %strong Notes:
+  -#   %span= survey_assignment.notes
+
+  -# .survey__admin-row__expanded{:data => {:sortable_courses => true}}
+  -#   %table.survey-assignment__courses
+  -#     %thead
+  -#       %tr
+  -#         %th
+  -#           %button{:class => 'sort', :data => {:sort => 'title'}} Title
+  -#         %th
+  -#           %button{:class => 'sort', :data => {:sort => 'id'}} Id
+  -#
+  -#     %tbody.list
+  -#       - survey_assignment.cohorts.each do |cohort|
+  -#         - cohort.courses.each do |course|
+  -#           %tr
+  -#             %td{ :class => 'title' }= pretty_course_title(course)
+  -#             %td{ :class => 'id' }= course.id

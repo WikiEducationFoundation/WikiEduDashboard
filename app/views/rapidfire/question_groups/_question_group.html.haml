@@ -1,35 +1,34 @@
-.survey__admin-row
-  %div{:id => "question_group_#{question_group.id}"}
-    .course-list__row__title
-      %strong= question_group.name
-    %div
-      .contextual Status
-      %strong.question-group-color= question_group_status(question_group)
-    %div
-      .contextual # of Questions
-      %strong= question_group.questions.count
-    %div
-      .contextual Last Author
-      %span= survey_author(question_group)
-    %div
-      .contextual Created
-      %span= question_group.created_at.strftime("%B %d, %Y")
-    %div
-      .contextual Updated
-      %span= question_group.updated_at.strftime("%B %d, %Y")
-    %div
-      - if question_group.questions.length > 0
-        .course-list__col
-          = link_to "Preview", "#{new_question_group_answer_group_path(question_group)}?preview"
+.survey__admin-row.survey__admin-row--question-group{:id => "question_group_#{question_group.id}"}
+  .survey__admin-row__title
+    %strong= question_group.name
+  .survey__admin-row__col
+    .contextual Status
+    %strong.question-group-color= question_group_status(question_group)
+  .survey__admin-row__col
+    .contextual # of Questions
+    %strong= question_group.questions.count
+  .survey__admin-row__col
+    .contextual Last Author
+    %span= survey_author(question_group)
+  .survey__admin-row__col
+    .contextual Created
+    %span= question_group.created_at.strftime("%B %d, %Y")
+  .survey__admin-row__col
+    .contextual Updated
+    %span= question_group.updated_at.strftime("%B %d, %Y")
+  .survey__admin-row__col
+    - if question_group.questions.length > 0
       .course-list__col
-        = link_to "Edit", edit_question_group_path(question_group)
-      .course-list__col
-        = link_to "Edit Questions", question_group_questions_path(question_group)
-      .course-list__col
-        = link_to "Clone", "/surveys/question_group/clone/#{question_group.id}", method: :post
-      .course-list__col
-        = link_to "Add Question", new_question_group_question_path(question_group)
-      .course-list__col
-        = link_to "Results", [:results, question_group]
-      .course-list__col
-        = link_to "Delete", [question_group], method: :delete, :data => {confirm: "Are you sure you want to delete #{question_group.name} survey?"}
+        = link_to "Preview", "#{new_question_group_answer_group_path(question_group)}?preview"
+    .course-list__col
+      = link_to "Edit", edit_question_group_path(question_group)
+    .course-list__col
+      = link_to "Edit Questions", question_group_questions_path(question_group)
+    .course-list__col
+      = link_to "Clone", "/surveys/question_group/clone/#{question_group.id}", method: :post
+    .course-list__col
+      = link_to "Add Question", new_question_group_question_path(question_group)
+    .course-list__col
+      = link_to "Results", [:results, question_group]
+    .course-list__col
+      = link_to "Delete", [question_group], method: :delete, :data => {confirm: "Are you sure you want to delete #{question_group.name} survey?"}

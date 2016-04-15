@@ -1,22 +1,22 @@
-.survey__admin-row
-  .course-list__row__title
+.survey__admin-row.survey__admin-row--survey
+  .survey__admin-row__title
     %strong= survey.name
-  %div
+  .survey__admin-row__col
     .contextual Status
     %strong.survey-color= survey_status(survey)
-  %div
+  .survey__admin-row__col
     .contextual Question Groups | Questions
     %strong= survey_question_stats(survey)
-  %div
+  .survey__admin-row__col
     .contextual Last Author
     %span= survey_author(survey)
-  %div
+  .survey__admin-row__col
     .contextual Created
     %span= survey.created_at.strftime("%B %d, %Y")
-  %div
+  .survey__admin-row__col
     .contextual Updated
     %span= survey.updated_at.strftime("%B %d, %Y")
-  %div
+  .survey__admin-row__col.survey__admin-row__col--actions
     - if survey.rapidfire_question_groups.length > 0
       = link_to 'Preview', "#{survey_url(survey)}?preview"
     = link_to "Clone Survey", "/surveys/clone/#{survey.id}", method: :post
