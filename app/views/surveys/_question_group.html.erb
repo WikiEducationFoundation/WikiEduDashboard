@@ -44,10 +44,7 @@
             <div class='survey__block-nav'>
               <button class='button survey__prev border' data-prev-survey-block>Previous</button>
               <div class='survey__block-nav__next-container'>
-                  <div data-errors>
-                    <% if !is_required_question?(answer) %><span class="contextual">*Optional</span><% end %>
-                  </div>
-
+                  <div data-errors></div>
                 <button class='button survey__next dark' data-next-survey-block>Next <span class='icon icon-rt_arrow'></span></button>
               </div>
             </div>
