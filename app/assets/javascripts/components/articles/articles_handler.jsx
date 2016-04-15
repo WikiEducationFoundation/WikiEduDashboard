@@ -23,13 +23,6 @@ const ArticlesHandler = React.createClass({
   render() {
     return (
       <div>
-        <div id="assignments">
-          <div className="section-header">
-            <h3>{I18n.t('articles.assigned')}</h3>
-          </div>
-          <AssignmentList {...this.props} />
-        </div>
-
         <div id="articles">
           <div className="section-header">
             <h3>{I18n.t('metrics.articles_edited')}</h3>
@@ -43,6 +36,12 @@ const ArticlesHandler = React.createClass({
             </div>
           </div>
           <ArticleList {...this.props} />
+        </div>
+        <div id="assignments">
+          <div className="section-header">
+            <h3>{I18n.t('articles.assigned')}</h3>
+          </div>
+          <AssignmentList {...this.props} />
         </div>
       </div>
     );
