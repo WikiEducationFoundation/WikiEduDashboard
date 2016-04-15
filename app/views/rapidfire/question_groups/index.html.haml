@@ -1,0 +1,8 @@
+= render 'admin_header'
+.container.survey__edit
+  .section-header
+    - if @question_groups.length > 0
+      = render partial: "question_group", collection: @question_groups
+    - else
+      %p.light-text
+        No Question Groups. #{link_to "Create One", new_question_group_path}

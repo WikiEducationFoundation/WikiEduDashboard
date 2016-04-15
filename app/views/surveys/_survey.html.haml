@@ -8,11 +8,11 @@
     .contextual Question Groups | Questions
     %strong= survey_question_stats(survey)
   %div
+    .contextual Last Author
+    %span= survey_author(survey)
+  %div
     .contextual Created
     %span= survey.created_at.strftime("%B %d, %Y")
-  %div
-    .contextual Author
-    %span= survey_author(survey)
   %div
     .contextual Updated
     %span= survey.updated_at.strftime("%B %d, %Y")

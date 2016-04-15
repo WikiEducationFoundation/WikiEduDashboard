@@ -11,8 +11,8 @@ module SurveyAssignmentsHelper
   ]
 
   SEND_RELATIVE_TO_OPTIONS = [
-    ['Course End', 'end'], 
-    ['Course Start', 'start'], 
+    ['Course End', 'end'],
+    ['Course Start', 'start'],
     ['Timeline End', 'timeline_end']
   ]
 
@@ -20,7 +20,7 @@ module SurveyAssignmentsHelper
     days = survey_assignment.send_date_days
     before = survey_assignment.send_before ? "Before" : "After"
     relative_to = survey_assignment.send_date_relative_to
-    "#{days} Days #{before} #{relative_to}"
+    "#{days} Days #{before} Course #{relative_to}"
   end
 
   def user_role_select(f)

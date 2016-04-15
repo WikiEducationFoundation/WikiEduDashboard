@@ -2,8 +2,9 @@
   %div
     %strong Survey:
     %span= survey_assignment.survey.name
-    - if survey_assignment.active?
-      %span.survey-assignment__active *Active
+  %div
+    %strong Status:
+    %strong.survey-assignment-color= survey_assignment.status
   %div
     %strong Cohort:
     %span= survey_assignment.cohorts.first.title
@@ -17,17 +18,35 @@
   %div
     %strong Notes:
     %span= survey_assignment.notes
+    %span= user_role(survey_assignment)
 
   %div
-    %strong Status:
-    %span= survey_assignment.status
-    %span /
-    %span= survey_assignment.survey_notifications.completed.length
-    %span Completed /
-    %span= survey_assignment.survey_notifications.length
-    %span Notified /
+    .contextual Assignment #:
+    %span ##{survey_assignment.id}
+
+  -# %div
+  -#   %strong Status:
+  -#   %strong.survey-assignment-color= survey_assignment.status
+    -# %span /
+    -# %span= survey_assignment.survey_notifications.completed.length
+    -# %span Completed /
+    -# %span= survey_assignment.survey_notifications.length
+    -# %span Notified /
+    -# %span= survey_assignment.total_notifications
+    -# %span Total
+
+  %div
+    .contextual Number of Courses
+    %span= survey_assignment.courses_with_pending_notifications.count
+
+  %div
+    .contextual Estimated Recipients
     %span= survey_assignment.total_notifications
-    %span Total
+    %span= user_role(survey_assignment).pluralize
+
+  %div
+    .contextual Responses
+    %span= assignment_response(survey_assignment)
 
   %div
     = link_to 'Show', survey_assignment
