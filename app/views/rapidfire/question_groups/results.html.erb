@@ -1,3 +1,4 @@
+<%= render 'admin_header' %>
 <div class='container'>
 <div class='section-header'>
   <h1>Results for <%= @question_group.name %></h1>
@@ -7,7 +8,7 @@
 <%- @question_group_results.each do |result| %>
   <div class='block'>
     <h4><%= result.question.question_text %></h4>
-    
+
       <%- if result.results.is_a?(Array) %>
         <ol>
           <%- result.results.each do |answer| %>

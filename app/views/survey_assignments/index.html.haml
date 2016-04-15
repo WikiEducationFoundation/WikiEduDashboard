@@ -1,6 +1,6 @@
+= render 'admin_header'
 .container.survey__edit
   .section-header
-    %h1 Survey Assignments
     = link_to 'New Survey assignment', new_survey_assignment_path, :class => 'button'
     = link_to 'Create Notifications', create_notifications_path, data: { method: 'post' }, class: 'button dark'
     = link_to 'Send Notifications', send_notifications_path, data: { method: 'post' }, class: 'button dark'

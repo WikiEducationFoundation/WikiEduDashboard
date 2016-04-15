@@ -1,15 +1,6 @@
-
+<%= render 'admin_header' %>
 <div class='container survey__edit'>
 <div class='section-header'>
-<h1>Question Groups</h1>
-
-<div id='app'></div>
-
-<% if can_administer? %>
-  <%= link_to "New Question Group", new_question_group_path, :class => 'button button--no-margin' %>
-<% end %>
-</div>
-<hr/>
 
 <% if @question_groups.length > 0 %>
   <ul class='list list--survey'>

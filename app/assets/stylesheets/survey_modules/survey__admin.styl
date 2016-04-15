@@ -42,3 +42,43 @@ body.survey-page
 .survey__title-input input[type=text]
   width 100%
   max-width 500px
+
+.surveys__admin-header
+  background $survey_color
+  margin-bottom $spacer * 2
+
+.surveys__admin-header--question-groups
+  background $question_group_color
+
+.surveys__admin-header--assignment
+  background $assignment_color
+
+.surveys__admin-header--survey_results
+  background $survey_results_color
+
+body.survey-page .surveys__admin-header h1
+  color white
+  font-weight 300
+  margin 0
+
+.surveys__admin-header .button.border
+  border-color white
+  color white
+  &:hover
+    background white
+    color $text_dk
+
+.surveys__admin-header__action
+  margin-left auto
+
+.surveys__admin-header .container
+  width 100%
+  display flex
+
+.survey__admin-row
+  background white
+  padding 18px 20px 20px
+  position relative
+  box-shadow 0 3px 4px rgba(0,0,0,0.1)
+  margin-bottom $spacer * 1.5
+  border-radius 3px

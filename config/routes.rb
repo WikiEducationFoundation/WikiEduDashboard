@@ -145,6 +145,7 @@ Rails.application.routes.draw do
   root to: 'home#index'
 
   mount Rapidfire::Engine => "/surveys/rapidfire", :as => 'rapidfire'
+  get '/surveys/results' => 'surveys#results', as: 'results'
   resources :survey_assignments, path: 'surveys/assignments'
   post '/surveys/clone/:id' => 'surveys#clone'
   put '/surveys/question_position' => 'questions#update_position'

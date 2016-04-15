@@ -1,7 +1,4 @@
+= render 'admin_header'
 .container.survey__admin
-  .section-header
-    %h1 Editing Survey Assignment
-    = link_to 'Show', @survey_assignment
-    
   .survey__questions-list
     = render 'form'

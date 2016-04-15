@@ -32,12 +32,16 @@ class SurveysController < ApplicationController
     @surveys = Survey.all
   end
 
+  def results
+  end
+
   # GET /surveys/1
   # GET /surveys/1.json
   def show
     @courses = Course.all
     unless validate_user_for_survey
-      redirect_to(main_app.root_path, flash: { notice: 'Sorry, You do not have access to this survey' })
+      redirect_to(main_app.root_path,
+                  flash: { notice: 'Sorry, You do not have access to this survey' })
       return
     end
     if @survey.show_courses && !course?

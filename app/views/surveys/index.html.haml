@@ -1,15 +1,7 @@
+= render 'admin_header'
 .container.survey__edit
-  .section-header
-    %h1
-      Surveys
-    #app
-    - if can_administer?
-      = link_to "New Survey", new_survey_path, :class => 'button button--no-margin'
-  %hr/
   - if @surveys.length > 0
-    %ul.list.list--survey= render partial: "survey", collection: @surveys
+    = render partial: "survey", collection: @surveys
   - else
     %p.light-text
       No Surveys. #{link_to "Create One", new_survey_path}
-
-  

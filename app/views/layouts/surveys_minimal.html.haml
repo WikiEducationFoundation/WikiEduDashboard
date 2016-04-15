@@ -12,9 +12,8 @@
     = render "shared/flash"
     = render "shared/nav"
     = render "header"
-    %div
-      %main#main{"data-user-id" => current_user.try(:id), :role => "main"}
-        = yield
+    %main#main{"data-user-id" => current_user.try(:id), :role => "main"}
+      = yield
     = render "shared/foot"
     = hot_javascript_tag("survey")
     - if can_administer?

@@ -1,3 +1,4 @@
+= render 'admin_header'
 .block.block--clear
 
   %h3 Editing Question Groups for "#{@survey.name}" Survey
@@ -7,6 +8,6 @@
 
     .form-input
       = f.association :rapidfire_question_groups,   as: :check_boxes
-  
+
     .form-actions
       = f.button :submit, "Update Question Groups", :class => 'button dark'

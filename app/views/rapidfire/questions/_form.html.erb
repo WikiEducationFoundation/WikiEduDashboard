@@ -1,3 +1,5 @@
+<%= render 'rapidfire/question_groups/admin_header' %>
+
 <div class='container container--pad-y block survey__form default-form'>
 <%= form_for form, as: :question, url: url, method: method do |f| %>
   <%- unless form.errors.empty? %>
