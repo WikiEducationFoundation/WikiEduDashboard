@@ -6,7 +6,8 @@ body.survey-page
   background-size cover
 
   #main, .slick-track, .slick-slider, .slick-list
-    height inherit
+    +above(tablet)
+      height inherit
 
   h1, h3
     color $text_dk
