@@ -2,6 +2,6 @@
 .container.survey__edit
   .section-header
     = link_to 'Create Notifications', create_notifications_path, data: { method: 'post' }, class: 'button border'
-    = link_to 'Send Notifications', send_notifications_path, data: { method: 'post' }, class: 'button border'
+    = link_to 'Send Emails', send_notifications_path, data: { method: 'post' }, class: 'button border'
 
   %ul.list.list--survey= render partial: "survey_assignment", collection: @survey_assignments
