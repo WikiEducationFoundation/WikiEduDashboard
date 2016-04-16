@@ -52,5 +52,8 @@ module WikiEduDashboard
 
     # Use custom error pages (like 404) instead of Rails defaults
     config.exceptions_app = self.routes
+
+    # Silences a deprecation warning
+    config.active_record.raise_in_transactional_callbacks = true
   end
 end
