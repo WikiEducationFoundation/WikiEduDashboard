@@ -15,16 +15,22 @@ class ArticleFinderController < ApplicationController
   def results
     @articles = []
     return unless params[:category]
+    @wiki = Wiki.default_wiki
+    set_query_params
+    @articles = CategoryImporter
+                .new(@wiki, depth: @depth, min_views: @min_views, max_wp10: @max_wp10)
+                .show_category(@cat_name)
+    render 'index'
+  end
+
+  private
+
+  def set_query_params
     @category = params[:category]
     @title = "Category: #{@category}"
-    cat_name = 'Category:' + @category
+    @cat_name = 'Category:' + @category
     @depth = [params[:depth].to_i, 2].min
     @min_views = params[:minviews].to_i
     @max_wp10 = params[:maxwp10].to_i
-    @wiki = Wiki.default_wiki
-    @articles = CategoryImporter
-                .new(@wiki, depth: @depth, min_views: @min_views, max_wp10: @max_wp10)
-                .show_category(cat_name)
-    render 'index'
   end
 end
