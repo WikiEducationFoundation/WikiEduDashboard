@@ -20,11 +20,11 @@ class ArticleStatusManager
     end
   end
 
-   ####################
-   # Per-wiki methods #
-   ####################
+  ####################
+  # Per-wiki methods #
+  ####################
 
-   def update_status(articles)
+  def update_status(articles)
     failed_request_count = 0
     synced_articles = Utils.chunk_requests(articles, 100) do |block|
       request_results = Replica.new(@wiki).get_existing_articles_by_id block
@@ -46,13 +46,13 @@ class ArticleStatusManager
     # First we find any pages that just moved, and update title and namespace.
     update_title_and_namespace synced_articles
 
-    # Now we check for pages that have changed ids.
+    # Now we check for pages that have changed mw_page_ids.
     # This happens in situations such as history merges.
-    # If articles move in between title/namespace updates and id updates,
-    # then it's possible to have an article id collision.
+    # If articles move in between title/namespace updates and mw_page_id updates,
+    # then it's possible to end up with inconsistent data.
     update_article_ids deleted_page_ids
 
-    # Delete articles as appropriate
+    # Delete and undelete articles as appropriate
     articles.where(mw_page_id: deleted_page_ids).update_all(deleted: true)
     articles.where(mw_page_id: synced_ids).update_all(deleted: false)
     ArticlesCourses.where(article_id: deleted_page_ids).destroy_all
@@ -66,19 +66,22 @@ class ArticleStatusManager
   private
 
   def update_title_and_namespace(synced_articles)
-    # Update titles and namespaces based on ids (we trust ids!)
-    synced_articles.map! do |sa|
-      Article.new(
-        id: sa['page_id'],
-        mw_page_id: sa['page_id'],
-        title: sa['page_title'],
-        namespace: sa['page_namespace'],
-        wiki_id: @wiki.id,
-        deleted: false # Accounts for the case of undeleted articles
-      )
+    # Update titles and namespaces based on mw_page_ids
+    synced_articles.each do |article_data|
+      article = Article.find_by(wiki_id: @wiki.id, mw_page_id: article_data['page_id'])
+      next if data_matches_article?(article_data, article)
+      article.update!(title: article_data['page_title'],
+                      namespace: article_data['page_namespace'],
+                      deleted: false)
     end
-    update_keys = [:title, :namespace, :deleted, :mw_page_id]
-    Article.import synced_articles, on_duplicate_key_update: update_keys
+  end
+
+  def data_matches_article?(article_data, article)
+    return false unless article.title == article_data['page_title']
+    return false unless article.namespace == article_data['page_namespace']
+    # If article data is collected from Replica, the article is not currently deleted
+    return false if article.deleted
+    true
   end
 
   # Check whether any deleted pages still exist with a different article_id.
@@ -99,7 +102,7 @@ class ArticleStatusManager
 
   def resolve_page_id(same_title_page, deleted_page_ids)
     title = same_title_page['page_title']
-    id = same_title_page['page_id']
+    mw_page_id = same_title_page['page_id']
     namespace = same_title_page['page_namespace']
 
     article = Article.find_by(
@@ -114,16 +117,17 @@ class ArticleStatusManager
     # a case variant.
     return unless article.title == title
 
+    # FIXME: This should be removed once id and mw_page_id are decoupled.
     ArticlesCourses.where(article_id: article.id)
-      .update_all(article_id: id)
+      .update_all(article_id: mw_page_id)
 
-    if Article.exists?(mw_page_id: id, wiki_id: @wiki.id)
+    if Article.exists?(mw_page_id: mw_page_id, wiki_id: @wiki.id)
       # Catches case where update_constantly has
       # already added this article under a new ID
       article.update(deleted: true)
     else
       # FIXME: This should only update mw_page_id once id and mw_page_id are decoupled.
-      article.update(mw_page_id: id, id: id)
+      article.update(mw_page_id: mw_page_id, id: mw_page_id)
     end
   end
 end
