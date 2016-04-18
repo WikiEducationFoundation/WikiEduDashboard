@@ -103,11 +103,12 @@ describe 'Surveys', type: :feature, js: true do
 
       survey_assignment = create(
         :survey_assignment,
+        courses_user_role: 1,
         survey_id: @survey.id)
       create(:survey_notification,
              course_id: course.id,
              survey_assignment_id: survey_assignment.id,
-             courses_user_id: @courses_user.id)
+             courses_users_id: @courses_user.id)
     end
 
     it 'can view survey if the survey notification id is associated with current user' do

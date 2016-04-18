@@ -3,7 +3,7 @@ class SurveyNotification < ActiveRecord::Base
   belongs_to :survey_assignment
   belongs_to :course
 
-  scope :active, -> { where(dismissed: false) }
+  scope :active, -> { where(dismissed: false, completed: false) }
   scope :completed, -> { where(completed: true) }
   scope :dismissed, -> { where(dismissed: true) }
 
@@ -23,7 +23,7 @@ class SurveyNotification < ActiveRecord::Base
   end
 
   def user
-    CoursesUsers.find(courses_user_id).user
+    CoursesUsers.find(courses_users_id).user
   end
 
   def course

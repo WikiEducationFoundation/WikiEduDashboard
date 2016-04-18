@@ -10,9 +10,9 @@ class SurveyAssignment < ActiveRecord::Base
   scope :by_survey, -> (survey_id) { where(survey_id: survey_id) }
 
   def self.by_courses_user_and_survey(options)
-    survey_id, courses_user_id = options.values_at(:survey_id, :courses_user_id)
+    survey_id, courses_users_id = options.values_at(:survey_id, :courses_users_id)
     by_survey(survey_id).includes(:survey_notifications).where(
-      survey_notifications: { courses_user_id: courses_user_id }
+      survey_notifications: { courses_users_id: courses_users_id }
     )
   end
 

@@ -167,28 +167,17 @@ class SurveysController < ApplicationController
   end
 
   def user_is_assigned_to_survey(return_notification = false)
-    users = courses_users
-    return false if users.empty?
-    users.each do |cu|
-      notification = survey_notification(cu.id)
-      next unless notification && notification.survey.id == @survey.id
-      return true unless return_notification
-      return notification if return_notification
+    notifications = current_user.survey_notifications.collect do |n|
+      n if n.survey.id == @survey.id
     end
-    false
+    return false if notifications.empty?
+    return true unless return_notification
+    return notifications.first
   end
 
   def ensure_logged_in
     return true if current_user
     render 'login'
-  end
-
-  def courses_users
-    CoursesUsers.where(user_id: current_user.id)
-  end
-
-  def survey_notification(id)
-    SurveyNotification.find_by(courses_user_id: id)
   end
 
   def check_if_closed

@@ -33,8 +33,9 @@
     %span= survey_assignment.courses_with_pending_notifications.count
 
     .contextual Estimated Recipients
-    %span= survey_assignment.total_notifications
-    %span= user_role(survey_assignment).pluralize
+    - total = survey_assignment.survey_notifications.count
+    %span= total
+    %span= user_role(survey_assignment, total).singularize
 
     .contextual Responses
     %span= assignment_response(survey_assignment)

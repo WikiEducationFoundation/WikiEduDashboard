@@ -42,6 +42,7 @@ class User < ActiveRecord::Base
   devise :rememberable, :omniauthable, omniauth_providers: [:mediawiki, :mediawiki_signup]
 
   has_many :courses_users, class_name: CoursesUsers
+  has_many :survey_notifications, through: :courses_users
   has_many :courses, -> { uniq }, through: :courses_users
   has_many :revisions, -> { where(system: false) }
   has_many :articles, -> { uniq }, through: :revisions
@@ -64,6 +65,7 @@ class User < ActiveRecord::Base
 
   scope :trained, -> { where(trained: true) }
   scope :ungreeted, -> { where(greeted: false) }
+
 
   ####################
   # Instance methods #

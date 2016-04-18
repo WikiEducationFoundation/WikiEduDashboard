@@ -3,7 +3,7 @@
 
 %p#notice= notice
 
-%div{data: {survey_form_container: true}, class: 'loading'}
+%div{data: {survey_form_container: true, notification: survey_notification_id(@notification)}, class: 'loading'}
   - if @survey.intro?
     .block__container
       .block.block--text.disabled.not-seen{"data-survey-block" => "0", "data-intro" => true}

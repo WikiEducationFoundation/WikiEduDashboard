@@ -70,6 +70,7 @@ const Survey = {
     this.initBlocks();
     this.initRangeSliders();
     this.setFormValidationSections();
+    this.getNotificationId();
     this.renderMarkdown();
   },
 
@@ -734,6 +735,9 @@ const Survey = {
       const markdownSrc = $el.data('render-markdown');
       $el.html(markdown.render(markdownSrc));
     });
+  },
+  getNotificationId() {
+    this.surveyNotificationId = $('[data-notification]').data('notification');
   }
 };
 

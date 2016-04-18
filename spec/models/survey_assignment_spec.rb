@@ -82,21 +82,21 @@ RSpec.describe SurveyAssignment, type: :model do
 
   describe '#by_courses_user_and_survey Scope' do
     it 'returns notifications that match the provided courses_user and survey ids' do
-      notification = create(:survey_notification, courses_user_id: 1)
+      notification = create(:survey_notification, courses_users_id: 1)
       @survey_assignment.survey_notifications << notification
       @survey_assignment.save
       expect(SurveyAssignment.by_courses_user_and_survey(
-        courses_user_id: 1,
+        courses_users_id: 1,
         survey_id: @survey.id
       ).length).to eq(1)
     end
 
     it 'returns an empty array if no notifications match the provided courses_user and survey ids' do
-      notification = create(:survey_notification, courses_user_id: 1)
+      notification = create(:survey_notification, courses_users_id: 1)
       @survey_assignment.survey_notifications << notification
       @survey_assignment.save
       expect(SurveyAssignment.by_courses_user_and_survey(
-        courses_user_id: 99,
+        courses_users_id: 99,
         survey_id: @survey.id
       ).length).to eq(0)
     end

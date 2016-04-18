@@ -211,4 +211,9 @@ module SurveysHelper
       set_course
     end
   end
+
+  def survey_notification_id(notification)
+    return nil if notification == false
+    return notification.id
+  end
 end

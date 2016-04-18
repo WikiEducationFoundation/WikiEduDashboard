@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160415155610) do
+ActiveRecord::Schema.define(version: 20160418225206) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title",                    limit: 255
@@ -265,7 +265,7 @@ ActiveRecord::Schema.define(version: 20160415155610) do
   add_index "survey_assignments", ["survey_id"], name: "index_survey_assignments_on_survey_id", using: :btree
 
   create_table "survey_notifications", force: :cascade do |t|
-    t.integer  "courses_user_id",      limit: 4
+    t.integer  "courses_users_id",     limit: 4
     t.integer  "course_id",            limit: 4
     t.integer  "survey_assignment_id", limit: 4
     t.boolean  "dismissed",                      default: false
@@ -276,7 +276,7 @@ ActiveRecord::Schema.define(version: 20160415155610) do
   end
 
   add_index "survey_notifications", ["course_id"], name: "index_survey_notifications_on_course_id", using: :btree
-  add_index "survey_notifications", ["courses_user_id"], name: "index_survey_notifications_on_courses_user_id", using: :btree
+  add_index "survey_notifications", ["courses_users_id"], name: "index_survey_notifications_on_courses_users_id", using: :btree
   add_index "survey_notifications", ["survey_assignment_id"], name: "index_survey_notifications_on_survey_assignment_id", using: :btree
 
   create_table "surveys", force: :cascade do |t|
