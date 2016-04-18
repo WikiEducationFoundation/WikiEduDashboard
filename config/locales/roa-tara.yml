@@ -6,6 +6,9 @@
 roa-tara:
   application:
     dashboard: Wiki Ed Dashboard
+    search: Fà 'na domande
+  dashboard:
+    review_orientation: Oriendamende d'a reviste
   activity:
     all: Attività
     edited_by: Cangiate da

@@ -1,0 +1,9 @@
+# Messages for Bulgarian (български)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: V111P
+---
+bg:
+  application:
+    search: Задаване на въпрос
+...

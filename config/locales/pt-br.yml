@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: AndroidOSUser
 # Author: Caçador de Palavras
+# Author: Dianakc
 # Author: HenriqueCrang
 # Author: Luk3
 # Author: Macofe
@@ -23,7 +24,7 @@ pt-br:
     log_out: Sair
     my_dashboard: Meu painel
     recent_activity: Atividade recente
-    search: Buscar em ask.wikiedu.org
+    search: perguntar
     sign_up_extended: Registrar-se na Wikipédia
     sign_up_log_in_extended: pela Wikipédia
     sign_up: Criar conta
@@ -33,7 +34,10 @@ pt-br:
     create_note: Clique em Criar Curso para criar seu primeiro curso.
     explore_course_pages: Explorar Páginas de Cursos
     explore_examples: Explorar Exemplos
+    join_note: Depois de receber um código de acesso de seu instrutor, clique em "Encontre
+      seu curso" para participar dele
     no_courses_instructor: Parece que você não tem nenhum curso.
+    no_courses_student: Parece que você ainda não pertence a um curso ainda.
     opt_out: Requisitar sair da orientação
     orientation_notice: Antes de criar um curso, vamos passar pela orientação para
       ajudá-lo a começar (Leva aproximadamente 30 minutos para completar.)
@@ -61,32 +65,107 @@ pt-br:
     rating_doc: A avaliação que um artigo recebeu por um WikiProjeto na Wikipédia.
       Essas avaliações podem corresponder a versões muito antigas, então elas são
       apenas um indicador raso da maturidade de um artigo.
+    rating_docs:
+      fl: Lista destacada — a mais alta classificação da Wikipedia para listas
     title: Título
+    title_example: Título do artigo
     view: Ver artigo
     view_all: Ver tudo
+    view_doc: A soma de todas visualizações de cada artigo durante o prazo do curso
+    views_added: '%{count} novas visualizações para %{title}'
   assignments:
+    already_exists: Essa atribuição já existe!
     assignees: Assinatura(s)
+    assign_other: Atribuir um artigo
+    assign_self: Atribuir um artigo a mim mesmo
+    confirm_addition: Tem certeza que quer atribuir %{title} a %{username}?
+    confirm_deletion: Você tem certeza que deseja excluir esta atribuição ?
+    label: Atribuir
+    loading: Carregando atribuições...
+    none_short: Nenhum artigo atribuído
+    none: Este curso não possui artigos atribuído os da Wikipédia.
     reviewers: Revisor(es)
+    review_other: Atribuir uma revisão
+    review_self: Revisar um artigo
+  blocks:
+    milestones:
+      title: Marco
+  cohort:
+    none: Nenhum
+    view_other: Ver outros colegas
   courses:
     activity: Atividade
+    already_enrolled: Você já é parte de '%{title}'!
+    archived: Cursos arquivados
     articles: Artigos
+    articles_none: Este curso não editou nenhum artigo.
+    assignment_end: Fim da atribuição
+    assignments_none: Este curso não possui artigos atribuído os da Wikipédia.
+    assignment_start: Início da atribuição
+    character_doc: A soma dos caracteres adicionados a artigos no domínio prinicpal
+      por estudantes do curso durante o prazo curso
+    course_dates_calendar_instructions: Selecione datas para adicionar ou removê-las
+      do calendário (por exemplo, feriados, sem aula etc). Clique na data para alternar
+      entre estado selecionado, selecionado e férias. As datas das atividades do curso
+      mudarão para contar semanas que não têm reuniões agendadas.
     course_description: Cursos
     courses: Cursos
+    creator:
+      course_description: Descrição do curso
+      course_school: Escola do curso
+      course_subject: Tema do curso
+      course_term: Prazo do curso
+      course_title: Título do curso
+      create_button: Criar meu curso!
+      create_label: Criar Novo Curso
+      create_new: Criar um Novo Curso
+      create_short: Criar Curso
+      end_date: Data Final
+      expected_number: Número experado de estudantes
+      find: Encontre seu curso
+      intro: O título, a escola e o prazo criam a URL da página de seu curso e não
+        podem ser alterado. Todo o resto, você pode editar mais tarde. Clique em "Criar
+        meu curso!" Para começar a construir a linha do tempo para a sua atribuição
+        Wikipedia.
+      start_date: Data de início
     current: Cursos atuais
     duration: Duração do curso
+    edit_course_dates: Editar data do Curso
     error:
       exists: Esse curso já existe! Por favor, tente novamente com um título, escola
         ou termo diferente.
       user_exists: Desculpe, %{username} não é um usuário existente.
+    expected_students: Alunos esperados
+    gradeables_none: Este curso não tem atribuições graduáveis.
     instructor:
       one: Instructor
       other: Instrutores
+    instructors: Instrutores
+    invitation: |-
+      Você foi convidado a participar de %{title}. Para participar do curso, você precisa fazer login com uma conta de Wikipedia.
+      Se você ainda não tiver uma conta na Wikipédia, inscreva-se para um agora.
+    join: Participar
+    join_prompt: Participar de '%{title}'?
+    join_successful: Você está participando de %{title}.
+    milestones_none: Este curso atualmente não tem quaisquer marcos.
     new_week: Adicionar nova semana
     nocourses: Você não está participando em nenhum curso
     overview: Visão geral
+    passcode: Código de acesso
+    review_timeline: Por favor, reveja esta linha do tempo e faça alterações. Quando
+      estiver satisfeito com a sua linha do tempo, submeta à aprovação da equipe Wiki
+      Ed. Uma vez aprovada, você receberá uma URL de inscrição onde os alunos podem
+      usar para participar do curso. (Você ainda será capaz de fazer edições mais
+      tarde.)
+    school: Escola
     students: Estudantes
+    students_count: '# Estudantes'
+    student_editors: Editores estudantes
     students_none: Este curso não tem estudantes
     students_short: Estudantes
+    term: Prazo
+    timeline: Detalhes da atribuição
+    timeline_link: Linha do tempo
     title: Título
     weeks_none: Este curso não tem um cronograma ainda.
     view: Ver curso
@@ -96,6 +175,22 @@ pt-br:
       other: Voluntários
     wiki_staff: Equipe Wiki Ed
     yourcourses: Seus cursos
+  courses_generic:
+    creator:
+      course_school: Instituição
+      course_title: Título do programa
+      create_button: Criar meu Programa!
+      create_label: Criar Novo Programa
+      create_new: Criar Um Novo Programa
+      create_short: Criar Programa
+      find: Encontre seu Programa
+    edit_course_dates: Editar Datas do projeto
+    instructors: Facilitadores
+    school: Instituição
+    student_editors: Editores
+    students: Editores
+    students_short: Editores
+    term: Quando
   metrics:
     activity: Atividade recente
     articles_created: Artigos criados
@@ -116,6 +211,8 @@ pt-br:
     user: Espaço do usuário
     user_char_added: Caracteres adicionados ao domínio Usuário
     user_ns: Usuário
+  recent_activity:
+    recent_edits: Edições recentes
   revisions:
     chars_added: Caracteres adicionados
     class: Classe
@@ -125,7 +222,11 @@ pt-br:
     none: Esse curso não tem nenhuma atividade recente de edição na Wikipédia.
     time_doc: Horário de cada revisão em seu horário local
     title: Título
+  training:
+    start: Iniciar
+    view: Ver
   uploads:
+    label: Envios
     loading: Carregando atualizações...
     time_doc: Horário de cada envio em seu horário local
     usages: Usos
@@ -142,6 +243,7 @@ pt-br:
     revisions_doc: O número de edições feitas por este usuário nos últimos 7 dias
     reviewers: Revisor(es)
     reviewing: Revisando
+    student_editors: Editores estudantes
     training_complete_count: '%{count} treinamento em dia'
     training_incomplete: Treinamento incompleto
     up_to_date_with_training: em dia com o treinamento
@@ -152,6 +254,8 @@ pt-br:
         módulos de treinamento] designados. --~~~~
       summary: treinamento do estudante atrasado
   wizard:
+    assignment_dates: Datas da atribuição
+    assignment_type: Tipo de atribuição
     course_dates: Datas do Curso
     read_less: Ler menos
     read_more: Ler mais

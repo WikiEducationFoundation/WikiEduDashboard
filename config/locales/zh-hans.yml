@@ -19,7 +19,7 @@ zh-hans:
     log_out: 退出
     my_dashboard: 我的控制面板
     recent_activity: 最近活动
-    search: 搜索ask.wikiedu.org
+    search: 提问问题
     sign_up_extended: 注册维基百科
     sign_up_log_in_extended: 与维基百科
     sign_up: 注册
@@ -34,6 +34,7 @@ zh-hans:
     no_courses_student: 看起来您还没有加入一个课程。
     opt_out: 请求不参加迎新活动
     orientation_notice: 在您创建课程之前，让我们通过定位以帮助您了解如何入门。（这需要约30分钟完成。）
+    review_orientation: 复核迎新会
     start_orientation: 开始迎新
   home:
     explore: 探索

@@ -2,8 +2,11 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Adam-Yourist
+# Author: ElizaMag
 ---
 inh:
+  application:
+    search: хаттар ле
   courses:
     creator:
       start_date: Доладалара таьрахь

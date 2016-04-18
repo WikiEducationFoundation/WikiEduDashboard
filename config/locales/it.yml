@@ -22,7 +22,7 @@ it:
     log_out: Esci
     my_dashboard: Il mio cruscotto
     recent_activity: Attività recente
-    search: cerca in ask.wikiedu.org
+    search: chiedi una domanda
     sign_up_extended: Registrati con Wikipedia
     sign_up_log_in_extended: con Wikipedia
     sign_up: Registrati
@@ -36,6 +36,7 @@ it:
       su "Trova il tuo corso" per trovarlo e unirti ad esso.
     no_courses_instructor: Sembra che tu non abbia alcun corso.
     no_courses_student: Sembra che non ti si è ancora iscritto a un corso.
+    review_orientation: Esamina orientamento
     start_orientation: Inizia orientamento
   home:
     explore: Esplora

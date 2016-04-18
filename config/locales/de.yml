@@ -19,7 +19,7 @@ de:
     log_out: Abmelden
     my_dashboard: Meine Übersichtsseite
     recent_activity: Letzte Aktivitäten
-    search: ask.wikiedu.org durchsuchen
+    search: eine Frage stellen
     sign_up_extended: Mit Wikipedia registrieren
     sign_up_log_in_extended: mit Wikipedia
     sign_up: Registrieren
@@ -36,6 +36,7 @@ de:
     opt_out: Opt-Out der Einführung beantragen
     orientation_notice: Bevor du einen Kurs erstellst, sehe dir die Einführung an,
       um dir beim Anfangen zu helfen. Die Vervollständigung dauert ungefähr 30 Minuten.
+    review_orientation: Einführung überprüfen
     start_orientation: Einführung beginnen
   home:
     explore: Entdecken

@@ -15,10 +15,13 @@ lb:
     log_in: Aloggen
     log_out: Ausloggen
     recent_activity: Rezent Aktivitéit
+    search: eng Fro stellen
     sign_up_extended: Mat Wikipedia umellen
     sign_up_log_in_extended: mat Wikipedia
     sign_up: Schreift Iech an
     training: Formatioun
+  dashboard:
+    review_orientation: Orientatioun nokucken
   home:
     log_in: Mat Wikipedia aloggen
     sign_up: Mat Wikipedia umellen

@@ -2,6 +2,8 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Alebecerrasj
+# Author: Fitoschido
+# Author: Lemondoge
 # Author: Macofe
 # Author: Themasterriot
 # Author: Yllelder
@@ -22,7 +24,7 @@ es:
     log_out: Cerrar sesión
     my_dashboard: Panel de control
     recent_activity: Actividad reciente
-    search: buscar en ask.wikiedu.org
+    search: preguntar
     sign_up_extended: Regístrate con Wikipedia
     sign_up_log_in_extended: con Wikipedia
     sign_up: Registrarse
@@ -39,6 +41,7 @@ es:
     opt_out: Solicita la exclusión de la orientación
     orientation_notice: Antes de crear un curso, pasemos a la orientación para ayudarte
       a empezar. (Se tarda unos 30 minutos en completar.)
+    review_orientation: Revisar la orientación
     start_orientation: Comenzar la orientación
   home:
     explore: Explorar
@@ -134,6 +137,7 @@ es:
       course_description: Descripción del curso
       course_school: Escuela del curso
       course_subject: Tema del curso
+      course_term: Curso de plazo
       course_title: Título del curso
       create_button: ¡Crear mi curso!
       create_label: Crear curso nuevo
@@ -280,9 +284,11 @@ es:
     user_ns: Usuario
   recent_activity:
     show_courses: Mostrar sólo mis cursos
+    no_dyk_eligible: No hay actualmente ningún DYK-artículos elegibles.
     no_plagiarism: Actualmente no hay ninguna revisión reciente sospechada de plagio.
     no_edits: No hay ninguna edición reciente.
     refresh_plagiarism: Actualizar informes de plagios
+    did_you_know_eligible: ¿Sabía Usted Elegible
     possible_plagiarism: Posible plagio
     recent_edits: Ediciones recientes
   revisions:
@@ -336,16 +342,15 @@ es:
     reviewing: Revisando
     student_editors: Editores estudiantiles
     training_complete:
-      one: ha completado el entrenamiento
-      other: han completado el entrenamiento
-    training_complete_count: '%{count} han completado el entrenamiento'
-    training_doc: 'Los editores estudiantiles quienes hayan completado el ''entrenamiento
-      para estudiantes'' tendrían que haber hecho una edición a la página de comentarios
-      cuando finalizaron. Si los editores estudiantiles pasaron por el entrenamiento
-      pero no completaron el paso de comentario, pueden regresar al final del entrenamiento
-      aquí: https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete
-      .'
+      one: está al día con el entrenamiento
+      other: están al día con el entrenamiento
+    training_complete_count: '%{count} con entrenamiento al día'
+    training_doc: Los editores que hayan completado todos los módulos de entrenamiento
+      asignados se cuentan como al día con su entrenamiento.
     training_incomplete: Entranamiento incompleto
+    training_modules_completed: '%{completed_count}/%{assigned_count} módulos de entenamiento
+      completados'
+    up_to_date_with_training: al día con el entrenamiento
   wiki_edits:
     notify_overdue:
       confirm: Esto publicará un recordatorio en las páginas de discusión de todos
@@ -427,6 +432,8 @@ es:
       completo. Elimina al menos una semana o cambia las fechas de tareas para hacer
       espacio para una nueva.
   survey:
+    login_message: Gracias por tu tiempo. Inicia sesión en tu panel de Wiki Ed para
+      participar en la encuesta.
     email:
       headline: Hola, %{username}
       message: 'Está disponible una encuesta para: %{course_title}'

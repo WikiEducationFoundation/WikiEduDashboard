@@ -24,7 +24,7 @@ fr:
     log_out: Déconnexion
     my_dashboard: Mon tableau de bord
     recent_activity: Activité récente
-    search: rechercher sur ask.wikiedu.org
+    search: poser une question
     sign_up_extended: S’inscrire avec Wikipédia
     sign_up_log_in_extended: avec Wikipédia
     sign_up: S’inscrire
@@ -41,6 +41,7 @@ fr:
     opt_out: Demande de retrait de l’orientation
     orientation_notice: Avant de créer un cours, passez par l’orientation pour vous
       aider à commencer (cela prendra 30 minutes pour le terminer).
+    review_orientation: Examiner l’orientation
     start_orientation: Orientation au départ
   home:
     explore: Explorer
