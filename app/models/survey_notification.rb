@@ -5,7 +5,7 @@ class SurveyNotification < ActiveRecord::Base
 
   scope :active, -> { where(dismissed: false) }
   scope :completed, -> { where(completed: true) }
-  scope :dismissed, -> { where(completed: true) }
+  scope :dismissed, -> { where(dismissed: true) }
 
   def send_email
     # In these environments only send emails to the users specified in ENV['survey_test_email']
