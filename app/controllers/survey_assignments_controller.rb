@@ -1,4 +1,6 @@
 require 'rake'
+require "#{Rails.root}/lib/surveys/survey_notifications_manager"
+
 WikiEduDashboard::Application.load_tasks
 
 class SurveyAssignmentsController < ApplicationController
@@ -69,7 +71,7 @@ class SurveyAssignmentsController < ApplicationController
   end
 
   def create_notifications
-    call_rake 'surveys:create_notifications'
+    SurveyNotificationsManager.create_notifications
     flash[:notice] = 'Creating Survey Notifications'
     redirect_to survey_assignments_path
   end
@@ -78,10 +80,6 @@ class SurveyAssignmentsController < ApplicationController
     Rake::Task['surveys:send_notifications'].invoke
     flash[:notice] = 'Sending Email Survey Notifications'
     redirect_to survey_assignments_path
-  end
-
-  def call_rake(task_name)
-    Rake::Task[task_name].invoke
   end
 
   private
