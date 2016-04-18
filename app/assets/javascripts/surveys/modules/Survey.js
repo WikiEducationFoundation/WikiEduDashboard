@@ -10,6 +10,7 @@ require('wnumb');
 const wNumb = window.wNumb;
 require('slick-carousel');
 require('velocity-animate');
+const markdown = require('../../utils/markdown_it.js').default();
 
 //--------------------------------------------------------
 // Required Internal Modules
@@ -69,6 +70,7 @@ const Survey = {
     this.initBlocks();
     this.initRangeSliders();
     this.setFormValidationSections();
+    this.renderMarkdown();
   },
 
   cacheSelectors() {
@@ -726,6 +728,15 @@ const Survey = {
       $block.find('.survey__question-row.required.highlight').removeClass('highlight');
       $block.find('[data-errors]').empty();
     }
+  },
+
+  renderMarkdown() {
+    $('[data-render-markdown]').each((i, el) => {
+      const $el = $(el);
+      const markdownSrc = $el.data('render-markdown');
+      console.log($el.html(markdownSrc));
+      $el.html(markdown.render(markdownSrc));
+    });
   }
 };
 

@@ -1,0 +1,5 @@
+.survey__question-text
+  = f.label :answer_text, answer.question.question_text, class: 'screen-reader'
+  %div{data: {render_markdown: answer.question.question_text}}
+  - if !is_required_question?(answer)
+    %span.contextual (optional)

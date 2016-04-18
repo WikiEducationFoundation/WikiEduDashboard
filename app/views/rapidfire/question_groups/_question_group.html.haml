@@ -23,8 +23,6 @@
     .course-list__col
       = link_to "Edit", edit_question_group_path(question_group)
     .course-list__col
-      = link_to "Edit Questions", question_group_questions_path(question_group)
-    .course-list__col
       = link_to "Clone", "/surveys/question_group/clone/#{question_group.id}", method: :post
     .course-list__col
       = link_to "Add Question", new_question_group_question_path(question_group)

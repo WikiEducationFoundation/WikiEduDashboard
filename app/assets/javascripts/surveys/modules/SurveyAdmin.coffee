@@ -1,4 +1,7 @@
+markdown = require('../../utils/markdown_it.js').default()
 require('jquery-ui/sortable')
+require('jquery-ui/tabs')
+autosize = require('autosize')
 striptags = require('striptags')
 Utils = require './SurveyUtils.coffee'
 CONDITIONAL_ANSWERS_CHANGED = 'ConditionalAnswersChanged'
@@ -11,6 +14,8 @@ CONDITIONAL_COMPARISON_OPERATORS = """
 
 SurveyAdmin =
   init: ->
+    $('[data-tabs]').tabs();
+    autosize($('textarea'));
     @cacheSelectors()
     @course_data = @$course_data_populate_checkbox.attr('checked')?
     @initSortableQuestions()
@@ -18,6 +23,7 @@ SurveyAdmin =
     @listeners()
     @initConditionals()
     @initSearchableList()
+    @initMarkdown()
 
   listeners: ->
     @handleQuestionType()
@@ -300,6 +306,29 @@ SurveyAdmin =
       ]
 
     listObj = new List('searchable-list', options)
+
+  initMarkdown: ->
+    updateMarkdownTabs = (source, $preview, $source) ->
+      console.log(source, $preview, $source)
+      $preview.html source
+      $source.text source
+
+    $('[data-markdown-source]').each (i, text) ->
+      $text = $(text)
+      id = $text.data('markdown-source')
+      $preview = $("[data-markdown-preview='#{id}']")
+      $source = $("[data-markdown-source-view='#{id}']")
+      update = ->
+        html = markdown.render $text.val()
+        updateMarkdownTabs html, $preview, $source
+      update()
+      $text.keyup update
+
+    $('[data-render-markdown-label]').each (i, text) ->
+      $text = $(text)
+      $target = $text.next('[data-markdown-target]')
+      $target.html markdown.render $text.data 'render-markdown-label'
+
 
 
 module.exports = SurveyAdmin

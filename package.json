@@ -127,5 +127,8 @@
     "test": "gulp js_coverage",
     "start": "gulp hot-dev",
     "build": "webpack -p --config config/webpack/webpack.config.prod.js"
+  },
+  "devDependencies": {
+    "autosize": "^3.0.15"
   }
 }

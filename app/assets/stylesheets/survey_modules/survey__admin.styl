@@ -11,6 +11,16 @@ body.survey-page
   .form-inputs.survey__title-input
     margin-bottom $spacer * 4
 
+.survey__admin .block .button
+  float none
+
+.survey__admin-tools
+  background none
+  max-width $survey_max_width
+
+.survey__admin-actions
+  padding $spacer 0
+
 .survey__admin__nav
   overflow hidden
   background white
@@ -31,13 +41,12 @@ body.survey-page
     &.active
       background rgba($contextual, .25)
 
-
+.survey__admin-tools
+  padding-top $spacer
 .survey__admin
   trix-editor
     background-color athens
     margin-bottom $spacer * 2
-
-
 
 .survey__title-input input[type=text]
   width 100%
@@ -74,3 +83,26 @@ body.survey-page .surveys__admin-header h1
 .surveys__admin-header .container
   width 100%
   display flex
+
+.ui-tabs-nav
+  list-style none
+  margin 0
+  li
+    display inline-block
+    margin 0
+    position relative
+    top 1px
+
+  a
+    display block
+    padding 5px 10px
+    border 1px solid $border_lt
+    &:focus
+      outline 0
+
+  .ui-state-active a
+    border-bottom 1px solid white
+
+.ui-tabs-panel
+  padding 10px
+  border 1px solid $border_lt

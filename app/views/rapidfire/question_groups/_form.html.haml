@@ -1,3 +1,4 @@
+- @questions = @question_group.questions
 = simple_form_for(@question_group) do |f|
   = f.error_notification
   = f.input :name, label: "QuestionGroup Name", class: 'input--large'
@@ -6,5 +7,9 @@
   .form__row
     %label Tags
     = select_tag "question_group[tags]", options_for_select(@available_tags, @question_group_tags), multiple: true, data: { chosen_select: true }
+
+  - unless @question_group.new_record?
+    %h3 Questions
+    = render 'rapidfire/questions/question_group_list'
   .form__actions
-    = f.button :submit, class: 'button'
+    = f.button :submit, class: 'button dark'

@@ -25,7 +25,24 @@
   <br/>
   <div>
 
-  <%= f.text_area :question_text, data: { question_text: true }, id: 'question_text' %>
+    <div data-tabs>
+    <ul>
+      <li><a href="#question-text-markdown">Markdown</a></li>
+      <li><a href="#question-text-preview">Preview</a></li>
+      <li><a href="#question-text-html">HTML</a></li>
+    </ul>
+    <div id="question-text-markdown">
+      <%= f.text_area :question_text, data: { question_text: true, markdown_source: 'question-text-markdown' }, id: 'question_text' %>
+    </div>
+    <div id="question-text-preview">
+      <div data-markdown-preview="question-text-markdown"></div>
+    </div>
+    <div id="question-text-html">
+      <div data-markdown-source-view="question-text-markdown"></div>
+    </div>
+  </div>
+
+
   <div data-question-text-editor></div>
   <br/>
   <div data-question-options>
