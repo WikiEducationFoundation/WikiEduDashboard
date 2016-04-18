@@ -248,7 +248,7 @@ class Course < ActiveRecord::Base
   # Callback methods #
   ####################
   def cleanup_articles(user)
-    CourseCleanupManager.cleanup_articles(self, user)
+    CourseCleanupManager.new(self, user).cleanup_articles
   end
 
   #################
