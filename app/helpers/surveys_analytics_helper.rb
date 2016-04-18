@@ -40,7 +40,7 @@ module SurveysAnalyticsHelper
     notified = survey_assignment.survey_notifications.length
     # total_potential = survey_assignment.total_notifications
     percent = 0
-    percent = (notified / completed) * 100 if completed > 0
-    "#{percent}% (#{completed}/#{notified})"
+    percent = (completed.to_f / notified.to_f) * 100 if completed > 0
+    "#{percent.round(2)}% (#{completed}/#{notified})"
   end
 end

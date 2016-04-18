@@ -27,8 +27,13 @@ module SurveyAssignmentsHelper
     f.select :courses_user_role, options_for_select(ROLES.collect {|r| [r.values[0], r.values[1]]}, 1), {}, {:data => { :chosen_select => true}}
   end
 
-  def user_role(survey_assignment)
-    ROLES.select { |r| r[:role] == survey_assignment.courses_user_role }.first[:name]
+  def user_role(survey_assignment, total = 2)
+    role = ROLES.select { |r| r[:role] == survey_assignment.courses_user_role }.first[:name]
+    if total > 1
+      role.pluralize
+    else
+      role.singularize
+    end
   end
 
   def role_name_by_id(id)
