@@ -203,9 +203,18 @@
   right: -32px;
 }
 
-.noUi-handle:after,
-.noUi-handle:before
+.noUi-handle:after
   display none
+
+.noUi-handle:before
+  content attr(data-content)
+  transform translateY(130%)
+  background sprout
+  color white
+  width 130%
+  left -15%
+  top 0
+  height 30px
 
 .noUi-handle
   text-align center

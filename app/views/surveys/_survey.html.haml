@@ -1,15 +1,15 @@
-.survey__admin-row.survey__admin-row--survey
+%li.survey__admin-row.survey__admin-row--survey
   .survey__admin-row__title
-    %strong= survey.name
+    %strong.name= survey.name
   .survey__admin-row__col
     .contextual Status
-    %strong.survey-color= survey_status(survey)
+    %strong.survey-color.status= survey_status(survey)
   .survey__admin-row__col
     .contextual Question Groups | Questions
     %strong= survey_question_stats(survey)
   .survey__admin-row__col
     .contextual Last Author
-    %span= survey_author(survey)
+    %span.author= survey_author(survey)
   .survey__admin-row__col
     .contextual Created
     %span= survey.created_at.strftime("%B %d, %Y")

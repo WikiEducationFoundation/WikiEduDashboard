@@ -394,7 +394,7 @@ const Survey = {
       const min = parseInt($(slider).data('min'));
       const max = parseInt($(slider).data('max'));
       const step = parseInt($(slider).data('step'));
-      const divisions = $(slider).data('divisions');
+      // const divisions = $(slider).data('divisions');
       const format = $(slider).data('format');
 
       const numberFormatting = (() => {
@@ -420,8 +420,8 @@ const Survey = {
         step,
         pips: {
           mode: 'count',
-          values: 5,
-          density: (typeof divisions !== 'undefined' && divisions !== null) ? parseInt(divisions) : 4,
+          values: 2,
+          density: max,
           format: wNumb(numberFormatting)
         },
         connect: 'lower'
@@ -432,7 +432,7 @@ const Survey = {
       // $handle.text(0);
       slider.noUiSlider.on('change', (value) => {
         const val = parseInt(value[0]);
-        $handle.text(val);
+        $handle.attr('data-content', val);
         $input.val(val).trigger('change');
       });
 

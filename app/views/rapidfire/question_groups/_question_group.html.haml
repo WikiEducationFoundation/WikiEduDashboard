@@ -1,15 +1,15 @@
-.survey__admin-row.survey__admin-row--question-group{:id => "question_group_#{question_group.id}"}
+%li.survey__admin-row.survey__admin-row--question-group{:id => "question_group_#{question_group.id}"}
   .survey__admin-row__title
-    %strong= question_group.name
+    %strong.name= question_group.name
   .survey__admin-row__col
     .contextual Status
-    %strong.question-group-color= question_group_status(question_group)
+    %strong.question-group-color.status= question_group_status(question_group)
   .survey__admin-row__col
     .contextual # of Questions
     %strong= question_group.questions.count
   .survey__admin-row__col
     .contextual Last Author
-    %span= survey_author(question_group)
+    %span.author= survey_author(question_group)
   .survey__admin-row__col
     .contextual Created
     %span= question_group.created_at.strftime("%B %d, %Y")

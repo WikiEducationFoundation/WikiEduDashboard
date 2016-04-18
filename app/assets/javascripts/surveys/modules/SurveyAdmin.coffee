@@ -17,6 +17,7 @@ SurveyAdmin =
     @initSortableQuestionGroups()
     @listeners()
     @initConditionals()
+    @initSearchableList()
 
   listeners: ->
     @handleQuestionType()
@@ -160,7 +161,7 @@ SurveyAdmin =
       dataType: 'json'
       contentType: 'application/json'
       success: $.proxy @, 'handleConditionalQuestionSelect'
-    
+
 
   handleConditionalQuestionSelect: (e) ->
     @clearConditionalOperatorAndValue()
@@ -283,6 +284,22 @@ SurveyAdmin =
     @$clear_conditional_button.addClass 'hidden'
     @$conditional_value_number_field.val('').addClass 'hidden'
     @$conditional_operator_select.off('blur').empty().addClass 'hidden'
+
+  initSearchableList: ->
+    fuzzyOptions =
+      searchClass: 'fuzzy-search'
+      location: 0
+      distance: 100
+      threshold: 0.4
+      multiSearch: true
+
+    options =
+      valueNames: ['name', 'status', 'author']
+      plugins: [
+        ListFuzzySearch()
+      ]
+
+    listObj = new List('searchable-list', options)
 
 
 module.exports = SurveyAdmin
