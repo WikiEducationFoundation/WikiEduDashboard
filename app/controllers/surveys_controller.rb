@@ -171,10 +171,11 @@ class SurveysController < ApplicationController
     return false if users.empty?
     users.each do |cu|
       notification = survey_notification(cu.id)
-      return false unless notification && notification.survey.id == @survey.id
+      next unless notification && notification.survey.id == @survey.id
       return true unless return_notification
       return notification if return_notification
     end
+    false
   end
 
   def ensure_logged_in
