@@ -492,7 +492,6 @@ const Survey = {
 
   conditionalAnswerListeners(id, multi) {
     // @surveyConditionals[id].operator = operator
-    console.log(id, $(`#question_${id}`));
     $(`#question_${id} input, #question_${id} select`).on('change', ({ target }) => {
       let value = $(target).val().split(' ').join('_');
 
@@ -679,7 +678,6 @@ const Survey = {
     } else {
       const $slider = this.groupSliders[questionGroupIndex];
       $slider.slick('slickAdd', $question, parentIndex);
-      console.log('re-add conditional listerns here', $question);
       // conditionalAnswerListeners();
     }
   },
@@ -734,7 +732,6 @@ const Survey = {
     $('[data-render-markdown]').each((i, el) => {
       const $el = $(el);
       const markdownSrc = $el.data('render-markdown');
-      console.log($el.html(markdownSrc));
       $el.html(markdown.render(markdownSrc));
     });
   }
