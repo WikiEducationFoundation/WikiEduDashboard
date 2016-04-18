@@ -1,4 +1,5 @@
 require 'factory_girl_rails'
+require "#{Rails.root}/lib/surveys/survey_notifications_manager"
 
 namespace :surveys do
   Dir["/spec/factories/*.rb"].each {|file| require file }
@@ -88,24 +89,7 @@ namespace :surveys do
 
   desc 'Find CoursesUsers ready to receive surveys and create a SurveyNotification for each'
   task create_notifications: :environment do
-    include SurveyAssignmentsHelper
-    puts 'create_notifications'
-    SurveyAssignment.published.each_with_index do |survey_assignment, index|
-      survey_assignment.courses_users_ready_for_survey.each do |courses_user|
-        course = Course.find(courses_user.course_id)
-        notifications = SurveyAssignment.by_courses_user_and_survey(
-          courses_users_id: courses_user.id,
-          survey_id: survey_assignment.survey_id
-        )
-        next if notifications.any?
-        notification = SurveyNotification.new(
-          courses_users_id: courses_user.id,
-          survey_assignment_id: survey_assignment.id,
-          course_id: course.id
-        )
-        notification.save
-      end
-    end
+    SurveyNotificationsManager.create_notifications
   end
 
   desc 'Find SurveyNotifications that haven\'t been sent and send them'

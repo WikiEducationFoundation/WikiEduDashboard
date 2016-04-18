@@ -117,3 +117,10 @@
 # Enable hot-loading development features. This may only work properly while
 # `gulp` is running.
   hot_loading: 'false'
+
+# Default sender for emails
+  SENDER_EMAIL_ADDRESS: 'test@example.com'
+
+# Whitelisted test emails for staging and development
+# Except in production, the system will only send mail to these addresses.
+  survey_test_email: 'developmer@yourdomain.me'

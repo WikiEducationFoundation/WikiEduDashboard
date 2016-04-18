@@ -15,6 +15,7 @@ ENV['no_views'] = 'false'
 ENV['disable_onboarding'] = 'false'
 ENV['disable_training'] = 'false'
 ENV['hot_loading'] = 'false'
+ENV['SENDER_EMAIL_ADDRESS'] = 'root@localhost'
 
 Rails.application.configure do
   # Settings specified here will take
