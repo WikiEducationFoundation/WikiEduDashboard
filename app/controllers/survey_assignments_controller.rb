@@ -37,7 +37,10 @@ class SurveyAssignmentsController < ApplicationController
 
     respond_to do |format|
       if @survey_assignment.save
-        format.html { redirect_to survey_assignments_path, notice: 'Survey assignment was successfully created.' }
+        format.html do
+          redirect_to survey_assignments_path,
+                      notice: 'Survey assignment was successfully created.'
+        end
         format.json { render :show, status: :created, location: @survey_assignments }
       else
         format.html { render :new }
@@ -51,7 +54,10 @@ class SurveyAssignmentsController < ApplicationController
   def update
     respond_to do |format|
       if @survey_assignment.update(survey_assignment_params)
-        format.html { redirect_to survey_assignments_path, notice: 'Survey assignment was successfully updated.' }
+        format.html do
+          redirect_to survey_assignments_path,
+                      notice: 'Survey assignment was successfully updated.'
+        end
         format.json { render :show, status: :ok, location: @survey_assignments }
       else
         format.html { render :edit }
@@ -65,7 +71,10 @@ class SurveyAssignmentsController < ApplicationController
   def destroy
     @survey_assignment.destroy
     respond_to do |format|
-      format.html { redirect_to survey_assignments_url, notice: 'Survey assignment was successfully destroyed.' }
+      format.html do
+        redirect_to survey_assignments_url,
+                    notice: 'Survey assignment was successfully destroyed.'
+      end
       format.json { head :no_content }
     end
   end
@@ -83,17 +92,21 @@ class SurveyAssignmentsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_survey_assignment
-      @survey_assignment = SurveyAssignment.find(params[:id])
-    end
 
-    def set_survey_assignment_options
-      @send_relative_to_options = SEND_RELATIVE_TO_OPTIONS
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_survey_assignment
+    @survey_assignment = SurveyAssignment.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def survey_assignment_params
-      params.require(:survey_assignment).permit(:survey_id, :send_before, :send_date_relative_to, :send_date_days, :courses_user_role, :published, :notes, :cohort_ids =>[])
-    end
+  def set_survey_assignment_options
+    @send_relative_to_options = SEND_RELATIVE_TO_OPTIONS
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def survey_assignment_params
+    params.require(:survey_assignment)
+          .permit(:survey_id, :send_before, :send_date_relative_to,
+                  :send_date_days, :courses_user_role, :published,
+                  :notes, cohort_ids: [])
+  end
 end
