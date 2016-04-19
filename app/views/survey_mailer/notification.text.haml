@@ -1,5 +1,11 @@
 = t('survey.email.headline', username: @user.username)
-
-= t('survey.email.message', course_title: @course.title)
-
+\
+= t('survey.email.message_line1', course_title: @course.title)
+\
+= t('survey.email.message_line2', course_title: @course.title)
+\
 = survey_url(@survey)
+\
+\
+= t('survey.email.course', course_info: "#{@course.school} - #{@course.title} (#{@course.term})")
+= t('survey.email.signed')

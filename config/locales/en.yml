@@ -495,5 +495,9 @@ en:
     login_message: 'Thank you for your time. Please log in to your Wiki Ed dashboard to take the survey.'
     email:
       headline: "Hello, %{username}"
-      message: "A survey is available for: %{course_title}"
+      message_line1: "We hope you had a great term! Wiki Ed is seeking your feedback to improve our resources and support for your Wikipedia assignments. Your response is crucial to improving our current offerings."
+      message_line2: "Are you willing to take 15 minutes to fill out our instructor survey? Click the button below to help us make teaching with Wikipedia an even more rewarding and valuable experience."
+      course: "Course: %{course_info}"
+      closing: "Sincerely,"
+      signed: "Wiki Ed Staff"
       link: "Take Survey"
