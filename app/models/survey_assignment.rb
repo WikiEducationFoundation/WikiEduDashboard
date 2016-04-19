@@ -34,7 +34,7 @@ class SurveyAssignment < ActiveRecord::Base
   end
 
   def courses_users_ready_for_survey
-    courses = courses_with_pending_notifications.collect do |course|
+    courses = courses_users_ready_for_notifications.collect do |course|
       course.courses_users.where(role: courses_user_role)
     end
     courses.flatten
@@ -48,8 +48,16 @@ class SurveyAssignment < ActiveRecord::Base
     published && !courses_with_pending_notifications.empty?
   end
 
-  def courses_with_pending_notifications
+  def courses_users_ready_for_notifications
     cohorts.collect { |cohort| cohort.courses.ready_for_survey(send_at) }.flatten
+  end
+
+  def courses_with_pending_notifications
+    cohorts.collect { |cohort| cohort.courses.will_be_ready_for_survey(send_at) }.flatten
+  end
+
+  def target_courses
+    cohorts.collect(&:courses).flatten
   end
 
   def status

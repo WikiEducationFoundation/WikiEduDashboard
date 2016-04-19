@@ -122,15 +122,16 @@ class Course < ActiveRecord::Base
 
   def self.will_be_ready_for_survey(args)
     days_offset, before, relative_to = args.values_at(:days, :before, :relative_to)
-    where("#{relative_to} > '#{Time.zone.today}'")
+    today = Time.zone.today
+    ready_date = before ? today + days_offset : today - days_offset
+    where("#{relative_to} > '#{ready_date}'")
   end
 
   def self.ready_for_survey(args)
     days_offset, before, relative_to = args.values_at(:days, :before, :relative_to)
     today = Time.zone.today
-    send_survey_time = today
-    send_survey_time = today + days_offset.days if before
-    where("#{relative_to} <= '#{send_survey_time}'")
+    ready_date = before ? today + days_offset.days : today - days_offset.days
+    where("#{relative_to} <= '#{ready_date}'")
   end
 
   ##################

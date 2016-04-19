@@ -30,7 +30,7 @@
 
   .survey__admin-row__col
     .contextual Number of Courses
-    %span= survey_assignment.courses_with_pending_notifications.count
+    %span= survey_assignment.target_courses.count
 
     .contextual Estimated Recipients
     - total = survey_assignment.survey_notifications.count
