@@ -10,7 +10,12 @@ Rails.application.config.to_prepare do
     has_and_belongs_to_many :surveys, join_table: 'surveys_question_groups', foreign_key: 'rapidfire_question_group_id'
   end
 
+  Rapidfire::AnswerGroupsController.class_eval do
+    before_action :require_admin_permissions
+  end
+
   Rapidfire::QuestionGroupsController.class_eval do
+    before_action :require_admin_permissions
     before_action :set_tags, only: [:new, :edit]
 
     def new
