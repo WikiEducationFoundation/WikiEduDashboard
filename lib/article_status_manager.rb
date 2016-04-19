@@ -78,7 +78,7 @@ class ArticleStatusManager
 
   def data_matches_article?(article_data, article)
     return false unless article.title == article_data['page_title']
-    return false unless article.namespace == article_data['page_namespace']
+    return false unless article.namespace == article_data['page_namespace'].to_i
     # If article data is collected from Replica, the article is not currently deleted
     return false if article.deleted
     true
