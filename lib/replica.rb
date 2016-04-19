@@ -47,7 +47,6 @@ class Replica
   # to a specific page on Wikipedia:
   # [[Wikipedia:Training/For students/Training feedback]]
   def get_user_info(users)
-    # TODO: switch to usernames to make queries wiki-agnostic.
     query = compile_usernames_query(users)
     query = "#{query}&training_page_id=#{ENV['training_page_id']}" if ENV['training_page_id']
     api_get('users.php', query)

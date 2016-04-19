@@ -66,10 +66,10 @@ class LegacyCourseImporter
     participants.each do |_course_id, groups|
       groups.each_with_index do |(r, _p), i|
         # Students
-        users = LegacyCourseUserImporter.add_users(groups[r], i, nil, false) | users
+        users = LegacyCourseUserImporter.add_users(groups[r], i, nil) | users
         # Assignment reviewers
         reviewers = reviewers(groups[r])
-        users = LegacyCourseUserImporter.add_users(reviewers, nil, nil, false) | users
+        users = LegacyCourseUserImporter.add_users(reviewers, nil, nil) | users
       end
     end
     User.import users

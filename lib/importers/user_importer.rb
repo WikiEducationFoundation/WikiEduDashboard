@@ -49,11 +49,16 @@ class UserImporter
     end
 
     User.transaction do
-      u_users.each do |u|
-        user = User.find_by(u['username'])
-        next if user.blank?
-        user.update!(u.except('id'))
+      u_users.each do |user_data|
+        update_user_from_replica_data(user_data)
       end
     end
+  end
+
+  def self.update_user_from_replica_data(user_data)
+    username = user_data['wiki_id']
+    user = User.find_by(username: username)
+    return if user.blank?
+    user.update!(user_data.except('id'))
   end
 end
