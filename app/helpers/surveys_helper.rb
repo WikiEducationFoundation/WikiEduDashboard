@@ -213,7 +213,7 @@ module SurveysHelper
   end
 
   def survey_notification_id(notification)
-    return nil if notification == false
+    return nil if notification == false || notification.nil?
     return notification.id
   end
 end

@@ -5,4 +5,5 @@
     - if params.has_key?(:preview)
       = check_box_tag("preview", true, true, :class => 'hidden')
     = select_tag("course_slug", options_from_collection_for_select(@courses, 'slug', 'title'), :required => true, :include_blank => true, :data => {:chosen_select => true, :survey_course_select => true, :placeholder => "Select your course"})
-    = submit_tag("Start Survey", :class => 'button dark')
+    .survey__block-nav
+      = submit_tag("Start Survey", :class => 'button dark pull-right')
