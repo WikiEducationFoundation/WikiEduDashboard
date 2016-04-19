@@ -129,6 +129,7 @@
     "build": "webpack -p --config config/webpack/webpack.config.prod.js"
   },
   "devDependencies": {
-    "autosize": "^3.0.15"
+    "autosize": "^3.0.15",
+    "lodash.throttle": "^4.0.1"
   }
 }

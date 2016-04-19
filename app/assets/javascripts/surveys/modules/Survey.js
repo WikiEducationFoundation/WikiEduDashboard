@@ -11,6 +11,7 @@ const wNumb = window.wNumb;
 require('slick-carousel');
 require('velocity-animate');
 const markdown = require('../../utils/markdown_it.js').default();
+import _throttle from 'lodash.throttle';
 
 //--------------------------------------------------------
 // Required Internal Modules
@@ -433,15 +434,26 @@ const Survey = {
       const $slider = $(slider);
       const $handle = $($slider.find('.noUi-handle'));
       // $handle.text(0);
-      slider.noUiSlider.on('change', (value) => {
+
+
+      const updateValue = (value) => {
         const val = parseInt(value[0]);
         $handle.attr('data-content', val);
         $input.val(val).trigger('change');
-      });
+      };
 
-      $input.on('change', ({ target }) => {
-        slider.noUiSlider.set(target.value);
-      });
+      const throttled = _throttle(updateValue, 100);
+
+      slider.noUiSlider.on('update', throttled);
+
+
+      // slider.noUiSlider.on('change', (value) => {
+      //
+      // });
+
+      // $input.on('change', ({ target }) => {
+      //   slider.noUiSlider.set(target.value);
+      // });
     });
   },
 
