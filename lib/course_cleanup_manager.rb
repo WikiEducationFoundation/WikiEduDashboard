@@ -37,7 +37,7 @@ class CourseCleanupManager
   end
 
   def other_editors_in_course?(article_id)
-    other_editors = Article.find(article_id).editors - [@user.id]
+    other_editors = Article.find(article_id).editors - [@user]
     return false if other_editors.empty?
     course_editors = @course.students & other_editors
     return false if course_editors.empty?
