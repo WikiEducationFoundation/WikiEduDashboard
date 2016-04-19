@@ -23,6 +23,16 @@ Rails.application.config.to_prepare do
       @question_group_tags = @question_group.tags.nil? ? [] : @question_group.tags.split(',')
     end
 
+    def destroy
+      @question_group = QuestionGroup.find(params[:id])
+      @question_group.destroy
+
+      respond_to do |format|
+        format.html { redirect_to question_group_path }
+        format.js
+      end
+    end
+
     private
 
     def question_group_params
@@ -45,6 +55,26 @@ Rails.application.config.to_prepare do
     scope :course_data_questions, ->{where("course_data_type <> ''")}
     def self.for_conditionals
       where("conditionals IS NULL OR conditionals = ''")
+    end
+  end
+
+  Rapidfire::QuestionsController.class_eval do
+    private
+
+    def save_and_redirect(params, on_error_key)
+      @question_form = Rapidfire::QuestionForm.new(params)
+      @question_form.save
+      if @question_form.errors.empty?
+        respond_to do |format|
+          format.html { redirect_to edit_question_group_path(@question_group) }
+          format.js
+        end
+      else
+        respond_to do |format|
+          format.html { render on_error_key.to_sym }
+          format.js
+        end
+      end
     end
   end
 
