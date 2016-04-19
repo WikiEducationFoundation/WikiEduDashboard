@@ -7,7 +7,7 @@ json.course do
             :weekdays, :no_day_exceptions, :updated_at, :string_prefix, :type)
 
   json.term @course.cloned_status == 1 ? '' : @course.term
-  json.legacy @course.id < 10000
+  json.legacy @course.legacy?
   json.ended !current?(@course) && @course.start < Time.zone.now
   json.published CohortsCourses.exists?(course_id: @course.id)
   json.enroll_url "#{request.base_url}#{course_slug_path(@course.slug)}/enroll/"
