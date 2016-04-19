@@ -1,0 +1,22 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+  %body
+    %h1= "#{@course.title}: submitted!"
+    %p= "Hi #{@instructor.username}! Thank you for submitting your course page at dashboard.wikiedu.org."
+    %p
+      From this point on, Wiki Ed's Helaine Blumenthal will be helping you with your course.
+      She'll be in touch with you soon. In the meantime, if you have any questions,
+      please check out <a href="https//ask.wikiedu.org">ask.wikiedu.org</a>, where
+      you can find answers to many commonly asked questions about Wikipedia.
+    %p
+      You can access — and continue to edit — your course page
+      = link_to("here", @course_link) + '.'
+    %p
+      From ask.wikiedu.org:
+      = link_to('"How can I edit my timeline?"', 'http://ask.wikiedu.org/question/235/how-can-i-edit-my-timeline/')
+    %p
+      Best regards,
+      %br
+      The Wiki Ed team

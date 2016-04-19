@@ -63,11 +63,9 @@ class CoursesController < ApplicationController
 
     # If the user could make an edit to the course, then verify that
     # their tokens are working.
-    if current_user && current_user.can_edit?(@course)
-      unless WikiEdits.new.oauth_credentials_valid?(current_user)
-        redirect_to root_path
-        return
-      end
+    if invalid_edit_credentials?
+      redirect_to root_path
+      return
     end
 
     respond_to do |format|
@@ -99,7 +97,7 @@ class CoursesController < ApplicationController
     is_instructor = (user_signed_in? && current_user.instructor?(@course))
     return if is_instructor
 
-    fail ActionController::RoutingError
+    raise ActionController::RoutingError
       .new('Not Found'), 'Not permitted'
   end
 
@@ -156,6 +154,7 @@ class CoursesController < ApplicationController
   def handle_course_announcement(instructor)
     newly_submitted = !@course.submitted? && course_params[:submitted] == true
     return unless newly_submitted
+    CourseSubmissionMailer.submission(@course, instructor).deliver_now if Features.email?
     WikiCourseEdits.new(action: 'announce_course',
                         course: @course,
                         current_user: current_user,
@@ -184,5 +183,10 @@ class CoursesController < ApplicationController
               :expected_students, :start, :end, :submitted, :listed, :passcode,
               :timeline_start, :timeline_end, :day_exceptions, :weekdays,
               :no_day_exceptions, :cloned_status, :type)
+  end
+
+  def invalid_edit_credentials?
+    return false unless current_user && current_user.can_edit?(@course)
+    !WikiEdits.new.oauth_credentials_valid?(current_user)
   end
 end

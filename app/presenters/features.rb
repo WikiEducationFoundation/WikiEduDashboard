@@ -30,4 +30,8 @@ class Features
   def self.hot_loading?
     ENV['hot_loading'] == 'true'
   end
+
+  def self.email?
+    !ENV['SENDER_EMAIL_ADDRESS'].nil?
+  end
 end
