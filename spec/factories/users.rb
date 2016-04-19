@@ -27,21 +27,18 @@ FactoryGirl.define do
   end
 
   factory :user do
-    id '4543197'
-    username 'Ragesock'
+    username 'Ragesock' # en.wiki local id 4543197
     onboarded true
   end
 
   factory :trained, class: User do
-    id '319203'
-    username 'Ragesoss'
+    username 'Ragesoss' # en.wiki local id 319203
     onboarded true
   end
 
   factory :admin, class: User do
-    id '1'
     username 'Ragesauce'
-    permissions '1'
+    permissions 1
     onboarded true
   end
 end

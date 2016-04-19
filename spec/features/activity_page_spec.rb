@@ -11,7 +11,7 @@ describe 'activity page', type: :feature, js: true do
   end
 
   describe 'non-admins' do
-    let(:user) { create(:user, id: 2) }
+    let(:user) { create(:user) }
     it 'shouldn\'t be viewable by non-admins' do
       within '.top-nav' do
         expect(page).not_to have_content 'Activity'
@@ -23,8 +23,8 @@ describe 'activity page', type: :feature, js: true do
     let(:article)  { create(:article, namespace: 118) }
     let(:article2) { create(:article, namespace: 118, title: 'pandas') }
     let!(:admin)   { create(:admin) }
-    let!(:user)    { create(:user, id: 100) }
-    let!(:user2)   { create(:user, id: 101) }
+    let!(:user)    { create(:user) }
+    let!(:user2)   { create(:user, username: 'User2') }
     let(:course)   { create(:course, end: 1.year.from_now) }
     let(:course2)  { create(:course, end: 1.year.from_now) }
     let!(:cu1)     { create(:courses_user, user_id: user.id, course_id: course.id) }

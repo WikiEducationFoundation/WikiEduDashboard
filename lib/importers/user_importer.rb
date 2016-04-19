@@ -50,12 +50,9 @@ class UserImporter
 
     User.transaction do
       u_users.each do |u|
-        begin
-          # FIXME: find by username, not id
-          User.find(u['id']).update(u.except('id'))
-        rescue ActiveRecord::RecordNotFound => e
-          Rails.logger.warn e
-        end
+        user = User.find_by(u['username'])
+        next if user.blank?
+        user.update!(u.except('id'))
       end
     end
   end
