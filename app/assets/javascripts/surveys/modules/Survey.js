@@ -27,11 +27,11 @@ const Utils = require('./SurveyUtils.coffee');
 // const scrollDuration = 500;
 const scrollEasing = [0.19, 1, 0.22, 1];
 
-
-const chosenOptions = {
-  disable_search_threshold: 10,
-  width: '75%'
-};
+// 
+// const chosenOptions = {
+//   disable_search_threshold: 10,
+//   width: '75%'
+// };
 
 const slickOptions = {
   infinite: false,
@@ -90,7 +90,7 @@ const Survey = {
     this.$main.on('click', '[data-next-survey-block]', this.validateCurrentQuestion.bind(this));
     this.$main.on('click', '[data-prev-survey-block]', this.previousBlock.bind(this));
     $('[data-submit-survey]').on('click', this.submitAllQuestionGroups.bind(this));
-    $('[data-chosen-select]').chosen(chosenOptions);
+    // $('[data-chosen-select]').chosen(chosenOptions);
     $('[data-void-checkboxes]').on('click', this.voidCheckboxSelections.bind(this));
     $('.survey__multiple-choice-field input[type=checkbox]').on('change', this.uncheckVoid.bind(this));
     $('.block input, .block textarea, .block select').on('change keydown', this.removeErrorState.bind(this));
