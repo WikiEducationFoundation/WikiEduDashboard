@@ -4,23 +4,23 @@
       %th
         %table
           %tr
-            %td.main-content{style: 'padding: 0 0 0 100px;'}
-              %h1{style: 'font-family: "Open Sans", sans-serif; color: #696BB1; font-size: 46px; font-weight: 300; text-align:left;'}= t('survey.email.headline', username: @user.username)
-              %p{style: 'font-family: "Open Sans", sans-serif; color: #666666; font-size: 18px; line-height: 1.5; text-align:left;'}= t('survey.email.message_line1')
-              %p{style: 'font-family: "Open Sans", sans-serif; color: #666666; font-size: 18px; line-height: 1.5; text-align:left;'}= t('survey.email.message_line2')
+            %td.main-content
+              %h1{style: 'font-family: "Open Sans", sans-serif; color: #696BB1; font-size: 34px; font-weight: 300; text-align:left;'}= t('survey.email.headline', username: @user.username)
+              %p{style: 'font-family: "Open Sans", sans-serif; color: #666666; font-size: 18px; line-height: 1.5; font-weight: 300; text-align:left;'}= t('survey.email.message_line1')
+              %p{style: 'font-family: "Open Sans", sans-serif; color: #666666; font-size: 18px; line-height: 1.5; font-weight: 300; text-align:left;'}= t('survey.email.message_line2')
             %td.expander
         %table
           %tr
-            %td.main-content{style: 'padding: 20px 0 20px 100px;'}
-              %a.button_link{:href => "#{survey_url(@survey)}", :style => "padding: 15px 20px;width:130px;display: block;text-decoration: none;border:0;text-align:center;font-family: 'Open Sans', sans-serif; letter-spacing: 1px; font-weight:200; font-size: 18px;color: #ffffff;background: #40AD90;border: 1px solid #359178;-moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px;line-height:17px;"} Take Survey
+            %td.main-content{style: 'padding: 20px 0 20px;'}
+              %a.button_link{:href => "#{survey_url(@survey)}", :style => "padding: 15px 20px;width:130px; display: block;text-decoration: none;border:0;text-align:center;font-family: 'Open Sans', sans-serif; letter-spacing: 1px; font-weight:300; font-size: 18px;color: #ffffff;background: #40AD90;border: 1px solid #359178;-moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px;line-height:17px;"} Take Survey
             %td.expander
         %table
           %tr
-            %td.main-content{style: 'padding: 20px 0 0 100px;'}
-              %div{style: 'font-family: "Open Sans", sans-serif; color: #666666; font-size: 18px; line-height: 1.5;  text-align:left;'}= t('survey.email.course', course_info: "#{@course.school} - #{@course.title} (#{@course.term})")
+            %td.main-content{style: 'padding: 20px 0 0;'}
+              %div{style: 'font-family: "Open Sans", sans-serif; color: #666666; font-size: 14px; line-height: 1.5;  text-align:left; font-weight: 300;'}= t('survey.email.course', course_info: "#{@course.school} - #{@course.title} (#{@course.term})")
             %td.expander
         %table
           %tr
-            %td.main-content{style: 'padding: 20px 0 0 100px;'}
-              %div{style: 'font-family: "Open Sans", sans-serif; color: #666666; font-size: 18px; line-height: 1.5;  text-align:left;'}= t('survey.email.signed')
+            %td.main-content
+              %em{style: 'font-family: "Open Sans", sans-serif; color: #666666; font-size: 18px; line-height: 1.5;  text-align:left; font-weight: 300;'}= t('survey.email.signed')
             %td.expander

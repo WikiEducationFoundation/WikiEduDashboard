@@ -499,5 +499,5 @@ en:
       message_line2: "Are you willing to take 15 minutes to fill out our instructor survey? Click the button below to help us make teaching with Wikipedia an even more rewarding and valuable experience."
       course: "Course: %{course_info}"
       closing: "Sincerely,"
-      signed: "Wiki Ed Staff"
+      signed: "- Sage"
       link: "Take Survey"
