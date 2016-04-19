@@ -63,6 +63,7 @@ const Survey = {
   currentBlockValidated: false,
 
   init() {
+    this.renderMarkdown();
     this.cacheSelectors();
     this.getUrlParam();
     this.removeUnneededBlocks();
@@ -72,7 +73,6 @@ const Survey = {
     this.initRangeSliders();
     this.setFormValidationSections();
     this.getNotificationId();
-    this.renderMarkdown();
   },
 
   cacheSelectors() {
@@ -691,7 +691,6 @@ const Survey = {
     } else {
       const $slider = this.groupSliders[questionGroupIndex];
       $slider.slick('slickAdd', $question, parentIndex);
-      // conditionalAnswerListeners();
     }
   },
 

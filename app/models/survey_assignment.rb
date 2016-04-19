@@ -49,7 +49,7 @@ class SurveyAssignment < ActiveRecord::Base
   end
 
   def courses_with_pending_notifications
-    cohorts.collect { |cohort| cohort.courses.will_be_ready_for_survey(send_at) }.flatten
+    cohorts.collect { |cohort| cohort.courses.ready_for_survey(send_at) }.flatten
   end
 
   def status
