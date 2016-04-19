@@ -120,15 +120,15 @@ class Course < ActiveRecord::Base
     where('end <= ?', Time.zone.now - UPDATE_LENGTH)
   }
 
-  def self.will_be_ready_for_survey(args)
-    days_offset, before, relative_to = args.values_at(:days, :before, :relative_to)
+  def self.will_be_ready_for_survey(opts)
+    days_offset, before, relative_to = opts.values_at(:days, :before, :relative_to)
     today = Time.zone.today
     ready_date = before ? today + days_offset : today - days_offset
     where("#{relative_to} > '#{ready_date}'")
   end
 
-  def self.ready_for_survey(args)
-    days_offset, before, relative_to = args.values_at(:days, :before, :relative_to)
+  def self.ready_for_survey(opts)
+    days_offset, before, relative_to = opts.values_at(:days, :before, :relative_to)
     today = Time.zone.today
     ready_date = before ? today + days_offset.days : today - days_offset.days
     where("#{relative_to} <= '#{ready_date}'")

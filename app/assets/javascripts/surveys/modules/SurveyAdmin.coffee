@@ -24,6 +24,7 @@ SurveyAdmin =
     @initConditionals()
     @initSearchableList()
     @initMarkdown()
+    $('[data-chosen-select]').chosen({disable_search_threshold: 10});
 
   listeners: ->
     @handleQuestionType()

@@ -9,6 +9,7 @@
     "moment": "~2.10.3",
     "moment-recur": "~1.0.5",
     "trix": "~0.9.5",
+    "chosen": "~1.5.1",
     "list.fuzzysearch.js": "~0.1.0"
   },
   "overrides": {
