@@ -86,7 +86,9 @@ class SurveyAssignmentsController < ApplicationController
   end
 
   def send_notifications
-    Rake::Task['surveys:send_notifications'].invoke
+    SurveyNotification.active.each do |notification|
+      notification.send_email
+    end
     flash[:notice] = 'Sending Email Survey Notifications'
     redirect_to survey_assignments_path
   end
