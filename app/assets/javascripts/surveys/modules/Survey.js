@@ -27,12 +27,6 @@ const Utils = require('./SurveyUtils.coffee');
 // const scrollDuration = 500;
 const scrollEasing = [0.19, 1, 0.22, 1];
 
-// 
-// const chosenOptions = {
-//   disable_search_threshold: 10,
-//   width: '75%'
-// };
-
 const slickOptions = {
   infinite: false,
   arrows: false,
