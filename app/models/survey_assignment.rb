@@ -60,6 +60,10 @@ class SurveyAssignment < ActiveRecord::Base
     cohorts.collect(&:courses).flatten
   end
 
+  def target_users
+    target_courses.select { |c| c.courses_users.where(role: courses_user_role )}
+  end
+
   def status
     return 'Draft' unless published
     return 'Nil' if total_notifications == 0
