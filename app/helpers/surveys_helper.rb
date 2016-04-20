@@ -15,6 +15,10 @@ module SurveysHelper
     render partial: "rapidfire/answers/matrix_answer_labels", locals: { answer: answer, course: @course }
   end
 
+  def survey_preview_url(survey)
+    "#{survey_url(survey)}?preview"
+  end
+
   def question_answer_field_name(form, multiple)
     name = "answer_group[#{form.object.question_id}][answer_text]"
     if multiple

@@ -41,6 +41,9 @@
     = f.hidden_field :thanks , id: 'thanks', value: @survey.thanks
     %trix-editor{'input' => "thanks"}
 
-  .form-actions
+  .form__actions
     = f.button :submit, :class => 'button dark'
-    = link_to "View Survey", @survey, :class => 'button'
+    = link_to "Preview Survey", survey_preview_url(@survey), :class => 'button'
+
+  .form__actions.danger
+    = link_to 'Delete this survey', @survey, :method => :delete, :data => { :confirm => 'Are you sure?' }
