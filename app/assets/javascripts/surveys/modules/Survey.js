@@ -113,6 +113,7 @@ const Survey = {
       }
     });
     this.parentSlider.on('afterChange', (e, slick, currentSlide) => {
+      this.focusNewQuestion();
       this.updateProgress($(slick.$slides[currentSlide]));
     });
 
@@ -128,13 +129,17 @@ const Survey = {
         this.updateProgress($(slick.$slides[currentSlide]));
         this.currentBlock = currentSlide;
         this.currentBlockValidated = false;
-        $('.top-nav').velocity('scroll', {
-          easing: scrollEasing
-        });
+        this.focusNewQuestion();
       });
       this.groupSliders.push(slider);
     });
     $(this.parentSlider).removeClass('loading');
+  },
+
+  focusNewQuestion() {
+    $('.top-nav').velocity('scroll', {
+      easing: scrollEasing
+    });
   },
 
   prevQuestionGroup() {
