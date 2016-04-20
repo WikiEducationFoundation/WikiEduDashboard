@@ -62,6 +62,7 @@ const Survey = {
     this.getUrlParam();
     this.removeUnneededBlocks();
     this.initConditionals();
+    this.indexBlocks();
     this.listeners();
     this.initBlocks();
     this.initRangeSliders();
@@ -98,15 +99,9 @@ const Survey = {
   },
 
   indexBlocks(cb = null) {
-    // $('.block[data-survey-block].hidden').removeAttr('data-survey-block');
-    // const $surveyBlocks = $('.block[data-survey-block]:not(.hidden)');
-    // $surveyBlocks.each((i, block) => {
-    //   const $block = $(block);
-    //   $block.attr('data-survey-block', i);
-    // });
-    //
-    // this.$questionBlocks = $surveyBlocks;
-
+    $('.block__container').each((i, block) => {
+      $(block).attr('data-progress-index', i + 1);
+    });
     if (cb) { return cb(); }
   },
 
@@ -117,8 +112,8 @@ const Survey = {
         e.preventDefault();
       }
     });
-    this.parentSlider.on('afterChange', () => {
-      this.updateProgress();
+    this.parentSlider.on('afterChange', (e, slick, currentSlide) => {
+      this.updateProgress($(slick.$slides[currentSlide]));
     });
 
     this.groupSliders = [];
@@ -130,9 +125,9 @@ const Survey = {
         }
       });
       $(slider).on('afterChange', (e, slick, currentSlide) => {
+        this.updateProgress($(slick.$slides[currentSlide]));
         this.currentBlock = currentSlide;
         this.currentBlockValidated = false;
-        this.updateProgress();
         $('.top-nav').velocity('scroll', {
           easing: scrollEasing
         });
@@ -364,16 +359,15 @@ const Survey = {
     return $(this.surveyBlocks[this.currentBlock]).find('input, textarea').first().focus();
   },
 
-  updateProgress() {
-    const $blocks = $('.block__container');
-    const $currentBlock = $('.block__container.slick-active');
-    const currentIndex = $currentBlock.index();
-    let progressWidth;
-    if ($currentBlock.find('.block[data-thank-you]').length) {
-      progressWidth = 100;
+  updateProgress($currentBlock) {
+    const total = $('[data-progress-index]').length;
+    let currentIndex;
+    if ($currentBlock.hasClass('new_answer_group')) {
+      currentIndex = $($currentBlock.find('[data-progress-index]')).data('progress-index');
     } else {
-      progressWidth = (currentIndex / ($blocks.length - 1)) * 100;
+      currentIndex = $currentBlock.data('progress-index');
     }
+    const progressWidth = (currentIndex / total) * 100;
     const width = `${progressWidth}%`;
     this.surveyProgress.css('width', width);
   },
@@ -539,7 +533,7 @@ const Survey = {
         this.resetConditionalQuestion($questionBlock);
       }
 
-      this.indexBlocks();
+      // this.indexBlocks();
     });
   },
 
@@ -685,6 +679,7 @@ const Survey = {
     } else {
       const $slider = this.groupSliders[questionGroupIndex];
       $slider.slick('slickAdd', $question, parentIndex);
+      this.indexBlocks();
     }
   },
 
@@ -696,6 +691,7 @@ const Survey = {
       const parentIndex = $parentBlock[0].dataset.blockIndex;
       const $slider = this.groupSliders[questionGroupIndex];
       $slider.slick('slickAdd', $parentBlock, (parentIndex - 1));
+      this.indexBlocks();
     }
   },
 
