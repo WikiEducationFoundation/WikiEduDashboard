@@ -9,11 +9,6 @@ describe QuestionGroupsHelper, type: :helper do
       @survey_assignment = build_stubbed(:survey_assignment, survey_id: @survey)
     end
 
-    it 'returns true if no notification can be found' do
-      @notification = false
-      expect(check_conditionals(@question_group)).to be true
-    end
-
     it 'returns true it question_group has no tags or cohorts' do
       @course = create(:course)
       @notification = build_stubbed(

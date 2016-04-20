@@ -23,8 +23,8 @@ json.course do
   if current_user
     json.next_upcoming_assigned_module ctpm.next_upcoming_assigned_module
     json.first_overdue_module ctpm.first_overdue_module
-    json.survey_notifications(@course.survey_notifications.active) do |notification|
-      if notification.user.id == current_user.id
+    json.survey_notifications(current_user.survey_notifications.active) do |notification|
+      if notification.course.id == @course.id
         json.id notification.id
         json.survey_url "#{course_survey_url(notification)}"
       end

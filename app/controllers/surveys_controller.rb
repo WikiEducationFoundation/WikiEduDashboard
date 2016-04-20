@@ -192,6 +192,7 @@ class SurveysController < ApplicationController
 
   def set_course
     @course = find_course_by_slug(params[:course_slug]) if course_slug?
+    return unless @course.nil?
     @course = @notification.course if @notification.instance_of?(SurveyNotification)
   end
 
