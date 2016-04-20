@@ -1,5 +1,5 @@
 class CourseSubmissionMailer < ApplicationMailer
-  def send_submission_confirmation(course, instructor)
+  def self.send_submission_confirmation(course, instructor)
     return unless Features.email?
     return if instructor.email.nil?
     email(course, instructor).deliver_now
