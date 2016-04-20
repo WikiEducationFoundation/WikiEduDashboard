@@ -12,6 +12,7 @@ require('slick-carousel');
 require('velocity-animate');
 const markdown = require('../../utils/markdown_it.js').default();
 import _throttle from 'lodash.throttle';
+import _assign from 'lodash.assign';
 
 //--------------------------------------------------------
 // Required Internal Modules
@@ -36,7 +37,6 @@ const slickOptions = {
   cssEase: 'cubic-bezier(1, 0, 0, 1)',
   adaptiveHeight: true
 };
-
 
 //--------------------------------------------------------
 // Constants
@@ -107,7 +107,8 @@ const Survey = {
   },
 
   initSlider() {
-    this.parentSlider = $('[data-survey-form-container]').slick(slickOptions);
+    this.$surveyContainer = $('[data-survey-form-container]');
+    this.parentSlider = this.$surveyContainer.slick(_assign({}, slickOptions, { adaptiveHeight: false }));
     this.parentSlider.on('beforeChange', (e) => {
       if (!this.currentBlockValidated) {
         e.preventDefault();
@@ -115,7 +116,8 @@ const Survey = {
     });
     this.parentSlider.on('afterChange', (e, slick, currentSlide) => {
       this.focusNewQuestion();
-      this.updateProgress($(slick.$slides[currentSlide]));
+      const $currentBlock = $(slick.$slides[currentSlide]);
+      this.updateProgress($currentBlock);
     });
 
     this.groupSliders = [];
@@ -127,7 +129,8 @@ const Survey = {
         }
       });
       $(slider).on('afterChange', (e, slick, currentSlide) => {
-        this.updateProgress($(slick.$slides[currentSlide]));
+        const $currentBlock = $(slick.$slides[currentSlide]);
+        this.updateProgress($currentBlock);
         this.currentBlock = currentSlide;
         this.currentBlockValidated = false;
         this.focusNewQuestion();
