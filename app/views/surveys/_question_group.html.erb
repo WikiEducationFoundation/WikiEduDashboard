@@ -45,7 +45,11 @@
               <button class='button survey__prev border' data-prev-survey-block>Previous</button>
               <div class='survey__block-nav__next-container'>
                   <div data-errors></div>
-                <button class='button survey__next dark' data-next-survey-block>Next <span class='icon icon-rt_arrow'></span></button>
+                <% if question_group_index + 1 == total %>
+                  <button class='button dark' data-next-survey-block data-submit-survey data-no-validate>Submit Survey<span class='icon icon-rt_arrow'></span></button>
+                <% else %>
+                  <button class='button survey__next dark' data-next-survey-block>Next <span class='icon icon-rt_arrow'></span></button>
+                <% end %>
               </div>
             </div>
           <% end %>
@@ -57,16 +61,7 @@
     <% if is_end_of_group %></div></div><% end %>
 
     <% end %><!-- End of  @answer_group_builder.answers.each_with_index -->
-    <% if question_group_index + 1 == total %>
-    <div class='block__container'>
-      <div class='block block--text disabled not-seen block--clear' data-survey-block='<%= @answer_group_builder.answers.length + 1 %>'>
-          <div class='survey__block-nav' data-question-group="<%= question_group_index %>">
-            <button class='button survey__prev border' data-prev-survey-block>Previous</button>
-            <button class='button dark' data-next-survey-block data-submit-survey data-no-validate>Submit Survey<span class='icon icon-rt_arrow'></span></button>
-          </div>
-      </div>
-    </div>
-    <% end %>
+    
   </div>
 
 
