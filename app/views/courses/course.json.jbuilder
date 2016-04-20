@@ -26,7 +26,7 @@ json.course do
     json.survey_notifications(@course.survey_notifications.active) do |notification|
       if notification.user.id == current_user.id
         json.id notification.id
-        json.survey_url "#{survey_url(notification.survey)}"
+        json.survey_url "#{course_survey_url(notification)}"
       end
     end
   end
