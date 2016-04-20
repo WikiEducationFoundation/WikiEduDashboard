@@ -154,7 +154,7 @@ class CoursesController < ApplicationController
   def handle_course_announcement(instructor)
     newly_submitted = !@course.submitted? && course_params[:submitted] == true
     return unless newly_submitted
-    CourseSubmissionMailer.submission(@course, instructor).deliver_now if Features.email?
+    CourseSubmissionMailer.send_submission_confirmation(@course, instructor)
     WikiCourseEdits.new(action: 'announce_course',
                         course: @course,
                         current_user: current_user,
