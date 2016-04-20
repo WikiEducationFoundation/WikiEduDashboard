@@ -9,7 +9,7 @@
         .header p{color:#ffffff;margin:0;}.header .columns{padding-bottom:0;}.header .container{background:#8a8a8a;padding-top:16px;padding-bottom:16px;}.header .container td{padding-top:16px;padding-bottom:16px;}  %body
     %table.body
       %tr
-        %td.center{:valign => "top"}
+        %td.center{:valign => "top", align: "center"}
           %center{"data-parsed" => ""}
             %table.container.body
               %tbody
@@ -20,6 +20,6 @@
                         %table.container.body
                           %tbody
                             %tr
-                              %td{style:'padding:1em 0;text-align:left;'}
-                                %img{:alt => "", :src => "https://dashboard.wikiedu.org/assets/images/wiki-logo.png", width: '50px', height: '50px'}
+                              %td{style:'padding:1em 0;text-align:left !important;'}
+                                %img{:alt => "", :src => "https://dashboard.wikiedu.org/assets/images/wiki-logo.png", width: '50px', height: '50px', style: 'text-align:left;margin:0;', align: 'left'}
                         = yield
