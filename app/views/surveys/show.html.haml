@@ -8,13 +8,12 @@
     .block__container
       .block.block--text.disabled.not-seen{"data-survey-block" => "0", "data-intro" => true}
         %h1.survey__title= @survey.name
+        %strong Course: #{pretty_course_title(@course)}
         - if @survey.intro?
           = @survey.intro.html_safe
           .survey__block-nav
             %div
             - if @survey.show_courses
-              %p
-                %strong Current Selected Course: #{@course.title}
               %button.button.survey__next.dark{"data-next-survey-block" => "", "data-no-validate" => true}
                 %span Start
                 %span.icon.icon-rt_arrow
