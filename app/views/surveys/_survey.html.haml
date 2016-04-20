@@ -21,5 +21,6 @@
       = link_to 'Preview', "#{survey_url(survey)}?preview"
     = link_to "Clone Survey", "/surveys/clone/#{survey.id}", method: :post
     = link_to 'Edit', edit_survey_path(survey)
+    = link_to 'Results', survey_results_path(survey)
     -# .course-list__col
     -#   = link_to 'Delete', survey, :method => :delete, :data => { :confirm => 'Are you sure?' }

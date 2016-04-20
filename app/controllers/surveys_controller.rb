@@ -13,14 +13,16 @@ class SurveysController < ApplicationController
     :destroy,
     :edit_question_groups,
     :course_select,
-    :show_with_course
+    :show_with_course,
+    :results
   ]
   before_action :ensure_logged_in
   before_action :set_question_groups, only: [
     :show,
     :edit,
     :edit_question_groups,
-    :show_with_course
+    :show_with_course,
+    :results
   ]
   before_action :check_if_closed, only: [:show]
   before_action :set_notification, only: [:show]
@@ -30,6 +32,10 @@ class SurveysController < ApplicationController
   # GET /surveys.json
   def index
     @surveys = Survey.all
+  end
+
+  def results_index
+
   end
 
   def results

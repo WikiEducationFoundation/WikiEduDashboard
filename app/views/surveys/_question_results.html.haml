@@ -1,0 +1,3 @@
+= question_type_to_string(question)
+= question.answers.pluck(:answer_text)
+= question.answers.pluck(:follow_up_answer_text).compact

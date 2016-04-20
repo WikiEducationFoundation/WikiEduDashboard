@@ -1,4 +1,7 @@
-= render 'results_admin_header'
-.container.survey__admin
-  .block.block--clear
-    %strong Coming Soon
+.container.survey__admin.survey__results
+  .block
+    %h1 #{@survey.name} Results
+
+  - @surveys_question_groups.each_with_index do |group, index|
+    - if check_conditionals(group.question_group)
+      = render partial: "question_group", locals: question_group_locals(group, index, @surveys_question_groups.length, true)

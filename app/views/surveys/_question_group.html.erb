@@ -2,7 +2,7 @@
 <%= form_for(Rapidfire::AnswerGroup.new,
     :url => rapidfire.question_group_answer_groups_path(question_group),
     :html => {'data-survey-form' => true, 'data-question-group' => question_group_index }) do |f| %>
-  <div data-question-group-blocks="<%= question_group_index %>">
+  <div <% if !results %>data-question-group-blocks="<%= question_group_index %>"<% end %>>
     <%- @answer_group_builder.answers.each_with_index do |answer, index| %>
 
     <% is_start_of_group = start_of_group(answers:@answer_group_builder.answers, index: index) %>
@@ -32,7 +32,12 @@
           <% end %>
 
           <div <% if is_grouped_question(answer) %>id="question_<%= answer.question.id %>"<% end %> data-question-group="<%= question_group_index %>" class='survey__question-row <%= is_grouped_question(answer) ? 'matrix-row' : '' %> <%= index.even? ? '' : 'odd' %>  <%= is_end_of_group ? "last" : "" %> <% if is_required_question?(answer) %>required<% end %>' <%= conditional_string(answer) %>>
-            <%= render_answer_form_helper(answer, answer_form) %>
+            <% if results %>
+              <%= render partial: "rapidfire/answers/question_text", locals: {f: answer_form, answer: answer} %>
+              <%= render partial: "question_results", locals: { question: answer.question } %>
+            <% else %>
+              <%= render_answer_form_helper(answer, answer_form) %>
+            <% end %>
           </div>
 
 
@@ -41,6 +46,7 @@
               <%= render partial: "rapidfire/answers/follow_up_question", locals: {f: answer_form, answer: answer } %>
             <% end %>
 
+            <% if !results %>
             <div class='survey__block-nav'>
               <button class='button survey__prev border' data-prev-survey-block>Previous</button>
               <div class='survey__block-nav__next-container'>
@@ -52,6 +58,7 @@
                 <% end %>
               </div>
             </div>
+            <% end %>
           <% end %>
         <% if !is_grouped_question(answer) %>
         </div></div>

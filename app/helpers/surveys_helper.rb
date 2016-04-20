@@ -71,7 +71,11 @@ module SurveysHelper
   end
 
   def question_type(answer)
-    answer.question.type.to_s.split("::").last.downcase
+    question_type_to_string(answer.question)
+  end
+
+  def question_type_to_string(question)
+    question.type.to_s.split('::').last.downcase
   end
 
   def is_required_question?(answer)
@@ -146,7 +150,7 @@ module SurveysHelper
     !is_grouped_question(answer) && is_grouped_question(answers[index + 1])
   end
 
-  def question_group_locals(surveys_question_group, index, total)
+  def question_group_locals(surveys_question_group, index, total, results = false)
     @question_group = surveys_question_group.rapidfire_question_group
     @answer_group_builder = Rapidfire::AnswerGroupBuilder.new({
       params: {},
@@ -158,7 +162,8 @@ module SurveysHelper
       answer_group_builder: @answer_group_builder,
       question_group_index: index,
       surveys_question_group: surveys_question_group,
-      total: total
+      total: total,
+      results: results
     }
   end
 
