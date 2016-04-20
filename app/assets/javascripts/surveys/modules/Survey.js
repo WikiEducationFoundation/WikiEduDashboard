@@ -34,6 +34,7 @@ const slickOptions = {
   touchMove: false,
   speed: 400,
   cssEase: 'cubic-bezier(1, 0, 0, 1)',
+  adaptiveHeight: true
 };
 
 
