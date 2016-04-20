@@ -70,7 +70,13 @@ describe CoursesController do
     let(:submitted_1) { false }
     let(:submitted_2) { false }
     let!(:course) { create(:course, submitted: submitted_1) }
-    let(:user)    { create(:admin) }
+    let(:user) { create(:admin) }
+    let!(:courses_user) do
+      create(:courses_user,
+             course_id: course.id,
+             user_id: user.id,
+             role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+    end
     let(:course_params) do
       { title: 'New title',
         description: 'New description',
@@ -132,8 +138,9 @@ describe CoursesController do
 
     context 'course is new' do
       let(:submitted_2) { true }
-      it 'announces course' do
+      it 'announces course and emails the instructor' do
         expect_any_instance_of(WikiCourseEdits).to receive(:announce_course)
+        expect(CourseSubmissionMailer).to receive(:send_submission_confirmation)
         put :update, id: course.slug, course: course_params, format: :json
       end
     end

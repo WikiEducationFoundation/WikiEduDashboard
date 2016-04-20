@@ -1,22 +1,33 @@
-!!!
-%html
-  %head
-    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-  %body
-    %h1= "#{@course.title}: submitted!"
-    %p= "Hi #{@instructor.username}! Thank you for submitting your course page at dashboard.wikiedu.org."
-    %p
-      From this point on, Wiki Ed's Helaine Blumenthal will be helping you with your course.
-      She'll be in touch with you soon. In the meantime, if you have any questions,
-      please check out <a href="https//ask.wikiedu.org">ask.wikiedu.org</a>, where
-      you can find answers to many commonly asked questions about Wikipedia.
-    %p
-      You can access — and continue to edit — your course page
-      = link_to("here", @course_link) + '.'
-    %p
-      From ask.wikiedu.org:
-      = link_to('"How can I edit my timeline?"', 'http://ask.wikiedu.org/question/235/how-can-i-edit-my-timeline/')
-    %p
-      Best regards,
-      %br
-      The Wiki Ed team
+%table.row
+  %tbody
+    %tr
+      %th
+        %table
+          %tr
+            %td.main-content
+              %h1{style: 'font-family: "Open Sans", sans-serif; color: #696BB1; font-size: 34px; font-weight: 300; text-align:left;'}
+                = "#{@course.title}: submitted!"
+              %p{style: 'font-family: "Open Sans", sans-serif; color: #666666; font-size: 18px; line-height: 1.5; font-weight: 300; text-align:left;'}
+                = "Hi #{@instructor.username}! Thank you for submitting your course page at dashboard.wikiedu.org."
+              %p{style: 'font-family: "Open Sans", sans-serif; color: #666666; font-size: 18px; line-height: 1.5; font-weight: 300; text-align:left;'}
+                From this point on, Wiki Ed's Helaine Blumenthal will be helping you with your course.
+                She'll be in touch with you soon. In the meantime, if you have any questions,
+                please check out <a href="https//ask.wikiedu.org">ask.wikiedu.org</a>, where
+                you can find answers to many commonly asked questions about Wikipedia.
+              %p{style: 'font-family: "Open Sans", sans-serif; color: #666666; font-size: 18px; line-height: 1.5; font-weight: 300; text-align:left;'}
+                You can access — and continue to edit — your course page here:
+            %td.expander
+        %table
+          %tr
+            %td.main-content{style: 'padding: 20px 0 20px;'}
+              %a.button_link{:href => @course_url, :style => "padding: 15px 20px; max-width: 600px; display: block;text-decoration: none;border:0;text-align:center;font-family: 'Open Sans', sans-serif; letter-spacing: 1px; font-weight:300; font-size: 18px;color: #ffffff;background: #40AD90;border: 1px solid #359178;-moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px;line-height:17px;"}
+                = @course.title
+            %td.expander
+        %table
+          %tr
+            %td.main-content
+              %p{style: 'font-family: "Open Sans", sans-serif; color: #666666; font-size: 18px; line-height: 1.5; font-weight: 300; text-align:left;'}
+                Best regards,
+                %br
+                %em{style: 'font-family: "Open Sans", sans-serif; color: #666666; font-size: 18px; line-height: 1.5;  text-align:left; font-weight: 300;'}
+                  The Wiki Ed team
