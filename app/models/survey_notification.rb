@@ -10,6 +10,8 @@ class SurveyNotification < ActiveRecord::Base
   def send_email
     # In these environments only send emails to the users specified in ENV['survey_test_email']
     return if ['development', 'staging'].include?(Rails.env) && !ENV['survey_test_email'].split(',').include?(user.email)
+    return if email_sent
+    return if user.email.nil?
     SurveyMailer.notification(self).deliver_now unless email_sent
     update_attribute('email_sent', true)
   end
