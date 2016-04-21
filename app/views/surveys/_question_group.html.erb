@@ -45,7 +45,7 @@
               <button class='button survey__prev border' data-prev-survey-block>Previous</button>
               <div class='survey__block-nav__next-container'>
                   <div data-errors></div>
-                <% if question_group_index + 1 == total %>
+                <% if question_group_index + 1 == total && @answer_group_builder.answers.length == index + 1 %>
                   <button class='button dark' data-next-survey-block data-submit-survey data-no-validate>Submit Survey<span class='icon icon-rt_arrow'></span></button>
                 <% else %>
                   <button class='button survey__next dark' data-next-survey-block>Next <span class='icon icon-rt_arrow'></span></button>
