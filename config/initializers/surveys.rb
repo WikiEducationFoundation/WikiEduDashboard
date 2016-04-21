@@ -10,8 +10,21 @@ Rails.application.config.to_prepare do
     has_and_belongs_to_many :surveys, join_table: 'surveys_question_groups', foreign_key: 'rapidfire_question_group_id'
   end
 
-  Rapidfire::AnswerGroupsController.class_eval do
-    before_action :require_admin_permissions
+  Rapidfire::Answer.class_eval do
+    def answer_group
+      Rapidfire::AnswerGroup.find_by_id(answer_group_id)
+    end
+
+    def user
+      return nil if answer_group.nil?
+      User.find_by_id(answer_group.user_id)
+    end
+
+    def course(survey_id)
+      notifications = user.survey_notifications.completed
+      return nil if notifications.empty?
+      notifications.map {|n| n.course if n.survey.id == survey_id }.compact.first
+    end
   end
 
   Rapidfire::QuestionGroupsController.class_eval do
@@ -89,6 +102,7 @@ Rails.application.config.to_prepare do
 
   Rapidfire::AnswerGroupsController.class_eval do
     include SurveysHelper
+    before_action :require_admin_permissions
     before_action :set_course_if_course_questions, only: [:new]
   end
 
