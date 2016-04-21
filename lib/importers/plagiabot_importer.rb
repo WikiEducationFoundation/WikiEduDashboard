@@ -13,7 +13,6 @@ class PlagiabotImporter
     revisions_to_check.each do |revision|
       check_revision revision
     end
-    import_report_urls
   end
 
   # Gets the most recent instances of plagiarism then matches them with
@@ -25,10 +24,8 @@ class PlagiabotImporter
       next unless wiki
       revision = Revision.find_by(mw_rev_id: rev['diff'], wiki_id: wiki.id)
       next unless revision
-      revision.ithenticate_id = rev['ithenticate_id']
-      revision.save
+      file_new_plagiarism_report(revision, rev['ithenticate_id'])
     end
-    import_report_urls
   end
 
   def self.import_report_urls
@@ -37,21 +34,32 @@ class PlagiabotImporter
     # as-needed basis by making the equivalent query from the client.
     revisions_to_update = Revision.where.not(ithenticate_id: nil).where('date > ?', 2.months.ago)
     revisions_to_update.each do |revision|
-      url = api_get_url(ithenticate_id: revision.ithenticate_id)
-      revision.report_url = url
-      revision.save
+      import_report_url(revision)
     end
   end
 
   ##################
   # Helper methods #
   ##################
+  def self.file_new_plagiarism_report(revision, ithenticate_id)
+    return unless revision.ithenticate_id.nil?
+    revision.ithenticate_id = ithenticate_id
+    revision.save
+    import_report_url(revision)
+    SuspectedPlagiarismMailer.alert_content_expert(revision)
+  end
+
+  def self.import_report_url(revision)
+    url = api_get_url(ithenticate_id: revision.ithenticate_id)
+    revision.report_url = url
+    revision.save
+  end
+
   def self.check_revision(revision)
     response = api_get('suspected_diffs', revision_id: revision.mw_rev_id)
     return if response.empty?
     ithenticate_id = response[0]['ithenticate_id']
-    revision.ithenticate_id = ithenticate_id
-    revision.save
+    file_new_plagiarism_report(revision, ithenticate_id)
   end
 
   def self.query_url(type, opts = {})
