@@ -11,11 +11,8 @@ Rails.application.config.to_prepare do
   end
 
   Rapidfire::Answer.class_eval do
-    def answer_group
-      Rapidfire::AnswerGroup.find_by_id(answer_group_id)
-    end
-
     def user
+      answer_group = Rapidfire::AnswerGroup.find_by_id(answer_group_id)
       return nil if answer_group.nil?
       User.find_by_id(answer_group.user_id)
     end
