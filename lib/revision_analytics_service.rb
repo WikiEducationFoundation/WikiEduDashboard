@@ -9,6 +9,7 @@ class RevisionAnalyticsService
     new(opts).dyk_eligible
   end
 
+  DEFAULT_PLAGIARISM_LIMIT = 20
   def self.suspected_plagiarism(opts={})
     new(opts).suspected_plagiarism
   end
@@ -47,9 +48,12 @@ class RevisionAnalyticsService
 
   def suspected_plagiarism
     if @course_ids
-      suspected_revisions = Revision.where.not(ithenticate_id: nil).where(user_id: student_ids)
+      suspected_revisions = Revision.where.not(ithenticate_id: nil)
+                                    .where(user_id: student_ids)
+                                    .order(date: :desc).first(DEFAULT_PLAGIARISM_LIMIT)
     else
       suspected_revisions = Revision.where.not(ithenticate_id: nil)
+                                    .order(date: :desc).first(DEFAULT_PLAGIARISM_LIMIT)
     end
     suspected_revisions
   end

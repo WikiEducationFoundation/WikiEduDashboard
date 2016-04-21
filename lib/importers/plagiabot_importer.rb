@@ -35,7 +35,7 @@ class PlagiabotImporter
     # NOTE: This refetches all the urls on each update, because they expire
     # after a short time. It would be better to get the report url on an
     # as-needed basis by making the equivalent query from the client.
-    revisions_to_update = Revision.where.not(ithenticate_id: nil)
+    revisions_to_update = Revision.where.not(ithenticate_id: nil).where('date > ?', 2.months.ago)
     revisions_to_update.each do |revision|
       url = api_get_url(ithenticate_id: revision.ithenticate_id)
       revision.report_url = url
