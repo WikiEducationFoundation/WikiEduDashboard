@@ -27,6 +27,9 @@ class Survey < ActiveRecord::Base
         question_group.questions.each do |question|
           question.answers.each do |answer|
             course = answer.course(id)
+            course_title = course.nil? ? nil : course.title
+            course_school = course.nil? ? nil : course.school
+            course_term = course.nil? ? nil : course.term
             cohorts = course.nil? ? nil : course.cohorts.collect(&:title).join(', ')
             tags = course.nil? ? nil : course.tags.collect(&:tag).join(', ')
             csv << [
@@ -37,9 +40,9 @@ class Survey < ActiveRecord::Base
               question.follow_up_question_text,
               answer.follow_up_answer_text,
               answer.user.username,
-              course.title,
-              course.school,
-              course.term,
+              course_title,
+              course_school,
+              course_term,
               cohorts,
               tags
             ]
