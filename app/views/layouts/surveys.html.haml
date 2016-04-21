@@ -1,10 +1,10 @@
 - content_for :head do
   = dashboard_stylesheet_tag("main")
   = dashboard_stylesheet_tag("surveys")
-    
+
 
 - content_for :javascripts do
-  / 
+  /
 
 !!!
 %html{ dir: rtl? ? "rtl" : nil, class: body_class(request)}
@@ -20,3 +20,4 @@
     = hot_javascript_tag("survey")
     - if can_administer?
       = hot_javascript_tag("survey_admin")
+    = content_for :additional_javascripts

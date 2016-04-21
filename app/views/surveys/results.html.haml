@@ -1,3 +1,6 @@
+- content_for :additional_javascripts do
+  = hot_javascript_tag("survey_results")
+
 .container.survey__admin.survey__results
   .block
     %h1 #{@survey.name} Results

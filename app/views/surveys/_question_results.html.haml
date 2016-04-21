@@ -1,3 +1,1 @@
-= question_type_to_string(question)
-= question.answers.pluck(:answer_text).compact
-= question.answers.pluck(:follow_up_answer_text).compact
+%div{data: { question_results: question_results_data(question) }}

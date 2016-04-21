@@ -5,7 +5,8 @@ module.exports = {
   entry: {
     main: hotEntry(source + "main.js"),
     survey: hotEntry(source + "surveys/survey.js"),
-    survey_admin: hotEntry(source + "surveys/survey-admin.coffee")
+    survey_admin: hotEntry(source + "surveys/survey-admin.coffee"),
+    survey_results: hotEntry(source + "surveys/survey-results.js")
   },
   output: {
     path: __dirname + "/",
