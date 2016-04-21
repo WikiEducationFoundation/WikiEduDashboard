@@ -1,0 +1,7 @@
+%p= "Suspected plagiarism from User:#{@user.username}"
+%p= "Course: #{@course.title}"
+%p= "Article: #{@article.title}"
+%p
+  %a{href: @revision.url} diff
+%p
+  %a{href: @revision.report_url} iThenticate report
