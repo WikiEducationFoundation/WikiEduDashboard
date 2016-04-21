@@ -1,8 +1,7 @@
 StockStore = require './stock_store.coffee'
 
 ArticleStore = new StockStore(
-  sortKey: 'title'
-  sortAsc: true
+  sortKey: 'character_sum'
   descKeys:
     character_sum: true
     view_count: true
