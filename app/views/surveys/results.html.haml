@@ -1,6 +1,7 @@
 .container.survey__admin.survey__results
   .block
     %h1 #{@survey.name} Results
+    = link_to "Download CSV", survey_results_path(format: 'csv')
 
   - @surveys_question_groups.each_with_index do |group, index|
     = render partial: "question_group", locals: question_group_locals(group, index, @surveys_question_groups.length, true)
