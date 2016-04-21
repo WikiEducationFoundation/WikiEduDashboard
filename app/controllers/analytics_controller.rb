@@ -33,24 +33,26 @@ class AnalyticsController < ApplicationController
     @articles_edited = {}
     Cohort.all.each do |cohort|
       course_ids = cohort.courses.pluck(:id)
-      stats =
-        CourseStatistics.new(course_ids, cohort: cohort.slug).report_statistics
-      @cohort_stats.merge! stats
+      stats = CourseStatistics.new(course_ids, cohort: cohort.slug)
+      @cohort_stats.merge! stats.report_statistics
     end
   end
 
   def cohort_intersection
-    @cohort_stats = {}
-    @cohort_1 = Cohort.find(params[:cohort_1][:id])
-    @cohort_2 = Cohort.find(params[:cohort_2][:id])
-
+    set_cohorts
     cohort_name = @cohort_1.title + ' + ' + @cohort_2.title
     cohort_1_course_ids = @cohort_1.courses.pluck(:id)
-    course_ids = @cohort_2.courses
-                 .where(id: cohort_1_course_ids)
-                 .pluck(:id)
+    course_ids = @cohort_2.courses.where(id: cohort_1_course_ids).pluck(:id)
+
     stats = CourseStatistics.new(course_ids, cohort: cohort_name)
-    @cohort_stats.merge! stats.report_statistics
+    @cohort_stats = stats.report_statistics
     @articles_edited = stats.articles_edited
+  end
+
+  private
+
+  def set_cohorts
+    @cohort_1 = Cohort.find(params[:cohort_1][:id])
+    @cohort_2 = Cohort.find(params[:cohort_2][:id])
   end
 end
