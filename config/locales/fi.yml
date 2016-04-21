@@ -56,4 +56,7 @@ fi:
     training_complete:
       one: on valmistunut koulutuksesta
       other: ovat valmistuneet koulutuksesta
+  survey:
+    email:
+      course: 'Kurssi: %{course_info}'
 ...

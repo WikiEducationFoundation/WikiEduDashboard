@@ -330,6 +330,10 @@ zh-hans:
     login_message: 感谢您抽出时间。请登录您的Wiki Ed控制面板以接受调查。
     email:
       headline: 您好，%{username}
-      message: 用于此课程的调查可用：%{course_title}
+      message_line1: 我们希望您有一个伟大的学期！Wiki Ed正在寻求您的反馈，以改进我们的资源，并支持您的维基百科作业。您的响应对于改进我们当前的产品至关重要。
+      message_line2: 您愿意花费15分钟以填写我们的导师调查表么？点击下面的按钮以帮助我们使通过维基百科教学回报更多，及获得宝贵的经验。
+      course: 课程：%{course_info}
+      closing: 真诚地感谢您
+      signed: '- Wiki Ed团队'
       link: 接受调查
 ...

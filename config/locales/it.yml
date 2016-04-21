@@ -61,19 +61,27 @@ it:
     rating_docs:
       fa: Voce in vetrina — la più alta valutazione di Wikipedia, probabilmente una
         voce troppo matura per un nuovo editor del progetto principale
+      fl: Elenco in vetrina — la più alta valutazione di Wikipedia per le liste
       a: Prima classe — una voce molto sviluppata che potrebbe essere  troppo matura
         per un nuovo editor del progetto principale
       ga: Voce di qualità — una voce ben sviluppata che potrebbe essere  troppo matura
         per un nuovo editor del progetto principale
+      b: Classe B — una voce moderatamente sviluppata
+      c: Classe C — una voce di livello intermedio con margini di miglioramento
+      start: Classe iniziale — una voce preliminare con un sacco di spazio per migliorare
       stub: Abbozzo di classe — un breve inizio di una voce che necessita di più contenuto
       list: Elenco di classe — un elenco piuttosto che una voce tradizionale
+      '?': Non classificato — una voce che non è stata ancora valutata sulla scala
+        di qualità di Wikipedia
     title: Titolo
     title_example: Titolo della voce
     view: Visualizza voce
     view_all: Mostra tutto
     view_doc: La somma di tutte le visite ad ogni voce durante il periodo del corso
+    views_added: Aggiunte %{count} nuove viste per %{title}
   assignments:
     already_exists: Questa assegnazione esiste già!
+    assignees: Assegnatario/i
     assign_other: Assegna una voce
     assign_self: Assegnami una voce
     confirm_addition: Sei sicuro di voler assegnare %{title} a %{username}?
@@ -298,6 +306,9 @@ it:
     read_less: Leggi di meno
     read_more: Leggi di più
     summary: Sommario
+  error:
+    unsupported_browser:
+      header: Browser non supportato. :-(
   error_401:
     header: Non autorizzato. >:-(
   error_incorrect_passcode:
@@ -325,6 +336,8 @@ it:
       al sondaggio.
     email:
       headline: Ciao, %{username}
-      message: 'Un sondaggio è disponibile per: %{course_title}'
+      course: 'Corso: %{course_info}'
+      closing: Cordiali saluti,
+      signed: Staff Wiki Ed
       link: Rispondi sondaggio
 ...

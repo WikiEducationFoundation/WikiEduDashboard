@@ -293,4 +293,8 @@ nl:
       het mijlpaaloverzicht op de pagina Overzicht)
     due_default: Volgende week af te ronden
     title: Tijdlijn
+  survey:
+    email:
+      course: 'Cursus: %{course_info}'
+      closing: Met vriendelijke groet,
 ...

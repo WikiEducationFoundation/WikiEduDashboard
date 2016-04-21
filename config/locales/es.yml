@@ -436,6 +436,11 @@ es:
       participar en la encuesta.
     email:
       headline: Hola, %{username}
-      message: 'Está disponible una encuesta para: %{course_title}'
+      message_line2: ¿Estás dispuesto a tomarte 15 minutos para llenar nuestra encuesta
+        para instructores? Haz clic en el botón de abajo para ayudarnos a hacer de
+        la enseñanza con Wikipedia una experiencia aún más gratificante y valiosa.
+      course: 'Curso: %{course_info}'
+      closing: Sinceramente,
+      signed: Personal de Wiki Ed
       link: Completar la encuesta
 ...

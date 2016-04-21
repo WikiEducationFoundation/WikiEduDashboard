@@ -436,6 +436,16 @@ de:
       an, um an der Umfrage teilzunehmen.
     email:
       headline: Hallo %{username}
-      message: Für %{course_title} ist eine Umfrage verfügbar
+      message_line1: Wir hoffen, dass du einen tollen Kurs hast! Wiki Ed benötigt
+        deine Rückmeldung, um unsere Ressourcen und die Unterstützung für deine Wikipedia-Zuweisungen
+        zu verbessern. Deine Antwort ist für die Verbesserung unserer aktuellen Angebote
+        entscheidend.
+      message_line2: Bist du bereit, 15 Minuten für das Ausfüllen unserer Umfrage
+        für Kursleiter zu opfern? Klicke auf die unten stehende Schaltfläche, um uns
+        dabei zu helfen, das Unterrichten mit Wikipedia noch lohnender und wertvoller
+        zu machen.
+      course: 'Kurs: %{course_info}'
+      closing: Mit freundlichen Grüßen
+      signed: Mitarbeiter von Wiki Ed
       link: An der Umfrage teilnehmen
 ...

@@ -102,4 +102,5 @@ pl:
   survey:
     email:
       headline: Witaj, %{username}
+      course: 'Kurs: %{course_info}'
 ...

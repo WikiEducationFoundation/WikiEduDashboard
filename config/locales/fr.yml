@@ -439,6 +439,14 @@ fr:
       de bord Wiki Ed pour participer au sondage.
     email:
       headline: Bonjour, %{username}
-      message: 'Un sondage est disponible pour : %{course_title}'
+      message_line1: Nous espérons que vous avez passé une bonne période ! Wiki Ed
+        attend votre avis pour améliorer ses ressources et soutenir vos affectations
+        sur Wikipédia. Votre réponse est cruciale pour améliorer nos offres actuelles.
+      message_line2: Voulez-vous prendre 15 minutes pour notre enquête d’instructeur ?
+        Cliquez sur le bouton ci-dessous pour nous aider à faire de l’enseignement
+        avec Wikipédia une expérience encore plus enrichissante et valorisante.
+      course: 'Cours : %{course_info}'
+      closing: Sincèrement vôtre,
+      signed: L’équipe Wiki Ed
       link: Participer au sondage
 ...
