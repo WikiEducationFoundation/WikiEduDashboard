@@ -3,7 +3,7 @@ class SuspectedPlagiarismMailer < ApplicationMailer
     return unless Features.email?
     content_expert = content_expert_for(revision)
     return if content_expert.nil?
-    context_expert_email(revision, content_expert).deliver_now
+    content_expert_email(revision, content_expert).deliver_now
   end
 
   def content_expert_email(revision, content_expert)
