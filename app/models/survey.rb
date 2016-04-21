@@ -18,18 +18,14 @@ class Survey < ActiveRecord::Base
               'Follow Up Question',
               'Follow Up Answer',
               'User',
-              'Course Title',
-              'Course Institution',
-              'Course Term',
-              'Cohorts',
-              'Tags']
+              'Course Slug',
+              'Course Cohorts',
+              'Course Tags']
       rapidfire_question_groups.each do |question_group|
         question_group.questions.each do |question|
           question.answers.each do |answer|
             course = answer.course(id)
-            course_title = course.nil? ? nil : course.title
-            course_school = course.nil? ? nil : course.school
-            course_term = course.nil? ? nil : course.term
+            course_slug = course.nil? ? nil : course.slug
             cohorts = course.nil? ? nil : course.cohorts.collect(&:title).join(', ')
             tags = course.nil? ? nil : course.tags.collect(&:tag).join(', ')
             csv << [
@@ -40,9 +36,7 @@ class Survey < ActiveRecord::Base
               question.follow_up_question_text,
               answer.follow_up_answer_text,
               answer.user.username,
-              course_title,
-              course_school,
-              course_term,
+              course_slug,
               cohorts,
               tags
             ]
