@@ -178,7 +178,7 @@ Details = React.createClass(
         </form>
         <div>
           <span>Cohorts: {cohorts}</span>
-          <CohortButton {...@props} show={@props.editable && @props.current_user.admin && (@props.course.submitted || @props.course.legacy) } />
+          <CohortButton {...@props} show={@props.editable && @props.current_user.admin && (@props.course.submitted || @props.course.type != 'ClassroomProgramCourse') } />
         </div>
         {tags}
         {course_type_selector}
