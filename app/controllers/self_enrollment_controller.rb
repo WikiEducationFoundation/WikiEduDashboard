@@ -35,14 +35,8 @@ class SelfEnrollmentController < ApplicationController
     if passcode_valid?
       # Creates the CoursesUsers record
       add_student_to_course
-      # Posts templates to userpage and sandbox
-      WikiCourseEdits.new(action: :enroll_in_course,
-                          course: @course,
-                          current_user: current_user)
-      # Adds user to course page by updating course page with latest course info
-      WikiCourseEdits.new(action: :update_course,
-                          course: @course,
-                          current_user: current_user)
+      # Automatic edits for newly enrolled user
+      make_enrollment_edits
       redirect_to course_slug_path(@course.slug, enrolled: true)
     else
       redirect_to '/errors/incorrect_passcode'
@@ -54,7 +48,7 @@ class SelfEnrollmentController < ApplicationController
   def set_course
     @course = Course.find_by_slug(params[:course_id])
     # Check if the course exists
-    fail ActionController::RoutingError, 'Course not found' if @course.nil?
+    raise ActionController::RoutingError, 'Course not found' if @course.nil?
   end
 
   def course_ended?
@@ -85,5 +79,16 @@ class SelfEnrollmentController < ApplicationController
       course_id: @course.id,
       role: CoursesUsers::Roles::STUDENT_ROLE
     )
+  end
+
+  def make_enrollment_edits
+    # Posts templates to userpage and sandbox
+    WikiCourseEdits.new(action: :enroll_in_course,
+                        course: @course,
+                        current_user: current_user)
+    # Adds user to course page by updating course page with latest course info
+    WikiCourseEdits.new(action: :update_course,
+                        course: @course,
+                        current_user: current_user)
   end
 end

@@ -76,8 +76,6 @@ Rails.application.routes.draw do
   resources :gradeables, collection: { update_multiple: :put }
   post 'courses/:course_id/timeline' => 'timeline#update_timeline',
        constraints: { course_id: /.*/ }
-  post 'courses/:course_id/gradeables' => 'timeline#update_gradeables',
-       constraints: { course_id: /.*/ }
 
   get 'revisions' => 'revisions#index'
 
