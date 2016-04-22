@@ -8,7 +8,7 @@ module.exports = {
         main : source + "main.js",
         survey: source + "surveys/survey.js",
         survey_admin: source + "surveys/survey-admin.coffee",
-        survey_results: hotEntry(source + "surveys/survey-results.js")
+        survey_results: source + "surveys/survey-results.js"
     },
     output: {
         path: output,
