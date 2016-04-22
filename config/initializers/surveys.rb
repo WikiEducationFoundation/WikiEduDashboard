@@ -1,5 +1,6 @@
 require 'active_support'
 require 'rapidfire'
+require 'csv'
 
 Rails.application.config.to_prepare do
 
@@ -70,6 +71,24 @@ Rails.application.config.to_prepare do
     scope :course_data_questions, ->{where("course_data_type <> ''")}
     def self.for_conditionals
       where("conditionals IS NULL OR conditionals = ''")
+    end
+
+    def to_csv
+      CSV.generate do |csv|
+        csv << ['Question',
+                'Answer',
+                'Question',
+                'Username',
+                'User Email']
+        answers.each do |answer|
+          csv << [
+            question.question_text,
+            answer.answer_text,
+            answer.user.username,
+            answer.user.email
+          ]
+        end
+      end
     end
   end
 
