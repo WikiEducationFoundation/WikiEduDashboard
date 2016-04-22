@@ -1,5 +1,92 @@
+.survey__results a
+  color $survey_color
+
 .survey__results .question-type--select .survey__question-text:after
   display none
 
+.survey__results .block.survey__question--matrix .survey__question-row
+  display block
+
 .survey__results .block__container
   margin-bottom $spacer * 3
+
+.survey__results .question-type--radio span
+  margin-left 0
+
+.results__sidebar.block
+  +above(tablet)
+    float left
+    width 300px
+    margin-right $spacer * 3
+
+.results__sidebar h1
+  font-size 24px
+
+.results
+  max-width 700px
+  font-family: 'Open Sans', sans-serif;
+  +above(tablet)
+    float left
+
+.results__bar-graph__row
+  // overflow hidden
+  position relative
+  display flex
+  align-items center
+
+.results__bar-graph__question
+  +above(tablet)
+    width 200px
+    font-size 14px
+
+.results__bar-graph__bar-row
+  position relative
+  background $bg_light_gray
+  padding 40px 0
+  // float left
+  width 500px
+
+  &:after
+    content ''
+    display block
+    position absolute
+    left 50%
+    top 0
+    bottom 0
+    width 1px
+    height 100%
+    border-right 1px dashed darken($bg_light_gray, 10%)
+
+.results__bar-graph__bar.active
+  position relative
+  z-index 2
+  &:after
+    content ''
+    display block
+    position absolute
+    right 0
+    top -10px
+    height 30px
+    width 2px
+    background $survey_results_color
+
+.results__bar-graph__bar-value
+  top 10px
+  font-weight 500
+  font-size 14px
+
+  .total
+    color $text
+    font-weight 300
+
+.results__range-graph__value
+  font-size 12px
+
+.results__range-graph
+  background $bg_light_gray
+
+.results__range-graph__bar
+  background $survey_results_color
+
+.results__range-graph__row
+  border-top 1px solid $border_med
