@@ -148,6 +148,7 @@ Rails.application.routes.draw do
   post '/surveys/clone/:id' => 'surveys#clone'
   put '/surveys/question_position' => 'questions#update_position'
   get '/survey/results/:id' => 'surveys#results', as: 'survey_results'
+  get '/survey/question/results/:id' => 'questions#results', as: 'question_results'
   get '/surveys/question_group_question/:id' => 'questions#get_question'
   get '/surveys/:id/question_group' => 'surveys#edit_question_groups', :as => "edit_question_groups"
   post '/surveys/question_group/clone/:id' => 'surveys#clone_question_group'
