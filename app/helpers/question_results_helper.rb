@@ -7,12 +7,17 @@ module QuestionResultsHelper
       type: question_type_to_string(question),
       sentiment: question_answers_average_sentiment(answers),
       answer_options: question.answer_options.split(Rapidfire.answers_delimiter),
-      answers: question.answers.pluck(:answer_text).compact,
+      answers: parse_answers(question),
       answers_data: answers,
       grouped_question: question.validation_rules[:question_question],
       follow_up_question: question.follow_up_question_text,
       follow_up_answers: question.answers.pluck(:follow_up_answer_text).compact
     }.to_json
+  end
+
+  def parse_answers(question)
+    answers = question.answers.pluck(:answer_text).compact
+    answers.map { |a| a.split(Rapidfire.answers_delimiter) }.flatten
   end
 
   def question_answers(question)
@@ -38,7 +43,8 @@ module QuestionResultsHelper
 
   def question_answers_average_sentiment(answers)
     scores = answers.collect { |a| a[:sentiment][:score] }
-    average = scores.sum / scores.length
+    average = 0
+    average = scores.sum / scores.length unless scores.empty?
     label = 'negative'
     label = 'positive' if average > 0
     label = 'neutral' if average == 0
