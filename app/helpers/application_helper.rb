@@ -51,6 +51,8 @@ module ApplicationHelper
       return 'course-page'
     when 'surveys'
       return 'survey-page'
+    when 'survey'
+      return 'survey-page'
     when 'rapidfire'
       return 'survey-page'
     else
