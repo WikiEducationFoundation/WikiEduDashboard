@@ -380,6 +380,7 @@ GEM
       multi_json (~> 1.0)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
+    sentimental (1.1.1)
     sentry-raven (0.15.6)
       faraday (>= 0.7.6)
     sexp_processor (4.7.0)
@@ -493,6 +494,7 @@ DEPENDENCIES
   rspec-rails
   rubocop
   selenium-webdriver
+  sentimental
   sentry-raven
   shoulda-matchers (~> 3.1)
   simple_form

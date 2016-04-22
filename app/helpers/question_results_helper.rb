@@ -1,8 +1,14 @@
+require 'sentimental'
+
 module QuestionResultsHelper
   def question_results_data(question)
+    answers = question_answers(question)
     {
       type: question_type_to_string(question),
-      answers: question_answers(question),
+      sentiment: question_answers_average_sentiment(answers),
+      answer_options: question.answer_options.split(Rapidfire.answers_delimiter),
+      answers: question.answers.pluck(:answer_text).compact,
+      answers_data: answers,
       grouped_question: question.validation_rules[:question_question],
       follow_up_question: question.follow_up_question_text,
       follow_up_answers: question.answers.pluck(:follow_up_answer_text).compact
@@ -10,12 +16,18 @@ module QuestionResultsHelper
   end
 
   def question_answers(question)
+    analyzer = Sentimental.new
+    analyzer.load_defaults
     question.answers.map do |a|
       course = a.course(@survey)
       cohorts = course.cohorts unless course.nil?
       tags = course.tags unless course.nil?
       {
-        answer: a,
+        data: a,
+        sentiment: {
+          label: analyzer.sentiment(a.answer_text),
+          score: analyzer.score(a.answer_text)
+        },
         user: a.user,
         course: course,
         cohorts: cohorts,
@@ -23,4 +35,17 @@ module QuestionResultsHelper
       }
     end
   end
+
+  def question_answers_average_sentiment(answers)
+    scores = answers.collect { |a| a[:sentiment][:score] }
+    average = scores.sum / scores.length
+    label = 'negative'
+    label = 'positive' if average > 0
+    label = 'neutral' if average == 0
+    {
+      average: average,
+      label: label
+    }
+  end
+
 end
