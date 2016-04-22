@@ -23,13 +23,12 @@ export default class QuestionResults extends Component {
 
   _data() {
     return null;
-    // return <pre>{JSON.stringify(this.props, null, '\t')}</pre>;
+    // return <div><strong>{this.props.type}</strong><pre>{JSON.stringify(this.props, null, '\t')}</pre></div>;
   }
 
   render() {
     return (
       <div>
-        <strong>{this.props.type}</strong>
         {this._renderQuestionResults(this.props)}
         {this._data()}
       </div>
