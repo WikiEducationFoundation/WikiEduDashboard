@@ -227,6 +227,11 @@
       "from": "autoprefixer@>=1.1.20140327 <1.2.0",
       "resolved": "https://registry.npmjs.org/autoprefixer/-/autoprefixer-1.1.20140605.tgz"
     },
+    "autosize": {
+      "version": "3.0.15",
+      "from": "autosize@latest",
+      "resolved": "https://registry.npmjs.org/autosize/-/autosize-3.0.15.tgz"
+    },
     "aws-sign2": {
       "version": "0.6.0",
       "from": "aws-sign2@>=0.6.0 <0.7.0",
@@ -5329,6 +5334,11 @@
       "from": "lodash._basematches@>=3.0.0 <4.0.0",
       "resolved": "https://registry.npmjs.org/lodash._basematches/-/lodash._basematches-3.2.0.tgz"
     },
+    "lodash._basesorteduniqby": {
+      "version": "4.0.1",
+      "from": "lodash._basesorteduniqby@>=4.0.0 <4.1.0",
+      "resolved": "https://registry.npmjs.org/lodash._basesorteduniqby/-/lodash._basesorteduniqby-4.0.1.tgz"
+    },
     "lodash._basetostring": {
       "version": "3.0.1",
       "from": "lodash._basetostring@>=3.0.0 <4.0.0",
@@ -5459,9 +5469,9 @@
       "resolved": "https://registry.npmjs.org/lodash.bind/-/lodash.bind-2.4.1.tgz"
     },
     "lodash.debounce": {
-      "version": "4.0.4",
+      "version": "4.0.6",
       "from": "lodash.debounce@>=4.0.0 <5.0.0",
-      "resolved": "https://registry.npmjs.org/lodash.debounce/-/lodash.debounce-4.0.4.tgz"
+      "resolved": "https://registry.npmjs.org/lodash.debounce/-/lodash.debounce-4.0.6.tgz"
     },
     "lodash.defaults": {
       "version": "2.4.1",
@@ -5566,6 +5576,11 @@
       "version": "3.6.1",
       "from": "lodash.restparam@>=3.0.0 <4.0.0",
       "resolved": "https://registry.npmjs.org/lodash.restparam/-/lodash.restparam-3.6.1.tgz"
+    },
+    "lodash.sorteduniqby": {
+      "version": "4.3.0",
+      "from": "lodash.sorteduniqby@latest",
+      "resolved": "https://registry.npmjs.org/lodash.sorteduniqby/-/lodash.sorteduniqby-4.3.0.tgz"
     },
     "lodash.support": {
       "version": "2.4.1",

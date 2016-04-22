@@ -3,6 +3,7 @@
   "repository": "https://github.com/WikiEducationFoundation/WikiEduDashboard",
   "license": "MIT",
   "dependencies": {
+    "autosize": "^3.0.15",
     "babel-core": "^6.7.4",
     "babel-loader": "^6.2.4",
     "babel-plugin-rewire": "^1.0.0-rc-2",
@@ -69,6 +70,7 @@
     "lodash": "^3.10.1",
     "lodash.map": "^4.2.1",
     "lodash.reject": "^4.2.1",
+    "lodash.sorteduniqby": "^4.3.0",
     "lodash.throttle": "^4.0.1",
     "lodash.where": "^3.1.0",
     "main-bower-files": "^2.0.0",
@@ -128,8 +130,5 @@
     "start": "gulp hot-dev",
     "build": "webpack -p --config config/webpack/webpack.config.prod.js"
   },
-  "devDependencies": {
-    "autosize": "^3.0.15",
-    "lodash.throttle": "^4.0.1"
-  }
+  "devDependencies": {}
 }
