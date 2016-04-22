@@ -249,8 +249,12 @@ const Survey = {
         const answerId = fielddata[1].replace(']', '');
         const answerKey = fielddata[2].replace(']', '');
         if (name.indexOf('[]') === -1) { // Single Answer Question
-          val[answerKey] = value;
-          answerGroup[answerId] = val;
+          if (typeof answerGroup[answerId] !== 'undefined') {
+            answerGroup[answerId][answerKey] = value;
+          } else {
+            val[answerKey] = value;
+            answerGroup[answerId] = val;
+          }
         } else { // Multi-Select (Checkbox)
           if (value !== '0') {
             if (typeof answerGroup[answerId] !== 'undefined') {
