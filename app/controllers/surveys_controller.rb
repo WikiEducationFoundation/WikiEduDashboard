@@ -13,7 +13,6 @@ class SurveysController < ApplicationController
     :destroy,
     :edit_question_groups,
     :course_select,
-    :show_with_course,
     :results
   ]
   before_action :ensure_logged_in
@@ -21,7 +20,6 @@ class SurveysController < ApplicationController
     :show,
     :edit,
     :edit_question_groups,
-    :show_with_course,
     :results
   ]
   before_action :check_if_closed, only: [:show]

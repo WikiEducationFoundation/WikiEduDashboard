@@ -35,6 +35,7 @@
             <% if results %>
               <%= render partial: "rapidfire/answers/question_text", locals: {f: answer_form, answer: answer} %>
               <%= render partial: "question_results", locals: { question: answer.question } %>
+              <div class='download-csv-button'><%= link_to "Download Results CSV", question_results_path(answer.question, format: 'csv') %></div>
             <% else %>
               <%= render_answer_form_helper(answer, answer_form) %>
             <% end %>

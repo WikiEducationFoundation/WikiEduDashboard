@@ -69,6 +69,7 @@ Rails.application.config.to_prepare do
   Rapidfire::Question.class_eval do
     has_paper_trail
     scope :course_data_questions, ->{where("course_data_type <> ''")}
+
     def self.for_conditionals
       where("conditionals IS NULL OR conditionals = ''")
     end
@@ -76,13 +77,14 @@ Rails.application.config.to_prepare do
     def to_csv
       CSV.generate do |csv|
         csv << ['Question',
+                'Grouped Matrix Question',
                 'Answer',
-                'Question',
                 'Username',
                 'User Email']
-        answers.each do |answer|
+        answers.order(:answer_text).collect do |answer|
           csv << [
-            question.question_text,
+            question_text,
+            validation_rules[:grouped_question],
             answer.answer_text,
             answer.user.username,
             answer.user.email

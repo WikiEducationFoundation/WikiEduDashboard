@@ -5,7 +5,8 @@
 .container.survey__admin.survey__results
   .results__sidebar.block
     %h1 #{@survey.name} Results
-    = link_to "Download CSV", survey_results_path(format: 'csv')
+    = link_to survey_results_path(format: 'csv'), class: 'download-button' do
+      %span Download Survey Results CSV
 
   .results
     - @surveys_question_groups.each_with_index do |group, index|
