@@ -1,4 +1,4 @@
-<li class="row course-list__row">
+<li class="row course-list__row <%= user ? date_highlight_class(course) : '' %>">
   <%= link_to course_slug_path(course.slug), 'id' => course.id do %>
     <div class="row__wrapper">
       <div class="course-list__row__title">
