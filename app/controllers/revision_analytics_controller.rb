@@ -26,8 +26,6 @@ class RevisionAnalyticsController < ApplicationController
   end
 
   def recent_uploads
-    Rails.logger.warn 'ohai'
-    @uploads = CommonsUpload.last(40)
-    Rails.logger.warn @uploads
+    @uploads = CommonsUpload.last(100)
   end
 end

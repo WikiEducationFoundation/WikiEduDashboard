@@ -1,7 +1,6 @@
 import React from 'react';
 import TransitionGroup from 'react-addons-css-transition-group';
 import Loading from '../common/loading.cjsx';
-import _ from 'lodash';
 import Upload from '../uploads/upload.cjsx';
 
 const UploadTable = React.createClass({
@@ -10,8 +9,7 @@ const UploadTable = React.createClass({
   propTypes: {
     loading: React.PropTypes.bool,
     uploads: React.PropTypes.array,
-    headers: React.PropTypes.array,
-    noActivityMessage: React.PropTypes.string
+    headers: React.PropTypes.array
   },
 
   getInitialState() {
@@ -20,7 +18,7 @@ const UploadTable = React.createClass({
     };
   },
 
-  _renderActivites() {
+  _renderUploads() {
     return this.state.uploads.map((upload) => {
       return (
         <Upload upload={upload} key={upload.id} />
@@ -31,7 +29,7 @@ const UploadTable = React.createClass({
   _renderHeaders() {
     return this.props.headers.map((header) => {
       return (
-        <th key={header.key} onClick={this.sortItems} className="sortable" data-sort-key={header.key}>
+        <th key={header.key}>
           {header.title}
         </th>
       );
@@ -43,13 +41,8 @@ const UploadTable = React.createClass({
       return <Loading />;
     }
 
-    const activity = this._renderActivites();
+    const uploads = this._renderUploads();
     const ths = this._renderHeaders();
-
-    let elements = _.flatten(_.zip(activity));
-    if (!elements.length) {
-      elements = <tr><td colSpan="6">{this.props.noActivityMessage}</td></tr>;
-    }
 
     return (
       <table className="activity-table list">
@@ -65,7 +58,7 @@ const UploadTable = React.createClass({
           transitionEnterTimeout={500}
           transitionLeaveTimeout={500}
         >
-          {elements}
+          {uploads}
         </TransitionGroup>
       </table>
     );

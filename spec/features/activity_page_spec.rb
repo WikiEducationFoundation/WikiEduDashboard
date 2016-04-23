@@ -12,7 +12,7 @@ describe 'activity page', type: :feature, js: true do
 
   describe 'non-admins' do
     let(:user) { create(:user) }
-    it 'shouldn\'t be viewable by non-admins' do
+    it 'shouldn\'t be linked for non-admins' do
       within '.top-nav' do
         expect(page).not_to have_content 'Activity'
       end
@@ -115,6 +115,18 @@ describe 'activity page', type: :feature, js: true do
       it 'displays a list of recent revisions' do
         visit '/recent-activity/recent-edits'
         assert_page_content article.title.tr('_', ' ')
+      end
+    end
+
+    context 'recent uploads' do
+      let!(:upload) do
+        create(:commons_upload, file_name: 'File:Blowing a raspberry.ogv',
+                                user_id: user.id)
+      end
+
+      it 'displays a list of recent uploads' do
+        visit '/recent-activity/recent-uploads'
+        assert_page_content 'Blowing a raspberry.ogv'
       end
     end
   end

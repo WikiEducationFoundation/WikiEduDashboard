@@ -42,19 +42,12 @@ const RecentUploadsHandler = React.createClass({
       { title: 'Date/Time', key: 'date' },
     ];
 
-    const noActivityMessage = I18n.t('recent_activity.no_edits');
-
     return (
       <div>
-        <label>
-          <input ref="myCourses" type="checkbox" onChange={this.setCourseScope} />
-          {I18n.t('recent_activity.show_courses')}
-        </label>
         <UploadTable
           loading={this.state.loading}
           uploads={this.state.uploads}
           headers={headers}
-          noActivityMessage={noActivityMessage}
         />
       </div>
     );
