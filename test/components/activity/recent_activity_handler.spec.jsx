@@ -19,6 +19,6 @@ describe('RecentActivityHandler', () => {
   });
 
   it('renders links', () => {
-    expect(TestDom.querySelectorAll('a').length).to.eq(3);
+    expect(TestDom.querySelectorAll('a').length).to.eq(4);
   });
 });

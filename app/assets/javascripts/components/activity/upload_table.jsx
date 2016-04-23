@@ -2,7 +2,6 @@ import React from 'react';
 import TransitionGroup from 'react-addons-css-transition-group';
 import Loading from '../common/loading.cjsx';
 import _ from 'lodash';
-import moment from 'moment';
 import Upload from '../uploads/upload.cjsx';
 
 const UploadTable = React.createClass({
