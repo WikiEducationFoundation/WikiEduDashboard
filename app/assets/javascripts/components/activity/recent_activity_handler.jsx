@@ -21,6 +21,9 @@ const RecentActivityHandler = React.createClass({
           <div className="nav__item" id="recent-edits-link">
             <p><Link to="/recent-activity/recent-edits">{I18n.t('recent_activity.recent_edits')}</Link></p>
           </div>
+          <div className="nav__item" id="recent-uploads-link">
+            <p><Link to="/recent-activity/recent-uploads">{I18n.t('recent_activity.recent_uploads')}</Link></p>
+          </div>
         </nav>
         {this.props.children}
       </div>

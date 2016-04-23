@@ -64,7 +64,7 @@ API =
         type: 'GET',
         url: "/revision_analytics/suspected_plagiarism.json?scoped=#{opts.scoped || false}",
         success: (data) ->
-          console.log 'Recieved suspected plagiarism'
+          console.log 'Received suspected plagiarism'
           res data
       .fail (obj, status) ->
         console.error 'Error: ' + getErrorMessage(obj)
@@ -76,7 +76,19 @@ API =
         type: 'GET',
         url: "/revision_analytics/recent_edits.json?scoped=#{opts.scoped || false}",
         success: (data) ->
-          console.log 'Recieved recent edits'
+          console.log 'Received recent edits'
+          res data
+      .fail (obj, status) ->
+        console.error 'Error: ' + getErrorMessage(obj)
+        rej obj
+
+  fetchRecentUploads: (opts={}) ->
+    new Promise (res, rej) ->
+      $.ajax
+        type: 'GET',
+        url: "/revision_analytics/recent_uploads.json?scoped=#{opts.scoped || false}",
+        success: (data) ->
+          console.log 'Received recent uploads'
           res data
       .fail (obj, status) ->
         console.error 'Error: ' + getErrorMessage(obj)
@@ -88,7 +100,7 @@ API =
         type: 'POST',
         url: "/clone_course/#{id}",
         success: (data) ->
-          console.log 'Recieved course clone'
+          console.log 'Received course clone'
           res data
       .fail (obj, status) ->
         console.error 'Error: ' + getErrorMessage(obj)

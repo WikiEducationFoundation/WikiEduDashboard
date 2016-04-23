@@ -105,6 +105,11 @@ Rails.application.routes.draw do
   get 'revision_analytics/recent_edits',
       controller: 'revision_analytics',
       action: 'recent_edits'
+  get 'revision_analytics/recent_uploads',
+      controller: 'revision_analytics',
+      action: 'recent_uploads'
+
+
 
   # Wizard
   get 'wizards' => 'wizard#wizard_index'

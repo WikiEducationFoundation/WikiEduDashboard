@@ -20,6 +20,7 @@ import RecentActivityHandler from '../components/activity/recent_activity_handle
 import DidYouKnowHandler from '../components/activity/did_you_know_handler.jsx';
 import PlagiarismHandler from '../components/activity/plagiarism_handler.jsx';
 import RecentEditsHandler from '../components/activity/recent_edits_handler.jsx';
+import RecentUploadsHandler from '../components/activity/recent_uploads_handler.jsx';
 
 import TrainingApp from '../training/components/training_app.cjsx';
 import TrainingModuleHandler from '../training/components/training_module_handler.cjsx';
@@ -58,6 +59,7 @@ const routes = (
       <IndexRoute component={DidYouKnowHandler} />
       <Route path="plagiarism" component={PlagiarismHandler} />
       <Route path="recent-edits" component={RecentEditsHandler} />
+      <Route path="recent-uploads" component={RecentUploadsHandler} />
     </Route>
     <Route path="courses">
       <Route path=":course_school/:course_title" component={Course}>
