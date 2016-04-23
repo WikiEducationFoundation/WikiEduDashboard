@@ -51,7 +51,9 @@ const UploadTable = React.createClass({
             <th></th>
           </tr>
         </thead>
+        <tbody>
           {uploads}
+        </tbody>
       </table>
     );
   }
