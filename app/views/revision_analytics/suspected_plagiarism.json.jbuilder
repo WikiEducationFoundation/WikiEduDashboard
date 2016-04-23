@@ -4,7 +4,7 @@ json.revisions do
     json.key revision.id
     json.title full_title(article)
     json.article_url article_url(article)
-    json.report_url revision.report_url
+    json.report_url revision.plagiarism_report_link
     json.diff_url revision.url
     json.username revision.user.username
     json.datetime revision.date

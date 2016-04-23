@@ -93,6 +93,7 @@ Rails.application.routes.draw do
 
   # Recent Activity
   get 'recent-activity/plagiarism/refresh' => 'recent_activity#refresh_report_urls'
+  get 'recent-activity/plagiarism/report' => 'recent_activity#plagiarism_report'
   get 'recent-activity(/*any)' => 'recent_activity#index', as: :recent_activity
 
   # Revision analytics JSON API for React

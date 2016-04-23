@@ -57,4 +57,8 @@ class Revision < ActiveRecord::Base
     return [] if user.blank?
     user.courses.where('start <= ?', date).where('end >= ?', date)
   end
+ 
+  def plagiarism_report_link
+    "/recent-activity/plagiarism/report?ithenticate_id=#{ithenticate_id}"
+  end
 end
