@@ -80,4 +80,20 @@ describe Revision do
       end
     end
   end
+
+  describe '#plagiarism_report_link' do
+    context 'when ithenticate id is present' do
+      let(:revision) { create(:revision, ithenticate_id: 123) }
+      it 'returns a url that includes the ithenticate id' do
+        expect(revision.plagiarism_report_link).to include('123')
+      end
+    end
+
+    context 'when ithenticate id is nil' do
+      let(:revision) { create(:revision, ithenticate_id: nil) }
+      it 'returns nil' do
+        expect(revision.plagiarism_report_link).to be_nil
+      end
+    end
+  end
 end

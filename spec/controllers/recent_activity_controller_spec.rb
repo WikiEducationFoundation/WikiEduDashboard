@@ -7,11 +7,12 @@ describe RecentActivityController do
     allow(controller).to receive(:current_user).and_return(user)
   end
 
-  describe '.refresh_report_urls' do
-    let(:subject) { get :refresh_report_urls }
-    it 'triggers an import of iThenticate urls' do
-      expect(PlagiabotImporter).to receive(:import_report_urls)
-      expect(subject).to redirect_to '/recent-activity/plagiarism'
+  describe '.plagiarism_report' do
+    let(:subject) { get :plagiarism_report, ithenticate_id: 123 }
+    it 'fetches an iThenticate url and redirects' do
+      expect(PlagiabotImporter).to receive(:api_get_url)
+        .with(ithenticate_id: '123').and_return(root_path)
+      expect(subject).to redirect_to root_path
     end
   end
 end

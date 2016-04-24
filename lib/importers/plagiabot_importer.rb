@@ -28,16 +28,6 @@ class PlagiabotImporter
     end
   end
 
-  def self.import_report_urls
-    # NOTE: This refetches all the urls on each update, because they expire
-    # after a short time. It would be better to get the report url on an
-    # as-needed basis by making the equivalent query from the client.
-    revisions_to_update = Revision.where.not(ithenticate_id: nil).where('date > ?', 2.months.ago)
-    revisions_to_update.each do |revision|
-      import_report_url(revision)
-    end
-  end
-
   ##################
   # Helper methods #
   ##################
@@ -45,14 +35,7 @@ class PlagiabotImporter
     return unless revision.ithenticate_id.nil?
     revision.ithenticate_id = ithenticate_id
     revision.save
-    import_report_url(revision)
     SuspectedPlagiarismMailer.alert_content_expert(revision)
-  end
-
-  def self.import_report_url(revision)
-    url = api_get_url(ithenticate_id: revision.ithenticate_id)
-    revision.report_url = url
-    revision.save
   end
 
   def self.check_revision(revision)

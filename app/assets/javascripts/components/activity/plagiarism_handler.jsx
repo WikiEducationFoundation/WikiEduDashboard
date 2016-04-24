@@ -49,7 +49,6 @@ const PlagiarismHandler = React.createClass({
           <input ref="myCourses" type="checkbox" onChange={this.setCourseScope} />
           {I18n.t('recent_activity.show_courses')}
         </label>
-        &nbsp; &nbsp; &nbsp;<a href="/recent-activity/plagiarism/refresh">{I18n.t('recent_activity.refresh_plagiarism')}</a>
         <ActivityTable
           loading={this.state.loading}
           activity={this.state.revisions}

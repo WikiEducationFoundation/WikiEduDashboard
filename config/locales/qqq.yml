@@ -243,7 +243,6 @@ qqq:
     no_dyk_eligible: Message stating there are no "Did You Know" eligible articles.
     no_plagiarism: Message stating there are no recent revisions suspected of plagiarism.
     no_edits: Message stating there are no recent edits.
-    refresh_plagiarism: Action to reload plagiarism report
     did_you_know_eligible: Label for "Did You Know" Eligible tab
     possible_plagiarism: Label for Possible Plagiarism tab
     recent_edits: Label for Recent Edits tab
