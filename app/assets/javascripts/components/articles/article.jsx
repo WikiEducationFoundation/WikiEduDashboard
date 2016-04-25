@@ -13,7 +13,7 @@ const Article = React.createClass({
     const ratingMobileClass = `${ratingClass} tabconst-only`;
     const languagePrefix = this.props.article.language ? `${this.props.article.language}:` : '';
     const formattedTitle = `${languagePrefix}${this.props.article.title}`;
-    const historyUrl = '${this.props.article.url}?action=history';
+    const historyUrl = `${this.props.article.url}?action=history`;
 
     return (
       <tr className={className}>
