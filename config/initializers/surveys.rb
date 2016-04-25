@@ -18,10 +18,23 @@ Rails.application.config.to_prepare do
       User.find_by_id(answer_group.user_id)
     end
 
-    def course(survey_id)
+    def notification(survey_id)
       notifications = user.survey_notifications.completed
       return nil if notifications.empty?
-      notifications.map {|n| n.course if n.survey.id == survey_id }.compact.first
+      notifications.map {|n| n if n.survey.id == survey_id }.compact.first
+    end
+
+    def course(survey_id)
+      n = notification(survey_id)
+      return nil if n.nil?
+      n.course
+    end
+
+    def courses_user_role(survey_id)
+      n = notification(survey_id)
+      return nil if n.nil?
+      role = CoursesUsers.find(n.courses_users_id).role
+      CoursesUsers::Roles.constants[role + 1].to_s
     end
   end
 

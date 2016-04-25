@@ -13,11 +13,13 @@ class Survey < ActiveRecord::Base
     CSV.generate do |csv|
       csv << ['Question Group',
               'Grouped Question',
+              'Question Id',
               'Question',
               'Answer',
               'Follow Up Question',
               'Follow Up Answer',
               'User',
+              'User Role',
               'Course Slug',
               'Course Cohorts',
               'Course Tags']
@@ -31,11 +33,13 @@ class Survey < ActiveRecord::Base
             csv << [
               question_group.name,
               question.validation_rules[:grouped_question],
+              question.id,
               question.question_text,
               answer.answer_text,
               question.follow_up_question_text,
               answer.follow_up_answer_text,
               answer.user.username,
+              answer.courses_user_role(id),
               course_slug,
               cohorts,
               tags
