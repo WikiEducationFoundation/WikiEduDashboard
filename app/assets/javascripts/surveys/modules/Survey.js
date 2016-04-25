@@ -61,7 +61,7 @@ const Survey = {
 
   init() {
     this.indexQuestionGroups();
-    this.renderMarkdown();
+    // this.renderMarkdown();
     this.cacheSelectors();
     this.getUrlParam();
     this.removeUnneededBlocks();
@@ -753,13 +753,13 @@ const Survey = {
     }
   },
 
-  renderMarkdown() {
-    $('[data-render-markdown]').each((i, el) => {
-      const $el = $(el);
-      const markdownSrc = $el.data('render-markdown');
-      $el.html(markdown.render(markdownSrc));
-    });
-  },
+  // renderMarkdown() {
+  //   $('[data-render-markdown]').each((i, el) => {
+  //     const $el = $(el);
+  //     const markdownSrc = $el.data('render-markdown');
+  //     $el.html(markdown.render(markdownSrc));
+  //   });
+  // },
   getNotificationId() {
     this.surveyNotificationId = $('[data-notification]').data('notification');
   }
