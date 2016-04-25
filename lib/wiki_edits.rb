@@ -18,10 +18,12 @@ class WikiEdits
 
   def notify_untrained(course, current_user)
     untrained_users = course.students.untrained
+    training_link = "https://#{ENV['dashboard_url']}/training/students"
+    signed_text = I18n.t('wiki_edits.notify_overdue.message', link: training_link) + ' --~~~~'
 
-    message = { sectiontitle: I18n.t('wiki_edits.notify_untrained.header'),
-                text: I18n.t('wiki_edits.notify_untrained.message'),
-                summary: I18n.t('wiki_edits.notify_untrained.summary') }
+    message = { sectiontitle: I18n.t('wiki_edits.notify_overdue.header'),
+                text: signed_text,
+                summary: I18n.t('wiki_edits.notify_overdue.summary') }
 
     notify_users(current_user, untrained_users, message)
 

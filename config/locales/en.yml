@@ -394,7 +394,7 @@ en:
         overdue training. Are you sure you want to do this?
       # header, message and summary are wikitext output that gets posted on user talk pages.
       header: You have an overdue training assignment.
-      message: Please complete the assigned [https://dashboard.wikiedu.org/training/students training modules]. --~~~~
+      message: Please complete the assigned [%{link} training modules].
       summary: student training overdue
 
   wizard:
