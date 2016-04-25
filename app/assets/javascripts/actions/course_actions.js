@@ -101,6 +101,23 @@ const CourseActions = Flux.createActions({
           data: resp
         };
       });
+  },
+
+  uploadFile(payload) {
+    return API.uploadFile(payload)
+      .then((url) => {
+        return {
+          actionType: 'FILE_UPLOAD_SUCCESS',
+          data: { url }
+        };
+      })
+      .catch(resp => {
+        console.log(resp);
+        return {
+          actionType: 'API_FAIL',
+          data: resp
+        };
+      });
   }
 });
 

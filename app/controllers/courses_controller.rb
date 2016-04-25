@@ -80,6 +80,10 @@ class CoursesController < ApplicationController
     render json: { course: new_course.as_json }
   end
 
+  def file_upload
+    binding.pry
+  end
+
   ##################
   # Helper methods #
   ##################
