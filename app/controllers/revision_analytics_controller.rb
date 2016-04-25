@@ -26,6 +26,7 @@ class RevisionAnalyticsController < ApplicationController
   end
 
   def recent_uploads
-    @uploads = CommonsUpload.last(100)
+    current_student_ids = User.current.role('student').pluck(:id)
+    @uploads = CommonsUpload.where(user_id: current_student_ids).order(id: :desc).last(100)
   end
 end
