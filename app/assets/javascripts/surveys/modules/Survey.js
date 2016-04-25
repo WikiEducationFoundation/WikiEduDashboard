@@ -60,6 +60,7 @@ const Survey = {
   currentBlockValidated: false,
 
   init() {
+    this.indexQuestionGroups();
     this.renderMarkdown();
     this.cacheSelectors();
     this.getUrlParam();
@@ -92,6 +93,12 @@ const Survey = {
     $('[data-void-checkboxes]').on('click', this.voidCheckboxSelections.bind(this));
     $('.survey__multiple-choice-field input[type=checkbox]').on('change', this.uncheckVoid.bind(this));
     $('.block input, .block textarea, .block select').on('change keydown', this.removeErrorState.bind(this));
+  },
+
+  indexQuestionGroups() {
+    $('[data-question-group-blocks]').each((i, qgBlock) => {
+      $(qgBlock).data('question-group-blocks', i);
+    });
   },
 
   initBlocks() {
