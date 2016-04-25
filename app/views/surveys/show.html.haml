@@ -24,7 +24,7 @@
 
 
   - @surveys_question_groups.each_with_index do |group, index|
-    - if check_conditionals(group.question_group)
+    - if check_conditionals(group.question_group) && !group.question_group.questions.empty?
       = render partial: "question_group", locals: question_group_locals(group, index, @surveys_question_groups.length)
 
   .block__container
