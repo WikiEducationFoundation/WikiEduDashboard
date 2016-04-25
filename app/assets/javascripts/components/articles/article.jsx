@@ -13,6 +13,7 @@ const Article = React.createClass({
     const ratingMobileClass = `${ratingClass} tabconst-only`;
     const languagePrefix = this.props.article.language ? `${this.props.article.language}:` : '';
     const formattedTitle = `${languagePrefix}${this.props.article.title}`;
+    const historyUrl = '${this.props.article.url}?action=history';
 
     return (
       <tr className={className}>
@@ -27,6 +28,8 @@ const Article = React.createClass({
           <div className={ratingMobileClass}><p>{this.props.article.pretty_rating || '-'}</p></div>
           <p className="title">
             <a href={this.props.article.url} target="_blank" className="inline">{formattedTitle} {(this.props.article.new_article ? ' (new)' : '')}</a>
+            <br />
+            <small><a href={historyUrl} target="_blank" className="inline">(history)</a></small>
           </p>
         </td>
         <td className="desktop-only-tc">{this.props.article.character_sum}</td>
