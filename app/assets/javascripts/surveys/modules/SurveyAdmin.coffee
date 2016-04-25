@@ -310,7 +310,6 @@ SurveyAdmin =
 
   initMarkdown: ->
     updateMarkdownTabs = (source, $preview, $source) ->
-      console.log(source, $preview, $source)
       $preview.html source
       $source.text source
 

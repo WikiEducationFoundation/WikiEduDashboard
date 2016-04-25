@@ -13,6 +13,7 @@ require('velocity-animate');
 const markdown = require('../../utils/markdown_it.js').default();
 import _throttle from 'lodash.throttle';
 import _assign from 'lodash.assign';
+import urlParse from 'url-parse';
 
 //--------------------------------------------------------
 // Required Internal Modules
@@ -213,7 +214,8 @@ const Survey = {
   },
 
   getUrlParam() {
-    if (location.search.length && location.search.replace('?', '') === 'preview') {
+    const urlParams = urlParse(window.location.href, true).query;
+    if (urlParams.preview !== undefined) {
       this.previewMode = true;
     }
   },
