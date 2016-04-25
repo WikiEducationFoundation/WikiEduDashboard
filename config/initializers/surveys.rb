@@ -53,7 +53,7 @@ Rails.application.config.to_prepare do
     end
 
     def destroy
-      @question_group = QuestionGroup.find(params[:id])
+      @question_group = Rapidfire::QuestionGroup.find(params[:id])
       @question_group.destroy
 
       respond_to do |format|
