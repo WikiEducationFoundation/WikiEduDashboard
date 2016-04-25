@@ -31,6 +31,7 @@ const scrollEasing = [0.19, 1, 0.22, 1];
 const slickOptions = {
   infinite: false,
   arrows: false,
+  accessibility: false,
   draggable: false,
   touchMove: false,
   speed: 400,
