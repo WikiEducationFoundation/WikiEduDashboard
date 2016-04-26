@@ -128,6 +128,10 @@ GEM
       ffi (~> 1.0, >= 1.0.11)
     choice (0.2.0)
     chronic (0.10.2)
+    climate_control (0.0.3)
+      activesupport (>= 3.0)
+    cocaine (0.5.8)
+      climate_control (>= 0.0.3, < 1.0)
     codeclimate-test-reporter (0.5.0)
       simplecov (>= 0.7.1, < 1.0.0)
     coderay (1.1.1)
@@ -246,6 +250,7 @@ GEM
       faraday-cookie_jar (~> 0.0, >= 0.0.6)
     method_source (0.8.2)
     mime-types (2.99.1)
+    mimemagic (0.3.1)
     mini_portile2 (2.0.0)
     minitest (5.8.4)
     multi_json (1.11.2)
@@ -275,6 +280,12 @@ GEM
       activerecord (>= 3.0, < 6.0)
       activesupport (>= 3.0, < 6.0)
       request_store (~> 1.1)
+    paperclip (5.0.0.beta2)
+      activemodel (>= 4.2.0)
+      activesupport (>= 4.2.0)
+      cocaine (~> 0.5.5)
+      mime-types
+      mimemagic (~> 0.3.0)
     parser (2.3.0.7)
       ast (~> 2.2)
     polyamorous (1.1.0)
@@ -478,6 +489,7 @@ DEPENDENCIES
   omniauth-mediawiki!
   pandoc-ruby (~> 1.0.0)
   paper_trail
+  paperclip (~> 5.0.0.beta1)
   piwik_analytics!
   pry-rails
   quiet_assets

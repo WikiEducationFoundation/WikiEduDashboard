@@ -80,8 +80,14 @@ class CoursesController < ApplicationController
     render json: { course: new_course.as_json }
   end
 
-  def file_upload
-    binding.pry
+  def syllabus_upload
+    course = Course.find(params[:id])
+    course.syllabus = params["syllabus"]
+    if course.save
+      render json: { success: true, url: course.syllabus.url }
+    else
+      render json: course.errors, status: :unprocessable_entity
+    end
   end
 
   ##################
