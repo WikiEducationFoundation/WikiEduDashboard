@@ -5,12 +5,12 @@ describe SurveyNotificationsManager do
   describe '.create_notifications' do
     include_context 'survey_assignment'
 
-    it 'creates SurveyNotifications for each courses_user ready for a survey' do
+    it 'creates SurveyNotifications for each user ready for a survey' do
       described_class.create_notifications
       expect(SurveyNotification.all.length).to eq(1)
     end
 
-    it 'only creates notifications with unique courses_user id and survey id combinations' do
+    it 'only creates notifications with unique user and survey combinations' do
       new_survey = create(:survey)
       survey_assignment = create(
         :survey_assignment,
