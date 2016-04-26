@@ -1,8 +1,11 @@
-= render 'admin_header'
+-# .section-header.surveys__admin-header.surveys__admin-header--question-groups.surveys__admin-header--question-groups--edit
+-#   .container
+-#     %div
+-#       %h1 Editing #{@question_group.name}
+-#     .surveys__admin-header__action
+-#       = simple_form_for(@question_group) do |f|
+-#         .form__actions
+-#           = f.button :submit, class: 'button dark'
 
-.container.survey__admin
-  .section-header
-    %h1 Editing #{@question_group.name}
 
-  .block.form__block
-    = render partial: 'form'
+= render partial: 'form'

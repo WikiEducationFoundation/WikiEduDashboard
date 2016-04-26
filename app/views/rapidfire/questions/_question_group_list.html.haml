@@ -1,6 +1,7 @@
-.survey__questions-list
-  .survey__admin-actions
-    = link_to "Add New Question", new_question_group_question_path(@question_group), :class => 'button button--no-margin'
+.survey__questions-list.clearfix
+  .survey__admin-actions.clearfix
+    %h3 Questions
+    = link_to "Add New Question", new_question_group_question_path(@question_group), :class => 'button dark button--no-margin'
   - if @questions.length > 1
     .survey__admin-tools
       %span.contextual Drag to reorder questions. (Changes will be saved automatically.)

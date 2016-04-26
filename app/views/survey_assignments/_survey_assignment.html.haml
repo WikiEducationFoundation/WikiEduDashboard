@@ -17,12 +17,13 @@
         .contextual Notification Schedule:
         %span= notification_schedule_summary(survey_assignment)
 
-      .survey__admin-row__col__detail
-        .contextual Assignment #:
-        %span ##{survey_assignment.id}
+      -# .survey__admin-row__col__detail
+      -#   .contextual Assignment #:
+      -#   %span ##{survey_assignment.id}
 
       .survey__admin-row__col.survey__admin-row__col--actions
         -# = link_to 'Show', survey_assignment
+        %span ##{survey_assignment.id}
         = link_to 'Edit', edit_survey_assignment_path(survey_assignment)
         -# = link_to 'Destroy', survey_assignment, :method => :delete, :data => { :confirm => 'Are you sure?' }
 

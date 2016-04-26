@@ -20,6 +20,9 @@ body.survey-page
 
 .survey__admin-actions
   padding $spacer 0
+  display flex
+  align-items center
+  justify-content space-between
 
 .survey__admin__nav
   overflow hidden
@@ -65,12 +68,15 @@ body.survey-page
 .surveys__admin-header--survey_results
   background $survey_results_color
 
+body.survey-page .surveys__admin-header .container
+  display flex
+  align-items center
+
 body.survey-page .surveys__admin-header h1
   color white
-  font-size 28px
-  font-weight 300
+  font-size 18px
+  font-weight 400
   margin 0
-  padding-top 4px
 
 .surveys__admin-header .button.border
   border-color white
@@ -108,3 +114,7 @@ body.survey-page .surveys__admin-header h1
 .ui-tabs-panel
   padding 10px
   border 1px solid $border_lt
+
+.survey__questions-list h3
+  margin-top 10px
+  color $text !important

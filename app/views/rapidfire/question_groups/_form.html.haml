@@ -1,15 +1,28 @@
 - @questions = @question_group.questions
 = simple_form_for(@question_group) do |f|
   = f.error_notification
-  = f.input :name, label: "QuestionGroup Name", class: 'input--large'
-  .form__row
-    = f.association :cohorts, label_method: :title, input_html: { data: { chosen_select: true }}
-  .form__row
-    %label Tags
-    = select_tag "question_group[tags]", options_for_select(@available_tags, @question_group_tags), multiple: true, data: { chosen_select: true }
 
-  - unless @question_group.new_record?
-    %h3 Questions
-    = render 'rapidfire/questions/question_group_list'
-  .form__actions
-    = f.button :submit, class: 'button dark'
+  .section-header.surveys__admin-header.surveys__admin-header--question-groups.surveys__admin-header--question-groups--edit
+    .container
+      %div
+        %h1 Editing #{@question_group.name}
+      .surveys__admin-header__action
+        .form__actions
+          = f.button :submit, class: 'button button--no-margin border'
+
+  .container.survey__admin
+    .form__block
+      .block.form__settings
+        .form__settings__tabs
+          .tab
+            %h3 Settings
+        = f.input :name, label: "Question Group Name", class: 'input--large'
+        .form__row
+          = f.association :cohorts, label_method: :title, input_html: { data: { chosen_select: true }}
+        .form__row
+          %label Tags
+          = select_tag "question_group[tags]", options_for_select(@available_tags, @question_group_tags), multiple: true, data: { chosen_select: true }
+      .form__question-list
+        = render 'rapidfire/questions/question_group_list'
+        -# .form__actions
+        -#   = f.button :submit, class: 'button dark'
