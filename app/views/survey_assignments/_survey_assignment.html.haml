@@ -7,43 +7,41 @@
     .contextual Survey:
     %span.emphasis= survey_assignment.survey.name
 
-  .survey__admin-row__col.border
-    %strong Status:
-    %strong.survey-assignment-color= survey_assignment.status
+  .survey__admin-row__assignment-detail
+    .survey__admin-row__col.border
+      .survey__admin-row__col__detail
+        .contextual Status:
+        %strong.survey-assignment-color= survey_assignment.status
 
-    .contextual Notification Schedule:
-    %span= notification_schedule_summary(survey_assignment)
+      .survey__admin-row__col__detail
+        .contextual Notification Schedule:
+        %span= notification_schedule_summary(survey_assignment)
 
-    .contextual Assignment #:
-    %span ##{survey_assignment.id}
+      .survey__admin-row__col__detail
+        .contextual Assignment #:
+        %span ##{survey_assignment.id}
 
-  -# %div
-  -#   %strong Status:
-  -#   %strong.survey-assignment-color= survey_assignment.status
-    -# %span /
-    -# %span= survey_assignment.survey_notifications.completed.length
-    -# %span Completed /
-    -# %span= survey_assignment.survey_notifications.length
-    -# %span Notified /
-    -# %span= survey_assignment.total_notifications
-    -# %span Total
+      .survey__admin-row__col.survey__admin-row__col--actions
+        -# = link_to 'Show', survey_assignment
+        = link_to 'Edit', edit_survey_assignment_path(survey_assignment)
+        -# = link_to 'Destroy', survey_assignment, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
-  .survey__admin-row__col
-    .contextual Number of Courses
-    %span= survey_assignment.target_courses.count
+    .survey__admin-row__col
 
-    .contextual Estimated Recipients
-    - total = survey_assignment.target_users.count
-    %span= total
-    %span= user_role(survey_assignment, total)
+      .survey__admin-row__col__detail
+        .contextual Responses
+        %span= assignment_response(survey_assignment)
 
-    .contextual Responses
-    %span= assignment_response(survey_assignment)
+      .survey__admin-row__col__detail
+        .contextual Number of Courses
+        %span= survey_assignment.target_courses.count
 
-  .survey__admin-row__col.survey__admin-row__col--actions
-    -# = link_to 'Show', survey_assignment
-    = link_to 'Edit', edit_survey_assignment_path(survey_assignment)
-    = link_to 'Destroy', survey_assignment, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      .survey__admin-row__col__detail
+        .contextual Estimated Recipients
+        - total = survey_assignment.target_users.count
+        %span= total
+        %span= user_role(survey_assignment, total)
+
 
     -# %div.clearfix
     -#   %button{:data => {:toggle_courses_table => true}}

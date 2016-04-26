@@ -72,3 +72,25 @@
 .survey__admin-row__expanded
   flex-basis 100%
   width 100%
+
+.survey__admin-row__assignment-detail
+  display flex
+  flex-direction column
+  width 100%
+
+.survey__admin-row__assignment-detail .survey__admin-row__col
+  display flex
+  height 50%
+  padding 0
+  border 0
+  &:nth-of-type(2)
+    background $bg_light_gray
+
+.survey__admin-row__assignment-detail .survey__admin-row__col--actions
+  padding 18px 20px 20px
+
+.survey__admin-row__col__detail
+  padding $spacer*2 $spacer*3
+
+.survey__admin-row--assignment .survey__admin-row__title
+  margin-right 0px
