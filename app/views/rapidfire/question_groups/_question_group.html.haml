@@ -17,15 +17,15 @@
     .contextual Updated
     %span= question_group.updated_at.strftime("%B %d, %Y")
   .survey__admin-row__col.survey__admin-row__col--actions
-    - if question_group.questions.length > 0
-      .course-list__col
-        = link_to "Preview", "#{new_question_group_answer_group_path(question_group)}?preview"
     .course-list__col
       = link_to "Edit", edit_question_group_path(question_group)
     .course-list__col
       = link_to "Clone", "/surveys/question_group/clone/#{question_group.id}", method: :post
     -# .course-list__col
     -#   = link_to "Add Question", new_question_group_question_path(question_group)
+    - if question_group.questions.length > 0
+      .course-list__col
+        = link_to "Preview", "#{new_question_group_answer_group_path(question_group)}?preview"
     .course-list__col
       = link_to "Results", [:results, question_group]
     -# .course-list__col
