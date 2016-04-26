@@ -1,31 +1,78 @@
 import React, { PropTypes } from 'react';
 import Dropzone from 'react-dropzone';
 import CourseActions from '../../actions/course_actions.js';
+import Loading from '../common/loading.cjsx';
 
 export default class SyllabusUpload extends React.Component {
   constructor() {
     super();
     this.onDrop = this._onDrop.bind(this);
+    this.toggleEditing = this._toggleEditing.bind(this);
   }
   _onDrop(files) {
-    console.log(files, files);
-    CourseActions.uploadFile({
+    CourseActions.startUploadSyllabus();
+    CourseActions.uploadSyllabus({
       courseId: this.props.course.id,
       file: files[0]
     });
   }
-  render() {
-    console.log('syllabus props', this.props);
+  _uploader() {
+    const { uploadingSyllabus } = this.props;
+    const cancelButton = <button className="link-button" onClick={() => { this.toggleEditing(false); }}>cancel</button>;
+    const loadingAnimation = <Loading message={false} />;
+    const dropzone = (
+      <Dropzone onDrop={this.onDrop} multiple={false} className="course-syllabus__uploader">
+        <div>Drag and Drop or <button className="link-button">Browse Files</button></div>
+      </Dropzone>
+    );
     return (
       <div>
-        <Dropzone onDrop={this.onDrop} multiple={false}>
-          <div>Drop your syllabus here</div>
-        </Dropzone>
+        {(uploadingSyllabus ? loadingAnimation : dropzone)}
+        {cancelButton}
+      </div>
+    );
+  }
+  _toggleEditing(bool) {
+    CourseActions.toggleEditingSyllabus(bool);
+  }
+  _syllabusLink() {
+    const { syllabus } = this.props.course;
+    let link = <span>No syllabus has been added.</span>;
+    if (syllabus !== undefined) {
+      const filename = syllabus.split('/').pop().split('?')[0];
+      link = <a href={syllabus}>{filename}</a>;
+    }
+    return link;
+  }
+  _adminUser() {
+    const currentUser = this.props.current_user;
+    if (typeof currentUser === 'string') {
+      return false;
+    }
+    return currentUser.admin || currentUser.role > 0;
+  }
+  render() {
+    const { canUploadSyllabus, editingSyllabus } = this.props.course;
+    const editButton = canUploadSyllabus ? <button className="link-button" onClick={() => { this.toggleEditing(true); }}>edit</button> : null;
+    if (!this._adminUser()) { return null; }
+    return (
+      <div className="module course-description">
+        <div className="module__data">
+          <h3>Syllabus</h3>
+          {this._syllabusLink()}
+          &nbsp;
+          &nbsp;
+          {(canUploadSyllabus && editingSyllabus ? this._uploader() : editButton)}
+        </div>
       </div>
     );
   }
 }
 
 SyllabusUpload.propTypes = {
-  course: PropTypes.object.isRequired
+  course: PropTypes.object.isRequired,
+  syllabus: PropTypes.string,
+  editingSyllabus: PropTypes.bool,
+  uploadingSyllabus: PropTypes.bool,
+  current_user: PropTypes.object
 };

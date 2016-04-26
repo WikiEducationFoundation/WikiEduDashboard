@@ -103,16 +103,28 @@ const CourseActions = Flux.createActions({
       });
   },
 
-  uploadFile(payload) {
-    return API.uploadFile(payload)
-      .then((url) => {
+  toggleEditingSyllabus(bool) {
+    return {
+      actionType: 'TOGGLE_EDITING_SYLLABUS',
+      data: { bool }
+    };
+  },
+
+  startUploadSyllabus() {
+    return {
+      actionType: 'UPLOADING_SYLLABUS'
+    };
+  },
+
+  uploadSyllabus(payload) {
+    return API.uploadSyllabus(payload)
+      .then((data) => {
         return {
-          actionType: 'FILE_UPLOAD_SUCCESS',
-          data: { url }
+          actionType: 'SYLLABUS_UPLOAD_SUCCESS',
+          data: { url: data.url }
         };
       })
       .catch(resp => {
-        console.log(resp);
         return {
           actionType: 'API_FAIL',
           data: resp

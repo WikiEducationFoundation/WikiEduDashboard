@@ -11,7 +11,7 @@ ServerActions = require('../../actions/server_actions.js').default
 Loading       = require '../common/loading.cjsx'
 CourseClonedModal  = require './course_cloned_modal.cjsx'
 CourseUtils   = require('../../utils/course_utils.js').default
-
+SyllabusUpload  = require('./syllabus-upload.jsx').default
 
 getState = ->
   course: CourseStore.getCourse()
@@ -96,6 +96,7 @@ Overview = React.createClass(
       <div className='sidebar'>
         <Details {...@props} />
         <Actions {...@props} />
+        <SyllabusUpload {...@props} />
         <Milestones {...@props} />
       </div>
     </section>

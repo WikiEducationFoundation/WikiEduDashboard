@@ -6,7 +6,14 @@ require "#{Rails.root}/lib/wiki_course_edits"
 class CoursesController < ApplicationController
   include CourseHelper
   respond_to :html, :json
-  before_action :require_permissions, only: [:create, :update, :destroy, :notify_untrained]
+  before_action :require_permissions,
+                only: [
+                  :create,
+                  :update,
+                  :destroy,
+                  :notify_untrained,
+                  :syllabus_upload
+                ]
 
   ################
   # CRUD methods #
@@ -82,7 +89,7 @@ class CoursesController < ApplicationController
 
   def syllabus_upload
     course = Course.find(params[:id])
-    course.syllabus = params["syllabus"]
+    course.syllabus = params['syllabus']
     if course.save
       render json: { success: true, url: course.syllabus.url }
     else

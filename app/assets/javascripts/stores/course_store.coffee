@@ -29,6 +29,7 @@ clearError = ->
 
 updateCourseValue = (key, value) ->
   _course[key] = value
+  console.log _course[key], 'update'
   CourseStore.emitChange()
 
 addCourse = ->
@@ -43,6 +44,7 @@ addCourse = ->
     end: null
     day_exceptions: ""
     weekdays: "0000000"
+    editingSyllabus: false
   }
 
 _dismissNotification = (payload) ->
@@ -80,6 +82,20 @@ CourseStore = Flux.createStore
       setCourse data.course
       if data.save
         ServerActions.saveCourse($.extend(true, {}, { course: _course }), data.course.slug)
+      break
+    when 'SYLLABUS_UPLOAD_SUCCESS'
+      setCourse
+        syllabus: data.url
+        uploadingSyllabus: false
+        editingSyllabus: false
+      break
+    when 'UPLOADING_SYLLABUS'
+      setCourse
+        uploadingSyllabus: true
+      break
+    when 'TOGGLE_EDITING_SYLLABUS'
+      setCourse
+        editingSyllabus: data.bool
       break
     when 'ADD_COURSE'
       addCourse()
