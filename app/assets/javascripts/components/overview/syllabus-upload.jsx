@@ -8,6 +8,7 @@ export default class SyllabusUpload extends React.Component {
     super();
     this.onDrop = this._onDrop.bind(this);
     this.toggleEditing = this._toggleEditing.bind(this);
+    this.removeSyllabus = this._removeSyllabus.bind(this);
   }
   _onDrop(files) {
     CourseActions.startUploadSyllabus();
@@ -51,8 +52,14 @@ export default class SyllabusUpload extends React.Component {
     }
     return currentUser.admin || currentUser.role > 0;
   }
+  _removeSyllabus() {
+    CourseActions.uploadSyllabus({
+      courseId: this.props.course.id,
+      file: null
+    });
+  }
   render() {
-    const { canUploadSyllabus, editingSyllabus } = this.props.course;
+    const { syllabus, canUploadSyllabus, editingSyllabus } = this.props.course;
     const editButton = canUploadSyllabus ? <button className="link-button" onClick={() => { this.toggleEditing(true); }}>edit</button> : null;
     if (!this._adminUser()) { return null; }
     return (
@@ -63,6 +70,9 @@ export default class SyllabusUpload extends React.Component {
           &nbsp;
           &nbsp;
           {(canUploadSyllabus && editingSyllabus ? this._uploader() : editButton)}
+          &nbsp;
+          &nbsp;
+          {(syllabus !== undefined ? <button className="link-button" onClick={this.removeSyllabus}>remove</button> : null)}
         </div>
       </div>
     );

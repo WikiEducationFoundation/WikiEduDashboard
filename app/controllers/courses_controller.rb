@@ -87,13 +87,23 @@ class CoursesController < ApplicationController
     render json: { course: new_course.as_json }
   end
 
-  def syllabus_upload
-    course = Course.find(params[:id])
-    course.syllabus = params['syllabus']
-    if course.save
-      render json: { success: true, url: course.syllabus.url }
+  def update_syllabus
+    @course = Course.find(params[:id])
+    handle_syllabus_params
+    if @course.save
+      render json: { success: true, url: @course.syllabus.url }
     else
-      render json: course.errors, status: :unprocessable_entity
+      render json: @course.errors, status: :unprocessable_entity
+    end
+  end
+
+  def handle_syllabus_params
+    syllabus = params['syllabus']
+    if syllabus == 'null'
+      @course.syllabus.destroy
+      @course.syllabus = nil
+    else
+      @course.syllabus = params['syllabus']
     end
   end
 

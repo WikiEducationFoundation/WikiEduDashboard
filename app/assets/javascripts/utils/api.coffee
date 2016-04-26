@@ -482,7 +482,7 @@ API =
       $.ajax
         type: 'POST'
         cache: false
-        url: "/courses/#{courseId}/syllabus_upload"
+        url: "/courses/#{courseId}/update_syllabus"
         contentType: false
         processData: false
         data: data

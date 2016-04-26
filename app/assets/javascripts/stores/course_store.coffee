@@ -29,7 +29,6 @@ clearError = ->
 
 updateCourseValue = (key, value) ->
   _course[key] = value
-  console.log _course[key], 'update'
   CourseStore.emitChange()
 
 addCourse = ->
@@ -53,6 +52,10 @@ _dismissNotification = (payload) ->
   index = _.indexOf(notifications, _.where(notifications, { id: id })[0])
   delete _course.survey_notifications[index]
   CourseStore.emitChange()
+
+_handleSyllabusUploadResponse = (data) ->
+  return undefined if data.url.indexOf('missing.png') > -1
+  return data.url
 
 # Store
 CourseStore = Flux.createStore
@@ -84,10 +87,11 @@ CourseStore = Flux.createStore
         ServerActions.saveCourse($.extend(true, {}, { course: _course }), data.course.slug)
       break
     when 'SYLLABUS_UPLOAD_SUCCESS'
+      url = _handleSyllabusUploadResponse(data)
       setCourse
-        syllabus: data.url
         uploadingSyllabus: false
         editingSyllabus: false
+      updateCourseValue 'syllabus', url
       break
     when 'UPLOADING_SYLLABUS'
       setCourse
