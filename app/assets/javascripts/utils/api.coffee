@@ -475,15 +475,14 @@ API =
         console.error 'Error: ' + getErrorMessage(obj)
         rej obj
 
-  uploadFile: ({ courseId, file }) ->
+  uploadSyllabus: ({ courseId, file }) ->
     new Promise (res, rej) ->
-      console.log('before ajax post', courseId, file)
       data = new FormData()
-      data.append("#{file.name}", file)
+      data.append("syllabus", file)
       $.ajax
         type: 'POST'
         cache: false
-        url: "/courses/#{courseId}/file_upload"
+        url: "/courses/#{courseId}/syllabus_upload"
         contentType: false
         processData: false
         data: data
@@ -492,7 +491,6 @@ API =
       .fail (obj, status) ->
         console.error 'Error: ' + getErrorMessage(obj)
         rej obj
-      alert('wtf')
 
 
 module.exports = API
