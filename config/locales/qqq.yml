@@ -293,7 +293,9 @@ qqq:
     training_doc: Explanation of what it means to have completed training and how
       completion is measured.
     training_incomplete: Label that appears for a student who has not completed on-wiki
-      training
+      training. This applies only to courses that took place in 2015 or earlier.
+    training_modules_completed: Label indicating how many of the training modules
+      assigned to the course that an editor has completed
   wizard:
     assignment_dates: Header for the assignment dates section of the wizard
     assignment_type: Header for the assignment type section of the wizard
