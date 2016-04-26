@@ -7,7 +7,7 @@ describe SurveyNotificationsManager do
 
     it 'creates SurveyNotifications for each user ready for a survey' do
       described_class.create_notifications
-      expect(SurveyNotification.all.length).to eq(1)
+      expect(SurveyNotification.all.length).to eq(2)
     end
 
     it 'only creates notifications with unique user and survey combinations' do
@@ -24,7 +24,7 @@ describe SurveyNotificationsManager do
       survey_assignment.cohorts << @cohort1
       survey_assignment.save
       described_class.create_notifications
-      expect(SurveyNotification.all.count).to eq(2)
+      expect(SurveyNotification.all.count).to eq(4)
     end
   end
 end

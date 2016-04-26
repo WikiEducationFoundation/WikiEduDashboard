@@ -16,7 +16,7 @@ describe "surveys:send_notifications" do
 
   it "sends emails to the users email address" do
     expect(ActionMailer::Base.deliveries.first.to.include?(@user.email)).to be(true)
-    expect(ActionMailer::Base.deliveries.last.to.include?(@user.email)).to be(true)
+    expect(ActionMailer::Base.deliveries.last.to.include?(@user2.email)).to be(true)
   end
 
   it "sets SurveyNotification email_sent boolean attribute to true after sending" do
