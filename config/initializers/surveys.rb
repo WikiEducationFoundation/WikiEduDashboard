@@ -133,7 +133,6 @@ Rails.application.config.to_prepare do
 
   Rapidfire::AnswerGroupsController.class_eval do
     include SurveysHelper
-    before_action :require_admin_permissions
     before_action :set_course_if_course_questions, only: [:new]
   end
 
