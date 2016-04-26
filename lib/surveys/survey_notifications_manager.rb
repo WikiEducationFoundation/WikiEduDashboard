@@ -19,7 +19,7 @@ class SurveyNotificationsManager
   private
 
   def build_notifications_for_(courses_user)
-    return if any_existing_notifications?(courses_user)
+    return if any_existing_notifications_for_user?(courses_user)
     notification = SurveyNotification.new(
       courses_users_id: courses_user.id,
       survey_assignment_id: @survey_assignment.id,
@@ -28,9 +28,10 @@ class SurveyNotificationsManager
     notification.save
   end
 
-  def any_existing_notifications?(courses_user)
+  def any_existing_notifications_for_user?(courses_user)
+    all_courses_users_ids = courses_user.user.courses_users.pluck(:id)
     SurveyAssignment.by_courses_user_and_survey(
-      courses_users_id: courses_user.id,
+      courses_users_id: all_courses_users_ids,
       survey_id: @survey_assignment.survey_id
     ).any?
   end
