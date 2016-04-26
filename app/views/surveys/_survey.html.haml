@@ -5,22 +5,22 @@
     .contextual Status
     %strong.survey-color.status= survey_status(survey)
   .survey__admin-row__col
-    .contextual Question Groups | Questions
+    .contextual Groups | Questions
     %strong= survey_question_stats(survey)
   .survey__admin-row__col
     .contextual Last Author
     %span.author= survey_author(survey)
-  .survey__admin-row__col
-    .contextual Created
-    %span= survey.created_at.strftime("%B %d, %Y")
+  -# .survey__admin-row__col
+  -#   .contextual Created
+  -#   %span= survey.created_at.strftime("%B %d, %Y")
   .survey__admin-row__col
     .contextual Updated
     %span= survey.updated_at.strftime("%B %d, %Y")
   .survey__admin-row__col.survey__admin-row__col--actions
+    = link_to 'Edit', edit_survey_path(survey)
+    = link_to "Clone Survey", "/surveys/clone/#{survey.id}", method: :post
     - if survey.rapidfire_question_groups.length > 0
       = link_to 'Preview', "#{survey_url(survey)}?preview"
-    = link_to "Clone Survey", "/surveys/clone/#{survey.id}", method: :post
-    = link_to 'Edit', edit_survey_path(survey)
     = link_to 'Results', survey_results_path(survey)
     -# .course-list__col
     -#   = link_to 'Delete', survey, :method => :delete, :data => { :confirm => 'Are you sure?' }
