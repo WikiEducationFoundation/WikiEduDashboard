@@ -1,6 +1,4 @@
 class SurveyNotificationsController < ApplicationController
-  before_action :require_admin_permissions
-
   def update
     @notification = SurveyNotification.find(params[:survey_notification][:id])
     if @notification.update(notification_params)
