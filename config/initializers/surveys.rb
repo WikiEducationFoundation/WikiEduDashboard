@@ -92,6 +92,8 @@ Rails.application.config.to_prepare do
         csv << ['Question',
                 'Grouped Matrix Question',
                 'Answer',
+                'Follow Up Question',
+                'Follow Up Answer',
                 'Username',
                 'User Email']
         answers.order(:answer_text).collect do |answer|
@@ -99,6 +101,8 @@ Rails.application.config.to_prepare do
             question_text,
             validation_rules[:grouped_question],
             answer.answer_text,
+            follow_up_question_text,
+            answer.follow_up_answer_text,
             answer.user.username,
             answer.user.email
           ]
