@@ -11,6 +11,9 @@
     .survey__question__option-row
       = f.label :answer_presence, "Question is Required"
       = f.check_box :answer_presence, :checked => form.question.rules[:presence].nil? || form.question.rules[:presence] == "1"
+    %div{"data-question-type-options" => "Long,Short"}
+      = f.label :track_sentiment
+      = f.check_box :track_sentiment
     %br/
     = f.label :question_text
     %br/

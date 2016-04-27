@@ -1,7 +1,7 @@
 <!-- rapidfire/question_groups/2/answer_groups/new -->
 <%= form_for(Rapidfire::AnswerGroup.new,
     :url => rapidfire.question_group_answer_groups_path(question_group),
-    :html => {'data-survey-form' => true, 'data-question-group' => question_group_index }) do |f| %>
+    :html => {'data-survey-form' => true, 'data-question-group' => question_group_index, tabindex: -1 }) do |f| %>
   <div <% if !results %>data-question-group-blocks="<%= question_group_index %>"<% end %>>
     <%- @answer_group_builder.answers.each_with_index do |answer, index| %>
 
@@ -49,13 +49,13 @@
 
             <% if !results %>
             <div class='survey__block-nav'>
-              <button class='button survey__prev border' data-prev-survey-block>Previous</button>
+              <button tabindex="-1" class='button survey__prev border' data-prev-survey-block>Previous</button>
               <div class='survey__block-nav__next-container'>
                   <div data-errors></div>
                 <% if question_group_index + 1 == total && @answer_group_builder.answers.length == index + 1 %>
-                  <button class='button dark' data-next-survey-block data-submit-survey data-no-validate>Submit Survey<span class='icon icon-rt_arrow'></span></button>
+                  <button tabindex="-1" class='button dark' data-next-survey-block data-submit-survey data-no-validate>Submit Survey<span class='icon icon-rt_arrow'></span></button>
                 <% else %>
-                  <button class='button survey__next dark' data-next-survey-block>Next <span class='icon icon-rt_arrow'></span></button>
+                  <button tabindex="-1" class='button survey__next dark' data-next-survey-block>Next <span class='icon icon-rt_arrow'></span></button>
                 <% end %>
               </div>
             </div>

@@ -8,5 +8,5 @@
 <% range = min..max %>
 <div class='range-input'>
 <div data-min="<%= min %>" data-max="<%= max %>" data-step="<%= inc %>" data-divisions="<%= divisions %>" data-format="<%= format %>" data-range></div>
-<%= f.number_field :answer_text, :required => is_required_question?(answer), :data => {:range_field => true} %>
+<%= f.number_field :answer_text, :required => is_required_question?(answer), :data => {:range_field => true}, tabindex:'-1' %>
 </div>
