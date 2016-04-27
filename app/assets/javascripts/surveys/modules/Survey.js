@@ -58,10 +58,10 @@ const Survey = {
   previewMode: false,
   detachedParentBlocks: {},
   currentBlockValidated: false,
+  firstQuestionTabbed: false,
 
   init() {
     this.indexQuestionGroups();
-    // this.renderMarkdown();
     this.cacheSelectors();
     this.getUrlParam();
     this.removeUnneededBlocks();
@@ -89,7 +89,6 @@ const Survey = {
     this.$main.on('click', '[data-next-survey-block]', this.validateCurrentQuestion.bind(this));
     this.$main.on('click', '[data-prev-survey-block]', this.previousBlock.bind(this));
     $('[data-submit-survey]').on('click', this.submitAllQuestionGroups.bind(this));
-    // $('[data-chosen-select]').chosen(chosenOptions);
     $('[data-void-checkboxes]').on('click', this.voidCheckboxSelections.bind(this));
     $('.survey__multiple-choice-field input[type=checkbox]').on('change', this.uncheckVoid.bind(this));
     $('.block input, .block textarea, .block select').on('change keydown', this.removeErrorState.bind(this));
@@ -118,23 +117,35 @@ const Survey = {
   initSlider() {
     this.$surveyContainer = $('[data-survey-form-container]');
     this.parentSlider = this.$surveyContainer.slick(_assign({}, slickOptions, { adaptiveHeight: false }));
-    this.parentSlider.on('beforeChange', (e) => {
+
+    this.parentSlider.on('init', (e, slick) => {
+      if (!this.firstQuestionTabbed) {
+        this.toggleTabNavigationForQuestion(true, slick, slick.currentSlide);
+        this.firstQuestionTabbed = true;
+      }
+    });
+    this.parentSlider.on('beforeChange', (e, slick, currentSlide) => {
       if (!this.currentBlockValidated) {
         e.preventDefault();
+      } else {
+        this.toggleTabNavigationForQuestion(false, slick, currentSlide);
       }
     });
     this.parentSlider.on('afterChange', (e, slick, currentSlide) => {
       this.focusNewQuestion();
       const $currentBlock = $(slick.$slides[currentSlide]);
       this.updateProgress($currentBlock);
+      this.toggleTabNavigationForQuestion(true, slick, currentSlide);
     });
 
     this.groupSliders = [];
     $('[data-question-group-blocks]').each((i, questionGroup) => {
       const slider = $(questionGroup).slick(slickOptions);
-      $(slider).on('beforeChange', (e) => {
+      $(slider).on('beforeChange', (e, slick, currentSlide) => {
         if (!this.currentBlockValidated) {
           e.preventDefault();
+        } else {
+          this.toggleTabNavigationForQuestion(false, slick, currentSlide);
         }
       });
       $(slider).on('afterChange', (e, slick, currentSlide) => {
@@ -143,10 +154,25 @@ const Survey = {
         this.currentBlock = currentSlide;
         this.currentBlockValidated = false;
         this.focusNewQuestion();
+        this.toggleTabNavigationForQuestion(true, slick, currentSlide);
       });
       this.groupSliders.push(slider);
     });
     $(this.parentSlider).removeClass('loading');
+  },
+
+  toggleTabNavigationForQuestion(enable, slick, current) {
+    const $slide = $(slick.$slides[current]);
+    let $tabElements;
+    if ($slide.hasClass('new_answer_group')) {
+      $tabElements = $slide.find('.block__container:first [tabindex]');
+    } else {
+      $tabElements = $slide.find('[tabindex]');
+    }
+    const val = enable ? 0 : -1;
+    $tabElements.each((i, el) => {
+      $(el).prop('tabindex', val);
+    });
   },
 
   focusNewQuestion() {
