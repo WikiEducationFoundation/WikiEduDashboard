@@ -169,7 +169,7 @@ Rails.application.config.to_prepare do
       :answer_greater_than_or_equal_to, :answer_less_than_or_equal_to, :answer_grouped,
       :answer_grouped_question, :answer_range_minimum, :answer_range_maximum,
       :answer_range_increment, :answer_range_divisions, :answer_range_format,
-      :follow_up_question_text, :conditionals, :course_data_type, :placeholder_text
+      :follow_up_question_text, :conditionals, :course_data_type, :placeholder_text, :track_sentiment
 
     def save
       @question.new_record? ? create_question : update_question
@@ -198,6 +198,7 @@ Rails.application.config.to_prepare do
         :multiple => multiple,
         :course_data_type => course_data_type,
         :placeholder_text => placeholder_text,
+        :track_sentiment => track_sentiment,
         :validation_rules => {
           :presence => !conditionals.nil? && !conditionals.empty? ? "0" : answer_presence,
           :grouped => answer_grouped,
@@ -225,6 +226,7 @@ Rails.application.config.to_prepare do
       self.multiple = question.multiple
       self.course_data_type = question.course_data_type
       self.placeholder_text = placeholder_text
+      self.track_sentiment = question.track_sentiment
       self.answer_presence =  question.rules[:presence]
       self.answer_grouped = question.rules[:grouped]
       self.answer_grouped_question = question.rules[:grouped_question]

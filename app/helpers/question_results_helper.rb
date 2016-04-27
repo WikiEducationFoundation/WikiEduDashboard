@@ -5,7 +5,7 @@ module QuestionResultsHelper
     answers = question_answers(question)
     {
       type: question_type_to_string(question),
-      sentiment: question_answers_average_sentiment(answers),
+      sentiment: question.track_sentiment ? question_answers_average_sentiment(answers) : nil,
       answer_options: question.answer_options.split(Rapidfire.answers_delimiter),
       answers: parse_answers(question),
       answers_data: answers,
@@ -29,16 +29,23 @@ module QuestionResultsHelper
       tags = course.tags unless course.nil?
       {
         data: a,
-        sentiment: {
-          label: analyzer.sentiment(a.answer_text),
-          score: analyzer.score(a.answer_text)
-        },
         user: a.user,
         course: course,
         cohorts: cohorts,
-        tags: tags
+        tags: tags,
+        sentiment: calculate_sentiment(question, a)
       }
     end
+  end
+
+  def calculate_sentiment(question, answer)
+    return {} unless question.track_sentiment
+    analyzer = Sentimental.new
+    analyzer.load_defaults
+    {
+      label: analyzer.sentiment(answer.answer_text),
+      score: analyzer.score(answer.answer_text)
+    }
   end
 
   def question_answers_average_sentiment(answers)
