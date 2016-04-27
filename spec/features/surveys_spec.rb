@@ -79,16 +79,16 @@ describe 'Surveys', type: :feature, js: true do
                            wiki_token: 'foo',
                            wiki_secret: 'bar')
       course = create(:course,
-             id: 10001,
-             title: 'My Active Course',
-             school: 'University',
-             term: 'Term',
-             slug: 'University/Course_(Term)',
-             submitted: 1,
-             listed: true,
-             passcode: 'passcode',
-             start: '2015-01-01'.to_date,
-             end: '2020-01-01'.to_date)
+                      id: 10001,
+                      title: 'My Active Course',
+                      school: 'University',
+                      term: 'Term',
+                      slug: 'University/Course_(Term)',
+                      submitted: 1,
+                      listed: true,
+                      passcode: 'passcode',
+                      start: '2015-01-01'.to_date,
+                      end: '2020-01-01'.to_date)
 
       @courses_user = create(
         :courses_user,
@@ -140,79 +140,82 @@ describe 'Surveys', type: :feature, js: true do
   end
 
   describe 'Instructor takes survey' do
-    # before do
-    #   @instructor = create(:user,
-    #                        id: 100,
-    #                        username: 'Professor Sage',
-    #                        wiki_token: 'foo',
-    #                        wiki_secret: 'bar')
-    #   @courses_user = create(
-    #     :courses_user,
-    #     id: 1,
-    #     user_id: @instructor.id,
-    #     course_id: 10001,
-    #     role: 1)
-    #
-    #   @survey = create(
-    #     :survey,
-    #     name: 'Instructor Survey',
-    #     intro: 'Welcome to survey',
-    #     thanks: 'You made it!')
-    #
-    #     course = create(:course,
-    #            id: 10001,
-    #            title: 'My Active Course',
-    #            school: 'University',
-    #            term: 'Term',
-    #            slug: 'University/Course_(Term)',
-    #            submitted: 1,
-    #            listed: true,
-    #            passcode: 'passcode',
-    #            start: (Time.zone.today - 2.weeks).to_date,
-    #          end: (Time.zone.today + 3.days).to_date)
-    #
-    #   question_group = create(:question_group, name: "Basic Questions")
-    #   @survey.rapidfire_question_groups << question_group
-    #   @survey.save
-    #   create(:q_checkbox, question_group_id: question_group.id)
-    #   create(:q_long, question_group_id: question_group.id)
-    #   create(:q_radio, question_group_id: question_group.id)
-    #   create(:q_select, question_group_id: question_group.id)
-    #   create(:q_short, question_group_id: question_group.id)
-    #   create(:q_rangeinput, question_group_id: question_group.id)
-    #
-    #   survey_assignment = create(
-    #     :survey_assignment,
-    #     survey_id: @survey.id)
-    #   create(:survey_notification,
-    #          course_id: course.id,
-    #          survey_assignment_id: survey_assignment.id,
-    #          courses_user_id: @courses_user.id)
-    # end
-    #
-    # it 'navigates correctly between each question and submits' do
-    #   login_as(@instructor, scope: :user)
-    #   visit survey_path(@survey)
-    #   click_button('Start')
-    #   find('.label', text: 'hindi').click
-    #   click_button('Next', visible: true)
-    #   next_name = page.find('label', text: 'Long Text Question', visible: true)[:name]
-    #   fill_in(next_name, with: 'testing')
-    #   click_button('Next')
-    #   find('.label', text: 'female').click
-    #   sleep 1;
-    #   click_button('Next', visible: true)
-    #   next_name = page.find('label', text: 'Select Question', visible: true)[:for]
-    #   puts 'finding', next_name
-    #   select_from_chosen('mac', from: next_name.to_s)
-    #   # select('mac', :from => 'answer_text')
-    #   click_button('Next', visible: true)
-    #   next_name = page.find('label', text: 'Short Text Question', visible: true)[:name]
-    #   fill_in(next_name, with: 'testing')
-    #   next_name = page.find('label', 'RangeInput Question', visible: true)[:name]
-    #   driver.execute_script("$('##{next_name}').val('25').trigger('change')")
-    #   click_button('Next', visible: true)
-    # end
+    before do
+      @instructor = create(:user,
+                           id: 100,
+                           username: 'Professor Sage',
+                           wiki_token: 'foo',
+                           wiki_secret: 'bar')
+      @courses_user = create(
+        :courses_user,
+        id: 1,
+        user_id: @instructor.id,
+        course_id: 10001,
+        role: 1)
+
+      @survey = create(
+        :survey,
+        name: 'Instructor Survey',
+        intro: 'Welcome to survey',
+        thanks: 'You made it!')
+
+      course = create(:course,
+                      id: 10001,
+                      title: 'My Active Course',
+                      school: 'University',
+                      term: 'Term',
+                      slug: 'University/Course_(Term)',
+                      submitted: 1,
+                      listed: true,
+                      passcode: 'passcode',
+                      start: (Time.zone.today - 2.weeks).to_date,
+                      end: (Time.zone.today + 3.days).to_date)
+
+      question_group = create(:question_group, name: 'Basic Questions')
+      @survey.rapidfire_question_groups << question_group
+      @survey.save
+      create(:q_checkbox, question_group_id: question_group.id)
+      create(:q_long, question_group_id: question_group.id)
+      create(:q_radio, question_group_id: question_group.id)
+      create(:q_select, question_group_id: question_group.id)
+      create(:q_short, question_group_id: question_group.id)
+      create(:q_rangeinput, question_group_id: question_group.id)
+
+      survey_assignment = create(
+        :survey_assignment,
+        survey_id: @survey.id)
+      create(:survey_notification,
+             course_id: course.id,
+             survey_assignment_id: survey_assignment.id,
+             courses_users_id: @courses_user.id)
+    end
+
+    it 'navigates correctly between each question and submits' do
+      expect(Rapidfire::Answer.count).to eq(0)
+      expect(SurveyNotification.last.completed).to eq(false)
+      login_as(@instructor, scope: :user)
+      visit survey_path(@survey)
+      click_button('Start')
+      find('.label', text: 'hindi').click
+      click_button('Next', visible: true)
+      next_name = page.find('p', text: 'Long Text Question', visible: true)[:name]
+      fill_in(next_name, with: 'testing')
+      click_button('Next')
+      find('.label', text: 'female').click
+      click_button('Next', visible: true)
+      next_name = page.find('p', text: 'Select Question', visible: true)[:for]
+      select('mac', from: 'answer_group_4_answer_text')
+      click_button('Next', visible: true)
+      next_name = page.find('p', text: 'Short Text Question', visible: true)[:name]
+      fill_in(next_name, with: 'testing')
+      click_button('Next', visible: true)
+      next_name = page.find('p', 'RangeInput Question', visible: true)[:name]
+      expect(page).not_to have_content 'You made it!'
+      click_button('Submit Survey', visible: true)
+      expect(page).to have_content 'You made it!'
+      expect(Rapidfire::Answer.count).to eq(6)
+      expect(SurveyNotification.last.completed).to eq(true)
+    end
   end
 
   after do
