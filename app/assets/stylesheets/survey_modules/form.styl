@@ -10,20 +10,20 @@ form:focus
   outline 0
 
 .form__settings
-  float left
-  width 33.3333%
-  margin 0 !important
-  padding 90px 20px 0 20px !important
-  min-height 400px
-  height calc(100vh - 305px)
+  +above(tablet)
+    float left
+    width 33.3333%
+    margin 0 !important
+    padding-top 90px !important
 
 .form__settings__tabs
-  position: absolute;
-  top 0
-  height 60px
-  width 100%
-  margin-left -20px
-  background #ebebeb
+  +above(tablet)
+    position: absolute;
+    top 0
+    height 60px
+    width 100%
+    margin 0px 30px 0px -30px
+    background #ebebeb
 
 .form__settings__tabs .tab
   position absolute
@@ -38,16 +38,22 @@ form:focus
     color sprout
 
 .form__question-list
-  float left
-  width 66.6666%
-  margin 0 !important
-  padding 30px 30px
+  +above(tablet)
+    float left
+    width 66.6666%
+    margin 0 !important
+    padding 30px 30px
 
 .form__row
   padding 1em 0
 
 .form__block
   padding-bottom 1em
+
+.form__block--equal-height
+  +above(tablet)
+    display flex
+    align-items stretch
 
 .form__actions
   overflow hidden
