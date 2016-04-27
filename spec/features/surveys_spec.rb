@@ -206,6 +206,7 @@ describe 'Surveys', type: :feature, js: true do
       next_name = page.find('p', text: 'Select Question', visible: true)[:for]
       select('mac', from: 'answer_group_4_answer_text')
       click_button('Next', visible: true)
+      sleep 1
       next_name = page.find('p', text: 'Short Text Question', visible: true)[:name]
       fill_in(next_name, with: 'testing')
       click_button('Next', visible: true)
