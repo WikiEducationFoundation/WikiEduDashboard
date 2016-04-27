@@ -46,7 +46,6 @@
   height 20px
   background-size 56px 41px
 
-
 .survey__multiple-choice-field .label
   position relative
   display block
@@ -85,6 +84,11 @@
   input[type=checkbox]:checked ~ .survey__multiple-choice-field__checkbox
     background sprout-dark
     border-color sprout-dark
+
+  input[type=radio]:focus ~ .survey__multiple-choice-field__radio-circle
+  input[type=checkbox]:focus ~ .survey__multiple-choice-field__checkbox
+    border-color $survey_color
+    box-shadow 0 0 3px $survey_color
 
   input[type=radio]:checked ~ .survey__multiple-choice-field__radio-circle
     background sprout-dark
