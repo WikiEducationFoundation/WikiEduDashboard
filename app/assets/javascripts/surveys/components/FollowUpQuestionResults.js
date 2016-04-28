@@ -1,10 +1,13 @@
+import _ from 'lodash';
 import React, { Component, PropTypes } from 'react';
 import TextResults from './TextResults';
 
 export default class FollowUpQuestionResults extends Component {
   render() {
     const { type } = this.props;
-    const answers = this.props.follow_up_answers;
+    const answers = _.filter(this.props.follow_up_answers, (a) => {
+      return !_.isEmpty(a);
+    });
     if (answers === undefined || answers.length === 0) {
       return null;
     }
