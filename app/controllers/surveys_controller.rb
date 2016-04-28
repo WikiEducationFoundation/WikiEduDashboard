@@ -25,6 +25,7 @@ class SurveysController < ApplicationController
   before_action :check_if_closed, only: [:show]
   before_action :set_notification, only: [:show]
   before_action :set_course, only: [:show]
+  before_action :set_course_if_survey_has_course_questions, only: [:show]
 
   # GET /surveys
   # GET /surveys.json

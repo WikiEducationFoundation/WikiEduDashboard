@@ -219,6 +219,18 @@ module SurveysHelper
     @question_group.questions.course_data_questions.length > 0
   end
 
+  def set_course_if_survey_has_course_questions
+    course_questions = @surveys_question_groups.map do |sqg|
+      sqg.question_group.questions.course_data_questions
+    end
+    if !course_questions.empty? && !has_course_slug
+      @courses = Course.all
+      render 'course_select'
+    else
+      set_course
+    end
+  end
+
   def set_course_if_course_questions
     if has_course_questions && !has_course_slug
       @courses = Course.all
