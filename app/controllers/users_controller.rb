@@ -4,7 +4,7 @@ require "#{Rails.root}/lib/wiki_course_edits"
 class UsersController < ApplicationController
   respond_to :html, :json
   before_action :require_participating_user,
-                only: [:save, :enroll]
+                only: [:save_assignments, :enroll]
 
   def signout
     if current_user.nil?
@@ -54,22 +54,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def enroll_params
-    params.require(:user).permit(:user_id, :username, :role)
-  end
-
-  def fetch_enroll_records
-    require "#{Rails.root}/lib/importers/user_importer"
-
-    @course = Course.find_by_slug(params[:id])
-    if enroll_params.key? :user_id
-      @user = User.find(enroll_params[:user_id])
-    elsif enroll_params.key? :username
-      username = enroll_params[:username]
-      @user = User.find_by(username: username)
-      @user = UserImporter.new_from_username(username) if @user.nil?
-    end
-  end
+  private
 
   def add
     fetch_enroll_records
@@ -120,7 +105,22 @@ class UsersController < ApplicationController
     WikiCourseEdits.new(action: :update_course, course: @course, current_user: current_user)
   end
 
-  private
+  def fetch_enroll_records
+    require "#{Rails.root}/lib/importers/user_importer"
+
+    @course = Course.find_by_slug(params[:id])
+    if enroll_params.key? :user_id
+      @user = User.find(enroll_params[:user_id])
+    elsif enroll_params.key? :username
+      username = enroll_params[:username]
+      @user = User.find_by(username: username)
+      @user = UserImporter.new_from_username(username) if @user.nil?
+    end
+  end
+
+  def enroll_params
+    params.require(:user).permit(:user_id, :username, :role)
+  end
 
   def user_params
     params.permit(

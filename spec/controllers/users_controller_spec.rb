@@ -15,25 +15,22 @@ describe UsersController do
       allow_any_instance_of(WikiCourseEdits).to receive(:remove_assignment)
       allow_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
       allow(controller).to receive(:current_user).and_return(user)
-      allow(controller).to receive(:require_participating_user)
     end
 
     subject { response.status }
 
+    # Users who are not part of the course enroll via SelfEnrollmentController
     context 'POST, when the user is not part of the course' do
       let(:post_params) do
         { id: course.slug,
           user: { user_id: user.id, role: CoursesUsers::Roles::STUDENT_ROLE }.as_json }
       end
       before { post 'enroll', post_params }
-      it 'creates a CoursesUsers' do
-        expect(CoursesUsers.count).to eq(1)
+      it 'does not create a CoursesUsers' do
+        expect(CoursesUsers.count).to eq(0)
       end
-      it 'renders a json template' do
-        expect(subject).to render_template('users')
-      end
-      it 'succeeds' do
-        expect(subject).to eq(200)
+      it 'returns a 401' do
+        expect(subject).to eq(401)
       end
     end
 
@@ -57,6 +54,10 @@ describe UsersController do
     end
 
     context 'POST with nonstudent role, when the user is an admin' do
+      before do
+        allow(controller).to receive(:current_user).and_return(admin)
+      end
+
       let(:post_params) do
         { id: course.slug,
           user: { user_id: admin.id, role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE }.as_json }
@@ -106,7 +107,7 @@ describe UsersController do
     end
 
     it 'should onboard with valid params' do
-      put 'onboard', {real_name: 'Name', email: 'email@email.org', instructor: false}
+      put 'onboard', real_name: 'Name', email: 'email@email.org', instructor: false
       expect(response.status).to eq(204)
       expect(user.reload.onboarded).to eq(true)
       expect(user.real_name).to eq('Name')
@@ -114,16 +115,16 @@ describe UsersController do
     end
 
     it 'should not onboard with invalid params' do
-      expect { put 'onboard', {real_name: 'Name', email: 'email@email.org'} }.to raise_error ActionController::ParameterMissing
+      expect { put 'onboard', real_name: 'Name', email: 'email@email.org' }
+        .to raise_error ActionController::ParameterMissing
     end
 
     it 'should remain an admin regardless of instructor param' do
-      user.update_attributes({permissions: User::Permissions::ADMIN, onboarded: false})
-      put 'onboard', {real_name: 'Name', email: 'email@email.org', instructor: true}
+      user.update_attributes(permissions: User::Permissions::ADMIN, onboarded: false)
+      put 'onboard', real_name: 'Name', email: 'email@email.org', instructor: true
       expect(response.status).to eq(204)
       expect(user.reload.onboarded).to eq(true)
       expect(user.permissions).to eq(User::Permissions::ADMIN)
     end
-
   end
 end
