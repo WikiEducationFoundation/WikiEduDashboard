@@ -23,7 +23,7 @@ describe 'Survey Administration', type: :feature, js: true do
       course.courses_users << create(:courses_user, user_id: instructor.id, role: 1)
     end
 
-    it 'can create a Surveys, Question Group, and Question' do
+    it 'can create a Survey and a SurveyAssignment' do
       # Create the survey
       expect(Survey.count).to eq(0)
       visit '/surveys'
@@ -69,6 +69,11 @@ describe 'Survey Administration', type: :feature, js: true do
       check 'survey_rapidfire_question_group_ids_1'
       page.find('input.button').click
 
+      # Update question group to show title
+      click_link 'Edit'
+      check 'show_title'
+      page.all('input.button')[0].click
+
       # View the results page and download CSV results
       visit '/survey/results/1'
       click_link 'Download Survey Results CSV'
@@ -100,10 +105,8 @@ describe 'Survey Administration', type: :feature, js: true do
       end
       sleep 1
       expect(Survey.count).to eq(1)
-    end
 
-    it 'can create and destroy a Survey Assignment' do
-      create(:survey)
+      # Create a SurveyAssignment
       expect(SurveyAssignment.count).to eq(0)
       visit '/surveys/assignments'
       click_link 'New Survey Assignment'
@@ -127,7 +130,12 @@ describe 'Survey Administration', type: :feature, js: true do
       fill_in('survey_assignment_notes', with: 'This is a test.')
       page.find('input.button').click
 
+      # Check that the survey is now "In Use"
+      visit '/surveys'
+      expect(page).to have_content 'In Use'
+
       # Destroy the SurveyAssignment
+      click_link 'Assignment'
       page.accept_confirm do
         click_link 'Destroy'
       end
