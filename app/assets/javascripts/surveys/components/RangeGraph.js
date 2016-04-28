@@ -38,7 +38,7 @@ export default class RangeGraph extends Component {
             className="results__range-graph__bar"
             onMouseEnter={() => { this.showValue(key); }}
             onMouseLeave={() => { this.showValue(null); }}
-            style={{ position: 'absolute', display: 'block', width: 10, left: -10, bottom: 0, height: (increment * answers[key]) - 1 }}
+            style={{ position: 'absolute', display: 'block', width: 10, left: -10, bottom: 0, height: (increment * answers[key]) }}
           />
         </div>);
       })}
@@ -62,7 +62,7 @@ export default class RangeGraph extends Component {
     return (
       <div>
       <span className="contextual">Frequency</span>
-      <div style={{ padding: 20 }}>
+      <div style={{ padding: '20px 0 20px 20px' }}>
       <div className="results__range-graph" style={{ position: 'relative', width: '100%', height: graphHeight }}>
         {yAxis()}
         {xAxis()}
