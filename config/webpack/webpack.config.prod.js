@@ -51,6 +51,11 @@ module.exports = {
     plugins: [
       new ManifestPlugin({
         fileName: 'rev-manifest.json'
+      }),
+      new webpack.DefinePlugin({
+        'process.env': {
+          'NODE_ENV': JSON.stringify("production")
+        }
       })
     ]
 };
