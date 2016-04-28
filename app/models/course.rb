@@ -123,7 +123,7 @@ class Course < ActiveRecord::Base
   def self.will_be_ready_for_survey(opts)
     days_offset, before, relative_to = opts.values_at(:days, :before, :relative_to)
     today = Time.zone.today
-    ready_date = before ? today + days_offset : today - days_offset
+    ready_date = before ? today + days_offset.days : today - days_offset.days
     where("#{relative_to} > '#{ready_date}'")
   end
 

@@ -10,6 +10,8 @@ RSpec.describe SurveyAssignment, type: :model do
   end
 
   let(:course) { create(:course, start: course_start, end: course_end) }
+  let(:course_start) { Time.zone.today - 1.month }
+  let(:course_end) { Time.zone.today + 1.month }
 
   it 'has one Survey' do
     expect(@survey_assignment.survey).to be_instance_of(Survey)
@@ -34,9 +36,6 @@ RSpec.describe SurveyAssignment, type: :model do
   end
 
   describe '#active?' do
-    let(:course_start) { Time.zone.today - 1.month }
-    let(:course_end) { Time.zone.today + 1.month }
-
     it 'returns true if there are yet-to-be-notified courses' do
       course.cohorts << @cohort
       course.save
@@ -50,10 +49,55 @@ RSpec.describe SurveyAssignment, type: :model do
     end
   end
 
-  describe "#total_notifications" do
-    let(:course_start) { Time.zone.today - 1.month }
-    let(:course_end) { Time.zone.today + 1.month }
+  describe '#status' do
+    let(:survey_assignment) do
+      create(:survey_assignment, survey_id: survey.id, published: published, courses_user_role: 1)
+    end
+    let(:survey) { create(:survey, closed: closed) }
+    let(:closed) { false }
+    let(:subject) { survey_assignment.status }
 
+    context 'when it is not published' do
+      let(:published) { false }
+      it 'returns `Draft`' do
+        expect(subject).to eq('Draft')
+      end
+    end
+
+    context 'when it is published but has no applicable users' do
+      let(:published) { true }
+      it 'returns `Pending`' do
+        expect(subject).to eq('Pending')
+      end
+    end
+
+    context 'when it is published and has applicable users' do
+      let(:published) { true }
+
+      it 'returns `Active`' do
+        course.cohorts << @cohort
+        survey_assignment.cohorts << @cohort
+        create(:user, id: 1)
+        create(:courses_user, user_id: 1, course_id: course.id, role: 1)
+        expect(subject).to eq('Active')
+      end
+    end
+
+    context 'when it is published and has applicable users and is closed' do
+      let(:published) { true }
+      let(:closed) { true }
+
+      it 'returns `Closed`' do
+        course.cohorts << @cohort
+        survey_assignment.cohorts << @cohort
+        create(:user, id: 1)
+        create(:courses_user, user_id: 1, course_id: course.id, role: 1)
+        expect(subject).to eq('Closed')
+      end
+    end
+  end
+
+  describe '#total_notifications' do
     it 'returns the total number of users who will receive a notification' do
       course.cohorts << @cohort
       course.save
@@ -86,7 +130,7 @@ RSpec.describe SurveyAssignment, type: :model do
       ).length).to eq(1)
     end
 
-    it 'returns an empty array if no notifications match the provided courses_user and survey ids' do
+    it 'returns an empty array if no notifications match the courses_user and survey ids' do
       notification = create(:survey_notification, courses_users_id: 1)
       @survey_assignment.survey_notifications << notification
       @survey_assignment.save
@@ -105,8 +149,6 @@ RSpec.describe SurveyAssignment, type: :model do
         before: before,
         relative_to: relative_to)
     end
-    let(:course_start) { Time.zone.today - 1.month }
-    let(:course_end) { Time.zone.today + 1.month }
 
     context 'when `n` days before their course end is Today' do
       let(:course_end) { Time.zone.today - n.days }
@@ -169,82 +211,73 @@ RSpec.describe SurveyAssignment, type: :model do
     end
   end
 
-  describe "Course Model: will_be_ready_for_survey scope" do
-    it 'returns Courses where `n` days before their course end is after Today' do
-      course  = create(:course,
-          id: 1,
-          start: Time.zone.today - 7.days,
-          end: Time.zone.today + 1.month,
-          passcode: 'pizza',
-          title: 'Underwater basket-weaving')
-
-      course.cohorts << @cohort
-      course.save
-
-      scope = @survey_assignment.cohorts.first.courses.will_be_ready_for_survey({
-        :days => 7,
-        :before => true,
-        :relative_to => 'end'
-      })
-
-      expect(scope.length).to eq(1)
+  describe 'Course Model: will_be_ready_for_survey scope' do
+    let(:n) { 7 }
+    let(:course_will_be_ready_scope) do
+      @survey_assignment.cohorts.first.courses.will_be_ready_for_survey(
+        days: n,
+        before: before,
+        relative_to: relative_to)
     end
-    it 'returns Courses where `n` days after their course end is after Today' do
-      course  = create(:course,
-          id: 1,
-          start: Time.zone.today - 7.days,
-          end: Time.zone.today + 1.month,
-          passcode: 'pizza',
-          title: 'Underwater basket-weaving')
 
-      course.cohorts << @cohort
-      course.save
+    context 'when `n` days before the course end is after Today' do
+      let(:course_end) { Time.zone.today + n.days + 1.day }
+      let(:before) { true }
+      let(:relative_to) { 'end' }
 
-      scope = @survey_assignment.cohorts.first.courses.will_be_ready_for_survey({
-        :days => 7,
-        :before => false,
-        :relative_to => 'end'
-      })
-
-      expect(scope.length).to eq(1)
+      it 'returns the Course' do
+        course.cohorts << @cohort
+        course.save
+        expect(course_will_be_ready_scope.length).to eq(1)
+      end
     end
-    it 'returns Courses where `n` days before their course start is after Today' do
-      course  = create(:course,
-          id: 1,
-          start: Time.zone.today + 2.weeks,
-          end: Time.zone.today + 1.month,
-          passcode: 'pizza',
-          title: 'Underwater basket-weaving')
 
-      course.cohorts << @cohort
-      course.save
+    context 'when `n` days before the course start is after Today' do
+      let(:course_start) { Time.zone.today + n.days + 1.day }
+      let(:before) { true }
+      let(:relative_to) { 'start' }
 
-      scope = @survey_assignment.cohorts.first.courses.will_be_ready_for_survey({
-        :days => 7,
-        :before => true,
-        :relative_to => 'start'
-      })
-
-      expect(scope.length).to eq(1)
+      it 'returns the Course' do
+        course.cohorts << @cohort
+        course.save
+        expect(course_will_be_ready_scope.length).to eq(1)
+      end
     end
-    it 'returns Courses where `n` days after their course start is after Today' do
-      course  = create(:course,
-          id: 1,
-          start: Time.zone.today + 2.weeks,
-          end: Time.zone.today + 1.month,
-          passcode: 'pizza',
-          title: 'Underwater basket-weaving')
 
-      course.cohorts << @cohort
-      course.save
+    context 'when `n` days after their course end is after Today' do
+      let(:course_end) { Time.zone.today - n.days + 1.day }
+      let(:before) { false }
+      let(:relative_to) { 'end' }
 
-      scope = @survey_assignment.cohorts.first.courses.will_be_ready_for_survey({
-        :days => 7,
-        :before => false,
-        :relative_to => 'start'
-      })
+      it 'returns the Course' do
+        course.cohorts << @cohort
+        course.save
+        expect(course_will_be_ready_scope.length).to eq(1)
+      end
+    end
 
-      expect(scope.length).to eq(1)
+    context 'when `n` days after their course start is after Today' do
+      let(:course_start) { Time.zone.today - n.days + 1.day }
+      let(:before) { false }
+      let(:relative_to) { 'start' }
+
+      it 'returns the Course' do
+        course.cohorts << @cohort
+        course.save
+        expect(course_will_be_ready_scope.length).to eq(1)
+      end
+    end
+
+    context 'when `n` days after their course start is exactly Today' do
+      let(:course_start) { Time.zone.today - n.days }
+      let(:before) { false }
+      let(:relative_to) { 'start' }
+
+      it 'does not return the Course' do
+        course.cohorts << @cohort
+        course.save
+        expect(course_will_be_ready_scope.length).to eq(0)
+      end
     end
   end
 end

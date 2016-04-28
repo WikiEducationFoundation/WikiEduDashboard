@@ -26,7 +26,9 @@ class SurveyAssignment < ActiveRecord::Base
 
   def total_notifications
     users = cohorts.collect do |c|
+      pp c.slug
       c.courses.collect do |course|
+        pp course.title
         course.courses_users.where(role: courses_user_role)
       end
     end
@@ -66,10 +68,9 @@ class SurveyAssignment < ActiveRecord::Base
 
   def status
     return 'Draft' unless published
-    return 'Nil' if total_notifications == 0
+    return 'Closed' if survey.closed
     return 'Pending' if total_notifications == 0
     return 'Active' if total_notifications > 0
-    return 'Closed' if survey.closed
   end
 
   private
