@@ -34,7 +34,7 @@ class SurveysController < ApplicationController
   end
 
   def results_index
-
+    @surveys = Survey.all
   end
 
   def results

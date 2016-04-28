@@ -9,6 +9,12 @@ class Survey < ActiveRecord::Base
                           association_foreign_key: 'rapidfire_question_group_id'
   accepts_nested_attributes_for :rapidfire_question_groups
 
+  def status
+    active = survey_assignments.map(&:active?)
+    return "In Use (#{active.count})" unless active.empty?
+    '--'
+  end
+
   def to_csv
     CSV.generate do |csv|
       csv << ['Question Group',
