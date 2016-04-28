@@ -17,7 +17,7 @@ export default class BarGraph extends Component {
           const barValuePosition = isNaN(width) ? '0%' : `${width - valueOffset}%`;
           const greaterThanZero = !nullWidth && width > 0;
           return (<div key={key}>
-            <div className="results__bar-graph__row">
+            <div className={`results__bar-graph__row ${(!greaterThanZero ? 'empty' : '')}`}>
               <div className="results__bar-graph__question"><strong>{key}</strong></div>
               <div className="results__bar-graph__bar-row">
                 <div className={`results__bar-graph__bar ${(greaterThanZero ? 'active' : '')}`} style={{ height: 20, width: widthPercent, background: '#E5AB28', display: 'inline-block', verticalAlign: 'middle' }}></div>
