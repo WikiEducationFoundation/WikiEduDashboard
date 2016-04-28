@@ -18,15 +18,11 @@
 
       <%= f.fields_for("#{answer.question.id}", answer) do |answer_form| %>
 
-      <%= render partial: "rapidfire/answers/matrix_question_text", locals: {f: f, answer: answer, show_title: surveys_question_group[:show_title], name: question_group.name} %>
+      <%= render partial: "rapidfire/answers/matrix_question_text", locals: {f: f, answer: answer, name: question_group.name} %>
 
       <% if !is_grouped_question(answer) %>
         <div class='block__container'><div id="question_<%= answer.question.id %>" class='block disabled not-seen question-type--<%= question_type(answer) %> <% if answer.errors.any? %>block--errors<% end %> <% if is_required_question?(answer) %>required<% end %>' data-survey-block='<%= index + 1 %>'>
       <% end %>
-
-        <% if surveys_question_group[:show_title] && !is_grouped_question(answer) %>
-          <h3 class='survey__question__group-title'><%= question_group.name %></h3>
-        <% end %>
 
           <% if !results && is_grouped_question(answer) && is_start_of_group && is_radio_type(answer) %>
             <div class='survey__question-row first matrix-row' data-block-index='<%= index %>'>
