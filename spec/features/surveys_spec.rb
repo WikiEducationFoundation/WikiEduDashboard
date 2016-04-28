@@ -197,20 +197,20 @@ describe 'Surveys', type: :feature, js: true do
       visit survey_path(@survey)
       click_button('Start')
       find('.label', text: 'hindi').click
-      click_button('Next', visible: true)
-      next_name = page.find('p', text: 'Long Text Question', visible: true)[:name]
-      fill_in(next_name, with: 'testing')
-      click_button('Next')
-      find('.label', text: 'female').click
-      click_button('Next', visible: true)
-      next_name = page.find('p', text: 'Select Question', visible: true)[:for]
-      select('mac', from: 'answer_group_4_answer_text')
-      click_button('Next', visible: true)
       sleep 1
-      next_name = page.find('p', text: 'Short Text Question', visible: true)[:name]
-      fill_in(next_name, with: 'testing')
       click_button('Next', visible: true)
-      next_name = page.find('p', 'RangeInput Question', visible: true)[:name]
+      fill_in('answer_group_2_answer_text', with: 'testing')
+      sleep 1
+      click_button('Next', visible: true)
+      find('.label', text: 'female').click
+      sleep 1
+      click_button('Next', visible: true)
+      select('mac', from: 'answer_group_4_answer_text')
+      sleep 1
+      click_button('Next', visible: true)
+      fill_in('answer_group_5_answer_text', with: 'testing')
+      sleep 1
+      click_button('Next', visible: true)
       expect(page).not_to have_content 'You made it!'
       click_button('Submit Survey', visible: true)
       expect(page).to have_content 'You made it!'
