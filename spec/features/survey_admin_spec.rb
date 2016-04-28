@@ -6,7 +6,7 @@ describe 'Survey Administration', type: :feature, js: true do
 
   before do
     include Devise::TestHelpers, type: :feature
-    #Capybara.current_driver = :selenium
+    # Capybara.current_driver = :selenium
     page.current_window.resize_to(1920, 1080)
   end
 
@@ -61,6 +61,45 @@ describe 'Survey Administration', type: :feature, js: true do
       click_link 'Clone'
       sleep 1
       expect(Rapidfire::Question.count).to eq(2)
+
+      # Add a question group to the survey
+      visit '/surveys'
+      click_link 'Edit'
+      click_link 'Edit Question Groups'
+      check 'survey_rapidfire_question_group_ids_1'
+      page.find('input.button').click
+
+      # View the results page and download CSV results
+      visit '/survey/results/1'
+      click_link 'Download Survey Results CSV'
+
+      visit '/survey/results/1'
+      within 'div#question_1' do
+        click_link 'Download Results CSV'
+      end
+
+      # Clone a Survey
+      visit '/surveys'
+      click_link 'Clone Survey'
+
+      # Clone a Question Group
+      click_link 'Question Groups'
+      click_link 'Clone'
+
+      # Delete a Question Group
+      within 'li#question_group_2' do
+        page.accept_confirm do
+          click_link 'Delete'
+        end
+      end
+
+      # Destroy a survey
+      visit '/surveys/1/edit'
+      page.accept_confirm do
+        click_link 'Delete this survey'
+      end
+      sleep 1
+      expect(Survey.count).to eq(1)
     end
 
     it 'can create and destroy a Survey Assignment' do
@@ -82,6 +121,11 @@ describe 'Survey Administration', type: :feature, js: true do
 
       click_link 'Create Notifications'
       click_link 'Send Emails'
+
+      # Update the SurveyAssignment
+      click_link 'Edit'
+      fill_in('survey_assignment_notes', with: 'This is a test.')
+      page.find('input.button').click
 
       # Destroy the SurveyAssignment
       page.accept_confirm do

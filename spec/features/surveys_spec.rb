@@ -190,34 +190,35 @@ describe 'Surveys', type: :feature, js: true do
              courses_users_id: @courses_user.id)
     end
 
-    # FIXME: This fails on travis, although it works locally.
-    # it 'navigates correctly between each question and submits' do
-    #   expect(Rapidfire::Answer.count).to eq(0)
-    #   expect(SurveyNotification.last.completed).to eq(false)
-    #   login_as(@instructor, scope: :user)
-    #   visit survey_path(@survey)
-    #   click_button('Start')
-    #   find('.label', text: 'hindi').click
-    #   sleep 1
-    #   click_button('Next', visible: true)
-    #   fill_in('answer_group_2_answer_text', with: 'testing')
-    #   sleep 1
-    #   click_button('Next', visible: true)
-    #   find('.label', text: 'female').click
-    #   sleep 1
-    #   click_button('Next', visible: true)
-    #   select('mac', from: 'answer_group_4_answer_text')
-    #   sleep 1
-    #   click_button('Next', visible: true)
-    #   fill_in('answer_group_5_answer_text', with: 'testing')
-    #   sleep 1
-    #   click_button('Next', visible: true)
-    #   expect(page).not_to have_content 'You made it!'
-    #   click_button('Submit Survey', visible: true)
-    #   expect(page).to have_content 'You made it!'
-    #   expect(Rapidfire::Answer.count).to eq(6)
-    #   expect(SurveyNotification.last.completed).to eq(true)
-    # end
+    it 'navigates correctly between each question and submits' do
+      expect(Rapidfire::Answer.count).to eq(0)
+      expect(SurveyNotification.last.completed).to eq(false)
+      login_as(@instructor, scope: :user)
+      visit survey_path(@survey)
+      click_button('Start')
+      find('.label', text: 'hindi').click
+      sleep 1
+      click_button('Next', visible: true)
+      # FIXME: The rest of this fails on travis, although it works locally.
+
+      # fill_in('answer_group_2_answer_text', with: 'testing')
+      # sleep 1
+      # click_button('Next', visible: true)
+      # find('.label', text: 'female').click
+      # sleep 1
+      # click_button('Next', visible: true)
+      # select('mac', from: 'answer_group_4_answer_text')
+      # sleep 1
+      # click_button('Next', visible: true)
+      # fill_in('answer_group_5_answer_text', with: 'testing')
+      # sleep 1
+      # click_button('Next', visible: true)
+      # expect(page).not_to have_content 'You made it!'
+      # click_button('Submit Survey', visible: true)
+      # expect(page).to have_content 'You made it!'
+      # expect(Rapidfire::Answer.count).to eq(6)
+      # expect(SurveyNotification.last.completed).to eq(true)
+    end
   end
 
   after do

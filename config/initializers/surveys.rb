@@ -57,7 +57,7 @@ Rails.application.config.to_prepare do
       @question_group.destroy
 
       respond_to do |format|
-        format.html { redirect_to question_group_path }
+        format.html { redirect_to question_groups_path }
         format.js
       end
     end
