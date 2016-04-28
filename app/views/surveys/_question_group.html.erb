@@ -2,8 +2,11 @@
 <%= form_for(Rapidfire::AnswerGroup.new,
     :url => rapidfire.question_group_answer_groups_path(question_group),
     :html => {'data-survey-form' => true, 'data-question-group' => question_group_index, tabindex: -1 }) do |f| %>
+
   <div <% if !results %>data-question-group-blocks="<%= question_group_index %>"<% end %>>
     <%- @answer_group_builder.answers.each_with_index do |answer, index| %>
+
+    <% next if results && question_type(answer) == 'text' %>
 
     <% is_start_of_group = start_of_group(answers:@answer_group_builder.answers, index: index) %>
     <% is_end_of_group = end_of_group(answer, @answer_group_builder, index) %>
