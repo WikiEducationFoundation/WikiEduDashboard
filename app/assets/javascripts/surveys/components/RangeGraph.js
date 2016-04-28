@@ -1,28 +1,52 @@
 import _ from 'lodash';
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { answerFrequency } from './utils';
 
 export default class RangeGraph extends Component {
+  constructor() {
+    super();
+    this.state = {
+      showValue: null
+    };
+    this.showValue = this._showValue.bind(this);
+  }
+  _showValue(val) {
+    this.setState({ showValue: val });
+  }
   render() {
+    const validationRules = this.props.question.validation_rules;
+    const min = validationRules.range_minimum;
+    const max = validationRules.range_maximum;
     const answers = answerFrequency(this.props);
     const answerKeys = _.keys(answers).sort((a, b) => { return a - b; });
     const mostFrequent = _.values(answers).sort((a, b) => { return a - b; }).pop();
     const graphHeight = mostFrequent * 40;
-    const max = answerKeys[answerKeys.length - 1];
+    const showValue = this.state.showValue;
 
-    function xAxis() {
+    const xAxis = () => {
       return (<div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, width: '100%' }}>
+      <span className="results__range-graph__min">{min}</span>
+      <span className="results__range-graph__mid">{(max - min) / 2}</span>
       {answerKeys.map(key => {
         const increment = (graphHeight / mostFrequent);
         const xPos = (key / max) * 100;
-        const value = <div className="results__range-graph__value" style={{ position: 'absolute', bottom: -25, left: -7.5 }}>{key}</div>;
+        const show = showValue === key;
+        const value = <div className={`results__range-graph__value ${show ? 'show' : ''}`} style={{ position: 'absolute', left: 0 }}>{key}</div>;
         return (<div key={key} style={{ display: 'inline-block', textAlign: 'center', position: 'absolute', left: `${xPos}%`, bottom: 0 }}>
           {value}
-          <div className="results__range-graph__bar" style={{ position: 'absolute', display: 'block', width: 5, left: -5, bottom: 0, height: (increment * answers[key]) - 1 }} />
+          <div
+            className="results__range-graph__bar"
+            onMouseEnter={() => { this.showValue(key); }}
+            onMouseLeave={() => { this.showValue(null); }}
+            style={{ position: 'absolute', display: 'block', width: 10, left: -10, bottom: 0, height: (increment * answers[key]) - 1 }}
+          />
         </div>);
-      })}</div>);
-    }
-    function yAxis() {
+      })}
+      <span className="results__range-graph__max">{max}</span>
+      </div>);
+    };
+
+    const yAxis = () => {
       let i = 0;
       const increment = (graphHeight / mostFrequent) - 1;
       const yRows = [];
@@ -33,9 +57,7 @@ export default class RangeGraph extends Component {
         </div>);
       }
       return yRows;
-    }
-
-    // function
+    };
 
     return (
       <div>
@@ -51,3 +73,7 @@ export default class RangeGraph extends Component {
     );
   }
 }
+
+RangeGraph.propTypes = {
+  question: PropTypes.object
+};
