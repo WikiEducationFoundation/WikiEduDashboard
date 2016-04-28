@@ -33,53 +33,6 @@
   +above(tablet)
     float left
 
-.results .survey__question-text
-  margin-bottom 0
-
-.survey-page .results .block.survey__question--matrix .survey__question-text--matrix
-  padding-left 0
-
-.survey-page .results .block.survey__question--matrix .survey__question-row
-  padding-left 0
-
-.results .block h4
-  margin 0
-  color $survey_color
-
-.results .block .button-link
-  color $survey_color
-
-.results__question-footer
-  display flex
-  justify-content space-between
-  margin-top 10px
-  padding-top 20px
-  border-top 1px solid border_lt
-
-  strong, a
-    font-size 14px
-
-.results .block .button-link
-  font-size 14px
-
-.survey-page .results .block.survey__question--matrix .survey__question-row
-  border-bottom none
-  padding-bottom 10px
-
-  .results__question-footer
-    padding 20px 10px
-
-.survey-page .results .block.survey__question--matrix .survey__question-row.odd
-  background none
-
-
-/* /////////////////////////////////////////////////////
-
-Bar Graph
-
-///////////////////////////////////////////////////// */
-
-
 .results__bar-graph__row
   // overflow hidden
   position relative
@@ -90,13 +43,11 @@ Bar Graph
   +above(tablet)
     width 200px
     font-size 14px
-    padding-right 10px
-    line-height 1.25
 
 .results__bar-graph__bar-row
   position relative
   background $bg_light_gray
-  padding 25px 0
+  padding 40px 0
   // float left
   width 500px
 
@@ -125,7 +76,7 @@ Bar Graph
     background $survey_results_color
 
 .results__bar-graph__bar-value
-  top 0px
+  top 10px
   font-weight 500
   font-size 14px
 
@@ -206,15 +157,10 @@ Text Results
 
 ///////////////////////////////////////////////////// */
 
-
 .results__text
   padding-top 20px
   margin-bottom 20px
   border-bottom 1px solid $border_med
-
-.results__text__follow-up-question
-  padding-bottom 10px
-  display block
 
 .results__text-answer
   padding 20px
@@ -227,9 +173,6 @@ Text Results
   display flex
   justify-content space-between
   padding-bottom 10px
-
-.results__text-answer__course-title
-  font-size 14px
 
 .results__text__sentiment,
 .results__text__sentiment--average
