@@ -28,6 +28,7 @@
 
 .results
   max-width 700px
+  width 100%
   font-family: 'Open Sans', sans-serif;
   +above(tablet)
     float left
@@ -83,8 +84,12 @@
     color $text
     font-weight 300
 
-.results__range-graph__value
-  font-size 12px
+
+/* /////////////////////////////////////////////////////
+
+Range Graph
+
+///////////////////////////////////////////////////// */
 
 .results__range-graph
   background $bg_light_gray
@@ -94,3 +99,107 @@
 
 .results__range-graph__row
   border-top 1px solid $border_med
+
+.results__range-graph:after
+  content ''
+  display block
+  position absolute
+  z-index 1
+  left 50%
+  top 0
+  bottom 0
+  width 1px
+  height 100%
+  border-right 1px dashed darken($bg_light_gray, 10%)
+
+.results__range-graph__bar
+  z-index 2
+  cursor pointer
+  transition background 100ms linear
+  &:hover
+    background $survey_color
+    z-index 5
+
+.results__range-graph__value
+  text-align center
+  opacity 0
+  transition 100ms linear opacity
+  width 30px
+  left 50%
+  transform translateX(-20px)
+  bottom -25px
+  background white
+  z-index 2
+  &.show
+    opacity 1
+
+.results__range-graph__min
+.results__range-graph__mid
+.results__range-graph__max
+  position absolute
+  opacity .35
+
+.results__range-graph__min
+  left 0
+
+.results__range-graph__mid
+  left 50%
+  transform translateX(-50%)
+
+.results__range-graph__max
+  left auto
+  right 0
+
+
+/* /////////////////////////////////////////////////////
+
+Text Results
+
+///////////////////////////////////////////////////// */
+
+.results__text
+  padding-top 20px
+  margin-bottom 20px
+  border-bottom 1px solid $border_med
+
+.results__text-answer
+  padding 20px
+  background $bg_light_gray
+  border 1px solid $border_med
+  border-bottom none
+  position relative
+
+.results__text-answer__info
+  display flex
+  justify-content space-between
+  padding-bottom 10px
+
+.results__text__sentiment,
+.results__text__sentiment--average
+  font-size 13px
+  padding 4px 8px
+  width auto
+  display inline-block
+
+.results__text__sentiment
+  position absolute
+  bottom 0
+  right 0
+
+.results__text__answer
+  padding-bottom 20px
+
+.results__text__follow-up-answer
+  display block
+  margin-top 10px
+  border-top 1px solid $border_med
+  padding-top 10px
+
+.results__text__sentiment--positive
+  background rgba(sprout, .2)
+
+.results__text__sentiment--neutral
+  background rgba($border_med_dk, .3)
+
+.results__text__sentiment--negative
+  background rgba($warning_text, .2)
