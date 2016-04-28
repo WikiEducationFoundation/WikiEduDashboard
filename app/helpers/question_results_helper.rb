@@ -5,12 +5,13 @@ module QuestionResultsHelper
     answers = question_answers(question)
     {
       type: question_type_to_string(question),
+      question: question,
       sentiment: question.track_sentiment ? question_answers_average_sentiment(answers) : nil,
       answer_options: question.answer_options.split(Rapidfire.answers_delimiter),
       answers: parse_answers(question),
       answers_data: answers,
       grouped_question: question.validation_rules[:question_question],
-      follow_up_question: question.follow_up_question_text,
+      follow_up_question_text: question.follow_up_question_text,
       follow_up_answers: question.answers.pluck(:follow_up_answer_text).compact
     }.to_json
   end
@@ -44,7 +45,7 @@ module QuestionResultsHelper
     analyzer.load_defaults
     {
       label: analyzer.sentiment(answer.answer_text),
-      score: analyzer.score(answer.answer_text)
+      score: analyzer.score(answer.answer_text).round(2)
     }
   end
 
@@ -56,7 +57,7 @@ module QuestionResultsHelper
     label = 'positive' if average > 0
     label = 'neutral' if average == 0
     {
-      average: average,
+      average: average.round(2),
       label: label
     }
   end
