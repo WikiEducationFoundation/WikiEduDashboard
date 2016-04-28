@@ -13,7 +13,6 @@
         .form-inputs.light-text.survey__title-input
           = f.input :open, label: "Survey Open (Anyone may take it)"
           = f.input :closed, label: "Close Survey"
-          = f.input :show_courses, label: "Show Courses to preview Course Data Questions"
         .form__actions.danger
           = link_to 'Delete this survey', @survey, :method => :delete, :data => { :confirm => 'Are you sure?' }
 

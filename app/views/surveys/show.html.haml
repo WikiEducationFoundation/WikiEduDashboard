@@ -12,14 +12,9 @@
           = @survey.intro.html_safe
           .survey__block-nav
             %div
-            - if @survey.show_courses
-              %button.button.survey__next.dark{"data-next-survey-block" => "", "data-no-validate" => true}
-                %span Start
-                %span.icon.icon-rt_arrow
-            - else
-              %button.button.survey__next.dark{"data-next-survey-block" => "", "data-no-validate" => true}
-                %span Start
-                %span.icon.icon-rt_arrow
+            %button.button.survey__next.dark{"data-next-survey-block" => "", "data-no-validate" => true}
+              %span Start
+              %span.icon.icon-rt_arrow
 
 
   - @surveys_question_groups.each_with_index do |group, index|

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160428210757) do
+ActiveRecord::Schema.define(version: 20160428222013) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title",                    limit: 255
@@ -284,14 +284,13 @@ ActiveRecord::Schema.define(version: 20160428210757) do
   add_index "survey_notifications", ["survey_assignment_id"], name: "index_survey_notifications_on_survey_assignment_id", using: :btree
 
   create_table "surveys", force: :cascade do |t|
-    t.string   "name",         limit: 255
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
-    t.text     "intro",        limit: 65535
-    t.text     "thanks",       limit: 65535
-    t.boolean  "show_courses",               default: false
-    t.boolean  "open",                       default: false
-    t.boolean  "closed",                     default: false
+    t.string   "name",       limit: 255
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+    t.text     "intro",      limit: 65535
+    t.text     "thanks",     limit: 65535
+    t.boolean  "open",                     default: false
+    t.boolean  "closed",                   default: false
   end
 
   create_table "surveys_question_groups", force: :cascade do |t|

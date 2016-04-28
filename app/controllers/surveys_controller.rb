@@ -56,11 +56,7 @@ class SurveysController < ApplicationController
                   flash: { notice: 'Sorry, You do not have access to this survey' })
       return
     end
-    if @survey.show_courses && !course?
-      render 'course_select'
-    else
-      render 'show'
-    end
+    render 'show'
   end
 
   def course_select
@@ -165,7 +161,6 @@ class SurveysController < ApplicationController
     params.require(:survey).permit(:name,
                                    :intro,
                                    :thanks,
-                                   :show_courses,
                                    :closed,
                                    :open,
                                    rapidfire_question_group_ids: [])
