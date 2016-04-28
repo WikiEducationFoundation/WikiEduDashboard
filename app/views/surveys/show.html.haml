@@ -8,7 +8,6 @@
     .block__container
       .block.block--text.disabled.not-seen{"data-survey-block" => "0", "data-intro" => true}
         %h1.survey__title= @survey.name
-        %strong Course: #{pretty_course_title(@course)}
         - if @survey.intro?
           = @survey.intro.html_safe
           .survey__block-nav

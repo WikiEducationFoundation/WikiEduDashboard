@@ -1,5 +1,6 @@
 module QuestionGroupsHelper
   def check_conditionals(question_group)
+    return true if @course.nil?
     @question_group_cohorts = question_group.cohorts.pluck(:id)
     @question_group_tags = question_group.tags.nil? ? [] : question_group.tags.split(',')
     course_has_tags && course_in_cohorts

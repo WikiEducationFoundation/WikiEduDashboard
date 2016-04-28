@@ -21,7 +21,7 @@
   - if @surveys_question_groups.length
     %ul.list.list--survey{'data-sortable-question-groups' => @survey.id}
       - @surveys_question_groups.each do |group|
-        - question_group = group.rapidfire_question_group
+        - question_group = group.question_group
         %li.question-group-row.row.course-list__row.row--survey-question{'data-item-id' => question_group.id}
           .row__wrapper
             .course-list__row__title

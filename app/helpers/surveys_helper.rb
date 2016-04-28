@@ -1,6 +1,14 @@
 module SurveysHelper
   include CourseHelper
 
+  def survey_course_title
+    if @course.nil?
+      'Survey'
+    else
+      "Survey for #{@course.title}"
+    end
+  end
+
   def survey_page(request)
     root_path = request.path.split('/')[1]
     ["surveys", "rapidfire", "survey_assignments"].include? rootpath

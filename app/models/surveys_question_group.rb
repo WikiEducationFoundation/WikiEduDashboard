@@ -10,7 +10,7 @@ class SurveysQuestionGroup < ActiveRecord::Base
   end
 
   def question_group
-    Rapidfire::QuestionGroup.find(rapidfire_question_group_id)
+    Rapidfire::QuestionGroup.find_by_id(rapidfire_question_group_id)
   end
 
   def survey
