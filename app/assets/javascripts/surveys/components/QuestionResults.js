@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import BarGraph from './BarGraph';
 import TextResults from './TextResults';
 import RangeGraph from './RangeGraph';
+import FollowUpQuestionResults from './FollowUpQuestionResults';
 
 export default class QuestionResults extends Component {
   _renderQuestionResults(question) {
@@ -30,6 +31,7 @@ export default class QuestionResults extends Component {
     return (
       <div>
         {this._renderQuestionResults(this.props)}
+        <FollowUpQuestionResults {...this.props} />
         {this._data()}
       </div>
     );
