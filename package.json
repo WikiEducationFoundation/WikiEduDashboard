@@ -130,5 +130,8 @@
     "start": "gulp hot-dev",
     "build": "webpack -p --config config/webpack/webpack.config.prod.js"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "copy-to-clipboard": "^2.0.0",
+    "react-copy-to-clipboard": "^4.1.0"
+  }
 }
