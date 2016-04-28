@@ -1,44 +1,55 @@
 = simple_form_for(@survey) do |f|
   = f.error_notification
+  = render partial: 'surveys/admin_header_edit', locals: { f: f }
+  .container.survey__admin
+    .form__block.form__block--equal-height
+      .block.form__settings
+        .form__settings__tabs
+          .tab
+            %h3 Settings
+        .form-inputs.light-text.survey__title-input
+          = f.input :name
 
-  .form-inputs.light-text.survey__title-input
-    = f.input :name
+        .form-inputs.light-text.survey__title-input
+          = f.input :open, label: "Survey Open (Anyone may take it)"
+          = f.input :closed, label: "Close Survey"
+          = f.input :show_courses, label: "Show Courses to preview Course Data Questions"
+        .form__actions.danger
+          = link_to 'Delete this survey', @survey, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
-  .form-inputs.light-text.survey__title-input
-    = f.input :open, label: "Survey Open (Anyone may take it)"
-    = f.input :closed, label: "Close Survey"
-    = f.input :show_courses, label: "Show Courses to preview Course Data Questions"
+      .form__question-group-list
+        .light-text
+          %h3 Survey Question Groups
+          %div.py= link_to "Edit Question Groups", edit_question_groups_path(@survey.id)
 
-  %div.light-text
-    = f.label :intro, "Survey Introduction"
-    = f.hidden_field :intro , id: 'intro', value: @survey.intro
-    %trix-editor{'input' => "intro"}
+        - if @surveys_question_groups.length
+          %ul.list.list--survey{'data-sortable-question-groups' => @survey.id}
+            - @surveys_question_groups.each do |group|
+              - question_group = group.rapidfire_question_group
+              %li.question-group-row.row.course-list__row.row--survey-question{'data-item-id' => question_group.id}
+                .row__wrapper
+                  .course-list__row__title
+                    %strong= question_group.name
+                  %div
+                    %div
+                      %label Show Title
+                      = check_box_tag 'show_title', 'yes', group.show_title, :data => { 'show-title' => group.id}
 
-  .light-text
-    %h3 Survey Question Groups
-    %div.py= link_to "Edit Question Groups", edit_question_groups_path(@survey.id)
+                    = link_to "Edit", rapidfire.question_group_questions_path(question_group)
+            - if @surveys_question_groups.length > 1
+              %li.survey__admin-tools
+                %span Drag to reorder questions. (Changes will be saved automatically.)
 
-  - if @surveys_question_groups.length
-    %ul.list.list--survey{'data-sortable-question-groups' => @survey.id}
-      - @surveys_question_groups.each do |group|
-        - question_group = group.question_group
-        %li.question-group-row.row.course-list__row.row--survey-question{'data-item-id' => question_group.id}
-          .row__wrapper
-            .course-list__row__title
-              %strong= question_group.name
-            %div= link_to "Edit", rapidfire.question_group_questions_path(question_group)
-      - if @surveys_question_groups.length > 1
-        %li.survey__admin-tools
-          %span Drag to reorder questions. (Changes will be saved automatically.)
+        %div.light-text
+          = f.label :intro, "Survey Introduction"
+          = f.hidden_field :intro , id: 'intro', value: @survey.intro
+          %trix-editor{'input' => "intro"}
 
-  %div.light-text
-    = f.label :thanks, "Survey Thank You"
-    = f.hidden_field :thanks , id: 'thanks', value: @survey.thanks
-    %trix-editor{'input' => "thanks"}
+        %div.light-text
+          = f.label :thanks, "Survey Thank You"
+          = f.hidden_field :thanks , id: 'thanks', value: @survey.thanks
+          %trix-editor{'input' => "thanks"}
 
-  .form__actions
-    = f.button :submit, :class => 'button dark'
-    = link_to "Preview Survey", survey_preview_url(@survey), :class => 'button'
-
-  .form__actions.danger
-    = link_to 'Delete this survey', @survey, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        .form__actions
+          = f.button :submit, :class => 'button dark'
+          = link_to "Preview Survey", survey_preview_url(@survey), :class => 'button'
