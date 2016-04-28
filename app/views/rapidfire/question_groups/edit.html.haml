@@ -1,11 +1,28 @@
--# .section-header.surveys__admin-header.surveys__admin-header--question-groups.surveys__admin-header--question-groups--edit
--#   .container
--#     %div
--#       %h1 Editing #{@question_group.name}
--#     .surveys__admin-header__action
--#       = simple_form_for(@question_group) do |f|
--#         .form__actions
--#           = f.button :submit, class: 'button dark'
+- @questions = @question_group.questions
+= simple_form_for(@question_group) do |f|
+  = f.error_notification
+  .section-header.surveys__admin-header.surveys__admin-header--question-groups.surveys__admin-header--question-groups--edit
+    .container
+      %div
+        %h1 Editing #{@question_group.name}
+      .surveys__admin-header__action
+        .form__actions
+          = f.button :submit, class: 'button button--no-margin border'
 
+  .container.survey__admin
+    .form__block.form__block--equal-height
+      .block.form__settings
+        .form__settings__tabs
+          .tab
+            %h3 Settings
+        = f.input :name, label: "Question Group Name", class: 'input--large'
+        .form__row
+          = f.association :cohorts, label_method: :title, input_html: { data: { chosen_select: true }}
+        .form__row
+          %label Tags
+          = select_tag "question_group[tags]", options_for_select(@available_tags, @question_group_tags), multiple: true, data: { chosen_select: true }
+        .form__actions.danger
+          = link_to "Delete Question Group", @question_group, method: :delete, :data => {confirm: "Are you sure you want to delete #{@question_group.name}?"}
 
-= render partial: 'form'
+      .form__question-list
+        = render 'rapidfire/questions/question_group_list'
