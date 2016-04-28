@@ -9,13 +9,16 @@ export default class TextResults extends Component {
     this.followUpAnswers = _.filter(props.follow_up_answers, (a) => {
       return !_.isEmpty(a);
     });
+    this.showButton = answers_data.length > INITIAL_LIMIT;
     let limit = answers_data.length < INITIAL_LIMIT ? answers_data.length : INITIAL_LIMIT;
     if (followUpOnly) {
       limit = this.followUpAnswers.length < INITIAL_LIMIT ? this.followUpAnswers.length : INITIAL_LIMIT;
+      this.showButton = this.followUpAnswers.length > INITIAL_LIMIT;
     }
     this.state = {
       sentiment: null,
-      limit
+      limit,
+      buttonText: 'More'
     };
     this.toggleShowMore = this._toggleShowMore.bind(this);
   }
@@ -26,6 +29,7 @@ export default class TextResults extends Component {
     const followUpAnswers = this.followUpAnswers;
     const list = answers.map((a, i) => {
       const { course } = a;
+      const courseTitle = course === null ? null : course.title;
       const answer = a.data;
       const user = a.user;
       const sentiment = a.sentiment;
@@ -43,7 +47,7 @@ export default class TextResults extends Component {
         <div key={`answer_${answer.id}`} className="results__text-answer">
           <div className="results__text-answer__info">
             <strong>{user.username}</strong>
-            <span>{course}</span>
+            <span className="results__text-answer__course-title">{courseTitle}</span>
           </div>
           {sentimentScore}
           {(followUpOnly === undefined ? answerText : null)}
@@ -73,26 +77,35 @@ export default class TextResults extends Component {
     const followUpAnswers = this.followUpAnswers;
     const total = followUpOnly ? followUpAnswers.length : totalAnswers;
     const min = followUpAnswers < 3 ? followUpAnswers.length : 3;
-    this.setState({ limit: limit < total ? total : min });
+    const buttonText = limit < total ? 'Less' : 'More';
+    this.setState({ limit: limit < total ? total : min, buttonText });
   }
 
-  render() {
+  _showMore() {
     const { followUpOnly } = this.props;
-    const { limit } = this.state;
-    const followUpQuestionText = this.props.question.follow_up_question_text;
-    const followUpQuestion = followUpQuestionText === '' ? null : <em>{followUpQuestionText}</em>;
+    const { limit, buttonText } = this.state;
     const answers = this.props.answers_data;
     const followUpAnswers = this.followUpAnswers;
-    const showMore = (
+    if (followUpOnly && followUpAnswers.length < limit ||
+        !followUpOnly && answers.length < limit) {
+      return null;
+    }
+    const button = this.showButton ? <button type="button" className="button-link" onClick={this.toggleShowMore}>{`Show ${buttonText}`}</button> : null;
+    return (
       <div className="results__text-answer__info">
         <span className="contextual">
           Displaying {limit} of
           &nbsp;{(followUpOnly ? followUpAnswers.length : answers.length)}
           &nbsp;{(followUpOnly ? 'follow-up answers' : 'answers')}.
         </span>
-        <button type="button" onClick={this.toggleShowMore}>{(limit < answers.length ? 'Show More' : 'Show Less')}</button>
+        {button}
       </div>
     );
+  }
+
+  render() {
+    const followUpQuestionText = this.props.question.follow_up_question_text;
+    const followUpQuestion = followUpQuestionText === '' ? null : <em className="results__text__follow-up-question">{followUpQuestionText}</em>;
     return (
       <div>
         <div className="results__text">
@@ -100,7 +113,7 @@ export default class TextResults extends Component {
           {this.averageSentiment()}
           {this.answersList()}
         </div>
-        {(followUpAnswers.length > limit ? showMore : null)}
+        {this._showMore()}
       </div>
     );
   }

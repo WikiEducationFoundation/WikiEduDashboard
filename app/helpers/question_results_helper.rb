@@ -25,7 +25,7 @@ module QuestionResultsHelper
     analyzer = Sentimental.new
     analyzer.load_defaults
     question.answers.map do |a|
-      course = a.course(@survey)
+      course = a.course(@survey.id)
       cohorts = course.cohorts unless course.nil?
       tags = course.tags unless course.nil?
       {
@@ -62,4 +62,10 @@ module QuestionResultsHelper
     }
   end
 
+  def respondents(question)
+    total = question.answers.count
+    label = 'Respondents'
+    label.pluralize if total > 1
+    "#{total} #{label}"
+  end
 end
