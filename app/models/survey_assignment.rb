@@ -26,9 +26,7 @@ class SurveyAssignment < ActiveRecord::Base
 
   def total_notifications
     users = cohorts.collect do |c|
-      pp c.slug
       c.courses.collect do |course|
-        pp course.title
         course.courses_users.where(role: courses_user_role)
       end
     end
