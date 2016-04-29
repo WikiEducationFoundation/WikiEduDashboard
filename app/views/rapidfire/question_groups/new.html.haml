@@ -8,7 +8,7 @@
         %h1 New Question Group
       .surveys__admin-header__action
         .form__actions
-          = f.button :submit, "Create Question Group", class: 'button button--no-margin border'
+          = f.button :submit, "Save Question Group", class: 'button button--no-margin border'
 
   .container.survey__admin
     .form__block.form__block--equal-height
@@ -16,9 +16,14 @@
         .form__settings__tabs
           .tab
             %h3 Settings
-        = f.input :name, label: "Question Group Name", class: 'input--large'
+        = f.input :name, label: "Question Group Name", input_html: { class: "input--large", required: true }
         .form__row
           = f.association :cohorts, label_method: :title, input_html: { data: { chosen_select: true }}
         .form__row
           %label Tags
           = select_tag "question_group[tags]", options_for_select(@available_tags, @question_group_tags), multiple: true, data: { chosen_select: true }
+      .form__question-list
+        .survey__questions-list.clearfix
+          .survey__admin-actions.clearfix
+            %h3 Questions
+            = f.button :submit, "Add Question", class: 'button dark', name: "redirect_to_edit"

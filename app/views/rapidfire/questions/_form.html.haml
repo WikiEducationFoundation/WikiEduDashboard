@@ -5,6 +5,8 @@
       %ul.form__errors
         - form.errors.full_messages.each do |message|
           %li= message
+    - if params.key?(:cancellable)
+      = f.hidden "question_group_flash_message"
     = f.label :type
     .custom-select
       = f.select :type, ::Rapidfire::QuestionForm::SURVEY_QUESTION_TYPES, {}, id: "question_type", :class => "default-form-input"

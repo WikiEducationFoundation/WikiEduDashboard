@@ -47,6 +47,23 @@ Rails.application.config.to_prepare do
       @question_group_tags = []
     end
 
+    def create
+      @question_group = Rapidfire::QuestionGroup.new(question_group_params)
+      if @question_group.save
+        respond_to do |format|
+          if params.key?(:redirect_to_edit)
+            format.html { redirect_to new_question_group_question_path(@question_group) + "?cancellable" }
+          else
+            format.html { redirect_to question_groups_path }
+          end
+        end
+      else
+        respond_to do |format|
+          format.html { render :new }
+        end
+      end
+    end
+
     def edit
       @question_group = Rapidfire::QuestionGroup.find(params[:id])
       @question_group_tags = @question_group.tags.nil? ? [] : @question_group.tags.split(',')
