@@ -44,7 +44,7 @@ describe 'Survey Administration', type: :feature, js: true do
       #   find('input').set('Spring 2015')
       #   find('input').native.send_keys(:return)
       # end
-      page.find('input.button').click
+      page.find('input.button[value="Save Question Group"]').click
       sleep 1
       expect(Rapidfire::QuestionGroup.count).to eq(1)
 
@@ -131,14 +131,15 @@ describe 'Survey Administration', type: :feature, js: true do
       visit '/surveys'
       expect(page).to have_content 'In Use'
 
-      # # Destroy the SurveyAssignment
-      # click_link 'Assignment'
-      # sleep 60
-      # page.accept_confirm do
-      #   click_link 'Destroy'
-      # end
-      # sleep 1
-      # expect(SurveyAssignment.count).to eq(0)
+      # Destroy the SurveyAssignment
+      click_link 'Assignment'
+
+      click_link 'Edit'
+      page.accept_confirm do
+        click_link 'Delete Survey Assignment'
+      end
+      sleep 1
+      expect(SurveyAssignment.count).to eq(0)
     end
 
     it 'can view survey results' do
