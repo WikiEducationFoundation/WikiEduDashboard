@@ -29,3 +29,7 @@
       = f.text_area :notes
 
     = f.button :submit, :class => "button dark"
+
+    .form__actions.danger
+      - unless @survey_assignment.new_record?
+        = link_to "Delete Survey Assignment", @survey_assignment, method: :delete, :data => {confirm: "Are you sure you want to delete this assignment?"}
