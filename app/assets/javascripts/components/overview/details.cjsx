@@ -121,6 +121,11 @@ Details = React.createClass(
         _.pluck(@props.tags, 'tag').join(', ').replace(/_/g, ' ')
       else 'None'
 
+      subject = (
+        <div className='tags'>
+          <span>Subject: {@props.course.subject}</span>
+        </div>
+      )
       tags = (
         <div className='tags'>
           <span>Tags: {tags_list}</span>
@@ -180,6 +185,7 @@ Details = React.createClass(
           <span>Cohorts: {cohorts}</span>
           <CohortButton {...@props} show={@props.editable && @props.current_user.admin && (@props.course.submitted || @props.course.type != 'ClassroomProgramCourse') } />
         </div>
+        {subject}
         {tags}
         {course_type_selector}
       </div>
