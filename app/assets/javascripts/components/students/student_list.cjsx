@@ -29,6 +29,11 @@ StudentList = React.createClass(
     users = @props.users.map (student) =>
       assign_options = { user_id: student.id, role: 0 }
       review_options = { user_id: student.id, role: 1 }
+      if student.real_name
+        name_parts = student.real_name.split(' ')
+        student.first_name = name_parts[0]
+        student.last_name = name_parts[..].pop()
+
       <Student
         student={student}
         key={student.id}
