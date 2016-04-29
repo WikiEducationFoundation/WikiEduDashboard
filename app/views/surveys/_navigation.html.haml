@@ -1,7 +1,7 @@
 - if can_administer?
   .survey__admin__nav
     %ul.container
-      %li= link_to 'Question Groups', rapidfire.question_groups_path, class: class_for_path(request, rapidfire.question_groups_path)
-      %li= link_to 'Surveys', surveys_path, class: class_for_path(request, surveys_path)
-      %li= link_to 'Assignment', survey_assignments_path, class: class_for_path(request, survey_assignments_path)
-      %li= link_to 'Results', results_path, class: class_for_path(request, results_path)
+      %li= link_to 'Question Groups', rapidfire.question_groups_path, class: survey_class_for_path(request, rapidfire.question_groups_path)
+      %li= link_to 'Surveys', surveys_path, class: survey_class_for_path(request, surveys_path)
+      %li= link_to 'Assignment', survey_assignments_path, class: survey_class_for_path(request, survey_assignments_path)
+      %li= link_to 'Results', results_path, class: survey_class_for_path(request, results_path)
