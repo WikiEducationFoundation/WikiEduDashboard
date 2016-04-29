@@ -43,12 +43,12 @@ module SurveysAnalyticsHelper
 
   def survey_response(survey)
     completed = 0
-    survey.survey_assignments.map do |sa|
-      completed + sa.survey_notifications.completed.count
+    survey.survey_assignments.each do |sa|
+      completed += sa.survey_notifications.completed.count
     end
     notified = 0
-    survey.survey_assignments.map do |sa|
-      completed + sa.survey_notifications.count
+    survey.survey_assignments.each do |sa|
+      notified += sa.survey_notifications.count
     end
     response_summary_string(completed, notified)
   end
@@ -58,5 +58,5 @@ module SurveysAnalyticsHelper
     percent = (completed.to_f / notified.to_f) * 100 if completed > 0
     "#{percent.round(2)}% (#{completed}/#{notified})"
   end
-  
+
 end
