@@ -122,7 +122,7 @@ Details = React.createClass(
       else 'None'
 
       subject = (
-        <div className='tags'>
+        <div className='subject'>
           <span>Subject: {@props.course.subject}</span>
         </div>
       )
