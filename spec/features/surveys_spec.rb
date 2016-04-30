@@ -68,33 +68,15 @@ describe 'Surveys', type: :feature, js: true do
   describe 'Permissions' do
     before(:each) do
       @user = create(:user)
-      @admin = create(:admin,
-                      id: 200,
-                      wiki_token: 'foo',
-                      wiki_secret: 'bar')
+      @admin = create(:admin)
 
-      @instructor = create(:user,
-                           id: 100,
-                           username: 'Professor Sage',
-                           wiki_token: 'foo',
-                           wiki_secret: 'bar')
-      course = create(:course,
-                      id: 10001,
-                      title: 'My Active Course',
-                      school: 'University',
-                      term: 'Term',
-                      slug: 'University/Course_(Term)',
-                      submitted: 1,
-                      listed: true,
-                      passcode: 'passcode',
-                      start: '2015-01-01'.to_date,
-                      end: '2020-01-01'.to_date)
+      @instructor = create(:user, username: 'Professor Sage')
+      course = create(:course)
 
       @courses_user = create(
         :courses_user,
-        id: 1,
         user_id: @instructor.id,
-        course_id: 10001,
+        course_id: course.id,
         role: 1)
 
       @open_survey = create(:survey, open: true)
@@ -141,16 +123,13 @@ describe 'Surveys', type: :feature, js: true do
 
   describe 'Instructor takes survey' do
     before do
-      @instructor = create(:user,
-                           id: 100,
-                           username: 'Professor Sage',
-                           wiki_token: 'foo',
-                           wiki_secret: 'bar')
+      @instructor = create(:user)
+      course = create(:course, title: 'My Active Course')
+
       @courses_user = create(
         :courses_user,
-        id: 1,
         user_id: @instructor.id,
-        course_id: 10001,
+        course_id: course.id,
         role: 1)
 
       @survey = create(
@@ -158,18 +137,6 @@ describe 'Surveys', type: :feature, js: true do
         name: 'Instructor Survey',
         intro: 'Welcome to survey',
         thanks: 'You made it!')
-
-      course = create(:course,
-                      id: 10001,
-                      title: 'My Active Course',
-                      school: 'University',
-                      term: 'Term',
-                      slug: 'University/Course_(Term)',
-                      submitted: 1,
-                      listed: true,
-                      passcode: 'passcode',
-                      start: (Time.zone.today - 2.weeks).to_date,
-                      end: (Time.zone.today + 3.days).to_date)
 
       question_group = create(:question_group, name: 'Basic Questions')
       @survey.rapidfire_question_groups << question_group
