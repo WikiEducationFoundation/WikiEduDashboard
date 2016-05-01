@@ -125,6 +125,9 @@ describe 'Surveys', type: :feature, js: true do
     before do
       @instructor = create(:user)
       course = create(:course, title: 'My Active Course')
+      article = create(:article)
+      create(:articles_course, article_id: article.id, course_id: course.id)
+
 
       @courses_user = create(
         :courses_user,
@@ -156,6 +159,14 @@ describe 'Surveys', type: :feature, js: true do
       q_short.save
       create(:q_rangeinput, question_group_id: question_group.id)
 
+      create(:q_checkbox, question_group_id: question_group.id, answer_options: '', course_data_type: '0')
+      create(:q_checkbox, question_group_id: question_group.id, answer_options: '', course_data_type: '1')
+      create(:q_checkbox, question_group_id: question_group.id, answer_options: '', course_data_type: '2')
+
+      create(:matrix_question, question_text: 'first line', question_group_id: question_group.id)
+      create(:matrix_question, question_text: 'second line', question_group_id: question_group.id)
+      create(:matrix_question, question_text: 'third line', question_group_id: question_group.id)
+
       survey_assignment = create(
         :survey_assignment,
         survey_id: @survey.id)
@@ -166,6 +177,7 @@ describe 'Surveys', type: :feature, js: true do
     end
 
     it 'navigates correctly between each question and submits' do
+      # FIXME: form actions fail on travis, although they works locally.
       pending 'passes locally but not on travis-ci'
 
       expect(Rapidfire::Answer.count).to eq(0)
@@ -180,29 +192,29 @@ describe 'Surveys', type: :feature, js: true do
       sleep 1
       click_button('Next', visible: true)
 
-      # FIXME: fails on travis, although it works locally.
       fill_in('answer_group_2_answer_text', with: 'testing')
       sleep 1
       click_button('Next', visible: true)
 
-      # FIXME: fails on travis, although it works locally.
       find('.label', text: 'female').click
       sleep 1
       click_button('Next', visible: true)
 
-      # FIXME: fails on travis, although it works locally.
-      # select('mac', from: 'answer_group_4_answer_text')
+      select('mac', from: 'answer_group_4_answer_text')
       sleep 1
       click_button('Next', visible: true)
 
-      # FIXME: fails on travis, although it works locally.
       fill_in('answer_group_5_answer_text', with: 'testing')
       sleep 1
       click_button('Next', visible: true)
+
+      sleep 1
+      click_button('Next', visible: true)
+
       expect(page).not_to have_content 'You made it!'
       click_button('Submit Survey', visible: true)
       expect(page).to have_content 'You made it!'
-      expect(Rapidfire::Answer.count).to eq(6)
+      expect(Rapidfire::Answer.count).to eq(12)
       expect(SurveyNotification.last.completed).to eq(true)
 
       puts 'PASSED'
