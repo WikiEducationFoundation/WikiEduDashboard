@@ -159,9 +159,9 @@ describe 'Surveys', type: :feature, js: true do
       q_short.save
       create(:q_rangeinput, question_group_id: question_group.id)
 
-      create(:q_checkbox, question_group_id: question_group.id, answer_options: '', course_data_type: '0')
-      create(:q_checkbox, question_group_id: question_group.id, answer_options: '', course_data_type: '1')
-      create(:q_checkbox, question_group_id: question_group.id, answer_options: '', course_data_type: '2')
+      create(:q_checkbox, question_group_id: question_group.id, answer_options: '', course_data_type: 'Students')
+      create(:q_checkbox, question_group_id: question_group.id, answer_options: '', course_data_type: 'Articles')
+      create(:q_checkbox, question_group_id: question_group.id, answer_options: '', course_data_type: 'WikiEdu Staff')
 
       create(:matrix_question, question_text: 'first line', question_group_id: question_group.id)
       create(:matrix_question, question_text: 'second line', question_group_id: question_group.id)
@@ -208,6 +208,10 @@ describe 'Surveys', type: :feature, js: true do
       sleep 1
       click_button('Next', visible: true)
 
+      sleep 1
+      click_button('Next', visible: true)
+
+      find('.label', text: 'None of the above').click
       sleep 1
       click_button('Next', visible: true)
 
