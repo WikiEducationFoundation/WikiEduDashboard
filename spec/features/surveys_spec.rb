@@ -128,7 +128,6 @@ describe 'Surveys', type: :feature, js: true do
       article = create(:article)
       create(:articles_course, article_id: article.id, course_id: course.id)
 
-
       @courses_user = create(
         :courses_user,
         user_id: @instructor.id,
@@ -157,15 +156,24 @@ describe 'Surveys', type: :feature, js: true do
       q_short = create(:q_short, question_group_id: question_group.id)
       q_short.rules[:presence] = '0'
       q_short.save
-      create(:q_rangeinput, question_group_id: question_group.id)
+
+      create(:matrix_question, question_text: 'first line', question_group_id: question_group.id)
+      create(:matrix_question, question_text: 'second line', question_group_id: question_group.id)
+      create(:matrix_question, question_text: 'third line', question_group_id: question_group.id)
 
       create(:q_checkbox, question_group_id: question_group.id, answer_options: '', course_data_type: 'Students')
       create(:q_checkbox, question_group_id: question_group.id, answer_options: '', course_data_type: 'Articles')
       create(:q_checkbox, question_group_id: question_group.id, answer_options: '', course_data_type: 'WikiEdu Staff')
 
+      create(:q_rangeinput, question_group_id: question_group.id)
+
       create(:matrix_question, question_text: 'first line', question_group_id: question_group.id)
       create(:matrix_question, question_text: 'second line', question_group_id: question_group.id)
       create(:matrix_question, question_text: 'third line', question_group_id: question_group.id)
+
+      create(:matrix_question2, question_text: 'first line', question_group_id: question_group.id)
+      create(:matrix_question2, question_text: 'second line', question_group_id: question_group.id)
+      create(:matrix_question2, question_text: 'third line', question_group_id: question_group.id)
 
       survey_assignment = create(
         :survey_assignment,
@@ -215,10 +223,16 @@ describe 'Surveys', type: :feature, js: true do
       sleep 1
       click_button('Next', visible: true)
 
+      sleep 1
+      click_button('Next', visible: true)
+
+      sleep 1
+      click_button('Next', visible: true)
+
       expect(page).not_to have_content 'You made it!'
       click_button('Submit Survey', visible: true)
       expect(page).to have_content 'You made it!'
-      expect(Rapidfire::Answer.count).to eq(12)
+      expect(Rapidfire::Answer.count).to eq(18)
       expect(SurveyNotification.last.completed).to eq(true)
 
       puts 'PASSED'

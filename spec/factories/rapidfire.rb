@@ -11,4 +11,16 @@ FactoryGirl.define do
       grouped_question:  "What is the question?"
     }}
   end
+
+  factory :matrix_question2, class: 'Rapidfire::Question' do
+    question_text "Question?"
+    association :question_group, factory: :question_group
+    type "Rapidfire::Questions::Radio"
+    answer_options "option1\r\noption2\r\noption3"
+    validation_rules {{
+      presence: 0,
+      grouped:  1,
+      grouped_question:  "This question is different"
+    }}
+  end
 end
