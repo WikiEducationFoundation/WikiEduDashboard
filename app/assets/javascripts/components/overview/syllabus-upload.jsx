@@ -3,6 +3,7 @@ import Dropzone from 'react-dropzone';
 import CourseActions from '../../actions/course_actions.js';
 import Loading from '../common/loading.cjsx';
 
+
 export default class SyllabusUpload extends React.Component {
   constructor() {
     super();
@@ -23,7 +24,7 @@ export default class SyllabusUpload extends React.Component {
     const loadingAnimation = <Loading message={false} />;
     const dropzone = (
       <Dropzone onDrop={this.onDrop} multiple={false} className="course-syllabus__uploader">
-        <div>Drag and Drop or <button className="link-button">Browse Files</button></div>
+        <div>Drag and Drop or <button id='browse_files' className="link-button">Browse Files</button></div>
       </Dropzone>
     );
     return (
@@ -45,13 +46,6 @@ export default class SyllabusUpload extends React.Component {
     }
     return link;
   }
-  _adminUser() {
-    const currentUser = this.props.current_user;
-    if (typeof currentUser === 'string') {
-      return false;
-    }
-    return currentUser.admin || currentUser.role > 0;
-  }
   _removeSyllabus() {
     CourseActions.uploadSyllabus({
       courseId: this.props.course.id,
@@ -61,9 +55,8 @@ export default class SyllabusUpload extends React.Component {
   render() {
     const { syllabus, canUploadSyllabus, editingSyllabus } = this.props.course;
     const editButton = canUploadSyllabus ? <button className="link-button" onClick={() => { this.toggleEditing(true); }}>edit</button> : null;
-    if (!this._adminUser()) { return null; }
     return (
-      <div className="module course-description">
+      <div className="module course-description course__syllabus-upload__inner">
         <div className="module__data">
           <h3>Syllabus</h3>
           {this._syllabusLink()}
@@ -73,6 +66,9 @@ export default class SyllabusUpload extends React.Component {
           &nbsp;
           &nbsp;
           {(syllabus !== undefined ? <button className="link-button" onClick={this.removeSyllabus}>remove</button> : null)}
+          &nbsp;
+          &nbsp;
+          <a className="link-button" href={`/courses/${this.props.course.slug}`}>save</a>
         </div>
       </div>
     );
