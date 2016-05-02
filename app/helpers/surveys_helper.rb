@@ -9,18 +9,13 @@ module SurveysHelper
     end
   end
 
-  def survey_page(request)
-    root_path = request.path.split('/')[1]
-    ["surveys", "rapidfire", "survey_assignments"].include? rootpath
-  end
-
   def render_answer_form_helper(answer, form)
     partial = question_type(answer)
     render partial: "rapidfire/answers/#{partial}", locals: { f: form, answer: answer, course: @course }
   end
 
   def render_matrix_answer_labels(answer)
-    render partial: "rapidfire/answers/matrix_answer_labels", locals: { answer: answer, course: @course }
+    render partial: 'rapidfire/answers/matrix_answer_labels', locals: { answer: answer, course: @course }
   end
 
   def survey_preview_url(survey)
@@ -39,38 +34,36 @@ module SurveysHelper
   def survey_select(f, answer, course)
     multiple = answer.question.multiple
     field_name = question_answer_field_name(f, multiple)
-    options = answer_options(answer, course).collect { |o| o.is_a?(Array) ? [ "#{o[1].tr('_', ' ')}", o[0]] : o }
-    if options.length == 0
+    options = answer_options(answer, course).collect { |o| o.is_a?(Array) ? [o[1].tr('_', ' ').to_s, o[0]] : o }
+    if options.empty?
       content_tag :div, 'remove me', data: { remove_me: true }
     else
-      select_tag(field_name, options_for_select(options), {
-          include_blank: "#{answer.question.multiple ? 'Select all that apply' : 'Select an option'}",
-          required: is_required_question?(answer),
-          multiple: answer.question.multiple,
-          class: 'chosen-container'
-        })
+      select_tag(field_name, options_for_select(options), include_blank: (answer.question.multiple ? 'Select all that apply' : 'Select an option').to_s,
+                                                          required: is_required_question?(answer),
+                                                          multiple: answer.question.multiple,
+                                                          class: 'chosen-container')
     end
   end
 
   def answer_options(answer, course)
     question = answer.question
-    if question.options.length > 0
-      question.options.collect {|q| [strip_tags(q), q, q]}
-    elsif course != nil
+    if !question.options.empty?
+      question.options.collect { |q| [strip_tags(q), q, q] }
+    elsif !course.nil?
       course_answer_options(question.course_data_type, course)
     end
   end
 
   def course_answer_options(type, course)
     case type
-    when COURSE_DATA_ANSWER_TYPES[0] #Students
+    when 'Students'
       students = course.users.role('student')
-      students.collect { |s| [s.id, s.username, "#{contribution_link(s)}"]}
-    when COURSE_DATA_ANSWER_TYPES[1] #Articles
-      course.articles.collect { |a| [a.id, a.title, "<a href='#{article_url(a)}' target='_blank'>#{a.title}</a>"]}
-    when COURSE_DATA_ANSWER_TYPES[2] #WikiEdu Staff
+      students.collect { |s| [s.id, s.username, contribution_link(s).to_s] }
+    when 'Articles'
+      course.articles.collect { |a| [a.id, a.title, "<a href='#{article_url(a)}' target='_blank'>#{a.title}</a>"] }
+    when 'WikiEdu Staff'
       staff = course.users.role('wiki_ed_staff')
-      staff.collect { |s| [s.id, s.username, "#{contribution_link(s)}"]}
+      staff.collect { |s| [s.id, s.username, contribution_link(s).to_s] }
     end
   end
 
@@ -122,7 +115,6 @@ module SurveysHelper
     else
       return false
     end
-
   end
 
   def previous_question_in_same_group(current, previous)
@@ -154,17 +146,11 @@ module SurveysHelper
     end
   end
 
-  def next_question_is_start_of_group(index, answer, answers)
-    !is_grouped_question(answer) && is_grouped_question(answers[index + 1])
-  end
-
   def question_group_locals(surveys_question_group, index, total, results = false)
     @question_group = surveys_question_group.rapidfire_question_group
-    @answer_group_builder = Rapidfire::AnswerGroupBuilder.new({
-      params: {},
-      user: current_user,
-      question_group: @question_group
-    })
+    @answer_group_builder = Rapidfire::AnswerGroupBuilder.new(params: {},
+                                                              user: current_user,
+                                                              question_group: @question_group)
     return {
       question_group: @question_group,
       answer_group_builder: @answer_group_builder,
@@ -176,19 +162,15 @@ module SurveysHelper
   end
 
   def question_conditional_string(question)
-    return "" if question.nil?
+    return '' if question.nil?
     return question.conditionals
   end
 
   def has_course_data(question_form)
-    question_form.course_data_type != nil && !question_form.course_data_type.empty?
+    !question_form.course_data_type.nil? && !question_form.course_data_type.empty?
   end
 
   def question_form_has_follow_up_question(question_form)
-    !question_form.follow_up_question_text.nil? && !question_form.follow_up_question_text.empty?
-  end
-
-  def is_matrix_question(question_form)
     !question_form.follow_up_question_text.nil? && !question_form.follow_up_question_text.empty?
   end
 
@@ -206,17 +188,15 @@ module SurveysHelper
   private
 
   def has_course_slug
-    params.key?("course_slug")
+    params.key?('course_slug')
   end
 
   def set_course
-    if has_course_slug
-      @course = find_course_by_slug(params[:course_slug])
-    end
+    @course = find_course_by_slug(params[:course_slug]) if has_course_slug
   end
 
   def has_course_questions
-    @question_group.questions.course_data_questions.length > 0
+    !@question_group.questions.course_data_questions.empty?
   end
 
   def set_course_if_survey_has_course_questions
@@ -234,7 +214,7 @@ module SurveysHelper
   def set_course_if_course_questions
     if has_course_questions && !has_course_slug
       @courses = Course.all
-      render "course_select"
+      render 'course_select'
     else
       set_course
     end
