@@ -41,7 +41,6 @@ Overview = React.createClass(
         />
       )
 
-    console.log @props.location.query.syllabus_upload
     if @props.location.query.syllabus_upload == 'true' && @props.current_user.admin
       syllabus_upload = (
         <Modal modalClass='course__syllabus-upload'>
