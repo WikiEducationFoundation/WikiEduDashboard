@@ -11,6 +11,7 @@ class SuspectedPlagiarismMailer < ApplicationMailer
     @user = revision.user
     @article = revision.article
     @course = @user.courses.last
+    @report_url = 'https://dashboard.wikiedu.org' + @revision.plagiarism_report_link
     mail(to: content_expert.email, subject: "Suspected plagiarism from #{@course.title}")
   end
 
