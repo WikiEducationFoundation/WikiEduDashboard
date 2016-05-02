@@ -140,14 +140,22 @@ describe 'Surveys', type: :feature, js: true do
         intro: 'Welcome to survey',
         thanks: 'You made it!')
 
-      question_group = create(:question_group, name: 'Basic Questions')
+      question_group = create(:question_group, id: 1, name: 'Basic Questions')
       @survey.rapidfire_question_groups << question_group
       @survey.save
-      create(:q_checkbox, question_group_id: question_group.id)
+
+      # Matrix question at the start
+      create(:matrix_question, question_text: 'first line', question_group_id: question_group.id)
+      create(:matrix_question, question_text: 'second line', question_group_id: question_group.id)
+      create(:matrix_question, question_text: 'third line', question_group_id: question_group.id)
+
+      create(:q_checkbox, question_group_id: question_group.id, conditionals: '')
+
+      q_radio = create(:q_radio, question_group_id: question_group.id, conditionals: '4|=|hindi|multi')
+
       q_long = create(:q_long, question_group_id: question_group.id)
       q_long.rules[:presence] = '0'
       q_long.save
-      q_radio = create(:q_radio, question_group_id: question_group.id)
       q_radio.rules[:presence] = '0'
       q_radio.save
       q_select = create(:q_select, question_group_id: question_group.id)
@@ -157,16 +165,13 @@ describe 'Surveys', type: :feature, js: true do
       q_short.rules[:presence] = '0'
       q_short.save
 
-      create(:matrix_question, question_text: 'first line', question_group_id: question_group.id)
-      create(:matrix_question, question_text: 'second line', question_group_id: question_group.id)
-      create(:matrix_question, question_text: 'third line', question_group_id: question_group.id)
-
       create(:q_checkbox, question_group_id: question_group.id, answer_options: '', course_data_type: 'Students')
       create(:q_checkbox, question_group_id: question_group.id, answer_options: '', course_data_type: 'Articles')
       create(:q_checkbox, question_group_id: question_group.id, answer_options: '', course_data_type: 'WikiEdu Staff')
 
       create(:q_rangeinput, question_group_id: question_group.id)
 
+      # Matrix questions back-to-back, and matrix question at the end of survey
       create(:matrix_question, question_text: 'first line', question_group_id: question_group.id)
       create(:matrix_question, question_text: 'second line', question_group_id: question_group.id)
       create(:matrix_question, question_text: 'third line', question_group_id: question_group.id)
@@ -196,11 +201,10 @@ describe 'Surveys', type: :feature, js: true do
       click_button('Start Survey', visible: true)
       click_button('Start')
 
-      find('.label', text: 'hindi').click
       sleep 1
       click_button('Next', visible: true)
 
-      fill_in('answer_group_2_answer_text', with: 'testing')
+      find('.label', text: 'hindi').click
       sleep 1
       click_button('Next', visible: true)
 
@@ -208,11 +212,15 @@ describe 'Surveys', type: :feature, js: true do
       sleep 1
       click_button('Next', visible: true)
 
-      select('mac', from: 'answer_group_4_answer_text')
+      fill_in('answer_group_6_answer_text', with: 'testing')
       sleep 1
       click_button('Next', visible: true)
 
-      fill_in('answer_group_5_answer_text', with: 'testing')
+      select('mac', from: 'answer_group_7_answer_text')
+      sleep 1
+      click_button('Next', visible: true)
+
+      fill_in('answer_group_8_answer_text', with: 'testing')
       sleep 1
       click_button('Next', visible: true)
 
@@ -237,6 +245,11 @@ describe 'Surveys', type: :feature, js: true do
 
       puts 'PASSED'
       raise 'this test passed — this time'
+    end
+
+    it 'loads a question group preview' do
+      visit '/surveys/rapidfire/question_groups/1/answer_groups/new?preview'
+      visit "/surveys/rapidfire/question_groups/1/answer_groups/new?preview&course_slug=#{Course.last.slug}"
     end
   end
 

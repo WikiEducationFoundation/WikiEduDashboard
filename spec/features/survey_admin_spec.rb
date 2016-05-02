@@ -58,10 +58,21 @@ describe 'Survey Administration', type: :feature, js: true do
       sleep 1
       expect(Rapidfire::Question.count).to eq(1)
 
-      # Clone a question
+      # Clone a question and make it conditional
       click_link 'Clone'
       sleep 1
       expect(Rapidfire::Question.count).to eq(2)
+      within 'li[data-item-id="2"]' do
+        click_link 'Edit'
+      end
+      page.find('label', text: 'Conditionally show this question').click
+      within 'div.survey__question__conditional-row' do
+        select('Who is awesome?')
+      end
+      within 'select[data-conditional-value-select=""]' do
+        select('Me!')
+      end
+      page.find('input.button').click
 
       # Add a question group to the survey
       visit '/surveys'
