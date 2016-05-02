@@ -11,7 +11,8 @@ ServerActions = require('../../actions/server_actions.js').default
 Loading       = require '../common/loading.cjsx'
 CourseClonedModal  = require './course_cloned_modal.cjsx'
 CourseUtils   = require('../../utils/course_utils.js').default
-
+SyllabusUpload  = require('./syllabus-upload.jsx').default
+Modal = require '../common/modal.cjsx'
 
 getState = ->
   course: CourseStore.getCourse()
@@ -40,6 +41,14 @@ Overview = React.createClass(
         />
       )
 
+    console.log @props.location.query.syllabus_upload
+    if @props.location.query.syllabus_upload == 'true' && @props.current_user.admin
+      syllabus_upload = (
+        <Modal modalClass='course__syllabus-upload'>
+          <SyllabusUpload {...@props} />
+        </Modal>
+      )
+
     no_weeks = !@state.weeks? || @state.weeks.length  == 0
     unless @state.course.legacy || no_weeks
       this_week = (
@@ -60,6 +69,7 @@ Overview = React.createClass(
     )
 
     <section className='overview container'>
+      { syllabus_upload }
       <div className="stat-display">
         <div className="stat-display__stat" id="articles-created">
           <div className="stat-display__value">{@props.course.created_count}</div>

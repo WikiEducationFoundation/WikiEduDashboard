@@ -19,6 +19,7 @@ json.course do
   json.trained_count @course.trained_count
   json.word_count number_to_human @course.word_count
   json.view_count number_to_human @course.view_sum
+  json.syllabus @course.syllabus.url if @course.syllabus.file?
 
   if current_user
     json.next_upcoming_assigned_module ctpm.next_upcoming_assigned_module
@@ -26,14 +27,15 @@ json.course do
     json.survey_notifications(current_user.survey_notifications.active) do |notification|
       if notification.course.id == @course.id
         json.id notification.id
-        json.survey_url "#{course_survey_url(notification)}"
+        json.survey_url course_survey_url(notification).to_s
       end
     end
   end
-
   if user_signed_in? && current_user.role(@course) > 0
     json.passcode @course.passcode
+    json.canUploadSyllabus true
   elsif @course.passcode
     json.passcode '****'
+    json.canUploadSyllabus false
   end
 end

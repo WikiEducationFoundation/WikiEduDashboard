@@ -6,7 +6,14 @@ require "#{Rails.root}/lib/wiki_course_edits"
 class CoursesController < ApplicationController
   include CourseHelper
   respond_to :html, :json
-  before_action :require_permissions, only: [:create, :update, :destroy, :notify_untrained]
+  before_action :require_permissions,
+                only: [
+                  :create,
+                  :update,
+                  :destroy,
+                  :notify_untrained,
+                  :syllabus_upload
+                ]
 
   ################
   # CRUD methods #
@@ -78,6 +85,26 @@ class CoursesController < ApplicationController
     course = Course.find(params[:id])
     new_course = CourseCloneManager.new(course, current_user).clone!
     render json: { course: new_course.as_json }
+  end
+
+  def update_syllabus
+    @course = Course.find(params[:id])
+    handle_syllabus_params
+    if @course.save
+      render json: { success: true, url: @course.syllabus.url }
+    else
+      render json: @course.errors, status: :unprocessable_entity
+    end
+  end
+
+  def handle_syllabus_params
+    syllabus = params['syllabus']
+    if syllabus == 'null'
+      @course.syllabus.destroy
+      @course.syllabus = nil
+    else
+      @course.syllabus = params['syllabus']
+    end
   end
 
   ##################

@@ -58,6 +58,7 @@ Rails.application.routes.draw do
           titleterm: /[^\/]*/
         }
     post 'clone_course/:id' => 'courses#clone'
+    post 'courses/:id/update_syllabus' => 'courses#update_syllabus'
   end
 
   get 'lookups/(:action)(.:format)' => 'lookups'

@@ -43,6 +43,7 @@ addCourse = ->
     end: null
     day_exceptions: ""
     weekdays: "0000000"
+    editingSyllabus: false
   }
 
 _dismissNotification = (payload) ->
@@ -51,6 +52,10 @@ _dismissNotification = (payload) ->
   index = _.indexOf(notifications, _.where(notifications, { id: id })[0])
   delete _course.survey_notifications[index]
   CourseStore.emitChange()
+
+_handleSyllabusUploadResponse = (data) ->
+  return undefined if data.url.indexOf('missing.png') > -1
+  return data.url
 
 # Store
 CourseStore = Flux.createStore
@@ -80,6 +85,21 @@ CourseStore = Flux.createStore
       setCourse data.course
       if data.save
         ServerActions.saveCourse($.extend(true, {}, { course: _course }), data.course.slug)
+      break
+    when 'SYLLABUS_UPLOAD_SUCCESS'
+      url = _handleSyllabusUploadResponse(data)
+      setCourse
+        uploadingSyllabus: false
+        editingSyllabus: false
+      updateCourseValue 'syllabus', url
+      break
+    when 'UPLOADING_SYLLABUS'
+      setCourse
+        uploadingSyllabus: true
+      break
+    when 'TOGGLE_EDITING_SYLLABUS'
+      setCourse
+        editingSyllabus: data.bool
       break
     when 'ADD_COURSE'
       addCourse()

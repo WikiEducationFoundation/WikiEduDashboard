@@ -101,6 +101,35 @@ const CourseActions = Flux.createActions({
           data: resp
         };
       });
+  },
+
+  toggleEditingSyllabus(bool) {
+    return {
+      actionType: 'TOGGLE_EDITING_SYLLABUS',
+      data: { bool }
+    };
+  },
+
+  startUploadSyllabus() {
+    return {
+      actionType: 'UPLOADING_SYLLABUS'
+    };
+  },
+
+  uploadSyllabus(payload) {
+    return API.uploadSyllabus(payload)
+      .then((data) => {
+        return {
+          actionType: 'SYLLABUS_UPLOAD_SUCCESS',
+          data: { url: data.url }
+        };
+      })
+      .catch(resp => {
+        return {
+          actionType: 'API_FAIL',
+          data: resp
+        };
+      });
   }
 });
 

@@ -15,7 +15,6 @@ UserStore         = require '../../stores/user_store.coffee'
 CohortStore       = require '../../stores/cohort_store.coffee'
 
 CourseUtils       = require('../../utils/course_utils.js').default
-
 # For some reason getState is not being triggered when CohortStore gets updated
 
 getState = (course_id) ->

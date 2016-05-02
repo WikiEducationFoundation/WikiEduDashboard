@@ -222,6 +222,11 @@
       "from": "atob@>=1.1.0 <1.2.0",
       "resolved": "https://registry.npmjs.org/atob/-/atob-1.1.3.tgz"
     },
+    "attr-accept": {
+      "version": "1.0.3",
+      "from": "attr-accept@>=1.0.3 <2.0.0",
+      "resolved": "https://registry.npmjs.org/attr-accept/-/attr-accept-1.0.3.tgz"
+    },
     "autoprefixer": {
       "version": "1.1.20140605",
       "from": "autoprefixer@>=1.1.20140327 <1.2.0",
@@ -6693,6 +6698,11 @@
       "version": "0.14.8",
       "from": "react-dom@>=0.14.8 <0.15.0",
       "resolved": "https://registry.npmjs.org/react-dom/-/react-dom-0.14.8.tgz"
+    },
+    "react-dropzone": {
+      "version": "3.4.0",
+      "from": "react-dropzone@latest",
+      "resolved": "https://registry.npmjs.org/react-dropzone/-/react-dropzone-3.4.0.tgz"
     },
     "react-input-autosize": {
       "version": "0.5.3",

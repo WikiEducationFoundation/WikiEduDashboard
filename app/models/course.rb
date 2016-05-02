@@ -135,6 +135,13 @@ class Course < ActiveRecord::Base
   end
 
   ##################
+  # Syllabus Upload Attachment #
+  ##################
+  has_attached_file :syllabus
+  validates_attachment_content_type :syllabus,
+                                    content_type: %w(application/pdf application/msword)
+
+  ##################
   # Course content #
   ##################
   has_many :weeks, dependent: :destroy

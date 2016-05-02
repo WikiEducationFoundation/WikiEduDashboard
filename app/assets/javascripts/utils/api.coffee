@@ -475,5 +475,22 @@ API =
         console.error 'Error: ' + getErrorMessage(obj)
         rej obj
 
+  uploadSyllabus: ({ courseId, file }) ->
+    new Promise (res, rej) ->
+      data = new FormData()
+      data.append("syllabus", file)
+      $.ajax
+        type: 'POST'
+        cache: false
+        url: "/courses/#{courseId}/update_syllabus"
+        contentType: false
+        processData: false
+        data: data
+        success: (data) ->
+          res data
+      .fail (obj, status) ->
+        console.error 'Error: ' + getErrorMessage(obj)
+        rej obj
+
 
 module.exports = API
