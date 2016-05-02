@@ -1,4 +1,3 @@
-require "#{Rails.root}/lib/wiki_api"
 require "#{Rails.root}/lib/legacy_courses/legacy_course_user_importer"
 require "#{Rails.root}/lib/legacy_courses/legacy_cohort_importer"
 
@@ -8,7 +7,7 @@ class LegacyCourseImporter
   # Entry points #
   ################
   def self.update_all_courses(initial=false, raw_ids={})
-    raw_ids = WikiApi.new.course_list if raw_ids.empty?
+    raw_ids = WikiLegacyCourses.course_list if raw_ids.empty?
     listed_ids = raw_ids.values.flatten
     course_ids = listed_ids | Course.legacy.where(listed: true).pluck(:id)
 

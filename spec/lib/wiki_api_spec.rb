@@ -12,16 +12,6 @@ describe WikiApi do
     end
   end
 
-  describe 'API response parsing' do
-    it 'should return the list of courses' do
-      VCR.use_cassette 'wiki/course_list' do
-        create(:cohort)
-        response = WikiApi.new.course_list
-        expect(response.count).to be >= 1
-      end
-    end
-  end
-
   describe 'API article ratings' do
     it 'should return the ratings of articles' do
       VCR.use_cassette 'wiki/article_ratings' do

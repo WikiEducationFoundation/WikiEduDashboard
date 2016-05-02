@@ -1,4 +1,5 @@
 require 'mediawiki_api'
+require "#{Rails.root}/lib/wiki_api"
 require 'json'
 
 #= This class is for getting data from the Wikipedia liststudents API.
@@ -18,6 +19,23 @@ class WikiLegacyCourses
       info.append(course_info)
     end
     info
+  end
+
+  def self.course_list
+    # Based on the cohorts and wiki pages defined in application.yml, get the list
+    # of courses for each cohort.
+    response = {}
+    Cohort.all.each do |cohort|
+      content = WikiApi.new.get_page_content(cohort.url)
+      next if content.nil?
+      lines = content.split(/\n/)
+      # Only integers can be valid ids.
+      integers = /^[1-9][0-9]*$/
+      raw_ids = lines.select { |id| integers.match(id) }
+      raw_ids = raw_ids.map(&:to_i)
+      response[cohort.slug] = raw_ids
+    end
+    response
   end
 
   ###################

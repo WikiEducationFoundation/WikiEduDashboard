@@ -45,25 +45,6 @@ class WikiApi
     response.status == 200 ? response.data : nil
   end
 
-  # Based on the cohorts and wiki pages defined in application.yml, get the list
-  # of courses for each cohort.
-  # TODO: Move this to a Legacy-specific class. It is only used for importing
-  # Legacy courses from the EducationProgram extension.
-  def course_list
-    response = {}
-    Cohort.all.each do |cohort|
-      content = get_page_content(cohort.url)
-      next if content.nil?
-      lines = content.split(/\n/)
-      # Only integers can be valid ids.
-      integers = /^[1-9][0-9]*$/
-      raw_ids = lines.select { |id| integers.match(id) }
-      raw_ids = raw_ids.map(&:to_i)
-      response[cohort.slug] = raw_ids
-    end
-    response
-  end
-
   def get_article_rating(titles)
     titles = [titles] unless titles.is_a?(Array)
     titles = titles.sort_by(&:downcase)
@@ -126,16 +107,10 @@ class WikiApi
     handle_api_error e, action, query
   rescue StandardError => e
     tries -= 1
-    typical_errors = [Faraday::TimeoutError,
-                      Faraday::ConnectionFailed,
-                      MediawikiApi::HttpError]
-    if typical_errors.include?(e.class)
-      retry if tries >= 0
-      Raven.capture_exception e, level: 'warning'
-      return nil
-    else
-      raise e
-    end
+    raise e unless typical_errors.include?(e.class)
+    retry if tries >= 0
+    Raven.capture_exception e, level: 'warning'
+    return nil
   end
 
   def api_client
@@ -149,5 +124,11 @@ class WikiApi
                                         query: query,
                                         api_url: @api_url }
     return nil # Do not return a Raven object
+  end
+
+  def typical_errors
+    [Faraday::TimeoutError,
+     Faraday::ConnectionFailed,
+     MediawikiApi::HttpError]
   end
 end
