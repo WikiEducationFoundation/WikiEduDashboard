@@ -138,7 +138,7 @@ describe 'Student users', type: :feature, js: true do
       expect(find('tbody', match: :first)).to have_content 'Ragesock'
 
       puts 'PASSED'
-      fail 'this test passed — this time'
+      raise 'this test passed — this time'
     end
 
     it 'works even if a student has never logged in before' do
@@ -171,7 +171,7 @@ describe 'Student users', type: :feature, js: true do
       expect(find('tbody', match: :first)).to have_content 'Ragesoss'
 
       puts 'PASSED'
-      fail 'this test passed — this time'
+      raise 'this test passed — this time'
     end
 
     it 'does not work if user is not persisted' do
@@ -210,6 +210,7 @@ describe 'Student users', type: :feature, js: true do
     it 'assigns the article' do
       stub_raw_action
       stub_oauth_edit
+      stub_info_query
       create(:courses_user,
              course_id: 10001,
              user_id: 200,
@@ -235,6 +236,7 @@ describe 'Student users', type: :feature, js: true do
     it 'assigns the review' do
       stub_raw_action
       stub_oauth_edit
+      stub_info_query
       create(:courses_user,
              course_id: 10001,
              user_id: 200,
@@ -256,6 +258,7 @@ describe 'Student users', type: :feature, js: true do
     it 'removes the assignment' do
       stub_raw_action
       stub_oauth_edit
+      stub_info_query
       create(:courses_user,
              course_id: 10001,
              user_id: 200,

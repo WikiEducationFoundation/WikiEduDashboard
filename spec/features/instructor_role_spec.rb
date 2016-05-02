@@ -56,6 +56,7 @@ describe 'Instructor users', type: :feature, js: true do
     login_as(instructor, scope: :user)
     stub_oauth_edit
     stub_raw_action
+    stub_info_query
   end
 
   describe 'visiting the students page' do
@@ -191,7 +192,7 @@ describe 'Instructor users', type: :feature, js: true do
       expect(page).to have_content 'My Active Course'
 
       puts 'PASSED'
-      fail 'this test passed — this time'
+      raise 'this test passed — this time'
     end
 
     it 'should not be able to view other deleted courses' do

@@ -31,6 +31,20 @@ class WikiApi
     user_id
   end
 
+  def redirect?(page_title)
+    response = get_page_info([page_title])
+    return false if response.nil?
+    redirect = response.try(:[], 'pages').try(:values).try(:[], 0).try(:[], 'redirect')
+    redirect ? true : false
+  end
+
+  def get_page_info(titles)
+    query_params = { prop: 'info',
+                     titles: titles }
+    response = query(query_params)
+    response.status == 200 ? response.data : nil
+  end
+
   # Based on the cohorts and wiki pages defined in application.yml, get the list
   # of courses for each cohort.
   # TODO: Move this to a Legacy-specific class. It is only used for importing

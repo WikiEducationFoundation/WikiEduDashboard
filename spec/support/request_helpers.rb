@@ -92,6 +92,11 @@ module RequestHelpers
       .to_return(status: 200, body: '[[wikitext]]', headers: {})
   end
 
+  def stub_info_query
+    stub_request(:get, /.*&prop=info.*/)
+      .to_return(status: 200, body: '{}', headers: {})
+  end
+
   def stub_commons_503_error
     stub_request(:get, /.*commons.wikimedia.org.*/)
       .to_return(status: 503, body: '', headers: {})

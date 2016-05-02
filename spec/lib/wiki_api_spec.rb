@@ -121,4 +121,44 @@ describe WikiApi do
       end
     end
   end
+
+  describe 'redirect?' do
+    let(:wiki) { Wiki.new(language: 'en', project: 'wikipedia') }
+    let(:subject) { WikiApi.new(wiki).redirect?(title) }
+
+    context 'when title is a redirect' do
+      let(:title) { 'Athletics_in_Epic_Poetry' }
+      it 'returns true' do
+        VCR.use_cassette 'wiki/redirect' do
+          expect(subject).to eq(true)
+        end
+      end
+    end
+
+    context 'when title is not a redirect' do
+      let(:title) { 'Selfie' }
+      it 'returns false' do
+        VCR.use_cassette 'wiki/redirect' do
+          expect(subject).to eq(false)
+        end
+      end
+    end
+
+    context 'when title does not exist' do
+      let(:title) { 'THIS_PAGE_DOES_NOT_EXIST' }
+      it 'returns false' do
+        VCR.use_cassette 'wiki/redirect' do
+          expect(subject).to eq(false)
+        end
+      end
+    end
+
+    context 'when no data is returned' do
+      let(:title) { 'Athletics_in_Epic_Poetry' }
+      it 'returns false' do
+        stub_request(:any, /.*/).to_return(status: 200, body: '{}', headers: {})
+        expect(subject).to eq(false)
+      end
+    end
+  end
 end

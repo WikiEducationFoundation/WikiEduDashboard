@@ -58,18 +58,31 @@ describe WikiCourseEdits do
     it 'updates talk pages and course page with assignment info' do
       stub_raw_action
       stub_oauth_edit
+      allow_any_instance_of(WikiApi).to receive(:redirect?).and_return(false)
       expect_any_instance_of(WikiEdits).to receive(:post_whole_page).at_least(:once)
       create(:assignment,
-             user_id: 1,
-             course_id: 1,
+             user_id: user.id,
+             course_id: course.id,
              article_title: 'Selfie',
-             role: Assignment::Roles::ASSIGNED_ROLE,)
+             role: Assignment::Roles::ASSIGNED_ROLE)
       create(:assignment,
-             id: 2,
-             user_id: 1,
-             course_id: 1,
+             user_id: user.id,
+             course_id: course.id,
              article_title: 'Talk:Selfie',
              role: Assignment::Roles::REVIEWING_ROLE)
+      WikiCourseEdits.new(action: :update_assignments,
+                          course: course,
+                          current_user: user)
+    end
+
+    it 'does not post if page is a redirect' do
+      allow_any_instance_of(WikiApi).to receive(:redirect?).and_return(true)
+      expect_any_instance_of(WikiEdits).not_to receive(:post_whole_page)
+      create(:assignment,
+             user_id: user.id,
+             course_id: course.id,
+             article_title: 'Athletics_in_Epic_Poetry',
+             role: Assignment::Roles::ASSIGNED_ROLE)
       WikiCourseEdits.new(action: :update_assignments,
                           course: course,
                           current_user: user)

@@ -122,6 +122,7 @@ class WikiCourseEdits
 
   def update_assignments_for_title(title:, assignments_for_same_title:)
     require './lib/wiki_assignment_output'
+    return if WikiApi.new(@home_wiki).redirect?(title)
 
     course_page = @course.wiki_title
 
