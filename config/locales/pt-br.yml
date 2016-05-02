@@ -5,6 +5,7 @@
 # Author: Caçador de Palavras
 # Author: Dianakc
 # Author: HenriqueCrang
+# Author: Ixocactus
 # Author: Luk3
 # Author: Macofe
 # Author: Raphaelras
@@ -41,6 +42,7 @@ pt-br:
     opt_out: Requisitar sair da orientação
     orientation_notice: Antes de criar um curso, vamos passar pela orientação para
       ajudá-lo a começar (Leva aproximadamente 30 minutos para completar.)
+    review_orientation: Revisar a orientação
     start_orientation: Começar Orientação
   home:
     explore: Explorar
@@ -66,6 +68,8 @@ pt-br:
       Essas avaliações podem corresponder a versões muito antigas, então elas são
       apenas um indicador raso da maturidade de um artigo.
     rating_docs:
+      fa: Artigo destacado — Classificação mais alta da Wikipédia, provavelmente é
+        um artigo muito maduro para ser o projeto principal de um novo editor.
       fl: Lista destacada — a mais alta classificação da Wikipedia para listas
     title: Título
     title_example: Título do artigo
@@ -75,7 +79,7 @@ pt-br:
     views_added: '%{count} novas visualizações para %{title}'
   assignments:
     already_exists: Essa atribuição já existe!
-    assignees: Assinatura(s)
+    assignees: Assinante(s)
     assign_other: Atribuir um artigo
     assign_self: Atribuir um artigo a mim mesmo
     confirm_addition: Tem certeza que quer atribuir %{title} a %{username}?
@@ -250,8 +254,7 @@ pt-br:
   wiki_edits:
     notify_overdue:
       header: Você tem uma tarefa do treinamento atrasada.
-      message: Por favor completo os  [https://dashboard.wikiedu.org/training/students
-        módulos de treinamento] designados. --~~~~
+      message: Por favor completo os [%{link} módulos de treinamento] designados.
       summary: treinamento do estudante atrasado
   wizard:
     assignment_dates: Datas da atribuição
@@ -275,4 +278,7 @@ pt-br:
   timeline:
     due_default: Previsto para a próxima semana
     title: Linha do tempo
+  survey:
+    email:
+      signed: '- a equipe Wiki Ed'
 ...

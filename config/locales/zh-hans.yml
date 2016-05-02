@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Camilali0609
 # Author: Liuxinyu970226
+# Author: Macofe
 ---
 zh-hans:
   application:
@@ -232,10 +233,10 @@ zh-hans:
     show_courses: 只显示我的课程
     no_dyk_eligible: 目前在此没有任何符合“您知道吗”资格的条目。
     no_edits: 这里没有最近编辑。
-    refresh_plagiarism: 刷新剽窃报告
     did_you_know_eligible: 符合“您知道吗”资格
     possible_plagiarism: 可能涉嫌剽窃
     recent_edits: 最近编辑
+    recent_uploads: 最近上传
   revisions:
     chars_added: 添加的字符
     class: 等级
@@ -286,7 +287,7 @@ zh-hans:
   wiki_edits:
     notify_overdue:
       header: 您有一个过期的培训任务。
-      message: 请完成分配的[https://dashboard.wikiedu.org/training/students 培训模块]。--~~~~
+      message: 请完成分配的[%{link} 培训模块]。
       summary: 学生培训迟到
   wizard:
     assignment_dates: 分配日期

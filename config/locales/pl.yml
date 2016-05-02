@@ -103,4 +103,5 @@ pl:
     email:
       headline: Witaj, %{username}
       course: 'Kurs: %{course_info}'
+      signed: '- zespół Wiki Ed'
 ...

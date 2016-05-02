@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Arian Ar
+# Author: Ebraminio
 # Author: GMozafarian
 # Author: Ladsgroup
 # Author: Mardetanha
@@ -92,6 +93,8 @@ fa:
     view: بازدیدها
   namespace:
     user_ns: کاربر
+  recent_activity:
+    recent_uploads: بارگذاری‌های اخیر
   users:
     name: نام
     student_editors: ویراستاران دانشجویی

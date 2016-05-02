@@ -4,6 +4,7 @@
 # Author: Mikahama
 # Author: Nike
 # Author: Pitke
+# Author: Silvonen
 ---
 fi:
   articles:
@@ -35,6 +36,9 @@ fi:
       alkaen ensimmäisistä heidän tekemistään muokkauksista per artikkeli.
     view_wiki: Näytä Wikipediassa
     yourcourses: Omat kurssisi
+    survey:
+      notification_message: Tähän kurssiin liittyy kysely
+      link: Vastaa kyselyyn
   recent_activity:
     possible_plagiarism: Mahdollinen plagiaatti
   revisions:
@@ -59,4 +63,5 @@ fi:
   survey:
     email:
       course: 'Kurssi: %{course_info}'
+      link: Vastaa kyselyyn
 ...

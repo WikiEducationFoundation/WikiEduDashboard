@@ -270,7 +270,7 @@ fr:
     date_time: Date/Heure
     edit_count_description: Total des modifications
     revisions: Modifications récentes
-    upload_count: Téléchargements de Communs
+    upload_count: Téléversement de Communs
     uploads_in_use_count: fichiers utilisés dans des articles
     upload_usages_count: nombre total d’utilisations dans les langues
     view_count_description: Articles vus
@@ -287,10 +287,10 @@ fr:
     no_dyk_eligible: Il n’y a aucun article éligible pour « Le savez-vous » actuellement.
     no_plagiarism: Il n’y a aucune révision récente soupçonnée de plagiat, actuellement.
     no_edits: Il n’y a aucune modification récente.
-    refresh_plagiarism: Rafraîchir les rapports de plagiat
     did_you_know_eligible: Éligible à « Le savez-vous »
     possible_plagiarism: Plagiat possible
     recent_edits: Modifications récentes
+    recent_uploads: Mises à jour récentes
   revisions:
     chars_added: Caractères ajoutés
     class: Classe
@@ -356,8 +356,8 @@ fr:
       confirm: Cela publiera un rappel sur les pages de discussion de tous les étudiants
         qui sont en retard dans leur formation. Êtes-vous sûr de vouloir faire cela ?
       header: Vous avez une affectation de formation en retard.
-      message: Veuillez terminer les [https://dashboard.wikiedu.org/training/students
-        modules de formation] qui vous ont été affectés. --~~~~
+      message: Veuillez terminer les [%{link} modules de formation] qui vous ont été
+        affectés.
       summary: retard de formation d’étudiant
   wizard:
     assignment_dates: Dates de l'assignement
@@ -447,6 +447,6 @@ fr:
         avec Wikipédia une expérience encore plus enrichissante et valorisante.
       course: 'Cours : %{course_info}'
       closing: Sincèrement vôtre,
-      signed: L’équipe Wiki Ed
+      signed: '- l’équipe Wiki Ed'
       link: Participer au sondage
 ...

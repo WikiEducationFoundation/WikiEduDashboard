@@ -102,6 +102,9 @@ lb:
       one: Fräiwëllegen
       other: Fräiwëlleger
     yourcourses: Är Coursen
+    survey:
+      notification_message: Fir dëse Cours ass eng Ëmfro disponibel
+      link: Bei der Ëmfro matmaachen
   courses_generic:
     creator:
       course_description: Beschreiwung vum Programm
@@ -180,6 +183,8 @@ lb:
     title: Chronologie
   survey:
     email:
+      headline: Bonjour %{username}
       course: 'Cours: %{course_info}'
       closing: Mat beschte Gréiss
+      link: Bei der Ëmfro matmaachen
 ...

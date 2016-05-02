@@ -1,6 +1,7 @@
 # Messages for Russian (русский)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Alexandr Efremov
 # Author: Aram1985
 # Author: INS Pirat
 # Author: Iniquity
@@ -12,24 +13,36 @@
 ru:
   application:
     cancel: Отмена
+    dashboard: Панель Wiki Ed
+    explore: Ознакомление
+    greeting2: Добро пожаловать!
+    greeting_extended: Добро пожаловать в Википедию
+    greeting: Здравствуйте!
     help: Справка
     home: Главная
     log_in_extended: Войти с помощью Википедии
     log_in: Представиться системе
     log_out: Выйти
+    my_dashboard: Моя панель
     recent_activity: Недавние действия
-    search: искать на ask.wikiedu.org
+    search: задать вопрос
     sign_up_extended: Зарегистрируйтесь в Википедии
     sign_up_log_in_extended: через Википедию
     sign_up: Зарегистрироваться
     submit: Отправить
     training: Обучение
+  dashboard:
+    create_note: Нажмите на ссылку Создать курс, чтобы создать свой первый курс.
+    explore_course_pages: Изучить страницы курса
+    explore_examples: Изучить примеры
   home:
+    explore: Исследовать
     log_in: Войти с помощью Википедии
     sign_up: Зарегистрируйтесь с помощью Википедии
   activity:
     all: Активность
     edited_by: Изменил(а)
+    label: Активность
   articles:
     assigned: Назначенные статьи
     assigned_to: Назначен
@@ -75,6 +88,7 @@ ru:
     milestones:
       title: Этапы
   cohort:
+    none: Нет
     view_other: Посмотреть другие группы.
   courses:
     activity: Деятельность
@@ -83,6 +97,19 @@ ru:
       курса в течение семестра
     course_description: Курсы
     courses: Курсы
+    creator:
+      course_description: Описание курса
+      course_school: Школьный курс
+      course_subject: Предмет курса
+      course_title: Название курса
+      create_button: Создать свой курс!
+      create_label: Создать новый курс!
+      create_new: Создать новый курс
+      create_short: Создать курс
+      end_date: Дата окончания
+      expected_number: Ожидаемое количество студентов
+      find: Найти свой курс
+      start_date: Дата начала
     current: Текущие курсы
     duration: Продолжительность курса
     error:
@@ -109,12 +136,23 @@ ru:
     view: Просмотр курса
     view_doc: Сумма всех просмотров статей, изменённых студентами с момента их первой
       правки каждой статьи.
+    view_page: Посмотреть страницу курса
     view_wiki: Посмотреть на Википедии
     volunteer:
       one: Доброволец
       other: Добровольцы
+    wiki_staff: Сотрудники Wiki Ed
     yourcourses: Ваши курсы
   courses_generic:
+    creator:
+      course_school: Учреждение
+      course_title: Название программы
+      create_button: Создать свою программу!
+      create_label: Создать новую программу
+      create_new: Создать новую программу
+      create_short: Создать программу
+      find: Найди свою программу
+    school: Учреждение
     student_editors: Редакторы
     students: Редакторы
     students_short: Խմբագիրներ
@@ -138,6 +176,8 @@ ru:
     user: Пространство участника
     user_char_added: Добавлено символов в пространстве участника
     user_ns: Участник
+  recent_activity:
+    recent_edits: Последние правки
   revisions:
     chars_added: Символов добавлено
     class: Класс
@@ -210,4 +250,13 @@ ru:
     header: 500 — внутренняя ошибка сервера. :-(
   login_error:
     header: Ошибка входа
+  timeline:
+    title: Хронология
+  survey:
+    email:
+      headline: Здравствуйте, %{username}
+      course: 'Курс: %{course_info}'
+      closing: С уважением,
+      signed: '- Команда Wiki Ed'
+      link: Принять участие в опросе
 ...

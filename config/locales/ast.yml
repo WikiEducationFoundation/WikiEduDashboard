@@ -1,6 +1,7 @@
 # Messages for Asturian (asturianu)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Macofe
 # Author: Xuacu
 ---
 ast:
@@ -211,8 +212,7 @@ ast:
       confirm: Esto va publicar un recordatoriu nes páxines d'alderique de tolos estudiantes
         que tienen la preparación atrasada. ¿Tas seguru de que quies faer esto?
       header: Tienes una xera d'entrenamientu atrasada.
-      message: Completa los [https://dashboard.wikiedu.org/training/students módulos
-        d'entrenamientu] designaos. --~~~~
+      message: Completa los [%{link} módulos d'entrenamientu] designaos.
       summary: retrasu nel entrenamientu d'estudiante
   wizard:
     assignment_dates: Feches de la xera

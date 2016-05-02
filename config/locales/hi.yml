@@ -11,6 +11,7 @@ hi:
   application:
     help: सहायता!
     log_out: प्रस्थान
+    search: सवाल पूछें
   home:
     explore: अन्वेषण
     sign_up: विकिपीडिया के साथ जुड़ें
@@ -30,7 +31,6 @@ hi:
     no_dyk_eligible: अभी कोई डीवाईके योग्य आर्टिकल नहीं है।
     no_plagiarism: साहित्य चोरी के वर्तमान में कोई हाल के रिवीज़न सस्पेक्टस नहीं हैं।
     no_edits: हाल के कोई संपादन नहीं हैं।
-    refresh_plagiarism: साहित्य चोरी की रिपोर्टों को रिफ्रेश करें।
     did_you_know_eligible: क्या आप एलिजिबल को जानते हैं
     possible_plagiarism: संभव साहित्य चोरी
     recent_edits: हाल के संपादन

@@ -267,10 +267,10 @@ he:
     no_dyk_eligible: כעת אין ערכים כלשהם הראויים ל-"הידעת?".
     no_plagiarism: כעת אין גרסאות חדשות כלשהן החשודות בגניבה ספרותית.
     no_edits: אין שינויים אחרונים
-    refresh_plagiarism: רענון דיווחי גניבה ספרותית
     did_you_know_eligible: ראויים ל-"הידעת?"
     possible_plagiarism: חשד לגניבה ספרותית
     recent_edits: שינויים אחרונים
+    recent_uploads: העלאות אחרונות
   revisions:
     chars_added: תווים שנוספו
     class: שיעור

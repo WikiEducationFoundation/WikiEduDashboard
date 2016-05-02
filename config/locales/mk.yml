@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Bjankuloski06
+# Author: Macofe
 ---
 mk:
   application:
@@ -227,8 +228,7 @@ mk:
       confirm: Ова ќе им испрати потсетник на страниците за разговор на сите ученици
         што имаат заостаната обука. Дали сте сигурни дека сакате да го испратите?
       header: Имате заостаната задача за обука.
-      message: Ве молиме, завршете ги зададените [https://dashboard.wikiedu.org/training/students
-        модули за обука]. --~~~~
+      message: Ве молиме, завршете ги зададените [%{link} модули за обука].
       summary: ученичката обука заостанува
   wizard:
     assignment_dates: Датуми за задачите

@@ -287,10 +287,10 @@ es:
     no_dyk_eligible: No hay actualmente ningún DYK-artículos elegibles.
     no_plagiarism: Actualmente no hay ninguna revisión reciente sospechada de plagio.
     no_edits: No hay ninguna edición reciente.
-    refresh_plagiarism: Actualizar informes de plagios
     did_you_know_eligible: ¿Sabía Usted Elegible
     possible_plagiarism: Posible plagio
     recent_edits: Ediciones recientes
+    recent_uploads: Subidas recientes
   revisions:
     chars_added: Caracteres añadidos
     class: Clase
@@ -357,8 +357,7 @@ es:
         los estudiantes que no hayan completado el entrenamiento. ¿Estás seguro de
         que quieres hacer esto?
       header: Tienes una tarea de entrenamiento atrasada.
-      message: Completa los [https://dashboard.wikiedu.org/training/students módulos
-        de entrenamiento] asignados. --~~~~
+      message: Completa los [%{link} módulos de entrenamiento] asignados.
       summary: retraso en el entrenamiento de estudiantes
   wizard:
     assignment_dates: Fechas de la tarea
@@ -441,6 +440,6 @@ es:
         la enseñanza con Wikipedia una experiencia aún más gratificante y valiosa.
       course: 'Curso: %{course_info}'
       closing: Sinceramente,
-      signed: Personal de Wiki Ed
+      signed: '- el equipo de Wiki Ed'
       link: Completar la encuesta
 ...

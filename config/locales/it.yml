@@ -248,10 +248,10 @@ it:
     show_courses: Mostra solo i miei corsi
     no_plagiarism: Attualmente non c'è alcuna versione recente sospetta di plagio.
     no_edits: Non ci sono modifiche recenti.
-    refresh_plagiarism: Aggiorna report sul plagio
     did_you_know_eligible: Ammissibile "Lo sapevi che"
     possible_plagiarism: Possibile plagio
     recent_edits: Modifiche recenti
+    recent_uploads: Ultimi caricamenti
   revisions:
     chars_added: Caratteri aggiunti
     class: Classe
@@ -336,8 +336,15 @@ it:
       al sondaggio.
     email:
       headline: Ciao, %{username}
+      message_line1: Ci auguriamo che hai avuto un grande termine! Wiki Ed sta cercando
+        il tuo feedback per migliorare le nostre risorse e il supporto per le assegnazioni
+        di Wikipedia. La tua risposta è fondamentale per migliorare le nostre attuali
+        offerte.
+      message_line2: Siete disposti a prendere 15 minuti per compilare il nostro sondaggio
+        sull'istruttore? Clicca sul pulsante qui sotto per aiutarci a rendere la didattica
+        con Wikipedia un'esperienza ancora più gratificante e preziosa.
       course: 'Corso: %{course_info}'
       closing: Cordiali saluti,
-      signed: Staff Wiki Ed
+      signed: '- il team Wiki Ed'
       link: Rispondi sondaggio
 ...

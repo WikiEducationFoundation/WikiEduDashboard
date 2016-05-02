@@ -76,11 +76,10 @@ ksh:
     no_plagiarism: Mer han em mmang kein älldere Väsjohne, di em Verdaach schtonn
       künnte, dat se jekleut wöhre.
     no_edits: Mer han kein köözlesche Änderonge
-    refresh_plagiarism: donn de Övverseesch övver jekleute Täxte ob em neuje Schtand
-      zeije
     did_you_know_eligible: Ußwählbaa för „Had_Er ald jewoß?“
     possible_plagiarism: Velleijsch jekleut?
     recent_edits: Köözlesche Änderonge
+    recent_uploads: Köözlesch huhjelahde
   revisions:
     time_doc: De Zigg vun jehde Väsjohn en Dinge Ziggzohn
   uploads:
@@ -112,4 +111,7 @@ ksh:
     header: Ene entärne Fähler em ẞööver.
   login_error:
     header: Fähler beim Enlogge
+  survey:
+    email:
+      closing: Med schöhne Jröhß,
 ...

@@ -6,4 +6,9 @@
 tcy:
   application:
     search: ಪ್ರಶ್ನೆ ಕೆನ್ಲೇ
+  recent_activity:
+    recent_uploads: ಇಂಚಿಪ ಸೇರ್ಸಯಿನವೂ
+  survey:
+    email:
+      closing: ಪ್ರಾಮಾಣಿಕವಾದ್,
 ...

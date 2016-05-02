@@ -16,7 +16,7 @@ ps:
     log_out: وتل
     my_dashboard: زما ډشبورډ
     recent_activity: تازه فعاليتونه
-    search: ask.wikiedu.org پلټل
+    search: يوه پوښتنه پوښتل
     sign_up_extended: د ويکيپېډيا له لارې نومليکنه
     sign_up_log_in_extended: د ويکيپېډيا سره
     sign_up: نومليکل
@@ -93,6 +93,7 @@ ps:
     user_ns: کارن
   recent_activity:
     recent_edits: وروستي سمونونه
+    recent_uploads: تازه پورته کېدنې
   revisions:
     class: ټولگی
     date_time: نېټه/وخت
@@ -124,4 +125,7 @@ ps:
     header: د ننوتلو ستونزه
   timeline:
     title: وختکرښه
+  survey:
+    email:
+      course: 'کورس: %{course_info}'
 ...

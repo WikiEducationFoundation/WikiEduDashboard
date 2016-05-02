@@ -283,10 +283,10 @@ de:
     no_plagiarism: Es gibt derzeit keine letzten Versionen, die auf Plagiate verdächtigt
       werden.
     no_edits: Es gibt keine letzten Bearbeitungen.
-    refresh_plagiarism: Plagiatsberichte aktualisieren
     did_you_know_eligible: „Schon gewusst?“-berechtigt
     possible_plagiarism: Mögliches Plagiat
     recent_edits: Letzte Bearbeitungen
+    recent_uploads: Zuletzt hochgeladene Dateien
   revisions:
     chars_added: Hinzugefügte Zeichen
     class: Klasse
@@ -352,8 +352,7 @@ de:
       confirm: Dies sendet eine Erinnerung an die Diskussionsseiten aller Studenten,
         die eine überfällige Ausbildung haben. Bist du sicher, dass du dies tun möchtest?
       header: Du hast eine überfällige Ausbildungszuweisung.
-      message: Vervollständige bitte die zugewiesenen [https://dashboard.wikiedu.org/training/students
-        Ausbildungsmodule]. <nowiki>--~~~~</nowiki>
+      message: Vervollständige bitte die zugewiesenen [%{link} Ausbildungsmodule].
       summary: Studentenausbildung überfällig
   wizard:
     assignment_dates: Zuweisungsdaten
@@ -446,6 +445,6 @@ de:
         zu machen.
       course: 'Kurs: %{course_info}'
       closing: Mit freundlichen Grüßen
-      signed: Mitarbeiter von Wiki Ed
+      signed: – das Team von Wiki Ed
       link: An der Umfrage teilnehmen
 ...

@@ -13,7 +13,7 @@ sv:
     home: Huvudsida
     log_out: Logga ut
     recent_activity: Senaste aktivitet
-    search: sök på ask.wikiedu.org
+    search: ställ en fråga
   activity:
     all: Aktivitet
     edited_by: Redigerad av
@@ -113,4 +113,8 @@ sv:
     header: 500 — internt serverfel.  :-(
   login_error:
     header: Inloggningsproblem
+  survey:
+    email:
+      course: 'Kurs: %{course_info}'
+      closing: Med vänliga hälsningar,
 ...

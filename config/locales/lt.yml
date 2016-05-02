@@ -101,6 +101,7 @@ lt:
     show_courses: Rodyti tik mano kursus
     possible_plagiarism: Galimas plagijavimas
     recent_edits: Naujausi keitimai
+    recent_uploads: Naujausi įkėlimai
   revisions:
     class: Klasė
     date_time: Data/Laikas
@@ -120,4 +121,7 @@ lt:
       header: Nepalaikoma naršyklė :-(
   timeline:
     title: Laiko juosta
+  survey:
+    email:
+      closing: Pagarbiai,
 ...

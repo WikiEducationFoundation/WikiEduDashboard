@@ -4,6 +4,7 @@
 # Author: Otokoume
 # Author: Sudachi
 # Author: Sujiniku
+# Author: Thibaut120094
 ---
 ja:
   application:
@@ -89,6 +90,7 @@ ja:
     user_ns: ユーザー
   recent_activity:
     recent_edits: 最近の編集
+    recent_uploads: 最近のアップロード
   revisions:
     loading: 版を読み込み中...
   training:

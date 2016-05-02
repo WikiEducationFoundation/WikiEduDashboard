@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Fúlvio
+# Author: Gato Preto
 # Author: Jkb8
 # Author: Macofe
 # Author: Vitorvicentevalente
@@ -90,6 +91,7 @@ pt:
   recent_activity:
     no_edits: Não existem edições recentes.
     recent_edits: Edições recentes
+    recent_uploads: Últimos Envios
   revisions:
     date_time: Data/Hora
     edited_by: Editado por
