@@ -18,7 +18,7 @@ module CourseHelper
 
   def date_highlight_class(course)
     return 'ending-soon' if 1.week.from_now > course.end
-    return 'just-started' unless course.start > 1.week.ago
+    return 'just-started' if course.start > 1.week.ago
     return ''
   end
 end
