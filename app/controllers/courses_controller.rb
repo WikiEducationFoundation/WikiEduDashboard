@@ -97,16 +97,6 @@ class CoursesController < ApplicationController
     end
   end
 
-  def handle_syllabus_params
-    syllabus = params['syllabus']
-    if syllabus == 'null'
-      @course.syllabus.destroy
-      @course.syllabus = nil
-    else
-      @course.syllabus = params['syllabus']
-    end
-  end
-
   ##################
   # Helper methods #
   ##################
@@ -164,6 +154,16 @@ class CoursesController < ApplicationController
 
   def cohort_params
     params.require(:cohort).permit(:title)
+  end
+
+  def handle_syllabus_params
+    syllabus = params['syllabus']
+    if syllabus == 'null'
+      @course.syllabus.destroy
+      @course.syllabus = nil
+    else
+      @course.syllabus = params['syllabus']
+    end
   end
 
   def validate
