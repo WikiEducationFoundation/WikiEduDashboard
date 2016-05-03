@@ -572,4 +572,166 @@ describe Course, type: :model do
       end
     end
   end
+
+  describe '#ready_for_survey' do
+    let(:survey) { create(:survey) }
+    let(:cohort) { create(:cohort, title: 'Test', slug: 'test') }
+    let(:survey_assignment) { create(:survey_assignment, survey_id: survey.id, published: true) }
+    let(:course) { create(:course, start: course_start, end: course_end) }
+    let(:course_start) { Time.zone.today - 1.month }
+    let(:course_end) { Time.zone.today + 1.month }
+
+    before do
+      survey_assignment.cohorts << cohort
+    end
+
+    let(:n) { 7 }
+    let(:course_scope) do
+      survey_assignment.cohorts.first.courses.ready_for_survey(
+        days: n,
+        before: before,
+        relative_to: relative_to)
+    end
+
+    context 'when `n` days before their course end is Today' do
+      let(:course_end) { Time.zone.today - n.days }
+      let(:before) { true }
+      let(:relative_to) { 'end' }
+
+      it 'include the Course' do
+        course.cohorts << cohort
+        course.save
+        expect(course_scope.length).to eq(1)
+      end
+    end
+
+    context 'when `n` days after their course end is Today' do
+      let(:course_end) { Time.zone.today - n.days }
+      let(:before) { false }
+      let(:relative_to) { 'end' }
+
+      it 'includes the Course ' do
+        course.cohorts << cohort
+        course.save
+        expect(course_scope.length).to eq(1)
+      end
+    end
+
+    context 'when `n` days `before` their course `start` is Today' do
+      let(:course_start) { Time.zone.today + n.days }
+      let(:before) { true }
+      let(:relative_to) { 'start' }
+
+      it 'includes the Course' do
+        course.cohorts << cohort
+        course.save
+        expect(course_scope.length).to eq(1)
+      end
+    end
+
+    context 'when `n` days `after` their course `start` is Today' do
+      let(:course_start) { Time.zone.today - n.days }
+      let(:before) { false }
+      let(:relative_to) { 'start' }
+
+      it 'includes the Course' do
+        course.cohorts << cohort
+        course.save
+        expect(course_scope.length).to eq(1)
+      end
+    end
+
+    context 'when `n` days `after` their course `start` is tomorrow' do
+      let(:course_start) { Time.zone.tomorrow - n.days }
+      let(:before) { false }
+      let(:relative_to) { 'start' }
+
+      it 'does not include the Course' do
+        course.cohorts << cohort
+        course.save
+        expect(course_scope.length).to eq(0)
+      end
+    end
+  end
+
+  describe '#will_be_ready_for_survey' do
+    let(:survey) { create(:survey) }
+    let(:cohort) { create(:cohort, title: 'Test', slug: 'test') }
+    let(:survey_assignment) { create(:survey_assignment, survey_id: survey.id, published: true) }
+    let(:course) { create(:course, start: course_start, end: course_end) }
+    let(:course_start) { Time.zone.today - 1.month }
+    let(:course_end) { Time.zone.today + 1.month }
+
+    before do
+      survey_assignment.cohorts << cohort
+    end
+
+    let(:n) { 7 }
+    let(:course_will_be_ready_scope) do
+      survey_assignment.cohorts.first.courses.will_be_ready_for_survey(
+        days: n,
+        before: before,
+        relative_to: relative_to)
+    end
+
+    context 'when `n` days before the course end is after Today' do
+      let(:course_end) { Time.zone.today + n.days + 1.day }
+      let(:before) { true }
+      let(:relative_to) { 'end' }
+
+      it 'includes the Course' do
+        course.cohorts << cohort
+        course.save
+        expect(course_will_be_ready_scope.length).to eq(1)
+      end
+    end
+
+    context 'when `n` days before the course start is after Today' do
+      let(:course_start) { Time.zone.today + n.days + 1.day }
+      let(:before) { true }
+      let(:relative_to) { 'start' }
+
+      it 'includes the Course' do
+        course.cohorts << cohort
+        course.save
+        expect(course_will_be_ready_scope.length).to eq(1)
+      end
+    end
+
+    context 'when `n` days after their course end is after Today' do
+      let(:course_end) { Time.zone.today - n.days + 1.day }
+      let(:before) { false }
+      let(:relative_to) { 'end' }
+
+      it 'includes the Course' do
+        course.cohorts << cohort
+        course.save
+        expect(course_will_be_ready_scope.length).to eq(1)
+      end
+    end
+
+    context 'when `n` days after their course start is after Today' do
+      let(:course_start) { Time.zone.today - n.days + 1.day }
+      let(:before) { false }
+      let(:relative_to) { 'start' }
+
+      it 'includes the Course' do
+        course.cohorts << cohort
+        course.save
+        expect(course_will_be_ready_scope.length).to eq(1)
+      end
+    end
+
+    context 'when `n` days after their course start is exactly Today' do
+      let(:course_start) { Time.zone.today - n.days }
+      let(:before) { false }
+      let(:relative_to) { 'start' }
+
+      it 'does not include the Course' do
+        course.cohorts << cohort
+        course.save
+        expect(course_will_be_ready_scope.length).to eq(0)
+      end
+    end
+  end
 end
