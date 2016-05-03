@@ -79,7 +79,7 @@ namespace :surveys do
   task build_course_data_survey: :environment do
     group_name = "Course Data Questions"
     test_group = create(:question_group, name: group_name)
-    test_survey = create(:survey, name: "Course Data Question Survey", show_courses: true )
+    test_survey = create(:survey, name: "Course Data Question Survey")
     test_survey.rapidfire_question_groups << test_group
     question_params = { question_group_id: test_group.id, answer_options: '' }
     create(:q_select, question_params.merge({question_text: "Select a student", course_data_type: "Students"}))

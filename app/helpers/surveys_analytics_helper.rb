@@ -15,7 +15,7 @@ module SurveysAnalyticsHelper
   end
 
   def survey_author(model)
-    return '--' if model.versions.empty?
+    return '--' if model.versions.empty? || model.versions.last.whodunnit.nil?
     user = User.find(model.versions.last.whodunnit)
     return user.username unless user.nil?
   end
