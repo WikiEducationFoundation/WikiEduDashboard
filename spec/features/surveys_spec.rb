@@ -65,62 +65,6 @@ describe 'Surveys', type: :feature, js: true do
     # end
   end
 
-  describe 'Permissions' do
-    before(:each) do
-      @user = create(:user)
-      @admin = create(:admin)
-
-      @instructor = create(:user, username: 'Professor Sage')
-      course = create(:course)
-
-      @courses_user = create(
-        :courses_user,
-        user_id: @instructor.id,
-        course_id: course.id,
-        role: 1)
-
-      @open_survey = create(:survey, open: true)
-
-      @survey = create(:survey)
-
-      survey_assignment = create(
-        :survey_assignment,
-        courses_user_role: 1,
-        survey_id: @survey.id)
-      create(:survey_notification,
-             course_id: course.id,
-             survey_assignment_id: survey_assignment.id,
-             courses_users_id: @courses_user.id)
-    end
-
-    it 'can view survey if the survey notification id is associated with current user' do
-      login_as(@instructor, scope: :user)
-      visit survey_path(@survey)
-      expect(current_path).to eq(survey_path(@survey))
-    end
-
-    it 'can view survey if it is open' do
-      login_as(@user, scope: :user)
-      visit survey_path(@open_survey)
-      expect(current_path).to eq(survey_path(@open_survey))
-    end
-
-    it 'can view survey if user is an admin' do
-      login_as(@admin, scope: :user)
-      visit survey_path(@survey)
-      expect(current_path).to eq(survey_path(@survey))
-      login_as(@admin, scope: :user)
-      visit survey_path(@open_survey)
-      expect(current_path).to eq(survey_path(@open_survey))
-    end
-
-    it 'redirects a user if not logged in or survey notification id isnt associated with them' do
-      login_as(@user, scope: :user)
-      visit survey_path(@survey)
-      expect(current_path).to eq(root_path)
-    end
-  end
-
   describe 'Instructor takes survey' do
     before do
       @instructor = create(:user)
@@ -250,6 +194,62 @@ describe 'Surveys', type: :feature, js: true do
     it 'loads a question group preview' do
       visit '/surveys/rapidfire/question_groups/1/answer_groups/new?preview'
       visit "/surveys/rapidfire/question_groups/1/answer_groups/new?preview&course_slug=#{Course.last.slug}"
+    end
+  end
+
+  describe 'Permissions' do
+    before(:each) do
+      @user = create(:user)
+      @admin = create(:admin)
+
+      @instructor = create(:user, username: 'Professor Sage')
+      course = create(:course)
+
+      @courses_user = create(
+        :courses_user,
+        user_id: @instructor.id,
+        course_id: course.id,
+        role: 1)
+
+      @open_survey = create(:survey, open: true)
+
+      @survey = create(:survey)
+
+      survey_assignment = create(
+        :survey_assignment,
+        courses_user_role: 1,
+        survey_id: @survey.id)
+      create(:survey_notification,
+             course_id: course.id,
+             survey_assignment_id: survey_assignment.id,
+             courses_users_id: @courses_user.id)
+    end
+
+    it 'can view survey if the survey notification id is associated with current user' do
+      login_as(@instructor, scope: :user)
+      visit survey_path(@survey)
+      expect(current_path).to eq(survey_path(@survey))
+    end
+
+    it 'can view survey if it is open' do
+      login_as(@user, scope: :user)
+      visit survey_path(@open_survey)
+      expect(current_path).to eq(survey_path(@open_survey))
+    end
+
+    it 'can view survey if user is an admin' do
+      login_as(@admin, scope: :user)
+      visit survey_path(@survey)
+      expect(current_path).to eq(survey_path(@survey))
+      login_as(@admin, scope: :user)
+      visit survey_path(@open_survey)
+      expect(current_path).to eq(survey_path(@open_survey))
+    end
+
+    it 'redirects a user if not logged in or survey notification id isnt associated with them' do
+      login_as(@user, scope: :user)
+      visit survey_path(@survey)
+      expect(current_path).to eq(root_path)
     end
   end
 

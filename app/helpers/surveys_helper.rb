@@ -200,22 +200,18 @@ module SurveysHelper
     false
   end
 
-  def set_course_if_survey_has_course_questions
-    if survey_has_course_questions? && !has_course_slug
-      @courses = Course.all
-      render 'course_select'
-    else
-      set_course
-    end
+  def set_course_for_survey
+    set_course
+    return unless survey_has_course_questions? && !has_course_slug
+    @courses = Course.all
+    render 'course_select'
   end
 
-  def set_course_if_course_questions
-    if course_questions?(@question_group) && !has_course_slug
-      @courses = Course.all
-      render 'course_select'
-    else
-      set_course
-    end
+  def set_course_for_question_group
+    set_course
+    return unless course_questions?(@question_group) && !has_course_slug
+    @courses = Course.all
+    render 'course_select'
   end
 
   def survey_notification_id(notification)
