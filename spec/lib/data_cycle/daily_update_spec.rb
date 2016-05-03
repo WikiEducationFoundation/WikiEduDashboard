@@ -22,4 +22,14 @@ describe DailyUpdate do
       DailyUpdate.new
     end
   end
+
+  context 'when a pid file is present' do
+    it 'deletes the pid file for a non-running process' do
+      allow_any_instance_of(DailyUpdate).to receive(:create_pid_file)
+      allow_any_instance_of(DailyUpdate).to receive(:run_update)
+      File.open('tmp/batch_update_constantly.pid', 'w') { |f| f.puts '123456789' }
+      DailyUpdate.new
+      expect(File.exist?('tmp/batch_update_constantly.pid')).to eq(false)
+    end
+  end
 end
