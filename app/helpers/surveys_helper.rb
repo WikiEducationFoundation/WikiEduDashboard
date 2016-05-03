@@ -106,25 +106,13 @@ module SurveysHelper
     answers = options[:answers]
     index = options[:index]
     answer = answers[index]
+    return false unless is_grouped_question(answer)
+    return true if index == 0
+
     previous_answer = answers[index - 1]
-    if index == 0 && is_grouped_question(answer)
-      return true
-    elsif is_grouped_question(answer) && !is_grouped_question(previous_answer)
-      return true
-    elsif is_grouped_question(answer) && !previous_question_in_same_group(answer, previous_answer)
-      return true
-    else
-      return false
-    end
-  end
-
-  def previous_question_in_same_group(current, previous)
-    grouped_question(current) == grouped_question(previous)
-  end
-
-  def next_question_in_same_group(current, next_question)
-    return false if next_question.nil?
-    grouped_question(current) == grouped_question(next_question)
+    return true unless is_grouped_question(previous_answer)
+    return true unless questions_in_same_group?(answer, previous_answer)
+    return false
   end
 
   def end_of_group(answer, answer_group_builder, index)
@@ -135,7 +123,7 @@ module SurveysHelper
     return true if is_last_question
 
     next_question = answer_group_builder.answers[index + 1]
-    return true unless next_question_in_same_group(answer, next_question)
+    return true unless questions_in_same_group?(answer, next_question)
 
     return false
   end
@@ -181,35 +169,20 @@ module SurveysHelper
 
   private
 
-  def has_course_slug
-    params.key?('course_slug')
-  end
-
   def set_course
-    @course = find_course_by_slug(params[:course_slug]) if has_course_slug
-  end
-
-  def course_questions?(question_group)
-    !question_group.questions.course_data_questions.empty?
-  end
-
-  def survey_has_course_questions?
-    @surveys_question_groups.each do |sqg|
-      return true if course_questions?(sqg.question_group)
-    end
-    false
+    @course = find_course_by_slug(params[:course_slug]) if course_slug?
   end
 
   def set_course_for_survey
     set_course
-    return unless survey_has_course_questions? && !has_course_slug
+    return unless survey_has_course_questions? && !course_slug?
     @courses = Course.all
     render 'course_select'
   end
 
   def set_course_for_question_group
     set_course
-    return unless course_questions?(@question_group) && !has_course_slug
+    return unless course_questions?(@question_group) && !course_slug?
     @courses = Course.all
     render 'course_select'
   end
@@ -223,5 +196,29 @@ module SurveysHelper
     current_path_segments = req.path.split('/').reject(&:blank?)
     active_path = path.split('/').reject(&:blank?).last
     current_path_segments.last == active_path ? 'active' : nil
+  end
+
+  ######################################
+  # Methods called only from this file #
+  ######################################
+
+  def course_slug?
+    params.key?('course_slug')
+  end
+
+  def course_questions?(question_group)
+    !question_group.questions.course_data_questions.empty?
+  end
+
+  def questions_in_same_group?(first, second)
+    return false if first.nil? || second.nil?
+    grouped_question(first) == grouped_question(second)
+  end
+
+  def survey_has_course_questions?
+    @surveys_question_groups.each do |sqg|
+      return true if course_questions?(sqg.question_group)
+    end
+    false
   end
 end
