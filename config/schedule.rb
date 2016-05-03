@@ -28,7 +28,3 @@ end
 every 1.day, at: '4:30 am' do
   rake 'batch:update_daily'
 end
-
-every 1.day, at: '12:30 am' do
-  rake 'cache:warm:homepage'
-end
