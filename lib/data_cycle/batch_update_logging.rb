@@ -1,4 +1,8 @@
+require 'action_view'
+
 module BatchUpdateLogging
+  include ActionView::Helpers::DateHelper
+
   DAILY_UPDATE_PID_FILE = 'tmp/batch_update_daily.pid'.freeze
   CONSTANT_UPDATE_PID_FILE = 'tmp/batch_update_constantly.pid'.freeze
   PAUSE_UPDATES_FILE = 'tmp/batch_pause.pid'.freeze

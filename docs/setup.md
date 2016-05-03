@@ -46,16 +46,8 @@
 1. **Migrate the database**
       $ `rake db:migrate`
 
-## Seed data (optional; this could take a very long time)
-
-1. **Uncomment or add cohort URLs in `application.yml`**
-
-	`cohort_fall_2014: "Wikipedia:Education_program/Dashboard/Fall_2014_course_ids"`
-	`cohort_spring_2015: "Wikipedia:Education_program/Dashboard/course_ids"`
-
-2. **Pull data from sources**
-
-      $ `rake batch:initialize`
+2. **Create the cohorts specified in `application.yml`**
+      $ `rake cohort:add_cohorts`
 
 ## [Set up OAuth integration](oauth.md) (optional)
 
