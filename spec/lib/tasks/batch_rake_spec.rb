@@ -38,3 +38,25 @@ describe 'batch:update_daily' do
     subject.invoke
   end
 end
+
+describe 'batch:pause' do
+  include_context 'rake'
+
+  it 'creates a pause file' do
+    pause_file = 'tmp/batch_pause.pid'
+    subject.invoke
+    expect(File.exist?(pause_file)).to eq(true)
+    File.delete pause_file
+  end
+end
+
+describe 'batch:resume' do
+  include_context 'rake'
+
+  it 'deletes a pause file' do
+    pause_file = 'tmp/batch_pause.pid'
+    File.open(pause_file, 'w') { |f| f.puts 'ohai' }
+    subject.invoke
+    expect(File.exist?(pause_file)).to eq(false)
+  end
+end
