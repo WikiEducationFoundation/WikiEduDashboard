@@ -1,6 +1,7 @@
 require 'action_view'
 include ActionView::Helpers::DateHelper
 require "#{Rails.root}/lib/importers/revision_score_importer"
+require "#{Rails.root}/lib/data_cycle/constant_update"
 
 namespace :batch do
   desc 'Setup CRON logger to STDOUT'
@@ -13,56 +14,8 @@ namespace :batch do
   end
 
   desc 'Constant data updates'
-  task update_constantly: :setup_logger do
-    daily_file = 'tmp/batch_update_daily.pid'
-    pid_file = 'tmp/batch_update_constantly.pid'
-    pause_file = 'tmp/batch_pause.pid'
-    sleep_file = 'tmp/batch_sleep_10.pid'
-
-    if File.exist? pid_file # Do not run while another instance is running
-      Rails.logger.warn I18n.t('tasks.conseq', task: 'batch_update_constantly')
-      Kernel.exit if pid_file_process_running?(pid_file)
-    end
-
-    if File.exist? sleep_file # Do not run while daily update is waiting to run.
-      Rails.logger.warn I18n.t('tasks.conseq', task: 'batch_update_constantly')
-      Kernel.exit if pid_file_process_running?(sleep_file)
-    end
-
-    if File.exist? daily_file # Do not run while update_daily is running
-      Rails.logger.warn I18n.t('tasks.constant', task: 'batch_update_constantly')
-      Kernel.exit if pid_file_process_running?(daily_file)
-    end
-    if File.exist? pause_file   # Do not run while updates are paused
-      Rails.logger.warn I18n.t('tasks.paused', task: 'batch_update_constantly')
-      Kernel.exit
-    end
-
-    begin
-      File.open(pid_file, 'w') { |f| f.puts Process.pid }
-      start = Time.zone.now
-      Rails.logger.info 'Constant update tasks are beginning.'
-
-      Rake::Task['legacy_course:update_courses'].invoke if Features.enable_legacy_courses?
-      Rake::Task['user:update_users'].invoke
-      Rake::Task['revision:update_revisions'].invoke
-      Rake::Task['revision:update_revision_scores'].invoke
-      Rake::Task['revision:import_recent_plagiarism'].invoke
-      Rake::Task['article:update_new_article_views']
-        .invoke unless Figaro.env.no_views
-      Rake::Task['article:update_new_ratings'].invoke
-      Rake::Task['cache:update_caches'].invoke
-      Rake::Task['greetings:welcome_students'].invoke
-
-      total_time = distance_of_time_in_words(start, Time.zone.now)
-      Rails.logger.info "Constant update finished in #{total_time}."
-      Raven.capture_message 'Constant update finished.',
-                            level: 'info',
-                            tags: { update_time: total_time },
-                            extra: { exact_update_time: (Time.zone.now - start) }
-    ensure
-      File.delete pid_file if File.exist? pid_file
-    end
+  task update_constantly: :environment do
+    ConstantUpdate.new
   end
 
   desc 'Daily data updates'

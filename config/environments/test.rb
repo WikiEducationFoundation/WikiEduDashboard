@@ -16,6 +16,7 @@ ENV['disable_onboarding'] = 'false'
 ENV['disable_training'] = 'false'
 ENV['hot_loading'] = 'false'
 ENV['SENDER_EMAIL_ADDRESS'] = 'root@localhost'
+ENV['enable_legacy_courses'] = 'true'
 
 Rails.application.configure do
   # Settings specified here will take
