@@ -26,7 +26,19 @@ module BatchUpdateLogging
   end
 
   def updates_paused?
-    return true if File.exist? SLEEP_FILE
+    return true if File.exist? PAUSE_UPDATES_FILE
     false
+  end
+
+  def constant_update_running?
+    pid_file_process_running?(CONSTANT_UPDATE_PID_FILE)
+  end
+
+  def daily_update_running?
+    pid_file_process_running?(DAILY_UPDATE_PID_FILE)
+  end
+
+  def update_waiting_to_run?
+    pid_file_process_running?(SLEEP_FILE)
   end
 end

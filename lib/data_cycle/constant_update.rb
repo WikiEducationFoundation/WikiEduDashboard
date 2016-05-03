@@ -6,6 +6,7 @@ require "#{Rails.root}/lib/importers/revision_score_importer"
 require "#{Rails.root}/lib/importers/plagiabot_importer"
 require "#{Rails.root}/lib/importers/view_importer"
 require "#{Rails.root}/lib/importers/rating_importer"
+require "#{Rails.root}/lib/data_cycle/cache_updater"
 require "#{Rails.root}/lib/student_greeter"
 
 # Executes all the steps of 'update_constantly' data import task
@@ -34,7 +35,7 @@ class ConstantUpdate
     update_revisions_and_articles
     update_new_article_views unless ENV['no_views'] == 'true'
     update_new_article_ratings
-    update_caches
+    CacheUpdater.update_all_caches
     greet_ungreeted_students
     log_end_of_update
   end
@@ -73,22 +74,6 @@ class ConstantUpdate
     RatingImporter.update_new_ratings
   end
 
-  #################
-  # Cache updates #
-  #################
-
-  def update_caches
-    Rails.logger.debug 'Updating Article cache'
-    Article.update_all_caches
-    Rails.logger.debug 'Updating ArticlesCourses cache'
-    ArticlesCourses.update_all_caches
-    Rails.logger.debug 'Updating CoursesUsers cache'
-    CoursesUsers.update_all_caches
-    Rails.logger.debug 'Updating Course cache'
-    Course.update_all_caches
-    Rails.logger.debug 'Finished updating cached values'
-  end
-
   ###############
   # Batch edits #
   ###############
@@ -103,9 +88,9 @@ class ConstantUpdate
   #################################
 
   def no_other_updates_running?
-    return false if pid_file_process_running?(DAILY_UPDATE_PID_FILE)
-    return false if pid_file_process_running?(CONSTANT_UPDATE_PID_FILE)
-    return false if pid_file_process_running?(SLEEP_FILE)
+    return false if daily_update_running?
+    return false if constant_update_running?
+    return false if update_waiting_to_run?
     true
   end
 
