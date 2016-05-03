@@ -1,3 +1,4 @@
+require "#{Rails.root}/lib/data_cycle/batch_update_logging"
 require "#{Rails.root}/lib/importers/assigned_article_importer"
 require "#{Rails.root}/lib/cleaners"
 require "#{Rails.root}/lib/importers/rating_importer"
