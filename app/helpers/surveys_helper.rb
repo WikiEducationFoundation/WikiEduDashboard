@@ -5,7 +5,7 @@ module SurveysHelper
     if @course.nil?
       'Survey'
     else
-      "Survey for #{@course.title}"
+      "Survey for #{@course.title} (#{@course.term})"
     end
   end
 
