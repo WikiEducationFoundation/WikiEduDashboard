@@ -31,7 +31,7 @@ set :linked_files, fetch(:linked_files, []).push('config/application.yml',
                                                  'config/newrelic.yml')
 
 # Default value for linked_dirs is []
-set :linked_dirs, fetch(:linked_dirs, []).push('bin', 'log', 'tmp')
+set :linked_dirs, fetch(:linked_dirs, []).push('bin', 'log', 'tmp', 'public/system')
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
