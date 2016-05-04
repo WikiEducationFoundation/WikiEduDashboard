@@ -6,7 +6,9 @@
 # require 'codeclimate-test-reporter'
 # CodeClimate::TestReporter.start
 require 'simplecov'
-SimpleCov.start 'rails'
+SimpleCov.start 'rails' do
+  add_filter 'lib/tasks'
+end
 
 require 'vcr'
 require 'rspec/core' unless defined? RSpec.configure
