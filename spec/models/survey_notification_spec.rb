@@ -107,7 +107,7 @@ describe SurveyNotification do
       it 'does not send the follow up' do
         expect(SurveyMailer).not_to receive(:follow_up)
         subject.send_follow_up
-        expect((1.minute.ago..1.minute.from_now).cover?(subject.follow_up_sent_at)).to eq(false)
+        expect(subject.follow_up_sent_at).to be_nil
       end
     end
   end
