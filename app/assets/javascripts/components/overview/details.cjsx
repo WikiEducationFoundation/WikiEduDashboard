@@ -117,7 +117,7 @@ Details = React.createClass(
 
     if @props.current_user.admin
       tags_list = if @props.tags.length > 0
-        _.pluck(@props.tags, 'tag').join(', ').replace(/_/g, ' ')
+        _.pluck(@props.tags, 'tag').join(', ')
       else 'None'
 
       subject = (
