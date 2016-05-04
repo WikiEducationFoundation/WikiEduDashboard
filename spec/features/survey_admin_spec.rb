@@ -87,15 +87,6 @@ describe 'Survey Administration', type: :feature, js: true do
       check 'survey_rapidfire_question_group_ids_1'
       page.find('input.button').click
 
-      # View the results page and download CSV results
-      visit '/survey/results/1'
-      click_link 'Download Survey Results CSV'
-
-      visit '/survey/results/1'
-      within 'div#question_1' do
-        click_link 'Download Results CSV'
-      end
-
       # Clone a Survey
       visit '/surveys'
       click_link 'Clone Survey'
@@ -174,6 +165,7 @@ describe 'Survey Administration', type: :feature, js: true do
       visit '/surveys/results'
       visit '/survey/results/1'
       expect(page).to have_content 'Average Sentiment'
+      click_link 'Download Survey Results CSV'
       click_link 'Download Results CSV'
     end
   end
