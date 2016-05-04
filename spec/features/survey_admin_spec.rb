@@ -16,10 +16,11 @@ describe 'Survey Administration', type: :feature, js: true do
       login_as admin
     end
 
+    let(:instructor) { create(:user, email: 'instructor@school.edu') }
+
     before do
       course = create(:course)
       course.cohorts << Cohort.last
-      instructor = create(:user, email: 'instructor@school.edu')
       course.courses_users << create(:courses_user, user_id: instructor.id, role: 1)
     end
 
@@ -162,7 +163,18 @@ describe 'Survey Administration', type: :feature, js: true do
     end
 
     it 'can view survey results' do
+      survey = create(:survey)
+      survey_assignment = create(:survey_assignment, survey_id: survey.id)
+      create(:survey_notification, survey_assignment_id: survey_assignment.id,
+                                   courses_users_id: CoursesUsers.last.id)
+      answer = create(:answer)
+      survey.rapidfire_question_groups << answer.question.question_group
+      answer.question.update(track_sentiment: true, answer_options: 'foo')
+      answer.answer_group.update(user_id: instructor.id)
       visit '/surveys/results'
+      visit '/survey/results/1'
+      expect(page).to have_content 'Average Sentiment'
+      click_link 'Download Results CSV'
     end
   end
 end
