@@ -28,3 +28,12 @@ end
 every 1.day, at: '4:30 am' do
   rake 'batch:update_daily'
 end
+
+every 1.day, at: '12:30 am' do
+  rake 'cache:warm:homepage'
+end
+
+every [:monday, :tuesday, :wednesday, :thursday], at: '10:15 am' do
+  rake 'surveys:send_notifications'
+  rake 'surveys:send_notification_follow_ups'
+end
