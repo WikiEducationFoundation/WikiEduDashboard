@@ -5,14 +5,14 @@ describe 'batch:update_constantly' do
   include_context 'rake'
 
   describe 'update_constantly' do
-    it 'calls lots of update routines' do
+    it 'initializes a ConstantUpdate' do
       expect(ConstantUpdate).to receive(:new)
       subject.invoke
     end
   end
 
   describe 'update_daily' do
-    it 'calls lots of update routines' do
+    it 'initializes a DailyUpdate' do
       expect(DailyUpdate).to receive(:new)
       rake['batch:update_daily'].invoke
     end
