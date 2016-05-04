@@ -6,8 +6,7 @@
           %tr
             %td.main-content
               %h1{style: 'font-family: "Open Sans", sans-serif; color: #696BB1; font-size: 34px; font-weight: 300; text-align:left;'}= t('survey.email.headline', username: @user.username)
-              %p{style: 'font-family: "Open Sans", sans-serif; color: #666666; font-size: 18px; line-height: 1.5; font-weight: 300; text-align:left;'}= t('survey.email.message_line1')
-              %p{style: 'font-family: "Open Sans", sans-serif; color: #666666; font-size: 18px; line-height: 1.5; font-weight: 300; text-align:left;'}= t('survey.email.message_line2')
+              %p{style: 'font-family: "Open Sans", sans-serif; color: #666666; font-size: 18px; line-height: 1.5; font-weight: 300; text-align:left;'}= t('survey.follow_up.message')
             %td.expander
         %table
           %tr
@@ -20,6 +19,9 @@
               %div{style: 'font-family: "Open Sans", sans-serif; color: #666666; font-size: 14px; line-height: 1.5;  text-align:left; font-weight: 300;'}= t('survey.email.course', course_info: "#{@course.school} - #{@course.title} (#{@course.term})")
             %td.expander
         %table
+          %tr
+            %td.main-content
+              %em{style: 'font-family: "Open Sans", sans-serif; color: #666666; font-size: 18px; line-height: 1.5;  text-align:left; font-weight: 300;'}= t('survey.email.closing')
           %tr
             %td.main-content
               %em{style: 'font-family: "Open Sans", sans-serif; color: #666666; font-size: 18px; line-height: 1.5;  text-align:left; font-weight: 300;'}= t('survey.email.signed')

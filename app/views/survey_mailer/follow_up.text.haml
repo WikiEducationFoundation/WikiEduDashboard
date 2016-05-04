@@ -1,0 +1,10 @@
+= t('survey.email.headline', username: @user.username)
+\
+= t('survey.follow_up.message', course_title: @course.title)
+\
+= survey_url(@survey)
+\
+\
+= t('survey.email.course', course_info: "#{@course.school} - #{@course.title} (#{@course.term})")
+= t('survey.email.closing')
+= t('survey.email.signed')

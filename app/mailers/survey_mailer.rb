@@ -1,9 +1,20 @@
 class SurveyMailer < ApplicationMailer
   def notification(notification)
+    set_ivars(notification)
+    mail(to: @user.email, subject: "A survey is available for your course, '#{@course.title}'")
+  end
+
+  def follow_up(notification)
+    set_ivars(notification)
+    mail(to: @user.email, subject: "Reminder: A survey is available for your course, '#{@course.title}'")
+  end
+
+  private
+
+  def set_ivars(notification)
     @notification = notification
     @user = notification.user
     @survey = notification.survey
     @course = notification.course
-    mail(to: @user.email, subject: "A survey is available for your course, '#{@course.title}'")
   end
 end
