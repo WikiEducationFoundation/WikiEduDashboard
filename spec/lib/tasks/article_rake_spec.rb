@@ -27,7 +27,7 @@ describe 'article:update_views_all_time' do
 
   describe 'repair_orphan_revisions' do
     it 'calls RevisionsCleaner.repair_orphan_revisions' do
-      expect(RevisionsCleaner).to receive(:repair_orphan_revisionss)
+      expect(RevisionsCleaner).to receive(:repair_orphan_revisions)
       rake['article:repair_orphan_revisions'].invoke
     end
   end
