@@ -30,8 +30,10 @@ class ListCourseManager
   end
 
   def send_approval_notification_emails
-    @course.instructors.each do |instructor|
-      CourseApprovalMailer.send_approval_notification(@course, instructor)
+    # Send emails to each of the instructors as well as Wiki Ed staff and any
+    # other non-students who are part of the course.
+    @course.nonstudents.each do |user|
+      CourseApprovalMailer.send_approval_notification(@course, user)
     end
   end
 end
