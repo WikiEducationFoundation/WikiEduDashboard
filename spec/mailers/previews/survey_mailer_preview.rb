@@ -3,4 +3,8 @@ class SurveyMailerPreview < ActionMailer::Preview
   def notification
     SurveyMailer.notification(SurveyNotification.last)
   end
+
+  def followup
+    SurveyMailer.follow_up(SurveyNotification.last)
+  end
 end

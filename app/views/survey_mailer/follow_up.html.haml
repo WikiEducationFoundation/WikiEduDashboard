@@ -6,7 +6,7 @@
           %tr
             %td.main-content
               %h1{style: 'font-family: "Open Sans", sans-serif; color: #696BB1; font-size: 34px; font-weight: 300; text-align:left;'}= t('survey.email.headline', username: @user.username)
-              %p{style: 'font-family: "Open Sans", sans-serif; color: #666666; font-size: 18px; line-height: 1.5; font-weight: 300; text-align:left;'}= t('survey.follow_up.message')
+              %p{style: 'font-family: "Open Sans", sans-serif; color: #666666; font-size: 18px; line-height: 1.5; font-weight: 300; text-align:left;'}= t('survey.follow_up.message', course_title: @course.title)
             %td.expander
         %table
           %tr
