@@ -18,7 +18,7 @@ class SurveyNotification < ActiveRecord::Base
 
   def send_follow_up
     return unless survey_assignment.follow_up_days_after_first_notification.present?
-    return if follow_up_sent_at.present? || user.email.nil?
+    return if follow_up_sent_at.present? || user.email.nil? || email_sent_at.nil?
     return if Time.now < email_sent_at + survey_assignment.follow_up_days_after_first_notification.days
     SurveyMailer.follow_up(self).deliver_now
     update_attribute(:follow_up_sent_at, Time.now)

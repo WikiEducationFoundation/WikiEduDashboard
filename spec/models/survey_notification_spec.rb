@@ -99,5 +99,16 @@ describe SurveyNotification do
         expect((1.minute.ago..1.minute.from_now).cover?(subject.follow_up_sent_at)).to eq(false)
       end
     end
+    context 'follow ups set on assignment, it is time to send, user has email, but no preliminary email set' do
+      let(:email) { 'pizza@tacos.com' }
+      let(:email_sent_at)     { nil }
+      let(:follow_up_sent_at) { nil }
+      let(:survey_assignment) { create(:survey_assignment, follow_up_days_after_first_notification: 7) }
+      it 'does not send the follow up' do
+        expect(SurveyMailer).not_to receive(:follow_up)
+        subject.send_follow_up
+        expect((1.minute.ago..1.minute.from_now).cover?(subject.follow_up_sent_at)).to eq(false)
+      end
+    end
   end
 end
