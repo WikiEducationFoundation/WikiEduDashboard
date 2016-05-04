@@ -109,6 +109,7 @@ class SurveyAssignmentsController < ApplicationController
     params.require(:survey_assignment)
           .permit(:survey_id, :send_before, :send_date_relative_to,
                   :send_date_days, :courses_user_role, :published,
+                  :follow_up_days_after_first_notification,
                   :notes, cohort_ids: [])
   end
 end

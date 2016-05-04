@@ -15,10 +15,19 @@
 
     .form__row
       %h4 Notification Schedule
+      %small.block-element.text-left.form__small-dark
+        %em (Leave blank if no notifications are desired.)
       = f.number_field :send_date_days
       = f.label :send_date_days, "Days", class: 'inline-label'
       = f.select :send_before, options_for_select([['Before', true], ['After', false]], selected: @survey_assignment.send_before)
       = f.select :send_date_relative_to, options_for_select(@send_relative_to_options, selected: @survey_assignment.send_date_relative_to)
+
+    .form__row
+      %h4 Follow-up Notification Schedule
+      %small.block-element.text-left.form__small-dark
+        %em (Leave blank if no follow-up notifications are desired.)
+      = f.number_field :follow_up_days_after_first_notification, label: false
+      = f.label :send_date_days, "days after first notification", class: 'inline-label'
 
     .form__row
       = f.check_box :published

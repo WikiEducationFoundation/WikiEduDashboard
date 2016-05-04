@@ -18,12 +18,19 @@ describe 'surveys:send_notifications' do
     expect(ActionMailer::Base.deliveries.last.to.include?(@user2.email)).to be(true)
   end
 
-  it 'sets SurveyNotification email_sent boolean attribute to true after sending' do
-    expect(SurveyNotification.where(email_sent: false).length).to eq(0)
+  it "sets SurveyNotification email_sent datetime attribute after sending" do
+    expect(SurveyNotification.where(email_sent_at: nil).length).to eq(0)
   end
 
   it "only sends emails for notifications which haven't been dismissed" do
     subject.invoke
     expect(ActionMailer::Base.deliveries.count).to eq(2)
+  end
+
+  private
+
+  def recipients(recipient_position)
+    deliveries = ActionMailer::Base.deliveries
+    recipient_position == :first ? deliveries.first.to : deliveries.last.to
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160428222013) do
+ActiveRecord::Schema.define(version: 20160503220152) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title",                    limit: 255
@@ -255,15 +255,16 @@ ActiveRecord::Schema.define(version: 20160428222013) do
   add_index "revisions", ["article_id", "date"], name: "index_revisions_on_article_id_and_date", using: :btree
 
   create_table "survey_assignments", force: :cascade do |t|
-    t.integer  "courses_user_role",     limit: 4
-    t.datetime "created_at",                                          null: false
-    t.datetime "updated_at",                                          null: false
-    t.integer  "send_date_days",        limit: 4
-    t.integer  "survey_id",             limit: 4
-    t.boolean  "send_before",                         default: true
-    t.string   "send_date_relative_to", limit: 255
-    t.boolean  "published",                           default: false
-    t.text     "notes",                 limit: 65535
+    t.integer  "courses_user_role",                       limit: 4
+    t.datetime "created_at",                                                            null: false
+    t.datetime "updated_at",                                                            null: false
+    t.integer  "send_date_days",                          limit: 4
+    t.integer  "survey_id",                               limit: 4
+    t.boolean  "send_before",                                           default: true
+    t.string   "send_date_relative_to",                   limit: 255
+    t.boolean  "published",                                             default: false
+    t.text     "notes",                                   limit: 65535
+    t.integer  "follow_up_days_after_first_notification", limit: 4
   end
 
   add_index "survey_assignments", ["survey_id"], name: "index_survey_assignments_on_survey_id", using: :btree
@@ -273,10 +274,11 @@ ActiveRecord::Schema.define(version: 20160428222013) do
     t.integer  "course_id",            limit: 4
     t.integer  "survey_assignment_id", limit: 4
     t.boolean  "dismissed",                      default: false
-    t.boolean  "email_sent",                     default: false
+    t.datetime "email_sent_at"
     t.datetime "created_at",                                     null: false
     t.datetime "updated_at",                                     null: false
     t.boolean  "completed",                      default: false
+    t.datetime "follow_up_sent_at"
   end
 
   add_index "survey_notifications", ["course_id"], name: "index_survey_notifications_on_course_id", using: :btree
