@@ -10,4 +10,9 @@ namespace :surveys do
   task send_notifications: :environment do
     SurveyNotification.active.each(&:send_email)
   end
+
+  desc 'Send follow-up survey notifications if configured on the parent notification'
+  task send_survey_notification_follow_ups: :environment do
+    SurveyNotification.active.each(&:send_follow_up)
+  end
 end
