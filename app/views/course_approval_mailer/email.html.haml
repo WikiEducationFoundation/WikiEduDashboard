@@ -1,0 +1,27 @@
+%table.row
+  %tbody
+    %tr
+      %th
+        %table
+          %tr
+            %td.main-content
+              %p{style: 'font-family: "Open Sans", sans-serif; color: #666666; font-size: 18px; line-height: 1.5; font-weight: 300; text-align:left;'}
+                = "Dear #{@instructor.username},"
+              %p{style: 'font-family: "Open Sans", sans-serif; color: #666666; font-size: 18px; line-height: 1.5; font-weight: 300; text-align:left;'}
+                Your students can now begin enrolling on your course page. The
+                following is your enrollment link.
+              %p{style: 'font-family: "Open Sans", sans-serif; color: #666666; font-size: 18px; line-height: 1.5; font-weight: 300; text-align:left;'}
+                %a{href: @enroll_link}= @enroll_link
+              %p{style: 'font-family: "Open Sans", sans-serif; color: #666666; font-size: 18px; line-height: 1.5; font-weight: 300; text-align:left;'}
+                Students should click on this link to both create their Wikipedia
+                usernames and enroll on the course page. This is a critical step
+                of your Wikipedia assignment, so please distribute the above link
+                to your class.
+              %p{style: 'font-family: "Open Sans", sans-serif; color: #666666; font-size: 18px; line-height: 1.5; font-weight: 300; text-align:left;'}
+                Thank you again for creating your course page on dashboard.wikiedu.org.
+                We look forward to working with you this term!
+              %p{style: 'font-family: "Open Sans", sans-serif; color: #666666; font-size: 18px; line-height: 1.5; font-weight: 300; text-align:left;'}
+                Best,
+                %br
+                %em{style: 'font-family: "Open Sans", sans-serif; color: #666666; font-size: 18px; line-height: 1.5;  text-align:left; font-weight: 300;'}
+                  The Wiki Ed team

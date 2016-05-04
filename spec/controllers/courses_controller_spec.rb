@@ -216,7 +216,7 @@ describe CoursesController do
       allow(controller).to receive(:user_signed_in?).and_return(true)
     end
 
-    context 'cohort is not found' do
+    context 'when cohort is not found' do
       it 'gives a failure message' do
         post :list, id: course.slug, cohort: { title: 'non-existent-cohort' }
         expect(response.status).to eq(404)
@@ -224,13 +224,30 @@ describe CoursesController do
       end
     end
 
-    context 'cohort is found' do
+    context 'when cohort is found' do
       context 'post request' do
+        before do
+          create(:courses_user, user_id: user.id,
+                                course_id: course.id,
+                                role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+        end
+
         it 'creates a CohortsCourse' do
           post :list, id: course.slug, cohort: { title: cohort.title }, format: :json
           last_cohort = CohortsCourses.last
           expect(last_cohort.course_id).to eq(course.id)
           expect(last_cohort.cohort_id).to eq(cohort.id)
+        end
+
+        it 'sends an email if course has not previous cohorts' do
+          expect(CourseApprovalMailer).to receive(:send_approval_notification)
+          post :list, id: course.slug, cohort: { title: cohort.title }, format: :json
+        end
+
+        it 'does not send an email if course is already listed' do
+          course.cohorts << create(:cohort)
+          expect(CourseApprovalMailer).not_to receive(:send_approval_notification)
+          post :list, id: course.slug, cohort: { title: cohort.title }, format: :json
         end
       end
 
