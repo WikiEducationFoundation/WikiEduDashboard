@@ -37,8 +37,7 @@
   right 15px
 .block__edit-block
   position absolute
-  right -80px
-  transition right 200ms
+  right 0
   z-index 9
   box-shadow 0 0 0 9px rgba(255,255,255,0.8)
 .block
@@ -55,9 +54,6 @@
     border-width 1px
   &:last-child
     margin-bottom 0
-  &:hover
-    .block__edit-block
-      right 0
   &.dragging
     opacity 0
     // transform scale(1.05)
@@ -151,6 +147,8 @@
     content ''
     width 14px
     height 10px
+  &.editable
+    right 80px
   select
     margin-right 0
 
@@ -532,5 +530,3 @@ p.graded
 
 .Select-menu-outer
   box-shadow 0px 3px 5px rgba(0,0,0,.35)
-
-
