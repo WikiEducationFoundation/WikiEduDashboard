@@ -6,6 +6,7 @@ require "#{Rails.root}/lib/importers/revision_score_importer"
 require "#{Rails.root}/lib/importers/plagiabot_importer"
 require "#{Rails.root}/lib/importers/view_importer"
 require "#{Rails.root}/lib/importers/rating_importer"
+require "#{Rails.root}/lib/articles_for_deletion_monitor"
 require "#{Rails.root}/lib/data_cycle/cache_updater"
 require "#{Rails.root}/lib/student_greeter"
 
@@ -37,6 +38,7 @@ class ConstantUpdate
     update_new_article_ratings
     CacheUpdater.update_all_caches
     greet_ungreeted_students
+    generate_alerts
     log_end_of_update
   end
 
@@ -81,6 +83,15 @@ class ConstantUpdate
   def greet_ungreeted_students
     Rails.logger.debug 'Greeting students in classes with greeters'
     StudentGreeter.greet_all_ungreeted_students
+  end
+
+  ##########
+  # Alerts #
+  ##########
+
+  def generate_alerts
+    Rails.logger.debug 'Generating AfD alerts'
+    ArticlesForDeletionMonitor.create_alerts_for_new_articles
   end
 
   #################################

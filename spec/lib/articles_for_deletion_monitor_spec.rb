@@ -6,7 +6,7 @@ def mock_mailer
 end
 
 describe ArticlesForDeletionMonitor do
-  describe '#create_alerts_for_new_articles' do
+  describe '.create_alerts_for_new_articles' do
     let(:course) { create(:course) }
     let(:student) { create(:user, username: 'student') }
     let(:content_expert) { create(:user, greeter: true) }
@@ -36,21 +36,21 @@ describe ArticlesForDeletionMonitor do
       before { articles_course && revision }
 
       it 'creates an Alert record' do
-        ArticlesForDeletionMonitor.new.create_alerts_for_new_articles
+        ArticlesForDeletionMonitor.create_alerts_for_new_articles
         expect(Alert.count).to eq(1)
       end
 
       it 'emails a greeter' do
         create(:courses_user, user_id: content_expert.id, course_id: course.id, role: 4)
         expect_any_instance_of(AlertMailer).to receive(:alert).and_return(mock_mailer)
-        ArticlesForDeletionMonitor.new.create_alerts_for_new_articles
+        ArticlesForDeletionMonitor.create_alerts_for_new_articles
         expect(Alert.last.email_sent_at).not_to be_nil
       end
 
       it 'does not create create a second Alert for the same article' do
         Alert.create(type: 'ArticlesForDeletionAlert', article_id: article.id, course_id: course.id)
         expect(Alert.count).to eq(1)
-        ArticlesForDeletionMonitor.new.create_alerts_for_new_articles
+        ArticlesForDeletionMonitor.create_alerts_for_new_articles
         expect(Alert.count).to eq(1)
       end
     end
@@ -60,7 +60,7 @@ describe ArticlesForDeletionMonitor do
       before { articles_course && revision }
 
       it 'does not create an Alert record' do
-        ArticlesForDeletionMonitor.new.create_alerts_for_new_articles
+        ArticlesForDeletionMonitor.create_alerts_for_new_articles
         expect(Alert.count).to eq(0)
       end
     end

@@ -1,13 +1,17 @@
 require "#{Rails.root}/lib/importers/category_importer"
 
 class ArticlesForDeletionMonitor
+  def self.create_alerts_for_new_articles
+    new.create_alerts_from_page_titles
+  end
+
   def initialize
     @wiki = Wiki.find_by(language: 'en', project: 'wikipedia')
     find_deletion_discussions
     find_page_titles
   end
 
-  def create_alerts_for_new_articles
+  def create_alerts_from_page_titles
     course_articles = ArticlesCourses.new_article
                                      .joins(:article)
                                      .where(articles: { title: @page_titles })
