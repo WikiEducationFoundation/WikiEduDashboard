@@ -21,7 +21,9 @@ end
 
 class ArticlesForDeletionAlert < Alert
   def email_content_expert
-    pp 'An article might get deleted!'
-    pp self
+    content_expert = course.nonstudents.find_by(greeter: true)
+    return if content_expert.nil?
+    AlertMailer.alert(self, content_expert).deliver_now
+    update_attribute(:email_sent_at, Time.now)
   end
 end
