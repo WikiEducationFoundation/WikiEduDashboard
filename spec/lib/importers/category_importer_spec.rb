@@ -70,4 +70,16 @@ describe CategoryImporter do
       end
     end
   end
+
+  describe '.page_titles_for_category' do
+    let(:category) { 'Category:AfD debates' }
+    let(:depth) { 0 }
+    let(:subject) { described_class.new(wiki).page_titles_for_category(category, depth) }
+
+    it 'returns page page titles for a given category' do
+      VCR.use_cassette 'category_importer/page_titles' do
+        expect(subject).to include('Category:AfD debates (Places and transportation)')
+      end
+    end
+  end
 end

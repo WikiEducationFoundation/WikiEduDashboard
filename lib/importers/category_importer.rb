@@ -42,6 +42,10 @@ class CategoryImporter
     views_and_scores_output(article_ids)
   end
 
+  def page_titles_for_category(category, depth=0, namespace=nil)
+    page_properties_for_category(category, 'title', depth, namespace)
+  end
+
   private
 
   ##################
@@ -109,17 +113,21 @@ class CategoryImporter
     import_average_views article_ids
   end
 
-  def article_ids_for_category(category, depth=0)
-    cat_query = category_query category
-    article_ids = get_category_member_properties(cat_query, 'pageid')
+  def article_ids_for_category(category, depth=0, namespace=0)
+    page_properties_for_category(category, 'pageid', depth, namespace)
+  end
+
+  def page_properties_for_category(category, property, depth=0, namespace=nil)
+    cat_query = category_query(category, namespace)
+    page_data = get_category_member_properties(cat_query, property)
     if depth > 0
       depth -= 1
       subcats = subcategories_of(category)
       subcats.each do |subcat|
-        article_ids += article_ids_for_category(subcat, depth)
+        page_data += page_properties_for_category(subcat, property, depth, namespace)
       end
     end
-    article_ids
+    page_data
   end
 
   def get_category_member_properties(query, property)
