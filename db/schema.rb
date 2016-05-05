@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160503220152) do
+ActiveRecord::Schema.define(version: 20160505164132) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title",                    limit: 255
@@ -265,6 +265,7 @@ ActiveRecord::Schema.define(version: 20160503220152) do
     t.boolean  "published",                                             default: false
     t.text     "notes",                                   limit: 65535
     t.integer  "follow_up_days_after_first_notification", limit: 4
+    t.boolean  "send_email"
   end
 
   add_index "survey_assignments", ["survey_id"], name: "index_survey_assignments_on_survey_id", using: :btree

@@ -39,6 +39,7 @@ developmentcp.rb
 .*.sw?
 .*.*.sw?
 npm-debug.log
+npm-debug.log.*
 .DS_Store
 Session.vim
 1

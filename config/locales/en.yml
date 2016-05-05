@@ -493,6 +493,9 @@ en:
 
   survey:
     login_message: 'Thank you for your time. Please log in to your Wiki Ed dashboard to take the survey.'
+    notification_explanation: If below is checked, users will receive emails according to the notification schedule, in addition to seeing in-browser notifications. If not, only in-browser notifications will be shown.
+    notification_schedule_explanation: Notifications include in-brower notifications and emails, if enabled above.
+    follow_up_explanation: Leave blank if no follow-up notification emails are desired.
     email:
       headline: "Hello, %{username}"
       message_line1: "We hope you had a great term! Wiki Ed is seeking your feedback to improve our resources and support for your Wikipedia assignments. Your response is crucial to improving our current offerings."

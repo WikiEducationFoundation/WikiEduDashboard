@@ -87,9 +87,10 @@ class SurveyAssignmentsController < ApplicationController
 
   def send_notifications
     SurveyNotification.active.each do |notification|
+      next unless notification.survey_assignment.send_email?
       notification.send_email
     end
-    flash[:notice] = 'Sending Email Survey Notifications'
+    flash[:notice] = 'Sending Email Survey Notifications (if enabled)'
     redirect_to survey_assignments_path
   end
 
@@ -109,7 +110,7 @@ class SurveyAssignmentsController < ApplicationController
     params.require(:survey_assignment)
           .permit(:survey_id, :send_before, :send_date_relative_to,
                   :send_date_days, :courses_user_role, :published,
-                  :follow_up_days_after_first_notification,
+                  :follow_up_days_after_first_notification, :send_email,
                   :notes, cohort_ids: [])
   end
 end
