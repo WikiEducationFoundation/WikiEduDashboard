@@ -7,6 +7,7 @@ require "#{Rails.root}/lib/importers/plagiabot_importer"
 require "#{Rails.root}/lib/importers/view_importer"
 require "#{Rails.root}/lib/importers/rating_importer"
 require "#{Rails.root}/lib/articles_for_deletion_monitor"
+require "#{Rails.root}/lib/course_alert_manager"
 require "#{Rails.root}/lib/data_cycle/cache_updater"
 require "#{Rails.root}/lib/student_greeter"
 
@@ -92,6 +93,9 @@ class ConstantUpdate
   def generate_alerts
     Rails.logger.debug 'Generating AfD alerts'
     ArticlesForDeletionMonitor.create_alerts_for_new_articles
+
+    Rails.logger.debug 'Generating no-enrolled-students alerts'
+    CourseAlertManager.new.create_no_students_alerts
   end
 
   #################################
