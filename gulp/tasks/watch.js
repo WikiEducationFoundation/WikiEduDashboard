@@ -23,9 +23,5 @@ gulp.task('watch', () => {
   });
   plugins.livereload.listen();
 
-  if (config.watch_js) {
-    gulp.watch(`${config.outputPath}/${config.jsDirectory}/**/**/*.{js,jsx,coffee,cjsx}`, ['webpack-build']);
-  }
-
   return;
 });

@@ -13,7 +13,7 @@ gulp.task('dev', () =>
     'copy-static',
     'bower',
     'stylesheets',
-    'webpack-build',
+    'webpack',
     'cached-lintjs-watch'
   ], 'watch')
 );
@@ -25,7 +25,7 @@ gulp.task('hot-dev', () =>
     'bower',
     'stylesheets-livereload',
     'cached-lintjs-watch'
-  ], 'webpack-dev', 'watch')
+  ], ['webpack', 'watch'])
 );
 
 gulp.task('build', cb =>
@@ -35,5 +35,5 @@ gulp.task('build', cb =>
     'bower',
     'stylesheets',
     'lintjs'
-  ], 'webpack-build', 'minify', cb)
+  ], 'webpack', 'minify', cb)
 );
