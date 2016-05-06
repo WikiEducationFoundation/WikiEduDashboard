@@ -7,7 +7,7 @@ end
 
 describe CourseAlertManager do
   describe '#create_no_students_alerts' do
-    let(:course) { create(:course, timeline_start: 16.days.ago) }
+    let(:course) { create(:course, start: 16.days.ago, timeline_start: 16.days.ago, end: 1.month.from_now) }
     let(:admin) { create(:admin, email: 'staff@wikiedu.org') }
     let!(:courses_user) do
       create(:courses_user,
