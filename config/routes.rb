@@ -92,6 +92,11 @@ Rails.application.routes.draw do
   get 'analytics(/*any)' => 'analytics#index'
   post 'analytics(/*any)' => 'analytics#results'
 
+  # Cohort data
+  controller :cohorts do
+    get 'cohorts/:slug/students' => 'cohorts#students'
+  end
+
   # Recent Activity
   get 'recent-activity/plagiarism/report' => 'recent_activity#plagiarism_report'
   get 'recent-activity(/*any)' => 'recent_activity#index', as: :recent_activity

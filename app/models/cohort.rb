@@ -1,3 +1,5 @@
+require 'csv'
+
 # == Schema Information
 #
 # Table name: cohorts
@@ -37,6 +39,14 @@ class Cohort < ActiveRecord::Base
     student_count = students_without_nonstudents.count
     return 100 if student_count == 0
     100 * trained_count.to_f / student_count
+  end
+
+  def students_to_csv
+    CSV.generate do |csv|
+      students.each do |student|
+        csv << [student.username]
+      end
+    end
   end
   #################
   # Class methods #
