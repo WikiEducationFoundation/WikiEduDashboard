@@ -47,7 +47,7 @@ describe ArticlesForDeletionMonitor do
         expect(Alert.last.email_sent_at).not_to be_nil
       end
 
-      it 'does not create create a second Alert for the same article' do
+      it 'does not create a second Alert for the same article' do
         Alert.create(type: 'ArticlesForDeletionAlert', article_id: article.id, course_id: course.id)
         expect(Alert.count).to eq(1)
         ArticlesForDeletionMonitor.create_alerts_for_new_articles
