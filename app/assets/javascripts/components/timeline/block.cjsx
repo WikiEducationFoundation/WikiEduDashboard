@@ -38,6 +38,10 @@ Block = React.createClass(
     className = 'block'
     className += " block-kind-#{@props.block.kind}"
 
+    blockTypeClassName = 'block__block-type'
+    if @props.edit_permissions
+      blockTypeClassName += ' editable'
+
     if @_isEditable()
       blockActions = (
         <div className="float-container block__block-actions">
@@ -45,7 +49,6 @@ Block = React.createClass(
           <span role="button" onClick={@props.cancelBlockEditable.bind(null, @props.block.id)} className="span-link pull-right no-clear">Cancel</span>
         </div>
       )
-
 
     if @props.block.due_date?
       dueDateRead = (
@@ -150,7 +153,7 @@ Block = React.createClass(
             onBlur={@props.toggleFocused}
           />
         </h4>
-        <div className="block__block-type">
+        <div className={blockTypeClassName}>
           <Select
             onChange={@updateBlock}
             value={@props.block.kind}
