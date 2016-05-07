@@ -6,44 +6,35 @@ class SelfEnrollmentController < ApplicationController
 
   def enroll_self
     # Catch HEAD requests
-    unless request.get?
-      render json: { status: 200 }
-      return
-    end
+    respond_to_non_get_request { return }
 
     set_course
-
     # Don't allow users to self-enroll if the course has already ended.
-    if course_ended?
-      redirect_to course_slug_path(@course.slug)
-      return
-    end
+    redirect_if_course_ended { return }
 
     # Redirect to sign in (with callback leading back to this method)
-    if current_user.nil?
-      handle_logged_out_user
-      return
-    end
+    redirect_if_user_logged_out { return }
 
     # Make sure the user isn't already enrolled.
-    if user_already_enrolled?
-      redirect_to course_slug_path(@course.slug, enrolled: true)
-      return
-    end
+    redirect_if_user_is_already_enrolled { return }
 
-    # Check passcode, enroll if valid
-    if passcode_valid?
-      # Creates the CoursesUsers record
-      add_student_to_course
-      # Automatic edits for newly enrolled user
-      make_enrollment_edits
-      redirect_to course_slug_path(@course.slug, enrolled: true)
-    else
-      redirect_to '/errors/incorrect_passcode'
-    end
+    redirect_if_passcode_invalid { return }
+
+    # Creates the CoursesUsers record
+    add_student_to_course
+    # Automatic edits for newly enrolled user
+    make_enrollment_edits
+
+    redirect_to course_slug_path(@course.slug, enrolled: true)
   end
 
   private
+
+  def respond_to_non_get_request
+    return if request.get?
+    render json: { status: 200 }
+    yield
+  end
 
   def set_course
     @course = Course.find_by_slug(params[:course_id])
@@ -51,14 +42,28 @@ class SelfEnrollmentController < ApplicationController
     raise ActionController::RoutingError, 'Course not found' if @course.nil?
   end
 
+  def redirect_if_course_ended
+    return unless course_ended?
+    redirect_to course_slug_path(@course.slug)
+    yield
+  end
+
   def course_ended?
     @course.end < Time.zone.now
   end
 
-  def handle_logged_out_user
+  def redirect_if_user_logged_out
+    return unless current_user.nil?
     auth_path = user_omniauth_authorize_path(:mediawiki)
     path = "#{auth_path}?origin=#{request.original_url}"
     redirect_to path
+    yield
+  end
+
+  def redirect_if_user_is_already_enrolled
+    return unless user_already_enrolled?
+    redirect_to course_slug_path(@course.slug, enrolled: true)
+    yield
   end
 
   # A user with any CoursesUsers record for the course is considered to be
@@ -67,6 +72,12 @@ class SelfEnrollmentController < ApplicationController
   def user_already_enrolled?
     CoursesUsers.exists?(user_id: current_user.id,
                          course_id: @course.id)
+  end
+
+  def redirect_if_passcode_invalid
+    return if passcode_valid?
+    redirect_to '/errors/incorrect_passcode'
+    yield
   end
 
   def passcode_valid?
