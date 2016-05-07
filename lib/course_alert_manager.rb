@@ -1,6 +1,6 @@
 class CourseAlertManager
   def create_no_students_alerts
-    courses_to_check = Course.current
+    courses_to_check = Course.strictly_current
     courses_to_check.each do |course|
       next unless course.students.empty?
       next unless within_no_student_alert_period?(course.timeline_start)
