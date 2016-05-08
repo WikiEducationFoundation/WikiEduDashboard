@@ -8,16 +8,28 @@ class DashboardController < ApplicationController
       return
     end
 
-    current = current_user.courses.current_and_future.listed
-    past = current_user.courses.archived.listed
-    submitted = []
-    strictly_current = []
+    set_admin_courses_if_admin
 
-    if current_user.admin?
-      submitted = Course.submitted_listed
-      strictly_current = current_user.courses.strictly_current
-    end
+    @pres = DashboardPresenter.new(current_courses, past_courses,
+                                   @submitted, @strictly_current, current_user)
+  end
 
-    @pres = DashboardPresenter.new(current, past, submitted, strictly_current, current_user)
+  private
+
+  def set_admin_courses_if_admin
+    @submitted = []
+    @strictly_current = []
+
+    return unless current_user.admin?
+    @submitted = Course.submitted_listed
+    @strictly_current = current_user.courses.strictly_current
+  end
+
+  def current_courses
+    current_user.courses.current_and_future.listed
+  end
+
+  def past_courses
+    current_user.courses.archived.listed
   end
 end
