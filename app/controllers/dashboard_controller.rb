@@ -30,6 +30,15 @@ class DashboardController < ApplicationController
   end
 
   def past_courses
-    current_user.courses.archived.listed
+    # Admins see course lists based strictly on start and end dates.
+    # Other users have course lists based on the 'current' scope, which
+    # include courses that have just ended.
+    # This makes sure the combination of displayed courses includes all courses,
+    # without leaving some stuck in between being past and current.
+    if current_user.admin?
+      current_user.courses.where('end <= ?', Date.today)
+    else
+      current_user.courses.archived.listed
+    end
   end
 end
