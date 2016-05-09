@@ -12,7 +12,7 @@ class CourseTrainingProgressManager
 
   def course_training_progress
     # For old courses, on-wiki training completion is tracked with User#trained?
-    if @course.start < TRAINING_BOOLEAN_CUTOFF_DATE
+    if @course.start < TRAINING_BOOLEAN_CUTOFF_DATE && @course.type != 'VisitingScholarship'
       return @user.trained? ? nil : I18n.t('users.training_incomplete')
     end
     assigned_count = total_modules_for_course
