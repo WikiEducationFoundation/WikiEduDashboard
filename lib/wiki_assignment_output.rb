@@ -23,17 +23,20 @@ class WikiAssignmentOutput
   ################
   def build_talk_page_update
     initial_page_content = WikiApi.new(@wiki).get_page_content @talk_title
+    initial_page_content ||= ''
+
+    # Do not post templates to disambugation pages
+    return nil if includes_disambiguation_template?(initial_page_content)
+
     # We only want to add assignment tags to non-existant talk pages if the
     # article page actually exists. This also servces to make sure that we
     # only post to talk pages of mainspace articles, as we assume that pages
     # like Talk:Template:Citation or Talk:Wikipedia:Notability do not exist.
-    if initial_page_content.nil?
-      return nil if WikiApi.new(@wiki).get_page_content(@title).nil?
-      initial_page_content = ''
-    end
+    article_content = WikiApi.new(@wiki).get_page_content(@title)
+    return nil if article_content.nil?
+    return nil if includes_disambiguation_template?(article_content)
 
-    page_content = build_assignment_page_content(assignments_tag,
-                                                 initial_page_content)
+    page_content = build_assignment_page_content(assignments_tag, initial_page_content)
     page_content
   end
 
@@ -109,8 +112,29 @@ class WikiAssignmentOutput
 
   def build_wikitext_user_list(role)
     user_ids = @assignments.select { |assignment| assignment.role == role }
-                          .map(&:user_id)
+                           .map(&:user_id)
     User.where(id: user_ids).pluck(:username)
         .map { |username| "[[User:#{username}|#{username}]]" }.join(', ')
+  end
+
+  private
+
+  DISAMBIGUATION_TEMPLATE_FRAGMENTS = [
+    '{{WikiProject Disambiguation',
+    '{{disambig',
+    '{{Disambig',
+    '{{Dab}}',
+    '{{dab}}',
+    'disambiguation}}',
+    '{{Hndis',
+    '{{hndis',
+    '{{Geodis',
+    '{{geodis'
+  ].freeze
+
+  def includes_disambiguation_template?(page_content)
+    DISAMBIGUATION_TEMPLATE_FRAGMENTS.any? do |template_fragment|
+      page_content.include?(template_fragment)
+    end
   end
 end

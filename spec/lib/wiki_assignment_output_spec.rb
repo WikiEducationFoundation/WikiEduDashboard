@@ -98,29 +98,48 @@ describe WikiAssignmentOutput do
     end
   end
 
-  describe '.build_talk_page_update for non-existent talk pages' do
-    let(:talk_title) { 'Talk:THIS PAGE DOES NOT EXIST' }
+  describe '.build_talk_page_update' do
+    let(:title) { 'Selfie' }
+    let(:talk_title) { 'Talk:Selfie' }
 
-    context 'when the article exists' do
-      let(:title) { 'Selfie' }
+    context 'when the article exists but talk page does not' do
+      let(:talk_title) { 'Talk:THIS PAGE DOES NOT EXIST' }
 
-      it 'returns content even if the talk page does not yet exist' do
+      it 'returns content' do
         VCR.use_cassette 'wiki_edits/talk_page_update' do
           page_content = wiki_assignment_output.build_talk_page_update
-          expect(page_content)
-            .to include('{{dashboard.wikiedu.org assignment | course = ')
+          expect(page_content).to include('{{dashboard.wikiedu.org assignment | course = ')
         end
       end
     end
 
-    context 'when the article does not exist' do
+    context 'when neither the talk page nor the article exist' do
       let(:title) { 'THIS PAGE DOES NOT EXIST' }
+      let(:talk_title) { 'Talk:THIS PAGE DOES NOT EXIST' }
 
       it 'returns nil' do
         VCR.use_cassette 'wiki_edits/talk_page_update' do
           page_content = wiki_assignment_output.build_talk_page_update
           expect(page_content).to be_nil
         end
+      end
+    end
+
+    context 'when the talk page has a disambiguation template' do
+      it 'returns nil' do
+        allow_any_instance_of(WikiApi).to receive(:get_page_content)
+          .and_return('{{WikiProject Disambiguation}}', 'article content')
+        page_content = wiki_assignment_output.build_talk_page_update
+        expect(page_content).to be_nil
+      end
+    end
+
+    context 'when the article page has a disambiguation template' do
+      it 'returns nil' do
+        allow_any_instance_of(WikiApi).to receive(:get_page_content)
+          .and_return('talk page content', '{{Disambiguation|airport}}')
+        page_content = wiki_assignment_output.build_talk_page_update
+        expect(page_content).to be_nil
       end
     end
   end
