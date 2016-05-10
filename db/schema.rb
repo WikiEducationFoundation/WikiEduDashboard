@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160505192047) do
+ActiveRecord::Schema.define(version: 20160510221722) do
 
   create_table "alerts", force: :cascade do |t|
     t.integer  "course_id",     limit: 4
@@ -296,6 +296,7 @@ ActiveRecord::Schema.define(version: 20160505192047) do
     t.datetime "updated_at",                                     null: false
     t.boolean  "completed",                      default: false
     t.datetime "follow_up_sent_at"
+    t.integer  "follow_up_count",      limit: 4, default: 0
   end
 
   add_index "survey_notifications", ["course_id"], name: "index_survey_notifications_on_course_id", using: :btree
