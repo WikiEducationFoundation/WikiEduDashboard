@@ -315,14 +315,25 @@ en:
     user_ns: User
 
   recent_activity:
-    show_courses: Show My Courses Only
+    active_courses: Article is active in
+    article_title: Article Title
+    datetime: Date/Time
+    did_you_know_eligible: Did You Know Eligible
+    image: Image
+    file_name: File Name
     no_dyk_eligible: There are not currently any DYK-eligible articles.
     no_plagiarism: There are not currently any recent revisions suspected of plagiarism.
     no_edits: There are no recent edits.
-    did_you_know_eligible: Did You Know Eligible
+    plagiarism_report: Plagiarism Report
     possible_plagiarism: Possible Plagiarism
     recent_edits: Recent Edits
     recent_uploads: Recent Uploads
+    revision_author: Revision Author
+    revision_datetime: Revision Date/Time
+    revision_score: Revision Score
+    show_courses: Show My Courses Only
+    uploaded_by: Uploaded By
+    usage_count: Usage Count
 
   revisions:
     chars_added: Chars added

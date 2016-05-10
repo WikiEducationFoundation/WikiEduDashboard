@@ -35,10 +35,10 @@ const DidYouKnowHandler = React.createClass({
 
   render() {
     const headers = [
-      { title: 'Article Title', key: 'title' },
-      { title: 'Revision Score', key: 'revision_score' },
-      { title: 'Revision Author', key: 'username' },
-      { title: 'Revision Date/Time', key: 'revision_datetime' },
+      { title: I18n.t('recent_activity.article_title'), key: 'title' },
+      { title: I18n.t('recent_activity.revision_score'), key: 'revision_score' },
+      { title: I18n.t('recent_activity.revision_author'), key: 'username' },
+      { title: I18n.t('recent_activity.revision_datetime'), key: 'revision_datetime' },
     ];
 
     const noActivityMessage = I18n.t('recent_activity.no_dyk_eligible');

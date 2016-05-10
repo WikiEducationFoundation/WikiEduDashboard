@@ -35,11 +35,11 @@ const RecentUploadsHandler = React.createClass({
 
   render() {
     const headers = [
-      { title: 'Image', key: 'image' },
-      { title: 'File Name', key: 'file_name' },
-      { title: 'Uploaded By', key: 'username' },
-      { title: 'Usage Count', key: 'usage_count' },
-      { title: 'Date/Time', key: 'date' },
+      { title: I18n.t('recent_activity.image'), key: 'image' },
+      { title: I18n.t('recent_activity.file_name'), key: 'file_name' },
+      { title: I18n.t('recent_activity.uploaded_by'), key: 'username' },
+      { title: I18n.t('recent_activity.usage_count'), key: 'usage_count' },
+      { title: I18n.t('recent_activity.datetime'), key: 'date' },
     ];
 
     return (

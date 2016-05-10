@@ -82,7 +82,7 @@ const ActivityTable = React.createClass({
         <tr key={`${revision.key}-${revision.username}`} className="activity-table-drawer">
           <td colSpan="6">
             <span>
-              <h5>Article is active in</h5>
+              <h5>{I18n.t('recent_activity.active_courses')}</h5>
               <ul className="activity-table__course-list">
                 {courses}
               </ul>
