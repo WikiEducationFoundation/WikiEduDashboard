@@ -32,7 +32,7 @@ PopoverButton = (Key, ValueKey, Store, New, Items, IsSelect=false) ->
       if New(item)
         ServerActions.add Key, @props.course_id, format(item)
       else
-        alert 'That already exists for this course!'
+        alert I18n.t('courses.already_exists')
     remove: (item_id) ->
       item = Store.getFiltered({ id: item_id })[0]
       ServerActions.remove Key, @props.course_id, format(item[ValueKey])

@@ -13,11 +13,11 @@ Actions = React.createClass(
   getInitialState: ->
     getState()
   join: ->
-    passcode = prompt('Enter the passcode given to you by your instructor for this course')
+    passcode = prompt(I18n.t('courses.passcode_prompt'))
     if passcode
       window.location = @state.course.enroll_url + passcode
   leave: ->
-    if confirm 'Are you sure you want to leave this course?'
+    if confirm I18n.t('courses.leave_confirmation')
       user_obj = { user_id: @props.current_user.id, role: 0 }
       ServerActions.remove 'user', @state.course.slug, { user: user_obj }
   delete: ->

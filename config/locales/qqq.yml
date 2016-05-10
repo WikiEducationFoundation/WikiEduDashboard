@@ -144,6 +144,7 @@ qqq:
     activity: Label for link to the 'recent activity' list for a course
     already_enrolled: Message displayed when the user attempts to enroll in a course
       they have already joined.
+    already_exists: Message indicating that whatever was just added by the user already existed
     archived: Section heading for archived courses
     articles: |-
       Label for link to list of articles worked on by a course
@@ -226,6 +227,10 @@ qqq:
     student_editors: '{{Identical|Editor}}'
     students: '{{Identical|Editor}}'
     students_short: '{{Identical|Editor}}'
+  editable:
+    edit: Label for an edit button
+    cancel: Label for button to cancel an edit
+    save: Label for button to save an edit
   metrics:
     activity: Label for activity feed.
     articles_created: Label for the number of articles created.

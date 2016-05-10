@@ -145,6 +145,7 @@ en:
   courses:
     activity: Activity
     already_enrolled: You are already a part of '%{title}'!
+    already_exists: That already exists for this course!
     archived: Archived Courses
     articles: Articles
     articles_none: This course has not edited any articles.
@@ -212,12 +213,14 @@ en:
     join: Join
     join_prompt: Join '%{title}'?
     join_successful: You’ve successfully joined %{title}.
+    leave_confirmation: Are you sure you want to leave this course?
     loading: Loading…
     milestones_none: This course does not currently have any milestones.
     new_week: Add New Week
     nocourses: You are not participating in any courses.
     overview: Overview
     passcode: Passcode
+    passcode_prompt: Enter the passcode given to you by your instructor for this course
     published: "Your course has been published! Students may enroll in the course by visiting the following URL:"
     review_timeline: >
       Please review this timeline and make changes. Once you're satisfied with
@@ -305,6 +308,11 @@ en:
     students_short: Editors
     term: When
     uploads_none: This project has not contributed any images or other media files to Wikimedia Commons.
+
+  editable:
+    edit: Edit
+    cancel: Cancel
+    save: Save
 
   metrics:
     activity: Recent Activity
