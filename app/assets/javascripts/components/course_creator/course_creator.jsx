@@ -142,7 +142,7 @@ const CourseCreator = React.createClass({
           validation={/^[\w\-\s\,\']+$/}
           editable
           label={CourseUtils.i18n('creator.course_term', this.state.course_string_prefix)}
-          placeholder="Term"
+          placeholder={CourseUtils.i18n('creator.course_term_placeholder', this.state.course_string_prefix)}
         />
       );
       subject = (
@@ -153,7 +153,7 @@ const CourseCreator = React.createClass({
           value_key="subject"
           editable
           label={CourseUtils.i18n('creator.course_subject', this.state.course_string_prefix)}
-          placeholder="Subject"
+          placeholder={I18n.t('courses.creator.subject')}
         />
       );
       expectedStudents = (
@@ -165,7 +165,7 @@ const CourseCreator = React.createClass({
           editable
           type="number"
           label={CourseUtils.i18n('creator.expected_number', this.state.course_string_prefix)}
-          placeholder="Expected number of students"
+          placeholder={CourseUtils.i18n('creator.expected_number', this.state.course_string_prefix)}
         />
       );
     }
@@ -236,7 +236,7 @@ const CourseCreator = React.createClass({
                   editable
                   type="date"
                   label={CourseUtils.i18n('creator.start_date', this.state.course_string_prefix)}
-                  placeholder="Start date (YYYY-MM-DD)"
+                  placeholder={I18n.t('courses.creator.start_date_placeholder')}
                   blank
                   isClearable={false}
                 />
@@ -249,7 +249,7 @@ const CourseCreator = React.createClass({
                   editable
                   type="date"
                   label={CourseUtils.i18n('creator.end_date', this.state.course_string_prefix)}
-                  placeholder="End date (YYYY-MM-DD)"
+                  placeholder={I18n.t('courses.creator.end_date_placeholder')}
                   blank
                   date_props={{ minDate: moment(this.state.course.start).add(1, 'week') }}
                   enabled={!!this.state.course.start}

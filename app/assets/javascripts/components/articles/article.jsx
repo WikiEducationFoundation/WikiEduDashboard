@@ -27,7 +27,7 @@ const Article = React.createClass({
         <td>
           <div className={ratingMobileClass}><p>{this.props.article.pretty_rating || '-'}</p></div>
           <p className="title">
-            <a href={this.props.article.url} target="_blank" className="inline">{formattedTitle} {(this.props.article.new_article ? ' (new)' : '')}</a>
+            <a href={this.props.article.url} target="_blank" className="inline">{formattedTitle} {(this.props.article.new_article ? ` ${I18n.t('articles.new')}` : '')}</a>
             <br />
             <small><a href={historyUrl} target="_blank" className="inline">(history)</a></small>
           </p>

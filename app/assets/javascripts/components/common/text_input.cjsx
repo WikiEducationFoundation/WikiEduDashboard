@@ -32,7 +32,7 @@ TextInput = React.createClass(
         inputClass += 'invalid'
 
       if @props.type == 'number'
-        title = 'This is a number field. The buttons rendered by most browsers will increment and decrement the input.'
+        title = I18n.t('accessibility.number_field')
 
       if @props.type == 'date'
         # Note: normally we want an onBlur={@blur} prop on the DatePicker

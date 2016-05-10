@@ -32,9 +32,13 @@ en:
           trillion: T
           quadrillion: Q
 
+  accessibility:
+    number_field: This is a number field. The buttons rendered by most browsers will increment and decrement the input.
+
   application:
     cancel: Cancel
     dashboard: Wiki Ed Dashboard
+    error: 'There was an error:'
     explore: Explore
     greeting2: Welcome!
     greeting_extended: Welcome to Wikipedia
@@ -91,6 +95,7 @@ en:
     edited_mobile: Articles
     label: Articles
     loading: Loading articles...
+    new: (new)
     no_assignee: No user assigned
     none: This course has not edited any articles.
     rating: Class
@@ -146,6 +151,12 @@ en:
     assignment_end: Assignment End
     assignments_none: This course has no assigned Wikipedia articles.
     assignment_start: Assignment Start
+    calendar:
+      legend: Legend
+      legend_class_canceled: Holiday/Canceled
+      legend_class_meeting: Class Meeting
+      legend_class_not_meeting: No Scheduled Meeting
+      select_meeting_days: Select the days of the week on which your class meets.
     character_doc: The sum of characters added to mainspace articles by the course's students during the course term
     course_dates_calendar_instructions: >
       Select dates to add or remove them from the schedule (e.g., holidays, no
@@ -165,12 +176,14 @@ en:
       course_school: Course school
       course_subject: Course subject
       course_term: Course term
+      course_term_placeholder: Term
       course_title: Course title
       create_button: Create my Course!
       create_label: Create New Course
       create_new: Create a New Course
       create_short: Create Course
       end_date: End date
+      end_date_placeholder: End date (YYYY-MM-DD)
       expected_number: Expected number of students
       find: Find Your Course
       intro: >
@@ -178,6 +191,8 @@ en:
         changed. Everything else, you can edit later. Click “Create my Course!” to
         start building the timeline for your Wikipedia assignment.
       start_date: Start date
+      start_date_placeholder: Start date (YYYY-MM-DD)
+      subject: Subject
     current: Current Courses
     duration: Course Duration
     edit_course_dates: Edit Course Dates
@@ -197,6 +212,7 @@ en:
     join: Join
     join_prompt: Join '%{title}'?
     join_successful: You’ve successfully joined %{title}.
+    loading: Loading…
     milestones_none: This course does not currently have any milestones.
     new_week: Add New Week
     nocourses: You are not participating in any courses.
@@ -211,6 +227,7 @@ en:
     revisions_doc: The number of edits in the past %{timeframe} days
     revisions_none: This course has no recent Wikipedia editing activity.
     school: School
+    start_typing: Start typing
     students: Students
     students_count: "# Students"
     student_editors: Student Editors

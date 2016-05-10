@@ -39,10 +39,8 @@ List = React.createClass(
       if @props.store.isLoaded()
         text = @props.none_message
         text ||= I18n.t(@props.table_key + '.none')
-        text ||= 'This course has no ' + @props.table_key
       else
         text = I18n.t(@props.table_key + '.loading')
-        text ||= 'Loading ' + @props.table_key + '...'
       elements = (
         <tr className='disabled'>
           <td colSpan={headers.length + 1} className='text-center'>

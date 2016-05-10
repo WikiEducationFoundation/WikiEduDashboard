@@ -84,7 +84,7 @@ Calendar = React.createClass(
         inrange && exception && weekday
     }
 
-    edit_days_text = 'Select the days of the week on which your class meets.'
+    edit_days_text = I18n.t('courses.calendar.select_meeting_days')
     edit_calendar_text = @props.calendarInstructions
 
     if @props.editable
@@ -119,19 +119,19 @@ Calendar = React.createClass(
             initialMonth={@state.initialMonth}
           />
           <div className='course-dates__calendar-key'>
-            <h3>Legend</h3>
+            <h3>{I18n.t('courses.calendar.legend')}</h3>
             <ul>
               <li>
                 <div className='DayPicker-Day DayPicker-Day--highlighted DayPicker-Day--selected'>6</div>
-                <span>Class Meeting</span>
+                <span>{I18n.t('courses.calendar.legend_class_meeting')}</span>
               </li>
               <li>
                 <div className='DayPicker-Day DayPicker-Day--highlighted'>6</div>
-                <span>No Scheduled Meeting</span>
+                <span>{I18n.t('courses.calendar.legend_class_not_meeting')}</span>
               </li>
               <li>
                 <div className='DayPicker-Day DayPicker-Day--highlighted DayPicker-Day--bordered'>6</div>
-                <span>Holiday/Canceled</span>
+                <span>{I18n.t('courses.calendar.legend_class_canceled')}</span>
               </li>
             </ul>
           </div>

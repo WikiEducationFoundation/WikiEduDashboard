@@ -27,14 +27,14 @@ Lookup = React.createClass(
     if !(@props.disabled? && @props.disabled)
       <Typeahead
         options={@props.models}
-        placeholder={@props.placeholder || 'Start typing'}
+        placeholder={@props.placeholder || I18n.t('courses.start_typing')}
         maxVisible=5
         ref='entry'
         onKeyDown={@keyDownHandler}
         onOptionSelected={@optionSelectedHandler}
       />
     else
-      <input placeholder={@props.placeholder || 'Start typing'} ref='entry' />
+      <input placeholder={@props.placeholder || I18n.t('courses.start_typing')} ref='entry' />
 )
 
 module.exports = LookupWrapper(Lookup)

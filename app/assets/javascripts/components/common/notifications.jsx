@@ -22,7 +22,7 @@ const Notifications = React.createClass({
     if (notification.type === 'error') {
       message = (
         <p>
-          <strong>There was an error:</strong> {notification.message}
+          <strong>{I18n.t('application.error')}</strong> {notification.message}
         </p>
       );
     } else {

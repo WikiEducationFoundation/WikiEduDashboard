@@ -9,11 +9,14 @@
 # Author: Vojtěch Dostál
 ---
 qqq:
+  accessibility:
+    number_field: Descriptive text for screen readers to explain how the number field works
   application:
     cancel: |-
       Button to cancel an action
       {{Identical|Cancel}}
     dashboard: Application name.
+    error: Label for error messages
     explore: |-
       Explore link
       {{Identical|Explore}}
@@ -85,6 +88,7 @@ qqq:
       Short name for articles
       {{Identical|Article}}
     loading: Placeholder message indicating that article data is still loading
+    new: Message after an article title indicating that it is a newly-created article
     none: Message stating that no articles have been edited.
     rating: Label for an article's quality rating on the Wikipedia 1.0 scale
     rating_doc: Explanation of where an article's quality rating comes from and what
@@ -144,8 +148,13 @@ qqq:
     articles: |-
       Label for link to list of articles worked on by a course
       {{Identical|Article}}
-    assignment_end: Related to specifying the date of the end of an assignment (not
-      so clear to understand in Hebrew)
+    assignment_end: The date on which the planned Wikipedia activities for a course end.
+    calendar:
+      legend: Label for the legend that explains the course meeting days calendar
+      legend_class_cancelled: Label within the legend for the styling of days when the would normally meet but is on holiday or canceled
+      legend_class_meeting: Label within the legend for the styling of days when the class meets
+      legend_class_not_meeting: Label within the legend for the styling of days when the does not meet
+      select_meeting_days: Instructions for using a calendar to select the days that a course meets
     character_doc: Explanation of what 'characters added' means
     course_description: |-
       Label for the number of courses in a cohort
@@ -154,6 +163,7 @@ qqq:
     creator:
       end_date: '{{Identical|End date}}'
       start_date: '{{Identical|Start date}}'
+      subject: Placeholder text for course subject field
     current: Label for the list of current courses
     duration: Label for duration of a course
     error:
@@ -172,6 +182,7 @@ qqq:
       Do you want to join this course?
       {{Identical|Join}}
     join_successful: Message that join was successful
+    loading: Placeholder message to indicate that content is loading
     new_week: Button text for adding a new week to the timeline
     nocourses: Message indicating that the logged in user is not part of any courses
     overview: Label for link to the overview page for a course
@@ -179,6 +190,7 @@ qqq:
       Label for course passcode field
       {{Identical|Passcode}}
     review_timeline: Message prompting user to review the timeline
+    start_typing: Placeholder message in an input, prompting the user to type
     students: Label for link to the list of students for a course
     students_count: |-
       Column label for number of students in a course
@@ -241,11 +253,13 @@ qqq:
   recent_activity:
     active_courses: Header for a list of course associated with an article
     article_title: Label for a table column of article titles
-    show_courses: Checkbox for option to show user courses only
+    datetime: Label for the date and time of an activity
+    did_you_know_eligible: Label for "Did You Know" Eligible tab
+    image: Label for a table column of images
+    file_name: Label for the file name of an image
     no_dyk_eligible: Message stating there are no "Did You Know" eligible articles.
     no_plagiarism: Message stating there are no recent revisions suspected of plagiarism.
     no_edits: Message stating there are no recent edits.
-    did_you_know_eligible: Label for "Did You Know" Eligible tab
     plagiarism_report: Label for link to a plagiarism report
     possible_plagiarism: Label for Possible Plagiarism tab
     recent_edits: Label for Recent Edits tab
@@ -253,6 +267,9 @@ qqq:
     revision_author: Label for a table column of the user who made each revision
     revision_score: Label for a table column of numerical revision scores
     revision_datetime: Label for a table column of the date and time of each revision
+    show_courses: Checkbox for option to show user courses only
+    uploaded_by: Label for the user who uploaded a file
+    usage_count: Label for the number of global usages of a file across Wikimedia sites
 
   revisions:
     chars_added: Label for counter of added chars
