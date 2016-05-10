@@ -121,6 +121,9 @@ class WikiEdits
       csrf_token: token_response['query']['tokens']['csrftoken'],
       access_token: @access_token
     )
+  rescue Net::OpenTimeout => e
+    Raven.capture e
+    return { status: 'failed' }
   end
 
   def oauth_consumer
