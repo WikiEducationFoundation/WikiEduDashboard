@@ -340,6 +340,7 @@ en:
 
   metrics:
     activity: Recent Activity
+    are_trained: are up-to-date with training
     articles_created: Articles Created
     articles_edited: Articles Edited
     characters: Characters
@@ -385,10 +386,10 @@ en:
     usage_count: Usage Count
 
   revisions:
-    chars_added: Chars added
+    chars_added: Chars Added
     class: Class
     date_time: Date/Time
-    edited_by: Edited by
+    edited_by: Edited By
     loading: Loading revisions...
     none: This course has no recent Wikipedia editing activity.
     time_doc: The time of each revision in your local time
@@ -546,6 +547,9 @@ en:
       their timeline and to build useful tools for you (such as the milestone
       outline on the Overview page)
     due_default: Due next week
+    first_week_title: First Active Week
+    nothing_this_week: There is nothing on the schedule for this week.
+    this_week_title_default: This Week
     title: Timeline
     unable_to_add_week: >
       You cannot add new weeks when your timeline is full. Delete at least one

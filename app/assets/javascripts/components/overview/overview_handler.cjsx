@@ -71,31 +71,31 @@ Overview = React.createClass(
       <div className="stat-display">
         <div className="stat-display__stat" id="articles-created">
           <div className="stat-display__value">{@props.course.created_count}</div>
-          <small>Articles Created</small>
+          <small>{I18n.t('metrics.articles_edited')}</small>
         </div>
         <div className="stat-display__stat" id="articles-edited">
           <div className="stat-display__value">{@props.course.edited_count}</div>
-          <small>Articles Edited</small>
+          <small>{I18n.t('metrics.articles_edited')}</small>
         </div>
         <div className="stat-display__stat" id="total-edits">
           <div className="stat-display__value">{@props.course.edit_count}</div>
-          <small>Total Edits</small>
+          <small>{I18n.t('metrics.edit_count_description')}</small>
         </div>
         <div className="stat-display__stat popover-trigger" id="student-editors">
           <div className="stat-display__value">{@props.course.student_count}</div>
           <small>{CourseUtils.i18n('student_editors', @props.course.string_prefix)}</small>
           <div className="popover dark" id="trained-count">
             <h4 className="stat-display__value">{@props.course.trained_count}</h4>
-            <p>are up-to-date with training</p>
+            <p>{I18n.t('metrics.are_trained')}</p>
           </div>
         </div>
         <div className="stat-display__stat" id="word-count">
           <div className="stat-display__value">{@props.course.word_count}</div>
-          <small>Words Added</small>
+          <small>{I18n.t('metrics.word_count')}</small>
         </div>
         <div className="stat-display__stat" id="view-count">
           <div className="stat-display__value">{@props.course.view_count}</div>
-          <small>Article Views</small>
+          <small>{I18n.t('metrics.view_count_description')}</small>
         </div>
       </div>
       <div className='primary'>

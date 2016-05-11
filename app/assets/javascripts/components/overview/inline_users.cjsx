@@ -16,7 +16,7 @@ InlineUsers = React.createClass(
 
       <span key={user.username}><a href={link}>{user.username}</a>{extra_info}</span>
 
-    user_list = if user_list.length > 0 then user_list else 'None'
+    user_list = if user_list.length > 0 then user_list else I18n.t('courses.none')
     if @props.users.length > 0 || @props.editable
       inline_list = <span>{@props.title}: {user_list}</span>
     allowed = @props.role != 4 || (@props.current_user.role == 4 || @props.current_user.admin)

@@ -12,14 +12,14 @@ RevisionHandler = React.createClass(
   render: ->
     <div id='revisions'>
       <div className='section-header'>
-        <h3>Activity</h3>
+        <h3>{I18n.t('activity.label')}</h3>
         <div className='sort-select'>
           <select className='sorts' name='sorts' onChange={@sortSelect}>
-            <option value='rating_num'>Class</option>
-            <option value='title'>Title</option>
-            <option value='edited_by'>Edited By</option>
-            <option value='characters'>Chars Added</option>
-            <option value='date'>Date/Time</option>
+            <option value='rating_num'>{I18n.t('revisions.class')}</option>
+            <option value='title'>{I18n.t('revisions.title')}</option>
+            <option value='edited_by'>{I18n.t('revisions.edited_by')}</option>
+            <option value='characters'>{I18n.t('revisions.chars_added')}</option>
+            <option value='date'>{I18n.t('revisions.date_time')}</option>
           </select>
         </div>
       </div>

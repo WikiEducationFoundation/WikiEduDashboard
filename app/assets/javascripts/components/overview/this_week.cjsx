@@ -43,7 +43,7 @@ ThisWeek = React.createClass(
         thisWeekMeetings = weekMeetings[week_meetings_index]
         week_index = week_meetings_index + 1
         week = @props.weeks[0]
-        title = "First Active Week"
+        title = I18n.t('timeline.first_week_title')
       else
         thisWeekMeetings = weekMeetings[@props.current]
         emptyWeeksSoFar = emptyWeeksUntil(weekMeetings, @props.current)
@@ -69,13 +69,13 @@ ThisWeek = React.createClass(
     else
       no_weeks = (
         <li className="row view-all">
-          <div><p>There is nothing on the schedule for this week</p></div>
+          <div><p>{I18n.t('timeline.nothing_this_week')}</p></div>
         </li>
       )
 
     <div className="module course__this-week">
       <div className="section-header">
-        <h3>{title || 'This Week'}</h3>
+        <h3>{title || I18n.t('timeline.this_week_title_default')}</h3>
       </div>
       <ul className="list-unstyled">
         {week_component}
