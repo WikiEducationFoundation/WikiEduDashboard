@@ -18,10 +18,11 @@ class SurveyNotification < ActiveRecord::Base
 
   def send_follow_up
     return unless survey_assignment.follow_up_days_after_first_notification.present?
-    return if follow_up_sent_at.present? || user.email.nil? || email_sent_at.nil?
-    return if Time.now < email_sent_at + survey_assignment.follow_up_days_after_first_notification.days
+    return if user.email.nil?
+    return unless ready_for_follow_up?
     SurveyMailer.follow_up(self).deliver_now
-    update_attribute(:follow_up_sent_at, Time.now)
+    update_attributes(last_follow_up_sent_at: Time.now,
+                      follow_up_count: follow_up_count + 1)
   end
 
   def survey_assignment
@@ -38,5 +39,23 @@ class SurveyNotification < ActiveRecord::Base
 
   def course
     Course.find(course_id)
+  end
+
+  private
+
+  MAX_FOLLOW_UPS = 3
+  def ready_for_follow_up?
+    return false if email_sent_at.nil?
+    return false if Time.now < last_email_sent_at + time_before_another_email
+    return false if follow_up_count >= MAX_FOLLOW_UPS
+    true
+  end
+
+  def time_before_another_email
+    survey_assignment.follow_up_days_after_first_notification.days
+  end
+
+  def last_email_sent_at
+    last_follow_up_sent_at.present? ? last_follow_up_sent_at : email_sent_at
   end
 end

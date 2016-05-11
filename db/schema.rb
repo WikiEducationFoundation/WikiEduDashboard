@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160505192047) do
+ActiveRecord::Schema.define(version: 20160511162714) do
 
   create_table "alerts", force: :cascade do |t|
     t.integer  "course_id",     limit: 4
@@ -287,15 +287,16 @@ ActiveRecord::Schema.define(version: 20160505192047) do
   add_index "survey_assignments", ["survey_id"], name: "index_survey_assignments_on_survey_id", using: :btree
 
   create_table "survey_notifications", force: :cascade do |t|
-    t.integer  "courses_users_id",     limit: 4
-    t.integer  "course_id",            limit: 4
-    t.integer  "survey_assignment_id", limit: 4
-    t.boolean  "dismissed",                      default: false
+    t.integer  "courses_users_id",       limit: 4
+    t.integer  "course_id",              limit: 4
+    t.integer  "survey_assignment_id",   limit: 4
+    t.boolean  "dismissed",                        default: false
     t.datetime "email_sent_at"
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
-    t.boolean  "completed",                      default: false
-    t.datetime "follow_up_sent_at"
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
+    t.boolean  "completed",                        default: false
+    t.datetime "last_follow_up_sent_at"
+    t.integer  "follow_up_count",        limit: 4, default: 0
   end
 
   add_index "survey_notifications", ["course_id"], name: "index_survey_notifications_on_course_id", using: :btree
