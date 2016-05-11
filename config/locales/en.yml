@@ -170,12 +170,22 @@ en:
     course_description: Courses
     courses: Courses
     creator:
+      assignment_end: Assignment end
+      assignment_end_placeholder: Assignment end (YYYY-MM-DD)
+      assignment_start: Assignment start
+      assignment_start_placeholder: Assignment start (YYYY-MM-DD)
+      checking_for_uniqueness: This course is being checked for uniqueness.
       cloned_course_calendar_instructions: >
         Select dates to add or remove them from the schedule (e.g., holidays, no
         school). Click the date to change between unselected, selected, and
         holiday state. If you have no holidays, check "I have no class holidays".
         The cloned timeline will automatically adjust the dates to account for
         weeks that have no scheduled meetings.
+      clone_successful: Course Successfully Cloned
+      clone_successful_details: >
+        Your course has been cloned, including the elements of the timeline
+        (weeks and blocks). Has anything else about your course changed? Feel
+        free to update it now.
       course_description: Course description
       course_school: Course school
       course_subject: Course subject
@@ -194,6 +204,8 @@ en:
         The title, school, and term create your course page’s URL, and can't be
         changed. Everything else, you can edit later. Click “Create my Course!” to
         start building the timeline for your Wikipedia assignment.
+      no_class_holidays: I have no class holidays
+      save_cloned_course: Save New Course
       start_date: Start date
       start_date_placeholder: Start date (YYYY-MM-DD)
       subject: Subject

@@ -40,7 +40,7 @@ CourseClonedModal = React.createClass(
   saveCourse: ->
     @updateCourse('cloned_status', @cloneCompletedStatus)
     if ValidationStore.isValid()
-      ValidationActions.setInvalid 'exists', 'This course is being checked for uniqueness', true
+      ValidationActions.setInvalid 'exists', I18n.t('courses.creator.checking_for_uniqueness'), true
       setTimeout =>
         CourseActions.updateClonedCourse($.extend(true, {}, { course: @props.course }), @props.course.slug, CourseUtils.generateTempId(@props.course))
         @setState isPersisting: true
@@ -87,8 +87,8 @@ CourseClonedModal = React.createClass(
 
     <Modal>
       <div className='wizard__panel active cloned-course'>
-        <h3>Course Successfully Cloned</h3>
-        <p>Your course has been cloned, including the elements of the timeline (weeks and blocks). Has anything else about your course changed? Feel free to update it now.</p>
+        <h3>{I18n.t('courses.creator.clone_successful')}</h3>
+        <p>{I18n.t('courses.creator.clone_successful_details')}</p>
         {errorMessage}
         <div className='wizard__form'>
           <div className='column'>
@@ -100,8 +100,8 @@ CourseClonedModal = React.createClass(
               required=true
               validation={/^[\w\-\s\,\']+$/}
               editable=true
-              label='Course title'
-              placeholder='Title'
+              label={I18n.t('courses.creator.course_title')}
+              placeholder={I18n.t('courses.title')}
             />
 
             <TextInput
@@ -112,8 +112,8 @@ CourseClonedModal = React.createClass(
               required=true
               validation={/^[\w\-\s\,\']+$/}
               editable=true
-              label='Course school'
-              placeholder='School'
+              label={I18n.t('courses.creator.course_school')}
+              placeholder={I18n.t('courses.school')}
             />
 
             <TextInput
@@ -124,8 +124,8 @@ CourseClonedModal = React.createClass(
               required=true
               validation={/^[\w\-\s\,\']+$/}
               editable=true
-              label='Course term'
-              placeholder='Term'
+              label={I18n.t('courses.creator.course_term')}
+              placeholder={I18n.t('courses.creator.course_term_placeholder')}
             />
 
             <TextInput
@@ -134,8 +134,8 @@ CourseClonedModal = React.createClass(
               value={@props.course.subject}
               value_key='subject'
               editable=true
-              label='Course subject'
-              placeholder='Subject'
+              label={I18n.t('courses.creator.course_subject')}
+              placeholder={I18n.t('courses.creator.subject')}
             />
             <TextInput
               id='course_expected_students'
@@ -144,8 +144,8 @@ CourseClonedModal = React.createClass(
               value_key='expected_students'
               editable=true
               type='number'
-              label='Expected number of students'
-              placeholder='Expected number of students'
+              label={I18n.t('courses.creator.expected_number')}
+              placeholder={I18n.t('courses.creator.expected_number')}
             />
             <TextAreaInput
               id='course_description'
@@ -153,7 +153,7 @@ CourseClonedModal = React.createClass(
               value={@props.course.description}
               value_key='description'
               editable=true
-              label='Course description'
+              label={I18n.t('courses.creator.course_description')}
             />
             <TextInput
               id='course_start'
@@ -163,8 +163,8 @@ CourseClonedModal = React.createClass(
               required=true
               editable=true
               type='date'
-              label='Start date'
-              placeholder='Start date (YYYY-MM-DD)'
+              label={I18n.t('courses.creator.start_date')}
+              placeholder={I18n.t('courses.creator.start_date_placeholder')}
               blank=true
               isClearable=false
             />
@@ -176,8 +176,8 @@ CourseClonedModal = React.createClass(
               required=true
               editable=true
               type='date'
-              label='End date'
-              placeholder='End date (YYYY-MM-DD)'
+              label={I18n.t('courses.creator.end_date')}
+              placeholder={I18n.t('courses.creator.end_date_placeholder')}
               blank=true
               date_props={minDate: moment(@props.course.start).add(1, 'week')}
               enabled={@props.course.start?}
@@ -192,8 +192,8 @@ CourseClonedModal = React.createClass(
               required=true
               editable=true
               type='date'
-              label='Assignment start'
-              placeholder='Assignment start (YYYY-MM-DD)'
+              label={I18n.t('courses.creator.assignment_start')}
+              placeholder={I18n.t('courses.creator.assignment_start_placeholder')}
               blank=true
               isClearable=false
             />
@@ -206,8 +206,8 @@ CourseClonedModal = React.createClass(
               required=true
               editable=true
               type='date'
-              label='Assignment end'
-              placeholder='Assignment end (YYYY-MM-DD)'
+              label={I18n.t('courses.creator.assignment_end')}
+              placeholder={I18n.t('courses.creator.assignment_end_placeholder')}
               blank=true
               date_props={minDate: moment(@props.course.start).add(1, 'week')}
               enabled={@props.course.start?}
@@ -224,12 +224,12 @@ CourseClonedModal = React.createClass(
               shouldShowSteps=false
               calendarInstructions={I18n.t('courses.creator.cloned_course_calendar_instructions')}
             />
-            <label> I have no class holidays
+            <label> {I18n.t('courses.creator.no_class_holidays')}
               <input type='checkbox' onChange={@setNoBlackoutDatesChecked} ref='noDates' />
             </label>
 
           </div>
-          <button onClick={@saveCourse} disabled={if @saveEnabled() then '' else 'disabled' } className={buttonClass}>Save New Course</button>
+          <button onClick={@saveCourse} disabled={if @saveEnabled() then '' else 'disabled' } className={buttonClass}>{I18n.t('courses.creator.save_cloned_course')}</button>
         </div>
       </div>
     </Modal>
