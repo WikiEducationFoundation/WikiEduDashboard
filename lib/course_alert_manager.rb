@@ -41,17 +41,16 @@ class CourseAlertManager
     return false if course.user_count == 0
     completion_rate = course.trained_count.to_f / course.user_count
     return false unless completion_rate < EXPECTED_COMPLETION_RATE
-    latest_due_date = due_dates_of_overdue_trainings(course)
-    return false unless latest_due_date < UNTRAINED_GRACE_PERIOD.days.ago
+    latest_training_assignment_date = dates_of_overdue_trainings(course).last
+    return false unless latest_training_assignment_date < UNTRAINED_GRACE_PERIOD.days.ago
     true
   end
 
-  def due_dates_of_overdue_trainings(course)
+  def dates_of_overdue_trainings(course)
     training_blocks = course.blocks.select { |block| !block.training_module_ids.empty? }
-    due_dates = training_blocks.map do |block|
-      last_meeting = block.week.meeting_dates.last
-      last_meeting
+    assignment_dates = training_blocks.map do |block|
+      block.week.meeting_dates.last
     end
-    due_dates.select { |date| date < Time.now }.sort
+    assignment_dates.select { |date| date < Time.now }.sort
   end
 end
