@@ -1,7 +1,7 @@
 require "#{Rails.root}/lib/importers/category_importer"
 
 class ArticlesForDeletionMonitor
-  def self.create_alerts_for_new_articles
+  def self.create_alerts_for_course_articles
     new.create_alerts_from_page_titles
   end
 
@@ -12,8 +12,7 @@ class ArticlesForDeletionMonitor
   end
 
   def create_alerts_from_page_titles
-    course_articles = ArticlesCourses.new_article
-                                     .joins(:article)
+    course_articles = ArticlesCourses.joins(:article)
                                      .where(articles: { title: @page_titles })
     course_articles.each do |articles_course|
       create_alert(articles_course)
@@ -39,7 +38,8 @@ class ArticlesForDeletionMonitor
 
   def create_alert(articles_course)
     return if alert_already_exists?(articles_course)
-    first_revision = articles_course.article.revisions.find_by(new_article: true)
+    first_revision = articles_course
+                     .course.revisions.where(article_id: articles_course.article_id).first
     alert = Alert.create!(
       type: 'ArticlesForDeletionAlert',
       article_id: articles_course.article_id,

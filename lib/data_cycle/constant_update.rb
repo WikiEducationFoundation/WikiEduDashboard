@@ -92,7 +92,7 @@ class ConstantUpdate
 
   def generate_alerts
     Rails.logger.debug 'Generating AfD alerts'
-    ArticlesForDeletionMonitor.create_alerts_for_new_articles
+    ArticlesForDeletionMonitor.create_alerts_for_course_articles
 
     course_alert_manager = CourseAlertManager.new
 
