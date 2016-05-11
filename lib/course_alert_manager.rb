@@ -42,6 +42,7 @@ class CourseAlertManager
     completion_rate = course.trained_count.to_f / course.user_count
     return false unless completion_rate < EXPECTED_COMPLETION_RATE
     latest_training_assignment_date = dates_of_overdue_trainings(course).last
+    return false if latest_training_assignment_date.nil?
     return false unless latest_training_assignment_date < UNTRAINED_GRACE_PERIOD.days.ago
     true
   end
