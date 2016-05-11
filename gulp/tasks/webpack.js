@@ -56,7 +56,7 @@ gulp.task('webpack', ['bower'], (cb) => {
     entry: entries,
     stats: 'errors-only',
     output: {
-      path: config.development ? path.resolve(appRoot, `${config.outputPath}/${config.jsDirectory}`) : `${config.outputPath}/${config.jsDirectory}`,
+      path: config.doHot ? path.resolve(appRoot, `${config.outputPath}/${config.jsDirectory}`) : `${config.outputPath}/${config.jsDirectory}`,
       filename: doHot ? '[name].js' : '[name].[hash].js'
     },
     resolve: {
