@@ -160,6 +160,7 @@ en:
       legend_class_not_meeting: No Scheduled Meeting
       select_meeting_days: Select the days of the week on which your class meets.
     character_doc: The sum of characters added to mainspace articles by the course's students during the course term
+    cohorts: 'Cohorts: '
     confirm_course_deletion: Are you sure you want to delete the course titled %{title}? If so, type the title of the course to proceed.
     confirm_course_deletion_failed: '"%{title}" is not the title of this course. The course has not been deleted.'
     course_dates_calendar_instructions: >
@@ -213,6 +214,7 @@ en:
     delete_course: Delete course
     duration: Course Duration
     edit_course_dates: Edit Course Dates
+    end: End
     error:
       exists: That course already exists! Please try again with a different title, school, or term.
       user_exists: "Sorry, %{username} is not an existing user."
@@ -236,9 +238,11 @@ en:
     milestones_none: This course does not currently have any milestones.
     new_week: Add New Week
     nocourses: You are not participating in any courses.
+    none: None
     no_available_actions: No available actions
     overview: Overview
     passcode: Passcode
+    passcode_none: No passcode
     passcode_prompt: Enter the passcode given to you by your instructor for this course
     published: "Your course has been published! Students may enroll in the course by visiting the following URL:"
     review_timeline: >
@@ -249,6 +253,7 @@ en:
     revisions_doc: The number of edits in the past %{timeframe} days
     revisions_none: This course has no recent Wikipedia editing activity.
     school: School
+    start: Start
     start_typing: Start typing
     students: Students
     students_count: "# Students"

@@ -25,7 +25,7 @@ Description = React.createClass(
         <TextAreaInput
           onChange={@updateDescription}
           value={@props.course.description}
-          placeholder='Course description goes here'
+          placeholder={I18n.t('courses.creator.course_description')}
           value_key={'description'}
           editable={@props.editable}
           markdown=true

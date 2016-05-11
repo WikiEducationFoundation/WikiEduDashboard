@@ -43,7 +43,7 @@ Details = React.createClass(
     if @props.course.term
       term = <p>{CourseUtils.i18n('term', @props.course.string_prefix)}: {@props.course.term}</p>
 
-    if @props.course.passcode
+    if @props.course.passcode or @props.editable
       passcode = (
         <fieldset>
           <TextInput
@@ -52,8 +52,8 @@ Details = React.createClass(
             value_key='passcode'
             editable={@props.editable}
             type='text'
-            label='Passcode'
-            placeholder='Not set'
+            label={I18n.t('courses.passcode')}
+            placeholder={I18n.t('courses.passcode_none')}
             required=true
           />
         </fieldset>
@@ -112,13 +112,13 @@ Details = React.createClass(
 
     cohorts = if @props.cohorts.length > 0
       _.pluck(@props.cohorts, 'title').join(', ')
-    else 'None'
+    else I18n.t('courses.none')
 
 
     if @props.current_user.admin
       tags_list = if @props.tags.length > 0
         _.pluck(@props.tags, 'tag').join(', ')
-      else 'None'
+      else I18n.t('courses.none')
 
       subject = (
         <div className='subject'>
@@ -160,7 +160,7 @@ Details = React.createClass(
               value_key='start'
               editable={@props.editable}
               type='date'
-              label='Start'
+              label={I18n.t('courses.start')}
               required=true
             />
           </fieldset>
@@ -171,7 +171,7 @@ Details = React.createClass(
               value_key='end'
               editable={@props.editable}
               type='date'
-              label='End'
+              label={I18n.t('courses.end')}
               date_props={minDate: moment(@props.course.start).add(1, 'week')}
               enabled={@props.course.start?}
               required=true
@@ -181,7 +181,7 @@ Details = React.createClass(
           {timeline_end}
         </form>
         <div>
-          <span>Cohorts: {cohorts}</span>
+          <span>{I18n.t('courses.cohorts')}{cohorts}</span>
           <CohortButton {...@props} show={@props.editable && @props.current_user.admin && (@props.course.submitted || @props.course.type != 'ClassroomProgramCourse') } />
         </div>
         {subject}
