@@ -12,7 +12,6 @@ class DuplicateArticleDeleter
   ###############
   def resolve_duplicates(articles = nil)
     grouped = articles_grouped_by_title_and_namespace(articles)
-    pp grouped
     @deleted_ids = []
     grouped.each do |article_group|
       delete_duplicates_in(article_group)
