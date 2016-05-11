@@ -128,8 +128,9 @@
   },
   "scripts": {
     "test": "gulp js_coverage",
-    "start": "gulp hot-dev",
-    "build": "webpack -p --config config/webpack/webpack.config.prod.js"
+    "start": "gulp dev",
+    "hot": "gulp hot-dev",
+    "build": "gulp build"
   },
   "devDependencies": {
     "copy-to-clipboard": "^2.0.0",
