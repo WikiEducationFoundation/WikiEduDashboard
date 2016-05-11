@@ -147,6 +147,7 @@ en:
     already_enrolled: You are already a part of '%{title}'!
     already_exists: That already exists for this course!
     archived: Archived Courses
+    actions: Actions
     articles: Articles
     articles_none: This course has not edited any articles.
     assignment_end: Assignment End
@@ -159,6 +160,8 @@ en:
       legend_class_not_meeting: No Scheduled Meeting
       select_meeting_days: Select the days of the week on which your class meets.
     character_doc: The sum of characters added to mainspace articles by the course's students during the course term
+    confirm_course_deletion: Are you sure you want to delete the course titled %{title}? If so, type the title of the course to proceed.
+    confirm_course_deletion_failed: '"%{title}" is not the title of this course. The course has not been deleted.'
     course_dates_calendar_instructions: >
       Select dates to add or remove them from the schedule (e.g., holidays, no
       school). Click the date to change between unselected, selected, and
@@ -195,6 +198,7 @@ en:
       start_date_placeholder: Start date (YYYY-MM-DD)
       subject: Subject
     current: Current Courses
+    delete_course: Delete course
     duration: Course Duration
     edit_course_dates: Edit Course Dates
     error:
@@ -211,13 +215,16 @@ en:
 
       If you don’t have a Wikipedia account yet, sign up for one now.
     join: Join
+    join_course: Join course
     join_prompt: Join '%{title}'?
     join_successful: You’ve successfully joined %{title}.
     leave_confirmation: Are you sure you want to leave this course?
+    leave_course: Leave course
     loading: Loading…
     milestones_none: This course does not currently have any milestones.
     new_week: Add New Week
     nocourses: You are not participating in any courses.
+    no_available_actions: No available actions
     overview: Overview
     passcode: Passcode
     passcode_prompt: Enter the passcode given to you by your instructor for this course

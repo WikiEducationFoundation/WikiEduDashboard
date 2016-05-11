@@ -141,6 +141,7 @@ qqq:
     none: Option for a course with no cohort
     view_other: Command to view another cohort.
   courses:
+    actions: Header for available actions, such as joining the course
     activity: Label for link to the 'recent activity' list for a course
     already_enrolled: Message displayed when the user attempts to enroll in a course
       they have already joined.
@@ -157,6 +158,8 @@ qqq:
       legend_class_not_meeting: Label within the legend for the styling of days when the does not meet
       select_meeting_days: Instructions for using a calendar to select the days that a course meets
     character_doc: Explanation of what 'characters added' means
+    confirm_course_deletion: Confirmation dialog for deleting a course
+    confirm_course_deletion_failed: Message indicating that a course was not deleted
     course_description: |-
       Label for the number of courses in a cohort
       {{Identical|Course}}
@@ -166,6 +169,7 @@ qqq:
       start_date: '{{Identical|Start date}}'
       subject: Placeholder text for course subject field
     current: Label for the list of current courses
+    delete_course: Button to delete a course
     duration: Label for duration of a course
     error:
       exists: Error message indicating that a course with the same title, school and
@@ -176,6 +180,7 @@ qqq:
       one: Label for a single instructor of a course
       other: Label for plural instructors of a course
     invitation: Message that you have been invited to a course
+    join_course: Button to join a course
     join: |-
       Button to join a course
       {{Identical|Join}}
@@ -183,9 +188,11 @@ qqq:
       Do you want to join this course?
       {{Identical|Join}}
     join_successful: Message that join was successful
+    leave_course: Button for a user to leave the course
     loading: Placeholder message to indicate that content is loading
-    new_week: Button text for adding a new week to the timeline
+    new_week: Button for adding a new week to the timeline
     nocourses: Message indicating that the logged in user is not part of any courses
+    no_available_actions: Placeholder message when no action buttons are available
     overview: Label for link to the overview page for a course
     passcode: |-
       Label for course passcode field

@@ -21,11 +21,11 @@ Actions = React.createClass(
       user_obj = { user_id: @props.current_user.id, role: 0 }
       ServerActions.remove 'user', @state.course.slug, { user: user_obj }
   delete: ->
-    entered_title = prompt "Are you sure you want to delete the course titled '#{@state.course.title}'? If so, type the title of the course to proceed."
+    entered_title = prompt I18n.t('courses.confirm_course_deletion', title: @state.course.title)
     if entered_title == @state.course.title
       ServerActions.deleteCourse @state.course.slug
     else if entered_title?
-      alert('"' + entered_title + '" is not the title of this course. The course has not been deleted.')
+      alert(I18n.t('courses.confirm_course_deletion_failed', title: entered_title))
   update: ->
     ServerActions.manualUpdate @state.course.slug
   render: ->
@@ -37,27 +37,27 @@ Actions = React.createClass(
       # )
       if user.role == 0
         controls.push (
-          <p key='leave'><button onClick={@leave} className='button'>Leave course</button></p>
+          <p key='leave'><button onClick={@leave} className='button'>{I18n.t('courses.leave_course')}</button></p>
         )
       if (user.role == 1 || user.admin) && !@state.course.published
         controls.push (
-          <p key='delete'><button className='button danger' onClick={@delete}>Delete course</button></p>
+          <p key='delete'><button className='button danger' onClick={@delete}>{I18n.t('courses.delete_course')}</button></p>
         )
     else
       controls.push (
         <p key='join'>
-          <button onClick={@join} className='button'>Join course</button>
+          <button onClick={@join} className='button'>{I18n.t('courses.join_course')}</button>
         </p>
       )
 
     controls.push (
-      <p key='none'>No available actions</p>
+      <p key='none'>{I18n.t('courses.no_available_actions')}</p>
     ) if controls.length == 0
 
 
     <div className='module'>
       <div className="section-header">
-        <h3>Actions</h3>
+        <h3>{I18n.t('courses.actions')}</h3>
       </div>
       <div className='module__data'>
         {controls}
