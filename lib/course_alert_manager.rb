@@ -1,12 +1,24 @@
 class CourseAlertManager
+  def initialize
+    @courses_to_check = Course.strictly_current
+  end
+
   def create_no_students_alerts
-    courses_to_check = Course.strictly_current
-    courses_to_check.each do |course|
+    @courses_to_check.each do |course|
       next unless course.students.empty?
       next unless within_no_student_alert_period?(course.timeline_start)
 
       next if Alert.exists?(course_id: course.id, type: 'NoEnrolledStudentsAlert')
       alert = Alert.create(type: 'NoEnrolledStudentsAlert', course_id: course.id)
+      alert.email_course_admins
+    end
+  end
+
+  def create_untrained_students_alerts
+    @courses_to_check.each do |course|
+      next if Alert.exists?(course_id: course.id, type: 'UntrainedStudentsAlert')
+      next unless training_very_overdue?(course)
+      alert = Alert.create(type: 'UntrainedStudentsAlert', course_id: course.id)
       alert.email_course_admins
     end
   end
@@ -21,5 +33,25 @@ class CourseAlertManager
     return false unless date < NO_STUDENT_ALERT_MIN_DAYS.days.ago
     return false unless NO_STUDENT_ALERT_MAX_DAYS.days.ago < date
     true
+  end
+
+  UNTRAINED_GRACE_PERIOD = 19
+  EXPECTED_COMPLETION_RATE = 0.75
+  def training_very_overdue?(course)
+    return false if course.user_count == 0
+    completion_rate = course.trained_count.to_f / course.user_count
+    return false unless completion_rate < EXPECTED_COMPLETION_RATE
+    latest_due_date = due_dates_of_overdue_trainings(course)
+    return false unless latest_due_date < UNTRAINED_GRACE_PERIOD.days.ago
+    true
+  end
+
+  def due_dates_of_overdue_trainings(course)
+    training_blocks = course.blocks.select { |block| !block.training_module_ids.empty? }
+    due_dates = training_blocks.map do |block|
+      last_meeting = block.week.meeting_dates.last
+      last_meeting
+    end
+    due_dates.select { |date| date < Time.now }.sort
   end
 end

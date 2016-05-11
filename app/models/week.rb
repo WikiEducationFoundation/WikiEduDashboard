@@ -15,4 +15,8 @@ class Week < ActiveRecord::Base
   belongs_to :course
   has_many :blocks, dependent: :destroy
   has_many :gradeables, through: :blocks
+
+  def meeting_dates
+    CourseMeetingsManager.new(course).meeting_dates_of(self)
+  end
 end

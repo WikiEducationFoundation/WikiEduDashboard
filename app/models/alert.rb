@@ -57,3 +57,22 @@ class NoEnrolledStudentsAlert < Alert
     update_attribute(:email_sent_at, Time.now)
   end
 end
+
+# Alert for a course that has no enrolled students after it is underway
+class UntrainedStudentsAlert < Alert
+  def main_subject
+    course.slug
+  end
+
+  def url
+    "https://#{ENV['dashboard_url']}/courses/#{course.slug}"
+  end
+
+  def email_course_admins
+    admins = course.nonstudents.where(permissions: 1)
+    admins.each do |user|
+      AlertMailer.alert(self, user).deliver_now
+    end
+    update_attribute(:email_sent_at, Time.now)
+  end
+end
