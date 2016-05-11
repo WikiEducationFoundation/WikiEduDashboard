@@ -94,8 +94,12 @@ class ConstantUpdate
     Rails.logger.debug 'Generating AfD alerts'
     ArticlesForDeletionMonitor.create_alerts_for_new_articles
 
+    course_alert_manager = CourseAlertManager.new
+
     Rails.logger.debug 'Generating no-enrolled-students alerts'
-    CourseAlertManager.new.create_no_students_alerts
+    course_alert_manager.create_no_students_alerts
+    Rails.logger.debug 'Generating untrained-students alerts'
+    course_alert_manager.create_untrained_students_alerts
   end
 
   #################################

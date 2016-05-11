@@ -16,6 +16,7 @@ describe ConstantUpdate do
       expect(StudentGreeter).to receive(:greet_all_ungreeted_students)
       expect(ArticlesForDeletionMonitor).to receive(:create_alerts_for_new_articles)
       expect_any_instance_of(CourseAlertManager).to receive(:create_no_students_alerts)
+      expect_any_instance_of(CourseAlertManager).to receive(:create_untrained_students_alerts)
       expect(Raven).to receive(:capture_message)
       ConstantUpdate.new
     end
