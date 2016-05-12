@@ -3,7 +3,8 @@ env:
 - TEST_SUITE=type:feature AFTER_SUCCESS=''
 language: ruby
 rvm: 2.1.5
-sudo: false
+sudo: required
+dist: trusty
 cache:
   apt: true
   directories:
