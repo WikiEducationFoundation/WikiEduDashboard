@@ -18,6 +18,7 @@ addons:
     - libqt5webkit5-dev
     - qtdeclarative5-dev
     - pandoc
+    - mysql-server
 before_install:
 - rvm --default use 2.1.5
 - export QMAKE=/usr/lib/x86_64-linux-gnu/qt5/bin/qmake
