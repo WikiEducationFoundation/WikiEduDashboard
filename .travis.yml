@@ -8,6 +8,7 @@ cache:
   apt: true
   directories:
   - vendor
+  - node_modules
 addons:
   apt:
     sources:
