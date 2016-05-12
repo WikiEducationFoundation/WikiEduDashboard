@@ -9,14 +9,14 @@ $ ->
   if $('#user_courses ul').length
     userCourseList = new List('user_courses', {
       valueNames: [
-        'utitle','urevisions','ucharacters','uviews','ustudents', 'uuntrained'
+        'utitle','urevisions','ucharacters','uaverage-words','uviews','ustudents','uuntrained'
       ]
     })
 
   if $('#courses ul').length
     courseList = new List('courses', {
       valueNames: [
-        'title','revisions','characters','views','students', 'untrained'
+        'title','revisions','characters','average-words','views','students', 'untrained'
       ]
     })
 

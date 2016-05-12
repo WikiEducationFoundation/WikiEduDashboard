@@ -228,6 +228,11 @@ class Course < ActiveRecord::Base
     WordCount.from_characters(character_sum)
   end
 
+  def average_word_count
+    return 0 if user_count == 0
+    word_count / user_count
+  end
+
   def home_wiki
     # TODO: as part of the i18n project, we'll allow for choosing the home_wiki
     # at the time of course creation (if dashboard is configured to allow that).

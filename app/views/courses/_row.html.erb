@@ -12,8 +12,12 @@
       </div>
 
       <div class="course-list__row__characters">
-        <p><span class="tablet-only-flex"><%= t("metrics.word_count") %>: </span><%= number_to_human course.word_count %></p>
+        <p><span class="tablet-only-flex"><%= t("metrics.word_count") %>: </span>
+          <%= number_to_human course.word_count %>
+          <small>(<%= t("metrics.per_user", number: number_to_human(course.average_word_count)) %>)</small>
+        </p>
         <p class="<%= user ? 'u' : '' %>characters hidden"><%= course.character_sum %></p>
+        <p class="<%= user ? 'u' : '' %>average-words hidden"><%= course.average_word_count %></p>
       </div>
       <div class="course-list__row__views">
         <p><span class="tablet-only-flex"><%= t("metrics.view") %>: </span><%= number_to_human course.view_sum %></p>
