@@ -42,18 +42,22 @@ class UploadImporter
   def self.import_uploads(uploads)
     ActiveRecord::Base.transaction do
       uploads.each do |file|
-        uploaded_at = file['timestamp']
-        file_name = file['title']
-        username = file['user']
-        user_id = User.find_by(username: username).id
-        id = file['pageid']
-        upload = CommonsUpload.new(id: id,
-                                   uploaded_at: uploaded_at,
-                                   file_name: file_name,
-                                   user_id: user_id)
-        upload.save unless CommonsUpload.exists?(id)
+        import_upload(file)
       end
     end
+  end
+
+  def self.import_upload(file)
+    uploaded_at = file['timestamp']
+    file_name = file['title']
+    username = file['user']
+    user_id = User.find_by(username: username).id
+    id = file['pageid']
+    upload = CommonsUpload.new(id: id,
+                               uploaded_at: uploaded_at,
+                               file_name: file_name,
+                               user_id: user_id)
+    upload.save unless CommonsUpload.exists?(id)
   end
 
   def self.import_usages(usages)
@@ -68,6 +72,10 @@ class UploadImporter
       usage_counts[id] += usage_count
     end
 
+    save_usage_counts(usage_counts)
+  end
+
+  def self.save_usage_counts(usage_counts)
     ActiveRecord::Base.transaction do
       usage_counts.each do |id, count|
         file = CommonsUpload.find(id)
