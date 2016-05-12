@@ -428,11 +428,23 @@ en:
       Characters Added<br>(mainspace | userspace)
     contributions: User Contributions
     contributions_more: View More Contributions
+    course_passcode: 'Course passcode: '
     editors: Editors
+    enroll: Enroll
+    enrollment: Enrollment
+    enroll_confirmation: Are you sure you want to add %{username} to this course?
+    enroll_url: 'Students may enroll by visiting this URL:'
+    enrolled_success: '%{username} successfully enrolled!'
+    first_name: First name
+    last_name: Last name
     loading: Loading users...
+    characters_added_mainspace: MS Chars Added
+    characters_added_userspace: US Chars Added
     name: Name
     none: This course has no students.
+    no_revisions: This user has made no revisions.
     recent_revisions: Recent Edits
+    remove_confirmation: Are you sure you want to remove %{username} from this course?
     revisions_doc: The number of edits made by this editor in the past 7 days
     reviewers: Reviewer(s)
     reviewing: Reviewing
@@ -447,6 +459,8 @@ en:
     training_incomplete: Training Incomplete
     training_modules_completed: "%{completed_count}/%{assigned_count} training modules completed"
     up_to_date_with_training: 'up-to-date with training'
+    username: Username
+    username_placeholder: Username
 
   wiki_edits:
     notify_overdue:

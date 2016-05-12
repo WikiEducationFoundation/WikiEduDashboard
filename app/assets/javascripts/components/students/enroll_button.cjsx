@@ -17,21 +17,21 @@ EnrollButton = React.createClass(
     username = @refs.username.value
     user_obj = { username: username }
     if UserStore.getFiltered({ username: username, role: @props.role }).length > 0
-      alert (username + ' successfully enrolled!')
+      alert I18n.t('users.enrolled_success', username: username)
       @refs.username.value = ''
   enroll: (e) ->
     e.preventDefault()
     username = @refs.username.value
     user_obj = { username: username, role: @props.role }
     if UserStore.getFiltered({ username: username, role: @props.role }).length == 0 &&
-       confirm 'Are you sure you want to add ' + username + ' to this course?'
+       confirm I18n.t('users.enroll_confirmation', username: username)
         ServerActions.add 'user', @props.course_id, { user: user_obj }
     else
       alert I18n.t('users.already_enrolled')
   unenroll: (user_id) ->
     user = UserStore.getFiltered({ id: user_id, role: @props.role })[0]
     user_obj = { user_id: user_id, role: @props.role }
-    if confirm 'Are you sure you want to remove ' + user.username + ' from this course?'
+    if confirm I18n.t('users.remove_confirmation', username: user.username)
       ServerActions.remove 'user', @props.course_id, { user: user_obj }
   stop: (e) ->
     e.stopPropagation()
@@ -55,8 +55,8 @@ EnrollButton = React.createClass(
     edit_rows.push (
       <tr className='edit' key='enroll_students'>
         <td>
-          <p>Course passcode: <b>{@props.course.passcode}</b></p>
-          <p>Students may enroll by visiting this URL:</p>
+          <p>{I18n.t('users.course_passcode')}<b>{@props.course.passcode}</b></p>
+          <p>{I18n.t('users.enroll_url')}</p>
           <input type="text" readOnly value={enroll_url} style={'width': '100%'} />
         </td>
       </tr>
@@ -69,8 +69,8 @@ EnrollButton = React.createClass(
       <tr className='edit' key='add_students'>
         <td>
           <form onSubmit={@enroll}>
-            <input type="text" ref='username' placeholder='Username' />
-            <button className='button border' type='submit'>Enroll</button>
+            <input type="text" ref='username' placeholder={I18n.t('users.username_placeholder')} />
+            <button className='button border' type='submit'>{I18n.t('users.enroll')}</button>
           </form>
         </td>
       </tr>
@@ -78,7 +78,7 @@ EnrollButton = React.createClass(
 
     button_class = 'button'
     button_class += if @props.inline then ' border plus' else ' dark'
-    button_text = if @props.inline then '+' else 'Enrollment'
+    button_text = if @props.inline then '+' else I18n.t('users.enrollment')
 
     # Remove this check when we re-enable adding users by username
     button = <button className={button_class} onClick={@props.open}>{button_text}</button>

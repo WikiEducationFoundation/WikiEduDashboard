@@ -39,7 +39,7 @@ StudentDrawer = React.createClass(
       revisions = (
         <tr>
           <td colSpan="7" className="text-center">
-            <p>This student has made no revisions</p>
+            <p>{I18n.t('users.no_revisions')}</p>
           </td>
         </tr>
       )
@@ -56,7 +56,7 @@ StudentDrawer = React.createClass(
           <table className='list list--striped'>
             <thead>
               <tr>
-                <th>User Contributions</th>
+                <th>{I18n.t('users.contributions')}</th>
                 <th className='desktop-only-tc'>Date / Time</th>
                 <th className='desktop-only-tc'>Chars Added</th>
                 <th className='desktop-only-tc'>Views</th>
