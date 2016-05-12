@@ -19,6 +19,25 @@ class Alert < ActiveRecord::Base
   belongs_to :revision
 
   include ArticleHelper
+
+  def course_url
+    "https://#{ENV['dashboard_url']}/courses/#{course.slug}"
+  end
+
+  def email_content_expert
+    content_expert = course.nonstudents.find_by(greeter: true)
+    return if content_expert.nil?
+    AlertMailer.alert(self, content_expert).deliver_now
+    update_attribute(:email_sent_at, Time.now)
+  end
+
+  def email_course_admins
+    admins = course.nonstudents.where(permissions: 1)
+    admins.each do |admin|
+      AlertMailer.alert(self, admin).deliver_now
+    end
+    update_attribute(:email_sent_at, Time.now)
+  end
 end
 
 # Alert for when an article has been nominated for deletion on English Wikipedia
@@ -30,13 +49,6 @@ class ArticlesForDeletionAlert < Alert
   def url
     article_url(article)
   end
-
-  def email_content_expert
-    content_expert = course.nonstudents.find_by(greeter: true)
-    return if content_expert.nil?
-    AlertMailer.alert(self, content_expert).deliver_now
-    update_attribute(:email_sent_at, Time.now)
-  end
 end
 
 # Alert for a course that has no enrolled students after it is underway
@@ -46,15 +58,7 @@ class NoEnrolledStudentsAlert < Alert
   end
 
   def url
-    "https://#{ENV['dashboard_url']}/courses/#{course.slug}"
-  end
-
-  def email_course_admins
-    admins = course.nonstudents.where(permissions: 1)
-    admins.each do |user|
-      AlertMailer.alert(self, user).deliver_now
-    end
-    update_attribute(:email_sent_at, Time.now)
+    course_url
   end
 end
 
@@ -65,14 +69,17 @@ class UntrainedStudentsAlert < Alert
   end
 
   def url
-    "https://#{ENV['dashboard_url']}/courses/#{course.slug}"
+    course_url
+  end
+end
+
+# Alert for a course that has no enrolled students after it is underway
+class ProductiveCourseAlert < Alert
+  def main_subject
+    course.slug
   end
 
-  def email_course_admins
-    admins = course.nonstudents.where(permissions: 1)
-    admins.each do |user|
-      AlertMailer.alert(self, user).deliver_now
-    end
-    update_attribute(:email_sent_at, Time.now)
+  def url
+    course_url
   end
 end
