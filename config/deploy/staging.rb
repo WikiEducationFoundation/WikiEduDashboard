@@ -7,14 +7,14 @@
 set :branch, ENV["TRAVIS_COMMIT"] || 'staging'
 set :rails_env, 'staging'
 
-role :app, %w(root@dashboard-testing.wikiedu.org)
-role :web, %w(root@dashboard-testing.wikiedu.org)
-role :db,  %w(root@dashboard-testing.wikiedu.org)
+role :app, %w(root@dashboard-staging.wikiedu.org)
+role :web, %w(root@dashboard-staging.wikiedu.org)
+role :db,  %w(root@dashboard-staging.wikiedu.org)
 
 set :user, 'root'
-set :address, 'dashboard-testing.wikiedu.org'
+set :address, 'dashboard-staging.wikiedu.org'
 
-set :deploy_to, '/var/www/dashboard-testing'
+set :deploy_to, '/var/www/dashboard'
 
 # Extended Server Syntax
 # ======================
