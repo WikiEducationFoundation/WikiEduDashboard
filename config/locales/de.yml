@@ -5,9 +5,13 @@
 # Author: Taresi
 ---
 de:
+  accessibility:
+    number_field: Dies ist ein Zahlenfeld. Die von den meisten Browsern dargestellten
+      Schaltflächen erhöhen und vermindern die Eingabe.
   application:
     cancel: Abbrechen
     dashboard: Wiki-Ed-Dashboard
+    error: 'Es gab einen Fehler:'
     explore: Entdecken
     greeting2: Willkommen!
     greeting_extended: Willkommen bei Wikipedia
@@ -55,6 +59,7 @@ de:
     edited_mobile: Artikel
     label: Artikel
     loading: Lade Artikel …
+    new: (neu)
     no_assignee: Keinem Benutzer zugeordnet
     none: Dieser Kurs hat keine Artikel bearbeitet.
     rating: Klasse
@@ -105,12 +110,19 @@ de:
   courses:
     activity: Aktivität
     already_enrolled: Du bist bereits ein Teil von „%{title}“!
+    already_exists: Dies ist bereits für diesen Kurs vorhanden!
     archived: Archivierte Kurse
     articles: Artikel
     articles_none: Dieser Kurs hat keine Artikel bearbeitet.
     assignment_end: Zuweisungs-Ende
     assignments_none: Dieser Kurs hat keine zugewiesenen Wikipedia-Artikel.
     assignment_start: Zuweisungs-Beginn
+    calendar:
+      legend: Legende
+      legend_class_canceled: Feiertag/Annulliert
+      legend_class_meeting: Klassentreffen
+      legend_class_not_meeting: Kein geplantes Treffen
+      select_meeting_days: Wähle die Wochentage aus, an denen sich deine Klasse trifft.
     character_doc: Die Summe der durch die Kursstudenten während der Kursdauer zu
       Hauptnamensraum-Artikeln hinzugefügten Zeichen
     course_dates_calendar_instructions: Wähle Daten aus, um sie in dem Plan hinzuzufügen
@@ -131,12 +143,14 @@ de:
       course_school: Kursschule
       course_subject: Kursthema
       course_term: Kursdauer
+      course_term_placeholder: Dauer
       course_title: Kurstitel
       create_button: Meinen Kurs erstellen!
       create_label: Neuen Kurs erstellen
       create_new: Einen neuen Kurs erstellen
       create_short: Kurs erstellen
       end_date: Enddatum
+      end_date_placeholder: Enddatum (JJJJ-MM-TT)
       expected_number: Erwartete Anzahl der Studenten
       find: Finde deinen Kurs
       intro: Der Titel, die Schule und Kursdauer erstellen die URL für deine Kursseite
@@ -144,6 +158,8 @@ de:
         Klicke auf „Meinen Kurs erstellen!“, um mit dem Erstellen der Zeitleiste für
         deine Wikipedia-Zuweisung anzufangen.
       start_date: Startdatum
+      start_date_placeholder: Startdatum (JJJJ-MM-TT)
+      subject: Thema
     current: Aktuelle Kurse
     duration: Kursdauer
     edit_course_dates: Kursdaten bearbeiten
@@ -163,11 +179,14 @@ de:
     join: Beitreten
     join_prompt: „%{title}“ beitreten?
     join_successful: Du bist %{title} erfolgreich beigetreten.
+    leave_confirmation: Bist du sicher, dass du diesen Kurs verlassen möchtest?
+    loading: Lade …
     milestones_none: Dieser Kurs hat derzeit keine Meilensteine.
     new_week: Neue Woche hinzufügen
     nocourses: Du nimmst an keinen Kursen teil.
     overview: Übersicht
     passcode: Passcode
+    passcode_prompt: Gib den Passcode ein, den du von deinem Kursleiter erhalten hast.
     published: 'Dein Kurs wurde veröffentlicht! Studenten können sich beim Aufrufen
       der folgenden URL in den Kurs einschreiben:'
     review_timeline: Bitte überprüfe diese Zeitleiste und führe Änderungen durch.
@@ -178,6 +197,7 @@ de:
     revisions_doc: Die Anzahl der Bearbeitungen in den letzten %{timeframe} Tagen
     revisions_none: Dieser Kurs hat keine letzte Wikipedia-Bearbeitungsaktivität.
     school: Schule
+    start_typing: Mit dem Tippen anfangen
     students: Studenten
     students_count: Anzahl der Studenten
     student_editors: Studentenautoren
@@ -254,6 +274,10 @@ de:
     term: Wann
     uploads_none: Dieses Projekt hat keine Bilder oder andere Mediendateien für Wikimedia
       Commons beigetragen.
+  editable:
+    edit: Bearbeiten
+    cancel: Abbrechen
+    save: Speichern
   metrics:
     activity: Letzte Aktivitäten
     articles_created: Erstellte Artikel
@@ -278,15 +302,26 @@ de:
     user_char_added: Benutzernamensraum-Zeichen hinzugefügt
     user_ns: Benutzer/in
   recent_activity:
-    show_courses: Nur meine Kurse anzeigen
+    active_courses: Artikel ist aktiv in
+    article_title: Artikeltitel
+    datetime: Datum/Zeit
+    did_you_know_eligible: „Schon gewusst?“-berechtigt
+    image: Bild
+    file_name: Dateiname
     no_dyk_eligible: Es gibt derzeit keine SG-berechtigten Artikel.
     no_plagiarism: Es gibt derzeit keine letzten Versionen, die auf Plagiate verdächtigt
       werden.
     no_edits: Es gibt keine letzten Bearbeitungen.
-    did_you_know_eligible: „Schon gewusst?“-berechtigt
+    plagiarism_report: Plagiatsbericht
     possible_plagiarism: Mögliches Plagiat
     recent_edits: Letzte Bearbeitungen
     recent_uploads: Zuletzt hochgeladene Dateien
+    revision_author: Versionsautor
+    revision_datetime: Versionsdatum/-Zeit
+    revision_score: Versionsbewertung
+    show_courses: Nur meine Kurse anzeigen
+    uploaded_by: Hochgeladen von
+    usage_count: Anzahl der Verwendungen
   revisions:
     chars_added: Hinzugefügte Zeichen
     class: Klasse
@@ -433,6 +468,13 @@ de:
   survey:
     login_message: Vielen Dank für deine Zeit. Bitte melde dich beim Wiki Ed Dashboard
       an, um an der Umfrage teilzunehmen.
+    notification_explanation: Falls unten ausgewählt, erhalten Benutzer übereinstimmend
+      mit dem Benachrichtigungszeitplan E-Mails, außerdem sehen sie Benachrichtigungen
+      im Browser. Falls nicht, werden nur Benachrichtigungen im Browser angezeigt.
+    notification_schedule_explanation: Benachrichtigungen einschließlich Benachrichtigungen
+      im Browser und E-Mails, falls oben aktiviert.
+    follow_up_explanation: Leer lassen, falls keine zukünftigen Benachrichtigungs-E-Mails
+      gewünscht sind.
     email:
       headline: Hallo %{username}
       message_line1: Wir hoffen, dass du einen tollen Kurs hast! Wiki Ed benötigt
@@ -447,4 +489,8 @@ de:
       closing: Mit freundlichen Grüßen
       signed: – das Team von Wiki Ed
       link: An der Umfrage teilnehmen
+    follow_up:
+      message: Dies ist eine Erinnerung an die Umfrage für deinen Kurs „%{course_title}“.
+        Rückmeldungen zu dieser Umfrage helfen uns dabei, die Unterstützung für Wikipedia-Zuweisungen
+        wie deine zu verbessern.
 ...

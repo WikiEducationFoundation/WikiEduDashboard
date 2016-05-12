@@ -224,8 +224,8 @@ cs:
   namespace:
     user_ns: Uživatel
   recent_activity:
-    show_courses: Ukázat pouze mé kurzy
     recent_edits: Poslední editace
+    show_courses: Ukázat pouze mé kurzy
   revisions:
     chars_added: Přidáno znaků
 ...

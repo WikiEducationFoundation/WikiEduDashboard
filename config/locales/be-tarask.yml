@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Red Winged Duck
+# Author: Renessaince
 ---
 be-tarask:
   application:
@@ -12,4 +13,6 @@ be-tarask:
     recent_activity: Нядаўняя актыўнасьць
   activity:
     edited_by: Рэдагавалася
+  uploads:
+    label: Загрузкі
 ...

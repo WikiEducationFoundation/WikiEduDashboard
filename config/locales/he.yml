@@ -12,6 +12,7 @@ he:
   application:
     cancel: ביטול
     dashboard: לוח בקרה של ויקי השכלה
+    error: 'אירעה שגיאה:'
     explore: חקור
     greeting2: ברוכים הבאים!
     greeting_extended: ברוכים הבאים לוויקיפדיה
@@ -58,6 +59,7 @@ he:
     edited_mobile: ערכים
     label: ערכים
     loading: טעינת ערכים...
+    new: (חדש)
     no_assignee: לא הוקצה משתמש
     none: הקורס לא ערך שום ערך.
     rating: דירוג
@@ -106,12 +108,15 @@ he:
   courses:
     activity: פעילות
     already_enrolled: הינך כבר חלק מ%{title}!
+    already_exists: זה כבר קיים עבור הקורס הזה!
     archived: קורסים מאורכבים
     articles: ערכים
     articles_none: הקורס הזה לא ערך שום ערכים.
     assignment_end: סוף משימה
     assignments_none: לקורס זה לא הוקצו ערכים בוויקיפדיה.
     assignment_start: תחילת משימה
+    calendar:
+      legend: מקרא
     character_doc: סך התווים שנוספו לערכים במרחב הראשי על־ידי התלמידים בקורס במהלך
       תקופת הקורס
     course_dates_calendar_instructions: בחר תאריכים להוספה או הסרה מלוח הזמנים (לדוגמה
@@ -133,12 +138,15 @@ he:
       create_new: יצירת קורס חדש
       create_short: יצירת קורס
       end_date: תאריך סיום
+      end_date_placeholder: תאריך סיום
       expected_number: מספר מצופה של תלמידים
       find: מצא את הקורס שלך
       intro: השם, המוסד והתקופה יוצרים את הכתובת של דף הקורס שלך ולא ניתן לשנות אותם.
         את כל השאר אפשר לערוך אחר־כך. יש ללחוץ על "צור את הקורס שלי!" כדי להתחיל לבנות
         את ציר הזמן עבור מטלת הוויקיפדיה שלך.
       start_date: תאריך התחלה
+      start_date_placeholder: תאריך התחלה
+      subject: נושא
     current: קורסים נוכחיים
     duration: משך הקורס
     edit_course_dates: עריכת תאריכים קורסים
@@ -156,11 +164,14 @@ he:
     join: הצטרפות
     join_prompt: להצטרף ל-%{title}?
     join_successful: הצטרפת בהצלחה ל-%{title}.
+    leave_confirmation: האם אתם בטוחים שברצונכם לעזוב את הקורס הזה?
+    loading: טוען...
     milestones_none: לקורס הזה אין כרגע אבני דרך.
     new_week: הוספת שבוע חדש
     nocourses: אינך משתתף בשום קורס.
     overview: סקירה כללית
     passcode: סיסמה
+    passcode_prompt: נא להקליד את הסיסמה שקיבלת מהמורה שלך לקורס הזה
     published: 'הקורס שלך פורסם! כעת סטודנטים יכולים להירשם לקורס שלך ע"י ביקור בכתובת
       הבאה:'
     review_timeline: אנא עברו על לוח הזמנים ובצעו שינויים. ברגע שהינכם מרוצים, הגישו
@@ -170,6 +181,7 @@ he:
     revisions_doc: מספר העריכת ב־%{timeframe} הימים האחרונים
     revisions_none: בקורס הזה אין פעילות ויקיפדיה לאחרונה.
     school: בית ספר
+    start_typing: התחילו להקליד
     students: תלמידים
     students_count: מס' תלמידים
     student_editors: תלמידים עורכים
@@ -239,6 +251,10 @@ he:
     students_short: עורכים
     term: מתי
     uploads_none: המיזם הזה לא תרם תמונות או קובצי מדיה אחרים לוויקישיתוף.
+  editable:
+    edit: עריכה
+    cancel: ביטול
+    save: שמירה
   metrics:
     activity: פעילות לאחרונה
     articles_created: ערכים נוצרו
@@ -263,14 +279,20 @@ he:
     user_char_added: תווים נוספו במרחב משתמש
     user_ns: משתמש
   recent_activity:
-    show_courses: הצגת קורסים שלי בלבד
+    datetime: תאריך ושעה
+    did_you_know_eligible: ראויים ל-"הידעת?"
+    image: תמונה
+    file_name: שם הקובץ
     no_dyk_eligible: כעת אין ערכים כלשהם הראויים ל-"הידעת?".
     no_plagiarism: כעת אין גרסאות חדשות כלשהן החשודות בגניבה ספרותית.
     no_edits: אין שינויים אחרונים
-    did_you_know_eligible: ראויים ל-"הידעת?"
     possible_plagiarism: חשד לגניבה ספרותית
     recent_edits: שינויים אחרונים
     recent_uploads: העלאות אחרונות
+    revision_author: מחבר הגרסה
+    revision_datetime: תאריך ושעה של הגרסה
+    show_courses: הצגת קורסים שלי בלבד
+    uploaded_by: הועלה על־ידי
   revisions:
     chars_added: תווים שנוספו
     class: שיעור
@@ -373,6 +395,9 @@ he:
       headline: שלום, %{username}
       course: 'קורס: %{course_info}'
       closing: בכבוד רב,
-      signed: סגל ויקי השכלה
+      signed: '- סגל ויקי השכלה'
       link: השתתפות בסקר
+    follow_up:
+      message: זוהי תזכורת לגבי הסקר של הקורס שלך, %{course_title}. משוב בסקר הזה
+        עוזר לנו לשפר את התמיכה במשימות ויקיפדיה כמו שלך.
 ...

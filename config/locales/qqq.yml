@@ -10,7 +10,8 @@
 ---
 qqq:
   accessibility:
-    number_field: Descriptive text for screen readers to explain how the number field works
+    number_field: Descriptive text for screen readers to explain how the number field
+      works
   application:
     cancel: |-
       Button to cancel an action
@@ -88,7 +89,9 @@ qqq:
       Short name for articles
       {{Identical|Article}}
     loading: Placeholder message indicating that article data is still loading
-    new: Message after an article title indicating that it is a newly-created article
+    new: |-
+      Message after an article title indicating that it is a newly-created article
+      {{Identical|New}}
     none: Message stating that no articles have been edited.
     rating: Label for an article's quality rating on the Wikipedia 1.0 scale
     rating_doc: Explanation of where an article's quality rating comes from and what
@@ -141,22 +144,28 @@ qqq:
     none: Option for a course with no cohort
     view_other: Command to view another cohort.
   courses:
-    actions: Header for available actions, such as joining the course
     activity: Label for link to the 'recent activity' list for a course
     already_enrolled: Message displayed when the user attempts to enroll in a course
       they have already joined.
-    already_exists: Message indicating that whatever was just added by the user already existed
+    already_exists: Message indicating that whatever was just added by the user already
+      existed
     archived: Section heading for archived courses
+    actions: Header for available actions, such as joining the course
     articles: |-
       Label for link to list of articles worked on by a course
       {{Identical|Article}}
-    assignment_end: The date on which the planned Wikipedia activities for a course end.
+    assignment_end: The date on which the planned Wikipedia activities for a course
+      end.
     calendar:
-      legend: Label for the legend that explains the course meeting days calendar
-      legend_class_cancelled: Label within the legend for the styling of days when the would normally meet but is on holiday or canceled
-      legend_class_meeting: Label within the legend for the styling of days when the class meets
-      legend_class_not_meeting: Label within the legend for the styling of days when the does not meet
-      select_meeting_days: Instructions for using a calendar to select the days that a course meets
+      legend: |-
+        Label for the legend that explains the course meeting days calendar
+        {{Identical|Legend}}
+      legend_class_meeting: Label within the legend for the styling of days when the
+        class meets
+      legend_class_not_meeting: Label within the legend for the styling of days when
+        the does not meet
+      select_meeting_days: Instructions for using a calendar to select the days that
+        a course meets
     character_doc: Explanation of what 'characters added' means
     confirm_course_deletion: Confirmation dialog for deleting a course
     confirm_course_deletion_failed: Message indicating that a course was not deleted
@@ -165,9 +174,12 @@ qqq:
       {{Identical|Course}}
     courses: Label for the number of courses in a cohort
     creator:
+      course_term_placeholder: '{{Identical|Term}}'
       end_date: '{{Identical|End date}}'
       start_date: '{{Identical|Start date}}'
-      subject: Placeholder text for course subject field
+      subject: |-
+        Placeholder text for course subject field
+        {{Identical|Subject}}
     current: Label for the list of current courses
     delete_course: Button to delete a course
     duration: Label for duration of a course
@@ -180,16 +192,18 @@ qqq:
       one: Label for a single instructor of a course
       other: Label for plural instructors of a course
     invitation: Message that you have been invited to a course
-    join_course: Button to join a course
     join: |-
       Button to join a course
       {{Identical|Join}}
+    join_course: Button to join a course
     join_prompt: |-
       Do you want to join this course?
       {{Identical|Join}}
     join_successful: Message that join was successful
     leave_course: Button for a user to leave the course
-    loading: Placeholder message to indicate that content is loading
+    loading: |-
+      Placeholder message to indicate that content is loading
+      {{Identical|Loading}}
     new_week: Button for adding a new week to the timeline
     nocourses: Message indicating that the logged in user is not part of any courses
     no_available_actions: Placeholder message when no action buttons are available
@@ -235,9 +249,15 @@ qqq:
     students: '{{Identical|Editor}}'
     students_short: '{{Identical|Editor}}'
   editable:
-    edit: Label for an edit button
-    cancel: Label for button to cancel an edit
-    save: Label for button to save an edit
+    edit: |-
+      Label for an edit button
+      {{Identical|Edit}}
+    cancel: |-
+      Label for button to cancel an edit
+      {{Identical|Cancel}}
+    save: |-
+      Label for button to save an edit
+      {{Identical|Save}}
   metrics:
     activity: Label for activity feed.
     articles_created: Label for the number of articles created.
@@ -267,7 +287,9 @@ qqq:
     article_title: Label for a table column of article titles
     datetime: Label for the date and time of an activity
     did_you_know_eligible: Label for "Did You Know" Eligible tab
-    image: Label for a table column of images
+    image: |-
+      Label for a table column of images
+      {{Identical|Image}}
     file_name: Label for the file name of an image
     no_dyk_eligible: Message stating there are no "Did You Know" eligible articles.
     no_plagiarism: Message stating there are no recent revisions suspected of plagiarism.
@@ -277,12 +299,12 @@ qqq:
     recent_edits: Label for Recent Edits tab
     recent_uploads: Label for Recent Uploads tab
     revision_author: Label for a table column of the user who made each revision
-    revision_score: Label for a table column of numerical revision scores
     revision_datetime: Label for a table column of the date and time of each revision
+    revision_score: Label for a table column of numerical revision scores
     show_courses: Checkbox for option to show user courses only
     uploaded_by: Label for the user who uploaded a file
-    usage_count: Label for the number of global usages of a file across Wikimedia sites
-
+    usage_count: Label for the number of global usages of a file across Wikimedia
+      sites
   revisions:
     chars_added: Label for counter of added chars
     class: |-

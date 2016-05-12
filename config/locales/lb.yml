@@ -127,10 +127,10 @@ lb:
     user: Benotzernummraum
     user_ns: Benotzer
   recent_activity:
-    show_courses: Nëmme meng Course weisen
     no_edits: Et gouf keng rezent Ännerungen.
     possible_plagiarism: Méiglecht Plagiat
     recent_edits: Rezent Ännerungen
+    show_courses: Nëmme meng Course weisen
   revisions:
     date_time: Datum/Zäit
     edited_by: Geännert vum

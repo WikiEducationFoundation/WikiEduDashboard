@@ -88,8 +88,8 @@ sv:
     user: Användarnamnrymd
     user_ns: Användare
   recent_activity:
-    show_courses: Visa endast mina kurser
     recent_edits: Senaste redigeringar
+    show_courses: Visa endast mina kurser
   revisions:
     class: Klass
     title: Titel

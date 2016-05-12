@@ -55,6 +55,7 @@ it:
     edited_mobile: Voci
     label: Voci
     loading: Caricamento articoli...
+    new: (nuovo)
     no_assignee: Nessun utente assegnato
     none: Questo corso non ha modificato alcuna voce.
     rating: Classe
@@ -97,13 +98,18 @@ it:
     activity: Attività
     already_enrolled: Fai già parte di '%{title}'!
     archived: Corsi archiviati
+    actions: Azioni
     articles: Voci
     articles_none: Questo corso non ha modificato alcuna voce.
     assignment_end: Fine assegnazione
     assignments_none: Questo corso non ha assegnato voci di Wikipedia.
     assignment_start: Inizio assegnazione
+    calendar:
+      legend: Legenda
     character_doc: La somma dei caratteri aggiunti alle voci nel namespace principale
       dagli studenti del corso durante il periodo del corso
+    confirm_course_deletion_failed: '"%{title}" non è il titolo di questo corso. Il
+      corso non è stato cancellato.'
     course_description: Corsi
     courses: Corsi
     creator:
@@ -122,16 +128,21 @@ it:
       create_new: Crea un nuovo corso
       create_short: Crea corso
       end_date: Data di fine
+      end_date_placeholder: Data di fine (YYYY-MM-DD)
       expected_number: Numero previsto di studenti
       find: Trova il tuo corso
       intro: Il titolo, la scuola, e la durata creano l'URL della pagina del tuo corso,
         e non possono essere modificati. Tutto il resto puoi modificarli in seguito.
         Clicca su "Crea il mio corso!" per iniziare a costruire la linea temporale
         per la tua assegnazione Wikipedia.
+      save_cloned_course: Salva nuovo corso
       start_date: Data di inizio
+      start_date_placeholder: Data di inizio (YYYY-MM-DD)
     current: Corsi attuali
+    delete_course: Cancella corso
     duration: Durata del corso
     edit_course_dates: Modifica date del corso
+    end: Fine
     error:
       exists: Quel corso esiste già! Riprova con un differente titolo, scuola o termine.
       user_exists: Spiacenti, %{username} non è un utente esistente.
@@ -143,15 +154,19 @@ it:
     join: Unisciti
     join_prompt: Unirsi a '%{title}'?
     join_successful: Hai aderito con successo a %{title}.
+    loading: Caricamento…
     milestones_none: Questo corso attualmente non ha pietre miliari.
     new_week: Aggiungi nuova settimana
     nocourses: Non stai partecipando ad alcun corso.
+    none: Nessuno
+    no_available_actions: Nessuna azione disponibile
     overview: Panoramica
     passcode: Codice di accesso
     published: 'Il tuo corso è stato pubblicato! Gli studenti possono iscriversi al
       corso, visitando il seguente URL:'
     revisions_none: Questo corso non ha attività di modifica recente su Wikipedia.
     school: Scuola
+    start: Inizio
     students: Studenti
     students_count: Numero studenti
     student_editors: Editori studenti
@@ -223,6 +238,10 @@ it:
     term: Quando
     uploads_none: Questo progetto non ha contribuito con alcuna immagine o altri file
       multimediali su Wikimedia Commons.
+  editable:
+    edit: Modifica
+    cancel: Annulla
+    save: Salva
   metrics:
     activity: Attività recente
     articles_created: Voci create
@@ -245,13 +264,18 @@ it:
     main_char_added: Caratteri aggiunti namespace principale
     user_ns: Utente
   recent_activity:
-    show_courses: Mostra solo i miei corsi
+    datetime: Data/Ora
+    did_you_know_eligible: Ammissibile "Lo sapevi che"
+    image: Immagine
+    file_name: Nome del file
     no_plagiarism: Attualmente non c'è alcuna versione recente sospetta di plagio.
     no_edits: Non ci sono modifiche recenti.
-    did_you_know_eligible: Ammissibile "Lo sapevi che"
     possible_plagiarism: Possibile plagio
     recent_edits: Modifiche recenti
     recent_uploads: Ultimi caricamenti
+    revision_datetime: Data/ora versione
+    show_courses: Mostra solo i miei corsi
+    uploaded_by: Caricato da
   revisions:
     chars_added: Caratteri aggiunti
     class: Classe

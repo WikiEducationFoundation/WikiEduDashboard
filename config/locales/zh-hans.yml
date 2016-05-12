@@ -6,9 +6,12 @@
 # Author: Macofe
 ---
 zh-hans:
+  accessibility:
+    number_field: 这是一个数域。大多数浏览器渲染的按钮将递增和递减输入。
   application:
     cancel: 取消
     dashboard: Wiki Ed控制面板
+    error: 发生了错误：
     explore: 浏览
     greeting2: 欢迎！
     greeting_extended: 欢迎来到维基百科
@@ -53,6 +56,7 @@ zh-hans:
     edited_mobile: 条目
     label: 条目
     loading: 正在加载条目...
+    new: （新）
     no_assignee: 没有分配用户
     none: 此课程没有编辑任何条目。
     rating: 等级
@@ -97,12 +101,19 @@ zh-hans:
   courses:
     activity: 活动
     already_enrolled: 您已经是“%{title}”的一部分！
+    already_exists: 已存在于该课程中！
     archived: 已存档的课程
     articles: 条目
     articles_none: 此课程没有编辑任何条目。
     assignment_end: 任务结束
     assignments_none: 此课程没有分配的维基百科条目。
     assignment_start: 任务开始
+    calendar:
+      legend: 图例
+      legend_class_canceled: 假日/取消
+      legend_class_meeting: 班会
+      legend_class_not_meeting: 没有预定会议
+      select_meeting_days: 选择一周内您要开班会的几天。
     course_description: 课程
     courses: 课程
     creator:
@@ -110,16 +121,20 @@ zh-hans:
       course_school: 课程学校
       course_subject: 课程科目
       course_term: 课程学期
+      course_term_placeholder: 学期
       course_title: 课程标题
       create_button: 创建我的课程！
       create_label: 创建新的课程
       create_new: 创建一个新课程
       create_short: 创建课程
       end_date: 结束日期
+      end_date_placeholder: 结束日期（YYYY-MM-DD）
       expected_number: 预计学生人数
       find: 找到您的课程
       intro: 标题、学校和学期会创建您课程页面的URL，并且不能更改。除这些以外，您可以日后编辑。点击“创建我的课程！”以开始构造用于您维基百科任务分配的时间轴。
       start_date: 开始日期
+      start_date_placeholder: 开始日期（YYYY-MM-DD）
+      subject: 主题
     current: 当前课程
     duration: 课程持续时间
     edit_course_dates: 编辑课程日期
@@ -137,16 +152,20 @@ zh-hans:
     join: 加入
     join_prompt: 加入“%{title}”么？
     join_successful: 您已成功加入%{title}。
+    leave_confirmation: 您确定要离开这个课程么？
+    loading: 正在载入…
     milestones_none: 此课程目前没有任何里程碑。
     new_week: 添加新的一周
     nocourses: 您未参加任何课程。
     overview: 概述
     passcode: 密码
+    passcode_prompt: 输入由该课程的导师向您提供的密码
     published: 您的课程已发布！学生们可以通过下面的URL报名课程：
     review_timeline: 请检查该时间表，并作出更改。一旦您对您的时间表感到满意，将其提交给Wiki Ed职员以待批准。一旦获得批准，您将得到一个登记URL，学生可以使用它加入课程。（您仍然可以稍后编辑。）
     revisions_doc: 过去%{timeframe}天内的编辑数
     revisions_none: 此课程最近没有活跃编辑维基百科。
     school: 学校
+    start_typing: 开始输入
     students: 学生
     students_count: '# 学生'
     student_editors: 学生编辑者
@@ -206,6 +225,10 @@ zh-hans:
     students_short: 编辑者
     term: 何时
     uploads_none: 此项目没有贡献任何图片或其他媒体文件至维基共享资源。
+  editable:
+    edit: 编辑
+    cancel: 取消
+    save: 保存
   metrics:
     activity: 最近活跃
     articles_created: 创建的条目
@@ -230,13 +253,24 @@ zh-hans:
     user_char_added: 添加的用户名字空间字符
     user_ns: 用户
   recent_activity:
-    show_courses: 只显示我的课程
+    active_courses: 条目活跃于
+    article_title: 条目标题
+    datetime: 日期/时间
+    did_you_know_eligible: 符合“您知道吗”资格
+    image: 图像
+    file_name: 文件名
     no_dyk_eligible: 目前在此没有任何符合“您知道吗”资格的条目。
     no_edits: 这里没有最近编辑。
-    did_you_know_eligible: 符合“您知道吗”资格
+    plagiarism_report: 剽窃报告
     possible_plagiarism: 可能涉嫌剽窃
     recent_edits: 最近编辑
     recent_uploads: 最近上传
+    revision_author: 修订版本作者
+    revision_datetime: 修订日期/时间
+    revision_score: 修订分数
+    show_courses: 只显示我的课程
+    uploaded_by: 上传者
+    usage_count: 占用计数
   revisions:
     chars_added: 添加的字符
     class: 等级
@@ -329,6 +363,8 @@ zh-hans:
     unable_to_add_week: 当您的时间轴充满时，您不能添加新周。删除至少一周或更改您的分配日期以为新的一周腾出地方。
   survey:
     login_message: 感谢您抽出时间。请登录您的Wiki Ed控制面板以接受调查。
+    notification_schedule_explanation: 通知包含浏览器内通知和电子邮件，如果在上方启用了的话。
+    follow_up_explanation: 如果不要求跟随电子邮件通知则留空。
     email:
       headline: 您好，%{username}
       message_line1: 我们希望您有一个伟大的学期！Wiki Ed正在寻求您的反馈，以改进我们的资源，并支持您的维基百科作业。您的响应对于改进我们当前的产品至关重要。
@@ -337,4 +373,6 @@ zh-hans:
       closing: 真诚地感谢您
       signed: '- Wiki Ed团队'
       link: 接受调查
+    follow_up:
+      message: 这是有关对您的课程（%{course_title}）调查的提示。来自该调查的反馈会帮助我们改进我们对像您一样的维基百科作业的支持。
 ...

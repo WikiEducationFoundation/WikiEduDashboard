@@ -6,6 +6,7 @@
 # Author: Ffaarr
 # Author: LNDDYL
 # Author: Liuxinyu970226
+# Author: Reke
 # Author: Shangkuanlc
 ---
 zh-hant:
@@ -161,7 +162,7 @@ zh-hant:
     title: 標題
     training_nav: 前往培訓
     unsubmitted: 尚未提交的課程。
-    uploads_none: 此班級未上傳任何圖片或媒體文件至維基共享資源。
+    uploads_none: 此班級未上傳任何圖片或媒體檔案至維基共享資源。
     weeks_none: 此課程尚未建立時間表。
     view: 查看課程
     view_page: 查看課程頁面
@@ -218,6 +219,7 @@ zh-hant:
   wiki_edits:
     notify_overdue:
       header: 您有一項過期的培訓任務。
+      message: 請完成分配的[%{link}訓練模組]。
   wizard:
     course_dates: 課程日期
     minimum_options: 請至少選擇%{minimum}個選項。

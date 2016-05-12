@@ -2,17 +2,23 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Appleuseryu
+# Author: C13m3n7
 # Author: Gomoko
 # Author: LudaOtaku
 # Author: Macofe
 # Author: PifyZ
 # Author: Verdy p
 # Author: Wladek92
+# Author: Zetud
 ---
 fr:
+  accessibility:
+    number_field: C’est un champ numérique. Les boutons générés sur la plupart des
+      navigateurs incrémenteront et décrémenteront l’entrée.
   application:
     cancel: Annuler
     dashboard: Tableau de bord de modification du wiki
+    error: 'Il y a eu une erreur :'
     explore: Explorer
     greeting2: Bienvenue !
     greeting_extended: Bienvenue dans Wikipédia
@@ -60,6 +66,7 @@ fr:
     edited_mobile: Articles
     label: Articles
     loading: Chargement des articles...
+    new: (nouveau)
     no_assignee: Aucun utilisateur affecté
     none: Ce cours n’a modifié aucun article.
     rating: Classe
@@ -112,14 +119,28 @@ fr:
   courses:
     activity: Activité
     already_enrolled: Vous faites déjà partie de '%{title}' !
+    already_exists: Cela existe déjà pour ce cours !
     archived: Cours archivés
+    actions: Actions
     articles: Articles
     articles_none: Ce cours n’a modifié aucun article.
     assignment_end: Fin d’affectation
     assignments_none: Ce cours n’a aucun article Wikipédia affecté.
     assignment_start: Début d’affectation
+    calendar:
+      legend: Légende
+      legend_class_canceled: Férié/Annulé
+      legend_class_meeting: Réunion de classe
+      legend_class_not_meeting: Aucune réunion programmée
+      select_meeting_days: Sélectionner les jours de la semaine pendant lesquels votre
+        classe se réunit.
     character_doc: Le nombre total de caractères ajoutés aux articles de l’espace
       de nom principal par les étudiants du cours durant son déroulement
+    cohorts: 'Complices :'
+    confirm_course_deletion: Êtes-vous sûrs de vouloir supprimer le cours intitulé
+      %{title} ? Si oui, taper le titre du cours pour continuer.
+    confirm_course_deletion_failed: « %{title} » n’est pas le titre de ce cours. Le
+      cours n’a pas été supprimé.
     course_dates_calendar_instructions: Sélectionner les dates à ajouter ou à supprimer
       du calendrier (par ex., vacances, pas d’école). Cliquer sur la date pour basculer
       entre non sélectionnée, sélectionnée, et en congé. Les dates des activités de
@@ -127,32 +148,49 @@ fr:
     course_description: Cours
     courses: Cours
     creator:
+      assignment_end: Fin de l’affectation
+      assignment_end_placeholder: Fin de l’affectation (AAAA-MM-JJ)
+      assignment_start: Début de l’affectation
+      assignment_start_placeholder: Début de l’affectation (AAAA-MM-JJ)
+      checking_for_uniqueness: Ce cours a été vérifié en terme d’unicité.
       cloned_course_calendar_instructions: Sélectionner les dates à ajouter ou à supprimer
         du calendrier (par ex. les jours fériés, les vacances). Cliquer sur la date
         pour la faire basculer entre non sélectionnée, sélectionnée, et état d’absence.
         Si vous n’avez pas de congés, cliquez sur « Je n’ai pas de vacances scolaires ».
         Le planning cloné ajustera automatiquement les dates pour tenir compte des
         semaines sans réunions programmées.
+      clone_successful: Cours dupliqué avec succès
+      clone_successful_details: Ce cours a été dupliqué, y compris les éléments du
+        planning (semaines et blocages). Quelque chose d’autre au sujet de votre cours
+        a-t-il changé ? N’hésitez pas à le mettre à jour maintenant.
       course_description: Description du cours
       course_school: École du cours
       course_subject: Sujet du cours
       course_term: Période du cours
+      course_term_placeholder: Période
       course_title: Titre du cours
       create_button: Créer mon cours !
       create_label: Créer un nouveau cours
       create_new: Créer un nouveau cours
       create_short: Créer un cours
       end_date: Date de fin
+      end_date_placeholder: Date de fin (AAAA-MM-JJ)
       expected_number: Nombre d’étudiants attendus
       find: Trouver votre cours
       intro: Le titre, l’école et la période créent l’URL de la page de cotre cours,
         et ne peuvent pas être modifiés. Tout le reste, vous pourrez le changer ultérieurement.
         Cliquez sur « Créer mon cours ! » pour commencer à construire le planning
         de votre affectation à Wikipédia.
+      no_class_holidays: Je n’ai pas de congés scolaires
+      save_cloned_course: Enregistrer le nouveau cours
       start_date: Date de début
+      start_date_placeholder: Date de début (AAAA-MM-JJ)
+      subject: Sujet
     current: Cours actuels
+    delete_course: Supprimer le cours
     duration: Durée du cours
     edit_course_dates: Modifier les dates du cours
+    end: Fin
     error:
       exists: Ce cours existe déjà ! Veuillez réessayer avec un autre titre, école,
         ou échéance.
@@ -167,13 +205,22 @@ fr:
       Vous avez été invité à rejoindre %{title}. Pour rejoindre le cours, vous devez vous connecter avec un compte Wikipédia.
       Si vous n’en avez pas encore, inscrivez-vous pour en avoir un.
     join: Rejoindre
+    join_course: Rejoindre le cours
     join_prompt: Rejoindre '%{title}' ?
     join_successful: Vous avez bien rejoint %{title}.
+    leave_confirmation: Êtes-vous sûr de vouloir abandonner ce cours ?
+    leave_course: Quitter le cours
+    loading: Chargement…
     milestones_none: Ce cours n’a actuellement aucun jalon.
     new_week: Ajouter une nouvelle semaine
     nocourses: Vous ne participez à aucun cours.
+    none: Aucun
+    no_available_actions: Aucune action disponible
     overview: Vue d'ensemble
     passcode: Mot de passe
+    passcode_none: Aucun mot de passe
+    passcode_prompt: Entrer le mot de passe qui vous a été donné par votre instructeur
+      pour ce cours
     published: 'Votre cours a été publié ! Les étudiants peuvent s’inscrire au cours
       via l’URL suivante :'
     review_timeline: Veuillez consulter ce calendrier et faire les modifications.
@@ -184,6 +231,8 @@ fr:
     revisions_doc: Le nombre de modifications dans les %{timeframe} jours passés
     revisions_none: Ce cours n’a pas d’activité récente de modification de Wikipédia.
     school: École
+    start: Démarrer
+    start_typing: Commencer à taper
     students: Étudiants
     students_count: Nombre d’étudiants
     student_editors: Éditeurs étudiants
@@ -259,6 +308,10 @@ fr:
     term: Quand
     uploads_none: Ce projet n’a contribué à Wikimédia Communs par aucune image ou
       autre fichier média.
+  editable:
+    edit: Modifier
+    cancel: Annuler
+    save: Enregistrer
   metrics:
     activity: Activité récente
     articles_created: Articles créés
@@ -270,7 +323,7 @@ fr:
     date_time: Date/Heure
     edit_count_description: Total des modifications
     revisions: Modifications récentes
-    upload_count: Téléversement de Communs
+    upload_count: Téléversement de Commons
     uploads_in_use_count: fichiers utilisés dans des articles
     upload_usages_count: nombre total d’utilisations dans les langues
     view_count_description: Articles vus
@@ -283,14 +336,25 @@ fr:
     user_char_added: Caractères ajoutés à l’espace utilisateur
     user_ns: Utilisateur
   recent_activity:
-    show_courses: Afficher uniquement mes cours
+    active_courses: L’article est actif dans
+    article_title: Titre de l’article
+    datetime: Horodatage
+    did_you_know_eligible: Éligible à « Le savez-vous »
+    image: Image
+    file_name: Nom du fichier
     no_dyk_eligible: Il n’y a aucun article éligible pour « Le savez-vous » actuellement.
     no_plagiarism: Il n’y a aucune révision récente soupçonnée de plagiat, actuellement.
     no_edits: Il n’y a aucune modification récente.
-    did_you_know_eligible: Éligible à « Le savez-vous »
+    plagiarism_report: Rapport de plagiat
     possible_plagiarism: Plagiat possible
     recent_edits: Modifications récentes
     recent_uploads: Mises à jour récentes
+    revision_author: Auteur de la révision
+    revision_datetime: Horodatage de la révision
+    revision_score: Score de révision
+    show_courses: Afficher uniquement mes cours
+    uploaded_by: Téléchargé par
+    usage_count: Compteur d’utilisations
   revisions:
     chars_added: Caractères ajoutés
     class: Classe
@@ -437,6 +501,14 @@ fr:
   survey:
     login_message: Merci pour votre temps. Veuillez vous connecter à notre tableau
       de bord Wiki Ed pour participer au sondage.
+    notification_explanation: Si la case ci-dessous est cochée, les utilisateurs recevront
+      des courriels selon le calendrier de notifications, en plus de voir les notifications
+      dans le navigateur. Si non, seules les notifications dans le navigateur seront
+      affichées.
+    notification_schedule_explanation: Les notifications incluent les notifications
+      dans le navigateur et les courriels, si ils sont activés ci-dessus.
+    follow_up_explanation: Laisser vide si les courriels de notification de suivi
+      ne sont pas souhaités.
     email:
       headline: Bonjour, %{username}
       message_line1: Nous espérons que vous avez passé une bonne période ! Wiki Ed
@@ -449,4 +521,8 @@ fr:
       closing: Sincèrement vôtre,
       signed: '- l’équipe Wiki Ed'
       link: Participer au sondage
+    follow_up:
+      message: Ceci est un rappel au sujet du sondage sur votre cours, %{course_title}.
+        Les résultats de ce sondage nous aideront à améliorer notre support des affectations
+        de Wikipédia comme la vôtre.
 ...

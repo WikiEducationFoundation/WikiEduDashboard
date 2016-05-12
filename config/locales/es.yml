@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Alebecerrasj
+# Author: Codynguyen1116
 # Author: Fitoschido
 # Author: Lemondoge
 # Author: Macofe
@@ -60,6 +61,7 @@ es:
     edited_mobile: Artículos
     label: Artículos
     loading: Cargando artículos...
+    new: (nuevo)
     no_assignee: Sin usuario asignado
     none: Este curso no ha editado ningún artículo.
     rating: Clase
@@ -151,6 +153,7 @@ es:
         clic en "Crear mi curso" para iniciar la construcción del cronograma para
         tu tarea en Wikipedia.
       start_date: Fecha de inicio
+      subject: Asunto
     current: Cursos actuales
     duration: Duración del curso
     edit_course_dates: Editar las fechas del curso
@@ -170,6 +173,7 @@ es:
     join: Unirse
     join_prompt: ¿Unirse a '%{title}'?
     join_successful: Te has unido con éxito a %{title}.
+    loading: Cargando…
     milestones_none: Este curso actualmente no tiene ningún hito.
     new_week: Agregar una semana nueva
     nocourses: No participas de ningún curso.
@@ -259,6 +263,8 @@ es:
     term: Cuando
     uploads_none: Este proyecto no ha contribuido con ninguna imagen o archivo multimedia
       a Wikimedia Commons.
+  editable:
+    edit: Editar
   metrics:
     activity: Actividad reciente
     articles_created: Artículos creados
@@ -283,14 +289,14 @@ es:
     user_char_added: Caracteres añadidos en el espacio de usuarios
     user_ns: Usuario
   recent_activity:
-    show_courses: Mostrar sólo mis cursos
+    did_you_know_eligible: ¿Sabía Usted Elegible
     no_dyk_eligible: No hay actualmente ningún DYK-artículos elegibles.
     no_plagiarism: Actualmente no hay ninguna revisión reciente sospechada de plagio.
     no_edits: No hay ninguna edición reciente.
-    did_you_know_eligible: ¿Sabía Usted Elegible
     possible_plagiarism: Posible plagio
     recent_edits: Ediciones recientes
     recent_uploads: Subidas recientes
+    show_courses: Mostrar sólo mis cursos
   revisions:
     chars_added: Caracteres añadidos
     class: Clase
@@ -433,8 +439,19 @@ es:
   survey:
     login_message: Gracias por tu tiempo. Inicia sesión en tu panel de Wiki Ed para
       participar en la encuesta.
+    notification_explanation: Al activar la opción a continuación, los usuarios recibirán
+      correos electrónicos de acuerdo con la programación de notificaciones, además
+      de ver estas notificaciones en el navegador. Caso contrario, las notificaciones
+      se muestran únicamente en el navegador.
+    notification_schedule_explanation: Si la opción de arriba se habilita, las notificaciones
+      se muestran en el navegador y también se envían por correo electrónico.
+    follow_up_explanation: Déjalo en blanco si no quieres notificaciones de seguimiento
+      por correo electrónico.
     email:
       headline: Hola, %{username}
+      message_line1: ¡Esperamos que hayas disfrutado del curso! En Wiki Ed queremos
+        recibir tus comentarios para mejorar nuestros recursos y apoyo para tus tareas
+        en Wikipedia. Tu respuesta es fundamental para mejorar nuestra oferta actual.
       message_line2: ¿Estás dispuesto a tomarte 15 minutos para llenar nuestra encuesta
         para instructores? Haz clic en el botón de abajo para ayudarnos a hacer de
         la enseñanza con Wikipedia una experiencia aún más gratificante y valiosa.
@@ -442,4 +459,8 @@ es:
       closing: Sinceramente,
       signed: '- el equipo de Wiki Ed'
       link: Completar la encuesta
+    follow_up:
+      message: Este es un recordatorio acerca de la encuesta para tu curso, %{course_title}.
+        Cualquier comentario recibido a través de esta encuesta nos ayuda a mejorar
+        nuestro apoyo a tareas en la Wikipedia, como las tuyas.
 ...

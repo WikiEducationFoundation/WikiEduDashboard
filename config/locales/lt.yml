@@ -98,10 +98,10 @@ lt:
     main: Pagrindinė sritis
     user_ns: Naudotojas
   recent_activity:
-    show_courses: Rodyti tik mano kursus
     possible_plagiarism: Galimas plagijavimas
     recent_edits: Naujausi keitimai
     recent_uploads: Naujausi įkėlimai
+    show_courses: Rodyti tik mano kursus
   revisions:
     class: Klasė
     date_time: Data/Laikas

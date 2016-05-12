@@ -27,13 +27,13 @@ hi:
     student_editors: सम्पादक
     students_short: संपादक
   recent_activity:
-    show_courses: केवल मेरा ही कोर्स दिखाएँ
+    did_you_know_eligible: क्या आप एलिजिबल को जानते हैं
     no_dyk_eligible: अभी कोई डीवाईके योग्य आर्टिकल नहीं है।
     no_plagiarism: साहित्य चोरी के वर्तमान में कोई हाल के रिवीज़न सस्पेक्टस नहीं हैं।
     no_edits: हाल के कोई संपादन नहीं हैं।
-    did_you_know_eligible: क्या आप एलिजिबल को जानते हैं
     possible_plagiarism: संभव साहित्य चोरी
     recent_edits: हाल के संपादन
+    show_courses: केवल मेरा ही कोर्स दिखाएँ
   revisions:
     class: कक्षा
     title: शीर्षक

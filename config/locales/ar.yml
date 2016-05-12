@@ -79,10 +79,10 @@ ar:
   namespace:
     user_ns: مستخدم
   recent_activity:
-    show_courses: أظهر مساقاتي فقط
-    no_edits: لا توجد تعديلات حديثة.
     did_you_know_eligible: هل تعلم مؤهَّل
+    no_edits: لا توجد تعديلات حديثة.
     recent_edits: تعديلات حديثة
+    show_courses: أظهر مساقاتي فقط
   revisions:
     class: رتبة
     title: عنوان

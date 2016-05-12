@@ -2,20 +2,21 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Alp Er Tunqa
+# Author: Ilğım
 ---
 azb:
   application:
     cancel: وازگئچ
     greeting2: خوش گلدینیز!
     greeting_extended: ویکی‌پدیایا خوش گلدینیز
-    greeting: سلام!
+    greeting: سالام!
     help: کؤمک
     home: ائو
     log_in: گیریش
     log_out: چیخیش
     my_dashboard: داشبوردوم
     sign_up: آد یازدیر
-    training: اؤیرتیم
+    training: اؤیردیم
   activity:
     label: چالیشما
   articles:

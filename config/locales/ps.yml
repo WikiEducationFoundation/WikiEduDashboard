@@ -86,6 +86,7 @@ ps:
     date_time: نېټه/وخت
     edit_count_description: ټولټال سمونونه
     revisions: وروستي سمونونه
+    upload_count: کامنز پورته کېدنې
     view_count_description: د ليکنې کتنې
     view: کتنې
   namespace:
@@ -127,5 +128,6 @@ ps:
     title: وختکرښه
   survey:
     email:
+      headline: سلامونه، %{username}
       course: 'کورس: %{course_info}'
 ...

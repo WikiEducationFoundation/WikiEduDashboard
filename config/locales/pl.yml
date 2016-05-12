@@ -8,6 +8,7 @@
 pl:
   application:
     cancel: Anuluj
+    error: 'Wystąpił błąd:'
     explore: Odkryj
     greeting: Witaj!
     help: Pomoc
@@ -42,6 +43,7 @@ pl:
     edited_mobile: Artykuły
     label: Artykuły
     loading: Wczytywanie artykułów...
+    new: (nowy)
     no_assignee: Żaden użytkownik nie jest przypisany
     rating: Klasa
     title: Tytuł
@@ -53,16 +55,25 @@ pl:
   courses:
     activity: Aktywność
     articles: Artykuły
+    calendar:
+      legend: Legenda
     course_description: Kursy
     courses: Kursy
     creator:
       end_date: Data zakończenia
+      end_date_placeholder: Data zakończenia (RRRR-MM-DD)
       start_date: Data rozpoczęcia
+      start_date_placeholder: Data rozpoczęcia (RRRR-MM-DD)
+      subject: Temat
+    delete_course: Usuń kurs
+    end: Koniec
     instructor:
       one: Instruktor
       other: Instruktorzy
+    loading: Wczytywanie...
     nocourses: Nie bierzesz udziału w żadnych kursach.
     overview: Przegląd
+    start: Początek
     students: Studenci
     students_short: Studenci
     title: Tytuł
@@ -73,12 +84,19 @@ pl:
     creator:
       course_school: Instytucja
     school: Instytucja
+  editable:
+    edit: Edytuj
+    cancel: Anuluj
+    save: Zapisz
   metrics:
     date_time: Data/Czas
   namespace:
     user: Przestrzeń użytkownika
     user_ns: Użytkownik
   recent_activity:
+    datetime: Data/Czas
+    image: Obraz
+    file_name: Nazwa pliku
     no_edits: Brak ostatnich edycji.
     recent_edits: Ostatnie edycje
   revisions:

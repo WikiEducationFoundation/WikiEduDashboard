@@ -1,0 +1,17 @@
+# Messages for British English (British English)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Codynguyen1116
+---
+en-gb:
+  articles:
+    new: (nuevo)
+  courses:
+    calendar:
+      legend_class_canceled: El día de fiesta/Canceló
+    loading: Cargando...
+  recent_activity:
+    active_courses: Artículo es activo en
+    datetime: La fecha/El tiempo
+    image: La imagen
+...
