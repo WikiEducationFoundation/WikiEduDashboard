@@ -40,7 +40,7 @@ install:
 - bundle install --jobs=3 --retry=3 --deployment
 before_script:
 - cp config/database.travis.yml config/database.yml
-- mysql -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
+- sudo mysql -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
 - bundle exec rake db:migrate RAILS_ENV=test
 script: gulp build && npm test && bundle exec rspec --color --profile --format documentation
   --tag $TEST_SUITE
