@@ -43,8 +43,7 @@ module SurveysHelper
       select_tag(field_name, options_for_select(options),
                  include_blank: answer.question.multiple ? 'Select all that apply' : 'Select an option',
                  required: is_required_question?(answer),
-                 multiple: answer.question.multiple,
-                 class: 'chosen-container')
+                 multiple: answer.question.multiple)
     end
   end
 
