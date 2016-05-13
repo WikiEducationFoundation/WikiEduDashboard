@@ -1,5 +1,4 @@
 class AlertMailer < ApplicationMailer
-
   def alert(alert, recipient)
     return unless Features.email?
     @recipient = recipient
