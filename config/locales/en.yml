@@ -511,6 +511,7 @@ en:
     name: Name
     none: This course has no students.
     no_revisions: This user has made no revisions.
+    number_of_articles: '%{number} articles'
     recent_revisions: Recent Edits
     remove_confirmation: Are you sure you want to remove %{username} from this course?
     revisions_doc: The number of edits made by this editor in the past 7 days

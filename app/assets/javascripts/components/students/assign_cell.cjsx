@@ -5,6 +5,7 @@ Link            = ReactRouter.Link
 AssignButton    = require './assign_button.cjsx'
 UIActions       = require('../../actions/ui_actions.js').default
 { trunc }       = require '../../utils/strings'
+CourseUtils  = require('../../utils/course_utils.js').default
 
 AssignCell = React.createClass(
   displayname: 'AssignCell'
@@ -14,19 +15,19 @@ AssignCell = React.createClass(
     @refs.button.open(e)
   render: ->
     if @props.assignments.length > 0
-      raw_a = @props.assignments[0]
+      article = CourseUtils.articleFromAssignment(@props.assignments[0])
       if @props.assignments.length > 1
-        link = <span onClick={@open}>{@props.assignments.length + ' articles'}</span>
+        link = <span onClick={@open}>{I18n.t('users.number_of_articles', number: @props.assignments.length)}</span>
       else
-        title_text = trunc(raw_a.article_title)
-        if raw_a.article_url?
+        title_text = trunc(article.formatted_title, 30)
+        if article.url?
           link = (
-            <a onClick={@stop} href={raw_a.article_url} target="_blank" className="inline">{title_text}</a>
+            <a onClick={@stop} href={article.url} target="_blank" className="inline">{title_text}</a>
           )
         else
           link = <span>{title_text}</span>
     else if !@props.current_user
-      link = <span>No articles</span>
+      link = <span>{I18n.t('users.no_articles')}</span>
 
     is_current_user = @props.current_user.id == @props.student.id
     instructor_or_admin = @props.current_user.role > 0 || @props.current_user.admin

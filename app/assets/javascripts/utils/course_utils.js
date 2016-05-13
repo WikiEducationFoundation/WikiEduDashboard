@@ -47,13 +47,18 @@ const CourseUtils = class {
   }
 
   articleFromAssignment(assignment) {
+    const languagePrefix = assignment.language ? `${assignment.language}:` : '';
+    const projectName = assignment.project || 'wikipedia';
+    const projectPrefix = projectName === 'wikipedia' ? '' : `${projectName}:`;
+    const formattedTitle = `${languagePrefix}${projectPrefix}${assignment.article_title}`;
     const article = {
       rating_num: null,
       pretty_rating: null,
       url: assignment.article_url,
       language: assignment.language,
-      project: assignment.project || 'wikipedia',
+      project: projectName,
       title: assignment.article_title,
+      formatted_title: formattedTitle,
       new: false
     };
     return article;

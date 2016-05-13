@@ -13,10 +13,7 @@ Assignment = React.createClass(
     className = 'assignment'
     ratingClass = 'rating ' + article.rating
     ratingMobileClass = ratingClass + ' tablet-only'
-    languagePrefix = if article.language then "#{article.language}:" else ''
-    projectPrefix = if article.project == 'wikipedia' then '' else "#{article.project}:"
-    formattedTitle = "#{languagePrefix}#{projectPrefix}#{article.title}"
-    articleLink = <a onClick={@stop} href={article.url} target="_blank" className="inline">{formattedTitle}</a>
+    articleLink = <a onClick={@stop} href={article.url} target="_blank" className="inline">{article.formatted_title}</a>
 
     assignees = []
     reviewers = []

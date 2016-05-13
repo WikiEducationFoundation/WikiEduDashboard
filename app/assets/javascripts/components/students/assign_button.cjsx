@@ -70,12 +70,13 @@ AssignButton = React.createClass(
         <button className={className} onClick={@props.open}>{final_text}</button>
       )
     assignments = @props.assignments.map (ass) =>
+      article = CourseUtils.articleFromAssignment(ass)
       if @props.permitted
         remove_button = <button className='button border plus' onClick={@unassign.bind(@, ass)}>-</button>
-      if ass.article_url?
-        link = <a href={ass.article_url} target='_blank' className='inline'>{ass.article_title}</a>
+      if article.url?
+        link = <a href={article.url} target='_blank' className='inline'>{article.formatted_title}</a>
       else
-        link = <span>{ass.article_title}</span>
+        link = <span>{article.formatted_title}</span>
       <tr key={ass.id}>
         <td>{link}{remove_button}</td>
       </tr>
