@@ -45,6 +45,19 @@ const CourseUtils = class {
 
     return null;
   }
+
+  articleFromAssignment(assignment) {
+    const article = {
+      rating_num: null,
+      pretty_rating: null,
+      url: assignment.article_url,
+      language: assignment.language,
+      project: assignment.project || 'wikipedia',
+      title: assignment.article_title,
+      new: false
+    };
+    return article;
+  }
 };
 
 export default new CourseUtils();

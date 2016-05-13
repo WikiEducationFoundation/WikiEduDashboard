@@ -1,13 +1,15 @@
 json.course do
   json.articles @course.articles_courses.live.eager_load(:article) do |ac|
+    article = ac.article
     json.call(ac, :character_sum, :view_count, :new_article)
-    json.call(ac.article, :id, :namespace, :rating)
-    json.title full_title(ac.article)
-    if ac.article.language.present? && ac.article.language != ENV['wiki_language']
-      json.language ac.article.language
+    json.call(article, :id, :namespace, :rating)
+    json.title full_title(article)
+    unless @course.home_wiki.id == article.wiki_id
+      json.language article.wiki.language
+      json.project article.wiki.project
     end
-    json.url article_url(ac.article)
-    json.rating_num rating_priority(ac.article.rating)
-    json.pretty_rating rating_display(ac.article.rating)
+    json.url article_url(article)
+    json.rating_num rating_priority(article.rating)
+    json.pretty_rating rating_display(article.rating)
   end
 end

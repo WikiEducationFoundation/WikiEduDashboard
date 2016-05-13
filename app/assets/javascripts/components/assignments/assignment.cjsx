@@ -1,5 +1,6 @@
 React        = require 'react'
 ArticleStore = require '../../stores/article_store.coffee'
+CourseUtils  = require('../../utils/course_utils.js').default
 
 userLink = (username) ->
   <a key={username} href="https://en.wikipedia.org/wiki/User:#{username}">{username}</a>
@@ -7,22 +8,15 @@ userLink = (username) ->
 Assignment = React.createClass(
   displayName: 'Assignment'
   render: ->
-    article = @props.article || {
-      rating_num: null
-      pretty_rating: null
-      url: null
-      language: null
-      title: @props.assign_group[0].article_title
-      new: false
-    }
+    article = @props.article || CourseUtils.articleFromAssignment(@props.assign_group[0])
 
     className = 'assignment'
     ratingClass = 'rating ' + article.rating
     ratingMobileClass = ratingClass + ' tablet-only'
     languagePrefix = if article.language then "#{article.language}:" else ''
-    formattedTitle = "#{languagePrefix}#{article.title}"
-    articleUrl = @props.assign_group[0].article_url
-    articleLink = <a onClick={@stop} href={articleUrl} target="_blank" className="inline">{formattedTitle}</a>
+    projectPrefix = if article.project == 'wikipedia' then '' else "#{article.project}:"
+    formattedTitle = "#{languagePrefix}#{projectPrefix}#{article.title}"
+    articleLink = <a onClick={@stop} href={article.url} target="_blank" className="inline">{formattedTitle}</a>
 
     assignees = []
     reviewers = []

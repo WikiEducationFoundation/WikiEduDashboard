@@ -12,7 +12,11 @@ const Article = React.createClass({
     const ratingClass = `rating ${this.props.article.rating}`;
     const ratingMobileClass = `${ratingClass} tabconst-only`;
     const languagePrefix = this.props.article.language ? `${this.props.article.language}:` : '';
-    const formattedTitle = `${languagePrefix}${this.props.article.title}`;
+    // The default project is Wikipedia.
+    const project = this.props.article.project ? `${this.props.article.project}:` : 'wikipedia:';
+    // Do not use a project prefix for Wikipedia.
+    const projectPrefix = project === 'wikipedia:' ? '' : project;
+    const formattedTitle = `${languagePrefix}${projectPrefix}${this.props.article.title}`;
     const historyUrl = `${this.props.article.url}?action=history`;
 
     return (
