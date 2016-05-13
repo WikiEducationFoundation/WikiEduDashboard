@@ -69,6 +69,10 @@ class Course < ActiveRecord::Base
     where('date >= ?', course.start).where('date <= ?', course.end.end_of_day)
   end, through: :students)
 
+  has_many(:all_revisions, lambda do |course|
+    where('date >= ?', course.start).where('date <= ?', course.end.end_of_day)
+  end, through: :students)
+
   has_many(:uploads, lambda do |course|
     where('uploaded_at >= ?', course.start).where('uploaded_at <= ?', course.end.end_of_day)
   end, through: :students)

@@ -45,6 +45,7 @@ class User < ActiveRecord::Base
   has_many :survey_notifications, through: :courses_users
   has_many :courses, -> { uniq }, through: :courses_users
   has_many :revisions, -> { where(system: false) }
+  has_many :all_revisions, class_name: Revision
   has_many :articles, -> { uniq }, through: :revisions
   has_many :assignments
   has_many :uploads, class_name: CommonsUpload

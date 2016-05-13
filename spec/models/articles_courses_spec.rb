@@ -87,7 +87,9 @@ describe ArticlesCourses, type: :model do
       create(:courses_user, user_id: 1, course_id: 1,
                             role: CoursesUsers::Roles::STUDENT_ROLE)
       create(:article, id: 1, namespace: 0)
-      create(:revision, article_id: 1, user_id: 1, date: 1.week.ago)
+      create(:revision, article_id: 1, user_id: 1, date: 1.week.ago,
+                        system: true, new_article: true)
+      create(:revision, article_id: 1, user_id: 1, date: 6.days.ago)
       create(:article, id: 2, namespace: 0)
       create(:revision, article_id: 1, user_id: 1, date: 2.years.ago)
       create(:article, id: 3, namespace: 1)
@@ -97,6 +99,9 @@ describe ArticlesCourses, type: :model do
     it 'creates new ArticlesCourses records from course revisions' do
       ArticlesCourses.update_from_course(Course.last)
       expect(ArticlesCourses.count).to eq(1)
+      # Should be counted as new even though the first edit was a system edit.
+      ArticlesCourses.last.update_cache
+      expect(ArticlesCourses.last.new_article).to eq(true)
     end
 
     it 'destroys ArticlesCourses that do not correspond to course revisions' do

@@ -42,12 +42,24 @@ class ArticlesCourses < ActiveRecord::Base
     self[:new_article]
   end
 
+  def manual_revisions
+    course.revisions.where(article_id: article.id)
+  end
+
+  def all_revisions
+    course.all_revisions.where(article_id: article.id)
+  end
+
   def update_cache
-    revisions = course.revisions.where(article_id: article.id)
+    revisions = manual_revisions
 
     self.character_sum = revisions.where('characters >= 0').sum(:characters)
-    self.new_article = revisions.where(new_article: true).count > 0
     self.view_count = revisions.order('date ASC').first.views unless revisions.empty?
+
+    # We use the 'all_revisions' scope so that the dashboard system edits that
+    # create sandboxes are not excluded, since those are often wind up being the
+    # first edit of a mainspace article's revision history
+    self.new_article = all_revisions.where(new_article: true).count > 0
 
     save
   end
