@@ -63,6 +63,12 @@ en:
   dashboard:
     create_note:
       Click on Create Course to create your first course.
+    create_preparation_note: >
+      Be sure to have your academic calendar on hand before you begin; the
+      assignment design tool will use the meeting dates of your class —
+      including any school breaks and holidays — to fit your timeline into
+      the date range you choose. Remember, you can always edit the timeline to
+      fit your needs.
     explore_course_pages: Explore the Course Pages
     explore_examples: Explore Examples
     join_note:

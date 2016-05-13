@@ -21,30 +21,6 @@
 
     = link_to t('home.explore'), '/explore', {class: 'button button-ghost'}
 
-%section.light
-  .container
-    %h2.h1 Get ready to contribute to open scholarship and education for all
-
-%section
-  .container
-    %h2.text-center This Dashboard provides tools that help instructors and students share their knowledge and track their contributions.
-
-    .col
-      %h3 Instructors
-      %h2 Create and Manage a Wikipedia Assignment
-      %ul
-        %li Learn to understand Wikipedia
-        %li Create and manage your course using templates, and refine the course to meet your needs
-        %li Track the progress of your students
-
-    .col
-      %h3 Students
-      %h2 Stay Informed and Learn How to Edit Wikipedia
-      %ul
-        %li Learn how you can edit Wikipedia
-        %li Stay up-to-date with your Wikipedia assignment
-        %li Track your progress as you contribute to Wikipedia
-
 #impact
   - if ENV['dashboard_title'] == 'Wiki Education Foundation Dashboard'
     = render :partial => "wiki_ed_impact"
