@@ -431,7 +431,7 @@ en:
     due_default: Due next week
     # FIXME: lego message. This one is hard to work around because it has inline components.
     empty_week_1: 'To get started, '
-    empty_week_2: start from a prebuilt assignment
+    empty_week_2: start editing this week
     empty_week_3: ' or '
     empty_week_4: start from a prebuilt assignment.
     first_week_title: First Active Week
