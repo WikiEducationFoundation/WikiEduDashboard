@@ -21,16 +21,16 @@ InputMixin =
           if @props.required && !filled
             if _.has(@props, 'disableSave')
               @props.disableSave(true)
-            ValidationActions.setInvalid @props.value_key, 'This field is required'
+            ValidationActions.setInvalid @props.value_key, I18n.t('application.field_required')
           else if @props.validation && !charcheck
-            ValidationActions.setInvalid @props.value_key, 'This field has invalid characters'
+            ValidationActions.setInvalid @props.value_key, I18n.t('application.field_invalid_characters')
           else
             ValidationActions.setValid @props.value_key
   componentWillReceiveProps: (props) ->
     @setState value: props.value, ->
       valid = ValidationStore.getValidation(@props.value_key)
       if valid && @props.required && (!props.value? || props.value.length == 0)
-        ValidationActions.initialize @props.value_key, 'This field is required'
+        ValidationActions.initialize @props.value_key, I18n.t('application.field_required')
   focus: (e) ->
     @props.onFocus() if @props.onFocus?
   blur: (e) ->

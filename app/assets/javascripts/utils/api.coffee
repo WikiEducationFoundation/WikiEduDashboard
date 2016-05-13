@@ -393,29 +393,16 @@ API =
           console.error 'Couldn\'t delete week'
           rej obj
 
-  # TODO: This should add a task to a queue and return immediately
-  manualUpdate: (course_id) ->
-    new Promise (res, rej) ->
-      $.ajax
-        type: 'GET'
-        url: '/courses/' + course_id + '/manual_update.json'
-        success: (data) ->
-          console.log 'Course updated!'
-          res data
-      .fail (obj, status) ->
-        console.error 'Couldn\'t update the course! ' + getErrorMessage(obj)
-        rej obj
-
-  notifyUntrained: (course_id) ->
+  notifyOverdue: (course_id) ->
     new Promise (res, rej) ->
       $.ajax
         type: 'GET'
         url: '/courses/' + course_id + '/notify_untrained.json'
         success: (data) ->
-          console.log 'Untrained students notified!'
+          alert 'Students with overdue trainings notified!'
           res data
       .fail (obj, status) ->
-        console.error 'Couldn\'t notify untrained students! ' + getErrorMessage(obj)
+        console.error 'Couldn\'t notify students! ' + getErrorMessage(obj)
         rej obj
 
   submitWizard: (course_id, wizard_id, data) ->

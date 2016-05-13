@@ -40,6 +40,8 @@ en:
     dashboard: Wiki Ed Dashboard
     error: 'There was an error:'
     explore: Explore
+    field_required: This field is required
+    field_invalid_characters: This field has invalid characters
     greeting2: Welcome!
     greeting_extended: Welcome to Wikipedia
     greeting: Hello!
@@ -239,6 +241,9 @@ en:
     new_week: Add New Week
     nocourses: You are not participating in any courses.
     none: None
+    notify_untrained_confirmation: >
+      This will post a reminder on the talk pages for all students who overdue
+      for completing assigned training modules. Are you sure you want to do this?
     no_available_actions: No available actions
     overview: Overview
     passcode: Passcode
