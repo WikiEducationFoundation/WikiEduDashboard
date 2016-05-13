@@ -14,12 +14,12 @@ UploadsHandler = React.createClass(
   render: ->
     <div id='uploads'>
       <div className='section-header'>
-        <h3>Files Uploaded to Wikimedia Commons</h3>
+        <h3>{I18n.t('uploads.header')}</h3>
         <div className='sort-select'>
           <select className='sorts' name='sorts' onChange={@sortSelect}>
-            <option value='file_name'>File Name</option>
-            <option value='uploader'>Uploaded By</option>
-            <option value='usage_count'>Usages</option>
+            <option value='file_name'>{I18n.t('uploads.file_name')}</option>
+            <option value='uploader'>{I18n.t('uploads.uploaded_by')}</option>
+            <option value='usage_count'>{I18n.t('uploads.usage_count')}</option>
           </select>
         </div>
       </div>

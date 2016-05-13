@@ -18,19 +18,19 @@ UploadList = React.createClass(
 
     keys =
       'image':
-        'label': 'Image'
+        'label': I18n.t('uploads.image')
         'desktop_only': false
       'file_name':
-        'label': 'File Name'
+        'label': I18n.t('uploads.file_name')
         'desktop_only': true
       'uploaded_by':
-        'label': 'Uploaded By'
+        'label': I18n.t('uploads.uploaded_by')
         'desktop_only': true
       'usage_count':
-        'label': 'Usages'
+        'label': I18n.t('uploads.usage_count')
         'desktop_only': true
       'date':
-        'label': 'Date/Time'
+        'label': I18n.t('uploads.datetime')
         'desktop_only': true
         'info_key': 'uploads.time_doc'
 

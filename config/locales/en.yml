@@ -459,10 +459,16 @@ en:
     logged_out: 'You are logged out. You will not receive credit for completing this module unless you log in.'
 
   uploads:
+    datetime: Date/Time
+    file_name: File Name
+    header: Files Uploaded to Wikimedia Commons
+    image: Image
     label: Uploads
     loading: Loading uploads...
     none: This class has not contributed any images or other media files to Wikimedia Commons.
     time_doc: The time of each upload in your local time
+    uploaded_by: Uploaded By
+    usage_count: Usage Count
     usages: Usages
 
   users:
