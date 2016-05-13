@@ -109,9 +109,9 @@ describe 'the explore page', type: :feature do
       expect(page).to have_selector('.course-list__row__revisions.sort.desc')
       find('select.sorts').find(:xpath, 'option[3]').select_option
       expect(page).to have_selector('.course-list__row__characters.sort.desc')
-      find('select.sorts').find(:xpath, 'option[4]').select_option
-      expect(page).to have_selector('.course-list__row__views.sort.desc')
       find('select.sorts').find(:xpath, 'option[5]').select_option
+      expect(page).to have_selector('.course-list__row__views.sort.desc')
+      find('select.sorts').find(:xpath, 'option[6]').select_option
       expect(page).to have_selector('.course-list__row__students.sort.desc')
       find('select.sorts').find(:xpath, 'option[1]').select_option
       expect(page).to have_selector('.course-list__row__title.sort.asc')
