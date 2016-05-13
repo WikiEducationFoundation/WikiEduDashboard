@@ -22,14 +22,14 @@ Grading = React.createClass(
     unless gradeables.length
       no_gradeables = (
         <li className="row view-all">
-          <div><p>This course has no gradeable assignments</p></div>
+          <div><p>{I18n.t('timeline.gradeables_none')}</p></div>
         </li>
       )
 
     <div className='grading__grading-container'>
       <a name="grading"></a>
       <div className="section-header timeline__grading-container">
-        <h3>Grading <span>(Total: {total}%)</span></h3>
+        <h3>{I18n.t('timeline.grading_header', total: total)}</h3>
         {@props.controls(null, @props.gradeables.length < 1)}
       </div>
       <ul className="list-unstyled timeline__grading-container">

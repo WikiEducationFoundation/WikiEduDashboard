@@ -18,8 +18,8 @@ OrderableBlock = React.createClass(
     <div className="block block--orderable" style={{opacity: if @props.isDragging then .5 else 1}}>
       <h4 className="block-title">{@props.title}</h4>
       <p>{@props.kind}</p>
-      <button onClick={@props.onMoveDown} className="button border" aria-label="Move block down" disabled={@props.disableDown}><i className="icon icon-arrow-down"/></button>
-      <button onClick={@props.onMoveUp} className="button border" aria-label="Move block up" disabled={@props.disableUp}><i className="icon icon-arrow-up"/></button>
+      <button onClick={@props.onMoveDown} className="button border" aria-label={I18n.t('timeline.move_block_up')} disabled={@props.disableDown}><i className="icon icon-arrow-down"/></button>
+      <button onClick={@props.onMoveUp} className="button border" aria-label={I18n.t('timeline.move_block_down')} disabled={@props.disableUp}><i className="icon icon-arrow-up"/></button>
     </div>
 
 )

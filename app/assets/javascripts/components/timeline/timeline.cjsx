@@ -40,7 +40,7 @@ Timeline = React.createClass(
   addWeek: ->
     WeekActions.addWeek()
   deleteWeek: (week_id) ->
-    if confirm "Are you sure you want to delete this week? This will delete the week and all its associated blocks.\n\nThis cannot be undone."
+    if confirm I18n.t('timeline.delete_week_confirmation')
       WeekActions.deleteWeek(week_id)
 
   _handleBlockDrag: (targetIndex, block, target) ->
@@ -196,10 +196,10 @@ Timeline = React.createClass(
     controls = if @props.reorderable || @props?.editable_block_ids.length > 1 then (
       <div>
         <button className="button dark button--block" onClick={@props.saveGlobalChanges}>
-          Save All
+          {I18n.t('timeline.save_all_changes')}
         </button>
         <button className="button button--clear button--block" onClick={@props.cancelGlobalChanges}>
-          Discard All Changes
+          {I18n.t('timeline.discard_all_changes')}
         </button>
       </div>
     )
@@ -208,8 +208,8 @@ Timeline = React.createClass(
       if @props.reorderable
         reorderable_controls = (
           <div className="reorderable-controls">
-            <h5>Arrange Timeline</h5>
-            <p className="muted">Arrange timeline by ‘dragging & dropping’ blocks into the desired location/week, or reposition the blocks using the arrows on the card.</p>
+            <h5>{I18n.t('timeline.arrange_timeline')}</h5>
+            <p className="muted">{I18n.t('timeline.arrange_timeline_instructions')}</p>
           </div>
         )
       else if @props.editable_block_ids.length == 0
@@ -229,7 +229,7 @@ Timeline = React.createClass(
       add_week_link = if timeline_full then (
         <li>
           <label className='week-nav__action week-nav__link disabled popover-trigger'>
-            Add Week
+            {I18n.t('timeline.add_week')}
             <div className="popover dark">
               <p>{I18n.t('timeline.unable_to_add_week')}</p>
             </div>
@@ -247,7 +247,7 @@ Timeline = React.createClass(
 
       dateCalc = new DateCalculator(@props.course.timeline_start, @props.course.timeline_end, i, zeroIndexed: true)
       <li className={className} key={"week-#{i}"}>
-        <a href={"#week-#{i + 1}"}>{week.title || "Week #{i + 1}"}</a>
+        <a href={"#week-#{i + 1}"}>{week.title || I18n.t('timeline.week_number', number: i + 1)}</a>
         <span className="pull-right">{dateCalc.start()} - {dateCalc.end()}</span>
       </li>
     )

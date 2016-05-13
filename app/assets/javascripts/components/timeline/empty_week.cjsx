@@ -6,22 +6,18 @@ EmptyWeek = React.createClass(
     if @props.empty_timeline && @props.edit_permissions
       week = (
         <p className="week__no-activity__get-started">
-          To get started,
-          &nbsp;
-          <span className='empty-week-clickable' onClick={@props.addWeek}>start editing this week</span>
-          &nbsp;
-          or
-          &nbsp;
-          <CourseLink to="/courses/#{@props.course?.slug}/timeline/wizard" className='empty-week-clickable'>start from a prebuilt assignment</CourseLink>
-          .
+          {I18n.t('timeline.empty_week_1')}
+          <span className='empty-week-clickable' onClick={@props.addWeek}>{I18n.t('timeline.empty_week_2')}</span>
+          {I18n.t('timeline.empty_week_3')}
+          <CourseLink to="/courses/#{@props.course?.slug}/timeline/wizard" className='empty-week-clickable'>{I18n.t('timeline.empty_week_4')}</CourseLink>
         </p>)
     else if @props.empty_timeline
       week = (
         <p className="week__no-activity__get-started">
-          This course has no timeline.
+          {I18n.t('timeline.no_timeline')}
         </p>)
     else
-      week = (<h1 className="h3">No activity this week</h1>)
+      week = (<h1 className="h3">{I18n.t('timeline.no_activity_this_week')}</h1>)
 
     <div className="week__no-activity">
       {week}

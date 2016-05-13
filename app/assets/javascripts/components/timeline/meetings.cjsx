@@ -44,9 +44,9 @@ Meetings = React.createClass(
 
     <Modal >
       <div className='wizard__panel active'>
-        <h3>Course Dates</h3>
+        <h3>{I18n.t('timeline.course_dates')}</h3>
         <div className='course-dates__step'>
-          <p>Select the start and end dates of the entire course (not just the Wikipedia assignment).</p>
+          <p>{I18n.t('timeline.course_dates_instructions')}</p>
           <div className='vertical-form full-width'>
             <TextInput
               onChange={@updateCourse}
@@ -54,7 +54,7 @@ Meetings = React.createClass(
               value_key='start'
               editable=true
               type='date'
-              label='Course Start'
+              label={I18n.t('timeline.course_start')}
             />
             <TextInput
               onChange={@updateCourse}
@@ -62,7 +62,7 @@ Meetings = React.createClass(
               value_key='end'
               editable=true
               type='date'
-              label='Course End'
+              label={I18n.t('timeline.course_end')}
               date_props={minDate: moment(@state.course.start).add(1, 'week')}
               enabled={@state.course.start?}
             />
@@ -70,7 +70,7 @@ Meetings = React.createClass(
         </div>
         <hr />
         <div className='course-dates__step'>
-          <p>Select the start and end dates for the Wikipedia assignment timeline. Changing the start date will shift the dates of the entire timeline.</p>
+          <p>{I18n.t('timeline.assignment_dates_instructions')}</p>
           <div className='vertical-form full-width'>
             <TextInput
               onChange={@updateCourse}
@@ -78,7 +78,7 @@ Meetings = React.createClass(
               value_key='timeline_start'
               editable=true
               type='date'
-              label='Assignment Start'
+              label={I18n.t('courses.assignment_start')}
               date_props={timeline_start_props}
             />
             <TextInput
@@ -87,7 +87,7 @@ Meetings = React.createClass(
               value_key='timeline_end'
               editable=true
               type='date'
-              label='Assignment End'
+              label={I18n.t('courses.assignment_end')}
               date_props={timeline_end_props}
               enabled={@state.course.start?}
             />
@@ -101,7 +101,7 @@ Meetings = React.createClass(
             calendarInstructions={I18n.t('courses.course_dates_calendar_instructions')}
             weeks={@props.weeks}
           />
-          <label> I have no class holidays
+          <label> {I18n.t('timeline.no_class_holidays')}
             <input
               type='checkbox'
               onChange={@updateCheckbox}

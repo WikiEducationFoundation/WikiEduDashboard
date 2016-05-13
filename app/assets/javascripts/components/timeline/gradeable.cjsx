@@ -30,7 +30,7 @@ Gradeable = React.createClass(
         value={@props.gradeable.points}
         value_key={'points'}
         editable={@props.editable}
-        label='Value'
+        label={I18n.t('timeline.gradeable_value')}
         append='%'
       />
     </li>

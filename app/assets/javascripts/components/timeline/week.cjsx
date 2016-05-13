@@ -71,7 +71,7 @@ Week = React.createClass(
                   disableUp={!@props.canBlockMoveUp(block, i)}
                   index={i}
                   title={block.title}
-                  kind={['In Class', 'Assignment', 'Milestone', 'Custom'][block.kind]}
+                  kind={[I18n.t('timeline.block_in_class'), I18n.t('timeline.block_assignment'), I18n.t('timeline.block_milestone'), I18n.t('timeline.block_custom')][block.kind]}
                 />
               </li>
             }
@@ -142,7 +142,7 @@ Week = React.createClass(
       <div className="week__week-header">
         {week_add_delete}
         {week_dates}
-        <p className='week-index'>{'Week ' + @props.index}</p>
+        <p className='week-index'>{I18n.t('timeline.week_number', number: @props.index)}</p>
       </div>
       {week_content}
     </li>
