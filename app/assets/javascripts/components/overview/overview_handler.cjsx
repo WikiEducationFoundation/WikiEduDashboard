@@ -71,7 +71,7 @@ Overview = React.createClass(
       <div className="stat-display">
         <div className="stat-display__stat" id="articles-created">
           <div className="stat-display__value">{@props.course.created_count}</div>
-          <small>{I18n.t('metrics.articles_edited')}</small>
+          <small>{I18n.t('metrics.articles_created')}</small>
         </div>
         <div className="stat-display__stat" id="articles-edited">
           <div className="stat-display__value">{@props.course.edited_count}</div>
