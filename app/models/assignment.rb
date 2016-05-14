@@ -55,7 +55,6 @@ class Assignment < ActiveRecord::Base
 
   def set_defaults_and_normalize
     self.article_title = Utils.format_article_title(article_title) unless article_title.nil?
-    # FIXME: transitional only
     self.wiki_id ||= course.home_wiki.id
   end
 end

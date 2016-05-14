@@ -40,15 +40,17 @@ describe AssignmentsController do
   end
 
   describe 'create' do
+    let(:course) { create(:course) }
     let(:assignment_params) do
-      { user_id: 1, course_id: 1, article_title: 'pizza', role: 0 }
+      { user_id: 1, course_id: course.slug, article_title: 'pizza', role: 0 }
     end
-    before do
-      allow(Course).to receive(:find_by_slug).and_return(OpenStruct.new(id: 1))
-    end
-    it 'sets assignments ivar' do
+
+    it 'sets assignments ivar with a default wiki' do
       put :create, assignment_params
-      expect(assigns(:assignment)).to be_a_kind_of(Assignment)
+      assignment = assigns(:assignment)
+      expect(assignment).to be_a_kind_of(Assignment)
+      expect(assignment.wiki.language).to eq('en')
+      expect(assignment.wiki.project).to eq('wikipedia')
     end
     it 'renders a json response' do
       put :create, assignment_params
@@ -59,6 +61,19 @@ describe AssignmentsController do
         .to eq(Assignment.last.article_title)
       expect(json_response['user_id']).to eq(Assignment.last.user_id)
       expect(json_response['role']).to eq(Assignment.last.role)
+    end
+
+    let(:assignment_params_with_language_and_project) do
+      { user_id: 1, course_id: course.slug, article_title: 'pizza',
+        role: 0, language: 'es', project: 'wikibooks' }
+    end
+    let!(:es_wikibooks) { create(:wiki, language: 'es', project: 'wikibooks') }
+
+    it 'sets the wiki based on language and project params' do
+      put :create, assignment_params_with_language_and_project
+      assignment = assigns(:assignment)
+      expect(assignment).to be_a_kind_of(Assignment)
+      expect(assignment.wiki_id).to eq(es_wikibooks.id)
     end
   end
 end
