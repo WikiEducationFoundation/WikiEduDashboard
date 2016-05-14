@@ -510,6 +510,7 @@ en:
     characters_added_userspace: US Chars Added
     name: Name
     none: This course has no students.
+    no_articles: No articles
     no_revisions: This user has made no revisions.
     number_of_articles: '%{number} articles'
     recent_revisions: Recent Edits

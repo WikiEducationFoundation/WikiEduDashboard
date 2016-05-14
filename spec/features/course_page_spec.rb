@@ -26,6 +26,7 @@ course_start = '2015-01-01'
 course_end = '2015-12-31'
 
 describe 'the course page', type: :feature, js: true do
+  let(:es_wiki) { create(:wiki, language: 'es', project: 'wikipedia') }
   before do
     include Devise::TestHelpers, type: :feature
     page.current_window.resize_to(1920, 1080)
@@ -62,7 +63,7 @@ describe 'the course page', type: :feature, js: true do
              id: i.to_s,
              title: "Article #{i}",
              namespace: 0,
-             language: 'es',
+             wiki_id: es_wiki.id,
              rating: ratings[(i + 5) % 10])
     end
 
