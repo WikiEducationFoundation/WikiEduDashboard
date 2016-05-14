@@ -94,10 +94,10 @@ class WikiCourseEdits
   # is to use this for each assignment update to ensure that on-wiki assignment
   # templates remain accurate and up-to-date.
   def update_assignments(*)
-    homewiki_assignments_grouped_by_article.each do |article_id, assignments_for_same_article|
-      update_assignments_for_article(
-        title: Article.find(article_id).title,
-        assignments_for_same_article: assignments_for_same_article)
+    homewiki_assignments_grouped_by_article_title.each do |title, assignments_for_same_title|
+      update_assignments_for_title(
+        title: title,
+        assignments_for_same_title: assignments_for_same_title)
     end
   end
 
@@ -115,14 +115,12 @@ class WikiCourseEdits
 
   private
 
-  def homewiki_assignments_grouped_by_article
+  def homewiki_assignments_grouped_by_article_title
     # Only do on-wiki updates for articles that are on the course's home wiki.
-    @course.assignments.where(wiki_id: @home_wiki.id)
-           .where.not(article_id: nil)
-           .group_by(&:article_id)
+    @course.assignments.where(wiki_id: @home_wiki.id).group_by(&:article_title)
   end
 
-  def update_assignments_for_article(title:, assignments_for_same_article:)
+  def update_assignments_for_title(title:, assignments_for_same_title:)
     require './lib/wiki_assignment_output'
     return if WikiApi.new(@home_wiki).redirect?(title)
 
@@ -138,7 +136,7 @@ class WikiCourseEdits
     page_content = WikiAssignmentOutput.wikitext(course: @course,
                                                  title: title,
                                                  talk_title: talk_title,
-                                                 assignments: assignments_for_same_article)
+                                                 assignments: assignments_for_same_title)
 
     return if page_content.nil?
     course_title = @course.title
