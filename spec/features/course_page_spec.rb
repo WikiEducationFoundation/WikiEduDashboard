@@ -26,7 +26,7 @@ course_start = '2015-01-01'
 course_end = '2015-12-31'
 
 describe 'the course page', type: :feature, js: true do
-  let(:es_wiki) { create(:wiki, language: 'es', project: 'wikipedia') }
+  let(:es_wiktionary) { create(:wiki, language: 'es', project: 'wiktionary') }
   before do
     include Devise::TestHelpers, type: :feature
     page.current_window.resize_to(1920, 1080)
@@ -63,7 +63,7 @@ describe 'the course page', type: :feature, js: true do
              id: i.to_s,
              title: "Article #{i}",
              namespace: 0,
-             wiki_id: es_wiki.id,
+             wiki_id: es_wiktionary.id,
              rating: ratings[(i + 5) % 10])
     end
 
@@ -245,7 +245,7 @@ describe 'the course page', type: :feature, js: true do
       new_first_rating = page.find(:css, 'table.articles').first('td .rating p')
       expect(new_first_rating).to have_content '-'
       title = page.find(:css, 'table.articles').first('td p.title')
-      expect(title).to have_content 'es:Article'
+      expect(title).to have_content 'es:wiktionary:Article'
     end
   end
 
