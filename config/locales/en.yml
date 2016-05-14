@@ -209,6 +209,7 @@ en:
       end_date_placeholder: End date (YYYY-MM-DD)
       expected_number: Expected number of students
       find: Find Your Course
+      find_program: Find Your Program
       intro: >
         The title, school, and term create your course page’s URL, and can't be
         changed. Everything else, you can edit later. Click “Create my Course!” to
