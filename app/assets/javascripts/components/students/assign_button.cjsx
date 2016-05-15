@@ -25,7 +25,8 @@ AssignButton = React.createClass(
     tag + @props.student.id
   assign: (e) ->
     e.preventDefault()
-    article_title = CourseUtils.formatArticleTitle @refs.lookup.getValue()
+    article = CourseUtils.articleFromTitleInput @refs.lookup.getValue()
+    article_title = article.title
 
     # Check if the assignment exists
     if AssignmentStore.getFiltered({

@@ -32,15 +32,27 @@ const CourseUtils = class {
     });
   }
 
-  formatArticleTitle(articleTitleInput) {
+  articleFromTitleInput(articleTitleInput) {
     const articleTitle = articleTitleInput.trim();
     if (!/http/.test(articleTitle)) {
-      return articleTitle.replace(/_/g, ' ');
+      const title = articleTitle.replace(/_/g, ' ');
+      return {
+        title,
+        project: null,
+        langauge: null
+      };
     }
 
-    const urlParts = /\/wiki\/(.*)/.exec(articleTitle);
-    if (urlParts.length > 1) {
-      return decodeURIComponent(urlParts[1]).replace(/_/g, ' ');
+    const urlParts = /([a-z-]+)\.(wiki[a-z]+)\.org\/wiki\/([^#]*)/.exec(articleTitle);
+    if (urlParts.length > 3) {
+      const title = decodeURIComponent(urlParts[3]).replace(/_/g, ' ');
+      const project = urlParts[2];
+      const language = urlParts[1];
+      return {
+        title,
+        project,
+        language
+      };
     }
 
     return null;
