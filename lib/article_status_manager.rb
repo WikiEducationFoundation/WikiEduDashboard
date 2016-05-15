@@ -25,38 +25,22 @@ class ArticleStatusManager
   ####################
 
   def update_status(articles)
-    failed_request_count = 0
-    synced_articles = Utils.chunk_requests(articles, 100) do |block|
-      request_results = Replica.new(@wiki).get_existing_articles_by_id block
-      failed_request_count += 1 if request_results.nil?
-      request_results
-    end
-    synced_ids = synced_articles.map { |a| a['page_id'].to_i }
-
-    # If any Replica requests failed, we don't want to assume that missing
-    # articles are deleted.
-    # FIXME: A better approach would be to look for deletion logs, and only mark
-    # an article as deleted if there is a corresponding deletion log.
-    if failed_request_count == 0
-      deleted_page_ids = articles.map(&:mw_page_id) - synced_ids
-    else
-      deleted_page_ids = []
-    end
+    identify_deleted_and_synced_page_ids(articles)
 
     # First we find any pages that just moved, and update title and namespace.
-    update_title_and_namespace synced_articles
+    update_title_and_namespace @synced_articles
 
     # Now we check for pages that have changed mw_page_ids.
     # This happens in situations such as history merges.
     # If articles move in between title/namespace updates and mw_page_id updates,
     # then it's possible to end up with inconsistent data.
-    update_article_ids deleted_page_ids
+    update_article_ids @deleted_page_ids
 
     # Delete and undelete articles as appropriate
-    articles.where(mw_page_id: deleted_page_ids).update_all(deleted: true)
-    articles.where(mw_page_id: synced_ids).update_all(deleted: false)
-    ArticlesCourses.where(article_id: deleted_page_ids).destroy_all
-    limbo_revisions = Revision.where(mw_page_id: deleted_page_ids)
+    articles.where(mw_page_id: @deleted_page_ids).update_all(deleted: true)
+    articles.where(mw_page_id: @synced_ids).update_all(deleted: false)
+    ArticlesCourses.where(article_id: @deleted_page_ids).destroy_all
+    limbo_revisions = Revision.where(mw_page_id: @deleted_page_ids)
     RevisionImporter.new(@wiki).move_or_delete_revisions limbo_revisions
   end
 
@@ -64,6 +48,31 @@ class ArticleStatusManager
   # Helper methods #
   ##################
   private
+
+  def identify_deleted_and_synced_page_ids(articles)
+    @synced_articles = article_data_from_replica(articles)
+    @synced_ids = @synced_articles.map { |a| a['page_id'].to_i }
+
+    # If any Replica requests failed, we don't want to assume that missing
+    # articles are deleted.
+    # FIXME: A better approach would be to look for deletion logs, and only mark
+    # an article as deleted if there is a corresponding deletion log.
+    @deleted_page_ids = if @failed_request_count == 0
+                          articles.map(&:mw_page_id) - @synced_ids
+                        else
+                          []
+                        end
+  end
+
+  def article_data_from_replica(articles)
+    @failed_request_count = 0
+    synced_articles = Utils.chunk_requests(articles, 100) do |block|
+      request_results = Replica.new(@wiki).get_existing_articles_by_id block
+      @failed_request_count += 1 if request_results.nil?
+      request_results
+    end
+    synced_articles
+  end
 
   def update_title_and_namespace(synced_articles)
     # Update titles and namespaces based on mw_page_ids
