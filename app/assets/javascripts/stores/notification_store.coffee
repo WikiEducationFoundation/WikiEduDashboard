@@ -43,7 +43,9 @@ NotificationStore = Flux.createStore
       notification = {}
       notification.closable = true
       notification.type = "error"
-      if data.responseJSON and data.responseJSON.error
+      if data.responseText
+        notification.message = data.responseText
+      else if data.responseJSON and data.responseJSON.error
         notification.message = data.responseJSON.error
       else
         notification.message = data.statusText
