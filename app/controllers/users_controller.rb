@@ -15,13 +15,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def save_assignments
-    require "#{Rails.root}/lib/assignments_manager"
-    @course = Course.find_by_slug(params[:course_id])
-    AssignmentsManager.update_assignments(@course, user_params, current_user)
-    render 'users', formats: :json
-  end
-
   # Onboarding sets the user's real name, email address, and optionally instructor permissions
   def onboard
     [:real_name, :email, :instructor].each_with_object(params) do |key, obj|
@@ -76,8 +69,7 @@ class UsersController < ApplicationController
       render 'users', formats: :json
     else
       username = enroll_params[:user_id] || enroll_params[:username]
-      render json: { message: I18n.t('courses.error.user_exists',
-                                     username: username) },
+      render json: I18n.t('courses.error.user_exists',username: username),
              status: 404
     end
   end
@@ -120,12 +112,5 @@ class UsersController < ApplicationController
 
   def enroll_params
     params.require(:user).permit(:user_id, :username, :role)
-  end
-
-  def user_params
-    params.permit(
-      users: [:id, :username, :deleted, :email],
-      assignments: [:id, :user_id, :article_title, :role, :course_id, :deleted]
-    )
   end
 end

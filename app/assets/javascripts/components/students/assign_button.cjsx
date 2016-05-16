@@ -12,12 +12,6 @@ CourseUtils       = require('../../utils/course_utils.js').default
 
 AssignButton = React.createClass(
   displayname: 'AssignButton'
-  getInitialState: ->
-    send: false
-  componentWillReceiveProps: (nProps) ->
-    if @state.send
-      @props.save()
-      @setState send: false
   stop: (e) ->
     e.stopPropagation()
   getKey: ->
@@ -25,8 +19,11 @@ AssignButton = React.createClass(
     tag + @props.student.id
   assign: (e) ->
     e.preventDefault()
-    article = CourseUtils.articleFromTitleInput @refs.lookup.getValue()
-    article_title = article.title
+    assignment = CourseUtils.articleFromTitleInput @refs.lookup.getValue()
+    assignment.course_id = @props.course_id
+    assignment.user_id = @props.student.id
+    assignment.role = @props.role
+    article_title = assignment.title
 
     # Check if the assignment exists
     if AssignmentStore.getFiltered({
@@ -44,14 +41,18 @@ AssignButton = React.createClass(
     })
 
     # Send
-    if(article_title)
+    if(assignment)
+      # Update the store
       AssignmentActions.addAssignment @props.course_id, @props.student.id, article_title, @props.role
-      @setState send: (!@props.editable && @props.current_user.id == @props.student.id)
+      # Post the new assignment to the server
+      ServerActions.addAssignment assignment
       @refs.lookup.clear()
   unassign: (assignment) ->
     return unless confirm(I18n.t('assignments.confirm_deletion'))
+    # Update the store
     AssignmentActions.deleteAssignment assignment
-    @setState send: (!@props.editable && @props.current_user.id == @props.student.id)
+    # Send the delete request to the server
+    ServerActions.deleteAssignment assignment
   render: ->
     className = 'button border'
     className += ' dark' if @props.is_open

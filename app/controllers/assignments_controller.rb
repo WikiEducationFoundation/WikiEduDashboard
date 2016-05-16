@@ -1,11 +1,10 @@
 require 'uri'
 require "#{Rails.root}/lib/assignment_manager"
+require "#{Rails.root}/lib/wiki_course_edits"
 
 # Controller for Assignments
 class AssignmentsController < ApplicationController
   respond_to :json
-  before_action :require_participating_user,
-                only: [:create]
 
   def index
     set_course
@@ -29,11 +28,11 @@ class AssignmentsController < ApplicationController
   def create
     set_course
     check_permissions(assignment_params[:user_id].to_i)
-    set_wiki
+    set_wiki { return }
     @assignment = AssignmentManager.new(user_id: assignment_params[:user_id],
                                         course: @course,
                                         wiki: @wiki,
-                                        title: assignment_params[:article_title],
+                                        title: assignment_params[:title],
                                         role: assignment_params[:role]).create_assignment
     update_onwiki_course_and_assignments
     render json: @assignment
@@ -63,6 +62,10 @@ class AssignmentsController < ApplicationController
     project = params[:project] || home_wiki.project
     @wiki = Wiki.find_by(language: language, project: project)
     @wiki ||= home_wiki
+    return unless @wiki.id.nil?
+    # Error handling for an invalid wiki
+    render json: t('error.invalid_assignment'), status: 404
+    yield
   end
 
   def check_permissions(user_id)
@@ -74,6 +77,6 @@ class AssignmentsController < ApplicationController
   end
 
   def assignment_params
-    params.permit(:user_id, :course_id, :article_title, :role, :language, :project)
+    params.permit(:user_id, :course_id, :title, :role, :language, :project)
   end
 end

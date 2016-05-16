@@ -61,7 +61,7 @@ describe AssignmentsController do
     context 'when the user has permission to create the assignment' do
       let(:course) { create(:course) }
       let(:assignment_params) do
-        { user_id: user.id, course_id: course.slug, article_title: 'pizza', role: 0 }
+        { user_id: user.id, course_id: course.slug, title: 'pizza', role: 0 }
       end
 
       it 'sets assignments ivar with a default wiki' do
@@ -87,7 +87,7 @@ describe AssignmentsController do
       end
 
       let(:assignment_params_with_language_and_project) do
-        { user_id: user.id, course_id: course.slug, article_title: 'pizza',
+        { user_id: user.id, course_id: course.slug, title: 'pizza',
           role: 0, language: 'es', project: 'wikibooks' }
       end
       let!(:es_wikibooks) { create(:wiki, language: 'es', project: 'wikibooks') }
@@ -105,7 +105,7 @@ describe AssignmentsController do
     context 'when the user does not have permission to create the assignment' do
       let(:course) { create(:course) }
       let(:assignment_params) do
-        { user_id: user.id + 1, course_id: course.slug, article_title: 'pizza', role: 0 }
+        { user_id: user.id + 1, course_id: course.slug, title: 'pizza', role: 0 }
       end
       before do
         put :create, assignment_params

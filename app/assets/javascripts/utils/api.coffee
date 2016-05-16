@@ -167,7 +167,7 @@ API =
         rej obj
 
   createAssignment: (opts) ->
-    queryString = "user_id=#{opts.user_id}&course_id=#{opts.course_id}&article_title=#{opts.article_title}&role=#{opts.role}"
+    queryString = $.param(opts)
     new Promise (res, rej) ->
       $.ajax
         type: 'POST',
@@ -335,32 +335,6 @@ API =
         rej obj
 
     promise
-
-  saveStudents: (data, course_id) ->
-    cleanup = (array) ->
-      for obj in array
-        if obj.is_new
-          delete obj.id
-          delete obj.is_new
-
-    for user in data.users
-      delete user.revisions
-
-    cleanup data.users
-    cleanup data.assignments
-
-    new Promise (res, rej) ->
-      $.ajax
-        type: 'POST',
-        url: '/courses/' + course_id + '/users.json',
-        contentType: 'application/json',
-        data: JSON.stringify data
-        success: (data) ->
-          console.log 'Saved students!'
-          res data
-      .fail (obj, status) ->
-        console.error 'Couldn\'t save students!'
-        rej obj
 
   deleteCourse: (course_id) ->
     $.ajax

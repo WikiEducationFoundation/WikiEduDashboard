@@ -179,6 +179,7 @@ en:
     course_description: Courses
     courses: Courses
     creator:
+      already_exists: This course already exists. Consider changing the name, school, or term to make it unique.
       assignment_end: Assignment end
       assignment_end_placeholder: Assignment end (YYYY-MM-DD)
       assignment_start: Assignment start
@@ -485,6 +486,8 @@ en:
 
   users:
     already_enrolled: That user is already enrolled!
+    assign_articles: Assign Articles
+    assign_articles_done: Done
     assigned: Assigned Articles
     assignees: Assignee(s)
     character_doc: >
@@ -574,6 +577,7 @@ en:
     summary: Summary
 
   error:
+    invalid_assignment: Invalid assignment
     oauth_invalid: Your Wikipedia authorization has expired. Please log in again.
     unsupported_browser:
       header: "Unsupported browser.  :-("

@@ -160,10 +160,8 @@ const ServerActions = Flux.createActions({
       .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
   },
 
-  saveStudents(data, courseId) {
-    return API.saveStudents(data, courseId)
-      .then(resp => ({ actionType: 'SAVED_USERS', data: resp }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
+  saveStudents() {
+    return null;
   },
 
   saveTimeline(data, courseId) {
@@ -187,7 +185,7 @@ const ServerActions = Flux.createActions({
   checkCourse(key, courseId) {
     return API.fetch(courseId, 'check')
       .then(resp => {
-        const message = resp.course_exists ? 'This course already exists. Consider changing the name, school, or term to make it unique.' : null;
+        const message = resp.course_exists ? I18n.t('courses.creator.already_exists') : null;
         return {
           actionType: 'CHECK_SERVER',
           data: {
