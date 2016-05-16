@@ -26,6 +26,9 @@ describe AssignmentsController do
   describe 'DELETE destroy' do
     let!(:assignment) { create(:assignment, course_id: 1) }
     before do
+      expect_any_instance_of(WikiCourseEdits).to receive(:remove_assignment)
+      expect_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
+      expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
       allow(Assignment).to receive(:find).and_return(assignment)
       delete :destroy, id: assignment.id
     end
@@ -46,6 +49,8 @@ describe AssignmentsController do
     end
 
     it 'sets assignments ivar with a default wiki' do
+      expect_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
+      expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
       put :create, assignment_params
       assignment = assigns(:assignment)
       expect(assignment).to be_a_kind_of(Assignment)
@@ -53,6 +58,8 @@ describe AssignmentsController do
       expect(assignment.wiki.project).to eq('wikipedia')
     end
     it 'renders a json response' do
+      expect_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
+      expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
       put :create, assignment_params
       json_response = JSON.parse(response.body)
       # response makes created_at differ by milliseconds, which is weird,
@@ -70,6 +77,8 @@ describe AssignmentsController do
     let!(:es_wikibooks) { create(:wiki, language: 'es', project: 'wikibooks') }
 
     it 'sets the wiki based on language and project params' do
+      expect_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
+      expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
       put :create, assignment_params_with_language_and_project
       assignment = assigns(:assignment)
       expect(assignment).to be_a_kind_of(Assignment)

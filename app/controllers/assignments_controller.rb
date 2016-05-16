@@ -1,4 +1,5 @@
 require 'uri'
+require "#{Rails.root}/lib/assignment_manager"
 
 # Controller for Assignments
 class AssignmentsController < ApplicationController
@@ -14,22 +15,39 @@ class AssignmentsController < ApplicationController
 
   def destroy
     id = params[:id]
-    Assignment.find(id).destroy
+    @assignment = Assignment.find(id)
+    @course = @assignment.course
+    update_onwiki_course_and_assignments
+    remove_assignment_template
+    @assignment.destroy
     render json: { article: id }
   end
 
   def create
     set_course
     set_wiki
-    @assignment = Assignment.create(user_id: assignment_params[:user_id],
-                                    course_id: @course.id,
-                                    wiki_id: @wiki.id,
-                                    article_title: assignment_params[:article_title],
-                                    role: assignment_params[:role])
+    @assignment = AssignmentManager.new(user_id: assignment_params[:user_id],
+                                        course: @course,
+                                        wiki: @wiki,
+                                        title: assignment_params[:article_title],
+                                        role: assignment_params[:role]).create_assignment
+    update_onwiki_course_and_assignments
     render json: @assignment
   end
 
   private
+
+  def update_onwiki_course_and_assignments
+    WikiCourseEdits.new(action: :update_assignments, course: @course, current_user: current_user)
+    WikiCourseEdits.new(action: :update_course, course: @course, current_user: current_user)
+  end
+
+  def remove_assignment_template
+    WikiCourseEdits.new(action: :remove_assignment,
+                        course: @course,
+                        current_user: current_user,
+                        assignment: @assignment)
+  end
 
   def set_course
     @course = Course.find_by_slug(URI.unescape(params[:course_id]))
