@@ -1,6 +1,6 @@
 require "#{Rails.root}/lib/wiki_edits"
 require "#{Rails.root}/lib/wiki_course_edits"
-require "#{Rails.root}/lib/utils"
+require "#{Rails.root}/lib/article_utils"
 
 # Handles assignment data submitted by users
 class AssignmentsManager
@@ -25,7 +25,7 @@ class AssignmentsManager
   ####################
   def self.handle_assignment_data(course, assignment_data, current_user)
     assignment_data['course_id'] = course.id
-    assignment_data['article_title'] = Utils.format_article_title(assignment_data['article_title'])
+    assignment_data['article_title'] = ArticleUtils.format_article_title(assignment_data['article_title'])
 
     assigned = Article.find_by(title: assignment_data['article_title'], namespace: 0)
     # We double check that the titles are equal to avoid false matches of case variants.

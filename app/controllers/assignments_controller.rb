@@ -40,7 +40,7 @@ class AssignmentsController < ApplicationController
     language = params[:language] || home_wiki.language
     project = params[:project] || home_wiki.project
     @wiki = Wiki.find_by(language: language, project: project)
-    @wiki_id ||= home_wiki.id
+    @wiki ||= home_wiki
   end
 
   def assignment_params
