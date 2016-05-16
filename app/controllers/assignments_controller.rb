@@ -4,6 +4,8 @@ require "#{Rails.root}/lib/assignment_manager"
 # Controller for Assignments
 class AssignmentsController < ApplicationController
   respond_to :json
+  before_action :require_participating_user,
+                only: [:create]
 
   def index
     set_course
@@ -17,6 +19,7 @@ class AssignmentsController < ApplicationController
     id = params[:id]
     @assignment = Assignment.find(id)
     @course = @assignment.course
+    check_permissions(@assignment.user_id)
     update_onwiki_course_and_assignments
     remove_assignment_template
     @assignment.destroy
@@ -25,6 +28,7 @@ class AssignmentsController < ApplicationController
 
   def create
     set_course
+    check_permissions(assignment_params[:user_id].to_i)
     set_wiki
     @assignment = AssignmentManager.new(user_id: assignment_params[:user_id],
                                         course: @course,
@@ -59,6 +63,14 @@ class AssignmentsController < ApplicationController
     project = params[:project] || home_wiki.project
     @wiki = Wiki.find_by(language: language, project: project)
     @wiki ||= home_wiki
+  end
+
+  def check_permissions(user_id)
+    exception = ActionController::InvalidAuthenticityToken.new('Unauthorized')
+    raise exception unless user_signed_in?
+    return if current_user.id == user_id
+    return if current_user.can_edit?(@course)
+    raise exception
   end
 
   def assignment_params
