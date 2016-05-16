@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160511162714) do
+ActiveRecord::Schema.define(version: 20160516224503) do
 
   create_table "alerts", force: :cascade do |t|
     t.integer  "course_id",     limit: 4
@@ -69,7 +69,7 @@ ActiveRecord::Schema.define(version: 20160511162714) do
     t.integer  "wiki_id",       limit: 4
   end
 
-  add_index "assignments", ["course_id", "user_id", "article_title", "role"], name: "by_course_user_article_and_role", unique: true, using: :btree
+  add_index "assignments", ["course_id", "user_id", "article_title", "role", "wiki_id"], name: "by_course_user_article_and_role", unique: true, using: :btree
 
   create_table "blocks", force: :cascade do |t|
     t.integer  "kind",                limit: 4
