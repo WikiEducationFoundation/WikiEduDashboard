@@ -23,8 +23,8 @@ class RevisionsCleaner
 
   def self.find_orphan_revisions
     article_ids = Article.all.pluck(:id)
-    orphan_revisions = Revision.where
-                       .not(article_id: article_ids)
+    orphan_revisions = Revision
+                       .where.not(article_id: article_ids)
                        .order('date ASC')
 
     Rails.logger.info "Found #{orphan_revisions.count} orphan revisions"
@@ -41,8 +41,14 @@ class RevisionsCleaner
     revs = RevisionImporter.new(@wiki).get_revisions_for_users(users, start, end_date)
     Rails.logger.info "Imported articles for #{revs.count} revisions"
 
-    return if revs.blank?
-    new_rev_user_ids = revs.map(&:user_id)
+    rebuild_articles_courses_for(revs)
+  end
+
+  private
+
+  def rebuild_articles_courses_for(revisions)
+    return if revisions.blank?
+    new_rev_user_ids = revisions.map(&:user_id)
     course_ids = CoursesUsers
                  .where(user_id: new_rev_user_ids, role: CoursesUsers::Roles::STUDENT_ROLE)
                  .pluck(:course_id).uniq
@@ -50,8 +56,6 @@ class RevisionsCleaner
       ArticlesCourses.update_from_course(Course.find(course_id))
     end
   end
-
-  private
 
   def before_earliest_revision(revisions)
     earliest_revision = revisions.min { |a, b| a.date <=> b.date }
