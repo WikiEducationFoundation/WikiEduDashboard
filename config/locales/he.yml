@@ -110,6 +110,7 @@ he:
     already_enrolled: הינך כבר חלק מ%{title}!
     already_exists: זה כבר קיים עבור הקורס הזה!
     archived: קורסים מאורכבים
+    actions: פעולות
     articles: ערכים
     articles_none: הקורס הזה לא ערך שום ערכים.
     assignment_end: סוף משימה
@@ -117,8 +118,14 @@ he:
     assignment_start: תחילת משימה
     calendar:
       legend: מקרא
+      legend_class_not_meeting: אין פגישה מתוכננת
+      select_meeting_days: נא לבחור את הימים שבהם יש פגישה עם הכיתה שלך.
     character_doc: סך התווים שנוספו לערכים במרחב הראשי על־ידי התלמידים בקורס במהלך
       תקופת הקורס
+    confirm_course_deletion: האם ברצונך למחוק את הקורס "%{title}"? אם כן, יש להקליד
+      את שם הקורס כדי להמשיך.
+    confirm_course_deletion_failed: '"%{title}" אינו השם של הקורס הזה. מחיקת הקורס
+      נכשלה.'
     course_dates_calendar_instructions: בחר תאריכים להוספה או הסרה מלוח הזמנים (לדוגמה
       חגים, חופש מבית-הספר). לחץ על תארך בכדי לשנות בין לא מסומן, מסומן או מצב חופש.
       תאריכים של פעילויות קורסים יישתנו בהתאם לשבועות ללא פגישות שנקבעו.
@@ -144,12 +151,15 @@ he:
       intro: השם, המוסד והתקופה יוצרים את הכתובת של דף הקורס שלך ולא ניתן לשנות אותם.
         את כל השאר אפשר לערוך אחר־כך. יש ללחוץ על "צור את הקורס שלי!" כדי להתחיל לבנות
         את ציר הזמן עבור מטלת הוויקיפדיה שלך.
+      save_cloned_course: שמירת הקורס החדש
       start_date: תאריך התחלה
       start_date_placeholder: תאריך התחלה
       subject: נושא
     current: קורסים נוכחיים
+    delete_course: מחיקת הקורס
     duration: משך הקורס
     edit_course_dates: עריכת תאריכים קורסים
+    end: סוף
     error:
       exists: הקורס הזה כבר קיים! נא לנסות שוב עם שם אחר, מוסד אחר או תקופה אחרת.
       user_exists: סליחה, %{username} הוא לא משתמש קיים.
@@ -162,15 +172,20 @@ he:
     invitation: הוזמנת ל-%{title}. על-מנת להצטרף לקורס, עליך להתחבר עם חשבון וויקיפדיה.
       אם אין ברשותך חשבון, באפשרותך להירשם לחשבון כעת.
     join: הצטרפות
+    join_course: הצטרפות לקורס
     join_prompt: להצטרף ל-%{title}?
     join_successful: הצטרפת בהצלחה ל-%{title}.
     leave_confirmation: האם אתם בטוחים שברצונכם לעזוב את הקורס הזה?
+    leave_course: עזיבת הקורס
     loading: טוען...
     milestones_none: לקורס הזה אין כרגע אבני דרך.
     new_week: הוספת שבוע חדש
     nocourses: אינך משתתף בשום קורס.
+    none: אין
+    no_available_actions: אין פעולות זמינות
     overview: סקירה כללית
     passcode: סיסמה
+    passcode_none: אין סיסמה
     passcode_prompt: נא להקליד את הסיסמה שקיבלת מהמורה שלך לקורס הזה
     published: 'הקורס שלך פורסם! כעת סטודנטים יכולים להירשם לקורס שלך ע"י ביקור בכתובת
       הבאה:'
@@ -181,6 +196,7 @@ he:
     revisions_doc: מספר העריכת ב־%{timeframe} הימים האחרונים
     revisions_none: בקורס הזה אין פעילות ויקיפדיה לאחרונה.
     school: בית ספר
+    start: התחלה
     start_typing: התחילו להקליד
     students: תלמידים
     students_count: מס' תלמידים
@@ -265,6 +281,7 @@ he:
     char: תווים נוספו
     date_time: תאריך/שעה
     edit_count_description: עריכות סה"כ
+    per_user: '%{number}/משתמש'
     revisions: עריכות אחרונות
     upload_count: העלאות לוויקישיתוף
     uploads_in_use_count: קבצים הנמצאים בשימוש בערכים
@@ -279,6 +296,7 @@ he:
     user_char_added: תווים נוספו במרחב משתמש
     user_ns: משתמש
   recent_activity:
+    article_title: שם הערך
     datetime: תאריך ושעה
     did_you_know_eligible: ראויים ל-"הידעת?"
     image: תמונה
@@ -307,6 +325,13 @@ he:
     constant: המשימה %{task} אינה יכולה לרוץ בזמן הרצת המשימה update_daily.
     paused: המשימה %{task} אינה יכולה לרוץ כי עדכונים מתוזמנים נעצרו. יש להריץ 'rake
       batch:resume' כדי לחזור לעדכונים.
+  timeline:
+    block_type: סוג הגוש משמש לשליחת מידע לתלמידים שלך על הפריט הזה בציר הזמן שלהם
+      ולבניית כלים שימושיים עבורך (כגון תקציר אבן דרך בדף הסקירה הכללית).
+    due_default: חובה להגיש בשבוע הבא
+    nothing_this_week: לא מתוכנן שום דבר לשבוע הזה.
+    this_week_title_default: השבוע
+    title: ציר זמן
   training:
     continue: המשך (%{progress})
     start: התחלה
@@ -327,11 +352,20 @@ he:
       הוסיף. שחזור תוכן שהוסר יגדיל את הסך הזה.
     contributions: תרומות המשתמש
     contributions_more: הצגת תרומות נוספות
+    course_passcode: 'הסיסמה של הקורס:'
     editors: תלמידים עורכים
+    enroll: הרשמה
+    enrollment: הרשמה
+    enroll_confirmation: האם ברצונך להוסיף את %{username} לקורס זה?
+    enroll_url: 'תלמידים יכולים להירשם על־ידי ביקור בקישור הבא:'
+    enrolled_success: '%{username} {{GENDER:%{username}|נרשם|נרשמה}} בהצלחה!'
+    first_name: שם פרטי
+    last_name: שם משפחה
     loading: טעינת משתמשים...
     name: שם
     none: בקורס הזה אין תלמידים.
     recent_revisions: עריכות אחרונות
+    remove_confirmation: האם ברצונך להסיר את %{username} מקורס זה?
     revisions_doc: מספר העריכות שעשה העורך הזה בשבע הימים האחרונים
     reviewers: סוקרים
     reviewing: מתבצעת סקירה
@@ -345,6 +379,8 @@ he:
       המשוב, הם יכולים לחזור לסוף ההכשרה כאן: https://en.wikipedia.org/wiki/Wikipedia:Training/For_students/Training_complete
       .'
     training_incomplete: ההכשרה לא הושלמה
+    username: שם משתמש
+    username_placeholder: שם משתמש
   wizard:
     assignment_dates: תאריכי המטלה
     assignment_description: יש לבחור את תאריכי ההתחלה והסיום של המטלה הזאת
@@ -385,11 +421,6 @@ he:
     explanation: משהו השתבש. נא ליצר קשר עם המתחזקים של לוח הבקרה ולספר להם על הבעיה.
   login_error:
     header: שגיאת התחברות
-  timeline:
-    block_type: סוג הגוש משמש לשליחת מידע לתלמידים שלך על הפריט הזה בציר הזמן שלהם
-      ולבניית כלים שימושיים עבורך (כגון תקציר אבן דרך בדף הסקירה הכללית).
-    due_default: חובה להגיש בשבוע הבא
-    title: ציר זמן
   survey:
     email:
       headline: שלום, %{username}

@@ -9,6 +9,8 @@
 ---
 sv:
   application:
+    error: 'Ett fel uppstod:'
+    field_invalid_characters: Detta fält har ogiltiga tecken
     help: Hjälp!
     home: Huvudsida
     log_out: Logga ut
@@ -26,6 +28,7 @@ sv:
     edited: Redigerade artiklar
     edited_mobile: Artiklar
     loading: Laddar artiklar...
+    new: (ny)
     no_assignee: Inga användare tilldelade
     none: Den här kursen har inte redigerat några artiklar.
     rating: Klass
@@ -39,26 +42,46 @@ sv:
       title: Milstolpar
   courses:
     activity: Aktivitet
+    actions: Åtgärder
     articles: Artiklar
     articles_none: Den här kursen har inte redigerat några artiklar.
+    calendar:
+      legend_class_meeting: Klassmöte
+      legend_class_not_meeting: Inget schemalagt möte
     course_description: Kurser
     creator:
       course_description: Kursbeskrivning
       course_school: Kursskola
       course_subject: Kursämne
+      course_term_placeholder: Termin
       course_title: Kurs titel
       create_button: Skapa min Kurs!
       create_label: Skapa ny kurs
       create_new: Skapa en ny kurs
       create_short: Skapa Kurs
       end_date: Slutdatum
+      end_date_placeholder: Slutdatum (ÅÅÅÅ-MM-DD)
       expected_number: Förväntat antal elever
       find: Hitta din kurs
+      find_program: Hitta ditt program
       intro: Namnet, skolan, och termninen skapar din kurs sidas URL, och kan inte
         bli ändrad, allt annat kan du ändra senare. Klicka på "Skapa min kurs!" för
         att börja bygga tidslinjen för din Wikipedia uppgift.
+      save_cloned_course: Spara ny kurs
       start_date: Startdatum
+      start_date_placeholder: Startdatum (ÅÅÅÅ-MM-DD)
+      subject: Ämne
+    delete_course: Radera kurs
+    end: Slut
+    join_course: Delta i kurs
+    leave_confirmation: Är du säker på att du vill lämna denna kurs?
+    leave_course: Lämna kurs
+    loading: Läser in...
+    none: Ingen
+    no_available_actions: Inga tillgängliga åtgärder
+    passcode_none: Inget lösenord
     school: Skola
+    start_typing: Börja skriva
   courses_generic:
     creator:
       course_description: Program beskrivning
@@ -71,6 +94,10 @@ sv:
         mitt Program!" för att börja bygga sidan för ditt wiki program.
     edit_course_dates: Redigera projektdatum
     term: När
+  editable:
+    edit: Redigera
+    cancel: Avbryt
+    save: Spara
   metrics:
     activity: Senaste aktivitet
     articles_created: Skapade artiklar
@@ -80,6 +107,7 @@ sv:
     char_changed: Ändrade tecken
     char: Tillagda tecken
     date_time: Datum/Tid
+    per_user: '%{number}/user'
     revisions: Senaste redigeringar
     view_count_description: Artikelvisningar
     view: Visningar
@@ -88,16 +116,48 @@ sv:
     user: Användarnamnrymd
     user_ns: Användare
   recent_activity:
+    article_title: Artikeltitel
+    datetime: Datum/tid
+    image: Bild
+    file_name: Filnamn
     recent_edits: Senaste redigeringar
     show_courses: Visa endast mina kurser
+    uploaded_by: Uppladdad av
   revisions:
     class: Klass
+    edited_by: Redigerad av
     title: Titel
+  timeline:
+    add_week: Lägg till vecka
+    block_custom: Anpassad
+    block_milestone: Milstolpe
+    course_dates: Kursdatum
+    course_end: Kursslut
+    course_start: Kursstart
+    discard_all_changes: Ignorera alla ändringar
+    empty_week_1: För att komma igång,
+    empty_week_3: eller
+    gradeable_value: Värde
+    no_activity_this_week: Ingen aktivitet denna vecka
+    save_all_changes: Spara alla
+    this_week_title_default: Denna vecka
+    week_number: Vecka %{number}
   uploads:
+    datetime: Datum/tid
+    file_name: Filnamn
+    image: Bild
     none: Inga filer har laddats upp
+    uploaded_by: Uppladdad av
+    usage_count: Antal användningar
     usages: Användning
   users:
+    first_name: Förnamn
+    last_name: Efternamn
+    no_articles: Inga artiklar
+    number_of_articles: '%{number} artiklar'
     recent_revisions: Senaste redigeringar
+    username: Användarnamn
+    username_placeholder: Användarnamn
   wizard:
     summary: Sammanfattning
   error:

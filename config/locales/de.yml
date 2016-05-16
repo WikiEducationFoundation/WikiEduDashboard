@@ -13,6 +13,8 @@ de:
     dashboard: Wiki-Ed-Dashboard
     error: 'Es gab einen Fehler:'
     explore: Entdecken
+    field_required: Dieses Feld ist erforderlich
+    field_invalid_characters: Dieses Feld hat ungültige Zeichen
     greeting2: Willkommen!
     greeting_extended: Willkommen bei Wikipedia
     greeting: Hallo!
@@ -31,6 +33,11 @@ de:
     training: Ausbildung
   dashboard:
     create_note: Klicke auf „Kurs erstellen“, um deinen ersten Kurs zu erstellen.
+    create_preparation_note: 'Stelle sicher, dass du deinen akademischen Kalender
+      zur Hand hast, bevor du anfängst. Das Zuweisungsgestaltungswerkzeug verwendet
+      die Daten deiner Klassentreffen (inklusive Schulpausen und Feiertage), um deine
+      Zeitleiste an den ausgewählten Datumsbereich anzupassen. Vergiss nicht: Du kannst
+      jederzeit die Zeitleiste bearbeiten, um deinen Bedarf anzupassen.'
     explore_course_pages: Die Kursseiten entdecken
     explore_examples: Beispiele entdecken
     join_note: Sobald du von deinem Kursleiter einen Passcode erhalten hast, klicke
@@ -112,6 +119,7 @@ de:
     already_enrolled: Du bist bereits ein Teil von „%{title}“!
     already_exists: Dies ist bereits für diesen Kurs vorhanden!
     archived: Archivierte Kurse
+    actions: Aktionen
     articles: Artikel
     articles_none: Dieser Kurs hat keine Artikel bearbeitet.
     assignment_end: Zuweisungs-Ende
@@ -125,6 +133,11 @@ de:
       select_meeting_days: Wähle die Wochentage aus, an denen sich deine Klasse trifft.
     character_doc: Die Summe der durch die Kursstudenten während der Kursdauer zu
       Hauptnamensraum-Artikeln hinzugefügten Zeichen
+    cohorts: 'Jahrgänge:'
+    confirm_course_deletion: Bist du sicher, dass du den Kurs mit dem Titel „%{title}“
+      löschen möchtest? Falls ja, gib zum Fortfahren den Kurstitel ein.
+    confirm_course_deletion_failed: „%{title}“ ist nicht der Titel dieses Kurses.
+      Der Kurs wurde nicht gelöscht.
     course_dates_calendar_instructions: Wähle Daten aus, um sie in dem Plan hinzuzufügen
       oder zu entfernen (z.&nbsp;B. Feiertage oder schulfreie Tage). Klicke das Datum
       an, um zwischen unausgewählt, ausgewählt und Feiertagsstatus zu wechseln. Die
@@ -133,12 +146,21 @@ de:
     course_description: Kurse
     courses: Kurse
     creator:
+      assignment_end: Zuweisungsende
+      assignment_end_placeholder: Zuweisungsende (JJJJ-MM-TT)
+      assignment_start: Zuweisungsbeginn
+      assignment_start_placeholder: Zuweisungsbeginn (JJJJ-MM-TT)
+      checking_for_uniqueness: Dieser Kurs wird auf Eindeutigkeit überprüft.
       cloned_course_calendar_instructions: Wähle Daten aus, um sie dem Plan hinzuzufügen
         oder aus ihm zu entfernen (z.&nbsp;B. Feiertage, schulfrei). Klicke das Datum
         an, um zwischen nicht ausgewählt, ausgewählt und Feiertagsstatus auszuwählen.
         Falls du keine Feiertage hast, klicke „Ich habe keine Feiertage“ an. Die geklonte
         Zeitleiste passt sich automatisch den Daten im Benutzerkonto für Wochen, die
         keine geplanten Treffen haben, an.
+      clone_successful: Kurs erfolgreich geklont
+      clone_successful_details: Dein Kurs wurde geklont, inklusive der Zeitleistenelemente
+        (Wochen und Blöcke). Hat sich noch etwas an deinem Kurs geändert? Tu dir keinen
+        Zwang an, ihn jetzt zu aktualisieren.
       course_description: Kursbeschreibung
       course_school: Kursschule
       course_subject: Kursthema
@@ -153,16 +175,21 @@ de:
       end_date_placeholder: Enddatum (JJJJ-MM-TT)
       expected_number: Erwartete Anzahl der Studenten
       find: Finde deinen Kurs
+      find_program: Finde dein Programm
       intro: Der Titel, die Schule und Kursdauer erstellen die URL für deine Kursseite
         und können nicht geändert werden. Alles andere kannst du später bearbeiten.
         Klicke auf „Meinen Kurs erstellen!“, um mit dem Erstellen der Zeitleiste für
         deine Wikipedia-Zuweisung anzufangen.
+      no_class_holidays: Ich habe keine Ferien
+      save_cloned_course: Neuen Kurs speichern
       start_date: Startdatum
       start_date_placeholder: Startdatum (JJJJ-MM-TT)
       subject: Thema
     current: Aktuelle Kurse
+    delete_course: Kurs löschen
     duration: Kursdauer
     edit_course_dates: Kursdaten bearbeiten
+    end: Ende
     error:
       exists: Dieser Kurs ist bereits vorhanden! Bitte versuche es erneut mit einem
         anderen Titel, einer anderen Schule oder Dauer.
@@ -177,15 +204,23 @@ de:
       Du wurdest eingeladen, %{title} beizutreten. Um dem Kurs beizutreten, musst du dich mit einem Wikipedia-Benutzerkonto anmelden.
       Falls du noch kein Wikipedia-Benutzerkonto hast, registriere dich jetzt.
     join: Beitreten
+    join_course: Dem Kurs beitreten
     join_prompt: „%{title}“ beitreten?
     join_successful: Du bist %{title} erfolgreich beigetreten.
     leave_confirmation: Bist du sicher, dass du diesen Kurs verlassen möchtest?
+    leave_course: Kurs verlassen
     loading: Lade …
     milestones_none: Dieser Kurs hat derzeit keine Meilensteine.
     new_week: Neue Woche hinzufügen
     nocourses: Du nimmst an keinen Kursen teil.
+    none: Keine
+    notify_untrained_confirmation: Dies sendet eine Erinnerung an die Diskussionsseiten
+      aller Studenten, die mit der Vervollständigung der zugewiesenen Ausbildungsmodule
+      überfällig sind. Bist du sicher, dass du dies tun möchtest?
+    no_available_actions: Keine verfügbaren Aktionen
     overview: Übersicht
     passcode: Passcode
+    passcode_none: Kein Passcode
     passcode_prompt: Gib den Passcode ein, den du von deinem Kursleiter erhalten hast.
     published: 'Dein Kurs wurde veröffentlicht! Studenten können sich beim Aufrufen
       der folgenden URL in den Kurs einschreiben:'
@@ -197,6 +232,7 @@ de:
     revisions_doc: Die Anzahl der Bearbeitungen in den letzten %{timeframe} Tagen
     revisions_none: Dieser Kurs hat keine letzte Wikipedia-Bearbeitungsaktivität.
     school: Schule
+    start: Start
     start_typing: Mit dem Tippen anfangen
     students: Studenten
     students_count: Anzahl der Studenten
@@ -280,6 +316,7 @@ de:
     save: Speichern
   metrics:
     activity: Letzte Aktivitäten
+    are_trained: sind mit der Ausbildung auf dem Laufenden
     articles_created: Erstellte Artikel
     articles_edited: Bearbeitete Artikel
     characters: Zeichen
@@ -288,6 +325,7 @@ de:
     char: Zeichen hinzugefügt
     date_time: Datum/Uhrzeit
     edit_count_description: Gesamte Bearbeitungen
+    per_user: '%{number}/Benutzer'
     revisions: Letzte Bearbeitungen
     upload_count: Auf Commons hochgeladene Dateien
     uploads_in_use_count: in Artikeln verwendete Dateien
@@ -337,6 +375,57 @@ de:
       update_daily läuft.
     paused: Die Aufgabe %{task} kann nicht ausgeführt werden, da geplante Aktualisierungen
       angehalten wurden. Führe „rake batch:resume“ aus, um die Aktualisierungen fortzusetzen.
+  timeline:
+    add_week: Woche hinzufügen
+    arrange_timeline: Zeitleiste erstellen
+    arrange_timeline_instructions: Erstelle die Zeitleiste durch Ziehen und Ablegen
+      von Blöcken an den gewünschten Ort/in die gewünschte Woche oder repositioniere
+      die Blöcke, indem du die Pfeile auf der Karte verwendest.
+    assignment_dates_instructions: Wähle die Start- und Enddaten für die Wikipedia-Zuweisungszeitleiste
+      aus. Das Ändern des Startdatums verschiebt auch die Daten der ganzen Zeitleiste.
+    blackout_week_created: Es gibt für diese Woche geplante Sperren. Bitte verschiebe
+      sie auf eine andere Woche, bevor du das letzte Klassentreffen von dieser Woche
+      entfernst.
+    block_assignment: Zuweisung
+    block_custom: Benutzerdefiniert
+    block_in_class: In Klasse
+    block_milestone: Meilenstein
+    block_type: Der Sperrtyp wird verwendet, um mit anderen Studenten über dieses
+      Objekt auf ihrer Zeitleiste zu kommunizieren und zum Erstellen nützlicher Werkzeuge
+      für dich (wie der Meilensteinentwurf auf der Übersichtsseite).
+    course_dates: Kursdaten
+    course_dates_instructions: Wähle die Start- und Enddaten des gesamten Kurses aus
+      (nicht nur die Wikipedia-Zuweisung).
+    course_end: Kursende
+    course_start: Kursbeginn
+    delete_week_confirmation: |-
+      Bist du sicher, dass du diese Woche löschen möchtest? Dies löscht die Woche und all ihre zugewiesenen Blöcke.
+
+      Dies kann nicht rückgängig gemacht werden.
+    discard_all_changes: Alle Änderungen verwerfen
+    due_default: Während nächster Woche
+    empty_week_1: Um anzufangen,
+    empty_week_2: beginne mit dem Bearbeiten in dieser Woche
+    empty_week_3: ' oder&nbsp;'
+    empty_week_4: starte von einer vorerstellten Zuweisung.
+    first_week_title: Erste aktive Woche
+    gradeable_value: Wert
+    gradeables_none: Diese Zeitleiste hat keine Zuweisungen, die als eingeteilt markiert
+      wurden.
+    grading_header: 'Eingeteilt (Gesamt: %{total}%)'
+    move_block_down: Block nach unten verschieben
+    move_block_up: Block nach oben verschieben
+    no_class_holidays: Ich habe keine Ferien
+    no_timeline: Dieser Kurs hat keine Zeitleiste.
+    no_activity_this_week: Keine Aktivität in dieser Woche
+    nothing_this_week: Für diese Woche ist nichts auf dem Plan.
+    save_all_changes: Alle speichern
+    this_week_title_default: Diese Woche
+    title: Zeitleiste
+    unable_to_add_week: Du kannst keine neuen Wochen hinzufügen, wenn deine Zeitleiste
+      voll ist. Lösche mindestens eine Woche oder ändere deine Zuweisungsdaten ab,
+      um Platz für ein neues zu schaffen.
+    week_number: Woche %{number}
   training:
     continue: Fortfahren (%{progress})
     start: Beginnen
@@ -344,11 +433,17 @@ de:
     logged_out: Du bist abgemeldet. Du erhältst keine Anerkennung für das Vervollständigen
       dieses Moduls, sofern du dich nicht anmeldest.
   uploads:
+    datetime: Datum/Zeit
+    file_name: Dateiname
+    header: Auf Wikimedia Commons hochgeladene Dateien
+    image: Bild
     label: Hochgeladene Dateien
     loading: Lade Uploads …
     none: Diese Klasse hat keine Bilder oder andere Mediendateien für Wikimedia Commons
       beigetragen.
     time_doc: Die Zeit jedes Uploads in deiner Ortszeit
+    uploaded_by: Hochgeladen von
+    usage_count: Verwendungszähler
     usages: Verwendungen
   users:
     already_enrolled: Dieser Benutzer ist bereits eingeschrieben!
@@ -362,11 +457,27 @@ de:
     chars_added: Hinzugefügte Zeichen<br>(Hauptnamensraum | Benutzernamensraum)
     contributions: Benutzerbeiträge
     contributions_more: Weitere Beiträge ansehen
+    course_passcode: 'Kurs-Passcode:'
     editors: Autoren
+    enroll: Einschreiben
+    enrollment: Einschreibung
+    enroll_confirmation: Bist du sicher, dass du %{username} zu diesem Kurs hinzufügen
+      möchtest?
+    enroll_url: 'Studenten können sich durch Aufruf dieser URL einschreiben:'
+    enrolled_success: '%{username} erfolgreich eingeschrieben!'
+    first_name: Vorname
+    last_name: Nachname
     loading: Lade Benutzer …
+    characters_added_mainspace: Hinzugefügte Zeichen im ANR
+    characters_added_userspace: Hinzugefügte Zeichen im BNR
     name: Name
     none: Dieser Kurs hat keine Studenten.
+    no_articles: Keine Artikel
+    no_revisions: Dieser Benutzer hat keine Bearbeitungen durchgeführt.
+    number_of_articles: '%{number} Artikel'
     recent_revisions: Letzte Bearbeitungen
+    remove_confirmation: Bist du sicher, dass du %{username} von diesem Kurs entfernen
+      möchtest?
     revisions_doc: Die Anzahl der Bearbeitungen, die von diesem Autor in den letzten
       7 Tagen gemacht wurden.
     reviewers: Überprüfer
@@ -382,6 +493,8 @@ de:
     training_modules_completed: '%{completed_count} von %{assigned_count} Ausbildungsmodulen
       abgeschlossen'
     up_to_date_with_training: mit der Ausbildung auf dem Laufenden
+    username: Benutzername
+    username_placeholder: Benutzername
   wiki_edits:
     notify_overdue:
       confirm: Dies sendet eine Erinnerung an die Diskussionsseiten aller Studenten,
@@ -453,18 +566,6 @@ de:
     explanation: Es scheint so, als ob es ein Problem mit dem Anmeldeprozess gäbe.
       Entschuldigung! Dies tritt gelegentlich auf. Bitte versuche die Anmeldung oder
       Einschreibung erneut.
-  timeline:
-    blackout_week_created: Es gibt für diese Woche geplante Sperren. Bitte verschiebe
-      sie auf eine andere Woche, bevor du das letzte Klassentreffen von dieser Woche
-      entfernst.
-    block_type: Der Sperrtyp wird verwendet, um mit anderen Studenten über dieses
-      Objekt auf ihrer Zeitleiste zu kommunizieren und zum Erstellen nützlicher Werkzeuge
-      für dich (wie der Meilensteinentwurf auf der Übersichtsseite).
-    due_default: Während nächster Woche
-    title: Zeitleiste
-    unable_to_add_week: Du kannst keine neuen Wochen hinzufügen, wenn deine Zeitleiste
-      voll ist. Lösche mindestens eine Woche oder ändere deine Zuweisungsdaten ab,
-      um Platz für ein neues zu schaffen.
   survey:
     login_message: Vielen Dank für deine Zeit. Bitte melde dich beim Wiki Ed Dashboard
       an, um an der Umfrage teilzunehmen.

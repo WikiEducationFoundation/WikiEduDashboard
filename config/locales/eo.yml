@@ -1,6 +1,7 @@
 # Messages for Esperanto (Esperanto)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Lucas
 # Author: Ochilov
 # Author: Robin van der Vliet
 # Author: 1490493253
@@ -50,6 +51,10 @@ eo:
   revisions:
     class: Klaso
     title: Titolo
+  timeline:
+    add_week: Aldoni semajnon
   users:
     name: Nomo
+    no_articles: Neniuj artikoloj
+    number_of_articles: '%{number} artikoloj'
 ...

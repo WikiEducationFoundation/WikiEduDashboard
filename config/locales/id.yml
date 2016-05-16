@@ -38,6 +38,12 @@ id:
     word_count: Kata ditambahkan
   revisions:
     time_doc: Waktu setiap revisi dalam waktu lokal Anda
+  timeline:
+    blackout_week_created: Ada blok dijadwalkan minggu ini. Silakan pindahkan ke seminggu
+      lagi sebelum Anda menghapus pertemuan kelas terakhir dari minggu ini.
+    unable_to_add_week: Anda tidak dapat menambahkan minggu baru ketika waktu Anda
+      penuh. Hapus setidaknya satu minggu atau mengubah tanggal tugas Anda untuk memberikan
+      ruang bagi yang baru.
   uploads:
     none: Kelas ini belum memberikan kontribusi setiap gambar atau file media lainnya
       untuk Wikimedia Commons.
@@ -52,10 +58,4 @@ id:
       mengatur tanggal mulai tugas untuk satu minggu setelah tanggal mulai kursus
       ini. Desain alat tugas ini akan membuat rancangan waktu yang pas timeline tanggal
       yang Anda pilih.
-  timeline:
-    blackout_week_created: Ada blok dijadwalkan minggu ini. Silakan pindahkan ke seminggu
-      lagi sebelum Anda menghapus pertemuan kelas terakhir dari minggu ini.
-    unable_to_add_week: Anda tidak dapat menambahkan minggu baru ketika waktu Anda
-      penuh. Hapus setidaknya satu minggu atau mengubah tanggal tugas Anda untuk memberikan
-      ruang bagi yang baru.
 ...

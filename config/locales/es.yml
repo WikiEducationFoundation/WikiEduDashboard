@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Alebecerrasj
 # Author: Codynguyen1116
+# Author: Copper12
 # Author: Fitoschido
 # Author: Lemondoge
 # Author: Macofe
@@ -14,7 +15,10 @@ es:
   application:
     cancel: Cancelar
     dashboard: Panel de Wiki Ed
+    error: 'Hubo un error:'
     explore: Explorar
+    field_required: Este campo es obligatorio
+    field_invalid_characters: Este campo tiene caracteres no válidos
     greeting2: ¡Bienvenidos!
     greeting_extended: Bienvenido a Wikipedia
     greeting: ¡Hola!
@@ -114,14 +118,19 @@ es:
   courses:
     activity: Actividad
     already_enrolled: Ya eres parte de '%{title}'.
+    already_exists: ¡Eso ya existe para este curso!
     archived: Cursos archivados
+    actions: Acciones
     articles: Artículos
     articles_none: Este curso no ha editado ningún artículo.
     assignment_end: Fin de la tarea
     assignments_none: Este curso no tiene artículos de Wikipedia asignados.
     assignment_start: Inicio de la tarea
+    calendar:
+      legend: Leyenda
     character_doc: La suma de caracteres agregados a los artículos del espacio principal
       por parte de los estudiantes durante el período del curso
+    cohorts: 'Cohortes:'
     course_dates_calendar_instructions: Selecciona fechas para añadirlas o quitarlas
       del calendario (por ejemplo, vacaciones, cuando no hay clases). Haz clic en
       la fecha para cambiar entre los estados «no seleccionado», «seleccionado» y
@@ -136,6 +145,7 @@ es:
         y «vacaciones». Si no tienes vacaciones, marca «No tengo vacaciones de clases».
         El cronograma copiado ajustará automáticamente las fechas para dar cuenta
         de las semanas que no tienen reuniones programadas.
+      clone_successful: Curso clonado cn éxito
       course_description: Descripción del curso
       course_school: Escuela del curso
       course_subject: Tema del curso
@@ -146,17 +156,23 @@ es:
       create_new: Crear un curso nuevo
       create_short: Crear curso
       end_date: Fecha de finalización
+      end_date_placeholder: Fecha de fin (AAAA-MM-DD)
       expected_number: Número de estudiantes esperado
       find: Encuentra tu curso
+      find_program: Encuentra tu programa
       intro: El título, la escuela y el plazo crean la dirección URL de la página
         del curso, y no pueden cambiarse. Todo lo demás puede editarse luego. Haz
         clic en "Crear mi curso" para iniciar la construcción del cronograma para
         tu tarea en Wikipedia.
+      save_cloned_course: Guardar curso nuevo
       start_date: Fecha de inicio
+      start_date_placeholder: Fecha de inicio (AAAA-MM-DD)
       subject: Asunto
     current: Cursos actuales
+    delete_course: Eliminar curso
     duration: Duración del curso
     edit_course_dates: Editar las fechas del curso
+    end: Fin
     error:
       exists: Ese curso ya existe. Intenta de nuevo con un título, escuela o período
         diferentes.
@@ -171,14 +187,19 @@ es:
       Te han invitado a unirte a %{title}. Para participar en el curso, debes iniciar sesión con una cuenta de Wikipedia.
       Si no tienes una cuenta de Wikipedia, regístrate ahora.
     join: Unirse
+    join_course: Únete al curso
     join_prompt: ¿Unirse a '%{title}'?
     join_successful: Te has unido con éxito a %{title}.
+    leave_course: Deja el curso
     loading: Cargando…
     milestones_none: Este curso actualmente no tiene ningún hito.
     new_week: Agregar una semana nueva
     nocourses: No participas de ningún curso.
+    none: Ninguno
+    no_available_actions: No hay acciones disponibles
     overview: Resumen
     passcode: Código de acceso
+    passcode_none: Ningún código de acceso
     published: '¡Tu curso ha sido publicado! Los estudiantes pueden inscribirse en
       el curso visitando la siguiente URL:'
     review_timeline: Revisa este cronograma y haz cambios. Una vez que estés satisfecho
@@ -188,6 +209,8 @@ es:
     revisions_doc: El número de ediciones en los últimos %{timeframe} días
     revisions_none: Este curso no tiene ediciones recientes en Wikipedia.
     school: Escuela
+    start: Iniciar
+    start_typing: Empieza a escribir
     students: Estudiantes
     students_count: '# Estudiantes'
     student_editors: Editores estudiantiles
@@ -265,8 +288,11 @@ es:
       a Wikimedia Commons.
   editable:
     edit: Editar
+    cancel: Cancelar
+    save: Guardar
   metrics:
     activity: Actividad reciente
+    are_trained: están al día con el entrenamiento
     articles_created: Artículos creados
     articles_edited: Artículos editados
     characters: Caracteres
@@ -275,6 +301,7 @@ es:
     char: Caracteres añadidos
     date_time: Fecha/hora
     edit_count_description: Ediciones totales
+    per_user: '%{number}/usuario'
     revisions: Ediciones recientes
     upload_count: Subidas a Commons
     uploads_in_use_count: archivos utilizados en artículos
@@ -289,14 +316,24 @@ es:
     user_char_added: Caracteres añadidos en el espacio de usuarios
     user_ns: Usuario
   recent_activity:
+    active_courses: El artículo está activo en
+    article_title: Título del artículo
+    datetime: Fecha/Hora
     did_you_know_eligible: ¿Sabía Usted Elegible
+    image: Imagen
+    file_name: Nombre del archivo
     no_dyk_eligible: No hay actualmente ningún DYK-artículos elegibles.
     no_plagiarism: Actualmente no hay ninguna revisión reciente sospechada de plagio.
     no_edits: No hay ninguna edición reciente.
+    plagiarism_report: Informe de plagio
     possible_plagiarism: Posible plagio
     recent_edits: Ediciones recientes
     recent_uploads: Subidas recientes
+    revision_author: Autor de la revisión
+    revision_datetime: Fecha/hora de la revisión
+    revision_score: Puntuación de revisión
     show_courses: Mostrar sólo mis cursos
+    uploaded_by: Subido por
   revisions:
     chars_added: Caracteres añadidos
     class: Clase
@@ -312,6 +349,31 @@ es:
       esté ejecutándose.
     paused: La tarea %{task} no se puede ejecutar porque se han pausado las actualizaciones
       programadas. Ejecuta 'rake batch:resume' para reanudar las actualizaciones.
+  timeline:
+    add_week: Añadir semana
+    blackout_week_created: Hay bloques programados para esta semana. Muévelos a otra
+      semana antes de quitar la última reunión de la clase de esta semana.
+    block_custom: Personalizado
+    block_in_class: En la clase
+    block_milestone: Hito
+    block_type: El tipo de bloque se usa para comunicarse con tus estudiantes acerca
+      de este tema en su cronograma y para construir herramientas útiles para ti (tales
+      como el hito descripto en la página de información general)
+    course_dates: Fechas del curso
+    discard_all_changes: Descartar todos los cambios
+    due_default: Previsto la semana próxima
+    empty_week_3: o
+    gradeable_value: Valor
+    move_block_down: Bajar el bloque
+    move_block_up: Subir el bloque
+    no_activity_this_week: Ninguna actividad esta semana
+    save_all_changes: Guardar todo
+    this_week_title_default: Esta semana
+    title: Cronograma
+    unable_to_add_week: No puedes agregar semanas nuevas cuando tu cronograma está
+      completo. Elimina al menos una semana o cambia las fechas de tareas para hacer
+      espacio para una nueva.
+    week_number: Semana %{number}
   training:
     continue: Continuar (%{progress})
     start: Iniciar
@@ -319,11 +381,15 @@ es:
     logged_out: Tu sesión se ha cerrado. No recibirás crédito por completar este módulo,
       a menos que inicies sesión.
   uploads:
+    datetime: Fecha/hora
+    file_name: Nombre del archivo
+    image: Imagen
     label: Subidas
     loading: Cargando subidas...
     none: Esta clase no ha contribuido con ninguna imagen o archivo multimedia a Wikimedia
       Commons.
     time_doc: El tiempo de cada subida en tu hora local
+    uploaded_by: Subido por
     usages: Usos
   users:
     already_enrolled: Ese usuario ya está inscrito.
@@ -337,11 +403,23 @@ es:
     chars_added: Caracteres añadidos<br>(espacio principal | espacio de usuarios)
     contributions: Contribuciones del usuario
     contributions_more: Ver más contribuciones
+    course_passcode: 'Código de acceso del curso:'
     editors: Editores estudiantiles
+    enroll: Inscribirse
+    enrollment: Inscripción
+    enroll_confirmation: ¿Estás seguro que deseas añadir a %{username} a este curso?
+    enroll_url: 'Los estudiantes pueden inscribirse visitando este URL:'
+    enrolled_success: ¡%{username} inscrito con éxito!
+    first_name: Nombre
+    last_name: Apellido
     loading: Cargando usuarios...
     name: Nombre
     none: Este curso no tiene estudiantes.
+    no_articles: Ningún artículo
+    no_revisions: Este usuario no ha hecho ninguna revisión.
+    number_of_articles: '%{number} artículos'
     recent_revisions: Ediciones recientes
+    remove_confirmation: ¿Estás seguro que deseas eliminar a %{username} de este curso?
     revisions_doc: El número de ediciones realizadas por este editor en los últimos
       7 días
     reviewers: Revisor(es)
@@ -357,6 +435,8 @@ es:
     training_modules_completed: '%{completed_count}/%{assigned_count} módulos de entenamiento
       completados'
     up_to_date_with_training: al día con el entrenamiento
+    username: Nombre de usuario
+    username_placeholder: Nombre de usuario
   wiki_edits:
     notify_overdue:
       confirm: Esto publicará un recordatorio en las páginas de discusión de todos
@@ -425,17 +505,6 @@ es:
     header: Error de inicio de sesión
     explanation: Parece que hubo un problema con el proceso de registro. (Lo sentimos.
       Esto sucede ocasionalmente.) Intenta iniciar sesión o inscribirte de nuevo.
-  timeline:
-    blackout_week_created: Hay bloques programados para esta semana. Muévelos a otra
-      semana antes de quitar la última reunión de la clase de esta semana.
-    block_type: El tipo de bloque se usa para comunicarse con tus estudiantes acerca
-      de este tema en su cronograma y para construir herramientas útiles para ti (tales
-      como el hito descripto en la página de información general)
-    due_default: Previsto la semana próxima
-    title: Cronograma
-    unable_to_add_week: No puedes agregar semanas nuevas cuando tu cronograma está
-      completo. Elimina al menos una semana o cambia las fechas de tareas para hacer
-      espacio para una nueva.
   survey:
     login_message: Gracias por tu tiempo. Inicia sesión en tu panel de Wiki Ed para
       participar en la encuesta.

@@ -15,6 +15,7 @@ ko:
   application:
     cancel: 취소
     dashboard: 위키 에듀 대시보드
+    field_required: 이 칸은 반드시 입력해야 합니다
     greeting2: 환영합니다!
     greeting_extended: 위키백과에 오신 것을 환영합니다
     greeting: 안녕하세요!
@@ -40,6 +41,7 @@ ko:
     edited_mobile: 문서
     label: 문서
     loading: 문서 불러오는 중...
+    new: (새)
     no_assignee: 할당된 사용자 없음
     none: 이 코스는 어느 문서도 편집하지 않았습니다.
     rating: 클래스
@@ -70,23 +72,52 @@ ko:
   courses:
     activity: 활동
     already_enrolled: 이미 %{title}에 참여하고 계세요!
+    actions: 행동
     articles: 문서
     articles_none: 본 코스는 어떠한 문서도 편집한 적이 없습니다.
+    calendar:
+      legend: 범례
+      legend_class_canceled: 휴강/취소됨
+      legend_class_meeting: 수업 미팅
+      legend_class_not_meeting: 예정된 미팅 없음
+    confirm_course_deletion: '%{title} 코스를 정말 제거하겠습니까? 과정 제목을 입력하여 계속하세요.'
+    confirm_course_deletion_failed: '"%{title}" 은(는) 이 과정의 제목이 아닙니다. 이 과정은 삭제되지 않았습니다.'
     course_description: 위키 에듀 코스
     courses: 과정
+    creator:
+      assignment_end: 과제 종료
+      assignment_end_placeholder: 과제 종료 (YYYY-MM-DD)
+      assignment_start: 과제 시작
+      assignment_start_placeholder: 과제 시작 (YYYY-MM-DD)
+      clone_successful: 과정이 성공적으로 복제되었습니다
+      course_term_placeholder: 학기
+      find_program: 프로그램 찾기
+      no_class_holidays: 휴강이 없습니다
+      save_cloned_course: 새 코스 저장
+      start_date_placeholder: 시작 날짜 (YYYY-MM-DD)
+      subject: 제목
     current: 현재 과정
+    delete_course: 과정 삭제
     duration: 과정 기간
     edit_course_dates: 코스 날짜 편집하기
+    end: 종료
     gradeables_none: 등급을 매길 수 있는 과제가 없습니다.
     instructor:
       other: 지도자
     instructors: 지침
     join: 가입하기
+    join_course: 과정 가입
     join_prompt: '''%{title}''에 가입할까요?'
     join_successful: '%{title}에 들어가는 데 성공했습니다.'
+    leave_course: 과정 나가기
     nocourses: 어떤 과정에도 참여하고 있지 않습니다.
+    none: 없음
+    no_available_actions: 취할 수 있는 행동 없음
     overview: 둘러보기
+    passcode_none: 비밀코드 없음
     school: 학교
+    start: 시작
+    start_typing: 입력 시작
     students: 학생
     students_count: '# 학생'
     students_none: 이 과정에는 학생이 없습니다.
@@ -116,6 +147,9 @@ ko:
     students: 편집자
     students_short: 편집자
     term: 날짜
+  editable:
+    edit: 편집
+    cancel: 취소
   metrics:
     activity: 최근 활동
     articles_created: 문서 생성됨
@@ -126,31 +160,79 @@ ko:
     char: 글자가 추가됨
     date_time: 날짜/시간
     edit_count_description: 총 편집
+    per_user: '%{number}/사용자'
     revisions: 최신판
     view: 보기
   namespace:
     user: 사용자 공간
     user_ns: 사용자
+  recent_activity:
+    article_title: 문서 제목
+    plagiarism_report: 표절 보고서
+    revision_author: 판 저자
+    revision_datetime: 판본 시간/날짜
+    revision_score: 판 점수
+    uploaded_by: 올린이
   revisions:
-    chars_added: 글자가 추가됨
+    chars_added: 글자 추가됨
     class: 클래스
     date_time: 날짜/시간
-    edited_by: '편집자 :'
+    edited_by: '편집자:'
     title: 제목
   tasks:
     conseq: '%{task} 작업이 아직도 돌아가고 있습니다!'
+  timeline:
+    block_assignment: 과제
+    block_custom: 사용자 지정
+    block_in_class: 수업중
+    block_milestone: 마일스톤
+    course_dates: 과정 날짜
+    course_end: 코스 종료
+    course_start: 코스 시작
+    discard_all_changes: 모든 바뀜 취소
+    empty_week_1: 시작하려면,
+    empty_week_3: 또는
+    empty_week_4: 미리 지정된 과제부터 시작하세요.
+    first_week_title: 첫 활동적인 주
+    gradeable_value: 값
+    grading_header: '점수 (총: %{total}%)'
+    no_class_holidays: 휴일 수업이 없습니다
+    no_timeline: 이 과정에는 타임라인이 없습니다.
+    no_activity_this_week: 이 주에 활동 없음
+    nothing_this_week: 이번 주 스케줄에 아무것도 없습니다.
+    save_all_changes: 모두 저장
+    this_week_title_default: 이번 주
+    week_number: '%{number} 주'
   training:
     start: 시작하기
     view: 보기
   uploads:
+    datetime: 날짜/시간
+    file_name: 파일 이름
+    header: 공용에 올린 파일
+    image: 그림
     label: 파일 올리기
     loading: 업로드 불러오는 중
     none: 이 과정에서는 위키미디어 공용에 기여한 이미지 또는 미디어 파일이 없습니다.
+    uploaded_by: 올린이
+    usage_count: 사용량 값
     usages: 사용
   users:
+    course_passcode: '과정 패스코드:'
+    enroll: 등록
+    enroll_confirmation: '%{username} 님을 과정에 추가하시겠습니까?'
+    enroll_url: '다음 URL을 방문하여 학생을 추가할 수 있습니다:'
+    enrolled_success: '%{username} 님이 성공적으로 구독되었습니다!'
+    first_name: 이름
+    last_name: 성
     name: 이름
+    no_articles: 문서 없음
+    number_of_articles: '%{number} 문서'
+    remove_confirmation: '%{username} 님을 과정에서 제거하겠습니까?'
     reviewers: 검토자
     student_editors: 학생 편집자
+    username: 사용자 이름
+    username_placeholder: 사용자 이름
   wiki_edits:
     notify_overdue:
       header: 제출 기간이 지난 교육 과제가 있습니다.

@@ -102,6 +102,9 @@ br:
   revisions:
     loading: O kargañ an adweladurioù...
     time_doc: Amzer pep adweladur en hoc'h eur lec'hel.
+  timeline:
+    due_default: Ar sizhun a zeu
+    title: Kronologiezh
   uploads:
     none: Ar rummmad-mañ n'en deus ket degaset e lod gant skeudenn ebet pe gant restr
       vedia ebet e Wikipedia Commons
@@ -145,7 +148,4 @@ br:
     header: 500 - fazi diabarzh ar servijer. :-(
     explanation: Un dra bennak a-dreuz a zo bet. Kit e darempred, mar plij gant an
       daolenn-stur-mañ evit kelaouiñ anezho ez eus ur gudenn.
-  timeline:
-    due_default: Ar sizhun a zeu
-    title: Kronologiezh
 ...

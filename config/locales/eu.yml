@@ -17,6 +17,7 @@ eu:
     edited: Editatutako artikuluak
     edited_mobile: Artikuluak
     loading: Artikuluak kargatzen...
+    new: (berria)
     rating: Klasea
     title: Izenburua
     view_all: Denak ikusi
@@ -31,12 +32,19 @@ eu:
     activity: Jarduera
     articles: Artikuluak
     courses: Ikastaroak
+    creator:
+      end_date_placeholder: Amaiera data (YYYY-MM-DD)
+      save_cloned_course: Gorde Ikastaro Berria
+      start_date_placeholder: Hasiera data (YYYY-MM-DD)
+    delete_course: Ezabatu ikastaroa
     overview: Ikuspegi orokorra
     students: Ikasleak
     students_short: Ikasleak
     title: Izenburua
     view_wiki: Wikipedia-n ikusi
     yourcourses: Zure ikastaroak
+  editable:
+    save: Gorde
   metrics:
     articles_created: Sortutako artikuluak
     articles_edited: Editatutako artikuluak
@@ -48,6 +56,9 @@ eu:
     edit_count_description: Aldaketak guztira
     view_count_description: Artikuluaren ikustaldiak
     view: Ikustaldiak
+  recent_activity:
+    datetime: Data/Ordua
+    image: Irudia
   revisions:
     date_time: Data/Ordua
     title: Izenburua

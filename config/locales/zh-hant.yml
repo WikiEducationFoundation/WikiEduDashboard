@@ -201,6 +201,10 @@ zh-hant:
     none: 本課程最近沒有維基百科的編輯活動。
     time_doc: 每個修訂版本的時間（顯示為您使用的本地時間）
     title: 標題
+  timeline:
+    due_default: 下週到期
+    title: 時間線
+    unable_to_add_week: 在時間線已滿的狀況下，您無法新增週數。刪除至少一週或修改您的作業日期來為新一週挪出空間。
   training:
     start: 開始
     view: 檢視
@@ -259,8 +263,4 @@ zh-hant:
     explanation: |-
       登錄過程似乎發生了一些問題（抱歉，這種事情偶而會發生！）
       請嘗試再次登錄或註冊。
-  timeline:
-    due_default: 下週到期
-    title: 時間線
-    unable_to_add_week: 在時間線已滿的狀況下，您無法新增週數。刪除至少一週或修改您的作業日期來為新一週挪出空間。
 ...

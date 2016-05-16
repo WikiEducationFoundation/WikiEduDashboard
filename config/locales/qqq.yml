@@ -150,7 +150,9 @@ qqq:
     already_exists: Message indicating that whatever was just added by the user already
       existed
     archived: Section heading for archived courses
-    actions: Header for available actions, such as joining the course
+    actions: |-
+      Header for available actions, such as joining the course
+      {{Identical|Action}}
     articles: |-
       Label for link to list of articles worked on by a course
       {{Identical|Article}}
@@ -183,6 +185,7 @@ qqq:
     current: Label for the list of current courses
     delete_course: Button to delete a course
     duration: Label for duration of a course
+    end: '{{Identical|End}}'
     error:
       exists: Error message indicating that a course with the same title, school and
         term already exists.
@@ -206,12 +209,14 @@ qqq:
       {{Identical|Loading}}
     new_week: Button for adding a new week to the timeline
     nocourses: Message indicating that the logged in user is not part of any courses
+    none: '{{Identical|None}}'
     no_available_actions: Placeholder message when no action buttons are available
     overview: Label for link to the overview page for a course
     passcode: |-
       Label for course passcode field
       {{Identical|Passcode}}
     review_timeline: Message prompting user to review the timeline
+    start: '{{Identical|Start}}'
     start_typing: Placeholder message in an input, prompting the user to type
     students: Label for link to the list of students for a course
     students_count: |-
@@ -290,7 +295,9 @@ qqq:
     image: |-
       Label for a table column of images
       {{Identical|Image}}
-    file_name: Label for the file name of an image
+    file_name: |-
+      Label for the file name of an image
+      {{Identical|Filename}}
     no_dyk_eligible: Message stating there are no "Did You Know" eligible articles.
     no_plagiarism: Message stating there are no recent revisions suspected of plagiarism.
     no_edits: Message stating there are no recent edits.
@@ -318,6 +325,13 @@ qqq:
     title: |-
       Label for title of the article
       {{Identical|Title}}
+  timeline:
+    block_custom: '{{Identical|Custom}}'
+    block_milestone: '{{Identical|Milestone}}'
+    empty_week_3: '{{Identical|Or}}'
+    gradeable_value: '{{Identical|Value}}'
+    title: '{{Identical|Timeline}}'
+    week_number: '{{Identical|Week}}'
   training:
     continue: Button label for continuing the training (plus percent completion)
     start: |-
@@ -327,6 +341,7 @@ qqq:
       Button label for viewing training progress
       {{Identical|View}}
   uploads:
+    image: '{{Identical|Image}}'
     label: |-
       Short name for uploads
       {{Identical|Upload}}
@@ -339,9 +354,13 @@ qqq:
     contributions: Label for list of contributions by a user
     contributions_more: Label for a link that loads more of a user's contributions
     editors: Label for the number of students enrolled in a course
+    enroll: '{{Identical|Enroll}}'
+    first_name: '{{Identical|First name}}'
+    last_name: '{{Identical|Last name}}'
     loading: Message indicating that information about users is still loading
     name: Label for usernames of students
     none: Message indicating that a course has no students enrolled
+    number_of_articles: '{{Identical|Article}}'
     reviewers: Label for list of users who are reviewers
     reviewing: Label for article or articles being reviewed by a user
     training_complete:
@@ -355,6 +374,8 @@ qqq:
       training. This applies only to courses that took place in 2015 or earlier.
     training_modules_completed: Label indicating how many of the training modules
       assigned to the course that an editor has completed
+    username: '{{Identical|Username}}'
+    username_placeholder: '{{Identical|Username}}'
   wizard:
     assignment_dates: Header for the assignment dates section of the wizard
     assignment_type: Header for the assignment type section of the wizard
@@ -383,9 +404,8 @@ qqq:
   error_500:
     header: Message indicating a 500 internal server error.
     explanation: Explanation of what to do after encountering this error.
-  timeline:
-    title: '{{Identical|Timeline}}'
   survey:
     email:
       headline: '{{Identical|Hello}}'
+      course: '{{Identical|Course}}'
 ...

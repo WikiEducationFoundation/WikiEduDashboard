@@ -96,6 +96,8 @@ pt:
     date_time: Data/Hora
     edited_by: Editado por
     title: Título
+  timeline:
+    title: Linha do tempo
   training:
     view: Ver
   uploads:
@@ -127,6 +129,4 @@ pt:
     header: 500 — erro interno do servidor.  :-(
   login_error:
     header: Erro ao iniciar sessão
-  timeline:
-    title: Linha do tempo
 ...

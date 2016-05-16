@@ -193,6 +193,8 @@ ru:
       обновление.
     paused: Задача %{task} не может быть выполнена, так как запланированные обновления
       были приостановлены. Запустите 'rake batch:resume', чтобы возобновить обновления.
+  timeline:
+    title: Хронология
   training:
     continue: Продолжить (%{progress})
     start: Начать
@@ -250,8 +252,6 @@ ru:
     header: 500 — внутренняя ошибка сервера. :-(
   login_error:
     header: Ошибка входа
-  timeline:
-    title: Хронология
   survey:
     email:
       headline: Здравствуйте, %{username}

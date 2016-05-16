@@ -252,6 +252,7 @@ it:
     char: Caratteri aggiunti
     date_time: Data/Ora
     edit_count_description: Modifiche totali
+    per_user: '%{number}/utente'
     revisions: Modifiche recenti
     upload_count: Caricamenti Commons
     uploads_in_use_count: file usati nelle voci
@@ -283,6 +284,14 @@ it:
     edited_by: Modificato da
     loading: Caricamento revisioni...
     title: Titolo
+  timeline:
+    due_default: Previsto per la prossima settimana
+    nothing_this_week: Non c'è niente in programma per questa settimana.
+    this_week_title_default: Questa settimana
+    title: Timeline
+    unable_to_add_week: Non puoi aggiungere nuove settimane quando la tua timeline
+      è piena. Cancella almeno una settimana o cambia le date di assegnazione per
+      fare spazio a una nuova.
   training:
     continue: Continua (%{progress})
     start: Inizio
@@ -302,10 +311,17 @@ it:
     contributions: Contributi dell'utente
     contributions_more: Visualizza Ulteriori Contributi
     editors: Editori
+    enroll: Iscriversi
+    enrollment: Iscrizione
+    enroll_confirmation: Sei sicuro di voler aggiungere %{username} a questo corso?
+    enroll_url: 'Gli studenti possono iscriversi visitando questo URL:'
+    first_name: Nome
+    last_name: Cognome
     loading: Caricamento utenti...
     name: Nome
     none: Questo corso non ha studenti.
     recent_revisions: Modifiche recenti
+    remove_confirmation: Sei sicuro di voler rimuovere %{username} da questo corso?
     revisions_doc: Il numero di modifiche effettuate da questo contributore negli
       ultimi 7 giorni
     reviewers: Revisori
@@ -320,6 +336,8 @@ it:
     training_modules_completed: '%{completed_count}/%{assigned_count} moduli formativi
       completati'
     up_to_date_with_training: aggiornato con la formazione
+    username: Nome utente
+    username_placeholder: Nome utente
   wizard:
     assignment_dates: Date di assegnazione
     assignment_type: Tipo di assegnazione
@@ -349,12 +367,6 @@ it:
     header: Errore durante l'accesso
     explanation: Sembra che ci sia un problema con il processo di accesso. (Ci dispiace!
       Succede di tanto in tanto.) Riprova la registrazione o l'iscrizione.
-  timeline:
-    due_default: Previsto per la prossima settimana
-    title: Timeline
-    unable_to_add_week: Non puoi aggiungere nuove settimane quando la tua timeline
-      è piena. Cancella almeno una settimana o cambia le date di assegnazione per
-      fare spazio a una nuova.
   survey:
     login_message: Grazie per il tuo tempo. Accedi al tuo cruscotto Wiki Ed per partecipare
       al sondaggio.

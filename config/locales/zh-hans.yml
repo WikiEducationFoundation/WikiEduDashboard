@@ -13,6 +13,8 @@ zh-hans:
     dashboard: Wiki Ed控制面板
     error: 发生了错误：
     explore: 浏览
+    field_required: 此字段是必需的
+    field_invalid_characters: 此字段有无效字符
     greeting2: 欢迎！
     greeting_extended: 欢迎来到维基百科
     greeting: 您好！
@@ -103,6 +105,7 @@ zh-hans:
     already_enrolled: 您已经是“%{title}”的一部分！
     already_exists: 已存在于该课程中！
     archived: 已存档的课程
+    actions: 操作
     articles: 条目
     articles_none: 此课程没有编辑任何条目。
     assignment_end: 任务结束
@@ -114,9 +117,17 @@ zh-hans:
       legend_class_meeting: 班会
       legend_class_not_meeting: 没有预定会议
       select_meeting_days: 选择一周内您要开班会的几天。
+    cohorts: 同生群：
+    confirm_course_deletion: 您是否要删除标题为%{title}的课程？如果是，输入课程标题以进行。
+    confirm_course_deletion_failed: “%{title}”不是此课程的标题。课程未被删除。
     course_description: 课程
     courses: 课程
     creator:
+      assignment_end: 任务结束
+      assignment_end_placeholder: 分配结束日（YYYY-MM-DD）
+      assignment_start: 任务开始
+      assignment_start_placeholder: 分配开始日（YYYY-MM-DD）
+      clone_successful: 课程已成功克隆
       course_description: 课程描述
       course_school: 课程学校
       course_subject: 课程科目
@@ -131,13 +142,18 @@ zh-hans:
       end_date_placeholder: 结束日期（YYYY-MM-DD）
       expected_number: 预计学生人数
       find: 找到您的课程
+      find_program: 找到您的项目
       intro: 标题、学校和学期会创建您课程页面的URL，并且不能更改。除这些以外，您可以日后编辑。点击“创建我的课程！”以开始构造用于您维基百科任务分配的时间轴。
+      no_class_holidays: 我没有班级假日
+      save_cloned_course: 保存新的课程
       start_date: 开始日期
       start_date_placeholder: 开始日期（YYYY-MM-DD）
       subject: 主题
     current: 当前课程
+    delete_course: 删除课程
     duration: 课程持续时间
     edit_course_dates: 编辑课程日期
+    end: 结束
     error:
       exists: 那个课程已存在！请使用不同的标题、学校或学期再试。
       user_exists: 对不起，%{username}不是一位存在的用户。
@@ -150,21 +166,27 @@ zh-hans:
       您已被邀请加入%{title}。要加入课程，您需要使用维基百科账户登录。
       如果您尚未拥有维基百科账户，现在注册一个。
     join: 加入
+    join_course: 加入课程
     join_prompt: 加入“%{title}”么？
     join_successful: 您已成功加入%{title}。
     leave_confirmation: 您确定要离开这个课程么？
+    leave_course: 离开课程
     loading: 正在载入…
     milestones_none: 此课程目前没有任何里程碑。
     new_week: 添加新的一周
     nocourses: 您未参加任何课程。
+    none: 无
+    no_available_actions: 无可用操作
     overview: 概述
     passcode: 密码
+    passcode_none: 无密码
     passcode_prompt: 输入由该课程的导师向您提供的密码
     published: 您的课程已发布！学生们可以通过下面的URL报名课程：
     review_timeline: 请检查该时间表，并作出更改。一旦您对您的时间表感到满意，将其提交给Wiki Ed职员以待批准。一旦获得批准，您将得到一个登记URL，学生可以使用它加入课程。（您仍然可以稍后编辑。）
     revisions_doc: 过去%{timeframe}天内的编辑数
     revisions_none: 此课程最近没有活跃编辑维基百科。
     school: 学校
+    start: 开始
     start_typing: 开始输入
     students: 学生
     students_count: '# 学生'
@@ -239,6 +261,7 @@ zh-hans:
     char: 添加的字符
     date_time: 日期/时间
     edit_count_description: 总计编辑
+    per_user: '%{number}/用户'
     revisions: 最近编辑
     upload_count: 共享资源上传
     uploads_in_use_count: 条目中使用的文件
@@ -284,16 +307,55 @@ zh-hans:
     conseq: 课程%{task}已在进行！
     constant: 当update_daily运行时，任务%{task}不能运行。
     paused: 任务%{task}不能运行，因为计划更新已暂停。运行“rake batch:resume”以恢复更新。
+  timeline:
+    add_week: 添加周
+    arrange_timeline: 安排时间轴
+    block_assignment: 分配
+    block_custom: 自定义
+    block_in_class: 上课中
+    block_milestone: 里程碑
+    course_dates: 课程日期
+    course_dates_instructions: 选择整个课程的开始和结束日期（而不只是维基百科分配）。
+    course_end: 课程结束
+    course_start: 课程开始
+    delete_week_confirmation: |-
+      您确定要删除该周？这将删除这周及其所有相关块。
+
+      这不能撤销。
+    discard_all_changes: 丢弃所有更改
+    due_default: 预计下周
+    empty_week_1: 要开始，
+    empty_week_2: 开始编辑本周
+    empty_week_3: 或
+    first_week_title: 首个活跃周
+    gradeable_value: 值
+    grading_header: 正在分级（总计：%{total}%）
+    move_block_down: 向下移动块
+    move_block_up: 向上移动块
+    no_class_holidays: 我没有班级假日
+    no_timeline: 此课程没有时间轴。
+    no_activity_this_week: 本周没有活动
+    save_all_changes: 保存全部
+    this_week_title_default: 本周
+    title: 时间轴
+    unable_to_add_week: 当您的时间轴充满时，您不能添加新周。删除至少一周或更改您的分配日期以为新的一周腾出地方。
+    week_number: 第%{number}周
   training:
     continue: 继续（%{progress}）
     start: 开始
     view: 查看
     logged_out: 您已退出。除非您登录，您将不会收到完成此模块的学分。
   uploads:
+    datetime: 日期/时间
+    file_name: 文件名
+    header: 上传至维基共享资源的文件
+    image: 图像
     label: 上传
     loading: 正在加载上传...
     none: 此班级没有贡献任何图片或其他媒体文件至维基共享资源。
     time_doc: 您本地时间的每次上传时间
+    uploaded_by: 上传者
+    usage_count: 使用计数
     usages: 用法
   users:
     already_enrolled: 那位用户已经登记了！
@@ -302,11 +364,25 @@ zh-hans:
     chars_added: 添加的字符<br>（主名字空间 | 用户名字空间）
     contributions: 用户贡献
     contributions_more: 查看更多贡献
+    course_passcode: 课程密码：
     editors: 学生编辑者
+    enroll: 注册
+    enrollment: 登记
+    enroll_confirmation: 您确定要添加%{username}至此课程么？
+    enroll_url: 学生可通过访问此URL登记：
+    enrolled_success: '%{username}已成功登记！'
+    first_name: 名
+    last_name: 姓
     loading: 正在加载用户...
+    characters_added_mainspace: 添加的主空间字符
+    characters_added_userspace: 添加的用户空间字符
     name: 名字
     none: 此课程没有学生。
+    no_articles: 没有条目
+    no_revisions: 这位用户没有做出修订。
+    number_of_articles: '%{number}个条目'
     recent_revisions: 最近编辑
+    remove_confirmation: 您确定要从此课程中移除%{username}吗？
     revisions_doc: 此编辑者在过去7天内的编辑次数
     reviewers: 复核员
     reviewing: 正在复核
@@ -318,6 +394,8 @@ zh-hans:
     training_incomplete: 培训未完成
     training_modules_completed: '%{completed_count}/%{assigned_count}培训模块已完成'
     up_to_date_with_training: 最近培训
+    username: 用户名
+    username_placeholder: 用户名
   wiki_edits:
     notify_overdue:
       header: 您有一个过期的培训任务。
@@ -357,10 +435,6 @@ zh-hans:
   login_error:
     header: 登录错误
     explanation: 看起来登录过程中遇到了问题。（很抱歉！它偶尔发生。）请尝试重新登录或登记。
-  timeline:
-    due_default: 预计下周
-    title: 时间轴
-    unable_to_add_week: 当您的时间轴充满时，您不能添加新周。删除至少一周或更改您的分配日期以为新的一周腾出地方。
   survey:
     login_message: 感谢您抽出时间。请登录您的Wiki Ed控制面板以接受调查。
     notification_schedule_explanation: 通知包含浏览器内通知和电子邮件，如果在上方启用了的话。

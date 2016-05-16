@@ -128,6 +128,8 @@ oc:
     edited_by: Modificat per
     loading: Cargament de las revisions...
     title: Títol
+  timeline:
+    title: Planning
   training:
     start: Aviar
     view: Afichar
@@ -159,6 +161,4 @@ oc:
     header: 500 — error intèrna del servidor.  :-(
   login_error:
     header: Error de connexion
-  timeline:
-    title: Planning
 ...

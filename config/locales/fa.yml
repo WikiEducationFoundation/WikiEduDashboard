@@ -95,11 +95,11 @@ fa:
     user_ns: کاربر
   recent_activity:
     recent_uploads: بارگذاری‌های اخیر
+  timeline:
+    title: خط زمان
   users:
     name: نام
     student_editors: ویراستاران دانشجویی
   wizard:
     summary: خلاصه
-  timeline:
-    title: خط زمان
 ...

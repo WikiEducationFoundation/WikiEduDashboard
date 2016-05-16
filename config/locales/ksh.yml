@@ -5,6 +5,8 @@
 ---
 ksh:
   application:
+    error: 'Ene Fähler es opjetrodde:'
+    field_required: Dat Fäld moß aanjejovve sin.
     help: Hölp!
     log_out: Ußlogge
     search: Schtäll en Frohch
@@ -19,6 +21,7 @@ ksh:
     edited: Jeännderte Atikelle
     edited_mobile: Atikele
     loading: Ben Atikelle aam Lahde&nbsp;&hellip;
+    new: (Neu)
     title: Övverschreff
     view: Atikel belohre
     view_all: Alle belohre
@@ -31,18 +34,32 @@ ksh:
       title: Meijleschtein
   courses:
     activity: Aktivitäht
+    actions: Akßjuhne
     articles: Atikele
+    calendar:
+      legend_class_not_meeting: Keij Träfe es jeplahnt
     course_description: Korse för em Wikki ze liehre.
     creator:
+      assignment_end: Et Ängk vun dä Zohdeijlong
+      assignment_end_placeholder: Ängk vun dä Zohdeijlong (Johr-MM-DD)
+      assignment_start: ejenn vun dä Zohdeijlong
       course_subject: Et Tehma vum Kochs
       course_title: Övverschreff vum Kochs
       create_label: Lääsch ene neuje Kochs aan
       create_new: Lääsch ene neuje Kochs aan
       create_short: Lääsch ene Kochs aan
       end_date: Et Dattum vum Engk
+      end_date_placeholder: Dattom vum Ängk (Johr-MM-DD)
       find: Fengk Dinge Kochs
       start_date: Et Dattom vum Aanfang
+      start_date_placeholder: Dattom um Bejenn (Yohr-MM-DD)
+      subject: Tehma
+    end: Ängk
+    loading: Aam lahde&nbsp;…
+    no_available_actions: Keinjn Axjuhne müjjelesch
     overview: Övverblek
+    start: Bejenn
+    start_typing: Fang et Tippe aan
     title: Övverschreff
   courses_generic:
     creator:
@@ -50,6 +67,10 @@ ksh:
       course_title: Övverschreff vum Projramm
       create_short: Lääsch e Projramm aan
       find: Fengk Di Projramm
+  editable:
+    edit: Änndere
+    cancel: Ophüre
+    save: Faßhalde
   metrics:
     activity: Zeläz jedonn
     articles_created: Aanjelahte Atikelle
@@ -70,7 +91,10 @@ ksh:
     user_char_added: Zeijsche em Appachtemang för de Metmaacher derbei jedonn
     user_ns: Metmaacher
   recent_activity:
+    datetime: Dattum un Zigg
     did_you_know_eligible: Ußwählbaa för „Had_Er ald jewoß?“
+    image: Beld
+    file_name: Dä Dattei iehre Nahme
     no_dyk_eligible: Mer han kein Atikelle, di för „Had_Er ald jewoß?“ ußjewählt wähde
       künnte.
     no_plagiarism: Mer han em mmang kein älldere Väsjohne, di em Verdaach schtonn
@@ -79,18 +103,41 @@ ksh:
     possible_plagiarism: Velleijsch jekleut?
     recent_edits: Köözlesche Änderonge
     recent_uploads: Köözlesch huhjelahde
+    revision_author: Dä Väsion iere Schriever
     show_courses: Zeijsch blohß ming Korse aan
+    uploaded_by: Huhjelahde Vum
   revisions:
+    edited_by: Jeändert Vum
     time_doc: De Zigg vun jehde Väsjohn en Dinge Ziggzohn
+  timeline:
+    add_week: Donn en Woch derbei
+    empty_week_1: För aanzefange,
+    empty_week_3: udder
+    gradeable_value: Wäät
+    move_block_down: Don dä Blok noh onge
+    move_block_up: Don dä Blok noh bovve
+    save_all_changes: Alle faßhallde
+    this_week_title_default: Dis Woch
+    week_number: Woch %{number}
   uploads:
+    datetime: Dattum un Zigg
+    file_name: Dä Dattei iehre Nahme
+    image: Beld
     loading: Ben huhjelahde Dahte aam Lahde&nbsp;&hellip;
     none: Kein datteije wodt huhjelahde
   users:
     assigned: Uohjedeijlte Atikelle
     assignees: Zohjedeijlt
     contributions_more: Belohr mih Beijdrähsch
+    enroll: Enschrihve
+    first_name: Vörnahme
+    last_name: Nohnahme
     name: Nahme
+    no_articles: Kein Atikelle
+    number_of_articles: '%{number} Atikele'
     recent_revisions: Köözlesche Änderonge
+    username: Metmaacher_Nahme
+    username_placeholder: Metmaacher_Nahme
   wizard:
     summary: Zosammejefaß
   error:

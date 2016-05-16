@@ -21,6 +21,7 @@ ku-latn:
     view_other: Komên din bibîne
   courses:
     activity: Çalakî
+    actions: Çalakî
     articles: Gotar
     course_description: Qurs
     courses: Kurs
@@ -48,6 +49,9 @@ ku-latn:
     view: Dîtin
   namespace:
     user_ns: Bikarhêner
+  timeline:
+    this_week_title_default: Ev Hefte
+    title: Demname
   uploads:
     loading: Barkirin tên bar kirin...
     none: Pel nehatiye barkirin
@@ -56,9 +60,12 @@ ku-latn:
     contributions: Beşdariyên Bikarhênerê
     contributions_more: Zêdetir Beşdariyan Bibîne
     editors: Edîtorên Xwendekaran
+    last_name: Paşnav
     loading: Bikarhêner tên barkirin...
     name: Nav
     recent_revisions: Guhertinên Dawî
+    username: Navê bikarhêner
+    username_placeholder: Navê bikarhêner
   wizard:
     course_dates: Dîroka Kursê
     read_more: Zêdetir Bixwîne
@@ -71,6 +78,4 @@ ku-latn:
     header: Bêdestûr. >:-(
   error_404:
     header: Rûpel nehate dîtin. :-(
-  timeline:
-    title: Demname
 ...

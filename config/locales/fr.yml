@@ -7,6 +7,7 @@
 # Author: LudaOtaku
 # Author: Macofe
 # Author: PifyZ
+# Author: Trial
 # Author: Verdy p
 # Author: Wladek92
 # Author: Zetud
@@ -314,6 +315,7 @@ fr:
     save: Enregistrer
   metrics:
     activity: Activité récente
+    are_trained: sont à jour dans leur formation
     articles_created: Articles créés
     articles_edited: Articles modifiés
     characters: Caractères
@@ -322,6 +324,7 @@ fr:
     char: Caractères ajoutés
     date_time: Date/Heure
     edit_count_description: Total des modifications
+    per_user: '%{number}/utilisateur'
     revisions: Modifications récentes
     upload_count: Téléversement de Commons
     uploads_in_use_count: fichiers utilisés dans des articles
@@ -370,6 +373,21 @@ fr:
       fonctionne.
     paused: La tâche %{task} ne peut pas tourner car les mises à jour de l’ordonnanceur
       ont été suspendues. Lancez 'rake batch:resume' pour reprendre les mises à jour.
+  timeline:
+    blackout_week_created: Il y a des blocs prévus dans cette semaine. Veuillez les
+      déplacer à une autre semaine avant de supprimer la dernière réunion de classe
+      de cette semaine.
+    block_type: Le type de bloc est utilisé pour communiquer à vos étudiants sur cet
+      élément dans leur planning et pour construire des outils utiles pour vous (comme
+      la visualisation des jalons sur la page Vue d’ensemble)
+    due_default: Attendu de la semaine prochaine
+    first_week_title: Première semaine active
+    nothing_this_week: Il n’y a rien au planning pour cette semaine.
+    this_week_title_default: Cette semaine
+    title: Planning
+    unable_to_add_week: Vous ne pouvez pas ajouter de nouvelles semaines quand votre
+      planning est plein. Supprimez au moins une semaine ou modifiez vos dates d’affectation
+      pour faire de la place pour une nouvelle semaine.
   training:
     continue: Continuer (%{progress})
     start: Démarrer
@@ -395,11 +413,23 @@ fr:
     chars_added: Caractères ajoutés<br>(espace principal | espace utilisateur)
     contributions: Contributions de l’utilisateur
     contributions_more: Afficher plus de contributions
+    course_passcode: 'Mot de passe du cours :'
     editors: Editeurs étudiants
+    enroll: S’inscrire
+    enrollment: Inscription
+    enroll_confirmation: Êtes-vous sûr de vouloir ajouter %{username} à ce cours ?
+    enroll_url: 'Les étudiants peuvent s’inscrire en allant à cette URL :'
+    enrolled_success: '%{username} inscrit !'
+    first_name: Prénom
+    last_name: Nom
     loading: Chargement des utilisateurs…
+    characters_added_mainspace: Caractères MS ajoutés
+    characters_added_userspace: Caractères US ajoutés
     name: Nom
     none: Ce cours n’a aucun étudiant.
+    no_revisions: Cet utilisateur n’a fait aucune révision.
     recent_revisions: Modifications récentes
+    remove_confirmation: Êtes-vous sûr de vouloir supprimer %{username} de ce cours ?
     revisions_doc: Le nombre de modifications faites par cet éditeur durant les 7
       derniers jours
     reviewers: Relecteur(s)
@@ -415,6 +445,8 @@ fr:
     training_modules_completed: '%{completed_count}/%{assigned_count} modules de formation
       terminés'
     up_to_date_with_training: formation à jour
+    username: Nom d’utilisateur
+    username_placeholder: Nom d’utilisateur
   wiki_edits:
     notify_overdue:
       confirm: Cela publiera un rappel sur les pages de discussion de tous les étudiants
@@ -486,18 +518,6 @@ fr:
     explanation: Il semble qu'il y ait un problème avec le processus en cours. (Désolé
       à ce sujet! Cela arrive de temps en temps.) S'il vous plaît essayez de vous
       reconnecter, ou réinscrivez-vous à nouveau.
-  timeline:
-    blackout_week_created: Il y a des blocs prévus dans cette semaine. Veuillez les
-      déplacer à une autre semaine avant de supprimer la dernière réunion de classe
-      de cette semaine.
-    block_type: Le type de bloc est utilisé pour communiquer à vos étudiants sur cet
-      élément dans leur planning et pour construire des outils utiles pour vous (comme
-      la visualisation des jalons sur la page Vue d’ensemble)
-    due_default: Attendu de la semaine prochaine
-    title: Planning
-    unable_to_add_week: Vous ne pouvez pas ajouter de nouvelles semaines quand votre
-      planning est plein. Supprimez au moins une semaine ou modifiez vos dates d’affectation
-      pour faire de la place pour une nouvelle semaine.
   survey:
     login_message: Merci pour votre temps. Veuillez vous connecter à notre tableau
       de bord Wiki Ed pour participer au sondage.

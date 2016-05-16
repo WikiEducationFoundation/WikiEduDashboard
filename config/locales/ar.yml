@@ -86,6 +86,8 @@ ar:
   revisions:
     class: رتبة
     title: عنوان
+  timeline:
+    title: خط زمني
   training:
     start: بداية
     view: اعرض
@@ -99,6 +101,4 @@ ar:
     summary: ملخص
   login_error:
     header: خطأ في الدخول
-  timeline:
-    title: خط زمني
 ...

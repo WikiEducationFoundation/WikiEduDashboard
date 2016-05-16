@@ -107,6 +107,8 @@ lt:
     date_time: Data/Laikas
     edited_by: Redagavo
     title: Pavadinimas
+  timeline:
+    title: Laiko juosta
   uploads:
     usages: Panaudojimai
   users:
@@ -119,8 +121,6 @@ lt:
   error:
     unsupported_browser:
       header: Nepalaikoma naršyklė :-(
-  timeline:
-    title: Laiko juosta
   survey:
     email:
       closing: Pagarbiai,

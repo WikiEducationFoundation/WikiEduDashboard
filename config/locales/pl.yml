@@ -10,6 +10,8 @@ pl:
     cancel: Anuluj
     error: 'Wystąpił błąd:'
     explore: Odkryj
+    field_required: Wypełnienie tego pola jest obowiązkowe
+    field_invalid_characters: To pole zawiera niedozwolone znaki
     greeting: Witaj!
     help: Pomoc
     home: Strona główna
@@ -104,19 +106,37 @@ pl:
     date_time: Data/Czas
     loading: Wczytywanie wersji...
     title: Tytuł
+  timeline:
+    course_end: Zakończenie kursu
+    course_start: Początek kursu
+    empty_week_3: lub
+    gradeable_value: Wartość
+    no_activity_this_week: Brak aktywności w tym tygodniu
+    save_all_changes: Zapisz wszystko
+    this_week_title_default: Bieżący tydzień
+    title: Oś czasu
+    week_number: Tydzień %{number}
   training:
     start: Start
+  uploads:
+    datetime: Data/Czas
+    image: Obraz
+    uploaded_by: Przesłane przez
   users:
     contributions: Wkład użytkownika
     editors: Edytorzy
+    enroll_confirmation: Czy na pewno chcesz dodać %{username} do tego kursu?
+    first_name: Imię
+    last_name: Nazwisko
     loading: Wczytywanie użytkowników...
     name: Nazwa
+    no_revisions: Ten użytkownik wniósł żadnych zmian.
     revisions_doc: Liczba edycji dokonanych przez tego edytora w ciągu ostatnich 7
       dni
+    username: Nazwa użytkownika
+    username_placeholder: Nazwa użytkownika
   wizard:
     summary: Podsumowanie
-  timeline:
-    title: Oś czasu
   survey:
     email:
       headline: Witaj, %{username}

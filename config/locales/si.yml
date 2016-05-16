@@ -57,6 +57,9 @@ si:
     user_ns: පරිශීලක
   revisions:
     loading: සංස්කරණයන් පූරණය වෙමින්...
+  timeline:
+    due_default: ලබන සතියේ හේතුවෙන්
+    title: කාල රේඛාව
   uploads:
     loading: උඩුගත කිරීම් පූරණය වෙමින්...
     usages: භාවිතයන්
@@ -77,7 +80,4 @@ si:
       header: සහය නොදක්වන බ්‍රවුසරය. :-(
   error_404:
     header: පිටුව සොයාගත නොහැකි විය. :-(
-  timeline:
-    due_default: ලබන සතියේ හේතුවෙන්
-    title: කාල රේඛාව
 ...

@@ -173,6 +173,17 @@ ast:
       update_daily.
     paused: La xera %{task} nun pué executase porque tán posaos los anovamientos programaos.
       Executa 'rake batch:resume' pa siguir colos anovamientos.
+  timeline:
+    blackout_week_created: Hai bloques programaos pa esta selmana. Muévelos a otra
+      selmana antes de desaniciar l'últimu aconceyamientu de clase d'esta selmana.
+    block_type: El tipu bloque úsase pa comunicar a los estudiantes sobro esti elementu
+      nel so cronograma y pa construyir ferramientes útiles pa ti (tales como'l resume
+      de finxos de la páxina de resume)
+    due_default: Previstu pa la selmana viniente
+    title: Cronograma
+    unable_to_add_week: Nun pues amestar nueves selmanes cuando'l to cronograma ta
+      completu. Desanicia polo menos una selmana o cambia les dates de la xera pa
+      facer sitiu pa la nueva.
   uploads:
     loading: Cargando xubes...
     none: Esta clase nun contribuyó con nenguna imaxe o ficheru multimedia a Wikimedia
@@ -272,15 +283,4 @@ ast:
     header: Error d'aniciu de sesión
     explanation: Paez qu'hai un problema col procesu d'aniciu de sesión (pasa dacuando;
       sentímoslo muncho). Intenta volver a aniciar sesión o volver a inscribite.
-  timeline:
-    blackout_week_created: Hai bloques programaos pa esta selmana. Muévelos a otra
-      selmana antes de desaniciar l'últimu aconceyamientu de clase d'esta selmana.
-    block_type: El tipu bloque úsase pa comunicar a los estudiantes sobro esti elementu
-      nel so cronograma y pa construyir ferramientes útiles pa ti (tales como'l resume
-      de finxos de la páxina de resume)
-    due_default: Previstu pa la selmana viniente
-    title: Cronograma
-    unable_to_add_week: Nun pues amestar nueves selmanes cuando'l to cronograma ta
-      completu. Desanicia polo menos una selmana o cambia les dates de la xera pa
-      facer sitiu pa la nueva.
 ...

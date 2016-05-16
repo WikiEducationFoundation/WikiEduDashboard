@@ -226,6 +226,9 @@ pt-br:
     none: Esse curso não tem nenhuma atividade recente de edição na Wikipédia.
     time_doc: Horário de cada revisão em seu horário local
     title: Título
+  timeline:
+    due_default: Previsto para a próxima semana
+    title: Linha do tempo
   training:
     start: Iniciar
     view: Ver
@@ -275,9 +278,6 @@ pt-br:
     header: 422 - entidade improcessável. :-(
   error_500:
     header: 500 - Erro interno do servidor. :-(
-  timeline:
-    due_default: Previsto para a próxima semana
-    title: Linha do tempo
   survey:
     email:
       signed: '- a equipe Wiki Ed'

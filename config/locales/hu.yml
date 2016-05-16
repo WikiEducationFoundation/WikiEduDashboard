@@ -63,6 +63,8 @@ hu:
     edited_by: Szerkesztette
     loading: Változatok betöltése...
     title: Cím
+  timeline:
+    title: Idővonal
   training:
     view: Nézet
   uploads:
@@ -87,8 +89,6 @@ hu:
     header: 500 — belső szerverhiba. :-(
   login_error:
     header: Bejelentkezési hiba
-  timeline:
-    title: Idővonal
   survey:
     email:
       headline: Helló, %{username}
