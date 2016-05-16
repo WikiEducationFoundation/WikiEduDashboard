@@ -69,7 +69,7 @@ class UsersController < ApplicationController
       render 'users', formats: :json
     else
       username = enroll_params[:user_id] || enroll_params[:username]
-      render json: I18n.t('courses.error.user_exists',username: username),
+      render json: { message: I18n.t('courses.error.user_exists', username: username) },
              status: 404
     end
   end

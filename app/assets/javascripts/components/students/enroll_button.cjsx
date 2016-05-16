@@ -23,9 +23,8 @@ EnrollButton = React.createClass(
     e.preventDefault()
     username = @refs.username.value
     user_obj = { username: username, role: @props.role }
-    if UserStore.getFiltered({ username: username, role: @props.role }).length == 0 &&
-       confirm I18n.t('users.enroll_confirmation', username: username)
-        ServerActions.add 'user', @props.course_id, { user: user_obj }
+    if UserStore.getFiltered({ username: username, role: @props.role }).length == 0 && confirm I18n.t('users.enroll_confirmation', username: username)
+      ServerActions.add 'user', @props.course_id, { user: user_obj }
     else
       alert I18n.t('users.already_enrolled')
   unenroll: (user_id) ->

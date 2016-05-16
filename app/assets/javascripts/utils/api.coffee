@@ -407,7 +407,6 @@ API =
           res data
       .fail (obj, status) ->
         console.error "#{capitalize(model)} not #{verb}: #{getErrorMessage(obj)}"
-        alert getErrorMessage(obj)
         rej obj
 
   onboard: (data) ->

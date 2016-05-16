@@ -15,14 +15,14 @@ class AssignmentsController < ApplicationController
   end
 
   def destroy
-    id = params[:id]
-    @assignment = Assignment.find(id)
+    @id = params[:id]
+    set_assignment { return }
     @course = @assignment.course
     check_permissions(@assignment.user_id)
     update_onwiki_course_and_assignments
     remove_assignment_template
     @assignment.destroy
-    render json: { article: id }
+    render json: { article: @id }
   end
 
   def create
@@ -56,15 +56,22 @@ class AssignmentsController < ApplicationController
     @course = Course.find_by_slug(URI.unescape(params[:course_id]))
   end
 
+  def set_assignment
+    @assignment = Assignment.find_by(id: @id)
+    return unless @assignment.nil?
+    render json: { message: t('error.invalid_assignment') }, status: 404
+    yield
+  end
+
   def set_wiki
     home_wiki = @course.home_wiki
     language = params[:language] || home_wiki.language
     project = params[:project] || home_wiki.project
-    @wiki = Wiki.find_by(language: language, project: project)
+    @wiki = Wiki.find_or_create_by(language: language, project: project)
     @wiki ||= home_wiki
     return unless @wiki.id.nil?
     # Error handling for an invalid wiki
-    render json: t('error.invalid_assignment'), status: 404
+    render json: { message: t('error.invalid_assignment') }, status: 404
     yield
   end
 

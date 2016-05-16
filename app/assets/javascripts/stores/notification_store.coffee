@@ -21,7 +21,6 @@ removeNotification = (notification) ->
   _.pull(_notifications, notification)
   NotificationStore.emitChange()
 
-
 # Store
 #----------------------------------------
 
@@ -44,11 +43,14 @@ NotificationStore = Flux.createStore
       notification.closable = true
       notification.type = "error"
       if data.responseText
-        notification.message = data.responseText
-      else if data.responseJSON and data.responseJSON.error
-        notification.message = data.responseJSON.error
-      else
-        notification.message = data.statusText
+        try
+          notification.message = JSON.parse(data.responseText)['message']
+        catch
+
+      if data.responseJSON and data.responseJSON.error
+        notification.message ||= data.responseJSON.error
+
+      notification.message ||= data.statusText
       addNotification(notification)
       break
 
