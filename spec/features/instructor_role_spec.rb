@@ -96,9 +96,7 @@ describe 'Instructor users', type: :feature, js: true do
       click_button 'Enrollment'
       within('#users') { all('input')[1].set('NotARealUser') }
       page.accept_confirm do
-        page.accept_confirm do
-          click_button 'Enroll'
-        end
+        click_button 'Enroll'
       end
       expect(page).to have_content 'NotARealUser is not an existing user.'
     end
