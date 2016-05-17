@@ -39,7 +39,7 @@ const CourseUtils = class {
       return {
         title,
         project: null,
-        langauge: null
+        language: null
       };
     }
 

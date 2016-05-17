@@ -155,10 +155,11 @@ API =
         rej obj
 
   deleteAssignment: (assignment) ->
+    queryString = $.param(assignment)
     new Promise (res, rej) ->
       $.ajax
         type: 'DELETE',
-        url: "/assignments/#{assignment.id}"
+        url: "/assignments/#{assignment.assignment_id}?#{queryString}"
         success: (data) ->
           console.log 'Deleted assignment'
           res data

@@ -24,27 +24,52 @@ describe AssignmentsController do
 
   describe 'DELETE destroy' do
     context 'when the user owns the assignment' do
-      let(:assignment) { create(:assignment, course_id: course.id, user_id: user.id) }
+      let(:assignment) { create(:assignment, course_id: course.id, user_id: user.id,
+                                article_title: 'Selfie', role: 0) }
+
       before do
         expect_any_instance_of(WikiCourseEdits).to receive(:remove_assignment)
         expect_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
         expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
-        delete :destroy, id: assignment.id
-      end
-      it 'destroys the assignment' do
-        expect(Assignment.count).to eq(0)
       end
 
-      it 'renders a json response' do
-        id = assignment.id.to_s
-        expect(response.body).to eq({ article: id }.to_json)
+      context 'when the assignment_id is provided' do
+        let(:params) { { course_id: course.slug } }
+        before do
+          delete :destroy, { id: assignment.id }.merge(params)
+        end
+        it 'destroys the assignment' do
+          expect(Assignment.count).to eq(0)
+        end
+
+        it 'renders a json response' do
+          id = assignment.id.to_s
+          expect(response.body).to eq({ article: id }.to_json)
+        end
+      end
+
+      context 'when the assignment_id is not provided' do
+        let(:params) do
+          { course_id: course.slug, user_id: user.id,
+            article_title: assignment.article_title, role: assignment.role }
+        end
+        before do
+          delete :destroy, { id: 'undefined' }.merge(params)
+        end
+        # This happens when an assignment is deleted right after it has been created.
+        # The version in the AssignmentStore will not have an assignment_id until
+        # it gets refreshed from the server.
+        it 'deletes the assignment' do
+          expect(Assignment.count).to eq(0)
+        end
       end
     end
 
     context 'when the user does not have permission do destroy the assignment' do
       let(:assignment) { create(:assignment, course_id: course.id, user_id: user.id + 1) }
+      let(:params) { { course_id: course.slug } }
       before do
-        delete :destroy, id: assignment.id
+        delete :destroy, { id: assignment }.merge(params)
       end
 
       it 'does not destroy the assignment' do

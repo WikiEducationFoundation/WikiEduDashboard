@@ -72,6 +72,7 @@ AssignButton = React.createClass(
         <button className={className} onClick={@props.open}>{final_text}</button>
       )
     assignments = @props.assignments.map (ass) =>
+      ass.course_id = @props.course_id
       article = CourseUtils.articleFromAssignment(ass)
       if @props.permitted
         remove_button = <button className='button border plus' onClick={@unassign.bind(@, ass)}>-</button>

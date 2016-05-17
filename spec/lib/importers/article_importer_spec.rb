@@ -12,7 +12,7 @@ describe ArticleImporter do
       expect(article.title).to eq('Kostanay')
     end
 
-    it 'works for a langauge besides the default' do
+    it 'works for a language besides the default' do
       ArticleImporter.new(es_wiki).import_articles [100]
       article = Article.find(100)
       expect(article.title).to eq('Alnus')

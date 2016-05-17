@@ -5,9 +5,9 @@ require "#{Rails.root}/lib/wiki_course_edits"
 # Controller for Assignments
 class AssignmentsController < ApplicationController
   respond_to :json
+  before_action :set_course
 
   def index
-    set_course
     @assignments = Assignment.where(user_id: params[:user_id],
                                     role: params[:role],
                                     course_id: @course.id)
@@ -15,7 +15,6 @@ class AssignmentsController < ApplicationController
   end
 
   def destroy
-    @id = params[:id]
     set_assignment { return }
     @course = @assignment.course
     check_permissions(@assignment.user_id)
@@ -26,7 +25,6 @@ class AssignmentsController < ApplicationController
   end
 
   def create
-    set_course
     check_permissions(assignment_params[:user_id].to_i)
     set_wiki { return }
     @assignment = AssignmentManager.new(user_id: assignment_params[:user_id],
@@ -57,7 +55,16 @@ class AssignmentsController < ApplicationController
   end
 
   def set_assignment
+    @id = params[:id]
     @assignment = Assignment.find_by(id: @id)
+    return unless @assignment.nil?
+    set_wiki { yield }
+    clean_title = params[:article_title].tr(' ', '_')
+    @assignment ||= Assignment.find_by(user_id: params[:user_id],
+                                       role: params[:role],
+                                       wiki_id: @wiki.id,
+                                       article_title: clean_title,
+                                       course_id: @course.id)
     return unless @assignment.nil?
     render json: { message: t('error.invalid_assignment') }, status: 404
     yield
@@ -65,10 +72,9 @@ class AssignmentsController < ApplicationController
 
   def set_wiki
     home_wiki = @course.home_wiki
-    language = params[:language] || home_wiki.language
-    project = params[:project] || home_wiki.project
-    @wiki = Wiki.find_or_create_by(language: language, project: project)
-    @wiki ||= home_wiki
+    language = params[:language].present? ? params[:language] : home_wiki.language
+    project = params[:project].present? ? params[:project] : home_wiki.project
+    @wiki = Wiki.find_or_create_by(language: language, project: project) || home_wiki
     return unless @wiki.id.nil?
     # Error handling for an invalid wiki
     render json: { message: t('error.invalid_assignment') }, status: 404
