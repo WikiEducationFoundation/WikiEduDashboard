@@ -8,13 +8,13 @@ describe ArticleImporter do
   describe '.import_articles' do
     it 'creates an Article from a English Wikipedia page_id' do
       ArticleImporter.new(en_wiki).import_articles [46349871]
-      article = Article.find(46349871)
+      article = Article.find_by(mw_page_id: 46349871)
       expect(article.title).to eq('Kostanay')
     end
 
     it 'works for a language besides the default' do
       ArticleImporter.new(es_wiki).import_articles [100]
-      article = Article.find(100)
+      article = Article.find_by(mw_page_id: 100)
       expect(article.title).to eq('Alnus')
     end
   end

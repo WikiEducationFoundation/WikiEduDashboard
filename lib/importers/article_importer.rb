@@ -17,8 +17,7 @@ class ArticleImporter
     return if articles_data.empty?
     articles = []
     articles_data.each do |article_data|
-      articles << Article.new(id: article_data['page_id'],
-                              mw_page_id: article_data['page_id'],
+      articles << Article.new(mw_page_id: article_data['page_id'],
                               title: article_data['page_title'],
                               namespace: article_data['page_namespace'],
                               wiki_id: @wiki.id)
@@ -38,8 +37,7 @@ class ArticleImporter
       articles = []
       results.each do |_id, page_data|
         next if page_data['missing']
-        articles << Article.new(id: page_data['pageid'].to_i,
-                                mw_page_id: page_data['pageid'].to_i,
+        articles << Article.new(mw_page_id: page_data['pageid'].to_i,
                                 title: page_data['title'].tr(' ', '_'),
                                 wiki_id: @wiki.id,
                                 namespace: page_data['ns'].to_i)

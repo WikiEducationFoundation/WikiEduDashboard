@@ -126,17 +126,12 @@ class ArticleStatusManager
     # a case variant.
     return unless article.title == title
 
-    # FIXME: This should be removed once id and mw_page_id are decoupled.
-    ArticlesCourses.where(article_id: article.id)
-      .update_all(article_id: mw_page_id)
-
     if Article.exists?(mw_page_id: mw_page_id, wiki_id: @wiki.id)
       # Catches case where update_constantly has
       # already added this article under a new ID
       article.update(deleted: true)
     else
-      # FIXME: This should only update mw_page_id once id and mw_page_id are decoupled.
-      article.update(mw_page_id: mw_page_id, id: mw_page_id)
+      article.update(mw_page_id: mw_page_id)
     end
   end
 end

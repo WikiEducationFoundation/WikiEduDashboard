@@ -144,8 +144,9 @@ class RevisionImporter
       articles.push article
 
       a['revisions'].each do |r|
-        revision = Revision.new(id: r['id'], # TODO: remove id when it gets decoupled from mw_rev_id
-                                mw_rev_id: r['mw_rev_id'],
+        existing_revision = Revision.find_by(mw_rev_id: r['mw_rev_id'], wiki_id: @wiki.id)
+        next unless existing_revision.nil?
+        revision = Revision.new(mw_rev_id: r['mw_rev_id'],
                                 date: r['date'],
                                 characters: r['characters'],
                                 article_id: article.id,
