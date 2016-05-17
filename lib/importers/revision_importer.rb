@@ -18,9 +18,12 @@ class RevisionImporter
     courses = [courses] if courses.is_a? Course
     courses ||= all_time ? Course.all : Course.current
     courses.each do |course|
-      importer = new(course.home_wiki)
-      results = importer.get_revisions_for_course(course)
-      importer.import_revisions(results)
+      wiki_ids = course.assignments.pluck(:wiki_id) + [course.home_wiki.id]
+      wiki_ids.uniq.each do |wiki_id|
+        importer = new(Wiki.find(wiki_id))
+        results = importer.get_revisions_for_course(course)
+        importer.import_revisions(results)
+      end
       ArticlesCourses.update_from_course(course)
     end
   end
