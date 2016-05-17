@@ -43,7 +43,7 @@ const CourseUtils = class {
       };
     }
 
-    const urlParts = /([a-z-]+)\.(wiki[a-z]+)\.org\/wiki\/([^#]*)/.exec(articleTitle);
+    const urlParts = /([a-z-]+)\.(wik[a-z]+)\.org\/wiki\/([^#]*)/.exec(articleTitle);
     if (urlParts.length > 3) {
       const title = decodeURIComponent(urlParts[3]).replace(/_/g, ' ');
       const project = urlParts[2];
