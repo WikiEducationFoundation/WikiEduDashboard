@@ -47,7 +47,7 @@ class RevisionDataParser
     revision_data['date'] = revision['rev_timestamp'].to_datetime
     revision_data['characters'] = revision['byte_change']
     revision_data['mw_page_id'] = revision['page_id']
-    revision_data['user_id'] = revision['rev_user']
+    # revision_data['user_id'] = revision['rev_user']
     revision_data['username'] = revision['rev_user_text']
     revision_data['new_article'] = revision['new_article']
     revision_data['system'] = revision['system']
