@@ -210,7 +210,6 @@ en:
       end_date_placeholder: End date (YYYY-MM-DD)
       expected_number: Expected number of students
       find: Find Your Course
-      find_program: Find Your Program
       intro: >
         The title, school, and term create your course page’s URL, and can't be
         changed. Everything else, you can edit later. Click “Create my Course!” to
@@ -328,7 +327,7 @@ en:
       create_label: Create New Program
       create_new: Create a New Program
       create_short: Create Program
-      find: Find Your Program
+      find: Find a Program
       intro: >
         The program title is required, everything else can be filled in later.
         Click "Create my Program!" to start building the page for your wiki program.
