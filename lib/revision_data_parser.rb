@@ -33,8 +33,6 @@ class RevisionDataParser
 
   def parse_article_data(revision)
     article_data = {}
-    # TODO: decouple id from mw_page_id
-    article_data['id'] = revision['page_id']
     article_data['mw_page_id'] = revision['page_id']
     article_data['title'] = revision['page_title']
     article_data['namespace'] = revision['page_namespace']
@@ -44,13 +42,10 @@ class RevisionDataParser
 
   def parse_revision_data(revision)
     revision_data = {}
-    # TODO: decouple id from mw_rev_id
-    revision_data['id'] = revision['rev_id']
+
     revision_data['mw_rev_id'] = revision['rev_id']
     revision_data['date'] = revision['rev_timestamp'].to_datetime
     revision_data['characters'] = revision['byte_change']
-    # TODO: decouple article_id from mw_page_id
-    revision_data['article_id'] = revision['page_id']
     revision_data['mw_page_id'] = revision['page_id']
     revision_data['user_id'] = revision['rev_user']
     revision_data['username'] = revision['rev_user_text']
