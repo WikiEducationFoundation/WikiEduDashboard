@@ -67,6 +67,14 @@ class CoursesUsers < ActiveRecord::Base
     self[:assigned_article_title]
   end
 
+  def content_expert
+    role > 0 and user.permissions == 1 and user.greeter == true
+  end
+
+  def program_manager
+    role > 0 and user.permissions == 1 and user.greeter == false
+  end
+
   def update_cache
     revisions = course.revisions.joins(:article)
                 .where(user_id: user.id)

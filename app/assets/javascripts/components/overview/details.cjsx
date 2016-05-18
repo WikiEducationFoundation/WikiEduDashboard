@@ -28,6 +28,10 @@ getState = (course_id) ->
 
 Details = React.createClass(
   displayName: 'Details'
+  
+  getInitialState: ->
+    return getState()
+
   updateDetails: (value_key, value) ->
     to_pass = @props.course
     to_pass[value_key] = value

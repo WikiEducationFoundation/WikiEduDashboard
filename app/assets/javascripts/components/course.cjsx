@@ -9,6 +9,7 @@ UserStore         = require '../stores/user_store.coffee'
 CohortStore       = require '../stores/cohort_store.coffee'
 Affix             = require './common/affix.cjsx'
 CourseUtils       = require('../utils/course_utils.js').default
+GetHelpButton     = require '../components/common/get_help_button.cjsx'
 
 getState = ->
   current = $('#react_root').data('current_user')
@@ -218,6 +219,9 @@ Course = React.createClass(
               </div>
               <div className="nav__item" id="activity-link">
                 <p><Link to="#{@_courseLinkParams()}/activity" activeClassName="active">{I18n.t("activity.label")}</Link></p>
+              </div>
+              <div className="nav__button" id="get-help-button">
+                <GetHelpButton current_user={@getCurrentUser()} key='get_help'/>
               </div>
             </nav>
           </div>
