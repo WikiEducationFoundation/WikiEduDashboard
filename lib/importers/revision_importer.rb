@@ -143,7 +143,8 @@ class RevisionImporter
     sub_data.each do |_a_id, a|
       article = Article.find_by(mw_page_id: a['article']['id'], wiki_id: @wiki.id)
       article ||= Article.new(mw_page_id: a['article']['id'], wiki_id: @wiki.id)
-      article.update!(a['article'])
+      article.update!(title: a['article']['title'],
+                      namespace: a['article']['namespace'])
       articles.push article
 
       a['revisions'].each do |r|
