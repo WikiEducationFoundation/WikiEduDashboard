@@ -126,7 +126,7 @@ class RevisionImporter
   end
 
   def first_revision(course)
-    course.revisions.order('date DESC').first
+    course.revisions.where(wiki_id: @wiki.id).order('date DESC').first
   end
 
   def get_revisions_from_import_data(data)
