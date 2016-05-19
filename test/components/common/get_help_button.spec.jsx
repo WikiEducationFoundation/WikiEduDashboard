@@ -1,7 +1,7 @@
 import '../../testHelper';
-const React = require('react');
-const ReactTestUtils = require('react-addons-test-utils');
-const GetHelpButton = require('../../../app/assets/javascripts/components/common/get_help_button.jsx').default;
+import React from 'react';
+import ReactTestUtils from 'react-addons-test-utils';
+import GetHelpButton from '../../../app/assets/javascripts/components/common/get_help_button.jsx';
 
 GetHelpButton.__Rewire__('UserStore', {
   getFiltered: (args) => {
@@ -20,7 +20,7 @@ describe('GetHelpButton', () => {
     const currentUser = { role: 1 };
 
     const TestGetHelpButton = ReactTestUtils.renderIntoDocument(
-      <GetHelpButton current_user={currentUser} />
+      <GetHelpButton current_user={currentUser} key="get_help" />
     );
 
     const popContainer = ReactTestUtils.findRenderedDOMComponentWithClass(TestGetHelpButton, 'pop__container');
@@ -52,12 +52,15 @@ describe('GetHelpButton', () => {
       expect(pop.classList.contains('open')).to.eq(false);
     });
 
-    it('should open when clicked', () => {
-      // const pop = popContainer.querySelectorAll('.pop')[0];
-      // const getHelpButton = popContainer.querySelectorAll('button.small')[0];
-      // expect(ReactTestUtils.isDOMComponent(getHelpButton)).to.eq(true);
-      // ReactTestUtils.Simulate.click(getHelpButton);
-      // expect(pop.classList.contains('open')).to.eq(true);
+    it('should open when clicked', (done) => {
+      const pop = popContainer.querySelectorAll('.pop')[0];
+      const getHelpButton = popContainer.querySelectorAll('button.small')[0];
+      expect(ReactTestUtils.isDOMComponent(getHelpButton)).to.eq(true);
+      ReactTestUtils.Simulate.click(getHelpButton);
+      setImmediate(() => {
+        expect(pop.classList.contains('open')).to.eq(true);
+        done();
+      });
     });
   });
 
@@ -65,7 +68,7 @@ describe('GetHelpButton', () => {
     const currentUser = { role: 1 };
 
     const TestGetHelpButton = ReactTestUtils.renderIntoDocument(
-      <GetHelpButton current_user={currentUser} />
+      <GetHelpButton current_user={currentUser} key="get_help" />
     );
 
     const popContainer = ReactTestUtils.findRenderedDOMComponentWithClass(TestGetHelpButton, 'pop__container');
@@ -82,7 +85,7 @@ describe('GetHelpButton', () => {
     const currentUser = { role: 0 };
 
     const TestGetHelpButton = ReactTestUtils.renderIntoDocument(
-      <GetHelpButton current_user={currentUser} />
+      <GetHelpButton current_user={currentUser} key="get_help" />
     );
 
     const popContainer = ReactTestUtils.findRenderedDOMComponentWithClass(TestGetHelpButton, 'pop__container');
