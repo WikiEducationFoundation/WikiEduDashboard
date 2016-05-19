@@ -36,6 +36,7 @@
 #  trained_count     :integer          default(0)
 #  cloned_status     :integer
 #  type              :string(255)      default("ClassroomProgramCourse")
+#  home_wiki_id      :integer
 #
 
 require "#{Rails.root}/lib/course_cleanup_manager"
@@ -85,6 +86,8 @@ class Course < ActiveRecord::Base
   ############
   # Metadata #
   ############
+  belongs_to :home_wiki, class_name: Wiki
+
   has_many :cohorts_courses, class_name: CohortsCourses, dependent: :destroy
   has_many :cohorts, through: :cohorts_courses
 
@@ -235,14 +238,6 @@ class Course < ActiveRecord::Base
   def average_word_count
     return 0 if user_count == 0
     word_count / user_count
-  end
-
-  def home_wiki
-    # TODO: as part of the i18n project, we'll allow for choosing the home_wiki
-    # at the time of course creation (if dashboard is configured to allow that).
-    # For now, we just use the default wiki in all cases, to preserve default
-    # behavior.
-    Wiki.default_wiki
   end
 
   #################

@@ -135,6 +135,7 @@ const CourseCreator = React.createClass({
     let term;
     let subject;
     let expectedStudents;
+
     if (this.state.default_course_type === 'ClassroomProgramCourse') {
       term = (
         <TextInput
@@ -170,6 +171,33 @@ const CourseCreator = React.createClass({
           type="number"
           label={CourseUtils.i18n('creator.expected_number', this.state.course_string_prefix)}
           placeholder={CourseUtils.i18n('creator.expected_number', this.state.course_string_prefix)}
+        />
+      );
+    }
+
+    let language;
+    let project;
+    if (this.state.default_course_type !== 'ClassroomProgramCourse') {
+      language = (
+        <TextInput
+          id="course_language"
+          onChange={this.updateCourse}
+          value={this.state.course.language}
+          value_key="language"
+          editable
+          label={I18n.t('courses.creator.course_language')}
+          placeholder="en"
+        />
+      );
+      project = (
+        <TextInput
+          id="course_project"
+          onChange={this.updateCourse}
+          value={this.state.course.project}
+          value_key="project"
+          editable
+          label={I18n.t('courses.creator.course_project')}
+          placeholder="wikipedia"
         />
       );
     }
@@ -221,6 +249,8 @@ const CourseCreator = React.createClass({
                 {term}
                 {subject}
                 {expectedStudents}
+                {language}
+                {project}
               </div>
               <div className="column">
                 <TextAreaInput

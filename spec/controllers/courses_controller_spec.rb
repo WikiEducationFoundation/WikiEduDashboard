@@ -179,6 +179,22 @@ describe CoursesController do
         end
       end
 
+      context 'valid lanaguage and project present' do
+        let(:course_params) do
+          { school: 'Wiki University',
+            title: 'How to Wiki',
+            term: 'Fall 2015',
+            language: 'ar',
+            project: 'wikibooks' }
+        end
+
+        it 'sets the non-default home_wiki' do
+          post :create, course: course_params, format: :json
+          expect(Course.last.home_wiki.language).to eq('ar')
+          expect(Course.last.home_wiki.project).to eq('wikibooks')
+        end
+      end
+
       describe 'timeline dates' do
         let(:course_params) do
           { title: 'New title',
