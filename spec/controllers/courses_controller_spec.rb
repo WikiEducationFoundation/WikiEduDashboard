@@ -195,6 +195,21 @@ describe CoursesController do
         end
       end
 
+      context 'invalid lanaguage and project present' do
+        let(:course_params) do
+          { school: 'Wiki University',
+            title: 'How to Wiki',
+            term: 'Fall 2015',
+            language: 'arrr',
+            project: 'wikipirates' }
+        end
+
+        it 'renders a 404' do
+          post :create, course: course_params, format: :json
+          expect(response.status).to eq(404)
+        end
+      end
+
       describe 'timeline dates' do
         let(:course_params) do
           { title: 'New title',

@@ -229,6 +229,7 @@ en:
     error:
       exists: That course already exists! Please try again with a different title, school, or term.
       user_exists: "Sorry, %{username} is not an existing user."
+      invalid_language_or_project: Invalid language/project
     expected_students: Expected Students
     gradeables_none: This course has no gradeable assignments.
     instructor:
