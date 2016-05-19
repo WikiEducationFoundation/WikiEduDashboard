@@ -44,7 +44,7 @@ const GetHelpButton = React.createClass({
 
     contentExperts = this.state.contentExperts.map((user) => {
       return (
-        <span key={user.username}>
+        <span className="content-experts" key={user.username}>
           <a href={`mailto:${user.email}`}>{user.username}</a> (Content Expert)
           <br />
         </span>
@@ -54,7 +54,7 @@ const GetHelpButton = React.createClass({
     if (this.props.current_user.role > 0) {
       programManagers = this.state.programManagers.map((user) => {
         return (
-          <span key={user.username}>
+          <span className="program-managers" key={user.username}>
             <a href={`mailto:${user.email}`}>{user.username}</a> (Program Manager)
             <br />
           </span>
@@ -64,7 +64,7 @@ const GetHelpButton = React.createClass({
 
     if (programManagers || contentExperts) {
       helpers = (
-        <p>
+        <p className="helpers">
           If you still need help, reach out to your Wikipedia Content Expert:
           <br />
           {contentExperts}
@@ -76,7 +76,7 @@ const GetHelpButton = React.createClass({
     return (
       <div className="pop__container">
         <button className="dark button small" onClick={this.props.open}>Get Help</button>
-        <div className={`pop${this.props.is_open ? ' open' : ''}`}>
+        <div className={`pop ${this.props.is_open ? ' open' : ''}`}>
           <div className="pop__padded-content">
             <p>
               <strong>
@@ -109,7 +109,6 @@ const GetHelpButton = React.createClass({
       </div>
     );
   }
-}
-);
+});
 
 export default Expandable(GetHelpButton);
