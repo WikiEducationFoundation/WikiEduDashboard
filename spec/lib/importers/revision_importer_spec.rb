@@ -82,7 +82,7 @@ describe RevisionImporter do
       expect(Course.find(1).revisions.count).to eq(3)
     end
 
-    it 'excludes revisions after the final day of the course' do
+    it 'imports revisions soon after the final day of the course, but excludes them from metrics' do
       create(:course, id: 1, start: '2016-03-20', end: '2016-03-30')
       create(:user, id: 15, username: 'Tedholtby')
       create(:courses_user, course_id: 1, user_id: 15,
@@ -90,7 +90,8 @@ describe RevisionImporter do
 
       RevisionImporter.update_all_revisions nil, true
 
-      expect(User.find(15).revisions.count).to eq(0)
+      expect(User.find(15).revisions.count).to eq(3)
+      expect(Course.find(1).revisions.count).to eq(0)
     end
 
     it 'handles returning users with earlier revisions' do
@@ -209,51 +210,6 @@ describe RevisionImporter do
       article = Revision.find_by(mw_rev_id: 547645475).article
       expect(article.mw_page_id).to eq(38956275)
       expect(Article.exists?(mw_page_id: 38956275)).to be true
-    end
-  end
-
-  describe '#get_revisions_for_course' do
-    context 'when users work across multiple wikis' do
-      let(:course) { create(:course, start: start_date, end: end_date) }
-      let(:start_date) { '2011-01-01' }
-      let(:end_date) { '2013-06-01' }
-      let(:ragesoss) { create(:user, username: 'Ragesoss') }
-      let(:ar_wiki) { create(:wiki, language: 'ar', project: 'wikipedia') }
-      let(:en_wiktionary) { create(:wiki, language: 'en', project: 'wiktionary') }
-      let(:en_wikisource) { create(:wiki, language: 'en', project: 'wikisource') }
-
-      before do
-        create(:courses_user, user_id: ragesoss.id, course_id: course.id,
-                              role: CoursesUsers::Roles::STUDENT_ROLE)
-      end
-
-      it 'imports revisions from all wikis for which there are assignments' do
-        # This is to avoid pulling from en.wiki where Ragesoss has many revisions
-        allow(course).to receive(:home_wiki).and_return(ar_wiki)
-        RevisionImporter.update_all_revisions(course)
-        expect(Revision.count).to eq(0)
-        expect(Article.count).to eq(0)
-
-        # Now add an assignment on en.wiktionary
-        create(:assignment, user_id: ragesoss.id, course_id: course.id, wiki_id: en_wiktionary.id)
-        RevisionImporter.update_all_revisions(course)
-        expect(Revision.count).to eq(10)
-        expect(Article.count).to eq(6)
-
-        # now add an assignment on wikisource
-        create(:assignment, user_id: ragesoss.id, course_id: course.id, wiki_id: en_wikisource.id)
-        RevisionImporter.update_all_revisions(course)
-        expect(Revision.count).to eq(23)
-        expect(Article.count).to eq(12)
-
-        expect(course.revisions.count).to eq(23)
-        ArticlesCourses.update_from_course(course)
-        ArticlesCourses.update_all_caches(ArticlesCourses.all)
-
-        expect(course.articles.count).to eq(9)
-        course.update_cache
-        expect(course.new_article_count).to eq(8)
-      end
     end
   end
 end

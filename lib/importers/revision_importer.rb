@@ -33,7 +33,7 @@ class RevisionImporter
     results = []
     return results if course.students.empty?
     start = course_start_date(course)
-    end_date = course_end_date(course)
+    end_date = end_of_update_period(course)
     new_users = users_with_no_revisions(course)
 
     old_users = course.students - new_users
@@ -114,9 +114,10 @@ class RevisionImporter
     course.start.strftime('%Y%m%d')
   end
 
-  def course_end_date(course)
+  DAYS_TO_IMPORT_AFTER_COURSE_END = 30
+  def end_of_update_period(course)
     # Add one day so that the query does not end at the beginning of the last day.
-    (course.end + 1.day).strftime('%Y%m%d')
+    (course.end + 1.day + DAYS_TO_IMPORT_AFTER_COURSE_END.days).strftime('%Y%m%d')
   end
 
   def users_with_no_revisions(course)
