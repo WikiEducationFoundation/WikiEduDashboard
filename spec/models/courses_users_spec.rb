@@ -75,4 +75,52 @@ describe CoursesUsers, type: :model do
       expect(course_user.character_sum_us).to eq(0)
     end
   end
+
+  it "should be a content expert" do
+    create(:user,
+           id: 1,
+           permissions: 1,
+           greeter: true,
+           username: 'Ragesoss')
+
+    create(:course,
+           id: 1,
+           start: '2015-01-01'.to_date,
+           end: '2015-07-01'.to_date,
+           title: 'Underwater basket-weaving')
+
+    course_user = create(:courses_user,
+           id: 1,
+           course_id: 1,
+           user_id: 1,
+           role: 1,
+           assigned_article_title: 'Selfie')
+
+    expect(course_user.content_expert).to eq(true)
+    expect(course_user.program_manager).to eq(false)
+  end
+
+  it "should be a program manager" do
+    create(:user,
+           id: 1,
+           permissions: 1,
+           greeter: false,
+           username: 'Ragesoss')
+
+    create(:course,
+           id: 1,
+           start: '2015-01-01'.to_date,
+           end: '2015-07-01'.to_date,
+           title: 'Underwater basket-weaving')
+
+    course_user = create(:courses_user,
+           id: 1,
+           course_id: 1,
+           user_id: 1,
+           role: 1,
+           assigned_article_title: 'Selfie')
+
+    expect(course_user.content_expert).to eq(false)
+    expect(course_user.program_manager).to eq(true)
+  end
 end

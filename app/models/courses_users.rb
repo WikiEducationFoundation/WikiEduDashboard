@@ -68,11 +68,11 @@ class CoursesUsers < ActiveRecord::Base
   end
 
   def content_expert
-    role > 0 and user.permissions == 1 and user.greeter == true
+    role > 0 && user.permissions == 1 && user.greeter == true
   end
 
   def program_manager
-    role > 0 and user.permissions == 1 and user.greeter == false
+    role > 0 && user.permissions == 1 && user.greeter == false
   end
 
   def update_cache

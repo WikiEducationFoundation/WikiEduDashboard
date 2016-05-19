@@ -9,7 +9,7 @@ UserStore         = require '../stores/user_store.coffee'
 CohortStore       = require '../stores/cohort_store.coffee'
 Affix             = require './common/affix.cjsx'
 CourseUtils       = require('../utils/course_utils.js').default
-GetHelpButton     = require '../components/common/get_help_button.cjsx'
+GetHelpButton     = require('../components/common/get_help_button.jsx').default
 
 getState = ->
   current = $('#react_root').data('current_user')
