@@ -9,12 +9,12 @@
 
       - if @pres.can_create_course?
         = link_to course_creator_path, class: 'button dark dashboard-cta' do
-          = t("courses.creator.create_short")
+          = Features.open_course_creation? ? t("courses_generic.creator.create_new") : t("courses.creator.create_short")
           %i.icon.icon-plus
         - if Features.open_course_creation?
           %div
             = link_to explore_path, class: 'button stacked dark dashboard-cta' do
-              = t("courses.creator.find_program")
+              = t("courses_generic.creator.find")
               %span.icon.icon-rt_arrow
       - elsif @pres.show_explore_button?
         = link_to explore_path, class: 'button dark dashboard-cta' do

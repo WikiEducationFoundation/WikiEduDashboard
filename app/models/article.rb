@@ -107,7 +107,5 @@ class Article < ActiveRecord::Base
     # Always save titles with underscores instead of spaces, since that's the way
     # they are in the MediaWiki database.
     self.title = title.tr(' ', '_') unless title.nil?
-    # FIXME: transitional only, until id and mw_page_id are uncoupled.
-    self.mw_page_id ||= id
   end
 end

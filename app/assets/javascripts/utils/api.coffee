@@ -155,10 +155,11 @@ API =
         rej obj
 
   deleteAssignment: (assignment) ->
+    queryString = $.param(assignment)
     new Promise (res, rej) ->
       $.ajax
         type: 'DELETE',
-        url: "/assignments/#{assignment.id}"
+        url: "/assignments/#{assignment.assignment_id}?#{queryString}"
         success: (data) ->
           console.log 'Deleted assignment'
           res data
@@ -167,7 +168,7 @@ API =
         rej obj
 
   createAssignment: (opts) ->
-    queryString = "user_id=#{opts.user_id}&course_id=#{opts.course_id}&article_title=#{opts.article_title}&role=#{opts.role}"
+    queryString = $.param(opts)
     new Promise (res, rej) ->
       $.ajax
         type: 'POST',
@@ -336,32 +337,6 @@ API =
 
     promise
 
-  saveStudents: (data, course_id) ->
-    cleanup = (array) ->
-      for obj in array
-        if obj.is_new
-          delete obj.id
-          delete obj.is_new
-
-    for user in data.users
-      delete user.revisions
-
-    cleanup data.users
-    cleanup data.assignments
-
-    new Promise (res, rej) ->
-      $.ajax
-        type: 'POST',
-        url: '/courses/' + course_id + '/users.json',
-        contentType: 'application/json',
-        data: JSON.stringify data
-        success: (data) ->
-          console.log 'Saved students!'
-          res data
-      .fail (obj, status) ->
-        console.error 'Couldn\'t save students!'
-        rej obj
-
   deleteCourse: (course_id) ->
     $.ajax
       type: 'DELETE'
@@ -433,7 +408,6 @@ API =
           res data
       .fail (obj, status) ->
         console.error "#{capitalize(model)} not #{verb}: #{getErrorMessage(obj)}"
-        alert getErrorMessage(obj)
         rej obj
 
   onboard: (data) ->

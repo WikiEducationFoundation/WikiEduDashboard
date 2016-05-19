@@ -3,7 +3,7 @@
 React = require 'react'
 UIActions = require('../../actions/ui_actions.js').default
 
-Editable = (Component, Stores, Save, GetState, Label) ->
+Editable = (Component, Stores, Save, GetState, Label, SaveLabel, SaveOnly) ->
   React.createClass(
     mixins: Stores.map (store) -> store.mixin
     toggleEditable: ->
@@ -28,13 +28,14 @@ Editable = (Component, Stores, Save, GetState, Label) ->
       if permissions && @state.editable
         unless save_only
           className = 'controls'
-          cancel = (
-            <button onClick={@cancelChanges} className='button'>{I18n.t('editable.cancel')}</button>
-          )
+          unless SaveOnly
+            cancel = (
+              <button onClick={@cancelChanges} className='button'>{I18n.t('editable.cancel')}</button>
+            )
 
         <div className={className}>
           {cancel}
-          <button onClick={@saveChanges} className='dark button'>{I18n.t('editable.save')}</button>
+          <button onClick={@saveChanges} className='dark button'>{SaveLabel || I18n.t('editable.save')}</button>
           {extra_controls}
        </div>
       else if permissions && (@props.editable == undefined || @props.editable)

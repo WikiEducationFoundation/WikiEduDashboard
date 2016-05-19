@@ -179,6 +179,7 @@ en:
     course_description: Courses
     courses: Courses
     creator:
+      already_exists: This course already exists. Consider changing the name, school, or term to make it unique.
       assignment_end: Assignment end
       assignment_end_placeholder: Assignment end (YYYY-MM-DD)
       assignment_start: Assignment start
@@ -209,7 +210,6 @@ en:
       end_date_placeholder: End date (YYYY-MM-DD)
       expected_number: Expected number of students
       find: Find Your Course
-      find_program: Find Your Program
       intro: >
         The title, school, and term create your course page’s URL, and can't be
         changed. Everything else, you can edit later. Click “Create my Course!” to
@@ -320,6 +320,7 @@ en:
     assignments_none: This project has no assigned Wikipedia articles.
     assignment_start: Timeline Start
     creator:
+      checking_for_uniqueness: This program is being checked for uniqueness.
       course_description: Program description
       course_school: Institution
       course_title: Program title
@@ -327,7 +328,7 @@ en:
       create_label: Create New Program
       create_new: Create a New Program
       create_short: Create Program
-      find: Find Your Program
+      find: Find a Program
       intro: >
         The program title is required, everything else can be filled in later.
         Click "Create my Program!" to start building the page for your wiki program.
@@ -485,6 +486,8 @@ en:
 
   users:
     already_enrolled: That user is already enrolled!
+    assign_articles: Assign Articles
+    assign_articles_done: Done
     assigned: Assigned Articles
     assignees: Assignee(s)
     character_doc: >
@@ -574,6 +577,7 @@ en:
     summary: Summary
 
   error:
+    invalid_assignment: Invalid assignment
     oauth_invalid: Your Wikipedia authorization has expired. Please log in again.
     unsupported_browser:
       header: "Unsupported browser.  :-("

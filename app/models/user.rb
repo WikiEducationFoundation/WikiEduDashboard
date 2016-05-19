@@ -67,7 +67,6 @@ class User < ActiveRecord::Base
   scope :trained, -> { where(trained: true) }
   scope :ungreeted, -> { where(greeted: false) }
 
-
   ####################
   # Instance methods #
   ####################

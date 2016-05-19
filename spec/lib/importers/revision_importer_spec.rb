@@ -211,4 +211,49 @@ describe RevisionImporter do
       expect(Article.exists?(mw_page_id: 38956275)).to be true
     end
   end
+
+  describe '#get_revisions_for_course' do
+    context 'when users work across multiple wikis' do
+      let(:course) { create(:course, start: start_date, end: end_date) }
+      let(:start_date) { '2011-01-01' }
+      let(:end_date) { '2013-06-01' }
+      let(:ragesoss) { create(:user, username: 'Ragesoss') }
+      let(:ar_wiki) { create(:wiki, language: 'ar', project: 'wikipedia') }
+      let(:en_wiktionary) { create(:wiki, language: 'en', project: 'wiktionary') }
+      let(:en_wikisource) { create(:wiki, language: 'en', project: 'wikisource') }
+
+      before do
+        create(:courses_user, user_id: ragesoss.id, course_id: course.id,
+                              role: CoursesUsers::Roles::STUDENT_ROLE)
+      end
+
+      it 'imports revisions from all wikis for which there are assignments' do
+        # This is to avoid pulling from en.wiki where Ragesoss has many revisions
+        allow(course).to receive(:home_wiki).and_return(ar_wiki)
+        RevisionImporter.update_all_revisions(course)
+        expect(Revision.count).to eq(0)
+        expect(Article.count).to eq(0)
+
+        # Now add an assignment on en.wiktionary
+        create(:assignment, user_id: ragesoss.id, course_id: course.id, wiki_id: en_wiktionary.id)
+        RevisionImporter.update_all_revisions(course)
+        expect(Revision.count).to eq(10)
+        expect(Article.count).to eq(6)
+
+        # now add an assignment on wikisource
+        create(:assignment, user_id: ragesoss.id, course_id: course.id, wiki_id: en_wikisource.id)
+        RevisionImporter.update_all_revisions(course)
+        expect(Revision.count).to eq(23)
+        expect(Article.count).to eq(12)
+
+        expect(course.revisions.count).to eq(23)
+        ArticlesCourses.update_from_course(course)
+        ArticlesCourses.update_all_caches(ArticlesCourses.all)
+
+        expect(course.articles.count).to eq(9)
+        course.update_cache
+        expect(course.new_article_count).to eq(8)
+      end
+    end
+  end
 end
