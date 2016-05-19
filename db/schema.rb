@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160516224503) do
+ActiveRecord::Schema.define(version: 20160519183343) do
 
   create_table "alerts", force: :cascade do |t|
     t.integer  "course_id",     limit: 4
@@ -158,6 +158,7 @@ ActiveRecord::Schema.define(version: 20160516224503) do
     t.string   "syllabus_content_type", limit: 255
     t.integer  "syllabus_file_size",    limit: 4
     t.datetime "syllabus_updated_at"
+    t.integer  "home_wiki_id",          limit: 4
   end
 
   add_index "courses", ["slug"], name: "index_courses_on_slug", using: :btree
