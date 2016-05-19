@@ -320,6 +320,7 @@ en:
     assignments_none: This project has no assigned Wikipedia articles.
     assignment_start: Timeline Start
     creator:
+      checking_for_uniqueness: This program is being checked for uniqueness.
       course_description: Program description
       course_school: Institution
       course_title: Program title

@@ -213,6 +213,7 @@ class CoursesController < ApplicationController
   end
 
   def invalid_edit_credentials?
+    return false if Features.disable_wiki_output?
     return false unless current_user && current_user.can_edit?(@course)
     !WikiEdits.new.oauth_credentials_valid?(current_user)
   end

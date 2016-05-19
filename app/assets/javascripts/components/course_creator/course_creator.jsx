@@ -60,7 +60,11 @@ const CourseCreator = React.createClass({
   saveCourse() {
     if (ValidationStore.isValid()) {
       this.setState({ isSubmitting: true });
-      ValidationActions.setInvalid('exists', 'This course is being checked for uniqueness', true);
+      ValidationActions.setInvalid(
+        'exists',
+        CourseUtils.i18n('creator.checking_for_uniqueness', this.state.course_string_prefix),
+        true
+      );
       return ServerActions.checkCourse('exists', CourseUtils.generateTempId(this.state.course));
     }
   },
