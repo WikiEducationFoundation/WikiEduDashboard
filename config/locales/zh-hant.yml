@@ -10,10 +10,15 @@
 # Author: Shangkuanlc
 ---
 zh-hant:
+  accessibility:
+    number_field: 這是一個數字欄位。這個按鈕在大多數的瀏覽器上，會讓輸入的資料以遞增或遞減的方式呈現。
   application:
     cancel: 取消
     dashboard: Wiki Ed 儀表盤
+    error: 發生了錯誤：
     explore: 探索
+    field_required: 此欄位為必填欄位
+    field_invalid_characters: 此欄位有無效的字符
     greeting2: 歡迎
     greeting_extended: 歡迎來到維基百科
     greeting: 您好！
@@ -24,7 +29,7 @@ zh-hant:
     log_out: 登出
     my_dashboard: 我的計分板
     recent_activity: 最近活動
-    search: 搜索ask.wikiedu.org
+    search: 提出一個問題
     sign_up_extended: 登入至維基百科
     sign_up_log_in_extended: 參與維基百科
     sign_up: 登入
@@ -32,6 +37,7 @@ zh-hant:
     training: 培訓
   dashboard:
     create_note: 點擊創建課程以創建您的第一次課程
+    create_preparation_note: 請您在開始之前，確認手上有學校的行事曆；任務設計工具會用到您課堂的會面日期（包括所有校內停課日和假日），好讓時間線能適合您選擇的日期範圍。記住，您可以隨時編輯時間線，以符合您的需求。
     explore_course_pages: 瀏覽課程頁面
     explore_examples: 瀏覽例子
     join_note: 一旦您從您的老師那獲得密碼，點擊尋找您的課程來搜尋並加入
@@ -39,6 +45,7 @@ zh-hant:
     no_courses_student: 您似乎尚未加入課程
     opt_out: 請求不參加新手導覽
     orientation_notice: 在創建課程之前，讓我們順過新手導覽以幫助你開頭。（約需30分鐘來完成此項導覽。）
+    review_orientation: 復核迎新會
     start_orientation: 開始新手導覽
   home:
     explore: 探索
@@ -56,12 +63,19 @@ zh-hant:
     edited_mobile: 條目
     label: 條目
     loading: 讀取文章中...
+    new: （新)
     no_assignee: 未指定使用者
     none: 此課程沒有編輯任何條目
     rating: 等級
+    rating_doc: 這個條目的等級已經由維基百科上的對應專題分配。這些等級可能對應到很早期的版本，所以只能當成條目成熟度的粗略指標。
     rating_docs:
       fa: 特色條目— 維基百科的最高評級，但可能過於優秀而不適合作為新編輯者的主要目標。
       fl: 特色列表— 維基百科中用於列表的最高評級
+      a: 甲級－十分完善的條目，可能太成熟了，並不適合作為新手編輯的主要專案目標
+      ga: 優良條目－一個高度完整的條目，可能太成熟了，並不適合作為新手編輯的主要專案目標
+      b: 乙級－一個中度完整的條目
+      c: 丙級－一個有改善空間的中等條目
+      start: 初級－一個有很大改進空間的初等條目
       stub: 小作品等級 — 剛開始、還需要更多內容的短小文章。
       list: 列表等級 — 並非傳統條目的一個列表
       '?': 未評級 — 未在維基百科的品質等級評量的條目。
@@ -76,9 +90,12 @@ zh-hant:
     assignees: 被分配者
     assign_other: 指定一個條目
     assign_self: 指定自己一個條目
+    confirm_addition: 您確定要將%{title}分配給%{username}？
     confirm_deletion: 您確定要刪除此項作業嗎？
     label: 分配
     loading: 載入作業中...
+    none_short: 沒有分配任何條目
+    none: 這個課程還沒有分配到維基百科條目。
     reviewers: 審查者
     review_other: 指定一個審查
     review_self: 審閱一個條目
@@ -91,7 +108,9 @@ zh-hant:
   courses:
     activity: 活躍度
     already_enrolled: 你已經成為  '%{title}' 課程的一份子！
+    already_exists: 已存在於該課程中！
     archived: 存檔的課程
+    actions: 操作
     articles: 條目
     articles_none: 此課程沒有編輯任何條目
     assignment_end: 作業結束

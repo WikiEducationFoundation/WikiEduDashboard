@@ -12,6 +12,8 @@ it:
     cancel: Annulla
     dashboard: Cruscotto Wiki Ed
     explore: Esplora
+    field_required: Questo campo è obbligatorio
+    field_invalid_characters: Questo campo contiene caratteri non validi
     greeting2: Benvenuto/a!
     greeting_extended: Benvenuto su Wikipedia
     greeting: Ciao!
@@ -131,6 +133,7 @@ it:
       end_date_placeholder: Data di fine (YYYY-MM-DD)
       expected_number: Numero previsto di studenti
       find: Trova il tuo corso
+      find_program: Trova il tuo programma
       intro: Il titolo, la scuola, e la durata creano l'URL della pagina del tuo corso,
         e non possono essere modificati. Tutto il resto puoi modificarli in seguito.
         Clicca su "Crea il mio corso!" per iniziare a costruire la linea temporale
@@ -285,13 +288,26 @@ it:
     loading: Caricamento revisioni...
     title: Titolo
   timeline:
+    add_week: Aggiungi settimana
+    block_custom: Personalizzato
+    block_milestone: Pietra miliare
+    course_dates: Date del corso
+    course_end: Fine del corso
+    course_start: Inizio del corso
+    discard_all_changes: Scarta tutte le modifiche
     due_default: Previsto per la prossima settimana
+    empty_week_1: Per iniziare,
+    empty_week_3: o
+    gradeable_value: Valore
+    no_activity_this_week: Nessuna attività questa settimana
     nothing_this_week: Non c'è niente in programma per questa settimana.
+    save_all_changes: Salva tutto
     this_week_title_default: Questa settimana
     title: Timeline
     unable_to_add_week: Non puoi aggiungere nuove settimane quando la tua timeline
       è piena. Cancella almeno una settimana o cambia le date di assegnazione per
       fare spazio a una nuova.
+    week_number: Settimana %{number}
   training:
     continue: Continua (%{progress})
     start: Inizio
@@ -299,10 +315,16 @@ it:
     logged_out: Sei disconnesso. Non riceverai crediti per il completamento di questo
       modulo a meno che non accedi.
   uploads:
+    datetime: Data/Ora
+    file_name: Nome del file
+    header: File caricati su Wikimedia Commons
+    image: Immagine
     label: Caricamenti
     loading: Caricando gli upload...
     none: Questa classe non ha contribuito con alcuna immagine o altri file multimediali
       su Wikimedia Commons.
+    uploaded_by: Caricato da
+    usage_count: Numero di utilizzi
     usages: Usi
   users:
     already_enrolled: Quell'utente è già iscritto!
@@ -320,6 +342,8 @@ it:
     loading: Caricamento utenti...
     name: Nome
     none: Questo corso non ha studenti.
+    no_articles: Nessuna voce
+    number_of_articles: '%{number} voci'
     recent_revisions: Modifiche recenti
     remove_confirmation: Sei sicuro di voler rimuovere %{username} da questo corso?
     revisions_doc: Il numero di modifiche effettuate da questo contributore negli

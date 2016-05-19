@@ -14,6 +14,8 @@ he:
     dashboard: לוח בקרה של ויקי השכלה
     error: 'אירעה שגיאה:'
     explore: חקור
+    field_required: חובה למלא את השדה הזה
+    field_invalid_characters: שדה זה מכיל תווים לא תקינים
     greeting2: ברוכים הבאים!
     greeting_extended: ברוכים הבאים לוויקיפדיה
     greeting: שלום!
@@ -148,6 +150,7 @@ he:
       end_date_placeholder: תאריך סיום
       expected_number: מספר מצופה של תלמידים
       find: מצא את הקורס שלך
+      find_program: מציאת התוכנית שלך
       intro: השם, המוסד והתקופה יוצרים את הכתובת של דף הקורס שלך ולא ניתן לשנות אותם.
         את כל השאר אפשר לערוך אחר־כך. יש ללחוץ על "צור את הקורס שלי!" כדי להתחיל לבנות
         את ציר הזמן עבור מטלת הוויקיפדיה שלך.
@@ -326,22 +329,45 @@ he:
     paused: המשימה %{task} אינה יכולה לרוץ כי עדכונים מתוזמנים נעצרו. יש להריץ 'rake
       batch:resume' כדי לחזור לעדכונים.
   timeline:
+    add_week: הוספת שבוע
+    arrange_timeline: ארגון ציר הזמן
+    block_assignment: משימה
+    block_custom: מותאם אישית
     block_type: סוג הגוש משמש לשליחת מידע לתלמידים שלך על הפריט הזה בציר הזמן שלהם
       ולבניית כלים שימושיים עבורך (כגון תקציר אבן דרך בדף הסקירה הכללית).
+    course_dates: תאריכי הקורס
+    course_end: סיום הקורס
+    course_start: תחילת הקורס
+    delete_week_confirmation: |-
+      האם ברצונך למחוק את השבוע הזה? פעולה זו תמחק את השבוע ואת כל החסימות המשויכות אליו.
+
+      לא ניתן לבטל פעולה זו.
+    discard_all_changes: התעלמות מכל השינויים
     due_default: חובה להגיש בשבוע הבא
+    empty_week_3: או
+    gradeable_value: ערך
+    no_timeline: אין ציר זמן בקורס הזה.
+    no_activity_this_week: אין פעילות השבוע
     nothing_this_week: לא מתוכנן שום דבר לשבוע הזה.
+    save_all_changes: שמירת הכול
     this_week_title_default: השבוע
     title: ציר זמן
+    week_number: שבוע מספר %{number}
   training:
     continue: המשך (%{progress})
     start: התחלה
     view: צפייה
     logged_out: יצאת מהחשבון. לא יינתן לך קרדיט על השלמת המודול הזה ללא כניסה לחשבון.
   uploads:
+    datetime: תאריך/שעה
+    file_name: שם הקובץ
+    header: קבצים שהועלו לוויקישיתוף
+    image: תמונה
     label: העלאות
     loading: טעינת העלאות...
     none: הכיתה הזאת לא תרמה שום תמונות או קובצי מדיה אחרים לוויקישיתוף.
     time_doc: הזמן של כל העלאה לפי השעון המקומי שלך
+    uploaded_by: הועלה על־ידי
     usages: שימושים
   users:
     already_enrolled: המשתמש הזה כבר רשום!
@@ -364,6 +390,8 @@ he:
     loading: טעינת משתמשים...
     name: שם
     none: בקורס הזה אין תלמידים.
+    no_articles: אין ערכים
+    number_of_articles: '%{number} ערכים'
     recent_revisions: עריכות אחרונות
     remove_confirmation: האם ברצונך להסיר את %{username} מקורס זה?
     revisions_doc: מספר העריכות שעשה העורך הזה בשבע הימים האחרונים

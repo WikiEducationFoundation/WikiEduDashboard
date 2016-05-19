@@ -70,6 +70,8 @@ lb:
     archived: Archivéiert Coursen
     actions: Aktiounen
     articles: Artikelen
+    calendar:
+      legend: Erklärung
     course_description: Coursen
     courses: Coursen
     creator:
@@ -96,6 +98,7 @@ lb:
     loading: Lueden...
     new_week: Nei Woch debäisetzen
     nocourses: Dir maacht bei kengem Cours mat.
+    none: Keng
     overview: Iwwersiicht
     revisions_doc: D'Zuel vun den ännerungen an de leschten %{timeframe}-Deeg
     school: Schoul

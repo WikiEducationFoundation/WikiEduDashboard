@@ -358,6 +358,8 @@ qqq:
     first_name: '{{Identical|First name}}'
     last_name: '{{Identical|Last name}}'
     loading: Message indicating that information about users is still loading
+    characters_added_mainspace: '"MS" means Main Space'
+    characters_added_userspace: '"US" means User Space'
     name: Label for usernames of students
     none: Message indicating that a course has no students enrolled
     number_of_articles: '{{Identical|Article}}'

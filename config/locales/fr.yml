@@ -21,6 +21,8 @@ fr:
     dashboard: Tableau de bord de modification du wiki
     error: 'Il y a eu une erreur :'
     explore: Explorer
+    field_required: Ce champ est obligatoire
+    field_invalid_characters: Ce champ contient des caractères non valides
     greeting2: Bienvenue !
     greeting_extended: Bienvenue dans Wikipédia
     greeting: Bonjour !
@@ -39,6 +41,11 @@ fr:
     training: Formation
   dashboard:
     create_note: Cliquer sur Créer un cours pour créer votre premier cours
+    create_preparation_note: Assurez-vous d’avoir votre calendrier scolaire sous la
+      main avant de commencer ; l’outil de prévision des affectations utilisera les
+      dates de réunion de votre classe — y compris les pauses scolaires et les vacances
+      — pour adapter le planning à la plage de dates que vous choisirez. Souvenez-vous
+      que vous pouvez toujours modifier le planning pour l’adapter à vos besoins.
     explore_course_pages: Explorer les pages de cours
     explore_examples: Explorer les exemples
     join_note: Une fois que vous aurez reçu un code d’accès de la part de votre formateur,
@@ -178,6 +185,7 @@ fr:
       end_date_placeholder: Date de fin (AAAA-MM-JJ)
       expected_number: Nombre d’étudiants attendus
       find: Trouver votre cours
+      find_program: Trouver votre programme
       intro: Le titre, l’école et la période créent l’URL de la page de cotre cours,
         et ne peuvent pas être modifiés. Tout le reste, vous pourrez le changer ultérieurement.
         Cliquez sur « Créer mon cours ! » pour commencer à construire le planning
@@ -216,6 +224,9 @@ fr:
     new_week: Ajouter une nouvelle semaine
     nocourses: Vous ne participez à aucun cours.
     none: Aucun
+    notify_untrained_confirmation: Cela publiera un rappel sur les pages de discussion
+      de tous les étudiants en retard dans l’achèvement de leurs modules de formation
+      affectés. Êtes-vous sûr de vouloir faire cela ?
     no_available_actions: Aucune action disponible
     overview: Vue d'ensemble
     passcode: Mot de passe
@@ -374,20 +385,54 @@ fr:
     paused: La tâche %{task} ne peut pas tourner car les mises à jour de l’ordonnanceur
       ont été suspendues. Lancez 'rake batch:resume' pour reprendre les mises à jour.
   timeline:
+    add_week: Ajouter une semaine
+    arrange_timeline: Organiser le planning
+    arrange_timeline_instructions: Organiser le planning en 'tirant et lâchant' des
+      blocs à l’emplacement/semaine souhaité, ou repositionner les blocs en utilisant
+      les flèches sur la carte.
+    assignment_dates_instructions: Sélectionner les dates de début et de fin du planning
+      d&affectations de Wikipédia. Modifier la date de début décalera toutes les dates
+      du planning.
     blackout_week_created: Il y a des blocs prévus dans cette semaine. Veuillez les
       déplacer à une autre semaine avant de supprimer la dernière réunion de classe
       de cette semaine.
+    block_assignment: Affectation
+    block_custom: Personnalisé
+    block_in_class: Dans la classe
+    block_milestone: Jalon
     block_type: Le type de bloc est utilisé pour communiquer à vos étudiants sur cet
       élément dans leur planning et pour construire des outils utiles pour vous (comme
       la visualisation des jalons sur la page Vue d’ensemble)
+    course_dates: Dates du cours
+    course_dates_instructions: Sélectionner les dates de début et de fin du cours
+      complet (pas seulement l’affectation Wikipédia).
+    course_end: Fin du cours
+    course_start: Début du cours
+    delete_week_confirmation: Êtes-vous sûr de vouloir supprimer cette semaine ? Cela
+      supprimera la semaine et tous ses blocs associés.
+    discard_all_changes: Annuler toutes les modifications
     due_default: Attendu de la semaine prochaine
+    empty_week_1: Pour commencer,
+    empty_week_2: commencer à modifier cette semaine
+    empty_week_3: ou
+    empty_week_4: commencer depuis une affectation prédéfinie.
     first_week_title: Première semaine active
+    gradeable_value: Valeur
+    gradeables_none: Ce planning n’a aucune affectation marquée comme évaluée.
+    grading_header: 'Évaluation (Total : %{total}%)'
+    move_block_down: Faire descendre le bloc
+    move_block_up: Faire monter le bloc
+    no_class_holidays: Je n’ai pas de congés scolaires
+    no_timeline: Ce cours n’a pas de planning.
+    no_activity_this_week: Aucune activité cette semaine
     nothing_this_week: Il n’y a rien au planning pour cette semaine.
+    save_all_changes: Enregistrer tout
     this_week_title_default: Cette semaine
     title: Planning
     unable_to_add_week: Vous ne pouvez pas ajouter de nouvelles semaines quand votre
       planning est plein. Supprimez au moins une semaine ou modifiez vos dates d’affectation
       pour faire de la place pour une nouvelle semaine.
+    week_number: Semaine %{number}
   training:
     continue: Continuer (%{progress})
     start: Démarrer
@@ -395,11 +440,17 @@ fr:
     logged_out: Vous êtes déconnecté. Vous ne recevrez pas de crédit pour l’achèvement
       de ce module, sauf si vous vous reconnectez.
   uploads:
+    datetime: Horodatage
+    file_name: Nom de fichier
+    header: Fichiers téléchargés sur Wikimédia Communs
+    image: Image
     label: Téléversements
     loading: Chargement des téléchargements…
     none: Cette classe n'a contribué avec aucune image ou autre fichier média à Wikimedia
       Commons.
     time_doc: L’heure de chaque téléchargement dans votre heure locale
+    uploaded_by: Téléchargé par
+    usage_count: Nombre d’utilisations
     usages: Utilisations
   users:
     already_enrolled: Cet utilisateur est déjà inscrit !
@@ -427,7 +478,9 @@ fr:
     characters_added_userspace: Caractères US ajoutés
     name: Nom
     none: Ce cours n’a aucun étudiant.
+    no_articles: Aucun article
     no_revisions: Cet utilisateur n’a fait aucune révision.
+    number_of_articles: '%{number} articles'
     recent_revisions: Modifications récentes
     remove_confirmation: Êtes-vous sûr de vouloir supprimer %{username} de ce cours ?
     revisions_doc: Le nombre de modifications faites par cet éditeur durant les 7

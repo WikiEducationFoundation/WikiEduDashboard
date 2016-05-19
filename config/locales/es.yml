@@ -12,6 +12,9 @@
 # Author: YoViajo
 ---
 es:
+  accessibility:
+    number_field: Este es un campo numérico. Los botones representados por la mayoría
+      de los navegadores incrementará y decrementará la entrada.
   application:
     cancel: Cancelar
     dashboard: Panel de Wiki Ed
@@ -37,6 +40,11 @@ es:
     training: Entrenamiento
   dashboard:
     create_note: Haz clic en Crear curso para crear tu primer curso.
+    create_preparation_note: Asegúrate de tener tu calendario académico a mano antes
+      de comenzar; la herramienta de diseño de tareas usará las fechas de las reuniones
+      de tu clase, incluyendo vacaciones y recesos escolares, para adaptar tu cronograma
+      al intervalo de fechas que elijas. Recuerda que siempre puedes editar el cronograma
+      para que se ajuste a tus necesidades.
     explore_course_pages: Explorar las páginas del curso
     explore_examples: Explorar ejemplos
     join_note: Una vez que recibes un código de acceso de tu instructor, haz clic
@@ -128,9 +136,17 @@ es:
     assignment_start: Inicio de la tarea
     calendar:
       legend: Leyenda
+      legend_class_canceled: Vacaciones/cancelada
+      legend_class_meeting: Reunión de la Clase
+      legend_class_not_meeting: Ninguna reunión programada
+      select_meeting_days: Selecciona los días de la semana en que se reúne tu clase.
     character_doc: La suma de caracteres agregados a los artículos del espacio principal
       por parte de los estudiantes durante el período del curso
     cohorts: 'Cohortes:'
+    confirm_course_deletion: ¿Estás seguro de que quieres eliminar el curso titulado
+      %{title}? Si es así, escribe el título del curso para continuar.
+    confirm_course_deletion_failed: '"%{title}" no es el título de este curso. El
+      curso no se ha eliminado.'
     course_dates_calendar_instructions: Selecciona fechas para añadirlas o quitarlas
       del calendario (por ejemplo, vacaciones, cuando no hay clases). Haz clic en
       la fecha para cambiar entre los estados «no seleccionado», «seleccionado» y
@@ -139,6 +155,11 @@ es:
     course_description: Cursos
     courses: Cursos
     creator:
+      assignment_end: Fin de la tarea
+      assignment_end_placeholder: Fin de la tarea (AAAA-MM-DD)
+      assignment_start: Inicio de la tarea
+      assignment_start_placeholder: Inicio de la tarea (AAAA-MM-DD)
+      checking_for_uniqueness: Se está comprobando que este curso sea único.
       cloned_course_calendar_instructions: Selecciona fechas para añadirlas o quitarlas
         del calendario (por ejemplo, vacaciones, cuando no hay clases). Haz clic en
         la fecha para cambiar entre los estados «no seleccionado», «seleccionado»
@@ -146,10 +167,14 @@ es:
         El cronograma copiado ajustará automáticamente las fechas para dar cuenta
         de las semanas que no tienen reuniones programadas.
       clone_successful: Curso clonado cn éxito
+      clone_successful_details: Tu curso se ha clonado, incluyendo los elementos del
+        cronograma (semanas y bloques). ¿Ha cambiado algo más acerca de tu curso?
+        Siéntase libre de actualizarlo ahora.
       course_description: Descripción del curso
       course_school: Escuela del curso
       course_subject: Tema del curso
       course_term: Curso de plazo
+      course_term_placeholder: Trimestre
       course_title: Título del curso
       create_button: ¡Crear mi curso!
       create_label: Crear curso nuevo
@@ -164,6 +189,7 @@ es:
         del curso, y no pueden cambiarse. Todo lo demás puede editarse luego. Haz
         clic en "Crear mi curso" para iniciar la construcción del cronograma para
         tu tarea en Wikipedia.
+      no_class_holidays: Yo no tengo vacaciones de clases
       save_cloned_course: Guardar curso nuevo
       start_date: Fecha de inicio
       start_date_placeholder: Fecha de inicio (AAAA-MM-DD)
@@ -190,16 +216,22 @@ es:
     join_course: Únete al curso
     join_prompt: ¿Unirse a '%{title}'?
     join_successful: Te has unido con éxito a %{title}.
+    leave_confirmation: ¿Estás seguro de que quieres dejar este curso?
     leave_course: Deja el curso
     loading: Cargando…
     milestones_none: Este curso actualmente no tiene ningún hito.
     new_week: Agregar una semana nueva
     nocourses: No participas de ningún curso.
     none: Ninguno
+    notify_untrained_confirmation: Esto publicará un recordatorio en las páginas de
+      discusión de todos los estudiantes que no hayan completado los módulos de entrenamiento
+      asignados. ¿Estás seguro de que quieres hacer esto?
     no_available_actions: No hay acciones disponibles
     overview: Resumen
     passcode: Código de acceso
     passcode_none: Ningún código de acceso
+    passcode_prompt: Escribe el código de acceso proporcionado por tu instructor de
+      este curso
     published: '¡Tu curso ha sido publicado! Los estudiantes pueden inscribirse en
       el curso visitando la siguiente URL:'
     review_timeline: Revisa este cronograma y haz cambios. Una vez que estés satisfecho
@@ -318,7 +350,7 @@ es:
   recent_activity:
     active_courses: El artículo está activo en
     article_title: Título del artículo
-    datetime: Fecha/Hora
+    datetime: Fecha/hora
     did_you_know_eligible: ¿Sabía Usted Elegible
     image: Imagen
     file_name: Nombre del archivo
@@ -334,6 +366,7 @@ es:
     revision_score: Puntuación de revisión
     show_courses: Mostrar sólo mis cursos
     uploaded_by: Subido por
+    usage_count: Total de usos
   revisions:
     chars_added: Caracteres añadidos
     class: Clase
@@ -351,8 +384,16 @@ es:
       programadas. Ejecuta 'rake batch:resume' para reanudar las actualizaciones.
   timeline:
     add_week: Añadir semana
+    arrange_timeline: Organizar cronograma
+    arrange_timeline_instructions: Organiza el cronograma 'arrastrando y soltando'
+      bloques en la ubicación/semana deseada, o cambia la posición de los bloques
+      usando las flechas que aparecen en la tarjeta.
+    assignment_dates_instructions: Selecciona las fechas de inicio y fin para la tarea
+      de Wikipedia. El cambio de la fecha de inicio desplazará las fechas de todo
+      el cronograma.
     blackout_week_created: Hay bloques programados para esta semana. Muévelos a otra
       semana antes de quitar la última reunión de la clase de esta semana.
+    block_assignment: Tarea
     block_custom: Personalizado
     block_in_class: En la clase
     block_milestone: Hito
@@ -360,13 +401,30 @@ es:
       de este tema en su cronograma y para construir herramientas útiles para ti (tales
       como el hito descripto en la página de información general)
     course_dates: Fechas del curso
+    course_dates_instructions: Selecciona las fechas de inicio y fin del curso entero
+      (no sólo la tarea de Wikipedia).
+    course_end: Fin del curso
+    course_start: Inicio del curso
+    delete_week_confirmation: |-
+      ¿Estás seguro de que quieres eliminar esta semana? Esto eliminará la semana y todos sus bloques asociados.
+
+      Esto no se puede deshacer.
     discard_all_changes: Descartar todos los cambios
     due_default: Previsto la semana próxima
+    empty_week_1: Para empezar,
+    empty_week_2: empieza a editar esta semana
     empty_week_3: o
+    empty_week_4: iniciar de una tarea prefabricada.
+    first_week_title: Primera semana activa
     gradeable_value: Valor
+    gradeables_none: Este cronograma no tiene tareas marcadas como graduadas.
+    grading_header: 'Calificación (Total: %{total}%)'
     move_block_down: Bajar el bloque
     move_block_up: Subir el bloque
+    no_class_holidays: Yo no tengo vacaciones de clases
+    no_timeline: Este curso no tiene cronograma.
     no_activity_this_week: Ninguna actividad esta semana
+    nothing_this_week: No hay nada en el calendario para esta semana.
     save_all_changes: Guardar todo
     this_week_title_default: Esta semana
     title: Cronograma
@@ -383,6 +441,7 @@ es:
   uploads:
     datetime: Fecha/hora
     file_name: Nombre del archivo
+    header: Archivos subidos a Wikimedia Commons
     image: Imagen
     label: Subidas
     loading: Cargando subidas...
@@ -390,6 +449,7 @@ es:
       Commons.
     time_doc: El tiempo de cada subida en tu hora local
     uploaded_by: Subido por
+    usage_count: Total de usos
     usages: Usos
   users:
     already_enrolled: Ese usuario ya está inscrito.
@@ -413,6 +473,8 @@ es:
     first_name: Nombre
     last_name: Apellido
     loading: Cargando usuarios...
+    characters_added_mainspace: Caracteres añadidos en el espacio principal
+    characters_added_userspace: Caracteres añadidos en el espacio de usuario
     name: Nombre
     none: Este curso no tiene estudiantes.
     no_articles: Ningún artículo
