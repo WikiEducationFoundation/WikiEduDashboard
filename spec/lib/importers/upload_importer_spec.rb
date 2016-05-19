@@ -13,15 +13,21 @@ describe UploadImporter do
     end
   end
 
-  describe '.update_usage_count' do
+  describe '.update_usage_count_by_course' do
+    before do
+      user = create(:user,
+                    username: 'Guettarda')
+      course = create(:course, start: '2006-01-01', end: '2007-01-01')
+      create(:courses_user, course_id: course.id, user_id: user.id,
+                            role: CoursesUsers::Roles::STUDENT_ROLE)
+    end
+
     it 'should count and record how many times files are used' do
-      create(:user,
-             username: 'Guettarda')
       VCR.use_cassette 'commons/import_all_uploads' do
         UploadImporter.import_all_uploads(User.all)
       end
       VCR.use_cassette 'commons/update_usage_count' do
-        UploadImporter.update_usage_count(CommonsUpload.all)
+        UploadImporter.update_usage_count_by_course(Course.all)
         peas_photo = CommonsUpload.find(543972)
         expect(peas_photo.usage_count).to be > 1
       end

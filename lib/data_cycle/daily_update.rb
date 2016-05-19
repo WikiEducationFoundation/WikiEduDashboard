@@ -67,7 +67,7 @@ class DailyUpdate
     UploadImporter.import_all_uploads(User.all)
 
     Rails.logger.debug 'Updating Commons uploads usage counts'
-    UploadImporter.update_usage_count(CommonsUpload.where(deleted: false))
+    UploadImporter.update_usage_count_by_course(Course.all)
 
     Rails.logger.debug 'Getting thumbnail urls for Commons uploads'
     thumbless_uploads = CommonsUpload.where(thumburl: nil, deleted: false)

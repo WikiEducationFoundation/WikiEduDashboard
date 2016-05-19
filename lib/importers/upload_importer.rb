@@ -12,6 +12,12 @@ class UploadImporter
     end
   end
 
+  def self.update_usage_count_by_course(courses)
+    courses.each do |course|
+      update_usage_count(course.uploads.where(deleted: false))
+    end
+  end
+
   def self.update_usage_count(commons_uploads)
     Utils.chunk_requests(commons_uploads) do |file_batch|
       usages = Commons.get_usages file_batch
