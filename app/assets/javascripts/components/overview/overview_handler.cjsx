@@ -5,6 +5,7 @@ Milestones    = require './milestones.cjsx'
 Details       = require './details.cjsx'
 ThisWeek      = require './this_week.cjsx'
 CourseStore   = require '../../stores/course_store.coffee'
+UserAssignmentStore = require '../../stores/user_assignment_store.coffee'
 WeekStore     = require '../../stores/week_store.coffee'
 ServerActions = require('../../actions/server_actions.js').default
 Loading       = require '../common/loading.cjsx'
@@ -66,6 +67,15 @@ Overview = React.createClass(
       </div>
     )
 
+    if true
+      userArticles = (
+        <MyArticles
+          course={@state.course}
+          assigned=null
+          reviewing=null
+        />
+      )
+
     <section className='overview container'>
       { syllabus_upload }
       <div className="stat-display">
@@ -102,6 +112,7 @@ Overview = React.createClass(
         {primaryContent}
       </div>
       <div className='sidebar'>
+        {userArticles}
         <Details {...@props} />
         <Actions {...@props} />
         <Milestones {...@props} />
