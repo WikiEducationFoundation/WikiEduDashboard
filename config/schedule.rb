@@ -30,6 +30,7 @@ every 1.day, at: '4:30 am' do
 end
 
 every [:monday, :tuesday, :wednesday, :thursday], at: '10:15 am' do
+  rake 'surveys:create_notifications'
   rake 'surveys:send_notifications'
   rake 'surveys:send_notification_follow_ups'
 end
