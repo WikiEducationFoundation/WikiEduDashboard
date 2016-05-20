@@ -12,7 +12,11 @@ class AlertPreview < ActionMailer::Preview
     AlertMailer.alert(Alert.where(type: 'UntrainedStudentsAlert').last, User.last)
   end
 
-  def producive_course_alert
+  def productive_course_alert
     AlertMailer.alert(Alert.where(type: 'ProductiveCourseAlert').last, User.last)
+  end
+
+  def continued_course_activity_alert
+    AlertMailer.alert(Alert.where(type: 'ContinuedCourseActivityAlert').last, User.last)
   end
 end
