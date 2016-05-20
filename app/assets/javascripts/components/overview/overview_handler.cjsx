@@ -23,7 +23,7 @@ getState = ->
 
 Overview = React.createClass(
   displayName: 'Overview'
-  mixins: [WeekStore.mixin, CourseStore.mixin]
+  mixins: [WeekStore.mixin, CourseStore.mixin, AssignmentStore.mixin]
   storeDidChange: ->
     @setState getState()
   componentDidMount: ->
