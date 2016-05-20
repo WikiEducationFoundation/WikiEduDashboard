@@ -5,8 +5,8 @@ Milestones    = require './milestones.cjsx'
 Details       = require './details.cjsx'
 ThisWeek      = require './this_week.cjsx'
 CourseStore   = require '../../stores/course_store.coffee'
+AssignmentStore = require '../../stores/assignment_store.coffee'
 WeekStore     = require '../../stores/week_store.coffee'
-AssignmentStore   = require '../../stores/assignment_store.coffee'
 ServerActions = require('../../actions/server_actions.js').default
 Loading       = require '../common/loading.cjsx'
 CourseClonedModal  = require './course_cloned_modal.cjsx'
@@ -29,7 +29,6 @@ Overview = React.createClass(
   componentDidMount: ->
     ServerActions.fetch 'timeline', @props.course_id
     ServerActions.fetch 'tags', @props.course_id
-    ServerActions.fetch 'assignments', @props.course_id
   getInitialState: ->
     getState()
 
@@ -70,16 +69,11 @@ Overview = React.createClass(
     )
 
     if @props.current_user.role == 0
-      assign_options = { user_id: @props.current_user.id, role: 0 }
-      review_options = { user_id: @props.current_user.id, role: 1 }
-
       userArticles = (
         <MyArticles
           course={@state.course}
           course_id={@props.course_id}
           current_user={@props.current_user}
-          assigned={AssignmentStore.getFiltered assign_options}
-          reviewing={AssignmentStore.getFiltered review_options}
         />
       )
 

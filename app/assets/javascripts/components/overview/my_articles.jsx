@@ -1,6 +1,7 @@
 import React from 'react';
 import AssignCell from '../students/assign_cell.cjsx';
-
+import AssignmentStore from '../../stores/assignment_store.coffee';
+import ServerActions from '../../actions/server_actions.js';
 
 const MyArticles = React.createClass({
   displayName: 'MyArticles',
@@ -8,12 +9,20 @@ const MyArticles = React.createClass({
   propTypes: {
     course: React.PropTypes.object,
     current_user: React.PropTypes.object,
-    course_id: React.PropTypes.string,
-    assigned: React.PropTypes.array,
-    reviewing: React.PropTypes.array
+    course_id: React.PropTypes.string
+  },
+
+  componentDidMount() {
+    ServerActions.fetch('assignments', this.props.course_id);
   },
 
   render() {
+    const assignOptions = { user_id: this.props.current_user.id, role: 0 };
+    const reviewOptions = { user_id: this.props.current_user.id, role: 1 };
+
+    const assigned = AssignmentStore.getFiltered(assignOptions);
+    const reviewing = AssignmentStore.getFiltered(reviewOptions);
+
     return (
       <div className="module">
         <div className="section-header">
@@ -28,7 +37,7 @@ const MyArticles = React.createClass({
             course_id={this.props.course_id}
             current_user={this.props.current_user}
             student={this.props.current_user}
-            assignments={this.props.assigned}
+            assignments={assigned}
           />
           <br />
           <AssignCell
@@ -39,7 +48,7 @@ const MyArticles = React.createClass({
             course_id={this.props.course_id}
             current_user={this.props.current_user}
             student={this.props.current_user}
-            assignments={this.props.reviewing}
+            assignments={reviewing}
           />
         </div>
       </div>
