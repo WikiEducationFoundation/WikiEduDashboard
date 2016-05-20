@@ -83,7 +83,6 @@ describe Course, type: :model do
 
       # Check articles
       expect(course.articles.count).to eq(4)
-      expect(Article.all.where(namespace: 0).count).to eq(course.articles.count)
 
       # Check users
       expect(course.user_count).to eq(6)
