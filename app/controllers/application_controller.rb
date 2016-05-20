@@ -50,6 +50,12 @@ class ApplicationController < ActionController::Base
     redirect_to onboarding_path(return_to: full_path)
   end
 
+  def require_signed_in
+    return if user_signed_in?
+    exception = ActionController::InvalidAuthenticityToken.new('Unauthorized')
+    raise exception
+  end
+
   def require_permissions
     course = Course.find_by_slug(params[:id])
     return if user_signed_in? && current_user.can_edit?(course)

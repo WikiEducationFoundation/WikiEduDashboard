@@ -13,7 +13,6 @@ _loaded = false
 
 # Utilities
 setCourse = (data, persisted=false, quiet=false) ->
-  console.log 'setCourse', data
   _loaded = true
   $.extend(true, _course, data)
   delete _course['weeks']

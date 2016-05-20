@@ -11,11 +11,14 @@
 # revision_id
 # course_id
 # email_sent_at
+# target_user_id
+# message
 
 class Alert < ActiveRecord::Base
   belongs_to :article
   belongs_to :course
   belongs_to :user
+  belongs_to :target_user, class_name: 'User'
   belongs_to :revision
 
   include ArticleHelper
@@ -36,6 +39,11 @@ class Alert < ActiveRecord::Base
     admins.each do |admin|
       AlertMailer.alert(self, admin).deliver_now
     end
+    update_attribute(:email_sent_at, Time.now)
+  end
+
+  def email_target_user
+    AlertMailer.alert(self, target_user).deliver_now
     update_attribute(:email_sent_at, Time.now)
   end
 end

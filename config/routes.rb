@@ -81,6 +81,7 @@ Rails.application.routes.draw do
   get 'revisions' => 'revisions#index'
 
   resources :courses_users, only: [:index]
+  resources :alerts, only: [:create]
 
   # Article Finder
   if Features.enable_article_finder?

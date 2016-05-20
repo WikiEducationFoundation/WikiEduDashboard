@@ -11,29 +11,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160511162714) do
+ActiveRecord::Schema.define(version: 20160520000559) do
 
   create_table "alerts", force: :cascade do |t|
-    t.integer  "course_id",     limit: 4
-    t.integer  "user_id",       limit: 4
-    t.integer  "article_id",    limit: 4
-    t.integer  "revision_id",   limit: 4
-    t.string   "type",          limit: 255
+    t.integer  "course_id",      limit: 4
+    t.integer  "user_id",        limit: 4
+    t.integer  "article_id",     limit: 4
+    t.integer  "revision_id",    limit: 4
+    t.string   "type",           limit: 255
     t.datetime "email_sent_at"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.string   "message",        limit: 255
+    t.integer  "target_user_id", limit: 4
   end
 
   add_index "alerts", ["article_id"], name: "index_alerts_on_article_id", using: :btree
   add_index "alerts", ["course_id"], name: "index_alerts_on_course_id", using: :btree
   add_index "alerts", ["revision_id"], name: "index_alerts_on_revision_id", using: :btree
+  add_index "alerts", ["target_user_id"], name: "index_alerts_on_target_user_id", using: :btree
   add_index "alerts", ["user_id"], name: "index_alerts_on_user_id", using: :btree
 
   create_table "articles", force: :cascade do |t|
     t.string   "title",                    limit: 255
     t.integer  "views",                    limit: 8,   default: 0
-    t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "created_at"
     t.integer  "character_sum",            limit: 4,   default: 0
     t.integer  "revision_count",           limit: 4,   default: 0
     t.date     "views_updated_at"
@@ -61,10 +64,10 @@ ActiveRecord::Schema.define(version: 20160511162714) do
   create_table "assignments", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "article_title", limit: 255
     t.integer  "user_id",       limit: 4
     t.integer  "course_id",     limit: 4
     t.integer  "article_id",    limit: 4
-    t.string   "article_title", limit: 255
     t.integer  "role",          limit: 4
     t.integer  "wiki_id",       limit: 4
   end
@@ -227,8 +230,11 @@ ActiveRecord::Schema.define(version: 20160511162714) do
     t.string   "name",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "surveys_id", limit: 4
     t.string   "tags",       limit: 255
   end
+
+  add_index "rapidfire_question_groups", ["surveys_id"], name: "index_rapidfire_question_groups_on_surveys_id", using: :btree
 
   create_table "rapidfire_questions", force: :cascade do |t|
     t.integer  "question_group_id",       limit: 4
@@ -259,9 +265,9 @@ ActiveRecord::Schema.define(version: 20160511162714) do
     t.datetime "date"
     t.boolean  "new_article",               default: false
     t.boolean  "deleted",                   default: false
+    t.boolean  "system",                    default: false
     t.float    "wp10",           limit: 24
     t.float    "wp10_previous",  limit: 24
-    t.boolean  "system",                    default: false
     t.integer  "ithenticate_id", limit: 4
     t.integer  "wiki_id",        limit: 4
     t.integer  "mw_rev_id",      limit: 4
@@ -343,8 +349,6 @@ ActiveRecord::Schema.define(version: 20160511162714) do
 
   create_table "users", force: :cascade do |t|
     t.string   "username",            limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.boolean  "trained",                         default: false
     t.integer  "global_id",           limit: 4
     t.datetime "remember_created_at"
@@ -371,11 +375,10 @@ ActiveRecord::Schema.define(version: 20160511162714) do
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
   create_table "weeks", force: :cascade do |t|
-    t.string   "title",      limit: 255
     t.integer  "course_id",  limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "order",      limit: 4,   default: 1, null: false
+    t.integer  "order",      limit: 4, default: 1, null: false
   end
 
   create_table "wikis", force: :cascade do |t|

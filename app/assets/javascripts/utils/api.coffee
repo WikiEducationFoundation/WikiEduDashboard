@@ -479,5 +479,16 @@ API =
         console.error 'Error: ' + getErrorMessage(obj)
         rej obj
 
+  createNeedHelpAlert: (opts) ->
+    new Promise (res, rej) ->
+      $.ajax
+        type: 'POST'
+        url: "/alerts"
+        data: opts
+        success: (data) ->
+          res data
+      .fail (obj, status) ->
+        console.error 'Error: ' + getErrorMessage(obj)
+        rej obj
 
 module.exports = API
