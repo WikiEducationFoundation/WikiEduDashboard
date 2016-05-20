@@ -26,6 +26,8 @@ class CoursesController < ApplicationController
     overrides[:passcode] = Course.generate_passcode
     overrides[:type] = ENV['default_course_type'] if ENV['default_course_type']
     overrides[:cohorts] = [Cohort.default_cohort] if Features.open_course_creation?
+    set_wiki { return }
+    overrides[:home_wiki] = @wiki
     @course = Course.create(course_params.merge(overrides))
     handle_timeline_dates
     CoursesUsers.create(user: current_user,
@@ -152,6 +154,16 @@ class CoursesController < ApplicationController
 
   private
 
+  def set_wiki
+    language = wiki_params[:language].present? ? wiki_params[:language] : Wiki.default_wiki.language
+    project = wiki_params[:project].present? ? wiki_params[:project] : Wiki.default_wiki.project
+    @wiki = Wiki.find_or_create_by(language: language.downcase, project: project.downcase)
+    return unless @wiki.id.nil?
+    render json: {
+      message: "Invalid language/project"
+    }, status: 404
+  end
+
   def cohort_params
     params.require(:cohort).permit(:title)
   end
@@ -201,6 +213,12 @@ class CoursesController < ApplicationController
 
   def tag_new_course
     TagManager.new(@course).initial_tags(creator: current_user)
+  end
+
+  def wiki_params
+    params
+      .require(:course)
+      .permit(:language, :project)
   end
 
   def course_params

@@ -197,6 +197,8 @@ en:
         (weeks and blocks). Has anything else about your course changed? Feel
         free to update it now.
       course_description: Course description
+      course_language: Home language
+      course_project: Home project
       course_school: Course school
       course_subject: Course subject
       course_term: Course term
@@ -227,6 +229,7 @@ en:
     error:
       exists: That course already exists! Please try again with a different title, school, or term.
       user_exists: "Sorry, %{username} is not an existing user."
+      invalid_language_or_project: Invalid language/project
     expected_students: Expected Students
     gradeables_none: This course has no gradeable assignments.
     instructor:
