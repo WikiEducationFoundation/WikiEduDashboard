@@ -34,4 +34,8 @@ class Features
   def self.email?
     !ENV['SENDER_EMAIL_ADDRESS'].nil?
   end
+
+  def self.enable_get_help_button?
+    ENV['enable_get_help_button'] == 'true'
+  end
 end

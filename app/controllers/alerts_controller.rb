@@ -1,23 +1,29 @@
 class AlertsController < ApplicationController
-  # before_filter require_signed_in
-  skip_before_filter :verify_authenticity_token
+  before_filter :require_signed_in
 
   def create
-    @alert = Alert.new(alert_params)
-    @alert.type = 'NeedHelpAlert'
+    if Features.enable_get_help_button? == false
+      render json: { status: 400 }
+      return
+    end
+
+    @alert = NeedHelpAlert.new(alert_params)
     @alert.user = current_user
 
     if @alert.save
-      # @alert.email_target_user
+      @alert.email_target_user
       render json: { status: 200 }
     else
-      render json: @alert.errors, status: :unprocessable_entity
+      render json: {
+        errors: @alert.errors, 
+        message: 'unable to create alert'
+      }, status: 500
     end
   end
 
   private
 
   def alert_params
-    params.permit(:target_user_id, :message)
+    params.permit(:target_user_id, :message, :course_id)
   end
 end

@@ -19,6 +19,7 @@ const GetHelpButton = React.createClass({
   propTypes: {
     key: React.PropTypes.string,
     current_user: React.PropTypes.object,
+    course: React.PropTypes.object,
     open: React.PropTypes.func,
     is_open: React.PropTypes.bool
   },
@@ -27,7 +28,7 @@ const GetHelpButton = React.createClass({
 
   getInitialState() {
     return Object.assign(getState(), {
-      selectedHelper: null,
+      selectedTargetUser: null,
       message: null
     });
   },
@@ -48,7 +49,7 @@ const GetHelpButton = React.createClass({
     e.preventDefault();
     this.setState({
       message: '',
-      selectedHelper: null
+      selectedTargetUser: null
     });
     this.props.open();
     setTimeout(() => {
@@ -56,14 +57,14 @@ const GetHelpButton = React.createClass({
     }, 500);
   },
 
-  updateHelper(helper, e) {
+  updateTargetUser(targetUser, e) {
     e.preventDefault();
-    this.setState({ selectedHelper: helper });
+    this.setState({ selectedTargetUser: targetUser });
   },
 
   clearHelper(e) {
     e.preventDefault();
-    this.setState({ selectedHelper: null });
+    this.setState({ selectedTargetUser: null });
   },
 
   updateMessage(e) {
@@ -73,8 +74,9 @@ const GetHelpButton = React.createClass({
   submitNeedHelpMessage(e) {
     e.preventDefault();
     const messageData = {
-      target_user_id: this.state.selectedHelper.id,
-      message: this.state.message
+      target_user_id: this.state.selectedTargetUser.id,
+      message: this.state.message,
+      course_id: this.props.course.id
     };
     AlertActions.submitNeedHelpAlert(messageData);
   },
@@ -82,13 +84,13 @@ const GetHelpButton = React.createClass({
   render() {
     let programManagers;
     let contentExperts;
-    let helpers;
+    let targetUsers;
     let content;
 
     contentExperts = this.state.contentExperts.map((user) => {
       return (
         <span className="content-experts" key={user.username}>
-          <a href="#" data-helper-id={user.id} onClick={(e) => this.updateHelper(user, e)}>{user.username}</a> (Content Expert)
+          <a href="#" onClick={(e) => this.updateTargetUser(user, e)}>{user.username}</a> (Content Expert)
           <br />
         </span>
       );
@@ -98,7 +100,7 @@ const GetHelpButton = React.createClass({
       programManagers = this.state.programManagers.map((user) => {
         return (
           <span className="program-managers" key={user.username}>
-            <a href="#" data-helper-id={user.id} onClick={(e) => this.updateHelper(user, e)}>{user.username}</a> (Program Manager)
+            <a href="#" onClick={(e) => this.updateTargetUser(user, e)}>{user.username}</a> (Program Manager)
             <br />
           </span>
         );
@@ -106,9 +108,9 @@ const GetHelpButton = React.createClass({
     }
 
     if (programManagers || contentExperts) {
-      helpers = (
-        <p className="helpers">
-          If you still need help, reach out to your Wikipedia Content Expert:
+      targetUsers = (
+        <p className="target-users">
+          If you still need help, reach out to thr appropriate person:
           <br />
           {contentExperts}
           {programManagers}
@@ -130,12 +132,12 @@ const GetHelpButton = React.createClass({
           </strong>
         </div>
       );
-    } else if (this.state.selectedHelper) {
+    } else if (this.state.selectedTargetUser) {
       content = (
         <div>
-          <p><strong>To: {this.state.selectedHelper.username}</strong></p>
+          <p><strong>To: {this.state.selectedTargetUser.username}</strong></p>
           <form onSubmit={this.submitNeedHelpMessage} className="mb0">
-            <input name="helper" type="hidden" defaultValue="" value={this.state.selectedHelper.id} />
+            <input name="targetUser" type="hidden" defaultValue="" value={this.state.selectedTargetUser.id} />
             <fieldset>
               <label htmlFor="message" className="input-wrapper">
                 <span>Your Message:</span>
@@ -175,7 +177,7 @@ const GetHelpButton = React.createClass({
             <a href="#" target="blank">FAQ</a>
           </p>
 
-          {helpers}
+          {targetUsers}
         </div>
       );
     }

@@ -1,3 +1,8 @@
 %p
   Please investigate:
   %a{ href: @alert.url }= @alert.main_subject
+
+- if @message
+  %p
+    Message from user: 
+    = @message

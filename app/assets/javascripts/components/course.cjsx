@@ -49,6 +49,13 @@ Course = React.createClass(
     alerts = []
     route_params = @props.params
 
+    if Features.enableGetHelpButton
+      getHelp = (
+        <div className="nav__button" id="get-help-button">
+          <GetHelpButton course={@state.course} current_user={@getCurrentUser()} key='get_help'/>
+        </div>
+      )
+
     courseLink =
       if @state.course.url?
         (<a href={@state.course.url} target="_blank">
@@ -220,9 +227,7 @@ Course = React.createClass(
               <div className="nav__item" id="activity-link">
                 <p><Link to="#{@_courseLinkParams()}/activity" activeClassName="active">{I18n.t("activity.label")}</Link></p>
               </div>
-              <div className="nav__button" id="get-help-button">
-                <GetHelpButton current_user={@getCurrentUser()} key='get_help'/>
-              </div>
+              {getHelp}
             </nav>
           </div>
         </div>
