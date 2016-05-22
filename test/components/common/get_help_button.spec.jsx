@@ -62,6 +62,17 @@ describe('GetHelpButton', () => {
         done();
       });
     });
+
+    it('should switch to form', (done) => {
+      const expertLink = popContainer.querySelectorAll('.content-expert-link')[0];
+      expect(ReactTestUtils.isDOMComponent(expertLink)).to.eq(true);
+      ReactTestUtils.Simulate.click(expertLink);
+      setImmediate(() => {
+        expect(popContainer.querySelectorAll('.get-help-info').length).to.eq(0);
+        expect(popContainer.querySelectorAll('.get-help-form').length).to.eq(1);
+        done();
+      });
+    });
   });
 
   describe('As an instructor', () => {

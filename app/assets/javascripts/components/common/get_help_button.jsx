@@ -90,7 +90,7 @@ const GetHelpButton = React.createClass({
     contentExperts = this.state.contentExperts.map((user) => {
       return (
         <span className="content-experts" key={user.username}>
-          <a href="#" onClick={(e) => this.updateTargetUser(user, e)}>{user.username}</a> (Content Expert)
+          <a href="#" className="content-expert-link" onClick={(e) => this.updateTargetUser(user, e)}>{user.username}</a> (Content Expert)
           <br />
         </span>
       );
@@ -100,7 +100,7 @@ const GetHelpButton = React.createClass({
       programManagers = this.state.programManagers.map((user) => {
         return (
           <span className="program-managers" key={user.username}>
-            <a href="#" onClick={(e) => this.updateTargetUser(user, e)}>{user.username}</a> (Program Manager)
+            <a href="#" className="program-manager-link" onClick={(e) => this.updateTargetUser(user, e)}>{user.username}</a> (Program Manager)
             <br />
           </span>
         );
@@ -120,13 +120,13 @@ const GetHelpButton = React.createClass({
 
     if (this.state.alertSubmitting) {
       content = (
-        <div className="text-center">
+        <div className="text-center get-help-submitting">
           <strong>Message submitting</strong>
         </div>
       );
     } else if (this.state.alertCreated) {
       content = (
-        <div className="text-center">
+        <div className="text-center get-help-submitted">
           <strong>
             Message submitted! <a href="#" onClick={this.reset}>Ok</a>
           </strong>
@@ -134,7 +134,7 @@ const GetHelpButton = React.createClass({
       );
     } else if (this.state.selectedTargetUser) {
       content = (
-        <div>
+        <div className="get-help-form">
           <p><strong>To: {this.state.selectedTargetUser.username}</strong></p>
           <form onSubmit={this.submitNeedHelpMessage} className="mb0">
             <input name="targetUser" type="hidden" defaultValue="" value={this.state.selectedTargetUser.id} />
@@ -151,7 +151,7 @@ const GetHelpButton = React.createClass({
       );
     } else {
       content = (
-        <div>
+        <div className="get-help-info">
           <p>
             <strong>
               Hi, if you need help with your Wikipedia assignment, you've come

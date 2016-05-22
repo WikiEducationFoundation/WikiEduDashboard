@@ -11,11 +11,11 @@ class AlertsController < ApplicationController
     @alert.user = current_user
 
     if @alert.save
-      @alert.email_target_user
+      @alert.email_target_user if @alert.target_user.email.present?
       render json: { status: 200 }
     else
       render json: {
-        errors: @alert.errors, 
+        errors: @alert.errors,
         message: 'unable to create alert'
       }, status: 500
     end
