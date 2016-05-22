@@ -72,7 +72,7 @@ ActiveRecord::Schema.define(version: 20160520000559) do
     t.integer  "wiki_id",       limit: 4
   end
 
-  add_index "assignments", ["course_id", "user_id", "article_title", "role"], name: "by_course_user_article_and_role", unique: true, using: :btree
+  add_index "assignments", ["course_id", "user_id", "article_title", "role", "wiki_id"], name: "by_course_user_article_and_role", unique: true, using: :btree
 
   create_table "blocks", force: :cascade do |t|
     t.integer  "kind",                limit: 4
@@ -161,6 +161,7 @@ ActiveRecord::Schema.define(version: 20160520000559) do
     t.string   "syllabus_content_type", limit: 255
     t.integer  "syllabus_file_size",    limit: 4
     t.datetime "syllabus_updated_at"
+    t.integer  "home_wiki_id",          limit: 4
   end
 
   add_index "courses", ["slug"], name: "index_courses_on_slug", using: :btree

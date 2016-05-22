@@ -39,8 +39,7 @@ class UserImporter
     id = WikiApi.new(wiki).get_user_id(username)
     return unless id
 
-    # TODO: remove id once it is decouple from mediaiki ids.
-    User.find_or_create_by(username: username, id: id)
+    User.find_or_create_by(username: username)
   end
 
   def self.update_users(users=nil)

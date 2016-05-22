@@ -46,7 +46,7 @@ class LegacyCourseImporter
     data.each do |c|
       id = c['course']['id']
       c['course']['listed'] = listed_ids.include?(id)
-      course = Course.new(id: id, type: 'LegacyCourse')
+      course = Course.new(id: id, type: 'LegacyCourse', home_wiki_id: 1)
       course.update(c, false)
       courses.push course
       participants[id] = c['participants']

@@ -19,7 +19,8 @@ getState = ->
 StudentList = React.createClass(
   displayName: 'StudentList'
   save: ->
-    ServerActions.saveStudents $.extend(true, {}, getState()), @props.course_id
+    # FIXME: Remove this save function
+    return null
   notify: ->
     if confirm I18n.t('wiki_edits.notify_overdue.confirm')
       ServerActions.notifyOverdue @props.course_id
@@ -40,7 +41,6 @@ StudentList = React.createClass(
         key={student.id}
         assigned={AssignmentStore.getFiltered assign_options}
         reviewing={AssignmentStore.getFiltered review_options}
-        save={@save}
         {...@props} />
     drawers = @props.users.map (student) =>
       <StudentDrawer
@@ -89,4 +89,4 @@ StudentList = React.createClass(
     </div>
 )
 
-module.exports = Editable(StudentList, [UserStore, AssignmentStore], ServerActions.saveStudents, getState, "Assign Articles")
+module.exports = Editable(StudentList, [UserStore, AssignmentStore], ServerActions.saveStudents, getState, I18n.t('users.assign_articles'), I18n.t('users.assign_articles_done'), true)

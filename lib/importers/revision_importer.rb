@@ -18,9 +18,12 @@ class RevisionImporter
     courses = [courses] if courses.is_a? Course
     courses ||= all_time ? Course.all : Course.current
     courses.each do |course|
-      importer = new(course.home_wiki)
-      results = importer.get_revisions_for_course(course)
-      importer.import_revisions(results)
+      wiki_ids = course.assignments.pluck(:wiki_id) + [course.home_wiki.id]
+      wiki_ids.uniq.each do |wiki_id|
+        importer = new(Wiki.find(wiki_id))
+        results = importer.get_revisions_for_course(course)
+        importer.import_revisions(results)
+      end
       ArticlesCourses.update_from_course(course)
     end
   end
@@ -30,7 +33,7 @@ class RevisionImporter
     results = []
     return results if course.students.empty?
     start = course_start_date(course)
-    end_date = course_end_date(course)
+    end_date = end_of_update_period(course)
     new_users = users_with_no_revisions(course)
 
     old_users = course.students - new_users
@@ -111,9 +114,10 @@ class RevisionImporter
     course.start.strftime('%Y%m%d')
   end
 
-  def course_end_date(course)
+  DAYS_TO_IMPORT_AFTER_COURSE_END = 30
+  def end_of_update_period(course)
     # Add one day so that the query does not end at the beginning of the last day.
-    (course.end + 1.day).strftime('%Y%m%d')
+    (course.end + 1.day + DAYS_TO_IMPORT_AFTER_COURSE_END.days).strftime('%Y%m%d')
   end
 
   def users_with_no_revisions(course)
@@ -123,7 +127,7 @@ class RevisionImporter
   end
 
   def first_revision(course)
-    course.revisions.order('date DESC').first
+    course.revisions.where(wiki_id: @wiki.id).order('date DESC').first
   end
 
   def get_revisions_from_import_data(data)
@@ -138,14 +142,16 @@ class RevisionImporter
     articles, revisions = [], []
 
     sub_data.each do |_a_id, a|
-      article = Article.find_by(mw_page_id: a['article']['id'], wiki_id: @wiki.id)
-      article ||= Article.new(mw_page_id: a['article']['id'], wiki_id: @wiki.id)
-      article.update!(a['article'])
+      article = Article.find_by(mw_page_id: a['article']['mw_page_id'], wiki_id: @wiki.id)
+      article ||= Article.new(mw_page_id: a['article']['mw_page_id'], wiki_id: @wiki.id)
+      article.update!(title: a['article']['title'],
+                      namespace: a['article']['namespace'])
       articles.push article
 
       a['revisions'].each do |r|
-        revision = Revision.new(id: r['id'], # TODO: remove id when it gets decoupled from mw_rev_id
-                                mw_rev_id: r['mw_rev_id'],
+        existing_revision = Revision.find_by(mw_rev_id: r['mw_rev_id'], wiki_id: @wiki.id)
+        next unless existing_revision.nil?
+        revision = Revision.new(mw_rev_id: r['mw_rev_id'],
                                 date: r['date'],
                                 characters: r['characters'],
                                 article_id: article.id,

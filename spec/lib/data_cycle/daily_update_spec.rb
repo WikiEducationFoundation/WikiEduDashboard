@@ -11,7 +11,7 @@ describe DailyUpdate do
       expect(ViewImporter).to receive(:update_all_views)
       expect(UploadImporter).to receive(:find_deleted_files)
       expect(UploadImporter).to receive(:import_all_uploads)
-      expect(UploadImporter).to receive(:update_usage_count)
+      expect(UploadImporter).to receive(:update_usage_count_by_course)
       expect(UploadImporter).to receive(:import_urls_in_batches)
       expect(CacheUpdater).to receive(:update_all_caches)
       expect(Raven).to receive(:capture_message)

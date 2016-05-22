@@ -18,6 +18,7 @@ json.users course.courses_users.eager_load(:user) do |cu|
   # Emails and names of greeters are shown to all users
   if show_email_and_real_name || cu.user.greeter
     json.real_name cu.user.real_name
-    json.email cu.user.email
+    # Student emails are not shown to anyone.
+    json.email cu.user.email unless cu.role == CoursesUsers::Roles::STUDENT_ROLE
   end
 end

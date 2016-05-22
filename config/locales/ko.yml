@@ -8,6 +8,7 @@
 # Author: Revi
 # Author: SeoJeongHo
 # Author: Yearning
+# Author: Ykhwong
 # Author: 고솜
 # Author: 밥풀떼기
 ---
@@ -253,7 +254,7 @@ ko:
   error_422:
     explanation: 무언가 문제가 생겼습니다. 이 게시판의 유지자에게 연락해서 문제를 알도록 하세요.
   error_500:
-    header: 500 — 내부 서버 에러  :-(
+    header: 500 — 내부 서버 오류.  :-(
     explanation: 무언가 문제가 생겼습니다. 이 게시판의 유지자에게 연락해서 문제를 알도록 하세요.
   login_error:
     header: 로그인 오류

@@ -102,6 +102,8 @@ class ConstantUpdate
     course_alert_manager.create_untrained_students_alerts
     Rails.logger.debug 'Generating productive course alerts'
     course_alert_manager.create_productive_course_alerts
+    Rails.logger.debug 'Generating continued course activity alerts'
+    course_alert_manager.create_continued_course_activity_alerts
   end
 
   #################################

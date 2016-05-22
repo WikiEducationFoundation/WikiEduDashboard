@@ -15,10 +15,12 @@ eo:
     log_out: Elsaluti
   articles:
     edited_mobile: Artikoloj
+    new: (nova)
     rating: Klaso
     title: Titolo
   courses:
     activity: Aktiveco
+    actions: Agoj
     articles: Artikoloj
     creator:
       course_description: Priskribo de kurso
@@ -31,6 +33,8 @@ eo:
       end_date: Fina dato
       find: Trovi vian kurson
       start_date: Komenca dato
+    delete_course: Forigi kurson
+    leave_course: Forlasi kurson
     students: Lernantoj
     title: Titolo
     view_wiki: Legi en Vikipedio
@@ -43,18 +47,34 @@ eo:
       create_new: Krei novan programon
       create_short: Krei programon
       find: Trovi vian programon
+  editable:
+    edit: Redakti
+    cancel: Nuligi
+    save: Konservi
   metrics:
     date_time: Dato/Tempo
+    per_user: '%{number}/uzanto'
     view: Vidoj
   namespace:
     user_ns: Uzanto
+  recent_activity:
+    image: Bildo
   revisions:
     class: Klaso
     title: Titolo
   timeline:
     add_week: Aldoni semajnon
+    empty_week_3: aŭ
+    gradeable_value: Valoro
+    save_all_changes: Konservi ĉion
+    this_week_title_default: Ĉi tiu semajno
+    week_number: Semajno %{number}
+  uploads:
+    image: Bildo
   users:
     name: Nomo
     no_articles: Neniuj artikoloj
     number_of_articles: '%{number} artikoloj'
+    username: Uzantnomo
+    username_placeholder: Uzantnomo
 ...

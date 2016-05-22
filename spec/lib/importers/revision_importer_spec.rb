@@ -82,7 +82,7 @@ describe RevisionImporter do
       expect(Course.find(1).revisions.count).to eq(3)
     end
 
-    it 'excludes revisions after the final day of the course' do
+    it 'imports revisions soon after the final day of the course, but excludes them from metrics' do
       create(:course, id: 1, start: '2016-03-20', end: '2016-03-30')
       create(:user, id: 15, username: 'Tedholtby')
       create(:courses_user, course_id: 1, user_id: 15,
@@ -90,7 +90,8 @@ describe RevisionImporter do
 
       RevisionImporter.update_all_revisions nil, true
 
-      expect(User.find(15).revisions.count).to eq(0)
+      expect(User.find(15).revisions.count).to eq(3)
+      expect(Course.find(1).revisions.count).to eq(0)
     end
 
     it 'handles returning users with earlier revisions' do

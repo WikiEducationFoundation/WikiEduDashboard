@@ -101,22 +101,33 @@ ps:
     edited_by: سمونگر
     title: سرليک
   timeline:
+    add_week: اونۍ ورگډول
+    block_in_class: په ټولگي کې
+    save_all_changes: ټول خوندي کول
+    this_week_title_default: دا اونۍ
     title: وختکرښه
+    week_number: اونۍ %{number}
   training:
     start: پيلول
     view: کتل
   uploads:
+    image: انځور
     label: پورته کېدنې
     usages: کارېدنې
   users:
     contributions: د کارن ونډې
     contributions_more: نورې ونډې کتل
     editors: زده کوونکي سمونگران
+    first_name: لومړی نوم
+    last_name: وروستی نوم
     loading: کارنان برسېرېږي...
     name: نوم
     none: دا کورس کوم زدکړيال نه لري.
+    number_of_articles: '%{number} ليکنې'
     recent_revisions: وروستني بدلونونه
     student_editors: زده کوونکي سمونگران
+    username: کارن-نوم
+    username_placeholder: کارن-نوم
   wizard:
     course_dates: کورس نېټې
     read_less: لږ لوستل

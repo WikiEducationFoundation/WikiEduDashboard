@@ -63,10 +63,6 @@ Rails.application.routes.draw do
 
   get 'lookups/(:action)(.:format)' => 'lookups'
 
-  # Assigning articles to students
-  post 'courses/:course_id/users' => 'users#save_assignments',
-       constraints: { course_id: /.*/ }
-
   # Timeline
   resources :courses, constraints: { id: /.*/ } do
     resources :weeks, only: [:index, :new, :create], constraints: { id: /.*/ }

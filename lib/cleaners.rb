@@ -66,13 +66,13 @@ class Cleaners
   # Assignments #
   ###############
   def self.match_assignment_titles_with_case_variant_articles_that_exist(count=nil)
-    require "#{Rails.root}/lib/utils"
+    require "#{Rails.root}/lib/article_utils"
 
     assignments = Assignment.where(article_id: nil)
     assignments = assignments.last(count) if count
     assignments.each do |assignment|
       possibly_bad_title = assignment.article_title
-      next unless possibly_bad_title == Utils.format_article_title(possibly_bad_title.downcase)
+      next unless possibly_bad_title == ArticleUtils.format_article_title(possibly_bad_title.downcase)
       title_search_result = first_article_search_result(assignment.wiki, possibly_bad_title)
       next if possibly_bad_title == title_search_result
       next unless title_search_result.downcase == possibly_bad_title.downcase.tr(' ', '_')

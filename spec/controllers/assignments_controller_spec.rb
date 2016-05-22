@@ -11,9 +11,8 @@ describe AssignmentsController do
     let!(:assignment) { create(:assignment, course_id: 1) }
 
     before do
-      allow(Course).to receive(:find_by_slug).and_return(OpenStruct.new(id: 1))
       allow(Assignment).to receive(:where).and_return(assignment)
-      get :index, course_id: 'foobar'
+      get :index, course_id: course.slug
     end
     it 'sets assignments ivar' do
       expect(assigns(:assignments)).to eq(assignment)
@@ -24,41 +23,126 @@ describe AssignmentsController do
   end
 
   describe 'DELETE destroy' do
-    let!(:assignment) { create(:assignment, course_id: 1) }
-    before do
-      allow(Assignment).to receive(:find).and_return(assignment)
-      delete :destroy, id: assignment.id
-    end
-    it 'destroys the assignment' do
-      expect(Assignment.count).to eq(0)
+    context 'when the user owns the assignment' do
+      let(:assignment) { create(:assignment, course_id: course.id, user_id: user.id,
+                                article_title: 'Selfie', role: 0) }
+
+      before do
+        expect_any_instance_of(WikiCourseEdits).to receive(:remove_assignment)
+        expect_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
+        expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
+      end
+
+      context 'when the assignment_id is provided' do
+        let(:params) { { course_id: course.slug } }
+        before do
+          delete :destroy, { id: assignment.id }.merge(params)
+        end
+        it 'destroys the assignment' do
+          expect(Assignment.count).to eq(0)
+        end
+
+        it 'renders a json response' do
+          id = assignment.id.to_s
+          expect(response.body).to eq({ article: id }.to_json)
+        end
+      end
+
+      context 'when the assignment_id is not provided' do
+        let(:params) do
+          { course_id: course.slug, user_id: user.id,
+            article_title: assignment.article_title, role: assignment.role }
+        end
+        before do
+          delete :destroy, { id: 'undefined' }.merge(params)
+        end
+        # This happens when an assignment is deleted right after it has been created.
+        # The version in the AssignmentStore will not have an assignment_id until
+        # it gets refreshed from the server.
+        it 'deletes the assignment' do
+          expect(Assignment.count).to eq(0)
+        end
+      end
     end
 
-    it 'renders a json response' do
-      id = assignment.id.to_s
-      expect(response.body).to eq({ article: id }.to_json)
+    context 'when the user does not have permission do destroy the assignment' do
+      let(:assignment) { create(:assignment, course_id: course.id, user_id: user.id + 1) }
+      let(:params) { { course_id: course.slug } }
+      before do
+        delete :destroy, { id: assignment }.merge(params)
+      end
+
+      it 'does not destroy the assignment' do
+        expect(Assignment.count).to eq(1)
+      end
+
+      it 'renders a 401 status' do
+        expect(response.status).to eq(401)
+      end
     end
   end
 
   describe 'create' do
-    let(:assignment_params) do
-      { user_id: 1, course_id: 1, article_title: 'pizza', role: 0 }
+    context 'when the user has permission to create the assignment' do
+      let(:course) { create(:course) }
+      let(:assignment_params) do
+        { user_id: user.id, course_id: course.slug, title: 'pizza', role: 0 }
+      end
+
+      it 'sets assignments ivar with a default wiki' do
+        expect_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
+        expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
+        put :create, assignment_params
+        assignment = assigns(:assignment)
+        expect(assignment).to be_a_kind_of(Assignment)
+        expect(assignment.wiki.language).to eq('en')
+        expect(assignment.wiki.project).to eq('wikipedia')
+      end
+      it 'renders a json response' do
+        expect_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
+        expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
+        put :create, assignment_params
+        json_response = JSON.parse(response.body)
+        # response makes created_at differ by milliseconds, which is weird,
+        # so test attrs that actually matter rather than whole record
+        expect(json_response['article_title'])
+          .to eq(Assignment.last.article_title)
+        expect(json_response['user_id']).to eq(Assignment.last.user_id)
+        expect(json_response['role']).to eq(Assignment.last.role)
+      end
+
+      let(:assignment_params_with_language_and_project) do
+        { user_id: user.id, course_id: course.slug, title: 'pizza',
+          role: 0, language: 'es', project: 'wikibooks' }
+      end
+      let!(:es_wikibooks) { create(:wiki, language: 'es', project: 'wikibooks') }
+
+      it 'sets the wiki based on language and project params' do
+        expect_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
+        expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
+        put :create, assignment_params_with_language_and_project
+        assignment = assigns(:assignment)
+        expect(assignment).to be_a_kind_of(Assignment)
+        expect(assignment.wiki_id).to eq(es_wikibooks.id)
+      end
     end
-    before do
-      allow(Course).to receive(:find_by_slug).and_return(OpenStruct.new(id: 1))
-    end
-    it 'sets assignments ivar' do
-      put :create, assignment_params
-      expect(assigns(:assignment)).to be_a_kind_of(Assignment)
-    end
-    it 'renders a json response' do
-      put :create, assignment_params
-      json_response = JSON.parse(response.body)
-      # response makes created_at differ by milliseconds, which is weird,
-      # so test attrs that actually matter rather than whole record
-      expect(json_response['article_title'])
-        .to eq(Assignment.last.article_title)
-      expect(json_response['user_id']).to eq(Assignment.last.user_id)
-      expect(json_response['role']).to eq(Assignment.last.role)
+
+    context 'when the user does not have permission to create the assignment' do
+      let(:course) { create(:course) }
+      let(:assignment_params) do
+        { user_id: user.id + 1, course_id: course.slug, title: 'pizza', role: 0 }
+      end
+      before do
+        put :create, assignment_params
+      end
+
+      it 'does not create the assignment' do
+        expect(Assignment.count).to eq(0)
+      end
+
+      it 'renders a 401 status' do
+        expect(response.status).to eq(401)
+      end
     end
   end
 end

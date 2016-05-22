@@ -45,6 +45,7 @@ FactoryGirl.define do
     term 'spring 2015'
     slug 'WINTR/Underwater_basket-weaving_(spring_2015)'
     passcode 'pizza'
+    home_wiki_id 1
   end
 
   factory :basic_course, class: 'BasicCourse' do
@@ -57,6 +58,7 @@ FactoryGirl.define do
     slug 'Black_life_matters'
     type 'BasicCourse'
     passcode 'pizzå'
+    home_wiki_id 1
   end
 
   factory :visiting_scholarship, class: 'VisitingScholarship' do
@@ -69,6 +71,7 @@ FactoryGirl.define do
     slug 'UNR/Basket-weaving_scholarship_(spring_2015)'
     passcode 'pizza'
     type 'VisitingScholarship'
+    home_wiki_id 1
   end
 
   factory :editathon, class: 'Editathon' do
@@ -81,6 +84,7 @@ FactoryGirl.define do
     slug 'NARA/Basket-weaving_edit-a-thon_(spring_2015)'
     passcode 'pizza'
     type 'Editathon'
+    home_wiki_id 1
   end
 
   factory :legacy_course, class: 'LegacyCourse' do
@@ -93,5 +97,6 @@ FactoryGirl.define do
     slug 'PRB/Legacy_basket-weaving_edit-a-thon_(spring_2013)'
     passcode 'pizza'
     type 'LegacyCourse'
+    home_wiki_id 1
   end
 end

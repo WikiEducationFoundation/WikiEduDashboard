@@ -32,9 +32,6 @@ class Replica
   #   0 ([mainspace])
   #   2 (User:)
   def get_revisions_raw(users, rev_start, rev_end)
-    # TODO: query by username instead of (local home wiki) user_id, or query by
-    # global id. This will be necessary to pull revision data for a user on
-    # any wiki except their home wiki where we have their local user_id.
     user_list = compile_usernames_query(users)
     oauth_tags = compile_oauth_tags
     oauth_tags = oauth_tags.blank? ? oauth_tags : "&#{oauth_tags}"

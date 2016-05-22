@@ -44,10 +44,10 @@ describe Revision do
       create(:article,
              id: 1,
              title: 'Vectors_in_gene_therapy')
-      create(:revision,
-             id: 637221390,
-             article_id: 1)
-      url = Revision.find(637221390).url
+      revision = create(:revision,
+                        mw_rev_id: 637221390,
+                        article_id: 1)
+      url = revision.url
       expect(url).to eq('https://en.wikipedia.org/w/index.php?title=Vectors_in_gene_therapy&diff=prev&oldid=637221390')
     end
   end
