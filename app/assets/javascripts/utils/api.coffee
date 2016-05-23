@@ -130,18 +130,6 @@ API =
         console.error 'Error: ' + getErrorMessage(obj)
         rej obj
 
-  fetchUserAssignments: (opts) ->
-    new Promise (res, rej) ->
-      $.ajax
-        type: 'GET',
-        url: "/assignments.json?user_id=#{opts.user_id}&role=#{opts.role}&course_id=#{opts.course_id}"
-        success: (data) ->
-          console.log 'Received user assignments'
-          res data
-      .fail (obj, status) ->
-        console.error 'Error: ' + getErrorMessage(obj)
-        rej obj
-
   fetchUserCourses: (userId) ->
     new Promise (res, rej) ->
       $.ajax

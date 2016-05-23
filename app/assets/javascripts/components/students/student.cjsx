@@ -24,10 +24,11 @@ Student = React.createClass(
   buttonClick: (e) ->
     e.stopPropagation()
     @openDrawer()
-  _studentRole: 0
+
   _shouldShowRealName: ->
+    studentRole = 0
     return false unless @props.student.real_name?
-    @props.current_user? && (@props.current_user.admin? || @props.current_user.role > @_studentRole())
+    @props.current_user? && (@props.current_user.admin? || @props.current_user.role > studentRole)
 
 
   render: ->

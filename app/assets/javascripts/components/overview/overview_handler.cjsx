@@ -5,12 +5,14 @@ Milestones    = require './milestones.cjsx'
 Details       = require './details.cjsx'
 ThisWeek      = require './this_week.cjsx'
 CourseStore   = require '../../stores/course_store.coffee'
+AssignmentStore = require '../../stores/assignment_store.coffee'
 WeekStore     = require '../../stores/week_store.coffee'
 ServerActions = require('../../actions/server_actions.js').default
 Loading       = require '../common/loading.cjsx'
 CourseClonedModal  = require './course_cloned_modal.cjsx'
 CourseUtils   = require('../../utils/course_utils.js').default
 SyllabusUpload  = require('./syllabus-upload.jsx').default
+MyArticles = require('./my_articles.jsx').default
 Modal = require '../common/modal.cjsx'
 
 getState = ->
@@ -21,15 +23,15 @@ getState = ->
 
 Overview = React.createClass(
   displayName: 'Overview'
-  mixins: [WeekStore.mixin, CourseStore.mixin]
+  mixins: [WeekStore.mixin, CourseStore.mixin, AssignmentStore.mixin]
   storeDidChange: ->
     @setState getState()
   componentDidMount: ->
     ServerActions.fetch 'timeline', @props.course_id
     ServerActions.fetch 'tags', @props.course_id
-    ServerActions.fetchUserAssignments(user_id: @props.current_user.id, course_id: @props.course_id, role: 0)
   getInitialState: ->
     getState()
+
   render: ->
     if @props.location.query.modal is 'true' && @state.course.id
       return (
@@ -65,6 +67,15 @@ Overview = React.createClass(
         {this_week}
       </div>
     )
+
+    if @props.current_user.role == 0
+      userArticles = (
+        <MyArticles
+          course={@state.course}
+          course_id={@props.course_id}
+          current_user={@props.current_user}
+        />
+      )
 
     <section className='overview container'>
       { syllabus_upload }
@@ -102,6 +113,7 @@ Overview = React.createClass(
         {primaryContent}
       </div>
       <div className='sidebar'>
+        {userArticles}
         <Details {...@props} />
         <Actions {...@props} />
         <Milestones {...@props} />
