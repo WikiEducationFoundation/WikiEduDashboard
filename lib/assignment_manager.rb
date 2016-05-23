@@ -11,17 +11,27 @@ class AssignmentManager
 
   def create_assignment
     @clean_title = ArticleUtils.format_article_title(@title)
-    article = Article.find_by(title: @clean_title, wiki_id: @wiki.id,
-                              namespace: Article::Namespaces::MAINSPACE)
+    set_article_from_database
+    import_article_from_wiki unless @article
+
     # We double check that the titles are equal to avoid false matches of case variants.
     # We can revise this once the database is set to use case-sensitive collation.
-    @article_id = article.id if article && article.title == @clean_title
-    # TODO: try to fetch article from wiki if not found locally
+    @article_id = @article.id if @article && @article.title == @clean_title
     Assignment.create!(user_id: @user_id,
                        course_id: @course.id,
                        article_title: @clean_title,
                        wiki_id: @wiki.id,
                        article_id: @article_id,
                        role: @role)
+  end
+
+  def set_article_from_database
+    @article = Article.find_by(title: @clean_title, wiki_id: @wiki.id,
+                               namespace: Article::Namespaces::MAINSPACE)
+  end
+
+  def import_article_from_wiki
+    ArticleImporter.new(@wiki).import_articles_by_title([@clean_title])
+    set_article_from_database
   end
 end
