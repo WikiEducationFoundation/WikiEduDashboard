@@ -51,6 +51,8 @@ sv:
     course_description: Kurser
     creator:
       course_description: Kursbeskrivning
+      course_language: Hemspråk
+      course_project: Hemprojekt
       course_school: Kursskola
       course_subject: Kursämne
       course_term_placeholder: Termin
@@ -63,7 +65,6 @@ sv:
       end_date_placeholder: Slutdatum (ÅÅÅÅ-MM-DD)
       expected_number: Förväntat antal elever
       find: Hitta din kurs
-      find_program: Hitta ditt program
       intro: Namnet, skolan, och termninen skapar din kurs sidas URL, och kan inte
         bli ändrad, allt annat kan du ändra senare. Klicka på "Skapa min kurs!" för
         att börja bygga tidslinjen för din Wikipedia uppgift.
@@ -73,6 +74,8 @@ sv:
       subject: Ämne
     delete_course: Radera kurs
     end: Slut
+    error:
+      invalid_language_or_project: Ogiltigt språk/projekt
     join_course: Delta i kurs
     leave_confirmation: Är du säker på att du vill lämna denna kurs?
     leave_course: Lämna kurs
@@ -89,7 +92,7 @@ sv:
       create_button: Skapa mitt program!
       create_label: Skapa Nytt Program
       create_short: Skapa Program
-      find: Hitta Ditt Program
+      find: Hitta ett program
       intro: Program titeln behövs, allt annat kan bli infyllt senare. Klicka på "Skapa
         mitt Program!" för att börja bygga sidan för ditt wiki program.
     edit_course_dates: Redigera projektdatum
@@ -151,6 +154,7 @@ sv:
     usage_count: Antal användningar
     usages: Användning
   users:
+    assign_articles_done: Färdig
     first_name: Förnamn
     last_name: Efternamn
     no_articles: Inga artiklar

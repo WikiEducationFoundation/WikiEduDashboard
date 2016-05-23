@@ -2,8 +2,11 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: V111P
+# Author: Лорд Бъмбъри
 ---
 bg:
   application:
     search: Задаване на въпрос
+  users:
+    assign_articles_done: Готово
 ...

@@ -59,6 +59,7 @@ eo:
     user_ns: Uzanto
   recent_activity:
     image: Bildo
+    file_name: Dosiernomo
   revisions:
     class: Klaso
     title: Titolo
@@ -70,8 +71,10 @@ eo:
     this_week_title_default: Ĉi tiu semajno
     week_number: Semajno %{number}
   uploads:
+    file_name: Dosiernomo
     image: Bildo
   users:
+    assign_articles_done: Farita
     name: Nomo
     no_articles: Neniuj artikoloj
     number_of_articles: '%{number} artikoloj'

@@ -155,6 +155,8 @@ es:
     course_description: Cursos
     courses: Cursos
     creator:
+      already_exists: Este curso ya existe. Considera cambiar el nombre, la escuela
+        o el plazo para hacerlo único.
       assignment_end: Fin de la tarea
       assignment_end_placeholder: Fin de la tarea (AAAA-MM-DD)
       assignment_start: Inicio de la tarea
@@ -184,7 +186,6 @@ es:
       end_date_placeholder: Fecha de fin (AAAA-MM-DD)
       expected_number: Número de estudiantes esperado
       find: Encuentra tu curso
-      find_program: Encuentra tu programa
       intro: El título, la escuela y el plazo crean la dirección URL de la página
         del curso, y no pueden cambiarse. Todo lo demás puede editarse luego. Haz
         clic en "Crear mi curso" para iniciar la construcción del cronograma para
@@ -292,6 +293,7 @@ es:
     assignments_none: Este curso no tiene artículos de Wikipedia asignados.
     assignment_start: Inicio del cronograma
     creator:
+      checking_for_uniqueness: Se está comprobando que este programa sea único.
       course_description: Descripción del programa
       course_school: Institución
       course_title: Título del programa
@@ -299,7 +301,7 @@ es:
       create_label: Crear programa nuevo
       create_new: Crear un programa nuevo
       create_short: Crear programa
-      find: Encuentra tu programa
+      find: Encuentra un programa
       intro: El título del programa es necesario, todo lo demás puede completarse
         más tarde. Haz clic en "¡Crear mi programa!" para empezar a crear la página
         de tu programa wiki.
@@ -453,6 +455,8 @@ es:
     usages: Usos
   users:
     already_enrolled: Ese usuario ya está inscrito.
+    assign_articles: Asignar artículos
+    assign_articles_done: Hecho
     assigned: Artículos asignados
     assignees: Asignado(s)
     character_doc: La cantidad total de contenido que un usuario ha añadido a este
@@ -534,6 +538,7 @@ es:
     select_assignment: Selecciona el tipo de tarea que quieres añadir a tu cronograma.
     summary: Resumen
   error:
+    invalid_assignment: Asignación no válida
     oauth_invalid: Tu sesión de Wikipedia ha caducado. Inicia sesión de nuevo.
     unsupported_browser:
       header: Navegador no soportado. :-(

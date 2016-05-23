@@ -115,6 +115,7 @@ ps:
     label: پورته کېدنې
     usages: کارېدنې
   users:
+    assign_articles_done: ترسره شو
     contributions: د کارن ونډې
     contributions_more: نورې ونډې کتل
     editors: زده کوونکي سمونگران

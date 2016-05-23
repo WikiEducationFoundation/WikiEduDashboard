@@ -133,7 +133,6 @@ it:
       end_date_placeholder: Data di fine (YYYY-MM-DD)
       expected_number: Numero previsto di studenti
       find: Trova il tuo corso
-      find_program: Trova il tuo programma
       intro: Il titolo, la scuola, e la durata creano l'URL della pagina del tuo corso,
         e non possono essere modificati. Tutto il resto puoi modificarli in seguito.
         Clicca su "Crea il mio corso!" per iniziare a costruire la linea temporale
@@ -222,7 +221,7 @@ it:
       create_label: Crea nuovo programma
       create_new: Creare un nuovo programma
       create_short: Crea programma
-      find: Trova il tuo programma
+      find: Trova un programma
       intro: Il titolo del programma è obbligatorio, tutto il resto può essere riempito
         in seguito. Clicca su "Crea il mio programma!" per iniziare a costruire la
         pagina wiki del programma.
@@ -328,6 +327,7 @@ it:
     usages: Usi
   users:
     already_enrolled: Quell'utente è già iscritto!
+    assign_articles_done: Fatto
     assigned: Voci assegnate
     chars_added: Caratteri aggiunti<br>(namespace principale | utente)
     contributions: Contributi dell'utente
@@ -373,6 +373,7 @@ it:
     read_more: Leggi di più
     summary: Sommario
   error:
+    invalid_assignment: Assegnazione non valida
     unsupported_browser:
       header: Browser non supportato. :-(
   error_401:

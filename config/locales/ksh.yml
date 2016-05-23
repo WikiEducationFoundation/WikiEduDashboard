@@ -43,6 +43,9 @@ ksh:
       assignment_end: Et Ängk vun dä Zohdeijlong
       assignment_end_placeholder: Ängk vun dä Zohdeijlong (Johr-MM-DD)
       assignment_start: ejenn vun dä Zohdeijlong
+      course_language: Home language!!FUZY!!<!-- https://phabricator.wikimedia.org/T135910
+        -->
+      course_project: Heimatprojäk
       course_subject: Et Tehma vum Kochs
       course_title: Övverschreff vum Kochs
       create_label: Lääsch ene neuje Kochs aan
@@ -55,6 +58,8 @@ ksh:
       start_date_placeholder: Dattom um Bejenn (Yohr-MM-DD)
       subject: Tehma
     end: Ängk
+    error:
+      invalid_language_or_project: De Schproch odder dat Projäk sin onjöltesch.
     loading: Aam lahde&nbsp;…
     no_available_actions: Keinjn Axjuhne müjjelesch
     overview: Övverblek
@@ -126,6 +131,7 @@ ksh:
     loading: Ben huhjelahde Dahte aam Lahde&nbsp;&hellip;
     none: Kein datteije wodt huhjelahde
   users:
+    assign_articles_done: Jedonn
     assigned: Uohjedeijlte Atikelle
     assignees: Zohjedeijlt
     contributions_more: Belohr mih Beijdrähsch
