@@ -89,41 +89,68 @@ describe AssignmentsController do
         { user_id: user.id, course_id: course.slug, title: 'pizza', role: 0 }
       end
 
-      it 'sets assignments ivar with a default wiki' do
-        expect_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
-        expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
-        put :create, assignment_params
-        assignment = assigns(:assignment)
-        expect(assignment).to be_a_kind_of(Assignment)
-        expect(assignment.wiki.language).to eq('en')
-        expect(assignment.wiki.project).to eq('wikipedia')
-      end
-      it 'renders a json response' do
-        expect_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
-        expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
-        put :create, assignment_params
-        json_response = JSON.parse(response.body)
-        # response makes created_at differ by milliseconds, which is weird,
-        # so test attrs that actually matter rather than whole record
-        expect(json_response['article_title'])
-          .to eq(Assignment.last.article_title)
-        expect(json_response['user_id']).to eq(Assignment.last.user_id)
-        expect(json_response['role']).to eq(Assignment.last.role)
+      context 'when the article does not exist' do
+        it 'imports the article and associates it with the assignment' do
+          expect(Article.find_by(title: 'Pizza')).to be_nil
+
+          VCR.use_cassette 'assignment_import' do
+            expect_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
+            expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
+            put :create, assignment_params
+            assignment = assigns(:assignment)
+            expect(assignment).to be_a_kind_of(Assignment)
+            expect(assignment.article.title).to eq('Pizza')
+            expect(assignment.article.namespace).to eq(Article::Namespaces::MAINSPACE)
+          end
+        end
       end
 
-      let(:assignment_params_with_language_and_project) do
-        { user_id: user.id, course_id: course.slug, title: 'pizza',
-          role: 0, language: 'es', project: 'wikibooks' }
-      end
-      let!(:es_wikibooks) { create(:wiki, language: 'es', project: 'wikibooks') }
+      context 'when the article exists' do
+        before do
+          create(:article, title: 'Pizza', namespace: Article::Namespaces::MAINSPACE)
+        end
 
-      it 'sets the wiki based on language and project params' do
-        expect_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
-        expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
-        put :create, assignment_params_with_language_and_project
-        assignment = assigns(:assignment)
-        expect(assignment).to be_a_kind_of(Assignment)
-        expect(assignment.wiki_id).to eq(es_wikibooks.id)
+        it 'sets assignments ivar with a default wiki' do
+          expect_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
+          expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
+          put :create, assignment_params
+          assignment = assigns(:assignment)
+          expect(assignment).to be_a_kind_of(Assignment)
+          expect(assignment.wiki.language).to eq('en')
+          expect(assignment.wiki.project).to eq('wikipedia')
+        end
+
+        it 'renders a json response' do
+          expect_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
+          expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
+          put :create, assignment_params
+          json_response = JSON.parse(response.body)
+          # response makes created_at differ by milliseconds, which is weird,
+          # so test attrs that actually matter rather than whole record
+          expect(json_response['article_title'])
+            .to eq(Assignment.last.article_title)
+          expect(json_response['user_id']).to eq(Assignment.last.user_id)
+          expect(json_response['role']).to eq(Assignment.last.role)
+        end
+
+        let(:assignment_params_with_language_and_project) do
+          { user_id: user.id, course_id: course.slug, title: 'pizza',
+            role: 0, language: 'es', project: 'wikibooks' }
+        end
+        let(:es_wikibooks) { create(:wiki, language: 'es', project: 'wikibooks') }
+        before do
+          create(:article, title: 'Pizza', wiki_id: es_wikibooks.id,
+                           namespace: Article::Namespaces::MAINSPACE)
+        end
+
+        it 'sets the wiki based on language and project params' do
+          expect_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
+          expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
+          put :create, assignment_params_with_language_and_project
+          assignment = assigns(:assignment)
+          expect(assignment).to be_a_kind_of(Assignment)
+          expect(assignment.wiki_id).to eq(es_wikibooks.id)
+        end
       end
     end
 

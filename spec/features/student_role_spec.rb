@@ -267,6 +267,7 @@ describe 'Student users', type: :feature, js: true do
              article_title: 'Selfie',
              course_id: 10001,
              user_id: 200,
+             article_id: nil,
              role: Assignment::Roles::ASSIGNED_ROLE)
       visit "/courses/#{Course.first.slug}/students"
       sleep 3
