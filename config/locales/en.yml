@@ -341,7 +341,7 @@ en:
     instructors: Facilitators
     milestones_none: This project does not currently have any milestones.
     published: "This project has been published! Editors may enroll by visiting the following URL:"
-    revisions_none: This project has no recent Wikipedia editing activity.
+    revisions_none: This project has no recent editing activity.
     school: Institution
     student_editors: Editors
     students: Editors
@@ -409,7 +409,7 @@ en:
     date_time: Date/Time
     edited_by: Edited By
     loading: Loading revisions...
-    none: This course has no recent Wikipedia editing activity.
+    none: This course has no recent editing activity.
     time_doc: The time of each revision in your local time
     title: Title
 
