@@ -47,6 +47,16 @@ class CoursesUsers < ActiveRecord::Base
   ####################
   # Instance methods #
   ####################
+
+  def contribution_url
+    "#{course.home_wiki.base_url}/wiki/Special:Contributions/#{user.wiki_id}"
+  end
+
+  # Provides a link to the list of all of a user's subpages, ie, sandboxes.
+  def sandbox_url
+    "#{course.home_wiki.base_url}/wiki/Special:PrefixIndex/User:#{user.wiki_id}"
+  end
+
   def character_sum_ms
     update_cache unless self[:character_sum_ms]
     self[:character_sum_ms]
@@ -77,12 +87,12 @@ class CoursesUsers < ActiveRecord::Base
 
   def update_cache
     revisions = course.revisions.joins(:article)
-                .where(user_id: user.id)
+                      .where(user_id: user.id)
     self.character_sum_ms = character_sum(revisions, Article::Namespaces::MAINSPACE)
     self.character_sum_us = character_sum(revisions, Article::Namespaces::USER)
     self.revision_count = revisions
-      .where(articles: { deleted: false })
-      .size || 0
+                          .where(articles: { deleted: false })
+                          .size || 0
     assignments = user.assignments.where(course_id: course.id)
     self.assigned_article_title = assignments.empty? ? '' : assignments.first.article_title
     save

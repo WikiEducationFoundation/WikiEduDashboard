@@ -18,7 +18,7 @@ require 'rails_helper'
 
 describe CoursesUsers, type: :model do
   describe '.update_all_caches' do
-    it 'should update data for course-user relationships' do
+    it 'updates data for course-user relationships' do
       # Add a user, a course, an article, and a revision.
       create(:user,
              id: 1,
@@ -76,51 +76,52 @@ describe CoursesUsers, type: :model do
     end
   end
 
-  it "should be a content expert" do
-    create(:user,
-           id: 1,
-           permissions: 1,
-           greeter: true,
-           username: 'Ragesoss')
+  describe '#contribution_url' do
+    let(:en_wiki_course) { create(:course) }
+    let(:es_wiktionary) { create(:wiki, language: 'es', project: 'wiktionary') }
+    let(:es_wiktionary_course) { create(:course, home_wiki_id: es_wiktionary.id) }
+    let(:user) { create(:user, username: 'Ragesoss') }
 
-    create(:course,
-           id: 1,
-           start: '2015-01-01'.to_date,
-           end: '2015-07-01'.to_date,
-           title: 'Underwater basket-weaving')
+    it 'links the the contribution page of the home_wiki for the course' do
+      courses_user = create(:courses_user, user_id: user.id, course_id: en_wiki_course.id)
+      expect(courses_user.contribution_url).to eq('https://en.wikipedia.org/wiki/Special:Contributions/Ragesoss')
 
-    course_user = create(:courses_user,
-           id: 1,
-           course_id: 1,
-           user_id: 1,
-           role: 1,
-           assigned_article_title: 'Selfie')
-
-    expect(course_user.content_expert).to eq(true)
-    expect(course_user.program_manager).to eq(false)
+      courses_user2 = create(:courses_user, user_id: user.id, course_id: es_wiktionary_course.id)
+      expect(courses_user2.contribution_url).to eq('https://es.wiktionary.org/wiki/Special:Contributions/Ragesoss')
+    end
   end
 
-  it "should be a program manager" do
-    create(:user,
-           id: 1,
-           permissions: 1,
-           greeter: false,
-           username: 'Ragesoss')
+  context 'when a nonstudent user is an admin and a greeter' do
+    let(:user) { create(:user, permissions: 1, greeter: true) }
+    let(:course) { create(:course) }
+    let(:subject) do
+      create(:courses_user, user_id: user.id, course_id: course.id,
+                            role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE)
+    end
 
-    create(:course,
-           id: 1,
-           start: '2015-01-01'.to_date,
-           end: '2015-07-01'.to_date,
-           title: 'Underwater basket-weaving')
+    it '#content_expert is true' do
+      expect(subject.content_expert).to eq(true)
+    end
 
-    course_user = create(:courses_user,
-           id: 1,
-           course_id: 1,
-           user_id: 1,
-           role: 1,
-           assigned_article_title: 'Selfie')
+    it '#program_manager is false' do
+      expect(subject.program_manager).to eq(false)
+    end
+  end
 
-    expect(course_user.content_expert).to eq(false)
-    expect(course_user.program_manager).to eq(true)
+  context 'when a nonstudent user is an admin but not a greeter' do
+    let(:user) { create(:user, permissions: 1, greeter: false) }
+    let(:course) { create(:course) }
+    let(:subject) do
+      create(:courses_user, user_id: user.id, course_id: course.id,
+                            role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE)
+    end
+
+    it '#content_expert is true' do
+      expect(subject.content_expert).to eq(false)
+    end
+
+    it '#program_manager is false' do
+      expect(subject.program_manager).to eq(true)
+    end
   end
 end

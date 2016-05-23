@@ -77,15 +77,6 @@ class User < ActiveRecord::Base
     }
   end
 
-  def contribution_url
-    "#{home_wiki.base_url}/wiki/Special:Contributions/#{wiki_id}"
-  end
-
-  # Provides a link to the list of all of a user's subpages, ie, sandboxes.
-  def sandbox_url
-    "#{home_wiki.base_url}/wiki/Special:PrefixIndex/User:#{wiki_id}"
-  end
-
   def talk_page
     "User_talk:#{username}"
   end

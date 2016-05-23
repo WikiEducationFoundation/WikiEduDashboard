@@ -59,13 +59,13 @@ module SurveysHelper
   def course_answer_options(type, course)
     case type
     when 'Students'
-      students = course.users.role('student')
-      students.collect { |s| [s.id, s.username, contribution_link(s).to_s] }
+      students = course.courses_users.where(role: CoursesUsers::Roles::STUDENT_ROLE)
+      students.collect { |cu| [cu.user.id, cu.user.username, contribution_link(cu).to_s] }
     when 'Articles'
       course.articles.collect { |a| [a.id, a.title, "<a href='#{article_url(a)}' target='_blank'>#{a.title}</a>"] }
     when 'WikiEdu Staff'
-      staff = course.users.role('wiki_ed_staff')
-      staff.collect { |s| [s.id, s.username, contribution_link(s).to_s] }
+      staff = course.courses_users.where(role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE)
+      staff.collect { |cu| [cu.user.id, cu.user.username, contribution_link(cu).to_s] }
     end
   end
 
