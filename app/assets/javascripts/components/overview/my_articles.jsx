@@ -38,6 +38,7 @@ const MyArticles = React.createClass({
             current_user={this.props.current_user}
             student={this.props.current_user}
             assignments={assigned}
+            prefix={I18n.t('users.my_assigned')}
           />
           <br />
           <AssignCell
@@ -49,6 +50,7 @@ const MyArticles = React.createClass({
             current_user={this.props.current_user}
             student={this.props.current_user}
             assignments={reviewing}
+            prefix={I18n.t('users.my_reviewing')}
           />
         </div>
       </div>
