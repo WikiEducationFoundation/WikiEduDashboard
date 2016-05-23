@@ -95,7 +95,8 @@ class CoursesController < ApplicationController
     if @course.save
       render json: { success: true, url: @course.syllabus.url }
     else
-      render json: @course.errors, status: :unprocessable_entity
+      render json: { message: 'The file could not be saved. Please upload a PDF or Word document.' },
+             status: :unprocessable_entity
     end
   end
 
