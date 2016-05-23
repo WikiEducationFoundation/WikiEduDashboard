@@ -107,10 +107,11 @@ class WikiCourseEdits
 
     article_title = assignment.article_title
     other_assignments_for_same_course_and_title = assignment.sibling_assignments
+                                                            .where.not(article_id: nil)
 
-    update_assignments_for_title(
+    update_assignments_for_article(
       title: article_title,
-      assignments_for_same_title: other_assignments_for_same_course_and_title)
+      assignments_for_same_article: other_assignments_for_same_course_and_title)
   end
 
   private
