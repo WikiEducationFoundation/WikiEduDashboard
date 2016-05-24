@@ -3,7 +3,7 @@ class AlertsController < ApplicationController
 
   def create
     if Features.enable_get_help_button? == false
-      render json: { status: 400 }
+      render json: {}, status: 400 
       return
     end
 
@@ -11,11 +11,8 @@ class AlertsController < ApplicationController
     @alert.user = current_user
 
     if @alert.save
-      Rails.logger.info "Saved alert: #{@alert}"
-      Rails.logger.info "Target user email: #{@alert.target_user.email}"
       @alert.email_target_user if @alert.target_user.email.present?
-      Rails.logger.info "Alert sent at: #{@alert.email_sent_at}"
-      render json: { status: 200 }
+      render json: {}, status: 200 
     else
       render json: {
         errors: @alert.errors,

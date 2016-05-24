@@ -1,9 +1,5 @@
 require 'rails_helper'
 
-def mock_mailer
-  OpenStruct.new(deliver_now: true)
-end
-
 describe AlertsController do
   describe '#create' do
     let!(:course)           { create(:course) }
@@ -18,20 +14,17 @@ describe AlertsController do
     end
 
     it 'should create Need Help alert and send email' do
-      expect_any_instance_of(AlertMailer).to receive(:alert).and_return(mock_mailer)
-
       target_user.email = 'email@email.com'
       target_user.save
+
       alert_params = { message: 'hello?', target_user_id: target_user.id, course_id: course.id }
       post :create, alert_params, format: :json
 
-      # TODO: Figure out why Travis doesn't like this.
-      # expect(ActionMailer::Base.deliveries).not_to be_empty
-      # expect(ActionMailer::Base.deliveries.last.to).to include(target_user.email)
-      # expect(ActionMailer::Base.deliveries.last.subject).to include("#{user.username} / #{course.slug}")
-      # expect(ActionMailer::Base.deliveries.last.body).to include(alert_params[:message])
-
       expect(response.status).to eq(200)
+      expect(ActionMailer::Base.deliveries).not_to be_empty
+      expect(ActionMailer::Base.deliveries.last.to).to include(target_user.email)
+      expect(ActionMailer::Base.deliveries.last.subject).to include("#{user.username} / #{course.slug}")
+      expect(ActionMailer::Base.deliveries.last.body).to include(alert_params[:message])
       expect(NeedHelpAlert.count).to eq(1)
       expect(NeedHelpAlert.last.email_sent_at).not_to be_nil
     end
