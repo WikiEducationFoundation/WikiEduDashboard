@@ -27,10 +27,10 @@ const GetHelpButton = React.createClass({
   mixins: [UserStore.mixin, AlertsStore.mixin],
 
   getInitialState() {
-    return Object.assign(getState(), {
-      selectedTargetUser: null,
-      message: null
-    });
+    const state = getState();
+    state.selectedTargetUser = null;
+    state.message = null;
+    return state;
   },
 
   getKey() {
@@ -86,6 +86,7 @@ const GetHelpButton = React.createClass({
     let contentExperts;
     let targetUsers;
     let content;
+    let faqLink;
 
     contentExperts = this.state.contentExperts.map((user) => {
       return (
@@ -107,10 +108,10 @@ const GetHelpButton = React.createClass({
       });
     }
 
-    if (programManagers || contentExperts) {
+    if (programManagers || contentExperts.length > 0) {
       targetUsers = (
         <p className="target-users">
-          If you still need help, reach out to thr appropriate person:
+          If you still need help, reach out to the appropriate person:
           <br />
           {contentExperts}
           {programManagers}
@@ -150,6 +151,16 @@ const GetHelpButton = React.createClass({
         </div>
       );
     } else {
+      if (this.props.current_user.role > 0) {
+        faqLink = (
+          <a href="http://ask.wikiedu.org/questions/scope:all/sort:activity-desc/tags:instructorfaq/page:1/" target="blank">FAQ</a>
+        );
+      } else {
+        faqLink = (
+          <a href="http://ask.wikiedu.org/questions/scope:all/sort:activity-desc/tags:studentfaq/page:1/" target="blank">FAQ</a>
+        );
+      }
+
       content = (
         <div className="get-help-info">
           <p>
@@ -174,7 +185,7 @@ const GetHelpButton = React.createClass({
 
           <p>
             <a href="/training" target="blank">Interactive Training</a><br />
-            <a href="#" target="blank">FAQ</a>
+            {faqLink}
           </p>
 
           {targetUsers}
