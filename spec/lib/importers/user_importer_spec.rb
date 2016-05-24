@@ -10,8 +10,8 @@ describe UserImporter do
         hash = OpenStruct.new(uid: '14093230',
                               info: info,
                               credentials: credentials)
-        auth = UserImporter.from_omniauth(hash)
-        expect(auth.id).to eq(4_543_197)
+        imported_user = UserImporter.from_omniauth(hash)
+        expect(imported_user.username).to eq('Ragesock')
       end
     end
 

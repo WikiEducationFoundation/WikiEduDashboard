@@ -18,9 +18,7 @@ class UserImporter
   def self.new_from_omniauth(auth)
     require "#{Rails.root}/lib/wiki_api"
 
-    id = WikiApi.new.get_user_id(auth.info.name)
     user = User.create(
-      id: id,
       username: auth.info.name,
       global_id: auth.uid,
       wiki_token: auth.credentials.token,
