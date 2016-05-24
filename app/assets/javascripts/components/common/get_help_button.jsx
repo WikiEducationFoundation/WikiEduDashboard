@@ -108,7 +108,7 @@ const GetHelpButton = React.createClass({
       });
     }
 
-    if (programManagers || contentExperts.length > 0) {
+    if (programManagers.length > 0 || contentExperts.length > 0) {
       targetUsers = (
         <p className="target-users">
           If you still need help, reach out to the appropriate person:
