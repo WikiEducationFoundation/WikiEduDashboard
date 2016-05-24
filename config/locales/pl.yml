@@ -84,6 +84,7 @@ pl:
     yourcourses: Twoje Kursy
   courses_generic:
     creator:
+      checking_for_uniqueness: Ten program jest sprawdzany pod kątem niepowtarzalności.
       course_school: Instytucja
     school: Instytucja
   editable:
@@ -123,6 +124,7 @@ pl:
     image: Obraz
     uploaded_by: Przesłane przez
   users:
+    assign_articles_done: Gotowe
     contributions: Wkład użytkownika
     editors: Edytorzy
     enroll_confirmation: Czy na pewno chcesz dodać %{username} do tego kursu?
@@ -137,6 +139,8 @@ pl:
     username_placeholder: Nazwa użytkownika
   wizard:
     summary: Podsumowanie
+  error:
+    invalid_assignment: Nieprawidłowe przypisanie
   survey:
     email:
       headline: Witaj, %{username}

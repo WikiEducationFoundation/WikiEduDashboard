@@ -25,8 +25,6 @@ StudentList = React.createClass(
     if confirm I18n.t('wiki_edits.notify_overdue.confirm')
       ServerActions.notifyOverdue @props.course_id
 
-  componentDidMount: ->
-    ServerActions.fetchUserAssignments(user_id: @props.current_user.id, course_id: @props.course_id, role: 0)
   render: ->
     users = @props.users.map (student) =>
       assign_options = { user_id: student.id, role: 0 }

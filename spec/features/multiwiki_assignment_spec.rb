@@ -17,19 +17,25 @@ describe 'multiwiki assignments', type: :feature, js: true do
   end
 
   it 'creates a valid assignment from a wiki URL' do
-    visit "/courses/#{course.slug}/students"
-    click_button 'Assign Articles'
-    click_button 'Assign an article'
-    within('#users') do
-      first('input').set('https://ta.wiktionary.org/wiki/%E0%AE%86%E0%AE%99%E0%AF%8D%E0%AE%95%E0%AE%BF%E0%AE%B2%E0%AE%AE%E0%AF%8D')
-    end
-    page.accept_confirm do
-      click_button 'Assign'
-    end
-    visit "/courses/#{course.slug}/students"
+    VCR.use_cassette 'multiwiki_assignment' do
+      visit "/courses/#{course.slug}/students"
+      click_button 'Assign Articles'
+      click_button 'Assign an article'
+      within('#users') do
+        first('input').set('https://ta.wiktionary.org/wiki/%E0%AE%86%E0%AE%99%E0%AF%8D%E0%AE%95%E0%AE%BF%E0%AE%B2%E0%AE%AE%E0%AF%8D')
+      end
+      page.accept_confirm do
+        click_button 'Assign'
+      end
+      visit "/courses/#{course.slug}/students"
 
-    expect(page).to have_content 'ta:wiktionary:ஆங்கிலம்'
-    expect(Assignment.last.wiki.language).to eq('ta')
-    expect(Assignment.last.wiki.project).to eq('wiktionary')
+      expect(page).to have_content 'ta:wiktionary:ஆங்கிலம்'
+      expect(Assignment.last.wiki.language).to eq('ta')
+      expect(Assignment.last.wiki.project).to eq('wiktionary')
+      expect(Assignment.last.article.title).to eq('ஆங்கிலம்')
+      expect(Assignment.last.article.wiki.language).to eq('ta')
+      expect(Assignment.last.article.wiki.project).to eq('wiktionary')
+
+    end
   end
 end

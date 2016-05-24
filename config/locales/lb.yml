@@ -8,6 +8,7 @@ lb:
     cancel: Ofbriechen
     dashboard: Iwwersiicht iwwer d'Ännerungen op der Wiki
     error: 'Et gouf e Feeler:'
+    field_required: Dëst Feld ass obligatoresch
     greeting2: Wëllkomm!
     greeting_extended: Wëllkomm op Wikipedia
     greeting: Salut!
@@ -76,12 +77,12 @@ lb:
     courses: Coursen
     creator:
       course_description: Beschreiwung vum Cours
+      course_language: Originalsprooch
       course_subject: Sujet vum Cours
       course_title: Titel vum Cours
       end_date: Schlussdatum
       expected_number: Erwaart Zuel vu Studenten
       find: Äre Cours fannen
-      find_program: Äre Programm fannen
       save_cloned_course: Neie Cours späicheren
       start_date: Ufanksdatum
       start_date_placeholder: Ufanksdatum (JJJJ-MM-DD)
@@ -95,6 +96,7 @@ lb:
       exists: Dee Cours gëtt et schonn! Probéiert et w.e.g. nach eng Kéier mat engem
         aneren Titel, enger anerer Schoul oder enger anerer Dauer.
       user_exists: Pardon, de Benotzer %{username} gëtt et net.
+      invalid_language_or_project: Net valabel Sprooch/Projet
     loading: Lueden...
     new_week: Nei Woch debäisetzen
     nocourses: Dir maacht bei kengem Cours mat.
@@ -124,6 +126,7 @@ lb:
       course_description: Beschreiwung vum Programm
       course_school: Institutioun
       course_title: Titel vum Programm
+      find: E Programm sichen
     school: Institutioun
     students_short: Auteuren
     term: Wéini
@@ -165,6 +168,9 @@ lb:
     add_week: Woch dobäisetzen
     block_custom: Personaliséiert
     block_milestone: Kilometersteen
+    course_dates: Datume vum Cours
+    course_end: Ënn vum Cours
+    course_start: Ufank vum Cours
     due_default: Nächst Woch fälleg
     empty_week_1: Fir unzefänken.
     empty_week_3: oder
@@ -179,6 +185,7 @@ lb:
     start: Ufank
     view: Weisen
   uploads:
+    datetime: Datum/Zäit
     file_name: Numm vum Fichier
     image: Bild
     label: Eropgeluede Fichieren
@@ -188,6 +195,7 @@ lb:
     uploaded_by: Eropgeluede vum
   users:
     already_enrolled: Dee Benotzer ass schonn ageschriwwen!
+    assign_articles_done: Fäerdeg
     assigned: Assignéiert Artikelen
     contributions: Benotzerkontributiounen
     contributions_more: Méi Kontributioune weisen

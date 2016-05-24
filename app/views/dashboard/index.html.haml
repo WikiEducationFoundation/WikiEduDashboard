@@ -51,7 +51,7 @@
 
   - # Empty courses state
   - if @pres.current.empty? && @pres.past.empty?
-    - if @pres.can_create_course?
+    - if @pres.can_create_course? && !Features.open_course_creation?
       %div.empty-state
         %p
           = t("dashboard.no_courses_instructor")

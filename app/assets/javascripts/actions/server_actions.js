@@ -104,12 +104,6 @@ const ServerActions = Flux.createActions({
       .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
   },
 
-  fetchUserAssignments(opts) {
-    return API.fetchUserAssignments(opts)
-      .then(resp => ({ actionType: 'RECEIVE_USER_ASSIGNMENTS', data: resp }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  },
-
   deleteAssignment(assignment) {
     return API.deleteAssignment(assignment)
       .then(resp => ({ actionType: 'DELETE_USER_ASSIGNMENT', data: resp }))

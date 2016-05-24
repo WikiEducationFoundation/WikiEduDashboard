@@ -17,15 +17,23 @@ AssignCell = React.createClass(
     if @props.assignments.length > 0
       article = CourseUtils.articleFromAssignment(@props.assignments[0])
       if @props.assignments.length > 1
-        link = <span onClick={@open}>{I18n.t('users.number_of_articles', number: @props.assignments.length)}</span>
+        link = (
+          <span onClick={@open}>
+            {@props.prefix}
+            {I18n.t('users.number_of_articles', number: @props.assignments.length)}
+          </span>
+        )
       else
         title_text = trunc(article.formatted_title, 30)
         if article.url?
           link = (
-            <a onClick={@stop} href={article.url} target="_blank" className="inline">{title_text}</a>
+            <span>
+              {@props.prefix}
+              <a onClick={@stop} href={article.url} target="_blank" className="inline">{title_text}</a>
+            </span>
           )
         else
-          link = <span>{title_text}</span>
+          link = <span>{@props.prefix}{title_text}</span>
     else if !@props.current_user
       link = <span>{I18n.t('users.no_articles')}</span>
 

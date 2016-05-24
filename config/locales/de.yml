@@ -146,6 +146,8 @@ de:
     course_description: Kurse
     courses: Kurse
     creator:
+      already_exists: Dieser Kurs ist bereits vorhanden. Ziehe in Erwägung, den Namen,
+        die Schule oder Dauer zu ändern, um ihn eindeutig zu machen.
       assignment_end: Zuweisungsende
       assignment_end_placeholder: Zuweisungsende (JJJJ-MM-TT)
       assignment_start: Zuweisungsbeginn
@@ -162,6 +164,8 @@ de:
         (Wochen und Blöcke). Hat sich noch etwas an deinem Kurs geändert? Tu dir keinen
         Zwang an, ihn jetzt zu aktualisieren.
       course_description: Kursbeschreibung
+      course_language: Heimatsprache
+      course_project: Heimatprojekt
       course_school: Kursschule
       course_subject: Kursthema
       course_term: Kursdauer
@@ -175,7 +179,6 @@ de:
       end_date_placeholder: Enddatum (JJJJ-MM-TT)
       expected_number: Erwartete Anzahl der Studenten
       find: Finde deinen Kurs
-      find_program: Finde dein Programm
       intro: Der Titel, die Schule und Kursdauer erstellen die URL für deine Kursseite
         und können nicht geändert werden. Alles andere kannst du später bearbeiten.
         Klicke auf „Meinen Kurs erstellen!“, um mit dem Erstellen der Zeitleiste für
@@ -194,6 +197,7 @@ de:
       exists: Dieser Kurs ist bereits vorhanden! Bitte versuche es erneut mit einem
         anderen Titel, einer anderen Schule oder Dauer.
       user_exists: Leider ist der Benutzer %{username} nicht vorhanden.
+      invalid_language_or_project: Ungültige Sprache/Ungültiges Projekt
     expected_students: Erwartete Studenten
     gradeables_none: Dieser Kurs hat keine steigerbaren Zuweisungen.
     instructor:
@@ -284,6 +288,7 @@ de:
     assignments_none: Dieses Projekt hat keine zugewiesenen Wikipedia-Artikel.
     assignment_start: Zeitleisten-Beginn
     creator:
+      checking_for_uniqueness: Dieses Programm wird auf Eindeutigkeit überprüft.
       course_description: Programmbeschreibung
       course_school: Einrichtung
       course_title: Programmtitel
@@ -291,7 +296,7 @@ de:
       create_label: Neues Programm erstellen
       create_new: Ein neues Programm erstellen
       create_short: Programm erstellen
-      find: Finde dein Programm
+      find: Finde ein Programm
       intro: Der Programmtitel ist erforderlich. Alles andere kannst du später ausfüllen.
         Klicke auf „Mein Programm erstellen!“, um mit dem Erstellen der Seite für
         dein Wikiprogramm anzufangen.
@@ -447,6 +452,8 @@ de:
     usages: Verwendungen
   users:
     already_enrolled: Dieser Benutzer ist bereits eingeschrieben!
+    assign_articles: Artikel zuweisen
+    assign_articles_done: Fertig
     assigned: Zugewiesene Artikel
     assignees: Zugewiesene(r)
     character_doc: Die Gesamtanzahl des Inhalts, den ein Benutzer zu diesem Namensraum
@@ -531,6 +538,7 @@ de:
       hinzufügen möchtest.
     summary: Zusammenfassung
   error:
+    invalid_assignment: Ungültige Zuweisung
     oauth_invalid: Deine Wikipedia-Autorisierung ist abgelaufen. Bitte erneut anmelden.
     unsupported_browser:
       header: Nicht unterstützter Browser. :-(

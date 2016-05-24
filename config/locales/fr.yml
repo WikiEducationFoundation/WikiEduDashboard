@@ -10,6 +10,7 @@
 # Author: Trial
 # Author: Verdy p
 # Author: Wladek92
+# Author: Yasten
 # Author: Zetud
 ---
 fr:
@@ -156,6 +157,8 @@ fr:
     course_description: Cours
     courses: Cours
     creator:
+      already_exists: Ce cours existe déjà. Changez plutôt le nom, l’école ou l’échéance
+        pour le rendre unique.
       assignment_end: Fin de l’affectation
       assignment_end_placeholder: Fin de l’affectation (AAAA-MM-JJ)
       assignment_start: Début de l’affectation
@@ -172,6 +175,8 @@ fr:
         planning (semaines et blocages). Quelque chose d’autre au sujet de votre cours
         a-t-il changé ? N’hésitez pas à le mettre à jour maintenant.
       course_description: Description du cours
+      course_language: Langue du site
+      course_project: Projet personnel
       course_school: École du cours
       course_subject: Sujet du cours
       course_term: Période du cours
@@ -185,7 +190,6 @@ fr:
       end_date_placeholder: Date de fin (AAAA-MM-JJ)
       expected_number: Nombre d’étudiants attendus
       find: Trouver votre cours
-      find_program: Trouver votre programme
       intro: Le titre, l’école et la période créent l’URL de la page de cotre cours,
         et ne peuvent pas être modifiés. Tout le reste, vous pourrez le changer ultérieurement.
         Cliquez sur « Créer mon cours ! » pour commencer à construire le planning
@@ -204,6 +208,7 @@ fr:
       exists: Ce cours existe déjà ! Veuillez réessayer avec un autre titre, école,
         ou échéance.
       user_exists: Désolé, %{username} n’existe pas.
+      invalid_language_or_project: Langue/projet invalide
     expected_students: Étudiants attendus
     gradeables_none: Ce cours n’a aucune affectation notable.
     instructor:
@@ -294,6 +299,7 @@ fr:
     assignments_none: Ce projet n’a pas d’articles de Wikipédia affectés.
     assignment_start: Début de la chronologie
     creator:
+      checking_for_uniqueness: Ce programme a été vérifié pour l’unicité.
       course_description: Description du programme
       course_school: Institution
       course_title: Titre du programme
@@ -301,7 +307,7 @@ fr:
       create_label: Créer un nouveau programme
       create_new: Créer un nouveau programme
       create_short: Créer un programme
-      find: Trouver votre programme
+      find: Trouver un programme
       intro: Le titre du programme est obligatoire, tout le reste pourra être rempli
         plus tard. Cliquez sur « Créer mon programme ! » pour commencer à construire
         la page de votre programme wiki.
@@ -454,6 +460,8 @@ fr:
     usages: Utilisations
   users:
     already_enrolled: Cet utilisateur est déjà inscrit !
+    assign_articles: Affecter des articles
+    assign_articles_done: Fait
     assigned: Articles affectés
     assignees: Affecté(s)
     character_doc: La quantité totale de contenu qu’un utilisateur a ajouté à son
@@ -537,6 +545,7 @@ fr:
       planning.
     summary: Résumé
   error:
+    invalid_assignment: Affectation non valide
     oauth_invalid: Votre autorisation sur Wikipédia a expiré. Veuillez vous reconnecter.
     unsupported_browser:
       header: Navigateur non supporté. :-(

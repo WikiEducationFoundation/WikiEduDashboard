@@ -27,6 +27,8 @@ ku-latn:
     courses: Kurs
     current: Kursên Nûjen
     duration: Maweya Kursê
+    error:
+      invalid_language_or_project: Zimanê/projeya nederbasdar
     new_week: Hefteyeke nû lê zêde bike
     nocourses: Te beşdarî ti kursekê ne bû.
     school: Dibistan

@@ -129,6 +129,8 @@ zh-hans:
       assignment_start_placeholder: 分配开始日（YYYY-MM-DD）
       clone_successful: 课程已成功克隆
       course_description: 课程描述
+      course_language: 主语言
+      course_project: 主项目
       course_school: 课程学校
       course_subject: 课程科目
       course_term: 课程学期
@@ -142,7 +144,6 @@ zh-hans:
       end_date_placeholder: 结束日期（YYYY-MM-DD）
       expected_number: 预计学生人数
       find: 找到您的课程
-      find_program: 找到您的项目
       intro: 标题、学校和学期会创建您课程页面的URL，并且不能更改。除这些以外，您可以日后编辑。点击“创建我的课程！”以开始构造用于您维基百科任务分配的时间轴。
       no_class_holidays: 我没有班级假日
       save_cloned_course: 保存新的课程
@@ -157,6 +158,7 @@ zh-hans:
     error:
       exists: 那个课程已存在！请使用不同的标题、学校或学期再试。
       user_exists: 对不起，%{username}不是一位存在的用户。
+      invalid_language_or_project: 无效语言/项目
     expected_students: 预期学生
     gradeables_none: 此课程没有可批改作业。
     instructor:
@@ -232,7 +234,7 @@ zh-hans:
       create_label: 创建新项目
       create_new: 创建一个新项目
       create_short: 创建项目
-      find: 找到您的项目
+      find: 找到一个项目
       intro: 需要项目标题，其他的可以日后再填写。点击“创建我的项目！”以开始构造用于您wiki项目的页面。
     edit_course_dates: 编辑项目日期
     expected_students: 预期编辑者
@@ -335,6 +337,7 @@ zh-hans:
     no_class_holidays: 我没有班级假日
     no_timeline: 此课程没有时间轴。
     no_activity_this_week: 本周没有活动
+    nothing_this_week: 本周在日程表上没有安排。
     save_all_changes: 保存全部
     this_week_title_default: 本周
     title: 时间轴
@@ -359,6 +362,8 @@ zh-hans:
     usages: 用法
   users:
     already_enrolled: 那位用户已经登记了！
+    assign_articles: 分配条目
+    assign_articles_done: 完成
     assigned: 分配的条目
     assignees: 委托人
     chars_added: 添加的字符<br>（主名字空间 | 用户名字空间）
@@ -414,6 +419,7 @@ zh-hans:
     select_assignment: 选择您希望添加至您的时间轴的任务类型。
     summary: 摘要
   error:
+    invalid_assignment: 无效分配
     oauth_invalid: 您的维基百科授权已过期。请重新登录。
     unsupported_browser:
       header: 浏览器不受支持。:-(

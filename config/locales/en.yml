@@ -248,6 +248,7 @@ en:
     leave_course: Leave course
     loading: Loading…
     milestones_none: This course does not currently have any milestones.
+    my_articles: My Articles
     new_week: Add New Week
     nocourses: You are not participating in any courses.
     none: None
@@ -340,7 +341,7 @@ en:
     instructors: Facilitators
     milestones_none: This project does not currently have any milestones.
     published: "This project has been published! Editors may enroll by visiting the following URL:"
-    revisions_none: This project has no recent Wikipedia editing activity.
+    revisions_none: This project has no recent editing activity.
     school: Institution
     student_editors: Editors
     students: Editors
@@ -408,7 +409,7 @@ en:
     date_time: Date/Time
     edited_by: Edited By
     loading: Loading revisions...
-    none: This course has no recent Wikipedia editing activity.
+    none: This course has no recent editing activity.
     time_doc: The time of each revision in your local time
     title: Title
 
@@ -515,6 +516,8 @@ en:
     loading: Loading users...
     characters_added_mainspace: MS Chars Added
     characters_added_userspace: US Chars Added
+    my_assigned: "Assigned: "
+    my_reviewing: "Reviewing: "
     name: Name
     none: This course has no students.
     no_articles: No articles

@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Alex00728
+# Author: Asdfqwer51
 # Author: Hwangjy9
 # Author: Mooozi
 # Author: Priviet
@@ -92,7 +93,6 @@ ko:
       assignment_start_placeholder: 과제 시작 (YYYY-MM-DD)
       clone_successful: 과정이 성공적으로 복제되었습니다
       course_term_placeholder: 학기
-      find_program: 프로그램 찾기
       no_class_holidays: 휴강이 없습니다
       save_cloned_course: 새 코스 저장
       start_date_placeholder: 시작 날짜 (YYYY-MM-DD)
@@ -210,7 +210,7 @@ ko:
   uploads:
     datetime: 날짜/시간
     file_name: 파일 이름
-    header: 공용에 올린 파일
+    header: 위키미디어 공용에 올린 파일
     image: 그림
     label: 파일 올리기
     loading: 업로드 불러오는 중
