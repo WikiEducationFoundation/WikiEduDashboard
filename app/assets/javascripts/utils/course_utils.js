@@ -39,7 +39,9 @@ const CourseUtils = class {
       return {
         title,
         project: null,
-        language: null
+        language: null,
+        // TODO: use the course home language and project to construct the url
+        article_url: null
       };
     }
 
@@ -51,7 +53,8 @@ const CourseUtils = class {
       return {
         title,
         project,
-        language
+        language,
+        article_url: articleTitle
       };
     }
 

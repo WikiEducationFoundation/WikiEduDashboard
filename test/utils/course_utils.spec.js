@@ -67,6 +67,7 @@ describe('courseUtils.articleFromTitleInput', () => {
     expect(output.title).to.eq('Robot selfie');
     expect(output.project).to.eq('wikipedia');
     expect(output.language).to.eq('en');
+    expect(output.article_url).to.eq(input);
   });
 
   it('handles url-encoded characters in Wikipedia urls', () => {
@@ -75,6 +76,7 @@ describe('courseUtils.articleFromTitleInput', () => {
     expect(output.title).to.eq('Jalapeño');
     expect(output.project).to.eq('wikipedia');
     expect(output.language).to.eq('es');
+    expect(output.article_url).to.eq(input);
   });
 });
 

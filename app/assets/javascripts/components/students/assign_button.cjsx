@@ -43,7 +43,7 @@ AssignButton = React.createClass(
     # Send
     if(assignment)
       # Update the store
-      AssignmentActions.addAssignment @props.course_id, @props.student.id, article_title, @props.role
+      AssignmentActions.addAssignment assignment
       # Post the new assignment to the server
       ServerActions.addAssignment assignment
       @refs.lookup.clear()
