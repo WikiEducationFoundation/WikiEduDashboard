@@ -12,8 +12,8 @@ describe CourseStatistics do
       # First user in course working within course dates
       create(:user, id: id)
       create(:courses_user, id: id, user_id: id, course_id: id, role: 0)
-      create(:revision, date: 1.day.ago, article_id: id, user_id: id)
-      create(:article, id: id, title: "Article_#{id}")
+      create(:revision, date: 1.day.ago, article_id: id, user_id: id, characters: 1000)
+      create(:article, id: id, title: "Article_#{id}", namespace: Article::Namespaces::MAINSPACE)
       create(:commons_upload, id: id, user_id: id, uploaded_at: 1.day.ago, usage_count: 1)
 
       # Second user in course working outside course dates
@@ -22,6 +22,7 @@ describe CourseStatistics do
       create(:revision, date: 2.years.ago, article_id: id2, user_id: id2)
       create(:article, id: id2, title: "Article_#{id2}")
       create(:commons_upload, id: id2, user_id: id2, uploaded_at: 2.years.ago, usage_count: 1)
+      CoursesUsers.update_all_caches
     end
   end
 
@@ -43,6 +44,8 @@ describe CourseStatistics do
       expect(subject[:file_uploads]).to eq(course_ids.count)
       expect(subject[:files_in_use]).to eq(course_ids.count)
       expect(subject[:global_usages]).to eq(course_ids.count)
+      expect(subject[:characters_added]).to be > 0
+      expect(subject[:words_added]).to be > 0
     end
   end
 
