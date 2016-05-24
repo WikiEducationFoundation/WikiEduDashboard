@@ -106,6 +106,8 @@ const GetHelpButton = React.createClass({
           </span>
         );
       });
+    } else {
+      programManagers = [];
     }
 
     if (programManagers.length > 0 || contentExperts.length > 0) {
