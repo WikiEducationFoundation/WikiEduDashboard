@@ -231,11 +231,8 @@ ActiveRecord::Schema.define(version: 20160520000559) do
     t.string   "name",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "surveys_id", limit: 4
     t.string   "tags",       limit: 255
   end
-
-  add_index "rapidfire_question_groups", ["surveys_id"], name: "index_rapidfire_question_groups_on_surveys_id", using: :btree
 
   create_table "rapidfire_questions", force: :cascade do |t|
     t.integer  "question_group_id",       limit: 4
