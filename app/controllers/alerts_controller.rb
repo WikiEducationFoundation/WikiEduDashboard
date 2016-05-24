@@ -11,10 +11,10 @@ class AlertsController < ApplicationController
     @alert.user = current_user
 
     if @alert.save
-      puts "Saved alert: #{@alert}"
-      puts "Target user email: #{@alert.target_user.email}"
+      Rails.logger.info "Saved alert: #{@alert}"
+      Rails.logger.info "Target user email: #{@alert.target_user.email}"
       @alert.email_target_user if @alert.target_user.email.present?
-      puts "Alert sent at: #{@alert.email_sent_at}"
+      Rails.logger.info "Alert sent at: #{@alert.email_sent_at}"
       render json: { status: 200 }
     else
       render json: {

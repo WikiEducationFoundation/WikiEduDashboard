@@ -43,9 +43,9 @@ class Alert < ActiveRecord::Base
   end
 
   def email_target_user
-    puts "email_target_user 1/2"
+    Rails.logger.info "email_target_user 1/2"
     AlertMailer.alert(self, target_user).deliver_now
     update_attribute(:email_sent_at, Time.now)
-    puts "email_target_user 2/2"
+    Rails.logger.info "email_target_user 2/2"
   end
 end
