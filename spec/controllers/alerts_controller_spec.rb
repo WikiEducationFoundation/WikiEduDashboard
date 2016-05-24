@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe AlertsController do
-  describe '#destroy' do
+  describe '#create' do
     let!(:course)           { create(:course) }
     let!(:user)             { create(:test_user) }
     let!(:target_user)      { create(:test_user) }
@@ -13,13 +13,12 @@ describe AlertsController do
       controller.instance_variable_set(:@course, course)
     end
 
-    it "should work" do
+    it "should create Need Help alert and send email" do
       target_user.email = "email@email.com"
       target_user.save
       alert_params = { message: 'hello?', target_user_id: target_user.id, course_id: course.id }
       post :create, alert_params, format: :json
 
-      expect(ActionMailer::Base.deliveries).not_to be_empty
       expect(ActionMailer::Base.deliveries.last.to).to include(target_user.email)
       expect(ActionMailer::Base.deliveries.last.subject).to include("#{user.username} / #{course.slug}")
       expect(ActionMailer::Base.deliveries.last.body).to include(alert_params[:message])
