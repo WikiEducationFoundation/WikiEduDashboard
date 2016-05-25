@@ -44,7 +44,7 @@ const CourseUtils = class {
     }
 
     const urlParts = /([a-z-]+)\.(wik[a-z]+)\.org\/wiki\/([^#]*)/.exec(articleTitle);
-    if (urlParts.length > 3) {
+    if (urlParts && urlParts.length > 3) {
       const title = decodeURIComponent(urlParts[3]).replace(/_/g, ' ');
       const project = urlParts[2];
       const language = urlParts[1];
@@ -55,7 +55,11 @@ const CourseUtils = class {
       };
     }
 
-    return null;
+    return {
+      title: articleTitleInput,
+      project: null,
+      language: null
+    };
   }
 
   articleFromAssignment(assignment) {
