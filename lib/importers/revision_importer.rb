@@ -139,34 +139,51 @@ class RevisionImporter
   end
 
   def import_revisions_slice(sub_data)
-    articles, revisions = [], []
+    @articles, @revisions = [], []
 
-    sub_data.each do |_a_id, a|
-      article = Article.find_by(mw_page_id: a['article']['mw_page_id'], wiki_id: @wiki.id)
-      article ||= Article.new(mw_page_id: a['article']['mw_page_id'], wiki_id: @wiki.id)
-      article.update!(title: a['article']['title'],
-                      namespace: a['article']['namespace'])
-      articles.push article
-
-      a['revisions'].each do |r|
-        existing_revision = Revision.find_by(mw_rev_id: r['mw_rev_id'], wiki_id: @wiki.id)
-        next unless existing_revision.nil?
-        revision = Revision.new(mw_rev_id: r['mw_rev_id'],
-                                date: r['date'],
-                                characters: r['characters'],
-                                article_id: article.id,
-                                mw_page_id: r['mw_page_id'],
-                                user_id: User.find_by(username: r['username']).try(:id),
-                                new_article: r['new_article'],
-                                system: r['system'],
-                                wiki_id: r['wiki_id'])
-        revisions.push revision
-      end
+    sub_data.each do |_a_id, article_data|
+      process_article_and_revisions(article_data)
     end
 
-    AssignmentImporter.update_article_ids(articles, @wiki)
-    DuplicateArticleDeleter.new(@wiki).resolve_duplicates(articles)
-    Revision.import revisions
+    AssignmentImporter.update_article_ids(@articles, @wiki)
+    DuplicateArticleDeleter.new(@wiki).resolve_duplicates(@articles)
+    Revision.import @revisions
+  end
+
+  def process_article_and_revisions(article_data)
+    article = article_updated_from_data(article_data)
+    @articles.push article
+
+    article_data['revisions'].each do |rev_data|
+      push_revision_record(rev_data, article)
+    end
+  end
+
+  def article_updated_from_data(article_data)
+    article = Article.find_by(mw_page_id: article_data['article']['mw_page_id'], wiki_id: @wiki.id)
+    article ||= Article.new(mw_page_id: article_data['article']['mw_page_id'], wiki_id: @wiki.id)
+    article.update!(title: article_data['article']['title'],
+                    namespace: article_data['article']['namespace'])
+    article
+  end
+
+  def push_revision_record(rev_data, article)
+    existing_revision = Revision.find_by(mw_rev_id: rev_data['mw_rev_id'], wiki_id: @wiki.id)
+    return unless existing_revision.nil?
+    revision = revision_from_data(rev_data, article)
+    @revisions.push revision
+  end
+
+  def revision_from_data(rev_data, article)
+    Revision.new(mw_rev_id: rev_data['mw_rev_id'],
+                 date: rev_data['date'],
+                 characters: rev_data['characters'],
+                 article_id: article.id,
+                 mw_page_id: rev_data['mw_page_id'],
+                 user_id: User.find_by(username: rev_data['username']).try(:id),
+                 new_article: rev_data['new_article'],
+                 system: rev_data['system'],
+                 wiki_id: rev_data['wiki_id'])
   end
 
   def handle_moved_revision(moved)
