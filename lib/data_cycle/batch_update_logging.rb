@@ -45,4 +45,8 @@ module BatchUpdateLogging
   def update_waiting_to_run?
     pid_file_process_running?(SLEEP_FILE)
   end
+
+  def log_message(message)
+    Rails.logger.debug message
+  end
 end

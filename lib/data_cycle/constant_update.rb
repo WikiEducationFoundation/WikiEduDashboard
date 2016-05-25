@@ -47,33 +47,33 @@ class ConstantUpdate
   # Data import #
   ###############
   def update_legacy_courses
-    Rails.logger.debug 'Updating data for legacy course'
+    log_message 'Updating data for legacy course'
     LegacyCourseImporter.update_all_courses
   end
 
   def update_users
-    Rails.logger.debug 'Updating global ids and training status'
+    log_message 'Updating global ids and training status'
     UserImporter.update_users
   end
 
   def update_revisions_and_articles
-    Rails.logger.debug 'Updating all revisions'
+    log_message 'Updating all revisions'
     RevisionImporter.update_all_revisions
 
-    Rails.logger.debug 'Importing wp10 scores for all en.wiki revisions'
+    log_message 'Importing wp10 scores for all en.wiki revisions'
     RevisionScoreImporter.new.update_revision_scores
 
-    Rails.logger.debug 'Checking for plagiarism in recent revisions'
+    log_message 'Checking for plagiarism in recent revisions'
     PlagiabotImporter.find_recent_plagiarism
   end
 
   def update_new_article_views
-    Rails.logger.debug 'Updating views for newly added articles'
+    log_message 'Updating views for newly added articles'
     ViewImporter.update_new_views
   end
 
   def update_new_article_ratings
-    Rails.logger.debug 'Updating ratings for new articles'
+    log_message 'Updating ratings for new articles'
     RatingImporter.update_new_ratings
   end
 
@@ -82,7 +82,7 @@ class ConstantUpdate
   ###############
 
   def greet_ungreeted_students
-    Rails.logger.debug 'Greeting students in classes with greeters'
+    log_message 'Greeting students in classes with greeters'
     StudentGreeter.greet_all_ungreeted_students
   end
 
@@ -91,18 +91,18 @@ class ConstantUpdate
   ##########
 
   def generate_alerts
-    Rails.logger.debug 'Generating AfD alerts'
+    log_message 'Generating AfD alerts'
     ArticlesForDeletionMonitor.create_alerts_for_course_articles
 
     course_alert_manager = CourseAlertManager.new
 
-    Rails.logger.debug 'Generating no-enrolled-students alerts'
+    log_message 'Generating no-enrolled-students alerts'
     course_alert_manager.create_no_students_alerts
-    Rails.logger.debug 'Generating untrained-students alerts'
+    log_message 'Generating untrained-students alerts'
     course_alert_manager.create_untrained_students_alerts
-    Rails.logger.debug 'Generating productive course alerts'
+    log_message 'Generating productive course alerts'
     course_alert_manager.create_productive_course_alerts
-    Rails.logger.debug 'Generating continued course activity alerts'
+    log_message 'Generating continued course activity alerts'
     course_alert_manager.create_continued_course_activity_alerts
   end
 
