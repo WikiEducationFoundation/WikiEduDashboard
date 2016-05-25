@@ -37,12 +37,24 @@ class CoursesPresenter
   def word_count
     WordCount.from_characters courses.sum(:character_sum)
   end
+
+  def default_course_type
+    ENV['default_course_type'] || 'ClassroomProgramCourse'
+  end
+
+  def course_string_prefix
+    if default_course_type == 'ClassroomProgramCourse'
+      'courses'
+    else
+      'courses_generic'
+    end
+  end
 end
 
 #= Pseudo-Cohort that displays all unsubmitted, non-deleted courses
 class NullCohort
   def title
-    I18n.t("courses.unsubmitted")
+    I18n.t('courses.unsubmitted')
   end
 
   def slug

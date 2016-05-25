@@ -325,6 +325,7 @@ en:
     assignment_end: Timeline End
     assignments_none: This project has no assigned Wikipedia articles.
     assignment_start: Timeline Start
+    courses: Programs
     creator:
       checking_for_uniqueness: This program is being checked for uniqueness.
       course_description: Program description
