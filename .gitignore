@@ -43,3 +43,4 @@ npm-debug.log.*
 .DS_Store
 Session.vim
 1
+.byebug_history
