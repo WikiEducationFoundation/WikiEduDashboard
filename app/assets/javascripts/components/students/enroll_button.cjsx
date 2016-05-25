@@ -5,9 +5,10 @@ Link          = ReactRouter.Link
 Expandable    = require '../high_order/expandable.cjsx'
 Popover       = require '../common/popover.cjsx'
 ServerActions = require('../../actions/server_actions.js').default
-UserStore      = require '../../stores/user_store.coffee'
+UserStore     = require '../../stores/user_store.coffee'
 AssignmentActions = require('../../actions/assignment_actions.js').default
 Conditional   = require '../high_order/conditional.cjsx'
+CourseUtils   = require('../../utils/course_utils.js').default
 
 EnrollButton = React.createClass(
   displayname: 'EnrollButton'
@@ -69,7 +70,7 @@ EnrollButton = React.createClass(
         <td>
           <form onSubmit={@enroll}>
             <input type="text" ref='username' placeholder={I18n.t('users.username_placeholder')} />
-            <button className='button border' type='submit'>{I18n.t('users.enroll')}</button>
+            <button className='button border' type='submit'>{CourseUtils.i18n('enroll', @props.course.string_prefix)}</button>
           </form>
         </td>
       </tr>
@@ -77,7 +78,7 @@ EnrollButton = React.createClass(
 
     button_class = 'button'
     button_class += if @props.inline then ' border plus' else ' dark'
-    button_text = if @props.inline then '+' else I18n.t('users.enrollment')
+    button_text = if @props.inline then '+' else CourseUtils.i18n('enrollment', @props.course.string_prefix)
 
     # Remove this check when we re-enable adding users by username
     button = <button className={button_class} onClick={@props.open}>{button_text}</button>
