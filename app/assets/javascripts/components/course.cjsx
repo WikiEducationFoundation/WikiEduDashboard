@@ -30,6 +30,7 @@ Course = React.createClass(
     getState()
   storeDidChange: ->
     @setState getState()
+    console.log @state.course
   getCourseID: ->
     params = @props.params
     return params.course_school + '/' + params.course_title

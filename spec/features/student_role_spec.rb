@@ -75,6 +75,8 @@ describe 'Student users', type: :feature, js: true do
         click_button 'Join course'
       end
 
+      sleep 5
+
       visit "/courses/#{Course.first.slug}/students"
       expect(find('tbody', match: :first)).to have_content User.last.username
 

@@ -33,7 +33,7 @@ const CourseUtils = class {
   }
 
   articleFromTitleInput(articleTitleInput) {
-    const articleTitle = articleTitleInput.trim();
+    const articleTitle = articleTitleInput;
     if (!/http/.test(articleTitle)) {
       const title = articleTitle.replace(/_/g, ' ');
       return {
