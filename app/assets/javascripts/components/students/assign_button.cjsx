@@ -21,10 +21,17 @@ AssignButton = React.createClass(
     tag = if @props.role == 0 then 'assign_' else 'review_'
     tag + @props.student.id
   getInitialState: ->
+    if @props.course.home_wiki
+      language = @props.course.home_wiki.language
+      project = @props.course.home_wiki.project
+    else
+      language = "en"
+      project = "wikipedia"
+
     return {
       showOptions: false
-      language: @props.course.home_wiki.language
-      project: @props.course.home_wiki.project
+      language: language
+      project: project
     }
   shouldComponentUpdate: (nextProps, nextState) ->
     shallowCompare(this, nextProps, nextState)
