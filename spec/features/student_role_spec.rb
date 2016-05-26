@@ -70,23 +70,28 @@ describe 'Student users', type: :feature, js: true do
 
       # click enroll button, enter passcode in alert popup to enroll
       visit "/courses/#{Course.first.slug}"
-      sleep 1
+      
+      expect(page).to have_content 'An Example Course'
+
       accept_prompt(with: 'passcode') do
         click_button 'Join course'
       end
 
-      sleep 5
+      sleep 3
 
       visit "/courses/#{Course.first.slug}/students"
       expect(find('tbody', match: :first)).to have_content User.last.username
 
       # now unenroll
       visit "/courses/#{Course.first.slug}"
-      sleep 1
+
+      expect(page).to have_content 'An Example Course'
+
       accept_confirm do
         click_button 'Leave course'
       end
-      sleep 1
+      
+      sleep 3
 
       visit "/courses/#{Course.first.slug}/students"
       expect(find('tbody', match: :first)).not_to have_content User.last.username
