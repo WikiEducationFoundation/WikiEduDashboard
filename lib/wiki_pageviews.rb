@@ -24,14 +24,10 @@ class WikiPageviews
   # [title]  title of a Wikipedia page (including namespace prefix, if applicable)
   def views_for_article(opts = {})
     start_date = opts[:start_date] || 1.month.ago
-
     end_date = opts[:end_date] || Time.zone.today
-    url = query_url(start_date: start_date, end_date: end_date)
-    data = api_get url
-    return unless data
-    data = Utils.parse_json(data)
-    return unless data.include?('items')
-    daily_view_data = data['items']
+    daily_view_data = fetch_view_data(start_date, end_date)
+    return unless daily_view_data
+
     views = {}
     daily_view_data.each do |day_data|
       date = day_data['timestamp'][0..7]
@@ -47,19 +43,15 @@ class WikiPageviews
     data = Utils.parse_json(data)
     return unless data.include?('items')
     daily_view_data = data['items']
-    days = daily_view_data.count
-    total_views = 0
-    daily_view_data.each do |day_data|
-      total_views += day_data['views']
-    end
-    return if total_views == 0
-    average_views = total_views.to_f / days
+    average_views = calculate_average_views(daily_view_data)
     average_views
   end
 
   ##################
   # Helper methods #
   ##################
+  private
+
   def recent_views
     start_date = 50.days.ago
     end_date = 1.day.ago
@@ -78,10 +70,27 @@ class WikiPageviews
     url
   end
 
-  ###################
-  # Private methods #
-  ###################
-  private
+  def fetch_view_data(start_date, end_date)
+    url = query_url(start_date: start_date, end_date: end_date)
+    data = api_get url
+    return unless data
+    data = Utils.parse_json(data)
+    return unless data.include?('items')
+    data['items']
+  end
+
+  def calculate_average_views(daily_view_data)
+    days = daily_view_data.count
+    total_views = 0
+
+    daily_view_data.each do |day_data|
+      total_views += day_data['views']
+    end
+
+    return if total_views == 0
+    average_views = total_views.to_f / days
+    average_views
+  end
 
   def api_get(url)
     tries ||= 3
