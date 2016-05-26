@@ -99,7 +99,7 @@ describe 'Training', type: :feature, js: true do
       click_link 'Start'
       tmu = TrainingModulesUsers.find_by(user_id: user.id, training_module_id: module_2.id)
       visit "/training/students/#{module_2.slug}/#{module_2.slides.last.slug}"
-      sleep 1
+      sleep 2
       expect(tmu.reload.completed_at).to be_between(1.minute.ago, 1.minute.from_now)
     end
 
