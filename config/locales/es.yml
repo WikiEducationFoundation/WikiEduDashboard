@@ -204,6 +204,7 @@ es:
       exists: Ese curso ya existe. Intenta de nuevo con un título, escuela o período
         diferentes.
       user_exists: Lo siento, %{username} no es un usuario existente.
+      invalid_language_or_project: Idioma/proyecto no válido
     expected_students: Estudiantes esperados
     gradeables_none: Este curso no tiene tareas calificables.
     instructor:
@@ -221,6 +222,7 @@ es:
     leave_course: Deja el curso
     loading: Cargando…
     milestones_none: Este curso actualmente no tiene ningún hito.
+    my_articles: Mis artículos
     new_week: Agregar una semana nueva
     nocourses: No participas de ningún curso.
     none: Ninguno
@@ -311,7 +313,7 @@ es:
     milestones_none: Este proyecto actualmente no tiene ningún hito.
     published: '¡Este proyecto ha sido publicado! Los editores pueden inscribirse
       visitando el siguiente URL:'
-    revisions_none: Este proyecto no tiene ediciones recientes en Wikipedia.
+    revisions_none: Este proyecto no tiene ediciones recientes.
     school: Institución
     student_editors: Editores
     students: Editores
@@ -375,7 +377,7 @@ es:
     date_time: Fecha/hora
     edited_by: Editado por
     loading: Cargando revisiones...
-    none: Este curso no tiene ediciones recientes en Wikipedia.
+    none: Este curso no tiene ediciones recientes.
     time_doc: El tiempo de cada revisión en tu hora local
     title: Título
   tasks:
@@ -469,8 +471,6 @@ es:
     contributions_more: Ver más contribuciones
     course_passcode: 'Código de acceso del curso:'
     editors: Editores estudiantiles
-    enroll: Inscribirse
-    enrollment: Inscripción
     enroll_confirmation: ¿Estás seguro que deseas añadir a %{username} a este curso?
     enroll_url: 'Los estudiantes pueden inscribirse visitando este URL:'
     enrolled_success: ¡%{username} inscrito con éxito!
@@ -479,6 +479,8 @@ es:
     loading: Cargando usuarios...
     characters_added_mainspace: Caracteres añadidos en el espacio principal
     characters_added_userspace: Caracteres añadidos en el espacio de usuario
+    my_assigned: 'Asignados:'
+    my_reviewing: 'En revisión:'
     name: Nombre
     none: Este curso no tiene estudiantes.
     no_articles: Ningún artículo
@@ -490,7 +492,6 @@ es:
       7 días
     reviewers: Revisor(es)
     reviewing: Revisando
-    student_editors: Editores estudiantiles
     training_complete:
       one: está al día con el entrenamiento
       other: están al día con el entrenamiento

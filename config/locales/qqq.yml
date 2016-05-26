@@ -24,8 +24,8 @@ qqq:
     greeting2: |-
       Enthusiastic greeting
       {{Identical|Welcome}}
-    greeting_extended: Welcome the user to Wikipedia, which gets posted to a
-      talk page. (Wiki Ed only)
+    greeting_extended: Welcome the user to Wikipedia, which gets posted to a talk
+      page. (Wiki Ed only)
     greeting: |-
       Casual greeting
       {{Identical|Hello}}
@@ -183,22 +183,32 @@ qqq:
       {{Identical|Course}}
     courses: Label for the number of courses in a cohort
     creator:
-      already_exists: Message indicating that a course with the same details already exists
+      already_exists: Message indicating that a course with the same details already
+        exists
       assignment_end: Label for end date of assignment timeline (Wiki Ed only)
-      assignment_end_placeholder: Placeholder text for assignment end date field (Wiki Ed only)
+      assignment_end_placeholder: Placeholder text for assignment end date field (Wiki
+        Ed only)
       assignment_start: Label for start date of assignment timeline (Wiki Ed only)
-      assignment_start_placeholder: Placeholder text for assignment start date field (Wiki Ed only)
-      checking_for_uniqueness: Status message while course data is being validated (Wiki Ed only)
-      cloned_course_calendar_instructions: Instructors for using a calendar widget while cloning a course (Wiki Ed only)
-      clone_successful: Message indicating that a course was cloned successfully (Wiki Ed only)
-      clone_successful_details: Message explaining the next steps after a course is cloned (Wiki Ed only)
-      course_term_placeholder: '{{Identical|Term}}'
+      assignment_start_placeholder: Placeholder text for assignment start date field
+        (Wiki Ed only)
+      checking_for_uniqueness: Status message while course data is being validated
+        (Wiki Ed only)
+      cloned_course_calendar_instructions: Instructors for using a calendar widget
+        while cloning a course (Wiki Ed only)
+      clone_successful: Message indicating that a course was cloned successfully (Wiki
+        Ed only)
+      clone_successful_details: Message explaining the next steps after a course is
+        cloned (Wiki Ed only)
       course_description: Label for description field (Wiki Ed only)
-      course_language: "The Wikimedia project language code for the course or program's home wiki"
-      course_project: "The Wikimedia project name for the course or program's home wiki"
+      course_language: The Wikimedia project language code for the course or program's
+        home wiki
+      course_project: The Wikimedia project name for the course or program's home
+        wiki
       course_school: Label for the school input field of a course (Wiki Ed only)
       course_subject: Label for the subject of a course (Wiki Ed only)
-      course_term: Label for the academic term when a course takes place (Wiki Ed only)
+      course_term: Label for the academic term when a course takes place (Wiki Ed
+        only)
+      course_term_placeholder: '{{Identical|Term}}'
       course_title: Label for the name or title of a course (Wiki Ed only)
       create_button: Button to submit a new course (Wiki Ed only)
       create_label: Label for course creation form (Wiki Ed only)
@@ -206,9 +216,11 @@ qqq:
       create_short: Short version of a button to create a new course (Wiki Ed only)
       end_date: '{{Identical|End date}}'
       end_date_placeholder: Placeholder for course end date input field
-      find: Button for finding an existing course that you are participating in (Wiki Ed only)
+      find: Button for finding an existing course that you are participating in (Wiki
+        Ed only)
       intro: Instructions for filling out the course creation form (Wiki Ed only)
-      no_class_holidays: Assertion that there are no holidays for a course (Wiki Ed only)
+      no_class_holidays: Assertion that there are no holidays for a course (Wiki Ed
+        only)
       save_cloned_course: Button to finish cloning a course (Wiki Ed only)
       start_date: '{{Identical|Start date}}'
       start_date_placeholder: Placeholder for course start date input field
@@ -256,18 +268,16 @@ qqq:
     review_timeline: Message prompting user to review the timeline (Wiki Ed only)
     start: '{{Identical|Start}}'
     start_typing: Placeholder message in an input, prompting the user to type
-    student_editors: Label for list of users (Wiki Ed only)
     students: Label for link to the list of students for a course (Wiki Ed only)
     students_count: |-
       Column label for number of students in a course
       {{Identical|Student}}
+    student_editors: Label for list of users (Wiki Ed only)
     students_none: This course has no students. (Wiki Ed only)
-    students_short: Label for the number of students in a course, in the mobile layout (Wiki Ed only)
+    students_short: Label for the number of students in a course, in the mobile layout
+      (Wiki Ed only)
     submitted_admin: Admin-only notice that a course is ready for approval
     submitted_note: Message that your course has been successfully submitted
-    survey:
-      notification_message: Message inviting user to take a course survey (Wiki Ed only)
-      link: Link to begin course survey (Wiki Ed only)
     timeline_link: '{{Identical|Timeline}}'
     title: |-
       Label for the title of each course
@@ -277,7 +287,8 @@ qqq:
     training_overdue: Training due date has passed for this course (Wiki Ed only)
     unsubmitted: Name for pseudo-cohort of unsubmitted courses (Wiki Ed only)
     untrained: '{{Identical|Untrained}}'
-    weeks_none: Message indicating that a course does not have a timeline (Wiki Ed only)
+    weeks_none: Message indicating that a course does not have a timeline (Wiki Ed
+      only)
     view: Label for link to a course page
     view_doc: Explanation of what 'article views' means
     view_page: Label for link to the course page
@@ -289,6 +300,10 @@ qqq:
       to Wikipedia on their behalf (Wiki Ed only)
     wiki_staff: Label for staff members supporting the course (Wiki Ed only)
     yourcourses: Label for the list of courses associated with the logged in user
+    survey:
+      notification_message: Message inviting user to take a course survey (Wiki Ed
+        only)
+      link: Link to begin course survey (Wiki Ed only)
   courses_generic:
     articles_none: Message indicating that no articles have been edited
     assignments_none: Message indicating that there are no assigned articles
@@ -303,7 +318,6 @@ qqq:
       create_short: Short version of link to start a new program
       find: Button to find an existing program
       intro: Explanation of how to use the program creation form
-    edit_course_date: Link to change program start and end dates
     expected_students: Label for expected number of participants
     instructors: Label for users who are organizing the program
     milestones_none: Message indicating that there are no timeline milestone to show
@@ -347,7 +361,8 @@ qqq:
     user_char_added: Label for number of characters added to the User namespace.
     user_ns: Wiki title for the user namespace.
   recent_activity:
-    active_courses: Header for a list of courses associated with an article (Wiki Ed only)
+    active_courses: Header for a list of courses associated with an article (Wiki
+      Ed only)
     article_title: Label for a table column of article titles
     datetime: Label for the date and time of an activity
     did_you_know_eligible: Label for "Did You Know" Eligible tab (Wiki Ed only)
@@ -357,8 +372,10 @@ qqq:
     file_name: |-
       Label for the file name of an image
       {{Identical|Filename}}
-    no_dyk_eligible: Message stating there are no "Did You Know" eligible articles. (Wiki Ed only)
-    no_plagiarism: Message stating there are no recent revisions suspected of plagiarism. (Wiki Ed only)
+    no_dyk_eligible: Message stating there are no "Did You Know" eligible articles.
+      (Wiki Ed only)
+    no_plagiarism: Message stating there are no recent revisions suspected of plagiarism.
+      (Wiki Ed only)
     no_edits: Message stating there are no recent edits.
     plagiarism_report: Label for link to a plagiarism report (Wiki Ed only)
     possible_plagiarism: Label for Possible Plagiarism tab (Wiki Ed only)
@@ -366,7 +383,8 @@ qqq:
     recent_uploads: Label for Recent Uploads tab
     revision_author: Label for a table column of the user who made each revision
     revision_datetime: Label for a table column of the date and time of each revision
-    revision_score: Label for a table column of numerical revision scores (Wiki Ed only)
+    revision_score: Label for a table column of numerical revision scores (Wiki Ed
+      only)
     show_courses: Checkbox for option to show user courses only (Wiki Ed only)
     uploaded_by: Label for the user who uploaded a file
     usage_count: Label for the number of global usages of a file across Wikimedia
@@ -418,7 +436,6 @@ qqq:
     contributions: Label for list of contributions by a user
     contributions_more: Label for a link that loads more of a user's contributions
     editors: Label for the number of students enrolled in a course
-    enroll: '{{Identical|Enroll}}'
     first_name: '{{Identical|First name}}'
     last_name: '{{Identical|Last name}}'
     loading: Message indicating that information about users is still loading
@@ -444,20 +461,27 @@ qqq:
     username_placeholder: '{{Identical|Username}}'
   wiki_edits:
     notify_overdue:
-      confirm: Confirmation message explaning that talk page notification will be posted. (Wiki Ed only)
-      header: Section header of wiki talk page section about overdue training(Wiki Ed only)
+      confirm: Confirmation message explaning that talk page notification will be
+        posted. (Wiki Ed only)
+      header: Section header of wiki talk page section about overdue training(Wiki
+        Ed only)
       message: Content of wiki talk page section about overdue training (Wiki Ed only)
-      summary: Edit summary for a talk page message about overdue training (Wiki Ed only)
+      summary: Edit summary for a talk page message about overdue training (Wiki Ed
+        only)
   wizard:
-    assignment_dates: Header for the assignment dates section of the wizard (Wiki Ed only)
-    assignment_type: Header for the assignment type section of the wizard (Wiki Ed only)
-    confirm_dates: Instructions for inputting assignment date information (Wiki Ed only)
+    assignment_dates: Header for the assignment dates section of the wizard (Wiki
+      Ed only)
+    assignment_type: Header for the assignment type section of the wizard (Wiki Ed
+      only)
+    confirm_dates: Instructions for inputting assignment date information (Wiki Ed
+      only)
     min_weeks: Message indicating that an assignment is not available because there
       is not enough time for it. %{min_weeks} is the minimum number of weeks for the
       assignment type. (Wiki Ed only)
     minimum_options: Message indicating that more options must be selected. %{minimum}
       is the required number of options. (Wiki Ed only)
-    read_less: Button label to collapse an expanded section of addition information (Wiki Ed only)
+    read_less: Button label to collapse an expanded section of addition information
+      (Wiki Ed only)
     read_more: |-
       Button label to expand a section with additional information
       (Wiki Ed only)
@@ -482,3 +506,4 @@ qqq:
     email:
       headline: '{{Identical|Hello}}'
       course: '{{Identical|Course}}'
+...

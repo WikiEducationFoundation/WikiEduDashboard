@@ -135,7 +135,6 @@ ksh:
     assigned: Uohjedeijlte Atikelle
     assignees: Zohjedeijlt
     contributions_more: Belohr mih Beijdrähsch
-    enroll: Enschrihve
     first_name: Vörnahme
     last_name: Nohnahme
     name: Nahme
@@ -147,6 +146,7 @@ ksh:
   wizard:
     summary: Zosammejefaß
   error:
+    invalid_assignment: Onjölltijje Zohdeijlong
     unsupported_browser:
       explanation: Do bes ene Brauser aam bruche, dä mem <i lang="en" xml:lang="en"
         dir="ltr" title="„Enstromäntebrätt“">Dashboard</i> nit zosamme jeiht. Heh

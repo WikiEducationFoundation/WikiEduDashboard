@@ -80,6 +80,7 @@ sv:
     leave_confirmation: Är du säker på att du vill lämna denna kurs?
     leave_course: Lämna kurs
     loading: Läser in...
+    my_articles: Mina artiklar
     none: Ingen
     no_available_actions: Inga tillgängliga åtgärder
     passcode_none: Inget lösenord
@@ -157,6 +158,8 @@ sv:
     assign_articles_done: Färdig
     first_name: Förnamn
     last_name: Efternamn
+    my_assigned: 'Tilldelade:'
+    my_reviewing: 'Granskar:'
     no_articles: Inga artiklar
     number_of_articles: '%{number} artiklar'
     recent_revisions: Senaste redigeringar

@@ -50,8 +50,10 @@ yi:
     creator:
       course_school: אַנשטאַלט
       course_title: פראגראם־טיטל
-      find: טרעפט אייער פראגראם
+      find: טרעפֿן א פראגראם
     school: אנשטאלט
     student_editors: רעדאקטארן
     students_short: רעדאקטארן
+  users:
+    assign_articles_done: ערליידיקט
 ...

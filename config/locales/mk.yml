@@ -225,7 +225,6 @@ mk:
     revisions_doc: Број на уредувања на уредникот во изминатите 7 дена
     reviewers: Оценувач(и)
     reviewing: Оценување
-    student_editors: Ученици што уредуваат
     training_complete:
       one: е во тек со обуката
       other: се во тек со обуката

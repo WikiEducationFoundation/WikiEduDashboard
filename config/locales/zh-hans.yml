@@ -175,6 +175,7 @@ zh-hans:
     leave_course: 离开课程
     loading: 正在载入…
     milestones_none: 此课程目前没有任何里程碑。
+    my_articles: 我的条目
     new_week: 添加新的一周
     nocourses: 您未参加任何课程。
     none: 无
@@ -241,7 +242,7 @@ zh-hans:
     instructors: 促进者
     milestones_none: 此课程目前没有任何里程碑。
     published: 此项目已经发布！编辑者可以通过访问下面的URL登记：
-    revisions_none: 此课程最近没有活跃编辑维基百科。
+    revisions_none: 此项目没有最近编辑活动。
     school: 机构
     student_editors: 编辑者
     students: 编辑者
@@ -302,7 +303,7 @@ zh-hans:
     date_time: 日期/时间
     edited_by: 编辑者
     loading: 正在加载修订……
-    none: 此课程最近没有活跃编辑维基百科。
+    none: 此课程没有最近编辑活动。
     time_doc: 在您本地时间内，每个修订的时间
     title: 标题
   tasks:
@@ -371,8 +372,6 @@ zh-hans:
     contributions_more: 查看更多贡献
     course_passcode: 课程密码：
     editors: 学生编辑者
-    enroll: 注册
-    enrollment: 登记
     enroll_confirmation: 您确定要添加%{username}至此课程么？
     enroll_url: 学生可通过访问此URL登记：
     enrolled_success: '%{username}已成功登记！'
@@ -381,6 +380,8 @@ zh-hans:
     loading: 正在加载用户...
     characters_added_mainspace: 添加的主空间字符
     characters_added_userspace: 添加的用户空间字符
+    my_assigned: 已分配：
+    my_reviewing: 正在复核：
     name: 名字
     none: 此课程没有学生。
     no_articles: 没有条目
@@ -391,7 +392,6 @@ zh-hans:
     revisions_doc: 此编辑者在过去7天内的编辑次数
     reviewers: 复核员
     reviewing: 正在复核
-    student_editors: 学生编辑者
     training_complete:
       other: 最新的培训
     training_complete_count: '%{count}最近的培训'

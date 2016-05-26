@@ -37,6 +37,7 @@ ba:
     file_name: Файл исеме
     image: Рәсем
   users:
+    assign_articles_done: Әҙер
     editors: Мөхәррирҙәр
     first_name: Исем
     last_name: Фамилия

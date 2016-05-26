@@ -48,6 +48,7 @@ bn:
   courses:
     articles: নিবন্ধসমূহ
     creator:
+      course_project: মূল প্রকল্প
       course_school: কোর্স বিদ্যালয়
       course_subject: কোর্সের বিষয়
       course_title: কোর্স শিরোনাম
@@ -81,7 +82,7 @@ bn:
       create_label: নতুন প্রকল্প তৈরি করুন
       create_new: একটি নতুন প্রকল্প তৈরি করুন
       create_short: প্রোগ্রাম তৈরি করুন
-      find: আপনার প্রোগ্রাম খুঁজুন
+      find: একটি প্রোগ্রাম খুঁজুন
     school: প্রতিষ্ঠান
     student_editors: সম্পাদকগণ
     students: সম্পাদকগণ
@@ -104,12 +105,12 @@ bn:
   uploads:
     label: আপলোডসমূহ
   users:
+    assign_articles_done: সম্পন্ন
     contributions: ব্যবহারকারীর অবদানসমূহ
     name: নাম
     recent_revisions: সাম্প্রতিক সম্পাদনাসমূহ
     reviewers: নিরীক্ষক(গণ)
     reviewing: নিরীক্ষণ চলছে
-    student_editors: ছাত্র সম্পাদকগণ
   wizard:
     summary: সারাংশ
 ...

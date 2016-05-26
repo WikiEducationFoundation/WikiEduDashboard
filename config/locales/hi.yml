@@ -51,4 +51,6 @@ hi:
   revisions:
     class: कक्षा
     title: शीर्षक
+  users:
+    assign_articles_done: पूर्ण हुआ
 ...

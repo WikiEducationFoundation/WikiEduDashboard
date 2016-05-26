@@ -81,6 +81,7 @@ lb:
       course_subject: Sujet vum Cours
       course_title: Titel vum Cours
       end_date: Schlussdatum
+      end_date_placeholder: Schlussdatum (JJJJ-MM-DD)
       expected_number: Erwaart Zuel vu Studenten
       find: Äre Cours fannen
       save_cloned_course: Neie Cours späicheren
@@ -92,12 +93,16 @@ lb:
     duration: Dauer vum Cours
     edit_course_dates: Datume vum Cours änneren
     end: Schluss
+    enroll: Aschreiwen
     error:
       exists: Dee Cours gëtt et schonn! Probéiert et w.e.g. nach eng Kéier mat engem
         aneren Titel, enger anerer Schoul oder enger anerer Dauer.
       user_exists: Pardon, de Benotzer %{username} gëtt et net.
       invalid_language_or_project: Net valabel Sprooch/Projet
+    join_course: Beim Cours matmaachen
+    leave_course: Aus dem Cours erausgoen
     loading: Lueden...
+    my_articles: Meng Artikelen
     new_week: Nei Woch debäisetzen
     nocourses: Dir maacht bei kengem Cours mat.
     none: Keng
@@ -127,6 +132,8 @@ lb:
       course_school: Institutioun
       course_title: Titel vum Programm
       find: E Programm sichen
+    enroll: Auteur derbäisetzen
+    enrollment: Participatioun
     school: Institutioun
     students_short: Auteuren
     term: Wéini
@@ -150,6 +157,7 @@ lb:
     user_ns: Benotzer
   recent_activity:
     article_title: Titel vum Artikel
+    datetime: Datum/Zäit
     image: Bild
     file_name: Numm vum Fichier
     no_edits: Et gouf keng rezent Ännerungen.
@@ -199,13 +207,17 @@ lb:
     assigned: Assignéiert Artikelen
     contributions: Benotzerkontributiounen
     contributions_more: Méi Kontributioune weisen
+    course_passcode: 'Passcode:'
     editors: Auteuren
+    enroll_confirmation: Sidd Sir sécher datt Dir %{username} derbäisetze wëllt?
+    enrolled_success: '%{username} gouf dobäigesat!'
     first_name: Virnumm
     last_name: Familljennumm
     loading: Benotzer lueden...
     name: Numm
-    none: Dëse Cours huet keng Studenten.
+    none: Dëse Cours huet keng Participanten.
     no_articles: Keng Artikelen
+    no_revisions: Dësen Auteur huet keng Ännerunge gemaach.
     number_of_articles: '%{number} Artikelen'
     recent_revisions: Rezent Ännerungen
     training_complete:

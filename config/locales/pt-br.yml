@@ -250,7 +250,6 @@ pt-br:
     revisions_doc: O número de edições feitas por este usuário nos últimos 7 dias
     reviewers: Revisor(es)
     reviewing: Revisando
-    student_editors: Editores estudantes
     training_complete_count: '%{count} treinamento em dia'
     training_incomplete: Treinamento incompleto
     up_to_date_with_training: em dia com o treinamento

@@ -226,6 +226,7 @@ fr:
     leave_course: Quitter le cours
     loading: Chargement…
     milestones_none: Ce cours n’a actuellement aucun jalon.
+    my_articles: Mes articles
     new_week: Ajouter une nouvelle semaine
     nocourses: Vous ne participez à aucun cours.
     none: Aucun
@@ -317,7 +318,7 @@ fr:
     milestones_none: Ce projet n’a actuellement aucun jalon.
     published: 'Ce projet a été publié ! Les éditeurs peuvent s’inscrire en allant
       sur l’URL suivante :'
-    revisions_none: Ce projet n’a pas d’activité récente de modification de Wikipédia.
+    revisions_none: Ce projet n’a pas d’activité récente de modification.
     school: Institution
     student_editors: Éditeurs
     students: Éditeurs
@@ -381,7 +382,7 @@ fr:
     date_time: Date/Heure
     edited_by: Modifié par
     loading: Chargement des révisions…
-    none: Ce cours n’a pas d’activité récente de modification Wikipédia.
+    none: Ce cours n’a pas d’activité récente de modification.
     time_doc: Le temps de chaque révision à votre heure locale.
     title: Titre
   tasks:
@@ -414,8 +415,10 @@ fr:
       complet (pas seulement l’affectation Wikipédia).
     course_end: Fin du cours
     course_start: Début du cours
-    delete_week_confirmation: Êtes-vous sûr de vouloir supprimer cette semaine ? Cela
-      supprimera la semaine et tous ses blocs associés.
+    delete_week_confirmation: |-
+      Êtes-vous sûr de vouloir supprimer cette semaine ? Cela supprimera la semaine et tous ses blocs associés.
+
+      Cette action ne peut être annulée.
     discard_all_changes: Annuler toutes les modifications
     due_default: Attendu de la semaine prochaine
     empty_week_1: Pour commencer,
@@ -474,8 +477,6 @@ fr:
     contributions_more: Afficher plus de contributions
     course_passcode: 'Mot de passe du cours :'
     editors: Editeurs étudiants
-    enroll: S’inscrire
-    enrollment: Inscription
     enroll_confirmation: Êtes-vous sûr de vouloir ajouter %{username} à ce cours ?
     enroll_url: 'Les étudiants peuvent s’inscrire en allant à cette URL :'
     enrolled_success: '%{username} inscrit !'
@@ -484,6 +485,8 @@ fr:
     loading: Chargement des utilisateurs…
     characters_added_mainspace: Caractères MS ajoutés
     characters_added_userspace: Caractères US ajoutés
+    my_assigned: 'Assigné :'
+    my_reviewing: 'En cours de revue :'
     name: Nom
     none: Ce cours n’a aucun étudiant.
     no_articles: Aucun article
@@ -495,7 +498,6 @@ fr:
       derniers jours
     reviewers: Relecteur(s)
     reviewing: Relecture
-    student_editors: Éditeurs étudiants
     training_complete:
       one: est à jour avec la formation
       other: sont à jour avec la formation

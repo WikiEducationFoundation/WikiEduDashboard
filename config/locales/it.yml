@@ -4,6 +4,7 @@
 # Author: Alexmar983
 # Author: Beta16
 # Author: Macofe
+# Author: Matteocng
 # Author: Statix64
 # Author: Wikitoni
 ---
@@ -115,12 +116,16 @@ it:
     course_description: Corsi
     courses: Corsi
     creator:
+      already_exists: Questo corso già esiste. Prova a cambiare il nome, la scuola
+        o il termine per renderlo unico.
       cloned_course_calendar_instructions: 'Seleziona le date per aggiungerle o rimuoverle
         dalla pianificazione (ad esempio: vacanze, niente scuola). Clicca su una data
         per cambiare stato tra deselezionato, selezionato e vacanza. Se non si hanno
         vacanze, seleziona "Non ho vacanze". La linea temporale clonata regolerà automaticamente
         le date per tenere conto di settimane che non hanno incontri programmati.'
       course_description: Descrizione del corso
+      course_language: Lingua principale
+      course_project: Progetto pricipale
       course_school: Scuola del corso
       course_subject: Oggetto del corso
       course_term: Termine del corso
@@ -148,6 +153,7 @@ it:
     error:
       exists: Quel corso esiste già! Riprova con un differente titolo, scuola o termine.
       user_exists: Spiacenti, %{username} non è un utente esistente.
+      invalid_language_or_project: Lingua/progetto non valido
     expected_students: Studenti previsti
     instructor:
       one: Insegnante
@@ -158,6 +164,7 @@ it:
     join_successful: Hai aderito con successo a %{title}.
     loading: Caricamento…
     milestones_none: Questo corso attualmente non ha pietre miliari.
+    my_articles: Le mie voci
     new_week: Aggiungi nuova settimana
     nocourses: Non stai partecipando ad alcun corso.
     none: Nessuno
@@ -214,6 +221,7 @@ it:
     assignments_none: Questo progetto non ha assegnato voci di Wikipedia.
     assignment_start: Inizio timeline
     creator:
+      checking_for_uniqueness: Controllo dell'unicità di questo programma in corso.
       course_description: Descrizione del programma
       course_school: Istituto
       course_title: Titolo del programma
@@ -231,7 +239,7 @@ it:
     milestones_none: Questo progetto attualmente non ha pietre miliari.
     published: 'Questo progetto è stato pubblicato! Gli editori possono iscriversi,
       visitando il seguente URL:'
-    revisions_none: Questo progetto non ha attività di modifica recente su Wikipedia.
+    revisions_none: Questo progetto non ha attività di modifica recenti.
     school: Istituto
     student_editors: Editori
     students: Editori
@@ -285,6 +293,7 @@ it:
     date_time: Data/Ora
     edited_by: Modificato da
     loading: Caricamento revisioni...
+    none: Questo corso non ha attività di modifica recenti.
     title: Titolo
   timeline:
     add_week: Aggiungi settimana
@@ -333,13 +342,12 @@ it:
     contributions: Contributi dell'utente
     contributions_more: Visualizza Ulteriori Contributi
     editors: Editori
-    enroll: Iscriversi
-    enrollment: Iscrizione
     enroll_confirmation: Sei sicuro di voler aggiungere %{username} a questo corso?
     enroll_url: 'Gli studenti possono iscriversi visitando questo URL:'
     first_name: Nome
     last_name: Cognome
     loading: Caricamento utenti...
+    my_assigned: 'Assegnati:'
     name: Nome
     none: Questo corso non ha studenti.
     no_articles: Nessuna voce
@@ -349,7 +357,6 @@ it:
     revisions_doc: Il numero di modifiche effettuate da questo contributore negli
       ultimi 7 giorni
     reviewers: Revisori
-    student_editors: Editori studenti
     training_complete:
       one: è aggiornato con la formazione
       other: sono aggiornati con la formazione

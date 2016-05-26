@@ -237,7 +237,6 @@ zh-hant:
     loading: 使用者載入中...
     name: 名稱
     recent_revisions: 近期編輯
-    student_editors: 學生編輯者
     training_incomplete: 未完成的培訓
   wiki_edits:
     notify_overdue:

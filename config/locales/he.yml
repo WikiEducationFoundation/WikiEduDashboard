@@ -165,6 +165,7 @@ he:
     error:
       exists: הקורס הזה כבר קיים! נא לנסות שוב עם שם אחר, מוסד אחר או תקופה אחרת.
       user_exists: סליחה, %{username} הוא לא משתמש קיים.
+      invalid_language_or_project: שפה או מיזם לא חוקי
     expected_students: תלמידים מצופים
     gradeables_none: לקורס הזה אין משימות שאפשר לתת להן ציונים.
     instructor:
@@ -181,6 +182,7 @@ he:
     leave_course: עזיבת הקורס
     loading: טוען...
     milestones_none: לקורס הזה אין כרגע אבני דרך.
+    my_articles: הערכים שלי
     new_week: הוספת שבוע חדש
     nocourses: אינך משתתף בשום קורס.
     none: אין
@@ -261,7 +263,7 @@ he:
     instructors: עוזרים
     milestones_none: לקורס הזה אין כרגע אבני דרך.
     published: 'המיזם הזה פורסם! עורכים יכולים להירשם דרך הכתובת הבאה:'
-    revisions_none: במיזם הזה אין פעילות עריכת ויקיפדיה לאחרונה.
+    revisions_none: במיזם זה אין פעילות עריכה לאחרונה.
     school: מוסד
     student_editors: עורכים
     students: עורכים
@@ -319,7 +321,7 @@ he:
     date_time: תאריך/שעה
     edited_by: נערך על־ידי
     loading: טעינת גרסאות...
-    none: בקורס הזה אין פעילות ויקיפדיה לאחרונה.
+    none: בקורס זה אין פעילות עריכה לאחרונה.
     time_doc: הזמן של כל גרסה באזור הזמן הנוכחי שלך
     title: כותרת
   tasks:
@@ -380,8 +382,6 @@ he:
     contributions_more: הצגת תרומות נוספות
     course_passcode: 'הסיסמה של הקורס:'
     editors: תלמידים עורכים
-    enroll: הרשמה
-    enrollment: הרשמה
     enroll_confirmation: האם ברצונך להוסיף את %{username} לקורס זה?
     enroll_url: 'תלמידים יכולים להירשם על־ידי ביקור בקישור הבא:'
     enrolled_success: '%{username} {{GENDER:%{username}|נרשם|נרשמה}} בהצלחה!'
@@ -397,7 +397,6 @@ he:
     revisions_doc: מספר העריכות שעשה העורך הזה בשבע הימים האחרונים
     reviewers: סוקרים
     reviewing: מתבצעת סקירה
-    student_editors: תלמידים עורכים
     training_complete:
       one: מעודכן עם ההכשרה
       other: מעודכנים עם ההכשרה
