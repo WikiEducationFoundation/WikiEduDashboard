@@ -56,6 +56,23 @@ Student = React.createClass(
       <span className='red'>{@props.student.course_training_progress}</span>
     )
 
+    if @props.course.published
+      assignButton = (
+        <AssignCell {...@props}
+          role=0
+          editable={@props.editable}
+          assignments={@props.assigned}
+        />
+      )
+
+      reviewButton = (
+        <AssignCell {...@props}
+          role=1
+          editable={@props.editable}
+          assignments={@props.reviewing}
+        />
+      )
+
     <tr onClick={@openDrawer} className={className}>
       <td>
         <p className="name">
@@ -71,18 +88,10 @@ Student = React.createClass(
         </p>
       </td>
       <td className='desktop-only-tc'>
-        <AssignCell {...@props}
-          role=0
-          editable={@props.editable}
-          assignments={@props.assigned}
-        />
+        {assignButton}
       </td>
       <td className='desktop-only-tc'>
-        <AssignCell {...@props}
-          role=1
-          editable={@props.editable}
-          assignments={@props.reviewing}
-        />
+        {reviewButton}
       </td>
       <td className='desktop-only-tc'>{@props.student.recent_revisions}</td>
       <td className='desktop-only-tc'>{@props.student.character_sum_ms} | {@props.student.character_sum_us}</td>
