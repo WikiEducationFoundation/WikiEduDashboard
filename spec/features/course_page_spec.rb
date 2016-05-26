@@ -310,7 +310,7 @@ describe 'the course page', type: :feature, js: true do
       allow(RatingImporter).to receive(:update_ratings)
 
       visit "/courses/#{slug}/manual_update"
-      sleep 3
+      sleep 5
       js_visit "/courses/#{slug}"
       updated_user_count = user_count + 1
       expect(page).to have_content "#{updated_user_count} Student Editors"
