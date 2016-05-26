@@ -11,6 +11,7 @@ class Wiki < ActiveRecord::Base
   has_many :articles
   has_many :assignments
   has_many :revisions
+  has_many :courses
 
   PROJECTS = %w(
     wikibooks

@@ -11,6 +11,7 @@ AssignmentActions = require('../../actions/assignment_actions.js').default
 AssignmentStore   = require '../../stores/assignment_store.coffee'
 CourseUtils       = require('../../utils/course_utils.js').default
 shallowCompare = require 'react-addons-shallow-compare'
+NotificationActions = require('../../actions/notification_actions.js').default
 
 AssignButton = React.createClass(
   displayName: 'AssignButton'
@@ -20,16 +21,10 @@ AssignButton = React.createClass(
     tag = if @props.role == 0 then 'assign_' else 'review_'
     tag + @props.student.id
   getInitialState: ->
-    if @props.course.home_wiki
-      language = @props.course.home_wiki.language
-      project = @props.course.home_wiki.project
-    else 
-      language = "en"
-      project = "wikipedia"
     return {
       showOptions: false
-      language: language
-      project: project
+      language: @props.course.home_wiki.language
+      project: @props.course.home_wiki.project
     }
   shouldComponentUpdate: (nextProps, nextState) ->
     shallowCompare(this, nextProps, nextState)
@@ -55,13 +50,22 @@ AssignButton = React.createClass(
       project: val
   assign: (e) ->
     e.preventDefault()
+
     assignment = 
-      title: decodeURIComponent(@state.title)
+      title: decodeURIComponent(@state.title).trim()
       project: @state.project
       language: @state.language
       course_id: @props.course_id
       user_id: @props.student.id
       role: @props.role
+
+    if assignment.title == "" || assignment.title == "undefined"
+      NotificationActions.addNotification
+        message: I18n.t('error.article_required')
+        closable: true
+        type: 'error'
+      return
+
     article_title = assignment.title
     # Check if the assignment exists
     if AssignmentStore.getFiltered({
@@ -160,7 +164,7 @@ AssignButton = React.createClass(
       else 
         options = (
           <div className="small-block-link">
-            {@state.language}.{@state.project}.org <a href="#" onClick={@handleShowOptions}>(Change)</a>                
+            {@state.language}.{@state.project}.org <a href="#" onClick={@handleShowOptions}>({I18n.t('application.change')})</a>                
           </div>
         )
 
