@@ -9,6 +9,7 @@ require 'rspec/rails'
 require 'capybara/rails'
 require 'capybara/rspec'
 require 'capybara-screenshot/rspec'
+require 'capybara/poltergeist'
 
 Capybara.configure do |config|
   config.javascript_driver = :webkit

@@ -293,6 +293,10 @@ describe 'the course page', type: :feature, js: true do
   end
 
   describe '/manual_update' do
+    before do
+      Capybara.current_driver = :poltergeist
+    end
+    
     it 'should update the course cache' do
       user = create(:user, id: user_count + 100)
       course = Course.find(10001)
