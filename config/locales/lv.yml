@@ -16,12 +16,15 @@ lv:
     articles: Raksti
     courses: Kursi
     duration: Kursa ilgums
+    my_articles: Mani raksti
     overview: Pārskats
     students: Studenti
     students_none: Šim kursam nav studentu.
     students_short: Studenti
     title: Nosaukums
     view: Apskatīt kursu
+  courses_generic:
+    courses: Programmas
   revisions:
     loading: Ielādē versijas...
   uploads:
@@ -30,5 +33,5 @@ lv:
     contributions: Dalībieka devums
     loading: Ielādē lietotājus...
     name: Nosaukums
-    none: Šim kursam nav studentu.
+    none: Dalībnieku nav.
 ...

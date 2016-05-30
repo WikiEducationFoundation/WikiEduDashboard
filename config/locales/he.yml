@@ -162,6 +162,8 @@ he:
     duration: משך הקורס
     edit_course_dates: עריכת תאריכים קורסים
     end: סוף
+    enroll: הרשמה
+    enrollment: הרשמה
     error:
       exists: הקורס הזה כבר קיים! נא לנסות שוב עם שם אחר, מוסד אחר או תקופה אחרת.
       user_exists: סליחה, %{username} הוא לא משתמש קיים.
@@ -247,6 +249,7 @@ he:
     assignment_end: סוף ציר זמן
     assignments_none: לקורס זה אין ערכים בוויקיפדיה שהוקצו.
     assignment_start: תחילת ציר זמן
+    courses: תוכניות
     creator:
       course_description: תיאור התוכנית
       course_school: מוסד
@@ -259,6 +262,8 @@ he:
       intro: כותרת התוכנית דרושה, כל דבר אחר ניתן למלא מאוחר יותר. לחיצה על "צור את
         התוכנית שלי!" כדי להתחיל לבנות את הדפים לתוכנית הוויקי שלך.
     edit_course_dates: עריכת תאריכי הפרויקט
+    enroll: הוספת עורך
+    enrollment: השתתפות
     expected_students: עורכים מצופים
     instructors: עוזרים
     milestones_none: לקורס הזה אין כרגע אבני דרך.
@@ -380,20 +385,20 @@ he:
       הוסיף. שחזור תוכן שהוסר יגדיל את הסך הזה.
     contributions: תרומות המשתמש
     contributions_more: הצגת תרומות נוספות
-    course_passcode: 'הסיסמה של הקורס:'
+    course_passcode: 'סיסמה:'
     editors: תלמידים עורכים
-    enroll_confirmation: האם ברצונך להוסיף את %{username} לקורס זה?
-    enroll_url: 'תלמידים יכולים להירשם על־ידי ביקור בקישור הבא:'
-    enrolled_success: '%{username} {{GENDER:%{username}|נרשם|נרשמה}} בהצלחה!'
+    enroll_confirmation: האם ברצונך להוסיף את %{username}?
+    enroll_url: 'משתמשים יכולים להצטרף על־ידי ביקור בקישור הבא:'
+    enrolled_success: '%{username} {{GENDER:%{username}|נוסף|נוספה}} בהצלחה!'
     first_name: שם פרטי
     last_name: שם משפחה
     loading: טעינת משתמשים...
     name: שם
-    none: בקורס הזה אין תלמידים.
+    none: אין משתתפים.
     no_articles: אין ערכים
     number_of_articles: '%{number} ערכים'
     recent_revisions: עריכות אחרונות
-    remove_confirmation: האם ברצונך להסיר את %{username} מקורס זה?
+    remove_confirmation: האם ברצונך להסיר את %{username}?
     revisions_doc: מספר העריכות שעשה העורך הזה בשבע הימים האחרונים
     reviewers: סוקרים
     reviewing: מתבצעת סקירה

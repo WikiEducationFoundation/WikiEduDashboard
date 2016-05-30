@@ -61,17 +61,21 @@ ksh:
     error:
       invalid_language_or_project: De Schproch odder dat Projäk sin onjöltesch.
     loading: Aam lahde&nbsp;…
+    my_articles: Ming Atikelle
+    none: Keine
     no_available_actions: Keinjn Axjuhne müjjelesch
     overview: Övverblek
     start: Bejenn
     start_typing: Fang et Tippe aan
     title: Övverschreff
   courses_generic:
+    courses: Projramm
     creator:
       course_school: Ennschtetuzjohn
       course_title: Övverschreff vum Projramm
       create_short: Lääsch e Projramm aan
       find: Fengk Di Projramm
+    enroll: Schrihver derbei donn
   editable:
     edit: Änndere
     cancel: Ophüre
@@ -135,8 +139,10 @@ ksh:
     assigned: Uohjedeijlte Atikelle
     assignees: Zohjedeijlt
     contributions_more: Belohr mih Beijdrähsch
+    enroll_confirmation: Wells De dä/dat %{username} verhaftesch derei donn?
     first_name: Vörnahme
     last_name: Nohnahme
+    my_assigned: 'Zohjedeijlt:'
     name: Nahme
     no_articles: Kein Atikelle
     number_of_articles: '%{number} Atikele'

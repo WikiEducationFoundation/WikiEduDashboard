@@ -232,6 +232,7 @@ qqq:
     delete_course: Button to delete a course
     duration: Label for duration of a course
     end: '{{Identical|End}}'
+    enroll: '{{Identical|Enroll}}'
     error:
       exists: Error message indicating that a course with the same title, school and
         term already exists.
@@ -307,6 +308,7 @@ qqq:
   courses_generic:
     articles_none: Message indicating that no articles have been edited
     assignments_none: Message indicating that there are no assigned articles
+    courses: '{{Identical|Program}}'
     creator:
       checking_for_uniqueness: Status message while course data is being validated
       course_description: Label for the description of a course

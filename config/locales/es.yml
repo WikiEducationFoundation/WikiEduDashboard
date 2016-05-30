@@ -173,6 +173,8 @@ es:
         cronograma (semanas y bloques). ¿Ha cambiado algo más acerca de tu curso?
         Siéntase libre de actualizarlo ahora.
       course_description: Descripción del curso
+      course_language: Idioma principal
+      course_project: Proyecto principal
       course_school: Escuela del curso
       course_subject: Tema del curso
       course_term: Curso de plazo
@@ -200,6 +202,8 @@ es:
     duration: Duración del curso
     edit_course_dates: Editar las fechas del curso
     end: Fin
+    enroll: Inscribirse
+    enrollment: Inscripción
     error:
       exists: Ese curso ya existe. Intenta de nuevo con un título, escuela o período
         diferentes.
@@ -294,6 +298,7 @@ es:
     assignment_end: Final del cronograma
     assignments_none: Este curso no tiene artículos de Wikipedia asignados.
     assignment_start: Inicio del cronograma
+    courses: Programas
     creator:
       checking_for_uniqueness: Se está comprobando que este programa sea único.
       course_description: Descripción del programa
@@ -308,6 +313,8 @@ es:
         más tarde. Haz clic en "¡Crear mi programa!" para empezar a crear la página
         de tu programa wiki.
     edit_course_dates: Editar las fechas del proyecto
+    enroll: Añadir editor
+    enrollment: Participación
     expected_students: Editores esperados
     instructors: Facilitadores
     milestones_none: Este proyecto actualmente no tiene ningún hito.
@@ -469,11 +476,11 @@ es:
     chars_added: Caracteres añadidos<br>(espacio principal | espacio de usuarios)
     contributions: Contribuciones del usuario
     contributions_more: Ver más contribuciones
-    course_passcode: 'Código de acceso del curso:'
+    course_passcode: 'Código de acceso:'
     editors: Editores estudiantiles
-    enroll_confirmation: ¿Estás seguro que deseas añadir a %{username} a este curso?
-    enroll_url: 'Los estudiantes pueden inscribirse visitando este URL:'
-    enrolled_success: ¡%{username} inscrito con éxito!
+    enroll_confirmation: ¿Estás seguro que deseas añadir a %{username}?
+    enroll_url: 'Los usuarios pueden unirse visitando este URL:'
+    enrolled_success: ¡%{username} añadido con éxito!
     first_name: Nombre
     last_name: Apellido
     loading: Cargando usuarios...
@@ -482,12 +489,12 @@ es:
     my_assigned: 'Asignados:'
     my_reviewing: 'En revisión:'
     name: Nombre
-    none: Este curso no tiene estudiantes.
+    none: No hay ningún participante.
     no_articles: Ningún artículo
-    no_revisions: Este usuario no ha hecho ninguna revisión.
+    no_revisions: Este editor no ha hecho ninguna revisión.
     number_of_articles: '%{number} artículos'
     recent_revisions: Ediciones recientes
-    remove_confirmation: ¿Estás seguro que deseas eliminar a %{username} de este curso?
+    remove_confirmation: ¿Estás seguro que deseas eliminar a %{username}?
     revisions_doc: El número de ediciones realizadas por este editor en los últimos
       7 días
     reviewers: Revisor(es)
