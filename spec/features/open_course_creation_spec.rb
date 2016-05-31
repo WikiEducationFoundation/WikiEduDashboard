@@ -3,9 +3,8 @@ require 'rails_helper'
 cached_default_course_type = ENV['default_course_type']
 
 def fill_out_course_creator_form
-  fill_in 'Program title:', with: 'My program'
-  # fill_in 'Course term:', with: 'Spring 2016'
-  fill_in 'Institution:', with: 'WikiProject Bonsai'
+  fill_in 'Program title:', with: '한국어'
+  fill_in 'Institution:', with: 'العَرَبِية'
   find('input[placeholder="Start date (YYYY-MM-DD)"]').set(Date.new(2017, 1, 4))
   find('input[placeholder="End date (YYYY-MM-DD)"]').set(Date.new(2017, 2, 1))
 end
