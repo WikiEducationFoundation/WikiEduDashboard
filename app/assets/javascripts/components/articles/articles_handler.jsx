@@ -43,6 +43,12 @@ const ArticlesHandler = React.createClass({
           </div>
           <AssignmentList {...this.props} />
         </div>
+        <div id="available-articles">
+          <div className="section-header">
+            <h3>{I18n.t('articles.available')}</h3>
+          </div>
+          <AssignmentList {...this.props} />
+        </div>
       </div>
     );
   }

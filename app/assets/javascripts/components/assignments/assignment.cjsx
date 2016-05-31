@@ -9,6 +9,13 @@ Assignment = React.createClass(
   displayName: 'Assignment'
   render: ->
     article = @props.article || CourseUtils.articleFromAssignment(@props.assign_group[0])
+    
+    unless article.formatted_title
+      article.formatted_title = CourseUtils.formattedArticleTitle(
+        @props.assign_group[0].language,
+        @props.assign_group[0].project,
+        article.title
+      )
 
     className = 'assignment'
     ratingClass = 'rating ' + article.rating

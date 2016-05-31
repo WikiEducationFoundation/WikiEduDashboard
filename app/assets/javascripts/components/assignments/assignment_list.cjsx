@@ -14,17 +14,21 @@ getState = ->
 AssignmentList = React.createClass(
   displayName: 'AssignmentList'
   render: ->
-    sorted_assignments = _.sortBy @props.assignments, (ass) ->
+    allAssignments = @props.assignments
+    sorted_assignments = _.sortBy allAssignments, (ass) ->
       ass.article_title
     grouped = _.groupBy sorted_assignments, (ass) ->
       ass.article_title
     elements = Object.keys(grouped).map (title) =>
+      group = grouped[title]
+      return null unless group[0].user_id
       article = ArticleStore.getFiltered({ title: title })[0]
       <Assignment {...@props}
-        assign_group={grouped[title]}
+        assign_group={group}
         article={article || null}
-        key={grouped[title][0].id}
+        key={group[0].id}
       />
+    elements = _.compact elements
 
     keys =
       'rating_num':

@@ -10,7 +10,7 @@ const Article = React.createClass({
   render() {
     const className = 'article';
     const ratingClass = `rating ${this.props.article.rating}`;
-    const ratingMobileClass = `${ratingClass} tabconst-only`;
+    const ratingMobileClass = `${ratingClass} tablet-only`;
     const languagePrefix = this.props.article.language ? `${this.props.article.language}:` : '';
     // The default project is Wikipedia.
     const project = this.props.article.project ? `${this.props.article.project}:` : 'wikipedia:';

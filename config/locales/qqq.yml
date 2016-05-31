@@ -86,6 +86,7 @@ qqq:
       {{Identical|Activity}}
   articles:
     assigned: Label for a list of assigned articles
+    available: Label for a list of articles not assigned to anyone
     character_doc: Documentation for an article's character total add and remove count.
     edited: Label for a list of articles edited.
     edited_mobile: '{{Identical|Article}}'
