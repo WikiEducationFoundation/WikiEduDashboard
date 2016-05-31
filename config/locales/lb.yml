@@ -81,6 +81,7 @@ lb:
       course_subject: Sujet vum Cours
       course_title: Titel vum Cours
       end_date: Schlussdatum
+      end_date_placeholder: Schlussdatum (JJJJ-MM-DD)
       expected_number: Erwaart Zuel vu Studenten
       find: Äre Cours fannen
       save_cloned_course: Neie Cours späicheren
@@ -92,15 +93,21 @@ lb:
     duration: Dauer vum Cours
     edit_course_dates: Datume vum Cours änneren
     end: Schluss
+    enroll: Aschreiwen
+    enrollment: Aschreiwung
     error:
       exists: Dee Cours gëtt et schonn! Probéiert et w.e.g. nach eng Kéier mat engem
         aneren Titel, enger anerer Schoul oder enger anerer Dauer.
       user_exists: Pardon, de Benotzer %{username} gëtt et net.
       invalid_language_or_project: Net valabel Sprooch/Projet
+    join_course: Beim Cours matmaachen
+    leave_course: Aus dem Cours erausgoen
     loading: Lueden...
+    my_articles: Meng Artikelen
     new_week: Nei Woch debäisetzen
     nocourses: Dir maacht bei kengem Cours mat.
     none: Keng
+    no_available_actions: Keng disponibel Aktiounen
     overview: Iwwersiicht
     revisions_doc: D'Zuel vun den ännerungen an de leschten %{timeframe}-Deeg
     school: Schoul
@@ -122,11 +129,14 @@ lb:
       notification_message: Fir dëse Cours ass eng Ëmfro disponibel
       link: Bei der Ëmfro matmaachen
   courses_generic:
+    courses: Programmer
     creator:
       course_description: Beschreiwung vum Programm
       course_school: Institutioun
       course_title: Titel vum Programm
       find: E Programm sichen
+    enroll: Auteur derbäisetzen
+    enrollment: Participatioun
     school: Institutioun
     students_short: Auteuren
     term: Wéini
@@ -150,6 +160,7 @@ lb:
     user_ns: Benotzer
   recent_activity:
     article_title: Titel vum Artikel
+    datetime: Datum/Zäit
     image: Bild
     file_name: Numm vum Fichier
     no_edits: Et gouf keng rezent Ännerungen.
@@ -175,6 +186,8 @@ lb:
     empty_week_1: Fir unzefänken.
     empty_week_3: oder
     gradeable_value: Wäert
+    move_block_down: Block erofréckelen
+    move_block_up: Block eropréckelen
     no_activity_this_week: Keng Aktivitéit dës Woch
     save_all_changes: All späicheren
     this_week_title_default: Dës Woch
@@ -199,15 +212,21 @@ lb:
     assigned: Assignéiert Artikelen
     contributions: Benotzerkontributiounen
     contributions_more: Méi Kontributioune weisen
+    course_passcode: 'Passcode:'
     editors: Auteuren
+    enroll_confirmation: Sidd Dir sécher datt Dir %{username} derbäisetze wëllt?
+    enrolled_success: '%{username} gouf dobäigesat!'
     first_name: Virnumm
     last_name: Familljennumm
     loading: Benotzer lueden...
+    my_reviewing: 'Nokucken:'
     name: Numm
-    none: Dëse Cours huet keng Studenten.
+    none: Dëse Cours huet keng Participanten.
     no_articles: Keng Artikelen
+    no_revisions: Dësen Auteur huet keng Ännerunge gemaach.
     number_of_articles: '%{number} Artikelen'
     recent_revisions: Rezent Ännerungen
+    remove_confirmation: Sidd Dir sécher datt Dir %{username} ewechhuele wëllt?
     training_complete:
       one: huet d'Formatioun ofgeschloss
       other: hunn d'Formatioun ofgeschloss

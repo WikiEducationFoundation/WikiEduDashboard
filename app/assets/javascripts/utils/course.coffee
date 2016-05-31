@@ -3,11 +3,13 @@ $ ->
   # only sort if there are uls to sort
   if $('#admin_courses ul').length
     adminCourseList = new List('admin_courses', {
+      page: 500,
       valueNames: ['atitle']
     })
 
   if $('#user_courses ul').length
     userCourseList = new List('user_courses', {
+      page: 500,
       valueNames: [
         'utitle','urevisions','ucharacters','uaverage-words','uviews','ustudents','uuntrained'
       ]
@@ -15,6 +17,7 @@ $ ->
 
   if $('#courses ul').length
     courseList = new List('courses', {
+      page: 500,
       valueNames: [
         'title','revisions','characters','average-words','views','students', 'untrained'
       ]

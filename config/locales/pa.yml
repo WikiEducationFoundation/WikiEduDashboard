@@ -1,9 +1,43 @@
 # Messages for Punjabi (ਪੰਜਾਬੀ)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Jimidar
 # Author: ਪ੍ਰਚਾਰਕ
 ---
 pa:
+  courses:
+    actions: ਕਾਰਵਾਈਆਂ
+    creator:
+      course_language: ਘਰੇਲੂ ਬੋਲੀ
+      subject: ਵਿਸ਼ਾ
+    loading: ਲੱਦ ਰਿਹਾ ਹੈ...
+    none: ਕੋਈ ਵੀ ਨਹੀਂ
+    start: ਸ਼ੁਰੂ ਕਰੋ
+    start_typing: ਲਿਖਣਾ ਸ਼ੁਰੂ ਕਰੋ
+  editable:
+    edit: ਸੋਧੋ
+    cancel: ਰੱਦ ਕਰੋ
+    save: ਸੰਭਾਲੋ
+  recent_activity:
+    datetime: ਮਿਤੀ/ਵੇਲਾ
+    image: ਤਸਵੀਰ
+    file_name: ਫ਼ਾਈਲ ਦਾ ਨਾਂ
+  timeline:
+    add_week: ਹਫ਼ਤਾ ਜੋੜੋ
+    block_custom: ਚੁਣਿੰਦਾ
+    block_milestone: ਮੀਲ-ਪੱਥਰ
+    empty_week_3: ਜਾਂ
+    gradeable_value: ਮੁੱਲ
+    save_all_changes: ਸੱਭ ਸੰਭਾਲੋ
+  uploads:
+    datetime: ਮਿਤੀ/ਵੇਲਾ
+    file_name: ਫ਼ਾਈਲ ਦਾ ਨਾਂ
+    image: ਤਸਵੀਰ
   users:
+    assign_articles_done: ਪੂਰਾ ਹੋਇਆ
+    first_name: ਮੂਹਰਲਾ ਨਾਂ
+    last_name: ਪਿਛਲਾ ਨਾਂ
     training_incomplete: ਅਧੂਰਾ ਅਭਿਆਸ
+    username: ਵਰਤੋਂਕਾਰ ਨਾਂ
+    username_placeholder: ਵਰਤੋਂਕਾਰ ਨਾਂ
 ...

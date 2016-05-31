@@ -271,8 +271,6 @@ uk:
     contributions_more: Переглянути більше внесків
     course_passcode: 'Код курсу:'
     editors: Студентів-редакторів
-    enroll: Записатись
-    enrollment: Реєстрація
     enroll_confirmation: Ви дійсно хочете додати користувача %{username} до цього
       курсу?
     enroll_url: 'Студенти можуть вступити, відвідавши цей URL:'
@@ -290,7 +288,6 @@ uk:
     revisions_doc: Кількість змін, зроблених цим учасником в останні 7 днів
     reviewers: Оцінювач(і)
     reviewing: Оцінює
-    student_editors: Студентів-редакторів
     training_complete:
       one: завершив навчання на сьогодні
       other: завершили навчання на сьогодні

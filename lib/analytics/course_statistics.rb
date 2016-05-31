@@ -1,3 +1,5 @@
+require "#{Rails.root}/lib/word_count"
+
 #= Utilities for calcuating statistics for course activity
 class CourseStatistics
   ################
@@ -21,6 +23,7 @@ class CourseStatistics
       students_excluding_instructors: @pure_student_ids.count,
       trained_students: @trained_student_count,
       characters_added: @characters_added,
+      words_added: @words_added,
       revisions: @revision_ids.count,
       articles_edited: @article_ids.count,
       articles_created: @surviving_article_ids.count,
@@ -78,6 +81,7 @@ class CourseStatistics
     students = CoursesUsers.where(course_id: @course_ids, role: 0)
     @student_ids = students.pluck(:user_id).uniq
     @characters_added = students.sum(:character_sum_ms)
+    @words_added = WordCount.from_characters(@characters_added)
     nonstudents = CoursesUsers.where(course_id: @course_ids, role: [1, 2, 3, 4])
     @nonstudent_ids = nonstudents.pluck(:user_id).uniq
     @pure_student_ids = @student_ids - @nonstudent_ids

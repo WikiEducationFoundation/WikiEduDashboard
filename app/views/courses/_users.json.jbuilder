@@ -1,9 +1,9 @@
 show_email_and_real_name = user_signed_in? && current_user.role(course) > 0
 
 json.users course.courses_users.eager_load(:user) do |cu|
-  json.call(cu, :character_sum_ms, :character_sum_us, :role, 
-                :content_expert, :program_manager)
-  json.call(cu.user, :id, :username, :contribution_url, :sandbox_url)
+  json.call(cu, :character_sum_ms, :character_sum_us, :role,
+            :content_expert, :program_manager, :contribution_url, :sandbox_url)
+  json.call(cu.user, :id, :username)
   json.admin cu.user.permissions == User::Permissions::ADMIN
   json.recent_revisions RevisionStat.recent_revisions_for_user_and_course(cu.user, cu.course).count
 

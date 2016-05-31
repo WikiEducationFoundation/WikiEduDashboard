@@ -123,10 +123,12 @@ zh-hans:
     course_description: 课程
     courses: 课程
     creator:
+      already_exists: 此课程已存在。考虑更改名称、学校或学期以使其独立。
       assignment_end: 任务结束
       assignment_end_placeholder: 分配结束日（YYYY-MM-DD）
       assignment_start: 任务开始
       assignment_start_placeholder: 分配开始日（YYYY-MM-DD）
+      checking_for_uniqueness: 这个课程正在检查其独立性。
       clone_successful: 课程已成功克隆
       course_description: 课程描述
       course_language: 主语言
@@ -155,6 +157,8 @@ zh-hans:
     duration: 课程持续时间
     edit_course_dates: 编辑课程日期
     end: 结束
+    enroll: 注册
+    enrollment: 登记
     error:
       exists: 那个课程已存在！请使用不同的标题、学校或学期再试。
       user_exists: 对不起，%{username}不是一位存在的用户。
@@ -175,6 +179,7 @@ zh-hans:
     leave_course: 离开课程
     loading: 正在载入…
     milestones_none: 此课程目前没有任何里程碑。
+    my_articles: 我的条目
     new_week: 添加新的一周
     nocourses: 您未参加任何课程。
     none: 无
@@ -226,6 +231,7 @@ zh-hans:
     assignment_end: 时间轴终点
     assignments_none: 此项目没有分配的维基百科条目。
     assignment_start: 时间轴起点
+    courses: 程序
     creator:
       course_description: 项目描述
       course_school: 机构
@@ -237,11 +243,13 @@ zh-hans:
       find: 找到一个项目
       intro: 需要项目标题，其他的可以日后再填写。点击“创建我的项目！”以开始构造用于您wiki项目的页面。
     edit_course_dates: 编辑项目日期
+    enroll: 添加编辑者
+    enrollment: 参与
     expected_students: 预期编辑者
     instructors: 促进者
     milestones_none: 此课程目前没有任何里程碑。
     published: 此项目已经发布！编辑者可以通过访问下面的URL登记：
-    revisions_none: 此课程最近没有活跃编辑维基百科。
+    revisions_none: 此项目没有最近编辑活动。
     school: 机构
     student_editors: 编辑者
     students: 编辑者
@@ -255,6 +263,7 @@ zh-hans:
     save: 保存
   metrics:
     activity: 最近活跃
+    are_trained: 最近培训
     articles_created: 创建的条目
     articles_edited: 编辑的条目
     characters: 字符
@@ -302,7 +311,7 @@ zh-hans:
     date_time: 日期/时间
     edited_by: 编辑者
     loading: 正在加载修订……
-    none: 此课程最近没有活跃编辑维基百科。
+    none: 此课程没有最近编辑活动。
     time_doc: 在您本地时间内，每个修订的时间
     title: 标题
   tasks:
@@ -369,29 +378,28 @@ zh-hans:
     chars_added: 添加的字符<br>（主名字空间 | 用户名字空间）
     contributions: 用户贡献
     contributions_more: 查看更多贡献
-    course_passcode: 课程密码：
+    course_passcode: 密码：
     editors: 学生编辑者
-    enroll: 注册
-    enrollment: 登记
-    enroll_confirmation: 您确定要添加%{username}至此课程么？
-    enroll_url: 学生可通过访问此URL登记：
-    enrolled_success: '%{username}已成功登记！'
+    enroll_confirmation: 您确定要添加%{username}么？
+    enroll_url: 用户可通过访问此URL加入：
+    enrolled_success: '%{username}已成功添加！'
     first_name: 名
     last_name: 姓
     loading: 正在加载用户...
     characters_added_mainspace: 添加的主空间字符
     characters_added_userspace: 添加的用户空间字符
+    my_assigned: 已分配：
+    my_reviewing: 正在复核：
     name: 名字
-    none: 此课程没有学生。
+    none: 这里没有参与者。
     no_articles: 没有条目
-    no_revisions: 这位用户没有做出修订。
+    no_revisions: 这位编辑者没有做出修订。
     number_of_articles: '%{number}个条目'
     recent_revisions: 最近编辑
-    remove_confirmation: 您确定要从此课程中移除%{username}吗？
+    remove_confirmation: 您确定要移除%{username}吗？
     revisions_doc: 此编辑者在过去7天内的编辑次数
     reviewers: 复核员
     reviewing: 正在复核
-    student_editors: 学生编辑者
     training_complete:
       other: 最新的培训
     training_complete_count: '%{count}最近的培训'

@@ -39,6 +39,7 @@ eo:
     title: Titolo
     view_wiki: Legi en Vikipedio
   courses_generic:
+    courses: Programoj
     creator:
       course_description: Priskribo de programo
       course_school: Lernejo
@@ -46,7 +47,7 @@ eo:
       create_label: Krei novan programon
       create_new: Krei novan programon
       create_short: Krei programon
-      find: Trovi vian programon
+      find: Trovi programon
   editable:
     edit: Redakti
     cancel: Nuligi

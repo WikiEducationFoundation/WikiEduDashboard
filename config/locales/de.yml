@@ -193,6 +193,8 @@ de:
     duration: Kursdauer
     edit_course_dates: Kursdaten bearbeiten
     end: Ende
+    enroll: Einschreiben
+    enrollment: Einschreibung
     error:
       exists: Dieser Kurs ist bereits vorhanden! Bitte versuche es erneut mit einem
         anderen Titel, einer anderen Schule oder Dauer.
@@ -215,6 +217,7 @@ de:
     leave_course: Kurs verlassen
     loading: Lade …
     milestones_none: Dieser Kurs hat derzeit keine Meilensteine.
+    my_articles: Meine Artikel
     new_week: Neue Woche hinzufügen
     nocourses: Du nimmst an keinen Kursen teil.
     none: Keine
@@ -287,6 +290,7 @@ de:
     assignment_end: Zeitleisten-Ende
     assignments_none: Dieses Projekt hat keine zugewiesenen Wikipedia-Artikel.
     assignment_start: Zeitleisten-Beginn
+    courses: Programme
     creator:
       checking_for_uniqueness: Dieses Programm wird auf Eindeutigkeit überprüft.
       course_description: Programmbeschreibung
@@ -301,12 +305,14 @@ de:
         Klicke auf „Mein Programm erstellen!“, um mit dem Erstellen der Seite für
         dein Wikiprogramm anzufangen.
     edit_course_dates: Projektdaten bearbeiten
+    enroll: Autor hinzufügen
+    enrollment: Teilnahme
     expected_students: Erwartete Autoren
     instructors: Vermittler
     milestones_none: Dieses Projekt hat derzeit keine Meilensteine.
     published: 'Dieses Projekt wurde veröffentlicht! Autoren können sich beim Aufrufen
       der folgenden URL einschreiben:'
-    revisions_none: Dieses Projekt hat keine letzte Wikipedia-Bearbeitungsaktivität.
+    revisions_none: Dieses Projekt hat keine letzte Bearbeitungsaktivität.
     school: Einrichtung
     student_editors: Autoren
     students: Autoren
@@ -371,7 +377,7 @@ de:
     date_time: Datum/Uhrzeit
     edited_by: Bearbeitet von
     loading: Lade Versionen …
-    none: Dieser Kurs hat keine kürzliche Wikipedia-Bearbeitungsaktivität.
+    none: Dieser Kurs hat keine letzte Bearbeitungsaktivität.
     time_doc: Die Zeit jeder Version in deiner Ortszeit
     title: Titel
   tasks:
@@ -464,32 +470,29 @@ de:
     chars_added: Hinzugefügte Zeichen<br>(Hauptnamensraum | Benutzernamensraum)
     contributions: Benutzerbeiträge
     contributions_more: Weitere Beiträge ansehen
-    course_passcode: 'Kurs-Passcode:'
+    course_passcode: 'Passcode:'
     editors: Autoren
-    enroll: Einschreiben
-    enrollment: Einschreibung
-    enroll_confirmation: Bist du sicher, dass du %{username} zu diesem Kurs hinzufügen
-      möchtest?
-    enroll_url: 'Studenten können sich durch Aufruf dieser URL einschreiben:'
-    enrolled_success: '%{username} erfolgreich eingeschrieben!'
+    enroll_confirmation: Bist du sicher, dass du %{username} hinzufügen möchtest?
+    enroll_url: 'Benutzer können durch Aufruf dieser URL beitreten:'
+    enrolled_success: '%{username} wurde erfolgreich hinzugefügt!'
     first_name: Vorname
     last_name: Nachname
     loading: Lade Benutzer …
     characters_added_mainspace: Hinzugefügte Zeichen im ANR
     characters_added_userspace: Hinzugefügte Zeichen im BNR
+    my_assigned: 'Zugewiesen:'
+    my_reviewing: 'In Überprüfung:'
     name: Name
-    none: Dieser Kurs hat keine Studenten.
+    none: Es gibt keine Teilnehmer.
     no_articles: Keine Artikel
-    no_revisions: Dieser Benutzer hat keine Bearbeitungen durchgeführt.
+    no_revisions: Dieser Autor hat keine Bearbeitungen durchgeführt.
     number_of_articles: '%{number} Artikel'
     recent_revisions: Letzte Bearbeitungen
-    remove_confirmation: Bist du sicher, dass du %{username} von diesem Kurs entfernen
-      möchtest?
+    remove_confirmation: Bist du sicher, dass du %{username} entfernen möchtest?
     revisions_doc: Die Anzahl der Bearbeitungen, die von diesem Autor in den letzten
       7 Tagen gemacht wurden.
     reviewers: Überprüfer
     reviewing: Überprüft
-    student_editors: Studentenautoren
     training_complete:
       one: ist mit der Ausbildung auf dem Laufenden
       other: sind mit der Ausbildung auf dem Laufenden

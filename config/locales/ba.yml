@@ -13,9 +13,14 @@ ba:
     creator:
       subject: Тема
     end: Тамамлау
+    enroll: Теркәлеү
     loading: Тейәлә...
+    my_articles: Минең мәҡәләләр
     start: Башларға
     untrained: Өйрәнсек
+  courses_generic:
+    courses: Прогресс
+    enrollment: Ҡатнашыу
   editable:
     edit: Үҙгәртергә
     cancel: Кире алырға
@@ -37,9 +42,12 @@ ba:
     file_name: Файл исеме
     image: Рәсем
   users:
+    assign_articles_done: Әҙер
     editors: Мөхәррирҙәр
     first_name: Исем
     last_name: Фамилия
+    my_assigned: 'Тәғәйенләнеше:'
+    my_reviewing: 'Күҙәтеү:'
     username: Ҡулланыусы исеме
     username_placeholder: Ҡатнашыусы исеме
 ...

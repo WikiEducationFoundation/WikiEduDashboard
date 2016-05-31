@@ -1,0 +1,17 @@
+# Messages for Tajik (Cyrillic script) (тоҷикӣ)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: AryanSogd
+---
+tg-cyrl:
+  courses:
+    enroll: Ба рӯйхат даровардан
+  courses_generic:
+    courses: Барномаҳо
+    enroll: Иловаи муҳаррир
+    enrollment: Иштирок
+  users:
+    course_passcode: 'Рамзи дохилшавӣ:'
+    enroll_url: 'Истифодабарандагон метавонанд ҳамроҳ шаванд бо роҳи боздид аз ин
+      URL:'
+...

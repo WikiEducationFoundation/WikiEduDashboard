@@ -11,7 +11,7 @@
         %li= link_to 'Surveys', surveys_path, class: class_for_path(request, surveys_path)
       - unless Features.disable_training?
         %li= link_to t('application.training'), training_path, class: class_for_path(request, training_path)
-      - unless Features.disable_help?
+      - unless Features.disable_help? || user_signed_in?
         %li= link_to t('application.help'), '/ask', target: '_blank'
     - if user_signed_in?
       - unless Features.disable_help?

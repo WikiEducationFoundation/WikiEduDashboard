@@ -1,6 +1,6 @@
 <section id="courses">
   <div class="section-header">
-    <h3><%= [t("courses.courses"), presenter.cohort.title].join(" | ") %></h3>
+    <h3><%= [t("#{presenter.course_string_prefix}.courses"), presenter.cohort.title].join(" | ") %></h3>
     <div class="sort-select inset">
       <select class="sorts" rel="courses">
         <option rel="asc" value="title"><%= t("courses.title") %></option>
@@ -8,8 +8,10 @@
         <option rel="desc" value="characters"><%= t("metrics.word_count") %></option>
         <option rel="desc" value="average-words"><%= t("metrics.average_word_count") %></option>
         <option rel="desc" value="views"><%= t("metrics.view") %></option>
-        <option rel="desc" value="students"><%= t("courses.students_short") %></option>
-        <option rel="desc" value="untrained"><%= t("courses.untrained") %></option>
+        <option rel="desc" value="students"><%= t("users.editors") %></option>
+        <% unless Features.disable_training? %>
+          <option rel="desc" value="untrained"><%= t("courses.untrained") %></option>
+        <% end %>
       </select>
     </div>
     <div class="cohort-select">
@@ -28,7 +30,7 @@
   </div>
   <div class="row course-list__row list__header">
     <div class="row__wrapper desktop-only-flex">
-      <div class="course-list__row__title sort asc" data-sort="title"><p><%= t("courses.courses") %></p></div>
+      <div class="course-list__row__title sort asc" data-sort="title"><p><%= t("#{presenter.course_string_prefix}.courses") %></p></div>
 
       <div class="course-list__row__revisions sort popover-trigger" data-default-order="desc" data-sort="revisions">
         <p><%= t("metrics.revisions") %></p>

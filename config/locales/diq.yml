@@ -2,12 +2,21 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Gorizon
+# Author: Kumkumuk
 # Author: Mirzali
 ---
 diq:
   application:
+    cancel: Bıtexelne
+    dashboard: Wiki Ed Dashboard
+    explore: Keşf ke
+    field_required: No ca icab keno
+    greeting2: Xeyr amey
+    greeting_extended: Xeyr amey wikipedia
+    greeting: Merheba!
     help: Peşti
     home: Keye
+    log_in_extended: Wikipedia ya Cıkew
     log_in: Cı kewe
     log_out: Bıveciye
     sign_up: Qeyd be
@@ -16,12 +25,19 @@ diq:
     edited_by: Vurnayoğ
   articles:
     edited_mobile: Meqaleyi
+    label: Wesiqey
     loading: Meqaleyi bar benê...
+    new: (Newe)
     no_assignee: Karberê qeydıni çıniyê
     rating: Sınıfe
     title: Sername
     view: Wesiqer bıvin
     view_all: Hemınan bıvin
+  courses:
+    actions: Hereketi
+    articles: Wesiqey
+    passcode: Passcode
+    passcode_none: passcode çıni yo
   uploads:
     usages: Karidayışi
 ...

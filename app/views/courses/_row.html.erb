@@ -25,7 +25,9 @@
       </div>
       <div class="course-list__row__students">
         <p class="training"><span class="tablet-only-flex"><%= t("users.editors") %>: </span><%= course.user_count %></p>
-        <small class="training desktop-only-flex"><%= t("users.training_complete_count", count: course.trained_count) %></small>
+        <% unless Features.disable_training? %>
+          <small class="training desktop-only-flex"><%= t("users.training_complete_count", count: course.trained_count) %></small>
+        <% end %>
         <p class="<%= user ? 'u' : '' %>students hidden"><%= course.user_count %></p>
         <p class="<%= user ? 'u' : '' %>untrained hidden"><%= course.user_count - course.trained_count %></p>
       </div>

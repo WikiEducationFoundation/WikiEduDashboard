@@ -69,6 +69,10 @@ pl:
       subject: Temat
     delete_course: Usuń kurs
     end: Koniec
+    enroll: Zapisz się
+    enrollment: Rejestracja
+    error:
+      invalid_language_or_project: Nieprawidłowy język/projekt
     instructor:
       one: Instruktor
       other: Instruktorzy
@@ -83,9 +87,11 @@ pl:
     view_wiki: Zobacz w Wikipedii
     yourcourses: Twoje Kursy
   courses_generic:
+    courses: Programy
     creator:
       checking_for_uniqueness: Ten program jest sprawdzany pod kątem niepowtarzalności.
       course_school: Instytucja
+    enrollment: Uczestnictwo
     school: Instytucja
   editable:
     edit: Edytuj
@@ -126,13 +132,17 @@ pl:
   users:
     assign_articles_done: Gotowe
     contributions: Wkład użytkownika
+    course_passcode: 'Kod dostępu:'
     editors: Edytorzy
-    enroll_confirmation: Czy na pewno chcesz dodać %{username} do tego kursu?
+    enroll_confirmation: Czy na pewno chcesz dodać %{username}?
+    enroll_url: 'Użytkownicy mogą dołączyć odwiedzając ten adres:'
     first_name: Imię
     last_name: Nazwisko
     loading: Wczytywanie użytkowników...
     name: Nazwa
+    none: Brak uczestników.
     no_revisions: Ten użytkownik wniósł żadnych zmian.
+    remove_confirmation: Czy na pewno chcesz usunąć %{username}?
     revisions_doc: Liczba edycji dokonanych przez tego edytora w ciągu ostatnich 7
       dni
     username: Nazwa użytkownika

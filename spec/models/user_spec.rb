@@ -26,12 +26,8 @@ describe User do
   describe 'user creation' do
     it 'should create User objects' do
       ragesock = build(:user)
-      ragesoss = build(:trained)
       ragesauce = build(:admin)
       expect(ragesock.username).to eq('Ragesock')
-      # rubocop:disable Metrics/LineLength
-      expect(ragesoss.contribution_url).to eq("https://#{Figaro.env.wiki_language}.wikipedia.org/wiki/Special:Contributions/Ragesoss")
-      # rubocop:enable Metrics/LineLength
       expect(ragesauce.admin?).to be true
     end
   end

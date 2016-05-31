@@ -17,6 +17,7 @@ ko:
   application:
     cancel: 취소
     dashboard: 위키 에듀 대시보드
+    error: '오류가 있었습니다:'
     field_required: 이 칸은 반드시 입력해야 합니다
     greeting2: 환영합니다!
     greeting_extended: 위키백과에 오신 것을 환영합니다
@@ -24,10 +25,14 @@ ko:
     help: 도와주세요!
     home: 대문
     log_in_extended: 위키백과에 로그인하기
+    log_in: 로그인
     log_out: 로그아웃
+    my_dashboard: 나의 대시보드
     recent_activity: 최근 활동
-    search: ask.wikiedu.org에서 검색
+    search: 질문하기
     sign_up_extended: 위키백과에 로그인하기
+    sign_up_log_in_extended: 위키백과와 함께합니다
+    sign_up: 가입하기
     submit: 보내기
   dashboard:
     no_courses_instructor: 당신은 아무 코스도 가지고 있지 않습니다.
@@ -64,6 +69,7 @@ ko:
     view_all: 모두 보기
   assignments:
     assignees: 담당자
+    label: 할당
     reviewers: 검토자
     review_self: 문서 미리보기
   blocks:
@@ -220,7 +226,6 @@ ko:
     usages: 사용
   users:
     course_passcode: '과정 패스코드:'
-    enroll: 등록
     enroll_confirmation: '%{username} 님을 과정에 추가하시겠습니까?'
     enroll_url: '다음 URL을 방문하여 학생을 추가할 수 있습니다:'
     enrolled_success: '%{username} 님이 성공적으로 구독되었습니다!'
@@ -231,7 +236,6 @@ ko:
     number_of_articles: '%{number} 문서'
     remove_confirmation: '%{username} 님을 과정에서 제거하겠습니까?'
     reviewers: 검토자
-    student_editors: 학생 편집자
     username: 사용자 이름
     username_placeholder: 사용자 이름
   wiki_edits:
