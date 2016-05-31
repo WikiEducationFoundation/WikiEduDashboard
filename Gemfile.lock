@@ -130,7 +130,6 @@ GEM
     chronic (0.10.2)
     climate_control (0.0.3)
       activesupport (>= 3.0)
-    cliver (0.3.2)
     cocaine (0.5.8)
       climate_control (>= 0.0.3, < 1.0)
     codeclimate-test-reporter (0.5.0)
@@ -289,11 +288,6 @@ GEM
       mimemagic (~> 0.3.0)
     parser (2.3.0.7)
       ast (~> 2.2)
-    poltergeist (1.9.0)
-      capybara (~> 2.1)
-      cliver (~> 0.3.1)
-      multi_json (~> 1.0)
-      websocket-driver (>= 0.2.0)
     polyamorous (1.1.0)
       activerecord (>= 3.0)
     powerpack (0.1.1)
@@ -444,9 +438,6 @@ GEM
       crack (>= 0.3.2)
       hashdiff
     websocket (1.2.2)
-    websocket-driver (0.6.4)
-      websocket-extensions (>= 0.1.0)
-    websocket-extensions (0.1.2)
     whenever (0.9.4)
       chronic (>= 0.6.3)
     xpath (2.0.0)
@@ -500,7 +491,6 @@ DEPENDENCIES
   paper_trail
   paperclip (~> 5.0.0.beta1)
   piwik_analytics!
-  poltergeist
   pry-rails
   quiet_assets
   rack-mini-profiler

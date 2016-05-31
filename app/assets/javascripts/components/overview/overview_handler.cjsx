@@ -68,7 +68,7 @@ Overview = React.createClass(
       </div>
     )
 
-    if @props.current_user.role == 0
+    if @props.current_user.role == 0 && @state.course.id
       userArticles = (
         <MyArticles
           course={@state.course}

@@ -293,10 +293,6 @@ describe 'the course page', type: :feature, js: true do
   end
 
   describe '/manual_update' do
-    before do
-      Capybara.current_driver = :poltergeist
-    end
-    
     it 'should update the course cache' do
       user = create(:user, id: user_count + 100)
       course = Course.find(10001)
@@ -314,7 +310,6 @@ describe 'the course page', type: :feature, js: true do
       allow(RatingImporter).to receive(:update_ratings)
 
       visit "/courses/#{slug}/manual_update"
-      sleep 5
       js_visit "/courses/#{slug}"
       updated_user_count = user_count + 1
       expect(page).to have_content "#{updated_user_count} Student Editors"
