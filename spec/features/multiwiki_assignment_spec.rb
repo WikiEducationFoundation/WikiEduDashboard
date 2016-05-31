@@ -35,7 +35,38 @@ describe 'multiwiki assignments', type: :feature, js: true do
       expect(Assignment.last.article.title).to eq('ஆங்கிலம்')
       expect(Assignment.last.article.wiki.language).to eq('ta')
       expect(Assignment.last.article.wiki.project).to eq('wiktionary')
+    end
+  end
 
+  it 'creates a valid assignment from an article and an alternative project and language' do
+    VCR.use_cassette 'multiwiki_assignment' do
+      visit "/courses/#{course.slug}/students"
+      click_button 'Assign Articles'
+      click_button 'Assign an article'
+      
+      within('#users') do
+        first('input').set('Livre_de_cuisine')
+        first(:link, 'Change').click
+        first('.language-select').click
+        first('.language-select .Select-input input').set('fr')
+        first('.language-select .Select-option', text: 'fr').click
+        first('.project-select').click
+        first('.project-select .Select-input input').set('wikibooks')
+        first('.project-select .Select-option', text: 'wikibooks').click
+      end
+
+      page.accept_confirm do
+        click_button 'Assign'
+      end
+
+      visit "/courses/#{course.slug}/students"
+
+      expect(page).to have_content 'fr:wikibooks:Livre de cuisine'
+      expect(Assignment.last.wiki.language).to eq('fr')
+      expect(Assignment.last.wiki.project).to eq('wikibooks')
+      expect(Assignment.last.article.title).to eq('Livre_de_cuisine')
+      expect(Assignment.last.article.wiki.language).to eq('fr')
+      expect(Assignment.last.article.wiki.project).to eq('wikibooks')
     end
   end
 end

@@ -8,6 +8,12 @@ describe('MyArticles', () => {
   const currentUser = { id: 1, admin: false, role: 0 };
   const courseId = 'institution/title_(term)';
 
+  MyArticles.__Rewire__('AssignCell', React.createClass({
+    render() {
+      return <div></div>;
+    }
+  }));
+
   it('renders the My Articles header', () => {
     const TestMyArticles = ReactTestUtils.renderIntoDocument(
       <MyArticles

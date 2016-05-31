@@ -34,7 +34,7 @@ Lookup = React.createClass(
         onOptionSelected={@optionSelectedHandler}
       />
     else
-      <input placeholder={@props.placeholder || I18n.t('courses.start_typing')} ref='entry' />
+      <input value={@props.value} onChange={@props.onChange} placeholder={@props.placeholder || I18n.t('courses.start_typing')} ref='entry' />
 )
 
 module.exports = LookupWrapper(Lookup)

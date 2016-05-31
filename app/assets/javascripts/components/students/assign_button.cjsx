@@ -1,5 +1,6 @@
 React         = require 'react'
 ReactRouter   = require 'react-router'
+Select        = require 'react-select'
 Router        = ReactRouter.Router
 Link          = ReactRouter.Link
 Expandable    = require '../high_order/expandable.cjsx'
@@ -9,22 +10,63 @@ ServerActions = require('../../actions/server_actions.js').default
 AssignmentActions = require('../../actions/assignment_actions.js').default
 AssignmentStore   = require '../../stores/assignment_store.coffee'
 CourseUtils       = require('../../utils/course_utils.js').default
+shallowCompare = require 'react-addons-shallow-compare'
+NotificationActions = require('../../actions/notification_actions.js').default
 
 AssignButton = React.createClass(
-  displayname: 'AssignButton'
+  displayName: 'AssignButton'
   stop: (e) ->
     e.stopPropagation()
   getKey: ->
     tag = if @props.role == 0 then 'assign_' else 'review_'
     tag + @props.student.id
+  getInitialState: ->
+    return {
+      showOptions: false
+      language: @props.course.home_wiki.language
+      project: @props.course.home_wiki.project
+    }
+  shouldComponentUpdate: (nextProps, nextState) ->
+    shallowCompare(this, nextProps, nextState)
+  handleShowOptions: (e) ->
+    e.preventDefault()
+    @setState
+      showOptions: true
+  handleChangeTitle: (e) ->
+    e.preventDefault()
+    title = e.target.value
+    assignment = CourseUtils.articleFromTitleInput title
+    language = assignment.language ? @state.language
+    project = assignment.project ? @state.project
+    @setState
+      title: assignment.title
+      project: project
+      language: language
+  handleChangeLanguage: (val) ->
+    @setState
+      language: val
+  handleChangeProject: (val) ->
+    @setState
+      project: val
   assign: (e) ->
     e.preventDefault()
-    assignment = CourseUtils.articleFromTitleInput @refs.lookup.getValue()
-    assignment.course_id = @props.course_id
-    assignment.user_id = @props.student.id
-    assignment.role = @props.role
-    article_title = assignment.title
 
+    assignment = 
+      title: decodeURIComponent(@state.title).trim()
+      project: @state.project
+      language: @state.language
+      course_id: @props.course_id
+      user_id: @props.student.id
+      role: @props.role
+
+    if assignment.title == "" || assignment.title == "undefined"
+      NotificationActions.addNotification
+        message: I18n.t('error.article_required')
+        closable: true
+        type: 'error'
+      return
+
+    article_title = assignment.title
     # Check if the assignment exists
     if AssignmentStore.getFiltered({
       article_title: article_title,
@@ -47,6 +89,7 @@ AssignButton = React.createClass(
       # Post the new assignment to the server
       ServerActions.addAssignment assignment
       @refs.lookup.clear()
+      @setState(@getInitialState())
   unassign: (assignment) ->
     return unless confirm(I18n.t('assignments.confirm_deletion'))
     # Update the store
@@ -71,6 +114,7 @@ AssignButton = React.createClass(
       edit_button = (
         <button className={className} onClick={@props.open}>{final_text}</button>
       )
+    
     assignments = @props.assignments.map (ass) =>
       ass.course_id = @props.course_id
       article = CourseUtils.articleFromAssignment(ass)
@@ -83,10 +127,47 @@ AssignButton = React.createClass(
       <tr key={ass.id}>
         <td>{link}{remove_button}</td>
       </tr>
+
     if @props.assignments.length == 0
       assignments = <tr><td>{I18n.t("assignments.none_short")}</td></tr>
 
     if @props.permitted
+      if @state.showOptions
+        languageOptions = WikiLanguages.map (language) =>
+          {label: language, value: language}
+
+        projectOptions = WikiProjects.map (project) =>
+          {label: project, value: project}
+        
+        options = (
+          <fieldset className="mt1">
+            <Select
+              ref='languageSelect'
+              className='half-width-select-left language-select'
+              name='language'
+              placeholder='Language'
+              onChange={@handleChangeLanguage}
+              value={@state.language}
+              options={languageOptions}
+            />
+            <Select
+              name='project'
+              ref='projectSelect'
+              className='half-width-select-right project-select'
+              onChange={@handleChangeProject}
+              placeholder='Project'
+              value={@state.project}
+              options={projectOptions}
+            />
+          </fieldset>
+        )
+      else 
+        options = (
+          <div className="small-block-link">
+            {@state.language}.{@state.project}.org <a href="#" onClick={@handleShowOptions}>({I18n.t('application.change')})</a>                
+          </div>
+        )
+
       edit_row = (
         <tr className='edit'>
           <td>
@@ -94,10 +175,13 @@ AssignButton = React.createClass(
               <Lookup model='article'
                 placeholder={I18n.t("articles.title_example")}
                 ref='lookup'
+                value={@state.title}
                 onSubmit={@assign}
+                onChange={@handleChangeTitle}
                 disabled=true
               />
               <button className='button border' type="submit">{I18n.t("assignments.label")}</button>
+              {options}
             </form>
           </td>
         </tr>

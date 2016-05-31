@@ -2,7 +2,8 @@ require 'rails_helper'
 
 cached_default_course_type = ENV['default_course_type']
 
-def fill_out_course_creator_form
+
+def fill_out_open_course_creator_form
   fill_in 'Program title:', with: '한국어'
   fill_in 'Institution:', with: 'العَرَبِية'
   find('input[placeholder="Start date (YYYY-MM-DD)"]').set(Date.new(2017, 1, 4))
@@ -28,7 +29,7 @@ describe 'open course creation', type: :feature, js: true do
   it 'lets a user create a course immediately' do
     visit root_path
     click_link 'Create a New Program'
-    fill_out_course_creator_form
+    fill_out_open_course_creator_form
     fill_in 'Home language:', with: 'ta'
     fill_in 'Home project', with: 'wiktionary'
     click_button 'Create my Program!'
@@ -41,7 +42,7 @@ describe 'open course creation', type: :feature, js: true do
   it 'defaults to English Wikipedia' do
     visit root_path
     click_link 'Create a New Program'
-    fill_out_course_creator_form
+    fill_out_open_course_creator_form
     click_button 'Create my Program!'
     expect(page).to have_content 'This project has been published!'
     expect(Course.last.cohorts.count).to eq(1)
