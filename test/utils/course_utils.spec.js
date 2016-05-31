@@ -55,8 +55,8 @@ describe('courseUtils.i18n', () => {
 });
 
 describe('courseUtils.articleFromTitleInput', () => {
-  it('trims whitespace and replaces underscores', () => {
-    const input = ' Robot_selfie  ';
+  it('replaces underscores', () => {
+    const input = 'Robot_selfie';
     const output = courseUtils.articleFromTitleInput(input);
     expect(output.title).to.eq('Robot selfie');
   });

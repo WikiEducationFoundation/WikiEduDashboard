@@ -118,6 +118,10 @@ it:
     creator:
       already_exists: Questo corso già esiste. Prova a cambiare il nome, la scuola
         o il termine per renderlo unico.
+      assignment_end_placeholder: Fine assegnazione (YYYY-MM-DD)
+      assignment_start: Inizio assegnazione
+      assignment_start_placeholder: Inizio assegnazione (YYYY-MM-DD)
+      checking_for_uniqueness: Controllo dell'unicità di questo corso in esecuzione.
       cloned_course_calendar_instructions: 'Seleziona le date per aggiungerle o rimuoverle
         dalla pianificazione (ad esempio: vacanze, niente scuola). Clicca su una data
         per cambiare stato tra deselezionato, selezionato e vacanza. Se non si hanno
@@ -150,6 +154,8 @@ it:
     duration: Durata del corso
     edit_course_dates: Modifica date del corso
     end: Fine
+    enroll: Iscriversi
+    enrollment: Iscrizione
     error:
       exists: Quel corso esiste già! Riprova con un differente titolo, scuola o termine.
       user_exists: Spiacenti, %{username} non è un utente esistente.
@@ -220,6 +226,7 @@ it:
     assignment_end: Fine timeline
     assignments_none: Questo progetto non ha assegnato voci di Wikipedia.
     assignment_start: Inizio timeline
+    courses: Programmi
     creator:
       checking_for_uniqueness: Controllo dell'unicità di questo programma in corso.
       course_description: Descrizione del programma
@@ -234,6 +241,8 @@ it:
         in seguito. Clicca su "Crea il mio programma!" per iniziare a costruire la
         pagina wiki del programma.
     edit_course_dates: Modifica date del progetto
+    enroll: Aggiungi editor
+    enrollment: Partecipazione
     expected_students: Editori previsti
     instructors: Facilitatori
     milestones_none: Questo progetto attualmente non ha pietre miliari.
@@ -306,6 +315,7 @@ it:
     due_default: Previsto per la prossima settimana
     empty_week_1: Per iniziare,
     empty_week_3: o
+    first_week_title: Prima settimana attiva
     gradeable_value: Valore
     no_activity_this_week: Nessuna attività questa settimana
     nothing_this_week: Non c'è niente in programma per questa settimana.
@@ -342,18 +352,19 @@ it:
     contributions: Contributi dell'utente
     contributions_more: Visualizza Ulteriori Contributi
     editors: Editori
-    enroll_confirmation: Sei sicuro di voler aggiungere %{username} a questo corso?
-    enroll_url: 'Gli studenti possono iscriversi visitando questo URL:'
+    enroll_confirmation: Sei sicuro di voler aggiungere %{username}?
+    enroll_url: 'Gli utenti possono partecipare visitando questo URL:'
+    enrolled_success: '%{username} è stato aggiunto con successo!'
     first_name: Nome
     last_name: Cognome
     loading: Caricamento utenti...
     my_assigned: 'Assegnati:'
     name: Nome
-    none: Questo corso non ha studenti.
+    none: Non ci sono partecipanti.
     no_articles: Nessuna voce
     number_of_articles: '%{number} voci'
     recent_revisions: Modifiche recenti
-    remove_confirmation: Sei sicuro di voler rimuovere %{username} da questo corso?
+    remove_confirmation: Sei sicuro di voler rimuovere %{username}?
     revisions_doc: Il numero di modifiche effettuate da questo contributore negli
       ultimi 7 giorni
     reviewers: Revisori

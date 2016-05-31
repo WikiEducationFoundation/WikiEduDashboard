@@ -59,6 +59,7 @@ en:
     sign_up: Sign up
     submit: Submit
     training: Training
+    change: Change
 
   dashboard:
     create_note:
@@ -586,6 +587,7 @@ en:
     summary: Summary
 
   error:
+    article_required: An article is required.
     invalid_assignment: Invalid assignment
     oauth_invalid: Your Wikipedia authorization has expired. Please log in again.
     unsupported_browser:

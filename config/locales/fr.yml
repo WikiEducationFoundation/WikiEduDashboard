@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Appleuseryu
 # Author: C13m3n7
+# Author: Dcausse
 # Author: Gomoko
 # Author: LudaOtaku
 # Author: Macofe
@@ -204,6 +205,8 @@ fr:
     duration: Durée du cours
     edit_course_dates: Modifier les dates du cours
     end: Fin
+    enroll: S’inscrire
+    enrollment: Inscription
     error:
       exists: Ce cours existe déjà ! Veuillez réessayer avec un autre titre, école,
         ou échéance.
@@ -299,6 +302,7 @@ fr:
     assignment_end: Fin de la chronologie
     assignments_none: Ce projet n’a pas d’articles de Wikipédia affectés.
     assignment_start: Début de la chronologie
+    courses: Programmes
     creator:
       checking_for_uniqueness: Ce programme a été vérifié pour l’unicité.
       course_description: Description du programme
@@ -313,6 +317,8 @@ fr:
         plus tard. Cliquez sur « Créer mon programme ! » pour commencer à construire
         la page de votre programme wiki.
     edit_course_dates: Modifier les dates du projet
+    enroll: Ajouter éditeur
+    enrollment: Participation
     expected_students: Éditeurs attendus
     instructors: Animateurs
     milestones_none: Ce projet n’a actuellement aucun jalon.
@@ -475,11 +481,11 @@ fr:
     chars_added: Caractères ajoutés<br>(espace principal | espace utilisateur)
     contributions: Contributions de l’utilisateur
     contributions_more: Afficher plus de contributions
-    course_passcode: 'Mot de passe du cours :'
+    course_passcode: 'Code d''accès:'
     editors: Editeurs étudiants
-    enroll_confirmation: Êtes-vous sûr de vouloir ajouter %{username} à ce cours ?
-    enroll_url: 'Les étudiants peuvent s’inscrire en allant à cette URL :'
-    enrolled_success: '%{username} inscrit !'
+    enroll_confirmation: Êtes-vous sûr de vouloir ajouter %{username} ?
+    enroll_url: 'Les utilisateurs peuvent s’inscrire en allant à cette URL :'
+    enrolled_success: '%{username} a été ajouté !'
     first_name: Prénom
     last_name: Nom
     loading: Chargement des utilisateurs…
@@ -488,12 +494,12 @@ fr:
     my_assigned: 'Assigné :'
     my_reviewing: 'En cours de revue :'
     name: Nom
-    none: Ce cours n’a aucun étudiant.
+    none: Il n'y a pas de participants.
     no_articles: Aucun article
-    no_revisions: Cet utilisateur n’a fait aucune révision.
+    no_revisions: Cet éditeur n’a fait aucune révision.
     number_of_articles: '%{number} articles'
     recent_revisions: Modifications récentes
-    remove_confirmation: Êtes-vous sûr de vouloir supprimer %{username} de ce cours ?
+    remove_confirmation: Êtes-vous sûr de vouloir supprimer %{username} ?
     revisions_doc: Le nombre de modifications faites par cet éditeur durant les 7
       derniers jours
     reviewers: Relecteur(s)

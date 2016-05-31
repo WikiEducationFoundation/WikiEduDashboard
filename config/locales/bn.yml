@@ -63,6 +63,7 @@ bn:
     join: যোগ দিন
     join_prompt: '''%{title}''-এ যোগ দিবেন?'
     join_successful: আপনি সফলভাবে %{title}-এ যোগ দিয়েছেন।
+    my_articles: আমার নিবন্ধ
     school: বিদ্যালয়
     students: ছাত্রগণ
     students_count: '# ছাত্রগণ'

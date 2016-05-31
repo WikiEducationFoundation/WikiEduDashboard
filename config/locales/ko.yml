@@ -17,6 +17,7 @@ ko:
   application:
     cancel: 취소
     dashboard: 위키 에듀 대시보드
+    error: '오류가 있었습니다:'
     field_required: 이 칸은 반드시 입력해야 합니다
     greeting2: 환영합니다!
     greeting_extended: 위키백과에 오신 것을 환영합니다
@@ -24,10 +25,14 @@ ko:
     help: 도와주세요!
     home: 대문
     log_in_extended: 위키백과에 로그인하기
+    log_in: 로그인
     log_out: 로그아웃
+    my_dashboard: 나의 대시보드
     recent_activity: 최근 활동
-    search: ask.wikiedu.org에서 검색
+    search: 질문하기
     sign_up_extended: 위키백과에 로그인하기
+    sign_up_log_in_extended: 위키백과와 함께합니다
+    sign_up: 가입하기
     submit: 보내기
   dashboard:
     no_courses_instructor: 당신은 아무 코스도 가지고 있지 않습니다.
@@ -64,6 +69,7 @@ ko:
     view_all: 모두 보기
   assignments:
     assignees: 담당자
+    label: 할당
     reviewers: 검토자
     review_self: 문서 미리보기
   blocks:

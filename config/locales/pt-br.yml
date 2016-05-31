@@ -239,6 +239,7 @@ pt-br:
     usages: Usos
   users:
     already_enrolled: Aquele usuário já está inscrito!
+    assign_articles_done: Feito
     assigned: Artigos Atribuídos
     contributions: Contribuições do usuário
     contributions_more: Ver mais contribuições
