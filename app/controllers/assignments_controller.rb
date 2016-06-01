@@ -27,11 +27,7 @@ class AssignmentsController < ApplicationController
   def create
     check_permissions(assignment_params[:user_id].to_i)
     set_wiki { return }
-    @assignment = AssignmentManager.new(user_id: assignment_params[:user_id],
-                                        course: @course,
-                                        wiki: @wiki,
-                                        title: assignment_params[:title],
-                                        role: assignment_params[:role]).create_assignment
+    set_new_assignment
     update_onwiki_course_and_assignments
     render json: @assignment
   end
@@ -55,30 +51,50 @@ class AssignmentsController < ApplicationController
   end
 
   def set_assignment
-    @id = params[:id]
-    @assignment = Assignment.find_by(id: @id)
+    find_assignment_by_id
     return unless @assignment.nil?
     set_wiki { yield }
+    find_assignment_by_params
+    return unless @assignment.nil?
+    render json: { message: t('error.invalid_assignment') }, status: 404
+    yield
+  end
+
+  def find_assignment_by_id
+    @id = params[:id]
+    @assignment = Assignment.find_by(id: @id)
+  end
+
+  def find_assignment_by_params
     clean_title = params[:article_title].tr(' ', '_')
     @assignment ||= Assignment.find_by(user_id: params[:user_id],
                                        role: params[:role],
                                        wiki_id: @wiki.id,
                                        article_title: clean_title,
                                        course_id: @course.id)
-    return unless @assignment.nil?
-    render json: { message: t('error.invalid_assignment') }, status: 404
-    yield
   end
 
   def set_wiki
-    home_wiki = @course.home_wiki
-    language = params[:language].present? ? params[:language] : home_wiki.language
-    project = params[:project].present? ? params[:project] : home_wiki.project
-    @wiki = Wiki.find_or_create_by(language: language, project: project) || home_wiki
+    find_or_create_wiki
     return unless @wiki.id.nil?
     # Error handling for an invalid wiki
     render json: { message: t('error.invalid_assignment') }, status: 404
     yield
+  end
+
+  def find_or_create_wiki
+    home_wiki = @course.home_wiki
+    language = params[:language].present? ? params[:language] : home_wiki.language
+    project = params[:project].present? ? params[:project] : home_wiki.project
+    @wiki = Wiki.find_or_create_by(language: language, project: project) || home_wiki
+  end
+
+  def set_new_assignment
+    @assignment = AssignmentManager.new(user_id: assignment_params[:user_id],
+                                        course: @course,
+                                        wiki: @wiki,
+                                        title: assignment_params[:title],
+                                        role: assignment_params[:role]).create_assignment
   end
 
   def check_permissions(user_id)
