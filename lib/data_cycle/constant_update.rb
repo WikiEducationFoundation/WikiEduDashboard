@@ -40,7 +40,7 @@ class ConstantUpdate
     CacheUpdater.update_all_caches
     greet_ungreeted_students
     generate_alerts
-    log_end_of_update
+    log_end_of_update 'Constant update finished.'
   end
 
   ###############
@@ -128,15 +128,5 @@ class ConstantUpdate
   def log_start_of_update
     @start_time = Time.zone.now
     Rails.logger.info 'Constant update tasks are beginning.'
-  end
-
-  def log_end_of_update
-    @end_time = Time.zone.now
-    total_time = distance_of_time_in_words(@start_time, @end_time)
-    Rails.logger.info "Constant update finished in #{total_time}."
-    Raven.capture_message 'Constant update finished.',
-                          level: 'info',
-                          tags: { update_time: total_time },
-                          extra: { exact_update_time: (@end_time - @start_time) }
   end
 end

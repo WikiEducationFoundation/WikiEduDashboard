@@ -33,7 +33,7 @@ class DailyUpdate
     update_article_views unless ENV['no_views'] == 'true'
     update_commons_uploads
     CacheUpdater.update_all_caches
-    log_end_of_update
+    log_end_of_update 'Daily update finished.'
   end
 
   ###############
@@ -103,15 +103,5 @@ class DailyUpdate
   def log_start_of_update
     @start_time = Time.zone.now
     Rails.logger.info 'Daily update tasks are beginning.'
-  end
-
-  def log_end_of_update
-    @end_time = Time.zone.now
-    total_time = distance_of_time_in_words(@start_time, @end_time)
-    Rails.logger.info "Daily update finished in #{total_time}."
-    Raven.capture_message 'Daily update finished.',
-                          level: 'info',
-                          tags: { update_time: total_time },
-                          extra: { exact_update_time: (@end_time - @start_time) }
   end
 end
