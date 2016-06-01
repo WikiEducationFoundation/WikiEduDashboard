@@ -89,7 +89,9 @@ Rails.application.routes.draw do
   get 'analytics(/*any)' => 'analytics#index'
   post 'analytics(/*any)' => 'analytics#results'
 
-  # Cohort data
+  # Cohorts
+  resources :cohorts, only: [:index, :create]
+
   controller :cohorts do
     get 'cohorts/:slug/students' => 'cohorts#students'
   end
