@@ -4,7 +4,6 @@ require "#{Rails.root}/lib/cleaners/revisions_cleaner"
 require "#{Rails.root}/lib/importers/assigned_article_importer"
 
 namespace :article do
-
   # These tasks are intended for ad-hoc use to resolve problems
   # introduced by old, bad logic
   desc 'Remove botched ArticlesCourses'
