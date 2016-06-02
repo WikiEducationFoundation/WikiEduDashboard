@@ -1,6 +1,5 @@
 require "#{Rails.root}/lib/importers/view_importer"
 require "#{Rails.root}/lib/cleaners"
-require "#{Rails.root}/lib/cleaners/revisions_cleaner"
 require "#{Rails.root}/lib/importers/assigned_article_importer"
 
 namespace :article do
@@ -16,12 +15,6 @@ namespace :article do
   task rebuild_articles_courses: :environment do
     Rails.logger.debug 'Rebuilding ArticlesCourses for all current students'
     Cleaners.rebuild_articles_courses
-  end
-
-  desc 'Find articles for orphaned revisions'
-  task repair_orphan_revisions: :environment do
-    Rails.logger.debug 'Repairing orphaned revisions'
-    RevisionsCleaner.repair_orphan_revisions
   end
 
   desc 'Import assigned articles'

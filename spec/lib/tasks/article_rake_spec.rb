@@ -18,13 +18,6 @@ describe 'article:reset_articles_courses' do
     end
   end
 
-  describe 'repair_orphan_revisions' do
-    it 'calls RevisionsCleaner.repair_orphan_revisions' do
-      expect(RevisionsCleaner).to receive(:repair_orphan_revisions)
-      rake['article:repair_orphan_revisions'].invoke
-    end
-  end
-
   describe 'import_assigned_articles' do
     it 'calls AssignedArticleImporter.import_articles_for_assignments' do
       expect(AssignedArticleImporter).to receive(:import_articles_for_assignments)
