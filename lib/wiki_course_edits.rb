@@ -95,8 +95,10 @@ class WikiCourseEdits
   # templates remain accurate and up-to-date.
   def update_assignments(*)
     homewiki_assignments_grouped_by_article.each do |article_id, assignments_for_same_article|
+      article = Article.find(article_id)
+      next unless article.namespace == Article::Namespaces::MAINSPACE
       update_assignments_for_article(
-        title: Article.find(article_id).title,
+        title: article.title,
         assignments_for_same_article: assignments_for_same_article)
     end
   end
@@ -130,11 +132,7 @@ class WikiCourseEdits
     course_page = @course.wiki_title
 
     # TODO: i18n of talk namespace
-    if title[0..4] == 'Talk:'
-      talk_title = title
-    else
-      talk_title = "Talk:#{title.tr(' ', '_')}"
-    end
+    talk_title = "Talk:#{title.tr(' ', '_')}"
 
     page_content = WikiAssignmentOutput.wikitext(course: @course,
                                                  title: title,
