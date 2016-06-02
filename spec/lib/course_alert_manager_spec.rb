@@ -93,4 +93,18 @@ describe CourseAlertManager do
       end
     end
   end
+
+  describe '#create_productive_course_alerts' do
+    it 'calls "create_alerts" on ProductiveCourseAlertManager' do
+      expect_any_instance_of(ProductiveCourseAlertManager).to receive(:create_alerts)
+      subject.create_productive_course_alerts
+    end
+  end
+
+  describe '#create_continued_course_activity_alerts' do
+    it 'calls "create_alerts" on ContinuedCourseActivityAlertManager' do
+      expect_any_instance_of(ContinuedCourseActivityAlertManager).to receive(:create_alerts)
+      subject.create_continued_course_activity_alerts
+    end
+  end
 end
