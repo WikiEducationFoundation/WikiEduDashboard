@@ -1,15 +1,8 @@
 require 'rails_helper'
 # https://robots.thoughtbot.com/test-rake-tasks-like-a-boss
 
-describe 'article:update_views_all_time' do
+describe 'article:reset_articles_courses' do
   include_context 'rake'
-
-  describe 'update_views_all_time' do
-    it 'calls ViewImporter to update views' do
-      expect(ViewImporter).to receive(:update_all_views).with(true)
-      subject.invoke
-    end
-  end
 
   describe 'reset_articles_courses' do
     it 'calls Cleaners.remove_bad_articles_courses' do

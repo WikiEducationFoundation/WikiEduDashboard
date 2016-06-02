@@ -56,7 +56,7 @@ class DailyUpdate
 
   def update_article_views
     log_message 'Updating article views'
-    ViewImporter.update_all_views
+    ViewImporter.update_all_views(true)
   end
 
   def update_commons_uploads

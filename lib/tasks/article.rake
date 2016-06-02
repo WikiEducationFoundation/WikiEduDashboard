@@ -4,11 +4,6 @@ require "#{Rails.root}/lib/cleaners/revisions_cleaner"
 require "#{Rails.root}/lib/importers/assigned_article_importer"
 
 namespace :article do
-  desc 'Calculate article views starting from the beginning of the course'
-  task update_views_all_time: :environment do
-    Rails.logger.debug 'Updating article views for all time'
-    ViewImporter.update_all_views(true)
-  end
 
   # These tasks are intended for ad-hoc use to resolve problems
   # introduced by old, bad logic
