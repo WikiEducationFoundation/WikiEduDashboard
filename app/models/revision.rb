@@ -37,14 +37,16 @@ class Revision < ActiveRecord::Base
   validates :mw_rev_id, presence: true
   validates :wiki_id, presence: true
 
+  include ArticleHelper
+
   ####################
   # Instance methods #
   ####################
   def url
     # https://en.wikipedia.org/w/index.php?title=Eva_Hesse&diff=prev&oldid=655980945
     return if article.nil?
-    escaped_title = article.title.tr(' ', '_')
-    "#{wiki.base_url}/w/index.php?title=#{escaped_title}&diff=prev&oldid=#{mw_rev_id}"
+    title = escaped_full_title(article)
+    "#{wiki.base_url}/w/index.php?title=#{title}&diff=prev&oldid=#{mw_rev_id}"
   end
 
   def update(data={}, save=true)

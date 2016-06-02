@@ -23,7 +23,7 @@ Revision = React.createClass(
       <td className='desktop-only-tc'>{@props.revision.characters}</td>
       <td className='desktop-only-tc date'>{moment(@props.revision.date).format('YYYY-MM-DD   h:mm A')}</td>
       <td>
-        <a className='inline' href={@props.revision.url} target='_blank'>diff</a>
+        <a className='inline' href={@props.revision.url} target='_blank'>{I18n.t('revisions.diff')}</a>
       </td>
     </tr>
 )

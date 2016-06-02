@@ -413,6 +413,7 @@ en:
     chars_added: Chars Added
     class: Class
     date_time: Date/Time
+    diff: diff
     edited_by: Edited By
     loading: Loading revisions...
     none: This course has no recent editing activity.
@@ -519,6 +520,7 @@ en:
     last_name: Last name
     loading: Loading users...
     characters_added_mainspace: MS Chars Added
+    characters_added_short: "MS: %{mainspace}, US: %{userspace}"
     characters_added_userspace: US Chars Added
     my_assigned: "Assigned: "
     my_reviewing: "Reviewing: "
@@ -529,6 +531,7 @@ en:
     number_of_articles: '%{number} articles'
     recent_revisions: Recent Edits
     remove_confirmation: Are you sure you want to remove %{username}?
+    revision_characters_and_views: 'Chars Added: %{characters}, Views: %{views}'
     revisions_doc: The number of edits made by this editor in the past 7 days
     reviewers: Reviewer(s)
     reviewing: Reviewing

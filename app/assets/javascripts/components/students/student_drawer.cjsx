@@ -18,7 +18,7 @@ StudentDrawer = React.createClass(
     return <tr></tr> unless @props.is_open
 
     revisions = (@state.revisions || []).map (rev) ->
-      details = 'Chars Added: ' + rev.characters + ', Views: ' + rev.views
+      details = I18n.t('users.revision_characters_and_views', characters: rev.characters, views: rev.views)
       <tr key={rev.id}>
         <td>
           <p className="name">
@@ -31,7 +31,7 @@ StudentDrawer = React.createClass(
         <td className='desktop-only-tc'>{rev.characters}</td>
         <td className='desktop-only-tc'>{rev.views}</td>
         <td className='desktop-only-tc'>
-          <a href={rev.url} target="_blank" className="inline">diff</a>
+          <a href={rev.url} target="_blank" className="inline">{I18n.t('revisions.diff')}</a>
         </td>
       </tr>
 
@@ -57,9 +57,9 @@ StudentDrawer = React.createClass(
             <thead>
               <tr>
                 <th>{I18n.t('users.contributions')}</th>
-                <th className='desktop-only-tc'>Date / Time</th>
-                <th className='desktop-only-tc'>Chars Added</th>
-                <th className='desktop-only-tc'>Views</th>
+                <th className='desktop-only-tc'>{I18n.t('metrics.date_time')}</th>
+                <th className='desktop-only-tc'>{I18n.t('metrics.char_added')}</th>
+                <th className='desktop-only-tc'>{I18n.t('metrics.view')}</th>
                 <th className='desktop-only-tc'></th>
               </tr>
             </thead>

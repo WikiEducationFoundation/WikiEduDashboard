@@ -25,6 +25,11 @@ module ArticleHelper
     "#{prefix}#{title}"
   end
 
+  def escaped_full_title(article)
+    prefix = NS[article.namespace]
+    "#{prefix}#{article.title}"
+  end
+
   def rating_priority(rating)
     case rating
     when 'fa'
