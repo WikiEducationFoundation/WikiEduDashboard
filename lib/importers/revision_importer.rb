@@ -52,13 +52,6 @@ class RevisionImporter
     results
   end
 
-  def get_revisions_for_users(users, start, end_date)
-    revision_data = get_revisions(users, start, end_date)
-    import_revisions(revision_data)
-    revisions = get_revisions_from_import_data(revision_data)
-    revisions
-  end
-
   def move_or_delete_revisions(revisions=nil)
     # NOTE: All revisions passed to this method should be from the same @wiki.
     revisions ||= Revision.where(wiki_id: @wiki.id)
@@ -128,14 +121,6 @@ class RevisionImporter
 
   def first_revision(course)
     course.revisions.where(wiki_id: @wiki.id).order('date DESC').first
-  end
-
-  def get_revisions_from_import_data(data)
-    rev_ids = data.map do |_a_id, a|
-      a['revisions'].map { |r| r['id'] }
-    end
-    rev_ids = rev_ids.flatten
-    Revision.where(wiki_id: @wiki.id, mw_rev_id: rev_ids)
   end
 
   def import_revisions_slice(sub_data)
