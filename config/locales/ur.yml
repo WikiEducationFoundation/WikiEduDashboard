@@ -1,6 +1,7 @@
 # Messages for Urdu (اردو)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Hindustanilanguage
 # Author: Obaid Raza
 ---
 ur:
@@ -12,4 +13,10 @@ ur:
   activity:
     all: سرگرمی
     edited_by: ترمیم از
+  courses:
+    creator:
+      course_project: مرکزی منصوبہ
+    my_articles: میرے مضامین
+  users:
+    my_assigned: تجاویز
 ...

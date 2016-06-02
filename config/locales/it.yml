@@ -31,6 +31,7 @@ it:
     sign_up: Registrati
     submit: Invia
     training: Formazione
+    change: Modifica
   dashboard:
     create_note: Clicca su "Crea corso" per creare il tuo primo corso.
     explore_course_pages: Esplora le pagine del corso

@@ -38,6 +38,7 @@ es:
     sign_up: Registrarse
     submit: Enviar
     training: Entrenamiento
+    change: Cambiar
   dashboard:
     create_note: Haz clic en Crear curso para crear tu primer curso.
     create_preparation_note: Asegúrate de tener tu calendario académico a mano antes
@@ -546,6 +547,7 @@ es:
     select_assignment: Selecciona el tipo de tarea que quieres añadir a tu cronograma.
     summary: Resumen
   error:
+    article_required: Se requiere un artículo.
     invalid_assignment: Asignación no válida
     oauth_invalid: Tu sesión de Wikipedia ha caducado. Inicia sesión de nuevo.
     unsupported_browser:

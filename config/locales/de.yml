@@ -31,6 +31,7 @@ de:
     sign_up: Registrieren
     submit: Absenden
     training: Ausbildung
+    change: Ändern
   dashboard:
     create_note: Klicke auf „Kurs erstellen“, um deinen ersten Kurs zu erstellen.
     create_preparation_note: 'Stelle sicher, dass du deinen akademischen Kalender
@@ -541,6 +542,7 @@ de:
       hinzufügen möchtest.
     summary: Zusammenfassung
   error:
+    article_required: Es ist ein Artikel erforderlich.
     invalid_assignment: Ungültige Zuweisung
     oauth_invalid: Deine Wikipedia-Autorisierung ist abgelaufen. Bitte erneut anmelden.
     unsupported_browser:

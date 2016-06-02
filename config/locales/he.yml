@@ -7,6 +7,7 @@
 # Author: LaG roiL
 # Author: Macofe
 # Author: MojoMann
+# Author: פוילישער
 ---
 he:
   application:
@@ -32,6 +33,7 @@ he:
     sign_up: הרשמה
     submit: שליחה
     training: אימונים
+    change: שינוי
   dashboard:
     create_note: לחץ על "צור קורס" בכדי ליצור את הקורס הראשון שלך.
     explore_course_pages: חקור את דפי הקורסים
@@ -120,6 +122,8 @@ he:
     assignment_start: תחילת משימה
     calendar:
       legend: מקרא
+      legend_class_canceled: פייערטאג/אנולירט
+      legend_class_meeting: קלאס באטרעף
       legend_class_not_meeting: אין פגישה מתוכננת
       select_meeting_days: נא לבחור את הימים שבהם יש פגישה עם הכיתה שלך.
     character_doc: סך התווים שנוספו לערכים במרחב הראשי על־ידי התלמידים בקורס במהלך
@@ -138,9 +142,12 @@ he:
         (לדוגמה חגים, חופש מבית-הספר). לחץ על תארך בכדי לשנות בין לא מסומן, מסומן
         או מצב חופש. תאריכים של פעילויות קורסים יישתנו בהתאם לשבועות ללא פגישות שנקבעו.
       course_description: תיאור הקורס
+      course_language: היים שפראך
+      course_project: היים פראיעקט
       course_school: ביה"ס של הקורס
       course_subject: נושא הקורס
       course_term: מונח קורס
+      course_term_placeholder: זמן
       course_title: כותרת קורס
       create_button: צור לי קורס!
       create_label: יצירת קורס חדש
@@ -339,6 +346,7 @@ he:
     arrange_timeline: ארגון ציר הזמן
     block_assignment: משימה
     block_custom: מותאם אישית
+    block_milestone: מיילן־שטיין
     block_type: סוג הגוש משמש לשליחת מידע לתלמידים שלך על הפריט הזה בציר הזמן שלהם
       ולבניית כלים שימושיים עבורך (כגון תקציר אבן דרך בדף הסקירה הכללית).
     course_dates: תאריכי הקורס

@@ -54,6 +54,7 @@ qqq:
       Submit link
       {{Identical|Submit}}
     training: '{{Identical|Training}}'
+    change: '{{Identical|Change}}'
   dashboard:
     create_note: |-
       Instructions on how to create a course.

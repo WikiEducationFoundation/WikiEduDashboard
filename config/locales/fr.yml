@@ -41,6 +41,7 @@ fr:
     sign_up: S’inscrire
     submit: Soumettre
     training: Formation
+    change: Modifier
   dashboard:
     create_note: Cliquer sur Créer un cours pour créer votre premier cours
     create_preparation_note: Assurez-vous d’avoir votre calendrier scolaire sous la
@@ -553,6 +554,7 @@ fr:
       planning.
     summary: Résumé
   error:
+    article_required: Un article est nécessaire.
     invalid_assignment: Affectation non valide
     oauth_invalid: Votre autorisation sur Wikipédia a expiré. Veuillez vous reconnecter.
     unsupported_browser:

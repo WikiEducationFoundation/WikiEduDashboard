@@ -16,6 +16,7 @@ sv:
     log_out: Logga ut
     recent_activity: Senaste aktivitet
     search: ställ en fråga
+    change: Ändra
   activity:
     all: Aktivitet
     edited_by: Redigerad av

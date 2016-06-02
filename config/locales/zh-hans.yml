@@ -4,6 +4,7 @@
 # Author: Camilali0609
 # Author: Liuxinyu970226
 # Author: Macofe
+# Author: Yfdyh000
 ---
 zh-hans:
   accessibility:
@@ -31,6 +32,7 @@ zh-hans:
     sign_up: 注册
     submit: 提交
     training: 培训
+    change: 更改
   dashboard:
     create_note: 点击创建课程以创建您的第一次课程。
     explore_course_pages: 浏览课程页面
@@ -233,6 +235,7 @@ zh-hans:
     assignment_start: 时间轴起点
     courses: 程序
     creator:
+      checking_for_uniqueness: 这个程序正在检查其独立性。
       course_description: 项目描述
       course_school: 机构
       course_title: 项目标题
@@ -427,6 +430,7 @@ zh-hans:
     select_assignment: 选择您希望添加至您的时间轴的任务类型。
     summary: 摘要
   error:
+    article_required: 需要一个条目。
     invalid_assignment: 无效分配
     oauth_invalid: 您的维基百科授权已过期。请重新登录。
     unsupported_browser:
