@@ -27,6 +27,7 @@ class Alert < ActiveRecord::Base
     ArticlesForDeletionAlert
     ContinuedCourseActivityAlert
     NeedHelpAlert
+    NoEnrolledStudentsAlert
     ProductiveCourseAlert
     UntrainedStudentsAlert
   ).freeze
