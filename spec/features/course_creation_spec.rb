@@ -378,20 +378,20 @@ describe 'New course creation and editing', type: :feature do
       go_through_course_dates_and_timeline_dates
 
       # Advance past the timeline date panel
-      first('button.dark').click
+      click_button 'Next'
       sleep 1
 
       # Last option for returning instructor is 'build your own'
       find('button', text: 'Build your own timeline').click
-      first('button.dark').click
+      click_button 'Next'
       sleep 1
 
       # Proceed to the summary
-      first('button.dark').click # Next
+      click_button 'Next'
       sleep 1
 
       # Finish the wizard
-      first('button.dark').click
+      click_button 'Submit'
       expect(page).to have_content 'Add Assignment'
       sleep 1
 
@@ -420,7 +420,7 @@ describe 'New course creation and editing', type: :feature do
       expect(page).not_to have_content 'Add Assignment'
 
       puts 'PASSED'
-      fail 'this test passed — this time'
+      raise 'this test passed — this time'
     end
   end
 
