@@ -116,6 +116,12 @@ const ServerActions = Flux.createActions({
       .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
   },
 
+  updateAssignment(opts) {
+    return API.updateAssignment(opts)
+      .then(resp => ({ actionType: 'UPDATE_ASSIGNMENT', data: resp }))
+      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
+  },
+
   fetchCoursesForUser(userId) {
     return API.fetchUserCourses(userId)
       .then(resp => ({ actionType: 'RECEIVE_USER_COURSES', data: resp }))

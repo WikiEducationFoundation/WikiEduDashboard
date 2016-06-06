@@ -110,6 +110,7 @@ end
 WebMock.disable_net_connect!(allow: 'http://sentry.ragesoss.com:8080')
 
 VCR.configure do |c|
+  c.allow_http_connections_when_no_cassette = true
   c.cassette_library_dir = 'fixtures/vcr_cassettes'
   c.hook_into :webmock # or :fakeweb
   c.default_cassette_options = { record: :new_episodes }

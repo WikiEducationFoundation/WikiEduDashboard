@@ -41,18 +41,27 @@ footer
     padding-bottom 10px
 
 .section-header
-  overflow hidden
   padding 20px 0 20px
   position relative
   clear both
   h3
     color body-color
 
+  .section-header__actions  
+    // 
+      
   +above(tablet)
     padding 15px 0 0
+    
+    .section-header__actions  
+      position absolute
+      right 0 
+      top 20px
 
   +above(desktop)
     padding 15px 0
+
+
 
 section
   position relative

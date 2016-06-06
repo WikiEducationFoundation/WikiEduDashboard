@@ -66,28 +66,41 @@ const CourseUtils = class {
   }
 
   articleFromAssignment(assignment) {
+    const project = assignment.project || 'wikipedia';
+    const language = assignment.language || 'en';
     const formattedTitle = this.formattedArticleTitle(
-      assignment.language,
-      assignment.project,
+      language,
+      project,
       assignment.article_title
     );
     const article = {
       rating_num: null,
       pretty_rating: null,
       url: assignment.article_url,
-      language: assignment.language,
-      project: assignment.project,
       title: assignment.article_title,
       formatted_title: formattedTitle,
+      language,
+      project,
       new: false
     };
     return article;
   }
 
   formattedArticleTitle(language, project, articleTitle) {
-    const languagePrefix = language !== undefined ? `${language}:` : '';
-    const projectName = project || 'wikipedia';
-    const projectPrefix = projectName === 'wikipedia' && projectName ? '' : `${projectName}:`;
+    let languagePrefix = '';
+    if (language === undefined || language === 'en') {
+      languagePrefix = '';
+    } else {
+      languagePrefix = `${language}:`;
+    }
+
+    let projectPrefix = '';
+    if (project === undefined || project === 'wikipedia') {
+      projectPrefix = '';
+    } else {
+      projectPrefix = `${project}:`;
+    }
+
     return `${languagePrefix}${projectPrefix}${articleTitle}`;
   }
 };

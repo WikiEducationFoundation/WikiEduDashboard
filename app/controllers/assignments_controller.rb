@@ -5,7 +5,7 @@ require "#{Rails.root}/lib/wiki_course_edits"
 # Controller for Assignments
 class AssignmentsController < ApplicationController
   respond_to :json
-  before_action :set_course
+  before_action :set_course, except: [:update]
 
   def index
     @assignments = Assignment.where(user_id: params[:user_id],
@@ -34,6 +34,20 @@ class AssignmentsController < ApplicationController
                                         role: assignment_params[:role]).create_assignment
     update_onwiki_course_and_assignments
     render json: @assignment
+  end
+
+  def update
+    check_permissions(assignment_params[:user_id].to_i)
+    @assignment = Assignment.find(assignment_params[:id])
+    @assignment.update_attributes(assignment_params)
+    if @assignment.save
+      render json: {assignment: @assignment}, status: 200 
+    else
+      render json: {
+        errors: @alert.errors,
+        message: 'unable to update assignment'
+      }, status: 500
+    end
   end
 
   private
@@ -90,6 +104,6 @@ class AssignmentsController < ApplicationController
   end
 
   def assignment_params
-    params.permit(:user_id, :course_id, :title, :role, :language, :project)
+    params.permit(:id, :user_id, :course_id, :title, :role, :language, :project)
   end
 end

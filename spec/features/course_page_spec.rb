@@ -60,7 +60,6 @@ describe 'the course page', type: :feature, js: true do
     ratings = ['fl', 'fa', 'a', 'ga', 'b', 'c', 'start', 'stub', 'list', nil]
     (1..article_count).each do |i|
       create(:article,
-             id: i.to_s,
              title: "Article #{i}",
              namespace: 0,
              wiki_id: es_wiktionary.id,
@@ -84,11 +83,9 @@ describe 'the course page', type: :feature, js: true do
 
     # Add articles / revisions before the course starts and after it ends.
     create(:article,
-           id: (article_count + 1).to_s,
            title: 'Before',
            namespace: 0)
     create(:article,
-           id: (article_count + 2).to_s,
            title: 'After',
            namespace: 0)
     create(:revision,
@@ -238,14 +235,98 @@ describe 'the course page', type: :feature, js: true do
       # Sorting
       # first click on the Class sorting should sort high to low
       find('th.sortable', text: 'Class').click
-      first_rating = page.find(:css, 'table.articles').first('td .rating p')
+      first_rating = page.first(:css, 'table.articles').first('td .rating p')
       expect(first_rating).to have_content 'FA'
       # second click should sort from low to high
       find('th.sortable', text: 'Class').click
-      new_first_rating = page.find(:css, 'table.articles').first('td .rating p')
+      new_first_rating = page.first(:css, 'table.articles').first('td .rating p')
       expect(new_first_rating).to have_content '-'
-      title = page.find(:css, 'table.articles').first('td p.title')
+      title = page.first(:css, 'table.articles').first('td p.title')
       expect(title).to have_content 'es:wiktionary:Article'
+    end
+
+    it 'should have a list of available articles' do
+      course = Course.first
+      wiki = Wiki.first
+      AssignmentManager.new(user_id: nil,
+                            course: course,
+                            wiki: wiki,
+                            title: "Education",
+                            role: 0).create_assignment
+      js_visit "/courses/#{slug}/articles"
+      assigned_articles_section = page.first(:css, '#available-articles')
+      expect(assigned_articles_section).to have_content 'Education'
+    end
+
+    it 'should not have an "Add an available article" button for students' do
+      js_visit "/courses/#{slug}/articles"
+      assigned_articles_section = page.first(:css, '#available-articles')
+      expect(assigned_articles_section).to_not have_content 'Add an available article'
+    end
+
+    it 'should have an "Add an available article" button for instructors/admins' do
+      admin = create(:admin, id: User.last.id + 1)
+      login_as(admin)
+      js_visit "/courses/#{slug}/articles"
+      assigned_articles_section = page.first(:css, '#available-articles')
+      expect(assigned_articles_section).to have_content 'Add an available article'
+    end
+
+    it 'should allow instructor to add an available article' do
+      admin = create(:admin, id: User.last.id + 1)
+      login_as(admin)
+      js_visit "/courses/#{slug}/articles"
+      click_button 'Add an available article'
+      page.first(:css, '#available-articles .pop.open').first('input').set('Education')
+      click_button 'Assign'
+      assigned_articles_table = page.first(:css, '#available-articles table.articles')
+      expect(assigned_articles_table).to have_content 'Education'
+    end
+
+    it 'should allow instructor to remove an available article' do
+      # admin = create(:admin, id: User.last.id + 1)
+      # login_as(admin)
+      # course = Course.first
+      # wiki = Wiki.first
+      # AssignmentManager.new(user_id: nil,
+      #                       course: course,
+      #                       wiki: wiki,
+      #                       title: "Education",
+      #                       role: 0).create_assignment
+      # js_visit "/courses/#{slug}/articles"
+
+      # assigned_articles_section = page.first(:css, '#available-articles')
+      # expect(assigned_articles_section).to have_content 'Education'
+      # expect(Assignment.count).to eq(1)
+      # expect(assigned_articles_section).to have_content 'Remove'
+      # click_button 'Remove'
+      # expect(assigned_articles_section).to_not have_content 'Education'
+      # sleep 3
+      # expect(Assignment.count).to eq(0)
+    end    
+
+    it 'should allow student to select an available article' do
+      user = create(:user, id: user_count + 100)
+      course = Course.first
+      wiki = Wiki.first
+      AssignmentManager.new(user_id: nil,
+                            course: course,
+                            wiki: wiki,
+                            title: "Education",
+                            role: 0).create_assignment
+
+      login_as(user, scope: :user)
+      js_visit "/courses/#{slug}/articles"
+     
+      assigned_articles_section = page.first(:css, '#available-articles')
+      expect(assigned_articles_section).to have_content 'Education'
+      expect(Assignment.count).to eq(1)
+      expect(assigned_articles_section).to have_content 'Select'
+      click_button 'Select'
+      expect(assigned_articles_section).to_not have_content 'Education'
+      sleep 3
+      expect(Assignment.first.user_id).to eq(user.id)
+      expect(Assignment.first.role).to eq(0)
     end
   end
 

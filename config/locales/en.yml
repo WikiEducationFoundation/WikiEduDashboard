@@ -133,13 +133,16 @@ en:
     already_exists: This assignment already exists!
     assignees: Assignee(s)
     assign_other: Assign an article
+    add_available: Add an available article
     assign_self: Assign myself an article
+    confirm_add_available: Are you sure you want to add %{title}?
     confirm_addition: Are you sure you want to assign %{title} to %{username}?
     confirm_deletion: Are you sure you want to delete this assignment?
     label: Assign
     loading: Loading assignments...
     none_short: No articles assigned
     none: This course has no assigned Wikipedia articles.
+    no_available: This course has no available Wikipedia articles.
     reviewers: Reviewer(s)
     review_other: Assign a review
     review_self: Review an article

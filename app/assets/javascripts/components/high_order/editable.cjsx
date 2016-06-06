@@ -5,6 +5,7 @@ UIActions = require('../../actions/ui_actions.js').default
 
 Editable = (Component, Stores, Save, GetState, Label, SaveLabel, SaveOnly) ->
   React.createClass(
+    displayName: 'Editable'
     mixins: Stores.map (store) -> store.mixin
     toggleEditable: ->
       @setState editable: !@state.editable

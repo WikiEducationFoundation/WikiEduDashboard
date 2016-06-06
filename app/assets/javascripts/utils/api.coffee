@@ -168,6 +168,19 @@ API =
         console.error 'Error: ' + getErrorMessage(obj)
         rej obj
 
+  updateAssignment: (opts) ->
+    queryString = $.param(opts)
+    new Promise (res, rej) ->
+      $.ajax
+        type: 'PUT',
+        url: "/assignments/#{opts.id}.json?#{queryString}"
+        success: (data) ->
+          console.log 'Updated assignment'
+          res data
+      .fail (obj, status) ->
+        console.error 'Error: ' + getErrorMessage(obj)
+        rej obj
+
 
   fetch: (course_id, endpoint) ->
     new Promise (res, rej) ->

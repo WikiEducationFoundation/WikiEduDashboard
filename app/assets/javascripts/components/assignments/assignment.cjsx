@@ -35,7 +35,6 @@ Assignment = React.createClass(
     assignees.pop() if assignees.length
     reviewers.pop() if reviewers.length
 
-
     <tr className={className}>
       <td className='popover-trigger desktop-only-tc'>
         <p className="rating_num hidden">{article.rating_num}</p>

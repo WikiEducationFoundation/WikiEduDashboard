@@ -19,7 +19,10 @@ AssignButton = React.createClass(
     e.stopPropagation()
   getKey: ->
     tag = if @props.role == 0 then 'assign_' else 'review_'
-    tag + @props.student.id
+    if @props.student
+      return tag + @props.student.id
+    else
+      return tag
   getInitialState: ->
     return {
       showOptions: false
@@ -51,12 +54,17 @@ AssignButton = React.createClass(
   assign: (e) ->
     e.preventDefault()
 
+    if @props.student
+      student = @props.student.id
+    else 
+      student = null
+
     assignment = 
       title: decodeURIComponent(@state.title).trim()
       project: @state.project
       language: @state.language
       course_id: @props.course_id
-      user_id: @props.student.id
+      user_id: student
       role: @props.role
 
     if assignment.title == "" || assignment.title == "undefined"
@@ -67,8 +75,9 @@ AssignButton = React.createClass(
       return
 
     article_title = assignment.title
+    
     # Check if the assignment exists
-    if AssignmentStore.getFiltered({
+    if @props.student && AssignmentStore.getFiltered({
       article_title: article_title,
       user_id: @props.student.id,
       role: @props.role
@@ -77,10 +86,15 @@ AssignButton = React.createClass(
       return
 
     # Confirm
-    return unless confirm I18n.t('assignments.confirm_addition', {
-      title: article_title,
-      username: @props.student.username
-    })
+    if @props.student
+      return unless confirm I18n.t('assignments.confirm_addition', {
+        title: article_title,
+        username: @props.student.username
+      })
+    else
+      return unless confirm I18n.t('assignments.confirm_add_available', {
+        title: article_title
+      })
 
     # Send
     if(assignment)
@@ -104,7 +118,9 @@ AssignButton = React.createClass(
       raw_a = @props.assignments[0]
       show_button = <button className={className + ' plus'} onClick={@props.open}>+</button>
     else if @props.permitted
-      if @props.current_user.id == @props.student.id
+      if @props.add_available
+        assign_text = I18n.t("assignments.add_available")
+      else if @props.student && @props.current_user.id == @props.student.id
         assign_text = I18n.t("assignments.assign_self")
         review_text = I18n.t("assignments.review_self")
       else if @props.current_user.role > 0 || @props.current_user.admin
@@ -128,7 +144,7 @@ AssignButton = React.createClass(
         <td>{link}{remove_button}</td>
       </tr>
 
-    if @props.assignments.length == 0
+    if @props.assignments.length == 0 && @props.student
       assignments = <tr><td>{I18n.t("assignments.none_short")}</td></tr>
 
     if @props.permitted
