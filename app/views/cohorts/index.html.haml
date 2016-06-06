@@ -1,0 +1,14 @@
+%section
+  %h1
+    Create New Cohort
+  %div
+    =form_tag do
+      = label :cohort, :title, 'Title'
+      = text_field :cohort, 'title'
+      = submit_tag 'Create Cohort'
+%section
+  %h1
+    All Cohorts
+  %ul
+    - @cohorts.each do |cohort|
+      %li= cohort.title

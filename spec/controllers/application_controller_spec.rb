@@ -51,4 +51,28 @@ describe ApplicationController do
       end
     end
   end
+
+  describe '#require_signed_in' do
+    controller do
+      def index
+        require_signed_in
+        render nothing: true
+      end
+    end
+
+    context 'when user is not signed in' do
+      it 'returns a 401' do
+        get :index
+        expect(response.status).to eq(401)
+      end
+    end
+
+    context 'when user is signed in' do
+      it 'returns a 200' do
+        allow(controller).to receive(:current_user).and_return(user)
+        get :index
+        expect(response.status).to eq(200)
+      end
+    end
+  end
 end

@@ -1,0 +1,11 @@
+# Messages for Interlingua (interlingua)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: McDutchie
+---
+ia:
+  application:
+    change: Cambiar
+  error:
+    article_required: Un articulo es requirite.
+...

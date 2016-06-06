@@ -36,7 +36,7 @@ Student = React.createClass(
     className += if @state.is_open then ' open' else ''
     if @props.student.course_training_progress?
       separator = <span className='tablet-only-ib'>&nbsp;|&nbsp;</span>
-    chars = 'MS: ' + @props.student.character_sum_us + ', US: ' + @props.student.character_sum_us
+    chars = I18n.t('users.characters_added_short', mainspace: @props.student.character_sum_us, userspace: @props.student.character_sum_us)
 
     user_name = if @_shouldShowRealName() then (
       <span>

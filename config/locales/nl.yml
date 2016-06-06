@@ -208,6 +208,7 @@ nl:
     leave_course: Verlaat cursus
     loading: Bezig met laden...
     milestones_none: Deze cursus heeft nog geen mijlpalen.
+    my_articles: Mijn artikelen
     new_week: Nieuwe week toevoegen
     nocourses: Je neemt niet deel aan een cursus.
     none: Geen
@@ -405,8 +406,9 @@ nl:
     contributions_more: Meer bijdragen bekijken
     editors: Studentbewerkers
     loading: Bezig met het laden van gebruikers...
+    my_assigned: 'Toegewezen:'
     name: Naam
-    none: Deze cursus heeft geen studenten.
+    none: Er zijn geen deelnemers.
     recent_revisions: Recente bewerkingen
     revisions_doc: Het aantal bewerkingen dat is gemaakt door deze redacteur in de
       afeglopen 7 dagen

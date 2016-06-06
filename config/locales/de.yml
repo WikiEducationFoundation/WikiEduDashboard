@@ -31,6 +31,7 @@ de:
     sign_up: Registrieren
     submit: Absenden
     training: Ausbildung
+    change: Ändern
   dashboard:
     create_note: Klicke auf „Kurs erstellen“, um deinen ersten Kurs zu erstellen.
     create_preparation_note: 'Stelle sicher, dass du deinen akademischen Kalender
@@ -375,6 +376,7 @@ de:
     chars_added: Hinzugefügte Zeichen
     class: Klasse
     date_time: Datum/Uhrzeit
+    diff: Unterschied
     edited_by: Bearbeitet von
     loading: Lade Versionen …
     none: Dieser Kurs hat keine letzte Bearbeitungsaktivität.
@@ -479,6 +481,7 @@ de:
     last_name: Nachname
     loading: Lade Benutzer …
     characters_added_mainspace: Hinzugefügte Zeichen im ANR
+    characters_added_short: 'ANR: %{mainspace}, BNR: %{userspace}'
     characters_added_userspace: Hinzugefügte Zeichen im BNR
     my_assigned: 'Zugewiesen:'
     my_reviewing: 'In Überprüfung:'
@@ -489,6 +492,8 @@ de:
     number_of_articles: '%{number} Artikel'
     recent_revisions: Letzte Bearbeitungen
     remove_confirmation: Bist du sicher, dass du %{username} entfernen möchtest?
+    revision_characters_and_views: 'Hinzugefügte Zeichen: %{characters}, Aufrufe:
+      %{views}'
     revisions_doc: Die Anzahl der Bearbeitungen, die von diesem Autor in den letzten
       7 Tagen gemacht wurden.
     reviewers: Überprüfer
@@ -541,6 +546,7 @@ de:
       hinzufügen möchtest.
     summary: Zusammenfassung
   error:
+    article_required: Es ist ein Artikel erforderlich.
     invalid_assignment: Ungültige Zuweisung
     oauth_invalid: Deine Wikipedia-Autorisierung ist abgelaufen. Bitte erneut anmelden.
     unsupported_browser:

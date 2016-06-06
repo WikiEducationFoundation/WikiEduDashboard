@@ -26,6 +26,7 @@ bn:
     sign_up: নিবন্ধন
     submit: জমা দিন
     training: প্রশিক্ষণ
+    change: পরিবর্তন
   home:
     log_in: উইকিপিডিয়া দিয়ে প্রবেশ করুন
     sign_up: উইকিপিডিয়া দিয়ে নিবন্ধন করুন
@@ -84,6 +85,7 @@ bn:
       create_new: একটি নতুন প্রকল্প তৈরি করুন
       create_short: প্রোগ্রাম তৈরি করুন
       find: একটি প্রোগ্রাম খুঁজুন
+    enrollment: অংশগ্রহণ
     school: প্রতিষ্ঠান
     student_editors: সম্পাদকগণ
     students: সম্পাদকগণ
@@ -99,6 +101,7 @@ bn:
     user_ns: ব্যবহারকারী
   revisions:
     date_time: তারিখ/সময়
+    diff: পার্থক্য
     title: শিরোনাম
   training:
     start: শুরু করুন
@@ -114,4 +117,6 @@ bn:
     reviewing: নিরীক্ষণ চলছে
   wizard:
     summary: সারাংশ
+  error:
+    article_required: একটি নিবন্ধ প্রয়োজন।
 ...

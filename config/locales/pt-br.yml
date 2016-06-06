@@ -14,7 +14,10 @@ pt-br:
   application:
     cancel: Cancelar
     dashboard: Painel do Wiki Ed
+    error: Aconteceu um erro
     explore: Explorar
+    field_required: Este campo é obrigatório
+    field_invalid_characters: Este campo tem caracteres inválidos
     greeting2: Bem-vindo(a)!
     greeting_extended: Bem-vindo à Wikipédia
     greeting: Olá!
@@ -31,6 +34,7 @@ pt-br:
     sign_up: Criar conta
     submit: Enviar
     training: Treinamento
+    change: Mudar
   dashboard:
     create_note: Clique em Criar Curso para criar seu primeiro curso.
     explore_course_pages: Explorar Páginas de Cursos
@@ -61,6 +65,7 @@ pt-br:
     edited_mobile: Artigos
     label: Artigos
     loading: Carregando artigos...
+    new: (nova)
     no_assignee: Nenhum usuário atribuído
     none: Este curso não editou nenhum artigo.
     rating: Qualidade
@@ -152,10 +157,20 @@ pt-br:
     join_prompt: Participar de '%{title}'?
     join_successful: Você está participando de %{title}.
     milestones_none: Este curso atualmente não tem quaisquer marcos.
+    my_articles: Meus artigos
     new_week: Adicionar nova semana
     nocourses: Você não está participando em nenhum curso
+    none: Nenhum
+    notify_untrained_confirmation: Isto irá postar um lembrete nas páginas de discussão
+      de todos estudantes que não completaram os módulos de treinamento. Você está
+      certo que deseja fazer isso?
+    no_available_actions: Não há ações disponíveis
     overview: Visão geral
     passcode: Código de acesso
+    passcode_none: Sem senha
+    passcode_prompt: Entre com a senha dada por seu professor para este curso
+    published: 'Seu curso foi publicado! Estudantes podem se matricular no curso visitando
+      a seguinte URL:'
     review_timeline: Por favor, reveja esta linha do tempo e faça alterações. Quando
       estiver satisfeito com a sua linha do tempo, submeta à aprovação da equipe Wiki
       Ed. Uma vez aprovada, você receberá uma URL de inscrição onde os alunos podem

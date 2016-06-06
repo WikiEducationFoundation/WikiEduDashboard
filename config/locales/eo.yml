@@ -13,6 +13,7 @@ eo:
     help: Helpon!
     home: Hejmo
     log_out: Elsaluti
+    change: Ŝanĝi
   articles:
     edited_mobile: Artikoloj
     new: (nova)
@@ -35,6 +36,7 @@ eo:
       start_date: Komenca dato
     delete_course: Forigi kurson
     leave_course: Forlasi kurson
+    my_articles: Miaj artikoloj
     students: Lernantoj
     title: Titolo
     view_wiki: Legi en Vikipedio

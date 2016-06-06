@@ -111,6 +111,7 @@ pl:
   revisions:
     class: Klasa
     date_time: Data/Czas
+    diff: różn.
     loading: Wczytywanie wersji...
     title: Tytuł
   timeline:
@@ -139,6 +140,7 @@ pl:
     first_name: Imię
     last_name: Nazwisko
     loading: Wczytywanie użytkowników...
+    characters_added_short: 'PG: %{mainspace}, PU: %{userspace}'
     name: Nazwa
     none: Brak uczestników.
     no_revisions: Ten użytkownik wniósł żadnych zmian.

@@ -81,12 +81,6 @@ class User < ActiveRecord::Base
     "User_talk:#{username}"
   end
 
-  def home_wiki
-    # TODO: Let the user select their home_wiki in preferences, and set initial
-    # home_wiki to that of the first course the user joins.
-    Wiki.default_wiki
-  end
-
   def admin?
     permissions == Permissions::ADMIN
   end

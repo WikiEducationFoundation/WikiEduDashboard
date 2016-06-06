@@ -14,6 +14,7 @@ module BatchUpdateLogging
     logger.level = Figaro.env.cron_log_debug ? Logger::DEBUG : Logger::INFO
     logger.formatter = ActiveSupport::Logger::SimpleFormatter.new
     Rails.logger = logger
+    @sentry_logs = []
   end
 
   # Given a pid file that contains the pid of a process, check whether it is
@@ -48,5 +49,18 @@ module BatchUpdateLogging
 
   def log_message(message)
     Rails.logger.debug message
+    @sentry_logs << "#{Time.zone.now} - #{message}"
+  end
+
+  def log_end_of_update(message)
+    @end_time = Time.zone.now
+    log_message 'Update finished'
+    total_time = distance_of_time_in_words(@start_time, @end_time)
+    Rails.logger.info "#{message} Time: #{total_time}."
+    Raven.capture_message message,
+                          level: 'info',
+                          tags: { update_time: total_time },
+                          extra: { exact_update_time: (@end_time - @start_time),
+                                   logs: @sentry_logs }
   end
 end

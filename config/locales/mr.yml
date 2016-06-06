@@ -14,6 +14,7 @@ mr:
     recent_activity: अलीकडील क्रिया
     sign_up_log_in_extended: विकिपिडियासह
     training: प्रशिक्षण
+    change: बदल
   home:
     explore: शोध करा
     log_in: विकिपीडियात सनोंद प्रवेश करा
@@ -92,6 +93,7 @@ mr:
     read_more: अधिक वाचा
     summary: सारांश
   error:
+    article_required: एक लेख आवश्यक आहे.
     unsupported_browser:
       header: असाहाय्यीकृत न्याहाळक. :-(
   error_401:

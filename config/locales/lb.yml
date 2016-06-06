@@ -22,6 +22,7 @@ lb:
     sign_up_log_in_extended: mat Wikipedia
     sign_up: Schreift Iech an
     training: Formatioun
+    change: Änneren
   dashboard:
     review_orientation: Orientatioun nokucken
   home:
@@ -170,6 +171,7 @@ lb:
     uploaded_by: Eropgeluede Vum
   revisions:
     date_time: Datum/Zäit
+    diff: Ënnerscheed
     edited_by: Geännert Vum
     loading: Versioune lueden...
     none: Dëse Cours huet keng rezent Wikipedia-Ännerungsaktivitéit.

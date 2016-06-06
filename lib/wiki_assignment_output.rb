@@ -29,9 +29,7 @@ class WikiAssignmentOutput
     return nil if includes_disambiguation_template?(initial_page_content)
 
     # We only want to add assignment tags to non-existant talk pages if the
-    # article page actually exists. This also servces to make sure that we
-    # only post to talk pages of mainspace articles, as we assume that pages
-    # like Talk:Template:Citation or Talk:Wikipedia:Notability do not exist.
+    # article page actually exists, and is not a disambiguation page.
     article_content = WikiApi.new(@wiki).get_page_content(@title)
     return nil if article_content.nil?
     return nil if includes_disambiguation_template?(article_content)

@@ -1,6 +1,7 @@
 # Messages for Goan Konkani (Devanagari script) (गोंयची कोंकणी)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: The Discoverer
 # Author: Vaishali Parab
 ---
 gom-deva:
@@ -46,6 +47,6 @@ gom-deva:
     none: कोणूच सहभागी ना.
     no_articles: लेख ना
     remove_confirmation: उपेगकर्तो
-    username: उपेगकर्तो
-    username_placeholder: उपेगकर्तो
+    username: वापोरप्याचें नांव
+    username_placeholder: वापोरप्याचें नांव
 ...

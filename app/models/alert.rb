@@ -23,6 +23,16 @@ class Alert < ActiveRecord::Base
 
   include ArticleHelper
 
+  ALERT_TYPES = %w(
+    ArticlesForDeletionAlert
+    ContinuedCourseActivityAlert
+    NeedHelpAlert
+    NoEnrolledStudentsAlert
+    ProductiveCourseAlert
+    UntrainedStudentsAlert
+  ).freeze
+  validates_inclusion_of :type, in: ALERT_TYPES
+
   def course_url
     "https://#{ENV['dashboard_url']}/courses/#{course.slug}"
   end
@@ -45,5 +55,17 @@ class Alert < ActiveRecord::Base
   def email_target_user
     AlertMailer.alert(self, target_user).deliver_now
     update_attribute(:email_sent_at, Time.now)
+  end
+
+  #########################
+  # Type-specific methods #
+  #########################
+
+  def main_subject
+    raise NotImplementedError
+  end
+
+  def url
+    raise NotImplementedError
   end
 end
