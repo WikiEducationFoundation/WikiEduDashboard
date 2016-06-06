@@ -398,6 +398,7 @@ qqq:
       Label for class of the article
       {{Identical|Class}}
     date_time: Label for date and time of revision
+    diff: '{{Identical|Diff}}'
     edited_by: Label for author of the last edition
     loading: Message about loading revisions
     none: Message stating there's no editing activity
@@ -443,6 +444,7 @@ qqq:
     last_name: '{{Identical|Last name}}'
     loading: Message indicating that information about users is still loading
     characters_added_mainspace: '"MS" means Main Space'
+    characters_added_short: The "MS" means Main Space, and the "US" means User Space
     characters_added_userspace: '"US" means User Space'
     name: Label for usernames of students
     none: Message indicating that a course has no students enrolled

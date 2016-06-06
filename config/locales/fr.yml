@@ -148,7 +148,7 @@ fr:
     character_doc: Le nombre total de caractères ajoutés aux articles de l’espace
       de nom principal par les étudiants du cours durant son déroulement
     cohorts: 'Complices :'
-    confirm_course_deletion: Êtes-vous sûrs de vouloir supprimer le cours intitulé
+    confirm_course_deletion: Êtes-vous sûr de vouloir supprimer le cours intitulé
       %{title} ? Si oui, taper le titre du cours pour continuer.
     confirm_course_deletion_failed: « %{title} » n’est pas le titre de ce cours. Le
       cours n’a pas été supprimé.
@@ -325,7 +325,7 @@ fr:
     milestones_none: Ce projet n’a actuellement aucun jalon.
     published: 'Ce projet a été publié ! Les éditeurs peuvent s’inscrire en allant
       sur l’URL suivante :'
-    revisions_none: Ce projet n’a pas d’activité récente de modification.
+    revisions_none: Ce projet n’a pas été récemment modifié.
     school: Institution
     student_editors: Éditeurs
     students: Éditeurs
@@ -381,15 +381,16 @@ fr:
     revision_datetime: Horodatage de la révision
     revision_score: Score de révision
     show_courses: Afficher uniquement mes cours
-    uploaded_by: Téléchargé par
+    uploaded_by: Téléversé par
     usage_count: Compteur d’utilisations
   revisions:
     chars_added: Caractères ajoutés
     class: Classe
     date_time: Date/Heure
+    diff: Différence
     edited_by: Modifié par
     loading: Chargement des révisions…
-    none: Ce cours n’a pas d’activité récente de modification.
+    none: Ce cours n’a pas été récemment modifié.
     time_doc: Le temps de chaque révision à votre heure locale.
     title: Titre
   tasks:
@@ -402,11 +403,11 @@ fr:
     add_week: Ajouter une semaine
     arrange_timeline: Organiser le planning
     arrange_timeline_instructions: Organiser le planning en 'tirant et lâchant' des
-      blocs à l’emplacement/semaine souhaité, ou repositionner les blocs en utilisant
+      blocs vers l’emplacement/semaine souhaité, ou repositionner les blocs en utilisant
       les flèches sur la carte.
-    assignment_dates_instructions: Sélectionner les dates de début et de fin du planning
-      d&affectations de Wikipédia. Modifier la date de début décalera toutes les dates
-      du planning.
+    assignment_dates_instructions: Sélectionner les dates de début et de fin de l'agenda
+      d'affectations de Wikipédia. Modifier la date de début décalera toutes les dates
+      de l'agenda.
     blackout_week_created: Il y a des blocs prévus dans cette semaine. Veuillez les
       déplacer à une autre semaine avant de supprimer la dernière réunion de classe
       de cette semaine.
@@ -491,6 +492,7 @@ fr:
     last_name: Nom
     loading: Chargement des utilisateurs…
     characters_added_mainspace: Caractères MS ajoutés
+    characters_added_short: 'EP: %{mainspace}, EU: %{userspace}'
     characters_added_userspace: Caractères US ajoutés
     my_assigned: 'Assigné :'
     my_reviewing: 'En cours de revue :'
@@ -501,6 +503,7 @@ fr:
     number_of_articles: '%{number} articles'
     recent_revisions: Modifications récentes
     remove_confirmation: Êtes-vous sûr de vouloir supprimer %{username} ?
+    revision_characters_and_views: 'Caractères ajoutés : %{characters}, Vues : %{views}'
     revisions_doc: Le nombre de modifications faites par cet éditeur durant les 7
       derniers jours
     reviewers: Relecteur(s)

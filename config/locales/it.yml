@@ -9,9 +9,13 @@
 # Author: Wikitoni
 ---
 it:
+  accessibility:
+    number_field: Questo è un campo numerico. I bottoni visualizzati dalla maggior
+      parte dei browser aumentano e diminuiscono il numero inserito.
   application:
     cancel: Annulla
     dashboard: Cruscotto Wiki Ed
+    error: 'Si è verificato un errore:'
     explore: Esplora
     field_required: Questo campo è obbligatorio
     field_invalid_characters: Questo campo contiene caratteri non validi
@@ -101,6 +105,7 @@ it:
   courses:
     activity: Attività
     already_enrolled: Fai già parte di '%{title}'!
+    already_exists: Quello che hai aggiunto esiste già per questo corso!
     archived: Corsi archiviati
     actions: Azioni
     articles: Voci
@@ -110,8 +115,15 @@ it:
     assignment_start: Inizio assegnazione
     calendar:
       legend: Legenda
+      legend_class_canceled: Vacanza/Annullato
+      legend_class_meeting: Riunione di classe
+      legend_class_not_meeting: Nessuna riunione in programma
+      select_meeting_days: Seleziona i giorni della settimana in cui la tua classe
+        si riunisce.
     character_doc: La somma dei caratteri aggiunti alle voci nel namespace principale
       dagli studenti del corso durante il periodo del corso
+    confirm_course_deletion: Cancellare il corso intitolato %{title}? Scrivi il titolo
+      del corso per procedere.
     confirm_course_deletion_failed: '"%{title}" non è il titolo di questo corso. Il
       corso non è stato cancellato.'
     course_description: Corsi
@@ -119,6 +131,7 @@ it:
     creator:
       already_exists: Questo corso già esiste. Prova a cambiare il nome, la scuola
         o il termine per renderlo unico.
+      assignment_end: Fine assegnazione
       assignment_end_placeholder: Fine assegnazione (YYYY-MM-DD)
       assignment_start: Inizio assegnazione
       assignment_start_placeholder: Inizio assegnazione (YYYY-MM-DD)
@@ -128,12 +141,14 @@ it:
         per cambiare stato tra deselezionato, selezionato e vacanza. Se non si hanno
         vacanze, seleziona "Non ho vacanze". La linea temporale clonata regolerà automaticamente
         le date per tenere conto di settimane che non hanno incontri programmati.'
+      clone_successful: Corso clonato correttamente
       course_description: Descrizione del corso
       course_language: Lingua principale
       course_project: Progetto pricipale
       course_school: Scuola del corso
       course_subject: Oggetto del corso
       course_term: Termine del corso
+      course_term_placeholder: Termine
       course_title: Titolo del corso
       create_button: Crea il mio corso!
       create_label: Crea nuovo corso
@@ -169,12 +184,16 @@ it:
     join: Unisciti
     join_prompt: Unirsi a '%{title}'?
     join_successful: Hai aderito con successo a %{title}.
+    leave_confirmation: Sei sicuro di voler lasciare questo corso?
     loading: Caricamento…
     milestones_none: Questo corso attualmente non ha pietre miliari.
     my_articles: Le mie voci
     new_week: Aggiungi nuova settimana
     nocourses: Non stai partecipando ad alcun corso.
     none: Nessuno
+    notify_untrained_confirmation: Pubblicare un promemoria sulle pagine di discussione
+      di tutti gli studenti che sono in ritardo nel completare i moduli di formazione
+      assegnati?
     no_available_actions: Nessuna azione disponibile
     overview: Panoramica
     passcode: Codice di accesso
@@ -183,6 +202,7 @@ it:
     revisions_none: Questo corso non ha attività di modifica recente su Wikipedia.
     school: Scuola
     start: Inizio
+    start_typing: Inizia a digitare
     students: Studenti
     students_count: Numero studenti
     student_editors: Editori studenti
@@ -285,6 +305,7 @@ it:
     main_char_added: Caratteri aggiunti namespace principale
     user_ns: Utente
   recent_activity:
+    active_courses: La voce è attiva in
     datetime: Data/Ora
     did_you_know_eligible: Ammissibile "Lo sapevi che"
     image: Immagine
@@ -294,13 +315,16 @@ it:
     possible_plagiarism: Possibile plagio
     recent_edits: Modifiche recenti
     recent_uploads: Ultimi caricamenti
+    revision_author: Autore della versione
     revision_datetime: Data/ora versione
     show_courses: Mostra solo i miei corsi
     uploaded_by: Caricato da
+    usage_count: Numero di utilizzi
   revisions:
     chars_added: Caratteri aggiunti
     class: Classe
     date_time: Data/Ora
+    diff: confronto tra versioni
     edited_by: Modificato da
     loading: Caricamento revisioni...
     none: Questo corso non ha attività di modifica recenti.
@@ -312,12 +336,19 @@ it:
     course_dates: Date del corso
     course_end: Fine del corso
     course_start: Inizio del corso
+    delete_week_confirmation: |-
+      Cancellare questa settimana? Questo cancellerà la settimana e tutti i blocchi a lei associati.
+
+      Questa operazione non può essere annullata.
     discard_all_changes: Scarta tutte le modifiche
     due_default: Previsto per la prossima settimana
     empty_week_1: Per iniziare,
+    empty_week_2: avvia la modifica di questa settimana
     empty_week_3: o
     first_week_title: Prima settimana attiva
     gradeable_value: Valore
+    move_block_down: Sposta il blocco in basso
+    move_block_up: Sposta il blocco in alto
     no_activity_this_week: Nessuna attività questa settimana
     nothing_this_week: Non c'è niente in programma per questa settimana.
     save_all_changes: Salva tutto
@@ -359,13 +390,17 @@ it:
     first_name: Nome
     last_name: Cognome
     loading: Caricamento utenti...
+    characters_added_short: 'NP: %{mainspace}, NU: %{userspace}'
     my_assigned: 'Assegnati:'
     name: Nome
     none: Non ci sono partecipanti.
     no_articles: Nessuna voce
+    no_revisions: Questo editor non ha creato versioni.
     number_of_articles: '%{number} voci'
     recent_revisions: Modifiche recenti
     remove_confirmation: Sei sicuro di voler rimuovere %{username}?
+    revision_characters_and_views: 'Caratteri aggiunti: %{characters}, Visualizzazioni:
+      %{views}'
     revisions_doc: Il numero di modifiche effettuate da questo contributore negli
       ultimi 7 giorni
     reviewers: Revisori

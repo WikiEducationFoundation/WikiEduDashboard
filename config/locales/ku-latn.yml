@@ -6,15 +6,27 @@
 ---
 ku-latn:
   application:
+    cancel: Betal bike
     dashboard: Panela Wiki Ed'ê
+    greeting2: Tu bi xêr hatî!
+    greeting: Silav!
+    help: Alîkarî
+    home: Destpêk
+    log_in: Têkeve
+    log_out: Derkeve
     search: pirsekê bike
+    submit: Tomar bike
+    change: Biguherîne
   activity:
     all: Çalakî
     edited_by: Hat Sererastkirin Ji Alî
   articles:
     edited_mobile: Gotar
+    label: Gotar
     loading: Gotar tên barkirin...
+    new: (nû)
     title: Sernav
+    title_example: Sernavê gotarê
     view: Gotarê Bibîne
     view_all: Hemûyan Bibîne
   cohort:
@@ -25,12 +37,19 @@ ku-latn:
     articles: Gotar
     course_description: Qurs
     courses: Kurs
+    creator:
+      start_date: Dema destpêkê
+      subject: Mijar
     current: Kursên Nûjen
     duration: Maweya Kursê
+    end: Dawî
     error:
       invalid_language_or_project: Zimanê/projeya nederbasdar
+    join: Beşdar bibe
+    my_articles: Gotarên min
     new_week: Hefteyeke nû lê zêde bike
     nocourses: Te beşdarî ti kursekê ne bû.
+    none: Tune
     school: Dibistan
     students: Xwendekar
     students_short: Xwendekar
@@ -38,6 +57,16 @@ ku-latn:
     view: Kursê Bibîne
     view_wiki: Li ser Wîkîpediyayê bibîne
     yourcourses: Kursên Te
+  courses_generic:
+    courses: Bername
+    creator:
+      course_title: Sernavê bernameyê
+      find: Bernameyekê bibîne
+    enrollment: Tevlîbûn
+  editable:
+    edit: Biguherîne
+    cancel: Betal bike
+    save: Tomar bike
   metrics:
     activity: Aktîvîteyên Dawî
     articles_created: Gotar Hate Çêkirin
@@ -51,14 +80,26 @@ ku-latn:
     view: Dîtin
   namespace:
     user_ns: Bikarhêner
+  recent_activity:
+    article_title: Sernavê gotarê
+    datetime: Dîrok/Katjimêr
+    image: Wêne
+  revisions:
+    title: Sernav
   timeline:
+    add_week: Hefteyê lê zêde bike
+    empty_week_3: an
+    save_all_changes: Hemûyan Tomar Bike
     this_week_title_default: Ev Hefte
     title: Demname
   uploads:
+    image: Wêne
+    label: Barkirin
     loading: Barkirin tên bar kirin...
     none: Pel nehatiye barkirin
     usages: Bikaranîn
   users:
+    assign_articles_done: Çêbû
     contributions: Beşdariyên Bikarhênerê
     contributions_more: Zêdetir Beşdariyan Bibîne
     editors: Edîtorên Xwendekaran
@@ -80,4 +121,7 @@ ku-latn:
     header: Bêdestûr. >:-(
   error_404:
     header: Rûpel nehate dîtin. :-(
+  survey:
+    email:
+      headline: Silav %{username}
 ...

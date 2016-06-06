@@ -312,6 +312,7 @@ zh-hans:
     chars_added: 添加的字符
     class: 等级
     date_time: 日期/时间
+    diff: 差异
     edited_by: 编辑者
     loading: 正在加载修订……
     none: 此课程没有最近编辑活动。
@@ -390,6 +391,7 @@ zh-hans:
     last_name: 姓
     loading: 正在加载用户...
     characters_added_mainspace: 添加的主空间字符
+    characters_added_short: 主空间：%{mainspace}，用户空间：%{userspace}
     characters_added_userspace: 添加的用户空间字符
     my_assigned: 已分配：
     my_reviewing: 正在复核：
@@ -400,6 +402,7 @@ zh-hans:
     number_of_articles: '%{number}个条目'
     recent_revisions: 最近编辑
     remove_confirmation: 您确定要移除%{username}吗？
+    revision_characters_and_views: 添加的字符：%{characters}，浏览数：%{views}
     revisions_doc: 此编辑者在过去7天内的编辑次数
     reviewers: 复核员
     reviewing: 正在复核

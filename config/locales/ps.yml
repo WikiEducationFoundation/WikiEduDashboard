@@ -22,6 +22,7 @@ ps:
     sign_up: نومليکل
     submit: سپارل
     training: تمرين
+    change: بدلول
   home:
     log_in: د ويکيپېډيا له لارې ورننوتل
     sign_up: د ويکيپېډيا له لارې نومليکنه
@@ -33,6 +34,7 @@ ps:
     edited_mobile: ليکنې
     label: ليکنې
     loading: ليکنې برسېرېږي...
+    new: (نوی)
     rating: ټولگی
     title: سرليک
     title_example: د ليکنې سرليک
@@ -48,15 +50,21 @@ ps:
     course_description: کورسونه
     courses: کورسونه
     creator:
+      course_language: کور ژبه
       course_title: کورس سرليک
       create_short: کورس جوړول
       end_date: پای نېټه
     current: اوسني کورسونه
     duration: کورس موده
     edit_course_dates: کورس نېټې سمول
+    end: پای
     instructors: ښوونکي
     join: يوځای کېدل
+    loading: رابرسېرېږي...
+    my_articles: زما ليکنې
+    none: هېڅ
     school: ښوونځی
+    start: پيلول
     students: زده کړيالان
     students_count: '# زده کړيالان'
     student_editors: زده کوونکي سمونگران
@@ -78,6 +86,10 @@ ps:
     students: سمونگران
     students_short: سمونگران
     term: کله
+  editable:
+    edit: سمول
+    cancel: ناگارل
+    save: خوندي کول
   metrics:
     activity: تازه فعاليتونه
     articles_created: جوړې شوې ليکنې
@@ -93,16 +105,23 @@ ps:
     user: کارن تشيال
     user_ns: کارن
   recent_activity:
+    datetime: نېټه/وخت
+    image: انځور
+    file_name: د دوتنې نوم
     recent_edits: وروستي سمونونه
     recent_uploads: تازه پورته کېدنې
   revisions:
     class: ټولگی
     date_time: نېټه/وخت
+    diff: توپير
     edited_by: سمونگر
     title: سرليک
   timeline:
     add_week: اونۍ ورگډول
     block_in_class: په ټولگي کې
+    course_dates: کورس نېټې
+    empty_week_3: يا
+    gradeable_value: ارزښت
     save_all_changes: ټول خوندي کول
     this_week_title_default: دا اونۍ
     title: وختکرښه
@@ -111,6 +130,8 @@ ps:
     start: پيلول
     view: کتل
   uploads:
+    datetime: نېټه/وخت
+    file_name: د دوتنې نوم
     image: انځور
     label: پورته کېدنې
     usages: کارېدنې

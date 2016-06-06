@@ -331,6 +331,7 @@ he:
     chars_added: תווים שנוספו
     class: שיעור
     date_time: תאריך/שעה
+    diff: הבדל
     edited_by: נערך על־ידי
     loading: טעינת גרסאות...
     none: בקורס זה אין פעילות עריכה לאחרונה.
@@ -401,12 +402,14 @@ he:
     first_name: שם פרטי
     last_name: שם משפחה
     loading: טעינת משתמשים...
+    characters_added_short: 'המרחב הראשי: %{mainspace}, מרחב המשתמש: %{userspace}'
     name: שם
     none: אין משתתפים.
     no_articles: אין ערכים
     number_of_articles: '%{number} ערכים'
     recent_revisions: עריכות אחרונות
     remove_confirmation: האם ברצונך להסיר את %{username}?
+    revision_characters_and_views: 'תווים שנוספו: %{characters}, צפיות: %{views}'
     revisions_doc: מספר העריכות שעשה העורך הזה בשבע הימים האחרונים
     reviewers: סוקרים
     reviewing: מתבצעת סקירה

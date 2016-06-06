@@ -116,6 +116,7 @@ ksh:
     show_courses: Zeijsch blohß ming Korse aan
     uploaded_by: Huhjelahde Vum
   revisions:
+    diff: Ongerscheid
     edited_by: Jeändert Vum
     time_doc: De Zigg vun jehde Väsjohn en Dinge Ziggzohn
   timeline:
@@ -147,6 +148,8 @@ ksh:
     no_articles: Kein Atikelle
     number_of_articles: '%{number} Atikele'
     recent_revisions: Köözlesche Änderonge
+    revision_characters_and_views: 'Zeijsche derbei jedonn: %{characters}, Aanseschte:
+      %{views}'
     username: Metmaacher_Nahme
     username_placeholder: Metmaacher_Nahme
   wizard:

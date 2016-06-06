@@ -34,6 +34,7 @@ ko:
     sign_up_log_in_extended: 위키백과와 함께합니다
     sign_up: 가입하기
     submit: 보내기
+    change: 수정
   dashboard:
     no_courses_instructor: 당신은 아무 코스도 가지고 있지 않습니다.
     no_courses_student: 아직 코스에 가입하지 않으셨네요.
@@ -108,6 +109,8 @@ ko:
     duration: 과정 기간
     edit_course_dates: 코스 날짜 편집하기
     end: 종료
+    error:
+      invalid_language_or_project: 유효하지 않은 언어/프로젝트
     gradeables_none: 등급을 매길 수 있는 과제가 없습니다.
     instructor:
       other: 지도자
@@ -117,6 +120,8 @@ ko:
     join_prompt: '''%{title}''에 가입할까요?'
     join_successful: '%{title}에 들어가는 데 성공했습니다.'
     leave_course: 과정 나가기
+    loading: 불러오는 중...
+    my_articles: 내 문서
     nocourses: 어떤 과정에도 참여하고 있지 않습니다.
     none: 없음
     no_available_actions: 취할 수 있는 행동 없음
@@ -147,6 +152,10 @@ ko:
     articles_none: 본 프로젝트에서 편집된 문서는 아직 없습니다.
     assignment_end: 타임라인 끝
     assignment_start: 타임라인 시작하기
+    courses: 프로그램
+    creator:
+      create_short: 프로그램 만들기
+      find: 프로그램 찾기
     edit_course_dates: 프로젝트 날짜 편집하기
     revisions_none: 본 프로젝트는 최근에 위키백과 편집 활동이 없습니다.
     school: 기관
@@ -157,6 +166,7 @@ ko:
   editable:
     edit: 편집
     cancel: 취소
+    save: 저장
   metrics:
     activity: 최근 활동
     articles_created: 문서 생성됨
@@ -168,14 +178,20 @@ ko:
     date_time: 날짜/시간
     edit_count_description: 총 편집
     per_user: '%{number}/사용자'
-    revisions: 최신판
+    revisions: 최신 편집
     view: 보기
   namespace:
     user: 사용자 공간
     user_ns: 사용자
   recent_activity:
     article_title: 문서 제목
+    datetime: 날짜/시간
+    image: 그림
+    file_name: 파일 이름
+    no_edits: 최근 편집이 없습니다.
     plagiarism_report: 표절 보고서
+    recent_edits: 최근 편집
+    recent_uploads: 최근 업로드
     revision_author: 판 저자
     revision_datetime: 판본 시간/날짜
     revision_score: 판 점수
@@ -184,7 +200,9 @@ ko:
     chars_added: 글자 추가됨
     class: 클래스
     date_time: 날짜/시간
+    diff: 차이
     edited_by: '편집자:'
+    loading: 판을 불러오는 중...
     title: 제목
   tasks:
     conseq: '%{task} 작업이 아직도 돌아가고 있습니다!'
@@ -209,6 +227,7 @@ ko:
     nothing_this_week: 이번 주 스케줄에 아무것도 없습니다.
     save_all_changes: 모두 저장
     this_week_title_default: 이번 주
+    title: 타임라인
     week_number: '%{number} 주'
   training:
     start: 시작하기
@@ -225,13 +244,19 @@ ko:
     usage_count: 사용량 값
     usages: 사용
   users:
-    course_passcode: '과정 패스코드:'
+    assign_articles_done: 완료
+    contributions: 사용자 기여
+    contributions_more: 기여 더 보기
+    course_passcode: '패스코드:'
     enroll_confirmation: '%{username} 님을 과정에 추가하시겠습니까?'
     enroll_url: '다음 URL을 방문하여 학생을 추가할 수 있습니다:'
     enrolled_success: '%{username} 님이 성공적으로 구독되었습니다!'
     first_name: 이름
     last_name: 성
+    loading: 사용자를 불러오는 중...
+    characters_added_short: 'MS: %{mainspace}, US: %{userspace}'
     name: 이름
+    none: 참여자가 없습니다.
     no_articles: 문서 없음
     number_of_articles: '%{number} 문서'
     remove_confirmation: '%{username} 님을 과정에서 제거하겠습니까?'
@@ -242,7 +267,7 @@ ko:
     notify_overdue:
       header: 제출 기간이 지난 교육 과제가 있습니다.
   wizard:
-    assignment_dates: 과제 유형
+    assignment_dates: 과제 날짜
     assignment_type: 과제 유형
     read_more: 더 보기
     summary: 요약
@@ -253,6 +278,8 @@ ko:
     header: 인증되지 않음. >:-(
     explanation: 이 요청을 실행할 수 있도록 인증되지 않았습니다. 이 문제가 에러라고 생각되면, 이 게시판의 유지자에게 연락해서 문제를
       알도록 하세요.
+  error_incorrect_passcode:
+    header: 패스코드가 잘못되었습니다.
   error_404:
     header: 페이지를 찾을 수 없습니다. :-(
   error_422:
@@ -262,4 +289,7 @@ ko:
     explanation: 무언가 문제가 생겼습니다. 이 게시판의 유지자에게 연락해서 문제를 알도록 하세요.
   login_error:
     header: 로그인 오류
+  survey:
+    email:
+      headline: 안녕하세요, %{username}님
 ...

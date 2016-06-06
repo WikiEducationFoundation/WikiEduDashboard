@@ -383,6 +383,7 @@ es:
     chars_added: Caracteres añadidos
     class: Clase
     date_time: Fecha/hora
+    diff: dif
     edited_by: Editado por
     loading: Cargando revisiones...
     none: Este curso no tiene ediciones recientes.
@@ -486,6 +487,7 @@ es:
     last_name: Apellido
     loading: Cargando usuarios...
     characters_added_mainspace: Caracteres añadidos en el espacio principal
+    characters_added_short: 'EP: %{mainspace}, EU: %{userspace}'
     characters_added_userspace: Caracteres añadidos en el espacio de usuario
     my_assigned: 'Asignados:'
     my_reviewing: 'En revisión:'
@@ -496,6 +498,7 @@ es:
     number_of_articles: '%{number} artículos'
     recent_revisions: Ediciones recientes
     remove_confirmation: ¿Estás seguro que deseas eliminar a %{username}?
+    revision_characters_and_views: 'Caracteres añadidos: %{characters}, Visitas: %{views}'
     revisions_doc: El número de ediciones realizadas por este editor en los últimos
       7 días
     reviewers: Revisor(es)
