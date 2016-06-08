@@ -32,6 +32,7 @@ const AvailableArticles = React.createClass({
   render() {
     let assignCell;
     let availableArticles;
+    let adminUser;
     let elements = [];
 
     if (this.state.assignments.length > 0) {
@@ -64,9 +65,13 @@ const AvailableArticles = React.createClass({
       );
     }
 
-    const showAvailableArticles = elements.length > 0
-                                  || this.props.current_user.admin
-                                  || this.props.current_user.role > 0;
+    if (this.props.current_user && (this.props.current_user.admin || this.props.current_user.role > 0)) {
+      adminUser = true;
+    } else {
+      adminUser = false;
+    }
+
+    const showAvailableArticles = elements.length > 0 || adminUser;
 
     if (showAvailableArticles) {
       availableArticles = (
