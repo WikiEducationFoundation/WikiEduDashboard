@@ -254,20 +254,22 @@ describe 'the course page', type: :feature, js: true do
                             title: "Education",
                             role: 0).create_assignment
       js_visit "/courses/#{slug}/articles"
+      expect(page).to have_content 'Available Articles'
       assigned_articles_section = page.first(:css, '#available-articles')
       expect(assigned_articles_section).to have_content 'Education'
     end
 
     it 'should not have an "Add an available article" button for students' do
       js_visit "/courses/#{slug}/articles"
-      assigned_articles_section = page.first(:css, '#available-articles')
-      expect(assigned_articles_section).to_not have_content 'Add an available article'
+      expect(page).not_to have_content 'Available Articles'
+      expect(page).to_not have_content 'Add an available article'
     end
 
     it 'should have an "Add an available article" button for instructors/admins' do
       admin = create(:admin, id: User.last.id + 1)
       login_as(admin)
       js_visit "/courses/#{slug}/articles"
+      expect(page).to have_content 'Available Articles'
       assigned_articles_section = page.first(:css, '#available-articles')
       expect(assigned_articles_section).to have_content 'Add an available article'
     end
@@ -276,6 +278,7 @@ describe 'the course page', type: :feature, js: true do
       admin = create(:admin, id: User.last.id + 1)
       login_as(admin)
       js_visit "/courses/#{slug}/articles"
+      expect(page).to have_content 'Available Articles'
       click_button 'Add an available article'
       page.first(:css, '#available-articles .pop.open').first('input').set('Education')
       click_button 'Assign'
@@ -284,25 +287,25 @@ describe 'the course page', type: :feature, js: true do
     end
 
     it 'should allow instructor to remove an available article' do
-      # admin = create(:admin, id: User.last.id + 1)
-      # login_as(admin)
-      # course = Course.first
-      # wiki = Wiki.first
-      # AssignmentManager.new(user_id: nil,
-      #                       course: course,
-      #                       wiki: wiki,
-      #                       title: "Education",
-      #                       role: 0).create_assignment
-      # js_visit "/courses/#{slug}/articles"
+      admin = create(:admin, id: User.last.id + 1)
+      login_as(admin)
+      course = Course.first
+      wiki = Wiki.first
+      AssignmentManager.new(user_id: nil,
+                            course: course,
+                            wiki: wiki,
+                            title: "Education",
+                            role: 0).create_assignment
+      js_visit "/courses/#{slug}/articles"
 
-      # assigned_articles_section = page.first(:css, '#available-articles')
-      # expect(assigned_articles_section).to have_content 'Education'
-      # expect(Assignment.count).to eq(1)
-      # expect(assigned_articles_section).to have_content 'Remove'
-      # click_button 'Remove'
-      # expect(assigned_articles_section).to_not have_content 'Education'
-      # sleep 3
-      # expect(Assignment.count).to eq(0)
+      assigned_articles_section = page.first(:css, '#available-articles')
+      expect(assigned_articles_section).to have_content 'Education'
+      expect(Assignment.count).to eq(1)
+      expect(assigned_articles_section).to have_content 'Remove'
+      click_button 'Remove'
+      expect(assigned_articles_section).to_not have_content 'Education'
+      sleep 3
+      expect(Assignment.count).to eq(0)
     end    
 
     it 'should allow student to select an available article' do
@@ -317,14 +320,13 @@ describe 'the course page', type: :feature, js: true do
 
       login_as(user, scope: :user)
       js_visit "/courses/#{slug}/articles"
-     
+      expect(page).to have_content 'Available Articles'
       assigned_articles_section = page.first(:css, '#available-articles')
       expect(assigned_articles_section).to have_content 'Education'
       expect(Assignment.count).to eq(1)
       expect(assigned_articles_section).to have_content 'Select'
       click_button 'Select'
-      expect(assigned_articles_section).to_not have_content 'Education'
-      sleep 3
+      sleep 1
       expect(Assignment.first.user_id).to eq(user.id)
       expect(Assignment.first.role).to eq(0)
     end

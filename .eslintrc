@@ -23,6 +23,7 @@
   },
   "globals": {
     "$": true,
-    "I18n": true
+    "I18n": true,
+    "_": true
   }
 }

@@ -1,7 +1,6 @@
 React             = require 'react'
 Editable          = require '../high_order/editable.cjsx'
 List              = require '../common/list.cjsx'
-AvailableArticle  = require './available_article.cjsx'
 AssignmentStore   = require '../../stores/assignment_store.coffee'
 ArticleStore      = require '../../stores/article_store.coffee'
 ServerActions     = require('../../actions/server_actions.js').default
@@ -13,16 +12,6 @@ getState = ->
 AvailableArticlesList = React.createClass(
   displayName: 'AvailableArticlesList'
   render: ->
-    elements = @props.assignments.map (assignment) =>
-      if assignment.user_id == null && !assignment.deleted
-        return (
-          <AvailableArticle {...@props}
-            assignment={assignment}
-            key={assignment.id}
-          />
-        )
-    elements = _.compact elements
-
     keys =
       'rating_num':
         'label': I18n.t('articles.rating')
@@ -32,7 +21,7 @@ AvailableArticlesList = React.createClass(
         'desktop_only': false
 
     <List
-      elements={elements}
+      elements={@props.elements}
       keys={keys}
       table_key='articles'
       none_message={CourseUtils.i18n('no_available', "assignments")}
