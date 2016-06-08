@@ -89,3 +89,6 @@
           %h2.course-title
             = course.title
             %span.course-term= course.term
+
+  - if Features.wiki_ed?
+    = render "blog"

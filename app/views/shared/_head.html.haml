@@ -16,7 +16,7 @@
   I18n.locale = "#{I18n.locale}";
 
   Features = {
-    enableGetHelpButton: #{Features.enable_get_help_button?}
+    enableGetHelpButton: #{Features.enable_get_help_button? && user_signed_in?}
   }
 
   WikiProjects = #{Wiki::PROJECTS}

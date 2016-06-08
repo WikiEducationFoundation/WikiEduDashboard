@@ -1,0 +1,11 @@
+%section.blog-feed
+  %hr
+  %h2.blog-feed__header
+    %a{href: "http://wikiedu.org", target: "_blank"}= t(:blog_headline, scope: [:dashboard])
+  
+  .blog-feed__posts
+    - @blog_posts.first(3).each do |post|
+      .blog-post
+        %h3.blog-post__header
+          %a{href: post.link, target: "_blank"}= post.title
+        %p.blog-post__description= raw post.description

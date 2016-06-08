@@ -23,6 +23,7 @@
   },
   "globals": {
     "$": true,
+    "jQuery": true,
     "I18n": true,
     "_": true
   }

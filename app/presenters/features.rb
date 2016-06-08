@@ -1,4 +1,10 @@
 class Features
+  # This is for toggling Wiki Ed-specific features that should not be active
+  # on any other dashboard instances.
+  def self.wiki_ed?
+    ENV['dashboard_url'] == 'dashboard.wikiedu.org'
+  end
+
   def self.disable_onboarding?
     ENV['disable_onboarding'] == 'true'
   end

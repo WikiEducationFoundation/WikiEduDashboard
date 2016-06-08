@@ -22,5 +22,5 @@
     = link_to t('home.explore'), '/explore', {class: 'button button-ghost'}
 
 #impact
-  - if ENV['dashboard_title'] == 'Wiki Education Foundation Dashboard'
+  - if Features.wiki_ed?
     = render :partial => "wiki_ed_impact"
