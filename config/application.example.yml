@@ -123,3 +123,6 @@
 # Whitelisted test emails for staging and development
 # Except in production, the system will only send mail to these addresses.
   survey_test_email: 'developmer@yourdomain.me'
+
+# Username of communications manager who receives certain alert emails
+  communications_manager: 'Eryk (Wiki Ed)'

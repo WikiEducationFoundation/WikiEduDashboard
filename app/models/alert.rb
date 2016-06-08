@@ -24,6 +24,7 @@ class Alert < ActiveRecord::Base
   include ArticleHelper
 
   ALERT_TYPES = %w(
+    ActiveCourseAlert
     ArticlesForDeletionAlert
     ContinuedCourseActivityAlert
     NeedHelpAlert
@@ -53,6 +54,7 @@ class Alert < ActiveRecord::Base
   end
 
   def email_target_user
+    return if target_user.nil?
     AlertMailer.alert(self, target_user).deliver_now
     update_attribute(:email_sent_at, Time.now)
   end

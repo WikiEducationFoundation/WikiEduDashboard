@@ -20,6 +20,10 @@ class CourseAlertManager
     ProductiveCourseAlertManager.new(@courses_to_check).create_alerts
   end
 
+  def create_active_course_alerts
+    ActiveCourseAlertManager.new(@courses_to_check).create_alerts
+  end
+
   def create_continued_course_activity_alerts
     recently_ended_courses = Course.current - Course.strictly_current
     ContinuedCourseActivityAlertManager.new(recently_ended_courses).create_alerts

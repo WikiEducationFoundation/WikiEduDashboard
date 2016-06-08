@@ -1,4 +1,5 @@
-# Alert for a course that has no enrolled students after it is underway
+# Alert for a course that is highly productive
+# Similar to ActiveCourseAlert, but with a different productivity threshold
 class ProductiveCourseAlert < Alert
   def main_subject
     course.slug

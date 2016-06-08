@@ -1,6 +1,15 @@
 dashboard_title: Wiki Education Foundation Dashboard
 dashboard_url: dashboard.wikiedu.org
+meta_description: Wiki Education Foundation dashboard for Wikipedia editing projects
 wiki_language: en
+
+contact_email: 'contact@wikiedu.org'
+GMAIL_USERNAME: 'dashboard@wikiedu.org'
+GMAIL_PASSWORD: <SECRET>
+SMTP_HOST: 'dashboard.wikiedu.org'
+SENDER_EMAIL_ADDRESS: 'dashboard@wikiedu.org'
+
+enable_get_help_button: 'true'
 
 wikipedia_token: <SECRET>
 wikipedia_secret: <SECRET>
@@ -8,7 +17,6 @@ oauth_ids: '218,306'
 
 course_prefix: "Wikipedia:Wiki_Ed"
 course_announcement_page: 'Wikipedia:Education_noticeboard'
-
 
 sentry_dsn: <SECRET>
 sentry_public_dsn: <SECRET>
@@ -22,10 +30,12 @@ cohort_Student_Groups_Pilot: "Wikipedia:Education_program/Dashboard/Student_Grou
 cohort_spring_2015: "Wikipedia:Education_program/Dashboard/course_ids"
 cohort_fall_2014: "Wikipedia:Education_program/Dashboard/Fall_2014_course_ids"
 
-default_cohort: "fall_2015"
+default_cohort: "spring_2016"
 update_length: "30"
 cron_log_debug: "true"
 
 logo_file: "wiki-logo.png"
 favicon_file: favicon.ico"
 favicon_dev_file: "favicon_dev.png"
+
+communications_manager: 'Eryk (Wiki Ed)'
