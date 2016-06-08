@@ -49,6 +49,16 @@ class CoursesPresenter
       'courses_generic'
     end
   end
+
+  def uploads_in_use_count
+    @uploads_in_use_count ||= courses.sum(:uploads_in_use_count)
+    @uploads_in_use_count
+  end
+
+  def upload_usage_count
+    @upload_usage_count ||= courses.sum(:upload_usages_count)
+    @upload_usage_count
+  end
 end
 
 #= Pseudo-Cohort that displays all unsubmitted, non-deleted courses
@@ -70,6 +80,14 @@ class NullCohort
   end
 
   def trained_percent
+    0
+  end
+
+  def uploads_in_use_count
+    0
+  end
+
+  def upload_usage_count
     0
   end
 end
