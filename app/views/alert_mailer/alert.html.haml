@@ -4,5 +4,9 @@
 
 - if @message
   %p
-    Message from user: 
+    = "Message from #{@alert.user.username}:"
     = @message
+
+  %p
+    User email:
+    = @alert.user.email
