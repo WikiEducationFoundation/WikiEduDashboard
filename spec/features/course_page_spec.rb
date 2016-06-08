@@ -287,6 +287,8 @@ describe 'the course page', type: :feature, js: true do
     end
 
     it 'should allow instructor to remove an available article' do
+      Assignment.destroy_all
+      sleep 1
       admin = create(:admin, id: User.last.id + 1)
       login_as(admin)
       course = Course.first
@@ -297,7 +299,6 @@ describe 'the course page', type: :feature, js: true do
                             title: "Education",
                             role: 0).create_assignment
       js_visit "/courses/#{slug}/articles"
-
       assigned_articles_section = page.first(:css, '#available-articles')
       expect(assigned_articles_section).to have_content 'Education'
       expect(Assignment.count).to eq(1)
