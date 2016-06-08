@@ -124,14 +124,18 @@ const GetHelpButton = React.createClass({
     if (this.state.alertSubmitting) {
       content = (
         <div className="text-center get-help-submitting">
-          <strong>Message submitting</strong>
+          <strong>Sending message...</strong>
         </div>
       );
     } else if (this.state.alertCreated) {
       content = (
         <div className="text-center get-help-submitted">
           <strong>
-            Message submitted! <a href="#" onClick={this.reset}>Ok</a>
+            Message sent!
+            <br />
+            We'll get back to you within 1 business day. Be sure to check your email for a response.
+            <br />
+            <a href="#" onClick={this.reset}>Ok</a>
           </strong>
         </div>
       );

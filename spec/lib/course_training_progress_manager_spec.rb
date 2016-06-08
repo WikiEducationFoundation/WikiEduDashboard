@@ -52,7 +52,7 @@ describe CourseTrainingProgressManager do
           TrainingModulesUsers.last.update_attribute(:completed_at, 1.hour.ago)
         end
         it 'returns "1/1 training modules completed"' do
-          expect(subject).to eq('1/1 training modules completed')
+          expect(subject).to eq('1/1 training module completed')
         end
       end
 

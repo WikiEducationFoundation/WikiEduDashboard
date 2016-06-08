@@ -1,8 +1,8 @@
 %section.blog-feed
   %hr
   %h2.blog-feed__header
-    %a{href: "http://wikiedu.org", target: "_blank"}= t(:blog_headline, scope: [:dashboard])
-  
+    %a{href: "https://wikiedu.org", target: "_blank"}= t(:blog_headline, scope: [:dashboard])
+
   .blog-feed__posts
     - @blog_posts.first(3).each do |post|
       .blog-post

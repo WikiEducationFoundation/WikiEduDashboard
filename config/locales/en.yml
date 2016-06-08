@@ -380,8 +380,12 @@ en:
     per_user: '%{number}/user'
     revisions: Recent Edits
     upload_count: Commons Uploads
-    uploads_in_use_count: files used in articles
-    upload_usages_count: total usages across languages
+    uploads_in_use_count:
+      one: file used in an article
+      other: files used in articles
+    upload_usages_count:
+      one: total usage across languages
+      other: total usages across languages
     view_count_description: Article Views
     view: Views
     word_count: Words Added
@@ -533,7 +537,9 @@ en:
     none: There are no participants.
     no_articles: No articles
     no_revisions: This editor has made no revisions.
-    number_of_articles: '%{number} articles'
+    number_of_articles:
+      one: '%{count} article'
+      other: '%{count} articles'
     recent_revisions: Recent Edits
     remove_confirmation: Are you sure you want to remove %{username}?
     revision_characters_and_views: 'Chars Added: %{characters}, Views: %{views}'
@@ -548,7 +554,9 @@ en:
       Editors who have completed the all assigned training modules that
       have come due are counted as up-to-date with their training.
     training_incomplete: Training Incomplete
-    training_modules_completed: "%{completed_count}/%{assigned_count} training modules completed"
+    training_modules_completed:
+      one: "%{completed_count}/%{count} training module completed"
+      other: "%{completed_count}/%{count} training modules completed"
     up_to_date_with_training: 'up-to-date with training'
     username: Username
     username_placeholder: Username

@@ -20,7 +20,7 @@ AssignCell = React.createClass(
         link = (
           <span onClick={@open}>
             {@props.prefix}
-            {I18n.t('users.number_of_articles', number: @props.assignments.length)}
+            {I18n.t('users.number_of_articles', count: @props.assignments.length)}
           </span>
         )
       else
