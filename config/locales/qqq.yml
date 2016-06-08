@@ -54,7 +54,7 @@ qqq:
       Submit link
       {{Identical|Submit}}
     training: '{{Identical|Training}}'
-    change: '{{Identical|Change}}'
+    change: Link to change the language and/or project when inputting an article title
   dashboard:
     create_note: |-
       Instructions on how to create a course.
