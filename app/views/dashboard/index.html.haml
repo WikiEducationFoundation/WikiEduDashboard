@@ -90,4 +90,5 @@
             = course.title
             %span.course-term= course.term
 
-  = render "blog"
+  - if Features.wiki_ed?
+    = render "blog"
