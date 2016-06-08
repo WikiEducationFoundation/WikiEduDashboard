@@ -11,9 +11,9 @@ class DashboardController < ApplicationController
     end
 
     set_admin_courses_if_admin
-    
-    @blog_posts = Rails.cache.fetch('posts', expires_in: 1.day) do 
-      RSS::Parser.parse('http://wikiedu.org/feed', false).items
+
+    @blog_posts = Rails.cache.fetch('posts', expires_in: 1.day) do
+      RSS::Parser.parse('https://wikiedu.org/feed', false).items
     end
 
     @pres = DashboardPresenter.new(current_courses, past_courses,
