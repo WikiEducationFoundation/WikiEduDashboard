@@ -25,6 +25,7 @@ lb:
     change: Änneren
   dashboard:
     review_orientation: Orientatioun nokucken
+    blog_headline: Rezent Neiegkeete vu Wiki Ed
   home:
     log_in: Mat Wikipedia aloggen
     sign_up: Mat Wikipedia umellen
@@ -34,6 +35,7 @@ lb:
     label: Aktivitéit
   articles:
     assigned: Assignéiert Artikelen
+    available: Disponibel Artikelen
     edited: Geännert Artikelen
     edited_mobile: Artikelen
     label: Artikelen
@@ -63,6 +65,7 @@ lb:
     view_doc: D'Zomme vun de Kéiere wou all Artikel während der Dauer vum Cours gewise
       gouf
   assignments:
+    no_available: Dëse Cours huet keng disponibel Wikipedia-Artikelen.
     review_self: En Artikel nokucken
   blocks:
     milestones:

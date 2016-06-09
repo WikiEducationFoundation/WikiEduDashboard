@@ -56,6 +56,7 @@ it:
     label: Attività
   articles:
     assigned: Voci assegnate
+    available: Voci disponibili
     assigned_to: Assegnato a
     character_doc: La somma dei caratteri aggiunti alle voci dagli editori iscritti
       tra le date di inizio e fine
@@ -92,12 +93,15 @@ it:
     already_exists: Questa assegnazione esiste già!
     assignees: Assegnatario/i
     assign_other: Assegna una voce
+    add_available: Aggiungi una voce disponibile
     assign_self: Assegnami una voce
+    confirm_add_available: Sei sicuro di voler aggiungere %{title}?
     confirm_addition: Sei sicuro di voler assegnare %{title} a %{username}?
     label: Assegna
     loading: Caricando gli incarichi...
     none_short: Nessuna voce assegnata
     none: Questo corso non ha assegnato voci di Wikipedia.
+    no_available: Questo corso non ha voci di Wikipedia disponibili.
     reviewers: Revisori
     review_self: Revisiona una voce
   cohort:
@@ -411,7 +415,7 @@ it:
     training_doc: Gli utenti che hanno completato tutti i moduli di formazione da
       fare sono considerati come utenti aggiornati  per quanto riguarda la loro formazione.
     training_incomplete: Formazione incompleta
-    training_modules_completed: '%{completed_count}/%{count} moduli formativi
+    training_modules_completed: '%{completed_count}/%{assigned_count} moduli formativi
       completati'
     up_to_date_with_training: aggiornato con la formazione
     username: Nome utente

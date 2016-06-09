@@ -50,6 +50,7 @@ de:
       um dir beim Anfangen zu helfen. Die Vervollständigung dauert ungefähr 30 Minuten.
     review_orientation: Einführung überprüfen
     start_orientation: Einführung beginnen
+    blog_headline: Aktuelle Neuigkeiten von Wiki Ed
   home:
     explore: Entdecken
     log_in: Mit Wikipedia anmelden
@@ -60,6 +61,7 @@ de:
     label: Aktivität
   articles:
     assigned: Zugeordnete Artikel
+    available: Verfügbare Artikel
     assigned_to: Zuordnung zu
     character_doc: Die Summe der durch eingeschriebene Autoren an Artikeln hinzugefügten
       Zeichen zwischen den Start- und Enddaten.
@@ -99,13 +101,16 @@ de:
     already_exists: Diese Zuweisung ist bereits vorhanden!
     assignees: Zugeordnete/r Benutzer/in(nen)
     assign_other: Einen Artikel zuweisen
+    add_available: Einen verfügbaren Artikel hinzufügen
     assign_self: Einen Artikel selbst zuweisen
+    confirm_add_available: Bist du sicher, dass du %{title} hinzufügen möchtest?
     confirm_addition: Möchtest du %{title} wirklich zu %{username} zuordnen?
     confirm_deletion: Möchtest du diese Zuordnung wirklich löschen?
     label: Zuweisen
     loading: Lade Zuordnungen…
     none_short: Keine zugewiesenen Artikel
     none: Dieser Kurs hat keine zugeordnete Wikipedia-Artikel.
+    no_available: Dieser Kurs hat keine verfügbaren Wikipedia-Artikel.
     reviewers: Prüfer/in(nen)
     review_other: Eine Überprüfung zuweisen
     review_self: Einen Artikel überprüfen
@@ -505,7 +510,7 @@ de:
     training_doc: Autoren, die alle zugewiesenen fälligen Ausbildungsmodule vervollständigt
       haben, werden mit ihrer Ausbildung als „auf dem Laufenden“ gezählt.
     training_incomplete: Ausbildung unvollständig
-    training_modules_completed: '%{completed_count} von %{count} Ausbildungsmodulen
+    training_modules_completed: '%{completed_count} von %{assigned_count} Ausbildungsmodulen
       abgeschlossen'
     up_to_date_with_training: mit der Ausbildung auf dem Laufenden
     username: Benutzername

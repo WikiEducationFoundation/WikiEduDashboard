@@ -1,6 +1,7 @@
 # Messages for Message documentation (Message documentation)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Base
 # Author: Beta16
 # Author: Liuxinyu970226
 # Author: Macofe
@@ -263,10 +264,9 @@ qqq:
       {{Identical|Loading}}
     new_week: Button for adding a new week to the timeline
     nocourses: Message indicating that the logged in user is not part of any courses
-    none:
-      Default placeholder to indicate that there are no items in a list. Used to indicate
-      that there are no instructors in a course, or the course is part of no cohorts.
-      '{{Identical|None}}'
+    none: Default placeholder to indicate that there are no items in a list. Used
+      to indicate that there are no instructors in a course, or the course is part
+      of no cohorts. '{{Identical|None}}'
     no_available_actions: Placeholder message when no action buttons are available
     overview: Label for link to the overview page for a course
     passcode: |-
@@ -282,7 +282,10 @@ qqq:
     students_count: |-
       Column label for number of students in a course
       {{Identical|Student}}
-    student_editors: Label for list of users (Wiki Ed only)
+    student_editors: |-
+      Label for list of users (Wiki Ed only)
+
+      This is "students who are also editors". It is used as a synonym for "students", but to emphasize that these users are editors as well.
     students_none: This course has no students. (Wiki Ed only)
     students_short: Label for the number of students in a course, in the mobile layout
       (Wiki Ed only)

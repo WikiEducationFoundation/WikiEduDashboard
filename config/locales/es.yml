@@ -57,6 +57,7 @@ es:
       a empezar. (Se tarda unos 30 minutos en completar.)
     review_orientation: Revisar la orientación
     start_orientation: Comenzar la orientación
+    blog_headline: Noticias recientes de Wiki Ed
   home:
     explore: Explorar
     log_in: Iniciar sesión con Wikipedia
@@ -67,6 +68,7 @@ es:
     label: Actividad
   articles:
     assigned: Artículos asignados
+    available: Artículos disponibles
     assigned_to: Asignado a
     character_doc: La suma de caracteres agregados a los artículos por los editores
       inscriptos entre las fechas de inicio y fin
@@ -108,13 +110,16 @@ es:
     already_exists: ¡Esta tarea ya existe!
     assignees: Asignado(s)
     assign_other: Asignar un artículo
+    add_available: Añadir un artículo disponible
     assign_self: Asignarme un artículo
+    confirm_add_available: ¿Estás seguro que deseas añadir %{title}?
     confirm_addition: ¿Estás seguro de que quieres asignar %{title} a %{username}?
     confirm_deletion: ¿Estás seguro de que quieres eliminar esta tarea?
     label: Asignar
     loading: Cargando tareas...
     none_short: No hay artículos asignados
     none: Este curso no tiene artículos de Wikipedia asignados.
+    no_available: Este curso no tiene artículos de Wikipedia disponibles.
     reviewers: Revisor(es)
     review_other: Asignar una revisión
     review_self: Revisar un artículo
@@ -510,7 +515,7 @@ es:
     training_doc: Los editores que hayan completado todos los módulos de entrenamiento
       asignados se cuentan como al día con su entrenamiento.
     training_incomplete: Entranamiento incompleto
-    training_modules_completed: '%{completed_count}/%{count} módulos de entenamiento
+    training_modules_completed: '%{completed_count}/%{assigned_count} módulos de entenamiento
       completados'
     up_to_date_with_training: al día con el entrenamiento
     username: Nombre de usuario

@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Arief
 # Author: Mirws
+# Author: Rachmat.Wahidi
 ---
 id:
   application:
@@ -14,6 +15,7 @@ id:
     sign_up_log_in_extended: dengan Wikipedia
     sign_up: Daftar
     training: latihan
+    change: Ubah
   dashboard:
     explore_course_pages: Jelajahi Course Pages
     explore_examples: Contoh penjelajahan
@@ -34,9 +36,14 @@ id:
     course_description: Wiki Ed Courses
     word_count_doc: Perkiraan jumlah kata ditambahkan ke artikel mainspace oleh siswa
       kursus selama jangka kursus
+  courses_generic:
+    courses: Program
+    creator:
+      checking_for_uniqueness: Keunikan program akan diperiksa.
   metrics:
     word_count: Kata ditambahkan
   revisions:
+    diff: beda
     time_doc: Waktu setiap revisi dalam waktu lokal Anda
   timeline:
     blackout_week_created: Ada blok dijadwalkan minggu ini. Silakan pindahkan ke seminggu
@@ -49,6 +56,9 @@ id:
       untuk Wikimedia Commons.
   users:
     contributions_more: Lihat Kontribusi lainnya
+    characters_added_short: 'RN: %{mainspace}, RP: %{userspace}'
+    revision_characters_and_views: 'Karakter ditambahkan: %{characters}, Dilihat:
+      %{views}'
     training_complete:
       one: has completed training
       other: have completed training
@@ -58,4 +68,7 @@ id:
       mengatur tanggal mulai tugas untuk satu minggu setelah tanggal mulai kursus
       ini. Desain alat tugas ini akan membuat rancangan waktu yang pas timeline tanggal
       yang Anda pilih.
+  error:
+    article_required: Sebuah artikel diperlukan.
+    invalid_assignment: Tugas tidak sah
 ...

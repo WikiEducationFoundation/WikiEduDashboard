@@ -44,6 +44,7 @@ zh-hans:
     orientation_notice: 在您创建课程之前，让我们通过定位以帮助您了解如何入门。（这需要约30分钟完成。）
     review_orientation: 复核迎新会
     start_orientation: 开始迎新
+    blog_headline: 来自Wiki Ed的最新新闻
   home:
     explore: 探索
     log_in: 登录维基百科
@@ -54,6 +55,7 @@ zh-hans:
     label: 活跃
   articles:
     assigned: 分配的条目
+    available: 可用条目
     assigned_to: 分配给
     character_doc: 由登记编辑者在开始和结束日期之间，添加至条目的字符总和
     edited: 编辑的条目
@@ -86,13 +88,16 @@ zh-hans:
     already_exists: 此分配已存在！
     assignees: 委托人
     assign_other: 分配一个条目
+    add_available: 添加一个可用条目
     assign_self: 给我自己分配一个条目
+    confirm_add_available: 您确定要添加%{title}么？
     confirm_addition: 您确定要分配%{title}至%{username}？
     confirm_deletion: 您确定要删除此分配吗？
     label: 分配
     loading: 正在加载作业...
     none_short: 没有分配的条目
     none: 此课程没有被维基百科条目所分配。
+    no_available: 此课程没有可用的维基百科条目。
     reviewers: 复核员
     review_other: 分配一次复核
     review_self: 复核一个条目
@@ -411,7 +416,7 @@ zh-hans:
     training_complete_count: '%{count}最近的培训'
     training_doc: 已完成所有分配的已到期培训模块的编辑者可算作是最近完成训练的。
     training_incomplete: 培训未完成
-    training_modules_completed: '%{completed_count}/%{count}培训模块已完成'
+    training_modules_completed: '%{completed_count}/%{assigned_count}培训模块已完成'
     up_to_date_with_training: 最近培训
     username: 用户名
     username_placeholder: 用户名

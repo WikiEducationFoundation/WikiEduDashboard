@@ -1,0 +1,14 @@
+# Messages for Sakha (саха тыла)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: HalanTul
+# Author: София
+---
+sah:
+  application:
+    change: Уларытыы
+  articles:
+    available: Тоҕоостоох Ыстатыйалар
+  assignments:
+    add_available: Тоҕоостоох ыстатыйаны киллэр
+...

@@ -1,0 +1,13 @@
+# Messages for Standard Moroccan Tamazight (ⵜⴰⵎⴰⵣⵉⵖⵜ)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Amara-Amaziɣ
+---
+zgh:
+  courses:
+    my_articles: ⵉⵎⴳⵔⴰⴷⵏ ⵉⵏⵓ
+  uploads:
+    datetime: ⴰⵙⴰⴽⵓⴷ/ⴰⴽⵓⴷ
+    file_name: ⵉⵙⵎ ⵏ ⵓⴼⴰⵢⵍⵓ
+    image: ⵜⴰⵡⵍⴰⴼⵜ
+...

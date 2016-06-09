@@ -466,7 +466,7 @@ fr:
     none: Cette classe n'a contribué avec aucune image ou autre fichier média à Wikimedia
       Commons.
     time_doc: L’heure de chaque téléchargement dans votre heure locale
-    uploaded_by: Téléchargé par
+    uploaded_by: Téléversé par
     usage_count: Nombre d’utilisations
     usages: Utilisations
   users:
@@ -515,7 +515,7 @@ fr:
     training_doc: Les éditeurs qui ont terminé tous les modules de formation échus
       qui leur ont été affectés sont comptabilisés comme à jour de leur formation.
     training_incomplete: Formation non terminée
-    training_modules_completed: '%{completed_count}/%{count} modules de formation
+    training_modules_completed: '%{completed_count}/%{assigned_count} modules de formation
       terminés'
     up_to_date_with_training: formation à jour
     username: Nom d’utilisateur

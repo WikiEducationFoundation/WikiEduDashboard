@@ -4,6 +4,7 @@
 # Author: Alex00728
 # Author: Asdfqwer51
 # Author: Hwangjy9
+# Author: Jonghaya
 # Author: Mooozi
 # Author: Priviet
 # Author: Revi
@@ -38,12 +39,14 @@ ko:
   dashboard:
     no_courses_instructor: 당신은 아무 코스도 가지고 있지 않습니다.
     no_courses_student: 아직 코스에 가입하지 않으셨네요.
+    blog_headline: Wiki Ed의 최근�뉴스�
   activity:
     all: 활동
     edited_by: '편집자 :'
     label: 활동 내역
   articles:
     assigned: 할당된 문서
+    available: 가능한 기사�들�
     assigned_to: 할당됨
     edited: 문서 편집됨
     edited_mobile: 문서
@@ -70,7 +73,10 @@ ko:
     view_all: 모두 보기
   assignments:
     assignees: 담당자
+    add_available: 가능한 기사를 추가하기�
+    confirm_add_available: '%{title}를 추가하시겠습니까?'
     label: 할당
+    no_available: 이 코스에서는� 사용할 수 없는 위키피디어 기사들입니다.
     reviewers: 검토자
     review_self: 문서 미리보기
   blocks:
@@ -260,6 +266,7 @@ ko:
     no_articles: 문서 없음
     number_of_articles: '%{number} 문서'
     remove_confirmation: '%{username} 님을 과정에서 제거하겠습니까?'
+    revision_characters_and_views: '다음 문자들이 추가 됨:  %{characters}, 조회수�: %{views}'
     reviewers: 검토자
     username: 사용자 이름
     username_placeholder: 사용자 이름

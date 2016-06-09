@@ -53,6 +53,7 @@ pl:
     view: Zobacz artykuł
     view_all: Zobacz wszystkie
   assignments:
+    confirm_add_available: Czy na pewno chcesz dodać %{title}?
     confirm_addition: Czy na pewno chcesz przypisać %{title} do %{username}?
   courses:
     activity: Aktywność
@@ -77,6 +78,7 @@ pl:
       one: Instruktor
       other: Instruktorzy
     loading: Wczytywanie...
+    my_articles: Moje artykuły
     nocourses: Nie bierzesz udziału w żadnych kursach.
     overview: Przegląd
     start: Początek
@@ -128,6 +130,8 @@ pl:
     start: Start
   uploads:
     datetime: Data/Czas
+    file_name: Nazwa pliku
+    header: Pliki przesłane na Wikimedia Commons
     image: Obraz
     uploaded_by: Przesłane przez
   users:
@@ -143,7 +147,9 @@ pl:
     characters_added_short: 'PG: %{mainspace}, PU: %{userspace}'
     name: Nazwa
     none: Brak uczestników.
-    no_revisions: Ten użytkownik wniósł żadnych zmian.
+    no_articles: Brak artykułów
+    no_revisions: Ten edytor nie wykonał żadnych zmian.
+    number_of_articles: '%{number} artykuły'
     remove_confirmation: Czy na pewno chcesz usunąć %{username}?
     revisions_doc: Liczba edycji dokonanych przez tego edytora w ciągu ostatnich 7
       dni
