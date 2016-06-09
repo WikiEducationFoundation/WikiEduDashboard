@@ -505,7 +505,7 @@ de:
     training_doc: Autoren, die alle zugewiesenen fälligen Ausbildungsmodule vervollständigt
       haben, werden mit ihrer Ausbildung als „auf dem Laufenden“ gezählt.
     training_incomplete: Ausbildung unvollständig
-    training_modules_completed: '%{completed_count} von %{assigned_count} Ausbildungsmodulen
+    training_modules_completed: '%{completed_count} von %{count} Ausbildungsmodulen
       abgeschlossen'
     up_to_date_with_training: mit der Ausbildung auf dem Laufenden
     username: Benutzername

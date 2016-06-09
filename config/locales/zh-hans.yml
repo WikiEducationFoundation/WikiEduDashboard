@@ -411,7 +411,7 @@ zh-hans:
     training_complete_count: '%{count}最近的培训'
     training_doc: 已完成所有分配的已到期培训模块的编辑者可算作是最近完成训练的。
     training_incomplete: 培训未完成
-    training_modules_completed: '%{completed_count}/%{assigned_count}培训模块已完成'
+    training_modules_completed: '%{completed_count}/%{count}培训模块已完成'
     up_to_date_with_training: 最近培训
     username: 用户名
     username_placeholder: 用户名

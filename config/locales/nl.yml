@@ -421,7 +421,7 @@ nl:
     training_doc: Bewerkers die alle beschikbare trainingmodules hebben voltooid worden
       geteld als up-to-date met hun training.
     training_incomplete: Training onvolledig
-    training_modules_completed: '%{completed_count}/%{assigned_count} trainingmodules
+    training_modules_completed: '%{completed_count}/%{count} trainingmodules
       voltooid'
     up_to_date_with_training: up-to-date met de training
   wiki_edits:

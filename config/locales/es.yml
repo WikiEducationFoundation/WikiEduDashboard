@@ -510,7 +510,7 @@ es:
     training_doc: Los editores que hayan completado todos los módulos de entrenamiento
       asignados se cuentan como al día con su entrenamiento.
     training_incomplete: Entranamiento incompleto
-    training_modules_completed: '%{completed_count}/%{assigned_count} módulos de entenamiento
+    training_modules_completed: '%{completed_count}/%{count} módulos de entenamiento
       completados'
     up_to_date_with_training: al día con el entrenamiento
     username: Nombre de usuario

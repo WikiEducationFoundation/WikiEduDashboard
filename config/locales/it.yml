@@ -411,7 +411,7 @@ it:
     training_doc: Gli utenti che hanno completato tutti i moduli di formazione da
       fare sono considerati come utenti aggiornati  per quanto riguarda la loro formazione.
     training_incomplete: Formazione incompleta
-    training_modules_completed: '%{completed_count}/%{assigned_count} moduli formativi
+    training_modules_completed: '%{completed_count}/%{count} moduli formativi
       completati'
     up_to_date_with_training: aggiornato con la formazione
     username: Nome utente
