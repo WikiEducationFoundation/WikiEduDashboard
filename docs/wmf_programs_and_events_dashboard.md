@@ -6,7 +6,7 @@ available for anyone to use with any Wikimedia project.
 
 Some interface messages differ between the two use cases, and some features are
 only enabled or intended for one use case. All new work should utilize feature
-toggles (see the [Features presenter](..app/presenters/features.rb) and should be rely on configuration
+toggles (see the [Features presenter](../app/presenters/features.rb) and should be rely on configuration
 variables such that no new features specific to only one use case will be enabled
 by default.
 
