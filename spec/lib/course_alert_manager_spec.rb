@@ -107,4 +107,11 @@ describe CourseAlertManager do
       subject.create_continued_course_activity_alerts
     end
   end
+
+  describe '#create_active_course_alerts' do
+    it 'calls "create_alerts" on ActiveCourseAlertManager' do
+      expect_any_instance_of(ActiveCourseAlertManager).to receive(:create_alerts)
+      subject.create_active_course_alerts
+    end
+  end
 end
