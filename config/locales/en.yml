@@ -142,8 +142,8 @@ en:
     label: Assign
     loading: Loading assignments...
     none_short: No articles assigned
-    none: This course has no assigned Wikipedia articles.
-    no_available: This course has no available Wikipedia articles.
+    none: This course has no assigned articles.
+    no_available: This course has no available articles.
     reviewers: Reviewer(s)
     review_other: Assign a review
     review_self: Review an article
@@ -165,7 +165,7 @@ en:
     articles: Articles
     articles_none: This course has not edited any articles.
     assignment_end: Assignment End
-    assignments_none: This course has no assigned Wikipedia articles.
+    assignments_none: This course has no assigned articles.
     assignment_start: Assignment Start
     calendar:
       legend: Legend
@@ -329,7 +329,7 @@ en:
   courses_generic:
     articles_none: There are no edited articles for this project yet.
     assignment_end: Timeline End
-    assignments_none: This project has no assigned Wikipedia articles.
+    assignments_none: This project has no assigned articles.
     assignment_start: Timeline Start
     courses: Programs
     creator:
