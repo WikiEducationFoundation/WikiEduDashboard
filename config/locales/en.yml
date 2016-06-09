@@ -107,7 +107,6 @@ en:
     label: Articles
     loading: Loading articles...
     new: (new)
-    no_assignee: No user assigned
     none: This course has not edited any articles.
     rating: Class
     rating_doc: The rating an article has been assigned by WikiProjects on Wikipedia. These ratings may corresponds to much older versions, so they are just a rough indicator of article maturity.
