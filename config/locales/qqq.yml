@@ -141,9 +141,12 @@ qqq:
     loading: Placeholder message indicating that assignment data is still loading
     none_short: Short label for an empty list of assignments
     none: Label for an empty list of assignments
+    remove: Button to remove an article from the list of available articles
     reviewers: '{{Identical|Reviewer}}'
     review_other: Button to assign an article to a student for review
     review_self: Button to assign an article to self for review
+    select: Button to choose an available article to work on.
+      It appears next to the title of the article.
   blocks:
     milestones:
       title: Label for the Milestone section of a course page (Wiki Ed only)

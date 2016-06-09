@@ -144,9 +144,11 @@ en:
     none_short: No articles assigned
     none: This course has no assigned articles.
     no_available: This course has no available articles.
+    remove: Remove
     reviewers: Reviewer(s)
     review_other: Assign a review
     review_self: Review an article
+    select: Select
 
   blocks:
     milestones:

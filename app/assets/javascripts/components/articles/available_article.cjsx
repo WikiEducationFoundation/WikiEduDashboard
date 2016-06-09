@@ -44,11 +44,11 @@ AvailableArticle = React.createClass(
 
     if @props.current_user.admin || @props.current_user.role > 0
       actionButton = (
-        <button className="button dark" onClick={@onRemoveHandler}>Remove</button>
+        <button className="button dark" onClick={@onRemoveHandler}>{I18n.t('assignments.remove')}</button>
       )
     else
       actionButton = (
-        <button className="button dark" onClick={@onSelectHandler}>Select</button>
+        <button className="button dark" onClick={@onSelectHandler}>{I18n.t('assignments.select')}</button>
       )
 
     <tr className={className}>
