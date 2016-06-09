@@ -31,52 +31,29 @@ class SurveyAssignmentsController < ApplicationController
   end
 
   # POST /survey_assignments
-  # POST /survey_assignments.json
   def create
     @survey_assignment = SurveyAssignment.new(survey_assignment_params)
 
-    respond_to do |format|
-      if @survey_assignment.save
-        format.html do
-          redirect_to survey_assignments_path,
-                      notice: 'Survey assignment was successfully created.'
-        end
-        format.json { render :show, status: :created, location: @survey_assignments }
-      else
-        format.html { render :new }
-        format.json { render json: @survey_assignment.errors, status: :unprocessable_entity }
-      end
+    if @survey_assignment.save
+      redirect_to survey_assignments_path, notice: 'Survey assignment was successfully created.'
+    else
+      render :new
     end
   end
 
   # PATCH/PUT /survey_assignments/1
-  # PATCH/PUT /survey_assignments/1.json
   def update
-    respond_to do |format|
-      if @survey_assignment.update(survey_assignment_params)
-        format.html do
-          redirect_to survey_assignments_path,
-                      notice: 'Survey assignment was successfully updated.'
-        end
-        format.json { render :show, status: :ok, location: @survey_assignments }
-      else
-        format.html { render :edit }
-        format.json { render json: @survey_assignment.errors, status: :unprocessable_entity }
-      end
+    if @survey_assignment.update(survey_assignment_params)
+      redirect_to survey_assignments_path, notice: 'Survey assignment was successfully updated.'
+    else
+      render :edit
     end
   end
 
   # DELETE /survey_assignments/1
-  # DELETE /survey_assignments/1.json
   def destroy
-    @survey_assignment.destroy
-    respond_to do |format|
-      format.html do
-        redirect_to survey_assignments_url,
-                    notice: 'Survey assignment was successfully destroyed.'
-      end
-      format.json { head :no_content }
-    end
+    @survey_assignment.destroy!
+    redirect_to survey_assignments_url, notice: 'Survey assignment was successfully destroyed.'
   end
 
   def create_notifications
