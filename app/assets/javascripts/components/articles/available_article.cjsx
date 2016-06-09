@@ -4,9 +4,6 @@ CourseUtils  = require('../../utils/course_utils.js').default
 ServerActions = require('../../actions/server_actions.js').default
 AssignmentActions = require('../../actions/assignment_actions.js').default
 
-userLink = (username) ->
-  <a key={username} href="https://en.wikipedia.org/wiki/User:#{username}">{username}</a>
-
 AvailableArticle = React.createClass(
   displayName: 'AvailableArticle'
 
@@ -38,9 +35,10 @@ AvailableArticle = React.createClass(
   render: ->
     className = 'assignment'
     assignment = @props.assignment
+    article = CourseUtils.articleFromAssignment(assignment)
     ratingClass = 'rating ' + assignment.article_rating
     ratingMobileClass = ratingClass + ' tablet-only'
-    articleLink = <a onClick={@stop} href={assignment.url} target="_blank" className="inline">{assignment.article_title}</a>
+    articleLink = <a onClick={@stop} href={article.url} target="_blank" className="inline">{article.formatted_title}</a>
 
     if @props.current_user.admin || @props.current_user.role > 0
       actionButton = (
@@ -53,14 +51,14 @@ AvailableArticle = React.createClass(
 
     <tr className={className}>
       <td className='popover-trigger desktop-only-tc'>
-        <p className="rating_num hidden">{assignment.article_rating_num}</p>
-        <div className={ratingClass}><p>{assignment.article_pretty_rating || '-'}</p></div>
+        <p className="rating_num hidden">{article.rating_num}</p>
+        <div className={ratingClass}><p>{article.pretty_rating || '-'}</p></div>
         <div className="popover dark">
           <p>{I18n.t('articles.rating_docs.' + (assignment.article_rating || '?'))}</p>
         </div>
       </td>
       <td>
-        <div className={ratingMobileClass}><p>{assignment.article_pretty_rating}</p></div>
+        <div className={ratingMobileClass}><p>{article.pretty_rating}</p></div>
         <p className="title">
           {articleLink}
         </p>
