@@ -25,9 +25,11 @@ AvailableArticle = React.createClass(
 
     assignment =
       id: @props.assignment.id
-      assignment_id: @props.assignment.id
-      course_id: @props.course.id
-      user_id: @props.current_user.id
+      course_id: @props.course.slug
+      language: @props.assignment.language
+      project: @props.assignment.project
+      article_title: @props.assignment.article_title
+      role: 0
 
     return unless confirm(I18n.t('assignments.confirm_deletion'))
     AssignmentActions.deleteAssignment assignment

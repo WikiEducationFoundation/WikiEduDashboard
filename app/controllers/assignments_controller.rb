@@ -37,12 +37,10 @@ class AssignmentsController < ApplicationController
     @assignment = Assignment.find(assignment_params[:id])
     @assignment.update_attributes(assignment_params)
     if @assignment.save
-      render json: {assignment: @assignment}, status: 200 
+      render json: { assignment: @assignment }, status: 200
     else
-      render json: {
-        errors: @alert.errors,
-        message: 'unable to update assignment'
-      }, status: 500
+      render json: { errors: @alert.errors, message: 'unable to update assignment' },
+             status: 500
     end
   end
 
