@@ -82,12 +82,4 @@ class NullCohort
   def trained_percent
     0
   end
-
-  def uploads_in_use_count
-    0
-  end
-
-  def upload_usage_count
-    0
-  end
 end
