@@ -49,7 +49,9 @@ EnrollButton = React.createClass(
         <td>{user.username}{remove_button}</td>
       </tr>
 
-    enroll_url = window.location.href.replace(window.location.pathname, "") + @_courseLinkParams() + "?enroll=" + @props.course.passcode
+    # baseUrl is equivalent to window.location.origin, but works on older browsers
+    baseUrl = window.location.protocol + "//" + window.location.hostname + (if window.location.port then ':' + window.location.port else '')
+    enroll_url = baseUrl + @_courseLinkParams() + "?enroll=" + @props.course.passcode
 
     edit_rows = []
     edit_rows.push (
