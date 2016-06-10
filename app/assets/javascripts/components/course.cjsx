@@ -123,9 +123,7 @@ Course = React.createClass(
         )
 
     if (user_role > 0 || @getCurrentUser().admin) && @state.course.published && UserStore.isLoaded() && UserStore.getFiltered({ role: 0 }).length == 0 && !@state.course.legacy
-      # baseUrl is equivalent to window.location.origin, but works on older browsers
-      baseUrl = window.location.protocol + "//" + window.location.hostname + (if window.location.port then ':' + window.location.port else '')
-      url = baseUrl + @_courseLinkParams() + "?enroll=" + @state.course.passcode
+      url = window.location.origin + @_courseLinkParams() + "?enroll=" + @state.course.passcode
       alerts.push (
         <div className='notification' key='enroll'>
           <div className='container'>

@@ -14,3 +14,7 @@ $(() => {
   require('./utils/router.jsx');
   require('events').EventEmitter.defaultMaxListeners = 30;
 });
+
+
+// Polyfills
+require('location-origin');

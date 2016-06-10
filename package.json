@@ -67,6 +67,7 @@
     "jsdom": "^7.0.1",
     "json-loader": "^0.5.4",
     "jsx-require-extension": "^0.2.0",
+    "location-origin": "^1.1.4",
     "lodash": "^3.10.1",
     "lodash.map": "^4.2.1",
     "lodash.reject": "^4.2.1",
