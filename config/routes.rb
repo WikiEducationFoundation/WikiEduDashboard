@@ -186,6 +186,8 @@ Rails.application.routes.draw do
   post '/feedback_form_responses' => 'feedback_form_responses#create'
   get '/feedback/confirmation' => 'feedback_form_responses#confirmation'
 
+  get '/styleguide' => 'styleguide#index'
+
   # Errors
   match '/404', to: 'errors#file_not_found', via: :all
   match '/422', to: 'errors#unprocessable', via: :all

@@ -1,0 +1,81 @@
+%h5 Input
+%input{type: "text", placeholder: "Input"}/
+
+%br/
+%br/
+
+%h5 Textarea
+%textarea{placeholder: "Texatrea"}
+
+%br/
+%br/
+
+%h5 Radio buttons
+%label
+  %input{type: "radio", name: "radioGroup1", value: "option1", checked: true} Checked
+%label
+  %input{type: "radio", name: "radioGroup1", value: "option2"}  Unchecked
+%label
+  %input{type: "radio", name: "radioGroup1", value: "option3", disabled: true} Disabled
+
+%br/
+%br/
+
+%h5 Checkboxes
+%label
+  %input{type: "checkbox", value: "option1", checked: true} Checked
+%label
+  %input{type: "checkbox", value: "option2"}  Unchecked
+%label
+  %input{type: "checkbox", value: "option3", disabled: true} Disabled
+
+%br/
+%br/
+
+%h5 Vanilla select
+%select
+  %option{value: "Option 1"} Option 1
+  %option{value: "Option 2"} Option 2
+  %option{value: "Option 3"} Option 3
+
+%br/
+%br/
+
+%h5 Wrapped select
+.select_wrapper
+  %select
+    %option{value: "Option 1"} Option 1
+    %option{value: "Option 2"} Option 2
+    %option{value: "Option 3"} Option 3
+
+%br/
+%br/
+
+%h5 Vanilla multiselect
+%select{multiple: "multiple"}
+  %option{value: "Option 1"} Option 1
+  %option{value: "Option 2"} Option 2
+  %option{value: "Option 3"} Option 3
+
+%br/
+%br/
+
+%h5 Select2
+
+%br/
+%br/
+
+%h5 Date picker
+.sg-note
+  %div TODO:
+  %img{src: "https://cloud.githubusercontent.com/assets/848347/15904801/43173260-2d67-11e6-9366-80c5fabfc906.png"}/
+
+%h5 Day of week picker
+.sg-note
+  %div TODO:
+  %img{src: "https://cloud.githubusercontent.com/assets/848347/15904877/7f421a34-2d67-11e6-9a3d-715adcd2a347.png"}/
+
+%h5 Rich text editor
+.sg-note
+  %div TODO:
+  %img{src: "https://cloud.githubusercontent.com/assets/848347/15904837/5af0d60c-2d67-11e6-9a58-a5f789f7d18b.png"}/
