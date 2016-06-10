@@ -27,6 +27,7 @@ class User < ActiveRecord::Base
   alias_attribute :wiki_id, :username
 
   validates :permissions, inclusion: { in: [0, 1, 2] }
+  before_validation :ensure_valid_email
 
   #############
   # Constants #
@@ -126,5 +127,11 @@ class User < ActiveRecord::Base
   def to_json(options={})
     options[:except] ||= [:wiki_token, :wiki_secret, :remember_token]
     super(options)
+  end
+
+  private
+
+  def ensure_valid_email
+    self.email = nil if ValidatesEmailFormatOf::validate_email_format(email)
   end
 end

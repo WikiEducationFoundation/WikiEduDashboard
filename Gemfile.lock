@@ -436,6 +436,8 @@ GEM
       unf_ext
     unf_ext (0.0.7.2)
     unicode-display_width (1.0.3)
+    validates_email_format_of (1.6.3)
+      i18n
     vcr (3.0.1)
     warden (1.2.6)
       rack (>= 1.0)
@@ -524,7 +526,11 @@ DEPENDENCIES
   squeel!
   timecop
   uglifier
+  validates_email_format_of
   vcr
   webmock
   whenever
   zeus
+
+BUNDLED WITH
+   1.11.2

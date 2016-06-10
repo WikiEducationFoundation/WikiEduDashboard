@@ -24,7 +24,7 @@ require 'rails_helper'
 
 describe User do
   describe 'user creation' do
-    it 'should create User objects' do
+    it 'creates User objects' do
       ragesock = build(:user)
       ragesauce = build(:admin)
       expect(ragesock.username).to eq('Ragesock')
@@ -33,21 +33,21 @@ describe User do
   end
 
   describe '#role' do
-    it 'should grant instructor permission for a user creating a new course' do
+    it 'grants instructor permission for a user creating a new course' do
       course = nil
       user = create(:user)
       role = user.role(course)
       expect(role).to eq(1)
     end
 
-    it 'should treat an admin like the instructor' do
+    it 'treats an admin like the instructor' do
       course = create(:course)
       admin = create(:admin)
       role = admin.role(course)
       expect(role).to eq(1)
     end
 
-    it 'should return the assigned role for a non-admin' do
+    it 'returns the assigned role for a non-admin' do
       course = create(:course,
                       id: 1)
       user = create(:user,
@@ -79,7 +79,7 @@ describe User do
       # expect(role).to eq(1)
     end
 
-    it 'should return -1 for a user who is not part of the course' do
+    it 'returns -1 for a user who is not part of the course' do
       course = create(:course)
       user = create(:user)
       role = user.role(course)
@@ -88,7 +88,7 @@ describe User do
   end
 
   describe '#can_edit?' do
-    it 'should return true for users with non-student roles' do
+    it 'returns true for users with non-student roles' do
       course = create(:course,
                       id: 1)
       user = create(:user,
@@ -101,7 +101,7 @@ describe User do
       expect(permission).to be true
     end
 
-    it 'should return false for students and visitors' do
+    it 'returns false for students and visitors' do
       course = create(:course,
                       id: 1)
       user = create(:user,
@@ -117,6 +117,24 @@ describe User do
              role: 0) # instructor
       permission = user.can_edit?(course)
       expect(permission).to be false
+    end
+  end
+
+  describe 'email validation' do
+    context 'when email is valid' do
+      it 'saves the email' do
+        user = User.new(username: 'foo', email: 'me@foo.com')
+        user.save
+        expect(user.email).to eq('me@foo.com')
+      end
+    end
+
+    context 'when email is not valid' do
+      it 'sets email to nil and saves' do
+        user = User.new(username: 'foo', email: 'me@foo')
+        user.save
+        expect(user.email).to be_nil
+      end
     end
   end
 end

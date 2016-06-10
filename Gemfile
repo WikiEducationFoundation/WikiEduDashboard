@@ -16,6 +16,8 @@ gem 'browser'
 gem 'devise'
 gem 'omniauth-mediawiki', git: 'https://github.com/ragesoss/omniauth-mediawiki.git'
 
+gem 'validates_email_format_of'
+
 gem 'deep_cloneable', '~> 2.1.1'
 
 gem 'sentry-raven'
