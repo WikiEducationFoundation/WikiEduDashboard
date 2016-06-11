@@ -10,7 +10,7 @@ class AssignmentManager
   end
 
   def create_assignment
-    @clean_title = ArticleUtils.format_article_title(@title)
+    set_clean_title
     set_article_from_database
     import_article_from_wiki unless @article
 
@@ -23,6 +23,18 @@ class AssignmentManager
                        wiki_id: @wiki.id,
                        article_id: @article_id,
                        role: @role)
+  end
+
+  private
+
+  def set_clean_title
+    # Wiktionary allows titles that begin lower case.
+    # Other projects enforce capitalization of the first letter.
+    @clean_title = if @wiki.project == 'wiktionary'
+                     @title.tr(' ', '_')
+                   else
+                     ArticleUtils.format_article_title(@title)
+                   end
   end
 
   def set_article_from_database

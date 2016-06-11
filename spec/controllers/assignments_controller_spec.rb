@@ -105,6 +105,27 @@ describe AssignmentsController do
         end
       end
 
+      context 'when the assignment is for Wiktionary' do
+        let!(:en_wiktionary) { create(:wiki, language: 'en', project: 'wiktionary') }
+        let(:wiktionary_params) do
+          { user_id: user.id, course_id: course.slug, title: 'selfie', role: 0,
+            language: 'en', project: 'wiktionary' }
+        end
+        it 'imports the article with a lower-case title' do
+          expect(Article.find_by(title: 'selfie')).to be_nil
+
+          VCR.use_cassette 'assignment_import' do
+            expect_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
+            expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
+            put :create, wiktionary_params
+            assignment = assigns(:assignment)
+            expect(assignment).to be_a_kind_of(Assignment)
+            expect(assignment.article.title).to eq('selfie')
+            expect(assignment.article.namespace).to eq(Article::Namespaces::MAINSPACE)
+          end
+        end
+      end
+
       context 'when the article exists' do
         before do
           create(:article, title: 'Pizza', namespace: Article::Namespaces::MAINSPACE)
