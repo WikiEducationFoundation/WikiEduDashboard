@@ -91,7 +91,7 @@ class Commons
     @continue = true
     until @continue.nil?
       response = api_get
-      return uploads unless response # fall back gracefully if the query fails
+      return @uploads unless response # fall back gracefully if the query fails
       @uploads += response.data['usercontribs']
       @continue = response['continue'] # nil if there is no continue
       @query['uccontinue'] = @continue['uccontinue'] if @continue
