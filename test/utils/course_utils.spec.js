@@ -105,4 +105,14 @@ describe('courseUtils.articleFromAssignment', () => {
     expect(article.project).to.eq('wikipedia');
     expect(article.formatted_title).to.eq('Selfie');
   });
+
+  it('constructs a url if one is not included', () => {
+    const assignment = {
+      article_title: 'Palo para autofoto',
+      language: 'es',
+      project: 'wikipedia'
+    };
+    const article = courseUtils.articleFromAssignment(assignment);
+    expect(article.url).to.eq('https://es.wikipedia.org/wiki/Palo_para_autofoto');
+  });
 });
