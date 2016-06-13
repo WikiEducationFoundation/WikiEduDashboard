@@ -33,11 +33,12 @@ ar:
     edited_mobile: المقالات
     label: المقالات
     loading: تحميل المقالات ...
-    no_assignee: لا مستخدم تم تعيينه
     rating: رتبة
     title: العنوان
     title_example: عنوان المقال
     view_all: عرض الكل
+  assignments:
+    select: اختر
   cohort:
     none: لا شيء
   courses:

@@ -60,6 +60,7 @@ fr:
       aider à commencer (cela prendra 30 minutes pour le terminer).
     review_orientation: Examiner l’orientation
     start_orientation: Orientation au départ
+    blog_headline: Nouvelles récentes de Wiki Ed
   home:
     explore: Explorer
     log_in: Se connecter avec Wikipédia
@@ -70,6 +71,7 @@ fr:
     label: Activité
   articles:
     assigned: Articles affectés
+    available: Articles disponibles
     assigned_to: Assigné à
     character_doc: Le total du nombre de caractères ajoutés aux articles par les éditeurs
       inscrits entre les dates de début et de fin
@@ -78,7 +80,6 @@ fr:
     label: Articles
     loading: Chargement des articles...
     new: (nouveau)
-    no_assignee: Aucun utilisateur affecté
     none: Ce cours n’a modifié aucun article.
     rating: Classe
     rating_doc: La notation attribuée à un article par WikiProjects sur Wikipédia.
@@ -111,16 +112,21 @@ fr:
     already_exists: Cette affectation existe déjà !
     assignees: Affectation(s)
     assign_other: Affecter un article
+    add_available: Ajouter un article disponible
     assign_self: M’affecter un article
+    confirm_add_available: Êtes-vous sûr de vouloir ajouter %{title} ?
     confirm_addition: Êtes-vous sûr de vouloir assigner %{title} à %{username}?
     confirm_deletion: Êtes-vous sûr de vouloir supprimer cette affectation ?
     label: Assigner
     loading: Chargement des affectations…
     none_short: Aucun article affecté
-    none: Ce cours n'a aucun article wikipedié assigné.
+    none: Ce cours n’a aucun article affecté.
+    no_available: Ce cours n’a pas d’article disponible.
+    remove: Supprimer
     reviewers: Relecteur(s)
     review_other: Attribuer une révision
     review_self: Relire un article
+    select: Sélectionner
   blocks:
     milestones:
       title: Jalons
@@ -136,7 +142,7 @@ fr:
     articles: Articles
     articles_none: Ce cours n’a modifié aucun article.
     assignment_end: Fin d’affectation
-    assignments_none: Ce cours n’a aucun article Wikipédia affecté.
+    assignments_none: Ce cours n’a aucun article affecté.
     assignment_start: Début d’affectation
     calendar:
       legend: Légende
@@ -301,7 +307,7 @@ fr:
   courses_generic:
     articles_none: Il n’y a encore aucun article modifié pour ce projet.
     assignment_end: Fin de la chronologie
-    assignments_none: Ce projet n’a pas d’articles de Wikipédia affectés.
+    assignments_none: Ce projet n’a pas d’article affecté.
     assignment_start: Début de la chronologie
     courses: Programmes
     creator:
@@ -352,8 +358,12 @@ fr:
     per_user: '%{number}/utilisateur'
     revisions: Modifications récentes
     upload_count: Téléversement de Commons
-    uploads_in_use_count: fichiers utilisés dans des articles
-    upload_usages_count: nombre total d’utilisations dans les langues
+    uploads_in_use_count:
+      one: fichier utilisé dans un article
+      other: fichiers utilisés dans des articles
+    upload_usages_count:
+      one: nombre total d’utilisation dans les langues
+      other: nombre total d’utilisations dans les langues
     view_count_description: Articles vus
     view: Vues
     word_count: Mots ajoutés
@@ -500,7 +510,9 @@ fr:
     none: Il n'y a pas de participants.
     no_articles: Aucun article
     no_revisions: Cet éditeur n’a fait aucune révision.
-    number_of_articles: '%{number} articles'
+    number_of_articles:
+      one: '%{count} article'
+      other: '%{count} articles'
     recent_revisions: Modifications récentes
     remove_confirmation: Êtes-vous sûr de vouloir supprimer %{username} ?
     revision_characters_and_views: 'Caractères ajoutés : %{characters}, Vues : %{views}'
@@ -515,8 +527,9 @@ fr:
     training_doc: Les éditeurs qui ont terminé tous les modules de formation échus
       qui leur ont été affectés sont comptabilisés comme à jour de leur formation.
     training_incomplete: Formation non terminée
-    training_modules_completed: '%{completed_count}/%{assigned_count} modules de formation
-      terminés'
+    training_modules_completed:
+      one: '%{completed_count}/%{count} module de formation terminé'
+      other: '%{completed_count}/%{count} modules de formation terminés'
     up_to_date_with_training: formation à jour
     username: Nom d’utilisateur
     username_placeholder: Nom d’utilisateur

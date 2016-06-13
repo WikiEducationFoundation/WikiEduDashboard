@@ -64,7 +64,6 @@ zh-hant:
     label: 條目
     loading: 讀取文章中...
     new: （新)
-    no_assignee: 未指定使用者
     none: 此課程沒有編輯任何條目
     rating: 等級
     rating_doc: 這個條目的等級已經由維基百科上的對應專題分配。這些等級可能對應到很早期的版本，所以只能當成條目成熟度的粗略指標。

@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Mbch331
 # Author: Milenej
+# Author: Ragesoss
 # Author: Romaine
 # Author: Siebrand
 # Author: Sjoerddebruin
@@ -63,7 +64,6 @@ nl:
     label: Pagina's
     loading: Bezig met pagina's laden...
     new: (nieuw)
-    no_assignee: Geen gebruiker toegewezen
     none: Deze cursus heeft geen bewerkte pagina's.
     rating: Klasse
     rating_doc: De waardering van een pagina is toegewezen door WikiProjecten op Wikipedia.
@@ -421,8 +421,7 @@ nl:
     training_doc: Bewerkers die alle beschikbare trainingmodules hebben voltooid worden
       geteld als up-to-date met hun training.
     training_incomplete: Training onvolledig
-    training_modules_completed: '%{completed_count}/%{assigned_count} trainingmodules
-      voltooid'
+    training_modules_completed: '%{completed_count}/%{count} trainingmodules voltooid'
     up_to_date_with_training: up-to-date met de training
   wiki_edits:
     notify_overdue:

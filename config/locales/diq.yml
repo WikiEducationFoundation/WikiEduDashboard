@@ -19,7 +19,10 @@ diq:
     log_in_extended: Wikipedia ya Cıkew
     log_in: Cı kewe
     log_out: Bıveciye
+    sign_up_log_in_extended: Wikipedia ya
     sign_up: Qeyd be
+    submit: deqew
+    change: Bıvurne
   activity:
     all: Fealiyet
     edited_by: Vurnayoğ
@@ -28,7 +31,6 @@ diq:
     label: Wesiqey
     loading: Meqaleyi bar benê...
     new: (Newe)
-    no_assignee: Karberê qeydıni çıniyê
     rating: Sınıfe
     title: Sername
     view: Wesiqer bıvin
@@ -36,8 +38,28 @@ diq:
   courses:
     actions: Hereketi
     articles: Wesiqey
+    calendar:
+      legend: Kıtabek
     passcode: Passcode
     passcode_none: passcode çıni yo
+    school: Wendxane
+    start: Serokne
+    students: Telebey
+    students_count: '# Telebey'
+    timeline_link: Demawexti
+    title: Sername
+  courses_generic:
+    courses: Programi
+    student_editors: Editori
+    students: Editori
+    students_short: Editori
+    term: Key
+  editable:
+    edit: Bıvurne
+    cancel: Bıtexelne
+    save: Qeyd ke
+  metrics:
+    activity: Aktiviteya peyêne
   uploads:
     usages: Karidayışi
 ...

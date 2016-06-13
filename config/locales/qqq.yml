@@ -6,6 +6,7 @@
 # Author: Liuxinyu970226
 # Author: Macofe
 # Author: MojoMann
+# Author: Ragesoss
 # Author: Robby
 # Author: Vojtěch Dostál
 ---
@@ -22,6 +23,11 @@ qqq:
     explore: |-
       Explore link
       {{Identical|Explore}}
+    field_required: |-
+      Message displayed to a user if a field is required, but not filled out when they try to submit.
+      {{Identical|Required}}
+    field_invalid_characters: Error message shown when a user submits a form with
+      invalid data
     greeting2: |-
       Enthusiastic greeting
       {{Identical|Welcome}}
@@ -62,6 +68,8 @@ qqq:
       (Wiki Ed only)
 
       See: {{msg-wm|Wikiedudashboard-course creator.create short}}
+    create_preparation_note: Message providing advice top instructors before they
+      create their first course. (Wiki Ed only)
     explore_course_pages: Link to explore courses pages (Wiki Ed only)
     explore_examples: Link to explore example courses
     join_note: |-
@@ -73,7 +81,10 @@ qqq:
     no_courses_student: Note that you can join courses (Wiki Ed only)
     opt_out: Link to opt out (Wiki Ed only)
     orientation_notice: Note suggesting an orientation (Wiki Ed only)
+    review_orientation: Link to return to the new instructor orientation after it
+      has been completed. (Wiki Ed only)
     start_orientation: Link to start orientation (Wiki Ed only)
+    blog_headline: Header for a feed of recent Wiki Ed blog posts. (Wiki Ed only)
   home:
     explore: |-
       Explore button
@@ -89,6 +100,7 @@ qqq:
   articles:
     assigned: Label for a list of assigned articles
     available: Label for a list of articles not assigned to anyone
+    assigned_to: Table header for the user who is assigned to work on an article
     character_doc: Documentation for an article's character total add and remove count.
     edited: Label for a list of articles edited.
     edited_mobile: '{{Identical|Article}}'
@@ -131,7 +143,12 @@ qqq:
     already_exists: Message displayed when trying to create a duplicate assignment
     assignees: '{{Identical|Assignee}}'
     assign_other: Button to assign an article to a student
+    add_available: Button to add an article title to the list of articles available
+      for program participants to work on
     assign_self: Button to assign an article to self
+    confirm_add_available: Confirmation message for adding an article as an assignment
+      that is available for other participants to work on. "title" is a wiki page
+      title.
     confirm_addition: Confirmation dialog for adding a new assignment. %{title} is
       the Wikipedia page title. %{username} is the username of the assignee.
     confirm_deletion: Confirmation dialog for an assignment should be deleted
@@ -141,12 +158,17 @@ qqq:
     loading: Placeholder message indicating that assignment data is still loading
     none_short: Short label for an empty list of assignments
     none: Label for an empty list of assignments
-    remove: Button to remove an article from the list of available articles
+    no_available: Message indicating that there are no articles in the list of "available
+      articles" for participants to select from.
+    remove: |-
+      Button to remove an article from the list of available articles
+      {{Identical|Remove}}
     reviewers: '{{Identical|Reviewer}}'
     review_other: Button to assign an article to a student for review
     review_self: Button to assign an article to self for review
-    select: Button to choose an available article to work on.
-      It appears next to the title of the article.
+    select: |-
+      Button to choose an available article to work on. It appears next to the title of the article.
+      {{Identical|Select}}
   blocks:
     milestones:
       title: Label for the Milestone section of a course page (Wiki Ed only)
@@ -170,6 +192,7 @@ qqq:
     assignment_end: The date on which the planned Wikipedia activities for a course
       end. (Wiki Ed only)
     assignments_none: Message indicating that no articles are assigned (Wiki Ed only)
+    assignment_start: Label for start date of assignment timeline (Wiki Ed only)
     calendar:
       legend: |-
         Label for the legend that explains the course meeting days calendar
@@ -270,6 +293,8 @@ qqq:
     none: Default placeholder to indicate that there are no items in a list. Used
       to indicate that there are no instructors in a course, or the course is part
       of no cohorts. '{{Identical|None}}'
+    notify_untrained_confirmation: Confirmation message explaning that talk page notification
+      will be posted. (Wiki Ed only)
     no_available_actions: Placeholder message when no action buttons are available
     overview: Label for link to the overview page for a course
     passcode: |-
@@ -277,6 +302,8 @@ qqq:
       {{Identical|Passcode}}
     published: Message explaining how students can enroll in the course (Wiki Ed only)
     review_timeline: Message prompting user to review the timeline (Wiki Ed only)
+    revisions_doc: Message explaining the meaning of "Recent edits" 'timeframe' is
+      a number.
     start: |-
       Label for the start date of a course
       '{{Identical|Start}}'
@@ -340,6 +367,7 @@ qqq:
     expected_students: Label for expected number of participants
     instructors: Label for users who are organizing the program
     milestones_none: Message indicating that there are no timeline milestone to show
+    published: Message indicating how editors can join a program
     revisions_none: Message indicating that there are no revisions to show
     student_editors: '{{Identical|Editor}}'
     students: '{{Identical|Editor}}'
@@ -365,6 +393,8 @@ qqq:
     char: Label for number of characters added and removed.
     date_time: Label for a revision or activity timestamp.
     edit_count_description: Label for the number of edits made.
+    per_user: The average number of words contributed to articles per user, for a
+      program. 'number' is a number of words.
     revisions: Label for the number of recent edits/revisions.
     upload_count: Label for the number of files uploaded to Wikimedia Commons
     uploads_in_use_count: Label for the number of Wikimedia Commons files being used
@@ -431,6 +461,8 @@ qqq:
     block_milestone: '{{Identical|Milestone}}'
     empty_week_3: '{{Identical|Or}}'
     gradeable_value: '{{Identical|Value}}'
+    grading_header: Header for Grading section of course timeline. 'total' is a number,
+      the sum of all the values for graded assignments.
     title: '{{Identical|Timeline}}'
     week_number: '{{Identical|Week}}'
   training:
@@ -446,6 +478,7 @@ qqq:
     label: |-
       Short name for uploads
       {{Identical|Upload}}
+    loading: Placeholder in table of Commons uploads, before data has loaded
   users:
     already_enrolled: Message indicating that a user is already enrolled in the course
       and cannot be enrolled again.
@@ -456,6 +489,11 @@ qqq:
     contributions: Label for list of contributions by a user
     contributions_more: Label for a link that loads more of a user's contributions
     editors: Label for the number of students enrolled in a course
+    enroll_confirmation: Confirmation message for adding an user to a project. "username"
+      is the Wikimedia username of the user being added.
+    enrolled_success: Confirmation message indicating that a user was successfully
+      added to the program or course. 'username' is the Wikimedia username of the
+      added user.
     first_name: '{{Identical|First name}}'
     last_name: '{{Identical|Last name}}'
     loading: Message indicating that information about users is still loading
@@ -465,6 +503,12 @@ qqq:
     name: Label for usernames of students
     none: Message indicating that a course has no students enrolled
     number_of_articles: '{{Identical|Article}}'
+    remove_confirmation: Confirmation message for removing a user from a program or
+      course. "username" is the Wikimedia username of the user being added.
+    revision_characters_and_views: The number of characters of articles content added
+      by a user, and the number of pageviews that content has received since the user
+      began working on it. 'characters' is a number of characters, and 'views' is
+      a number of pageviews.
     reviewers: Label for list of users who are reviewers
     reviewing: Label for article or articles being reviewed by a user
     training_complete:
@@ -513,6 +557,9 @@ qqq:
       Header for the summary section
       (Wiki Ed only)
       {{Identical|Summary}}
+  error:
+    unsupported_browser:
+      header: Error message indicating that the user's browser is not supported
   error_404:
     header: Message indicating that a page doesn't exist.
     explanation: Message explaining why a user may have reached a page that doesn't
@@ -524,7 +571,18 @@ qqq:
     header: Message indicating a 500 internal server error.
     explanation: Explanation of what to do after encountering this error.
   survey:
+    login_message: Message prompting user to log in before taking a survey. (Wiki
+      Ed only)
+    notification_schedule_explanation: Message describing how survey notifications
+      work
     email:
       headline: '{{Identical|Hello}}'
+      message_line1: Email text for survey invitation. (Wiki Ed only)
+      message_line2: Email text for survey invitation. (Wiki Ed only)
       course: '{{Identical|Course}}'
+      closing: Valediction for survey email. (Wiki Ed only)
+      signed: Signature for survey email. (Wiki Ed only)
+      link: Link to take survey from email
+    follow_up:
+      message: Survey invitation email text. (Wiki Ed only)
 ...

@@ -41,7 +41,6 @@ lb:
     label: Artikelen
     loading: Artikele lueden...
     new: (nei)
-    no_assignee: Kengem Benotzer assignéiert.
     none: An dësem Cours goufe keng Artikele geännert.
     rating: Klass
     rating_doc: D'Bewäertung vum Artikel gouf vun de Wikiprojeten op wikipedia zougedeelt.
@@ -65,8 +64,11 @@ lb:
     view_doc: D'Zomme vun de Kéiere wou all Artikel während der Dauer vum Cours gewise
       gouf
   assignments:
+    add_available: En disponibelen Artikel derbäisetzen
     no_available: Dëse Cours huet keng disponibel Wikipedia-Artikelen.
+    remove: Ewechhuelen
     review_self: En Artikel nokucken
+    select: Eraussichen
   blocks:
     milestones:
       title: Kilometersténg

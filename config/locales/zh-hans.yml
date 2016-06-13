@@ -63,7 +63,6 @@ zh-hans:
     label: 条目
     loading: 正在加载条目...
     new: （新）
-    no_assignee: 没有分配用户
     none: 此课程没有编辑任何条目。
     rating: 等级
     rating_doc: 条目的等级由维基百科的对应专题分配。这些等级可能与旧有版本相对应，因此这些评级只是粗略的条目成熟度指标。
@@ -96,11 +95,13 @@ zh-hans:
     label: 分配
     loading: 正在加载作业...
     none_short: 没有分配的条目
-    none: 此课程没有被维基百科条目所分配。
-    no_available: 此课程没有可用的维基百科条目。
+    none: 此课程没有被条目所分配。
+    no_available: 此课程没有可用的条目。
+    remove: 移除
     reviewers: 复核员
     review_other: 分配一次复核
     review_self: 复核一个条目
+    select: 选择
   blocks:
     milestones:
       title: 里程碑
@@ -116,7 +117,7 @@ zh-hans:
     articles: 条目
     articles_none: 此课程没有编辑任何条目。
     assignment_end: 任务结束
-    assignments_none: 此课程没有分配的维基百科条目。
+    assignments_none: 此课程没有分配的条目。
     assignment_start: 任务开始
     calendar:
       legend: 图例
@@ -236,7 +237,7 @@ zh-hans:
   courses_generic:
     articles_none: 目前此项目尚无编辑的条目。
     assignment_end: 时间轴终点
-    assignments_none: 此项目没有分配的维基百科条目。
+    assignments_none: 此项目没有分配的条目。
     assignment_start: 时间轴起点
     courses: 程序
     creator:
@@ -283,8 +284,12 @@ zh-hans:
     per_user: '%{number}/用户'
     revisions: 最近编辑
     upload_count: 共享资源上传
-    uploads_in_use_count: 条目中使用的文件
-    upload_usages_count: 跨语言使用总计
+    uploads_in_use_count:
+      one: 条目中使用的文件
+      other: 条目中使用的文件
+    upload_usages_count:
+      one: 跨语言使用总计
+      other: 跨语言使用总计
     view_count_description: 条目查阅
     view: 查看
     word_count: 添加的文字
@@ -404,7 +409,9 @@ zh-hans:
     none: 这里没有参与者。
     no_articles: 没有条目
     no_revisions: 这位编辑者没有做出修订。
-    number_of_articles: '%{number}个条目'
+    number_of_articles:
+      one: '%{count}个条目'
+      other: '%{count}个条目'
     recent_revisions: 最近编辑
     remove_confirmation: 您确定要移除%{username}吗？
     revision_characters_and_views: 添加的字符：%{characters}，浏览数：%{views}
@@ -416,7 +423,9 @@ zh-hans:
     training_complete_count: '%{count}最近的培训'
     training_doc: 已完成所有分配的已到期培训模块的编辑者可算作是最近完成训练的。
     training_incomplete: 培训未完成
-    training_modules_completed: '%{completed_count}/%{assigned_count}培训模块已完成'
+    training_modules_completed:
+      one: '%{completed_count}/%{count}培训模块已完成'
+      other: '%{completed_count}/%{count}培训模块已完成'
     up_to_date_with_training: 最近培训
     username: 用户名
     username_placeholder: 用户名

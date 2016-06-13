@@ -46,6 +46,7 @@ it:
     no_courses_student: Sembra che non ti si è ancora iscritto a un corso.
     review_orientation: Esamina orientamento
     start_orientation: Inizia orientamento
+    blog_headline: Notizie recenti da Wiki Ed
   home:
     explore: Esplora
     log_in: Accedi con Wikipedia
@@ -65,7 +66,6 @@ it:
     label: Voci
     loading: Caricamento articoli...
     new: (nuovo)
-    no_assignee: Nessun utente assegnato
     none: Questo corso non ha modificato alcuna voce.
     rating: Classe
     rating_docs:
@@ -100,10 +100,12 @@ it:
     label: Assegna
     loading: Caricando gli incarichi...
     none_short: Nessuna voce assegnata
-    none: Questo corso non ha assegnato voci di Wikipedia.
-    no_available: Questo corso non ha voci di Wikipedia disponibili.
+    none: Questo corso non ha voci assegnate.
+    no_available: Questo corso non ha voci disponibili.
+    remove: Rimuovi
     reviewers: Revisori
     review_self: Revisiona una voce
+    select: Seleziona
   cohort:
     none: Nessuno
   courses:
@@ -115,7 +117,7 @@ it:
     articles: Voci
     articles_none: Questo corso non ha modificato alcuna voce.
     assignment_end: Fine assegnazione
-    assignments_none: Questo corso non ha assegnato voci di Wikipedia.
+    assignments_none: Questo corso non ha voci assegnate.
     assignment_start: Inizio assegnazione
     calendar:
       legend: Legenda
@@ -249,7 +251,7 @@ it:
   courses_generic:
     articles_none: Non ci sono voci modificate per questo progetto ancora.
     assignment_end: Fine timeline
-    assignments_none: Questo progetto non ha assegnato voci di Wikipedia.
+    assignments_none: Questo progetto non ha voci assegnate.
     assignment_start: Inizio timeline
     courses: Programmi
     creator:
@@ -299,8 +301,12 @@ it:
     per_user: '%{number}/utente'
     revisions: Modifiche recenti
     upload_count: Caricamenti Commons
-    uploads_in_use_count: file usati nelle voci
-    upload_usages_count: totale usi nelle varie lingue
+    uploads_in_use_count:
+      one: file usato in una voce
+      other: file usati nelle voci
+    upload_usages_count:
+      one: utilizzo totale nelle varie lingue
+      other: utilizzi totali nelle varie lingue
     view_count_description: Visite alla voce
     view: Visualizzazioni
     word_count: Parole aggiunte
@@ -400,7 +406,9 @@ it:
     none: Non ci sono partecipanti.
     no_articles: Nessuna voce
     no_revisions: Questo editor non ha creato versioni.
-    number_of_articles: '%{number} voci'
+    number_of_articles:
+      one: '%{count} voce'
+      other: '%{count} voci'
     recent_revisions: Modifiche recenti
     remove_confirmation: Sei sicuro di voler rimuovere %{username}?
     revision_characters_and_views: 'Caratteri aggiunti: %{characters}, Visualizzazioni:
@@ -415,8 +423,9 @@ it:
     training_doc: Gli utenti che hanno completato tutti i moduli di formazione da
       fare sono considerati come utenti aggiornati  per quanto riguarda la loro formazione.
     training_incomplete: Formazione incompleta
-    training_modules_completed: '%{completed_count}/%{assigned_count} moduli formativi
-      completati'
+    training_modules_completed:
+      one: '%{completed_count}/%{count} modulo formativo completato'
+      other: '%{completed_count}/%{count} moduli formativi completati'
     up_to_date_with_training: aggiornato con la formazione
     username: Nome utente
     username_placeholder: Nome utente
@@ -431,6 +440,7 @@ it:
     read_more: Leggi di più
     summary: Sommario
   error:
+    article_required: Una voce è necessaria.
     invalid_assignment: Assegnazione non valida
     unsupported_browser:
       header: Browser non supportato. :-(

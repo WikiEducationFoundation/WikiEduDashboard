@@ -2,10 +2,28 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Amara-Amaziɣ
+# Author: Aslmad mohamed belarhzali
 ---
 zgh:
+  application:
+    greeting: ⴰⵣⵓⵍ!
+    help: ⵜⵉⵡⵉⵙⵉ
+    change: ⵙⵏⴼⵍ
+  articles:
+    new: (ⴰⵎⴰⵢⵏⵓ)
+    title: ⴰⵣⵡⵍ
+    title_example: ⴰⵣⵡⵍ ⵏ ⵓⵎⴳⵔⴰⴷ
   courses:
     my_articles: ⵉⵎⴳⵔⴰⴷⵏ ⵉⵏⵓ
+    title: ⴰⵣⵡⵍ
+  courses_generic:
+    courses: ⵉⵖⴰⵡⴰⵙⵏ
+  recent_activity:
+    article_title: ⴰⵣⵡⵍ ⵏ ⵓⵎⴳⵔⴰⴷ
+    image: ⵜⴰⵡⵍⴰⴼⵜ
+    file_name: ⵉⵙⵎ ⵏ ⵓⴼⴰⵢⵍⵓ
+  revisions:
+    title: ⴰⵣⵡⵍ
   uploads:
     datetime: ⴰⵙⴰⴽⵓⴷ/ⴰⴽⵓⴷ
     file_name: ⵉⵙⵎ ⵏ ⵓⴼⴰⵢⵍⵓ

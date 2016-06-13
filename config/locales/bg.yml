@@ -1,12 +1,24 @@
 # Messages for Bulgarian (български)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Termininja
 # Author: V111P
 # Author: Лорд Бъмбъри
 ---
 bg:
   application:
     search: Задаване на въпрос
+    change: Промяна
+  assignments:
+    remove: Премахване
+    select: Избиране
+  courses:
+    enroll: Записване
+    my_articles: Моите статии
+  courses_generic:
+    courses: Програми
+    creator:
+      find: Намери програма
   users:
     assign_articles_done: Готово
 ...

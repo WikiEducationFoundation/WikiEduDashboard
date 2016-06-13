@@ -46,18 +46,23 @@ pl:
     label: Artykuły
     loading: Wczytywanie artykułów...
     new: (nowy)
-    no_assignee: Żaden użytkownik nie jest przypisany
     rating: Klasa
     title: Tytuł
     title_example: Tytuł artykułu
     view: Zobacz artykuł
     view_all: Zobacz wszystkie
   assignments:
+    add_available: Dodaj dostępny artykuł
     confirm_add_available: Czy na pewno chcesz dodać %{title}?
     confirm_addition: Czy na pewno chcesz przypisać %{title} do %{username}?
+    none: Ten kurs nie ma przypisanych artykułów.
+    no_available: Ten kurs nie ma dostępnych artykułów.
+    remove: Usuń
+    select: Wybierz
   courses:
     activity: Aktywność
     articles: Artykuły
+    assignments_none: Ten kurs nie ma przypisanych artykułów.
     calendar:
       legend: Legenda
     course_description: Kursy
@@ -89,6 +94,7 @@ pl:
     view_wiki: Zobacz w Wikipedii
     yourcourses: Twoje Kursy
   courses_generic:
+    assignments_none: Ten projekt nie ma przypisanych artykułów.
     courses: Programy
     creator:
       checking_for_uniqueness: Ten program jest sprawdzany pod kątem niepowtarzalności.
@@ -101,6 +107,9 @@ pl:
     save: Zapisz
   metrics:
     date_time: Data/Czas
+    uploads_in_use_count:
+      one: plik użyty w artykule
+      other: pliki użyty w artykułach
   namespace:
     user: Przestrzeń użytkownika
     user_ns: Użytkownik
@@ -149,7 +158,9 @@ pl:
     none: Brak uczestników.
     no_articles: Brak artykułów
     no_revisions: Ten edytor nie wykonał żadnych zmian.
-    number_of_articles: '%{number} artykuły'
+    number_of_articles:
+      one: '%{count} artykuł'
+      other: '%{count} artykuły'
     remove_confirmation: Czy na pewno chcesz usunąć %{username}?
     revisions_doc: Liczba edycji dokonanych przez tego edytora w ciągu ostatnich 7
       dni

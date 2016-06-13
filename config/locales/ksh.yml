@@ -10,6 +10,7 @@ ksh:
     help: Hölp!
     log_out: Ußlogge
     search: Schtäll en Frohch
+    change: Änndere
   dashboard:
     opt_out: Donn noh_m Affschallde vun dä Ennföhrog frohre
   activity:
@@ -17,6 +18,7 @@ ksh:
     edited_by: Jeändert Vum
     label: Aktivitäht
   articles:
+    available: Atikelle, di noch keine zohjedeijlt hät
     assigned_to: Zohjedeijlt aan
     edited: Jeännderte Atikelle
     edited_mobile: Atikele
@@ -26,9 +28,16 @@ ksh:
     view: Atikel belohre
     view_all: Alle belohre
   assignments:
+    add_available: Donn ene Atikkel derbei, dä et ald jitt
+    confirm_add_available: Wells De dä/dat %{title} verhaftesch derbei donn?<!-- https://phabricator.wikimedia.org/T137409
+      -->
     confirm_addition: Wells De verhaftesch %{title} aan der Metmaacher %{username}
       zohwihse?
     loading: Ben de Aufjahbe aam Lahde&nbsp;&hellip;
+    none: För dä Lihrjang sin kein Atikelle zohjedeijlt
+    no_available: För dä Lihrjang sin kein Atikelle ze han.
+    remove: Nemm fott!
+    select: Ußsöhke
   blocks:
     milestones:
       title: Meijleschtein
@@ -36,6 +45,7 @@ ksh:
     activity: Aktivitäht
     actions: Akßjuhne
     articles: Atikele
+    assignments_none: För dä Lihrjang sin kein Atikelle zohjedeijlt
     calendar:
       legend_class_not_meeting: Keij Träfe es jeplahnt
     course_description: Korse för em Wikki ze liehre.
@@ -91,6 +101,11 @@ ksh:
     date_time: Dattum un Zigg
     edit_count_description: Änderonge ensjesamp
     revisions: Köözlesche Änderonge
+    uploads_in_use_count:
+      zero: keine Dattei weeed en enem Atikel jebruch
+      one: Ein Dattei weeed en enem Atikel jebruch
+      other: '%{count} Dateije wähde en Atikele jebruch'
+    upload_usages_count: Wi öff jebruch en alle Schprohche un Projäkte zesamme jenumme
     view_count_description: Aanzahl Affrohfe vun Atikelle
     view: Aanzahl Affrohfe
   namespace:
@@ -146,15 +161,23 @@ ksh:
     my_assigned: 'Zohjedeijlt:'
     name: Nahme
     no_articles: Kein Atikelle
-    number_of_articles: '%{number} Atikele'
+    number_of_articles:
+      zero: Keine Atikel
+      one: Eine Atikel
+      other: '%{count} Atikele'
     recent_revisions: Köözlesche Änderonge
     revision_characters_and_views: 'Zeijsche derbei jedonn: %{characters}, Aanseschte:
       %{views}'
+    training_modules_completed:
+      zero: Kein Moduhl affjeschloße
+      one: Eij Moduhl affjeschloße
+      other: '%{count} Moduhle affjeschloße'
     username: Metmaacher_Nahme
     username_placeholder: Metmaacher_Nahme
   wizard:
     summary: Zosammejefaß
   error:
+    article_required: Enne Atikel weed jebruch.
     invalid_assignment: Onjölltijje Zohdeijlong
     unsupported_browser:
       explanation: Do bes ene Brauser aam bruche, dä mem <i lang="en" xml:lang="en"

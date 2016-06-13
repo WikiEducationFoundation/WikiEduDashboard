@@ -44,7 +44,6 @@ oc:
     edited_mobile: Articles
     label: Articles
     loading: Cargament dels articles...
-    no_assignee: Cap d'utilizaire pas afectat
     rating: Classa
     title: Títol
     title_example: Títol de l’article

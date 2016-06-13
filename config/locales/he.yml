@@ -56,6 +56,7 @@ he:
     label: פעילות
   articles:
     assigned: ערכים מוקצים
+    available: ערכים זמינים
     assigned_to: 'מוקצה ל־:'
     character_doc: סך התווים שנוספו לערכים על־ידי עורכים רשומים בקורס בין תאריכי התחלה
       וסיום
@@ -64,7 +65,6 @@ he:
     label: ערכים
     loading: טעינת ערכים...
     new: (חדש)
-    no_assignee: לא הוקצה משתמש
     none: הקורס לא ערך שום ערך.
     rating: דירוג
     rating_doc: הדירוג שניתן לערך על ויקיפרויקט בוויקיפדיה. הדירוגים האלה יכולים להתייחס
@@ -93,16 +93,21 @@ he:
     already_exists: משימה זו כבר קיימת!
     assignees: משויכים
     assign_other: שייך ערך כמשימה
+    add_available: הוספת ערך זמין
     assign_self: שייך לי ערך כמשימה
+    confirm_add_available: האם ברצונך להוסיף את %{title}?
     confirm_addition: האם ברצונך באמת להקצות את %{title} למשתמש %{username}?
     confirm_deletion: באמת למחוק את המטלה הזאת?
     label: שיוך
     loading: טעינת מטלות...
     none_short: אין ערכים משוייכים
-    none: לקורס הזה לא הוקצו ערכים בוויקיפדיה.
+    none: לא הוקצו ערכים לקורס הזה.
+    no_available: לקורס הזה אין ערכים זמינים.
+    remove: הסרה
     reviewers: סוקרים
     review_other: שייך סקירה
     review_self: סקור ערך
+    select: בחירה
   blocks:
     milestones:
       title: אבני דרך
@@ -118,7 +123,7 @@ he:
     articles: ערכים
     articles_none: הקורס הזה לא ערך שום ערכים.
     assignment_end: סוף משימה
-    assignments_none: לקורס זה לא הוקצו ערכים בוויקיפדיה.
+    assignments_none: לא הוקצו ערכים לקורס הזה.
     assignment_start: תחילת משימה
     calendar:
       legend: מקרא
@@ -138,6 +143,8 @@ he:
     course_description: קורסים
     courses: קורסים
     creator:
+      already_exists: הקורס הזה כבר קיים. שִקלו לשנות את השם, בית־הספר או המועד שלו
+        כדי להפוך אותו לייחודי.
       cloned_course_calendar_instructions: בחר תאריכים להוספה או הסרה מלוח הזמנים
         (לדוגמה חגים, חופש מבית-הספר). לחץ על תארך בכדי לשנות בין לא מסומן, מסומן
         או מצב חופש. תאריכים של פעילויות קורסים יישתנו בהתאם לשבועות ללא פגישות שנקבעו.
@@ -254,7 +261,7 @@ he:
   courses_generic:
     articles_none: אין, עדיין, דפים ערוכים לפרוייקט זה.
     assignment_end: סוף ציר זמן
-    assignments_none: לקורס זה אין ערכים בוויקיפדיה שהוקצו.
+    assignments_none: לא הוקצו ערכים למיזם הזה.
     assignment_start: תחילת ציר זמן
     courses: תוכניות
     creator:
@@ -300,7 +307,9 @@ he:
     per_user: '%{number}/משתמש'
     revisions: עריכות אחרונות
     upload_count: העלאות לוויקישיתוף
-    uploads_in_use_count: קבצים הנמצאים בשימוש בערכים
+    uploads_in_use_count:
+      one: קובץ הנמצא בשימוש בערך
+      other: קבצים הנמצאים בשימוש בערכים
     upload_usages_count: כל השימושים בכל השפות
     view_count_description: צפיות בערכים
     view: צפיות
@@ -386,6 +395,7 @@ he:
     usages: שימושים
   users:
     already_enrolled: המשתמש הזה כבר רשום!
+    assign_articles: הקצאת ערך
     assign_articles_done: בוצע
     assigned: ערכים מוקצים
     assignees: אנשים מוקצים
@@ -406,7 +416,9 @@ he:
     name: שם
     none: אין משתתפים.
     no_articles: אין ערכים
-    number_of_articles: '%{number} ערכים'
+    number_of_articles:
+      one: ערך אחד
+      other: '%{count} ערכים'
     recent_revisions: עריכות אחרונות
     remove_confirmation: האם ברצונך להסיר את %{username}?
     revision_characters_and_views: 'תווים שנוספו: %{characters}, צפיות: %{views}'
@@ -441,6 +453,7 @@ he:
     select_assignment: נא לבחור את סוג המטלה שברצונך להוסיף לציר הזמן שלך.
     summary: סיכום
   error:
+    article_required: דרוש ערך.
     invalid_assignment: משימה לא תקינה
     oauth_invalid: ההזדהות שלך מול וייקפדיה פגה. נא להיכנס שוב.
     unsupported_browser:

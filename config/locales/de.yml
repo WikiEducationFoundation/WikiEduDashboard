@@ -70,7 +70,6 @@ de:
     label: Artikel
     loading: Lade Artikel …
     new: (neu)
-    no_assignee: Keinem Benutzer zugeordnet
     none: Dieser Kurs hat keine Artikel bearbeitet.
     rating: Klasse
     rating_doc: Die Bewertung eines Artikels, die von den Wikiprojekten vergeben wurde.
@@ -109,11 +108,13 @@ de:
     label: Zuweisen
     loading: Lade Zuordnungen…
     none_short: Keine zugewiesenen Artikel
-    none: Dieser Kurs hat keine zugeordnete Wikipedia-Artikel.
-    no_available: Dieser Kurs hat keine verfügbaren Wikipedia-Artikel.
+    none: Dieser Kurs hat keine zugewiesenen Artikel.
+    no_available: Dieser Kurs hat keine verfügbaren Artikel.
+    remove: Entfernen
     reviewers: Prüfer/in(nen)
     review_other: Eine Überprüfung zuweisen
     review_self: Einen Artikel überprüfen
+    select: Auswählen
   blocks:
     milestones:
       title: Meilensteine
@@ -129,7 +130,7 @@ de:
     articles: Artikel
     articles_none: Dieser Kurs hat keine Artikel bearbeitet.
     assignment_end: Zuweisungs-Ende
-    assignments_none: Dieser Kurs hat keine zugewiesenen Wikipedia-Artikel.
+    assignments_none: Dieser Kurs hat keine zugewiesenen Artikel.
     assignment_start: Zuweisungs-Beginn
     calendar:
       legend: Legende
@@ -294,7 +295,7 @@ de:
   courses_generic:
     articles_none: Es gibt noch keine bearbeiteten Artikel für dieses Projekt.
     assignment_end: Zeitleisten-Ende
-    assignments_none: Dieses Projekt hat keine zugewiesenen Wikipedia-Artikel.
+    assignments_none: Dieses Projekt hat keine zugewiesenen Artikel.
     assignment_start: Zeitleisten-Beginn
     courses: Programme
     creator:
@@ -345,8 +346,12 @@ de:
     per_user: '%{number}/Benutzer'
     revisions: Letzte Bearbeitungen
     upload_count: Auf Commons hochgeladene Dateien
-    uploads_in_use_count: in Artikeln verwendete Dateien
-    upload_usages_count: Gesamte Verwendungen auf allen Sprachen
+    uploads_in_use_count:
+      one: in einem Artikel verwendete Datei
+      other: in Artikeln verwendete Dateien
+    upload_usages_count:
+      one: Gesamte Verwendung auf allen Sprachen
+      other: Gesamte Verwendungen auf allen Sprachen
     view_count_description: Artikelaufrufe
     view: Aufrufe
     word_count: Hinzugefügte Wörter
@@ -494,7 +499,9 @@ de:
     none: Es gibt keine Teilnehmer.
     no_articles: Keine Artikel
     no_revisions: Dieser Autor hat keine Bearbeitungen durchgeführt.
-    number_of_articles: '%{number} Artikel'
+    number_of_articles:
+      one: Ein Artikel
+      other: '%{count} Artikel'
     recent_revisions: Letzte Bearbeitungen
     remove_confirmation: Bist du sicher, dass du %{username} entfernen möchtest?
     revision_characters_and_views: 'Hinzugefügte Zeichen: %{characters}, Aufrufe:
@@ -510,8 +517,9 @@ de:
     training_doc: Autoren, die alle zugewiesenen fälligen Ausbildungsmodule vervollständigt
       haben, werden mit ihrer Ausbildung als „auf dem Laufenden“ gezählt.
     training_incomplete: Ausbildung unvollständig
-    training_modules_completed: '%{completed_count} von %{assigned_count} Ausbildungsmodulen
-      abgeschlossen'
+    training_modules_completed:
+      one: '%{completed_count}/%{count} abgeschlossenes Ausbildungsmodul'
+      other: '%{completed_count}/%{count} abgeschlossene Ausbildungsmodule'
     up_to_date_with_training: mit der Ausbildung auf dem Laufenden
     username: Benutzername
     username_placeholder: Benutzername

@@ -20,10 +20,11 @@ ko:
     dashboard: 위키 에듀 대시보드
     error: '오류가 있었습니다:'
     field_required: 이 칸은 반드시 입력해야 합니다
+    field_invalid_characters: 이 필드에 유효하지 않은 문자가 있습니다
     greeting2: 환영합니다!
     greeting_extended: 위키백과에 오신 것을 환영합니다
     greeting: 안녕하세요!
-    help: 도와주세요!
+    help: 도움말
     home: 대문
     log_in_extended: 위키백과에 로그인하기
     log_in: 로그인
@@ -40,6 +41,9 @@ ko:
     no_courses_instructor: 당신은 아무 코스도 가지고 있지 않습니다.
     no_courses_student: 아직 코스에 가입하지 않으셨네요.
     blog_headline: Wiki Ed의 최근�뉴스�
+  home:
+    log_in: 위키백과에 로그인하기
+    sign_up: 위키백과에 등록하기
   activity:
     all: 활동
     edited_by: '편집자 :'
@@ -53,7 +57,6 @@ ko:
     label: 문서
     loading: 문서 불러오는 중...
     new: (새)
-    no_assignee: 할당된 사용자 없음
     none: 이 코스는 어느 문서도 편집하지 않았습니다.
     rating: 클래스
     rating_docs:
@@ -76,6 +79,7 @@ ko:
     add_available: 가능한 기사를 추가하기�
     confirm_add_available: '%{title}를 추가하시겠습니까?'
     label: 할당
+    none_short: 할당된 글이 없습니다
     no_available: 이 코스에서는� 사용할 수 없는 위키피디어 기사들입니다.
     reviewers: 검토자
     review_self: 문서 미리보기
@@ -97,7 +101,7 @@ ko:
       legend_class_not_meeting: 예정된 미팅 없음
     confirm_course_deletion: '%{title} 코스를 정말 제거하겠습니까? 과정 제목을 입력하여 계속하세요.'
     confirm_course_deletion_failed: '"%{title}" 은(는) 이 과정의 제목이 아닙니다. 이 과정은 삭제되지 않았습니다.'
-    course_description: 위키 에듀 코스
+    course_description: 코스
     courses: 과정
     creator:
       assignment_end: 과제 종료
@@ -279,6 +283,7 @@ ko:
     read_more: 더 보기
     summary: 요약
   error:
+    article_required: 글이 필요합니다.
     unsupported_browser:
       header: 지원되지 않는 브라우저입니다. :-(
   error_401:

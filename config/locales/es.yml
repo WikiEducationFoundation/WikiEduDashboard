@@ -77,7 +77,6 @@ es:
     label: Artículos
     loading: Cargando artículos...
     new: (nuevo)
-    no_assignee: Sin usuario asignado
     none: Este curso no ha editado ningún artículo.
     rating: Clase
     rating_doc: La calificación que ha recibido un artículo de Wikiproyectos en la
@@ -118,11 +117,13 @@ es:
     label: Asignar
     loading: Cargando tareas...
     none_short: No hay artículos asignados
-    none: Este curso no tiene artículos de Wikipedia asignados.
-    no_available: Este curso no tiene artículos de Wikipedia disponibles.
+    none: Este curso no tiene artículos asignados.
+    no_available: Este curso no tiene artículos disponibles.
+    remove: Eliminar
     reviewers: Revisor(es)
     review_other: Asignar una revisión
     review_self: Revisar un artículo
+    select: Seleccionar
   blocks:
     milestones:
       title: Hitos
@@ -138,7 +139,7 @@ es:
     articles: Artículos
     articles_none: Este curso no ha editado ningún artículo.
     assignment_end: Fin de la tarea
-    assignments_none: Este curso no tiene artículos de Wikipedia asignados.
+    assignments_none: Este curso no tiene artículos asignados.
     assignment_start: Inicio de la tarea
     calendar:
       legend: Leyenda
@@ -302,7 +303,7 @@ es:
   courses_generic:
     articles_none: No hay artículos editados para este proyecto aún.
     assignment_end: Final del cronograma
-    assignments_none: Este curso no tiene artículos de Wikipedia asignados.
+    assignments_none: Este proyecto no tiene artículos asignados.
     assignment_start: Inicio del cronograma
     courses: Programas
     creator:
@@ -353,8 +354,12 @@ es:
     per_user: '%{number}/usuario'
     revisions: Ediciones recientes
     upload_count: Subidas a Commons
-    uploads_in_use_count: archivos utilizados en artículos
-    upload_usages_count: total de usos entre todos los idiomas
+    uploads_in_use_count:
+      one: archivo utilizado en un artículos
+      other: archivos utilizados en artículos
+    upload_usages_count:
+      one: total de uso entre todos los idiomas
+      other: total de usos entre todos los idiomas
     view_count_description: Visualizaciones del artículo
     view: Visualizaciones
     word_count: Palabras añadidas
@@ -500,7 +505,9 @@ es:
     none: No hay ningún participante.
     no_articles: Ningún artículo
     no_revisions: Este editor no ha hecho ninguna revisión.
-    number_of_articles: '%{number} artículos'
+    number_of_articles:
+      one: '%{count} artículo'
+      other: '%{count} artículos'
     recent_revisions: Ediciones recientes
     remove_confirmation: ¿Estás seguro que deseas eliminar a %{username}?
     revision_characters_and_views: 'Caracteres añadidos: %{characters}, Visitas: %{views}'
@@ -515,8 +522,9 @@ es:
     training_doc: Los editores que hayan completado todos los módulos de entrenamiento
       asignados se cuentan como al día con su entrenamiento.
     training_incomplete: Entranamiento incompleto
-    training_modules_completed: '%{completed_count}/%{assigned_count} módulos de entenamiento
-      completados'
+    training_modules_completed:
+      one: '%{completed_count}/%{count} módulo de entenamiento completado'
+      other: '%{completed_count}/%{count} módulos de entenamiento completados'
     up_to_date_with_training: al día con el entrenamiento
     username: Nombre de usuario
     username_placeholder: Nombre de usuario
