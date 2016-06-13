@@ -11,4 +11,10 @@
     All Cohorts
   %ul
     - @cohorts.each do |cohort|
-      %li= cohort.title
+      %li
+        = cohort.title
+        = " (CSVs: "
+        = link_to 'students', "cohorts/#{cohort.slug}/students.csv"
+        = ", "
+        = link_to 'students by course', "cohorts/#{cohort.slug}/students.csv?course=true"
+        = ")"

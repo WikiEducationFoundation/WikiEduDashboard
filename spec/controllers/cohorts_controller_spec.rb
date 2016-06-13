@@ -57,9 +57,23 @@ describe CohortsController do
                             role: CoursesUsers::Roles::STUDENT_ROLE)
     end
 
-    it 'returns a csv of student usernames' do
-      get :students, slug: cohort.slug, format: :csv
-      expect(response.body).to have_content(student.username)
+    context 'without "course" option' do
+      let(:request_params) { { slug: cohort.slug, format: :csv } }
+
+      it 'returns a csv of student usernames' do
+        get :students, request_params
+        expect(response.body).to have_content(student.username)
+      end
+    end
+
+    context 'with "course" option' do
+      let(:request_params) { { slug: cohort.slug, course: true, format: :csv } }
+
+      it 'returns a csv of student usernames with course slugs' do
+        get :students, request_params
+        expect(response.body).to have_content(student.username)
+        expect(response.body).to have_content(course.slug)
+      end
     end
   end
 end

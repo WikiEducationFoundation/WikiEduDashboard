@@ -21,11 +21,11 @@ class CohortsController < ApplicationController
   end
 
   def students
-    @cohort = Cohort.find_by(slug: params[:slug])
+    @cohort = Cohort.find_by(slug: csv_params[:slug])
     respond_to do |format|
       format.csv do
         filename = "#{@cohort.slug}-students-#{Date.today}.csv"
-        send_data @cohort.students_to_csv, filename: filename
+        send_data @cohort.to_csv(course: csv_params[:course]), filename: filename
       end
     end
   end
@@ -39,5 +39,9 @@ class CohortsController < ApplicationController
   def cohort_params
     params.require(:cohort)
           .permit(:title)
+  end
+
+  def csv_params
+    params.permit(:slug, :course)
   end
 end
