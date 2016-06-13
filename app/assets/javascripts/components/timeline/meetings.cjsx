@@ -4,6 +4,7 @@ Editable          = require '../high_order/editable.cjsx'
 Calendar          = require '../common/calendar.cjsx'
 Modal             = require '../common/modal.cjsx'
 TextInput         = require '../common/text_input.cjsx'
+DatePicker        = require '../common/date_picker.cjsx'
 CourseStore       = require '../../stores/course_store.coffee'
 CourseActions     = require('../../actions/course_actions.js').default
 ServerActions     = require('../../actions/server_actions.js').default
@@ -48,20 +49,18 @@ Meetings = React.createClass(
         <div className='course-dates__step'>
           <p>{I18n.t('timeline.course_dates_instructions')}</p>
           <div className='vertical-form full-width'>
-            <TextInput
+            <DatePicker
               onChange={@updateCourse}
               value={@state.course.start}
               value_key='start'
               editable=true
-              type='date'
               label={I18n.t('timeline.course_start')}
             />
-            <TextInput
+            <DatePicker
               onChange={@updateCourse}
               value={@state.course.end}
               value_key='end'
               editable=true
-              type='date'
               label={I18n.t('timeline.course_end')}
               date_props={minDate: moment(@state.course.start).add(1, 'week')}
               enabled={@state.course.start?}
@@ -72,21 +71,19 @@ Meetings = React.createClass(
         <div className='course-dates__step'>
           <p>{I18n.t('timeline.assignment_dates_instructions')}</p>
           <div className='vertical-form full-width'>
-            <TextInput
+            <DatePicker
               onChange={@updateCourse}
               value={@state.course.timeline_start}
               value_key='timeline_start'
               editable=true
-              type='date'
               label={I18n.t('courses.assignment_start')}
               date_props={timeline_start_props}
             />
-            <TextInput
+            <DatePicker
               onChange={@updateCourse}
               value={@state.course.timeline_end}
               value_key='timeline_end'
               editable=true
-              type='date'
               label={I18n.t('courses.assignment_end')}
               date_props={timeline_end_props}
               enabled={@state.course.start?}

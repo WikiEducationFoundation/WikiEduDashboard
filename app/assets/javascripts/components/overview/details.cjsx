@@ -6,6 +6,7 @@ TagButton         = require './tag_button.cjsx'
 CourseTypeSelector= require('./course_type_selector.jsx').default
 Editable          = require '../high_order/editable.cjsx'
 TextInput         = require '../common/text_input.cjsx'
+DatePicker        = require '../common/date_picker.cjsx'
 CourseActions     = require('../../actions/course_actions.js').default
 ServerActions     = require('../../actions/server_actions.js').default
 
@@ -87,12 +88,11 @@ Details = React.createClass(
 
       timeline_start = (
         <fieldset>
-          <TextInput
+          <DatePicker
             onChange={@updateDetails}
             value={@props.course.timeline_start}
             value_key='timeline_start'
             editable={@props.editable}
-            type='date'
             label={CourseUtils.i18n('assignment_start', @props.course.string_prefix)}
             date_props={timeline_start_props}
             required=true
@@ -101,12 +101,11 @@ Details = React.createClass(
       )
       timeline_end = (
         <fieldset>
-          <TextInput
+          <DatePicker
             onChange={@updateDetails}
             value={@props.course.timeline_end}
             value_key='timeline_end'
             editable={@props.editable}
-            type='date'
             label={CourseUtils.i18n('assignment_end', @props.course.string_prefix)}
             date_props={timeline_end_props}
             required=true
@@ -158,23 +157,21 @@ Details = React.createClass(
           {passcode}
           {expected_students}
           <fieldset>
-            <TextInput
+            <DatePicker
               onChange={@updateDetails}
               value={@props.course.start}
               value_key='start'
               editable={@props.editable}
-              type='date'
               label={I18n.t('courses.start')}
               required=true
             />
           </fieldset>
           <fieldset>
-            <TextInput
+            <DatePicker
               onChange={@updateDetails}
               value={@props.course.end}
               value_key='end'
               editable={@props.editable}
-              type='date'
               label={I18n.t('courses.end')}
               date_props={minDate: moment(@props.course.start).add(1, 'week')}
               enabled={@props.course.start?}

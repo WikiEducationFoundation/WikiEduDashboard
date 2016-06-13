@@ -1,6 +1,7 @@
 React         = require 'react'
 Panel         = require './panel.cjsx'
 TextInput     = require '../common/text_input.cjsx'
+DatePicker    = require '../common/date_picker.cjsx'
 CourseActions = require('../../actions/course_actions.js').default
 ServerActions = require('../../actions/server_actions.js').default
 
@@ -20,21 +21,19 @@ TimelinePanel = React.createClass(
 
     raw_options = (
       <div className='vertical-form'>
-        <TextInput
+        <DatePicker
           onChange={@updateDetails}
           value={@props.course.timeline_start}
           value_key='timeline_start'
           editable=true
-          type='date'
           label='Assignment Start'
           date_props={timeline_start_props}
         />
-        <TextInput
+        <DatePicker
           onChange={@updateDetails}
           value={@props.course.timeline_end}
           value_key='timeline_end'
           editable=true
-          type='date'
           label='Assignment End'
           date_props={timeline_end_props}
         />
