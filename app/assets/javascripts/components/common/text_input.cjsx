@@ -1,5 +1,4 @@
 React = require 'react'
-DatePicker = require 'react-datepicker'
 InputMixin = require '../../mixins/input_mixin.cjsx'
 Conditional = require '../high_order/conditional.cjsx'
 
@@ -34,43 +33,23 @@ TextInput = React.createClass(
       if @props.type == 'number'
         title = I18n.t('accessibility.number_field')
 
-      if @props.type == 'date'
-        # Note: normally we want an onBlur={@blur} prop on the DatePicker
-        # it's missing due to a bug in react-datepicker (#158)
-        input = (
-          <DatePicker
-            ref='input'
-            className={"#{inputClass} #{@props.value_key}"}
-            id={@props.id || ''}
-            selected={if @state.value? then moment(@state.value) else null}
-            onChange={@dateChange}
-            autoFocus={@props.focus}
-            onFocus={@focus}
-            placeholderText={@props.placeholder}
-            weekStart="0"
-            disabled={@props.enabled? && !@props.enabled}
-            isClearable={if @props.isClearable? then @props.isClearable else false}
-            {...@props.date_props}
-          />
-        )
-      else
-        input = (
-          <input
-            ref='input'
-            className={"#{inputClass} #{@props.value_key}"}
-            id={@props.id || ''}
-            value={@state.value}
-            onChange={@onChange}
-            autoFocus={@props.focus}
-            onFocus={@focus}
-            onBlur={@blur}
-            type={@props.type || 'text'}
-            placeholder={@props.placeholder}
-            title={title}
-            disabled={@props.enabled? && !@props.enabled}
-            min=0
-          />
-        )
+      input = (
+        <input
+          ref='input'
+          className={"#{inputClass} #{@props.value_key}"}
+          id={@props.id || ''}
+          value={@state.value}
+          onChange={@onChange}
+          autoFocus={@props.focus}
+          onFocus={@focus}
+          onBlur={@blur}
+          type={@props.type || 'text'}
+          placeholder={@props.placeholder}
+          title={title}
+          disabled={@props.enabled? && !@props.enabled}
+          min=0
+        />
+      )
 
       <label className={"#{inputClass} input_wrapper"}>
         <span className={labelClass}>{label}</span>

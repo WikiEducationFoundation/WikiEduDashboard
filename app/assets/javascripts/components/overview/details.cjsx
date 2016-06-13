@@ -6,7 +6,7 @@ TagButton         = require './tag_button.cjsx'
 CourseTypeSelector= require('./course_type_selector.jsx').default
 Editable          = require '../high_order/editable.cjsx'
 TextInput         = require '../common/text_input.cjsx'
-DatePicker        = require '../common/date_picker.cjsx'
+DatePicker        = require('../common/date_picker.jsx').default
 CourseActions     = require('../../actions/course_actions.js').default
 ServerActions     = require('../../actions/server_actions.js').default
 

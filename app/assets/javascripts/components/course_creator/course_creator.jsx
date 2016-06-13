@@ -11,7 +11,7 @@ import ServerActions from '../../actions/server_actions.js';
 
 import Modal from '../common/modal.cjsx';
 import TextInput from '../common/text_input.cjsx';
-import DatePicker from '../common/date_picker.cjsx';
+import DatePicker from '../common/date_picker.jsx';
 import TextAreaInput from '../common/text_area_input.cjsx';
 import CourseUtils from '../../utils/course_utils.js';
 import TransitionGroup from 'react-addons-css-transition-group';

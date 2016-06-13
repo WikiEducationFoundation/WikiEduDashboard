@@ -1,6 +1,6 @@
 React             = require 'react'
 TextInput         = require '../common/text_input.cjsx'
-DatePicker        = require '../common/date_picker.cjsx'
+DatePicker        = require('../common/date_picker.jsx').default
 TextAreaInput     = require '../common/text_area_input.cjsx'
 TrainingModules   = require '../training_modules.cjsx'
 Checkbox          = require('../common/checkbox.jsx').default
