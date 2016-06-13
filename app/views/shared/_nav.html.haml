@@ -18,6 +18,7 @@
         .top-nav__faq-search
           = form_tag("/ask", method: "get", target: '_blank') do
             = text_field_tag(:q, '', placeholder: t('application.search'))
+            = hidden_field_tag('source', 'nav_ask_form')
             %button{type: 'submit'}
               %i.icon.icon-search
     %ul.top-nav__login-links
