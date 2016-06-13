@@ -9,6 +9,7 @@ ValidationActions  = require('../../actions/validation_actions.js').default
 CourseActions = require('../../actions/course_actions.js').default
 
 TextInput     = require '../common/text_input.cjsx'
+DatePicker    = require('../common/date_picker.jsx').default
 TextAreaInput = require '../common/text_area_input.cjsx'
 Calendar      = require '../common/calendar.cjsx'
 CourseUtils   = require('../../utils/course_utils.js').default
@@ -155,27 +156,25 @@ CourseClonedModal = React.createClass(
               editable=true
               label={I18n.t('courses.creator.course_description')}
             />
-            <TextInput
+            <DatePicker
               id='course_start'
               onChange={@updateCourse}
               value={if @state.valuesUpdated then @props.course.start else null}
               value_key='start'
               required=true
               editable=true
-              type='date'
               label={I18n.t('courses.creator.start_date')}
               placeholder={I18n.t('courses.creator.start_date_placeholder')}
               blank=true
               isClearable=false
             />
-            <TextInput
+            <DatePicker
               id='course_end'
               onChange={@updateCourse}
               value={if @state.valuesUpdated then @props.course.end else null}
               value_key='end'
               required=true
               editable=true
-              type='date'
               label={I18n.t('courses.creator.end_date')}
               placeholder={I18n.t('courses.creator.end_date_placeholder')}
               blank=true
@@ -184,28 +183,26 @@ CourseClonedModal = React.createClass(
               isClearable=false
             />
 
-            <TextInput
+            <DatePicker
               id='timeline_start'
               onChange={@updateCourse}
               value={if @state.valuesUpdated then @props.course.timeline_start else null}
               value_key='timeline_start'
               required=true
               editable=true
-              type='date'
               label={I18n.t('courses.creator.assignment_start')}
               placeholder={I18n.t('courses.creator.assignment_start_placeholder')}
               blank=true
               isClearable=false
             />
 
-            <TextInput
+            <DatePicker
               id='timeline_end'
               onChange={@updateCourse}
               value={if @state.valuesUpdated then @props.course.timeline_end else null}
               value_key='timeline_end'
               required=true
               editable=true
-              type='date'
               label={I18n.t('courses.creator.assignment_end')}
               placeholder={I18n.t('courses.creator.assignment_end_placeholder')}
               blank=true

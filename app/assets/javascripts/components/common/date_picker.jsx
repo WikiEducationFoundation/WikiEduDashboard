@@ -1,0 +1,185 @@
+import React from 'react';
+import DayPicker from 'react-day-picker';
+import OnClickOutside from 'react-onclickoutside';
+import InputMixin from '../../mixins/input_mixin.cjsx';
+import Conditional from '../high_order/conditional.cjsx';
+
+const DatePicker = React.createClass({
+  displayName: 'DatePicker',
+
+  propTypes: {
+    id: React.PropTypes.string,
+    value: React.PropTypes.string,
+    value_key: React.PropTypes.string,
+    spacer: React.PropTypes.string,
+    label: React.PropTypes.string,
+    valueClass: React.PropTypes.string,
+    editable: React.PropTypes.bool,
+    enabled: React.PropTypes.bool,
+    focus: React.PropTypes.bool,
+    inline: React.PropTypes.bool,
+    isClearable: React.PropTypes.bool,
+    placeholder: React.PropTypes.string,
+    p_tag_classname: React.PropTypes.string,
+    onBlur: React.PropTypes.func,
+    onFocus: React.PropTypes.func,
+    onClick: React.PropTypes.func,
+    append: React.PropTypes.string
+  },
+
+  mixins: [InputMixin],
+
+  getInitialState() {
+    return {
+      value: this.props.value,
+      datePickerVisible: false
+    };
+  },
+
+  componentWillReceiveProps(nextProps) {
+    if (this.state.value === null) {
+      return this.setState({ value: nextProps.value });
+    }
+  },
+
+  handleDatePickerChange(e, selectedDate) {
+    const date = moment(selectedDate).format('YYYY-MM-DD');
+    this.onChange({ target: { value: date } });
+    return this.setState({ datePickerVisible: false });
+  },
+
+  handleDateFieldChange(e) {
+    const { value } = e.target;
+    return this.onChange({ target: { value } });
+  },
+
+  handleClickOutside() {
+    if (this.state.datePickerVisible) {
+      return this.setState(
+                           { datePickerVisible: false });
+    }
+  },
+
+  handleDateFieldClick() {
+    if (!this.state.datePickerVisible) {
+      return this.setState(
+                           { datePickerVisible: true });
+    }
+  },
+
+  handleDateFieldFocus() {
+    return this.setState(
+                         { datePickerVisible: true });
+  },
+
+  handleDateFieldBlur() {
+    if (this.state.datePickerVisible) {
+      return this.refs.datefield.focus();
+    }
+  },
+
+  handleDateFieldKeyDown(e) {
+    // Close picker if tab, enter, or escape
+    if (_.includes([9, 13, 27], e.keyCode)) {
+      return this.setState(
+                           { datePickerVisible: false });
+    }
+  },
+
+  isDaySelected(date) {
+    const currentDate = moment(date).format('YYYY-MM-DD');
+    return currentDate === this.state.value;
+  },
+
+  showCurrentDate() {
+    return this.refs.daypicker.showMonth(this.state.month);
+  },
+
+  render() {
+    const spacer = this.props.spacer || ': ';
+    let label;
+    let currentMonth;
+
+    if (this.props.label) {
+      label = this.props.label;
+      label += spacer;
+    }
+
+    const { value } = this.props;
+
+    let valueClass = 'text-input-component__value ';
+    if (this.props.valueClass) { valueClass += this.props.valueClass; }
+
+    if (this.props.editable) {
+      let labelClass = '';
+      let inputClass = (this.props.inline !== null) && this.props.inline ? ' inline' : '';
+
+      if (this.state.invalid) {
+        labelClass += 'red';
+        inputClass += 'invalid';
+      }
+
+      const date = moment(this.state.value, 'YYYY-MM-DD');
+
+      if (date.isValid()) {
+        currentMonth = date.toDate();
+      } else {
+        currentMonth = new Date();
+      }
+
+      const modifiers = { selected: this.isDaySelected };
+
+      const input = (
+        <div className="date-input">
+          <input
+            id={this.props.id || ''}
+            ref="datefield"
+            value={this.state.value}
+            className={`${inputClass} ${this.props.value_key}`}
+            onChange={this.handleDateFieldChange}
+            onClick={this.handleDateFieldClick}
+            disabled={this.props.enabled && !this.props.enabled}
+            autoFocus={this.props.focus}
+            isClearable={this.props.isClearable}
+            onFocus={this.handleDateFieldFocus}
+            onBlur={this.handleDateFieldBlur}
+            onKeyDown={this.handleDateFieldKeyDown}
+            placeholder={this.props.placeholder}
+          />
+
+          <DayPicker
+            className={this.state.datePickerVisible ? 'DayPicker--visible ignore-react-onclickoutside' : null}
+            ref="daypicker"
+            tabIndex={-1}
+            modifiers={modifiers}
+            onDayClick={this.handleDatePickerChange}
+            initialMonth={currentMonth}
+          />
+        </div>
+      );
+
+      return (
+        <div className={`${inputClass} input_wrapper`}>
+          <label className={labelClass}>{label}</label>
+          {(this.props.value !== null || this.props.editable) && !this.props.label ? spacer : null}
+          {input}
+        </div>
+      );
+    } else if (this.props.label !== null) {
+      return (
+        <p className={this.props.p_tag_classname}>
+          <span className="text-input-component__label">{label}</span>
+          <span>{(this.props.value !== null || this.props.editable) && !this.props.label ? spacer : null}</span>
+          <span onBlur={this.props.onBlur} onClick={this.props.onClick} className={valueClass}>{value}</span>
+          {this.props.append}
+        </p>
+      );
+    }
+
+    return (
+      <span>{value}</span>
+    );
+  }
+});
+
+export default Conditional(OnClickOutside(DatePicker));

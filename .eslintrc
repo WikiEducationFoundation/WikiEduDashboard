@@ -25,6 +25,7 @@
     "$": true,
     "jQuery": true,
     "I18n": true,
-    "_": true
+    "_": true,
+    "moment": true
   }
 }

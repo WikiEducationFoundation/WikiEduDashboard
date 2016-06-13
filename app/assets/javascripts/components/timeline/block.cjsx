@@ -1,5 +1,6 @@
 React             = require 'react'
 TextInput         = require '../common/text_input.cjsx'
+DatePicker        = require('../common/date_picker.jsx').default
 TextAreaInput     = require '../common/text_area_input.cjsx'
 TrainingModules   = require '../training_modules.cjsx'
 Checkbox          = require('../common/checkbox.jsx').default
@@ -171,12 +172,11 @@ Block = React.createClass(
       </div>
       <div className='block__edit-container'>
         <div className="block__block-due-date">
-          <TextInput
+          <DatePicker
             onChange={@updateBlock}
             value={@props.block.due_date}
             value_key='due_date'
             editable={@_isEditable()}
-            type='date'
             label='Due date'
             spacer=''
             placeholder='Due date'

@@ -2,6 +2,7 @@ React         = require 'react'
 ReactDOM      = require 'react-dom'
 Panel         = require './panel.cjsx'
 TextInput     = require '../common/text_input.cjsx'
+DatePicker    = require('../common/date_picker.jsx').default
 Calendar      = require '../common/calendar.cjsx'
 CourseActions = require('../../actions/course_actions.js').default
 ServerActions = require('../../actions/server_actions.js').default
@@ -48,20 +49,18 @@ FormPanel = React.createClass(
         <div className='course-dates__step'>
           {step1}
           <div className='vertical-form full-width'>
-            <TextInput
+            <DatePicker
               onChange={@updateDetails}
               value={@props.course.start}
               value_key='start'
               editable=true
-              type='date'
               label='Course Start'
             />
-            <TextInput
+            <DatePicker
               onChange={@updateDetails}
               value={@props.course.end}
               value_key='end'
               editable=true
-              type='date'
               label='Course End'
               date_props={minDate: moment(@props.course.start).add(1, 'week')}
               enabled={@props.course.start?}

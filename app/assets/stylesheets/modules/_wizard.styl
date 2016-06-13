@@ -263,14 +263,13 @@ p.red
   .vertical-form.full-width
     width 100%
     margin 0 0 0 35px
-    label
+    .input_wrapper
       float left
       display inline
       margin-right 25px
-
   .WeekdayPicker.DayPicker
     margin-left 20px
-  .DayPicker
+  .course-dates__calendar-container .DayPicker
     margin-left 33px
   h2
     margin-bottom 15px
@@ -332,15 +331,18 @@ p.red
 
 
 /* Cloned course modal styles */
-.wizard__panel.active.cloned-course
+.wizard__panel.active.cloned-course 
   .column:last-of-type
     margin-right 0
 
   .WeekdayPicker.DayPicker
     margin-left 0
-  .DayPicker.DayPicker--en
-    margin-left 0
-    width 100%
+  
+  .course-dates__calendar-container
+    .DayPicker.DayPicker--en
+      margin-left 0
+      width 100%
+  
   .course-dates__calendar-key
     margin-left 0
     border-left 0
