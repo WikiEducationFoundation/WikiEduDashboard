@@ -41,14 +41,6 @@ def go_through_course_dates_and_timeline_dates
   within('.wizard__panel.active') do
     expect(page).not_to have_css('button.dark[disabled=disabled]')
   end
-  find('div.DayPicker-Day', text: '14').click
-  # Verify that the 14th is a blackout date
-  find('div.DayPicker-Day--bordered', text: '14')
-  # Click again to unselect it
-  find('div.DayPicker-Day', text: '14').click
-  find('div.DayPicker-Day--highlighted', text: '14')
-
-  find('div.DayPicker-Day', text: '20').click
   click_button 'Next'
   sleep 1
 end
@@ -144,12 +136,12 @@ describe 'New course creation and editing', type: :feature do
       find('#course_expected_students').set('500')
       find('textarea').set('In this course, we study things.')
 
-      # TODO: test the date picker instead of just setting fields
       start_date = '2015-01-01'
       end_date = '2015-12-15'
       find('input[placeholder="Start date (YYYY-MM-DD)"]').set(start_date)
-      find('input[placeholder="End date (YYYY-MM-DD)"]').set(end_date)
-      find('div.wizard__panel').click # click to escape the calendar popup
+      find('div.DayPicker-Day--selected', text: '1').click
+      find('input[placeholder="End date (YYYY-MM-DD)"]').set('2015-12-01')
+      find('div.DayPicker-Day', text: '15').click
 
       sleep 1
 
@@ -165,6 +157,8 @@ describe 'New course creation and editing', type: :feature do
       expect(page).to have_css('button.dark[disabled=""]')
       start_input = find('input.start', match: :first).value
       expect(start_input).to eq(start_date)
+      end_input = find('input.end', match: :first).value
+      expect(end_input).to eq(end_date)
 
       # capybara doesn't like trying to click the calendar
       # to set a blackout date
@@ -284,10 +278,10 @@ describe 'New course creation and editing', type: :feature do
       end_date = '2015-12-15'
       find('input[placeholder="Start date (YYYY-MM-DD)"]').set(start_date)
       find('input[placeholder="End date (YYYY-MM-DD)"]').set(end_date)
-      sleep 1
+      find('div.wizard__panel').click # click to escape the calendar popup
 
       # This click should not successfully create a course.
-      find('button.dark').click
+      click_button 'Create my Course!'
       expect(page).to have_content 'This course already exists'
       expect(Course.all.count).to eq(1)
     end
