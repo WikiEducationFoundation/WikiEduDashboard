@@ -2,6 +2,7 @@
 
 React = require 'react'
 UIActions = require('../../actions/ui_actions.js').default
+ValidationStore = require('../../stores/validation_store.coffee')
 
 Editable = (Component, Stores, Save, GetState, Label, SaveLabel, SaveOnly) ->
   React.createClass(
@@ -10,9 +11,12 @@ Editable = (Component, Stores, Save, GetState, Label, SaveLabel, SaveOnly) ->
     toggleEditable: ->
       @setState editable: !@state.editable
     saveChanges: ->
-      UIActions.open null
-      Save $.extend(true, {}, @state), @props.course_id
-      @toggleEditable()
+      if ValidationStore.isValid()
+        UIActions.open null
+        Save $.extend(true, {}, @state), @props.course_id
+        @toggleEditable()
+      else
+        alert I18n.t('error.form_errors')
     cancelChanges: ->
       UIActions.open null
       store.restore() for store in Stores

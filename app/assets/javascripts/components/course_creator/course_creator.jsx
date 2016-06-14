@@ -289,7 +289,7 @@ const CourseCreator = React.createClass({
                   label={CourseUtils.i18n('creator.end_date', this.state.course_string_prefix)}
                   placeholder={I18n.t('courses.creator.end_date_placeholder')}
                   blank
-                  date_props={{ minDate: moment(this.state.course.start).add(1, 'week') }}
+                  date_props={{ minDate: moment(this.state.course.start, 'YYYY-MM-DD').add(1, 'week') }}
                   enabled={!!this.state.course.start}
                   isClearable={false}
                 />

@@ -558,6 +558,7 @@ qqq:
       (Wiki Ed only)
       {{Identical|Summary}}
   error:
+    form_errors: Generic error for form invalidation
     unsupported_browser:
       header: Error message indicating that the user's browser is not supported
   error_404:

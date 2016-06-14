@@ -6,8 +6,10 @@ Modal             = require '../common/modal.cjsx'
 TextInput         = require '../common/text_input.cjsx'
 DatePicker        = require('../common/date_picker.jsx').default
 CourseStore       = require '../../stores/course_store.coffee'
+ValidationStore   = require '../../stores/validation_store.coffee'
 CourseActions     = require('../../actions/course_actions.js').default
 ServerActions     = require('../../actions/server_actions.js').default
+CourseDateUtils   = require('../../utils/course_date_utils.coffee')
 
 getState = (course_id) ->
   course = CourseStore.getCourse()
@@ -27,7 +29,13 @@ Meetings = React.createClass(
   updateCourse: (value_key, value) ->
     to_pass = @state.course
     to_pass[value_key] = value
-    CourseActions.updateCourse to_pass, true
+    CourseActions.updateCourse to_pass
+  saveCourse: (e) ->
+    if ValidationStore.isValid()
+      CourseActions.persistCourse(@state, @state.course.slug)
+    else
+      e.preventDefault()
+      alert I18n.t('error.form_errors')
   updateCheckbox: (e) ->
     @updateCourse 'no_day_exceptions', e.target.checked
     @updateCourse 'day_exceptions', ''
@@ -37,11 +45,11 @@ Meetings = React.createClass(
     if enable then false else true
   render: ->
     timeline_start_props =
-      minDate: moment(@state.course.start)
-      maxDate: moment(@state.course.timeline_end).subtract(Math.max(1, @props.weeks), 'week')
+      minDate: moment(@state.course.start, 'YYYY-MM-DD')
+      maxDate: moment(@state.course.timeline_end, 'YYYY-MM-DD').subtract(Math.max(1, @props.weeks), 'week')
     timeline_end_props =
-      minDate: moment(@state.course.timeline_start).add(Math.max(1, @props.weeks), 'week')
-      maxDate: moment(@state.course.end)
+      minDate: moment(@state.course.timeline_start, 'YYYY-MM-DD').add(Math.max(1, @props.weeks), 'week')
+      maxDate: moment(@state.course.end, 'YYYY-MM-DD')
 
     <Modal >
       <div className='wizard__panel active'>
@@ -53,6 +61,7 @@ Meetings = React.createClass(
               onChange={@updateCourse}
               value={@state.course.start}
               value_key='start'
+              validation={CourseDateUtils.validationRegex()}
               editable=true
               label={I18n.t('timeline.course_start')}
             />
@@ -60,9 +69,10 @@ Meetings = React.createClass(
               onChange={@updateCourse}
               value={@state.course.end}
               value_key='end'
+              validation={CourseDateUtils.validationRegex()}
               editable=true
               label={I18n.t('timeline.course_end')}
-              date_props={minDate: moment(@state.course.start).add(1, 'week')}
+              date_props={minDate: moment(@state.course.start, 'YYYY-MM-DD').add(1, 'week')}
               enabled={@state.course.start?}
             />
           </div>
@@ -76,6 +86,7 @@ Meetings = React.createClass(
               value={@state.course.timeline_start}
               value_key='timeline_start'
               editable=true
+              validation={CourseDateUtils.validationRegex()}
               label={I18n.t('courses.assignment_start')}
               date_props={timeline_start_props}
             />
@@ -84,6 +95,7 @@ Meetings = React.createClass(
               value={@state.course.timeline_end}
               value_key='timeline_end'
               editable=true
+              validation={CourseDateUtils.validationRegex()}
               label={I18n.t('courses.assignment_end')}
               date_props={timeline_end_props}
               enabled={@state.course.start?}
@@ -110,7 +122,7 @@ Meetings = React.createClass(
         <div className='wizard__panel__controls'>
           <div className='left'></div>
           <div className='right'>
-            <CourseLink className="dark button #{if @saveDisabled() is true then 'disabled' else '' }" to="/courses/#{@state.course.slug}/timeline" id='course_cancel'>Done</CourseLink>
+            <CourseLink onClick={@saveCourse} className="dark button #{if @saveDisabled() is true then 'disabled' else '' }" to="/courses/#{@state.course.slug}/timeline" id='course_cancel'>Done</CourseLink>
           </div>
         </div>
       </div>
