@@ -8,6 +8,7 @@ def fill_out_open_course_creator_form
   fill_in 'Institution:', with: 'العَرَبِية'
   find('input[placeholder="Start date (YYYY-MM-DD)"]').set(Date.new(2017, 1, 4))
   find('input[placeholder="End date (YYYY-MM-DD)"]').set(Date.new(2017, 2, 1))
+  page.find('body').click
 end
 
 describe 'open course creation', type: :feature, js: true do

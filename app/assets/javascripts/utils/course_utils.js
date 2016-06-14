@@ -66,8 +66,9 @@ const CourseUtils = class {
   }
 
   articleFromAssignment(assignment) {
-    const project = assignment.project || 'wikipedia';
     const language = assignment.language || 'en';
+    const project = assignment.project || 'wikipedia';
+    const articleUrl = assignment.article_url || this.urlFromTitleAndWiki(assignment.article_title, language, project);
     const formattedTitle = this.formattedArticleTitle(
       language,
       project,
@@ -76,7 +77,7 @@ const CourseUtils = class {
     const article = {
       rating_num: null,
       pretty_rating: null,
-      url: assignment.article_url,
+      url: articleUrl,
       title: assignment.article_title,
       formatted_title: formattedTitle,
       language,
@@ -84,6 +85,11 @@ const CourseUtils = class {
       new: false
     };
     return article;
+  }
+
+  urlFromTitleAndWiki(title, language, project) {
+    const underscoredTitle = title.replace(/ /g, '_');
+    return `https://${language}.${project}.org/wiki/${underscoredTitle}`;
   }
 
   formattedArticleTitle(language, project, articleTitle) {

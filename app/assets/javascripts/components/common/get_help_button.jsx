@@ -178,6 +178,7 @@ const GetHelpButton = React.createClass({
 
           <form target="_blank" action="/ask" acceptCharset="UTF-8" method="get">
             <input name="utf8" type="hidden" defaultValue="✓" />
+            <input name="source" type="hidden" defaultValue="get_help_button" />
             <input type="text" name="q" id="q" defaultValue="" placeholder="Search Help Forum" />
             <button type="submit">
               <i className="icon icon-search"></i>

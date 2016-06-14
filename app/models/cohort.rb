@@ -41,12 +41,17 @@ class Cohort < ActiveRecord::Base
     100 * trained_count.to_f / student_count
   end
 
-  def students_to_csv
-    CSV.generate do |csv|
-      students.each do |student|
-        csv << [student.username]
+  def to_csv(opts = {})
+    csv_data = []
+    courses.each do |course|
+      course.students.each do |student|
+        line = [student.username]
+        line << course.slug if opts[:course]
+        csv_data << line
       end
     end
+
+    CSV.generate { |csv| csv_data.uniq.each { |line| csv << line } }
   end
   #################
   # Class methods #

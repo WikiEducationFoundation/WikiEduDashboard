@@ -160,9 +160,6 @@ describe 'New course creation and editing', type: :feature do
       go_through_course_dates_and_timeline_dates
       sleep 1
 
-      # This is the timeline datepicker
-      find('input.timeline_start').set(start_date)
-      find('input.timeline_end').set(end_date)
       click_button 'Next'
 
       sleep 1

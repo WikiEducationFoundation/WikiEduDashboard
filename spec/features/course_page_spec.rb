@@ -195,13 +195,15 @@ describe 'the course page', type: :feature, js: true do
 
   describe 'overview details editing' do
     it "doesn't allow null values for course start/end" do
+      Capybara.current_driver = :selenium
       admin = create(:admin, id: User.last.id + 1)
       login_as(admin)
       js_visit "/courses/#{slug}"
       within '.sidebar' do
         click_button 'Edit Details'
       end
-      fill_in 'Start:', with: ''
+      page.first('.date-input input').set('')
+      # fill_in 'Start:', with: ''
       within 'input.start' do
         # TODO: Capybara seems to be able to clear this field.
         # expect(page).to have_text Course.first.start.strftime("%Y-%m-%d")
