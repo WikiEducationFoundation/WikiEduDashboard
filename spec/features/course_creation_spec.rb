@@ -13,6 +13,7 @@ def fill_out_course_creator_form
   fill_in 'Course school:', with: 'University of Oklahoma'
   find('input[placeholder="Start date (YYYY-MM-DD)"]').set(Date.new(2015, 1, 4))
   find('input[placeholder="End date (YYYY-MM-DD)"]').set(Date.new(2015, 2, 1))
+  find('div.wizard__panel').click # click to escape the calendar popup
   click_button 'Create my Course!'
 end
 
@@ -140,6 +141,8 @@ describe 'New course creation and editing', type: :feature do
       end_date = '2015-12-15'
       find('input[placeholder="Start date (YYYY-MM-DD)"]').set(start_date)
       find('input[placeholder="End date (YYYY-MM-DD)"]').set(end_date)
+      find('div.wizard__panel').click # click to escape the calendar popup
+
       sleep 1
 
       # This click should create the course and start the wizard
@@ -198,10 +201,9 @@ describe 'New course creation and editing', type: :feature do
       # Edit course dates and save
       click_link 'Edit Course Dates'
       find('attr[title="Thursday"]', match: :first).click
-      sleep 1
-      expect(Course.last.weekdays).to eq('0001100')
       click_link 'Done'
       sleep 1
+      expect(Course.last.weekdays).to eq('0001100')
 
       within('.week-1 .week__week-add-delete') do
         accept_confirm do
