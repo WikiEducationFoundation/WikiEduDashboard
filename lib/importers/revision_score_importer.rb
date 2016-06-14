@@ -69,7 +69,7 @@ class RevisionScoreImporter
 
   def unscored_mainspace_userspace_and_draft_revisions
     Revision.joins(:article)
-            .where(wp10: nil, wiki_id: @wiki.id)
+            .where(wp10: nil, wiki_id: @wiki.id, deleted: false)
             .where(articles: { namespace: [0, 2, 118] })
   end
 

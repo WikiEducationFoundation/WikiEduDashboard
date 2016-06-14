@@ -16,6 +16,11 @@ describe RevisionScoreImporter do
            mw_rev_id: 641962088, # first revision, barely a stub
            article_id: 45010238,
            mw_page_id: 45010238)
+    create(:revision,
+           mw_rev_id: 1, # arbitrary deleted revision
+           deleted: true,
+           article_id: 45010238,
+           mw_page_id: 45010238)
 
     create(:article,
            id: 1538038,
@@ -32,7 +37,7 @@ describe RevisionScoreImporter do
            mw_page_id: 1538038)
   end
 
-  it 'should save wp10 scores for revisions' do
+  it 'saves wp10 scores for revisions' do
     VCR.use_cassette 'revision_scores/by_revisions' do
       pending 'This should pass unless ORES is down or overloaded.'
 
@@ -43,11 +48,11 @@ describe RevisionScoreImporter do
       expect(later_score).to be > early_score
 
       puts 'PASSED'
-      fail 'this test passed — this time'
+      raise 'this test passed — this time'
     end
   end
 
-  it 'should save wp10 scores by article' do
+  it 'saves wp10 scores by article' do
     VCR.use_cassette 'revision_scores/by_article' do
       pending 'This should pass unless ORES is down or overloaded.'
 
@@ -60,11 +65,16 @@ describe RevisionScoreImporter do
       expect(later_score).to be > early_score
 
       puts 'PASSED'
-      fail 'this test passed — this time'
+      raise 'this test passed — this time'
     end
   end
 
-  it 'should handle network errors gracefully' do
+  it 'does not try to query deleted revisions' do
+    revisions = RevisionScoreImporter.new.send(:unscored_mainspace_userspace_and_draft_revisions)
+    expect(revisions.where(mw_rev_id: 1).count).to eq(0)
+  end
+
+  it 'handles network errors gracefully' do
     stub_request(:any, %r{https://ores.wmflabs.org/.*})
       .to_raise(Errno::ECONNREFUSED)
     RevisionScoreImporter.new.update_revision_scores(Revision.all)
