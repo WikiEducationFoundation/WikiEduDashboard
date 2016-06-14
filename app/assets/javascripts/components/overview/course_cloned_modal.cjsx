@@ -178,7 +178,7 @@ CourseClonedModal = React.createClass(
               label={I18n.t('courses.creator.end_date')}
               placeholder={I18n.t('courses.creator.end_date_placeholder')}
               blank=true
-              date_props={minDate: moment(@props.course.start).add(1, 'week')}
+              date_props={minDate: moment(@props.course.start, 'YYYY-MM-DD').add(1, 'week')}
               enabled={@props.course.start?}
               isClearable=false
             />
@@ -206,7 +206,7 @@ CourseClonedModal = React.createClass(
               label={I18n.t('courses.creator.assignment_end')}
               placeholder={I18n.t('courses.creator.assignment_end_placeholder')}
               blank=true
-              date_props={minDate: moment(@props.course.start).add(1, 'week')}
+              date_props={minDate: moment(@props.course.start, 'YYYY-MM-DD').add(1, 'week')}
               enabled={@props.course.start?}
               isClearable=false
             />

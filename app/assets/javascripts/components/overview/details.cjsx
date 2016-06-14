@@ -16,6 +16,7 @@ UserStore         = require '../../stores/user_store.coffee'
 CohortStore       = require '../../stores/cohort_store.coffee'
 
 CourseUtils       = require('../../utils/course_utils.js').default
+CourseDateUtils   = require('../../utils/course_date_utils.coffee')
 # For some reason getState is not being triggered when CohortStore gets updated
 
 getState = (course_id) ->
@@ -80,11 +81,11 @@ Details = React.createClass(
 
     if @props.course.timeline_start && @props.course.timeline_end
       timeline_start_props =
-        minDate: moment(@props.course.start)
-        maxDate: moment(@props.course.timeline_end).subtract(1, 'week')
+        minDate: moment(@props.course.start, 'YYYY-MM-DD')
+        maxDate: moment(@props.course.timeline_end, 'YYYY-MM-DD').subtract(1, 'week')
       timeline_end_props =
-        minDate: moment(@props.course.timeline_start).add(1, 'week')
-        maxDate: moment(@props.course.end)
+        minDate: moment(@props.course.timeline_start, 'YYYY-MM-DD').add(1, 'week')
+        maxDate: moment(@props.course.end, 'YYYY-MM-DD')
 
       timeline_start = (
         <fieldset>
@@ -161,6 +162,7 @@ Details = React.createClass(
               onChange={@updateDetails}
               value={@props.course.start}
               value_key='start'
+              validation={CourseDateUtils.validationRegex()}
               editable={@props.editable}
               label={I18n.t('courses.start')}
               required=true
@@ -172,8 +174,9 @@ Details = React.createClass(
               value={@props.course.end}
               value_key='end'
               editable={@props.editable}
+              validation={CourseDateUtils.validationRegex()}
               label={I18n.t('courses.end')}
-              date_props={minDate: moment(@props.course.start).add(1, 'week')}
+              date_props={minDate: moment(@props.course.start, 'YYYY-MM-DD').add(1, 'week')}
               enabled={@props.course.start?}
               required=true
             />

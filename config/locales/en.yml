@@ -604,6 +604,7 @@ en:
 
   error:
     article_required: An article is required.
+    form_errors: Please check the form for errors.
     invalid_assignment: Invalid assignment
     oauth_invalid: Your Wikipedia authorization has expired. Please log in again.
     unsupported_browser:
