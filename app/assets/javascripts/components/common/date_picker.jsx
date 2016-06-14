@@ -24,7 +24,8 @@ const DatePicker = React.createClass({
     onBlur: React.PropTypes.func,
     onFocus: React.PropTypes.func,
     onClick: React.PropTypes.func,
-    append: React.PropTypes.string
+    append: React.PropTypes.string,
+    date_props: React.PropTypes.object
   },
 
   mixins: [InputMixin],
@@ -42,9 +43,13 @@ const DatePicker = React.createClass({
     }
   },
 
-  handleDatePickerChange(e, selectedDate) {
+  handleDatePickerChange(e, selectedDate, modifiers) {
+    if (_.includes(modifiers, 'disabled')) {
+      return;
+    }
     const date = moment(selectedDate).format('YYYY-MM-DD');
     this.onChange({ target: { value: date } });
+    this.refs.datefield.focus();
     return this.setState({ datePickerVisible: false });
   },
 
@@ -55,40 +60,48 @@ const DatePicker = React.createClass({
 
   handleClickOutside() {
     if (this.state.datePickerVisible) {
-      return this.setState(
-                           { datePickerVisible: false });
+      return this.setState({ datePickerVisible: false });
     }
   },
 
   handleDateFieldClick() {
     if (!this.state.datePickerVisible) {
-      return this.setState(
-                           { datePickerVisible: true });
+      return this.setState({ datePickerVisible: true });
     }
   },
 
   handleDateFieldFocus() {
-    return this.setState(
-                         { datePickerVisible: true });
+    return this.setState({ datePickerVisible: true });
   },
 
   handleDateFieldBlur() {
-    if (this.state.datePickerVisible) {
-      return this.refs.datefield.focus();
-    }
   },
 
   handleDateFieldKeyDown(e) {
     // Close picker if tab, enter, or escape
     if (_.includes([9, 13, 27], e.keyCode)) {
-      return this.setState(
-                           { datePickerVisible: false });
+      return this.setState({ datePickerVisible: false });
     }
   },
 
   isDaySelected(date) {
     const currentDate = moment(date).format('YYYY-MM-DD');
     return currentDate === this.state.value;
+  },
+
+  isDayDisabled(date) {
+    const currentDate = moment(date);
+    if (this.props.date_props) {
+      const minDate = moment(this.props.date_props.minDate, 'YYYY-MM-DD');
+      if (minDate.isValid() && currentDate < minDate) {
+        return true;
+      }
+
+      const maxDate = moment(this.props.date_props.maxDate, 'YYYY-MM-DD');
+      if (maxDate.isValid() && currentDate > maxDate) {
+        return true;
+      }
+    }
   },
 
   showCurrentDate() {
@@ -127,7 +140,10 @@ const DatePicker = React.createClass({
         currentMonth = new Date();
       }
 
-      const modifiers = { selected: this.isDaySelected };
+      const modifiers = {
+        selected: this.isDaySelected,
+        disabled: this.isDayDisabled
+      };
 
       const input = (
         <div className="date-input">
@@ -152,6 +168,7 @@ const DatePicker = React.createClass({
             ref="daypicker"
             tabIndex={-1}
             modifiers={modifiers}
+            disabledDays={this.isDayDisabled}
             onDayClick={this.handleDatePickerChange}
             initialMonth={currentMonth}
           />

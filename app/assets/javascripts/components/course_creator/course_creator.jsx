@@ -14,6 +14,7 @@ import TextInput from '../common/text_input.cjsx';
 import DatePicker from '../common/date_picker.jsx';
 import TextAreaInput from '../common/text_area_input.cjsx';
 import CourseUtils from '../../utils/course_utils.js';
+import CourseDateUtils from '../../utils/course_date_utils.coffee';
 import TransitionGroup from 'react-addons-css-transition-group';
 
 import moment from 'moment';
@@ -273,6 +274,7 @@ const CourseCreator = React.createClass({
                   value={this.state.course.start}
                   value_key="start"
                   required
+                  validation={CourseDateUtils.isDateValid}
                   editable
                   label={CourseUtils.i18n('creator.start_date', this.state.course_string_prefix)}
                   placeholder={I18n.t('courses.creator.start_date_placeholder')}
@@ -285,6 +287,7 @@ const CourseCreator = React.createClass({
                   value={this.state.course.end}
                   value_key="end"
                   required
+                  validation={CourseDateUtils.isDateValid}
                   editable
                   label={CourseUtils.i18n('creator.end_date', this.state.course_string_prefix)}
                   placeholder={I18n.t('courses.creator.end_date_placeholder')}

@@ -41,7 +41,6 @@ Meetings = React.createClass(
     @updateCourse 'day_exceptions', ''
   saveDisabled: ->
     enable = @state.blackoutDatesSelected || (@state.anyDatesSelected && @state.course.no_day_exceptions)
-
     if enable then false else true
   render: ->
     timeline_start_props =
@@ -61,7 +60,7 @@ Meetings = React.createClass(
               onChange={@updateCourse}
               value={@state.course.start}
               value_key='start'
-              validation={CourseDateUtils.validationRegex()}
+              validation={CourseDateUtils.isDateValid}
               editable=true
               label={I18n.t('timeline.course_start')}
             />
@@ -69,7 +68,7 @@ Meetings = React.createClass(
               onChange={@updateCourse}
               value={@state.course.end}
               value_key='end'
-              validation={CourseDateUtils.validationRegex()}
+              validation={CourseDateUtils.isDateValid}
               editable=true
               label={I18n.t('timeline.course_end')}
               date_props={minDate: moment(@state.course.start, 'YYYY-MM-DD').add(1, 'week')}
@@ -86,7 +85,7 @@ Meetings = React.createClass(
               value={@state.course.timeline_start}
               value_key='timeline_start'
               editable=true
-              validation={CourseDateUtils.validationRegex()}
+              validation={CourseDateUtils.isDateValid}
               label={I18n.t('courses.assignment_start')}
               date_props={timeline_start_props}
             />
@@ -95,7 +94,7 @@ Meetings = React.createClass(
               value={@state.course.timeline_end}
               value_key='timeline_end'
               editable=true
-              validation={CourseDateUtils.validationRegex()}
+              validation={CourseDateUtils.isDateValid}
               label={I18n.t('courses.assignment_end')}
               date_props={timeline_end_props}
               enabled={@state.course.start?}
@@ -104,7 +103,8 @@ Meetings = React.createClass(
         </div>
         <hr />
         <div className='wizard__form course-dates course-dates__step'>
-          <Calendar course={@state.course}
+          <Calendar 
+            course={@state.course}
             save=true
             editable=true
             calendarInstructions={I18n.t('courses.course_dates_calendar_instructions')}

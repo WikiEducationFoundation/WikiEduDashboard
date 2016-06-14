@@ -11,10 +11,15 @@ Calendar = React.createClass(
   getInitialState: ->
     return initialMonth: moment(@props.course.start, 'YYYY-MM-DD').toDate()
   componentWillReceiveProps: (nextProps) ->
-    if nextProps.course.start != moment(@state.initialMonth, 'YYYY-MM-DD').format('YYYY-MM-DD')
+    if nextProps.course.start != moment(@state.initialMonth).format('YYYY-MM-DD')
       @setState
         initialMonth: moment(nextProps.course.start, 'YYYY-MM-DD').toDate()
-
+  shouldComponentUpdate: (nextProps, nextState) ->
+    if nextProps.course
+      start = moment(nextProps.course.start, 'YYYY-MM-DD')
+      end = moment(nextProps.course.end, 'YYYY-MM-DD')
+      return start.isValid() && end.isValid() 
+    return true
   selectDay: (e, day) ->
     return unless @inrange(day)
     course = @props.course
@@ -23,7 +28,7 @@ Calendar = React.createClass(
       exceptions = []
     else
       exceptions = course['day_exceptions'].split(',')
-    formatted = moment(day, 'YYYY-MM-DD').format('YYYYMMDD')
+    formatted = moment(day).format('YYYYMMDD')
     if formatted in exceptions
       exceptions.splice(exceptions.indexOf(formatted), 1)
     else
@@ -35,7 +40,7 @@ Calendar = React.createClass(
 
     course['day_exceptions'] = exceptions.join(',')
     course['no_day_exceptions'] = (_.compact(exceptions).length is 0)
-    CourseActions.updateCourse course, (@props.save? && @props.save)
+    CourseActions.updateCourse course
   selectWeekday: (e, weekday) ->
     to_pass = @props.course
     if !to_pass['weekdays']?
@@ -46,7 +51,7 @@ Calendar = React.createClass(
     weekdays[weekday] = if weekdays[weekday] == '1' then '0' else '1'
     to_pass['weekdays'] = weekdays.join('')
     anyDatesSelected = !(to_pass['weekdays'] is '0000000')
-    CourseActions.updateCourse to_pass, (@props.save? && @props.save)
+    CourseActions.updateCourse to_pass
   inrange: (day) ->
     course = @props.course
     return false unless course.start?
@@ -62,14 +67,14 @@ Calendar = React.createClass(
           return true
         else if day < 8
           return false
-        formatted = moment(day, 'YYYY-MM-DD').format('YYYYMMDD')
+        formatted = moment(day).format('YYYYMMDD')
         inrange = @inrange(day)
         exception = false
         weekday = false
         if @props.course.day_exceptions?
           exception = formatted in @props.course.day_exceptions.split(',')
         if @props.course.weekdays
-          weekday = @props.course.weekdays.charAt(moment(day, 'YYYY-MM-DD').format('e')) == '1'
+          weekday = @props.course.weekdays.charAt(moment(day).format('e')) == '1'
         inrange && ((weekday && !exception) || (!weekday && exception))
       'highlighted': (day) =>
         return false unless day > 7
@@ -77,10 +82,10 @@ Calendar = React.createClass(
       'bordered': (day) =>
         return false unless day > 7
         return false unless @props.course.day_exceptions? && @props.course.weekdays
-        formatted = moment(day, 'YYYY-MM-DD').format('YYYYMMDD')
+        formatted = moment(day).format('YYYYMMDD')
         inrange = @inrange(day)
         exception = formatted in @props.course.day_exceptions.split(',')
-        weekday = @props.course.weekdays.charAt(moment(day, 'YYYY-MM-DD').format('e')) == '1'
+        weekday = @props.course.weekdays.charAt(moment(day).format('e')) == '1'
         inrange && exception && weekday
     }
 

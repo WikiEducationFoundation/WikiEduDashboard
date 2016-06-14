@@ -17,7 +17,10 @@ InputMixin =
         # Validation
         if @props.required || @props.validation
           filled = @state.value? && @state.value.length > 0
-          charcheck = (new RegExp(@props.validation)).test(@state.value)
+          if @props.validation instanceof RegExp
+            charcheck = (new RegExp(@props.validation)).test(@state.value)
+          else if typeof(@props.validation) == "function"
+            charcheck = @props.validation(@state.value)
           if @props.required && !filled
             if _.has(@props, 'disableSave')
               @props.disableSave(true)

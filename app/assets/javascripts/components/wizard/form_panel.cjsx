@@ -6,7 +6,8 @@ DatePicker    = require('../common/date_picker.jsx').default
 Calendar      = require '../common/calendar.cjsx'
 CourseActions = require('../../actions/course_actions.js').default
 ServerActions = require('../../actions/server_actions.js').default
-
+CourseDateUtils = require('../../utils/course_date_utils.coffee')
+ValidationStore = require '../../stores/validation_store.coffee'
 
 getState = (course_id) ->
   course = CourseStore.getCourse()
@@ -17,9 +18,15 @@ getState = (course_id) ->
 FormPanel = React.createClass(
   displayName: 'FormPanel'
   updateDetails: (value_key, value) ->
-    to_pass = @props.course
-    to_pass[value_key] = value
-    CourseActions.updateCourse to_pass, true
+    if ValidationStore.isValid()
+      to_pass = @props.course
+      to_pass[value_key] = value
+      CourseActions.updateCourse to_pass
+  saveCourse: ->
+    if ValidationStore.isValid()
+      CourseActions.persistCourse(@props, @props.course.slug)
+    else
+      alert I18n.t('error.form_errors')
   nextEnabled: ->
     if @props.course.weekdays?.indexOf(1) >= 0 && (@props.course.day_exceptions?.length > 0 || @props.course.no_day_exceptions)
       true
@@ -34,11 +41,11 @@ FormPanel = React.createClass(
     @updateDetails 'no_day_exceptions', checked
   render: ->
     timeline_start_props =
-      minDate: moment(@props.course.start)
-      maxDate: moment(@props.course.timeline_end).subtract(Math.max(1, @props.weeks), 'week')
+      minDate: moment(@props.course.start, 'YYYY-MM-DD')
+      maxDate: moment(@props.course.timeline_end, 'YYYY-MM-DD').subtract(Math.max(1, @props.weeks), 'week')
     timeline_end_props =
-      minDate: moment(@props.course.timeline_start).add(Math.max(1, @props.weeks), 'week')
-      maxDate: moment(@props.course.end)
+      minDate: moment(@props.course.timeline_start, 'YYYY-MM-DD').add(Math.max(1, @props.weeks), 'week')
+      maxDate: moment(@props.course.end, 'YYYY-MM-DD')
     step1 = if @props.shouldShowSteps then (
       <h2><span>1.</span><small> Confirm the course’s start and end dates.</small></h2>
     ) else (
@@ -54,6 +61,7 @@ FormPanel = React.createClass(
               value={@props.course.start}
               value_key='start'
               editable=true
+              validation={CourseDateUtils.isDateValid}
               label='Course Start'
             />
             <DatePicker
@@ -61,6 +69,7 @@ FormPanel = React.createClass(
               value={@props.course.end}
               value_key='end'
               editable=true
+              validation={CourseDateUtils.isDateValid}
               label='Course End'
               date_props={minDate: moment(@props.course.start).add(1, 'week')}
               enabled={@props.course.start?}
@@ -86,6 +95,7 @@ FormPanel = React.createClass(
     <Panel {...@props}
       raw_options={raw_options}
       nextEnabled={@nextEnabled}
+      saveCourse={@saveCourse}
       helperText = 'Select meeting days and holiday dates, then continue.'
     />
 )

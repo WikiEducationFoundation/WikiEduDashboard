@@ -3,6 +3,9 @@ module.exports = {
     # Matches YYYY-MM-DD
     return /^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/
 
+  isDateValid: (date) ->
+    return moment(date, 'YYYY-MM-DD').isValid()
+
   moreWeeksThanAvailable: (course, weeks, exceptions) ->
     return false unless weeks?.length
     nonBlackoutWeeks = _.filter(@weekMeetings(@meetings(course), course, exceptions), (mtg) ->
