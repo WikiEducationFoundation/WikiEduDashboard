@@ -41,6 +41,14 @@ def go_through_course_dates_and_timeline_dates
   within('.wizard__panel.active') do
     expect(page).not_to have_css('button.dark[disabled=disabled]')
   end
+  find('div.DayPicker-Day', text: '14').click
+  # Verify that the 14th is a blackout date
+  find('div.DayPicker-Day--bordered', text: '14')
+  # Click again to unselect it
+  find('div.DayPicker-Day', text: '14').click
+  find('div.DayPicker-Day--highlighted', text: '14')
+
+  find('div.DayPicker-Day', text: '20').click
   click_button 'Next'
   sleep 1
 end
