@@ -136,7 +136,7 @@ describe 'New course creation and editing', type: :feature do
       find('#course_expected_students').set('500')
       find('textarea').set('In this course, we study things.')
 
-      sleep 30
+      sleep 1
 
       start_date = '2015-01-01'
       end_date = '2015-12-15'

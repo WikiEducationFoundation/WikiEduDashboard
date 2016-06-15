@@ -10,10 +10,9 @@ ValidationStore = require '../../stores/validation_store.coffee'
 TimelinePanel = React.createClass(
   displayName: 'TimelinePanel'
   updateDetails: (value_key, value) ->
-    if ValidationStore.isValid()
-      to_pass = @props.course
-      to_pass[value_key] = value
-      CourseActions.updateCourse to_pass
+    to_pass = @props.course
+    to_pass[value_key] = value
+    CourseActions.updateCourse to_pass
   saveCourse: ->
     if ValidationStore.isValid()
       CourseActions.persistCourse(@props, @props.course.slug)

@@ -7,9 +7,6 @@ TextInput = React.createClass(
   mixins: [InputMixin],
   getInitialState: ->
     value: @props.value
-  componentWillReceiveProps: (nextProps) ->
-    unless @state.value?
-      @setState value: nextProps.value
   dateChange: (date) ->
     value = if date? then date.format('YYYY-MM-DD') else ''
     @onChange({ target: { value: value } })

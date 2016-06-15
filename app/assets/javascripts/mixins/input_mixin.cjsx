@@ -13,9 +13,8 @@ InputMixin =
     value = e.target.value
     if value != @state.value
       @setState value: value, ->
+        @props.onChange @props.value_key, value
         @validate()
-        setImmediate =>
-          @props.onChange @props.value_key, value
   validate: ->
     if @props.required || @props.validation
       filled = @state.value? && @state.value.length > 0
