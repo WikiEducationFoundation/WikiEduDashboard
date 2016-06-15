@@ -18,7 +18,6 @@ getState = (course_id) ->
 FormPanel = React.createClass(
   displayName: 'FormPanel'
   updateDetails: (value_key, value) ->
-    console.log value
     to_pass = @props.course
     to_pass[value_key] = value
     CourseActions.updateCourse to_pass
