@@ -55,6 +55,26 @@ describe('CourseDateUtils.openWeeks', () => {
   });
 });
 
+describe('courseDateUtils.isDateValid', () => {
+  it('returns false for a date of form YYYY-MM', () => {
+    const input = '2016-06';
+    const result = CourseDateUtils.isDateValid(input);
+    expect(result).to.eq(false);
+  });
+
+  it('returns false for an invalid date of form YYYY-MM-DD', () => {
+    const input = '2016-06-31';
+    const result = CourseDateUtils.isDateValid(input);
+    expect(result).to.eq(false);
+  });
+
+  it('returns true for a valid date of form YYYY-MM-DD', () => {
+    const input = '2016-06-30';
+    const result = CourseDateUtils.isDateValid(input);
+    expect(result).to.eq(true);
+  });
+});
+
 // describe 'CourseDateUtils.wouldCreateBlackoutWeek', ->
 //   one_of_two_meetings = '2015-11-24'
 //   result = CourseDateUtils.wouldCreateBlackoutWeek(typicalCourse, one_of_two_meetings, exceptions)

@@ -4,6 +4,7 @@ module.exports = {
     return /^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/
 
   isDateValid: (date) ->
+    return false unless date.match(/^\d{4}\-\d{2}\-\d{2}$/)
     return moment(date, 'YYYY-MM-DD').isValid()
 
   moreWeeksThanAvailable: (course, weeks, exceptions) ->
