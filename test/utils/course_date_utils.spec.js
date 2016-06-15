@@ -79,7 +79,6 @@ describe('courseDateUtils.isDateValid', () => {
     const result = CourseDateUtils.isDateValid(input);
     expect(result).to.eq(false);
   });
-
 });
 
 // describe 'CourseDateUtils.wouldCreateBlackoutWeek', ->
