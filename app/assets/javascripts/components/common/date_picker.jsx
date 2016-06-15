@@ -89,12 +89,12 @@ const DatePicker = React.createClass({
   isDayDisabled(date) {
     const currentDate = moment(date);
     if (this.props.date_props) {
-      const minDate = moment(this.props.date_props.minDate, 'YYYY-MM-DD');
+      const minDate = moment(this.props.date_props.minDate, 'YYYY-MM-DD').startOf('day');
       if (minDate.isValid() && currentDate < minDate) {
         return true;
       }
 
-      const maxDate = moment(this.props.date_props.maxDate, 'YYYY-MM-DD');
+      const maxDate = moment(this.props.date_props.maxDate, 'YYYY-MM-DD').endOf('day');
       if (maxDate.isValid() && currentDate > maxDate) {
         return true;
       }
