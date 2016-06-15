@@ -157,6 +157,8 @@ class Course < ActiveRecord::Base
 
   before_save :order_weeks
   validates :passcode, presence: true, unless: :legacy?
+  validates :start, presence: true
+  validates :end, presence: true
 
   COURSE_TYPES = %w(
     LegacyCourse
