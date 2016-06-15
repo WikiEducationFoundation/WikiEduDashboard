@@ -12,23 +12,24 @@ InputMixin =
   onChange: (e) ->
     if e.target.value != @state.value
       @setState value: e.target.value, ->
-        @props.onChange @props.value_key, @state.value
-
-        # Validation
-        if @props.required || @props.validation
-          filled = @state.value? && @state.value.length > 0
-          if @props.validation instanceof RegExp
-            charcheck = (new RegExp(@props.validation)).test(@state.value)
-          else if typeof(@props.validation) == "function"
-            charcheck = @props.validation(@state.value)
-          if @props.required && !filled
-            if _.has(@props, 'disableSave')
-              @props.disableSave(true)
-            ValidationActions.setInvalid @props.value_key, I18n.t('application.field_required')
-          else if @props.validation && !charcheck
-            ValidationActions.setInvalid @props.value_key, I18n.t('application.field_invalid_characters')
-          else
-            ValidationActions.setValid @props.value_key
+        @validate()
+        setImmediate =>
+          @props.onChange @props.value_key, @state.value
+  validate: ->
+    if @props.required || @props.validation
+      filled = @state.value? && @state.value.length > 0
+      if @props.validation instanceof RegExp
+        charcheck = (new RegExp(@props.validation)).test(@state.value)
+      else if typeof(@props.validation) == "function"
+        charcheck = @props.validation(@state.value)
+      if @props.required && !filled
+        if _.has(@props, 'disableSave')
+          @props.disableSave(true)
+        ValidationActions.setInvalid @props.value_key, I18n.t('application.field_required')
+      else if @props.validation && !charcheck
+        ValidationActions.setInvalid @props.value_key, I18n.t('application.field_invalid_characters')
+      else
+        ValidationActions.setValid @props.value_key
   componentWillReceiveProps: (props) ->
     @setState value: props.value, ->
       valid = ValidationStore.getValidation(@props.value_key)

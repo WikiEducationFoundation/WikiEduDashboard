@@ -74,9 +74,6 @@ const DatePicker = React.createClass({
     return this.setState({ datePickerVisible: true });
   },
 
-  handleDateFieldBlur() {
-  },
-
   handleDateFieldKeyDown(e) {
     // Close picker if tab, enter, or escape
     if (_.includes([9, 13, 27], e.keyCode)) {

@@ -25,8 +25,10 @@ FormPanel = React.createClass(
   saveCourse: ->
     if ValidationStore.isValid()
       CourseActions.persistCourse(@props, @props.course.slug)
+      return true
     else
       alert I18n.t('error.form_errors')
+      return false
   nextEnabled: ->
     if @props.course.weekdays?.indexOf(1) >= 0 && (@props.course.day_exceptions?.length > 0 || @props.course.no_day_exceptions)
       true
