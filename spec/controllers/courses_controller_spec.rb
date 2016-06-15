@@ -160,7 +160,9 @@ describe CoursesController do
         let(:course_params) do
           { school: 'Wiki University',
             title: 'How to Wiki',
-            term: 'Fall 2015' }
+            term: 'Fall 2015',
+            start: '2015-01-05',
+            end: '2015-12-20' }
         end
         it 'sets slug correctly' do
           post :create, course: course_params, format: :json
@@ -184,6 +186,8 @@ describe CoursesController do
           { school: 'Wiki University',
             title: 'How to Wiki',
             term: 'Fall 2015',
+            start: '2015-01-05',
+            end: '2015-12-20',
             language: 'ar',
             project: 'wikibooks' }
         end
@@ -200,6 +204,8 @@ describe CoursesController do
           { school: 'Wiki University',
             title: 'How to Wiki',
             term: 'Fall 2015',
+            start: '2015-01-05',
+            end: '2015-12-20',
             language: 'arrr',
             project: 'wikipirates' }
         end
