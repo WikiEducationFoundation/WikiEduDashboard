@@ -73,6 +73,13 @@ describe('courseDateUtils.isDateValid', () => {
     const result = CourseDateUtils.isDateValid(input);
     expect(result).to.eq(true);
   });
+
+  it('returns false for a valid date prior to 2000', () => {
+    const input = '1999-06-30';
+    const result = CourseDateUtils.isDateValid(input);
+    expect(result).to.eq(false);
+  });
+
 });
 
 // describe 'CourseDateUtils.wouldCreateBlackoutWeek', ->
