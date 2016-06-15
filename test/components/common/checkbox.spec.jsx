@@ -32,7 +32,7 @@ describe('Checkbox', () => {
     expect(checkbox.querySelector('input[type=checkbox]').checked).to.eq(false);
   });
 
-  it('calls onChange when input is changed', () => {
+  it('calls onChange when input is changed', (done) => {
     const cb = sinon.spy();
     const TestCheckbox = ReactTestUtils.renderIntoDocument(
       <Checkbox
@@ -42,7 +42,10 @@ describe('Checkbox', () => {
     );
     const checkbox = ReactTestUtils.findRenderedDOMComponentWithTag(TestCheckbox, 'input');
     Simulate.change(checkbox, { target: { checked: false } });
-    expect(cb.called).to.eq(true);
-    expect(checkbox.checked).to.eq(false);
+    setImmediate(() => {
+      expect(cb.called).to.eq(true);
+      expect(checkbox.checked).to.eq(false);
+      done();
+    });
   });
 });

@@ -61,24 +61,30 @@ describe('CourseCreator', () => {
       const setValid = sinon.spy(ValidationActions, 'setValid');
       const inputs = ReactTestUtils.scryRenderedDOMComponentsWithTag(TestCourseCreator, 'input');
       describe('subject', () => {
-        it('updates courseActions', () => {
+        it('updates courseActions', (done) => {
           const input = _.find(inputs, (ipt) => ipt.getAttribute('id') === 'course_subject');
           const inputNode = ReactDOM.findDOMNode(input);
           inputNode.value = 'foobar';
           Simulate.change(inputNode);
-          expect(updateCourse).to.have.been.called;
-          expect(setValid).not.to.have.been.called;
+          setImmediate(() => {
+            expect(updateCourse).to.have.been.called;
+            expect(setValid).not.to.have.been.called;
+            done();
+          });
         });
       });
       describe('term', () => {
-        it('updates courseActions and validationActions', () => {
+        it('updates courseActions and validationActions', (done) => {
           TestCourseCreator.setState({ default_course_type: 'ClassroomProgramCourse' });
           const input = _.find(inputs, (ipt) => ipt.getAttribute('id') === 'course_term');
           const inputNode = ReactDOM.findDOMNode(input);
           inputNode.value = 'foobar';
           Simulate.change(inputNode);
-          expect(updateCourse).to.have.been.called;
-          expect(setValid).to.have.been.called;
+          setImmediate(() => {
+            expect(updateCourse).to.have.been.called;
+            expect(setValid).to.have.been.called;
+            done();
+          });
         });
       });
     });
