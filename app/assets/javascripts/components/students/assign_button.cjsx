@@ -4,7 +4,7 @@ Select        = require 'react-select'
 Router        = ReactRouter.Router
 Link          = ReactRouter.Link
 Expandable    = require '../high_order/expandable.cjsx'
-Popover       = require '../common/popover.cjsx'
+Popover       = require('../common/popover.jsx').default
 Lookup        = require '../common/lookup.cjsx'
 ServerActions = require('../../actions/server_actions.js').default
 AssignmentActions = require('../../actions/assignment_actions.js').default
@@ -56,10 +56,10 @@ AssignButton = React.createClass(
 
     if @props.student
       student = @props.student.id
-    else 
+    else
       student = null
 
-    assignment = 
+    assignment =
       title: decodeURIComponent(@state.title).trim()
       project: @state.project
       language: @state.language
@@ -75,7 +75,7 @@ AssignButton = React.createClass(
       return
 
     article_title = assignment.title
-    
+
     # Check if the assignment exists
     if @props.student && AssignmentStore.getFiltered({
       article_title: article_title,
@@ -130,7 +130,7 @@ AssignButton = React.createClass(
       edit_button = (
         <button className={className} onClick={@props.open}>{final_text}</button>
       )
-    
+
     assignments = @props.assignments.map (ass) =>
       ass.course_id = @props.course_id
       article = CourseUtils.articleFromAssignment(ass)
@@ -154,7 +154,7 @@ AssignButton = React.createClass(
 
         projectOptions = WikiProjects.map (project) =>
           {label: project, value: project}
-        
+
         options = (
           <fieldset className="mt1">
             <Select
@@ -177,10 +177,10 @@ AssignButton = React.createClass(
             />
           </fieldset>
         )
-      else 
+      else
         options = (
           <div className="small-block-link">
-            {@state.language}.{@state.project}.org <a href="#" onClick={@handleShowOptions}>({I18n.t('application.change')})</a>                
+            {@state.language}.{@state.project}.org <a href="#" onClick={@handleShowOptions}>({I18n.t('application.change')})</a>
           </div>
         )
 
