@@ -14,7 +14,10 @@ Panel = React.createClass(
       WizardActions.advanceWizard()
   rewind: (e) ->
     e.preventDefault()
-    WizardActions.rewindWizard()
+    if @props.saveCourse
+      WizardActions.rewindWizard() if @props.saveCourse()
+    else 
+      WizardActions.rewindWizard()
   reset: (e) ->
     e.preventDefault()
     WizardActions.resetWizard()
