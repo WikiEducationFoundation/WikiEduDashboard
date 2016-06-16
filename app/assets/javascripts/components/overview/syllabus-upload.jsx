@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import Dropzone from 'react-dropzone';
 import CourseActions from '../../actions/course_actions.js';
-import Loading from '../common/loading.cjsx';
+import Loading from '../common/loading.jsx';
 
 
 export default class SyllabusUpload extends React.Component {

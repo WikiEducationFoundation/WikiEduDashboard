@@ -5,7 +5,7 @@ Touch           = require('react-dnd-touch-backend').default
 DDContext       = RDnD.DragDropContext
 
 Week            = require './week.cjsx'
-Loading         = require '../common/loading.cjsx'
+Loading         = require('../common/loading.jsx').default
 CourseLink      = require '../common/course_link.cjsx'
 Affix           = require '../common/affix.cjsx'
 

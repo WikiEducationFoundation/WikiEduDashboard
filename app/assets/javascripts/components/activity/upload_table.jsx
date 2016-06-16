@@ -1,5 +1,5 @@
 import React from 'react';
-import Loading from '../common/loading.cjsx';
+import Loading from '../common/loading.jsx';
 import Upload from '../uploads/upload.cjsx';
 
 const UploadTable = React.createClass({

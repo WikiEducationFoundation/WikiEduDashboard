@@ -1,7 +1,7 @@
 import React from 'react';
 import ActivityTableRow from './activity_table_row.jsx';
 import TransitionGroup from 'react-addons-css-transition-group';
-import Loading from '../common/loading.cjsx';
+import Loading from '../common/loading.jsx';
 import _ from 'lodash';
 import moment from 'moment';
 

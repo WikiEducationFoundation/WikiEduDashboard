@@ -4,7 +4,7 @@ HTML5Backend    = require 'react-dnd-html5-backend'
 DDContext       = RDnD.DragDropContext
 
 Week            = require '../timeline/week.cjsx'
-Loading         = require '../common/loading.cjsx'
+Loading         = require('../common/loading.jsx').default
 
 DateUtils       = require '../../utils/course_date_utils.coffee'
 DateCalculator  = require '../../utils/date_calculator.coffee'
