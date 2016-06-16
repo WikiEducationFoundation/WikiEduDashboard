@@ -53,8 +53,11 @@ describe('CourseTypeSelector', () => {
     const selector = ReactTestUtils.findRenderedDOMComponentWithTag(EditableCourseTypeSelector, 'select');
     expect(EditableCourseTypeSelector.props.course.timeline_start).to.be.undefined;
     expect(EditableCourseTypeSelector.props.course.timeline_end).to.be.undefined;
+    expect(EditableCourseTypeSelector.props.course.type).to.eq('BasicCourse');
+
     Simulate.change(selector, { target: { value: 'ClassroomProgramCourse' } });
     expect(EditableCourseTypeSelector.props.course.timeline_start).to.eq('2016-01-01');
     expect(EditableCourseTypeSelector.props.course.timeline_end).to.eq('2016-06-03');
+    expect(EditableCourseTypeSelector.props.course.type).to.eq('ClassroomProgramCourse');
   });
 });
