@@ -2,7 +2,7 @@ import React from 'react';
 import DayPicker from 'react-day-picker';
 import OnClickOutside from 'react-onclickoutside';
 import InputMixin from '../../mixins/input_mixin.cjsx';
-import Conditional from '../high_order/conditional.cjsx';
+import Conditional from '../high_order/conditional.jsx';
 
 const DatePicker = React.createClass({
   displayName: 'DatePicker',

@@ -1,7 +1,7 @@
 React         = require 'react'
 Expandable    = require '../high_order/expandable.cjsx'
 Popover       = require('../common/popover.jsx').default
-Conditional   = require '../high_order/conditional.cjsx'
+Conditional   = require('../high_order/conditional.jsx').default
 ServerActions = require('../../actions/server_actions.js').default
 Lookup        = require '../common/lookup.cjsx'
 LookupSelect  = require '../common/lookup_select.cjsx'

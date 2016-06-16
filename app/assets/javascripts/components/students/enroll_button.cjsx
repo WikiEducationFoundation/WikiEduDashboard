@@ -7,7 +7,7 @@ Popover       = require('../common/popover.jsx').default
 ServerActions = require('../../actions/server_actions.js').default
 UserStore     = require '../../stores/user_store.coffee'
 AssignmentActions = require('../../actions/assignment_actions.js').default
-Conditional   = require '../high_order/conditional.cjsx'
+Conditional   = require('../high_order/conditional.jsx').default
 CourseUtils   = require('../../utils/course_utils.js').default
 
 EnrollButton = React.createClass(

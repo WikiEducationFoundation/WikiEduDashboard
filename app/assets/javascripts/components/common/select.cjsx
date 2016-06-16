@@ -1,5 +1,5 @@
 React = require 'react'
-Conditional = require '../high_order/conditional.cjsx'
+Conditional = require('../high_order/conditional.jsx').default
 InputMixin = require '../../mixins/input_mixin.cjsx'
 
 Select = React.createClass(
