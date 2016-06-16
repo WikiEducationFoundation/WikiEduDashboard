@@ -44,25 +44,6 @@ def go_through_course_dates_and_timeline_dates
 
   click_button 'Next'
   sleep 1
-
-  # Fill in a date field with invalid data. Expect a validate highlight
-  find('#timeline_start').click
-  fill_in('timeline_start', with: 'So not valid')
-  expect(page).to have_css('#timeline_start.invalid')
-
-  # Click 'previous' and expect and error alert
-  click_button 'Previous'  
-  prompt = page.driver.browser.switch_to.alert
-  prompt.accept
-
-  # Fix the date, click previous and then click next successfully
-  find('#timeline_start').click
-  fill_in('timeline_start', with: '2015-01-01')
-  sleep 1
-  click_button 'Previous'    
-  sleep 1
-  click_button 'Next'
-  sleep 1
 end
 
 def go_through_researchwrite_wizard
@@ -185,6 +166,25 @@ describe 'New course creation and editing', type: :feature do
       # capybara doesn't like trying to click the calendar
       # to set a blackout date
       go_through_course_dates_and_timeline_dates
+
+      # Fill in a date field with invalid data. Expect a validate highlight
+      find('#timeline_start').click
+      fill_in('timeline_start', with: 'So not valid')
+      expect(page).to have_css('#timeline_start.invalid')
+
+      # Click 'previous' and expect and error alert
+      click_button 'Previous'  
+      prompt = page.driver.browser.switch_to.alert
+      prompt.accept
+
+      # Fix the date, click previous and then click next successfully
+      find('#timeline_start').click
+      fill_in('timeline_start', with: '2015-01-01')
+      sleep 1
+      click_button 'Previous'    
+      sleep 1
+      click_button 'Next'
+
       sleep 1
 
       click_button 'Next'
