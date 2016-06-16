@@ -30,7 +30,7 @@ getState = (course_id) ->
 
 Details = React.createClass(
   displayName: 'Details'
-  
+
   getInitialState: ->
     return getState()
 
@@ -79,7 +79,7 @@ Details = React.createClass(
         </fieldset>
       )
 
-    if @props.course.timeline_start && @props.course.timeline_end
+    if @props.course.type == 'ClassroomProgramCourse'
       timeline_start_props =
         minDate: moment(@props.course.start, 'YYYY-MM-DD')
         maxDate: moment(@props.course.timeline_end, 'YYYY-MM-DD').subtract(1, 'week')

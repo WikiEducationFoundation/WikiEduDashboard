@@ -11,6 +11,14 @@ const CourseTypeSelector = React.createClass({
     const course = this.props.course;
     const courseType = e.target.value;
     course.type = courseType;
+    if (courseType === 'ClassroomProgramCourse') {
+      if (!course.timeline_start) {
+        course.timeline_start = course.start;
+      }
+      if (!course.timeline_end) {
+        course.timeline_end = course.end;
+      }
+    }
     CourseActions.updateCourse(course);
   },
 
