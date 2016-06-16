@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Alexmar983
 # Author: Beta16
+# Author: Einreiher
 # Author: Macofe
 # Author: Matteocng
 # Author: Statix64
@@ -440,7 +441,8 @@ it:
     read_more: Leggi di più
     summary: Sommario
   error:
-    article_required: Una voce è necessaria.
+    article_required: È necessaria una voce.
+    form_errors: Controlla il modulo per gli errori.
     invalid_assignment: Assegnazione non valida
     unsupported_browser:
       header: Browser non supportato. :-(

@@ -571,6 +571,7 @@ fr:
     summary: Résumé
   error:
     article_required: Un article est nécessaire.
+    form_errors: Veuillez vérifier les erreurs du formulaire.
     invalid_assignment: Affectation non valide
     oauth_invalid: Votre autorisation sur Wikipédia a expiré. Veuillez vous reconnecter.
     unsupported_browser:

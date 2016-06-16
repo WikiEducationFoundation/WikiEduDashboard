@@ -13,6 +13,7 @@ ksh:
     change: Änndere
   dashboard:
     opt_out: Donn noh_m Affschallde vun dä Ennföhrog frohre
+    review_orientation: Donn de Ennföhrong norr_ens dorschlohre
   activity:
     all: Aktivitäht
     edited_by: Jeändert Vum
@@ -29,8 +30,7 @@ ksh:
     view_all: Alle belohre
   assignments:
     add_available: Donn ene Atikkel derbei, dä et ald jitt
-    confirm_add_available: Wells De dä/dat %{title} verhaftesch derbei donn?<!-- https://phabricator.wikimedia.org/T137409
-      -->
+    confirm_add_available: Wells De di Sigg „%{title}“ verhaftesch derbei donn?
     confirm_addition: Wells De verhaftesch %{title} aan der Metmaacher %{username}
       zohwihse?
     loading: Ben de Aufjahbe aam Lahde&nbsp;&hellip;
@@ -53,8 +53,7 @@ ksh:
       assignment_end: Et Ängk vun dä Zohdeijlong
       assignment_end_placeholder: Ängk vun dä Zohdeijlong (Johr-MM-DD)
       assignment_start: ejenn vun dä Zohdeijlong
-      course_language: Home language!!FUZY!!<!-- https://phabricator.wikimedia.org/T135910
-        -->
+      course_language: Et Schprohcheköözel för et Projäk
       course_project: Heimatprojäk
       course_subject: Et Tehma vum Kochs
       course_title: Övverschreff vum Kochs
@@ -79,6 +78,7 @@ ksh:
     start_typing: Fang et Tippe aan
     title: Övverschreff
   courses_generic:
+    assignments_none: Heh dat Projäk hät kein Atikkelle zohjedeijlt.
     courses: Projramm
     creator:
       course_school: Ennschtetuzjohn
@@ -102,9 +102,9 @@ ksh:
     edit_count_description: Änderonge ensjesamp
     revisions: Köözlesche Änderonge
     uploads_in_use_count:
-      zero: keine Dattei weeed en enem Atikel jebruch
-      one: Ein Dattei weeed en enem Atikel jebruch
-      other: '%{count} Dateije wähde en Atikele jebruch'
+      zero: Dattei weeed en enem Atikel jebruch
+      one: Dattei weeed en enem Atikel jebruch
+      other: Dateije wähde en Atikele jebruch
     upload_usages_count: Wi öff jebruch en alle Schprohche un Projäkte zesamme jenumme
     view_count_description: Aanzahl Affrohfe vun Atikelle
     view: Aanzahl Affrohfe

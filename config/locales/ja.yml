@@ -51,6 +51,8 @@ ja:
     title_example: 記事名
     view: 記事を閲覧
     view_all: すべてを表示
+  assignments:
+    remove: 除去
   blocks:
     milestones:
       title: マイルストーン
@@ -104,6 +106,7 @@ ja:
     recent_edits: 最近の編集
     recent_uploads: 最近のアップロード
   revisions:
+    diff: 差分
     loading: 版を読み込み中...
   timeline:
     this_week_title_default: 今週
@@ -120,6 +123,8 @@ ja:
     last_name: 姓
     loading: 利用者を読み込み中...
     name: 名前
+    number_of_articles:
+      other: '%{count}件の記事'
     recent_revisions: 最近の編集
     username: 利用者名
     username_placeholder: 利用者名

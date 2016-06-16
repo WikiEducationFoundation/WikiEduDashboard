@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Aktron
 # Author: Dominikmatus
+# Author: Dvorapa
 # Author: Urbanecm
 # Author: Vojtěch Dostál
 ---
@@ -90,7 +91,7 @@ cs:
     label: Zadat
     loading: Načítání zadaných článků...
     none_short: Žádné zadané články
-    none: Tento kurz nemá žádné přidělené články na Wikipedii.
+    none: Tento kurz nemá žádné přidělené články.
     reviewers: Recenzent(i)
     review_other: Zadat recenzi
     review_self: Recenzovat článek
@@ -107,7 +108,7 @@ cs:
     articles: Články
     articles_none: V tomto kurzu nebyly editovány žádné články.
     assignment_end: Konec kurzu
-    assignments_none: Tento kurz nemá žádné zadané články na Wikipedii.
+    assignments_none: Tento kurz nemá žádné zadané články.
     assignment_start: Začátek kurzu
     character_doc: Počet znaků, které byly přidány do hlavního jmenného prostoru studenty
       během průběhu kurzu

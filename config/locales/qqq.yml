@@ -81,8 +81,8 @@ qqq:
     no_courses_student: Note that you can join courses (Wiki Ed only)
     opt_out: Link to opt out (Wiki Ed only)
     orientation_notice: Note suggesting an orientation (Wiki Ed only)
-    review_orientation: Link to return to the new instructor orientation after it
-      has been completed. (Wiki Ed only)
+    review_orientation: Link to return to the new instructor orientation/training
+      after it has been completed. (Wiki Ed only)
     start_orientation: Link to start orientation (Wiki Ed only)
     blog_headline: Header for a feed of recent Wiki Ed blog posts. (Wiki Ed only)
   home:
@@ -356,7 +356,9 @@ qqq:
     creator:
       checking_for_uniqueness: Status message while course data is being validated
       course_description: Label for the description of a course
-      course_school: '{{Identical|Institution}}'
+      course_school: Label for the "Institution" input field of a program, which is
+        for the name of the institution — such as a university or Wikimedia chapter
+        — that the program is associated with.
       course_title: Label for the name of a course or program
       create_button: Button to submit a new program
       create_label: Label for creating a new program
@@ -385,6 +387,8 @@ qqq:
       {{Identical|Save}}
   metrics:
     activity: Label for activity feed.
+    are_trained: Label that follows the number of users who are do not have assigned
+      trainings that are incomplete and overdue. (Wiki Ed only)
     articles_created: Label for the number of articles created.
     articles_edited: Label for the number of articles edited.
     characters: Label for the number of characters metric.
@@ -398,9 +402,9 @@ qqq:
     revisions: Label for the number of recent edits/revisions.
     upload_count: Label for the number of files uploaded to Wikimedia Commons
     uploads_in_use_count: Label for the number of Wikimedia Commons files being used
-      in articles
+      in articles. Preceded by %{count}.
     upload_usages_count: Label for the number of times Wikimedia Commons files are
-      used across all languages and projects
+      used across all languages and projects. Preceded by %{count}.
     view_count_description: Long label for the number of article views.
     view: Label for the number of article views.
   namespace:
@@ -498,11 +502,13 @@ qqq:
     last_name: '{{Identical|Last name}}'
     loading: Message indicating that information about users is still loading
     characters_added_mainspace: '"MS" means Main Space'
-    characters_added_short: The "MS" means Main Space, and the "US" means User Space
+    characters_added_short: The "MS" means Main Space, and the "US" means User Space.
+      Used in mobile view, so the string should be short.
     characters_added_userspace: '"US" means User Space'
     name: Label for usernames of students
     none: Message indicating that a course has no students enrolled
-    number_of_articles: '{{Identical|Article}}'
+    number_of_articles: Entry in a table showing the number of articles a user is
+      assigned to work on or review. It is not a complete sentence.
     remove_confirmation: Confirmation message for removing a user from a program or
       course. "username" is the Wikimedia username of the user being added.
     revision_characters_and_views: The number of characters of articles content added

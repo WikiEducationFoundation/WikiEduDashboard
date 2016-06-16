@@ -448,6 +448,7 @@ zh-hans:
     summary: 摘要
   error:
     article_required: 需要一个条目。
+    form_errors: 请检查表单中的错误。
     invalid_assignment: 无效分配
     oauth_invalid: 您的维基百科授权已过期。请重新登录。
     unsupported_browser:

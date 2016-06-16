@@ -169,6 +169,7 @@ pl:
   wizard:
     summary: Podsumowanie
   error:
+    form_errors: Sprawdź czy w formularzu nie ma błędów.
     invalid_assignment: Nieprawidłowe przypisanie
   survey:
     email:

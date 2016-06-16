@@ -564,6 +564,7 @@ es:
     summary: Resumen
   error:
     article_required: Se requiere un artículo.
+    form_errors: Verifica que el formulario no tenga errores.
     invalid_assignment: Asignación no válida
     oauth_invalid: Tu sesión de Wikipedia ha caducado. Inicia sesión de nuevo.
     unsupported_browser:
