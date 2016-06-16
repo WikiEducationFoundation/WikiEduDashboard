@@ -36,9 +36,9 @@ const PlagiarismHandler = React.createClass({
   render() {
     const headers = [
       { title: I18n.t('recent_activity.article_title'), key: 'title' },
-      { title: I18n.t('recent_activity.plagiarism_report'), key: 'report_url' },
-      { title: I18n.t('recent_activity.revision_author'), key: 'username' },
-      { title: I18n.t('recent_activity.revision_datetime'), key: 'revision_datetime' },
+      { title: I18n.t('recent_activity.plagiarism_report'), key: 'report_url', style: { width: 165 } },
+      { title: I18n.t('recent_activity.revision_author'), key: 'username', style: { minWidth: 142 } },
+      { title: I18n.t('recent_activity.revision_datetime'), key: 'revision_datetime', style: { width: 200 } },
     ];
 
     const noActivityMessage = I18n.t('recent_activity.no_plagiarism');

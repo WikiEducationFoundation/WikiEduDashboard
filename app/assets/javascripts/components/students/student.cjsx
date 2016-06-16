@@ -42,12 +42,12 @@ Student = React.createClass(
       <span>
         <strong>{trunc(@props.student.real_name)}</strong>
         &nbsp;
-        (<a onClick={@stop} href={@props.student.contribution_url} target="_blank" className="inline">
+        (<a onClick={@stop} href={@props.student.contribution_url} target="_blank">
           {trunc(@props.student.username)}
         </a>)
       </span>
     ) else (
-      <span><a onClick={@stop} href={@props.student.contribution_url} target="_blank" className="inline">
+      <span><a onClick={@stop} href={@props.student.contribution_url} target="_blank">
         {trunc(@props.student.username)}
       </a></span>
     )
@@ -84,7 +84,7 @@ Student = React.createClass(
             <span className='tablet-only-ib'>{chars}</span>
           </small>
           <br />
-          <span className='sandbox-link'><a onClick={@stop} href={@props.student.sandbox_url} target="_blank" className="inline">(sandboxes)</a></span>
+          <span className='sandbox-link'><a onClick={@stop} href={@props.student.sandbox_url} target="_blank">(sandboxes)</a></span>
         </p>
       </td>
       <td className='desktop-only-tc'>

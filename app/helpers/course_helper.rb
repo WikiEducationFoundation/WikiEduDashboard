@@ -17,8 +17,8 @@ module CourseHelper
   end
 
   def date_highlight_class(course)
-    return 'ending-soon' if 1.week.from_now > course.end
-    return 'just-started' if course.start > 1.week.ago
+    return 'table-row--warning' if 1.week.from_now > course.end
+    return 'table-row--info' if course.start > 1.week.ago
     return ''
   end
 end

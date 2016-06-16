@@ -254,28 +254,18 @@ input[type="checkbox"]
   margin-top 1.5em
   padding-top 1em
 
+.block__training-modules .table
+  table-layout fixed
+
 .block__training-modules h4
   font-weight 400
-  margin-bottom 0
-
-.block__training-modules-table
-  border-bottom 1px solid border_lt
-  thead
-    border-bottom 1px solid border_lt
-    td
-      padding-bottom 0
-      margin-bottom -5px
-  td
-    display inline-block
-    overflow hidden
-    white-space nowrap
-    text-overflow ellipsis
-    padding 0 3px
-    position relative
-    top 7px
 
 .block__training-modules-table__module-name
   width 42.5%
+  overflow hidden
+  white-space nowrap
+  text-overflow ellipsis
+
 .block__training-modules-table__module-progress
   width 40%
 .block__training-modules-table__module-link
@@ -293,15 +283,9 @@ input[type="checkbox"]
 .block__training-modules-table__status-header
   width 40%
 
+
+
 .training-module
-  border-bottom 1px solid border_lt
-  padding-bottom 1em
-  padding 12px 0
-  td
-    font-size 16px
-  &:last-child
-    margin-bottom 0
-    border-bottom none
   .overdue
     color warning
   .completed

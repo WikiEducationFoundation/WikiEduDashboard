@@ -35,10 +35,9 @@ const ActivityTableRow = React.createClass({
   },
 
   render() {
-    let className = 'activity-table-row';
     let revisionDateTime;
     let col2;
-    className += this.state.is_open ? ' open' : ' closed';
+    let className = this.state.is_open ? ' open' : ' closed';
 
     if (this.props.diffUrl) {
       revisionDateTime = (

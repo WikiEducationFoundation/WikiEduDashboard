@@ -1,41 +1,54 @@
 <section id="user_courses">
-  <div class="row course-list__row list__header">
-    <div class="row__wrapper desktop-only-flex">
-      <div class="course-list__row__title sort asc" data-sort="utitle"><p><%= t("courses.courses") %></p></div>
-
-      <div class="course-list__row__revisions sort popover-trigger" data-default-order="desc" data-sort="urevisions">
-        <p><%= t("metrics.revisions") %></p>
-        <div class="popover dark">
-          <p><%= t("courses.revisions_doc", timeframe: RevisionStat::REVISION_TIMEFRAME) %></p>
-        </div>
-      </div>
-
-      <div class="course-list__row__characters sort popover-trigger" data-default-order="desc" data-sort="ucharacters">
-        <p><%= t("metrics.char") %></p>
-        <div class="popover dark">
-          <p><%= t("courses.character_doc") %></p>
-        </div>
-      </div>
-
-      <div class="course-list__row__views sort popover-trigger" data-default-order="desc" data-sort="uviews">
-        <p><%= t("metrics.view") %></p>
-        <div class="popover dark">
-          <p><%= t("courses.view_doc") %></p>
-        </div>
-      </div>
-
-      <div class="course-list__row__students sort" data-default-order="desc" data-sort="ustudents"><p><%= t("users.editors") %></p></div>
-    </div>
-  </div>
-  <ul class="list">
-  <% if @pres.strictly_current.empty? %>
-    <li class="row view-all empty">
-      <div><p><%= t("courses.nocourses") %></p></div>
-    </li>
-  <% else %>
-    <% @pres.strictly_current.each do |c| %>
-      <%= render 'courses/row', course: c, user: true %>
+  <table class="table table--hoverable table--sortable">
+    <thead>
+      <tr>
+        <th class="sort sortable" data-sort="utitle">
+          <%= t("courses.courses") %>
+          <span class="sortable-indicator"></span>
+        </th>
+        <th style="width: 165px;" class="sort sortable" data-sort="urevisions">
+          <div class="popover-trigger">
+            <%= t("metrics.revisions") %>
+            <span class="sortable-indicator"></span>
+            <div class="popover dark">
+              <p><%= t("courses.revisions_doc", timeframe: RevisionStat::REVISION_TIMEFRAME) %></p>
+            </div>
+          </div>
+        </th>
+        <th style="width: 172px;" class="sort sortable" data-sort="ucharacters">
+          <div class="popover-trigger">
+            <%= t("metrics.char") %>
+            <span class="sortable-indicator"></span>
+            <div class="popover dark">
+              <p><%= t("courses.character_doc") %></p>
+            </div>
+          </div>
+        </th>
+        <th style="width: 125px;" class="sort sortable" data-sort="uviews">
+          <div class="popover-trigger">
+            <%= t("metrics.view") %>
+            <span class="sortable-indicator"></span>
+            <div class="popover dark">
+              <p><%= t("courses.view_doc") %></p>
+            </div>
+          </div>
+        </th>
+        <th style="width: 200px;" class="sort sortable" data-sort="ustudents">
+          <%= t("users.editors") %>
+          <span class="sortable-indicator"></span>
+        </th>
+      </tr>
+    </thead>
+    <tbody class="list">
+    <% if @pres.strictly_current.empty? %>
+      <tr>
+        <td colspan="5" class="empty"><%= t("courses.nocourses") %></td>
+      </tr>
+    <% else %>
+      <% @pres.strictly_current.each do |c| %>
+        <%= render 'courses/row', course: c, user: true %>
+      <% end %>
     <% end %>
-  <% end %>
-  </ul>
+    </tbody>
+  </table>
 </section>

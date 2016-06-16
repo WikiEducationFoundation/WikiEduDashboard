@@ -1,5 +1,4 @@
 React           = require 'react'
-TransitionGroup = require 'react-addons-css-transition-group'
 UIActions       = require('../../actions/ui_actions.js').default
 
 List = React.createClass(
@@ -29,10 +28,13 @@ List = React.createClass(
       headers.push (
         <th onClick={header_onclick} className={header_class} key={key}>
           <span dangerouslySetInnerHTML={{__html: key_obj['label']}}></span>
+          <span className="sortable-indicator"></span>
           {popover}
         </th>
       )
-      className = @props.table_key + ' list'
+      className = @props.table_key + ' table'
+
+    if @props.sortable then className += ' table--sortable'
 
     elements = @props.elements
     if elements.length == 0
@@ -56,14 +58,9 @@ List = React.createClass(
           <th></th>
         </tr>
       </thead>
-      <TransitionGroup
-        transitionName={@props.table_key}
-        component='tbody'
-        transitionEnterTimeout={500}
-        transitionLeaveTimeout={500}
-      >
+      <tbody>
         {elements}
-      </TransitionGroup>
+      </tbody>
     </table>
 )
 

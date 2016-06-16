@@ -1,13 +1,16 @@
 $ ->
-  # Course sorting
-  # only sort if there are uls to sort
-  if $('#admin_courses ul').length
-    adminCourseList = new List('admin_courses', {
-      page: 500,
-      valueNames: ['atitle']
-    })
+  # Find tables with rows with data-link attribute, then make them clickable
+  $('tr[data-link]').on 'click', (e) ->
+    loc = $(this).attr('data-link')
+    if e.metaKey || (window.navigator.platform.toLowerCase().indexOf('win') != -1 && e.ctrlKey)
+      window.open(loc, '_blank')
+    else
+      window.location = loc
+    return false
 
-  if $('#user_courses ul').length
+  # Course sorting
+  # only sort if there are tables to sort
+  if $('#user_courses table').length
     userCourseList = new List('user_courses', {
       page: 500,
       valueNames: [
@@ -15,7 +18,7 @@ $ ->
       ]
     })
 
-  if $('#courses ul').length
+  if $('#courses table').length
     courseList = new List('courses', {
       page: 500,
       valueNames: [
