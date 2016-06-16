@@ -1,5 +1,5 @@
 React         = require 'react'
-Expandable    = require '../high_order/expandable.cjsx'
+Expandable    = require('../high_order/expandable.jsx').default
 Popover       = require('../common/popover.jsx').default
 Conditional   = require('../high_order/conditional.jsx').default
 ServerActions = require('../../actions/server_actions.js').default

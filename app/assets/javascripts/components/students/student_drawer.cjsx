@@ -1,5 +1,5 @@
 React             = require 'react'
-Expandable        = require '../high_order/expandable.cjsx'
+Expandable        = require('../high_order/expandable.jsx').default
 RevisionStore     = require '../../stores/revision_store.coffee'
 
 getRevisions = (student_id) ->
