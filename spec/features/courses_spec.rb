@@ -92,11 +92,7 @@ describe 'the explore page', type: :feature do
       expect(page.find('.stat-display')).to have_content stat_text
 
       # Recent revisions
-      row = '.course-list__row:first-child ' \
-            '.course-list__row__revisions p.revisions'
-      within(row) do
-        expect(page.text).to eq('1')
-      end
+      expect(page.find('#courses .table tbody .revisions').text).to eq('1')
     end
   end
 

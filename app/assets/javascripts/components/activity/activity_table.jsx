@@ -118,7 +118,7 @@ const ActivityTable = React.createClass({
     }
 
     return (
-      <table className="table table--expandable table--hoverable table--clickable table--sortable">
+      <table className="table table--expandable table--hoverable table--clickable table--sortable activity-table">
         <thead>
           <tr>
             {ths}

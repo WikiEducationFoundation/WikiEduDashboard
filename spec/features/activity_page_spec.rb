@@ -68,12 +68,12 @@ describe 'activity page', type: :feature, js: true do
         # when checked
         visit '/recent-activity'
         sleep 1
-        within '.activity-table.list' do
+        within '.activity-table' do
           expect(page).to have_content article.title.tr('_', ' ')
           expect(page).to have_content article2.title.tr('_', ' ')
         end
         check 'Show My Courses Only'
-        within '.activity-table.list' do
+        within '.activity-table' do
           expect(page).to have_content article.title.tr('_', ' ')
           expect(page).not_to have_content article2.title.tr('_', ' ')
         end
