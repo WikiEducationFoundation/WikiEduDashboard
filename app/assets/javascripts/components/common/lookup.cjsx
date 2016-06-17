@@ -2,7 +2,7 @@ React         = require 'react'
 Typeahead     = require('react-typeahead').Typeahead
 LookupStore   = require '../../stores/lookup_store.coffee'
 TextInput     = require './text_input.cjsx'
-LookupWrapper = require '../high_order/lookup_wrapper.cjsx'
+LookupWrapper = require('../high_order/lookup_wrapper.jsx').default
 
 Lookup = React.createClass(
   displayname: 'Lookup'
