@@ -29,7 +29,7 @@ AssignCell = React.createClass(
           link = (
             <span>
               {@props.prefix}
-              <a onClick={@stop} href={article.url} target="_blank" className="inline">{title_text}</a>
+              <a onClick={@stop} href={article.url} target="_blank">{title_text}</a>
             </span>
           )
         else

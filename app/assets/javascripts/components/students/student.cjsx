@@ -53,7 +53,7 @@ Student = React.createClass(
     )
 
     training_progress = if @props.student.course_training_progress then (
-      <span className='red'>{@props.student.course_training_progress}</span>
+      <small className='red'>{@props.student.course_training_progress}</small>
     )
 
     if @props.course.published
@@ -75,17 +75,11 @@ Student = React.createClass(
 
     <tr onClick={@openDrawer} className={className}>
       <td>
-        <p className="name">
+        <div className="name">
           {user_name}
-          <br />
-          <small>
-            {training_progress}
-            {separator}
-            <span className='tablet-only-ib'>{chars}</span>
-          </small>
-          <br />
-          <span className='sandbox-link'><a onClick={@stop} href={@props.student.sandbox_url} target="_blank">(sandboxes)</a></span>
-        </p>
+        </div>
+        {training_progress}
+        <div className='sandbox-link'><a onClick={@stop} href={@props.student.sandbox_url} target="_blank">(sandboxes)</a></div>
       </td>
       <td className='desktop-only-tc'>
         {assignButton}
