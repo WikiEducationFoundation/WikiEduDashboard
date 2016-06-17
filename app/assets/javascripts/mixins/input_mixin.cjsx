@@ -27,7 +27,7 @@ InputMixin =
           @props.disableSave(true)
         ValidationActions.setInvalid @props.value_key, I18n.t('application.field_required')
       else if @props.validation && !charcheck
-        invalidMessage = @state.invalidMessage || I18n.t('application.field_invalid_characters')
+        invalidMessage = @props.invalidMessage || I18n.t('application.field_invalid_characters')
         ValidationActions.setInvalid @props.value_key, invalidMessage
       else
         ValidationActions.setValid @props.value_key

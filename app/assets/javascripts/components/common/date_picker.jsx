@@ -30,11 +30,16 @@ const DatePicker = React.createClass({
 
   mixins: [InputMixin],
 
+  getDefaultProps() {
+    return {
+      invalidMessage: I18n.t('application.field_invalid_date')
+    };
+  },
+
   getInitialState() {
     return {
       value: this.props.value,
-      datePickerVisible: false,
-      invalidMessage: I18n.t('application.field_invalid_date')
+      datePickerVisible: false
     };
   },
 
