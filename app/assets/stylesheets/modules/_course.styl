@@ -100,3 +100,51 @@
   width 80%
   max-width 800px
 
+.avatar, .rating
+  margin-left 15px
+  margin-right 15px
+  +above(desktop)
+    display inline-block
+
+.avatar
+  round-placeholder(23)
+  float left
+  img
+    width 46px
+
+rating(color)
+  border 3px solid color
+  p
+    color color
+
+.rating
+  round-placeholder(23)
+  rating(#D2D2D2)
+  background-color transparent
+  border 3px solid #D2D2D2
+  text-align center
+  text-transform uppercase
+  float left
+  p
+    font-size 15px
+    font-weight 600
+    line-height 40px
+
+  &.null
+    rating(#D2D2D2)
+  &.fa, &.fl
+    rating(#E36944)
+  &.a
+    rating(#656E92)
+  &.ga
+    rating(#F9C623)
+  &.b
+    rating(#858DAA)
+  &.c
+    rating(#858DAA)
+  &.start
+    rating(#858DAA)
+  &.stub
+    rating(#D2D2D2)
+  &.list
+    rating(#656E92)
