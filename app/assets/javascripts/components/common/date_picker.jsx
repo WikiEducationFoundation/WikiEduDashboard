@@ -33,7 +33,8 @@ const DatePicker = React.createClass({
   getInitialState() {
     return {
       value: this.props.value,
-      datePickerVisible: false
+      datePickerVisible: false,
+      invalidMessage: I18n.t('application.field_invalid_date')
     };
   },
 

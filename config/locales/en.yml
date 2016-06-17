@@ -42,6 +42,7 @@ en:
     explore: Explore
     field_required: This field is required
     field_invalid_characters: This field has invalid characters
+    field_invalid_date: This field requires a date in YYYY-MM-DD format
     greeting2: Welcome!
     greeting_extended: Welcome to Wikipedia
     greeting: Hello!
