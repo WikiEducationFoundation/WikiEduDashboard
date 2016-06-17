@@ -151,10 +151,7 @@ describe 'the explore page', type: :feature do
   describe 'course rows' do
     it 'should allow navigation to a course page', js: true do
       visit '/explore'
-
-      within 'ul.list' do
-        find('.course-list__row:first-child a').click
-      end
+      find('#courses .table tbody tr:first-child').click
       expect(current_path).to eq("/courses/#{Course.first.slug}")
     end
   end
@@ -164,13 +161,13 @@ describe 'the explore page', type: :feature do
       pending 'fixing the intermittent failures on travis-ci'
       visit '/explore'
 
-      all('.course-list__row > a').each do |course_row_anchor|
+      all('#courses .table tbody tr').each do |course_row_anchor|
         expect(course_row_anchor[:id].to_i).to be <= cohort_course_count
       end
 
       # load courses from a different cohort
       visit "/explore?cohort=#{Cohort.last.slug}"
-      all('.course-list__row > a').each do |course_row_anchor|
+      all('#courses .table tbody tr:first-child').each do |course_row_anchor|
         expect(course_row_anchor[:id].to_i).to be > cohort_course_count
       end
 
