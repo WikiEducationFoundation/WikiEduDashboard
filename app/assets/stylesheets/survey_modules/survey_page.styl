@@ -79,17 +79,12 @@ ul.list--survey
   .course-list__col
     padding 0 1em
 
-.row.row--survey-question .row__wrapper,
-.row.row--survey-question div:not(.drawer):last-child
-  display flex
+.table.list--survey
+  position relative
+  table-layout fixed
 
-  & > div:first-child
-    flex 1
-    padding-right 1rem
-
-  a
-    display inline-block
-    margin-right 1rem
+  td:first-child
+    width 290px
 
 .block.survey__submit-block
   overflow hidden
