@@ -25,17 +25,17 @@ describe('ActivtyTableRow', () => {
     </table>
   );
 
-  it('renders a table row with activity-table-row class and closed class', () => {
-    expect(TestRow.querySelectorAll('tr')[0].className).to.eq('activity-table-row closed');
+  it('renders a table row with a closed class', () => {
+    expect(TestRow.querySelectorAll('tr')[0].className).to.eq('closed');
   });
 
   it('changes class open to class closed when state is_open', (done) => {
-    const row = TestRow.querySelector('.activity-table-row');
+    const row = TestRow.querySelector('tr');
 
-    expect(row.className).to.eq('activity-table-row closed');
+    expect(row.className).to.eq('closed');
 
     click(row).then(r => {
-      expect(r.className).to.eq('activity-table-row open');
+      expect(r.className).to.eq('open');
       done();
     });
   });

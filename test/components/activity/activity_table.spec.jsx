@@ -79,8 +79,8 @@ describe('ActivtyTable', () => {
       </div>
     );
 
-    const rowElements = TestTable.querySelectorAll('.activity-table-row');
-    expect(rowElements.length).to.eq(2);
+    const rowElements = TestTable.querySelectorAll('tbody tr');
+    expect(rowElements.length).to.eq(4);
   });
 
   it('renders no-activity message when no activities exist', () => {
