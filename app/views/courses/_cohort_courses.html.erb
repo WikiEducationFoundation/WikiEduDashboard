@@ -31,11 +31,11 @@
   <table class="table table--hoverable table--sortable">
     <thead>
       <tr>
-        <th class="sort sortable" data-sort="title">
+        <th class="sort sortable asc" data-default-order="asc" data-sort="title">
           <%= t("#{presenter.course_string_prefix}.courses") %>
           <span class="sortable-indicator"></span>
         </th>
-        <th style="width: 165px;" class="sort sortable" data-sort="revisions">
+        <th style="width: 165px;" class="sort sortable" data-default-order="desc" data-sort="revisions">
           <div class="popover-trigger">
             <%= t("metrics.revisions") %>
             <span class="sortable-indicator"></span>
@@ -44,7 +44,7 @@
             </div>
           </div>
         </th>
-        <th style="width: 172px;" class="sort sortable" data-sort="characters">
+        <th style="width: 172px;" class="sort sortable" data-default-order="desc" data-sort="characters">
           <div class="popover-trigger">
             <%= t("metrics.word_count") %>
             <span class="sortable-indicator"></span>
@@ -53,7 +53,7 @@
             </div>
           </div>
         </th>
-        <th style="width: 125px;" class="sort sortable" data-sort="views">
+        <th style="width: 125px;" class="sort sortable" data-default-order="desc" data-sort="views">
           <div class="popover-trigger">
             <%= t("metrics.view") %>
             <span class="sortable-indicator"></span>
@@ -62,7 +62,7 @@
             </div>
           </div>
         </th>
-        <th style="width: 200px;" class="sort sortable" data-sort="students">
+        <th style="width: 200px;" class="sort sortable" data-default-order="desc" data-sort="students">
           <%= t("users.editors") %>
           <span class="sortable-indicator"></span>
         </th>

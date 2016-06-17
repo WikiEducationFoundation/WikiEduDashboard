@@ -92,7 +92,7 @@ describe 'the explore page', type: :feature do
       expect(page.find('.stat-display')).to have_content stat_text
 
       # Recent revisions
-      expect(page.find('#courses .table tbody .revisions').text).to eq('1')
+      expect(page.find('#courses .table tbody tr:first-child .revisions').text).to eq('1')
     end
   end
 
@@ -102,15 +102,15 @@ describe 'the explore page', type: :feature do
 
       # sorting via dropdown
       find('select.sorts').find(:xpath, 'option[2]').select_option
-      expect(page).to have_selector('.course-list__row__revisions.sort.desc')
+      expect(page).to have_selector('[data-sort="revisions"].sort.desc')
       find('select.sorts').find(:xpath, 'option[3]').select_option
-      expect(page).to have_selector('.course-list__row__characters.sort.desc')
+      expect(page).to have_selector('[data-sort="characters"].sort.desc')
       find('select.sorts').find(:xpath, 'option[5]').select_option
-      expect(page).to have_selector('.course-list__row__views.sort.desc')
+      expect(page).to have_selector('[data-sort="views"].sort.desc')
       find('select.sorts').find(:xpath, 'option[6]').select_option
-      expect(page).to have_selector('.course-list__row__students.sort.desc')
+      expect(page).to have_selector('[data-sort="students"].sort.desc')
       find('select.sorts').find(:xpath, 'option[1]').select_option
-      expect(page).to have_selector('.course-list__row__title.sort.asc')
+      expect(page).to have_selector('[data-sort="title"].sort.asc')
 
       # loading a different cohort
       expect(page).to have_content(Cohort.first.title)
@@ -124,27 +124,27 @@ describe 'the explore page', type: :feature do
       visit '/explore'
 
       # Sortable by title
-      expect(page).to have_selector('.course-list__row__title.sort.asc')
-      find('.course-list__row__title.sort').trigger('click')
-      expect(page).to have_selector('.course-list__row__title.sort.desc')
+      expect(page).to have_selector('[data-sort="title"].sort.asc')
+      find('[data-sort="title"].sort').trigger('click')
+      expect(page).to have_selector('[data-sort="title"].sort.desc')
 
       # Sortable by character count
-      find('.course-list__row__characters.sort').trigger('click')
-      expect(page).to have_selector('.course-list__row__characters.sort.desc')
-      find('.course-list__row__characters.sort').trigger('click')
-      expect(page).to have_selector('.course-list__row__characters.sort.asc')
+      find('[data-sort="characters"].sort').trigger('click')
+      expect(page).to have_selector('[data-sort="characters"].sort.desc')
+      find('[data-sort="characters"].sort').trigger('click')
+      expect(page).to have_selector('[data-sort="characters"].sort.asc')
 
       # Sortable by view count
-      find('.course-list__row__views.sort').trigger('click')
-      expect(page).to have_selector('.course-list__row__views.sort.desc')
-      find('.course-list__row__views.sort').trigger('click')
-      expect(page).to have_selector('.course-list__row__views.sort.asc')
+      find('[data-sort="views"].sort').trigger('click')
+      expect(page).to have_selector('[data-sort="views"].sort.desc')
+      find('[data-sort="views"].sort').trigger('click')
+      expect(page).to have_selector('[data-sort="views"].sort.asc')
 
       # Sortable by student count
-      find('.course-list__row__students.sort').trigger('click')
-      expect(page).to have_selector('.course-list__row__students.sort.desc')
-      find('.course-list__row__students.sort').trigger('click')
-      expect(page).to have_selector('.course-list__row__students.sort.asc')
+      find('[data-sort="students"].sort').trigger('click')
+      expect(page).to have_selector('[data-sort="students"].sort.desc')
+      find('[data-sort="students"].sort').trigger('click')
+      expect(page).to have_selector('[data-sort="students"].sort.asc')
     end
   end
 
