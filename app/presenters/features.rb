@@ -46,4 +46,8 @@ class Features
   def self.enable_get_help_button?
     ENV['enable_get_help_button'] == 'true'
   end
+
+  def self.enable_language_switcher?
+    ENV['enable_language_switcher'] == 'true'
+  end
 end

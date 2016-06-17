@@ -117,8 +117,14 @@ class ApplicationController < ActionController::Base
   end
 
   def set_locale_override
-    return unless params[:locale]
-    # Param takes precedence over language preferences from HTTP headers.
-    http_accept_language.user_preferred_languages.unshift(params[:locale])
+    if current_user && current_user.locale
+      # Saved user locale takes precedence over language preferences from HTTP headers.
+      http_accept_language.user_preferred_languages.unshift(current_user.locale)
+    end
+
+    if params[:locale]
+      # Param takes precedence over language preferences from HTTP headers and user.locale.
+      http_accept_language.user_preferred_languages.unshift(params[:locale])
+    end
   end
 end

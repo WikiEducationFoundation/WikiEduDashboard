@@ -6,6 +6,8 @@ class UsersController < ApplicationController
   before_action :require_participating_user,
                 only: [:save_assignments, :enroll]
 
+  before_action :require_signed_in, only: [:update_locale]
+
   def signout
     if current_user.nil?
       redirect_to '/'
@@ -34,6 +36,22 @@ class UsersController < ApplicationController
                            onboarded: true)
 
     render nothing: true, status: 204
+  end
+
+  def update_locale
+    locale = params[:locale]
+
+    if Wiki::LANGUAGES.include?(locale)
+      current_user.locale = params[:locale]
+      if current_user.save
+        render json: { success: true }
+      else 
+        render json: { message: 'There was an error updating your locale' },
+               status: :unprocessable_entity
+      end
+    else
+      render json: { message: 'Invalid locale' }, status: :unprocessable_entity
+    end
   end
 
   #########################
