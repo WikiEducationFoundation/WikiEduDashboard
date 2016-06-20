@@ -11,7 +11,8 @@
     "trix": "~0.9.5",
     "chosen": "~1.5.1",
     "list.fuzzysearch.js": "~0.1.0",
-    "jfeed": "*"
+    "jfeed": "*",
+    "jquery.uls": "https://github.com/mattfordham/jquery.uls.git"
   },
   "overrides": {
     "trix": {
@@ -19,6 +20,15 @@
     },
     "chosen": {
       "main": "chosen.jquery.js"
+    },
+    "jquery.uls": {
+      "main": [
+        "src/jquery.uls.data.js",
+        "src/jquery.uls.data.utils.js",
+        "src/jquery.uls.lcd.js",
+        "src/jquery.uls.languagefilter.js",
+        "src/jquery.uls.core.js"
+      ]
     }
   }
 }

@@ -22,6 +22,9 @@
             %button{type: 'submit'}
               %i.icon.icon-search
     %ul.top-nav__login-links
+      - if Features.enable_language_switcher?
+        %li
+          %button.uls-trigger= I18n.locale
       - if user_signed_in?
         %li
           %b>= link_to current_user.username, root_path, class: 'current-user'

@@ -174,6 +174,9 @@ Rails.application.routes.draw do
   get 'onboarding(/*any)' => 'onboarding#index', as: :onboarding
   put 'users/onboard' => 'users#onboard', as: :onboard
 
+  # Update Locale Preference
+  post '/update_locale/:locale' => 'users#update_locale', as: :update_locale
+
   # Route aliases for React frontend
   get '/course_creator(/*any)' => 'dashboard#index', as: :course_creator
 
