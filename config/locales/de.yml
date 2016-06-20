@@ -15,6 +15,7 @@ de:
     explore: Entdecken
     field_required: Dieses Feld ist erforderlich
     field_invalid_characters: Dieses Feld hat ungültige Zeichen
+    field_invalid_date: Dieses Feld erfordert ein Datum im Format JJJJ-MM-TT
     greeting2: Willkommen!
     greeting_extended: Willkommen bei Wikipedia
     greeting: Hallo!

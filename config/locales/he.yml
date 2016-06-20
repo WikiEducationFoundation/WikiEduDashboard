@@ -17,6 +17,7 @@ he:
     explore: חקור
     field_required: חובה למלא את השדה הזה
     field_invalid_characters: שדה זה מכיל תווים לא תקינים
+    field_invalid_date: בשדה זה יש להשתמש בתאריך עם המבנה YYYY-MM-DD
     greeting2: ברוכים הבאים!
     greeting_extended: ברוכים הבאים לוויקיפדיה
     greeting: שלום!

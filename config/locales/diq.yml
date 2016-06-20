@@ -19,13 +19,23 @@ diq:
     log_in_extended: Wikipedia ya Cıkew
     log_in: Cı kewe
     log_out: Bıveciye
+    my_dashboard: Panela mı
+    recent_activity: Aktiviteya peyêne
+    search: Sualê pers bık
+    sign_up_extended: Wikipedia ya qeyd be
     sign_up_log_in_extended: Wikipedia ya
     sign_up: Qeyd be
     submit: deqew
+    training: Mısnayış
     change: Bıvurne
+  home:
+    explore: Keşf ke
+    log_in: Wikipedia ya Cıkew
+    sign_up: Wikipedia ya qeyd be
   activity:
     all: Fealiyet
     edited_by: Vurnayoğ
+    label: Fealiyet
   articles:
     edited_mobile: Meqaleyi
     label: Wesiqey
@@ -40,6 +50,20 @@ diq:
     articles: Wesiqey
     calendar:
       legend: Kıtabek
+    creator:
+      course_language: Zıwanê Keyi
+      course_project: Proceya keyi
+      course_school: Kursa mektebi
+      course_subject: Kursa obji
+      course_term: Kursa qewremi
+      course_term_placeholder: Qewremi
+      course_title: Sernamey kursi
+      create_button: Kursa xo vıraz
+      create_label: Kursa Newi vıraz
+      create_new: Kursa Newi vıraz
+      create_short: Kurs vıraz
+      end_date: tarixê qediyayişi
+      end_date_placeholder: Qedyayış (SSSS-MM-RR)
     passcode: Passcode
     passcode_none: passcode çıni yo
     school: Wendxane
@@ -60,6 +84,30 @@ diq:
     save: Qeyd ke
   metrics:
     activity: Aktiviteya peyêne
+  timeline:
+    week_number: Hefte %{number}
+  training:
+    continue: Dewam keno %{progress}
+    start: Bas beno
+    view: Bıvêne
   uploads:
     usages: Karidayışi
+  users:
+    my_assigned: 'Çebiyen:'
+    my_reviewing: 'Weynayen:'
+    name: Name
+    no_articles: Maqaley çıni yê
+    training_incomplete: Musnayış nêqediya
+    username: Namey karberi
+    username_placeholder: Namey karberi
+  wizard:
+    summary: Xulasa
+  login_error:
+    header: Xırab cıkewtış
+  survey:
+    email:
+      course: Kurse:%{course_info}
+      closing: Samimiyeta,
+      signed: '- Wiki Ed team'
+      link: Anket bıgi
 ...

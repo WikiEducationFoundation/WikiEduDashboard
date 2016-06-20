@@ -10,6 +10,7 @@ ja:
   application:
     cancel: 中止
     dashboard: Wiki Ed ダッシュボード
+    field_invalid_date: YYYY-MM-DD の形式で年月日を入力してください
     greeting2: ようこそ!
     greeting_extended: ウィキペディアへようこそ
     greeting: こんにちは!

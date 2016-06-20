@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Hindustanilanguage
 # Author: Obaid Raza
+# Author: امین اکبر
 ---
 ur:
   application:
@@ -18,5 +19,5 @@ ur:
       course_project: مرکزی منصوبہ
     my_articles: میرے مضامین
   users:
-    my_assigned: تجاویز
+    my_assigned: تفویض کردہ
 ...

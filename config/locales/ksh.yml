@@ -7,6 +7,7 @@ ksh:
   application:
     error: 'Ene Fähler es opjetrodde:'
     field_required: Dat Fäld moß aanjejovve sin.
+    field_invalid_date: Dat Väld bruch e Dattom em Fommaht JJJJ-MM-DD
     help: Hölp!
     log_out: Ußlogge
     search: Schtäll en Frohch

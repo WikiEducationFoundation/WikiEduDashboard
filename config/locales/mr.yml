@@ -7,6 +7,7 @@
 ---
 mr:
   application:
+    field_invalid_date: या क्षेत्रात दिनांक YYYY-MM-DD प्रारुपात हवा
     help: साहाय्य
     home: स्वगृह
     log_in: सनोंद प्रवेश करा
@@ -81,7 +82,7 @@ mr:
     editors: विद्यार्थी संपादक
     loading: सदस्यांचे प्रभारण करीत आहे...
     name: नाव
-    none: या अभ्यासक्रमात काहीच विद्यार्थी नाहीत.
+    none: यात सहभागी असणारे कोणीच नाहीत.
     recent_revisions: अलीकडील संपादने
     revisions_doc: या संपादकाने मागील ७ दिवसात केलेली संपादने
     reviewers: पुनरावलोकक
@@ -93,6 +94,7 @@ mr:
     summary: सारांश
   error:
     article_required: एक लेख आवश्यक आहे.
+    form_errors: फॉर्म त्रुटींसाठी तपासून बघा.
     unsupported_browser:
       header: असाहाय्यीकृत न्याहाळक. :-(
   error_401:

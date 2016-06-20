@@ -23,6 +23,7 @@ sv:
     label: Aktivitet
   articles:
     assigned: Tilldelade artiklar
+    available: Tillgängliga artiklar
     assigned_to: Tilldelad till
     character_doc: Summan av tecken som lagts till i artiklar av kursens studenter
       under kursen
@@ -37,6 +38,10 @@ sv:
     view_all: Visa alla
     view_doc: Summan av alla läsningar av varje artikel under kursen
     views_added: Lade till %{count} nya läsningar %{title}
+  assignments:
+    add_available: Lägg till en tillgänglig artikel
+    remove: Ta bort
+    select: Välj
   blocks:
     milestones:
       title: Milstolpar
@@ -129,6 +134,7 @@ sv:
     uploaded_by: Uppladdad av
   revisions:
     class: Klass
+    diff: diff
     edited_by: Redigerad av
     title: Titel
   timeline:
@@ -161,13 +167,16 @@ sv:
     my_assigned: 'Tilldelade:'
     my_reviewing: 'Granskar:'
     no_articles: Inga artiklar
-    number_of_articles: '%{number} artiklar'
+    number_of_articles:
+      one: '%{count} artikel'
+      other: '%{count} artiklar'
     recent_revisions: Senaste redigeringar
     username: Användarnamn
     username_placeholder: Användarnamn
   wizard:
     summary: Sammanfattning
   error:
+    article_required: En artikel krävs.
     unsupported_browser:
       header: Webbläsaren stöds inte. :-(
   error_401:

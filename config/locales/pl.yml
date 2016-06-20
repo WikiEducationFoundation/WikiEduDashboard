@@ -12,6 +12,7 @@ pl:
     explore: Odkryj
     field_required: Wypełnienie tego pola jest obowiązkowe
     field_invalid_characters: To pole zawiera niedozwolone znaki
+    field_invalid_date: To pole wymaga daty w formacie RRRR-MM-DD
     greeting: Witaj!
     help: Pomoc
     home: Strona główna

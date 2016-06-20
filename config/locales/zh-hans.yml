@@ -16,6 +16,7 @@ zh-hans:
     explore: 浏览
     field_required: 此字段是必需的
     field_invalid_characters: 此字段有无效字符
+    field_invalid_date: 此字段要求日期为YYYY-MM-DD格式
     greeting2: 欢迎！
     greeting_extended: 欢迎来到维基百科
     greeting: 您好！

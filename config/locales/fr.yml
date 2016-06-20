@@ -25,6 +25,7 @@ fr:
     explore: Explorer
     field_required: Ce champ est obligatoire
     field_invalid_characters: Ce champ contient des caractères non valides
+    field_invalid_date: Ce champ requiert une date au format AAAA-MM-JJ
     greeting2: Bienvenue !
     greeting_extended: Bienvenue dans Wikipédia
     greeting: Bonjour !

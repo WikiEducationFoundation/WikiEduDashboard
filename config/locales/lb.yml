@@ -9,6 +9,7 @@ lb:
     dashboard: Iwwersiicht iwwer d'Ännerungen op der Wiki
     error: 'Et gouf e Feeler:'
     field_required: Dëst Feld ass obligatoresch
+    field_invalid_date: Dëst Feld brauch en Datum am Format JJJJ-MM-DD
     greeting2: Wëllkomm!
     greeting_extended: Wëllkomm op Wikipedia
     greeting: Salut!
@@ -247,6 +248,7 @@ lb:
     read_more: Liest méi
     summary: Resumé
   error:
+    form_errors: Kuckt de Formulaire w.e.g. no Feeler no.
     unsupported_browser:
       header: Net ënnerstëtzte Browser. :-(
   error_401:

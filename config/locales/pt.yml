@@ -36,6 +36,7 @@ pt:
     all: Atividade
     edited_by: Editado por
   articles:
+    available: Artigos disponíveis
     edited: Artigos editados
     edited_mobile: Artigos
     label: Artigos
@@ -57,7 +58,7 @@ pt:
     duration: Duração do curso
     enroll: Inscreva-se
     enrollment: Inscrição
-    my_articles: Meus artigos
+    my_articles: Os meus artigos
     nocourses: Não está inscrito em nenhum curso.
     school: Escola
     students: Estudantes

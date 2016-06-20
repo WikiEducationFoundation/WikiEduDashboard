@@ -17,11 +17,12 @@ yi:
     log_out: אַרויסלאָגירן
     my_dashboard: מיין איבערזיכט־טאוול
     recent_activity: לעצטיקע אקטיוויטעטן
-    search: זוכן ask.wikiedu.org
+    search: פֿרעגן א שאלה
     sign_up_extended: אַרײַנלאגירן צו וויקיפעדיע
     sign_up_log_in_extended: מיט וויקיפעדיע
     sign_up: אײַנשרייבן
     submit: איינגעבן
+    change: טוישן
   home:
     explore: אויספארשן
     log_in: אַרײנלאגירן צו וויקיפעדיע
@@ -34,6 +35,7 @@ yi:
     edited_mobile: אַרטיקלען
     label: אַרטיקלען
     loading: אנלאדן ארטיקלען…
+    new: (ניי)
     rating: קלאס
     title: טיטל
     title_example: ארטיקל־טיטל

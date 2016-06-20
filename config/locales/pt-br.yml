@@ -6,6 +6,7 @@
 # Author: Dianakc
 # Author: HenriqueCrang
 # Author: Ixocactus
+# Author: LucyDiniz
 # Author: Luk3
 # Author: Macofe
 # Author: Raphaelras
@@ -18,6 +19,7 @@ pt-br:
     explore: Explorar
     field_required: Este campo é obrigatório
     field_invalid_characters: Este campo tem caracteres inválidos
+    field_invalid_date: Este campo requer a data no formato AAAA-MM-DD
     greeting2: Bem-vindo(a)!
     greeting_extended: Bem-vindo à Wikipédia
     greeting: Olá!
@@ -91,7 +93,7 @@ pt-br:
     label: Atribuir
     loading: Carregando atribuições...
     none_short: Nenhum artigo atribuído
-    none: Este curso não possui artigos atribuído os da Wikipédia.
+    none: Este curso não possui artigos atribuídos.
     reviewers: Revisor(es)
     review_other: Atribuir uma revisão
     review_self: Revisar um artigo
@@ -108,7 +110,7 @@ pt-br:
     articles: Artigos
     articles_none: Este curso não editou nenhum artigo.
     assignment_end: Fim da atribuição
-    assignments_none: Este curso não possui artigos atribuído os da Wikipédia.
+    assignments_none: Este curso não possui artigos atribuídos.
     assignment_start: Início da atribuição
     character_doc: A soma dos caracteres adicionados a artigos no domínio prinicpal
       por estudantes do curso durante o prazo curso
