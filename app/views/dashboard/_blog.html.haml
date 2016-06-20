@@ -6,6 +6,9 @@
   .blog-feed__posts
     - @blog_posts.first(3).each do |post|
       .blog-post
+        - if post.enclosure
+          .blog-post__image
+            %img{src: post.enclosure.url, :alt => post.title}
         %h3.blog-post__header
           %a{href: post.link, target: "_blank"}= post.title
         %p.blog-post__description= raw post.description
