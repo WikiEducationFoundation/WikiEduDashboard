@@ -45,16 +45,7 @@ Wizard = React.createClass(
           weeks={@props.weeks.length}
           summary={@state.summary}
         />
-      else if i == 1
-        <TimelinePanel panel={panel}
-          course={@props.course}
-          key={panel.key}
-          index={i}
-          step={step}
-          weeks={@props.weeks.length}
-          summary={@state.summary}
-        />
-      else if i != 1 && i < panel_count - 1
+      else if i != 0 && i < panel_count - 1
         <Panel panel={panel}
           parentPath={@timelinePath()}
           key={panel.key}

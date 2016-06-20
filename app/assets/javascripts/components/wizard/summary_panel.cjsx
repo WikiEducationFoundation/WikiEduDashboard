@@ -23,10 +23,6 @@ SummaryPanel = React.createClass(
           <p key={'course_dates_summary'}>{@props.course.start} &mdash; {@props.course.end}</p>
         ]
       # summary of the Assignment Dates panel
-      else if i == 1
-        details = [
-          <p key={'timeline_dates_summary'}>{@props.course.timeline_start} &mdash; {@props.course.timeline_end}</p>
-        ]
       else
         details = answer.selections.map (selection, j) ->
           <p key={'detail' + i + '' + j}>{selection}</p>

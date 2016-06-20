@@ -15,14 +15,6 @@ _panels = [{
   minimum: 0
   key: 'dates'
 },{
-  title:  I18n.t('wizard.assignment_dates')
-  description: I18n.t('wizard.assignment_description')
-  active: false
-  options: []
-  type: -1
-  minimum: 0
-  key: 'timeline'
-},{
   title: I18n.t('wizard.assignment_type')
   description: I18n.t('wizard.select_assignment')
   active: false
@@ -43,17 +35,17 @@ _panels = [{
 # Utilities
 setIndex = (index) ->
   # index of the assignment panel
-  _panels[2].options = index
+  _panels[1].options = index
   WizardStore.emitChange()
 
 setPanels = (panels) ->
-  # 4 hard-coded panels: course dates, timeline dates, assignments, summary
+  # 3 hard-coded panels: course dates, assignments, summary
   # _panels.length will change when more are inserted
-  to_remove = _panels.length - 4
+  to_remove = _panels.length - 3
   # insert retrieved panels after hardcoded panels, but before summary
   # also remove if you chose a different assignment but went back
   # 3 (for now) is index of the first to remove (the first retrieved panel)
-  _panels.splice.apply(_panels, [3, to_remove].concat(panels))
+  _panels.splice.apply(_panels, [2, to_remove].concat(panels))
   moveWizard() if _active_index > 0
   WizardStore.emitChange()
 
@@ -84,7 +76,7 @@ moveWizard = (backwards=false, to_index=null) ->
 
   if !backwards && verifyPanelSelections(active_panel)
     increment = 1
-    if _active_index == 2 # assignment step
+    if _active_index == 1 # assignment step
       selected_wizard = _.find(_panels[_active_index].options, (o) -> o.selected)
       if selected_wizard.key != _wizard_key
         _wizard_key = selected_wizard.key
