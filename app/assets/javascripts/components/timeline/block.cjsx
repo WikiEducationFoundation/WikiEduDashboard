@@ -164,7 +164,7 @@ Block = React.createClass(
             show={@props.block.kind < 3 || @_isEditable()}
             label='Block type'
             spacer=''
-            popover_text={I18n.t('timeline.block_type')}
+            tooltip_text={I18n.t('timeline.block_type')}
           />
           {dueDateSpacer}
           {dueDateRead || (if is_graded then (<span className='block__default-due-date'>{I18n.t('timeline.due_default')}</span>) else '')}

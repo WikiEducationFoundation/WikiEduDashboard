@@ -92,10 +92,10 @@ Overview = React.createClass(
           <div className="stat-display__value">{@props.course.edit_count}</div>
           <small>{I18n.t('metrics.edit_count_description')}</small>
         </div>
-        <div className="stat-display__stat popover-trigger" id="student-editors">
+        <div className="stat-display__stat tooltip-trigger" id="student-editors">
           <div className="stat-display__value">{@props.course.student_count}</div>
           <small>{CourseUtils.i18n('student_editors', @props.course.string_prefix)}</small>
-          <div className="popover dark" id="trained-count">
+          <div className="tooltip dark" id="trained-count">
             <h4 className="stat-display__value">{@props.course.trained_count}</h4>
             <p>{I18n.t('metrics.are_trained')}</p>
           </div>

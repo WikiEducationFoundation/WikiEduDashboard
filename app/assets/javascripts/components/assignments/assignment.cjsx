@@ -9,7 +9,7 @@ Assignment = React.createClass(
   displayName: 'Assignment'
   render: ->
     article = @props.article || CourseUtils.articleFromAssignment(@props.assign_group[0])
-    
+
     unless article.formatted_title
       article.formatted_title = CourseUtils.formattedArticleTitle(
         @props.assign_group[0].language,
@@ -36,10 +36,10 @@ Assignment = React.createClass(
     reviewers.pop() if reviewers.length
 
     <tr className={className}>
-      <td className='popover-trigger desktop-only-tc'>
+      <td className='tooltip-trigger desktop-only-tc'>
         <p className="rating_num hidden">{article.rating_num}</p>
         <div className={ratingClass}><p>{article.pretty_rating || '-'}</p></div>
-        <div className="popover dark">
+        <div className="tooltip dark">
           <p>{I18n.t('articles.rating_docs.' + (article.rating || '?'))}</p>
         </div>
       </td>

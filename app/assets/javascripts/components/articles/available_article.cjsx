@@ -50,10 +50,10 @@ AvailableArticle = React.createClass(
       )
 
     <tr className={className}>
-      <td className='popover-trigger desktop-only-tc'>
+      <td className='tooltip-trigger desktop-only-tc'>
         <p className="rating_num hidden">{article.rating_num}</p>
         <div className={ratingClass}><p>{article.pretty_rating || '-'}</p></div>
-        <div className="popover dark">
+        <div className="tooltip dark">
           <p>{I18n.t('articles.rating_docs.' + (assignment.article_rating || '?'))}</p>
         </div>
       </td>

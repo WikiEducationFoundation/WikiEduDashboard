@@ -17,21 +17,21 @@ List = React.createClass(
       else
         header_onclick = null
       if key_obj['info_key']?
-        header_class += ' popover-trigger'
-        popover = [(
-          <div className='popover dark'>
+        header_class += ' tooltip-trigger'
+        tooltip = [(
+          <div className='tooltip dark'>
             <p>{I18n.t(key_obj['info_key'])}</p>
           </div>
         ), (
-          <span className="popover-indicator"></span>
+          <span className="tooltip-indicator"></span>
         )]
       else
-        popover = null
+        tooltip = null
       headers.push (
         <th onClick={header_onclick} className={header_class} key={key}>
           <span dangerouslySetInnerHTML={{__html: key_obj['label']}}></span>
           <span className="sortable-indicator"></span>
-          {popover}
+          {tooltip}
         </th>
       )
       className = @props.table_key + ' table'

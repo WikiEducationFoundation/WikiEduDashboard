@@ -3,10 +3,10 @@
     <div class="stat-display__value"><%= presenter.courses.count %></div>
     <small><%= t("#{presenter.course_string_prefix}.courses") %></small>
     </div>
-  <div class="stat-display__stat popover-trigger">
+  <div class="stat-display__stat tooltip-trigger">
     <div class="stat-display__value"><%= presenter.cohort.students_without_nonstudents.count %></div>
     <small><%= t("#{presenter.course_string_prefix}.students") %></small>
-    <div class="popover dark">
+    <div class="tooltip dark">
       <h4><%= number_to_human presenter.cohort.trained_percent %>%</h4>
       <p><%= t("users.up_to_date_with_training") %></p>
     </div>
@@ -27,10 +27,10 @@
     <div class="stat-display__value"><%= number_to_human presenter.courses.sum(:new_article_count) %></div>
     <small><%= t("metrics.articles_created") %></small>
   </div>
-  <div class="stat-display__stat popover-trigger">
+  <div class="stat-display__stat tooltip-trigger">
     <div class="stat-display__value"><%= number_to_human presenter.courses.sum(:upload_count) %></div>
     <small><%= t("metrics.upload_count") %></small>
-    <div class="popover dark">
+    <div class="tooltip dark">
       <h4><%= number_to_human presenter.uploads_in_use_count %></h4>
       <p><%= t("metrics.uploads_in_use_count", count: presenter.uploads_in_use_count) %></p>
       <h4><%= number_to_human presenter.upload_usage_count %></h4>

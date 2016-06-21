@@ -21,10 +21,10 @@ const Article = React.createClass({
 
     return (
       <tr className={className}>
-        <td className="popover-trigger desktop-only-tc">
+        <td className="tooltip-trigger desktop-only-tc">
           <p className="rating_num hidden">{this.props.article.rating_num}</p>
           <div className={ratingClass}><p>{this.props.article.pretty_rating || '-'}</p></div>
-          <div className="popover dark">
+          <div className="tooltip dark">
             <p>{I18n.t(`articles.rating_docs.${this.props.article.rating || '?'}`)}</p>
           </div>
         </td>
