@@ -18,11 +18,13 @@ List = React.createClass(
         header_onclick = null
       if key_obj['info_key']?
         header_class += ' popover-trigger'
-        popover = (
+        popover = [(
           <div className='popover dark'>
             <p>{I18n.t(key_obj['info_key'])}</p>
           </div>
-        )
+        ), (
+          <span className="popover-indicator"></span>
+        )]
       else
         popover = null
       headers.push (
