@@ -74,7 +74,7 @@ const ActivityTableRow = React.createClass({
           {revisionDateTime}
         </td>
         <td>
-          <button className="icon icon-arrow"></button>
+          <button className="icon icon-arrow table-expandable-indicator"></button>
         </td>
       </tr>
     );

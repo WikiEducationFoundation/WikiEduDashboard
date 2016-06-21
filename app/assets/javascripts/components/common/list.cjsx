@@ -34,7 +34,11 @@ List = React.createClass(
           {tooltip}
         </th>
       )
-      className = @props.table_key + ' table'
+
+
+    className = @props.table_key + ' table '
+
+    if @props.className then className += @props.className
 
     if @props.sortable then className += ' table--sortable'
 

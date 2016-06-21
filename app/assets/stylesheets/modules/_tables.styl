@@ -40,7 +40,7 @@
 
 // Expandable variant
 .table--expandable
-  // Rows following a .closed row are hidden
+  // Rows immediately following a .closed row are hidden
   > tbody > tr.closed + tr
     display none
 
@@ -53,6 +53,16 @@
       // Turn links white
       a
         color #fff
+
+      .table-expandable-indicator
+        transform rotateZ(180deg)
+
+  .table-expandable-indicator
+    position relative
+    top 2px
+    transform-origin 50% 45%
+    transition transform 250ms ease
+    transform rotateZ(0)
 
 
 

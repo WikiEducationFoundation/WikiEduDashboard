@@ -78,6 +78,7 @@ StudentList = React.createClass(
       {@props.controls([add_student, notify_overdue], @props.users.length < 1)}
       <List
         elements={elements}
+        className='table--expandable table--hoverable'
         keys={keys}
         table_key='users'
         none_message={CourseUtils.i18n('students_none', @props.course.string_prefix)}
