@@ -22,18 +22,20 @@
 </div>
 <% if @articles %>
 <div>
-  <ul class="list">
-    <li class="row course-list__row">
-      <div class="row__wrapper">
-        <div class="course-list__row__title"><p>TITLE</p></div>
-        <div class="course-list__row__revisions"><p>Views per day (recent average)</p></div>
-        <div class="course-list__row__revisions"><p>Completeness estimate (0-100)</p></div>
-      </div>
-    </li>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>TITLE</th>
+        <th>Views per day (recent average)</th>
+        <th>Completeness estimate (0-100)</th>
+      </tr>
+    </thead>
+    <tbody>
     <% @articles.each do |article| %>
       <%= render :partial => 'row', :locals => {:article => article} %>
     <% end %>
-  </ul>
+    </tbody>
+  </table>
 </div>
 <% end %>
 </section>
