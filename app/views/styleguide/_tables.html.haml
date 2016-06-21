@@ -108,11 +108,56 @@
       %td Sage
       %td Dec 21st
 
+%br/
+%br/
+
+%h5 Expandable
+%table.table.table--expandable.table--hoverable
+  %thead
+    %tr
+      %th Name
+      %th Date
+      %th{style: 'width: 40px;'}
+  %tbody
+    %tr.closed
+      %td Brian
+      %td Nov 3rd
+      %td
+        %button.icon.icon-arrow.table-expandable-indicator
+    %tr
+      %td Matt
+      %td Nov 8th
+    %tr.open
+      %td Sage
+      %td Dec 21st
+      %td
+        %button.icon.icon-arrow.table-expandable-indicator
+    %tr
+      %td{colspan: 3}
+        %table.table
+          %thead
+            %tr
+              %th Sub Header
+              %th Sub Header 2
+          %tbody
+            %tr
+              %td Sub Cell
+              %td Sub Cell 2
+            %tr
+              %td Sub Cell 3
+              %td Sub Cell 4
+    %tr.closed
+      %td Matt
+      %td Nov 8th
+      %td
+        %button.icon.icon-arrow.table-expandable-indicator
+    %tr
+      %td Matt
+      %td Nov 8th
 
 .sg-note
   TODO:
   %ul
-    %li Expandable rows
     %li Buttons/links/inputs in row
     %li Filters?
     %li Dashboard Courses table header style vs Recent Activity styles, consolidate
