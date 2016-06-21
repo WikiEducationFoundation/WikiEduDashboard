@@ -63,7 +63,7 @@ AvailableArticle = React.createClass(
           {articleLink}
         </p>
       </td>
-      <td className="action-cell">
+      <td className="table-action-cell">
         {actionButton}
       </td>
     </tr>
