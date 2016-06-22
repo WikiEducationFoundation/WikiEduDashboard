@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 import TrixEditor from 'react-trix';
 import DatePicker from '../components/common/date_picker.jsx';
 import Calendar from '../components/common/calendar.cjsx';
+import Popover from '../components/common/popover.jsx';
 
 const StyleguideExamples = {
 
@@ -52,6 +53,51 @@ const StyleguideExamples = {
         onChange={(e) => {console.log(e);}}
       />
     ), document.getElementById('rich-text'));
+  },
+
+  popover() {
+    const PopoverExample = React.createClass({
+      getInitialState() {
+        return {
+          open: false
+        };
+      },
+
+      toggleOpen() {
+        this.setState({
+          open: !this.state.open
+        });
+      },
+
+      render() {
+        const editRow = (
+          <tr>
+            <td>"Edit row" content: Lorem ipsum dolor sit amet.</td>
+          </tr>
+        );
+
+        const rows = (
+          <tr>
+            <td>"Rows" content: Lorem ipsum dolor sit amet.</td>
+          </tr>
+        );
+
+        return (
+          <div className="pop__container">
+            <button className="button dark" onClick={this.toggleOpen}>Toggle popover</button>
+            <Popover
+              is_open={this.state.open}
+              edit_row={editRow}
+              rows={rows}
+            />
+          </ div>
+        );
+      }
+    });
+
+    ReactDOM.render((
+      <PopoverExample />
+    ), document.getElementById('popover'));
   }
 };
 
