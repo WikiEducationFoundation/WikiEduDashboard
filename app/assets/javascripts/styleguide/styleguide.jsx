@@ -6,6 +6,7 @@ import TrixEditor from 'react-trix';
 import DatePicker from '../components/common/date_picker.jsx';
 import Calendar from '../components/common/calendar.cjsx';
 import Popover from '../components/common/popover.jsx';
+import Loading from '../components/common/loading.jsx';
 
 const StyleguideExamples = {
 
@@ -98,6 +99,12 @@ const StyleguideExamples = {
     ReactDOM.render((
       <PopoverExample />
     ), document.getElementById('popover'));
+  },
+
+  loading() {
+    ReactDOM.render((
+      <Loading />
+    ), document.getElementById('loading'));
   }
 };
 
