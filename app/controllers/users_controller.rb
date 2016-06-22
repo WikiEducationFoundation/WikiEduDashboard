@@ -41,17 +41,14 @@ class UsersController < ApplicationController
   def update_locale
     locale = params[:locale]
 
-    if Wiki::LANGUAGES.include?(locale)
-      current_user.locale = params[:locale]
-      if current_user.save
-        render json: { success: true }
-      else 
-        render json: { message: 'There was an error updating your locale' },
-               status: :unprocessable_entity
-      end
-    else
+    unless I18n.available_locales.include?(locale.to_sym)
       render json: { message: 'Invalid locale' }, status: :unprocessable_entity
+      return
     end
+
+    current_user.locale = locale
+    current_user.save!
+    render json: { success: true }
   end
 
   #########################

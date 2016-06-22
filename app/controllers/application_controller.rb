@@ -19,8 +19,7 @@ class ApplicationController < ActionController::Base
 
   force_ssl if: :ssl_configured?
 
-  before_filter :set_locale_override
-  include HttpAcceptLanguage::AutoLocale
+  before_filter :set_locale
 
   before_filter :set_paper_trail_whodunnit
 
@@ -116,15 +115,23 @@ class ApplicationController < ActionController::Base
     Rails.env.staging? || Rails.env.production?
   end
 
-  def set_locale_override
-    if current_user && current_user.locale
-      # Saved user locale takes precedence over language preferences from HTTP headers.
-      http_accept_language.user_preferred_languages.unshift(current_user.locale)
-    end
+  def set_locale
+    # Saved user locale takes precedence over language preferences from HTTP headers.
+    preferred_locale_from_user
+    # Param takes precedence over saved user local
+    preferred_locale_from_param
 
-    if params[:locale]
-      # Param takes precedence over language preferences from HTTP headers and user.locale.
-      http_accept_language.user_preferred_languages.unshift(params[:locale])
-    end
+    preferred_locale = http_accept_language.preferred_language_from I18n.available_locales
+    I18n.locale = preferred_locale || I18n.default_locale
+  end
+
+  def preferred_locale_from_user
+    return unless current_user && current_user.locale
+    http_accept_language.user_preferred_languages.unshift(current_user.locale)
+  end
+
+  def preferred_locale_from_param
+    return unless params[:locale]
+    http_accept_language.user_preferred_languages.unshift(params[:locale])
   end
 end
