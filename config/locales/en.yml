@@ -92,6 +92,10 @@ en:
     explore: Explore
     log_in: Log in with Wikipedia
     sign_up: Sign up with Wikipedia
+    sign_up_help: >
+      To use the dashboard, you'll need to sign in through Wikipiedia and give
+      it permission to access your account. You can log in with an existing
+      Wikipedia account, or create a new one.
 
   activity:
     all: Activity
