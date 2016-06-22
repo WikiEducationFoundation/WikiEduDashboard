@@ -134,7 +134,7 @@
         %button.icon.icon-arrow.table-expandable-indicator
     %tr
       %td{colspan: 3}
-        %table.table
+        %table.table.table--small
           %thead
             %tr
               %th Sub Header
@@ -155,9 +155,39 @@
       %td Matt
       %td Nov 8th
 
+%br/
+%br/
+
+%h5 Buttons and links
+%table.table
+  %thead
+    %tr
+      %th Name
+      %th Date
+      %th
+  %tbody
+    %tr
+      %td
+        %a{href: '#'} Brian
+      %td Nov 3rd
+      %td.table-action-cell
+        %button.button.ghost-button Add
+    %tr
+      %td
+        %a{href: '#'} Matt
+      %td Nov 8th
+      %td.table-action-cell
+        %button.button.ghost-button Add
+    %tr
+      %td
+        %a{href: '#'} Sage
+      %td Dec 21st
+      %td.table-action-cell
+        %button.button.ghost-button Add
+
+
 .sg-note
   TODO:
   %ul
-    %li Buttons/links/inputs in row
     %li Filters?
     %li Dashboard Courses table header style vs Recent Activity styles, consolidate
