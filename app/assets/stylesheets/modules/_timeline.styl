@@ -83,7 +83,7 @@
     color $brand_primary
     font-weight 400
     flex 1
-    margin-right 10px
+    margin-right 15%
 
 .block__block-content
   color $text_dk
@@ -133,12 +133,13 @@
 
 .block__block-type
   color $text_dk
-  font-size 18px
+  font-size 14px
   font-weight 300
   position relative
   -webkit-font-smoothing auto
   &.editable
     right 80px
+    top 2px
   select
     margin-right 0
 
@@ -428,6 +429,8 @@ li.block.editable
       margin-bottom 3px
   input.editable
     width 300px
+  .block-title
+    margin-right 20px 
   .block__edit-block
     visibility hidden
   .block__due-date-spacer
@@ -436,6 +439,7 @@ li.block.editable
     display none
   .block__block-type
     right 0
+    top 0
     label span
       margin-bottom 5px
 
