@@ -1,34 +1,52 @@
-fieldset
-  display block
 
 
-input, textarea, select, .expandingArea > pre
-  background-color white
-  border 1px solid border_lt
-  border-radius 0
+// Styling for basic inputs
+input,
+textarea,
+select,
+.form-control
+  background-color #fff
+  border 1px solid $border_lt
+  border-radius 0px
   font-family body-font
   color body-color
   font-size 15px
-  // outline 0
   padding 10px
-  -webkit-appearance none
-  -moz-appearance none
-  //
+  outline none
+  height 42px
+  transition border-color 125ms ease
+  -webkit-font-smoothing antialiased
+  max-width 100%
 
   &:focus
-    border-color dove
+    border-color $brand_primary
 
   &::-ms-expand
     display none
 
-.default-form
-  select
-    -webkit-appearance menulist
-    -moz-appearance menulist
+// Reset height for some specific input types
+textarea, textarea.form-control,
+select[multiple], select[multiple].form-control,
+input[type='radio'], input[type='radio'].form-control,
+input[type='checkbox'], input[type='checkbox'].form-control
+  height auto
+
+// Custom dropdown arrow for selects
+select:not([multiple])
+  background-image url('data:image/svg+xml;charset=utf-8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9IiM2NjY2NjYiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjI0Ij4NCiAgICA8cGF0aCBkPSJNNyAxMGw1IDUgNS01eiIvPg0KICAgIDxwYXRoIGQ9Ik0wIDBoMjR2MjRIMHoiIGZpbGw9Im5vbmUiLz4NCjwvc3ZnPg==')
+  appearance none
+  -webkit-appearance none
+  -moz-appearance none
+  -ms-appearance none
+  background-position calc(100% - 4px) 9px
+  background-repeat no-repeat
+  padding-right 30px
 
 input.invalid, label.invalid input
-  border 2px solid warning !important
+  border-color warning
+  box-shadow 0 0 0 1px warning
 
+// default vertical resize for textarea
 textarea
   resize vertical
 
@@ -80,10 +98,11 @@ pre
 .course-description .expandingArea.active pre
   display none
 
-input[type=text], input[type=date], select
-  height 40px
-
 .input_wrapper
+  font-size 15px
+  color body-color
+  font-weight 400
+
   // overflow hidden
   &.inline
     vertical-align middle
@@ -97,19 +116,9 @@ input[type=text], input[type=date], select
 
 .select_wrapper
   display inline-block
-  overflow visible
-  position relative
   select
     min-width 170px
-  &:after
-    content '\25BE'
-    font-size 24px
-    line-height 1
-    margin-top -14px
-    pointer-events none
-    position absolute
-    right 20px
-    top 50%
+
 
 // .tether-enabled
 //   overflow hidden

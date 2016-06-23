@@ -63,13 +63,9 @@
   textarea
     width 100%
   input[type='text'], input[type='date'], select
-    display inline-block
     margin-right 10px
-    width 150px
-    border 1px solid $border_med_dk
-    height auto
     &.title
-      width 470px
+      width 100%
       margin-top 2px
   input[type='checkbox']
     margin 20px 5px
@@ -87,6 +83,7 @@
     color $brand_primary
     font-weight 400
     flex 1
+    margin-right 10px
 
 .block__block-content
   color $text_dk
@@ -139,14 +136,7 @@
   font-size 18px
   font-weight 300
   position relative
-  bottom 4px
   -webkit-font-smoothing auto
-  .select_wrapper:after
-    margin-top 6px
-    background url('../images/downward_caret.svg') right center no-repeat
-    content ''
-    width 14px
-    height 10px
   &.editable
     right 80px
   select
@@ -162,7 +152,6 @@
     bottom 6px
     font-weight 400
     margin-left 10px
-    -webkit-font-smoothing auto
   input.title
     position relative
     bottom 5px
@@ -232,7 +221,7 @@ span.week__add-block
   &:hover
     text-decoration underline
 
-.week__week-header .week-index, .week__week-header .input_wrapper > span
+.week__week-header .week-index
   font-family $header-font
   font-size 34px
   font-weight 300
@@ -244,11 +233,6 @@ span.week__add-block
 
 .gradeable
   overflow hidden
-
-input[type="radio"]
-  -webkit-appearance radio
-input[type="checkbox"]
-  -webkit-appearance checkbox
 
 .block__training-modules
   margin-top 1.5em
@@ -439,18 +423,11 @@ li.block.editable
   label
     span
       display block
-      font-size 15px
-      color $text
       font-weight 300
       -webkit-font-smoothing auto
       margin-bottom 3px
   input.editable
     width 300px
-  h4
-    .input_wrapper
-      float left
-    .select_wrapper
-      float right
   .block__edit-block
     visibility hidden
   .block__due-date-spacer
@@ -458,7 +435,7 @@ li.block.editable
   .block__read__due-date
     display none
   .block__block-type
-    bottom 2px
+    right 0
     label span
       margin-bottom 5px
 
