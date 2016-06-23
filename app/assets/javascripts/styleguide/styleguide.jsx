@@ -72,7 +72,7 @@ const StyleguideExamples = {
 
       render() {
         const editRow = (
-          <tr>
+          <tr className="edit">
             <td>"Edit row" content: Lorem ipsum dolor sit amet.</td>
           </tr>
         );
