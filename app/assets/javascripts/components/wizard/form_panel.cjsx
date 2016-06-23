@@ -78,6 +78,31 @@ FormPanel = React.createClass(
           </div>
         </div>
         <hr />
+        <div className='course-dates__step'>
+          <p>{I18n.t('wizard.assignment_description')}</p>
+          <div className='vertical-form full-width'>
+            <DatePicker
+              onChange={@updateDetails}
+              value={@props.course.timeline_start}
+              value_key='timeline_start'
+              editable=true
+              validation={CourseDateUtils.isDateValid}
+              label={I18n.t('courses.assignment_start')}
+              date_props={timeline_start_props}
+            />
+            <DatePicker
+              onChange={@updateDetails}
+              value={@props.course.timeline_end}
+              value_key='timeline_end'
+              editable=true
+              validation={CourseDateUtils.isDateValid}
+              label={I18n.t('courses.assignment_end')}
+              date_props={timeline_end_props}
+              enabled={@props.course.start?}
+            />
+          </div>
+        </div>
+        <hr />
         <div className='wizard__form course-dates course-dates__step'>
           <Calendar course={@props.course}
             editable=true

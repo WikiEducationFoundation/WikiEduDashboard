@@ -5,12 +5,11 @@ class AskController < ApplicationController
   ASK_ROOT = 'http://ask.wikiedu.org/questions/scope:all/sort:activity-desc/'.freeze
 
   def search
-    log_to_sentry
-
     if params[:q].blank?
       # Default to the 'student' tag
       redirect_to "#{ASK_ROOT}tags:student/page:1/"
     else
+      log_to_sentry
       query = URI.encode(params[:q])
       redirect_to "#{ASK_ROOT}page:1/query:#{query}/"
     end

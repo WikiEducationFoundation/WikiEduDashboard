@@ -49,10 +49,6 @@ end
 def go_through_researchwrite_wizard
   go_through_course_dates_and_timeline_dates
 
-  # Advance past the timeline date panel
-  click_button 'Next'
-  sleep 1
-
   # Choose researchwrite option
   find('.wizard__option', match: :first).find('button', match: :first).click
   click_button 'Next'
@@ -159,6 +155,7 @@ describe 'New course creation and editing', type: :feature do
       # or "no blackout dates" checkbox checked
       expect(page).to have_css('button.dark[disabled=""]')
       start_input = find('input.start', match: :first).value
+      sleep 1
       expect(start_input).to eq(start_date)
       end_input = find('input.end', match: :first).value
       expect(end_input).to eq(end_date)
@@ -167,32 +164,7 @@ describe 'New course creation and editing', type: :feature do
       # to set a blackout date
       go_through_course_dates_and_timeline_dates
 
-      # Fill in a date field with invalid data. Expect a validate highlight
-      find('#timeline_start').click
-      fill_in('timeline_start', with: 'So not valid')
-      expect(page).to have_css('#timeline_start.invalid')
-
-      # Click 'previous' and expect and error alert
-      click_button 'Previous'  
-      prompt = page.driver.browser.switch_to.alert
-      prompt.accept
-
-      # Fix the date, click previous and then click next successfully
-      find('#timeline_start').click
-      fill_in('timeline_start', with: '2015-01-01')
-      sleep 1
-      click_button 'Previous'    
-      sleep 1
-      click_button 'Next'
-
-      sleep 1
-
-      click_button 'Next'
-
-      sleep 1
-
       # This is the assignment type chooser
-
       # pick and choose
       page.all('.wizard__option')[1].first('button').click
       sleep 1
@@ -207,7 +179,7 @@ describe 'New course creation and editing', type: :feature do
       # on the summary
       sleep 1
       # go back to the pick and choose and choose different assignments
-      page.all('button.wizard__option.summary')[3].click
+      page.all('button.wizard__option.summary')[2].click
       sleep 1
       page.all('div.wizard__option__checkbox')[3].click
       page.all('div.wizard__option__checkbox')[2].click
@@ -399,10 +371,6 @@ describe 'New course creation and editing', type: :feature do
       fill_out_course_creator_form
       sleep 1
       go_through_course_dates_and_timeline_dates
-
-      # Advance past the timeline date panel
-      click_button 'Next'
-      sleep 1
 
       # Last option for returning instructor is 'build your own'
       find('button', text: 'Build your own timeline').click
