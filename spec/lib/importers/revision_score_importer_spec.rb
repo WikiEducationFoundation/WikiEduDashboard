@@ -37,13 +37,16 @@ describe RevisionScoreImporter do
            mw_page_id: 1538038)
   end
 
-  it 'saves wp10 scores for revisions' do
+  it 'saves wp10 scores and features for revisions' do
     VCR.use_cassette 'revision_scores/by_revisions' do
       RevisionScoreImporter.new.update_revision_scores
-      early_score = Revision.find_by(mw_rev_id: 641962088).wp10.to_f
-      later_score = Revision.find_by(mw_rev_id: 675892696).wp10.to_f
+      early_revision = Revision.find_by(mw_rev_id: 641962088)
+      later_revision = Revision.find_by(mw_rev_id: 675892696)
+      early_score = early_revision.wp10.to_f
+      later_score = later_revision.wp10.to_f
       expect(early_score).to be > 0
       expect(later_score).to be > early_score
+      expect(later_revision.features['feature.wikitext.revision.external_links']).to eq(12)
     end
   end
 

@@ -47,19 +47,22 @@ class RevisionScoreImporter
   # This should take up to 50 rev_ids per batch
   def get_and_save_scores(rev_batch)
     scores = {}
+    features = {}
     threads = rev_batch.each_with_index.map do |revision, i|
       Thread.new(i) do
-        thread_scores = get_revision_score revision.mw_rev_id
-        scores.merge!(thread_scores)
+        ores_data = get_revision_data revision.mw_rev_id
+        scores.merge!(extract_score(ores_data))
+        features.merge!(extract_features(ores_data))
       end
     end
     threads.each(&:join)
-    save_scores scores
+    save_scores(scores, features)
   end
 
   def update_wp10_previous(revision)
     parent_id = get_parent_id revision
-    score = get_revision_score parent_id
+    ores_data = get_revision_data parent_id
+    score = extract_score ores_data
     return unless score[parent_id.to_s].try(:key?, 'probability')
     probability = score[parent_id.to_s]['probability']
     revision.wp10_previous = en_wiki_weighted_mean_score probability
@@ -72,11 +75,12 @@ class RevisionScoreImporter
             .where(articles: { namespace: [0, 2, 118] })
   end
 
-  def save_scores(scores)
+  def save_scores(scores, features)
     scores.each do |rev_id, score|
       next unless score.try(:key?, 'probability')
       revision = Revision.find_by(mw_rev_id: rev_id.to_i, wiki_id: @wiki.id)
       revision.wp10 = en_wiki_weighted_mean_score score['probability']
+      revision.features = features[rev_id]
       revision.save
     end
   end
@@ -117,18 +121,24 @@ class RevisionScoreImporter
   end
 
   def extract_score(ores_data)
+    return ores_data if ores_data.blank?
     ores_data['scores']['enwiki']['wp10']['scores']
+  end
+
+  def extract_features(ores_data)
+    return ores_data if ores_data.blank?
+    ores_data['scores']['enwiki']['wp10']['features']
   end
 
   ###############
   # API methods #
   ###############
-  def get_revision_score(rev_id)
+  def get_revision_data(rev_id)
     # TODO: i18n
     url = query_url(rev_id)
     response = Net::HTTP.get(URI.parse(url))
     ores_data = JSON.parse(response)
-    extract_score ores_data
+    ores_data
   rescue StandardError => error
     raise error unless typical_errors.include?(error.class)
     return {}

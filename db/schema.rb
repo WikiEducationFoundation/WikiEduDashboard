@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160616221941) do
+ActiveRecord::Schema.define(version: 20160623090228) do
 
   create_table "alerts", force: :cascade do |t|
     t.integer  "course_id",      limit: 4
@@ -270,6 +270,7 @@ ActiveRecord::Schema.define(version: 20160616221941) do
     t.integer  "wiki_id",        limit: 4
     t.integer  "mw_rev_id",      limit: 4
     t.integer  "mw_page_id",     limit: 4
+    t.text     "features",       limit: 65535
   end
 
   add_index "revisions", ["article_id", "date"], name: "index_revisions_on_article_id_and_date", using: :btree
