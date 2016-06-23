@@ -116,6 +116,8 @@ Rails.application.routes.draw do
       action: 'recent_uploads'
 
 
+  # Revision Feedback
+  get 'revision_feedback/:rev_id' => 'revision_feedback#index'
 
   # Wizard
   get 'wizards' => 'wizard#wizard_index'
