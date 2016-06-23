@@ -19,8 +19,8 @@ class RevisionScoreImporter
                   unscored_mainspace_userspace_and_draft_revisions
                 end
 
-    batches = revisions.count / 1000 + 1
-    revisions.each_slice(1000).with_index do |rev_batch, i|
+    batches = revisions.count / 50 + 1
+    revisions.each_slice(50).with_index do |rev_batch, i|
       Rails.logger.debug "Pulling revisions: batch #{i + 1} of #{batches}"
       get_and_save_scores rev_batch
     end
@@ -47,10 +47,9 @@ class RevisionScoreImporter
   # This should take up to 50 rev_ids per batch
   def get_and_save_scores(rev_batch)
     scores = {}
-    threads = rev_batch.in_groups_of(50, false).each_with_index.map do |fifty_revs, i|
-      rev_ids = fifty_revs.map(&:mw_rev_id)
+    threads = rev_batch.each_with_index.map do |revision, i|
       Thread.new(i) do
-        thread_scores = get_revision_scores rev_ids
+        thread_scores = get_revision_score revision.mw_rev_id
         scores.merge!(thread_scores)
       end
     end
@@ -60,7 +59,7 @@ class RevisionScoreImporter
 
   def update_wp10_previous(revision)
     parent_id = get_parent_id revision
-    score = get_revision_scores [parent_id]
+    score = get_revision_score parent_id
     return unless score[parent_id.to_s].try(:key?, 'probability')
     probability = score[parent_id.to_s]['probability']
     revision.wp10_previous = en_wiki_weighted_mean_score probability
@@ -110,23 +109,26 @@ class RevisionScoreImporter
     mean
   end
 
-  def query_url(rev_ids)
-    base_url = 'https://ores.wmflabs.org/v1/scores/enwiki/wp10/?revids='
-    rev_ids_param = rev_ids.map(&:to_s).join('|')
-    url = base_url + rev_ids_param
+  def query_url(rev_id)
+    base_url = 'https://ores.wikimedia.org/v2/scores/enwiki/wp10/'
+    url = base_url + rev_id.to_s + '/?features'
     url = URI.encode url
     url
+  end
+
+  def extract_score(ores_data)
+    ores_data['scores']['enwiki']['wp10']['scores']
   end
 
   ###############
   # API methods #
   ###############
-  def get_revision_scores(rev_ids)
+  def get_revision_score(rev_id)
     # TODO: i18n
-    url = query_url(rev_ids)
+    url = query_url(rev_id)
     response = Net::HTTP.get(URI.parse(url))
-    scores = JSON.parse(response)
-    scores
+    ores_data = JSON.parse(response)
+    extract_score ores_data
   rescue StandardError => error
     raise error unless typical_errors.include?(error.class)
     return {}
