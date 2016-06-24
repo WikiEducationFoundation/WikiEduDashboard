@@ -6,7 +6,7 @@ nav.top-nav
   overflow hidden
   width 100%
   font-size 15px
-  -webkit-font-smoothing auto
+  -webkit-font-smoothing antialiased
   line-height 1
 
   &.fluid
@@ -159,11 +159,11 @@ nav
   .nav__button
     overflow visible
     padding 0
-    display inline-block 
+    display inline-block
     vertical-align top
-    padding-top 5px 
+    padding-top 5px
     +above(desktop)
-      padding-top 13px 
+      padding-top 13px
   .nav__item
     overflow hidden
     padding 0
@@ -188,7 +188,6 @@ nav
       color manatee
       font-size 14px
       letter-spacing .019em
-      line-height 38px
       vertical-align middle
       padding 0
       +above(desktop)
@@ -198,11 +197,13 @@ nav
     a
       text-decoration none
       color $text
+      padding-top 15px
+      padding-bottom 15px
+      border-bottom 3px solid transparent
     a.active,
     a:hover
       border-bottom 3px solid $brand_primary
       cursor pointer
-      padding-bottom 15px
     a.active
       color $brand_primary
     &.bordered
