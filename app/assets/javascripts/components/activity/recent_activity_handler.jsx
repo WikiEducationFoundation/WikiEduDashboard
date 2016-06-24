@@ -10,22 +10,26 @@ const RecentActivityHandler = React.createClass({
 
   render() {
     return (
-      <div className="container recent-activity__container">
-        <nav className="container">
-          <div className="nav__item" id="dyk-link">
-            <p><Link to="/recent-activity">{I18n.t('recent_activity.did_you_know_eligible')}</Link></p>
-          </div>
-          <div className="nav__item" id="plagiarism-link">
-            <p><Link to="/recent-activity/plagiarism">{I18n.t('recent_activity.possible_plagiarism')}</Link></p>
-          </div>
-          <div className="nav__item" id="recent-edits-link">
-            <p><Link to="/recent-activity/recent-edits">{I18n.t('recent_activity.recent_edits')}</Link></p>
-          </div>
-          <div className="nav__item" id="recent-uploads-link">
-            <p><Link to="/recent-activity/recent-uploads">{I18n.t('recent_activity.recent_uploads')}</Link></p>
+      <div className="recent-activity__container">
+        <nav>
+          <div className="container">
+            <div className="nav__item" id="dyk-link">
+              <p><Link to="/recent-activity/dyk" activeClassName="active">{I18n.t('recent_activity.did_you_know_eligible')}</Link></p>
+            </div>
+            <div className="nav__item" id="plagiarism-link">
+              <p><Link to="/recent-activity/plagiarism" activeClassName="active">{I18n.t('recent_activity.possible_plagiarism')}</Link></p>
+            </div>
+            <div className="nav__item" id="recent-edits-link">
+              <p><Link to="/recent-activity/recent-edits" activeClassName="active">{I18n.t('recent_activity.recent_edits')}</Link></p>
+            </div>
+            <div className="nav__item" id="recent-uploads-link">
+              <p><Link to="/recent-activity/recent-uploads" activeClassName="active">{I18n.t('recent_activity.recent_uploads')}</Link></p>
+            </div>
           </div>
         </nav>
-        {this.props.children}
+        <div className="container">
+          {this.props.children}
+        </div>
       </div>
     );
   }

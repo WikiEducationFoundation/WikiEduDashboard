@@ -144,16 +144,8 @@ body.fixed-nav
 body.course-page nav.top-nav
   position relative
 
-.course-nav__wrapper
-  height 55px
-
-.course_navigation.affix
-  margin-top -57px
-  z-index 9999
-  width 100%
-  box-shadow 0 0 6px $text
-
 nav
+  background #fff
   text-align center
   +above(desktop)
     text-align left
@@ -171,7 +163,6 @@ nav
     overflow hidden
     padding 0
     width 30%
-    height 40px
     display inline-block
     +above(tablet)
       width auto
@@ -180,28 +171,18 @@ nav
       float left
       display block
       width auto
-      height 55px
       padding 0
       margin 0 20px
       text-align center
       &:first-child
         margin-left 0
 
-    p
-      color manatee
-      font-size 14px
-      letter-spacing .019em
-      vertical-align middle
-      padding 0
-      +above(desktop)
-        line-height 55px
-        font-size 15px
-
     a
+      display inline-block
       text-decoration none
       color $text
       padding-top 15px
-      padding-bottom 15px
+      padding-bottom 14px
       border-bottom 3px solid transparent
     a.active,
     a:hover
@@ -214,8 +195,24 @@ nav
       padding-left 10px
       margin-left 10px
 
+
+.course-nav__wrapper
+  height $nav_height
+
 .course_navigation
   background #fff
+  border-bottom 1px solid $border_lt
+  transition box-shadow 125ms ease
+
+  &.affix
+    margin-top -57px
+    z-index 9999
+    width 100%
+    box-shadow 0 0 6px rgba(0,0,0,.2)
+
+  nav
+    border none
+
   > .container
     +above(desktop)
       display flex
@@ -238,3 +235,7 @@ nav
         line-height 55px
         overflow hidden
         -webkit-font-smoothing auto
+
+.recent-activity__container nav
+  margin-bottom 16px
+  border-bottom 1px solid $border_lt
