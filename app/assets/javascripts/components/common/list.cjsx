@@ -19,11 +19,11 @@ List = React.createClass(
       if key_obj['info_key']?
         header_class += ' tooltip-trigger'
         tooltip = [(
-          <div className='tooltip dark'>
+          <div key="tt" className='tooltip dark'>
             <p>{I18n.t(key_obj['info_key'])}</p>
           </div>
         ), (
-          <span className="tooltip-indicator"></span>
+          <span key="ttindicator" className="tooltip-indicator"></span>
         )]
       else
         tooltip = null
