@@ -23,20 +23,13 @@ select,
   &::-ms-expand
     display none
 
-// Reset height for some specific input types
-textarea, textarea.form-control,
-select[multiple], select[multiple].form-control,
-input[type='radio'], input[type='radio'].form-control,
-input[type='checkbox'], input[type='checkbox'].form-control
-  height auto
-
 // Custom dropdown arrow for selects
 select:not([multiple])
-  background-image url('data:image/svg+xml;charset=utf-8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9IiM2NjY2NjYiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjI0Ij4NCiAgICA8cGF0aCBkPSJNNyAxMGw1IDUgNS01eiIvPg0KICAgIDxwYXRoIGQ9Ik0wIDBoMjR2MjRIMHoiIGZpbGw9Im5vbmUiLz4NCjwvc3ZnPg==')
-  appearance none
   -webkit-appearance none
   -moz-appearance none
   -ms-appearance none
+  appearance none
+  background-image url('data:image/svg+xml;charset=utf-8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9IiM2NjY2NjYiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjI0Ij4NCiAgICA8cGF0aCBkPSJNNyAxMGw1IDUgNS01eiIvPg0KICAgIDxwYXRoIGQ9Ik0wIDBoMjR2MjRIMHoiIGZpbGw9Im5vbmUiLz4NCjwvc3ZnPg==')
   background-position calc(100% - 4px) 9px
   background-repeat no-repeat
   padding-right 30px
@@ -102,6 +95,7 @@ pre
   color body-color
   font-weight 400
   display block
+  -webkit-font-smoothing antialiased
 
   // overflow hidden
   &.inline
@@ -113,11 +107,6 @@ pre
     > .tooltip-trigger > span
       display inline-block
       margin-right 5px
-
-.select_wrapper
-  display inline-block
-  select
-    min-width 170px
 
 
 // .tether-enabled
