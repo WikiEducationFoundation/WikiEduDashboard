@@ -207,7 +207,7 @@ Course = React.createClass(
 
     <div>
       <div className="course-nav__wrapper">
-        <Affix className="course_navigation" offset=55>
+        <Affix className="course_navigation" offset=57>
           <div className="container">
             {courseLink}
             <nav>
