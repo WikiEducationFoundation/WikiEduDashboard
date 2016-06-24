@@ -45,32 +45,15 @@ textarea
 p.graded
   clear both
 
-pre
-  margin 0
-  padding 0
-  border 0
-  outline 0
-
 .expandingArea
   position relative
-  background-color white
-  border 1px solid border_lt
-
-  & > textarea, & > pre
-    white-space pre-wrap
-    word-wrap break-word
-    border 0
-    background transparent
-    line-height 1.4
-
-  & > textarea
-    box-sizing border-box
-    width 100%
-    height 100px
 
   & > pre
     display none
-    padding-bottom 20px
+    padding 10px
+    visibility hidden
+    white-space pre-wrap
+    word-wrap break-word
 
   &.active
     & > textarea
@@ -79,25 +62,19 @@ pre
       left 0
       height 100%
       resize none
+      position absolute
 
     & > pre
       display block
-      visibility hidden
-
-      span
-        float none
-
-.course-description .expandingArea.active pre
-  display none
 
 .input_wrapper
+  // Some resets to prevent unintended inheriting
   font-size 15px
   color body-color
   font-weight 400
   display block
   -webkit-font-smoothing antialiased
 
-  // overflow hidden
   &.inline
     vertical-align middle
     display inline-block
@@ -107,7 +84,3 @@ pre
     > .tooltip-trigger > span
       display inline-block
       margin-right 5px
-
-
-// .tether-enabled
-//   overflow hidden
