@@ -27,18 +27,16 @@ const CourseTypeSelector = React.createClass({
     let selector = currentType;
     if (this.props.editable && currentType !== 'LegacyCourse') {
       selector = (
-        <div className="select_wrapper">
-          <select
-            name="course_type"
-            value={this.props.course.type}
-            onChange={this.handleChange}
-          >
-            <option value="ClassroomProgramCourse">Classroom Program</option>
-            <option value="VisitingScholarship">Visiting Scholarship</option>
-            <option value="Editathon">Edit-a-thon</option>
-            <option value="BasicCourse">Generic Course</option>
-          </select>
-        </div>
+        <select
+          name="course_type"
+          value={this.props.course.type}
+          onChange={this.handleChange}
+        >
+          <option value="ClassroomProgramCourse">Classroom Program</option>
+          <option value="VisitingScholarship">Visiting Scholarship</option>
+          <option value="Editathon">Edit-a-thon</option>
+          <option value="BasicCourse">Generic Course</option>
+        </select>
       );
     }
     return (

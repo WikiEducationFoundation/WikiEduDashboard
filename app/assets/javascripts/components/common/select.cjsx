@@ -24,7 +24,7 @@ Select = React.createClass(
       )
 
     if @props.editable
-      <label className="input_wrapper select_wrapper #{if @props.inline? && @props.inline then ' inline' else ''}">
+      <label className="input_wrapper #{if @props.inline? && @props.inline then ' inline' else ''}">
         <div className={labelClass}>{label}{tooltip}</div>
         <select
           value={@state.value}
