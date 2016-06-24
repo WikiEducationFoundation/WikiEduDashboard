@@ -4,14 +4,18 @@
       col(0.674, gutter: 1.8)
   .sidebar
     input
-      margin-top 5px
       width 100%
     +above(desktop)
       col(1/3)
   .section-header
+    display flex
     margin-bottom 8px
     h3 
       margin-right 23% 
+
+    .controls
+      position relative
+      flex 1 0 auto
 
 .milestones
   .module__data

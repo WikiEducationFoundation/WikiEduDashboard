@@ -3,8 +3,8 @@ import React from 'react';
 const Popover = React.createClass({
   propTypes: {
     is_open: React.PropTypes.bool,
-    edit_row: React.PropTypes.object,
-    rows: React.PropTypes.object
+    edit_row: React.PropTypes.node,
+    rows: React.PropTypes.node
   },
 
   displayname: 'Popover',

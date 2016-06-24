@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { Router, Route, IndexRoute, browserHistory, IndexRedirect } from 'react-router';
 
 import App from '../components/app.jsx';
 import Course from '../components/course.cjsx';
@@ -56,7 +56,8 @@ const routes = (
       <Route path="finish" component={Onboarding.Finished} />
     </Route>
     <Route path="recent-activity" component={RecentActivityHandler}>
-      <IndexRoute component={DidYouKnowHandler} />
+      <IndexRedirect to="dyk" />
+      <Route path="dyk" component={DidYouKnowHandler} />
       <Route path="plagiarism" component={PlagiarismHandler} />
       <Route path="recent-edits" component={RecentEditsHandler} />
       <Route path="recent-uploads" component={RecentUploadsHandler} />
