@@ -206,8 +206,8 @@ Course = React.createClass(
       )
 
     <div>
-      <Affix className="course-nav__wrapper" offset=55>
-        <div className="course_navigation">
+      <div className="course-nav__wrapper">
+        <Affix className="course_navigation" offset=55>
           <div className="container">
             {courseLink}
             <nav>
@@ -230,8 +230,8 @@ Course = React.createClass(
               {getHelp}
             </nav>
           </div>
-        </div>
-      </Affix>
+        </Affix>
+      </div>
       <div className='course-alerts'>
         {alerts}
       </div>
