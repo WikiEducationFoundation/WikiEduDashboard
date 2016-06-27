@@ -24,7 +24,7 @@ const ArticlesHandler = React.createClass({
   render() {
     return (
       <div>
-        <div id="articles" className="mt4">
+        <div id="articles">
           <div className="section-header">
             <h3>{I18n.t('metrics.articles_edited')}</h3>
             <div className="sort-select">
