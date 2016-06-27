@@ -6,7 +6,7 @@ const ActivityTableRow = React.createClass({
 
   propTypes: {
     key: React.PropTypes.string,
-    rowId: React.PropTypes.string,
+    rowId: React.PropTypes.number,
     diffUrl: React.PropTypes.string,
     revisionDateTime: React.PropTypes.string,
     reportUrl: React.PropTypes.string,
