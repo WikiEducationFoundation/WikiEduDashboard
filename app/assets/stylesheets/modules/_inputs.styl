@@ -20,6 +20,10 @@ select,
   &:focus
     border-color $brand_primary
 
+  &:disabled
+    border-color #eee
+    color #aaa
+
   &::-ms-expand
     display none
 
@@ -66,21 +70,3 @@ p.graded
 
     & > pre
       display block
-
-.input_wrapper
-  // Some resets to prevent unintended inheriting
-  font-size 15px
-  color body-color
-  font-weight 400
-  display block
-  -webkit-font-smoothing antialiased
-
-  &.inline
-    vertical-align middle
-    display inline-block
-    > div
-      display inline-block
-    > span
-    > .tooltip-trigger > span
-      display inline-block
-      margin-right 5px

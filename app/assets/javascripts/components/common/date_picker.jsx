@@ -151,7 +151,7 @@ const DatePicker = React.createClass({
       const input = (
         <div className="date-input">
           <input
-            id={this.props.id || ''}
+            id={this.state.id}
             ref="datefield"
             value={this.state.value}
             className={`${inputClass} ${this.props.value_key}`}
@@ -179,9 +179,8 @@ const DatePicker = React.createClass({
       );
 
       return (
-        <div className={`${inputClass} input_wrapper`}>
-          <label className={labelClass}>{label}</label>
-          {(this.props.value !== null || this.props.editable) && !this.props.label ? spacer : null}
+        <div className={`form-group ${inputClass}`}>
+          <label htmlFor={this.state.id}className={labelClass}>{label}</label>
           {input}
         </div>
       );

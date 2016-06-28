@@ -94,14 +94,14 @@ Form = React.createClass(
           <div className="form-group">
             <label>Real name <span className="form-required-indicator">*</span></label>
             <input required className="form-control" type="text" name="name" defaultValue={@state.name} onChange={@_handleFieldChange.bind(this, 'name')}/>
-            <p className="help-text">
+            <p className="form-help-text">
               Your real name is not public. Its only seen by you, your intructor, and Wiki Ed admins.
             </p>
           </div>
           <div className="form-group">
             <label>Email <span className="form-required-indicator">*</span></label>
             <input required className="form-control" type="email" name="email" defaultValue={@state.email} onChange={@_handleFieldChange.bind(this, 'email')}/>
-            <p className="help-text">
+            <p className="form-help-text">
               Your email is only used for notifications and will not be shared.
             </p>
           </div>

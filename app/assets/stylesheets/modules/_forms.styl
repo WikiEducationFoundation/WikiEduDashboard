@@ -1,17 +1,43 @@
-fieldset,
 .form-group
   margin-bottom 8px
+  font-size 15px
+  color body-color
+  font-weight 400
+  -webkit-font-smoothing antialiased
 
-fieldset > label,
 .form-group > label
   margin-bottom 4px
+  display block
+
+.form-group--narrow
+  max-width 250px
+
+.form-group--wide
+  max-width 500px
+
+.form-group--block
+  max-width 100%
+
+.form-group.invalid
+  color warning
+  input
+    border-color warning
+    box-shadow 0 0 0 1px warning
+    color warning
+
+.form-required-indicator
+  color warning
+
+.form-help-text
+  color #808080
+  margin-top 2px
   font-size 14px
 
 .vertical-form
   float left
   margin-top 20px
   +above(desktop)
-    margin-left 20px
+    padding-left 20px
     margin-top 0
   label
     span

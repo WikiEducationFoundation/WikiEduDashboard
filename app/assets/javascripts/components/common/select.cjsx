@@ -24,15 +24,16 @@ Select = React.createClass(
       )
 
     if @props.editable
-      <label className="input_wrapper #{if @props.inline? && @props.inline then ' inline' else ''}">
-        <div className={labelClass}>{label}{tooltip}</div>
+      <div className="form-group">
+        <label htmlFor={@state.id} className={labelClass}>{label}{tooltip}</label>
         <select
+          id={@state.id}
           value={@state.value}
           onChange={@onChange}
         >
           {options}
         </select>
-      </label>
+      </div>
     else
       <span>{@props.options[@props.value]}</span>
 )
