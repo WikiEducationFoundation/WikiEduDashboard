@@ -18,7 +18,7 @@ describe('CourseTypeSelector', () => {
       />
     );
     const typeListing = ReactTestUtils.findRenderedDOMComponentWithTag(NonEditableCourseTypeSelector, 'div');
-    expect(typeListing.textContent).to.eq('Type: ClassroomProgramCourse');
+    expect(typeListing.textContent).to.eq('Type: Classroom Program');
   });
 
   it('calls updateCourse when selection changes', () => {
