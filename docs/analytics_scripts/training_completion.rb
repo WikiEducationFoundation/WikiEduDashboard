@@ -9,9 +9,16 @@ courses = cohort.courses
 csv_data = []
 courses.each do |course|
   course.training_modules.each do |training_module|
+    points = 0
+    course.blocks.each do |block|
+      module_ids = block.training_module_ids
+      next unless module_ids.include?(training_module.id)
+      next if block.gradeable.nil?
+      points = block.gradeable.points
+    end
     due_date = TrainingModuleDueDateManager.new(course: course, training_module: training_module)
                                            .computed_due_date
-    csv_data << [course.slug, training_module.slug, due_date]
+    csv_data << [course.slug, training_module.slug, due_date, points]
   end
 end
 
