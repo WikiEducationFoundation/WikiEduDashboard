@@ -21,27 +21,25 @@ class CohortsController < ApplicationController
   end
 
   def students
-    @cohort = Cohort.find_by(slug: csv_params[:slug])
-    respond_to do |format|
-      format.csv do
-        filename = "#{@cohort.slug}-students-#{Date.today}.csv"
-        send_data @cohort.to_csv(course: csv_params[:course]), filename: filename
-      end
-    end
+    csv_for_role(:students)
   end
 
   def instructors
+    csv_for_role(:instructors)
+  end
+
+  private
+
+  def csv_for_role(role)
     @cohort = Cohort.find_by(slug: csv_params[:slug])
     respond_to do |format|
       format.csv do
-        filename = "#{@cohort.slug}-instructors-#{Date.today}.csv"
-        send_data @cohort.to_csv(course: csv_params[:course], instructors: true),
+        filename = "#{@cohort.slug}-#{role.to_s}-#{Date.today}.csv"
+        send_data @cohort.users_to_csv(role, course: csv_params[:course]),
                   filename: filename
       end
     end
   end
-
-  private
 
   def already_exists?
     Cohort.exists?(slug: @slug) || Cohort.exists?(title: @title)

@@ -41,15 +41,10 @@ class Cohort < ActiveRecord::Base
     100 * trained_count.to_f / student_count
   end
 
-  def to_csv(opts = {})
+  def users_to_csv(role, opts = {})
     csv_data = []
     courses.each do |course|
-      users = if opts[:instructors]
-                course.instructors
-              else
-                course.students
-              end
-
+      users = course.send(role)
       users.each do |user|
         line = [user.username]
         line << course.slug if opts[:course]
