@@ -77,7 +77,6 @@ class RevisionScoreImporter
 
   def save_scores(scores, features)
     scores.each do |rev_id, score|
-      Rails.logger.warn score
       next unless score.try(:key?, 'probability')
       revision = Revision.find_by(mw_rev_id: rev_id.to_i, wiki_id: @wiki.id)
       revision.wp10 = en_wiki_weighted_mean_score score['probability']
