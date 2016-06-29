@@ -141,7 +141,7 @@ Details = React.createClass(
         <h3>Details</h3>
         {@props.controls()}
       </div>
-      <div className='module__data'>
+      <div className='module__data extra-line-height'>
         {instructors}
         {online}
         {campus}
