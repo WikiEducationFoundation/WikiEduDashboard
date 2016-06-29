@@ -68,6 +68,18 @@ Overview = React.createClass(
       </div>
     )
 
+    sidebar = if @state.course.id then (
+      <div className='sidebar'>
+        {userArticles}
+        <Details {...@props} />
+        <Actions {...@props} />
+        <Milestones {...@props} />
+      </div>
+    ) else (
+      <div className='sidebar'>
+      </div>
+    )
+
     if @props.current_user.role == 0 && @state.course.id
       userArticles = (
         <MyArticles
@@ -112,12 +124,7 @@ Overview = React.createClass(
       <div className='primary'>
         {primaryContent}
       </div>
-      <div className='sidebar'>
-        {userArticles}
-        <Details {...@props} />
-        <Actions {...@props} />
-        <Milestones {...@props} />
-      </div>
+      {sidebar}
     </section>
 )
 

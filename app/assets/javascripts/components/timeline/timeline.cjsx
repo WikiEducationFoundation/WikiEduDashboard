@@ -252,6 +252,29 @@ Timeline = React.createClass(
       </li>
     )
 
+    sidebar = if @props.course.id then (
+      <div className="timeline__week-nav">
+        <Affix offset={100}>
+          <section className="timeline-ctas float-container">
+            <span>{wizard_link}</span>
+            {reorderable_controls}
+            {controls}
+          </section>
+          <div className="panel">
+            <ol>
+              {week_nav}
+              {add_week_link}
+            </ol>
+            {edit_course_dates}
+            <a className="week-nav__action week-nav__link" href="#grading">Grading</a>
+          </div>
+        </Affix>
+      </div>
+    ) else (
+      <div className="timeline__week-nav">
+      </div>
+    )
+
 
     <div>
       <div className="timeline__content">
@@ -259,23 +282,7 @@ Timeline = React.createClass(
           {week_components}
           {no_weeks}
         </ul>
-        <div className="timeline__week-nav">
-          <Affix offset={100}>
-            <section className="timeline-ctas float-container">
-              <span>{wizard_link}</span>
-              {reorderable_controls}
-              {controls}
-            </section>
-            <div className="panel">
-              <ol>
-                {week_nav}
-                {add_week_link}
-              </ol>
-              {edit_course_dates}
-              <a className="week-nav__action week-nav__link" href="#grading">Grading</a>
-            </div>
-          </Affix>
-        </div>
+        {sidebar}
       </div>
     </div>
 )
