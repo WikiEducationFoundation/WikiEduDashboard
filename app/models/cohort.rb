@@ -44,8 +44,14 @@ class Cohort < ActiveRecord::Base
   def to_csv(opts = {})
     csv_data = []
     courses.each do |course|
-      course.students.each do |student|
-        line = [student.username]
+      users = if opts[:instructors]
+                course.instructors
+              else
+                course.students
+              end
+
+      users.each do |user|
+        line = [user.username]
         line << course.slug if opts[:course]
         csv_data << line
       end

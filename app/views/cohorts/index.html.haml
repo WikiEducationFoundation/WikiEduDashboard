@@ -17,4 +17,6 @@
         = link_to 'students', "/cohorts/#{cohort.slug}/students.csv"
         = ", "
         = link_to 'students by course', "/cohorts/#{cohort.slug}/students.csv?course=true"
+        = ", "
+        = link_to 'instructors by course', "/cohorts/#{cohort.slug}/instructors.csv?course=true"
         = ")"

@@ -76,4 +76,35 @@ describe CohortsController do
       end
     end
   end
+
+  describe '#instructors' do
+    let(:course) { create(:course) }
+    let(:cohort) { create(:cohort) }
+    let(:instructor) { create(:user) }
+
+    before do
+      cohort.courses << course
+      create(:courses_user, course_id: course.id, user_id: instructor.id,
+                            role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+    end
+
+    context 'without "course" option' do
+      let(:request_params) { { slug: cohort.slug, format: :csv } }
+
+      it 'returns a csv of instructor usernames' do
+        get :instructors, request_params
+        expect(response.body).to have_content(instructor.username)
+      end
+    end
+
+    context 'with "course" option' do
+      let(:request_params) { { slug: cohort.slug, course: true, format: :csv } }
+
+      it 'returns a csv of instructor usernames with course slugs' do
+        get :instructors, request_params
+        expect(response.body).to have_content(instructor.username)
+        expect(response.body).to have_content(course.slug)
+      end
+    end
+  end
 end

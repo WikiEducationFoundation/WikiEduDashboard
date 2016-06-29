@@ -94,6 +94,7 @@ Rails.application.routes.draw do
 
   controller :cohorts do
     get 'cohorts/:slug/students' => 'cohorts#students'
+    get 'cohorts/:slug/instructors' => 'cohorts#instructors'
   end
 
   # Recent Activity
