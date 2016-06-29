@@ -4,9 +4,9 @@ LookupWrapper =require('../high_order/lookup_wrapper.jsx').default
 LookupSelect = React.createClass(
   displayName: 'LookupSelect'
   getValue: ->
-    @refs.entry.getDOMNode().value
+    @refs.entry.value
   clear: ->
-    @refs.entry.getDOMNode().value = 'placeholder'
+    @refs.entry.value = 'placeholder'
   render: ->
     options = @props.models.map (model, i) =>
       <option value={model} key={model}>{model}</option>

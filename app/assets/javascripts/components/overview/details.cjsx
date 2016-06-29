@@ -45,9 +45,9 @@ Details = React.createClass(
     staff = <InlineUsers {...@props} users={@props.staff} role={4} title='Wiki Ed Staff' />
     if @props.course.school
       # FIXME: Convert lego to parameterized messages.
-      school = <p>{CourseUtils.i18n('school', @props.course.string_prefix)}: {@props.course.school}</p>
+      school = <p><strong>{CourseUtils.i18n('school', @props.course.string_prefix)}:</strong> {@props.course.school}</p>
     if @props.course.term
-      term = <p>{CourseUtils.i18n('term', @props.course.string_prefix)}: {@props.course.term}</p>
+      term = <p><strong>{CourseUtils.i18n('term', @props.course.string_prefix)}:</strong> {@props.course.term}</p>
 
     if @props.course.passcode or @props.editable
       passcode = (
@@ -120,12 +120,12 @@ Details = React.createClass(
 
       subject = (
         <div className='subject'>
-          <span>Subject: {@props.course.subject}</span>
+          <span><strong>Subject:</strong> {@props.course.subject}</span>
         </div>
       )
       tags = (
         <div className='tags'>
-          <span>Tags: {tags_list}</span>
+          <span><strong>Tags:</strong> {tags_list}</span>
           <TagButton {...@props} show={@props.editable} />
         </div>
       )
@@ -175,7 +175,7 @@ Details = React.createClass(
           {timeline_end}
         </form>
         <div>
-          <span>{I18n.t('courses.cohorts')}{cohorts}</span>
+          <span><strong>{I18n.t('courses.cohorts')}</strong>{cohorts}</span>
           <CohortButton {...@props} show={@props.editable && @props.current_user.admin && (@props.course.submitted || @props.course.type != 'ClassroomProgramCourse') } />
         </div>
         {subject}

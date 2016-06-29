@@ -49,12 +49,12 @@ TextInput = React.createClass(
       )
 
       <div className="form-group">
-        <label htmlFor={@state.id} className={labelClass}>{label}</label>
+        <label htmlFor={@state.id} className={labelClass}><strong>{label}</strong></label>
         {input}
       </div>
     else if @props.label
       <p className={@props.p_tag_classname}>
-        <span className="text-input-component__label">{label}</span>
+        <span className="text-input-component__label"><strong>{label}</strong></span>
         <span>{spacer if (@props.value? or @props.editable) && !@props.label}</span>
         <span onBlur={@props.onBlur} onClick={@props.onClick} className={valueClass}>{value}</span>
         {@props.append}
