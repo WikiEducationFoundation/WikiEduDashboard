@@ -1,250 +1,133 @@
-table
-  font-size 15px
-  text-align left
+.table
   width 100%
-  thead th
-    padding-bottom 0
-    &.sortable
-      cursor pointer
-    &:after
-      display inline-block
-      content ''
-      font-size 12px
-      margin-left 3px
-      transition transform .2s
-      width 12px
-      vertical-align middle
-    &.asc:after, &.desc:after
-      content '\EA01'
-      font-family "icons"
-    &.asc:after
-      transform rotate(180deg)
-    &.desc:after
-      transform rotate(0deg)
+
+  > thead,
+  > tbody
+    > tr
+      background-color #fff
+      border 1px solid #ddd
+
+      > th,
+      > td
+        vertical-align middle
+        padding 12px 24px
+
+  // Transparent header
+  > thead
+    > tr
+      border-color transparent
+      background-color transparent
+      border-bottom-color #ddd
+      > th
+        text-align left
+        font-size 13px
+        font-weight 600
+        vertical-align bottom
+        color #808080
 
 
+// Smaller variant
+.table--small
+  > thead,
+  > tbody
+    > tr
+      > td,
+      > th
+        padding 6px 12px
+      > td
+        font-size 15px
 
-  td, th
-    box-sizing content-box
-    color dove
-    font-size 14px
-    font-weight normal
-    height 40px
-    padding 15px 0
-    vertical-align middle
-    white-space nowrap
-    &.date
-      white-space pre
-    &:first-child
-      padding-left 15px
-      float left
-      +above(tablet)
-        padding-left 0
-        float none
-    &:last-child
-      padding-right 15px
-    &.wide-mobile
-      padding-left 15px
-      padding-right 15px
 
-table.list > tbody > tr
-  background-color white
-  border 1px solid mischka
-  border-width 0 1px 1px
-  cursor pointer
-  transition background .15s
-  &:first-child
-    border-width 1px
-
-  p, small, h4
-    color dove
-    &.red
-      color warning
-
-  p.title
-    +below(tablet)
-      white-space nowrap
-      overflow hidden
-      -ms-text-overflow ellipsis
-      text-overflow ellipsis
-      padding-right 5px
-      margin-left -5px
-
-  &.disabled
-    cursor default
-    &:hover
-      background white
-
-  .icon
-    display inline-block
-    transition transform .2s
-  &:hover
-    background athens
-
-table.list.list--striped > tbody > tr:nth-child(even)
-  background-color alabaster
-  &:hover
-    background athens
-
-table.list.list--striped > thead > tr
-  background-color alabaster
-  &:hover
-    background alabaster
-
-table.users th:first-child, table.users tr.students td:first-child
-  padding-left 15px
-
-table.users tbody tr,
-table.articles tbody tr,
-table.activity-table tbody tr
-  table tbody tr td:first-child, th:first-child
-    padding-right 15px
-    padding-left 15px
-    table tbody tr:last-child
-      border-bottom 0
-  &.open
-    background manatee
-    &:hover
-      background manatee !important
-    td, p, small, span
-      color white
-      .button
-        border-color white
-        color white
-        &:hover
-          background-color white
-          color bayoux
-    .icon
-      transform rotate(-180deg)
-  &.no_revisions
-    cursor default
-    &:hover
-      background white
-    .icon
-      color zircon
-  &.drawer
-    border-bottom 2px solid mischka
-    > td
-      height auto
-      padding 0
-      div
-        transition height .2s
-        overflow hidden
-        th
-          padding-top 0
-        tr
-          border 1px solid mischka
-          border-width 0 0 1px
-        thead tr:hover th
-          cursor default
-    &.closed
-      border-bottom 0
-  .avatar
-    margin-bottom 7px
-  td, th
-    p.name
-      line-height 1
-      margin-top 2px
-      +below(tablet)
-        white-space nowrap
-      +above(desktop)
-        white-space normal
-        margin-top 10px
-      small
-        display inline-block
-        font-size 11px
-        margin-top 8px
-        +above(desktop)
-          margin-top 3px
-          text-align left
-          width 103px
-    .button
-      margin-left 0
-
-    td, th
-      p.name
-        line-height 1
-        margin-top 0px
-        +above(desktop)
-          margin-top 0
-
-table.uploads
-  img
-    margin-left 20px
-    +above(desktop)
-      max-height 100px
-
-table.activity-table
-  tbody
-    td:last-child
-      border-right 1px solid mischka
-  tr
-    border-collapse collapse
-  td:first-child, th:first-child
-    padding-left 15px
-  a
-    &:link, &:visited
-      color bayoux
-      text-decoration underline
-    &:hover
-      color darken(bayoux, 55%)
-      border 0
-
-.activity-table-row + .dyk-drawer
-  span
-    display block
-
-.activity-table-row.open
-  td
-    a
-      color #fff
-      &:hover
-        font-weight bold
-
-// fix flashing of elements while store is receiving articles from API
-.dyk-leave-active, .dyk-leave
-  display none
-
-.activity-table-row.closed + .activity-table-drawer
-  border 0
-  span
-    height 0
+// Expandable variant
+.table--expandable
+  // Rows immediately following a .closed row are hidden
+  > tbody > tr.closed + tr
     display none
-  td
-    padding 0
-    height 0
-    border 0
 
-.activity-table-row.open + .activity-table-drawer
-  span
-    height auto
-    display block
-  td
-    padding 25px 15px
-    border inherit
+  // Open rows are highlighted, and links are turned white
+  > tbody > tr.open
+    &, &:hover
+      background-color athens
 
-.dyk__course-list
-  list-style none
-  margin-left 0
-  padding-left 0
-  li
-    margin-left 0
+      .table-expandable-indicator
+        transform rotateZ(180deg)
 
-.activity-table-drawer h5
-  text-transform uppercase
-  font-size 15px
-  letter-spacing 0.5px
-  margin 0 0 3px
-  padding 0
-  td:first-child, th:first-child
-    padding-left 15px
-  a
-    &:link, &:visited
-      color bayoux
-      text-decoration underline
+  .table-expandable-indicator
+    position relative
+    top 2px
+    transform-origin 50% 45%
+    transition transform 250ms ease
+    transform rotateZ(0)
+
+
+
+// Hover state applied to rows
+.table--hoverable
+  > tbody > tr:hover
+    cursor pointer
+    background-color #fafafa
+
+
+
+// Alternating row background colors
+.table--striped
+  > tbody > tr:nth-child(even)
+    background-color #fafafa
+
+
+
+// Sortable variant
+.table--sortable
+  > thead > tr > th.sortable
     &:hover
-      color darken(bayoux, 55%)
-      border 0
+      cursor pointer
+      color $brand_primary
 
-.action-cell 
+    .sortable-indicator:before
+      font-size 16px
+      font-weight 800
+      vertical-align middle
+      margin-top -3px
+      @extends .icon:before
+    &.asc
+      color #222
+      .sortable-indicator:before
+        @extends .icon-arrow-down:before
+    &.desc
+      color #222
+      .sortable-indicator:before
+        @extends .icon-arrow-up:before
+
+
+
+// Contextual background colors for rows
+.table > tbody > .table-row--info
+  background-color #d9edf7
+
+.table > tbody > .table-row--warning
+  background-color #fcf8e3
+
+.table > tbody > .table-row--danger
+  background-color #f2dede
+
+.table > tbody > .table-row--success
+  background-color #dff0d8
+
+
+
+// Align buttons/text to the right of the action cell
+.table .table-action-cell
   text-align right
+
+
+
+// Give nested table negative margin to fit flush with cell padding
+.table .table
+  margin -13px -25px
+  width calc(100% + 50px)
+
+  // Give nested tables darker row colors
+  > tbody,
+  > thead
+    > tr
+      background-color #fafafa

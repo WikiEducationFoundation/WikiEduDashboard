@@ -1,0 +1,193 @@
+%h5 Table
+%table.table
+  %thead
+    %tr
+      %th Name
+      %th Date
+  %tbody
+    %tr
+      %td Brian
+      %td Nov 3rd
+    %tr
+      %td Matt
+      %td Nov 8th
+    %tr
+      %td Sage
+      %td Dec 21st
+%br/
+%br/
+
+%h5 Table striped
+%table.table.table--striped
+  %thead
+    %tr
+      %th Name
+      %th Date
+  %tbody
+    %tr
+      %td Brian
+      %td Nov 3rd
+    %tr
+      %td Matt
+      %td Nov 8th
+    %tr
+      %td Sage
+      %td Dec 21st
+%br/
+%br/
+
+%h5 Table hoverable
+%table.table.table--hoverable
+  %thead
+    %tr
+      %th Name
+      %th Date
+  %tbody
+    %tr
+      %td Brian
+      %td Nov 3rd
+    %tr
+      %td Matt
+      %td Nov 8th
+    %tr
+      %td Sage
+      %td Dec 21st
+%br/
+%br/
+
+%h5 Contextual row colors
+%table.table
+  %thead
+    %tr
+      %th Name
+      %th Date
+  %tbody
+    %tr
+      %td Matt
+      %td Nov 8th
+    %tr.table-row--info
+      %td Info
+      %td Nov 3rd
+    %tr
+      %td Matt
+      %td Nov 8th
+    %tr.table-row--warning
+      %td Warning
+      %td Dec 21st
+    %tr
+      %td Matt
+      %td Nov 8th
+    %tr.table-row--success
+      %td Success
+      %td Dec 21st
+    %tr
+      %td Matt
+      %td Nov 8th
+    %tr.table-row--danger
+      %td Danger
+      %td Dec 21st
+%br/
+%br/
+
+%h5 Sortable
+%table.table.table--sortable
+  %thead
+    %tr
+      %th.sortable.asc
+        Name
+        %span.sortable-indicator
+      %th.sortable Date
+  %tbody
+    %tr
+      %td Brian
+      %td Nov 3rd
+    %tr
+      %td Matt
+      %td Nov 8th
+    %tr
+      %td Sage
+      %td Dec 21st
+
+%br/
+%br/
+
+%h5 Expandable
+%table.table.table--expandable.table--hoverable
+  %thead
+    %tr
+      %th Name
+      %th Date
+      %th{style: 'width: 40px;'}
+  %tbody
+    %tr.closed
+      %td Brian
+      %td Nov 3rd
+      %td
+        %button.icon.icon-arrow.table-expandable-indicator
+    %tr
+      %td Matt
+      %td Nov 8th
+    %tr.open
+      %td Sage
+      %td Dec 21st
+      %td
+        %button.icon.icon-arrow.table-expandable-indicator
+    %tr
+      %td{colspan: 3}
+        %table.table.table--small
+          %thead
+            %tr
+              %th Sub Header
+              %th Sub Header 2
+          %tbody
+            %tr
+              %td Sub Cell
+              %td Sub Cell 2
+            %tr
+              %td Sub Cell 3
+              %td Sub Cell 4
+    %tr.closed
+      %td Matt
+      %td Nov 8th
+      %td
+        %button.icon.icon-arrow.table-expandable-indicator
+    %tr
+      %td Matt
+      %td Nov 8th
+
+%br/
+%br/
+
+%h5 Buttons and links
+%table.table
+  %thead
+    %tr
+      %th Name
+      %th Date
+      %th
+  %tbody
+    %tr
+      %td
+        %a{href: '#'} Brian
+      %td Nov 3rd
+      %td.table-action-cell
+        %button.button.ghost-button Add
+    %tr
+      %td
+        %a{href: '#'} Matt
+      %td Nov 8th
+      %td.table-action-cell
+        %button.button.ghost-button Add
+    %tr
+      %td
+        %a{href: '#'} Sage
+      %td Dec 21st
+      %td.table-action-cell
+        %button.button.ghost-button Add
+
+
+.sg-note
+  TODO:
+  %ul
+    %li Filters?
+    %li Dashboard Courses table header style vs Recent Activity styles, consolidate

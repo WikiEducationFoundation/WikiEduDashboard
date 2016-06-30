@@ -1,6 +1,5 @@
 import React from 'react';
 import ActivityTableRow from './activity_table_row.jsx';
-import TransitionGroup from 'react-addons-css-transition-group';
 import Loading from '../common/loading.jsx';
 import _ from 'lodash';
 import moment from 'moment';
@@ -80,7 +79,7 @@ const ActivityTable = React.createClass({
 
       return (
         <tr key={`${revision.key}-${revision.username}`} className="activity-table-drawer">
-          <td colSpan="6">
+          <td colSpan="5">
             <span>
               <h5>{I18n.t('recent_activity.active_courses')}</h5>
               <ul className="activity-table__course-list">
@@ -96,8 +95,9 @@ const ActivityTable = React.createClass({
   _renderHeaders() {
     return this.props.headers.map((header) => {
       return (
-        <th key={header.key} onClick={this.sortItems} className="sortable" data-sort-key={header.key}>
+        <th style={header.style || {}} key={header.key} onClick={this.sortItems} className="sortable" data-sort-key={header.key}>
           {header.title}
+          <span className="sortable-indicator"></span>
         </th>
       );
     });
@@ -114,25 +114,20 @@ const ActivityTable = React.createClass({
 
     let elements = _.flatten(_.zip(activity, drawers));
     if (!elements.length) {
-      elements = <tr><td colSpan="6">{this.props.noActivityMessage}</td></tr>;
+      elements = <tr><td colSpan={this.props.headers.length + 1}>{this.props.noActivityMessage}</td></tr>;
     }
 
     return (
-      <table className="activity-table list">
+      <table className="table table--expandable table--hoverable table--clickable table--sortable activity-table">
         <thead>
           <tr>
             {ths}
             <th></th>
           </tr>
         </thead>
-        <TransitionGroup
-          transitionName={'dyk'}
-          component="tbody"
-          transitionEnterTimeout={500}
-          transitionLeaveTimeout={500}
-        >
+        <tbody>
           {elements}
-        </TransitionGroup>
+        </tbody>
       </table>
     );
   }

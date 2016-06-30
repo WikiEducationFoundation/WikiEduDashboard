@@ -1,5 +1,6 @@
 import React from 'react';
 import CourseActions from '../../actions/course_actions.js';
+import UUID from 'node-uuid';
 
 const CourseTypeSelector = React.createClass({
   propTypes: {
@@ -7,7 +8,13 @@ const CourseTypeSelector = React.createClass({
     editable: React.PropTypes.bool
   },
 
-  handleChange(e) {
+  componentWillMount() {
+    this.setState({
+      id: UUID.v4()
+    });
+  },
+
+  _handleChange(e) {
     const course = this.props.course;
     const courseType = e.target.value;
     course.type = courseType;
@@ -22,28 +29,43 @@ const CourseTypeSelector = React.createClass({
     CourseActions.updateCourse(course);
   },
 
+  _getFormattedCourseType(type) {
+    return {
+      ClassroomProgramCourse: 'Classroom Program',
+      VisitingScholarship: 'Visiting Scholarship',
+      Editathon: 'Edit-a-thon',
+      BasicCourse: 'Generic Course'
+    }[type];
+  },
+
   render() {
-    const currentType = this.props.course.type;
-    let selector = currentType;
+    const currentType = this._getFormattedCourseType(this.props.course.type);
+    let selector = (
+      <span>
+        <strong>Type:</strong> {currentType}
+      </span>
+    );
     if (this.props.editable && currentType !== 'LegacyCourse') {
       selector = (
-        <div className="select_wrapper">
+        <div className="form-group">
+          <label htmlFor={this.state.id}><strong>Type:</strong></label>
           <select
+            id={this.state.id}
             name="course_type"
             value={this.props.course.type}
-            onChange={this.handleChange}
+            onChange={this._handleChange}
           >
-            <option value="ClassroomProgramCourse">Classroom Program</option>
-            <option value="VisitingScholarship">Visiting Scholarship</option>
-            <option value="Editathon">Edit-a-thon</option>
-            <option value="BasicCourse">Generic Course</option>
+            <option value="ClassroomProgramCourse">{this._getFormattedCourseType('ClassroomProgramCourse')}</option>
+            <option value="VisitingScholarship">{this._getFormattedCourseType('VisitingScholarship')}</option>
+            <option value="Editathon">{this._getFormattedCourseType('Editathon')}</option>
+            <option value="BasicCourse">{this._getFormattedCourseType('BasicCourse')}</option>
           </select>
         </div>
       );
     }
     return (
       <div className="course_type_selector">
-        <span>Type: {selector}</span>
+        {selector}
       </div>
     );
   }

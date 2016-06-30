@@ -28,7 +28,7 @@ Upload = React.createClass(
         {details}
       </td>
       <td className="desktop-only-tc">
-        <a href={@props.upload.url} target="_blank" className="inline">{file_name}</a>
+        <a href={@props.upload.url} target="_blank">{file_name}</a>
       </td>
       <td className="desktop-only-tc">{@props.upload.uploader}</td>
       <td className="desktop-only-tc">{@props.upload.usage_count}</td>

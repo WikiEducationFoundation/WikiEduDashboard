@@ -1,9 +1,5 @@
-<li class="row course-list__row">
-  <%= link_to article_url(article) do %>
-  <div class="row__wrapper">
-    <div class="course-list__row__title"><p class="title"><%= full_title(article) %></p></div>
-    <div class="course-list__row__revisions"><p><%= article.average_views %></p></div>
-    <div class="course-list__row__revisions"><p><%= article.revisions.last.wp10 %></p></div>
-  </div>
-  <% end %>
-</li>
+<tr data-link="%< article_url(article) %>">
+  <td><%= full_title(article) %></td>
+  <td><%= article.average_views %></td>
+  <td><%= article.revisions.last.wp10 %></td>
+</tr>

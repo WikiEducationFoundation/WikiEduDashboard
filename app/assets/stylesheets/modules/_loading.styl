@@ -1,9 +1,30 @@
-.loading__component
-  display table
-  width 100%
+.loading
+  margin 60px auto
   text-align center
-  margin 2em auto
-  img
-    width 220px
-    height 19px
-    margin 0 auto
+
+.loading__spinner
+  margin 30px auto
+  font-size 10px
+  position relative
+  text-indent -9999em
+  border-top 2px solid #fff
+  border-right 2px solid #fff
+  border-bottom 2px solid #fff
+  border-left 2px solid $brand_primary
+  transform translate3d(0,0,0)
+  animation load 0.5s infinite linear
+
+.loading__spinner,
+.loading__spinner:after
+  border-radius 50%
+  width 60px
+  height 60px
+
+@keyframes load {
+  0% {
+    transform rotate(0deg)
+  }
+  100% {
+    transform rotate(360deg)
+  }
+}

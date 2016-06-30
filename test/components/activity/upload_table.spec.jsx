@@ -41,7 +41,7 @@ describe('UploadTable', () => {
       </div>
     );
 
-    const loading = TestTable.querySelector('.loading__component');
+    const loading = TestTable.querySelector('.loading');
     expect(loading).to.exist();
   });
 

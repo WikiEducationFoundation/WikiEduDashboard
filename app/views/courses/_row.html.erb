@@ -1,36 +1,25 @@
-<li class="row course-list__row <%= user ? date_highlight_class(course) : '' %>">
-  <%= link_to course_slug_path(course.slug), 'id' => course.id do %>
-    <div class="row__wrapper">
-      <div class="course-list__row__title">
-        <p class="<%= user ? 'u' : '' %>title"><%= course.title %></p>
-      </div>
-
-      <div class="course-list__row__revisions">
-        <% revisions = course.recent_edit_count %>
-        <p><span class="tablet-only-flex"><%= t("metrics.revisions") %>: </span><%= revisions %></p>
-        <p class="<%= user ? 'u' : '' %>revisions hidden"><%= revisions %></p>
-      </div>
-
-      <div class="course-list__row__characters">
-        <p><span class="tablet-only-flex"><%= t("metrics.word_count") %>: </span>
-          <%= number_to_human course.word_count %>
-          <small>(<%= t("metrics.per_user", number: number_to_human(course.average_word_count)) %>)</small>
-        </p>
-        <p class="<%= user ? 'u' : '' %>characters hidden"><%= course.character_sum %></p>
-        <p class="<%= user ? 'u' : '' %>average-words hidden"><%= course.average_word_count %></p>
-      </div>
-      <div class="course-list__row__views">
-        <p><span class="tablet-only-flex"><%= t("metrics.view") %>: </span><%= number_to_human course.view_sum %></p>
-        <p class="<%= user ? 'u' : '' %>views hidden"><%= course.view_sum %></p>
-      </div>
-      <div class="course-list__row__students">
-        <p class="training"><span class="tablet-only-flex"><%= t("users.editors") %>: </span><%= course.user_count %></p>
-        <% unless Features.disable_training? %>
-          <small class="training desktop-only-flex"><%= t("users.training_complete_count", count: course.trained_count) %></small>
-        <% end %>
-        <p class="<%= user ? 'u' : '' %>students hidden"><%= course.user_count %></p>
-        <p class="<%= user ? 'u' : '' %>untrained hidden"><%= course.user_count - course.trained_count %></p>
-      </div>
-    </div>
-  <% end %>
-</li>
+<tr data-link="<%= course_slug_path(course.slug) %>" class="<%= user ? date_highlight_class(course) : '' %>">
+  <td class="<%= user ? 'u' : '' %>title title">
+    <%= course.title %>
+  </td>
+  <td class="revisions">
+    <%= course.recent_edit_count %>
+  </td>
+  <td>
+    <span class="characters">
+      <%= number_to_human course.word_count %>
+    </span>
+    <small class="average-words">(<%= t("metrics.per_user", number: number_to_human(course.average_word_count)) %>)</small>
+  </td>
+  <td class="views">
+    <%= number_to_human course.view_sum %>
+  </td>
+  <td>
+    <span class="students">
+      <%= course.user_count %>
+    </span>
+    <% unless Features.disable_training? %>
+      <small class="untrained"><%= t("users.training_complete_count", count: course.trained_count) %></small>
+    <% end %>
+  </td>
+</tr>

@@ -3,28 +3,6 @@ require_relative '../../app/presenters/courses_presenter'
 require 'ostruct'
 
 describe CoursesPresenter do
-  describe '#admin_courses' do
-    let(:admin)  { OpenStruct.new(admin?: is_admin) }
-    let(:user)   { user }
-    let(:cohort) { nil }
-    before { create(:course, submitted: true, listed: true) }
-    subject { described_class.new(user, cohort).admin_courses }
-    context 'not signed in' do
-      let(:user) { nil }
-      it 'is nil' do
-        expect(subject).to be_nil
-      end
-    end
-
-    context 'signed in admin' do
-      let(:user)     { admin }
-      let(:is_admin) { true }
-      it 'is the submitted listed scope' do
-        expect(subject).to eq(Course.submitted_listed)
-      end
-    end
-  end
-
   describe '#user_courses' do
     let(:admin)  { create(:admin) }
     let(:user)   { user }

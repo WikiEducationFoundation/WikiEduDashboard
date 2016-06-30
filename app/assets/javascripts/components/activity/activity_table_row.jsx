@@ -6,7 +6,7 @@ const ActivityTableRow = React.createClass({
 
   propTypes: {
     key: React.PropTypes.string,
-    rowId: React.PropTypes.string,
+    rowId: React.PropTypes.number,
     diffUrl: React.PropTypes.string,
     revisionDateTime: React.PropTypes.string,
     reportUrl: React.PropTypes.string,
@@ -35,10 +35,9 @@ const ActivityTableRow = React.createClass({
   },
 
   render() {
-    let className = 'activity-table-row';
     let revisionDateTime;
     let col2;
-    className += this.state.is_open ? ' open' : ' closed';
+    let className = this.state.is_open ? 'open' : 'closed';
 
     if (this.props.diffUrl) {
       revisionDateTime = (
@@ -75,7 +74,7 @@ const ActivityTableRow = React.createClass({
           {revisionDateTime}
         </td>
         <td>
-          <button className="icon icon-arrow"></button>
+          <button className="icon icon-arrow table-expandable-indicator"></button>
         </td>
       </tr>
     );

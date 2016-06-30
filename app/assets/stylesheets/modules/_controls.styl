@@ -1,3 +1,5 @@
+// Controls
+
 .controls
   padding 20px 0
   position absolute
@@ -10,15 +12,8 @@
   +above(desktop)
     right 74px
 
-.link-button
-  background none
-  border none
-  padding 0
-  margin 0
-  text-decoration underline
-  color $brand_primary
-  &:focus
-    outline 0
+
+// Button
 
 .button, input.button
   background-color mercury
@@ -30,11 +25,24 @@
   font-family body-font
   font-size 14px
   line-height 1.5
-  margin-left 10px
+  margin-left 0px
   padding 8px 20px 8px
   transition all .15s ease-out, color .15s ease-out
   font-weight 600
   text-decoration none
+
+  &:hover
+    background-color white
+    border-bottom 1px solid zircon
+
+  &.disabled,
+  &:disabled
+    cursor default
+    opacity 0.5
+    pointer-events none
+
+  & + &
+    margin-left 10px
 
   &.ghost-button
     background-color #fff
@@ -49,15 +57,6 @@
 
   &.button--no-margin
     margin-left 0
-
-  &:hover
-    background-color white
-    border-bottom 1px solid zircon
-  &.disabled,
-  &:disabled
-    cursor default
-    opacity 0.5
-    pointer-events none
 
   &.large
     padding 18px 27px
@@ -76,6 +75,10 @@
     box-shadow inset 0 0 0 1px #fff
     color #fff
 
+    &:hover
+      background white
+      color $brand_primary
+
   &.button--clear
     border none
     background transparent
@@ -92,7 +95,7 @@
       border-color saturate(lighten(bayoux, 25%), 20%)
 
   &.small
-    font-size 12px 
+    font-size 12px
     padding 4px 10px
 
   &.danger:hover
@@ -124,6 +127,10 @@
       &:before
         vertical-align bottom
 
+  > .icon
+    vertical-align middle
+    margin-left 4px
+
 tr.students .button.plus
   width 20px
   height 20px
@@ -138,6 +145,27 @@ tr.students .button.plus
   &:after
     content '\003e'
     margin-left 5px
+
+
+// Link Buttons
+
+.link-button
+  background none
+  border none
+  padding 0
+  margin 0
+  text-decoration underline
+  color $brand_primary
+  &:focus
+    outline 0
+
+.small-block-link
+  display block
+  font-size 12px
+  margin-top 10px
+
+
+// Typeahead
 
 .typeahead
   display inline-block
@@ -169,12 +197,9 @@ tr.students .button.plus
         &:hover
           border-bottom 0
 
+
+// Course Actions
+
 .sidebar__course-actions span
   font-size 15px
   color body-color
-
-.small-block-link
-  display block
-  font-size 12px 
-  margin-top 10px 
-  

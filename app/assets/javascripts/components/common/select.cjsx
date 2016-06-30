@@ -15,24 +15,25 @@ Select = React.createClass(
     options = @props.options.map (option, i) =>
       <option value={i} key={i}>{option}</option>
 
-    if @props.popover_text
-      labelClass = 'popover-trigger'
-      popover = (
-        <div className="popover dark">
-          <p>{@props.popover_text}</p>
+    if @props.tooltip_text
+      labelClass = 'tooltip-trigger'
+      tooltip = (
+        <div className="tooltip dark">
+          <p>{@props.tooltip_text}</p>
         </div>
       )
 
     if @props.editable
-      <label className="input_wrapper select_wrapper #{if @props.inline? && @props.inline then ' inline' else ''}">
-        <div className={labelClass}>{label}{popover}</div>
+      <div className="form-group">
+        <label htmlFor={@state.id} className={labelClass}>{label}{tooltip}</label>
         <select
+          id={@state.id}
           value={@state.value}
           onChange={@onChange}
         >
           {options}
         </select>
-      </label>
+      </div>
     else
       <span>{@props.options[@props.value]}</span>
 )

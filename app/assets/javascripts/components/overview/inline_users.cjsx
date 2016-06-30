@@ -18,7 +18,7 @@ InlineUsers = React.createClass(
 
     user_list = if user_list.length > 0 then user_list else I18n.t('courses.none')
     if @props.users.length > 0 || @props.editable
-      inline_list = <span>{@props.title}: {user_list}</span>
+      inline_list = <span><strong>{@props.title}:</strong> {user_list}</span>
     allowed = @props.role != 4 || (@props.current_user.role == 4 || @props.current_user.admin)
     button = <EnrollButton {...@props} users={@props.users} role={@props.role} key={key} inline=true allowed={allowed} show={@props.editable && allowed} />
 

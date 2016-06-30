@@ -63,30 +63,20 @@
   textarea
     width 100%
   input[type='text'], input[type='date'], select
-    display inline-block
     margin-right 10px
-    width 150px
-    border 1px solid $border_med_dk
-    height auto
     &.title
-      width 470px
-      margin-top 2px
+      width 100%
   input[type='checkbox']
     margin 20px 5px
   .button
     clear right
     float right
     margin 0
-  .block-title--editing
-    color inherit
-    letter-spacing inherit
-    line-height inherit
-    font-weight inherit
-    font-size inherit
   .block-title
     color $brand_primary
     font-weight 400
     flex 1
+    margin-right 10px
 
 .block__block-content
   color $text_dk
@@ -136,19 +126,13 @@
 
 .block__block-type
   color $text_dk
-  font-size 18px
+  font-size 14px
   font-weight 300
   position relative
-  bottom 4px
   -webkit-font-smoothing auto
-  .select_wrapper:after
-    margin-top 6px
-    background url('../images/downward_caret.svg') right center no-repeat
-    content ''
-    width 14px
-    height 10px
+  top 2px
   &.editable
-    right 80px
+    margin-right 80px
   select
     margin-right 0
 
@@ -162,7 +146,6 @@
     bottom 6px
     font-weight 400
     margin-left 10px
-    -webkit-font-smoothing auto
   input.title
     position relative
     bottom 5px
@@ -232,7 +215,7 @@ span.week__add-block
   &:hover
     text-decoration underline
 
-.week__week-header .week-index, .week__week-header .input_wrapper > span
+.week__week-header .week-index
   font-family $header-font
   font-size 34px
   font-weight 300
@@ -245,37 +228,22 @@ span.week__add-block
 .gradeable
   overflow hidden
 
-input[type="radio"]
-  -webkit-appearance radio
-input[type="checkbox"]
-  -webkit-appearance checkbox
-
 .block__training-modules
   margin-top 1.5em
   padding-top 1em
 
+.block__training-modules .table
+  table-layout fixed
+
 .block__training-modules h4
   font-weight 400
-  margin-bottom 0
-
-.block__training-modules-table
-  border-bottom 1px solid border_lt
-  thead
-    border-bottom 1px solid border_lt
-    td
-      padding-bottom 0
-      margin-bottom -5px
-  td
-    display inline-block
-    overflow hidden
-    white-space nowrap
-    text-overflow ellipsis
-    padding 0 3px
-    position relative
-    top 7px
 
 .block__training-modules-table__module-name
   width 42.5%
+  overflow hidden
+  white-space nowrap
+  text-overflow ellipsis
+
 .block__training-modules-table__module-progress
   width 40%
 .block__training-modules-table__module-link
@@ -293,15 +261,9 @@ input[type="checkbox"]
 .block__training-modules-table__status-header
   width 40%
 
+
+
 .training-module
-  border-bottom 1px solid border_lt
-  padding-bottom 1em
-  padding 12px 0
-  td
-    font-size 16px
-  &:last-child
-    margin-bottom 0
-    border-bottom none
   .overdue
     color warning
   .completed
@@ -353,7 +315,8 @@ input[type="checkbox"]
     padding 8px
     background #FFF
     border 1px solid $border_med
-    max-height calc(100vh - 350px)
+    height auto
+    max-height calc(100vh - 220px)
     min-height 122px
     overflow-y auto
   ol
@@ -452,21 +415,14 @@ li.block.editable
     box-shadow 0 0 15px 0 rgba(0, 0, 0, .2)
   .drag-handle
     display block
-  label
-    span
-      display block
-      font-size 15px
-      color $text
-      font-weight 300
-      -webkit-font-smoothing auto
-      margin-bottom 3px
   input.editable
     width 300px
-  h4
-    .input_wrapper
-      float left
-    .select_wrapper
-      float right
+  .block-title
+    line-height inherit
+    font-weight inherit
+    font-size inherit
+    letter-spacing inherit
+    margin-right 20px
   .block__edit-block
     visibility hidden
   .block__due-date-spacer
@@ -474,9 +430,8 @@ li.block.editable
   .block__read__due-date
     display none
   .block__block-type
-    bottom 2px
-    label span
-      margin-bottom 5px
+    margin-right 0
+    top 0
 
 
 

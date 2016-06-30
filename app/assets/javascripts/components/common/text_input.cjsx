@@ -34,7 +34,7 @@ TextInput = React.createClass(
         <input
           ref='input'
           className={"#{inputClass} #{@props.value_key}"}
-          id={@props.id || ''}
+          id={@state.id}
           value={@state.value}
           onChange={@onChange}
           autoFocus={@props.focus}
@@ -48,14 +48,13 @@ TextInput = React.createClass(
         />
       )
 
-      <label className={"#{inputClass} input_wrapper"}>
-        <span className={labelClass}>{label}</span>
-        {spacer if (@props.value? or @props.editable) && !@props.label}
+      <div className="form-group">
+        <label htmlFor={@state.id} className={labelClass}><strong>{label}</strong></label>
         {input}
-      </label>
+      </div>
     else if @props.label
       <p className={@props.p_tag_classname}>
-        <span className="text-input-component__label">{label}</span>
+        <span className="text-input-component__label"><strong>{label}</strong></span>
         <span>{spacer if (@props.value? or @props.editable) && !@props.label}</span>
         <span onBlur={@props.onBlur} onClick={@props.onClick} className={valueClass}>{value}</span>
         {@props.append}

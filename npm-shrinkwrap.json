@@ -6832,9 +6832,9 @@
       "resolved": "https://registry.npmjs.org/react-dropzone/-/react-dropzone-3.5.0.tgz"
     },
     "react-input-autosize": {
-      "version": "0.5.3",
-      "from": "react-input-autosize@>=0.5.3 <0.6.0",
-      "resolved": "https://registry.npmjs.org/react-input-autosize/-/react-input-autosize-0.5.3.tgz"
+      "version": "0.6.13",
+      "from": "react-input-autosize@>=0.6.2 <0.7.0",
+      "resolved": "https://registry.npmjs.org/react-input-autosize/-/react-input-autosize-0.6.13.tgz"
     },
     "react-motion": {
       "version": "0.3.1",
@@ -6842,9 +6842,9 @@
       "resolved": "https://registry.npmjs.org/react-motion/-/react-motion-0.3.1.tgz"
     },
     "react-onclickoutside": {
-      "version": "5.2.0",
-      "from": "react-onclickoutside@latest",
-      "resolved": "https://registry.npmjs.org/react-onclickoutside/-/react-onclickoutside-5.2.0.tgz"
+      "version": "5.3.1",
+      "from": "react-onclickoutside@>=5.2.0 <6.0.0",
+      "resolved": "https://registry.npmjs.org/react-onclickoutside/-/react-onclickoutside-5.3.1.tgz"
     },
     "react-router": {
       "version": "2.0.0",
@@ -6852,9 +6852,9 @@
       "resolved": "https://registry.npmjs.org/react-router/-/react-router-2.0.0.tgz"
     },
     "react-select": {
-      "version": "0.6.12",
-      "from": "react-select@0.6.12",
-      "resolved": "https://registry.npmjs.org/react-select/-/react-select-0.6.12.tgz"
+      "version": "0.9.1",
+      "from": "git://github.com/JedWatson/react-select.git#v0.9.1",
+      "resolved": "git://github.com/JedWatson/react-select.git#d8fe544f32dc28e1f72592671f7c70bddae3258a"
     },
     "react-tools": {
       "version": "0.12.1",

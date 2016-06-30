@@ -43,7 +43,7 @@ const Config = function () {
   this.jsMainFile = 'main';
 
   // Name of main CSS file
-  this.cssMainFiles = '+(main|training|surveys)';
+  this.cssMainFiles = '+(main|training|surveys|styleguide)';
 };
 
 

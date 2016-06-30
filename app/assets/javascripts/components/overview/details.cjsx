@@ -45,38 +45,34 @@ Details = React.createClass(
     staff = <InlineUsers {...@props} users={@props.staff} role={4} title='Wiki Ed Staff' />
     if @props.course.school
       # FIXME: Convert lego to parameterized messages.
-      school = <p>{CourseUtils.i18n('school', @props.course.string_prefix)}: {@props.course.school}</p>
+      school = <p><strong>{CourseUtils.i18n('school', @props.course.string_prefix)}:</strong> {@props.course.school}</p>
     if @props.course.term
-      term = <p>{CourseUtils.i18n('term', @props.course.string_prefix)}: {@props.course.term}</p>
+      term = <p><strong>{CourseUtils.i18n('term', @props.course.string_prefix)}:</strong> {@props.course.term}</p>
 
     if @props.course.passcode or @props.editable
       passcode = (
-        <fieldset>
-          <TextInput
-            onChange={@updateDetails}
-            value={@props.course.passcode}
-            value_key='passcode'
-            editable={@props.editable}
-            type='text'
-            label={I18n.t('courses.passcode')}
-            placeholder={I18n.t('courses.passcode_none')}
-            required=true
-          />
-        </fieldset>
+        <TextInput
+          onChange={@updateDetails}
+          value={@props.course.passcode}
+          value_key='passcode'
+          editable={@props.editable}
+          type='text'
+          label={I18n.t('courses.passcode')}
+          placeholder={I18n.t('courses.passcode_none')}
+          required=true
+        />
       )
 
     if @props.course.expected_students
       expected_students = (
-        <fieldset>
-          <TextInput
-            onChange={@updateDetails}
-            value={@props.course.expected_students}
-            value_key='expected_students'
-            editable={@props.editable}
-            type='number'
-            label={CourseUtils.i18n('expected_students', @props.course.string_prefix)}
-          />
-        </fieldset>
+        <TextInput
+          onChange={@updateDetails}
+          value={@props.course.expected_students}
+          value_key='expected_students'
+          editable={@props.editable}
+          type='number'
+          label={CourseUtils.i18n('expected_students', @props.course.string_prefix)}
+        />
       )
 
     if @props.course.type == 'ClassroomProgramCourse'
@@ -88,32 +84,28 @@ Details = React.createClass(
         maxDate: moment(@props.course.end, 'YYYY-MM-DD')
 
       timeline_start = (
-        <fieldset>
-          <DatePicker
-            onChange={@updateDetails}
-            value={@props.course.timeline_start}
-            value_key='timeline_start'
-            editable={@props.editable}
-            validation={CourseDateUtils.isDateValid}
-            label={CourseUtils.i18n('assignment_start', @props.course.string_prefix)}
-            date_props={timeline_start_props}
-            required=true
-          />
-        </fieldset>
+        <DatePicker
+          onChange={@updateDetails}
+          value={@props.course.timeline_start}
+          value_key='timeline_start'
+          editable={@props.editable}
+          validation={CourseDateUtils.isDateValid}
+          label={CourseUtils.i18n('assignment_start', @props.course.string_prefix)}
+          date_props={timeline_start_props}
+          required=true
+        />
       )
       timeline_end = (
-        <fieldset>
-          <DatePicker
-            onChange={@updateDetails}
-            value={@props.course.timeline_end}
-            value_key='timeline_end'
-            editable={@props.editable}
-            validation={CourseDateUtils.isDateValid}
-            label={CourseUtils.i18n('assignment_end', @props.course.string_prefix)}
-            date_props={timeline_end_props}
-            required=true
-          />
-        </fieldset>
+        <DatePicker
+          onChange={@updateDetails}
+          value={@props.course.timeline_end}
+          value_key='timeline_end'
+          editable={@props.editable}
+          validation={CourseDateUtils.isDateValid}
+          label={CourseUtils.i18n('assignment_end', @props.course.string_prefix)}
+          date_props={timeline_end_props}
+          required=true
+        />
       )
 
     cohorts = if @props.cohorts.length > 0
@@ -128,12 +120,12 @@ Details = React.createClass(
 
       subject = (
         <div className='subject'>
-          <span>Subject: {@props.course.subject}</span>
+          <span><strong>Subject:</strong> {@props.course.subject}</span>
         </div>
       )
       tags = (
         <div className='tags'>
-          <span>Tags: {tags_list}</span>
+          <span><strong>Tags:</strong> {tags_list}</span>
           <TagButton {...@props} show={@props.editable} />
         </div>
       )
@@ -149,7 +141,7 @@ Details = React.createClass(
         <h3>Details</h3>
         {@props.controls()}
       </div>
-      <div className='module__data'>
+      <div className='module__data extra-line-height'>
         {instructors}
         {online}
         {campus}
@@ -159,35 +151,31 @@ Details = React.createClass(
         <form>
           {passcode}
           {expected_students}
-          <fieldset>
-            <DatePicker
-              onChange={@updateDetails}
-              value={@props.course.start}
-              value_key='start'
-              validation={CourseDateUtils.isDateValid}
-              editable={@props.editable}
-              label={I18n.t('courses.start')}
-              required=true
-            />
-          </fieldset>
-          <fieldset>
-            <DatePicker
-              onChange={@updateDetails}
-              value={@props.course.end}
-              value_key='end'
-              editable={@props.editable}
-              validation={CourseDateUtils.isDateValid}
-              label={I18n.t('courses.end')}
-              date_props={minDate: moment(@props.course.start, 'YYYY-MM-DD').add(1, 'week')}
-              enabled={@props.course.start?}
-              required=true
-            />
-          </fieldset>
+          <DatePicker
+            onChange={@updateDetails}
+            value={@props.course.start}
+            value_key='start'
+            validation={CourseDateUtils.isDateValid}
+            editable={@props.editable}
+            label={I18n.t('courses.start')}
+            required=true
+          />
+          <DatePicker
+            onChange={@updateDetails}
+            value={@props.course.end}
+            value_key='end'
+            editable={@props.editable}
+            validation={CourseDateUtils.isDateValid}
+            label={I18n.t('courses.end')}
+            date_props={minDate: moment(@props.course.start, 'YYYY-MM-DD').add(1, 'week')}
+            enabled={@props.course.start?}
+            required=true
+          />
           {timeline_start}
           {timeline_end}
         </form>
         <div>
-          <span>{I18n.t('courses.cohorts')}{cohorts}</span>
+          <span><strong>{I18n.t('courses.cohorts')}</strong>{cohorts}</span>
           <CohortButton {...@props} show={@props.editable && @props.current_user.admin && (@props.course.submitted || @props.course.type != 'ClassroomProgramCourse') } />
         </div>
         {subject}

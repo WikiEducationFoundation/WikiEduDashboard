@@ -52,6 +52,7 @@ const ArticleList = React.createClass({
       <List
         elements={elements}
         keys={keys}
+        sortable={true}
         table_key="articles"
         none_message={CourseUtils.i18n('articles_none', this.props.course.string_prefix)}
         store={ArticleStore}

@@ -28,35 +28,53 @@
       </select>
     </div>
   </div>
-  <div class="row course-list__row list__header">
-    <div class="row__wrapper desktop-only-flex">
-      <div class="course-list__row__title sort asc" data-sort="title"><p><%= t("#{presenter.course_string_prefix}.courses") %></p></div>
-
-      <div class="course-list__row__revisions sort popover-trigger" data-default-order="desc" data-sort="revisions">
-        <p><%= t("metrics.revisions") %></p>
-        <div class="popover dark">
-          <p><%= t("courses.revisions_doc", timeframe: RevisionStat::REVISION_TIMEFRAME) %></p>
-        </div>
-      </div>
-
-      <div class="course-list__row__characters sort popover-trigger" data-default-order="desc" data-sort="characters">
-        <p><%= t("metrics.word_count") %></p>
-        <div class="popover dark">
-          <p><%= t("courses.word_count_doc") %></p>
-        </div>
-      </div>
-      <div class="course-list__row__views sort popover-trigger" data-default-order="desc" data-sort="views">
-        <p><%= t("metrics.view") %></p>
-        <div class="popover dark">
-          <p><%= t("courses.view_doc") %></p>
-        </div>
-      </div>
-      <div class="course-list__row__students sort" data-default-order="desc" data-sort="students"><p><%= t("users.editors") %></p></div>
-    </div>
-  </div>
-  <ul class="list">
-  <% presenter.courses_by_recent_edits.each do |c| %>
-    <%= render 'courses/row', course: c, admin: false, user: false %>
-  <% end %>
-  </ul>
+  <table class="table table--hoverable table--sortable">
+    <thead>
+      <tr>
+        <th class="sort sortable asc" data-default-order="asc" data-sort="title">
+          <%= t("#{presenter.course_string_prefix}.courses") %>
+          <span class="sortable-indicator"></span>
+        </th>
+        <th style="width: 165px;" class="sort sortable" data-default-order="desc" data-sort="revisions">
+          <div class="tooltip-trigger">
+            <%= t("metrics.revisions") %>
+            <span class="sortable-indicator"></span>
+            <span class="tooltip-indicator"></span>
+            <div class="tooltip dark">
+              <p><%= t("courses.revisions_doc", timeframe: RevisionStat::REVISION_TIMEFRAME) %></p>
+            </div>
+          </div>
+        </th>
+        <th style="width: 172px;" class="sort sortable" data-default-order="desc" data-sort="characters">
+          <div class="tooltip-trigger">
+            <%= t("metrics.word_count") %>
+            <span class="sortable-indicator"></span>
+            <span class="tooltip-indicator"></span>
+            <div class="tooltip dark">
+              <p><%= t("courses.word_count_doc") %></p>
+            </div>
+          </div>
+        </th>
+        <th style="width: 125px;" class="sort sortable" data-default-order="desc" data-sort="views">
+          <div class="tooltip-trigger">
+            <%= t("metrics.view") %>
+            <span class="sortable-indicator"></span>
+            <span class="tooltip-indicator"></span>
+            <div class="tooltip dark">
+              <p><%= t("courses.view_doc") %></p>
+            </div>
+          </div>
+        </th>
+        <th style="width: 200px;" class="sort sortable" data-default-order="desc" data-sort="students">
+          <%= t("users.editors") %>
+          <span class="sortable-indicator"></span>
+        </th>
+      </tr>
+    </thead>
+    <tbody class="list">
+      <% presenter.courses_by_recent_edits.each do |c| %>
+        <%= render 'courses/row', course: c, admin: false, user: false %>
+      <% end %>
+    </tbody>
+  </table>
 </section>

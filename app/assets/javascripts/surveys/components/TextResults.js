@@ -90,7 +90,7 @@ export default class TextResults extends Component {
         !followUpOnly && answers.length < limit) {
       return null;
     }
-    const button = this.showButton ? <button type="button" className="button-link" onClick={this.toggleShowMore}>{`Show ${buttonText}`}</button> : null;
+    const button = this.showButton ? <button type="button" className="link-button" onClick={this.toggleShowMore}>{`Show ${buttonText}`}</button> : null;
     return (
       <div className="results__text-answer__info">
         <span className="contextual">

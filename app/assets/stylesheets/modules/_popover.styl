@@ -1,82 +1,9 @@
-// Information popover
-.popover-trigger
-  position relative
-  &:hover
-    .popover
-      opacity 1
-      top 110%
-  span
-    &:after
-      content "\EA05"
-      font-family 'icons'
-      width 18px
-      height 18px
-      position relative
-      top 2px
-      color $brand_primary
-      margin-left 3px
-  p
-    margin-bottom 0
-  .popover
-    background-color white
-    border 1px solid manatee
-    display none
-    opacity 0
-    padding 10px 15px
-    pointer-events none
-    position absolute
-    top 125%
-    left 15px
-    transform translateZ(0)
-    transition opacity .2s linear, top .2s linear
-    white-space normal
-    z-index 4
-    +above(desktop)
-      display block
-    &.dark
-      background-color manatee
-      border 0
-      &:before
-        border-bottom 6px solid manatee
-      p, h4
-        margin-bottom 0
-        color white !important
-      h4
-        font-weight 300
-    h3
-      color: boyoux
-    &:before
-      border-bottom 6px solid white
-      border-right 6px solid transparent
-      border-left 6px solid transparent
-      top -6px
-      content ''
-      display block
-      margin-left -6px
-      position absolute
-    h4
-      color dove
-    p
-      color manatee
-      font-size 11px
-      line-height 1.4
-
-.stat-display .popover
-  left -15%
-  width 130%
-  &:before
-    left 50%
-
-.row .popover
-  left 0
-  width 150px
-  &:before
-    left 24px
-
 // Interactive popover
 .pop__container
+  text-align left
   display inline-block
   position relative
+  
   .pop
     background white
     border 1px solid mischka
@@ -118,18 +45,21 @@
         width inherit
       > *
         vertical-align middle
+  
+  .button + & 
+    margin-left 10px 
 
-.pop__padded-content 
+.pop__padded-content
   padding 20px
   min-width 330px
-  
-  form 
-    margin-bottom 16px 
+
+  form
+    margin-bottom 16px
 
   input, form, textarea
-    width 100% 
+    width 100%
     position relative
-    
+
   .icon-search
     position absolute
     right 12px
@@ -137,4 +67,4 @@
 
   textarea
     height 180px
-  
+

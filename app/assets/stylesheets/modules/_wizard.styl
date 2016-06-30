@@ -81,7 +81,6 @@ wizard-width = 860px
       textarea
         height 189px
       input:not([type=checkbox]), textarea
-        margin-bottom 10px
         width 100%
       .vertical-form
         float none
@@ -237,6 +236,7 @@ wizard-width = 860px
         text-align right
         div
           display inline-block
+          margin-right 10px 
   .section-header
     margin-bottom 10px
 
@@ -261,12 +261,7 @@ p.red
   display inline-block
   width 100%
   .vertical-form.full-width
-    width 100%
-    margin 0 0 0 35px
-    .input_wrapper
-      float left
-      display inline
-      margin-right 25px
+    padding 0 0 0 35px
   .WeekdayPicker.DayPicker
     margin-left 20px
   .course-dates__calendar-container .DayPicker
@@ -331,18 +326,18 @@ p.red
 
 
 /* Cloned course modal styles */
-.wizard__panel.active.cloned-course 
+.wizard__panel.active.cloned-course
   .column:last-of-type
     margin-right 0
 
   .WeekdayPicker.DayPicker
     margin-left 0
-  
+
   .course-dates__calendar-container
     .DayPicker.DayPicker--en
       margin-left 0
       width 100%
-  
+
   .course-dates__calendar-key
     margin-left 0
     border-left 0

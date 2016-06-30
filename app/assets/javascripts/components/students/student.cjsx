@@ -42,18 +42,18 @@ Student = React.createClass(
       <span>
         <strong>{trunc(@props.student.real_name)}</strong>
         &nbsp;
-        (<a onClick={@stop} href={@props.student.contribution_url} target="_blank" className="inline">
+        (<a onClick={@stop} href={@props.student.contribution_url} target="_blank">
           {trunc(@props.student.username)}
         </a>)
       </span>
     ) else (
-      <span><a onClick={@stop} href={@props.student.contribution_url} target="_blank" className="inline">
+      <span><a onClick={@stop} href={@props.student.contribution_url} target="_blank">
         {trunc(@props.student.username)}
       </a></span>
     )
 
     training_progress = if @props.student.course_training_progress then (
-      <span className='red'>{@props.student.course_training_progress}</span>
+      <small className='red'>{@props.student.course_training_progress}</small>
     )
 
     if @props.course.published
@@ -75,17 +75,11 @@ Student = React.createClass(
 
     <tr onClick={@openDrawer} className={className}>
       <td>
-        <p className="name">
+        <div className="name">
           {user_name}
-          <br />
-          <small>
-            {training_progress}
-            {separator}
-            <span className='tablet-only-ib'>{chars}</span>
-          </small>
-          <br />
-          <span className='sandbox-link'><a onClick={@stop} href={@props.student.sandbox_url} target="_blank" className="inline">(sandboxes)</a></span>
-        </p>
+        </div>
+        {training_progress}
+        <div className='sandbox-link'><a onClick={@stop} href={@props.student.sandbox_url} target="_blank">(sandboxes)</a></div>
       </td>
       <td className='desktop-only-tc'>
         {assignButton}
@@ -95,7 +89,7 @@ Student = React.createClass(
       </td>
       <td className='desktop-only-tc'>{@props.student.recent_revisions}</td>
       <td className='desktop-only-tc'>{@props.student.character_sum_ms} | {@props.student.character_sum_us}</td>
-      <td style={{borderRight: '1px solid #ced1dd'}}><button onClick={@buttonClick} className="icon icon-arrow" ></button></td>
+      <td style={{borderRight: '1px solid #ced1dd'}}><button onClick={@buttonClick} className="icon icon-arrow table-expandable-indicator" ></button></td>
     </tr>
 )
 

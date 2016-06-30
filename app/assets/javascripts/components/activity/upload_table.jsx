@@ -28,7 +28,7 @@ const UploadTable = React.createClass({
   _renderHeaders() {
     return this.props.headers.map((header) => {
       return (
-        <th key={header.key}>
+        <th key={header.key} style={header.style || {}}>
           {header.title}
         </th>
       );
@@ -44,7 +44,7 @@ const UploadTable = React.createClass({
     const ths = this._renderHeaders();
 
     return (
-      <table className="uploads list">
+      <table className="uploads table">
         <thead>
           <tr>
             {ths}

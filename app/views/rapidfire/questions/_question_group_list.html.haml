@@ -5,5 +5,6 @@
   - if @questions.length > 1
     .survey__admin-tools
       %span.contextual Drag to reorder questions. (Changes will be saved automatically.)
-  %ul.list.list--survey{"data-sortable-questions" => @question_group.id}
-    = render partial: 'rapidfire/questions/question', collection: @questions
+  %table.table.list--survey{"data-sortable-questions" => @question_group.id}
+    %tbody
+      = render partial: 'rapidfire/questions/question', collection: @questions

@@ -228,9 +228,9 @@ Timeline = React.createClass(
       timeline_full = (moment(end - start).weeks()) - week_components.length <= 0
       add_week_link = if timeline_full then (
         <li>
-          <label className='week-nav__action week-nav__link disabled popover-trigger'>
+          <label className='week-nav__action week-nav__link disabled tooltip-trigger'>
             {I18n.t('timeline.add_week')}
-            <div className="popover dark">
+            <div className="tooltip dark">
               <p>{I18n.t('timeline.unable_to_add_week')}</p>
             </div>
           </label>

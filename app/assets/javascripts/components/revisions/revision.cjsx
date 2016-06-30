@@ -8,10 +8,10 @@ Revision = React.createClass(
     ratingMobileClass = ratingClass + ' tablet-only'
 
     <tr className='revision'>
-      <td className='popover-trigger desktop-only-tc'>
+      <td className='tooltip-trigger desktop-only-tc'>
         <p className='rating_num hidden'>{@props.revision.rating_num}</p>
         <div className={ratingClass}><p>{@props.revision.pretty_rating || '-'}</p></div>
-        <div className='popover dark'>
+        <div className='tooltip dark'>
           <p>{I18n.t('articles.rating_docs.' + (@props.revision.rating || '?'))}</p>
         </div>
       </td>

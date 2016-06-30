@@ -75,11 +75,11 @@ TrainingModules = React.createClass(
       content = (
         <div>
           <h4>Training</h4>
-          <table className='block__training-modules-table'>
+          <table className='table table--small'>
             <thead>
               <tr>
-                <td className='block__training-modules-table__module-name-header'>Module Name</td>
-                <td className='block__training-modules-table__status-header'>Status</td>
+                <th className='block__training-modules-table__module-name-header'>Module Name</th>
+                <th className='block__training-modules-table__status-header'>Status</th>
               </tr>
             </thead>
             <tbody>
