@@ -163,6 +163,7 @@ Permissions = React.createClass(
           </p>
           <ul>
             <li>set up a sandbox page where you can practice editing</li>
+            <li>adjust your account preferences to enable VisualEditor</li>
             <li>add a standard message on your userpage so that others know what course you are part of</li>
             <li>add standard messages to the Talk pages of articles you´re editing or reviewing</li>
             <li>update your course´s wiki page when you join the course or choose an assignment topic</li>
