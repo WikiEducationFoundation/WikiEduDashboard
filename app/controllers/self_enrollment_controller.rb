@@ -1,4 +1,5 @@
 require "#{Rails.root}/lib/wiki_edits"
+require "#{Rails.root}/lib/wiki_preferences_manager"
 
 #= Controller for students enrolling in courses
 class SelfEnrollmentController < ApplicationController
@@ -22,6 +23,8 @@ class SelfEnrollmentController < ApplicationController
 
     # Creates the CoursesUsers record
     add_student_to_course
+    # Set email and VE preferences
+    set_mediawiki_preferences if Features.wiki_ed?
     # Automatic edits for newly enrolled user
     make_enrollment_edits
 
@@ -90,6 +93,11 @@ class SelfEnrollmentController < ApplicationController
       course_id: @course.id,
       role: CoursesUsers::Roles::STUDENT_ROLE
     )
+  end
+
+  def set_mediawiki_preferences
+    preferences_manager = WikiPreferencesManager.new(user: current_user)
+    preferences_manager.enable_visual_editor
   end
 
   def make_enrollment_edits

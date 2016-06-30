@@ -74,6 +74,20 @@ module RequestHelpers
       .to_return(status: 200, body: failure, headers: {})
   end
 
+  def stub_oauth_options_success
+    stub_token_request
+    success = '{"options":"success"}'
+    stub_request(:post, /.*wikipedia.*/)
+      .to_return(status: 200, body: success, headers: {})
+  end
+
+  def stub_oauth_options_warning
+    stub_token_request
+    success = '{"warnings":{"options":{"*":"Validation error for \'visualeditor-enable\': not a valid preference"}}, "options":"success"}'
+    stub_request(:post, /.*wikipedia.*/)
+      .to_return(status: 200, body: success, headers: {})
+  end
+
   ############################
   # MediaWiki query requests #
   ############################

@@ -20,6 +20,7 @@ describe SelfEnrollmentController do
       context 'when the user is not enrolled yet' do
         it 'enrolls user (and redirects)' do
           expect_any_instance_of(WikiCourseEdits).to receive(:enroll_in_course)
+          expect_any_instance_of(WikiPreferencesManager).to receive(:enable_visual_editor)
           get 'enroll_self', request_params
           expect(subject).to eq(302)
           expect(course.students.count).to eq(1)

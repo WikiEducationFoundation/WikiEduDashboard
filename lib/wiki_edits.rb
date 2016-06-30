@@ -91,8 +91,6 @@ class WikiEdits
   ###############
   # API methods #
   ###############
-  private
-
   def api_post(data, current_user)
     return {} if Features.disable_wiki_output?
     tokens = get_tokens(current_user)
@@ -104,9 +102,11 @@ class WikiEdits
     response_data = JSON.parse(response.body)
     WikiResponse.capture(response_data, current_user: current_user,
                                         post_data: data,
-                                        type: 'edit')
+                                        type: data[:action])
     response_data
   end
+
+  private
 
   def get_tokens(current_user)
     return { status: 'no current user' } unless current_user

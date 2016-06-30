@@ -6,7 +6,7 @@ describe WikiEdits do
   # well-formatted, but at least this verifies that the flow is parsing tokens
   # in the expected way.
   before do
-    ENV['disable_wiki_output'] = 'false'
+    allow(Features).to receive(:disable_wiki_output?).and_return(false)
     create(:course,
            id: 1,
            submitted: true,
@@ -29,27 +29,27 @@ describe WikiEdits do
 
   let(:course) { Course.find(1) }
 
-  it 'should handle failed edits' do
+  it 'handles failed edits' do
     stub_oauth_edit_failure
     WikiEdits.new.notify_untrained(course, User.first)
   end
 
-  it 'should handle edits that hit the abuse filter' do
+  it 'handles edits that hit the abuse filter' do
     stub_oauth_edit_abusefilter
     WikiEdits.new.notify_untrained(course, User.first)
   end
 
-  it 'should handle unexpected responses' do
+  it 'handles unexpected responses' do
     stub_oauth_edit_captcha
     WikiEdits.new.notify_untrained(course, User.first)
   end
 
-  it 'should handle unexpected responses' do
+  it 'handles unexpected responses' do
     stub_oauth_edit_with_empty_response
     WikiEdits.new.notify_untrained(course, User.first)
   end
 
-  it 'should handle failed token requests' do
+  it 'handles failed token requests' do
     stub_token_request_failure
     result = WikiEdits.new.post_whole_page(User.first, 'Foo', 'Bar')
     expect(result[:status]).to eq('failed')
@@ -57,14 +57,14 @@ describe WikiEdits do
   end
 
   describe '.notify_untrained' do
-    it 'should post talk page messages on Wikipedia' do
+    it 'posts talk page messages on Wikipedia' do
       stub_oauth_edit
       WikiEdits.new.notify_untrained(course, User.first)
     end
   end
 
   describe '.notify_users' do
-    it 'should post talk page messages on Wikipedia' do
+    it 'posts talk page messages on Wikipedia' do
       stub_oauth_edit
       params = { sectiontitle: 'My message headline',
                  text: 'My message to you',
@@ -94,9 +94,5 @@ describe WikiEdits do
       response = WikiEdits.new.oauth_credentials_valid?(User.first)
       expect(response).to eq(true)
     end
-  end
-
-  after do
-    ENV['disable_wiki_output'] = Figaro.env.disable_wiki_output
   end
 end

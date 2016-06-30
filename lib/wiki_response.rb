@@ -51,6 +51,8 @@ class WikiResponse
       parse_api_edit_response
     elsif @response_data['query']
       parse_api_query_response
+    elsif @response_data['options']
+      parse_api_options_response
     else
       parse_api_unknown_response
     end
@@ -106,6 +108,16 @@ class WikiResponse
   def parse_api_query_response
     @title = "#{@type} query"
     @level = 'info'
+  end
+
+  def parse_api_options_response
+    if @response_data['warnings']
+      @title = "Unexpected warning for #{@type} update"
+      @level = 'error'
+    else
+      @title = "Successful #{@type} update"
+      @level = 'info'
+    end
   end
 
   def parse_api_unknown_response
