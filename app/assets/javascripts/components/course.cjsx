@@ -7,6 +7,7 @@ CourseActions     = require('../actions/course_actions.js').default
 CourseStore       = require '../stores/course_store.coffee'
 UserStore         = require '../stores/user_store.coffee'
 CohortStore       = require '../stores/cohort_store.coffee'
+NotificationStore = require '../stores/notification_store.coffee'
 Affix             = require './common/affix.cjsx'
 CourseUtils       = require('../utils/course_utils.js').default
 GetHelpButton     = require('../components/common/get_help_button.jsx').default
@@ -21,7 +22,7 @@ getState = ->
 
 Course = React.createClass(
   displayName: 'Course'
-  mixins: [CourseStore.mixin, UserStore.mixin]
+  mixins: [CourseStore.mixin, UserStore.mixin, NotificationStore.mixin]
   componentWillMount: ->
     ServerActions.fetch 'course', @getCourseID()
     ServerActions.fetch 'users', @getCourseID()
@@ -207,7 +208,7 @@ Course = React.createClass(
 
     <div>
       <div className="course-nav__wrapper">
-        <Affix className="course_navigation" offset=57>
+        <Affix className="course_navigation" offset={57 + NotificationStore.getNotifications().length * 52}>
           <div className="container">
             {courseLink}
             <nav>
