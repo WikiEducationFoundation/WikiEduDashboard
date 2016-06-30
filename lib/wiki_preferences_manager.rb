@@ -7,12 +7,24 @@ class WikiPreferencesManager
   end
 
   def enable_visual_editor
-    ve_options = ['visualeditor-editor=visualeditor',
-                  'visualeditor-hidebetawelcome=1',
-                  'visualeditor-tabs=multi-tab'].join('|')
+    ve_options = [
+      'visualeditor-editor=visualeditor', # enables VE as default editor
+      'visualeditor-hidebetawelcome=1', # skips the 'start editing' dialog on first edit
+      'visualeditor-hideusered=1', # disables the blue dots on cite and link buttons
+      'visualeditor-tabs=multi-tab' # enables both Edit and Edit Source tabs
+    ].join('|')
     params = { action: 'options',
                change: ve_options,
                format: 'json' }
     WikiEdits.new(@wiki).api_post params, @user
   end
+
+  # def reset_visual_editor
+  #   ve_options = ['visualeditor-hidebetawelcome=0',
+  #                 'visualeditor-hideusered'].join('|')
+  #   params = { action: 'options',
+  #              change: ve_options,
+  #              format: 'json' }
+  #   WikiEdits.new(@wiki).api_post params, @user
+  # end
 end
