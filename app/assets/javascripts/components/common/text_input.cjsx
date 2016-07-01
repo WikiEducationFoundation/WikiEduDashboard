@@ -49,7 +49,7 @@ TextInput = React.createClass(
       )
 
       <div className="form-group">
-        <label htmlFor={@state.id} className={labelClass}><strong>{label}</strong></label>
+        <label htmlFor={@state.id} className={labelClass}>{label}</label>
         {input}
       </div>
     else if @props.label

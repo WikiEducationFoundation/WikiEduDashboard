@@ -180,7 +180,7 @@ const DatePicker = React.createClass({
 
       return (
         <div className={`form-group ${inputClass}`}>
-          <label htmlFor={this.state.id}className={labelClass}><strong>{label}</strong></label>
+          <label htmlFor={this.state.id}className={labelClass}>{label}</label>
           {input}
         </div>
       );

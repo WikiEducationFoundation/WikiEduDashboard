@@ -48,7 +48,7 @@ const CourseTypeSelector = React.createClass({
     if (this.props.editable && currentType !== 'LegacyCourse') {
       selector = (
         <div className="form-group">
-          <label htmlFor={this.state.id}><strong>Type:</strong></label>
+          <label htmlFor={this.state.id}>Type:</label>
           <select
             id={this.state.id}
             name="course_type"
