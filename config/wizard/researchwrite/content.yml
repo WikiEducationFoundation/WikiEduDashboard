@@ -15,34 +15,25 @@
 
 essentials:
   - # Week one
-    weight: 2
+    weight: 4
     blocks:
-      - title: Wikipedia essentials
+      - title: Intro to Wikipedia
         kind: 0
         content: |
           <ul>
-            <li>Overview of the course</li>
             <li>Introduction to how Wikipedia will be used in the course</li>
-            <li>Understanding Wikipedia as a community, we'll discuss its expectations and etiquette.</li>
+            <li>How is writing for Wikipedia different from other writing assignments?
+              <ul>
+                <li>Just the facts: You won't be making arguments. Instead, you'll aim to summarize existing information about your topic, cited to reliable sources.</li>
+                <li>Formal tone, simple language: Write clearly and formally, but in terms an 8th grader could understand.</li>
+                <li>Avoid quotations: Paraphrase when you can. Use your own words, using your sources to guide you. For more information, review the "<a href="../../../training/students/sources">Sources and Citations</a>" training. </li>
+              </ul>
+            </li>
+            <li>Check your Talk Page for a welcome note from your Wikipedia Content Expert. You can leave your content expert a note on their talk page, or use the "GET HELP" button at the top right of this page.</li>
           </ul>
           <hr />
-          <p>Handout: <a href="http://wikiedu.org/editingwikipedia">Editing Wikipedia</a></p>
+          <p>Resources for this week: <a href="http://wikiedu.org/editingwikipedia">Editing Wikipedia</a>, <a href="https://commons.wikimedia.org/wiki/File:Using_talk_pages.pdf">Using Talk Pages</a>, <a href="http://wikiedu.org/evaluatingwikipedia">Evaluating Wikipedia</a></p>
 
-  - # Week two
-    weight: 3
-    blocks:
-      -
-        title: Editing basics
-        kind: 0
-        content: |
-          <ul>
-            <li>Basics of editing</li>
-            <li>Anatomy of Wikipedia articles, what makes a good article, how to distinguish between good and bad articles</li>
-            <li>Collaborating and engaging with the Wiki editing community</li>
-            <li>Tips on finding the best articles to work on for class assignments</li>
-          </ul>
-          <hr />
-          <p>Handouts: <a href="https://commons.wikimedia.org/wiki/File:Using_talk_pages.pdf">Using Talk Pages</a>, <a href="http://wikiedu.org/evaluatingwikipedia">Evaluating Wikipedia</a></p>
       -
         if: graded_training
         title: Practicing the basics
@@ -73,12 +64,26 @@ essentials:
             <li>Explore topics related to your topic area to get a feel for how Wikipedia is organized. What areas seem to be missing? As you explore, make a mental note of articles that seem like good candidates for improvement.</li>
           </ul>
 
-
       -
         title: Everyone has a Wikipedia account
         kind: 2
         content: |
           All students have Wikipedia user accounts and are listed on the course page.
+
+  - # Week two
+    weight: 1
+    blocks:
+      -
+        title: Editing basics
+        kind: 0
+        content: |
+          <ul>
+            <li>Basics of editing</li>
+            <li>Anatomy of Wikipedia articles, what makes a good article, how to distinguish between good and bad articles</li>
+            <li>Collaborating and engaging with the Wiki editing community</li>
+            <li>Tips on finding the best articles to work on for class assignments</li>
+          </ul>
+
   - # Week three
     weight: 6
     blocks:
@@ -153,8 +158,10 @@ essentials:
         graded: true
         points: 5
         content: |
+          <p>Either add to an article related to your class, or add/ find a citation for an uncited claim in the article.</p>
           <ul>
-            <li>Add 1–2 sentences of new information, backed up with a citation to an appropriate source, to a Wikipedia article related to the class.</li>
+            <li>The <a href="https://tools.wmflabs.org/citationhunt/en?id=001996f6&cat=all">Citation Hunt</a> tool shows unreferenced statements from articles.</li>
+            <li>Find some supporting evidence in a reliable source. Then, follow the instructions in your training to cite that source in the article.</li>
           </ul>
       -
         if: illustrate
@@ -188,7 +195,8 @@ essentials:
         content: |
           <ul>
             <li>Your instructor has created a list of potential topics for your main project. Choose the one you will work on.</li>
-            <li>Compile a bibliography of relevant, reliable sources and post it to the talk page of the article you are working on. Begin reading the sources. Make sure to check in on the talk page (or watchlist) to see if anyone has advice on your bibliography.</li>
+            <li>In <a href="https://en.wikipedia.org/wiki/Special:Mypage/sandbox">your sandbox</a>, create a one-paragraph to one-page description of what you plan to write in your article. Use last week's "critique an article" assignment to help. You may wish to post some of your ideas to the article's Talk page.</li>
+            <li>Compile a bibliography of relevant, reliable sources and post it to the Talk page of the article, and in your sandbox. Begin reading the sources. Make sure to check in on the Talk page to see if anyone has advice on your bibliography.</li>
           </ul>
 
   - # Week five
@@ -206,18 +214,20 @@ essentials:
 
       -
         if: explore_to_find_articles
-        title: Finalize your topic and start researching
+        title: Choose your article and start researching
         kind: 1
         content: |
           <ul>
-            <li>Finalize your topic selection and assign it to yourself on the course page.</li>
-            <li>Create a one-paragraph to one-page description of what you plan to contribute to the topic. You may wish to post that to the article's talk page.</li>
-            <li>Compile a bibliography of relevant, reliable sources and post it to the talk page of the article you are working on. Begin reading the sources. Make sure to check in on the talk page (or watchlist) to see if anyone has advice on your bibliography.</li>
+            <li>Make your final pick for an article, and assign it to yourself on the course page.</li>
+            <li>In <a href="https://en.wikipedia.org/wiki/Special:Mypage/sandbox">your sandbox</a>, create a one-paragraph to one-page description of what you plan to write in your article. Use last week's "critique an article" assignment to help. You may wish to post some of your ideas to the article's Talk page.</li>
+            <li>Compile a bibliography of relevant, reliable sources and post it to the Talk page of the article, and in your sandbox. Begin reading the sources. Make sure to check in on the Talk page to see if anyone has advice on your bibliography.</li>
           </ul>
+          <hr/>
+          <p>Resources: Review <a href="http://wikiedu.org/editingwikipedia">Editing Wikipedia</a>, page 6.</p>
 
       -
         if: traditional_outline
-        title: Drafting starter articles
+        title: Drafting your article
         kind: 1
         graded: true
         points: 20
@@ -242,16 +252,22 @@ essentials:
           </ul>
       -
         if: outline_as_lead_section
-        title: Drafting starter articles
+        title: Drafting your article
         kind: 1
         graded: true
         points: 20
         training_module_ids: [9] # Sandboxes
         content: |
+          <p><strong>Creating a new article?</strong></p>
           <ul>
-            <li>If you are starting a new article, write an outline of the topic in the form of a standard Wikipedia lead section of 3–4 paragraphs in your sandbox. Wikipedia articles use "summary style", in which the lead section provides a balanced summary of the entire body of the article, with the first sentence serving to define the topic and place it in context. The lead section should summarize, very briefly, each of the main aspects of the topic that will be covered in detail in the rest of the article. If you are improving an existing article, draft a new lead section reflecting your proposed changes, and post this along with a brief description of your plans on the article’s talk page. Make sure to check that page often to gather any feedback the community might provide.</li>
-            <li>Begin working with classmates and other editors to polish your lead section and fix any major issues.</li>
-            <li>Continue research in preparation for writing the body of the article.</li>
+            <li>Write an outline of the topic as a standard Wikipedia lead section, about 3–4 paragraphs, in <a href="https://en.wikipedia.org/wiki/Special:Mypage/sandbox">your sandbox</a>.</li>
+            <li>For guidance on leads, see <a href="http://wikiedu.org/editingwikipedia">Editing Wikipedia</a>, page 9.</li>
+          </ul>
+          <hr />
+          <p><strong>Improving an existing article?</strong></p>
+          <ul>
+            <li>Identify what elements of the article need to be improved, using the skills you learned in Week 2. Make notes in <a href="https://en.wikipedia.org/wiki/Special:Mypage/sandbox">your sandbox</a>.</li>
+            <li>Keep up your research before writing the body of the article.</li>
           </ul>
 
       -
@@ -276,15 +292,19 @@ essentials:
           <p>Handout: <a href="https://commons.wikimedia.org/wiki/File:Moving_out_of_your_sandbox.pdf">Moving out of your Sandbox</a></p>
 
       -
-        title: Moving articles to mainspace
+        title: Begin moving your work live
         kind: 1 # Assignment
         content: |
+          <p>Make improvements based on your peer review feedback. Return to your draft or article and take a look at the peer review suggestions. Decide which to implement, and start improving! Be sure to reach out to your content expert or your instructor if you have questions.</p>
+          <p><strong>Begin moving your work to live on Wikipedia</strong></p>
           <ul>
-            <li>Move your sandbox articles into main space.
-            <ul><li>If you are expanding an existing article, copy your edit into the article. If you are making many small edits, save after each edit before you make the next one. Do NOT paste over the entire existing article, or large sections of the existing article.</li>
-            <li>If you are creating a new article, do NOT copy and paste your text, or there will be no record of your work history. Follow the instructions in the "Moving out of your sandbox" handout.</li></ul></li>
+            <li>Take the  <a href="../../../training/students/sandboxes">training on moving your sandbox to mainspace</a>.
+            <li>Now, you can move your work to mainspace. See <a href="http://wikiedu.org/editingwikipedia">Editing Wikipedia</a>, page 13.</li>
+            <li>If you are expanding an existing article, copy your edit into the article. If you are making many small edits, save after each edit before you make the next one. Do NOT paste over the entire existing article, or large sections of the existing article.</li>
+            <li>If you are creating a new article, do NOT copy and paste your text, or there will be no record of your work history.</li>
             <li>Begin expanding your article into a comprehensive treatment of the topic.</li>
           </ul>
+
       -
         if: DYK
         title: Did You Know
