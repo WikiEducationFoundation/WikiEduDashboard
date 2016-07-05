@@ -110,6 +110,7 @@ class CoursesUsers < ActiveRecord::Base
 
   def cleanup
     Assignment.where(user_id: user_id, course_id: course_id).destroy_all
+    survey_notifications.destroy_all
   end
 
   #################
