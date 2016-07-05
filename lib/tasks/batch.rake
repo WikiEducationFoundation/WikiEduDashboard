@@ -1,6 +1,7 @@
 require 'action_view'
 require "#{Rails.root}/lib/data_cycle/constant_update"
 require "#{Rails.root}/lib/data_cycle/daily_update"
+require "#{Rails.root}/lib/data_cycle/survey_update"
 
 namespace :batch do
   desc 'Constant data updates'
@@ -11,6 +12,11 @@ namespace :batch do
   desc 'Daily data updates'
   task update_daily: :environment do
     DailyUpdate.new
+  end
+
+  desc 'Survey update'
+  task survey_update: :environment do
+    SurveyUpdate.new
   end
 
   desc 'Pause updates'

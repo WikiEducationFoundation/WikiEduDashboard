@@ -18,6 +18,13 @@ describe 'batch:update_constantly' do
     end
   end
 
+  describe 'survey_update' do
+    it 'initializes a SurveyUpdate' do
+      expect(SurveyUpdate).to receive(:new)
+      rake['batch:survey_update'].invoke
+    end
+  end
+
   describe 'pause' do
     it 'creates a pause file' do
       pause_file = 'tmp/batch_pause.pid'

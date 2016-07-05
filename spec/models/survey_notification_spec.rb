@@ -10,7 +10,10 @@ describe SurveyNotification do
   let(:email) { 'instructor@example.edu' }
   let(:course) { create(:course) }
   let(:courses_user) { create(:courses_user, course_id: course.id, user_id: user.id) }
-  let(:survey_assignment) { create(:survey_assignment) }
+  let(:follow_up_days) { 7 }
+  let(:survey_assignment) do
+    create(:survey_assignment, follow_up_days_after_first_notification: follow_up_days)
+  end
   let(:email_sent_at) { 1.hour.ago }
   let(:last_follow_up_sent_at) { nil }
   let(:survey_notification) do
@@ -75,7 +78,9 @@ describe SurveyNotification do
 
   describe '#send_follow_up' do
     context 'follow up not sent, but follow ups not set on assignment' do
-      let(:survey_assignment) { create(:survey_assignment, follow_up_days_after_first_notification: nil) }
+      let(:follow_up_days) { nil }
+      let(:email_sent_at) { 1.month.ago }
+
       it 'does not send the follow up' do
         expect(SurveyMailer).not_to receive(:follow_up)
         subject.send_follow_up
@@ -83,19 +88,18 @@ describe SurveyNotification do
       end
     end
 
-    context 'follow up already sent' do
-      let(:survey_assignment) { create(:survey_assignment, follow_up_days_after_first_notification: 7) }
+    context 'follow up was just sent' do
       let(:last_follow_up_sent_at) { 1.hour.ago }
       it 'does not send the follow up' do
         expect(SurveyMailer).not_to receive(:follow_up)
         subject.send_follow_up
-        expect((1.minute.ago..1.minute.from_now).cover?(subject.last_follow_up_sent_at)).to eq(false)
+        expect((1.minute.ago..1.minute.from_now).cover?(subject.last_follow_up_sent_at))
+          .to eq(false)
       end
     end
 
     context 'follow ups set on assignment, but it is not yet time to send' do
-      let(:email_sent_at)     { 1.minute.ago }
-      let(:survey_assignment) { create(:survey_assignment, follow_up_days_after_first_notification: 7) }
+      let(:email_sent_at) { 1.minute.ago }
       it 'does not send the follow up' do
         expect(SurveyMailer).not_to receive(:follow_up)
         subject.send_follow_up
@@ -103,8 +107,7 @@ describe SurveyNotification do
       end
     end
     context 'follow ups set on assignment, it is time to send' do
-      let(:email_sent_at)     { 8.days.ago }
-      let(:survey_assignment) { create(:survey_assignment, follow_up_days_after_first_notification: 7) }
+      let(:email_sent_at) { 8.days.ago }
       it 'sends the follow up' do
         expect(SurveyMailer).to receive(:follow_up).and_return(mock_mailer)
         subject.send_follow_up
@@ -116,7 +119,6 @@ describe SurveyNotification do
       let(:email) { nil }
       let(:email_sent_at) { nil }
       let(:last_follow_up_sent_at) { nil }
-      let(:survey_assignment) { create(:survey_assignment, follow_up_days_after_first_notification: 7) }
       it 'does not send the follow up' do
         expect(SurveyMailer).not_to receive(:follow_up)
         subject.send_follow_up
@@ -124,11 +126,10 @@ describe SurveyNotification do
       end
     end
 
-    context 'follow ups set on assignment, it is time to send, user has email, but no preliminary email set' do
+    context 'it is time to send, user has email, but no preliminary email set' do
       let(:email) { 'pizza@tacos.com' }
       let(:email_sent_at) { nil }
       let(:last_follow_up_sent_at) { nil }
-      let(:survey_assignment) { create(:survey_assignment, follow_up_days_after_first_notification: 7) }
       it 'does not send the follow up' do
         expect(SurveyMailer).not_to receive(:follow_up)
         subject.send_follow_up
@@ -137,9 +138,6 @@ describe SurveyNotification do
     end
 
     context 'follow ups set on assignment' do
-      let(:survey_assignment) do
-        create(:survey_assignment, follow_up_days_after_first_notification: 7)
-      end
       let(:email) { 'pizza@tacos.com' }
       let(:email_sent_at) { 8.days.ago }
 
