@@ -2,7 +2,7 @@ env:
 - TEST_SUITE='~type:feature' AFTER_SUCCESS='./travis-deploy.sh'
 - TEST_SUITE=type:feature AFTER_SUCCESS=''
 language: ruby
-rvm: 2.1.5
+rvm: 2.3.1
 sudo: required
 dist: trusty
 cache:
@@ -20,7 +20,7 @@ addons:
     - pandoc
     - mysql-server
 before_install:
-- rvm --default use 2.1.5
+- rvm --default use 2.3.1
 - export QMAKE=/usr/lib/x86_64-linux-gnu/qt5/bin/qmake
 - export DB=test
 - export sentry_dsn=${sentry_dsn:=http://example.com}
