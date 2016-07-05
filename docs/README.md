@@ -11,6 +11,7 @@
 ### Other
 - [Contributing](contributing.md)
 - [Deployment](deploy.md)
+- [Upgrading dependencies](upgrading_dependencies.md)
 - [Tools & Integrations](tools.md)
 - [Model diagram](../erd.pdf)
 - [Miscellaneous Credits](miscellaneous_credits.md)
