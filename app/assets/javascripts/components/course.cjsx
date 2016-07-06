@@ -69,6 +69,9 @@ Course = React.createClass(
       user_obj = UserStore.getFiltered({ id: @getCurrentUser().id })[0]
     user_role = if user_obj? then user_obj.role else -1
 
+    ####################################
+    # Admin / Instructor notifications #
+    ####################################
     if (user_role > 0 || @getCurrentUser().admin) && !@state.course.legacy && !@state.course.published
       if CourseStore.isLoaded() && !(@state.course.submitted || @state.published) && @state.course.type == 'ClassroomProgramCourse'
         alerts.push (
@@ -99,30 +102,6 @@ Course = React.createClass(
             </div>
           )
 
-      if @state.course.next_upcoming_assigned_module && user_role == 0
-        # `table` key is because it comes back as an openstruct
-        module = @state.course.next_upcoming_assigned_module.table
-        alerts.push(
-          <div className='notification' key='upcoming_module'>
-            <div className='container'>
-              <p>{I18n.t("courses.training_due", title: module.title, date: module.due_date)}.</p>
-              <a href={module.link} className="button pull-right">{I18n.t("courses.training_nav")}</a>
-            </div>
-          </div>
-        )
-
-      if @state.course.first_overdue_module && user_role == 0
-        # `table` key is because it comes back as an openstruct
-        module = @state.course.first_overdue_module.table
-        alerts.push(
-          <div className='notification' key='upcoming_module'>
-            <div className='container'>
-              <p>{I18n.t("courses.training_overdue", title: module.title, date: module.due_date)}.</p>
-              <a href={module.link} className="button pull-right">{I18n.t("courses.training_nav")}</a>
-            </div>
-          </div>
-        )
-
     if (user_role > 0 || @getCurrentUser().admin) && @state.course.published && UserStore.isLoaded() && UserStore.getFiltered({ role: 0 }).length == 0 && !@state.course.legacy
       url = window.location.origin + @_courseLinkParams() + "?enroll=" + @state.course.passcode
       alerts.push (
@@ -136,6 +115,35 @@ Course = React.createClass(
         </div>
       )
 
+    ##########################
+    # Training notifications #
+    ##########################
+    if @state.course.next_upcoming_assigned_module
+      # `table` key is because it comes back as an openstruct
+      module = @state.course.next_upcoming_assigned_module.table
+      alerts.push(
+        <div className='notification' key='upcoming_module'>
+          <div className='container'>
+            <p>{I18n.t("courses.training_due", title: module.title, date: module.due_date)}.</p>
+            <a href={module.link} className="button pull-right">{I18n.t("courses.training_nav")}</a>
+          </div>
+        </div>
+      )
+    if @state.course.first_overdue_module
+      # `table` key is because it comes back as an openstruct
+      module = @state.course.first_overdue_module.table
+      alerts.push(
+        <div className='notification' key='upcoming_module'>
+          <div className='container'>
+            <p>{I18n.t("courses.training_overdue", title: module.title, date: module.due_date)}.</p>
+            <a href={module.link} className="button pull-right">{I18n.t("courses.training_nav")}</a>
+          </div>
+        </div>
+      )
+
+    ########################
+    # Survey notifications #
+    ########################
     if @state.course.survey_notifications? && @state.course.survey_notifications.length
       @state.course.survey_notifications.map (notification) =>
         alerts.push(
@@ -149,6 +157,7 @@ Course = React.createClass(
             </div>
           </div>
         )
+
 
     if @state.course.type == 'ClassroomProgramCourse'
       timeline = (

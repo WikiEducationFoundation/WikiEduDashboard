@@ -3,7 +3,7 @@ require 'ostruct'
 class CourseTrainingProgressManager
   # Courses before Spring 2016 used the old on-wiki training
   # instead of the dashboard-based training modules.
-  TRAINING_BOOLEAN_CUTOFF_DATE = Date.new(2015, 12, 01)
+  TRAINING_BOOLEAN_CUTOFF_DATE = Date.new(2015, 12, 1)
 
   def initialize(user, course)
     @user = user
@@ -47,7 +47,7 @@ class CourseTrainingProgressManager
     tm = TrainingModule.find(tm_id)
     OpenStruct.new(
       title: tm.name,
-      link: "/library/students/#{tm.slug}",
+      link: "/training/students/#{tm.slug}",
       due_date: block.due_date.strftime('%m/%d/%Y')
     )
   end
@@ -60,20 +60,23 @@ class CourseTrainingProgressManager
   end
 
   def completed_modules_for_user_and_course
-    TrainingModulesUsers.where(user_id: @user.id)
+    TrainingModulesUsers
+      .where(user_id: @user.id)
       .where(training_module_id: modules_for_course)
       .where.not(completed_at: nil)
       .count
   end
 
   def blocks_with_modules_for_course
-    Block.joins(week: :course)
+    Block
+      .joins(week: :course)
       .where.not('training_module_ids like ?', [].to_yaml)
       .where(weeks: { course_id: @course.id })
   end
 
   def modules_for_course
-    blocks_with_modules_for_course.pluck(:training_module_ids)
+    blocks_with_modules_for_course
+      .pluck(:training_module_ids)
       .flatten
       .uniq
   end
