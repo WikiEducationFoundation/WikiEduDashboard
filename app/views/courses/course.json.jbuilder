@@ -1,5 +1,9 @@
 json.course do
-  ctpm = CourseTrainingProgressManager.new(current_user, @course)
+  user_role = if current_user
+                current_user.role(@course)
+              else
+                -1
+              end
 
   json.call(@course, :id, :title, :description, :start, :end, :school,
             :subject, :slug, :url, :listed, :submitted, :listed,
@@ -21,9 +25,12 @@ json.course do
   json.view_count number_to_human @course.view_sum
   json.syllabus @course.syllabus.url if @course.syllabus.file?
 
-  if current_user
-    json.next_upcoming_assigned_module ctpm.next_upcoming_assigned_module
-    json.first_overdue_module ctpm.first_overdue_module
+  if user_role == 0 # student role
+    ctpm = CourseTrainingProgressManager.new(current_user, @course)
+    json.incomplete_assigned_modules ctpm.incomplete_assigned_modules
+  end
+
+  if user_role > 0 # non-student role
     json.survey_notifications(current_user.survey_notifications.active) do |notification|
       if notification.course.id == @course.id
         json.id notification.id
@@ -31,7 +38,8 @@ json.course do
       end
     end
   end
-  if user_signed_in? && current_user.role(@course) > 0
+
+  if user_role > 0 # non-student role
     json.passcode @course.passcode
     json.canUploadSyllabus true
   elsif @course.passcode

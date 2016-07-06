@@ -3,22 +3,26 @@ require 'rails_helper'
 describe CourseTrainingProgressManager do
   let(:user)     { create(:user, trained: trained) }
   let(:trained)  { true }
-  let(:start)    { Date.new(2016, 01, 01) }
-  let(:course)   { create(:course, start: start) }
+  let(:start)    { Date.new(2016, 1, 1) }
+  let(:course)   { create(:course, start: start, timeline_start: start) }
   let(:cu)       { create(:courses_users, course_id: course.id, user_id: user.id) }
 
   let(:week)     { create(:week, course_id: course.id) }
-  let(:due_date) { 1.week.from_now }
+  let(:due_date) { Date.new(2016, 2, 1) }
   let(:tm_ids)   { [1, 2] }
-  let!(:block) do
+  let(:create_block_with_tm_ids) do
     create(:block, week_id: week.id, training_module_ids: tm_ids, due_date: due_date)
   end
 
   describe '#course_training_progress' do
+    before do
+      create_block_with_tm_ids
+    end
+
     subject { described_class.new(user, course).course_training_progress }
 
     context 'course begins before December 1, 2015' do
-      let(:start) { Date.new(2015, 01, 01) }
+      let(:start) { Date.new(2015, 1, 1) }
       context 'training boolean for user is complete' do
         it 'returns nil' do
           expect(subject).to be_nil
@@ -73,66 +77,64 @@ describe CourseTrainingProgressManager do
     end
   end
 
-  describe '#next_upcoming_assigned_module' do
-    subject { described_class.new(user, course).next_upcoming_assigned_module }
-    context 'no upcoming modules' do
-      let(:due_date) { 1.week.ago }
-      it 'returns nil' do
-        expect(subject).to be_nil
-      end
-    end
-    context 'upcoming modules' do
-      let(:tm_ids) { [3] }
-      context '1 module' do
-        context 'module is not completed' do
-          it 'returns an OpenStruct with relevant data' do
-            tm = TrainingModule.find(tm_ids.first)
-            expect(subject.title).to eq(tm.name)
-            expect(subject.link).to eq("/training/students/#{tm.slug}")
-          end
-        end
+  describe '#incomplete_assigned_modules' do
+    subject { described_class.new(user, course).incomplete_assigned_modules }
 
-        context 'module is completed' do
-          let!(:tmu) do
-            create(:training_modules_users,
-                   training_module_id: tm_ids.first,
-                   user_id: user.id,
-                   completed_at: 2.days.ago)
-          end
-          it 'returns nil' do
-            expect(subject).to be_nil
-          end
-        end
-      end
-      context '2 blocks, each with a module, different due dates' do
-        let(:tm_ids)  { [3] }
-        let(:tm_ids2) { [2] }
-        let!(:block2) do
-          create(:block, week_id: week.id, training_module_ids: tm_ids2, due_date: 2.days.from_now)
-        end
-        it 'returns the first module by due date' do
-          tm = TrainingModule.find(tm_ids2.first)
-          expect(subject.title).to eq(tm.name)
-          expect(subject.link).to eq("/training/students/#{tm.slug}")
-        end
-      end
-    end
-  end
-
-  describe '#first_overdue_module' do
-    subject { described_class.new(user, course).first_overdue_module }
-    context 'no overdue modules' do
-      it 'returns nil' do
-        expect(subject).to be_nil
+    context 'when there are no assigned modules' do
+      it 'returns an empty array' do
+        expect(subject).to eq([])
       end
     end
 
-    context 'overdue modules' do
-      let(:tm_ids)   { [3] }
-      let(:due_date) { 1.week.ago }
-      it 'returns the first module by due date' do
-        tm = TrainingModule.find(tm_ids.first)
-        expect(subject.title).to eq(tm.name)
+    context 'when all assigned modules are complete' do
+      before do
+        create_block_with_tm_ids
+        tm_ids.each do |tm_id|
+          create(:training_modules_users,
+                 training_module_id: tm_id,
+                 user_id: user.id,
+                 completed_at: 1.hour.ago)
+        end
+      end
+
+      it 'returns an empty array' do
+        expect(subject).to eq([])
+      end
+    end
+
+    context 'when some assigned modules are complete' do
+      before do
+        create_block_with_tm_ids
+        create(:training_modules_users,
+               training_module_id: 1,
+               user_id: user.id,
+               completed_at: 1.hour.ago)
+      end
+
+      it 'returns an array of only incomplete modules' do
+        expect(subject.length).to eq(1)
+      end
+    end
+
+    context 'when an incomplete module has a specific due date' do
+      before do
+        create_block_with_tm_ids
+      end
+      it 'returns an array with incomplete modules, with due date' do
+        expect(subject.length).to eq(2)
+        expect(subject[0].due_date.to_date).to eq(due_date)
+      end
+    end
+    context 'when an incomplete module has no specific due date' do
+      let(:due_date) { nil }
+      before do
+        create_block_with_tm_ids
+      end
+      it 'calculates the due date from timeline data' do
+        # The assignment is in the first week, and the due date
+        # is inferred to be the end of that week.
+        expect(subject[0].due_date.to_date).to be > start
+        expect(subject[0].due_date.to_date).to be < start + 1.week
       end
     end
   end

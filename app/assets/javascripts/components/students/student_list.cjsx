@@ -49,7 +49,8 @@ StudentList = React.createClass(
 
     if @props.course.published
       add_student = <EnrollButton {...@props} role=0 key='add_student' allowed=false />
-    if @props.users.length > 0 && _.filter(@props.users, 'modules_overdue', true).length > 0
+
+    if @props.users.length > 0 && (@props.course.student_count - @props.course.trained_count) > 0
       notify_overdue = <button className='notify_overdue' onClick={@notify} key='notify'></button>
 
     keys =

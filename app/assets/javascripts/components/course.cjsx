@@ -118,24 +118,18 @@ Course = React.createClass(
     ##########################
     # Training notifications #
     ##########################
-    if @state.course.next_upcoming_assigned_module
+    if @state.course.incomplete_assigned_modules && @state.course.incomplete_assigned_modules.length
       # `table` key is because it comes back as an openstruct
-      module = @state.course.next_upcoming_assigned_module.table
+      module = @state.course.incomplete_assigned_modules[0].table
+      message_key = if moment().isAfter(module.due_date, 'day')
+                  'courses.training_overdue'
+                else
+                  'courses.training_due'
+
       alerts.push(
         <div className='notification' key='upcoming_module'>
           <div className='container'>
-            <p>{I18n.t("courses.training_due", title: module.title, date: module.due_date)}</p>
-            <a href={module.link} className="button pull-right">{I18n.t("courses.training_nav")}</a>
-          </div>
-        </div>
-      )
-    if @state.course.first_overdue_module
-      # `table` key is because it comes back as an openstruct
-      module = @state.course.first_overdue_module.table
-      alerts.push(
-        <div className='notification' key='upcoming_module'>
-          <div className='container'>
-            <p>{I18n.t("courses.training_overdue", title: module.title, date: module.due_date)}</p>
+            <p>{I18n.t(message_key, title: module.title, date: module.due_date)}</p>
             <a href={module.link} className="button pull-right">{I18n.t("courses.training_nav")}</a>
           </div>
         </div>
@@ -157,7 +151,6 @@ Course = React.createClass(
             </div>
           </div>
         )
-
 
     if @state.course.type == 'ClassroomProgramCourse'
       timeline = (

@@ -22,41 +22,48 @@ class CourseTrainingProgressManager
                                                count: assigned_count)
   end
 
-  def next_upcoming_assigned_module
-    upcoming_block_mods = blocks_with_modules_for_course
-                          .where('due_date > ?', Date.today)
-    return unless upcoming_block_mods.any?
-    block = upcoming_block_mods
-            .order(:due_date).first
-    build_open_struct_if_module_not_completed(block)
-  end
-
-  def first_overdue_module
-    block = blocks_with_modules_for_course
-            .where('due_date < ?', Date.today)
-            .first
-    build_open_struct_if_module_not_completed(block)
+  def incomplete_assigned_modules
+    modules = incomplete_module_ids.map do |module_id|
+      build_open_struct_for_module(module_id)
+    end
+    modules.sort_by(&:due_date)
   end
 
   private
 
-  def build_open_struct_if_module_not_completed(block)
-    return unless block
-    tm_id = block.training_module_ids.first
-    return if all_training_modules_completed?(tm_id)
-    tm = TrainingModule.find(tm_id)
+  def build_open_struct_for_module(id)
+    training_module = TrainingModule.find(id)
     OpenStruct.new(
-      title: tm.name,
-      link: "/training/students/#{tm.slug}",
-      due_date: block.due_date.strftime('%m/%d/%Y')
+      title: training_module.name,
+      link: "/training/students/#{training_module.slug}",
+      due_date: due_date(training_module).strftime('%Y-%m-%d')
     )
   end
 
-  def all_training_modules_completed?(tm_id)
-    TrainingModulesUsers.where(
-      user_id: @user.id,
-      training_module_id: tm_id
-    ).where.not(completed_at: nil).present?
+  def due_date(training_module)
+    due_date_manager_opts = {
+      user: @user,
+      course: @course,
+      training_module: training_module,
+      course_meetings_manager: meetings_manager
+    }
+    due_date_manager = TrainingModuleDueDateManager.new(due_date_manager_opts)
+    due_date_manager.computed_due_date
+  end
+
+  def completed_module_ids
+    TrainingModulesUsers
+      .where(user_id: @user.id)
+      .where.not(completed_at: nil)
+      .pluck(:training_module_id)
+  end
+
+  def assigned_module_ids
+    @course.training_modules.collect(&:id)
+  end
+
+  def incomplete_module_ids
+    assigned_module_ids - completed_module_ids
   end
 
   def completed_modules_for_user_and_course
@@ -83,5 +90,10 @@ class CourseTrainingProgressManager
 
   def total_modules_for_course
     modules_for_course.count
+  end
+
+  def meetings_manager
+    @meetings_manager ||= CourseMeetingsManager.new(@course)
+    @meetings_manager
   end
 end
