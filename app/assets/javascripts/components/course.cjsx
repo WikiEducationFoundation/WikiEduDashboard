@@ -124,7 +124,7 @@ Course = React.createClass(
       alerts.push(
         <div className='notification' key='upcoming_module'>
           <div className='container'>
-            <p>{I18n.t("courses.training_due", title: module.title, date: module.due_date)}.</p>
+            <p>{I18n.t("courses.training_due", title: module.title, date: module.due_date)}</p>
             <a href={module.link} className="button pull-right">{I18n.t("courses.training_nav")}</a>
           </div>
         </div>
@@ -135,7 +135,7 @@ Course = React.createClass(
       alerts.push(
         <div className='notification' key='upcoming_module'>
           <div className='container'>
-            <p>{I18n.t("courses.training_overdue", title: module.title, date: module.due_date)}.</p>
+            <p>{I18n.t("courses.training_overdue", title: module.title, date: module.due_date)}</p>
             <a href={module.link} className="button pull-right">{I18n.t("courses.training_nav")}</a>
           </div>
         </div>
