@@ -50,4 +50,8 @@ class Features
   def self.enable_language_switcher?
     ENV['enable_language_switcher'] == 'true'
   end
+
+  def self.enable_revision_feedback?
+    Rails.env != 'production'
+  end
 end

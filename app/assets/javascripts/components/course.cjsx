@@ -99,7 +99,7 @@ Course = React.createClass(
             </div>
           )
 
-      if @state.course.next_upcoming_assigned_module && user_role > 0
+      if @state.course.next_upcoming_assigned_module && user_role == 0
         # `table` key is because it comes back as an openstruct
         module = @state.course.next_upcoming_assigned_module.table
         alerts.push(
@@ -111,7 +111,7 @@ Course = React.createClass(
           </div>
         )
 
-      if @state.course.first_overdue_module && user_role > 0
+      if @state.course.first_overdue_module && user_role == 0
         # `table` key is because it comes back as an openstruct
         module = @state.course.first_overdue_module.table
         alerts.push(
