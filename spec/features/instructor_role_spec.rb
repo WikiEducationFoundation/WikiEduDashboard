@@ -30,7 +30,9 @@ describe 'Instructor users', type: :feature, js: true do
            listed: true,
            passcode: 'passcode',
            start: '2015-01-01'.to_date,
-           end: '2020-01-01'.to_date)
+           end: '2020-01-01'.to_date,
+           user_count: 2,
+           trained_count: 0)
     create(:courses_user,
            id: 1,
            user_id: 100,

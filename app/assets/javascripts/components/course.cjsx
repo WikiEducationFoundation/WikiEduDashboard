@@ -122,9 +122,9 @@ Course = React.createClass(
       # `table` key is because it comes back as an openstruct
       module = @state.course.incomplete_assigned_modules[0].table
       message_key = if moment().isAfter(module.due_date, 'day')
-                  'courses.training_overdue'
-                else
-                  'courses.training_due'
+                      'courses.training_overdue'
+                    else
+                      'courses.training_due'
 
       alerts.push(
         <div className='notification' key='upcoming_module'>
