@@ -25,9 +25,9 @@ class SurveyUpdate
 
   def send_survey_notifications
     log_message 'Sending survey invitation emails'
-    before_count = SurveyNotification.where(email_sent_at: nil).count
+    before_count = SurveyNotification.where.not(email_sent_at: nil).count
     SurveyNotification.active.each(&:send_email)
-    after_count = SurveyNotification.where(email_sent_at: nil).count
+    after_count = SurveyNotification.where.not(email_sent_at: nil).count
     log_message "#{after_count - before_count} survey invitations sent"
   end
 
