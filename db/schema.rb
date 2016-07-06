@@ -254,16 +254,16 @@ ActiveRecord::Schema.define(version: 20160623090228) do
   add_index "rapidfire_questions", ["question_group_id"], name: "index_rapidfire_questions_on_question_group_id", using: :btree
 
   create_table "revisions", force: :cascade do |t|
-    t.integer  "characters",     limit: 4,  default: 0
+    t.integer  "characters",     limit: 4,     default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id",        limit: 4
     t.integer  "article_id",     limit: 4
-    t.integer  "views",          limit: 8,  default: 0
+    t.integer  "views",          limit: 8,     default: 0
     t.datetime "date"
-    t.boolean  "new_article",               default: false
-    t.boolean  "deleted",                   default: false
-    t.boolean  "system",                    default: false
+    t.boolean  "new_article",                  default: false
+    t.boolean  "deleted",                      default: false
+    t.boolean  "system",                       default: false
     t.float    "wp10",           limit: 24
     t.float    "wp10_previous",  limit: 24
     t.integer  "ithenticate_id", limit: 4
