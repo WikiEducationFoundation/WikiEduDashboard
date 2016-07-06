@@ -88,7 +88,7 @@ describe CourseTrainingProgressManager do
           it 'returns an OpenStruct with relevant data' do
             tm = TrainingModule.find(tm_ids.first)
             expect(subject.title).to eq(tm.name)
-            expect(subject.link).to eq("/library/students/#{tm.slug}")
+            expect(subject.link).to eq("/training/students/#{tm.slug}")
           end
         end
 
@@ -113,7 +113,7 @@ describe CourseTrainingProgressManager do
         it 'returns the first module by due date' do
           tm = TrainingModule.find(tm_ids2.first)
           expect(subject.title).to eq(tm.name)
-          expect(subject.link).to eq("/library/students/#{tm.slug}")
+          expect(subject.link).to eq("/training/students/#{tm.slug}")
         end
       end
     end
