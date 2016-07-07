@@ -581,17 +581,6 @@ essentials:
           </ul>
 
       -
-        if: portfolio
-        title: Wikipedia portfolio
-        kind: 1
-        graded: true
-        points: 20
-        content: |
-          <ul>
-            <li>Put together a Wikipedia portfolio.</li>
-          </ul>
-
-      -
         if: original_analytical_paper
         title: Original analytical paper
         kind: 1

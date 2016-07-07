@@ -122,31 +122,6 @@
       blurb: Each student explores Wikipedia and lists 3–5 topics on their Wikipedia user page that they are interested in for their main project. You (the instructor) should approve article choices before students proceed to writing.
       description: Having students find their own articles provides them with a sense of motivation and ownership over the assignment and exercises their critical thinking skills as they identify content gaps, but it may also lead to choices that are further afield from course material.
       logic: explore_to_find_articles
--
-  key: research_and_planning
-  title: Research and planning
-  description: |
-    Students often wait until the last minute to do their research, or choose sources unsuitable for Wikipedia. That's why we recommend asking students to put together a bibliography of materials they want to use in editing the article, which can then be assessed by you and other Wikipedians.
-
-    Then, students should propose outlines for their articles. This can be a traditional outline, in which students identify which sections their articles will have and which aspects of the topic will be covered in each section. Alternatively, students can develop each outline in the form of a Wikipedia lead section — the untitled section at the beginning of an article that defines the topic and provide a concise summary of its content.
-
-    **Would you like your students to create traditional outlines, or compose outlines in the form of a Wikipedia-style lead section?**
-  type: 1 # single choice
-  minimum: 1
-  options:
-    -
-      title: Traditional outline
-      blurb: For each article, the students create an outline that reflects the improvements they plan to make, and then post it to the article's talk page. This is a relatively easy way to get started.
-      description:
-      logic: traditional_outline
-    -
-      title: Wikipedia lead section
-      blurb: For each article, the students create a well-balanced summary of its future state in the form of a Wikipedia lead section.
-      description: |
-        The ideal lead section exemplifies Wikipedia's summary style of writing: it begins with a single sentence that defines the topic and places it in context, and then — in one to four paragraphs, depending on the article's size — it offers a concise summary of topic. A good lead section should reflect the main topics and balance of coverage over the whole article.
-
-        Outlining an article this way is a more challenging assignment — and will require more work to evaluate and provide feedback for. However, it can be more effective for teaching the process of research, writing, and revision. Students will return to this lead section as they go, to guide their writing and to revise it to reflect their improved understanding of the topic as their research progresses. They will tackle Wikipedia's encyclopedic style early on, and their outline efforts will be an integral part of their final work.
-      logic: outline_as_lead_section
 
 -
   key: tricky_topic_areas
@@ -179,32 +154,7 @@
     -
       title: No. No one will work on medicine or psychology topics.
       tag: no_medical_topics
--
-  key: draft_and_mainspace
-  title: Drafts and mainspace
-  description: |
-    Once students have a grip on their topics and the sources they'll use to write about them, it’s time to start writing on Wikipedia. You can ask them to jump right in and edit live, or start them off in their own sandbox pages. There are pros and cons of each approach.
 
-    #### Sandboxes
-    **Pro:** Sandboxes — pages associated with an individual editor that are not considered part of Wikipedia proper — make students feel safe. They can edit without the pressure of the whole world reading their drafts or other Wikipedians altering their writing.
-
-    **Con:** Sandbox editing limits many of the unique aspects of Wikipedia as a teaching tool, such as collaborative writing and incremental drafting. Spending more than a week or two in sandboxes is strongly discouraged.
-
-    #### Editing live
-    **Pro:** Editing live is exciting for the students because they can see their changes to the articles immediately, and experience the collaborative editing process throughout the assignment.
-
-    **Con:** New editors often unintentionally break Wikipedia rules; sometimes students’ additions are questioned or removed.
-
-    **Choose one.**
-  type: 1 # single choice
-  minimum: 1
-  options:
-    -
-      title: Work live from the start
-      tag: work_live
-    -
-      title: Draft early work in sandboxes
-      tag: use_sandboxes
 -
   key: peer_feedback
   title: Peer feedback
@@ -282,11 +232,6 @@
       blurb: Ask students to write a short reflective essay on their experiences using Wikipedia. This works well for both short and long Wikipedia projects. An interesting iteration of this is to have students write a short version of the essay before they begin editing Wikipedia, outlining their expectations, and then have them reflect on whether or not they met those expectations during the assignment.
       description:
       logic: reflective_essay
-    -
-      title: Wikipedia portfolio
-      blurb: Students organize their Wikipedia work into a portfolio, including a narrative of the contributions they made — and how they were received, and possibly changed, by other Wikipedians — and links to their key edits. Composing this portfolio will help students think more deeply about their Wikipedia experiences, and also provides a lens through which to understand — and grade — their work.
-      description:
-      logic: portfolio
     -
       title: Original analytical paper
       blurb: In courses that emphasize traditional research skills and the development of original ideas through a term paper, Wikipedia's policy of "no original research" may be too restrictive. Many instructors pair Wikipedia writing with a complementary analytical paper; students’ Wikipedia articles serve as a literature review, and the students go on to develop their own ideas and arguments in the offline analytical paper.
