@@ -1,0 +1,11 @@
+# Messages for Udmurt (удмурт)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Kaganer
+---
+udm:
+  application:
+    log_out: Потыны
+  users:
+    contributions: Викиавтор гожтэмъёсы
+...

@@ -34,6 +34,7 @@ mr:
     view: लेख बघा
     view_all: सर्व बघा
   assignments:
+    add_available: उपलब्ध लेख जोडा
     reviewers: तपासनीस
   blocks:
     milestones:
@@ -62,6 +63,9 @@ mr:
     date_time: दिनांक/वेळ
     edit_count_description: एकूण संपादने
     revisions: अलीकडील संपादने
+    uploads_in_use_count:
+      one: लेखात वापरलेली एक संचिका
+      other: लेखात वापरलेल्या संचिका
     word_count: जोडलेले शब्द
   namespace:
     user_ns: सदस्य

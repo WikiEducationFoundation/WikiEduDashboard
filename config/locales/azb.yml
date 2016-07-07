@@ -7,6 +7,7 @@
 azb:
   application:
     cancel: وازگئچ
+    dashboard: ویکی‌اد داشبوردو
     greeting2: خوش گلدینیز!
     greeting_extended: ویکی‌پدیایا خوش گلدینیز
     greeting: سالام!
@@ -15,14 +16,27 @@ azb:
     log_in: گیریش
     log_out: چیخیش
     my_dashboard: داشبوردوم
+    recent_activity: سون چالیشمالار
+    search: بیر سوال سوروش
+    sign_up_extended: ویکی‌پدیا ایله آد یازدیر
+    sign_up_log_in_extended: ویکی‌پدیا ایله
     sign_up: آد یازدیر
+    submit: گؤندر
     training: اؤیردیم
+    change: دَییشدیر
+  home:
+    log_in: ویکی‌پدیا ایله گیر
+    sign_up: ویکی‌پدیا ایله آد یازدیر
   activity:
+    all: چالیشما
     label: چالیشما
   articles:
     edited_mobile: مقاله‌لر
     label: مقاله‌لر
     title: باشلیق
+  assignments:
+    remove: سیل
+    select: سئچ
   cohort:
     none: هئچ بیری
   courses:

@@ -4,11 +4,17 @@
 # Author: Rajat11
 # Author: Sfic
 # Author: Upendradutt93
+# Author: Wassan.anmol
 # Author: चक्रपाणी
 # Author: जनक राज भट्ट
 ---
 hi:
   application:
+    cancel: रद्द करें
+    dashboard: विकि शिक्षा डैशबोर्ड
+    error: 'एक त्रुटि हुई:'
+    explore: अन्वेषण करें
+    field_required: इस फ़ील्ड की आवश्यकता है
     help: सहायता!
     log_out: प्रस्थान
     search: सवाल पूछें

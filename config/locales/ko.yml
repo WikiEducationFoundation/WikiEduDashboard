@@ -23,6 +23,7 @@ ko:
     error: '오류가 있었습니다:'
     field_required: 이 칸은 반드시 입력해야 합니다
     field_invalid_characters: 이 필드에 유효하지 않은 문자가 있습니다
+    field_invalid_date: 이 필드에는 YYYY-MM-DD 형식의 날짜가 필요합니다.
     greeting2: 환영합니다!
     greeting_extended: 위키백과에 오신 것을 환영합니다
     greeting: 안녕하세요!
@@ -42,7 +43,7 @@ ko:
   dashboard:
     no_courses_instructor: 당신은 아무 코스도 가지고 있지 않습니다.
     no_courses_student: 아직 코스에 가입하지 않으셨네요.
-    blog_headline: Wiki Ed의 최근�뉴스�
+    blog_headline: Wiki Ed의 최근 뉴스
   home:
     log_in: 위키백과에 로그인하기
     sign_up: 위키백과에 등록하기
@@ -52,7 +53,7 @@ ko:
     label: 활동 내역
   articles:
     assigned: 할당된 문서
-    available: 가능한 기사�들�
+    available: 이용 가능한 글
     assigned_to: 할당됨
     edited: 문서 편집됨
     edited_mobile: 문서
@@ -62,7 +63,7 @@ ko:
     none: 이 코스는 어느 문서도 편집하지 않았습니다.
     rating: 클래스
     rating_docs:
-      fa: 알찬 글 &mdash; 위키백과의 최고품질의 글로써, 학생 편집자가 프로젝트로 편집하기에는 지나치게 복잡할 수 있습니다
+      fa: 알찬 글 &mdash; 위키백과의 최고 품질의 글로서, 새 편집자가 프로젝트로 편집하기에는 지나치게 복잡할 수 있습니다
       fl: 알찬 목록 &mdash; 위키백과의 최고품질 리스트
       a: A급 문서 &mdash; 잘 쓰여진 글로, 신입 편집자가 주요 프로젝트의 문서로 편집하기에는 좀 부족할 수 있습니다
       ga: 좋은 글 &mdash; 잘 쓰여진 글로, 신입 편집자가 주요 프로젝트의 문서로 편집하기에는 좀 부족할 수 있습니다
@@ -78,13 +79,15 @@ ko:
     view_all: 모두 보기
   assignments:
     assignees: 담당자
-    add_available: 가능한 기사를 추가하기�
+    add_available: 이용 가능한 글 추가
     confirm_add_available: '%{title}를 추가하시겠습니까?'
     label: 할당
     none_short: 할당된 글이 없습니다
-    no_available: 이 코스에서는� 사용할 수 없는 위키피디어 기사들입니다.
+    no_available: 이 코스에는 이용할 수 있는 글이 없습니다.
+    remove: 제거
     reviewers: 검토자
     review_self: 문서 미리보기
+    select: 선택
   blocks:
     milestones:
       title: 이정표
@@ -102,7 +105,7 @@ ko:
       legend_class_meeting: 수업 미팅
       legend_class_not_meeting: 예정된 미팅 없음
     confirm_course_deletion: '%{title} 코스를 정말 제거하겠습니까? 과정 제목을 입력하여 계속하세요.'
-    confirm_course_deletion_failed: '"%{title}" 은(는) 이 과정의 제목이 아닙니다. 이 과정은 삭제되지 않았습니다.'
+    confirm_course_deletion_failed: '"%{title}"은(는) 이 과정의 제목이 아닙니다. 이 과정은 삭제되지 않았습니다.'
     course_description: 코스
     courses: 과정
     creator:
@@ -138,6 +141,7 @@ ko:
     none: 없음
     no_available_actions: 취할 수 있는 행동 없음
     overview: 둘러보기
+    passcode: 패스코드
     passcode_none: 비밀코드 없음
     school: 학교
     start: 시작
@@ -160,16 +164,21 @@ ko:
       other: 자원봉사자
     wiki_staff: 위키 에듀 임원
     yourcourses: 내 과정
+    survey:
+      link: 설문 조사 참가
   courses_generic:
     articles_none: 본 프로젝트에서 편집된 문서는 아직 없습니다.
     assignment_end: 타임라인 끝
     assignment_start: 타임라인 시작하기
     courses: 프로그램
     creator:
+      course_description: 프로그램 설명
+      course_title: 프로그램 제목
       create_short: 프로그램 만들기
       find: 프로그램 찾기
     edit_course_dates: 프로젝트 날짜 편집하기
-    revisions_none: 본 프로젝트는 최근에 위키백과 편집 활동이 없습니다.
+    enrollment: 참여
+    revisions_none: 본 프로젝트는 최근 편집 활동이 없습니다.
     school: 기관
     student_editors: 편집자
     students: 편집자
@@ -242,6 +251,7 @@ ko:
     title: 타임라인
     week_number: '%{number} 주'
   training:
+    continue: 계속 (%{progress})
     start: 시작하기
     view: 보기
   uploads:
@@ -260,9 +270,9 @@ ko:
     contributions: 사용자 기여
     contributions_more: 기여 더 보기
     course_passcode: '패스코드:'
-    enroll_confirmation: '%{username} 님을 과정에 추가하시겠습니까?'
-    enroll_url: '다음 URL을 방문하여 학생을 추가할 수 있습니다:'
-    enrolled_success: '%{username} 님이 성공적으로 구독되었습니다!'
+    enroll_confirmation: '%{username}님을 추가하시겠습니까?'
+    enroll_url: '사용자는 다음 URL을 방문하여 참여할 수 있습니다:'
+    enrolled_success: '%{username}님이 성공적으로 추가되었습니다!'
     first_name: 이름
     last_name: 성
     loading: 사용자를 불러오는 중...
@@ -270,9 +280,12 @@ ko:
     name: 이름
     none: 참여자가 없습니다.
     no_articles: 문서 없음
-    number_of_articles: '%{number} 문서'
-    remove_confirmation: '%{username} 님을 과정에서 제거하겠습니까?'
-    revision_characters_and_views: '다음 문자들이 추가 됨:  %{characters}, 조회수�: %{views}'
+    number_of_articles:
+      one: 문서 %{count}개
+      other: 문서 %{count}개
+    recent_revisions: 최근 편집
+    remove_confirmation: '%{username}님을 제거하겠습니까?'
+    revision_characters_and_views: '다음 문자들이 추가됨: %{characters}, 조회수: %{views}'
     reviewers: 검토자
     username: 사용자 이름
     username_placeholder: 사용자 이름
@@ -282,6 +295,7 @@ ko:
   wizard:
     assignment_dates: 과제 날짜
     assignment_type: 과제 유형
+    minimum_options: 적어도 %{minimum}개의 옵션을 선택해 주십시오.
     read_more: 더 보기
     summary: 요약
   error:
@@ -304,6 +318,8 @@ ko:
   login_error:
     header: 로그인 오류
   survey:
+    login_message: 시간을 내 주셔서 감사합니다. Wiki Ed 대시보드로 로그인하여 설문 조사에 응해 주세요.
+    follow_up_explanation: 알림 이메일을 더 이상 원치 않으면 빈 칸으로 두십시오.
     email:
       headline: 안녕하세요, %{username}님
 ...

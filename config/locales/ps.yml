@@ -41,7 +41,9 @@ ps:
     view: ليکنه کتل
     view_all: ټول کتل
   assignments:
+    remove: غورځول
     review_self: يوه ليکنه بياکتل
+    select: ټاکل
   cohort:
     none: هېڅ
   courses:

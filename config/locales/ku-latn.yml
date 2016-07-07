@@ -29,6 +29,8 @@ ku-latn:
     title_example: Sernavê gotarê
     view: Gotarê Bibîne
     view_all: Hemûyan Bibîne
+  assignments:
+    select: Hilbijêre
   cohort:
     view_other: Komên din bibîne
   courses:

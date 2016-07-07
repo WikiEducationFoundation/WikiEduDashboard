@@ -63,6 +63,9 @@ es:
     explore: Explorar
     log_in: Iniciar sesión con Wikipedia
     sign_up: Regístrate con Wikipedia
+    sign_up_help: Para utilizar el panel de control, tendrás que iniciar sesión a
+      través de Wikipiedia y darle permiso para acceder a tu cuenta. Puedes iniciar
+      sesión con una cuenta de Wikipedia existente o crear una nueva.
   activity:
     all: Actividad
     edited_by: Editado por

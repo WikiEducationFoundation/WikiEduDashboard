@@ -9,6 +9,7 @@ ce:
     help: ГӀо
     log_in: Системин довзийтар
     log_out: Болх дӀаберзор
+    recent_activity: Дукха хан йоцуш дийнарг
     sign_up: ДӀаяздар кхоллар
   courses:
     creator:
@@ -16,4 +17,6 @@ ce:
   courses_generic:
     creator:
       course_school: Институт
+  metrics:
+    activity: Дукха хан йоцуш дийнарг
 ...

@@ -7,29 +7,63 @@
 ---
 sd:
   application:
+    cancel: رد
     dashboard: وڪي ايڊيٽر ڊيشبورڊ
-    help: مدد!
+    error: 'ڪا خرابي ھئي:'
+    explore: کوجيو
+    field_required: ھي جڳھ گھربل آھي
+    field_invalid_characters: ھن جڳھ ۾ ناقل ڪار نشانيون آھن
+    field_invalid_date: جڳھ کي YYYY-MM-DD ۾ تاريخ گھرجي ٿي.
+    greeting2: ڀليڪار!
+    greeting_extended: وڪيپيڊيا ۾ ڀليڪار
+    greeting: سلام!
+    help: مدد
     home: گھر
+    log_in_extended: وڪيپيڊيا ۾ لاگ اِن ٿيو
+    log_in: لاگ ان
     log_out: لاگ آئوٽ ٿيو
     recent_activity: تازي سرگرمي
-    search: ask.wikiedu.org منجھہ ڳوليو
+    search: ڪو سوال پڇو
+    sign_up_extended: وڪيپيڊيا ۾ کاتو کوليو
+    sign_up_log_in_extended: وڪيپيڊيا سان
+    sign_up: کاتو کوليو
+    submit: اماڻيو
+    training: تربيت
+    change: تبديل ڪريو
+  dashboard:
+    explore_course_pages: ڪورس جا صفحا کوجيو
+    no_courses_instructor: لڳي ٿو توھان وٽ ڪي بہ ڪورس نہ آھن.
+    no_courses_student: لڳي ٿو توھان اڃان ڪو ڪورس جوائن نہ ڪيو آھي.
+    blog_headline: وڪي ايڊ مان تازيون خبرون
+  home:
+    explore: کوجيو
+    log_in: وڪيپيڊيا ۾ لاگ اِن ٿيو
+    sign_up: وڪيپيڊيا ۾ کاتو کوليو
+    sign_up_help: To use the dashboard, you'll need to sign in through Wikipiedia
+      and give it permission to access your account. You can log in with an existing
+      Wikipedia account, or create a new one.
   activity:
     all: سرگرمي
     edited_by: سنواريندڙ
+    label: سرگرمي
   articles:
     assigned: تخصيصيل مضمون
+    available: موجود مضمون
     assigned_to: تخصيصدار
-    character_doc: ڪورس دوران شاگردن طرفان مضمونن ۾ داخل ڪيل اکرن جو ڪُل تعداد
+    character_doc: شروعاتي ۽ اختتامي تاريخن ۾ داخل ڪيل شاگردن طرفان مضمونن ۾ داخل
+      ڪيل اکرن جو ڪل تعداد
     edited: سنواريل مضمون
     edited_mobile: مضمون
+    label: مضمون
     loading: مضمون اتارجي رهيا آهن...
+    new: (نئون)
     none: هن ڪورس ڪي بہ مضمون نہ سنواريا آهن.
     rating: درجو
     rating_docs:
-      a: درجو الف — تفصيلي ۽ ڀرپور مضمون، جيڪو ڪنهن سيکڙاٽ ايڊيٽر جي مکيہ رٿا لاءِ
+      a: درجو-الف — تفصيلي ۽ ڀرپور مضمون، جيڪو ڪنهن نئين ايڊيٽر جي مکيہ رٿا لاءِ هيڪاندو
+        اُسريل هجي
+      ga: سٺو مضمون — ڀليءَ ڀت تحريريل مضمون، جيڪو ڪنهن نئين ايڊيٽر جي مکيہ رٿا لاءِ
         هيڪاندو اُسريل هجي.
-      ga: سٺو مضمون — ڀليءَ ڀت تحريريل مضمون، جيڪو ڪنهن سيکڙاٽ ايڊيٽر جي مکيہ رٿا
-        لاءِ هيڪاندو اُسريل هجي.
       b: درجو ب — ٺيڪ ٺاڪ لکيل مضمون
       c: درجو د —  هڪ درميانہ مضمون، جنهن ۾ سڌاري جي گنجائش موجود آهي.
       start: آغازي درجو — هڪ ابتدائي مضمون، جنهن ۾ سڌاري جي تمام گھڻي گنجائش موجود
@@ -37,20 +71,42 @@ sd:
       stub: ڪچو درجو — شروعاتي مرحلن وارو مضمون، جنهن ۾ مواد تمام محدود هجي.
       list: فهرست درجو — ڪنهن روايتي مضمون بدران هڪ فهرست
     title: عنوان
+    title_example: مضمون جو عنوان
     view: مضمون ڏسو
     view_all: سڀ ڏسو
   assignments:
     assignees: تخصيصدار
+    assign_other: مضمون سونپيو
+    add_available: ڪو موجود مضمون شامل ڪريو
+    assign_self: مون کي مضمون سونپيو
     confirm_deletion: پڪ سان توهان هيءَ مشق ڊاهڻ گھرو ٿا؟
+    label: سونپيو
     loading: مشقون اتاري رهيا آهيون...
-    none: هن ڪورس لاءِ وڪيپيڊيا جو ڪو بہ مضمون تخصيصيل نہ آهي.
+    none_short: ڪوبہ مضمون سونپيل ناھي
+    none: هن ڪورس لاءِ ڪو بہ مضمون سونپيل نہ آهي.
+    no_available: ھن ڪورس ۾ ڪي بہ مضمون موجود نہ آھن.
+    remove: هٽايو
     reviewers: تجزيو ڪندڙ
+    review_other: جائزي لاءِ سونپيو
+    review_self: ڪنھن مضمون جو جائزو وٺو
+    select: چونڊيو
   blocks:
     milestones:
       title: سنگ ميل
+  cohort:
+    none: ڪوبہ نہ
   courses:
     activity: سرگرمي
+    actions: عمل
     articles: مضمون
+    articles_none: ھن ڪورس ڪي بہ مضمون سنواريا نہ آھن.
+    assignments_none: هن ڪورس کي ڪي بہ مضمون سونپيل نہ آهن.
+    calendar:
+      legend: ڪنجي
+      legend_class_canceled: موڪل/ردٿيل
+      legend_class_not_meeting: ڪابہ طي شده گڏجاڻي ناھي
+      select_meeting_days: ھفتي جا اھي ڏينھن چونڊيو جن تي اوھان جي ڪلاس جي گڏجاڻي
+        ٿئي ٿي.
     course_description: ' ڪورسز'
     courses: ڪورسز
     current: حاليہ ڪورسز
@@ -93,12 +149,12 @@ sd:
     user: يُوزرپولار
     user_ns: يُوزر
   revisions:
-    chars_added: شامل ڪيل اکرن جو تعداد
+    chars_added: شامل ڪيل اکر
     class: درجو
     date_time: تاريخ / وقت
     edited_by: سنواريندڙ
     loading: ڀيرا اتاريندي ...
-    none: هن ڪورس ۾ وڪيپيڊيا سنوارڻ جي ڪا بہ تازي سرگرمي عمل ۾ نہ آئي آهي.
+    none: هن ڪورس ۾ سنوارڻ جي ڪا بہ تازي سرگرمي نہ آهي.
     time_doc: توهان جي مقامي وقت مطابق هر هڪ ڀيري جو وقت
     title: عنوان
   timeline:
@@ -119,12 +175,12 @@ sd:
     editors: شاگرد سنواريندڙ
     loading: يوزرس اتاري رهيا آهيون...
     name: نالو
-    none: هن ڪورس جا ڪي بہ شاگرد نہ آهن.
+    none: ڪي بہ شرڪت ڪندڙ نہ آهن.
     recent_revisions: تازيون تبديليون
     revisions_doc: هن ايڊيٽر طرفان گذريل 7 ڏينهن ۾ ڪيل تبديلين جو انگ.
     reviewers: نظرثاني ڪندڙ
     reviewing: جائزي هيٺ
-    training_complete_count: '%{count} يُوزرس مڪمل تربيت حاصل ڪئي'
+    training_complete_count: '%{count} تربيت حاصل ڪئي'
     training_incomplete: تربيت نامڪمل
   wizard:
     assignment_dates: مشقن جون تاريخون

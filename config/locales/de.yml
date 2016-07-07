@@ -56,6 +56,9 @@ de:
     explore: Entdecken
     log_in: Mit Wikipedia anmelden
     sign_up: Mit Wikipedia registrieren
+    sign_up_help: Um das Dashboard zu nutzen, musst du dich bei Wikipedia anmelden
+      und Zugriff auf dein Benutzerkonto gewähren. Du kannst dich mit einem vorhandenen
+      Wikipedia-Benutzerkonto anmelden oder ein neues erstellen.
   activity:
     all: Aktivität
     edited_by: Bearbeitet von

@@ -9,6 +9,7 @@ diq:
   application:
     cancel: Bıtexelne
     dashboard: Wiki Ed Dashboard
+    error: 'Tıya bıyo xırab:'
     explore: Keşf ke
     field_required: No ca icab keno
     greeting2: Xeyr amey
@@ -28,6 +29,9 @@ diq:
     submit: deqew
     training: Mısnayış
     change: Bıvurne
+  dashboard:
+    start_orientation: Oryantasyoni bas bık
+    blog_headline: Wiki Ed ra xeberê newey
   home:
     explore: Keşf ke
     log_in: Wikipedia ya Cıkew
@@ -45,11 +49,24 @@ diq:
     title: Sername
     view: Wesiqer bıvin
     view_all: Hemınan bıvin
+  assignments:
+    remove: Hewad
+    select: Weçine
+  blocks:
+    milestones:
+      title: Siyê kilometri
+  cohort:
+    none: Çıniyo
+    view_other: Kohortanê binan bıvin
   courses:
+    activity: Fealiyet
     actions: Hereketi
     articles: Wesiqey
     calendar:
       legend: Kıtabek
+    cohorts: 'Kohorti:'
+    course_description: Kursi
+    courses: Qursi
     creator:
       course_language: Zıwanê Keyi
       course_project: Proceya keyi
@@ -84,6 +101,22 @@ diq:
     save: Qeyd ke
   metrics:
     activity: Aktiviteya peyêne
+    characters: Qarakteri
+    view_count_description: Hewadisê wesiqa
+    view: Asayışi
+    word_count: Çekuy debyay
+  namespace:
+    main: Serca
+    main_char_added: Karakterê sercay debyay
+    user: Cay karberi
+    user_char_added: Karakterê karberi debyay
+    user_ns: Karber
+  recent_activity:
+    active_courses: Wesiqe de aktiv o
+    article_title: Sernamey wesiqe
+    datetime: Tarix/Zeman
+    image: Resim
+    file_name: Namey dosya
   timeline:
     week_number: Hefte %{number}
   training:
@@ -93,6 +126,11 @@ diq:
   uploads:
     usages: Karidayışi
   users:
+    first_name: Nameyo sıfteyên
+    last_name: Nameyo peyên
+    loading: Karbero brno bar...
+    characters_added_mainspace: Karakterê MS debyay
+    characters_added_short: 'MS: %{mainspace}, DYA: %{userspace}'
     my_assigned: 'Çebiyen:'
     my_reviewing: 'Weynayen:'
     name: Name

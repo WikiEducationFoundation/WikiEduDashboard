@@ -16,17 +16,18 @@ uk:
     cancel: Скасувати
     dashboard: Панель Wiki Ed
     error: 'Виникла помилка:'
-    explore: Ознайомлення
+    explore: Дослідити
     field_required: Це поле є обов'язковим
     field_invalid_characters: У цьому полі містяться недопустимі символи
+    field_invalid_date: Це поле вимагає дату в форматі РРРР-ММ-ДД
     greeting2: Ласкаво просимо!
     greeting_extended: Ласкаво просимо до Вікіпедії
     greeting: Привіт!
     help: Довідка
     home: Головна
     log_in_extended: Увійти через Вікіпедію
-    log_in: Вхід
-    log_out: Вихід
+    log_in: Увійти
+    log_out: Вийти
     my_dashboard: Моя панель
     recent_activity: Останні дії
     search: поставити запитання
@@ -35,6 +36,7 @@ uk:
     sign_up: Реєстрація
     submit: Надіслати
     training: Навчання
+    change: Змінити
   dashboard:
     create_note: Натисніть на «Створити курс», щоб створити свій перший курс.
     create_preparation_note: Майте Ваш навчальний план під рукою коли починаєте; інструмент
@@ -53,16 +55,21 @@ uk:
       кроки знайомства (приблизно 30 хв часу.)
     review_orientation: Переглянути курс знайомства
     start_orientation: Почати курс знайомства
+    blog_headline: Останні новини від Wiki Ed
   home:
     explore: Ознайомлення
     log_in: Вхід через Вікіпедію
     sign_up: Реєстрація у Вікіпедії
+    sign_up_help: Для використання панелі Вам необхідно ввійти через Вікіпедію та
+      дати панелі доступ до Вашого облікового запису. Ви можете ввійти використовуючи
+      дійсний обліковий запис Вікіпедії, або створити новий.
   activity:
     all: Активність
     edited_by: Редаговано
     label: Активність
   articles:
     assigned: Задані статті…
+    available: Доступні статті
     assigned_to: Задано
     character_doc: Це сума символів доданих до статей записаними редакторами між початковою
       та кінцевою датами
@@ -101,16 +108,21 @@ uk:
     already_exists: Це призначення вже існує!
     assignees: Той (ті), кому задано
     assign_other: Призначити статтю
+    add_available: Додати доступну статтю
     assign_self: Призначити собі статтю
+    confirm_add_available: Ви дійсно хочете додати %{title}?
     confirm_addition: Ви дійсно хочете задати %{title} користувачу %{username}?
     confirm_deletion: Ви дійсно хочете вилучити це завдання?
     label: Призначити
     loading: Завантаження завдань…
     none_short: Немає призначених статей
-    none: Цей курс не має заданих статей Вікіпедії.
+    none: Цей курс не має заданих статей.
+    no_available: Цей курс не має доступних статей.
+    remove: Вилучити
     reviewers: Оцінювач(і)
     review_other: Призначити рецензію
     review_self: Передивитись статтю
+    select: Обрати
   blocks:
     milestones:
       title: Досягнення
@@ -126,7 +138,7 @@ uk:
     articles: Статті
     articles_none: Цей курс ще не редагував жодні статті.
     assignment_end: Кінець призначення
-    assignments_none: Цей курс не має призначених статтей з Вікіпедії.
+    assignments_none: Цей курс не має заданих статей.
     assignment_start: Початок призначення
     calendar:
       legend: Легенда
@@ -191,6 +203,7 @@ uk:
     delete_course: Вилучити курс
     duration: Тривалість курсу
     edit_course_dates: Редагувати дати курсу
+    end: Кінець
     enroll: Записатись
     enrollment: Запис
     error:
@@ -218,6 +231,7 @@ uk:
     my_articles: Мої статті
     new_week: Додати новий тиждень
     nocourses: Ви не берете участь в жодних курсах.
+    none: Немає
     notify_untrained_confirmation: Ця дія напише нагадування на сторінки обговорення
       всіх студентів, які запізнились з виконанням заданих навчальних модулів. Ви
       дійсно хочете це зробити?
@@ -235,6 +249,7 @@ uk:
     revisions_doc: Число змін за останні %{timeframe} днів
     revisions_none: У цьому курсі немає недавньої активності з редагування Вікіпедії.
     school: Школа
+    start: Початок
     start_typing: Розпочніть друк
     students: Студенти
     students_count: '# Студенти'
@@ -243,6 +258,7 @@ uk:
     students_short: Студенти
     submitted_admin: Цей курс було надіслано на затвердження його автором. Для затвердження
       додайте його до когорти на сторінці «Огляд».
+    submitted_and_pending_heading: Подано й очікують затвердження
     submitted_heading: Надіслані курси
     submitted_note: Ваш курс було надіслано. Штатні працівники Wiki Ed перевірять
       його та зв'яжуться з Вами в разі виникнення будь-яких питань.
@@ -282,7 +298,7 @@ uk:
   courses_generic:
     articles_none: У цьому проекті ще немає редагованих статей
     assignment_end: Кінець графіку
-    assignments_none: У цьому проекті немає призначених статей Вікіпедії
+    assignments_none: У цьому проекті немає заданих статей.
     assignment_start: Початок графіку
     courses: Програми
     creator:
@@ -321,6 +337,7 @@ uk:
     save: Зберегти
   metrics:
     activity: Недавня активність
+    are_trained: без запізнень у тренуванні
     articles_created: Створені статті
     articles_edited: Редаговані статті
     characters: Символи
@@ -351,6 +368,7 @@ uk:
     no_dyk_eligible: Наразі немає підхожих для ЧЗВЩ статей.
     no_plagiarism: Наразі немає жодних недавніх редагувань з підозрою на плагіат.
     no_edits: Немає недавніх редагувань.
+    plagiarism_report: Повідомлення про плагіат
     possible_plagiarism: Можливий плагіат
     recent_edits: Недавні редагування
     recent_uploads: Недавні завантаження
@@ -518,6 +536,7 @@ uk:
     summary: Підсумок
   error:
     article_required: Стаття є обов'язковою.
+    form_errors: Будь ласка, перевірте форму на предмет наявності помилок.
     invalid_assignment: Неправильне завдання
     oauth_invalid: Ваша авторизація у Вікіпедія стекла. Будь ласка, увійдіть до системи
       повторно.

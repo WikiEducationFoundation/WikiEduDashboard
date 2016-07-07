@@ -11,6 +11,7 @@ cs:
   application:
     cancel: Zrušit
     explore: Prozkoumat
+    field_invalid_date: Toto pole vyžaduje datum ve formátu RRRR-MM-DD
     greeting2: Vítejte!
     greeting_extended: Vítejte na Wikipedii
     greeting: Dobrý den!
@@ -92,9 +93,11 @@ cs:
     loading: Načítání zadaných článků...
     none_short: Žádné zadané články
     none: Tento kurz nemá žádné přidělené články.
+    remove: Odebrat
     reviewers: Recenzent(i)
     review_other: Zadat recenzi
     review_self: Recenzovat článek
+    select: Vybrat
   blocks:
     milestones:
       title: Milníky
@@ -221,6 +224,12 @@ cs:
   metrics:
     activity: Nedávná aktivita
     articles_created: Vytvořené články
+    uploads_in_use_count:
+      one: soubor použitý v článku
+      other: soubory použité v článcích
+    upload_usages_count:
+      one: použití celkem napříč jazykovými mutacemi
+      other: použití celkem napříč jazykovými mutacemi
   namespace:
     user_ns: Uživatel
   recent_activity:
@@ -228,4 +237,10 @@ cs:
     show_courses: Ukázat pouze mé kurzy
   revisions:
     chars_added: Přidáno znaků
+  users:
+    number_of_articles:
+      one: '%{count} článek'
+      other: '%{count} články'
+  error:
+    form_errors: Prosím, zkontrolujte chybné položky ve formuláři.
 ...

@@ -170,6 +170,7 @@ pl:
   wizard:
     summary: Podsumowanie
   error:
+    article_required: Artykuł jest wymagany.
     form_errors: Sprawdź czy w formularzu nie ma błędów.
     invalid_assignment: Nieprawidłowe przypisanie
   survey:
