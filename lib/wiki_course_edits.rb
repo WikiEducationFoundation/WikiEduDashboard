@@ -44,25 +44,9 @@ class WikiCourseEdits
   # announcement of a newly submitted course at the course announcement page.
   def announce_course(instructor: nil)
     instructor ||= @current_user
-    course_title = @course.wiki_title
-    user_page = "User:#{instructor.username}"
-    template = "{{course instructor|course = [[#{course_title}]] }}\n"
-    summary = "New course announcement: [[#{course_title}]]."
-
-    # Add template to userpage to indicate instructor role.
-    @wiki_editor.add_to_page_top(user_page, @current_user, template, summary)
-
+    add_course_template_to_instructor_userpage(instructor)
     # Announce the course on the Education Noticeboard or equivalent.
-    announcement_page = ENV['course_announcement_page']
-    # rubocop:disable Metrics/LineLength
-    announcement = "I have created a new course — #{@course.title} — at #{@dashboard_url}/courses/#{@course.slug}. If you'd like to see more details about my course, check out my course page.--~~~~"
-    section_title = "New course announcement: [[#{course_title}]] (instructor: [[User:#{instructor.username}]])"
-    # rubocop:enable Metrics/LineLength
-    message = { sectiontitle: section_title,
-                text: announcement,
-                summary: summary }
-
-    @wiki_editor.add_new_section(@current_user, announcement_page, message)
+    announce_course_on_announcement_page(instructor)
   end
 
   # Adds a template to the enrolling student's userpage, and also
@@ -70,10 +54,9 @@ class WikiCourseEdits
   # already exist.
   def enroll_in_course(*)
     # Add a template to the user page
-    course_title = @course.wiki_title
-    template = "{{student editor|course = [[#{course_title}]] }}\n"
+    template = "{{student editor|course = [[#{@course.wiki_title}]] }}\n"
     user_page = "User:#{@current_user.username}"
-    summary = "I am enrolled in [[#{course_title}]]."
+    summary = "I am enrolled in [[#{@course.wiki_title}]]."
     @wiki_editor.add_to_page_top(user_page, @current_user, template, summary)
 
     # Pre-create the user's sandbox
@@ -97,9 +80,8 @@ class WikiCourseEdits
     homewiki_assignments_grouped_by_article.each do |article_id, assignments_for_same_article|
       article = Article.find(article_id)
       next unless article.namespace == Article::Namespaces::MAINSPACE
-      update_assignments_for_article(
-        title: article.title,
-        assignments_for_same_article: assignments_for_same_article)
+      update_assignments_for_article(title: article.title,
+                                     assignments_for_same_article: assignments_for_same_article)
     end
   end
 
@@ -113,10 +95,33 @@ class WikiCourseEdits
 
     update_assignments_for_article(
       title: article_title,
-      assignments_for_same_article: other_assignments_for_same_course_and_title)
+      assignments_for_same_article: other_assignments_for_same_course_and_title
+    )
   end
 
   private
+
+  def add_course_template_to_instructor_userpage(instructor)
+    user_page = "User:#{instructor.username}"
+    template = "{{course instructor|course = [[#{@course.wiki_title}]] }}\n"
+    summary = "New course announcement: [[#{@course.wiki_title}]]."
+
+    @wiki_editor.add_to_page_top(user_page, @current_user, template, summary)
+  end
+
+  def announce_course_on_announcement_page(instructor)
+    announcement_page = ENV['course_announcement_page']
+    # rubocop:disable Metrics/LineLength
+    announcement = "I have created a new course — #{@course.title} — at #{@dashboard_url}/courses/#{@course.slug}. If you'd like to see more details about my course, check out my course page.--~~~~"
+    section_title = "New course announcement: [[#{@course.wiki_title}]] (instructor: [[User:#{instructor.username}]])"
+    summary = "New course announcement: [[#{@course.wiki_title}]]."
+    # rubocop:enable Metrics/LineLength
+    message = { sectiontitle: section_title,
+                text: announcement,
+                summary: summary }
+
+    @wiki_editor.add_new_section(@current_user, announcement_page, message)
+  end
 
   def homewiki_assignments_grouped_by_article
     # Only do on-wiki updates for articles that are on the course's home wiki.
@@ -129,8 +134,6 @@ class WikiCourseEdits
     require './lib/wiki_assignment_output'
     return if WikiApi.new(@home_wiki).redirect?(title)
 
-    course_page = @course.wiki_title
-
     # TODO: i18n of talk namespace
     talk_title = "Talk:#{title.tr(' ', '_')}"
 
@@ -140,8 +143,7 @@ class WikiCourseEdits
                                                  assignments: assignments_for_same_article)
 
     return if page_content.nil?
-    course_title = @course.title
-    summary = "Update [[#{course_page}|#{course_title}]] assignment details"
+    summary = "Update [[#{@course.wiki_title}|#{@course.title}]] assignment details"
     @wiki_editor.post_whole_page(@current_user, talk_title, page_content, summary)
   end
 end
