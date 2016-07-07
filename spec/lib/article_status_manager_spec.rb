@@ -3,7 +3,7 @@ require "#{Rails.root}/lib/article_status_manager"
 
 describe ArticleStatusManager do
   describe '.update_article_status' do
-    it 'should marked deleted articles as "deleted"' do
+    it 'marks deleted articles as "deleted"' do
       course = create(:course,
                       end: '2016-12-31'.to_date)
       course.users << create(:user)
@@ -17,7 +17,7 @@ describe ArticleStatusManager do
       expect(Article.find(1).deleted).to be true
     end
 
-    it 'should update the ids of articles' do
+    it 'updates the mw_page_ids of articles' do
       # en.wikipedia - article 100 does not exist
       create(:article,
              id: 100,
@@ -40,7 +40,7 @@ describe ArticleStatusManager do
       expect(Article.find_by(title: 'Audi', wiki_id: 2).mw_page_id).to eq(4976786)
     end
 
-    it 'should delete articles when id changed but new one already exists' do
+    it 'deletes articles when id changed but new one already exists' do
       create(:article,
              id: 100,
              mw_page_id: 100,
@@ -55,18 +55,19 @@ describe ArticleStatusManager do
       expect(Article.find_by(mw_page_id: 100).deleted).to eq(true)
     end
 
-    it 'should update the namespace are moved articles' do
+    it 'updates the namespace and titles when articles are moved' do
       create(:article,
              id: 848,
              mw_page_id: 848,
-             title: 'Audi',
+             title: 'Audi_Cars', # 'Audi' is the actual title
              namespace: 2)
 
       described_class.update_article_status
-      expect(Article.find_by(title: 'Audi').namespace).to eq(0)
+      expect(Article.find(848).namespace).to eq(0)
+      expect(Article.find(848).title).to eq('Audi')
     end
 
-    it 'should handle cases of space vs. underscore' do
+    it 'handles cases of space vs. underscore' do
       # This page was first moved from a sandbox to "Yōji Sakate", then
       # moved again to "Yōji Sakate (playwright)". It ended up in our database
       # like this.
@@ -79,13 +80,13 @@ describe ArticleStatusManager do
       create(:article,
              id: 46364485,
              mw_page_id: 46364485,
-             # Current title is "Yōji Sakate (playwright)".
+             # Current title is "Yōji Sakate" as of 2016-07-06.
              title: 'Yōji_Sakate',
              namespace: 0)
       described_class.update_article_status
     end
 
-    it 'should handle case-variant titles' do
+    it 'handles case-variant titles' do
       article1 = create(:article,
                         id: 3914927,
                         mw_page_id: 3914927,
@@ -103,7 +104,7 @@ describe ArticleStatusManager do
       expect(article2.id).to eq(46394760)
     end
 
-    it 'should update the article_id for revisions when article_id changes' do
+    it 'updates the mw_rev_id for revisions when article record changes' do
       create(:article,
              id: 2262715,
              mw_page_id: 2262715,

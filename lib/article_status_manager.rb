@@ -114,18 +114,25 @@ class ArticleStatusManager
     mw_page_id = same_title_page['page_id']
     namespace = same_title_page['page_namespace']
 
-    article = Article.find_by(
-      wiki_id: @wiki.id,
-      title: title,
-      namespace: namespace,
-      deleted: false
-    )
-    return if article.nil?
-    return unless deleted_page_ids.include?(article.mw_page_id)
+    article = Article.find_by(wiki_id: @wiki.id,
+                              title: title,
+                              namespace: namespace,
+                              deleted: false)
+
+    return unless article_data_matches?(article, title, deleted_page_ids)
+    update_article_page_id(article, mw_page_id)
+  end
+
+  def article_data_matches?(article, title, deleted_page_ids)
+    return false if article.nil?
+    return false unless deleted_page_ids.include?(article.mw_page_id)
     # This catches false positives when the query for page_title matches
     # a case variant.
-    return unless article.title == title
+    return false unless article.title == title
+    true
+  end
 
+  def update_article_page_id(article, mw_page_id)
     if Article.exists?(mw_page_id: mw_page_id, wiki_id: @wiki.id)
       # Catches case where update_constantly has
       # already added this article under a new ID
