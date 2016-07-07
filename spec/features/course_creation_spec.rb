@@ -67,15 +67,7 @@ def go_through_researchwrite_wizard
   click_button 'Next'
   sleep 1
 
-  find('.wizard__option', match: :first).find('button', match: :first).click # Traditional outline
-  click_button 'Next'
-  sleep 1
-
   find('.wizard__option', match: :first).find('button', match: :first).click # Yes, medical articles
-  click_button 'Next'
-  sleep 1
-
-  find('.wizard__option', match: :first).find('button', match: :first).click # Work live from start
   click_button 'Next'
   sleep 1
 
