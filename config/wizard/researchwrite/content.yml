@@ -15,7 +15,7 @@
 
 essentials:
   - # Week one
-    weight: 4
+    weight: 6
     blocks:
       - title: Introduction to the Wikipedia project
         kind: 0
@@ -94,7 +94,7 @@ essentials:
           This week, everyone should have a Wikipedia account.
 
   - # Week two
-    weight: 4
+    weight: 6
     blocks:
       -
         title: Critique an article
@@ -144,7 +144,7 @@ essentials:
           </ul>
 
   - # Week three
-    weight: 6
+    weight: 4
     blocks:
       -
         if: add_to_article
@@ -273,7 +273,7 @@ essentials:
           </ul>
 
   - # Week five
-    weight: 6
+    weight: 4
     blocks:
       -
         if: explore_to_find_articles
@@ -347,7 +347,7 @@ essentials:
           <p>All students should be writing articles or drafts on Wikipedia.</p>
 
   - # Week six
-    weight: 10
+    weight: 3
     blocks:
       -
         title: "Discussion: Thinking about Wikipiedia"
@@ -450,7 +450,7 @@ essentials:
           <p>Every student has finished reviewing their assigned articles, making sure that every article has been reviewed.</p>
 
   - # Week seven
-    weight: 10
+    weight: 3
     blocks:
       -
         title: Respond to your peer review
@@ -470,7 +470,7 @@ essentials:
           </ul>
 
   - # Week eight
-    weight: 4
+    weight: 6
     blocks:
       -
         title: Begin moving your work to Wikipedia
@@ -504,7 +504,7 @@ essentials:
 
 
   - # Week nine
-    weight: 6
+    weight: 2
     blocks:
       -
         title: Continue improving your article
@@ -522,7 +522,7 @@ essentials:
           </ul>
 
   - # Week ten
-    weight: 4
+    weight: 2
     blocks:
       -
         title: Polish your work
@@ -544,7 +544,7 @@ essentials:
           </ul>
 
   - # Week eleven
-    weight: 10
+    weight: 5
     blocks:
       -
         if: presentation
@@ -592,7 +592,7 @@ essentials:
           </ul>
 
   - # Week twelve
-    weight: 10
+    weight: 3
     blocks:
       -
         title: All article edits are complete

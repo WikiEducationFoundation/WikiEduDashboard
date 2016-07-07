@@ -103,7 +103,7 @@ describe 'New course creation and editing', type: :feature do
 
   describe 'course workflow', js: true do
     let(:expected_course_blocks) { 21 }
-    let(:module_name) { 'Wikipedia Essentials' }
+    let(:module_name) { 'Practicing the basics' }
 
     it 'should allow the user to create a course' do
       click_link 'Create Course'
