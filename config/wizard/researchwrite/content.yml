@@ -17,97 +17,100 @@ essentials:
   - # Week one
     weight: 4
     blocks:
-      - title: Intro to Wikipedia
+      - title: Introduction to the Wikipedia project
         kind: 0
         content: |
+          <p>
+            Welcome to your Wikipedia project's course timeline. This page will
+            guide you through the Wikipedia project for your course. Be sure to
+            check with your instructor to see if there are other pages you should
+            be following as well.
+          </p>
+          <p>
+            This page breaks down writing a Wikipedia article into a series of
+            steps, or milestones. These steps include online trainings to help
+            you get started on Wikipedia.
+          </p>
+          <p>
+            Your course has also been assigned a Wikipedia Content Expert. Check
+            your Talk page for notes from them. You can also reach them through
+            the "<strong>Get Help</strong>" button on this page.
+          </p>
+          <p>
+            To get started, please review the following handouts:
+          </p>
           <ul>
-            <li>Introduction to how Wikipedia will be used in the course</li>
-            <li>How is writing for Wikipedia different from other writing assignments?
-              <ul>
-                <li>Just the facts: You won't be making arguments. Instead, you'll aim to summarize existing information about your topic, cited to reliable sources.</li>
-                <li>Formal tone, simple language: Write clearly and formally, but in terms an 8th grader could understand.</li>
-                <li>Avoid quotations: Paraphrase when you can. Use your own words, using your sources to guide you. For more information, review the "<a href="../../../training/students/sources">Sources and Citations</a>" training. </li>
-              </ul>
-            </li>
-            <li>Check your Talk Page for a welcome note from your Wikipedia Content Expert. You can leave your content expert a note on their talk page, or use the "GET HELP" button at the top right of this page.</li>
+            <li><a href="http://wikiedu.org/editingwikipedia">Editing Wikipedia</a> pages 1–5</li>
+            <li><a href="http://wikiedu.org/evaluatingwikipedia">Evaluating Wikipedia</a></li>
           </ul>
-          <hr />
-          <p>Resources for this week: <a href="http://wikiedu.org/editingwikipedia">Editing Wikipedia</a>, <a href="https://commons.wikimedia.org/wiki/File:Using_talk_pages.pdf">Using Talk Pages</a>, <a href="http://wikiedu.org/evaluatingwikipedia">Evaluating Wikipedia</a></p>
 
       -
         if: graded_training
         title: Practicing the basics
         kind: 1
         graded: true
-        training_module_ids: [1,2,7] # Wikipedia essentials, Editing basics, Evaluate an article
+        training_module_ids: [1,2] # Wikipedia essentials, Editing basics
         points: 5
         content: |
           <ul>
-            <li>Create an account and join this course page.</li>
-            <li>Complete the introductory training modules. During this training, you will make edits in a sandbox and learn the basic rules of Wikipedia.</li>
-            <li>Create a User page.</li>
-            <li>To practice editing and communicating on Wikipedia, introduce yourself to another student on their user talk page.</li>
-            <li>Explore topics related to your topic area to get a feel for how Wikipedia is organized. What areas seem to be missing? As you explore, make a mental note of articles that seem like good candidates for improvement.</li>
+            <li>Create an account and join this course page, using the  enrollment link your instructor sent you.</li>
+            <li>
+              It's time to dive into Wikipedia. Below, you'll find the first set
+              of online trainings you'll need to take. New modules will appear
+              on this timeline as you get to new milestones. Be sure to check
+              back and complete them! Incomplete trainings will be reflected in
+              your grade.
+            </li>
+            <li>
+              When you finish the trainings, practice by introducing yourself to
+              a classmate on that classmate’s Talk page.
+            </li>
           </ul>
 
       -
         if: ungraded_training
         title: Practicing the basics
         kind: 1
-        training_module_ids: [1,2,7] # Wikipedia essentials, Editing basics, Evaluate an article
+        training_module_ids: [1,2] # Wikipedia essentials, Editing basics
         content: |
           <ul>
-            <li>Create an account and join this course page.</li>
-            <li>Complete the introductory training modules. During this training, you will make edits in a sandbox and learn the basic rules of Wikipedia.</li>
-            <li>Create a User page.</li>
-            <li>To practice editing and communicating on Wikipedia, introduce yourself on the user talk page of one of your classmates, who should also be enrolled in the table at the bottom of the page.</li>
-            <li>Explore topics related to your topic area to get a feel for how Wikipedia is organized. What areas seem to be missing? As you explore, make a mental note of articles that seem like good candidates for improvement.</li>
+            <li>Create an account and join this course page, using the  enrollment link your instructor sent you.</li>
+            <li>
+              It's time to dive into Wikipedia. Below, you'll find the first set
+              of online trainings you'll need to take. New modules will appear
+              on this timeline as you get to new milestones. Be sure to check
+              back and complete them! These trainings are required for your course.
+            </li>
+            <li>
+              When you finish the trainings, practice by introducing yourself to
+              a classmate on that classmate's Talk page.
+            </li>
           </ul>
 
       -
         title: Everyone has a Wikipedia account
         kind: 2
         content: |
-          All students have Wikipedia user accounts and are listed on the course page.
+          This week, everyone should have a Wikipedia account.
 
   - # Week two
-    weight: 1
+    weight: 4
     blocks:
       -
-        title: Editing basics
-        kind: 0
-        content: |
-          <ul>
-            <li>Basics of editing</li>
-            <li>Anatomy of Wikipedia articles, what makes a good article, how to distinguish between good and bad articles</li>
-            <li>Collaborating and engaging with the Wiki editing community</li>
-            <li>Tips on finding the best articles to work on for class assignments</li>
-          </ul>
-
-  - # Week three
-    weight: 6
-    blocks:
-      -
-        title: Exploring the topic area
-        kind: 0
-        content: |
-          <ul>
-            <li>Be prepared to discuss some of your observations about Wikipedia articles in your topic area that are missing or could use improvement.</li>
-          </ul>
-          <hr />
-          <p>Handouts: <a href="https://commons.wikimedia.org/wiki/File:Choosing_an_article.pdf">Choosing an article</a></p>
-
-      -
-        if: evaluate
-        title: Evaluate an article
+        title: Critique an article
         kind: 1
+        training_module_ids: [7] # Evaluate an article
         graded: true
-        points: 5
+        points: 10
         content: |
+          <p>
+            It's time to think critically about Wikipedia articles. You'll
+            evaluate a Wikipedia article, and leave suggestions for improving it
+            on the article's Talk page.
+          </p>
           <ul>
-            <li>Review pages 4-7 of the Evaluating Wikipedia brochure. This will give you a good, brief overview of what to look for in other articles, and what other people will look for in your own.</li>
-            <li>Evaluate an existing Wikipedia article related to the class, and leave suggestions for improving it on the article's talk page.</li>
-            <li>A few questions to consider (don't feel limited to these):
+            <li>Complete the "Evaluating Articles and Sources" training (linked below).</li>
+            <li>Choose an article, and consider some questions (but don't feel limited to these):
               <ul>
                 <li>Is each fact referenced with an appropriate, reliable reference?</li>
                 <li>Is everything in the article relevant to the article topic? Is there anything that distracted you?</li>
@@ -118,6 +121,44 @@ essentials:
                 <li>Is any information out of date? Is anything missing that could be added?</li>
               </ul>
             </li>
+            <li>
+              Choose at least 2 questions relevant to the article you're evaluating.
+              Leave your evaluation on the article's Talk page. Be sure to sign
+              your feedback with four tildes — <code>~~~~</code>.
+            </li>
+          </ul>
+
+      -
+        title: "Discussion: What's a content gap?"
+        kind: 0
+        content: |
+          <p>
+            Now that you're thinking about what makes a "good" Wikipedia article,
+            consider some additional questions.
+          </p>
+          <ul>
+            <li>Wikipedians often talk about "content gaps." What do you think a content gap is, and what are ways to see where they appear?</li>
+            <li>What are some reasons a content gap might arise? What are some ways to remedy them?</li>
+            <li>Does it matter who writes Wikipedia?</li>
+            <li>What does it mean to be "unbiased" on Wikipedia? How is that different, or similar, to your own definition of "bias"?</li>
+          </ul>
+
+  - # Week three
+    weight: 6
+    blocks:
+      -
+        if: add_to_article
+        title: Add to an article
+        kind: 1
+        training_module_ids: [8] # Sources and Citations
+        graded: true
+        points: 10
+        content: |
+          <p>You should add a small contribution to an article related to your class, or add a citation to a claim that doesn't have one.</p>
+          <ul>
+            <li>Complete the "Sources and Citations" training (linked below).</li>
+            <li>The <a href="https://tools.wmflabs.org/citationhunt/en?id=001996f6&cat=all">Citation Hunt</a> tool can show you some statements that don't have citations. You can use that to find an article to reference.</li>
+            <li>When you make a small claim, clearly state the fact in your own words, and then cite the source where you found the information.</li>
           </ul>
 
       -
@@ -130,20 +171,20 @@ essentials:
           <ul>
             <li>Choose one article, identify ways in which you can improve and correct its language and grammar, and make the appropriate changes. (You do not need to alter the article's content.)</li>
           </ul>
+
   - # Week four
     weight: 6
     blocks:
       -
-        title: Using sources
+        title: "Discussion: Thinking about sources and plagiarism"
         kind: 0
         content: |
           <ul>
-            <li>Be prepared to explain close paraphrasing, plagiarism, and copyright violations on Wikipedia.</li>
+            <li>Blog posts and press releases are considered poor sources of reliable information. Why?</li>
+            <li>What are some reasons you might not want to use a company's website as the main source of information about that company?</li>
+            <li>What is the difference between a copyright violation and plagiarism?</li>
+            <li>What are some good techniques to avoid close paraphrasing and plagiarism?</li>
           </ul>
-          <hr />
-          <p>Handouts: <a href="https://commons.wikimedia.org/wiki/File:Citing_your_sources.pdf">Citing Sources</a> and <a href="https://commons.wikimedia.org/wiki/File:Avoiding_plagiarism.pdf">Avoiding Plagiarism</a></p>
-          <hr />
-          <p>Supplementary training: <a href="../../../training/students/sources">Sources and Citations</a></p>
 
       -
         if: medical_topics
@@ -151,18 +192,7 @@ essentials:
         training_module_ids: [11] # Editing Medical topics
         content: |
           <p>Review Wikipedia's rules for topics related to medicine, human health, and psychology.</p>
-      -
-        if: add_to_article
-        title: Add to an article
-        kind: 1
-        graded: true
-        points: 5
-        content: |
-          <p>Either add to an article related to your class, or add/ find a citation for an uncited claim in the article.</p>
-          <ul>
-            <li>The <a href="https://tools.wmflabs.org/citationhunt/en?id=001996f6&cat=all">Citation Hunt</a> tool shows unreferenced statements from articles.</li>
-            <li>Find some supporting evidence in a reliable source. Then, follow the instructions in your training to cite that source in the article.</li>
-          </ul>
+
       -
         if: illustrate
         title: Illustrate an article
@@ -171,138 +201,294 @@ essentials:
         points: 5
         training_module_ids: [6] # Images and multimedia
         content: |
+          <p>You'll want to find or create an appropriate photo, illustration, or piece of video/audio to add to an article.</p>
           <ul>
-            <li>Identify an article that would benefit from illustration, create or find an appropriate photo, illustration, or audio/video, and add it to the article.
-            <ul>
-              <li>All media uploaded to Wikipedia must fall under a "free license," which means they can be used or shared by anyone. Examples of media you can use are photos that you take yourself, images and text in the public domain, and works created by someone else who has given permission for their work to be used by others. For more information about which types of media can be uploaded to Wikipedia, see <a href="https://commons.wikimedia.org/wiki/Commons:Help_desk">Commons:Help desk</a>.</li>
-              <li>To add a media file to an article, you must first upload it to Wikimedia Commons. For instructions on how to upload files to Commons, refer to <a href="http://wikiedu.org/illustratingwikipedia"><strong><em>Illustrating Wikipedia</em></strong></a>. This brochure will also provide you with detailed information about which files are acceptable to upload to Wikipedia and the value of contributing media to Wikipedia articles.</li>
-              </ul>
+            <li>
+              Before you start, review the <a href="http://wikiedu.org/illustratingwikipedia">Illustrating Wikipedia</a> handbook,
+              or see <a href="http://wikiedu.org/editingwikipedia">Editing Wikipedia</a> pages 10–11.
+            </li>
+            <li>When you've reviewed those pages, take the training linked below.</li>
+            <li>
+              When you're ready to start finding images, remember: <strong>Never</strong>
+              grab images you find through an image search, or those found on
+              Instagram, Tumblr, Reddit, Imgur, or even so-called "Free image" or
+              "free stock photo" websites. Instead, you'll want to find images
+              with clear proof that the creator has given permission to use their
+              work. Many of these images can be found on
+              <a href="http://search.creativecommons.org/">search.creativecommons.org</a>.
+            </li>
+            <li>
+               Don't just upload an image to Wikipedia. Instead, upload it to
+               Wikipedia's sister site for images, Wikimedia Commons. For
+               instructions, read through the <a href="http://wikiedu.org/illustratingwikipedia">Illustrating Wikipedia</a> handbook.
             </li>
           </ul>
+
       -
         if: explore_to_find_articles
-        title: Choosing your article
+        title: Choose possible topics
         kind: 1
         content: |
           <ul>
-            <li>Research and list 3–5 articles on your Wikipedia user page that you will consider working on as your main project. Look at the talk page for existing topics for a sense of who else is working on it and what they're doing. Describe your choices to your instructor for feedback.</li>
+            <li>Review page 6 of your <a href="http://wikiedu.org/editingwikipedia">Editing Wikipedia</a> guidebook.</li>
+            <li>
+              Choose 3–5 potential articles that you can tackle, and post links
+              to them on your Wikipedia user page. For articles that already exist,
+              check the Talk page to see what other Wikipedians might be doing.
+              Finally, present your choices to your instructor for feedback.
+            </li>
           </ul>
 
       -
         if: choose_articles_from_list
-        title: Choosing your article
+        title: Choose your topic / Find your sources
         kind: 1
         content: |
+          <p>It's time to choose an article and assign it to yourself.</p>
           <ul>
-            <li>Your instructor has created a list of potential topics for your main project. Choose the one you will work on.</li>
-            <li>In <a href="https://en.wikipedia.org/wiki/Special:Mypage/sandbox">your sandbox</a>, create a one-paragraph to one-page description of what you plan to write in your article. Use last week's "critique an article" assignment to help. You may wish to post some of your ideas to the article's Talk page.</li>
-            <li>Compile a bibliography of relevant, reliable sources and post it to the Talk page of the article, and in your sandbox. Begin reading the sources. Make sure to check in on the Talk page to see if anyone has advice on your bibliography.</li>
+            <li>Review page 6 of your <a href="http://wikiedu.org/editingwikipedia">Editing Wikipedia</a> guidebook.</li>
+            <li>
+              Find an article from the list of "Available Articles" on the
+              <strong>Articles</strong> tab on this course page. When you find
+              the one you want to work on, click <strong>Select</strong> to
+              assign it to yourself.
+            </li>
+            <li>
+              In <a href="https://en.wikipedia.org/wiki/Special:Mypage/sandbox">your sandbox</a>,
+              write a few sentences about what you plan to contribute to the selected article.
+              <ul>
+                <li>
+                  Think back to when you did an article critique. What can you add?
+                  Post some of your ideas to the article's talk page, too.
+                </li>
+                <li>
+                  Compile a list of relevant, reliable books, journal articles,
+                  or other sources. Post that bibliography to the talk page of
+                  the article you'll be working on, and in your sandbox. Make
+                  sure to check in on the Talk page to see if anyone has advice
+                  on your bibliography.
+                </li>
+              </ul>
+            </li>
           </ul>
 
   - # Week five
     weight: 6
     blocks:
       -
-        title: Discuss the article topics
-        kind: 0
-        content: |
-          <ul>
-            <li>Discuss the topics students will be working on, and determine strategies for researching and writing about them.</li>
-          </ul>
-          <hr />
-          <p>Supplementary training: <a href="../../../training/students/sandboxes">Sandboxes and Mainspace</a></p>
-
-      -
         if: explore_to_find_articles
-        title: Choose your article and start researching
+        title: Finalize your topic / Find your sources
         kind: 1
         content: |
           <ul>
-            <li>Make your final pick for an article, and assign it to yourself on the course page.</li>
-            <li>In <a href="https://en.wikipedia.org/wiki/Special:Mypage/sandbox">your sandbox</a>, create a one-paragraph to one-page description of what you plan to write in your article. Use last week's "critique an article" assignment to help. You may wish to post some of your ideas to the article's Talk page.</li>
-            <li>Compile a bibliography of relevant, reliable sources and post it to the Talk page of the article, and in your sandbox. Begin reading the sources. Make sure to check in on the Talk page to see if anyone has advice on your bibliography.</li>
+            <li>On the <strong>Students</strong> tab, assign your chosen topic to yourself.</li>
+            <li>
+              In <a href="https://en.wikipedia.org/wiki/Special:Mypage/sandbox">your sandbox</a>,
+              write a few sentences about what you plan to contribute to the selected article.
+              <ul>
+                <li>
+                  Think back to when you did an article critique. What can you add?
+                  Post some of your ideas to the article's talk page, too.
+                </li>
+                <li>
+                  Compile a list of relevant, reliable books, journal articles,
+                  or other sources. Post that bibliography to the talk page of
+                  the article you'll be working on, and in your sandbox. Make
+                  sure to check in on the Talk page to see if anyone has advice
+                  on your bibliography.
+                </li>
+              </ul>
+            </li>
           </ul>
-          <hr/>
-          <p>Resources: Review <a href="http://wikiedu.org/editingwikipedia">Editing Wikipedia</a>, page 6.</p>
 
       -
-        if: traditional_outline
-        title: Drafting your article
+        title: Draft your article
         kind: 1
         graded: true
         points: 20
         training_module_ids: [9] # Sandboxes
         content: |
+          <p>You've picked a topic and found your sources. Now it's time to start writing.</p>
+          <p><strong>Creating a new article?</strong></p>
           <ul>
-            <li>If you are starting a new article, write a 3–4 paragraph summary version of your article—with citations—in your Wikipedia sandbox. If you are improving an existing article, create a detailed outline reflecting your proposed changes, and post this for community feedback, along with a brief description of your plans, on the article’s talk page. Make sure to check back on the talk page often and engage with any responses.</li>
-            <li>Begin working with classmates and other editors to polish your short starter article and fix any major issues.</li>
-            <li>Continue research in preparation for expanding your article.</li>
+            <li>
+              Write an outline of that topic in the form
+              of a standard Wikipedia article's "lead section." Write it in
+              <a href="https://en.wikipedia.org/wiki/Special:Mypage/sandbox">your sandbox</a>.
+              <ul>
+                <li>
+                  A "lead" section is not a traditional introduction. It should
+                  summarize, very briefly, what the rest of the article will say
+                  in detail. The first paragraph should include important, broad
+                  facts about the subject. A good example is
+                  <a href="https://en.wikipedia.org/wiki/Ada_Lovelace">Ada Lovelace</a>.
+                  See <a href="http://wikiedu.org/editingwikipedia">Editing Wikipedia</a>
+                  page 9 for more ideas.
+                </li>
+              </ul>
+            </li>
           </ul>
+          <p><strong>Improving an existing article?</strong></p>
+          <ul>
+            <li>
+              Identify what's missing from the current form of the article. Think
+              back to the skills you learned while critiquing an article. Make
+              notes for improvement in <a href="https://en.wikipedia.org/wiki/Special:Mypage/sandbox">your sandbox</a>.
+            </li>
+          </ul>
+          <hr />
+          <p>Keep reading your sources, too, as you prepare to write the body of the article.</p>
+          <p><strong>Resources:</strong> <a href="http://wikiedu.org/editingwikipedia">Editing Wikipedia</a> pages 7–9</p>
+
+      -
+        title: Everyone has started writing
+        kind: 2
+        content: |
+          <p>All students should be writing articles or drafts on Wikipedia.</p>
 
   - # Week six
     weight: 10
     blocks:
       -
-        title: Wikipedia culture and etiquette
+        title: "Discussion: Thinking about Wikipiedia"
         kind: 0
         content: |
           <ul>
-            <li>Talk about Wikipedia culture and etiquette, and (optionally) revisit the concept of sandboxes and how to use them.</li>
-            <li>Q&amp;A session with instructor about interacting on Wikipedia and getting started with writing.</li>
-          </ul>
-      -
-        if: outline_as_lead_section
-        title: Drafting your article
-        kind: 1
-        graded: true
-        points: 20
-        training_module_ids: [9] # Sandboxes
-        content: |
-          <p><strong>Creating a new article?</strong></p>
-          <ul>
-            <li>Write an outline of the topic as a standard Wikipedia lead section, about 3–4 paragraphs, in <a href="https://en.wikipedia.org/wiki/Special:Mypage/sandbox">your sandbox</a>.</li>
-            <li>For guidance on leads, see <a href="http://wikiedu.org/editingwikipedia">Editing Wikipedia</a>, page 9.</li>
-          </ul>
-          <hr />
-          <p><strong>Improving an existing article?</strong></p>
-          <ul>
-            <li>Identify what elements of the article need to be improved, using the skills you learned in Week 2. Make notes in <a href="https://en.wikipedia.org/wiki/Special:Mypage/sandbox">your sandbox</a>.</li>
-            <li>Keep up your research before writing the body of the article.</li>
+            <li>What do you think of Wikipedia's definition of "neutrality"?</li>
+            <li>What are the impacts and limits of Wikipedia as a source of information?</li>
+            <li>Wikipedia is based entirely on sources that already exist. Can you think of any problems that might create?</li>
+            <li>If Wikipedia was written 100 years ago, how might its content (and contributors) be different? What about 100 years from now?</li>
           </ul>
 
       -
-        title: Students have started editing
+        title: Expand your draft
+        kind: 1
+        content: |
+          <ul>
+            <li>Keep working on transforming your article into a complete first draft. Get draft ready for peer-review. </li>
+          </ul>
+
+      - # 1 peer review
+        if: 1_peer_reviewers
+        title: Peer review and copy edit
+        kind: 1
+        training_module_ids: [12] # Peer review
+        content: |
+          <ul>
+            <li>First, take the "Peer Review" online training.</li>
+            <li>
+              Select a classmates’ article that you will peer review and copyedit.
+              On the <strong>Articles</strong> tab, find the article that you want
+              to review, and then assign it to yourself in the Review column.
+            </li>
+            <li>
+              Peer review your classmate's draft. Leave suggestions on on the
+              Talk page of the article, or sandbox, that your fellow student is
+              working on. Other editors may be reviewing your work, so look for
+              their comments! Be sure to acknowledge feedback from other Wikipedians.
+            </li>
+            <li>
+               As you review, make spelling, grammar, and other adjustments. Pay
+               attention to the tone of the article. Is it encyclopedic?
+            </li>
+          </ul>
+
+      - # 2 peer reviews
+        if: 2_peer_reviewers
+        title: Peer review and copy edit
+        kind: 1
+        training_module_ids: [12] # Peer review
+        content: |
+          <ul>
+            <li>First, take the "Peer Review" online training.</li>
+            <li>
+              Select two classmates’ articles that you will peer review and copyedit.
+              On the <strong>Articles</strong> tab, find the articles that you want
+              to review, and then assign them to yourself in the Review column.
+            </li>
+            <li>
+              Peer review your classmates' drafts. Leave suggestions on on the
+              Talk page of the article, or sandbox, that your fellow student is
+              working on. Other editors may be reviewing your work, so look for
+              their comments! Be sure to acknowledge feedback from other Wikipedians.
+            </li>
+            <li>
+               As you review, make spelling, grammar, and other adjustments. Pay
+               attention to the tone of the article. Is it encyclopedic?
+            </li>
+          </ul>
+
+      - # 3 peer reviews
+        if: 3_peer_reviewers
+        title: Peer review and copy edit
+        kind: 1
+        training_module_ids: [12] # Peer review
+        content: |
+          <ul>
+            <li>First, take the "Peer Review" online training.</li>
+            <li>
+              Select three classmates’ articles that you will peer review and copyedit.
+              On the <strong>Articles</strong> tab, find the articles that you want
+              to review, and then assign them to yourself in the Review column.
+            </li>
+            <li>
+              Peer review your classmates' drafts. Leave suggestions on on the
+              Talk page of the article, or sandbox, that your fellow student is
+              working on. Other editors may be reviewing your work, so look for
+              their comments! Be sure to acknowledge feedback from other Wikipedians.
+            </li>
+            <li>
+               As you review, make spelling, grammar, and other adjustments. Pay
+               attention to the tone of the article. Is it encyclopedic?
+            </li>
+          </ul>
+
+      -
+        title: Peer reviews are complete
         kind: 2
         content: |
-          <p>All students have started editing articles or drafts on Wikipedia.</p>
+          <p>Every student has finished reviewing their assigned articles, making sure that every article has been reviewed.</p>
+
   - # Week seven
     weight: 10
     blocks:
       -
-        title: Moving articles to mainspace
-        kind: 0 # In-class
+        title: Respond to your peer review
+        kind: 1
+        graded: true
+        points: 10
         content: |
+          <p>You probably have some feedback from other students and possibly other Wikipedians. It's time to work with that feedback to improve your article!</p>
           <ul>
-            <li>We'll discuss moving your article out of your sandboxes and into Wikipedia's main space.</li>
-            <li>A general reminder: Don't panic if your contribution disappears, and don't try to force it back in.
-            <ul><li>Check to see if there is an explanation of the edit on the article's talk page. If not, (politely) ask why it was removed.</li>
-            <li>Contact your instructor or Wikipedia Content Expert and let them know.</li></ul></li>
+            <li>Read <a href="http://wikiedu.org/editingwikipedia">Editing Wikipedia</a> pages 12 and 14.</li>
+            <li>
+              Return to your draft or article and think about the suggestions.
+              Decide which ones to start implementing. Reach out to your instructor
+              or your Content Expert if you have any questions. (Remember, you
+              can use the "Get Help" button above).
+            </li>
           </ul>
-          <hr />
-          <p>Handout: <a href="https://commons.wikimedia.org/wiki/File:Moving_out_of_your_sandbox.pdf">Moving out of your Sandbox</a></p>
 
+  - # Week eight
+    weight: 4
+    blocks:
       -
-        title: Begin moving your work live
+        title: Begin moving your work to Wikipedia
         kind: 1 # Assignment
         content: |
-          <p>Make improvements based on your peer review feedback. Return to your draft or article and take a look at the peer review suggestions. Decide which to implement, and start improving! Be sure to reach out to your content expert or your instructor if you have questions.</p>
-          <p><strong>Begin moving your work to live on Wikipedia</strong></p>
+          <p>
+            Once you've made improvements to your article based on peer review
+            feedback, it's time to move your work to Wikipedia proper - the "mainspace."
+          </p>
+          <p><strong>Editing an existing article?</strong></p>
           <ul>
-            <li>Take the  <a href="../../../training/students/sandboxes">training on moving your sandbox to mainspace</a>.
-            <li>Now, you can move your work to mainspace. See <a href="http://wikiedu.org/editingwikipedia">Editing Wikipedia</a>, page 13.</li>
-            <li>If you are expanding an existing article, copy your edit into the article. If you are making many small edits, save after each edit before you make the next one. Do NOT paste over the entire existing article, or large sections of the existing article.</li>
-            <li>If you are creating a new article, do NOT copy and paste your text, or there will be no record of your work history.</li>
-            <li>Begin expanding your article into a comprehensive treatment of the topic.</li>
+            <li>NEVER copy and paste your draft of an article over the entire article. Instead, edit small sections at a time.</li>
+            <li>Copy your edits into the article. Make many small edits, saving each time, and leaving an edit summary. Never replace more than one to two sentences without saving!</li>
+          </ul>
+          <p><strong>Creating a new article?</strong></p>
+          <ul>
+            <li>Read <a href="http://wikiedu.org/editingwikipedia">Editing Wikipedia</a> page 13, and follow those steps to move your article from your Sandbox to Mainspace.</li>
+            <li>You can also review the <a href="../../../training/students/sandboxes">Sandboxes and Mainspace</a> online training.</li>
           </ul>
 
       -
@@ -316,147 +502,37 @@ essentials:
           <hr />
           <p>Handout: <a href="https://commons.wikimedia.org/wiki/File:%22Did_You_Know%22_submissions.pdf">"Did You Know" submissions</a></p>
 
-  - # Week eight
-    weight: 4
-    blocks:
-      -
-        title: Building articles
-        kind: 0
-        content: |
-          <ul>
-            <li>Demo uploading images and adding images to articles.</li>
-            <li>Share experiences and discuss problems.</li>
-          </ul>
-          <hr />
-          <p>Resources: <a href="http://wikiedu.org/illustratingwikipedia">Illustrating Wikipedia</a> and <a href="http://wikiedu.org/evaluatingwikipedia">Evaluating Wikipedia</a></p>
-
-      - # 1 peer review
-        if: 1_peer_reviewers
-        title: Choose articles to peer review
-        kind: 1
-        content: |
-          <ul>
-            <li>Select a classmates’ article that you will peer review and copyedit. On the table at the bottom of this course page, add your username next to the article you will peer review. (You don’t need to start reviewing yet.)</li>
-          </ul>
-      - # 2 peer reviews
-        if: 2_peer_reviewers
-        title: Choose articles to peer review
-        kind: 1
-        content: |
-          <ul>
-            <li>Select two classmates’ articles that you will peer review and copyedit. On the table at the bottom of this course page, add your username next to the articles you will peer review. (You don’t need to start reviewing yet.)</li>
-          </ul>
-
-      - # 3 peer reviews
-        if: 3_peer_reviewers
-        title: Choose articles to peer review
-        kind: 1
-        content: |
-          <ul>
-            <li>Select three classmates’ articles that you will peer review and copyedit. On the table at the bottom of this course page, add your username next to the articles you will peer review. (You don’t need to start reviewing yet.)</li>
-          </ul>
 
   - # Week nine
     weight: 6
     blocks:
       -
-        title: Complete first draft
+        title: Continue improving your article
         kind: 1
         content: |
+          <p>Do additional research and writing to make further improvements to your article, based on suggestions and your own critique.</p>
           <ul>
-            <li>Expand your article into a complete first draft.</li>
+            <li>
+              Read <a href="http://wikiedu.org/editingwikipedia">Editing Wikipedia</a>
+              page 12 to see how to create links from your article to others,
+              and from other articles to your own. Try to link to 3–5 articles,
+              and link to your article from 2–3 other articles.
+            </li>
+            <li>If you'd like a Content Expert to review your draft, now is the time! Click the "Get Help" button in your sandbox to request notes.</li>
           </ul>
 
   - # Week ten
     weight: 4
     blocks:
       -
-        title: Group suggestions
-        kind: 0
-        content: |
-          <ul>
-            <li>As a group, offer suggestions for improving one or two other students' articles, based on your ideas of what makes a solid encyclopedia article.</li>
-          </ul>
-          <hr />
-          <p>Supplementary training: <a href="../../../training/students/peer-review">Peer Review</a></p>
-
-      - # 1 peer review
-        if: 1_peer_reviewers
-        title: Peer review and copyedit
-        kind: 1
-        graded: true
-        points: 10
-        content: |
-          <ul>
-            <li>Peer review two of your classmates’ articles. Leave suggestions on the article talk pages.</li>
-            <li>Copy-edit the two reviewed articles.</li>
-          </ul>
-
-      - # 2 peer reviews
-        if: 2_peer_reviewers
-        title: Peer review and copyedit
-        kind: 1
-        graded: true
-        points: 10
-        content: |
-          <ul>
-            <li>Peer review two of your classmates’ articles. Leave suggestions on the article talk pages.</li>
-            <li>Copy-edit the two reviewed articles.</li>
-          </ul>
-      - # 3 peer reviews
-        if: 3_peer_reviewers
-        title: Peer review and copyedit
-        kind: 1
-        graded: true
-        points: 10
-        content: |
-          <ul>
-            <li>Peer review two of your classmates’ articles. Leave suggestions on the article talk pages.</li>
-            <li>Copy-edit the two reviewed articles.</li>
-          </ul>
-      -
-        title: Peer reviews are complete
-        kind: 2
-        content: |
-          <p>Every student has finished reviewing their assigned articles, making sure that every article has been reviewed.</p>
-  - # Week eleven
-    weight: 4
-    blocks:
-      -
-        title: Media literacy discussion
-        kind: 0
-        content: |
-          <ul>
-            <li>Open discussion of the concepts of neutrality, media literacy, and the impact and limits of Wikipedia.</li>
-          </ul>
-
-      -
-        title: Address peer review suggestions
+        title: Polish your work
         kind: 1
         content: |
-          <ul>
-            <li>Make edits to your article based on peers’ feedback. If you disagree with a suggestion, use talk pages to politely discuss and come to a consensus on your edit.</li>
-          </ul>
-
-  - # Week twelve
-    weight: 4
-    blocks:
-      -
-        title: Discuss further article improvements
-        kind: 0
-        content: |
-          <ul>
-            <li>Continue discussing how the articles can be further improved. Come up with improvement goals for each article for next week.</li>
-          </ul>
-
-      -
-        title: Continue improving articles
-        kind: 1
-        content: |
-          <ul>
-            <li>Return to your classmates' articles you previously reviewed, and provide more suggestions for further improvement. If there is a disagreement, suggest a compromise.</li>
-            <li>Do additional research and writing to make further improvements to your article, based on your classmates' suggestions and any additional areas for improvement you can identify.</li>
-          </ul>
+          <p>
+            Continue to expand and improve your work, and format your article to
+            match Wikipedia's tone and standards. Remember to contact your
+            Content Expert at any time if you need further help!
+          </p>
 
       -
         if: presentation
@@ -467,7 +543,7 @@ essentials:
             <li>Prepare for an in-class presentation about your Wikipedia editing experience.</li>
           </ul>
 
-  - # Week thirteen
+  - # Week eleven
     weight: 10
     blocks:
       -
@@ -526,11 +602,11 @@ essentials:
             <li>Write a paper going beyond your Wikipedia article to advance your own ideas, arguments, and original research about your topic.</li>
           </ul>
 
-  - # Week fourteen
+  - # Week twelve
     weight: 10
     blocks:
       -
         title: All article edits are complete
         kind: 2
         content: |
-          <p>Students have finished all their work on Wikipedia that will be considered for grading.</p>
+          <p>Everyone should have finished all of the work they'll do on Wikipedia, and be ready for grading.</p>
