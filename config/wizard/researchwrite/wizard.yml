@@ -179,9 +179,6 @@
   minimum: 1
   options:
     -
-      title: 0
-      logic: 0_peer_reviewers
-    -
       title: 1
       logic: 1_peer_reviewers
     -
