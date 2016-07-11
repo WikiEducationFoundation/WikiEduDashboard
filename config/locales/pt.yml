@@ -9,6 +9,9 @@
 # Author: Vitorvicentevalente
 ---
 pt:
+  accessibility:
+    number_field: Isto é um campo numérico. Os botões mostrados pela maioria dos navegadores
+      vão aumentar ou reduzir o resultado.
   application:
     cancel: Cancelar
     dashboard: Painel do Programa de Educação
@@ -266,20 +269,77 @@ pt:
     timeline: Detalhes da tarefa
     timeline_link: Cronograma
     title: Título
+    training_due: O módulo de treinamento "%{title}" foi indicado para este curso
+      e deve ser realizado até %{date}.
+    training_nav: Ir ao treinamento
+    training_overdue: O módulo treinamento %{title} foi indicado para este curso e
+      deveria ter sido realizado até %{date}
+    unsubmitted: Cursos Não Submetidos
+    untrained: Sem treinamento
+    uploads_none: Esta classe não contribuiu com nenhuma imagem ou outros arquivos
+      de mídia no Wikimedia Commons.
+    weeks_none: Este curso não tem um cronograma ainda.
+    view: Ver Curso
+    view_doc: A soma de todas as visitas a artigos editados por editores inscritos
+      desde que o editor fez sua primeira edição em cada artigo
+    view_page: Ver a Página do Curso
     view_wiki: Ver na Wikipédia
     volunteer:
       one: Voluntário
       other: Voluntários
+    warn_mirrored: A partir da submissão, este curso será enviado automaticamente
+      à Wikipédia com sua conta de usuário. Depois disso, novas edições no cronograma
+      serão refletidas na Wikipédia. Você tem certeza de que deseja prosseguir?
+    wiki_staff: Equipe Wiki Ed
+    word_count_doc: Uma estimativa do número de palavras adicionadas ao espaço principal
+      pelos estudantes do curso durante o semestre do curso
     yourcourses: Os seus cursos
+    survey:
+      notification_message: Está disponível um questionário deste curso
+      link: Responder o Questionário
   courses_generic:
+    articles_none: Não há ainda artigos editados neste projeto.
+    assignment_end: Fim do Cronograma
+    assignments_none: Este projeto não tem artigos indicados.
+    assignment_start: Início do Cronograma
     courses: Programas
+    creator:
+      checking_for_uniqueness: Verificando se este curso é único.
+      course_description: Descrição do programa
+      course_school: Instituição
+      course_title: Título do programa
+      create_button: Criar meu Programa!
+      create_label: Criar Novo Programa
+      create_new: Criar um Novo Programa
+      create_short: Criar Programa
+      find: Encontrar um Programa
+      intro: Exige-se o título do programa; todo o resto pode ser editado posteriormente.
+        Clicar "Criar meu Programa!" para iniciar a criação a página de seu programa
+        wiki.
+    edit_course_dates: Editar Datas do Projeto
+    enroll: Adicionar Editor
     enrollment: Participação
+    expected_students: Editores Esperados
+    instructors: Facilitadores
+    milestones_none: Este projeto não tem atualmente nenhum marco de realização.
+    published: 'Este projeto foi publicado! Editores podem inscrever-se ao visitar
+      a seguinte URL:'
+    revisions_none: Este projeto não tem nenhuma atividade de edição recente.
+    school: Instituição
     student_editors: Editores
     students: Editores
+    students_none: Este projeto não tem editores cadastrados.
     students_short: Editores
     term: Quando
+    uploads_none: Este projeto não contribuiu com nenhuma imagem ou outro arquivo
+      de mídia no Wikimedia Commons.
+  editable:
+    edit: Editar
+    cancel: Cancelar
+    save: Salvar
   metrics:
     activity: Atividade recente
+    are_trained: estão em dia com o treinamento
     articles_created: Artigos criados
     articles_edited: Artigos editados
     characters: Caracteres
@@ -288,21 +348,65 @@ pt:
     char: Caracteres adicionados
     date_time: Data/Hora
     edit_count_description: Total de edições
+    per_user: '%{number}/usuário'
+    revisions: Edições Recentes
+    upload_count: Envios ao Commons
+    uploads_in_use_count:
+      one: arquivo usado em um artigo
+      other: arquivos usados em artigos
+    upload_usages_count:
+      one: total de uso considerando todos os idiomas
+      other: total de usos considerando todos os idiomas
     view_count_description: Visualizações de artigo
     view: Visualizações
+    word_count: Palavras Adicionadas
   namespace:
     main: Domínio principal
+    main_char_added: Caracteres adicionados ao domínio principal
     user: Domínio Utilizador
+    user_char_added: Caracteres adicionados ao domínio de usuário
     user_ns: Utilizador(a)
   recent_activity:
+    active_courses: O artigo está ativo em
+    article_title: Título do Artigo
+    datetime: Data/Horário
+    did_you_know_eligible: Sabia que Elegível
+    image: Imagem
+    file_name: Nome do Arquivo
+    no_dyk_eligible: Não há atualmente nenhum artigo "Sabia que..." elegível.
+    no_plagiarism: Não há atualmente nenhuma revisão suspeita de plágio.
     no_edits: Não existem edições recentes.
+    plagiarism_report: Relatório de Plágio
+    possible_plagiarism: Possível Plágio
     recent_edits: Edições recentes
     recent_uploads: Últimos Envios
+    revision_author: Autor da Revisão
+    revision_datetime: Data/Horário da Revisão
+    revision_score: Pontuação da Revisão
+    show_courses: Mostrar Apenas Meus Cursos
+    uploaded_by: Enviado por
+    usage_count: Total de Uso
   revisions:
+    chars_added: Caracteres Adicionados
+    class: Classe
     date_time: Data/Hora
-    edited_by: Editado por
+    diff: dif
+    edited_by: Editado Por
+    loading: Carregando revisões...
+    none: Este curso não tem nenhuma atividade recente de edição.
+    time_doc: Horário de cada revisão em seu horário local
     title: Título
+  tasks:
+    conseq: A tarefa %{task} está sendo executada!
+    constant: A tarefa %{task} não pode ser executada enquanto a tarefa update_daily
+      está sendo executada.
+    paused: A tarefa %{task} não pode ser executada porque atualizações programadas
+      foram pausadas. Execute 'rake batch:resume' para retomar atualizações.
   timeline:
+    add_week: Adicionar Semana
+    arrange_timeline: Organizar Cronograma
+    arrange_timeline_instructions: Organizar cronograma "arrastando e soltando" blocos
+      nos locais/semanas desejados ou recolocar os blocos usando as setas no cartão.
     title: Linha do tempo
   training:
     view: Ver

@@ -144,6 +144,7 @@ zh-CN:
       checking_for_uniqueness: 这个课程正在检查其独立性。
       cloned_course_calendar_instructions: 从时间表上选择日期以添加或移除它们（例如假日、不上课的时候）。点击日期以在未选择、已选择和假日状态之间更改。如果您没有假日，请勾选“我没有班级假日”。克隆的时间轴将利用没有预定会议的周，自动对账户调整日期。
       clone_successful: 课程已成功克隆
+      clone_successful_details: 您的课程已被克隆，包含时间轴的要素（周和块）。您的课程有什么别的东西更改么？请现在随意地更新它吧。
       course_description: 课程描述
       course_language: 主语言
       course_project: 主项目
@@ -344,10 +345,14 @@ zh-CN:
   timeline:
     add_week: 添加周
     arrange_timeline: 安排时间轴
+    arrange_timeline_instructions: 通过将块“拖放”到预定位置/周来排列时间轴，或通过卡片上的箭头重新定位块。
+    assignment_dates_instructions: 选择维基百科分配时间轴的开始和结束日期。更改开始日期将改变整个时间轴的日期。
+    blackout_week_created: 本周有计划的块。请在您移除从此周起的最近一次班会之前，将它们移动到另一周。
     block_assignment: 分配
     block_custom: 自定义
     block_in_class: 上课中
     block_milestone: 里程碑
+    block_type: 块类型用于向您的学生传达有关此项目在其时间轴上的情况，并为您建立有用的工具（例如概述页面上的里程碑概要）
     course_dates: 课程日期
     course_dates_instructions: 选择整个课程的开始和结束日期（而不只是维基百科分配）。
     course_end: 课程结束
