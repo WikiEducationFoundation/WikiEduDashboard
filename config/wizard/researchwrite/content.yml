@@ -88,6 +88,18 @@ essentials:
           </ul>
 
       -
+        if: blog_or_discussion_assignment
+        title: Wikipedia assignment blog
+        kind: 1
+        content: |
+          <p>
+            Begin a blog about your experiences. You can use
+            discussion questions to frame your entries, or reflect on the
+            research and writing process. Create at least one blog entry
+            each week during the Wikipedia assignment.
+          </p>
+
+      -
         title: Everyone has a Wikipedia account
         kind: 2
         content: |
@@ -137,7 +149,7 @@ essentials:
             consider some additional questions.
           </p>
           <ul>
-            <li>Wikipedians often talk about "content gaps." What do you think a content gap is, and what are ways to see where they appear?</li>
+            <li>Wikipedians often talk about "content gaps." What do you think a content gap is, and what are some possible ways to identify them?</li>
             <li>What are some reasons a content gap might arise? What are some ways to remedy them?</li>
             <li>Does it matter who writes Wikipedia?</li>
             <li>What does it mean to be "unbiased" on Wikipedia? How is that different, or similar, to your own definition of "bias"?</li>
@@ -259,7 +271,7 @@ essentials:
               <ul>
                 <li>
                   Think back to when you did an article critique. What can you add?
-                  Post some of your ideas to the article's talk page, too.
+                  Post some of your ideas to the article's talk page.
                 </li>
                 <li>
                   Compile a list of relevant, reliable books, journal articles,
@@ -344,7 +356,7 @@ essentials:
         title: Everyone has started writing
         kind: 2
         content: |
-          <p>All students should be writing articles or drafts on Wikipedia.</p>
+          <p>Everyone has begun writing their article drafts.</p>
 
   - # Week six
     weight: 3
@@ -356,7 +368,7 @@ essentials:
           <ul>
             <li>What do you think of Wikipedia's definition of "neutrality"?</li>
             <li>What are the impacts and limits of Wikipedia as a source of information?</li>
-            <li>Wikipedia is based entirely on sources that already exist. Can you think of any problems that might create?</li>
+            <li>On Wikipedia, all material must be attributable to reliable, published sources. What kinds of sources does this exclude?  Can you think of any problems that might create?</li>
             <li>If Wikipedia was written 100 years ago, how might its content (and contributors) be different? What about 100 years from now?</li>
           </ul>
 
@@ -366,6 +378,7 @@ essentials:
         content: |
           <ul>
             <li>Keep working on transforming your article into a complete first draft. Get draft ready for peer-review. </li>
+            <li>If you'd like a Content Expert to review your draft, now is the time! Click the "Get Help" button in your sandbox to request notes.</li>
           </ul>
 
       - # 1 peer review
@@ -382,7 +395,7 @@ essentials:
               to review, and then assign it to yourself in the Review column.
             </li>
             <li>
-              Peer review your classmate's draft. Leave suggestions on on the
+              Peer review your classmate's draft. Leave suggestions on the
               Talk page of the article, or sandbox, that your fellow student is
               working on. Other editors may be reviewing your work, so look for
               their comments! Be sure to acknowledge feedback from other Wikipedians.
@@ -464,8 +477,7 @@ essentials:
             <li>
               Return to your draft or article and think about the suggestions.
               Decide which ones to start implementing. Reach out to your instructor
-              or your Content Expert if you have any questions. (Remember, you
-              can use the "Get Help" button above).
+              or your Content Expert if you have any questions.
             </li>
           </ul>
 
@@ -518,7 +530,6 @@ essentials:
               and from other articles to your own. Try to link to 3–5 articles,
               and link to your article from 2–3 other articles.
             </li>
-            <li>If you'd like a Content Expert to review your draft, now is the time! Click the "Get Help" button in your sandbox to request notes.</li>
           </ul>
 
   - # Week ten
@@ -554,7 +565,7 @@ essentials:
         points: 10
         content: |
           <ul>
-            <li>Prepare for an in-class presentation about your Wikipedia editing experience.</li>
+            <li>Present about your Wikipedia editing experience.</li>
           </ul>
 
       -
@@ -563,11 +574,11 @@ essentials:
         graded: true
         points: 30
         content: |
+          <p>Editing Wikipedia</a>It's the final week to develop your article.</p>
           <ul>
-            <li>Add final touches to your Wikipedia article.</li>
+            <li>Read <a href="http://wikiedu.org/editingwikipedia">Editing Wikipedia</a> page 15 to review a final check-list before completing your assignment.</li>
+            <li>Don't forget that you can ask for help from your Content Expert at any time!</li>
           </ul>
-          <hr />
-          <p>Handout: <a href="https://commons.wikimedia.org/wiki/File:Polishing_your_articles.pdf">Polishing your article</a></p>
 
       -
         if: reflective_essay
