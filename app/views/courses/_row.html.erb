@@ -6,13 +6,24 @@
     <%= course.recent_edit_count %>
   </td>
   <td>
-    <span class="characters">
+    <span class="characters-human">
       <%= number_to_human course.word_count %>
     </span>
-    <small class="average-words">(<%= t("metrics.per_user", number: number_to_human(course.average_word_count)) %>)</small>
+    <span class="characters hidden">
+      <%= course.word_count %>
+    </span>
+    <small class="average-words-human">(<%= t("metrics.per_user", number: number_to_human(course.average_word_count)) %>)</small>
+    <span class="average-words hidden">
+      <%= course.average_word_count %>
+    </span>
   </td>
-  <td class="views">
-    <%= number_to_human course.view_sum %>
+  <td>
+    <span class="views-human">
+      <%= number_to_human course.view_sum %>
+    </span>
+    <span class="views hidden">
+      <%= course.view_sum %>
+    </span>
   </td>
   <td>
     <span class="students">
