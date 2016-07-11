@@ -1,5 +1,5 @@
-<tr data-link="<%= course_slug_path(course.slug) %>" class="<%= user ? date_highlight_class(course) : '' %>" role="button" tabindex="0">
-  <td class="<%= user ? 'u' : '' %>title title">
+<tr data-link="<%= course_slug_path(course.slug) %>" class="<%= user ? date_highlight_class(course) : '' %>">
+  <td class="<%= user ? 'u' : '' %>title title" role="button" tabindex="0">
     <%= course.title %>
   </td>
   <td class="revisions">
