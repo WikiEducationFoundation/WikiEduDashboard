@@ -574,7 +574,7 @@ essentials:
         graded: true
         points: 30
         content: |
-          <p>Editing Wikipedia</a>It's the final week to develop your article.</p>
+          <p>It's the final week to develop your article.</p>
           <ul>
             <li>Read <a href="http://wikiedu.org/editingwikipedia">Editing Wikipedia</a> page 15 to review a final check-list before completing your assignment.</li>
             <li>Don't forget that you can ask for help from your Content Expert at any time!</li>
