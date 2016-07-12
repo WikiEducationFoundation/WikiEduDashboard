@@ -20,9 +20,13 @@ SummaryPanel = React.createClass(
       # summary of the Course Dates panel
       if i == 0
         details = [
-          <p key={'course_dates_summary'}>{@props.course.start} &mdash; {@props.course.end}</p>
+          <p key={'course_dates_summary'}>
+            {I18n.t('timeline.course_start')}— {@props.course.start} <br />
+            {I18n.t('timeline.course_end')} — {@props.course.end} <br />
+            {I18n.t('courses.assignment_start')} — {@props.course.timeline_start} <br />
+            {I18n.t('courses.assignment_end')} — {@props.course.timeline_end}
+          </p>
         ]
-      # summary of the Assignment Dates panel
       else
         details = answer.selections.map (selection, j) ->
           <p key={'detail' + i + '' + j}>{selection}</p>
