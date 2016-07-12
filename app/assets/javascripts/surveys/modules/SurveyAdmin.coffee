@@ -112,16 +112,13 @@ SurveyAdmin =
     @$question_type_options.addClass 'hidden'
     switch type
       when 'Text'
-        @setQuestionTextEditor()
         @clearRangeInputOptions()
       when 'RangeInput'
         @hideQuestionTypes 'RangeInput'
         @showQuestionTypes 'RangeInput'
-        @resetQuestionText()
       else
         @hideQuestionTypes type
         @showQuestionTypes type
-        @resetQuestionText()
         @clearRangeInputOptions()
 
   hideQuestionTypes: (string) ->
@@ -136,20 +133,6 @@ SurveyAdmin =
         @$answer_options.removeClass 'hidden' if !@course_data
       when 'Long', 'Short'
         @$answer_options.addClass 'hidden'
-
-  setQuestionTextEditor: ->
-    if @question_html_backup?
-      @$question_text_input.val @question_html_backup
-    @$question_text_input.addClass 'hidden'
-    @$question_form_options.addClass 'hidden'
-    @$question_text_editor.html "<trix-editor input='question_text'></trix-editor>"
-
-  resetQuestionText: ->
-    @question_html_backup = @$question_text_input.val()
-    @$question_text_input.val @question_html_backup.replace(/(<([^>]+)>)/ig,"").replace('&nbsp;', ' ')
-    @$question_text_input.removeClass 'hidden'
-    @$question_form_options.removeClass 'hidden'
-    @$question_text_editor.empty()
 
   handleConditionalSelect: (e) ->
     id = e.target.value
