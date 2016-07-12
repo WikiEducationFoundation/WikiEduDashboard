@@ -28,6 +28,7 @@ AssignButton = React.createClass(
       showOptions: false
       language: @props.course.home_wiki.language
       project: @props.course.home_wiki.project
+      title: ''
     }
   shouldComponentUpdate: (nextProps, nextState) ->
     shallowCompare(this, nextProps, nextState)
@@ -102,7 +103,6 @@ AssignButton = React.createClass(
       AssignmentActions.addAssignment assignment
       # Post the new assignment to the server
       ServerActions.addAssignment assignment
-      @refs.lookup.clear()
       @setState(@getInitialState())
   unassign: (assignment) ->
     return unless confirm(I18n.t('assignments.confirm_deletion'))
