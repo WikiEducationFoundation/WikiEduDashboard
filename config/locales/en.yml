@@ -235,6 +235,8 @@ en:
       subject: Subject
     current: Current Courses
     delete_course: Delete course
+    dismiss_survey: Dismiss
+    dismiss_survey_confirm: Are you sure you want to permanently dismiss this survey?
     duration: Course Duration
     edit_course_dates: Edit Course Dates
     end: End

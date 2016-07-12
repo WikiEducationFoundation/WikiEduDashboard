@@ -46,16 +46,12 @@ Course = React.createClass(
     "/courses/#{@props.params.course_school}/#{@props.params.course_title}"
   _onCourseIndex: ->
     @props.location.pathname.split('/').length is 3
+  dismissSurvey: (surveyNotificationId) ->
+    if confirm I18n.t('courses.dismiss_survey_confirm')
+      CourseActions.dismissNotification(surveyNotificationId)
   render: ->
     alerts = []
     route_params = @props.params
-
-    if Features.enableGetHelpButton
-      getHelp = (
-        <div className="nav__button" id="get-help-button">
-          <GetHelpButton course={@state.course} current_user={@getCurrentUser()} key='get_help'/>
-        </div>
-      )
 
     courseLink =
       if @state.course.url?
@@ -68,6 +64,26 @@ Course = React.createClass(
     if @getCurrentUser().id?
       user_obj = UserStore.getFiltered({ id: @getCurrentUser().id })[0]
     user_role = if user_obj? then user_obj.role else -1
+
+    #################
+    # Timeline link #
+    #################
+    if @state.course.type == 'ClassroomProgramCourse'
+      timeline = (
+        <div className="nav__item" id="timeline-link">
+          <p><Link to={"#{@_courseLinkParams()}/timeline"} activeClassName='active'>{I18n.t("courses.timeline_link")}</Link></p>
+        </div>
+      )
+
+    ###################
+    # Get Help button #
+    ###################
+    if Features.enableGetHelpButton
+      getHelp = (
+        <div className="nav__button" id="get-help-button">
+          <GetHelpButton course={@state.course} current_user={@getCurrentUser()} key='get_help'/>
+        </div>
+      )
 
     ####################################
     # Admin / Instructor notifications #
@@ -143,24 +159,16 @@ Course = React.createClass(
         alerts.push(
           <div className='notification notification--survey' key='upcoming_module' key={"survey_notification_#{notification.id}"}>
             <div className='container'>
-              <div>
-                <p>{CourseUtils.i18n('survey.notification_message',@state.course.string_prefix)}</p>
-                <a href={notification.survey_url}>{CourseUtils.i18n('survey.link',@state.course.string_prefix)}</a>
-              </div>
-              <div><button className='dismiss pull-right' onClick={=> CourseActions.dismissNotification(notification.id)}>&#xd7;</button></div>
+              <p>{CourseUtils.i18n('survey.notification_message',@state.course.string_prefix)}</p>
+              <a href={notification.survey_url} className="button pull-right">{CourseUtils.i18n('survey.link',@state.course.string_prefix)}</a>
+              <button className='button small pull-right border inverse-border' onClick={=> @dismissSurvey(notification.id)}>{I18n.t("courses.dismiss_survey")}</button>
             </div>
           </div>
         )
 
-    if @state.course.type == 'ClassroomProgramCourse'
-      timeline = (
-        <div className="nav__item" id="timeline-link">
-          <p><Link to={"#{@_courseLinkParams()}/timeline"} activeClassName='active'>{I18n.t("courses.timeline_link")}</Link></p>
-        </div>
-      )
-
-    overviewLinkClassName = 'active' if @_onCourseIndex()
-
+    ####################
+    # Enrollment modal #
+    ####################
     if @props.location.query.enroll
       if @getCurrentUser().id?
         if user_role == -1
@@ -207,6 +215,9 @@ Course = React.createClass(
           <p>{I18n.t("courses.join_successful", title: @state.course.title) if @state.course.title}</p>
         </div>
       )
+
+
+    overviewLinkClassName = 'active' if @_onCourseIndex()
 
     <div>
       <div className="course-nav__wrapper">

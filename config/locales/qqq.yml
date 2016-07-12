@@ -162,7 +162,8 @@ qqq:
     loading: Placeholder message indicating that assignment data is still loading
     none_short: Short label for an empty list of assignments
     none: Label for an empty list of assignments
-    no_available: Message indicating that there are no articles in the list of "available
+    no_available: |-
+      Message indicating that there are no articles in the list of "available
       articles" for participants to select from.
     remove: |-
       Button to remove an article from the list of available articles
@@ -265,6 +266,8 @@ qqq:
         {{Identical|Subject}}
     current: Label for the list of current courses
     delete_course: Button to delete a course
+    dismiss_survey: Button label for dismissing a survey notification (Wiki Ed only)
+    dismiss_survey_confirm: Confirmation message for dismissing survey (Wiki Ed only)
     duration: Label for duration of a course
     end: |-
       Label for the end date of a course
