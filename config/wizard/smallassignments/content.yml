@@ -160,6 +160,9 @@ copyedit:
         graded: true
         points: 10
         content: |
-          <ul>
-            <li>Choose one article, identify ways in which you can improve and correct its language and grammar, and make the appropriate changes. (You do not need to alter the article's content.)</li>
-          </ul>
+          <p>
+            Choose an article. Read through it, thinking about ways to improve
+            the language, such as fixing grammatical mistakes. Then, make the
+            appropriate changes. You don’t need to contribute new information to
+            the article.
+          </p>
