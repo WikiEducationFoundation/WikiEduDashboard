@@ -69,20 +69,20 @@ translation_essentials:
         points: 5
         training_module_ids: [1,2,7,10] # Wikipedia essentials, Editing basics, Evaluate an article, Translating articles
         content: |
-            <ul>
-              <li>Create an account and join this course page, using the  enrollment link your instructor sent you.</li>
-              <li>
-                It's time to dive into Wikipedia. Below, you'll find the first set
-                of online trainings you'll need to take. New modules will appear
-                on this timeline as you get to new milestones. Be sure to check
-                back and complete them! Incomplete trainings will be reflected in
-                your grade.
-              </li>
-              <li>
-                When you finish the trainings, practice by introducing yourself to
-                a classmate on that classmate’s Talk page.
-              </li>
-            </ul>
+          <ul>
+            <li>Create an account and join this course page, using the  enrollment link your instructor sent you.</li>
+            <li>
+              It's time to dive into Wikipedia. Below, you'll find the first set
+              of online trainings you'll need to take. New modules will appear
+              on this timeline as you get to new milestones. Be sure to check
+              back and complete them! Incomplete trainings will be reflected in
+              your grade.
+            </li>
+            <li>
+              When you finish the trainings, practice by introducing yourself to
+              a classmate on that classmate’s Talk page.
+            </li>
+          </ul>
 
 translation_explore_to_find_articles:
   - # Week two
