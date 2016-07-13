@@ -18,46 +18,71 @@ translation_essentials:
     weight: 3
     blocks:
       -
-        title: Wikipedia essentials
+        title: Introduction to the Wikipedia project
         kind: 0 # In class
         content: |
+          <p>
+            Welcome to your Wikipedia project's course timeline. This page will
+            guide you through the Wikipedia project for your course. Be sure to
+            check with your instructor to see if there are other pages you should
+            be following as well.
+          </p>
+          <p>
+            Your course has also been assigned a Wikipedia Content Expert. Check
+            your Talk page for notes from them. You can also reach them through
+            the "<strong>Get Help</strong>" button on this page.
+          </p>
+          <p>
+            To get started, please review the following handouts:
+          </p>
           <ul>
-            <li>Overview of the course</li>
-            <li>Introduction to how Wikipedia will be used in the course</li>
-            <li>Understanding Wikipedia as a community, we'll discuss its expectations and etiquette.</li>
+            <li><a href="http://wikiedu.org/editingwikipedia">Editing Wikipedia</a> pages 1–5</li>
+            <li><a href="http://wikiedu.org/evaluatingwikipedia">Evaluating Wikipedia</a></li>
           </ul>
-          <hr />
-          <p>Handout: <a href="http://wikiedu.org/editingwikipedia">Editing Wikipedia</a></p>
+
       -
         if: ungraded_training
         title: Practicing the basics
         kind: 1
         training_module_ids: [1,2,7,10] # Wikipedia essentials, Editing basics, Evaluate an article, Translating articles
         content: |
-          <ul>
-            <li>Create an account and a user page on Wikipedia</li>
-            <li>Enroll in this course.</li>
-            <li>Complete the <em>Online Training for Language Students</em>.</li>
-            <li>To practice editing and communicating on Wikipedia, introduce yourself to another student on their user talk page.</li>
-          </ul>
-          <hr />
-          <p>Resources: <a href="https://en.wikipedia.org/wiki/Wikipedia:Training/For_language_students">Online Training for Language Students</a></p>
+            <ul>
+              <li>Create an account and join this course page, using the  enrollment link your instructor sent you.</li>
+              <li>
+                It's time to dive into Wikipedia. Below, you'll find the first set
+                of online trainings you'll need to take. New modules will appear
+                on this timeline as you get to new milestones. Be sure to check
+                back and complete them! Incomplete trainings will be reflected in
+                your grade.
+              </li>
+              <li>
+                When you finish the trainings, practice by introducing yourself to
+                a classmate on that classmate’s Talk page.
+              </li>
+            </ul>
+
       -
         if: graded_training
         title: Practicing the basics
         kind: 1
         graded: true
         points: 5
-        training_module_ids: [1,2,7] # Wikipedia essentials, Editing basics, Evaluate an article
+        training_module_ids: [1,2,7,10] # Wikipedia essentials, Editing basics, Evaluate an article, Translating articles
         content: |
-          <ul>
-            <li>Create an account and a user page on Wikipedia</li>
-            <li>Enroll in this course.</li>
-            <li>Complete the <em>Online Training for Language Students</em>.</li>
-            <li>To practice editing and communicating on Wikipedia, introduce yourself to another student on their user talk page.</li>
-          </ul>
-          <hr />
-          <p>Resources: <a href="https://en.wikipedia.org/wiki/Wikipedia:Training/For_language_students">Online Training for Language Students</a></p>
+            <ul>
+              <li>Create an account and join this course page, using the  enrollment link your instructor sent you.</li>
+              <li>
+                It's time to dive into Wikipedia. Below, you'll find the first set
+                of online trainings you'll need to take. New modules will appear
+                on this timeline as you get to new milestones. Be sure to check
+                back and complete them! Incomplete trainings will be reflected in
+                your grade.
+              </li>
+              <li>
+                When you finish the trainings, practice by introducing yourself to
+                a classmate on that classmate’s Talk page.
+              </li>
+            </ul>
 
 translation_explore_to_find_articles:
   - # Week two
