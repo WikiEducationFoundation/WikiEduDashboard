@@ -33,11 +33,9 @@ class WikiCourseEdits
     return response unless response['edit']
 
     # If it hit the spam blacklist, replace the offending links and try again.
-    bad_links = response['edit']['spamblacklist']
-    return response if bad_links.nil?
-    bad_links = bad_links.split('|')
-    safe_wiki_text = Wikitext.substitute_bad_links(wiki_text, bad_links)
-    @wiki_editor.post_whole_page(@current_user, wiki_title, safe_wiki_text, summary)
+    blacklist = response['edit']['spamblacklist']
+    return response if blacklist.nil?
+    repost_with_sanitized_links(wiki_title, wiki_text, summary, blacklist)
   end
 
   # Posts to the instructor's userpage, and also makes a public
@@ -100,6 +98,12 @@ class WikiCourseEdits
   end
 
   private
+
+  def repost_with_sanitized_links(wiki_title, wiki_text, summary, blacklist)
+    bad_links = blacklist.split('|')
+    safe_wiki_text = Wikitext.substitute_bad_links(wiki_text, bad_links)
+    @wiki_editor.post_whole_page(@current_user, wiki_title, safe_wiki_text, summary)
+  end
 
   def add_course_template_to_instructor_userpage(instructor)
     user_page = "User:#{instructor.username}"
