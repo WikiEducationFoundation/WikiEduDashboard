@@ -169,6 +169,8 @@ zh-CN:
       subject: 主题
     current: 当前课程
     delete_course: 删除课程
+    dismiss_survey: 关闭
+    dismiss_survey_confirm: 您确定要永久关闭此调查么？
     duration: 课程持续时间
     edit_course_dates: 编辑课程日期
     end: 结束

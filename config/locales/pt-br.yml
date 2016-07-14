@@ -10,6 +10,7 @@
 # Author: LucyDiniz
 # Author: Luk3
 # Author: Macofe
+# Author: Peter Fernando
 # Author: Raphaelras
 ---
 pt-br:
@@ -207,6 +208,8 @@ pt-br:
       subject: Tema
     current: Cursos atuais
     delete_course: Eliminar curso
+    dismiss_survey: Dispensar
+    dismiss_survey_confirm: Tem certeza que deseja ignorar permanentemente este questionário?
     duration: Duração do curso
     edit_course_dates: Editar data do Curso
     end: Fim

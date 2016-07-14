@@ -114,6 +114,8 @@ ko:
       assignment_start: 과제 시작
       assignment_start_placeholder: 과제 시작 (YYYY-MM-DD)
       clone_successful: 과정이 성공적으로 복제되었습니다
+      course_language: 주 언어
+      course_project: 주 프로젝트
       course_term_placeholder: 학기
       no_class_holidays: 휴강이 없습니다
       save_cloned_course: 새 코스 저장
@@ -322,4 +324,5 @@ ko:
     follow_up_explanation: 알림 이메일을 더 이상 원치 않으면 빈 칸으로 두십시오.
     email:
       headline: 안녕하세요, %{username}님
+      link: 설문 조사 참가
 ...

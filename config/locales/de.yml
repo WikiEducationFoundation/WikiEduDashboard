@@ -201,6 +201,9 @@ de:
       subject: Thema
     current: Aktuelle Kurse
     delete_course: Kurs löschen
+    dismiss_survey: Ausblenden
+    dismiss_survey_confirm: Bist du sicher, dass du diese Umfrage dauerhaft ausblenden
+      möchtest?
     duration: Kursdauer
     edit_course_dates: Kursdaten bearbeiten
     end: Ende

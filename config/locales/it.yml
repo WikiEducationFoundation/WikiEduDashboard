@@ -174,6 +174,9 @@ it:
       start_date_placeholder: Data di inizio (YYYY-MM-DD)
     current: Corsi attuali
     delete_course: Cancella corso
+    dismiss_survey: Nascondi
+    dismiss_survey_confirm: Sei sicuro di voler nascondere definitivamente questo
+      sondaggio?
     duration: Durata del corso
     edit_course_dates: Modifica date del corso
     end: Fine

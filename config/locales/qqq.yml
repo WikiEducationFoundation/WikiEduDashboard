@@ -266,7 +266,9 @@ qqq:
         {{Identical|Subject}}
     current: Label for the list of current courses
     delete_course: Button to delete a course
-    dismiss_survey: Button label for dismissing a survey notification (Wiki Ed only)
+    dismiss_survey: |-
+      Button label for dismissing a survey notification (Wiki Ed only)
+      {{Identical|Dismiss}}
     dismiss_survey_confirm: Confirmation message for dismissing survey (Wiki Ed only)
     duration: Label for duration of a course
     end: |-
@@ -284,11 +286,12 @@ qqq:
     instructor:
       one: |-
         Label for a single instructor of a course (Wiki Ed only)
-        {{Identical|Label for plural instructors of a course (Wiki Ed only)
-        {{Identical|Instructor}}}}
+        {{Identical}}|Instructor|Label for plural instructors of a course (Wiki Ed only)
+        {{Identical|Instructor}}}}}}
       other: |-
-        Instructor|Label for plural instructors of a course (Wiki Ed only)
-        {{Identical|Instructor}}}}
+        Label for plural instructors of a course (Wiki Ed only)
+        {{Identical}}|Instructor|Label for plural instructors of a course (Wiki Ed only)
+        {{Identical|Instructor}}}}}}
     instructors: Label for the list of instructors for a program.
     invitation: Message that you have been invited to a course
     join: |-
@@ -361,11 +364,12 @@ qqq:
     volunteer:
       one: |-
         Label for a single course volunteer
-        {{Identical|Label for multiple course volunteers
-        {{Identical|Volunteer}}}}
+        {{Identical}}|Volunteer|Label for multiple course volunteers
+        {{Identical|Volunteer}}}}}}
       other: |-
-        Volunteer|Label for multiple course volunteers
-        {{Identical|Volunteer}}}}
+        Label for multiple course volunteers
+        {{Identical}}|Volunteer|Label for multiple course volunteers
+        {{Identical|Volunteer}}}}}}
     warn_mirrored: Message to alert instructor that their new course will be uploaded
       to Wikipedia on their behalf (Wiki Ed only)
     wiki_staff: Label for staff members supporting the course (Wiki Ed only)

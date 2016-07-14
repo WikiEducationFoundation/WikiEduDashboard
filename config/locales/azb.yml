@@ -8,11 +8,13 @@ azb:
   application:
     cancel: وازگئچ
     dashboard: ویکی‌اد داشبوردو
+    error: بیر خطا باش وئردی.
     greeting2: خوش گلدینیز!
     greeting_extended: ویکی‌پدیایا خوش گلدینیز
     greeting: سالام!
     help: کؤمک
     home: ائو
+    log_in_extended: ویکی‌پدیایلا گیر
     log_in: گیریش
     log_out: چیخیش
     my_dashboard: داشبوردوم
@@ -29,11 +31,17 @@ azb:
     sign_up: ویکی‌پدیا ایله آد یازدیر
   activity:
     all: چالیشما
+    edited_by: دییشدیرن
     label: چالیشما
   articles:
     edited_mobile: مقاله‌لر
     label: مقاله‌لر
+    loading: مقاله‌لر یۆکلنیر...
+    new: (یئنی)
     title: باشلیق
+    title_example: مقاله باشلیغی
+    view: مقاله‌یه باخ
+    view_all: هامی‌سینا باخ
   assignments:
     remove: سیل
     select: سئچ

@@ -213,6 +213,9 @@ fr:
       subject: Sujet
     current: Cours actuels
     delete_course: Supprimer le cours
+    dismiss_survey: Rejeter
+    dismiss_survey_confirm: Êtes-vous sûr de vouloir rejeter de façon définitive ce
+      sondage ?
     duration: Durée du cours
     edit_course_dates: Modifier les dates du cours
     end: Fin

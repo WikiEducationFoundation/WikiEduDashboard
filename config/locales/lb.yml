@@ -66,7 +66,7 @@ lb:
       gouf
   assignments:
     add_available: En disponibelen Artikel derbäisetzen
-    no_available: Dëse Cours huet keng disponibel Wikipedia-Artikelen.
+    no_available: Dëse Cours huet keng disponibel Artikelen.
     remove: Ewechhuelen
     review_self: En Artikel nokucken
     select: Eraussichen
@@ -97,6 +97,7 @@ lb:
       subject: Sujet
     current: Aktuell Coursen
     delete_course: Cours läschen
+    dismiss_survey: Verwerfen
     duration: Dauer vum Cours
     edit_course_dates: Datume vum Cours änneren
     end: Schluss
@@ -180,7 +181,7 @@ lb:
     diff: Ënnerscheed
     edited_by: Geännert Vum
     loading: Versioune lueden...
-    none: Dëse Cours huet keng rezent Wikipedia-Ännerungsaktivitéit.
+    none: Dëse Cours huet keng rezent Ännerungsaktivitéit.
     time_doc: D'Zäit vun all Versioun an Ärer lokaler Zäit
     title: Titel
   timeline:

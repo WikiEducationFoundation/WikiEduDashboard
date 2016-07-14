@@ -203,6 +203,7 @@ pt:
       subject: Tema
     current: Cursos atuais
     delete_course: Eliminar curso
+    dismiss_survey: Ignorar
     duration: Duração do curso
     edit_course_dates: Editar datas do curso
     end: Fim
@@ -328,15 +329,15 @@ pt:
     school: Instituição
     student_editors: Editores
     students: Editores
-    students_none: Este projeto não tem editores cadastrados.
+    students_none: Este projeto não tem editores registados.
     students_short: Editores
     term: Quando
-    uploads_none: Este projeto não contribuiu com nenhuma imagem ou outro arquivo
-      de mídia no Wikimedia Commons.
+    uploads_none: Este projeto não contribuiu com nenhuma imagem ou outro ficheiro
+      multimédia no Wikimedia Commons.
   editable:
     edit: Editar
     cancel: Cancelar
-    save: Salvar
+    save: Gravar
   metrics:
     activity: Atividade recente
     are_trained: estão em dia com o treinamento
@@ -348,7 +349,7 @@ pt:
     char: Caracteres adicionados
     date_time: Data/Hora
     edit_count_description: Total de edições
-    per_user: '%{number}/usuário'
+    per_user: '%{number}/utilizador'
     revisions: Edições Recentes
     upload_count: Envios ao Commons
     uploads_in_use_count:
@@ -391,7 +392,7 @@ pt:
     class: Classe
     date_time: Data/Hora
     diff: dif
-    edited_by: Editado Por
+    edited_by: Editado por
     loading: Carregando revisões...
     none: Este curso não tem nenhuma atividade recente de edição.
     time_doc: Horário de cada revisão em seu horário local

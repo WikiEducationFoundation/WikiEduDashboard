@@ -6,18 +6,53 @@
 ---
 br:
   application:
+    cancel: Nullañ
     dashboard: Taolenn-stur kemmañ ar wiki
+    error: 'Ur fazi a oa :'
+    explore: Ergerzhet
+    field_required: Rekis eo leuniañ ar vaezienn-mañ
+    field_invalid_characters: Er vaezienn-mañ ez eus arouezioù n'int ket mat
+    field_invalid_date: Ret eo lakaat un deiziad er furmad AAAA-MM-JJ er vaezienn-mañ
+    greeting2: Deuet-mat oc'h !
+    greeting_extended: Donemat e Wikipedia
+    greeting: Demat !
+    help: Skoazell
+    home: Degemer
+    log_in_extended: Kevreañ ouzh Wikipedia
+    log_in: Kevreañ
+    log_out: Digevreañ
+    my_dashboard: Ma zaolenn-vourzh
+    recent_activity: Oberiantiz nevez
+    search: Sevel ur goulenn
+    sign_up_extended: En em enskrivañ gant Wikipedia
+    sign_up_log_in_extended: gant Wikipedia
+    sign_up: En em enskrivañ
+    submit: Kas
+    training: Stummadur
+    change: Kemmañ
+  dashboard:
+    create_note: Klikit war Krouiñ ur gentel evit krouiñ ho kentel gentañ.
+    explore_course_pages: Ergerzhet ar pajennadoù kentelioù
+    explore_examples: Ergerzhet ar skouerioù
+  home:
+    explore: Ergerzhet
+    log_in: Kevreañ ouzh Wikipedia
+    sign_up: En em enskrivañ gant Wikipedia
   activity:
     all: Obererezh
     edited_by: Kemmet gant
+    label: Obererezh
   articles:
     assigned: Pennadoù deverket
+    available: Pennadoù a c'haller kaout
     assigned_to: Deverket da
-    character_doc: Hollad an niver a arouezennoù ouzhpennet d'ar pennadoù gant ar
-      studierien e-pad ar gentel
+    character_doc: Hollad an niver a arouezennoù ouzhpennet d'ar pennadoù gant an
+      embannerien etre an deiziadoù kregiñ hag echuiñ
     edited: Pennadoù kemmet
     edited_mobile: Pennadoù
+    label: Pennadoù
     loading: Kargañ pennadoù...
+    new: (Nevez)
     none: Gant ar gentel-mañ n'eus bet kemmet pennad ebet.
     rating: Rummad
     rating_docs:
@@ -33,6 +68,7 @@ br:
       list: Klas roll - ur roll kentoc'h eget ur pennad kustum
       '?': Nann rummet - ur pennad n'eo ket notennet c'hoazh war skeulenn galite Wikipedia
     title: Titl
+    title_example: Titl ar pennad
     view: Diskwel ar pennad
     view_all: Gwelet pep tra
     view_doc: Hollad an holl welioù war bep pennad e-pad ar gentel
@@ -42,21 +78,54 @@ br:
     confirm_addition: Ha sur eo ho peus c'hoant da zeverkañ %{title} da %{username}
     confirm_deletion: Ha sur oc'h hoc'h eus c'hoant da zilemel an deverkadenn-mañ
       ?
+    label: Deverkañ
     loading: O pellgargañ deverkadennoù...
-    none: Ar gentel-mañ n'he deus pennad Wikipedia ebet deverket.
+    none_short: Pennad ebet deverket
+    none: Ar gentel-mañ n'he deus pennad ebet deverket.
+    remove: Lemel
     reviewers: Reizher(ien)
+    review_self: Adlenn ur pennad
+    select: Diuzañ
   blocks:
     milestones:
       title: Mein-bonn
   cohort:
+    none: Hini ebet
     view_other: Diskwel ar bagadoù all
   courses:
     activity: Obererezh
     articles: Pennadoù
     course_description: Kentel evit kemmañ wiki
     courses: Kentelioù
+    creator:
+      course_description: Deskrivadur ar gentel
+      course_language: Yezh al lec'hienn
+      course_project: Raktres personel
+      course_school: Skol ar gentel
+      course_subject: Danvez ar gentel
+      course_term: Mare ar gentel
+      course_term_placeholder: Termen
+      course_title: Titl ar gentel
+      create_button: Krouiñ ma C'hentel !
+      create_label: Krouiñ ur gentel nevez
+      create_new: Krouiñ ur gentel nevez
+      create_short: Krouiñ ar vammenn
+      end_date: Deiziad echuiñ
+      end_date_placeholder: Deiziad echuiñ (AAAA-MM-JJ)
+      expected_number: Niver a studierien gortozet
+      find: Kavit ho kentel
+      save_cloned_course: Enrollañ ar gentel nevez
+      start_date: Deiziad kregiñ
+      start_date_placeholder: Deiziad kregiñ (AAAA-MM-JJ)
+      subject: Danvez
     current: Kentelioù a vremañ
+    delete_course: Diverkañ ar gentel
+    dismiss_survey: Disteurel
     duration: Pad ar gentel
+    edit_course_dates: Kemmañ deiziadoù ar gentel
+    end: Dibenn
+    enroll: En em enskrivañ
+    enrollment: Enskrivadur
     error:
       exists: Ar gentel-mañ zo anezhi c'hoazh ! Klaskit, mar plij, gant un titl, ur
         skol, pe un termen all.
@@ -64,22 +133,65 @@ br:
     instructor:
       one: Kelenner
       other: Kelennerien
+    loading: O kargañ...
+    my_articles: Ma fennadoù
     new_week: Ouzhpennañ ur sizhunvezh nevez
     nocourses: Ne gemerit perzh e kentel ebet.
+    none: Hini ebet
     overview: Brassell
     revisions_doc: An niver a gemmoù en %{timeframe} deiz tremenet
+    school: Skol
+    start: Kregiñ
+    start_typing: Kregiñ da vizskrivañ
     students: Studierien
     students_none: N'eus studier ebet enrollet er gentel-mañ.
     students_short: Studierien
+    term: Termen
     timeline: Munudoù deverkañ
+    timeline_link: Deiziataer
     title: Titl
+    untrained: Hep stummadur
+    uploads_none: Ar rummmad-mañ n'en deus ket degaset e lod gant skeudenn ebet pe
+      gant restr vedia ebet e Wikipedia Commons
+    weeks_none: N'eus implij amzer ebet evit ar gentel-mañ c'hoazh.
     view: Diskwel ar gentel
+    view_page: Diskwel pajenn ar gentel
     view_wiki: Diskwel war Wikipedia
     volunteer:
       one: Den a-youl vat
       other: Tud a-youl vat
     wiki_staff: Skipailh embann wiki
     yourcourses: Ho kentelioù
+    survey:
+      notification_message: Ur sontadeg a c'haller kaout evit ar gentel-mañ
+      link: Kemer perzh er sontadeg
+  courses_generic:
+    articles_none: N'eus pennad ebet kemmet evit ar raktres-se.
+    assignment_end: Dibenn ar gronologiezh
+    assignment_start: Kregiñ ar gronologiezh
+    courses: Programmoù
+    creator:
+      course_description: Deskrivadur ar programm
+      course_school: Ensavadur
+      course_title: Ttl ar programm
+      create_button: Krouiñ ma Frogram !
+      create_label: Krouiñ ur programm nevez
+      create_new: Krouiñ ur programm nevez
+      create_short: Krouiñ ur programm !
+      find: Kavout ur programm
+    edit_course_dates: Kemmañ deiziadoù ar raktres
+    enroll: Ouzhpennañ un embanner
+    instructors: Buhezourien
+    school: Ensavadur
+    student_editors: Embannerien
+    students: Embannerien
+    students_none: Ar raktres-mañ n'en deus embanner ebet enskrivet.
+    students_short: Embannerien
+    term: Peur
+  editable:
+    edit: Kemmañ
+    cancel: Nullañ
+    save: Enrollañ
   metrics:
     activity: Oberiantiz nevez
     articles_created: Pennadoù krouet
@@ -90,35 +202,87 @@ br:
     char: Arouezennoù ouzhpennet
     date_time: Deiz/Eur
     edit_count_description: Hollad ar c'hemmoù
+    per_user: '%{number}/implijer'
+    revisions: Kemmoù nevez
+    uploads_in_use_count:
+      one: restr implijet en ur pennad
+      other: restroù implijet e pennadoù
+    upload_usages_count:
+      one: niver a implij en holl er yezhoù
+      other: niver a implijoù en holl er yezhoù
     view_count_description: Pennadoù gwelet
     view: Gweladennoù
+    word_count: Gerioù ouzhpennet
   namespace:
     main: Egorenn bennañ
     main_char_added: Arouezennoù ouzhpennet d'an egorenn bennañ
     user: Egorenn implijerien
     user_char_added: Arouzennoù ouzhpennet d'an egorenn implijerien
     user_ns: Implijer
+  recent_activity:
+    active_courses: Oberiant eo ar pennad e
+    article_title: Titl ar pennad
+    datetime: Deiziad/Eur
   revisions:
+    date_time: Deiz/Eur
+    diff: dif
+    edited_by: Kemmet gant
     loading: O kargañ an adweladurioù...
+    none: N'eo ket bet kemmet ar gentel-mañ nevez zo.
     time_doc: Amzer pep adweladur en hoc'h eur lec'hel.
+    title: Titl
   timeline:
+    add_week: Ouzhpennañ un dibenn-sizhun
+    arrange_timeline: Aozañ an implij-amzer
+    block_custom: Personelaet
+    block_milestone: Maen-bonn
     due_default: Ar sizhun a zeu
+    empty_week_3: pe
+    this_week_title_default: Er sizhun-mañ
     title: Kronologiezh
+    week_number: Sizhun %{number}
+  training:
+    continue: Kenderc'hel(%{progress})
+    start: Kregiñ
+    view: Diskwel
   uploads:
+    datetime: Deiz/Eur
+    file_name: Anv ar restr
+    header: Restroù pellgarget e Wikimédia Communs
+    image: Skeudenn
     none: Ar rummmad-mañ n'en deus ket degaset e lod gant skeudenn ebet pe gant restr
       vedia ebet e Wikipedia Commons
     time_doc: Eur pep pellgargadennoù en hoc'h eur lec'hel
+    usage_count: Niver a implijoù
     usages: Implijoù
   users:
     already_enrolled: Enskrivet eo an implijer-mañ dija !
+    assign_articles: Dezverkañ pennadoù
+    assign_articles_done: Graet
     assigned: Pennadoù deverket
     assignees: Deverkadenn(où)
     contributions: Degasadennoù an implijer
     contributions_more: Diskwel muioc'h a zegasadennoù
+    course_passcode: 'Kod moned :'
     editors: Studierien embannerien
+    enroll_confirmation: Ha suc'h eo hoc'h eus c'hoant da ouzhpennañ %{username}?
+    enroll_url: 'Gallout a ra an implijerien en em skrivañ en ur vont d''an URL-mañ
+      :'
+    enrolled_success: '%{username} zo bet ouzhpennet!'
+    first_name: Anv-bihan
+    last_name: Anv-familh
     loading: Pellgargadenn an implijerien...
+    characters_added_mainspace: Arouezennoù MS ouzhpennet
+    my_assigned: 'Deverket :'
+    my_reviewing: 'Reizhañ :'
     name: Nom
-    none: N'eus studier ebet er gentel-mañ.
+    none: N'eus studier ebet.
+    no_articles: Pennad ebet
+    number_of_articles:
+      one: '%{count} video'
+      other: '%{count} video'
+    recent_revisions: Kemmoù nevez
+    remove_confirmation: Ha suc'h eo hoc'h eus c'hoant da zilemel %{username}?
     reviewers: Reizher(ien)
     reviewing: Reizhañ
     training_complete:
@@ -126,6 +290,8 @@ br:
       other: o deus echuet da c'hourdonnañ
     training_complete_count: '%{count}o deus/en deus echuet da c''houdonañ'
     training_incomplete: Stummadur diechu
+    username: Implijer
+    username_placeholder: Implijer
   wizard:
     assignment_dates: Seurt deverkadenn
     assignment_description: Dibab deizioù deroù ha dibenn an deverkadenn-mañ
@@ -134,6 +300,9 @@ br:
     read_less: Lenn nebeutoc'h
     read_more: Lenn muioc'h
     summary: Diverradur
+  error:
+    article_required: Ezhomm zo eus ur pennad
+    form_errors: Gwiriit, mar plij, fazioù ar furmskrid.
   error_401:
     header: Nann aotreet >:-(
     explanation: N'oc'h aotreet da seveniñ ar reked-mañ. Ma soñjit ho peus resevet
@@ -147,4 +316,13 @@ br:
     header: 500 - fazi diabarzh ar servijer. :-(
     explanation: Un dra bennak a-dreuz a zo bet. Kit e darempred, mar plij gant an
       daolenn-stur-mañ evit kelaouiñ anezho ez eus ur gudenn.
+  login_error:
+    header: Fazi kevreañ
+  survey:
+    email:
+      headline: Demat, %{username}
+      course: 'Cours : %{course_info}'
+      closing: A-wir-galon ganeoc'h.
+      signed: '- ar skipailh Wiki Ed'
+      link: Kemer perzh er sontadeg
 ...

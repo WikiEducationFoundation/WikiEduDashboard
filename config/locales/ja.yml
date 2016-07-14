@@ -66,6 +66,7 @@ ja:
       end_date: 終了日
       end_date_placeholder: 終了日 (YYYY-MM-DD)
       start_date: 開始日
+    dismiss_survey: 閉じる
     instructors: 講師
     join: 参加
     join_prompt: 「%{title}」に参加しますか?

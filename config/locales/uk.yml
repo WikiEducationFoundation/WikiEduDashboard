@@ -201,6 +201,8 @@ uk:
       subject: Тема
     current: Поточні курси
     delete_course: Вилучити курс
+    dismiss_survey: Приховати
+    dismiss_survey_confirm: Ви впевнені, що хочете назавжди приховати це опитування?
     duration: Тривалість курсу
     edit_course_dates: Редагувати дати курсу
     end: Кінець
@@ -349,6 +351,12 @@ uk:
     per_user: '%{number} на користувача'
     revisions: Недавні редагування
     upload_count: Завантаження у Вікісховище
+    uploads_in_use_count:
+      one: файл використовується у статті
+      other: файли використовується у статтях
+    upload_usages_count:
+      one: загальне використання в різних мовах
+      other: загальні використання в різних мовах
     view_count_description: Переглядів статей
     view: Переглядів
     word_count: Слів додано
@@ -418,6 +426,10 @@ uk:
       цей тиждень та всі блоки пов'язані з ним.
     discard_all_changes: Скасувати всі зміни
     due_default: До наступного тижня
+    empty_week_1: Для початку
+    empty_week_2: почніть редагувати цього тижня
+    empty_week_3: або
+    empty_week_4: почніть з шаблонного завдання.
     first_week_title: Перший активний тиждень
     gradeable_value: Значення
     gradeables_none: Цей графік ще не має завдань позначених як оцінені.
@@ -485,6 +497,9 @@ uk:
     none: Немає учасників.
     no_articles: Немає статей
     no_revisions: Цей редактор не зробив жодних редагувань.
+    number_of_articles:
+      one: '%{count} стаття'
+      other: '%{count} статті'
     recent_revisions: Останні зміни
     remove_confirmation: Ви дійсно хочете вилучити %{username}?
     revision_characters_and_views: 'Додано символів: %{characters}, переглядів: %{views}'
@@ -498,6 +513,9 @@ uk:
     training_doc: Редактори, котрі завершили всі навчальні модулі вчасно пораховані
       як без запізнень у навчанні.
     training_incomplete: Навчання не завершене
+    training_modules_completed:
+      one: Завершено %{completed_count} тренувальний модуль з %{count}
+      other: Завершено %{completed_count} тренувальні модулі з %{count}
     up_to_date_with_training: без запізнень у навчанні
     username: Ім'я користувача
     username_placeholder: Ім'я користувача

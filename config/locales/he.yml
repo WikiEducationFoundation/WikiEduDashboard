@@ -176,6 +176,8 @@ he:
       subject: נושא
     current: קורסים נוכחיים
     delete_course: מחיקת הקורס
+    dismiss_survey: סגירה
+    dismiss_survey_confirm: האם ברצונך לסגור לצמיתות את הסקר הזה?
     duration: משך הקורס
     edit_course_dates: עריכת תאריכים קורסים
     end: סוף

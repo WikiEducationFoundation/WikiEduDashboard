@@ -4,11 +4,13 @@
 # Author: Macofe
 # Author: Milicevic01
 # Author: Srdjan m
+# Author: Сербијана
 ---
 sr-ec:
   application:
     dashboard: Контролна табла Вики Ед-а
     log_in: Пријави ме
+    recent_activity: Скорашња активност
   activity:
     all: Активност
     edited_by: Уредио корисник

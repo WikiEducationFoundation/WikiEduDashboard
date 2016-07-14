@@ -210,6 +210,9 @@ es:
       subject: Asunto
     current: Cursos actuales
     delete_course: Eliminar curso
+    dismiss_survey: Descartar
+    dismiss_survey_confirm: ¿Estás seguro de que quieres descartar permanentemente
+      esta encuesta?
     duration: Duración del curso
     edit_course_dates: Editar las fechas del curso
     end: Fin
