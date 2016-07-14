@@ -12,6 +12,13 @@ class ApplicationController < ActionController::Base
            status: :unauthorized
   end
 
+  # Stop index.php routes from causing the kinds of errors that get reported
+  # to Sentry.
+  rescue_from ActionController::UnknownFormat do
+    render plain: t('error_404.explanation'),
+           status: 404
+  end
+
   before_action :check_for_sitenotice
   before_action :check_for_expired_oauth_credentials
   before_action :check_for_unsupported_browser
