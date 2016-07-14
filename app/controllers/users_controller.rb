@@ -67,8 +67,7 @@ class UsersController < ApplicationController
   def add
     fetch_enroll_records
     if !@user.nil?
-      # Instructors and others with non-student roles may not enroll as students
-      if @user.can_edit?(@course) && enroll_params[:role].to_i == CoursesUsers::Roles::STUDENT_ROLE
+      unless can_enroll?
         render json: { message: 'Instructors and volunteers cannot enroll as students.' },
                status: 404
         return
@@ -123,6 +122,14 @@ class UsersController < ApplicationController
       @user = User.find_by(username: username)
       @user = UserImporter.new_from_username(username) if @user.nil?
     end
+  end
+
+  def can_enroll?
+    return true unless enroll_params[:role].to_i == CoursesUsers::Roles::STUDENT_ROLE
+    return true if @user.admin?
+    # Instructors and others with non-student roles may not enroll as students.
+    return false if @user.can_edit?(@course)
+    true
   end
 
   def enroll_params

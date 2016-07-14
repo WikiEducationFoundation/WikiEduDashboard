@@ -53,6 +53,26 @@ describe UsersController do
       end
     end
 
+    context 'POST with student role, when the user is an admin' do
+      before do
+        allow(controller).to receive(:current_user).and_return(admin)
+      end
+
+      let(:post_params) do
+        { id: course.slug,
+          user: { user_id: admin.id, role: CoursesUsers::Roles::STUDENT_ROLE }.as_json }
+      end
+      before do
+        post 'enroll', post_params
+      end
+      it 'returns a 200' do
+        expect(subject).to eq(200)
+      end
+      it 'enrolls the user' do
+        expect(CoursesUsers.where(role: CoursesUsers::Roles::STUDENT_ROLE).count).to eq(1)
+      end
+    end
+
     context 'POST with nonstudent role, when the user is an admin' do
       before do
         allow(controller).to receive(:current_user).and_return(admin)
