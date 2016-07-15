@@ -12,7 +12,7 @@ AllCops:
     - 'bin/**/*'
     - 'vendor/**/*'
     - 'app/views/**/**/*.haml'
-  TargetRubyVersion: 2.1
+  TargetRubyVersion: 2.3
 
 Metrics/LineLength:
   Max: 100

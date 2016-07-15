@@ -7,8 +7,8 @@ class TrainingModule < FromYaml
   #################
   # Class methods #
   #################
-  def self.load(*)
-    super path_to_yaml: "#{Rails.root}/training_content/modules/*.yml",
+  def self.load(base_path:)
+    super path_to_yaml: "#{base_path}/modules/*.yml",
           cache_key: 'modules'
   end
 
