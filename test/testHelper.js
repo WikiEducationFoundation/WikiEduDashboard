@@ -32,6 +32,7 @@ global.I18n = I18n;
 global.chai = chai;
 global.expect = chai.expect;
 global.assert = chai.assert;
+global.Features = {};
 
 require('../public/assets/javascripts/i18n/en');
 
