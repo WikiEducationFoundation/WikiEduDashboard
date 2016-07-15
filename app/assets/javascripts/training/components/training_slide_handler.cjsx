@@ -107,7 +107,7 @@ TrainingSlideHandler = React.createClass(
       nextHref = if @userLoggedIn() then '/' else "/training/#{@props.params.library_id}"
       nextLink = <a href={nextHref} className='btn btn-primary pull-right'>Done!</a>
 
-    if !@userLoggedIn()
+    if !@userLoggedIn() && !Features.disableTraining
       loginWarning = (
         <div className='training__slide__notification' key='not_logged_in'>
           <div className='container'>
