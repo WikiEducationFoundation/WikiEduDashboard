@@ -8,7 +8,7 @@ class TrainingLibrary < FromYaml
   #################
   # Class methods #
   #################
-  def self.load(base_path:)
+  def self.load(*)
     super path_to_yaml: "#{base_path}/libraries/*.yml",
           cache_key: 'libraries'
   end

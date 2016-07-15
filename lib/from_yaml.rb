@@ -51,6 +51,14 @@ class FromYaml
     raise DuplicateSlugError, "duplicate #{type} slug detected: #{duplicate_slug}"
   end
 
+  def self.base_path
+    if ENV['training_path']
+      "#{Rails.root}/#{ENV['training_path']}"
+    else
+      "#{Rails.root}/training_content/wiki_ed"
+    end
+  end
+
   class DuplicateSlugError < StandardError
   end
 

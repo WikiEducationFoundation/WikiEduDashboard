@@ -7,7 +7,7 @@ class TrainingSlide < FromYaml
   #################
   # Class Methods #
   #################
-  def self.load(base_path:)
+  def self.load(*)
     super path_to_yaml: File.join("#{base_path}/slides/**", '*.yml'),
           cache_key: 'slides',
           trim_id_from_filename: true
