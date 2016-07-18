@@ -1,6 +1,7 @@
 # Messages for Lithuanian (lietuvių)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Eitvys200
 # Author: Zygimantus
 ---
 lt:
@@ -61,6 +62,9 @@ lt:
       find: Rasti savo kursą
       start_date: Pradžios data
     current: Dabartiniai kursai
+    dismiss_survey: Atmesti
+    dismiss_survey_confirm: Ar esate tikri, kad norite visam laikui atsisakyti šios
+      apklausos?
     duration: Kurso trukmė
     instructors: Instruktoriai
     join: Prisijungti

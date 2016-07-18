@@ -98,6 +98,8 @@ lb:
     current: Aktuell Coursen
     delete_course: Cours läschen
     dismiss_survey: Verwerfen
+    dismiss_survey_confirm: Sidd Dir sécher datt Dir dës Ëmfro permaentn ausblende
+      wëllt?
     duration: Dauer vum Cours
     edit_course_dates: Datume vum Cours änneren
     end: Schluss

@@ -6,11 +6,16 @@
 # Author: Dvorapa
 # Author: Urbanecm
 # Author: Vojtěch Dostál
+# Author: Walter Klosse
 ---
 cs:
   application:
     cancel: Zrušit
+    dashboard: Wiki Ed Dashboard
+    error: Došlo k chybě
     explore: Prozkoumat
+    field_required: Toto pole je povinné.
+    field_invalid_characters: Toto pole obsahuje neplatné znaky
     field_invalid_date: Toto pole vyžaduje datum ve formátu RRRR-MM-DD
     greeting2: Vítejte!
     greeting_extended: Vítejte na Wikipedii
@@ -22,12 +27,13 @@ cs:
     log_out: Odhlásit se
     my_dashboard: Nástěnka
     recent_activity: Nedávná aktivita
-    search: prohledat ask.wikiedu.org
+    search: Položit dotaz
     sign_up_extended: Zaregistrovat se skrze Wikipedii
     sign_up_log_in_extended: s Wikipedií
     sign_up: Registrace
     submit: Potvrdit
     training: Průvodce
+    change: Změnit
   dashboard:
     create_note: Zvolte tlačítko "Vytvořit kurz" a vytvořte si svůj první kurz.
     explore_course_pages: Prozkoumat kurzové stránky

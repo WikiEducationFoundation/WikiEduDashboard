@@ -7,11 +7,13 @@ ps:
   application:
     cancel: ناگارل
     dashboard: ويکي زده کړه ډشبورډ
+    field_required: دې ډاگي ته اړتيا ده
     greeting2: ښه راغلئ!
     greeting_extended: ويکيپېډيا ته ښه راغلئ
-    greeting: سلامونه،
+    greeting: سلامونه!
     help: لارښود
     home: کور
+    log_in_extended: د ويکيپېډيا له لارې ورننوتل
     log_in: ننوتل
     log_out: وتل
     my_dashboard: زما ډشبورډ
@@ -29,7 +31,7 @@ ps:
   activity:
     all: فعاليت
     edited_by: سمونگر
-    label: فعاليتونه
+    label: فعاليت
   articles:
     edited_mobile: ليکنې
     label: ليکنې
@@ -52,16 +54,35 @@ ps:
     course_description: کورسونه
     courses: کورسونه
     creator:
+      course_description: د کورس څرگندونه
       course_language: کور ژبه
+      course_project: کورنۍ پروژه
+      course_school: د کورس ښوونځی
+      course_subject: د کورس موضوع
+      course_term: د کورس موده
+      course_term_placeholder: موده
       course_title: کورس سرليک
+      create_button: خپل کورس جوړول!
+      create_label: نوی کورس جوړول
+      create_new: يو نوی کورس جوړول
       create_short: کورس جوړول
       end_date: پای نېټه
+      end_date_placeholder: پای نېټه (کال-مياشت-ورځ)
+      find: خپل کورس ومومئ
+      save_cloned_course: نوی کورس خوندي کول
+      start_date: پيل نېټه
+      start_date_placeholder: پيل نېټه (کال-مياشت-ورځ)
+      subject: سکالو
     current: اوسني کورسونه
+    delete_course: کورس ړنگول
     duration: کورس موده
     edit_course_dates: کورس نېټې سمول
     end: پای
+    enroll: نومليکل
+    enrollment: نومليکنه
     instructors: ښوونکي
     join: يوځای کېدل
+    join_course: کورس کې ورگډېدل
     loading: رابرسېرېږي...
     my_articles: زما ليکنې
     none: هېڅ

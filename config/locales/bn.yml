@@ -61,6 +61,9 @@ bn:
       expected_number: শিক্ষার্থীদের প্রত্যাশিত সংখ্যা
       find: আপনার কোর্স খুঁজুন
       start_date: শুরুর তারিখ
+    dismiss_survey: খারিজ
+    dismiss_survey_confirm: আপনি কি নিশ্চিত যে আপনি স্থায়ীভাবে এই জরিপ খারিজ করতে
+      ইচ্ছুক?
     join: যোগ দিন
     join_prompt: '''%{title}''-এ যোগ দিবেন?'
     join_successful: আপনি সফলভাবে %{title}-এ যোগ দিয়েছেন।

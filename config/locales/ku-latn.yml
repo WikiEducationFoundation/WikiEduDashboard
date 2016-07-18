@@ -15,6 +15,7 @@ ku-latn:
     log_in: Têkeve
     log_out: Derkeve
     search: pirsekê bike
+    sign_up: Têkeve
     submit: Tomar bike
     change: Biguherîne
   activity:
@@ -32,6 +33,7 @@ ku-latn:
   assignments:
     select: Hilbijêre
   cohort:
+    none: Tune
     view_other: Komên din bibîne
   courses:
     activity: Çalakî
@@ -48,12 +50,14 @@ ku-latn:
     error:
       invalid_language_or_project: Zimanê/projeya nederbasdar
     join: Beşdar bibe
+    loading: Tê barkirin...
     my_articles: Gotarên min
     new_week: Hefteyeke nû lê zêde bike
     nocourses: Te beşdarî ti kursekê ne bû.
     none: Tune
     school: Dibistan
     students: Xwendekar
+    students_count: '# Xwendekar'
     students_short: Xwendekar
     title: Sernav
     view: Kursê Bibîne
@@ -77,6 +81,7 @@ ku-latn:
     char_changed: Karakter Hate Guhertin
     date_time: Dîrok/Katjimêr
     edit_count_description: Hemû Guherandin
+    per_user: '%{number}/bikarhêner'
     revisions: Guhertinên Dawî
     view_count_description: Dîtinên Gotara
     view: Dîtin

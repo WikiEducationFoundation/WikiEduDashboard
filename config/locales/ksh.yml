@@ -67,6 +67,8 @@ ksh:
       start_date: Et Dattom vum Aanfang
       start_date_placeholder: Dattom um Bejenn (Yohr-MM-DD)
       subject: Tehma
+    dismiss_survey: Maach fott, ha_sch jelässe
+    dismiss_survey_confirm: Wells De verhaftesch heh di Ömfrohch op Dooer ußblännde?
     end: Ängk
     error:
       invalid_language_or_project: De Schproch odder dat Projäk sin onjöltesch.
