@@ -44,10 +44,10 @@ describe 'Survey Administration', type: :feature, js: true do
       fill_in('question_group_name', with: 'New Question Group')
 
       # FIXME: The inputs are broken in xvfb, so this fails on travis.
-      # within('div#question_group_cohort_ids_chosen') do
-      #   find('input').set('Spring 2015')
-      #   find('input').native.send_keys(:return)
-      # end
+      within('div#question_group_cohort_ids_chosen') do
+        find('input').set('Spring 2015')
+        find('input').native.send_keys(:return)
+      end
       page.find('input.button[value="Save Question Group"]').click
       sleep 1
       expect(Rapidfire::QuestionGroup.count).to eq(1)
@@ -66,18 +66,18 @@ describe 'Survey Administration', type: :feature, js: true do
       click_link 'Clone'
       sleep 1
       expect(Rapidfire::Question.count).to eq(2)
-      within 'li[data-item-id="2"]' do
+      within 'tr[data-item-id="2"]' do
         click_link 'Edit'
       end
 
       page.find('label', text: 'Conditionally show this question').click
       # FIXME: fails on travis
-      # within 'div.survey__question__conditional-row' do
-      #   select('Who is awesome?')
-      # end
-      # within 'select[data-conditional-value-select=""]' do
-      #   select('Me!')
-      # end
+      within 'div.survey__question__conditional-row' do
+        select('Who is awesome?')
+      end
+      within 'select[data-conditional-value-select=""]' do
+        select('Me!')
+      end
       page.find('input.button').click
 
       # Add a question group to the survey
@@ -117,10 +117,10 @@ describe 'Survey Administration', type: :feature, js: true do
       click_link 'New Survey Assignment'
 
       # FIXME: The inputs are broken in xvfb, so this fails on travis.
-      # within('div#survey_assignment_cohort_ids_chosen') do
-      #   find('input').set('Spring 2015')
-      #   find('input').native.send_keys(:return)
-      # end
+      within('div#survey_assignment_cohort_ids_chosen') do
+        find('input').set('Spring 2015')
+        find('input').native.send_keys(:return)
+      end
       fill_in('survey_assignment_send_date_days', with: '7')
       check 'survey_assignment_published'
       page.find('input.button').click

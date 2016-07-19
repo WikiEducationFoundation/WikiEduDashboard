@@ -3,6 +3,13 @@ require 'rails_helper'
 describe CohortsController do
   render_views
 
+  describe '#index' do
+    it 'renders a 200' do
+      get :index
+      expect(response.status).to eq(200)
+    end
+  end
+
   describe '#create' do
     let(:user) { create(:user) }
     let(:admin) { create(:admin) }
