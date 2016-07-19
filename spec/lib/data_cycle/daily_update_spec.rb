@@ -5,7 +5,7 @@ describe DailyUpdate do
   describe 'on initialization' do
     it 'calls lots of update routines' do
       expect(AssignedArticleImporter).to receive(:import_articles_for_assignments)
-      expect(Cleaners).to receive(:rebuild_articles_courses)
+      expect(ArticlesCoursesCleaner).to receive(:rebuild_articles_courses)
       expect(RatingImporter).to receive(:update_all_ratings)
       expect(ArticleStatusManager).to receive(:update_article_status)
       expect(ViewImporter).to receive(:update_all_views)

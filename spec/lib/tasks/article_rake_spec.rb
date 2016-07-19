@@ -6,14 +6,14 @@ describe 'article:reset_articles_courses' do
 
   describe 'reset_articles_courses' do
     it 'calls Cleaners.remove_bad_articles_courses' do
-      expect(Cleaners).to receive(:remove_bad_articles_courses)
+      expect(ArticlesCoursesCleaner).to receive(:remove_bad_articles_courses)
       rake['article:reset_articles_courses'].invoke
     end
   end
 
   describe 'rebuild_articles_courses' do
     it 'calls Cleaners.rebuild_articles_courses' do
-      expect(Cleaners).to receive(:rebuild_articles_courses)
+      expect(ArticlesCoursesCleaner).to receive(:rebuild_articles_courses)
       rake['article:rebuild_articles_courses'].invoke
     end
   end

@@ -1,5 +1,5 @@
 require "#{Rails.root}/lib/importers/view_importer"
-require "#{Rails.root}/lib/cleaners"
+require "#{Rails.root}/lib/articles_courses_cleaner"
 require "#{Rails.root}/lib/importers/assigned_article_importer"
 
 namespace :article do
@@ -8,13 +8,13 @@ namespace :article do
   desc 'Remove botched ArticlesCourses'
   task reset_articles_courses: :environment do
     Rails.logger.debug 'Removing messed up ArticlesCourses'
-    Cleaners.remove_bad_articles_courses
+    ArticlesCoursesCleaner.remove_bad_articles_courses
   end
 
   desc 'Rebuild ArticlesCourses based on all Revisions'
   task rebuild_articles_courses: :environment do
     Rails.logger.debug 'Rebuilding ArticlesCourses for all current students'
-    Cleaners.rebuild_articles_courses
+    ArticlesCoursesCleaner.rebuild_articles_courses
   end
 
   desc 'Import assigned articles'

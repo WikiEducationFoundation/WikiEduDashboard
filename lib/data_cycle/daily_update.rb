@@ -1,6 +1,6 @@
 require "#{Rails.root}/lib/data_cycle/batch_update_logging"
 require "#{Rails.root}/lib/importers/assigned_article_importer"
-require "#{Rails.root}/lib/cleaners"
+require "#{Rails.root}/lib/articles_courses_cleaner"
 require "#{Rails.root}/lib/importers/rating_importer"
 require "#{Rails.root}/lib/article_status_manager"
 require "#{Rails.root}/lib/importers/view_importer"
@@ -45,7 +45,7 @@ class DailyUpdate
     AssignedArticleImporter.import_articles_for_assignments
 
     log_message 'Rebuilding ArticlesCourses for all current students'
-    Cleaners.rebuild_articles_courses
+    ArticlesCoursesCleaner.rebuild_articles_courses
 
     log_message 'Updating ratings for all articles'
     RatingImporter.update_all_ratings
