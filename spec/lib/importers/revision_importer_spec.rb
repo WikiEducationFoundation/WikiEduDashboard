@@ -1,7 +1,7 @@
 require 'rails_helper'
 require "#{Rails.root}/lib/importers/revision_importer"
 require "#{Rails.root}/lib/legacy_courses/legacy_course_importer"
-require "#{Rails.root}/lib/cleaners"
+require "#{Rails.root}/lib/articles_courses_cleaner"
 
 describe RevisionImporter do
   describe 'imported revisions and articles' do

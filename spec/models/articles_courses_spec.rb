@@ -14,7 +14,7 @@
 
 require 'rails_helper'
 require "#{Rails.root}/lib/importers/article_importer"
-require "#{Rails.root}/lib/cleaners"
+require "#{Rails.root}/lib/articles_courses_cleaner"
 
 describe ArticlesCourses, type: :model do
   describe '.update_all_caches' do
