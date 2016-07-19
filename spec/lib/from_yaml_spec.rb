@@ -25,6 +25,16 @@ describe FromYaml do
         expect { subject }.to raise_error(FromYaml::DuplicateSlugError, /.*duplicate-yaml-slug.*/)
       end
     end
+
+    context 'when training_path is set' do
+      before do
+        allow(ENV).to receive(:[]).with('training_path').and_return('training_content/generic')
+      end
+      it 'loads trainings from that path' do
+        TrainingSlide.load
+        expect(TrainingSlide.all).not_to be_empty
+      end
+    end
   end
 
   describe '.all' do
