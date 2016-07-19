@@ -32,8 +32,6 @@ Rails.application.routes.draw do
 
   # Courses
   controller :courses do
-    get 'courses/*id/get_wiki_top_section' => 'courses#get_wiki_top_section',
-        :as => :get_wiki_top_section, constraints: { id: /.*/ }
     get 'courses/new' => 'courses#new',
         constraints: { id: /.*/ } # repeat of resources
 
