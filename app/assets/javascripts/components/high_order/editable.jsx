@@ -8,7 +8,7 @@ const Editable = (Component, Stores, Save, GetState, Label, SaveLabel, SaveOnly)
   React.createClass({
     displayName: 'Editable',
     propTypes: {
-      course_id: React.PropTypes.bool,
+      course_id: React.PropTypes.any,
       current_user: React.PropTypes.object,
       editable: React.PropTypes.bool
     },
@@ -68,7 +68,7 @@ const Editable = (Component, Stores, Save, GetState, Label, SaveLabel, SaveOnly)
       } else if (permissions && (this.props.editable === undefined || this.props.editable)) {
         let edit;
         let editLabel = I18n.t('editable.edit');
-        if (Label !== null) {
+        if (Label !== undefined) {
           editLabel = Label;
         }
         if (!hideEdit) {
