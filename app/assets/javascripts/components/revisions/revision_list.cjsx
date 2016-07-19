@@ -1,5 +1,5 @@
 React             = require 'react'
-Editable          = require '../high_order/editable.cjsx'
+Editable          = require('../high_order/editable.jsx').default
 
 List              = require '../common/list.cjsx'
 Revision          = require './revision.cjsx'

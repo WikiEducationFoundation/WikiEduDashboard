@@ -1,5 +1,5 @@
 import React from 'react';
-import Editable from '../high_order/editable.cjsx';
+import Editable from '../high_order/editable.jsx';
 
 import List from '../common/list.cjsx';
 import Article from './article.jsx';

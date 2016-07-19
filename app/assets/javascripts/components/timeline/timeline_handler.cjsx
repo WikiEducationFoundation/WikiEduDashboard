@@ -5,7 +5,7 @@ TransitionGroup = require 'react-addons-css-transition-group'
 
 Timeline        = require './timeline.cjsx'
 Grading         = require './grading.cjsx'
-Editable        = require '../high_order/editable.cjsx'
+Editable        = require('../high_order/editable.jsx').default
 
 CourseDateUtils   = require '../../utils/course_date_utils.coffee'
 

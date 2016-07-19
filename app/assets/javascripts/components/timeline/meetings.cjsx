@@ -1,6 +1,6 @@
 React             = require 'react'
 CourseLink        = require '../common/course_link.cjsx'
-Editable          = require '../high_order/editable.cjsx'
+Editable          = require('../high_order/editable.jsx').default
 Calendar          = require '../common/calendar.cjsx'
 Modal             = require '../common/modal.cjsx'
 TextInput         = require '../common/text_input.cjsx'
@@ -103,7 +103,7 @@ Meetings = React.createClass(
         </div>
         <hr />
         <div className='wizard__form course-dates course-dates__step'>
-          <Calendar 
+          <Calendar
             course={@state.course}
             save=true
             editable=true
