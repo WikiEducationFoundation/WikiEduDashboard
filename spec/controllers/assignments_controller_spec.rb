@@ -80,9 +80,26 @@ describe AssignmentsController do
         expect(response.status).to eq(401)
       end
     end
+
+    context 'when parameters for a non-existent assignment are provided' do
+      let(:assignment) { create(:assignment, course_id: course.id, user_id: user.id) }
+      let(:params) do
+        { course_id: course.slug, user_id: user.id + 1,
+          article_title: assignment.article_title, role: assignment.role }
+      end
+      before do
+        delete :destroy, { id: 'undefined' }.merge(params)
+      end
+      # This happens when an assignment is deleted right after it has been created.
+      # The version in the AssignmentStore will not have an assignment_id until
+      # it gets refreshed from the server.
+      it 'renders a 404' do
+        expect(response.status).to eq(404)
+      end
+    end
   end
 
-  describe 'create' do
+  describe '#create' do
     context 'when the user has permission to create the assignment' do
       let(:course) { create(:course) }
       let(:assignment_params) do
@@ -190,6 +207,39 @@ describe AssignmentsController do
 
       it 'renders a 401 status' do
         expect(response.status).to eq(401)
+      end
+    end
+
+    context 'when the wiki params are not valid' do
+      let(:course) { create(:course) }
+      let(:invalid_wiki_params) do
+        { user_id: user.id, course_id: course.slug, title: 'Pikachu', role: 0,
+          language: 'en', project: 'bulbapedia' }
+      end
+      before do
+        put :create, invalid_wiki_params
+      end
+      it 'renders a 404' do
+        expect(response.status).to eq(404)
+      end
+    end
+  end
+
+  describe '#update' do
+    let(:assignment) { create(:assignment, course_id: course.id, user_id: user.id, role: 0) }
+    let(:update_params) { { role: 1 } }
+
+    context 'when the update succeeds' do
+      it 'renders a 200' do
+        post :update, { id: assignment }.merge(update_params)
+        expect(response.status).to eq(200)
+      end
+    end
+    context 'when the update fails' do
+      it 'renders a 500' do
+        allow_any_instance_of(Assignment).to receive(:save).and_return(false)
+        post :update, { id: assignment }.merge(update_params)
+        expect(response.status).to eq(500)
       end
     end
   end

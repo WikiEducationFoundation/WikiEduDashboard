@@ -39,7 +39,7 @@ class AssignmentsController < ApplicationController
     if @assignment.save
       render json: { assignment: @assignment }, status: 200
     else
-      render json: { errors: @alert.errors, message: 'unable to update assignment' },
+      render json: { errors: @assignment.errors, message: 'unable to update assignment' },
              status: 500
     end
   end
