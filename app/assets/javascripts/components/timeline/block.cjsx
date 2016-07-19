@@ -4,7 +4,7 @@ DatePicker        = require('../common/date_picker.jsx').default
 TextAreaInput     = require '../common/text_area_input.cjsx'
 TrainingModules   = require '../training_modules.cjsx'
 Checkbox          = require('../common/checkbox.jsx').default
-Select            = require '../common/select.cjsx'
+BlockTypeSelect            = require('./block_type_select.jsx').default
 BlockActions      = require('../../actions/block_actions.js').default
 GradeableActions  = require('../../actions/gradeable_actions.js').default
 Reorderable       = require '../high_order/reorderable.cjsx'
@@ -155,16 +155,13 @@ Block = React.createClass(
           />
         </h4>
         <div className={blockTypeClassName}>
-          <Select
+          <BlockTypeSelect
             onChange={@updateBlock}
             value={@props.block.kind}
             value_key={'kind'}
             editable={@_isEditable()}
             options={['In Class', 'Assignment', 'Milestone', 'Custom']}
             show={@props.block.kind < 3 || @_isEditable()}
-            label='Block type'
-            spacer=''
-            tooltip_text={I18n.t('timeline.block_type')}
           />
           {dueDateSpacer}
           {dueDateRead || (if is_graded then (<span className='block__default-due-date'>{I18n.t('timeline.due_default')}</span>) else '')}
