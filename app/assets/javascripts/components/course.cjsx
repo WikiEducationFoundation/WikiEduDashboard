@@ -8,7 +8,7 @@ CourseStore       = require '../stores/course_store.coffee'
 UserStore         = require '../stores/user_store.coffee'
 CohortStore       = require '../stores/cohort_store.coffee'
 NotificationStore = require '../stores/notification_store.coffee'
-Affix             = require './common/affix.cjsx'
+Affix             = require('./common/affix.jsx').default
 CourseUtils       = require('../utils/course_utils.js').default
 GetHelpButton     = require('../components/common/get_help_button.jsx').default
 
