@@ -232,9 +232,10 @@ describe CoursesController do
             project: 'wikipirates' }
         end
 
-        it 'renders a 404' do
+        it 'renders a 404 and does not create the course' do
           post :create, course: course_params, format: :json
           expect(response.status).to eq(404)
+          expect(Course.count).to eq(0)
         end
       end
 

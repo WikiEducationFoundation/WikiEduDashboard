@@ -161,8 +161,9 @@ class CoursesController < ApplicationController
     @wiki = Wiki.find_or_create_by(language: language.downcase, project: project.downcase)
     return unless @wiki.id.nil?
     render json: {
-      message: "Invalid language/project"
+      message: 'Invalid language/project'
     }, status: 404
+    yield
   end
 
   def cohort_params
