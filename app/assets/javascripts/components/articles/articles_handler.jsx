@@ -1,7 +1,7 @@
 import React from 'react';
 import ArticleList from './article_list.jsx';
 import UIActions from '../../actions/ui_actions.js';
-import AssignmentList from '../assignments/assignment_list.cjsx';
+import AssignmentList from '../assignments/assignment_list.jsx';
 import ServerActions from '../../actions/server_actions.js';
 import AvailableArticles from '../articles/available_articles.jsx';
 
