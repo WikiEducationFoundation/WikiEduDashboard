@@ -11,4 +11,15 @@ describe QuestionsController do
       end
     end
   end
+
+  describe '#update_position' do
+    context 'when the question exists' do
+      let!(:question) { create(:q_checkbox, position: 1) }
+      let(:question_id) { question.id }
+      before { get :update_position, id: question_id, position: 50 }
+      it 'updates the postion' do
+        expect(Rapidfire::Question.last.position).to eq(50)
+      end
+    end
+  end
 end
