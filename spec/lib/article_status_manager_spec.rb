@@ -2,16 +2,18 @@ require 'rails_helper'
 require "#{Rails.root}/lib/article_status_manager"
 
 describe ArticleStatusManager do
+  let(:course) { create(:course, start: 1.year.ago, end: 1.year.from_now) }
+  let(:user) { create(:user) }
+  let!(:courses_user) { create(:courses_user, course: course, user: user) }
+
   describe '.update_article_status' do
     it 'marks deleted articles as "deleted"' do
-      course = create(:course,
-                      end: '2016-12-31'.to_date)
-      course.users << create(:user)
       create(:article,
              id: 1,
              mw_page_id: 1,
              title: 'Noarticle',
              namespace: 0)
+      create(:revision, date: 1.day.ago, article_id: 1, user: user)
 
       described_class.update_article_status
       expect(Article.find(1).deleted).to be true
@@ -24,6 +26,7 @@ describe ArticleStatusManager do
              mw_page_id: 100,
              title: 'Audi',
              namespace: 0)
+      create(:revision, date: 1.day.ago, article_id: 100, user: user)
 
       # es.wikipedia
       create(:wiki, id: 2, language: 'es', project: 'wikipedia')
@@ -33,6 +36,7 @@ describe ArticleStatusManager do
              title: 'Audi',
              namespace: 0,
              wiki_id: 2)
+      create(:revision, date: 1.day.ago, article_id: 100000001, user: user)
 
       described_class.update_article_status
 
@@ -46,11 +50,14 @@ describe ArticleStatusManager do
              mw_page_id: 100,
              title: 'Audi',
              namespace: 0)
+      create(:revision, date: 1.day.ago, article_id: 100, user: user)
       create(:article,
              id: 848,
              mw_page_id: 848,
              title: 'Audi',
              namespace: 0)
+      create(:revision, date: 1.day.ago, article_id: 848, user: user)
+
       described_class.update_article_status
       expect(Article.find_by(mw_page_id: 100).deleted).to eq(true)
     end
@@ -61,6 +68,7 @@ describe ArticleStatusManager do
              mw_page_id: 848,
              title: 'Audi_Cars', # 'Audi' is the actual title
              namespace: 2)
+      create(:revision, date: 1.day.ago, article_id: 848, user: user)
 
       described_class.update_article_status
       expect(Article.find(848).namespace).to eq(0)
@@ -77,12 +85,16 @@ describe ArticleStatusManager do
              # Currently this is a redirect to the other title.
              title: 'Yōji Sakate',
              namespace: 0)
+      create(:revision, date: 1.day.ago, article_id: 46745170, user: user)
+
       create(:article,
              id: 46364485,
              mw_page_id: 46364485,
              # Current title is "Yōji Sakate" as of 2016-07-06.
              title: 'Yōji_Sakate',
              namespace: 0)
+      create(:revision, date: 1.day.ago, article_id: 46364485, user: user)
+
       described_class.update_article_status
     end
 
@@ -93,12 +105,15 @@ describe ArticleStatusManager do
                         title: 'Cyber-ethnography',
                         deleted: true,
                         namespace: 1)
+      create(:revision, date: 1.day.ago, article_id: 3914927, user: user)
       article2 = create(:article,
                         id: 46394760,
                         mw_page_id: 46394760,
                         title: 'Cyber-Ethnography',
                         deleted: false,
                         namespace: 1)
+      create(:revision, date: 1.day.ago, article_id: 46394760, user: user)
+
       described_class.update_article_status
       expect(article1.id).to eq(3914927)
       expect(article2.id).to eq(46394760)
@@ -111,6 +126,8 @@ describe ArticleStatusManager do
              title: 'Kostanay',
              namespace: 0)
       create(:revision,
+             date: 1.day.ago,
+             user: user,
              article_id: 2262715,
              mw_page_id: 2262715,
              mw_rev_id: 648515801)
@@ -129,11 +146,14 @@ describe ArticleStatusManager do
              mw_page_id: 848,
              title: 'Audi',
              namespace: 0)
+      create(:revision, date: 1.day.ago, article_id: 848, user: user)
       create(:article,
              id: 1,
              mw_page_id: 1,
              title: 'Noarticle',
              namespace: 0)
+      create(:revision, date: 1.day.ago, article_id: 1, user: user)
+
       allow_any_instance_of(Replica).to receive(:get_existing_articles_by_id).and_return(nil)
       described_class.update_article_status
       expect(Article.find(848).deleted).to eq(false)

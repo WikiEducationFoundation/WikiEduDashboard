@@ -66,6 +66,8 @@ class Course < ActiveRecord::Base
   #########################
   # Activity by the users #
   #########################
+  # :revisions and :all_revisions have the same default implementation,
+  # but a course type may override :revisions.
   has_many(:revisions, lambda do |course|
     where('date >= ?', course.start).where('date <= ?', course.end.end_of_day)
   end, through: :students)
@@ -80,6 +82,7 @@ class Course < ActiveRecord::Base
 
   has_many :articles_courses, class_name: ArticlesCourses, dependent: :destroy
   has_many :articles, -> { uniq }, through: :articles_courses
+  has_many :pages_edited, -> { uniq }, source: :article, through: :revisions
 
   has_many :assignments, dependent: :destroy
 

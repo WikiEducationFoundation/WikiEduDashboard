@@ -13,10 +13,13 @@ class ArticleStatusManager
 
   # Queries deleted state and namespace for all articles
   def self.update_article_status
-    # TODO: Narrow this down even more. Current courses, maybe?
-    Wiki.all.each do |wiki|
-      articles = Article.where(wiki_id: wiki.id)
-      new(wiki).update_status(articles)
+    Course.current.each do |course|
+      course_articles = course.pages_edited
+      Wiki.all.each do |wiki|
+        articles = course_articles.where(wiki_id: wiki.id)
+        next if articles.empty?
+        new(wiki).update_status(articles)
+      end
     end
   end
 
