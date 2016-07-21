@@ -6,11 +6,11 @@ module ApplicationHelper
   end
 
   def logo_favicon_tag
-    if Rails.env == 'development' || Rails.env == 'developmentcp'
-      favicon_path = "/assets/images/#{Figaro.env.favicon_dev_file}"
-    else
-      favicon_path = "/assets/images/#{Figaro.env.favicon_file}"
-    end
+    favicon_path = if Rails.env == 'development' || Rails.env == 'developmentcp'
+                     "/assets/images/#{Figaro.env.favicon_dev_file}"
+                   else
+                     "/assets/images/#{Figaro.env.favicon_file}"
+                   end
 
     favicon_link_tag favicon_path
   end
@@ -45,18 +45,11 @@ module ApplicationHelper
   end
 
   def body_class(request)
-    case request.path.split('/')[1]
-    when 'courses'
-      return 'course-page'
-    when 'surveys'
-      return 'survey-page'
-    when 'survey'
-      return 'survey-page'
-    when 'rapidfire'
-      return 'survey-page'
-    else
-      return 'fixed-nav'
-    end
+    base_path = request.path.split('/')[1]
+    return 'course-page' if base_path == 'courses'
+    survey_paths = %w(survey surveys rapidfire)
+    return 'survey-page' if survey_paths.include?(base_path)
+    return 'fixed-nav'
   end
 
   ############################
