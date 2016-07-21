@@ -80,6 +80,7 @@ sv:
       start_date_placeholder: Startdatum (ÅÅÅÅ-MM-DD)
       subject: Ämne
     delete_course: Radera kurs
+    dismiss_survey: Stäng
     end: Slut
     error:
       invalid_language_or_project: Ogiltigt språk/projekt

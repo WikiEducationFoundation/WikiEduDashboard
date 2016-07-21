@@ -8,6 +8,7 @@ lb:
     cancel: Ofbriechen
     dashboard: Iwwersiicht iwwer d'Ännerungen op der Wiki
     error: 'Et gouf e Feeler:'
+    explore: Entdecken
     field_required: Dëst Feld ass obligatoresch
     field_invalid_date: Dëst Feld brauch en Datum am Format JJJJ-MM-DD
     greeting2: Wëllkomm!
@@ -25,9 +26,12 @@ lb:
     training: Formatioun
     change: Änneren
   dashboard:
+    explore_course_pages: D'Säite vun de Coursen entdecken
+    explore_examples: Beispiller entdecken
     review_orientation: Orientatioun nokucken
     blog_headline: Rezent Neiegkeete vu Wiki Ed
   home:
+    explore: Entdecken
     log_in: Mat Wikipedia aloggen
     sign_up: Mat Wikipedia umellen
   activity:
@@ -83,6 +87,7 @@ lb:
     course_description: Coursen
     courses: Coursen
     creator:
+      clone_successful: Cours gekloont
       course_description: Beschreiwung vum Cours
       course_language: Originalsprooch
       course_subject: Sujet vum Cours
@@ -110,6 +115,7 @@ lb:
         aneren Titel, enger anerer Schoul oder enger anerer Dauer.
       user_exists: Pardon, de Benotzer %{username} gëtt et net.
       invalid_language_or_project: Net valabel Sprooch/Projet
+    join: Matmaachen
     join_course: Beim Cours matmaachen
     leave_course: Aus dem Cours erausgoen
     loading: Lueden...
@@ -163,7 +169,9 @@ lb:
     edit_count_description: Total vun den Ännerungen
     per_user: '%{number}/Benotzer'
     revisions: Rezent Ännerungen
-    uploads_in_use_count: Fichieren déi an Artikele benotzt ginn
+    uploads_in_use_count:
+      one: Fichier deen an Artikele benotzt gëtt
+      other: Fichieren déi an Artikele  benotzt ginn
     word_count: Wierder derbäigesat
   namespace:
     user: Benotzernummraum

@@ -12,9 +12,9 @@ cs:
   application:
     cancel: Zrušit
     dashboard: Wiki Ed Dashboard
-    error: Došlo k chybě
+    error: 'Došlo k chybě:'
     explore: Prozkoumat
-    field_required: Toto pole je povinné.
+    field_required: Toto pole je povinné
     field_invalid_characters: Toto pole obsahuje neplatné znaky
     field_invalid_date: Toto pole vyžaduje datum ve formátu RRRR-MM-DD
     greeting2: Vítejte!
@@ -27,7 +27,7 @@ cs:
     log_out: Odhlásit se
     my_dashboard: Nástěnka
     recent_activity: Nedávná aktivita
-    search: Položit dotaz
+    search: Zeptat se
     sign_up_extended: Zaregistrovat se skrze Wikipedii
     sign_up_log_in_extended: s Wikipedií
     sign_up: Registrace
@@ -56,6 +56,7 @@ cs:
     label: Aktivita
   articles:
     assigned: Přiřazené články
+    available: Články k dispozici
     assigned_to: Přiřazeno
     character_doc: Součet znaků přidaných do článků editory zapsanými do článku v
       období mezi začátkem a koncem kurzu
@@ -63,6 +64,7 @@ cs:
     edited_mobile: Články
     label: Články
     loading: Načítání článků...
+    new: (nový)
     none: V tomto kurzu nebyly editovány žádné články.
     rating: Třída
     rating_doc: Hodnocení článku bylo přiřazeoa WikiProjekty na Wikipedii. Tato hodnocení
@@ -114,11 +116,15 @@ cs:
     activity: Aktivita
     already_enrolled: Již jste součástí kurzu '%{title}'!
     archived: Archivované kurzy
+    actions: Možnosti
     articles: Články
     articles_none: V tomto kurzu nebyly editovány žádné články.
     assignment_end: Konec kurzu
     assignments_none: Tento kurz nemá žádné zadané články.
     assignment_start: Začátek kurzu
+    calendar:
+      legend: Legenda
+      legend_class_meeting: Třídní besídka
     character_doc: Počet znaků, které byly přidány do hlavního jmenného prostoru studenty
       během průběhu kurzu
     course_dates_calendar_instructions: Vyberte data, která chcete přidat či odstranit
@@ -134,6 +140,7 @@ cs:
         volna, prosím vyberte možnost "Bez volna ve výuce". Časový plán automaticky
         upraví délku podle období, kdy výuka neprobíhá.
       course_description: Popis kurzu
+      course_project: Domácí projekt
       course_school: Kurzová instituce
       course_subject: Předmět kurzu
       course_term: Termín kurzu
@@ -149,14 +156,18 @@ cs:
         později změněny. Všechno ostatní můžete později ještě upravit. Po stisknutí
         tlačítka "Vytvořit kurz!" budete moci začít vytvářet svůj časový plán svého
         úkolu.
+      save_cloned_course: Uložit nový kurz
       start_date: Datum zahájení
+      subject: Předmět
     current: Aktuální kurzy
     duration: Průběh kurzů
     edit_course_dates: Upravit termíny kurzů
+    end: Konec
     error:
       exists: Tento kurz již existujeǃ Zkuste prosím zadat jiný název kurzu, školu,
         nebo semestr.
       user_exists: Uživatel %{username} neexistuje.
+      invalid_language_or_project: Neplatný jazyk/projekt
     expected_students: Očekávaný počet studentů
     gradeables_none: V tomto kurzu nejsou žádné zadané úkoly, jež by šlo oznámkovat.
     instructor:
@@ -169,11 +180,16 @@ cs:
     join: Zapsat se
     join_prompt: Zapsat se do '%{title}'?
     join_successful: Úspěšně jste se zapsali do %{title}
+    loading: Načítání…
     milestones_none: Tento kurz nemá v současné době žádné milníky.
+    my_articles: Moje články
     new_week: Přidat nový týden
     nocourses: Neúčastníte se žádných kurzů.
+    none: Nic
+    no_available_actions: Žádné možnosti k dispozici
     overview: Přehled
     passcode: Heslo
+    passcode_none: Žádné heslo
     published: 'Váš kurz byl zveřejněn! Studenti se mohou zapsat do kurzu tím, že
       navštíví následující adresu URL:'
     review_timeline: Prosím zkontrolujte časový plán a provádějte v něm úpravy podle
@@ -183,6 +199,8 @@ cs:
     revisions_doc: Počet editací během uplynulých %{timeframe} dní.
     revisions_none: V tomto kurzu v poslední době neprobíhala žádná editační aktivita.
     school: Škola
+    start: Začátek
+    start_typing: Začněte psát
     students: Studenti
     students_count: Počet studentů
     student_editors: Studenti - editoři
@@ -204,6 +222,7 @@ cs:
     training_overdue: Výukový modul "%{title}" byl přiřazen k tomuto kurzu; termín
       splnění %{date}.
     unsubmitted: Kurzy nepodané ke schválení
+    untrained: Netrénovaný
     uploads_none: Účastníci nepřispěli žádnými obrázky či jinými médii na Wikimedia
       Commons.
     weeks_none: Tento kurz ještě nemá žádný časový plán.
