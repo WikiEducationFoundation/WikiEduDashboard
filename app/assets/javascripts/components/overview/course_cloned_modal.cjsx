@@ -11,7 +11,7 @@ CourseActions = require('../../actions/course_actions.js').default
 TextInput     = require '../common/text_input.cjsx'
 DatePicker    = require('../common/date_picker.jsx').default
 TextAreaInput = require '../common/text_area_input.cjsx'
-Calendar      = require '../common/calendar.cjsx'
+Calendar      = require('../common/calendar.jsx').default
 CourseUtils   = require('../../utils/course_utils.js').default
 
 getState = ->

@@ -4,7 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import TrixEditor from 'react-trix';
 import DatePicker from '../components/common/date_picker.jsx';
-import Calendar from '../components/common/calendar.cjsx';
+import Calendar from '../components/common/calendar.jsx';
 import Popover from '../components/common/popover.jsx';
 import Loading from '../components/common/loading.jsx';
 
