@@ -2,6 +2,7 @@ import React from 'react';
 import CourseUtils from '../../utils/course_utils.js';
 import ServerActions from '../../actions/server_actions.js';
 import AssignmentActions from '../../actions/assignment_actions.js';
+import Wp10Graph from './wp10_graph.jsx';
 
 const AvailableArticle = React.createClass({
   displayName: 'AvailableArticle',
@@ -77,6 +78,9 @@ const AvailableArticle = React.createClass({
         </td>
         <td className="table-action-cell">
           {actionButton}
+        </td>
+        <td>
+          <Wp10Graph article={this.props.assignment} course={this.props.course} />
         </td>
       </tr>
     );
