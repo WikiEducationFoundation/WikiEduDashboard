@@ -29,7 +29,7 @@ const Wp10Graph = React.createClass({
     const articleId = this.props.article.id;
     const vlSpec = {
       // TODO: get data from json endpoint
-      data: { url: `http://localhost:3000/articles/${articleId}.json` },
+      data: { url: `/articles/${articleId}.json` },
       mark: 'circle',
       encoding: {
         x: {
