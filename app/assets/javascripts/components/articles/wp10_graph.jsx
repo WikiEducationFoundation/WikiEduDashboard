@@ -45,7 +45,8 @@ const Wp10Graph = React.createClass({
     };
     const embedSpec = {
       mode: 'vega-lite', // Instruct Vega-Embed to use the Vega-Lite compiler
-      spec: vlSpec
+      spec: vlSpec,
+      actions: false
     };
     vg.embed(`#${this.graphId()}`, embedSpec);
   },
