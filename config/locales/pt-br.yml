@@ -15,12 +15,12 @@
 ---
 pt-br:
   accessibility:
-    number_field: Isto é um campo numérico. Os botões mostrados pela maioria dos navegadores
+    number_field: Isso é um campo numérico. Os botões mostrados pela maioria dos navegadores
       vão aumentar ou reduzir o resultado.
   application:
     cancel: Cancelar
     dashboard: Painel do Wiki Ed
-    error: 'Aconteceu um erro:'
+    error: 'Ocorreu um erro:'
     explore: Explorar
     field_required: Este campo é obrigatório
     field_invalid_characters: Este campo tem caracteres inválidos
@@ -33,7 +33,7 @@ pt-br:
     log_in_extended: Entrar na Wikipédia
     log_in: Entrar
     log_out: Sair
-    my_dashboard: Meu painel de controle
+    my_dashboard: Meu painel
     recent_activity: Atividade recente
     search: perguntar
     sign_up_extended: Registrar-se na Wikipédia
@@ -82,7 +82,7 @@ pt-br:
     edited_mobile: Artigos
     label: Artigos
     loading: Carregando artigos...
-    new: (nova)
+    new: (novo)
     none: Este curso não editou nenhum artigo.
     rating: Qualidade
     rating_doc: A avaliação que um artigo recebeu por um WikiProjeto na Wikipédia.
@@ -149,7 +149,7 @@ pt-br:
       legend: Legenda
       legend_class_canceled: Férias/Cancelado
       legend_class_meeting: Encontro de turma
-      legend_class_not_meeting: Nenhuma Reunião Marcada
+      legend_class_not_meeting: Nenhuma reunião marcada
       select_meeting_days: Selecionar os dias da semana em que a turma se encontra.
     character_doc: A soma dos caracteres adicionados a artigos no domínio prinicpal
       por estudantes do curso durante o prazo curso

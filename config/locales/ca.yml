@@ -80,17 +80,27 @@ ca:
     new: (nou)
     none: Aquest curs encara no ha editat cap article
     rating: Classe
+    rating_doc: La puntuació de l'article ha estat assignada segons la pàgina a la
+      Viquipèdia del Viquiprojecte. Aquesta puntuació podia correspondre a versions
+      anteriors, així que són uns simples indicadors de la maduresa de l'article.
+    rating_docs:
+      fa: Els Articles de Qualitat potser són un projecte massa complex per a un editor
+        novell
+      fl: Llistes de qualitat
     title: Títol
     title_example: Títol de l'Article
     view: Veure Article
     view_all: Mostra-ho tot
     view_doc: La suma de totes les visites als articles durant el període del curs
+    views_added: Afegit %{count} nous punts de vista per a %{title}
   assignments:
     already_exists: Aquesta tasca ja existeix!
     assignees: Alumne(s)
     assign_other: Assignar un article
     add_available: Afegir un article disponible
     assign_self: Assignar-me un article
+    confirm_add_available: Esteu segurs que voleu afegir %{title}?
+    confirm_addition: Esteu segur que voleu assignar %{title} a %{username}?
     confirm_deletion: N'esteu segurs que voleu eliminar aquesta tasca?
     label: Assignar
     loading: Càrrega de treballs...
@@ -110,6 +120,7 @@ ca:
     view_other: Veure altres grups
   courses:
     activity: Activitat
+    already_enrolled: Ja formeu part de la '%{title}'!
     already_exists: Això ja existeix per a aquest curs!
     archived: Cursos arxivats
     actions: Accions
@@ -128,6 +139,10 @@ ca:
     character_doc: La suma dels caràcters afegits a l'espai principal (articles) per
       part dels estudiants durant aquest curs
     cohorts: 'Grups:'
+    confirm_course_deletion: Esteu segurs que voleu suprimir el curs titulat %{title}?
+      Si és així, escriviu el títol del curs per a procedir.
+    confirm_course_deletion_failed: '"%{title}" no és el títol d''aquest curs. El
+      curs no ha estat esborrat.'
     course_description: Cursos
     courses: Cursos
     creator:
@@ -165,6 +180,8 @@ ca:
       subject: Assumpte
     current: Cursos actuals
     delete_course: Esborra el curs
+    dismiss_survey: Descarta
+    dismiss_survey_confirm: Esteu segurs que voleu rebutjar aquesta enquesta?
     duration: Durada del curs
     edit_course_dates: Edita les dates del curs
     end: Final
@@ -173,12 +190,18 @@ ca:
     error:
       exists: Aquest curs ja existeix! Torneu-ho a provar amb un altre títol, escola
         o terme.
+      user_exists: Ho sentim, %{username} no és un usuari existent.
       invalid_language_or_project: Idioma o projecte invàlid
     expected_students: Estudiants esperats
     gradeables_none: Aquest curs no té tasques avaluables.
+    instructor:
+      one: Instructor
+      other: Instructors
     instructors: Instructors
     join: Uniu-vos
     join_course: Uneix-te al curs
+    join_prompt: Unir-se a '%{title}'?
+    join_successful: Us heu unit amb èxit a %{title}.
     leave_confirmation: N'estàs segur què vols abandonar el curs?
     leave_course: Abandonar el curs
     loading: S'està carregant...
@@ -199,6 +222,7 @@ ca:
       estiguis satisfet/a, envia-ho per a que ho aprovi el personal de la Wiki Ed.
       Una vegada aprovat, rebràs un enllaç per a que els estudiants es puguin unir
       al curs. Podràs modificar a posteriori la línia temporal.
+    revisions_doc: Nombre d'edicions en els últims %{timeframe} dies
     revisions_none: Aquest curs no ha tingut canvis d'edició recents a la Viquipèdia.
     school: Escola
     start: Començar
@@ -218,11 +242,14 @@ ca:
     timeline: Detalls de la tasca
     timeline_link: Línia temporal
     title: Títol
+    training_nav: Anar a la formació
     unsubmitted: Cursos no enviats
     uploads_none: Aquesta classe encara no ha contribuït amb cap imatge o algun altre
       tipus de fitxer a Wikimedia Commons.
     weeks_none: Aquest curs encara no té línia temporal.
     view: Vegeu el curs
+    view_page: Veure la pàgina del curs
+    view_wiki: Veure a Viquipèdia
     wiki_staff: Personal de la Wiki Ed
     word_count_doc: Una estimació del nombre de paraules afegides a l'espai principal
       (article) pels estudiants del curs durant el període del curs
@@ -281,6 +308,7 @@ ca:
     char: Caràcters afegits
     date_time: Data/Hora
     edit_count_description: Edicions totals
+    per_user: '%{number}/user'
     revisions: Edicions recents
     upload_count: Càrregues a Wikimedia Commons
     view_count_description: Vistes als articles
@@ -320,6 +348,8 @@ ca:
     none: El projecte no té activitat d'edició recent.
     time_doc: Hora de cada revisió amb la teva hora local
     title: Títol
+  tasks:
+    conseq: La tasca %{task} ja és en curs!
   timeline:
     add_week: Afegir setmana
     arrange_timeline: Organitza la línia temporal
@@ -357,6 +387,7 @@ ca:
     first_week_title: Primera setmana actiu
     gradeable_value: Valor
     gradeables_none: Aquesta línia temporal no té tasques marcades com a qualificables
+    grading_header: 'Classificació (Total: %{total}%)'
     move_block_down: Mou el bloc avall
     move_block_up: Moure el bloc amunt
     no_class_holidays: No tinc vacances de les classes
@@ -369,7 +400,9 @@ ca:
     unable_to_add_week: No pots afegir només setmanes quan la teva línia temporal
       està plena. Elimina almenys una setmana o canvia les dates de la tasca per a
       fer lloc per a una nova.
+    week_number: Setmana %{number}
   training:
+    continue: Continuar (%{progress})
     start: Inicia
     view: Mostra
     logged_out: Heu finalitzat la sessió. No et puntuarà completar aquest mòdul si
@@ -393,7 +426,30 @@ ca:
     assign_articles_done: Fet
     assigned: Articles assignats
     assignees: Assignat a
+    contributions: Contribucions de l'usuari
+    contributions_more: Veure més contribucions
+    course_passcode: 'Paraula de pas:'
+    editors: Editors
+    enroll_url: 'Els usuaris poden utilitzar aquest enllaç per a unir-se al curs:'
+    enrolled_success: '%{username} s''ha afegit amb èxit!'
+    first_name: Nom
+    last_name: Cognoms
+    loading: Carregant usuaris...
+    characters_added_mainspace: Caràcters afegits a l'espai principal
+    my_assigned: 'Assignat:'
+    my_reviewing: 'Revisant:'
     name: Nom
+    none: No hi ha participants.
+    no_articles: No hi ha articles
+    no_revisions: Aquest editor no ha fet cap revisió.
+    recent_revisions: Edicions recents
+    remove_confirmation: Esteu segur que voleu eliminar a %{username}?
+    revisions_doc: El nombre d'edicions realitzades per aquest editor en els últims
+      7 dies
+    reviewers: Revisor(s)
+    reviewing: Revisant
+    training_incomplete: Formació Incompleta
+    up_to_date_with_training: esteu al dia amb la formació
     username: Nom d'usuari
     username_placeholder: Nom d'usuari
   wiki_edits:
@@ -418,6 +474,7 @@ ca:
     confirm_dates: Selecciona les dates del curs, les trobades setmanals i les vacances
       del curs.
     course_dates: Dates del curs
+    minimum_options: Si us plau, seleccioneu com a mínim %{minimum} opcions.
     read_less: Veure menys
     read_more: Més informació
     review_selections: Si us plau revisa les teves seleccions. Clica a edita una selecció.
@@ -447,4 +504,15 @@ ca:
       pregunta al professor el codi correcte.
   error_404:
     header: Pàgina no trobada. :-(
+  error_500:
+    header: 500 — error intern del servidor. :-(
+  login_error:
+    header: Error d'inici de sessió
+  survey:
+    email:
+      headline: Hola, %{username}
+      course: 'Curs: %{course_info}'
+      closing: Sincerament,
+      signed: '- L''equip de Wiki Ed'
+      link: Començeu l'enquesta
 ...

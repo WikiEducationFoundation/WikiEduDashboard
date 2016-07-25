@@ -160,6 +160,9 @@ cs:
       start_date: Datum zahájení
       subject: Předmět
     current: Aktuální kurzy
+    dismiss_survey: Skrýt
+    dismiss_survey_confirm: Jste si {{GENDER:|jist|jista|jist(a)}}, že chcete trvale
+      skrýt tento průzkum?
     duration: Průběh kurzů
     edit_course_dates: Upravit termíny kurzů
     end: Konec

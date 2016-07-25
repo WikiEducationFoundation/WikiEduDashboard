@@ -75,6 +75,7 @@ pl:
       start_date_placeholder: Data rozpoczęcia (RRRR-MM-DD)
       subject: Temat
     delete_course: Usuń kurs
+    dismiss_survey: Odrzuć
     end: Koniec
     enroll: Zapisz się
     enrollment: Rejestracja
