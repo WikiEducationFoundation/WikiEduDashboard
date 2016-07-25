@@ -1,4 +1,5 @@
 import React from 'react';
+import Wp10Graph from './wp10_graph.jsx';
 
 const Article = React.createClass({
   displayName: 'Article',
@@ -38,7 +39,9 @@ const Article = React.createClass({
         </td>
         <td className="desktop-only-tc">{this.props.article.character_sum}</td>
         <td className="desktop-only-tc">{this.props.article.view_count}</td>
-        <td></td>
+        <td>
+          <Wp10Graph article={this.props.article} />
+        </td>
       </tr>
     );
   }

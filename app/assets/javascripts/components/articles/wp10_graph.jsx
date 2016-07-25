@@ -1,43 +1,71 @@
+/* global vg */
 import React from 'react';
 
 const Wp10Graph = React.createClass({
   displayName: 'Wp10Graph',
 
   propTypes: {
-    article: React.PropTypes.object,
-    course: React.PropTypes.object
+    article: React.PropTypes.object
+  },
+
+  getInitialState() {
+    return { showGraph: false };
+  },
+
+  showGraph() {
+    this.setState({ showGraph: true });
+  },
+
+  hideGraph() {
+    this.setState({ showGraph: false });
   },
 
   graphId() {
-    return `${this.props.article.article_title}-graph`;
+    return `vega-graph-${this.props.article.id}`;
   },
 
-  componentDidMount: function() {
+  renderGraph() {
+    this.showGraph();
+    const articleId = this.props.article.id;
     const vlSpec = {
       // TODO: get data from json endpoint
-      data: { values: [{"a": 1, "b": 2}, {"a": 2, "b": 7}, {"a": 3, "b": 4}] },
-      mark: "line",
+      data: { url: `http://localhost:3000/articles/${articleId}.json` },
+      mark: 'circle',
       encoding: {
         x: {
-          "field": "a",
-          "type": "quantitative"
+          field: 'date',
+          timeUnite: 'day',
+          type: 'temporal'
         },
         y: {
-          "field": "b",
-          "type": "quantitative"
+          field: 'wp10',
+          type: 'quantitative'
         }
       }
     };
     const embedSpec = {
-      mode: "vega-lite",  // Instruct Vega-Embed to use the Vega-Lite compiler
+      mode: 'vega-lite', // Instruct Vega-Embed to use the Vega-Lite compiler
       spec: vlSpec
     };
     vg.embed(`#${this.graphId()}`, embedSpec);
   },
 
   render() {
+    let style;
+    let button;
+    if (this.state.showGraph) {
+      style = '';
+      button = <button onClick={this.hideGraph} className="button dark">Hide graph</button>;
+    } else {
+      style = ' hidden';
+      button = <button onClick={this.renderGraph} className="button dark">Show graph</button>;
+    }
+    const className = `vega-graph ${style}`;
     return (
-      <div id={this.graphId()} />
+      <div>
+        {button}
+        <div id={this.graphId()} className={className} />
+      </div>
     );
   }
 });
