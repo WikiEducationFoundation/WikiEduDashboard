@@ -14,6 +14,9 @@ const Wp10Graph = React.createClass({
 
   showGraph() {
     this.setState({ showGraph: true });
+    if (!this.state.rendered) {
+      this.renderGraph();
+    }
   },
 
   hideGraph() {
@@ -25,7 +28,6 @@ const Wp10Graph = React.createClass({
   },
 
   renderGraph() {
-    this.showGraph();
     const articleId = this.props.article.id;
     const vlSpec = {
       // TODO: get data from json endpoint
@@ -49,6 +51,7 @@ const Wp10Graph = React.createClass({
       actions: false
     };
     vg.embed(`#${this.graphId()}`, embedSpec);
+    this.setState({ rendered: true });
   },
 
   render() {
@@ -59,7 +62,7 @@ const Wp10Graph = React.createClass({
       button = <button onClick={this.hideGraph} className="button dark">Hide graph</button>;
     } else {
       style = ' hidden';
-      button = <button onClick={this.renderGraph} className="button dark">Show graph</button>;
+      button = <button onClick={this.showGraph} className="button dark">Show graph</button>;
     }
     const className = `vega-graph ${style}`;
     return (
