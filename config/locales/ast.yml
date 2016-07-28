@@ -5,10 +5,17 @@
 # Author: Xuacu
 ---
 ast:
+  accessibility:
+    number_field: Esti ye un campu numbéricu. Los botones representaos pola mayoría
+      de los navegadores van amontar y decrementar la entrada.
   application:
     cancel: Encaboxar
     dashboard: Tableru de Wiki Ed
+    error: 'Hebo un error:'
     explore: Esplorar
+    field_required: Esti campu ye obligatoriu
+    field_invalid_characters: Esti campu tien caráuteres inválidos
+    field_invalid_date: Esti campu rique una fecha en formatu AAAA-MM-DD
     greeting2: ¡Bienveníu!
     greeting_extended: Bienveníu a Wikipedia
     greeting: Bones
@@ -25,8 +32,14 @@ ast:
     sign_up: Date d'alta
     submit: Unviar
     training: Prauticar
+    change: Camudar
   dashboard:
     create_note: Fai click en Crear cursu pa crear el to primer cursu.
+    create_preparation_note: Asegúrate de tener el to calendariu académicu a mano
+      antes d'empezar; la ferramienta de diseñu de xeres va usar les feches de les
+      xuntes de la to clase, incluyendo vacaciones y pauses escolares, p'afaer la
+      to cronograma al intervalu de feches qu'escueyas. Recuerda que siempres puedes
+      editar el cronograma pa que s'axuste a les tos necesidaes.
     explore_course_pages: Esplorar les Páxines del cursu
     explore_examples: Esplorar exemplos
     join_note: En recibiendo un códigu d'accesu del to monitor, fai click en Alcuentra'l
@@ -34,21 +47,33 @@ ast:
     no_courses_instructor: Paez que nun tienes nengún cursu.
     no_courses_student: Paez qu'inda nun te xunisti a un cursu.
     opt_out: Solicitar dar de baxa la orientación
+    orientation_notice: Antes de crear un cursu, vamos pasar a la orientación p'ayudate
+      a empezar. (Tárdase unos 30 minutos en completala.)
+    review_orientation: Ver la orientación
+    start_orientation: Principiar la orientación
+    blog_headline: Noticies recién de Wiki Ed
   home:
     explore: Esplorar
     log_in: Aniciar sesión con Wikipedia
     sign_up: Rexístrate con Wikipedia
+    sign_up_help: Pa usar el tableru de control, vas tener qu'aniciar sesión en Wikipiedia
+      y da-y permisu p'aportar a la to cuenta. Puedes aniciar sesión con una cuenta
+      de Wikipedia esistiente o crear una nueva.
   activity:
     all: Actividá
     edited_by: Editáu por
+    label: Actividá
   articles:
     assigned: Artículos axudicaos
+    available: Artículos disponibles
     assigned_to: Axudicáu a
     character_doc: La suma de caráuteres amestaos a los artículos polos editores apuntaos
       ente la data de principiu y la final
     edited: Artículos editaos
     edited_mobile: Artículos
+    label: Artículos
     loading: Cargando artículos...
+    new: (nuevu)
     none: Esti cursu nun editó nengún artículu.
     rating: Clase
     rating_doc: La calificación qu'un artículu recibió de Wikiproyeutos en Wikipedia.
@@ -71,26 +96,52 @@ ast:
       '?': Sin calificar — un artículu qu'inda nun se calificó na escala de calidá
         de Wikipedia
     title: Títulu
+    title_example: Títulu del artículu
     view: Ver artículu
     view_all: Ver toos
     view_doc: La suma de toles visites a cada artículu demientres el periodu del cursu
     views_added: Amestáronse %{count} visites nueves a %{title}
   assignments:
+    already_exists: ¡Esta xera yá esiste!
     assignees: Encargáu(os)
+    assign_other: Asinar un artículu
+    add_available: Añadir un artículu disponible
+    assign_self: Asiname un artículu
+    confirm_add_available: ¿Tas seguru de que quieres añadir %{title}?
     confirm_addition: ¿Tas seguru de que quies encargar de %{title} a %{username}?
     confirm_deletion: ¿Tas seguru de que quies desaniciar esta designación?
+    label: Asinar
     loading: Cargando xeres...
-    none: Esti cursu nun tien artículos de Wikipedia designaos.
+    none_short: Nun hai artículos asinaos
+    none: Esti cursu nun tien artículos asinaos.
+    no_available: Esti cursu nun tien artículos disponibles.
+    remove: Desaniciar
     reviewers: Revisor(es)
+    review_other: Asinar una revisión
+    review_self: Revisar un artículu
+    select: Seleicionar
   blocks:
     milestones:
       title: Finxos
   cohort:
+    none: Nengunu
     view_other: Ver otres cohortes
   courses:
     activity: Actividá
+    already_enrolled: Yá yes parte de '%{title}'.
+    already_exists: ¡Eso yá esiste pa esti cursu!
+    archived: Cursos archivaos
+    actions: Aiciones
     articles: Artículos
     articles_none: Esti cursu nun editó nengún artículu.
+    assignment_end: Fin de la xera
+    assignments_none: Esti cursu nun tien artículos asinaos.
+    assignment_start: Entamu de la xera
+    calendar:
+      legend: Lleenda
+      legend_class_canceled: Vacaciones/encaboxada
+      legend_class_meeting: Xunta de la Clase
+      legend_class_not_meeting: Nenguna xunta programada
     character_doc: La suma de caráuteres amestaos a los artículos del espaciu principal
       polos estudiantes nel periodu del cursu
     course_dates_calendar_instructions: Escueye feches p'añadir o quitar del calendariu
@@ -134,7 +185,7 @@ ast:
   courses_generic:
     articles_none: Inda nun hai artículos editaos nesti proyeutu.
     assignment_end: Fin de la llinia temporal
-    assignments_none: Esti proyeutu nun tien artículos de Wikipedia designaos.
+    assignments_none: Esti proyeutu nun tien artículos asinaos.
     assignment_start: Principiu de la llinia temporal
     edit_course_dates: Editar les dates de los proyeutos
   metrics:
@@ -163,7 +214,7 @@ ast:
     date_time: Fecha/hora
     edited_by: Editáu por
     loading: Cargando revisiones...
-    none: Esti cursu nun tien actividá editorial reciente en Wikipedia.
+    none: Esti cursu nun tien actividá editorial recien.
     time_doc: La hora de cada revisión n'hora llocal
     title: Títulu
   tasks:
@@ -204,7 +255,7 @@ ast:
     editors: Editores estudiantes
     loading: Cargando usuarios...
     name: Nome
-    none: Esti cursu nun tien estudiantes.
+    none: Nun hai participantes.
     recent_revisions: Ediciones recién
     revisions_doc: El númberu d'ediciones feches por esti editor nos 7 díes anteriores
     reviewers: Revisor(es)

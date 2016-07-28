@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Amire80
+# Author: Esh77
 # Author: Guycn2
 # Author: IKhitron
 # Author: LaG roiL
@@ -12,7 +13,7 @@
 he:
   application:
     cancel: ביטול
-    dashboard: לוח בקרה של ויקי השכלה
+    dashboard: לוח בקרה של ויקי חינוך
     error: 'אירעה שגיאה:'
     explore: חקור
     field_required: חובה למלא את השדה הזה

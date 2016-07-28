@@ -143,6 +143,11 @@ ca:
       Si és així, escriviu el títol del curs per a procedir.
     confirm_course_deletion_failed: '"%{title}" no és el títol d''aquest curs. El
       curs no ha estat esborrat.'
+    course_dates_calendar_instructions: Selecciona les dates per afegir o treure de
+      la planificació (per ex., vacances, dies de lliure disposició). Clica per canviar
+      les dates entre de-seleccionades, seleccionades i vacances. Les dates de les
+      activitats del curs canviaran segons les setmanes en les que la classe no es
+      trobi físicament.
     course_description: Cursos
     courses: Cursos
     creator:
@@ -153,6 +158,12 @@ ca:
       assignment_start: Inici de la tasca
       assignment_start_placeholder: Inici de la tasca (AAAA-MM-DD)
       checking_for_uniqueness: Estem mirant si aquest curs és únic.
+      cloned_course_calendar_instructions: Selecciona les dates per afegir o treure-les
+        de la planificació (per ex., vacances, dies de lliure disposició). Clica a
+        la data per canviar entre de-seleccionat, seleccionat i vacances. Si no teniu
+        vacances selecciona "No tinc vacances". La línia del temps clonada ajustarà
+        automàticament les dates per comptar les setmanes en que no hi ha reunions
+        programades.
       clone_successful: S'ha clonat el curs de forma exitosa
       clone_successful_details: El vostre curs ha estat clonat, inclosos elements
         de la línia de temps (setmanes i blocs). Ha canviat alguna cosa del curs?
@@ -173,6 +184,10 @@ ca:
       end_date_placeholder: Data de finalització (AAAA-MM-DD)
       expected_number: Nombre previst d'alumnes
       find: Trobeu el vostre curs
+      intro: El títol, l'escola i el termini creant l'enllaç (URL) per al teu curs
+        i no es poden canviar. Tota la resta de coses es poden modificar a posteriori.
+        Clica "Crea el meu curs!" per començar a construir la línia de temps per a
+        la teva tasca de Viquipèdia.
       no_class_holidays: No faig mai vacances
       save_cloned_course: Guarda el curs nou
       start_date: Data d'inici
@@ -210,6 +225,9 @@ ca:
     new_week: Afegir una Nova Setmana
     nocourses: No fas cap curs.
     none: Cap
+    notify_untrained_confirmation: Aquest missatge és un recordatori per a les pàgines
+      de discussió de tots els estudiants que han sobrepassat el temps dels mòduls
+      d'entrenament. N'estàs segur què vols fer aquesta acció?
     no_available_actions: Cap acció disponible
     overview: Vista general
     passcode: Codi d'accés
@@ -244,12 +262,19 @@ ca:
     title: Títol
     training_nav: Anar a la formació
     unsubmitted: Cursos no enviats
+    untrained: No entrenat
     uploads_none: Aquesta classe encara no ha contribuït amb cap imatge o algun altre
       tipus de fitxer a Wikimedia Commons.
     weeks_none: Aquest curs encara no té línia temporal.
     view: Vegeu el curs
+    view_doc: La suma de totes les visites a articles editats pels estudiants apuntats
+      des de que van fer la primera modificació.
     view_page: Veure la pàgina del curs
     view_wiki: Veure a Viquipèdia
+    warn_mirrored: Amb l'enviament aquest curs serà automàticament penjat a la Viquipèdia
+      amb el teu compte d'usuari. Després d'això, les noves edicions a la línia de
+      temps seran automàticament reflectides a la Viquipèdia. N'estàs segur què vols
+      fer aquesta acció?
     wiki_staff: Personal de la Wiki Ed
     word_count_doc: Una estimació del nombre de paraules afegides a l'espai principal
       (article) pels estudiants del curs durant el període del curs
@@ -324,8 +349,10 @@ ca:
     active_courses: L'article és actiu a
     article_title: Títol de l'article
     datetime: Data/Hora
+    did_you_know_eligible: Sabíeu que...
     image: Imatge
     file_name: Nom del fitxer
+    no_dyk_eligible: En aquests moments no hi ha cap article de "Sabíeu que..." escollible.
     no_plagiarism: Actualment no hi ha revisions recents de possible plagi.
     no_edits: No hi ha edicions recents.
     plagiarism_report: Informe de plagi
@@ -426,6 +453,11 @@ ca:
     assign_articles_done: Fet
     assigned: Articles assignats
     assignees: Assignat a
+    character_doc: La suma de total de contingut que un usuari ha afegit a l'espai
+      principal, sumant els caràcters afegits amb totes les edicions que han fet créixer
+      la pàgina. Aquest nombre no reflexa necessàriament la quantitat de nou contingut
+      que ha afegit l'usuari. Recuperar contingut esborrat pel vandalisme farà pujar
+      molt aquesta xifra.
     contributions: Contribucions de l'usuari
     contributions_more: Veure més contribucions
     course_passcode: 'Paraula de pas:'
@@ -436,6 +468,7 @@ ca:
     last_name: Cognoms
     loading: Carregant usuaris...
     characters_added_mainspace: Caràcters afegits a l'espai principal
+    characters_added_userspace: Caràcters afegits a l'espai d'usuari
     my_assigned: 'Assignat:'
     my_reviewing: 'Revisant:'
     name: Nom
@@ -448,6 +481,8 @@ ca:
       7 dies
     reviewers: Revisor(s)
     reviewing: Revisant
+    training_doc: Els editors que han completat tots els mòduls d'entrenament assignats
+      dins de les dates se'ls compta com a usuaris que estan al dia amb el seu entrenament.
     training_incomplete: Formació Incompleta
     up_to_date_with_training: esteu al dia amb la formació
     username: Nom d'usuari
@@ -504,13 +539,41 @@ ca:
       pregunta al professor el codi correcte.
   error_404:
     header: Pàgina no trobada. :-(
+    explanation: Aquesta pàgina no existeix. Si estàs intentant accedir al panell
+      de control per al curs, potser aquest curs no ha estat registrat. Si ha estat
+      registrat recentment potser passa una mica de temps fins que el sistema l'afegeix.
+  error_422:
+    header: Error 422 — Entitat no processable
+    explanation: Alguna cosa ha sortit malament. Si us plau contacta els usuaris que
+      mantenen l'eina per informar-los sobre el problema.
   error_500:
     header: 500 — error intern del servidor. :-(
+    explanation: Alguna cosa ha sortit malament. Si us plau contacta els usuaris que
+      mantenen l'eina per informar-los sobre el problema.
   login_error:
     header: Error d'inici de sessió
+    explanation: Sembla que hi ha hagut un problema durant l'inici de sessió. Ens
+      sap greu aquest error, a vegades passa. Si us plau torna a iniciar sessió o
+      apunta't una altra vegada.
   survey:
+    login_message: Gràcies pel teu temps. Si us plau inicia sessió al teu Wiki Ed
+      tauler de control per a fer l'enquesta.
+    notification_explanation: Si la casella de sota està marcada els usuaris rebran
+      emails amb les notificacions a més de veure-les amb el navegador. Si no està
+      marcada només veuran les notificacions amb el navegador.
+    notification_schedule_explanation: Notificacions incloses al navegador i al email
+      si a dalt estan activades.
+    follow_up_explanation: Deixar en blanc si no voleu més notificacions enviades
+      per email.
     email:
       headline: Hola, %{username}
+      message_line1: Esperem que hagis tingut un bon semestre! L'equip de Wiki Ed
+        vol escoltar les teves observacions per a millorar els recursos i el suport
+        per a les tasques de Viquipèdia. La teva resposta és crucial per millorar
+        el que estem actualment oferint.
+      message_line2: Estàs disposat a fer la nostra enquesta per a professors de 15
+        minuts? Clica al botó de sota per ajudar-nos a millorar la Viquipèdia com
+        a eina pedagògica.
       course: 'Curs: %{course_info}'
       closing: Sincerament,
       signed: '- L''equip de Wiki Ed'
