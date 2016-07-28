@@ -365,7 +365,7 @@ essentials:
     weight: 3
     blocks:
       -
-        title: "Discussion: Thinking about Wikipiedia"
+        title: "Discussion: Thinking about Wikipedia"
         kind: 0
         content: |
           <ul>
