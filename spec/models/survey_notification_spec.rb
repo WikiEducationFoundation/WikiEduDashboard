@@ -10,9 +10,12 @@ describe SurveyNotification do
   let(:email) { 'instructor@example.edu' }
   let(:course) { create(:course) }
   let(:courses_user) { create(:courses_user, course_id: course.id, user_id: user.id) }
+  let(:survey) { create(:survey, closed: survey_closed?) }
+  let(:survey_closed?) { false }
   let(:follow_up_days) { 7 }
   let(:survey_assignment) do
-    create(:survey_assignment, follow_up_days_after_first_notification: follow_up_days)
+    create(:survey_assignment, follow_up_days_after_first_notification: follow_up_days,
+                               survey_id: survey.id)
   end
   let(:email_sent_at) { 1.hour.ago }
   let(:last_follow_up_sent_at) { nil }
@@ -23,9 +26,13 @@ describe SurveyNotification do
            course_id: course.id,
            email_sent_at: email_sent_at,
            last_follow_up_sent_at: last_follow_up_sent_at,
-           follow_up_count: follow_up_count)
+           follow_up_count: follow_up_count,
+           completed: completed,
+           dismissed: dismissed)
   end
   let(:follow_up_count) { 0 }
+  let(:completed) { false }
+  let(:dismissed) { false }
 
   let(:subject) { survey_notification }
 
@@ -47,7 +54,42 @@ describe SurveyNotification do
     expect(described_class.last).to be_nil
   end
 
-  describe 'send_email' do
+  describe '.active' do
+    let(:subject) { SurveyNotification.active }
+
+    context 'when the survey is not closed' do
+      before { survey_notification }
+      it 'includes the active survey notification' do
+        expect(subject).to include(survey_notification)
+      end
+    end
+
+    context 'when the notification is dismissed' do
+      let(:dismissed) { true }
+      before { survey_notification }
+      it 'returns no survey notifications' do
+        expect(subject.count).to eq(0)
+      end
+    end
+
+    context 'when the notification is completed' do
+      let(:completed) { true }
+      before { survey_notification }
+      it 'returns no survey notifications' do
+        expect(subject.count).to eq(0)
+      end
+    end
+
+    context 'when the survey is closed' do
+      let(:survey_closed?) { true }
+      before { survey_notification }
+      it 'returns no survey notifications' do
+        expect(subject.count).to eq(0)
+      end
+    end
+  end
+
+  describe '#send_email' do
     context 'when email has not been sent' do
       let(:email_sent_at) { nil }
       it 'sends the email' do

@@ -3,9 +3,21 @@ class SurveyNotification < ActiveRecord::Base
   belongs_to :survey_assignment
   belongs_to :course
 
-  scope :active, -> { where(dismissed: false, completed: false) }
   scope :completed, -> { where(completed: true) }
   scope :dismissed, -> { where(dismissed: true) }
+
+  def self.active
+    unclosed_survey_ids = Survey.where(closed: false).pluck(:id)
+    unclosed_survey_assignment_ids = SurveyAssignment.where(survey_id: unclosed_survey_ids)
+                                                     .pluck(:id)
+    where(dismissed: false,
+          completed: false,
+          survey_assignment_id: unclosed_survey_assignment_ids)
+  end
+
+  ####################
+  # Instance methods #
+  ####################
 
   def send_email
     # In these environments only send emails to the users specified in ENV['survey_test_email']

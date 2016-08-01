@@ -10,6 +10,7 @@ class Survey < ActiveRecord::Base
   accepts_nested_attributes_for :rapidfire_question_groups
 
   def status
+    return '--' if closed
     active = survey_assignments.map(&:active?)
     return "In Use (#{active.count})" unless active.empty?
     '--'
