@@ -9,6 +9,9 @@
         - if post.enclosure
           .blog-post__image
             %img{src: post.enclosure.url, :alt => post.title}
+        - else
+          .blog-post__image
+            %img{src: 'https://wikiedu.org/wp-content/uploads/2015/05/wiki-hero.jpg', :alt => post.title}
         %h3.blog-post__header
           %a{href: post.link, target: "_blank"}= post.title
         %p.blog-post__description= raw post.description
