@@ -96,23 +96,32 @@ class Course < ActiveRecord::Base
 
   has_many :tags, dependent: :destroy
 
-  # Legacy courses are ones that are imported from the EducationProgram
-  # MediaWiki extension, not created within the dashboard via the wizard.
-  scope :legacy, -> { where(type: 'LegacyCourse') }
-  scope :not_legacy, -> { where.not(type: 'LegacyCourse') }
-
-  scope(:unsubmitted_listed, lambda do
-    where(submitted: false).where(listed: true).merge(Course.not_legacy)
-  end)
-
-  scope :listed, -> { where(listed: true) }
-
   module ClonedStatus
     NOT_A_CLONE = 0
     # PENDING is the initial cloned record, where the cloning process was
     # initiated, but not completed.
     PENDING = 1
     COMPLETED = 2
+  end
+
+  ##########
+  # Scopes #
+  ##########
+
+  # Legacy courses are ones that are imported from the EducationProgram
+  # MediaWiki extension, not created within the dashboard via the wizard.
+  scope :legacy, -> { where(type: 'LegacyCourse') }
+
+  scope :listed, -> { where(listed: true) }
+
+  def self.submitted_listed
+    Course.listed.includes(:cohorts).where('cohorts.id IS NULL')
+          .where(submitted: true).references(:cohorts)
+  end
+
+  def self.unsubmitted_listed
+    Course.listed.includes(:cohorts).where('cohorts.id IS NULL')
+          .where(submitted: false).references(:cohorts)
   end
 
   scope :strictly_current, -> { where('? BETWEEN start AND end', Time.zone.now) }
@@ -145,20 +154,16 @@ class Course < ActiveRecord::Base
   end
 
   ##################
-  # Syllabus Upload Attachment #
-  ##################
-  has_attached_file :syllabus
-  validates_attachment_content_type :syllabus,
-                                    content_type: %w(application/pdf application/msword)
-
-  ##################
   # Course content #
   ##################
   has_many :weeks, dependent: :destroy
   has_many :blocks, through: :weeks, dependent: :destroy
   has_many :gradeables, as: :gradeable_item, dependent: :destroy
 
-  before_save :order_weeks
+  has_attached_file :syllabus
+  validates_attachment_content_type :syllabus,
+                                    content_type: %w(application/pdf application/msword)
+
   validates :passcode, presence: true, unless: :legacy?
   validates :start, presence: true
   validates :end, presence: true
@@ -172,11 +177,11 @@ class Course < ActiveRecord::Base
   ).freeze
   validates_inclusion_of :type, in: COURSE_TYPES
 
-  ####################
-  # Callbacks        #
-  ####################
-
+  #############
+  # Callbacks #
+  #############
   before_save :ensure_required_params
+  before_save :order_weeks
 
   ####################
   # Instance methods #
@@ -275,12 +280,6 @@ class Course < ActiveRecord::Base
     Course.transaction do
       Course.current.each(&:update_cache)
     end
-  end
-
-  def self.submitted_listed
-    Course.includes(:cohorts).where('cohorts.id IS NULL')
-          .where(listed: true).where(submitted: true)
-          .references(:cohorts)
   end
 
   RANDOM_PASSCODE_LENGTH = 8
