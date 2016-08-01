@@ -63,6 +63,7 @@ sr-ec:
     course_description: Вики Ед курсеви
     courses: Курсеви
     current: Тренутни курсеви
+    dismiss_survey: Одбаци
     duration: Трајање курса
     error:
       exists: Овај курс већ постоји! Молимо да покушате поново с другим насловом,
