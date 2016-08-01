@@ -265,6 +265,10 @@
     -
       title: Include DYK as an ungraded option
       blurb: The Wiki Ed team can help you and your students during the term to identify work that may be a good candidate for DYK and answer questions you may have about the nomination process.
+      tag: dyk_and_ga
+      logic: did_you_know
     -
       title: Include Good Article nominations as an ungraded option
       blurb: The Wiki Ed team can provide advice and support to high-achieving students who are interested in the Good Article process.
+      tag: dyk_and_ga
+      logic: good_article_nominations
