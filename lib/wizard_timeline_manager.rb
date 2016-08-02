@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "#{Rails.root}/lib/course_meetings_manager"
 
 # Routines for building and saving a course timeline after submission of wizard data
@@ -95,12 +96,9 @@ class WizardTimelineManager
     week_finished = false
     timeline.each_with_index do |week, week_index|
       week[:blocks].each_with_index do |block, block_index|
-        # Skip blocks with unmet 'if' or 'unless' dependencies
+        # Skip blocks with unmet 'if' dependencies
 
         next unless if_dependencies_met?(block)
-        # NOTE: uncomment this if/when we use 'unless' blocks in the wizard,
-        # and be sure to add tests.
-        # next unless unless_dependencies_met?(block)
 
         if new_week.nil? || (!new_week.blocks.blank? && week_finished)
           new_week = Week.create(course_id: @course.id, order: week_index + 1)
@@ -119,18 +117,6 @@ class WizardTimelineManager
     end
     if_met
   end
-
-  # def unless_dependencies_met?(block)
-  #   # Skip blocks with unmet 'unless' dependencies
-  #   unless_met = !block.key?('unless')
-  #   block_unless = block['unless']
-  #   block_unless = [block_unless] unless block_unless.is_a?(Array)
-  #
-  #   unless_met ||= block_unless.reduce(true) do |met, dep|
-  #     met && !@logic.include?(dep)
-  #   end
-  #   unless_met
-  # end
 
   def save_block_and_gradeable(week, block, i)
     block['week_id'] = week.id

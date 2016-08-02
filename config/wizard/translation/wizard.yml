@@ -52,9 +52,12 @@
   title: "Optional: add a more challenging media literacy component"
   description: |
     For advanced students, you can add a challenging media literacy component to your course. This requires students to fact-check information on the target-language Wikipedia using the target language. They also find sources in their base language to support those claims on their base-language Wikipedia.
-  type: 0 # multiple choice
-  minimum: 0
+  type: 1 # single choice
+  minimum: 1
   options:
     -
-      title: Add fact-checking assignment
+      title: Include fact-checking assignment
       logic: fact_checking
+    -
+      title: Do not include fact-checking assignment
+      logic: no_fact_checking

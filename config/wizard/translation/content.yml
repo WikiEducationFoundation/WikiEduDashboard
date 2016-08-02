@@ -143,15 +143,15 @@ translation_core:
     weight: 6
     blocks:
       - # Week three in-class WITHOUT fact-checking assignment
-        unless: fact_checking
+        if: no_fact_checking
         title: Translation
         kind: 0
         content: |
           <ul>
-            <li>Be ready to discuss your progess translating your article.</li>
+            <li>Be ready to discuss your progress translating your article.</li>
           </ul>
       - # Week three assignment WITHOUT fact-checking assignment
-        unless: fact_checking
+        if: no_fact_checking
         title: Translation
         kind: 1
         content: |
@@ -164,7 +164,7 @@ translation_core:
         kind: 0
         content: |
           <ul>
-            <li>Be ready to discuss your progess translating your article.</li>
+            <li>Be ready to discuss your progress translating your article.</li>
             <li>Carefully note the original citations for facts in your source article.
             <ul><li>If an original source doesn't seem reliable, feel free to omit it from your translation.</li></ul></li>
           </ul>
