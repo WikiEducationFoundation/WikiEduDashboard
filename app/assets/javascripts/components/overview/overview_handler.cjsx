@@ -13,7 +13,7 @@ CourseClonedModal  = require './course_cloned_modal.cjsx'
 CourseUtils   = require('../../utils/course_utils.js').default
 SyllabusUpload  = require('./syllabus-upload.jsx').default
 MyArticles = require('./my_articles.jsx').default
-Modal = require '../common/modal.cjsx'
+Modal = require('../common/modal.jsx').default
 
 getState = ->
   course: CourseStore.getCourse()

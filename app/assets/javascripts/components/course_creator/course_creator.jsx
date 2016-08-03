@@ -9,7 +9,7 @@ import ValidationStore from '../../stores/validation_store.coffee';
 import ValidationActions from '../../actions/validation_actions.js';
 import ServerActions from '../../actions/server_actions.js';
 
-import Modal from '../common/modal.cjsx';
+import Modal from '../common/modal.jsx';
 import TextInput from '../common/text_input.cjsx';
 import DatePicker from '../common/date_picker.jsx';
 import TextAreaInput from '../common/text_area_input.cjsx';
