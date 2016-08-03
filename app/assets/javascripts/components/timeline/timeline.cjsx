@@ -6,7 +6,7 @@ DDContext       = RDnD.DragDropContext
 
 Week            = require './week.cjsx'
 Loading         = require('../common/loading.jsx').default
-CourseLink      = require '../common/course_link.cjsx'
+CourseLink      = require('../common/course_link.jsx').default
 Affix           = require('../common/affix.jsx').default
 
 WeekActions     = require('../../actions/week_actions.js').default

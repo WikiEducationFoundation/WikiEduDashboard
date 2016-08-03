@@ -2,7 +2,7 @@ React           = require 'react'
 md              = require('../../utils/markdown_it.js').default()
 WizardActions   = require('../../actions/wizard_actions.js').default
 WizardStore     = require '../../stores/wizard_store.coffee'
-CourseLink      = require '../common/course_link.cjsx'
+CourseLink      = require('../common/course_link.jsx').default
 Option          = require './option.cjsx'
 
 Panel = React.createClass(
@@ -10,13 +10,13 @@ Panel = React.createClass(
   advance: ->
     if @props.saveCourse
       WizardActions.advanceWizard() if @props.saveCourse()
-    else 
+    else
       WizardActions.advanceWizard()
   rewind: (e) ->
     e.preventDefault()
     if @props.saveCourse
       WizardActions.rewindWizard() if @props.saveCourse()
-    else 
+    else
       WizardActions.rewindWizard()
   reset: (e) ->
     e.preventDefault()

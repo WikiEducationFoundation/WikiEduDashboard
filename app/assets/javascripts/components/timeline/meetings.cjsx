@@ -1,5 +1,5 @@
 React             = require 'react'
-CourseLink        = require '../common/course_link.cjsx'
+CourseLink        = require('../common/course_link.jsx').default
 Editable          = require('../high_order/editable.jsx').default
 Calendar          = require('../common/calendar.jsx').default
 Modal             = require '../common/modal.cjsx'

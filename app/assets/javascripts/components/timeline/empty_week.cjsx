@@ -1,5 +1,5 @@
 React      = require 'react'
-CourseLink = require '../common/course_link.cjsx'
+CourseLink = require('../common/course_link.jsx').default
 
 EmptyWeek = React.createClass(
   render: ->

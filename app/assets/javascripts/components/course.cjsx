@@ -1,7 +1,7 @@
 React             = require 'react'
 ReactRouter       = require 'react-router'
 Link              = ReactRouter.Link
-CourseLink        = require './common/course_link.cjsx'
+CourseLink        = require('./common/course_link.jsx').default
 ServerActions     = require('../actions/server_actions.js').default
 CourseActions     = require('../actions/course_actions.js').default
 CourseStore       = require '../stores/course_store.coffee'
