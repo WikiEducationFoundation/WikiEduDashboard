@@ -30,7 +30,8 @@ class WizardTimelineManager
 
   def update_timeline_and_tags
     # Parse the submitted wizard data and collect selected content.
-
+    # @output is an array of strings that corresponds to the available
+    # output options in @all_content.
     content_groups = @output.map do |content_key|
       @all_content[content_key]
     end
@@ -65,7 +66,8 @@ class WizardTimelineManager
     end
   end
 
-  # assumes at least two weeks in the timeline
+  # Find the two consecutive weeks with the lowest total weight, and combine
+  # then into a single week. This assumes at least two weeks in the timeline.
   def shorten_timeline_by_one_week
     week_pair_weights = {}
     i = 0
@@ -126,6 +128,9 @@ class WizardTimelineManager
 
   def add_tags
     @tags.each do |tag|
+      # Only one tag for each tag key is allowed. Overwrite the previous tag if
+      # one with the same key already exists, so that if a given choice is made
+      # a second time, the tag gets updated to reflect the new choice.
       if Tag.exists?(course_id: @course.id, key: tag[:key])
         tag_model = Tag.find_by(course_id: @course.id, key: tag[:key])
         tag_model.update(tag: tag[:tag])
