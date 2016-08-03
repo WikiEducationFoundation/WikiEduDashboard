@@ -4,7 +4,7 @@ Popover       = require('../common/popover.jsx').default
 Conditional   = require('../high_order/conditional.jsx').default
 ServerActions = require('../../actions/server_actions.js').default
 Lookup        = require '../common/lookup.cjsx'
-LookupSelect  = require '../common/lookup_select.cjsx'
+LookupSelect  = require('../common/lookup_select.jsx').default
 { capitalize } = require('../../utils/strings.js')
 
 PopoverButton = (Key, ValueKey, Store, New, Items, IsSelect=false) ->
