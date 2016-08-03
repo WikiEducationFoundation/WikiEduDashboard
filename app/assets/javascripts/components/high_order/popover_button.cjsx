@@ -3,7 +3,7 @@ Expandable    = require('../high_order/expandable.jsx').default
 Popover       = require('../common/popover.jsx').default
 Conditional   = require('../high_order/conditional.jsx').default
 ServerActions = require('../../actions/server_actions.js').default
-Lookup        = require '../common/lookup.cjsx'
+Lookup        = require('../common/lookup.jsx').default
 LookupSelect  = require('../common/lookup_select.jsx').default
 { capitalize } = require('../../utils/strings.js')
 
