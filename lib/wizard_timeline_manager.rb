@@ -35,10 +35,10 @@ class WizardTimelineManager
 
     # Build a timeline array
     # Quirk: Will stuff blocks into last week if averages don't line up nicely
-    timeline = build_timeline(content_groups)
+    build_timeline(content_groups)
 
     # Create and save week/block objects based on the object generated above
-    save_timeline(timeline)
+    save_timeline
 
     # Save any tags that have been generated from this Wizard output
     add_tags
@@ -56,12 +56,11 @@ class WizardTimelineManager
 
     return [] if available_weeks <= 0
 
-    timeline = initial_weeks_and_weights(content_groups)
+    @timeline = initial_weeks_and_weights(content_groups)
 
-    while timeline.size > available_weeks
-      timeline = squish_timeline_by_one_week(timeline)
+    while @timeline.size > available_weeks
+      squish_timeline_by_one_week
     end
-    timeline
   end
 
   def initial_weeks_and_weights(content_groups)
@@ -73,10 +72,10 @@ class WizardTimelineManager
     end
   end
 
-  def squish_timeline_by_one_week(timeline)
+  def squish_timeline_by_one_week
     low_weight = 1000 # arbitrarily high number
     low_cons = nil
-    timeline.each_cons(2) do |week_set|
+    @timeline.each_cons(2) do |week_set|
       next unless week_set.size == 2
       cons_weight = week_set[0].weight + week_set[1].weight
       if cons_weight < low_weight
@@ -86,15 +85,13 @@ class WizardTimelineManager
     end
     low_cons[0][:weight] += low_cons[1][:weight]
     low_cons[0][:blocks] += low_cons[1][:blocks]
-    timeline.delete low_cons[1]
-
-    timeline
+    @timeline.delete low_cons[1]
   end
 
-  def save_timeline(timeline)
+  def save_timeline
     new_week = nil
     week_finished = false
-    timeline.each_with_index do |week, week_index|
+    @timeline.each_with_index do |week, week_index|
       week[:blocks].each_with_index do |block, block_index|
         # Skip blocks with unmet 'if' dependencies
 
