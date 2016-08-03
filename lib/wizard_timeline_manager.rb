@@ -24,6 +24,8 @@ class WizardTimelineManager
     # Load the wizard content building blocks.
     content_path = "#{Rails.root}/config/wizard/#{wizard_id}/content.yml"
     @all_content = YAML.load_file(content_path)
+
+    @timeline = []
   end
 
   def update_timeline_and_tags
@@ -34,7 +36,6 @@ class WizardTimelineManager
     end
 
     # Build a timeline array
-    # Quirk: Will stuff blocks into last week if averages don't line up nicely
     build_timeline(content_groups)
 
     # Create and save week/block objects based on the object generated above
@@ -51,59 +52,52 @@ class WizardTimelineManager
   private
 
   def build_timeline(content_groups)
-    meeting_manager = CourseMeetingsManager.new(@course)
-    available_weeks = meeting_manager.open_weeks
-
-    return [] if available_weeks <= 0
-
+    available_weeks = CourseMeetingsManager.new(@course).open_weeks
+    return if available_weeks == 0
     @timeline = initial_weeks_and_weights(content_groups)
-
-    while @timeline.size > available_weeks
-      squish_timeline_by_one_week
-    end
+    shorten_timeline_by_one_week until @timeline.size <= available_weeks
   end
 
   def initial_weeks_and_weights(content_groups)
     content_groups.flatten.map do |week|
-      OpenStruct.new(
-        weight: week['weight'],
-        blocks: week['blocks']
-      )
+      OpenStruct.new(weight: week['weight'],
+                     blocks: week['blocks'])
     end
   end
 
-  def squish_timeline_by_one_week
-    low_weight = 1000 # arbitrarily high number
-    low_cons = nil
-    @timeline.each_cons(2) do |week_set|
-      next unless week_set.size == 2
-      cons_weight = week_set[0].weight + week_set[1].weight
-      if cons_weight < low_weight
-        low_weight = cons_weight
-        low_cons = week_set
-      end
+  # assumes at least two weeks in the timeline
+  def shorten_timeline_by_one_week
+    week_pair_weights = {}
+    i = 0
+    @timeline.each_cons(2) do |week_pair|
+      week_pair_weights[i] = week_pair[0][:weight] + week_pair[1][:weight]
+      i += 1
     end
-    low_cons[0][:weight] += low_cons[1][:weight]
-    low_cons[0][:blocks] += low_cons[1][:blocks]
-    @timeline.delete low_cons[1]
+
+    lightest_weeks_index = week_pair_weights.min_by { |_first_week_index, weight| weight }[0]
+    squish_consecutive_weeks(lightest_weeks_index)
+  end
+
+  def squish_consecutive_weeks(first_week_index)
+    second_week_index = first_week_index + 1
+    @timeline[first_week_index][:weight] += @timeline[second_week_index][:weight]
+    @timeline[first_week_index][:blocks] += @timeline[second_week_index][:blocks]
+
+    @timeline.delete_at(second_week_index)
   end
 
   def save_timeline
-    new_week = nil
-    week_finished = false
     @timeline.each_with_index do |week, week_index|
+      next if week[:blocks].blank?
+      week_record = Week.create(course_id: @course.id, order: week_index + 1)
+
       week[:blocks].each_with_index do |block, block_index|
         # Skip blocks with unmet 'if' dependencies
-
         next unless if_dependencies_met?(block)
-
-        if new_week.nil? || (!new_week.blocks.blank? && week_finished)
-          new_week = Week.create(course_id: @course.id, order: week_index + 1)
-          week_finished = false
-        end
-        save_block_and_gradeable(new_week, block, block_index + 1)
+        block['week_id'] = week_record.id
+        block['order'] = block_index + 1
+        save_block_and_gradeable(block)
       end
-      week_finished = true
     end
   end
 
@@ -115,27 +109,19 @@ class WizardTimelineManager
     if_met
   end
 
-  def save_block_and_gradeable(week, block, i)
-    block['week_id'] = week.id
-    block['order'] = i
-
-    if block.key?('graded') && block['graded']
-      gradeable_params = {
-        points: block['points'] || 10,
-        gradeable_item_type: 'block',
-        title: ''
-      }
-    end
-
-    attr_keys_to_skip = %w(if unless graded points)
+  def save_block_and_gradeable(block)
+    attr_keys_to_skip = %w(if graded points)
     block_params = block.except(*attr_keys_to_skip)
-    block = Block.create(block_params)
+    block_record = Block.create(block_params)
 
-    return if gradeable_params.nil?
+    return unless block['graded']
 
-    gradeable_params['gradeable_item_id'] = block.id
+    gradeable_params = { gradeable_item_id: block_record.id,
+                         points: block['points'] || 10,
+                         gradeable_item_type: 'block',
+                         title: '' }
     gradeable = Gradeable.create(gradeable_params)
-    block.update(gradeable_id: gradeable.id)
+    block_record.update(gradeable_id: gradeable.id)
   end
 
   def add_tags
