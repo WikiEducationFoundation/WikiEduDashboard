@@ -1,7 +1,7 @@
 import '../../testHelper';
 // TextInput uses Conditional as a wrapper, so we'll test the intended behavior
 // through it, instead of trying to test Conditional directly or with mocks.
-import TextInput from '../../../app/assets/javascripts/components/common/text_input.cjsx';
+import TextInput from '../../../app/assets/javascripts/components/common/text_input.jsx';
 import React from 'react';
 import ReactTestUtils from 'react-addons-test-utils';
 

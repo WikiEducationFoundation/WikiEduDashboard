@@ -1,5 +1,5 @@
 React             = require 'react'
-TextInput         = require '../common/text_input.cjsx'
+TextInput         = require('../common/text_input.jsx').default
 GradeableActions  = require('../../actions/gradeable_actions.js').default
 
 Gradeable = React.createClass(

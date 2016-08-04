@@ -8,7 +8,7 @@ ValidationActions  = require('../../actions/validation_actions.js').default
 
 CourseActions = require('../../actions/course_actions.js').default
 
-TextInput     = require '../common/text_input.cjsx'
+TextInput     = require('../common/text_input.jsx').default
 DatePicker    = require('../common/date_picker.jsx').default
 TextAreaInput = require('../common/text_area_input.jsx').default
 Calendar      = require('../common/calendar.jsx').default

@@ -1,6 +1,6 @@
 React         = require 'react'
 Panel         = require './panel.cjsx'
-TextInput     = require '../common/text_input.cjsx'
+TextInput     = require('../common/text_input.jsx').default
 DatePicker    = require('../common/date_picker.jsx').default
 CourseActions = require('../../actions/course_actions.js').default
 ServerActions = require('../../actions/server_actions.js').default

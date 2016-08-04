@@ -1,10 +1,10 @@
 React             = require 'react'
-TextInput         = require '../common/text_input.cjsx'
+TextInput         = require('../common/text_input.jsx').default
 DatePicker        = require('../common/date_picker.jsx').default
 TextAreaInput     = require('../common/text_area_input.jsx').default
 TrainingModules   = require '../training_modules.cjsx'
 Checkbox          = require('../common/checkbox.jsx').default
-BlockTypeSelect            = require('./block_type_select.jsx').default
+BlockTypeSelect   = require('./block_type_select.jsx').default
 BlockActions      = require('../../actions/block_actions.js').default
 GradeableActions  = require('../../actions/gradeable_actions.js').default
 Reorderable       = require '../high_order/reorderable.cjsx'

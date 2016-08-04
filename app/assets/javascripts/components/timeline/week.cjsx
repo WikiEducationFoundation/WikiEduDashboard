@@ -6,7 +6,7 @@ OrderableBlock   = require './orderable_block.cjsx'
 BlockActions     = require('../../actions/block_actions.js').default
 WeekActions      = require('../../actions/week_actions.js').default
 GradeableStore   = require '../../stores/gradeable_store.coffee'
-TextInput        = require '../common/text_input.cjsx'
+TextInput        = require('../common/text_input.jsx').default
 EmptyWeek        = require './empty_week.cjsx'
 
 ReactCSSTG       = require 'react-addons-css-transition-group'
