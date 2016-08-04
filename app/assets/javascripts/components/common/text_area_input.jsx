@@ -3,6 +3,8 @@ const md = require('../../utils/markdown_it.js').default();
 import InputMixin from '../../mixins/input_mixin.cjsx';
 import TrixEditor from 'react-trix';
 
+// This is a flexible text input box. It switches between edit and read mode,
+// and can either provide a wysiwyg editor or a plain text editor.
 const TextAreaInput = React.createClass({
   displayName: 'TextAreaInput',
 
@@ -12,14 +14,14 @@ const TextAreaInput = React.createClass({
     onBlur: React.PropTypes.func,
     value: React.PropTypes.string,
     value_key: React.PropTypes.string,
-    editable: React.PropTypes.bool,
+    editable: React.PropTypes.bool, // switch between read and edit mode
     id: React.PropTypes.string,
     focus: React.PropTypes.bool,
     placeholder: React.PropTypes.string,
-    autoExpand: React.PropTypes.bool,
-    wysiwyg: React.PropTypes.bool,
-    markdown: React.PropTypes.bool,
-    rows: React.PropTypes.string,
+    autoExpand: React.PropTypes.bool, // start with one line and expand as needed — plain text only
+    rows: React.PropTypes.string, // set the number of rows — plain text only
+    wysiwyg: React.PropTypes.bool, // use Trix editor instead of plain text
+    markdown: React.PropTypes.bool, // render value as Markdown when in read mode
     className: React.PropTypes.string
   },
 
