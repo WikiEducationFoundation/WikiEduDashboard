@@ -89,7 +89,6 @@ const TextInput = React.createClass({
       return (
         <p className={this.props.p_tag_classname}>
           <span className="text-input-component__label"><strong>{label}</strong></span>
-          <span>{spacer}</span>
           <span onBlur={this.props.onBlur} onClick={this.props.onClick} className={valueClass}>{value}</span>
           {this.props.append}
         </p>
