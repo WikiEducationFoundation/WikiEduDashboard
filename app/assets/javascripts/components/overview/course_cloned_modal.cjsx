@@ -10,7 +10,7 @@ CourseActions = require('../../actions/course_actions.js').default
 
 TextInput     = require '../common/text_input.cjsx'
 DatePicker    = require('../common/date_picker.jsx').default
-TextAreaInput = require '../common/text_area_input.cjsx'
+TextAreaInput = require('../common/text_area_input.jsx').default
 Calendar      = require('../common/calendar.jsx').default
 CourseUtils   = require('../../utils/course_utils.js').default
 
@@ -154,7 +154,7 @@ CourseClonedModal = React.createClass(
               value={@props.course.description}
               value_key='description'
               editable=true
-              label={I18n.t('courses.creator.course_description')}
+              placeholder={I18n.t('courses.creator.course_description')}
             />
             <DatePicker
               id='course_start'

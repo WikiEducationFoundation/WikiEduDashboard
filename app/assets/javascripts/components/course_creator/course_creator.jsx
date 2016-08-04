@@ -12,7 +12,7 @@ import ServerActions from '../../actions/server_actions.js';
 import Modal from '../common/modal.jsx';
 import TextInput from '../common/text_input.cjsx';
 import DatePicker from '../common/date_picker.jsx';
-import TextAreaInput from '../common/text_area_input.cjsx';
+import TextAreaInput from '../common/text_area_input.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.coffee';
 import TransitionGroup from 'react-addons-css-transition-group';
@@ -266,7 +266,7 @@ const CourseCreator = React.createClass({
                   value={this.state.course.description}
                   value_key="description"
                   editable
-                  label={CourseUtils.i18n('creator.course_description', this.state.course_string_prefix)}
+                  placeholder={CourseUtils.i18n('creator.course_description', this.state.course_string_prefix)}
                 />
                 <DatePicker
                   id="course_start"
