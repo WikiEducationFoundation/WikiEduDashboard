@@ -4,6 +4,7 @@
 # Author: Aa10240tw
 # Author: Cwlin0416
 # Author: Ffaarr
+# Author: Kly
 # Author: LNDDYL
 # Author: Liuxinyu970226
 # Author: Reke
@@ -31,7 +32,7 @@ zh-TW:
     my_dashboard: 我的計分板
     recent_activity: 最近活動
     search: 提出一個問題
-    sign_up_extended: 登入至維基百科
+    sign_up_extended: 註冊維基百科
     sign_up_log_in_extended: 參與維基百科
     sign_up: 登入
     submit: 送出
@@ -255,9 +256,16 @@ zh-TW:
     word_count_doc: 在課程學期間由選課學生所添增到主名字空間條目的字元增加估計量
     yourcourses: 您的課程
   courses_generic:
+    creator:
+      create_short: 建立項目
+      find: 找尋一個項目
     student_editors: 編輯者
     students: 編輯者
     students_short: 編輯者
+  editable:
+    edit: 編輯
+    cancel: 取消
+    save: 保存
   metrics:
     activity: 最近活躍度
     articles_created: 已建立的條目
@@ -375,4 +383,7 @@ zh-TW:
     explanation: |-
       登錄過程似乎發生了一些問題（抱歉，這種事情偶而會發生！）
       請嘗試再次登錄或註冊。
+  survey:
+    email:
+      course: 課程：%{course_info}
 ...

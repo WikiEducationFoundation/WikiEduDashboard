@@ -84,7 +84,7 @@ diq:
     passcode: Passcode
     passcode_none: passcode çıni yo
     school: Wendxane
-    start: Serokne
+    start: Suru bık
     students: Telebey
     students_count: '# Telebey'
     timeline_link: Demawexti
@@ -121,7 +121,7 @@ diq:
     week_number: Hefte %{number}
   training:
     continue: Dewam keno %{progress}
-    start: Bas beno
+    start: Suru bık
     view: Bıvêne
   uploads:
     usages: Karidayışi
