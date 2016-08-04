@@ -1,22 +1,29 @@
+.container.dashboard
+  %header
+    %h1
+      Cohorts
 %section
-  %h1
-    Create New Cohort
-  %div
-    =form_tag do
-      = label :cohort, :title, 'Title'
-      = text_field :cohort, 'title'
-      = submit_tag 'Create Cohort'
+  .container
+    %hr
+    %h1
+      Create New Cohort
+    %div
+      =form_tag do
+        = text_field :cohort, 'title', placeholder: 'Title'
+        = submit_tag 'Create Cohort', class: 'button dark'
 %section
-  %h1
-    All Cohorts
-  %ul
-    - @cohorts.each do |cohort|
-      %li
-        = cohort.title
-        = " (CSVs: "
-        = link_to 'students', "/cohorts/#{cohort.slug}/students.csv"
-        = ", "
-        = link_to 'students by course', "/cohorts/#{cohort.slug}/students.csv?course=true"
-        = ", "
-        = link_to 'instructors by course', "/cohorts/#{cohort.slug}/instructors.csv?course=true"
-        = ")"
+  .container
+    %hr
+    %h1
+      All Cohorts
+    %ul
+      - @cohorts.each do |cohort|
+        %li
+          = cohort.title
+          = " (CSVs: "
+          = link_to 'students', "/cohorts/#{cohort.slug}/students.csv"
+          = ", "
+          = link_to 'students by course', "/cohorts/#{cohort.slug}/students.csv?course=true"
+          = ", "
+          = link_to 'instructors by course', "/cohorts/#{cohort.slug}/instructors.csv?course=true"
+          = ")"
