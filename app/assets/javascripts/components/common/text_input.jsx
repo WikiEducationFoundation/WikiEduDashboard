@@ -7,20 +7,21 @@ const TextInput = React.createClass({
 
   propTypes: {
     value: React.PropTypes.string,
+    value_key: React.PropTypes.string,
     editable: React.PropTypes.bool,
     label: React.PropTypes.string,
+    placeholder: React.PropTypes.string,
     spacer: React.PropTypes.string,
     valueClass: React.PropTypes.string,
+    p_tag_classname: React.PropTypes.string,
     inline: React.PropTypes.bool,
     type: React.PropTypes.string,
-    value_key: React.PropTypes.string,
     focus: React.PropTypes.func,
-    placeholder: React.PropTypes.string,
-    enabled: React.PropTypes.enabled,
-    p_tag_classname: React.PropTypes.string,
     onBlur: React.PropTypes.func,
     onClick: React.PropTypes.func,
     append: React.PropTypes.node
+    // validation: Regex used by Conditional
+    // required: bool used by Conditional
   },
 
   mixins: [InputMixin],
@@ -74,7 +75,6 @@ const TextInput = React.createClass({
           type={this.props.type || 'text'}
           placeholder={this.props.placeholder}
           title={title}
-          disabled={this.props.enabled === false}
           min={0}
         />
       );

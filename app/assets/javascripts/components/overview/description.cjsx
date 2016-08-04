@@ -1,6 +1,5 @@
 React             = require 'react'
 Editable          = require('../high_order/editable.jsx').default
-TextInput         = require('../common/text_input.jsx').default
 TextAreaInput     = require('../common/text_area_input.jsx').default
 CourseStore       = require '../../stores/course_store.coffee'
 CourseActions     = require('../../actions/course_actions.js').default
