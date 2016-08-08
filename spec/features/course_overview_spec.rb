@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 describe 'course overview page', type: :feature, js: true do
@@ -27,6 +28,7 @@ describe 'course overview page', type: :feature, js: true do
   let(:admin)   { create(:admin) }
 
   before do
+    Capybara.current_driver = :poltergeist
     stub_token_request
   end
 
@@ -34,7 +36,7 @@ describe 'course overview page', type: :feature, js: true do
     login_as(admin, scope: :user)
   end
 
-  context 'course started' do
+  context 'when course has started' do
     before do
       visit "/courses/#{course.slug}"
       sleep 1
@@ -47,7 +49,7 @@ describe 'course overview page', type: :feature, js: true do
     end
   end
 
-  context 'course starts in future' do
+  context 'when course starts in future' do
     let(:timeline_start) { course_start + 2.weeks }
     before do
       course.update_attribute(:timeline_start, timeline_start)

@@ -93,6 +93,7 @@ group :test do
   gem 'capybara'
   gem 'capybara-webkit'
   gem 'capybara-screenshot'
+  gem 'poltergeist'
   gem 'database_cleaner'
   gem 'webmock'
   gem 'vcr'
