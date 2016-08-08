@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Mbch331
 # Author: Milenej
+# Author: MrLeopold
 # Author: Ragesoss
 # Author: Romaine
 # Author: Siebrand
@@ -50,6 +51,9 @@ nl:
     explore: Verkennen
     log_in: Aanmelden met Wikipedia
     sign_up: Registreren via Wikipedia
+    sign_up_help: Om het dashboard te gebruiken, moet u zich aanmelden via Wikipedia
+      en het toestemming geven om toegang tot uw account te krijgen. U kan inloggen
+      met een bestaand Wikipedia-account of een nieuw aanmaken.
   activity:
     all: Activiteit
     edited_by: Bewerkt door

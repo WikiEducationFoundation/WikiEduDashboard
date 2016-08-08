@@ -243,7 +243,9 @@ lb:
     none: Dëse Cours huet keng Participanten.
     no_articles: Keng Artikelen
     no_revisions: Dësen Auteur huet keng Ännerunge gemaach.
-    number_of_articles: '%{number} Artikelen'
+    number_of_articles:
+      one: Een Artikel
+      other: '%{count} Artikelen'
     recent_revisions: Rezent Ännerungen
     remove_confirmation: Sidd Dir sécher datt Dir %{username} ewechhuele wëllt?
     training_complete:
