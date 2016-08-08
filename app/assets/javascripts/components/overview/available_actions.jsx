@@ -39,22 +39,17 @@ const AvailableActions = React.createClass({
     const enteredTitle = prompt(I18n.t('courses.confirm_course_deletion', { title: this.state.course.title }));
     if (enteredTitle === this.state.course.title) {
       return ServerActions.deleteCourse(this.state.course.slug);
-    } else if (enteredTitle !== null) {
+    } else if (enteredTitle) {
       return alert(I18n.t('courses.confirm_course_deletion_failed', { title: enteredTitle }));
     }
-  },
-
-  update() {
-    return ServerActions.manualUpdate(this.state.course.slug);
   },
 
   render() {
     let controls = [];
     const user = this.props.current_user;
-    if ((user.role !== null) || user.admin) {
-      // controls.push (
-      //   <p key='update'><button onClick={@update} className='button'>Update course</button></p>
-      // )
+
+    // If user has a role in the course or is an admin
+    if ((user.role !== undefined) || user.admin) {
       if (user.role === 0) {
         controls.push((
           <p key="leave"><button onClick={this.leave} className="button">{I18n.t('courses.leave_course')}</button></p>
@@ -65,6 +60,7 @@ const AvailableActions = React.createClass({
           <p key="delete"><button className="button danger" onClick={this.delete}>{I18n.t('courses.delete_course')}</button></p>
         ));
       }
+    // If user has no role or is logged out
     } else {
       controls.push((
         <p key="join">
@@ -73,6 +69,7 @@ const AvailableActions = React.createClass({
       ));
     }
 
+    // If no controls are available
     if (controls.length === 0) {
       controls.push(
         <p key="none">{I18n.t('courses.no_available_actions')}</p>
