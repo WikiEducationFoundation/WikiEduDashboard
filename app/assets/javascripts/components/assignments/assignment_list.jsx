@@ -25,9 +25,10 @@ const AssignmentList = React.createClass({
       if (!group[0].user_id) { return null; }
       const article = ArticleStore.getFiltered({ title })[0];
       return (
-        <Assignment {...this.props}
-          assign_group={group}
+        <Assignment
+          assignmentGroup={group}
           article={article || null}
+          course={this.props.course}
           key={group[0].id}
         />
       );
