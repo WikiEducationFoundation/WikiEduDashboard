@@ -1,5 +1,5 @@
 React         = require 'react'
-Actions       = require './actions.cjsx'
+AvailableActions       = require('./available_actions.jsx').default
 Description   = require './description.cjsx'
 Milestones    = require './milestones.cjsx'
 Details       = require './details.cjsx'
@@ -68,18 +68,6 @@ Overview = React.createClass(
       </div>
     )
 
-    sidebar = if @state.course.id then (
-      <div className='sidebar'>
-        {userArticles}
-        <Details {...@props} />
-        <Actions {...@props} />
-        <Milestones {...@props} />
-      </div>
-    ) else (
-      <div className='sidebar'>
-      </div>
-    )
-
     if @props.current_user.role == 0 && @state.course.id
       userArticles = (
         <MyArticles
@@ -88,6 +76,18 @@ Overview = React.createClass(
           current_user={@props.current_user}
         />
       )
+
+    sidebar = if @state.course.id then (
+      <div className='sidebar'>
+        {userArticles}
+        <Details {...@props} />
+        <AvailableActions {...@props} />
+        <Milestones {...@props} />
+      </div>
+    ) else (
+      <div className='sidebar'>
+      </div>
+    )
 
     <section className='overview container'>
       { syllabus_upload }
