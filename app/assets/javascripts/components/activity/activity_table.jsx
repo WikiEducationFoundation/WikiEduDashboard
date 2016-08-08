@@ -48,7 +48,7 @@ const ActivityTable = React.createClass({
     return this.state.activity.map((revision) => {
       const roundedRevisionScore = Math.round(revision.revision_score) || 'unknown';
       const revisionDateTime = moment(revision.datetime).format('YYYY/MM/DD h:mm a');
-      const talkPageLink = `https://en.wikipedia.org/wiki/User_talk:${revision.username}`;
+      const talkPageLink = `${revision.base_url}/wiki/User_talk:${revision.username}`;
 
       return (
         <ActivityTableRow
