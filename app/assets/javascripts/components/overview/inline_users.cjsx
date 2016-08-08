@@ -5,9 +5,10 @@ InlineUsers = React.createClass(
   displayName: 'InlineUsers'
   render: ->
     key = @props.title + '_' + @props.role
+    baseUrl = "https://#{@props.course.home_wiki.language}.#{@props.course.home_wiki.project}.org/wiki/User:"
     last_user_index = @props.users.length - 1
     user_list = @props.users.map (user, index) ->
-      link = "https://en.wikipedia.org/wiki/User:#{user.username}"
+      link = "#{baseUrl}#{user.username}"
       if user.real_name?
         extra_info = " (#{user.real_name}#{if user.email? then " / " + user.email else ""})"
       else
