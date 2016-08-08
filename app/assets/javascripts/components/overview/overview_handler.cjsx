@@ -1,6 +1,6 @@
 React         = require 'react'
 AvailableActions = require('./available_actions.jsx').default
-Description   = require './description.cjsx'
+Description   = require('./description.jsx').default
 Milestones    = require './milestones.cjsx'
 Details       = require './details.cjsx'
 ThisWeek      = require './this_week.cjsx'
