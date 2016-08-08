@@ -42,7 +42,8 @@ Details = React.createClass(
     instructors = <InlineUsers {...@props} users={@props.instructors} role={1} title={CourseUtils.i18n('instructors', @props.course.string_prefix)} />
     online = <InlineUsers {...@props} users={@props.online} role={2} title='Online Volunteers' />
     campus = <InlineUsers {...@props} users={@props.campus} role={3} title='Campus Volunteers' />
-    staff = <InlineUsers {...@props} users={@props.staff} role={4} title='Wiki Ed Staff' />
+    if Features.wikiEd
+      staff = <InlineUsers {...@props} users={@props.staff} role={4} title='Wiki Ed Staff' />
     if @props.course.school
       # FIXME: Convert lego to parameterized messages.
       school = <p><strong>{CourseUtils.i18n('school', @props.course.string_prefix)}:</strong> {@props.course.school}</p>
