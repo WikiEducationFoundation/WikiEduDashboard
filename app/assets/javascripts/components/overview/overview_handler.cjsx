@@ -1,5 +1,5 @@
 React         = require 'react'
-AvailableActions       = require('./available_actions.jsx').default
+AvailableActions = require('./available_actions.jsx').default
 Description   = require './description.cjsx'
 Milestones    = require './milestones.cjsx'
 Details       = require './details.cjsx'
