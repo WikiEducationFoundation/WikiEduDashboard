@@ -44,8 +44,10 @@ class Revision < ActiveRecord::Base
   ####################
   # Instance methods #
   ####################
+
+  # Returns the diff url for the revision, e.g.,
+  # https://en.wikipedia.org/w/index.php?title=Eva_Hesse&diff=prev&oldid=655980945
   def url
-    # https://en.wikipedia.org/w/index.php?title=Eva_Hesse&diff=prev&oldid=655980945
     return if article.nil?
     title = escaped_full_title(article)
     "#{wiki.base_url}/w/index.php?title=#{title}&diff=prev&oldid=#{mw_rev_id}"
@@ -56,11 +58,14 @@ class Revision < ActiveRecord::Base
     self.save if save
   end
 
+  # Returns all of the revision author's courses where the revision occured
+  # within the course start/end dates.
   def infer_courses_from_user
     return [] if user.blank?
     user.courses.where('start <= ?', date).where('end >= ?', date)
   end
 
+  # Returns a link to the plagiarism report for a revision, if there is one.
   def plagiarism_report_link
     return unless ithenticate_id
     "/recent-activity/plagiarism/report?ithenticate_id=#{ithenticate_id}"
