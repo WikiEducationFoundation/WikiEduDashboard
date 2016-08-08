@@ -70,7 +70,7 @@ class PlagiabotImporter
   rescue StandardError => e
     raise e unless typical_errors.include?(e.class)
     Raven.capture_exception e, level: 'warning'
-    return nil
+    return {}
   end
 
   def self.typical_errors

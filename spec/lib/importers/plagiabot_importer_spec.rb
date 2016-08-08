@@ -51,12 +51,17 @@ describe PlagiabotImporter do
       PlagiabotImporter.find_recent_plagiarism
       expect(Revision.find_by(mw_rev_id: suspected_diff).ithenticate_id).not_to be_nil
     end
+
+    it 'handles API failures gracefully' do
+      stub_request(:any, /.*wmflabs.org.*/).and_raise(JSON::ParserError)
+      expect { PlagiabotImporter.find_recent_plagiarism }.not_to raise_error
+    end
   end
 
   describe 'error handling' do
     it 'handles connectivity problems gracefully' do
       stub_request(:any, /.*wmflabs.org.*/).and_raise(Errno::ETIMEDOUT)
-      expect(PlagiabotImporter.api_get('suspected_diffs')).to be_nil
+      expect(PlagiabotImporter.api_get('suspected_diffs')).to be_empty
     end
   end
 end
