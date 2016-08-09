@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #= Root-level helpers
 module ApplicationHelper
   def logo_tag
@@ -6,7 +8,7 @@ module ApplicationHelper
   end
 
   def logo_favicon_tag
-    favicon_path = if Rails.env == 'development' || Rails.env == 'developmentcp'
+    favicon_path = if Rails.env == 'development'
                      "/assets/images/#{Figaro.env.favicon_dev_file}"
                    else
                      "/assets/images/#{Figaro.env.favicon_file}"
