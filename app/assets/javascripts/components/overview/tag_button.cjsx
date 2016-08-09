@@ -1,5 +1,5 @@
 React         = require 'react'
-PopoverButton = require '../high_order/popover_button.cjsx'
+PopoverButton = require('../high_order/popover_button.jsx').default
 TagStore      = require '../../stores/tag_store.coffee'
 
 tagIsNew = (tag) ->
