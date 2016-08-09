@@ -2,7 +2,7 @@ React             = require 'react'
 
 InlineUsers       = require './inline_users.cjsx'
 CohortButton      = require('./cohort_button.jsx').default
-TagButton         = require './tag_button.cjsx'
+TagButton         = require('./tag_button.jsx').default
 CourseTypeSelector= require('./course_type_selector.jsx').default
 Editable          = require('../high_order/editable.jsx').default
 TextInput         = require('../common/text_input.jsx').default
