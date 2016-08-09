@@ -5,11 +5,11 @@ import GetHelpButton from '../../../app/assets/javascripts/components/common/get
 
 GetHelpButton.__Rewire__('UserStore', {
   getFiltered: (args) => {
-    if (JSON.stringify(args) === JSON.stringify({ content_expert: true })) {
+    if (JSON.stringify(args) === JSON.stringify({ content_expert: true, role: 4 })) {
       return [{ email: 'expert@wikiedu.org', username: 'Wiki Expert' }];
     }
 
-    if (JSON.stringify(args) === JSON.stringify({ program_manager: true })) {
+    if (JSON.stringify(args) === JSON.stringify({ program_manager: true, role: 4 })) {
       return [{ email: 'manager@wikiedu.org', username: 'Wiki Manager' }];
     }
   }
