@@ -18,6 +18,7 @@ EnrollButton = React.createClass(
     username = @refs.username.value
     user_obj = { username: username }
     if UserStore.getFiltered({ username: username, role: @props.role }).length > 0
+      # DEPRECATED: "Invoking 'alert()' during microtask execution is deprecated and will be removed in M53, around September 2016. See https://www.chromestatus.com/features/5647113010544640 for more details."
       alert I18n.t('users.enrolled_success', username: username)
       @refs.username.value = ''
   enroll: (e) ->

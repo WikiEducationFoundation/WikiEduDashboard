@@ -6,8 +6,8 @@ import AlertActions from '../../actions/alert_actions.js';
 
 const getState = () =>
   ({
-    contentExperts: UserStore.getFiltered({ content_expert: true }),
-    programManagers: UserStore.getFiltered({ program_manager: true }),
+    contentExperts: UserStore.getFiltered({ content_expert: true, role: 4 }),
+    programManagers: UserStore.getFiltered({ program_manager: true, role: 4 }),
     alertSubmitting: AlertsStore.getNeedHelpAlertSubmitting(),
     alertCreated: AlertsStore.getNeedHelpAlertSubmitted()
   })
@@ -90,7 +90,7 @@ const GetHelpButton = React.createClass({
 
     contentExperts = this.state.contentExperts.map((user) => {
       return (
-        <span className="content-experts" key={user.username}>
+        <span className="content-experts" key={`${user.username}-content-expert`}>
           <a href="#" className="content-expert-link" onClick={(e) => this.updateTargetUser(user, e)}>{user.username}</a> (Content Expert)
           <br />
         </span>
@@ -100,7 +100,7 @@ const GetHelpButton = React.createClass({
     if (this.props.current_user.role > 0) {
       programManagers = this.state.programManagers.map((user) => {
         return (
-          <span className="program-managers" key={user.username}>
+          <span className="program-managers" key={`${user.username}-program-manager`}>
             <a href="#" className="program-manager-link" onClick={(e) => this.updateTargetUser(user, e)}>{user.username}</a> (Program Manager)
             <br />
           </span>
