@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class SurveysController < ApplicationController
   layout 'surveys_minimal', only: [:show]
   helper Rapidfire::ApplicationHelper
@@ -79,29 +80,20 @@ class SurveysController < ApplicationController
   # POST /surveys.json
   def create
     @survey = Survey.new(survey_params)
-
+    raise FailedSaveError unless @survey.save
     respond_to do |format|
-      if @survey.save
-        format.html { redirect_to surveys_path, notice: 'Survey was successfully created.' }
-        format.json { render :show, status: :created, location: @survey }
-      else
-        format.html { render :new }
-        format.json { render json: @survey.errors, status: :unprocessable_entity }
-      end
+      format.html { redirect_to surveys_path, notice: 'Survey was successfully created.' }
+      format.json { render :show, status: :created, location: @survey }
     end
   end
 
   # PATCH/PUT /surveys/1
   # PATCH/PUT /surveys/1.json
   def update
+    raise FailedSaveError unless @survey.update(survey_params)
     respond_to do |format|
-      if @survey.update(survey_params)
-        format.html { redirect_to surveys_path, notice: 'Survey was successfully updated.' }
-        format.json { render :show, status: :ok, location: @survey }
-      else
-        format.html { render :edit }
-        format.json { render json: @survey.errors, status: :unprocessable_entity }
-      end
+      format.html { redirect_to surveys_path, notice: 'Survey was successfully updated.' }
+      format.json { render :show, status: :ok, location: @survey }
     end
   end
 
@@ -139,7 +131,8 @@ class SurveysController < ApplicationController
   def update_question_group_position
     question_group = SurveysQuestionGroup.where(
       survey_id: params[:survey_id],
-      rapidfire_question_group_id: params[:question_group_id]).first
+      rapidfire_question_group_id: params[:question_group_id]
+    ).first
     question_group.insert_at(params[:position].to_i)
     render nothing: true
   end
@@ -209,4 +202,6 @@ class SurveysController < ApplicationController
   def course?
     !@course.nil?
   end
+
+  class FailedSaveError < StandardError; end
 end
