@@ -1,15 +1,16 @@
+# frozen_string_literal: true
 require 'rails_helper'
 require "#{Rails.root}/lib/training_module"
 
-DESIRED_TRAINING_MODULE_IDS = [2]
+DESIRED_TRAINING_MODULE_IDS = [2].freeze
 
 describe 'Training', type: :feature, js: true do
-  let(:user)   { create(:user, id: 1) }
+  let(:user) { create(:user, id: 1) }
   let(:module_2) { TrainingModule.find(2) } # Policies and Guidelines module
 
   before do
     login_as(user, scope: :user)
-    Capybara.current_driver = :selenium
+    Capybara.current_driver = :poltergeist
   end
 
   describe 'root library' do
@@ -106,8 +107,8 @@ describe 'Training', type: :feature, js: true do
     it 'disables slides that have not been seen' do
       click_link 'Start'
       within('.training__slide__nav') { find('.hamburger').click }
-      unseen_slide_link = find('.slide__menu__nav__dropdown li:last-child a')
-      expect(unseen_slide_link['disabled']).to eq('true')
+      unseen_slide_link = find('.slide__menu__nav__dropdown li:last-child a')['disabled']
+      expect(unseen_slide_link).not_to be_nil
     end
 
     it 'loads for a logged out user' do
@@ -197,7 +198,7 @@ end
 def proceed_to_next_slide
   button = page.first('button.ghost-button')
   find_correct_answer_by_trial_and_error unless button.nil?
-  click_link 'Next Page'
+  page.first('a.slide-nav.btn.btn-primary.icon-rt_arrow').trigger('click')
 end
 
 def find_correct_answer_by_trial_and_error

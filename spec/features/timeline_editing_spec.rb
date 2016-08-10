@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 def create_course
@@ -37,7 +38,7 @@ describe 'timeline editing', type: :feature, js: true do
 
   before do
     include Devise::TestHelpers, type: :feature
-    Capybara.current_driver = :selenium
+    Capybara.current_driver = :poltergeist
     page.current_window.resize_to(1920, 1080)
 
     create_course
@@ -70,8 +71,6 @@ describe 'timeline editing', type: :feature, js: true do
   end
 
   it 'lets users add a training to an assignment block' do
-    pending 'fixing the intermittent failures on travis-ci'
-
     visit "/courses/#{Course.last.slug}/timeline"
 
     # Interact with training modules within a block
@@ -90,9 +89,6 @@ describe 'timeline editing', type: :feature, js: true do
     within ".week-1 .block-kind-#{Block::KINDS['assignment']}" do
       expect(page).to have_content unassigned_module_name
     end
-
-    puts 'PASSED'
-    fail 'this test passed — this time'
   end
 
   it 'handles cases of "save all" after blocks have been deleted' do
@@ -114,6 +110,7 @@ describe 'timeline editing', type: :feature, js: true do
         click_button 'Delete Block'
       end
     end
+    sleep 1
 
     # click Save All
     click_button 'Save All'
