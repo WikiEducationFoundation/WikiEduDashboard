@@ -6,7 +6,7 @@ describe 'Surveys', type: :feature, js: true do
 
   before do
     include Devise::TestHelpers, type: :feature
-    Capybara.current_driver = :selenium
+    Capybara.current_driver = :poltergeist
     page.current_window.resize_to(1920, 1080)
   end
 
@@ -134,6 +134,8 @@ describe 'Surveys', type: :feature, js: true do
     end
 
     it 'navigates correctly between each question and submits' do
+      Capybara.current_driver = :selenium
+
       # FIXME: form actions fail on travis, although they works locally.
       pending 'passes locally but not on travis-ci'
 
@@ -192,12 +194,17 @@ describe 'Surveys', type: :feature, js: true do
     end
 
     it 'loads a question group preview' do
+      Capybara.current_driver = :poltergeist
       visit '/surveys/rapidfire/question_groups/1/answer_groups/new?preview'
       visit "/surveys/rapidfire/question_groups/1/answer_groups/new?preview&course_slug=#{Course.last.slug}"
     end
   end
 
   describe 'Permissions' do
+    before do
+      Capybara.current_driver = :poltergeist
+    end
+
     before(:each) do
       @user = create(:user)
       @admin = create(:admin)
