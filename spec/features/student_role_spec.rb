@@ -3,9 +3,11 @@ require 'rails_helper'
 describe 'Student users', type: :feature, js: true do
   before do
     include Devise::TestHelpers, type: :feature
-    Capybara.current_driver = :selenium
+    Capybara.current_driver = :poltergeist
     page.current_window.resize_to(1920, 1080)
   end
+
+  let(:user) { create(:user, id: 200, wiki_token: 'foo', wiki_secret: 'bar') }
 
   before :each do
     create(:cohort,
@@ -39,15 +41,12 @@ describe 'Student users', type: :feature, js: true do
            user_id: 101,
            course_id: 10001,
            role: CoursesUsers::Roles::STUDENT_ROLE)
-    user = create(:user,
-                  id: 200,
-                  wiki_token: 'foo',
-                  wiki_secret: 'bar')
-    login_as(user, scope: :user)
   end
 
   describe 'clicking log out' do
     it 'logs them out' do
+      login_as(user, scope: :user)
+
       visit "/courses/#{Course.first.slug}"
       expect(page).to have_content 'Log out'
       expect(page).not_to have_content 'Log in'
@@ -57,6 +56,8 @@ describe 'Student users', type: :feature, js: true do
     end
 
     it 'does not cause problems if done twice' do
+      login_as(user, scope: :user)
+
       visit "/courses/#{Course.first.slug}"
       find('a', text: 'Log out').click
       sleep 1
@@ -66,6 +67,7 @@ describe 'Student users', type: :feature, js: true do
 
   describe 'enrolling and unenrolling by button' do
     it 'joins and leaves a course' do
+      login_as(user, scope: :user)
       stub_oauth_edit
 
       # click enroll button, enter passcode in alert popup to enroll
@@ -98,6 +100,7 @@ describe 'Student users', type: :feature, js: true do
     end
 
     it 'redirects to an error page if passcode is incorrect' do
+      login_as(user, scope: :user)
       visit "/courses/#{Course.first.slug}"
       sleep 1
       accept_prompt(with: 'wrong_passcode') do
@@ -110,6 +113,7 @@ describe 'Student users', type: :feature, js: true do
 
   describe 'visiting the ?enroll=passcode url' do
     it 'joins a course' do
+      login_as(user, scope: :user)
       stub_oauth_edit
 
       visit "/courses/#{Course.first.slug}?enroll=passcode"
@@ -123,8 +127,8 @@ describe 'Student users', type: :feature, js: true do
     end
 
     it 'works even if a student is not logged in' do
-      pending 'fixing the intermittent failures on travis-ci'
-
+      login_as(user, scope: :user)
+      logout
       OmniAuth.config.test_mode = true
       allow_any_instance_of(OmniAuth::Strategies::Mediawiki)
         .to receive(:callback_url).and_return('/users/auth/mediawiki/callback')
@@ -143,14 +147,9 @@ describe 'Student users', type: :feature, js: true do
       sleep 1
       visit "/courses/#{Course.first.slug}/students"
       expect(find('tbody', match: :first)).to have_content 'Ragesock'
-
-      puts 'PASSED'
-      raise 'this test passed — this time'
     end
 
     it 'works even if a student has never logged in before' do
-      pending 'fixing the intermittent failures on travis-ci'
-
       OmniAuth.config.test_mode = true
       allow_any_instance_of(OmniAuth::Strategies::Mediawiki)
         .to receive(:callback_url).and_return('/users/auth/mediawiki/callback')
@@ -176,9 +175,6 @@ describe 'Student users', type: :feature, js: true do
       sleep 1
       visit "/courses/#{Course.first.slug}/students"
       expect(find('tbody', match: :first)).to have_content 'Ragesoss'
-
-      puts 'PASSED'
-      raise 'this test passed — this time'
     end
 
     it 'does not work if user is not persisted' do
@@ -215,6 +211,7 @@ describe 'Student users', type: :feature, js: true do
 
   describe 'inputing an assigned article' do
     it 'assigns the article' do
+      login_as(user, scope: :user)
       stub_raw_action
       stub_oauth_edit
       stub_info_query
@@ -241,6 +238,7 @@ describe 'Student users', type: :feature, js: true do
 
   describe 'inputing a reviewed article' do
     it 'assigns the review' do
+      login_as(user, scope: :user)
       stub_raw_action
       stub_oauth_edit
       stub_info_query
@@ -263,6 +261,7 @@ describe 'Student users', type: :feature, js: true do
 
   describe 'clicking remove for an assigned article' do
     it 'removes the assignment' do
+      login_as(user, scope: :user)
       stub_raw_action
       stub_oauth_edit
       stub_info_query
@@ -293,6 +292,8 @@ describe 'Student users', type: :feature, js: true do
 
   describe 'visiting the dashboard homepage' do
     it 'sees their course' do
+      login_as(user, scope: :user)
+
       create(:courses_user,
              course_id: 10001,
              user_id: 200,
