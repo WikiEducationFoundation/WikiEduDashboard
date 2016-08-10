@@ -1,5 +1,25 @@
+# frozen_string_literal: true
+
+# == Schema Information
+#
+# Table name: surveys
+#
+#  id                       :integer          not null, primary key
+#  name                     :string(255)
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
+#  intro                    :text(65535)
+#  thanks                   :text(65535)
+#  open                     :boolean          default(FALSE)
+#  closed                   :boolean          default(FALSE)
+#  confidential_results     :boolean          default(FALSE)
+
 require 'csv'
 
+# The `open` attr represents a survey that is open for anyone to take it,
+# regardless of whether they have a SurveyNotification for it.
+# The `closed` attr represents a survey that has finished and is no longer
+# available for any users to take it.
 class Survey < ActiveRecord::Base
   has_paper_trail
   has_many :survey_assignments, dependent: :destroy

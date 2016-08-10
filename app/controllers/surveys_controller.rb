@@ -38,6 +38,7 @@ class SurveysController < ApplicationController
   end
 
   def results
+    protect_confidentiality { return }
     respond_to do |format|
       format.html
       format.csv do
@@ -197,6 +198,14 @@ class SurveysController < ApplicationController
 
   def course_slug?
     params.key?(:course_slug)
+  end
+
+  # Prevents access to survey results if they are set to be confidential
+  def protect_confidentiality
+    return unless @survey.confidential_results
+    render plain: 'The results for this survey are confidential.',
+           status: 403
+    yield
   end
 
   def course?
