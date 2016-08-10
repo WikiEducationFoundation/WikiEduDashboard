@@ -37,7 +37,7 @@ addCourse = ->
     school: ""
     term: ""
     subject: ""
-    expected_students: 0
+    expected_students: "0"
     start: null
     end: null
     day_exceptions: ""

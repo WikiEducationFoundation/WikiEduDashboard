@@ -12,7 +12,7 @@ describe('ActivtyTableRow', () => {
       <tbody>
         <ActivityTableRow
           key={'23948'}
-          rowId={'675818536'}
+          rowId={675818536}
           title="Selfie"
           articleUrl="https://en.wikipedia.org/wiki/Selfie"
           author="Wavelength"
