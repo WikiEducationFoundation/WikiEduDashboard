@@ -116,6 +116,7 @@ describe 'timeline editing', type: :feature, js: true do
     click_button 'Save All'
     expect(page).to have_content 'Block Title'
     expect(page).not_to have_content 'Another Title'
+    sleep 1
   end
 
   it 'lets users remove grading from a block' do
@@ -139,5 +140,6 @@ describe 'timeline editing', type: :feature, js: true do
     find('span.week__add-block').click
     click_button 'Save'
     expect(page).to have_content 'Block description'
+    sleep 1
   end
 end
