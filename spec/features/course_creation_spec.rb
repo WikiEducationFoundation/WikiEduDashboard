@@ -2,7 +2,7 @@ require 'rails_helper'
 
 def set_up_suite
   include Devise::TestHelpers, type: :feature
-  Capybara.current_driver = :poltergeist
+  Capybara.current_driver = :selenium
   page.current_window.resize_to(1920, 1080)
   stub_oauth_edit
 end
@@ -440,14 +440,23 @@ describe 'timeline editing', js: true do
   it 'disables reorder up/down buttons when it is the first or last block' do
     visit "/courses/#{Course.last.slug}/timeline"
     click_button 'Arrange Timeline'
-    expect(find('.week-1 .week__block-list > li:first-child button:first-of-type')['disabled'])
-      .to eq(false)
-    expect(find('.week-1 .week__block-list > li:first-child button:last-of-type')['disabled'])
-      .to eq(true)
-    expect(find('.week-2 .week__block-list > li:last-child button:first-of-type')['disabled'])
-      .to eq(true)
-    expect(find('.week-2 .week__block-list > li:last-child button:last-of-type')['disabled'])
-      .to eq(false)
+
+    # Different Capybaray drivers have slightly different behavior for disabled vs. not.
+    truthy_values = [true, 'true']
+    falsy_values = [nil, false, 'false']
+
+    expect(falsy_values).to include(
+      find('.week-1 .week__block-list > li:first-child button:first-of-type')['disabled']
+    )
+    expect(truthy_values).to include(
+      find('.week-1 .week__block-list > li:first-child button:last-of-type')['disabled']
+    )
+    expect(truthy_values).to include(
+      find('.week-2 .week__block-list > li:last-child button:first-of-type')['disabled']
+    )
+    expect(falsy_values).to include(
+      find('.week-2 .week__block-list > li:last-child button:last-of-type')['disabled']
+    )
   end
 
   it 'allows swapping places with a block' do
