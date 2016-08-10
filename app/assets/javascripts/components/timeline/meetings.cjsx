@@ -44,9 +44,9 @@ Meetings = React.createClass(
   render: ->
     timeline_start_props =
       minDate: moment(@state.course.start, 'YYYY-MM-DD')
-      maxDate: moment(@state.course.timeline_end, 'YYYY-MM-DD').subtract(Math.max(1, @props.weeks), 'week')
+      maxDate: moment(@state.course.timeline_end, 'YYYY-MM-DD')
     timeline_end_props =
-      minDate: moment(@state.course.timeline_start, 'YYYY-MM-DD').add(Math.max(1, @props.weeks), 'week')
+      minDate: moment(@state.course.timeline_start, 'YYYY-MM-DD')
       maxDate: moment(@state.course.end, 'YYYY-MM-DD')
 
     <Modal >

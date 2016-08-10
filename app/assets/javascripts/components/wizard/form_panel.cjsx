@@ -42,20 +42,19 @@ FormPanel = React.createClass(
   render: ->
     course_end_props =
       minDate: moment(@props.course.start)
-    if @props.course.type == 'ClassroomProgramCourse' then (
+    if @props.course.type == 'ClassroomProgramCourse'
       course_end_props.minDate.add(1, 'week')
-    )
     timeline_start_props =
       minDate: moment(@props.course.start, 'YYYY-MM-DD')
-      maxDate: moment(@props.course.timeline_end, 'YYYY-MM-DD').subtract(Math.max(1, @props.weeks), 'week')
+      maxDate: moment(@props.course.timeline_end, 'YYYY-MM-DD')
     timeline_end_props =
-      minDate: moment(@props.course.timeline_start, 'YYYY-MM-DD').add(Math.max(1, @props.weeks), 'week')
+      minDate: moment(@props.course.timeline_start, 'YYYY-MM-DD')
       maxDate: moment(@props.course.end, 'YYYY-MM-DD')
-    step1 = if @props.shouldShowSteps then (
-      <h2><span>1.</span><small> Confirm the course’s start and end dates.</small></h2>
-    ) else (
-      <p>Confirm the course’s start and end dates.</p>
-    )
+    step1 = if @props.shouldShowSteps
+              <h2><span>1.</span><small> Confirm the course’s start and end dates.</small></h2>
+            else
+              <p>Confirm the course’s start and end dates.</p>
+
     raw_options = (
       <div>
         <div className='course-dates__step'>
