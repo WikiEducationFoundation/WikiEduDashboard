@@ -27,7 +27,7 @@ Gradeable = React.createClass(
       </h4>
       <TextInput
         onChange={@updateGradeable}
-        value={@props.gradeable.points}
+        value={@props.gradeable.points.toString()}
         value_key={'points'}
         editable={@props.editable}
         label={I18n.t('timeline.gradeable_value')}
