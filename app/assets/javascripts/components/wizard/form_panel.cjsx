@@ -40,6 +40,11 @@ FormPanel = React.createClass(
     checked = ReactDOM.findDOMNode(@refs.noDates).checked
     @updateDetails 'no_day_exceptions', checked
   render: ->
+    course_end_props =
+      minDate: moment(@props.course.start)
+    if @props.course.type == 'ClassroomProgramCourse' then (
+      course_end_props.minDate.add(1, 'week')
+    )
     timeline_start_props =
       minDate: moment(@props.course.start, 'YYYY-MM-DD')
       maxDate: moment(@props.course.timeline_end, 'YYYY-MM-DD').subtract(Math.max(1, @props.weeks), 'week')
@@ -71,7 +76,7 @@ FormPanel = React.createClass(
               editable=true
               validation={CourseDateUtils.isDateValid}
               label='Course End'
-              date_props={minDate: moment(@props.course.start).add(1, 'week')}
+              date_props={course_end_props}
               enabled={@props.course.start?}
             />
           </div>
