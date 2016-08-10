@@ -3,6 +3,7 @@ require 'rails_helper'
 describe 'activity page', type: :feature, js: true do
   before do
     include Devise::TestHelpers, type: :feature
+    Capybara.current_driver = :poltergeist
   end
 
   before :each do

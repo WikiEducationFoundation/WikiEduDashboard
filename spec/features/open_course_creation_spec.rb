@@ -15,7 +15,7 @@ describe 'open course creation', type: :feature, js: true do
   let(:user) { create(:user) }
   before do
     ENV['default_course_type'] = 'BasicCourse'
-    Capybara.current_driver = :selenium
+    Capybara.current_driver = :poltergeist
     page.current_window.resize_to(1920, 1080)
 
     allow(Features).to receive(:open_course_creation?).and_return(true)

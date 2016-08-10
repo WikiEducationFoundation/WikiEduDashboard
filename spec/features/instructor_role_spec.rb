@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Instructor users', type: :feature, js: true do
   before do
     include Devise::TestHelpers, type: :feature
-    Capybara.current_driver = :selenium
+    Capybara.current_driver = :poltergeist
     page.current_window.resize_to(1920, 1080)
   end
 
@@ -199,7 +199,7 @@ describe 'Instructor users', type: :feature, js: true do
     it 'should not be able to view other deleted courses' do
       # Allow routing error to resolve to 404 page
       method = Rails.application.method(:env_config)
-      expect(Rails.application).to receive(:env_config).with(no_args) do
+      allow(Rails.application).to receive(:env_config).with(no_args) do
         method.call.merge(
           'action_dispatch.show_exceptions' => true,
           'action_dispatch.show_detailed_exceptions' => false

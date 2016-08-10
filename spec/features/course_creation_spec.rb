@@ -2,7 +2,7 @@ require 'rails_helper'
 
 def set_up_suite
   include Devise::TestHelpers, type: :feature
-  Capybara.current_driver = :selenium
+  Capybara.current_driver = :poltergeist
   page.current_window.resize_to(1920, 1080)
   stub_oauth_edit
 end
@@ -302,9 +302,9 @@ describe 'New course creation and editing', type: :feature do
       expect(page).to have_content 'Week 12'
 
       # Now submit the course
-      first('a.button').click
-      prompt = page.driver.browser.switch_to.alert
-      prompt.accept
+      accept_confirm do
+        first('a.button').click
+      end
       expect(page).to have_content 'Your course has been submitted.'
 
       Course.last.weeks.each_with_index do |week, i|
@@ -441,13 +441,13 @@ describe 'timeline editing', js: true do
     visit "/courses/#{Course.last.slug}/timeline"
     click_button 'Arrange Timeline'
     expect(find('.week-1 .week__block-list > li:first-child button:first-of-type')['disabled'])
-      .to eq(nil)
+      .to eq(false)
     expect(find('.week-1 .week__block-list > li:first-child button:last-of-type')['disabled'])
-      .to eq('true')
+      .to eq(true)
     expect(find('.week-2 .week__block-list > li:last-child button:first-of-type')['disabled'])
-      .to eq('true')
+      .to eq(true)
     expect(find('.week-2 .week__block-list > li:last-child button:last-of-type')['disabled'])
-      .to eq(nil)
+      .to eq(false)
   end
 
   it 'allows swapping places with a block' do

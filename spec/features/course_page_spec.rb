@@ -29,6 +29,7 @@ describe 'the course page', type: :feature, js: true do
   let(:es_wiktionary) { create(:wiki, language: 'es', project: 'wiktionary') }
   before do
     include Devise::TestHelpers, type: :feature
+    Capybara.current_driver = :poltergeist
     page.current_window.resize_to(1920, 1080)
 
     course = create(:course,
@@ -195,7 +196,6 @@ describe 'the course page', type: :feature, js: true do
 
   describe 'overview details editing' do
     it "doesn't allow null values for course start/end" do
-      Capybara.current_driver = :selenium
       admin = create(:admin, id: User.last.id + 1)
       login_as(admin)
       js_visit "/courses/#{slug}"
@@ -309,7 +309,7 @@ describe 'the course page', type: :feature, js: true do
       expect(assigned_articles_section).to_not have_content 'Education'
       sleep 3
       expect(Assignment.count).to eq(0)
-    end    
+    end
 
     it 'should allow student to select an available article' do
       user = create(:user, id: user_count + 100)

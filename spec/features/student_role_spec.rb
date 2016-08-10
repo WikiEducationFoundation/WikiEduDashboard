@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Student users', type: :feature, js: true do
   before do
     include Devise::TestHelpers, type: :feature
-    Capybara.current_driver = :selenium
+    Capybara.current_driver = :poltergeist
     page.current_window.resize_to(1920, 1080)
   end
 
@@ -70,7 +70,7 @@ describe 'Student users', type: :feature, js: true do
 
       # click enroll button, enter passcode in alert popup to enroll
       visit "/courses/#{Course.first.slug}"
-      
+
       expect(page).to have_content 'An Example Course'
 
       accept_prompt(with: 'passcode') do
@@ -90,7 +90,7 @@ describe 'Student users', type: :feature, js: true do
       accept_confirm do
         click_button 'Leave course'
       end
-      
+
       sleep 3
 
       visit "/courses/#{Course.first.slug}/students"
