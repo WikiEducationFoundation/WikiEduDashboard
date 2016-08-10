@@ -16,13 +16,15 @@ describe 'the explore page', type: :feature do
     (1..cohort_course_count).each do |i|
       course1 = create(:course,
                        id: i,
+                       title: "course #{i}",
                        slug: "school/course_#{i}_(term)",
                        start: '2014-01-01'.to_date,
                        end: Time.zone.today + 2.days)
       course1.cohorts << cohort
       course2 = create(:course,
                        id: (i + cohort_course_count),
-                       slug: "school/course_#{i}_(term)",
+                       title: "course #{i + cohort_course_count}",
+                       slug: "school/course_#{i + cohort_course_count}_(term)",
                        start: '2014-01-01'.to_date,
                        end: Time.zone.today + 2.days)
       course2.cohorts << cohort_two
@@ -157,22 +159,11 @@ describe 'the explore page', type: :feature do
   end
 
   describe 'cohort pages' do
-    it 'should load courses from the right cohorts' do
-      pending 'fixing the intermittent failures on travis-ci'
-      visit '/explore'
-
-      all('#courses .table tbody tr').each do |course_row_anchor|
-        expect(course_row_anchor[:id].to_i).to be <= cohort_course_count
-      end
-
+    it 'should load courses from the right cohort' do
       # load courses from a different cohort
       visit "/explore?cohort=#{Cohort.last.slug}"
-      all('#courses .table tbody tr:first-child').each do |course_row_anchor|
-        expect(course_row_anchor[:id].to_i).to be > cohort_course_count
-      end
-
-      puts 'PASSED'
-      fail 'this test passed — this time'
+      last_course = Cohort.last.courses.last
+      expect(page).to have_content last_course.title
     end
   end
 
