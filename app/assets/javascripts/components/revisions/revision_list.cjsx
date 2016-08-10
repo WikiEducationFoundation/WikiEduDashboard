@@ -2,7 +2,7 @@ React             = require 'react'
 Editable          = require('../high_order/editable.jsx').default
 
 List              = require '../common/list.cjsx'
-Revision          = require './revision.cjsx'
+Revision          = require('./revision.jsx').default
 RevisionStore     = require '../../stores/revision_store.coffee'
 ServerActions     = require('../../actions/server_actions.js').default
 CourseUtils       = require('../../utils/course_utils.js').default
