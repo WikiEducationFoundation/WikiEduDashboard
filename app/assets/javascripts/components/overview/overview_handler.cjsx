@@ -1,7 +1,7 @@
 React         = require 'react'
 AvailableActions = require('./available_actions.jsx').default
 Description   = require('./description.jsx').default
-Milestones    = require './milestones.cjsx'
+Milestones    = require('./milestones.jsx').default
 Details       = require './details.cjsx'
 ThisWeek      = require './this_week.cjsx'
 CourseStore   = require '../../stores/course_store.coffee'
