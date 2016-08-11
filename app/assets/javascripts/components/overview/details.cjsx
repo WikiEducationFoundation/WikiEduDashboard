@@ -76,12 +76,17 @@ Details = React.createClass(
         />
       )
 
+
+    course_end_props =
+      minDate: moment(@props.course.start, 'YYYY-MM-DD')
+
     if @props.course.type == 'ClassroomProgramCourse'
+      course_end_props.minDate.add(1, 'week')
       timeline_start_props =
         minDate: moment(@props.course.start, 'YYYY-MM-DD')
-        maxDate: moment(@props.course.timeline_end, 'YYYY-MM-DD').subtract(1, 'week')
+        maxDate: moment(@props.course.timeline_end, 'YYYY-MM-DD')
       timeline_end_props =
-        minDate: moment(@props.course.timeline_start, 'YYYY-MM-DD').add(1, 'week')
+        minDate: moment(@props.course.timeline_start, 'YYYY-MM-DD')
         maxDate: moment(@props.course.end, 'YYYY-MM-DD')
 
       timeline_start = (
@@ -168,7 +173,7 @@ Details = React.createClass(
             editable={@props.editable}
             validation={CourseDateUtils.isDateValid}
             label={I18n.t('courses.end')}
-            date_props={minDate: moment(@props.course.start, 'YYYY-MM-DD').add(1, 'week')}
+            date_props={course_end_props}
             enabled={@props.course.start?}
             required=true
           />
