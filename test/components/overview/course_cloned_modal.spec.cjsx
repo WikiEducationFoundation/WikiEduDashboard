@@ -10,6 +10,7 @@ describe 'CourseClonedModal', ->
     school: 'foo'
     term: 'baz'
     title: 'bar'
+    expected_students: 0
 
   it 'renders a Modal', ->
     TestModal = ReactTestUtils.renderIntoDocument(

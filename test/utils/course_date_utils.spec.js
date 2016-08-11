@@ -5,6 +5,7 @@ import CourseDateUtils from '../../app/assets/javascripts/utils/course_date_util
 // There are sixteen non-blackout weeks.
 const typicalCourse = {
   id: 1,
+  type: 'ClassroomProgramCourse',
   start: '2015-08-28',
   timeline_start: '2015-08-28',
   end: '2016-01-14',
@@ -19,19 +20,28 @@ describe('CourseDateUtils.moreWeeksThanAvailable', () => {
   it('returns true when there are more Weeks than non-empty calendar weeks', () => {
     const moreWeeks = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17];
     const result = CourseDateUtils.moreWeeksThanAvailable(typicalCourse, moreWeeks, exceptions);
-    return expect(result).to.eq(true);
+    expect(result).to.eq(true);
   });
 
   it('returns false when Weeks and non-empty calendar weeks are equal', () => {
     const sameWeeks = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
     const result = CourseDateUtils.moreWeeksThanAvailable(typicalCourse, sameWeeks, exceptions);
-    return expect(result).to.eq(false);
+    expect(result).to.eq(false);
   });
 
-  return it('returns false when there are fewer Weeks than non-empty calendar weeks', () => {
+  it('returns false when there are fewer Weeks than non-empty calendar weeks', () => {
     const fewerWeeks = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
     const result = CourseDateUtils.moreWeeksThanAvailable(typicalCourse, fewerWeeks, exceptions);
-    return expect(result).to.eq(false);
+    expect(result).to.eq(false);
+  });
+});
+
+describe('CourseDateUtils.dateProps', () => {
+  it('returns an object with date constraints', () => {
+    const dateProps = CourseDateUtils.dateProps(typicalCourse);
+    expect(typeof dateProps.end.minDate).to.eq('object');
+    expect(typeof dateProps.timeline_start.maxDate).to.eq('object');
+    expect(typeof dateProps.timeline_end.minDate).to.eq('object');
   });
 });
 
@@ -39,19 +49,19 @@ describe('CourseDateUtils.openWeeks', () => {
   it('returns the count of weeks with meetings from a weekMeetings array', () => {
     const weekMeetings = ['(M, W, F)', '(M, W)', '()', '(W, T)', '(M, W, F)'];
     const result = CourseDateUtils.openWeeks(weekMeetings);
-    return expect(result).to.eq(4);
+    expect(result).to.eq(4);
   });
 
   it('handles empty arrays', () => {
     const weekMeetings = [];
     const result = CourseDateUtils.openWeeks(weekMeetings);
-    return expect(result).to.eq(0);
+    expect(result).to.eq(0);
   });
 
-  return it('handles arrays of all empty weeks', () => {
+  it('handles arrays of all empty weeks', () => {
     const weekMeetings = ['()', '()', '()', '()', '()'];
     const result = CourseDateUtils.openWeeks(weekMeetings);
-    return expect(result).to.eq(0);
+    expect(result).to.eq(0);
   });
 });
 
