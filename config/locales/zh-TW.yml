@@ -173,6 +173,8 @@ zh-TW:
       subject: 領域主題
     current: 目前的課程
     delete_course: 刪除課程
+    dismiss_survey: 關閉
+    dismiss_survey_confirm: 您確定要永久刪除此調查？
     duration: 開課期間
     edit_course_dates: 編輯課程日期
     end: 結束
@@ -255,19 +257,48 @@ zh-TW:
     wiki_staff: Wiki ED 工作人員
     word_count_doc: 在課程學期間由選課學生所添增到主名字空間條目的字元增加估計量
     yourcourses: 您的課程
+    survey:
+      notification_message: 有可用於此課程的調查
+      link: 參加調查
   courses_generic:
+    articles_none: 此項目裡目前無編輯的條目。
+    assignment_end: 時間軸終點
+    assignments_none: 此項目沒有任何條目被分配。
+    assignment_start: 時間軸起點
+    courses: 方案
     creator:
-      create_short: 建立項目
-      find: 找尋一個項目
+      checking_for_uniqueness: 正在確認是否有重複的方案。
+      course_description: 方案描述
+      course_school: 機構
+      course_title: 方案標題
+      create_button: 創建我的方案！
+      create_label: 創建新的方案
+      create_new: 創建一個新方案
+      create_short: 建立方案
+      find: 找尋一個方案
+      intro: 需要方案標題，其它項目則可日後填上。點擊「創建我的方案！」來開始製作您的維基項目頁面。
+    edit_course_dates: 編輯項目日期
+    enroll: 增加編輯者
+    enrollment: 參與
+    expected_students: 預期編輯者
+    instructors: 主持者
+    milestones_none: 此項目裡目前沒有任何里程碑。
+    published: 此項目已發佈！編者可利用下列URL位址登記：
+    revisions_none: 此項目目前沒有編輯活動。
+    school: 機構
     student_editors: 編輯者
     students: 編輯者
+    students_none: 此項目目前沒有編輯者登記。
     students_short: 編輯者
+    term: 於
+    uploads_none: 此項目沒有提供任何圖像或媒體檔案至維基共享資源裡。
   editable:
     edit: 編輯
     cancel: 取消
     save: 保存
   metrics:
     activity: 最近活躍度
+    are_trained: 最近培訓
     articles_created: 已建立的條目
     articles_edited: 已編輯的條目
     characters: 字元
@@ -276,26 +307,89 @@ zh-TW:
     char: 新增的字元
     date_time: 日期/時間
     edit_count_description: 總編輯數
+    per_user: '%{number}/使用者'
     revisions: 近期編輯
+    upload_count: 維基共享資源上傳
+    uploads_in_use_count:
+      one: 條目中使用的檔案
+      other: 條目中使用的檔案
+    upload_usages_count:
+      one: 跨語言項目使用總計
+      other: 跨語言項目使用總計
     view_count_description: 文章檢視數
     view: 檢視數
+    word_count: 添加的文字
   namespace:
     main: 主空間
+    main_char_added: 主空間字元以添加
     user: 使用者空間
+    user_char_added: 使用者空間字元以添加
     user_ns: 使用者
   recent_activity:
+    active_courses: 條目活躍於
+    article_title: 條目標題
+    datetime: 日期/時間
+    did_you_know_eligible: 符合「您知道嗎」資格
+    image: 圖像
+    file_name: 檔案名稱
+    no_dyk_eligible: 目前沒有符合「您知道嗎」資格的條目。
+    no_plagiarism: 目前查無任何修訂版本有抄襲情況。
     no_edits: 無編輯紀錄。
+    plagiarism_report: 抄襲報告
+    possible_plagiarism: 可能涉嫌抄襲
     recent_edits: 近期編輯紀錄
+    recent_uploads: 最新上傳
+    revision_author: 修訂版本作者
+    revision_datetime: 修訂版本日期/時間
+    revision_score: 修訂版本變更大小
+    show_courses: 只顯示我的課程
+    uploaded_by: 上傳者為
+    usage_count: 使用數量
   revisions:
+    chars_added: 增加的字元
     class: 班
     date_time: 日期/時間
+    diff: 差異
     edited_by: 編輯者為
     loading: 正在載入修訂⋯⋯
-    none: 本課程最近沒有維基百科的編輯活動。
+    none: 本課程最近沒有編輯活動。
     time_doc: 每個修訂版本的時間（顯示為您使用的本地時間）
     title: 標題
+  tasks:
+    conseq: 課題%{task}已在進行！
+    constant: 當update_daily運行時課題%{task}無法進行。
+    paused: 因為排程更新已被暫停；使得課題%{task}無法運行。執行「rake batch:resume」來回復更新。
   timeline:
+    add_week: 增加週
+    arrange_timeline: 安排時間軸
+    arrange_timeline_instructions: 以「拖曳」區塊至預期的位置、或週間來編排時間軸，或以卡片上的箭頭來重新定位區塊。
+    assignment_dates_instructions: 選擇維基百科分配事項時間軸的起始結束日期。更改起始日期將一同異動整個時間軸。
+    blackout_week_created: 本週有已排程的區塊。在您刪除本週最後課程會議之前；請先移動它們至別週。
+    block_assignment: 分配
+    block_custom: 自訂
+    block_in_class: 課程中
+    block_milestone: 里程碑
+    block_type: 區塊類型用於傳遞給您的學生有關此項目在他們的時間軸上狀況，並為您建立可用工具(如概述頁面上的里程碑)
+    course_dates: 課程日期
+    course_dates_instructions: 選擇整個課程起始和結束日期 (非僅有維基百科分配)。
+    course_end: 課程結束
+    course_start: 課程開始
+    delete_week_confirmation: |-
+      您確定要刪除此週？這將會刪除該週與所有相關區塊。
+
+      注意刪除後將無法還原。
+    discard_all_changes: 放棄所有更改
     due_default: 下週到期
+    empty_week_1: 要開始，
+    empty_week_2: 開始編輯本週內容
+    empty_week_3: 或
+    empty_week_4: 從預先分配事項開始。
+    first_week_title: 活躍首週
+    gradeable_value: 數值
+    gradeables_none: 此時間軸上沒有分配事項被標註分級。
+    grading_header: 分級中(總計： %{total}%)
+    move_block_down: 區塊下移
+    move_block_up: 區塊上移
     no_class_holidays: 我的開課時段沒有遭遇假日
     no_timeline: 此課程沒有時間表。
     no_activity_this_week: 本週沒有活動
@@ -334,30 +428,73 @@ zh-TW:
     contributions_more: 檢視更多貢獻
     course_passcode: 選課代碼：
     editors: 編輯者
+    enroll_confirmation: 您確定要增加%{username}？
+    enroll_url: 使用者可通過此URL位址加入：
+    enrolled_success: '%{username}成功增加！'
+    first_name: 名
+    last_name: 姓
     loading: 使用者載入中...
+    characters_added_mainspace: 主空間新增的字元
+    characters_added_short: 主空間：%{mainspace}，用戶空間：%{userspace}
+    characters_added_userspace: 用戶空間新增的字元
+    my_assigned: 已分配：
+    my_reviewing: 審查中：
     name: 名稱
+    none: 沒有參與者。
+    no_articles: 沒有條目
+    no_revisions: 這位編者沒有做出修訂。
+    number_of_articles:
+      one: '%{count}個條目'
+      other: '%{count}個條目'
     recent_revisions: 近期編輯
+    remove_confirmation: 您確定要移除%{username}嗎？
+    revision_characters_and_views: 增加的字元：%{characters}，瀏覽次數：%{views}
+    revisions_doc: 此編者在過去7天的編輯次數
+    reviewers: 審查者
+    reviewing: 審查中
+    training_complete:
+      one: 最新培訓
+      other: 最新培訓
+    training_complete_count: '%{count}最近的培訓'
+    training_doc: 完成所有已到期的分配教育模組之編輯者可視為完成最近培訓。
     training_incomplete: 未完成的培訓
+    training_modules_completed:
+      one: '%{completed_count}/%{count}培訓模組完成'
+      other: '%{completed_count}/%{count}培訓模組完成'
+    up_to_date_with_training: 最近培訓
+    username: 使用者名稱
+    username_placeholder: 使用者名稱
   wiki_edits:
     notify_overdue:
+      confirm: 這將會在所有逾期培訓學生的討論頁上發表通知。您確定要執行嗎？
       header: 您有一項過期的培訓任務。
       message: 請完成分配的[%{link}訓練模組]。
+      summary: 學生培訓逾期
   wizard:
+    assignment_dates: 分配日期
+    assignment_description: 選擇您的分配時間軸起始日期。例如若您想要在課程上第二週開始您的維基計劃項目，設定分配開始日期在課程開始日期的後一週。此分配工具將創建適用您所選擇之時間軸日期的草稿時間軸
     assignment_type: 作業類型
     calendar_instructions: 選擇日期，以便從行事曆中增加或移除這些時間（例如假日或不上課的時候）。這能夠讓課程創建工具精準的開出你的作業時段。點擊一個日期可以從非課程時段、上課時段、以及休假時段三種設定之間轉換。
+    confirm_dates: 選擇您課程的日期、每週會議、與假日。
     course_dates: 課程日期
+    min_weeks: 此分配項目至少需要%{min_weeks}個可用週間。若您要使用此分配項目類型請調整您的分配起始日期。
     minimum_options: 請至少選擇%{minimum}個選項。
     read_less: 閱讀更少
     read_more: 閱讀更多
+    review_selections: 請在下方檢閱您的選項。點擊以編輯一個選項。當結束時，點擊「提交」來結束入門精靈並開始架構您的時間軸。
     select_assignment: 選擇您希望加到您的時間表的任務類型
     summary: 摘要
   error:
+    article_required: 需要一個條目
+    form_errors: 請檢查表單裡的錯誤。
+    invalid_assignment: 無效分派
     oauth_invalid: 您已登出維基百科。請重新登入。
     unsupported_browser:
       header: 未受支援的瀏覽器。  :-(
       explanation: 您使用的瀏覽器與此面板不相容。請使用Internet Explorer11或更高版本、Chrome和Firefox等瀏覽器的最新版本。
   error_401:
     header: 未授權。 :-(
+    explanation: 您未被授權執行此請求。如果您認為您會遇到此通知是個出錯，請聯繫此儀表盤的維護人員讓他們知悉此問題。
   error_incorrect_passcode:
     header: 選課代碼錯誤。 :-(
     explanation: |-
@@ -370,6 +507,7 @@ zh-TW:
       若您正試圖造訪某項課程，可能此課程尚未註冊。
       若此課程最近才註冊，則系統可能需要一些時間新增此課程。
   error_422:
+    header: 422 — 無法處理的實體項目。 :-(
     explanation: |-
       發生錯誤。
       請將問題回報給網站維護人員。
@@ -384,6 +522,18 @@ zh-TW:
       登錄過程似乎發生了一些問題（抱歉，這種事情偶而會發生！）
       請嘗試再次登錄或註冊。
   survey:
+    login_message: 感謝您挪出時間。請登入您的Wiki Ed儀表盤來接受調查。
+    notification_explanation: 若下方已選取使用者會依通知排程時間接收到電郵訊息，並額外會在瀏覽器上顯示訊息。反之若不；僅會顯示訊息於瀏覽器裡。
+    notification_schedule_explanation: 通知包含顯示在瀏覽器畫面上與發送電子郵件；若在上方有啟用功能的情況下。
+    follow_up_explanation: 如果不需要後續的電子郵件通知請留空。
     email:
+      headline: 哈囉，%{username}
+      message_line1: 我們期望您有個美好的學期！Wiki Ed正尋求您的回饋以改進我們的資源以幫助您的維基百科事項。您的意見批評；對於改善我們目前產品相當重要。
+      message_line2: 您願意花個15分鐘來填寫我們的導師調查表嗎？點擊下方按鍵來幫助我們讓維基百科教學成為更有價值與寶貴經驗。
       course: 課程：%{course_info}
+      closing: 真誠的，
+      signed: '- Wiki Ed團隊'
+      link: 參加調查
+    follow_up:
+      message: 這是有關您對課程%{course_title}調查的提醒。來自此調查的回饋將幫助我們改進像您在維基百科上的事項。
 ...
