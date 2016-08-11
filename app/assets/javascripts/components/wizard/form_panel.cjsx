@@ -40,17 +40,8 @@ FormPanel = React.createClass(
     checked = ReactDOM.findDOMNode(@refs.noDates).checked
     @updateDetails 'no_day_exceptions', checked
   render: ->
-    course_end_props =
-      minDate: moment(@props.course.start)
-    # Wiki Ed's classroom program requires courses be at least a week long
-    if @props.course.type == 'ClassroomProgramCourse'
-      course_end_props.minDate.add(1, 'week')
-    timeline_start_props =
-      minDate: moment(@props.course.start, 'YYYY-MM-DD')
-      maxDate: moment(@props.course.timeline_end, 'YYYY-MM-DD')
-    timeline_end_props =
-      minDate: moment(@props.course.timeline_start, 'YYYY-MM-DD')
-      maxDate: moment(@props.course.end, 'YYYY-MM-DD')
+    dateProps = CourseDateUtils.dateProps(@props.course)
+
     step1 = if @props.shouldShowSteps
               <h2><span>1.</span><small> Confirm the course’s start and end dates.</small></h2>
             else
@@ -76,7 +67,7 @@ FormPanel = React.createClass(
               editable=true
               validation={CourseDateUtils.isDateValid}
               label='Course End'
-              date_props={course_end_props}
+              date_props={dateProps.end}
               enabled={@props.course.start?}
             />
           </div>
@@ -92,7 +83,7 @@ FormPanel = React.createClass(
               editable=true
               validation={CourseDateUtils.isDateValid}
               label={I18n.t('courses.assignment_start')}
-              date_props={timeline_start_props}
+              date_props={dateProps.timeline_start}
             />
             <DatePicker
               onChange={@updateDetails}
@@ -101,7 +92,7 @@ FormPanel = React.createClass(
               editable=true
               validation={CourseDateUtils.isDateValid}
               label={I18n.t('courses.assignment_end')}
-              date_props={timeline_end_props}
+              date_props={dateProps.timeline_end}
               enabled={@props.course.start?}
             />
           </div>

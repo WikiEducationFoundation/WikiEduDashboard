@@ -3,7 +3,6 @@ ReactRouter   = require 'react-router'
 Router        = ReactRouter.Router
 Panel         = require './panel.cjsx'
 FormPanel     = require './form_panel.cjsx'
-TimelinePanel = require './timeline_panel.cjsx'
 SummaryPanel  = require './summary_panel.cjsx'
 
 Modal         = require('../common/modal.jsx').default

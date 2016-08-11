@@ -13,6 +13,8 @@ DatePicker    = require('../common/date_picker.jsx').default
 TextAreaInput = require('../common/text_area_input.jsx').default
 Calendar      = require('../common/calendar.jsx').default
 CourseUtils   = require('../../utils/course_utils.js').default
+CourseDateUtils = require '../../utils/course_date_utils.coffee'
+
 
 getState = ->
   error_message: ValidationStore.firstMessage()
@@ -86,6 +88,8 @@ CourseClonedModal = React.createClass(
       <div className='warning'>{@state.error_message}</div>
     )
 
+    dateProps = CourseDateUtils.dateProps(@props.course)
+
     <Modal>
       <div className='wizard__panel active cloned-course'>
         <h3>{I18n.t('courses.creator.clone_successful')}</h3>
@@ -141,7 +145,7 @@ CourseClonedModal = React.createClass(
             <TextInput
               id='course_expected_students'
               onChange={@updateCourse}
-              value={@props.course.expected_students}
+              value={@props.course.expected_students.toString()}
               value_key='expected_students'
               editable=true
               type='number'
@@ -178,7 +182,7 @@ CourseClonedModal = React.createClass(
               label={I18n.t('courses.creator.end_date')}
               placeholder={I18n.t('courses.creator.end_date_placeholder')}
               blank=true
-              date_props={minDate: moment(@props.course.start, 'YYYY-MM-DD').add(1, 'week')}
+              date_props={dateProps.end}
               enabled={@props.course.start?}
               isClearable=false
             />
@@ -193,6 +197,7 @@ CourseClonedModal = React.createClass(
               label={I18n.t('courses.creator.assignment_start')}
               placeholder={I18n.t('courses.creator.assignment_start_placeholder')}
               blank=true
+              date_props={dateProps.timeline_start}
               isClearable=false
             />
 
@@ -206,7 +211,7 @@ CourseClonedModal = React.createClass(
               label={I18n.t('courses.creator.assignment_end')}
               placeholder={I18n.t('courses.creator.assignment_end_placeholder')}
               blank=true
-              date_props={minDate: moment(@props.course.start, 'YYYY-MM-DD').add(1, 'week')}
+              date_props={dateProps.timeline_end}
               enabled={@props.course.start?}
               isClearable=false
             />

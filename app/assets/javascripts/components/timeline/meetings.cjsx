@@ -42,12 +42,7 @@ Meetings = React.createClass(
     enable = @state.blackoutDatesSelected || (@state.anyDatesSelected && @state.course.no_day_exceptions)
     if enable then false else true
   render: ->
-    timeline_start_props =
-      minDate: moment(@state.course.start, 'YYYY-MM-DD')
-      maxDate: moment(@state.course.timeline_end, 'YYYY-MM-DD')
-    timeline_end_props =
-      minDate: moment(@state.course.timeline_start, 'YYYY-MM-DD')
-      maxDate: moment(@state.course.end, 'YYYY-MM-DD')
+    dateProps = CourseDateUtils.dateProps(@state.course)
 
     <Modal >
       <div className='wizard__panel active'>
@@ -70,7 +65,7 @@ Meetings = React.createClass(
               validation={CourseDateUtils.isDateValid}
               editable=true
               label={I18n.t('timeline.course_end')}
-              date_props={minDate: moment(@state.course.start, 'YYYY-MM-DD').add(1, 'week')}
+              date_props={dateProps.end}
               enabled={@state.course.start?}
             />
           </div>
@@ -86,7 +81,7 @@ Meetings = React.createClass(
               editable=true
               validation={CourseDateUtils.isDateValid}
               label={I18n.t('courses.assignment_start')}
-              date_props={timeline_start_props}
+              date_props={dateProps.timeline_start}
             />
             <DatePicker
               onChange={@updateCourse}
@@ -95,7 +90,7 @@ Meetings = React.createClass(
               editable=true
               validation={CourseDateUtils.isDateValid}
               label={I18n.t('courses.assignment_end')}
-              date_props={timeline_end_props}
+              date_props={dateProps.timeline_end}
               enabled={@state.course.start?}
             />
           </div>

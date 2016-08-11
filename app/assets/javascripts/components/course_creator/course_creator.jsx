@@ -17,7 +17,6 @@ import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.coffee';
 import TransitionGroup from 'react-addons-css-transition-group';
 
-import moment from 'moment';
 import _ from 'lodash';
 
 import { getUserId } from '../../stores/user_id_store.js';
@@ -209,12 +208,7 @@ const CourseCreator = React.createClass({
       );
     }
 
-    let minDate = moment(this.state.course.start, 'YYYY-MM-DD');
-
-    // Wiki Ed's classroom program requires courses be at least a week long
-    if (this.state.default_course_type === 'ClassroomProgramCourse') {
-      minDate = minDate.add(1, 'week');
-    }
+    const dateProps = CourseDateUtils.dateProps(this.state.course, this.state.default_course_type);
 
     return (
       <TransitionGroup
@@ -299,7 +293,7 @@ const CourseCreator = React.createClass({
                   label={CourseUtils.i18n('creator.end_date', this.state.course_string_prefix)}
                   placeholder={I18n.t('courses.creator.end_date_placeholder')}
                   blank
-                  date_props={{ minDate }}
+                  date_props={dateProps.end}
                   enabled={!!this.state.course.start}
                   isClearable={false}
                 />

@@ -7,6 +7,26 @@ module.exports = {
     return false unless date.match(/^20\d{2}\-\d{2}\-\d{2}$/)
     return moment(date, 'YYYY-MM-DD').isValid()
 
+  # Returns an object of minDate and maxDate props for each date field of a course
+  dateProps: (course, type) ->
+    minEnd = moment(course.start, 'YYYY-MM-DD')
+    #Wiki Ed's classroom program requires courses be at least a week long
+    type ?= course.type
+    if type == 'ClassroomProgramCourse'
+      minEnd.add(1, 'week')
+
+    props =
+      end:
+        minDate: minEnd
+      timeline_start:
+        minDate: moment(course.start, 'YYYY-MM-DD')
+        maxDate: moment(course.timeline_end, 'YYYY-MM-DD')
+      timeline_end:
+        minDate: moment(course.timeline_start, 'YYYY-MM-DD')
+        maxDate: moment(course.end, 'YYYY-MM-DD')
+
+    return props
+
   moreWeeksThanAvailable: (course, weeks, exceptions) ->
     return false unless weeks?.length
     nonBlackoutWeeks = _.filter(@weekMeetings(@meetings(course), course, exceptions), (mtg) ->
@@ -22,7 +42,6 @@ module.exports = {
       wkDay = selectedDay.day(0).add(i, 'days').format('YYYYMMDD')
       noMeetingsThisWeek = false if @courseMeets(course.weekdays, i, wkDay, exceptions.join(','))
     noMeetingsThisWeek
-
 
   # Returns string describing weekday meetings for each week
   # Ex: ["(M, W, F)", "(M, W)", "()", "(W, T)", "(M, W, F)"]

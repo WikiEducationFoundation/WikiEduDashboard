@@ -77,18 +77,9 @@ Details = React.createClass(
       )
 
 
-    course_end_props =
-      minDate: moment(@props.course.start, 'YYYY-MM-DD')
+    dateProps = CourseDateUtils.dateProps(@props.course)
 
     if @props.course.type == 'ClassroomProgramCourse'
-      course_end_props.minDate.add(1, 'week')
-      timeline_start_props =
-        minDate: moment(@props.course.start, 'YYYY-MM-DD')
-        maxDate: moment(@props.course.timeline_end, 'YYYY-MM-DD')
-      timeline_end_props =
-        minDate: moment(@props.course.timeline_start, 'YYYY-MM-DD')
-        maxDate: moment(@props.course.end, 'YYYY-MM-DD')
-
       timeline_start = (
         <DatePicker
           onChange={@updateDetails}
@@ -97,7 +88,7 @@ Details = React.createClass(
           editable={@props.editable}
           validation={CourseDateUtils.isDateValid}
           label={CourseUtils.i18n('assignment_start', @props.course.string_prefix)}
-          date_props={timeline_start_props}
+          date_props={dateProps.timeline_start}
           required=true
         />
       )
@@ -109,7 +100,7 @@ Details = React.createClass(
           editable={@props.editable}
           validation={CourseDateUtils.isDateValid}
           label={CourseUtils.i18n('assignment_end', @props.course.string_prefix)}
-          date_props={timeline_end_props}
+          date_props={dateProps.timeline_end}
           required=true
         />
       )
@@ -173,7 +164,7 @@ Details = React.createClass(
             editable={@props.editable}
             validation={CourseDateUtils.isDateValid}
             label={I18n.t('courses.end')}
-            date_props={course_end_props}
+            date_props={dateProps.end}
             enabled={@props.course.start?}
             required=true
           />
