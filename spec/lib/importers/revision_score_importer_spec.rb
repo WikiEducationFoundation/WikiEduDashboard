@@ -35,6 +35,10 @@ describe RevisionScoreImporter do
            mw_rev_id: 46745264, # revision from 2006-04-03
            article_id: 1538038,
            mw_page_id: 1538038)
+    create(:revision,
+           mw_rev_id: 777777777, # does not exist
+           article_id: 1538038,
+           mw_page_id: 1538038)
   end
 
   it 'saves wp10 scores and features for revisions' do
