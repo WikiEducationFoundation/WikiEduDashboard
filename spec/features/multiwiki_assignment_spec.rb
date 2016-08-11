@@ -47,10 +47,10 @@ describe 'multiwiki assignments', type: :feature, js: true do
       within('#users') do
         first('input').set('Livre_de_cuisine')
         first(:link, 'Change').click
-        first('.language-select').click
+        find('div.language-select').click
         first('.language-select .Select-input input').set('fr')
         first('.language-select .Select-option', text: 'fr').click
-        first('.project-select').click
+        find('div.project-select').click
         first('.project-select .Select-input input').set('wikibooks')
         first('.project-select .Select-option', text: 'wikibooks').click
       end
