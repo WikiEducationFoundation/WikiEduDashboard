@@ -42,6 +42,7 @@ FormPanel = React.createClass(
   render: ->
     course_end_props =
       minDate: moment(@props.course.start)
+    # Wiki Ed's classroom program requires courses be at least a week long
     if @props.course.type == 'ClassroomProgramCourse'
       course_end_props.minDate.add(1, 'week')
     timeline_start_props =

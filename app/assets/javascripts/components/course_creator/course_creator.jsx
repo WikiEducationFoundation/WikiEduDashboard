@@ -210,6 +210,8 @@ const CourseCreator = React.createClass({
     }
 
     let minDate = moment(this.state.course.start, 'YYYY-MM-DD');
+
+    // Wiki Ed's classroom program requires courses be at least a week long
     if (this.state.default_course_type === 'ClassroomProgramCourse') {
       minDate = minDate.add(1, 'week');
     }
