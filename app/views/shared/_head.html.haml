@@ -31,10 +31,9 @@
 = javascript_include_tag '/assets/javascripts/vendor.js'
 
 - unless ENV['DISABLE_SENTRY']
-  / Temporary Raven logging
+  / Sentry logging
   %script{src: "//cdn.ravenjs.com/1.1.19/jquery,native/raven.min.js"}
-  :javascript
-    Raven.config("#{ENV['sentry_public_dsn']}").install();
+    = "Raven.config(\"#{ENV['sentry_public_dsn']}\").install();"
 
 = content_for :javascripts
 
