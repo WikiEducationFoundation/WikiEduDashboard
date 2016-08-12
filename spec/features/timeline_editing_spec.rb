@@ -53,6 +53,7 @@ describe 'timeline editing', type: :feature, js: true do
       find('span.week__delete-week').click
     end
     expect(page).to have_content 'Add Assignment'
+    sleep 1
   end
 
   it 'lets users delete a block' do
@@ -68,6 +69,7 @@ describe 'timeline editing', type: :feature, js: true do
     end
 
     expect(page).not_to have_content 'Block Title'
+    sleep 1
   end
 
   it 'lets users add a training to an assignment block' do
@@ -89,6 +91,7 @@ describe 'timeline editing', type: :feature, js: true do
     within ".week-1 .block-kind-#{Block::KINDS['assignment']}" do
       expect(page).to have_content unassigned_module_name
     end
+    sleep 1
   end
 
   it 'handles cases of "save all" after blocks have been deleted' do
