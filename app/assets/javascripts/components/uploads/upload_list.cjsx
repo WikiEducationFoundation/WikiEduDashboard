@@ -1,7 +1,7 @@
 React         = require 'react'
 Editable      = require('../high_order/editable.jsx').default
 
-List          = require '../common/list.cjsx'
+List          = require('../common/list.jsx').default
 Upload        = require './upload.cjsx'
 UploadStore   = require '../../stores/upload_store.coffee'
 ServerActions = require('../../actions/server_actions.js').default

@@ -1,7 +1,7 @@
 import React from 'react';
 import Editable from '../high_order/editable.jsx';
 
-import List from '../common/list.cjsx';
+import List from '../common/list.jsx';
 import Article from './article.jsx';
 import ArticleStore from '../../stores/article_store.coffee';
 import ServerActions from '../../actions/server_actions.js';

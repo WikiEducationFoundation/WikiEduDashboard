@@ -1,7 +1,7 @@
 React             = require 'react'
 Editable          = require('../high_order/editable.jsx').default
 
-List              = require '../common/list.cjsx'
+List              = require('../common/list.jsx').default
 Revision          = require('./revision.jsx').default
 RevisionStore     = require '../../stores/revision_store.coffee'
 ServerActions     = require('../../actions/server_actions.js').default

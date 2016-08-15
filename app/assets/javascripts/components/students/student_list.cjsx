@@ -1,7 +1,7 @@
 React             = require 'react'
 Editable          = require('../high_order/editable.jsx').default
 
-List              = require '../common/list.cjsx'
+List              = require('../common/list.jsx').default
 Student           = require './student.cjsx'
 StudentDrawer     = require './student_drawer.cjsx'
 EnrollButton      = require './enroll_button.cjsx'
