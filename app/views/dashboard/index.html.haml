@@ -89,5 +89,5 @@
             = course.title
             %span.course-term= course.term
 
-  - if Features.wiki_ed?
+  - if @blog_posts.present?
     = render "blog"

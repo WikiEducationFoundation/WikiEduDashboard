@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rss'
 
 #= Controller for dashboard functionality
@@ -9,18 +10,23 @@ class DashboardController < ApplicationController
       redirect_to root_path
       return
     end
-
+    set_blog_posts if Features.wiki_ed?
     set_admin_courses_if_admin
-
-    @blog_posts = Rails.cache.fetch('posts', expires_in: 1.day) do
-      RSS::Parser.parse('https://wikiedu.org/feed', false).items
-    end
-
     @pres = DashboardPresenter.new(current_courses, past_courses,
                                    @submitted, @strictly_current, current_user)
   end
 
   private
+
+  BLOG_FEED_URL = 'https://wikiedu.org/feed'
+  def set_blog_posts
+    @blog_posts = Rails.cache.fetch('posts', expires_in: 1.day) do
+      RSS::Parser.parse(BLOG_FEED_URL, false).items
+    end
+  # Rescue 404 errors, in case wikiedu.org is down.
+  rescue OpenURI::HTTPError
+    @blog_posts = []
+  end
 
   def set_admin_courses_if_admin
     @submitted = []

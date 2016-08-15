@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV['RAILS_ENV'] ||= 'test'
 # Load spec_helper before rails, so that simplecov works properly.
@@ -17,7 +18,7 @@ Capybara.configure do |config|
 end
 
 Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, {js_errors: false})
+  Capybara::Poltergeist::Driver.new(app, js_errors: false)
 end
 
 Capybara::Webkit.configure do |config|
