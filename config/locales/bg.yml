@@ -1,6 +1,7 @@
 # Messages for Bulgarian (български)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: StanProg
 # Author: Termininja
 # Author: V111P
 # Author: Лорд Бъмбъри
@@ -19,6 +20,8 @@ bg:
     courses: Програми
     creator:
       find: Намери програма
+  editable:
+    save: Съхраняване
   users:
     assign_articles_done: Готово
 ...

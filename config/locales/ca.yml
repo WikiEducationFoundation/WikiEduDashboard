@@ -271,6 +271,9 @@ ca:
       des de que van fer la primera modificació.
     view_page: Veure la pàgina del curs
     view_wiki: Veure a Viquipèdia
+    volunteer:
+      one: Voluntari
+      other: Voluntaris
     warn_mirrored: Amb l'enviament aquest curs serà automàticament penjat a la Viquipèdia
       amb el teu compte d'usuari. Després d'això, les noves edicions a la línia de
       temps seran automàticament reflectides a la Viquipèdia. N'estàs segur què vols
