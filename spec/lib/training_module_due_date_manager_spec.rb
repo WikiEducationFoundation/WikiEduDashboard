@@ -1,11 +1,13 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 describe TrainingModuleDueDateManager do
   let(:t_start)      { Date.new(2015, 8, 25) }
   let(:day_exc)      { nil }
-  let(:course)       { create(:course, timeline_start: t_start,
-                               timeline_end: t_start + 3.weeks, day_exceptions: day_exc,
-                               weekdays: '0010000') }
+  let(:course) do
+    create(:course, timeline_start: t_start, timeline_end: t_start + 3.weeks,
+                    day_exceptions: day_exc, weekdays: '0010000')
+  end
   let(:t_module)     { TrainingModule.all.first }
   let(:ids)          { [t_module.id] }
   let(:user)         { create(:user) }
@@ -13,7 +15,7 @@ describe TrainingModuleDueDateManager do
   let!(:tmu) do
     create(:training_modules_users,
            training_module_id: t_module.id,
-           user_id: user.try(:id),
+           user_id: user&.id,
            completed_at: completed_at)
   end
   let(:due_date) { t_start + 1. week }
@@ -25,7 +27,7 @@ describe TrainingModuleDueDateManager do
   describe '#computed_due_date' do
     subject do
       described_class.new(course: course, training_module: t_module, user: user)
-        .computed_due_date
+                     .computed_due_date
     end
     context "module's parent block has a due date" do
       it "uses the parent block's due date" do
@@ -35,7 +37,7 @@ describe TrainingModuleDueDateManager do
 
     context "module's parent block does not have due date" do
       let(:due_date) { nil }
-      let(:expected) { (t_start).end_of_week(:sunday) }
+      let(:expected) { t_start.end_of_week(:sunday) }
       context "block's parent week is not a blackout week" do
         it "uses the last day of the block's parent week" do
           expect(subject).to eq(expected)
@@ -44,15 +46,19 @@ describe TrainingModuleDueDateManager do
           expect(subject.saturday?).to eq(true)
         end
       end
-      context "week 2 is a blackout week; week in order 2 is actually calendar week 3" do
+      context 'week 2 is a blackout week; week in order 2 is actually calendar week 3' do
         let(:week2)    { create(:week, course_id: course.id, order: 2) }
-        let(:day_exc)  { (t_start + 1.week).to_s.gsub('-', '') }
+        let(:day_exc)  { (t_start + 1.week).to_s.delete('-') }
         let(:expected) { (t_start + 2.weeks).end_of_week(:sunday) }
-        let(:t_module2){ TrainingModule.find(11) }
-        let(:ids2)     { [t_module2.id] }
-        let!(:block2)  { create(:block, week_id: week2.id, training_module_ids: ids2, due_date: nil) }
+        let(:t_module2) { TrainingModule.find(11) }
+        let(:ids2) { [t_module2.id] }
+        let!(:block2) do
+          create(:block, week_id: week2.id, training_module_ids: ids2, due_date: nil)
+        end
         it 'uses the Saturday of the correct week' do
-          expect(described_class.new(course: course, training_module: t_module2, user: user).computed_due_date).to eq(expected)
+          result = described_class.new(course: course, training_module: t_module2, user: user)
+                                  .computed_due_date
+          expect(result).to eq(expected)
         end
       end
     end
@@ -63,7 +69,7 @@ describe TrainingModuleDueDateManager do
     after(:all)  { Timecop.return }
     subject do
       described_class.new(course: course, training_module: t_module, user: user)
-        .overdue?
+                     .overdue?
     end
     context 'module is not complete' do
       context "today's date is before computed_due_date" do
@@ -102,7 +108,7 @@ describe TrainingModuleDueDateManager do
 
     subject do
       described_class.new(course: course, training_module: t_module, user: user)
-        .deadline_status
+                     .deadline_status
     end
     context 'user is nil' do
       let(:user) { nil }
@@ -136,11 +142,11 @@ describe TrainingModuleDueDateManager do
     before(:all) { Timecop.travel(Date.new(2015, 8, 25)) }
     after(:all)  { Timecop.return }
 
-    let!(:cu) { create(:courses_user, user_id: user.try(:id), course_id: course.id) }
+    let!(:cu) { create(:courses_user, user_id: user&.id, course_id: course.id) }
 
     subject do
       described_class.new(course: course, training_module: t_module, user: user)
-        .overall_due_date
+                     .overall_due_date
     end
     context 'user is nil' do
       let(:user) { nil }
@@ -176,13 +182,13 @@ describe TrainingModuleDueDateManager do
         end
         context 'one block has a due date, the other does not' do
           let(:due_date2) { nil }
-          it "uses the earlier of the existent block due date or the end of the week of the block wihtout a date" do
+          it 'uses the earlier of the existent block due date or the end of the week of the block without a date' do
             expect(subject).to eq(Date.today.end_of_week(start_day = :sunday))
           end
         end
 
         context 'both blocks have a due date' do
-          it "uses earliest date" do
+          it 'uses earliest date' do
             expect(subject).to eq(due_date2)
           end
         end

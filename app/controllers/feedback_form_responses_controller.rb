@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class FeedbackFormResponsesController < ApplicationController
   def new
     @subject = request.referrer || params['referrer']
@@ -12,16 +13,12 @@ class FeedbackFormResponsesController < ApplicationController
   def show
     check_user_auth
     @response = FeedbackFormResponse.find(params[:id])
-    if @response.user_id
-      @username = User.find(@response.user_id).username
-    else
-      @username = nil
-    end
+    @username = User.find(@response.user_id).username if @response.user_id
   end
 
   def create
     f_response = FeedbackFormResponse.new(form_params)
-    f_response.user_id = current_user.try(:id)
+    f_response.user_id = current_user&.id
     f_response.save
     redirect_to feedback_confirmation_path
   end
@@ -36,7 +33,7 @@ class FeedbackFormResponsesController < ApplicationController
   end
 
   def check_user_auth
-    return if current_user.try(:admin?)
+    return if current_user&.admin?
     flash[:notice] = "You don't have access to that page."
     redirect_to root_path
   end

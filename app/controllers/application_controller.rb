@@ -116,7 +116,7 @@ class ApplicationController < ActionController::Base
   helper_method :new_session_path
 
   def can_administer?
-    current_user.try(:admin?)
+    current_user&.admin?
   end
 
   private

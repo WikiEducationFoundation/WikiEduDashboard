@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "#{Rails.root}/lib/importers/user_importer"
 
 #= Controller for OmniAuth authentication callbacks
@@ -29,6 +30,6 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def login_failed?(auth_hash)
-    auth_hash[:extra].try(:[], :raw_info).try(:[], :login_failed)
+    auth_hash.dig(:extra, :raw_info, :login_failed)
   end
 end

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'mediawiki_api'
 require 'json'
 
@@ -34,7 +35,7 @@ class WikiApi
   def redirect?(page_title)
     response = get_page_info([page_title])
     return false if response.nil?
-    redirect = response.try(:[], 'pages').try(:values).try(:[], 0).try(:[], 'redirect')
+    redirect = response['pages']&.values&.dig(0, 'redirect')
     redirect ? true : false
   end
 

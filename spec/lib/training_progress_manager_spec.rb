@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 describe TrainingProgressManager do
@@ -7,7 +8,11 @@ describe TrainingProgressManager do
   let(:slides)   { [t_module.slides.first, t_module.slides.last] }
   let(:slide)    { slides.first }
   let(:last_slide_completed) { slides.first.slug }
-  let(:tmu)      { create(:training_modules_users, user_id: user.try(:id), training_module_id: t_module.id, last_slide_completed: last_slide_completed, completed_at: completed_at ) }
+  let(:tmu) do
+    create(:training_modules_users, user_id: user&.id, training_module_id: t_module.id,
+                                    last_slide_completed: last_slide_completed,
+                                    completed_at: completed_at)
+  end
   let(:completed_at) { nil }
   let(:ids) { [t_module.id] }
   let(:week) { create(:week) }

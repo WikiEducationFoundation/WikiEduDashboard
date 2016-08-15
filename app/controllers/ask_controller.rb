@@ -1,8 +1,9 @@
+# frozen_string_literal: true
 require 'uri'
 
 # Controller for ask.wikiedu.org search form
 class AskController < ApplicationController
-  ASK_ROOT = 'http://ask.wikiedu.org/questions/scope:all/sort:activity-desc/'.freeze
+  ASK_ROOT = 'http://ask.wikiedu.org/questions/scope:all/sort:activity-desc/'
 
   def search
     if params[:q].blank?
@@ -22,6 +23,6 @@ class AskController < ApplicationController
     Raven.capture_message 'ask.wikiedu.org query',
                           level: 'info',
                           tags: { 'source' => params[:source] },
-                          extra: { query: params[:q], username: current_user.try(:username) }
+                          extra: { query: params[:q], username: current_user&.username }
   end
 end

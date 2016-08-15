@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class ActiveCourseAlertManager
   def initialize(courses)
     @courses = courses
@@ -9,7 +10,7 @@ class ActiveCourseAlertManager
       next if Alert.exists?(course_id: course.id, type: 'ActiveCourseAlert')
       alert = Alert.create(type: 'ActiveCourseAlert',
                            course_id: course.id,
-                           target_user_id: communications_manager.try(:id))
+                           target_user_id: communications_manager&.id)
       alert.email_target_user
     end
   end

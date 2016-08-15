@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 describe TrainedStudentsManager do
@@ -7,15 +8,15 @@ describe TrainedStudentsManager do
     create(:block, week_id: week.id, due_date: 2.days.ago, training_module_ids: ids)
   end
   let(:user)      { create(:user) }
-  let(:course_id) { course.try(:id) }
+  let(:course_id) { course&.id }
   let!(:cu)       { create(:courses_user, course_id: course_id, user_id: user.id) }
   let(:t_mod)     { TrainingModule.all.first }
   let(:ids)       { [t_mod.id] }
   let!(:tmu) do
     create(:training_modules_users,
-            training_module_id: t_mod.id,
-            user_id: user.id,
-            completed_at: completed_at)
+           training_module_id: t_mod.id,
+           user_id: user.id,
+           completed_at: completed_at)
   end
   let(:completed_at) { 1.week.ago.to_date }
 

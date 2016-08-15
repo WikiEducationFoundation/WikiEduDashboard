@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class TrainingProgressManager
   def initialize(user, training_module, slide=nil)
     @user = user
@@ -5,7 +6,7 @@ class TrainingProgressManager
     @slide = slide
     @tmu = TrainingModulesUsers.find_by(
       user_id: @user.id,
-      training_module_id: @training_module.try(:id)
+      training_module_id: @training_module&.id
     ) if @user.present?
     @due_date_manager = due_date_manager
   end

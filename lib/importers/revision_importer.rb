@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "#{Rails.root}/lib/replica"
 require "#{Rails.root}/lib/duplicate_article_deleter"
 require "#{Rails.root}/lib/importers/article_importer"
@@ -165,7 +166,7 @@ class RevisionImporter
                  characters: rev_data['characters'],
                  article_id: article.id,
                  mw_page_id: rev_data['mw_page_id'],
-                 user_id: User.find_by(username: rev_data['username']).try(:id),
+                 user_id: User.find_by(username: rev_data['username'])&.id,
                  new_article: rev_data['new_article'],
                  system: rev_data['system'],
                  wiki_id: rev_data['wiki_id'])
@@ -179,7 +180,7 @@ class RevisionImporter
     end
 
     article = Article.find_by(wiki_id: @wiki.id, mw_page_id: mw_page_id)
-    article_id = article.try(:id)
+    article_id = article&.id
 
     Revision.find_by(wiki_id: @wiki.id, mw_rev_id: moved['rev_id'])
             .update(article_id: article_id, mw_page_id: mw_page_id)

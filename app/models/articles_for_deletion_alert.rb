@@ -1,7 +1,8 @@
+# frozen_string_literal: true
 # Alert for when an article has been nominated for deletion on English Wikipedia
 class ArticlesForDeletionAlert < Alert
   def main_subject
-    "#{article.title} — #{course.try(:slug)}"
+    "#{article.title} — #{course&.slug}"
   end
 
   def url

@@ -14,7 +14,7 @@
     %div.wrapper
       = render "shared/nav"
       = render "surveys/navigation"
-      %main#main{"data-user-id" => current_user.try(:id), :role => "main"}
+      %main#main{"data-user-id" => current_user&.id, :role => "main"}
         = yield
       .push
     = render "shared/foot"
