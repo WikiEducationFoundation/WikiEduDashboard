@@ -30,6 +30,6 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def login_failed?(auth_hash)
-    auth_hash.dig(:extra, :raw_info, :login_failed)
+    auth_hash[:extra]&.dig('raw_info', 'login_failed')
   end
 end
