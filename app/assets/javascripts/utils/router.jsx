@@ -11,7 +11,7 @@ import CourseCreator from '../components/course_creator/course_creator.jsx';
 
 import OverviewHandler from '../components/overview/overview_handler.cjsx';
 import TimelineHandler from '../components/timeline/timeline_handler.cjsx';
-import RevisionsHandler from '../components/revisions/revisions_handler.cjsx';
+import RevisionsHandler from '../components/revisions/revisions_handler.jsx';
 import StudentsHandler from '../components/students/students_handler.cjsx';
 import ArticlesHandler from '../components/articles/articles_handler.jsx';
 import UploadsHandler from '../components/uploads/uploads_handler.cjsx';
