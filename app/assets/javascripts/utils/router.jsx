@@ -14,7 +14,7 @@ import TimelineHandler from '../components/timeline/timeline_handler.cjsx';
 import RevisionsHandler from '../components/revisions/revisions_handler.jsx';
 import StudentsHandler from '../components/students/students_handler.cjsx';
 import ArticlesHandler from '../components/articles/articles_handler.jsx';
-import UploadsHandler from '../components/uploads/uploads_handler.cjsx';
+import UploadsHandler from '../components/uploads/uploads_handler.jsx';
 
 import RecentActivityHandler from '../components/activity/recent_activity_handler.jsx';
 import DidYouKnowHandler from '../components/activity/did_you_know_handler.jsx';

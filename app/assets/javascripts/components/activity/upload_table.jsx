@@ -1,6 +1,6 @@
 import React from 'react';
 import Loading from '../common/loading.jsx';
-import Upload from '../uploads/upload.cjsx';
+import Upload from '../uploads/upload.jsx';
 
 const UploadTable = React.createClass({
   displayName: 'UploadTable',
