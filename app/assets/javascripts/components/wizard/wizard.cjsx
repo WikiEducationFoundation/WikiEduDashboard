@@ -1,6 +1,4 @@
 React         = require 'react'
-ReactRouter   = require 'react-router'
-Router        = ReactRouter.Router
 Panel         = require './panel.cjsx'
 FormPanel     = require './form_panel.cjsx'
 SummaryPanel  = require './summary_panel.cjsx'
@@ -18,7 +16,7 @@ getState = ->
 
 Wizard = React.createClass(
   displayName: 'Wizard'
-  mixins: [Router.State, WizardStore.mixin]
+  mixins: [WizardStore.mixin]
   getInitialState: ->
     getState()
   componentWillMount: ->
