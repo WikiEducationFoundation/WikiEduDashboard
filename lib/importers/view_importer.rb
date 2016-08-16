@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "#{Rails.root}/lib/wiki_pageviews"
 
 #= Imports and updates views for articles, revisions, and join tables
@@ -83,7 +84,7 @@ class ViewImporter
 
     last = views_last_updated(since, views)
     article.views_updated_at = last.nil? ? article.views_updated_at : last
-    if article.revisions.count > 0
+    if article.revisions.count.positive?
       article.views = article.revisions.order('date ASC').first.views
     end
     article.save
