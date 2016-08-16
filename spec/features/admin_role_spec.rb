@@ -2,7 +2,6 @@ require 'rails_helper'
 
 describe 'Admin users', type: :feature, js: true do
   before do
-    include Devise::TestHelpers, type: :feature
     Capybara.current_driver = :selenium
     page.current_window.resize_to(1920, 1080)
   end

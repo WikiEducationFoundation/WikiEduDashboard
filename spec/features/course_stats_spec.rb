@@ -22,6 +22,10 @@ describe 'course stats', type: :feature, js: true do
   let(:articles)   { [article] }
   let(:users)      { [user] }
 
+  before do
+    Capybara.current_driver = :poltergeist
+  end
+
   it 'displays statistics about the course' do
     cu.update_cache
     course.update_cache
