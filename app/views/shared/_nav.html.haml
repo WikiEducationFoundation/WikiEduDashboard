@@ -32,7 +32,7 @@
 
       - else
         %li
-          = link_to user_omniauth_authorize_path(:mediawiki) do
+          = link_to user_mediawiki_omniauth_authorize_path do
             %i.icon.icon-wiki-logo
             = t('application.log_in')
             -# FIXME: without the lego message
