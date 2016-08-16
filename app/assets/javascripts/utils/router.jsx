@@ -5,7 +5,7 @@ import { Router, Route, IndexRoute, browserHistory, IndexRedirect } from 'react-
 import App from '../components/app.jsx';
 import Course from '../components/course.cjsx';
 import Onboarding from '../components/onboarding/index.cjsx';
-import Wizard from '../components/wizard/wizard.cjsx';
+import Wizard from '../components/wizard/wizard.jsx';
 import Dates from '../components/timeline/meetings.cjsx';
 import CourseCreator from '../components/course_creator/course_creator.jsx';
 
