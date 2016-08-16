@@ -42,7 +42,7 @@ describe('GetHelpButton', () => {
     const currentUser = { role: 1 };
 
     const TestGetHelpButton = ReactTestUtils.renderIntoDocument(
-      <GetHelpButton current_user={currentUser} />
+      <GetHelpButton current_user={currentUser} key="get_help" />
     );
 
     const popContainer = ReactTestUtils.findRenderedDOMComponentWithClass(TestGetHelpButton, 'pop__container');

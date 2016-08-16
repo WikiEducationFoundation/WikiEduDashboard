@@ -17,7 +17,6 @@ const GetHelpButton = React.createClass({
   displayName: 'GetHelpButton',
 
   propTypes: {
-    key: React.PropTypes.string,
     current_user: React.PropTypes.object,
     course: React.PropTypes.object,
     open: React.PropTypes.func,
@@ -33,8 +32,10 @@ const GetHelpButton = React.createClass({
     return state;
   },
 
+  // This component expects to be created with key='get_help'.
+  // The getKey function is used by Expandable.
   getKey() {
-    return this.props.key;
+    return 'get_help';
   },
 
   stop(e) {
