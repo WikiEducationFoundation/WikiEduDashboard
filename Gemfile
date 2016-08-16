@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 ruby '2.3.1'
-gem 'rails', '4.2.7'
+gem 'rails', '4.2.7.1'
 gem 'jbuilder', '~> 2.0'
 gem 'haml-rails'
 
@@ -93,7 +93,6 @@ group :test do
   gem 'capybara'
   gem 'capybara-webkit'
   gem 'capybara-screenshot'
-  gem 'poltergeist'
   gem 'database_cleaner'
   gem 'webmock'
   gem 'vcr'
