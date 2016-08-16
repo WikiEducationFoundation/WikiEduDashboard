@@ -33,7 +33,7 @@ const Milestones = React.createClass({
   render() {
     let blocks = [];
     this.state.weeks.map(week => {
-      const milestoneBlocks = _.select(week.blocks, block => block.kind === this.milestoneBlockType);
+      const milestoneBlocks = _.filter(week.blocks, block => block.kind === this.milestoneBlockType);
       return milestoneBlocks.map(block => {
         let classNames = 'module__data';
         if (this.weekIsCompleted(week)) { classNames += ' completed'; }

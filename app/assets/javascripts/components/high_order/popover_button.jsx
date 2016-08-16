@@ -8,7 +8,7 @@ import LookupSelect from '../common/lookup_select.jsx';
 import { capitalize } from '../../utils/strings.js';
 
 const PopoverButton = function (Key, ValueKey, Store, New, Items, IsSelect = false) {
-  const getState = () => ({ exclude: _.pluck(Store.getModels(), ValueKey) });
+  const getState = () => ({ exclude: _.map(Store.getModels(), ValueKey) });
   const format = function (value) {
     const data = {};
     data[Key] = {};

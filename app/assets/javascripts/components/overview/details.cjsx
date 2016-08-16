@@ -106,13 +106,13 @@ Details = React.createClass(
       )
 
     cohorts = if @props.cohorts.length > 0
-      _.pluck(@props.cohorts, 'title').join(', ')
+      _.map(@props.cohorts, 'title').join(', ')
     else I18n.t('courses.none')
 
 
     if @props.current_user.admin
       tags_list = if @props.tags.length > 0
-        _.pluck(@props.tags, 'tag').join(', ')
+        _.map(@props.tags, 'tag').join(', ')
       else I18n.t('courses.none')
 
       subject = (
