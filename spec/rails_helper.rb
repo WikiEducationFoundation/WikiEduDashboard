@@ -25,11 +25,12 @@ Capybara::Webkit.configure do |config|
   config.allow_url 'fonts.googleapis.com'
   config.allow_url 'maxcdn.bootstrapcdn.com'
   config.allow_url 'cdn.ravenjs.com'
+  config.block_unknown_urls
 end
 
 Capybara::Screenshot.webkit_options = { width: 1400, height: 768 }
 Capybara::Screenshot.prune_strategy = :keep_last_run
-Capybara.save_and_open_page_path = 'tmp/screenshots/'
+Capybara.save_path = 'tmp/screenshots/'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
