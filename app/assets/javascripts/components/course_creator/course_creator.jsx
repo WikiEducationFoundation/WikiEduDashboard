@@ -26,7 +26,7 @@ const getState = () => {
   return {
     course: CourseStore.getCourse(),
     error_message: ValidationStore.firstMessage(),
-    user_courses: UserCoursesStore.getUserCourses()
+    user_courses: _.reject(UserCoursesStore.getUserCourses(), { type: 'LegacyCourse' })
   };
 };
 
