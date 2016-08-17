@@ -102,6 +102,11 @@ const CourseCreator = React.createClass({
     }
   },
 
+  updateCourseDates(key, value) {
+    const updatedCourse = CourseDateUtils.updateCourseDates(this.state.course, key, value);
+    CourseActions.updateCourse(updatedCourse);
+  },
+
   showForm() {
     return this.setState({ shouldShowForm: true });
   },
@@ -271,7 +276,7 @@ const CourseCreator = React.createClass({
                 />
                 <DatePicker
                   id="course_start"
-                  onChange={this.updateCourse}
+                  onChange={this.updateCourseDates}
                   value={this.state.course.start}
                   value_key="start"
                   required
@@ -284,7 +289,7 @@ const CourseCreator = React.createClass({
                 />
                 <DatePicker
                   id="course_end"
-                  onChange={this.updateCourse}
+                  onChange={this.updateCourseDates}
                   value={this.state.course.end}
                   value_key="end"
                   required

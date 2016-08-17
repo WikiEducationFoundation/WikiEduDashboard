@@ -29,6 +29,10 @@ Meetings = React.createClass(
     to_pass = @state.course
     to_pass[value_key] = value
     CourseActions.updateCourse to_pass
+  updateCourseDates: (value_key, value) ->
+    updatedCourse = CourseDateUtils.updateCourseDates(@state.course, value_key, value)
+    CourseActions.updateCourse updatedCourse
+
   saveCourse: (e) ->
     if ValidationStore.isValid()
       CourseActions.persistCourse(@state, @state.course.slug)
@@ -51,7 +55,7 @@ Meetings = React.createClass(
           <p>{I18n.t('timeline.course_dates_instructions')}</p>
           <div className='vertical-form full-width'>
             <DatePicker
-              onChange={@updateCourse}
+              onChange={@updateCourseDates}
               value={@state.course.start}
               value_key='start'
               validation={CourseDateUtils.isDateValid}
@@ -59,7 +63,7 @@ Meetings = React.createClass(
               label={I18n.t('timeline.course_start')}
             />
             <DatePicker
-              onChange={@updateCourse}
+              onChange={@updateCourseDates}
               value={@state.course.end}
               value_key='end'
               validation={CourseDateUtils.isDateValid}
@@ -75,7 +79,7 @@ Meetings = React.createClass(
           <p>{I18n.t('timeline.assignment_dates_instructions')}</p>
           <div className='vertical-form full-width'>
             <DatePicker
-              onChange={@updateCourse}
+              onChange={@updateCourseDates}
               value={@state.course.timeline_start}
               value_key='timeline_start'
               editable=true
@@ -84,7 +88,7 @@ Meetings = React.createClass(
               date_props={dateProps.timeline_start}
             />
             <DatePicker
-              onChange={@updateCourse}
+              onChange={@updateCourseDates}
               value={@state.course.timeline_end}
               value_key='timeline_end'
               editable=true

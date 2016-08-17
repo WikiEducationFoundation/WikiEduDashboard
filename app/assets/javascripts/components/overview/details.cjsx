@@ -35,9 +35,14 @@ Details = React.createClass(
     return getState()
 
   updateDetails: (value_key, value) ->
-    to_pass = @props.course
-    to_pass[value_key] = value
-    CourseActions.updateCourse to_pass
+    updatedCourse = @props.course
+    updatedCourse[value_key] = value
+    CourseActions.updateCourse updatedCourse
+
+  updateCourseDates: (value_key, value) ->
+    updatedCourse = CourseDateUtils.updateCourseDates(@props.course, value_key, value)
+    CourseActions.updateCourse updatedCourse
+
   render: ->
     instructors = <InlineUsers {...@props} users={@props.instructors} role={1} title={CourseUtils.i18n('instructors', @props.course.string_prefix)} />
     online = <InlineUsers {...@props} users={@props.online} role={2} title='Online Volunteers' />
@@ -82,7 +87,7 @@ Details = React.createClass(
     if @props.course.type == 'ClassroomProgramCourse'
       timeline_start = (
         <DatePicker
-          onChange={@updateDetails}
+          onChange={@updateCourseDates}
           value={@props.course.timeline_start}
           value_key='timeline_start'
           editable={@props.editable}
@@ -94,7 +99,7 @@ Details = React.createClass(
       )
       timeline_end = (
         <DatePicker
-          onChange={@updateDetails}
+          onChange={@updateCourseDates}
           value={@props.course.timeline_end}
           value_key='timeline_end'
           editable={@props.editable}
@@ -149,7 +154,7 @@ Details = React.createClass(
           {passcode}
           {expected_students}
           <DatePicker
-            onChange={@updateDetails}
+            onChange={@updateCourseDates}
             value={@props.course.start}
             value_key='start'
             validation={CourseDateUtils.isDateValid}
@@ -158,7 +163,7 @@ Details = React.createClass(
             required=true
           />
           <DatePicker
-            onChange={@updateDetails}
+            onChange={@updateCourseDates}
             value={@props.course.end}
             value_key='end'
             editable={@props.editable}

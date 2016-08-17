@@ -45,7 +45,7 @@ const DatePicker = React.createClass({
 
   componentWillReceiveProps(nextProps) {
     if (this.state.value === null) {
-      return this.setState({ value: nextProps.value });
+      this.setState({ value: nextProps.value });
     }
   },
 
@@ -56,34 +56,34 @@ const DatePicker = React.createClass({
     const date = moment(selectedDate).format('YYYY-MM-DD');
     this.onChange({ target: { value: date } });
     this.refs.datefield.focus();
-    return this.setState({ datePickerVisible: false });
+    this.setState({ datePickerVisible: false });
   },
 
   handleDateFieldChange(e) {
     const { value } = e.target;
-    return this.onChange({ target: { value } });
+    this.onChange({ target: { value } });
   },
 
   handleClickOutside() {
     if (this.state.datePickerVisible) {
-      return this.setState({ datePickerVisible: false });
+      this.setState({ datePickerVisible: false });
     }
   },
 
   handleDateFieldClick() {
     if (!this.state.datePickerVisible) {
-      return this.setState({ datePickerVisible: true });
+      this.setState({ datePickerVisible: true });
     }
   },
 
   handleDateFieldFocus() {
-    return this.setState({ datePickerVisible: true });
+    this.setState({ datePickerVisible: true });
   },
 
   handleDateFieldKeyDown(e) {
     // Close picker if tab, enter, or escape
     if (_.includes([9, 13, 27], e.keyCode)) {
-      return this.setState({ datePickerVisible: false });
+      this.setState({ datePickerVisible: false });
     }
   },
 

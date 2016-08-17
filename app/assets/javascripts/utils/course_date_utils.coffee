@@ -27,6 +27,29 @@ module.exports = {
 
     return props
 
+  # This method takes a previous version of a course and a new one where one of
+  # the dates has changed, and returns a course where all the dates are consistent
+  # with each other.
+  updateCourseDates: (prevCourse, value_key, value) ->
+    updatedCourse = $.extend({}, prevCourse);
+    updatedCourse[value_key] = value
+    # Just return with the new value if it doesn't pass validation
+    return updatedCourse unless @isDateValid(value)
+
+    if moment(updatedCourse.start, 'YYYY-MM-DD').isAfter(updatedCourse.timeline_start, 'YYYY-MM-DD')
+      updatedCourse.timeline_start = updatedCourse.start
+    if moment(updatedCourse.timeline_start, 'YYYY-MM-DD').isAfter(updatedCourse.timeline_end, 'YYYY-MM-DD')
+      updatedCourse.timeline_end = updatedCourse.timeline_start
+    if moment(updatedCourse.timeline_end, 'YYYY-MM-DD').isAfter(updatedCourse.end, 'YYYY-MM-DD')
+      updatedCourse.end = updatedCourse.timeline_end
+
+    # If the dates were changed by extending the course end, and the assignment end
+    # was previously the same as the course end, then extend the timeline end to match.
+    if prevCourse.end == prevCourse.timeline_end
+      updatedCourse.timeline_end = updatedCourse.end
+
+    return updatedCourse
+
   moreWeeksThanAvailable: (course, weeks, exceptions) ->
     return false unless weeks?.length
     nonBlackoutWeeks = _.filter(@weekMeetings(@meetings(course), course, exceptions), (mtg) ->

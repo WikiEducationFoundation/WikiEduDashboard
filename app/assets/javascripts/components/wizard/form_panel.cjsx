@@ -17,9 +17,9 @@ getState = (course_id) ->
 FormPanel = React.createClass(
   displayName: 'FormPanel'
   updateDetails: (value_key, value) ->
-    to_pass = @props.course
-    to_pass[value_key] = value
-    CourseActions.updateCourse to_pass
+    updatedCourse = CourseDateUtils.updateCourseDates(@props.course, value_key, value)
+    CourseActions.updateCourse updatedCourse
+
   saveCourse: ->
     if ValidationStore.isValid()
       CourseActions.persistCourse(@props, @props.course.slug)
