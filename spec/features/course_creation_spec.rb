@@ -10,8 +10,8 @@ def fill_out_course_creator_form
   fill_in 'Course title:', with: 'My course'
   fill_in 'Course term:', with: 'Spring 2016'
   fill_in 'Course school:', with: 'University of Oklahoma'
-  find('input[placeholder="Start date (YYYY-MM-DD)"]').set(Date.new(2015, 1, 4))
-  find('input[placeholder="End date (YYYY-MM-DD)"]').set(Date.new(2015, 2, 1))
+  find('input[placeholder="Start date (YYYY-MM-DD)"]').set('2015-01-04')
+  find('input[placeholder="End date (YYYY-MM-DD)"]').set('2015-02-01')
   find('div.wizard__panel').click # click to escape the calendar popup
   click_button 'Create my Course!'
 end
@@ -517,7 +517,8 @@ describe 'cloning a course', js: true do
 
   let!(:course) do
     create(:course, id: 10001, start: 1.year.from_now.to_date,
-                    end: 2.years.from_now.to_date, submitted: true)
+                    end: 2.years.from_now.to_date, submitted: true,
+                    expected_students: 0)
   end
   let!(:week)      { create(:week, course_id: course.id) }
   let!(:block)     { create(:block, week_id: week.id, due_date: course.start + 3.months) }

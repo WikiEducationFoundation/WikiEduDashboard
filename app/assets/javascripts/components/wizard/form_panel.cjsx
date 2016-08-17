@@ -16,7 +16,7 @@ getState = (course_id) ->
 
 FormPanel = React.createClass(
   displayName: 'FormPanel'
-  updateDetails: (value_key, value) ->
+  updateCourseDates: (value_key, value) ->
     updatedCourse = CourseDateUtils.updateCourseDates(@props.course, value_key, value)
     CourseActions.updateCourse updatedCourse
 
@@ -38,7 +38,9 @@ FormPanel = React.createClass(
     @setState blackoutDatesSelected: bool
   setNoBlackoutDatesChecked: ->
     checked = ReactDOM.findDOMNode(@refs.noDates).checked
-    @updateDetails 'no_day_exceptions', checked
+    to_pass = @props.course
+    to_pass['no_day_exceptions'] = checked
+    CourseActions.updateCourse to_pass
   render: ->
     dateProps = CourseDateUtils.dateProps(@props.course)
 
@@ -53,7 +55,7 @@ FormPanel = React.createClass(
           {step1}
           <div className='vertical-form full-width'>
             <DatePicker
-              onChange={@updateDetails}
+              onChange={@updateCourseDates}
               value={@props.course.start}
               value_key='start'
               editable=true
@@ -61,7 +63,7 @@ FormPanel = React.createClass(
               label='Course Start'
             />
             <DatePicker
-              onChange={@updateDetails}
+              onChange={@updateCourseDates}
               value={@props.course.end}
               value_key='end'
               editable=true
@@ -77,7 +79,7 @@ FormPanel = React.createClass(
           <p>{I18n.t('wizard.assignment_description')}</p>
           <div className='vertical-form full-width'>
             <DatePicker
-              onChange={@updateDetails}
+              onChange={@updateCourseDates}
               value={@props.course.timeline_start}
               value_key='timeline_start'
               editable=true
@@ -86,7 +88,7 @@ FormPanel = React.createClass(
               date_props={dateProps.timeline_start}
             />
             <DatePicker
-              onChange={@updateDetails}
+              onChange={@updateCourseDates}
               value={@props.course.timeline_end}
               value_key='timeline_end'
               editable=true
