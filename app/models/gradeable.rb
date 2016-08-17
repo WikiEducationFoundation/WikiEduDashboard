@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: gradeables
@@ -14,4 +16,9 @@
 #= Gradeable model
 class Gradeable < ActiveRecord::Base
   belongs_to :gradeable_item, polymorphic: true
+  before_validation :normalize_points
+
+  def normalize_points
+    self.points = points.to_i
+  end
 end
