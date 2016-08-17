@@ -6,7 +6,8 @@ BlockStore        = require '../../stores/block_store.coffee'
 Grading = React.createClass(
   displayName: 'Grading'
   render: ->
-    total = _.sumBy(@props.gradeables, 'points')
+    # TODO: Change _.sum to _.sumBy when lodash is upgraded to v4.
+    total = _.sum(@props.gradeables, 'points')
     gradeables = @props.gradeables.map (gradeable, i) =>
       block = BlockStore.getBlock(gradeable.gradeable_item_id)
       <Gradeable
