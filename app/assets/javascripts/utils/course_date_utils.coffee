@@ -34,7 +34,8 @@ module.exports = {
     updatedCourse = $.extend({}, prevCourse);
     updatedCourse[value_key] = value
     # Just return with the new value if it doesn't pass validation
-    return updatedCourse unless @isDateValid(value)
+    # or if it it lacks timeline dates
+    return updatedCourse unless @isDateValid(value) && updatedCourse.timeline_start
 
     if moment(updatedCourse.start, 'YYYY-MM-DD').isAfter(updatedCourse.timeline_start, 'YYYY-MM-DD')
       updatedCourse.timeline_start = updatedCourse.start
