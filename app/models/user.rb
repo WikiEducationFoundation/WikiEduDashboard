@@ -3,7 +3,7 @@
 # Table name: users
 #
 #  id                  :integer          not null, primary key
-#  username             :string(255)
+#  username            :string(255)
 #  created_at          :datetime
 #  updated_at          :datetime
 #  trained             :boolean          default(FALSE)
@@ -18,6 +18,7 @@
 #  onboarded           :boolean          default(FALSE)
 #  greeted             :boolean          default(FALSE)
 #  greeter             :boolean          default(FALSE)
+#  locale              :string(255)
 #
 
 require "#{Rails.root}/lib/utils"

@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: surveys_question_groups
+#
+#  survey_id                   :integer
+#  rapidfire_question_group_id :integer
+#  id                          :integer          not null, primary key
+#  position                    :integer
+#  created_at                  :datetime
+#  updated_at                  :datetime
+#
+
 class SurveysQuestionGroup < ActiveRecord::Base
   acts_as_list scope: :survey
   belongs_to :rapidfire_question_group, class_name: "Rapidfire::QuestionGroup"

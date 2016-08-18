@@ -65,6 +65,7 @@ group :development do
   gem 'rb-fchange', require: false
   gem 'rb-fsevent', require: false
   gem 'rb-inotify', require: false
+  gem 'capistrano'
   gem 'capistrano-rvm'
   gem 'capistrano-rails'
   gem 'capistrano-bundler'
@@ -72,7 +73,7 @@ group :development do
   gem 'rack-mini-profiler'
   gem 'rails-erd'
   gem 'squeel', git: 'https://github.com/activerecord-hackery/squeel.git', branch: 'master'
-  gem 'annotate', '~> 2.6.6'
+  gem 'annotate', '~> 2.7.1'
 end
 
 group :development, :test do
@@ -89,7 +90,7 @@ group :development, :test do
 end
 
 group :test do
-  gem 'rake'
+  gem 'rake', '>= 11.0'
   gem 'capybara'
   gem 'capybara-webkit'
   gem 'capybara-screenshot'

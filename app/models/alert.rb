@@ -2,17 +2,18 @@
 #
 # Table name: alerts
 #
-# id
-# type
-# created_at
-# updated_at
-# article_id
-# user_id
-# revision_id
-# course_id
-# email_sent_at
-# target_user_id
-# message
+#  id             :integer          not null, primary key
+#  course_id      :integer
+#  user_id        :integer
+#  article_id     :integer
+#  revision_id    :integer
+#  type           :string(255)
+#  email_sent_at  :datetime
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  message        :text(65535)
+#  target_user_id :integer
+#
 
 class Alert < ActiveRecord::Base
   belongs_to :article
