@@ -1,5 +1,5 @@
 import React from 'react';
-import Panel from './panel.cjsx';
+import Panel from './panel.jsx';
 import FormPanel from './form_panel.cjsx';
 import SummaryPanel from './summary_panel.cjsx';
 

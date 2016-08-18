@@ -3,7 +3,7 @@ React         = require 'react'
 ServerActions = require('../../actions/server_actions.js').default
 WizardActions = require('../../actions/wizard_actions.js').default
 WizardStore   = require '../../stores/wizard_store.coffee'
-Panel         = require './panel.cjsx'
+Panel         = require('./panel.jsx').default
 
 ReactRouter   = require 'react-router'
 browserHistory = ReactRouter.browserHistory

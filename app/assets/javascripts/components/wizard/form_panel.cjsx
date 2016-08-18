@@ -1,6 +1,6 @@
 React         = require 'react'
 ReactDOM      = require 'react-dom'
-Panel         = require './panel.cjsx'
+Panel         = require('./panel.jsx').default
 DatePicker    = require('../common/date_picker.jsx').default
 Calendar      = require('../common/calendar.jsx').default
 CourseActions = require('../../actions/course_actions.js').default
