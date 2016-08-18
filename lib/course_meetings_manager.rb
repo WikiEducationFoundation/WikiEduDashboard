@@ -1,11 +1,11 @@
+# frozen_string_literal: true
 class CourseMeetingsManager
   attr_reader :week_meetings, :open_weeks
 
   def initialize(course)
     @course = course
-    raise StandardError, 'nil course passed to CourseMeetingsManager' if @course.nil?
     @open_weeks = 0
-    return unless course_has_timeline_dates?
+    validate_course { return }
     @beginning_of_first_week = calculate_beginning_of_first_week
     return unless course_has_meeting_date_data?
     @timeline_week_count = calculate_timeline_week_count
@@ -133,6 +133,12 @@ class CourseMeetingsManager
   def exceptions_as_dates
     return [] unless @course.day_exceptions
     @course.day_exceptions.split(',').reject(&:empty?).map { |exc| Date.parse(exc) }
+  end
+
+  def validate_course
+    raise StandardError, 'nil course passed to CourseMeetingsManager' if @course.nil?
+    yield unless course_has_timeline_dates?
+    yield if @course.type == 'LegacyCourse'
   end
 end
 

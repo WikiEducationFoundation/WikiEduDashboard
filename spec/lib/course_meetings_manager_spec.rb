@@ -10,13 +10,15 @@ describe CourseMeetingsManager do
   let(:t_start) { '2015-08-28' } # Friday
   let(:t_end)   { '2016-01-14' } # Thursday
   let(:weekdays) { '0010100' } # Tuesdays and Thursdays
+  let(:course_type) { 'ClassroomProgramCourse' }
   let!(:course) do
     create(:course,
            id: 1,
            timeline_start: t_start,
            timeline_end: t_end,
            day_exceptions: day_ex,
-           weekdays: weekdays
+           weekdays: weekdays,
+           type: course_type
           )
   end
 
@@ -83,8 +85,7 @@ describe CourseMeetingsManager do
     end
 
     context 'course has no timeline start or end' do
-      let(:t_start) { nil }
-      let(:t_end)   { nil }
+      let(:course_type) { 'LegacyCourse' }
       it 'returns nil' do
         expect(subject).to be_nil
       end
@@ -115,8 +116,7 @@ describe CourseMeetingsManager do
     end
 
     context 'course has no timeline start or end' do
-      let(:t_start) { nil }
-      let(:t_end)   { nil }
+      let(:course_type) { 'LegacyCourse' }
       it 'returns nil' do
         expect(subject).to be_nil
       end
@@ -148,8 +148,7 @@ describe CourseMeetingsManager do
     end
 
     context 'course has no timeline start or end' do
-      let(:t_start) { nil }
-      let(:t_end)   { nil }
+      let(:course_type) { 'LegacyCourse' }
       it 'returns zero' do
         expect(subject).to be_zero
       end
