@@ -305,5 +305,7 @@ class Course < ActiveRecord::Base
 
   def ensure_required_params
     return false unless [title, school, term, slug].count(nil).zero?
+    self.timeline_start ||= start
+    self.timeline_end ||= self.end
   end
 end

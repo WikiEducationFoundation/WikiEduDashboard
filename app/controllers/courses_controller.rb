@@ -30,7 +30,6 @@ class CoursesController < ApplicationController
     set_wiki { return }
     overrides[:home_wiki] = @wiki
     @course = Course.create(course_params.merge(overrides))
-    handle_timeline_dates
     CoursesUsers.create(user: current_user,
                         course: @course,
                         role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
@@ -41,7 +40,6 @@ class CoursesController < ApplicationController
     validate
     handle_course_announcement(@course.instructors.first)
     slug_from_params if should_set_slug?
-    handle_timeline_dates
     @course.update course: course_params
     @course.update_attribute(
       :passcode, Course.generate_passcode
@@ -179,12 +177,6 @@ class CoursesController < ApplicationController
     slug = params[:id].gsub(/\.json$/, '')
     @course = find_course_by_slug(slug)
     return unless user_signed_in? && current_user.instructor?(@course)
-  end
-
-  def handle_timeline_dates
-    @course.timeline_start = @course.start if @course.timeline_start.nil?
-    @course.timeline_end = @course.end if @course.timeline_end.nil?
-    @course.save
   end
 
   def handle_course_announcement(instructor)
