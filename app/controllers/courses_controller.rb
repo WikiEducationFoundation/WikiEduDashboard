@@ -13,7 +13,7 @@ class CoursesController < ApplicationController
                   :update,
                   :destroy,
                   :notify_untrained,
-                  :syllabus_upload
+                  :update_syllabus
                 ]
 
   ################
