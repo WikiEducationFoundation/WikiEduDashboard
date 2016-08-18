@@ -96,9 +96,15 @@ const Panel = React.createClass({
       ) >= this.props.panel.minimum;
     }
 
+    // panel.type indicates whether multiple selections are allowed or only one.
+    // type 1 is single selection; type 0 is multiple selection.
     let reqs;
     if (this.props.panel.minimum) {
-      reqs = I18n.t('wizard.minimum_options', { minimum: this.props.panel.minimum });
+      if (this.props.panel.type === 1) {
+        reqs = I18n.t('wizard.select_one_option');
+      } else if (this.props.panel.type === 0) {
+        reqs = I18n.t('wizard.minimum_options', { count: this.props.panel.minimum });
+      }
     }
 
     let helperText = this.props.helperText || '';

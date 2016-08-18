@@ -601,7 +601,10 @@ en:
       This assignment requires at least %{min_weeks} available
       weeks. Please adjust your assignment start and end dates if you want to
       use this type of assignment.
-    minimum_options: Please select at least %{minimum} option(s).
+    select_one_option: Please select 1 option.
+    minimum_options:
+      one: Please select %{count} or more options.
+      other: Please select %{count} or more options.
     read_less: Read Less
     read_more: Read More
     review_selections: >
