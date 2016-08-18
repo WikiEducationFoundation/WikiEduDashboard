@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'oauth'
 require "#{Rails.root}/lib/wiki_edits"
 require "#{Rails.root}/lib/wiki_course_edits"
@@ -81,12 +82,6 @@ class CoursesController < ApplicationController
       format.html { render }
       format.json { render params[:endpoint] }
     end
-  end
-
-  def clone
-    course = Course.find(params[:id])
-    new_course = CourseCloneManager.new(course, current_user).clone!
-    render json: { course: new_course.as_json }
   end
 
   def update_syllabus
@@ -207,7 +202,7 @@ class CoursesController < ApplicationController
   end
 
   def slug_from_params(course = params[:course])
-    slug = "#{course[:school]}/#{course[:title]}"
+    slug = String.new("#{course[:school]}/#{course[:title]}")
     slug << "_(#{course[:term]})" unless course[:term].blank?
 
     course[:slug] = slug.tr(' ', '_')

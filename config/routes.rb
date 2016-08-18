@@ -55,7 +55,7 @@ Rails.application.routes.draw do
           school: /[^\/]*/,
           titleterm: /[^\/]*/
         }
-    post 'clone_course/:id' => 'courses#clone'
+    post 'clone_course/:id' => 'course_clone#clone'
     post 'courses/:id/update_syllabus' => 'courses#update_syllabus'
   end
 
