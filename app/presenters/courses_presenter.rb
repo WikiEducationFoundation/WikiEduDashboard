@@ -21,7 +21,7 @@ class CoursesPresenter
   end
 
   def courses
-    cohort.courses.listed
+    cohort.courses
   end
 
   def courses_by_recent_edits

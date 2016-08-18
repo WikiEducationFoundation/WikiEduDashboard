@@ -190,6 +190,7 @@ en:
       weeks that have no scheduled meetings.
     course_description: Courses
     courses: Courses
+    creation_date: Creation Date
     creator:
       already_exists: This course already exists. Consider changing the name, school, or term to make it unique.
       assignment_end: Assignment end

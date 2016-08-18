@@ -9,6 +9,7 @@
         <option rel="desc" value="average-words"><%= t("metrics.average_word_count") %></option>
         <option rel="desc" value="views"><%= t("metrics.view") %></option>
         <option rel="desc" value="students"><%= t("users.editors") %></option>
+        <option rel="desc" value="creation-date"><%= t("courses.creation_date") %></option>
         <% unless Features.disable_training? %>
           <option rel="desc" value="untrained"><%= t("courses.untrained") %></option>
         <% end %>

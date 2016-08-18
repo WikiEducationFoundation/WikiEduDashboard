@@ -14,7 +14,7 @@ $ ->
     userCourseList = new List('user_courses', {
       page: 500,
       valueNames: [
-        'utitle','urevisions','ucharacters','uaverage-words','uviews','ustudents','uuntrained'
+        'utitle','urevisions','ucharacters','uaverage-words','uviews','ustudents','ucreation-date','uuntrained'
       ]
     })
 
@@ -22,7 +22,7 @@ $ ->
     courseList = new List('courses', {
       page: 500,
       valueNames: [
-        'title','revisions','characters','average-words','views','students', 'untrained'
+        'title','revisions','characters','average-words','views','students','creation-date','untrained'
       ]
     })
 
