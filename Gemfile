@@ -38,7 +38,7 @@ gem 'sentimental'
 gem 'pandoc-ruby', '~> 1.0.0'
 
 gem 'http_accept_language'
-gem 'i18n-js', '>= 3.0.0.rc11'
+gem 'i18n-js', '>= 3.0.0.rc13'
 
 gem 'mailgun_rails'
 
@@ -46,7 +46,7 @@ gem 'factory_girl_rails'
 
 gem 'paper_trail'
 
-gem "paperclip", "~> 5.0.0.beta1"
+gem "paperclip", "~> 5.0.0"
 
 # If you want to be able to hack locally on rapidfire,
 # run `export RAPIDFIREHACKINGMODE=true` in your terminal.

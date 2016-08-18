@@ -486,7 +486,7 @@ DEPENDENCIES
   haml-rails
   hashugar
   http_accept_language
-  i18n-js (>= 3.0.0.rc11)
+  i18n-js (>= 3.0.0.rc13)
   jbuilder (~> 2.0)
   launchy
   mailgun_rails
@@ -496,7 +496,7 @@ DEPENDENCIES
   omniauth-mediawiki!
   pandoc-ruby (~> 1.0.0)
   paper_trail
-  paperclip (~> 5.0.0.beta1)
+  paperclip (~> 5.0.0)
   piwik_analytics!
   poltergeist
   pry-rails
