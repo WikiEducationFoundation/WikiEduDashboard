@@ -9,14 +9,27 @@
 ---
 sv:
   application:
+    cancel: Avbryt
     error: 'Ett fel uppstod:'
+    explore: Utforska
+    field_required: Detta fält är obligatoriskt
     field_invalid_characters: Detta fält har ogiltiga tecken
     field_invalid_date: Detta fält kräver ett datum i formatet ÅÅÅÅ-MM-DD
-    help: Hjälp!
+    greeting2: Välkommen!
+    greeting_extended: Välkommen till Wikipedia
+    greeting: Hej!
+    help: Hjälp
     home: Huvudsida
+    log_in_extended: Logga in med Wikipedia
+    log_in: Logga in
     log_out: Logga ut
+    my_dashboard: Min kontrollpanel
     recent_activity: Senaste aktivitet
     search: ställ en fråga
+    sign_up_extended: Skapa ett konto med Wikipedia
+    sign_up_log_in_extended: med Wikipedia
+    sign_up: Skapa ett konto
+    submit: Skicka
     change: Ändra
   activity:
     all: Aktivitet
@@ -56,6 +69,7 @@ sv:
       legend_class_meeting: Klassmöte
       legend_class_not_meeting: Inget schemalagt möte
     course_description: Kurser
+    courses: Kurser
     creator:
       course_description: Kursbeskrivning
       course_language: Hemspråk
@@ -84,27 +98,53 @@ sv:
     end: Slut
     error:
       invalid_language_or_project: Ogiltigt språk/projekt
+    invitation: |-
+      Du har blivit inbjuden att gå med i %{title}. För att gå kursen måste du logga in med ett Wikipedia-konto.
+      Om du inte har ett Wikipedia-konto ännu, registrera ett nu.
+    join: Gå med
     join_course: Delta i kurs
+    join_prompt: Gå med i '%{title}'?
+    join_successful: Du har framgångsrikt gått med i %{title}.
     leave_confirmation: Är du säker på att du vill lämna denna kurs?
     leave_course: Lämna kurs
     loading: Läser in...
+    milestones_none: Den här kursen har för närvarande inga några milstolpar.
     my_articles: Mina artiklar
+    new_week: Lägg till ny vecka
+    nocourses: Du deltar inte i alla kurser.
     none: Ingen
     no_available_actions: Inga tillgängliga åtgärder
+    overview: Översikt
     passcode_none: Inget lösenord
     school: Skola
+    start: Starta
     start_typing: Börja skriva
+    students: Studenter
+    students_count: '# studenter'
+    student_editors: Studentredigerare
+    students_none: Den här kursen har inga studenter.
+    students_short: Studenter
+    timeline_link: Tidslinje
+    title: Titel
+    view_wiki: Se på Wikipedia
+    volunteer:
+      other: en=Volontär
   courses_generic:
     creator:
       course_description: Program beskrivning
+      course_school: Institution
       course_title: Program namn
       create_button: Skapa mitt program!
       create_label: Skapa Nytt Program
+      create_new: Skapa ett nytt program
       create_short: Skapa Program
       find: Hitta ett program
       intro: Program titeln behövs, allt annat kan bli infyllt senare. Klicka på "Skapa
         mitt Program!" för att börja bygga sidan för ditt wiki program.
     edit_course_dates: Redigera projektdatum
+    enroll: Lägg till redigerare
+    enrollment: Deltagande
+    expected_students: Förväntade redigerare
     term: När
   editable:
     edit: Redigera
@@ -145,7 +185,9 @@ sv:
     title: Titel
   timeline:
     add_week: Lägg till vecka
+    block_assignment: Uppgifter
     block_custom: Anpassad
+    block_in_class: I klass
     block_milestone: Milstolpe
     course_dates: Kursdatum
     course_end: Kursslut
@@ -157,11 +199,21 @@ sv:
     no_activity_this_week: Ingen aktivitet denna vecka
     save_all_changes: Spara alla
     this_week_title_default: Denna vecka
+    title: Tidslinje
+    unable_to_add_week: Du kan inte lägga till nya veckor när din tidslinje är full.
+      Ta bort åtminstone en vecka eller ändra dina uppgiftsdatum för att göra plats
+      för en ny.
     week_number: Vecka %{number}
+  training:
+    continue: Fortsätt (%{progress})
+    start: Starta
+    view: Visa
   uploads:
     datetime: Datum/tid
     file_name: Filnamn
     image: Bild
+    label: Uppladdningar
+    loading: Laddar uppladdning...
     none: Inga filer har laddats upp
     uploaded_by: Uppladdad av
     usage_count: Antal användningar
@@ -170,9 +222,13 @@ sv:
     assign_articles_done: Färdig
     first_name: Förnamn
     last_name: Efternamn
+    loading: Laddar användare...
     my_assigned: 'Tilldelade:'
     my_reviewing: 'Granskar:'
+    name: Namn
+    none: Det finns inga deltagare.
     no_articles: Inga artiklar
+    no_revisions: Den här redigeraren har inte gjort några ändringar.
     number_of_articles:
       one: '%{count} artikel'
       other: '%{count} artiklar'
@@ -180,10 +236,13 @@ sv:
     username: Användarnamn
     username_placeholder: Användarnamn
   wizard:
+    read_less: Läs mindre
+    read_more: Läs mer
     summary: Sammanfattning
   error:
     article_required: En artikel krävs.
     form_errors: Var god kolla efter fel i formuläret.
+    invalid_assignment: Ogiltig uppgift
     unsupported_browser:
       header: Webbläsaren stöds inte. :-(
   error_401:
@@ -198,6 +257,12 @@ sv:
     header: Inloggningsproblem
   survey:
     email:
+      headline: Hej, %{username}
       course: 'Kurs: %{course_info}'
       closing: Med vänliga hälsningar,
+      link: Delta i undersökningen
+    follow_up:
+      message: Detta är en påminnelse om undersökningen för din kurs, %{course_title}.
+        Feedback från den här undersökningen hjälper oss att förbättra vårt stöd till
+        Wikipedia-uppgifter likt din.
 ...
