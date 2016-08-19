@@ -50,7 +50,7 @@ describe('ActivtyTable', () => {
     );
 
     const loading = TestTable.querySelector('.loading');
-    expect(loading).to.exist();
+    expect(loading).to.exist;
   });
 
   it('renders headers', () => {

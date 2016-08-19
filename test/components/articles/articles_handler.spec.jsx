@@ -13,7 +13,7 @@ describe('ArticlesHandler', () => {
         <ArticlesHandler course={{}} />
       </div>
     );
-    expect(TestDom.querySelector('h3')).to.exist();
+    expect(TestDom.querySelector('h3')).to.exist;
   });
 
   it('fires sort uiaction when select changes', () => {

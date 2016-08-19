@@ -44,7 +44,7 @@ describe('CourseCreator', () => {
       describe('not submitting', () => {
         it('is empty', () => {
           const form = ReactTestUtils.findRenderedDOMComponentWithClass(TestCourseCreator, 'wizard__panel');
-          expect(form.style.cssText).to.be.empty();
+          expect(form.style.cssText).to.be.empty;
         });
       });
       describe('submitting', () => {

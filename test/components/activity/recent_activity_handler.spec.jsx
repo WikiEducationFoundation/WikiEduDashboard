@@ -15,7 +15,7 @@ describe('RecentActivityHandler', () => {
   );
 
   it('renders children', () => {
-    expect(TestDom.querySelector('h1')).to.exist();
+    expect(TestDom.querySelector('h1')).to.exist;
   });
 
   it('renders links', () => {

@@ -57,7 +57,7 @@ describe('Week', () => {
         const TestWeek = createWeek({ edit_permissions: true, meetings: false });
         const container = TestUtils.scryRenderedDOMComponentsWithClass(TestWeek, 'week__week-add-delete')[0];
         const containerNode = findDOMNode(container);
-        expect(containerNode).to.be.null();
+        expect(containerNode).to.be.null;
       });
     });
     describe('week meetings, but no edit permissions', () => {
@@ -65,7 +65,7 @@ describe('Week', () => {
         const TestWeek = createWeek({ edit_permissions: false, meetings: true });
         const container = TestUtils.scryRenderedDOMComponentsWithClass(TestWeek, 'week__week-add-delete')[0];
         const containerNode = findDOMNode(container);
-        expect(containerNode).to.be.null();
+        expect(containerNode).to.be.null;
       });
     });
   });
@@ -87,7 +87,7 @@ describe('Week', () => {
         const TestWeek = createWeek(Object.assign(opts, permissionsOpts));
         const span = TestUtils.scryRenderedDOMComponentsWithClass(TestWeek, 'week__add-block')[0];
         const spanNode = findDOMNode(span);
-        expect(spanNode).to.be.null();
+        expect(spanNode).to.be.null;
       });
     });
     describe('not reorderable, editing added block', () => {
@@ -96,7 +96,7 @@ describe('Week', () => {
         const TestWeek = createWeek(Object.assign(opts, permissionsOpts));
         const span = TestUtils.scryRenderedDOMComponentsWithClass(TestWeek, 'week__add-block')[0];
         const spanNode = findDOMNode(span);
-        expect(spanNode).to.be.null();
+        expect(spanNode).to.be.null;
       });
     });
     describe('click handler', () => {
@@ -130,7 +130,7 @@ describe('Week', () => {
         const TestWeek = createWeek(Object.assign(opts, permissionsOpts));
         const span = TestUtils.scryRenderedDOMComponentsWithClass(TestWeek, 'week__delete-week')[0];
         const spanNode = findDOMNode(span);
-        expect(spanNode).to.be.null();
+        expect(spanNode).to.be.null;
       });
     });
     describe('not reorderable, week is new', () => {
@@ -139,7 +139,7 @@ describe('Week', () => {
         const TestWeek = createWeek(Object.assign(opts, permissionsOpts));
         const span = TestUtils.scryRenderedDOMComponentsWithClass(TestWeek, 'week__delete-week')[0];
         const spanNode = findDOMNode(span);
-        expect(spanNode).to.be.null();
+        expect(spanNode).to.be.null;
       });
     });
     describe('click handler', () => {
