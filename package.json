@@ -76,7 +76,7 @@
     "lodash.where": "^3.1.0",
     "main-bower-files": "^2.0.0",
     "markdown-it": "5.0.0",
-    "mcfly": "0.0.10",
+    "mcfly": "1.0.0",
     "merge-stream": "^0.1.6",
     "mkdirp": "^0.5.1",
     "mocha": "https://registry.npmjs.org/mocha/-/mocha-2.3.3.tgz",
