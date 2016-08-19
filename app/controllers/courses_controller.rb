@@ -21,19 +21,13 @@ class CoursesController < ApplicationController
   ################
 
   def create
-    slug_from_params if should_set_slug?
-
-    overrides = {}
-    overrides[:passcode] = Course.generate_passcode
-    overrides[:type] = ENV['default_course_type'] if ENV['default_course_type']
-    overrides[:cohorts] = [Cohort.default_cohort] if Features.open_course_creation?
-    set_wiki { return }
-    overrides[:home_wiki] = @wiki
-    @course = Course.create(course_params.merge(overrides))
-    CoursesUsers.create(user: current_user,
-                        course: @course,
-                        role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
-    tag_new_course
+    course_creation_manager = CourseCreationManager.new(course_params, wiki_params, current_user)
+    if course_creation_manager.invalid_wiki?
+      render json: { message: 'Invalid language/project' },
+             status: 404
+      return
+    end
+    @course = course_creation_manager.create
   end
 
   def update
@@ -148,17 +142,6 @@ class CoursesController < ApplicationController
 
   private
 
-  def set_wiki
-    language = wiki_params[:language].present? ? wiki_params[:language] : Wiki.default_wiki.language
-    project = wiki_params[:project].present? ? wiki_params[:project] : Wiki.default_wiki.project
-    @wiki = Wiki.find_or_create_by(language: language.downcase, project: project.downcase)
-    return unless @wiki.id.nil?
-    render json: {
-      message: 'Invalid language/project'
-    }, status: 404
-    yield
-  end
-
   def cohort_params
     params.require(:cohort).permit(:title)
   end
@@ -198,10 +181,6 @@ class CoursesController < ApplicationController
     slug << "_(#{course[:term]})" unless course[:term].blank?
 
     course[:slug] = slug.tr(' ', '_')
-  end
-
-  def tag_new_course
-    TagManager.new(@course).initial_tags(creator: current_user)
   end
 
   def wiki_params

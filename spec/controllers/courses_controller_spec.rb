@@ -220,6 +220,11 @@ describe CoursesController do
           expect(Course.last.home_wiki.language).to eq('ar')
           expect(Course.last.home_wiki.project).to eq('wikibooks')
         end
+
+        it 'assigns the new course to @course' do
+          post :create, course: course_params, format: :json
+          expect(assigns(:course)).to be_a_kind_of(Course)
+        end
       end
 
       context 'invalid lanaguage and project present' do
