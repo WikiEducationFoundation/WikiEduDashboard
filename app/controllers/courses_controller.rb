@@ -62,13 +62,7 @@ class CoursesController < ApplicationController
   def show
     @course = find_course_by_slug("#{params[:school]}/#{params[:titleterm]}")
     check_permission_to_show_course
-
-    # If the user could make an edit to the course, then verify that
-    # their tokens are working.
-    if invalid_edit_credentials?
-      redirect_to root_path
-      return
-    end
+    verify_edit_credentials { return }
 
     respond_to do |format|
       format.html { render }
@@ -82,7 +76,7 @@ class CoursesController < ApplicationController
     if @course.save
       render json: { success: true, url: @course.syllabus.url }
     else
-      render json: { message: 'The file could not be saved. Please upload a PDF or Word document.' },
+      render json: { message: I18n.t('error.invalid_file_format') },
              status: :unprocessable_entity
     end
   end
@@ -198,9 +192,15 @@ class CoursesController < ApplicationController
               :no_day_exceptions, :cloned_status, :type)
   end
 
-  def invalid_edit_credentials?
-    return false if Features.disable_wiki_output?
-    return false unless current_user && current_user.can_edit?(@course)
-    !WikiEdits.new.oauth_credentials_valid?(current_user)
+  # If the user could make an edit to the course, this verifies that
+  # their tokens are working. If their credentials are found to be invalid,
+  # they get logged out immediately, and this method redirects them to the home
+  # page, so that they don't make edits that fail upon save.
+  def verify_edit_credentials
+    return if Features.disable_wiki_output?
+    return unless current_user && current_user.can_edit?(@course)
+    return if WikiEdits.new.oauth_credentials_valid?(current_user)
+    redirect_to root_path
+    yield
   end
 end
