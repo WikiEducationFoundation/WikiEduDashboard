@@ -35,13 +35,8 @@ class CoursesController < ApplicationController
     handle_course_announcement(@course.instructors.first)
     slug_from_params if should_set_slug?
     @course.update course: course_params
-    @course.update_attribute(
-      :passcode, Course.generate_passcode
-    ) if course_params[:passcode].nil?
-
-    WikiCourseEdits.new(action: :update_course,
-                        course: @course,
-                        current_user: current_user)
+    ensure_passcode_set
+    WikiCourseEdits.new(action: :update_course, course: @course, current_user: current_user)
     render json: { course: @course }
   end
 
@@ -175,6 +170,11 @@ class CoursesController < ApplicationController
     slug << "_(#{course[:term]})" unless course[:term].blank?
 
     course[:slug] = slug.tr(' ', '_')
+  end
+
+  def ensure_passcode_set
+    return unless course_params[:passcode].nil?
+    @course.update_attribute(:passcode, Course.generate_passcode)
   end
 
   def wiki_params
