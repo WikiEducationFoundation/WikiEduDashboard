@@ -109,7 +109,7 @@
     "rev-del": "^1.0.5",
     "rewire": "^2.5.2",
     "run-sequence": "~0.3.6",
-    "rupture": "^0.1.0",
+    "rupture": "^0.6.1",
     "should": "^11.1.0",
     "sinon": "^1.17.5",
     "sinon-chai": "^2.8.0",

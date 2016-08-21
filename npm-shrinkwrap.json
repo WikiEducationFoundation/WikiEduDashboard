@@ -7299,9 +7299,9 @@
       "resolved": "https://registry.npmjs.org/run-sequence/-/run-sequence-0.3.7.tgz"
     },
     "rupture": {
-      "version": "0.1.0",
-      "from": "rupture@>=0.1.0 <0.2.0",
-      "resolved": "https://registry.npmjs.org/rupture/-/rupture-0.1.0.tgz"
+      "version": "0.6.1",
+      "from": "rupture@>=0.6.1 <0.7.0",
+      "resolved": "https://registry.npmjs.org/rupture/-/rupture-0.6.1.tgz"
     },
     "rx-lite": {
       "version": "3.1.2",
