@@ -52,7 +52,7 @@ describe 'Survey Administration', type: :feature, js: true do
       # Create a question
       expect(Rapidfire::Question.count).to eq(0)
       click_link 'Edit'
-      click_link 'Add New Question'
+      find('a.button', text: 'Add New Question').trigger('click')
       find('textarea#question_text').set('Who is awesome?')
       find('textarea#question_answer_options').set('Me!')
       page.find('input.button').click
@@ -80,7 +80,7 @@ describe 'Survey Administration', type: :feature, js: true do
       # Add a question group to the survey
       visit '/surveys'
       click_link 'Edit'
-      click_link 'Edit Question Groups'
+      find('a', text: 'Edit Question Groups').trigger('click')
       check 'survey_rapidfire_question_group_ids_1'
       page.find('input.button').click
 
