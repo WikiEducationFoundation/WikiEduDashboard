@@ -4520,8 +4520,8 @@
     },
     "i18n-js": {
       "version": "0.0.0",
-      "from": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc8.tar.gz",
-      "resolved": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc8.tar.gz"
+      "from": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc13.tar.gz",
+      "resolved": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc13.tar.gz"
     },
     "iconv-lite": {
       "version": "0.4.4",
