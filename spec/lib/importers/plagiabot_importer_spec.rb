@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 require "#{Rails.root}/lib/importers/plagiabot_importer"
 
@@ -31,6 +32,11 @@ describe PlagiabotImporter do
       else
         expect(url_match).to eq(true)
       end
+    end
+
+    it 'redirects to a 404 page if no url is available' do
+      report_url = PlagiabotImporter.api_get_url(ithenticate_id: 19201081999)
+      expect(report_url).to eq('/not_found')
     end
   end
 

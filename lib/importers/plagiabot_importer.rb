@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #= Imports plagiarism data from tools.wmflabs.org/eranbot/plagiabot/api.py
 class PlagiabotImporter
   ################
@@ -82,6 +84,7 @@ class PlagiabotImporter
   def self.api_get_url(opts = {})
     url = query_url('get_view_url', opts)
     response = Net::HTTP.get(URI.parse(url))
-    response[1..-2]
+    return response[1..-2] if response.include?('https://api.ithenticate.com/')
+    return '/not_found'
   end
 end
