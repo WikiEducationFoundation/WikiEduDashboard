@@ -12,7 +12,7 @@
     "bower": "^1.7.9",
     "chai": "^3.5.0",
     "cjsx-loader": "^2.1.0",
-    "coffee-coverage": "^0.6.3",
+    "coffee-coverage": "^1.0.1",
     "coffee-lint-loader": "0.0.1",
     "coffee-loader": "^0.7.2",
     "coffee-react": "^4.0.0",
