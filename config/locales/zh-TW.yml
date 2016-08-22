@@ -139,6 +139,7 @@ zh-TW:
     course_dates_calendar_instructions: 選擇日期，以便從行事曆中增加或移除這些時間（例如假日或不上課的時候）。點擊一個日期可以從非課程時段、上課時段、以及休假時段三種設定之間轉換。課程裡的活動章節將會隨著沒有上課的星期而調整。
     course_description: 課程
     courses: 課程
+    creation_date: 創建日期
     creator:
       already_exists: 課程已經存在。請嘗試變更課程名稱、開課學校、或是開課學期，讓課程不會重複。
       assignment_end: 作業截止
@@ -478,7 +479,10 @@ zh-TW:
     confirm_dates: 選擇您課程的日期、每週會議、與假日。
     course_dates: 課程日期
     min_weeks: 此分配項目至少需要%{min_weeks}個可用週間。若您要使用此分配項目類型請調整您的分配起始日期。
-    minimum_options: 請至少選擇%{minimum}個選項。
+    select_one_option: 請選擇一個選項。
+    minimum_options:
+      one: 請選擇%{count}個或更多選項。
+      other: 請選擇%{count}個或更多選項。
     read_less: 閱讀更少
     read_more: 閱讀更多
     review_selections: 請在下方檢閱您的選項。點擊以編輯一個選項。當結束時，點擊「提交」來結束入門精靈並開始架構您的時間軸。
@@ -488,6 +492,7 @@ zh-TW:
     article_required: 需要一個條目
     form_errors: 請檢查表單裡的錯誤。
     invalid_assignment: 無效分派
+    invalid_file_format: 檔案無法儲存。請上傳PDF或Word文件格式檔案。
     oauth_invalid: 您已登出維基百科。請重新登入。
     unsupported_browser:
       header: 未受支援的瀏覽器。  :-(

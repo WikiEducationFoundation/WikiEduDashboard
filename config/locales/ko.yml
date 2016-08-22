@@ -111,6 +111,7 @@ ko:
     confirm_course_deletion_failed: '"%{title}"은(는) 이 과정의 제목이 아닙니다. 이 과정은 삭제되지 않았습니다.'
     course_description: 코스
     courses: 과정
+    creation_date: 만든 날짜
     creator:
       assignment_end: 과제 종료
       assignment_end_placeholder: 과제 종료 (YYYY-MM-DD)
@@ -156,6 +157,7 @@ ko:
     start_typing: 입력 시작
     students: 학생
     students_count: '# 학생'
+    student_editors: 학생 편집자
     students_none: 이 과정에는 학생이 없습니다.
     students_short: 학생
     submitted_heading: 보낸 코스
@@ -165,6 +167,7 @@ ko:
     title: 제목
     training_nav: 연습해 보기
     unsubmitted: 보내지 않은 코스
+    uploads_none: 이 수업은 위키미디어 공용에 어떠한 그림이나 미디어 파일도 기여하지 않았습니다.
     view: 과정 보기
     view_page: 코스 문서 보기
     view_wiki: 위키백과에서 보기
@@ -182,9 +185,13 @@ ko:
     creator:
       course_description: 프로그램 설명
       course_title: 프로그램 제목
+      create_button: 내 프로그램을 만듭니다!
+      create_label: 새로운 프로그램 만들기
+      create_new: 새로운 프로그램 만들기
       create_short: 프로그램 만들기
       find: 프로그램 찾기
     edit_course_dates: 프로젝트 날짜 편집하기
+    enroll: 편집자 추가
     enrollment: 참여
     revisions_none: 본 프로젝트는 최근 편집 활동이 없습니다.
     school: 기관
@@ -215,6 +222,7 @@ ko:
   recent_activity:
     article_title: 문서 제목
     datetime: 날짜/시간
+    did_you_know_eligible: Eligible을 알고 계십니까
     image: 그림
     file_name: 파일 이름
     no_edits: 최근 편집이 없습니다.
@@ -244,6 +252,7 @@ ko:
     course_end: 코스 종료
     course_start: 코스 시작
     discard_all_changes: 모든 바뀜 취소
+    due_default: 다음 주까지
     empty_week_1: 시작하려면,
     empty_week_3: 또는
     empty_week_4: 미리 지정된 과제부터 시작하세요.
@@ -269,7 +278,7 @@ ko:
     image: 그림
     label: 파일 올리기
     loading: 업로드 불러오는 중
-    none: 이 과정에서는 위키미디어 공용에 기여한 이미지 또는 미디어 파일이 없습니다.
+    none: 이 수업은 위키미디어 공용에 어떠한 그림이나 미디어 파일도 기여하지 않았습니다.
     uploaded_by: 올린이
     usage_count: 사용량 값
     usages: 사용
@@ -278,6 +287,7 @@ ko:
     contributions: 사용자 기여
     contributions_more: 기여 더 보기
     course_passcode: '패스코드:'
+    editors: 편집자
     enroll_confirmation: '%{username}님을 추가하시겠습니까?'
     enroll_url: '사용자는 다음 URL을 방문하여 참여할 수 있습니다:'
     enrolled_success: '%{username}님이 성공적으로 추가되었습니다!'
@@ -303,11 +313,15 @@ ko:
   wizard:
     assignment_dates: 과제 날짜
     assignment_type: 과제 유형
-    minimum_options: 적어도 %{minimum}개의 옵션을 선택해 주십시오.
+    select_one_option: 1개의 옵션을 선택해 주십시오.
+    minimum_options:
+      one: '%{count}개 이상의 옵션을 선택해 주십시오.'
+      other: '%{count}개 이상의 옵션을 선택해 주십시오.'
     read_more: 더 보기
     summary: 요약
   error:
     article_required: 글이 필요합니다.
+    invalid_file_format: 파일을 저장할 수 없습니다. PDF나 워드 문서를 업로드해 주십시오.
     unsupported_browser:
       header: 지원되지 않는 브라우저입니다. :-(
       explanation: 대시보드와 호환되지 않는 브라우저를 사용하고 있습니다. 이 사이트는 인터넷 익스플로러 버전 11 이상, 최신 버전의

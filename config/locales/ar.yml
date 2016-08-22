@@ -44,6 +44,7 @@ ar:
   courses:
     activity: النشاط
     articles: المقالات
+    creation_date: تاريخ الإنشاء
     creator:
       course_description: وصف المساق
       course_school: مدرسة المساق
@@ -100,6 +101,8 @@ ar:
   wizard:
     read_more: اقرأ المزيد
     summary: ملخص
+  error:
+    invalid_file_format: تعذر حفظ هذا الملف. برجاء رفع ملف PDF أو ملف Word.
   login_error:
     header: خطأ في الدخول
 ...

@@ -156,6 +156,7 @@ de:
       haben.
     course_description: Kurse
     courses: Kurse
+    creation_date: Erstelldatum
     creator:
       already_exists: Dieser Kurs ist bereits vorhanden. Ziehe in Erwägung, den Namen,
         die Schule oder Dauer zu ändern, um ihn eindeutig zu machen.
@@ -556,7 +557,10 @@ de:
     min_weeks: Diese Zuweisung erfordert mindestens %{min_weeks} verfügbare Wochen.
       Bitte passe deine Start- und Enddaten deiner Zuweisung an, falls du diesen Zuweisungstyp
       verwenden möchtest.
-    minimum_options: Bitte wähle mindestens %{minimum} Option(en) aus.
+    select_one_option: Bitte wähle eine Option aus.
+    minimum_options:
+      one: Bitte wähle %{count} oder mehrere Optionen aus.
+      other: Bitte wähle %{count} oder mehrere Optionen aus.
     read_less: Weniger lesen
     read_more: Mehr lesen
     review_selections: Bitte überprüfe unten deine Auswahl. Klicke zum Bearbeiten
@@ -569,6 +573,8 @@ de:
     article_required: Es ist ein Artikel erforderlich.
     form_errors: Bitte kontrolliere das Formular auf Fehler.
     invalid_assignment: Ungültige Zuweisung
+    invalid_file_format: Die Datei konnte nicht gespeichert werden. Bitte lade ein
+      PDF- oder Word-Dokument hoch.
     oauth_invalid: Deine Wikipedia-Autorisierung ist abgelaufen. Bitte erneut anmelden.
     unsupported_browser:
       header: Nicht unterstützter Browser. :-(

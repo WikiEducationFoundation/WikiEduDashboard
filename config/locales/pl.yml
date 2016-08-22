@@ -68,6 +68,7 @@ pl:
       legend: Legenda
     course_description: Kursy
     courses: Kursy
+    creation_date: Data utworzenia
     creator:
       end_date: Data zakończenia
       end_date_placeholder: Data zakończenia (RRRR-MM-DD)

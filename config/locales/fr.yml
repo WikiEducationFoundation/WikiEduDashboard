@@ -168,6 +168,7 @@ fr:
       cours seront modifiées pour tenir compte des semaines sans rendez-vous planifié.
     course_description: Cours
     courses: Cours
+    creation_date: Date de création
     creator:
       already_exists: Ce cours existe déjà. Changez plutôt le nom, l’école ou l’échéance
         pour le rendre unique.
@@ -567,7 +568,10 @@ fr:
     min_weeks: Cette tâche nécessite au moins %{min_weeks} semaines disponibles. Veuillez
       ajuster vos dates de début et de fin de tâche si vous voulez utiliser ce type
       de tâche.
-    minimum_options: Veuillez sélectionner au moins %{minimum} option(s).
+    select_one_option: Veuillez sélectionner 1 option
+    minimum_options:
+      one: Veuillez sélectionner au moins %{count} option.
+      other: Veuillez sélectionner au moins %{count} options.
     read_less: Lire moins
     read_more: Lire plus
     review_selections: Veuillez vérifier vos sélections ci-dessous. Cliquez pour modifier

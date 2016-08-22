@@ -135,6 +135,7 @@ it:
       corso non è stato cancellato.'
     course_description: Corsi
     courses: Corsi
+    creation_date: Data di creazione
     creator:
       already_exists: Questo corso già esiste. Prova a cambiare il nome, la scuola
         o il termine per renderlo unico.
@@ -440,7 +441,10 @@ it:
     confirm_dates: Scegli le date dei corsi, incontri settimanali e le festività per
       il tuo corso.
     course_dates: Date del corso
-    minimum_options: Seleziona almeno %{minimum} opzioni.
+    select_one_option: Seleziona 1 opzione.
+    minimum_options:
+      one: Seleziona %{count} o più opzioni.
+      other: Seleziona %{count} o più opzioni.
     read_less: Leggi di meno
     read_more: Leggi di più
     summary: Sommario

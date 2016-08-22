@@ -86,6 +86,7 @@ lb:
       legend: Erklärung
     course_description: Coursen
     courses: Coursen
+    creation_date: Datum vun der Kreatioun
     creator:
       clone_successful: Cours gekloont
       course_description: Beschreiwung vum Cours
@@ -256,12 +257,16 @@ lb:
     username_placeholder: Benotzernumm
   wizard:
     course_dates: Datume vun de Coursen
-    minimum_options: Sicht w.e.g. mindestens %{minimum} Optioun(en).
+    select_one_option: Wielt w.e.g. eng Optioun eraus.
+    minimum_options:
+      other: Sicht w.e.g. eng oder méi Optiounen. Optioun(en).
     read_less: Manner liesen
     read_more: Liest méi
     summary: Resumé
   error:
     form_errors: Kuckt de Formulaire w.e.g. no Feeler no.
+    invalid_file_format: De Fichier konnt net gespäichert ginn. Lued w.e.g. e PDF
+      oder e Word-Dokument erop.
     unsupported_browser:
       header: Net ënnerstëtzte Browser. :-(
   error_401:

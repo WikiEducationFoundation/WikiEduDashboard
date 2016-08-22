@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Camilali0609
+# Author: Hanyanbo98
 # Author: Liuxinyu970226
 # Author: Macofe
 # Author: Yfdyh000
@@ -135,6 +136,7 @@ zh-CN:
     course_dates_calendar_instructions: 从时间表上选择日期以添加或移除它们（例如假日、不上课的时候）。点击日期以在未选择、已选择和假日状态之间更改。课程活动的日期将利用没有预定会议的周，对账户做出更改。
     course_description: 课程
     courses: 课程
+    creation_date: 创建日期
     creator:
       already_exists: 此课程已存在。考虑更改名称、学校或学期以使其独立。
       assignment_end: 任务结束
@@ -459,7 +461,10 @@ zh-CN:
     calendar_instructions: 从时间表上选择日期以添加或移除它们（例如假日、不上课的时候）。这将帮助课程创建工具准确分隔您的分配。点击日期以在未选择、已选择和假日状态之间更改。如果您没有假日，请在下方勾选“我没有班级假日”。
     confirm_dates: 为您的课程选择课程日期、每周例会和假日。
     course_dates: 课程日期
-    minimum_options: 请至少选择%{minimum}个选项。
+    select_one_option: 请选择1个选项。
+    minimum_options:
+      one: 请选择%{count}个或更多选项。
+      other: 请选择%{count}个或更多选项。
     read_less: 阅读更少
     read_more: 阅读更多
     review_selections: 请在下方复核您的选项。点击以编辑一个选项。当结束时，点击“提交”以结束向导，并构建您的时间轴。
@@ -469,6 +474,7 @@ zh-CN:
     article_required: 需要一个条目。
     form_errors: 请检查表单中的错误。
     invalid_assignment: 无效分配
+    invalid_file_format: 文件不能被保存。请上传PDF或Word文档。
     oauth_invalid: 您的维基百科授权已过期。请重新登录。
     unsupported_browser:
       header: 浏览器不受支持。:-(
