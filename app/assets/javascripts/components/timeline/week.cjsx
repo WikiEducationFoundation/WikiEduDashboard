@@ -6,7 +6,7 @@ OrderableBlock   = require './orderable_block.cjsx'
 BlockActions     = require('../../actions/block_actions.js').default
 WeekActions      = require('../../actions/week_actions.js').default
 GradeableStore   = require '../../stores/gradeable_store.coffee'
-EmptyWeek        = require './empty_week.cjsx'
+EmptyWeek        = require('./empty_week.jsx').default
 
 ReactCSSTG       = require 'react-addons-css-transition-group'
 {Motion, spring} = require 'react-motion'
