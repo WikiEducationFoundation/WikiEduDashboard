@@ -95,7 +95,7 @@ module.exports = {
       [first_day_of_week..6].forEach (i) =>
         day = moment(week_start).add(i, 'days')
         if course && @courseMeets(course.weekdays, i, day.format('YYYYMMDD'), exceptions)
-          ms.push day.format('dd')[0]
+          ms.push day.format('ddd')
       if ms.length == 0
         meetings.push '()'
       else
