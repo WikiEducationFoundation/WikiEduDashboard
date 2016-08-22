@@ -6761,9 +6761,9 @@
       "resolved": "https://registry.npmjs.org/react-trix/-/react-trix-0.1.0.tgz"
     },
     "react-typeahead": {
-      "version": "1.1.9",
-      "from": "react-typeahead@1.1.9",
-      "resolved": "https://registry.npmjs.org/react-typeahead/-/react-typeahead-1.1.9.tgz",
+      "version": "2.0.0-alpha.5",
+      "from": "react-typeahead@2.0.0-alpha.5",
+      "resolved": "https://registry.npmjs.org/react-typeahead/-/react-typeahead-2.0.0-alpha.5.tgz",
       "dependencies": {
         "classnames": {
           "version": "1.2.2",

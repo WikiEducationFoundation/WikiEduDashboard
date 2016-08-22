@@ -101,7 +101,7 @@
     "react-router": "2.7.0",
     "react-select": "git://github.com/JedWatson/react-select.git#v0.9.1",
     "react-trix": "^0.1.0",
-    "react-typeahead": "1.1.9",
+    "react-typeahead": "2.0.0-alpha.5",
     "react-weekday-picker": "1.0.6",
     "reactify": "1.1.1",
     "require-dir": "^0.3.0",
