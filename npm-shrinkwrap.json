@@ -4652,6 +4652,11 @@
       "from": "hoek@>=2.0.0 <3.0.0",
       "resolved": "https://registry.npmjs.org/hoek/-/hoek-2.16.3.tgz"
     },
+    "hoist-non-react-statics": {
+      "version": "1.2.0",
+      "from": "hoist-non-react-statics@>=1.2.0 <2.0.0",
+      "resolved": "https://registry.npmjs.org/hoist-non-react-statics/-/hoist-non-react-statics-1.2.0.tgz"
+    },
     "home-or-tmp": {
       "version": "1.0.0",
       "from": "home-or-tmp@>=1.0.0 <2.0.0",
@@ -6901,9 +6906,16 @@
       "resolved": "https://registry.npmjs.org/react-onclickoutside/-/react-onclickoutside-5.3.1.tgz"
     },
     "react-router": {
-      "version": "2.0.0",
-      "from": "react-router@2.0.0",
-      "resolved": "https://registry.npmjs.org/react-router/-/react-router-2.0.0.tgz"
+      "version": "2.7.0",
+      "from": "react-router@2.7.0",
+      "resolved": "https://registry.npmjs.org/react-router/-/react-router-2.7.0.tgz",
+      "dependencies": {
+        "warning": {
+          "version": "3.0.0",
+          "from": "warning@>=3.0.0 <4.0.0",
+          "resolved": "https://registry.npmjs.org/warning/-/warning-3.0.0.tgz"
+        }
+      }
     },
     "react-select": {
       "version": "0.9.1",
