@@ -30,7 +30,7 @@ json.course do
     json.incomplete_assigned_modules ctpm.incomplete_assigned_modules
   end
 
-  if user_role > 0 # non-student role
+  if user_role >= 0 # user enrolled in course
     json.survey_notifications(current_user.survey_notifications.active) do |notification|
       if notification.course.id == @course.id
         json.id notification.id
