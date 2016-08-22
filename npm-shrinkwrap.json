@@ -7312,9 +7312,9 @@
       "resolved": "https://registry.npmjs.org/run-async/-/run-async-0.1.0.tgz"
     },
     "run-sequence": {
-      "version": "0.3.7",
-      "from": "run-sequence@>=0.3.6 <0.4.0",
-      "resolved": "https://registry.npmjs.org/run-sequence/-/run-sequence-0.3.7.tgz"
+      "version": "1.2.2",
+      "from": "run-sequence@>=1.2.2 <2.0.0",
+      "resolved": "https://registry.npmjs.org/run-sequence/-/run-sequence-1.2.2.tgz"
     },
     "rupture": {
       "version": "0.6.1",

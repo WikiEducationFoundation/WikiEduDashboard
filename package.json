@@ -107,7 +107,7 @@
     "require-dir": "^0.3.0",
     "rev-del": "^1.0.5",
     "rewire": "^2.5.2",
-    "run-sequence": "~0.3.6",
+    "run-sequence": "^1.2.2",
     "rupture": "^0.6.1",
     "should": "^11.1.0",
     "sinon": "^1.17.5",
