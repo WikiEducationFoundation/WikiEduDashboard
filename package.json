@@ -59,7 +59,7 @@
     "gulp-webserver": "^0.8.2",
     "handleify": "^0.1.2",
     "i18n-js": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc8.tar.gz",
-    "istanbul": "^0.4.4",
+    "istanbul": "^0.4.5",
     "jeet": "^6.1.2",
     "jquery": "^2.1.4",
     "jquery-ui": "^1.10.5",
