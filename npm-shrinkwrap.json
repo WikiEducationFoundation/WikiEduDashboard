@@ -4340,9 +4340,9 @@
       }
     },
     "gulp-webserver": {
-      "version": "0.8.8",
-      "from": "gulp-webserver@>=0.8.8 <0.9.0",
-      "resolved": "https://registry.npmjs.org/gulp-webserver/-/gulp-webserver-0.8.8.tgz",
+      "version": "0.9.1",
+      "from": "gulp-webserver@>=0.9.1 <0.10.0",
+      "resolved": "https://registry.npmjs.org/gulp-webserver/-/gulp-webserver-0.9.1.tgz",
       "dependencies": {
         "ansi-regex": {
           "version": "0.2.1",
