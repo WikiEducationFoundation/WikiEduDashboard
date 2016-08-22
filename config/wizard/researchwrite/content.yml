@@ -166,11 +166,17 @@ essentials:
         graded: true
         points: 10
         content: |
-          <p>You should add a small contribution to an article related to your class, or add a citation to a claim that doesn't have one.</p>
+          <p>Familiarize yourself with editing Wikipedia by adding a citation to an article. There are two ways you can do this:</p>
           <ul>
-            <li>Complete the "Sources and Citations" training (linked below).</li>
-            <li>The <a href="https://tools.wmflabs.org/citationhunt/en?id=001996f6&cat=all">Citation Hunt</a> tool can show you some statements that don't have citations. You can use that to find an article to reference.</li>
-            <li>When you make a small claim, clearly state the fact in your own words, and then cite the source where you found the information.</li>
+            <li>Add 1-2 sentences to a course-related article, and cite that statement to a reliable source, as you learned in the online training.</li>
+            <li>
+              The <a href="https://tools.wmflabs.org/citationhunt/en?id=001996f6&cat=all">Citation Hunt</a>
+              tool shows unreferenced statements from articles. First, evaluate
+              whether the statement in question is true! An uncited statement
+              could just be lacking a reference or it could be inaccurate or
+              misleading. Reliable sources on the subject will help you choose
+              whether to add it or correct the statement.
+            </li>
           </ul>
 
       -
