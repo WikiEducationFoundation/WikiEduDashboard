@@ -140,9 +140,10 @@ describe 'timeline editing', type: :feature, js: true do
 
   it 'lets users add a block' do
     visit "/courses/#{Course.first.slug}/timeline"
+    expect(Block.count).to eq(2)
     find('span.week__add-block').click
     click_button 'Save'
-    expect(page).to have_content 'Block description'
     sleep 1
+    expect(Block.count).to eq(3)
   end
 end

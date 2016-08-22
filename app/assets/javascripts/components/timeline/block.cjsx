@@ -100,7 +100,7 @@ Block = React.createClass(
       <div className="block__editor-container">
         <TextAreaInput
           onChange={@updateBlock}
-          value={@props.block.content || 'Block description…'}
+          value={@props.block.content}
           value_key='content'
           editable={@_isEditable()}
           rows='4'
