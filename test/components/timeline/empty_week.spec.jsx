@@ -3,11 +3,13 @@ import '../../testHelper';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-addons-test-utils';
-import EmptyWeek from '../../../app/assets/javascripts/components/timeline/empty_week.cjsx';
+import EmptyWeek from '../../../app/assets/javascripts/components/timeline/empty_week.jsx';
 
 const makeSpacesUniform = (str) => { return str.replace(/\s{1,}/g, ' '); };
 
 describe('EmptyWeek', () => {
+  const course = { slug: 'my_course' };
+
   describe('empty state', () => {
     const TestEmptyWeek = ReactTestUtils.renderIntoDocument(
       <EmptyWeek />
@@ -24,6 +26,7 @@ describe('EmptyWeek', () => {
       <EmptyWeek
         empty_timeline
         edit_permissions
+        course={course}
       />
     );
     it('suggests editing the week', () => {
