@@ -90,4 +90,11 @@ Rails.application.configure do
     user_name: ENV["GMAIL_USERNAME"],
     password: ENV["GMAIL_PASSWORD"]
   }
+  config.action_mailer.show_previews = true
 end
+
+ class ::Rails::MailersController
+   def local_request?
+     true
+   end
+ end
