@@ -14,6 +14,7 @@
 #  notes                                   :text(65535)
 #  follow_up_days_after_first_notification :integer
 #  send_email                              :boolean
+#  email_template                          :string(255)
 #
 
 class SurveyAssignment < ActiveRecord::Base
