@@ -21,10 +21,10 @@ class SurveyMailer < ApplicationMailer
   #############
   # Templates #
   #############
-  TEMPLATES = [
-    'instructor_survey',
-    'student_learning_preassessment',
-  ].freeze
+  TEMPLATES = %w(
+    instructor_survey
+    student_learning_preassessment
+  ).freeze
 
   def instructor_survey_notification(notification)
     set_ivars(notification)
