@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: survey_notifications
@@ -41,7 +43,7 @@ class SurveyNotification < ActiveRecord::Base
     return if ['development', 'staging'].include?(Rails.env) && !ENV['survey_test_email'].split(',').include?(user.email)
     return if email_sent_at.present?
     return if user.email.nil?
-    SurveyMailer.notification(self).deliver_now
+    SurveyMailer.send_notification(self)
     update_attribute(:email_sent_at, Time.now)
   end
 
@@ -49,7 +51,7 @@ class SurveyNotification < ActiveRecord::Base
     return unless survey_assignment.follow_up_days_after_first_notification.present?
     return if user.email.nil?
     return unless ready_for_follow_up?
-    SurveyMailer.follow_up(self).deliver_now
+    SurveyMailer.send_follow_up(self)
     update_attributes(last_follow_up_sent_at: Time.now,
                       follow_up_count: follow_up_count + 1)
   end

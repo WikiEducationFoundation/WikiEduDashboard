@@ -1,14 +1,30 @@
+# frozen_string_literal: true
 class SurveyMailer < ApplicationMailer
-  def notification(notification)
+  def self.send_notification(notification)
+    instructor_survey_notification(notification).deliver_now
+  end
+
+  def self.send_follow_up(notification)
+    instructor_survey_follow_up(notification).deliver_now
+  end
+
+  def instructor_survey_notification(notification)
     return unless Features.email?
     set_ivars(notification)
     mail(to: @user.email, subject: "A survey is available for your course, '#{@course.title}'")
   end
 
-  def follow_up(notification)
+  def instructor_survey_follow_up(notification)
     return unless Features.email?
     set_ivars(notification)
-    mail(to: @user.email, subject: "Reminder: A survey is available for your course, '#{@course.title}'")
+    mail(to: @user.email,
+         subject: "Reminder: A survey is available for your course, '#{@course.title}'")
+  end
+
+  def student_learning_notification(notification)
+  end
+
+  def student_learning_follow_up(notification)
   end
 
   private

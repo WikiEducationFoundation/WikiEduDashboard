@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 describe SurveyAssignmentsController do
@@ -43,7 +44,7 @@ describe SurveyAssignmentsController do
 
     context 'send_email is not set' do
       it 'does not attempt to send' do
-        expect_any_instance_of(SurveyMailer).not_to receive(:notification)
+        expect(SurveyMailer).not_to receive(:send_notification)
         post :send_notifications
       end
     end
@@ -51,7 +52,7 @@ describe SurveyAssignmentsController do
     context 'send_email is set' do
       let(:send_email) { true }
       it 'attempts to send email' do
-        expect_any_instance_of(SurveyMailer).to receive(:notification)
+        expect(SurveyMailer).to receive(:send_notification)
         post :send_notifications
       end
     end

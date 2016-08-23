@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 describe SurveyMailer, type: :mailer do
@@ -14,7 +15,7 @@ describe SurveyMailer, type: :mailer do
              survey_assignment_id: survey_assignment.id)
     end
 
-    let(:mail) { SurveyMailer.notification(survey_notification).deliver_now }
+    let(:mail) { SurveyMailer.send_notification(survey_notification) }
 
     it 'sends a personalized email to the user' do
       expect(mail.body.encoded).to match(user.username)
@@ -35,7 +36,7 @@ describe SurveyMailer, type: :mailer do
              survey_assignment_id: survey_assignment.id)
     end
 
-    let(:mail) { SurveyMailer.follow_up(survey_notification).deliver_now }
+    let(:mail) { SurveyMailer.send_follow_up(survey_notification) }
 
     it 'contains the correct user email and body' do
       expect(mail.body.encoded).to match(user.username)
