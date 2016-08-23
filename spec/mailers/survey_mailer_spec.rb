@@ -7,7 +7,9 @@ describe SurveyMailer, type: :mailer do
     let(:course) { create(:course, id: 1) }
     let(:courses_user) { create(:courses_user, course_id: course.id, user_id: user.id) }
     let(:survey) { create(:survey) }
-    let(:survey_assignment) { create(:survey_assignment, survey_id: survey.id) }
+    let(:survey_assignment) do
+      create(:survey_assignment, survey_id: survey.id, courses_user_role: role)
+    end
     let(:survey_notification) do
       create(:survey_notification,
              course_id: course.id,
@@ -17,9 +19,22 @@ describe SurveyMailer, type: :mailer do
 
     let(:mail) { SurveyMailer.send_notification(survey_notification) }
 
-    it 'sends a personalized email to the user' do
-      expect(mail.body.encoded).to match(user.username)
-      expect(mail.to).to eq([user.email])
+    context 'when it is an instructor survey' do
+      let(:role) { CoursesUsers::Roles::INSTRUCTOR_ROLE }
+      it 'sends a personalized email to the instructor' do
+        expect(mail.body.encoded).to match(user.username)
+        expect(mail.subject).to match('A survey is available for your course')
+        expect(mail.to).to eq([user.email])
+      end
+    end
+
+    context 'when it is a student survey' do
+      let(:role) { CoursesUsers::Roles::STUDENT_ROLE }
+      it 'sends a personalized email about the student survey' do
+        # expect(mail.body.encoded).to match(user.username)
+        # expect(mail.subject).to match('A survey is available for your course')
+        expect(mail.to).to eq([user.email])
+      end
     end
   end
 
@@ -28,7 +43,9 @@ describe SurveyMailer, type: :mailer do
     let(:course) { create(:course, id: 1) }
     let(:courses_user) { create(:courses_user, course_id: course.id, user_id: user.id) }
     let(:survey) { create(:survey) }
-    let(:survey_assignment) { create(:survey_assignment, survey_id: survey.id) }
+    let(:survey_assignment) do
+      create(:survey_assignment, survey_id: survey.id, courses_user_role: role)
+    end
     let(:survey_notification) do
       create(:survey_notification,
              course_id: course.id,
@@ -38,9 +55,22 @@ describe SurveyMailer, type: :mailer do
 
     let(:mail) { SurveyMailer.send_follow_up(survey_notification) }
 
-    it 'contains the correct user email and body' do
-      expect(mail.body.encoded).to match(user.username)
-      expect(mail.to).to eq([user.email])
+    context 'when it is an instructor survey' do
+      let(:role) { CoursesUsers::Roles::INSTRUCTOR_ROLE }
+      it 'contains the correct user email and body' do
+        expect(mail.body.encoded).to match(user.username)
+        expect(mail.subject).to match('Reminder: A survey is available for your course')
+        expect(mail.to).to eq([user.email])
+      end
+    end
+
+    context 'when it is a student survey' do
+      let(:role) { CoursesUsers::Roles::STUDENT_ROLE }
+      it 'contains the correct user email and body' do
+        # expect(mail.body.encoded).to match(user.username)
+        # expect(mail.subject).to match('A survey is available for your course')
+        expect(mail.to).to eq([user.email])
+      end
     end
   end
 end
