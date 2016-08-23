@@ -6,26 +6,24 @@ class SurveyMailer < ApplicationMailer
 
   def self.send_notification(notification)
     return unless Features.email?
-    email_template = "#{notification.survey_assignment.email_template}_notification"
+    email_template = notification.survey_assignment.email_template
     raise UnknownEmailTemplateError unless TEMPLATES.include?(email_template)
-    send(email_template, notification).deliver_now
+    send("#{email_template}_notification", notification).deliver_now
   end
 
   def self.send_follow_up(notification)
     return unless Features.email?
-    email_template = "#{notification.survey_assignment.email_template}_follow_up"
+    email_template = notification.survey_assignment.email_template
     raise UnknownEmailTemplateError unless TEMPLATES.include?(email_template)
-    send(email_template, notification).deliver_now
+    send("#{email_template}_follow_up", notification).deliver_now
   end
 
   #############
   # Templates #
   #############
   TEMPLATES = [
-    'instructor_survey_notification',
-    'instructor_survey_follow_up',
-    'student_learning_preassessment_notification',
-    'student_learning_preassessment_follow_up'
+    'instructor_survey',
+    'student_learning_preassessment',
   ].freeze
 
   def instructor_survey_notification(notification)

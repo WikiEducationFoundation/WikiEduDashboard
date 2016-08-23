@@ -39,6 +39,10 @@
       = f.number_field :follow_up_days_after_first_notification, label: false
       = f.label :send_date_days, "days after first notification", class: 'inline-label'
 
+    .form_row
+      = f.label :email_template
+      = email_template_select(f)
+
     .form__row
       = f.label :notes
       = f.text_area :notes
