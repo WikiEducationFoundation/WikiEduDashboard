@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 require "#{Rails.root}/lib/data_cycle/survey_update"
 

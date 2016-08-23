@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 shared_context 'survey_assignment' do
   before do
     ActionMailer::Base.delivery_method = :test
@@ -16,7 +17,8 @@ shared_context 'survey_assignment' do
       survey_id: @survey1.id,
       send_date_days: 3,
       send_before: true,
-      send_date_relative_to: 'end'
+      send_date_relative_to: 'end',
+      email_template: 'instructor_survey'
     }
     @survey_assignment1 = create(:survey_assignment, @survey_assignment_params)
 
