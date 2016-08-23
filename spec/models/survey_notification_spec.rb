@@ -16,8 +16,9 @@ describe SurveyNotification do
   let(:follow_up_days) { 7 }
   let(:survey_assignment) do
     create(:survey_assignment, follow_up_days_after_first_notification: follow_up_days,
-                               survey_id: survey.id)
+                               survey_id: survey.id, courses_user_role: role)
   end
+  let(:role) { CoursesUsers::Roles::INSTRUCTOR_ROLE }
   let(:email_sent_at) { 1.hour.ago }
   let(:last_follow_up_sent_at) { nil }
   let(:survey_notification) do
