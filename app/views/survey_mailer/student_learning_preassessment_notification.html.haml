@@ -1,0 +1,34 @@
+%table.row
+  %tbody
+    %tr
+      %th
+        %table
+          %tr
+            %td.main-content
+              %h1{style: 'font-family: "Open Sans", sans-serif; color: #676EB4; font-size: 34px; font-weight: 300; text-align:left;'}
+                = "Hello, #{@user.username}!"
+              %h1{style: 'font-family: "Open Sans", sans-serif; color: #676EB4; font-size: 34px; font-weight: 300; text-align:left;'}
+                = "Welcome to #{@course.title}."
+              %p{style: 'font-family: "Open Sans", sans-serif; color: #666666; font-size: 18px; line-height: 1.5; font-weight: 300; text-align:left;'}
+                The Wiki Education Foundation is conducting a research project about Wikipedia-based assignments, and we're asking for your help.
+              %p{style: 'font-family: "Open Sans", sans-serif; color: #666666; font-size: 18px; line-height: 1.5; font-weight: 300; text-align:left;'}
+                When you take our brief online survey at the start and end of your
+                assignment, we’ll provide you with personal feedback for you to
+                compare what you know now with what you'll know then. Nobody
+                else will see your personal info. Your instructor won't see the
+                survey, and it will not be part of your grade.
+              %p{style: 'font-family: "Open Sans", sans-serif; color: #666666; font-size: 18px; line-height: 1.5; font-weight: 300; text-align:left;'}
+                Click below to see what we hope to learn, and to take the survey!
+            %td.expander
+        %table
+          %tr
+            %td.main-content
+              %em{style: 'font-family: "Open Sans", sans-serif; color: #666666; font-size: 18px; line-height: 1.5;  text-align:left; font-weight: 300;'}
+                Best, Zach McDowell
+            %td.expander
+        %table
+          %tr
+            %td.main-content{style: 'padding: 20px 0 20px;'}
+              %a.button_link{href: "#{course_survey_url(@notification)}", style: "padding: 15px 20px;width:130px; display: block;text-decoration: none;border:0;text-align:center;font-family: 'Open Sans', sans-serif; letter-spacing: 1px; font-weight:300; font-size: 18px;color: #ffffff;background: #40AD90;border: 1px solid #359178;-moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px;line-height:17px;"}
+                = t('survey.email.link')
+            %td.expander
