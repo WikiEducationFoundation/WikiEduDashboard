@@ -92,9 +92,3 @@ Rails.application.configure do
   }
   config.action_mailer.show_previews = true
 end
-
- class ::Rails::MailersController
-   def local_request?
-     true
-   end
- end
