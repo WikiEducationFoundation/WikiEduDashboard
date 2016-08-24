@@ -1,7 +1,7 @@
 import React from 'react';
 import ServerActions from '../../actions/server_actions.js';
 
-import AssignCell from './assign_cell.cjsx';
+import AssignCell from './assign_cell.jsx';
 
 import RevisionStore from '../../stores/revision_store.coffee';
 import UIStore from '../../stores/ui_store.coffee';

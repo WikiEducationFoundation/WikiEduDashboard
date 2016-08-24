@@ -1,5 +1,5 @@
 import React from 'react';
-import AssignCell from '../students/assign_cell.cjsx';
+import AssignCell from '../students/assign_cell.jsx';
 import AvailableArticle from './available_article.jsx';
 import AvailableArticlesList from '../articles/available_article_list.jsx';
 import AssignmentStore from '../../stores/assignment_store.coffee';
