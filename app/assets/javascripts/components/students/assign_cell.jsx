@@ -4,6 +4,8 @@ import { trunc } from '../../utils/strings';
 import CourseUtils from '../../utils/course_utils.js';
 
 const AssignCell = React.createClass({
+  displayName: 'AssignCell',
+
   propTypes: {
     assignments: React.PropTypes.array,
     prefix: React.PropTypes.string,
@@ -12,8 +14,6 @@ const AssignCell = React.createClass({
     editable: React.PropTypes.bool,
     role: React.PropTypes.number
   },
-
-  displayname: 'AssignCell',
 
   stop(e) {
     return e.stopPropagation();

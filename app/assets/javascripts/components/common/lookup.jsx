@@ -3,6 +3,8 @@ import { Typeahead } from 'react-typeahead';
 import LookupWrapper from '../high_order/lookup_wrapper.jsx';
 
 const Lookup = React.createClass({
+  displayName: 'Lookup',
+
   propTypes: {
     disabled: React.PropTypes.bool,
     onSubmit: React.PropTypes.func,
@@ -11,22 +13,25 @@ const Lookup = React.createClass({
     placeholder: React.PropTypes.string,
     models: React.PropTypes.array
   },
+
   getValue() {
     if (!this.props.disabled) {
       return this.refs.entry.state.entryValue;
     }
     return this.refs.entry.getDOMNode().value;
   },
-  displayname: 'Lookup',
+
   clear() {
     if (!this.props.disabled) {
       return this.refs.entry.setState({ entryValue: '' });
     }
     return this.refs.entry.getDOMNode().value = '';
   },
+
   optionSelectedHandler(option, e) {
     return this.keyDownHandler(e);
   },
+
   keyDownHandler(e) {
     const madeSelection = (this.refs.entry.getSelection() !== null);
     const selectionMatches = this.refs.entry.getSelection() === this.getValue();
@@ -34,6 +39,7 @@ const Lookup = React.createClass({
       return this.props.onSubmit(e);
     }
   },
+
   render() {
     let placeholder = this.props.placeholder || I18n.t('courses.start_typing');
     if (!this.props.disabled) {

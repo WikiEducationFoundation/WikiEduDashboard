@@ -1,13 +1,13 @@
 import React from 'react';
 
 const Popover = React.createClass({
+  displayName: 'Popover',
+
   propTypes: {
     is_open: React.PropTypes.bool,
     edit_row: React.PropTypes.node,
     rows: React.PropTypes.node
   },
-
-  displayname: 'Popover',
 
   render() {
     let divClass = 'pop';

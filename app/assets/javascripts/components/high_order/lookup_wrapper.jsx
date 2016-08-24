@@ -9,6 +9,8 @@ const LookupWrapper = function (Component) {
     })
   ;
   return React.createClass({
+    displayName: 'LookupWrapper',
+
     propTypes: {
       model: React.PropTypes.string,
       exclude: React.PropTypes.array
@@ -27,8 +29,6 @@ const LookupWrapper = function (Component) {
     getValue() {
       return this.refs.entry.getValue();
     },
-
-    displayname: 'LookupWrapper',
 
     storeDidChange() {
       return this.setState(getState(this.props.model, this.props.exclude));

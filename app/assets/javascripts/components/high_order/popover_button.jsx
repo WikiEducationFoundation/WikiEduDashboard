@@ -16,6 +16,8 @@ const PopoverButton = function (Key, ValueKey, Store, New, Items, IsSelect = fal
     return data;
   };
   const component = React.createClass({
+    displayName: `${capitalize(Key)}Button`,
+
     propTypes: {
       course_id: React.PropTypes.string,
       is_open: React.PropTypes.bool,
@@ -31,8 +33,6 @@ const PopoverButton = function (Key, ValueKey, Store, New, Items, IsSelect = fal
     getKey() {
       return `${Key}_button`;
     },
-
-    displayname: `${capitalize(Key)}Button`,
 
     storeDidChange() {
       if (this.refs.entry !== null) {
