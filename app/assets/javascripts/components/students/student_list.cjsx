@@ -3,7 +3,7 @@ Editable          = require('../high_order/editable.jsx').default
 
 List              = require('../common/list.jsx').default
 Student           = require('./student.jsx').default
-StudentDrawer     = require './student_drawer.cjsx'
+StudentDrawer     = require('./student_drawer.jsx').default
 EnrollButton      = require './enroll_button.cjsx'
 
 UserStore         = require '../../stores/user_store.coffee'
