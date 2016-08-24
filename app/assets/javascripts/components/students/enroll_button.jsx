@@ -49,7 +49,7 @@ const EnrollButton = React.createClass({
 
   unenroll(userId) {
     const user = UserStore.getFiltered({ id: userId, role: this.props.role })[0];
-    const userObject = { userId, role: this.props.role };
+    const userObject = { user_id: userId, role: this.props.role };
     if (confirm(I18n.t('users.remove_confirmation', { username: user.username }))) {
       return ServerActions.remove('user', this.props.course_id, { user: userObject });
     }
