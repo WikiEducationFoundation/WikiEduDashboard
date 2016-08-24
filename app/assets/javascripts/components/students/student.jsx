@@ -3,7 +3,7 @@ import ServerActions from '../../actions/server_actions.js';
 
 import AssignCell from './assign_cell.jsx';
 
-import RevisionStore from '../../stores/revision_store.coffee';
+import RevisionStore from '../../stores/revision_store.js';
 import UIStore from '../../stores/ui_store.coffee';
 import UIActions from '../../actions/ui_actions.js';
 import { trunc } from '../../utils/strings';

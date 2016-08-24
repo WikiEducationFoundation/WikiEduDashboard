@@ -2,7 +2,7 @@ import React from 'react';
 import Expandable from '../high_order/expandable.jsx';
 import Popover from '../common/popover.jsx';
 import ServerActions from '../../actions/server_actions.js';
-import UserStore from '../../stores/user_store.coffee';
+import UserStore from '../../stores/user_store.js';
 import Conditional from '../high_order/conditional.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 

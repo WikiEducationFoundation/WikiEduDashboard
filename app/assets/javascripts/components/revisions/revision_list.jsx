@@ -3,7 +3,7 @@ import Editable from '../high_order/editable.jsx';
 
 import List from '../common/list.jsx';
 import Revision from './revision.jsx';
-import RevisionStore from '../../stores/revision_store.coffee';
+import RevisionStore from '../../stores/revision_store.js';
 import ServerActions from '../../actions/server_actions.js';
 import CourseUtils from '../../utils/course_utils.js';
 

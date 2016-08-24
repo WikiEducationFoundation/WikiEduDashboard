@@ -3,7 +3,7 @@ import Editable from '../high_order/editable.jsx';
 
 import List from '../common/list.jsx';
 import Upload from './upload.jsx';
-import UploadStore from '../../stores/upload_store.coffee';
+import UploadStore from '../../stores/upload_store.js';
 import ServerActions from '../../actions/server_actions.js';
 import CourseUtils from '../../utils/course_utils.js';
 

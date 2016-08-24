@@ -1,6 +1,6 @@
 import React from 'react';
 import PopoverButton from '../high_order/popover_button.jsx';
-import TagStore from '../../stores/tag_store.coffee';
+import TagStore from '../../stores/tag_store.js';
 
 const tagIsNew = tag => TagStore.getFiltered({ tag }).length === 0;
 

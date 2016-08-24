@@ -3,8 +3,8 @@ import Editable from '../high_order/editable.jsx';
 
 import List from '../common/list.jsx';
 import Assignment from './assignment.jsx';
-import AssignmentStore from '../../stores/assignment_store.coffee';
-import ArticleStore from '../../stores/article_store.coffee';
+import AssignmentStore from '../../stores/assignment_store.js';
+import ArticleStore from '../../stores/article_store.js';
 import ServerActions from '../../actions/server_actions.js';
 import CourseUtils from '../../utils/course_utils.js';
 

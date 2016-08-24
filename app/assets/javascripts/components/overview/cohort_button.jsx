@@ -1,6 +1,6 @@
 import React from 'react';
 import PopoverButton from '../high_order/popover_button.jsx';
-import CohortStore from '../../stores/cohort_store.coffee';
+import CohortStore from '../../stores/cohort_store.js';
 
 const cohortIsNew = cohort => CohortStore.getFiltered({ title: cohort }).length === 0;
 

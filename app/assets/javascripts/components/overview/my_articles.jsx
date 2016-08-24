@@ -1,6 +1,6 @@
 import React from 'react';
 import AssignCell from '../students/assign_cell.jsx';
-import AssignmentStore from '../../stores/assignment_store.coffee';
+import AssignmentStore from '../../stores/assignment_store.js';
 import ServerActions from '../../actions/server_actions.js';
 
 const MyArticles = React.createClass({

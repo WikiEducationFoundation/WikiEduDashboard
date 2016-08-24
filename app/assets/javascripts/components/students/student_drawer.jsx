@@ -1,6 +1,6 @@
 import React from 'react';
 import Expandable from '../high_order/expandable.jsx';
-import RevisionStore from '../../stores/revision_store.coffee';
+import RevisionStore from '../../stores/revision_store.js';
 
 const getRevisions = studentId => RevisionStore.getFiltered({ user_id: studentId });
 

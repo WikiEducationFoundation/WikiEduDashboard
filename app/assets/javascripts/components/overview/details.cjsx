@@ -11,9 +11,9 @@ CourseActions     = require('../../actions/course_actions.js').default
 ServerActions     = require('../../actions/server_actions.js').default
 
 CourseStore       = require '../../stores/course_store.coffee'
-TagStore          = require '../../stores/tag_store.coffee'
-UserStore         = require '../../stores/user_store.coffee'
-CohortStore       = require '../../stores/cohort_store.coffee'
+TagStore          = require('../../stores/tag_store.js').default
+UserStore         = require('../../stores/user_store.js').default
+CohortStore       = require('../../stores/cohort_store.js').default
 
 CourseUtils       = require('../../utils/course_utils.js').default
 CourseDateUtils   = require('../../utils/course_date_utils.coffee')

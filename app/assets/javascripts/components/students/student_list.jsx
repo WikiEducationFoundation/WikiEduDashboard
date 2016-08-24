@@ -6,8 +6,8 @@ import Student from './student.jsx';
 import StudentDrawer from './student_drawer.jsx';
 import EnrollButton from './enroll_button.jsx';
 
-import UserStore from '../../stores/user_store.coffee';
-import AssignmentStore from '../../stores/assignment_store.coffee';
+import UserStore from '../../stores/user_store.js';
+import AssignmentStore from '../../stores/assignment_store.js';
 import ServerActions from '../../actions/server_actions.js';
 import CourseUtils from '../../utils/course_utils.js';
 
