@@ -4,8 +4,9 @@ require 'rails_helper'
 describe SurveysController do
   let(:admin) { create(:admin) }
   let(:user) { create(:user) }
-  let(:survey) { create(:survey, confidential_results: confidential_results) }
+  let(:survey) { create(:survey, confidential_results: confidential_results, closed: closed) }
   let(:confidential_results) { false }
+  let(:closed) { false }
 
   describe '#course_select' do
     let!(:course) { create(:course) }
@@ -23,6 +24,15 @@ describe SurveysController do
       it 'renders the login template' do
         get :show, id: survey.id
         expect(response.body).to render_template('login')
+      end
+    end
+
+    context 'when the survey is closed' do
+      before { allow(controller).to receive(:current_user).and_return(user) }
+      let(:closed) { true }
+      it 'redirects to the home page' do
+        get :show, id: survey.id
+        expect(response.body).to redirect_to(root_path)
       end
     end
   end

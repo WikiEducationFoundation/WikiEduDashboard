@@ -208,9 +208,5 @@ class SurveysController < ApplicationController
     yield
   end
 
-  def course?
-    !@course.nil?
-  end
-
   class FailedSaveError < StandardError; end
 end
