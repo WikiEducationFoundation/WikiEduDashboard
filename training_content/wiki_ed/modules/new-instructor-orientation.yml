@@ -8,6 +8,7 @@ description: |
   in before you begin this orientation.
 estimated_ttc: 30 minutes
 slides:
+  - slug: wiki-ed-support-criteria # 339
   - slug: welcome-new-instructors # 301
   - slug: what-we-will-cover # 302
   - slug: what-is-wikipedia # 303
