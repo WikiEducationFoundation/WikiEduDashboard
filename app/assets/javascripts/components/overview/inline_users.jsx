@@ -1,5 +1,5 @@
 import React from 'react';
-import EnrollButton from '../students/enroll_button.cjsx';
+import EnrollButton from '../students/enroll_button.jsx';
 
 const InlineUsers = React.createClass({
   displayName: 'InlineUsers',
