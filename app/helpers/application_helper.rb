@@ -63,26 +63,14 @@ module ApplicationHelper
 
   def method_missing(method, *args, &block)
     # puts "LOOKING FOR ROUTES #{method}"
-    if method.to_s.end_with?('_path', '_url')
-      if main_app.respond_to?(method)
-        main_app.send(method, *args)
-      else
-        super
-      end
-    else
-      super
-    end
+    return super unless method.to_s.end_with?('_path', '_url')
+    return super unless main_app.respond_to?(method)
+    main_app.send(method, *args)
   end
 
   def respond_to?(method, include_all=false)
-    if method.to_s.end_with?('_path', '_url')
-      if main_app.respond_to?(method)
-        true
-      else
-        super
-      end
-    else
-      super
-    end
+    return super unless method.to_s.end_with?('_path', '_url')
+    return super unless main_app.respond_to?(method)
+    true
   end
 end
