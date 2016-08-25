@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: survey_assignments
@@ -79,15 +81,15 @@ class SurveyAssignment < ActiveRecord::Base
     cohorts.collect(&:courses).flatten
   end
 
-  def target_users
-    target_courses.select { |c| c.courses_users.where(role: courses_user_role )}
+  def target_user_count
+    target_courses.sum { |c| c.courses_users.where(role: courses_user_role).count }
   end
 
   def status
     return 'Draft' unless published
     return 'Closed' if survey.closed
-    return 'Pending' if total_notifications == 0
-    return 'Active' if total_notifications > 0
+    return 'Pending' if total_notifications.zero?
+    return 'Active' if total_notifications.positive?
   end
 
   private

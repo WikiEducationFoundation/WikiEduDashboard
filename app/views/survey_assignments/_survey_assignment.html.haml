@@ -39,7 +39,7 @@
 
       .survey__admin-row__col__detail
         .contextual Estimated Recipients
-        - total = survey_assignment.target_users.count
+        - total = survey_assignment.target_user_count
         %span= total
         %span= user_role(survey_assignment, total)
 
