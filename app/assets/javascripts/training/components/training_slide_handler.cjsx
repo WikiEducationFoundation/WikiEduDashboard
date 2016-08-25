@@ -7,7 +7,7 @@ History         = ReactRouter.History
 Link            = ReactRouter.Link
 SlideLink       = require './slide_link.cjsx'
 SlideMenu       = require './slide_menu.cjsx'
-Quiz            = require './quiz.cjsx'
+Quiz            = require('./quiz.jsx').default
 md              = require('../../utils/markdown_it.js').default({ openLinksExternally: true })
 browserHistory = ReactRouter.browserHistory
 
