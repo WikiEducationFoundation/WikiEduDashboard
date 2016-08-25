@@ -16,7 +16,8 @@
   I18n.locale = "#{I18n.locale}";
 
   currentUser = {
-    id: "#{current_user.id if user_signed_in?}"
+    id: "#{current_user&.id || ''}",
+    username: "#{current_user&.username || ''}"
   }
 
   Features = {
@@ -31,10 +32,11 @@
 = javascript_include_tag '/assets/javascripts/vendor.js'
 
 - unless ENV['DISABLE_SENTRY']
-  / Sentry logging
-  %script{src: "//cdn.ravenjs.com/1.1.19/jquery,native/raven.min.js"}
-    = "Raven.config(\"#{ENV['sentry_public_dsn']}\").install();"
+  // Sentry logging
+  %script{src: "https://cdn.ravenjs.com/3.5.1/raven.min.js"}
+  %script
+    Raven.config("#{ENV['sentry_public_dsn']}").install();
+    Raven.setExtraContext(currentUser);
 
 = content_for :javascripts
-
 = csrf_meta_tags

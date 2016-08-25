@@ -27,6 +27,7 @@
     "jQuery": true,
     "I18n": true,
     "_": true,
-    "moment": true
+    "moment": true,
+    "Raven": true
   }
 }
