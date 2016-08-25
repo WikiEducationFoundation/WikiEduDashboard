@@ -89,6 +89,7 @@ const Survey = {
     this.$main.on('click', '[data-prev-survey-block]', this.previousBlock.bind(this));
     this.$main.on('click', '[agree-to-terms]', this.surveyStarted.bind(this));
     $('[data-submit-survey]').on('click', this.submitAllQuestionGroups.bind(this));
+
     $('[data-void-checkboxes]').on('click', this.voidCheckboxSelections.bind(this));
     $('.survey__multiple-choice-field input[type=checkbox]').on('change', this.uncheckVoid.bind(this));
     $('.block input, .block textarea, .block select').on('change keydown', this.removeErrorState.bind(this));
@@ -220,6 +221,7 @@ const Survey = {
   },
 
   submitAllQuestionGroups() {
+    Raven.captureMessage('Survey submitted');
     if (!this.previewMode) {
       this.updateSurveyNotification();
       this.$surveyForm.each(this.submitQuestionGroup.bind(this));
