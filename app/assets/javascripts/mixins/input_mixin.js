@@ -25,7 +25,7 @@ const InputMixin = {
 
   validate() {
     if (this.props.required || this.props.validation) {
-      const filled = this.state.value && this.state.value.length > 0;
+      const filled = (this.state.value && this.state.value.length > 0);
       let charcheck;
       if (this.props.validation instanceof RegExp) {
         charcheck = (new RegExp(this.props.validation)).test(this.state.value);
@@ -52,7 +52,7 @@ const InputMixin = {
     }
     , function () {
       const valid = ValidationStore.getValidation(this.props.value_key);
-      if (valid && this.props.required && (!(props.value !== null) || props.value.length === 0)) {
+      if (valid && this.props.required && (!props.value || props.value === null || props.value.length === 0)) {
         return ValidationActions.initialize(this.props.value_key, I18n.t('application.field_required'));
       }
     });
