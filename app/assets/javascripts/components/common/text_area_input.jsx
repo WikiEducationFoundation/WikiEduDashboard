@@ -1,6 +1,6 @@
 import React from 'react';
 const md = require('../../utils/markdown_it.js').default();
-import InputMixin from '../../mixins/input_mixin.cjsx';
+import InputMixin from '../../mixins/input_mixin.js';
 import TrixEditor from 'react-trix';
 
 // This is a flexible text input box. It switches between edit and read mode,

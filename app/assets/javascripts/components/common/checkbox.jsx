@@ -1,5 +1,5 @@
 import React from 'react';
-import InputMixin from '../../mixins/input_mixin.cjsx';
+import InputMixin from '../../mixins/input_mixin.js';
 
 const Checkbox = React.createClass({
   displayName: 'Checkbox',

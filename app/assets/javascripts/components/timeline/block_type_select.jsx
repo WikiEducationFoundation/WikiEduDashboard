@@ -1,6 +1,6 @@
 import React from 'react';
 import Conditional from '../high_order/conditional.jsx';
-import InputMixin from '../../mixins/input_mixin.cjsx';
+import InputMixin from '../../mixins/input_mixin.js';
 
 const BlockTypeSelect = React.createClass({
   displayName: 'BlockTypeSelect',
