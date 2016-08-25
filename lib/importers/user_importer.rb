@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "#{Rails.root}/lib/replica"
 require "#{Rails.root}/lib/wiki_api"
 
@@ -30,6 +31,7 @@ class UserImporter
   def self.new_from_username(username, wiki: nil)
     # All mediawiki usernames have the first letter capitalized, although
     # the API returns data if you replace it with lower case.
+    username = String.new(username)
     username[0] = username[0].mb_chars.capitalize.to_s
     user = User.find_by(username: username)
     return user if user
