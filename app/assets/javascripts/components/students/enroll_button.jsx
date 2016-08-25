@@ -41,7 +41,7 @@ const EnrollButton = React.createClass({
     e.preventDefault();
     const username = this.refs.username.value;
     const userObject = { username, role: this.props.role };
-    if (UserStore.getFiltered({ username, role: this.props.role }).length === 0 && confirm(I18n.t('users.enroll_confirmation', username))) {
+    if (UserStore.getFiltered({ username, role: this.props.role }).length === 0 && confirm(I18n.t('users.enroll_confirmation', { username }))) {
       return ServerActions.add('user', this.props.course_id, { user: userObject });
     }
     return alert(I18n.t('users.already_enrolled'));
