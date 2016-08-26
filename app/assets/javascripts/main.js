@@ -10,7 +10,7 @@ $(() => {
   const $main = $('#main');
   setUserId($main.data('user-id'));
 
-  require('./utils/course.coffee');
+  require('./utils/course.js');
   require('./utils/router.jsx');
   require('events').EventEmitter.defaultMaxListeners = 30;
   require('./utils/language_switcher.js');
