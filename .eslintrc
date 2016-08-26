@@ -28,6 +28,7 @@
     "I18n": true,
     "_": true,
     "moment": true,
-    "Raven": true
+    "Raven": true,
+    "Features": true
   }
 }
