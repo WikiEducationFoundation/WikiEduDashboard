@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require './lib/wiki_api'
 #= Class for generating wikitext for updating assignment details on talk pages
 class WikiAssignmentOutput
@@ -22,7 +23,7 @@ class WikiAssignmentOutput
   # Main routine #
   ################
   def build_talk_page_update
-    initial_page_content = WikiApi.new(@wiki).get_page_content @talk_title
+    initial_page_content = WikiApi.new(@wiki).get_page_content(@talk_title)
     initial_page_content ||= ''
 
     # Do not post templates to disambugation pages
@@ -69,8 +70,9 @@ class WikiAssignmentOutput
   # for that course. We also want to make as minimal a change as possible, and
   # to make sure that we're not disrupting the format of existing content.
   def build_assignment_page_content(new_tag, page_content)
+    page_content = page_content.dup
     # Return if tag already exists on page.
-    # However, if the tag is empty, that means to blank the prior tag (if any).
+    # However, if the tag is empty, that means to blank the prior tag (if any).z
     unless new_tag.blank?
       return nil if page_content.force_encoding('utf-8').include? new_tag
     end

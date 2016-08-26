@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 require "#{Rails.root}/lib/wiki_edits"
 require "#{Rails.root}/lib/wiki_assignment_output"

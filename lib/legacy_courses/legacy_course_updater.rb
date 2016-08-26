@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "#{Rails.root}/lib/legacy_courses/legacy_course_importer"
 require "#{Rails.root}/lib/legacy_courses/legacy_course_user_importer"
 

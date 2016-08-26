@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class LegacyCourseUserImporter
   def self.add_users(data, role, course)
     data.map do |user_data|
@@ -19,7 +20,7 @@ class LegacyCourseUserImporter
 
   # If a user has (Wiki Ed) in their name, assign them to the staff role
   def self.get_wiki_ed_role(user_data, role)
-    (user_data['username'].include? '(Wiki Ed)') ? 4 : role
+    user_data['username'].include?('(Wiki Ed)') ? 4 : role
   end
 
   ROLE_INDEX = %w(student instructor online_volunteer
