@@ -9,7 +9,7 @@ import Wizard from '../components/wizard/wizard.jsx';
 import Dates from '../components/timeline/meetings.cjsx';
 import CourseCreator from '../components/course_creator/course_creator.jsx';
 
-import OverviewHandler from '../components/overview/overview_handler.cjsx';
+import OverviewHandler from '../components/overview/overview_handler.jsx';
 import TimelineHandler from '../components/timeline/timeline_handler.cjsx';
 import RevisionsHandler from '../components/revisions/revisions_handler.jsx';
 import StudentsHandler from '../components/students/students_handler.cjsx';
