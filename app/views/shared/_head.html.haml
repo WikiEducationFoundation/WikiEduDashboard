@@ -33,7 +33,7 @@
 
 - unless ENV['DISABLE_SENTRY']
   // Sentry logging
-  %script{src: "https://cdn.ravenjs.com/3.5.1/raven.min.js"}
+  %script{src: "/raven.min.js"}
   %script
     Raven.config("#{ENV['sentry_public_dsn']}").install();
     Raven.setExtraContext(currentUser);
