@@ -95,7 +95,7 @@ const Survey = {
   },
 
   surveyStarted() {
-    Raven.captureMessage('Survey started');
+    Raven.captureMessage('Survey started', { level: 'info' });
   },
 
   indexQuestionGroups() {
@@ -221,7 +221,7 @@ const Survey = {
 
   submitAllQuestionGroups() {
     try {
-      Raven.captureMessage('Survey submitted');
+      Raven.captureMessage('Survey submitted', { level: 'info' });
     } catch (e) {
       // nothing
     }
