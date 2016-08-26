@@ -14,6 +14,10 @@ AllCops:
     - 'app/views/**/**/*.haml'
   TargetRubyVersion: 2.3
 
+Style/NumericPredicate:
+  Exclude:
+    - 'spec/**/*' # RSpec comparison matchers don't have predicate versions
+
 Metrics/LineLength:
   Max: 100
 
