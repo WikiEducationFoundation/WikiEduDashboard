@@ -19,4 +19,19 @@ describe Errors::RescueDevelopmentErrors, type: :controller do
       expect(response.body).to match(/gulp/)
     end
   end
+
+  describe 'when CoursesPresenter::NoCohortError is raised' do
+    controller(ApplicationController) do
+      include Errors::RescueDevelopmentErrors
+
+      def index
+        raise CoursesPresenter::NoCohortError
+      end
+    end
+
+    it 'renders an explanation with helpful advice' do
+      get :index
+      expect(response.body).to match(/default cohort/)
+    end
+  end
 end

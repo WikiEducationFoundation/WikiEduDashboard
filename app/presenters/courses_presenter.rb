@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "#{Rails.root}/lib/word_count"
 
 #= Presenter for courses / cohort view
@@ -21,6 +22,7 @@ class CoursesPresenter
   end
 
   def courses
+    raise NoCohortError unless cohort
     cohort.courses
   end
 
@@ -54,6 +56,8 @@ class CoursesPresenter
     @upload_usage_count ||= courses.sum(:upload_usages_count)
     @upload_usage_count
   end
+
+  class NoCohortError < StandardError; end
 end
 
 #= Pseudo-Cohort that displays all unsubmitted, non-deleted courses
