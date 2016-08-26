@@ -14,6 +14,7 @@ gulp.task('webpack', ['bower'], (cb) => {
 
   const entries = {
     main: [`${jsSource}/main.js`],
+    raven: [`${jsSource}/raven.js`],
     styleguide: [`${jsSource}/styleguide/styleguide.jsx`],
     survey: [`${jsSource}/surveys/survey.js`],
     survey_admin: [`${jsSource}/surveys/survey-admin.coffee`],

@@ -87,6 +87,7 @@
     "nouislider": "^8.3.0",
     "parsleyjs": "^2.4.4",
     "rangeslider.js": "^2.2.1",
+    "raven-js": "^3.5.1",
     "react": "0.14.8",
     "react-addons-css-transition-group": "^0.14.8",
     "react-addons-test-utils": "^0.14.8",

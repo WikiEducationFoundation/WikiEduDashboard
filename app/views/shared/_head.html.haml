@@ -29,14 +29,15 @@
   WikiProjects = #{Wiki::PROJECTS}
   WikiLanguages = #{Wiki::LANGUAGES}
 
-= javascript_include_tag '/assets/javascripts/vendor.js'
+  SentryDsn = "#{ENV['sentry_public_dsn']}"
 
 - unless ENV['DISABLE_SENTRY']
+  = hot_javascript_tag("raven")
   // Sentry logging
-  %script{src: "/raven.min.js"}
   %script
-    Raven.config("#{ENV['sentry_public_dsn']}").install();
+    Raven.config(SentryDsn).install();
     Raven.setExtraContext(currentUser);
 
+= javascript_include_tag '/assets/javascripts/vendor.js'
 = content_for :javascripts
 = csrf_meta_tags
