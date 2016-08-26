@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/WikiEducationFoundation/rapidfire
-  revision: 865b0a9cc29d780f491f394ab2132178821940bf
+  revision: 6e4dd79e06349cbdf145c5ce9a2c3079d1e05d4d
   branch: master
   specs:
     rapidfire (2.1.0)
@@ -77,7 +77,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
-    acts_as_list (0.7.6)
+    acts_as_list (0.7.7)
       activerecord (>= 3.0)
     addressable (2.4.0)
     airbrussh (1.1.0)
