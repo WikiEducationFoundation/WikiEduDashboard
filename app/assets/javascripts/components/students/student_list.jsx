@@ -18,6 +18,11 @@ const getState = () =>
   })
 ;
 
+// FIXME: Remove this save function
+const save = () => {
+  return null;
+};
+
 const StudentList = React.createClass({
   displayName: 'StudentList',
 
@@ -27,11 +32,6 @@ const StudentList = React.createClass({
     course: React.PropTypes.object,
     controls: React.PropTypes.func,
     editable: React.PropTypes.bool
-  },
-
-  save() {
-    // FIXME: Remove this save function
-    return null;
   },
 
   notify() {
@@ -127,4 +127,4 @@ const StudentList = React.createClass({
 }
 );
 
-export default Editable(StudentList, [UserStore, AssignmentStore], ServerActions.saveStudents, getState, I18n.t('users.assign_articles'), I18n.t('users.assign_articles_done'), true);
+export default Editable(StudentList, [UserStore, AssignmentStore], save, getState, I18n.t('users.assign_articles'), I18n.t('users.assign_articles_done'), true);
