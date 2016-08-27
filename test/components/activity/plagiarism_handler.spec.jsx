@@ -42,7 +42,7 @@ describe('PlagiarismHandler', () => {
       .get('/revision_analytics/suspected_plagiarism.json?scoped=false')
       .reply(200, {
         revisions: [{
-          key: '2',
+          key: 2,
           article_url: 'articleUrl2',
           diff_url: 'diffUrl2',
           report_url: 'reportUrl2',

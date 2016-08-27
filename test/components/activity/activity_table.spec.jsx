@@ -8,7 +8,7 @@ import { click } from '../../customUtils.js';
 
 describe('ActivtyTable', () => {
   const activities = [{
-    key: '2',
+    key: 2,
     article_url: 'articleUrl2',
     diff_url: 'diffUrl2',
     report_url: 'reportUrl2',
@@ -20,7 +20,7 @@ describe('ActivtyTable', () => {
       title: 'courseTitle2'
     }]
   }, {
-    key: '1',
+    key: 1,
     article_url: 'articleUrl',
     diff_url: 'diffUrl',
     report_url: 'reportUrl',

@@ -3,6 +3,7 @@ import UIStore from '../../stores/ui_store.coffee';
 import UIActions from '../../actions/ui_actions.js';
 
 const ActivityTableRow = React.createClass({
+  displayName: 'ActivityTableRow',
 
   propTypes: {
     key: React.PropTypes.string,
