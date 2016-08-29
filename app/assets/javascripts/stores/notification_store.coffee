@@ -39,6 +39,10 @@ NotificationStore = Flux.createStore
       break
     when 'API_FAIL'
       data = payload.data
+      # readyState 0 usually indicates that the user navigated away before ajax
+      # requests resolved. This is a benign error that should not cause a notification.
+      if data.readyState == 0
+        return
       notification = {}
       notification.closable = true
       notification.type = "error"

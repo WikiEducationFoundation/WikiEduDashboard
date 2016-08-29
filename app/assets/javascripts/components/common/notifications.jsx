@@ -3,6 +3,8 @@ import NotificationStore from '../../stores/notification_store.coffee';
 import NotificationActions from '../../actions/notification_actions.js';
 
 const Notifications = React.createClass({
+  displayName: 'Notifications',
+
   mixins: [NotificationStore.mixin],
 
   getInitialState() {

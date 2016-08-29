@@ -1,7 +1,12 @@
 { capitalize } = require './strings'
 
-getErrorMessage = (obj) ->
-  obj.responseJSON?.message || obj.statusText
+logErrorMessage = (obj) ->
+  # readyState 0 usually indicates that the user navigated away before ajax
+  # requests resolved.
+  return if obj.readyState == 0
+  message = 'Error: '
+  message += obj.responseJSON?.message || obj.statusText
+  console.log message
 
 RavenLogger = {}
 
@@ -18,7 +23,7 @@ API =
           console.log "Received '#{model}' lookups"
           res data
       .fail (obj, status) ->
-        console.error 'Error: ' + getErrorMessage(obj)
+        logErrorMessage(obj)
         rej obj
 
   fetchWizardIndex: ->
@@ -30,7 +35,7 @@ API =
           console.log 'Received wizard index'
           res data
       .fail (obj, status) ->
-        console.error 'Error: ' + getErrorMessage(obj)
+        logErrorMessage(obj)
         rej obj
 
   fetchRevisions: (studentId, courseId) ->
@@ -43,7 +48,7 @@ API =
           console.log 'Received revisions'
           res data
       .fail (obj, status) ->
-        console.error 'Error: ' + getErrorMessage(obj)
+        logErrorMessage(obj)
         rej obj
 
   fetchDykArticles: (opts={}) ->
@@ -55,7 +60,7 @@ API =
           console.log 'Received DYK'
           res data
       .fail (obj, status) ->
-        console.error 'Error: ' + getErrorMessage(obj)
+        logErrorMessage(obj)
         rej obj
 
   fetchSuspectedPlagiarism: (opts={}) ->
@@ -67,7 +72,7 @@ API =
           console.log 'Received suspected plagiarism'
           res data
       .fail (obj, status) ->
-        console.error 'Error: ' + getErrorMessage(obj)
+        logErrorMessage(obj)
         rej obj
 
   fetchRecentEdits: (opts={}) ->
@@ -79,7 +84,7 @@ API =
           console.log 'Received recent edits'
           res data
       .fail (obj, status) ->
-        console.error 'Error: ' + getErrorMessage(obj)
+        logErrorMessage(obj)
         rej obj
 
   fetchRecentUploads: (opts={}) ->
@@ -91,7 +96,7 @@ API =
           console.log 'Received recent uploads'
           res data
       .fail (obj, status) ->
-        console.error 'Error: ' + getErrorMessage(obj)
+        logErrorMessage(obj)
         rej obj
 
   cloneCourse: (id) ->
@@ -103,7 +108,7 @@ API =
           console.log 'Received course clone'
           res data
       .fail (obj, status) ->
-        console.error 'Error: ' + getErrorMessage(obj)
+        logErrorMessage(obj)
         rej obj
 
   fetchCohorts: ->
@@ -115,7 +120,7 @@ API =
           console.log 'Received cohorts'
           res data
       .fail (obj, status) ->
-        console.error 'Error: ' + getErrorMessage(obj)
+        logErrorMessage(obj)
         rej obj
 
   fetchWizardPanels: (wizard_id) ->
@@ -127,7 +132,7 @@ API =
           console.log 'Received wizard configuration'
           res data
       .fail (obj, status) ->
-        console.error 'Error: ' + getErrorMessage(obj)
+        logErrorMessage(obj)
         rej obj
 
   fetchUserCourses: (userId) ->
@@ -139,7 +144,7 @@ API =
           console.log 'Received user courses'
           res data
       .fail (obj, status) ->
-        console.error 'Error: ' + getErrorMessage(obj)
+        logErrorMessage(obj)
         rej obj
 
   deleteAssignment: (assignment) ->
@@ -152,7 +157,7 @@ API =
           console.log 'Deleted assignment'
           res data
       .fail (obj, status) ->
-        console.error 'Error: ' + getErrorMessage(obj)
+        logErrorMessage(obj)
         rej obj
 
   createAssignment: (opts) ->
@@ -165,7 +170,7 @@ API =
           console.log 'Created assignment'
           res data
       .fail (obj, status) ->
-        console.error 'Error: ' + getErrorMessage(obj)
+        logErrorMessage(obj)
         rej obj
 
   updateAssignment: (opts) ->
@@ -178,7 +183,7 @@ API =
           console.log 'Updated assignment'
           res data
       .fail (obj, status) ->
-        console.error 'Error: ' + getErrorMessage(obj)
+        logErrorMessage(obj)
         rej obj
 
 
@@ -191,7 +196,7 @@ API =
           console.log 'Received ' + endpoint
           res data
       .fail (obj, status) ->
-        console.error 'Error: ' + getErrorMessage(obj)
+        logErrorMessage(obj)
         rej obj
 
   fetchAllTrainingModules: (opts) ->
@@ -203,7 +208,7 @@ API =
           console.log 'Received training modules'
           res data
       .fail (obj, status) ->
-        console.error 'Error: ' + getErrorMessage(obj)
+        logErrorMessage(obj)
         rej obj
 
   fetchTrainingModule: (opts) ->
@@ -215,7 +220,7 @@ API =
           console.log 'Received training module'
           res data
       .fail (obj, status) ->
-        console.error 'Error: ' + getErrorMessage(obj)
+        logErrorMessage(obj)
         rej obj
 
   setSlideCompleted: (opts) ->
@@ -230,7 +235,7 @@ API =
           console.log 'Slide completed'
           res data
       .fail (obj, status) ->
-        console.error 'Error: ' + getErrorMessage(obj)
+        logErrorMessage(obj)
         rej obj
 
   ###########
@@ -421,7 +426,7 @@ API =
         success: (data) ->
           res data
       .fail (obj, status) ->
-        console.error 'Error: ' + getErrorMessage(obj)
+        logErrorMessage(obj)
         rej obj
 
   dismissNotification: (id) ->
@@ -434,7 +439,7 @@ API =
         success: (data) ->
           res data
       .fail (obj, status) ->
-        console.error 'Error: ' + getErrorMessage(obj)
+        logErrorMessage(obj)
         rej obj
 
   uploadSyllabus: ({ courseId, file }) ->
@@ -451,7 +456,7 @@ API =
         success: (data) ->
           res data
       .fail (obj, status) ->
-        console.error 'Error: ' + getErrorMessage(obj)
+        logErrorMessage(obj)
         rej obj
 
   createNeedHelpAlert: (opts) ->
@@ -463,7 +468,7 @@ API =
         success: (data) ->
           res data
       .fail (obj, status) ->
-        console.error 'Error: ' + getErrorMessage(obj)
+        logErrorMessage(obj)
         rej obj
 
 module.exports = API

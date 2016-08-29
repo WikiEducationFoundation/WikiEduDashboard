@@ -1,6 +1,8 @@
 import React from 'react';
 
 const Affix = React.createClass({
+  displayName: 'Affix',
+
   propTypes: {
     offset: React.PropTypes.number,
     className: React.PropTypes.string,
