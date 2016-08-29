@@ -5,6 +5,7 @@ import ServerActions from '../../actions/server_actions.js';
 import UserStore from '../../stores/user_store.js';
 import Conditional from '../high_order/conditional.jsx';
 import CourseUtils from '../../utils/course_utils.js';
+import NotificationActions from '../../actions/notification_actions.js';
 
 const EnrollButton = React.createClass({
   displayName: 'EnrollButton',
@@ -31,8 +32,11 @@ const EnrollButton = React.createClass({
     if (!this.refs.username) { return; }
     const username = this.refs.username.value;
     if (UserStore.getFiltered({ username, role: this.props.role }).length > 0) {
-      // DEPRECATED: "Invoking 'alert()' during microtask execution is deprecated and will be removed in M53, around September 2016. See https://www.chromestatus.com/features/5647113010544640 for more details."
-      alert(I18n.t('users.enrolled_success', username));
+      NotificationActions.addNotification({
+        message: I18n.t('users.enrolled_success', { username }),
+        closable: true,
+        type: 'success'
+      });
       return this.refs.username.value = '';
     }
   },

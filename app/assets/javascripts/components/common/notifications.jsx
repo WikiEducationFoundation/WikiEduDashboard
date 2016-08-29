@@ -19,10 +19,18 @@ const Notifications = React.createClass({
 
   _renderNotification(notification, i) {
     let message;
+    let className = 'notice';
     if (notification.type === 'error') {
       message = (
         <p>
           <strong>{I18n.t('application.error')}</strong> {notification.message}
+        </p>
+      );
+    } else if (notification.type === 'success') {
+      className = 'notification';
+      message = (
+        <p>
+          {notification.message}
         </p>
       );
     } else {
@@ -37,7 +45,7 @@ const Notifications = React.createClass({
     }
 
     return (
-      <div key={i} className="notice">
+      <div key={i} className={className}>
         <div className="container">
           {message}
           {closeIcon}
