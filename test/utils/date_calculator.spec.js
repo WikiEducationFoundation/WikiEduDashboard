@@ -1,5 +1,5 @@
 import '../testHelper';
-import DateCalculator from '../../app/assets/javascripts/utils/date_calculator.coffee';
+import DateCalculator from '../../app/assets/javascripts/utils/date_calculator.js';
 
 describe('DateCalculator', () => {
   describe('start', () => {

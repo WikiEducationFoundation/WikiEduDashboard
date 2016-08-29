@@ -11,7 +11,7 @@ EmptyWeek        = require('./empty_week.jsx').default
 ReactCSSTG       = require 'react-addons-css-transition-group'
 {Motion, spring} = require 'react-motion'
 
-DateCalculator  = require '../../utils/date_calculator.coffee'
+DateCalculator  = require('../../utils/date_calculator.js').default
 
 Week = React.createClass(
   displayName: 'Week'

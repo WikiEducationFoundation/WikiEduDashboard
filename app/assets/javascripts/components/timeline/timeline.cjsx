@@ -15,7 +15,7 @@ BlockActions    = require('../../actions/block_actions.js').default
 BlockStore      = require '../../stores/block_store.coffee'
 WeekStore       = require '../../stores/week_store.coffee'
 
-DateCalculator  = require '../../utils/date_calculator.coffee'
+DateCalculator  = require('../../utils/date_calculator.js').default
 CourseUtils     = require('../../utils/course_utils.js').default
 
 Timeline = React.createClass(
