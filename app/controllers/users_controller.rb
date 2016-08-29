@@ -52,7 +52,7 @@ class UsersController < ApplicationController
     set_course_and_user
     ensure_user_exists { return }
     @result = JoinCourse.new(course: @course,
-                             user: current_user,
+                             user: @user,
                              role: enroll_params[:role]).result
     ensure_enrollment_success { return }
 
