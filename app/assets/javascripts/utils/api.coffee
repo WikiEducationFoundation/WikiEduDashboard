@@ -1,10 +1,10 @@
 { capitalize } = require './strings'
 
-logErrorMessage = (obj) ->
+logErrorMessage = (obj, prefix) ->
   # readyState 0 usually indicates that the user navigated away before ajax
   # requests resolved.
   return if obj.readyState == 0
-  message = 'Error: '
+  message = prefix || 'Error: '
   message += obj.responseJSON?.message || obj.statusText
   console.log message
 
@@ -383,7 +383,7 @@ API =
           alert 'Students with overdue trainings notified!'
           res data
       .fail (obj, status) ->
-        console.error 'Couldn\'t notify students! ' + getErrorMessage(obj)
+        logErrorMessage(obj, 'Couldn\'t notify students! ')
         rej obj
 
   submitWizard: (course_id, wizard_id, data) ->
@@ -398,7 +398,7 @@ API =
           console.log 'Submitted the wizard answers!'
           res data
       .fail (obj, status) ->
-        console.error 'Couldn\'t submit wizard answers! ' + getErrorMessage(obj)
+        getErrorMessage(obj, 'Couldn\'t submit wizard answers! ')
         rej obj
 
   modify: (model, course_id, data, add) ->
@@ -413,7 +413,7 @@ API =
           console.log (capitalize(verb) + ' ' + model)
           res data
       .fail (obj, status) ->
-        console.error "#{capitalize(model)} not #{verb}: #{getErrorMessage(obj)}"
+        logErrorMessage(obj, "#{capitalize(model)} not #{verb}: ")
         rej obj
 
   onboard: (data) ->
