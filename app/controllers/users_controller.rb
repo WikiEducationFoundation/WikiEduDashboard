@@ -1,4 +1,6 @@
+# frozen_string_literal: true
 require "#{Rails.root}/lib/wiki_course_edits"
+require "#{Rails.root}/lib/importers/user_importer"
 
 #= Controller for user functionality
 class UsersController < ApplicationController
@@ -15,27 +17,6 @@ class UsersController < ApplicationController
       current_user.update_attributes(wiki_token: nil, wiki_secret: nil)
       redirect_to true_destroy_user_session_path
     end
-  end
-
-  # Onboarding sets the user's real name, email address, and optionally instructor permissions
-  def onboard
-    [:real_name, :email, :instructor].each_with_object(params) do |key, obj|
-      obj.require(key)
-    end
-
-    user = User.find(current_user.id)
-
-    permissions = user.permissions
-    if params[:instructor] == true
-      permissions = User::Permissions::INSTRUCTOR unless permissions == User::Permissions::ADMIN
-    end
-
-    user.update_attributes(real_name: params[:real_name],
-                           email: params[:email],
-                           permissions: permissions,
-                           onboarded: true)
-
-    render nothing: true, status: 204
   end
 
   def update_locale
@@ -64,72 +45,83 @@ class UsersController < ApplicationController
 
   private
 
+  #################
+  # Adding a user #
+  #################
   def add
-    fetch_enroll_records
-    if !@user.nil?
-      unless can_enroll?
-        render json: { message: 'Instructors and volunteers cannot enroll as students.' },
-               status: 404
-        return
-      end
+    set_course_and_user
+    ensure_user_exists { return }
+    @result = JoinCourse.new(course: @course,
+                             user: current_user,
+                             role: enroll_params[:role]).result
+    ensure_enrollment_success { return }
 
-      CoursesUsers.create(
-        user: @user,
-        course_id: @course.id,
-        role: enroll_params[:role]
-      )
-
-      WikiCourseEdits.new(action: :update_course, course: @course, current_user: current_user)
-      render 'users', formats: :json
-    else
-      username = enroll_params[:user_id] || enroll_params[:username]
-      render json: { message: I18n.t('courses.error.user_exists', username: username) },
-             status: 404
-    end
+    WikiCourseEdits.new(action: :update_course, course: @course, current_user: current_user)
+    render 'users', formats: :json
   end
 
+  def ensure_user_exists
+    return unless @user.nil?
+    username = enroll_params[:user_id] || enroll_params[:username]
+    render json: { message: I18n.t('courses.error.user_exists', username: username) },
+           status: 404
+    yield
+  end
+
+  def ensure_enrollment_success
+    return unless @result[:failure]
+    render json: { message: @result[:failure] },
+           status: 404
+    yield
+  end
+
+  ###################
+  # Removing a user #
+  ###################
   def remove
-    fetch_enroll_records
+    set_course_and_user
     return if @user.nil?
 
-    course_user = CoursesUsers.find_by(
-      user_id: @user.id,
-      course_id: @course.id,
-      role: enroll_params[:role]
-    )
-    return if course_user.nil? # This will happen if the user was already removed.
-    assignments = course_user.assignments
+    @course_user = CoursesUsers.find_by(user_id: @user.id,
+                                        course_id: @course.id,
+                                        role: enroll_params[:role])
+    return if @course_user.nil? # This will happen if the user was already removed.
+
+    remove_assignment_templates
+    @course_user.destroy # destroying the course_user also destroys associated Assignments.
+
+    render 'users', formats: :json
+    WikiCourseEdits.new(action: :update_course, course: @course, current_user: current_user)
+  end
+
+  # If the user has Assignments, update article talk pages to remove them from
+  # the assignment templates.
+  def remove_assignment_templates
+    assignments = @course_user.assignments
     assignments.each do |assignment|
       WikiCourseEdits.new(action: :remove_assignment,
                           course: @course,
                           current_user: current_user,
                           assignment: assignment)
     end
-
-    course_user.destroy # destroying the course_user also destroys associated Assignments.
-    render 'users', formats: :json
-    WikiCourseEdits.new(action: :update_course, course: @course, current_user: current_user)
   end
 
-  def fetch_enroll_records
-    require "#{Rails.root}/lib/importers/user_importer"
-
+  ##################
+  # Finding a user #
+  ##################
+  def set_course_and_user
     @course = Course.find_by_slug(params[:id])
     if enroll_params.key? :user_id
       @user = User.find(enroll_params[:user_id])
     elsif enroll_params.key? :username
-      username = enroll_params[:username]
-      @user = User.find_by(username: username)
-      @user = UserImporter.new_from_username(username) if @user.nil?
+      find_or_import_user_by_username
     end
   end
 
-  def can_enroll?
-    return true unless enroll_params[:role].to_i == CoursesUsers::Roles::STUDENT_ROLE
-    return true if @user.admin?
-    # Instructors and others with non-student roles may not enroll as students.
-    return false if @user.can_edit?(@course)
-    true
+  def find_or_import_user_by_username
+    username = enroll_params[:username]
+    @user = User.find_by(username: username)
+    @user = UserImporter.new_from_username(username) if @user.nil?
   end
 
   def enroll_params

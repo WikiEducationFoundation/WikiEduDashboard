@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 describe SelfEnrollmentController do
@@ -18,12 +19,14 @@ describe SelfEnrollmentController do
 
     context 'GET' do
       context 'when the user is not enrolled yet' do
-        it 'enrolls user (and redirects)' do
+        it 'enrolls user (and redirects) and updates the user count' do
+          expect(course.user_count).to eq(0)
           expect_any_instance_of(WikiCourseEdits).to receive(:enroll_in_course)
           expect_any_instance_of(WikiPreferencesManager).to receive(:enable_visual_editor)
           get 'enroll_self', request_params
           expect(subject).to eq(302)
           expect(course.students.count).to eq(1)
+          expect(course.reload.user_count).to eq(1)
         end
       end
 
@@ -69,7 +72,7 @@ describe SelfEnrollmentController do
       end
 
       it 'should redirect to mediawiki for OAuth' do
-        expect(get 'enroll_self', request_params).to redirect_to(/.*mediawiki.*/)
+        expect(get('enroll_self', request_params)).to redirect_to(/.*mediawiki.*/)
       end
     end
   end

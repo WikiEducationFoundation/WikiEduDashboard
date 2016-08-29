@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+#= Service for updating the counts that are cached on Course objects
 class CourseCacheManager
   def initialize(course)
     @course = course
@@ -17,6 +20,10 @@ class CourseCacheManager
     @course.save
   end
 
+  def update_user_count
+    @course.user_count = @course.students_without_nonstudents.size
+  end
+
   private
 
   ##################
@@ -32,10 +39,6 @@ class CourseCacheManager
 
   def update_view_sum
     @course.view_sum = @course.articles_courses.live.sum(:view_count)
-  end
-
-  def update_user_count
-    @course.user_count = @course.students_without_nonstudents.size
   end
 
   def update_trained_count

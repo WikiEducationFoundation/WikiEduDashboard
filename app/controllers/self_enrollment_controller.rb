@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "#{Rails.root}/lib/wiki_edits"
 require "#{Rails.root}/lib/wiki_preferences_manager"
 
@@ -16,13 +17,14 @@ class SelfEnrollmentController < ApplicationController
     # Redirect to sign in (with callback leading back to this method)
     redirect_if_user_logged_out { return }
 
-    # Make sure the user isn't already enrolled.
-    redirect_if_user_is_already_enrolled { return }
-
     redirect_if_passcode_invalid { return }
 
     # Creates the CoursesUsers record
     add_student_to_course
+
+    # Make sure the user isn't already enrolled.
+    redirect_if_enrollment_failed { return }
+
     # Set email and VE preferences
     set_mediawiki_preferences if Features.wiki_ed?
     # Automatic edits for newly enrolled user
@@ -63,18 +65,10 @@ class SelfEnrollmentController < ApplicationController
     yield
   end
 
-  def redirect_if_user_is_already_enrolled
-    return unless user_already_enrolled?
-    redirect_to course_slug_path(@course.slug, enrolled: true)
+  def redirect_if_enrollment_failed
+    return unless @result[:failure]
+    redirect_to course_slug_path(@course.slug, enrolled: false)
     yield
-  end
-
-  # A user with any CoursesUsers record for the course is considered to be
-  # enrolled already, even if they are not enrolled in the STUDENT role.
-  # Instructors should not be enrolled as students.
-  def user_already_enrolled?
-    CoursesUsers.exists?(user_id: current_user.id,
-                         course_id: @course.id)
   end
 
   def redirect_if_passcode_invalid
@@ -88,11 +82,9 @@ class SelfEnrollmentController < ApplicationController
   end
 
   def add_student_to_course
-    CoursesUsers.create(
-      user_id: current_user.id,
-      course_id: @course.id,
-      role: CoursesUsers::Roles::STUDENT_ROLE
-    )
+    @result = JoinCourse.new(course: @course,
+                             user: current_user,
+                             role: CoursesUsers::Roles::STUDENT_ROLE).result
   end
 
   def set_mediawiki_preferences
