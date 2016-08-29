@@ -12,22 +12,32 @@ class OnboardingController < ApplicationController
 
   # Onboarding sets the user's real name, email address, and optionally instructor permissions
   def onboard
+    validate_params
+    @user = current_user
+    set_new_permissions
+    @user.update_attributes(real_name: params[:real_name],
+                            email: params[:email],
+                            permissions: @permissions,
+                            onboarded: true)
+
+    render nothing: true, status: 204
+  end
+
+  private
+
+  def set_new_permissions
+    @permissions = @user.permissions
+    # No instructor permission is the default.
+    return unless params[:instructor] == true
+    # Do not downgrade admins' permissions.
+    return if @permissions == User::Permissions::ADMIN
+
+    @permissions = User::Permissions::INSTRUCTOR
+  end
+
+  def validate_params
     [:real_name, :email, :instructor].each_with_object(params) do |key, obj|
       obj.require(key)
     end
-
-    user = User.find(current_user.id)
-
-    permissions = user.permissions
-    if params[:instructor] == true
-      permissions = User::Permissions::INSTRUCTOR unless permissions == User::Permissions::ADMIN
-    end
-
-    user.update_attributes(real_name: params[:real_name],
-                           email: params[:email],
-                           permissions: permissions,
-                           onboarded: true)
-
-    render nothing: true, status: 204
   end
 end
