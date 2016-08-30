@@ -20,6 +20,9 @@ const Gradeable = React.createClass({
 
   render() {
     const { block } = this.props;
+    if (!block) {
+      return <div></div>;
+    }
     let title = block.title;
 
     let className = 'block-title';

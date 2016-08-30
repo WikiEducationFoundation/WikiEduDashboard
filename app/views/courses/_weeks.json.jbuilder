@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 course_meetings_manager = CourseMeetingsManager.new(course)
 
 json.weeks course.weeks.eager_load(blocks: [:gradeable]) do |week|
@@ -16,7 +17,7 @@ json.weeks course.weeks.eager_load(blocks: [:gradeable]) do |week|
               :gradeable_id, :title, :order, :due_date,
               :training_module_ids)
     unless block.gradeable.nil?
-      json.gradeable block.gradeable, :id, :title, :points,
+      json.gradeable block.gradeable, :id, :points,
                      :gradeable_item_type, :gradeable_item_id
     end
     if block.training_modules.any?
