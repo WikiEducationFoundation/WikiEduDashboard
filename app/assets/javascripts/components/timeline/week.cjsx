@@ -42,6 +42,13 @@ Week = React.createClass(
     elBottom = bottom + scrollTop - 50
     window.scrollTo(0, elBottom)
   render: ->
+    dateCalc = new DateCalculator(@props.timeline_start, @props.timeline_end, @props.index, zeroIndexed: false)
+    week_dates = (
+      <span className='week__week-dates pull-right'>
+        {dateCalc.start()} - {dateCalc.end()} {@props.meetings if @props.meetings}
+      </span>
+    )
+
     blocks = @props.blocks.map (block, i) =>
       unless block.deleted
         if @props.reorderable
@@ -84,7 +91,7 @@ Week = React.createClass(
             deleteBlock={@deleteBlock.bind(this, block.id)}
             moveBlock={@props.moveBlock}
             week_index={@props.index}
-            week_start={@props.start_date}
+            weekStart={dateCalc.startDate()}
             all_training_modules={@props.all_training_modules}
             editable_block_ids={@props.editable_block_ids}
             saveBlockChanges={@props.saveBlockChanges}
@@ -104,13 +111,6 @@ Week = React.createClass(
         {add_block}
         {delete_week}
       </div>
-    )
-
-    dateCalc = new DateCalculator(@props.timeline_start, @props.timeline_end, @props.index, zeroIndexed: false)
-    week_dates = (
-      <span className='week__week-dates pull-right'>
-        {dateCalc.start()} - {dateCalc.end()} {@props.meetings if @props.meetings}
-      </span>
     )
 
     week_content = if @props.meetings then (

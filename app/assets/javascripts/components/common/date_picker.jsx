@@ -137,7 +137,9 @@ const DatePicker = React.createClass({
 
       const date = moment(this.state.value, 'YYYY-MM-DD');
 
-      if (date.isValid()) {
+      if (this.props.date_props && this.props.date_props.minDate) {
+        currentMonth = this.props.date_props.minDate.toDate();
+      } else if (date.isValid()) {
         currentMonth = date.toDate();
       } else {
         currentMonth = new Date();
