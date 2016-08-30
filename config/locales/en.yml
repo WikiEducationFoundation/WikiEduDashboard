@@ -558,7 +558,9 @@ en:
     training_complete:
       one: "is up-to-date with training"
       other: "are up-to-date with training"
-    training_complete_count: "%{count} training up-to-date"
+    training_complete_count:
+      one: "%{count} training up-to-date"
+      other: "%{count} training up-to-date"
     training_doc: >
       Editors who have completed the all assigned training modules that
       have come due are counted as up-to-date with their training.
