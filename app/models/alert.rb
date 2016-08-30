@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: alerts
@@ -28,6 +30,7 @@ class Alert < ActiveRecord::Base
     ActiveCourseAlert
     ArticlesForDeletionAlert
     ContinuedCourseActivityAlert
+    DeletedUploadsAlert
     NeedHelpAlert
     NoEnrolledStudentsAlert
     ProductiveCourseAlert

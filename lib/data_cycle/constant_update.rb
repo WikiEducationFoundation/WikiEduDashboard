@@ -104,6 +104,8 @@ class ConstantUpdate
     course_alert_manager.create_productive_course_alerts
     log_message 'Generating active course alerts'
     course_alert_manager.create_active_course_alerts
+    log_message 'Generating deleted uploads alerts'
+    course_alert_manager.create_deleted_uploads_alerts
     log_message 'Generating continued course activity alerts'
     course_alert_manager.create_continued_course_activity_alerts
   end

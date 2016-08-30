@@ -114,4 +114,11 @@ describe CourseAlertManager do
       subject.create_active_course_alerts
     end
   end
+
+  describe '#create_deleted_uploads_alerts' do
+    it 'calls "create_alerts" on DeletedUploadsAlertManager' do
+      expect_any_instance_of(DeletedUploadsAlertManager).to receive(:create_alerts)
+      subject.create_deleted_uploads_alerts
+    end
+  end
 end

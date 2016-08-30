@@ -1,8 +1,10 @@
+# frozen_string_literal: true
 require "#{Rails.root}/lib/alerts/productive_course_alert_manager"
 require "#{Rails.root}/lib/alerts/active_course_alert_manager"
 require "#{Rails.root}/lib/alerts/no_students_alert_manager"
 require "#{Rails.root}/lib/alerts/untrained_students_alert_manager"
 require "#{Rails.root}/lib/alerts/continued_course_activity_alert_manager"
+require "#{Rails.root}/lib/alerts/deleted_uploads_alert_manager"
 
 class CourseAlertManager
   def initialize
@@ -23,6 +25,10 @@ class CourseAlertManager
 
   def create_active_course_alerts
     ActiveCourseAlertManager.new(@courses_to_check).create_alerts
+  end
+
+  def create_deleted_uploads_alerts
+    DeletedUploadsAlertManager.new(@courses_to_check).create_alerts
   end
 
   def create_continued_course_activity_alerts
