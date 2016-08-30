@@ -1,5 +1,5 @@
 React             = require 'react'
-Gradeable         = require './gradeable.cjsx'
+Gradeable         = require('./gradeable.jsx').default
 GradeableActions  = require('../../actions/gradeable_actions.js').default
 BlockStore        = require '../../stores/block_store.coffee'
 
