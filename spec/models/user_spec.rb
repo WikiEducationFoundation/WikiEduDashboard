@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -134,6 +136,57 @@ describe User do
         user = User.new(username: 'foo', email: 'me@foo')
         user.save
         expect(user.email).to be_nil
+      end
+    end
+  end
+
+  describe '#returning_instructor?' do
+    let(:user) { create(:user) }
+    let(:course) { create(:course) }
+    let(:subject) { user.returning_instructor? }
+    let(:add_user_as_instructor) do
+      create(:courses_user, user_id: user.id, course_id: course.id,
+                            role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+    end
+    let(:add_user_as_student) do
+      create(:courses_user, user_id: user.id, course_id: course.id,
+                            role: CoursesUsers::Roles::STUDENT_ROLE)
+    end
+    let(:approve_course) do
+      create(:cohorts_course, cohort_id: Cohort.first.id, course_id: course.id)
+    end
+
+    context 'when user has no courses' do
+      it 'returns false' do
+        expect(subject).to eq(false)
+      end
+    end
+
+    context 'when user has just created their first course' do
+      before do
+        add_user_as_instructor
+      end
+      it 'returns false' do
+        expect(subject).to eq(false)
+      end
+    end
+
+    context 'when user is a student in an approved course' do
+      before do
+        approve_course
+        add_user_as_student
+      end
+      it 'returns false' do
+        expect(subject).to eq(false)
+      end
+    end
+    context 'when user is an instructor in an approved course' do
+      before do
+        approve_course
+        add_user_as_instructor
+      end
+      it 'returns true' do
+        expect(subject).to eq(true)
       end
     end
   end

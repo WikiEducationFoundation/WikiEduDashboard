@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #= Adds and removes tags to/from courses
 class TagManager
   def initialize(course)

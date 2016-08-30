@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -91,11 +93,10 @@ class User < ActiveRecord::Base
     course.users.role('instructor').include? self
   end
 
+  # A user is a returning instructor if they have at least one approved course
+  # where they are an instructor.
   def returning_instructor?
-    # A user is a returning instructor if they have more than one course in the
-    # system. They become a returning instructor as soon as their second course
-    # is created, before they go through the assignment wizard.
-    courses_users.where(role: CoursesUsers::Roles::INSTRUCTOR_ROLE).count > 1
+    courses.any? { |course| instructor?(course) && !course.cohorts.empty? }
   end
 
   def student?(course)
