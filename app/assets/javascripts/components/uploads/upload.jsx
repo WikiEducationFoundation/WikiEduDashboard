@@ -29,11 +29,18 @@ const Upload = React.createClass({
       fileName = this.props.upload.file_name.substr(0, 60) + ellipsis;
     }
 
+    let imageFile;
+    if (this.props.upload.deleted) {
+      imageFile = '/assets/images/deleted_image.svg';
+    } else {
+      imageFile = this.props.upload.thumburl;
+    }
+
     return (
       <tr className="upload">
         <td>
           <a href={this.props.upload.url} target="_blank">
-            <img src={this.props.upload.thumburl} />
+            <img src={imageFile} />
           </a>
           {details}
         </td>
