@@ -198,8 +198,10 @@ const ServerActions = Flux.createActions({
   },
 
   deleteCourse(courseId) {
-    // This redirects, no need for an action to be broadcast
-    return API.deleteCourse(courseId);
+    // The action simply redirects to the home page, so this actionType doesn't
+    // have any listeners. But there are errors if the payload is not handled.
+    return API.deleteCourse(courseId)
+      .then(resp => ({ actionType: 'DELETED_COURSE', data: resp }));
   },
 
   manualUpdate(courseId) {
