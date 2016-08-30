@@ -102,9 +102,10 @@ const StudentList = React.createClass({
         sortable: true,
         info_key: 'users.revisions_doc'
       },
-      chars_added: {
+      character_sum_ms: {
         label: I18n.t('users.chars_added'),
         desktop_only: true,
+        sortable: true,
         info_key: 'users.character_doc'
       }
     };
