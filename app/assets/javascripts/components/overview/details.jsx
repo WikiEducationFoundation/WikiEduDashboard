@@ -56,6 +56,13 @@ const Details = React.createClass({
     return CourseActions.updateCourse(updatedCourse);
   },
 
+  updateSlugPart(valueKey, value) {
+    const updatedCourse = this.props.course;
+    updatedCourse[valueKey] = value;
+    updatedCourse.slug = CourseUtils.generateTempId(updatedCourse);
+    return CourseActions.updateCourse(updatedCourse);
+  },
+
   updateCourseDates(valueKey, value) {
     const updatedCourse = CourseDateUtils.updateCourseDates(this.props.course, valueKey, value);
     return CourseActions.updateCourse(updatedCourse);
@@ -70,13 +77,48 @@ const Details = React.createClass({
       staff = <InlineUsers {...this.props} users={this.props.staff} role={4} title="Wiki Ed Staff" />;
     }
     let school;
-    if (this.props.course.school) {
-      // FIXME: Convert lego to parameterized messages.
-      school = <p><strong>{CourseUtils.i18n('school', this.props.course.string_prefix)}:</strong> {this.props.course.school}</p>;
+    if (this.props.course.school || this.props.current_user.admin) {
+      school = (
+        <TextInput
+          onChange={this.updateSlugPart}
+          value={this.props.course.school}
+          value_key="school"
+          editable={this.props.editable && this.props.current_user.admin}
+          type="text"
+          label={CourseUtils.i18n('school', this.props.course.string_prefix)}
+          required={true}
+        />
+      );
     }
+
+    let title;
+    if (this.props.editable && this.props.current_user.admin) {
+      title = (
+        <TextInput
+          onChange={this.updateSlugPart}
+          value={this.props.course.title}
+          value_key="title"
+          editable={this.props.editable && this.props.current_user.admin}
+          type="text"
+          label={CourseUtils.i18n('title', this.props.course.string_prefix)}
+          required={true}
+        />
+      );
+    }
+
     let term;
-    if (this.props.course.term) {
-      term = <p><strong>{CourseUtils.i18n('term', this.props.course.string_prefix)}:</strong> {this.props.course.term}</p>;
+    if (this.props.course.term || this.props.current_user.admin) {
+      term = (
+        <TextInput
+          onChange={this.updateSlugPart}
+          value={this.props.course.term}
+          value_key="term"
+          editable={this.props.editable && this.props.current_user.admin}
+          type="text"
+          label={CourseUtils.i18n('term', this.props.course.string_prefix)}
+          required={true}
+        />
+      );
     }
 
     let passcode;
@@ -184,6 +226,7 @@ const Details = React.createClass({
           {campus}
           {staff}
           {school}
+          {title}
           {term}
           <form>
             {passcode}
