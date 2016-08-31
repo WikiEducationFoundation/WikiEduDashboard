@@ -22,7 +22,7 @@ describe 'SlideLink', ->
   beforeEach ->
     TestLink.setState(
       loading: false,
-      currentSlide: {content: 'hello'},
+      currentSlide: {content: 'hello', id: 1},
       slides: ['a'],
       enabledSlides: [],
       nextSlide: { slug: 'foobar' }

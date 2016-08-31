@@ -17,7 +17,7 @@ describe 'SlideMenu', ->
   beforeEach ->
     TestMenu.setState(
       loading: false,
-      currentSlide: {content: 'hello'},
+      currentSlide: {content: 'hello', id: 'kittens'},
       slides: [slide],
       enabledSlides: [slide],
       nextSlide: { slug: 'foobar' },
