@@ -42,6 +42,13 @@ module SurveysAnalyticsHelper
     response_summary_string(completed, notified)
   end
 
+  def assignment_dismissal(survey_assignment)
+    dismissed = survey_assignment.survey_notifications
+                                 .where(dismissed: true, completed: false).length
+    notified = survey_assignment.survey_notifications.length
+    response_summary_string(dismissed, notified)
+  end
+
   def survey_response(survey)
     completed = 0
     survey.survey_assignments.each do |sa|
@@ -54,9 +61,9 @@ module SurveysAnalyticsHelper
     response_summary_string(completed, notified)
   end
 
-  def response_summary_string(completed, notified)
+  def response_summary_string(action_taken, notified)
     percent = 0
-    percent = (completed.to_f / notified.to_f) * 100 if completed.positive?
-    "#{percent.round(2)}% (#{completed}/#{notified})"
+    percent = (action_taken.to_f / notified.to_f) * 100 if action_taken.positive?
+    "#{percent.round(2)}% (#{action_taken}/#{notified})"
   end
 end

@@ -30,8 +30,12 @@
     .survey__admin-row__col
 
       .survey__admin-row__col__detail
-        .contextual Responses
+        .contextual Responses submitted
         %span= assignment_response(survey_assignment)
+
+      .survey__admin-row__col__detail
+        .contextual Invitations dismissed
+        %span= assignment_dismissal(survey_assignment)
 
       .survey__admin-row__col__detail
         .contextual Number of Courses
