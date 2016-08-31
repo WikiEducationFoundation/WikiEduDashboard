@@ -168,26 +168,24 @@ CourseClonedModal = React.createClass(
             <DatePicker
               id='course_start'
               onChange={@updateCourseDates}
-              value={if @state.valuesUpdated then @props.course.start else null}
+              value={@props.course.start}
               value_key='start'
               required=true
               editable=true
               label={I18n.t('courses.creator.start_date')}
               placeholder={I18n.t('courses.creator.start_date_placeholder')}
-              blank=true
               validation={CourseDateUtils.isDateValid}
               isClearable=false
             />
             <DatePicker
               id='course_end'
               onChange={@updateCourseDates}
-              value={if @state.valuesUpdated then @props.course.end else null}
+              value={@props.course.end}
               value_key='end'
               required=true
               editable=true
               label={I18n.t('courses.creator.end_date')}
               placeholder={I18n.t('courses.creator.end_date_placeholder')}
-              blank=true
               date_props={dateProps.end}
               validation={CourseDateUtils.isDateValid}
               enabled={@props.course.start?}
@@ -197,7 +195,7 @@ CourseClonedModal = React.createClass(
             <DatePicker
               id='timeline_start'
               onChange={@updateCourseDates}
-              value={if @state.valuesUpdated then @props.course.timeline_start else null}
+              value={@props.course.timeline_start}
               value_key='timeline_start'
               required=true
               editable=true
@@ -205,20 +203,18 @@ CourseClonedModal = React.createClass(
               placeholder={I18n.t('courses.creator.assignment_start_placeholder')}
               date_props={dateProps.timeline_start}
               validation={CourseDateUtils.isDateValid}
-              blank=true
               isClearable=false
             />
 
             <DatePicker
               id='timeline_end'
               onChange={@updateCourseDates}
-              value={if @state.valuesUpdated then @props.course.timeline_end else null}
+              value={@props.course.timeline_end}
               value_key='timeline_end'
               required=true
               editable=true
               label={I18n.t('courses.creator.assignment_end')}
               placeholder={I18n.t('courses.creator.assignment_end_placeholder')}
-              blank=true
               date_props={dateProps.timeline_end}
               validation={CourseDateUtils.isDateValid}
               enabled={@props.course.start?}
