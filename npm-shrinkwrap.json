@@ -28,7 +28,8 @@
         },
         "lodash": {
           "version": "4.15.0",
-          "from": "lodash@>=4.12.0 <5.0.0"
+          "from": "lodash@>=4.12.0 <5.0.0",
+          "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.15.0.tgz"
         },
         "resolve": {
           "version": "1.1.7",
@@ -3999,11 +4000,13 @@
       "dependencies": {
         "glob": {
           "version": "7.0.5",
-          "from": "glob@>=7.0.3 <8.0.0"
+          "from": "glob@7.0.5",
+          "resolved": "https://registry.npmjs.org/glob/-/glob-7.0.5.tgz"
         },
         "minimatch": {
           "version": "3.0.3",
-          "from": "minimatch@>=3.0.2 <4.0.0"
+          "from": "minimatch@3.0.3",
+          "resolved": "https://registry.npmjs.org/minimatch/-/minimatch-3.0.3.tgz"
         }
       }
     },
@@ -4199,11 +4202,13 @@
         },
         "isarray": {
           "version": "1.0.0",
-          "from": "isarray@>=1.0.0 <1.1.0"
+          "from": "isarray@>=1.0.0 <1.1.0",
+          "resolved": "https://registry.npmjs.org/isarray/-/isarray-1.0.0.tgz"
         },
         "readable-stream": {
           "version": "2.1.5",
-          "from": "readable-stream@>=2.0.4 <3.0.0"
+          "from": "readable-stream@2.1.5",
+          "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-2.1.5.tgz"
         }
       }
     },
@@ -4214,11 +4219,13 @@
       "dependencies": {
         "isarray": {
           "version": "1.0.0",
-          "from": "isarray@>=1.0.0 <1.1.0"
+          "from": "isarray@>=1.0.0 <1.1.0",
+          "resolved": "https://registry.npmjs.org/isarray/-/isarray-1.0.0.tgz"
         },
         "readable-stream": {
           "version": "2.1.5",
-          "from": "readable-stream@>=2.0.2 <3.0.0"
+          "from": "readable-stream@>=2.0.2 <3.0.0",
+          "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-2.1.5.tgz"
         }
       }
     },
@@ -4623,8 +4630,8 @@
     },
     "i18n-js": {
       "version": "0.0.0",
-      "from": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc13.tar.gz",
-      "resolved": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc13.tar.gz"
+      "from": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc14.tar.gz",
+      "resolved": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc14.tar.gz"
     },
     "iconv-lite": {
       "version": "0.4.4",
@@ -7717,7 +7724,8 @@
       "dependencies": {
         "lodash": {
           "version": "4.15.0",
-          "from": "lodash@>=4.6.1 <5.0.0"
+          "from": "lodash@>=4.6.1 <5.0.0",
+          "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.15.0.tgz"
         }
       }
     },
@@ -7733,11 +7741,13 @@
         },
         "isarray": {
           "version": "1.0.0",
-          "from": "isarray@>=1.0.0 <1.1.0"
+          "from": "isarray@>=1.0.0 <1.1.0",
+          "resolved": "https://registry.npmjs.org/isarray/-/isarray-1.0.0.tgz"
         },
         "readable-stream": {
           "version": "2.1.5",
-          "from": "readable-stream@>=2.0.4 <3.0.0"
+          "from": "readable-stream@>=2.0.4 <3.0.0",
+          "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-2.1.5.tgz"
         }
       }
     },

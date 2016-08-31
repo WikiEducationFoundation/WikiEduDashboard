@@ -38,7 +38,7 @@ gem 'sentimental'
 gem 'pandoc-ruby', '~> 1.0.0'
 
 gem 'http_accept_language'
-gem 'i18n-js', '>= 3.0.0.rc13'
+gem 'i18n-js', '>= 3.0.0.rc14'
 
 gem 'mailgun_rails'
 
