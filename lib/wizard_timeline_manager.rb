@@ -54,7 +54,7 @@ class WizardTimelineManager
 
   def build_timeline(content_groups)
     available_weeks = CourseMeetingsManager.new(@course).open_weeks
-    return if available_weeks == 0
+    return if available_weeks.zero?
     @timeline = initial_weeks_and_weights(content_groups)
     shorten_timeline_by_one_week until @timeline.size <= available_weeks
   end

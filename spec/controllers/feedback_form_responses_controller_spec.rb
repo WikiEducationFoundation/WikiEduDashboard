@@ -1,7 +1,7 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 describe FeedbackFormResponsesController do
-
   describe '#new' do
     it 'renders new' do
       get :new
@@ -13,7 +13,7 @@ describe FeedbackFormResponsesController do
         context 'referrer in query params' do
           let(:referrer) { 'wikipedia.org' }
           it 'sets referrer from params' do
-            get :new, { referrer: referrer  }
+            get :new, referrer: referrer
             expect(assigns(:subject)).to eq(referrer)
           end
         end
@@ -93,12 +93,12 @@ describe FeedbackFormResponsesController do
   end
 
   describe '#create' do
-    let(:user)  { create(:user) }
+    let(:user) { create(:user) }
     before { allow(controller).to receive(:current_user).and_return(user) }
     context 'non-admin' do
       let(:body) { 'bananas' }
       it 'creates successfully' do
-        post :create, { feedback_form_response: { body: body } }
+        post :create, feedback_form_response: { body: body }
         expect(FeedbackFormResponse.last.body).to eq(body)
         expect(response.status).to eq(302)
       end

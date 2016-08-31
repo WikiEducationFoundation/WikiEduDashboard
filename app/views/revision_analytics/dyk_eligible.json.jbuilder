@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 json.articles do
   json.array! @articles do |article|
     revision = article.revisions.last

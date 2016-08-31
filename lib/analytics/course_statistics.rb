@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "#{Rails.root}/lib/word_count"
 
 #= Utilities for calcuating statistics for course activity

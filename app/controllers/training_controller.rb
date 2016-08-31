@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class TrainingController < ApplicationController
   layout 'training'
   add_breadcrumb 'Training Library', :training_path, only: :slide_view
@@ -34,6 +35,6 @@ class TrainingController < ApplicationController
   private
 
   def fail_if_entity_not_found(entity, finder)
-    fail ActiveRecord::RecordNotFound unless entity.find_by(slug: finder).present?
+    raise ActiveRecord::RecordNotFound unless entity.find_by(slug: finder).present?
   end
 end

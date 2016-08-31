@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 describe CourseMeetingsManager do
@@ -18,8 +19,7 @@ describe CourseMeetingsManager do
            timeline_end: t_end,
            day_exceptions: day_ex,
            weekdays: weekdays,
-           type: course_type
-          )
+           type: course_type)
   end
 
   before do
@@ -49,8 +49,7 @@ describe CourseMeetingsManager do
      ['2015-12-09'.to_date], # December 6 - 12, including exception not on a Tues/Thurs
      [], [], [], # December 13 - January 2
      ['2016-01-07'.to_date], # January 3 - 9
-     ['2016-01-12'.to_date, '2016-01-14'.to_date]
-    ]
+     ['2016-01-12'.to_date, '2016-01-14'.to_date]]
   end
 
   describe '#week_meeting_dates' do
@@ -127,7 +126,7 @@ describe CourseMeetingsManager do
     let(:expected) do
       [Date.new(2015, 8, 25),
        Date.new(2015, 8, 27),
-       Date.new(2015, 9, 01)]
+       Date.new(2015, 9, 0o1)]
     end
     subject { described_class.new(course).send(:all_potential_meetings) }
     it 'returns an array of all days the course would have met, irrespective of blackouts' do

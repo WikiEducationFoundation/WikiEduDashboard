@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class AlertsController < ApplicationController
   before_filter :require_signed_in
 

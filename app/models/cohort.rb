@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'csv'
 
 # == Schema Information
@@ -37,7 +38,7 @@ class Cohort < ActiveRecord::Base
 
   def trained_percent
     student_count = students_without_nonstudents.count
-    return 100 if student_count == 0
+    return 100 if student_count.zero?
     100 * trained_count.to_f / student_count
   end
 

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # == Schema Information
 #
 # Table name: articles
@@ -38,7 +39,7 @@ class Article < ActiveRecord::Base
 
   scope :live, -> { where(deleted: false) }
   scope :current, -> { joins(:courses).merge(Course.current).uniq }
-  scope :namespace, -> ns { where(namespace: ns) }
+  scope :namespace, -> (ns) { where(namespace: ns) }
 
   validates :title, presence: true
   validates :wiki_id, presence: true
@@ -67,11 +68,11 @@ class Article < ActiveRecord::Base
   ####################
   def update(data={}, save=true)
     self.attributes = data
-    if revisions.count > 0
-      self.views = revisions.order('date ASC').first.views || 0
-    else
-      self.views = 0
-    end
+    self.views = if revisions.count.positive?
+                   revisions.order('date ASC').first.views || 0
+                 else
+                   0
+                 end
     self.save if save
   end
 

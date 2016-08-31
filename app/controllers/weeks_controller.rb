@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class WeeksController < ApplicationController
   respond_to :json
 
@@ -5,5 +6,4 @@ class WeeksController < ApplicationController
     Week.find(params[:id]).destroy
     render nothing: true
   end
-
 end

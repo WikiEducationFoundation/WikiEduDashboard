@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "#{Rails.root}/lib/importers/category_importer"
 
 #= Controller for Article Finder tool

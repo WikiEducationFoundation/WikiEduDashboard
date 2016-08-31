@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # == Schema Information
 #
 # Table name: courses
@@ -37,8 +38,8 @@
 
 FactoryGirl.define do
   factory :course, class: 'ClassroomProgramCourse' do
-    start Date.new(2015, 01, 01)
-    self.end Date.new(2015, 06, 01)
+    start Date.new(2015, 0o1, 0o1)
+    self.end Date.new(2015, 0o6, 0o1)
     title 'Underwater basket-weaving'
     listed true
     school 'WINTR'
@@ -49,8 +50,8 @@ FactoryGirl.define do
   end
 
   factory :basic_course, class: 'BasicCourse' do
-    start Date.new(2015, 01, 01)
-    self.end Date.new(2015, 06, 01)
+    start Date.new(2015, 0o1, 0o1)
+    self.end Date.new(2015, 0o6, 0o1)
     title 'Black life matters'
     listed true
     school 'none'
@@ -62,8 +63,8 @@ FactoryGirl.define do
   end
 
   factory :visiting_scholarship, class: 'VisitingScholarship' do
-    start Date.new(2015, 01, 01)
-    self.end Date.new(2015, 06, 01)
+    start Date.new(2015, 0o1, 0o1)
+    self.end Date.new(2015, 0o6, 0o1)
     title 'Basket-weaving scholarship'
     listed true
     school 'UNR'
@@ -75,8 +76,8 @@ FactoryGirl.define do
   end
 
   factory :editathon, class: 'Editathon' do
-    start Date.new(2015, 01, 01)
-    self.end Date.new(2015, 06, 01)
+    start Date.new(2015, 0o1, 0o1)
+    self.end Date.new(2015, 0o6, 0o1)
     title 'Basket-weaving edit-a-thon'
     listed true
     school 'NARA'
@@ -88,8 +89,8 @@ FactoryGirl.define do
   end
 
   factory :legacy_course, class: 'LegacyCourse' do
-    start Date.new(2013, 01, 01)
-    self.end Date.new(2013, 06, 01)
+    start Date.new(2013, 0o1, 0o1)
+    self.end Date.new(2013, 0o6, 0o1)
     title 'Legacy basket-weaving'
     listed true
     school 'PBR'

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 describe AssignmentsController do
@@ -24,8 +25,10 @@ describe AssignmentsController do
 
   describe 'DELETE destroy' do
     context 'when the user owns the assignment' do
-      let(:assignment) { create(:assignment, course_id: course.id, user_id: user.id,
-                                article_title: 'Selfie', role: 0) }
+      let(:assignment) do
+        create(:assignment, course_id: course.id, user_id: user.id,
+                            article_title: 'Selfie', role: 0)
+      end
 
       before do
         expect_any_instance_of(WikiCourseEdits).to receive(:remove_assignment)

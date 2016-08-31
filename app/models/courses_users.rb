@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # == Schema Information
 #
 # Table name: courses_users
@@ -78,11 +79,11 @@ class CoursesUsers < ActiveRecord::Base
   end
 
   def content_expert
-    role > 0 && user.permissions == 1 && user.greeter == true
+    role.positive? && user.permissions == 1 && user.greeter == true
   end
 
   def program_manager
-    role > 0 && user.permissions == 1 && user.greeter == false
+    role.positive? && user.permissions == 1 && user.greeter == false
   end
 
   def update_cache

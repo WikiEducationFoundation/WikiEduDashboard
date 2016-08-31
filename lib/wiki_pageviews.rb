@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Fetches pageview data from the Wikimedia pageviews REST API
 # Documentation: https://wikimedia.org/api/rest_v1/?doc#!/Pageviews_data/get_metrics_pageviews_per_article_project_access_agent_article_granularity_start_end
 class WikiPageviews
@@ -87,7 +88,7 @@ class WikiPageviews
       total_views += day_data['views']
     end
 
-    return if total_views == 0
+    return if total_views.zero?
     average_views = total_views.to_f / days
     average_views
   end

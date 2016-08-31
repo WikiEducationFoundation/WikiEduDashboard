@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 # Wait one second after loading a path
@@ -15,15 +16,15 @@ describe 'Students Page', type: :feature, js: true do
     allow_any_instance_of(WikiEdits).to receive(:oauth_credentials_valid?).and_return(true)
 
     @course = create(:course,
-                    id: 10001,
-                    title: 'This.course',
-                    slug: 'This_university.foo/This.course_(term_2015)',
-                    start: 3.months.ago,
-                    end: 3.months.from_now,
-                    school: 'This university.foo',
-                    term: 'term 2015',
-                    listed: 1,
-                    description: 'This is a great course')
+                     id: 10001,
+                     title: 'This.course',
+                     slug: 'This_university.foo/This.course_(term_2015)',
+                     start: 3.months.ago,
+                     end: 3.months.from_now,
+                     school: 'This university.foo',
+                     term: 'term 2015',
+                     listed: 1,
+                     description: 'This is a great course')
     cohort = create(:cohort)
     @course.cohorts << cohort
 
@@ -60,7 +61,6 @@ describe 'Students Page', type: :feature, js: true do
            characters: 2,
            views: 10,
            new_article: false)
-
   end
 
   it 'should display a list of students' do

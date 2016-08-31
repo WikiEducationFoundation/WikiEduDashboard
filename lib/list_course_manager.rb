@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 #= Routines for adding or removing a course to/from a cohort
 class ListCourseManager
   def initialize(course, cohort, request)
@@ -26,7 +27,7 @@ class ListCourseManager
   end
 
   def course_listed?
-    @course.cohorts.count > 0
+    @course.cohorts.count.positive?
   end
 
   def send_approval_notification_emails

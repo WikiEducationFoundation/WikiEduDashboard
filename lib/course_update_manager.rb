@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "#{Rails.root}/lib/legacy_courses/legacy_course_updater"
 
 #= Class for performing updates on data related to an individual Course

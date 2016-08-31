@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "#{Rails.root}/lib/data_cycle/batch_update_logging"
 require "#{Rails.root}/lib/importers/assigned_article_importer"
 require "#{Rails.root}/lib/articles_courses_cleaner"

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 #= Cleaner for ArticlesCourses that shouldn't be
 class ArticlesCoursesCleaner
   ################

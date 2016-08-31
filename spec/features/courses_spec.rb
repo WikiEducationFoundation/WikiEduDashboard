@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 cohort_course_count = 10

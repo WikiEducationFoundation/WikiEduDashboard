@@ -10,20 +10,22 @@ describe SurveyAssignmentsController do
     let(:cohort)      { create(:cohort) }
     let(:instructor)  { 1 }
     let(:admin)       { create(:admin) }
-    let(:post_params) {{
-      survey_assignment: {
-        survey_id: survey.id,
-        cohort_ids: cohort.id,
-        courses_user_role: instructor,
-        send_date_days: send_days,
-        send_before: false,
-        send_date_relative_to: "end",
-        follow_up_days_after_first_notification: follow_up,
-        published: true,
-        notes: "foo",
-        send_email: send_email
+    let(:post_params) do
+      {
+        survey_assignment: {
+          survey_id: survey.id,
+          cohort_ids: cohort.id,
+          courses_user_role: instructor,
+          send_date_days: send_days,
+          send_before: false,
+          send_date_relative_to: 'end',
+          follow_up_days_after_first_notification: follow_up,
+          published: true,
+          notes: 'foo',
+          send_email: send_email
+        }
       }
-    }}
+    end
     before { allow(controller).to receive(:current_user).and_return(admin) }
     it 'allows create and sets appropriate params' do
       post :create, post_params

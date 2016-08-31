@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 #= Controller for cohort data
 class CohortsController < ApplicationController
   before_action :require_admin_permissions,
@@ -34,7 +35,7 @@ class CohortsController < ApplicationController
     @cohort = Cohort.find_by(slug: csv_params[:slug])
     respond_to do |format|
       format.csv do
-        filename = "#{@cohort.slug}-#{role.to_s}-#{Date.today}.csv"
+        filename = "#{@cohort.slug}-#{role}-#{Date.today}.csv"
         send_data @cohort.users_to_csv(role, course: csv_params[:course]),
                   filename: filename
       end

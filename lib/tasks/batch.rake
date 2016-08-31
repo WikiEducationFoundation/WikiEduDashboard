@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'action_view'
 require "#{Rails.root}/lib/data_cycle/constant_update"
 require "#{Rails.root}/lib/data_cycle/daily_update"

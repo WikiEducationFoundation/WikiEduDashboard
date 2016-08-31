@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 json.course do
   json.revisions @revisions do |revision|
     json.call(revision, :id, :characters, :views, :date, :url, :user_id)

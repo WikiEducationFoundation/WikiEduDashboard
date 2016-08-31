@@ -19,7 +19,7 @@ class TrainingProgressManager
 
   def slide_enabled?
     return true if slide_completed? || @user.nil?
-    (@tmu.nil? || @tmu.last_slide_completed.nil?) && slug_index(@slide) == 0
+    (@tmu.nil? || @tmu.last_slide_completed.nil?) && slug_index(@slide).zero?
   end
 
   def module_completed?
@@ -33,7 +33,7 @@ class TrainingProgressManager
     return 'completed' if module_completed?
     overall_due_date.present? && overall_due_date < Date.today ? 'overdue' : nil
   end
-  alias_method :assignment_deadline_status, :assignment_status_css_class
+  alias assignment_deadline_status assignment_status_css_class
 
   def assignment_status
     if @due_date_manager.blocks_with_module_assigned(@training_module).any?

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "#{Rails.root}/lib/importers/revision_importer"
 
 #= Updates articles to reflect deletion and page moves on Wikipedia
@@ -60,7 +61,7 @@ class ArticleStatusManager
     # articles are deleted.
     # FIXME: A better approach would be to look for deletion logs, and only mark
     # an article as deleted if there is a corresponding deletion log.
-    @deleted_page_ids = if @failed_request_count == 0
+    @deleted_page_ids = if @failed_request_count.zero?
                           articles.map(&:mw_page_id) - @synced_ids
                         else
                           []

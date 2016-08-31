@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'uri'
 require "#{Rails.root}/lib/assignment_manager"
 require "#{Rails.root}/lib/wiki_course_edits"

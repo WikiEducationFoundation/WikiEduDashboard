@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # A greeter that sends out greetings to all students who haven't been greeted,
 # on a course-by-course basis, if a greeter is assigned for that course.
 class StudentGreeter

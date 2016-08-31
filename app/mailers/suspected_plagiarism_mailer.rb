@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class SuspectedPlagiarismMailer < ApplicationMailer
   def self.alert_content_expert(revision)
     return unless Features.email?

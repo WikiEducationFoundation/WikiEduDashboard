@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 json.revisions do
   json.array! @revisions do |revision|
     article = revision.article

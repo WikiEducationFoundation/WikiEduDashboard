@@ -1,10 +1,11 @@
+# frozen_string_literal: true
 #= Stubs for various requests
 module RequestHelpers
   ##################
   # OAuth requests #
   ##################
   def stub_token_request
-    fake_tokens = "{\"query\":{\"tokens\":{\"csrftoken\":\"faketoken+\\\\\"}}}"
+    fake_tokens = '{"query":{"tokens":{"csrftoken":"faketoken+\\\\"}}}'
     lang = ENV['wiki_language']
     url = "https://#{lang}.wikipedia.org/w/api.php?action=query&meta=tokens&format=json"
     stub_request(:get, url)

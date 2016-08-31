@@ -21,26 +21,25 @@ describe 'Surveys', type: :feature, js: true do
   #     visit '/surveys'
   #   end
 
-    # it 'Lists all surveys and allows an admin to create a new one.' do
-    #   click_link('New Survey')
-    #   expect(page.find("h1")).to have_content("New Survey")
-    #   fill_in('survey[name]', :with => 'My New Awesome Survey')
-    #   click_button('Create Survey')
-    #   expect(page.find(".course-list__row")).to have_content("My New Awesome Survey")
-    #   click_link('Delete')
-    #   prompt = page.driver.browser.switch_to.alert
-    #   prompt.accept
-    #   expect(page).not_to have_select('.course-list__row')
-    # end
+  # it 'Lists all surveys and allows an admin to create a new one.' do
+  #   click_link('New Survey')
+  #   expect(page.find("h1")).to have_content("New Survey")
+  #   fill_in('survey[name]', :with => 'My New Awesome Survey')
+  #   click_button('Create Survey')
+  #   expect(page.find(".course-list__row")).to have_content("My New Awesome Survey")
+  #   click_link('Delete')
+  #   prompt = page.driver.browser.switch_to.alert
+  #   prompt.accept
+  #   expect(page).not_to have_select('.course-list__row')
+  # end
 
-    # it 'Has a link to Question Groups' do
-    #   click_link('Question Groups')
-    #   expect(page).to have_content("Question Groups")
-    # end
+  # it 'Has a link to Question Groups' do
+  #   click_link('Question Groups')
+  #   expect(page).to have_content("Question Groups")
+  # end
   # end
 
   describe 'Editing a Survey' do
-
     # let!(:question_group)  { FactoryGirl.create(:question_group, name: "Survey Section 1") }
     # let!(:survey)  { create(:survey, name: "Dumb Survey", :rapidfire_question_groups => [question_group]) }
 
@@ -77,13 +76,15 @@ describe 'Surveys', type: :feature, js: true do
         :courses_user,
         user_id: @instructor.id,
         course_id: course.id,
-        role: 1)
+        role: 1
+      )
 
       @survey = create(
         :survey,
         name: 'Instructor Survey',
         intro: 'Welcome to survey',
-        thanks: 'You made it!')
+        thanks: 'You made it!'
+      )
 
       question_group = create(:question_group, id: 1, name: 'Basic Questions')
       @survey.rapidfire_question_groups << question_group
@@ -127,7 +128,8 @@ describe 'Surveys', type: :feature, js: true do
 
       survey_assignment = create(
         :survey_assignment,
-        survey_id: @survey.id)
+        survey_id: @survey.id
+      )
       create(:survey_notification,
              course_id: course.id,
              survey_assignment_id: survey_assignment.id,
@@ -217,7 +219,8 @@ describe 'Surveys', type: :feature, js: true do
         :courses_user,
         user_id: @instructor.id,
         course_id: course.id,
-        role: 1)
+        role: 1
+      )
 
       @open_survey = create(:survey, open: true)
 
@@ -226,7 +229,8 @@ describe 'Surveys', type: :feature, js: true do
       survey_assignment = create(
         :survey_assignment,
         courses_user_role: 1,
-        survey_id: @survey.id)
+        survey_id: @survey.id
+      )
       create(:survey_notification,
              course_id: course.id,
              survey_assignment_id: survey_assignment.id,

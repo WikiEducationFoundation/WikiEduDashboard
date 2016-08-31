@@ -252,7 +252,7 @@ class Course < ActiveRecord::Base
   end
 
   def average_word_count
-    return 0 if user_count == 0
+    return 0 if user_count.zero?
     word_count / user_count
   end
 

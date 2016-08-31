@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # == Schema Information
 #
 # Table name: blocks
@@ -26,7 +27,7 @@ class Block < ActiveRecord::Base
     'assignment' => 1,
     'milestone'  => 2,
     'custom'     => 3
-  }
+  }.freeze
 
   def training_modules
     training_module_ids.collect { |id| TrainingModule.find(id) }

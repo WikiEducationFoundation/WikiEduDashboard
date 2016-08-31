@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class UntrainedStudentsAlertManager
   def initialize(courses)
     @courses = courses
@@ -17,7 +18,7 @@ class UntrainedStudentsAlertManager
   UNTRAINED_GRACE_PERIOD = 19
   EXPECTED_COMPLETION_RATE = 0.75
   def training_very_overdue?(course)
-    return false if course.user_count == 0
+    return false if course.user_count.zero?
     completion_rate = course.trained_count.to_f / course.user_count
     return false unless completion_rate < EXPECTED_COMPLETION_RATE
     latest_training_assignment_date = dates_of_overdue_trainings(course).last

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 #= Routines to create Assignments from legacy course API data
 class LegacyCourseAssignments
   def self.build_assignments_from_group_flat(course_id, group_flat)

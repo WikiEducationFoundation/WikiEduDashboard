@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class CourseSubmissionMailer < ApplicationMailer
   def self.send_submission_confirmation(course, instructor)
     return unless Features.email?

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 #= Routines for parsing legacy course reviewers data and getting it ready to generate Assignments
 class LegacyCourseReviewers
   def self.find_reviewers(group)

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 require "#{Rails.root}/lib/importers/article_importer"
 require "#{Rails.root}/lib/importers/assignment_importer"

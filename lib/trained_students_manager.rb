@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class TrainedStudentsManager
   def initialize(course)
     @course = course
@@ -18,10 +19,10 @@ class TrainedStudentsManager
     @course.students.select do |student|
       @course.training_modules.select do |training_module|
         man = TrainingModuleDueDateManager.new(
-                course: @course,
-                training_module: training_module,
-                user: student
-              )
+          course: @course,
+          training_module: training_module,
+          user: student
+        )
         man.overdue?
       end.empty?
     end

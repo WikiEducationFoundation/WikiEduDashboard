@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "#{Rails.root}/lib/importers/revision_importer"
 
 #= Deletes duplicate Article records that differ by ID but match by title and namespace

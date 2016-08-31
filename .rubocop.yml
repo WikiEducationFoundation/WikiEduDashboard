@@ -47,3 +47,6 @@ Style/ParallelAssignment:
   Enabled: false # We generally use this only to initialize empty variables.
 Style/RedundantReturn:
   Enabled: false # Sometimes a redundant return enhances clarity.
+
+Performance/PushSplat:
+  Enabled: false # This cop is broken: https://github.com/bbatsov/rubocop/issues/3292

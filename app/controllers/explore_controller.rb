@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 #= Controller for course functionality
 class ExploreController < ApplicationController
   respond_to :html

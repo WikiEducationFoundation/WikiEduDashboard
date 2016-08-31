@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 desc 'Check that we can access everything'
 task :check_write_permissions do
   on roles(:all) do |host|

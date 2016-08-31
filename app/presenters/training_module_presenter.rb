@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class TrainingModulePresenter
   attr_reader :training_module, :progress_manager
 
@@ -11,21 +12,21 @@ class TrainingModulePresenter
   end
 
   def cta_button_text
-    return I18n.t("training.start") unless progress_manager.module_progress.present?
+    return I18n.t('training.start') unless progress_manager.module_progress.present?
     if progress_manager.module_completed?
-      I18n.t("training.view")
+      I18n.t('training.view')
     else
-      I18n.t("training.continue", progress: progress_manager.module_progress)
+      I18n.t('training.continue', progress: progress_manager.module_progress)
     end
   end
 
   def cta_button_link
     first_element = @routes.training_module_path(@params[:library_id], @params[:module_id])
-    if @progress_manager.module_completed? || @progress_manager.module_progress.nil?
-      last_element = @training_module.slides.first.slug
-    else
-      last_element = last_slide_completed
-    end
+    last_element = if @progress_manager.module_completed? || @progress_manager.module_progress.nil?
+                     @training_module.slides.first.slug
+                   else
+                     last_slide_completed
+                   end
     [first_element, last_element].join('/')
   end
 
@@ -51,5 +52,4 @@ class TrainingModulePresenter
     return unless @user
     training_modules_user.last_slide_completed
   end
-
 end

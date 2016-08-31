@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class CacheUpdater
   def self.update_all_caches
     Rails.logger.debug 'Updating Article cache'

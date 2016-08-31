@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class RevisionDataParser
   def initialize(wiki)
     @wiki = wiki

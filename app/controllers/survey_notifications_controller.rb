@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class SurveyNotificationsController < ApplicationController
   def update
     @notification = SurveyNotification.find(params[:survey_notification][:id])

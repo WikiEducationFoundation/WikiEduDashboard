@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 #= Controller for error functionality
 class ErrorsController < ApplicationController
   respond_to :html, :json

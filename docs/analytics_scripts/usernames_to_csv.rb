@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # This can be run in the rails console to generate a csv of all course
 # participants' usernames.
 
@@ -32,7 +33,7 @@ Cohort.all.each do |cohort|
 end
 
 # courses, instructor usernames and ids
-CSV.open("/root/course_instructors.csv", 'wb') do |csv|
+CSV.open('/root/course_instructors.csv', 'wb') do |csv|
   csv << ['course', 'instructor_user_id', 'instructor username']
   Course.all.each do |course|
     course.instructors.each do |instructor|

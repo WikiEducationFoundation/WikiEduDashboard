@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 require "#{Rails.root}/lib/importers/article_importer"
 
@@ -16,7 +17,8 @@ describe DuplicateArticleDeleter do
       undeleted = Article.where(
         title: 'Kostanay',
         namespace: 0,
-        deleted: false)
+        deleted: false
+      )
       expect(undeleted.count).to eq(1)
       expect(undeleted.first.id).to eq(second.id)
     end

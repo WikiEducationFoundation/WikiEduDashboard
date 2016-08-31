@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'csv'
 
 cohort = Cohort.find_by(slug: 'spring_2016')

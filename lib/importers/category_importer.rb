@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "#{Rails.root}/lib/replica"
 require "#{Rails.root}/lib/importers/revision_score_importer"
 require "#{Rails.root}/lib/importers/article_importer"
@@ -120,7 +121,7 @@ class CategoryImporter
   def page_properties_for_category(category, property, depth=0, namespace=nil)
     cat_query = category_query(category, namespace)
     page_data = get_category_member_properties(cat_query, property)
-    if depth > 0
+    if depth.positive?
       depth -= 1
       subcats = subcategories_of(category)
       subcats.each do |subcat|
@@ -155,15 +156,13 @@ class CategoryImporter
       cmtitle: category,
       cmlimit: 500,
       cmnamespace: namespace, # mainspace articles by default
-      continue: ''
-    }
+      continue: '' }
   end
 
   def revisions_query(article_ids)
     { prop: 'revisions',
       pageids: article_ids,
-      rvprop: 'userid|ids|timestamp'
-    }
+      rvprop: 'userid|ids|timestamp' }
   end
 
   def import_latest_revision(article_ids)
@@ -171,7 +170,7 @@ class CategoryImporter
     revisions_to_import = []
     article_ids.each do |mw_page_id|
       rev_data = latest_revision_data[mw_page_id.to_s]['revisions'][0]
-      new_article = (rev_data['parentid'] == 0)
+      new_article = (rev_data['parentid']).zero?
       revisions_to_import << new_revision_from_rev_data(rev_data, mw_page_id, new_article)
     end
     Revision.import revisions_to_import

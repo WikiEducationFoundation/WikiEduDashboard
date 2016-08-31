@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 #= Utilities for calcuating statistics by month, and year-over-year
 class MonthlyReport
   def self.run(opts={})
@@ -17,8 +18,7 @@ class MonthlyReport
           uploads: @uploads },
       "#{@last_year}-#{@month}".to_sym =>
         { articles_edited: @old_articles_edited,
-          uploads: @old_uploads }
-    }
+          uploads: @old_uploads } }
   end
 
   private

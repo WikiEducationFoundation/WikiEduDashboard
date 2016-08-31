@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 def set_up_suite
@@ -562,7 +563,7 @@ describe 'cloning a course', js: true do
     expect(new_course.article_count).to be_zero
 
     puts 'PASSED'
-    fail 'this test passed — this time'
+    raise 'this test passed — this time'
   end
 
   after do

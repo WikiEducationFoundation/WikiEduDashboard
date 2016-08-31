@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "#{Rails.root}/lib/analytics/monthly_report"
 require "#{Rails.root}/lib/analytics/course_statistics"
 

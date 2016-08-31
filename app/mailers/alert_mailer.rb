@@ -1,5 +1,5 @@
+# frozen_string_literal: true
 class AlertMailer < ApplicationMailer
-
   def alert(alert, recipient)
     return unless Features.email?
     @recipient = recipient

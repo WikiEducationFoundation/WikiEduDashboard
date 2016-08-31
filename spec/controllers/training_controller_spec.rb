@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 describe TrainingController do
@@ -8,7 +9,7 @@ describe TrainingController do
   describe 'show' do
     before  { allow(controller).to receive(:current_user).and_return(user) }
     subject { get :show, request_params }
-    let(:request_params) {{ library_id: library_id }}
+    let(:request_params) { { library_id: library_id } }
     context 'library is legit' do
       it 'sets the library' do
         subject
@@ -18,16 +19,18 @@ describe TrainingController do
     context 'not a real library' do
       let(:library_id) { 'lolnotareallibrary' }
       it 'raises a record not found error' do
-        expect{ subject }.to raise_error ActiveRecord::RecordNotFound
+        expect { subject }.to raise_error ActiveRecord::RecordNotFound
       end
     end
   end
 
   describe '#training_module' do
-    let(:request_params) {{
-      library_id: library_id,
-      module_id: module_id
-    }}
+    let(:request_params) do
+      {
+        library_id: library_id,
+        module_id: module_id
+      }
+    end
     before { allow(controller).to receive(:current_user).and_return(user) }
     subject { get :training_module, request_params }
     context 'module is legit' do
@@ -39,7 +42,7 @@ describe TrainingController do
     context 'not a real module' do
       let(:module_id) { 'lolnotarealmodule' }
       it 'raises a record not found error' do
-        expect{ subject }.to raise_error ActiveRecord::RecordNotFound
+        expect { subject }.to raise_error ActiveRecord::RecordNotFound
       end
     end
   end

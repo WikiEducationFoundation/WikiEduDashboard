@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module QuestionGroupsHelper
   def check_conditionals(question_group)
     return true if @course.nil?
@@ -18,7 +19,7 @@ module QuestionGroupsHelper
   def course_in_cohorts
     return true if @question_group_cohorts.empty?
     matching = @question_group_cohorts.select do |cohort_id|
-      CohortsCourses.where(course_id: @course.id, cohort_id: cohort_id).count > 0
+      CohortsCourses.where(course_id: @course.id, cohort_id: cohort_id).count.positive?
     end
     matching.count == @question_group_cohorts.count
   end

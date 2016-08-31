@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 describe 'syllabus upload', type: :feature, js: true do
@@ -37,10 +38,10 @@ describe 'syllabus upload', type: :feature, js: true do
       sleep 1
       # unsurprisingly, capybara doesn't want to try to upload a file
       # with the native file picker. this isn't really testable
-      #attach_file 'browse_files', "#{Rails.root}/fixtures/files/blank.pdf"
-      #click_link 'save'
-      #sleep 1
-      #expect(course.syllabus_file_name).not_to be_nil
+      # attach_file 'browse_files', "#{Rails.root}/fixtures/files/blank.pdf"
+      # click_link 'save'
+      # sleep 1
+      # expect(course.syllabus_file_name).not_to be_nil
     end
   end
 end

@@ -1,7 +1,7 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 cached_default_course_type = ENV['default_course_type']
-
 
 def fill_out_open_course_creator_form
   fill_in 'Program title:', with: '한국어'

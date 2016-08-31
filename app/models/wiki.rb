@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # == Schema Information
 #
 # Table name: wikis
@@ -22,7 +23,7 @@ class Wiki < ActiveRecord::Base
     wikiversity
     wikivoyage
     wiktionary
-  )
+  ).freeze
   validates_inclusion_of :project, in: PROJECTS
 
   LANGUAGES = %w(
@@ -42,7 +43,7 @@ class Wiki < ActiveRecord::Base
     tet tg th ti tk tl tn to tpi tr ts tt tum tw ty tyv udm ug uk ur uz ve
     vec vep vi vls vo vro w wa war wikipedia wo wuu xal xh xmf yi yo yue za
     zea zh zh-cfr zh-classical zh-cn zh-min-nan zh-tw zh-yue zu
-  )
+  ).freeze
   validates_inclusion_of :language, in: LANGUAGES
 
   # Is this useful?: has_many :article_wiki, :course_wiki, :user_wiki

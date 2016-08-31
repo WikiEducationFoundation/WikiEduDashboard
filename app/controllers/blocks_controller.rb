@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class BlocksController < ApplicationController
   respond_to :json
 

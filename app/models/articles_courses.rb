@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # == Schema Information
 #
 # Table name: articles_courses
@@ -59,7 +60,7 @@ class ArticlesCourses < ActiveRecord::Base
     # We use the 'all_revisions' scope so that the dashboard system edits that
     # create sandboxes are not excluded, since those are often wind up being the
     # first edit of a mainspace article's revision history
-    self.new_article = all_revisions.where(new_article: true).count > 0
+    self.new_article = all_revisions.where(new_article: true).count.positive?
 
     save
   end

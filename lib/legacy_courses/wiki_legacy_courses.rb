@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'mediawiki_api'
 require "#{Rails.root}/lib/wiki_api"
 require 'json'

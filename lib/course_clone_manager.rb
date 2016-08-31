@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 #= Procedures for creating a duplicate of an existing course for reuse
 class CourseCloneManager
   def initialize(course, user)

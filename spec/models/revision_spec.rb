@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # == Schema Information
 #
 # Table name: revisions
@@ -33,7 +34,8 @@ describe Revision do
                        views: 1000)
       revision.update(
         user_id: 1,
-        views: 9000)
+        views: 9000
+      )
       expect(revision.views).to eq(9000)
       expect(revision.user_id).to eq(1)
     end

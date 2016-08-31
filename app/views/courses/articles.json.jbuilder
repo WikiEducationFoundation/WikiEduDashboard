@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 json.course do
   json.articles @course.articles_courses.live.eager_load(:article) do |ac|
     article = ac.article

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 #=Controller for the Revisions API.
 class RevisionsController < ApplicationController
   respond_to :json

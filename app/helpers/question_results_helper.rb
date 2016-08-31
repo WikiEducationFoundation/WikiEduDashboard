@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'sentimental'
 
 module QuestionResultsHelper
@@ -54,8 +55,8 @@ module QuestionResultsHelper
     average = 0
     average = scores.sum / scores.length unless scores.empty?
     label = 'negative'
-    label = 'positive' if average > 0
-    label = 'neutral' if average == 0
+    label = 'positive' if average.positive?
+    label = 'neutral' if average.zero?
     {
       average: average.round(2),
       label: label

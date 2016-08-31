@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'ostruct'
 
 class CourseTrainingProgressManager
@@ -16,7 +17,7 @@ class CourseTrainingProgressManager
       return @user.trained? ? nil : I18n.t('users.training_incomplete')
     end
     assigned_count = total_modules_for_course
-    return if assigned_count == 0
+    return if assigned_count.zero?
     completed_count = completed_modules_for_user_and_course
     I18n.t('users.training_modules_completed', completed_count: completed_count,
                                                count: assigned_count)

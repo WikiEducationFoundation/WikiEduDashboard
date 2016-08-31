@@ -48,7 +48,7 @@ describe SurveyMailer, type: :mailer do
     let(:survey) { create(:survey) }
     let(:survey_assignment) do
       create(:survey_assignment, survey_id: survey.id, courses_user_role: role,
-              email_template: email_template)
+                                 email_template: email_template)
     end
     let(:survey_notification) do
       create(:survey_notification,

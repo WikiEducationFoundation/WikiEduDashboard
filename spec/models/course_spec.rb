@@ -593,7 +593,8 @@ describe Course, type: :model do
       survey_assignment.cohorts.first.courses.ready_for_survey(
         days: n,
         before: before,
-        relative_to: relative_to)
+        relative_to: relative_to
+      )
     end
 
     context 'when `n` days before their course end is Today' do
@@ -674,7 +675,8 @@ describe Course, type: :model do
       survey_assignment.cohorts.first.courses.will_be_ready_for_survey(
         days: n,
         before: before,
-        relative_to: relative_to)
+        relative_to: relative_to
+      )
     end
 
     context 'when `n` days before the course end is after Today' do

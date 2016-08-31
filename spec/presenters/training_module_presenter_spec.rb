@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 describe TrainingModulePresenter do
@@ -6,7 +7,7 @@ describe TrainingModulePresenter do
   let(:library_id) { lib.slug }
   let(:mod)        { TrainingModule.all.first }
   let(:module_id)  { mod.slug }
-  let(:mod_params) {{ library_id: library_id, module_id: module_id }}
+  let(:mod_params) { { library_id: library_id, module_id: module_id } }
 
   describe '#cta_button_text' do
     subject { described_class.new(user, mod_params).cta_button_text }

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 require "#{Rails.root}/lib/course_clone_manager"
 
@@ -33,8 +34,6 @@ describe CourseCloneManager do
     create(:gradeable,
            id: 1, gradeable_item_type: 'block',
            gradeable_item_id: 1, points: 15)
-
-
   end
 
   let(:clone) { Course.last }

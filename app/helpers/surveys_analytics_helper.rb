@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module SurveysAnalyticsHelper
   def survey_status(survey, count = false)
     assignments = SurveyAssignment.published.where(survey_id: survey.id)
@@ -31,7 +32,7 @@ module SurveysAnalyticsHelper
       next if sqg.survey.nil?
       total_published_surveys += survey_status(sqg.survey, true)
     end
-    return '--' if total_published_surveys == 0
+    return '--' if total_published_surveys.zero?
     return "In Use (#{total_published_surveys})"
   end
 
@@ -55,8 +56,7 @@ module SurveysAnalyticsHelper
 
   def response_summary_string(completed, notified)
     percent = 0
-    percent = (completed.to_f / notified.to_f) * 100 if completed > 0
+    percent = (completed.to_f / notified.to_f) * 100 if completed.positive?
     "#{percent.round(2)}% (#{completed}/#{notified})"
   end
-
 end

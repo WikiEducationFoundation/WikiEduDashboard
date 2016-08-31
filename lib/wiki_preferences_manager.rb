@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "#{Rails.root}/lib/wiki_edits"
 
 class WikiPreferencesManager

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 MILESTONE_BLOCK_KIND = 2
@@ -69,7 +70,7 @@ describe 'the course page', type: :feature, js: true do
     # Add some revisions within the course dates
     (1..revision_count).each do |i|
       # Make half of the articles new ones.
-      newness = (i <= article_count) ? i % 2 : 0
+      newness = i <= article_count ? i % 2 : 0
 
       create(:revision,
              id: i.to_s,
@@ -252,7 +253,7 @@ describe 'the course page', type: :feature, js: true do
       AssignmentManager.new(user_id: nil,
                             course: course,
                             wiki: wiki,
-                            title: "Education",
+                            title: 'Education',
                             role: 0).create_assignment
       js_visit "/courses/#{slug}/articles"
       expect(page).to have_content 'Available Articles'
@@ -297,7 +298,7 @@ describe 'the course page', type: :feature, js: true do
       AssignmentManager.new(user_id: nil,
                             course: course,
                             wiki: wiki,
-                            title: "Education",
+                            title: 'Education',
                             role: 0).create_assignment
       js_visit "/courses/#{slug}/articles"
       assigned_articles_section = page.first(:css, '#available-articles')
@@ -317,7 +318,7 @@ describe 'the course page', type: :feature, js: true do
       AssignmentManager.new(user_id: nil,
                             course: course,
                             wiki: wiki,
-                            title: "Education",
+                            title: 'Education',
                             role: 0).create_assignment
 
       login_as(user, scope: :user)

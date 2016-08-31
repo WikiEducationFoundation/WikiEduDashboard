@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 # https://robots.thoughtbot.com/test-rake-tasks-like-a-boss
 

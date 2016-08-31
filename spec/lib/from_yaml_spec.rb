@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 require "#{Rails.root}/lib/from_yaml"
 require "#{Rails.root}/lib/training_module"

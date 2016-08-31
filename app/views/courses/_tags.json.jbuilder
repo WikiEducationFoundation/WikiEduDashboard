@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Tags are administrative information, and are not shown unless the user is an admin.
 json.tags []
 

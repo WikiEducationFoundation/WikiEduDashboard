@@ -39,12 +39,12 @@ class SurveyMailer < ApplicationMailer
 
   def student_learning_preassessment_notification(notification)
     set_ivars(notification)
-    mail(to: @user.email, subject: "Take the Wiki Ed Student Learning Survey")
+    mail(to: @user.email, subject: 'Take the Wiki Ed Student Learning Survey')
   end
 
   def student_learning_preassessment_follow_up(notification)
     set_ivars(notification)
-    mail(to: @user.email, subject: "Reminder: Take the Wiki Ed Student Learning Survey")
+    mail(to: @user.email, subject: 'Reminder: Take the Wiki Ed Student Learning Survey')
   end
 
   ###########

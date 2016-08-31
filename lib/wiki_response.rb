@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 #= Reports message to Sentry about the success or failure of wiki edits
 class WikiResponse
   ###############

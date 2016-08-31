@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 #= Imports and updates ratings for articles
 class RatingImporter
   ################
@@ -10,18 +11,18 @@ class RatingImporter
     # via talk page templates, this will need to be overhauled.
     wiki_id = en_wiki.id
     articles = Article.current.live
-               .namespace(0)
-               .where(wiki_id: wiki_id)
-               .find_in_batches(batch_size: 30)
+                      .namespace(0)
+                      .where(wiki_id: wiki_id)
+                      .find_in_batches(batch_size: 30)
     update_ratings(articles)
   end
 
   def self.update_new_ratings
     wiki_id = en_wiki.id # English Wikipedia only, see above.
     articles = Article.current
-               .where(rating_updated_at: nil).namespace(0)
-               .where(wiki_id: wiki_id)
-               .find_in_batches(batch_size: 30)
+                      .where(rating_updated_at: nil).namespace(0)
+                      .where(wiki_id: wiki_id)
+                      .find_in_batches(batch_size: 30)
     update_ratings(articles)
   end
 

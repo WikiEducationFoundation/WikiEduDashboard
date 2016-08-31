@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 def stylesheet_manifest_file_exists?

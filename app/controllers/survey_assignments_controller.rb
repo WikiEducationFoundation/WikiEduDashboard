@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rake'
 require "#{Rails.root}/lib/surveys/survey_notifications_manager"
 

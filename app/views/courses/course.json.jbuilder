@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 json.course do
   user_role = if current_user
                 current_user.role(@course)
@@ -26,7 +27,7 @@ json.course do
   json.view_count number_to_human @course.view_sum
   json.syllabus @course.syllabus.url if @course.syllabus.file?
 
-  if user_role == 0 # student role
+  if user_role.zero? # student role
     ctpm = CourseTrainingProgressManager.new(current_user, @course)
     json.incomplete_assigned_modules ctpm.incomplete_assigned_modules
   end
@@ -40,7 +41,7 @@ json.course do
     end
   end
 
-  if user_role > 0 # non-student role
+  if user_role.positive? # non-student role
     json.passcode @course.passcode
     json.canUploadSyllabus true
   elsif @course.passcode

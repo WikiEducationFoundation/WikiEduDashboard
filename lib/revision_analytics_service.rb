@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 #= Queries for articles and revisions that have interesting properties
 class RevisionAnalyticsService
   ################

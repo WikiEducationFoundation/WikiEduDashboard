@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "#{Rails.root}/lib/legacy_courses/legacy_course_user_importer"
 require "#{Rails.root}/lib/legacy_courses/legacy_cohort_importer"
 
@@ -117,7 +118,7 @@ class LegacyCourseImporter
 
     # Enroll new users
     enrolled = (new_flat - existing_flat).map { |u| u['id'] }
-    return group_flat unless enrolled.count > 0
+    return group_flat unless enrolled.count.positive?
     enroll_users(group_flat, enrolled, course)
   end
 

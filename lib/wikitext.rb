@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'pandoc-ruby'
 
 #= Utilities to create and manipulate mediawiki wikitext

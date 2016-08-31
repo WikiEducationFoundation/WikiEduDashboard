@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 #= Imports and updates cohorts
 class LegacyCohortImporter
   # Take a hash of cohorts and corresponding course_ids, and update the cohorts.

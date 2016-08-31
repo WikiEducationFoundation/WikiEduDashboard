@@ -1,9 +1,10 @@
+# frozen_string_literal: true
 require 'from_yaml'
 
 class TrainingLibrary < FromYaml
   attr_accessor :name, :modules, :introduction, :categories
-  alias_method :raw_modules, :modules
-  alias_method :raw_categories, :categories
+  alias raw_modules modules
+  alias raw_categories categories
 
   #################
   # Class methods #

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module SurveysHelper
   include CourseHelper
 
@@ -106,7 +107,7 @@ module SurveysHelper
     index = options[:index]
     answer = answers[index]
     return false unless is_grouped_question(answer)
-    return true if index == 0
+    return true if index.zero?
 
     previous_answer = answers[index - 1]
     return true unless is_grouped_question(previous_answer)

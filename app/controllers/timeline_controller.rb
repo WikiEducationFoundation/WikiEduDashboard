@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "#{Rails.root}/lib/wiki_course_edits"
 
 #= Controller for timeline functionality
@@ -90,7 +91,8 @@ class TimelineController < ApplicationController
       { blocks: [:id, :title, :kind, :content, :weekday, :week_id, :deleted,
                  :order, :gradeable_id, :due_date,
                  { gradeable: [:id, :gradeable_item_id, :gradeable_item_type,
-                               :title, :points, :deleted] }] }] }
+                               :title, :points, :deleted] }] }
+    ] }
   end
 
   def permit_training_module_ids(block)

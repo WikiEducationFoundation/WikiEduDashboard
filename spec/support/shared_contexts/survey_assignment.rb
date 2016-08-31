@@ -37,7 +37,8 @@ shared_context 'survey_assignment' do
       start: Time.zone.today - 2.months,
       end: Time.zone.today + 3.days,
       passcode: 'pizza',
-      title: 'Underwater basket-weaving' }
+      title: 'Underwater basket-weaving'
+    }
 
     # Add 2 Courses to our Cohort each with an instructor
     2.times do |i|

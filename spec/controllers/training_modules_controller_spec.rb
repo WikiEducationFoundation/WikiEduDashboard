@@ -1,7 +1,7 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 describe TrainingModulesUsersController do
-
   describe '#create_or_update' do
     let(:user) { create(:user) }
     let(:training_module) { TrainingModule.all.first }
@@ -10,7 +10,6 @@ describe TrainingModulesUsersController do
 
     let(:request_params1) do
       { user_id: user.id, module_id: training_module.slug, slide_id: slide.slug }
-
     end
 
     context 'tmu record exists' do
@@ -63,5 +62,4 @@ describe TrainingModulesUsersController do
       end
     end
   end
-
 end

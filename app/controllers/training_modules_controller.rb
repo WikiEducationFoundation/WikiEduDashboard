@@ -1,8 +1,9 @@
+# frozen_string_literal: true
 class TrainingModulesController < ApplicationController
   respond_to :json
 
   def index
-    @training_modules = TrainingModule.all.sort {|a, b| a.id <=> b.id }
+    @training_modules = TrainingModule.all.sort { |a, b| a.id <=> b.id }
   end
 
   def show

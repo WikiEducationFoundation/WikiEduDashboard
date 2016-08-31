@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "#{Rails.root}/lib/revision_feedback_service"
 require "#{Rails.root}/lib/importers/revision_score_importer"
 

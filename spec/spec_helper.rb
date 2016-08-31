@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # NOTE: CodeClimate can only handle coverage data for one language.
 # Since code coverage in Ruby is at or near 100% as of November 2015, while
 # javascript coverage is only just getting started, the ruby reporting is

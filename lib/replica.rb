@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "#{Rails.root}/lib/revision_data_parser"
 
 #= Fetches wiki revision data from an endpoint that provides SQL query
@@ -185,7 +186,8 @@ class Replica
     Rails.logger.error "replica.rb #{endpoint} query failed after 3 tries: #{error}"
     level = 'warning' if typical_errors.include?(error.class)
     Raven.capture_exception error, level: level, extras: {
-      query: query, endpoint: endpoint, language: @wiki.language, project: @wiki.project }
+      query: query, endpoint: endpoint, language: @wiki.language, project: @wiki.project
+    }
     return nil
   end
 
