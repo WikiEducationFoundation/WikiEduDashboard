@@ -126,7 +126,7 @@ describe CourseMeetingsManager do
     let(:expected) do
       [Date.new(2015, 8, 25),
        Date.new(2015, 8, 27),
-       Date.new(2015, 9, 0o1)]
+       Date.new(2015, 9, 1)]
     end
     subject { described_class.new(course).send(:all_potential_meetings) }
     it 'returns an array of all days the course would have met, irrespective of blackouts' do
