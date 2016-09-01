@@ -50,7 +50,7 @@ const CourseStats = React.createClass({
             <h4 className="stat-display__value">{this.props.course.upload_usages_count}</h4>
             <p>{I18n.t('metrics.uploads_in_use_count', { count: this.props.course.upload_usages_count })}</p>
             <h4 className="stat-display__value">{this.props.course.upload_usages_count}</h4>
-            // <p>{I18n.t('metrics.upload_usages_count', { count: this.props.course.upload_usages_count })}</p>
+            <p>{I18n.t('metrics.upload_usages_count', { count: this.props.course.upload_usages_count })}</p>
           </div>
         </div>
       </div>
