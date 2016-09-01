@@ -115,6 +115,10 @@ const CourseCreator = React.createClass({
     return this.setState({ showCourseDropdown: true });
   },
 
+  cancelClone() {
+    return this.setState({ showCourseDropdown: false });
+  },
+
   useThisClass() {
     const select = ReactDOM.findDOMNode(this.refs.courseSelect);
     const courseId = select.options[select.selectedIndex].getAttribute('data-id-key');
@@ -233,6 +237,7 @@ const CourseCreator = React.createClass({
             <div className={selectClassName}>
               <select id="reuse-existing-course-select" ref="courseSelect">{options}</select>
               <button className="button dark" onClick={this.useThisClass}>Clone This Course</button>
+              <button className="button dark right" onClick={this.cancelClone}>Cancel</button>
             </div>
             <div className={formClass}>
               <div className="column">
