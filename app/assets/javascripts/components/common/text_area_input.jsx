@@ -63,6 +63,7 @@ const TextAreaInput = React.createClass({
             autoFocus={this.props.focus}
             onFocus={this.focus}
             onBlur={this.blur}
+            maxLength="30000"
             placeholder={this.props.placeholder}
           />
         );

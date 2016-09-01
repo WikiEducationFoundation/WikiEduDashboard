@@ -184,6 +184,7 @@ const CourseCreator = React.createClass({
           value_key="expected_students"
           editable
           type="number"
+          max="999"
           label={CourseUtils.i18n('creator.expected_number', this.state.course_string_prefix)}
           placeholder={CourseUtils.i18n('creator.expected_number', this.state.course_string_prefix)}
         />

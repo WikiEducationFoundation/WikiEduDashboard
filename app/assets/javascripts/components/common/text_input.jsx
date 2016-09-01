@@ -16,6 +16,8 @@ const TextInput = React.createClass({
     p_tag_classname: React.PropTypes.string,
     inline: React.PropTypes.bool,
     type: React.PropTypes.string,
+    max: React.PropTypes.string,
+    maxLength: React.PropTypes.string,
     focus: React.PropTypes.func,
     onBlur: React.PropTypes.func,
     onClick: React.PropTypes.func,
@@ -62,6 +64,10 @@ const TextInput = React.createClass({
       }
 
       const className = `${inputClass} ${this.props.value_key}`;
+      // The default maximum length of 75 ensures that the slug field
+      // of a course, which combines three TextInput values, will not exceed
+      // the maximum string size of 255.
+      const maxLength = this.props.maxLength || '75';
       let input = (
         <input
           ref="input"
@@ -73,6 +79,8 @@ const TextInput = React.createClass({
           onFocus={this.focus}
           onBlur={this.blur}
           type={this.props.type || 'text'}
+          max={this.props.max}
+          maxLength={maxLength}
           placeholder={this.props.placeholder}
           title={title}
           min={0}
