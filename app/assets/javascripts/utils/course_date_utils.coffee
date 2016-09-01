@@ -9,17 +9,13 @@ module.exports = {
 
   # Returns an object of minDate and maxDate props for each date field of a course
   dateProps: (course, type) ->
-    minEnd = moment(course.start, 'YYYY-MM-DD')
-    #Wiki Ed's classroom program requires courses be at least a week long
-    type ?= course.type
-    if type == 'ClassroomProgramCourse'
-      minEnd.add(1, 'week')
+    startDate = moment(course.start, 'YYYY-MM-DD')
 
     props =
       end:
-        minDate: minEnd
+        minDate: startDate
       timeline_start:
-        minDate: moment(course.start, 'YYYY-MM-DD')
+        minDate: startDate
         maxDate: moment(course.timeline_end, 'YYYY-MM-DD')
       timeline_end:
         minDate: moment(course.timeline_start, 'YYYY-MM-DD')
@@ -27,9 +23,9 @@ module.exports = {
 
     return props
 
-  # This method takes a previous version of a course and a new one where one of
-  # the dates has changed, and returns a course where all the dates are consistent
-  # with each other.
+  # This method takes a current version of a course and an updated key-value pair
+  # for changing one of the date fields and returns a course where all the dates
+  # are consistent with each other.
   updateCourseDates: (prevCourse, value_key, value) ->
     updatedCourse = $.extend({}, prevCourse);
     updatedCourse[value_key] = value
