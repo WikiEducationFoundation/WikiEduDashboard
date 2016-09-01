@@ -192,7 +192,8 @@ class Course < ActiveRecord::Base
   ####################
   # Instance methods #
   ####################
-  delegate :students_without_overdue_training, to: :trained_students_manager
+  delegate :students_up_to_date_with_training, to: :trained_students_manager
+  delegate :students_with_overdue_training, to: :trained_students_manager
 
   def to_param
     # This method is used by ActiveRecord

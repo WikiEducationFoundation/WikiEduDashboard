@@ -48,7 +48,7 @@ class CourseCacheManager
     # date, 'trained_count' is represents the count of students who don't have
     # assigned training modules that are overdue.
     trained_count = if past_training_cutoff?
-                      @course.students_without_overdue_training
+                      @course.students_up_to_date_with_training.count
                     else
                       @course.students_without_nonstudents.trained.size
                     end
