@@ -17,7 +17,7 @@ gulp.task('webpack', ['bower'], (cb) => {
     raven: [`${jsSource}/raven.js`],
     styleguide: [`${jsSource}/styleguide/styleguide.jsx`],
     survey: [`${jsSource}/surveys/survey.js`],
-    survey_admin: [`${jsSource}/surveys/survey-admin.coffee`],
+    survey_admin: [`${jsSource}/surveys/survey-admin.js`],
     survey_results: [`${jsSource}/surveys/survey-results.js`]
   };
 
