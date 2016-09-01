@@ -1,7 +1,7 @@
 React            = require 'react'
 DND              = require 'react-dnd'
 HTML5DND         = require 'react-dnd-html5-backend'
-Block            = require './block.cjsx'
+Block            = require('./block.jsx').default
 OrderableBlock   = require('./orderable_block.jsx').default
 BlockActions     = require('../../actions/block_actions.js').default
 WeekActions      = require('../../actions/week_actions.js').default
@@ -86,14 +86,14 @@ Week = React.createClass(
             toggleFocused={@toggleFocused.bind(this, block.id)}
             block={block}
             key={block.id}
-            edit_permissions={@props.edit_permissions}
+            editPermissions={@props.edit_permissions}
             gradeable={GradeableStore.getGradeableByBlock(block.id)}
             deleteBlock={@deleteBlock.bind(this, block.id)}
             moveBlock={@props.moveBlock}
             week_index={@props.index}
             weekStart={dateCalc.startDate()}
             all_training_modules={@props.all_training_modules}
-            editable_block_ids={@props.editable_block_ids}
+            editableBlockIds={@props.editable_block_ids}
             saveBlockChanges={@props.saveBlockChanges}
             cancelBlockEditable={@props.cancelBlockEditable}
           />
