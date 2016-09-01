@@ -243,4 +243,3 @@ const Block = React.createClass({
 
 
 export default Block;
-// module.exports = Reorderable(Block, 'block', 'moveBlock')

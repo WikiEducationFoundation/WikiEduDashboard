@@ -4,7 +4,7 @@ Router          = ReactRouter.Router
 TransitionGroup = require 'react-addons-css-transition-group'
 
 Timeline        = require './timeline.cjsx'
-Grading         = require './grading.cjsx'
+Grading         = require('./grading.jsx').default
 Editable        = require('../high_order/editable.jsx').default
 
 CourseDateUtils   = require '../../utils/course_date_utils.coffee'
