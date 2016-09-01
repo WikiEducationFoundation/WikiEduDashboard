@@ -20,7 +20,6 @@ API =
         type: 'GET',
         url: "/lookups/#{model}.json",
         success: (data) ->
-          console.log "Received '#{model}' lookups"
           res data
       .fail (obj, status) ->
         logErrorMessage(obj)
@@ -32,7 +31,6 @@ API =
         type: 'GET',
         url: '/wizards.json',
         success: (data) ->
-          console.log 'Received wizard index'
           res data
       .fail (obj, status) ->
         logErrorMessage(obj)
@@ -45,7 +43,6 @@ API =
         type: 'GET',
         url: url
         success: (data) ->
-          console.log 'Received revisions'
           res data
       .fail (obj, status) ->
         logErrorMessage(obj)
@@ -57,7 +54,6 @@ API =
         type: 'GET',
         url: "/revision_analytics/dyk_eligible.json?scoped=#{opts.scoped || false}",
         success: (data) ->
-          console.log 'Received DYK'
           res data
       .fail (obj, status) ->
         logErrorMessage(obj)
@@ -69,7 +65,6 @@ API =
         type: 'GET',
         url: "/revision_analytics/suspected_plagiarism.json?scoped=#{opts.scoped || false}",
         success: (data) ->
-          console.log 'Received suspected plagiarism'
           res data
       .fail (obj, status) ->
         logErrorMessage(obj)
@@ -81,7 +76,6 @@ API =
         type: 'GET',
         url: "/revision_analytics/recent_edits.json?scoped=#{opts.scoped || false}",
         success: (data) ->
-          console.log 'Received recent edits'
           res data
       .fail (obj, status) ->
         logErrorMessage(obj)
@@ -93,7 +87,6 @@ API =
         type: 'GET',
         url: "/revision_analytics/recent_uploads.json?scoped=#{opts.scoped || false}",
         success: (data) ->
-          console.log 'Received recent uploads'
           res data
       .fail (obj, status) ->
         logErrorMessage(obj)
@@ -117,7 +110,6 @@ API =
         type: 'GET',
         url: '/cohorts.json',
         success: (data) ->
-          console.log 'Received cohorts'
           res data
       .fail (obj, status) ->
         logErrorMessage(obj)
@@ -129,7 +121,6 @@ API =
         type: 'GET',
         url: '/wizards/' + wizard_id + '.json',
         success: (data) ->
-          console.log 'Received wizard configuration'
           res data
       .fail (obj, status) ->
         logErrorMessage(obj)
@@ -141,7 +132,6 @@ API =
         type: 'GET',
         url: "/courses_users.json?user_id=#{userId}"
         success: (data) ->
-          console.log 'Received user courses'
           res data
       .fail (obj, status) ->
         logErrorMessage(obj)
@@ -193,7 +183,6 @@ API =
         type: 'GET',
         url: '/courses/' + course_id + '/' + endpoint + '.json',
         success: (data) ->
-          console.log 'Received ' + endpoint
           res data
       .fail (obj, status) ->
         logErrorMessage(obj)
@@ -205,7 +194,6 @@ API =
         type: 'GET'
         url: "/training_modules.json"
         success: (data) ->
-          console.log 'Received training modules'
           res data
       .fail (obj, status) ->
         logErrorMessage(obj)
@@ -217,7 +205,6 @@ API =
         type: 'GET'
         url: "/training_module.json?module_id=#{opts.module_id}"
         success: (data) ->
-          console.log 'Received training module'
           res data
       .fail (obj, status) ->
         logErrorMessage(obj)
