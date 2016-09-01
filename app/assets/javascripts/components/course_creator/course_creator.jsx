@@ -40,7 +40,7 @@ const CourseCreator = React.createClass({
       tempCourseId: '',
       isSubmitting: false,
       shouldShowForm: false,
-      shouldShowCourseDropdown: false,
+      showCourseDropdown: false,
       default_course_type: getDefaultCourseType(),
       course_string_prefix: getCourseStringPrefix()
     };
