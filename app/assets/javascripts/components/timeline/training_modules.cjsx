@@ -19,6 +19,7 @@ TrainingModules = React.createClass(
       )
       content = (
         <div>
+          <h4>Training modules</h4>
           <Select
             multi={true}
             name='block-training-modules'
@@ -76,12 +77,6 @@ TrainingModules = React.createClass(
         <div>
           <h4>Training</h4>
           <table className='table table--small'>
-            <thead>
-              <tr>
-                <th className='block__training-modules-table__module-name-header'>Module Name</th>
-                <th className='block__training-modules-table__status-header'>Status</th>
-              </tr>
-            </thead>
             <tbody>
               {modules}
             </tbody>
