@@ -18,7 +18,6 @@
 #  revision_count        :integer          default(0)
 #  slug                  :string(255)
 #  listed                :boolean          default(TRUE)
-#  assignment_source     :string(255)
 #  subject               :string(255)
 #  expected_students     :integer
 #  description           :text(65535)
