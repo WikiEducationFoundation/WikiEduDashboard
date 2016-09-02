@@ -26,7 +26,7 @@ describe AlertsController do
       expect(ActionMailer::Base.deliveries.last.to).to include(target_user.email)
       expect(ActionMailer::Base.deliveries.last.subject)
         .to include("#{user.username} / #{course.slug}")
-      expect(ActionMailer::Base.deliveries.last.body).to include(alert_params[:message])
+      expect(ActionMailer::Base.deliveries.last.parts[0].body).to include(alert_params[:message])
       expect(NeedHelpAlert.count).to eq(1)
       expect(NeedHelpAlert.last.email_sent_at).not_to be_nil
     end

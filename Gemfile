@@ -34,6 +34,10 @@ gem 'acts_as_list'
 
 gem 'sentimental'
 
+# used for enabling CSS for mailer emails
+gem 'premailer-rails'
+gem 'nokogiri' # expected by premailer-rails but not required
+
 # UNIVERSAL TEXT CONVERTER - FOR MARDOWN TO MEDIAWIKI TEXT
 gem 'pandoc-ruby', '~> 1.0.0'
 

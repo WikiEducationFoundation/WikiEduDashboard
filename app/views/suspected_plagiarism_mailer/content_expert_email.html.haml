@@ -1,7 +1,8 @@
-%p= "Suspected plagiarism from User:#{@user.username}"
-%p= "Course: #{@course.title}"
-%p= "Article: #{@article.title}"
-%p
+%link{rel: 'stylesheet', href:'/mailer.css'}
+%p.paragraph= "Suspected plagiarism from User:#{@user.username}"
+%p.paragraph= "Course: #{@course.title}"
+%p.paragraph= "Article: #{@article.title}"
+%p.paragraph
   %a{href: @revision.url} diff
-%p
+%p.paragraph
   %a{href: @report_url} iThenticate report

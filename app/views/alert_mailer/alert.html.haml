@@ -1,12 +1,13 @@
-%p
+%link{rel: 'stylesheet', href:'/mailer.css'}
+%p.paragraph
   Please investigate:
   %a{ href: @alert.url }= @alert.main_subject
 
 - if @message
-  %p
+  %p.paragraph
     = "Message from #{@alert.user.username}:"
     = @message
 
-  %p
+  %p.paragraph
     User email:
     = @alert.user.email
