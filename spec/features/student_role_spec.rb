@@ -4,7 +4,7 @@ require 'rails_helper'
 describe 'Student users', type: :feature, js: true do
   before do
     include Devise::TestHelpers, type: :feature
-    Capybara.current_driver = :selenium
+    Capybara.current_driver = :poltergeist
     page.current_window.resize_to(1920, 1080)
   end
 
@@ -121,7 +121,7 @@ describe 'Student users', type: :feature, js: true do
       expect(page).to have_content User.last.username
       click_link 'Join'
       sleep 1
-      visit "/courses/#{Course.first.slug}/students"
+      click_link 'Students'
       expect(find('tbody', match: :first)).to have_content User.last.username
       # Now try enrolling again, which shouldn't cause any errors
       visit "/courses/#{Course.first.slug}/enroll/passcode"
@@ -146,7 +146,7 @@ describe 'Student users', type: :feature, js: true do
       expect(page).to have_content 'Ragesock'
       click_link 'Join'
       sleep 1
-      visit "/courses/#{Course.first.slug}/students"
+      click_link 'Students'
       expect(find('tbody', match: :first)).to have_content 'Ragesock'
     end
 
@@ -173,8 +173,9 @@ describe 'Student users', type: :feature, js: true do
       sleep 1
       click_link 'Finish'
       click_link 'Join'
-      sleep 1
-      visit "/courses/#{Course.first.slug}/students"
+      sleep 2
+      click_link 'Students'
+      sleep 3
       expect(find('tbody', match: :first)).to have_content 'Ragesoss'
     end
 
