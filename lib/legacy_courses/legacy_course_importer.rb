@@ -10,7 +10,7 @@ class LegacyCourseImporter
   def self.update_all_courses(initial=false, raw_ids={})
     raw_ids = WikiLegacyCourses.course_list if raw_ids.empty?
     listed_ids = raw_ids.values.flatten
-    course_ids = listed_ids | Course.legacy.where(listed: true).pluck(:id)
+    course_ids = listed_ids | Course.legacy.pluck(:id)
 
     if initial
       _minimum = course_ids.min
@@ -52,7 +52,7 @@ class LegacyCourseImporter
       courses.push course
       participants[id] = c['participants']
     end
-    Course.import courses, on_duplicate_key_update: [:start, :end, :listed]
+    Course.import courses, on_duplicate_key_update: [:start, :end]
 
     # Update cohort membership
     LegacyCohortImporter.update_cohorts raw_ids
@@ -146,7 +146,8 @@ class LegacyCourseImporter
     valid_ids = course_data.map { |c| c['course']['id'] }
     deleted_ids = listed_ids - valid_ids
     deleted_ids.each do |id|
-      Course.find(id).delist if Course.exists?(id)
+      # NOTE: Delisting is no longer supported as of September 2016
+      # Course.find(id).delist if Course.exists?(id)
     end
   end
 

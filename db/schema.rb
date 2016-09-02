@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160902170039) do
+ActiveRecord::Schema.define(version: 20160902212959) do
 
   create_table "alerts", force: :cascade do |t|
     t.integer  "course_id",      limit: 4
@@ -137,7 +137,6 @@ ActiveRecord::Schema.define(version: 20160902170039) do
     t.integer  "article_count",         limit: 4,     default: 0
     t.integer  "revision_count",        limit: 4,     default: 0
     t.string   "slug",                  limit: 255
-    t.boolean  "listed",                              default: true
     t.string   "subject",               limit: 255
     t.integer  "expected_students",     limit: 4
     t.text     "description",           limit: 65535

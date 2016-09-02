@@ -17,7 +17,6 @@
 #  article_count         :integer          default(0)
 #  revision_count        :integer          default(0)
 #  slug                  :string(255)
-#  listed                :boolean          default(TRUE)
 #  subject               :string(255)
 #  expected_students     :integer
 #  description           :text(65535)
@@ -115,15 +114,13 @@ class Course < ActiveRecord::Base
   # MediaWiki extension, not created within the dashboard via the wizard.
   scope :legacy, -> { where(type: 'LegacyCourse') }
 
-  scope :listed, -> { where(listed: true) }
-
-  def self.submitted_listed
-    Course.listed.includes(:cohorts).where('cohorts.id IS NULL')
+  def self.submitted_but_unapproved
+    Course.includes(:cohorts).where('cohorts.id IS NULL')
           .where(submitted: true).references(:cohorts)
   end
 
-  def self.unsubmitted_listed
-    Course.listed.includes(:cohorts).where('cohorts.id IS NULL')
+  def self.unsubmitted
+    Course.includes(:cohorts).where('cohorts.id IS NULL')
           .where(submitted: false).references(:cohorts)
   end
 
@@ -219,11 +216,6 @@ class Course < ActiveRecord::Base
     # wiki_title or url.
     return unless wiki_title
     "#{home_wiki.base_url}/wiki/#{wiki_title}"
-  end
-
-  def delist
-    self.listed = false
-    save
   end
 
   # LegacyCourse overrides this.

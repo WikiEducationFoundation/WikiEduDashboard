@@ -19,8 +19,7 @@ describe 'Student users', type: :feature, js: true do
            school: 'University',
            term: 'Term',
            slug: 'University/An_Example_Course_(Term)',
-           submitted: 1,
-           listed: true,
+           submitted: true,
            passcode: 'passcode',
            start: '2015-01-01'.to_date,
            end: '2020-01-01'.to_date)

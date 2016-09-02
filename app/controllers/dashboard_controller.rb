@@ -33,12 +33,12 @@ class DashboardController < ApplicationController
     @strictly_current = []
 
     return unless current_user.admin?
-    @submitted = Course.submitted_listed
+    @submitted = Course.submitted_but_unapproved
     @strictly_current = current_user.courses.strictly_current
   end
 
   def current_courses
-    current_user.courses.current_and_future.listed
+    current_user.courses.current_and_future
   end
 
   def past_courses
@@ -50,7 +50,7 @@ class DashboardController < ApplicationController
     if current_user.admin?
       current_user.courses.where('end <= ?', Date.today)
     else
-      current_user.courses.archived.listed
+      current_user.courses.archived
     end
   end
 end

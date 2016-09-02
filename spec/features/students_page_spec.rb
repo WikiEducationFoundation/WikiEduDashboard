@@ -23,7 +23,6 @@ describe 'Students Page', type: :feature, js: true do
                      end: 3.months.from_now,
                      school: 'This university.foo',
                      term: 'term 2015',
-                     listed: 1,
                      description: 'This is a great course')
     cohort = create(:cohort)
     @course.cohorts << cohort

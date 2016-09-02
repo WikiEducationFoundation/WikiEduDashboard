@@ -9,6 +9,7 @@ class LegacyCourseUpdater
       return if data.blank? || data[0].nil?
       data = data[0]
     end
+    data['course']&.delete('listed')
     # Symbol if coming from controller, string if from course importer
     course.attributes = data[:course] || data['course']
 

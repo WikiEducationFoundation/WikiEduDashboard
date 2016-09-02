@@ -12,7 +12,7 @@ class CoursesPresenter
 
   def user_courses
     return unless current_user
-    current_user.courses.current_and_future.listed
+    current_user.courses.current_and_future
   end
 
   def cohort
@@ -71,7 +71,7 @@ class NullCohort
   end
 
   def courses
-    Course.unsubmitted_listed.order(created_at: :desc)
+    Course.unsubmitted.order(created_at: :desc)
   end
 
   def students_without_nonstudents

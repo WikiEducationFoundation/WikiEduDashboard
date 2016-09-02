@@ -42,7 +42,6 @@ describe 'the course page', type: :feature, js: true do
                     timeline_end: course_end.to_date,
                     school: 'This university.foo',
                     term: 'term 2015',
-                    listed: 1,
                     description: 'This is a great course')
     cohort = create(:cohort)
     course.cohorts << cohort

@@ -3,7 +3,7 @@
 class ListCourseManager
   def initialize(course, cohort, request)
     @course = course
-    @already_approved = course_listed?
+    @already_approved = course_approved?
     @cohort = cohort
     @request = request
     @cohorts_courses_attrs = { course_id: @course.id, cohort_id: @cohort.id }
@@ -26,8 +26,8 @@ class ListCourseManager
     CohortsCourses.find_by(@cohorts_courses_attrs).destroy
   end
 
-  def course_listed?
-    @course.cohorts.count.positive?
+  def course_approved?
+    @course.cohorts.any?
   end
 
   def send_approval_notification_emails

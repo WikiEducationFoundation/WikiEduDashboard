@@ -111,7 +111,6 @@ describe CoursesController do
         subject: 'cooking',
         expected_students: 1,
         submitted: submitted_2,
-        listed: false,
         day_exceptions: '',
         weekdays: '0001000',
         no_day_exceptions: true }
@@ -258,7 +257,6 @@ describe CoursesController do
             subject: 'cooking',
             expected_students: 1,
             submitted: false,
-            listed: false,
             day_exceptions: '',
             weekdays: '0001000',
             no_day_exceptions: true }
@@ -310,7 +308,7 @@ describe CoursesController do
           post :list, id: course.slug, cohort: { title: cohort.title }, format: :json
         end
 
-        it 'does not send an email if course is already listed' do
+        it 'does not send an email if course is already approved' do
           course.cohorts << create(:cohort)
           expect(CourseApprovalMailer).not_to receive(:send_approval_notification)
           post :list, id: course.slug, cohort: { title: cohort.title }, format: :json

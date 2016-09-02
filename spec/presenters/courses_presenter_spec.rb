@@ -26,10 +26,10 @@ describe CoursesPresenter do
     context 'user is admin' do
       let!(:user)     { admin }
       let!(:is_admin) { true }
-      let!(:course)  { create(:course, end: Time.zone.today + 4.months, listed: true) }
+      let!(:course)  { create(:course, end: Time.zone.today + 4.months) }
       let!(:c_user)  { create(:courses_user, course_id: course.id, user_id: user.id) }
 
-      it 'returns the current and future listed courses for the user' do
+      it 'returns the current and future courses for the user' do
         expect(subject).to include(course)
       end
     end
@@ -75,21 +75,21 @@ describe CoursesPresenter do
   describe '#courses' do
     let(:user) { create(:admin) }
     let(:cohort_param) { 'none' }
-    let!(:course) { create(:course, listed: true, submitted: false, id: 10001) }
+    let!(:course) { create(:course, submitted: false, id: 10001) }
     subject { described_class.new(user, 'none').courses }
 
     context 'cohort is "none"' do
-      it 'returns unsubmitted listed courses' do
+      it 'returns unsubmitted courses' do
         expect(subject).to include(course)
       end
     end
 
     context 'cohort is a valid cohort' do
-      let!(:course2) { create(:course, listed: true, submitted: false, id: 10002) }
+      let!(:course2) { create(:course, submitted: false, id: 10002) }
       let(:cohort_param)    { Figaro.env.default_cohort }
       let(:cohort)          { create(:cohort, slug: cohort_param) }
       let!(:cohorts_course) { create(:cohorts_course, cohort_id: cohort.id, course_id: course.id) }
-      it 'returns listed courses for the cohort' do
+      it 'returns courses for the cohort' do
         expect(subject).to include(course2)
       end
     end

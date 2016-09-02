@@ -27,8 +27,7 @@ describe 'Instructor users', type: :feature, js: true do
            school: 'University',
            term: 'Term',
            slug: 'University/Course_(Term)',
-           submitted: 1,
-           listed: true,
+           submitted: true,
            passcode: 'passcode',
            start: '2015-01-01'.to_date,
            end: '2020-01-01'.to_date,
@@ -183,32 +182,6 @@ describe 'Instructor users', type: :feature, js: true do
         page.first('button.notify_overdue').click
       end
       sleep 1
-    end
-
-    it 'should be able to view their own deleted course' do
-      pending 'fixing the intermittent failures on travis-ci'
-      Course.first.update_attributes(listed: false)
-      visit "/courses/#{Course.first.slug}"
-      expect(page).to have_content 'My Active Course'
-
-      puts 'PASSED'
-      raise 'this test passed — this time'
-    end
-
-    it 'should not be able to view other deleted courses' do
-      # Allow routing error to resolve to 404 page
-      method = Rails.application.method(:env_config)
-      allow(Rails.application).to receive(:env_config).with(no_args) do
-        method.call.merge(
-          'action_dispatch.show_exceptions' => true,
-          'action_dispatch.show_detailed_exceptions' => false
-        )
-      end
-
-      Course.first.update_attributes(listed: false)
-      CoursesUsers.find(1).destroy
-      visit "/courses/#{Course.first.slug}"
-      expect(page).to have_content 'Page not found'
     end
   end
 

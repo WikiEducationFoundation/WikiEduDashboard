@@ -17,7 +17,6 @@
 #  article_count         :integer          default(0)
 #  revision_count        :integer          default(0)
 #  slug                  :string(255)
-#  listed                :boolean          default(TRUE)
 #  subject               :string(255)
 #  expected_students     :integer
 #  description           :text(65535)
@@ -125,38 +124,6 @@ describe Course, type: :model do
       expect(course.term).to eq('Summer 2014')
       expect(course.school).to eq('University of Oklahoma')
       expect(course.user_count).to eq(12)
-    end
-  end
-
-  it 'should unlist courses that have been delisted' do
-    VCR.use_cassette 'wiki/course_list_delisted' do
-      create(:legacy_course,
-             id: 589,
-             start: Time.zone.today - 1.month,
-             end: Time.zone.today + 1.month,
-             title: 'Underwater basket-weaving',
-             passcode: 'pizza',
-             listed: true)
-
-      LegacyCourseImporter.update_all_courses(false, cohort: [351, 590])
-      course = Course.find(589)
-      expect(course.listed).to be false
-    end
-  end
-
-  it 'should unlist courses that have been deleted from Wikipedia' do
-    VCR.use_cassette 'wiki/course_list_deleted' do
-      create(:legacy_course,
-             id: 9999,
-             start: Time.zone.today - 1.month,
-             end: Time.zone.today + 1.month,
-             title: 'Underwater basket-weaving',
-             passcode: 'pizza',
-             listed: true)
-
-      LegacyCourseImporter.update_all_courses(false, cohort: [351, 9999])
-      course = Course.find(9999)
-      expect(course.listed).to be false
     end
   end
 

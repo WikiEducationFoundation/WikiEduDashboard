@@ -17,7 +17,6 @@
 #  article_count         :integer          default(0)
 #  revision_count        :integer          default(0)
 #  slug                  :string(255)
-#  listed                :boolean          default(TRUE)
 #  subject               :string(255)
 #  expected_students     :integer
 #  description           :text(65535)
@@ -47,7 +46,6 @@ FactoryGirl.define do
     start Date.new(2015, 1, 1)
     self.end Date.new(2015, 6, 1)
     title 'Underwater basket-weaving'
-    listed true
     school 'WINTR'
     term 'spring 2015'
     slug 'WINTR/Underwater_basket-weaving_(spring_2015)'
@@ -59,7 +57,6 @@ FactoryGirl.define do
     start Date.new(2015, 1, 1)
     self.end Date.new(2015, 6, 1)
     title 'Black life matters'
-    listed true
     school 'none'
     term 'none'
     slug 'Black_life_matters'
@@ -72,7 +69,6 @@ FactoryGirl.define do
     start Date.new(2015, 1, 1)
     self.end Date.new(2015, 6, 1)
     title 'Basket-weaving scholarship'
-    listed true
     school 'UNR'
     term 'spring 2015'
     slug 'UNR/Basket-weaving_scholarship_(spring_2015)'
@@ -85,7 +81,6 @@ FactoryGirl.define do
     start Date.new(2015, 1, 1)
     self.end Date.new(2015, 6, 1)
     title 'Basket-weaving edit-a-thon'
-    listed true
     school 'NARA'
     term 'spring 2015'
     slug 'NARA/Basket-weaving_edit-a-thon_(spring_2015)'
@@ -98,7 +93,6 @@ FactoryGirl.define do
     start Date.new(2013, 1, 1)
     self.end Date.new(2013, 6, 1)
     title 'Legacy basket-weaving'
-    listed true
     school 'PBR'
     term 'spring 2013'
     slug 'PRB/Legacy_basket-weaving_edit-a-thon_(spring_2013)'

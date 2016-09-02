@@ -56,7 +56,6 @@ class CoursesController < ApplicationController
 
   def show
     @course = find_course_by_slug("#{params[:school]}/#{params[:titleterm]}")
-    check_permission_to_show_course
     verify_edit_credentials { return }
 
     respond_to do |format|
@@ -83,18 +82,6 @@ class CoursesController < ApplicationController
   def check
     course_exists = Course.exists?(slug: params[:id])
     render json: { course_exists: course_exists }
-  end
-
-  def check_permission_to_show_course
-    # A user may not see an existing course if it has been de-listed, unless
-    # that user in the instructor.
-    return if @course.nil?
-    return if @course.listed?
-    is_instructor = (user_signed_in? && current_user.instructor?(@course))
-    return if is_instructor
-
-    raise ActionController::RoutingError
-      .new('Not Found'), 'Not permitted'
   end
 
   # JSON method for listing/unlisting course
@@ -187,7 +174,7 @@ class CoursesController < ApplicationController
     params
       .require(:course)
       .permit(:id, :title, :description, :school, :term, :slug, :subject,
-              :expected_students, :start, :end, :submitted, :listed, :passcode,
+              :expected_students, :start, :end, :submitted, :passcode,
               :timeline_start, :timeline_end, :day_exceptions, :weekdays,
               :no_day_exceptions, :cloned_status, :type)
   end
