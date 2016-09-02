@@ -94,7 +94,6 @@ CourseClonedModal = React.createClass(
     )
 
     dateProps = CourseDateUtils.dateProps(@props.course)
-
     <Modal>
       <div className='wizard__panel active cloned-course'>
         <h3>{I18n.t('courses.creator.clone_successful')}</h3>

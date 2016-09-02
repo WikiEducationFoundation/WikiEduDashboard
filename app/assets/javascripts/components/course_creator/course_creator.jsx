@@ -180,7 +180,7 @@ const CourseCreator = React.createClass({
         <TextInput
           id="course_expected_students"
           onChange={this.updateCourse}
-          value={this.state.course.expected_students}
+          value={String(this.state.course.expected_students)}
           value_key="expected_students"
           editable
           type="number"

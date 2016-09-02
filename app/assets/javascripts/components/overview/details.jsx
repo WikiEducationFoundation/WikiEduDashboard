@@ -142,7 +142,7 @@ const Details = React.createClass({
       expectedStudents = (
         <TextInput
           onChange={this.updateDetails}
-          value={this.props.course.expected_students}
+          value={String(this.props.course.expected_students)}
           value_key="expected_students"
           editable={this.props.editable}
           type="number"

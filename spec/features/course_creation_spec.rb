@@ -2,7 +2,7 @@
 require 'rails_helper'
 
 def set_up_suite
-  Capybara.current_driver = :selenium
+  Capybara.current_driver = :poltergeist
   page.current_window.resize_to(1920, 1080)
   stub_oauth_edit
 end
@@ -349,14 +349,17 @@ describe 'New course creation and editing', type: :feature do
   end
 
   describe 'returning instructor creating a new course', js: true do
-    it 'should have the option of starting with no timeline' do
-      pending 'fixing the intermittent failures on travis-ci'
-
+    before do
       create(:course, id: 1)
       create(:courses_user,
              course_id: 1,
              user_id: 1,
              role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+      create(:cohorts_course, course_id: 1, cohort_id: Cohort.first.id)
+    end
+
+    it 'should have the option of starting with no timeline' do
+      visit root_path
 
       click_link 'Create Course'
       click_button 'Create New Course'
@@ -401,9 +404,6 @@ describe 'New course creation and editing', type: :feature do
 
       # Add Assignment button should not appear once there is timeline content.
       expect(page).not_to have_content 'Add Assignment'
-
-      puts 'PASSED'
-      raise 'this test passed — this time'
     end
   end
 
@@ -462,16 +462,20 @@ describe 'timeline editing', js: true do
   it 'allows swapping places with a block' do
     visit "/courses/#{Course.last.slug}/timeline"
     click_button 'Arrange Timeline'
-    find('.week-1 .week__block-list > li:nth-child(1) button:first-of-type').click # move down
+    # move down
+    find('.week-1 .week__block-list > li:nth-child(1) button:first-of-type').trigger('click')
     sleep 0.5
-    find('.week-1 .week__block-list > li:nth-child(2) button:first-of-type').click # move down again
+    # move down again
+    find('.week-1 .week__block-list > li:nth-child(2) button:first-of-type').trigger('click')
     sleep 0.5
     expect(find('.week-1 .week__block-list > li:nth-child(1)')).to have_content('Block 2')
     expect(find('.week-1 .week__block-list > li:nth-child(2)')).to have_content('Block 3')
     expect(find('.week-1 .week__block-list > li:nth-child(3)')).to have_content('Block 1')
-    find('.week-1 .week__block-list > li:nth-child(3) button:last-of-type').click # move up
+    # move up
+    find('.week-1 .week__block-list > li:nth-child(3) button:last-of-type').trigger('click')
     sleep 0.5
-    find('.week-1 .week__block-list > li:nth-child(2) button:last-of-type').click # move up again
+    # move up again
+    find('.week-1 .week__block-list > li:nth-child(2) button:last-of-type').trigger('click')
     sleep 0.5
     expect(find('.week-1 .week__block-list > li:nth-child(1)')).to have_content('Block 1')
     expect(find('.week-1 .week__block-list > li:nth-child(2)')).to have_content('Block 2')
@@ -483,12 +487,12 @@ describe 'timeline editing', js: true do
     click_button 'Arrange Timeline'
 
     # move up to week 1
-    find('.week-2 .week__block-list > li:nth-child(1) button:last-of-type').click
+    find('.week-2 .week__block-list > li:nth-child(1) button:last-of-type').trigger('click')
     sleep 0.5
     expect(find('.week-1 .week__block-list > li:nth-child(4)')).to have_content 'Block 4'
 
     # move back down to week 2
-    find('.week-1 .week__block-list > li:nth-child(4) button:first-of-type').click
+    find('.week-1 .week__block-list > li:nth-child(4) button:first-of-type').trigger('click')
     sleep 0.5
     expect(find('.week-2 .week__block-list > li:nth-child(1)')).to have_content 'Block 4'
   end
@@ -498,76 +502,15 @@ describe 'timeline editing', js: true do
     click_button 'Arrange Timeline'
 
     # move up to week 1
-    find('.week-2 .week__block-list > li:nth-child(1) button:last-of-type').click
+    find('.week-2 .week__block-list > li:nth-child(1) button:last-of-type').trigger('click')
     click_button 'Save All'
     expect(find('.week-1 .week__block-list > li:nth-child(4)')).to have_content 'Block 4'
 
     # move down to week 2 and discard Changes
     click_button 'Arrange Timeline'
-    find('.week-1 .week__block-list > li:nth-child(4) button:first-of-type').click
+    find('.week-1 .week__block-list > li:nth-child(4) button:first-of-type').trigger('click')
     click_button 'Discard All Changes'
     # still in week 1
     expect(find('.week-1 .week__block-list > li:nth-child(4)')).to have_content 'Block 4'
-  end
-end
-
-describe 'cloning a course', js: true do
-  before do
-    set_up_suite
-  end
-
-  let!(:course) do
-    create(:course, id: 10001, start: 1.year.from_now.to_date,
-                    end: 2.years.from_now.to_date, submitted: true,
-                    expected_students: 0)
-  end
-  let!(:week)      { create(:week, course_id: course.id) }
-  let!(:block)     { create(:block, week_id: week.id, due_date: course.start + 3.months) }
-  let!(:gradeable) do
-    create(:gradeable, gradeable_item_type: 'block', gradeable_item_id: block.id, points: 10)
-  end
-  let!(:user)      { create(:user, permissions: User::Permissions::ADMIN) }
-  let!(:c_user)    { create(:courses_user, course_id: course.id, user_id: user.id) }
-  let!(:term)      { 'Spring 2016' }
-  let!(:desc)      { 'A new course' }
-
-  it 'copies relevant attributes of an existing course' do
-    pending 'fixing the intermittent failures on travis-ci'
-    login_as user, scope: :user, run_callbacks: false
-    visit root_path
-
-    click_link 'Create Course'
-    click_button 'Clone Previous Course'
-    select course.title, from: 'reuse-existing-course-select'
-    click_button 'Clone This Course'
-
-    expect(page).to have_content 'Course Successfully Cloned'
-
-    # interact_with_clone_form
-
-    # form not working right now
-    visit "/courses/#{Course.last.slug}"
-    course.reload
-
-    new_course = Course.last
-    expect(Week.count).to eq(2) # make sure the weeks are distinct
-    expect(new_course.blocks.first.content).to eq(course.blocks.first.content)
-    expect(new_course.blocks.first.due_date)
-      .to be_nil
-    expect(new_course.blocks.first.gradeable.points).to eq(gradeable.points)
-    expect(new_course.blocks.first.gradeable.gradeable_item_id)
-      .to eq(new_course.blocks.first.id)
-    expect(new_course.instructors.first).to eq(user)
-    expect(new_course.submitted).to eq(false)
-    expect(new_course.user_count).to be_zero
-    expect(new_course.article_count).to be_zero
-
-    puts 'PASSED'
-    raise 'this test passed — this time'
-  end
-
-  after do
-    logout
-    Capybara.use_default_driver
   end
 end
