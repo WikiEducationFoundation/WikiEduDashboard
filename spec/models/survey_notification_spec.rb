@@ -1,4 +1,21 @@
 # frozen_string_literal: true
+# == Schema Information
+#
+# Table name: survey_notifications
+#
+#  id                     :integer          not null, primary key
+#  courses_users_id       :integer
+#  course_id              :integer
+#  survey_assignment_id   :integer
+#  dismissed              :boolean          default(FALSE)
+#  email_sent_at          :datetime
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  completed              :boolean          default(FALSE)
+#  last_follow_up_sent_at :datetime
+#  follow_up_count        :integer          default(0)
+#
+
 require 'rails_helper'
 require 'spec_helper'
 

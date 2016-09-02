@@ -19,6 +19,7 @@
 #  onboarded           :boolean          default(FALSE)
 #  greeted             :boolean          default(FALSE)
 #  greeter             :boolean          default(FALSE)
+#  locale              :string(255)
 #
 
 FactoryGirl.define do

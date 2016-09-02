@@ -13,14 +13,14 @@
 #  date           :datetime
 #  new_article    :boolean          default(FALSE)
 #  deleted        :boolean          default(FALSE)
-#  system         :boolean          default(FALSE)
 #  wp10           :float(24)
 #  wp10_previous  :float(24)
+#  system         :boolean          default(FALSE)
 #  ithenticate_id :integer
-#  report_url     :string(255)
 #  wiki_id        :integer
 #  mw_rev_id      :integer
 #  mw_page_id     :integer
+#  features       :text(65535)
 #
 
 require 'rails_helper'

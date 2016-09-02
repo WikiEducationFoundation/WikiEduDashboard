@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: users
@@ -20,6 +19,7 @@
 #  onboarded           :boolean          default(FALSE)
 #  greeted             :boolean          default(FALSE)
 #  greeter             :boolean          default(FALSE)
+#  locale              :string(255)
 #
 
 require 'rails_helper'

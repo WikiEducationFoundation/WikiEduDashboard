@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: courses
@@ -19,7 +18,6 @@
 #  revision_count        :integer          default(0)
 #  slug                  :string(255)
 #  listed                :boolean          default(TRUE)
-#  signup_token          :string(255)
 #  assignment_source     :string(255)
 #  subject               :string(255)
 #  expected_students     :integer
