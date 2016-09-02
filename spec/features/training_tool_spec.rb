@@ -111,16 +111,16 @@ describe 'Training', type: :feature, js: true do
       expect(unseen_slide_link).not_to be_nil
     end
 
+    it 'shows a 404 page for non-existent slides' do
+      visit "/training/students/#{module_2.slug}/lol-not-a-real-slide"
+      expect(page).to have_content 'Page not found'
+    end
+
     it 'loads for a logged out user' do
       logout(:user)
       expect(page).to have_content 'TABLE OF CONTENTS'
       expect(page).to have_content module_2.slides[0].title
       expect(page).to have_content module_2.slides[-1].title
-    end
-
-    it 'shows a 404 page for non-existent slides' do
-      visit "/training/students/#{module_2.slug}/lol-not-a-real-slide"
-      expect(page).to have_content 'Page not found'
     end
 
     after do

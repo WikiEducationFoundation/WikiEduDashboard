@@ -39,7 +39,8 @@ setCurrentSlide = (slide_id) ->
   TrainingStore.emitChange()
 
 setEnabledSlides = (slide) ->
-  _enabledSlides.push(slide.id)
+  if slide
+    _enabledSlides.push(slide.id)
   TrainingStore.emitChange()
 
 redirectTo = (data) ->
