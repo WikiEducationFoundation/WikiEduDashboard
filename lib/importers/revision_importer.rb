@@ -167,8 +167,8 @@ class RevisionImporter
                  article_id: article.id,
                  mw_page_id: rev_data['mw_page_id'],
                  user_id: User.find_by(username: rev_data['username'])&.id,
-                 new_article: rev_data['new_article'],
-                 system: rev_data['system'],
+                 new_article: string_to_boolean(rev_data['new_article']),
+                 system: string_to_boolean(rev_data['system']),
                  wiki_id: rev_data['wiki_id'])
   end
 
@@ -188,5 +188,10 @@ class RevisionImporter
 
     Revision.find_by(wiki_id: @wiki.id, mw_rev_id: moved['rev_id'])
             .update(article_id: article.id, mw_page_id: mw_page_id)
+  end
+
+  def string_to_boolean(string)
+    return false if string == 'false'
+    return true if string == 'true'
   end
 end
