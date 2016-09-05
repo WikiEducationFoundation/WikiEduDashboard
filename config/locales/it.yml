@@ -252,7 +252,7 @@ it:
       principale dagli studenti del corso durante il periodo del corso
     yourcourses: Tuoi corsi
     survey:
-      notification_message: Un sondaggio è disponibile per questo corso
+      notification_message: Partecipa al nostro sondaggio per questo corso.
       link: Rispondi sondaggio
   courses_generic:
     articles_none: Non ci sono voci modificate per questo progetto ancora.
@@ -425,7 +425,9 @@ it:
     training_complete:
       one: è aggiornato con la formazione
       other: sono aggiornati con la formazione
-    training_complete_count: '%{count} allenamento aggiornato'
+    training_complete_count:
+      one: '%{count} formazione completata'
+      other: '%{count} formazione completata'
     training_doc: Gli utenti che hanno completato tutti i moduli di formazione da
       fare sono considerati come utenti aggiornati  per quanto riguarda la loro formazione.
     training_incomplete: Formazione incompleta
@@ -452,6 +454,8 @@ it:
     article_required: È necessaria una voce.
     form_errors: Controlla il modulo per gli errori.
     invalid_assignment: Assegnazione non valida
+    invalid_file_format: Il file non può essere salvato. Carica un PDF o un documento
+      Word.
     unsupported_browser:
       header: Browser non supportato. :-(
   error_401:

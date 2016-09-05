@@ -185,6 +185,7 @@ zh-CN:
     expected_students: 预期学生
     gradeables_none: 此课程没有可批改作业。
     instructor:
+      one: 导师
       other: 导师
     instructors: 导师
     invitation: |-
@@ -240,13 +241,14 @@ zh-CN:
     view_page: 查看课程页面
     view_wiki: 在维基百科上查看
     volunteer:
+      one: 志愿者
       other: 志愿者
     warn_mirrored: 一经提交，此课程将自动使用您的用户账户发布在维基百科上。在此之后，对时间轴的编辑将自动镜像到维基百科。您确定要这样做么？
     wiki_staff: Wiki Ed职员
     word_count_doc: 在课程的学期期间，由课程的学生添加至主名字空间条目字数的估计
     yourcourses: 您的课程
     survey:
-      notification_message: 现有用于此课程的调查可用
+      notification_message: 接受我们为此课程设立的调查。
       link: 接受调查
   courses_generic:
     articles_none: 目前此项目尚无编辑的条目。
@@ -438,8 +440,11 @@ zh-CN:
     reviewers: 复核员
     reviewing: 正在复核
     training_complete:
-      other: 最新的培训
-    training_complete_count: '%{count}最近的培训'
+      one: 是最新的培训
+      other: 是最新的培训
+    training_complete_count:
+      one: '%{count}最近的培训'
+      other: '%{count}最近的培训'
     training_doc: 已完成所有分配的已到期培训模块的编辑者可算作是最近完成训练的。
     training_incomplete: 培训未完成
     training_modules_completed:

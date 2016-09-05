@@ -143,7 +143,7 @@ lb:
       other: Fräiwëlleger
     yourcourses: Är Coursen
     survey:
-      notification_message: Fir dëse Cours ass eng Ëmfro disponibel
+      notification_message: Bedeelegt Iech un eiser Ëmfro zu dësem Cours.
       link: Bei der Ëmfro matmaachen
   courses_generic:
     courses: Programmer

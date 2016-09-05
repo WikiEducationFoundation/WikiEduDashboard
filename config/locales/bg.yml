@@ -8,8 +8,12 @@
 ---
 bg:
   application:
+    cancel: Отказ
+    recent_activity: Последни действия
     search: Задаване на въпрос
     change: Промяна
+  articles:
+    loading: Зареждане на статии...
   assignments:
     remove: Премахване
     select: Избиране
@@ -21,7 +25,9 @@ bg:
     creator:
       find: Намери програма
   editable:
+    cancel: Отказ
     save: Съхраняване
   users:
     assign_articles_done: Готово
+    loading: Зареждане на потребители...
 ...

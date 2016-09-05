@@ -236,6 +236,7 @@ sv:
     username: Användarnamn
     username_placeholder: Användarnamn
   wizard:
+    select_one_option: Välj 1 alternativ.
     read_less: Läs mindre
     read_more: Läs mer
     summary: Sammanfattning

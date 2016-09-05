@@ -48,6 +48,7 @@ lt:
     articles: Straipsniai
     course_description: Kursai
     courses: Kursai
+    creation_date: Sukūrimo data
     creator:
       course_description: Kurso aprašymas
       course_subject: Kurso tema

@@ -1,6 +1,7 @@
 # Messages for डोटेली (डोटेली)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Nirajan pant
 # Author: जनक राज भट्ट
 ---
 dty:
@@ -9,4 +10,9 @@ dty:
     students_short: इस्कुल्या
   users:
     name: नाऊ
+  wizard:
+    select_one_option: कृपया १ विकल्प छानअ।
+  error:
+    invalid_file_format: फाइल सुरक्षित अद्द सकिएन। कृपया PDF या Word कागजात अपलोड
+      अरअ।
 ...

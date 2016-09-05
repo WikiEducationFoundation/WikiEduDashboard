@@ -4,6 +4,7 @@
 # Author: Ayatun
 # Author: Haytham morsy
 # Author: Maroen1990
+# Author: Moud hosny
 # Author: Shbib Al-Subaie
 # Author: محمد أحمد عبد الفتاح
 ---
@@ -99,6 +100,7 @@ ar:
     editors: محررون
     name: الاسم
   wizard:
+    select_one_option: الرجاء تحديد اختيار واحد
     read_more: اقرأ المزيد
     summary: ملخص
   error:

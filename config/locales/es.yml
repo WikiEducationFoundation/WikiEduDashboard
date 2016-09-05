@@ -165,6 +165,7 @@ es:
       cuenta de las semanas que no tienen reuniones programadas.
     course_description: Cursos
     courses: Cursos
+    creation_date: Fecha de creación
     creator:
       already_exists: Este curso ya existe. Considera cambiar el nombre, la escuela
         o el plazo para hacerlo único.
@@ -305,7 +306,7 @@ es:
       del espacio principal por parte de los estudiantes durante el período del curso
     yourcourses: Tus cursos
     survey:
-      notification_message: Está disponible una encuesta para este curso
+      notification_message: Participa en la encuesta de este curso.
       link: Completar la encuesta
   courses_generic:
     articles_none: No hay artículos editados para este proyecto aún.

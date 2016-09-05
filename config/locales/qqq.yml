@@ -4,6 +4,7 @@
 # Author: Adamw
 # Author: Base
 # Author: Beta16
+# Author: Ixocactus
 # Author: Liuxinyu970226
 # Author: Macofe
 # Author: MojoMann
@@ -218,6 +219,7 @@ qqq:
       Label for the number of courses in a cohort
       {{Identical|Course}}
     courses: Label for the number of courses in a cohort
+    creation_date: Data de criação
     creator:
       already_exists: Message indicating that a course with the same details already
         exists
@@ -283,6 +285,14 @@ qqq:
         do not correspond to a valid wiki
     gradeables_none: Message indicating that the course has no gradeable items in
       the timeline (Wiki Ed only)
+    instructor:
+      one: |-
+        Label for a single instructor of a course (Wiki Ed only)
+        {{Identical|Label for several instructors of a course (Wiki Ed only)
+        {{Identical|Instructor}}}}
+      other: |-
+        Instructor|Label for several instructors of a course (Wiki Ed only)
+        {{Identical|Instructor}}}}
     instructors: Label for the list of instructors for a program.
     invitation: Message that you have been invited to a course
     join: |-
@@ -352,6 +362,14 @@ qqq:
     view_doc: Explanation of what 'article views' means
     view_page: Label for link to the course page
     view_wiki: Label for link to the on-wiki version of a course page
+    volunteer:
+      one: |-
+        Label for a single course volunteer
+        {{Identical|Label for multiple course volunteers
+        {{Identical|Volunteer}}}}
+      other: |-
+        Volunteer|Label for multiple course volunteers
+        {{Identical|Volunteer}}}}
     warn_mirrored: Message to alert instructor that their new course will be uploaded
       to Wikipedia on their behalf (Wiki Ed only)
     wiki_staff: Label for staff members supporting the course (Wiki Ed only)

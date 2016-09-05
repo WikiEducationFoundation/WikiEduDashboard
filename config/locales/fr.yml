@@ -6,9 +6,12 @@
 # Author: Dcausse
 # Author: Gomoko
 # Author: LudaOtaku
+# Author: Mabroukb
 # Author: Macofe
 # Author: PifyZ
 # Author: Trial
+# Author: Tuxxic
+# Author: Urhixidur
 # Author: Verdy p
 # Author: Wladek92
 # Author: Yasten
@@ -310,7 +313,7 @@ fr:
       principal par les étudiants du cours pendant son déroulement
     yourcourses: Vos cours
     survey:
-      notification_message: Un sondage est disponible pour ce cours
+      notification_message: Répondez au sondage pour ce cours.
       link: Participer au sondage
   courses_generic:
     articles_none: Il n’y a encore aucun article modifié pour ce projet.
@@ -397,7 +400,7 @@ fr:
     recent_uploads: Mises à jour récentes
     revision_author: Auteur de la révision
     revision_datetime: Horodatage de la révision
-    revision_score: Score de révision
+    revision_score: Pointage de révision
     show_courses: Afficher uniquement mes cours
     uploaded_by: Téléversé par
     usage_count: Compteur d’utilisations
@@ -531,7 +534,9 @@ fr:
     training_complete:
       one: est à jour avec la formation
       other: sont à jour avec la formation
-    training_complete_count: '%{count} formation à jour'
+    training_complete_count:
+      one: '%{count} formation à jour'
+      other: '%{count} formations à jour'
     training_doc: Les éditeurs qui ont terminé tous les modules de formation échus
       qui leur ont été affectés sont comptabilisés comme à jour de leur formation.
     training_incomplete: Formation non terminée
@@ -569,9 +574,6 @@ fr:
       ajuster vos dates de début et de fin de tâche si vous voulez utiliser ce type
       de tâche.
     select_one_option: Veuillez sélectionner 1 option
-    minimum_options:
-      one: Veuillez sélectionner au moins %{count} option.
-      other: Veuillez sélectionner au moins %{count} options.
     read_less: Lire moins
     read_more: Lire plus
     review_selections: Veuillez vérifier vos sélections ci-dessous. Cliquez pour modifier
@@ -584,9 +586,11 @@ fr:
     article_required: Un article est nécessaire.
     form_errors: Veuillez vérifier les erreurs du formulaire.
     invalid_assignment: Affectation non valide
+    invalid_file_format: Le fichier n’a pas pu être enregistré. Veuillez téléverser
+      un document PDF ou Word.
     oauth_invalid: Votre autorisation sur Wikipédia a expiré. Veuillez vous reconnecter.
     unsupported_browser:
-      header: Navigateur non supporté. :-(
+      header: Navigateur non pris en charge. :-(
       explanation: Vous utilisez un navigateur qui n'est pas compatible avec le tableau
         de bord. Le site fonctionne bien sur Internet Explorer 11 ou plus, sur les
         versions récentes de Chrome ou Firefox, et sur d'autres navigateurs modernes.

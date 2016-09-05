@@ -1,0 +1,10 @@
+# Messages for Danish (dansk)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Palnatoke
+---
+da:
+  courses:
+    survey:
+      notification_message: Deltag i vores undersøgelse for dette kursus.
+...

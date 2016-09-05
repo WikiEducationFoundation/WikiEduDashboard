@@ -298,7 +298,7 @@ de:
       der Kursdauer hinzugefügten Wörter in Hauptnamensraum-Artikeln.
     yourcourses: Deine Kurse
     survey:
-      notification_message: Für diesen Kurs ist eine Umfrage verfügbar
+      notification_message: Nimm an unserer Umfrage für diesen Kurs teil
       link: An der Umfrage teilnehmen
   courses_generic:
     articles_none: Es gibt noch keine bearbeiteten Artikel für dieses Projekt.
@@ -521,7 +521,9 @@ de:
     training_complete:
       one: ist mit der Ausbildung auf dem Laufenden
       other: sind mit der Ausbildung auf dem Laufenden
-    training_complete_count: '%{count} Ausbildungen auf dem Laufenden'
+    training_complete_count:
+      one: Eine Ausbildung auf dem Laufenden
+      other: '%{count} Ausbildungen auf dem Laufenden'
     training_doc: Autoren, die alle zugewiesenen fälligen Ausbildungsmodule vervollständigt
       haben, werden mit ihrer Ausbildung als „auf dem Laufenden“ gezählt.
     training_incomplete: Ausbildung unvollständig

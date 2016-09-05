@@ -164,6 +164,7 @@ pt-br:
       mudarão para contar semanas que não têm reuniões agendadas.
     course_description: Cursos
     courses: Cursos
+    creation_date: Data de criação
     creator:
       already_exists: Este curso já existe. Considere mudar o nome, instituição de
         ensino ou semestre para torná-lo único.
@@ -302,7 +303,7 @@ pt-br:
       pelos estudantes do curso durante o semestre do curso
     yourcourses: Seus cursos
     survey:
-      notification_message: Está disponível um questionário deste curso
+      notification_message: Responda nossa pesquisa sobre este curso
       link: Responder o Questionário
   courses_generic:
     articles_none: Não há ainda artigos editados neste projeto.

@@ -47,7 +47,7 @@ diq:
     new: (Newe)
     rating: Sınıfe
     title: Sername
-    view: Wesiqer bıvin
+    view: Meqale Bıvêne
     view_all: Hemınan bıvin
   assignments:
     remove: Hewad
@@ -124,6 +124,7 @@ diq:
     start: Suru bık
     view: Bıvêne
   uploads:
+    label: Barkerdışi
     usages: Karidayışi
   users:
     first_name: Nameyo sıfteyên

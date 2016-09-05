@@ -9,6 +9,7 @@ oc:
     cancel: Anullar
     dashboard: Tablèu de bòrd de modificacion del wiki
     explore: Explorar
+    field_required: Aqueste camp es obligatòri
     greeting2: Benvenguda !
     greeting_extended: Benvenguda dins Wikipèdia
     greeting: Bonjorn !
@@ -92,6 +93,8 @@ oc:
     view_wiki: Afichar sus Wikipèdia
     wiki_staff: Equipa d’edicion de wiki
     yourcourses: Vòstres corses
+    survey:
+      notification_message: Respondètz al sondatge per aqueste cors.
   courses_generic:
     assignment_end: Fin de la cronologia
     assignment_start: Començament de la cronologia
