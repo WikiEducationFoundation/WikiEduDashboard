@@ -17,6 +17,14 @@ class SurveyMailerPreview < ActionMailer::Preview
     SurveyMailer.student_learning_preassessment_follow_up(example_notification)
   end
 
+  def custom_notification
+    SurveyMailer.custom_notification(example_notification)
+  end
+
+  def custom_follow_up
+    SurveyMailer.custom_follow_up(example_notification)
+  end
+
   private
 
   def example_notification

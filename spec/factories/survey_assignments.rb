@@ -16,6 +16,7 @@
 #  follow_up_days_after_first_notification :integer
 #  send_email                              :boolean
 #  email_template                          :string(255)
+#  custom_email                            :text(65535)
 #
 
 FactoryGirl.define do

@@ -45,7 +45,12 @@ class SurveyAssignmentsController < ApplicationController
 
   # PATCH/PUT /survey_assignments/1
   def update
-    if @survey_assignment.update(survey_assignment_params)
+    # SurveyAssignment#custom_email is serialized, so we handle it separately from the params
+    # that correspond directly to model attributes.
+    set_custom_email
+    updated_assignment_data = survey_assignment_params.merge(custom_email: @custom_email)
+
+    if @survey_assignment.update(updated_assignment_data)
       redirect_to survey_assignments_path, notice: 'Survey assignment was successfully updated.'
     else
       render :edit
@@ -90,6 +95,15 @@ class SurveyAssignmentsController < ApplicationController
     @send_relative_to_options = SEND_RELATIVE_TO_OPTIONS
   end
 
+  def set_custom_email
+    @custom_email = {
+      subject: custom_email_params[:custom_email_subject],
+      headline: custom_email_params[:custom_email_headline],
+      body: custom_email_params[:custom_email_body],
+      signature: custom_email_params[:custom_email_signature]
+    }
+  end
+
   # Never trust parameters from the scary internet, only allow the white list through.
   def survey_assignment_params
     params.require(:survey_assignment)
@@ -97,5 +111,11 @@ class SurveyAssignmentsController < ApplicationController
                   :send_date_days, :courses_user_role, :published,
                   :follow_up_days_after_first_notification, :send_email,
                   :notes, :email_template, cohort_ids: [])
+  end
+
+  def custom_email_params
+    params.require(:survey_assignment)
+          .permit(:custom_email_subject, :custom_email_headline,
+                  :custom_email_body, :custom_email_signature)
   end
 end

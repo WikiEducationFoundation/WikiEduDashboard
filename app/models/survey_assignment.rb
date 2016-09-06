@@ -17,6 +17,7 @@
 #  follow_up_days_after_first_notification :integer
 #  send_email                              :boolean
 #  email_template                          :string(255)
+#  custom_email                            :text(65535)
 #
 
 class SurveyAssignment < ActiveRecord::Base
@@ -37,6 +38,30 @@ class SurveyAssignment < ActiveRecord::Base
     )
   end
 
+  ###########################
+  # Custom email attributes #
+  ###########################
+  serialize :custom_email
+
+  def custom_email_subject
+    custom_email['subject'] if custom_email
+  end
+
+  def custom_email_headline
+    custom_email['headline'] if custom_email
+  end
+
+  def custom_email_body
+    custom_email['body'] if custom_email
+  end
+
+  def custom_email_signature
+    custom_email['signature'] if custom_email
+  end
+
+  ####################
+  # Instance methods #
+  ####################
   def send_at
     {
       days: send_date_days,

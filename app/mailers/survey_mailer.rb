@@ -22,28 +22,44 @@ class SurveyMailer < ApplicationMailer
   # Templates #
   #############
   TEMPLATES = %w(
+    custom
     instructor_survey
     student_learning_preassessment
   ).freeze
 
+  def custom_notification(notification)
+    prepare(notification)
+    customize(notification)
+    mail(to: @user.email, subject: @subject)
+  end
+
+  def custom_follow_up(notification)
+    prepare(notification)
+    customize(notification)
+    mail(to: @user.email, subject: "Reminder: #{@subject}") do |format|
+      format.text { render 'custom_notification' }
+      format.html { render 'custom_notification' }
+    end
+  end
+
   def instructor_survey_notification(notification)
-    set_ivars(notification)
+    prepare(notification)
     mail(to: @user.email, subject: "A survey is available for your course, '#{@course.title}'")
   end
 
   def instructor_survey_follow_up(notification)
-    set_ivars(notification)
+    prepare(notification)
     mail(to: @user.email,
          subject: "Reminder: A survey is available for your course, '#{@course.title}'")
   end
 
   def student_learning_preassessment_notification(notification)
-    set_ivars(notification)
+    prepare(notification)
     mail(to: @user.email, subject: 'Take the Wiki Ed Student Learning Survey')
   end
 
   def student_learning_preassessment_follow_up(notification)
-    set_ivars(notification)
+    prepare(notification)
     mail(to: @user.email, subject: 'Reminder: Take the Wiki Ed Student Learning Survey')
   end
 
@@ -55,10 +71,21 @@ class SurveyMailer < ApplicationMailer
 
   private
 
-  def set_ivars(notification)
+  def prepare(notification)
     @notification = notification
     @user = notification.user
     @survey = notification.survey
     @course = notification.course
+  end
+
+  def customize(notification)
+    @subject = notification.survey_assignment.custom_email_subject
+    @headline = notification.survey_assignment.custom_email_headline
+    @body_paragraphs = paragraphify(notification.survey_assignment.custom_email_body)
+    @signature = notification.survey_assignment.custom_email_signature
+  end
+
+  def paragraphify(text)
+    text.split("\r\n\r\n")
   end
 end

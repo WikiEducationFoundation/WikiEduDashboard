@@ -43,6 +43,22 @@
       = f.label :email_template
       = email_template_select(f)
 
+    .form_row
+      = f.label :custom_email_subject
+      = f.text_field :custom_email_subject
+
+    .form_row
+      = f.label :custom_email_headline
+      = f.text_field :custom_email_headline
+
+    .form_row
+      = f.label :custom_email_body
+      = f.text_area :custom_email_body
+
+    .form_row
+      = f.label :custom_email_signature
+      = f.text_field :custom_email_signature
+
     .form__row
       = f.label :notes
       = f.text_area :notes
