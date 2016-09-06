@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 require 'rake'
 require "#{Rails.root}/lib/surveys/survey_notifications_manager"
+require "#{Rails.root}/lib/surveys/survey_test_email_manager"
 
 WikiEduDashboard::Application.load_tasks
 
 class SurveyAssignmentsController < ApplicationController
   before_action :require_admin_permissions
-  before_action :set_survey_assignment, only: [:show, :edit, :update, :destroy]
+  before_action :set_survey_assignment, only: [:show, :edit, :update, :destroy, :send_test_email]
   before_action :set_survey_assignment_options, only: [:new, :edit, :update]
   layout 'surveys'
   include SurveyAssignmentsHelper
@@ -69,6 +70,12 @@ class SurveyAssignmentsController < ApplicationController
       notification.send_email
     end
     flash[:notice] = 'Sending Email Survey Notifications (if enabled)'
+    redirect_to survey_assignments_path
+  end
+
+  def send_test_email
+    SurveyTestEmailManager.send_test_email(@survey_assignment, current_user)
+    flash[:notice] = "You've got mail."
     redirect_to survey_assignments_path
   end
 

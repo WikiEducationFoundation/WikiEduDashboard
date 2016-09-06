@@ -40,8 +40,14 @@ describe SurveyAssignmentsController do
     let(:user) { create(:user, email: 'foo@bar.com') }
     let(:courses_user) { create(:courses_user, user_id: user.id) }
     let(:survey) { create(:survey) }
-    let(:survey_assignment) { create(:survey_assignment, send_email: send_email, survey_id: survey.id) }
-    let!(:survey_notification) { create(:survey_notification, survey_assignment_id: survey_assignment.id, dismissed: false, completed: false, courses_users_id: courses_user.id) }
+    let(:survey_assignment) do
+      create(:survey_assignment, send_email: send_email, survey_id: survey.id)
+    end
+    let!(:survey_notification) do
+      create(:survey_notification, survey_assignment_id: survey_assignment.id,
+                                   dismissed: false, completed: false,
+                                   courses_users_id: courses_user.id)
+    end
     before { allow(controller).to receive(:current_user).and_return(admin) }
 
     context 'send_email is not set' do
@@ -57,6 +63,21 @@ describe SurveyAssignmentsController do
         expect(SurveyMailer).to receive(:send_notification)
         post :send_notifications
       end
+    end
+  end
+
+  describe '#send_test_email' do
+    let(:admin) { create(:admin) }
+    let(:survey) { create(:survey) }
+    let(:survey_assignment) do
+      create(:survey_assignment, survey_id: survey.id)
+    end
+    let(:params) { { id: survey_assignment.id } }
+    before { allow(controller).to receive(:current_user).and_return(admin) }
+    it 'invokes SurveyTestEmailManager and redirects' do
+      expect_any_instance_of(SurveyTestEmailManager).to receive(:send_email)
+      post :send_test_email, params
+      expect(response.status).to eq(302)
     end
   end
 end

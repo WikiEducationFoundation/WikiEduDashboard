@@ -46,4 +46,8 @@ module SurveyAssignmentsHelper
   def role_name_by_id(id)
     ROLES.select { |r| r[:role] == id }.first[:name].downcase.singularize
   end
+
+  def test_email_path(id)
+    "/survey_assignments/#{id}/send_test_email"
+  end
 end
