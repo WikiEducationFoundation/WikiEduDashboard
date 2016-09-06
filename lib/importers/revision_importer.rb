@@ -180,9 +180,13 @@ class RevisionImporter
     end
 
     article = Article.find_by(wiki_id: @wiki.id, mw_page_id: mw_page_id)
-    article_id = article&.id
+
+    # Don't update the revision to point to a new article if there isn't one.
+    # This may happen if the article gets moved and then deleted, and there's
+    # some inconsistency or timing delay in the update process.
+    return unless article
 
     Revision.find_by(wiki_id: @wiki.id, mw_rev_id: moved['rev_id'])
-            .update(article_id: article_id, mw_page_id: mw_page_id)
+            .update(article_id: article.id, mw_page_id: mw_page_id)
   end
 end
