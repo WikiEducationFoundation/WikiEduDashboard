@@ -7,15 +7,15 @@ describe WikiAssignmentOutput do
   before do
     create(:course,
            id: 10001,
-           title: 'Course Title',
-           school: 'School',
-           term: 'Term',
-           slug: 'School/Course_Title_(Term)')
+           title: 'Language in Hawaiʻi and the Pacific',
+           school: 'University of Hawaiʻi at Mānoa',
+           term: 'Fall 2016',
+           slug: 'University_of_Hawaiʻi_at_Mānoa/Language_in_Hawaiʻi_and_the_Pacific_(Fall_2016)')
     create(:assignment,
            id: 1,
            user_id: 3,
            course_id: 10001,
-           article_title: 'Selfie',
+           article_title: 'South_Efate_language',
            role: Assignment::Roles::ASSIGNED_ROLE)
     create(:assignment,
            id: 2,
@@ -95,6 +95,23 @@ describe WikiAssignmentOutput do
                  .build_assignment_page_content(assignment_tag,
                                                 initial_talk_page_content)
         expect(output).to be_nil
+      end
+
+      context 'when the assignment is being removed so the new tag is blank' do
+        let(:title) { 'South_Efate_language' }
+        let(:talk_title) { 'Talk:South_Efate_language' }
+        it 'removes the existing assignment template if the new tag is blank' do
+          old_content = '{{dashboard.wikiedu.org assignment | course = Wikipedia:Wiki_Ed/University_of_Hawaiʻi_at_Mānoa/Language_in_Hawaiʻi_and_the_Pacific_(Fall_2016) | assignments = [[User:Keï|Keï]] }}
+
+  {{WP Languages|class=Stub}}
+  {{WikiProject Melanesia|class=Stub|Vanuatu=yes}}
+  '
+          page_content = wiki_assignment_output
+                         .build_assignment_page_content(
+                           '', String.new(old_content).force_encoding('ASCII-8BIT')
+                         )
+          expect(page_content).not_to include('{{dashboard.wikiedu.org assignment')
+        end
       end
     end
   end

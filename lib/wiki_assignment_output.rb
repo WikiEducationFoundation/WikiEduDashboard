@@ -70,11 +70,11 @@ class WikiAssignmentOutput
   # for that course. We also want to make as minimal a change as possible, and
   # to make sure that we're not disrupting the format of existing content.
   def build_assignment_page_content(new_tag, page_content)
-    page_content = page_content.dup
+    page_content = page_content.dup.force_encoding('utf-8')
     # Return if tag already exists on page.
     # However, if the tag is empty, that means to blank the prior tag (if any).z
     unless new_tag.blank?
-      return nil if page_content.force_encoding('utf-8').include? new_tag
+      return nil if page_content.include? new_tag
     end
 
     # Check for existing tags and replace
