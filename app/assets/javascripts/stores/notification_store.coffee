@@ -3,6 +3,8 @@
 
 McFly = require 'mcfly'
 Flux = new McFly()
+CourseStore = require './course_store.coffee'
+ServerActions     = require('../actions/server_actions.js').default
 
 # Data
 #----------------------------------------
@@ -37,7 +39,7 @@ NotificationStore = Flux.createStore
     when 'ADD_NOTIFICATION'
       addNotification(payload.notification)
       break
-    when 'API_FAIL'
+    when 'API_FAIL', 'SAVE_TIMELINE_FAIL'
       data = payload.data
       # readyState 0 usually indicates that the user navigated away before ajax
       # requests resolved. This is a benign error that should not cause a notification.
@@ -55,6 +57,18 @@ NotificationStore = Flux.createStore
         notification.message ||= data.responseJSON.error
 
       notification.message ||= data.statusText
+
+      if payload.actionType == 'SAVE_TIMELINE_FAIL'
+        course_id = CourseStore.getCourse().slug
+        ServerActions.fetch 'course', course_id
+        ServerActions.fetch 'timeline', course_id
+        notification.message = 'The changes you just submitted were not saved. ' +
+                               'This may happen if the timeline has been changed — ' +
+                               'by someone else, or by you in another browser ' +
+                               'window — since the page was loaded. The latest ' +
+                               'course data has been reloaded, and is ready for ' +
+                               'you to edit further.'
+
       addNotification(notification)
       break
 
