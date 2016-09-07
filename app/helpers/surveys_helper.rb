@@ -167,6 +167,16 @@ module SurveysHelper
     question_type(answer) == 'radio'
   end
 
+  def numeric_min(answer)
+    rule = answer.question.rules[:greater_than_or_equal_to]
+    rule.empty? ? '0' : rule
+  end
+
+  def numeric_max(answer)
+    rule = answer.question.rules[:less_than_or_equal_to]
+    rule.empty? ? '999999999' : rule
+  end
+
   private
 
   def set_course
