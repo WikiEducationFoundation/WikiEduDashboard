@@ -10,7 +10,7 @@ import Dates from '../components/timeline/meetings.cjsx';
 import CourseCreator from '../components/course_creator/course_creator.jsx';
 
 import OverviewHandler from '../components/overview/overview_handler.jsx';
-import TimelineHandler from '../components/timeline/timeline_handler.cjsx';
+import TimelineHandler from '../components/timeline/timeline_handler.jsx';
 import RevisionsHandler from '../components/revisions/revisions_handler.jsx';
 import StudentsHandler from '../components/students/students_handler.jsx';
 import ArticlesHandler from '../components/articles/articles_handler.jsx';
