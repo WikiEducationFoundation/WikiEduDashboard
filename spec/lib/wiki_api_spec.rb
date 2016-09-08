@@ -40,7 +40,7 @@ describe WikiApi do
           'THIS_IS_NOT_A_REAL_ARTICLE_TITLE', # does not exist
           '1804_Snow_hurricane', # a/ga ?
           'Barton_S._Alexander', # a
-          'Compounds_of_fluorine', # bplus
+          'Bell_number', # bplus
           'List_of_Canadian_plants_by_family_S', # sl
           'Antarctica_(disambiguation)', # dab
           '2015_Pacific_typhoon_season', # cur, as of 2015-02-27

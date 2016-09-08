@@ -90,38 +90,53 @@ describe 'Surveys', type: :feature, js: true do
       @survey.rapidfire_question_groups << question_group
       @survey.save
 
+      # Q1
       # Matrix question at the start
       create(:matrix_question, question_text: 'first line', question_group_id: question_group.id)
       create(:matrix_question, question_text: 'second line', question_group_id: question_group.id)
       create(:matrix_question, question_text: 'third line', question_group_id: question_group.id)
 
+      # Q2
       create(:q_checkbox, question_group_id: question_group.id, conditionals: '')
 
+      # Q3
       q_radio = create(:q_radio, question_group_id: question_group.id, conditionals: '4|=|hindi|multi')
+      q_radio.rules[:presence] = '0'
+      q_radio.save
 
+      # Q4
       q_long = create(:q_long, question_group_id: question_group.id)
       q_long.rules[:presence] = '0'
       q_long.save
-      q_radio.rules[:presence] = '0'
-      q_radio.save
+
+      # Q5
       q_select = create(:q_select, question_group_id: question_group.id)
       q_select.rules[:presence] = '0'
       q_select.save
+      # Q6
       q_short = create(:q_short, question_group_id: question_group.id)
       q_short.rules[:presence] = '0'
       q_short.save
+      # Q7
+      q_numeric = create(:q_numeric, question_group_id: question_group.id)
+      q_numeric.rules[:maximum] = '500'
+      q_numeric.rules[:minimum] = '1'
+      q_numeric.save
 
       create(:q_checkbox, question_group_id: question_group.id, answer_options: '', course_data_type: 'Students')
+      # Q8
       create(:q_checkbox, question_group_id: question_group.id, answer_options: '', course_data_type: 'Articles')
       create(:q_checkbox, question_group_id: question_group.id, answer_options: '', course_data_type: 'WikiEdu Staff')
 
+      # Q9
       create(:q_rangeinput, question_group_id: question_group.id)
 
       # Matrix questions back-to-back, and matrix question at the end of survey
+      # Q10
       create(:matrix_question, question_text: 'first line', question_group_id: question_group.id)
       create(:matrix_question, question_text: 'second line', question_group_id: question_group.id)
       create(:matrix_question, question_text: 'third line', question_group_id: question_group.id)
-
+      # Q11
       create(:matrix_question2, question_text: 'first line', question_group_id: question_group.id)
       create(:matrix_question2, question_text: 'second line', question_group_id: question_group.id)
       create(:matrix_question2, question_text: 'third line', question_group_id: question_group.id)
@@ -151,45 +166,46 @@ describe 'Surveys', type: :feature, js: true do
       click_button('Start')
 
       sleep 1
-      click_button('Next', visible: true)
+      click_button('Next', visible: true) # Q1
 
       find('.label', text: 'hindi').click
       sleep 1
-      click_button('Next', visible: true)
+      click_button('Next', visible: true) # Q2
 
       find('.label', text: 'female').click
       sleep 1
-      click_button('Next', visible: true)
+      click_button('Next', visible: true) # Q3
 
       fill_in('answer_group_6_answer_text', with: 'testing')
       sleep 1
-      click_button('Next', visible: true)
+      click_button('Next', visible: true) # Q4
 
       select('mac', from: 'answer_group_7_answer_text')
       sleep 1
-      click_button('Next', visible: true)
+      click_button('Next', visible: true) # Q5
 
       fill_in('answer_group_8_answer_text', with: 'testing')
       sleep 1
-      click_button('Next', visible: true)
+      click_button('Next', visible: true) # Q6
 
       sleep 1
-      click_button('Next', visible: true)
+      fill_in('answer_group_9_answer_text', with: '50')
+      click_button('Next', visible: true) # Q7
 
       find('.label', text: 'None of the above').click
       sleep 1
-      click_button('Next', visible: true)
+      click_button('Next', visible: true) # Q8
 
       sleep 1
-      click_button('Next', visible: true)
+      click_button('Next', visible: true) # Q9
 
       sleep 1
-      click_button('Next', visible: true)
+      click_button('Next', visible: true) # Q10
 
       expect(page).not_to have_content 'You made it!'
-      click_button('Submit Survey', visible: true)
+      click_button('Submit Survey', visible: true) # 11
       expect(page).to have_content 'You made it!'
-      expect(Rapidfire::Answer.count).to eq(18)
+      expect(Rapidfire::Answer.count).to eq(19)
       expect(SurveyNotification.last.completed).to eq(true)
 
       puts 'PASSED'

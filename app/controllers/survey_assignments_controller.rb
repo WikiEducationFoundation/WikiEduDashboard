@@ -35,12 +35,8 @@ class SurveyAssignmentsController < ApplicationController
   # POST /survey_assignments
   def create
     @survey_assignment = SurveyAssignment.new(survey_assignment_params)
-
-    if @survey_assignment.save
-      redirect_to survey_assignments_path, notice: 'Survey assignment was successfully created.'
-    else
-      render :new
-    end
+    @survey_assignment.save!
+    redirect_to survey_assignments_path, notice: 'Survey assignment was successfully created.'
   end
 
   # PATCH/PUT /survey_assignments/1
@@ -50,11 +46,8 @@ class SurveyAssignmentsController < ApplicationController
     set_custom_email
     updated_assignment_data = survey_assignment_params.merge(custom_email: @custom_email)
 
-    if @survey_assignment.update(updated_assignment_data)
-      redirect_to survey_assignments_path, notice: 'Survey assignment was successfully updated.'
-    else
-      render :edit
-    end
+    @survey_assignment.update!(updated_assignment_data)
+    redirect_to survey_assignments_path, notice: 'Survey assignment was successfully updated.'
   end
 
   # DELETE /survey_assignments/1
