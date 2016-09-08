@@ -2,6 +2,7 @@ import '../../testHelper';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { findDOMNode } from 'react-dom';
 import ReactTestUtils from 'react-addons-test-utils';
 import EmptyWeek from '../../../app/assets/javascripts/components/timeline/empty_week.jsx';
 
@@ -24,13 +25,13 @@ describe('EmptyWeek', () => {
   describe('timeline is empty, edit permissions', () => {
     const TestEmptyWeek = ReactTestUtils.renderIntoDocument(
       <EmptyWeek
-        empty_timeline
+        emptyTimeline
         edit_permissions
         course={course}
       />
     );
     it('suggests editing the week', () => {
-      const pTag = ReactTestUtils.scryRenderedDOMComponentsWithTag(TestEmptyWeek, 'p')[0];
+      const pTag = ReactTestUtils.findRenderedDOMComponentWithClass(TestEmptyWeek, 'week__no-activity__get-started');
       expect(makeSpacesUniform(pTag.textContent)).to.eq(
         makeSpacesUniform('To get started, start editing this week or start from a prebuilt assignment.')
       );
@@ -40,12 +41,12 @@ describe('EmptyWeek', () => {
   describe('timeline is empty, no edit permissions', () => {
     const TestEmptyWeek = ReactTestUtils.renderIntoDocument(
       <EmptyWeek
-        empty_timeline
+        emptyTimeline
       />
     );
     it('says course has no timeline', () => {
-      const pTag = ReactTestUtils.scryRenderedDOMComponentsWithTag(TestEmptyWeek, 'p')[0];
-      expect(pTag.textContent).to.eq('This course has no timeline.');
+      const week = findDOMNode(TestEmptyWeek);
+      expect(week.innerHTML).to.contain('This course has no timeline.');
     });
   });
 });

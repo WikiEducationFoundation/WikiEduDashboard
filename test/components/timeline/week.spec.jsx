@@ -53,11 +53,11 @@ describe('Week', () => {
       });
     });
     describe('edit permissions, but no week meetings', () => {
-      it('does not display', () => {
+      it('displays', () => {
         const TestWeek = createWeek({ edit_permissions: true, meetings: false });
         const container = TestUtils.scryRenderedDOMComponentsWithClass(TestWeek, 'week__week-add-delete')[0];
         const containerNode = findDOMNode(container);
-        expect(containerNode).to.be.null;
+        expect(containerNode.innerHTML).to.contain('Delete Week');
       });
     });
     describe('week meetings, but no edit permissions', () => {
@@ -167,9 +167,9 @@ describe('Week', () => {
     });
     describe('week has no meetings', () => {
       const TestWeek = createWeek();
-      it('shows an empty week component', () => {
+      it('warns that week is past timeline end', () => {
         const week = findDOMNode(TestWeek);
-        expect(week.innerHTML).to.contain(I18n.t('timeline.no_activity_this_week'));
+        expect(week.innerHTML).to.contain('AFTER TIMELINE END DATE');
       });
     });
   });
