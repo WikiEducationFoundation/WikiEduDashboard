@@ -6,7 +6,6 @@ OrderableBlock   = require('./orderable_block.jsx').default
 BlockActions     = require('../../actions/block_actions.js').default
 WeekActions      = require('../../actions/week_actions.js').default
 GradeableStore   = require '../../stores/gradeable_store.coffee'
-EmptyWeek        = require('./empty_week.jsx').default
 
 ReactCSSTG       = require 'react-addons-css-transition-group'
 {Motion, spring} = require 'react-motion'
@@ -17,8 +16,6 @@ Week = React.createClass(
   displayName: 'Week'
   getInitialState: ->
     focusedBlockId: null
-  addWeek: ->
-    WeekActions.addWeek()
   addBlock: ->
     @_scrollToAddedBlock()
     BlockActions.addBlock @props.week.id
@@ -44,20 +41,19 @@ Week = React.createClass(
   render: ->
     dateCalc = new DateCalculator(@props.timeline_start, @props.timeline_end, @props.index, zeroIndexed: false)
 
-    if @props.meetings == 'afterCourseEnd'
-      afterTimelineEnd = ' timeline-warning'
+    if @props.meetings
+      week_dates = (
+        <span className='week__week-dates pull-right'>
+          {dateCalc.start()} - {dateCalc.end()} {@props.meetings}
+        </span>
+      )
+    else
       week_dates = (
         <span className='week__week-dates pull-right'>
           Week of {dateCalc.start()} — AFTER TIMELINE END DATE!
         </span>
       )
-    else
-      afterTimelineEnd = ''
-      week_dates = (
-        <span className='week__week-dates pull-right'>
-          {dateCalc.start()} - {dateCalc.end()} {@props.meetings if @props.meetings}
-        </span>
-      )
+
 
     blocks = @props.blocks.map (block, i) =>
       unless block.deleted
@@ -116,14 +112,14 @@ Week = React.createClass(
       <span className="pull-right week__delete-week" href="" onClick={@props.deleteWeek}>Delete Week</span>
     )
 
-    week_add_delete = if @props.meetings && @props.edit_permissions then (
+    week_add_delete = if @props.edit_permissions then (
       <div className="week__week-add-delete pull-right">
         {add_block}
         {delete_week}
       </div>
     )
 
-    week_content = if @props.meetings then (
+    week_content = (
       if @props.reorderable
         style =
           position: 'relative'
@@ -136,17 +132,13 @@ Week = React.createClass(
         <ul className="week__block-list list-unstyled">
           {blocks}
         </ul>
-    ) else (
-      <EmptyWeek
-        empty_timeline={@props.empty_timeline}
-        addWeek={@addWeek}
-        course={@props.course}
-        edit_permissions={@props.edit_permissions}
-      />
     )
 
     weekClassName = "week week-#{@props.index}"
-    <li className={weekClassName + afterTimelineEnd}>
+    if !@props.meetings
+      weekClassName += ' timeline-warning'
+
+    <li className={weekClassName}>
       <div className="week__week-header">
         {week_add_delete}
         {week_dates}

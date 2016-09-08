@@ -5,6 +5,7 @@ Touch           = require('react-dnd-touch-backend').default
 DDContext       = RDnD.DragDropContext
 
 Week            = require './week.cjsx'
+EmptyWeek       = require('./empty_week.jsx').default
 Loading         = require('../common/loading.jsx').default
 CourseLink      = require('../common/course_link.jsx').default
 Affix           = require('../common/affix.jsx').default
@@ -123,74 +124,67 @@ Timeline = React.createClass(
       w.blocks.sort (a, b) ->
         a.order - b.order
 
+
+    # For each week, first insert an extra empty week for each week with empty
+    # week meetings, which indicates a blackout week. Then insert the week itself.
+    # The index 'i' represents the zero-index week number; both empty and non-empty
+    # weeks are included in this numbering scheme.
     @props.weeks.forEach (week, weekIndex) =>
-      unless week.deleted
-        if @props?.week_meetings
-          while @props?.week_meetings[i] == '()'
-            week_components.push (
-              <div key={"empty-week-#{i}"}>
-                <a className="timeline__anchor" name={"week-#{i + 1}"} />
-                <Week
-                  blocks={[]}
-                  week={title: null}
-                  index={i + 1}
-                  key={"noweek_#{i}"}
-                  timeline_start={@props.course.timeline_start}
-                  timeline_end={@props.course.timeline_end}
-                  editable=false
-                  meetings=false
-                  all_training_modules={@props.all_training_modules}
-                />
-              </div>
-            )
-            i++
-
-        isEditable = @props.editable_week_id == week.id
-        # FIXME: This is a convoluted approach and should be refactored.
-        # Here we use 'afterCourseEnd' to signal that a week is coming after the end of
-        # the course timeline. Week uses this to provide additional formatting.
-        meetings = if @props?.week_meetings then (@props.week_meetings[i] || 'afterCourseEnd') else false
-
+      while @props.week_meetings[i] == '()'
         week_components.push (
-          <div key={week.id}>
+          <div key={"empty-week-#{i}"}>
             <a className="timeline__anchor" name={"week-#{i + 1}"} />
-            <Week
-              week={week}
+            <EmptyWeek
+              course={@props.course}
+              edit_permissions={@props.edit_permissions}
               index={i + 1}
-              editable={isEditable}
-              reorderable={@props.reorderable}
-              blocks={BlockStore.getBlocksInWeek(week.id)}
-              deleteWeek={@deleteWeek.bind(this, week.id)}
-              meetings={meetings}
               timeline_start={@props.course.timeline_start}
               timeline_end={@props.course.timeline_end}
-              all_training_modules={@props.all_training_modules}
-              editable_block_ids={@props.editable_block_ids}
-              edit_permissions={@props.edit_permissions}
-              saveBlockChanges={@props.saveBlockChanges}
-              cancelBlockEditable={@props.cancelBlockEditable}
-              saveGlobalChanges={@props.saveGlobalChanges}
-              canBlockMoveUp={@_canBlockMoveUp.bind(this, week, weekIndex)}
-              canBlockMoveDown={@_canBlockMoveDown.bind(this, week, weekIndex)}
-              onMoveBlockUp={@_handleMoveBlock.bind(this, true)}
-              onMoveBlockDown={@_handleMoveBlock.bind(this, false)}
-              onBlockDrag={@_handleBlockDrag}
             />
           </div>
         )
         i++
 
+      isEditable = @props.editable_week_id == week.id
+      week_components.push (
+        <div key={week.id}>
+          <a className="timeline__anchor" name={"week-#{i + 1}"} />
+          <Week
+            week={week}
+            index={i + 1}
+            editable={isEditable}
+            reorderable={@props.reorderable}
+            blocks={BlockStore.getBlocksInWeek(week.id)}
+            deleteWeek={@deleteWeek.bind(this, week.id)}
+            meetings={@props.week_meetings[i]}
+            timeline_start={@props.course.timeline_start}
+            timeline_end={@props.course.timeline_end}
+            all_training_modules={@props.all_training_modules}
+            editable_block_ids={@props.editable_block_ids}
+            edit_permissions={@props.edit_permissions}
+            saveBlockChanges={@props.saveBlockChanges}
+            cancelBlockEditable={@props.cancelBlockEditable}
+            saveGlobalChanges={@props.saveGlobalChanges}
+            canBlockMoveUp={@_canBlockMoveUp.bind(this, week, weekIndex)}
+            canBlockMoveDown={@_canBlockMoveDown.bind(this, week, weekIndex)}
+            onMoveBlockUp={@_handleMoveBlock.bind(this, true)}
+            onMoveBlockDown={@_handleMoveBlock.bind(this, false)}
+            onBlockDrag={@_handleBlockDrag}
+          />
+        </div>
+      )
+      i++
 
+    # If there are no weeks at all, put in a special placeholder week with the
+    # emptyTimeline parameter
     if !@props.loading && @props.weeks.length is 0
       no_weeks = (
-        <Week
+        <EmptyWeek
           course={@props.course}
           index={1}
-          week={{is_new: false}}
-          blocks=[]
-          empty_timeline=true
+          emptyTimeline
           timeline_start={@props.course.timeline_start}
-          timeline_end={moment(@props.course.timeline_start).add(6, 'day')}
+          timeline_end={@props.course.timeline_end}
           edit_permissions={@props.edit_permissions}
         />
       )
