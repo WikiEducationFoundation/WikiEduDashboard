@@ -169,7 +169,7 @@ describe('Week', () => {
       const TestWeek = createWeek();
       it('shows an empty week component', () => {
         const week = findDOMNode(TestWeek);
-        expect(week.innerHTML).to.contain('No activity this week');
+        expect(week.innerHTML).to.contain(I18n.t('timeline.no_activity_this_week'));
       });
     });
   });
