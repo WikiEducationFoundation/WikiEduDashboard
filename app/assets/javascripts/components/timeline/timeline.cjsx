@@ -146,6 +146,11 @@ Timeline = React.createClass(
             i++
 
         isEditable = @props.editable_week_id == week.id
+        # FIXME: This is a convoluted approach and should be refactored.
+        # Here we use 'afterCourseEnd' to signal that a week is coming after the end of
+        # the course timeline. Week uses this to provide additional formatting.
+        meetings = if @props?.week_meetings then (@props.week_meetings[i] || 'afterCourseEnd') else false
+
         week_components.push (
           <div key={week.id}>
             <a className="timeline__anchor" name={"week-#{i + 1}"} />
@@ -156,7 +161,7 @@ Timeline = React.createClass(
               reorderable={@props.reorderable}
               blocks={BlockStore.getBlocksInWeek(week.id)}
               deleteWeek={@deleteWeek.bind(this, week.id)}
-              meetings={if @props?.week_meetings then @props.week_meetings[i] else ''}
+              meetings={meetings}
               timeline_start={@props.course.timeline_start}
               timeline_end={@props.course.timeline_end}
               all_training_modules={@props.all_training_modules}

@@ -43,11 +43,20 @@ Week = React.createClass(
     window.scrollTo(0, elBottom)
   render: ->
     dateCalc = new DateCalculator(@props.timeline_start, @props.timeline_end, @props.index, zeroIndexed: false)
-    week_dates = (
-      <span className='week__week-dates pull-right'>
-        {dateCalc.start()} - {dateCalc.end()} {@props.meetings if @props.meetings}
-      </span>
-    )
+
+    if @props.meetings == 'afterCourseEnd'
+      afterTimelineEnd = ' timeline-warning'
+      week_dates = (
+        <span className='week__week-dates pull-right'>
+          Week of {dateCalc.start()} — AFTER TIMELINE END DATE!
+        </span>
+      )
+    else
+      week_dates = (
+        <span className='week__week-dates pull-right'>
+          {dateCalc.start()} - {dateCalc.end()} {@props.meetings if @props.meetings}
+        </span>
+      )
 
     blocks = @props.blocks.map (block, i) =>
       unless block.deleted
@@ -136,7 +145,7 @@ Week = React.createClass(
     )
 
     weekClassName = "week week-#{@props.index}"
-    <li className={weekClassName}>
+    <li className={weekClassName + afterTimelineEnd}>
       <div className="week__week-header">
         {week_add_delete}
         {week_dates}
