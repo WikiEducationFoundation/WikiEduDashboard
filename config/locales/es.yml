@@ -562,6 +562,7 @@ es:
     course_dates: Fechas del curso
     min_weeks: Esta tarea requiere al menos de %{min_weeks} semanas disponibles. Ajusta
       tus fechas de inicio y finalización de tarea, si quieres usar este tipo de tarea.
+    select_one_option: Selecciona 1 opción.
     minimum_options: Selecciona al menos %{minimum} opción/opciones.
     read_less: Leer menos
     read_more: Leer más
@@ -574,6 +575,7 @@ es:
     article_required: Se requiere un artículo.
     form_errors: Verifica que el formulario no tenga errores.
     invalid_assignment: Asignación no válida
+    invalid_file_format: El archivo no se pudo guardar. Sube un documento PDF o Word.
     oauth_invalid: Tu sesión de Wikipedia ha caducado. Inicia sesión de nuevo.
     unsupported_browser:
       header: Navegador no soportado. :-(

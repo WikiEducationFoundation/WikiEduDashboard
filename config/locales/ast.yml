@@ -263,7 +263,9 @@ ast:
     training_complete:
       one: ta al día col entrenamientu
       other: tán al día col entrenamientu
-    training_complete_count: '%{count} entrenamientu al día'
+    training_complete_count:
+      one: '%{count} exerciciu ta al día'
+      other: '%{count} exercicios tán al día'
     training_doc: Los editores que completaron tolos módulos d'entrenamientu designaos
       que tean vencíos cuéntense como al día col entrenamientu.
     training_incomplete: Entrenamientu incompletu
@@ -293,7 +295,9 @@ ast:
     course_dates: Feches del cursu
     min_weeks: Esta xera rique siquier de %{min_weeks} selmanes disponibles. Afai
       les tos feches d'entamu y final si quies usar esti tipu de xera.
-    minimum_options: Escueye polo menos %{minimum} opción(es).
+    minimum_options:
+      one: Escueye polo menos %{minimum} opción o más.
+      other: Escueye polo menos %{minimum} opciones o más.
     read_less: Lleer menos
     read_more: Lleer más
     review_selections: Revisa la to esbilla más abaxo. Fai clic pa editar una selección.

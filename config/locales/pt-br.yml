@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: AndroidOSUser
 # Author: Caçador de Palavras
+# Author: Cristofer Alves
 # Author: Dianakc
 # Author: HenriqueCrang
 # Author: Ixocactus
@@ -521,7 +522,9 @@ pt-br:
     training_complete:
       one: está em dia com o treinamento
       other: estão em dia com o treinamento
-    training_complete_count: '%{count} treinamento em dia'
+    training_complete_count:
+      one: '%{count} treinamento em dia'
+      other: '%{count} treinamento em dia'
     training_doc: Editores que completaram todos os módulos de treinamento indicados
       cujos prazos passaram são considerados como em dia com seu treinamento.
     training_incomplete: Treinamento incompleto
