@@ -1,6 +1,17 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
+# This lets us switch between Poltergeist and Selenium without changing the spec.
+# Some .click actions don't work on Poltergeist because of overlapping elements,
+# but .trigger('click') is only available in Poltergeist.
+def omniclick(node)
+  if Capybara.current_driver == :poltergeist
+    node.trigger('click')
+  else
+    node.click
+  end
+end
+
 describe 'Survey Administration', type: :feature, js: true do
   include Rapidfire::QuestionSpecHelper
   include Rapidfire::AnswerSpecHelper
@@ -53,7 +64,7 @@ describe 'Survey Administration', type: :feature, js: true do
       # Create a question
       expect(Rapidfire::Question.count).to eq(0)
       click_link 'Edit'
-      find('a.button', text: 'Add New Question').trigger('click')
+      omniclick(find('a.button', text: 'Add New Question'))
       find('textarea#question_text').set('Who is awesome?')
       find('textarea#question_answer_options').set('Me!')
       page.find('input.button').click
@@ -78,12 +89,33 @@ describe 'Survey Administration', type: :feature, js: true do
       # end
       page.find('input.button').click
 
-      # Add a question group to the survey
+      # Create two more question groups, so that we can reorder them.
+      click_link 'Question Groups'
+      click_link 'New Question Group'
+      fill_in('question_group_name', with: 'Second Question Group')
+      page.find('input.button[value="Save Question Group"]').click
+      click_link 'Question Groups'
+      click_link 'New Question Group'
+      fill_in('question_group_name', with: 'Third Question Group')
+      page.find('input.button[value="Save Question Group"]').click
+
+      # Add a question groups to the survey
       visit '/surveys'
       click_link 'Edit'
-      find('a', text: 'Edit Question Groups').trigger('click')
+      omniclick(find('a', text: 'Edit Question Groups'))
       check 'survey_rapidfire_question_group_ids_1'
+      check 'survey_rapidfire_question_group_ids_2'
+      check 'survey_rapidfire_question_group_ids_3'
       page.find('input.button').click
+
+      # Reorder the question groups
+      # This doesn't actually work, apparently because the 'drag_to' event happens
+      # too fast for the javascript to treat it as a completed move.
+      visit '/surveys'
+      click_link 'Edit'
+      drag_source = find('tr.question-group-row[data-item-id="1"]')
+      drag_target = find('#survey_intro')
+      drag_source.drag_to(drag_target)
 
       # Clone a Survey
       visit '/surveys'
@@ -91,7 +123,9 @@ describe 'Survey Administration', type: :feature, js: true do
 
       # Clone a Question Group
       click_link 'Question Groups'
-      click_link 'Clone'
+      within 'li#question_group_2' do
+        click_link 'Clone'
+      end
 
       # Delete a Question Group
       within 'li#question_group_2' do

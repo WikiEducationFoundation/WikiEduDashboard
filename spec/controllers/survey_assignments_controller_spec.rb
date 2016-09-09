@@ -2,14 +2,15 @@
 require 'rails_helper'
 
 describe SurveyAssignmentsController do
+  let(:admin) { create(:admin) }
+  let(:survey)      { create(:survey) }
+
   describe '#create' do
     let(:follow_up)   { 7 }
     let(:send_days)   { 7 }
     let(:send_email)  { true }
-    let(:survey)      { create(:survey) }
     let(:cohort)      { create(:cohort) }
     let(:instructor)  { 1 }
-    let(:admin)       { create(:admin) }
     let(:post_params) do
       {
         survey_assignment: {
@@ -36,10 +37,8 @@ describe SurveyAssignmentsController do
 
   describe '#send_notifications' do
     let(:send_email) { nil }
-    let(:admin) { create(:admin) }
     let(:user) { create(:user, email: 'foo@bar.com') }
     let(:courses_user) { create(:courses_user, user_id: user.id) }
-    let(:survey) { create(:survey) }
     let(:survey_assignment) do
       create(:survey_assignment, send_email: send_email, survey_id: survey.id)
     end
@@ -67,8 +66,6 @@ describe SurveyAssignmentsController do
   end
 
   describe '#send_test_email' do
-    let(:admin) { create(:admin) }
-    let(:survey) { create(:survey) }
     let(:survey_assignment) do
       create(:survey_assignment, survey_id: survey.id)
     end

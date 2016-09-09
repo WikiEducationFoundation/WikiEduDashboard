@@ -56,4 +56,19 @@ describe SurveysController do
       end
     end
   end
+
+  describe '#update_question_group_position' do
+    before do
+      create(:question_group, id: 1)
+      create(:question_group, id: 2)
+      SurveysQuestionGroup.create(survey_id: survey.id, rapidfire_question_group_id: 1)
+      SurveysQuestionGroup.create(survey_id: survey.id, rapidfire_question_group_id: 2)
+      allow(controller).to receive(:current_user).and_return(admin)
+    end
+    let(:params) { { survey_id: survey.id, question_group_id: 1, position: 2 } }
+    it 'orders the question groups' do
+      post :update_question_group_position, params
+      expect(SurveysQuestionGroup.find(2).position).to eq(1)
+    end
+  end
 end

@@ -130,10 +130,10 @@ class SurveysController < ApplicationController
   end
 
   def update_question_group_position
-    question_group = SurveysQuestionGroup.where(
+    question_group = SurveysQuestionGroup.find_by!(
       survey_id: params[:survey_id],
       rapidfire_question_group_id: params[:question_group_id]
-    ).first
+    )
     question_group.insert_at(params[:position].to_i)
     render nothing: true
   end
