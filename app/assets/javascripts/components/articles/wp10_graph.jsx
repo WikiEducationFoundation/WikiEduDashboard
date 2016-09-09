@@ -35,17 +35,19 @@ const Wp10Graph = React.createClass({
       encoding: {
         x: {
           field: 'date',
-          timeUnite: 'day',
           type: 'temporal'
         },
         y: {
           field: 'wp10',
           type: 'quantitative',
-          scale: { domain: [0, 100] }
+          scale: { domain: [0, 100] },
+          axis: { title: I18n.t('articles.wp10') }
         }
       },
       config: {
-        cell: { width: 500, height: 300 } },
+        cell: { width: 500, height: 300 },
+        mark: { size: 100, fill: '#359178' }
+      }
     };
     const embedSpec = {
       mode: 'vega-lite', // Instruct Vega-Embed to use the Vega-Lite compiler
