@@ -29,6 +29,9 @@ const Article = React.createClass({
             <p>{I18n.t(`articles.rating_docs.${this.props.article.rating || '?'}`)}</p>
           </div>
         </td>
+        <td className="desktop-only-tc">
+          <Wp10Graph article={this.props.article} />
+        </td>
         <td>
           <div className={ratingMobileClass}><p>{this.props.article.pretty_rating || '-'}</p></div>
           <p className="title">
@@ -39,9 +42,7 @@ const Article = React.createClass({
         </td>
         <td className="desktop-only-tc">{this.props.article.character_sum}</td>
         <td className="desktop-only-tc">{this.props.article.view_count}</td>
-        <td>
-          <Wp10Graph article={this.props.article} />
-        </td>
+        <td></td>
       </tr>
     );
   }

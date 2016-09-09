@@ -133,6 +133,16 @@ en:
     view_doc: The sum of all views to each article during the course term
     # This is a maintence script message
     views_added: "Added %{count} new views for %{title}"
+    wp10: Structural Completeness
+    wp10_doc: >
+      The 'Structural Completeness' score represents how closely an article fits
+      the mold of a mature Wikipedia article, based on the machine learning-based
+      Objective Revision Evaluation Service (https://ores.wikimedia.org/). These
+      scores are calculated based on the size of an article, the number of
+      references and wikilinks, and other basic text features. A high score
+      usually indicates that an article follow Wikipedia's conventions for the
+      structure of a good article, but it does not take into account the content
+      itself.
 
   assignments:
     already_exists: This assignment already exists!

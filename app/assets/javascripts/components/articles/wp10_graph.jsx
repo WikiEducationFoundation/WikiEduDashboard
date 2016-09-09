@@ -30,7 +30,6 @@ const Wp10Graph = React.createClass({
   renderGraph() {
     const articleId = this.props.article.id;
     const vlSpec = {
-      // TODO: get data from json endpoint
       data: { url: `/articles/${articleId}.json` },
       mark: 'circle',
       encoding: {
@@ -41,9 +40,12 @@ const Wp10Graph = React.createClass({
         },
         y: {
           field: 'wp10',
-          type: 'quantitative'
+          type: 'quantitative',
+          scale: { domain: [0, 100] }
         }
-      }
+      },
+      config: {
+        cell: { width: 500, height: 300 } },
     };
     const embedSpec = {
       mode: 'vega-lite', // Instruct Vega-Embed to use the Vega-Lite compiler

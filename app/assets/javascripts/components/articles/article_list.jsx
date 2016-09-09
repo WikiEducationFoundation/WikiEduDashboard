@@ -32,6 +32,11 @@ const ArticleList = React.createClass({
         desktop_only: true,
         info_key: 'articles.rating_doc'
       },
+      structural_completeness: {
+        label: I18n.t('articles.wp10'),
+        desktop_only: true,
+        info_key: 'articles.wp10_doc'
+      },
       title: {
         label: I18n.t('articles.title'),
         desktop_only: false
