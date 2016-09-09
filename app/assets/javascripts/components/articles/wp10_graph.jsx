@@ -41,7 +41,7 @@ const Wp10Graph = React.createClass({
           field: 'wp10',
           type: 'quantitative',
           scale: { domain: [0, 100] },
-          axis: { title: I18n.t('articles.wp10') }
+          axis: { title: I18n.t('articles.wp10'), offset: 10 }
         }
       },
       config: {
