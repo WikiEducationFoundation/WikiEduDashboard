@@ -11,6 +11,7 @@ NotificationStore = require '../stores/notification_store.coffee'
 Affix             = require('./common/affix.jsx').default
 CourseUtils       = require('../utils/course_utils.js').default
 GetHelpButton     = require('../components/common/get_help_button.jsx').default
+EnrollCard       = require('./enroll/enroll_card.jsx').default
 
 getState = ->
   current = $('#react_root').data('current_user')
@@ -169,53 +170,17 @@ Course = React.createClass(
     ####################
     # Enrollment modal #
     ####################
-    if @props.location.query.enroll
-      if @getCurrentUser().id?
-        if user_role == -1
-          enroll_card = (
-            <div className="module enroll">
-              <a href={@_courseLinkParams()}>
-                <svg className="close" tabIndex="0" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" style={{"fill":"currentcolor", "verticalAlign": "middle", "width":"32px", "height":"32px"}}><g><path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"></path></g></svg>
-              </a>
-              <h1>{I18n.t("courses.join_prompt", title: @state.course.title) if @state.course.title?}</h1>
-              <a className="button dark" href={@state.course.enroll_url + @props.location.query.enroll}>{I18n.t("courses.join")}</a>
-              <a className="button border" href={@_courseLinkParams()}>{I18n.t("application.cancel")}</a>
-            </div>
-          )
-        else
-          enroll_card = (
-            <div className="module enroll">
-              <a href={@_courseLinkParams()}>
-                <svg className="close" tabIndex="0" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" style={{"fill":"currentcolor", "verticalAlign": "middle", "width":"32px", "height":"32px"}}><g><path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"></path></g></svg>
-              </a>
-              <h1>{I18n.t("courses.already_enrolled", title: @state.course.title)}</h1>
-            </div>
-          )
-      else
-        enroll_card = (
-          <div className="module enroll">
-            <a href={@_courseLinkParams()}>
-              <svg className="close" tabIndex="0" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" style={{"fill":"currentcolor", "verticalAlign": "middle", "width":"32px", "height":"32px"}}><g><path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"></path></g></svg>
-            </a>
-            <h1>{I18n.t("application.greeting")}</h1>
-            <p>{I18n.t("courses.invitation", title: @state.course.title)}</p>
-            <p>
-              <a href={"/users/auth/mediawiki?origin=" + window.location} className="button auth dark"><i className="icon icon-wiki-logo"></i> {I18n.t("application.log_in_extended")}</a>
-              <a href={"/users/auth/mediawiki_signup?origin=" + window.location} className="button auth signup border"><i className="icon icon-wiki-logo"></i> {I18n.t("application.sign_up_extended")}</a>
-            </p>
-          </div>
-        )
-    else if @props.location.query.enrolled
-      enroll_card = (
-        <div className="module enroll">
-          <a href={@_courseLinkParams()}>
-            <svg className="close" tabIndex="0" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" style={{"fill":"currentcolor", "verticalAlign": "middle", "width":"32px", "height":"32px"}}><g><path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"></path></g></svg>
-          </a>
-          <h1>{I18n.t("application.greeting2")}</h1>
-          <p>{I18n.t("courses.join_successful", title: @state.course.title) if @state.course.title}</p>
-        </div>
+    if @props.location.query.enroll || @props.location.query.enrolled
+      enrollCard = (
+        <EnrollCard
+          user={@getCurrentUser()}
+          userRole={user_role}
+          course={@state.course}
+          courseLink={@_courseLinkParams()}
+          passcode={@props.location.query.enroll}
+          enrolledParam={@props.location.query.enrolled}
+        />
       )
-
 
     overviewLinkClassName = 'active' if @_onCourseIndex()
 
@@ -250,7 +215,7 @@ Course = React.createClass(
         {alerts}
       </div>
       <div className="course_main container">
-        {enroll_card}
+        {enrollCard}
         {React.cloneElement(@props.children, course_id: @getCourseID(), current_user: @getCurrentUser(), course:  @state.course)}
       </div>
     </div>
