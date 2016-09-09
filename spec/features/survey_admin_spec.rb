@@ -137,6 +137,10 @@ describe 'Survey Administration', type: :feature, js: true do
       visit '/surveys'
       expect(page).to have_content 'In Use'
 
+      # Check that the QuestionGroup is now "In Use"
+      click_link 'Question Groups'
+      expect(page).to have_content 'In Use'
+
       # Destroy the SurveyAssignment
       click_link 'Assignment'
 
