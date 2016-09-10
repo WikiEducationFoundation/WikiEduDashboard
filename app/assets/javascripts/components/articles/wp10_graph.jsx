@@ -59,6 +59,12 @@ const Wp10Graph = React.createClass({
   },
 
   render() {
+    // Only render the button if it is an en.wikipedia article, since only
+    // those articles have wp10 scores.
+    if (!this.props.article.url.match(/en.wikipedia/)) {
+      return <div></div>;
+    }
+
     let style;
     let button;
     if (this.state.showGraph) {
