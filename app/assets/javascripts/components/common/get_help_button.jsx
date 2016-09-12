@@ -1,7 +1,7 @@
 import React from 'react';
 import Expandable from '../high_order/expandable.jsx';
 import UserStore from '../../stores/user_store.js';
-import AlertsStore from '../../stores/alerts_store.coffee';
+import AlertsStore from '../../stores/alerts_store.js';
 import AlertActions from '../../actions/alert_actions.js';
 
 const getState = () =>
