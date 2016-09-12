@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160906200203) do
+ActiveRecord::Schema.define(version: 20160911210531) do
 
   create_table "alerts", force: :cascade do |t|
     t.integer  "course_id",      limit: 4
@@ -127,8 +127,8 @@ ActiveRecord::Schema.define(version: 20160906200203) do
     t.string   "title",                 limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.date     "start"
-    t.date     "end"
+    t.datetime "start"
+    t.datetime "end"
     t.string   "school",                limit: 255
     t.string   "term",                  limit: 255
     t.integer  "character_sum",         limit: 4,     default: 0
@@ -142,8 +142,8 @@ ActiveRecord::Schema.define(version: 20160906200203) do
     t.text     "description",           limit: 65535
     t.boolean  "submitted",                           default: false
     t.string   "passcode",              limit: 255
-    t.date     "timeline_start"
-    t.date     "timeline_end"
+    t.datetime "timeline_start"
+    t.datetime "timeline_end"
     t.string   "day_exceptions",        limit: 2000,  default: ""
     t.string   "weekdays",              limit: 255,   default: "0000000"
     t.integer  "new_article_count",     limit: 4,     default: 0
