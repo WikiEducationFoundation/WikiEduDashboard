@@ -23,8 +23,13 @@ class TrainingProgressManager
   end
 
   def module_completed?
-    return unless @user.present? && @tmu.present?
+    return false unless @user.present? && @tmu.present?
     @tmu.completed_at.present?
+  end
+
+  def completion_date
+    return unless @user.present? && @tmu.present?
+    @tmu.completed_at
   end
 
   # For display on training modules overview,

@@ -578,6 +578,8 @@ en:
     training_modules_completed:
       one: "%{completed_count}/%{count} training module completed"
       other: "%{completed_count}/%{count} training modules completed"
+    training_module_name: Training module
+    training_module_status: Status
     up_to_date_with_training: 'up-to-date with training'
     username: Username
     username_placeholder: Username

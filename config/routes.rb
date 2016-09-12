@@ -133,6 +133,8 @@ Rails.application.routes.draw do
   get 'training/:library_id/:module_id' => 'training#training_module', as: :training_module
   post 'training_modules_users' => 'training_modules_users#create_or_update'
 
+  get 'training_status/:course_id/:user_id' => 'training_status#show'
+
   # for React
   get 'training/:library_id/:module_id(/*any)' => 'training#slide_view'
 
