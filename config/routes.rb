@@ -192,6 +192,8 @@ Rails.application.routes.draw do
   post '/feedback_form_responses' => 'feedback_form_responses#create'
   get '/feedback/confirmation' => 'feedback_form_responses#confirmation'
 
+  resources :alerts_list
+
   get '/styleguide' => 'styleguide#index'
 
   # Errors

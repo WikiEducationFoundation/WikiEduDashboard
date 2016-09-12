@@ -1,11 +1,11 @@
 .container
   %h1 Feedback Form Responses
 
-  %table.list
+  %table.list-basic
     %tr
-      %td Date/Time
-      %td Subject
-      %td Body
+      %th Date/Time
+      %th Subject
+      %th Body
     - @responses.each do |response|
       %tr
         %td= response.created_at
