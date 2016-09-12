@@ -485,7 +485,7 @@ en:
     empty_week_1: 'To get started, '
     empty_week_2: start editing this week
     empty_week_3: ' or '
-    empty_week_4: start from a prebuilt assignment.
+    empty_week_4: use the assignment wizard to create a timeline.
     first_week_title: First Active Week
     gradeable_value: Value
     gradeables_none: This timeline has no assignments marked as graded.

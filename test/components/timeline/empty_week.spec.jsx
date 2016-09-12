@@ -33,7 +33,7 @@ describe('EmptyWeek', () => {
     it('suggests editing the week', () => {
       const pTag = ReactTestUtils.findRenderedDOMComponentWithClass(TestEmptyWeek, 'week__no-activity__get-started');
       expect(makeSpacesUniform(pTag.textContent)).to.eq(
-        makeSpacesUniform('To get started, start editing this week or start from a prebuilt assignment.')
+        makeSpacesUniform('To get started, start editing this week or use the assignment wizard to create a timeline.')
       );
     });
   });
