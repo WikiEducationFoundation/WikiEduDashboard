@@ -22,7 +22,7 @@ class AskController < ApplicationController
     # Logging to see how this feature gets used
     Raven.capture_message 'ask.wikiedu.org query',
                           level: 'info',
-                          tags: { 'source' => params[:source] },
+                          tags: { 'source' => params[:source], 'query' => params[:q] },
                           extra: { query: params[:q], username: current_user&.username }
   end
 end
