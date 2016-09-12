@@ -7,7 +7,7 @@ class FeedbackFormResponsesController < ApplicationController
 
   def index
     check_user_auth
-    @responses = FeedbackFormResponse.order(id: :desc).first(50)
+    @responses = FeedbackFormResponse.order(id: :desc).where.not(body: '').first(100)
   end
 
   def show
