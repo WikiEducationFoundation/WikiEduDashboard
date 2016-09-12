@@ -52,7 +52,7 @@ const GetHelpButton = React.createClass({
       message: '',
       selectedTargetUser: null
     });
-    this.props.open();
+    this.props.open(e);
     setTimeout(() => {
       AlertActions.resetNeedHelpAlert();
     }, 500);
@@ -130,14 +130,12 @@ const GetHelpButton = React.createClass({
       );
     } else if (this.state.alertCreated) {
       content = (
-        <div className="text-center get-help-submitted">
-          <strong>
-            Message sent!
-            <br />
+        <div className="get-help-submitted">
+          <p className="text-center"><strong>Message sent!</strong></p>
+          <p>
             We'll get back to you within 1 business day. Be sure to check your email for a response.
-            <br />
-            <a href="#" onClick={this.reset}>Ok</a>
-          </strong>
+          </p>
+          <a href="#" className="button" onClick={this.reset}>Ok</a>
         </div>
       );
     } else if (this.state.selectedTargetUser) {
