@@ -112,7 +112,7 @@ Timeline = React.createClass(
 
   tooManyWeeks: ->
     nonEmptyWeeks = @props.week_meetings.filter (week) -> week != '()'
-    nonEmptyWeeks.length <= @props.weeks.length
+    nonEmptyWeeks.length < @props.weeks.length
 
   render: ->
     if @props.loading
