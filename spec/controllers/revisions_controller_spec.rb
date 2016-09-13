@@ -4,8 +4,8 @@ require 'rails_helper'
 describe RevisionsController do
   describe '#index' do
     let(:course_start) { Date.new(2015, 1, 1) }
-    let(:course_end) { Date.new(2016, 1, 1) }
-    let!(:course) { create(:course, start: '2015-01-01', end: '2016-01-01') }
+    let(:course_end) { Date.new(2016, 1, 1).end_of_day }
+    let!(:course) { create(:course, start: course_start, end: course_end) }
     let!(:user) { create(:user) }
     let!(:user2) { create(:user, id: 2) }
     let!(:courses_user) { create(:courses_user, course_id: course.id, user_id: user.id) }
@@ -15,13 +15,13 @@ describe RevisionsController do
     let!(:course_revisions) do
       (1..5).map do |i|
         create(:revision, article_id: article.id, mw_page_id: 1,
-                          user_id: user.id, mw_rev_id: i, date: course_end + 6.hours)
+                          user_id: user.id, mw_rev_id: i, date: course_end - 6.hours)
       end
     end
     let!(:non_course_revisions) do
       (6..10).map do |i|
         create(:revision, article_id: article.id, mw_page_id: 1,
-                          user_id: user.id, mw_rev_id: i, date: course_end + 1.day)
+                          user_id: user.id, mw_rev_id: i, date: course_end + 1.hour)
       end
     end
 
