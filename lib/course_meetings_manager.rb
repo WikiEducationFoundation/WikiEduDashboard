@@ -81,7 +81,7 @@ class CourseMeetingsManager
 
   # Returns an int representing number of weeks of timeline duration
   def calculate_timeline_week_count
-    ((@course.timeline_end - @beginning_of_first_week).to_f / 7).ceil
+    ((@course.timeline_end.to_date - @beginning_of_first_week).to_f / 7).ceil
   end
 
   # Returns an arry of arrays, one per week, representing the meeting days
@@ -127,7 +127,7 @@ class CourseMeetingsManager
   end
 
   def calculate_beginning_of_first_week
-    @course.timeline_start.beginning_of_week(:sunday)
+    @course.timeline_start.to_date.beginning_of_week(:sunday)
   end
 
   def exceptions_as_dates
