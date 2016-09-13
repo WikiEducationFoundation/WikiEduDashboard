@@ -110,6 +110,10 @@ Timeline = React.createClass(
   componentWillUnmount: ->
     window.removeEventListener 'scroll', @_handleScroll
 
+  tooManyWeeks: ->
+    nonEmptyWeeks = @props.week_meetings.filter (week) -> week != '()'
+    nonEmptyWeeks.length <= @props.weeks.length
+
   render: ->
     if @props.loading
       return <Loading />
@@ -124,6 +128,11 @@ Timeline = React.createClass(
       w.blocks.sort (a, b) ->
         a.order - b.order
 
+    if @tooManyWeeks()
+      tooManyWeeksWarning =
+        <li className="timeline-warning">
+          WARNING! There are not enough non-holiday weeks before the assignment end date!
+        </li>
 
     # For each week, first insert an extra empty week for each week with empty
     # week meetings, which indicates a blackout week. Then insert the week itself.
@@ -278,6 +287,7 @@ Timeline = React.createClass(
     <div>
       <div className="timeline__content">
         <ul className="list-unstyled timeline__weeks">
+          {tooManyWeeksWarning}
           {week_components}
           {no_weeks}
         </ul>
