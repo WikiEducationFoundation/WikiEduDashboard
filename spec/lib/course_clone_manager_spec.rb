@@ -34,6 +34,8 @@ describe CourseCloneManager do
     create(:gradeable,
            id: 1, gradeable_item_type: 'block',
            gradeable_item_id: 1, points: 15)
+    create(:tag, course_id: 1, key: 'tricky_topic_areas', tag: 'no_medical_topics')
+    create(:tag, course_id: 1, tag: 'arbitrary_tag')
   end
 
   let(:clone) { Course.last }
@@ -88,6 +90,12 @@ describe CourseCloneManager do
       tags = clone.tags.pluck(:tag)
       expect(tags).to include('cloned')
       expect(tags).to include('returning_instructor')
+    end
+
+    it 'carries over tricky_topic_areas tag, but not others' do
+      tags = clone.tags.pluck(:tag)
+      expect(tags).to include('no_medical_topics')
+      expect(tags).not_to include('arbitrary_tag')
     end
 
     it 'marks the cloned status as PENDING' do

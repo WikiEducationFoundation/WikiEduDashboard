@@ -60,10 +60,15 @@ class CourseCloneManager
     CoursesUsers.create!(course_id: @clone.id, user_id: @user.id, role: 1)
   end
 
+  TAG_KEYS_TO_CARRY_OVER = ['tricky_topic_areas'].freeze
   def tag_course
     tag_manager = TagManager.new(@clone)
     tag_manager.initial_tags(creator: @user)
     tag_manager.add(tag: 'cloned')
+    @course.tags.each do |tag|
+      next unless TAG_KEYS_TO_CARRY_OVER.include?(tag.key)
+      tag_manager.add(tag: tag.tag, key: tag.key)
+    end
   end
 
   def course_slug(course)
