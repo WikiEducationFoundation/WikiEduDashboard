@@ -15,7 +15,7 @@ describe 'activity page', type: :feature, js: true do
     let(:user) { create(:user) }
     it 'shouldn\'t be linked for non-admins' do
       within '.top-nav' do
-        expect(page).not_to have_content 'Activity'
+        expect(page).not_to have_content 'Admin'
       end
     end
   end
@@ -53,8 +53,9 @@ describe 'activity page', type: :feature, js: true do
 
     it 'should be viewable by admins' do
       within '.top-nav' do
-        expect(page).to have_content 'Activity'
+        click_link 'Admin'
       end
+      click_link 'Recent Activity'
     end
 
     context 'dyk eligible' do
