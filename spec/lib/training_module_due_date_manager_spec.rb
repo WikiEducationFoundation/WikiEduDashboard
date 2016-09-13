@@ -165,7 +165,7 @@ describe TrainingModuleDueDateManager do
         context 'block has no due date' do
           let(:due_date) { nil }
           # end of the first week of the course timeline
-          let(:expected) { course.timeline_start.end_of_week(:sunday) }
+          let(:expected) { course.timeline_start.end_of_week(:sunday).to_date }
           it "uses the parent week's date" do
             expect(subject).to eq(expected)
           end
