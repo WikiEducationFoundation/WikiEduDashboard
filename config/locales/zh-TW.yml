@@ -90,6 +90,8 @@ zh-TW:
     view_all: 檢視全部
     view_doc: 在課程學期中每個條目的訪問量總數
     views_added: 為%{title} 增加 %{count} 個新的瀏覽量
+    wp10: 結構完整性
+    wp10_doc: 「結構完整性」評分，是以採用機器學習的版本評估服務（https://ores.wikimedia.org/）為依據，來代表著一篇條目內容符合一篇完整維基條目內容程度。評分計算的基準在於條目長度大小、參考來源的數量、內部連結、和其它基本的文字外觀表現形式。在不考量內容描述的情況下，一篇高分的條目通常代表著它遵循著維基百科上對於良好條目架構的共識。（這些評分僅適用於英語維基百科）
   assignments:
     already_exists: 此條目已存在！
     assignees: 被分配者
@@ -259,7 +261,7 @@ zh-TW:
     word_count_doc: 在課程學期間由選課學生所添增到主名字空間條目的字元增加估計量
     yourcourses: 您的課程
     survey:
-      notification_message: 有可用於此課程的調查
+      notification_message: 採用我們替於此課程作的調查
       link: 參加調查
   courses_generic:
     articles_none: 此項目裡目前無編輯的條目。
@@ -393,7 +395,7 @@ zh-TW:
     move_block_up: 區塊上移
     no_class_holidays: 我的開課時段沒有遭遇假日
     no_timeline: 此課程沒有時間表。
-    no_activity_this_week: 本週沒有活動
+    no_activity_this_week: 本週沒有預訂會議
     nothing_this_week: 這星期的時間表沒有任何活動。
     save_all_changes: 儲存全部
     this_week_title_default: 本週
@@ -456,7 +458,9 @@ zh-TW:
     training_complete:
       one: 最新培訓
       other: 最新培訓
-    training_complete_count: '%{count}最近的培訓'
+    training_complete_count:
+      one: '%{count}最近的培訓'
+      other: '%{count}最近的培訓'
     training_doc: 完成所有已到期的分配教育模組之編輯者可視為完成最近培訓。
     training_incomplete: 未完成的培訓
     training_modules_completed:

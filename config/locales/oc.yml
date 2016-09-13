@@ -131,6 +131,7 @@ oc:
     loading: Cargament de las revisions...
     title: Títol
   timeline:
+    save_all_changes: Enregistrar tot
     title: Planning
   training:
     start: Aviar

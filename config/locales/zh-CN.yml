@@ -87,6 +87,7 @@ zh-CN:
     view_all: 查看全部
     view_doc: 在课程学期期间每个条目的访问量总数
     views_added: 已为%{title}添加%{count}次新查看
+    wp10: 结构完整性
   assignments:
     already_exists: 此分配已存在！
     assignees: 委托人
@@ -380,7 +381,7 @@ zh-CN:
     move_block_up: 向上移动块
     no_class_holidays: 我没有班级假日
     no_timeline: 此课程没有时间轴。
-    no_activity_this_week: 本周没有活动
+    no_activity_this_week: 本周没有预定的会议
     nothing_this_week: 本周在日程表上没有安排。
     save_all_changes: 保存全部
     this_week_title_default: 本周

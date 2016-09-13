@@ -109,6 +109,16 @@ es:
     view_doc: La suma de todas las visitas a cada artículo durante el período del
       curso
     views_added: Se añadieron %{count} visitas nuevas para %{title}
+    wp10: Integridad estructural
+    wp10_doc: La puntuación "Integridad estructural" representa cuán cerca un artículo
+      encaja en el molde de una artículo de la Wikipedia maduro, basado en el Servicio
+      de Evaluación de Revisiones Objetivo (https://ores.wikimedia.org/), una herramienta
+      automatizada basada en aprendizaje. Estas puntuaciones se calculan basándose
+      en el tamaño de un artículo, el número de referencias y enlaces wikis, y otras
+      características básicas del texto. Una puntuación alta generalmente indica que
+      un artículo sigue las convenciones de Wikipedia sobre la estructura de un buen
+      artículo, pero no toma en cuenta el contenido en sí mismo. (Estos resultados
+      sólo están disponibles para los artículos de la Wikipedia en inglés.)
   assignments:
     already_exists: ¡Esta tarea ya existe!
     assignees: Asignado(s)
@@ -454,7 +464,7 @@ es:
     move_block_up: Subir el bloque
     no_class_holidays: Yo no tengo vacaciones de clases
     no_timeline: Este curso no tiene cronograma.
-    no_activity_this_week: Ninguna actividad esta semana
+    no_activity_this_week: Ninguna reunión programada esta semana
     nothing_this_week: No hay nada en el calendario para esta semana.
     save_all_changes: Guardar todo
     this_week_title_default: Esta semana
@@ -526,7 +536,9 @@ es:
     training_complete:
       one: está al día con el entrenamiento
       other: están al día con el entrenamiento
-    training_complete_count: '%{count} con entrenamiento al día'
+    training_complete_count:
+      one: '%{count} con entrenamiento al día'
+      other: '%{count} con entrenamiento al día'
     training_doc: Los editores que hayan completado todos los módulos de entrenamiento
       asignados se cuentan como al día con su entrenamiento.
     training_incomplete: Entranamiento incompleto
@@ -563,7 +575,9 @@ es:
     min_weeks: Esta tarea requiere al menos de %{min_weeks} semanas disponibles. Ajusta
       tus fechas de inicio y finalización de tarea, si quieres usar este tipo de tarea.
     select_one_option: Selecciona 1 opción.
-    minimum_options: Selecciona al menos %{minimum} opción/opciones.
+    minimum_options:
+      one: Selecciona %{count} o más opciones.
+      other: Selecciona %{count} o más opciones.
     read_less: Leer menos
     read_more: Leer más
     review_selections: Revisa las opciones de abajo. Haz clic para modificar una selección.

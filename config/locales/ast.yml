@@ -101,6 +101,16 @@ ast:
     view_all: Ver toos
     view_doc: La suma de toles visites a cada artículu demientres el periodu del cursu
     views_added: Amestáronse %{count} visites nueves a %{title}
+    wp10: Integridá estructural
+    wp10_doc: La puntuación «Integridá estructural» representa lo averáu qu'un artículu
+      ta al molde d'un artículu maduru de la Wikipedia, basáu nel Serviciu Oxetivu
+      de Valoración de Revisiones (https://ores.wikimedia.org/), una ferramienta automatizada
+      basada'n deprendimientu de máquina. Estes puntuaciones calcúlense basándose
+      nel tamañu d'un artículu, el númberu de referencies y enllaces wiki, y otres
+      carauterístiques básiques del testu. Se vezu una puntuación alta indica qu'un
+      artículu sigue les convenciones de Wikipedia sobre la estructura d'un bon artículu,
+      pero nun toma en cuenta'l propiu conteníu. (Estes resultancies namái tán disponibles
+      pa los artículos de la Wikipedia n'inglés.)
   assignments:
     already_exists: ¡Esta xera yá esiste!
     assignees: Encargáu(os)
@@ -142,8 +152,14 @@ ast:
       legend_class_canceled: Vacaciones/encaboxada
       legend_class_meeting: Xunta de la Clase
       legend_class_not_meeting: Nenguna xunta programada
+      select_meeting_days: Escueye los díes de la selmana en qu'aconceya la to clase.
     character_doc: La suma de caráuteres amestaos a los artículos del espaciu principal
       polos estudiantes nel periodu del cursu
+    cohorts: 'Cohortes:'
+    confirm_course_deletion: ¿Tas seguru de desaniciar el cursu tituláu %{title}?
+      Si ye asina, escribe'l títulu del cursu pa siguir.
+    confirm_course_deletion_failed: '"%{title}" nun ye''l títulu d''esti cursu. El
+      cursu nun se desanició.'
     course_dates_calendar_instructions: Escueye feches p'añadir o quitar del calendariu
       (por casu, vacaciones, cuando nun hai clases). Fai clic na fecha pa camudar
       l'estáu ente ensin escoyer, escoyíu y vacaciones. Les feches de les actividaes
@@ -151,8 +167,51 @@ ast:
       programaos.
     course_description: Cursos
     courses: Cursos
+    creation_date: Data de creación
+    creator:
+      already_exists: Esti cursu yá esiste. Considera camudar el nome, la escuela
+        o'l plazu pa faelu únicu.
+      assignment_end: Fin de la xera
+      assignment_end_placeholder: Fin de la xera (AAAA-MM-DD)
+      assignment_start: Entamu de la xera
+      assignment_start_placeholder: Entamu de la xera (AAAA-MM-DD)
+      checking_for_uniqueness: Ta comprobándose qu'esti cursu sía únicu.
+      cloned_course_calendar_instructions: Escueye dates p'asedir o quitar del calendariu
+        (por casu, vacaciones, cuando nun hai clases). Fai clic na dataa pa camudar
+        ente los estaos «ensin escoyer», «escoyíu» y «vacaciones». Si nun tienes vacaciones,
+        marca «Nun tengo vacaciones de clases». El cronograma copiáu va afaer automáticamente
+        les feches pa dar cuenta de les selmanes que nun tienen aconceyamientos programaos.
+      clone_successful: Cursu clonáu con ésitu
+      course_description: Descripción del cursu
+      course_language: Idioma principal
+      course_project: Proyectu principal
+      course_school: Escuela del cursu
+      course_subject: Tema del cursu
+      course_term: Periodu del cursu
+      course_term_placeholder: Periodu
+      course_title: Títulu del cursu
+      create_button: ¡Crear el mio cursu!
+      create_label: Crear un cursu nuevu
+      create_new: Crear un cursu nuevu
+      create_short: Crear cursu
+      end_date: Data final
+      end_date_placeholder: Data de fin (AAAA-MM-DD)
+      expected_number: Númberu d'estudiantes esperáu
+      find: Atopa'l to cursu
+      no_class_holidays: Nun tengo vacaciones de clases
+      save_cloned_course: Guardar cursu nuevu
+      start_date: Data d'entamu
+      start_date_placeholder: Data d'entamu (AAAA-MM-DD)
+      subject: Asuntu
     current: Cursos actuales
+    delete_course: Desaniciar cursu
+    dismiss_survey: Descartar
+    dismiss_survey_confirm: ¿Tas seguru de descartar permanentemente esta encuesta?
     duration: Duración del cursu
+    edit_course_dates: Editar les Dates del cursu
+    end: Fin
+    enroll: Inscribise
+    enrollment: Inscripción
     error:
       exists: Esi cursu yá esiste. Inténtalo otra vuelta con un títulu, escuela o
         periodu diferentes.
@@ -296,8 +355,8 @@ ast:
     min_weeks: Esta xera rique siquier de %{min_weeks} selmanes disponibles. Afai
       les tos feches d'entamu y final si quies usar esti tipu de xera.
     minimum_options:
-      one: Escueye polo menos %{minimum} opción o más.
-      other: Escueye polo menos %{minimum} opciones o más.
+      one: Escueye polo menos %{count} opción o más.
+      other: Escueye polo menos %{count} opciones o más.
     read_less: Lleer menos
     read_more: Lleer más
     review_selections: Revisa la to esbilla más abaxo. Fai clic pa editar una selección.

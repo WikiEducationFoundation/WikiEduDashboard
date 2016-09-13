@@ -113,6 +113,7 @@ lt:
     edited_by: Redagavo
     title: Pavadinimas
   timeline:
+    no_activity_this_week: Nėra suplanuotų susitikimų šią savaitę
     title: Laiko juosta
   uploads:
     usages: Panaudojimai

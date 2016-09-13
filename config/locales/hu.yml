@@ -1,6 +1,7 @@
 # Messages for Hungarian (magyar)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: R-Joe
 # Author: Uno20001
 # Author: Wolf Rex
 ---
@@ -64,6 +65,7 @@ hu:
     loading: Változatok betöltése...
     title: Cím
   timeline:
+    no_activity_this_week: Nincsenek ütemezett találkozók ezen a héten
     title: Idővonal
   training:
     view: Nézet

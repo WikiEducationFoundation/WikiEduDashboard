@@ -48,6 +48,7 @@ fa:
       را پیدا کنید» کلیک کنید و به آن بپیوندید.
     no_courses_instructor: چنین به‌نظر می‌رسد که شما در هیچ دوره‌ای حضور ندارید.
     no_courses_student: چنین به‌نظر می‌رسد که شما به هیچ دوره‌ای نپیوسته‌اید.
+    opt_out: درخواست خروج از آشناسازی
     orientation_notice: پیش از آنکه دورهٔ تازه‌ای را ایجاد کنید، با راهنمای تعاملی
       کار کنید. (تکمیلش حدود ۳۰ دقیقه زمان نیاز دارد.)
     review_orientation: بازبینی آشناسازی
@@ -68,6 +69,8 @@ fa:
     assigned: مقالات اختصاص‌داده
     available: مقالات موجود
     assigned_to: اختصاص‌داده‌شده به
+    character_doc: مجموع کاراکتر‌های افزوده‌شده به مقالات توسط ویرایشگران ثبت‌نامی
+      در بین تاریخ آغاز و پایان
     edited: مقالات ویرایش‌شده
     edited_mobile: مقاله‌ها
     label: مقاله‌ها
@@ -97,6 +100,7 @@ fa:
     title_example: عنوان مقاله
     view: مشاهدهٔ مقاله
     view_all: مشاهدهٔ همه
+    view_doc: مجموع تمام بازديدها به مقالات در طول مدت دوره
     views_added: '%{count} بازدیدهای تازه برای %{title} را بیفزایید'
   assignments:
     already_exists: این تکلیف از پیش وجود دارد!
@@ -214,6 +218,7 @@ fa:
     leave_confirmation: آیا از ترک این دوره اطمینان دارید؟
     leave_course: خروج از دوره
     loading: در حال بارگیری...
+    milestones_none: این دوره در حال حاضر به هیچ دست‌آورد ویژه‌ای نرسیده‌است.
     my_articles: مقاله‌های من
     new_week: افزودن هفتهٔ تازه
     nocourses: شما در هیچ دوره‌ای شرکت نکرده‌اید.
@@ -270,6 +275,8 @@ fa:
     assignment_start: آغاز جدول زمانی
     courses: برنامه‌ها
     creator:
+      checking_for_uniqueness: این برنامه برای آزمایش منحصر به فرد بودن در حال بررسی
+        است.
       course_description: توضیحات برنامه
       course_school: نهاد
       course_title: عنوان برنامه
@@ -384,7 +391,7 @@ fa:
     grading_header: 'درجه‌بندی (مجموع: %{total}%)'
     no_class_holidays: هیچ کلاسِ تعطیلی ندارم
     no_timeline: این دوره هیچ جدول زمانی ندارد.
-    no_activity_this_week: بدون فعالیت در این هفته
+    no_activity_this_week: این هفته جلسه‌ی از پیش‌ تعیین شده‌ای‌ ندارد.
     nothing_this_week: برای این هفته هیچ چیزی برنامه‌ریزی نشده‌است.
     save_all_changes: ذخیرهٔ همه
     this_week_title_default: این هفته

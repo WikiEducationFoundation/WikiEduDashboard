@@ -365,7 +365,7 @@ it:
     gradeable_value: Valore
     move_block_down: Sposta il blocco in basso
     move_block_up: Sposta il blocco in alto
-    no_activity_this_week: Nessuna attività questa settimana
+    no_activity_this_week: Nessun incontro previsto questa settimana
     nothing_this_week: Non c'è niente in programma per questa settimana.
     save_all_changes: Salva tutto
     this_week_title_default: Questa settimana

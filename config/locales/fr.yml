@@ -115,6 +115,15 @@ fr:
     view_doc: Le total de toutes les vues sur chaque article durant le déroulement
       du cours
     views_added: '%{count} nouvelles vues ajoutées pour %{title}'
+    wp10: Intégrité structurale 
+    wp10_doc: L’évaluation de l'« intégrité structurale » représente le degré de compatibilté
+      d’un article avec le modèle d’un article mature de Wikipedia, donné par le service
+      d’évaluation objective des versions (https://ores.wikimedia.org/). Ces valeurs
+      sont calculées sur la taille de l'article, le nombre de références et de liens
+      Wiki, ainsi que d’autres caractéristiques de base du texte. Une valeur élevée  indique
+      généralement qu’un article suit les conventions de Wikipedia pour la structure
+      d’un bon article, mais il ne prend pas en compte le contenu lui-même. (Ces statistiques
+      ne sont uniquement disponibles que pour les articles du Wikipédia anglais).
   assignments:
     already_exists: Cette affectation existe déjà !
     assignees: Affectation(s)
@@ -462,7 +471,7 @@ fr:
     move_block_up: Faire monter le bloc
     no_class_holidays: Je n’ai pas de congés scolaires
     no_timeline: Ce cours n’a pas de planning.
-    no_activity_this_week: Aucune activité cette semaine
+    no_activity_this_week: pas de réunions prévues cette semaine
     nothing_this_week: Il n’y a rien au planning pour cette semaine.
     save_all_changes: Enregistrer tout
     this_week_title_default: Cette semaine

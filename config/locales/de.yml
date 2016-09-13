@@ -100,6 +100,16 @@ de:
     view_all: Alles anzeigen
     view_doc: Die Summe aller Aufrufe für jeden Artikel während der Kursdauer
     views_added: '%{count} neue Aufrufe für %{title} hinzugefügt'
+    wp10: Strukturelle Vollständigkeit
+    wp10_doc: Die Bewertung „Strukturelle Vollständigkeit“ stellt dar, wie sehr ein
+      Artikel dem Modell eines reifen Wikipedia-Artikels entspricht, basierend auf
+      dem maschinenlernbasierten Objektiven Versionsbewertungsdienst (https://ores.wikimedia.org/).
+      Diese Bewertungen werden basierend auf der Größe eines Artikels, der Anzahl
+      der Einzelnachweise und Wikilinks und anderen Basistextfunktionen berechnet.
+      Eine hohe Bewertung zeigt für gewöhnlich an, dass ein Artikel den Wikipedia-Konventionen
+      für die Struktur eines guten Artikels folgt, aber sie berücksichtigt nicht den
+      Inhalt selbst. Diese Bewertungen sind nur für englischsprachige Wikipedia-Artikel
+      verfügbar.
   assignments:
     already_exists: Diese Zuweisung ist bereits vorhanden!
     assignees: Zugeordnete/r Benutzer/in(nen)
@@ -448,7 +458,7 @@ de:
     move_block_up: Block nach oben verschieben
     no_class_holidays: Ich habe keine Ferien
     no_timeline: Dieser Kurs hat keine Zeitleiste.
-    no_activity_this_week: Keine Aktivität in dieser Woche
+    no_activity_this_week: Keine geplanten Treffen in dieser Woche
     nothing_this_week: Für diese Woche ist nichts auf dem Plan.
     save_all_changes: Alle speichern
     this_week_title_default: Diese Woche
