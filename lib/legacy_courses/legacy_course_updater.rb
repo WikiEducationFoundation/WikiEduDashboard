@@ -12,6 +12,7 @@ class LegacyCourseUpdater
     data['course']&.delete('listed')
     # Symbol if coming from controller, string if from course importer
     course.attributes = data[:course] || data['course']
+    course.end = course.end.end_of_day
 
     return unless save
 
