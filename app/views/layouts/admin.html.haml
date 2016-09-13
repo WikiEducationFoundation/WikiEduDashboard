@@ -1,0 +1,20 @@
+- content_for :head do
+  = dashboard_stylesheet_tag("main")
+  = dashboard_stylesheet_tag("surveys")
+
+- content_for :javascripts do
+  /
+
+!!!
+%html{ dir: rtl? ? "rtl" : nil, class: body_class(request)}
+  = render "shared/head"
+  %body{class: body_class(request)}
+    = render "shared/flash"
+    %div.wrapper
+      = render "shared/nav"
+      = render "admin/navigation"
+      -# %main#main{"data-user-id" => current_user&.id, :role => "main"}
+      -#   = yield
+      -# .push
+    = render "shared/foot"
+    = content_for :additional_javascripts
