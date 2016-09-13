@@ -217,8 +217,8 @@ en:
       clone_successful: Course Successfully Cloned
       clone_successful_details: >
         Your course has been cloned, including the elements of the timeline
-        (weeks and blocks). Has anything else about your course changed? Feel
-        free to update it now.
+        (weeks and blocks). Be sure to add the dates, which are not carried over.
+        Has anything else about your course changed? Feel free to update it now.
       course_description: Course description
       course_language: Home language
       course_project: Home project

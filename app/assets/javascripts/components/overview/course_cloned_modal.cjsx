@@ -43,7 +43,7 @@ CourseClonedModal = React.createClass(
   updateCourseDates: (value_key, value) ->
     updatedCourse = CourseDateUtils.updateCourseDates(@props.course, value_key, value)
     CourseActions.updateCourse updatedCourse
-    @setState valuesUpdated: true
+    @setState dateValuesUpdated: true
 
   saveCourse: ->
     @updateCourse('cloned_status', @cloneCompletedStatus)
@@ -68,6 +68,7 @@ CourseClonedModal = React.createClass(
       @setState isPersisting: false
 
   saveEnabled: ->
+    return false unless @state.valuesUpdated && @state.dateValuesUpdated
     if @props.course.weekdays?.indexOf(1) >= 0 && (@props.course.day_exceptions?.length > 0 || @props.course.no_day_exceptions)
       true
     else
@@ -167,7 +168,7 @@ CourseClonedModal = React.createClass(
             <DatePicker
               id='course_start'
               onChange={@updateCourseDates}
-              value={@props.course.start}
+              value={@props.course.start if @state.dateValuesUpdated}
               value_key='start'
               required=true
               editable=true
@@ -179,7 +180,7 @@ CourseClonedModal = React.createClass(
             <DatePicker
               id='course_end'
               onChange={@updateCourseDates}
-              value={@props.course.end}
+              value={@props.course.end if @state.dateValuesUpdated}
               value_key='end'
               required=true
               editable=true
@@ -194,7 +195,7 @@ CourseClonedModal = React.createClass(
             <DatePicker
               id='timeline_start'
               onChange={@updateCourseDates}
-              value={@props.course.timeline_start}
+              value={@props.course.timeline_start if @state.dateValuesUpdated}
               value_key='timeline_start'
               required=true
               editable=true
@@ -202,13 +203,14 @@ CourseClonedModal = React.createClass(
               placeholder={I18n.t('courses.creator.assignment_start_placeholder')}
               date_props={dateProps.timeline_start}
               validation={CourseDateUtils.isDateValid}
+              enabled={@props.course.start?}
               isClearable=false
             />
 
             <DatePicker
               id='timeline_end'
               onChange={@updateCourseDates}
-              value={@props.course.timeline_end}
+              value={@props.course.timeline_end if @state.dateValuesUpdated}
               value_key='timeline_end'
               required=true
               editable=true
