@@ -95,7 +95,7 @@ Form = React.createClass(
             <label>Full name <span className="form-required-indicator">*</span></label>
             <input required className="form-control" type="text" name="name" defaultValue={@state.name} onChange={@_handleFieldChange.bind(this, 'name')}/>
             <p className="form-help-text">
-              Your real name is not public. Its only seen by you, your intructor, and Wiki Ed admins.
+              Your real name is not public. Its only seen by you, your instructor, and Wiki Ed admins.
             </p>
           </div>
           <div className="form-group">
