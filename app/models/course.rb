@@ -7,8 +7,8 @@
 #  title                 :string(255)
 #  created_at            :datetime
 #  updated_at            :datetime
-#  start                 :date
-#  end                   :date
+#  start                 :datetime
+#  end                   :datetime
 #  school                :string(255)
 #  term                  :string(255)
 #  character_sum         :integer          default(0)
@@ -22,8 +22,8 @@
 #  description           :text(65535)
 #  submitted             :boolean          default(FALSE)
 #  passcode              :string(255)
-#  timeline_start        :date
-#  timeline_end          :date
+#  timeline_start        :datetime
+#  timeline_end          :datetime
 #  day_exceptions        :string(2000)     default("")
 #  weekdays              :string(255)      default("0000000")
 #  new_article_count     :integer          default(0)
@@ -71,15 +71,15 @@ class Course < ActiveRecord::Base
   # :revisions and :all_revisions have the same default implementation,
   # but a course type may override :revisions.
   has_many(:revisions, lambda do |course|
-    where('date >= ?', course.start).where('date <= ?', course.end.end_of_day)
+    where('date >= ?', course.start).where('date <= ?', course.end)
   end, through: :students)
 
   has_many(:all_revisions, lambda do |course|
-    where('date >= ?', course.start).where('date <= ?', course.end.end_of_day)
+    where('date >= ?', course.start).where('date <= ?', course.end)
   end, through: :students)
 
   has_many(:uploads, lambda do |course|
-    where('uploaded_at >= ?', course.start).where('uploaded_at <= ?', course.end.end_of_day)
+    where('uploaded_at >= ?', course.start).where('uploaded_at <= ?', course.end)
   end, through: :students)
 
   has_many :articles_courses, class_name: ArticlesCourses, dependent: :destroy
@@ -141,14 +141,14 @@ class Course < ActiveRecord::Base
 
   def self.will_be_ready_for_survey(opts)
     days_offset, before, relative_to = opts.values_at(:days, :before, :relative_to)
-    today = Time.zone.today
+    today = Time.zone.now
     ready_date = before ? today + days_offset.days : today - days_offset.days
     where("#{relative_to} > '#{ready_date}'")
   end
 
   def self.ready_for_survey(opts)
     days_offset, before, relative_to = opts.values_at(:days, :before, :relative_to)
-    today = Time.zone.today
+    today = Time.zone.now
     ready_date = before ? today + days_offset.days : today - days_offset.days
     where("#{relative_to} <= '#{ready_date}'")
   end
