@@ -20,6 +20,7 @@ ENV['SENDER_EMAIL_ADDRESS'] = 'root@localhost'
 ENV['enable_legacy_courses'] = 'true'
 ENV['enable_get_help_button'] = 'true'
 ENV['enable_language_switcher'] = 'true'
+ENV['training_path'] = 'training_content/wiki_ed'
 
 Rails.application.configure do
   # Settings specified here will take
