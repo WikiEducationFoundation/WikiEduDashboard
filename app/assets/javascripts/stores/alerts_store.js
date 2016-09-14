@@ -7,19 +7,16 @@ let _needHelpAlertCreated = false;
 
 const needHelpAlertSubmitted = function () {
   _needHelpAlertSubmitting = true;
-  return AlertsStore.emitChange();
 };
 
 const needHelpAlertCreated = function () {
   _needHelpAlertSubmitting = false;
   _needHelpAlertCreated = true;
-  return AlertsStore.emitChange();
 };
 
 const resetNeedHelpAlert = function () {
   _needHelpAlertSubmitting = false;
   _needHelpAlertCreated = false;
-  return AlertsStore.emitChange();
 };
 
 const storeMethods = {
@@ -32,15 +29,27 @@ const storeMethods = {
 };
 
 const AlertsStore = Flux.createStore(storeMethods, (payload) => {
+  let needsUpdate = false;
+
   switch (payload.actionType) {
     case 'NEED_HELP_ALERT_SUBMITTED':
-      return needHelpAlertSubmitted();
+      needHelpAlertSubmitted();
+      needsUpdate = true;
+      break;
     case 'NEED_HELP_ALERT_CREATED':
-      return needHelpAlertCreated();
+      needHelpAlertCreated();
+      needsUpdate = true;
+      break;
     case 'RESET_NEED_HELP_ALERT':
-      return resetNeedHelpAlert();
+      resetNeedHelpAlert();
+      needsUpdate = true;
+      break;
     default:
-      // no default
+      // No default
+  }
+
+  if (needsUpdate) {
+    AlertsStore.emitChange();
   }
 });
 
